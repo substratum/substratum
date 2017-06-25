@@ -41,6 +41,7 @@ para esta aba&#8230;    </string>
     <string name="background_updated_toast_cancel">Este tema precisa atualizar seu cache de recursos
         antes para ser funcional!
     </string>
+    <string name="background_updated_toast_rejected">Não foi possível criar o cache de recursos para este tema!</string>
     <string name="background_updated_toast_cleaning">O Substratum está limpando o cache de recursos deste tema&#8230;</string>
     <string name="failed_to_install_title_notification">Falha ao instalar um tema OMS</string>
     <string name="failed_to_install_text_notification">%s falhou ao instalar</string>
@@ -263,6 +264,7 @@ corretamente&#8230;</string>
     <string name="logcat_email_activity">Enviar reporte de bug usando&#8230;</string>
     <string name="logcat_email_activity_error">Não há clientes de email instalados.</string>
     <string name="logcat_email_xposed_check">Framework Xposed</string>
+    <string name="logcat_processing_dialog">Processando relatório de erros</string>
     <string name="priority_card_title">Sistema de Prioridade Dinâmica (DPS)</string>
     <string name="priority_card_content">O Sistema de prioridade dinâmica é um procedimento avançado que permite que camadas de tema sejam organizadas com prioridades diferentes, ignorando o padrão OMS de prioridades aplicado pelo sistema.\n\nUm exemplo de quando isso estaria em uso seria querer estruturar uma camada específica em cima da outra camada visando o mesmo aplicativo.\n\nCom a introdução do Overlay Service Manager, as prioridades são invertidas, e as camadas mais importantes residem na parte inferior de cada lista.</string>
     <string name="priority_card_title2">Instruções</string>
@@ -282,6 +284,8 @@ corretamente&#8230;</string>
     <string name="remove_dialog_later">Depois</string>
     <string name="restore_dialog_cancel">Cancelar</string>
     <string name="restore_dialog_okay">Continuar</string>
+    <string name="restore_dialog_title">Estas camadas serão instaladas para restaurar seu perfil
+        completamente:    </string>
     <string name="backup_button">SALVAR ESTADO ATUAL</string>
     <string name="backup_no_overlays">Não há camadas em sua configuração atual.</string>
     <string name="restore_button">RESTAURAR PERFIL</string>
@@ -324,6 +328,10 @@ corretamente&#8230;</string>
     <string name="no_themes_title">nenhum tema encontrado&#8230;</string>
     <string name="no_themes_description">favor instalar um tema compatível!</string>
     <string name="no_themes_description_search">\"%s\" não foi encontrado na lista de temas instalados&#8230;</string>
+    <string name="toast_samsung_prototype_one_overlay">Neste momento, apenas uma sobreposição pode ser selecionada por vez.</string>
+    <string name="toast_samsung_prototype_restart">Por favor reinicie o seu dispositivo ou force fechar seu aplicativo sobreposto!</string>
+    <string name="toast_samsung_prototype_disabled">Essa versão do substratum está depreciada.\n\nPor favor, atualize para a nova versão!</string>
+    <string name="toast_samsung_prototype_alert">Substratum automaticamente escondeu as sobreposições de sistema sem suporte para o seu dispositivo!</string>
     <string name="toast_needs_caching">O cache do Substratum foi limpo, por favor recompile esse tema antes de continuar!</string>
     <string name="notification_theme_installed">instalado</string>
     <string name="notification_theme_updated">atualizado</string>
@@ -336,6 +344,8 @@ corretamente&#8230;</string>
     <string name="notification_initial_title_upgrade">%s recursos estão agora atualizando&#8230;</string>
     <string name="notification_done_title">Compilação do tema completa</string>
     <string name="notification_done_upgrade_title">A atualização de camada foi concluída para %s!</string>
+    <string name="notification_done_upgrade_title_warning">Atualização de camada parcialmente concluída para %s!</string>
+    <string name="notification_done_upgrade_title_failed" formatted="false">Configuração ausente ou não configurável:\n\n%s</string>
     <string name="notification_done_update_text">Todas as camadas habilitadas e desabilitadas para este aplicativo foram atualizadas.</string>
     <string name="notification_done_upgrade_text">Todas as camadas ativadas e desativadas para este tema foram atualizadas.</string>
     <string name="notification_no_errors_found">Nenhum erro ao instalar as camadas</string>
@@ -394,6 +404,23 @@ resolver este problema.    </string>
     <string name="fab_menu_enable">Habilitar Selecionado</string>
     <string name="fab_menu_swap_toggle">Desabilitar outros temas</string>
     <string name="fab_menu_swap_toggle_legacy">Remover todos existentes</string>
+    <string name="team_title_one">Líderes do Substratum</string>
+    <string name="team_text_one">Não somente criamos algo que funciona para os usuários, como também trabalhamos em conjunto com criadores de temas para torná-lo um maravilhoso motor de temas para a comunidade!</string>
+    <string name="team_title_two">Tradutores do Substratum</string>
+    <string name="team_text_two">Um enorme obrigado a estes tradutores por levar o Substratum a todos, ao redor do mundo!</string>
+    <string name="team_button_two">Mostrar Tradutores</string>
+    <string name="team_button_two_contribute">Contribua agora!</string>
+    <string name="team_title_three">Contribuidores do Substratum</string>
+    <string name="team_text_three">O bacana é quando a comunidade se junta e unifica para criar um aplicativo que funciona para todos nós!</string>
+    <string name="team_button_three">Mostrar Contribuidores</string>
+    <string name="team_title_four">Contribuidores do Layers</string>
+    <string name="team_text_four">Essas pessoas trouxeram para você o Layers Manager no passado e desde então passaram a contribuir com muitas coisas incríveis deixando o Substratum pronto para nós!</string>
+    <string name="team_button_four">Mostrar Contribuidores</string>
+    <string name="team_nicholas_description">Coordenador de desenvolvimento</string>
+    <string name="team_syko_description">Pesquisador do sistema</string>
+    <string name="team_ivan_description">Plataforma &amp; Características</string>
+    <string name="team_surge_description">Binários &amp; Algoritmos</string>
+    <string name="team_char_description">Organização comunitária &amp; Suporte</string>
     <string name="slide_1_title">bem-vindo ao substratum</string>
     <string name="slide_1_text">um motor de tema leve e potente com base no serviço de gerenciamento de sobreposição da Sony</string>
     <string name="slide_2_title">uma nova interface de usuário</string>
@@ -450,6 +477,7 @@ resolver este problema.    </string>
     <string name="settings_system_status">Certificação do sistema</string>
     <string name="settings_system_status_rooted">Modo root</string>
     <string name="settings_system_status_rootless">Modo sem root</string>
+    <string name="settings_system_status_samsung">Modo Samsung</string>
     <string name="settings_system_status_certified">Certificado</string>
     <string name="settings_system_status_uncertified">Não certificado</string>
     <string name="settings_title_automation">Automação</string>
@@ -465,6 +493,7 @@ resolver este problema.    </string>
     <string name="settings_force_english_text">Isto irá forçar o aplicativo a usar a línguagem Inglês.</string>
     <string name="settings_force_english_toast_reverted">Desativado com sucesso forçar linguagem Inglês!</string>
     <string name="settings_manage_space_title">Gerenciar Uso de Armazenamento</string>
+    <string name="settings_samsung_show_dangerous_overlays_warning_title">AVISO</string>
     <string name="settings_theme_caching_title">Armazenar Recursos de Temas</string>
     <string name="settings_theme_caching_text">Todos os recursos de temas ativos serão extraídos para o diretório de cache.</string>
     <string name="settings_theme_caching_found_snackbar">Você descobriu o recurso oculto modo cache de recursos!</string>
@@ -519,6 +548,7 @@ resolver este problema.    </string>
     <string name="rom_status_supported">%s tem suporte da comunidade!</string>
     <string name="rom_status_unsupported">esta ROM não é suportada pela comunidade!</string>
     <string name="rom_status_network">verificação de internet requerida&#8230;</string>
+    <!-- Notification channel -->
     <!-- Nav drawer -->
     <string name="nav_home">Pacotes de tema</string>
     <string name="nav_overlays">Camadas</string>
@@ -554,6 +584,7 @@ resolver este problema.    </string>
     <string name="nav_troubleshooting">Solução de Problemas</string>
     <!-- More -->
     <string name="nav_section_header_more">Mais</string>
+    <string name="nav_team_contributors">Equipe &amp; Colaboradores</string>
     <string name="nav_opensource">Licenças</string>
     <string name="nav_settings">Configurações</string>
     <string name="title_activity_manage_space">Gerenciar Uso de Armazenamento</string>

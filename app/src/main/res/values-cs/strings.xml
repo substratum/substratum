@@ -39,6 +39,7 @@
     <string name="background_needs_invalidating_button">Vyčistit</string>
     <string name="background_updated_toast">Zdrojová mezipamět byla vybudována!</string>
     <string name="background_updated_toast_cancel">Tento motiv vyžaduje aktualizaci zdrojů!    </string>
+    <string name="background_updated_toast_rejected">Pro tento motiv se nepodařilo vytvořit mezipaměť pro zdroje!</string>
     <string name="background_updated_toast_cleaning">Substratum čistí zdroje tohoto motivu&#8230;</string>
     <string name="failed_to_install_title_notification">Nepodařilo se instalovat OMS motiv</string>
     <string name="failed_to_install_text_notification">Nepodařilo se nainstalovat %s</string>
@@ -250,6 +251,7 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="logcat_email_activity">Odeslat chybu pomocí&#8230;</string>
     <string name="logcat_email_activity_error">Nejsou nainstalováni žádní emailový klienti.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
+    <string name="logcat_processing_dialog">Zpracování zprávy o chybách</string>
     <string name="priority_card_title">Dynamický prioritní systém (DPS)</string>
     <string name="priority_card_content">Dynamický prioritní systém je pokročilá procedura povolování tématických překrytí tak, aby byly sestaveny s různými prioritami a obchází původní OMS systém.\n\nJako příklad použití je zobrazení specifického překrytí nad jiným překrytím u téže aplikace.\n\nSe zavedením služby Overlay Manager jsou priority obrácené a nejvíce důležité překrytí je umístěno na konci každého seznamu.    </string>
     <string name="priority_card_title2">Pokyny</string>
@@ -272,6 +274,7 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="remove_dialog_later">Později</string>
     <string name="restore_dialog_cancel">Zrušit</string>
     <string name="restore_dialog_okay">Pokračovat</string>
+    <string name="restore_dialog_title">Tyto potahy se nainstalují a kompletně obnoví váš profil:    </string>
     <string name="backup_button">ZÁLOHOVÁNÍ AKTUÁLNÍHO STAVU</string>
     <string name="backup_no_overlays">Ve vašem aktuálním nastavení nejsou žádné potahy.</string>
     <string name="restore_button">OBNOVIT PROFIL</string>
@@ -318,6 +321,10 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="no_themes_title">nenalezeny žádné motivy&#8230;</string>
     <string name="no_themes_description">prosím, nainstalujte kompatibilní motiv!</string>
     <string name="no_themes_description_search">\"%s\" nebylo nalezeno v seznamu nainstalovaných motivů&#8230;</string>
+    <string name="toast_samsung_prototype_one_overlay">V současné době lze najednou vybrat pouze jeden potah.</string>
+    <string name="toast_samsung_prototype_restart">Restartujte zařízení nebo nuceně ukončete vaši aplikaci s potahem!</string>
+    <string name="toast_samsung_prototype_disabled">Tato verze substratum vypršela.\n\nProsím, aktualizujte na novou verzi!</string>
+    <string name="toast_samsung_prototype_alert">Substratum automaticky skrylo nepodporované potahy systému pro vaše zařízení!</string>
     <string name="toast_needs_caching">Mezipaměť Substratum byla vyčištěna, prosím znovu
  postavte tento motiv před pokračováním!</string>
     <string name="notification_theme_installed">nainstalováno</string>
@@ -331,6 +338,8 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="notification_initial_title_upgrade">%s zdroje se nyní aktualizují&#8230;</string>
     <string name="notification_done_title">Byla dokončena kompilace motivu</string>
     <string name="notification_done_upgrade_title">Aktualizace potahů pro %s byla dokončena!</string>
+    <string name="notification_done_upgrade_title_warning">Aktualizace potahů částečně dokončena pro %s!</string>
+    <string name="notification_done_upgrade_title_failed" formatted="false">Chybějící nebo nesestavitelná konfigurace:\n\n%s</string>
     <string name="notification_done_update_text">Byly aktualizovány všechny povolené a zakázané potahy pro tuto aplikaci.</string>
     <string name="notification_done_upgrade_text">Byly aktualizovány všechny povolené a zakázané motivy pro tuto aplikaci.</string>
     <string name="notification_no_errors_found">Nenastaly žádné chyby při instalaci potahů</string>
@@ -399,6 +408,23 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="fab_menu_enable">Povolit vybrané</string>
     <string name="fab_menu_swap_toggle">Zakázat další motivy</string>
     <string name="fab_menu_swap_toggle_legacy">Odstranit všechny existující</string>
+    <string name="team_title_one">Leaders of Substratum</string>
+    <string name="team_text_one">Nejenže jsme vytvořily něco co funguje pro uživatele, ale také jsme spolupracovali s tvůrci motivů, aby jsme vytvořily úžasný program na vytváření motivů pro komunitu!</string>
+    <string name="team_title_two">Překladatelé Substratum</string>
+    <string name="team_text_two">Velké díky těmto překladatelům, že zpřístupnili Substratum všem na celém světě!</string>
+    <string name="team_button_two">Zobrazit překladatele</string>
+    <string name="team_button_two_contribute">Přispějte!</string>
+    <string name="team_title_three">Přispěvatelé Substratum</string>
+    <string name="team_text_three">Je skvělé, když se komunita spojují a sjednoceně vytvoří aplikaci, která funguje pro všechny z nás!</string>
+    <string name="team_button_three">Zobrazit přispěvatele</string>
+    <string name="team_title_four">Přispěvatelé Layers</string>
+    <string name="team_text_four">Tito lidé vám v minulosti přinesli Layers Manager a udělali spoustu skvělé práce, abychom my mohli přinést Substratum!</string>
+    <string name="team_button_four">Zobrazit přispěvatele</string>
+    <string name="team_nicholas_description">Koordinátor vývoje</string>
+    <string name="team_syko_description">Výzkumník systému</string>
+    <string name="team_ivan_description">Platformy &amp; funkce</string>
+    <string name="team_surge_description">Binární soubory &amp; algoritmy</string>
+    <string name="team_char_description">Organizace komunity &amp; podpora</string>
     <string name="slide_1_title">vítejte v substratum</string>
     <string name="slide_1_text">minimalistický, ale výkonný theme engine založený na správci služeb potahů od Sony</string>
     <string name="slide_2_title">zbrusu nové uživatelské rozhraní</string>
@@ -455,6 +481,7 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="settings_system_status">Certifikace systému</string>
     <string name="settings_system_status_rooted">Režim s rootem</string>
     <string name="settings_system_status_rootless">Režim bez rootu</string>
+    <string name="settings_system_status_samsung">Režim Samsung</string>
     <string name="settings_system_status_certified">Certifikováno</string>
     <string name="settings_system_status_uncertified">Necertifikováno</string>
     <string name="settings_title_automation">Automatizace</string>
@@ -470,6 +497,7 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="settings_force_english_text">Toto přinutí aplikaci, aby používala anglický jazyk.</string>
     <string name="settings_force_english_toast_reverted">Vynucená angličtina byla úspěšně zakázána!</string>
     <string name="settings_manage_space_title">Správa využití úložiště</string>
+    <string name="settings_samsung_show_dangerous_overlays_warning_title">VAROVÁNÍ</string>
     <string name="settings_theme_caching_title">Vyrovnávací paměť zdrojů motivů</string>
     <string name="settings_theme_caching_text">Všechny zdroje motivů budou extrahované do adresáře vyrovnávací paměti.</string>
     <string name="settings_theme_caching_found_snackbar">Objevili jste skrytý režim vyrovnávací paměti!</string>
@@ -524,6 +552,7 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="rom_status_supported">%s je podporováno komunitou!</string>
     <string name="rom_status_unsupported">tato ROM není podporována komunitou!</string>
     <string name="rom_status_network">zkontrolujte připojení k internetu&#8230;</string>
+    <!-- Notification channel -->
     <!-- Nav drawer -->
     <string name="nav_home">Balíčky motivů</string>
     <string name="nav_overlays">Potahy</string>
@@ -559,6 +588,7 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="nav_troubleshooting">Poradce při potížích</string>
     <!-- More -->
     <string name="nav_section_header_more">Více</string>
+    <string name="nav_team_contributors">Tým &amp; přispěvatelé</string>
     <string name="nav_opensource">Licence</string>
     <string name="nav_settings">Nastavení</string>
     <string name="title_activity_manage_space">Správa využití úložiště</string>

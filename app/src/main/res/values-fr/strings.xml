@@ -38,7 +38,8 @@
     <string name="background_needs_invalidating_button">Supprimer</string>
     <string name="background_updated_toast">Compilation du cache effectuée !</string>
     <string name="background_updated_toast_cancel">Ce thème a besoin de mettre à jour son cache de ressources avant d\'être fonctionnel !</string>
-    <string name="background_updated_toast_cleaning">Substratum nettoie le cache de ressources de ce thème&#8230;</string>
+    <string name="background_updated_toast_rejected">Impossible de créer le cache de ressources pour ce thème !</string>
+    <string name="background_updated_toast_cleaning">Substratum supprime le cache de ressources de ce thème&#8230;</string>
     <string name="failed_to_install_title_notification">Échec de l\'installation du thème</string>
     <string name="failed_to_install_text_notification">Échec de l\'installation de %s</string>
     <string name="actionbar_theme_count_singular">%s thème</string>
@@ -62,7 +63,7 @@
     <string name="activity_missing_toast">Désolé, aucune application trouvée qui pourrait gérer cette demande !</string>
     <string name="abort_overlay_toast_success">Toutes les surcouches sont désinstallées !</string>
     <string name="rescue_toast">Restauration système en cours&#8230;</string>
-    <string name="reboot_awaiting_manager_title">SURCOUCHE DANS L\'ATTENTE DU REDÉMARRAGE</string>
+    <string name="reboot_awaiting_manager_title">Surcouche en attente de redémarrage</string>
     <string name="manager_theme_name">Thème :</string>
     <string name="manager_type1a">Type 1a :</string>
     <string name="manager_type1b">Type 1b :</string>
@@ -165,7 +166,7 @@
     <string name="manage_wallpaper_lock_toast">Fond d\'écran de déverrouillage rétabli !</string>
     <string name="manage_wallpaper_all_toast">Fond d\'écran rétabli !</string>
     <string name="manage_icons_title">Rétablir les icônes système</string>
-    <string name="manage_icons_toast">Icônes système restaurées avec succès !</string>
+    <string name="manage_icons_toast">Icônes système restaurées !</string>
     <string name="adapter_uninstalling">Désinstallation de %s en cours&#8230;</string>
     <string name="plugin_template">Extension</string>
     <string name="api_21">Lollipop</string>
@@ -226,6 +227,7 @@
     <string name="logcat_email_activity">Envoyer le rapport de bogue via&#8230;</string>
     <string name="logcat_email_activity_error">Aucun client de courriel installé.</string>
     <string name="logcat_email_xposed_check">\"Xposed Framework\"</string>
+    <string name="logcat_processing_dialog">Rapport d\'erreur en cours</string>
     <string name="priority_card_title">Système de priorité dynamique (DPS)</string>
     <string name="priority_card_content">Le Système de priorité dynamique est une procédure détaillée permettant au thème de surcouches d\'être organisé selon des priorités différentes, en ignorant les priorités appliquées par défaut du Gestionnaire de service de surcouche.\n\nPar exemple, lorsque deux surcouches ciblent la même application, il peut être utile d\'organiser l\'ordre dans lequel elles s\'appliquent.\n\nAvec le Gestionnaire de service de surcouche, les priorités sont inversées. La surcouche de plus haute priorité se trouve dans la partie la plus basse de chaque liste.</string>
     <string name="priority_card_title2">Instructions </string>
@@ -245,6 +247,7 @@
     <string name="remove_dialog_later">Plus tard</string>
     <string name="restore_dialog_cancel">Annuler</string>
     <string name="restore_dialog_okay">Continuer</string>
+    <string name="restore_dialog_title">Ces superpositions seront installées pour restaurer votre profil complètement:    </string>
     <string name="backup_button">SAUVEGARDER</string>
     <string name="backup_no_overlays">Aucune surcouche dans votre configuration actuelle.</string>
     <string name="restore_button">RÉTABLIR LE PROFIL</string>
@@ -288,6 +291,10 @@
     <string name="no_themes_title">Aucun thème trouvé&#8230;</string>
     <string name="no_themes_description">Installez un thème compatible !</string>
     <string name="no_themes_description_search">\"%s\" est introuvable dans la liste des thèmes installés&#8230;</string>
+    <string name="toast_samsung_prototype_one_overlay">Une seule surcouche peut être sélectionnée à la fois</string>
+    <string name="toast_samsung_prototype_restart">Redémarrez votre appareil ou forcez la fermeture de votre application superposée !</string>
+    <string name="toast_samsung_prototype_disabled">Version du Substratum obsolète.\n\nVeuillez effectuer la mise à jour !</string>
+    <string name="toast_samsung_prototype_alert">Substratum masque automatiquement les surcouches système non prises en charge pour votre appareil !</string>
     <string name="toast_needs_caching">Le cache de Substratum a été effacé. Veuillez recompiler ce thème avant de continuer !</string>
     <string name="notification_theme_installed">Installé</string>
     <string name="notification_theme_updated">Mis à jour</string>
@@ -296,10 +303,14 @@
     <string name="notification_hide">Masquer</string>
     <string name="notification_hide_upgrade">Annuler</string>
     <string name="notification_initial_title">Substratum est en cours d\'exécution</string>
+    <string name="notification_initial_title_upgrade_intent">Mise à niveau des surcouches de %s en cours&#8230;</string>
     <string name="notification_initial_title_upgrade">Mise à niveau des ressources de %s en cours&#8230;</string>
     <string name="notification_done_title">Compilation de thème terminée</string>
-    <string name="notification_done_upgrade_title">La mise à jour de la surcouche a terminé pour %s !</string>
-    <string name="notification_done_update_text">Toutes les surcouches activées et désactivées pour cette application ont été mises à jour.</string>
+    <string name="notification_done_upgrade_title">Mise à jour de la surcouche %s terminée !</string>
+    <string name="notification_done_upgrade_title_warning">Mise à jour de la surcouche %s incomplète !</string>
+    <string name="notification_done_upgrade_title_failed" formatted="false">Erreur de configuration :\n\n%s</string>
+    <string name="notification_done_update_text">Toutes les surcouches activées et désactivées pour cette application ont été mises à jour</string>
+    <string name="notification_done_upgrade_text">Toutes les surcouches activées et désactivées pour ce thème ont été mises à jour</string>
     <string name="notification_no_errors_found">Aucune erreur lors de l\'installation des surcouches</string>
     <string name="notification_some_errors_found">Erreur lors de l\'installation de la surcouche</string>
     <string name="notification_processing">Traitement de la surcouche en cours pour</string>
@@ -354,6 +365,23 @@
     <string name="fab_menu_enable">Activer la sélection</string>
     <string name="fab_menu_swap_toggle">Désactiver les autres thèmes</string>
     <string name="fab_menu_swap_toggle_legacy">Supprimer toutes les présentes</string>
+    <string name="team_title_one">Chefs d\'équipe de Substratum</string>
+    <string name="team_text_one">Non seulement nous avons créé quelque chose qui fonctionne pour les utilisateurs, mais nous avons en plus travaillé en collaboration avec des concepteurs de thèmes, afin d\'offrir ce merveilleux moteur de thème à la communauté !</string>
+    <string name="team_title_two">Traducteurs de Substratum</string>
+    <string name="team_text_two">Un grand merci à ces traducteurs pour mettre à disposition de tous Substratum à travers le monde !</string>
+    <string name="team_button_two">Afficher les traducteurs</string>
+    <string name="team_button_two_contribute">Participez !</string>
+    <string name="team_title_three">Collaborateurs de Substratum</string>
+    <string name="team_text_three">Que c\'est génial, une communauté unie participant à la création d\'une application qui fonctionne pour nous tous !</string>
+    <string name="team_button_three">Afficher les collaborateurs</string>
+    <string name="team_title_four">Collaborateurs de \"Layers\"</string>
+    <string name="team_text_four">Ces personnes vous ont apporté le \"Gestionnaire Layers\" par le passé, et ont depuis continué à faire de grandes choses pour la préparation Substratum !</string>
+    <string name="team_button_four">Afficher les collaborateurs</string>
+    <string name="team_nicholas_description">Coordonnateur du développement</string>
+    <string name="team_syko_description">Fureteur du système</string>
+    <string name="team_ivan_description">Plate-forme et fonctionnalités</string>
+    <string name="team_surge_description">Binaires et algorithmes</string>
+    <string name="team_char_description">Organisation communautaire et soutien</string>
     <string name="slide_1_title">Bienvenue dans Substratum</string>
     <string name="slide_1_text">Un moteur de thème puissant et minimal, basé sur le service de gestion des surcouches de Sony</string>
     <string name="slide_2_title">Une toute nouvelle interface utilisateur</string>
@@ -387,6 +415,7 @@
     <string name="profile_failed_notification">Échec de la mise en place du profil&#8230;</string>
     <string name="profile_failed_info_notification">Afficher les détails</string>
     <string name="profile_compile_progress" formatted="false">Compilation %d sur %d : \n%s</string>
+    <string name="profile_compile_processing">Traitement des surcouches enregistrées en cours&#8230;</string>
     <string name="theme_debug_mode_title">Contournement d\'interjection du système</string>
     <string name="theme_debug_mode_summary">Cela empêchera l\'application d\'utiliser le mécanisme de rechange du compilateur existant, pour aider les thèmes lorsqu\'ils atteignent un état irrécupérable</string>
     <string name="break_compilation_dialog_title">AVERTISSEMENT</string>
@@ -394,6 +423,7 @@
     <string name="break_compilation_dialog_continue">Continuer</string>
     <string name="break_compilation_dialog_cancel">Annuler</string>
     <string name="theme_safety_dialog_title">AVERTISSEMENT</string>
+    <string name="theme_safety_dialog_content">C\'est une fonctionnalité de sécurité cruciale, permettant de récupérer d\'une fermeture forcée de surcouche ! Vous pouvez utiliser le bouton \"Sauvez-moi !\" des raccourcis de Substratum si vous vous retrouvez coincé. En dernier recours installez depuis le \"Recovery\" l\'archive de secours stockée dans /storage/emulated/0/substratum/</string>
     <string name="profile_dialog_title">Sélectionnez les éléments à sauvegarder</string>
     <string name="profile_no_selection_warning">Veuillez sélectionner au moins une option !</string>
     <string name="profile_boot_animation">Animation de démarrage</string>
@@ -408,26 +438,30 @@
     <string name="settings_system_status">Certification système</string>
     <string name="settings_system_status_rooted">Mode Root</string>
     <string name="settings_system_status_rootless">Mode Rootless</string>
+    <string name="settings_system_status_samsung">Mode de Samsung</string>
     <string name="settings_system_status_certified">Certifié</string>
     <string name="settings_system_status_uncertified">Non certifié</string>
     <string name="settings_title_automation">Automatisation</string>
+    <string name="settings_auto_updater_title">Mise à jour automatique des applications</string>
+    <string name="settings_auto_updater_text">Substratum compilera et installera automatiquement les surcouches des applications récemment mises à jour. Désactiver cette fonctionnalité permet d\'économiser de la batterie</string>
     <string name="settings_theme_auto_updater_title">Automatiquement mettre à jour les surcouches du thème (BETA)</string>
     <string name="settings_theme_auto_updater_dialog_title">AVERTISSEMENT</string>
-    <string name="settings_theme_auto_updater_text">Substratum va automatiquement construire, compiler et installer une version à jour de toutes les surcouches pour le thème récemment mis à jour. Garder ceci désactivé économisera de la batterie.</string>
-    <string name="settings_theme_auto_updater_dialog_text">Veuillez ne PAS avoir l\'installateur de paquet ouvert au premier plan lorsque la notification est affichée, les surcouches du framework ont tendance à redémarrer l\'installateur de paquet ce qui provoque des recompilations en boucle !</string>
-    <string name="settings_auto_alert_title">Alerte si nouvelle surcouche installable trouvée</string>
-    <string name="settings_auto_alert_text">Lors de la première installation d\'une nouvelle application, si l\'application est supportée par l\'un des thèmes, une notification sera affichée.</string>
+    <string name="settings_theme_auto_updater_text">Substratum compilera et installera automatiquement les surcouches d\'un thème récemment mis à jour. Désactiver cette fonctionnalité permet d\'économiser de la batterie.</string>
+    <string name="settings_theme_auto_updater_dialog_text">Assurez-vous que l\'installateur de paquet est bien fermé lorsque la notification est affichée. Les surcouches du \"framework\" ont tendance à redémarrer l\'installateur de paquet, provoquant des recompilations en boucle !</string>
+    <string name="settings_auto_alert_title">Alerte de nouvelle surcouche</string>
+    <string name="settings_auto_alert_text">Lors de la première installation d\'une application prise en charge par un des thèmes, une notification s\'affichera</string>
     <string name="settings_force_english_title">Forcer la langue anglaise</string>
     <string name="settings_force_english_text">Force l\'application à utiliser la langue anglaise</string>
     <string name="settings_force_english_toast_reverted">Langue anglaise désactivée !</string>
-    <string name="settings_manage_space_title">Gérer l’utilisation du stockage</string>
+    <string name="settings_manage_space_title">Gestion de l\'espace de stockage</string>
+    <string name="settings_samsung_show_dangerous_overlays_warning_title">AVERTISSEMENT</string>
     <string name="settings_theme_caching_title">Cache des ressources de thème</string>
     <string name="settings_theme_caching_text">Activer la mise en cache des ressources de thème dans le répertoire du cache</string>
     <string name="settings_theme_caching_found_snackbar">Vous venez de découvrir l\'option de mise en cache des ressources de thème !</string>
     <string name="settings_crash_receiver_title">Collecteur d\'erreur de thème</string>
     <string name="settings_crash_receiver_text">Désactiver automatiquement une surcouche lors de la détection d\'erreurs répétitives de l\'application</string>
     <string name="settings_force_stop_interfacer_title">Forcer la fermeture du service de l\'Interface de thème</string>
-    <string name="settings_force_stop_interfacer_snackbar">Redémarrage de l\'Interface de thème en cours&#8230;</string>
+    <string name="settings_force_stop_interfacer_snackbar">Fermeture forcée de l\'Interface de thème en cours&#8230;</string>
     <string name="root_required_title">Droits Root</string>
     <string name="root_required_boot_animation">Votre appareil est chiffré. Les droits \"Root\" sont nécessaires pour modifier l\'animation de démarrage.</string>
     <string name="root_required_boot_animation_profile">Votre appareil est chiffré. Les droits \"Root\" sont nécessaires pour pour sauvegarder et restaurer l\'animation de démarrage.</string>
@@ -440,8 +474,8 @@
     <string name="per_app_draw_over_other_apps_request">Veuillez accorder à Substratum les autorisations \"Se superposer aux autres applications\" et \"Accès aux statistiques d\'utilisation\" afin de pouvoir filtrer dynamiquement vos applications</string>
     <string name="per_app_usage_stats_request">Veuillez accorder à Substratum l\'autorisation \"Accès aux données d\'utilisation\" afin de pouvoir filtrer dynamiquement vos applications</string>
     <string name="per_app_manual_grant">Veuillez accorder manuellement à Substratum les autorisations \"Accès aux données d\'utilisation\" et \"Se superposer aux autres applications\" dans l\'application \"Paramètres\" afin de pouvoir utiliser FloatUI !</string>
-    <string name="notification_overlay_found_specific" formatted="false">Une surcouche pour %s se trouve dans %s !</string>
-    <string name="notification_overlay_found_description">Vous pouvez ouvrir le thème en appuyant sur cette notification !</string>
+    <string name="notification_overlay_found_specific" formatted="false">Une surcouche pour %s est %s !</string>
+    <string name="notification_overlay_found_description">Ouvrir le thème en appuyant sur cette notification</string>
     <string name="community_info_overlays">Surcouches</string>
     <string name="community_info_bootanimation">Animations de démarrage</string>
     <string name="community_info_fonts">Polices</string>
@@ -465,9 +499,9 @@
     <string name="restore_fonts_text">Paquets de polices</string>
     <string name="restore_fonts_summary">Cette fonction remplace toutes les polices actuellement installées par celles d\'origine\n</string>
     <string name="restore_fonts_button">Restaurer</string>
-    <string name="restore_icons_text">Pack d\'icônes</string>
-    <string name="restore_icons_summary">Cette fonctionnalité a supprimé le pack d\'icônes précédemment appliqué et restaure les icônes originaux.\n</string>
-    <string name="restore_icons_button">Restaurer les icônes</string>
+    <string name="restore_icons_text">Paquets d\'icônes</string>
+    <string name="restore_icons_summary">Cette fonction remplace toutes les icônes actuellement installées par celles d\'origine\n</string>
+    <string name="restore_icons_button">Restaurer</string>
     <string name="interfacer_not_authorized_toast">Cette version de Substratum n\'est pas agréé et ne fonctionnera pas avec l\'Interface de thème</string>
     <string name="app_crash_title">%s s\'est arrêté&#8230;</string>
     <string name="app_crash_content">Toutes les surcouches activées pour cette application ont été désactivées</string>
@@ -475,6 +509,7 @@
     <string name="rom_status_supported">%s est pris en charge par la communauté !</string>
     <string name="rom_status_unsupported">Cette ROM n’est pas prise en charge par la communauté !</string>
     <string name="rom_status_network">Vérification par Internet nécessaire&#8230;</string>
+    <!-- Notification channel -->
     <!-- Nav drawer -->
     <string name="nav_home">Thèmes</string>
     <string name="nav_overlays">Surcouches</string>
@@ -510,15 +545,16 @@
     <string name="nav_troubleshooting">Dépannage</string>
     <!-- More -->
     <string name="nav_section_header_more">Plus</string>
+    <string name="nav_team_contributors">Équipe et collaborateurs</string>
     <string name="nav_opensource">Licences</string>
     <string name="nav_settings">Paramètres</string>
-    <string name="title_activity_manage_space">Gérer l’utilisation du stockage</string>
+    <string name="title_activity_manage_space">Gestion de l\'espace de stockage</string>
     <string name="manage_space_cache_text_title">Vider le cache</string>
     <string name="clear_cache_button_loading">Chargement en cours&#8230;</string>
-    <string name="clear_cache_button_text">Vider le cache Substratum</string>
-    <string name="manage_space_cache_counter_title">Effacer le cache local effacera tous les fichiers utilisés par le compilateur de thème et le téléchargement en ligne. Tous les packs de thème et les configurations utilisateur resteront en l\'état.\n\nSelon la taille de votre cache, cela peut prendre quelques secondes pour terminer.</string>
-    <string name="manage_space_reset_text_title">Réinitialiser la configuration</string>
-    <string name="manage_space_reset_text_desc">Avez-vous des problèmes avec l\'application ? Ou avez-vous récemment fait une grosse mise à jour depuis une ancienne version de substratum ? Un simple effacement de configurations peut probablement aider à résoudre le problème !</string>
-    <string name="manage_space_reset_dialog_title">Réinitialiser la configuration ?</string>
-    <string name="manage_space_reset_dialog_content">L\'application va fermer une fois la réinitialisation terminée !</string>
+    <string name="clear_cache_button_text">Vider le cache de Substratum</string>
+    <string name="manage_space_cache_counter_title">La suppression du cache supprime tous les fichiers temporaires utilisés par le compilateur et le programme de téléchargement. Les paquets de thème et les configurations utilisateur resteront intacts.\n\nEn fonction de la taille du cache, cette action peut durer quelques secondes.</string>
+    <string name="manage_space_reset_text_title">Réinitialisation</string>
+    <string name="manage_space_reset_text_desc">Rencontrez-vous des problèmes avec l\'application ? Venez-vous de mettre à jour Substratum depuis une version très ancienne ? Un simple retour à la configuration d\'origine résoudra ce problème.</string>
+    <string name="manage_space_reset_dialog_title">Réinitialiser ?</string>
+    <string name="manage_space_reset_dialog_content">L\'application se fermera après la réinitialisation</string>
 </resources>

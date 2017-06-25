@@ -38,6 +38,7 @@
     <string name="background_needs_invalidating_button">Wyczyść</string>
     <string name="background_updated_toast">Pamięć podręczna zasobów została zbudowana!</string>
     <string name="background_updated_toast_cancel">Ten motyw musi uaktualnić swoją pamięć podręczną zasobów zanim będzie funkcjonalny!    </string>
+    <string name="background_updated_toast_rejected">Nie można utworzyć zasobu pamięci podręcznej dla tego motywu!</string>
     <string name="background_updated_toast_cleaning">Substratum czyści teraz pamięć podręczną tego motywu...</string>
     <string name="failed_to_install_title_notification">Błąd instalacji motywu OMS</string>
     <string name="failed_to_install_text_notification">%s nie udało się zainstalować</string>
@@ -230,6 +231,7 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="logcat_email_activity">Wyślij raport błędu za pomocą...</string>
     <string name="logcat_email_activity_error">Brak zainstalowanych klientów poczty elektronicznej.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
+    <string name="logcat_processing_dialog">Przetwarzanie raportu o błędzie</string>
     <string name="priority_card_title">Dynamiczny System Priorytetowy (DSP)</string>
     <string name="priority_card_content">Dynamiczny system priorytetów to zaawansowana procedura pozwalająca nakładkom, by były organizowane według innych priorytetów, ignorując domyślne priorytety systemowe OMS.\n\nNa przykład, kiedy chcemy użyć specyficznej nakładki na wierzchu innej nakładki przeznaczonej dla tej samej aplikacji.\n\nWraz z wprowadzeniem OMS, priorytety są odwrócone i najważniejsze nakładki znajdują się na dole każdej listy.
     </string>
@@ -250,6 +252,9 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="remove_dialog_later">Później</string>
     <string name="restore_dialog_cancel">Anuluj</string>
     <string name="restore_dialog_okay">Kontynuuj</string>
+    <string name="restore_dialog_title">Aby całkowicie przywrócić Twój profil, te nakładki
+        będą zainstalowane:
+    </string>
     <string name="backup_button">WYKONAJ KOPIĘ ZAPASOWĄ</string>
     <string name="backup_no_overlays">Brak nakładek w bieżącej konfiguracji.</string>
     <string name="restore_button">PRZYWRÓĆ PROFIL</string>
@@ -294,6 +299,10 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="no_themes_title">nie znaleziono motywów&#8230;</string>
     <string name="no_themes_description">proszę zainstalować zgodny motyw!</string>
     <string name="no_themes_description_search">Nie znaleziono \"%s\" na liście zainstalowanych motywów&#8230;</string>
+    <string name="toast_samsung_prototype_one_overlay">W tej chwili można wybrać tylko jedną nakładkę.</string>
+    <string name="toast_samsung_prototype_restart">Zrestartuj urządzenie lub zamknij aplikację!</string>
+    <string name="toast_samsung_prototype_disabled">Ta wersja substratum wygasła.\n\nProszę zaktualizować do nowszej kopii!</string>
+    <string name="toast_samsung_prototype_alert">Substratum automatycznie ukrył nieobsługiwane nakładki systemowe urządzenia!</string>
     <string name="toast_needs_caching">Pamięć podręczna Substratum została wymazana, przed kontynuacją proszę przebudować ten motyw!</string>
     <string name="notification_theme_installed">zainstalowane</string>
     <string name="notification_theme_updated">zaktualizowany</string>
@@ -306,6 +315,8 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="notification_initial_title_upgrade">Zasoby %s są teraz aktualizowane&#8230;</string>
     <string name="notification_done_title">Kompilacja motywu została zakończona</string>
     <string name="notification_done_upgrade_title">Uaktualnienie nakładki dla %s zakończone!</string>
+    <string name="notification_done_upgrade_title_warning">Uaktualnienie nakładki częściowo zakończone dla %s!</string>
+    <string name="notification_done_upgrade_title_failed" formatted="false">Brakująca lub niedająca się zbudować konfiguracja: \n\n%s</string>
     <string name="notification_done_update_text">Wszystkie włączone i wyłączone nakładki dla tej aplikacji zostały uaktualnione.</string>
     <string name="notification_done_upgrade_text">Wszystkie włączone i wyłączone nakładki dla tego motywu zostały uaktualnione.</string>
     <string name="notification_no_errors_found">Nie wystąpiły żadne błędy podczas instalowania nakładek</string>
@@ -363,6 +374,23 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="fab_menu_enable">Włącz zaznaczone</string>
     <string name="fab_menu_swap_toggle">Wyłącz inne motywy</string>
     <string name="fab_menu_swap_toggle_legacy">Usuń wszystkie istniejące</string>
+    <string name="team_title_one">Liderzy Substratum</string>
+    <string name="team_text_one">Nie tylko stworzyliśmy coś, co służy naszym użytkownikom, ale współpracowaliśmy z twórcami motywów aby stworzyć ten wspaniały silnik motywów dla społeczności!</string>
+    <string name="team_title_two">Tłumaczenia Substratum</string>
+    <string name="team_text_two">Ogromne podziękowania dla tych tłumaczy za wprowadzenie Substratum dla każdego na świecie!</string>
+    <string name="team_button_two">Pokaż tłumaczy</string>
+    <string name="team_button_two_contribute">Przyczyń się teraz!</string>
+    <string name="team_title_three">Współtwórcy Substratum</string>
+    <string name="team_text_three">Wspaniale, gdy społeczność łączy się w celu stworzenia aplikacji, która działa dla nas wszystkich!</string>
+    <string name="team_button_three">Pokaż współtwórców</string>
+    <string name="team_title_four">Współautorzy warstw</string>
+    <string name="team_text_four">Te osoby przyniosły ci Menedżer warstw w przeszłości i mają wspaniałe pomysły, aby zrobić Substratum gotowe dla nas!</string>
+    <string name="team_button_four">Pokaż współtwórców</string>
+    <string name="team_nicholas_description">Koordynator rozwoju</string>
+    <string name="team_syko_description">Badacz systemu</string>
+    <string name="team_ivan_description">Platforma &amp; Funkcje</string>
+    <string name="team_surge_description">Pliki binarne &amp; Algorytmy</string>
+    <string name="team_char_description">Organizacja społeczności &amp; Wsparcie</string>
     <string name="slide_1_title">witamy w substratum</string>
     <string name="slide_1_text">minimalnym, ale potężnym silniku motywów opartym na Sony Overlay Manager Service</string>
     <string name="slide_2_title">nowy interfejs użytkownika</string>
@@ -419,6 +447,7 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="settings_system_status">System certyfikacji</string>
     <string name="settings_system_status_rooted">Tryb roota</string>
     <string name="settings_system_status_rootless">Tryb bez roota</string>
+    <string name="settings_system_status_samsung">Tryb Samsung</string>
     <string name="settings_system_status_certified">Atestowany</string>
     <string name="settings_system_status_uncertified">Nie atestowany</string>
     <string name="settings_title_automation">Automatyzacja</string>
@@ -434,6 +463,7 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="settings_force_english_text">Włączenie tej opcji wymusi przełączenie interfejsu aplikacji na język angielski.</string>
     <string name="settings_force_english_toast_reverted">Pomyślnie wyłączono wymuszenie języka angielskiego!</string>
     <string name="settings_manage_space_title">Zarządzaj użyciem pamięci</string>
+    <string name="settings_samsung_show_dangerous_overlays_warning_title">OSTRZEŻENIE</string>
     <string name="settings_theme_caching_title">Zasoby pamięci podręcznej motywu</string>
     <string name="settings_theme_caching_text">Wszystkie zasoby trwałego motywu zostaną wyodrębnione w katalogu pamięci podręcznej.</string>
     <string name="settings_theme_caching_found_snackbar">Właśnie odkryłeś opcję trybu buforowania zasobów!</string>
@@ -488,6 +518,7 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="rom_status_supported">%s jest wspierany przez społeczność!</string>
     <string name="rom_status_unsupported">ten rom nie jest wspierany przez społeczność!</string>
     <string name="rom_status_network">wymaga sprawdzenia przez internet&#8230;</string>
+    <!-- Notification channel -->
     <!-- Nav drawer -->
     <string name="nav_home">Pakiety motywów</string>
     <string name="nav_overlays">Nakładki</string>
@@ -523,6 +554,7 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="nav_troubleshooting">Rozwiązywanie problemów</string>
     <!-- More -->
     <string name="nav_section_header_more">Więcej</string>
+    <string name="nav_team_contributors">Zespół &amp; Współpracownicy</string>
     <string name="nav_opensource">Licencje</string>
     <string name="nav_settings">Ustawienia</string>
     <string name="title_activity_manage_space">Zarządzaj użyciem pamięci</string>

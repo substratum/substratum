@@ -38,6 +38,7 @@
     <string name="background_needs_invalidating_button">Vyčistiť</string>
     <string name="background_updated_toast">Zdroje boli načítané!</string>
     <string name="background_updated_toast_cancel">Táto téma vyžaduje aktualizáciu zdrojov!</string>
+    <string name="background_updated_toast_rejected">Pre túto tému sa nepodarilo vytvoriť vyrovnávaciu pamäť pre zdroje!</string>
     <string name="background_updated_toast_cleaning">Substratum čistí zdroje témy&#8230;</string>
     <string name="failed_to_install_title_notification">Nepodarilo sa nainštalovať OMS tému</string>
     <string name="failed_to_install_text_notification">Nepodarilo sa nainštalovať %s</string>
@@ -243,6 +244,7 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="logcat_email_activity">Poslať protokol chýb pomocou&#8230;</string>
     <string name="logcat_email_activity_error">Nie sú nainštalovaní žiadni e-mailoví klienti.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
+    <string name="logcat_processing_dialog">Spracovanie správy o chybách</string>
     <string name="priority_card_title">Dynamický Prioritný Systém (DPS)</string>
     <string name="priority_card_content">Dynamický prioritný systém je pokročilá procedúra povoľovania tématických prekrytí tak, aby boli zostavené s rôznymi prioritami a obchádza pôvodný OMS systém.\n\nAko príklad použitia je zobrazenie špecifického prekrytia nad iným prekrytím u tej istej aplikácie.\n\nSo zavedením služby Manažér prekrytí sú priority obrátené a najviac dôležité  prekrytie je umiestnené na konci každého zoznamu.</string>
     <string name="priority_card_title2">Pokyny</string>
@@ -263,6 +265,7 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="remove_dialog_later">Neskôr</string>
     <string name="restore_dialog_cancel">Zrušiť</string>
     <string name="restore_dialog_okay">Pokračovať</string>
+    <string name="restore_dialog_title">Tieto prekrytia sa nainštalujú pre kompletné obnovenie vášho profilu:</string>
     <string name="backup_button">ZÁLOHOVANIE AKTUÁLNEHO STAVU</string>
     <string name="backup_no_overlays">Vo vašom aktuálnom nastavení nie sú žiadne prekrytia.</string>
     <string name="restore_button">OBNOVENIE PROFILU</string>
@@ -305,6 +308,10 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="no_themes_title">nenašli sa žiadne témy&#8230;</string>
     <string name="no_themes_description">prosím, nainštalujte kompatibilnú tému!</string>
     <string name="no_themes_description_search">\"%s\" nebola nájdená v zozname nainštalovaných tém&#8230;</string>
+    <string name="toast_samsung_prototype_one_overlay">V tomto okamihu je možné zvoliť iba jedno prekrytie.</string>
+    <string name="toast_samsung_prototype_restart">Reštartujte zariadenie alebo nútene ukončite vašu prekrytú aplikáciu!</string>
+    <string name="toast_samsung_prototype_disabled">Táto verzia substratum expirovala.\n\nProsím aktualizujte na novú kópiu!</string>
+    <string name="toast_samsung_prototype_alert">Substratum automaticky skryl nepodporované prekrytia systému pre vaše zariadenie!</string>
     <string name="toast_needs_caching">Vyrovnávacia pamäť Substratum bola vyčistená, pred pokračovaním prosím znovu nainštalujte túto tému!</string>
     <string name="notification_theme_installed">nainštalované</string>
     <string name="notification_theme_updated">aktualizované</string>
@@ -317,6 +324,8 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="notification_initial_title_upgrade">%s zdroje sa teraz aktualizujú&#8230;</string>
     <string name="notification_done_title">Bola dokončená kompilácia témy</string>
     <string name="notification_done_upgrade_title">Aktualizácia prekrytia pre %s je hotová!</string>
+    <string name="notification_done_upgrade_title_warning">Čiastočne dokončená aktualizácia prekrytia pre %s!</string>
+    <string name="notification_done_upgrade_title_failed" formatted="false">Chýbajúca alebo nezostaviteľná konfigurácia:\n\n%s</string>
     <string name="notification_done_update_text">Všetky povolené a zakázané prekrytia pre túto aplikáciu boli aktualizované.</string>
     <string name="notification_done_upgrade_text">Všetky povolené a zakázané prekrytia pre túto tému boli aktualizované.</string>
     <string name="notification_no_errors_found">Počas inštalácie prekrytí sa nevyskytli žiadne chyby</string>
@@ -373,6 +382,23 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="fab_menu_enable">Povoliť označené</string>
     <string name="fab_menu_swap_toggle">Zakázať iné témy</string>
     <string name="fab_menu_swap_toggle_legacy">Odstrániť všetky existujúce</string>
+    <string name="team_title_one">Vodcovia Substratum</string>
+    <string name="team_text_one">Nielen, že sme vytvorili niečo, čo funguje pre používateľov, ale spolupracujeme aj s tvorcami tém, aby sme vytvorili výborného správcu tém pre komunitu!</string>
+    <string name="team_title_two">Prekladatelia Substratum</string>
+    <string name="team_text_two">Obrovská vďaka týmto prekladateľom za to, že sprístupnili Substratum všetkým na celom svete!</string>
+    <string name="team_button_two">Zobraziť prekladateľov</string>
+    <string name="team_button_two_contribute">Prispejte!</string>
+    <string name="team_title_three">Prispievatelia pre Substratum</string>
+    <string name="team_text_three">Je výborné, keď sa komunita spojí a spoločne vytvorí aplikáciu, ktorá funguje pre nás všetkých!</string>
+    <string name="team_button_three">Zobraziť prispievateľov</string>
+    <string name="team_title_four">Prispievatelia pre Layers</string>
+    <string name="team_text_four">Títo ľudia vám v minulosti priniesli Layers Manager a urobili veľa skvelej práce, aby sme my mohli priniesť Substratum!</string>
+    <string name="team_button_four">Zobraziť prispievateľov</string>
+    <string name="team_nicholas_description">Koordinátor vývoja</string>
+    <string name="team_syko_description">Systémový výskumník</string>
+    <string name="team_ivan_description">Platforma &amp; funkcie</string>
+    <string name="team_surge_description">Binárne súbory &amp; algoritmy</string>
+    <string name="team_char_description">Organizácia komunity &amp; podpora</string>
     <string name="slide_1_title">Vitajte v Substratum</string>
     <string name="slide_1_text">minimalistický, ale výkonný kód na zmenu tém, založený na Správcovi služieb prekrytí od Sony</string>
     <string name="slide_2_title">úplne nové používateľské rozhranie</string>
@@ -429,6 +455,7 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="settings_system_status">Certifikácia systému</string>
     <string name="settings_system_status_rooted">Režim s rootom</string>
     <string name="settings_system_status_rootless">Režim bez rootu</string>
+    <string name="settings_system_status_samsung">Samsung režim</string>
     <string name="settings_system_status_certified">Certifikované</string>
     <string name="settings_system_status_uncertified">Necertifikované</string>
     <string name="settings_title_automation">Automatizácia</string>
@@ -444,6 +471,7 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="settings_force_english_text">Toto prinúti aplikáciu, aby používala anglický jazyk.</string>
     <string name="settings_force_english_toast_reverted">Vynútenie angličtiny bolo úspešne zakázané!</string>
     <string name="settings_manage_space_title">Správa využitia úložiska</string>
+    <string name="settings_samsung_show_dangerous_overlays_warning_title">UPOZORNENIE</string>
     <string name="settings_theme_caching_title">Vyrovnávacia pamäť zdrojov tém</string>
     <string name="settings_theme_caching_text">Všetky zdroje tém budú extrahované do adresára vyrovnávacej pamäte.</string>
     <string name="settings_theme_caching_found_snackbar">Práve ste objavili skrytý režim vyrovnávacej pamäte!</string>
@@ -498,6 +526,7 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="rom_status_supported">%s je podporované komunitou!</string>
     <string name="rom_status_unsupported">táto ROM nie je podporovaná komunitou!</string>
     <string name="rom_status_network">skontrolujte pripojenie k internetu&#8230;</string>
+    <!-- Notification channel -->
     <!-- Nav drawer -->
     <string name="nav_home">Balíčky tém</string>
     <string name="nav_overlays">Prekrytia</string>
@@ -533,6 +562,7 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="nav_troubleshooting">Riešenie problémov</string>
     <!-- More -->
     <string name="nav_section_header_more">Viac</string>
+    <string name="nav_team_contributors">Tím &amp; prispievatelia</string>
     <string name="nav_opensource">Licencie</string>
     <string name="nav_settings">Nastavenia</string>
     <string name="title_activity_manage_space">Správa využitia úložiska</string>

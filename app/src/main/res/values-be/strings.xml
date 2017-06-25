@@ -38,6 +38,7 @@
     <string name="background_needs_invalidating_button">Ачысціць</string>
     <string name="background_updated_toast">Кэш рэсурсаў быў створаны!</string>
     <string name="background_updated_toast_cancel">Рэсурсы гэтай тэмы трэба абнавіць перад выкарыстаннем!    </string>
+    <string name="background_updated_toast_rejected">Вы не можаце стварыць кэш рэсурсаў для гэтай тэмы!</string>
     <string name="background_updated_toast_cleaning">Substratum ачышчае рэсурсы гэтай тэмы&#8230;</string>
     <string name="failed_to_install_title_notification">Не атрымалася ўсталяваць OMS тэму</string>
     <string name="failed_to_install_text_notification">Усталёўка %s не ўдалася</string>
@@ -235,6 +236,7 @@
     <string name="logcat_email_activity">Адправіць справаздачу пра памылку, выкарыстоўваючы&#8230;</string>
     <string name="logcat_email_activity_error">Няма ўсталяваных кліентаў электроннай пошты.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
+    <string name="logcat_processing_dialog">Стварэнне справаздачы пра памылку</string>
     <string name="priority_card_title">Dynamic Priority System (DPS)</string>
     <string name="priority_card_content">Dynamic Priority System - адмысловая працэдура, якая дазваляе арганізаваць напластаванні тэмы з рознымі прыярытэтамі, ігнаруючы выконвацца сістэмай OMS.\n\nНапрыклад, калі спатрэбіцца змясціць пэўны пласт-над іншым, якое закранае тую ж праграму.\n\nПачынаючы з Overlay Manager Service, прыярытэты ідуць у адваротным парадку, самыя важныя напластаванні трапляюць у канец спісу.
     </string>
@@ -256,6 +258,7 @@
     <string name="remove_dialog_later">Пазней</string>
     <string name="restore_dialog_cancel">Скасаваць</string>
     <string name="restore_dialog_okay">Працягнуць</string>
+    <string name="restore_dialog_title">Для поўнага аднаўлення профілю будуць устаноўлены наступныя напластаванні:    </string>
     <string name="backup_button">СТАН РЭЗЕРВОВАЙ КОПІІ</string>
     <string name="backup_no_overlays">У бягучай канфігурацыі напластаванняў няма.</string>
     <string name="restore_button">АДНАВІЦЬ ПРОФІЛЬ</string>
@@ -300,6 +303,10 @@
     <string name="no_themes_title">не знойдзена тэм&#8230;</string>
     <string name="no_themes_description">усталюйце любую сумяшчальную тэму!</string>
     <string name="no_themes_description_search">Сярод усталяваных тэм няма \"%s\"&#8230;</string>
+    <string name="toast_samsung_prototype_one_overlay">На дадзены момант вы можаце выбраць толькі адно напластаванні.</string>
+    <string name="toast_samsung_prototype_restart">Перазагрузіце прылада або зачыніце праграму з напластаваннем!</string>
+    <string name="toast_samsung_prototype_disabled">Дадзеная версія substratum састарэла.\n\nКалі ласка, усталюйце актуальнае абнаўленне!</string>
+    <string name="toast_samsung_prototype_alert">Substratum аўтаматычна схавае непадтрымоўваныя на вашым прыладзе сістэмныя напластаванні!</string>
     <string name="toast_needs_caching">Кэш Substratum\'s быў выдалены, калі ласка, аднавіць гэтую тэму, перш чым працягнуць!</string>
     <string name="notification_theme_installed">усталявана</string>
     <string name="notification_theme_updated">абноўлена</string>
@@ -312,6 +319,8 @@
     <string name="notification_initial_title_upgrade">Рэсурсы %s абнаўляюцца&#8230;</string>
     <string name="notification_done_title">Зборка тэмы завершана</string>
     <string name="notification_done_upgrade_title">Абнаўленне напластаванняў для %s завершана!</string>
+    <string name="notification_done_upgrade_title_warning">Абнаўленне напластаванняў для %s часткова выканана!</string>
+    <string name="notification_done_upgrade_title_failed" formatted="false">Адсутная ці незбіраная канфігурацыя:\n\n%s</string>
     <string name="notification_done_update_text">Усе ўключаныя і адключаныя напластаванні для гэтай праграмы былі абноўленыя.</string>
     <string name="notification_done_upgrade_text">Усе ўключаныя і адключаныя напластаванні для дадзенай тэмы былі абноўленыя.</string>
     <string name="notification_no_errors_found">Памылак пры ўсталёўцы напластаванняў не ўзнікла</string>
@@ -368,6 +377,23 @@
     <string name="fab_menu_enable">Актываваць выбраннае</string>
     <string name="fab_menu_swap_toggle">Адключыць іншыя тэмы</string>
     <string name="fab_menu_swap_toggle_legacy">Выдаліць усе існуючыя</string>
+    <string name="team_title_one">Заснавальнікі Substratum</string>
+    <string name="team_text_one">Мы не проста стварылі тое, што працуе для карыстальнікаў, але раіліся з дызайнерамі тэм, каб стварыць цудоўны рухавічок тэм для супольнасці!</string>
+    <string name="team_title_two">Перакладчыкі Substratum</string>
+    <string name="team_text_two">Вялікая ўдзячнасць гэтым перакладчыкам, яны зрабілі Substratum больш даступнымі кожнаму ва ўсім свеце!</string>
+    <string name="team_button_two">Паказаць перакладчыкаў</string>
+    <string name="team_button_two_contribute">Унесці ўклад!</string>
+    <string name="team_title_three">Аўтары Substratum</string>
+    <string name="team_text_three">Прыемна, калі супольнасць збіраецца дзеля праграмы, якая працуе ва ўсіх нас!</string>
+    <string name="team_button_three">Паказаць удзельнікаў</string>
+    <string name="team_title_four">Датычныя да Layers</string>
+    <string name="team_text_four">Гэтыя людзі стварылі для вас Layers Manager ў мінулым і з тых часоў зрабілі шмат карыснага, каб сёння з\'явіўся Substratum!</string>
+    <string name="team_button_four">Паказаць удзельнікаў</string>
+    <string name="team_nicholas_description">Арганізатар распрацоўкі</string>
+    <string name="team_syko_description">Даследчык сістэмы</string>
+    <string name="team_ivan_description">Платформа і магчымасці</string>
+    <string name="team_surge_description">Бінарнікі і Алгарытмы</string>
+    <string name="team_char_description">Падтрымка і арганізацыя супольнасці</string>
     <string name="slide_1_title">вітаем у substratum</string>
     <string name="slide_1_text">мінімалістычны, але магутны рухавічок тэм, заснаваны на Oms ад Sony</string>
     <string name="slide_2_title">зусім новы інтэрфейс</string>
@@ -424,6 +450,7 @@
     <string name="settings_system_status">Сумяшчальнасць сістэмы</string>
     <string name="settings_system_status_rooted">Ужываецца root</string>
     <string name="settings_system_status_rootless">Без выкарыстання root</string>
+    <string name="settings_system_status_samsung">Рэжым сумяшчальнасці з Samsung</string>
     <string name="settings_system_status_certified">Сумяшчальная</string>
     <string name="settings_system_status_uncertified">Несумяшчальная</string>
     <string name="settings_title_automation">Аўтаматызацыя</string>
@@ -440,6 +467,7 @@
     <string name="settings_force_english_text">Праграма зменіць мову на англійскую.</string>
     <string name="settings_force_english_toast_reverted">Прымусова англійская адключана!</string>
     <string name="settings_manage_space_title">Аптымізацыя выкарыстання памяці</string>
+    <string name="settings_samsung_show_dangerous_overlays_warning_title">УВАГА</string>
     <string name="settings_theme_caching_title">Кэшаванне рэсурсаў тэмы</string>
     <string name="settings_theme_caching_text">Усе кампаненты тэмы будуць вынятыя ў тэчку кэша.</string>
     <string name="settings_theme_caching_found_snackbar">Вы выявілі ўтоеную магчымасць кэшавання тем!</string>
@@ -496,6 +524,7 @@
     <string name="rom_status_supported">%s падтрымліваецца супольнасцю!</string>
     <string name="rom_status_unsupported">гэты ROM не падтрымліваецца супольнасцю!</string>
     <string name="rom_status_network">патрабуецца праверка ў інтэрнэце&#8230;</string>
+    <!-- Notification channel -->
     <!-- Nav drawer -->
     <string name="nav_home">Наборы тэм</string>
     <string name="nav_overlays">Напластаванні</string>
@@ -531,6 +560,7 @@
     <string name="nav_troubleshooting">Пошук няспраўнасцяў</string>
     <!-- More -->
     <string name="nav_section_header_more">Яшчэ</string>
+    <string name="nav_team_contributors">Каманда і саўдзельнікі</string>
     <string name="nav_opensource">Ліцэнзіі</string>
     <string name="nav_settings">Налады</string>
     <string name="title_activity_manage_space">Аптымізацыя выкарыстання памяці</string>

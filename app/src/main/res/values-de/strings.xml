@@ -38,6 +38,7 @@
     <string name="background_needs_invalidating_button">Löschen</string>
     <string name="background_updated_toast">Resource-Cache wurde erstellt!</string>
     <string name="background_updated_toast_cancel">Dieses Theme muss erst seinen Resourcen-Cache aktualisieren, bevor es verwendet werden kann!</string>
+    <string name="background_updated_toast_rejected">Konnte für dieses Theme kein Ressourcen-Cache erstellen!</string>
     <string name="background_updated_toast_cleaning">Substratum säubert nun den Resource-Cache des Themes&#8230;</string>
     <string name="failed_to_install_title_notification">Installation des OMS-Themes fehlgeschlagen</string>
     <string name="failed_to_install_text_notification">Installation von %s fehlgeschlagen</string>
@@ -232,6 +233,7 @@ eingerichtet&#8230;</string>
     <string name="logcat_email_activity">Bug-Report senden via&#8230;</string>
     <string name="logcat_email_activity_error">Es ist keine E-Mail-App installiert.</string>
     <string name="logcat_email_xposed_check">Xposed-Framework</string>
+    <string name="logcat_processing_dialog">Fehlermeldung in Bearbeitung</string>
     <string name="priority_card_title">Dynamisches Prioritäten-System (DPS)</string>
     <string name="priority_card_content">Das \"Dynamische Prioritäten-System\" ist ein erweitertes Verfahren, welches das Organisieren von Theme-Overlays mit unterschiedlichen Prioritäten ermöglicht und die vom OMS-System standardmäßig angewandten Prioritäten ignoriert.\n\nEin nützliches Beispiel könnte das Strukturieren eines bestimmten Overlays überhalb eines anderen – innerhalb derselben Anwendung.\n\nMit der Einführung des \"Overlay-Manager-Service\" sind die Prioritäten umgekehrt – sprich das Overlay mit der höchsten Priorität sitzt am Boden der Liste.</string>
     <string name="priority_card_title2">Anweisungen</string>
@@ -251,6 +253,9 @@ eingerichtet&#8230;</string>
     <string name="remove_dialog_later">Später</string>
     <string name="restore_dialog_cancel">Abbrechen</string>
     <string name="restore_dialog_okay">Fortsetzen</string>
+    <string name="restore_dialog_title">Diese Overlays werden installiert werden, um dein Profil wieder herzustellen
+         vollständig:
+    </string>
     <string name="backup_button">AKTUELLEN ZUSTAND SICHERN</string>
     <string name="backup_no_overlays">Es gibt keine Overlays in deiner aktuellen Konfiguration.</string>
     <string name="restore_button">PROFIL WIEDERHERSTELLEN</string>
@@ -293,6 +298,10 @@ eingerichtet&#8230;</string>
     <string name="no_themes_title">Keine Themes gefunden&#8230;</string>
     <string name="no_themes_description">Bitte installiere ein kompatibles Theme!</string>
     <string name="no_themes_description_search">\"%s\" wurde nicht in der Liste von installierten Themes gefunden&#8230;</string>
+    <string name="toast_samsung_prototype_one_overlay">Im Moment kann nur jeweils ein Overlay ausgewählt werden.</string>
+    <string name="toast_samsung_prototype_restart">Bitte starte Dein Gerät neu oder erzwinge ein Beendigung der überlagerten Anwendung!</string>
+    <string name="toast_samsung_prototype_disabled">Diese Substratum-Version ist abgelaufen.\n\nBitte zu einer neuen Kopie aktualisieren!</string>
+    <string name="toast_samsung_prototype_alert">Substratum versteckte automatisch nicht unterstützte System-Overlays für Dein Gerät!</string>
     <string name="toast_needs_caching">Substratums Caches würde geleert. Bitte kompiliere das Theme neu bevor zu fortfährst!</string>
     <string name="notification_theme_installed">installiert</string>
     <string name="notification_theme_updated">aktualisiert</string>
@@ -305,6 +314,8 @@ eingerichtet&#8230;</string>
     <string name="notification_initial_title_upgrade">%s-Ressourcen werden aktualisiert&#8230;</string>
     <string name="notification_done_title">Theme-Kompilierung abgeschlossen</string>
     <string name="notification_done_upgrade_title">Overlays von %s erfolgreich aktualisiert!</string>
+    <string name="notification_done_upgrade_title_warning">Overlay-Upgrade teilweise abgeschlossen für %s!</string>
+    <string name="notification_done_upgrade_title_failed" formatted="false">Fehlende oder nicht konstruierbare Konfiguration:\n\n%s</string>
     <string name="notification_done_update_text">Alle ein- und ausgeschalteten Overlays dieser App wurden aktualisiert.</string>
     <string name="notification_done_upgrade_text">Alle​ ein- und ausgeschalteten Overlays dieses Themes wurden aktualisiert.</string>
     <string name="notification_no_errors_found">Keine Fehler während dem installieren der Overlays</string>
@@ -363,6 +374,23 @@ um das Problem zu beheben.    </string>
     <string name="fab_menu_enable">Aktivieren</string>
     <string name="fab_menu_swap_toggle">Andere Themes deaktivieren</string>
     <string name="fab_menu_swap_toggle_legacy">Alle vorhandenen entfernen</string>
+    <string name="team_title_one">Chefs bei Substratum</string>
+    <string name="team_text_one">Wir erschufen nicht nur etwas, was für die Nutzer funktioniert, sondern wir arbeiteten außerdem mit den Theme-Entwicklern zusammen, um es zu einer wunderbaren Theming-Engine für die Community zu machen!</string>
+    <string name="team_title_two">Substratum-Übersetzer</string>
+    <string name="team_text_two">Ein großes Dankeschön an diese Übersetzer, die Substratum der ganzen Welt zugänglich machen!</string>
+    <string name="team_button_two">Übersetzer anzeigen</string>
+    <string name="team_button_two_contribute">Mach jetzt mit!</string>
+    <string name="team_title_three">Substratum-Mitwirkende</string>
+    <string name="team_text_three">Was toll ist, wenn die Community zusammen kommt und sich vereint, um eine App zu erschaffen, die für alle von uns funktioniert!</string>
+    <string name="team_button_three">Mitwirkende anzeigen</string>
+    <string name="team_title_four">Layers-Mitwirkende</string>
+    <string name="team_text_four">Diese Leute haben in der Vergangenheit bereits den Layers-Manager verwirklicht und haben auch seitdem viel dazu beigetragen, dass Substratum uns jetzt zur Verfügung steht!</string>
+    <string name="team_button_four">Mitwirkende anzeigen</string>
+    <string name="team_nicholas_description">Entwicklungs-Koordinator</string>
+    <string name="team_syko_description">System-Forscher</string>
+    <string name="team_ivan_description">Plattform &amp; Funktionen</string>
+    <string name="team_surge_description">Binärdateien &amp; Algorithmen</string>
+    <string name="team_char_description">Community-Organisation &amp; Support</string>
     <string name="slide_1_title">Willkommen zu Substratum</string>
     <string name="slide_1_text">Eine minimalistische, aber dennoch mächtige Theme-Engine, die auf dem Overlay Manager Service (OMS) von Sony basiert</string>
     <string name="slide_2_title">Eine brandneue Benutzeroberfläche</string>
@@ -419,6 +447,7 @@ um das Problem zu beheben.    </string>
     <string name="settings_system_status">Systemzertifizierung</string>
     <string name="settings_system_status_rooted">Root-Modus</string>
     <string name="settings_system_status_rootless">Ohne-Root-Modus</string>
+    <string name="settings_system_status_samsung">Samsung-Modus</string>
     <string name="settings_system_status_certified">Zertizifiert</string>
     <string name="settings_system_status_uncertified">Unzertifiziert</string>
     <string name="settings_title_automation">Automatisierung</string>
@@ -429,11 +458,12 @@ um das Problem zu beheben.    </string>
     <string name="settings_theme_auto_updater_text">Substratum wird automatisch für alle aktualisierten Themes eine aktualisierte Version der Overlays erstellen, kompilieren und installieren. Diese Funktion ausgeschaltet zu lassen spart Akku.</string>
     <string name="settings_theme_auto_updater_dialog_text">Bitte öffne NICHT den Packet-Installer im Vordergrund während die Benachrichtigung erscheint. Framework Overlays tendieren dazu den Packet-Installer neuzustarten, was eine unendliche Anzahl an Neukompilierungen zur Folge hat!</string>
     <string name="settings_auto_alert_title">Alarm wegen eines gefundenen neuen installierbaren Overlays</string>
-    <string name="settings_auto_alert_text">Wenn eine neue Applikation zum ersten Mal installiert wird, erscheint eine Benachrichtigung, falls die Applikation durch irgendeine der installierten Themes designt ist.</string>
+    <string name="settings_auto_alert_text">Wenn eine neue Anwendung zum ersten Mal installiert wird, erscheint eine Benachrichtigung, falls die Anwendung durch irgendeines der installierten Themes unterstützt wird.</string>
     <string name="settings_force_english_title">Englische Sprache forcieren</string>
     <string name="settings_force_english_text">Dies zwingt die Anwendung, die englische Sprache zu verwenden.</string>
     <string name="settings_force_english_toast_reverted">Forcieren der englischen Sprache erfolgreich deaktiviert!</string>
     <string name="settings_manage_space_title">Speichernutzung verwalten</string>
+    <string name="settings_samsung_show_dangerous_overlays_warning_title">WARNUNG</string>
     <string name="settings_theme_caching_title">Theme-Zwischenspeicher-Ressourcen</string>
     <string name="settings_theme_caching_text">Alle Theme-Daten werden in das Zwischenspeicher-Verzeichnis extrahiert.</string>
     <string name="settings_theme_caching_found_snackbar">Du hast gerade den versteckten Zwischenspeicher-Ressourcen-Modus entdeckt!</string>
@@ -464,23 +494,23 @@ um das Problem zu beheben.    </string>
     <string name="restore_info_dialog_title">Achtung</string>
     <string name="restore_info_dialog_message">Das Wiederherstellen von Overlays, Schriftarten-Paketen, Tönen oder Hintergrundbildern kann einige Zeit in Anspruch nehmen, seien sie also bitte geduldig.</string>
     <string name="restore_bootanimation_text">Boot-Animation</string>
-    <string name="restore_bootanimation_summary">Diese funktion entfernt alle zuvor aktivierten Bootanimationen und stellt die Standard-Bootanimation\n wiederher</string>
+    <string name="restore_bootanimation_summary">Diese Funktion entfernt alle zuvor aktivierten Bootanimationen und stellt die Standard-Bootanimation\n wiederher</string>
     <string name="restore_bootanimation_button">Boot-Animation wiederherstellen</string>
     <string name="restore_overlay_text">Theme</string>
     <string name="restore_overlay_summary">Diese Funktion entfernt alle bisher angewandten Overlays und setzt das System entweder durch Deinstallation oder Deaktivierung auf das Standardtheme zurück.\n</string>
     <string name="restore_overlay_button">Theme wiederherstellen</string>
     <string name="restore_sounds_text">Töne</string>
-    <string name="restore_sounds_summary">Diese funktion entfernt das zuvor aktivierte Ton-Set und stellt das Standardton-Set wiederher\n</string>
+    <string name="restore_sounds_summary">Diese Funktion entfernt das zuvor aktivierte Tonset und stellt das Standardtonset wiederher\n</string>
     <string name="restore_sounds_button">Töne wiederherstellen</string>
     <string name="restore_wallpaper_text">Hintergrundbild</string>
     <string name="restore_wallpaper_summary">Die Funktion erlaubt das Entfernen des zuvor angewandten Bildschirmhintergrunds auf dem Startbildschirm, Sperrbildschirm oder beidem und stellt das System-Hintergrundbild für diese wiederher\n</string>
     <string name="restore_wallpaper_button">Hintergrundbild wiederherstellen</string>
     <string name="restore_fonts_text">Schriftarten-Pakete</string>
-    <string name="restore_fonts_summary">Diese funktion entfernt das zuvor aktivierten Schriftartenset und stellt das Standardschriftartenset wiederher\n</string>
+    <string name="restore_fonts_summary">Diese Funktion entfernt das zuvor aktivierte Schriftartenset und stellt das Standardschriftartenset wiederher\n</string>
     <string name="restore_fonts_button">Schriftarten wiederherstellen</string>
-    <string name="restore_icons_text">Icon Packete</string>
-    <string name="restore_icons_summary">Diese Funktion hat das vorher angewendete Icon Pack erntfernt und die System-Icons wiederhergestellt.\n</string>
-    <string name="restore_icons_button">Icons wiederherstellen</string>
+    <string name="restore_icons_text">Symbolpakete</string>
+    <string name="restore_icons_summary">Diese Funktion hat das vorher angewendete Icon Pack entfernt und die System-Icons wiederhergestellt.\n</string>
+    <string name="restore_icons_button">Symbole wiederherstellen</string>
     <string name="interfacer_not_authorized_toast">Diese Version von Substrat ist nicht autorisiert und funktioniert nicht mit dem System Interfacer Modul.</string>
     <string name="app_crash_title">%s wird fortlaufend beendet&#8230;</string>
     <string name="app_crash_content">Alle für diese App aktivierten Overlays wurden deaktiviert.</string>
@@ -488,12 +518,13 @@ um das Problem zu beheben.    </string>
     <string name="rom_status_supported">%s wird von der Community unterstützt!</string>
     <string name="rom_status_unsupported">Diese ROM wird nicht von der Community unterstützt!</string>
     <string name="rom_status_network">Internet-Check erforderlich&#8230;</string>
+    <!-- Notification channel -->
     <!-- Nav drawer -->
     <string name="nav_home">Theme-Pakete</string>
     <string name="nav_overlays">Overlays</string>
     <string name="nav_bootanim">Boot-Animationen</string>
     <string name="nav_fonts">Schriftarten-Pakete</string>
-    <string name="nav_sounds">Sound-Pakete</string>
+    <string name="nav_sounds">Ton-Pakete</string>
     <string name="nav_wallpapers">Hintergrundbilder</string>
     <!-- Utilities -->
     <string name="nav_section_header_utilities">Utensilien</string>
@@ -518,20 +549,21 @@ um das Problem zu beheben.    </string>
     <string name="nav_drawer_resources">Ressourcen</string>
     <string name="nav_drawer_homepage">Offizielle Homepage</string>
     <string name="nav_drawer_template">Themenvorlage (Themers)</string>
-    <string name="nav_drawer_gerrit">Platform &amp; Exposures Gerrit</string>
+    <string name="nav_drawer_gerrit">Plattform &amp; enthüllt Gerrit</string>
     <string name="nav_drawer_github">Platform GitHub Repository</string>
     <string name="nav_troubleshooting">Fehlerbehebung</string>
     <!-- More -->
     <string name="nav_section_header_more">Mehr</string>
+    <string name="nav_team_contributors">Team &amp; Mitwirkende</string>
     <string name="nav_opensource">Lizenzen</string>
     <string name="nav_settings">Einstellungen</string>
     <string name="title_activity_manage_space">Speichernutzung verwalten</string>
     <string name="manage_space_cache_text_title">Cache löschen</string>
     <string name="clear_cache_button_loading">Lädt&#8230;</string>
     <string name="clear_cache_button_text">Substratum Cache löschen</string>
-    <string name="manage_space_cache_counter_title">Das leeren der lokalen Cache wird alle Dateien des Theme Compilers und Online Downloaders löschen. Alle Theme Packete und Benutzerkonfigurationen werden erhalten bleiben.\n\nAbhängig von der Größe deines Cache, kann das ein paar Sekunden dauern.</string>
+    <string name="manage_space_cache_counter_title">Das Leeren des lokalen Cache\'s wird alle Dateien des Theme Compilers und Online Downloaders löschen. Alle Theme Pakete und Benutzerkonfigurationen werden erhalten bleiben.\n\nAbhängig von der Größe deines Cache\'s, kann das ein paar Sekunden dauern.</string>
     <string name="manage_space_reset_text_title">Konfiguration zurücksetzen</string>
     <string name="manage_space_reset_text_desc">Hast du Probleme mit der App? Oder hast du in letzter Zeit ein Upgrade von einer sehr alten Version von Substratum gemacht? Das simple zurücksetzen deiner Konfiguration könnte deine Probleme beheben!</string>
     <string name="manage_space_reset_dialog_title">Konfiguration zurücksetzen?</string>
-    <string name="manage_space_reset_dialog_content">Die App wird sich schließen nachdem der Reset fertig ist!</string>
+    <string name="manage_space_reset_dialog_content">Die App wird sich schließen nachdem das Zurücksetzen abgeschlossen ist!</string>
 </resources>

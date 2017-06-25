@@ -38,6 +38,7 @@
     <string name="background_needs_invalidating_button">清除</string>
     <string name="background_updated_toast">资源缓存初始化完成</string>
     <string name="background_updated_toast_cancel">启用此主题前需要升级资源缓存</string>
+    <string name="background_updated_toast_rejected">无法创建此主题的资源缓存</string>
     <string name="background_updated_toast_cleaning">Substratum 正在清除此主题的资源缓存</string>
     <string name="failed_to_install_title_notification">未能安装 OMS 主题</string>
     <string name="failed_to_install_text_notification">%s 安装失败</string>
@@ -227,6 +228,7 @@
     <string name="logcat_email_activity">用于发送错误报告</string>
     <string name="logcat_email_activity_error">没有安装电子邮件客户端。</string>
     <string name="logcat_email_xposed_check">Xposed 框架</string>
+    <string name="logcat_processing_dialog">正在处理错误报告</string>
     <string name="priority_card_title">动态优先系统 （DPS）</string>
     <string name="priority_card_content">动态优先级系统是高级程序。允许主题的叠加层使用不同的优先级，而忽视默认提供的优先级。\n\n当此功能开启时，可以构建另一个特别的叠加层覆盖住同一应用的顶部。 \n\n在 Overlay Manager Service（OMS）的作用下，优先级最高的叠加层会驻留在每个列表的底部。</string>
     <string name="priority_card_title2">说明</string>
@@ -246,6 +248,7 @@
     <string name="remove_dialog_later">推迟</string>
     <string name="restore_dialog_cancel">取消</string>
     <string name="restore_dialog_okay">继续</string>
+    <string name="restore_dialog_title">为了完全还原您的配置，请安装以下叠加层：</string>
     <string name="backup_button">备份当前状态</string>
     <string name="backup_no_overlays">您当前的设置中没有叠加层。</string>
     <string name="restore_button">恢复配置文件</string>
@@ -288,6 +291,10 @@
     <string name="no_themes_title">没有找到主题</string>
     <string name="no_themes_description">请安装一个兼容的主题</string>
     <string name="no_themes_description_search">在已安装的主题列表中无法找到 \"%s\"</string>
+    <string name="toast_samsung_prototype_one_overlay">只能选择一个叠加层</string>
+    <string name="toast_samsung_prototype_restart">请重新启动设备或强制关闭应用程序</string>
+    <string name="toast_samsung_prototype_disabled">此版本已过期。请更新 Substratum 版本。</string>
+    <string name="toast_samsung_prototype_alert">Substratum 会自动隐藏不支持此设备的系统叠加层</string>
     <string name="toast_needs_caching">Substratum 的缓存已清除，请重新编译此主题</string>
     <string name="notification_theme_installed">已安装</string>
     <string name="notification_theme_updated">已更新</string>
@@ -300,6 +307,8 @@
     <string name="notification_initial_title_upgrade">%s 资源正在升级</string>
     <string name="notification_done_title">主题编译成功</string>
     <string name="notification_done_upgrade_title">%s 叠加层升级完成</string>
+    <string name="notification_done_upgrade_title_warning">%s 叠加层升级部分完成</string>
+    <string name="notification_done_upgrade_title_failed" formatted="false">丢失或不可配置︰ \n\n%s</string>
     <string name="notification_done_update_text">已更新此应用的所有叠加层</string>
     <string name="notification_done_upgrade_text">已更新此主题的所有叠加层</string>
     <string name="notification_no_errors_found">安装叠加层时没有发生错误</string>
@@ -356,6 +365,23 @@
     <string name="fab_menu_enable">启用所选项</string>
     <string name="fab_menu_swap_toggle">禁用其他主题</string>
     <string name="fab_menu_swap_toggle_legacy">删除所有现有的</string>
+    <string name="team_title_one">Substratum 领导者</string>
+    <string name="team_text_one">我们与主题制作者们共同创造了一个完美的主题引擎，希望它能为用户带来更好的体验！</string>
+    <string name="team_title_two">Substratum 翻译者</string>
+    <string name="team_text_two">这些人把 Substratum 介绍给了全世界，我们对他们的努力表示衷心感谢！</string>
+    <string name="team_button_two">显示翻译者</string>
+    <string name="team_button_two_contribute">贡献翻译</string>
+    <string name="team_title_three">Substratum 贡献者</string>
+    <string name="team_text_three">当社区团结合作，共同创造一个适用于我们所有人的应用程序，这件事是最棒的！</string>
+    <string name="team_button_three">显示贡献者</string>
+    <string name="team_title_four">Layers 贡献者</string>
+    <string name="team_text_four">这些人以前为您带来了 Layers Manager ，并继续为 Substratum 的到来做了很多重要的事！</string>
+    <string name="team_button_four">显示贡献者</string>
+    <string name="team_nicholas_description">发展协调者</string>
+    <string name="team_syko_description">系统研究者</string>
+    <string name="team_ivan_description">平台和功能</string>
+    <string name="team_surge_description">二进制文件和算法</string>
+    <string name="team_char_description">社区组织和支持</string>
     <string name="slide_1_title">欢迎来到 Substratum</string>
     <string name="slide_1_text">体积虽小却功能强大，基于索尼 Overlay Manager Service 的主题引擎</string>
     <string name="slide_2_title">全新的用户界面</string>
@@ -412,6 +438,7 @@
     <string name="settings_system_status">系统认证</string>
     <string name="settings_system_status_rooted">Root 模式</string>
     <string name="settings_system_status_rootless">非 Root 模式</string>
+    <string name="settings_system_status_samsung">三星模式</string>
     <string name="settings_system_status_certified">已认证</string>
     <string name="settings_system_status_uncertified">未认证</string>
     <string name="settings_title_automation">自动更新</string>
@@ -427,6 +454,7 @@
     <string name="settings_force_english_text">开启此选项后应用语言会更改为英语</string>
     <string name="settings_force_english_toast_reverted">英语环境已关闭</string>
     <string name="settings_manage_space_title">管理存储空间</string>
+    <string name="settings_samsung_show_dangerous_overlays_warning_title">警告</string>
     <string name="settings_theme_caching_title">缓存主题资源</string>
     <string name="settings_theme_caching_text">在缓存目录中提取所有主题资源</string>
     <string name="settings_theme_caching_found_snackbar">您刚刚发现了隐藏的资源缓存模式！</string>
@@ -481,6 +509,7 @@
     <string name="rom_status_supported">%s 已加入社区支持</string>
     <string name="rom_status_unsupported">此 ROM 未加入社区支持</string>
     <string name="rom_status_network">联网状态检查</string>
+    <!-- Notification channel -->
     <!-- Nav drawer -->
     <string name="nav_home">主题包</string>
     <string name="nav_overlays">叠加层</string>
@@ -516,6 +545,7 @@
     <string name="nav_troubleshooting">疑难解答</string>
     <!-- More -->
     <string name="nav_section_header_more">更多</string>
+    <string name="nav_team_contributors">团队和贡献者</string>
     <string name="nav_opensource">许可</string>
     <string name="nav_settings">设置</string>
     <string name="title_activity_manage_space">管理存储空间</string>

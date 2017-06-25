@@ -38,6 +38,7 @@
     <string name="background_needs_invalidating_button">Išvalyti</string>
     <string name="background_updated_toast">Išteklių talpykla buvo sukurta!</string>
     <string name="background_updated_toast_cancel">Šiai temai reikia atnaujinti išteklių talpyklą, kol ji yra funkcionali!</string>
+    <string name="background_updated_toast_rejected">Nepavyko sukurti išteklių talpyklos šiai temai!</string>
     <string name="background_updated_toast_cleaning">\"Substratum\" dabar valo šios temos išteklių talpyklą&#8230;</string>
     <string name="failed_to_install_title_notification">Klaida įdiegiant \"OMS\" temą</string>
     <string name="failed_to_install_text_notification">%s nepavyko įdiegti</string>
@@ -252,6 +253,7 @@
     <string name="logcat_email_activity">Siųsti defekto ataskaitą naudojant&#8230;</string>
     <string name="logcat_email_activity_error">Nėra įdiegtų jokių el.pašto programėlių.</string>
     <string name="logcat_email_xposed_check">\"Xposed\" Struktūra</string>
+    <string name="logcat_processing_dialog">Apdorojimo klaidos ataskaita</string>
     <string name="priority_card_title">Dinamine Prioriteto Sistema (DPS)</string>
     <string name="priority_card_content">Dinaminė Prioriteto Sistema yra pažangi procedūra, kuri leidžia temos perdangoms būti organizuotomis su skirtingais prioritetais, ignoruojant numatytąjį \"OMS\" sistemos taikomiems prioritetams.\n\nPavyzdžiui, kai tai būtų naudojama norint suformuoti specifinę perdangą ant viršaus kitos perdangos tai pačiai programėlei.\n\nSu įvedimu \"Overlays Manager Service\" prioritetai yra anuliuojami ir dauguma perdangų pasilieka kiekvieno sąrašo apačioje.</string>
     <string name="priority_card_title2">Instrukcijos</string>
@@ -271,6 +273,8 @@
     <string name="remove_dialog_later">Vėliau</string>
     <string name="restore_dialog_cancel">Atšaukti</string>
     <string name="restore_dialog_okay">Tęsti</string>
+    <string name="restore_dialog_title">Šios perdangos buvo įsiegtos, kad visiškai atkurtų jūsų profilį:
+    </string>
     <string name="backup_button">ATSARGINĖS KOPIJOS DABARTINĖ BŪSENA</string>
     <string name="backup_no_overlays">Nėra jokių perdangų jūsų dabartinėje konfigūracijoje.</string>
     <string name="restore_button">ATKURTI PROFILĮ</string>
@@ -313,6 +317,10 @@
     <string name="no_themes_title">nerasta jokių temų&#8230;</string>
     <string name="no_themes_description">prašome įdiegti suderinamą temą!</string>
     <string name="no_themes_description_search">\"%s\" nepavyko rasti tarp įdiegtų temų&#8230;</string>
+    <string name="toast_samsung_prototype_one_overlay">Šiuo metu, per kartą galima pasirinkti tik vieną perdangą.</string>
+    <string name="toast_samsung_prototype_restart">Prašome paleisti Iš naujo įrenginį arba priverstinai uždaryti persidengiančią programą!</string>
+    <string name="toast_samsung_prototype_disabled">Ši \"substratum\" versija yra pasibaigusi.\n\nPrašome atnaujinti!</string>
+    <string name="toast_samsung_prototype_alert">\"Substratum\", jūsų įrenginiui, automatiškai paslepia nepalaikomas sistemos perdangas!</string>
     <string name="toast_needs_caching">Substratum talpykla buvo pašalinta, prieš tęsiant prašome atstatyti temą!</string>
     <string name="notification_theme_installed">įdiegta</string>
     <string name="notification_theme_updated">atnaujinta</string>
@@ -321,10 +329,12 @@
     <string name="notification_hide">Pamiršti</string>
     <string name="notification_hide_upgrade">Atšaukti</string>
     <string name="notification_initial_title">\"Substratum\" veikia</string>
-    <string name="notification_initial_title_upgrade_intent">Tobulinamos %s perdangos&#8230;</string>
+    <string name="notification_initial_title_upgrade_intent">Atnaujinamos %s perdangos&#8230;</string>
     <string name="notification_initial_title_upgrade">%s resursai atnaujinami&#8230;</string>
     <string name="notification_done_title">Temos kompiliavimas baigtas</string>
-    <string name="notification_done_upgrade_title">Perdangų tobulinimas buvo baigtas %s!</string>
+    <string name="notification_done_upgrade_title">Perdangų atnaujinimas buvo baigtas %s!</string>
+    <string name="notification_done_upgrade_title_warning">Perdangų atnaujinimas beveik baigtas %s!</string>
+    <string name="notification_done_upgrade_title_failed" formatted="false">Trūksta arba nesukuriama konfigūracija:\n\n%s</string>
     <string name="notification_done_update_text">Visos įjungtos ir išjungtos perdangos šiai programai buvo atnaujintos.</string>
     <string name="notification_done_upgrade_text">Visos įjungtos ir išjungtos perdangos šiai temai buvo atnaujintos.</string>
     <string name="notification_no_errors_found">Diegiant perdangas nebuvo jokių klaidų</string>
@@ -383,6 +393,23 @@
     <string name="fab_menu_enable">Įjungti Pasirinktus</string>
     <string name="fab_menu_swap_toggle">Išjungti kitas temas</string>
     <string name="fab_menu_swap_toggle_legacy">Pašalinti visus esamus</string>
+    <string name="team_title_one">\"Substratum\" Lyderiai</string>
+    <string name="team_text_one">Mes ne tik sukūrėme kažką, kas dirba vartotojams, bet mes dirbome kartu su apipavidalintojais, kad sukurti nuostabų apipavidalinimo variklį bendruomenei!</string>
+    <string name="team_title_two">\"Substratum\" Vertėjai</string>
+    <string name="team_text_two">Labai dėkojame šiems vertėjams, kad pristatė \"Substratum\" žmonėms visame pasaulyje!</string>
+    <string name="team_button_two">Rodyti Vertėjus</string>
+    <string name="team_button_two_contribute">Prisidėkite Dabar!</string>
+    <string name="team_title_three">\"Substratum\" Bendraautoriai</string>
+    <string name="team_text_three">Puiku, kai bendruomenė ateina kartu ir juos vienija sukurti programėlę, kuri veikia mums visiems!</string>
+    <string name="team_button_three">Rodyti Bendraautorius</string>
+    <string name="team_title_four">Sluoksnių Bendraautoriai</string>
+    <string name="team_text_four">Šie žmonės pristatė jums \"Layers Manager\" ir padarė labai puikių dalykų, kad galėtume jums pristatyti \"Substratum\"!</string>
+    <string name="team_button_four">Rodyti Bendraautorius</string>
+    <string name="team_nicholas_description">Vystimosi Koordinatorius</string>
+    <string name="team_syko_description">Sistemos Tyrėjas</string>
+    <string name="team_ivan_description">Platforma ir Funkcijos</string>
+    <string name="team_surge_description">Dvejetainiai ir Algoritmai</string>
+    <string name="team_char_description">Bendruomenės Organizacija ir Palaikymas</string>
     <string name="slide_1_title">sveiki atvykę į \"substratum\"</string>
     <string name="slide_1_text">minimalus, bet galingas temų variklis, remiantis \"Sony overlay manager service\"</string>
     <string name="slide_2_title">visiškai nauja vartotojo sąsaja</string>
@@ -439,6 +466,7 @@
     <string name="settings_system_status">Sistemos sertifikacija</string>
     <string name="settings_system_status_rooted">\"Root\" režimas</string>
     <string name="settings_system_status_rootless">Be \"root\" režimas</string>
+    <string name="settings_system_status_samsung">\"Samsung\" režimas</string>
     <string name="settings_system_status_certified">Sertifikuota</string>
     <string name="settings_system_status_uncertified">Nesertifikuotas</string>
     <string name="settings_title_automation">Automatika</string>
@@ -454,6 +482,7 @@
     <string name="settings_force_english_text">Tai privers programėlei naudoti anglų kalba.</string>
     <string name="settings_force_english_toast_reverted">Sėkmingai išjungta priverstinė anglų kalba!</string>
     <string name="settings_manage_space_title">Tvarkyti Saugyklos Naudojimą</string>
+    <string name="settings_samsung_show_dangerous_overlays_warning_title">ĮSPĖJIMAS</string>
     <string name="settings_theme_caching_title">Saugoti Temos Resursus</string>
     <string name="settings_theme_caching_text">Visi temos ištekliai bus išimti talpyklos kataloge.</string>
     <string name="settings_theme_caching_found_snackbar">Jūs ką tik radote paslėptų resursų saugojimo režimą!</string>
@@ -508,6 +537,7 @@
     <string name="rom_status_supported">%s bendruomenės palaikomas!</string>
     <string name="rom_status_unsupported">šis \"rom\" nėra bendruomenės palaikomas!</string>
     <string name="rom_status_network">reikalingas interneto patikrinimas&#8230;</string>
+    <!-- Notification channel -->
     <!-- Nav drawer -->
     <string name="nav_home">Temų paketai</string>
     <string name="nav_overlays">Perdangos</string>
@@ -543,6 +573,7 @@
     <string name="nav_troubleshooting">Trikčių diagnostika ir šalinimas</string>
     <!-- More -->
     <string name="nav_section_header_more">Daugiau</string>
+    <string name="nav_team_contributors">Komanda ir Bendraautoriai</string>
     <string name="nav_opensource">Licencijos</string>
     <string name="nav_settings">Nustatymai</string>
     <string name="title_activity_manage_space">Tvarkyti Saugyklos Naudojimą</string>

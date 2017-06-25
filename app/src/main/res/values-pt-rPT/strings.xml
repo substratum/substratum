@@ -432,6 +432,7 @@ clique em
     <string name="settings_force_english_text">Isto vai forçar a aplicação a usar a língua inglesa.</string>
     <string name="settings_force_english_toast_reverted">Forçar inglês desativado com sucesso!</string>
     <string name="settings_manage_space_title">Gerir o uso do armazenamento</string>
+    <string name="settings_samsung_show_dangerous_overlays_warning_title">AVISO</string>
     <string name="settings_theme_caching_title">Recursos de tema em cache</string>
     <string name="settings_force_stop_interfacer_title">Forçar paragem do serviço interfacer</string>
     <string name="root_required_title">Root necessário</string>
@@ -481,6 +482,7 @@ clique em
     <string name="rom_status_supported">%s é suportado pela comunidade!</string>
     <string name="rom_status_unsupported">esta rom não é suportado pela comunidade!</string>
     <string name="rom_status_network">necessário verificar internet&#8230;</string>
+    <!-- Notification channel -->
     <!-- Nav drawer -->
     <string name="nav_home">Pacotes de temas</string>
     <string name="nav_overlays">Camadas</string>

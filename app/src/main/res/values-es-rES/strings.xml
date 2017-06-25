@@ -39,6 +39,7 @@
     <string name="background_needs_invalidating_button">Limpiar</string>
     <string name="background_updated_toast">La caché de recursos se ha creado!</string>
     <string name="background_updated_toast_cancel">Este tema necesita actualizar su caché de recursos antes de que sea funcional!    </string>
+    <string name="background_updated_toast_rejected">¡No se pudo crear la caché de recursos para este tema!</string>
     <string name="background_updated_toast_cleaning">Substratum está limpiando la caché de recursos de este tema&#8230;</string>
     <string name="failed_to_install_title_notification">Falló la instalación del tema</string>
     <string name="failed_to_install_text_notification">Error al instalar %s</string>
@@ -246,6 +247,7 @@ correctamente&#8230;</string>
     <string name="logcat_email_activity">Enviar informe de error usando&#8230;</string>
     <string name="logcat_email_activity_error">No hay clientes de correo electrónico instalados.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
+    <string name="logcat_processing_dialog">Procesando informe de errores</string>
     <string name="priority_card_title">Sistema de Prioridad Dinámica (DPS)</string>
     <string name="priority_card_content">El Sistema de Prioridad Dinámica (DPS) es un procedimiento avanzado que permite a las capas de los temas organizarse con diferentes prioridades, haciendo caso omiso a las prioridades aplicadas por defecto del sistema OMS.\n\nUn ejemplo de cuando puede ser útil sería, cuando falla una capa con estructura específica en la parte superior de otra plantilla orientado a la misma aplicación.\n\nCon la introducción de la Overlay Service Manager, las prioridades se invierten, y la mayor parte o prioridad de capa reside en la parte inferior de cada lista.</string>
     <string name="priority_card_title2">Instrucciones</string>
@@ -265,6 +267,8 @@ correctamente&#8230;</string>
     <string name="remove_dialog_later">Después</string>
     <string name="restore_dialog_cancel">Cancelar</string>
     <string name="restore_dialog_okay">Continuar</string>
+    <string name="restore_dialog_title">Estas superposiciones se instalarán para restaurar tu perfil
+        completamente:    </string>
     <string name="backup_button">RESGUARDAR ESTADO ACTUAL</string>
     <string name="backup_no_overlays">No hay capas en su configuración actual.</string>
     <string name="restore_button">RESTAURAR PERFIL</string>
@@ -308,6 +312,10 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="no_themes_title">No se encontraron temas&#8230;</string>
     <string name="no_themes_description">Por favor, instala un tema compatible!</string>
     <string name="no_themes_description_search">\"%s\" no se encontró en la lista de temas instalados&#8230;</string>
+    <string name="toast_samsung_prototype_one_overlay">En este momento, solo una capa puede ser seleccionada a la vez.</string>
+    <string name="toast_samsung_prototype_restart">¡Por favor reinicie su dispositivo o cierre a la fuerza su aplicación superpuesta!</string>
+    <string name="toast_samsung_prototype_disabled">Esta versión de substratum ha expirado.\n\n¡Por favor actualícelo a una copia reciente!</string>
+    <string name="toast_samsung_prototype_alert">¡Substratum ocultó automáticamente las capas del sistema no soportadas por su dispositivo!</string>
     <string name="toast_needs_caching">¡Se borró el caché de Substratum, por favor recompile este tema antes de continuar!</string>
     <string name="notification_theme_installed">Instalado</string>
     <string name="notification_theme_updated">Actualizado</string>
@@ -320,6 +328,8 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="notification_initial_title_upgrade">Los recursos de %s  se están actualizando&#8230;</string>
     <string name="notification_done_title">Se completó la compilación del tema</string>
     <string name="notification_done_upgrade_title">¡Actualización de las capas ha terminado de %s!</string>
+    <string name="notification_done_upgrade_title_warning">¡Actualización de overlay completada parcialmente para %s!</string>
+    <string name="notification_done_upgrade_title_failed" formatted="false">Configuración faltante o no compilable: \n\n%s</string>
     <string name="notification_done_update_text">Todas las capas activadas y desactivadas para esta aplicación han sido actualizadas.</string>
     <string name="notification_done_upgrade_text">Todas las capas activadas y desactivadas para esta tema han sido actualizadas.</string>
     <string name="notification_no_errors_found">No hubo errores durante la instalación de las capas</string>
@@ -378,6 +388,23 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="fab_menu_enable">Activar Seleccionados</string>
     <string name="fab_menu_swap_toggle">Desactivar otros temas</string>
     <string name="fab_menu_swap_toggle_legacy">Eliminar todas las capas actuales</string>
+    <string name="team_title_one">Líderes del Substratum</string>
+    <string name="team_text_one">No sólo creamos algo que funciona para los usuarios, sino que trabajamos en conjunto con themers para que sea un maravilloso motor de temática para la comunidad!</string>
+    <string name="team_title_two">Traductores Substratum</string>
+    <string name="team_text_two">Un enorme agradecimiento a estos traductores por llevar a Substratum a todas las personas alrededor del mundo!</string>
+    <string name="team_button_two">Ver Traductores</string>
+    <string name="team_button_two_contribute">¡Contribuye Ahora!</string>
+    <string name="team_title_three">Contribuyentes de Substratum</string>
+    <string name="team_text_three">¡Lo genial es cuando la comunidad se une para crear una app que funciona para todos!</string>
+    <string name="team_button_three">Mostrar colaboradores</string>
+    <string name="team_title_four">Contribuyentes de Layers</string>
+    <string name="team_text_four">Estas personas ayudaron a crear Layers Manager en el pasado y desde entonces pasaron a hacer grandes cosas para conseguir que Substratum esté listo para nosotros!</string>
+    <string name="team_button_four">Mostrar colaboradores</string>
+    <string name="team_nicholas_description">Coordinador de Desarrollo</string>
+    <string name="team_syko_description">Investigador del Sistema</string>
+    <string name="team_ivan_description">Plataforma &amp; Características</string>
+    <string name="team_surge_description">Binarios &amp; Algoritmos</string>
+    <string name="team_char_description">Apoyo &amp; organización comunitaria</string>
     <string name="slide_1_title">Bienvenido a Substratum</string>
     <string name="slide_1_text">Un pequeño pero potente motor de temas, basado en los servicios de gestión de capas (OMS) de Sony</string>
     <string name="slide_2_title">Una nueva interfaz de usuario</string>
@@ -434,6 +461,7 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="settings_system_status">Certificación del sistema</string>
     <string name="settings_system_status_rooted">Modo Root</string>
     <string name="settings_system_status_rootless">Modo rootless</string>
+    <string name="settings_system_status_samsung">Modo Samsung</string>
     <string name="settings_system_status_certified">Certificado</string>
     <string name="settings_system_status_uncertified">Sin certificar</string>
     <string name="settings_title_automation">Automatización</string>
@@ -442,12 +470,14 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="settings_theme_auto_updater_title">Actualizar automáticamente capa de tema (BETA)</string>
     <string name="settings_theme_auto_updater_dialog_title">ADVERTENCIA</string>
     <string name="settings_theme_auto_updater_text">Substratum automáticamente construirá, compilara e instalara una versión actualizada de todas las capas de los temas recientemente actualizados. Teniendo esto desactivado ahorrará batería.</string>
+    <string name="settings_theme_auto_updater_dialog_text">Por favor no tengas abierto PackageInstaller en primer plano mientras que la notificación este activa, los overlays del framework tienden a reiniciar PackageInstaller causando cantidades indefinidas de volver a compilar!</string>
     <string name="settings_auto_alert_title">Alerta de encuentro de nueva capa instalable</string>
     <string name="settings_auto_alert_text">Al instalar una nueva aplicación por primera vez, si la aplicación puede ser tematizada por alguno de los temas instalados, se mostrará una notificación.</string>
     <string name="settings_force_english_title">Forzar Idioma Inglés</string>
     <string name="settings_force_english_text">Esto forzará a la aplicación a utilizar el idioma Inglés.</string>
     <string name="settings_force_english_toast_reverted">Forzar Inglés ha sido desactivado con éxito!</string>
     <string name="settings_manage_space_title">Administrar el uso del almacenamiento</string>
+    <string name="settings_samsung_show_dangerous_overlays_warning_title">ADVERTENCIA</string>
     <string name="settings_theme_caching_title">Recursos Caché del Tema</string>
     <string name="settings_theme_caching_text">Todos los recursos activos del tema serán extraídos al directorio caché.</string>
     <string name="settings_theme_caching_found_snackbar">Acabas de descubrir el recurso oculto del modo de caché!</string>
@@ -502,6 +532,7 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="rom_status_supported">¡%s es apoyada por la comunidad!</string>
     <string name="rom_status_unsupported">¡esta rom no es apoyada por la comunidad!</string>
     <string name="rom_status_network">Verificación de Internet requerida&#8230;</string>
+    <!-- Notification channel -->
     <!-- Nav drawer -->
     <string name="nav_home">Packs de temas</string>
     <string name="nav_overlays">Capas</string>
@@ -537,6 +568,7 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="nav_troubleshooting">Solución de Problemas</string>
     <!-- More -->
     <string name="nav_section_header_more">Más</string>
+    <string name="nav_team_contributors">Equipo &amp; colaboradores</string>
     <string name="nav_opensource">Licencias</string>
     <string name="nav_settings">Ajustes</string>
     <string name="title_activity_manage_space">Administrar el uso del almacenamiento</string>

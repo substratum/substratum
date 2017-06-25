@@ -21,13 +21,13 @@
     <string name="showcase">vitrin</string>
     <string name="android">Android sürümü:</string>
     <string name="device">Cihaz modeli:</string>
-    <string name="resource_checker_request">Kullanarak hata bildirimi isteği gönder&#8230;</string>
+    <string name="resource_checker_request">...kullanarak hata bildirimi isteği gönder</string>
     <string name="resource_checker">Hata Bildirimi Doğrulama</string>
-    <string name="resource_checker_commons">Framework</string>
+    <string name="resource_checker_commons">Yapı</string>
     <string name="resource_checker_dialog_quit">Çıkış</string>
     <string name="resource_not_validated">Yeni hata bildirimleri birleştirildi!</string>
-    <string name="resource_needs_internet">ROM\'nuzun hata bildirimlerimi doğrulamak için lütfen internete bağlanın!</string>
-    <string name="resource_validated">Hepsi bozulmamış!</string>
+    <string name="resource_needs_internet">ROM\'unuzun hata bildirimlerini doğrulamak için lütfen internete bağlanın!</string>
+    <string name="resource_validated">Tüm hata bildirimleri sağlam!</string>
     <string name="resource_commit_dialog_title">%s Kaynakları Eksik</string>
     <string name="showcase_no_connection">tema vitrininin çalışması için internet bağlantısı
         gereklidir!
@@ -46,6 +46,7 @@
     <string name="background_updated_toast_cancel">Bu temanın çalışması için, öncelikle kaynak önbelleğini
         yükseltmesi gerekiyor!
     </string>
+    <string name="background_updated_toast_rejected">Bu tema için kaynak önbellek oluşturulamadı!</string>
     <string name="background_updated_toast_cleaning">Substratum şu anda bu temanın kaynak
         önbelleğini temizliyor&#8230;</string>
     <string name="failed_to_install_title_notification">OMS teması yüklenemedi</string>
@@ -308,6 +309,7 @@ Tüm özel simgeler zaten devre dışı!
     <string name="logcat_email_activity">Kullanarak hata raporu gönder&#8230;</string>
     <string name="logcat_email_activity_error">Yüklü herhangi bir e-posta istemcisi yok.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
+    <string name="logcat_processing_dialog">Hata raporu işleniyor</string>
     <string name="priority_card_title">Dinamik Öncelik Sistemi (DPS)</string>
     <string name="priority_card_content">Dinamik Öncelik Sistemi, varsayılan OMS sistemi tarafından
         uygulanan öncelikleri yoksayarak, temaların farklı önceliklerle düzenlenmesini
@@ -344,6 +346,9 @@ sağlayan
     <string name="remove_dialog_later">Sonra</string>
     <string name="restore_dialog_cancel">İptal</string>
     <string name="restore_dialog_okay">Devam</string>
+    <string name="restore_dialog_title">Profilinizi tamamen geri yüklemek için lütfen bu temaları
+        yükleyin:
+    </string>
     <string name="backup_button">GEÇERLİ YEDEK DURUMU</string>
     <string name="backup_no_overlays">Mevcut kurulumunuz da herhangi bir tema yok.</string>
     <string name="restore_button">PROFİLİ GERİ YÜKLE</string>
@@ -401,6 +406,10 @@ sağlayan
     <string name="no_themes_title">tema bulunamadı&#8230;</string>
     <string name="no_themes_description">lütfen uyumlu bir tema yükleyin!</string>
     <string name="no_themes_description_search">\'\'%s\'\' yüklü temalar listesinde bulunamadı&#8230;</string>
+    <string name="toast_samsung_prototype_one_overlay">Şu anda tek seferde yalnızca bir tema seçilebilir.</string>
+    <string name="toast_samsung_prototype_restart">Lütfen cihazınızı yeniden başlatın veya örtüşen uygulamanızı kapatmaya zorlayın!</string>
+    <string name="toast_samsung_prototype_disabled">Substratum\'un bu sürümü eski.\n\nLütfen yeni sürümüne güncelleyin!</string>
+    <string name="toast_samsung_prototype_alert">Substratum, cihazınız için desteklenmeyen sistem temalarını otomatik olarak gizledi!</string>
     <string name="toast_needs_caching">Substratum\'un önbelleği silindi, lütfen devam etmeden önce bu temayı yeniden oluşturun!</string>
     <string name="notification_theme_installed">yüklendi</string>
     <string name="notification_theme_updated">güncellendi</string>
@@ -413,6 +422,8 @@ sağlayan
     <string name="notification_initial_title_upgrade">%s kaynakları şuan güncelleniyor&#8230;</string>
     <string name="notification_done_title">Tema düzenlemesi tamamlandı</string>
     <string name="notification_done_upgrade_title">%s tema yükseltmesi tamamlandı!</string>
+    <string name="notification_done_upgrade_title_warning">%s için tema yükseltmesi kısmen tamamlandı!</string>
+    <string name="notification_done_upgrade_title_failed" formatted="false">Eksik veya bozuk yapılandırma:\n\n%s</string>
     <string name="notification_done_update_text">Bu uygulama için etkinleştirilen ve devre dışı bırakılmış tüm temalar güncellendi.</string>
     <string name="notification_done_upgrade_text">Bu tema için etkinleştirilmiş ve devre dışı bırakılmış tüm temalar güncellendi.</string>
     <string name="notification_no_errors_found">Temalar yüklenirken hata oluşmadı</string>
@@ -474,6 +485,23 @@ sağlayan
     <string name="fab_menu_enable">Seçilenleri Etkinleştir</string>
     <string name="fab_menu_swap_toggle">Diğer temaları devre dışı bırak</string>
     <string name="fab_menu_swap_toggle_legacy">Mevcut olanların tümünü kaldır</string>
+    <string name="team_title_one">Substratum Liderleri</string>
+    <string name="team_text_one">Kullanıcılar için işe yarayan bir şeyler yapmamızın yanı sıra, topluluk için harika bir tema motoru haline getirmek için tema geliştiricileri ile birlikte çalıştık!</string>
+    <string name="team_title_two">Substratum Çevirmenleri</string>
+    <string name="team_text_two">Substratum\'u dünyadaki herkese ulaştırdığı için tüm çevirmenlere çok teşekkür ederiz!</string>
+    <string name="team_button_two">Çevirmenleri Göster</string>
+    <string name="team_button_two_contribute">Hemen Katkıda Bulunun!</string>
+    <string name="team_title_three">Substratum\'a Katkıda Bulunanlar</string>
+    <string name="team_text_three">Asıl harika olan şey, hepimizin işine yarayan bir uygulama oluşturmak için topluluğun bir araya gelmesi ve birlik olmasıdır!</string>
+    <string name="team_button_three">Katkıda Bulunanları Göster</string>
+    <string name="team_title_four">Layers\'a Katkıda Bulunanlar</string>
+    <string name="team_text_four">Bu insanlar geçmişte size Layers Manager\'ı getirdiler ve o zamandan beri Substratum\'u bizim için hazır hale getirmekte çok güzel şeyler yapmaya devam ettiler!</string>
+    <string name="team_button_four">Katkıda Bulunanları Göster</string>
+    <string name="team_nicholas_description">Geliştirme Düzenleyicisi</string>
+    <string name="team_syko_description">Sistem Araştırmacısı</string>
+    <string name="team_ivan_description">Platform &amp; Özellikler</string>
+    <string name="team_surge_description">Kodlama &amp; Algoritmalar</string>
+    <string name="team_char_description">Topluluk Organizasyonu &amp; Destek</string>
     <string name="slide_1_title">substratum\'a hoşgeldiniz</string>
     <string name="slide_1_text">Sony\'nin tema yöneticisi hizmetine dayanan minimal ancak güçlü bir tema motoru</string>
     <string name="slide_2_title">yepyeni bir kullanıcı arayüzü</string>
@@ -530,6 +558,7 @@ sağlayan
     <string name="settings_system_status">Sistem sertifikası</string>
     <string name="settings_system_status_rooted">Kök erişimli mod</string>
     <string name="settings_system_status_rootless">Kök erişimsiz mod</string>
+    <string name="settings_system_status_samsung">Samsung modu</string>
     <string name="settings_system_status_certified">Sertifikalı</string>
     <string name="settings_system_status_uncertified">Sertifikasız</string>
     <string name="settings_title_automation">Otomasyon</string>
@@ -545,6 +574,7 @@ sağlayan
     <string name="settings_force_english_text">Uygulamayı İngilizce kullanmaya zorlar.</string>
     <string name="settings_force_english_toast_reverted">İngilizceye zorlama başarıyla devre dışı bırakıldı!</string>
     <string name="settings_manage_space_title">Depolama Alanını Yönet</string>
+    <string name="settings_samsung_show_dangerous_overlays_warning_title">UYARI</string>
     <string name="settings_theme_caching_title">Tema Kaynakları Önbelleği</string>
     <string name="settings_theme_caching_text">Tema varlığı kaynaklarının tümü önbellek dizininde ayıklanır.</string>
     <string name="settings_theme_caching_found_snackbar">Gizli kaynak önbellekleme modunu keşfedin!</string>
@@ -564,7 +594,7 @@ sağlayan
     <string name="per_app_draw_over_other_apps_request">Yüzen kullanıcı arayüzü için Substratum \'a \"diğer uygulamalar üzerinde görüntüleme\" ve Tema hedeflerini eşleştirmek için Substratum \'a ön plan uygulamasına erişebilmek adına \"kullanım erişimi\" izni verin.</string>
     <string name="per_app_usage_stats_request">Lütfen, tema hedeflerini eşleştirmek için Substratum \'a ön plan uygulamasına erişebilmek adına \"kullanım erişimi\" izni verin.</string>
     <string name="per_app_manual_grant">Lütfen, Yüzen Arayüzü kullanmak için Uygulama Ayarlarından Substratum\'a \"kullanım erişimi\" ve \"diğer uygulamalar üzerinde görüntüle\" izinlerini verin!</string>
-    <string name="notification_overlay_found_specific" formatted="false">%s için bir tema %s!</string>
+    <string name="notification_overlay_found_specific" formatted="false">%s için bir tema mevcut - %s!</string>
     <string name="notification_overlay_found_description">Bu bildirimi tıklayarak temayı açabilirsiniz!</string>
     <string name="community_info_overlays">Temalar</string>
     <string name="community_info_bootanimation">Önyükleme Animasyonları</string>
@@ -599,6 +629,7 @@ sağlayan
     <string name="rom_status_supported">%s topluluğu tarafından desteklenmektedir!</string>
     <string name="rom_status_unsupported">bu rom topluluk tarafından desteklenmiyor!</string>
     <string name="rom_status_network">internet kontrolü gerekli&#8230;</string>
+    <!-- Notification channel -->
     <!-- Nav drawer -->
     <string name="nav_home">Tema paketleri</string>
     <string name="nav_overlays">Temalar</string>
@@ -634,6 +665,7 @@ sağlayan
     <string name="nav_troubleshooting">Sorun giderme</string>
     <!-- More -->
     <string name="nav_section_header_more">Daha fazla</string>
+    <string name="nav_team_contributors">Takım &amp; Katkıda Bulunanlar</string>
     <string name="nav_opensource">Lisanslar</string>
     <string name="nav_settings">Ayarlar</string>
     <string name="title_activity_manage_space">Depolama Alanını Yönet</string>

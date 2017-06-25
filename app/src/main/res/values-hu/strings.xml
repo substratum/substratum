@@ -46,6 +46,7 @@
     <string name="background_updated_toast_cancel">Ez a téma az erőforrás-gyorsítótárának frissítését kéri,
         mielőtt működhetne!
     </string>
+    <string name="background_updated_toast_rejected">Erőforrás-gyorsítótár létrehozása sikertelen ehhez a témához!</string>
     <string name="background_updated_toast_cleaning">Substratum most a téma erőforrás-gyorsítótárának
         tisztítását végzi&#8230;</string>
     <string name="failed_to_install_title_notification">OMS téma telepítése sikertelen</string>
@@ -305,6 +306,7 @@
     <string name="logcat_email_activity">Hibajelentés küldése ezzel&#8230;</string>
     <string name="logcat_email_activity_error">Nincs e-mail klines telepítve.</string>
     <string name="logcat_email_xposed_check">Xposed keretrendszer</string>
+    <string name="logcat_processing_dialog">Hibajelentés feldolgozása</string>
     <string name="priority_card_title">Dinamikus prioritási rendszer (DPS)</string>
     <string name="priority_card_content">A Dinamikus prioritási rendszer (DPS) egy speciális eljárás, amely lehetővé
         teszi a téma fedvények különböző prioritások szerinti csoportosítását, figyelmen kívül hagyva
@@ -340,6 +342,9 @@
     <string name="remove_dialog_later">Később</string>
     <string name="restore_dialog_cancel">Mégse</string>
     <string name="restore_dialog_okay">Folytatás</string>
+    <string name="restore_dialog_title">Ezek a fedvények kerülnek telepítésre a profija teljes
+        visszaállításához:
+    </string>
     <string name="backup_button">AKTUÁLIS ÁLLAPOT MENTÉSE</string>
     <string name="backup_no_overlays">Jelenleg nincsenek fedvények az aktuális beállításaiban.</string>
     <string name="restore_button">PROFIL VISSZAÁLLÍTÁSA</string>
@@ -394,6 +399,10 @@
     <string name="no_themes_title">nincsenek témák&#8230;</string>
     <string name="no_themes_description">kérjük telepítsen egy kompatibilis témát!</string>
     <string name="no_themes_description_search">\"%s\" a telepített témák listájában nem található&#8230;</string>
+    <string name="toast_samsung_prototype_one_overlay">Jelenleg csak egy fedvényt lehet kiválasztani egy időben.</string>
+    <string name="toast_samsung_prototype_restart">Kérjük, indítsa újra a készüléket, vagy lője ki a fedvényezett alkalmazását!</string>
+    <string name="toast_samsung_prototype_disabled">A substratum ezen verziója lejárt.\n\nKérjük, frissítse egy friss példányra!</string>
+    <string name="toast_samsung_prototype_alert">Substratum automatikusan elrejtette a készülékén nem támogatott rendszerfedvényeket!</string>
     <string name="toast_needs_caching">Substratum gyorsítótára törölve lett, építse újra ezt a témát, mielőtt folytatná!</string>
     <string name="notification_theme_installed">telepítve</string>
     <string name="notification_theme_updated">frissítve</string>
@@ -406,6 +415,8 @@
     <string name="notification_initial_title_upgrade">%s erőforrás frissítése folyamatban&#8230;</string>
     <string name="notification_done_title">Téma összeállítása befejezve</string>
     <string name="notification_done_upgrade_title">%s fedvény frissítése megtörtént!</string>
+    <string name="notification_done_upgrade_title_warning">Fedvény frissítés részben kész: %s!</string>
+    <string name="notification_done_upgrade_title_failed" formatted="false">Hiányzó vagy nem építhető konfiguráció:\n\n%s</string>
     <string name="notification_done_update_text">Az alkalmazás minden letiltott és engedélyezett fedvénye frissítésre került.</string>
     <string name="notification_done_upgrade_text">A téma minden letiltott és engedélyezett fedvénye frissítésre került.</string>
     <string name="notification_no_errors_found">Fedvények telepítése során nem lépett fel hiba</string>
@@ -426,7 +437,7 @@
     <string name="settings_title_1">Felhasználói beállítások</string>
     <string name="settings_title_2">Fedvénylista</string>
     <string name="settings_title_3">Témázás</string>
-    <string name="settings_title_clickable">Rendszer beállítások</string>
+    <string name="settings_title_clickable">Rendszerbeállítások</string>
     <string name="substratum_cache_clear_initial_toast">Substratum gyorsítótárának törlése folyamatban&#8230;</string>
     <string name="substratum_restart_toast">Substratum automatikusan újraindult a beállítások módosítása után.</string>
     <string name="purge_cache">Téma gyorsítótárának érvénytelenítése</string>
@@ -467,6 +478,23 @@
     <string name="fab_menu_enable">Kiválasztottak engedélyezése</string>
     <string name="fab_menu_swap_toggle">Más témák letiltása</string>
     <string name="fab_menu_swap_toggle_legacy">Összes létező eltávolítása</string>
+    <string name="team_title_one">Substratum Vezetői</string>
+    <string name="team_text_one">Nem csak létrehoztunk valamit, ami működik a felhasználók számára, hanem szorosan együttműködtünk a témafejlesztőkkel, hogy a Substratum egy csodálatos témakezelési-motorja legyen a közösségnek!</string>
+    <string name="team_title_two">Substratum Fordítók</string>
+    <string name="team_text_two">Hatalmas köszönet ezeknek fordítóknak, hogy a Substratum mindenkinek elérhető szerte a világon!</string>
+    <string name="team_button_two">Fordítók megjelenítése</string>
+    <string name="team_button_two_contribute">Hozzájárulás most!</string>
+    <string name="team_title_three">Substratum Közreműködők</string>
+    <string name="team_text_three">Milyen nagyszerű, amikor a közösség összejön és összefog, hogy egy olyan alkalmazást készítsen, ami mindannyiunk számára működik!</string>
+    <string name="team_button_three">Közreműködők megjelenítése</string>
+    <string name="team_title_four">Rétegek Közreműködők</string>
+    <string name="team_text_four">Ezek az emberek hozták létre korábban a Réteg-kezelőt és azóta rengeteg nagyszerű dolgot tettek, hogy a Substratum elkészüljön számunkra!</string>
+    <string name="team_button_four">Közreműködők megjelenítése</string>
+    <string name="team_nicholas_description">Fejlesztés koordinátor</string>
+    <string name="team_syko_description">Rendszer kutató</string>
+    <string name="team_ivan_description">Platform és Funkciók</string>
+    <string name="team_surge_description">Binárisok és Algoritmusok</string>
+    <string name="team_char_description">Közösség szervezése és Támogatás</string>
     <string name="slide_1_title">üdvözli a substratum</string>
     <string name="slide_1_text">egy minimális, mégis erős témamotor a Sony fedvény kezelő szolgáltatása alapján</string>
     <string name="slide_2_title">egy teljesen új felhasználói felület</string>
@@ -524,6 +552,7 @@
     <string name="settings_system_status">Rendszer tanúsítvány</string>
     <string name="settings_system_status_rooted">Rootolt mód</string>
     <string name="settings_system_status_rootless">Root nélküli mód</string>
+    <string name="settings_system_status_samsung">Samsung mód</string>
     <string name="settings_system_status_certified">Hitelesített</string>
     <string name="settings_system_status_uncertified">Nem hitelesített</string>
     <string name="settings_title_automation">Automatizálás</string>
@@ -539,6 +568,7 @@
     <string name="settings_force_english_text">Ez arra kényszeríti az alkalmazást, hogy az angol nyelvet használja.</string>
     <string name="settings_force_english_toast_reverted">Angol kényszerítése sikeresen kikapcsolva!</string>
     <string name="settings_manage_space_title">Tárhely használat kezelése</string>
+    <string name="settings_samsung_show_dangerous_overlays_warning_title">FIGYELMEZTETÉS</string>
     <string name="settings_theme_caching_title">Téma erőforrások gyorsítótárazása</string>
     <string name="settings_theme_caching_text">Minden téma eszköz-erőforrása a gyorsítótár könyvtárba kerül kibontásra.</string>
     <string name="settings_theme_caching_found_snackbar">Megtalálta a rejtett erőforrás-gyorsítótárazó funkciót!</string>
@@ -591,8 +621,9 @@
     <string name="app_crash_content">A program letiltotta ezen alkalmazás összes engedélyezett fedvényét.</string>
     <string name="rom_status">Támogatás állapota:</string>
     <string name="rom_status_supported">%s a közösség által támogatott!</string>
-    <string name="rom_status_unsupported">ez a rom, nem támogatott a közösség által!</string>
+    <string name="rom_status_unsupported">ez a rom nem támogatott a közösség által!</string>
     <string name="rom_status_network">internetes ellenőrzés szükséges&#8230;</string>
+    <!-- Notification channel -->
     <!-- Nav drawer -->
     <string name="nav_home">Témacsomagok</string>
     <string name="nav_overlays">Fedvények</string>
@@ -628,6 +659,7 @@
     <string name="nav_troubleshooting">Hibaelhárítás</string>
     <!-- More -->
     <string name="nav_section_header_more">Továbbiak</string>
+    <string name="nav_team_contributors">Csapat és Közreműködők</string>
     <string name="nav_opensource">Licencek</string>
     <string name="nav_settings">Beállítások</string>
     <string name="title_activity_manage_space">Tárhely használat kezelése</string>

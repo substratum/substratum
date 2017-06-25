@@ -51,14 +51,12 @@
     <string name="systemui_navigation">Barra di navigazione</string>
     <string name="systemui_qs_tiles">Icone delle impostazioni rapide</string>
     <string name="systemui_statusbar">Icone della barra di stato</string>
-    <string name="tbo_description">Questo tema supporta le Theme Ready gapps del Team Black Out, se non le hai, puoi cliccare su Download per essere reindirizzato alla loro discussione su XDA, o su Cancella se le hai già installate!    </string>
-    <string name="two_description">Questo tema supporta le app stock di Google, così come sono state create!
-        Se hai installato le App Google del Team BlackOut non hai bisogno di rimuoverle,
-        ma non sono comunque richieste per questo tema!    </string>
+    <string name="tbo_description">Questo tema supporta le cosiddette theme ready app Google del team Black Out, se non le possiedi, puoi premere su Scarica per essere reindirizzato alla loro discussione su XDA, o su Annulla se le possiedi di già!    </string>
+    <string name="two_description">Questo tema supporta le app stock di Google, così come sono state create! Se possiedi le theme ready app Google non è necessario che tu le rimuova, ma non sono comunque richieste per questo tema!    </string>
     <string name="tbo_dialog_proceed">Scarica</string>
     <string name="warning_title">ATTENZIONE!</string>
-    <string name="dangerous_warning_content">Substratum ha rilevato che il FIRMWARE CAUSA BOOTLOOP (aggiornamento tra novembre 2016 e gennaio 2017, N/N MR1), e sconsiglia caldamente di applicare ogni overlay di framework/Sistema Android. \n\n Se scegli di continuare e concludere in un bootloop, per favore installa l\'archivio di recupero che si trova in \"/storage/emulated/0/substratum/\".    </string>
-    <string name="legacy_warning_content">Legacy è fornito così com\'è, non possiamo garantire la piena compatibilità con i colori. Assicurati di avere una custom recovery per il tuo dispositivo e di sapere come ripristinare da un bootloop prima di procedere.\n\nNoi non possiamo sistemare le cose che non vengono temate in Legacy mode perché richiedono modifiche di sistema.    </string>
+    <string name="dangerous_warning_content">Substratum ha rilevato che il firmware correntemente installato è noto per alcuni bootloop che potrebbero verificarsi (aggiornamento tra novembre 2016 e gennaio 2017, N/N-MR1) pertanto si sconsiglia l\'applicazione di qualsiasi overlay riguardante il framework/Sistema Android.\n\nNel caso scegliessi di continuare e riscontrassi un bootloop, per favore installa l\'archivio di recupero reperibile in \"/storage/emulated/0/substratum/\".    </string>
+    <string name="legacy_warning_content">Legacy è fornito così com\'è poiché non possiamo garantire la piena compatibilità con i colori. Assicurati di avere una custom recovery per il tuo dispositivo e di essere in grado di ripristinare il suo funzionamento in caso di bootloop prima di procedere.\n\nNoi non possiamo riparare le cose che non vengono temate nella modalità legacy perché richiedono modifiche di sistema.    </string>
     <string name="legacy_dialog_soft_reboot_title">Riavvio necessario!</string>
     <string name="legacy_dialog_soft_reboot_text">Stai usando il sistema che si basa sul Resource Runtime Overlay, è necessario effettuare un riavvio dopo aver aggiunto o dopo aver rimosso degli overlays. \n Confermando  questo dialogo riavvierai automaticamente il tuo telefono, per favore assicurati di aver salvato il tuo lavoro prima di continuare!    </string>
     <string name="activity_missing_toast">Non sono state trovate applicazioni che possano occuparsi di questa richiesta, scusa!    </string>
@@ -236,6 +234,7 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="logcat_email_activity">Manda la segnalazione di bug usando &amp;#8230</string>
     <string name="logcat_email_activity_error">Non c\'è nessuno client di posta installato.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
+    <string name="logcat_processing_dialog">Elaborazione report errori</string>
     <string name="priority_card_title">Sistema di priorità dinamica (DPS)</string>
     <string name="priority_card_content">Il Dynamic Priority System è una procedura avanzata che permette agli overlays del tema di essere organizzati con differenti priorità, ignorando le priorità OMS applicate di default per il sistema.\n\nUn esempio di questo è il voler posizionare un overlay su un altro overlay per una stessa specifica applicazione.\n\nCon l\'introduzione dell\'Overlay Manager Service, le priorità sono state invertite, e l\'overlay principale si trova nell\'ultima posizione di ogni lista.    </string>
     <string name="priority_card_title2">Istruzioni</string>
@@ -255,6 +254,9 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="remove_dialog_later">Più tardi</string>
     <string name="restore_dialog_cancel">Cancella</string>
     <string name="restore_dialog_okay">Continua</string>
+    <string name="restore_dialog_title">Questi overlays saranno installari per ripristinare completamente
+        il tuo profilo:
+    </string>
     <string name="backup_button">FAI IL BACKUP DELLO STATO CORRENTE</string>
     <string name="backup_no_overlays">Non ci sono overlays nella tua configurazione attuale.</string>
     <string name="restore_button">RIPRISTINA PROFILO</string>
@@ -297,6 +299,8 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="no_themes_title">nessun tema trovato&#8230;</string>
     <string name="no_themes_description">Per favore installa un tema compatibile!</string>
     <string name="no_themes_description_search">\"%s\" non è stato trovato nell\'elenco dei temi installati&#8230;</string>
+    <string name="toast_samsung_prototype_disabled">Questa versione di Substratum è obsoleta.\n\nPer favore, aggiorna l\'app all\'ultima versione disponibile!</string>
+    <string name="toast_samsung_prototype_alert">Substratum ha nascosto automaticamente gli overlay di sistema non supportati dal tuo dispositvo!</string>
     <string name="toast_needs_caching">La cache di substratum è stata cancellata, per favore ricompila il tema prima di continuare!</string>
     <string name="notification_theme_installed">Installato</string>
     <string name="notification_theme_updated">Aggiornato</string>
@@ -309,6 +313,8 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="notification_initial_title_upgrade">%s le sorgenti si stanno ora aggiornando&#8230;</string>
     <string name="notification_done_title">La compilazione del tema è stata completata</string>
     <string name="notification_done_upgrade_title">Aggiornamento overlay di %s è stato completato!</string>
+    <string name="notification_done_upgrade_title_warning">Aggiornamento overlays parzialmente completato al %s!</string>
+    <string name="notification_done_upgrade_title_failed" formatted="false">Configurazione mancante o non applicabile:\n\n%s</string>
     <string name="notification_done_update_text">Tutti gli overlay, abilitati e disabilitati, per questa applicazione sono stati aggiornati.</string>
     <string name="notification_done_upgrade_text">Tutti gli overlay, abilitati e disabilitati, per questo tema sono stati aggiornati.</string>
     <string name="notification_no_errors_found">Nessun errore mentre installo qualsiasi overlays</string>
@@ -366,6 +372,23 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="fab_menu_enable">Abilita selezionati</string>
     <string name="fab_menu_swap_toggle">Disabilita gli altri temi</string>
     <string name="fab_menu_swap_toggle_legacy">Rimuovi tutti gli esistenti</string>
+    <string name="team_title_one">Leader Substratum</string>
+    <string name="team_text_one">Non solo abbiamo creato qualcosa che funzioni per gli utenti, ma abbiamo anche lavorato in congiunzione coi themer per renderlo un meraviglioso gestore temi per la community!</string>
+    <string name="team_title_two">Traduttori Substratum</string>
+    <string name="team_text_two">Un immenso ringraziamento a tutti i traduttori per aver portato Substratum a tutti nel mondo!</string>
+    <string name="team_button_two">Visualizza Traduttori</string>
+    <string name="team_button_two_contribute">Contribuisci ora!</string>
+    <string name="team_title_three">Collaboratori Substratum</string>
+    <string name="team_text_three">È bellissimo quando la community si unisce e crea qualcosa che funzioni per tutti noi!</string>
+    <string name="team_button_three">Visualizza collaboratori</string>
+    <string name="team_title_four">Collaboratori Layers</string>
+    <string name="team_text_four">Queste persone hanno portato Layers Manager nel passato e hanno continuato a fare grandi cose per rendere Substratum pronto per noi!</string>
+    <string name="team_button_four">Visualizza collaboratori</string>
+    <string name="team_nicholas_description">Coordinatore Sviluppo</string>
+    <string name="team_syko_description">Ricercatori</string>
+    <string name="team_ivan_description">Caratteristiche &amp; Piattaforma</string>
+    <string name="team_surge_description">Binari &amp; Algoritmi</string>
+    <string name="team_char_description">Community &amp; Supporto</string>
     <string name="slide_1_title">Benvenuto in substratum</string>
     <string name="slide_1_text">un minimale ma potente motore per i temi basato sull\'Overlay Manager Service di Sony</string>
     <string name="slide_2_title">una marca della nuova interfaccia utente</string>
@@ -399,6 +422,7 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="profile_failed_notification">Applicazione profilo fallita&#8230;</string>
     <string name="profile_failed_info_notification">Tocco per ulteriori informazioni</string>
     <string name="profile_compile_progress" formatted="false">Compliazione %d di %d:\n%s</string>
+    <string name="profile_compile_processing">Elaborazione degli overlays salvati&#8230;</string>
     <string name="theme_debug_mode_title">System Fallback Interjection Bypass</string>
     <string name="theme_debug_mode_summary">Questo fermerà l\'app da utilizzare il meccanismo di fallback del compilatore legacy per aiutare i temi quando raggiungono uno stato irrecuperabile.</string>
     <string name="break_compilation_dialog_title">ATTENZIONE</string>
@@ -421,14 +445,23 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="settings_system_status">Certificazione sistema</string>
     <string name="settings_system_status_rooted">Modalità root</string>
     <string name="settings_system_status_rootless">Modalità rootless</string>
+    <string name="settings_system_status_samsung">Modalità Samsung</string>
     <string name="settings_system_status_certified">Certificato</string>
     <string name="settings_system_status_uncertified">Non certificato</string>
     <string name="settings_title_automation">Automazione</string>
+    <string name="settings_auto_updater_title">Aggiornare automaticamente gli overlays selezionati</string>
+    <string name="settings_auto_updater_text">Substratum automaticamente costruirà, compilerà e installerà una versione aggiornata di tutti gli overlays per le app recentemente aggiornate. Disattivando questa opzione risparmierai batteria.</string>
+    <string name="settings_theme_auto_updater_title">Aggiorna automaticamente overlays tema (BETA)</string>
     <string name="settings_theme_auto_updater_dialog_title">ATTENZIONE</string>
+    <string name="settings_theme_auto_updater_text">Substratum automaticamente costruirà, compilerà e installerà una versione aggiornata di tutti gli overlays per il tema appena aggiornato. Disattivando questa opzione risparmierai batteria.</string>
+    <string name="settings_theme_auto_updater_dialog_text">Si prega di verificare che PackageInstaller non sia aperto in primo piano in presenza della notifica dal momento che potrebbe essere riavviato dagli overlay del framework provocando così un\'indefinita successione di tentativi di compilazione!</string>
+    <string name="settings_auto_alert_title">Nuovo overlay installabile trovato</string>
+    <string name="settings_auto_alert_text">Quando viene installata per la prima volta una nuova applicazione se per essa esiste un tema verrà mostrata una notifica.</string>
     <string name="settings_force_english_title">Forza la lingua inglese</string>
     <string name="settings_force_english_text">Questo forzerà l\'applicazione ad usare la lingua inglese.</string>
     <string name="settings_force_english_toast_reverted">Lingua inglese disattivata con successo!</string>
     <string name="settings_manage_space_title">Gestire l\'utilizzo memoria</string>
+    <string name="settings_samsung_show_dangerous_overlays_warning_title">ATTENZIONE</string>
     <string name="settings_theme_caching_title">Cache Theme Resources</string>
     <string name="settings_theme_caching_text">Tutte le risorse delle attività del tema verrano estratte nella cartella cache.</string>
     <string name="settings_theme_caching_found_snackbar">Hai appena scoperto la modalità di caching risorse segreta!</string>
@@ -448,6 +481,8 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="per_app_draw_over_other_apps_request">Si prega di concedere a substratum le autorizzazioni \"disegno sopra altre applicazioni\" per l\'interfaccia utente mobile e \"Statistiche di utilizzo\" per accedere alle applicazioni in primo piano per far corrispondere i target dei temi.</string>
     <string name="per_app_usage_stats_request">Si prega di concedere a substratum l\'autorizzazione \"utilizzo\" di accesso per accedere all\'app in primo piano per far corrispondere i target dei temi.</string>
     <string name="per_app_manual_grant">Per favore concedi manualmente le autorizzazioni a substratum di \"accesso di utilizzo\" e \"disegnare sopra altre applicazioni\" nelle impostazioni di App per usare FloatUI!</string>
+    <string name="notification_overlay_found_specific" formatted="false">Un overlay per %s è in %s!</string>
+    <string name="notification_overlay_found_description">Puoi aprire il tema premendo su questa notifica!</string>
     <string name="community_info_overlays">Overlays</string>
     <string name="community_info_bootanimation">Animazione d\'avvio</string>
     <string name="community_info_fonts">Tipi di carattere</string>
@@ -481,6 +516,7 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="rom_status_supported">%s è supportato dalla community!</string>
     <string name="rom_status_unsupported">questa rom non è supportata dalla community!</string>
     <string name="rom_status_network">richiesta connessione internet&#8230;</string>
+    <!-- Notification channel -->
     <!-- Nav drawer -->
     <string name="nav_home">Pacchetti Temi</string>
     <string name="nav_overlays">Overlays</string>
@@ -516,6 +552,7 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="nav_troubleshooting">Risoluzione dei problemi</string>
     <!-- More -->
     <string name="nav_section_header_more">Altro</string>
+    <string name="nav_team_contributors">Team &amp; collaboratori</string>
     <string name="nav_opensource">Licenze</string>
     <string name="nav_settings">Impostazioni</string>
     <string name="title_activity_manage_space">Gestire l\'utilizzo memoria</string>

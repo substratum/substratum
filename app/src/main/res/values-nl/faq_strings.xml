@@ -19,11 +19,11 @@
   -->
 <resources>
     <string name="question_one">Wat is Substratum?</string>
-    <string name="answer_one">Substratum is een app die gebruik maakt van Sony\'s Overlay Manager Service (OMS). Dit is gelijkaardig aan Layers in termen van stabiliteit en aanpasbaarheid (gezien het gebaseerd is op RRO) maar beschikt over functies als toepassen zonder herstarten, opstartanimaties, lettertypen en prioriteitselectie.</string>
+    <string name="answer_one">Substratum is een app die gebruik maakt van Sony\'s Overlay Manager Service (OMS). Dit is gelijkaardig aan Layers in termen van stabiliteit en aanpasbaarheid (gezien het gebaseerd is op RRO), maar beschikt over functies als toepassen zonder herstarten, opstartanimaties, lettertypen en prioriteitselectie.</string>
     <string name="question_two">Wat is de Thema Interfacer?</string>
-    <string name="answer_two">De Thema Interfacer is de basis van wat Substratum toelaat om te functioneren als een Thema Dienst. Het idee van een interface is om de \"server/client\" techniciteit te simuleren. Substratum communiceert met de Interface handelaars om commando\'s direct naar het systeem te signaleren.</string>
+    <string name="answer_two">De Thema Interfacer is de basis van wat Substratum toestaat om te fungeren als Thema Dienst. Het idee van een interface is om de \"server/client\" techniciteit te simuleren. Substratum communiceert met de Interface handelaars om commando\'s direct aan het systeem te signaleren.</string>
     <string name="question_three">Wat heb ik nodig om Substratum naar behoren te doen functioneren?</string>
-    <string name="answer_three">Je zal een ROM nodig hebben die ondersteuning biedt voor het OMS en Theme Interfacer (vraag de ontwikkelaars, zij weten het), deze app, en een compatibel thema (bekijk de Play Store omschrijving of vraag de ontwikkelaar)</string>
+    <string name="answer_three">Je zal een ROM nodig hebben die ondersteuning biedt voor het OMS en Thema Interfacer (vraag de ontwikkelaars, zij weten dit), deze app, en een compatibel thema (bekijk de Play Store omschrijving of vraag de ontwikkelaar)</string>
     <string name="question_four">Kan ik gebruik maken van Substratum, ook al biedt mijn ROM geen ondersteuning voor OMS?</string>
     <string name="answer_four">Ja, als je ROM ondersteuning biedt voor RRO (standaard Marshmallow valt onder deze categorie). De andere bovenstaande benodigdheden zijn hetzelfde (root, deze app, en een compatibel thema). Je zal op dezelfde manier toepassen, maar de compilatie en toepassingsstappen zijn gecombineerd en een herstart is benodigd om de overlays toe te passen.</string>
     <string name="question_five">Hoe pas ik een thema toe?</string>

@@ -126,7 +126,7 @@
     <string name="library_floatingview_authorWebsite">http://engineer.recruit-lifestyle.co.jp/</string>
     <!-- Library section -->
     <string name="library_floatingview_libraryName">Fliegende Ansichten</string>
-    <string name="library_floatingview_libraryDescription">Eine Android Bibliothek, die fliegende Ansichten wie die Facebook \"Chatsymbole\" in die \"Open Source\" Gemeinschaft bringen will.</string>
+    <string name="library_floatingview_libraryDescription">Eine Android Bibliothek, die fliegende Ansichten wie die Facebook \"Chatsymbole\" in die \"Open Source\" Community bringen will.</string>
     <string name="library_floatingview_libraryWebsite">https://github.com/recruit-lifestyle/FloatingView/</string>
     <string name="library_floatingview_libraryVersion">2.2</string>
     <!-- OpenSource section -->

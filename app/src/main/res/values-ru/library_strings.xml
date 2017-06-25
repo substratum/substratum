@@ -41,7 +41,7 @@
     <!-- Author section -->
     <!-- Library section -->
     <string name="library_gesturerecycler_libraryDescription">Библиотека, обеспечивающая поддержку drag
-        and drop для RecyclerView.
+        and drop в RecyclerView.
     </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->

@@ -46,6 +46,7 @@ import projekt.substratum.common.tabs.WallpaperManager;
 import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static projekt.substratum.common.References.PACKAGE_FULLY_REMOVED;
+import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.SUBSTRATUM_ICON_STUDIO_CACHE;
 import static projekt.substratum.common.References.metadataIconPackParent;
@@ -60,6 +61,13 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
         if (PACKAGE_FULLY_REMOVED.equals(intent.getAction())) {
             Uri packageName = intent.getData();
             String package_name = packageName.toString().substring(8);
+
+            if (package_name.equals(SST_ADDON_PACKAGE)) {
+                SharedPreferences prefs =
+                        context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
+                prefs.edit().clear().apply();
+                References.sendKillMessage(context);
+            }
 
             if (!package_name.endsWith(".icon")) References.sendRefreshManagerMessage(context);
 

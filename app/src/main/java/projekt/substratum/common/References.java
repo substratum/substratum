@@ -1682,6 +1682,13 @@ public class References {
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
+    public static void sendKillMessage(Context context) {
+        Log.d("SubstratumKiller",
+                "A crucial action has been conducted by the user and Substratum is now shutting down!");
+        Intent intent = new Intent("MainActivity.KILL");
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+    }
+
     public static void sendRefreshMessage(Context context) {
         Log.d("ThemeFragmentRefresher",
                 "A theme has been modified, sending update signal to refresh the list!");

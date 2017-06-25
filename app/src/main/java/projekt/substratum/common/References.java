@@ -419,6 +419,7 @@ public class References {
     }
 
     public static boolean selfDisabler(Context context) {
+        if (isPackageInstalled(context, SST_ADDON_PACKAGE)) return false;
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.CANADA);
             Date disabled = DateUtil.addDays(SELF_DISABLER_DATE);

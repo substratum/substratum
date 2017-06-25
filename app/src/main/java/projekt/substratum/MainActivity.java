@@ -116,6 +116,7 @@ import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_MISSING_TARGET;
 import static projekt.substratum.common.References.BYPASS_ALL_VERSION_CHECKS;
 import static projekt.substratum.common.References.ENABLE_ROOT_CHECK;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
+import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.References.checkUsagePermissions;
@@ -1170,7 +1171,10 @@ public class MainActivity extends SubstratumActivity implements
             MainActivity activity = ref.get();
             Context context = activity.getApplicationContext();
 
-            if (References.selfDisabler(context) ||
+            // Ignore root if the device is Samsung
+            boolean samsungCheck = References.isSamsungDevice(context) &&
+                    !References.isPackageInstalled(context, SST_ADDON_PACKAGE);
+            if (samsungCheck || !References.selfDisabler(context) ||
                     (!result &&
                             !References.isSamsung(context) &&
                             ENABLE_ROOT_CHECK && !BYPASS_ALL_VERSION_CHECKS &&

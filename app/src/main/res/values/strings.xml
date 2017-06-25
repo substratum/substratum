@@ -126,6 +126,12 @@
         cannot fix things that are not getting themed on legacy because they require system side
         changes.
     </string>
+    <string name="samsung_warning_content">Samsung support is provided as-is as we cannot guarantee
+        full compatibility with colors and AOSP-built overlays. We have taken the care of hiding
+        the dangerous overlays for your device, but you can toggle this off manually in settings
+        at your own discretion.\n\nIf at any case you reach an issue with a possible black screen,
+        please consult our XDA thread on the two methods of recovery.
+    </string>
 
     <string name="legacy_dialog_soft_reboot_title">Reboot required!</string>
     <string name="legacy_dialog_soft_reboot_text">Running on the Resource Runtime Overlay system, it

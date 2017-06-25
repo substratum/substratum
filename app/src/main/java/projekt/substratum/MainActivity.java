@@ -734,18 +734,22 @@ public class MainActivity extends SubstratumActivity implements
 
                         if (!References.checkOMS(getApplicationContext()) &&
                                 !prefs.contains("legacy_dismissal")) {
-                            new AlertDialog.Builder(this)
-                                    .setTitle(R.string.warning_title)
-                                    .setMessage(R.string.legacy_warning_content)
-                                    .setPositiveButton(R.string.dialog_ok, (dialog2, i2) ->
-                                            dialog2.cancel())
-                                    .setNeutralButton(R.string.dialog_do_not_show_again,
-                                            (dialog3, i3) -> {
-                                                prefs.edit().putBoolean(
-                                                        "legacy_dismissal", true).apply();
-                                                dialog3.cancel();
-                                            })
-                                    .show();
+                            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                            alert.setTitle(R.string.warning_title);
+                            if (References.isSamsung(getApplicationContext())) {
+                                alert.setMessage(R.string.samsung_warning_content);
+                            } else {
+                                alert.setMessage(R.string.legacy_warning_content);
+                            }
+                            alert.setPositiveButton(R.string.dialog_ok, (dialog2, i2) ->
+                                    dialog2.cancel());
+                            alert.setNeutralButton(R.string.dialog_do_not_show_again,
+                                    (dialog3, i3) -> {
+                                        prefs.edit().putBoolean(
+                                                "legacy_dismissal", true).apply();
+                                        dialog3.cancel();
+                                    });
+                            alert.show();
                         }
 
                         if (!References.checkOMS(getApplicationContext()) &&
@@ -775,16 +779,22 @@ public class MainActivity extends SubstratumActivity implements
 
             if (!References.checkOMS(getApplicationContext()) &&
                     !prefs.contains("legacy_dismissal")) {
-                new AlertDialog.Builder(this)
-                        .setTitle(R.string.warning_title)
-                        .setMessage(R.string.legacy_warning_content)
-                        .setPositiveButton(R.string.dialog_ok, (dialog, i) -> dialog.cancel())
-                        .setNeutralButton(R.string.dialog_do_not_show_again,
-                                (dialog, i) -> {
-                                    prefs.edit().putBoolean("legacy_dismissal", true).apply();
-                                    dialog.cancel();
-                                })
-                        .show();
+                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                alert.setTitle(R.string.warning_title);
+                if (References.isSamsung(getApplicationContext())) {
+                    alert.setMessage(R.string.samsung_warning_content);
+                } else {
+                    alert.setMessage(R.string.legacy_warning_content);
+                }
+                alert.setPositiveButton(R.string.dialog_ok, (dialog2, i2) ->
+                        dialog2.cancel());
+                alert.setNeutralButton(R.string.dialog_do_not_show_again,
+                        (dialog3, i3) -> {
+                            prefs.edit().putBoolean(
+                                    "legacy_dismissal", true).apply();
+                            dialog3.cancel();
+                        });
+                alert.show();
             }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && !References.checkOMS(

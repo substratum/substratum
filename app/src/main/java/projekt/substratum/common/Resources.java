@@ -73,9 +73,29 @@ public class Resources {
     };
 
     // Debug Keys
-    static final int[] ANDROID_STUDIO_DEBUG_KEYS = {
+    public static final int[] ANDROID_STUDIO_DEBUG_KEYS = {
             -391541258, // nicholaschum
             1897721985, // Telegram Build Bot
+
+            // Insert Release Keys Available for the build
+            236782367, // Release
+            326894784, // Release
+            637743013, // Release
+            768578887, // Release
+            827197839, // Release
+            783927894, // Release
+            162367398, // Release
+            345155151, // Release
+            783927894, // Release
+            168853322, // Release
+            234236563, // Release
+            976864848, // Release
+            678329548, // Release
+            948595891, // Release
+            167891490, // Release
+            609820436, // Release
+            387945779, // Release
+            815479991, // Release
     };
 
 }

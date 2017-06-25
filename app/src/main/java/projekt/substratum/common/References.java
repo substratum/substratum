@@ -32,6 +32,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.FeatureInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -152,6 +153,9 @@ public class References {
     public static final String INTERFACER_SERVICE = INTERFACER_PACKAGE + ".services.JobService";
     @Deprecated
     public static final String MASQUERADE_PACKAGE = "masquerade.substratum";
+    // Samsung package names
+    public static final String SST_ADDON_PACKAGE = "projekt.sungstratum";
+    public static final String PLAY_STORE_PACKAGE_NAME = "com.android.vending";
     // Specific intent for receiving completion status on backend
     public static final String INTERFACER_BINDED = INTERFACER_PACKAGE + ".INITIALIZE";
     public static final String STATUS_CHANGED = INTERFACER_PACKAGE + ".STATUS_CHANGED";
@@ -604,7 +608,6 @@ public class References {
                         "iteration of the Resource Runtime Overlay system...");
             }
         } catch (Exception e) {
-            e.printStackTrace();
             prefs.edit().putBoolean("oms_state", false).apply();
             prefs.edit().putInt("oms_version", 0).apply();
             Log.d(SUBSTRATUM_LOG, "Initializing Substratum with the second " +
@@ -1523,6 +1526,26 @@ public class References {
         return sigs;
     }
 
+    @SuppressLint("PackageManagerGetSignatures")
+    private static Signature getSelfSignaturePackage(Context context,
+                                                     String packageName) {
+        Signature[] sigs = new Signature[0];
+        try {
+            sigs = context.getPackageManager().getPackageInfo(
+                    packageName,
+                    PackageManager.GET_SIGNATURES
+            ).signatures;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return sigs[0];
+    }
+
+    public static int sigChecker(Context context, String packageName) {
+        Signature signature = getSelfSignaturePackage(context, packageName);
+        return signature.hashCode();
+    }
+
     public static int hashPassthrough(Context context) {
         if (hashValue != 0) {
             return hashValue;
@@ -1825,11 +1848,30 @@ public class References {
     // Check if the system is of the Samsung variant
     public static boolean isSamsung(Context context) {
         if (FORCE_SAMSUNG_VARIANT) return true;
-        boolean isTouchWiz = context.getPackageManager().hasSystemFeature("touchwiz");
-        boolean sungstratungPresent = context
-                .getSharedPreferences("substratum_state", Context.MODE_PRIVATE)
-                .getBoolean("sungstratung", false);
-        return isTouchWiz && sungstratungPresent;
+        boolean isTouchWiz = isSamsungDevice(context);
+        if (!isTouchWiz) return false;
+
+        SharedPreferences prefs =
+                context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
+
+        boolean debuggingValue = prefs.getBoolean("sungstratum_debug", true);
+        boolean hashBoolValue = prefs.getBoolean("sungstratum_hash", false);
+        boolean evaluatedResponse = prefs.getBoolean("sungstratum", false);
+        boolean installer = prefs.getBoolean("sungstratum_installer", false);
+
+        boolean sungstratumPresent = !debuggingValue;
+        sungstratumPresent &= !hashBoolValue;
+        sungstratumPresent &= evaluatedResponse;
+        sungstratumPresent &= installer;
+        return sungstratumPresent;
+    }
+
+    // Check if the system is of the Samsung variant
+    public static boolean isSamsungDevice(Context context) {
+        if (FORCE_SAMSUNG_VARIANT) return true;
+        List<String> listOfFeatures =
+                Arrays.asList(context.getPackageManager().getSystemSharedLibraryNames());
+        return listOfFeatures.contains("touchwiz");
     }
 
     // Check if theme is Samsung supported

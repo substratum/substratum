@@ -39,6 +39,9 @@ import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.common.References;
 
+import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
+import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
+import static projekt.substratum.common.Resources.ANDROID_STUDIO_DEBUG_KEYS;
 import static projekt.substratum.common.analytics.PackageAnalytics.isLowEnd;
 
 public class SplashScreenActivity extends Activity {
@@ -122,8 +125,8 @@ public class SplashScreenActivity extends Activity {
         @Override
         protected void onPreExecute() {
             SplashScreenActivity activity = ref.get();
-            if (References.isSamsung(activity) &&
-                    References.isPackageInstalled(activity, "projekt.sungstratum")) {
+            if (References.isSamsungDevice(activity) &&
+                    References.isPackageInstalled(activity, SST_ADDON_PACKAGE)) {
                 activity.materialProgressBar.setVisibility(View.VISIBLE);
             }
         }
@@ -132,10 +135,10 @@ public class SplashScreenActivity extends Activity {
         protected Void doInBackground(Void... voids) {
             Context context = ref.get().getApplicationContext();
             editor = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE).edit();
-            editor.remove("sungstratung").apply();
+            editor.clear().apply();
 
-            if (!References.isSamsung(context) ||
-                    !References.isPackageInstalled(context, "projekt.sungstratum")) {
+            if (!References.isSamsungDevice(context) ||
+                    !References.isPackageInstalled(context, SST_ADDON_PACKAGE)) {
                 return null;
             }
 
@@ -168,7 +171,9 @@ public class SplashScreenActivity extends Activity {
             ref.get().launch();
         }
 
+        @SuppressWarnings("ConstantConditions")
         class KeyRetrieval extends BroadcastReceiver {
+            @SuppressWarnings("UnusedAssignment")
             @Override
             public void onReceive(Context context, Intent intent) {
                 securityIntent = intent;
@@ -176,10 +181,25 @@ public class SplashScreenActivity extends Activity {
                 if (securityIntent != null) {
                     int hash = securityIntent.getIntExtra("app_hash", 0);
                     boolean debug = securityIntent.getBooleanExtra("app_debug", true);
+                    String installer = securityIntent.getStringExtra("app_installer");
 
-                    if (hash == 637743013 && !debug) {
-                        editor.putBoolean("sungstratung", true).apply();
+                    boolean itbf = true;
+                    for (int ANDROID_STUDIO_DEBUG_KEY : ANDROID_STUDIO_DEBUG_KEYS) {
+                        if ((ANDROID_STUDIO_DEBUG_KEY++ +
+                                ++ANDROID_STUDIO_DEBUG_KEY -
+                                --ANDROID_STUDIO_DEBUG_KEY
+                                - 1) == hash) {
+                            editor.putBoolean("sungstratum", true).apply();
+                            itbf = !itbf;
+                            break;
+                        }
                     }
+                    editor.putBoolean("sungstratum_debug", debug).apply();
+
+                    editor.putBoolean("sungstratum_hash", itbf).apply();
+
+                    editor.putBoolean("sungstratum_installer",
+                            installer.equals(PLAY_STORE_PACKAGE_NAME)).apply();
                 }
             }
         }

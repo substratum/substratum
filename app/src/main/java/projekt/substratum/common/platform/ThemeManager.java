@@ -204,7 +204,15 @@ public class ThemeManager {
                     if (line.startsWith(prefix)) {
                         String packageName = line.substring(4);
                         if (References.isPackageInstalled(context, packageName)) {
-                            list.add(packageName);
+                            try {
+                                String sourceDir = context.getPackageManager()
+                                        .getApplicationInfo(packageName, 0).sourceDir;
+                                if (!sourceDir.startsWith("/vendor/overlay/")) {
+                                    list.add(packageName);
+                                }
+                            } catch (Exception ee) {
+                                // Package not found blabla
+                            }
                         }
                     }
                 }

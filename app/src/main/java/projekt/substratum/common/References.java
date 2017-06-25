@@ -1485,8 +1485,9 @@ public class References {
     public static boolean isAuthorizedDebugger(Context context) {
         Signature[] self = getSelfSignature(context);
         int[] authorized = Resources.ANDROID_STUDIO_DEBUG_KEYS;
+        boolean isDebuggable = isPackageDebuggable(context, context.getPackageName());
         for (int anAuthorized : authorized) {
-            if (anAuthorized == self[0].hashCode()) {
+            if (anAuthorized == self[0].hashCode() && isDebuggable) {
                 Log.d(SUBSTRATUM_LOG,
                         "Setting up environment for an authorized developer.");
                 return true;

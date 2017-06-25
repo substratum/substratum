@@ -718,7 +718,7 @@ public class InformationActivity extends SubstratumActivity {
             menu.findItem(R.id.restart_systemui).setVisible(false);
         }
         if (isOMS || isSamsung(getApplicationContext())) {
-            menu.findItem(R.id.clean).setVisible(false);
+            if (isSamsung(getApplicationContext())) menu.findItem(R.id.clean).setVisible(false);
             menu.findItem(R.id.reboot_device).setVisible(false);
             menu.findItem(R.id.soft_reboot).setVisible(false);
             menu.findItem(R.id.uninstall).setVisible(false);

@@ -24,6 +24,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -55,6 +56,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -1151,7 +1153,27 @@ public class MainActivity extends SubstratumActivity implements
                 TextView titleView = activity.mProgressDialog.findViewById(R.id.title);
                 TextView textView = activity.mProgressDialog.findViewById(R.id.timer);
 
-                if (References.selfDisabler(context)) {
+                if (References.isSamsungDevice(context)) {
+                    TextView samsungTitle =
+                            activity.mProgressDialog.findViewById(R.id.sungstratum_title);
+                    samsungTitle.setVisibility(View.VISIBLE);
+                    Button samsungButton =
+                            activity.mProgressDialog.findViewById(R.id.sungstratum_button);
+                    samsungButton.setVisibility(View.VISIBLE);
+                    samsungButton.setOnClickListener(view -> {
+                        try {
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(context.getString(R.string.sungstratum_url)));
+                            context.startActivity(i);
+                        } catch (ActivityNotFoundException activityNotFoundException) {
+                            Toast.makeText(context,
+                                    context.getString(R.string.activity_missing_toast),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                    titleView.setVisibility(View.GONE);
+                    textView.setVisibility(View.GONE);
+                } else if (References.selfDisabler(context)) {
                     titleView.setText(
                             activity.getString(R.string.toast_samsung_prototype_disabled));
                     textView.setVisibility(View.GONE);
@@ -1179,10 +1201,23 @@ public class MainActivity extends SubstratumActivity implements
                 } else {
                     textView.setText(activity.getString(R.string.root_rejected_text_cm_phh));
                 }
+
+                CountDownTimer Count = new CountDownTimer(1000, 1000) {
+                    @Override
+                    public void onTick(long l) {
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        activity.mProgressDialog.hide();
+                        activity.mProgressDialog.show();
+                    }
+                }.start();
             } else {
                 activity.showOutdatedRequestDialog();
                 new AOPTCheck().injectAOPT(activity.getApplicationContext(), false);
                 if (References.checkOMS(context)) new DoCleanUp(context).execute();
+                new Markdown(activity);
             }
         }
 
@@ -1190,13 +1225,13 @@ public class MainActivity extends SubstratumActivity implements
         protected Boolean doInBackground(Void... sUrl) {
             MainActivity activity = ref.get();
             Context context = activity.getApplicationContext();
-            activity.prefs.edit().putBoolean("complexion",
-                    !References.spreadYourWingsAndFly(context) &&
-                            References.hashPassthrough(context) != 0).apply();
-            if (!References.checkThemeInterfacer(context) &&
-                    !References.isSamsung(context)) {
+            if (!References.checkThemeInterfacer(context) && !References.isSamsung(context)) {
                 Boolean receivedRoot = Root.requestRootAccess();
-                if (receivedRoot) Log.d(SUBSTRATUM_LOG, "Substratum has loaded in rooted mode.");
+                if (receivedRoot) {
+                    Log.d(SUBSTRATUM_LOG, "Substratum has loaded in rooted mode.");
+                } else {
+                    Log.e(SUBSTRATUM_LOG, "Substratum was unable to load in rooted mode.");
+                }
                 References.injectRescueArchives(context);
                 return receivedRoot;
             } else if (References.isSamsung(context)) {
@@ -1259,6 +1294,29 @@ public class MainActivity extends SubstratumActivity implements
 
             if (removeList.size() > 0)
                 ThemeManager.uninstallOverlay(context, removeList, false);
+            return null;
+        }
+    }
+
+    private static class Markdown extends AsyncTask<Void, Void, Void> {
+        private WeakReference<MainActivity> ref;
+
+        private Markdown(MainActivity activity) {
+            ref = new WeakReference<>(activity);
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+        }
+
+        @Override
+        protected Void doInBackground(Void... sUrl) {
+            MainActivity activity = ref.get();
+            Context context = activity.getApplicationContext();
+            activity.prefs.edit().putBoolean("complexion",
+                    !References.spreadYourWingsAndFly(context) &&
+                            References.hashPassthrough(context) != 0).apply();
             return null;
         }
     }

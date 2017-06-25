@@ -70,6 +70,30 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textStyle="italic"/>
 
+            <TextView
+                android:id="@+id/sungstratum_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/timer"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="@string/samsung_prototype_no_root_dialog"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="italic"
+                android:visibility="gone"/>
+
+            <Button
+                android:id="@+id/sungstratum_button"
+                android:layout_below="@id/sungstratum_title"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/samsung_prototype_no_root_dialog_button"
+                android:visibility="visible"/>
+
         </RelativeLayout>
 
     </eightbitlab.com.blurview.BlurView>

@@ -1758,6 +1758,19 @@ public class References {
         }
     }
 
+    public static String runShellCommandSpecific(String input) {
+        Process p;
+        try {
+            p = Runtime.getRuntime().exec(input);
+            p.waitFor();
+            BufferedReader buf = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            return buf.readLine();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     // Launch intent for a theme
     public static void launchTheme(Context mContext,
                                    String package_name,

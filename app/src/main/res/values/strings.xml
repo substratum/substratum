@@ -41,6 +41,7 @@
     <string name="validator_url" translatable="false">"https://raw.githubusercontent.com/substratum/database/master/commit_tracker.xml"</string>
     <string name="validator_whitelist_url" translatable="false">"https://raw.githubusercontent.com/substratum/database/master/commit_whitelist.xml"</string>
     <string name="themer_email" translatable="false">substratumthemers@gmail.com</string>
+    <string name="sungstratum_url" translatable="false">https://play.google.com/store/apps/details?id=projekt.sungstratum</string>
 
     <string name="resource_checker_request">Send commit merge request using&#8230;</string>
     <string name="resource_checker">Commit Validator</string>
@@ -497,6 +498,8 @@
     <string name="toast_samsung_prototype_restart">Please restart your device or force close your overlaid application!</string>
     <string name="toast_samsung_prototype_disabled">This version of substratum has expired.\n\nPlease update to a fresh copy!</string>
     <string name="toast_samsung_prototype_alert">Substratum automatically hid unsupported system overlays for your device!</string>
+    <string name="samsung_prototype_no_root_dialog">It seems that you are on a supported Samsung device, an addon was released to support this!</string>
+    <string name="samsung_prototype_no_root_dialog_button">Download now!</string>
 
     <string name="toast_needs_caching">Substratum\'s cache was wiped, please rebuild this theme before continuing!</string>
 

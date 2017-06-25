@@ -993,10 +993,7 @@ public class InformationActivity extends SubstratumActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            if (References.spreadYourWingsAndFly(getApplicationContext()) ||
-                    References.isOffensive(getApplicationContext(), theme_name) ||
-                    References.isOffensive(getApplicationContext(),
-                            References.grabThemeAuthor(getApplicationContext(), theme_pid))) {
+            if (!prefs.getBoolean("complexion", false)) {
                 if (gradientView != null)
                     gradientView.setVisibility(View.GONE);
                 if (kenBurnsView != null)

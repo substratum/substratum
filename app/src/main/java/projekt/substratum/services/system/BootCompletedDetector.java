@@ -18,16 +18,19 @@
 
 package projekt.substratum.services.system;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 
 import java.io.File;
 
+import projekt.substratum.common.References;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.systems.ProfileManager;
 
@@ -59,6 +62,31 @@ public class BootCompletedDetector extends BroadcastReceiver {
                 ProfileManager.updateScheduledProfile(context);
             }
             clearSubstratumCompileFolder(context);
+            new Markdown(context, prefs);
+        }
+    }
+
+    private static class Markdown extends AsyncTask<Void, Void, Void> {
+        @SuppressLint("StaticFieldLeak")
+        private Context context;
+        private SharedPreferences prefs;
+
+        private Markdown(Context context, SharedPreferences prefs) {
+            this.context = context;
+            this.prefs = prefs;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+        }
+
+        @Override
+        protected Void doInBackground(Void... sUrl) {
+            prefs.edit().putBoolean("complexion",
+                    !References.spreadYourWingsAndFly(context) &&
+                            References.hashPassthrough(context) != 0).apply();
+            return null;
         }
     }
 }

@@ -1222,7 +1222,6 @@ public class MainActivity extends SubstratumActivity implements
                 activity.showOutdatedRequestDialog();
                 new AOPTCheck().injectAOPT(activity.getApplicationContext(), false);
                 if (References.checkOMS(context)) new DoCleanUp(context).execute();
-                new Markdown(activity);
             }
         }
 
@@ -1299,29 +1298,6 @@ public class MainActivity extends SubstratumActivity implements
 
             if (removeList.size() > 0)
                 ThemeManager.uninstallOverlay(context, removeList, false);
-            return null;
-        }
-    }
-
-    private static class Markdown extends AsyncTask<Void, Void, Void> {
-        private WeakReference<MainActivity> ref;
-
-        private Markdown(MainActivity activity) {
-            ref = new WeakReference<>(activity);
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-        }
-
-        @Override
-        protected Void doInBackground(Void... sUrl) {
-            MainActivity activity = ref.get();
-            Context context = activity.getApplicationContext();
-            activity.prefs.edit().putBoolean("complexion",
-                    !References.spreadYourWingsAndFly(context) &&
-                            References.hashPassthrough(context) != 0).apply();
             return null;
         }
     }

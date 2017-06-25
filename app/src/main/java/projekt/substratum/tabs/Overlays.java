@@ -1339,11 +1339,15 @@ public class Overlays extends Fragment {
                         ioe.printStackTrace();
                     }
                 }
+
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+                Boolean showDangerous = !prefs.getBoolean("show_dangerous_samsung_overlays", false);
+
                 values.addAll(overlaysFolder.stream().filter(package_name -> (References
                         .isPackageInstalled(context, package_name) ||
                         References.allowedSystemUIOverlay(package_name) ||
                         References.allowedSettingsOverlay(package_name)) &&
-                        (!ThemeManager.blacklisted(
+                        (!showDangerous || !ThemeManager.blacklisted(
                                 package_name,
                                 References.isSamsung(context) &&
                                         !References.isSamsungTheme(context, fragment.theme_pid))))

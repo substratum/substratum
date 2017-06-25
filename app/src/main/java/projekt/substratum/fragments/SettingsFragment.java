@@ -192,6 +192,47 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             });
         }
 
+        final CheckBoxPreference showDangerousSamsung = (CheckBoxPreference)
+                getPreferenceManager().findPreference("show_dangerous_samsung_overlays");
+        if (References.isSamsung(getContext())) {
+            boolean dangerous_samsung_overlays =
+                    prefs.getBoolean("show_dangerous_samsung_overlays", false);
+            if (dangerous_samsung_overlays) {
+                showDangerousSamsung.setChecked(true);
+            } else {
+                showDangerousSamsung.setChecked(false);
+            }
+            showDangerousSamsung.setOnPreferenceChangeListener(
+                    (preference, newValue) -> {
+                        boolean isChecked = (Boolean) newValue;
+                        if (isChecked) {
+                            final AlertDialog.Builder builder =
+                                    new AlertDialog.Builder(getContext());
+                            builder.setTitle(
+                                    R.string.settings_samsung_show_dangerous_overlays_warning_title);
+                            builder.setMessage(
+                                    R.string.settings_samsung_show_dangerous_overlays_warning);
+                            builder.setNegativeButton(R.string.break_compilation_dialog_cancel,
+                                    (dialog, id) -> dialog.dismiss());
+                            builder.setPositiveButton(
+                                    R.string.break_compilation_dialog_continue,
+                                    (dialog, id) -> {
+                                        prefs.edit().putBoolean(
+                                                "show_dangerous_samsung_overlays", true).apply();
+                                        showDangerousSamsung.setChecked(true);
+                                    });
+                            builder.show();
+                        } else {
+                            prefs.edit().putBoolean("show_dangerous_samsung_overlays", false)
+                                    .apply();
+                            showDangerousSamsung.setChecked(false);
+                        }
+                        return false;
+                    });
+        } else {
+            showDangerousSamsung.setVisible(false);
+        }
+
         final CheckBoxPreference forceEnglish = (CheckBoxPreference)
                 getPreferenceManager().findPreference("force_english_locale");
         boolean force = prefs.getBoolean("force_english", false);

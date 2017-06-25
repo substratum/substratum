@@ -57,6 +57,13 @@
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:key="show_dangerous_samsung_overlays"
+            android:summary="@string/settings_samsung_show_dangerous_overlays_text"
+            android:title="@string/settings_samsung_show_dangerous_overlays"/>
+
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:key="theme_caching"
             android:summary="@string/settings_theme_caching_text"
             android:title="@string/settings_theme_caching_title"/>

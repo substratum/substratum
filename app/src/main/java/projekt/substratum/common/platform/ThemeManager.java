@@ -74,7 +74,10 @@ public class ThemeManager {
         List<String> blacklisted = new ArrayList<>(Arrays.asList(blacklistedPackages));
         if (unsupportedSamsung) {
             blacklisted.addAll(new ArrayList<>(Arrays.asList(Resources.ALLOWED_SETTINGS_ELEMENTS)));
+            blacklisted.add("android");
             blacklisted.add("com.android.settings");
+            blacklisted.add("com.android.settings.icons");
+            blacklisted.add("com.android.systemui");
             blacklisted.add("com.android.systemui.headers");
             blacklisted.add("com.android.systemui.tiles");
         }

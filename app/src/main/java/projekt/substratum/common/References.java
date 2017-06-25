@@ -727,6 +727,7 @@ public class References {
         editor.putBoolean("overlay_alert", false);
         editor.putBoolean("overlay_updater", false);
         editor.putBoolean("theme_updater", false);
+        editor.putBoolean("show_dangerous_samsung_overlays", false);
         editor.remove("display_old_themes");
 
         // Initial parse of what is installed on the device

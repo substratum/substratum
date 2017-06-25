@@ -650,8 +650,11 @@ public class InformationActivity extends SubstratumActivity {
                 });
             }
 
+            Boolean shouldShowSamsungWarning =
+                    !prefs.getBoolean("show_dangerous_samsung_overlays", false);
             if (References.isSamsung(getApplicationContext()) &&
-                    !References.isSamsungTheme(getApplicationContext(), theme_pid)) {
+                    !References.isSamsungTheme(getApplicationContext(), theme_pid) &&
+                    shouldShowSamsungWarning) {
                 Lunchbar.make(
                         getView(),
                         R.string.toast_samsung_prototype_alert,

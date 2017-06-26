@@ -538,7 +538,7 @@ public class ManagerFragment extends Fragment {
                         if (References.isSamsung(context)) {
                             ArrayList<String> overlay = new ArrayList<>();
                             overlay.add(fragment.overlaysList.get(i).getName());
-                            ThemeManager.uninstallOverlay(context, overlay, false);
+                            ThemeManager.uninstallOverlay(context, overlay);
                         } else {
                             FileOperations.mountRW();
                             FileOperations.mountRWData();
@@ -766,10 +766,7 @@ public class ManagerFragment extends Fragment {
             }
 
             // The magic goes here
-            List<String> enabled = ThemeManager.listOverlays(context, STATE_APPROVED_ENABLED);
-            // Returns true if the two specified collections have no elements in common.
-            Boolean shouldRestartUI = Collections.disjoint(enabled, data);
-            ThemeManager.uninstallOverlay(context, data, shouldRestartUI);
+            ThemeManager.uninstallOverlay(context, data);
 
             if (!References.checkThemeInterfacer(context) &&
                     References.needsRecreate(context, data) &&

@@ -437,7 +437,7 @@ public class RecoveryFragment extends Fragment {
                                 "many times, restarting current activity to preserve app " +
                                 "integrity.");
                     }
-                    ThemeManager.uninstallOverlay(context, fragment.final_commands_array, false);
+                    ThemeManager.uninstallOverlay(context, fragment.final_commands_array);
                 } else {
                     if (view != null) {
                         Lunchbar.make(view,

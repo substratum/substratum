@@ -807,8 +807,8 @@ public class InformationActivity extends SubstratumActivity {
                             // Begin uninstalling overlays for this package
                             ThemeManager.uninstallOverlay(
                                     getApplicationContext(),
-                                    all_overlays,
-                                    false);
+                                    all_overlays
+                            );
                         })
                         .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id19) -> {
                             // User cancelled the dialog

@@ -85,6 +85,10 @@ public class ThemeManager {
     }
 
     public static void enableOverlay(Context context, ArrayList<String> overlays) {
+        if (overlays.isEmpty()) return;
+        overlays.removeAll(listOverlays(context, STATE_APPROVED_ENABLED));
+        if (overlays.isEmpty()) return;
+
         if (checkThemeInterfacer(context)) {
             ThemeInterfacerService.enableOverlays(context, overlays, shouldRestartUI(context,
                     overlays));
@@ -105,6 +109,9 @@ public class ThemeManager {
 
     public static void disableOverlay(Context context, ArrayList<String> overlays) {
         if (overlays.isEmpty()) return;
+        overlays.removeAll(listOverlays(context, STATE_APPROVED_DISABLED));
+        if (overlays.isEmpty()) return;
+
         if (checkThemeInterfacer(context)) {
             ThemeInterfacerService.disableOverlays(context, overlays, shouldRestartUI(context,
                     overlays));
@@ -378,13 +385,18 @@ public class ThemeManager {
     }
 
     public static void uninstallOverlay(Context context,
-                                        ArrayList<String> overlays,
-                                        Boolean bypassRestart) {
+                                        ArrayList<String> overlays) {
+        ArrayList<String> temp = new ArrayList<>(overlays);
+        temp.removeAll(listOverlays(context, STATE_APPROVED_DISABLED));
+        boolean shouldRestartUi = shouldRestartUI(context, temp);
+        disableOverlay(context, temp);
+
+        // if enabled list is not contains any overlays
         if (checkThemeInterfacer(context) && !References.isSamsung(context)) {
             ThemeInterfacerService.uninstallOverlays(
                     context,
                     overlays,
-                    !bypassRestart && shouldRestartUI(context, overlays));
+                    shouldRestartUi);
         } else if (References.isSamsung(context)) {
             for (int i = 0; i < overlays.size(); i++) {
                 Uri packageURI = Uri.parse("package:" + overlays.get(i));
@@ -398,7 +410,7 @@ public class ThemeManager {
                         .append(packageName);
             }
             new ElevatedCommands.ThreadRunner().execute(command.toString());
-            if (!bypassRestart && checkOMS(context) && shouldRestartUI(context, overlays))
+            if (checkOMS(context) && shouldRestartUi)
                 restartSystemUI(context);
         }
     }

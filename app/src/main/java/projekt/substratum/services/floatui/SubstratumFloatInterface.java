@@ -117,16 +117,13 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
             String dialogTitle = String.format(getString(R.string.per_app_dialog_title),
                     packageName);
 
-            List<String> state4 =
-                    ThemeManager.listOverlays(getApplicationContext(), STATE_APPROVED_DISABLED);
-            List<String> state5 =
-                    ThemeManager.listOverlays(getApplicationContext(), STATE_APPROVED_ENABLED);
-            ArrayList<String> disabled = new ArrayList<>(state4);
-            ArrayList<String> enabled = new ArrayList<>(state5);
-            ArrayList<String> all_overlays = new ArrayList<>();
+            ArrayList<String> disabled = new ArrayList<>(
+                    ThemeManager.listOverlays(getApplicationContext(), STATE_APPROVED_DISABLED));
+            ArrayList<String> enabled = new ArrayList<>(
+                    ThemeManager.listOverlays(getApplicationContext(), STATE_APPROVED_ENABLED));
+            ArrayList<String> all_overlays = new ArrayList<>(
+                    ThemeManager.listAllOverlays(getApplicationContext()));
             ArrayList<String> to_be_shown = new ArrayList<>();
-            all_overlays.addAll(state4);
-            all_overlays.addAll(state5);
             boolean show_android_overlays =
                     prefs.getBoolean("floatui_show_android_system_overlays", true);
             for (int i = 0; i < all_overlays.size(); i++) {

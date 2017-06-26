@@ -778,10 +778,8 @@ public class InformationActivity extends SubstratumActivity {
                 builder1.setMessage(R.string.clean_dialog_body)
                         .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id18) -> {
                             // Get all installed overlays
-                            List<String> stateAll = ThemeManager.listOverlays(
-                                    getApplicationContext(), STATE_APPROVED_DISABLED);
-                            stateAll.addAll(ThemeManager.listOverlays(
-                                    getApplicationContext(), STATE_APPROVED_ENABLED));
+                            List<String> stateAll = ThemeManager.listAllOverlays(
+                                    getApplicationContext());
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {

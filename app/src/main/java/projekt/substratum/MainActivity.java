@@ -1307,10 +1307,7 @@ public class MainActivity extends SubstratumActivity implements
             List<String> state1 = ThemeManager.listOverlays(
                     context, STATE_NOT_APPROVED_MISSING_TARGET);
             // Uninstall overlays when the main theme is not present, regardless if enabled/disabled
-            List<String> state4 = ThemeManager.listOverlays(
-                    context, STATE_APPROVED_DISABLED);
-            List<String> state5 = ThemeManager.listOverlays(
-                    context, STATE_APPROVED_ENABLED);
+            List<String> stateAll = ThemeManager.listAllOverlays(context);
             // We need the null check because listOverlays never returns null, but empty
             if (state1.size() > 0 && state1.get(0) != null) {
                 for (int i = 0; i < state1.size(); i++) {
@@ -1321,17 +1318,15 @@ public class MainActivity extends SubstratumActivity implements
                 }
             }
 
-            ArrayList<String> installed_overlays = new ArrayList<>(state4);
-            installed_overlays.addAll(state5);
-            for (int i = 0; i < installed_overlays.size(); i++) {
-                String parent = References.grabOverlayParent(context, installed_overlays.get(i));
-                String pack = References.grabIconPack(context, installed_overlays.get(i));
+            for (int i = 0; i < stateAll.size(); i++) {
+                String parent = References.grabOverlayParent(context, stateAll.get(i));
+                String pack = References.grabIconPack(context, stateAll.get(i));
                 if (!References.isPackageInstalled(context, parent) &&
                         !References.isPackageInstalled(context, pack)) {
                     Log.e("OverlayCleaner",
-                            "Parent APK not found for \"" + installed_overlays.get(i) +
+                            "Parent APK not found for \"" + stateAll.get(i) +
                                     "\" and will be removed.");
-                    removeList.add(installed_overlays.get(i));
+                    removeList.add(stateAll.get(i));
                 }
             }
 

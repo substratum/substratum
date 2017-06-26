@@ -476,11 +476,7 @@ public class RecoveryFragment extends Fragment {
 
             if (withUninstall) {
                 if (References.checkOMS(context)) {
-                    List<String> overlays =
-                            ThemeManager.listOverlays(context,
-                                    STATE_NOT_APPROVED_DANGEROUS_OVERLAY);
-                    overlays.addAll(ThemeManager.listOverlays(context, STATE_APPROVED_DISABLED));
-                    overlays.addAll(ThemeManager.listOverlays(context, STATE_APPROVED_ENABLED));
+                    List<String> overlays = ThemeManager.listAllOverlays(context);
 
                     fragment.final_commands_array = new ArrayList<>();
                     fragment.final_commands_array.addAll(overlays.stream()

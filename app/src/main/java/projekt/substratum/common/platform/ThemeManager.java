@@ -169,6 +169,77 @@ public class ThemeManager {
     }
 
     @SuppressWarnings("unchecked")
+    public static List<String> listAllOverlays(Context context) {
+        List<String> list = new ArrayList<>();
+        try {
+            if (References.isSamsung(context)) throw new Exception();
+            Map<String, List<OverlayInfo>> allOverlays = OverlayManagerService.getAllOverlays();
+            if (allOverlays != null) {
+                Set<String> set = allOverlays.keySet();
+                for (String targetPackageName : set) {
+                    for (OverlayInfo oi : allOverlays.get(targetPackageName)) {
+                        if (oi.isApproved()) {
+                            list.add(oi.packageName);
+                        }
+                    }
+                }
+            }
+        } catch (Exception | NoSuchMethodError e) {
+            // At this point, we probably ran into a legacy command or stock OMS
+            if (References.checkOMS(context) && !References.isSamsung(context)) {
+                String enabledPrefix = "[x]";
+                String disabledPrefix = "[ ]";
+                String[] arrList = Root.runCommand(listAllOverlays)
+                        .split(System.getProperty("line.separator"));
+
+                for (String line : arrList) {
+                    if (line.startsWith(enabledPrefix) || line.startsWith(disabledPrefix)) {
+                        String packageName = line.substring(4);
+                        if (References.isPackageInstalled(context, packageName)) {
+                            try {
+                                String sourceDir = context.getPackageManager()
+                                        .getApplicationInfo(packageName, 0).sourceDir;
+                                if (!sourceDir.startsWith("/vendor/overlay/")) {
+                                    list.add(packageName);
+                                }
+                            } catch (Exception ee) {
+                                // Package not found blabla
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (References.isSamsung(context)) {
+                    final PackageManager pm = context.getPackageManager();
+                    List<ApplicationInfo> packages =
+                            pm.getInstalledApplications(PackageManager.GET_META_DATA);
+                    list.clear();
+                    for (ApplicationInfo packageInfo : packages) {
+                        if (References.getOverlayMetadata(
+                                context,
+                                packageInfo.packageName,
+                                References.metadataOverlayParent) != null) {
+                            list.add(packageInfo.packageName);
+                        }
+                    }
+                } else {
+                    File legacyCheck = new File(LEGACY_NEXUS_DIR);
+                    if (legacyCheck.exists() && legacyCheck.isDirectory()) {
+                        list.clear();
+                        String[] lister = legacyCheck.list();
+                        for (String aLister : lister) {
+                            if (aLister.endsWith(".apk")) {
+                                list.add(aLister.substring(0, aLister.length() - 4));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return list;
+    }
+
+    @SuppressWarnings("unchecked")
     public static List<String> listOverlays(Context context, int state) {
         List<String> list = new ArrayList<>();
         try {
@@ -308,8 +379,7 @@ public class ThemeManager {
     }
 
     public static boolean isOverlay(Context context, String target) {
-        List<String> overlays = listOverlays(context, STATE_APPROVED_ENABLED);
-        overlays.addAll(listOverlays(context, STATE_APPROVED_DISABLED));
+        List<String> overlays = listAllOverlays(context);
         for (int i = 0; i < overlays.size(); i++) {
             if (overlays.get(i).equals(target)) {
                 return true;
@@ -320,8 +390,7 @@ public class ThemeManager {
 
     public static List<String> listOverlaysByTheme(Context context, String target) {
         List<String> list = new ArrayList<>();
-        List<String> overlays = listOverlays(context, STATE_APPROVED_ENABLED);
-        overlays.addAll(listOverlays(context, STATE_APPROVED_DISABLED));
+        List<String> overlays = listAllOverlays(context);
         for (int i = 0; i < overlays.size(); i++) {
             if (References.grabOverlayParent(context, overlays.get(i)).equals(target)) {
                 list.add(overlays.get(i));
@@ -332,8 +401,7 @@ public class ThemeManager {
 
     public static List<String> listOverlaysForTarget(Context context, String target) {
         List<String> list = new ArrayList<>();
-        List<String> overlays = listOverlays(context, STATE_APPROVED_ENABLED);
-        overlays.addAll(listOverlays(context, STATE_APPROVED_DISABLED));
+        List<String> overlays = listAllOverlays(context);
         list.addAll(overlays.stream().filter(o -> o.startsWith(target))
                 .collect(Collectors.toList()));
         return list;

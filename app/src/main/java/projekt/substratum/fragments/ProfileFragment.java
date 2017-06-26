@@ -857,8 +857,7 @@ public class ProfileFragment extends Fragment {
                     List<List<String>> profile =
                             ProfileManager.readProfileStatePackageWithTargetPackage(
                                     profile_name, STATE_APPROVED_ENABLED);
-                    system = ThemeManager.listOverlays(getContext(), STATE_APPROVED_ENABLED);
-                    system.addAll(ThemeManager.listOverlays(getContext(), STATE_APPROVED_DISABLED));
+                    system = ThemeManager.listAllOverlays(getContext());
 
                     // Now process the overlays to be enabled
                     for (int i = 0, size = profile.size(); i < size; i++) {

@@ -77,9 +77,7 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                 if (installed_themes != null && installed_themes.contains(package_name)) {
                     References.sendRefreshMessage(context);
                     // Get all installed overlays for this package
-                    List<String> stateAll =
-                            ThemeManager.listOverlays(context, STATE_APPROVED_DISABLED);
-                    stateAll.addAll(ThemeManager.listOverlays(context, STATE_APPROVED_ENABLED));
+                    List<String> stateAll = ThemeManager.listAllOverlays(context);
 
                     ArrayList<String> all_overlays = new ArrayList<>();
                     for (int j = 0; j < stateAll.size(); j++) {
@@ -161,9 +159,7 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                 if (installed_iconpacks != null && installed_iconpacks.contains(package_name)) {
                     References.sendRefreshMessage(context);
                     // Get all installed overlays for this package
-                    List<String> stateAll =
-                            ThemeManager.listOverlays(context, STATE_APPROVED_DISABLED);
-                    stateAll.addAll(ThemeManager.listOverlays(context, STATE_APPROVED_ENABLED));
+                    List<String> stateAll = ThemeManager.listAllOverlays(context);
 
                     ArrayList<String> all_overlays = new ArrayList<>();
                     for (int j = 0; j < stateAll.size(); j++) {

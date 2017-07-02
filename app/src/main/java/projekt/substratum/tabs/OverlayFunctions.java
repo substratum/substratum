@@ -84,11 +84,11 @@ import projekt.substratum.util.compilers.CacheCreator;
 import projekt.substratum.util.compilers.SubstratumBuilder;
 import projekt.substratum.util.files.MapUtils;
 
-public class OverlayFunctions {
+class OverlayFunctions {
 
-    public static final String TAG = Overlays.TAG;
+    static final String TAG = Overlays.TAG;
 
-    public static class SendErrorReport extends AsyncTask<Void, Void, File> {
+    static class SendErrorReport extends AsyncTask<Void, Void, File> {
         @SuppressLint("StaticFieldLeak")
         private WeakReference<Context> contextRef;
         private String themePid;
@@ -177,7 +177,7 @@ public class OverlayFunctions {
         }
     }
 
-    protected static class LoadOverlays extends AsyncTask<String, Integer, String> {
+    static class LoadOverlays extends AsyncTask<String, Integer, String> {
         private WeakReference<Overlays> ref;
 
         LoadOverlays(Overlays fragment) {
@@ -504,7 +504,7 @@ public class OverlayFunctions {
         }
     }
 
-    public static class Phase2_InitializeCache extends AsyncTask<String, Integer, String> {
+    static class Phase2_InitializeCache extends AsyncTask<String, Integer, String> {
         private WeakReference<Overlays> ref;
 
         Phase2_InitializeCache(Overlays fragment) {
@@ -640,7 +640,7 @@ public class OverlayFunctions {
         }
     }
 
-    protected static class Phase3_mainFunction extends AsyncTask<String, Integer, String> {
+    static class Phase3_mainFunction extends AsyncTask<String, Integer, String> {
         private WeakReference<Overlays> ref;
 
         Phase3_mainFunction(Overlays fragment) {

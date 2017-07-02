@@ -43,8 +43,6 @@ import projekt.substratum.common.tabs.FontManager;
 import projekt.substratum.common.tabs.SoundManager;
 import projekt.substratum.common.tabs.WallpaperManager;
 
-import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
-import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static projekt.substratum.common.References.PACKAGE_FULLY_REMOVED;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;

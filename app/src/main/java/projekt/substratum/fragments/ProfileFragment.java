@@ -79,7 +79,6 @@ import projekt.substratum.common.systems.ProfileManager;
 import projekt.substratum.common.tabs.WallpaperManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
 
-import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
 import static projekt.substratum.common.References.KEY_RETRIEVAL;

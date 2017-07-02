@@ -60,9 +60,7 @@ import projekt.substratum.common.tabs.WallpaperManager;
 import projekt.substratum.util.tabs.SoundUtils;
 import projekt.substratum.util.views.SheetDialog;
 
-import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
-import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_DANGEROUS_OVERLAY;
 import static projekt.substratum.common.References.DATA_RESOURCE_DIR;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;

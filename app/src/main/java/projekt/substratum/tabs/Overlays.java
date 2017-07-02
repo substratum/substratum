@@ -156,7 +156,7 @@ public class Overlays extends Fragment {
     public String type1c = "";
     public String type2 = "";
     public String type3 = "";
-    public  OverlayFunctions.Phase3_mainFunction phase3_mainFunction;
+    public OverlayFunctions.Phase3_mainFunction phase3_mainFunction;
     public Boolean encrypted = false;
     public Cipher cipher = null;
     public RefreshReceiver refreshReceiver;
@@ -193,7 +193,8 @@ public class Overlays extends Fragment {
                 }
             }
             if (!checkedOverlays.isEmpty()) {
-                OverlayFunctions.Phase2_InitializeCache phase2 = new OverlayFunctions.Phase2_InitializeCache(this);
+                OverlayFunctions.Phase2_InitializeCache phase2 = new OverlayFunctions
+                        .Phase2_InitializeCache(this);
                 if (base_spinner.getSelectedItemPosition() != 0 &&
                         base_spinner.getVisibility() == View.VISIBLE) {
                     phase2.execute(base_spinner.getSelectedItem().toString());
@@ -249,7 +250,8 @@ public class Overlays extends Fragment {
             }
 
             if (!checkedOverlays.isEmpty()) {
-                OverlayFunctions.Phase2_InitializeCache phase2 = new OverlayFunctions.Phase2_InitializeCache(this);
+                OverlayFunctions.Phase2_InitializeCache phase2 = new OverlayFunctions
+                        .Phase2_InitializeCache(this);
                 if (base_spinner.getSelectedItemPosition() != 0 &&
                         base_spinner.getVisibility() == View.VISIBLE) {
                     phase2.execute(base_spinner.getSelectedItem().toString());
@@ -290,7 +292,8 @@ public class Overlays extends Fragment {
                     }
                 }
                 if (!checkedOverlays.isEmpty()) {
-                    OverlayFunctions.Phase2_InitializeCache phase2 = new OverlayFunctions.Phase2_InitializeCache(this);
+                    OverlayFunctions.Phase2_InitializeCache phase2 = new OverlayFunctions
+                            .Phase2_InitializeCache(this);
                     if (base_spinner.getSelectedItemPosition() != 0 &&
                             base_spinner.getVisibility() == View.VISIBLE) {
                         phase2.execute(base_spinner.getSelectedItem().toString());
@@ -449,7 +452,8 @@ public class Overlays extends Fragment {
                 }
             }
             if (!checkedOverlays.isEmpty()) {
-                OverlayFunctions.Phase2_InitializeCache phase2 = new OverlayFunctions.Phase2_InitializeCache(this);
+                OverlayFunctions.Phase2_InitializeCache phase2 = new OverlayFunctions
+                        .Phase2_InitializeCache(this);
                 if (base_spinner.getSelectedItemPosition() != 0 &&
                         base_spinner.getVisibility() == View.VISIBLE) {
                     phase2.execute(base_spinner.getSelectedItem().toString());
@@ -930,7 +934,8 @@ public class Overlays extends Fragment {
             send.setVisibility(View.VISIBLE);
             send.setOnClickListener(v -> {
                 dialog.dismiss();
-                new OverlayFunctions.SendErrorReport(context, theme_pid, error_logs.toString()).execute();
+                new OverlayFunctions.SendErrorReport(context, theme_pid, error_logs.toString())
+                        .execute();
             });
         }
         dialog.show();
@@ -1183,7 +1188,7 @@ public class Overlays extends Fragment {
         }
     }
 
-  protected   class RefreshReceiver extends BroadcastReceiver {
+    protected class RefreshReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {

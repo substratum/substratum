@@ -88,6 +88,7 @@ public class OverlayFunctions {
     public static String getTAG() {
         return Overlays.TAG;
     }
+
     public static class SendErrorReport extends AsyncTask<Void, Void, File> {
         @SuppressLint("StaticFieldLeak")
         private WeakReference<Context> contextRef;
@@ -103,8 +104,10 @@ public class OverlayFunctions {
             errorLog = errorLog_;
 
             themeName = References.grabPackageName(context_, themePid);
-            themeAuthor = References.getOverlayMetadata(context_, themePid, References.metadataAuthor);
-            themeEmail = References.getOverlayMetadata(context_, themePid, References.metadataEmail);
+            themeAuthor = References.getOverlayMetadata(context_, themePid, References
+                    .metadataAuthor);
+            themeEmail = References.getOverlayMetadata(context_, themePid, References
+                    .metadataEmail);
 
             emailSubject = String.format(
                     context_.getString(R.string.logcat_email_subject), themeName);
@@ -242,7 +245,8 @@ public class OverlayFunctions {
                 ArrayList<String> overlaysFolder = new ArrayList<String>();
                 if (References.isCachingEnabled(context)) {
                     File overlaysDirectory = new File(context.getCacheDir().getAbsoluteFile() +
-                            References.SUBSTRATUM_BUILDER_CACHE + fragment.theme_pid + "/assets/overlays/");
+                            References.SUBSTRATUM_BUILDER_CACHE + fragment.theme_pid +
+                            "/assets/overlays/");
 
                     if (!References.checkOMS(context)) {
                         File check_file = new File(context.getCacheDir().getAbsoluteFile() +
@@ -261,7 +265,8 @@ public class OverlayFunctions {
                     }
                 } else {
                     try {
-                        String[] overlayList = fragment.themeAssetManager.list(Overlays.overlaysDir);
+                        String[] overlayList = fragment.themeAssetManager.list(Overlays
+                                .overlaysDir);
                         Collections.addAll(overlaysFolder, overlayList);
                     } catch (IOException ioe) {
                         ioe.printStackTrace();
@@ -410,7 +415,8 @@ public class OverlayFunctions {
                             } else {
                                 type2.add(fragment.setTypeTwoSpinners(
                                         new InputStreamReader(
-                                                fragment.themeAssetManager.open(Overlays.overlaysDir +
+                                                fragment.themeAssetManager.open(Overlays
+                                                        .overlaysDir +
                                                         "/" + package_identifier + "/type2"))));
                             }
                         }
@@ -606,7 +612,8 @@ public class OverlayFunctions {
                     fragment.sb = new SubstratumBuilder();
 
                     File versioning = new File(context.getCacheDir().getAbsoluteFile() +
-                            References.SUBSTRATUM_BUILDER_CACHE + fragment.theme_pid + "/substratum.xml");
+                            References.SUBSTRATUM_BUILDER_CACHE + fragment.theme_pid +
+                            "/substratum.xml");
                     if (versioning.exists()) {
                         fragment.has_initialized_cache = true;
                     } else {
@@ -643,7 +650,8 @@ public class OverlayFunctions {
 
         @Override
         protected void onPreExecute() {
-            Log.d(Overlays.TAG, "Substratum is proceeding with your actions and is now actively running...");
+            Log.d(Overlays.TAG, "Substratum is proceeding with your actions and is now actively " +
+                    "running...");
             Overlays fragment = ref.get();
             Context context = fragment.getActivity();
 
@@ -996,7 +1004,8 @@ public class OverlayFunctions {
                                 FileOperations.createNewFolder(context, created
                                         .getAbsolutePath());
                             }
-                            String listDir = Overlays.overlaysDir + "/" + current_overlay + unparsedSuffix;
+                            String listDir = Overlays.overlaysDir + "/" + current_overlay +
+                                    unparsedSuffix;
 
                             FileOperations.copyFileOrDir(
                                     fragment.themeAssetManager,
@@ -1025,7 +1034,8 @@ public class OverlayFunctions {
                                             "You have selected variant file \"" +
                                                     fragment.checkedOverlays.get(i)
                                                             .getSelectedVariantName() + "\"");
-                                    Log.d(Overlays.TAG, "Moving variant file to: " + targetLocation);
+                                    Log.d(Overlays.TAG, "Moving variant file to: " +
+                                            targetLocation);
                                     FileOperations.copy(
                                             context,
                                             sourceLocation,
@@ -1038,7 +1048,8 @@ public class OverlayFunctions {
                                             workingDirectory + suffix + "/values/type1a.xml");
 
                                     String to_copy =
-                                            Overlays.overlaysDir + "/" + current_overlay + "/type1a_" +
+                                            Overlays.overlaysDir + "/" + current_overlay +
+                                                    "/type1a_" +
                                                     fragment.checkedOverlays.get(i)
                                                             .getSelectedVariantName() +
                                                     (fragment.encrypted ? ".xml.enc" : ".xml");
@@ -1070,7 +1081,8 @@ public class OverlayFunctions {
                                     Log.d(Overlays.TAG, "You have selected variant file \"" +
                                             fragment.checkedOverlays.get(i)
                                                     .getSelectedVariantName2() + "\"");
-                                    Log.d(Overlays.TAG, "Moving variant file to: " + targetLocation2);
+                                    Log.d(Overlays.TAG, "Moving variant file to: " +
+                                            targetLocation2);
                                     FileOperations.copy(context, sourceLocation2,
                                             targetLocation2);
                                 } else {
@@ -1081,7 +1093,8 @@ public class OverlayFunctions {
                                             workingDirectory + suffix + "/values/type1b.xml");
 
                                     String to_copy =
-                                            Overlays.overlaysDir + "/" + current_overlay + "/type1b_" +
+                                            Overlays.overlaysDir + "/" + current_overlay +
+                                                    "/type1b_" +
                                                     fragment.checkedOverlays.get(i)
                                                             .getSelectedVariantName2() +
                                                     (fragment.encrypted ? ".xml.enc" : ".xml");
@@ -1112,7 +1125,8 @@ public class OverlayFunctions {
                                     Log.d(Overlays.TAG, "You have selected variant file \"" +
                                             fragment.checkedOverlays.get(i)
                                                     .getSelectedVariantName3() + "\"");
-                                    Log.d(Overlays.TAG, "Moving variant file to: " + targetLocation3);
+                                    Log.d(Overlays.TAG, "Moving variant file to: " +
+                                            targetLocation3);
 
                                     FileOperations.copy(
                                             context,
@@ -1126,7 +1140,8 @@ public class OverlayFunctions {
                                             workingDirectory + suffix + "/values/type1c.xml");
 
                                     String to_copy =
-                                            Overlays.overlaysDir + "/" + current_overlay + "/type1c_" +
+                                            Overlays.overlaysDir + "/" + current_overlay +
+                                                    "/type1c_" +
                                                     fragment.checkedOverlays.get(i)
                                                             .getSelectedVariantName3() +
                                                     (fragment.encrypted ? ".xml.enc" : ".xml");
@@ -1163,7 +1178,8 @@ public class OverlayFunctions {
                                 fragment.type2 = fragment.checkedOverlays.get(i)
                                         .getSelectedVariantName4();
                                 String type2folder = "/type2_" + fragment.type2;
-                                String to_copy = Overlays.overlaysDir + "/" + current_overlay + type2folder;
+                                String to_copy = Overlays.overlaysDir + "/" + current_overlay +
+                                        type2folder;
                                 FileOperations.copyFileOrDir(
                                         fragment.themeAssetManager,
                                         to_copy,

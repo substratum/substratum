@@ -110,8 +110,6 @@ import projekt.substratum.util.helpers.ContextWrapper;
 import projekt.substratum.util.injectors.AOPTCheck;
 import projekt.substratum.util.views.SheetDialog;
 
-import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
-import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_MISSING_TARGET;
 import static projekt.substratum.common.References.BYPASS_ALL_VERSION_CHECKS;
 import static projekt.substratum.common.References.ENABLE_ROOT_CHECK;

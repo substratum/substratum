@@ -85,9 +85,8 @@ import projekt.substratum.util.compilers.SubstratumBuilder;
 import projekt.substratum.util.files.MapUtils;
 
 public class OverlayFunctions {
-    public static String getTAG() {
-        return Overlays.TAG;
-    }
+
+    public static final String TAG = Overlays.TAG;
 
     public static class SendErrorReport extends AsyncTask<Void, Void, File> {
         @SuppressLint("StaticFieldLeak")
@@ -98,21 +97,21 @@ public class OverlayFunctions {
         private String emailSubject, emailBody;
         private ProgressDialog progressDialog;
 
-        SendErrorReport(Context context_, String themePid_, String errorLog_) {
-            contextRef = new WeakReference<Context>(context_);
-            themePid = themePid_;
-            errorLog = errorLog_;
+        SendErrorReport(Context context, String themePid, String errorLog) {
+            contextRef = new WeakReference<>(context);
+            this.themePid = themePid;
+            this.errorLog = errorLog;
 
-            themeName = References.grabPackageName(context_, themePid);
-            themeAuthor = References.getOverlayMetadata(context_, themePid, References
+            themeName = References.grabPackageName(context, themePid);
+            themeAuthor = References.getOverlayMetadata(context, themePid, References
                     .metadataAuthor);
-            themeEmail = References.getOverlayMetadata(context_, themePid, References
+            themeEmail = References.getOverlayMetadata(context, themePid, References
                     .metadataEmail);
 
             emailSubject = String.format(
-                    context_.getString(R.string.logcat_email_subject), themeName);
+                    context.getString(R.string.logcat_email_subject), themeName);
             emailBody = String.format(
-                    context_.getString(R.string.logcat_email_body), themeAuthor, themeName);
+                    context.getString(R.string.logcat_email_body), themeAuthor, themeName);
         }
 
         @Override
@@ -182,7 +181,7 @@ public class OverlayFunctions {
         private WeakReference<Overlays> ref;
 
         LoadOverlays(Overlays fragment) {
-            ref = new WeakReference<Overlays>(fragment);
+            ref = new WeakReference<>(fragment);
         }
 
         @Override
@@ -236,13 +235,13 @@ public class OverlayFunctions {
                 String parse1_themeName = fragment.theme_name.replaceAll("\\s+", "");
                 String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
 
-                ArrayList<String> values = new ArrayList<String>();
-                fragment.values2 = new ArrayList<OverlaysItem>();
+                ArrayList<String> values = new ArrayList<>();
+                fragment.values2 = new ArrayList<>();
 
                 // Buffer the initial values list so that we get the list of packages
                 // inside this theme
 
-                ArrayList<String> overlaysFolder = new ArrayList<String>();
+                ArrayList<String> overlaysFolder = new ArrayList<>();
                 if (References.isCachingEnabled(context)) {
                     File overlaysDirectory = new File(context.getCacheDir().getAbsoluteFile() +
                             References.SUBSTRATUM_BUILDER_CACHE + fragment.theme_pid +
@@ -283,7 +282,7 @@ public class OverlayFunctions {
                         .collect(Collectors.toList()));
 
                 // Create the map for {package name: package identifier}
-                HashMap<String, String> unsortedMap = new HashMap<String, String>();
+                HashMap<String, String> unsortedMap = new HashMap<>();
 
                 // Then let's convert all the package names to their app names
                 for (int i = 0; i < values.size(); i++) {
@@ -337,11 +336,11 @@ public class OverlayFunctions {
                     String package_identifier = entry.first;
 
                     try {
-                        ArrayList<VariantItem> type1a = new ArrayList<VariantItem>();
-                        ArrayList<VariantItem> type1b = new ArrayList<VariantItem>();
-                        ArrayList<VariantItem> type1c = new ArrayList<VariantItem>();
-                        ArrayList<VariantItem> type2 = new ArrayList<VariantItem>();
-                        ArrayList<String> typeArray = new ArrayList<String>();
+                        ArrayList<VariantItem> type1a = new ArrayList<>();
+                        ArrayList<VariantItem> type1b = new ArrayList<>();
+                        ArrayList<VariantItem> type1c = new ArrayList<>();
+                        ArrayList<VariantItem> type2 = new ArrayList<>();
+                        ArrayList<String> typeArray = new ArrayList<>();
 
                         Object typeArrayRaw;
                         if (References.isCachingEnabled(context)) {
@@ -509,15 +508,15 @@ public class OverlayFunctions {
         private WeakReference<Overlays> ref;
 
         Phase2_InitializeCache(Overlays fragment) {
-            ref = new WeakReference<Overlays>(fragment);
+            ref = new WeakReference<>(fragment);
         }
 
         @Override
         protected void onPreExecute() {
             Overlays fragment = ref.get();
             Context context = fragment.getActivity();
-            fragment.final_runner = new ArrayList<String>();
-            fragment.late_install = new ArrayList<String>();
+            fragment.final_runner = new ArrayList<>();
+            fragment.late_install = new ArrayList<>();
 
             if (!fragment.enable_mode && !fragment.disable_mode) {
                 int notification_priority = Notification.PRIORITY_MAX;
@@ -645,7 +644,7 @@ public class OverlayFunctions {
         private WeakReference<Overlays> ref;
 
         Phase3_mainFunction(Overlays fragment) {
-            ref = new WeakReference<Overlays>(fragment);
+            ref = new WeakReference<>(fragment);
         }
 
         @Override
@@ -694,7 +693,7 @@ public class OverlayFunctions {
             Overlays fragment = ref.get();
             Context context = fragment.getActivity();
 
-            fragment.final_command = new ArrayList<String>();
+            fragment.final_command = new ArrayList<>();
 
             // Check if not compile_enable_mode
             if (!fragment.compile_enable_mode) {
@@ -735,7 +734,7 @@ public class OverlayFunctions {
 
                     if (fragment.mixAndMatchMode) {
                         // Buffer the disableBeforeEnabling String
-                        ArrayList<String> disableBeforeEnabling = new ArrayList<String>();
+                        ArrayList<String> disableBeforeEnabling = new ArrayList<>();
                         for (int i = 0; i < fragment.all_installed_overlays.size(); i++) {
                             if (!References.grabOverlayParent(context,
                                     fragment.all_installed_overlays.get(i))
@@ -911,7 +910,7 @@ public class OverlayFunctions {
                     publishProgress((int) fragment.current_amount);
                     if (fragment.compile_enable_mode) {
                         if (fragment.final_runner == null) {
-                            fragment.final_runner = new ArrayList<String>();
+                            fragment.final_runner = new ArrayList<>();
                         }
                         String package_name = fragment.checkedOverlays.get(i)
                                 .getFullOverlayParameters();
@@ -1372,7 +1371,7 @@ public class OverlayFunctions {
                     }
                 } else {
                     if (fragment.final_runner == null)
-                        fragment.final_runner = new ArrayList<String>();
+                        fragment.final_runner = new ArrayList<>();
                     if (fragment.enable_mode || fragment.compile_enable_mode ||
                             fragment.disable_mode) {
                         String package_name =

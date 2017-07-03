@@ -825,7 +825,6 @@ class OverlayFunctions {
                             .show();
                 }
             }
-            // TODO: Handle multiple APKs
             if (References.isSamsung(context) &&
                     fragment.late_install != null &&
                     fragment.late_install.size() > 0) {

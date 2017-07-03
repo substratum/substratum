@@ -27,6 +27,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
@@ -37,6 +38,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Lunchbar;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
@@ -271,11 +273,15 @@ class OverlayFunctions {
                         ioe.printStackTrace();
                     }
                 }
+
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+                Boolean showDangerous = !prefs.getBoolean("show_dangerous_samsung_overlays", false);
+
                 values.addAll(overlaysFolder.stream().filter(package_name -> (References
                         .isPackageInstalled(context, package_name) ||
                         References.allowedSystemUIOverlay(package_name) ||
                         References.allowedSettingsOverlay(package_name)) &&
-                        (!ThemeManager.blacklisted(
+                        (!showDangerous || !ThemeManager.blacklisted(
                                 package_name,
                                 References.isSamsung(context) &&
                                         !References.isSamsungTheme(context, fragment.theme_pid))))

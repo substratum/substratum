@@ -37,7 +37,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.service.notification.StatusBarNotification;
 import android.support.design.widget.Lunchbar;
@@ -87,7 +86,6 @@ import projekt.substratum.adapters.tabs.overlays.VariantItem;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
-import projekt.substratum.common.platform.MasqueradeService;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
 
@@ -97,13 +95,9 @@ import static projekt.substratum.common.References.DEFAULT_NOTIFICATION_CHANNEL_
 import static projekt.substratum.common.References.ENABLE_PACKAGE_LOGGING;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
-import static projekt.substratum.common.References.MASQUERADE_PACKAGE;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
-import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
-import static projekt.substratum.common.References.checkThemeInterfacer;
-import static projekt.substratum.common.References.isPackageInstalled;
 import static projekt.substratum.common.References.metadataEmail;
 import static projekt.substratum.common.References.metadataEncryption;
 import static projekt.substratum.common.References.metadataEncryptionValue;
@@ -113,7 +107,6 @@ public class Overlays extends Fragment {
     public static final String overlaysDir = "overlays";
     public static final String TAG = SUBSTRATUM_BUILDER;
     public static final int THREAD_WAIT_DURATION = 500;
-    public final OverlayFunctions overlayFunctions = new OverlayFunctions();
     public TextView loader_string;
     public ProgressDialog mProgressDialog;
     public SubstratumBuilder sb;
@@ -679,133 +672,6 @@ public class Overlays extends Fragment {
         return false;
     }
 
-    protected void finishFunction(Context context) {
-        mProgressDialog.dismiss();
-
-        // Add dummy intent to be able to close the notification on click
-        Intent notificationIntent = new Intent(context, InformationActivity.class);
-        notificationIntent.putExtra("theme_name", theme_name);
-        notificationIntent.putExtra("theme_pid", theme_pid);
-        notificationIntent.setFlags(
-                Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        PendingIntent intent =
-                PendingIntent.getActivity(context, 0, notificationIntent,
-                        PendingIntent.FLAG_CANCEL_CURRENT);
-
-        if (!has_failed) {
-            // Closing off the persistent notification
-            if (checkActiveNotifications()) {
-                mNotifyManager.cancel(id);
-                mBuilder = new NotificationCompat.Builder(context, DEFAULT_NOTIFICATION_CHANNEL_ID);
-                mBuilder.setAutoCancel(true);
-                mBuilder.setProgress(0, 0, false);
-                mBuilder.setOngoing(false);
-                mBuilder.setContentIntent(intent);
-                mBuilder.setSmallIcon(R.drawable.notification_success_icon);
-                mBuilder.setContentTitle(context.getString(R.string.notification_done_title));
-                mBuilder.setContentText(context.getString(R.string.notification_no_errors_found));
-                if (prefs.getBoolean("vibrate_on_compiled", false)) {
-                    mBuilder.setVibrate(new long[]{100, 200, 100, 500});
-                }
-                mNotifyManager.notify(id, mBuilder.build());
-            }
-
-            if (missingType3) {
-                Lunchbar.make(
-                        getActivityView(),
-                        R.string.toast_compiled_missing,
-                        Lunchbar.LENGTH_LONG)
-                        .show();
-            } else {
-                Lunchbar.make(
-                        getActivityView(),
-                        R.string.toast_compiled_updated,
-                        Lunchbar.LENGTH_LONG)
-                        .show();
-            }
-        }
-
-        if (!has_failed || final_runner.size() > fail_count) {
-            StringBuilder final_commands = new StringBuilder();
-            if (compile_enable_mode && mixAndMatchMode) {
-                // Buffer the disableBeforeEnabling String
-                ArrayList<String> disableBeforeEnabling = new ArrayList<>();
-                for (String p : all_installed_overlays) {
-                    if (!theme_pid.equals(References.grabOverlayParent(getContext(), p))) {
-                        disableBeforeEnabling.add(p);
-                    } else {
-                        for (OverlaysItem oi : checkedOverlays) {
-                            String targetOverlay = oi.getPackageName();
-                            if (targetOverlay.equals(
-                                    References.grabOverlayTarget(getContext(), p))) {
-                                disableBeforeEnabling.add(p);
-                            }
-                        }
-                    }
-                }
-                if (checkThemeInterfacer(context)) {
-                    ThemeManager.disableOverlay(context, disableBeforeEnabling);
-                } else {
-                    final_commands = new StringBuilder(ThemeManager.disableOverlay);
-                    for (int i = 0; i < disableBeforeEnabling.size(); i++) {
-                        final_commands.append(" ").append(disableBeforeEnabling.get(i)).append(" ");
-                    }
-                    Log.d(TAG, final_commands.toString());
-                }
-            }
-
-            if (compile_enable_mode) {
-                ThemeManager.enableOverlay(context, final_command);
-            }
-
-            if (!checkThemeInterfacer(context) && isPackageInstalled(context, MASQUERADE_PACKAGE)) {
-                Log.d(TAG, "Using Masquerade as the fallback system...");
-                Intent runCommand = MasqueradeService.getMasquerade(getContext());
-                runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                runCommand.setAction("masquerade.substratum.COMMANDS");
-                runCommand.putExtra("om-commands", final_commands.toString());
-                getContext().sendBroadcast(runCommand);
-            }
-
-            if (final_runner.size() == 0) {
-                if (base_spinner.getSelectedItemPosition() == 0) {
-                    mAdapter.notifyDataSetChanged();
-                } else {
-                    mAdapter.notifyDataSetChanged();
-                }
-            } else {
-                progressBar.setVisibility(View.VISIBLE);
-                if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                mAdapter.notifyDataSetChanged();
-            }
-
-            progressBar.setVisibility(View.GONE);
-            if (needsRecreate(getContext())) {
-                Handler handler = new Handler();
-                handler.postDelayed(() -> {
-                    // OMS may not have written all the changes so quickly just yet
-                    // so we may need to have a small delay
-                    try {
-                        overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
-                        for (int i = 0; i < overlaysLists.size(); i++) {
-                            OverlaysItem currentOverlay = overlaysLists.get(i);
-                            currentOverlay.setSelected(false);
-                            currentOverlay.updateEnabledOverlays(updateEnabledOverlays());
-                            mAdapter.notifyDataSetChanged();
-                        }
-                    } catch (Exception e) {
-                        // Consume window refresh
-                    }
-                }, REFRESH_WINDOW_DELAY);
-            }
-
-            if (!late_install.isEmpty() && !References.isSamsung(context)) {
-                // Install remaining overlays
-                ThemeManager.installOverlay(context, late_install);
-            }
-        }
-    }
-
     protected void failedFunction(Context context) {
         // Add dummy intent to be able to close the notification on click
         Intent notificationIntent = new Intent(context, this.getClass());
@@ -831,7 +697,6 @@ public class Overlays extends Fragment {
             if (prefs.getBoolean("vibrate_on_compiled", false)) {
                 mBuilder.setVibrate(new long[]{100, 200, 100, 500});
             }
-            mBuilder.setChannel(DEFAULT_NOTIFICATION_CHANNEL_ID);
             mNotifyManager.notify(id, mBuilder.build());
         }
 

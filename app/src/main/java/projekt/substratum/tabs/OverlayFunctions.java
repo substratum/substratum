@@ -18,7 +18,6 @@
 
 package projekt.substratum.tabs;
 
-import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -72,6 +71,7 @@ import java.util.stream.Collectors;
 import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
 import projekt.substratum.BuildConfig;
+import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.tabs.overlays.OverlaysAdapter;
 import projekt.substratum.adapters.tabs.overlays.OverlaysItem;
@@ -80,18 +80,24 @@ import projekt.substratum.adapters.tabs.overlays.VariantItem;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
+import projekt.substratum.common.platform.MasqueradeService;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.services.notification.NotificationButtonReceiver;
 import projekt.substratum.util.compilers.CacheCreator;
 import projekt.substratum.util.compilers.SubstratumBuilder;
 import projekt.substratum.util.files.MapUtils;
 
+import static projekt.substratum.common.References.DEFAULT_NOTIFICATION_CHANNEL_ID;
+import static projekt.substratum.common.References.MASQUERADE_PACKAGE;
+import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
+import static projekt.substratum.common.References.checkThemeInterfacer;
+import static projekt.substratum.common.References.isPackageInstalled;
+
 class OverlayFunctions {
 
     static final String TAG = Overlays.TAG;
 
     static class SendErrorReport extends AsyncTask<Void, Void, File> {
-        @SuppressLint("StaticFieldLeak")
         private WeakReference<Context> contextRef;
         private String themePid;
         private String errorLog;
@@ -550,7 +556,6 @@ class OverlayFunctions {
                         .setSmallIcon(android.R.drawable.ic_popup_sync)
                         .setPriority(notification_priority)
                         .setContentIntent(resultPendingIntent)
-                        .setChannel(References.DEFAULT_NOTIFICATION_CHANNEL_ID)
                         .setOngoing(true);
                 fragment.mNotifyManager.notify(fragment.id, fragment.mBuilder.build());
 
@@ -711,7 +716,7 @@ class OverlayFunctions {
             }
 
             if (!fragment.enable_mode && !fragment.disable_mode) {
-                fragment.finishFunction(context);
+                new Phase4_finishUpdateFunction(fragment).execute();
                 if (fragment.has_failed) {
                     fragment.failedFunction(context);
                 } else {
@@ -735,95 +740,9 @@ class OverlayFunctions {
                     // Suppress warning
                 }
             } else if (fragment.enable_mode) {
-                if (fragment.final_runner.size() > 0) {
-                    fragment.enable_mode = false;
-
-                    if (fragment.mixAndMatchMode) {
-                        // Buffer the disableBeforeEnabling String
-                        ArrayList<String> disableBeforeEnabling = new ArrayList<>();
-                        for (int i = 0; i < fragment.all_installed_overlays.size(); i++) {
-                            if (!References.grabOverlayParent(context,
-                                    fragment.all_installed_overlays.get(i))
-                                    .equals(fragment.theme_pid)) {
-                                disableBeforeEnabling.add(fragment.all_installed_overlays.get(i));
-                            }
-                        }
-                        fragment.progressBar.setVisibility(View.VISIBLE);
-                        if (fragment.toggle_all.isChecked()) fragment.toggle_all.setChecked(false);
-                        ThemeManager.disableOverlay(context, disableBeforeEnabling);
-                        ThemeManager.enableOverlay(context, fragment.final_command);
-                    } else {
-                        fragment.progressBar.setVisibility(View.VISIBLE);
-                        if (fragment.toggle_all.isChecked()) fragment.toggle_all.setChecked(false);
-                        ThemeManager.enableOverlay(context, fragment.final_command);
-                    }
-
-                    fragment.progressBar.setVisibility(View.GONE);
-                    if (fragment.needsRecreate(context)) {
-                        Handler handler = new Handler();
-                        handler.postDelayed(() -> {
-                            // OMS may not have written all the changes so quickly just yet
-                            // so we may need to have a small delay
-                            try {
-                                fragment.overlaysLists = ((OverlaysAdapter) fragment.mAdapter)
-                                        .getOverlayList();
-                                for (int i = 0; i < fragment.overlaysLists.size(); i++) {
-                                    OverlaysItem currentOverlay = fragment.overlaysLists.get(i);
-                                    currentOverlay.setSelected(false);
-                                    currentOverlay.updateEnabledOverlays(
-                                            fragment.updateEnabledOverlays());
-                                    fragment.mAdapter.notifyDataSetChanged();
-                                }
-                            } catch (Exception e) {
-                                // Consume window refresh
-                            }
-                        }, References.REFRESH_WINDOW_DELAY);
-                    }
-                } else {
-                    fragment.compile_enable_mode = false;
-                    fragment.enable_mode = false;
-                    Lunchbar.make(
-                            fragment.getActivityView(),
-                            R.string.toast_disabled3,
-                            Lunchbar.LENGTH_LONG)
-                            .show();
-                }
+                new Phase4_finishEnableFunction(fragment).execute();
             } else if (fragment.disable_mode) {
-                if (fragment.final_runner.size() > 0) {
-                    fragment.disable_mode = false;
-                    fragment.progressBar.setVisibility(View.VISIBLE);
-                    if (fragment.toggle_all.isChecked()) fragment.toggle_all.setChecked(false);
-                    ThemeManager.disableOverlay(context, fragment.final_command);
-
-                    fragment.progressBar.setVisibility(View.GONE);
-                    if (fragment.needsRecreate(context)) {
-                        Handler handler = new Handler();
-                        handler.postDelayed(() -> {
-                            // OMS may not have written all the changes so quickly just yet
-                            // so we may need to have a small delay
-                            try {
-                                fragment.overlaysLists = ((OverlaysAdapter) fragment.mAdapter)
-                                        .getOverlayList();
-                                for (int i = 0; i < fragment.overlaysLists.size(); i++) {
-                                    OverlaysItem currentOverlay = fragment.overlaysLists.get(i);
-                                    currentOverlay.setSelected(false);
-                                    currentOverlay.updateEnabledOverlays(
-                                            fragment.updateEnabledOverlays());
-                                    fragment.mAdapter.notifyDataSetChanged();
-                                }
-                            } catch (Exception e) {
-                                // Consume window refresh
-                            }
-                        }, References.REFRESH_WINDOW_DELAY);
-                    }
-                } else {
-                    fragment.disable_mode = false;
-                    Lunchbar.make(
-                            fragment.getActivityView(),
-                            R.string.toast_disabled4,
-                            Lunchbar.LENGTH_LONG)
-                            .show();
-                }
+                new Phase4_finishDisableFunction(fragment).execute();
             }
             if (References.isSamsung(context) &&
                     fragment.late_install != null &&
@@ -1388,6 +1307,308 @@ class OverlayFunctions {
                 }
             }
             return null;
+        }
+    }
+
+    static class Phase4_finishEnableFunction extends AsyncTask<Void, Void, Void> {
+        private WeakReference<Overlays> ref;
+
+        Phase4_finishEnableFunction(Overlays overlays) {
+            ref = new WeakReference<>(overlays);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            Overlays fragment = ref.get();
+
+            fragment.progressBar.setVisibility(View.VISIBLE);
+            if (fragment.toggle_all.isChecked()) fragment.toggle_all.setChecked(false);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Overlays fragment = ref.get();
+            Context context = fragment.getActivity();
+
+            if (fragment.final_runner.size() > 0) {
+                fragment.enable_mode = false;
+
+                if (fragment.mixAndMatchMode) {
+                    // Buffer the disableBeforeEnabling String
+                    ArrayList<String> disableBeforeEnabling = new ArrayList<>();
+                    for (int i = 0; i < fragment.all_installed_overlays.size(); i++) {
+                        if (!References.grabOverlayParent(context,
+                                fragment.all_installed_overlays.get(i))
+                                .equals(fragment.theme_pid)) {
+                            disableBeforeEnabling.add(fragment.all_installed_overlays.get(i));
+                        }
+                    }
+                    ThemeManager.disableOverlay(context, disableBeforeEnabling);
+                    ThemeManager.enableOverlay(context, fragment.final_command);
+                } else {
+                    ThemeManager.enableOverlay(context, fragment.final_command);
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            Overlays fragment = ref.get();
+            Context context = fragment.getActivity();
+
+            if (fragment.final_runner.size() > 0) {
+                fragment.progressBar.setVisibility(View.GONE);
+                if (fragment.needsRecreate(context)) {
+                    Handler handler = new Handler();
+                    handler.postDelayed(() -> {
+                        // OMS may not have written all the changes so quickly just yet
+                        // so we may need to have a small delay
+                        try {
+                            fragment.overlaysLists = ((OverlaysAdapter) fragment.mAdapter)
+                                    .getOverlayList();
+                            for (int i = 0; i < fragment.overlaysLists.size(); i++) {
+                                OverlaysItem currentOverlay = fragment.overlaysLists.get(i);
+                                currentOverlay.setSelected(false);
+                                currentOverlay.updateEnabledOverlays(
+                                        fragment.updateEnabledOverlays());
+                                fragment.mAdapter.notifyDataSetChanged();
+                            }
+                        } catch (Exception e) {
+                            // Consume window refresh
+                        }
+                    }, References.REFRESH_WINDOW_DELAY);
+                }
+            } else {
+                fragment.compile_enable_mode = false;
+                fragment.enable_mode = false;
+                Lunchbar.make(
+                        fragment.getActivityView(),
+                        R.string.toast_disabled3,
+                        Lunchbar.LENGTH_LONG)
+                        .show();
+            }
+        }
+    }
+
+    static class Phase4_finishDisableFunction extends AsyncTask<Void, Void, Void> {
+        private WeakReference<Overlays> ref;
+
+        Phase4_finishDisableFunction(Overlays overlays) {
+            ref = new WeakReference<>(overlays);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            Overlays fragment = ref.get();
+
+            if (fragment.final_runner.size() > 0) {
+                fragment.progressBar.setVisibility(View.VISIBLE);
+                if (fragment.toggle_all.isChecked()) fragment.toggle_all.setChecked(false);
+            }
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Overlays fragment = ref.get();
+            Context context = fragment.getActivity();
+
+            if (fragment.final_runner.size() > 0) {
+                fragment.disable_mode = false;
+                ThemeManager.disableOverlay(context, fragment.final_command);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            Overlays fragment = ref.get();
+            Context context = fragment.getActivity();
+
+            fragment.progressBar.setVisibility(View.GONE);
+            if (fragment.final_runner.size() > 0) {
+                if (fragment.needsRecreate(context)) {
+                    Handler handler = new Handler();
+                    handler.postDelayed(() -> {
+                        // OMS may not have written all the changes so quickly just yet
+                        // so we may need to have a small delay
+                        try {
+                            fragment.overlaysLists = ((OverlaysAdapter) fragment.mAdapter)
+                                    .getOverlayList();
+                            for (int i = 0; i < fragment.overlaysLists.size(); i++) {
+                                OverlaysItem currentOverlay = fragment.overlaysLists.get(i);
+                                currentOverlay.setSelected(false);
+                                currentOverlay.updateEnabledOverlays(
+                                        fragment.updateEnabledOverlays());
+                                fragment.mAdapter.notifyDataSetChanged();
+                            }
+                        } catch (Exception e) {
+                            // Consume window refresh
+                        }
+                    }, References.REFRESH_WINDOW_DELAY);
+                }
+            } else {
+                fragment.disable_mode = false;
+                Lunchbar.make(
+                        fragment.getActivityView(),
+                        R.string.toast_disabled4,
+                        Lunchbar.LENGTH_LONG)
+                        .show();
+            }
+        }
+    }
+
+    static class Phase4_finishUpdateFunction extends AsyncTask<Void, Void, Void> {
+        private WeakReference<Overlays> ref;
+
+        Phase4_finishUpdateFunction(Overlays overlays) {
+            ref = new WeakReference<>(overlays);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            Overlays fragment = ref.get();
+            Context context = fragment.getActivity();
+
+            fragment.mProgressDialog.dismiss();
+
+            // Add dummy intent to be able to close the notification on click
+            Intent notificationIntent = new Intent(context, InformationActivity.class);
+            notificationIntent.putExtra("theme_name", fragment.theme_name);
+            notificationIntent.putExtra("theme_pid", fragment.theme_pid);
+            notificationIntent.setFlags(
+                    Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            PendingIntent intent =
+                    PendingIntent.getActivity(context, 0, notificationIntent,
+                            PendingIntent.FLAG_CANCEL_CURRENT);
+
+            if (!fragment.has_failed) {
+                // Closing off the persistent notification
+                if (fragment.checkActiveNotifications()) {
+                    fragment.mNotifyManager.cancel(fragment.id);
+                    fragment.mBuilder = new NotificationCompat.Builder(
+                            context, DEFAULT_NOTIFICATION_CHANNEL_ID);
+                    fragment.mBuilder.setAutoCancel(true);
+                    fragment.mBuilder.setProgress(0, 0, false);
+                    fragment.mBuilder.setOngoing(false);
+                    fragment.mBuilder.setContentIntent(intent);
+                    fragment.mBuilder.setSmallIcon(R.drawable.notification_success_icon);
+                    fragment.mBuilder.setContentTitle(
+                            context.getString(R.string.notification_done_title));
+                    fragment.mBuilder.setContentText(
+                            context.getString(R.string.notification_no_errors_found));
+                    if (fragment.prefs.getBoolean("vibrate_on_compiled", false)) {
+                        fragment.mBuilder.setVibrate(new long[]{100, 200, 100, 500});
+                    }
+                    fragment.mNotifyManager.notify(fragment.id, fragment.mBuilder.build());
+                }
+
+                if (fragment.missingType3) {
+                    Lunchbar.make(
+                            fragment.getActivityView(),
+                            R.string.toast_compiled_missing,
+                            Lunchbar.LENGTH_LONG)
+                            .show();
+                } else {
+                    Lunchbar.make(
+                            fragment.getActivityView(),
+                            R.string.toast_compiled_updated,
+                            Lunchbar.LENGTH_LONG)
+                            .show();
+                }
+            }
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Overlays fragment = ref.get();
+            Context context = fragment.getActivity();
+
+            if (!fragment.has_failed || fragment.final_runner.size() > fragment.fail_count) {
+                StringBuilder final_commands = new StringBuilder();
+                if (fragment.compile_enable_mode && fragment.mixAndMatchMode) {
+                    // Buffer the disableBeforeEnabling String
+                    ArrayList<String> disableBeforeEnabling = new ArrayList<>();
+                    for (String p : fragment.all_installed_overlays) {
+                        if (!fragment.theme_pid.equals(References.grabOverlayParent(context, p))) {
+                            disableBeforeEnabling.add(p);
+                        } else {
+                            for (OverlaysItem oi : fragment.checkedOverlays) {
+                                String targetOverlay = oi.getPackageName();
+                                if (targetOverlay.equals(
+                                        References.grabOverlayTarget(context, p))) {
+                                    disableBeforeEnabling.add(p);
+                                }
+                            }
+                        }
+                    }
+                    if (checkThemeInterfacer(context)) {
+                        ThemeManager.disableOverlay(context, disableBeforeEnabling);
+                    } else {
+                        final_commands = new StringBuilder(ThemeManager.disableOverlay);
+                        for (int i = 0; i < disableBeforeEnabling.size(); i++) {
+                            final_commands.append(" ").append(disableBeforeEnabling.get(i)).append(" ");
+                        }
+                        Log.d(TAG, final_commands.toString());
+                    }
+                }
+
+                if (fragment.compile_enable_mode) {
+                    ThemeManager.enableOverlay(context, fragment.final_command);
+                }
+
+                if (!checkThemeInterfacer(context) && isPackageInstalled(context, MASQUERADE_PACKAGE)) {
+                    Log.d(TAG, "Using Masquerade as the fallback system...");
+                    Intent runCommand = MasqueradeService.getMasquerade(context);
+                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+                    runCommand.setAction("masquerade.substratum.COMMANDS");
+                    runCommand.putExtra("om-commands", final_commands.toString());
+                    context.sendBroadcast(runCommand);
+                }
+
+                if (fragment.final_runner.size() == 0) {
+                    if (fragment.base_spinner.getSelectedItemPosition() == 0) {
+                        fragment.mAdapter.notifyDataSetChanged();
+                    } else {
+                        fragment.mAdapter.notifyDataSetChanged();
+                    }
+                } else {
+                    fragment.progressBar.setVisibility(View.VISIBLE);
+                    if (fragment.toggle_all.isChecked()) fragment.toggle_all.setChecked(false);
+                    fragment.mAdapter.notifyDataSetChanged();
+                }
+
+                fragment.progressBar.setVisibility(View.GONE);
+                if (fragment.needsRecreate(context)) {
+                    Handler handler = new Handler();
+                    handler.postDelayed(() -> {
+                        // OMS may not have written all the changes so quickly just yet
+                        // so we may need to have a small delay
+                        try {
+                            fragment.overlaysLists = ((OverlaysAdapter) fragment.mAdapter).getOverlayList();
+                            for (int i = 0; i < fragment.overlaysLists.size(); i++) {
+                                OverlaysItem currentOverlay = fragment.overlaysLists.get(i);
+                                currentOverlay.setSelected(false);
+                                currentOverlay.updateEnabledOverlays(fragment.updateEnabledOverlays());
+                                fragment.mAdapter.notifyDataSetChanged();
+                            }
+                        } catch (Exception e) {
+                            // Consume window refresh
+                        }
+                    }, REFRESH_WINDOW_DELAY);
+                }
+
+                if (!fragment.late_install.isEmpty() && !References.isSamsung(context)) {
+                    // Install remaining overlays
+                    ThemeManager.installOverlay(context, fragment.late_install);
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+
         }
     }
 }

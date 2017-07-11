@@ -459,7 +459,8 @@ public class Overlays extends Fragment {
                 Log.d(TAG, "Loading substratum theme in encrypted assets mode.");
                 encrypted = true;
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.d(TAG,
+                        "Loading substratum theme in decrypted assets mode due to an exception.");
             }
         } else {
             Log.d(TAG, "Loading substratum theme in decrypted assets mode.");

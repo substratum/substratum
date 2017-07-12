@@ -18,6 +18,7 @@
 
 package projekt.substratum.tabs;
 
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -34,6 +35,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.design.widget.Lunchbar;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
@@ -961,10 +963,13 @@ class OverlayFunctions {
         @Override
         protected void onPreExecute() {
             Overlays fragment = ref.get();
+            Activity activity = fragment.getActivity();
 
             if (fragment.final_runner.size() > 0) {
-                fragment.progressBar.setVisibility(View.VISIBLE);
-                if (fragment.toggle_all.isChecked()) fragment.toggle_all.setChecked(false);
+                activity.runOnUiThread(() ->
+                        fragment.progressBar.setVisibility(View.VISIBLE));
+                if (fragment.toggle_all.isChecked())
+                    activity.runOnUiThread(() -> fragment.toggle_all.setChecked(false));
             }
         }
 
@@ -984,8 +989,9 @@ class OverlayFunctions {
         protected void onPostExecute(Void result) {
             Overlays fragment = ref.get();
             Context context = fragment.getActivity();
+            Activity activity = fragment.getActivity();
 
-            fragment.progressBar.setVisibility(View.GONE);
+            activity.runOnUiThread(() -> fragment.progressBar.setVisibility(View.GONE));
             if (fragment.final_runner.size() > 0) {
                 if (fragment.needsRecreate(context)) {
                     Handler handler = new Handler();
@@ -1000,7 +1006,8 @@ class OverlayFunctions {
                                 currentOverlay.setSelected(false);
                                 currentOverlay.updateEnabledOverlays(
                                         fragment.updateEnabledOverlays());
-                                fragment.mAdapter.notifyDataSetChanged();
+                                activity.runOnUiThread(() ->
+                                        fragment.mAdapter.notifyDataSetChanged());
                             }
                         } catch (Exception e) {
                             // Consume window refresh
@@ -1082,7 +1089,8 @@ class OverlayFunctions {
         @Override
         protected Void doInBackground(Void... voids) {
             Overlays fragment = ref.get();
-            Context context = fragment.getActivity();
+            Activity activity = fragment.getActivity();
+            Context context = fragment.getContext();
 
             if (!fragment.has_failed || fragment.final_runner.size() > fragment.fail_count) {
                 StringBuilder final_commands = new StringBuilder();
@@ -1107,7 +1115,8 @@ class OverlayFunctions {
                     } else {
                         final_commands = new StringBuilder(ThemeManager.disableOverlay);
                         for (int i = 0; i < disableBeforeEnabling.size(); i++) {
-                            final_commands.append(" ").append(disableBeforeEnabling.get(i)).append(" ");
+                            final_commands.append(" ").append(disableBeforeEnabling.get(i))
+                                    .append(" ");
                         }
                         Log.d(TAG, final_commands.toString());
                     }
@@ -1117,7 +1126,8 @@ class OverlayFunctions {
                     ThemeManager.enableOverlay(context, fragment.final_command);
                 }
 
-                if (!checkThemeInterfacer(context) && isPackageInstalled(context, MASQUERADE_PACKAGE)) {
+                if (!checkThemeInterfacer(context) && isPackageInstalled(context,
+                        MASQUERADE_PACKAGE)) {
                     Log.d(TAG, "Using Masquerade as the fallback system...");
                     Intent runCommand = MasqueradeService.getMasquerade(context);
                     runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
@@ -1128,29 +1138,33 @@ class OverlayFunctions {
 
                 if (fragment.final_runner.size() == 0) {
                     if (fragment.base_spinner.getSelectedItemPosition() == 0) {
-                        fragment.mAdapter.notifyDataSetChanged();
+                        activity.runOnUiThread(() -> fragment.mAdapter.notifyDataSetChanged());
                     } else {
-                        fragment.mAdapter.notifyDataSetChanged();
+                        activity.runOnUiThread(() -> fragment.mAdapter.notifyDataSetChanged());
                     }
                 } else {
-                    fragment.progressBar.setVisibility(View.VISIBLE);
-                    if (fragment.toggle_all.isChecked()) fragment.toggle_all.setChecked(false);
-                    fragment.mAdapter.notifyDataSetChanged();
+                    activity.runOnUiThread(() -> fragment.progressBar.setVisibility(View.VISIBLE));
+                    if (fragment.toggle_all.isChecked())
+                        activity.runOnUiThread(() -> fragment.toggle_all.setChecked(false));
+                    activity.runOnUiThread(() -> fragment.mAdapter.notifyDataSetChanged());
                 }
 
-                fragment.progressBar.setVisibility(View.GONE);
+                activity.runOnUiThread(() -> fragment.progressBar.setVisibility(View.GONE));
                 if (fragment.needsRecreate(context)) {
-                    Handler handler = new Handler();
+                    Handler handler = new Handler(Looper.getMainLooper());
                     handler.postDelayed(() -> {
                         // OMS may not have written all the changes so quickly just yet
                         // so we may need to have a small delay
                         try {
-                            fragment.overlaysLists = ((OverlaysAdapter) fragment.mAdapter).getOverlayList();
+                            fragment.overlaysLists =
+                                    ((OverlaysAdapter) fragment.mAdapter).getOverlayList();
                             for (int i = 0; i < fragment.overlaysLists.size(); i++) {
                                 OverlaysItem currentOverlay = fragment.overlaysLists.get(i);
                                 currentOverlay.setSelected(false);
-                                currentOverlay.updateEnabledOverlays(fragment.updateEnabledOverlays());
-                                fragment.mAdapter.notifyDataSetChanged();
+                                currentOverlay.updateEnabledOverlays(
+                                        fragment.updateEnabledOverlays());
+                                activity.runOnUiThread(() ->
+                                        fragment.mAdapter.notifyDataSetChanged());
                             }
                         } catch (Exception e) {
                             // Consume window refresh

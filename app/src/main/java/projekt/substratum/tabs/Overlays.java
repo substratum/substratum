@@ -903,8 +903,8 @@ public class Overlays extends Fragment {
         try (BufferedReader reader = new BufferedReader(inputStreamReader)) {
             return new VariantItem(String.format(getString(R.string
                     .overlays_variant_substitute), reader.readLine()), null);
-        } catch (IOException e) {
-            Log.e(TAG, "There was an error parsing asset file!");
+        } catch (Exception e) {
+            Log.d(TAG, "Falling back to default base variant text...");
             return new VariantItem(getString(R.string.overlays_variant_default_2), null);
         }
     }
@@ -1289,13 +1289,22 @@ public class Overlays extends Fragment {
                                     typeArrayRaw, package_identifier, "c"));
                         }
 
+                        boolean type2checker = false;
+                        for (int i = 0; i < typeArray.size(); i++) {
+                            if (typeArray.get(i).startsWith("type2_")) {
+                                type2checker = true;
+                                break;
+                            }
+                        }
                         if (References.isCachingEnabled(fragment.getContext()) &&
                                 (typeArray.contains("type2") || typeArray.contains("type2.enc"))) {
                             type2.add(fragment.setTypeTwoSpinners(
                                     new InputStreamReader(new FileInputStream(
                                             new File(((File) typeArrayRaw).getAbsolutePath() +
                                                     "/type2")))));
-                        } else if (typeArray.contains("type2") || typeArray.contains("type2.enc")) {
+                        } else if (typeArray.contains("type2") ||
+                                typeArray.contains("type2.enc") ||
+                                type2checker) {
                             if (fragment.encrypted) {
                                 type2.add(fragment.setTypeTwoSpinners(new InputStreamReader(
                                         FileOperations.getInputStream(
@@ -1305,10 +1314,10 @@ public class Overlays extends Fragment {
                                                 fragment.cipher))));
                             } else {
                                 type2.add(fragment.setTypeTwoSpinners(
-                                        new InputStreamReader(
+                                        (type2checker ? null : new InputStreamReader(
                                                 fragment.themeAssetManager.open(Overlays
                                                         .overlaysDir +
-                                                        "/" + package_identifier + "/type2"))));
+                                                        "/" + package_identifier + "/type2")))));
                             }
                         }
                         if (typeArray.size() > 1) {

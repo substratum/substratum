@@ -88,7 +88,7 @@ class OverlayFunctions {
         @Override
         protected void onPreExecute() {
             Overlays fragment = ref.get();
-            Context context = fragment.getActivity();
+            Context context = fragment.getContext();
             fragment.final_runner = new ArrayList<>();
             fragment.late_install = new ArrayList<>();
 
@@ -174,7 +174,7 @@ class OverlayFunctions {
         @Override
         protected String doInBackground(String... sUrl) {
             Overlays fragment = ref.get();
-            Context context = fragment.getActivity();
+            Context context = fragment.getContext();
             if (!fragment.enable_mode && !fragment.disable_mode) {
                 // Initialize Substratum cache with theme only if permitted
                 if (References.isCachingEnabled(context) && !fragment.has_initialized_cache) {
@@ -222,10 +222,10 @@ class OverlayFunctions {
 
         @Override
         protected void onPreExecute() {
-            Log.d(Overlays.TAG, "Substratum is proceeding with your actions and is now actively " +
-                    "running...");
+            Log.d(Overlays.TAG,
+                    "Substratum is proceeding with your actions and is now actively running...");
             Overlays fragment = ref.get();
-            Context context = fragment.getActivity();
+            Context context = fragment.getContext();
 
             fragment.missingType3 = false;
             fragment.has_failed = false;
@@ -264,7 +264,7 @@ class OverlayFunctions {
             // TODO: onPostExecute runs on UI thread, so move the hard job to doInBackground
             super.onPostExecute(result);
             Overlays fragment = ref.get();
-            Context context = fragment.getActivity();
+            Context context = fragment.getContext();
 
             fragment.final_command = new ArrayList<>();
 
@@ -349,7 +349,7 @@ class OverlayFunctions {
         @Override
         protected String doInBackground(String... sUrl) {
             Overlays fragment = ref.get();
-            Context context = fragment.getActivity();
+            Context context = fragment.getContext();
             String parsedVariant = sUrl[0].replaceAll("\\s+", "");
             String unparsedVariant = sUrl[0];
 
@@ -890,7 +890,7 @@ class OverlayFunctions {
         @Override
         protected Void doInBackground(Void... voids) {
             Overlays fragment = ref.get();
-            Context context = fragment.getActivity();
+            Context context = fragment.getContext();
 
             if (fragment.final_runner.size() > 0) {
                 fragment.enable_mode = false;
@@ -917,7 +917,7 @@ class OverlayFunctions {
         @Override
         protected void onPostExecute(Void result) {
             Overlays fragment = ref.get();
-            Context context = fragment.getActivity();
+            Context context = fragment.getContext();
 
             if (fragment.final_runner.size() > 0) {
                 fragment.progressBar.setVisibility(View.GONE);
@@ -976,7 +976,7 @@ class OverlayFunctions {
         @Override
         protected Void doInBackground(Void... voids) {
             Overlays fragment = ref.get();
-            Context context = fragment.getActivity();
+            Context context = fragment.getContext();
 
             if (fragment.final_runner.size() > 0) {
                 fragment.disable_mode = false;
@@ -988,7 +988,7 @@ class OverlayFunctions {
         @Override
         protected void onPostExecute(Void result) {
             Overlays fragment = ref.get();
-            Context context = fragment.getActivity();
+            Context context = fragment.getContext();
             Activity activity = fragment.getActivity();
 
             activity.runOnUiThread(() -> fragment.progressBar.setVisibility(View.GONE));
@@ -1035,7 +1035,7 @@ class OverlayFunctions {
         @Override
         protected void onPreExecute() {
             Overlays fragment = ref.get();
-            Context context = fragment.getActivity();
+            Context context = fragment.getContext();
 
             fragment.mProgressDialog.dismiss();
 

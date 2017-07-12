@@ -967,7 +967,7 @@ public class InformationActivity extends SubstratumActivity {
         } else {
             if (uninstalled)
                 References.sendRefreshMessage(getApplicationContext());
-            super.onBackPressed();
+            finish();
         }
     }
 

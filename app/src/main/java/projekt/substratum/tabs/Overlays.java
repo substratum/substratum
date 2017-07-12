@@ -860,10 +860,9 @@ public class Overlays extends Fragment {
                 }
             }
             return new VariantItem(formatter, hex);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
             // When erroring out, put the default spinner text
-            Log.e(TAG, "There was an error parsing asset file!");
+            Log.d(TAG, "Falling back to default base variant text...");
             String hex = null;
             if (encrypted) {
                 try (InputStream input = FileOperations.getInputStream(

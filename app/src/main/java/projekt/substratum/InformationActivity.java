@@ -23,8 +23,10 @@ import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -90,6 +92,7 @@ import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static com.bumptech.glide.request.RequestOptions.centerCropTransform;
 import static projekt.substratum.common.References.BYPASS_SUBSTRATUM_BUILDER_DELETION;
+import static projekt.substratum.common.References.MANAGER_REFRESH;
 import static projekt.substratum.common.References.bootAnimationsFragment;
 import static projekt.substratum.common.References.fontsFragment;
 import static projekt.substratum.common.References.isSamsung;
@@ -122,6 +125,8 @@ public class InformationActivity extends SubstratumActivity {
     private boolean shouldDarken;
     private MaterialSheetFab materialSheetFab;
     private int tabPosition;
+    private LocalBroadcastManager localBroadcastManager;
+    private BroadcastReceiver refreshReceiver;
 
     public static String getThemeName() {
         return theme_name;
@@ -281,6 +286,12 @@ public class InformationActivity extends SubstratumActivity {
         setContentView(R.layout.information_activity);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        // Register the theme install receiver to auto refresh the fragment
+        refreshReceiver = new RefreshReceiver();
+        IntentFilter if1 = new IntentFilter(MANAGER_REFRESH);
+        localBroadcastManager = LocalBroadcastManager.getInstance(getApplicationContext());
+        localBroadcastManager.registerReceiver(refreshReceiver, if1);
 
         boolean dynamicActionBarColors = getResources().getBoolean(R.bool.dynamicActionBarColors);
         boolean dynamicNavBarColors = getResources().getBoolean(R.bool.dynamicNavigationBarColors);
@@ -975,6 +986,12 @@ public class InformationActivity extends SubstratumActivity {
     public void onDestroy() {
         super.onDestroy();
 
+        try {
+            localBroadcastManager.unregisterReceiver(refreshReceiver);
+        } catch (IllegalArgumentException e) {
+            // Unregistered already
+        }
+
         // Reset all of the parameters of this IA instance
         theme_name = null;
         theme_pid = null;
@@ -1108,6 +1125,19 @@ public class InformationActivity extends SubstratumActivity {
         protected String doInBackground(String... sUrl) {
             References.uninstallPackage(getApplicationContext(), theme_pid);
             return null;
+        }
+    }
+
+    class RefreshReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (!References.isPackageInstalled(context, theme_pid)) {
+                Log.d("ThemeUninstaller",
+                        "The theme was uninstalled, so the activity is now closing!");
+                References.sendRefreshMessage(context);
+                finish();
+            }
         }
     }
 }

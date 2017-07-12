@@ -964,14 +964,16 @@ public class Overlays extends Fragment {
     private void refreshList() {
         if (mAdapter != null) mAdapter.notifyDataSetChanged();
 
-        for (int i = 0; i < overlaysLists.size(); i++) {
-            OverlaysItem currentOverlay = overlaysLists.get(i);
-            if (currentOverlay.isSelected()) {
-                currentOverlay.setSelected(false);
-            }
-            am.killBackgroundProcesses(currentOverlay.getPackageName());
+        if (overlaysLists != null) {
+            for (int i = 0; i < overlaysLists.size(); i++) {
+                OverlaysItem currentOverlay = overlaysLists.get(i);
+                if (currentOverlay.isSelected()) {
+                    currentOverlay.setSelected(false);
+                }
+                am.killBackgroundProcesses(currentOverlay.getPackageName());
 
-            mAdapter.notifyDataSetChanged();
+                mAdapter.notifyDataSetChanged();
+            }
         }
     }
 

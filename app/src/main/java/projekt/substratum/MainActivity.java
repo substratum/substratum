@@ -363,12 +363,12 @@ public class MainActivity extends SubstratumActivity implements
                 .withName(R.string.nav_drawer_featured)
                 .withIcon(R.drawable.nav_drawer_featured)
                 .withSelectable(false).withSubItems(
-                        new SecondaryDrawerItem().withName(R.string.nav_drawer_tcf)
-                                .withLevel(2).withIcon(R.drawable.nav_drawer_tcf)
-                                .withSelectable(false)
-                                .withIdentifier(103),
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_rawad)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_youtube)
+                                .withSelectable(false)
+                                .withIdentifier(103),
+                        new SecondaryDrawerItem().withName(R.string.nav_drawer_tcf)
+                                .withLevel(2).withIcon(R.drawable.nav_drawer_tcf)
                                 .withSelectable(false)
                                 .withIdentifier(104),
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_xda_portal)
@@ -609,7 +609,7 @@ public class MainActivity extends SubstratumActivity implements
                         break;
                     case 103:
                         try {
-                            String sourceURL = getString(R.string.tcf_link);
+                            String sourceURL = getString(R.string.rawad_youtube_url);
                             Intent i = new Intent(Intent.ACTION_VIEW);
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
@@ -622,7 +622,7 @@ public class MainActivity extends SubstratumActivity implements
                         break;
                     case 104:
                         try {
-                            String sourceURL = getString(R.string.rawad_youtube_url);
+                            String sourceURL = getString(R.string.tcf_link);
                             Intent i = new Intent(Intent.ACTION_VIEW);
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);

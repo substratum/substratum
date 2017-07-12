@@ -974,6 +974,17 @@ public class InformationActivity extends SubstratumActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+
+        // Reset all of the parameters of this IA instance
+        theme_name = null;
+        theme_pid = null;
+        theme_mode = null;
+        encryption_key = null;
+        iv_encrypt_key = null;
+        wallpaperUrl = null;
+        kenBurnsView = null;
+        heroImageBitmap = null;
+
         if (!BYPASS_SUBSTRATUM_BUILDER_DELETION &&
                 !References.isCachingEnabled(getApplicationContext())) {
             String workingDirectory =

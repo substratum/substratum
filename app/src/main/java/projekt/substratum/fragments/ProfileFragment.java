@@ -257,6 +257,7 @@ public class ProfileFragment extends Fragment {
                         backupFunction.execute();
                         Log.d(References.SUBSTRATUM_LOG, selectedBackup.toString());
                         dialog.dismiss();
+                        backup_name.setText("");
                     } else {
                         Toast.makeText(getContext(), R.string.profile_no_selection_warning,
                                 Toast.LENGTH_LONG).show();

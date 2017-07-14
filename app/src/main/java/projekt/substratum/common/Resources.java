@@ -93,5 +93,46 @@ public class Resources {
             "com.android.cts.verifier",
             INTERFACER_PACKAGE
     };
+    // Default core packages
+    public static final String[] CORE_SYSTEM_PACKAGES = {
 
+            // Core AOSP System Packages
+            "android",
+            "com.android.browser",
+            "com.android.calculator2",
+            "com.android.calendar",
+            "com.android.cellbroadcastreceiver",
+            "com.android.contacts",
+            "com.android.deskclock",
+            "com.android.dialer",
+            "com.android.documentsui",
+            "com.android.emergency",
+            "com.android.gallery3d",
+            "com.android.inputmethod.latin",
+            "com.android.launcher3",
+            "com.android.messaging",
+            "com.android.mms",
+            "com.android.musicfx",
+            "com.android.packageinstaller",
+            "com.android.phone",
+            "com.android.providers.media",
+            "com.android.server.telecom",
+            "com.android.settings",
+            "com.android.systemui",
+
+            // Device Specific Packages
+            "com.cyanogenmod.settings.device",
+
+            // Google Packages
+            "com.google.android.apps.nexuslauncher",
+            "com.google.android.calculator",
+            "com.google.android.contacts",
+            "com.google.android.deskclock",
+            "com.google.android.dialer",
+            "com.google.android.packageinstaller",
+            "com.google.android.tts",
+
+            // Organization Packages
+            "projekt.substratum",
+    };
 }

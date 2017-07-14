@@ -44,7 +44,9 @@ public class TroubleshootingFragment extends Fragment {
             R.string.question_nine,
             R.string.question_ten,
             R.string.question_eleven,
-            R.string.question_twelve
+            R.string.question_twelve,
+            R.string.question_thirteen,
+            R.string.question_fourteen
     };
 
     int[] troubleshootAnswers = {
@@ -59,7 +61,9 @@ public class TroubleshootingFragment extends Fragment {
             R.string.answer_nine,
             R.string.answer_ten,
             R.string.answer_eleven,
-            R.string.answer_twelve
+            R.string.answer_twelve,
+            R.string.answer_thirteen,
+            R.string.answer_fourteen
     };
 
     @Override

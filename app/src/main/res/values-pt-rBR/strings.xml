@@ -73,6 +73,8 @@ para esta aba&#8230;    </string>
     <string name="legacy_warning_content">A compatibilidade de temas é fornecida tal COMO ESTÁ, uma vez que não podemos garantir uma compatibilidade completa de cores. Certifique-se de que tem uma Recuperação personalizada para o seu dispositivo e
 conhecimentos sobre como restaurar a partir de um bootloop antes de prosseguir.\n\nNão podemos
 corrigir coisas que não estão sendo aplicadas nos temas em modo de compatibilidade, pois estas exigem mudanças ao nível do sistema.    </string>
+    <string name="samsung_warning_content">O suporte para Samsung é fornecido como está, pois não podemos garantir a compatibilidade total com cores e camadas construídas para AOSP. Nós cuidamos de esconder as camadas perigosas para o seu dispositivo, mas você pode alternar isso manualmente nas configurações, a seu critério.\n\nSe de qualquer forma você chegar a um problema com uma possível tela preta, consulte nosso tópico de discussão no XDA sobre dois métodos de recuperação.
+    </string>
     <string name="legacy_dialog_soft_reboot_title">Reinício necessário!</string>
     <string name="legacy_dialog_soft_reboot_text">Executando no sistema Resource Runtime Overlay (RRO),
         é necessário reiniciar após a adição ou remoção de camadas.\n\nProsseguir com este
@@ -332,6 +334,8 @@ corretamente&#8230;</string>
     <string name="toast_samsung_prototype_restart">Por favor reinicie o seu dispositivo ou force fechar seu aplicativo sobreposto!</string>
     <string name="toast_samsung_prototype_disabled">Essa versão do substratum está depreciada.\n\nPor favor, atualize para a nova versão!</string>
     <string name="toast_samsung_prototype_alert">Substratum automaticamente escondeu as sobreposições de sistema sem suporte para o seu dispositivo!</string>
+    <string name="samsung_prototype_no_root_dialog">Parece que você está em um dispositivo Samsung suportado, um complemento foi lançado para suportar isso!</string>
+    <string name="samsung_prototype_no_root_dialog_button">Baixe Agora!</string>
     <string name="toast_needs_caching">O cache do Substratum foi limpo, por favor recompile esse tema antes de continuar!</string>
     <string name="notification_theme_installed">instalado</string>
     <string name="notification_theme_updated">atualizado</string>
@@ -378,6 +382,8 @@ resolver este problema.    </string>
     <string name="show_theme_template_version_description">Mostrar cada nível de alvo SDK, versão do tema e versão do plugin como um marcador em cada um dos cards de temas.</string>
     <string name="vibrate_on_compiled">Notificar após o tema ser compilado</string>
     <string name="vibrate_on_compiled_description">Quando o tema estiver pronto, o dispositivo vibrará para notificar que a compilação completou.</string>
+    <string name="manage_notification_channel">Gerenciar o canal de notificação</string>
+    <string name="manage_notification_channel_dialog_title">Selecione o canal de notificação para gerenciar</string>
     <string name="hide_app_icon">Mostrar ícone do aplicativo</string>
     <string name="hide_app_icon_toast_enabled">O ícone do aplicativo foi removido da sua gaveta de aplicativos!</string>
     <string name="hide_app_icon_toast_disabled">O ícone do aplicativo foi adicionado à sua gaveta de aplicativos!</string>
@@ -493,7 +499,10 @@ resolver este problema.    </string>
     <string name="settings_force_english_text">Isto irá forçar o aplicativo a usar a línguagem Inglês.</string>
     <string name="settings_force_english_toast_reverted">Desativado com sucesso forçar linguagem Inglês!</string>
     <string name="settings_manage_space_title">Gerenciar Uso de Armazenamento</string>
+    <string name="settings_samsung_show_dangerous_overlays">Permitir Camadas Perigosas</string>
+    <string name="settings_samsung_show_dangerous_overlays_text">Mostre todas as camadas normalmente perigosas para dispositivos Samsung se o tema não suportar.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">AVISO</string>
+    <string name="settings_samsung_show_dangerous_overlays_warning">Nós escondemos camadas perigosas por algum motivo, mas se você tiver certeza de que deseja ativa-las, siga as instruções para desativar isto no nosso tópico de discussão no XDA!</string>
     <string name="settings_theme_caching_title">Armazenar Recursos de Temas</string>
     <string name="settings_theme_caching_text">Todos os recursos de temas ativos serão extraídos para o diretório de cache.</string>
     <string name="settings_theme_caching_found_snackbar">Você descobriu o recurso oculto modo cache de recursos!</string>
@@ -549,6 +558,10 @@ resolver este problema.    </string>
     <string name="rom_status_unsupported">esta ROM não é suportada pela comunidade!</string>
     <string name="rom_status_network">verificação de internet requerida&#8230;</string>
     <!-- Notification channel -->
+    <string name="notification_channel_default">Padrão</string>
+    <string name="notification_channel_default_description">Principais notificações (Novidades e atualizações de temas, copilação do tema concluída, etc.)</string>
+    <string name="notification_channel_ongoing">Em curso</string>
+    <string name="notification_channel_ongoing_description">Notificações em curso</string>
     <!-- Nav drawer -->
     <string name="nav_home">Pacotes de tema</string>
     <string name="nav_overlays">Camadas</string>

@@ -1671,6 +1671,19 @@ public class References {
         }
     }
 
+    // Check if user application or not
+    public static boolean isUserApp(Context context, String packageName) {
+        try {
+            PackageManager pm = context.getPackageManager();
+            ApplicationInfo ai = pm.getApplicationInfo(packageName, 0);
+            int mask = ApplicationInfo.FLAG_SYSTEM | ApplicationInfo.FLAG_UPDATED_SYSTEM_APP;
+            return (ai.flags & mask) == 0;
+        } catch (PackageManager.NameNotFoundException e) {
+            // Suppress warning
+        }
+        return false;
+    }
+
     public static void sendLocalizedKeyMessage(Context context,
                                                byte[] encryption_key,
                                                byte[] iv_encrypt_key) {

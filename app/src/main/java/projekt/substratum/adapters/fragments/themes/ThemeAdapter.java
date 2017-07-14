@@ -191,23 +191,25 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
         viewHolder.cardView.setOnLongClickListener(view -> {
             // Vibrate the device alerting the user they are about to do something dangerous!
-            Vibrator v = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
-            v.vibrate(30);
-            if (!References.isSamsung(mContext)) {
-                SheetDialog sheetDialog = new SheetDialog(mContext);
-                View sheetView = View.inflate(mContext, R.layout.uninstall_sheet_dialog, null);
-                LinearLayout uninstall = sheetView.findViewById(R.id.uninstall);
-                uninstall.setOnClickListener(view2 -> {
-                    toBeUninstalled = themeItem;
-                    new uninstallTheme().execute();
-                    sheetDialog.hide();
-                });
-                sheetDialog.setContentView(sheetView);
-                sheetDialog.show();
-            } else {
-                Uri packageURI = Uri.parse("package:" + themeItem.getThemePackage());
-                Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
-                mContext.startActivity(uninstallIntent);
+            if (References.isUserApp(mContext, themeItem.getThemePackage())) {
+                Vibrator v = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
+                v.vibrate(30);
+                if (!References.isSamsung(mContext)) {
+                    SheetDialog sheetDialog = new SheetDialog(mContext);
+                    View sheetView = View.inflate(mContext, R.layout.uninstall_sheet_dialog, null);
+                    LinearLayout uninstall = sheetView.findViewById(R.id.uninstall);
+                    uninstall.setOnClickListener(view2 -> {
+                        toBeUninstalled = themeItem;
+                        new uninstallTheme().execute();
+                        sheetDialog.hide();
+                    });
+                    sheetDialog.setContentView(sheetView);
+                    sheetDialog.show();
+                } else {
+                    Uri packageURI = Uri.parse("package:" + themeItem.getThemePackage());
+                    Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
+                    mContext.startActivity(uninstallIntent);
+                }
             }
             return false;
         });

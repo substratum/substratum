@@ -735,6 +735,10 @@ public class InformationActivity extends SubstratumActivity {
             menu.findItem(R.id.uninstall).setVisible(false);
         }
 
+        if (!References.isUserApp(getApplicationContext(), theme_pid)) {
+            menu.findItem(R.id.uninstall).setVisible(false);
+        }
+
         menu.findItem(R.id.clean_cache).setVisible(prefs.getBoolean("caching_enabled", false));
 
         return true;

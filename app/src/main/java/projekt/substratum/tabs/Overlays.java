@@ -736,7 +736,7 @@ public class Overlays extends Fragment {
         currentShownLunchBar = Lunchbar.make(
                 getActivityView(),
                 R.string.logcat_snackbar_text,
-                Lunchbar.LENGTH_LONG);
+                Lunchbar.LENGTH_INDEFINITE);
         currentShownLunchBar.setAction(getString(R.string.logcat_snackbar_button), view -> {
             currentShownLunchBar.dismiss();
             invokeLogCharDialog(context);

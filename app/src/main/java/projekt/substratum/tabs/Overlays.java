@@ -1313,10 +1313,10 @@ public class Overlays extends Fragment {
                                                 fragment.cipher))));
                             } else {
                                 type2.add(fragment.setTypeTwoSpinners(
-                                        (new InputStreamReader(
-                                                fragment.themeAssetManager.open(Overlays
-                                                        .overlaysDir +
-                                                        "/" + package_identifier + "/type2")))));
+                                        (type2checker ? new InputStreamReader(fragment.
+                                                themeAssetManager.open(Overlays.overlaysDir +
+                                                        "/" + package_identifier + "/type2"))
+                                                : null)));
                             }
                         }
                         if (typeArray.size() > 1) {

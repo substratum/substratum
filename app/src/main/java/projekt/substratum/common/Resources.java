@@ -58,41 +58,6 @@ public class Resources {
             387945779, // Release
             815479991, // Release
     };
-    // Predetermined list of new Nexus/Pixel Devices
-    static final String[] NEXUS_FILTER = new String[]{
-            "angler", // Nexus 6P
-            "bullhead", // Nexus 5X
-            "flounder", // Nexus 9
-            "dragon", // Pixel C
-            "marlin", // Pixel
-            "sailfish", // Pixel XL
-            "walleye", // Pixel 2
-            "muskie", // Pixel XL 2
-            "taimen", // Pixel ?
-    };
-    // Filter to adjust UI sounds
-    static final String[] ALLOWED_UI_THEMABLE_SOUNDS = {
-            "lock_sound",
-            "unlock_sound",
-            "low_battery_sound"
-    };
-    // Legacy Asset Folder Check
-    static final String[] ALLOWED_LEGACY_ASSETS = {
-            "overlays",
-            "overlays_legacy",
-            "sounds"
-    };
-    // Do not theme these packages on icon pack studio
-    static final String[] BLACKLIST_STUDIO_TARGET_APPS = {
-            "com.keramidas.TitaniumBackup",
-            "com.android.cts.verifier",
-            INTERFACER_PACKAGE
-    };
-    // Do not theme these packages
-    static final String[] BLACKLIST_THEME_TARGET_APPS = {
-            "com.android.cts.verifier",
-            INTERFACER_PACKAGE
-    };
     // Default core packages
     public static final String[] CORE_SYSTEM_PACKAGES = {
 
@@ -134,5 +99,40 @@ public class Resources {
 
             // Organization Packages
             "projekt.substratum",
+    };
+    // Predetermined list of new Nexus/Pixel Devices
+    static final String[] NEXUS_FILTER = new String[]{
+            "angler", // Nexus 6P
+            "bullhead", // Nexus 5X
+            "flounder", // Nexus 9
+            "dragon", // Pixel C
+            "marlin", // Pixel
+            "sailfish", // Pixel XL
+            "walleye", // Pixel 2
+            "muskie", // Pixel XL 2
+            "taimen", // Pixel ?
+    };
+    // Filter to adjust UI sounds
+    static final String[] ALLOWED_UI_THEMABLE_SOUNDS = {
+            "lock_sound",
+            "unlock_sound",
+            "low_battery_sound"
+    };
+    // Legacy Asset Folder Check
+    static final String[] ALLOWED_LEGACY_ASSETS = {
+            "overlays",
+            "overlays_legacy",
+            "sounds"
+    };
+    // Do not theme these packages on icon pack studio
+    static final String[] BLACKLIST_STUDIO_TARGET_APPS = {
+            "com.keramidas.TitaniumBackup",
+            "com.android.cts.verifier",
+            INTERFACER_PACKAGE
+    };
+    // Do not theme these packages
+    static final String[] BLACKLIST_THEME_TARGET_APPS = {
+            "com.android.cts.verifier",
+            INTERFACER_PACKAGE
     };
 }

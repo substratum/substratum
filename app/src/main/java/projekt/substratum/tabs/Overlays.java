@@ -1068,7 +1068,7 @@ public class Overlays extends Fragment {
                     contextRef.get().getString(R.string.logcat_attachment_body),
                     device,
                     rom_version,
-                    BuildConfig.VERSION_CODE,
+                    String.valueOf(BuildConfig.VERSION_CODE),
                     theme_version,
                     failedPackages,
                     errorLog);

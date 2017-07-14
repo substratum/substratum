@@ -594,7 +594,12 @@ public class MainActivity extends SubstratumActivity implements
                         break;
                     case 102:
                         try {
-                            String sourceURL = getString(R.string.xda_link);
+                            String sourceURL;
+                            if (References.isSamsung(this)){
+                                sourceURL = getString(R.string.xda_sungstratum_link);
+                            } else {
+                                sourceURL = getString(R.string.xda_link);
+                            }
                             Intent i = new Intent(Intent.ACTION_VIEW);
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);

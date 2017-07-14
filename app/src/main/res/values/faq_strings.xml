@@ -94,4 +94,15 @@
         possible, a logcat.
     </string>
 
+    <string name="question_thirteen">How do I use substratum on my Samsung device?</string>
+    <string name="answer_thirteen">If your Samsung device is running Nougat, Substratum will be
+        able to utilise a built-in feature to allow Substratum themes to work. Substratum will
+        prompt you to purchase the Samsung Integration Addon when you launch the app for the first time.
+    </string>
+
+    <string name="question_fourteen">Help, I installed an overlay on my Samsung device and it won\'t boot now!</string>
+    <string name="answer_fourteen">Slide the navdrawer out and head to the XDA thread for instructions
+        on how to recover from this particular situation.
+    </string>
+
 </resources>

@@ -42,6 +42,7 @@
     <string name="validator_whitelist_url" translatable="false">"https://raw.githubusercontent.com/substratum/database/master/commit_whitelist.xml"</string>
     <string name="themer_email" translatable="false">substratumthemers@gmail.com</string>
     <string name="sungstratum_url" translatable="false">https://play.google.com/store/apps/details?id=projekt.sungstratum</string>
+    <string name="xda_sungstratum_link" translatable="false">https://forum.xda-developers.com/apps/substratum/7-0-substratum-sex-tw-beta-t3620796</string>
 
     <string name="resource_checker_request">Send commit merge request using&#8230;</string>
     <string name="resource_checker">Commit Validator</string>

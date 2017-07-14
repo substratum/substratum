@@ -21,6 +21,7 @@ package projekt.substratum.activities.launch;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Process;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -43,6 +44,7 @@ import static projekt.substratum.common.commands.FileOperations.getFileSize;
 public class ManageSpaceActivity extends AppCompatActivity {
 
     private TextView cacheCounter;
+    private TextView logsCounter;
     private String callingPackage;
 
     @Override
@@ -66,6 +68,22 @@ public class ManageSpaceActivity extends AppCompatActivity {
         clearCacheButton.setOnClickListener(v -> {
             cacheCounter.setText(getString(R.string.clear_cache_button_loading));
             new ClearCache(this).execute();
+        });
+
+        CardView clearLogsButton = findViewById(R.id.clear_logs_button);
+        logsCounter = findViewById(R.id.log_counter);
+        logsCounter.setText(getString(R.string.clear_cache_button_loading));
+        File filer = new File(Environment.getExternalStorageDirectory() +
+                File.separator + "substratum" + File.separator + "LogChar Reports");
+        if (filer.isDirectory()) {
+            logsCounter.setText(String.valueOf(filer.list().length));
+        } else {
+            logsCounter.setText(String.valueOf(0));
+        }
+
+        clearLogsButton.setOnClickListener(v -> {
+            logsCounter.setText(getString(R.string.clear_cache_button_loading));
+            new ClearLogs(this).execute();
         });
 
         resetAppButton.setOnClickListener(v -> {
@@ -118,6 +136,37 @@ public class ManageSpaceActivity extends AppCompatActivity {
             Context context = activity.getApplicationContext();
             activity.cacheCounter.setText(
                     Formatter.formatFileSize(context, getFileSize(context.getCacheDir())));
+        }
+    }
+
+    private static class ClearLogs extends AsyncTask<Void, Void, Void> {
+        private WeakReference<ManageSpaceActivity> ref;
+
+        ClearLogs(ManageSpaceActivity activity) {
+            ref = new WeakReference<>(activity);
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Context context = ref.get().getApplicationContext();
+            delete(context, new File(Environment.getExternalStorageDirectory() +
+                    File.separator + "substratum" + File.separator + "LogChar Reports")
+                    .getAbsolutePath());
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            ManageSpaceActivity activity = ref.get();
+            Context context = activity.getApplicationContext();
+
+            File filer = new File(Environment.getExternalStorageDirectory() +
+                    File.separator + "substratum" + File.separator + "LogChar Reports");
+            if (filer.isDirectory()) {
+                activity.logsCounter.setText(String.valueOf(filer.list().length));
+            } else {
+                activity.logsCounter.setText(String.valueOf(0));
+            }
         }
     }
 

@@ -846,6 +846,7 @@
 
     <string name="title_activity_manage_space">Manage Storage Usage</string>
     <string name="manage_space_cache_text_title">Clear cache</string>
+    <string name="manage_space_logs_text_title">Clear saved logs</string>
     <string name="clear_cache_button_loading">Loading&#8230;</string>
     <string name="clear_cache_button_text">Clear substratum cache</string>
     <string name="manage_space_cache_counter_title">Clearing the local cache will remove all the files used by the theme compiler and online downloader. All theme packs and user configurations will remain as-is.\n\nDepending on the size of your cache, this may take a few seconds to complete.</string>

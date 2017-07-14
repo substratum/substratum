@@ -77,6 +77,43 @@
 
     </android.support.v7.widget.CardView>
 
+    <android.support.v7.widget.CardView
+        android:id="@+id/clear_logs_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:foreground="?android:selectableItemBackground"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="1dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="25dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp">
+
+            <TextView
+                android:id="@+id/erase_logs_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/manage_space_logs_text_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/main_screen_card_theme_title"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/log_counter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@+id/erase_logs_title"
+                android:gravity="end"
+                android:text="LOGS"/>
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -41,6 +41,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -104,11 +105,13 @@ import static projekt.substratum.common.References.wallpaperFragment;
 
 public class InformationActivity extends SubstratumActivity {
 
+    private static final int LUNCHBAR_DISMISS_FAB_CLICK_DELAY = 200;
     public static String theme_name;
     public static String theme_pid;
     public static String theme_mode;
     public static byte[] encryption_key;
     public static byte[] iv_encrypt_key;
+    public static Lunchbar currentShownLunchBar;
     private static List<String> tab_checker;
     private static String wallpaperUrl;
     private Boolean uninstalled = false;
@@ -148,6 +151,10 @@ public class InformationActivity extends SubstratumActivity {
         return wallpaperUrl;
     }
 
+    public static Lunchbar getCurrentShownLunchBar() {
+        return currentShownLunchBar;
+    }
+
     private static int getDominantColor(Bitmap bitmap) {
         try {
             Palette palette = Palette.from(bitmap).generate();
@@ -176,6 +183,16 @@ public class InformationActivity extends SubstratumActivity {
             overflow.setImageResource(dark_mode ? R.drawable.information_activity_overflow_dark :
                     R.drawable.information_activity_overflow_light);
         });
+    }
+
+    private boolean closeAllLunchBars() {
+        if (currentShownLunchBar != null) {
+            currentShownLunchBar.dismiss();
+            currentShownLunchBar = null;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private View getView() {
@@ -222,15 +239,15 @@ public class InformationActivity extends SubstratumActivity {
                                 resultUri.toString().substring(7),
                                 "home");
                         editor.putString("home_wallpaper_applied", theme_pid);
-                        Lunchbar.make(getView(),
+                        currentShownLunchBar = Lunchbar.make(getView(),
                                 getString(R.string.wallpaper_homescreen_success),
-                                Lunchbar.LENGTH_LONG)
-                                .show();
+                                Lunchbar.LENGTH_LONG);
+                        currentShownLunchBar.show();
                     } catch (IOException e) {
-                        Lunchbar.make(getView(),
+                        currentShownLunchBar = Lunchbar.make(getView(),
                                 getString(R.string.wallpaper_homescreen_error),
-                                Lunchbar.LENGTH_LONG)
-                                .show();
+                                Lunchbar.LENGTH_LONG);
+                        currentShownLunchBar.show();
                         e.printStackTrace();
                     }
                 } else if (resultUri.toString().contains("lockscreen_wallpaper")) {
@@ -240,15 +257,15 @@ public class InformationActivity extends SubstratumActivity {
                                 resultUri.toString().substring(7),
                                 "lock");
                         editor.putString("lock_wallpaper_applied", theme_pid);
-                        Lunchbar.make(getView(),
+                        currentShownLunchBar = Lunchbar.make(getView(),
                                 getString(R.string.wallpaper_lockscreen_success),
-                                Lunchbar.LENGTH_LONG)
-                                .show();
+                                Lunchbar.LENGTH_LONG);
+                        currentShownLunchBar.show();
                     } catch (IOException e) {
-                        Lunchbar.make(getView(),
+                        currentShownLunchBar = Lunchbar.make(getView(),
                                 getString(R.string.wallpaper_lockscreen_error),
-                                Lunchbar.LENGTH_LONG)
-                                .show();
+                                Lunchbar.LENGTH_LONG);
+                        currentShownLunchBar.show();
                         e.printStackTrace();
                     }
                 } else if (resultUri.toString().contains("all_wallpaper")) {
@@ -259,15 +276,15 @@ public class InformationActivity extends SubstratumActivity {
                                 "all");
                         editor.putString("home_wallpaper_applied", theme_pid);
                         editor.putString("lock_wallpaper_applied", theme_pid);
-                        Lunchbar.make(getView(),
+                        currentShownLunchBar = Lunchbar.make(getView(),
                                 getString(R.string.wallpaper_allscreen_success),
-                                Lunchbar.LENGTH_LONG)
-                                .show();
+                                Lunchbar.LENGTH_LONG);
+                        currentShownLunchBar.show();
                     } catch (IOException e) {
-                        Lunchbar.make(getView(),
+                        currentShownLunchBar = Lunchbar.make(getView(),
                                 getString(R.string.wallpaper_allscreen_error),
-                                Lunchbar.LENGTH_LONG)
-                                .show();
+                                Lunchbar.LENGTH_LONG);
+                        currentShownLunchBar.show();
                         e.printStackTrace();
                     }
                 }
@@ -539,26 +556,30 @@ public class InformationActivity extends SubstratumActivity {
             LocalBroadcastManager localBroadcastManager =
                     LocalBroadcastManager.getInstance(getApplicationContext());
             floatingActionButton.setOnClickListener(v -> {
-                Intent intent;
                 try {
-                    switch (adapt.instantiateItem(viewPager, tabPosition)
-                            .getClass().getSimpleName()) {
-                        case "Overlays":
-                            materialSheetFab.showSheet();
-                            break;
-                        case "BootAnimations":
-                            intent = new Intent("BootAnimations.START_JOB");
-                            localBroadcastManager.sendBroadcast(intent);
-                            break;
-                        case "Fonts":
-                            intent = new Intent("Fonts.START_JOB");
-                            localBroadcastManager.sendBroadcast(intent);
-                            break;
-                        case "Sounds":
-                            intent = new Intent("Sounds.START_JOB");
-                            localBroadcastManager.sendBroadcast(intent);
-                            break;
-                    }
+                    boolean isLunchbarOpen = closeAllLunchBars();
+                    final Handler handler = new Handler();
+                    handler.postDelayed(() -> {
+                        Intent intent;
+                        switch (adapt.instantiateItem(viewPager, tabPosition)
+                                .getClass().getSimpleName()) {
+                            case "Overlays":
+                                materialSheetFab.showSheet();
+                                break;
+                            case "BootAnimations":
+                                intent = new Intent("BootAnimations.START_JOB");
+                                localBroadcastManager.sendBroadcast(intent);
+                                break;
+                            case "Fonts":
+                                intent = new Intent("Fonts.START_JOB");
+                                localBroadcastManager.sendBroadcast(intent);
+                                break;
+                            case "Sounds":
+                                intent = new Intent("Sounds.START_JOB");
+                                localBroadcastManager.sendBroadcast(intent);
+                                break;
+                        }
+                    }, isLunchbarOpen ? LUNCHBAR_DISMISS_FAB_CLICK_DELAY : 0);
                 } catch (NullPointerException npe) {
                     // Suppress warning
                 }
@@ -666,11 +687,11 @@ public class InformationActivity extends SubstratumActivity {
             if (References.isSamsung(getApplicationContext()) &&
                     !References.isSamsungTheme(getApplicationContext(), theme_pid) &&
                     shouldShowSamsungWarning) {
-                Lunchbar.make(
+                currentShownLunchBar = Lunchbar.make(
                         getView(),
                         R.string.toast_samsung_prototype_alert,
-                        Lunchbar.LENGTH_SHORT)
-                        .show();
+                        Lunchbar.LENGTH_SHORT);
+                currentShownLunchBar.show();
             }
         }
     }
@@ -942,10 +963,10 @@ public class InformationActivity extends SubstratumActivity {
                     i.setData(Uri.parse(playURL));
                     startActivity(i);
                 } catch (ActivityNotFoundException activityNotFoundException) {
-                    Lunchbar.make(getView(),
+                    currentShownLunchBar = Lunchbar.make(getView(),
                             getString(R.string.activity_missing_toast),
-                            Lunchbar.LENGTH_LONG)
-                            .show();
+                            Lunchbar.LENGTH_LONG);
+                    currentShownLunchBar.show();
                 }
                 return true;
             case R.id.uninstall:
@@ -1065,10 +1086,10 @@ public class InformationActivity extends SubstratumActivity {
                     getColor(R.color.information_activity_dark_icon_mode),
                     PorterDuff.Mode.SRC_ATOP);
             String format = String.format(getString(R.string.menu_favorite_snackbar), result);
-            Lunchbar.make(getView(),
+            currentShownLunchBar = Lunchbar.make(getView(),
                     format,
-                    Lunchbar.LENGTH_LONG)
-                    .show();
+                    Lunchbar.LENGTH_LONG);
+            currentShownLunchBar.show();
         }
 
         @Override
@@ -1090,10 +1111,10 @@ public class InformationActivity extends SubstratumActivity {
             String format = String.format(
                     getString(R.string.menu_favorite_snackbar_cleared),
                     result);
-            Lunchbar.make(getView(),
+            currentShownLunchBar = Lunchbar.make(getView(),
                     format,
-                    Lunchbar.LENGTH_LONG)
-                    .show();
+                    Lunchbar.LENGTH_LONG);
+            currentShownLunchBar.show();
         }
 
         @Override

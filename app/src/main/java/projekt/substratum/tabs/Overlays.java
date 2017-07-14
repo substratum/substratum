@@ -105,6 +105,7 @@ import projekt.substratum.util.files.MapUtils;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
+import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.References.DEFAULT_NOTIFICATION_CHANNEL_ID;
 import static projekt.substratum.common.References.ENABLE_PACKAGE_LOGGING;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
@@ -212,11 +213,11 @@ public class Overlays extends Fragment {
             } else {
                 if (toggle_all.isChecked()) toggle_all.setChecked(false);
                 is_active = false;
-                Lunchbar.make(
+                currentShownLunchBar = Lunchbar.make(
                         getActivityView(),
                         R.string.toast_disabled5,
-                        Lunchbar.LENGTH_LONG)
-                        .show();
+                        Lunchbar.LENGTH_LONG);
+                currentShownLunchBar.show();
             }
         }
     }
@@ -248,11 +249,11 @@ public class Overlays extends Fragment {
             } else {
                 if (toggle_all.isChecked()) toggle_all.setChecked(false);
                 is_active = false;
-                Lunchbar.make(
+                currentShownLunchBar = Lunchbar.make(
                         getActivityView(),
                         R.string.toast_disabled5,
-                        Lunchbar.LENGTH_LONG)
-                        .show();
+                        Lunchbar.LENGTH_LONG);
+                currentShownLunchBar.show();
             }
         }
     }
@@ -290,11 +291,11 @@ public class Overlays extends Fragment {
                 } else {
                     if (toggle_all.isChecked()) toggle_all.setChecked(false);
                     is_active = false;
-                    Lunchbar.make(
+                    currentShownLunchBar = Lunchbar.make(
                             getActivityView(),
                             R.string.toast_disabled5,
-                            Lunchbar.LENGTH_LONG)
-                            .show();
+                            Lunchbar.LENGTH_LONG);
+                    currentShownLunchBar.show();
                 }
             } else {
                 compile_enable_mode = false;
@@ -366,11 +367,11 @@ public class Overlays extends Fragment {
                 } else {
                     if (toggle_all.isChecked()) toggle_all.setChecked(false);
                     is_active = false;
-                    Lunchbar.make(
+                    currentShownLunchBar = Lunchbar.make(
                             getActivityView(),
                             R.string.toast_disabled5,
-                            Lunchbar.LENGTH_LONG)
-                            .show();
+                            Lunchbar.LENGTH_LONG);
+                    currentShownLunchBar.show();
                 }
                 is_active = false;
                 disable_mode = false;
@@ -410,11 +411,11 @@ public class Overlays extends Fragment {
             } else {
                 if (toggle_all.isChecked()) toggle_all.setChecked(false);
                 is_active = false;
-                Lunchbar.make(
+                currentShownLunchBar = Lunchbar.make(
                         getActivityView(),
                         R.string.toast_disabled5,
-                        Lunchbar.LENGTH_LONG)
-                        .show();
+                        Lunchbar.LENGTH_LONG);
+                currentShownLunchBar.show();
             }
         }
     }
@@ -739,11 +740,11 @@ public class Overlays extends Fragment {
                     (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
             ClipData clip = ClipData.newPlainText("substratum_log", error_logs);
             clipboard.setPrimaryClip(clip);
-            Lunchbar.make(
+            currentShownLunchBar = Lunchbar.make(
                     getActivityView(),
                     R.string.logcat_dialog_copy_success,
-                    Lunchbar.LENGTH_LONG)
-                    .show();
+                    Lunchbar.LENGTH_LONG);
+            currentShownLunchBar.show();
             dialog.dismiss();
         });
 

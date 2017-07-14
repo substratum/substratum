@@ -76,6 +76,8 @@ import projekt.substratum.common.tabs.BootAnimationManager;
 import projekt.substratum.util.files.Root;
 import projekt.substratum.util.tabs.BootAnimationUtils;
 
+import static projekt.substratum.InformationActivity.currentShownLunchBar;
+
 public class BootAnimations extends Fragment {
 
     private static final String bootanimationsDir = "bootanimation";
@@ -286,10 +288,10 @@ public class BootAnimations extends Fragment {
             editor.remove("bootanimation_applied");
             editor.apply();
             if (getView() != null) {
-                Lunchbar.make(getView(),
+                currentShownLunchBar = Lunchbar.make(getView(),
                         getString(R.string.manage_bootanimation_toast),
-                        Lunchbar.LENGTH_LONG)
-                        .show();
+                        Lunchbar.LENGTH_LONG);
+                currentShownLunchBar.show();
             }
         }
 

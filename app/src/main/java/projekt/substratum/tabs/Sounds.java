@@ -75,6 +75,7 @@ import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.util.tabs.SoundUtils;
 import projekt.substratum.util.views.RecyclerItemClickListener;
 
+import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.util.tabs.SoundUtils.finishReceiver;
 
 public class Sounds extends Fragment {
@@ -306,10 +307,10 @@ public class Sounds extends Fragment {
             SharedPreferences.Editor editor = prefs.edit();
             editor.remove("sounds_applied");
             editor.apply();
-            Lunchbar.make(nsv,
+            currentShownLunchBar = Lunchbar.make(nsv,
                     getString(R.string.manage_sounds_toast),
-                    Lunchbar.LENGTH_LONG)
-                    .show();
+                    Lunchbar.LENGTH_LONG);
+            currentShownLunchBar.show();
         }
 
         @Override

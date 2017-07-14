@@ -67,6 +67,7 @@ import projekt.substratum.services.notification.NotificationButtonReceiver;
 import projekt.substratum.util.compilers.CacheCreator;
 import projekt.substratum.util.compilers.SubstratumBuilder;
 
+import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.References.DEFAULT_NOTIFICATION_CHANNEL_ID;
 import static projekt.substratum.common.References.MASQUERADE_PACKAGE;
 import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
@@ -944,11 +945,11 @@ class OverlayFunctions {
             } else {
                 fragment.compile_enable_mode = false;
                 fragment.enable_mode = false;
-                Lunchbar.make(
+                currentShownLunchBar = Lunchbar.make(
                         fragment.getActivityView(),
                         R.string.toast_disabled3,
-                        Lunchbar.LENGTH_LONG)
-                        .show();
+                        Lunchbar.LENGTH_LONG);
+                currentShownLunchBar.show();
             }
         }
     }
@@ -1016,11 +1017,11 @@ class OverlayFunctions {
                 }
             } else {
                 fragment.disable_mode = false;
-                Lunchbar.make(
+                currentShownLunchBar = Lunchbar.make(
                         fragment.getActivityView(),
                         R.string.toast_disabled4,
-                        Lunchbar.LENGTH_LONG)
-                        .show();
+                        Lunchbar.LENGTH_LONG);
+                currentShownLunchBar.show();
             }
         }
     }
@@ -1071,17 +1072,17 @@ class OverlayFunctions {
                 }
 
                 if (fragment.missingType3) {
-                    Lunchbar.make(
+                    currentShownLunchBar = Lunchbar.make(
                             fragment.getActivityView(),
                             R.string.toast_compiled_missing,
-                            Lunchbar.LENGTH_LONG)
-                            .show();
+                            Lunchbar.LENGTH_LONG);
+                    currentShownLunchBar.show();
                 } else {
-                    Lunchbar.make(
+                    currentShownLunchBar = Lunchbar.make(
                             fragment.getActivityView(),
                             R.string.toast_compiled_updated,
-                            Lunchbar.LENGTH_LONG)
-                            .show();
+                            Lunchbar.LENGTH_LONG);
+                    currentShownLunchBar.show();
                 }
             }
         }

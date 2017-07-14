@@ -420,20 +420,6 @@ public class References {
         }
     }
 
-    public static boolean selfDisabler(Context context) {
-        if (isPackageInstalled(context, SST_ADDON_PACKAGE)) return false;
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.CANADA);
-            Date disabled = DateUtil.addDays(SELF_DISABLER_DATE);
-            String buildTime = sdf.format(disabled.getTime());
-            Date strDate = sdf.parse(buildTime);
-            if (new Date().after(strDate) && isSamsung(context)) return true;
-        } catch (ParseException e) {
-            // Suppress warning
-        }
-        return false;
-    }
-
     public static boolean isCachingEnabled(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context)
                 .getBoolean("caching_enabled", false);
@@ -589,16 +575,18 @@ public class References {
         prefs.edit().remove("oms_state").apply();
         try {
             boolean foundOms = false;
-            if (checkThemeInterfacer(context)) {
-                foundOms = true;
-            } else {
-                String out = Root.runCommand("cmd overlay").split("\n")[0];
-                if (out.equals("The overlay manager has already been initialized.") ||
-                        out.equals("Overlay manager (overlay) commands:")) {
+            if (!isSamsungDevice(context)) {
+                if (checkThemeInterfacer(context)) {
                     foundOms = true;
+                } else {
+                    String out = Root.runCommand("cmd overlay").split("\n")[0];
+                    if (out.equals("The overlay manager has already been initialized.") ||
+                            out.equals("Overlay manager (overlay) commands:")) {
+                        foundOms = true;
+                    }
                 }
             }
-            if (foundOms && !isSamsung(context)) {
+            if (foundOms && !isSamsungDevice(context)) {
                 prefs.edit().putBoolean("oms_state", true).apply();
                 prefs.edit().putInt("oms_version", 7).apply();
                 Log.d(SUBSTRATUM_LOG, "Initializing Substratum with the seventh " +

@@ -285,8 +285,6 @@ public class MainActivity extends SubstratumActivity implements
         localBroadcastManager = LocalBroadcastManager.getInstance(getApplicationContext());
         localBroadcastManager.registerReceiver(killReceiver, filter);
 
-        References.selfDisabler(getApplicationContext());
-
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         actionbar_title = findViewById(R.id.activity_title);
@@ -1189,7 +1187,7 @@ public class MainActivity extends SubstratumActivity implements
             // Ignore root if the device is Samsung
             boolean samsungCheck = References.isSamsungDevice(context) &&
                     !References.isPackageInstalled(context, SST_ADDON_PACKAGE);
-            if (samsungCheck || References.selfDisabler(context) ||
+            if (samsungCheck ||
                     (!result &&
                             !References.isSamsung(context) &&
                             ENABLE_ROOT_CHECK && !BYPASS_ALL_VERSION_CHECKS &&
@@ -1231,10 +1229,6 @@ public class MainActivity extends SubstratumActivity implements
                         }
                     });
                     titleView.setVisibility(View.GONE);
-                    textView.setVisibility(View.GONE);
-                } else if (References.selfDisabler(context)) {
-                    titleView.setText(
-                            activity.getString(R.string.toast_samsung_prototype_disabled));
                     textView.setVisibility(View.GONE);
                 } else if (References.isPackageInstalled(
                         context, "eu.chainfire.supersu")) {
@@ -1283,7 +1277,8 @@ public class MainActivity extends SubstratumActivity implements
         protected Boolean doInBackground(Void... sUrl) {
             MainActivity activity = ref.get();
             Context context = activity.getApplicationContext();
-            if (!References.checkThemeInterfacer(context) && !References.isSamsung(context)) {
+            if (!References.isSamsungDevice(context) &&
+                    !References.checkThemeInterfacer(context)) {
                 Boolean receivedRoot = Root.requestRootAccess();
                 if (receivedRoot) {
                     Log.d(SUBSTRATUM_LOG, "Substratum has loaded in rooted mode.");
@@ -1292,7 +1287,7 @@ public class MainActivity extends SubstratumActivity implements
                 }
                 References.injectRescueArchives(context);
                 return receivedRoot;
-            } else if (References.isSamsung(context)) {
+            } else if (References.isSamsungDevice(context)) {
                 Log.d(SUBSTRATUM_LOG, "Substratum has loaded in Samsung mode.");
                 return false;
             } else {

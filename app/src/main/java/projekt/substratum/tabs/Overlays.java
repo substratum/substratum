@@ -135,6 +135,7 @@ public class Overlays extends Fragment {
     public boolean has_initialized_cache = false;
     public boolean has_failed = false;
     public int fail_count;
+    public StringBuilder failed_packages;
     public int id = References.notification_id;
     public ArrayList<OverlaysItem> values2;
     public RecyclerView mRecyclerView;
@@ -723,7 +724,13 @@ public class Overlays extends Fragment {
 
         boolean save_logs = prefs.getBoolean("autosave_logchar", true);
         if (save_logs) {
-            References.writeLogCharFile(theme_pid, error_logs.toString());
+            new SendErrorReport(
+                    context,
+                    theme_pid,
+                    error_logs.toString(),
+                    failed_packages.toString(),
+                    true
+            ).execute();
         }
 
         currentShownLunchBar = Lunchbar.make(
@@ -771,8 +778,13 @@ public class Overlays extends Fragment {
             send.setVisibility(View.VISIBLE);
             send.setOnClickListener(v -> {
                 dialog.dismiss();
-                new SendErrorReport(context, theme_pid, error_logs.toString())
-                        .execute();
+                new SendErrorReport(
+                        context,
+                        theme_pid,
+                        error_logs.toString(),
+                        failed_packages.toString(),
+                        false
+                ).execute();
             });
         }
         dialog.show();
@@ -1000,12 +1012,20 @@ public class Overlays extends Fragment {
         private String errorLog;
         private String themeName, themeAuthor, themeEmail;
         private String emailSubject, emailBody;
+        private String failedPackages;
         private ProgressDialog progressDialog;
+        private Boolean autosaveInstance;
 
-        SendErrorReport(Context context, String themePid, String errorLog) {
+        SendErrorReport(Context context,
+                        String themePid,
+                        String errorLog,
+                        String failedPackages,
+                        Boolean autosaveInstance) {
             contextRef = new WeakReference<>(context);
             this.themePid = themePid;
             this.errorLog = errorLog;
+            this.failedPackages = failedPackages;
+            this.autosaveInstance = autosaveInstance;
 
             themeName = References.grabPackageName(context, themePid);
             themeAuthor = References.getOverlayMetadata(context, themePid, References
@@ -1021,12 +1041,14 @@ public class Overlays extends Fragment {
 
         @Override
         protected void onPreExecute() {
-            progressDialog = new ProgressDialog(contextRef.get());
-            progressDialog.setIndeterminate(true);
-            progressDialog.setCancelable(false);
-            progressDialog.setMessage(
-                    contextRef.get().getString(R.string.logcat_processing_dialog));
-            progressDialog.show();
+            if (!autosaveInstance) {
+                progressDialog = new ProgressDialog(contextRef.get());
+                progressDialog.setIndeterminate(true);
+                progressDialog.setCancelable(false);
+                progressDialog.setMessage(
+                        contextRef.get().getString(R.string.logcat_processing_dialog));
+                progressDialog.show();
+            }
         }
 
         @Override
@@ -1034,50 +1056,60 @@ public class Overlays extends Fragment {
             String rom = References.checkFirmwareSupport(contextRef.get(),
                     contextRef.get().getString(R.string.supported_roms_url),
                     "supported_roms.xml");
-            String version = Build.VERSION.RELEASE + " - " + (!rom.isEmpty() ? rom : "Unknown");
+            String theme_version = References.grabAppVersion(contextRef.get(), themePid);
+            String rom_version = Build.VERSION.RELEASE + " - " + (!rom.isEmpty() ? rom : "Unknown");
 
             String device = Build.MODEL + " (" + Build.DEVICE + ") " +
                     "[" + Build.FINGERPRINT + "]";
             String xposed = References.checkXposedVersion();
             if (!xposed.isEmpty()) device += " {" + xposed + "}";
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd-HH:mm", Locale.US);
-            File log = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
-                    "/theme_error-" + dateFormat.format(new Date()) + ".txt");
-            try (FileWriter fw = new FileWriter(log, false);
-                 BufferedWriter out = new BufferedWriter(fw)) {
+            String attachment = String.format(
+                    contextRef.get().getString(R.string.logcat_attachment_body),
+                    device,
+                    rom_version,
+                    BuildConfig.VERSION_CODE,
+                    theme_version,
+                    failedPackages,
+                    errorLog);
 
-                String attachment = String.format(
-                        contextRef.get().getString(R.string.logcat_attachment_body),
-                        device,
-                        version,
-                        References.grabAppVersion(contextRef.get(), themePid),
-                        BuildConfig.VERSION_CODE, errorLog);
-                out.write(attachment);
-            } catch (IOException e) {
-                // Suppress exception
+            File log = null;
+            if (autosaveInstance) {
+                References.writeLogCharFile(themePid, attachment);
+            } else {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd-HH:mm", Locale.US);
+                log = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                        "/theme_error-" + dateFormat.format(new Date()) + ".txt");
+                try (FileWriter fw = new FileWriter(log, false);
+                     BufferedWriter out = new BufferedWriter(fw)) {
+                    out.write(attachment);
+                } catch (IOException e) {
+                    // Suppress exception
+                }
             }
             return log;
         }
 
         @Override
         protected void onPostExecute(File result) {
-            progressDialog.dismiss();
+            if (!autosaveInstance) {
+                progressDialog.dismiss();
 
-            Intent i = new Intent(Intent.ACTION_SEND);
-            i.setType("message/rfc822");
-            i.putExtra(Intent.EXTRA_EMAIL, new String[]{themeEmail});
-            i.putExtra(Intent.EXTRA_SUBJECT, emailSubject);
-            i.putExtra(Intent.EXTRA_TEXT, emailBody);
-            i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(result));
-            try {
-                contextRef.get().startActivity(Intent.createChooser(
-                        i, contextRef.get().getString(R.string.logcat_email_activity)));
-            } catch (ActivityNotFoundException ex) {
-                Toast.makeText(contextRef.get(),
-                        R.string.logcat_email_activity_error,
-                        Toast.LENGTH_LONG)
-                        .show();
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("message/rfc822");
+                i.putExtra(Intent.EXTRA_EMAIL, new String[]{themeEmail});
+                i.putExtra(Intent.EXTRA_SUBJECT, emailSubject);
+                i.putExtra(Intent.EXTRA_TEXT, emailBody);
+                i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(result));
+                try {
+                    contextRef.get().startActivity(Intent.createChooser(
+                            i, contextRef.get().getString(R.string.logcat_email_activity)));
+                } catch (ActivityNotFoundException ex) {
+                    Toast.makeText(contextRef.get(),
+                            R.string.logcat_email_activity_error,
+                            Toast.LENGTH_LONG)
+                            .show();
+                }
             }
         }
     }

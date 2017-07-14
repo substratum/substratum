@@ -353,6 +353,7 @@ class OverlayFunctions {
             Context context = fragment.getContext();
             String parsedVariant = sUrl[0].replaceAll("\\s+", "");
             String unparsedVariant = sUrl[0];
+            fragment.failed_packages = new StringBuilder();
 
             if (fragment.mixAndMatchMode && !References.checkOMS(context)) {
                 String current_directory;
@@ -780,6 +781,11 @@ class OverlayFunctions {
                                         fragment.error_logs.append("\n")
                                                 .append(fragment.sb.getErrorLogs());
                                     }
+                                    fragment.failed_packages.append(current_overlay);
+                                    fragment.failed_packages.append(" (");
+                                    fragment.failed_packages.append(
+                                            References.grabAppVersion(context, current_overlay));
+                                    fragment.failed_packages.append(")\n");
                                     fragment.has_failed = true;
                                 } else {
                                     fragment.missingType3 = true;
@@ -833,6 +839,11 @@ class OverlayFunctions {
                                     fragment.error_logs.append("\n")
                                             .append(fragment.sb.getErrorLogs());
                                 }
+                                fragment.failed_packages.append(current_overlay);
+                                fragment.failed_packages.append(" (");
+                                fragment.failed_packages.append(
+                                        References.grabAppVersion(context, current_overlay));
+                                fragment.failed_packages.append(")\n");
                                 fragment.has_failed = true;
                             } else {
                                 if (fragment.sb.special_snowflake ||

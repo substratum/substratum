@@ -579,6 +579,8 @@
     <string name="manager_subtext">In the overlay list window, show all disabled overlays with their enabled counterparts.</string>
     <string name="alternate_drawer_design_title">Secondary Drawer Design</string>
     <string name="alternate_drawer_design_subtext">Uses an alternate navigation drawer design when navigating through the user interface.</string>
+    <string name="logchar_autosave_title">Automatically save LogChar reports</string>
+    <string name="logchar_autosave_subtext">This will automatically save LogChar reports in /storage/emulated/0/substratum/LogChar Reports/.</string>
 
     <string name="show_outdated_themes_title">Show all outdated themes</string>
     <string name="show_outdated_themes_content">Disabling this would allow Substratum to utilize
@@ -670,6 +672,8 @@
 
     <string name="theme_debug_mode_title">System Fallback Interjection Bypass</string>
     <string name="theme_debug_mode_summary">This will stop the app from using the legacy compiler fallback mechanism to help themes when they reach an unrecoverable state.</string>
+    <string name="logchar_dialog_title_delete_title">ATTENTION</string>
+    <string name="logchar_dialog_title_delete_content">This will delete all of the currently saved logs. By pressing continue, all logs will be cleared and logs will no longer be saved.</string>
     <string name="break_compilation_dialog_title">WARNING</string>
     <string name="break_compilation_dialog_content">This may completely break the compilation process. Only enable this option if you know what you are doing!</string>
     <string name="break_compilation_dialog_continue">Continue</string>

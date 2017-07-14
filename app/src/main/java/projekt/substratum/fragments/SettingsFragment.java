@@ -34,6 +34,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -80,6 +81,7 @@ import static projekt.substratum.common.References.INTERFACER_SERVICE;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.SUBSTRATUM_VALIDATOR;
 import static projekt.substratum.common.References.validateResource;
+import static projekt.substratum.common.commands.FileOperations.delete;
 import static projekt.substratum.common.systems.Validator.VALIDATE_WITH_LOGS;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
@@ -606,6 +608,41 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         startActivity(new Intent(getActivity(), ManageSpaceActivity.class));
                     } catch (ActivityNotFoundException activityNotFoundException) {
                         // Suppress warning
+                    }
+                    return false;
+                });
+
+        final CheckBoxPreference autosave_logchar = (CheckBoxPreference)
+                getPreferenceManager().findPreference("autosave_logchar");
+        Boolean save_logchar = prefs.getBoolean("autosave_logchar", true);
+        if (save_logchar) {
+            autosave_logchar.setChecked(true);
+        } else {
+            autosave_logchar.setChecked(false);
+        }
+        autosave_logchar.setOnPreferenceChangeListener(
+                (preference, newValue) -> {
+                    boolean isChecked = (Boolean) newValue;
+                    if (isChecked) {
+                        prefs.edit().putBoolean("autosave_logchar", true).apply();
+                        autosave_logchar.setChecked(true);
+                    } else {
+                        final AlertDialog.Builder builder = new AlertDialog.Builder
+                                (getContext());
+                        builder.setTitle(R.string.logchar_dialog_title_delete_title);
+                        builder.setMessage(R.string.logchar_dialog_title_delete_content);
+                        builder.setNegativeButton(R.string.break_compilation_dialog_cancel,
+                                (dialog, id) -> dialog.dismiss());
+                        builder.setPositiveButton(R.string.break_compilation_dialog_continue,
+                                (dialog, id) -> {
+                                    prefs.edit().putBoolean("autosave_logchar", false).apply();
+                                    delete(getContext(),
+                                            new File(Environment.getExternalStorageDirectory() +
+                                                    File.separator + "substratum" + File.separator +
+                                                    "LogChar Reports").getAbsolutePath());
+                                    autosave_logchar.setChecked(false);
+                                });
+                        builder.show();
                     }
                     return false;
                 });

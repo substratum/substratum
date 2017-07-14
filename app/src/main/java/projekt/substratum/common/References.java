@@ -730,6 +730,7 @@ public class References {
         editor.putBoolean("overlay_updater", false);
         editor.putBoolean("theme_updater", false);
         editor.putBoolean("show_dangerous_samsung_overlays", false);
+        editor.putBoolean("autosave_logchar", true);
         editor.remove("display_old_themes");
 
         // Initial parse of what is installed on the device

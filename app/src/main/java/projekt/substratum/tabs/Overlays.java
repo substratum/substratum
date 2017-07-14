@@ -721,7 +721,11 @@ public class Overlays extends Fragment {
                 context.getString(R.string.toast_compiled_updated_with_errors),
                 Toast.LENGTH_LONG).show();
 
-        References.writeLogCharFile(theme_pid, error_logs.toString());
+        boolean save_logs = prefs.getBoolean("autosave_logchar", true);
+        if (save_logs) {
+            References.writeLogCharFile(theme_pid, error_logs.toString());
+        }
+
         currentShownLunchBar = Lunchbar.make(
                 getActivityView(),
                 R.string.logcat_snackbar_text,

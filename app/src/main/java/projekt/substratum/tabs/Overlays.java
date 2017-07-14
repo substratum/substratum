@@ -1313,7 +1313,7 @@ public class Overlays extends Fragment {
                                                 fragment.cipher))));
                             } else {
                                 type2.add(fragment.setTypeTwoSpinners(
-                                        (type2checker ? null : new InputStreamReader(
+                                        (new InputStreamReader(
                                                 fragment.themeAssetManager.open(Overlays
                                                         .overlaysDir +
                                                         "/" + package_identifier + "/type2")))));

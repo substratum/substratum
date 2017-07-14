@@ -1304,20 +1304,24 @@ public class Overlays extends Fragment {
                         } else if (typeArray.contains("type2") ||
                                 typeArray.contains("type2.enc") ||
                                 type2checker) {
-                            if (fragment.encrypted) {
-                                type2.add(fragment.setTypeTwoSpinners(new InputStreamReader(
-                                        FileOperations.getInputStream(
-                                                fragment.themeAssetManager,
-                                                Overlays.overlaysDir + "/" + package_identifier +
-                                                        "/type2.enc",
-                                                fragment.cipher))));
-                            } else {
-                                type2.add(fragment.setTypeTwoSpinners(
-                                        (type2checker ? new InputStreamReader(fragment.
-                                                themeAssetManager.open(Overlays.overlaysDir +
-                                                        "/" + package_identifier + "/type2"))
-                                                : null)));
+                            InputStreamReader inputStreamReader = null;
+                            try {
+                                inputStreamReader =
+                                        new InputStreamReader(
+                                                FileOperations.getInputStream(
+                                                        fragment.themeAssetManager,
+                                                        Overlays.overlaysDir + "/" +
+                                                                package_identifier +
+                                                                (fragment.encrypted ?
+                                                                        "/type2.enc" :
+                                                                        "/type2"),
+                                                        (fragment.encrypted ?
+                                                                fragment.cipher :
+                                                                null)));
+                            } catch (Exception e) {
+                                // Suppress warning
                             }
+                            type2.add(fragment.setTypeTwoSpinners(inputStreamReader));
                         }
                         if (typeArray.size() > 1) {
                             for (int i = 0; i < typeArray.size(); i++) {

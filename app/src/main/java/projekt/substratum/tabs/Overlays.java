@@ -721,6 +721,19 @@ public class Overlays extends Fragment {
                 context.getString(R.string.toast_compiled_updated_with_errors),
                 Toast.LENGTH_LONG).show();
 
+        References.writeLogCharFile(theme_pid, error_logs.toString());
+        currentShownLunchBar = Lunchbar.make(
+                getActivityView(),
+                R.string.logcat_snackbar_text,
+                Lunchbar.LENGTH_LONG);
+        currentShownLunchBar.setAction(getString(R.string.logcat_snackbar_button), view -> {
+            currentShownLunchBar.dismiss();
+            invokeLogCharDialog(context);
+        });
+        currentShownLunchBar.show();
+    }
+
+    public void invokeLogCharDialog(Context context) {
         final Dialog dialog = new Dialog(context, android.R.style.Theme_DeviceDefault_Dialog);
         dialog.setContentView(R.layout.logcat_dialog);
         dialog.setTitle(R.string.logcat_dialog_title);

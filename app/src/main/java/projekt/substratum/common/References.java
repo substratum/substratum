@@ -61,12 +61,14 @@ import android.widget.Toast;
 import org.apache.commons.io.IOUtils;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -2232,6 +2234,32 @@ public class References {
             //cacheable variable will remain false
         }
         return debuggable;
+    }
+
+    // Save a text file from LogChar
+    public static boolean writeLogCharFile(String packageName, String data) {
+        try {
+            Calendar c = Calendar.getInstance();
+            @SuppressLint("SimpleDateFormat")
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
+            String formattedDate = df.format(c.getTime());
+
+            File logcharFolder = new File(Environment.getExternalStorageDirectory() +
+                    File.separator + "substratum" + File.separator + "LogChar Reports");
+            if (!logcharFolder.exists() && logcharFolder.mkdirs()) {
+                Log.d("LogChar Utility", "Created LogChar directory!");
+            }
+
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(
+                    new File(logcharFolder.getAbsolutePath() + File.separator +
+                            packageName + "-" + formattedDate + ".txt")));
+            bufferedWriter.write(data);
+            bufferedWriter.close();
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public static class Markdown extends AsyncTask<Void, Void, Void> {

@@ -384,6 +384,8 @@
 
     <string name="nav_studio">Icon Pack Studio</string>
 
+    <string name="logcat_snackbar_button">LogChar</string>
+    <string name="logcat_snackbar_text">Target application/overlay outdated or mismatched configuration selected&#8230;</string>
     <string name="logcat_dialog_title">\"LogChar\" Debug Report</string>
     <string name="logcat_dialog_copy_success">Successfully copied error log to clipboard!</string>
     <string name="logcat_email_subject" formatted="false" translatable="false">

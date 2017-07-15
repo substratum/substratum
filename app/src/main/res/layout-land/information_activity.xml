@@ -66,6 +66,7 @@
                 app:layout_collapseMode="parallax"/>
 
             <View
+                android:id="@+id/gradientView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/actionbar_gradient"
@@ -141,6 +142,7 @@
                     android:text="@string/fab_menu_swap_toggle"/>
 
                 <View
+                    android:id="@+id/fab_menu_divider"
                     android:layout_width="@dimen/sheet_width"
                     android:layout_height="1dp"
                     android:background="@color/fab_menu_divider"/>

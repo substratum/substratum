@@ -73,7 +73,7 @@
     </string>
     <string name="answer_nine">
         1. Restart SystemUI if it didn\'t do so automatically.\n2. Reboot the phone.\n3. Disable
-        and/or disable the overlays, recompile, and reenable.
+        the overlays, recompile, and reenable.
     </string>
 
     <string name="question_ten">Where are overlays installed?</string>

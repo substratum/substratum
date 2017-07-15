@@ -257,6 +257,7 @@ public class ProfileFragment extends Fragment {
                         backupFunction.execute();
                         Log.d(References.SUBSTRATUM_LOG, selectedBackup.toString());
                         dialog.dismiss();
+                        backup_name.getText().clear();
                     } else {
                         Toast.makeText(getContext(), R.string.profile_no_selection_warning,
                                 Toast.LENGTH_LONG).show();
@@ -279,24 +280,12 @@ public class ProfileFragment extends Fragment {
 
         // Handle Restores
 
-        list = new ArrayList<>();
-        list.add(getResources().getString(R.string.spinner_default_item));
-
         profile_selector = root.findViewById(R.id.restore_spinner);
 
-        // Now lets add all the located profiles
-        File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
-                "/substratum/profiles/");
-        File[] files = f.listFiles();
-        if (files != null) {
-            for (File inFile : files) {
-                if (inFile.isDirectory()) {
-                    list.add(inFile.getName());
-                }
-            }
-        }
-
+        list = new ArrayList<String>();
         adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, list);
+        RefreshSpinner();
+
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         profile_selector.setAdapter(adapter);

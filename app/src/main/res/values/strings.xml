@@ -473,6 +473,7 @@
     </string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Do not show again</string>
+    <string name="dialog_cancel">Cancel</string>
 
     <string name="clean_cache_dialog_body">Do you want to clean this theme\'s cache?</string>
     <string name="clean_dialog_body">Do you want to clean all overlays for this theme?</string>
@@ -748,6 +749,7 @@
     <string name="per_app_toast_no_overlays">There are no overlays configurable for %s!</string>
     <string name="per_app_dialog_title">%s\n overlay configurator</string>
     <string name="per_app_apply">Apply</string>
+    <string name="per_app_request_title">FloatUI Permissions</string>
     <string name="per_app_draw_over_other_apps_request">Please grant Substratum "draw over other apps" for the floating UI and "Usage stats" permissions to access the foreground app for matching theme targets.</string>
     <string name="per_app_usage_stats_request">Please grant Substratum "usage access" permissions to access the foreground app for matching theme targets.</string>
     <string name="per_app_manual_grant">Please manually grant Substratum "usage access" permissions and "draw over other apps" in App Settings to use FloatUI!</string>

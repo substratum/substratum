@@ -886,25 +886,45 @@ public class MainActivity extends SubstratumActivity implements
                             checkUsagePermissions(getApplicationContext())) {
                         showFloatingHead();
                     } else if (!Settings.canDrawOverlays(getApplicationContext())) {
-                        Intent draw_over_apps = new Intent(
-                                Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                                Uri.parse("package:" + getApplicationContext().getPackageName()));
-                        startActivityForResult(draw_over_apps,
-                                PERMISSIONS_REQUEST_DRAW_OVER_OTHER_APPS);
-                        Toast toast = Toast.makeText(
-                                getApplicationContext(),
-                                getString(R.string.per_app_draw_over_other_apps_request),
-                                Toast.LENGTH_LONG);
-                        toast.show();
+                        DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                            switch (which){
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    Intent draw_over_apps = new Intent(
+                                            Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                                            Uri.parse("package:" + getApplicationContext().getPackageName()));
+                                    startActivityForResult(draw_over_apps,
+                                            PERMISSIONS_REQUEST_DRAW_OVER_OTHER_APPS);
+                                    break;
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    dialog.dismiss();
+                                    break;
+                            }
+                        };
+                        new AlertDialog.Builder(this)
+                                .setTitle(R.string.per_app_request_title)
+                                .setMessage(R.string.per_app_draw_over_other_apps_request)
+                                .setPositiveButton(R.string.dialog_ok, dialogClickListener)
+                                .setNegativeButton(R.string.dialog_cancel, dialogClickListener)
+                                .show();
                     } else if (!checkUsagePermissions(getApplicationContext())) {
-                        Intent usage = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
-                        startActivityForResult(usage,
-                                PERMISSIONS_REQUEST_USAGE_ACCESS_SETTINGS);
-                        Toast toast = Toast.makeText(
-                                getApplicationContext(),
-                                getString(R.string.per_app_usage_stats_request),
-                                Toast.LENGTH_LONG);
-                        toast.show();
+                        DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                            switch (which){
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    Intent usage = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+                                    startActivityForResult(usage,
+                                            PERMISSIONS_REQUEST_USAGE_ACCESS_SETTINGS);
+                                    break;
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    dialog.dismiss();
+                                    break;
+                            }
+                        };
+                        new AlertDialog.Builder(this)
+                                .setTitle(R.string.per_app_request_title)
+                                .setMessage(R.string.per_app_usage_stats_request)
+                                .setPositiveButton(R.string.dialog_ok, dialogClickListener)
+                                .setNegativeButton(R.string.dialog_cancel, dialogClickListener)
+                                .show();
                     }
                 } else {
                     hideFloatingHead();

@@ -214,7 +214,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                     R.string.settings_samsung_show_dangerous_overlays_warning_title);
                             builder.setMessage(
                                     R.string.settings_samsung_show_dangerous_overlays_warning);
-                            builder.setNegativeButton(R.string.break_compilation_dialog_cancel,
+                            builder.setNegativeButton(R.string.dialog_cancel,
                                     (dialog, id) -> dialog.dismiss());
                             builder.setPositiveButton(
                                     R.string.break_compilation_dialog_continue,
@@ -513,7 +513,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 new AlertDialog.Builder(getContext());
                         builder.setTitle(R.string.theme_safety_dialog_title);
                         builder.setMessage(R.string.theme_safety_dialog_content);
-                        builder.setNegativeButton(R.string.break_compilation_dialog_cancel,
+                        builder.setNegativeButton(R.string.dialog_cancel,
                                 (dialog, id) -> dialog.dismiss());
                         builder.setPositiveButton(
                                 R.string.break_compilation_dialog_continue,
@@ -544,7 +544,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                         new AlertDialog.Builder(getContext());
                                 builder.setTitle(R.string.break_compilation_dialog_title);
                                 builder.setMessage(R.string.break_compilation_dialog_content);
-                                builder.setNegativeButton(R.string.break_compilation_dialog_cancel,
+                                builder.setNegativeButton(R.string.dialog_cancel,
                                         (dialog, id) -> dialog.dismiss());
                                 builder.setPositiveButton(
                                         R.string.break_compilation_dialog_continue,
@@ -631,7 +631,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 (getContext());
                         builder.setTitle(R.string.logchar_dialog_title_delete_title);
                         builder.setMessage(R.string.logchar_dialog_title_delete_content);
-                        builder.setNegativeButton(R.string.break_compilation_dialog_cancel,
+                        builder.setNegativeButton(R.string.dialog_cancel,
                                 (dialog, id) -> dialog.dismiss());
                         builder.setPositiveButton(R.string.break_compilation_dialog_continue,
                                 (dialog, id) -> {
@@ -833,7 +833,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                     (getContext());
                             builder.setTitle(R.string.settings_theme_auto_updater_dialog_title);
                             builder.setMessage(R.string.settings_theme_auto_updater_dialog_text);
-                            builder.setNegativeButton(R.string.break_compilation_dialog_cancel,
+                            builder.setNegativeButton(R.string.dialog_cancel,
                                     (dialog, id) -> dialog.dismiss());
                             builder.setPositiveButton(R.string.break_compilation_dialog_continue,
                                     (dialog, id) -> {
@@ -880,7 +880,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                     (getContext());
                             builder.setTitle(R.string.break_compilation_dialog_title);
                             builder.setMessage(R.string.break_compilation_dialog_content);
-                            builder.setNegativeButton(R.string.break_compilation_dialog_cancel,
+                            builder.setNegativeButton(R.string.dialog_cancel,
                                     (dialog, id) -> dialog.dismiss());
                             builder.setPositiveButton(R.string.break_compilation_dialog_continue,
                                     (dialog, id) -> {

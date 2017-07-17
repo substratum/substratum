@@ -374,7 +374,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
             builder.setMessage(formatter);
             builder.setPositiveButton(R.string.dialog_ok,
                     (dialog, id) -> new IconPackInstaller(this).execute());
-            builder.setNegativeButton(R.string.restore_dialog_cancel, (dialog, id) -> dialog
+            builder.setNegativeButton(R.string.dialog_cancel, (dialog, id) -> dialog
                     .dismiss());
             builder.create();
             builder.show();

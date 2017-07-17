@@ -812,7 +812,7 @@ public class InformationActivity extends SubstratumActivity {
                 builder1.setTitle(theme_name);
                 builder1.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
                 builder1.setMessage(R.string.clean_dialog_body)
-                        .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id18) -> {
+                        .setPositiveButton(R.string.dialog_ok, (dialog, id18) -> {
                             // Get all installed overlays
                             List<String> stateAll = ThemeManager.listAllOverlays(
                                     getApplicationContext());
@@ -844,7 +844,7 @@ public class InformationActivity extends SubstratumActivity {
                                     all_overlays
                             );
                         })
-                        .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id19) -> {
+                        .setNegativeButton(R.string.dialog_cancel, (dialog, id19) -> {
                             // User cancelled the dialog
                         });
                 // Create the AlertDialog object and return it
@@ -856,7 +856,7 @@ public class InformationActivity extends SubstratumActivity {
                 builder2.setTitle(theme_name);
                 builder2.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
                 builder2.setMessage(R.string.clean_cache_dialog_body)
-                        .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id110) -> {
+                        .setPositiveButton(R.string.dialog_ok, (dialog, id110) -> {
                             FileOperations.delete(
                                     getApplicationContext(), getBuildDirPath() + theme_pid + "/");
                             String format =
@@ -866,7 +866,7 @@ public class InformationActivity extends SubstratumActivity {
                             createToast(format, Toast.LENGTH_LONG);
                             finish();
                         })
-                        .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id17) ->
+                        .setNegativeButton(R.string.dialog_cancel, (dialog, id17) ->
                                 dialog.cancel());
                 // Create the AlertDialog object and return it
                 builder2.create();
@@ -877,7 +877,7 @@ public class InformationActivity extends SubstratumActivity {
                 builder3.setTitle(theme_name);
                 builder3.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
                 builder3.setMessage(R.string.disable_dialog_body)
-                        .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id16) -> {
+                        .setPositiveButton(R.string.dialog_ok, (dialog, id16) -> {
                             // Get all enabled overlays
                             List<String> stateAll = ThemeManager.listOverlays(
                                     getApplicationContext(), STATE_APPROVED_ENABLED);
@@ -907,7 +907,7 @@ public class InformationActivity extends SubstratumActivity {
                             // Begin disabling overlays
                             ThemeManager.disableOverlay(getApplicationContext(), all_overlays);
                         })
-                        .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id15) -> {
+                        .setNegativeButton(R.string.dialog_cancel, (dialog, id15) -> {
                             // User cancelled the dialog
                         });
                 // Create the AlertDialog object and return it
@@ -919,7 +919,7 @@ public class InformationActivity extends SubstratumActivity {
                 builder4.setTitle(theme_name);
                 builder4.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
                 builder4.setMessage(R.string.enable_dialog_body)
-                        .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id14) -> {
+                        .setPositiveButton(R.string.dialog_ok, (dialog, id14) -> {
                             // Get all disabled overlays
                             List<String> stateAll = ThemeManager.listOverlays(
                                     getApplicationContext(), STATE_APPROVED_DISABLED);
@@ -949,7 +949,7 @@ public class InformationActivity extends SubstratumActivity {
                             // Begin enabling overlays
                             ThemeManager.enableOverlay(getApplicationContext(), all_overlays);
                         })
-                        .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id13) ->
+                        .setNegativeButton(R.string.dialog_cancel, (dialog, id13) ->
                                 dialog
                                         .cancel());
                 // Create the AlertDialog object and return it
@@ -974,9 +974,9 @@ public class InformationActivity extends SubstratumActivity {
                 builder5.setTitle(theme_name);
                 builder5.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
                 builder5.setMessage(R.string.uninstall_dialog_text)
-                        .setPositiveButton(R.string.uninstall_dialog_okay, (dialog, id12) -> new
+                        .setPositiveButton(R.string.dialog_ok, (dialog, id12) -> new
                                 uninstallTheme().execute(""))
-                        .setNegativeButton(R.string.uninstall_dialog_cancel, (dialog, id1) -> {
+                        .setNegativeButton(R.string.dialog_cancel, (dialog, id1) -> {
                             // User cancelled the dialog
                         });
                 // Create the AlertDialog object and return it

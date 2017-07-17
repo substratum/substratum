@@ -429,7 +429,6 @@
     <string name="backup_card_content">This function makes a copy of your currently enabled overlays
         list and places it in \"/storage/emulated/0/substratum/profiles/\" for safekeeping.
     </string>
-    <string name="delete_dialog_cancel">Cancel</string>
     <string name="delete_dialog_okay">Delete</string>
     <string name="delete_dialog_title">Delete profile</string>
     <string name="delete_dialog_text">Are you sure you want to delete \"%s\"?</string>
@@ -438,7 +437,6 @@
         wiped and \"restore theme\" would take on the updated changes.
     </string>
     <string name="remove_dialog_later">Later</string>
-    <string name="restore_dialog_cancel">Cancel</string>
     <string name="restore_dialog_okay">Continue</string>
     <string name="restore_dialog_title">These overlays will be installed to restore your profile
         completely:
@@ -481,8 +479,6 @@
     <string name="enable_dialog_body">Do you want to enable all installed overlays for this theme?
     </string>
     <string name="uninstall_dialog_body">Uninstall Theme</string>
-    <string name="uninstall_dialog_cancel">Cancel</string>
-    <string name="uninstall_dialog_okay">OK</string>
 
     <string name="sb_phase_1_loader">extracting theme</string>
     <string name="sb_phase_2_loader">installing overlay</string>
@@ -679,7 +675,6 @@
     <string name="break_compilation_dialog_title">WARNING</string>
     <string name="break_compilation_dialog_content">This may completely break the compilation process. Only enable this option if you know what you are doing!</string>
     <string name="break_compilation_dialog_continue">Continue</string>
-    <string name="break_compilation_dialog_cancel">Cancel</string>
 
     <string name="theme_safety_dialog_title">WARNING</string>
     <string name="theme_safety_dialog_content">This is a crucial safety feature to recover you from bad overlay force closes! You can use the Rescue Me! button on Substratum\'s app shortcut if you find yourself stuck, or your final resort would be to flash the rescue archives found in /storage/emulated/0/substratum/.</string>
@@ -692,7 +687,6 @@
     <string name="profile_sound">Sounds</string>
     <string name="profile_wallpaper">Wallpapers</string>
     <string name="profile_dialog_ok">OK</string>
-    <string name="profile_dialog_cancel">Cancel</string>
 
     <string name="bottom_sheet_dialog_hide_outdated_themes">Hide outdated themes (6.0.0+) [Recommended!]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Show outdated themes (pre-6.0.0)</string>

@@ -272,7 +272,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                     Bitmap bitmap = null;
                     Drawable icon = prioritiesItem.getDrawableId();
                     if (icon instanceof VectorDrawable) {
-                        bitmap = References.getBitmapFromVector(mContext, icon);
+                        bitmap = References.getBitmapFromVector(icon);
                     } else if (icon instanceof BitmapDrawable) {
                         bitmap = ((BitmapDrawable) icon).getBitmap();
                     }

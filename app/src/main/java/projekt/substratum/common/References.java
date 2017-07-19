@@ -101,7 +101,6 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import javax.security.auth.x500.X500Principal;
 
-import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
 import projekt.substratum.activities.launch.AppShortcutLaunch;
 import projekt.substratum.activities.launch.ThemeLaunchActivity;
@@ -109,7 +108,6 @@ import projekt.substratum.common.analytics.FirebaseAnalytics;
 import projekt.substratum.common.analytics.PackageAnalytics;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.platform.ThemeInterfacerService;
-import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.tabs.SoundManager;
 import projekt.substratum.services.crash.AppCrashReceiver;
 import projekt.substratum.services.packages.OverlayFound;
@@ -123,19 +121,10 @@ import projekt.substratum.util.injectors.AOPTCheck;
 import projekt.substratum.util.readers.ReadSupportedROMsFile;
 import projekt.substratum.util.readers.ReadVariantPrioritizedColor;
 
-import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
-import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
-import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_COMPONENT_DISABLED;
-import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_DANGEROUS_OVERLAY;
-import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_MISSING_TARGET;
-import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_NO_IDMAP;
-import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_UNKNOWN;
 import static projekt.substratum.common.analytics.PackageAnalytics.PACKAGE_TAG;
 
 public class References {
 
-    // Developer Mode toggles to change the behaviour of the app, CHANGE AT YOUR OWN RISK!
-    public static final Boolean ENABLE_SIGNING = true; // Toggles overlay signing status
     public static final Boolean ENABLE_ROOT_CHECK = true; // Force the app to run without root
     public static final Boolean ENABLE_EXTRAS_DIALOG = false; // Show a dialog when applying extras
     public static final Boolean ENABLE_AOPT_OUTPUT = false; // WARNING, DEVELOPERS - BREAKS COMPILE
@@ -143,7 +132,7 @@ public class References {
     public static final Boolean ENABLE_DIRECT_ASSETS_LOGGING = false; // Self explanatory
     public static final Boolean BYPASS_ALL_VERSION_CHECKS = false; // For developer previews only!
     public static final Boolean BYPASS_SUBSTRATUM_BUILDER_DELETION = false; // Do not delete cache?
-    public static final Boolean FORCE_SAMSUNG_VARIANT = false; // Debugging on a non-Samsung device
+    private static final Boolean FORCE_SAMSUNG_VARIANT = false; // Debugging on a non-Samsung device
     // These are specific log tags for different classes
     public static final String SUBSTRATUM_BUILDER = "SubstratumBuilder";
     public static final String SUBSTRATUM_LOG = "SubstratumLogger";
@@ -172,7 +161,7 @@ public class References {
     public static final String KEY_RETRIEVAL = "Substratum.KeyRetrieval";
     public static final String TEMPLATE_THEME_MODE = "projekt.substratum.THEME";
     public static final String TEMPLATE_GET_KEYS = "projekt.substratum.GET_KEYS";
-    public static final String TEMPLATE_RECEIVE_KEYS = "projekt.substratum.RECEIVE_KEYS";
+    private static final String TEMPLATE_RECEIVE_KEYS = "projekt.substratum.RECEIVE_KEYS";
     // Keep it simple, stupid!
     public static final int HIDDEN_CACHING_MODE_TAP_COUNT = 7;
     public static final int SHOWCASE_SHUFFLE_COUNT = 5;
@@ -187,7 +176,7 @@ public class References {
     public static final String metadataLegacy = "Substratum_Legacy";
     public static final String metadataEncryption = "Substratum_Encryption";
     public static final String metadataEncryptionValue = "onCompileVerify";
-    public static final String metadataSamsungSupport = "Substratum_Samsung";
+    private static final String metadataSamsungSupport = "Substratum_Samsung";
     public static final String metadataWallpapers = "Substratum_Wallpapers";
     public static final String metadataOverlayDevice = "Substratum_Device";
     public static final String metadataOverlayParent = "Substratum_Parent";
@@ -238,7 +227,6 @@ public class References {
     // November security update (incompatible firmware) timestamp;
     private static final long NOVEMBER_PATCH_TIMESTAMP = 1478304000000L;
     private static final long JANUARY_PATCH_TIMESTAMP = 1483549200000L;
-    private static final Date SELF_DISABLER_DATE = BuildConfig.buildTime;
     // Specific intents Substratum should be listening to
     private static final String APP_CRASHED = "projekt.substratum.APP_CRASHED";
     // Metadata used in theme templates to denote specific parts of a theme
@@ -251,11 +239,8 @@ public class References {
     public static int firebase_notification_id = 24862486;
     public static int notification_id = 2486;
     public static int notification_id_upgrade = 248600;
-    // Universal switch for Application-wide Debugging
-    public static Boolean DEBUG = true;
     // This int controls the delay for window refreshes to occur
     public static int REFRESH_WINDOW_DELAY = 500;
-    public static int SYSTEMUI_PAUSE = 2;
     // This int controls the default priority level for legacy overlays
     public static int DEFAULT_PRIORITY = 50;
     // These strings control package names for system apps
@@ -266,7 +251,6 @@ public class References {
     private static int hashValue;
     // Localized variables shared amongst common resources
     private static ScheduledProfileReceiver scheduledProfileReceiver;
-    private Context mContext; // Used for support checker
 
     public static String checkFirmwareSupport(Context context, String urls, String inputFileName) {
         String supported_rom = "";
@@ -469,6 +453,8 @@ public class References {
     public static String checkXposedVersion() {
         String xposed_version = "";
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ) return xposed_version;
+
         File f = new File("/system/framework/XposedBridge.jar");
         if (f.isFile()) {
             File file = new File("/system/", "xposed.prop");
@@ -529,7 +515,7 @@ public class References {
         }
     }
 
-    private static boolean copyRescueFile(Context context, String sourceFileName, String
+    private static void copyRescueFile(Context context, String sourceFileName, String
             destFileName) {
         AssetManager assetManager = context.getAssets();
 
@@ -550,11 +536,9 @@ public class References {
                 out.write(buffer, 0, read);
             }
 
-            return true;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
     }
 
     // This method is used to determine whether there the system is initiated with OMS
@@ -606,14 +590,6 @@ public class References {
             Log.d(SUBSTRATUM_LOG, "Initializing Substratum with the second " +
                     "iteration of the Resource Runtime Overlay system...");
         }
-    }
-
-    public static int checkOMSVersion(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        if (!prefs.contains("oms_version")) {
-            setAndCheckOMS(context);
-        }
-        return prefs.getInt("oms_version", 0);
     }
 
     public static boolean checkSubstratumFeature(Context context) {
@@ -776,44 +752,6 @@ public class References {
         return false;
     }
 
-    // This method checks for offensive words
-    public static boolean isOffensive(Context context, String toBeProcessed) {
-        if (toBeProcessed == null) {
-            return true;
-        }
-        // Here
-        SharedPreferences prefs = context
-                .getSharedPreferences(FirebaseAnalytics.NAMES_PREFS, Context.MODE_PRIVATE);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
-        String date = dateFormat.format(new Date());
-        if (isNetworkAvailable(context) && !prefs.contains(date)) {
-            FirebaseAnalytics.withdrawNames(context);
-        }
-
-        if (prefs.contains(date)) {
-            Set<String> pref = prefs.getStringSet(date, new HashSet<>());
-            for (String check : pref) {
-                if (toBeProcessed.toLowerCase().contains(check.toLowerCase())) {
-                    Log.d("BlacklistedDatabase", "Loaded a theme containing blacklisted words.");
-                    return true;
-                }
-            }
-        }
-        String[] offensive = {
-                "shit",
-                "fuck",
-                "#uck_nicholas_chummy",
-                "nicholas_chummy",
-                "cracked"
-        };
-        for (String anOffensive : offensive) {
-            if (toBeProcessed.toLowerCase().contains(anOffensive)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     // This string array contains all the SystemUI acceptable overlay packs
     public static Boolean allowedSounds(String current) {
         return Arrays.asList(SoundManager.ALLOWED_SOUNDS).contains(current);
@@ -924,7 +862,7 @@ public class References {
     }
 
     // This method converts a vector drawable into a bitmap object
-    public static Bitmap getBitmapFromVector(Context context, Drawable drawable) {
+    public static Bitmap getBitmapFromVector(Drawable drawable) {
         Bitmap bitmap = Bitmap.createBitmap(
                 drawable.getIntrinsicWidth(),
                 drawable.getIntrinsicHeight(),
@@ -1082,72 +1020,6 @@ public class References {
             }
         }
         return null;
-    }
-
-    public static void logOverlayStates(Context context) {
-        /*
-          An internal state used as the initial state of an overlay. OverlayInfo
-          objects exposed outside the {@link
-         * com.android.server.om.OverlayManagerService} should never have this
-          state.
-         */
-        List<String> stateN1 =
-                ThemeManager.listOverlays(context, STATE_NOT_APPROVED_UNKNOWN);
-        /*
-          The overlay package is disabled by the PackageManager.
-         */
-        List<String> state0 =
-                ThemeManager.listOverlays(context, STATE_NOT_APPROVED_COMPONENT_DISABLED);
-        /*
-          The target package of the overlay is not installed.
-         */
-        List<String> state1 =
-                ThemeManager.listOverlays(context, STATE_NOT_APPROVED_MISSING_TARGET);
-        /*
-          Creation of idmap file failed (e.g. no matching resources).
-         */
-        List<String> state2 =
-                ThemeManager.listOverlays(context, STATE_NOT_APPROVED_NO_IDMAP);
-        /*
-          The overlay package is dangerous, i.e. it touches resources not explicitly
-          OK'd by the target package.
-         */
-        List<String> state3 =
-                ThemeManager.listOverlays(context, STATE_NOT_APPROVED_DANGEROUS_OVERLAY);
-        /*
-          The OverlayInfo is currently disabled but it is allowed to be enabled
-          ({@link #STATE_APPROVED_ENABLED}) in the future.
-         */
-        List<String> state4 =
-                ThemeManager.listOverlays(context, STATE_APPROVED_DISABLED);
-        /*
-          The OverlayInfo is enabled but can be disabled
-          ({@link #STATE_APPROVED_DISABLED}) in the future.
-         */
-        List<String> state5 =
-                ThemeManager.listOverlays(context, STATE_APPROVED_ENABLED);
-
-        for (int i = 0; i < stateN1.size(); i++) {
-            Log.e("OverlayState (-1)", stateN1.get(i));
-        }
-        for (int i = 0; i < state0.size(); i++) {
-            Log.e("OverlayState (0)", state0.get(i));
-        }
-        for (int i = 0; i < state1.size(); i++) {
-            Log.e("OverlayState (1)", state1.get(i));
-        }
-        for (int i = 0; i < state2.size(); i++) {
-            Log.e("OverlayState (2)", state2.get(i));
-        }
-        for (int i = 0; i < state3.size(); i++) {
-            Log.e("OverlayState (3)", state3.get(i));
-        }
-        for (int i = 0; i < state4.size(); i++) {
-            Log.e("OverlayState (4)", state4.get(i));
-        }
-        for (int i = 0; i < state5.size(); i++) {
-            Log.e("OverlayState (5)", state5.get(i));
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -1452,11 +1324,6 @@ public class References {
         return getOverlayMetadata(mContext, package_name, metadataThemeReady);
     }
 
-    // Grab Theme Author
-    public static String grabThemeAuthor(Context mContext, String package_name) {
-        return getOverlayMetadata(mContext, package_name, metadataAuthor);
-    }
-
     // Grab Theme Plugin Metadata
     public static String grabPackageTemplateVersion(Context mContext, String package_name) {
         String template_version = getOverlayMetadata(mContext, package_name, metadataVersion);
@@ -1506,21 +1373,6 @@ public class References {
     }
 
     @SuppressLint("PackageManagerGetSignatures")
-    public static int getSelfSignatureValue(Context context) {
-        Signature[] sigs;
-        try {
-            sigs = context.getPackageManager().getPackageInfo(
-                    context.getPackageName(),
-                    PackageManager.GET_SIGNATURES
-            ).signatures;
-            return sigs[0].hashCode();
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
-
-    @SuppressLint("PackageManagerGetSignatures")
     private static Signature[] getSelfSignature(Context context) {
         Signature[] sigs = new Signature[0];
         try {
@@ -1533,27 +1385,7 @@ public class References {
         return sigs;
     }
 
-    @SuppressLint("PackageManagerGetSignatures")
-    private static Signature getSelfSignaturePackage(Context context,
-                                                     String packageName) {
-        Signature[] sigs = new Signature[0];
-        try {
-            sigs = context.getPackageManager().getPackageInfo(
-                    packageName,
-                    PackageManager.GET_SIGNATURES
-            ).signatures;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return sigs[0];
-    }
-
-    public static int sigChecker(Context context, String packageName) {
-        Signature signature = getSelfSignaturePackage(context, packageName);
-        return signature.hashCode();
-    }
-
-    public static int hashPassthrough(Context context) {
+    static int hashPassthrough(Context context) {
         if (hashValue != 0) {
             return hashValue;
         }
@@ -1574,7 +1406,7 @@ public class References {
         return 0;
     }
 
-    public static Boolean spreadYourWingsAndFly(Context context) {
+    static Boolean spreadYourWingsAndFly(Context context) {
         if (uncertified != null) {
             return uncertified;
         }
@@ -1689,9 +1521,9 @@ public class References {
         return false;
     }
 
-    public static void sendLocalizedKeyMessage(Context context,
-                                               byte[] encryption_key,
-                                               byte[] iv_encrypt_key) {
+    static void sendLocalizedKeyMessage(Context context,
+                                        byte[] encryption_key,
+                                        byte[] iv_encrypt_key) {
         Log.d("KeyRetrieval",
                 "The system has completed the handshake for keys retrieval " +
                         "and is now passing it to the activity...");
@@ -1766,35 +1598,6 @@ public class References {
             }
         } catch (Exception e) {
             // Suppress warning
-        }
-        return null;
-    }
-
-    // Collect shell input
-    public static void runShellCommand(String input) {
-        Process p;
-        try {
-            p = Runtime.getRuntime().exec(input);
-            p.waitFor();
-            BufferedReader buf = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String line;
-            while ((line = buf.readLine()) != null) {
-                Log.e("SubstratumShell", line);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static String runShellCommandSpecific(String input) {
-        Process p;
-        try {
-            p = Runtime.getRuntime().exec(input);
-            p.waitFor();
-            BufferedReader buf = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            return buf.readLine();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -1955,7 +1758,6 @@ public class References {
 
     // Obtain a live sample of the intents in an app
     private static boolean getIntents(Context context, String trigger) {
-        ArrayList<String> startupApps = new ArrayList<>();
         ArrayList<Intent> intentArray = new ArrayList<>();
         intentArray.add(new Intent(Intent.ACTION_BOOT_COMPLETED));
         intentArray.add(new Intent(Intent.ACTION_PACKAGE_ADDED));
@@ -2196,7 +1998,7 @@ public class References {
 
         try (
                 InputStream clone1 = new ByteArrayInputStream(byteArray);
-                InputStream clone2 = new ByteArrayInputStream(byteArray);
+                InputStream clone2 = new ByteArrayInputStream(byteArray)
         ) {
             // Find the name of the top most color in the file first.
             String resource_name = new ReadVariantPrioritizedColor(clone1).run();
@@ -2247,7 +2049,7 @@ public class References {
     }
 
     // Save a text file from LogChar
-    public static boolean writeLogCharFile(String packageName, String data) {
+    public static void writeLogCharFile(String packageName, String data) {
         try {
             Calendar c = Calendar.getInstance();
             @SuppressLint("SimpleDateFormat")
@@ -2265,11 +2067,9 @@ public class References {
                             packageName + "-" + formattedDate + ".txt")));
             bufferedWriter.write(data);
             bufferedWriter.close();
-            return true;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false;
     }
 
     public static class Markdown extends AsyncTask<Void, Void, Void> {
@@ -2293,15 +2093,6 @@ public class References {
                     !References.spreadYourWingsAndFly(context) &&
                             References.hashPassthrough(context) != 0).apply();
             return null;
-        }
-    }
-
-    public static class DateUtil {
-        static Date addDays(Date date) {
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(date);
-            cal.add(Calendar.DATE, 5);
-            return cal.getTime();
         }
     }
 

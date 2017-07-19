@@ -112,4 +112,26 @@ public class FirebaseAnalytics {
             }
         });
     }
+
+    public static void withdrawSungstratumFingerprint(Context context, int version) {
+        SharedPreferences prefs = context
+                .getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
+        if (!prefs.contains("sungstratum_exp_fp")) {
+            DatabaseReference database = getDatabaseReference();
+            database.child("sungstratum-fp")
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    SharedPreferences.Editor editor = context
+                            .getSharedPreferences("substratum_state", Context.MODE_PRIVATE).edit();
+                    String hash = dataSnapshot.child(String.valueOf(version)).getValue().toString();
+                    editor.putString("sungstratum_exp_fp", hash).apply();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        }
+    }
 }

@@ -32,12 +32,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.common.References;
+import projekt.substratum.common.analytics.FirebaseAnalytics;
+import projekt.substratum.util.files.MD5;
 
 import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
@@ -98,6 +101,7 @@ public class SplashScreenActivity extends Activity {
 
     static class CheckSamsung extends AsyncTask<Void, Void, Void> {
         private WeakReference<SplashScreenActivity> ref;
+        private SharedPreferences prefs;
         private SharedPreferences.Editor editor;
         private KeyRetrieval keyRetrieval;
         private Intent securityIntent;
@@ -134,12 +138,23 @@ public class SplashScreenActivity extends Activity {
         @Override
         protected Void doInBackground(Void... voids) {
             Context context = ref.get().getApplicationContext();
-            editor = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE).edit();
+            prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
+            editor = prefs.edit();
             editor.clear().apply();
 
             if (!References.isSamsungDevice(context) ||
                     !References.isPackageInstalled(context, SST_ADDON_PACKAGE)) {
                 return null;
+            }
+
+            FirebaseAnalytics.withdrawSungstratumFingerprint(context,
+                    References.grabAppVersionCode(context, SST_ADDON_PACKAGE));
+            while (!prefs.contains("sungstratum_exp_fp")) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
 
             keyRetrieval = new KeyRetrieval();
@@ -200,6 +215,9 @@ public class SplashScreenActivity extends Activity {
 
                     editor.putBoolean("sungstratum_installer",
                             installer.equals(PLAY_STORE_PACKAGE_NAME)).apply();
+
+                    editor.putString("sungstratum_fp", MD5.calculateMD5(new File(
+                            References.getInstalledDirectory(context, SST_ADDON_PACKAGE))));
                 }
             }
         }

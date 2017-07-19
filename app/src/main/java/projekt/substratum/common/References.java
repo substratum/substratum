@@ -1084,6 +1084,16 @@ public class References {
         return null;
     }
 
+    public static int grabAppVersionCode(Context mContext, String packageName) {
+        try {
+            PackageInfo pInfo = mContext.getPackageManager().getPackageInfo(packageName, 0);
+            return pInfo.versionCode;
+        } catch (Exception e) {
+            // Suppress warning
+        }
+        return 0;
+    }
+
     public static String grabThemeVersion(Context mContext, String package_name) {
         try {
             PackageInfo pInfo = mContext.getPackageManager().getPackageInfo(package_name, 0);
@@ -1691,11 +1701,14 @@ public class References {
         boolean hashBoolValue = prefs.getBoolean("sungstratum_hash", false);
         boolean evaluatedResponse = prefs.getBoolean("sungstratum", false);
         boolean installer = prefs.getBoolean("sungstratum_installer", false);
+        String fingerprint = prefs.getString("sungstratum_fp", "0");
+        String expFingerprint = prefs.getString("sungstratum_exp_fp", "o");
 
         boolean sungstratumPresent = !debuggingValue;
         sungstratumPresent &= !hashBoolValue;
         sungstratumPresent &= evaluatedResponse;
         sungstratumPresent &= installer;
+        sungstratumPresent &= fingerprint.equals(expFingerprint);
         return sungstratumPresent;
     }
 

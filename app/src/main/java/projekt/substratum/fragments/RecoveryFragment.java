@@ -21,6 +21,7 @@ package projekt.substratum.fragments;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -298,7 +299,20 @@ public class RecoveryFragment extends Fragment {
                 !References.isAuthorizedDebugger(mContext)) {
             iconsCard.setVisibility(View.GONE);
         }
+
+        if (!prefs.getBoolean("seen_restore_warning", false)) showRecoveryWarning();
         return root;
+    }
+
+    private void showRecoveryWarning(){
+        new AlertDialog.Builder(mContext)
+                .setView(R.layout.restore_info)
+                .setPositiveButton(R.string.dialog_ok, (dialog, which) -> {
+                    if (!prefs.getBoolean("seen_restore_warning", false))
+                        prefs.edit().putBoolean("seen_restore_warning", true).apply();
+                    dialog.dismiss();
+                })
+                .show();
     }
 
     @Override
@@ -312,9 +326,7 @@ public class RecoveryFragment extends Fragment {
         int id = item.getItemId();
 
         if (id == R.id.restore_info) {
-            Dialog dialog = new Dialog(mContext, R.style.RestoreInfo);
-            dialog.setContentView(R.layout.restore_info);
-            dialog.show();
+            showRecoveryWarning();
             return true;
         }
 

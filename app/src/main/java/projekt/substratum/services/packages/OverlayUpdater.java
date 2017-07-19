@@ -181,7 +181,6 @@ public class OverlayUpdater extends BroadcastReceiver {
                 mBuilder.setContentTitle(format)
                         .setProgress(100, 0, true)
                         .setLargeIcon(References.getBitmapFromVector(
-                                context,
                                 References.grabAppIcon(
                                         context,
                                         package_name)))
@@ -200,7 +199,6 @@ public class OverlayUpdater extends BroadcastReceiver {
                 mBuilder.setProgress(0, 0, false);
                 mBuilder.setOngoing(false);
                 mBuilder.setLargeIcon(References.getBitmapFromVector(
-                        context,
                         References.grabAppIcon(
                                 context,
                                 package_name)));
@@ -278,7 +276,6 @@ public class OverlayUpdater extends BroadcastReceiver {
                                                     installed_overlays.get(i))));
                             mBuilder.setLargeIcon(
                                     References.getBitmapFromVector(
-                                            context,
                                             References.grabAppIcon(
                                                     context,
                                                     References.grabOverlayTarget(

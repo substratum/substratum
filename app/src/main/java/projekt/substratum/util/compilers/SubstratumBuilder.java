@@ -99,7 +99,7 @@ public class SubstratumBuilder {
      * @param type2              String location of the type2 file
      * @param type3              String location of the type3 file
      */
-    @SuppressWarnings("ConstantConditions")
+    @SuppressWarnings({"ConstantConditions", "UnusedReturnValue"})
     public boolean beginAction(Context context,
                                String theme_pid,
                                String overlay_package,

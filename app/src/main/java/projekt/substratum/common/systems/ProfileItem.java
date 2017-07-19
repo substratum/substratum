@@ -28,7 +28,7 @@ public class ProfileItem {
     private String type2;
     private String type3;
 
-    public ProfileItem(String packageName) {
+    ProfileItem(String packageName) {
         this.packageName = packageName;
     }
 
@@ -48,7 +48,7 @@ public class ProfileItem {
         return parentTheme;
     }
 
-    public void setParentTheme(String parentTheme) {
+    void setParentTheme(String parentTheme) {
         this.parentTheme = parentTheme;
     }
 

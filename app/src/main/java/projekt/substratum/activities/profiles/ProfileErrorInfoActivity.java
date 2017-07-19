@@ -38,8 +38,10 @@ public class ProfileErrorInfoActivity extends SubstratumActivity {
                 .setPositiveButton(getString(R.string.dialog_ok), (dialogInterface, i) -> {
                     PackageManager manager = this.getPackageManager();
                     Intent intent = manager.getLaunchIntentForPackage("projekt.substratum");
-                    intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                    startActivity(intent);
+                    if (intent != null) {
+                        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                        startActivity(intent);
+                    }
                     finish();
                 })
                 .setOnCancelListener(dialogInterface -> finish())

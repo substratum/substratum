@@ -113,7 +113,8 @@ public class AOPTCheck {
         }
         File f = new File(aoptPath);
         if (f.isFile()) {
-            f.setExecutable(true, true);
+            boolean set = f.setExecutable(true, true);
+            if (!set) Log.e("AOPTCheck", "Could not set executable...");
         }
     }
 }

@@ -225,6 +225,9 @@ public class References {
     // Notification Channel
     public static final String DEFAULT_NOTIFICATION_CHANNEL_ID = "default";
     public static final String ONGOING_NOTIFICATION_CHANNEL_ID = "ongoing";
+    private static final Boolean FORCE_SAMSUNG_VARIANT = false; // Debugging on a non-Samsung device
+    private static final String TEMPLATE_RECEIVE_KEYS = "projekt.substratum.RECEIVE_KEYS";
+    private static final String metadataSamsungSupport = "Substratum_Samsung";
     // This controls the filter used by the post-6.0.0 template checker
     private static final String SUBSTRATUM_THEME = "projekt.substratum.THEME";
     private static final String SUBSTRATUM_LAUNCHER_CLASS = ".SubstratumLauncher";
@@ -1211,6 +1214,16 @@ public class References {
         return null;
     }
 
+    public static int grabAppVersionCode(Context mContext, String packageName) {
+        try {
+            PackageInfo pInfo = mContext.getPackageManager().getPackageInfo(packageName, 0);
+            return pInfo.versionCode;
+        } catch (Exception e) {
+            // Suppress warning
+        }
+        return 0;
+    }
+
     public static String grabThemeVersion(Context mContext, String package_name) {
         try {
             PackageInfo pInfo = mContext.getPackageManager().getPackageInfo(package_name, 0);
@@ -1887,11 +1900,18 @@ public class References {
         boolean hashBoolValue = prefs.getBoolean("sungstratum_hash", false);
         boolean evaluatedResponse = prefs.getBoolean("sungstratum", false);
         boolean installer = prefs.getBoolean("sungstratum_installer", false);
+        String fingerprint = prefs.getString("sungstratum_fp", "0");
+        String expFingerprint = prefs.getString("sungstratum_exp_fp", "o");
+        String liveInstaller = PackageAnalytics.getPackageInstaller(context, SST_ADDON_PACKAGE);
+        boolean liveInstallerValidity = liveInstaller != null &&
+                liveInstaller.equals(PLAY_STORE_PACKAGE_NAME);
 
         boolean sungstratumPresent = !debuggingValue;
         sungstratumPresent &= !hashBoolValue;
         sungstratumPresent &= evaluatedResponse;
         sungstratumPresent &= installer;
+        sungstratumPresent &= fingerprint.equals(expFingerprint);
+        sungstratumPresent &= liveInstallerValidity;
         return sungstratumPresent;
     }
 

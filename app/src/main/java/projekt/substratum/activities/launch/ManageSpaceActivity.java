@@ -158,7 +158,6 @@ public class ManageSpaceActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             ManageSpaceActivity activity = ref.get();
-            Context context = activity.getApplicationContext();
 
             File filer = new File(Environment.getExternalStorageDirectory() +
                     File.separator + "substratum" + File.separator + "LogChar Reports");

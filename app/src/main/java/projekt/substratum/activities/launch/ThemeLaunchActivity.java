@@ -100,6 +100,7 @@ public class ThemeLaunchActivity extends Activity {
         myIntent.setClassName(package_name, package_name + ".SubstratumLauncher");
 
         try {
+            assert action != null;
             startActivityForResult(myIntent,
                     (action.equals(References.TEMPLATE_GET_KEYS) ? 10000 : intent_id));
         } catch (Exception e) {
@@ -118,35 +119,36 @@ public class ThemeLaunchActivity extends Activity {
         // Check which request we're responding to
         if (data != null && requestCode != 10000) {
             Bundle intent = data.getExtras();
+            if (intent != null) {
+                String theme_name = intent.getString("theme_name");
+                String theme_author = intent.getString("theme_author");
+                String theme_pid = intent.getString("theme_pid");
+                String theme_mode = intent.getString("theme_mode");
 
-            String theme_name = intent.getString("theme_name");
-            String theme_author = intent.getString("theme_author");
-            String theme_pid = intent.getString("theme_pid");
-            String theme_mode = intent.getString("theme_mode");
+                Integer theme_hash = intent.getInt("theme_hash");
+                Boolean theme_launch_type = intent.getBoolean("theme_launch_type");
+                Boolean theme_debug = intent.getBoolean("theme_debug");
+                Boolean theme_piracy_check = intent.getBoolean("theme_piracy_check");
 
-            Integer theme_hash = intent.getInt("theme_hash");
-            Boolean theme_launch_type = intent.getBoolean("theme_launch_type");
-            Boolean theme_debug = intent.getBoolean("theme_debug");
-            Boolean theme_piracy_check = intent.getBoolean("theme_piracy_check");
+                byte[] encryption_key = intent.getByteArray("encryption_key");
+                byte[] iv_encrypt_key = intent.getByteArray("iv_encrypt_key");
 
-            byte[] encryption_key = intent.getByteArray("encryption_key");
-            byte[] iv_encrypt_key = intent.getByteArray("iv_encrypt_key");
-
-            startActivity(
-                    launchThemeActivity(
-                            getApplicationContext(),
-                            theme_name,
-                            theme_author,
-                            theme_pid,
-                            theme_mode,
-                            theme_hash,
-                            theme_launch_type,
-                            theme_debug,
-                            theme_piracy_check,
-                            encryption_key,
-                            iv_encrypt_key,
-                            References.checkOMS(getApplicationContext())
-                    ));
+                startActivity(
+                        launchThemeActivity(
+                                getApplicationContext(),
+                                theme_name,
+                                theme_author,
+                                theme_pid,
+                                theme_mode,
+                                theme_hash,
+                                theme_launch_type,
+                                theme_debug,
+                                theme_piracy_check,
+                                encryption_key,
+                                iv_encrypt_key,
+                                References.checkOMS(getApplicationContext())
+                        ));
+            }
         } else if (legacyTheme && requestCode != 10000) {
             startActivity(
                     launchThemeActivity(

@@ -20,7 +20,7 @@ package projekt.substratum.util.files;
 
 import android.support.v4.util.Pair;
 
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,8 +31,7 @@ public class MapUtils {
         List<Pair<S, T>> list = map.entrySet().stream().map(entry -> new Pair<>(entry.getKey(),
                 entry.getValue())).collect(Collectors.toList());
 
-        Collections.sort(list,
-                (pair1, pair2) -> pair1.second.compareTo(pair2.second));
+        list.sort(Comparator.comparing(pair -> pair.second));
         return list;
     }
 }

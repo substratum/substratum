@@ -193,7 +193,9 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
             // Vibrate the device alerting the user they are about to do something dangerous!
             if (References.isUserApp(mContext, themeItem.getThemePackage())) {
                 Vibrator v = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
-                v.vibrate(30);
+                if (v != null) {
+                    v.vibrate(30);
+                }
                 if (!References.isSamsung(mContext)) {
                     SheetDialog sheetDialog = new SheetDialog(mContext);
                     View sheetView = View.inflate(mContext, R.layout.uninstall_sheet_dialog, null);
@@ -319,7 +321,9 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 // Clear the notification of building theme if shown
                 NotificationManager manager = (NotificationManager)
                         mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                manager.cancel(References.notification_id);
+                if (manager != null) {
+                    manager.cancel(References.notification_id);
+                }
             }
         }
 

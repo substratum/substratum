@@ -72,7 +72,11 @@ public class PackageModificationDetector extends BroadcastReceiver {
         References.sendOverlayRefreshMessage(mContext);
 
         Uri packageName = intent.getData();
-        package_name = packageName.toString().substring(8);
+        if (packageName != null) {
+            package_name = packageName.toString().substring(8);
+        } else {
+            return;
+        }
 
         if (!package_name.endsWith(".icon")) References.sendRefreshManagerMessage(context);
 

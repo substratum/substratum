@@ -57,10 +57,9 @@ public class ThemeManager {
      * <p>
      * NOTE: Deprecation at the OMS3 level. We no longer support OMS3 commands.
      */
-
-    public static final String listAllOverlays = "cmd overlay list";
     public static final String disableOverlay = "cmd overlay disable";
     public static final String enableOverlay = "cmd overlay enable";
+    private static final String listAllOverlays = "cmd overlay list";
     private static final String disableAllOverlays = "cmd overlay disable-all";
     private static final String setPriority = "cmd overlay set-priority";
     private static final String[] blacklistedPackages = new String[]{

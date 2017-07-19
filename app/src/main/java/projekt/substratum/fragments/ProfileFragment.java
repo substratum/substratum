@@ -18,6 +18,7 @@
 
 package projekt.substratum.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -190,8 +191,10 @@ public class ProfileFragment extends Fragment {
             if (!hasFocus) {
                 InputMethodManager imm = (InputMethodManager)
                         getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(backup_name.getWindowToken(),
-                        InputMethodManager.RESULT_UNCHANGED_SHOWN);
+                if (imm != null) {
+                    imm.hideSoftInputFromWindow(backup_name.getWindowToken(),
+                            InputMethodManager.RESULT_UNCHANGED_SHOWN);
+                }
             }
         });
 
@@ -266,8 +269,10 @@ public class ProfileFragment extends Fragment {
 
                 InputMethodManager imm = (InputMethodManager)
                         getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(backupButton.getWindowToken(),
-                        InputMethodManager.RESULT_UNCHANGED_SHOWN);
+                if (imm != null) {
+                    imm.hideSoftInputFromWindow(backupButton.getWindowToken(),
+                            InputMethodManager.RESULT_UNCHANGED_SHOWN);
+                }
             } else {
                 if (getView() != null) {
                     Lunchbar.make(getView(),
@@ -282,7 +287,7 @@ public class ProfileFragment extends Fragment {
 
         profile_selector = root.findViewById(R.id.restore_spinner);
 
-        list = new ArrayList<String>();
+        list = new ArrayList<>();
         adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, list);
         RefreshSpinner();
 
@@ -987,7 +992,11 @@ public class ProfileFragment extends Fragment {
                     String compilePackage = toBeCompiled.get(i).get(0);
                     ProfileItem currentItem = items.get(compilePackage);
 
-                    String format = String.format(
+                    @SuppressLint("StringFormatMatches")
+                    // Seems like there's a bug with lint according to
+                            // https://stackoverflow.com/questions/23960019/
+                            // lint-gives-wrong-format-type-when-using-long-values-in-strings-xml
+                            String format = String.format(
                             getString(R.string.profile_compile_progress),
                             i + 1,
                             toBeCompiled.size(),

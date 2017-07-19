@@ -763,7 +763,9 @@ public class Overlays extends Fragment {
             ClipboardManager clipboard =
                     (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
             ClipData clip = ClipData.newPlainText("substratum_log", error_logs);
-            clipboard.setPrimaryClip(clip);
+            if (clipboard != null) {
+                clipboard.setPrimaryClip(clip);
+            }
             currentShownLunchBar = Lunchbar.make(
                     getActivityView(),
                     R.string.logcat_dialog_copy_success,

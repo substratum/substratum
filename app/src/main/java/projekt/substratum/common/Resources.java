@@ -22,13 +22,6 @@ import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 
 public class Resources {
 
-    // Filter to adjust SystemUI elements
-    public static final String[] ALLOWED_SYSTEMUI_ELEMENTS = {
-            "com.android.systemui.headers",
-            "com.android.systemui.navbars",
-            "com.android.systemui.statusbars",
-            "com.android.systemui.tiles"
-    };
     // Filter to adjust Settings elements
     public static final String[] ALLOWED_SETTINGS_ELEMENTS = {
             "com.android.settings.icons",
@@ -99,6 +92,13 @@ public class Resources {
 
             // Organization Packages
             "projekt.substratum",
+    };
+    // Filter to adjust SystemUI elements
+    static final String[] ALLOWED_SYSTEMUI_ELEMENTS = {
+            "com.android.systemui.headers",
+            "com.android.systemui.navbars",
+            "com.android.systemui.statusbars",
+            "com.android.systemui.tiles"
     };
     // Predetermined list of new Nexus/Pixel Devices
     static final String[] NEXUS_FILTER = new String[]{

@@ -126,8 +126,10 @@ public class ProfileManager {
         if (currentProfile.equals(NIGHT)) {
             calendarNight.add(Calendar.DAY_OF_YEAR, 1);
         }
-        alarmMgr.setExactAndAllowWhileIdle(
-                AlarmManager.RTC_WAKEUP, calendarNight.getTimeInMillis(), nightIntent);
+        if (alarmMgr != null) {
+            alarmMgr.setExactAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP, calendarNight.getTimeInMillis(), nightIntent);
+        }
 
         // Bring back the day in case we went to the conditional if before
         calendarNight.set(Calendar.DAY_OF_YEAR, current.get(Calendar.DAY_OF_YEAR));
@@ -136,8 +138,10 @@ public class ProfileManager {
         if (currentProfile.equals(DAY) || current.after(calendarNight)) {
             calendarDay.add(Calendar.DAY_OF_YEAR, 1);
         }
-        alarmMgr.setExactAndAllowWhileIdle(
-                AlarmManager.RTC_WAKEUP, calendarDay.getTimeInMillis(), dayIntent);
+        if (alarmMgr != null) {
+            alarmMgr.setExactAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP, calendarDay.getTimeInMillis(), dayIntent);
+        }
     }
 
     public static void enableScheduledProfile(Context context, String dayProfile,
@@ -177,8 +181,10 @@ public class ProfileManager {
             // make sure we apply the night profile directly
             calendarNight.add(Calendar.DAY_OF_YEAR, -1);
         }
-        alarmMgr.setExactAndAllowWhileIdle(
-                AlarmManager.RTC_WAKEUP, calendarNight.getTimeInMillis(), nightIntent);
+        if (alarmMgr != null) {
+            alarmMgr.setExactAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP, calendarNight.getTimeInMillis(), nightIntent);
+        }
 
         // Bring back the day in case we went to the conditional if before
         calendarNight.set(Calendar.DAY_OF_YEAR, current.get(Calendar.DAY_OF_YEAR));
@@ -189,8 +195,10 @@ public class ProfileManager {
             // to be triggered
             calendarDay.add(Calendar.DAY_OF_YEAR, 1);
         }
-        alarmMgr.setExactAndAllowWhileIdle(
-                AlarmManager.RTC_WAKEUP, calendarDay.getTimeInMillis(), dayIntent);
+        if (alarmMgr != null) {
+            alarmMgr.setExactAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP, calendarDay.getTimeInMillis(), dayIntent);
+        }
 
         // Apply prefs
         editor.putBoolean(SCHEDULED_PROFILE_ENABLED, true);

@@ -32,7 +32,7 @@ import java.util.Locale;
 public class PackageAnalytics {
 
     public static final String PACKAGE_TAG = "PackageLogger";
-    public static final String RUNTIME_TAG = "RuntimeMemory";
+    private static final String RUNTIME_TAG = "RuntimeMemory";
 
     public static boolean isLowEnd() {
         Float maximum_memory = PackageAnalytics.logRuntimeMemoryLimits()[0];
@@ -56,6 +56,7 @@ public class PackageAnalytics {
         };
     }
 
+    @SuppressWarnings("SameParameterValue")
     @SuppressLint("DefaultLocale")
     private static String humanReadableByteCount(long bytes, boolean si) {
         int unit = si ? 1000 : 1024;
@@ -67,12 +68,9 @@ public class PackageAnalytics {
 
     public static void logPackageInfo(Context context, String packageName) {
         try {
-            PackageManager pm = context.getPackageManager();
-            ApplicationInfo appInfo;
-
             PackageManager packageManager = context.getPackageManager();
             String installer = packageManager.getInstallerPackageName(packageName);
-            appInfo = pm.getApplicationInfo(packageName, 0);
+            ApplicationInfo appInfo = packageManager.getApplicationInfo(packageName, 0);
 
             long installed = new File(appInfo.sourceDir).lastModified();
             Date date = new Date(installed);
@@ -91,5 +89,15 @@ public class PackageAnalytics {
         } catch (Exception e) {
             // Suppress warning
         }
+    }
+
+    public static String getPackageInstaller(Context context, String packageName) {
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            return packageManager.getInstallerPackageName(packageName);
+        } catch (Exception e) {
+            // Suppress warning
+        }
+        return null;
     }
 }

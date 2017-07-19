@@ -123,12 +123,14 @@ public class CompilerCommands {
                 "</manifest>\n";
     }
 
+    @SuppressWarnings("SameParameterValue")
     public static String createIconOverlayManifest(Context context,
                                                    String overlay_package,
                                                    String theme_pack,
                                                    String versionName,
                                                    String parsedIconName,
                                                    Boolean theme_oms,
+                                                   // TODO: Allow this priority to be user adjusted
                                                    int legacy_priority) {
         return "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n" +
 

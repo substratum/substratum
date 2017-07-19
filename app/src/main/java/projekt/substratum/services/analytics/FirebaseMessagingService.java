@@ -48,6 +48,8 @@ public class FirebaseMessagingService extends
                         .setContentTitle(getString(R.string.app_name))
                         .setContentText(remoteMessage.getNotification().getBody());
         Notification notification = mBuilder.build();
-        notificationManager.notify(References.firebase_notification_id, notification);
+        if (notificationManager != null) {
+            notificationManager.notify(References.firebase_notification_id, notification);
+        }
     }
 }

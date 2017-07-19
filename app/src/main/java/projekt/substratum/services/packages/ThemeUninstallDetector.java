@@ -58,7 +58,12 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (PACKAGE_FULLY_REMOVED.equals(intent.getAction())) {
             Uri packageName = intent.getData();
-            String package_name = packageName.toString().substring(8);
+            String package_name;
+            if (packageName != null) {
+                package_name = packageName.toString().substring(8);
+            } else {
+                return;
+            }
 
             if (package_name.equals(SST_ADDON_PACKAGE)) {
                 SharedPreferences prefs =

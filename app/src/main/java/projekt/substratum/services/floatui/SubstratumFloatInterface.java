@@ -75,8 +75,11 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
     public String foregroundedApp() {
         UsageStatsManager mUsageStatsManager = (UsageStatsManager) getSystemService("usagestats");
         long time = System.currentTimeMillis();
-        List<UsageStats> stats = mUsageStatsManager.queryUsageStats(
-                UsageStatsManager.INTERVAL_DAILY, time - 1000 * 1000, time);
+        List<UsageStats> stats = null;
+        if (mUsageStatsManager != null) {
+            stats = mUsageStatsManager.queryUsageStats(
+                    UsageStatsManager.INTERVAL_DAILY, time - 1000 * 1000, time);
+        }
         String foregroundApp = "";
         if (stats != null && stats.size() > 0) {
             SortedMap<Long, UsageStats> mySortedMap = new TreeMap<>();
@@ -87,11 +90,16 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 foregroundApp = mySortedMap.get(mySortedMap.lastKey()).getPackageName();
             }
         }
-        UsageEvents usageEvents = mUsageStatsManager.queryEvents(time - 1000 * 1000, time);
+        UsageEvents usageEvents = null;
+        if (mUsageStatsManager != null) {
+            usageEvents = mUsageStatsManager.queryEvents(time - 1000 * 1000, time);
+        }
         UsageEvents.Event event = new UsageEvents.Event();
         // Get the last event in the doubly linked list
-        while (usageEvents.hasNextEvent()) {
-            usageEvents.getNextEvent(event);
+        if (usageEvents != null) {
+            while (usageEvents.hasNextEvent()) {
+                usageEvents.getNextEvent(event);
+            }
         }
         if (foregroundApp.equals(event.getPackageName()) &&
                 event.getEventType() == UsageEvents.Event.MOVE_TO_FOREGROUND) {
@@ -107,7 +115,9 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
         }
         final DisplayMetrics metrics = new DisplayMetrics();
         final WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
-        windowManager.getDefaultDisplay().getMetrics(metrics);
+        if (windowManager != null) {
+            windowManager.getDefaultDisplay().getMetrics(metrics);
+        }
         final LayoutInflater inflater = LayoutInflater.from(this);
         @SuppressLint("InflateParams") final ImageView iconView = (ImageView)
                 inflater.inflate(R.layout.floatui_head, null, false);

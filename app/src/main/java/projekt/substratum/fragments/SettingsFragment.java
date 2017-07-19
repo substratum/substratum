@@ -214,7 +214,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                     R.string.settings_samsung_show_dangerous_overlays_warning_title);
                             builder.setMessage(
                                     R.string.settings_samsung_show_dangerous_overlays_warning);
-                            builder.setNegativeButton(R.string.break_compilation_dialog_cancel,
+                            builder.setNegativeButton(R.string.dialog_cancel,
                                     (dialog, id) -> dialog.dismiss());
                             builder.setPositiveButton(
                                     R.string.break_compilation_dialog_continue,
@@ -347,19 +347,28 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             manage_notifications.setOnPreferenceClickListener(preference -> {
                 NotificationManager notificationManager =
                         (NotificationManager) getContext().getSystemService(NOTIFICATION_SERVICE);
-                List<NotificationChannel> channels = notificationManager.getNotificationChannels();
-                CharSequence[] channelNames = new CharSequence[channels.size()];
-                for (int i = 0; i < channels.size(); i++) {
-                    channelNames[i] = channels.get(i).getName();
+                List<NotificationChannel> channels = null;
+                if (notificationManager != null) {
+                    channels = notificationManager.getNotificationChannels();
+                }
+                CharSequence[] channelNames = new CharSequence[0];
+                if (channels != null) {
+                    channelNames = new CharSequence[channels.size()];
+                    for (int i = 0; i < channels.size(); i++) {
+                        channelNames[i] = channels.get(i).getName();
+                    }
                 }
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle(R.string.manage_notification_channel_dialog_title);
                 builder.setNegativeButton(android.R.string.cancel, (dialog, i) -> dialog.cancel());
+                List<NotificationChannel> finalChannels = channels;
                 builder.setItems(channelNames, (dialog, i) -> {
                     Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
                     intent.putExtra(Settings.EXTRA_APP_PACKAGE, getContext().getPackageName());
-                    intent.putExtra(Settings.EXTRA_CHANNEL_ID, channels.get(i).getId());
+                    if (finalChannels != null) {
+                        intent.putExtra(Settings.EXTRA_CHANNEL_ID, finalChannels.get(i).getId());
+                    }
                     startActivity(intent);
                 });
                 builder.create().show();
@@ -513,7 +522,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 new AlertDialog.Builder(getContext());
                         builder.setTitle(R.string.theme_safety_dialog_title);
                         builder.setMessage(R.string.theme_safety_dialog_content);
-                        builder.setNegativeButton(R.string.break_compilation_dialog_cancel,
+                        builder.setNegativeButton(R.string.dialog_cancel,
                                 (dialog, id) -> dialog.dismiss());
                         builder.setPositiveButton(
                                 R.string.break_compilation_dialog_continue,
@@ -544,7 +553,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                         new AlertDialog.Builder(getContext());
                                 builder.setTitle(R.string.break_compilation_dialog_title);
                                 builder.setMessage(R.string.break_compilation_dialog_content);
-                                builder.setNegativeButton(R.string.break_compilation_dialog_cancel,
+                                builder.setNegativeButton(R.string.dialog_cancel,
                                         (dialog, id) -> dialog.dismiss());
                                 builder.setPositiveButton(
                                         R.string.break_compilation_dialog_continue,
@@ -555,8 +564,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                             Intent i = getContext().getPackageManager()
                                                     .getLaunchIntentForPackage(getContext()
                                                             .getPackageName());
-                                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            startActivity(i);
+                                            if (i != null) {
+                                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                startActivity(i);
+                                            }
                                         });
                                 builder.show();
                             } else {
@@ -631,7 +642,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 (getContext());
                         builder.setTitle(R.string.logchar_dialog_title_delete_title);
                         builder.setMessage(R.string.logchar_dialog_title_delete_content);
-                        builder.setNegativeButton(R.string.break_compilation_dialog_cancel,
+                        builder.setNegativeButton(R.string.dialog_cancel,
                                 (dialog, id) -> dialog.dismiss());
                         builder.setPositiveButton(R.string.break_compilation_dialog_continue,
                                 (dialog, id) -> {
@@ -833,7 +844,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                     (getContext());
                             builder.setTitle(R.string.settings_theme_auto_updater_dialog_title);
                             builder.setMessage(R.string.settings_theme_auto_updater_dialog_text);
-                            builder.setNegativeButton(R.string.break_compilation_dialog_cancel,
+                            builder.setNegativeButton(R.string.dialog_cancel,
                                     (dialog, id) -> dialog.dismiss());
                             builder.setPositiveButton(R.string.break_compilation_dialog_continue,
                                     (dialog, id) -> {
@@ -880,7 +891,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                     (getContext());
                             builder.setTitle(R.string.break_compilation_dialog_title);
                             builder.setMessage(R.string.break_compilation_dialog_content);
-                            builder.setNegativeButton(R.string.break_compilation_dialog_cancel,
+                            builder.setNegativeButton(R.string.dialog_cancel,
                                     (dialog, id) -> dialog.dismiss());
                             builder.setPositiveButton(R.string.break_compilation_dialog_continue,
                                     (dialog, id) -> {
@@ -1005,7 +1016,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         .append(" ")
                         .append(getString(R.string.rom_status_unsupported));
                 systemPlatform.setSummary(platformSummary.toString());
-                return;
             }
         }
 

@@ -64,18 +64,21 @@ public class FirebaseAnalytics {
                         .getSharedPreferences(PACKAGES_PREFS, Context.MODE_PRIVATE).edit();
                 editor.clear();
                 ArrayList<String> listOfPackages = new ArrayList<>();
-                String data = dataSnapshot.getValue().toString();
-                String[] dataArr = data.substring(1, data.length() - 1).split(",");
-                for (String aDataArr : dataArr) {
-                    String entry = aDataArr.split("=")[1];
-                    listOfPackages.add(entry);
-                }
+                Object dataValue = dataSnapshot.getValue();
+                if (dataValue != null) {
+                    String data = dataValue.toString();
+                    String[] dataArr = data.substring(1, data.length() - 1).split(",");
+                    for (String aDataArr : dataArr) {
+                        String entry = aDataArr.split("=")[1];
+                        listOfPackages.add(entry);
+                    }
 
-                HashSet set = new HashSet();
-                set.addAll(listOfPackages);
-                SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
-                editor.putStringSet(dateFormat.format(new Date()), set);
-                editor.apply();
+                    HashSet set = new HashSet();
+                    set.addAll(listOfPackages);
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
+                    editor.putStringSet(dateFormat.format(new Date()), set);
+                    editor.apply();
+                }
             }
 
             @Override
@@ -94,22 +97,52 @@ public class FirebaseAnalytics {
                         .getSharedPreferences(NAMES_PREFS, Context.MODE_PRIVATE).edit();
                 editor.clear();
                 ArrayList<String> listOfPackages = new ArrayList<>();
-                String data = dataSnapshot.getValue().toString();
-                String[] dataArr = data.substring(1, data.length() - 1).split(",");
-                for (String aDataArr : dataArr) {
-                    String entry = aDataArr.split("=")[1];
-                    listOfPackages.add(entry);
-                }
+                Object dataValue = dataSnapshot.getValue();
+                if (dataValue != null) {
+                    String data = dataValue.toString();
+                    String[] dataArr = data.substring(1, data.length() - 1).split(",");
+                    for (String aDataArr : dataArr) {
+                        String entry = aDataArr.split("=")[1];
+                        listOfPackages.add(entry);
+                    }
 
-                HashSet set = new HashSet();
-                set.addAll(listOfPackages);
-                SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
-                editor.putStringSet(dateFormat.format(new Date()), set).apply();
+                    HashSet set = new HashSet();
+                    set.addAll(listOfPackages);
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
+                    editor.putStringSet(dateFormat.format(new Date()), set).apply();
+                }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+    }
+
+    public static void withdrawSungstratumFingerprint(Context context, int version) {
+        SharedPreferences prefs = context
+                .getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
+        if (!prefs.contains("sungstratum_exp_fp")) {
+            DatabaseReference database = getDatabaseReference();
+            database.child("sungstratum-fp")
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            SharedPreferences.Editor editor = context
+                                    .getSharedPreferences("substratum_state", Context
+                                            .MODE_PRIVATE).edit();
+                            Object dataValue = dataSnapshot.child(String.valueOf(version))
+                                    .getValue();
+                            if (dataValue != null) {
+                                String hash = dataValue.toString();
+                                editor.putString("sungstratum_exp_fp", hash).apply();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+        }
     }
 }

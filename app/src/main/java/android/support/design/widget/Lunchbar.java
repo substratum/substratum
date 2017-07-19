@@ -183,7 +183,7 @@ public final class Lunchbar extends TransientBottom<Lunchbar> {
     @NonNull
     public Lunchbar setText(@NonNull CharSequence message) {
         final SnackbarContentLayout contentLayout = (SnackbarContentLayout) mView.getChildAt(0);
-        final TextView tv = contentLayout.getMessageView();
+        @SuppressLint("RestrictedApi") final TextView tv = contentLayout.getMessageView();
         tv.setText(message);
         return this;
     }
@@ -218,7 +218,7 @@ public final class Lunchbar extends TransientBottom<Lunchbar> {
     @NonNull
     public Lunchbar setAction(CharSequence text, final View.OnClickListener listener) {
         final SnackbarContentLayout contentLayout = (SnackbarContentLayout) mView.getChildAt(0);
-        final TextView tv = contentLayout.getActionView();
+        @SuppressLint("RestrictedApi") final TextView tv = contentLayout.getActionView();
 
         if (TextUtils.isEmpty(text) || listener == null) {
             tv.setVisibility(View.GONE);
@@ -242,7 +242,7 @@ public final class Lunchbar extends TransientBottom<Lunchbar> {
     @NonNull
     public Lunchbar setActionTextColor(ColorStateList colors) {
         final SnackbarContentLayout contentLayout = (SnackbarContentLayout) mView.getChildAt(0);
-        final TextView tv = contentLayout.getActionView();
+        @SuppressLint("RestrictedApi") final TextView tv = contentLayout.getActionView();
         tv.setTextColor(colors);
         return this;
     }
@@ -254,7 +254,7 @@ public final class Lunchbar extends TransientBottom<Lunchbar> {
     @NonNull
     public Lunchbar setActionTextColor(@ColorInt int color) {
         final SnackbarContentLayout contentLayout = (SnackbarContentLayout) mView.getChildAt(0);
-        final TextView tv = contentLayout.getActionView();
+        @SuppressLint("RestrictedApi") final TextView tv = contentLayout.getActionView();
         tv.setTextColor(color);
         return this;
     }
@@ -345,10 +345,12 @@ public final class Lunchbar extends TransientBottom<Lunchbar> {
      */
     @RestrictTo(LIBRARY_GROUP)
     public static final class SnackbarLayout extends SnackbarBaseLayout {
+        @SuppressLint("RestrictedApi")
         public SnackbarLayout(Context context) {
             super(context);
         }
 
+        @SuppressLint("RestrictedApi")
         public SnackbarLayout(Context context, AttributeSet attrs) {
             super(context, attrs);
         }

@@ -121,7 +121,7 @@ public class ManagerItem implements Serializable {
         return themeName;
     }
 
-    public void setThemeName(String name) {
+    void setThemeName(String name) {
         this.themeName = name;
     }
 
@@ -133,11 +133,11 @@ public class ManagerItem implements Serializable {
         this.mDrawable = drawable;
     }
 
-    public Drawable getTargetDrawable() {
+    Drawable getTargetDrawable() {
         return mTargetDrawable;
     }
 
-    public void setTargetDrawable(Drawable drawable) {
+    void setTargetDrawable(Drawable drawable) {
         this.mTargetDrawable = drawable;
     }
 }

@@ -34,7 +34,9 @@ public class NotificationUpgradeReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         NotificationManager manager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.cancel(References.notification_id_upgrade);
+        if (manager != null) {
+            manager.cancel(References.notification_id_upgrade);
+        }
         SharedPreferences prefs =
                 context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
         prefs.edit().clear().apply();

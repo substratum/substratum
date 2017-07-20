@@ -132,7 +132,6 @@ public class References {
     public static final Boolean ENABLE_DIRECT_ASSETS_LOGGING = false; // Self explanatory
     public static final Boolean BYPASS_ALL_VERSION_CHECKS = false; // For developer previews only!
     public static final Boolean BYPASS_SUBSTRATUM_BUILDER_DELETION = false; // Do not delete cache?
-    private static final Boolean FORCE_SAMSUNG_VARIANT = false; // Debugging on a non-Samsung device
     // These are specific log tags for different classes
     public static final String SUBSTRATUM_BUILDER = "SubstratumBuilder";
     public static final String SUBSTRATUM_LOG = "SubstratumLogger";
@@ -162,7 +161,6 @@ public class References {
     public static final String KEY_RETRIEVAL = "Substratum.KeyRetrieval";
     public static final String TEMPLATE_THEME_MODE = "projekt.substratum.THEME";
     public static final String TEMPLATE_GET_KEYS = "projekt.substratum.GET_KEYS";
-    private static final String TEMPLATE_RECEIVE_KEYS = "projekt.substratum.RECEIVE_KEYS";
     // Keep it simple, stupid!
     public static final int HIDDEN_CACHING_MODE_TAP_COUNT = 7;
     public static final int SHOWCASE_SHUFFLE_COUNT = 5;
@@ -177,7 +175,6 @@ public class References {
     public static final String metadataLegacy = "Substratum_Legacy";
     public static final String metadataEncryption = "Substratum_Encryption";
     public static final String metadataEncryptionValue = "onCompileVerify";
-    private static final String metadataSamsungSupport = "Substratum_Samsung";
     public static final String metadataWallpapers = "Substratum_Wallpapers";
     public static final String metadataOverlayDevice = "Substratum_Device";
     public static final String metadataOverlayParent = "Substratum_Parent";

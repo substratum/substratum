@@ -452,9 +452,6 @@ public class References {
 
     public static String checkXposedVersion() {
         String xposed_version = "";
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ) return xposed_version;
-
         File f = new File("/system/framework/XposedBridge.jar");
         if (f.isFile()) {
             File file = new File("/system/", "xposed.prop");

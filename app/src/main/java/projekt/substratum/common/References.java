@@ -141,6 +141,7 @@ public class References {
     // These are package names for our backend systems
     public static final String INTERFACER_PACKAGE = "projekt.interfacer";
     public static final String INTERFACER_SERVICE = INTERFACER_PACKAGE + ".services.JobService";
+    @SuppressWarnings("DeprecatedIsStillUsed")
     @Deprecated
     public static final String MASQUERADE_PACKAGE = "masquerade.substratum";
     // Samsung package names
@@ -730,6 +731,7 @@ public class References {
     public static boolean isNetworkAvailable(Context mContext) {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connectivityManager != null;
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
@@ -834,6 +836,7 @@ public class References {
     public static boolean isServiceRunning(Class<?> serviceClass, Context context) {
         ActivityManager manager = (ActivityManager)
                 context.getSystemService(Context.ACTIVITY_SERVICE);
+        assert manager != null;
         for (ActivityManager.RunningServiceInfo service :
                 manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
@@ -1469,6 +1472,7 @@ public class References {
     public static boolean isNotificationVisible(Context mContext, int notification_id) {
         NotificationManager mNotificationManager = (NotificationManager)
                 mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        assert mNotificationManager != null;
         StatusBarNotification[] notifications = mNotificationManager.getActiveNotifications();
         for (StatusBarNotification notification : notifications) {
             if (notification.getId() == notification_id) return true;
@@ -1480,6 +1484,7 @@ public class References {
     public static void clearAllNotifications(Context mContext) {
         NotificationManager mNotificationManager = (NotificationManager)
                 mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        assert mNotificationManager != null;
         StatusBarNotification[] notifications = mNotificationManager.getActiveNotifications();
         for (StatusBarNotification notification : notifications) {
             if (Objects.equals(notification.getPackageName(), mContext.getPackageName())) {
@@ -1496,6 +1501,7 @@ public class References {
                     packageManager.getApplicationInfo(mContext.getPackageName(), 0);
             AppOpsManager appOpsManager = (AppOpsManager)
                     mContext.getSystemService(Context.APP_OPS_SERVICE);
+            assert appOpsManager != null;
             int mode = appOpsManager.checkOpNoThrow(
                     AppOpsManager.OPSTR_GET_USAGE_STATS,
                     applicationInfo.uid,
@@ -1559,6 +1565,7 @@ public class References {
     }
 
     // Locate the proper launch intent for the themes
+    @SuppressWarnings("SameParameterValue")
     public static Intent sendLaunchIntent(Context mContext, String currentTheme,
                                           boolean theme_legacy, String theme_mode,
                                           Boolean notification) {

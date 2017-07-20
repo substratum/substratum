@@ -858,4 +858,5 @@
     <string name="automatic_logchar_cleanup_summary_on">Saved LogChar reports will be wiped every fifteen days</string>
     <string name="automatic_logchar_cleanup_summary_off">All LogChar reports will be cached indefinitely</string>
     <string name="automatic_logchar_cleanup_title">Automatically wipe saved LogChar reports</string>
+    <string name="cleaned_logchar_reports">Cleaned saved LogChar reports</string>
 </resources>

@@ -1416,5 +1416,14 @@ public class MainActivity extends SubstratumActivity implements
                     .getAbsolutePath());
             return null;
         }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            MainActivity activity = ref.get();
+            Context context = activity.getApplicationContext();
+            Toast.makeText(context, context.getString(R.string.cleaned_logchar_reports), Toast.LENGTH_SHORT).show();
+            activity.finishAffinity();
+        }
+
     }
 }

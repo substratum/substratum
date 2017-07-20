@@ -82,8 +82,11 @@ import com.squareup.leakcanary.RefWatcher;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
@@ -119,6 +122,7 @@ import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.References.checkUsagePermissions;
 import static projekt.substratum.common.References.isSamsung;
+import static projekt.substratum.common.commands.FileOperations.delete;
 
 public class MainActivity extends SubstratumActivity implements
         ActivityCompat.OnRequestPermissionsResultCallback, SearchView.OnQueryTextListener {
@@ -273,6 +277,7 @@ public class MainActivity extends SubstratumActivity implements
                     "LeakCanary has been initialized to actively monitor memory leaks.");
         }
         setContentView(R.layout.main_activity);
+        cleanLogCharReportsIfNecessary();
 
         int selectedDrawer = 1;
         if (savedInstanceState != null) {
@@ -835,6 +840,22 @@ public class MainActivity extends SubstratumActivity implements
         }
     }
 
+    private void cleanLogCharReportsIfNecessary() {
+        if (prefs.getString("last_logchar_cleanup", "").equals("")){
+            prefs.edit().putString("last_logchar_cleanup", Calendar.getInstance().getTime().toString()).apply();
+            return;
+        }
+        Date currentDate = Calendar.getInstance().getTime();
+        Date lastLogCharCleanupDate = new Date(prefs.getString("last_logchar_cleanup", ""));
+        long diff = currentDate.getTime() - lastLogCharCleanupDate.getTime();
+        if (prefs.getBoolean("automatic_logchar_cleanup", false) &&
+                TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) >= 15){
+            new ClearLogs(this).execute();
+            Log.d(SUBSTRATUM_LOG, "LogChar reports were wiped from the storage");
+        }
+
+    }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
@@ -1378,6 +1399,22 @@ public class MainActivity extends SubstratumActivity implements
         @Override
         public void onReceive(Context context, Intent intent) {
             finish();
+        }
+    }
+    public static class ClearLogs extends AsyncTask<Void, Void, Void> {
+        private WeakReference<MainActivity> ref;
+
+        ClearLogs(MainActivity activity) {
+            ref = new WeakReference<>(activity);
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Context context = ref.get().getApplicationContext();
+            delete(context, new File(Environment.getExternalStorageDirectory() +
+                    File.separator + "substratum" + File.separator + "LogChar Reports")
+                    .getAbsolutePath());
+            return null;
         }
     }
 }

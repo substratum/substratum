@@ -117,6 +117,15 @@
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:key="automatic_logchar_cleanup"
+            android:summaryOn="@string/automatic_logchar_cleanup_summary_on"
+            android:summaryOff="@string/automatic_logchar_cleanup_summary_off"
+            android:title="@string/automatic_logchar_cleanup_title"
+            android:dependency="autosave_logchar" />
+
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:key="overlay_updater"
             android:summary="@string/settings_auto_updater_text"
             android:title="@string/settings_auto_updater_title"/>

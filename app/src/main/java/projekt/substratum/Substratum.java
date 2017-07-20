@@ -61,6 +61,7 @@ public class Substratum extends Application {
             mainChannel.setSound(null, new AudioAttributes.Builder()
                     .setUsage(AudioAttributes.USAGE_NOTIFICATION)
                     .build());
+            assert notificationManager != null;
             notificationManager.createNotificationChannel(mainChannel);
 
             NotificationChannel compileChannel = new NotificationChannel(
@@ -87,6 +88,7 @@ public class Substratum extends Application {
 
     private boolean checkServiceActivation(Class<?> serviceClass) {
         ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        assert manager != null;
         for (ActivityManager.RunningServiceInfo service :
                 manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {

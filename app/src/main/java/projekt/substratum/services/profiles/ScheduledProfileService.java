@@ -285,8 +285,11 @@ public class ScheduledProfileService extends JobService {
                     PendingIntent.FLAG_UPDATE_CURRENT);
 
             AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                    newIntent);
+            if (alarmMgr != null) {
+                alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
+                        calendar.getTimeInMillis(),
+                        newIntent);
+            }
 
             //save current profile
             prefs.edit().putString(SCHEDULED_PROFILE_CURRENT_PROFILE, service.extra).apply();

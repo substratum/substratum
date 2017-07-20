@@ -31,6 +31,8 @@ public class NotificationButtonReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         NotificationManager manager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.cancel(References.notification_id);
+        if (manager != null) {
+            manager.cancel(References.notification_id);
+        }
     }
 }

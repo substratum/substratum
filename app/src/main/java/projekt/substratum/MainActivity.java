@@ -595,7 +595,7 @@ public class MainActivity extends SubstratumActivity implements
                     case 102:
                         try {
                             String sourceURL;
-                            if (References.isSamsung(this)){
+                            if (References.isSamsung(this)) {
                                 sourceURL = getString(R.string.xda_sungstratum_link);
                             } else {
                                 sourceURL = getString(R.string.xda_link);
@@ -887,11 +887,12 @@ public class MainActivity extends SubstratumActivity implements
                         showFloatingHead();
                     } else if (!Settings.canDrawOverlays(getApplicationContext())) {
                         DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
-                            switch (which){
+                            switch (which) {
                                 case DialogInterface.BUTTON_POSITIVE:
                                     Intent draw_over_apps = new Intent(
                                             Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                                            Uri.parse("package:" + getApplicationContext().getPackageName()));
+                                            Uri.parse("package:" + getApplicationContext()
+                                                    .getPackageName()));
                                     startActivityForResult(draw_over_apps,
                                             PERMISSIONS_REQUEST_DRAW_OVER_OTHER_APPS);
                                     break;
@@ -908,9 +909,10 @@ public class MainActivity extends SubstratumActivity implements
                                 .show();
                     } else if (!checkUsagePermissions(getApplicationContext())) {
                         DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
-                            switch (which){
+                            switch (which) {
                                 case DialogInterface.BUTTON_POSITIVE:
-                                    Intent usage = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
+                                    Intent usage = new Intent(Settings
+                                            .ACTION_USAGE_ACCESS_SETTINGS);
                                     startActivityForResult(usage,
                                             PERMISSIONS_REQUEST_USAGE_ACCESS_SETTINGS);
                                     break;

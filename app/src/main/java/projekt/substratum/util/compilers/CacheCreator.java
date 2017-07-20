@@ -94,6 +94,7 @@ public class CacheCreator {
         return null;
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     public boolean wipeCache(Context context, String package_identifier) {
         mContext = context;
         File myDir2 = new File(mContext.getCacheDir().getAbsoluteFile() +

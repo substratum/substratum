@@ -50,6 +50,7 @@ public class NotificationCreator {
         this.invoke_id = invoke_id;
     }
 
+    @SuppressWarnings("UnusedReturnValue")
     public boolean createNotification() {
         try {
             NotificationManager mNotifyManager = (NotificationManager) mContext.getSystemService(
@@ -66,7 +67,9 @@ public class NotificationCreator {
             if (big_icon != null) mBuilder.setLargeIcon(big_icon);
 
             mBuilder.setPriority(notification_priority);
-            mNotifyManager.notify(invoke_id, mBuilder.build());
+            if (mNotifyManager != null) {
+                mNotifyManager.notify(invoke_id, mBuilder.build());
+            }
             return true;
         } catch (Exception e) {
             // Suppress warning

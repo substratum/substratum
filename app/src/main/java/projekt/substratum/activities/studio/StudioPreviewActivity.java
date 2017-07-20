@@ -61,7 +61,6 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -848,14 +847,13 @@ public class StudioPreviewActivity extends AppCompatActivity {
                                     References.grabThemeVersion(
                                             context,
                                             activity.current_pack),
-                                    true,
                                     hashMap,
                                     pair.getKey().toString(),
                                     drawable,
                                     iconDrawableName,
                                     iconNameParsed,
                                     update_bool,
-                                    (iconification != null) ? iconification : null);
+                                    iconification);
                             if (sib.has_errored_out) {
                                 Log.e(References.SUBSTRATUM_ICON_BUILDER,
                                         "Could not instantiate icon (" + iconPackage +
@@ -946,7 +944,7 @@ public class StudioPreviewActivity extends AppCompatActivity {
             List<ResolveInfo> appList = pm.queryIntentActivities(mainIntent, 0);
             HashMap hmap = new HashMap();
 
-            Collections.sort(appList, new ResolveInfo.DisplayNameComparator(pm));
+            appList.sort(new ResolveInfo.DisplayNameComparator(pm));
             for (ResolveInfo temp : appList) {
                 hmap.put(temp.activityInfo.packageName, temp.activityInfo.name);
             }

@@ -89,7 +89,9 @@ public class AppCrashReceiver extends BroadcastReceiver {
                 builder.setCategory(NotificationCompat.CATEGORY_SERVICE);
                 NotificationManager mNotifyMgr =
                         (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
-                mNotifyMgr.notify(NOTIFICATION_ID, builder.build());
+                if (mNotifyMgr != null) {
+                    mNotifyMgr.notify(NOTIFICATION_ID, builder.build());
+                }
 
                 ThemeManager.disableOverlay(context, new ArrayList<>(overlays));
             }

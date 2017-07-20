@@ -32,7 +32,7 @@ import java.util.Locale;
 public class PackageAnalytics {
 
     public static final String PACKAGE_TAG = "PackageLogger";
-    public static final String RUNTIME_TAG = "RuntimeMemory";
+    private static final String RUNTIME_TAG = "RuntimeMemory";
 
     public static boolean isLowEnd() {
         Float maximum_memory = PackageAnalytics.logRuntimeMemoryLimits()[0];
@@ -56,6 +56,7 @@ public class PackageAnalytics {
         };
     }
 
+    @SuppressWarnings("SameParameterValue")
     @SuppressLint("DefaultLocale")
     private static String humanReadableByteCount(long bytes, boolean si) {
         int unit = si ? 1000 : 1024;

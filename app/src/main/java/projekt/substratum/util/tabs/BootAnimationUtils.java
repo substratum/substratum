@@ -277,7 +277,9 @@ public class BootAnimationUtils {
                             WindowManager wm = (WindowManager) mContext.getSystemService
                                     (Context.WINDOW_SERVICE);
                             DisplayMetrics dm = new DisplayMetrics();
-                            wm.getDefaultDisplay().getRealMetrics(dm);
+                            if (wm != null) {
+                                wm.getDefaultDisplay().getRealMetrics(dm);
+                            }
                             // just in case the device is in landscape orientation we will
                             // swap the values since most (if not all) animations are portrait
                             int prevent_lint_w = dm.widthPixels;

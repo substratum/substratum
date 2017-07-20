@@ -77,6 +77,7 @@ public class FileOperations {
         Root.runCommand("chmod -R " + permission + " " + foldername);
     }
 
+    @SuppressWarnings("SameParameterValue")
     public static void setProp(final String propName, final String propValue) {
         Root.runCommand("setprop " + propName + " " + propValue);
     }

@@ -58,7 +58,6 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
     private ArrayList<WallpaperEntries> information;
     private Context mContext;
     private PowerManager.WakeLock mWakeLock;
-    private int height, width;
 
     public WallpaperAdapter(ArrayList<WallpaperEntries> information) {
         this.information = information;
@@ -78,8 +77,8 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
 
         // Get display ratio
         DisplayMetrics metrics = mContext.getResources().getDisplayMetrics();
-        height = metrics.heightPixels;
-        width = metrics.widthPixels;
+        int height = metrics.heightPixels;
+        int width = metrics.widthPixels;
 
         Glide.with(mContext)
                 .load(wallpaperEntry.getWallpaperPreview())
@@ -236,9 +235,11 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
             // presses the power button during download
             PowerManager pm = (PowerManager)
                     mContext.getSystemService(Context.POWER_SERVICE);
-            mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-                    getClass().getName());
-            mWakeLock.acquire();
+            if (pm != null) {
+                mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                        getClass().getName());
+            }
+            mWakeLock.acquire(10 * 60 * 1000L /*10 minutes*/);
             mProgressDialog.show();
         }
 

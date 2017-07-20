@@ -135,7 +135,6 @@ public class SubstratumIconBuilder {
                             String theme_pack,
                             String overlay_package,
                             String versionName,
-                            Boolean theme_oms,
                             HashMap iconLocations,
                             String hashOne,
                             int drawable,
@@ -330,7 +329,7 @@ public class SubstratumIconBuilder {
                             theme_pack,
                             versionName,
                             parsedIconName,
-                            theme_oms,
+                            true,
                             80);
                     pw.write(manifest);
                 }
@@ -494,27 +493,25 @@ public class SubstratumIconBuilder {
 
         if (!has_errored_out) {
             if (update_mode) {
-                if (theme_oms) {
-                    try {
-                        ThemeManager.installOverlay(context, Environment
-                                .getExternalStorageDirectory()
-                                .getAbsolutePath() + EXTERNAL_STORAGE_CACHE +
-                                overlay_package + ".icon-signed.apk");
-                        Log.d(References.SUBSTRATUM_ICON_BUILDER, "Silently installing APK...");
-                        if (References.isPackageInstalled(context, overlay_package + ".icon")) {
-                            Log.d(References.SUBSTRATUM_ICON_BUILDER,
-                                    "Overlay APK has successfully been installed!");
-                        } else {
-                            dumpErrorLogs(References.SUBSTRATUM_ICON_BUILDER, overlay_package,
-                                    "Overlay APK has failed to install!");
-                        }
-                    } catch (Exception e) {
+                try {
+                    ThemeManager.installOverlay(context, Environment
+                            .getExternalStorageDirectory()
+                            .getAbsolutePath() + EXTERNAL_STORAGE_CACHE +
+                            overlay_package + ".icon-signed.apk");
+                    Log.d(References.SUBSTRATUM_ICON_BUILDER, "Silently installing APK...");
+                    if (References.isPackageInstalled(context, overlay_package + ".icon")) {
+                        Log.d(References.SUBSTRATUM_ICON_BUILDER,
+                                "Overlay APK has successfully been installed!");
+                    } else {
                         dumpErrorLogs(References.SUBSTRATUM_ICON_BUILDER, overlay_package,
-                                "Overlay APK has failed to install! \"(Exception)");
-                        has_errored_out = true;
-                        dumpErrorLogs(References.SUBSTRATUM_ICON_BUILDER, overlay_package,
-                                "Installation of \"" + overlay_package + "\" has failed.");
+                                "Overlay APK has failed to install!");
                     }
+                } catch (Exception e) {
+                    dumpErrorLogs(References.SUBSTRATUM_ICON_BUILDER, overlay_package,
+                            "Overlay APK has failed to install! \"(Exception)");
+                    has_errored_out = true;
+                    dumpErrorLogs(References.SUBSTRATUM_ICON_BUILDER, overlay_package,
+                            "Installation of \"" + overlay_package + "\" has failed.");
                 }
             } else {
                 Log.d(References.SUBSTRATUM_ICON_BUILDER,

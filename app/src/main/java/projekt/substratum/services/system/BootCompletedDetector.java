@@ -40,6 +40,7 @@ public class BootCompletedDetector extends BroadcastReceiver {
 
     private static final String TAG = "SubstratumBoot";
 
+    @SuppressWarnings("UnusedReturnValue")
     private boolean clearSubstratumCompileFolder(Context context) {
         File deleted = new File(
                 Environment.getExternalStorageDirectory().getAbsolutePath() +

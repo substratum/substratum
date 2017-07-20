@@ -18,10 +18,8 @@
 
 package projekt.substratum.fragments;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -304,7 +302,7 @@ public class RecoveryFragment extends Fragment {
         return root;
     }
 
-    private void showRecoveryWarning(){
+    private void showRecoveryWarning() {
         new AlertDialog.Builder(mContext)
                 .setView(R.layout.restore_info)
                 .setPositiveButton(R.string.dialog_ok, (dialog, which) -> {

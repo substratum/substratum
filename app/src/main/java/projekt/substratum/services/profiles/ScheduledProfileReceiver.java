@@ -53,39 +53,47 @@ public class ScheduledProfileReceiver extends BroadcastReceiver {
         }
 
         PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        if (!powerManager.isInteractive()) {
-            Log.d(TAG, extra + " profile will be applied.");
-            prefs.edit().remove(SCHEDULED_PROFILE_TYPE_EXTRA).apply();
-            References.unregisterProfileScreenOffReceiver(context.getApplicationContext());
+        if (powerManager != null) {
+            if (!powerManager.isInteractive()) {
+                Log.d(TAG, extra + " profile will be applied.");
+                prefs.edit().remove(SCHEDULED_PROFILE_TYPE_EXTRA).apply();
+                References.unregisterProfileScreenOffReceiver(context.getApplicationContext());
 
-            PersistableBundle bundle = new PersistableBundle();
-            bundle.putString(SCHEDULED_PROFILE_TYPE_EXTRA, extra);
+                PersistableBundle bundle = new PersistableBundle();
+                bundle.putString(SCHEDULED_PROFILE_TYPE_EXTRA, extra);
 
-            ComponentName serviceComponent = new ComponentName(context,
-                    ScheduledProfileService.class);
-            JobInfo jobInfo = new JobInfo.Builder(NOTIFICATION_ID, serviceComponent)
-                    .setMinimumLatency(5000)
-                    .setExtras(bundle)
-                    .build();
+                ComponentName serviceComponent = new ComponentName(context,
+                        ScheduledProfileService.class);
+                JobInfo jobInfo = new JobInfo.Builder(NOTIFICATION_ID, serviceComponent)
+                        .setMinimumLatency(5000)
+                        .setExtras(bundle)
+                        .build();
 
-            JobScheduler jobScheduler = (JobScheduler) context.getSystemService(
-                    Context.JOB_SCHEDULER_SERVICE);
-            jobScheduler.schedule(jobInfo);
-        } else {
-            Log.d(TAG, extra + " profile will be applied after screen off...");
-            NotificationManager mNotifyManager =
-                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
-            mBuilder.setContentTitle(
-                    String.format(context.getString(R.string.profile_notification_title), extra))
-                    .setSmallIcon(R.drawable.ic_substratum)
-                    .setPriority(Notification.PRIORITY_DEFAULT)
-                    .setContentText(context.getString(R.string.profile_pending_notification))
-                    .setOngoing(true);
-            mNotifyManager.notify(NOTIFICATION_ID, mBuilder.build());
+                JobScheduler jobScheduler = (JobScheduler) context.getSystemService(
+                        Context.JOB_SCHEDULER_SERVICE);
+                if (jobScheduler != null) {
+                    jobScheduler.schedule(jobInfo);
+                }
+            } else {
+                Log.d(TAG, extra + " profile will be applied after screen off...");
+                NotificationManager mNotifyManager =
+                        (NotificationManager) context.getSystemService(Context
+                                .NOTIFICATION_SERVICE);
+                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
+                mBuilder.setContentTitle(
+                        String.format(context.getString(R.string.profile_notification_title),
+                                extra))
+                        .setSmallIcon(R.drawable.ic_substratum)
+                        .setPriority(Notification.PRIORITY_DEFAULT)
+                        .setContentText(context.getString(R.string.profile_pending_notification))
+                        .setOngoing(true);
+                if (mNotifyManager != null) {
+                    mNotifyManager.notify(NOTIFICATION_ID, mBuilder.build());
+                }
 
-            prefs.edit().putString(SCHEDULED_PROFILE_TYPE_EXTRA, extra).apply();
-            References.registerProfileScreenOffReceiver(context.getApplicationContext());
+                prefs.edit().putString(SCHEDULED_PROFILE_TYPE_EXTRA, extra).apply();
+                References.registerProfileScreenOffReceiver(context.getApplicationContext());
+            }
         }
     }
 }

@@ -697,8 +697,10 @@ public class References {
         editor.putBoolean("theme_updater", false);
         editor.putBoolean("show_dangerous_samsung_overlays", false);
         editor.putBoolean("autosave_logchar", true);
+        editor.putBoolean("automatic_logchar_cleanup",false);
         editor.remove("display_old_themes");
         editor.remove("seen_restore_warning");
+        editor.remove("last_logchar_cleanup");
 
         // Initial parse of what is installed on the device
         Set<String> installed_themes = new TreeSet<>();

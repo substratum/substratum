@@ -1365,11 +1365,10 @@ public class References {
                 Log.d(SUBSTRATUM_LOG,
                         "Setting up environment for an authorized developer.");
                 return true;
-            } else {
-                Log.d(SUBSTRATUM_LOG,
-                        "Setting up environment for a production build user.");
             }
         }
+        Log.d(SUBSTRATUM_LOG,
+                "Setting up environment for a production build user.");
         return false;
     }
 

@@ -218,6 +218,8 @@ public class SplashScreenActivity extends Activity {
 
                     editor.putString("sungstratum_fp", MD5.calculateMD5(new File(
                             References.getInstalledDirectory(context, SST_ADDON_PACKAGE))));
+
+                    editor.apply();
                 }
             }
         }

@@ -114,10 +114,6 @@ public class OverlaysItem implements Serializable {
         return app_icon;
     }
 
-    void setAppIcon(Drawable drawable) {
-        this.app_icon = drawable;
-    }
-
     public String getPackageName() {
         return package_name;
     }

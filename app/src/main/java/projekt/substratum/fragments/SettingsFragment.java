@@ -710,10 +710,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         getString(R.string.settings_about_interfacer_disconnected) :
                         versionName + " (" + versionCode + ")");
             } catch (Exception e) {
-                if (References.isPackageInstalled(getContext(), References.MASQUERADE_PACKAGE)) {
-                    aboutInterfacer.setSummary(
-                            getString(R.string.settings_about_interfacer_masquerade));
-                }
+                // Suppress exception
             }
 
             if (!References.checkSubstratumFeature(getContext())) {

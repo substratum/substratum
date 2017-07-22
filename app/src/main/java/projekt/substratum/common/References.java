@@ -140,9 +140,6 @@ public class References {
     // These are package names for our backend systems
     public static final String INTERFACER_PACKAGE = "projekt.interfacer";
     public static final String INTERFACER_SERVICE = INTERFACER_PACKAGE + ".services.JobService";
-    @SuppressWarnings("DeprecatedIsStillUsed")
-    @Deprecated
-    public static final String MASQUERADE_PACKAGE = "masquerade.substratum";
     // Samsung package names
     public static final String SST_ADDON_PACKAGE = "projekt.sungstratum";
     public static final String PLAY_STORE_PACKAGE_NAME = "com.android.vending";

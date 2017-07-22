@@ -61,7 +61,6 @@ import projekt.substratum.adapters.tabs.overlays.OverlaysItem;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
-import projekt.substratum.common.platform.MasqueradeService;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.services.notification.NotificationButtonReceiver;
 import projekt.substratum.util.compilers.CacheCreator;
@@ -69,7 +68,6 @@ import projekt.substratum.util.compilers.SubstratumBuilder;
 
 import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.References.DEFAULT_NOTIFICATION_CHANNEL_ID;
-import static projekt.substratum.common.References.MASQUERADE_PACKAGE;
 import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
 import static projekt.substratum.common.References.checkThemeInterfacer;
 import static projekt.substratum.common.References.isPackageInstalled;
@@ -1135,16 +1133,6 @@ class OverlayFunctions {
 
                 if (fragment.compile_enable_mode) {
                     ThemeManager.enableOverlay(context, fragment.final_command);
-                }
-
-                if (!checkThemeInterfacer(context) && isPackageInstalled(context,
-                        MASQUERADE_PACKAGE)) {
-                    Log.d(TAG, "Using Masquerade as the fallback system...");
-                    Intent runCommand = MasqueradeService.getMasquerade(context);
-                    runCommand.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                    runCommand.setAction("masquerade.substratum.COMMANDS");
-                    runCommand.putExtra("om-commands", final_commands.toString());
-                    context.sendBroadcast(runCommand);
                 }
 
                 if (fragment.final_runner.size() == 0) {

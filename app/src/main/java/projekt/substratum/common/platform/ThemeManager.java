@@ -485,7 +485,7 @@ public class ThemeManager {
     public static boolean shouldRestartUI(Context context, ArrayList<String> overlays) {
         if (checkOMS(context)) {
             for (String o : overlays) {
-                if (o.startsWith("android.") || o.startsWith("com.android.systemui"))
+                if (o.startsWith("com.android.systemui"))
                     return true;
             }
         }

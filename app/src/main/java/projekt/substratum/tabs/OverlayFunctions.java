@@ -286,8 +286,7 @@ class OverlayFunctions {
                     // Restart SystemUI if an enabled SystemUI overlay is updated
                     for (int i = 0; i < fragment.checkedOverlays.size(); i++) {
                         String targetOverlay = fragment.checkedOverlays.get(i).getPackageName();
-                        if (targetOverlay.equals("android") ||
-                                targetOverlay.equals("com.android.systemui")) {
+                        if (targetOverlay.equals("com.android.systemui")) {
                             String packageName =
                                     fragment.checkedOverlays.get(i).getFullOverlayParameters();
                             if (ThemeManager.isOverlayEnabled(context, packageName)) {

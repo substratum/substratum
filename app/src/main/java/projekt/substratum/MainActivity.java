@@ -1303,7 +1303,7 @@ public class MainActivity extends SubstratumActivity implements
                     textView.setText(activity.getString(R.string.root_rejected_text_cm_phh));
                 }
 
-                CountDownTimer Count = new CountDownTimer(1000, 1000) {
+                new CountDownTimer(1000, 1000) {
                     @Override
                     public void onTick(long l) {
                     }

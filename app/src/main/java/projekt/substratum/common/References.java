@@ -1434,24 +1434,18 @@ public class References {
                 }
             }
         }
-        String[] checker = checkPackageSupport();
-        for (String check : checker) {
-            if (isPackageInstalled(context, check, false)) {
-                uncertified = true;
-                return true;
-            } else if (getMetaData(context, check) || getProviders(context, check) ||
-                    getIntents(context, check)) {
-                uncertified = true;
-                return true;
-            }
+        if (checkPackageSupport(context)){
+            uncertified = true;
+            return true;
         }
         uncertified = false;
         return false;
     }
 
     // Check for the denied packages if existing on the device
-    private static String[] checkPackageSupport() {
-        return new String[]{
+    private static boolean checkPackageSupport(Context context) {
+        boolean blacklistedPackageFound = false;
+        String[] blacklistedPackages =  new String[]{
                 "com.android.vending.billing.InAppBillingService.",
                 "com.android.vending.billing.InAppBillingService.LOCK",
                 "com.android.vending.billing.InAppBillingService.LACK",
@@ -1464,6 +1458,13 @@ public class References {
                 "zone.jasi2169.uretpatcher",
                 "zone.jasi2169."
         };
+        for (String packageName : blacklistedPackages){
+            if (isPackageInstalled(context, packageName, false)){
+                blacklistedPackageFound =  true;
+                break;
+            }
+        }
+        return blacklistedPackageFound;
     }
 
     // Check if notification is visible for the user

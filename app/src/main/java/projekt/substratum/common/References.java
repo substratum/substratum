@@ -2053,7 +2053,7 @@ public class References {
         try {
             Calendar c = Calendar.getInstance();
             @SuppressLint("SimpleDateFormat")
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
             String formattedDate = df.format(c.getTime());
 
             File logcharFolder = new File(Environment.getExternalStorageDirectory() +
@@ -2064,7 +2064,7 @@ public class References {
 
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(
                     new File(logcharFolder.getAbsolutePath() + File.separator +
-                            packageName + "-" + formattedDate + ".txt")));
+                            packageName + "_" + formattedDate + ".txt")));
             bufferedWriter.write(data);
             bufferedWriter.close();
         } catch (IOException e) {

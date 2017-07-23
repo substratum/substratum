@@ -40,8 +40,7 @@ public class BootCompletedDetector extends BroadcastReceiver {
 
     private static final String TAG = "SubstratumBoot";
 
-    @SuppressWarnings("UnusedReturnValue")
-    private boolean clearSubstratumCompileFolder(Context context) {
+    private void clearSubstratumCompileFolder(Context context) {
         File deleted = new File(
                 Environment.getExternalStorageDirectory().getAbsolutePath() +
                         EXTERNAL_STORAGE_CACHE);
@@ -50,7 +49,6 @@ public class BootCompletedDetector extends BroadcastReceiver {
             Log.d(TAG,
                     "Successfully cleared the temporary compilation folder on " +
                             "the external storage.");
-        return !deleted.exists();
     }
 
     @Override

@@ -647,6 +647,10 @@ public class ManagerFragment extends Fragment {
                 alertDialogBuilder
                         .setPositiveButton(android.R.string.ok,
                                 (dialog, id) -> ElevatedCommands.reboot());
+                alertDialogBuilder.setNegativeButton(
+                        R.string.remove_dialog_later, (dialog, id1) -> {
+                            dialog.dismiss();
+                        });
                 alertDialogBuilder.setCancelable(false);
                 AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();

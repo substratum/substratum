@@ -35,6 +35,7 @@ import static projekt.substratum.common.References.metadataOverlayType1c;
 import static projekt.substratum.common.References.metadataOverlayType2;
 import static projekt.substratum.common.References.metadataOverlayType3;
 import static projekt.substratum.common.References.metadataOverlayVersion;
+import static projekt.substratum.common.References.permissionSamsungOverlay;
 
 public class CompilerCommands {
 
@@ -66,6 +67,8 @@ public class CompilerCommands {
         if (packageNameOverride != null && packageNameOverride.length() > 0) {
             package_name = packageNameOverride;
         }
+        boolean showOverlayInSamsungSettings =
+                References.isSamsung(context) && References.toggleShowSamsungOverlayInSettings;
         return "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n" +
 
                 "<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\" " +
@@ -79,9 +82,15 @@ public class CompilerCommands {
                 legacy_priority + "\" " : "") +
                 "android:targetPackage=\"" + targetPackage + "\"/>\n" +
 
+                // Insert Samsung overlay permission if necessary
+                (showOverlayInSamsungSettings ?
+                        "        <uses-permission android:name=\"" +
+                                permissionSamsungOverlay + "\"/>\n" :
+                        "") +
+
                 // Our current overlay label is set to be its own package name
-                "    <application android:label=\"" + package_name + "\"" +
-                " android:hasCode=\"false\">\n" +
+                "    <application android:label=\"" + package_name + "\" " +
+                "allowBackup=\"false\" android:hasCode=\"false\">\n" +
 
                 // Ensure that this overlay was specifically made for this device only
                 "        <meta-data android:name=\"" + metadataOverlayDevice + "\" " +

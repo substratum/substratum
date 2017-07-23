@@ -22,7 +22,7 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 
-abstract class TransientBottom<F extends TransientBottom>
+abstract class TransientBottom
         extends BaseTransientBottomBar {
     /**
      * Constructor for the transient bottom bar.

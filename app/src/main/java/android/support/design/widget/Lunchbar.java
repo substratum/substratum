@@ -18,8 +18,6 @@ package android.support.design.widget;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.support.annotation.ColorInt;
 import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
@@ -58,7 +56,7 @@ import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
  * via {@link BaseTransientBottomBar#addCallback(BaseCallback)}.</p>
  */
 @SuppressWarnings("WeakerAccess")
-public final class Lunchbar extends TransientBottom<Lunchbar> {
+public final class Lunchbar extends TransientBottom {
 
     /**
      * Show the Snackbar indefinitely. This means that the Snackbar will be displayed from the time
@@ -201,17 +199,6 @@ public final class Lunchbar extends TransientBottom<Lunchbar> {
     /**
      * Set the action to be displayed in this {@link BaseTransientBottomBar}.
      *
-     * @param resId    String resource to display for the action
-     * @param listener callback to be invoked when the action is clicked
-     */
-    @NonNull
-    public Lunchbar setAction(@StringRes int resId, View.OnClickListener listener) {
-        return setAction(getContext().getText(resId), listener);
-    }
-
-    /**
-     * Set the action to be displayed in this {@link BaseTransientBottomBar}.
-     *
      * @param text     Text to display for the action
      * @param listener callback to be invoked when the action is clicked
      */
@@ -232,30 +219,6 @@ public final class Lunchbar extends TransientBottom<Lunchbar> {
                 dispatchDismiss(BaseCallback.DISMISS_EVENT_ACTION);
             });
         }
-        return this;
-    }
-
-    /**
-     * Sets the text color of the action specified in
-     * {@link #setAction(CharSequence, View.OnClickListener)}.
-     */
-    @NonNull
-    public Lunchbar setActionTextColor(ColorStateList colors) {
-        final SnackbarContentLayout contentLayout = (SnackbarContentLayout) mView.getChildAt(0);
-        @SuppressLint("RestrictedApi") final TextView tv = contentLayout.getActionView();
-        tv.setTextColor(colors);
-        return this;
-    }
-
-    /**
-     * Sets the text color of the action specified in
-     * {@link #setAction(CharSequence, View.OnClickListener)}.
-     */
-    @NonNull
-    public Lunchbar setActionTextColor(@ColorInt int color) {
-        final SnackbarContentLayout contentLayout = (SnackbarContentLayout) mView.getChildAt(0);
-        @SuppressLint("RestrictedApi") final TextView tv = contentLayout.getActionView();
-        tv.setTextColor(color);
         return this;
     }
 
@@ -307,26 +270,6 @@ public final class Lunchbar extends TransientBottom<Lunchbar> {
      * @see BaseTransientBottomBar#addCallback(BaseCallback)
      */
     public static class Callback extends BaseCallback<Lunchbar> {
-        /**
-         * Indicates that the Snackbar was dismissed via a swipe.
-         */
-        public static final int DISMISS_EVENT_SWIPE = BaseCallback.DISMISS_EVENT_SWIPE;
-        /**
-         * Indicates that the Snackbar was dismissed via an action click.
-         */
-        public static final int DISMISS_EVENT_ACTION = BaseCallback.DISMISS_EVENT_ACTION;
-        /**
-         * Indicates that the Snackbar was dismissed via a timeout.
-         */
-        public static final int DISMISS_EVENT_TIMEOUT = BaseCallback.DISMISS_EVENT_TIMEOUT;
-        /**
-         * Indicates that the Snackbar was dismissed via a call to {@link #dismiss()}.
-         */
-        public static final int DISMISS_EVENT_MANUAL = BaseCallback.DISMISS_EVENT_MANUAL;
-        /**
-         * Indicates that the Snackbar was dismissed from a new Snackbar being shown.
-         */
-        public static final int DISMISS_EVENT_CONSECUTIVE = BaseCallback.DISMISS_EVENT_CONSECUTIVE;
 
         @Override
         public void onShown(Lunchbar sb) {

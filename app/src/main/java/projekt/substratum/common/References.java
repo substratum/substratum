@@ -147,7 +147,6 @@ public class References {
     public static final String INTERFACER_BINDED = INTERFACER_PACKAGE + ".INITIALIZE";
     public static final String STATUS_CHANGED = INTERFACER_PACKAGE + ".STATUS_CHANGED";
     public static final String CRASH_PACKAGE_NAME = "projekt.substratum.EXTRA_PACKAGE_NAME";
-    public static final String CRASH_CLASS_NAME = "projekt.substratum.EXTRA_EXCEPTION_CLASS_NAME";
     public static final String CRASH_REPEATING = "projekt.substratum.EXTRA_CRASH_REPEATING";
     // System intents to catch
     public static final String BOOT_COMPLETED = Intent.ACTION_BOOT_COMPLETED;

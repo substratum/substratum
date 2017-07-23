@@ -36,7 +36,6 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.platform.ThemeManager;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
-import static projekt.substratum.common.References.CRASH_CLASS_NAME;
 import static projekt.substratum.common.References.CRASH_PACKAGE_NAME;
 import static projekt.substratum.common.References.CRASH_REPEATING;
 
@@ -57,8 +56,6 @@ public class AppCrashReceiver extends BroadcastReceiver {
 
         String packageName =
                 intent.getStringExtra(CRASH_PACKAGE_NAME);
-        String exceptionClass =
-                intent.getStringExtra(CRASH_CLASS_NAME);
         boolean repeating =
                 intent.getBooleanExtra(CRASH_REPEATING, false);
 
@@ -67,6 +64,9 @@ public class AppCrashReceiver extends BroadcastReceiver {
             Log.e(TAG, "Now disabling all overlays for \'" + packageName + "\'...");
 
             List<String> overlays = ThemeManager.listEnabledOverlaysForTarget(context, packageName);
+            for (String overlay : overlays){
+                Log.d("AppCrashReciever", String.format("Disabling overlay %s for package %s", overlay, packageName));
+            }
 
             if (overlays.size() > 0) {
                 try {

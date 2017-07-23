@@ -69,8 +69,8 @@ import projekt.substratum.util.compilers.SubstratumBuilder;
 import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.References.DEFAULT_NOTIFICATION_CHANNEL_ID;
 import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
+import static projekt.substratum.common.References.checkOMS;
 import static projekt.substratum.common.References.checkThemeInterfacer;
-import static projekt.substratum.common.References.isPackageInstalled;
 
 // TODO: neko bro convert to Service pl0x
 class OverlayFunctions {
@@ -282,14 +282,16 @@ class OverlayFunctions {
                     fragment.failedFunction(context);
                 } else {
                     // Restart SystemUI if an enabled SystemUI overlay is updated
-                    for (int i = 0; i < fragment.checkedOverlays.size(); i++) {
-                        String targetOverlay = fragment.checkedOverlays.get(i).getPackageName();
-                        if (targetOverlay.equals("com.android.systemui")) {
-                            String packageName =
-                                    fragment.checkedOverlays.get(i).getFullOverlayParameters();
-                            if (ThemeManager.isOverlayEnabled(context, packageName)) {
-                                ThemeManager.restartSystemUI(context);
-                                break;
+                    if (checkOMS(context)) {
+                        for (int i = 0; i < fragment.checkedOverlays.size(); i++) {
+                            String targetOverlay = fragment.checkedOverlays.get(i).getPackageName();
+                            if (targetOverlay.equals("com.android.systemui")) {
+                                String packageName =
+                                        fragment.checkedOverlays.get(i).getFullOverlayParameters();
+                                if (ThemeManager.isOverlayEnabled(context, packageName)) {
+                                    ThemeManager.restartSystemUI(context);
+                                    break;
+                                }
                             }
                         }
                     }

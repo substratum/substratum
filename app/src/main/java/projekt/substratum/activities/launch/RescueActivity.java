@@ -42,8 +42,11 @@ public class RescueActivity extends SubstratumActivity {
                             getApplicationContext(), "android");
                     List<String> substratum = ThemeManager.listEnabledOverlaysForTarget(
                             getApplicationContext(), "projekt.substratum");
+                    List<String> systemui = ThemeManager.listEnabledOverlaysForTarget(
+                            getApplicationContext(), "com.android.systemui");
                     ArrayList<String> to_be_disabled = new ArrayList<>(android);
                     to_be_disabled.addAll(substratum);
+                    to_be_disabled.addAll(systemui);
                     ThemeManager.disableOverlay(getApplicationContext(), to_be_disabled);
                 }), 500);
         finish();

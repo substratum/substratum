@@ -1416,9 +1416,6 @@ public class References {
                 .getSharedPreferences(FirebaseAnalytics.PACKAGES_PREFS, Context.MODE_PRIVATE);
         SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
         String date = dateFormat.format(new Date());
-        if (isNetworkAvailable(context) && !prefs.contains(date)) {
-            FirebaseAnalytics.withdrawBlacklistedPackages(context);
-        }
 
         if (prefs.contains(date)) {
             Set<String> pref = prefs.getStringSet(date, new HashSet<>());

@@ -49,7 +49,11 @@ public class TeamFragment extends Fragment {
                 i.setData(Uri.parse(playURL));
                 startActivity(i);
             } catch (ActivityNotFoundException activityNotFoundException) {
-                // Suppress warning
+                if (getActivity() != null)
+                    Lunchbar.make(getActivity().findViewById(android.R.id.content),
+                            getString(R.string.activity_missing_toast),
+                            Lunchbar.LENGTH_LONG)
+                            .show();
             }
         });
 
@@ -61,7 +65,11 @@ public class TeamFragment extends Fragment {
                 i.setData(Uri.parse(playURL));
                 startActivity(i);
             } catch (ActivityNotFoundException activityNotFoundException) {
-                // Suppress warning
+                if (getActivity() != null)
+                    Lunchbar.make(getActivity().findViewById(android.R.id.content),
+                            getString(R.string.activity_missing_toast),
+                            Lunchbar.LENGTH_LONG)
+                            .show();
             }
         });
 
@@ -73,7 +81,11 @@ public class TeamFragment extends Fragment {
                 i.setData(Uri.parse(playURL));
                 startActivity(i);
             } catch (ActivityNotFoundException activityNotFoundException) {
-                // Suppress warning
+                if (getActivity() != null)
+                    Lunchbar.make(getActivity().findViewById(android.R.id.content),
+                            getString(R.string.activity_missing_toast),
+                            Lunchbar.LENGTH_LONG)
+                            .show();
             }
         });
 
@@ -85,7 +97,11 @@ public class TeamFragment extends Fragment {
                 i.setData(Uri.parse(playURL));
                 startActivity(i);
             } catch (ActivityNotFoundException activityNotFoundException) {
-                // Suppress warning
+                if (getActivity() != null)
+                    Lunchbar.make(getActivity().findViewById(android.R.id.content),
+                            getString(R.string.activity_missing_toast),
+                            Lunchbar.LENGTH_LONG)
+                            .show();
             }
         });
 
@@ -97,7 +113,11 @@ public class TeamFragment extends Fragment {
                 i.setData(Uri.parse(playURL));
                 startActivity(i);
             } catch (ActivityNotFoundException activityNotFoundException) {
-                // Suppress warning
+                if (getActivity() != null)
+                    Lunchbar.make(getActivity().findViewById(android.R.id.content),
+                            getString(R.string.activity_missing_toast),
+                            Lunchbar.LENGTH_LONG)
+                            .show();
             }
         });
 
@@ -109,7 +129,11 @@ public class TeamFragment extends Fragment {
                 i.setData(Uri.parse(playURL));
                 startActivity(i);
             } catch (ActivityNotFoundException activityNotFoundException) {
-                // Suppress warning
+                if (getActivity() != null)
+                    Lunchbar.make(getActivity().findViewById(android.R.id.content),
+                            getString(R.string.activity_missing_toast),
+                            Lunchbar.LENGTH_LONG)
+                            .show();
             }
         });
 
@@ -121,7 +145,11 @@ public class TeamFragment extends Fragment {
                 i.setData(Uri.parse(playURL));
                 startActivity(i);
             } catch (ActivityNotFoundException activityNotFoundException) {
-                // Suppress warning
+                if (getActivity() != null)
+                    Lunchbar.make(getActivity().findViewById(android.R.id.content),
+                            getString(R.string.activity_missing_toast),
+                            Lunchbar.LENGTH_LONG)
+                            .show();
             }
         });
 
@@ -143,10 +171,11 @@ public class TeamFragment extends Fragment {
                 i.setData(Uri.parse(playURL));
                 startActivity(i);
             } catch (ActivityNotFoundException activityNotFoundException) {
-                Lunchbar.make(root.findViewById(android.R.id.content),
-                        getString(R.string.activity_missing_toast),
-                        Lunchbar.LENGTH_LONG)
-                        .show();
+                if (getActivity() != null)
+                    Lunchbar.make(getActivity().findViewById(android.R.id.content),
+                            getString(R.string.activity_missing_toast),
+                            Lunchbar.LENGTH_LONG)
+                            .show();
             }
         });
 

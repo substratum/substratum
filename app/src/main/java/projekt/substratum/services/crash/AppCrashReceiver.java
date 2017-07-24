@@ -89,10 +89,10 @@ public class AppCrashReceiver extends BroadcastReceiver {
                     break;
                 case 2:
                     Log.d("AppCrashReceiver", "Disabling all SystemUI overlays now.");
+                    sharedPreferences.edit().remove("sysui_crash_count").apply();
                     postNotificationAndDisableOverlays(context,
                             getApplicationLabel(context, packageName),
                             ThemeManager.listEnabledOverlaysForTarget(context, "com.android.systemui"));
-                    sharedPreferences.edit().remove("sysui_crash_count").apply();
                     break;
 
                 default:

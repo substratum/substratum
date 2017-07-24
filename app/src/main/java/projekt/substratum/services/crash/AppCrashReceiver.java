@@ -80,24 +80,29 @@ public class AppCrashReceiver extends BroadcastReceiver {
 
             }
         } else if (Objects.equals(packageName, "com.android.systemui")) {
-            if (sharedPreferences.getInt("sysui_crash_count", 0) == 0) {
-                Log.d("AppCrashReceiver",
-                        String.format("SystemUI crash count %s",
-                                sharedPreferences.getInt("sysui_crash_count", 1)));
-                sharedPreferences.edit().putInt("sysui_crash_count", 1).apply();
-            } else if (sharedPreferences.getInt("sysui_crash_count", 0) == 2){
-                Log.d("AppCrashReceiver", "Disabling all SystemUI overlays now.");
-                postNotificationAndDisableOverlays(context,
-                        getApplicationLabel(context, packageName),
-                        ThemeManager.listEnabledOverlaysForTarget(context, "com.android.systemui"));
-                sharedPreferences.edit().remove("sysui_crash_count").apply();
-            } else {
-                sharedPreferences.edit().putInt("sysui_crash_count",
-                        sharedPreferences.getInt("sysui_crash_count",
-                                0) + 1).apply();
-                Log.d("AppCrashReceiver",
-                        String.format("SystemUI crash count %s",
-                                sharedPreferences.getInt("sysui_crash_count", 1)));
+            switch (sharedPreferences.getInt("sysui_crash_count", 0)){
+                case 0:
+                    Log.d("AppCrashReceiver",
+                            String.format("SystemUI crash count %s",
+                                    sharedPreferences.getInt("sysui_crash_count", 1)));
+                    sharedPreferences.edit().putInt("sysui_crash_count", 1).apply();
+                    break;
+                case 2:
+                    Log.d("AppCrashReceiver", "Disabling all SystemUI overlays now.");
+                    postNotificationAndDisableOverlays(context,
+                            getApplicationLabel(context, packageName),
+                            ThemeManager.listEnabledOverlaysForTarget(context, "com.android.systemui"));
+                    sharedPreferences.edit().remove("sysui_crash_count").apply();
+                    break;
+
+                default:
+                    sharedPreferences.edit().putInt("sysui_crash_count",
+                            sharedPreferences.getInt("sysui_crash_count",
+                                    0) + 1).apply();
+                    Log.d("AppCrashReceiver",
+                            String.format("SystemUI crash count %s",
+                                    sharedPreferences.getInt("sysui_crash_count", 1)));
+                    break;
             }
         } else {
             Log.e(TAG, packageName + " stopped unexpectedly...");

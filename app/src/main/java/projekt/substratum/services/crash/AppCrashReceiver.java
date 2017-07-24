@@ -22,6 +22,7 @@ import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.support.v4.app.NotificationCompat;
@@ -30,6 +31,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import projekt.substratum.R;
 import projekt.substratum.common.References;
@@ -50,9 +52,11 @@ public class AppCrashReceiver extends BroadcastReceiver {
             return;
         }
 
-        boolean enabled = PreferenceManager.getDefaultSharedPreferences(context)
-                .getBoolean("crash_receiver", true);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        boolean enabled = sharedPreferences.getBoolean("crash_receiver", true);
         if (!enabled) return;
+
+
 
         String packageName =
                 intent.getStringExtra(CRASH_PACKAGE_NAME);
@@ -70,34 +74,65 @@ public class AppCrashReceiver extends BroadcastReceiver {
                             "%s", overlay, packageName));
                 }
 
-                try {
-                    ApplicationInfo applicationInfo = context.getPackageManager()
-                            .getApplicationInfo(packageName, 0);
-                    packageName = context.getPackageManager()
-                            .getApplicationLabel(applicationInfo).toString();
-                } catch (PackageManager.NameNotFoundException e) {
-                    // Suppress warning
-                }
-                String app_crash_title =
-                        String.format(context.getString(R.string.app_crash_title), packageName);
-                NotificationCompat.Builder builder = new NotificationCompat.Builder(context,
-                        References.DEFAULT_NOTIFICATION_CHANNEL_ID);
-                builder.setSmallIcon(R.drawable.notification_overlay_corruption);
-                builder.setContentTitle(app_crash_title);
-                builder.setContentText(context.getString(R.string.app_crash_content));
-                builder.setOngoing(false);
-                builder.setPriority(NotificationCompat.PRIORITY_MAX);
-                builder.setCategory(NotificationCompat.CATEGORY_SERVICE);
-                NotificationManager mNotifyMgr =
-                        (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
-                if (mNotifyMgr != null) {
-                    mNotifyMgr.notify(NOTIFICATION_ID, builder.build());
-                }
+                postNotificationAndDisableOverlays(context,
+                        getApplicationLabel(context, packageName),
+                        overlays);
 
-                ThemeManager.disableOverlay(context, new ArrayList<>(overlays));
+            }
+        } else if (Objects.equals(packageName, "com.android.systemui")) {
+            if (sharedPreferences.getInt("sysui_crash_count", 0) == 0) {
+                Log.d("AppCrashReceiver",
+                        String.format("SystemUI crash count %s",
+                                sharedPreferences.getInt("sysui_crash_count", 1)));
+                sharedPreferences.edit().putInt("sysui_crash_count", 1).apply();
+            } else if (sharedPreferences.getInt("sysui_crash_count", 0) == 2){
+                Log.d("AppCrashReceiver", "Disabling all SystemUI overlays now.");
+                postNotificationAndDisableOverlays(context,
+                        getApplicationLabel(context, packageName),
+                        ThemeManager.listEnabledOverlaysForTarget(context, "com.android.systemui"));
+                sharedPreferences.edit().remove("sysui_crash_count").apply();
+            } else {
+                sharedPreferences.edit().putInt("sysui_crash_count",
+                        sharedPreferences.getInt("sysui_crash_count",
+                                0) + 1).apply();
+                Log.d("AppCrashReceiver",
+                        String.format("SystemUI crash count %s",
+                                sharedPreferences.getInt("sysui_crash_count", 1)));
             }
         } else {
             Log.e(TAG, packageName + " stopped unexpectedly...");
         }
+    }
+
+    private void postNotificationAndDisableOverlays(Context context, String packageName, List<String> overlays) {
+        String app_crash_title =
+                String.format(context.getString(R.string.app_crash_title), packageName);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context,
+                References.DEFAULT_NOTIFICATION_CHANNEL_ID);
+        builder.setSmallIcon(R.drawable.notification_overlay_corruption);
+        builder.setContentTitle(app_crash_title);
+        builder.setContentText(context.getString(R.string.app_crash_content));
+        builder.setOngoing(false);
+        builder.setPriority(NotificationCompat.PRIORITY_MAX);
+        builder.setCategory(NotificationCompat.CATEGORY_SERVICE);
+        NotificationManager mNotifyMgr =
+                (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+        if (mNotifyMgr != null) {
+            mNotifyMgr.notify(NOTIFICATION_ID, builder.build());
+        }
+
+        ThemeManager.disableOverlay(context, new ArrayList<>(overlays));
+    }
+
+    private String getApplicationLabel(Context context, String packageName){
+        try {
+            ApplicationInfo applicationInfo = context.getPackageManager()
+                    .getApplicationInfo(packageName, 0);
+            packageName = context.getPackageManager()
+                    .getApplicationLabel(applicationInfo).toString();
+        } catch (PackageManager.NameNotFoundException e) {
+            // Suppress warning
+        }
+        return packageName;
     }
 }

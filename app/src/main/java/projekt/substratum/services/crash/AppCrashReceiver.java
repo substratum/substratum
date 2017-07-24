@@ -65,9 +65,11 @@ public class AppCrashReceiver extends BroadcastReceiver {
 
             if (overlays.size() > 0) {
 
-                List<String> overlays = ThemeManager.listEnabledOverlaysForTarget(context, packageName);
-                    for (String overlay : overlays){
-                    Log.d("AppCrashReciever", String.format("Disabling overlay %s for package %s", overlay, packageName));
+                List<String> overlays = ThemeManager.listEnabledOverlaysForTarget(context,
+                        packageName);
+                for (String overlay : overlays) {
+                    Log.d("AppCrashReciever", String.format("Disabling overlay %s for package " +
+                            "%s", overlay, packageName));
                 }
 
                 try {

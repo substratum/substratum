@@ -841,15 +841,16 @@ public class MainActivity extends SubstratumActivity implements
     }
 
     private void cleanLogCharReportsIfNecessary() {
-        if (prefs.getString("last_logchar_cleanup", "").equals("")){
-            prefs.edit().putString("last_logchar_cleanup", Calendar.getInstance().getTime().toString()).apply();
+        if (prefs.getString("last_logchar_cleanup", "").equals("")) {
+            prefs.edit().putString("last_logchar_cleanup", Calendar.getInstance().getTime()
+                    .toString()).apply();
             return;
         }
         Date currentDate = Calendar.getInstance().getTime();
         Date lastLogCharCleanupDate = new Date(prefs.getString("last_logchar_cleanup", ""));
         long diff = currentDate.getTime() - lastLogCharCleanupDate.getTime();
         if (prefs.getBoolean("automatic_logchar_cleanup", false) &&
-                TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) >= 15){
+                TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) >= 15) {
             new ClearLogs(this).execute();
             Log.d(SUBSTRATUM_LOG, "LogChar reports were wiped from the storage");
         }
@@ -1394,13 +1395,6 @@ public class MainActivity extends SubstratumActivity implements
         }
     }
 
-    class KillReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            finish();
-        }
-    }
     public static class ClearLogs extends AsyncTask<Void, Void, Void> {
         private WeakReference<MainActivity> ref;
 
@@ -1421,9 +1415,18 @@ public class MainActivity extends SubstratumActivity implements
         protected void onPostExecute(Void result) {
             MainActivity activity = ref.get();
             Context context = activity.getApplicationContext();
-            Toast.makeText(context, context.getString(R.string.cleaned_logchar_reports), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, context.getString(R.string.cleaned_logchar_reports), Toast
+                    .LENGTH_SHORT).show();
             activity.finishAffinity();
         }
 
+    }
+
+    class KillReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            finish();
+        }
     }
 }

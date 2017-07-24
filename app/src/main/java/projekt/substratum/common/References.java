@@ -1434,7 +1434,7 @@ public class References {
                 }
             }
         }
-        if (checkPackageSupport(context)){
+        if (checkPackageSupport(context)) {
             uncertified = true;
             return true;
         }
@@ -1445,7 +1445,7 @@ public class References {
     // Check for the denied packages if existing on the device
     private static boolean checkPackageSupport(Context context) {
         boolean blacklistedPackageFound = false;
-        String[] blacklistedPackages =  new String[]{
+        String[] blacklistedPackages = new String[]{
                 "com.android.vending.billing.InAppBillingService.",
                 "com.android.vending.billing.InAppBillingService.LOCK",
                 "com.android.vending.billing.InAppBillingService.LACK",
@@ -1458,9 +1458,9 @@ public class References {
                 "zone.jasi2169.uretpatcher",
                 "zone.jasi2169."
         };
-        for (String packageName : blacklistedPackages){
-            if (isPackageInstalled(context, packageName, false)){
-                blacklistedPackageFound =  true;
+        for (String packageName : blacklistedPackages) {
+            if (isPackageInstalled(context, packageName, false)) {
+                blacklistedPackageFound = true;
                 break;
             }
         }

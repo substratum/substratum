@@ -1000,7 +1000,9 @@ public class Overlays extends Fragment {
                 if (currentOverlay.isSelected()) {
                     currentOverlay.setSelected(false);
                 }
-                am.killBackgroundProcesses(currentOverlay.getPackageName());
+                if (References.isSamsung(getContext().getApplicationContext())) {
+                    am.killBackgroundProcesses(currentOverlay.getPackageName());
+                }
 
                 mAdapter.notifyDataSetChanged();
             }

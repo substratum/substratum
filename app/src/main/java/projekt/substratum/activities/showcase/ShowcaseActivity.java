@@ -82,6 +82,8 @@ public class ShowcaseActivity extends AppCompatActivity {
                     String playURL;
                     if (References.checkOMS(getApplicationContext())) {
                         playURL = getString(R.string.search_play_store_url);
+                    } else if (References.isSamsung(getApplicationContext())){
+                        playURL = getString(R.string.search_play_store_url_samsung);
                     } else {
                         playURL = getString(R.string.search_play_store_url_legacy);
                     }

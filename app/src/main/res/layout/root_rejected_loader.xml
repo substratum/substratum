@@ -92,7 +92,7 @@
                 android:layout_below="@id/sungstratum_title"
                 android:layout_centerHorizontal="true"
                 android:text="@string/samsung_prototype_no_root_dialog_button"
-                android:visibility="visible"/>
+                android:visibility="gone"/>
 
         </RelativeLayout>
 

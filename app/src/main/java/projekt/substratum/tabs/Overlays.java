@@ -332,8 +332,7 @@ public class Overlays extends Fragment {
                         for (int i = 0; i < checkedOverlays.size(); i++) {
                             FileOperations.mountRW();
                             FileOperations.delete(getContext(), current_directory +
-                                    checkedOverlays.get(i).getPackageName() + "." +
-                                    checkedOverlays.get(i).getThemeName() + ".apk");
+                                    checkedOverlays.get(i).getFullOverlayParameters() + ".apk");
                             mAdapter.notifyDataSetChanged();
                         }
                         // Untick all options in the adapter after compiling

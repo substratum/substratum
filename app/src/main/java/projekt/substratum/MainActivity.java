@@ -972,7 +972,7 @@ public class MainActivity extends SubstratumActivity implements
                 builder.setPositiveButton(
                         getString(R.string.restore_dialog_okay), dialogClickListener);
                 builder.setNegativeButton(
-                        getString(R.string.restore_dialog_cancel), dialogClickListener);
+                        getString(R.string.dialog_cancel), dialogClickListener);
                 builder.show();
                 return true;
             // Begin RRO based options
@@ -993,7 +993,7 @@ public class MainActivity extends SubstratumActivity implements
                 builder.setPositiveButton(
                         getString(R.string.restore_dialog_okay), dialogClickListener);
                 builder.setNegativeButton(
-                        getString(R.string.restore_dialog_cancel), dialogClickListener);
+                        getString(R.string.dialog_cancel), dialogClickListener);
                 builder.show();
                 return true;
 
@@ -1014,7 +1014,7 @@ public class MainActivity extends SubstratumActivity implements
                 builder.setPositiveButton(
                         getString(R.string.restore_dialog_okay), dialogClickListener);
                 builder.setNegativeButton(
-                        getString(R.string.restore_dialog_cancel), dialogClickListener);
+                        getString(R.string.dialog_cancel), dialogClickListener);
                 builder.show();
                 return true;
             default:

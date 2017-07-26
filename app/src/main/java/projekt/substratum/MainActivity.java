@@ -82,7 +82,6 @@ import com.squareup.leakcanary.RefWatcher;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -838,20 +837,18 @@ public class MainActivity extends SubstratumActivity implements
     }
 
     private void cleanLogCharReportsIfNecessary() {
-        if (prefs.getString("last_logchar_cleanup", "").equals("")) {
-            prefs.edit().putString("last_logchar_cleanup", Calendar.getInstance().getTime()
-                    .toString()).apply();
+        Date currentDate = new Date(System.currentTimeMillis());
+        if (prefs.getLong("last_logchar_cleanup", 0) == 0) {
+            prefs.edit().putLong("last_logchar_cleanup", currentDate.getTime()).apply();
             return;
         }
-        Date currentDate = Calendar.getInstance().getTime();
-        Date lastLogCharCleanupDate = new Date(prefs.getString("last_logchar_cleanup", ""));
-        long diff = currentDate.getTime() - lastLogCharCleanupDate.getTime();
+        long lastCleanupDate = prefs.getLong("last_logchar_cleanup", 0);
+        long diff = currentDate.getTime() - lastCleanupDate;
         if (prefs.getBoolean("automatic_logchar_cleanup", false) &&
                 TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) >= 15) {
             new ClearLogs(this).execute();
             Log.d(SUBSTRATUM_LOG, "LogChar reports were wiped from the storage");
         }
-
     }
 
     @Override

@@ -231,7 +231,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         }
                         return false;
                     });
-        } else {
+        } else if (!References.checkOMS(getContext())){
             showDangerousSamsung.setVisible(false);
         }
 

@@ -18,73 +18,81 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 <resources>
-    <string name="question_one">Substratum nedir?</string>
-    <string name="answer_one">Substratum, Sony\'nin Overlay Manager Service (OMS) hizmetinden
+  <string name="question_one">Substratum nedir?</string>
+  <string name="answer_one">Substratum, Sony\'nin Overlay Manager Service (OMS) hizmetinden
         yararlanan bir uygulamadır. Bu, kararlılık ve özelleştirme açısından (RRO\'yu
         oluşturduğu gibi) Layers\'a benzer ancak önyükleme animasyonları, yazı tipleri ve
 öncelik değiştirmeyi
         uyguladıktan sonra yeniden başlatmayı gerektirmez.
     </string>
-    <string name="question_two">Tema Arayüzü nedir?</string>
-    <string name="answer_two">Tema Arayüzü, Substratum\'un bir Tema Motoru gibi çalışmasına izin
+  <string name="question_two">Tema Arayüzü nedir?</string>
+  <string name="answer_two">Tema Arayüzü, Substratum\'un bir Tema Motoru gibi çalışmasına izin
         veren şeyin temelidir. Arayüz fikri, \"sunucu/istemci\" teknik özelliklerini simüle
         etmek ve Substratum, arayüz işleyicileri ile komutları doğrudan sistem üzerinde bildirmek
         için iletişim kurar.
     </string>
-    <string name="question_three">Substratum\'un düzgün çalışabilmesi için neye ihtiyacım var?</string>
-    <string name="answer_three">OMS ve Tema Arayüzü sistemini destekleyen bir ROM\'a (bunları öğrenmelerini isteyin),
+  <string name="question_three">Substratum\'un düzgün çalışabilmesi için neye ihtiyacım var?</string>
+  <string name="answer_three">OMS ve Tema Arayüzü sistemini destekleyen bir ROM\'a (bunları öğrenmelerini isteyin),
         bu uygulamaya ve uyumlu bir temaya (Play Store açıklamasını kontrol edin veya
         geliştiriciye sorun) ihtiyacınız var
     </string>
-    <string name="question_four">Kullandığım ROM\'da OMS desteği yoksa Substratum\'u kullanabilir miyim?    </string>
-    <string name="answer_four">Evet, eğer ROM\'unuz RRO\'yi destekliyorsa (Marshmallow stokları kategoriye girer).
-        Yukarıdaki diğer gereksinimler aynıdır (kök erişimi, bu uygulama ve uyumlu bir tema). Aynı şekilde
-        uygularsınız, ancak düzenleme ve uygulama adımları birleştirilir ve temaları uygulamak için
-        yeniden başlatma gerekir.
+  <string name="question_four">Kullandığım ROM\'da OMS desteği yoksa Substratum\'u kullanabilir miyim?    </string>
+  <string name="answer_four">Evet, ROM\'unuz RRO\'yu destekliyorsa (stok Nougat bu kategoriye
+        girer). Yukarıdaki diğer gereksinimler aynıdır (kök erişimi, bu uygulama ve uyumlu bir tema).
+        Aynı şekilde uygularsınız, ancak düzenleme ve uygulama adımları birleştirilir ve temaları uygulamak
+        için yeniden başlatma gerekir.
+    
     </string>
-    <string name="question_five">Bir temayı nasıl uygulayabilirim?</string>
-    <string name="answer_five">Bir temanın uygulanması iki parçalı bir süreçtir: temaların derlenmesi
+  <string name="question_five">Bir temayı nasıl uygulayabilirim?</string>
+  <string name="answer_five">Bir temanın uygulanması iki parçalı bir süreçtir: temaların derlenmesi
         ve temaların uygulanması. Temaya gidin, Tema Yöneticisi sekmesine tıklayın,  istediğiniz temaları ve seçenekleri seçin
         Yüzen tuşa basın ve Oluştur/Güncelle\'yi seçin, son aynı temaları seçin ve Yüzen tuşa basın ve Seçilenleri
         Etkinleştir\'i seçin.
     </string>
-    <string name="question_six">Temalarım düzenlenmedi, neden?</string>
-    <string name="answer_six">/system/bin/aopt dosyasını silin, uygulamayı yeniden başlatın ve
+  <string name="question_six">Temalarım düzenlenmedi, neden?</string>
+  <string name="answer_six">/system/bin/aopt dosyasını silin, uygulamayı yeniden başlatın ve
         yukarıdaki işlemi tekrar deneyin.
     </string>
-    <string name="question_seven">Temam geçerli değil, neden?</string>
-    <string name="answer_seven">İlk kez bir tema veya stok temasından uyguluyorsanız,
+  <string name="question_seven">Temam geçerli değil, neden?</string>
+  <string name="answer_seven">İlk kez bir tema veya stok temasından uyguluyorsanız,
         \"Diğer temaları devre dışı bırak\" seçeneğinin işaretli olduğundan emin olun.
     </string>
-    <string name="question_eight">Önyükleme döngüsünde kalıyorum! Nasıl düzeltebilirim?</string>
-    <string name="answer_eight">Substratum bir arşivi /storage/emulated/0/substratum/SubstratumRescue.zip
+  <string name="question_eight">Önyükleme döngüsünde kalıyorum! Nasıl düzeltebilirim?</string>
+  <string name="answer_eight">Substratum bir arşivi /storage/emulated/0/substratum/SubstratumRescue.zip
         içine atan otomatik bir sistem olan Substratum Kurtarma Sistemi (SRS) adı verilen kendi
         kurtarma sistemine sahiptir. Kurtarma ve yeniden başlatma işlemlerinde bu ZIP dosyasını
         flaşlayın!
     </string>
-    <string name="question_nine">Bir tema uyguladıktan sonra bazı elementler uygulanmamış görünüyor, neden?
+  <string name="question_nine">Bir tema uyguladıktan sonra bazı elementler uygulanmamış görünüyor, neden?
     </string>
-    <string name="answer_nine">
-1. Otomatik olarak yapmadıysa, Sistem Arayüzünü yeniden başlatın.\n2. Cihazınızı yeniden
-        başlatın.\n3.
-        Temaları kaldırın ve/veya silin, yeniden düzenleyin ve yeniden uygulayın.
-    
+  <string name="answer_nine">
+        1. Otomatik olarak yapmadıysa Sistem Arayüzünü yeniden başlatın.\n2. Telefonu yeniden
+        başlatın.\n3. Temaları devre dışı bırakın, yeniden düzenleyip tekrar etkinleştirin.
     </string>
-    <string name="question_ten">Temalar nereye yüklenir?</string>
-    <string name="answer_ten">Temalar /data/app klasörüne yüklenir; bu, her bir temanın kendi
+  <string name="question_ten">Temalar nereye yüklenir?</string>
+  <string name="answer_ten">Temalar /data/app klasörüne yüklenir; bu, her bir temanın kendi
         klasörünü aldığı anlamına gelir.
     </string>
-    <string name="question_eleven">Google Play Store\'daki bir temayı güncellemeye çalışırken bir
+  <string name="question_eleven">Google Play Store\'daki bir temayı güncellemeye çalışırken bir
         hata alıyorum.
     </string>
-    <string name="answer_eleven">Temayı kaldırın ve yeniden yükleyin.</string>
-    <string name="question_twelve">Bu adımları okuyarak çözülmeyen ciddi bir sorun yaşarsam
+  <string name="answer_eleven">Temayı kaldırın ve yeniden yükleyin.</string>
+  <string name="question_twelve">Bu adımları okuyarak çözülmeyen ciddi bir sorun yaşarsam
         kiminle iletişime geçmeliyim?
     </string>
-    <string name="answer_twelve">Lütfen Substratum Google+ topluluğuna bir mesaj atın. Lütfen aşağıdaki
+  <string name="answer_twelve">Lütfen Substratum Google+ topluluğuna bir mesaj atın. Lütfen aşağıdaki
         bilgileri sağlayın: Substratum sürümü, ROM, tema (uygulanan sorunlar varsa)
  ve
         mümkünse bir hata raporu.
     
+    </string>
+  <string name="question_thirteen">Substratum\'u Samsung cihazım da nasıl kullanırım?</string>
+  <string name="answer_thirteen">Samsung cihazınız Nougat sürümündeyse Substratum,
+        Substratum temalarını çalıştırmak için dahili bir özellik kullanabilecektir. Uygulamayı ilk kez
+        açtığınızda Substratum size, Samsung Bütünleştirme Eklentisi\'ni satın almak isteyip istemediğinizi soracaktır.
+    </string>
+  <string name="question_fourteen">Yardım, Samsung cihazıma bir tema yükledim ve artık cihazımı açamıyorum!</string>
+  <string name="answer_fourteen">Özellikle bu durumdan nasıl kurtarılacağıyla ilgili talimatlar için
+        gezinme çubuğunu dışarı doğru kaydırıp XDA konusunu ziyaret edin.
     </string>
 </resources>

@@ -261,6 +261,8 @@ corretamente&#8230;</string>
     <string name="studio_placeholder_text">nenhum pacote de ícones Substratum encontrado</string>
     <string name="studio_toast_mask">Este ícone está sendo extraído de seu pacote atual e será alterado quando você aplicar este pacote de ícone.    </string>
     <string name="nav_studio">Estúdio de Pacote de Ícones</string>
+    <string name="logcat_snackbar_button">LogChar</string>
+    <string name="logcat_snackbar_text">Aplicação de destino/camada selecionada desatualizada ou com configurações incompatíveis&#8230;</string>
     <string name="logcat_dialog_title">Reporte Debug \"LogChar\"</string>
     <string name="logcat_dialog_copy_success">Log copiado para a área de transferência com sucesso!</string>
     <string name="logcat_email_activity">Enviar reporte de bug usando&#8230;</string>
@@ -277,14 +279,12 @@ corretamente&#8230;</string>
     <string name="manager_no_overlays_text">compile uma camada para para poder me usar!</string>
     <string name="backup">Cartão de Backup</string>
     <string name="backup_card_content">Esta função faz uma cópia das suas camadas atuais habilitadas em lista e as realoca em \"/storage/emulated/0/substratum/profiles/\" para proteção.</string>
-    <string name="delete_dialog_cancel">Cancelar</string>
     <string name="delete_dialog_okay">Deletar</string>
     <string name="delete_dialog_title">Deletar perfil</string>
     <string name="delete_dialog_text">Tem certeza que deseja deletar \"%s\"?</string>
     <string name="restore">Restaurar Cartão</string>
     <string name="restore_card_content">Quando um perfil é carregado, sua configuração atual é completamente apagada e \"restaurar tema\" obteria as mudanças atualizadas.</string>
     <string name="remove_dialog_later">Depois</string>
-    <string name="restore_dialog_cancel">Cancelar</string>
     <string name="restore_dialog_okay">Continuar</string>
     <string name="restore_dialog_title">Estas camadas serão instaladas para restaurar seu perfil
         completamente:    </string>
@@ -305,13 +305,12 @@ corretamente&#8230;</string>
     <string name="permission_not_granted_dialog_message1">Favor garantir ao Substratum permissões de armazenamento ou o aplicativo não funcionará corretamente!</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Não mostrar novamente</string>
+    <string name="dialog_cancel">Cancelar</string>
     <string name="clean_cache_dialog_body">Deseja limpar o cache deste tema?</string>
     <string name="clean_dialog_body">Deseja limpar todas as camadas deste tema?</string>
     <string name="disable_dialog_body">Deseja desabilitar todas as camadas deste tema?</string>
     <string name="enable_dialog_body">Deseja habilitar todas as camadas instaladas deste tema?</string>
     <string name="uninstall_dialog_body">Desinstalar</string>
-    <string name="uninstall_dialog_cancel">Cancelar</string>
-    <string name="uninstall_dialog_okay">OK</string>
     <string name="sb_phase_1_loader">extraindo ativos deste tema</string>
     <string name="sb_phase_2_loader">criando e assinando camada(s)</string>
     <string name="sb_phase_3_loader">intejando recurso de ícones</string>
@@ -400,6 +399,8 @@ resolver este problema.    </string>
     <string name="manager_subtext">Na lista de camadas, mostre todas as camadas desabilitadas com suas contrapartes ativadas.</string>
     <string name="alternate_drawer_design_title">Design da Gaveta Secundária</string>
     <string name="alternate_drawer_design_subtext">Usar uma gaveta de navegação alternativa quando navegar pela interface do usuário.</string>
+    <string name="logchar_autosave_title">Salvar automaticamente relatórios LogChar</string>
+    <string name="logchar_autosave_subtext">Isso salvará automaticamente os relatórios LogChar em /storage/emulated/0/substratum/LogChar Reports/.</string>
     <string name="show_outdated_themes_title">Mostrar todos os temas desatualizados</string>
     <string name="show_outdated_themes_content">Desabilitar isso permitirá Substratum a utilizar o novo algoritmo onde temas são carregados muito mais rápido do que o habitual. Isso só irá funcionar para temas com plugin 6.0.0+ corretamente configurados.</string>
     <string name="fab_menu_compile_enable">Compilar e Habilitar</string>
@@ -463,10 +464,11 @@ resolver este problema.    </string>
     <string name="profile_compile_processing">Agora processando seus estados de camada salvos&#8230;</string>
     <string name="theme_debug_mode_title">Bypass de Interjeição de Contingência de Sistema</string>
     <string name="theme_debug_mode_summary">Isso irá parar o aplicativo de usar o mecanismo de contingência do compilador legacy para auxiliar os temas quando chegam num estado impossível de recuperação.</string>
+    <string name="logchar_dialog_title_delete_title">ATENÇÃO</string>
+    <string name="logchar_dialog_title_delete_content">Isso eliminará todos os registros atualmente salvos. Ao manter pressionado, todos os registros serão apagados e não serão mais salvos.</string>
     <string name="break_compilation_dialog_title">AVISO</string>
     <string name="break_compilation_dialog_content">Isto pode quebrar completamente o processo de compilação. Só habilite esta opção se você sabe o que está fazendo!</string>
     <string name="break_compilation_dialog_continue">Continuar</string>
-    <string name="break_compilation_dialog_cancel">Cancelar</string>
     <string name="theme_safety_dialog_title">AVISO</string>
     <string name="theme_safety_dialog_content">Isso é um recurso crucial de segurança para recuperar seu dispositivo de paradas forçadas causadas por camadas! Você pode usar o botão Restaure-me! no atalho do aplicativo se você acha que está com problemas, ou seu último recurso seria instalar os arquivos de resgate localizados em /storage/emulated/0/substratum/.</string>
     <string name="profile_dialog_title">selecione os itens que você deseja fazer backup</string>
@@ -477,7 +479,6 @@ resolver este problema.    </string>
     <string name="profile_sound">Sons</string>
     <string name="profile_wallpaper">Papéis de Parede</string>
     <string name="profile_dialog_ok">OK</string>
-    <string name="profile_dialog_cancel">Cancelar</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Esconder os temas desatualizados (6.0.0+) [recomendado]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Mostrar temas desatualizados (pre-6.0.0)</string>
     <string name="settings_system_status">Certificação do sistema</string>
@@ -519,6 +520,7 @@ resolver este problema.    </string>
     <string name="per_app_toast_no_overlays">Não há sobreposições configuráveis para %s!</string>
     <string name="per_app_dialog_title">Configurar a sobreposição de %s\n</string>
     <string name="per_app_apply">Aplicar</string>
+    <string name="per_app_request_title">Permissões de FloatUI</string>
     <string name="per_app_draw_over_other_apps_request">Algumas funções do Substratum necessitam de permissões extras. Conceda as seguintes permissões: \"Sobrepor outros aplicativos\" para a interface de usuário flutuante e \"Estatísticas de uso\" para aplicar o tema correspondente no aplicativo de primeiro plano.</string>
     <string name="per_app_usage_stats_request">Para que o Substratum aplique o tema correspondente no aplicativo de primeiro plano, conceda a permissão: \"Estatísticas de uso\".</string>
     <string name="per_app_manual_grant">Para que a função de interface de usuário flutuante funcione corretamente, conceda a permissão \"Sobrepor outros aplicativos\" manualmente nas configurações do sistema!</string>
@@ -581,6 +583,7 @@ resolver este problema.    </string>
     <string name="nav_drawer_googleplus">Comunidade Google+</string>
     <string name="nav_drawer_telegram">Grupo no Telegram</string>
     <string name="nav_drawer_xda">XDA Subforum</string>
+    <string name="nav_drawer_rawad">Guias de criação de temas por Rawad</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Conteúdo em destaque</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
@@ -602,6 +605,7 @@ resolver este problema.    </string>
     <string name="nav_settings">Configurações</string>
     <string name="title_activity_manage_space">Gerenciar Uso de Armazenamento</string>
     <string name="manage_space_cache_text_title">Limpar cache</string>
+    <string name="manage_space_logs_text_title">Limpar registros salvos</string>
     <string name="clear_cache_button_loading">Carregando&#8230;</string>
     <string name="clear_cache_button_text">Limpar cache do substratum</string>
     <string name="manage_space_cache_counter_title">Limpar o cache local irá remover todos os arquivos usados pelo compilador do tema e o baixador online. Todos os pacotes de temas e configurações de usuário permanecerão intactas.\n\nDependendo do tamanho do seu cache, isso pode levar alguns segundos para completar.</string>

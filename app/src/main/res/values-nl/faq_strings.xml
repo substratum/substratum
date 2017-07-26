@@ -25,7 +25,6 @@
     <string name="question_three">Wat heb ik nodig om Substratum naar behoren te doen functioneren?</string>
     <string name="answer_three">Je zal een ROM nodig hebben die ondersteuning biedt voor het OMS en Thema Interfacer (vraag de ontwikkelaars, zij weten dit), deze app, en een compatibel thema (bekijk de Play Store omschrijving of vraag de ontwikkelaar)</string>
     <string name="question_four">Kan ik gebruik maken van Substratum, ook al biedt mijn ROM geen ondersteuning voor OMS?</string>
-    <string name="answer_four">Ja, als je ROM ondersteuning biedt voor RRO (standaard Marshmallow valt onder deze categorie). De andere bovenstaande benodigdheden zijn hetzelfde (root, deze app, en een compatibel thema). Je zal op dezelfde manier toepassen, maar de compilatie en toepassingsstappen zijn gecombineerd en een herstart is benodigd om de overlays toe te passen.</string>
     <string name="question_five">Hoe pas ik een thema toe?</string>
     <string name="answer_five">De toepassing van een thema is een tweedelig proces: compilatie van de overlays en het toepassen ervan. Ga naar een thema, tik op het Overlay Beheer tab, kies de overlays en opties die je wilt, raak de zwevende knop aan en kies Compileren/Bijwerken, kies daarna dezelfde overlays, raak de zwevende knop aan en kies Selectie Inschakelen.</string>
     <string name="question_six">Mijn overlays zijn niet gecompileerd, wat is er gebeurd?</string>
@@ -38,8 +37,6 @@
         /storage/emulated/0/substratum/SubstratumRescue.zip. Flash deze ZIP in recovery en herstart! 
     </string>
     <string name="question_nine">Sommige elementen lijken te haperen na het toepassen van een thema, wat is er gebeurd?</string>
-    <string name="answer_nine">
-1. Herstart Systeem-UI als dit niet automatisch is gebeurd.\n2. Herstart je apparaat.\n3. Deïnstalleer en/of verwijder de overlays, hercompileer en pas opnieuw toe.</string>
     <string name="question_ten">Waar zijn overlays geïnstalleerd?</string>
     <string name="answer_ten">Overlays zijn geïnstalleerd in de /data/app map, wat betekent dat iedere overlay zijn eigen map krijgt.</string>
     <string name="question_eleven">Ik krijg een fout wanneer ik een thema bijwerk vanuit de Play Store.

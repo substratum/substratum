@@ -248,6 +248,8 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="studio_toast_mask">Tato ikona je vybrána z aktuálního balíčku a změní se, pokud použijete tento balíček ikon.
     </string>
     <string name="nav_studio">Icon Pack Studio</string>
+    <string name="logcat_snackbar_button">LogChar</string>
+    <string name="logcat_snackbar_text">Cílová aplikace/vybrány zastaralé nebo nesprávně konfigurované potahy&#8230;</string>
     <string name="logcat_dialog_title">Zpráva ladění \"LogChar\"</string>
     <string name="logcat_dialog_copy_success">Protokol chyb byl úspěšně zkopírovány do schránky!</string>
     <string name="logcat_email_activity">Odeslat chybu pomocí&#8230;</string>
@@ -266,7 +268,6 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="backup_card_content">Tato funkce vytvoří kopii aktuálně povolených potahů
         - vytvoří seznam a umístí ho do \"/storage/emulated/0/substratum/profiles/\" pro zachování.
     </string>
-    <string name="delete_dialog_cancel">Zrušit</string>
     <string name="delete_dialog_okay">Odstranit</string>
     <string name="delete_dialog_title">Odstranit profil</string>
     <string name="delete_dialog_text">Jste si jisti, že chcete odstranit \"%s\"?</string>
@@ -274,7 +275,6 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="restore_card_content">Když je profil načtený, je vaše aktuální nastavení kompletně vymazáno a \"obnovený motiv\" aktualizuje všechna nastavení.
     </string>
     <string name="remove_dialog_later">Později</string>
-    <string name="restore_dialog_cancel">Zrušit</string>
     <string name="restore_dialog_okay">Pokračovat</string>
     <string name="restore_dialog_title">Tyto potahy se nainstalují a kompletně obnoví váš profil:    </string>
     <string name="backup_button">ZÁLOHOVÁNÍ AKTUÁLNÍHO STAVU</string>
@@ -296,13 +296,12 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="permission_not_granted_dialog_message1">Prosím, povolte Substratum oprávnění pro přístup k paměti, jinak nebude aplikace správně fungovat!    </string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Znovu nezobrazovat</string>
+    <string name="dialog_cancel">Zrušit</string>
     <string name="clean_cache_dialog_body">Chcete vyčistit mezipaměť tohoto motivu?</string>
     <string name="clean_dialog_body">Chcete vyčistit všechny potahy pro tento motiv?</string>
     <string name="disable_dialog_body">Chcete vypnout všechny potahy pro tento motiv?</string>
     <string name="enable_dialog_body">Chcete zapnout všechny potahy pro tento motiv?    </string>
     <string name="uninstall_dialog_body">Odinstalovat motiv</string>
-    <string name="uninstall_dialog_cancel">Zrušit</string>
-    <string name="uninstall_dialog_okay">OK</string>
     <string name="sb_phase_1_loader">extrahování motivu</string>
     <string name="sb_phase_2_loader">instalování potahů</string>
     <string name="sb_phase_3_loader">vkládání zdrojů ikon</string>
@@ -404,6 +403,8 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="alternate_drawer_design_title">Vedlejší vzhled menu</string>
     <string name="alternate_drawer_design_subtext">Použít alternativní vzhled menu, když se
  prochází uživatelským prostředím.</string>
+    <string name="logchar_autosave_title">Automaticky ukládat hlášení LogChar</string>
+    <string name="logchar_autosave_subtext">Tím se automaticky uloží hlášení LogChar do /storage/emulated/0/substratum/LogChar Reports/.</string>
     <string name="show_outdated_themes_title">Zobrazit všechny neaktuální motivy</string>
     <string name="show_outdated_themes_content">Zakázání umožní Substratum použít zcela nový algoritmus, se kterým se motivy načítají mnohem rychleji než obvykle. Funguje pouze na správně nakonfigurovaných motivech se zásuvným modulem v6.0.0+.</string>
     <string name="fab_menu_compile_enable">Sestavit &amp; povolit</string>
@@ -467,10 +468,11 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="profile_compile_processing">Probíhá zpracování dříve uložených nastavení potahů&#8230;</string>
     <string name="theme_debug_mode_title">Obejítí originálního systému</string>
     <string name="theme_debug_mode_summary">Umožní aplikaci přestat používat původní mechanismus kompilace s cílem pomoci motivu, pokud se dostane do neřešitelné situace.</string>
+    <string name="logchar_dialog_title_delete_title">POZOR</string>
+    <string name="logchar_dialog_title_delete_content">Tímto odstraníte všechny aktuálně uložené hlášení. Stisknutím tlačítka pokračovat budou všechny hlášení vymazány a záznamy již nebudou uloženy.</string>
     <string name="break_compilation_dialog_title">VAROVÁNÍ</string>
     <string name="break_compilation_dialog_content">Toto by mohlo kompletně rozbít proces kompilace. Zapněte tuto možnost jen pokud víte co děláte!</string>
     <string name="break_compilation_dialog_continue">Pokračovat</string>
-    <string name="break_compilation_dialog_cancel">Zrušit</string>
     <string name="theme_safety_dialog_title">VAROVÁNÍ</string>
     <string name="theme_safety_dialog_content">Toto je klíčová bezpečnostní funkce pro obnovení vadných potahů vynuceným uzavřením! Pokud se ocitnete v této situaci, můžete použít tlačítko \"Zachraň mě!\" nacházející se v zástupci aplikace Subtratum nebo v krajním případě můžete na záchranu použít flash archivu, který najdete ve /storage/emulated/0/substratum/.</string>
     <string name="profile_dialog_title">vyberte položky, které chcete zálohovat</string>
@@ -481,7 +483,6 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="profile_sound">Zvuky</string>
     <string name="profile_wallpaper">Tapety</string>
     <string name="profile_dialog_ok">OK</string>
-    <string name="profile_dialog_cancel">Zrušit</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Skrýt neaktuální motivy (6.0.0+) [Doporučeno!]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Zobrazit neaktuální motivy (před-6.0.0)</string>
     <string name="settings_system_status">Certifikace systému</string>
@@ -523,6 +524,7 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="per_app_toast_no_overlays">Neexistují žádné potahy, které lze konfigurovat pro %s!</string>
     <string name="per_app_dialog_title">%s\n konfigurátor potahů</string>
     <string name="per_app_apply">Použít</string>
+    <string name="per_app_request_title">Oprávnění FloatUI</string>
     <string name="per_app_draw_over_other_apps_request">Prosím, udělte Substratum oprávnění \"vykreslovat přes jiné aplikace\" pro plovoucí okno a právo \"Statistiky využívání\" pro přístup aplikacím v popředí pro sjednocení cílů témat.</string>
     <string name="per_app_usage_stats_request">Prosím, udělte Substratum oprávnění \"přístup k používání\" pro přístup k odpovídajícím cílům motivů.</string>
     <string name="per_app_manual_grant">Prosím, ručně udělte oprávnění k \"využití přístupu\" a \"vykreslování nad ostatními aplikacemi\" v nastavení aplikace pro používání plovoucího okna!</string>
@@ -585,6 +587,7 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="nav_drawer_googleplus">Komunita Google +</string>
     <string name="nav_drawer_telegram">Skupinový chat Telegram</string>
     <string name="nav_drawer_xda">XDA Subforum</string>
+    <string name="nav_drawer_rawad">Příručka Rawad\'s Theming</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Doporučený obsah</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
@@ -606,6 +609,7 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="nav_settings">Nastavení</string>
     <string name="title_activity_manage_space">Správa využití úložiště</string>
     <string name="manage_space_cache_text_title">Vyčistit mezipaměť</string>
+    <string name="manage_space_logs_text_title">Vymazat uložené hlášení</string>
     <string name="clear_cache_button_loading">Načítání&#8230;</string>
     <string name="clear_cache_button_text">Vyčistit mezipaměť Substratum</string>
     <string name="manage_space_cache_counter_title">Vymazání místní mezipaměti odstraní všechny soubory, které používá kompilátor motivů a online downloader. Všechny balíčky motivů a uživatelské konfigurace zůstanou zachovány.\n\nDokončení procesu může trvat několik sekund v závislosti na velikosti mezipaměti.</string>

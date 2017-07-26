@@ -243,6 +243,8 @@ correctamente&#8230;</string>
     <string name="studio_placeholder_text">No se encontraron packs de iconos soportados por substratum</string>
     <string name="studio_toast_mask">Este icono se extrae de su pack actual y se cambiará al aplicar este pack de iconos.    </string>
     <string name="nav_studio">Estudio de Packs de Iconos</string>
+    <string name="logcat_snackbar_button">LogChar</string>
+    <string name="logcat_snackbar_text">Aplicación de interés/capa desactualizada o configuración incorrecta seleccionada&#8230;</string>
     <string name="logcat_dialog_title">\"LogChar\" Debug - Informe de depuración</string>
     <string name="logcat_dialog_copy_success">Registro de errores copiado completamente al portapapeles!</string>
     <string name="logcat_email_activity">Enviar informe de error usando&#8230;</string>
@@ -259,14 +261,12 @@ correctamente&#8230;</string>
     <string name="manager_no_overlays_text">Compila una capa para poder usarme!</string>
     <string name="backup">Tarjeta de Copia de Seguridad</string>
     <string name="backup_card_content">Esta función realiza una copia de la lista de capas actualmente activadas y lo coloca en \"/storage/emulated/0/substratum/profiles/\"  para su resguardo.</string>
-    <string name="delete_dialog_cancel">Cancelar</string>
     <string name="delete_dialog_okay">Borrar</string>
     <string name="delete_dialog_title">Borrar perfil</string>
     <string name="delete_dialog_text">¿Seguro que quieres borrar \"%s\"?</string>
     <string name="restore">Tarjeta de Restauración</string>
     <string name="restore_card_content">Cuando se carga un perfil, su configuración actual se limpia completamente y \"restaurar el tema\" se llevaría a cabo en los cambios actualizados.    </string>
     <string name="remove_dialog_later">Después</string>
-    <string name="restore_dialog_cancel">Cancelar</string>
     <string name="restore_dialog_okay">Continuar</string>
     <string name="restore_dialog_title">Estas superposiciones se instalarán para restaurar tu perfil
         completamente:    </string>
@@ -288,13 +288,12 @@ correctamente&#8230;</string>
 o la aplicación no funcionará correctamente!    </string>
     <string name="dialog_ok">Ok</string>
     <string name="dialog_do_not_show_again">No volver a mostrar</string>
+    <string name="dialog_cancel">Cancelar</string>
     <string name="clean_cache_dialog_body">¿Quieres limpiar la caché de este tema?</string>
     <string name="clean_dialog_body">¿Quieres borrar todas las capas instaladas de este tema?</string>
     <string name="disable_dialog_body">¿Quieres desactivar todas las capas de este tema?</string>
     <string name="enable_dialog_body">¿Quieres activar todas las capas instaladas de este tema?    </string>
     <string name="uninstall_dialog_body">Desinstalar tema</string>
-    <string name="uninstall_dialog_cancel">Cancelar</string>
-    <string name="uninstall_dialog_okay">Ok</string>
     <string name="sb_phase_1_loader">Extrayendo el tema</string>
     <string name="sb_phase_2_loader">instalando capa(s)</string>
     <string name="sb_phase_3_loader">Inyectando recursos de iconos</string>
@@ -383,6 +382,8 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="manager_subtext">En la ventana de la lista de capas, mostrar todas las capas desactivadas y sus contrapartes activadas.</string>
     <string name="alternate_drawer_design_title">Diseño de Cajón Alternativo</string>
     <string name="alternate_drawer_design_subtext">Utiliza un diseño alternativo del cajón de navegación en la interfaz de usuario.</string>
+    <string name="logchar_autosave_title">Guardar automáticamente los informes LogChar</string>
+    <string name="logchar_autosave_subtext">Esto guardará automáticamente los informes LogChar en /storage/emulated/0/substratum/LogChar Reports/.</string>
     <string name="show_outdated_themes_title">Mostrar todos los temas obsoletos</string>
     <string name="show_outdated_themes_content">Desactivar esto permitirá a Substratum utilizar el nuevo algoritmo donde se consigue cargar los temas mucho más rápido que de costumbre. Esto sólo funciona para temas con el plugin 6.0.0+ correctamente configurados.</string>
     <string name="fab_menu_compile_enable">Compilar &amp; Activar</string>
@@ -446,10 +447,11 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="profile_compile_processing">Ahora procesando tus estados de capa guardado&#8230;</string>
     <string name="theme_debug_mode_title">Derivación de la interjección de seguridad del sistema</string>
     <string name="theme_debug_mode_summary">Esto evitará que la aplicación utilice el mecanismo de suplencia al compilador legacy (legado) para ayudar a los temas cuando han alcanzado un estado irrecuperable.</string>
+    <string name="logchar_dialog_title_delete_title">ATENCIÓN</string>
+    <string name="logchar_dialog_title_delete_content">Esto borrará todos los informes guardados a este momento. Pulsando continuar, se borrarán todos los informes y ya no se guardarán en adelante.</string>
     <string name="break_compilation_dialog_title">ADVERTENCIA</string>
     <string name="break_compilation_dialog_content">Esto puede romper por completo el proceso de compilación. ¡Sólo active esta opción si sabe lo que está haciendo!</string>
     <string name="break_compilation_dialog_continue">Continuar</string>
-    <string name="break_compilation_dialog_cancel">Cancelar</string>
     <string name="theme_safety_dialog_title">ADVERTENCIA</string>
     <string name="theme_safety_dialog_content">¡Esta es una característica de seguridad fundamental para recuperar el dispositivo por capas problemáticas que se cierran a la fuerza! Usted puede utilizar el botón ¡Rescátame! en el acceso directo a Substratum si encuentra estas situaciones o, como último recurso, puede aplicar flash los archivos de rescate disponibles en /storage/emulated/0/substratum/.</string>
     <string name="profile_dialog_title">Seleccione los elementos que desea respaldar</string>
@@ -460,7 +462,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="profile_sound">Sonidos</string>
     <string name="profile_wallpaper">Fondos de Pantalla</string>
     <string name="profile_dialog_ok">Ok</string>
-    <string name="profile_dialog_cancel">Cancelar</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Ocultar temas desactualizados (6.0.0+) [Recomendado]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Mostrar temas desactualizados (anterior a 6.0.0)</string>
     <string name="settings_system_status">Certificación del sistema</string>
@@ -502,6 +503,7 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="per_app_toast_no_overlays">No hay capas configurables para %s!</string>
     <string name="per_app_dialog_title">Configurador de Capa %s\n</string>
     <string name="per_app_apply">Aplicar</string>
+    <string name="per_app_request_title">Permisos de FloatUI</string>
     <string name="per_app_draw_over_other_apps_request">Por favor conceda a Substratum los permisos \"dibujar sobre otras aplicaciones\" para la interfaz de usuario flotante y \"Estadísticas de uso\" para acceder a la aplicación de primer plano para coincidir con objetivos de tema.</string>
     <string name="per_app_usage_stats_request">Por favor conceda a Substratum el permiso de \"acceso de uso\" para acceder a la aplicación de primer plano para los objetivos de tema coincidentes.</string>
     <string name="per_app_manual_grant">Por favor conceder manualmente a Substratum los permisos de \"acceso de uso\" y \"dibujar sobre otras aplicaciones\" en la configuración de la aplicación para usar FloatUI!</string>
@@ -564,6 +566,7 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="nav_drawer_googleplus">Comunidad de Google +</string>
     <string name="nav_drawer_telegram">Chat del Grupo en Telegram</string>
     <string name="nav_drawer_xda">Subforo XDA</string>
+    <string name="nav_drawer_rawad">Guías de tematización de Rawad</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Contenido Destacado</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
@@ -585,6 +588,7 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="nav_settings">Ajustes</string>
     <string name="title_activity_manage_space">Administrar el uso del almacenamiento</string>
     <string name="manage_space_cache_text_title">Limpiar caché</string>
+    <string name="manage_space_logs_text_title">Borrar los informes guardados</string>
     <string name="clear_cache_button_loading">Cargando&#8230;</string>
     <string name="clear_cache_button_text">Limpiar caché de Substratum</string>
     <string name="manage_space_cache_counter_title">Borrar la caché local eliminará todos los archivos utilizados por el compilador de tema y las descargas online. Todos los paquetes temáticos y configuraciones de usuario serán siendo as-is.\n\nDependiendo del tamaño de la caché, esto puede tardar unos segundos en completarse.</string>

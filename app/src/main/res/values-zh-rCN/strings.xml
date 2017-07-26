@@ -224,6 +224,8 @@
     <string name="studio_placeholder_text">没有找到支持 Substratum 的图标包</string>
     <string name="studio_toast_mask">此图标来源于您现在应用的图标包，当您应用此图标包时此图标将会改变。 </string>
     <string name="nav_studio">图标包工作室</string>
+    <string name="logcat_snackbar_button">LogChar</string>
+    <string name="logcat_snackbar_text">选中的应用或叠加层已经过时或配置不正确</string>
     <string name="logcat_dialog_title">\"LogChar\" 调试报告</string>
     <string name="logcat_dialog_copy_success">已将错误日志复制到剪贴板</string>
     <string name="logcat_email_activity">用于发送错误报告</string>
@@ -240,14 +242,12 @@
     <string name="manager_no_overlays_text">使用此功能需要您编译一个叠加层</string>
     <string name="backup">备份页面</string>
     <string name="backup_card_content">此功能会创建一个当前已启用的叠加层列表的副本，并保存在 /storage/emulated/0/substratum/profiles/ 目录。</string>
-    <string name="delete_dialog_cancel">取消</string>
     <string name="delete_dialog_okay">删除</string>
     <string name="delete_dialog_title">删除配置文件</string>
     <string name="delete_dialog_text">请问您是否要删除\"%s\"？</string>
     <string name="restore">还原页面</string>
     <string name="restore_card_content">加载配置文件后，您当前的设置会被完全清除，“还原主题”将还原到更新过的设置。    </string>
     <string name="remove_dialog_later">推迟</string>
-    <string name="restore_dialog_cancel">取消</string>
     <string name="restore_dialog_okay">继续</string>
     <string name="restore_dialog_title">为了完全还原您的配置，请安装以下叠加层：</string>
     <string name="backup_button">备份当前状态</string>
@@ -267,13 +267,12 @@
     <string name="permission_not_granted_dialog_message1">请授予 Substratum 存储权限，否则应用将无法正常运行！</string>
     <string name="dialog_ok">确认</string>
     <string name="dialog_do_not_show_again">不再显示</string>
+    <string name="dialog_cancel">取消</string>
     <string name="clean_cache_dialog_body">您想要清除此主题的缓存吗？</string>
     <string name="clean_dialog_body">您想要清除此主题的所有叠加层吗？</string>
     <string name="disable_dialog_body">您想要禁用此主题中所有叠加层吗？</string>
     <string name="enable_dialog_body">您想要启用此主题中所有已安装的叠加层吗？    </string>
     <string name="uninstall_dialog_body">卸载主题</string>
-    <string name="uninstall_dialog_cancel">取消</string>
-    <string name="uninstall_dialog_okay">确认</string>
     <string name="sb_phase_1_loader">提取主题</string>
     <string name="sb_phase_2_loader">安装叠加层</string>
     <string name="sb_phase_3_loader">导入图标资源</string>
@@ -360,6 +359,8 @@
     <string name="manager_subtext">在叠加层列表中显示所有叠加层，包括已启用和已禁用的。</string>
     <string name="alternate_drawer_design_title">备用抽屉设计</string>
     <string name="alternate_drawer_design_subtext">浏览用户界面时使用备用导航抽屉设计</string>
+    <string name="logchar_autosave_title">自动保存 LogChar 报告</string>
+    <string name="logchar_autosave_subtext">自动将 LogChar 报告保存在 /storage/emulated/0/substratum/LogChar Reports/ 中</string>
     <string name="show_outdated_themes_title">显示所有旧版本主题</string>
     <string name="show_outdated_themes_content">禁用此项后 Substratum 将使用全新算法，主题加载速度会比平时更快。但只有在正确配置 6.0.0+ 插件时主题才会生效。</string>
     <string name="fab_menu_compile_enable">编译 &amp; 启用</string>
@@ -423,10 +424,11 @@
     <string name="profile_compile_processing">正在处理您保存的叠加层</string>
     <string name="theme_debug_mode_title">系统后备机制</string>
     <string name="theme_debug_mode_summary">当主题不可恢复时，停用旧版编译器后备机制以提供帮助。</string>
+    <string name="logchar_dialog_title_delete_title">注意</string>
+    <string name="logchar_dialog_title_delete_content">这会删除所有当前已保存的日志。在您点击“继续”后，所有日志将被删除。</string>
     <string name="break_compilation_dialog_title">警告</string>
     <string name="break_compilation_dialog_content">这可能会打乱编译过程。只有当您知道自己在做什么的时候，才能启用此选项！</string>
     <string name="break_compilation_dialog_continue">继续</string>
-    <string name="break_compilation_dialog_cancel">取消</string>
     <string name="theme_safety_dialog_title">警告</string>
     <string name="theme_safety_dialog_content">一个关键的安全功能，在叠加层出现错误导致停止运行的时候，进行还原操作。如果您发现自己陷入困境，请尝试长按 Substratum 的应用程序快捷方式，并点击“禁用所有叠加层”按钮。如果依然无法恢复正常，最终救援方案是刷入 /storage/emulated/0/substratum/ 中的救援文件。</string>
     <string name="profile_dialog_title">请选择您想要备份的项目</string>
@@ -437,7 +439,6 @@
     <string name="profile_sound">音效</string>
     <string name="profile_wallpaper">壁纸</string>
     <string name="profile_dialog_ok">确认</string>
-    <string name="profile_dialog_cancel">取消</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">隐藏不受支持的旧版本主题（早于安卓6.0）</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">显示旧版本主题（早于安卓6.0）</string>
     <string name="settings_system_status">系统认证</string>
@@ -479,6 +480,7 @@
     <string name="per_app_toast_no_overlays">没有为 %s 配置的叠加层</string>
     <string name="per_app_dialog_title">%s\n叠加层配置助手</string>
     <string name="per_app_apply">应用</string>
+    <string name="per_app_request_title">FloatUI 许可</string>
     <string name="per_app_draw_over_other_apps_request">请授予 Substratum “出现在其他应用上”和“使用情况访问”权限以便于访问前台应用，从而进行主题匹配。</string>
     <string name="per_app_usage_stats_request">请授予 Substratum “使用情况访问”权限以便于访问前台应用，从而进行主题匹配。</string>
     <string name="per_app_manual_grant">请手动授予 Substratum “出现在其他应用上”和“使用情况访问”权限以便于使用 FloatUI。</string>
@@ -541,6 +543,7 @@
     <string name="nav_drawer_googleplus">Google+ 社区</string>
     <string name="nav_drawer_telegram">Telegram 交流群</string>
     <string name="nav_drawer_xda">XDA 论坛</string>
+    <string name="nav_drawer_rawad">主题向导</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">特色内容</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
@@ -562,6 +565,7 @@
     <string name="nav_settings">设置</string>
     <string name="title_activity_manage_space">管理存储空间</string>
     <string name="manage_space_cache_text_title">清除缓存</string>
+    <string name="manage_space_logs_text_title">清除已保存的日志</string>
     <string name="clear_cache_button_loading">正在加载</string>
     <string name="clear_cache_button_text">清除 Substratum 缓存</string>
     <string name="manage_space_cache_counter_title">清除主题编译器产生的缓存文件和其它在线下载内容。所有主题包和用户配置将保持原状。这可能需要一点时间，请耐心等待。</string>

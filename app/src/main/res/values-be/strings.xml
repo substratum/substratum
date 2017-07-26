@@ -232,6 +232,8 @@
     <string name="studio_placeholder_text">падтрымліваючых набораў цэтлікаў для substratum не знойдзена</string>
     <string name="studio_toast_mask">Гэты цэтлік узяты з бягучага набору і будзе заменены як толькі вы ўжывеце дадзены набор.    </string>
     <string name="nav_studio">Студыя цэтлікаў</string>
+    <string name="logcat_snackbar_button">LogChar</string>
+    <string name="logcat_snackbar_text">Мэтавая праграма/напластаванне састарэла або няправільна наладжана&#8230;</string>
     <string name="logcat_dialog_title">Даклад справаздачы \"LogChar\"</string>
     <string name="logcat_dialog_copy_success">Журнал памылак скапіяваны ў буфер абмену!</string>
     <string name="logcat_email_activity">Адправіць справаздачу пра памылку, выкарыстоўваючы&#8230;</string>
@@ -250,14 +252,12 @@
     <string name="manager_no_overlays_text">збярыце адно напластаванне, каб пачаць карыстацца мной!</string>
     <string name="backup">Рэзерваванне дадзеных</string>
     <string name="backup_card_content">Дазваляе стварыць копію спісу ўжытых у цяперашні час напластаванняў і змяшчае яго ў \"/storage/emulated/0/substratum/profiles/\".    </string>
-    <string name="delete_dialog_cancel">Скасаваць</string>
     <string name="delete_dialog_okay">Выдаліць</string>
     <string name="delete_dialog_title">Выдаліць профіль</string>
     <string name="delete_dialog_text">Вы ўпэўненыя, што хочаце выдаліць \"%s\"?</string>
     <string name="restore">Аднаўленне</string>
     <string name="restore_card_content">Пры загрузцы профілю бягучая ўстаноўка будзе цалкам скінутая і зверху ўжыюцца змены «тэмы аднаўлення».    </string>
     <string name="remove_dialog_later">Пазней</string>
-    <string name="restore_dialog_cancel">Скасаваць</string>
     <string name="restore_dialog_okay">Працягнуць</string>
     <string name="restore_dialog_title">Для поўнага аднаўлення профілю будуць устаноўлены наступныя напластаванні:    </string>
     <string name="backup_button">СТАН РЭЗЕРВОВАЙ КОПІІ</string>
@@ -279,13 +279,12 @@
     <string name="permission_not_granted_dialog_message1">Калі ласка, дазвольце substratum доступ да сховішча альбо праграма не зможа працаваць правільна!    </string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Не паказваць зноў</string>
+    <string name="dialog_cancel">Скасаваць</string>
     <string name="clean_cache_dialog_body">Вы сапраўды жадаеце ачысціць кэш гэтай тэмы?</string>
     <string name="clean_dialog_body">Вы сапраўды жадаеце скінуць ўсе напластаванні з гэтай тэмы?</string>
     <string name="disable_dialog_body">Вы сапраўды жадаеце адключыць усе напластаванні з гэтай тэмы?</string>
     <string name="enable_dialog_body">Вы сапраўды жадаеце ўжыць усе ўсталяваныя напластаванні з гэтай тэмы?    </string>
     <string name="uninstall_dialog_body">Выдаліць тэму</string>
-    <string name="uninstall_dialog_cancel">Скасаваць</string>
-    <string name="uninstall_dialog_okay">OK</string>
     <string name="sb_phase_1_loader">распакаванне тэмы</string>
     <string name="sb_phase_2_loader">усталёўка напластавання</string>
     <string name="sb_phase_3_loader">укараненне рэсурсаў цэтлікаў</string>
@@ -354,6 +353,8 @@
     <string name="show_theme_template_version_description">Указваць мэтавыя ўзроўні SDK, версіі тэм і версіі плагінаў ў якасці пазнак для кожнай тэмы.</string>
     <string name="vibrate_on_compiled">Апавяшчэнне аб зборцы тэмы</string>
     <string name="vibrate_on_compiled_description">Вібрыраваць пасля зборкі тэмы, каб паведаміць карыстальніка аб завяршэнні працэсу.</string>
+    <string name="manage_notification_channel">Кіраванне канала апавяшчэння</string>
+    <string name="manage_notification_channel_dialog_title">Выберыце канал апавяшчэння для кіравання</string>
     <string name="hide_app_icon">Паказваць цэтлік праграмы</string>
     <string name="hide_app_icon_toast_enabled">Цэтлік выдалены з меню праграм!</string>
     <string name="hide_app_icon_toast_disabled">Цэтлік дададзены ў меню праграм!</string>
@@ -370,6 +371,8 @@
     <string name="manager_subtext">У акне спісу напластаванняў паказваць усё адключаныя напластаванні з іх актываванымі кампанентамі.</string>
     <string name="alternate_drawer_design_title">Альтэрнатыўнае меню</string>
     <string name="alternate_drawer_design_subtext">Выкарыстоўваць ранейшую навігацыйную панэль.</string>
+    <string name="logchar_autosave_title">Аўтаматычна захоўваць справаздачы LogChar</string>
+    <string name="logchar_autosave_subtext">Гэта будзе аўтаматычна захоўваць справаздачы ў тэчку /storage/emulated/0/substratum/LogChar Reports/.</string>
     <string name="show_outdated_themes_title">Паказваць састарэлыя тэмы</string>
     <string name="show_outdated_themes_content">Адключэнне параметру дазволіць Substratum прымяняць новы алгарытм, з якім тэмы загружаюцца нашмат хутчэй, чым звычайна. Тычыцца толькі тэм, правільна наладжаных для плагіна 6.0.0+.</string>
     <string name="fab_menu_compile_enable">Сабраць і актываваць</string>
@@ -433,10 +436,11 @@
     <string name="profile_compile_processing">Аднаўленне раней прымененых налад&#8230;</string>
     <string name="theme_debug_mode_title">Абыход сістэмы вяртання</string>
     <string name="theme_debug_mode_summary">Прадухіліць выкарыстанне механізму вяртання сумяшчальнага зборшчыка, як толькі тэмы дасягаюць непапраўнага стану.</string>
+    <string name="logchar_dialog_title_delete_title">УВАГА</string>
+    <string name="logchar_dialog_title_delete_content">Гэта выдаліць усе захаваныя справаздачы. Калі вы працягнеце, усе справаздачы выдаляцца і новыя не будуць захоўвацца.</string>
     <string name="break_compilation_dialog_title">УВАГА</string>
     <string name="break_compilation_dialog_content">Можа зрабіць працэс зборкі цалкам няспраўным. Актывуйце наладу толькі з веданнем справы!</string>
     <string name="break_compilation_dialog_continue">Працягнуць</string>
-    <string name="break_compilation_dialog_cancel">Скасаваць</string>
     <string name="theme_safety_dialog_title">УВАГА</string>
     <string name="theme_safety_dialog_content">Гэта функцыя важная для магчымасці адкату пры вылетах з-за дрэнных напластаванняў! Вы зможаце скарыстацца кнопкай \"На дапамогу!\" з цэтліка прыкладання Substratum, калі дадатак завісне, а ў крайнім выпадку прашыць архіў аднаўлення з /storage/emulated/0/substratum/.</string>
     <string name="profile_dialog_title">выберыце элементы для рэзервавання</string>
@@ -447,7 +451,6 @@
     <string name="profile_sound">Гукі</string>
     <string name="profile_wallpaper">Шпалеры</string>
     <string name="profile_dialog_ok">OK</string>
-    <string name="profile_dialog_cancel">Скасаваць</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Хаваць састарэлыя тэмы (6.0.0+) [Рэкамендуецца!]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Паказваць састарэлыя тэмы (папяр-6.0.0)</string>
     <string name="settings_system_status">Сумяшчальнасць сістэмы</string>
@@ -532,6 +535,9 @@
     <string name="rom_status_network">патрабуецца праверка ў інтэрнэце&#8230;</string>
     <!-- Notification channel -->
     <string name="notification_channel_default">Па ўзмаўчанні</string>
+    <string name="notification_channel_default_description">Галоўныя паведамлення (новыя і абноўленыя тэмы, завяршэнне кампіляцый тэмы і г. д.)</string>
+    <string name="notification_channel_ongoing">Бягучае</string>
+    <string name="notification_channel_ongoing_description">Бягучыя апавяшчэння</string>
     <!-- Nav drawer -->
     <string name="nav_home">Наборы тэм</string>
     <string name="nav_overlays">Напластаванні</string>
@@ -551,6 +557,7 @@
     <string name="nav_drawer_googleplus">Супольнасці ў Google+</string>
     <string name="nav_drawer_telegram">Чат у Telegram</string>
     <string name="nav_drawer_xda">XDA форум</string>
+    <string name="nav_drawer_rawad">Гід па тэмах ад Rawad</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Рэкамендуемае</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
@@ -572,6 +579,7 @@
     <string name="nav_settings">Налады</string>
     <string name="title_activity_manage_space">Аптымізацыя выкарыстання памяці</string>
     <string name="manage_space_cache_text_title">Ачысціць кэш</string>
+    <string name="manage_space_logs_text_title">Ачысціць захаваныя справаздачы</string>
     <string name="clear_cache_button_loading">Загрузка&#8230;</string>
     <string name="clear_cache_button_text">Ачысціць кэш substratum</string>
     <string name="manage_space_cache_counter_title">Ачыстка лакальнага кэша, будуць выдалены ўсе файлы, якія выкарыстоўваюцца ў тэме кампілятарам і інтэрнэт-загрузчыкам. Усе тэматычныя пакеты і прыстасаваныя канфігурацыі будуць заставацца як ёсць.\n\nУ залежнасці ад памеру кэша, гэта можа заняць некалькі секунд.</string>

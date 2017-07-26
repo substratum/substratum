@@ -223,6 +223,8 @@
     <string name="studio_placeholder_text">geen substratum ondersteunde pictogrammenpakketten gevonden</string>
     <string name="studio_toast_mask">Dit pictogram wordt getoond uit je huidige pakket en zal veranderen zodra je deze pictogram set toepast.</string>
     <string name="nav_studio">Pictogrammenpakket studio</string>
+    <string name="logcat_snackbar_button">LogChar</string>
+    <string name="logcat_snackbar_text">Doel-toepassing/overlay is verouderd, of onjuiste configuratie geselecteerd&#8230;</string>
     <string name="logcat_dialog_title">\"LogChar\" debug rapport</string>
     <string name="logcat_dialog_copy_success">Foutenlogboek succesvol gekopieerd naar klembord!</string>
     <string name="logcat_email_activity">Verzend bug rapport via&#8230;</string>
@@ -239,14 +241,12 @@
     <string name="manager_no_overlays_text">compileer één overlay om mij te kunnen gebruiken!</string>
     <string name="backup">Back-up kaart</string>
     <string name="backup_card_content">Deze functie maakt een kopie van je huidige ingeschakelde overlays lijst en plaatst het in \"/storage/emulated/0/substratum/profiles/\" ter bewaring.</string>
-    <string name="delete_dialog_cancel">Annuleren</string>
     <string name="delete_dialog_okay">Verwijderen</string>
     <string name="delete_dialog_title">Profiel verwijderen</string>
     <string name="delete_dialog_text">Weet je zeker dat je \"%s\" wilt verwijderen?</string>
     <string name="restore">Herstel kaart</string>
     <string name="restore_card_content">Wanneer een profiel is geladen, wordt je huidige opstelling compleet gewist en zal \"herstel thema\" de bijgewerkte wijzigingen opnemen.</string>
     <string name="remove_dialog_later">Later</string>
-    <string name="restore_dialog_cancel">Annuleren</string>
     <string name="restore_dialog_okay">Doorgaan</string>
     <string name="restore_dialog_title">Deze overlays worden geïnstalleerd om je profiel volledig te herstellen:</string>
     <string name="backup_button">BACK-UP HUIDIGE TOESTAND</string>
@@ -266,13 +266,12 @@
     <string name="permission_not_granted_dialog_message1">Gelieve Substratum opslagmachtigingen te verlenen, of de app zal onjuist functioneren!</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Niet opnieuw weergeven</string>
+    <string name="dialog_cancel">Annuleren</string>
     <string name="clean_cache_dialog_body">Wil je de cache van dit thema opschonen?</string>
     <string name="clean_dialog_body">Wil je alle overlays voor dit thema opschonen?</string>
     <string name="disable_dialog_body">Wil je alle overlays voor dit thema uitschakelen?</string>
     <string name="enable_dialog_body">Wil je alle geïnstalleerde overlays voor dit thema inschakelen?</string>
     <string name="uninstall_dialog_body">Thema deïnstalleren</string>
-    <string name="uninstall_dialog_cancel">Annuleren</string>
-    <string name="uninstall_dialog_okay">OK</string>
     <string name="sb_phase_1_loader">thema uitpakken</string>
     <string name="sb_phase_2_loader">overlay installeren</string>
     <string name="sb_phase_3_loader">pictogram bronnen injecteren</string>
@@ -359,6 +358,8 @@
     <string name="manager_subtext">In het overlay lijst venster, toon alle uitgeschakelde overlays met hun ingeschakelde tegenhangers.</string>
     <string name="alternate_drawer_design_title">Secundaire lade design</string>
     <string name="alternate_drawer_design_subtext">Gebruik een alternatieve navigatielade design bij het navigeren door de gebruikersinterface.</string>
+    <string name="logchar_autosave_title">LogChar rapporten automatisch opslaan</string>
+    <string name="logchar_autosave_subtext">Dit zal automatisch LogChar rapporten opslaan in /storage/emulated/0/substratum/LogChar Reports/.</string>
     <string name="show_outdated_themes_title">Toon alle verouderde thema\'s</string>
     <string name="show_outdated_themes_content">Het uitschakelen hiervan zou Substratum toelaten om gebruik te maken van het gloednieuwe algoritme waar thema\'s veel sneller geladen worden dan normaal. Dit werkt alleen voor juist geconfigureerde 6.0.0+ plug-in thema\'s.</string>
     <string name="fab_menu_compile_enable">Bouwen &amp; inschakelen</string>
@@ -422,10 +423,11 @@
     <string name="profile_compile_processing">Je opgeslagen overlay-staten verwerken&#8230;</string>
     <string name="theme_debug_mode_title">Systeemterugval onderbreking omzeiling</string>
     <string name="theme_debug_mode_summary">Dit zal de app weerhouden om het legacy compilator terugvalmechanisme te gebruiken om thema\'s te helpen wanneer deze een onherstelbare toestand bereiken.</string>
+    <string name="logchar_dialog_title_delete_title">LET OP</string>
+    <string name="logchar_dialog_title_delete_content">Dit verwijdert alle momenteel opgeslagen logs. Door doorgaan te tikken, worden alle logs gewist en niet langer opgeslagen.</string>
     <string name="break_compilation_dialog_title">WAARSCHUWING</string>
     <string name="break_compilation_dialog_content">Dit kan het compilatieproces compleet stukmaken. Schakel dit alleen in als je weet wat je doet!</string>
     <string name="break_compilation_dialog_continue">Doorgaan</string>
-    <string name="break_compilation_dialog_cancel">Annuleren</string>
     <string name="theme_safety_dialog_title">WAARSCHUWING</string>
     <string name="theme_safety_dialog_content">Dit is een cruciale veiligheidsfunctie om je te herstellen van slechte overlay app-sluitingen! Je kan de Help mij!-knop gebruiken in Substratum\'s app snelkoppelingen als je vast zit, of als laatste redmiddel kan je het herstelarchief flashen vanuit /storage/emulated/0/substratum/.</string>
     <string name="profile_dialog_title">kies de items die je wilt back-uppen</string>
@@ -436,7 +438,6 @@
     <string name="profile_sound">Geluiden</string>
     <string name="profile_wallpaper">Achtergronden</string>
     <string name="profile_dialog_ok">OK</string>
-    <string name="profile_dialog_cancel">Annuleren</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Verberg verouderde thema\'s (6.0.0+) [Aanrader!]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Toon verouderde thema\'s (pre-6.0.0)</string>
     <string name="settings_system_status">Systeem certificatie</string>
@@ -478,6 +479,7 @@
     <string name="per_app_toast_no_overlays">Er zijn geen configureerbare overlays voor %s!</string>
     <string name="per_app_dialog_title">%s\n overlay configurator</string>
     <string name="per_app_apply">Toepassen</string>
+    <string name="per_app_request_title">Zweef-UI machtigingen</string>
     <string name="per_app_draw_over_other_apps_request">Gelieve Substratum over \"over andere apps tekenen\" te machtigen voor de Zweef-UI, en over \"gebruikstoegang\" te machtigen om de voorgrond app te benaderen voor het paren van themadoelen.</string>
     <string name="per_app_usage_stats_request">Gelieve Substratum \"gebruikstoegang\" machtigingen te verlenen om de voorgrond app te benaderen voor het paren van themadoelen.</string>
     <string name="per_app_manual_grant">Gelieve handmatig Substratum \"gebruikstoegang\" en \"over andere apps tekenen\" machtigingen verlenen in App Instellingen om Zweef-UI te gebruiken!</string>
@@ -540,6 +542,7 @@
     <string name="nav_drawer_googleplus">Google+ communiteit</string>
     <string name="nav_drawer_telegram">Telegram groepschat</string>
     <string name="nav_drawer_xda">XDA subforum</string>
+    <string name="nav_drawer_rawad">Rawad\'s thematiseringsgidsen</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Uitgelichte inhoud</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
@@ -561,6 +564,7 @@
     <string name="nav_settings">Instellingen</string>
     <string name="title_activity_manage_space">Beheer opslagruimtegebruik</string>
     <string name="manage_space_cache_text_title">Cache wissen</string>
+    <string name="manage_space_logs_text_title">Opgeslagen logs wissen</string>
     <string name="clear_cache_button_loading">Laden&#8230;</string>
     <string name="clear_cache_button_text">Substratum cache wissen</string>
     <string name="manage_space_cache_counter_title">Het wissen van de lokale cache zal alle bestanden gebruikt door de thema compilator en online downloader verwijderen. Alle themapakketten en gebruikersconfiguraties blijven intact.\n\nAfhankelijk van je cachegrootte, kan dit een paar seconden duren.</string>

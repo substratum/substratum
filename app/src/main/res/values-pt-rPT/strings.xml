@@ -251,14 +251,12 @@ clique em
     <string name="manager_no_overlays_text">compile uma camada para para poder me usar!</string>
     <string name="backup">Cartão de Backup</string>
     <string name="backup_card_content">Esta função faz uma cópia das suas camadas atuais habilitadas em lista e as realoca em \"/storage/emulated/0/substratum/profiles/\" para proteção.</string>
-    <string name="delete_dialog_cancel">Cancelar</string>
     <string name="delete_dialog_okay">Deletar</string>
     <string name="delete_dialog_title">Deletar perfil</string>
     <string name="delete_dialog_text">Tem certeza que deseja deletar \"%s\"?</string>
     <string name="restore">Restaurar Cartão</string>
     <string name="restore_card_content">Quando um perfil é carregado, sua configuração atual é completamente apagada e \"restaurar tema\" obteria as mudanças atualizadas.</string>
     <string name="remove_dialog_later">Depois</string>
-    <string name="restore_dialog_cancel">Cancelar</string>
     <string name="restore_dialog_okay">Continuar</string>
     <string name="backup_button">SALVAR ESTADO ATUAL</string>
     <string name="backup_no_overlays">Não há camadas em sua configuração atual.</string>
@@ -277,13 +275,12 @@ clique em
     <string name="permission_not_granted_dialog_message1">Favor garantir ao Substratum permissões de armazenamento ou o aplicativo não funcionará corretamente!</string>
     <string name="dialog_ok">Ok</string>
     <string name="dialog_do_not_show_again">Não mostrar de novo</string>
+    <string name="dialog_cancel">Cancelar</string>
     <string name="clean_cache_dialog_body">Deseja limpar o cache deste tema?</string>
     <string name="clean_dialog_body">Deseja limpar todas as camadas deste tema?</string>
     <string name="disable_dialog_body">Deseja desabilitar todas as camadas deste tema?</string>
     <string name="enable_dialog_body">Deseja habilitar todas as camadas instaladas deste tema?</string>
     <string name="uninstall_dialog_body">Desinstalar</string>
-    <string name="uninstall_dialog_cancel">Cancelar</string>
-    <string name="uninstall_dialog_okay">Ok</string>
     <string name="sb_phase_1_loader">extraindo ativos deste tema</string>
     <string name="sb_phase_2_loader">criando e assinando camada(s)</string>
     <string name="sb_phase_3_loader">intejando recurso de ícones</string>
@@ -422,7 +419,6 @@ clique em
     <string name="break_compilation_dialog_title">AVISO</string>
     <string name="break_compilation_dialog_content">Isto pode parar completamente o processo de compilação. Ative esta opção apenas se souber o que está a fazer!</string>
     <string name="break_compilation_dialog_continue">Continuar</string>
-    <string name="break_compilation_dialog_cancel">Cancelar</string>
     <string name="theme_safety_dialog_title">AVISO</string>
     <string name="profile_dialog_title">selecione os itens de que deseja fazer backup</string>
     <string name="profile_no_selection_warning">Por favor, selecione pelo menos uma opção!</string>
@@ -432,7 +428,6 @@ clique em
     <string name="profile_sound">Sons</string>
     <string name="profile_wallpaper">Pacotes de áudios</string>
     <string name="profile_dialog_ok">Ok</string>
-    <string name="profile_dialog_cancel">Cancelar</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Esconder temas desatualizados (6.0.0+) [Recomendado!]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Mostrar temas desatualizados (pre-6.0.0)</string>
     <string name="settings_system_status">Certificação do sistema</string>

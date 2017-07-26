@@ -217,7 +217,7 @@
     <string name="menu_refresh">Atnaujinti</string>
     <string name="menu_soft_reboot">Paleisti iš naujo OS</string>
     <string name="menu_reboot_device">Paleisti įrenginį iš naujo</string>
-    <string name="menu_per_app">Plaukiojantis UI</string>
+    <string name="menu_per_app">Plaukiojanti NS</string>
     <string name="menu_restart_systemui">Paleisti iš naujo SistemosNS</string>
     <string name="menu_alphabetize">Keisti Rūšiavimo Režimą</string>
     <string name="menu_search">\"Play\" Parduotuvės Temos</string>
@@ -255,7 +255,9 @@
         bus pakeista, kai jūs pritaikysite šį piktogramų paketą.
     </string>
     <string name="nav_studio">Piktogramų Paketo Studija</string>
-    <string name="logcat_dialog_title">\"LogChar\'o\" Derinimo Ataskaita</string>
+    <string name="logcat_snackbar_button">LogChar</string>
+    <string name="logcat_snackbar_text">Pasirinkta programa/perdanga pasenusi arba pasirinkta nesuderinama konfigūracija&#8230;</string>
+    <string name="logcat_dialog_title">\"LogChar\" Derinimo Ataskaita</string>
     <string name="logcat_dialog_copy_success">Klaidos registras sėkmingai nukopijuotas į iškarpinę!</string>
     <string name="logcat_email_activity">Siųsti defekto ataskaitą naudojant&#8230;</string>
     <string name="logcat_email_activity_error">Nėra įdiegtų jokių el.pašto programėlių.</string>
@@ -271,14 +273,12 @@
     <string name="manager_no_overlays_text">kompiliuokite vieną perdangą, kad galėtumėte mane naudoti!</string>
     <string name="backup">Atsarginės Kopijos Kortelė</string>
     <string name="backup_card_content">Ši funkcija padaro kopija šiuo metu įjungtom perdangom ir įkelia jį į \"/storage/emulated/0/substratum/profiles/\" saugiam išsaugojimui.</string>
-    <string name="delete_dialog_cancel">Atšaukti</string>
     <string name="delete_dialog_okay">Ištrinti</string>
     <string name="delete_dialog_title">Ištrinti profilį</string>
     <string name="delete_dialog_text">Ar jūs tikras, kad norite ištrinti \"%s\"?</string>
     <string name="restore">Atkūrimo Kortelė</string>
     <string name="restore_card_content">Kai jūsų profilis įkeltas, jūsų dabartinis nustatymas būna visiškai išvalytas ir \"atkurti temą\" užtruks dėl atnaujinimo pokyčių.</string>
     <string name="remove_dialog_later">Vėliau</string>
-    <string name="restore_dialog_cancel">Atšaukti</string>
     <string name="restore_dialog_okay">Tęsti</string>
     <string name="restore_dialog_title">Šios perdangos buvo įsiegtos, kad visiškai atkurtų jūsų profilį:
     </string>
@@ -299,13 +299,12 @@
     <string name="permission_not_granted_dialog_message1">Prašome suteikti \"substratum\" saugyklos leidimą arba programėlė neveiks tinkamai!</string>
     <string name="dialog_ok">Gerai</string>
     <string name="dialog_do_not_show_again">Daugiau nerodyti</string>
+    <string name="dialog_cancel">Atšaukti</string>
     <string name="clean_cache_dialog_body">Ar norite išvalyti šios temos talpyklą?</string>
     <string name="clean_dialog_body">Ar jūs norite išvalyti visas perdangas šiai temai?</string>
     <string name="disable_dialog_body">Ar jūs norite išjungti visas perdangas šiai temai?</string>
     <string name="enable_dialog_body">Ar jūs norite įjungti visas įdiegtas perdangas šiai temai?</string>
     <string name="uninstall_dialog_body">Išdiegti Temą</string>
-    <string name="uninstall_dialog_cancel">Atšaukti</string>
-    <string name="uninstall_dialog_okay">Gerai</string>
     <string name="sb_phase_1_loader">išpakuojama tema</string>
     <string name="sb_phase_2_loader">įdiegiamos perdangos</string>
     <string name="sb_phase_3_loader">įterpiami piktogramų resursai</string>
@@ -351,8 +350,8 @@
     <string name="notification_processing">Apdorojamos perdangos</string>
     <string name="notification_processing_n">Paruošiamos temos perdangos&#8230;</string>
     <string name="advanced_manager_overlay_read_error">Nepavyksta išanalizuoti perdangų sąrašo. Prašome atidaryti Atkūrimą ir paspauskite ant Atkurti Sistemos Temą (Išdiekite visas įdiegtas perdangas) problemos išsprendimui.    </string>
-    <string name="shortcut_floatui">Plaukiojantis UI</string>
-    <string name="shortcut_floatui_disabled">Plaukiojantis UI</string>
+    <string name="shortcut_floatui">Plaukiojanti NS</string>
+    <string name="shortcut_floatui_disabled">Plaukiojanti NS</string>
     <string name="shortcut_rescue">Išgelbėti mane!</string>
     <string name="shortcut_rescue_disabled">Išgelbėti mane!</string>
     <string name="shortcut_store">Temų Vitrina</string>
@@ -392,6 +391,8 @@
     <string name="manager_subtext">Perdangų sąrašo lange, rodyti visas išjungtas perdangas su savo įjungtais dublikatais.</string>
     <string name="alternate_drawer_design_title">Antrinis Stalčiaus Dizainas</string>
     <string name="alternate_drawer_design_subtext">Naudoja alternatyvų navigacijos stalčiaus dizainą, kai naviguojama vartotojo sąsajoje.</string>
+    <string name="logchar_autosave_title">Automatiškai išsaugoti \"LogChar\" ataskaitas</string>
+    <string name="logchar_autosave_subtext">Tai automatiškai išsaugos \"LogChar\" ataskaitas /storage/emulated/0/substratum/LogChar Reports/.</string>
     <string name="show_outdated_themes_title">Rodyti visas pasenusias temas</string>
     <string name="show_outdated_themes_content">Tai išjungus leis \"Substratum\" panaudoti
         visiškai naują algoritmą ir temos bus užkrautos daug greičiau nei įprastai. Tai
@@ -457,10 +458,11 @@
     <string name="profile_compile_processing">Dabar apdorojamos jūsų išsaugotų perdangų būseną&#8230;</string>
     <string name="theme_debug_mode_title">Sistemos Atsarginio Įterpimo Apėjimas</string>
     <string name="theme_debug_mode_summary">Tai sustabdys programą naudoti \"legacy\" kompiliatoriaus atsarginį mechanizmą, kad padėti temoms, kai jie pasiekia nepataisoma būklę.</string>
+    <string name="logchar_dialog_title_delete_title">DĖMESIO</string>
+    <string name="logchar_dialog_title_delete_content">Tai panaikins visus šiuo metu išsaugotus registrus. Spausdami toliau, bus ištrinti visi registrai ir jie niekada nebebus išsaugoti.</string>
     <string name="break_compilation_dialog_title">ĮSPĖJIMAS</string>
     <string name="break_compilation_dialog_content">Tai gali visiškai nutraukti kompiliavimo procesą. Įjungite šią parinktį, jei žinote, ką darote!</string>
     <string name="break_compilation_dialog_continue">Tęsti</string>
-    <string name="break_compilation_dialog_cancel">Atšaukti</string>
     <string name="theme_safety_dialog_title">ĮSPĖJIMAS</string>
     <string name="theme_safety_dialog_content">Tai labai svarbi saugumo funkcija, kuri leidžia atstatyti blogų perdangų priverstinį užsidarinėjimą! Jūs galite naudoti \"Išgelbėkite Mane!\" mygtuką ant \"Substratum\" programėlės nuorodos. Jei jūs matote, jog pastrigote, jūsų galutinis pasirinkimas būtų - įdiegti gelbėjimosi archyvą, kurį rasite /storage/emulated/0/substratum/.</string>
     <string name="profile_dialog_title">pasirinkite elementus, kuriems norite padaryti atsarginę kopiją</string>
@@ -471,9 +473,8 @@
     <string name="profile_sound">Garsai</string>
     <string name="profile_wallpaper">Ekrano fonai</string>
     <string name="profile_dialog_ok">Gerai</string>
-    <string name="profile_dialog_cancel">Atšaukti</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Slėpti pasenusios temas (6.0.0+) [Rekomenduojama!]</string>
-    <string name="bottom_sheet_dialog_show_outdated_themes">Rodyti pasenusios temass (prieš-6.0.0)</string>
+    <string name="bottom_sheet_dialog_show_outdated_themes">Rodyti pasenusios temas (prieš-6.0.0)</string>
     <string name="settings_system_status">Sistemos sertifikacija</string>
     <string name="settings_system_status_rooted">\"Root\" režimas</string>
     <string name="settings_system_status_rootless">Be \"root\" režimas</string>
@@ -507,15 +508,16 @@
     <string name="root_required_title">Reikalingas \"root\"</string>
     <string name="root_required_boot_animation">Jūsų įrenginys šifruotas, todėl \"root\" yra būtinas, norėdami pritaikyti paleidimo animacijas.</string>
     <string name="root_required_boot_animation_profile">Jūsų įrenginys šifruotas, todėl \"root\" yra būtinas, norėdami sukurti atsarginę kopiją ar atkurti paleidimo animacijas.</string>
-    <string name="per_app_notification_summary">Plaukiojantis UI dinamiškai filtruoja jūsų programas!</string>
+    <string name="per_app_notification_summary">Plaukiojanti NS dinamiškai filtruoja jūsų programas!</string>
     <string name="per_app_notification_framework_show">Rodyti \"Android\" Sistemos perdangas</string>
     <string name="per_app_notification_framework_hide">Slėpti \"Android Sistemos perdangas</string>
     <string name="per_app_toast_no_overlays">Šiuo metu nėra konfigūruojamu perdangų %s!</string>
     <string name="per_app_dialog_title">%s\n perdangos konfigūratorius</string>
     <string name="per_app_apply">Taikyti</string>
+    <string name="per_app_request_title">Plaukiojančios NS Leidimai</string>
     <string name="per_app_draw_over_other_apps_request">Prašome suteikti \"Substratum\" \"rodyti virš kitų programų\" ir \"Naudojimo statistikos\" leidimą, kad pasiektų priekinio plano programas.</string>
     <string name="per_app_usage_stats_request">Prašome suteikti \"Substratum\" \"naudojimosi prieigos\" leidimą, kad pasiektų priekinio plano programas.</string>
-    <string name="per_app_manual_grant">Prašome programų nustatymuose rankiniu būdu suteikti \"Substratum\" \"naudojimosi prieigos\" leidimą ir \"rodyti virš kitų programų\", kad galėtumėte naudotis Plaukiojančiu UI!</string>
+    <string name="per_app_manual_grant">Prašome programų nustatymuose rankiniu būdu suteikti \"Substratum\" \"naudojimosi prieigos\" leidimą ir \"rodyti virš kitų programų\", kad galėtumėte naudotis Plaukiojančia NS!</string>
     <string name="notification_overlay_found_specific" formatted="false">Perdangos %s yra %s!</string>
     <string name="notification_overlay_found_description">Jūs galite atidaryti temą paspaudę ant šio pranešimo!</string>
     <string name="community_info_overlays">Perdangos</string>
@@ -575,6 +577,7 @@
     <string name="nav_drawer_googleplus">\"Google +\" bendruomenė</string>
     <string name="nav_drawer_telegram">\"Telegram\" grupės pokalbis</string>
     <string name="nav_drawer_xda">XDA Subforumas</string>
+    <string name="nav_drawer_rawad">\"Rawad\'s\" Apipavidalinimo Gidas</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Panašus tūrinys</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
@@ -596,6 +599,7 @@
     <string name="nav_settings">Nustatymai</string>
     <string name="title_activity_manage_space">Tvarkyti Saugyklos Naudojimą</string>
     <string name="manage_space_cache_text_title">Išvalyti talpyklą</string>
+    <string name="manage_space_logs_text_title">Išvalyti išsaugotus registrus</string>
     <string name="clear_cache_button_loading">Kraunama&#8230;</string>
     <string name="clear_cache_button_text">Išvalyti \"substratum\" talpyklą</string>
     <string name="manage_space_cache_counter_title">Išvalant vietinę talpyklą, pašalins visus failus, kurie buvo naudojami temos kompiliavimui ir \"online downloader\". Visi temų paketai ir vartotojo konfigūracijos liks kaip yra.\n\nPriklausomai nuo jūsų talpyklos dydžio, tai gali užtrukti keletą sekundžių.</string>

@@ -18,33 +18,34 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 <resources>
-    <string name="question_one">Cos\'è Substratum?</string>
-    <string name="answer_one">Substratum è un\'app che sfrutta i vantaggi del Sony Overlay Manager Service (OMS). Questo è simile ai Layers in termini di stabilità e personalizzazione (poiché è basato su RRO), ma comprende anche la possibiltà di applicare, senza riavviare, animazioni d\'avvio, stili di caratteri e le relative priorità.    </string>
-    <string name="question_two">Cos\'è il Theme Interfacer?</string>
-    <string name="answer_two">Il Theme Interfacer è la base che permette a Substratum di funzionare come un Theme Engine. L\'idea di un\'interfaccia è quella di simulare i tecnicismi dell\'architettura \"server/client\" cosicché Substratum possa comunicare comandi direttamente al sistema mediante i gestori di Interfacer.    </string>
-    <string name="question_three">Di cosa ho bisogno per far funzionare Substratum correttamente?</string>
-    <string name="answer_three">Hai bisogno di una ROM che supporti OMS, il sistema Theme Interfacer (chiedi agli sviluppatori della tua ROM, sapranno come provvedere), quest\'applicazione ed un tema compatibile (controlla la relativa descrizione presente sul Play Store o contatta lo sviluppatore)    </string>
-    <string name="question_four">Posso usare Substratum se la mia ROM non ha il supporto OMS?    </string>
-    <string name="answer_four">Sì, se la tua ROM ha supporto per RRO (Marshmallow stock fa parte della categoria). Gli altri requisiti sono gli stessi richiesti da RRO (root, quest\'applicazione e un tema compatibile). Applicherai allo stesso modo ma, i passaggi di compilazione ed applicazione, sono combinati ed un riavvio è necessario per finalizzare gli overlay.    </string>
-    <string name="question_five">Come applico un tema?</string>
-    <string name="answer_five">L\'applicazione di un tema è un processo in 2 fasi: la compilazione degli
+  <string name="question_one">Cos\'è Substratum?</string>
+  <string name="answer_one">Substratum è un\'app che sfrutta i vantaggi del Sony Overlay Manager Service (OMS). Questo è simile ai Layers in termini di stabilità e personalizzazione (poiché è basato su RRO), ma comprende anche la possibiltà di applicare, senza riavviare, animazioni d\'avvio, stili di caratteri e le relative priorità.    </string>
+  <string name="question_two">Cos\'è il Theme Interfacer?</string>
+  <string name="answer_two">Il Theme Interfacer è la base che permette a Substratum di funzionare come un Theme Engine. L\'idea di un\'interfaccia è quella di simulare i tecnicismi dell\'architettura \"server/client\" cosicché Substratum possa comunicare comandi direttamente al sistema mediante i gestori di Interfacer.    </string>
+  <string name="question_three">Di cosa ho bisogno per far funzionare Substratum correttamente?</string>
+  <string name="answer_three">Hai bisogno di una ROM che supporti OMS, il sistema Theme Interfacer (chiedi agli sviluppatori della tua ROM, sapranno come provvedere), quest\'applicazione ed un tema compatibile (controlla la relativa descrizione presente sul Play Store o contatta lo sviluppatore)    </string>
+  <string name="question_four">Posso usare Substratum se la mia ROM non ha il supporto OMS?    </string>
+  <string name="answer_four">Si, se la tua ROM supporta RRO ( lo stock di Nougat vai alla categoria). I requisiti sotto sono gli stessi (root, quest\' app e un tema compatibile). Applicherai allo stesso modo ma la compilazione e l\' applicazione sono uniti inoltre è richiesto un riavvio per impostare gli overlay.    </string>
+  <string name="question_five">Come applico un tema?</string>
+  <string name="answer_five">L\'applicazione di un tema è un processo in 2 fasi: la compilazione degli
         overaly e l\'applicazione degli stessi. Vai nel tema, seleziona il tab Gestore di Overlay, seleziona gli overlay e le opzioni che vuoi,
         clicca il FAB e seleziona Costruisci e Aggiorna; successivamente seleziona i medesimi overaly, clicca il FAB
         e seleziona Abilita Selezionati.
     </string>
-    <string name="question_six">I miei overlay non sono stati compilati, cos\'è successo?</string>
-    <string name="answer_six">Elimina il file  /system/bin/aopt, riavvia l\'applicazione e riprova.    </string>
-    <string name="question_seven">Il mio tema non si è applicato, cos\'è successo?</string>
-    <string name="answer_seven">Se stai applicando un tema per la prima volta oppure sulla base del tema della ROM stock, assicurati di non aver attivato l\'opzione \"Disabilita gli altri temi\".    </string>
-    <string name="question_eight">Ho riscontrato un bootloop! Come posso risolverlo?</string>
-    <string name="answer_eight">Substratum ha il suo sistema di ripristino chiamato Substratum Rescue System (SRS), ovvero un sistema automatizzato che crea un archivio nella locazione di memoria /storage/emulated/0/substratum/SubstratumRescue.zip. Flasha questo ZIP dalla recovery e riavvia!    </string>
-    <string name="question_nine">Alcuni elementi sembrano imperfetti dopo aver applicato un tema, cos\'è successo?    </string>
-    <string name="answer_nine">
-1. Riavvia il processo SystemUI se non è avvenuto automaticamente.\n2. Riavvia il telefono.\n3. Disabilita e/o elimina gli overlay, ricompila e riapplica.    </string>
-    <string name="question_ten">Dove vengono installati gli overlay?</string>
-    <string name="answer_ten">Gli overlay sono installati nella cartella /data/app, ciò significa che ogni overlay ottiene la propria cartella.    </string>
-    <string name="question_eleven">Ottengo un errore quando cerco di aggiornare un tema dal Play Store.</string>
-    <string name="answer_eleven">Disinstalla il tema ed installalo nuovamente.</string>
-    <string name="question_twelve">Chi devo contattare se riscontro un problema serio non risolvibile seguendo questi passaggi?    </string>
-    <string name="answer_twelve">Per favore scrivi un post sulla community Google+ di Substratum e fornisci le seguenti informazioni: la versione di Substratum, ROM, tema (in caso di errori legati ad esso) e se possibile un logcat.    </string>
+  <string name="question_six">I miei overlay non sono stati compilati, cos\'è successo?</string>
+  <string name="answer_six">Elimina il file  /system/bin/aopt, riavvia l\'applicazione e riprova.    </string>
+  <string name="question_seven">Il mio tema non si è applicato, cos\'è successo?</string>
+  <string name="answer_seven">Se stai applicando un tema per la prima volta oppure sulla base del tema della ROM stock, assicurati di non aver attivato l\'opzione \"Disabilita gli altri temi\".    </string>
+  <string name="question_eight">Ho riscontrato un bootloop! Come posso risolverlo?</string>
+  <string name="answer_eight">Substratum ha il suo sistema di ripristino chiamato Substratum Rescue System (SRS), ovvero un sistema automatizzato che crea un archivio nella locazione di memoria /storage/emulated/0/substratum/SubstratumRescue.zip. Flasha questo ZIP dalla recovery e riavvia!    </string>
+  <string name="question_nine">Alcuni elementi sembrano imperfetti dopo aver applicato un tema, cos\'è successo?    </string>
+  <string name="question_ten">Dove vengono installati gli overlay?</string>
+  <string name="answer_ten">Gli overlay sono installati nella cartella /data/app, ciò significa che ogni overlay ottiene la propria cartella.    </string>
+  <string name="question_eleven">Ottengo un errore quando cerco di aggiornare un tema dal Play Store.</string>
+  <string name="answer_eleven">Disinstalla il tema ed installalo nuovamente.</string>
+  <string name="question_twelve">Chi devo contattare se riscontro un problema serio non risolvibile seguendo questi passaggi?    </string>
+  <string name="answer_twelve">Per favore scrivi un post sulla community Google+ di Substratum e fornisci le seguenti informazioni: la versione di Substratum, ROM, tema (in caso di errori legati ad esso) e se possibile un logcat.    </string>
+  <string name="question_thirteen">Come uso substratum nel mio dispositivo Samsung?</string>
+  <string name="answer_thirteen">Se il tuo dispositivo Samsung ha Nougat, Substratum sarà in grado di utilizzare una funzione preinstallata così da far funzionare i temi. Substratum ti farà apparire una schermata quando avvierai l\' app per e la prima volta così da acquistare l\' addon Samsung Integration.    </string>
+  <string name="question_fourteen">Aiuto, ho installato un overlay nel mio dispositivo Samsung e non si avvia più!</string>
 </resources>

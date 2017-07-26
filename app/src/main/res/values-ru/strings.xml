@@ -230,6 +230,8 @@
     <string name="studio_placeholder_text">поддерживаемых наборов значков для substratum не найдено</string>
     <string name="studio_toast_mask">Этот значок взят из текущего набора и будет заменен как только вы примените данный набор.    </string>
     <string name="nav_studio">Студия значков</string>
+    <string name="logcat_snackbar_button">LogChar</string>
+    <string name="logcat_snackbar_text">Целевое приложение/наслоение устарело или неправильно настроено&#8230;</string>
     <string name="logcat_dialog_title">Отладочный отчет \"LogChar\"</string>
     <string name="logcat_dialog_copy_success">Журнал ошибок скопирован в буфер обмена!</string>
     <string name="logcat_email_activity">Отправить отчет об ошибке, используя&#8230;</string>
@@ -248,14 +250,12 @@
     <string name="manager_no_overlays_text">соберите одно наслоение, чтобы начать пользоваться мной!</string>
     <string name="backup">Резервирование</string>
     <string name="backup_card_content">Позволяет создать копию списка примененных в настоящее время наслоений и помещает его в \"/storage/emulated/0/substratum/profiles/\".     </string>
-    <string name="delete_dialog_cancel">Отмена</string>
     <string name="delete_dialog_okay">Удалить</string>
     <string name="delete_dialog_title">Удалить профиль</string>
     <string name="delete_dialog_text">Вы уверены, что хотите удалить \"%s\"?</string>
     <string name="restore">Восстановление</string>
     <string name="restore_card_content">При загрузке профиля текущие настройки будет полностью сброшены и применится \"восстанавливаемая тема\".     </string>
     <string name="remove_dialog_later">Позже</string>
-    <string name="restore_dialog_cancel">Отмена</string>
     <string name="restore_dialog_okay">Продолжить</string>
     <string name="restore_dialog_title">Для полного восстановления профиля будут установлены следующие наслоения:    </string>
     <string name="backup_button">СОХРАНИТЬ ТЕКУЩЕЕ СОСТОЯНИЕ</string>
@@ -277,13 +277,12 @@
     <string name="permission_not_granted_dialog_message1">Пожалуйста, предоставьте substratum доступ к хранилищу или приложение не сможет работать правильно!     </string>
     <string name="dialog_ok">ОК</string>
     <string name="dialog_do_not_show_again">Не показывать снова</string>
+    <string name="dialog_cancel">Отмена</string>
     <string name="clean_cache_dialog_body">Вы действительно хотите очистить кэш этой темы?</string>
     <string name="clean_dialog_body">Вы действительно хотите удалить все наслоения из этой темы?</string>
     <string name="disable_dialog_body">Вы действительно хотите отключить все наслоения из этой темы?</string>
     <string name="enable_dialog_body">Вы действительно хотите применить все установленные наслоения из этой темы?</string>
     <string name="uninstall_dialog_body">Удалить тему</string>
-    <string name="uninstall_dialog_cancel">Отмена</string>
-    <string name="uninstall_dialog_okay">ОК</string>
     <string name="sb_phase_1_loader">распаковка темы</string>
     <string name="sb_phase_2_loader">установка наслоения</string>
     <string name="sb_phase_3_loader">внедрение ресурсов значков</string>
@@ -306,7 +305,7 @@
     <string name="toast_samsung_prototype_restart">Перезагрузите устройство или закройте затрагиваемое приложение!</string>
     <string name="toast_samsung_prototype_disabled">Данная версия substratum устарела.\n\nПожалуйста, установите актуальное обновление!</string>
     <string name="toast_samsung_prototype_alert">Substratum автоматически скроет неподдерживаемые на вашем устройстве системные наслоения!</string>
-    <string name="samsung_prototype_no_root_dialog">Похоже, для Вашего устройства Samsung выпущено совместимое дополнение!</string>
+    <string name="samsung_prototype_no_root_dialog">Похоже, у Вас поддерживаемое устройство Samsung, для него выпущен пакет совместимости!</string>
     <string name="samsung_prototype_no_root_dialog_button">Загрузить!</string>
     <string name="toast_needs_caching">Кэш Substratum был сброшен, сначала пересоберите данную тему!</string>
     <string name="notification_theme_installed">установлена</string>
@@ -352,6 +351,8 @@
     <string name="show_theme_template_version_description">Указывать целевые уровни SDK, версии тем и версии плагинов в качестве меток для каждой темы.</string>
     <string name="vibrate_on_compiled">Уведомление о готовности темы</string>
     <string name="vibrate_on_compiled_description">Издавать вибрацию по окончанию сборки для оповещения пользователя о завершении процесса.</string>
+    <string name="manage_notification_channel">Управление каналами уведомлений</string>
+    <string name="manage_notification_channel_dialog_title">Выберите канал уведомлений для управления</string>
     <string name="hide_app_icon">Показывать значок приложения</string>
     <string name="hide_app_icon_toast_enabled">Значок удален из меню приложений!</string>
     <string name="hide_app_icon_toast_disabled">Значок добавлен в меню приложений!</string>
@@ -368,6 +369,8 @@
     <string name="manager_subtext">В окне списка наслоений показывать все отключенные наслоения с их активированными компонентами.</string>
     <string name="alternate_drawer_design_title">Альтернативное меню</string>
     <string name="alternate_drawer_design_subtext">Использовать раннюю навигационную панель</string>
+    <string name="logchar_autosave_title">Автоматически сохранять отчеты LogChar</string>
+    <string name="logchar_autosave_subtext">Отчеты будут автоматически сохраняться в папку /storage/emulated/0/substratum/LogChar Reports/.</string>
     <string name="show_outdated_themes_title">Показывать устаревшие темы</string>
     <string name="show_outdated_themes_content">Отключение параметра позволит Substratum применять новый алгоритм, с которым темы загружаются намного быстрее обычного. Касается только тем, правильно настроенных для плагина 6.0.0+.</string>
     <string name="fab_menu_compile_enable">Собрать и применить</string>
@@ -431,10 +434,11 @@
     <string name="profile_compile_processing">Восстановление ранее примененных настроек&#8230;</string>
     <string name="theme_debug_mode_title">Обход системы отката</string>
     <string name="theme_debug_mode_summary">Предотвратит использование механизма отката совместимого сборщика, как только темы достигают неисправимого состояния</string>
+    <string name="logchar_dialog_title_delete_title">ВНИМАНИЕ</string>
+    <string name="logchar_dialog_title_delete_content">Все сохраненные отчеты будут удалены. Если вы продолжите, они исчезнут навсегда и не будут появляться впредь.</string>
     <string name="break_compilation_dialog_title">ВНИМАНИЕ</string>
     <string name="break_compilation_dialog_content">Может сделать процесс сборки полностью неисправным. Активируйте настройку только со знанием дела!</string>
     <string name="break_compilation_dialog_continue">Продолжить</string>
-    <string name="break_compilation_dialog_cancel">Отмена</string>
     <string name="theme_safety_dialog_title">ВНИМАНИЕ</string>
     <string name="theme_safety_dialog_content">Эта функция важна для возможности отката при вылетах из-за плохих наслоений! Вы сможете воспользоваться кнопкой \"На помощь!\" из ярлыка приложения Substratum, если приложение зависнет, а в крайнем случае прошить архив восстановления из /storage/emulated/0/substratum/.</string>
     <string name="profile_dialog_title">выберите элементы для резервирования</string>
@@ -445,7 +449,6 @@
     <string name="profile_sound">Звуки</string>
     <string name="profile_wallpaper">Обои</string>
     <string name="profile_dialog_ok">ОК</string>
-    <string name="profile_dialog_cancel">Отмена</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Скрывать устаревшие темы (6.0.0+) [Рекомендуется!]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Показывать устаревшие темы (пред-6.0.0)</string>
     <string name="settings_system_status">Пригодность системы</string>
@@ -527,6 +530,10 @@
     <string name="rom_status_unsupported">прошивка не поддерживается сообществом!</string>
     <string name="rom_status_network">проверьте интернет-соединение&#8230;</string>
     <!-- Notification channel -->
+    <string name="notification_channel_default">По умолчанию</string>
+    <string name="notification_channel_default_description">Основные уведомления (о новых и обновленных темах, завершении сборки и т. д.)</string>
+    <string name="notification_channel_ongoing">Текущее</string>
+    <string name="notification_channel_ongoing_description">Текущие уведомления</string>
     <!-- Nav drawer -->
     <string name="nav_home">Тематические наборы</string>
     <string name="nav_overlays">Наслоения</string>
@@ -546,6 +553,7 @@
     <string name="nav_drawer_googleplus">Google+ сообщество</string>
     <string name="nav_drawer_telegram">Чат в Телеграме</string>
     <string name="nav_drawer_xda">Подраздел на XDA</string>
+    <string name="nav_drawer_rawad">Гид по оформлению от Rawad</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Рекомендуемое</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
@@ -567,6 +575,7 @@
     <string name="nav_settings">Настройки</string>
     <string name="title_activity_manage_space">Потребление памяти</string>
     <string name="manage_space_cache_text_title">Очистить кэш</string>
+    <string name="manage_space_logs_text_title">Очистить сохраненные отчеты</string>
     <string name="clear_cache_button_loading">Загрузка&#8230;</string>
     <string name="clear_cache_button_text">Очистить кэш substratum</string>
     <string name="manage_space_cache_counter_title">Очистка локального кэша удалит все файлы, используемые сборщиком тем и онлайн загрузчиком. Все наборы тем и пользовательских настроек останутся нетронутыми.\n\nВ зависимости от размера кэша может потребоваться до нескольких секунд.</string>

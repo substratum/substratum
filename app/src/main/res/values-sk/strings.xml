@@ -241,7 +241,9 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="studio_toast_mask">Tato ikona je vytiahnutá z aktuálneho balíčku a bude zmenená keď aplikujete tento balíček ikon.
     </string>
     <string name="nav_studio">Štúdio balíčkov ikon</string>
-    <string name="logcat_dialog_title">Správa ladenia \"LogChar\"</string>
+    <string name="logcat_snackbar_button">Záznamy LogChar</string>
+    <string name="logcat_snackbar_text">Cieľová aplikácia/prekrytie sú zastarané alebo majú nesprávne konfigurované prekrytia...</string>
+    <string name="logcat_dialog_title">Záznamy ladenia \"LogChar\"</string>
     <string name="logcat_dialog_copy_success">Protokol chýb sa úspešne skopíroval do schránky!</string>
     <string name="logcat_email_activity">Poslať protokol chýb pomocou&#8230;</string>
     <string name="logcat_email_activity_error">Nie sú nainštalovaní žiadni e-mailoví klienti.</string>
@@ -257,7 +259,6 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="manager_no_overlays_text">aby ste ma mohli používať, vytvorte jedno prekrytie!</string>
     <string name="backup">Záložná karta</string>
     <string name="backup_card_content">Táto funkcia vytvorí kópiu aktuálne povolených prekrytí -> vytvorí zoznam a umiestni ho do cesty \"/storage/emulated/0/substratum/profiles/\" pre účely zálohovania.</string>
-    <string name="delete_dialog_cancel">Zrušiť</string>
     <string name="delete_dialog_okay">Vymazať</string>
     <string name="delete_dialog_title">Vymazať profil</string>
     <string name="delete_dialog_text">Ste si istý, že chcete vymazať \"%s\"?</string>
@@ -265,7 +266,6 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="restore_card_content">Keď je profil načítaný, je vaše aktuálne nastavenie kompletne vymazané a \"obnovená téma\"  aktualizuje všetky nastavenia.
     </string>
     <string name="remove_dialog_later">Neskôr</string>
-    <string name="restore_dialog_cancel">Zrušiť</string>
     <string name="restore_dialog_okay">Pokračovať</string>
     <string name="restore_dialog_title">Tieto prekrytia sa nainštalujú pre kompletné obnovenie vášho profilu:</string>
     <string name="backup_button">ZÁLOHOVANIE AKTUÁLNEHO STAVU</string>
@@ -285,13 +285,12 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="permission_not_granted_dialog_message1">Prosím, udeľte Substratum oprávenenia pre prístup k pamäti inak aplikácia nebude správne fungovať!</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Znovu nezobrazovať</string>
+    <string name="dialog_cancel">Zrušiť</string>
     <string name="clean_cache_dialog_body">Chcete vyčistiť vyrovnávaciu pamäť tejto témy?</string>
     <string name="clean_dialog_body">Chcete vyčistiť všetky prekrytia pre túto tému?</string>
     <string name="disable_dialog_body">Chcete vypnúť všetky prekrytia pre túto tému?</string>
     <string name="enable_dialog_body">Chcete zapnúť všetky nainštalované prekrytia pre túto tému?</string>
     <string name="uninstall_dialog_body">Odinštalovať tému</string>
-    <string name="uninstall_dialog_cancel">Zrušiť</string>
-    <string name="uninstall_dialog_okay">OK</string>
     <string name="sb_phase_1_loader">extrahovanie témy</string>
     <string name="sb_phase_2_loader">inštalovanie prekrytia</string>
     <string name="sb_phase_3_loader">zavádzanie zdrojov ikon</string>
@@ -378,6 +377,8 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="manager_subtext">V zozname vrstiev zobraziť všetky vypnuté prekrytia s ich aktivovanými náprotivkami.</string>
     <string name="alternate_drawer_design_title">Alternatívny vzhľad menu</string>
     <string name="alternate_drawer_design_subtext">Použije alternatívny vzhľad navigačného menu pre používateľské rozhranie.</string>
+    <string name="logchar_autosave_title">Automaticky ukladať záznamy LogChar</string>
+    <string name="logchar_autosave_subtext">Týmto sa záznamy LogChar automaticky uložia do /storage/emulated/0/substratum/LogChar Reports/.</string>
     <string name="show_outdated_themes_title">Zobraziť všetky neaktuálne témy</string>
     <string name="show_outdated_themes_content">Vypnutie tohto parametru umožní Substratum použiť úplne nový algoritmus, s ktorým sa budú témy načítavať oveľa rýchlejšie ako zvyčajne. To však platí iba pre témy založené na module v6.0.0+.</string>
     <string name="fab_menu_compile_enable">Vytvoriť a povoliť</string>
@@ -441,10 +442,11 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="profile_compile_processing">Prebieha spracovanie predtým uložených nastavení prekrytí&#8230;</string>
     <string name="theme_debug_mode_title">Obídenie originálneho sytému</string>
     <string name="theme_debug_mode_summary">Zapnutie umožní, že aplikácie prestanú používať pôvodný núdzový mechanizmus kompilátora s cieľom pomôcť témam, ktoré sa dostanú do neopraviteľného stavu.</string>
+    <string name="logchar_dialog_title_delete_title">POZOR</string>
+    <string name="logchar_dialog_title_delete_content">Týmto odstránite všetky aktuálne uložené záznany. Stlačením tlačidla pokračovať, vymažete všetky hlásenia a záznamy a už sa už nebudú ukladať.</string>
     <string name="break_compilation_dialog_title">UPOZORNENIE</string>
     <string name="break_compilation_dialog_content">Toto by mohlo kompletne rozbiť proces kompilácie. Zapnite túto možnosť len pokiaľ viete čo robíte!</string>
     <string name="break_compilation_dialog_continue">Pokračovať</string>
-    <string name="break_compilation_dialog_cancel">Zrušiť</string>
     <string name="theme_safety_dialog_title">UPOZORNENIE</string>
     <string name="theme_safety_dialog_content">Toto je kľúčová bezpečnostná funkcia pre obnovenie chybného prekrytia vynúteným uzavretím! Ak sa ocitnete v tejto situácii, môžete použiť tlačidlo \'Zachráň ma!\' nachádzajúce sa v zástupcovi aplikácie Substratum alebo v krajnom prípade môžete na záchranu použiť napálenie archívu, ktorý nájdete v ceste /storage/emulated/0/substratum/.</string>
     <string name="profile_dialog_title">vyberte položky, ktoré chcete zálohovať</string>
@@ -455,7 +457,6 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="profile_sound">Zvuky</string>
     <string name="profile_wallpaper">Tapety na plochu</string>
     <string name="profile_dialog_ok">OK</string>
-    <string name="profile_dialog_cancel">Zrušiť</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Skryť neaktuálne témy (6.0.0+) [Doporučené!]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Zobraziť neaktuálne témy (pred-6.0.0)</string>
     <string name="settings_system_status">Certifikácia systému</string>
@@ -497,6 +498,7 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="per_app_toast_no_overlays">Neexistujú žiadne prekrytia, ktoré je možné konfigurovať pre %s!</string>
     <string name="per_app_dialog_title">%s\n konfigurátor prekrytí</string>
     <string name="per_app_apply">Použiť</string>
+    <string name="per_app_request_title">Oprávnenia FloatUI</string>
     <string name="per_app_draw_over_other_apps_request">Prosím, udeľte Substratum oprávnenie \"vykresľovať cez iné aplikácie\" pre plávajúce okno a právo \"Štatistiky používania\" pre prístup aplikáciám v popredí pre zjednotenie cieľov tém.</string>
     <string name="per_app_usage_stats_request">Prosím, udeľte Substratum oprávnenie  \"Využitie prístupu\" pre prístup k cieľom tém.</string>
     <string name="per_app_manual_grant">Prosím, ručne udeľte oprávnenie k \"využitie prístupu\" a \"vykresľovanie nad ostatnými aplikáciami\" v Nastaveniach aplikácie pre používanie plávajúceho okna!</string>
@@ -559,6 +561,7 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="nav_drawer_googleplus">Komunita Google +</string>
     <string name="nav_drawer_telegram">Skupinový chat Telegram</string>
     <string name="nav_drawer_xda">XDA Subforum</string>
+    <string name="nav_drawer_rawad">Sprievodca Rawad\'s Theming</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Doporučený obsah</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
@@ -580,6 +583,7 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="nav_settings">Nastavenia</string>
     <string name="title_activity_manage_space">Správa využitia úložiska</string>
     <string name="manage_space_cache_text_title">Vymazať vyrovnávaciu pamäť</string>
+    <string name="manage_space_logs_text_title">Vymazať uložené záznamy</string>
     <string name="clear_cache_button_loading">Načítavanie&#8230;</string>
     <string name="clear_cache_button_text">Vymazať vyrovnávaciu pamäť Substratum</string>
     <string name="manage_space_cache_counter_title">Vymazanie lokálnej vyrovnávacej pamäte odstráni všetky súbory, ktoré používa kompilátor tém a online sťahovač (downloader). Všetky balíčky tém a používateľské konfigurácie zostanú zachované.\n\nDokončenie procesu môže trvať niekoľko sekúnd, v závislosti od veľkosti vyrovnávacej pamäte.</string>

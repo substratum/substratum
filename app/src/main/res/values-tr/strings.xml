@@ -312,6 +312,8 @@ Tüm özel simgeler zaten devre dışı!
         paketini uyguladığınızda değiştirilecektir.
     </string>
     <string name="nav_studio">Simge Paketi Stüdyosu</string>
+    <string name="logcat_snackbar_button">LogChar</string>
+    <string name="logcat_snackbar_text">Hedeflenen uygulama/tema geçersiz veya eşleşmeyen yapılandırma seçildi&#8230;</string>
     <string name="logcat_dialog_title">\"LogChar\" Hata Raporu</string>
     <string name="logcat_dialog_copy_success">Hata raporu başarıyla panoya kopyalandı!</string>
     <string name="logcat_email_activity">Kullanarak hata raporu gönder&#8230;</string>
@@ -343,7 +345,6 @@ sağlayan
     <string name="backup_card_content">Geçerli olarak etkinleştirilen temalar listenizin bir kopyasını yapar ve onu saklamak
         için \"/storage/emulated/0/substratum/profiles/\" klasörü içine yerleştirir.
     </string>
-    <string name="delete_dialog_cancel">İptal</string>
     <string name="delete_dialog_okay">Sil</string>
     <string name="delete_dialog_title">Profili sil</string>
     <string name="delete_dialog_text">\"%s\" silmek istediğinizden emin misiniz?</string>
@@ -352,11 +353,11 @@ sağlayan
         \"temayı geri yüklemek\" güncellenmiş değişiklikleri alacaktır.
     </string>
     <string name="remove_dialog_later">Sonra</string>
-    <string name="restore_dialog_cancel">İptal</string>
     <string name="restore_dialog_okay">Devam</string>
     <string name="restore_dialog_title">Profilinizi tamamen geri yüklemek için lütfen bu temaları
         yükleyin:
     </string>
+    <string name="backup_button">YEDEKLE</string>
     <string name="backup_no_overlays">Mevcut kurulumunuz da herhangi bir tema yok.</string>
     <string name="restore_button">PROFİLİ GERİ YÜKLE</string>
     <string name="restore_button_none_selected_toast">Lütfen bir profili geri yüklemeye başlamadan önce
@@ -387,14 +388,13 @@ sağlayan
     </string>
     <string name="dialog_ok">TAMAM</string>
     <string name="dialog_do_not_show_again">Bir daha gösterme</string>
+    <string name="dialog_cancel">İptal</string>
     <string name="clean_cache_dialog_body">Bu temanın önbelleğini temizlemek istiyor musunuz?</string>
     <string name="clean_dialog_body">Bu tema için tüm temaları temizlemek istiyor musunuz?</string>
     <string name="disable_dialog_body">Bu tema için tüm temalarıı devre dışı bırakmak istiyor musunuz?</string>
     <string name="enable_dialog_body">Bu tema için tüm temaları etkinleştirmek istiyormusunuz?
     </string>
     <string name="uninstall_dialog_body">Temayı Kaldır</string>
-    <string name="uninstall_dialog_cancel">İptal</string>
-    <string name="uninstall_dialog_okay">TAMAM</string>
     <string name="sb_phase_1_loader">tema çıkartılıyor</string>
     <string name="sb_phase_2_loader">tema yükleniyor</string>
     <string name="sb_phase_3_loader">simge kaynakları ekleniyor</string>
@@ -478,12 +478,15 @@ sağlayan
     <string name="enable_completion">Bu tema için yüklü temaların tamamı şimdi etkinleştiriliyor&#8230;</string>
     <string name="dynamic_actionbar_colors">Dinamik Eylem Çubuğu Renkleri</string>
     <string name="dynamic_actionbar_colors_subtext">Tema bilgileri penceresinde, Substratum açılıp kapanabilir eylem çubuğunu uygulamaya hakim görüntü rengine uyarlayacak.</string>
-    <string name="dynamic_navbar_colors">Dinamik Gezinti Çubuğu Renkleri</string>
-    <string name="dynamic_navbar_colors_subtext">Tema bilgileri penceresinde, Substratum açılıp kapanabilir eylem çubuğunu uygulamaya hakim görüntü rengine uyarlayacak.</string>
+    <string name="dynamic_navbar_colors">Dinamik Gezinme Çubuğu Renkleri</string>
+    <string name="dynamic_navbar_colors_subtext">Tema bilgileri penceresinde, Substratum açılıp kapanabilir gezinme çubuğunu uygulamaya hakim görüntü rengine uyarlayacak.</string>
     <string name="manager_title">Devre dışı bırakılmış temaları listede göster</string>
     <string name="manager_subtext">Tema listesi penceresinde, devre dışı bırakılmış tüm temaları etkin karşılıklarıyla birlikte gösterin.</string>
     <string name="alternate_drawer_design_title">İkincil Çekmece Tasarımı</string>
     <string name="alternate_drawer_design_subtext">Kullanıcı arayüzü üzerinde gezinirken alternatif bir gezinme çekmecesi tasarımını kullanır.</string>
+    <string name="logchar_autosave_title">LogChar raporlarını otomatik olarak kaydedin</string>
+    <string name="logchar_autosave_subtext">LogChar raporlarını otomatik olarak
+/storage/emulated/0/substratum/LogChar Reports/ buraya kaydeder.</string>
     <string name="show_outdated_themes_title">Geçmişe ait tüm temaları göster</string>
     <string name="show_outdated_themes_content">Bunu devre dışı bırakmak Substratum\'un temaların
         her zamankinden daha hızlı yüklendiği yeni algoritmayı kullanmasına izin verecektir. Bu,
@@ -549,10 +552,11 @@ sağlayan
     <string name="profile_compile_processing">Şimdi kaydettiğiniz tema durumları işleme koyuluyor&#8230;</string>
     <string name="theme_debug_mode_title">Sistem Geri Bildirim Müdahalesini Yoksay</string>
     <string name="theme_debug_mode_summary">Uygulamanın kurtarılamayan bir duruma geldiğinde temalara yardımcı olmak için eski derleyicinin geri dönüş mekanizmasını kullanmasını durduracaktır.</string>
+    <string name="logchar_dialog_title_delete_title">DİKKAT</string>
+    <string name="logchar_dialog_title_delete_content">Şu anda kaydedilmiş olan tüm kayıtlar silinecektir. Devam tuşuna basarak tüm günlükler silinir ve günlükler artık kaydedilmez.</string>
     <string name="break_compilation_dialog_title">UYARI</string>
     <string name="break_compilation_dialog_content">Düzenleme sürecini tamamen bozar. Ne yaptığınızı biliyorsanız bu seçeneği etkinleştirin!</string>
     <string name="break_compilation_dialog_continue">Devam</string>
-    <string name="break_compilation_dialog_cancel">İptal</string>
     <string name="theme_safety_dialog_title">UYARI</string>
     <string name="theme_safety_dialog_content">Bu sizi, hatalı temaların kapatmaya zorlamasından kurtarmak için önemli bir güvenlik özelliği! Kurtarma\'yı kullanabilirsiniz! Zor durumda kaldığınızda Substratum\'un uygulama kısa yolundaki Kurtarma seçeneğini kullanabilirsiniz, yada son çare olarak /storage/emulated/0/substratum/ dizininde bulunan kurtarma arşivlerini flaşlayın.</string>
     <string name="profile_dialog_title">yedeklemek istediğiniz öğeleri seçin</string>
@@ -563,7 +567,6 @@ sağlayan
     <string name="profile_sound">Sesler</string>
     <string name="profile_wallpaper">Duvar Kağıtları</string>
     <string name="profile_dialog_ok">TAMAM</string>
-    <string name="profile_dialog_cancel">İptal</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Eski temaları gizle (6.0.0+) [Önerilen!]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Eski temaları göster (6.0.0 öncesi)</string>
     <string name="settings_system_status">Sistem sertifikası</string>
@@ -605,8 +608,9 @@ sağlayan
     <string name="per_app_toast_no_overlays">%s için yapılandırılabilir bir tema yok!</string>
     <string name="per_app_dialog_title">%s\n tema yapılandırıcı</string>
     <string name="per_app_apply">Uygula</string>
-    <string name="per_app_draw_over_other_apps_request">Yüzen kullanıcı arayüzü için Substratum \'a \"diğer uygulamalar üzerinde görüntüleme\" ve Tema hedeflerini eşleştirmek için Substratum \'a ön plan uygulamasına erişebilmek adına \"kullanım erişimi\" izni verin.</string>
-    <string name="per_app_usage_stats_request">Lütfen, tema hedeflerini eşleştirmek için Substratum \'a ön plan uygulamasına erişebilmek adına \"kullanım erişimi\" izni verin.</string>
+    <string name="per_app_request_title">Yüzen Kullanıcı Arayüzü İzinleri</string>
+    <string name="per_app_draw_over_other_apps_request">Yüzen kullanıcı arayüzü için Substratum\'a \"diğer uygulamalar üzerinde görüntüleme\" ve Tema hedeflerini eşleştirmek için Substratum\'a ön plan uygulamasına erişebilmek adına \"kullanım erişimi\" izni verin.</string>
+    <string name="per_app_usage_stats_request">Lütfen, tema hedeflerini eşleştirmek için Substratum\'a ön plan uygulamasına erişebilmek adına \"kullanım erişimi\" izni verin.</string>
     <string name="per_app_manual_grant">Lütfen, Yüzen Arayüzü kullanmak için Uygulama Ayarlarından Substratum\'a \"kullanım erişimi\" ve \"diğer uygulamalar üzerinde görüntüle\" izinlerini verin!</string>
     <string name="notification_overlay_found_specific" formatted="false">%s için bir tema mevcut - %s!</string>
     <string name="notification_overlay_found_description">Bu bildirimi tıklayarak temayı açabilirsiniz!</string>
@@ -667,6 +671,7 @@ sağlayan
     <string name="nav_drawer_googleplus">Google+ topluluğu</string>
     <string name="nav_drawer_telegram">Telegram grup sohbeti</string>
     <string name="nav_drawer_xda">XDA Destek Konusu</string>
+    <string name="nav_drawer_rawad">Rawad\'ın Tema Kullanım Rehberleri</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Öne çıkan içerik</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
@@ -688,6 +693,7 @@ sağlayan
     <string name="nav_settings">Ayarlar</string>
     <string name="title_activity_manage_space">Depolama Alanını Yönet</string>
     <string name="manage_space_cache_text_title">Önbelleği temizle</string>
+    <string name="manage_space_logs_text_title">Kayıtlı günlükleri temizle</string>
     <string name="clear_cache_button_loading">Yükleniyor&#8230;</string>
     <string name="clear_cache_button_text">Substratum\'un önbelleğini temizle</string>
     <string name="manage_space_cache_counter_title">Yerel ön belleğin silinmesi, tema derleyici ve çevrimiçi yükleyici tarafından kullanılan tüm dosyaları silecektir. Tüm tema paketleri ve kullanıcı yapılandırmaları olduğu gibi kalır.\n\nÖnbelleğinizin boyutuna bağlı olarak, tamamlanması birkaç saniye sürebilir.</string>

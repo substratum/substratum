@@ -307,6 +307,8 @@
         és akkor változik meg, ha ezt az ikoncsomagot alkalmazza.
     </string>
     <string name="nav_studio">Ikoncsomag Stúdió</string>
+    <string name="logcat_snackbar_button">LogChar</string>
+    <string name="logcat_snackbar_text">Cél alkalmazás/fedvény elavult, vagy nem megfelelő konfiguráció kiválasztva&#8230;</string>
     <string name="logcat_dialog_title">\"LogChar\" hibakeresési jelentés</string>
     <string name="logcat_dialog_copy_success">Hibanapló sikeresen vágólapra másolva!</string>
     <string name="logcat_email_activity">Hibajelentés küldése ezzel&#8230;</string>
@@ -337,7 +339,6 @@
     <string name="backup_card_content">Ez a funkció másolatot készít a jelenleg engedélyezett fedvények listájáról
         és elhelyezi itt: \"/storage/emulated/0/substratum/profiles/\" megőrzésre.
     </string>
-    <string name="delete_dialog_cancel">Mégse</string>
     <string name="delete_dialog_okay">Törlés</string>
     <string name="delete_dialog_title">Profil törlése</string>
     <string name="delete_dialog_text">Biztosan törli: \"%s\"?</string>
@@ -346,7 +347,6 @@
         és a \"téma viszaállítása\" veszi át a frissített változásokat.
     </string>
     <string name="remove_dialog_later">Később</string>
-    <string name="restore_dialog_cancel">Mégse</string>
     <string name="restore_dialog_okay">Folytatás</string>
     <string name="restore_dialog_title">Ezek a fedvények kerülnek telepítésre a profija teljes
         visszaállításához:
@@ -379,14 +379,13 @@
     </string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Ne jelenjen meg többet</string>
+    <string name="dialog_cancel">Mégse</string>
     <string name="clean_cache_dialog_body">Téma gyorsítótárát tisztítani szeretné?</string>
     <string name="clean_dialog_body">A téma összes fedvényét tisztítani szeretné?</string>
     <string name="disable_dialog_body">A téma összes fedvényét le szeretné tiltani?</string>
     <string name="enable_dialog_body">A téma minden telepített fedvényét engedélyezni szeretné?
     </string>
     <string name="uninstall_dialog_body">Téma eltávolítása</string>
-    <string name="uninstall_dialog_cancel">Mégse</string>
-    <string name="uninstall_dialog_okay">OK</string>
     <string name="sb_phase_1_loader">téma kicsomagolása</string>
     <string name="sb_phase_2_loader">fedvény telepítése</string>
     <string name="sb_phase_3_loader">ikon erőforrások injektálása</string>
@@ -476,6 +475,8 @@
     <string name="manager_subtext">A fedvénylista ablak, minden letiltott a fedvényt az engedélyezett társaival együtt jelenít meg.</string>
     <string name="alternate_drawer_design_title">Másodlagos Fiók Megjelenítés</string>
     <string name="alternate_drawer_design_subtext">Egy alternatív navigációs fiók megjelenítést használ, amikor a felhasználói felületen keresztül navigál.</string>
+    <string name="logchar_autosave_title">Automatikusan mentse a LogChar jelentéseket</string>
+    <string name="logchar_autosave_subtext">Ez automatikusan menti a LogChar jelentéseket ide: /storage/emulated/0/substratum/LogChar Reports.</string>
     <string name="show_outdated_themes_title">Összes elavult téma megjelenítése</string>
     <string name="show_outdated_themes_content">Azt letiltva lehetővé teszi a Substratum számára, hogy
         kihasználja az új algoritmust, mellyel a témák sokkal gyorsabban töltődnek be, mint máskor. Ez csak
@@ -541,10 +542,11 @@
     <string name="profile_compile_processing">Mentett fedvény állapotok feldolgozása&#8230;</string>
     <string name="theme_debug_mode_title">Vészhelyzeti rendszer megkerülése</string>
     <string name="theme_debug_mode_summary">Ez megakadályozza, hogy az alkalmazás a témákat segítve az elavult összeállítási mechanizmust használja, ha azok egy javíthatatlan állapotot érnek el.</string>
+    <string name="logchar_dialog_title_delete_title">FIGYELEM</string>
+    <string name="logchar_dialog_title_delete_content">Ez törli az összes mentett naplót. A folytatás megnyomásával minden napló törlődik és többé nem a naplók nem kerülnek mentésre.</string>
     <string name="break_compilation_dialog_title">FIGYELMEZTETÉS</string>
     <string name="break_compilation_dialog_content">Ez teljesen megszakíthatja az összeállítási folyamatot. Csak akkor engedélyezze ezt a beállítást, ha tudja mit csinál!</string>
     <string name="break_compilation_dialog_continue">Folytatás</string>
-    <string name="break_compilation_dialog_cancel">Mégse</string>
     <string name="theme_safety_dialog_title">FIGYELMEZTETÉS</string>
     <string name="theme_safety_dialog_content">Ez egy kulcsfontosságú biztonsági funkció, hogy megmentse a hibás fedvény miatti kényszerített bezárásoktól. Használhatja a Ments meg! gombot a Substratum alkalmazás parancsikonjában, ha ebbe a helyzetbe került, vagy az utolsó mentsvár a mentési (rescue) archívum flashelése, mely itt található:
 /storage/emulated/0/substratum/.</string>
@@ -556,7 +558,6 @@
     <string name="profile_sound">Hangok</string>
     <string name="profile_wallpaper">Háttérképek</string>
     <string name="profile_dialog_ok">OK</string>
-    <string name="profile_dialog_cancel">Mégse</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Elavult témák elrejtése (6.0.0+) [Javasolt!]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Elavult témák megjelenítése (6.0.0 előtti)</string>
     <string name="settings_system_status">Rendszer tanúsítvány</string>
@@ -598,6 +599,7 @@
     <string name="per_app_toast_no_overlays">Jelenleg nincsen konfigurálható fedvény erre: %s!</string>
     <string name="per_app_dialog_title">%s\n fedvény-konfigurátor</string>
     <string name="per_app_apply">Alkalmaz</string>
+    <string name="per_app_request_title">FloatUI engedélyek</string>
     <string name="per_app_draw_over_other_apps_request">Kérjük adjon \"rajzolás más alkalmazások felett\" és \"használati statisztikák\" engedélyt a Substratum FloatUI részére az előtérben futó alkalmazáshoz illő témacélok eléréséhez.</string>
     <string name="per_app_usage_stats_request">Kérjük adjon \"használati statisztikák\" engedélyt a Substratum FloatUI részére az előtérben futó alkalmazáshoz illő témacélok eléréséhez.</string>
     <string name="per_app_manual_grant">Kérjük, kézzel engedélyezze a Substratum számára a \"használati hozzáférés\" engedélyeket, majd az alkalmazás beállításaiban a \"rajzolás más alkalmazások felett\" lehetőséget, hogy a FloatUI-t használhassa!</string>
@@ -660,6 +662,7 @@
     <string name="nav_drawer_googleplus">Google+ közösség</string>
     <string name="nav_drawer_telegram">Telegram csoportos csevegés</string>
     <string name="nav_drawer_xda">XDA alfórum</string>
+    <string name="nav_drawer_rawad">Rawad témázási útmutatói</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Kiemelt tartalom</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
@@ -681,6 +684,7 @@
     <string name="nav_settings">Beállítások</string>
     <string name="title_activity_manage_space">Tárhely használat kezelése</string>
     <string name="manage_space_cache_text_title">Gyorsítótár törlése</string>
+    <string name="manage_space_logs_text_title">Mentett naplók törlése</string>
     <string name="clear_cache_button_loading">Betöltés&#8230;</string>
     <string name="clear_cache_button_text">Substratum gyorsítótárának törlése</string>
     <string name="manage_space_cache_counter_title">A helyi gyorsítótár törlése eltávolítja a téma összeállító és az online letöltő által használt összes fájlt. Minden témacsomag és felhasználói konfiguráció megmarad.\n\nA gyorsítótár méretétől függően, ez néhány másodpercet is igénybe vehet.</string>

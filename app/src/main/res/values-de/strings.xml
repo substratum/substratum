@@ -59,6 +59,7 @@
     <string name="dangerous_warning_content">Substratum hat festgestellt, dass es auf einer BOOTLOOP-GEFÄHRDETEN FIRMWARE (Update zwischen November 2016 und Januar 2017, N/N-MR1) ausgeführt wird und es wird ausdrücklich davon abgeraten, ein Framework- bzw. Android-System-Overlay zu aktivieren.\n\n Falls du dies dennoch tust und in einem Bootloop landest, installiere das Wiederherstellungs-Archiv unter \"/storage/emulated/0/substratum/\" in deiner Recovery.</string>
     <string name="legacy_warning_content">Legacy funktioniert wie es ausgeliefert wird, da wir nicht garantieren können, dass es
 bei dir funktioniert. Bitte stelle sicher, dass du eine Custom-Recovery verwendest und ein Grundverständnis für das Beheben/Wiederherstellen nach einem Bootloop mitbringst bevor du fortfährst.\n\nWir können keine Objekte beheben, deren Theme unter Legacy nicht angewendet wird, da hierfür systemseitige Änderungen am System notwendig sind.    </string>
+    <string name="samsung_warning_content">Bei Problemen mit der Samsung-Unterstützung können wir keine Hilfe leisten, da wir keine Kompatibilität mit Farben und AOSP-Overlays garantieren können. Wir haben sicher gestellt, dass keine für dein Gerät gefährlichen Overlays angezeigt werden, aber du kannst dies auf eigene Verantwortung in den Einstellungen ausschalten.\n\nWenn du in irgendeinem Fall ein Problem mit einem möglichen Blackscreen hast, schau dir bitte in unserem XDA Thread die zwei Methoden zur Wiederherstellung an.    </string>
     <string name="legacy_dialog_soft_reboot_title">Neustart erforderlich!</string>
     <string name="legacy_dialog_soft_reboot_text">Das \"Resource Runtime Overlay\"-System benötigt einen Neustart um Änderungen wie das Hinzufügen oder Ändern von Overlays anwenden zu können.\n\nDas Gerät muss neugestartet werden. Stelle sicher, dass du gerade nicht aktiv an etwas arbeitest, was du noch nicht gespeichert hast bevor du fortfährst.</string>
     <string name="activity_missing_toast">Es wurden keine Anwendungen gefunden, welche diese Anfrage ausführen könnten, sorry!</string>
@@ -228,6 +229,8 @@ eingerichtet&#8230;</string>
     <string name="studio_placeholder_text">keine von Substratum unterstützten Icon-Pakete gefunden</string>
     <string name="studio_toast_mask">Dieses Icon wird von deinem momentanen Paket angezeigt und ändert sich, wenn du dieses Icon-Paket anwendest.    </string>
     <string name="nav_studio">Icon Pack-Studio</string>
+    <string name="logcat_snackbar_button">LogChar</string>
+    <string name="logcat_snackbar_text">Gewählte/s Applikation/Overlay veraltet oder unpassende Konfiguration gewählt&#8230;</string>
     <string name="logcat_dialog_title">\"LogChar\"-Debug-Report</string>
     <string name="logcat_dialog_copy_success">Fehlermeldung erfolgreich in die Zwischenablage kopiert!</string>
     <string name="logcat_email_activity">Bug-Report senden via&#8230;</string>
@@ -244,14 +247,12 @@ eingerichtet&#8230;</string>
     <string name="manager_no_overlays_text">Kompiliere ein Overlay um mich zu benutzen</string>
     <string name="backup">Karte sichern</string>
     <string name="backup_card_content">Diese Funktion macht eine Kopie deiner derzeit aktivierten Overlays und platziert sie in \"/storage/emulated/0/substratum/profiles/\" </string>
-    <string name="delete_dialog_cancel">Abbrechen</string>
     <string name="delete_dialog_okay">Löschen</string>
     <string name="delete_dialog_title">Profil löschen</string>
     <string name="delete_dialog_text">Bist du dir sicher dass du \"%s\" löschen willst?</string>
     <string name="restore">Karte wiederherstellen</string>
     <string name="restore_card_content">Wenn ein Profil geladen wird, wird dein aktuelles Setup komplett gelöscht und \"Theme zurücksetzen\" wird die geupdateten Änderungen übernehmen</string>
     <string name="remove_dialog_later">Später</string>
-    <string name="restore_dialog_cancel">Abbrechen</string>
     <string name="restore_dialog_okay">Fortsetzen</string>
     <string name="restore_dialog_title">Diese Overlays werden installiert werden, um dein Profil wieder herzustellen
          vollständig:
@@ -273,13 +274,12 @@ eingerichtet&#8230;</string>
     <string name="permission_not_granted_dialog_message1">Bitte gewähre Substratum Zugriff auf den Speicher, da die App ansonsten nicht ordnungsgemäß funktioniert!</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Nicht erneut anzeigen</string>
+    <string name="dialog_cancel">Abbrechen</string>
     <string name="clean_cache_dialog_body">Möchtest du den Zwischenspeicher des Themes leeren?</string>
     <string name="clean_dialog_body">Sollen alle Overlays dieses Themes entfernt werden?</string>
     <string name="disable_dialog_body">Sollen alle Overlays dieses Themes deaktiviert werden?</string>
     <string name="enable_dialog_body">Sollen alle installierten Overlays dieses Themes aktiviert werden?</string>
     <string name="uninstall_dialog_body">Deinstallieren</string>
-    <string name="uninstall_dialog_cancel">Abbrechen</string>
-    <string name="uninstall_dialog_okay">OK</string>
     <string name="sb_phase_1_loader">Assets des Themes werden extrahiert</string>
     <string name="sb_phase_2_loader">Overlay(s) installieren</string>
     <string name="sb_phase_3_loader">Icon-Ressourcen werden eingefügt</string>
@@ -299,9 +299,10 @@ eingerichtet&#8230;</string>
     <string name="no_themes_description">Bitte installiere ein kompatibles Theme!</string>
     <string name="no_themes_description_search">\"%s\" wurde nicht in der Liste von installierten Themes gefunden&#8230;</string>
     <string name="toast_samsung_prototype_one_overlay">Im Moment kann nur jeweils ein Overlay ausgewählt werden.</string>
-    <string name="toast_samsung_prototype_restart">Bitte starte Dein Gerät neu oder erzwinge ein Beendigung der überlagerten Anwendung!</string>
+    <string name="toast_samsung_prototype_restart">Bitte starte dein Gerät neu oder erzwinge eine Beendigung der überlagerten Anwendung!</string>
     <string name="toast_samsung_prototype_disabled">Diese Substratum-Version ist abgelaufen.\n\nBitte zu einer neuen Kopie aktualisieren!</string>
-    <string name="toast_samsung_prototype_alert">Substratum versteckte automatisch nicht unterstützte System-Overlays für Dein Gerät!</string>
+    <string name="toast_samsung_prototype_alert">Substratum hat automatisch nicht unterstützte System-Overlays für dein Gerät versteckt!</string>
+    <string name="samsung_prototype_no_root_dialog">Es sieht so aus als wärst du auf einem unterstützten Samsung-Gerät, ein Addon wurde veröffentlicht um dies zu unterstützen!</string>
     <string name="samsung_prototype_no_root_dialog_button">Jetzt herunterladen!</string>
     <string name="toast_needs_caching">Substratums Caches würde geleert. Bitte kompiliere das Theme neu bevor zu fortfährst!</string>
     <string name="notification_theme_installed">installiert</string>
@@ -367,6 +368,8 @@ um das Problem zu beheben.    </string>
     <string name="manager_subtext">Alle deaktivierten Overlays in der Overlay-Liste mit ihren zugehörigen aktivierten Overlays anzeigen.</string>
     <string name="alternate_drawer_design_title">Alternatives Drawer-Design</string>
     <string name="alternate_drawer_design_subtext">Verwendet eine alternative Version des Navigation-Drawers.</string>
+    <string name="logchar_autosave_title">Speichere LogChar-Reports automatisch</string>
+    <string name="logchar_autosave_subtext">Dies wird automatisch einen LogChar-Report in /storage/emulated/0/substratum/LogChar Reports/ speichern.</string>
     <string name="show_outdated_themes_title">Zeige alle veralteten Themes</string>
     <string name="show_outdated_themes_content">Das Deaktivieren dieser Option erlaubt Substratum den brandneuen Algorithmus zu benutzen der Themes viel schneller als sonst lädt. Das wird nur für konfigurierte 6.0.0+ plugin Themes funktionieren.</string>
     <string name="fab_menu_compile_enable">Kompilieren &amp; Aktivieren</string>
@@ -430,10 +433,11 @@ um das Problem zu beheben.    </string>
     <string name="profile_compile_processing">Verarbeiten deiner gespeicherten Overlay-Zustände&#8230;</string>
     <string name="theme_debug_mode_title">Umgehung des Notfall-Systems</string>
     <string name="theme_debug_mode_summary">Hierdurch wird verhindert, dass die App den veralteten Compiler nutzt, um Themes zu helfen, wenn diese einen nicht behebbaren Zustand erreichen.</string>
+    <string name="logchar_dialog_title_delete_title">ACHTUNG</string>
+    <string name="logchar_dialog_title_delete_content">Dies wird alle momentan gespeicherten Logs löschen. Indem du Fortsetzen drückst, werden alle Logs gesäubert und Logs werden nicht mehr gespeichert.</string>
     <string name="break_compilation_dialog_title">WARNUNG</string>
     <string name="break_compilation_dialog_content">Dies kann die Kompilierung zum Abstürzen bringen. Aktivieren Sie diese Option nur, wenn Sie wissen, was Sie tun!</string>
     <string name="break_compilation_dialog_continue">Fortsetzen</string>
-    <string name="break_compilation_dialog_cancel">Abbrechen</string>
     <string name="theme_safety_dialog_title">WARNUNG</string>
     <string name="theme_safety_dialog_content">Dies ist eine entscheidende Sicherheitsfunktion, die dich aus \"Erzwungenem Beenden\" durch schlechte Overlays rettet! Du kannst die \"Rette Mich!\" Verknüpfung der Substratum-App benutzen wenn du fest steckst, oder dein letzter Ausweg wären die \"Rettungs Archive\" unter /storage/emulated/0/substratum/, die du dann flashst.</string>
     <string name="profile_dialog_title">Wähle die Elemente aus, die du sichern möchtest</string>
@@ -444,7 +448,6 @@ um das Problem zu beheben.    </string>
     <string name="profile_sound">Töne</string>
     <string name="profile_wallpaper">Hintergrundbilder</string>
     <string name="profile_dialog_ok">OK</string>
-    <string name="profile_dialog_cancel">Abbrechen</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Verstecke veraltete Themes (6.0.0+) [Empfohlen]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Zeige veraltete Themes (vor-6.0.0)</string>
     <string name="settings_system_status">Systemzertifizierung</string>
@@ -459,7 +462,7 @@ um das Problem zu beheben.    </string>
     <string name="settings_theme_auto_updater_title">Aktualisiere Theme-Overlays automatisch (BETA)</string>
     <string name="settings_theme_auto_updater_dialog_title">WARNUNG</string>
     <string name="settings_theme_auto_updater_text">Substratum wird automatisch für alle aktualisierten Themes eine aktualisierte Version der Overlays erstellen, kompilieren und installieren. Diese Funktion ausgeschaltet zu lassen spart Akku.</string>
-    <string name="settings_theme_auto_updater_dialog_text">Bitte öffne NICHT den Paket-Installer im Vordergrund, während die Benachrichtigung erscheint. Framework Overlays tendieren dazu den Paket-Installer neuzustarten, was eine unendliche Anzahl an Neukompilierungen zur Folge hat!</string>
+    <string name="settings_theme_auto_updater_dialog_text">Bitte öffne NICHT den Packet-Installer im Vordergrund während die Benachrichtigung erscheint. Framework Overlays tendieren dazu den Packet-Installer neuzustarten, was eine unendliche Anzahl an Neukompilierungen zur Folge hat!</string>
     <string name="settings_auto_alert_title">Alarm wegen eines gefundenen neuen installierbaren Overlays</string>
     <string name="settings_auto_alert_text">Wenn eine neue Anwendung zum ersten Mal installiert wird, erscheint eine Benachrichtigung, falls die Anwendung durch irgendeines der installierten Themes unterstützt wird.</string>
     <string name="settings_force_english_title">Englische Sprache forcieren</string>
@@ -467,8 +470,9 @@ um das Problem zu beheben.    </string>
     <string name="settings_force_english_toast_reverted">Forcieren der englischen Sprache erfolgreich deaktiviert!</string>
     <string name="settings_manage_space_title">Speichernutzung verwalten</string>
     <string name="settings_samsung_show_dangerous_overlays">Riskante Overlays erlauben</string>
-    <string name="settings_samsung_show_dangerous_overlays_text">Zeige all die Overlays an, die normalerweise riskant auf Samsung-Geräten sind, falls das Theme es nicht unterstützt.</string>
+    <string name="settings_samsung_show_dangerous_overlays_text">Zeige all die Overlays an, die normalerweise riskant für Samsung-Geräte sind, falls das Theme es nicht unterstützt.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">WARNUNG</string>
+    <string name="settings_samsung_show_dangerous_overlays_warning">Wir haben unsere Gründe gefährliche Overlays zu verstecken, aber wenn du sicher bist, dass du dies eingeschaltet haben willst, folge bitte den Anweisungen in unserem XDA Thread um dies auszuschalten!</string>
     <string name="settings_theme_caching_title">Theme-Zwischenspeicher-Ressourcen</string>
     <string name="settings_theme_caching_text">Alle Theme-Daten werden in das Zwischenspeicher-Verzeichnis extrahiert.</string>
     <string name="settings_theme_caching_found_snackbar">Du hast gerade den versteckten Zwischenspeicher-Ressourcen-Modus entdeckt!</string>
@@ -485,6 +489,7 @@ um das Problem zu beheben.    </string>
     <string name="per_app_toast_no_overlays">Es gibt keine konfigurierbaren Overlays für %s!</string>
     <string name="per_app_dialog_title">%s\n Overlay-Konfigurator</string>
     <string name="per_app_apply">Anwenden</string>
+    <string name="per_app_request_title">FloatUI-Berechtigungen</string>
     <string name="per_app_draw_over_other_apps_request">Bitte gewähre Substratum die Berechtigung \"über andere Apps zeichnen\" für die schwebende Oberfläche und die Berechtigung für \"Nutzungsdaten\", damit auf die App im Vordergrund zugegriffen werden kann und Ziele für Themes ausgemacht werden können.</string>
     <string name="per_app_usage_stats_request">Bitte gewähre Substratum die Berechtigung \"Nutzungsdaten\", damit auf die App im Vordergrund zugegriffen werden kann und Ziele für Themes ausgemacht werden können.</string>
     <string name="per_app_manual_grant">Bitte gewähre Substratum in den Anwendungseinstellungen manuell die Berechtigungen für \"Nutzungszugriff\" und \"Über andere Apps zeichnen\", um FloatUI nutzen zu können!</string>
@@ -547,6 +552,7 @@ um das Problem zu beheben.    </string>
     <string name="nav_drawer_googleplus">Google+-Community</string>
     <string name="nav_drawer_telegram">Telegram-Gruppenchat</string>
     <string name="nav_drawer_xda">XDA-Unterforum</string>
+    <string name="nav_drawer_rawad">Rawad\'s Theming Anleitungen</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Empfohlene Inhalte</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
@@ -568,6 +574,7 @@ um das Problem zu beheben.    </string>
     <string name="nav_settings">Einstellungen</string>
     <string name="title_activity_manage_space">Speichernutzung verwalten</string>
     <string name="manage_space_cache_text_title">Cache löschen</string>
+    <string name="manage_space_logs_text_title">Säubere gespeicherte Logs</string>
     <string name="clear_cache_button_loading">Lädt&#8230;</string>
     <string name="clear_cache_button_text">Substratum Cache löschen</string>
     <string name="manage_space_cache_counter_title">Das Leeren des lokalen Caches wird alle Dateien des Theme-Compilers und Online-Downloaders löschen. Alle Theme-Pakete und Benutzerkonfigurationen werden erhalten bleiben.\n\nAbhängig von der Größe deines Caches, kann das ein paar Sekunden dauern.</string>

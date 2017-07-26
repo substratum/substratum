@@ -247,14 +247,12 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="manager_no_overlays_text">Compila un overlay per essere in grado di utilizzarmi!</string>
     <string name="backup">Carta di backup</string>
     <string name="backup_card_content">Questa funzione crea per sicurezza una copia della lista dei tuoi overlay attualmente attivati nel percorso \"/storage/emulated/0/substratum/profiles/\".    </string>
-    <string name="delete_dialog_cancel">Annulla</string>
     <string name="delete_dialog_okay">Elimina</string>
     <string name="delete_dialog_title">Elimina profilo</string>
     <string name="delete_dialog_text">Sei sicuro di voler eliminare \"%s\"?</string>
     <string name="restore">Ripristina carta</string>
     <string name="restore_card_content">Quando un profilo è caricato, il tuo settaggio corrente verrà completamente cancellato e \"ripristina tema\" applicherà i cambiamenti del aggiornamento.    </string>
     <string name="remove_dialog_later">Più tardi</string>
-    <string name="restore_dialog_cancel">Annulla</string>
     <string name="restore_dialog_okay">Continua</string>
     <string name="restore_dialog_title">Questi overlay saranno installari per ripristinare completamente
         il tuo profilo:
@@ -276,13 +274,12 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="permission_not_granted_dialog_message1">Per favore dai i permessi d\'archiviazione a substratum o l\'applicazione non funzionerà adeguatamente!</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Non visualizzare di nuovo</string>
+    <string name="dialog_cancel">Annulla</string>
     <string name="clean_cache_dialog_body">Vuoi pulire la cache di questo tema?</string>
     <string name="clean_dialog_body">Vuoi eliminare tutti gli overlay per questo tema?</string>
     <string name="disable_dialog_body">Vuoi disabilitare tutti gli overlay per questo tema?</string>
     <string name="enable_dialog_body">Vuoi abilitare tutti gli overlay installati per questo tema?    </string>
     <string name="uninstall_dialog_body">Disinstalla</string>
-    <string name="uninstall_dialog_cancel">Annulla</string>
-    <string name="uninstall_dialog_okay">OK</string>
     <string name="sb_phase_1_loader">Estraendo le attività da questo tema</string>
     <string name="sb_phase_2_loader">Sto creando e firmando la/le sovrapposizione/i</string>
     <string name="sb_phase_3_loader">iniettando le risorse delle icone</string>
@@ -433,10 +430,11 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="profile_compile_processing">Elaborazione degli overlay salvati&#8230;</string>
     <string name="theme_debug_mode_title">System Fallback Interjection Bypass</string>
     <string name="theme_debug_mode_summary">Questo fermerà l\'app da utilizzare il meccanismo di fallback del compilatore legacy per aiutare i temi quando raggiungono uno stato irrecuperabile.</string>
+    <string name="logchar_dialog_title_delete_title">ATTENZIONE</string>
+    <string name="logchar_dialog_title_delete_content">Questo cancellerà tutti i log attualmente salvati. Premendo continua, tutti i log saranno cancellati e non saranno più salvati ulteriori log.</string>
     <string name="break_compilation_dialog_title">ATTENZIONE</string>
     <string name="break_compilation_dialog_content">Questo può distruggere completamente il processo di compilazione. Abilitare questa opzione solo se si sa cosa si sta facendo!</string>
     <string name="break_compilation_dialog_continue">Continua</string>
-    <string name="break_compilation_dialog_cancel">Annulla</string>
     <string name="theme_safety_dialog_title">ATTENZIONE</string>
     <string name="theme_safety_dialog_content">Questa è una funzionalità di sicurezza fondamentale in grado di ripristinare il funzionamento del sistema in caso di arresti forzati causati da overlay incompatibili. Se il dispositivo non riuscisse a ripristinarsi in modo automatico potresti usare il bottone Salvami! presente tra le scorciatoie dell\'applicazione Substratum, oppure, l\'ultima possibilità a tua disposizione, sarebbe quella di flashare uno degli archivi di ripristino presenti all\'interno del percorso /storage/emulated/0/substratum/.</string>
     <string name="profile_dialog_title">seleziona gli oggetti dei quali vuoi il backup</string>
@@ -447,7 +445,6 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="profile_sound">Suoni</string>
     <string name="profile_wallpaper">Sfondi</string>
     <string name="profile_dialog_ok">OK</string>
-    <string name="profile_dialog_cancel">Annulla</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Nascondere temi obsoleti (6.0.0+) [consigliato]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Visualizza temi obsoleti (pre-6.0.0)</string>
     <string name="settings_system_status">Certificazione sistema</string>

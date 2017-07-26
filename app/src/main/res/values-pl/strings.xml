@@ -43,7 +43,7 @@
     <string name="failed_to_install_title_notification">Błąd instalacji motywu OMS</string>
     <string name="failed_to_install_text_notification">%s nie udało się zainstalować</string>
     <string name="actionbar_theme_count_singular">%s motyw</string>
-    <string name="actionbar_theme_count_plural">%s motywy/-ów</string>
+    <string name="actionbar_theme_count_plural">%s motywów/ -y</string>
     <string name="actionbar_theme_count_loading">ładowanie&#8230;</string>
     <string name="actionbar_search">Szukaj</string>
     <string name="actionbar_changelog">Lista zmian motywu</string>
@@ -227,6 +227,8 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="studio_placeholder_text">nie znaleziono wspieranych ikon przez substratum</string>
     <string name="studio_toast_mask">        Ta ikona jest rysowana przez twoją obecną paczke ikon, zostanie ona zmieniona kiedy zastosujesz tą paczke ikon</string>
     <string name="nav_studio">Studio Ikon</string>
+    <string name="logcat_snackbar_button">LogChar</string>
+    <string name="logcat_snackbar_text">Zastosowano docelową aplikację / nakładkę przestarzałą lub niezgodną konfigurację&#8230;</string>
     <string name="logcat_dialog_title">Raport debugowania \"LogChar\"</string>
     <string name="logcat_dialog_copy_success">Pomyślnie skopiowano dziennik błędów do schowka!</string>
     <string name="logcat_email_activity">Wyślij raport błędu za pomocą...</string>
@@ -244,14 +246,12 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="manager_no_overlays_text">skompiluj jedną nakładkę by móc mnie użyć!</string>
     <string name="backup">Karta kopii zapasowej</string>
     <string name="backup_card_content">Ta funkcja robi kopię listy aktualnie włączonych nakładek i zapisuje ją na przechowanie w  \"/storage/emulated/0/substratum/profiles/\".    </string>
-    <string name="delete_dialog_cancel">Anuluj</string>
     <string name="delete_dialog_okay">Usuń</string>
     <string name="delete_dialog_title">Usuń profil</string>
     <string name="delete_dialog_text">Czy na pewno chcesz usunąć \"%s\"?</string>
     <string name="restore">Karta Przywracania</string>
     <string name="restore_card_content">Kiedy profil jest ładowany, twoje aktualne ustawienia są czyszczone, a \"przywróć motyw\" zadziała na uaktualnionych zmianach.    </string>
     <string name="remove_dialog_later">Później</string>
-    <string name="restore_dialog_cancel">Anuluj</string>
     <string name="restore_dialog_okay">Kontynuuj</string>
     <string name="restore_dialog_title">Aby całkowicie przywrócić Twój profil, te nakładki
         będą zainstalowane:
@@ -275,13 +275,12 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="permission_not_granted_dialog_message1">Proszę udzielić substratum uprawnień do pam. wewnętrznej, bo inaczej aplikacja nie będzie działać poprawnie!    </string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Nie pokazuj ponownie</string>
+    <string name="dialog_cancel">Anuluj</string>
     <string name="clean_cache_dialog_body">Czy chcesz wyczyścić pamięć podręczną tego motywu?</string>
     <string name="clean_dialog_body">Czy chcesz wyczyścić wszystkie nakładki dla tego motywu?</string>
     <string name="disable_dialog_body">Czy chcesz wyłączyć wszystkie nakładki dla tego motywu?</string>
     <string name="enable_dialog_body">Czy chcesz włączyć wszystkie zainstalowane nakładki dla tego motywu?    </string>
     <string name="uninstall_dialog_body">Odinstaluj Motyw</string>
-    <string name="uninstall_dialog_cancel">Anuluj</string>
-    <string name="uninstall_dialog_okay">OK</string>
     <string name="sb_phase_1_loader">wyodrębnianie motywu</string>
     <string name="sb_phase_2_loader">instalowanie nakładki</string>
     <string name="sb_phase_3_loader">iniekcja zasobów ikon</string>
@@ -369,6 +368,8 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="manager_subtext">W oknie listy nakładek, pokaż wszystkie wyłączone nakładki z ich włączonymi odpowiednikami.</string>
     <string name="alternate_drawer_design_title">Wygląd dodatkowej szuflady</string>
     <string name="alternate_drawer_design_subtext">Używaj alternatywnego modelu szuflady nawigacyjnej podczas żeglowania po interfejsie.</string>
+    <string name="logchar_autosave_title">Automatyczne zapisywanie raportów LogChar</string>
+    <string name="logchar_autosave_subtext">Spowoduje to automatyczne zapisywanie raportów LogChar w / storage / emulated / 0 / substratum / LogChar Reports /.</string>
     <string name="show_outdated_themes_title">Pokaż wszystkie nieaktualne motywy</string>
     <string name="show_outdated_themes_content">Wyłączenie tego pozwoli Substratum użyć nowego algorytmu dla szybszej aktywacji motywów. Opcja ta zadziała jedynie dla poprawnie skonfigurowanych wtyczek motywów dla 6.0.0+.</string>
     <string name="fab_menu_compile_enable">Kompiluj i włącz</string>
@@ -432,10 +433,11 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="profile_compile_processing">Teraz są przetwarzane zapisane stany twoich nakładek&#8230;</string>
     <string name="theme_debug_mode_title">Układ obejścia rezerwy systemu</string>
     <string name="theme_debug_mode_summary">To pozwoli na zaprzestanie używania przez aplikację mechanizmu awaryjnego starszego kompilatora, gdy motywy osiągną stan nie do odzyskania.</string>
+    <string name="logchar_dialog_title_delete_title">UWAGA</string>
+    <string name="logchar_dialog_title_delete_content">Spowoduje to usunięcie wszystkich aktualnie zapisanych dzienników. Przez naciśnięcie przycisku Dalej, wszystkie dzienniki zostaną usunięte i nie będą zapisywane.</string>
     <string name="break_compilation_dialog_title">OSTRZEŻENIE</string>
     <string name="break_compilation_dialog_content">To może całkowicie przerwać proces kompilacji. Włącz tę opcję, jeśli wiesz co robisz!</string>
     <string name="break_compilation_dialog_continue">Kontynuuj</string>
-    <string name="break_compilation_dialog_cancel">Anuluj</string>
     <string name="theme_safety_dialog_title">OSTRZEŻENIE</string>
     <string name="theme_safety_dialog_content">Istotną kwestią zabezpieczeń jest to, aby uwolnić się od zawieszeń spowodowanych złymi nakładkami! Jeśli widzisz, że gdzieś utknąłeś, możesz użyć przycisku Ratuj mnie! znajdującym się na skrócie aplikacji Substratum lub ostatecznie wgrać archiwa ratunkowe znajdujące się w /storage/emulated/0/substratum/.</string>
     <string name="profile_dialog_title">wybierz elementy, którym chcesz wykonać kopię zapasową</string>
@@ -446,7 +448,6 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="profile_sound">Dźwięki</string>
     <string name="profile_wallpaper">Tapety</string>
     <string name="profile_dialog_ok">OK</string>
-    <string name="profile_dialog_cancel">Anuluj</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Ukryj nieaktualne motywy (6.0.0+) [Zalecane!]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Pokaż nieaktualne motywy (sprzed-6.0.0)</string>
     <string name="settings_system_status">System certyfikacji</string>
@@ -488,6 +489,7 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="per_app_toast_no_overlays">Nie ma konfigurowalnych nakładek dla %s!</string>
     <string name="per_app_dialog_title">%s\n konfigurator nakładki</string>
     <string name="per_app_apply">Zastosuj</string>
+    <string name="per_app_request_title">Uprawnienia dla FloatUI</string>
     <string name="per_app_draw_over_other_apps_request">Proszę pozwolić Substratum do używania uprawnień \"zezwól na wyświetlanie nad innymi aplikacjami\" dla obsługi pływającego interfejsu i \"zezwól na dostęp do użytkowania\" w celu umożliwienia dopasowania motywu do działających aplikacji.</string>
     <string name="per_app_usage_stats_request">Proszę zezwolić aplikacji Substratum do używania uprawnienia \"dostęp do użytkowania\" w celu umożliwienia dopasowania motywu do działających aplikacji.</string>
     <string name="per_app_manual_grant">Aby używać FloatUI, proszę pozwolić aplikacji Substratum do używania uprawnień \"zezwól na dostęp do użytkowania\" i \"zezwól na wyświetlanie nad innymi aplikacjami\"!</string>
@@ -550,6 +552,7 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="nav_drawer_googleplus">Społeczność Google+</string>
     <string name="nav_drawer_telegram">Czat grupowy Telegramu</string>
     <string name="nav_drawer_xda">Podforum XDA</string>
+    <string name="nav_drawer_rawad">Przewodniki tematyczne Rawad</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Polecana zawartość</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
@@ -571,6 +574,7 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="nav_settings">Ustawienia</string>
     <string name="title_activity_manage_space">Zarządzaj użyciem pamięci</string>
     <string name="manage_space_cache_text_title">Wyczyść pamięć podręczną</string>
+    <string name="manage_space_logs_text_title">Wyczyść zapisane dzienniki</string>
     <string name="clear_cache_button_loading">Ładowanie&#8230;</string>
     <string name="clear_cache_button_text">Wyczyść pamięć podręczną substratum</string>
     <string name="manage_space_cache_counter_title">Usunięcie lokalnej pamięci podręcznej spowoduje usunięcie wszystkich plików używanych przez kompilator kompozycji i pobierania online. Wszystkie pakiety motywów i konfiguracje użytkownika pozostaną niezmienione. \n\nW zależności od rozmiaru pamięci podręcznej może to potrwać kilka sekund.</string>

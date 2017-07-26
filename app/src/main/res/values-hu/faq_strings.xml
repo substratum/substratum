@@ -18,68 +18,77 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 <resources>
-    <string name="question_one">Mi is az a Substratum?</string>
-    <string name="answer_one">A Substratum egy olyan alkalmazás, mely a Sony által létrehozott Overlay Manager
+  <string name="question_one">Mi is az a Substratum?</string>
+  <string name="answer_one">A Substratum egy olyan alkalmazás, mely a Sony által létrehozott Overlay Manager
         Service (OMS) előnyeit használja. Hasonló a Layers alkalmazáshoz a stabilitás és
         testreszabhatóság tekintetében, de nem igényel újraindítást, alkalmas bootanimációk,
         betűkészletek kezelésére, prioritások változtatására.
     </string>
-    <string name="question_two">Mi az a Theme Interfacer?</string>
-    <string name="answer_two">A Theme Interfacer az alapja annak, ami a Substratum-nak lehetővé teszi, hogy
+  <string name="question_two">Mi az a Theme Interfacer?</string>
+  <string name="answer_two">A Theme Interfacer az alapja annak, ami a Substratum-nak lehetővé teszi, hogy
         mint egy Téma motor fusson. Az interfacer elve, hogy szimulálja a \"szerver/kliens\"
         technikai részleteit és a Subtsratum az Interfacer kezelővel kommunikál, mely közvetlenül
         a rendszernek jelzi a parancsokat.
     </string>
-    <string name="question_three">Mire van szükség a Substratum megfelelő működéséhez?</string>
-    <string name="answer_three">Szüksége lesz egy ROM-ra, amely támogatja az OMS és Theme Interfacer
+  <string name="question_three">Mire van szükség a Substratum megfelelő működéséhez?</string>
+  <string name="answer_three">Szüksége lesz egy ROM-ra, amely támogatja az OMS és Theme Interfacer
         rendszert (kérdezze meg őket, tudni fogják), erre az alkalmazásra, és egy kompatibilis témára
         (ellenőrizze a Play Áruhát leírását, vagy kérdezze meg a fejlesztőt)
     </string>
-    <string name="question_four">Használhatom a Substratum-ot, ha a ROM nem támogatja az OMS-t?
+  <string name="question_four">Használhatom a Substratum-ot, ha a ROM nem támogatja az OMS-t?
     </string>
-    <string name="answer_four">Igen, abban az esetben, ha a ROM már támogatja a RRO-t (gyári Marshmallow ebbe
+  <string name="answer_four">Igen, abban az esetben, ha a ROM már támogatja a RRO-t (gyári Nougat ebbe
         a kategóriába esik). A fenti követelmények ugyanazok (root, ez az alkalmazás, és eg kompatibilis
         téma). Azonos módon alkalmazhatja, de az összeállítási és alkalmazási lépések össze vannak fűzve,
         és egy újraindítás is szükséges a fedvények alkalmazásához.
     </string>
-    <string name="question_five">Hogyan tudok egy témát alkalmazni?</string>
-    <string name="answer_five">Egy téma alkalmazása egy két részből álló folyamat: fedvények építése és azok alkalmazása. Menjen a
+  <string name="question_five">Hogyan tudok egy témát alkalmazni?</string>
+  <string name="answer_five">Egy téma alkalmazása egy két részből álló folyamat: fedvények építése és azok alkalmazása. Menjen a
         témába, kattintson a Fedvény kezelő lapra, válassza ki a kívánt fedvényeket és beállításokat,
         a FAB megérintése után válassza az Építés és frissítést, majd válassza ki ugyanezeket a fedvényeket,
         és a FAB megnyomása után válassza a Kijelöltek engedélyezését.
     </string>
-    <string name="question_six">Fedvényeim összeállítása sikertelen, mi történt?</string>
-    <string name="answer_six">Törölje a /system/bin/aopt fájlt, indítsa újra az alkalmazást, és ismételje
+  <string name="question_six">Fedvényeim összeállítása sikertelen, mi történt?</string>
+  <string name="answer_six">Törölje a /system/bin/aopt fájlt, indítsa újra az alkalmazást, és ismételje
         meg a fenti folyamatot.
     </string>
-    <string name="question_seven">A témám nem került alkalmazásra, mi történt?</string>
-    <string name="answer_seven">A téma első alkalommal való alkalmazása, vagy a gyári témáról való
+  <string name="question_seven">A témám nem került alkalmazásra, mi történt?</string>
+  <string name="answer_seven">A téma első alkalommal való alkalmazása, vagy a gyári témáról való
         átállás esetén, győződjön meg róla, hogy nincs a \"Más témák letiltása\" jelölőnégyzet kiválasztva.
     </string>
-    <string name="question_eight">Bootloop-ba kerültem! Hogyan oldjam meg?</string>
-    <string name="answer_eight">Substratum saját helyreállítási rendszerrel rendelkezik, amit Substratum Mentési
+  <string name="question_eight">Bootloop-ba kerültem! Hogyan oldjam meg?</string>
+  <string name="answer_eight">Substratum saját helyreállítási rendszerrel rendelkezik, amit Substratum Mentési
         Rendszernek (SRS) hívnak, mely egy automatizált rendszer, ami egy archívumot ír ki ide:
         /storage/emulated/0/substratum/SubstratumRescue.zip. Recoveryben telepítsd ezt, majd újraindítás!
     </string>
-    <string name="question_nine">Egyes elemek furcsán jelennek meg, miután a támát alkalmaztam, mi történt?
+  <string name="question_nine">Egyes elemek furcsán jelennek meg, miután a támát alkalmaztam, mi történt?
     </string>
-    <string name="answer_nine">
+  <string name="answer_nine">
         1. Kezelőfelület (SystemUI) újraindítása, ha nem történt meg automatikusan.\n2. Telefon újraindítása.\n3. Fedvények
-        visszavonása és/vagy törlése, újra állítsa össze, és alkalmazza újra.
+        letiltása, újra állítsa össze, és alkalmazza újra.
     </string>
-    <string name="question_ten">Hova telepítődnek a fedvények?</string>
-    <string name="answer_ten">Fedvények a /data/app mappába települnek, ami azt jelenti, hogy minden
+  <string name="question_ten">Hova telepítődnek a fedvények?</string>
+  <string name="answer_ten">Fedvények a /data/app mappába települnek, ami azt jelenti, hogy minden
         fedvény a saját mappájába van telepítve.
     </string>
-    <string name="question_eleven">Hibaüzenetet kapok, amikor a témát a Play Áruházban szeretném
+  <string name="question_eleven">Hibaüzenetet kapok, amikor a témát a Play Áruházban szeretném
         frissíteni.
     </string>
-    <string name="answer_eleven">Távolítsa el a témát, majd telepítse újra.</string>
-    <string name="question_twelve">Kihez forduljak, ha egy komoly probléma nem oldódott meg
+  <string name="answer_eleven">Távolítsa el a témát, majd telepítse újra.</string>
+  <string name="question_twelve">Kihez forduljak, ha egy komoly probléma nem oldódott meg
         ezeket a lépéseket elolvasva?
     </string>
-    <string name="answer_twelve">Kérjük, írjon hozzászólást a Substratum Google+ közösségben. Kérjük, adja meg
+  <string name="answer_twelve">Kérjük, írjon hozzászólást a Substratum Google+ közösségben. Kérjük, adja meg
         a következő adatokat: Substratum változat, ROM, téma (ha a hiba csak ennél fordul elő), és
         ha lehetséges, egy logcat.
+    </string>
+  <string name="question_thirteen">Hogyan használhatom a substratumot a Samsung készülékemen?</string>
+  <string name="answer_thirteen">Ha a Samsung készülékén Nugát fut, a Substratum egy beépített
+        funkciót kihasználva megoldja, hogy a Substratum témák működjenek. A Substratum
+        az alkalmazás első indításakor kérni fogja, hogy vásárolja meg a Samsung integrációs modult.
+    </string>
+  <string name="question_fourteen">Segítség, egy fedvényt telepítettem a Samsung készülékem és most nem indul el!</string>
+  <string name="answer_fourteen">Csúsztassa ki a navigációs panelt, és ugorjon az XDA témára az utasításokért,
+        hogyan kell helyreállítani az eszközt ebben a konkrét helyzetben.
     </string>
 </resources>

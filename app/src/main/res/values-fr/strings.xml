@@ -228,6 +228,7 @@
     <string name="studio_placeholder_text">Aucun paquet d\'icônes Substratum trouvé</string>
     <string name="studio_toast_mask">Cette icône provient de votre paquet actuel et sera modifiée lorsque vous appliquerez ce paquet d\'icônes.</string>
     <string name="nav_studio">Studio des paquets d\'icônes</string>
+    <string name="logcat_snackbar_button">LogChar</string>
     <string name="logcat_dialog_title">Rapport de débogage \"JournauxDeChar\"</string>
     <string name="logcat_dialog_copy_success">Journal d\'erreur copié dans le presse-papiers !</string>
     <string name="logcat_email_activity">Envoyer le rapport de bogue via&#8230;</string>
@@ -244,14 +245,12 @@
     <string name="manager_no_overlays_text">Compilez une surcouche pour pouvoir m\'utiliser !</string>
     <string name="backup">Carte de sauvegarde</string>
     <string name="backup_card_content">Cette fonction créée une copie de votre liste de surcouches actuellement activées et l\'enregistre dans \"/storage/emulated/0/substratum/profiles/\" pour plus de sécurité.</string>
-    <string name="delete_dialog_cancel">Annuler</string>
     <string name="delete_dialog_okay">Supprimer</string>
     <string name="delete_dialog_title">Supprimer le profil</string>
     <string name="delete_dialog_text">Voulez-vous vraiment supprimer \"%s\" ?</string>
     <string name="restore">Carte de restauration</string>
     <string name="restore_card_content">Lorsqu\'un profil est chargé, votre configuration actuelle est entièrement effacée et \"Rétablir le thème\" prend en compte ces modifications.</string>
     <string name="remove_dialog_later">Plus tard</string>
-    <string name="restore_dialog_cancel">Annuler</string>
     <string name="restore_dialog_okay">Continuer</string>
     <string name="restore_dialog_title">Ces superpositions seront installées pour restaurer votre profil complètement:    </string>
     <string name="backup_button">SAUVEGARDER</string>
@@ -272,13 +271,12 @@
         ou l\'application ne fonctionnera pas correctement !</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Ne plus afficher</string>
+    <string name="dialog_cancel">Annuler</string>
     <string name="clean_cache_dialog_body">Voulez-vous nettoyer le cache de ce thème ?</string>
     <string name="clean_dialog_body">Voulez-vous nettoyer toutes les surcouches pour ce thème ?</string>
     <string name="disable_dialog_body">Voulez-vous désactiver toutes les surcouches pour ce thème ?</string>
     <string name="enable_dialog_body">Voulez-vous activer toutes les surcouches pour ce thème ?</string>
     <string name="uninstall_dialog_body">Désinstaller</string>
-    <string name="uninstall_dialog_cancel">Annuler</string>
-    <string name="uninstall_dialog_okay">OK</string>
     <string name="sb_phase_1_loader">Extraction des atouts du thème en cours</string>
     <string name="sb_phase_2_loader">Création et signature des surcouches en cours</string>
     <string name="sb_phase_3_loader">Insertion des ressources icône en cours</string>
@@ -365,6 +363,8 @@
     <string name="manager_subtext">Dans la liste des surcouches, afficher les surcouches désactivées avec leurs équivalentes activées</string>
     <string name="alternate_drawer_design_title">Apparence du tiroir secondaire</string>
     <string name="alternate_drawer_design_subtext">Affiche une apparence différente pour le panneau de navigation lors de la navigation dans l\'interface utilisateur</string>
+    <string name="logchar_autosave_title">Enregistrer automatiquement les rapport LogChar</string>
+    <string name="logchar_autosave_subtext">Cela va automatiquement sauvegarder les rapports LogChar dans le dossier /storage/emulated/0/substratum/LogChar Reports/.</string>
     <string name="show_outdated_themes_title">Afficher tous les thèmes obsolètes</string>
     <string name="show_outdated_themes_content">Désactiver cette option permet à Substratum d\'utiliser un algorithme permettant aux thèmes de se charger beaucoup plus rapidement. Ne fonctionne que pour les thèmes possédant l\'extension correctement configurés (6.0.0+).</string>
     <string name="fab_menu_compile_enable">Compiler et activer</string>
@@ -428,10 +428,11 @@
     <string name="profile_compile_processing">Traitement des surcouches enregistrées en cours&#8230;</string>
     <string name="theme_debug_mode_title">Contournement d\'interjection du système</string>
     <string name="theme_debug_mode_summary">Cela empêchera l\'application d\'utiliser le mécanisme de rechange du compilateur existant, pour aider les thèmes lorsqu\'ils atteignent un état irrécupérable</string>
+    <string name="logchar_dialog_title_delete_title">ATTENTION</string>
+    <string name="logchar_dialog_title_delete_content">Cela va supprimer tout les logs enregistrés. En appuyant sur continuer, tout les logs seront supprimés et les logs ne seront plus enregistrés.</string>
     <string name="break_compilation_dialog_title">AVERTISSEMENT</string>
     <string name="break_compilation_dialog_content">Cela peut complètement briser le processus de compilation. Activez cette option uniquement si vous savez ce que vous faites !</string>
     <string name="break_compilation_dialog_continue">Continuer</string>
-    <string name="break_compilation_dialog_cancel">Annuler</string>
     <string name="theme_safety_dialog_title">AVERTISSEMENT</string>
     <string name="theme_safety_dialog_content">C\'est une fonctionnalité de sécurité cruciale, permettant de récupérer d\'une fermeture forcée de surcouche ! Vous pouvez utiliser le bouton \"Sauvez-moi !\" des raccourcis de Substratum si vous vous retrouvez coincé. En dernier recours installez depuis le \"Recovery\" l\'archive de secours stockée dans /storage/emulated/0/substratum/</string>
     <string name="profile_dialog_title">Sélectionnez les éléments à sauvegarder</string>
@@ -442,7 +443,6 @@
     <string name="profile_sound">Sons</string>
     <string name="profile_wallpaper">Fonds d\'écran</string>
     <string name="profile_dialog_ok">OK</string>
-    <string name="profile_dialog_cancel">Annuler</string>
     <string name="bottom_sheet_dialog_hide_outdated_themes">Masquer les thèmes obsolètes (Supérieurs à 6.0.0) [Conseillé !]</string>
     <string name="bottom_sheet_dialog_show_outdated_themes">Afficher les thèmes obsolètes (Inférieurs à 6.0.0) [Non pris en charge]</string>
     <string name="settings_system_status">Certification système</string>
@@ -484,6 +484,7 @@
     <string name="per_app_toast_no_overlays">Aucune surcouches configurable pour %s !</string>
     <string name="per_app_dialog_title">%s\n Gestionnaire de surcouches</string>
     <string name="per_app_apply">Appliquer</string>
+    <string name="per_app_request_title">Permissions FloatUI</string>
     <string name="per_app_draw_over_other_apps_request">Veuillez accorder à Substratum les autorisations \"Se superposer aux autres applications\" et \"Accès aux statistiques d\'utilisation\" afin de pouvoir filtrer dynamiquement vos applications</string>
     <string name="per_app_usage_stats_request">Veuillez accorder à Substratum l\'autorisation \"Accès aux données d\'utilisation\" afin de pouvoir filtrer dynamiquement vos applications</string>
     <string name="per_app_manual_grant">Veuillez accorder manuellement à Substratum les autorisations \"Accès aux données d\'utilisation\" et \"Se superposer aux autres applications\" dans l\'application \"Paramètres\" afin de pouvoir utiliser FloatUI !</string>
@@ -546,6 +547,7 @@
     <string name="nav_drawer_googleplus">Communauté Google+</string>
     <string name="nav_drawer_telegram">Groupe Telegram</string>
     <string name="nav_drawer_xda">Sujet d\'aide sur XDA</string>
+    <string name="nav_drawer_rawad">Guide de Thématisation de Rawad</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Contenu en vedette</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
@@ -567,6 +569,7 @@
     <string name="nav_settings">Paramètres</string>
     <string name="title_activity_manage_space">Gestion de l\'espace de stockage</string>
     <string name="manage_space_cache_text_title">Vider le cache</string>
+    <string name="manage_space_logs_text_title">Supprimer les logs enregistrés</string>
     <string name="clear_cache_button_loading">Chargement en cours&#8230;</string>
     <string name="clear_cache_button_text">Vider le cache de Substratum</string>
     <string name="manage_space_cache_counter_title">La suppression du cache supprime tous les fichiers temporaires utilisés par le compilateur et le programme de téléchargement. Les paquets de thème et les configurations utilisateur resteront intacts.\n\nEn fonction de la taille du cache, cette action peut durer quelques secondes.</string>

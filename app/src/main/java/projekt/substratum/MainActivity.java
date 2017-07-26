@@ -838,11 +838,11 @@ public class MainActivity extends SubstratumActivity implements
 
     private void cleanLogCharReportsIfNecessary() {
         Date currentDate = new Date(System.currentTimeMillis());
-        if (prefs.getLong("last_logchar_cleanup", 0) == 0) {
-            prefs.edit().putLong("last_logchar_cleanup", currentDate.getTime()).apply();
+        if (prefs.getLong("previous_logchar_cleanup", 0) == 0) {
+            prefs.edit().putLong("previous_logchar_cleanup", currentDate.getTime()).apply();
             return;
         }
-        long lastCleanupDate = prefs.getLong("last_logchar_cleanup", 0);
+        long lastCleanupDate = prefs.getLong("previous_logchar_cleanup", 0);
         long diff = currentDate.getTime() - lastCleanupDate;
         if (prefs.getBoolean("automatic_logchar_cleanup", false) &&
                 TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) >= 15) {

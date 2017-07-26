@@ -52,10 +52,10 @@ public class AppCrashReceiver extends BroadcastReceiver {
             return;
         }
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences
+                (context);
         boolean enabled = sharedPreferences.getBoolean("crash_receiver", true);
         if (!enabled) return;
-
 
 
         String packageName =
@@ -80,7 +80,7 @@ public class AppCrashReceiver extends BroadcastReceiver {
 
             }
         } else if (Objects.equals(packageName, "com.android.systemui")) {
-            switch (sharedPreferences.getInt("sysui_crash_count", 0)){
+            switch (sharedPreferences.getInt("sysui_crash_count", 0)) {
                 case 0:
                 case 1:
                     Log.d("AppCrashReceiver",
@@ -95,7 +95,8 @@ public class AppCrashReceiver extends BroadcastReceiver {
                     sharedPreferences.edit().remove("sysui_crash_count").apply();
                     postNotificationAndDisableOverlays(context,
                             getApplicationLabel(context, packageName),
-                            ThemeManager.listEnabledOverlaysForTarget(context, "com.android.systemui"));
+                            ThemeManager.listEnabledOverlaysForTarget(context, "com.android" +
+                                    ".systemui"));
                     break;
                 default:
                     sharedPreferences.edit().remove("sysui_crash_count").apply();
@@ -106,7 +107,8 @@ public class AppCrashReceiver extends BroadcastReceiver {
         }
     }
 
-    private void postNotificationAndDisableOverlays(Context context, String packageName, List<String> overlays) {
+    private void postNotificationAndDisableOverlays(Context context, String packageName,
+                                                    List<String> overlays) {
         String app_crash_title =
                 String.format(context.getString(R.string.app_crash_title), packageName);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context,
@@ -126,7 +128,7 @@ public class AppCrashReceiver extends BroadcastReceiver {
         ThemeManager.disableOverlay(context, new ArrayList<>(overlays));
     }
 
-    private String getApplicationLabel(Context context, String packageName){
+    private String getApplicationLabel(Context context, String packageName) {
         try {
             ApplicationInfo applicationInfo = context.getPackageManager()
                     .getApplicationInfo(packageName, 0);

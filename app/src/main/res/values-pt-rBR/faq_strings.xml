@@ -18,51 +18,51 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="question_one">O que é Substratum?</string>
-  <string name="answer_one">Substratum é um aplicativo que tem como vantagem o uso do Overlay Manager Services (OMS) da Sony. Similar ao Layers em termos de estabilidade e customizações (por ser construído em cima do RRO) mas com algumas outras ricas opções, tais como aplicar o tema sem reiniciar, animações de boot, fontes e mudança prioritária.    </string>
-  <string name="question_two">O que é o Theme Interfacer?</string>
-  <string name="answer_two">O Theme Interfacer é a base que permite Substratum funcionar
+    <string name="question_one">O que é Substratum?</string>
+    <string name="answer_one">Substratum é um aplicativo que tem como vantagem o uso do Overlay Manager Services (OMS) da Sony. Similar ao Layers em termos de estabilidade e customizações (por ser construído em cima do RRO) mas com algumas outras ricas opções, tais como aplicar o tema sem reiniciar, animações de boot, fontes e mudança prioritária.    </string>
+    <string name="question_two">O que é o Theme Interfacer?</string>
+    <string name="answer_two">O Theme Interfacer é a base que permite Substratum funcionar
         como um motor de temas. A idea de uma interface é simular as tecnicalidades
         de \"servidor/cliente\" e o Substratum se comunicar com o os manipuladores do Interfacer para
         sinalizar comandos diretamente ao sistema.
     </string>
-  <string name="question_three">O que eu preciso ter para poder utilizar o Substratum de forma correta?</string>
-  <string name="answer_three">Você necessitará de uma ROM que tem suporte ao OMS e ao Theme Interfacer
+    <string name="question_three">O que eu preciso ter para poder utilizar o Substratum de forma correta?</string>
+    <string name="answer_three">Você necessitará de uma ROM que tem suporte ao OMS e ao Theme Interfacer
         (pergunte a eles, eles saberão), esse aplicativo, e um tema compatível
         (verifique a descrição na Play Store ou pergunte ao desenvolvedor)
     </string>
-  <string name="question_four">Posso usar o Substratum mesmo que minha ROM não tenha suporte ao OMS? </string>
-  <string name="answer_four">Sim, se sua ROM tiver suporte para RRO (stock Nougat entra
+    <string name="question_four">Posso usar o Substratum mesmo que minha ROM não tenha suporte ao OMS? </string>
+    <string name="answer_four">Sim, se sua ROM tiver suporte para RRO (stock Nougat entra
         nessa categoria). Os outros requisitos acima são os mesmos (root, este aplicativo e um tema
         compatível). Você o aplicará da mesma maneira, mas as etapas de compilação e aplicação são combinadas e uma
         reinicialização é necessária para aplicar as camadas.    </string>
-  <string name="question_five">Como eu aplico um tema?</string>
-  <string name="answer_five">A aplicação de um tema é um processo em duas partes: a compilação
+    <string name="question_five">Como eu aplico um tema?</string>
+    <string name="answer_five">A aplicação de um tema é um processo em duas partes: a compilação
         das camadas e a aplicação das camadas. Vá no tema, clique na aba Gerenciador de Camadas, selecione as camadas e opções
         que quer, toque no FAB e escolha Compilar/Atualizar, e então selecione as mesmas camadas, toque no FAB
         e selecione Habilitar Selecionados.
     </string>
-  <string name="question_six">Minhas camadas não compilaram, o que aconteceu?</string>
-  <string name="answer_six">Apague o arquivo em /system/bin/aopt, reabra o aplicativo, e tente o processo novamente.</string>
-  <string name="question_seven">Meu tema não aplicou, o que aconteceu?</string>
-  <string name="answer_seven">Se você estiver aplicando um tema pela primeira vez ou a partir de um tema stock, tenha certeza que você não tenha a opção \"Desabilitar outros temas\" ativada.</string>
-  <string name="question_eight">Estou em bootloop! Como eu conserto isso?</string>
-  <string name="answer_eight">Substratum tem seu próprio sistema de recuperação chamado Substratum Rescue System (SRS), no qual é um processo automatizado que salva um arquivo em /storage/emulated/0/substratum/SubstratumRescue.zip. Dê flash neste zip em seu recovery e reinicie.</string>
-  <string name="question_nine">Alguns elementos parecem bagunçados depois de eu aplicar o tema, o que aconteceu?</string>
-  <string name="answer_nine">
+    <string name="question_six">Minhas camadas não compilaram, o que aconteceu?</string>
+    <string name="answer_six">Apague o arquivo em /system/bin/aopt, reabra o aplicativo, e tente o processo novamente.</string>
+    <string name="question_seven">Meu tema não aplicou, o que aconteceu?</string>
+    <string name="answer_seven">Se você estiver aplicando um tema pela primeira vez ou a partir de um tema stock, tenha certeza que você não tenha a opção \"Desabilitar outros temas\" ativada.</string>
+    <string name="question_eight">Estou em bootloop! Como eu conserto isso?</string>
+    <string name="answer_eight">Substratum tem seu próprio sistema de recuperação chamado Substratum Rescue System (SRS), no qual é um processo automatizado que salva um arquivo em /storage/emulated/0/substratum/SubstratumRescue.zip. Dê flash neste zip em seu recovery e reinicie.</string>
+    <string name="question_nine">Alguns elementos parecem bagunçados depois de eu aplicar o tema, o que aconteceu?</string>
+    <string name="answer_nine">
 1. Reinicie o SystemUI se não o fez automaticamente.\n2. Reinicie o telefone.\n3. Desative
         as camadas, recompile e reative.    </string>
-  <string name="question_ten">Aonde estão instaladas as camadas?</string>
-  <string name="answer_ten">As camadas estão instaladas no diretório /data/app, o que significa que cada camada recebe sua própria pasta.    </string>
-  <string name="question_eleven">Estou tendo um erro quando tento atualizar um tema na Play Store.</string>
-  <string name="answer_eleven">Desinstale o tema e o reinstale.</string>
-  <string name="question_twelve">Quem eu devo contatar se eu tiver uma dúvida séria não resolvida lendo esses passos?</string>
-  <string name="answer_twelve">Faça uma postagem na comunidade Substratum do Google+. Forneça as seguintes informações: Versão do Substratum, ROM, tema (se houver problemas de aplicação) e, se possível, um logcat.    </string>
-  <string name="question_thirteen">Como faço para usar o substratum no meu dispositivo Samsung?</string>
-  <string name="answer_thirteen">Se seu dispositivo Samsung estiver executando Nougat, Substratum será
+    <string name="question_ten">Aonde estão instaladas as camadas?</string>
+    <string name="answer_ten">As camadas estão instaladas no diretório /data/app, o que significa que cada camada recebe sua própria pasta.    </string>
+    <string name="question_eleven">Estou tendo um erro quando tento atualizar um tema na Play Store.</string>
+    <string name="answer_eleven">Desinstale o tema e o reinstale.</string>
+    <string name="question_twelve">Quem eu devo contatar se eu tiver uma dúvida séria não resolvida lendo esses passos?</string>
+    <string name="answer_twelve">Faça uma postagem na comunidade Substratum do Google+. Forneça as seguintes informações: Versão do Substratum, ROM, tema (se houver problemas de aplicação) e, se possível, um logcat.    </string>
+    <string name="question_thirteen">Como faço para usar o substratum no meu dispositivo Samsung?</string>
+    <string name="answer_thirteen">Se seu dispositivo Samsung estiver executando Nougat, Substratum será
         capaz de utilizar um recurso interno para permitir que os temas do Substratum funcionem. Substratum irá
         solicitar que você compre o complemento de integração da Samsung quando você iniciar o aplicativo pela primeira vez.    </string>
-  <string name="question_fourteen">Ajuda, instalei uma camada no meu dispositivo Samsung e agora não inicializa!</string>
-  <string name="answer_fourteen">Deslize a gaveta de navegação para fora e dirija-se ao fio no XDA para obter instruções
+    <string name="question_fourteen">Ajuda, instalei uma camada no meu dispositivo Samsung e agora não inicializa!</string>
+    <string name="answer_fourteen">Deslize a gaveta de navegação para fora e dirija-se ao fio no XDA para obter instruções
         sobre como se recuperar dessa situação particular.    </string>
 </resources>

@@ -99,11 +99,11 @@
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:dependency="autosave_logchar"
             android:key="automatic_logchar_cleanup"
-            android:summaryOn="@string/automatic_logchar_cleanup_summary_on"
             android:summaryOff="@string/automatic_logchar_cleanup_summary_off"
-            android:title="@string/automatic_logchar_cleanup_title"
-            android:dependency="autosave_logchar" />
+            android:summaryOn="@string/automatic_logchar_cleanup_summary_on"
+            android:title="@string/automatic_logchar_cleanup_title"/>
 
         <CheckBoxPreference
             android:layout_width="match_parent"

@@ -18,35 +18,35 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="question_one">Kas yra \"Substratum\"?</string>
-  <string name="answer_one">\"Substratum\" yra programėlė, kuri naudojasi \"Sony\'s Overlay Manager Service (OMS)\".  Tai panašu į Sluoksnius, stabilumo ir pritaikymo požiūriu (sukurtas nuo \"RRO\"), bet turi funkcijas tokias, kaip nebūtinas paleidimas iš naujo, įjungimo animacijos, šriftai ir pirmumo perjungimas.</string>
-  <string name="question_two">Kas yra temos sąsaja?</string>
-  <string name="answer_two">Temos Sąsajos sistema tai, kas leidžia \"Substratum\" veikti kaip \"Theme Engine\". Temos Sąsajos įdėja yra imituoti \"server/client\" technines detales. \"Substratum\" bendrauja su Sąsajos tvarkytojais, kad perduoti komandas tiesiogiai sistemai.    </string>
-  <string name="question_three">Ko reikia, kad \"Substratum\" veiktų tinkamai?</string>
-  <string name="answer_three">Jums reikia \"ROM\", kuris turi \"OMS\" ir Temos Sąsajos sistemos palaikymą (paklauskite jų, jie žinos), šios programėlės ir suderinamos temos (pasitikrinkite \"Play\" parduotuvėje aprašymą arba paklauskite kūrėjų)    </string>
-  <string name="question_four">Ar aš galiu naudoti \"Substratum\" jei mano \"ROM\" neturi \"OMS\" palaikymo?</string>
-  <string name="answer_four">Taip, jei jūsų \"ROM\" palaiko \"RRO\" (\"stock Nougat\" priklauso šiai kategorijai). Kiti pateikti reikalavimai yra vienodi (\"root\", ši programa, ir suderinama tema). Jūs pritaikysite tuo pačiu keliu, tačiau kompiliavimo ir įjungimo žingsniai bus sujungti ir paleidimas iš naujo reikalingas perdangų įjungimui.    </string>
-  <string name="question_five">Kaip aš pritaikysiu temą?</string>
-  <string name="answer_five">Temos taikymas yra dviejų dalių procesas: perdangų kompiliavimas ir perdangų pritaikymas. Eikite į temą, paspauskite Perdangų Tvarkyklės skirtuką, pasirinkite perdangas ir nustatymus kurių norite, paspauskite \"FAB\" ir pasirinkite Kompiliuoti/Atnaujinti, tada pasirinkite tas pačias perdangas ir vėl paspauskite \"FAB\", tuomet pasirinkite Įjungti Pasirinktus.    </string>
-  <string name="question_six">Mano perdangos nebuvo sukompiliuotos, kas nutiko?</string>
-  <string name="answer_six">Ištrinkite savo \"/system/bin/aopt\" failą, per naujo įjungite programėlę ir bandykite dar kartą.</string>
-  <string name="question_seven">Mano tema neveikia, kas nutiko?</string>
-  <string name="answer_seven">Jei jūs pritaikote temą pirmą kartą ar iš esamos temos, įsitikinkite, kad jūs nepažymėjote \"Išjungti kitas temas\" .</string>
-  <string name="question_eight">Aš įkrovos kilpoje!  Kaip tai sutvarkyti?</string>
-  <string name="answer_eight">\"Substratum\" turi savo atkūrimo režimą, vadinamą \"Substratum Rescue System (SRS)\",kuris yra automatizuotas ir įkelia archyvą į \"/storage/emulated/0/substratum/SubstratumRescue.zip\". Iraškite šį \"ZIP\" atkūrimo režime ir paleiskite įrenginį iš naujo.</string>
-  <string name="question_nine">Po temos pritaikymo kai kurie elementai atrodo prastai. Kas nutiko?</string>
-  <string name="answer_nine">
+    <string name="question_one">Kas yra \"Substratum\"?</string>
+    <string name="answer_one">\"Substratum\" yra programėlė, kuri naudojasi \"Sony\'s Overlay Manager Service (OMS)\".  Tai panašu į Sluoksnius, stabilumo ir pritaikymo požiūriu (sukurtas nuo \"RRO\"), bet turi funkcijas tokias, kaip nebūtinas paleidimas iš naujo, įjungimo animacijos, šriftai ir pirmumo perjungimas.</string>
+    <string name="question_two">Kas yra temos sąsaja?</string>
+    <string name="answer_two">Temos Sąsajos sistema tai, kas leidžia \"Substratum\" veikti kaip \"Theme Engine\". Temos Sąsajos įdėja yra imituoti \"server/client\" technines detales. \"Substratum\" bendrauja su Sąsajos tvarkytojais, kad perduoti komandas tiesiogiai sistemai.    </string>
+    <string name="question_three">Ko reikia, kad \"Substratum\" veiktų tinkamai?</string>
+    <string name="answer_three">Jums reikia \"ROM\", kuris turi \"OMS\" ir Temos Sąsajos sistemos palaikymą (paklauskite jų, jie žinos), šios programėlės ir suderinamos temos (pasitikrinkite \"Play\" parduotuvėje aprašymą arba paklauskite kūrėjų)    </string>
+    <string name="question_four">Ar aš galiu naudoti \"Substratum\" jei mano \"ROM\" neturi \"OMS\" palaikymo?</string>
+    <string name="answer_four">Taip, jei jūsų \"ROM\" palaiko \"RRO\" (\"stock Nougat\" priklauso šiai kategorijai). Kiti pateikti reikalavimai yra vienodi (\"root\", ši programa, ir suderinama tema). Jūs pritaikysite tuo pačiu keliu, tačiau kompiliavimo ir įjungimo žingsniai bus sujungti ir paleidimas iš naujo reikalingas perdangų įjungimui.    </string>
+    <string name="question_five">Kaip aš pritaikysiu temą?</string>
+    <string name="answer_five">Temos taikymas yra dviejų dalių procesas: perdangų kompiliavimas ir perdangų pritaikymas. Eikite į temą, paspauskite Perdangų Tvarkyklės skirtuką, pasirinkite perdangas ir nustatymus kurių norite, paspauskite \"FAB\" ir pasirinkite Kompiliuoti/Atnaujinti, tada pasirinkite tas pačias perdangas ir vėl paspauskite \"FAB\", tuomet pasirinkite Įjungti Pasirinktus.    </string>
+    <string name="question_six">Mano perdangos nebuvo sukompiliuotos, kas nutiko?</string>
+    <string name="answer_six">Ištrinkite savo \"/system/bin/aopt\" failą, per naujo įjungite programėlę ir bandykite dar kartą.</string>
+    <string name="question_seven">Mano tema neveikia, kas nutiko?</string>
+    <string name="answer_seven">Jei jūs pritaikote temą pirmą kartą ar iš esamos temos, įsitikinkite, kad jūs nepažymėjote \"Išjungti kitas temas\" .</string>
+    <string name="question_eight">Aš įkrovos kilpoje!  Kaip tai sutvarkyti?</string>
+    <string name="answer_eight">\"Substratum\" turi savo atkūrimo režimą, vadinamą \"Substratum Rescue System (SRS)\",kuris yra automatizuotas ir įkelia archyvą į \"/storage/emulated/0/substratum/SubstratumRescue.zip\". Iraškite šį \"ZIP\" atkūrimo režime ir paleiskite įrenginį iš naujo.</string>
+    <string name="question_nine">Po temos pritaikymo kai kurie elementai atrodo prastai. Kas nutiko?</string>
+    <string name="answer_nine">
 1. Paleiskite iš naujo SistemosNS, jei tai nebuvo atlikta automatiškai.\n2. Paleiskite iš naujo įrenginį.\n3. Išjunkite perdangas, perkompiliuokite ir per naujo įjunkite.    </string>
-  <string name="question_ten">Kur perdangos įrašomos?</string>
-  <string name="answer_ten">Perdangos yra įrašomos į \"/data/app\" aplanką, kas reiškia, jog kiekviena perdanga gauna savo atskirą aplanką.</string>
-  <string name="question_eleven">Pasirodo klaida kai bandau atnaujinti temą \"Play\" parduotuvėje.</string>
-  <string name="answer_eleven">Ištrinkite temą ir įrašykite per naujo.</string>
-  <string name="question_twelve">Su kuo susisiekti jei aš turiu rimtą problemą, kuri nebuvo išspręsta skaitant šiuos žingsnius?</string>
-  <string name="answer_twelve">Prašome parašyti į \"Substratum Google+\" bendruomenę. Prašome pateikti šią informaciją: \"Substratum\" versiją, \"ROM\", temą (jei problema pritaikant vieną) ir jei įmanoma \"logcat\".    </string>
-  <string name="question_thirteen">Kaip naudotis \"substratum\" mano \"Samsung\" įrenginyje?</string>
-  <string name="answer_thirteen">Jei jūsų \"Samsung\" įrenginys turi \"Nougat\", \"Substratum\" galės pasinaudoti įmontuota funkcija, kuri leidžia \"Substratum\" temoms veikti. \"Substratum\" pasiūlys jums įsigyti \"Samsung\" integracijos įskiepi, kai pirmą kartą paleisite programą.    </string>
-  <string name="question_fourteen">Padėkite. Aš įdiegiau perdangą į \"Samsung\" įrenginį ir dabar neįsijungia!</string>
-  <string name="answer_fourteen">Išstumkite navigacijos stalčiu ir eikite į XDA temą instrukcijoms,
+    <string name="question_ten">Kur perdangos įrašomos?</string>
+    <string name="answer_ten">Perdangos yra įrašomos į \"/data/app\" aplanką, kas reiškia, jog kiekviena perdanga gauna savo atskirą aplanką.</string>
+    <string name="question_eleven">Pasirodo klaida kai bandau atnaujinti temą \"Play\" parduotuvėje.</string>
+    <string name="answer_eleven">Ištrinkite temą ir įrašykite per naujo.</string>
+    <string name="question_twelve">Su kuo susisiekti jei aš turiu rimtą problemą, kuri nebuvo išspręsta skaitant šiuos žingsnius?</string>
+    <string name="answer_twelve">Prašome parašyti į \"Substratum Google+\" bendruomenę. Prašome pateikti šią informaciją: \"Substratum\" versiją, \"ROM\", temą (jei problema pritaikant vieną) ir jei įmanoma \"logcat\".    </string>
+    <string name="question_thirteen">Kaip naudotis \"substratum\" mano \"Samsung\" įrenginyje?</string>
+    <string name="answer_thirteen">Jei jūsų \"Samsung\" įrenginys turi \"Nougat\", \"Substratum\" galės pasinaudoti įmontuota funkcija, kuri leidžia \"Substratum\" temoms veikti. \"Substratum\" pasiūlys jums įsigyti \"Samsung\" integracijos įskiepi, kai pirmą kartą paleisite programą.    </string>
+    <string name="question_fourteen">Padėkite. Aš įdiegiau perdangą į \"Samsung\" įrenginį ir dabar neįsijungia!</string>
+    <string name="answer_fourteen">Išstumkite navigacijos stalčiu ir eikite į XDA temą instrukcijoms,
         kaip atstatyti po šios konkrečios situacijos.
     
     </string>

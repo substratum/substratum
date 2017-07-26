@@ -249,7 +249,7 @@ public class ProfileFragment extends Fragment {
                             }
                         })
                         .setPositiveButton(R.string.profile_dialog_ok, null)
-                        .setNegativeButton(R.string.profile_dialog_cancel, null)
+                        .setNegativeButton(R.string.dialog_cancel, null)
                         .create();
 
                 dialog.show();

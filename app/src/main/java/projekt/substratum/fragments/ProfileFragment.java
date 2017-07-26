@@ -322,7 +322,7 @@ public class ProfileFragment extends Fragment {
                                                     profile_selector.getSelectedItem());
                                     RefreshSpinner();
                                 })
-                        .setNegativeButton(getString(R.string.delete_dialog_cancel),
+                        .setNegativeButton(getString(R.string.dialog_cancel),
                                 (dialog, which) -> dialog.cancel())
                         .create()
                         .show();
@@ -712,7 +712,7 @@ public class ProfileFragment extends Fragment {
                                         to_be_run)
                                         .execute();
                             })
-                            .setNegativeButton(getString(R.string.restore_dialog_cancel),
+                            .setNegativeButton(getString(R.string.dialog_cancel),
                                     (dialog, which) -> headerProgress.setVisibility(View.GONE))
                             .create().show();
                 } else {

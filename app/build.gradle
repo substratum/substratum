@@ -37,8 +37,8 @@ android {
         applicationId "projekt.substratum"
         minSdkVersion 24
         targetSdkVersion 26
-        versionCode 813
-        versionName "eight hundred thirteen"
+        versionCode 814
+        versionName "eight hundred fourteen"
         buildConfigField "java.util.Date", "buildTime", "new java.util.Date(" + System.currentTimeMillis() + "L)"
     }
 

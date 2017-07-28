@@ -430,7 +430,8 @@ public class SubstratumBuilder {
                         Log.d(References.SUBSTRATUM_BUILDER, "Silently installing APK...");
                     } catch (Exception e) {
                         dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
-                                "Overlay APK has failed to install! \"(Exception)");
+                                "Overlay APK has failed to install! \" (Exception) " +
+                                        "[Error: " + e.getMessage() + "]");
                         has_errored_out = true;
                         dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
                                 "Installation of \"" + overlay_package + "\" has failed.");

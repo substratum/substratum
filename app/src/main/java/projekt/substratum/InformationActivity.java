@@ -130,6 +130,7 @@ public class InformationActivity extends SubstratumActivity {
     private int tabPosition;
     private LocalBroadcastManager localBroadcastManager;
     private BroadcastReceiver refreshReceiver;
+    private AsyncTask<String, Integer, String> layoutLoader;
 
     public static String getThemeName() {
         return theme_name;
@@ -398,8 +399,7 @@ public class InformationActivity extends SubstratumActivity {
                     fabColor);
         }
 
-        new LayoutLoader().execute("");
-
+        layoutLoader = new LayoutLoader().execute("");
         tabLayout = findViewById(R.id.tabs);
         if (tabLayout != null) {
             if (theme_mode.equals("")) {
@@ -1025,6 +1025,7 @@ public class InformationActivity extends SubstratumActivity {
         iv_encrypt_key = null;
         wallpaperUrl = null;
         kenBurnsView = null;
+        if (layoutLoader != null) layoutLoader.cancel(true);
         heroImageBitmap = null;
 
         if (!BYPASS_SUBSTRATUM_BUILDER_DELETION &&

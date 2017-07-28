@@ -1068,9 +1068,9 @@ public class InformationActivity extends SubstratumActivity {
         @Override
         protected String doInBackground(String... sUrl) {
             kenBurnsView = findViewById(R.id.kenburnsView);
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
             if (heroImageBitmap != null) {
-                heroImageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                heroImageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                 byteArray = stream.toByteArray();
             }
             return null;

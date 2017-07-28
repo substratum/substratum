@@ -171,6 +171,7 @@ public class Overlays extends Fragment {
     public Cipher cipher = null;
     public RefreshReceiver refreshReceiver;
     public ActivityManager am;
+    public boolean decryptedAssetsExceptionReached;
 
     protected void logTypes() {
         if (ENABLE_PACKAGE_LOGGING) {
@@ -462,9 +463,22 @@ public class Overlays extends Fragment {
             } catch (Exception e) {
                 Log.d(TAG,
                         "Loading substratum theme in decrypted assets mode due to an exception.");
+                decryptedAssetsExceptionReached = true;
             }
         } else {
             Log.d(TAG, "Loading substratum theme in decrypted assets mode.");
+        }
+
+        if (decryptedAssetsExceptionReached) {
+            currentShownLunchBar = Lunchbar.make(
+                    getActivityView(),
+                    R.string.error_loading_theme_close_text,
+                    Lunchbar.LENGTH_INDEFINITE);
+            currentShownLunchBar.setAction(getString(R.string.error_loading_theme_close), view -> {
+                currentShownLunchBar.dismiss();
+                getActivity().finish();
+            });
+            currentShownLunchBar.show();
         }
 
         mixAndMatchMode = prefs.getBoolean("enable_swapping_overlays", false);

@@ -588,8 +588,6 @@ resolver este problema.    </string>
     <string name="nav_drawer_featured">Conteúdo em destaque</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">Portal XDA</string>
-    <string name="force_independence_title">Modo de Independência do Sistema</string>
-    <string name="force_independence_summary">Isso forçará todos os reencaminhamentos para o interfacer serem desativados.</string>
     <string name="settings_about_interfacer_disconnected">desconectado</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Recursos</string>

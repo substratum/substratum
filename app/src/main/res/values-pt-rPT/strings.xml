@@ -525,8 +525,6 @@ clique em
     <string name="nav_drawer_featured">Conteúdos em destaque</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">Portal do XDA</string>
-    <string name="force_independence_title">Modo independente do sistema</string>
-    <string name="force_independence_summary">Isto força que todos os reencaminhamentos ao interfaceador sejam desativados.</string>
     <string name="settings_about_interfacer_disconnected">desligado</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Recursos</string>

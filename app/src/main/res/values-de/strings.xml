@@ -557,8 +557,6 @@ um das Problem zu beheben.    </string>
     <string name="nav_drawer_featured">Empfohlene Inhalte</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">XDA-Portal</string>
-    <string name="force_independence_title">System-Unabhängigkeits-Modus</string>
-    <string name="force_independence_summary">Dies wird alle Umleitungen zum Interfacer zwingend deaktivieren.</string>
     <string name="settings_about_interfacer_disconnected">getrennt</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Ressourcen</string>

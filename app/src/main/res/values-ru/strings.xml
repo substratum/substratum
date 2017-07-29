@@ -558,8 +558,6 @@
     <string name="nav_drawer_featured">Рекомендуемое</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">Сайт XDA</string>
-    <string name="force_independence_title">Самостоятельность системы</string>
-    <string name="force_independence_summary">Принудительно отключить все обращения к согласователю</string>
     <string name="settings_about_interfacer_disconnected">отсоединен</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Ресурсы</string>

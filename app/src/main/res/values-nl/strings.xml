@@ -547,8 +547,6 @@
     <string name="nav_drawer_featured">Uitgelichte inhoud</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">XDA-portaal</string>
-    <string name="force_independence_title">Systeemonafhankelijke modus</string>
-    <string name="force_independence_summary">Dit dwingt alle herleidingen naar interfacer om uit te schakelen.</string>
     <string name="settings_about_interfacer_disconnected">niet verbonden</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Bronnen</string>

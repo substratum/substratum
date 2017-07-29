@@ -552,8 +552,6 @@
     <string name="nav_drawer_featured">Contenu en vedette</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">Portail XDA</string>
-    <string name="force_independence_title">Mode Indépendance du système</string>
-    <string name="force_independence_summary">Force Substratum à fonctionner seul, sans tenir compte de l\'Interface de thème</string>
     <string name="settings_about_interfacer_disconnected">Déconnecté</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Ressources</string>

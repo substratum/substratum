@@ -557,8 +557,6 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="nav_drawer_featured">Polecana zawartość</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">Portal XDA</string>
-    <string name="force_independence_title">Tryb niezależności systemu</string>
-    <string name="force_independence_summary">Spowoduje to wyłączenie wszystkich przekierowań do interfacera.</string>
     <string name="settings_about_interfacer_disconnected">odłączony</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Zasoby</string>

@@ -582,8 +582,6 @@
     <string name="nav_drawer_featured">Panašus tūrinys</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">XDA Portalas</string>
-    <string name="force_independence_title">Nepriklausomos Sistemos Režimas</string>
-    <string name="force_independence_summary">Tai priverstinai išjungs sąsają.</string>
     <string name="settings_about_interfacer_disconnected">atjungta</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Ištekliai</string>

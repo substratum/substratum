@@ -571,8 +571,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="nav_drawer_featured">Contenido Destacado</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">Portal en XDA</string>
-    <string name="force_independence_title">Modo de Independencia del Sistema</string>
-    <string name="force_independence_summary">Esto forzará que se desactiven todos los desvíos a Interfacer.</string>
     <string name="settings_about_interfacer_disconnected">Desconectado</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Recursos</string>

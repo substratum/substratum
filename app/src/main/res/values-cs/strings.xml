@@ -592,8 +592,6 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="nav_drawer_featured">Doporučený obsah</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">XDA portál</string>
-    <string name="force_independence_title">Systémově nezávislý režim</string>
-    <string name="force_independence_summary">Toto vypne všechny přesměrování na Interfacer.</string>
     <string name="settings_about_interfacer_disconnected">odpojeno</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Zdroje</string>

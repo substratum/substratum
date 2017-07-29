@@ -828,8 +828,6 @@
     <string name="tcf_link" translatable="false">http://thecyberfibre.com/</string>
     <string name="nav_drawer_xda_portal">XDA Portal</string>
     <string name="xda_portal_link" translatable="false">https://xda-developers.com/author/punya-vashist</string>
-    <string name="force_independence_title">System Independence Mode</string>
-    <string name="force_independence_summary">This will force all reroutes to interfacer to be disabled.</string>
     <string name="settings_about_interfacer_disconnected">disconnected</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Resources</string>

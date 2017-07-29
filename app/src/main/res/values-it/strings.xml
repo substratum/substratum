@@ -552,8 +552,6 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="nav_drawer_featured">Contenuti in primo piano</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TFC)</string>
     <string name="nav_drawer_xda_portal">Portale XDA</string>
-    <string name="force_independence_title">System Independence Mode</string>
-    <string name="force_independence_summary">Questo forzerà la disattivazione di tutti i reindirizzamenti all\'Interfacer.</string>
     <string name="settings_about_interfacer_disconnected">disconnesso</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Risorse</string>

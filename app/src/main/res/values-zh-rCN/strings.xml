@@ -548,8 +548,6 @@
     <string name="nav_drawer_featured">特色内容</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">XDA 门户</string>
-    <string name="force_independence_title">系统独立模式</string>
-    <string name="force_independence_summary">禁用所有与主题接口的通讯</string>
     <string name="settings_about_interfacer_disconnected">断开连接</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">资源</string>

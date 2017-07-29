@@ -676,8 +676,6 @@ sağlayan
     <string name="nav_drawer_featured">Öne çıkan içerik</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">XDA Portal</string>
-    <string name="force_independence_title">Sistem Bağımsızlığı Modu</string>
-    <string name="force_independence_summary">Tüm yönlendirmeleri devre dışı bırakmak için arayüze zorlar.</string>
     <string name="settings_about_interfacer_disconnected">bağlantı kesildi</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Kaynaklar</string>

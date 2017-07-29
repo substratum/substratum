@@ -474,8 +474,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         // These should run if the app is running in debug mode
         final Preference aoptSwitcher = getPreferenceManager().findPreference
                 ("aopt_switcher");
-        final CheckBoxPreference forceIndependence = (CheckBoxPreference)
-                getPreferenceManager().findPreference("force_independence");
         final CheckBoxPreference crashReceiver = (CheckBoxPreference)
                 getPreferenceManager().findPreference("crash_receiver");
 
@@ -543,48 +541,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     crashReceiver.setVisible(false);
                 }
             }
-
-            if (References.checkThemeInterfacer(getContext()) &&
-                    References.checkOMS(getContext())) {
-                forceIndependence.setChecked(prefs.getBoolean("force_independence", false));
-                forceIndependence.setOnPreferenceChangeListener(
-                        (preference, newValue) -> {
-                            boolean isChecked = (Boolean) newValue;
-                            if (isChecked) {
-                                final AlertDialog.Builder builder =
-                                        new AlertDialog.Builder(getContext());
-                                builder.setTitle(R.string.break_compilation_dialog_title);
-                                builder.setMessage(R.string.break_compilation_dialog_content);
-                                builder.setNegativeButton(R.string.dialog_cancel,
-                                        (dialog, id) -> dialog.dismiss());
-                                builder.setPositiveButton(
-                                        R.string.break_compilation_dialog_continue,
-                                        (dialog, id) -> {
-                                            prefs.edit().putBoolean(
-                                                    "force_independence", true).apply();
-                                            forceIndependence.setChecked(true);
-                                            Intent i = getContext().getPackageManager()
-                                                    .getLaunchIntentForPackage(getContext()
-                                                            .getPackageName());
-                                            if (i != null) {
-                                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                startActivity(i);
-                                            }
-                                        });
-                                builder.show();
-                            } else {
-                                prefs.edit().putBoolean("force_independence", false).apply();
-                                forceIndependence.setChecked(false);
-                            }
-                            return false;
-                        });
-            } else if (References.checkOMS(getContext())) {
-                forceIndependence.setChecked(!References.checkThemeInterfacer(getContext()));
-                forceIndependence.setEnabled(References.checkThemeInterfacer(getContext()));
-            }
         } else {
             if (References.checkOMS(getContext())) {
-                forceIndependence.setVisible(false);
                 crashReceiver.setVisible(false);
             }
             aoptSwitcher.setVisible(false);

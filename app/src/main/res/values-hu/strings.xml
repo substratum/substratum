@@ -667,8 +667,6 @@
     <string name="nav_drawer_featured">Kiemelt tartalom</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">XDA portál</string>
-    <string name="force_independence_title">Rendszer függetlenségi mód</string>
-    <string name="force_independence_summary">Ez az összes interfacerre való átirányítást letiltásra kényszerít.</string>
     <string name="settings_about_interfacer_disconnected">leválasztva</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Erőforrások</string>

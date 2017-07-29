@@ -24,9 +24,16 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
+import projekt.substratum.common.References;
+
 public class Root {
 
     private static SU su;
+
+    public static boolean checkRootAccess() {
+        StringBuilder check = References.runShellCommand("which su");
+        return check != null && check.toString().length() > 0;
+    }
 
     public static boolean requestRootAccess() {
         SU su = getSU();

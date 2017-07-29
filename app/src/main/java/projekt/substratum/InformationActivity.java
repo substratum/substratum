@@ -86,6 +86,8 @@ import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.tabs.WallpaperManager;
+import projekt.substratum.services.system.SamsungPackageService;
+import projekt.substratum.util.files.Root;
 import projekt.substratum.util.views.FloatingActionMenu;
 import projekt.substratum.util.views.SheetDialog;
 
@@ -693,6 +695,9 @@ public class InformationActivity extends SubstratumActivity {
                         Lunchbar.LENGTH_SHORT);
                 currentShownLunchBar.show();
             }
+            if (References.isSamsung(getApplicationContext())) {
+                startService(new Intent(getBaseContext(), SamsungPackageService.class));
+            }
         }
     }
 
@@ -744,10 +749,12 @@ public class InformationActivity extends SubstratumActivity {
                     PorterDuff.Mode.SRC_ATOP);
         }
 
+        if (!isOMS && !Root.checkRootAccess()) {
+            menu.findItem(R.id.restart_systemui).setVisible(false);
+        }
         if (!isOMS) {
             menu.findItem(R.id.disable).setVisible(false);
             menu.findItem(R.id.enable).setVisible(false);
-            menu.findItem(R.id.restart_systemui).setVisible(false);
         }
         if (isOMS || isSamsung(getApplicationContext())) {
             if (isSamsung(getApplicationContext())) menu.findItem(R.id.clean).setVisible(false);
@@ -1010,6 +1017,10 @@ public class InformationActivity extends SubstratumActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+
+        if (References.isSamsung(getApplicationContext())) {
+            stopService(new Intent(getBaseContext(), SamsungPackageService.class));
+        }
 
         try {
             localBroadcastManager.unregisterReceiver(refreshReceiver);

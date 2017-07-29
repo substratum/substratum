@@ -65,6 +65,7 @@ import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.services.notification.NotificationButtonReceiver;
 import projekt.substratum.util.compilers.CacheCreator;
 import projekt.substratum.util.compilers.SubstratumBuilder;
+import projekt.substratum.util.files.Root;
 
 import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.References.DEFAULT_NOTIFICATION_CHANNEL_ID;
@@ -309,16 +310,26 @@ class OverlayFunctions {
             if (References.isSamsung(context) &&
                     fragment.late_install != null &&
                     fragment.late_install.size() > 0) {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                Uri uri = FileProvider.getUriForFile(
-                        context,
-                        context.getApplicationContext().getPackageName() + ".provider",
-                        new File(fragment.late_install.get(0)));
-                intent.setDataAndType(
-                        uri,
-                        "application/vnd.android.package-archive");
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                fragment.startActivityForResult(intent, 2486);
+                if (Root.checkRootAccess() && Root.requestRootAccess()) {
+                    Log.e("Tester3", "Late Install");
+                    for (int i = 0; i < fragment.late_install.size(); i++) {
+                        Log.e("Tester3", fragment.late_install.get(i));
+                        ThemeManager.installOverlay(
+                                fragment.getContext(),
+                                fragment.late_install.get(i));
+                    }
+                } else {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    Uri uri = FileProvider.getUriForFile(
+                            context,
+                            context.getApplicationContext().getPackageName() + ".provider",
+                            new File(fragment.late_install.get(0)));
+                    intent.setDataAndType(
+                            uri,
+                            "application/vnd.android.package-archive");
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    fragment.startActivityForResult(intent, 2486);
+                }
             } else if (!References.checkOMS(context) &&
                     fragment.final_runner.size() == fragment.fail_count) {
                 final AlertDialog.Builder alertDialogBuilder =

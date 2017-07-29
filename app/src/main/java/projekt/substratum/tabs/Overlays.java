@@ -102,6 +102,7 @@ import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
 import projekt.substratum.util.files.MapUtils;
+import projekt.substratum.util.files.Root;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
@@ -323,11 +324,22 @@ public class Overlays extends Fragment {
 
                 if (!checkedOverlays.isEmpty()) {
                     if (References.isSamsung(getContext())) {
-                        for (int i = 0; i < checkedOverlays.size(); i++) {
-                            Uri packageURI = Uri.parse("package:" +
-                                    checkedOverlays.get(i).getFullOverlayParameters());
-                            Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
-                            startActivity(uninstallIntent);
+                        if (Root.checkRootAccess() && Root.requestRootAccess()) {
+                            ArrayList<String> checked_overlays = new ArrayList<>();
+                            for (int i = 0; i < checkedOverlays.size(); i++) {
+                                checked_overlays.add(
+                                        checkedOverlays.get(i).getFullOverlayParameters());
+                            }
+                            ThemeManager.uninstallOverlay(getContext(), checked_overlays);
+                        } else {
+                            for (int i = 0; i < checkedOverlays.size(); i++) {
+                                Uri packageURI = Uri.parse("package:" +
+                                        checkedOverlays.get(i).getFullOverlayParameters());
+                                Intent uninstallIntent =
+                                        new Intent(Intent.ACTION_DELETE, packageURI);
+
+                                startActivity(uninstallIntent);
+                            }
                         }
                     } else {
                         for (int i = 0; i < checkedOverlays.size(); i++) {

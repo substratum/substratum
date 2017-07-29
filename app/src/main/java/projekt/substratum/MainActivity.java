@@ -310,6 +310,9 @@ public class MainActivity extends SubstratumActivity implements
         switchToStockToolbar(getString(R.string.app_name));
 
         String versionName = BuildConfig.VERSION_NAME;
+        if (BuildConfig.DEBUG) {
+            versionName = versionName + " - " + BuildConfig.GIT_HASH;
+        }
 
         AccountHeader header = new AccountHeaderBuilder()
                 .withActivity(this)

@@ -110,6 +110,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 ("about_substratum");
         String aboutSubstratumSummary =
                 BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")";
+        if (BuildConfig.DEBUG) {
+            aboutSubstratumSummary = aboutSubstratumSummary + " - " + BuildConfig.GIT_HASH;
+        }
         aboutSubstratum.setSummary(aboutSubstratumSummary);
         aboutSubstratum.setIcon(getContext().getDrawable(R.mipmap.main_launcher));
         aboutSubstratum.setOnPreferenceClickListener(

@@ -173,6 +173,7 @@ public class Overlays extends Fragment {
     public RefreshReceiver refreshReceiver;
     public ActivityManager am;
     public boolean decryptedAssetsExceptionReached;
+    public int overlaysWaiting = 0;
 
     protected void logTypes() {
         if (ENABLE_PACKAGE_LOGGING) {
@@ -1542,6 +1543,13 @@ public class Overlays extends Fragment {
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            if (References.isSamsung(context) && Root.checkRootAccess()) {
+                if (overlaysWaiting > 0) {
+                    --overlaysWaiting;
+                } else {
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
             refreshList();
         }
     }

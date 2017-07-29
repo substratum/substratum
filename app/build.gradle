@@ -18,6 +18,15 @@
 
 apply plugin: 'com.android.application'
 
+def gitHash = { ->
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'rev-parse', '--short', 'HEAD'
+        standardOutput = stdout
+    }
+    return stdout.toString().trim()
+}
+
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
@@ -29,7 +38,7 @@ android {
 
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "substratum_beta_${variant.versionCode}.apk"
+            outputFileName = "substratum_beta_${variant.versionCode}_${gitHash()}.apk"
         }
     }
 
@@ -40,6 +49,7 @@ android {
         versionCode 815
         versionName "eight hundred fifteen"
         buildConfigField "java.util.Date", "buildTime", "new java.util.Date(" + System.currentTimeMillis() + "L)"
+        buildConfigField "String", "GIT_HASH", "\"${gitHash()}\""
     }
 
     buildTypes {

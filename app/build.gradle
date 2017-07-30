@@ -156,8 +156,6 @@ dependencies {
     implementation 'org.zeroturnaround:zt-zip:1.8'
     // Image Processing
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.4.7'
-    // Direct Interface to the Overlay Manager Service
-    implementation files('src/main/libs/oms-v3.jar')
     // Expandable Layout
     implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.1'
     // Floating App Head

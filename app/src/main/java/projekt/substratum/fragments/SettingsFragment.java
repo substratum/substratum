@@ -666,9 +666,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 assert pInfo != null;
                 String versionName = pInfo.versionName;
                 int versionCode = pInfo.versionCode;
-                aboutInterfacer.setSummary(prefs.getBoolean("force_independence", false) ?
-                        getString(R.string.settings_about_interfacer_disconnected) :
-                        versionName + " (" + versionCode + ")");
+                aboutInterfacer.setSummary(versionName + " (" + versionCode + ")");
             } catch (Exception e) {
                 // Suppress exception
             }

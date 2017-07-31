@@ -685,7 +685,6 @@ public class References {
         editor.putBoolean("nougat_style_cards", false);
         editor.putBoolean("aopt_debug", false);
         editor.putBoolean("theme_debug", false);
-        editor.putBoolean("force_independence", false);
         editor.putBoolean("force_english", false);
         editor.putBoolean("floatui_show_android_system_overlays", false);
         editor.putBoolean("alphabetize_showcase", false);
@@ -1706,9 +1705,7 @@ public class References {
                     "used");
             return false;
         }
-        boolean forceIndependence = PreferenceManager.getDefaultSharedPreferences(context)
-                .getBoolean("force_independence", false);
-        return !forceIndependence && getThemeInterfacerPackage(context) != null;
+        return getThemeInterfacerPackage(context) != null;
     }
 
     public static boolean isBinderInterfacer(Context context) {

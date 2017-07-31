@@ -214,6 +214,10 @@ public class Overlays extends Fragment {
                 } else {
                     phase2.execute("");
                 }
+                for (OverlaysItem overlay : checkedOverlays) {
+                    Log.d("OverlayTargetPackageKiller", "Killing package : " + overlay.getPackageName());
+                    am.killBackgroundProcesses(overlay.getPackageName());
+                }
             } else {
                 if (toggle_all.isChecked()) toggle_all.setChecked(false);
                 is_active = false;
@@ -249,6 +253,10 @@ public class Overlays extends Fragment {
                     phase2.execute(base_spinner.getSelectedItem().toString());
                 } else {
                     phase2.execute("");
+                }
+                for (OverlaysItem overlay : checkedOverlays) {
+                    Log.d("OverlayTargetPackageKiller", "Killing package : " + overlay.getPackageName());
+                    am.killBackgroundProcesses(overlay.getPackageName());
                 }
             } else {
                 if (toggle_all.isChecked()) toggle_all.setChecked(false);
@@ -291,6 +299,10 @@ public class Overlays extends Fragment {
                         phase2.execute(base_spinner.getSelectedItem().toString());
                     } else {
                         phase2.execute("");
+                    }
+                    for (OverlaysItem overlay : checkedOverlays) {
+                        Log.d("OverlayTargetPackageKiller", "Killing package : " + overlay.getPackageName());
+                        am.killBackgroundProcesses(overlay.getPackageName());
                     }
                 } else {
                     if (toggle_all.isChecked()) toggle_all.setChecked(false);
@@ -421,6 +433,10 @@ public class Overlays extends Fragment {
 
                 } else {
                     phase2.execute("");
+                }
+                for (OverlaysItem overlay : checkedOverlays) {
+                    Log.d("OverlayTargetPackageKiller", "Killing package : " + overlay.getPackageName());
+                    am.killBackgroundProcesses(overlay.getPackageName());
                 }
             } else {
                 if (toggle_all.isChecked()) toggle_all.setChecked(false);
@@ -1027,10 +1043,6 @@ public class Overlays extends Fragment {
                 if (currentOverlay.isSelected()) {
                     currentOverlay.setSelected(false);
                 }
-                if (References.isSamsung(getContext().getApplicationContext())) {
-                    am.killBackgroundProcesses(currentOverlay.getPackageName());
-                }
-
                 mAdapter.notifyDataSetChanged();
             }
         }

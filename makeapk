@@ -1,0 +1,273 @@
+#!/usr/bin/env bash
+#
+# Copyright (c) 2017 Projekt Substratum
+# This file is part of Substratum.
+#
+# Substratum is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Substratum is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
+
+
+#################
+# DOCUMENTATION #
+#################
+
+# This script was designed to be simple to use
+#
+# Run the following to learn about what the script can do
+#
+# $ ./makeapk -h
+#
+# In order to use the release variant, you must set up a keystore.properties
+# file according to the following documentation (just step 2):
+# https://developer.android.com/studio/publish/app-signing.html#secure-shared-keystore
+
+
+# Get parameters
+while [[ $# -ge 1 ]]; do
+    case "${1}" in
+        # Print a simple help menu
+        "-h"|"--help")
+            echo
+            echo "This is a script to assist with building and releasing
+Substratum APKs from the command line! Here are the options:
+
+    -i | --install:
+        Installs the generated APK to a device plugged into the computer
+
+    -m | --move:
+        Takes a directory as the next parameter
+        Moves the APK to the specified directory
+
+    -t | --type:
+        Takes either release or debug
+
+    -u | --update:
+        Update the Substratum repository before building
+
+    -v | --version:
+        Version code to build with (will commit if present)"
+            echo
+            exit ;;
+
+        # Install generated APK
+        "-i"|"--install")
+            INSTALL=true ;;
+
+        # Override move location
+        "-m"|"--mode")
+            shift
+
+            MOVE=${1} ;;
+
+        # Whether to build debug or release
+        "-t"|"--type")
+            shift
+
+            TYPE=${1} ;;
+
+        # Whether to update repo or not before building
+        "-u"|"--update")
+            UPDATE=true ;;
+
+        # Whether or not to bump version before building
+        "-v"|"--version")
+            shift
+
+            VERSION_CODE=${1} ;;
+    esac
+
+    shift
+done
+
+# Release is the default type
+[[ -z ${TYPE} ]] && TYPE=release
+
+# Set some values based on type
+case ${TYPE} in
+    "release")
+        COMMIT_TYPE="Public"
+        GRADLE_TASK="assembleRelease" ;;
+    "debug")
+        GRADLE_TASK="assembleDebug"
+        COMMIT_TYPE="Internal" ;;
+esac
+
+# Update Substratum repo if requested
+if [[ ${UPDATE} = true ]]; then
+    # Get current branch
+    BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+    git fetch origin
+    git reset --hard origin/${BRANCH}
+
+    # If this is a fork and the user has an upstream remote set up
+    # Update that as well
+    [[ $( git remote | grep upstream ) ]] && git pull upstream ${BRANCH}
+fi
+
+
+# Bump version if requested (this is so dirty pls no judge)
+if [[ -n ${VERSION_CODE} ]]; then
+    # Handle hundreds first
+    case "${VERSION_CODE:0:1}" in
+        "1")
+            VERSION_STRING="one hundred" ;;
+        "2")
+            VERSION_STRING="two hundred" ;;
+        "3")
+            VERSION_STRING="three hundred" ;;
+        "4")
+            VERSION_STRING="four hundred" ;;
+        "5")
+            VERSION_STRING="five hundred" ;;
+        "6")
+            VERSION_STRING="six hundred" ;;
+        "7")
+            VERSION_STRING="seven hundred" ;;
+        "8")
+            VERSION_STRING="eight hundred" ;;
+        "9")
+            VERSION_STRING="nine hundred" ;;
+    esac
+
+    # If the second digit is a 1, we need a separate clause due to the non-uniformity
+    if [[ ${VERSION_CODE:1:1} -eq 1 ]]; then
+        case "${VERSION_CODE:2:1}" in
+            "0")
+                VERSION_STRING+=" ten" ;;
+            "1")
+                VERSION_STRING+=" eleven" ;;
+            "2")
+                VERSION_STRING+=" twelve" ;;
+            "3")
+                VERSION_STRING+=" thirteen" ;;
+            "4")
+                VERSION_STRING+=" fourteen" ;;
+            "5")
+                VERSION_STRING+=" fifteen" ;;
+            "6")
+                VERSION_STRING+=" sixteen" ;;
+            "7")
+                VERSION_STRING+=" seventeen" ;;
+            "8")
+                VERSION_STRING+=" eighteen" ;;
+            "9")
+                VERSION_STRING+=" nineteen" ;;
+        esac
+    # Otherwise, we need to handle the second digit then the first
+    else
+        case "${VERSION_CODE:1:1}" in
+            "2")
+                VERSION_STRING+=" twenty" ;;
+            "3")
+                VERSION_STRING+=" thirty" ;;
+            "4")
+                VERSION_STRING+=" forty" ;;
+            "5")
+                VERSION_STRING+=" fifty" ;;
+            "6")
+                VERSION_STRING+=" sixty" ;;
+            "7")
+                VERSION_STRING+=" seventy" ;;
+            "8")
+                VERSION_STRING+=" eighty" ;;
+            "9")
+                VERSION_STRING+=" ninety" ;;
+        esac
+
+        case "${VERSION_CODE:2:1}" in
+            "1")
+                VERSION_STRING+=" one" ;;
+            "2")
+                VERSION_STRING+=" two" ;;
+            "3")
+                VERSION_STRING+=" three" ;;
+            "4")
+                VERSION_STRING+=" four" ;;
+            "5")
+                VERSION_STRING+=" five" ;;
+            "6")
+                VERSION_STRING+=" six" ;;
+            "7")
+                VERSION_STRING+=" seven" ;;
+            "8")
+                VERSION_STRING+=" eight" ;;
+            "9")
+                VERSION_STRING+=" nine" ;;
+        esac
+    fi
+
+    # We need to grab the previous version from app/build.gradle for proper substitution
+    PREV_VERSION_CODE=$(grep -m 2 "versionCode" app/build.gradle | tail -n 1 | sed 's/.* //')
+    PREV_VERSION_STRING=$(grep -o 'versionName ".*"' app/build.gradle | cut -d '"' -f 2)
+
+    # Warn the user if they are downgrading the version code
+    [[ ${PREV_VERSION_CODE} -gt ${VERSION_CODE} ]] && echo "Previous version code is bigger than the specified one!" && sleep 10
+
+    # Replace them in app/build.gradle with the new versions
+    sed -i "s/${PREV_VERSION_CODE}/${VERSION_CODE}/g" app/build.gradle
+    sed -i "s/${PREV_VERSION_STRING}/${VERSION_STRING}/g" app/build.gradle
+
+    # Commit the result
+    git add app/build.gradle
+    git commit -m "${COMMIT_TYPE} release ${VERSION_CODE}"
+    git push origin
+fi
+
+# Build the APK
+./gradlew clean ${GRADLE_TASK}
+
+# Get APK out location
+APK_OUT=$(ls app/build/outputs/apk/main/release/*.apk)
+
+# Don't do anything else in the script if the build failed
+if [[ -f ${APK_OUT} ]]; then
+    # Move the APK if it is a release build and tag it
+    if [[ ${TYPE} = "release" ]]; then
+        # If the MOVE flag wasn't set above, set it to the default
+        [[ -z ${MOVE} ]] && MOVE=/home/site/public/APKs
+
+        # Copy the APK to wherever it needs to go
+        cp ${APK_OUT} ${MOVE}
+
+        # Get the APK name for below
+        APK_NAME=$(basename ${APK_OUT})
+
+        # Only tag if there was a version update (there should be but never know)
+        if [[ -n ${VERSION_CODE} ]] && [[ ${MOVE} = /home/site/public/APKs ]]; then
+            git tag -a "${VERSION_CODE}" -m "${VERSION_STRING}
+
+${COMMIT_TYPE} release ${VERSION_CODE}
+
+APK location: http://download.projektsubstratum.com/APKs/${APK_NAME}"
+
+            # Push the tag
+            git push origin ${VERSION_CODE}
+        fi
+
+    # If MOVE was specified (meaning the APK is debug), move it as well
+    elif [[ -n ${MOVE} ]]; then
+        cp -v app/build/outputs/apk/main/release/*.apk ${MOVE}
+    fi
+
+    # Install the APK if requested
+    if [[ ${INSTALL} = true ]]; then
+        adb install -r ${MOVE}/${APK_NAME}
+    fi
+
+    echo; echo "Build successful! APK located at: ${MOVE}/${APK_NAME}"; echo
+
+# Build failed, wtf?
+else
+    echo "Build failed!"
+fi

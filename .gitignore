@@ -7,3 +7,5 @@
 /build
 /captures
 *.apk
+keystore.properties
+*.jks

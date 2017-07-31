@@ -27,6 +27,19 @@ def gitHash = { ->
     return stdout.toString().trim()
 }
 
+// Create a variable called keystorePropertiesFile, and initialize it to your
+// keystore.properties file, in the rootProject folder.
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+
+// If the keystore file exists
+if (keystorePropertiesFile.exists()) {
+    // Initialize a new Properties() object called keystoreProperties.
+    def keystoreProperties = new Properties()
+
+    // Load your keystore.properties file into the keystoreProperties object.
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
@@ -38,7 +51,7 @@ android {
 
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "substratum_beta_${variant.versionCode}_${gitHash()}.apk"
+            outputFileName = "substratum_${variant.versionCode}_${gitHash()}.apk"
         }
     }
 
@@ -52,6 +65,17 @@ android {
         buildConfigField "String", "GIT_HASH", "\"${gitHash()}\""
     }
 
+    if (keystorePropertiesFile.exists()) {
+        signingConfigs {
+            release {
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+            }
+        }
+    }
+
     buildTypes {
         debug {
             debuggable true
@@ -62,6 +86,7 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            if (keystorePropertiesFile.exists()) signingConfig signingConfigs.release
         }
     }
 

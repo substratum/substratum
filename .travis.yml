@@ -22,3 +22,4 @@ cache:
   directories:
   - "$HOME/.m2"
   - "$HOME/.gradle"
+  - "$ANDROID_HOME"

@@ -34,6 +34,9 @@ import android.widget.ImageView;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.MainActivity;
@@ -45,6 +48,7 @@ import projekt.substratum.util.files.MD5;
 import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.Resources.ANDROID_STUDIO_DEBUG_KEYS;
+import static projekt.substratum.common.analytics.FirebaseAnalytics.PACKAGES_PREFS;
 import static projekt.substratum.common.analytics.PackageAnalytics.isLowEnd;
 
 public class SplashScreenActivity extends Activity {
@@ -141,6 +145,17 @@ public class SplashScreenActivity extends Activity {
             prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
             editor = prefs.edit();
             editor.clear().apply();
+
+            FirebaseAnalytics.withdrawBlacklistedPackages(context);
+            prefs = context.getSharedPreferences(PACKAGES_PREFS, Context.MODE_PRIVATE);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
+            while (!prefs.contains(dateFormat.format(new Date()))) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
 
             if (!References.isSamsungDevice(context) ||
                     !References.isPackageInstalled(context, SST_ADDON_PACKAGE)) {

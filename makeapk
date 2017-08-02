@@ -64,10 +64,11 @@ Substratum APKs from the command line! Here are the options:
             INSTALL=true ;;
 
         # Override move location
-        "-m"|"--mode")
+        "-m"|"--move")
             shift
 
-            MOVE=${1} ;;
+            MOVE=${1}
+            [[ "${MOVE}" == */ ]] || MOVE="${MOVE}/" ;;
 
         # Whether to build debug or release
         "-t"|"--type")
@@ -228,7 +229,7 @@ fi
 ./gradlew clean ${GRADLE_TASK}
 
 # Get APK out location
-APK_OUT=$(ls app/build/outputs/apk/main/release/*.apk)
+APK_OUT=$(ls app/build/outputs/apk/main/${TYPE}/*.apk)
 
 # Don't do anything else in the script if the build failed
 if [[ -f ${APK_OUT} ]]; then
@@ -257,7 +258,9 @@ APK location: http://download.projektsubstratum.com/APKs/${APK_NAME}"
 
     # If MOVE was specified (meaning the APK is debug), move it as well
     elif [[ -n ${MOVE} ]]; then
-        cp -v app/build/outputs/apk/main/release/*.apk ${MOVE}
+        cp -v app/build/outputs/apk/main/${TYPE}/*.apk ${MOVE}
+    else
+        cp -v app/build/outputs/apk/main/${TYPE}/*.apk .
     fi
 
     # Install the APK if requested
@@ -265,7 +268,7 @@ APK location: http://download.projektsubstratum.com/APKs/${APK_NAME}"
         adb install -r ${MOVE}/${APK_NAME}
     fi
 
-    echo; echo "Build successful! APK located at: ${MOVE}/${APK_NAME}"; echo
+    echo; echo "Build successful! APK located at: ${MOVE}${APK_NAME}"; echo
 
 # Build failed, wtf?
 else

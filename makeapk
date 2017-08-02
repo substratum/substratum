@@ -55,7 +55,7 @@ Substratum APKs from the command line! Here are the options:
         Update the Substratum repository before building
 
     -v | --version:
-        Version code to build with (will commit if present)"
+        Commit then build with a new version code (takes the numerical value)"
             echo
             exit ;;
 

@@ -233,6 +233,9 @@ APK_OUT=$(ls app/build/outputs/apk/main/${TYPE}/*.apk)
 
 # Don't do anything else in the script if the build failed
 if [[ -f ${APK_OUT} ]]; then
+    # Get the APK name for below
+    APK_NAME=$(basename ${APK_OUT})
+
     # Move the APK if it is a release build and tag it
     if [[ ${TYPE} = "release" ]]; then
         # If the MOVE flag wasn't set above, set it to the default
@@ -240,9 +243,6 @@ if [[ -f ${APK_OUT} ]]; then
 
         # Copy the APK to wherever it needs to go
         cp ${APK_OUT} ${MOVE}
-
-        # Get the APK name for below
-        APK_NAME=$(basename ${APK_OUT})
 
         # Only tag if there was a version update (there should be but never know)
         if [[ -n ${VERSION_CODE} ]] && [[ ${MOVE} = /home/site/public/APKs ]]; then
@@ -258,9 +258,9 @@ APK location: http://download.projektsubstratum.com/APKs/${APK_NAME}"
 
     # If MOVE was specified (meaning the APK is debug), move it as well
     elif [[ -n ${MOVE} ]]; then
-        cp -v app/build/outputs/apk/main/${TYPE}/*.apk ${MOVE}
+        cp ${APK_OUT} ${MOVE}
     else
-        cp -v app/build/outputs/apk/main/${TYPE}/*.apk .
+        cp ${APK_OUT} .
     fi
 
     # Install the APK if requested

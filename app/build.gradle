@@ -31,15 +31,6 @@ def gitHash = { ->
 // keystore.properties file, in the rootProject folder.
 def keystorePropertiesFile = rootProject.file("keystore.properties")
 
-// If the keystore file exists
-if (keystorePropertiesFile.exists()) {
-    // Initialize a new Properties() object called keystoreProperties.
-    def keystoreProperties = new Properties()
-
-    // Load your keystore.properties file into the keystoreProperties object.
-    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-}
-
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
@@ -65,7 +56,14 @@ android {
         buildConfigField "String", "GIT_HASH", "\"${gitHash()}\""
     }
 
+    // If the keystore file exists
     if (keystorePropertiesFile.exists()) {
+        // Initialize a new Properties() object called keystoreProperties.
+        def keystoreProperties = new Properties()
+
+        // Load your keystore.properties file into the keystoreProperties object.
+        keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
         signingConfigs {
             release {
                 keyAlias keystoreProperties['keyAlias']

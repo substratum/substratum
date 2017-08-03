@@ -197,7 +197,6 @@
     <string name="settings_about_substratum">substratum verzió</string>
     <string name="settings_about_interfacer">interfacer verzió</string>
     <string name="settings_about_interfacer_not_installed">Nincs telepítve</string>
-    <string name="settings_about_interfacer_masquerade">A rom frissítése szükséges, hogy kihasználja az interfacer funkciót</string>
     <string name="settings_about_oms_rro_version">Téma platform:</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
@@ -233,7 +232,6 @@
     <string name="manage_wallpaper_lock_toast">Zárképernyő háttérkép sikeresen visszaállítva!</string>
     <string name="manage_wallpaper_all_toast">Háttérkép sikeresen visszaállítva!</string>
     <string name="manage_icons_title">Rendszerikonok visszaállítása</string>
-    <string name="manage_icons_toast">Rendszerikonok sikeresen visszaállítva!</string>
     <string name="adapter_uninstalling">%s eltávolítása folyamatban&#8230;</string>
     <string name="plugin_template">Beépülő</string>
     <string name="api_21">Lollipop</string>
@@ -259,16 +257,13 @@
     <string name="menu_disable">Telepített fedvények letiltása</string>
     <string name="menu_enable">Telepített fedvények engedélyezése</string>
     <string name="menu_favorite">Kedvenc</string>
-    <string name="menu_open">Ikoncsomag irányítópult</string>
     <string name="menu_rate">Téma értékelése</string>
-    <string name="menu_refresh">Frissítés</string>
     <string name="menu_soft_reboot">Lágy újraindítás</string>
     <string name="menu_reboot_device">Készülék újraindítása</string>
     <string name="menu_per_app">FloatUI</string>
     <string name="menu_restart_systemui">SystemUI újraindítása</string>
     <string name="menu_alphabetize">Rendezési mód módosítása</string>
     <string name="menu_search">Play Áruház témák</string>
-    <string name="menu_search_icon_packs">Play Áruház ikoncsomagok</string>
     <string name="menu_showcase">Bemutató</string>
     <string name="menu_uninstall">Téma eltávolítása</string>
     <string name="menu_favorite_snackbar">%s sikeresen beállítva parancsikonként!</string>
@@ -280,33 +275,7 @@
     <string name="dialog_restart_reboot_content">Ez egy teljes újraindítást fog végrehajtani az eszközén.</string>
     <string name="dialog_restart_soft_reboot_title">Lágy újraindítás</string>
     <string name="dialog_restart_soft_reboot_content">Ez egy lágy újraindítást fog végrehajtani az eszközén.</string>
-    <string name="studio">ikon stúdió</string>
-    <string name="studio_system">Rendszerikonok visszaállítása</string>
-    <string name="studio_system_reset_dialog_toast">
-        Az összes egyéni ikon már le van tiltva!
-    </string>
-    <string name="studio_system_reset_dialog">
-        Szeretné visszaállítani a rendszer alapértelmezett ikonjait a jelenlegi ikonok helyett?
-    </string>
-    <string name="studio_refresh_dialog_title">Konfiguráció módosításának megerősítése</string>
-    <string name="studio_refresh_dialog_content">A Substratum most módosítja a rendszer konfigurációját,
-        hogy minden alkalmazás az új ikonokat gyorsan felismerje.\n\nA rendszer nyelve
-        ideiglenesen japánra fog váltani miután az ikonok az indtóban alkalmazásra kerülnek, majd
-        visszatér a készüléken eredetileg beállított nyelvre. Ha az ikonok nem módosultak, kattintson
-        az Ikon konfiguráció frissítésére az Ikoncsomag Stúdió főoldalán!\n\nMiután megnyomta az OK
-        gombot, ne érintse meg a készüléket mindaddig, amíg egy üzenet fel nem jön, jelezve,
-        hogy az ikoncsomag sikeresen alkalmazásra került!</string>
-    <string name="studio_pack_title">Letöltött ikoncsomagok</string>
-    <string name="studio_system_title">Substratum keretrendszer</string>
-    <string name="studio_apply_confirmation">Biztosan szeretné alkalmazni: %s?</string>
     <string name="studio_applying">Betöltés&#8230;</string>
-    <string name="icon_pack_entry">Fedvény ikon</string>
-    <string name="studio_update_configuration">Ikon konfiguráció frissítése</string>
-    <string name="studio_placeholder_text">nem található substratum által támogatott ikoncsomag</string>
-    <string name="studio_toast_mask">Ez az ikon a jelenlegi csomagja alapján készült
-        és akkor változik meg, ha ezt az ikoncsomagot alkalmazza.
-    </string>
-    <string name="nav_studio">Ikoncsomag Stúdió</string>
     <string name="logcat_snackbar_button">LogChar</string>
     <string name="logcat_snackbar_text">Cél alkalmazás/fedvény elavult, vagy nem megfelelő konfiguráció kiválasztva&#8230;</string>
     <string name="logcat_dialog_title">\"LogChar\" hibakeresési jelentés</string>
@@ -388,7 +357,6 @@
     <string name="uninstall_dialog_body">Téma eltávolítása</string>
     <string name="sb_phase_1_loader">téma kicsomagolása</string>
     <string name="sb_phase_2_loader">fedvény telepítése</string>
-    <string name="sb_phase_3_loader">ikon erőforrások injektálása</string>
     <string name="root_rejected_title">Rendszergazdai jogosultságok megtagadva</string>
     <string name="root_rejected_text_cm_phh">root nélkül nem folytatható&#8230;</string>
     <string name="root_rejected_timer_plural">bezárás %s mp múlva&#8230;</string>
@@ -404,9 +372,6 @@
     <string name="no_themes_title">nincsenek témák&#8230;</string>
     <string name="no_themes_description">kérjük telepítsen egy kompatibilis témát!</string>
     <string name="no_themes_description_search">\"%s\" a telepített témák listájában nem található&#8230;</string>
-    <string name="toast_samsung_prototype_one_overlay">Jelenleg csak egy fedvényt lehet kiválasztani egy időben.</string>
-    <string name="toast_samsung_prototype_restart">Kérjük, indítsa újra a készüléket, vagy lője ki a fedvényezett alkalmazását!</string>
-    <string name="toast_samsung_prototype_disabled">A substratum ezen verziója lejárt.\n\nKérjük, frissítse egy friss példányra!</string>
     <string name="toast_samsung_prototype_alert">Substratum automatikusan elrejtette a készülékén nem támogatott rendszerfedvényeket!</string>
     <string name="samsung_prototype_no_root_dialog">Úgy tűnik, hogy támogatott Samsung eszközt használ, egy add-on készült ennek támogatásához!</string>
     <string name="samsung_prototype_no_root_dialog_button">Töltse le most!</string>
@@ -435,7 +400,6 @@
         telepített fedvényt) a probléma megoldásához.
     </string>
     <string name="shortcut_floatui">FloatUI</string>
-    <string name="shortcut_floatui_disabled">FloatUI</string>
     <string name="shortcut_rescue">Ments meg!</string>
     <string name="shortcut_rescue_disabled">Ments meg!</string>
     <string name="shortcut_store">Téma-bemutató</string>
@@ -667,7 +631,6 @@
     <string name="nav_drawer_featured">Kiemelt tartalom</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">XDA portál</string>
-    <string name="settings_about_interfacer_disconnected">leválasztva</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Erőforrások</string>
     <string name="nav_drawer_homepage">Hivatalos honlap</string>
@@ -684,7 +647,6 @@
     <string name="manage_space_cache_text_title">Gyorsítótár törlése</string>
     <string name="manage_space_logs_text_title">Mentett naplók törlése</string>
     <string name="clear_cache_button_loading">Betöltés&#8230;</string>
-    <string name="clear_cache_button_text">Substratum gyorsítótárának törlése</string>
     <string name="manage_space_cache_counter_title">A helyi gyorsítótár törlése eltávolítja a téma összeállító és az online letöltő által használt összes fájlt. Minden témacsomag és felhasználói konfiguráció megmarad.\n\nA gyorsítótár méretétől függően, ez néhány másodpercet is igénybe vehet.</string>
     <string name="manage_space_reset_text_title">Konfiguráció visszaállítása</string>
     <string name="manage_space_reset_text_desc">Gond van az alkalmazással? Vagy nemrégiben egy nagyobb verzióugrást tett a substratum egy régebbi változatáról? Egy egyszerű konfiguráció törlés biztosan megoldja a problémát!</string>

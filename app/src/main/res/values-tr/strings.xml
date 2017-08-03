@@ -203,7 +203,6 @@ bu sorunu
     <string name="settings_about_substratum">substratum sürümü</string>
     <string name="settings_about_interfacer">arayüz sürümü</string>
     <string name="settings_about_interfacer_not_installed">Yüklü değil</string>
-    <string name="settings_about_interfacer_masquerade">Bu rom, arayüz işlevselliğini kullanmak için bir güncelleştirme gerektiriyor</string>
     <string name="settings_about_oms_rro_version">Tema platformu:</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Eski)</string>
@@ -239,7 +238,6 @@ bu sorunu
     <string name="manage_wallpaper_lock_toast">Kilit ekranı duvar kağıdını geri yükleme başarılı!</string>
     <string name="manage_wallpaper_all_toast">Duvar kağıdı geri yükleme başarılı!</string>
     <string name="manage_icons_title">Sistem Simgelerini Geri Yükle</string>
-    <string name="manage_icons_toast">Sistem simgelerini geri yükleme başarılı!</string>
     <string name="adapter_uninstalling">%s kaldırılıyor&#8230;</string>
     <string name="plugin_template">Eklenti</string>
     <string name="api_21">Lolipop</string>
@@ -265,16 +263,13 @@ bu sorunu
     <string name="menu_disable">Yüklü tüm temaları devre dışı bırak</string>
     <string name="menu_enable">Yüklü tüm temaları etkinleştir</string>
     <string name="menu_favorite">Favori</string>
-    <string name="menu_open">Simge Paketi Kontrol Paneli</string>
     <string name="menu_rate">Temaya oy ver</string>
-    <string name="menu_refresh">Yenile</string>
     <string name="menu_soft_reboot">Yazılımsal Yeniden Başlat</string>
     <string name="menu_reboot_device">Cihazı Yeniden Başlat</string>
     <string name="menu_per_app">Yüzen Kullanıcı Arayüzü</string>
     <string name="menu_restart_systemui">Sistem Arayüzünü Yeniden Başlat</string>
     <string name="menu_alphabetize">Sıralama Modunu Değiştir</string>
     <string name="menu_search">Play Store Temaları</string>
-    <string name="menu_search_icon_packs">Play Store Simge Paketleri</string>
     <string name="menu_showcase">Vitrin</string>
     <string name="menu_uninstall">Temayı Kaldır</string>
     <string name="menu_favorite_snackbar">%s bir uygulama kısayolu olarak başarıyla ayarlandı!</string>
@@ -286,32 +281,7 @@ bu sorunu
     <string name="dialog_restart_reboot_content">Cihazınızda tam bir yeniden başlatma gerçekleştirir.</string>
     <string name="dialog_restart_soft_reboot_title">Yazılımsal Yeniden Başlat</string>
     <string name="dialog_restart_soft_reboot_content">Cihazınızda yazılımsal bir yeniden başlatma gerçekleştirecektir.</string>
-    <string name="studio">simge stüdyosu</string>
-    <string name="studio_system">Sistem Simgelerini Geri Yükle</string>
-    <string name="studio_system_reset_dialog_toast">
-Tüm özel simgeler zaten devre dışı!
-    </string>
-    <string name="studio_system_reset_dialog">
-        Mevcut simgeleri sistem varsayılan simgelerine geri yüklemek istiyor musunuz?
-    </string>
-    <string name="studio_refresh_dialog_title">Yapılandırma Değişikliği Onayı</string>
-    <string name="studio_refresh_dialog_content">Substratum, artık tüm uygulamaların yeni simgeleri tanımasına
-        neden olacak şekilde sistem yapılandırmanızı değiştirecektir.\n\nBaşlatıcıya atıldıktan
-        sonra sistem dili anlık olarak Japonca\'ya çevirir, Ardından cihazınızdaki orijinal dile        geri döner,
-        Simgeler değişmezse, Icon Studio\'nun ana sayfasındaki Simge Yapılandırmasını
-        Yenile\'yi tıklayın!\n\nTamam düğmesine bastıktan sonra, simge paketinizi başarılı bir şekilde
-        uyguladığını söyleyen bir mesaj gelene kadar cihazınıza dokunmayın!</string>
-    <string name="studio_pack_title">İndirilen Simge Paketleri</string>
-    <string name="studio_system_title">Substratum Framework</string>
-    <string name="studio_apply_confirmation">%si uygulamak istediğinize emin misiniz?</string>
     <string name="studio_applying">Yükleniyor&#8230;</string>
-    <string name="icon_pack_entry">Tema Simgesi</string>
-    <string name="studio_update_configuration">Simge Yapılandırmasını Yenile</string>
-    <string name="studio_placeholder_text">substratum destekli simge paketleri bulunamadı</string>
-    <string name="studio_toast_mask">Bu simge mevcut pakette görünüyor ve bu simge
-        paketini uyguladığınızda değiştirilecektir.
-    </string>
-    <string name="nav_studio">Simge Paketi Stüdyosu</string>
     <string name="logcat_snackbar_button">LogChar</string>
     <string name="logcat_snackbar_text">Hedeflenen uygulama/tema geçersiz veya eşleşmeyen yapılandırma seçildi&#8230;</string>
     <string name="logcat_dialog_title">\"LogChar\" Hata Raporu</string>
@@ -397,7 +367,6 @@ sağlayan
     <string name="uninstall_dialog_body">Temayı Kaldır</string>
     <string name="sb_phase_1_loader">tema çıkartılıyor</string>
     <string name="sb_phase_2_loader">tema yükleniyor</string>
-    <string name="sb_phase_3_loader">simge kaynakları ekleniyor</string>
     <string name="root_rejected_title">Superuser izinleri reddedildi</string>
     <string name="root_rejected_text_cm_phh">kök erişimi olmadan devam edemezsiniz&#8230;</string>
     <string name="root_rejected_timer_plural">%s saniye içinde kapanacak&#8230;</string>
@@ -413,9 +382,6 @@ sağlayan
     <string name="no_themes_title">tema bulunamadı&#8230;</string>
     <string name="no_themes_description">lütfen uyumlu bir tema yükleyin!</string>
     <string name="no_themes_description_search">\'\'%s\'\' yüklü temalar listesinde bulunamadı&#8230;</string>
-    <string name="toast_samsung_prototype_one_overlay">Şu anda tek seferde yalnızca bir tema seçilebilir.</string>
-    <string name="toast_samsung_prototype_restart">Lütfen cihazınızı yeniden başlatın veya örtüşen uygulamanızı kapatmaya zorlayın!</string>
-    <string name="toast_samsung_prototype_disabled">Substratum\'un bu sürümü eski.\n\nLütfen yeni sürümüne güncelleyin!</string>
     <string name="toast_samsung_prototype_alert">Substratum, cihazınız için desteklenmeyen sistem temalarını otomatik olarak gizledi!</string>
     <string name="samsung_prototype_no_root_dialog">Öyle görünüyor ki, desteklenen bir Samsung cihazını kullanıyorsunuz, bunu desteklemek için bir eklenti yayınlandı!</string>
     <string name="samsung_prototype_no_root_dialog_button">Şimdi indirin!</string>
@@ -444,7 +410,6 @@ sağlayan
         seçeneğini tıklayın.
     </string>
     <string name="shortcut_floatui">Yüzen Kullanıcı Arayüzü</string>
-    <string name="shortcut_floatui_disabled">Yüzen Kullanıcı Arayüzü</string>
     <string name="shortcut_rescue">Kurtar Beni!</string>
     <string name="shortcut_rescue_disabled">Kurtar Beni!</string>
     <string name="shortcut_store">Tema Vitrini</string>
@@ -676,7 +641,6 @@ sağlayan
     <string name="nav_drawer_featured">Öne çıkan içerik</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">XDA Portal</string>
-    <string name="settings_about_interfacer_disconnected">bağlantı kesildi</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Kaynaklar</string>
     <string name="nav_drawer_homepage">Resmi web sitesi</string>
@@ -693,7 +657,6 @@ sağlayan
     <string name="manage_space_cache_text_title">Önbelleği temizle</string>
     <string name="manage_space_logs_text_title">Kayıtlı günlükleri temizle</string>
     <string name="clear_cache_button_loading">Yükleniyor&#8230;</string>
-    <string name="clear_cache_button_text">Substratum\'un önbelleğini temizle</string>
     <string name="manage_space_cache_counter_title">Yerel ön belleğin silinmesi, tema derleyici ve çevrimiçi yükleyici tarafından kullanılan tüm dosyaları silecektir. Tüm tema paketleri ve kullanıcı yapılandırmaları olduğu gibi kalır.\n\nÖnbelleğinizin boyutuna bağlı olarak, tamamlanması birkaç saniye sürebilir.</string>
     <string name="manage_space_reset_text_title">Yapılandırmayı sıfırla</string>
     <string name="manage_space_reset_text_desc">Uygulamayla ilgili sorun mu yaşıyorsunuz? Veya son zamanlarda substratum\'un çok eski bir sürümünden en yeni sürümüne geçiş mi yaptınız? Basit bir yapılandırma temizleme sorun gidermeye kesinlikle yardımcı olur!</string>

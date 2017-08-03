@@ -125,10 +125,6 @@
         <item name="animation">fade</item>
     </style>
 
-    <style name="WelcomeScreenText.Title.Centered.Custom">
-        <item name="android:textSize">30sp</item>
-    </style>
-
     <style name="Widget.MaterialSheetFab.Sheet" parent="">
         <item name="android:layout_width">@dimen/sheet_width</item>
         <item name="android:layout_height">wrap_content</item>
@@ -166,10 +162,4 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="RestoreInfo" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
 </resources>

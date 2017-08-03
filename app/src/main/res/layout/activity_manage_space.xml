@@ -137,7 +137,6 @@
             android:layout_margin="15dp">
 
             <TextView
-                android:id="@+id/reset_app_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/manage_space_reset_text_title"

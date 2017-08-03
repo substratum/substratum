@@ -153,7 +153,6 @@
     <string name="settings_about_substratum">\"substratum\" versija</string>
     <string name="settings_about_interfacer">sąsajos versija</string>
     <string name="settings_about_interfacer_not_installed">Neįdiegta</string>
-    <string name="settings_about_interfacer_masquerade">Šiam \"rom\" reikia atnaujinimo, kad panaudotų sąsajos funkcionalumą</string>
     <string name="settings_about_oms_rro_version">Temos platforma:</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
@@ -186,7 +185,6 @@
     <string name="manage_wallpaper_lock_toast">Užrakinimo ekrano fonas atkurtas sėkmingai!</string>
     <string name="manage_wallpaper_all_toast">Fonas atkurtas sėkmingai!</string>
     <string name="manage_icons_title">Atkurti Sistemos Piktogramas</string>
-    <string name="manage_icons_toast">Sistemos piktogramos atkurtos sėkmingai!</string>
     <string name="adapter_uninstalling">Dabar pašalinama %s&#8230;</string>
     <string name="plugin_template">Įskiepis</string>
     <string name="api_21">\"Lollipop\"</string>
@@ -212,16 +210,13 @@
     <string name="menu_disable">Išjungti įdiegtas perdangas</string>
     <string name="menu_enable">Įjungti įdiegtas perdangas</string>
     <string name="menu_favorite">Mėgstamiausi</string>
-    <string name="menu_open">Piktogramų Paketo Skydelis</string>
     <string name="menu_rate">Įvertinti temą</string>
-    <string name="menu_refresh">Atnaujinti</string>
     <string name="menu_soft_reboot">Paleisti iš naujo OS</string>
     <string name="menu_reboot_device">Paleisti įrenginį iš naujo</string>
     <string name="menu_per_app">Plaukiojanti NS</string>
     <string name="menu_restart_systemui">Paleisti iš naujo SistemosNS</string>
     <string name="menu_alphabetize">Keisti Rūšiavimo Režimą</string>
     <string name="menu_search">\"Play\" Parduotuvės Temos</string>
-    <string name="menu_search_icon_packs">\"Play\" Parduotuvės Piktogramų Paketai</string>
     <string name="menu_showcase">Vitrina</string>
     <string name="menu_uninstall">Išdiegti Temą</string>
     <string name="menu_favorite_snackbar">%s sėkmingai nustatyta, kaip programėlės piktograma!</string>
@@ -233,28 +228,7 @@
     <string name="dialog_restart_reboot_content">Tai paleis jūsų įrenginį iš naujo.</string>
     <string name="dialog_restart_soft_reboot_title">Paleisti iš naujo OS</string>
     <string name="dialog_restart_soft_reboot_content">Tai paleis jūsų įrenginio OS iš naujo.</string>
-    <string name="studio">piktogramos studija</string>
-    <string name="studio_system">Atkurti Sistemos Piktogramas</string>
-    <string name="studio_system_reset_dialog_toast">Visos pasirinktinės piktogramos jau buvo išjungtos!</string>
-    <string name="studio_system_reset_dialog">Ar norite atkurti dabartines piktogramas atgal į numatytąsias sistemos piktogramas?</string>
-    <string name="studio_refresh_dialog_title">Konfigūracijos Pakeitimo Patvirtinimas</string>
-    <string name="studio_refresh_dialog_content">\"Substratum\" dabar pakeis jūsų sistemos
-        konfigūracija, kad programos greitai atpažintų naujas piktogramas.\n\nJūsų sistemos
-        kalba bus akimirksniu pakeista į japonų ir perkels jus į paleidimo priemonę, tada
-        sugrįž į originalią kalbą, nustatytą jūsų įrengyje. Jei piktogramos nepasikeitė, paspauskite ant
-        Atnaujinti Piktogramų Konfigūraciją pagrindiniame Pikrogramų Studijos puslapyje!\n\nPaspaudus Gerai,
-        nelieskite savo įrenginio, kol pasirodys žinutė, sakanti, jog jūsų piktogramų paketas buvo sėkmingai pritaikytas!</string>
-    <string name="studio_pack_title">Atsisiųsti Piktogramų Paketus</string>
-    <string name="studio_system_title">\"Substratum\" Struktūra</string>
-    <string name="studio_apply_confirmation">Ar tikrai norite pritaikyti %s?</string>
     <string name="studio_applying">Kraunama&#8230;</string>
-    <string name="icon_pack_entry">Perdangų piktograma</string>
-    <string name="studio_update_configuration">Atnajinti Piktogramų Konfigūraciją</string>
-    <string name="studio_placeholder_text">nerasta jokių \"substratum\" palaikomų piktogramų paketų</string>
-    <string name="studio_toast_mask">Ši piktograma buvo paimta iš esamo paketo ir
-        bus pakeista, kai jūs pritaikysite šį piktogramų paketą.
-    </string>
-    <string name="nav_studio">Piktogramų Paketo Studija</string>
     <string name="logcat_snackbar_button">LogChar</string>
     <string name="logcat_snackbar_text">Pasirinkta programa/perdanga pasenusi arba pasirinkta nesuderinama konfigūracija&#8230;</string>
     <string name="logcat_dialog_title">\"LogChar\" Derinimo Ataskaita</string>
@@ -307,7 +281,6 @@
     <string name="uninstall_dialog_body">Išdiegti Temą</string>
     <string name="sb_phase_1_loader">išpakuojama tema</string>
     <string name="sb_phase_2_loader">įdiegiamos perdangos</string>
-    <string name="sb_phase_3_loader">įterpiami piktogramų resursai</string>
     <string name="root_rejected_title">Superuser leidimas atmestas</string>
     <string name="root_rejected_text_cm_phh">negalima tęsti be \"root\"&#8230;</string>
     <string name="root_rejected_timer_plural">uždaroma už %s sekundžių&#8230;</string>
@@ -323,9 +296,6 @@
     <string name="no_themes_title">nerasta jokių temų&#8230;</string>
     <string name="no_themes_description">prašome įdiegti suderinamą temą!</string>
     <string name="no_themes_description_search">\"%s\" nepavyko rasti tarp įdiegtų temų&#8230;</string>
-    <string name="toast_samsung_prototype_one_overlay">Šiuo metu, per kartą galima pasirinkti tik vieną perdangą.</string>
-    <string name="toast_samsung_prototype_restart">Prašome paleisti Iš naujo įrenginį arba priverstinai uždaryti persidengiančią programą!</string>
-    <string name="toast_samsung_prototype_disabled">Ši \"substratum\" versija yra pasibaigusi.\n\nPrašome atnaujinti!</string>
     <string name="toast_samsung_prototype_alert">\"Substratum\", jūsų įrenginiui, automatiškai paslepia nepalaikomas sistemos perdangas!</string>
     <string name="samsung_prototype_no_root_dialog">Atrodo, kad jūs esate su palaikomu \"Samsung\" įrenginiu. Šis priedas buvo išleistas, kad tai palaikytu!</string>
     <string name="samsung_prototype_no_root_dialog_button">Atsisiųsti dabar!</string>
@@ -351,7 +321,6 @@
     <string name="notification_processing_n">Paruošiamos temos perdangos&#8230;</string>
     <string name="advanced_manager_overlay_read_error">Nepavyksta išanalizuoti perdangų sąrašo. Prašome atidaryti Atkūrimą ir paspauskite ant Atkurti Sistemos Temą (Išdiekite visas įdiegtas perdangas) problemos išsprendimui.    </string>
     <string name="shortcut_floatui">Plaukiojanti NS</string>
-    <string name="shortcut_floatui_disabled">Plaukiojanti NS</string>
     <string name="shortcut_rescue">Išgelbėti mane!</string>
     <string name="shortcut_rescue_disabled">Išgelbėti mane!</string>
     <string name="shortcut_store">Temų Vitrina</string>
@@ -582,7 +551,6 @@
     <string name="nav_drawer_featured">Panašus tūrinys</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">XDA Portalas</string>
-    <string name="settings_about_interfacer_disconnected">atjungta</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Ištekliai</string>
     <string name="nav_drawer_homepage">Oficialus tinklalapis</string>
@@ -599,7 +567,6 @@
     <string name="manage_space_cache_text_title">Išvalyti talpyklą</string>
     <string name="manage_space_logs_text_title">Išvalyti išsaugotus registrus</string>
     <string name="clear_cache_button_loading">Kraunama&#8230;</string>
-    <string name="clear_cache_button_text">Išvalyti \"substratum\" talpyklą</string>
     <string name="manage_space_cache_counter_title">Išvalant vietinę talpyklą, pašalins visus failus, kurie buvo naudojami temos kompiliavimui ir \"online downloader\". Visi temų paketai ir vartotojo konfigūracijos liks kaip yra.\n\nPriklausomai nuo jūsų talpyklos dydžio, tai gali užtrukti keletą sekundžių.</string>
     <string name="manage_space_reset_text_title">Iš naujo nustatyti konfigūraciją</string>
     <string name="manage_space_reset_text_desc">Ar iškilo problemų su programėlę? Ar jūs neseniai padarėte didelį šuolį iš senos \"substratum\" versijos? Paprastas konfigūravimas tikrai padės išspręsti trikčių klausimą!</string>

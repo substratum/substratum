@@ -91,7 +91,6 @@ import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
 import projekt.substratum.activities.base.SubstratumActivity;
 import projekt.substratum.activities.showcase.ShowcaseActivity;
-import projekt.substratum.activities.studio.StudioSelectorActivity;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
@@ -441,31 +440,22 @@ public class MainActivity extends SubstratumActivity implements
                         .withName(R.string.nav_overlay_manager)
                         .withIcon(R.drawable.nav_overlay_manager)
                         .withIdentifier(7));
-        if (References.checkThemeInterfacer(getApplicationContext()) &&
-                References.isAuthorizedDebugger(getApplicationContext()) &&
-                !checkSamsungStatus)
-            drawerBuilder.addDrawerItems(
-                    new PrimaryDrawerItem()
-                            .withName(R.string.nav_studio)
-                            .withIcon(R.drawable.nav_drawer_studio)
-                            .withSelectable(false)
-                            .withIdentifier(8));
         if (References.checkOMS(getApplicationContext()) && !checkSamsungStatus)
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_priorities)
                             .withIcon(R.drawable.nav_drawer_priorities)
-                            .withIdentifier(9));
+                            .withIdentifier(8));
         if (!checkSamsungStatus) drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_backup_restore)
                         .withIcon(R.drawable.nav_drawer_profiles)
-                        .withIdentifier(10));
+                        .withIdentifier(9));
         drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_manage)
                         .withIcon(R.drawable.nav_manage)
-                        .withIdentifier(11));
+                        .withIdentifier(10));
         drawerBuilder.addDrawerItems(
                 new SectionDrawerItem()
                         .withName(R.string.nav_section_header_get_involved));
@@ -476,7 +466,7 @@ public class MainActivity extends SubstratumActivity implements
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_troubleshooting)
                         .withIcon(R.drawable.nav_troubleshooting)
-                        .withIdentifier(12));
+                        .withIdentifier(11));
         drawerBuilder.addDrawerItems(
                 new SectionDrawerItem()
                         .withName(R.string.nav_section_header_more));
@@ -484,17 +474,17 @@ public class MainActivity extends SubstratumActivity implements
                 new SecondaryDrawerItem()
                         .withName(R.string.nav_team_contributors)
                         .withIcon(R.drawable.nav_drawer_team)
-                        .withIdentifier(13));
+                        .withIdentifier(12));
         drawerBuilder.addDrawerItems(
                 new SecondaryDrawerItem()
                         .withName(getString(R.string.nav_opensource))
                         .withIcon(R.drawable.nav_drawer_licenses)
-                        .withIdentifier(14));
+                        .withIdentifier(13));
         drawerBuilder.addDrawerItems(
                 new SecondaryDrawerItem()
                         .withName(R.string.nav_settings)
                         .withIcon(R.drawable.nav_drawer_settings)
-                        .withIdentifier(15));
+                        .withIdentifier(14));
         drawerBuilder.withOnDrawerItemClickListener((view, position, drawerItem) -> {
             if (drawerItem != null) {
                 switch ((int) drawerItem.getIdentifier()) {
@@ -533,35 +523,30 @@ public class MainActivity extends SubstratumActivity implements
                                 ManagerFragment.class.getCanonicalName());
                         break;
                     case 8:
-                        Intent intent = new Intent(getApplicationContext(),
-                                StudioSelectorActivity.class);
-                        startActivity(intent);
-                        break;
-                    case 9:
                         switchFragment(getString(R.string.nav_priorities),
                                 PriorityLoaderFragment.class.getCanonicalName());
                         break;
-                    case 10:
+                    case 9:
                         switchFragment(getString(R.string.nav_backup_restore),
                                 ProfileFragment.class.getCanonicalName());
                         break;
-                    case 11:
+                    case 10:
                         switchFragment(getString(R.string.nav_manage),
                                 RecoveryFragment.class.getCanonicalName());
                         break;
-                    case 12:
+                    case 11:
                         switchFragment(getString(R.string.nav_troubleshooting),
                                 TroubleshootingFragment.class.getCanonicalName());
                         break;
-                    case 13:
+                    case 12:
                         switchFragment(getString(R.string.nav_team_contributors),
                                 TeamFragment.class.getCanonicalName());
                         break;
-                    case 14:
+                    case 13:
                         switchFragmentToLicenses(getString(R.string.nav_opensource),
                                 fragment);
                         break;
-                    case 15:
+                    case 14:
                         switchFragment(getString(R.string.nav_settings),
                                 SettingsFragment.class.getCanonicalName());
                         break;

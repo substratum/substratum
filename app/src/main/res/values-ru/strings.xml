@@ -135,7 +135,6 @@
     <string name="settings_about_substratum">версия substratum</string>
     <string name="settings_about_interfacer">версия согласователя</string>
     <string name="settings_about_interfacer_not_installed">Не установлен</string>
-    <string name="settings_about_interfacer_masquerade">Необходимо обновление прошивки для работы согласователя</string>
     <string name="settings_about_oms_rro_version">Платформа оформления:</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
@@ -168,7 +167,6 @@
     <string name="manage_wallpaper_lock_toast">Обои экрана блокировки восстановлены!</string>
     <string name="manage_wallpaper_all_toast">Обои восстановлены!</string>
     <string name="manage_icons_title">Восстановить системные значки</string>
-    <string name="manage_icons_toast">Системные значки восстановлены!</string>
     <string name="adapter_uninstalling">Удаление %s&#8230;</string>
     <string name="plugin_template">Плагин</string>
     <string name="api_21">Lollipop</string>
@@ -194,16 +192,13 @@
     <string name="menu_disable">Отключить активные наслоения</string>
     <string name="menu_enable">Применить установленное</string>
     <string name="menu_favorite">В избранное</string>
-    <string name="menu_open">Управление наборами значков</string>
     <string name="menu_rate">Оценить тему</string>
-    <string name="menu_refresh">Обновить</string>
     <string name="menu_soft_reboot">Быстрая перезагрузка</string>
     <string name="menu_reboot_device">Полная перезагрузка</string>
     <string name="menu_per_app">FloatUI</string>
     <string name="menu_restart_systemui">Перезапустить SystemUI</string>
     <string name="menu_alphabetize">Порядок сортировки</string>
     <string name="menu_search">Искать темы в Play Маркет</string>
-    <string name="menu_search_icon_packs">Искать наборы значков в Play Маркет</string>
     <string name="menu_showcase">Каталог</string>
     <string name="menu_uninstall">Удалить тему</string>
     <string name="menu_favorite_snackbar">Ярлык для %s установлен! </string>
@@ -215,21 +210,7 @@
     <string name="dialog_restart_reboot_content">Произойдет полная перезагрузка устройства</string>
     <string name="dialog_restart_soft_reboot_title">Быстрая перезагрузка</string>
     <string name="dialog_restart_soft_reboot_content">Произойдет быстрая перезагрузка устройства</string>
-    <string name="studio">студия значков</string>
-    <string name="studio_system">Восстановить системные значки</string>
-    <string name="studio_system_reset_dialog_toast">Все пользовательские значки уже отключены!     </string>
-    <string name="studio_system_reset_dialog">Вы действительно хотите восстановить системные значки?     </string>
-    <string name="studio_refresh_dialog_title">Подтверждение смены настроек</string>
-    <string name="studio_refresh_dialog_content">Substratum сейчас изменит системные настройки для скорейшего присвоения значков всем приложениям.\n\nВы окажетесь в лончере, система на мгновение применит Японский язык, после чего вернет изначально выбранный. Если значки не применятся, нажмите Обновить конфигурацию значков на главной странице Студии значков!\n\nПосле нажатия на OK не прикасайтесь к устройству, пока не увидите сообщения об успешном применении набора значков!</string>
-    <string name="studio_pack_title">Загруженные наборы значков</string>
-    <string name="studio_system_title">Фреймворк Substratum</string>
-    <string name="studio_apply_confirmation">Вы уверены, что хотите применить %s?</string>
     <string name="studio_applying">Загрузка&#8230;</string>
-    <string name="icon_pack_entry">Значок наслоения</string>
-    <string name="studio_update_configuration">Обновить конфигурацию значков</string>
-    <string name="studio_placeholder_text">поддерживаемых наборов значков для substratum не найдено</string>
-    <string name="studio_toast_mask">Этот значок взят из текущего набора и будет заменен как только вы примените данный набор.    </string>
-    <string name="nav_studio">Студия значков</string>
     <string name="logcat_snackbar_button">LogChar</string>
     <string name="logcat_snackbar_text">Целевое приложение/наслоение устарело или неправильно настроено&#8230;</string>
     <string name="logcat_dialog_title">Отладочный отчет \"LogChar\"</string>
@@ -285,7 +266,6 @@
     <string name="uninstall_dialog_body">Удалить тему</string>
     <string name="sb_phase_1_loader">распаковка темы</string>
     <string name="sb_phase_2_loader">установка наслоения</string>
-    <string name="sb_phase_3_loader">внедрение ресурсов значков</string>
     <string name="root_rejected_title">Отказ в правах Суперпользователя</string>
     <string name="root_rejected_text_cm_phh">без прав Суперпользователя продолжить не удастся&#8230;</string>
     <string name="root_rejected_timer_plural">закрытие через %s секунд(-ы)&#8230;</string>
@@ -301,9 +281,6 @@
     <string name="no_themes_title">не найдено тем&#8230;</string>
     <string name="no_themes_description">установите любую совместимую тему!</string>
     <string name="no_themes_description_search">Среди установленных тем нет \"%s\"&#8230;</string>
-    <string name="toast_samsung_prototype_one_overlay">Пока можно применять только одно наслоение за раз</string>
-    <string name="toast_samsung_prototype_restart">Перезагрузите устройство или закройте затрагиваемое приложение!</string>
-    <string name="toast_samsung_prototype_disabled">Данная версия substratum устарела.\n\nПожалуйста, установите актуальное обновление!</string>
     <string name="toast_samsung_prototype_alert">Substratum автоматически скроет неподдерживаемые на вашем устройстве системные наслоения!</string>
     <string name="samsung_prototype_no_root_dialog">Похоже, у Вас поддерживаемое устройство Samsung, для него выпущен пакет совместимости!</string>
     <string name="samsung_prototype_no_root_dialog_button">Загрузить!</string>
@@ -329,7 +306,6 @@
     <string name="notification_processing_n">Подготовка наслоения темы&#8230;</string>
     <string name="advanced_manager_overlay_read_error">Не удалось разобрать список наслоений. Откройте Восстановление и выберите Восстановить оформление (удаление всех установленных наслоений) для решения этой проблемы.    </string>
     <string name="shortcut_floatui">FloatUI</string>
-    <string name="shortcut_floatui_disabled">FloatUI</string>
     <string name="shortcut_rescue">На помощь!</string>
     <string name="shortcut_rescue_disabled">На помощь!</string>
     <string name="shortcut_store">Каталог тем</string>
@@ -558,7 +534,6 @@
     <string name="nav_drawer_featured">Рекомендуемое</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">Сайт XDA</string>
-    <string name="settings_about_interfacer_disconnected">отсоединен</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Ресурсы</string>
     <string name="nav_drawer_homepage">Официальный сайт</string>
@@ -575,7 +550,6 @@
     <string name="manage_space_cache_text_title">Очистить кэш</string>
     <string name="manage_space_logs_text_title">Очистить сохраненные отчеты</string>
     <string name="clear_cache_button_loading">Загрузка&#8230;</string>
-    <string name="clear_cache_button_text">Очистить кэш substratum</string>
     <string name="manage_space_cache_counter_title">Очистка локального кэша удалит все файлы, используемые сборщиком тем и онлайн загрузчиком. Все наборы тем и пользовательских настроек останутся нетронутыми.\n\nВ зависимости от размера кэша может потребоваться до нескольких секунд.</string>
     <string name="manage_space_reset_text_title">Сбросить настройки</string>
     <string name="manage_space_reset_text_desc">Возникли проблемы с приложением? Или вы долгое время не обновляли substratum? Обычный сброс параметров определенно поможет устранить неполадку!</string>

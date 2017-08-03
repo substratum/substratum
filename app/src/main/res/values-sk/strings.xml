@@ -147,7 +147,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="settings_about_substratum">Verzia Substratum</string>
     <string name="settings_about_interfacer">Interfacer verzia</string>
     <string name="settings_about_interfacer_not_installed">Nie je nainštalovaný</string>
-    <string name="settings_about_interfacer_masquerade">Táto ROM vyžaduje aktualizáciu aby mohla využívať funkcie Interfacer-u</string>
     <string name="settings_about_oms_rro_version">Platforma témy:</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
@@ -180,7 +179,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="manage_wallpaper_lock_toast">Tapeta obrazovky uzamknutia bola úspešne obnovená!</string>
     <string name="manage_wallpaper_all_toast">Tapeta bola úspešne obnovená!</string>
     <string name="manage_icons_title">Obnoviť systémové ikony</string>
-    <string name="manage_icons_toast">Systémové ikony boli úspešne obnovené!</string>
     <string name="adapter_uninstalling">Odstraňovanie %s&#8230;</string>
     <string name="plugin_template">Zásuvný modul</string>
     <string name="api_21">Lollipop</string>
@@ -200,16 +198,13 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="menu_disable">Vypnúť nainštalované prekrytia</string>
     <string name="menu_enable">Zapnúť nainštalované prekrytia</string>
     <string name="menu_favorite">Obľúbené</string>
-    <string name="menu_open">Balíček ikon riadiaceho panela</string>
     <string name="menu_rate">Ohodnotiť tému</string>
-    <string name="menu_refresh">Obnoviť</string>
     <string name="menu_soft_reboot">Softvérový reštart</string>
     <string name="menu_reboot_device">Reštartovať zariadenie</string>
     <string name="menu_per_app">Plávajúce okno</string>
     <string name="menu_restart_systemui">Reštartovať SystemUI</string>
     <string name="menu_alphabetize">Zmeniť spôsob triedenia</string>
     <string name="menu_search">Témy v Obchode Play</string>
-    <string name="menu_search_icon_packs">Balíčky ikon v Obchode Play</string>
     <string name="menu_showcase">Ukážky</string>
     <string name="menu_uninstall">Odinštalovať tému</string>
     <string name="menu_favorite_snackbar">Úspešne nastavené %s ako zástupca aplikácie!</string>
@@ -221,26 +216,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="dialog_restart_reboot_content">Toto vykoná kompletný reštart vášho zariadenia.</string>
     <string name="dialog_restart_soft_reboot_title">Softvérový reštart</string>
     <string name="dialog_restart_soft_reboot_content">Toto vykoná soft reštart vášho zariadenia.</string>
-    <string name="studio">Štúdio ikon</string>
-    <string name="studio_system">Obnoviť systémové ikony</string>
-    <string name="studio_system_reset_dialog_toast">
-Všetky upravené ikony sú už vypnuté!
-    </string>
-    <string name="studio_system_reset_dialog">
-Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
-    </string>
-    <string name="studio_refresh_dialog_title">Potvrdenie zmeny konfigurácie</string>
-    <string name="studio_refresh_dialog_content">Substratum teraz zmení vaše systémové nastavenia s cieľom zabezpečiť pre všetky aplikácie rýchlu zmenu a rozpoznanie nových ikon.\n\nVáš systémový jazyk sa na chvíľu, po nabehnutí vášho spúšťača prepne do Japončiny, potom sa vráti naspäť do originálneho jazyka  zariadenia. Pokiaľ sa ikony nezmenia, kliknite na obnovenie nastavení ikon na hlavnej stránke Ikonového štúdia!\n\n Po kliknutí na OK sa nedotýkajte vášho  zariadenia pokiaľ nedostanete správu, že sa balíček ikon úspešne aplikoval!</string>
-    <string name="studio_pack_title">Stiahnutý balíček ikon</string>
-    <string name="studio_system_title">Substratum Framework</string>
-    <string name="studio_apply_confirmation">Ste si istý, že chcete použiť %s?</string>
     <string name="studio_applying">Načítavanie&#8230;</string>
-    <string name="icon_pack_entry">Ikony prekrytia</string>
-    <string name="studio_update_configuration">Obnoviť konfiguráciu ikon</string>
-    <string name="studio_placeholder_text">nebol nájdený žiadny balíček ikon podporovaný Substratum</string>
-    <string name="studio_toast_mask">Tato ikona je vytiahnutá z aktuálneho balíčku a bude zmenená keď aplikujete tento balíček ikon.
-    </string>
-    <string name="nav_studio">Štúdio balíčkov ikon</string>
     <string name="logcat_snackbar_button">Záznamy LogChar</string>
     <string name="logcat_snackbar_text">Cieľová aplikácia/prekrytie sú zastarané alebo majú nesprávne konfigurované prekrytia...</string>
     <string name="logcat_dialog_title">Záznamy ladenia \"LogChar\"</string>
@@ -293,7 +269,6 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="uninstall_dialog_body">Odinštalovať tému</string>
     <string name="sb_phase_1_loader">extrahovanie témy</string>
     <string name="sb_phase_2_loader">inštalovanie prekrytia</string>
-    <string name="sb_phase_3_loader">zavádzanie zdrojov ikon</string>
     <string name="root_rejected_title">Oprávnenia Superusera zamietnuté</string>
     <string name="root_rejected_text_cm_phh">nie je možné pokračovať bez rootu&#8230;</string>
     <string name="root_rejected_timer_plural">uzatvorenie za %s sekúnd&#8230;</string>
@@ -309,9 +284,6 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="no_themes_title">nenašli sa žiadne témy&#8230;</string>
     <string name="no_themes_description">prosím, nainštalujte kompatibilnú tému!</string>
     <string name="no_themes_description_search">\"%s\" nebola nájdená v zozname nainštalovaných tém&#8230;</string>
-    <string name="toast_samsung_prototype_one_overlay">V tomto okamihu je možné zvoliť iba jedno prekrytie.</string>
-    <string name="toast_samsung_prototype_restart">Reštartujte zariadenie alebo nútene ukončite vašu prekrytú aplikáciu!</string>
-    <string name="toast_samsung_prototype_disabled">Táto verzia substratum expirovala.\n\nProsím aktualizujte na novú kópiu!</string>
     <string name="toast_samsung_prototype_alert">Substratum automaticky skryl nepodporované prekrytia systému pre vaše zariadenie!</string>
     <string name="samsung_prototype_no_root_dialog">Zdá sa, že používate podporované zariadenie Samsung, pre ktoré bol vydaný podporný modul!</string>
     <string name="samsung_prototype_no_root_dialog_button">Stiahnuť teraz!</string>
@@ -337,7 +309,6 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="notification_processing_n">Pripravovanie tématického prekrytia&#8230;</string>
     <string name="advanced_manager_overlay_read_error">Nepodarilo sa analyzovať zoznam prekrytí. Na opravu otvorte priečinok Obnovenie a kliknite na Obnoviť systémovú tému (Odinštaluje všetky nainštalované prekrytia).</string>
     <string name="shortcut_floatui">Plávajúce okno</string>
-    <string name="shortcut_floatui_disabled">Plávajúce okno</string>
     <string name="shortcut_rescue">Zachráňte ma!</string>
     <string name="shortcut_rescue_disabled">Zachráňte ma!</string>
     <string name="shortcut_store">Ukážka tém</string>
@@ -566,7 +537,6 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="nav_drawer_featured">Doporučený obsah</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">XDA portál</string>
-    <string name="settings_about_interfacer_disconnected">odpojené</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Zdroje</string>
     <string name="nav_drawer_homepage">Oficiálna domovská stránka</string>
@@ -583,7 +553,6 @@ Chcete obnoviť aktuálne ikony na predvolené systémové ikony?
     <string name="manage_space_cache_text_title">Vymazať vyrovnávaciu pamäť</string>
     <string name="manage_space_logs_text_title">Vymazať uložené záznamy</string>
     <string name="clear_cache_button_loading">Načítavanie&#8230;</string>
-    <string name="clear_cache_button_text">Vymazať vyrovnávaciu pamäť Substratum</string>
     <string name="manage_space_cache_counter_title">Vymazanie lokálnej vyrovnávacej pamäte odstráni všetky súbory, ktoré používa kompilátor tém a online sťahovač (downloader). Všetky balíčky tém a používateľské konfigurácie zostanú zachované.\n\nDokončenie procesu môže trvať niekoľko sekúnd, v závislosti od veľkosti vyrovnávacej pamäte.</string>
     <string name="manage_space_reset_text_title">Resetovať konfiguráciu</string>
     <string name="manage_space_reset_text_desc">Máte problémy s aplikáciou? Alebo ste nedávno uskutočnili veľký skok zo staršej verzie Substratum? Jednoduchá konfigurácia vám určite pomôže vyriešiť problémy!</string>

@@ -251,24 +251,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.studio.StudioPreviewActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:resizeableActivity="false"
-            android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".activities.studio.StudioSelectorActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:resizeableActivity="false"
-            android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".util.welcome.AppIntro"
             android:resizeableActivity="false"
             android:theme="@style/CustomWelcomeScreenTheme"/>

@@ -52,8 +52,6 @@
     <color name="bootanimation_spinner_background">@color/theme_information_background</color>
     <color name="bootanimation_window_background">@android:color/black</color>
 
-    <color name="studio_placeholder_title">@android:color/black</color>
-
     <color name="font_text">@android:color/white</color>
     <color name="font_spinner_background">@color/theme_information_background</color>
     <color name="font_window_background">@android:color/black</color>

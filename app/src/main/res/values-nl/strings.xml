@@ -134,7 +134,6 @@
     <string name="settings_about_substratum">substratum versie</string>
     <string name="settings_about_interfacer">interfacer versie</string>
     <string name="settings_about_interfacer_not_installed">Niet geïnstalleerd</string>
-    <string name="settings_about_interfacer_masquerade">Deze rom vergt een update om de interfacer functionaliteit te gebruiken</string>
     <string name="settings_about_oms_rro_version">Themaplatform:</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
@@ -167,7 +166,6 @@
     <string name="manage_wallpaper_lock_toast">Vergrendelscherm achtergrond succesvol herstelt!</string>
     <string name="manage_wallpaper_all_toast">Achtergrond succesvol herstelt!</string>
     <string name="manage_icons_title">Systeempictogrammen Herstellen</string>
-    <string name="manage_icons_toast">Systeempictogrammen succesvol herstelt!</string>
     <string name="adapter_uninstalling">%s verwijderen&#8230;</string>
     <string name="plugin_template">Plug-in</string>
     <string name="api_21">Lollipop</string>
@@ -187,16 +185,13 @@
     <string name="menu_disable">Geïnstalleerde overlays uitschakelen</string>
     <string name="menu_enable">Geïnstalleerde overlays inschakelen</string>
     <string name="menu_favorite">Favoriet</string>
-    <string name="menu_open">Pictogrammenpakket dashboard</string>
     <string name="menu_rate">Beoordeel thema</string>
-    <string name="menu_refresh">Verversen</string>
     <string name="menu_soft_reboot">Snelle herstart</string>
     <string name="menu_reboot_device">Herstart apparaat</string>
     <string name="menu_per_app">Zweef-UI</string>
     <string name="menu_restart_systemui">Herstart Systeem-UI</string>
     <string name="menu_alphabetize">Wijzig sortering</string>
     <string name="menu_search">Play Store thema\'s</string>
-    <string name="menu_search_icon_packs">Play Store pictogrammenpakketten</string>
     <string name="menu_showcase">Uitgelicht</string>
     <string name="menu_uninstall">Thema deïnstalleren</string>
     <string name="menu_favorite_snackbar">%s succesvol ingesteld als app-snelkoppeling!</string>
@@ -208,21 +203,7 @@
     <string name="dialog_restart_reboot_content">Dit zal je apparaat doen herstarten.</string>
     <string name="dialog_restart_soft_reboot_title">Snelle herstart</string>
     <string name="dialog_restart_soft_reboot_content">Dit zal je apparaat snel doen herstarten.</string>
-    <string name="studio">pictogram studio</string>
-    <string name="studio_system">Systeempictogrammen Herstellen</string>
-    <string name="studio_system_reset_dialog_toast">Alle aangepaste pictogrammen zijn al uitgeschakeld!</string>
-    <string name="studio_system_reset_dialog">Wil je de huidige pictogrammen herstellen naar de standaard systeempictogrammen?</string>
-    <string name="studio_refresh_dialog_title">Configuratiewijzigingsbevestiging</string>
-    <string name="studio_refresh_dialog_content">Substratum zal je systeemconfiguratie wijzigen om ervoor te zorgen dat applicaties nieuwe pictogrammen herkennen.\n\nJe systeemtaal zal even veranderen in Japans, waarna je naar je launcher wordt gestuurd en de systeemtaal weer terug naar de standaard verandert. Als de pictogrammen niet veranderen, tik dan op Ververs Pictogramconfiguratie op de hoofdpagina van de Pictogram Studio!\n\nNadat je OK hebt getikt, raak je apparaat niet aan tot een bericht opkomt die verteld dat het pictogrammenpakket succesvol is toegepast!</string>
-    <string name="studio_pack_title">Gedownloade pictogrammenpakketten</string>
-    <string name="studio_system_title">Substratum framework</string>
-    <string name="studio_apply_confirmation">Weet je zeker dat je %s wilt toepassen?</string>
     <string name="studio_applying">Laden&#8230;</string>
-    <string name="icon_pack_entry">Overlay pictogram</string>
-    <string name="studio_update_configuration">Ververs pictogramconfiguratie</string>
-    <string name="studio_placeholder_text">geen substratum ondersteunde pictogrammenpakketten gevonden</string>
-    <string name="studio_toast_mask">Dit pictogram wordt getoond uit je huidige pakket en zal veranderen zodra je deze pictogram set toepast.</string>
-    <string name="nav_studio">Pictogrammenpakket studio</string>
     <string name="logcat_snackbar_button">LogChar</string>
     <string name="logcat_snackbar_text">Doel-toepassing/overlay is verouderd, of onjuiste configuratie geselecteerd&#8230;</string>
     <string name="logcat_dialog_title">\"LogChar\" debug rapport</string>
@@ -274,7 +255,6 @@
     <string name="uninstall_dialog_body">Thema deïnstalleren</string>
     <string name="sb_phase_1_loader">thema uitpakken</string>
     <string name="sb_phase_2_loader">overlay installeren</string>
-    <string name="sb_phase_3_loader">pictogram bronnen injecteren</string>
     <string name="root_rejected_title">Superuser machtigingen geweigerd</string>
     <string name="root_rejected_text_cm_phh">kan niet doorgaan zonder root&#8230;</string>
     <string name="root_rejected_timer_plural">sluiten in %s seconden&#8230;</string>
@@ -290,9 +270,6 @@
     <string name="no_themes_title">geen thema\'s gevonden&#8230;</string>
     <string name="no_themes_description">gelieve een compatibel thema te installeren!</string>
     <string name="no_themes_description_search">\"%s\" werd niet gevonden in de lijst van geïnstalleerde thema\'s&#8230;</string>
-    <string name="toast_samsung_prototype_one_overlay">Op dit moment kan slechts één overlay tegelijk worden geselecteerd.</string>
-    <string name="toast_samsung_prototype_restart">Gelieve je apparaat herstarten of het gethematiseerde programma geforceerd sluiten!</string>
-    <string name="toast_samsung_prototype_disabled">Deze versie van substratum is verlopen.\n\nGelieve bijwerken naar een vers exemplaar!</string>
     <string name="toast_samsung_prototype_alert">Substratum heeft automatisch niet-ondersteunde systeemoverlays verborgen voor jouw apparaat!</string>
     <string name="samsung_prototype_no_root_dialog">Het lijkt erop dat je een ondersteund Samsung apparaat hebt, hiervoor is een ondersteunende add-on vrijgegeven!</string>
     <string name="samsung_prototype_no_root_dialog_button">Download nu!</string>
@@ -318,7 +295,6 @@
     <string name="notification_processing_n">Thema overlay voorbereiden&#8230;</string>
     <string name="advanced_manager_overlay_read_error">Kan lijst van overlays niet ontleden. Gelieve Recovery te openen en kies Herstel Systeem Thema (Deïnstalleer alle geïnstalleerde overlays) om dit probleem te verhelpen.</string>
     <string name="shortcut_floatui">Zweef-UI</string>
-    <string name="shortcut_floatui_disabled">Zweef-UI</string>
     <string name="shortcut_rescue">Help mij!</string>
     <string name="shortcut_rescue_disabled">Help mij!</string>
     <string name="shortcut_store">Uitgelichte thema\'s</string>
@@ -547,7 +523,6 @@
     <string name="nav_drawer_featured">Uitgelichte inhoud</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">XDA-portaal</string>
-    <string name="settings_about_interfacer_disconnected">niet verbonden</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Bronnen</string>
     <string name="nav_drawer_homepage">Officiële thuispagina</string>
@@ -564,7 +539,6 @@
     <string name="manage_space_cache_text_title">Cache wissen</string>
     <string name="manage_space_logs_text_title">Opgeslagen logs wissen</string>
     <string name="clear_cache_button_loading">Laden&#8230;</string>
-    <string name="clear_cache_button_text">Substratum cache wissen</string>
     <string name="manage_space_cache_counter_title">Het wissen van de lokale cache zal alle bestanden gebruikt door de thema compilator en online downloader verwijderen. Alle themapakketten en gebruikersconfiguraties blijven intact.\n\nAfhankelijk van je cachegrootte, kan dit een paar seconden duren.</string>
     <string name="manage_space_reset_text_title">Configuratie resetten</string>
     <string name="manage_space_reset_text_desc">Heb je problemen met de applicatie? Of heb je recentelijk een grote versiesprong gemaakt vanuit een oude Substratum versie? Een simpele configuratie reset zal vast en zeker helpen bij het oplossen van het probleem!</string>

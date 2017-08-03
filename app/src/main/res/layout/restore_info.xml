@@ -24,7 +24,6 @@
               android:padding="16dp">
 
     <TextView
-        android:id="@+id/restore_info_dialog_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/restore_info_dialog_title"

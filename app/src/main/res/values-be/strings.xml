@@ -135,7 +135,6 @@
     <string name="settings_about_substratum">версія substratum</string>
     <string name="settings_about_interfacer">версія інтэрфейсу</string>
     <string name="settings_about_interfacer_not_installed">Не ўсталявана</string>
-    <string name="settings_about_interfacer_masquerade">Гэта ROM патрабуе абнаўлення, каб выкарыстоўваць функцыянальныя магчымасці інтэрфейсу</string>
     <string name="settings_about_oms_rro_version">Платформа тэмы:</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
@@ -168,7 +167,6 @@
     <string name="manage_wallpaper_lock_toast">Шпалеры экрана блакавання адноўлены!</string>
     <string name="manage_wallpaper_all_toast">Шпалеры адноўлены!</string>
     <string name="manage_icons_title">Аднавіць сістэмныя цэтлікі</string>
-    <string name="manage_icons_toast">Сістэмныя значкі паспяхова адноўленыя!</string>
     <string name="adapter_uninstalling">Выдаленне %s&#8230;</string>
     <string name="plugin_template">Плагін</string>
     <string name="api_21">Lollipop</string>
@@ -194,16 +192,13 @@
     <string name="menu_disable">Адключыць актыўныя напластаванні</string>
     <string name="menu_enable">Актываваць усталяваныя пласты</string>
     <string name="menu_favorite">Абранае</string>
-    <string name="menu_open">Кіраванне наборамі цэтлікаў</string>
     <string name="menu_rate">Ацаніць тэму</string>
-    <string name="menu_refresh">Абнавіць</string>
     <string name="menu_soft_reboot">Хуткая перазагрузка</string>
     <string name="menu_reboot_device">Поўная перазагрузка</string>
     <string name="menu_per_app">Плаваючае акно</string>
     <string name="menu_restart_systemui">Перазапусціць SystemUI</string>
     <string name="menu_alphabetize">Змена рэжыму сартавання</string>
     <string name="menu_search">Тэмы з Play Маркет</string>
-    <string name="menu_search_icon_packs">Наборы цэтлікаў з Play Маркет</string>
     <string name="menu_showcase">Каталог</string>
     <string name="menu_uninstall">Выдаліць тэму</string>
     <string name="menu_favorite_snackbar">Цэтлік для %s усталяваны!</string>
@@ -215,23 +210,7 @@
     <string name="dialog_restart_reboot_content">Гэта дзеянне выканае поўны перазапуск прылады.</string>
     <string name="dialog_restart_soft_reboot_title">Хуткая перазагрузка</string>
     <string name="dialog_restart_soft_reboot_content">Гэта дзеянне выканае мяккі перазапуск прылады.</string>
-    <string name="studio">студыя значкоў</string>
-    <string name="studio_system">Аднавіць сістэмныя цэтлікі</string>
-    <string name="studio_system_reset_dialog_toast">
-Усе карыстальніцкія цэтлікі ўжо адключаныя!    </string>
-    <string name="studio_system_reset_dialog">
-Вы сапраўды жадаеце аднавіць сістэмныя цэтлікі?    </string>
-    <string name="studio_refresh_dialog_title">Пацверджанне змены налад</string>
-    <string name="studio_refresh_dialog_content">Substratum цяпер зменіць сістэмныя налады для хутчэйшага прысваення цэтлікаў ўсім праграмам.\n\nВы апынецеся ў лончэры, сістэма на імгненне прыменіць Японскую мову, пасля чаго верне першапачаткова абраную. Калі цэтлікі не прымяняецца, націсніце Абнавіць канфігурацыю цэтлікаў на галоўнай старонцы Студыі цэтлікаў!\n\nПасля націску на OK не дакранайцеся да прылады, пакуль не ўбачыце паведамленні аб паспяховым прымяненні набору значкоў!</string>
-    <string name="studio_pack_title">Спампаваныя наборы цэтлікаў</string>
-    <string name="studio_system_title">Substratum Framework</string>
-    <string name="studio_apply_confirmation">Вы ўпэўненыя, што хочаце ўжыць %s?</string>
     <string name="studio_applying">Загрузка&#8230;</string>
-    <string name="icon_pack_entry">Цэтлікі напластавання</string>
-    <string name="studio_update_configuration">Абнавіць канфігурацыю цэтлікаў</string>
-    <string name="studio_placeholder_text">падтрымліваючых набораў цэтлікаў для substratum не знойдзена</string>
-    <string name="studio_toast_mask">Гэты цэтлік узяты з бягучага набору і будзе заменены як толькі вы ўжывеце дадзены набор.    </string>
-    <string name="nav_studio">Студыя цэтлікаў</string>
     <string name="logcat_snackbar_button">LogChar</string>
     <string name="logcat_snackbar_text">Мэтавая праграма/напластаванне састарэла або няправільна наладжана&#8230;</string>
     <string name="logcat_dialog_title">Даклад справаздачы \"LogChar\"</string>
@@ -287,7 +266,6 @@
     <string name="uninstall_dialog_body">Выдаліць тэму</string>
     <string name="sb_phase_1_loader">распакаванне тэмы</string>
     <string name="sb_phase_2_loader">усталёўка напластавання</string>
-    <string name="sb_phase_3_loader">укараненне рэсурсаў цэтлікаў</string>
     <string name="root_rejected_title">Адмова ў правах суперкарыстальніка</string>
     <string name="root_rejected_text_cm_phh">без правоў суперкарыстальніка працягнуць не ўдасца&#8230;</string>
     <string name="root_rejected_timer_plural">закрыццё праз %s секунд(-ы)&#8230;</string>
@@ -303,9 +281,6 @@
     <string name="no_themes_title">не знойдзена тэм&#8230;</string>
     <string name="no_themes_description">усталюйце любую сумяшчальную тэму!</string>
     <string name="no_themes_description_search">Сярод усталяваных тэм няма \"%s\"&#8230;</string>
-    <string name="toast_samsung_prototype_one_overlay">На дадзены момант вы можаце выбраць толькі адно напластаванні.</string>
-    <string name="toast_samsung_prototype_restart">Перазагрузіце прылада або зачыніце праграму з напластаваннем!</string>
-    <string name="toast_samsung_prototype_disabled">Дадзеная версія substratum састарэла.\n\nКалі ласка, усталюйце актуальнае абнаўленне!</string>
     <string name="toast_samsung_prototype_alert">Substratum аўтаматычна схавае непадтрымоўваныя на вашым прыладзе сістэмныя напластаванні!</string>
     <string name="samsung_prototype_no_root_dialog">Падобна на тое, што для Вашай прылады Samsung выпушчана сумяшчальная праграма!</string>
     <string name="samsung_prototype_no_root_dialog_button">Спампаваць зараз!</string>
@@ -331,7 +306,6 @@
     <string name="notification_processing_n">Падрыхтоўка напластаванняў тэмы&#8230;</string>
     <string name="advanced_manager_overlay_read_error">Не атрымалася разабраць спіс напластаванняў. Адкрыйце Аднаўленне і абярыце Аднавіць афармленне (выдаленне ўсіх усталяваных напластаванняў) для вырашэння гэтай праблемы.    </string>
     <string name="shortcut_floatui">Плаваючае акно</string>
-    <string name="shortcut_floatui_disabled">Плаваючае акно</string>
     <string name="shortcut_rescue">Выратуй мяне!</string>
     <string name="shortcut_rescue_disabled">Выратуй мяне!</string>
     <string name="shortcut_store">Каталаг тэм</string>
@@ -562,7 +536,6 @@
     <string name="nav_drawer_featured">Рэкамендуемае</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">Сайт XDA</string>
-    <string name="settings_about_interfacer_disconnected">адлучаны</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Рэсурсы</string>
     <string name="nav_drawer_homepage">Афіцыйны сайт</string>
@@ -579,7 +552,6 @@
     <string name="manage_space_cache_text_title">Ачысціць кэш</string>
     <string name="manage_space_logs_text_title">Ачысціць захаваныя справаздачы</string>
     <string name="clear_cache_button_loading">Загрузка&#8230;</string>
-    <string name="clear_cache_button_text">Ачысціць кэш substratum</string>
     <string name="manage_space_cache_counter_title">Ачыстка лакальнага кэша, будуць выдалены ўсе файлы, якія выкарыстоўваюцца ў тэме кампілятарам і інтэрнэт-загрузчыкам. Усе тэматычныя пакеты і прыстасаваныя канфігурацыі будуць заставацца як ёсць.\n\nУ залежнасці ад памеру кэша, гэта можа заняць некалькі секунд.</string>
     <string name="manage_space_reset_text_title">Скід канфігурацыі</string>
     <string name="manage_space_reset_text_desc">У вас паўсталі праблемы з праграмай? Ці вы зрабілі абнаўленне з вельмі старой версіі substratum ў апошні час? Проста скіньце канфігурацыі, каб выправіць вашыя праблемы!</string>

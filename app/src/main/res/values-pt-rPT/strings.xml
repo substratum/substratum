@@ -138,7 +138,6 @@ corretamente&#8230;</string>
     <string name="settings_about_substratum">versão do substratum</string>
     <string name="settings_about_interfacer">versão do interfaceador</string>
     <string name="settings_about_interfacer_not_installed">Não instalado</string>
-    <string name="settings_about_interfacer_masquerade">Esta Rom requer uma atualização para utilizar a funcionalidade do interfacer</string>
     <string name="settings_about_oms_rro_version">Plataforma de temas:</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Compatibilidade)</string>
@@ -171,7 +170,6 @@ corretamente&#8230;</string>
     <string name="manage_wallpaper_lock_toast">Papel de parede da tela de bloqueio restaurado com sucesso!</string>
     <string name="manage_wallpaper_all_toast">Papel de parede restaurado com sucesso!</string>
     <string name="manage_icons_title">Restaurar Ícones do Sistema</string>
-    <string name="manage_icons_toast">Ícones do sistema restaurados com sucesso!</string>
     <string name="adapter_uninstalling">Removendo agora %s&#8230;</string>
     <string name="plugin_template">Plugin</string>
     <string name="api_21">Lollipop</string>
@@ -190,16 +188,13 @@ corretamente&#8230;</string>
     <string name="menu_disable">Desabilitar camadas instaladas</string>
     <string name="menu_enable">Habilitar camadas instaladas</string>
     <string name="menu_favorite">Favorito</string>
-    <string name="menu_open">Painel de Ícones</string>
     <string name="menu_rate">Avaliar o tema</string>
-    <string name="menu_refresh">Atualizar</string>
     <string name="menu_soft_reboot">Reinício de Software</string>
     <string name="menu_reboot_device">Reiniciar Aparelho</string>
     <string name="menu_per_app">FloatUI</string>
     <string name="menu_restart_systemui">Reiniciar SystemUI</string>
     <string name="menu_alphabetize">Alterar o modo de classificação</string>
     <string name="menu_search">Temas na Play Store</string>
-    <string name="menu_search_icon_packs">Pacotes de Ícones da Play Store</string>
     <string name="menu_showcase">Mostruário</string>
     <string name="menu_uninstall">Desinstalar</string>
     <string name="menu_favorite_snackbar">%s foi definido com sucesso como atalho da aplicação!</string>
@@ -211,30 +206,7 @@ corretamente&#8230;</string>
     <string name="dialog_restart_reboot_content">Isto efetua uma reinicialização do seu dispositivo.</string>
     <string name="dialog_restart_soft_reboot_title">Reinício de Software</string>
     <string name="dialog_restart_soft_reboot_content">Isto efetua uma reinicialização de soft do seu dispositivo.</string>
-    <string name="studio">icon studio</string>
-    <string name="studio_system">Restaurar Ícones do Sistema</string>
-    <string name="studio_system_reset_dialog_toast">Todos os ícones customizados foram desabilitados!</string>
-    <string name="studio_system_reset_dialog">Deseja restaurar os ícones atuais de volta aos ícones padrão do sistema?</string>
-    <string name="studio_refresh_dialog_title">Confirmação de alteração de configuração</string>
-    <string name="studio_refresh_dialog_content">O Substratum irá alterar a configuração do sistema
-        para que rapidamente todas as aplicações reconheçam os novos ícones.\n\nO idioma do seu
-        sistema vai momentaneamente ficar japonês após ser atualizado no launcher, em seguida
-        volta para o idioma original. Se não alterar os ícones, 
-clique em 
-        atualizar configuração de ícone na página principal do icon studio!\n\nApós pressionar ok, não
-        toque no dispositivo até que apareça uma mensagem a dizer que aplicou com sucesso o seu pacote de
-        ícones!</string>
-    <string name="studio_pack_title">Pacotes de Ícones Baixados</string>
-    <string name="studio_system_title">Framework do Substratum</string>
-    <string name="studio_apply_confirmation">Tem certeza que deseja aplicar %s?</string>
     <string name="studio_applying">Carregando&#8230;</string>
-    <string name="icon_pack_entry">Ícone de Camadas</string>
-    <string name="studio_update_configuration">Atualizar Configuração de Ícones</string>
-    <string name="studio_placeholder_text">nenhum pacote de icones do substratum encontrados</string>
-    <string name="studio_toast_mask">Este ícone está a ser extraído de seu pacote atual e
-       será alterado ao aplicar este pacote de ícones. 
-    </string>
-    <string name="nav_studio">Estúdio de Pacote de Ícones</string>
     <string name="logcat_dialog_title">Reporte Debug \"LogChar\"</string>
     <string name="logcat_dialog_copy_success">Log copiado para a área de transferência com sucesso!</string>
     <string name="logcat_email_activity">Enviar reporte de bug usando&#8230;</string>
@@ -283,7 +255,6 @@ clique em
     <string name="uninstall_dialog_body">Desinstalar</string>
     <string name="sb_phase_1_loader">extraindo ativos deste tema</string>
     <string name="sb_phase_2_loader">criando e assinando camada(s)</string>
-    <string name="sb_phase_3_loader">intejando recurso de ícones</string>
     <string name="root_rejected_title">Permissão de Superusuário negada</string>
     <string name="root_rejected_text_cm_phh">incapaz de continuar sem root&#8230;</string>
     <string name="root_rejected_timer_plural">fechando em %s segundos&#8230;</string>
@@ -318,7 +289,6 @@ clique em
     <string name="notification_processing_n">Criando e assinando camadas&#8230;</string>
     <string name="advanced_manager_overlay_read_error">Não foi possível analisar a lista de camadas. Por favor, abra a Recuperação e toque em \"Restaurar Tema do Sistema\" (desinstalar todas as camadas instaladas) para resolver o problema.    </string>
     <string name="shortcut_floatui">FloatUI</string>
-    <string name="shortcut_floatui_disabled">FloatUI</string>
     <string name="shortcut_rescue">Salvem-me!</string>
     <string name="shortcut_rescue_disabled">Salvem-me!</string>
     <string name="shortcut_store">Amostra de Temas</string>
@@ -525,7 +495,6 @@ clique em
     <string name="nav_drawer_featured">Conteúdos em destaque</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">Portal do XDA</string>
-    <string name="settings_about_interfacer_disconnected">desligado</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Recursos</string>
     <string name="nav_drawer_homepage">Página oficial</string>
@@ -541,7 +510,6 @@ clique em
     <string name="title_activity_manage_space">Gerir o uso do armazenamento</string>
     <string name="manage_space_cache_text_title">Limpar cache</string>
     <string name="clear_cache_button_loading">Carregando&#8230;</string>
-    <string name="clear_cache_button_text">Limpar cache do substratum</string>
     <string name="manage_space_cache_counter_title">Limpar a cache local irá remover todos os ficheiros usados pelo compilador do tema e descarga online. Todos os pacotes de temas e configurações de utilizador serão mantidas.\n\nDependendo do tamanho da cache, pode demorar alguns segundos a completar.</string>
     <string name="manage_space_reset_text_title">Reiniciar configuração</string>
     <string name="manage_space_reset_text_desc">Está a ter problemas com a aplicação? Ou recentemente fez um grande salto de uma versão antiga do substratum? Uma limpeza da configuração ajuda a solucionar o problema!</string>

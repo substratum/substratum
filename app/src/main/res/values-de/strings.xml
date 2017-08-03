@@ -139,7 +139,6 @@ eingerichtet&#8230;</string>
     <string name="settings_about_substratum">Substratum-Version</string>
     <string name="settings_about_interfacer">Interfacer-Version</string>
     <string name="settings_about_interfacer_not_installed">Nicht installiert</string>
-    <string name="settings_about_interfacer_masquerade">Diese Rom benötigt ein Update um den Interfacer zu benutzen</string>
     <string name="settings_about_oms_rro_version">Theme-Plattform:</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
@@ -172,7 +171,6 @@ eingerichtet&#8230;</string>
     <string name="manage_wallpaper_lock_toast">Sperrbildschirm-Hintergrund erfolgreich wiederhergestellt!</string>
     <string name="manage_wallpaper_all_toast">Hintergrund erfolgreich wiederhergestellt!</string>
     <string name="manage_icons_title">System-Icons wiederherstellen</string>
-    <string name="manage_icons_toast">System-Icons erfolgreich wiederhergestellt!</string>
     <string name="adapter_uninstalling">Entferne jetzt %s&#8230;</string>
     <string name="plugin_template">Plugin</string>
     <string name="api_21">Lollipop</string>
@@ -193,16 +191,13 @@ eingerichtet&#8230;</string>
     <string name="menu_disable">Installierte Overlays deaktivieren</string>
     <string name="menu_enable">Installierte Overlays aktivieren</string>
     <string name="menu_favorite">Favorit</string>
-    <string name="menu_open">Icon Pack Fenster</string>
     <string name="menu_rate">Theme bewerten</string>
-    <string name="menu_refresh">Aktualisieren</string>
     <string name="menu_soft_reboot">Schneller Neustart</string>
     <string name="menu_reboot_device">Gerät neustarten</string>
     <string name="menu_per_app">FloatUI</string>
     <string name="menu_restart_systemui">SystemUI neustarten</string>
     <string name="menu_alphabetize">Ändere Sortiermethode</string>
     <string name="menu_search">Themes im Play Store</string>
-    <string name="menu_search_icon_packs">Icon Packs im Play Store</string>
     <string name="menu_showcase">Showcase</string>
     <string name="menu_uninstall">Deinstallieren</string>
     <string name="menu_favorite_snackbar">%s wurde erfolgreich als App-Verknüpfung gesetzt!</string>
@@ -214,21 +209,7 @@ eingerichtet&#8230;</string>
     <string name="dialog_restart_reboot_content">Dies wird einen vollständigen Neustart ihres Gerätes durchführen.</string>
     <string name="dialog_restart_soft_reboot_title">Schneller Neustart</string>
     <string name="dialog_restart_soft_reboot_content">Dies wird einen schnellen Neustart ihres Gerätes durchführen.</string>
-    <string name="studio">Icon Studio</string>
-    <string name="studio_system">System-Icons wiederherstellen</string>
-    <string name="studio_system_reset_dialog_toast">Alle selbsterstellten Icons wurden deaktiviert!</string>
-    <string name="studio_system_reset_dialog">Möchtest du die aktuellen Icons durch die Standard-Icons des System ersetzen?</string>
-    <string name="studio_refresh_dialog_title">Bestätigung der Konfigurationsänderung</string>
-    <string name="studio_refresh_dialog_content">Substratum wird jetzt deine Systemkonfiguration ändern, sodass alle Anwendungen die neuen Icons schnell erkennen.\n\nDeine Systemsprache wird für einen Moment Japanisch sein, nachdem die Icons an deinem Launcher angewendet wurden. Danach ändert sie sich wieder in deine Standardsprache. Wenn sich die Icons nicht ändern, klicke auf die \"Aktualisiere Icon Konfiguration\"-Taste auf der Hauptseite des Icon-Studios!\n\nNachdem du Okay gedrückt hast, berühre dein Gerät nicht, bis eine Nachricht angezeigt wird, die dir sagt, dass das Icon-Paket erfolgreich angewendet wurde!</string>
-    <string name="studio_pack_title">Heruntergeladene Icon-Pakete</string>
-    <string name="studio_system_title">Substratum-Framework</string>
-    <string name="studio_apply_confirmation">Bist du sicher, dass du %s anwenden möchtest?</string>
     <string name="studio_applying">Lädt&#8230;</string>
-    <string name="icon_pack_entry">Overlay-Icon</string>
-    <string name="studio_update_configuration">Icon-Konfiguration aktualisieren</string>
-    <string name="studio_placeholder_text">keine von Substratum unterstützten Icon-Pakete gefunden</string>
-    <string name="studio_toast_mask">Dieses Icon wird von deinem momentanen Paket angezeigt und ändert sich, wenn du dieses Icon-Paket anwendest.    </string>
-    <string name="nav_studio">Icon Pack-Studio</string>
     <string name="logcat_snackbar_button">LogChar</string>
     <string name="logcat_snackbar_text">Gewählte/s Applikation/Overlay veraltet oder unpassende Konfiguration gewählt&#8230;</string>
     <string name="logcat_dialog_title">\"LogChar\"-Debug-Report</string>
@@ -282,7 +263,6 @@ eingerichtet&#8230;</string>
     <string name="uninstall_dialog_body">Deinstallieren</string>
     <string name="sb_phase_1_loader">Assets des Themes werden extrahiert</string>
     <string name="sb_phase_2_loader">Overlay(s) installieren</string>
-    <string name="sb_phase_3_loader">Icon-Ressourcen werden eingefügt</string>
     <string name="root_rejected_title">Superuser-Anfrage abgelehnt</string>
     <string name="root_rejected_text_cm_phh">Root-Zugriff ist erforderlich&#8230;</string>
     <string name="root_rejected_timer_plural">schließt in %s Sekunden&#8230;</string>
@@ -298,9 +278,6 @@ eingerichtet&#8230;</string>
     <string name="no_themes_title">Keine Themes gefunden&#8230;</string>
     <string name="no_themes_description">Bitte installiere ein kompatibles Theme!</string>
     <string name="no_themes_description_search">\"%s\" wurde nicht in der Liste von installierten Themes gefunden&#8230;</string>
-    <string name="toast_samsung_prototype_one_overlay">Im Moment kann nur jeweils ein Overlay ausgewählt werden.</string>
-    <string name="toast_samsung_prototype_restart">Bitte starte dein Gerät neu oder erzwinge eine Beendigung der überlagerten Anwendung!</string>
-    <string name="toast_samsung_prototype_disabled">Diese Substratum-Version ist abgelaufen.\n\nBitte zu einer neuen Kopie aktualisieren!</string>
     <string name="toast_samsung_prototype_alert">Substratum hat automatisch nicht unterstützte System-Overlays für dein Gerät versteckt!</string>
     <string name="samsung_prototype_no_root_dialog">Es sieht so aus als wärst du auf einem unterstützten Samsung-Gerät, ein Addon wurde veröffentlicht um dies zu unterstützen!</string>
     <string name="samsung_prototype_no_root_dialog_button">Jetzt herunterladen!</string>
@@ -328,7 +305,6 @@ eingerichtet&#8230;</string>
 \"Wiederherstellung\" und wähle \"System-Theme wiederherstellen\" (alle installierten Overlays deinstallieren) 
 um das Problem zu beheben.    </string>
     <string name="shortcut_floatui">FloatUI</string>
-    <string name="shortcut_floatui_disabled">FloatUI</string>
     <string name="shortcut_rescue">Rette mich!</string>
     <string name="shortcut_rescue_disabled">Rette mich!</string>
     <string name="shortcut_store">Theme-Showcase</string>
@@ -557,7 +533,6 @@ um das Problem zu beheben.    </string>
     <string name="nav_drawer_featured">Empfohlene Inhalte</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">XDA-Portal</string>
-    <string name="settings_about_interfacer_disconnected">getrennt</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Ressourcen</string>
     <string name="nav_drawer_homepage">Offizielle Homepage</string>
@@ -574,7 +549,6 @@ um das Problem zu beheben.    </string>
     <string name="manage_space_cache_text_title">Cache löschen</string>
     <string name="manage_space_logs_text_title">Säubere gespeicherte Logs</string>
     <string name="clear_cache_button_loading">Lädt&#8230;</string>
-    <string name="clear_cache_button_text">Substratum Cache löschen</string>
     <string name="manage_space_cache_counter_title">Das Leeren des lokalen Caches wird alle Dateien des Theme-Compilers und Online-Downloaders löschen. Alle Theme-Pakete und Benutzerkonfigurationen werden erhalten bleiben.\n\nAbhängig von der Größe deines Caches, kann das ein paar Sekunden dauern.</string>
     <string name="manage_space_reset_text_title">Konfiguration zurücksetzen</string>
     <string name="manage_space_reset_text_desc">Hast du Probleme mit der App? Oder hast du in letzter Zeit ein Upgrade von einer sehr alten Version von Substratum gemacht? Das simple zurücksetzen deiner Konfiguration könnte deine Probleme beheben!</string>

@@ -153,7 +153,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="settings_about_substratum">verze Substratum</string>
     <string name="settings_about_interfacer">Verze interfaceru</string>
     <string name="settings_about_interfacer_not_installed">Není nainstalováno</string>
-    <string name="settings_about_interfacer_masquerade">Tato ROM vyžaduje aktualizaci pro využití funkcí Intarfacer</string>
     <string name="settings_about_oms_rro_version">Platforma pro motivy:</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
@@ -187,7 +186,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="manage_wallpaper_lock_toast">Tapeta zamykací obrazovky úspěšně obnovena!</string>
     <string name="manage_wallpaper_all_toast">Tapeta byla úspěšně obnovena!</string>
     <string name="manage_icons_title">Obnovit systémové ikony</string>
-    <string name="manage_icons_toast">Systémové ikony byly úspěšně obnoveny!</string>
     <string name="adapter_uninstalling">Odstraňování %s&#8230;</string>
     <string name="plugin_template">Plugin</string>
     <string name="api_21">Lollipop</string>
@@ -207,16 +205,13 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="menu_disable">Zakázat nainstalované potahy</string>
     <string name="menu_enable">Povolit nainstalované potahy</string>
     <string name="menu_favorite">Oblíbené</string>
-    <string name="menu_open">Balíček ikon hlavního panelu</string>
     <string name="menu_rate">Ohodnotit motiv</string>
-    <string name="menu_refresh">Obnovit</string>
     <string name="menu_soft_reboot">Soft restart</string>
     <string name="menu_reboot_device">Restartovat zařízení</string>
     <string name="menu_per_app">FloatUI</string>
     <string name="menu_restart_systemui">Restartovat SystemUI</string>
     <string name="menu_alphabetize">Změnit režim řazení</string>
     <string name="menu_search">Motivy v Obchodu Play</string>
-    <string name="menu_search_icon_packs">Balíčky ikon v Obchodě Play</string>
     <string name="menu_showcase">Ukázky</string>
     <string name="menu_uninstall">Odinstalovat motiv</string>
     <string name="menu_favorite_snackbar">Úspěšně nastaveno %s jako zástupce na aplikaci!</string>
@@ -228,26 +223,7 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="dialog_restart_reboot_content">Takto provedete úplný restart vašeho zařízení.</string>
     <string name="dialog_restart_soft_reboot_title">Soft restart</string>
     <string name="dialog_restart_soft_reboot_content">Takto provedete úplný soft restart vašeho zařízení.</string>
-    <string name="studio">studio ikon</string>
-    <string name="studio_system">Obnovit systémové ikony</string>
-    <string name="studio_system_reset_dialog_toast">
-Všechny upravené ikony jsou již vypnuté!
-    </string>
-    <string name="studio_system_reset_dialog">
-Chcete obnovit aktuální ikony na výchozí systémové ikony?
-    </string>
-    <string name="studio_refresh_dialog_title">Potvrzení změny konfigurace</string>
-    <string name="studio_refresh_dialog_content">Substratum nyní změní vaše systémová nastavení s cílem zajistit pro všechny aplikace rychlou změnu a rozpoznání nových ikon.\n\nVáš systémový jazyk se na chvíli po najetí vašeho spouštěče přepne do japonštiny, pak se vrátí zpět do originálního jazyka zařízení. Pokud se ikony nezmění, klepněte na obnovení nastavení ikon na hlavní stránce ikonového studia!\n\nPo kliknutí na OK se nedotýkejte zařízení pokud nedostanete zprávu, že se balíček ikon úspěšně aplikoval!</string>
-    <string name="studio_pack_title">Stažený balíček ikon</string>
-    <string name="studio_system_title">Substratum Framework</string>
-    <string name="studio_apply_confirmation">Jste si jisti, že chcete použít %s?</string>
     <string name="studio_applying">Načítání&#8230;</string>
-    <string name="icon_pack_entry">Ikona potahu</string>
-    <string name="studio_update_configuration">Obnovit konfiguraci ikon</string>
-    <string name="studio_placeholder_text">nebyl nalezen žádný balíček ikon, který podporuje Substratum</string>
-    <string name="studio_toast_mask">Tato ikona je vybrána z aktuálního balíčku a změní se, pokud použijete tento balíček ikon.
-    </string>
-    <string name="nav_studio">Icon Pack Studio</string>
     <string name="logcat_snackbar_button">LogChar</string>
     <string name="logcat_snackbar_text">Cílová aplikace/vybrány zastaralé nebo nesprávně konfigurované potahy&#8230;</string>
     <string name="logcat_dialog_title">Zpráva ladění \"LogChar\"</string>
@@ -304,7 +280,6 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="uninstall_dialog_body">Odinstalovat motiv</string>
     <string name="sb_phase_1_loader">extrahování motivu</string>
     <string name="sb_phase_2_loader">instalování potahů</string>
-    <string name="sb_phase_3_loader">vkládání zdrojů ikon</string>
     <string name="root_rejected_title">Oprávnění Superuser zamítnuto</string>
     <string name="root_rejected_text_cm_phh">nelze pokračovat bez rootu&#8230;</string>
     <string name="root_rejected_timer_plural">zavírání za %s sekund&#8230;</string>
@@ -322,9 +297,6 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="no_themes_title">nenalezeny žádné motivy&#8230;</string>
     <string name="no_themes_description">prosím, nainstalujte kompatibilní motiv!</string>
     <string name="no_themes_description_search">\"%s\" nebylo nalezeno v seznamu nainstalovaných motivů&#8230;</string>
-    <string name="toast_samsung_prototype_one_overlay">V současné době lze najednou vybrat pouze jeden potah.</string>
-    <string name="toast_samsung_prototype_restart">Restartujte zařízení nebo nuceně ukončete vaši aplikaci s potahem!</string>
-    <string name="toast_samsung_prototype_disabled">Tato verze substratum vypršela.\n\nProsím, aktualizujte na novou verzi!</string>
     <string name="toast_samsung_prototype_alert">Substratum automaticky skrylo nepodporované potahy systému pro vaše zařízení!</string>
     <string name="samsung_prototype_no_root_dialog">Zdá se, že používáte podporované zařízení Samsung, pro které byl vydán podpůrný modul!</string>
     <string name="samsung_prototype_no_root_dialog_button">Stáhnout teď!</string>
@@ -351,7 +323,6 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="notification_processing_n">Připravování potahů motivu&#8230;</string>
     <string name="advanced_manager_overlay_read_error">Nepodařilo se analyzovat seznam potahů. Na opravu otevřete složku Obnovení a klepněte na Obnovit systémový motiv (Odinstaluje všechny nainstalované potahy).    </string>
     <string name="shortcut_floatui">FloatUI</string>
-    <string name="shortcut_floatui_disabled">FloatUI</string>
     <string name="shortcut_rescue">Zachraňte mě!</string>
     <string name="shortcut_rescue_disabled">Zachraňte mě!</string>
     <string name="shortcut_store">Ukázka motivů</string>
@@ -592,7 +563,6 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="nav_drawer_featured">Doporučený obsah</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">XDA portál</string>
-    <string name="settings_about_interfacer_disconnected">odpojeno</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Zdroje</string>
     <string name="nav_drawer_homepage">Oficiální domovská stránka</string>
@@ -609,7 +579,6 @@ Chcete obnovit aktuální ikony na výchozí systémové ikony?
     <string name="manage_space_cache_text_title">Vyčistit mezipaměť</string>
     <string name="manage_space_logs_text_title">Vymazat uložené hlášení</string>
     <string name="clear_cache_button_loading">Načítání&#8230;</string>
-    <string name="clear_cache_button_text">Vyčistit mezipaměť Substratum</string>
     <string name="manage_space_cache_counter_title">Vymazání místní mezipaměti odstraní všechny soubory, které používá kompilátor motivů a online downloader. Všechny balíčky motivů a uživatelské konfigurace zůstanou zachovány.\n\nDokončení procesu může trvat několik sekund v závislosti na velikosti mezipaměti.</string>
     <string name="manage_space_reset_text_title">Obnovit konfiguraci</string>
     <string name="manage_space_reset_text_desc">Máte problémy s aplikací nebo jste nedávno provedli velký skok ze starší verze Subtratum? Jednoduchá konfigurace vám určitě pomůže vyřešit problémy!</string>

@@ -136,7 +136,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="settings_about_substratum">Wersja substratum</string>
     <string name="settings_about_interfacer">wersja interfacera</string>
     <string name="settings_about_interfacer_not_installed">Nie zainstalowany</string>
-    <string name="settings_about_interfacer_masquerade">Ten rom wymaga aktualizacji, aby korzystać z funkcjonalności interfacera</string>
     <string name="settings_about_oms_rro_version">Platforma motywu:</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (starsza wersja)</string>
@@ -169,7 +168,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="manage_wallpaper_lock_toast">Tapeta ekranu blokady pomyślnie przywrócona!</string>
     <string name="manage_wallpaper_all_toast">Tapeta pomyślnie przywrócona!</string>
     <string name="manage_icons_title">Przywróć domyślne ikony</string>
-    <string name="manage_icons_toast">Pomyślnie przywrócono ikony!</string>
     <string name="adapter_uninstalling">Usuwanie %s...</string>
     <string name="plugin_template">Wtyczka</string>
     <string name="api_21">Lollipop</string>
@@ -189,16 +187,13 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="menu_disable">Wyłącz zainstalowane nakładki</string>
     <string name="menu_enable">Włącz zainstalowane nakładki</string>
     <string name="menu_favorite">Ulubione</string>
-    <string name="menu_open">Pulpit nawigacyjny pakietu ikon</string>
     <string name="menu_rate">Oceń motyw</string>
-    <string name="menu_refresh">Odśwież</string>
     <string name="menu_soft_reboot">Szybki restart</string>
     <string name="menu_reboot_device">Uruchom ponownie urządzenie</string>
     <string name="menu_per_app">FloatUI</string>
     <string name="menu_restart_systemui">Restart Interfejsu</string>
     <string name="menu_alphabetize">Zmiana Trybu Sortowania</string>
     <string name="menu_search">Motywy w Google Play</string>
-    <string name="menu_search_icon_packs">Pakiety ikon sklepu play</string>
     <string name="menu_showcase">Prezentacje motywów</string>
     <string name="menu_uninstall">Odinstaluj Motyw</string>
     <string name="menu_favorite_snackbar">Pomyślnie ustawiono %s jako skrót aplikacji!</string>
@@ -210,23 +205,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="dialog_restart_reboot_content">To działanie uruchomi ponownie twoje urządzenie.</string>
     <string name="dialog_restart_soft_reboot_title">Szybki restart</string>
     <string name="dialog_restart_soft_reboot_content">To działanie wykona miękki restart twojego urządzenia.</string>
-    <string name="studio">studio ikon</string>
-    <string name="studio_system">Przywróć domyślne ikony</string>
-    <string name="studio_system_reset_dialog_toast">
-Już zostały wyłączone wszystkie niestandardowe ikony!    </string>
-    <string name="studio_system_reset_dialog">
-Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
-    <string name="studio_refresh_dialog_title">Potwierdzenie zmian konfiguracyjnych</string>
-    <string name="studio_refresh_dialog_content">Substratum teraz zmieni konfigurację twojego systemu tak aby rozpoznawał nowe ikony.\n\nJęzyk systemowy od razu zmieni się na Japoński tuż po tym zostaniesz wyrzucony do swojego programu rozruchowego, następnie wróć do swojego języka macierzystego na twoim urządzeniu. Jeżeli ikony się nie zmienią kliknij na \'Odśwież Konfigurację Ikon\' na głównej stronie Studia Ikon!\n\nPo tym jak naciśniesz OK, nie dotykaj swojego urządzenia póki nie zobaczysz informacji mówiącej o tym że twoja paczka ikon została zastosowana!</string>
-    <string name="studio_pack_title">Pobrane pakiety ikon</string>
-    <string name="studio_system_title">Substratum Framework</string>
-    <string name="studio_apply_confirmation">Czy aby na pewno chcesz zastosować %s?</string>
     <string name="studio_applying">Ładowanie&#8230;</string>
-    <string name="icon_pack_entry">Ikony nakładek</string>
-    <string name="studio_update_configuration">Odśwież konfigurację ikon</string>
-    <string name="studio_placeholder_text">nie znaleziono wspieranych ikon przez substratum</string>
-    <string name="studio_toast_mask">        Ta ikona jest rysowana przez twoją obecną paczke ikon, zostanie ona zmieniona kiedy zastosujesz tą paczke ikon</string>
-    <string name="nav_studio">Studio Ikon</string>
     <string name="logcat_snackbar_button">LogChar</string>
     <string name="logcat_snackbar_text">Zastosowano docelową aplikację / nakładkę przestarzałą lub niezgodną konfigurację&#8230;</string>
     <string name="logcat_dialog_title">Raport debugowania \"LogChar\"</string>
@@ -283,7 +262,6 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="uninstall_dialog_body">Odinstaluj Motyw</string>
     <string name="sb_phase_1_loader">wyodrębnianie motywu</string>
     <string name="sb_phase_2_loader">instalowanie nakładki</string>
-    <string name="sb_phase_3_loader">iniekcja zasobów ikon</string>
     <string name="root_rejected_title">Odmowa uprawnień Superuser</string>
     <string name="root_rejected_text_cm_phh">nie można kontynuować bez roota&#8230;</string>
     <string name="root_rejected_timer_plural">zamykanie za %s sekund&#8230;</string>
@@ -299,9 +277,6 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="no_themes_title">nie znaleziono motywów&#8230;</string>
     <string name="no_themes_description">proszę zainstalować zgodny motyw!</string>
     <string name="no_themes_description_search">Nie znaleziono \"%s\" na liście zainstalowanych motywów&#8230;</string>
-    <string name="toast_samsung_prototype_one_overlay">W tej chwili można wybrać tylko jedną nakładkę.</string>
-    <string name="toast_samsung_prototype_restart">Zrestartuj urządzenie lub zamknij aplikację!</string>
-    <string name="toast_samsung_prototype_disabled">Ta wersja substratum wygasła.\n\nProszę zaktualizować do nowszej kopii!</string>
     <string name="toast_samsung_prototype_alert">Substratum automatycznie ukrył nieobsługiwane nakładki systemowe urządzenia!</string>
     <string name="samsung_prototype_no_root_dialog">Wydaje się, że jesteś na obsługiwanym urządzeniu Samsung, dodatek został wydany w celu wsparcia tego!</string>
     <string name="samsung_prototype_no_root_dialog_button">Pobierz teraz!</string>
@@ -328,7 +303,6 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="advanced_manager_overlay_read_error">Nie można przeanalizować listy nakładek. Proszę otworzyć         zakładkę Odzyskiwania i kliknąć na Przywróć Motyw Systemowy (Odinstaluj wszystkie zainstalowane nakładki) aby         rozwiązać ten problem.
     </string>
     <string name="shortcut_floatui">FloatUI</string>
-    <string name="shortcut_floatui_disabled">FloatUI</string>
     <string name="shortcut_rescue">Ratuj mnie!</string>
     <string name="shortcut_rescue_disabled">Ratuj mnie!</string>
     <string name="shortcut_store">Prezentacja Motywu</string>
@@ -557,7 +531,6 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="nav_drawer_featured">Polecana zawartość</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">Portal XDA</string>
-    <string name="settings_about_interfacer_disconnected">odłączony</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Zasoby</string>
     <string name="nav_drawer_homepage">Oficjalna strona</string>
@@ -574,7 +547,6 @@ Czy chcesz przywrócić bieżące ikony do domyślnych?    </string>
     <string name="manage_space_cache_text_title">Wyczyść pamięć podręczną</string>
     <string name="manage_space_logs_text_title">Wyczyść zapisane dzienniki</string>
     <string name="clear_cache_button_loading">Ładowanie&#8230;</string>
-    <string name="clear_cache_button_text">Wyczyść pamięć podręczną substratum</string>
     <string name="manage_space_cache_counter_title">Usunięcie lokalnej pamięci podręcznej spowoduje usunięcie wszystkich plików używanych przez kompilator kompozycji i pobierania online. Wszystkie pakiety motywów i konfiguracje użytkownika pozostaną niezmienione. \n\nW zależności od rozmiaru pamięci podręcznej może to potrwać kilka sekund.</string>
     <string name="manage_space_reset_text_title">Reset konfiguracji</string>
     <string name="manage_space_reset_text_desc">Masz kłopoty z aplikacją? A może ostatnio zrobiłeś aktualizację bardzo starej wersji substratum? Proste wyczyszczenie konfiguracji zdecydowanie rozwiąże problemy!</string>

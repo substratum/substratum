@@ -28,7 +28,6 @@
     <string name="device">Device model:</string>
 
     <string name="search_play_store_url" translatable="false">https://play.google.com/store/search?q=Substratum%20Theme&amp;c=apps</string>
-    <string name="search_play_store_url_icon_packs" translatable="false">https://play.google.com/store/search?q=Icon%20Pack&amp;c=apps</string>
     <string name="search_play_store_url_legacy" translatable="false">https://play.google.com/store/search?q=Substratum%20Legacy%20Theme&amp;c=apps</string>
     <string name="search_play_store_url_samsung" translatable="false">https://play.google.com/store/search?q=Substratum%20Samsung%20Theme&amp;c=apps</string>
     <string name="supported_roms_url" translatable="false">https://raw.githubusercontent.com/substratum/database/master/supported_roms.xml</string>
@@ -254,7 +253,6 @@
     <string name="settings_about_substratum">substratum version</string>
     <string name="settings_about_interfacer">interfacer version</string>
     <string name="settings_about_interfacer_not_installed">Not installed</string>
-    <string name="settings_about_interfacer_masquerade">This rom requires an update to utilize interfacer functionality</string>
     <string name="settings_about_oms_rro_version">Theme platform:</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
@@ -299,7 +297,6 @@
     <string name="manage_wallpaper_lock_toast">Lock screen wallpaper restored successfully!</string>
     <string name="manage_wallpaper_all_toast">Wallpaper restored successfully!</string>
     <string name="manage_icons_title">Restore System Icons</string>
-    <string name="manage_icons_toast">System icons restored successfully!</string>
 
     <string name="adapter_uninstalling">Now removing %s&#8230;</string>
 
@@ -330,16 +327,13 @@
     <string name="menu_disable">Disable installed overlays</string>
     <string name="menu_enable">Enable installed overlays</string>
     <string name="menu_favorite">Favorite</string>
-    <string name="menu_open">Icon Pack Dashboard</string>
     <string name="menu_rate">Rate theme</string>
-    <string name="menu_refresh">Refresh</string>
     <string name="menu_soft_reboot">Soft Reboot</string>
     <string name="menu_reboot_device">Reboot Device</string>
     <string name="menu_per_app">FloatUI</string>
     <string name="menu_restart_systemui">Restart SystemUI</string>
     <string name="menu_alphabetize">Change Sorting Mode</string>
     <string name="menu_search">Play Store Themes</string>
-    <string name="menu_search_icon_packs">Play Store Icon Packs</string>
     <string name="menu_showcase">Showcase</string>
     <string name="menu_uninstall">Uninstall Theme</string>
 
@@ -357,34 +351,7 @@
     <string name="dialog_restart_soft_reboot_title">Soft Reboot</string>
     <string name="dialog_restart_soft_reboot_content">This will perform a soft reboot on your device.</string>
 
-    <string name="studio">icon studio</string>
-    <string name="studio_system">Restore System Icons</string>
-    <string name="studio_system_reset_dialog_toast">
-        All custom icons have already been disabled!
-    </string>
-    <string name="studio_system_reset_dialog">
-        Do you want to restore the current icons back to the system default icons?
-    </string>
-    <string name="studio_refresh_dialog_title">Configuration Change Confirmation</string>
-    <string name="studio_refresh_dialog_content">Substratum will now change your system
-        configuration to quickly cause all applications to recognize new icons.\n\nYour system
-        language will momentarily turn Japanese after being kicked to your launcher, then return
-        back to the original language set on your device. If the icons do not change, click on
-        Refresh Icon Configuration at the main page of the Icon Studio!\n\nAfter pressing OK, do not
-        touch your device until a message comes up saying that it has successfully applied your icon
-        pack!</string>
-    <string name="studio_pack_title">Downloaded Icon Packs</string>
-    <string name="studio_system_title">Substratum Framework</string>
-    <string name="studio_apply_confirmation">Are you sure you would like to apply %s?</string>
     <string name="studio_applying">Loading&#8230;</string>
-    <string name="icon_pack_entry">Overlay Icon</string>
-    <string name="studio_update_configuration">Refresh Icon Configuration</string>
-    <string name="studio_placeholder_text">no substratum supported icon packs found</string>
-    <string name="studio_toast_mask">This icon is being drawn from your current pack and
-        will be changed when you apply this icon pack.
-    </string>
-
-    <string name="nav_studio">Icon Pack Studio</string>
 
     <string name="error_loading_theme_close">Close</string>
     <string name="error_loading_theme_close_text">A fatal error has occurred while performing the encrypted asset handshake for this theme.</string>
@@ -485,7 +452,6 @@
 
     <string name="sb_phase_1_loader">extracting theme</string>
     <string name="sb_phase_2_loader">installing overlay</string>
-    <string name="sb_phase_3_loader">injecting icon resources</string>
     <string name="root_rejected_title">Superuser permissions denied</string>
     <string name="root_rejected_text_cm_phh">unable to continue without root&#8230;</string>
     <string name="root_rejected_timer_plural">closing in %s seconds&#8230;</string>
@@ -503,9 +469,6 @@
     <string name="no_themes_description">please install a compatible theme!</string>
     <string name="no_themes_description_search">\"%s\" was not found in the list of themes installed&#8230;</string>
 
-    <string name="toast_samsung_prototype_one_overlay">At this time, only one overlay can be selected at a time.</string>
-    <string name="toast_samsung_prototype_restart">Please restart your device or force close your overlaid application!</string>
-    <string name="toast_samsung_prototype_disabled">This version of substratum has expired.\n\nPlease update to a fresh copy!</string>
     <string name="toast_samsung_prototype_alert">Substratum automatically hid unsupported system overlays for your device!</string>
     <string name="samsung_prototype_no_root_dialog">It seems that you are on a supported Samsung device, an addon was released to support this!</string>
     <string name="samsung_prototype_no_root_dialog_button">Download now!</string>
@@ -539,7 +502,6 @@
     </string>
 
     <string name="shortcut_floatui">FloatUI</string>
-    <string name="shortcut_floatui_disabled">FloatUI</string>
     <string name="shortcut_rescue">Rescue Me!</string>
     <string name="shortcut_rescue_disabled">Rescue Me!</string>
     <string name="shortcut_store">Theme Showcase</string>
@@ -828,7 +790,6 @@
     <string name="tcf_link" translatable="false">http://thecyberfibre.com/</string>
     <string name="nav_drawer_xda_portal">XDA Portal</string>
     <string name="xda_portal_link" translatable="false">https://xda-developers.com/author/punya-vashist</string>
-    <string name="settings_about_interfacer_disconnected">disconnected</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Resources</string>
     <string name="nav_drawer_homepage">Official homepage</string>
@@ -850,7 +811,6 @@
     <string name="manage_space_cache_text_title">Clear cache</string>
     <string name="manage_space_logs_text_title">Clear saved logs</string>
     <string name="clear_cache_button_loading">Loading&#8230;</string>
-    <string name="clear_cache_button_text">Clear substratum cache</string>
     <string name="manage_space_cache_counter_title">Clearing the local cache will remove all the files used by the theme compiler and online downloader. All theme packs and user configurations will remain as-is.\n\nDepending on the size of your cache, this may take a few seconds to complete.</string>
     <string name="manage_space_reset_text_title">Reset configuration</string>
     <string name="manage_space_reset_text_desc">Are you having trouble with the application? Or did you recently make a big version leap from an old version of substratum? A simple configuration clear would definitely aid troubleshooting the issue!</string>

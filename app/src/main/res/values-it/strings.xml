@@ -134,7 +134,6 @@
     <string name="settings_about_substratum">Versione di substratum</string>
     <string name="settings_about_interfacer">versione dell\'interfaccia</string>
     <string name="settings_about_interfacer_not_installed">Non installato</string>
-    <string name="settings_about_interfacer_masquerade">Questa rom richiede un aggiornamento per poter utilizzare le funzionalità di interfacer</string>
     <string name="settings_about_oms_rro_version">Piattaforma tema:</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
@@ -167,7 +166,6 @@
     <string name="manage_wallpaper_lock_toast">Sfondo della schermata di blocco ripristinato con successo!</string>
     <string name="manage_wallpaper_all_toast">Sfondo ripristinato con successo!</string>
     <string name="manage_icons_title">Ripristinare le icone di sistema</string>
-    <string name="manage_icons_toast">Icone di sistema ripristinate correttamente!</string>
     <string name="adapter_uninstalling">Rimozione %s&#8230;</string>
     <string name="plugin_template">Plugin</string>
     <string name="api_21">Lollipop</string>
@@ -193,16 +191,13 @@
     <string name="menu_disable">Disabilita gli overlays installati</string>
     <string name="menu_enable">Abilita gli overlays installati</string>
     <string name="menu_favorite">Preferito</string>
-    <string name="menu_open">Icon Pack Dashboard</string>
     <string name="menu_rate">Valuta il tema</string>
-    <string name="menu_refresh">Aggiorna</string>
     <string name="menu_soft_reboot">Riavvio leggero</string>
     <string name="menu_reboot_device">Riavvia il telefono</string>
     <string name="menu_per_app">FloatUI</string>
     <string name="menu_restart_systemui">Riavvia SystemUI</string>
     <string name="menu_alphabetize">Modifica modalità di ordinamento</string>
     <string name="menu_search">Temi dal Play Store</string>
-    <string name="menu_search_icon_packs">Pacchetti di Icone Play Store</string>
     <string name="menu_showcase">Vetrina</string>
     <string name="menu_uninstall">Disinstalla</string>
     <string name="menu_favorite_snackbar">Impostato correttamente %s come collegamento ad un app!</string>
@@ -214,23 +209,7 @@
     <string name="dialog_restart_reboot_content">Verrà eseguito un riavvio completo del dispositivo.</string>
     <string name="dialog_restart_soft_reboot_title">Riavvio leggero</string>
     <string name="dialog_restart_soft_reboot_content">Verrà eseguito un riavvio veloce del tuo dispositivo.</string>
-    <string name="studio">Icon studio</string>
-    <string name="studio_system">Ripristinare le icone di sistema</string>
-    <string name="studio_system_reset_dialog_toast">
-         Tutte le icone personalizzate sono già state disattivate!    </string>
-    <string name="studio_system_reset_dialog">
-Vuoi ripristinare le icone predefinite di sistema?    </string>
-    <string name="studio_refresh_dialog_title">Conferma del cambio di configurazione</string>
-    <string name="studio_refresh_dialog_content">Substratum modificherà ora la configurazione del sistema         per far riconoscere velocemente tutte le icone dalle vostre applicazioni\n\nLa lingua del sistema verrà cambiata momentaneamente in giapponese dopo essere ritornati al launcher, in seguito ritornerà         alla lingua precedente.  Se le icone non cambiano, premi         Aggiorna Configurazione Icone nella pagina principale di Icon Studio!\n\nDopo aver premuto ok non toccare        il dispositivo sino alla comparsa del messaggio di riuscita dell\'operazione!</string>
-    <string name="studio_pack_title">Pacchetti di icone scaricati</string>
-    <string name="studio_system_title">Substratum Framework</string>
-    <string name="studio_apply_confirmation">Sei sicuro di voler applicare %s?</string>
     <string name="studio_applying">Caricamento&#8230;</string>
-    <string name="icon_pack_entry">Overlay delle icone</string>
-    <string name="studio_update_configuration">Aggiorna la configurazione delle icone</string>
-    <string name="studio_placeholder_text">non è stato trovato nessun parchetto icone che supporti substratum</string>
-    <string name="studio_toast_mask">Questa icona viene disegnata dal pack corrente e verrà modificata quando si applica questo pack di icona.    </string>
-    <string name="nav_studio">Icon Pack Studio</string>
     <string name="logcat_dialog_title">Report di Debug \"LogChar\"</string>
     <string name="logcat_dialog_copy_success">Il log d\'errore è stato copiato con successo!</string>
     <string name="logcat_email_activity">Manda la segnalazione di bug usando &amp;#8230</string>
@@ -282,7 +261,6 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="uninstall_dialog_body">Disinstalla</string>
     <string name="sb_phase_1_loader">Estraendo le attività da questo tema</string>
     <string name="sb_phase_2_loader">Sto creando e firmando la/le sovrapposizione/i</string>
-    <string name="sb_phase_3_loader">iniettando le risorse delle icone</string>
     <string name="root_rejected_title">Permessi superuser negati</string>
     <string name="root_rejected_text_cm_phh">impossibile continuare senza root&#8230;</string>
     <string name="root_rejected_timer_plural">chiusura in %s secondi&#8230;</string>
@@ -298,9 +276,6 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="no_themes_title">nessun tema trovato&#8230;</string>
     <string name="no_themes_description">Per favore installa un tema compatibile!</string>
     <string name="no_themes_description_search">\"%s\" non è stato trovato nell\'elenco dei temi installati&#8230;</string>
-    <string name="toast_samsung_prototype_one_overlay">Adesso puoi selezionare solo un tema per volta.</string>
-    <string name="toast_samsung_prototype_restart">Riavvia il dispositivo oppure chiudi forzatamente l\'applicazione colorata!</string>
-    <string name="toast_samsung_prototype_disabled">Questa versione di Substratum è obsoleta.\n\nPer favore, aggiorna l\'app all\'ultima versione disponibile!</string>
     <string name="toast_samsung_prototype_alert">Substratum ha nascosto automaticamente gli overlay di sistema non supportati dal tuo dispositvo!</string>
     <string name="samsung_prototype_no_root_dialog">Sembra tu abbia un dispositivo Samsung supportato, un add-on è stato rilasciato per supportarlo!</string>
     <string name="samsung_prototype_no_root_dialog_button">Scarica ora!</string>
@@ -327,7 +302,6 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="advanced_manager_overlay_read_error">Impossibile ottenere la lista degli overlay. Per favore apri il Defaults Manager a premi su \"Ripristina il tema di sistema\" (disinstalla tutti gli overlay installati) per risolvere il problema.
     </string>
     <string name="shortcut_floatui">FloatUI</string>
-    <string name="shortcut_floatui_disabled">FloatUI</string>
     <string name="shortcut_rescue">Salvami!</string>
     <string name="shortcut_rescue_disabled">Salvami!</string>
     <string name="shortcut_store">Vetrina del tema</string>
@@ -552,7 +526,6 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="nav_drawer_featured">Contenuti in primo piano</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TFC)</string>
     <string name="nav_drawer_xda_portal">Portale XDA</string>
-    <string name="settings_about_interfacer_disconnected">disconnesso</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Risorse</string>
     <string name="nav_drawer_homepage">Homepage ufficiale</string>
@@ -568,7 +541,6 @@ Vuoi ripristinare le icone predefinite di sistema?    </string>
     <string name="title_activity_manage_space">Gestisci l\'utilizzo della memoria</string>
     <string name="manage_space_cache_text_title">Svuota cache</string>
     <string name="clear_cache_button_loading">Caricamento&#8230;</string>
-    <string name="clear_cache_button_text">Pulizia substratum cache</string>
     <string name="manage_space_cache_counter_title">Cancellando la cache locale rimuoverà tutti i temi scaricati utilizzati da substratum. Tutti i temi e le configurazioni utente rimarranno come sono.\n\nIn base alla dimensione della cache, l\'operazione potrebbe richiedere alcuni secondi per completare.</string>
     <string name="manage_space_reset_text_title">Reimpostare la configurazione</string>
     <string name="manage_space_reset_text_desc">Hai problemi con l\'applicazione? O hai recentemente fatto un sato di versione da una vecchia versione di substratum? Una configurazione semplice sarebbe sicuramente di aiuto per risolvere il problema!</string>

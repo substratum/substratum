@@ -134,7 +134,6 @@
     <string name="settings_about_substratum">Substratum 版本</string>
     <string name="settings_about_interfacer">主题接口版本</string>
     <string name="settings_about_interfacer_not_installed">未安装</string>
-    <string name="settings_about_interfacer_masquerade">请更新您的系统以使用主题接口功能</string>
     <string name="settings_about_oms_rro_version">主题平台：</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2（旧版）</string>
@@ -167,7 +166,6 @@
     <string name="manage_wallpaper_lock_toast">成功还原锁屏壁纸</string>
     <string name="manage_wallpaper_all_toast">成功还原壁纸</string>
     <string name="manage_icons_title">还原系统图标</string>
-    <string name="manage_icons_toast">成功还原图标</string>
     <string name="adapter_uninstalling">正在删除 %s...</string>
     <string name="plugin_template">插件</string>
     <string name="api_21">Lollipop</string>
@@ -188,16 +186,13 @@
     <string name="menu_disable">禁用已安装的叠加层</string>
     <string name="menu_enable">启用已安装的叠加层</string>
     <string name="menu_favorite">收藏</string>
-    <string name="menu_open">图标包控制面板</string>
     <string name="menu_rate">为主题评分</string>
-    <string name="menu_refresh">刷新</string>
     <string name="menu_soft_reboot">软重启</string>
     <string name="menu_reboot_device">重启设备</string>
     <string name="menu_per_app">悬浮控件</string>
     <string name="menu_restart_systemui">重启系统界面</string>
     <string name="menu_alphabetize">改变排序模式</string>
     <string name="menu_search">Play Store 主题</string>
-    <string name="menu_search_icon_packs">Play Store 图标包</string>
     <string name="menu_showcase">展示</string>
     <string name="menu_uninstall">卸载主题</string>
     <string name="menu_favorite_snackbar">成功将 %s 设置为快捷方式</string>
@@ -209,21 +204,7 @@
     <string name="dialog_restart_reboot_content">重新启动您的设备</string>
     <string name="dialog_restart_soft_reboot_title">软重启</string>
     <string name="dialog_restart_soft_reboot_content">软重启您的设备</string>
-    <string name="studio">图标工作室</string>
-    <string name="studio_system">还原系统图标</string>
-    <string name="studio_system_reset_dialog_toast">所有自定义图标已被禁用</string>
-    <string name="studio_system_reset_dialog">是否将当前图标还原为系统默认图标？</string>
-    <string name="studio_refresh_dialog_title">配置更改确认</string>
-    <string name="studio_refresh_dialog_content">Substratum 现在将改变您的系统设置，从而使所有应用程序识别新的图标。\n\n您的系统语言会暂时变成日语并强制跳转回启动器，然后变回原先的语言。如果图标未改变，请在主页面的图标工作室下点击刷新图标配置。\n\n点击确认后，请勿操作您的设备，直到出现消息提示“已成功应用图标包”。</string>
-    <string name="studio_pack_title">下载图标包</string>
-    <string name="studio_system_title">Substratum 框架</string>
-    <string name="studio_apply_confirmation">您确定要执行 %s？</string>
     <string name="studio_applying">正在加载</string>
-    <string name="icon_pack_entry">叠加层图标</string>
-    <string name="studio_update_configuration">刷新图标配置</string>
-    <string name="studio_placeholder_text">没有找到支持 Substratum 的图标包</string>
-    <string name="studio_toast_mask">此图标来源于您现在应用的图标包，当您应用此图标包时此图标将会改变。 </string>
-    <string name="nav_studio">图标包工作室</string>
     <string name="logcat_snackbar_button">LogChar</string>
     <string name="logcat_snackbar_text">选中的应用或叠加层已经过时或配置不正确</string>
     <string name="logcat_dialog_title">\"LogChar\" 调试报告</string>
@@ -275,7 +256,6 @@
     <string name="uninstall_dialog_body">卸载主题</string>
     <string name="sb_phase_1_loader">提取主题</string>
     <string name="sb_phase_2_loader">安装叠加层</string>
-    <string name="sb_phase_3_loader">导入图标资源</string>
     <string name="root_rejected_title">申请 Root 权限被拒绝</string>
     <string name="root_rejected_text_cm_phh">未获取 Root 权限，无法继续</string>
     <string name="root_rejected_timer_plural">在 %s 秒后关闭</string>
@@ -291,9 +271,6 @@
     <string name="no_themes_title">没有找到主题</string>
     <string name="no_themes_description">请安装一个兼容的主题</string>
     <string name="no_themes_description_search">在已安装的主题列表中无法找到 \"%s\"</string>
-    <string name="toast_samsung_prototype_one_overlay">只能选择一个叠加层</string>
-    <string name="toast_samsung_prototype_restart">请重新启动设备或强制关闭应用程序</string>
-    <string name="toast_samsung_prototype_disabled">此版本已过期。请更新 Substratum 版本。</string>
     <string name="toast_samsung_prototype_alert">Substratum 会自动隐藏不支持此设备的系统叠加层</string>
     <string name="samsung_prototype_no_root_dialog">一个新插件已经发布，您的三星设备已受支持。</string>
     <string name="samsung_prototype_no_root_dialog_button">立即下载</string>
@@ -319,7 +296,6 @@
     <string name="notification_processing_n">正在准备主题叠加层</string>
     <string name="advanced_manager_overlay_read_error">无法解析叠加层列表。请打开还原选项，点击还原系统主题（卸载所有已安装的叠加层）来解决此问题。</string>
     <string name="shortcut_floatui">悬浮控件</string>
-    <string name="shortcut_floatui_disabled">悬浮控件</string>
     <string name="shortcut_rescue">禁用所有叠加层</string>
     <string name="shortcut_rescue_disabled">禁用所有叠加层</string>
     <string name="shortcut_store">主题展示</string>
@@ -548,7 +524,6 @@
     <string name="nav_drawer_featured">特色内容</string>
     <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">XDA 门户</string>
-    <string name="settings_about_interfacer_disconnected">断开连接</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">资源</string>
     <string name="nav_drawer_homepage">官方主页</string>
@@ -565,7 +540,6 @@
     <string name="manage_space_cache_text_title">清除缓存</string>
     <string name="manage_space_logs_text_title">清除已保存的日志</string>
     <string name="clear_cache_button_loading">正在加载</string>
-    <string name="clear_cache_button_text">清除 Substratum 缓存</string>
     <string name="manage_space_cache_counter_title">清除主题编译器产生的缓存文件和其它在线下载内容。所有主题包和用户配置将保持原状。这可能需要一点时间，请耐心等待。</string>
     <string name="manage_space_reset_text_title">重置配置</string>
     <string name="manage_space_reset_text_desc">您是否在使用中遇到了问题？最近是否对 Substratum 做了大版本的跨越式更新？请进行重置操作，有利于问题的解决。</string>

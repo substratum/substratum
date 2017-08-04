@@ -259,6 +259,18 @@ public class ManagerFragment extends Fragment {
             uninstall_selected.setOnClickListener(v ->
                     new RunUninstall(ManagerFragment.this).execute());
 
+        if (!References.isSamsung(context)
+                || !References.checkThemeInterfacer(context)
+                        && !prefs.getBoolean("seen_legacy_warning", false))
+            new AlertDialog.Builder(context)
+                    .setNeutralButton(R.string.dialog_ok, (dialogInterface, i) -> {
+                        prefs.edit().putBoolean("seen_legacy_warning", true).apply();
+                        dialogInterface.dismiss();
+                    })
+                    .setTitle(R.string.warning_title)
+                    .setCancelable(false)
+                    .setMessage(R.string.legacy_overlay_uninstall_warning_text)
+                    .show();
         return root;
     }
 

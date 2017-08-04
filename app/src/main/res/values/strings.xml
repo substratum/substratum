@@ -825,4 +825,5 @@
     <string name="automatic_logchar_cleanup_summary_off">All LogChar reports will be cached indefinitely</string>
     <string name="automatic_logchar_cleanup_title">Automatically wipe saved LogChar reports</string>
     <string name="cleaned_logchar_reports">Cleaned saved LogChar reports</string>
+    <string name="legacy_overlay_uninstall_warning_text">If you are uninstalling all overlays, please use the Substratum Rescue ZIPs to avoid possible bootloops.</string>
 </resources>

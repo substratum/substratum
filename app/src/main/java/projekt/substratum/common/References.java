@@ -699,6 +699,7 @@ public class References {
         editor.remove("display_old_themes");
         editor.remove("seen_restore_warning");
         editor.remove("previous_logchar_cleanup");
+        editor.remove("seen_legacy_warning");
 
         // Initial parse of what is installed on the device
         Set<String> installed_themes = new TreeSet<>();

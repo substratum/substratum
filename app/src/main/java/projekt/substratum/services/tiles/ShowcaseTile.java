@@ -27,9 +27,7 @@ import projekt.substratum.activities.showcase.ShowcaseActivity;
 public class ShowcaseTile extends TileService {
     @Override
     public void onClick() {
-        Intent collapseIntent = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
         Intent intent = new Intent(this, ShowcaseActivity.class);
-        sendBroadcast(collapseIntent);
-        startActivity(intent);
+        startActivityAndCollapse(intent);
     }
 }

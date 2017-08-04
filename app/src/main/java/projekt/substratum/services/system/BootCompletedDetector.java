@@ -27,18 +27,13 @@ import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 import projekt.substratum.common.References;
-import projekt.substratum.common.analytics.FirebaseAnalytics;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.systems.ProfileManager;
 
 import static projekt.substratum.common.References.BOOT_COMPLETED;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
-import static projekt.substratum.common.References.isNetworkAvailable;
 import static projekt.substratum.common.systems.ProfileManager.SCHEDULED_PROFILE_ENABLED;
 
 public class BootCompletedDetector extends BroadcastReceiver {
@@ -65,13 +60,6 @@ public class BootCompletedDetector extends BroadcastReceiver {
             }
             clearSubstratumCompileFolder(context);
             new References.Markdown(context, prefs);
-            SharedPreferences firebasePrefs = context
-                    .getSharedPreferences(FirebaseAnalytics.PACKAGES_PREFS, Context.MODE_PRIVATE);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
-            String date = dateFormat.format(new Date());
-            if (isNetworkAvailable(context) && !firebasePrefs.contains(date)) {
-                FirebaseAnalytics.withdrawBlacklistedPackages(context);
-            }
         }
     }
 }

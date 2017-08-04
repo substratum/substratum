@@ -51,6 +51,7 @@ public class Resources {
             387945779, // Release
             815479991, // Release
     };
+
     // Default core packages
     public static final String[] CORE_SYSTEM_PACKAGES = {
 

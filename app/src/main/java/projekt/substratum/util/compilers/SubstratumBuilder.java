@@ -233,7 +233,6 @@ public class SubstratumBuilder {
                                         versionName,
                                         targetPackage,
                                         theme_parent,
-                                        varianter,
                                         theme_oms,
                                         legacy_priority,
                                         false,
@@ -258,7 +257,6 @@ public class SubstratumBuilder {
                                             versionName,
                                             targetPackage,
                                             theme_parent,
-                                            varianter,
                                             theme_oms,
                                             legacy_priority,
                                             false,
@@ -282,7 +280,6 @@ public class SubstratumBuilder {
                                             versionName,
                                             targetPackage,
                                             theme_parent,
-                                            varianter,
                                             theme_oms,
                                             legacy_priority,
                                             true,
@@ -550,8 +547,8 @@ public class SubstratumBuilder {
                     legacySwitch,
                     null,
                     context,
-                    no_cache_dir,
-                    false);
+                    no_cache_dir
+            );
         } else {
             if (variant != null) {
                 commands = CompilerCommands.createAOPTShellCommands(
@@ -562,8 +559,8 @@ public class SubstratumBuilder {
                         legacySwitch,
                         additional_variant,
                         context,
-                        no_cache_dir,
-                        false);
+                        no_cache_dir
+                );
             } else {
                 commands = CompilerCommands.createAOPTShellCommands(
                         work_area,
@@ -573,8 +570,8 @@ public class SubstratumBuilder {
                         legacySwitch,
                         null,
                         context,
-                        no_cache_dir,
-                        false);
+                        no_cache_dir
+                );
             }
         }
         return commands;

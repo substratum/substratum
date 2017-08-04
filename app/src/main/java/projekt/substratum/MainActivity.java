@@ -1361,9 +1361,7 @@ public class MainActivity extends SubstratumActivity implements
 
             for (int i = 0; i < stateAll.size(); i++) {
                 String parent = References.grabOverlayParent(context, stateAll.get(i));
-                String pack = References.grabIconPack(context, stateAll.get(i));
-                if (!References.isPackageInstalled(context, parent) &&
-                        !References.isPackageInstalled(context, pack)) {
+                if (!References.isPackageInstalled(context, parent)) {
                     Log.e("OverlayCleaner",
                             "Parent APK not found for \"" + stateAll.get(i) +
                                     "\" and will be removed.");

@@ -63,7 +63,6 @@ import org.apache.commons.io.IOUtils;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -137,7 +136,6 @@ public class References {
     // These are specific log tags for different classes
     public static final String SUBSTRATUM_BUILDER = "SubstratumBuilder";
     public static final String SUBSTRATUM_LOG = "SubstratumLogger";
-    public static final String SUBSTRATUM_ICON_BUILDER = "SubstratumIconBuilder";
     public static final String SUBSTRATUM_VALIDATOR = "SubstratumValidator";
     // These are package names for our backend systems
     public static final String INTERFACER_PACKAGE = "projekt.interfacer";
@@ -183,7 +181,6 @@ public class References {
     public static final String metadataOverlayType2 = "Substratum_Type2";
     public static final String metadataOverlayType3 = "Substratum_Type3";
     public static final String metadataOverlayVersion = "Substratum_Version";
-    public static final String metadataIconPackParent = "Substratum_IconPack";
     // These are Samsung specific manifest values
     public static final Boolean toggleShowSamsungOverlayInSettings = false;
     public static final String permissionSamsungOverlay =
@@ -205,7 +202,6 @@ public class References {
     // These strings control the directories that Substratum uses
     public static final String EXTERNAL_STORAGE_CACHE = "/.substratum/";
     public static final String SUBSTRATUM_BUILDER_CACHE = "/SubstratumBuilder/";
-    public static final String SUBSTRATUM_ICON_STUDIO_CACHE = "/IconStudio/";
     // These strings control the legacy overlay location
     public static final String DATA_RESOURCE_DIR = "/data/resource-cache/";
     public static final String PIXEL_NEXUS_DIR = "/system/overlay/";
@@ -221,8 +217,6 @@ public class References {
     private static final String SUBSTRATUM_LAUNCHER_CLASS = ".SubstratumLauncher";
     private static final String SUBSTRATUM_LAUNCHER_CLASS_PATH =
             "substratum.theme.template.SubstratumLauncher";
-    // This controls the package name for the specified launchers allowed for Studio
-    private static final String NOVA_LAUNCHER = "com.novalauncher.THEME";
     // November security update (incompatible firmware) timestamp;
     private static final long NOVEMBER_PATCH_TIMESTAMP = 1478304000000L;
     private static final long JANUARY_PATCH_TIMESTAMP = 1483549200000L;
@@ -710,13 +704,6 @@ public class References {
         }
         editor.putStringSet("installed_themes", installed_themes);
 
-        Set<String> installed_icon_packs = new TreeSet<>();
-        List<ResolveInfo> all_icon_packs = getIconPacks(context);
-        for (int i = 0; i < all_icon_packs.size(); i++) {
-            installed_icon_packs.add(all_icon_packs.get(i).activityInfo.packageName);
-        }
-        editor.putStringSet("installed_iconpacks", installed_icon_packs);
-
         editor.apply();
         editor = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE).edit();
         editor.putBoolean("is_updating", false);
@@ -784,23 +771,9 @@ public class References {
         return !Arrays.asList(Resources.BLACKLIST_THEME_TARGET_APPS).contains(targetValue);
     }
 
-    // This string array contains all the legacy allowed folders
-    public static Boolean checkIconPackNotAllowed(String targetValue) {
-        return Arrays.asList(Resources.BLACKLIST_STUDIO_TARGET_APPS).contains(targetValue);
-    }
-
     // This method determines whether a specified package is installed
     public static boolean isPackageInstalled(Context context, String package_name) {
         return isPackageInstalled(context, package_name, true);
-    }
-
-    // This method checks if a ComponentInfo is valid
-    public static boolean isIntentValid(Context context, Intent intent) {
-        List<ResolveInfo> list =
-                context.getPackageManager().queryIntentActivities(
-                        intent,
-                        PackageManager.MATCH_DEFAULT_ONLY);
-        return list.size() > 0;
     }
 
     // This method determines whether a specified package is installed (enabled OR disabled)
@@ -916,14 +889,6 @@ public class References {
         return grabAppIcon(context, package_name);
     }
 
-    public static List<ResolveInfo> getIconPacks(Context context) {
-        // Scavenge through the packages on the device with specific launcher metadata in
-        // their manifest
-        PackageManager packageManager = context.getPackageManager();
-        return packageManager.queryIntentActivities(new Intent(NOVA_LAUNCHER),
-                PackageManager.GET_META_DATA);
-    }
-
     public static List<ResolveInfo> getThemes(Context context) {
         // Scavenge through the packages on the device with specific substratum metadata in
         // their manifest
@@ -939,144 +904,6 @@ public class References {
             returnArray.add(themesResolveInfo.get(i).activityInfo.packageName);
         }
         return returnArray;
-    }
-
-    @SuppressWarnings("unchecked")
-    public static HashMap getIconState(Context mContext, @NonNull String packageName) {
-        /*
-          Returns a HashMap in a specific order, of which the key would be the activityName
-          that is most likely a perfect match in what icon we want to be overlaying. A check should
-          be made to ensure this specific activity is the one being overlaid.
-
-          The object will be an ArrayList of icon directories where the icon occurs inside the
-          to-be-themed target. For example "res/mipmap-xxxhdpi/ic_launcher.png".
-         */
-        Process process = null;
-        DataOutputStream outputStream = null;
-        BufferedReader reader = null;
-        try {
-            ApplicationInfo ai =
-                    mContext.getPackageManager().getApplicationInfo(packageName, 0);
-            process = Runtime.getRuntime().exec(mContext.getFilesDir().getAbsolutePath() +
-                    "/aopt d badging " + ai.sourceDir);
-
-            outputStream = new DataOutputStream(process.getOutputStream());
-            reader = new BufferedReader(new InputStreamReader(
-                    process.getInputStream()));
-            HashMap hashMap = new HashMap<>();
-            ArrayList<String> iconArray = new ArrayList();
-            Boolean has_passed_icons = false;
-
-            ArrayList<String> lines = new ArrayList<>();
-            String line = reader.readLine();
-            while (line != null) {
-                lines.add(line);
-                line = reader.readLine();
-            }
-            for (int i = 0; i < lines.size(); i++) {
-                if (lines.get(i).startsWith("application-icon")) {
-                    String appIcon = lines.get(i).split(":")[1];
-                    appIcon = appIcon.replace("'", "");
-                    appIcon = appIcon.replace("-v4", "");
-                    if (!iconArray.contains(appIcon)) {
-                        // Do not contain duplicates in AOPT report, such as 65534-65535
-                        iconArray.add(appIcon);
-                        has_passed_icons = true;
-                    }
-                } else if (lines.get(i).startsWith("launchable-activity") && !has_passed_icons) {
-                    String appIcon = lines.get(i);
-                    appIcon = appIcon.substring(appIcon.lastIndexOf("=") + 1);
-                    appIcon = appIcon.replace("'", ""); // Strip the quotes
-                    appIcon = appIcon.replace("-v4", ""); // Make it to a non-API dependency
-                    if (!iconArray.contains(appIcon)) {
-                        iconArray.add(appIcon);
-                        has_passed_icons = true;
-                    }
-                }
-            }
-            if (has_passed_icons) {
-                hashMap.put(packageName, iconArray);
-                // Once we reach this point, we have concluded the map assignation
-                return hashMap;
-            }
-
-            process.waitFor();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (outputStream != null) {
-                    outputStream.writeBytes("exit\n");
-                    outputStream.flush();
-                    outputStream.close();
-                }
-
-                if (reader != null) {
-                    reader.close();
-                }
-
-                if (process != null) {
-                    process.destroy();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
-
-    @SuppressWarnings("unchecked")
-    public static String getPackageIconName(Context mContext, @NonNull String packageName) {
-        /*
-          Returns the name of the icon in the package
-
-          The object will be an ArrayList of icon directories where the icon occurs inside the
-          to-be-themed target. For example "res/mipmap-xxxhdpi/ic_launcher.png".
-         */
-        Process process = null;
-        DataOutputStream outputStream = null;
-        BufferedReader reader = null;
-        try {
-            ApplicationInfo ai =
-                    mContext.getPackageManager().getApplicationInfo(packageName, 0);
-            process = Runtime.getRuntime().exec(
-                    mContext.getFilesDir().getAbsolutePath() + "/aopt d badging " + ai.sourceDir);
-
-            outputStream = new DataOutputStream(process.getOutputStream());
-            reader = new BufferedReader(new InputStreamReader(
-                    process.getInputStream()));
-            String s;
-            while ((s = reader.readLine()) != null) {
-                if (s.contains("application-icon")) {
-                    String appIcon = s.split(":")[1];
-                    appIcon = appIcon.substring(1, appIcon.length() - 1).replace("-v4", "");
-                    return appIcon.split("/")[2].substring(0, appIcon.split("/")[2].length() - 4);
-                }
-            }
-            process.waitFor();
-        } catch (Exception e) {
-            // At this point we could simply show that there is no app icon in the package
-            // e.g. DocumentsUI
-        } finally {
-            try {
-                if (outputStream != null) {
-                    outputStream.writeBytes("exit\n");
-                    outputStream.flush();
-                    outputStream.close();
-                }
-
-                if (reader != null) {
-                    reader.close();
-                }
-
-                if (process != null) {
-                    process.destroy();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return "ic_launcher";
     }
 
     // Run shell command and return a StringBuilder of the output
@@ -1364,47 +1191,6 @@ public class References {
     // Grab Overlay Target
     public static String grabOverlayTarget(Context mContext, String package_name) {
         return getOverlayMetadata(mContext, package_name, metadataOverlayTarget);
-    }
-
-    // Grab IconPack Parent
-    public static Boolean grabIconPack(Context mContext, String package_name,
-                                       String expectedPackName) {
-        String icon_pack = getOverlayMetadata(mContext, package_name, metadataOverlayTarget);
-        return icon_pack != null && icon_pack.equals(expectedPackName);
-    }
-
-    // Grab IconPack Parent
-    public static String grabIconPack(Context mContext, String package_name) {
-        return getOverlayMetadata(mContext, package_name, metadataIconPackParent);
-    }
-
-    public static boolean isAuthorizedDebugger(Context context) {
-        Signature[] self = getSelfSignature(context);
-        int[] authorized = Resources.ANDROID_STUDIO_DEBUG_KEYS;
-        boolean isDebuggable = isPackageDebuggable(context, context.getPackageName());
-        for (int anAuthorized : authorized) {
-            if (anAuthorized == self[0].hashCode() && isDebuggable) {
-                Log.d(SUBSTRATUM_LOG,
-                        "Setting up environment for an authorized developer.");
-                return true;
-            }
-        }
-        Log.d(SUBSTRATUM_LOG,
-                "Setting up environment for a production build user.");
-        return false;
-    }
-
-    @SuppressLint("PackageManagerGetSignatures")
-    private static Signature[] getSelfSignature(Context context) {
-        Signature[] sigs = new Signature[0];
-        try {
-            sigs = context.getPackageManager().getPackageInfo(
-                    context.getPackageName(),
-                    PackageManager.GET_SIGNATURES).signatures;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return sigs;
     }
 
     static int hashPassthrough(Context context) {

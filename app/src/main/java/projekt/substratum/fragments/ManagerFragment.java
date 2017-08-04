@@ -648,9 +648,7 @@ public class ManagerFragment extends Fragment {
                         .setPositiveButton(android.R.string.ok,
                                 (dialog, id) -> ElevatedCommands.reboot());
                 alertDialogBuilder.setNegativeButton(
-                        R.string.remove_dialog_later, (dialog, id1) -> {
-                            dialog.dismiss();
-                        });
+                        R.string.remove_dialog_later, (dialog, id1) -> dialog.dismiss());
                 alertDialogBuilder.setCancelable(false);
                 AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
@@ -751,7 +749,6 @@ public class ManagerFragment extends Fragment {
         @Override
         protected void onPreExecute() {
             ManagerFragment fragment = ref.get();
-            Context context = fragment.context;
             fragment.materialSheetFab.hideSheet();
             fragment.loadingBar.setVisibility(View.VISIBLE);
         }

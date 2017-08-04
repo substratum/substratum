@@ -46,8 +46,6 @@ import projekt.substratum.common.tabs.WallpaperManager;
 import static projekt.substratum.common.References.PACKAGE_FULLY_REMOVED;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
-import static projekt.substratum.common.References.SUBSTRATUM_ICON_STUDIO_CACHE;
-import static projekt.substratum.common.References.metadataIconPackParent;
 import static projekt.substratum.common.References.metadataOverlayParent;
 
 public class ThemeUninstallDetector extends BroadcastReceiver {
@@ -153,55 +151,6 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                         installed.add(all_themes.get(i).activityInfo.packageName);
                     }
                     editor.putStringSet("installed_themes", installed);
-                    editor.apply();
-                }
-            }
-
-            if (prefs.contains("installed_iconpacks")) {
-                Set installed_iconpacks = prefs.getStringSet("installed_iconpacks", null);
-                if (installed_iconpacks != null && installed_iconpacks.contains(package_name)) {
-                    References.sendRefreshMessage(context);
-                    // Get all installed overlays for this package
-                    List<String> stateAll = ThemeManager.listAllOverlays(context);
-
-                    ArrayList<String> all_overlays = new ArrayList<>();
-                    for (int j = 0; j < stateAll.size(); j++) {
-                        try {
-                            String current = stateAll.get(j);
-                            ApplicationInfo appInfo =
-                                    context.getPackageManager().getApplicationInfo(
-                                            current, PackageManager.GET_META_DATA);
-                            if (appInfo.metaData != null &&
-                                    appInfo.metaData.getString(metadataIconPackParent) != null) {
-                                String parent =
-                                        appInfo.metaData.getString(metadataIconPackParent);
-                                if (parent != null && parent.equals(package_name)) {
-                                    all_overlays.add(current);
-                                }
-                            }
-                        } catch (Exception e) {
-                            // NameNotFound
-                        }
-                    }
-
-                    // Uninstall all overlays for this package
-                    ThemeManager.uninstallOverlay(context, all_overlays);
-
-                    // Clear SubstratumBuilder cache for this package
-                    Log.d(TAG, "Now purging caches for \"" + package_name + "\"...");
-                    FileOperations.delete(
-                            context,
-                            context.getCacheDir().getAbsolutePath() + SUBSTRATUM_ICON_STUDIO_CACHE);
-
-                    SharedPreferences.Editor editor = prefs.edit();
-
-                    // Clear off the old preserved list of themes with the new batch
-                    Set<String> installed = new TreeSet<>();
-                    List<ResolveInfo> all_themes = References.getIconPacks(context);
-                    for (int i = 0; i < all_themes.size(); i++) {
-                        installed.add(all_themes.get(i).activityInfo.packageName);
-                    }
-                    editor.putStringSet("installed_iconpacks", installed);
                     editor.apply();
                 }
             }

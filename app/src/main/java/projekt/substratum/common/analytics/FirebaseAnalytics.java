@@ -134,7 +134,7 @@ public class FirebaseAnalytics {
             }
             DatabaseReference database = getDatabaseReference();
             database.child("sungstratum-fp")
-                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                    .addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Object dataValue = dataSnapshot.child(String.valueOf(version))

@@ -164,7 +164,9 @@ public class SplashScreenActivity extends Activity {
 
             int sstVersion = References.grabAppVersionCode(context, SST_ADDON_PACKAGE);
             FirebaseAnalytics.withdrawSungstratumFingerprint(context, sstVersion);
-            while (!prefs.contains("sungstratum_exp_fp_" + sstVersion)) {
+            SharedPreferences prefs2 =
+                    context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
+            while (!prefs2.contains("sungstratum_exp_fp_" + sstVersion)) {
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {

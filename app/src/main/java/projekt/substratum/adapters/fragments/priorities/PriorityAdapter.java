@@ -260,11 +260,11 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                         }
                     } else {
                         priorityObjectAdapter.mCardText.setText(
-                                packageTitle + " (" + prioritiesItem.getName() + ")");
+                                String.format("%s (%s)", packageTitle, prioritiesItem.getName()));
                     }
                 } else {
                     priorityObjectAdapter.mCardText.setText(
-                            packageTitle + " (" + prioritiesItem.getName() + ")");
+                            String.format("%s (%s)", packageTitle, prioritiesItem.getName()));
                 }
 
                 // Grab app icon from PackageInstaller and convert it to a BitmapDrawable in bytes

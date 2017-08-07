@@ -18,11 +18,13 @@
 
 package projekt.substratum.activities.base;
 
+import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import java.io.File;
 
+@SuppressLint("Registered")
 public class SubstratumActivity extends AppCompatActivity {
 
     public static final String CACHE_BUILD_DIR = "SubstratumBuilder";

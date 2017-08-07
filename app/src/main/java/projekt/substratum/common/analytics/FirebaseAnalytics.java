@@ -33,7 +33,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Locale;
+import java.util.Map;
 
 import projekt.substratum.common.References;
 
@@ -122,20 +124,24 @@ public class FirebaseAnalytics {
     public static void withdrawSungstratumFingerprint(Context context, int version) {
         SharedPreferences prefs = context
                 .getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
-        if (!prefs.contains("sungstratum_exp_fp")) {
+        String prefKey = "sungstratum_exp_fp_" + version;
+        if (!prefs.contains("sungstratum_exp_fp_" + version)) {
+            SharedPreferences.Editor editor = prefs.edit();
+            for (Map.Entry<String, ?> entry : prefs.getAll().entrySet()) {
+                if (entry.getKey().startsWith("sungstratum_exp_fp_")) {
+                    editor.remove(entry.getKey());
+                }
+            }
             DatabaseReference database = getDatabaseReference();
             database.child("sungstratum-fp")
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            SharedPreferences.Editor editor = context
-                                    .getSharedPreferences("substratum_state", Context
-                                            .MODE_PRIVATE).edit();
                             Object dataValue = dataSnapshot.child(String.valueOf(version))
                                     .getValue();
                             if (dataValue != null) {
                                 String hash = dataValue.toString();
-                                editor.putString("sungstratum_exp_fp", hash).apply();
+                                editor.putString(prefKey, hash).apply();
                             }
                         }
 

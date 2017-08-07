@@ -124,6 +124,7 @@ import projekt.substratum.util.injectors.AOPTCheck;
 import projekt.substratum.util.readers.ReadSupportedROMsFile;
 import projekt.substratum.util.readers.ReadVariantPrioritizedColor;
 
+import static projekt.substratum.common.References.sendLocalizedKeyMessage;
 import static projekt.substratum.common.analytics.PackageAnalytics.PACKAGE_TAG;
 import static projekt.substratum.tabs.Overlays.TAG;
 
@@ -542,6 +543,18 @@ public class References {
             e.printStackTrace();
         }
     }
+    public static boolean isOMSRunning(Context context,Class<?> serviceClass){
+        final ActivityManager activityManager = (ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
+        final List<ActivityManager.RunningServiceInfo> services = activityManager.getRunningServices(Integer.MAX_VALUE);
+
+        for (ActivityManager.RunningServiceInfo runningServiceInfo : services) {
+            Log.d(TAG, String.format("Service:%s", runningServiceInfo.service.getClassName()));
+            if (runningServiceInfo.service.getClassName().equals(serviceClass.getName())){
+                return true;
+            }
+        }
+        return false;
+    }
 
     // This method is used to determine whether there the system is initiated with OMS
     public static Boolean checkOMS(@NonNull Context context) {
@@ -568,13 +581,15 @@ public class References {
                 if (checkThemeInterfacer(context)) {
                     foundOms = true;
                 } else {
+                    Boolean isOMSRunning = isOMSRunning(context.getApplicationContext(),
+                            IOverlayManager.class);
                     String out = Root.runCommand("cmd overlay").split("\n")[0];
-                    if (out.equals("The overlay manager has already been initialized.") ||
-                            out.equals("Overlay manager (overlay) commands:")) {
-                        foundOms = true;
-                    }
+                    if (isOMSRunning)
+                        Log.d(SUBSTRATUM_LOG, "Found Overlay Manager Service...");
+                    foundOms = true;
                 }
             }
+
             if (foundOms && !isSamsungDevice(context)) {
                 prefs.edit().putBoolean("oms_state", true).apply();
                 prefs.edit().putInt("oms_version", 7).apply();

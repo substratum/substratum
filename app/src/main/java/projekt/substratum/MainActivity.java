@@ -712,8 +712,8 @@ public class MainActivity extends SubstratumActivity implements
 
                         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
                             // permission already granted, allow the program to continue running
-                            File directory = new File(Environment.getExternalStorageDirectory(),
-                                    EXTERNAL_STORAGE_CACHE);
+                            File directory = new File(Environment.getExternalStorageDirectory()
+                                    .getAbsolutePath() + EXTERNAL_STORAGE_CACHE);
                             if (!directory.exists()) {
                                 Boolean made = directory.mkdirs();
                                 if (!made) Log.e(References.SUBSTRATUM_LOG,
@@ -1101,12 +1101,22 @@ public class MainActivity extends SubstratumActivity implements
                 if (grantResults.length > 0 &&
                         grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission already granted, allow the program to continue running
-                    File directory = new File(Environment.getExternalStorageDirectory(),
-                            EXTERNAL_STORAGE_CACHE);
+                    File directory = new File(Environment.getExternalStorageDirectory()
+                            .getAbsolutePath() + EXTERNAL_STORAGE_CACHE);
+                    if (directory.exists()) {
+                        Boolean deleted = directory.delete();
+                        if (!deleted) Log.e(References.SUBSTRATUM_LOG,
+                                "Unable to delete directory");
+                    } else {
+                        Log.d(References.SUBSTRATUM_LOG, "Deleting old cache dir: " + directory);
+                    }
                     if (!directory.exists()) {
                         Boolean made = directory.mkdirs();
                         if (!made) Log.e(References.SUBSTRATUM_LOG,
                                 "Unable to create directory");
+                        } else {
+                        References.injectRescueArchives(getApplicationContext());
+                        Log.d(References.SUBSTRATUM_LOG, "Successfully made dir: " + directory);
                     }
                     File cacheDirectory = new File(getCacheDir(),
                             SUBSTRATUM_BUILDER_CACHE);
@@ -1115,7 +1125,6 @@ public class MainActivity extends SubstratumActivity implements
                         if (!made) Log.e(References.SUBSTRATUM_LOG,
                                 "Unable to create cache directory");
                     }
-                    References.injectRescueArchives(getApplicationContext());
                     File[] fileList = new File(getCacheDir().getAbsolutePath() +
                             SUBSTRATUM_BUILDER_CACHE).listFiles();
                     for (File file : fileList) {
@@ -1195,6 +1204,7 @@ public class MainActivity extends SubstratumActivity implements
             sheetDialog.setCanceledOnTouchOutside(false);
             sheetDialog.setContentView(sheetView);
             sheetDialog.show();
+            sheetDialog.getCurrentFocus();
         }
     }
 

@@ -30,6 +30,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.om.IOverlayManager;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -54,6 +55,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.provider.SyncStateContract;
 import android.service.notification.StatusBarNotification;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
@@ -123,6 +125,7 @@ import projekt.substratum.util.readers.ReadSupportedROMsFile;
 import projekt.substratum.util.readers.ReadVariantPrioritizedColor;
 
 import static projekt.substratum.common.analytics.PackageAnalytics.PACKAGE_TAG;
+import static projekt.substratum.tabs.Overlays.TAG;
 
 public class References {
 
@@ -497,18 +500,21 @@ public class References {
                 Environment.getExternalStorageDirectory().getAbsolutePath() +
                         File.separator + "substratum" +
                         File.separator + "SubstratumRescue_Legacy.zip");
-        if (!rescueFile.isFile()) {
-            copyRescueFile(context, "rescue.dat",
-                    Environment.getExternalStorageDirectory().getAbsolutePath() +
-                            File.separator + "substratum" +
-                            File.separator + "SubstratumRescue.zip");
+        if (rescueFile.exists()) {
+            rescueFile.delete();
         }
-        if (!rescueFileLegacy.isFile()) {
-            copyRescueFile(context, "rescue_legacy.dat",
+
+        if (rescueFileLegacy.exists()) {
+            rescueFileLegacy.delete();
+        }
+        copyRescueFile(context, "rescue_legacy.dat",
                     Environment.getExternalStorageDirectory().getAbsolutePath() +
                             File.separator + "substratum" +
                             File.separator + "SubstratumRescue_Legacy.zip");
-        }
+        copyRescueFile(context, "rescue.dat",
+                Environment.getExternalStorageDirectory().getAbsolutePath() +
+                        File.separator + "substratum" +
+                        File.separator + "SubstratumRescue.zip");
     }
 
     private static void copyRescueFile(Context context, String sourceFileName, String

@@ -1523,7 +1523,7 @@ public class References {
         sungstratumPresent &= !hashBoolValue;
         sungstratumPresent &= evaluatedResponse;
         sungstratumPresent &= installer;
-        sungstratumPresent &= fingerprint.equals(expFingerprint);
+        sungstratumPresent &= fingerprint.toUpperCase().equals(expFingerprint.toUpperCase());
         sungstratumPresent &= liveInstallerValidity;
         return sungstratumPresent;
     }

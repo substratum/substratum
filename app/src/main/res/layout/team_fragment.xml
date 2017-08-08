@@ -447,6 +447,54 @@
 
             </android.support.v7.widget.CardView>
 
+            <android.support.v7.widget.CardView
+                android:id="@+id/harsh_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardCornerRadius="@dimen/card_corner_radius">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp">
+
+                    <ImageView
+                        android:id="@+id/harsh"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:contentDescription="@string/team_nathan"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/team_harsh"/>
+
+                    <TextView
+                        android:id="@+id/harsh_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/harsh"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="@string/team_harsh"
+                        android:textColor="@color/main_screen_card_theme_title"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/harsh_text"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/team_harsh_description"
+                        android:textColor="@color/main_screen_card_theme_title"
+                        android:textSize="14sp"/>
+
+                </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -454,6 +502,7 @@
                 android:layout_weight="1"
                 tools:ignore="UselessLeaf"/>
 
+            </android.support.v7.widget.CardView>
         </LinearLayout>
 
         <TextView

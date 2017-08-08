@@ -153,6 +153,23 @@ public class TeamFragment extends Fragment {
             }
         });
 
+        CardView harsh_card = root.findViewById(R.id.harsh_card);
+        harsh_card.setOnClickListener(v -> {
+            try {
+                String playURL = getString(R.string.team_harsh_link);
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(playURL));
+                startActivity(i);
+            } catch (ActivityNotFoundException activityNotFoundException) {
+                if (getActivity() != null)
+                    Lunchbar.make(getActivity().findViewById(android.R.id.content),
+                            getString(R.string.activity_missing_toast),
+                            Lunchbar.LENGTH_LONG)
+                            .show();
+            }
+        });
+
+
         Button development_contributors = root.findViewById(R.id.list_button_contributors);
         development_contributors.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

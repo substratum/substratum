@@ -596,6 +596,9 @@
     <string name="team_char" translatable="false">Char G</string>
     <string name="team_char_description">Community Organization &amp; Support</string>
     <string name="team_char_link" translatable="false">https://plus.google.com/+CharG</string>
+    <string name="team_harsh" translatable="false">Harsh Shandilya</string>
+    <string name="team_harsh_description">Platform &amp; Features</string>
+    <string name="team_harsh_link" translatable="false">https://plus.google.com/+HarshShandilya99</string>
 
     <string name="slide_1_title">welcome to substratum</string>
     <string name="slide_1_text">a minimal yet powerful theme engine based on Sony\'s overlay manager service</string>

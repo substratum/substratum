@@ -49,6 +49,7 @@ import android.widget.TextView;
 import org.zeroturnaround.zip.commons.FileUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
@@ -62,6 +63,7 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
+import projekt.substratum.services.notification.CompileDialogThread;
 import projekt.substratum.services.notification.NotificationButtonReceiver;
 import projekt.substratum.util.compilers.CacheCreator;
 import projekt.substratum.util.compilers.SubstratumBuilder;
@@ -73,26 +75,31 @@ import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
 import static projekt.substratum.common.References.checkOMS;
 import static projekt.substratum.common.References.checkThemeInterfacer;
 
-// TODO: neko bro convert to Service pl0x
-class OverlayFunctions {
+public class OverlayFunctions {
+    private static final String TAG = "Substratum OverlayFunctions";
+    private CompileDialogThread compileDialogThread = null;
+    private ProgressDialog pDialog = null;
 
-    static final String TAG = Overlays.TAG;
+    public OverlayFunctions() {
 
-    static class Phase2_InitializeCache extends AsyncTask<String, Integer, String> {
-        private WeakReference<Overlays> ref;
+    }
 
-        Phase2_InitializeCache(Overlays fragment) {
-            ref = new WeakReference<>(fragment);
+    static class getThemeCache extends AsyncTask<String, Integer, String> {
+        WeakReference<Overlays> ref;
+
+        getThemeCache(Overlays overlays) {
+            ref = new WeakReference<>(overlays);
+
         }
 
         @Override
         protected void onPreExecute() {
-            Overlays fragment = ref.get();
-            Context context = fragment.getContext();
-            fragment.final_runner = new ArrayList<>();
-            fragment.late_install = new ArrayList<>();
+            Overlays overlays = ref.get();
+            Context context = overlays.getActivity();
+            overlays.final_runner = new ArrayList<>();
+            overlays.late_install = new ArrayList<>();
 
-            if (!fragment.enable_mode && !fragment.disable_mode) {
+            if (!overlays.enable_mode && !overlays.disable_mode) {
                 int notification_priority = Notification.PRIORITY_MAX;
 
                 // Create an Intent for the BroadcastReceiver
@@ -105,12 +112,12 @@ class OverlayFunctions {
                         context, 0, new Intent(), 0);
 
                 // This is the time when the notification should be shown on the user's screen
-                fragment.mNotifyManager =
+                overlays.mNotifyManager =
                         (NotificationManager) context.getSystemService(
                                 Context.NOTIFICATION_SERVICE);
-                fragment.mBuilder = new NotificationCompat.Builder(context,
+                overlays.mBuilder = new NotificationCompat.Builder(context,
                         References.DEFAULT_NOTIFICATION_CHANNEL_ID);
-                fragment.mBuilder.setContentTitle(
+                overlays.mBuilder.setContentTitle(
                         context.getString(R.string.notification_initial_title))
                         .setProgress(100, 0, true)
                         .addAction(android.R.color.transparent, context.getString(R.string
@@ -119,26 +126,26 @@ class OverlayFunctions {
                         .setPriority(notification_priority)
                         .setContentIntent(resultPendingIntent)
                         .setOngoing(true);
-                fragment.mNotifyManager.notify(fragment.id, fragment.mBuilder.build());
+                overlays.mNotifyManager.notify(overlays.id, overlays.mBuilder.build());
 
-                fragment.mProgressDialog = null;
-                fragment.mProgressDialog = new ProgressDialog(context,
+                overlays.mProgressDialog = null;
+                overlays.mProgressDialog = new ProgressDialog(context,
                         R.style.SubstratumBuilder_ActivityTheme);
-                fragment.mProgressDialog.setIndeterminate(false);
-                fragment.mProgressDialog.setCancelable(false);
-                fragment.mProgressDialog.show();
-                fragment.mProgressDialog.setContentView(R.layout.compile_dialog_loader);
-                if (fragment.mProgressDialog.getWindow() != null) {
-                    fragment.mProgressDialog.getWindow().addFlags(
+                overlays.mProgressDialog.setIndeterminate(false);
+                overlays.mProgressDialog.setCancelable(false);
+                overlays.mProgressDialog.show();
+                overlays.mProgressDialog.setContentView(R.layout.compile_dialog_loader);
+                if (overlays.mProgressDialog.getWindow() != null) {
+                    overlays.mProgressDialog.getWindow().addFlags(
                             WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                 }
 
                 final float radius = 5;
-                final View decorView = fragment.getActivity().getWindow().getDecorView();
+                final View decorView = overlays.getActivity().getWindow().getDecorView();
                 final ViewGroup rootView = decorView.findViewById(android.R.id.content);
                 final Drawable windowBackground = decorView.getBackground();
 
-                BlurView blurView = fragment.mProgressDialog.findViewById(R.id.blurView);
+                BlurView blurView = overlays.mProgressDialog.findViewById(R.id.blurView);
 
                 if (rootView != null) {
                     blurView.setupWith(rootView)
@@ -147,13 +154,13 @@ class OverlayFunctions {
                             .blurRadius(radius);
                 }
 
-                fragment.dialogProgress = fragment.mProgressDialog.findViewById(R.id.loading_bar);
-                fragment.dialogProgress.setProgressTintList(ColorStateList.valueOf(context.getColor(
+                overlays.dialogProgress = overlays.mProgressDialog.findViewById(R.id.loading_bar);
+                overlays.dialogProgress.setProgressTintList(ColorStateList.valueOf(context.getColor(
                         R.color.compile_dialog_wave_color)));
-                fragment.dialogProgress.setIndeterminate(false);
+                overlays.dialogProgress.setIndeterminate(false);
 
-                fragment.loader_string = fragment.mProgressDialog.findViewById(R.id.title);
-                fragment.loader_string.setText(context.getResources().getString(
+                overlays.loader_string = overlays.mProgressDialog.findViewById(R.id.title);
+                overlays.loader_string.setText(context.getResources().getString(
                         R.string.sb_phase_1_loader));
             }
             super.onPreExecute();
@@ -161,43 +168,43 @@ class OverlayFunctions {
 
         @Override
         protected void onPostExecute(String result) {
-            Overlays fragment = ref.get();
-            fragment.phase3_mainFunction = new Phase3_mainFunction(fragment);
+            Overlays overlays = ref.get();
+            Phase3_mainFunction phase3_mainFunction = new Phase3_mainFunction(overlays);
             if (result != null) {
-                fragment.phase3_mainFunction.execute(result);
+                phase3_mainFunction.execute(result);
             } else {
-                fragment.phase3_mainFunction.execute("");
+                phase3_mainFunction.execute("");
             }
             super.onPostExecute(result);
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
-            Overlays fragment = ref.get();
-            Context context = fragment.getContext();
-            if (!fragment.enable_mode && !fragment.disable_mode) {
+            Overlays overlays = ref.get();
+            Context context = overlays.getActivity();
+            if (!overlays.enable_mode && !overlays.disable_mode) {
                 // Initialize Substratum cache with theme only if permitted
-                if (References.isCachingEnabled(context) && !fragment.has_initialized_cache) {
+                if (References.isCachingEnabled(context) && !overlays.has_initialized_cache) {
                     Log.d(Overlays.TAG,
                             "Decompiling and initializing work area with the " +
                                     "selected theme's assets...");
-                    fragment.sb = new SubstratumBuilder();
+                    overlays.sb = new SubstratumBuilder();
 
                     File versioning = new File(context.getCacheDir().getAbsoluteFile() +
-                            References.SUBSTRATUM_BUILDER_CACHE + fragment.theme_pid +
+                            References.SUBSTRATUM_BUILDER_CACHE + overlays.theme_pid +
                             "/substratum.xml");
                     if (versioning.exists()) {
-                        fragment.has_initialized_cache = true;
+                        overlays.has_initialized_cache = true;
                     } else {
-                        new CacheCreator().initializeCache(context, fragment.theme_pid,
-                                fragment.cipher);
-                        fragment.has_initialized_cache = true;
+                        new CacheCreator().initializeCache(context, overlays.theme_pid,
+                                overlays.cipher);
+                        overlays.has_initialized_cache = true;
                     }
                 } else {
                     try {
                         Resources themeResources = context.getPackageManager()
-                                .getResourcesForApplication(fragment.theme_pid);
-                        fragment.themeAssetManager = themeResources.getAssets();
+                                .getResourcesForApplication(overlays.theme_pid);
+                        overlays.themeAssetManager = themeResources.getAssets();
                     } catch (PackageManager.NameNotFoundException e) {
                         // Suppress exception
                     }
@@ -211,39 +218,43 @@ class OverlayFunctions {
             }
             return null;
         }
+
+        public void clear() {
+            ref.clear();
+        }
     }
 
     static class Phase3_mainFunction extends AsyncTask<String, Integer, String> {
         private WeakReference<Overlays> ref;
 
-        Phase3_mainFunction(Overlays fragment) {
-            ref = new WeakReference<>(fragment);
+        Phase3_mainFunction(Overlays overlays) {
+            ref = new WeakReference<>(overlays);
         }
 
         @Override
         protected void onPreExecute() {
             Log.d(Overlays.TAG,
                     "Substratum is proceeding with your actions and is now actively running...");
-            Overlays fragment = ref.get();
-            Context context = fragment.getContext();
+            Overlays overlays = ref.get();
+            Context context = overlays.getActivity();
 
-            fragment.missingType3 = false;
-            fragment.has_failed = false;
-            fragment.fail_count = 0;
-            fragment.error_logs = new StringBuilder();
+            overlays.missingType3 = false;
+            overlays.has_failed = false;
+            overlays.fail_count = 0;
+            overlays.error_logs = new StringBuilder();
 
-            if (!fragment.enable_mode && !fragment.disable_mode) {
+            if (!overlays.enable_mode && !overlays.disable_mode) {
                 // Change title in preparation for loop to change subtext
-                if (fragment.checkActiveNotifications()) {
-                    fragment.mBuilder
+                if (overlays.checkActiveNotifications()) {
+                    overlays.mBuilder
                             .setContentTitle(context.getString(R.string.notification_processing_n))
                             .setProgress(100, 0, false);
-                    fragment.mNotifyManager.notify(fragment.id, fragment.mBuilder.build());
+                    overlays.mNotifyManager.notify(overlays.id, overlays.mBuilder.build());
                 }
-                fragment.loader_string.setText(context.getResources().getString(
+                overlays.loader_string.setText(context.getResources().getString(
                         R.string.sb_phase_2_loader));
             } else {
-                fragment.progressBar.setVisibility(View.VISIBLE);
+                overlays.progressBar.setVisibility(View.VISIBLE);
             }
             super.onPreExecute();
         }
@@ -251,11 +262,11 @@ class OverlayFunctions {
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
-            Overlays fragment = ref.get();
-            TextView textView = fragment.mProgressDialog.findViewById(R.id.current_object);
-            textView.setText(fragment.current_dialog_overlay);
-            double progress = (fragment.current_amount / fragment.total_amount) * 100;
-            fragment.dialogProgress.setProgress((int) progress, true);
+            Overlays overlays = ref.get();
+            TextView textView = overlays.mProgressDialog.findViewById(R.id.current_object);
+            textView.setText(overlays.current_dialog_overlay);
+            double progress = (overlays.current_amount / overlays.total_amount) * 100;
+            overlays.dialogProgress.setProgress((int) progress, true);
         }
 
         @SuppressWarnings("ConstantConditions")
@@ -263,32 +274,32 @@ class OverlayFunctions {
         protected void onPostExecute(String result) {
             // TODO: onPostExecute runs on UI thread, so move the hard job to doInBackground
             super.onPostExecute(result);
-            Overlays fragment = ref.get();
-            Context context = fragment.getContext();
+            Overlays overlays = ref.get();
+            Context context = overlays.getActivity();
 
-            fragment.final_command = new ArrayList<>();
+            overlays.final_command = new ArrayList<>();
 
             // Check if not compile_enable_mode
-            if (!fragment.compile_enable_mode) {
-                fragment.final_command.addAll(fragment.final_runner);
+            if (!overlays.compile_enable_mode) {
+                overlays.final_command.addAll(overlays.final_runner);
             } else {
                 // It's compile and enable mode, we have to first sort out all the "pm install"'s
                 // from the final_commands
-                fragment.final_command.addAll(fragment.final_runner);
+                overlays.final_command.addAll(overlays.final_runner);
             }
 
-            if (!fragment.enable_mode && !fragment.disable_mode) {
-                new Phase4_finishUpdateFunction(fragment).execute();
-                if (fragment.has_failed) {
-                    fragment.failedFunction(context);
+            if (!overlays.enable_mode && !overlays.disable_mode) {
+                new Phase4_finishUpdateFunction(overlays).execute();
+                if (overlays.has_failed) {
+                    overlays.failedFunction(context);
                 } else {
                     // Restart SystemUI if an enabled SystemUI overlay is updated
                     if (checkOMS(context)) {
-                        for (int i = 0; i < fragment.checkedOverlays.size(); i++) {
-                            String targetOverlay = fragment.checkedOverlays.get(i).getPackageName();
+                        for (int i = 0; i < overlays.checkedOverlays.size(); i++) {
+                            String targetOverlay = overlays.checkedOverlays.get(i).getPackageName();
                             if (targetOverlay.equals("com.android.systemui")) {
                                 String packageName =
-                                        fragment.checkedOverlays.get(i).getFullOverlayParameters();
+                                        overlays.checkedOverlays.get(i).getFullOverlayParameters();
                                 if (ThemeManager.isOverlayEnabled(context, packageName)) {
                                     ThemeManager.restartSystemUI(context);
                                     break;
@@ -298,40 +309,40 @@ class OverlayFunctions {
                     }
                 }
                 try {
-                    context.unregisterReceiver(fragment.finishReceiver);
+                    context.unregisterReceiver(overlays.finishReceiver);
                 } catch (IllegalArgumentException e) {
                     // Suppress warning
                 }
-            } else if (fragment.enable_mode) {
-                new Phase4_finishEnableFunction(fragment).execute();
-            } else if (fragment.disable_mode) {
-                new Phase4_finishDisableFunction(fragment).execute();
+            } else if (overlays.enable_mode) {
+                new Phase4_finishEnableFunction(overlays).execute();
+            } else if (overlays.disable_mode) {
+                new Phase4_finishDisableFunction(overlays).execute();
             }
             if (References.isSamsung(context) &&
-                    fragment.late_install != null &&
-                    fragment.late_install.size() > 0) {
+                    overlays.late_install != null &&
+                    overlays.late_install.size() > 0) {
                 if (Root.checkRootAccess() && Root.requestRootAccess()) {
-                    fragment.progressBar.setVisibility(View.VISIBLE);
-                    fragment.overlaysWaiting = fragment.late_install.size();
-                    for (int i = 0; i < fragment.late_install.size(); i++) {
+                    overlays.progressBar.setVisibility(View.VISIBLE);
+                    overlays.overlaysWaiting = overlays.late_install.size();
+                    for (int i = 0; i < overlays.late_install.size(); i++) {
                         ThemeManager.installOverlay(
-                                fragment.getContext(),
-                                fragment.late_install.get(i));
+                                overlays.getActivity(),
+                                overlays.late_install.get(i));
                     }
                 } else {
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     Uri uri = FileProvider.getUriForFile(
                             context,
                             context.getApplicationContext().getPackageName() + ".provider",
-                            new File(fragment.late_install.get(0)));
+                            new File(overlays.late_install.get(0)));
                     intent.setDataAndType(
                             uri,
                             "application/vnd.android.package-archive");
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    fragment.startActivityForResult(intent, 2486);
+                    overlays.startActivityForResult(intent, 2486);
                 }
             } else if (!References.checkOMS(context) &&
-                    fragment.final_runner.size() == fragment.fail_count) {
+                    overlays.final_runner.size() == overlays.fail_count) {
                 final AlertDialog.Builder alertDialogBuilder =
                         new AlertDialog.Builder(context);
                 alertDialogBuilder
@@ -344,28 +355,28 @@ class OverlayFunctions {
                 alertDialogBuilder
                         .setNegativeButton(R.string.remove_dialog_later,
                                 (dialog, id1) -> {
-                                    fragment.progressBar.setVisibility(View.GONE);
+                                    overlays.progressBar.setVisibility(View.GONE);
                                     dialog.dismiss();
                                 });
                 alertDialogBuilder.setCancelable(false);
                 AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
             }
-            fragment.is_active = false;
-            fragment.mAdapter.notifyDataSetChanged();
-            if (fragment.toggle_all.isChecked()) fragment.toggle_all.setChecked(false);
+            overlays.is_overlay_active = false;
+            overlays.mAdapter.notifyDataSetChanged();
+            if (overlays.toggle_all.isChecked()) overlays.toggle_all.setChecked(false);
         }
+
 
         @SuppressWarnings("ConstantConditions")
         @Override
         protected String doInBackground(String... sUrl) {
-            Overlays fragment = ref.get();
-            Context context = fragment.getContext();
+            Overlays overlays = ref.get();
+            Context context = overlays.getActivity();
             String parsedVariant = sUrl[0].replaceAll("\\s+", "");
             String unparsedVariant = sUrl[0];
-            fragment.failed_packages = new StringBuilder();
-
-            if (fragment.mixAndMatchMode && !References.checkOMS(context)) {
+            overlays.failed_packages = new StringBuilder();
+            if (overlays.mixAndMatchMode && !References.checkOMS(context)) {
                 String current_directory;
                 if (References.inNexusFilter()) {
                     current_directory = References.PIXEL_NEXUS_DIR;
@@ -382,39 +393,39 @@ class OverlayFunctions {
             // Enable listener
             if (References.checkThemeInterfacer(context) &&
                     !References.isBinderInterfacer(context)) {
-                if (fragment.finishReceiver == null) {
-                    fragment.finishReceiver = new Overlays.FinishReceiver(fragment);
+                if (overlays.finishReceiver == null) {
+                    overlays.finishReceiver = new Overlays.FinishReceiver(overlays);
                 }
                 IntentFilter filter = new IntentFilter(References.STATUS_CHANGED);
-                context.registerReceiver(fragment.finishReceiver, filter);
+                context.registerReceiver(overlays.finishReceiver, filter);
             }
 
-            fragment.total_amount = fragment.checkedOverlays.size();
-            for (int i = 0; i < fragment.checkedOverlays.size(); i++) {
-                fragment.type1a = "";
-                fragment.type1b = "";
-                fragment.type1c = "";
-                fragment.type2 = "";
-                fragment.type3 = "";
+            overlays.total_amount = overlays.checkedOverlays.size();
+            for (int i = 0; i < overlays.checkedOverlays.size(); i++) {
+                overlays.type1a = "";
+                overlays.type1b = "";
+                overlays.type1c = "";
+                overlays.type2 = "";
+                overlays.type3 = "";
 
-                fragment.current_amount = i + 1;
+                overlays.current_amount = i + 1;
                 String theme_name_parsed =
-                        fragment.theme_name.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
-                String current_overlay = fragment.checkedOverlays.get(i).getPackageName();
-                fragment.current_dialog_overlay =
+                        overlays.theme_name.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
+                String current_overlay = overlays.checkedOverlays.get(i).getPackageName();
+                overlays.current_dialog_overlay =
                         "'" + References.grabPackageName(context, current_overlay) + "'";
 
-                if (!fragment.enable_mode && !fragment.disable_mode) {
-                    publishProgress((int) fragment.current_amount);
-                    if (fragment.compile_enable_mode) {
-                        if (fragment.final_runner == null) {
-                            fragment.final_runner = new ArrayList<>();
+                if (!overlays.enable_mode && !overlays.disable_mode) {
+                    publishProgress((int) overlays.current_amount);
+                    if (overlays.compile_enable_mode) {
+                        if (overlays.final_runner == null) {
+                            overlays.final_runner = new ArrayList<>();
                         }
-                        String package_name = fragment.checkedOverlays.get(i)
+                        String package_name = overlays.checkedOverlays.get(i)
                                 .getFullOverlayParameters();
                         if (References.isPackageInstalled(context, package_name) ||
-                                fragment.compile_enable_mode) {
-                            fragment.final_runner.add(package_name);
+                                overlays.compile_enable_mode) {
+                            overlays.final_runner.add(package_name);
                         }
                     }
                     try {
@@ -442,34 +453,39 @@ class OverlayFunctions {
                             }
                         } else {
                             ApplicationInfo applicationInfo =
-                                    context.getPackageManager()
-                                            .getApplicationInfo(current_overlay, 0);
+                                    null;
+                            try {
+                                applicationInfo = context.getPackageManager()
+                                        .getApplicationInfo(current_overlay, 0);
+                            } catch (PackageManager.NameNotFoundException e) {
+                                e.printStackTrace();
+                            }
                             packageTitle = context.getPackageManager()
                                     .getApplicationLabel(applicationInfo).toString();
                         }
 
                         // Initialize working notification
-                        if (fragment.checkActiveNotifications()) {
-                            fragment.mBuilder.setProgress(100, (int) (((double) (i + 1) /
-                                    fragment.checkedOverlays.size()) * 100), false);
+                        if (overlays.checkActiveNotifications()) {
+                            overlays.mBuilder.setProgress(100, (int) (((double) (i + 1) /
+                                    overlays.checkedOverlays.size()) * 100), false);
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                fragment.mBuilder.setContentText("\"" + packageTitle + "\"");
+                                overlays.mBuilder.setContentText("\"" + packageTitle + "\"");
                             } else {
-                                fragment.mBuilder.setContentText(
+                                overlays.mBuilder.setContentText(
                                         context.getString(R.string.notification_processing) +
                                                 "\"" + packageTitle + "\"");
                             }
-                            fragment.mNotifyManager.notify(fragment.id, fragment.mBuilder.build());
+                            overlays.mNotifyManager.notify(overlays.id, overlays.mBuilder.build());
                         }
 
                         String workingDirectory = context.getCacheDir().getAbsolutePath() +
-                                References.SUBSTRATUM_BUILDER_CACHE + fragment.theme_pid +
+                                References.SUBSTRATUM_BUILDER_CACHE + overlays.theme_pid +
                                 "/assets/overlays/" + current_overlay;
 
                         if (!References.checkOMS(context)) {
                             File check_legacy = new File(context.getCacheDir()
                                     .getAbsolutePath() + References.SUBSTRATUM_BUILDER_CACHE +
-                                    fragment.theme_pid + "/assets/overlays_legacy/" +
+                                    overlays.theme_pid + "/assets/overlays_legacy/" +
                                     current_overlay);
                             if (check_legacy.exists()) {
                                 workingDirectory = check_legacy.getAbsolutePath();
@@ -479,7 +495,7 @@ class OverlayFunctions {
                                 "/type3_" + parsedVariant : "/res");
                         String unparsedSuffix =
                                 ((sUrl[0].length() != 0) ? "/type3_" + unparsedVariant : "/res");
-                        fragment.type3 = parsedVariant;
+                        overlays.type3 = parsedVariant;
                         if (References.isCachingEnabled(context)) {
                             File srcDir = new File(workingDirectory +
                                     ((sUrl[0].length() != 0) ? "/type3_" + sUrl[0] : "/res"));
@@ -487,7 +503,11 @@ class OverlayFunctions {
                             if (destDir.exists()) {
                                 FileOperations.delete(context, destDir.getAbsolutePath());
                             }
-                            FileUtils.copyDirectory(srcDir, destDir);
+                            try {
+                                FileUtils.copyDirectory(srcDir, destDir);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         } else {
                             workingDirectory = context.getCacheDir().getAbsolutePath() +
                                     References.SUBSTRATUM_BUILDER_CACHE.substring(0,
@@ -495,33 +515,31 @@ class OverlayFunctions {
                             File created = new File(workingDirectory);
                             if (created.exists()) {
                                 FileOperations.delete(context, created.getAbsolutePath());
-                                FileOperations.createNewFolder(context, created
-                                        .getAbsolutePath());
-                            } else {
-                                FileOperations.createNewFolder(context, created
-                                        .getAbsolutePath());
                             }
-                            String listDir = Overlays.overlaysDir + "/" + current_overlay +
-                                    unparsedSuffix;
-
-                            FileOperations.copyFileOrDir(
-                                    fragment.themeAssetManager,
-                                    listDir,
-                                    workingDirectory + suffix,
-                                    listDir,
-                                    fragment.cipher
-                            );
+                            ;
+                            FileOperations.createNewFolder(context, created
+                                    .getAbsolutePath());
                         }
+                        String listDir = Overlays.overlaysDir + "/" + current_overlay +
+                                unparsedSuffix;
 
-                        if (fragment.checkedOverlays.get(i).is_variant_chosen ||
+                        FileOperations.copyFileOrDir(
+                                overlays.themeAssetManager,
+                                listDir,
+                                workingDirectory + suffix,
+                                listDir,
+                                overlays.cipher
+                        );
+
+                        if (overlays.checkedOverlays.get(i).is_variant_chosen ||
                                 sUrl[0].length() != 0) {
                             // Type 1a
-                            if (fragment.checkedOverlays.get(i).is_variant_chosen1) {
-                                fragment.type1a =
-                                        fragment.checkedOverlays.get(i).getSelectedVariantName();
+                            if (overlays.checkedOverlays.get(i).is_variant_chosen1) {
+                                overlays.type1a =
+                                        overlays.checkedOverlays.get(i).getSelectedVariantName();
                                 if (References.isCachingEnabled(context)) {
                                     String sourceLocation = workingDirectory + "/type1a_" +
-                                            fragment.checkedOverlays.get(i).getSelectedVariantName()
+                                            overlays.checkedOverlays.get(i).getSelectedVariantName()
                                             + ".xml";
 
                                     String targetLocation = workingDirectory +
@@ -529,7 +547,7 @@ class OverlayFunctions {
 
                                     Log.d(Overlays.TAG,
                                             "You have selected variant file \"" +
-                                                    fragment.checkedOverlays.get(i)
+                                                    overlays.checkedOverlays.get(i)
                                                             .getSelectedVariantName() + "\"");
                                     Log.d(Overlays.TAG, "Moving variant file to: " +
                                             targetLocation);
@@ -539,7 +557,7 @@ class OverlayFunctions {
                                             targetLocation);
                                 } else {
                                     Log.d(Overlays.TAG, "You have selected variant file \"" +
-                                            fragment.checkedOverlays.get(i).getSelectedVariantName()
+                                            overlays.checkedOverlays.get(i).getSelectedVariantName()
                                             + "\"");
                                     Log.d(Overlays.TAG, "Moving variant file to: " +
                                             workingDirectory + suffix + "/values/type1a.xml");
@@ -547,36 +565,36 @@ class OverlayFunctions {
                                     String to_copy =
                                             Overlays.overlaysDir + "/" + current_overlay +
                                                     "/type1a_" +
-                                                    fragment.checkedOverlays.get(i)
+                                                    overlays.checkedOverlays.get(i)
                                                             .getSelectedVariantName() +
-                                                    (fragment.encrypted ? ".xml.enc" : ".xml");
+                                                    (overlays.encrypted ? ".xml.enc" : ".xml");
 
                                     FileOperations.copyFileOrDir(
-                                            fragment.themeAssetManager,
+                                            overlays.themeAssetManager,
                                             to_copy,
                                             workingDirectory + suffix + (
-                                                    fragment.encrypted ?
+                                                    overlays.encrypted ?
                                                             "/values/type1a.xml.enc" :
                                                             "/values/type1a.xml"),
                                             to_copy,
-                                            fragment.cipher);
+                                            overlays.cipher);
                                 }
                             }
 
                             // Type 1b
-                            if (fragment.checkedOverlays.get(i).is_variant_chosen2) {
-                                fragment.type1b =
-                                        fragment.checkedOverlays.get(i).getSelectedVariantName2();
+                            if (overlays.checkedOverlays.get(i).is_variant_chosen2) {
+                                overlays.type1b =
+                                        overlays.checkedOverlays.get(i).getSelectedVariantName2();
                                 if (References.isCachingEnabled(context)) {
                                     String sourceLocation2 = workingDirectory + "/type1b_" +
-                                            fragment.checkedOverlays.get(i)
+                                            overlays.checkedOverlays.get(i)
                                                     .getSelectedVariantName2() + ".xml";
 
                                     String targetLocation2 = workingDirectory +
                                             "/workdir/values/type1b.xml";
 
                                     Log.d(Overlays.TAG, "You have selected variant file \"" +
-                                            fragment.checkedOverlays.get(i)
+                                            overlays.checkedOverlays.get(i)
                                                     .getSelectedVariantName2() + "\"");
                                     Log.d(Overlays.TAG, "Moving variant file to: " +
                                             targetLocation2);
@@ -584,7 +602,7 @@ class OverlayFunctions {
                                             targetLocation2);
                                 } else {
                                     Log.d(Overlays.TAG, "You have selected variant file \"" +
-                                            fragment.checkedOverlays.get(i)
+                                            overlays.checkedOverlays.get(i)
                                                     .getSelectedVariantName2() + "\"");
                                     Log.d(Overlays.TAG, "Moving variant file to: " +
                                             workingDirectory + suffix + "/values/type1b.xml");
@@ -592,35 +610,35 @@ class OverlayFunctions {
                                     String to_copy =
                                             Overlays.overlaysDir + "/" + current_overlay +
                                                     "/type1b_" +
-                                                    fragment.checkedOverlays.get(i)
+                                                    overlays.checkedOverlays.get(i)
                                                             .getSelectedVariantName2() +
-                                                    (fragment.encrypted ? ".xml.enc" : ".xml");
+                                                    (overlays.encrypted ? ".xml.enc" : ".xml");
 
                                     FileOperations.copyFileOrDir(
-                                            fragment.themeAssetManager,
+                                            overlays.themeAssetManager,
                                             to_copy,
                                             workingDirectory + suffix + (
-                                                    fragment.encrypted ?
+                                                    overlays.encrypted ?
                                                             "/values/type1b.xml.enc" :
                                                             "/values/type1b.xml"),
                                             to_copy,
-                                            fragment.cipher);
+                                            overlays.cipher);
                                 }
                             }
                             // Type 1c
-                            if (fragment.checkedOverlays.get(i).is_variant_chosen3) {
-                                fragment.type1c =
-                                        fragment.checkedOverlays.get(i).getSelectedVariantName3();
+                            if (overlays.checkedOverlays.get(i).is_variant_chosen3) {
+                                overlays.type1c =
+                                        overlays.checkedOverlays.get(i).getSelectedVariantName3();
                                 if (References.isCachingEnabled(context)) {
                                     String sourceLocation3 = workingDirectory + "/type1c_" +
-                                            fragment.checkedOverlays.get(i)
+                                            overlays.checkedOverlays.get(i)
                                                     .getSelectedVariantName3() + ".xml";
 
                                     String targetLocation3 = workingDirectory +
                                             "/workdir/values/type1c.xml";
 
                                     Log.d(Overlays.TAG, "You have selected variant file \"" +
-                                            fragment.checkedOverlays.get(i)
+                                            overlays.checkedOverlays.get(i)
                                                     .getSelectedVariantName3() + "\"");
                                     Log.d(Overlays.TAG, "Moving variant file to: " +
                                             targetLocation3);
@@ -631,7 +649,7 @@ class OverlayFunctions {
                                             targetLocation3);
                                 } else {
                                     Log.d(Overlays.TAG, "You have selected variant file \"" +
-                                            fragment.checkedOverlays.get(i)
+                                            overlays.checkedOverlays.get(i)
                                                     .getSelectedVariantName3() + "\"");
                                     Log.d(Overlays.TAG, "Moving variant file to: " +
                                             workingDirectory + suffix + "/values/type1c.xml");
@@ -639,237 +657,238 @@ class OverlayFunctions {
                                     String to_copy =
                                             Overlays.overlaysDir + "/" + current_overlay +
                                                     "/type1c_" +
-                                                    fragment.checkedOverlays.get(i)
+                                                    overlays.checkedOverlays.get(i)
                                                             .getSelectedVariantName3() +
-                                                    (fragment.encrypted ? ".xml.enc" : ".xml");
+                                                    (overlays.encrypted ? ".xml.enc" : ".xml");
 
                                     FileOperations.copyFileOrDir(
-                                            fragment.themeAssetManager,
+                                            overlays.themeAssetManager,
                                             to_copy,
                                             workingDirectory + suffix + (
-                                                    fragment.encrypted ?
+                                                    overlays.encrypted ?
                                                             "/values/type1c.xml.enc" :
                                                             "/values/type1c.xml"),
                                             to_copy,
-                                            fragment.cipher);
+                                            overlays.cipher);
                                 }
                             }
 
                             String packageName =
-                                    (fragment.checkedOverlays.get(i).is_variant_chosen1 ?
-                                            fragment.checkedOverlays.get(i)
+                                    (overlays.checkedOverlays.get(i).is_variant_chosen1 ?
+                                            overlays.checkedOverlays.get(i)
                                                     .getSelectedVariantName() : "") +
-                                            (fragment.checkedOverlays.get(i).is_variant_chosen2 ?
-                                                    fragment.checkedOverlays.get(i)
+                                            (overlays.checkedOverlays.get(i).is_variant_chosen2 ?
+                                                    overlays.checkedOverlays.get(i)
                                                             .getSelectedVariantName2() : "") +
-                                            (fragment.checkedOverlays.get(i).is_variant_chosen3 ?
-                                                    fragment.checkedOverlays.get(i)
+                                            (overlays.checkedOverlays.get(i).is_variant_chosen3 ?
+                                                    overlays.checkedOverlays.get(i)
                                                             .getSelectedVariantName3() : "").
                                                     replaceAll("\\s+", "").replaceAll
                                                     ("[^a-zA-Z0-9]+", "");
 
-                            if (fragment.checkedOverlays.get(i).is_variant_chosen4) {
-                                packageName = (packageName + fragment.checkedOverlays.get(i)
+                            if (overlays.checkedOverlays.get(i).is_variant_chosen4) {
+                                packageName = (packageName + overlays.checkedOverlays.get(i)
                                         .getSelectedVariantName4()).replaceAll("\\s+", "")
                                         .replaceAll("[^a-zA-Z0-9]+", "");
-                                fragment.type2 = fragment.checkedOverlays.get(i)
+                                overlays.type2 = overlays.checkedOverlays.get(i)
                                         .getSelectedVariantName4();
-                                String type2folder = "/type2_" + fragment.type2;
+                                String type2folder = "/type2_" + overlays.type2;
                                 String to_copy = Overlays.overlaysDir + "/" + current_overlay +
                                         type2folder;
                                 FileOperations.copyFileOrDir(
-                                        fragment.themeAssetManager,
+                                        overlays.themeAssetManager,
                                         to_copy,
                                         workingDirectory + type2folder,
                                         to_copy,
-                                        fragment.cipher);
+                                        overlays.cipher);
                                 Log.d(Overlays.TAG, "Currently processing package" +
-                                        " \"" + fragment.checkedOverlays.get(i)
+                                        " \"" + overlays.checkedOverlays.get(i)
                                         .getFullOverlayParameters() + "\"...");
-
                                 if (sUrl[0].length() != 0) {
-                                    fragment.sb = new SubstratumBuilder();
-                                    fragment.sb.beginAction(
+                                    overlays.sb = new SubstratumBuilder();
+                                    overlays.sb.beginAction(
                                             context,
-                                            fragment.theme_pid,
+                                            overlays.theme_pid,
                                             current_overlay,
-                                            fragment.theme_name,
+                                            overlays.theme_name,
                                             packageName,
-                                            fragment.checkedOverlays.get(i)
+                                            overlays.checkedOverlays.get(i)
                                                     .getSelectedVariantName4(),
                                             sUrl[0],
-                                            fragment.versionName,
+                                            overlays.versionName,
                                             References.checkOMS(context),
-                                            fragment.theme_pid,
+                                            overlays.theme_pid,
                                             suffix,
-                                            fragment.type1a,
-                                            fragment.type1b,
-                                            fragment.type1c,
-                                            fragment.type2,
-                                            fragment.type3,
+                                            overlays.type1a,
+                                            overlays.type1b,
+                                            overlays.type1c,
+                                            overlays.type2,
+                                            overlays.type3,
                                             null);
-                                    fragment.logTypes();
+                                    overlays.logTypes();
                                 } else {
-                                    fragment.sb = new SubstratumBuilder();
-                                    fragment.sb.beginAction(
+                                    overlays.sb = new SubstratumBuilder();
+                                    overlays.sb.beginAction(
                                             context,
-                                            fragment.theme_pid,
+                                            overlays.theme_pid,
                                             current_overlay,
-                                            fragment.theme_name,
+                                            overlays.theme_name,
                                             packageName,
-                                            fragment.checkedOverlays.get(i)
+                                            overlays.checkedOverlays.get(i)
                                                     .getSelectedVariantName4(),
                                             null,
-                                            fragment.versionName,
+                                            overlays.versionName,
                                             References.checkOMS(context),
-                                            fragment.theme_pid,
+                                            overlays.theme_pid,
                                             suffix,
-                                            fragment.type1a,
-                                            fragment.type1b,
-                                            fragment.type1c,
-                                            fragment.type2,
-                                            fragment.type3,
+                                            overlays.type1a,
+                                            overlays.type1b,
+                                            overlays.type1c,
+                                            overlays.type2,
+                                            overlays.type3,
                                             null);
-                                    fragment.logTypes();
+                                    overlays.logTypes();
                                 }
                             } else {
                                 Log.d(Overlays.TAG, "Currently processing package" +
-                                        " \"" + fragment.checkedOverlays.get(i)
+                                        " \"" + overlays.checkedOverlays.get(i)
                                         .getFullOverlayParameters() + "\"...");
 
                                 if (sUrl[0].length() != 0) {
-                                    fragment.sb = new SubstratumBuilder();
-                                    fragment.sb.beginAction(
+                                    overlays.sb = new SubstratumBuilder();
+                                    overlays.sb.beginAction(
                                             context,
-                                            fragment.theme_pid,
+                                            overlays.theme_pid,
                                             current_overlay,
-                                            fragment.theme_name,
+                                            overlays.theme_name,
                                             packageName,
                                             null,
                                             sUrl[0],
-                                            fragment.versionName,
+                                            overlays.versionName,
                                             References.checkOMS(context),
-                                            fragment.theme_pid,
+                                            overlays.theme_pid,
                                             suffix,
-                                            fragment.type1a,
-                                            fragment.type1b,
-                                            fragment.type1c,
-                                            fragment.type2,
-                                            fragment.type3,
+                                            overlays.type1a,
+                                            overlays.type1b,
+                                            overlays.type1c,
+                                            overlays.type2,
+                                            overlays.type3,
                                             null);
-                                    fragment.logTypes();
+                                    overlays.logTypes();
                                 } else {
-                                    fragment.sb = new SubstratumBuilder();
-                                    fragment.sb.beginAction(
+                                    overlays.sb = new SubstratumBuilder();
+                                    overlays.sb.beginAction(
                                             context,
-                                            fragment.theme_pid,
+                                            overlays.theme_pid,
                                             current_overlay,
-                                            fragment.theme_name,
+                                            overlays.theme_name,
                                             packageName,
                                             null,
                                             null,
-                                            fragment.versionName,
+                                            overlays.versionName,
                                             References.checkOMS(context),
-                                            fragment.theme_pid,
+                                            overlays.theme_pid,
                                             suffix,
-                                            fragment.type1a,
-                                            fragment.type1b,
-                                            fragment.type1c,
-                                            fragment.type2,
-                                            fragment.type3,
+                                            overlays.type1a,
+                                            overlays.type1b,
+                                            overlays.type1c,
+                                            overlays.type2,
+                                            overlays.type3,
                                             null);
-                                    fragment.logTypes();
+                                    overlays.logTypes();
                                 }
                             }
-                            if (fragment.sb.has_errored_out) {
-                                if (!fragment.sb.getErrorLogs().contains("type3") ||
-                                        !fragment.sb.getErrorLogs().contains("does not exist")) {
-                                    fragment.fail_count += 1;
-                                    if (fragment.error_logs.length() == 0) {
-                                        fragment.error_logs.append(fragment.sb.getErrorLogs());
+                            if (overlays.sb.has_errored_out) {
+                                if (!overlays.sb.getErrorLogs().contains("type3") ||
+                                        !overlays.sb.getErrorLogs().contains("does not exist")) {
+                                    overlays.fail_count += 1;
+                                    if (overlays.error_logs.length() == 0) {
+                                        overlays.error_logs.append(overlays.sb.getErrorLogs());
                                     } else {
-                                        fragment.error_logs.append("\n")
-                                                .append(fragment.sb.getErrorLogs());
+                                        overlays.error_logs.append("\n")
+                                                .append(overlays.sb.getErrorLogs());
                                     }
-                                    fragment.failed_packages.append(current_overlay);
-                                    fragment.failed_packages.append(" (");
-                                    fragment.failed_packages.append(
+                                    overlays.failed_packages.append(current_overlay);
+                                    overlays.failed_packages.append(" (");
+                                    overlays.failed_packages.append(
                                             References.grabAppVersion(context, current_overlay));
-                                    fragment.failed_packages.append(")\n");
-                                    fragment.has_failed = true;
+                                    overlays.failed_packages.append(")\n");
+                                    overlays.has_failed = true;
                                 } else {
-                                    fragment.missingType3 = true;
+                                    overlays.missingType3 = true;
                                 }
-                            } else {
-                                if (fragment.sb.special_snowflake ||
-                                        fragment.sb.no_install.length() > 0) {
-                                    fragment.late_install.add(fragment.sb.no_install);
+                            } else
+
+                            {
+                                if (overlays.sb.special_snowflake ||
+                                        overlays.sb.no_install.length() > 0) {
+                                    overlays.late_install.add(overlays.sb.no_install);
                                 } else if (References.checkThemeInterfacer(context) &&
                                         !References.isBinderInterfacer(context)) {
                                     // Thread wait
-                                    fragment.isWaiting = true;
+                                    overlays.isWaiting = true;
                                     do {
                                         try {
                                             Thread.sleep(Overlays.THREAD_WAIT_DURATION);
                                         } catch (InterruptedException e) {
                                             Thread.currentThread().interrupt();
                                         }
-                                    } while (fragment.isWaiting);
+                                    } while (overlays.isWaiting);
                                 }
                             }
                         } else {
                             Log.d(Overlays.TAG, "Currently processing package" +
                                     " \"" + current_overlay + "." + theme_name_parsed + "\"...");
-                            fragment.sb = new SubstratumBuilder();
-                            fragment.sb.beginAction(
+                            overlays.sb = new SubstratumBuilder();
+                            overlays.sb.beginAction(
                                     context,
-                                    fragment.theme_pid,
+                                    overlays.theme_pid,
                                     current_overlay,
-                                    fragment.theme_name,
+                                    overlays.theme_name,
                                     null,
                                     null,
                                     null,
-                                    fragment.versionName,
+                                    overlays.versionName,
                                     References.checkOMS(context),
-                                    fragment.theme_pid,
+                                    overlays.theme_pid,
                                     suffix,
-                                    fragment.type1a,
-                                    fragment.type1b,
-                                    fragment.type1c,
-                                    fragment.type2,
-                                    fragment.type3,
+                                    overlays.type1a,
+                                    overlays.type1b,
+                                    overlays.type1c,
+                                    overlays.type2,
+                                    overlays.type3,
                                     null);
-                            fragment.logTypes();
+                            overlays.logTypes();
 
-                            if (fragment.sb.has_errored_out) {
-                                fragment.fail_count += 1;
-                                if (fragment.error_logs.length() == 0) {
-                                    fragment.error_logs.append(fragment.sb.getErrorLogs());
+                            if (overlays.sb.has_errored_out) {
+                                overlays.fail_count += 1;
+                                if (overlays.error_logs.length() == 0) {
+                                    overlays.error_logs.append(overlays.sb.getErrorLogs());
                                 } else {
-                                    fragment.error_logs.append("\n")
-                                            .append(fragment.sb.getErrorLogs());
+                                    overlays.error_logs.append("\n")
+                                            .append(overlays.sb.getErrorLogs());
                                 }
-                                fragment.failed_packages.append(current_overlay);
-                                fragment.failed_packages.append(" (");
-                                fragment.failed_packages.append(
+                                overlays.failed_packages.append(current_overlay);
+                                overlays.failed_packages.append(" (");
+                                overlays.failed_packages.append(
                                         References.grabAppVersion(context, current_overlay));
-                                fragment.failed_packages.append(")\n");
-                                fragment.has_failed = true;
+                                overlays.failed_packages.append(")\n");
+                                overlays.has_failed = true;
                             } else {
-                                if (fragment.sb.special_snowflake ||
-                                        fragment.sb.no_install.length() > 0) {
-                                    fragment.late_install.add(fragment.sb.no_install);
+                                if (overlays.sb.special_snowflake ||
+                                        overlays.sb.no_install.length() > 0) {
+                                    overlays.late_install.add(overlays.sb.no_install);
                                 } else if (References.checkThemeInterfacer(context) &&
                                         !References.isBinderInterfacer(context)) {
                                     // Thread wait
-                                    fragment.isWaiting = true;
+                                    overlays.isWaiting = true;
                                     do {
                                         try {
                                             Thread.sleep(Overlays.THREAD_WAIT_DURATION);
                                         } catch (InterruptedException e) {
                                             Thread.currentThread().interrupt();
                                         }
-                                    } while (fragment.isWaiting);
+                                    } while (overlays.isWaiting);
                                 }
                             }
                         }
@@ -878,14 +897,14 @@ class OverlayFunctions {
                         Log.e(Overlays.TAG, "Main function has unexpectedly stopped!");
                     }
                 } else {
-                    if (fragment.final_runner == null)
-                        fragment.final_runner = new ArrayList<>();
-                    if (fragment.enable_mode || fragment.compile_enable_mode ||
-                            fragment.disable_mode) {
+                    if (overlays.final_runner == null)
+                        overlays.final_runner = new ArrayList<>();
+                    if (overlays.enable_mode || overlays.compile_enable_mode ||
+                            overlays.disable_mode) {
                         String package_name =
-                                fragment.checkedOverlays.get(i).getFullOverlayParameters();
+                                overlays.checkedOverlays.get(i).getFullOverlayParameters();
                         if (References.isPackageInstalled(context, package_name)) {
-                            fragment.final_runner.add(package_name);
+                            overlays.final_runner.add(package_name);
                         }
                     }
                 }
@@ -895,7 +914,7 @@ class OverlayFunctions {
     }
 
     static class Phase4_finishEnableFunction extends AsyncTask<Void, Void, Void> {
-        private WeakReference<Overlays> ref;
+        WeakReference<Overlays> ref;
 
         Phase4_finishEnableFunction(Overlays overlays) {
             ref = new WeakReference<>(overlays);
@@ -903,34 +922,34 @@ class OverlayFunctions {
 
         @Override
         protected void onPreExecute() {
-            Overlays fragment = ref.get();
+            Overlays overlays = ref.get();
 
-            fragment.progressBar.setVisibility(View.VISIBLE);
-            if (fragment.toggle_all.isChecked()) fragment.toggle_all.setChecked(false);
+            overlays.progressBar.setVisibility(View.VISIBLE);
+            if (overlays.toggle_all.isChecked()) overlays.toggle_all.setChecked(false);
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            Overlays fragment = ref.get();
-            Context context = fragment.getContext();
+            Overlays overlays = ref.get();
+            Context context = overlays.getActivity();
 
-            if (fragment.final_runner.size() > 0) {
-                fragment.enable_mode = false;
+            if (overlays.final_runner.size() > 0) {
+                overlays.enable_mode = false;
 
-                if (fragment.mixAndMatchMode) {
+                if (overlays.mixAndMatchMode) {
                     // Buffer the disableBeforeEnabling String
                     ArrayList<String> disableBeforeEnabling = new ArrayList<>();
-                    for (int i = 0; i < fragment.all_installed_overlays.size(); i++) {
+                    for (int i = 0; i < overlays.all_installed_overlays.size(); i++) {
                         if (!References.grabOverlayParent(context,
-                                fragment.all_installed_overlays.get(i))
-                                .equals(fragment.theme_pid)) {
-                            disableBeforeEnabling.add(fragment.all_installed_overlays.get(i));
+                                overlays.all_installed_overlays.get(i))
+                                .equals(overlays.theme_pid)) {
+                            disableBeforeEnabling.add(overlays.all_installed_overlays.get(i));
                         }
                     }
                     ThemeManager.disableOverlay(context, disableBeforeEnabling);
-                    ThemeManager.enableOverlay(context, fragment.final_command);
+                    ThemeManager.enableOverlay(context, overlays.final_command);
                 } else {
-                    ThemeManager.enableOverlay(context, fragment.final_command);
+                    ThemeManager.enableOverlay(context, overlays.final_command);
                 }
             }
             return null;
@@ -938,25 +957,25 @@ class OverlayFunctions {
 
         @Override
         protected void onPostExecute(Void result) {
-            Overlays fragment = ref.get();
-            Context context = fragment.getContext();
+            Overlays overlays = ref.get();
+            Context context = overlays.getActivity();
 
-            if (fragment.final_runner.size() > 0) {
-                fragment.progressBar.setVisibility(View.GONE);
-                if (fragment.needsRecreate(context)) {
+            if (overlays.final_runner.size() > 0) {
+                overlays.progressBar.setVisibility(View.GONE);
+                if (overlays.needsRecreate(context)) {
                     Handler handler = new Handler();
                     handler.postDelayed(() -> {
                         // OMS may not have written all the changes so quickly just yet
                         // so we may need to have a small delay
                         try {
-                            fragment.overlaysLists = ((OverlaysAdapter) fragment.mAdapter)
+                            overlays.overlaysLists = ((OverlaysAdapter) overlays.mAdapter)
                                     .getOverlayList();
-                            for (int i = 0; i < fragment.overlaysLists.size(); i++) {
-                                OverlaysItem currentOverlay = fragment.overlaysLists.get(i);
+                            for (int i = 0; i < overlays.overlaysLists.size(); i++) {
+                                OverlaysItem currentOverlay = overlays.overlaysLists.get(i);
                                 currentOverlay.setSelected(false);
                                 currentOverlay.updateEnabledOverlays(
-                                        fragment.updateEnabledOverlays());
-                                fragment.mAdapter.notifyDataSetChanged();
+                                        overlays.updateEnabledOverlays());
+                                overlays.mAdapter.notifyDataSetChanged();
                             }
                         } catch (Exception e) {
                             // Consume window refresh
@@ -964,10 +983,10 @@ class OverlayFunctions {
                     }, References.REFRESH_WINDOW_DELAY);
                 }
             } else {
-                fragment.compile_enable_mode = false;
-                fragment.enable_mode = false;
+                overlays.compile_enable_mode = false;
+                overlays.enable_mode = false;
                 currentShownLunchBar = Lunchbar.make(
-                        fragment.getActivityView(),
+                        overlays.getActivityView(),
                         R.string.toast_disabled3,
                         Lunchbar.LENGTH_LONG);
                 currentShownLunchBar.show();
@@ -975,8 +994,9 @@ class OverlayFunctions {
         }
     }
 
+
     static class Phase4_finishDisableFunction extends AsyncTask<Void, Void, Void> {
-        private WeakReference<Overlays> ref;
+        WeakReference<Overlays> ref;
 
         Phase4_finishDisableFunction(Overlays overlays) {
             ref = new WeakReference<>(overlays);
@@ -984,52 +1004,52 @@ class OverlayFunctions {
 
         @Override
         protected void onPreExecute() {
-            Overlays fragment = ref.get();
-            Activity activity = fragment.getActivity();
+            Overlays overlays = ref.get();
+            Activity activity = overlays.getActivity();
 
-            if (fragment.final_runner.size() > 0) {
+            if (overlays.final_runner.size() > 0) {
                 activity.runOnUiThread(() ->
-                        fragment.progressBar.setVisibility(View.VISIBLE));
-                if (fragment.toggle_all.isChecked())
-                    activity.runOnUiThread(() -> fragment.toggle_all.setChecked(false));
+                        overlays.progressBar.setVisibility(View.VISIBLE));
+                if (overlays.toggle_all.isChecked())
+                    activity.runOnUiThread(() -> overlays.toggle_all.setChecked(false));
             }
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            Overlays fragment = ref.get();
-            Context context = fragment.getContext();
+            Overlays overlays = ref.get();
+            Context context = overlays.getActivity();
 
-            if (fragment.final_runner.size() > 0) {
-                fragment.disable_mode = false;
-                ThemeManager.disableOverlay(context, fragment.final_command);
+            if (overlays.final_runner.size() > 0) {
+                overlays.disable_mode = false;
+                ThemeManager.disableOverlay(context, overlays.final_command);
             }
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
-            Overlays fragment = ref.get();
-            Context context = fragment.getContext();
-            Activity activity = fragment.getActivity();
+            Overlays overlays = ref.get();
+            Context context = overlays.getActivity();
+            Activity activity = overlays.getActivity();
 
-            activity.runOnUiThread(() -> fragment.progressBar.setVisibility(View.GONE));
-            if (fragment.final_runner.size() > 0) {
-                if (fragment.needsRecreate(context)) {
+            activity.runOnUiThread(() -> overlays.progressBar.setVisibility(View.GONE));
+            if (overlays.final_runner.size() > 0) {
+                if (overlays.needsRecreate(context)) {
                     Handler handler = new Handler();
                     handler.postDelayed(() -> {
                         // OMS may not have written all the changes so quickly just yet
                         // so we may need to have a small delay
                         try {
-                            fragment.overlaysLists = ((OverlaysAdapter) fragment.mAdapter)
+                            overlays.overlaysLists = ((OverlaysAdapter) overlays.mAdapter)
                                     .getOverlayList();
-                            for (int i = 0; i < fragment.overlaysLists.size(); i++) {
-                                OverlaysItem currentOverlay = fragment.overlaysLists.get(i);
+                            for (int i = 0; i < overlays.overlaysLists.size(); i++) {
+                                OverlaysItem currentOverlay = overlays.overlaysLists.get(i);
                                 currentOverlay.setSelected(false);
                                 currentOverlay.updateEnabledOverlays(
-                                        fragment.updateEnabledOverlays());
+                                        overlays.updateEnabledOverlays());
                                 activity.runOnUiThread(() ->
-                                        fragment.mAdapter.notifyDataSetChanged());
+                                        overlays.mAdapter.notifyDataSetChanged());
                             }
                         } catch (Exception e) {
                             // Consume window refresh
@@ -1037,9 +1057,9 @@ class OverlayFunctions {
                     }, References.REFRESH_WINDOW_DELAY);
                 }
             } else {
-                fragment.disable_mode = false;
+                overlays.disable_mode = false;
                 currentShownLunchBar = Lunchbar.make(
-                        fragment.getActivityView(),
+                        overlays.getActivityView(),
                         R.string.toast_disabled4,
                         Lunchbar.LENGTH_LONG);
                 currentShownLunchBar.show();
@@ -1048,7 +1068,7 @@ class OverlayFunctions {
     }
 
     static class Phase4_finishUpdateFunction extends AsyncTask<Void, Void, Void> {
-        private WeakReference<Overlays> ref;
+        WeakReference<Overlays> ref;
 
         Phase4_finishUpdateFunction(Overlays overlays) {
             ref = new WeakReference<>(overlays);
@@ -1056,51 +1076,51 @@ class OverlayFunctions {
 
         @Override
         protected void onPreExecute() {
-            Overlays fragment = ref.get();
-            Context context = fragment.getContext();
+            Overlays overlays = ref.get();
+            Context context = overlays.getActivity();
 
-            fragment.mProgressDialog.dismiss();
+            overlays.mProgressDialog.dismiss();
 
             // Add dummy intent to be able to close the notification on click
             Intent notificationIntent = new Intent(context, InformationActivity.class);
-            notificationIntent.putExtra("theme_name", fragment.theme_name);
-            notificationIntent.putExtra("theme_pid", fragment.theme_pid);
+            notificationIntent.putExtra("theme_name", overlays.theme_name);
+            notificationIntent.putExtra("theme_pid", overlays.theme_pid);
             notificationIntent.setFlags(
                     Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             PendingIntent intent =
                     PendingIntent.getActivity(context, 0, notificationIntent,
                             PendingIntent.FLAG_CANCEL_CURRENT);
 
-            if (!fragment.has_failed) {
+            if (!overlays.has_failed) {
                 // Closing off the persistent notification
-                if (fragment.checkActiveNotifications()) {
-                    fragment.mNotifyManager.cancel(fragment.id);
-                    fragment.mBuilder = new NotificationCompat.Builder(
+                if (overlays.checkActiveNotifications()) {
+                    overlays.mNotifyManager.cancel(overlays.id);
+                    overlays.mBuilder = new NotificationCompat.Builder(
                             context, DEFAULT_NOTIFICATION_CHANNEL_ID);
-                    fragment.mBuilder.setAutoCancel(true);
-                    fragment.mBuilder.setProgress(0, 0, false);
-                    fragment.mBuilder.setOngoing(false);
-                    fragment.mBuilder.setContentIntent(intent);
-                    fragment.mBuilder.setSmallIcon(R.drawable.notification_success_icon);
-                    fragment.mBuilder.setContentTitle(
+                    overlays.mBuilder.setAutoCancel(true);
+                    overlays.mBuilder.setProgress(0, 0, false);
+                    overlays.mBuilder.setOngoing(false);
+                    overlays.mBuilder.setContentIntent(intent);
+                    overlays.mBuilder.setSmallIcon(R.drawable.notification_success_icon);
+                    overlays.mBuilder.setContentTitle(
                             context.getString(R.string.notification_done_title));
-                    fragment.mBuilder.setContentText(
+                    overlays.mBuilder.setContentText(
                             context.getString(R.string.notification_no_errors_found));
-                    if (fragment.prefs.getBoolean("vibrate_on_compiled", false)) {
-                        fragment.mBuilder.setVibrate(new long[]{100, 200, 100, 500});
+                    if (overlays.prefs.getBoolean("vibrate_on_compiled", false)) {
+                        overlays.mBuilder.setVibrate(new long[]{100, 200, 100, 500});
                     }
-                    fragment.mNotifyManager.notify(fragment.id, fragment.mBuilder.build());
+                    overlays.mNotifyManager.notify(overlays.id, overlays.mBuilder.build());
                 }
 
-                if (fragment.missingType3) {
+                if (overlays.missingType3) {
                     currentShownLunchBar = Lunchbar.make(
-                            fragment.getActivityView(),
+                            overlays.getActivityView(),
                             R.string.toast_compiled_missing,
                             Lunchbar.LENGTH_LONG);
                     currentShownLunchBar.show();
                 } else {
                     currentShownLunchBar = Lunchbar.make(
-                            fragment.getActivityView(),
+                            overlays.getActivityView(),
                             R.string.toast_compiled_updated,
                             Lunchbar.LENGTH_LONG);
                     currentShownLunchBar.show();
@@ -1110,20 +1130,21 @@ class OverlayFunctions {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            Overlays fragment = ref.get();
-            Activity activity = fragment.getActivity();
-            Context context = fragment.getContext();
+            Overlays overlays = ref.get();
+            Activity activity = overlays.getActivity();
+            Context context = overlays.getContext();
 
-            if (!fragment.has_failed || fragment.final_runner.size() > fragment.fail_count) {
-                StringBuilder final_commands = new StringBuilder();
-                if (fragment.compile_enable_mode && fragment.mixAndMatchMode) {
+            if (!overlays.has_failed || overlays.final_runner.size() > overlays.fail_count) {
+                new StringBuilder();
+                StringBuilder final_commands;
+                if (overlays.compile_enable_mode && overlays.mixAndMatchMode) {
                     // Buffer the disableBeforeEnabling String
                     ArrayList<String> disableBeforeEnabling = new ArrayList<>();
-                    for (String p : fragment.all_installed_overlays) {
-                        if (!fragment.theme_pid.equals(References.grabOverlayParent(context, p))) {
+                    for (String p : overlays.all_installed_overlays) {
+                        if (!overlays.theme_pid.equals(References.grabOverlayParent(context, p))) {
                             disableBeforeEnabling.add(p);
                         } else {
-                            for (OverlaysItem oi : fragment.checkedOverlays) {
+                            for (OverlaysItem oi : overlays.checkedOverlays) {
                                 String targetOverlay = oi.getPackageName();
                                 if (targetOverlay.equals(
                                         References.grabOverlayTarget(context, p))) {
@@ -1144,39 +1165,39 @@ class OverlayFunctions {
                     }
                 }
 
-                if (fragment.compile_enable_mode) {
-                    ThemeManager.enableOverlay(context, fragment.final_command);
+                if (overlays.compile_enable_mode) {
+                    ThemeManager.enableOverlay(context, overlays.final_command);
                 }
 
-                if (fragment.final_runner.size() == 0) {
-                    if (fragment.base_spinner.getSelectedItemPosition() == 0) {
-                        activity.runOnUiThread(() -> fragment.mAdapter.notifyDataSetChanged());
+                if (overlays.final_runner.size() == 0) {
+                    if (overlays.base_spinner.getSelectedItemPosition() == 0) {
+                        activity.runOnUiThread(() -> overlays.mAdapter.notifyDataSetChanged());
                     } else {
-                        activity.runOnUiThread(() -> fragment.mAdapter.notifyDataSetChanged());
+                        activity.runOnUiThread(() -> overlays.mAdapter.notifyDataSetChanged());
                     }
                 } else {
-                    activity.runOnUiThread(() -> fragment.progressBar.setVisibility(View.VISIBLE));
-                    if (fragment.toggle_all.isChecked())
-                        activity.runOnUiThread(() -> fragment.toggle_all.setChecked(false));
-                    activity.runOnUiThread(() -> fragment.mAdapter.notifyDataSetChanged());
+                    activity.runOnUiThread(() -> overlays.progressBar.setVisibility(View.VISIBLE));
+                    if (overlays.toggle_all.isChecked())
+                        activity.runOnUiThread(() -> overlays.toggle_all.setChecked(false));
+                    activity.runOnUiThread(() -> overlays.mAdapter.notifyDataSetChanged());
                 }
 
-                activity.runOnUiThread(() -> fragment.progressBar.setVisibility(View.GONE));
-                if (fragment.needsRecreate(context)) {
+                activity.runOnUiThread(() -> overlays.progressBar.setVisibility(View.GONE));
+                if (overlays.needsRecreate(context)) {
                     Handler handler = new Handler(Looper.getMainLooper());
                     handler.postDelayed(() -> {
                         // OMS may not have written all the changes so quickly just yet
                         // so we may need to have a small delay
                         try {
-                            fragment.overlaysLists =
-                                    ((OverlaysAdapter) fragment.mAdapter).getOverlayList();
-                            for (int i = 0; i < fragment.overlaysLists.size(); i++) {
-                                OverlaysItem currentOverlay = fragment.overlaysLists.get(i);
+                            overlays.overlaysLists =
+                                    ((OverlaysAdapter) overlays.mAdapter).getOverlayList();
+                            for (int i = 0; i < overlays.overlaysLists.size(); i++) {
+                                OverlaysItem currentOverlay = overlays.overlaysLists.get(i);
                                 currentOverlay.setSelected(false);
                                 currentOverlay.updateEnabledOverlays(
-                                        fragment.updateEnabledOverlays());
+                                        overlays.updateEnabledOverlays());
                                 activity.runOnUiThread(() ->
-                                        fragment.mAdapter.notifyDataSetChanged());
+                                        overlays.mAdapter.notifyDataSetChanged());
                             }
                         } catch (Exception e) {
                             // Consume window refresh
@@ -1184,9 +1205,9 @@ class OverlayFunctions {
                     }, REFRESH_WINDOW_DELAY);
                 }
 
-                if (!fragment.late_install.isEmpty() && !References.isSamsung(context)) {
+                if (!overlays.late_install.isEmpty() && !References.isSamsung(context)) {
                     // Install remaining overlays
-                    ThemeManager.installOverlay(context, fragment.late_install);
+                    ThemeManager.installOverlay(context, overlays.late_install);
                 }
             }
             return null;

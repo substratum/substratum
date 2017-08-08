@@ -55,7 +55,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.provider.SyncStateContract;
 import android.service.notification.StatusBarNotification;
 import android.support.annotation.NonNull;
 import android.support.v4.content.LocalBroadcastManager;
@@ -124,7 +123,6 @@ import projekt.substratum.util.injectors.AOPTCheck;
 import projekt.substratum.util.readers.ReadSupportedROMsFile;
 import projekt.substratum.util.readers.ReadVariantPrioritizedColor;
 
-import static projekt.substratum.common.References.sendLocalizedKeyMessage;
 import static projekt.substratum.common.analytics.PackageAnalytics.PACKAGE_TAG;
 import static projekt.substratum.tabs.Overlays.TAG;
 
@@ -509,9 +507,9 @@ public class References {
             rescueFileLegacy.delete();
         }
         copyRescueFile(context, "rescue_legacy.dat",
-                    Environment.getExternalStorageDirectory().getAbsolutePath() +
-                            File.separator + "substratum" +
-                            File.separator + "SubstratumRescue_Legacy.zip");
+                Environment.getExternalStorageDirectory().getAbsolutePath() +
+                        File.separator + "substratum" +
+                        File.separator + "SubstratumRescue_Legacy.zip");
         copyRescueFile(context, "rescue.dat",
                 Environment.getExternalStorageDirectory().getAbsolutePath() +
                         File.separator + "substratum" +
@@ -543,13 +541,14 @@ public class References {
             e.printStackTrace();
         }
     }
-    public static boolean isOMSRunning(Context context,Class<?> serviceClass){
-        final ActivityManager activityManager = (ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
+
+    public static boolean isOMSRunning(Context context, Class<?> serviceClass) {
+        final ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         final List<ActivityManager.RunningServiceInfo> services = activityManager.getRunningServices(Integer.MAX_VALUE);
 
         for (ActivityManager.RunningServiceInfo runningServiceInfo : services) {
             Log.d(TAG, String.format("Service:%s", runningServiceInfo.service.getClassName()));
-            if (runningServiceInfo.service.getClassName().equals(serviceClass.getName())){
+            if (runningServiceInfo.service.getClassName().equals(serviceClass.getName())) {
                 return true;
             }
         }

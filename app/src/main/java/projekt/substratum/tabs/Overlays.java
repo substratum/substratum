@@ -41,6 +41,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.service.notification.StatusBarNotification;
 import android.support.design.widget.Lunchbar;
@@ -100,6 +101,7 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
+import projekt.substratum.services.notification.CompileDialogThread;
 import projekt.substratum.util.compilers.SubstratumBuilder;
 import projekt.substratum.util.files.MapUtils;
 import projekt.substratum.util.files.Root;
@@ -117,6 +119,8 @@ import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.metadataEmail;
 import static projekt.substratum.common.References.metadataEncryption;
 import static projekt.substratum.common.References.metadataEncryptionValue;
+import static projekt.substratum.tabs.OverlayFunctions.Phase3_mainFunction;
+import static projekt.substratum.tabs.OverlayFunctions.getThemeCache;
 
 public class Overlays extends Fragment {
 
@@ -148,7 +152,7 @@ public class Overlays extends Fragment {
     public Switch toggle_all;
     public SwipeRefreshLayout swipeRefreshLayout;
     public ProgressBar progressBar;
-    public Boolean is_active = false;
+    public Boolean is_overlay_active = false;
     public StringBuilder error_logs;
     public MaterialProgressBar materialProgressBar;
     public double current_amount = 0;
@@ -159,6 +163,7 @@ public class Overlays extends Fragment {
     public ArrayList<String> final_command;
     public boolean isWaiting;
     public AssetManager themeAssetManager;
+    public Phase3_mainFunction phase3_mainFunction;
     public Boolean missingType3 = false;
     public JobReceiver jobReceiver;
     public LocalBroadcastManager localBroadcastManager, localBroadcastManager2;
@@ -167,13 +172,21 @@ public class Overlays extends Fragment {
     public String type1c = "";
     public String type2 = "";
     public String type3 = "";
-    public OverlayFunctions.Phase3_mainFunction phase3_mainFunction;
     public Boolean encrypted = false;
     public Cipher cipher = null;
     public RefreshReceiver refreshReceiver;
     public ActivityManager am;
     public boolean decryptedAssetsExceptionReached;
     public int overlaysWaiting = 0;
+    private CompileDialogThread compileDialogThread = null;
+    private TextView messageText = null;
+    private ProgressDialog pDialog = null;
+    private Context mContext;
+    private String action;
+    private Handler mHandler = new Handler();
+
+    public Overlays() {
+    }
 
     protected void logTypes() {
         if (ENABLE_PACKAGE_LOGGING) {
@@ -185,13 +198,13 @@ public class Overlays extends Fragment {
         }
     }
 
-    protected View getActivityView() {
+    public View getActivityView() {
         return ((ViewGroup) getActivity().findViewById(android.R.id.content)).getChildAt(0);
     }
 
     public void startCompileEnableMode() {
-        if (!is_active) {
-            is_active = true;
+        if (!is_overlay_active) {
+            is_overlay_active = true;
             compile_enable_mode = true;
             enable_mode = false;
             disable_mode = false;
@@ -206,8 +219,7 @@ public class Overlays extends Fragment {
                 }
             }
             if (!checkedOverlays.isEmpty()) {
-                OverlayFunctions.Phase2_InitializeCache phase2 = new OverlayFunctions
-                        .Phase2_InitializeCache(this);
+                getThemeCache phase2 = new getThemeCache(this);
                 if (base_spinner.getSelectedItemPosition() != 0 &&
                         base_spinner.getVisibility() == View.VISIBLE) {
                     phase2.execute(base_spinner.getSelectedItem().toString());
@@ -221,7 +233,7 @@ public class Overlays extends Fragment {
                 }
             } else {
                 if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                is_active = false;
+                is_overlay_active = false;
                 currentShownLunchBar = Lunchbar.make(
                         getActivityView(),
                         R.string.toast_disabled5,
@@ -232,8 +244,8 @@ public class Overlays extends Fragment {
     }
 
     public void startCompileUpdateMode() {
-        if (!is_active) {
-            is_active = true;
+        if (!is_overlay_active) {
+            is_overlay_active = true;
             compile_enable_mode = false;
 
             overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
@@ -247,8 +259,7 @@ public class Overlays extends Fragment {
             }
 
             if (!checkedOverlays.isEmpty()) {
-                OverlayFunctions.Phase2_InitializeCache phase2 = new OverlayFunctions
-                        .Phase2_InitializeCache(this);
+                getThemeCache phase2 = new getThemeCache(this);
                 if (base_spinner.getSelectedItemPosition() != 0 &&
                         base_spinner.getVisibility() == View.VISIBLE) {
                     phase2.execute(base_spinner.getSelectedItem().toString());
@@ -262,7 +273,7 @@ public class Overlays extends Fragment {
                 }
             } else {
                 if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                is_active = false;
+                is_overlay_active = false;
                 currentShownLunchBar = Lunchbar.make(
                         getActivityView(),
                         R.string.toast_disabled5,
@@ -273,8 +284,8 @@ public class Overlays extends Fragment {
     }
 
     public void startDisable() {
-        if (!is_active) {
-            is_active = true;
+        if (!is_overlay_active) {
+            is_overlay_active = true;
 
             overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
             checkedOverlays = new ArrayList<>();
@@ -294,8 +305,7 @@ public class Overlays extends Fragment {
                     }
                 }
                 if (!checkedOverlays.isEmpty()) {
-                    OverlayFunctions.Phase2_InitializeCache phase2 = new OverlayFunctions
-                            .Phase2_InitializeCache(this);
+                    getThemeCache phase2 = new getThemeCache(this);
                     if (base_spinner.getSelectedItemPosition() != 0 &&
                             base_spinner.getVisibility() == View.VISIBLE) {
                         phase2.execute(base_spinner.getSelectedItem().toString());
@@ -309,7 +319,7 @@ public class Overlays extends Fragment {
                     }
                 } else {
                     if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                    is_active = false;
+                    is_overlay_active = false;
                     currentShownLunchBar = Lunchbar.make(
                             getActivityView(),
                             R.string.toast_disabled5,
@@ -395,22 +405,22 @@ public class Overlays extends Fragment {
                     }
                 } else {
                     if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                    is_active = false;
+                    is_overlay_active = false;
                     currentShownLunchBar = Lunchbar.make(
                             getActivityView(),
                             R.string.toast_disabled5,
                             Lunchbar.LENGTH_LONG);
                     currentShownLunchBar.show();
                 }
-                is_active = false;
+                is_overlay_active = false;
                 disable_mode = false;
             }
         }
     }
 
     public void startEnable() {
-        if (!is_active) {
-            is_active = true;
+        if (!is_overlay_active) {
+            is_overlay_active = true;
             compile_enable_mode = false;
             enable_mode = true;
             disable_mode = false;
@@ -428,8 +438,7 @@ public class Overlays extends Fragment {
                 }
             }
             if (!checkedOverlays.isEmpty()) {
-                OverlayFunctions.Phase2_InitializeCache phase2 = new OverlayFunctions
-                        .Phase2_InitializeCache(this);
+                getThemeCache phase2 = new getThemeCache(this);
                 if (base_spinner.getSelectedItemPosition() != 0 &&
                         base_spinner.getVisibility() == View.VISIBLE) {
                     phase2.execute(base_spinner.getSelectedItem().toString());
@@ -444,7 +453,7 @@ public class Overlays extends Fragment {
                 }
             } else {
                 if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                is_active = false;
+                is_overlay_active = false;
                 currentShownLunchBar = Lunchbar.make(
                         getActivityView(),
                         R.string.toast_disabled5,
@@ -1527,7 +1536,7 @@ public class Overlays extends Fragment {
         }
     }
 
-    protected class JobReceiver extends BroadcastReceiver {
+    class JobReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (!isAdded()) return;

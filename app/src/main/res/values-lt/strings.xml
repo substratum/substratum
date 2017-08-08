@@ -184,7 +184,6 @@
     <string name="manage_wallpaper_home_toast">Pagrindinio ekrano fonas atkurtas sėkmingai!</string>
     <string name="manage_wallpaper_lock_toast">Užrakinimo ekrano fonas atkurtas sėkmingai!</string>
     <string name="manage_wallpaper_all_toast">Fonas atkurtas sėkmingai!</string>
-    <string name="manage_icons_title">Atkurti Sistemos Piktogramas</string>
     <string name="adapter_uninstalling">Dabar pašalinama %s&#8230;</string>
     <string name="plugin_template">Įskiepis</string>
     <string name="api_21">\"Lollipop\"</string>

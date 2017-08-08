@@ -31,10 +31,6 @@
             layout="@layout/restore_overlay"/>
 
         <include
-            android:id="@+id/restore_icons_card"
-            layout="@layout/restore_icons"/>
-
-        <include
             android:id="@+id/restore_bootanimation_card"
             layout="@layout/restore_bootanimation"/>
 

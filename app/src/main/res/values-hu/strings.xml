@@ -231,7 +231,6 @@
     <string name="manage_wallpaper_home_toast">Kezdőképernyő háttérkép sikeresen visszaállítva!</string>
     <string name="manage_wallpaper_lock_toast">Zárképernyő háttérkép sikeresen visszaállítva!</string>
     <string name="manage_wallpaper_all_toast">Háttérkép sikeresen visszaállítva!</string>
-    <string name="manage_icons_title">Rendszerikonok visszaállítása</string>
     <string name="adapter_uninstalling">%s eltávolítása folyamatban&#8230;</string>
     <string name="plugin_template">Beépülő</string>
     <string name="api_21">Lollipop</string>

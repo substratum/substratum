@@ -166,7 +166,6 @@
     <string name="manage_wallpaper_home_toast">Шпалеры хатняга экрана адноўлены!</string>
     <string name="manage_wallpaper_lock_toast">Шпалеры экрана блакавання адноўлены!</string>
     <string name="manage_wallpaper_all_toast">Шпалеры адноўлены!</string>
-    <string name="manage_icons_title">Аднавіць сістэмныя цэтлікі</string>
     <string name="adapter_uninstalling">Выдаленне %s&#8230;</string>
     <string name="plugin_template">Плагін</string>
     <string name="api_21">Lollipop</string>

@@ -185,7 +185,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="manage_wallpaper_home_toast">Tapeta domácí obrazovky úspěšně obnovena!</string>
     <string name="manage_wallpaper_lock_toast">Tapeta zamykací obrazovky úspěšně obnovena!</string>
     <string name="manage_wallpaper_all_toast">Tapeta byla úspěšně obnovena!</string>
-    <string name="manage_icons_title">Obnovit systémové ikony</string>
     <string name="adapter_uninstalling">Odstraňování %s&#8230;</string>
     <string name="plugin_template">Plugin</string>
     <string name="api_21">Lollipop</string>

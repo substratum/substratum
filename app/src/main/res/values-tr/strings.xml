@@ -237,7 +237,6 @@ bu sorunu
     <string name="manage_wallpaper_home_toast">Ana ekran duvar kağıdını geri yükleme başarılı!</string>
     <string name="manage_wallpaper_lock_toast">Kilit ekranı duvar kağıdını geri yükleme başarılı!</string>
     <string name="manage_wallpaper_all_toast">Duvar kağıdı geri yükleme başarılı!</string>
-    <string name="manage_icons_title">Sistem Simgelerini Geri Yükle</string>
     <string name="adapter_uninstalling">%s kaldırılıyor&#8230;</string>
     <string name="plugin_template">Eklenti</string>
     <string name="api_21">Lolipop</string>

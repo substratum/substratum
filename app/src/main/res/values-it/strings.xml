@@ -165,7 +165,6 @@
     <string name="manage_wallpaper_home_toast">Sfondo della schermata home ripristinato con successo!</string>
     <string name="manage_wallpaper_lock_toast">Sfondo della schermata di blocco ripristinato con successo!</string>
     <string name="manage_wallpaper_all_toast">Sfondo ripristinato con successo!</string>
-    <string name="manage_icons_title">Ripristinare le icone di sistema</string>
     <string name="adapter_uninstalling">Rimozione %s&#8230;</string>
     <string name="plugin_template">Plugin</string>
     <string name="api_21">Lollipop</string>

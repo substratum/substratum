@@ -165,7 +165,6 @@
     <string name="manage_wallpaper_home_toast">Thuisscherm achtergrond succesvol herstelt!</string>
     <string name="manage_wallpaper_lock_toast">Vergrendelscherm achtergrond succesvol herstelt!</string>
     <string name="manage_wallpaper_all_toast">Achtergrond succesvol herstelt!</string>
-    <string name="manage_icons_title">Systeempictogrammen Herstellen</string>
     <string name="adapter_uninstalling">%s verwijderen&#8230;</string>
     <string name="plugin_template">Plug-in</string>
     <string name="api_21">Lollipop</string>

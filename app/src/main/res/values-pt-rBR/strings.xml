@@ -193,7 +193,6 @@ corretamente&#8230;</string>
     <string name="manage_wallpaper_home_toast">Papel de parede da tela de início restaurado com sucesso!</string>
     <string name="manage_wallpaper_lock_toast">Papel de parede da tela de bloqueio restaurado com sucesso!</string>
     <string name="manage_wallpaper_all_toast">Papel de parede restaurado com sucesso!</string>
-    <string name="manage_icons_title">Restaurar Ícones do Sistema</string>
     <string name="adapter_uninstalling">Removendo agora %s&#8230;</string>
     <string name="plugin_template">Plugin</string>
     <string name="api_21">Lollipop</string>

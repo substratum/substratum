@@ -170,7 +170,6 @@ eingerichtet&#8230;</string>
     <string name="manage_wallpaper_home_toast">Startbildschirm-Hintergrund erfolgreich wiederhergestellt!</string>
     <string name="manage_wallpaper_lock_toast">Sperrbildschirm-Hintergrund erfolgreich wiederhergestellt!</string>
     <string name="manage_wallpaper_all_toast">Hintergrund erfolgreich wiederhergestellt!</string>
-    <string name="manage_icons_title">System-Icons wiederherstellen</string>
     <string name="adapter_uninstalling">Entferne jetzt %s&#8230;</string>
     <string name="plugin_template">Plugin</string>
     <string name="api_21">Lollipop</string>

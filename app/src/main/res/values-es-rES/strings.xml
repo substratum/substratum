@@ -179,7 +179,6 @@ correctamente&#8230;</string>
     <string name="manage_wallpaper_home_toast">Fondo de pantalla de inicio restaurado completamente!</string>
     <string name="manage_wallpaper_lock_toast">Fondo de pantalla de bloqueo restaurado completamente!</string>
     <string name="manage_wallpaper_all_toast">Fondo de pantalla restaurado completamente!</string>
-    <string name="manage_icons_title">Restaurar Iconos del Sistema</string>
     <string name="adapter_uninstalling">Desinstalando %s&#8230;</string>
     <string name="plugin_template">Plugin</string>
     <string name="api_21">Lollipop</string>

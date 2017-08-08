@@ -166,7 +166,6 @@
     <string name="manage_wallpaper_home_toast">Обои домашнего экрана восстановлены!</string>
     <string name="manage_wallpaper_lock_toast">Обои экрана блокировки восстановлены!</string>
     <string name="manage_wallpaper_all_toast">Обои восстановлены!</string>
-    <string name="manage_icons_title">Восстановить системные значки</string>
     <string name="adapter_uninstalling">Удаление %s&#8230;</string>
     <string name="plugin_template">Плагин</string>
     <string name="api_21">Lollipop</string>

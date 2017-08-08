@@ -167,7 +167,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="manage_wallpaper_home_toast">Tapeta ekranu głównego pomyślnie przywrócona!</string>
     <string name="manage_wallpaper_lock_toast">Tapeta ekranu blokady pomyślnie przywrócona!</string>
     <string name="manage_wallpaper_all_toast">Tapeta pomyślnie przywrócona!</string>
-    <string name="manage_icons_title">Przywróć domyślne ikony</string>
     <string name="adapter_uninstalling">Usuwanie %s...</string>
     <string name="plugin_template">Wtyczka</string>
     <string name="api_21">Lollipop</string>

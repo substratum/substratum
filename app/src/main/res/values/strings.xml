@@ -296,7 +296,6 @@
     <string name="manage_wallpaper_home_toast">Home screen wallpaper restored successfully!</string>
     <string name="manage_wallpaper_lock_toast">Lock screen wallpaper restored successfully!</string>
     <string name="manage_wallpaper_all_toast">Wallpaper restored successfully!</string>
-    <string name="manage_icons_title">Restore System Icons</string>
 
     <string name="adapter_uninstalling">Now removing %s&#8230;</string>
 

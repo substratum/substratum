@@ -178,7 +178,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="manage_wallpaper_home_toast">Tapeta plochy bola úspešne obnovená!</string>
     <string name="manage_wallpaper_lock_toast">Tapeta obrazovky uzamknutia bola úspešne obnovená!</string>
     <string name="manage_wallpaper_all_toast">Tapeta bola úspešne obnovená!</string>
-    <string name="manage_icons_title">Obnoviť systémové ikony</string>
     <string name="adapter_uninstalling">Odstraňovanie %s&#8230;</string>
     <string name="plugin_template">Zásuvný modul</string>
     <string name="api_21">Lollipop</string>

@@ -170,7 +170,6 @@
     <string name="manage_wallpaper_home_toast">Fond d\'écran d\'accueil rétabli !</string>
     <string name="manage_wallpaper_lock_toast">Fond d\'écran de déverrouillage rétabli !</string>
     <string name="manage_wallpaper_all_toast">Fond d\'écran rétabli !</string>
-    <string name="manage_icons_title">Rétablir les icônes système</string>
     <string name="adapter_uninstalling">Désinstallation de %s en cours&#8230;</string>
     <string name="plugin_template">Extension</string>
     <string name="api_21">Lollipop</string>

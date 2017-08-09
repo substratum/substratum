@@ -140,7 +140,6 @@ dependencies {
     compile 'commons-io:commons-io:2.5'
     // APK Signer
     compile 'com.android.tools.build:apksig:2.5.0-alpha-preview-02'
-    compile "org.bouncycastle:bcprov-jdk16:1.45"
     // Loading
     compile 'me.zhanghai.android.materialprogressbar:library:1.4.1'
     // App Intro

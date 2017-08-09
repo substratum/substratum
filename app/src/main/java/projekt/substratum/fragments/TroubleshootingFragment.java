@@ -72,7 +72,7 @@ public class TroubleshootingFragment extends Fragment {
         super.onCreate(savedInstanceState);
         View root = inflater.inflate(R.layout.troubleshooting_fragment, container, false);
 
-        troubleshootListView = root.findViewById(R.id.troubleshoot_list_view);
+        troubleshootListView = (ListView) root.findViewById(R.id.troubleshoot_list_view);
 
         // Make sure troubleshootQuestions & troubleshootAnswers are of same
         // length and then assign adapter to listView

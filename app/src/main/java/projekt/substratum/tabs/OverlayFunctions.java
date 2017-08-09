@@ -44,6 +44,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.zeroturnaround.zip.commons.FileUtils;
@@ -142,10 +143,10 @@ public class OverlayFunctions {
 
                 final float radius = 5;
                 final View decorView = overlays.getActivity().getWindow().getDecorView();
-                final ViewGroup rootView = decorView.findViewById(android.R.id.content);
+                final ViewGroup rootView = (ViewGroup) decorView.findViewById(android.R.id.content);
                 final Drawable windowBackground = decorView.getBackground();
 
-                BlurView blurView = overlays.mProgressDialog.findViewById(R.id.blurView);
+                BlurView blurView = (BlurView) overlays.mProgressDialog.findViewById(R.id.blurView);
 
                 if (rootView != null) {
                     blurView.setupWith(rootView)
@@ -154,12 +155,12 @@ public class OverlayFunctions {
                             .blurRadius(radius);
                 }
 
-                overlays.dialogProgress = overlays.mProgressDialog.findViewById(R.id.loading_bar);
+                overlays.dialogProgress = (ProgressBar) overlays.mProgressDialog.findViewById(R.id.loading_bar);
                 overlays.dialogProgress.setProgressTintList(ColorStateList.valueOf(context.getColor(
                         R.color.compile_dialog_wave_color)));
                 overlays.dialogProgress.setIndeterminate(false);
 
-                overlays.loader_string = overlays.mProgressDialog.findViewById(R.id.title);
+                overlays.loader_string = (TextView) overlays.mProgressDialog.findViewById(R.id.title);
                 overlays.loader_string.setText(context.getResources().getString(
                         R.string.sb_phase_1_loader));
             }
@@ -263,7 +264,7 @@ public class OverlayFunctions {
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
             Overlays overlays = ref.get();
-            TextView textView = overlays.mProgressDialog.findViewById(R.id.current_object);
+            TextView textView = (TextView) overlays.mProgressDialog.findViewById(R.id.current_object);
             textView.setText(overlays.current_dialog_overlay);
             double progress = (overlays.current_amount / overlays.total_amount) * 100;
             overlays.dialogProgress.setProgress((int) progress, true);

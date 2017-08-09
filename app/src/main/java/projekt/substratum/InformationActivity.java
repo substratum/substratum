@@ -794,13 +794,13 @@ public class InformationActivity extends SubstratumActivity {
                 @SuppressLint("InflateParams")
                 View sheetView = getLayoutInflater().inflate(R.layout.changelog_sheet_dialog, null);
 
-                LinearLayout titleBox = sheetView.findViewById(R.id.title_box);
-                TextView title = titleBox.findViewById(R.id.title);
+                LinearLayout titleBox = (LinearLayout) sheetView.findViewById(R.id.title_box);
+                TextView title = (TextView) titleBox.findViewById(R.id.title);
                 String format_me = String.format(getString(R.string.changelog_title), theme_name);
                 title.setText(format_me);
 
-                LinearLayout textBox = sheetView.findViewById(R.id.text_box);
-                TextView text = textBox.findViewById(R.id.text);
+                LinearLayout textBox = (LinearLayout) sheetView.findViewById(R.id.text_box);
+                TextView text = (TextView) textBox.findViewById(R.id.text);
 
                 String[] changelog_parsing =
                         References.grabThemeChangelog(getApplicationContext(), theme_pid);
@@ -1090,7 +1090,7 @@ public class InformationActivity extends SubstratumActivity {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            kenBurnsView = findViewById(R.id.kenburnsView);
+            kenBurnsView = (KenBurnsView) findViewById(R.id.kenburnsView);
             if (heroImageBitmap != null) {
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 heroImageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);

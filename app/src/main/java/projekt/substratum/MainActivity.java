@@ -1189,8 +1189,8 @@ public class MainActivity extends SubstratumActivity implements
             SheetDialog sheetDialog = new SheetDialog(this);
             @SuppressLint("InflateParams")
             View sheetView = getLayoutInflater().inflate(R.layout.bottom_sheet_dialog, null);
-            LinearLayout hide = sheetView.findViewById(R.id.hide_outdated_themes);
-            LinearLayout show = sheetView.findViewById(R.id.show_outdated_themes);
+            LinearLayout hide = (LinearLayout) sheetView.findViewById(R.id.hide_outdated_themes);
+            LinearLayout show = (LinearLayout) sheetView.findViewById(R.id.show_outdated_themes);
             hide.setOnClickListener(v -> {
                 prefs.edit().putBoolean("display_old_themes", false).apply();
                 Intent intent = getIntent();
@@ -1240,7 +1240,7 @@ public class MainActivity extends SubstratumActivity implements
 
                 float radius = 5;
                 View decorView = activity.getWindow().getDecorView();
-                ViewGroup rootView = decorView.findViewById(android.R.id.content);
+                ViewGroup rootView = (ViewGroup) decorView.findViewById(android.R.id.content);
                 Drawable windowBackground = decorView.getBackground();
 
                 BlurView blurView = activity.mProgressDialog.findViewById(R.id.blurView);

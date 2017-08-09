@@ -63,7 +63,7 @@ public class SplashScreenActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splashscreen_layout);
 
-        materialProgressBar = findViewById(R.id.splash_progress);
+        materialProgressBar = (MaterialProgressBar) findViewById(R.id.splash_progress);
 
         Intent currentIntent = getIntent();
         Boolean first_run = currentIntent.getBooleanExtra("first_run", false);
@@ -75,7 +75,7 @@ public class SplashScreenActivity extends Activity {
             // set its background to our AnimationDrawable XML resource.
 
             try {
-                ImageView img = findViewById(R.id.splashscreen_image);
+                ImageView img = (ImageView) findViewById(R.id.splashscreen_image);
                 img.setImageDrawable(getDrawable(R.drawable.splashscreen_intro));
 
                 // Get the background, which has been compiled to an AnimationDrawable object.

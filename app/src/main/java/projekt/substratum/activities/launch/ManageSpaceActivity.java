@@ -47,6 +47,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
     private TextView logsCounter;
     private String callingPackage;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -18,7 +18,7 @@
 
 package projekt.substratum.tabs;
 
-import android.app.Activity;
+
 import android.app.ActivityManager;
 import android.app.Dialog;
 import android.app.NotificationManager;
@@ -106,6 +106,7 @@ import projekt.substratum.util.compilers.SubstratumBuilder;
 import projekt.substratum.util.files.MapUtils;
 import projekt.substratum.util.files.Root;
 
+import static android.content.Context.ACTIVITY_SERVICE;
 import static android.content.Context.CLIPBOARD_SERVICE;
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static projekt.substratum.InformationActivity.currentShownLunchBar;
@@ -477,7 +478,7 @@ public class Overlays extends Fragment {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.tab_overlays, container, false);
         prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-        am = (ActivityManager) getContext().getSystemService(Activity.ACTIVITY_SERVICE);
+        am = (ActivityManager) getContext().getSystemService(ACTIVITY_SERVICE);
 
         // Register the theme install receiver to auto refresh the fragment
         refreshReceiver = new RefreshReceiver();
@@ -525,30 +526,29 @@ public class Overlays extends Fragment {
 
         mixAndMatchMode = prefs.getBoolean("enable_swapping_overlays", false);
 
-        progressBar = root.findViewById(R.id.header_loading_bar);
+        progressBar = (ProgressBar) root.findViewById(R.id.header_loading_bar);
         progressBar.setVisibility(View.GONE);
 
-        materialProgressBar = root.findViewById(R.id.progress_bar_loader);
+        materialProgressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
 
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
-        mRecyclerView = root.findViewById(R.id.overlayRecyclerView);
+        mRecyclerView = (RecyclerView) root.findViewById(R.id.overlayRecyclerView);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         ArrayList<OverlaysItem> empty_array = new ArrayList<>();
         RecyclerView.Adapter empty_adapter = new OverlaysAdapter(empty_array);
         mRecyclerView.setAdapter(empty_adapter);
 
-        TextView toggle_all_overlays_text = root.findViewById(R.id.toggle_all_overlays_text);
+        TextView toggle_all_overlays_text = (TextView) root.findViewById(R.id.toggle_all_overlays_text);
         toggle_all_overlays_text.setVisibility(View.VISIBLE);
 
-        File work_area = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
-                EXTERNAL_STORAGE_CACHE);
+        File work_area = new File(EXTERNAL_STORAGE_CACHE);
         if (!work_area.exists() && work_area.mkdir()) {
             Log.d(TAG, "Updating the internal storage with proper file directories...");
         }
 
         // Adjust the behaviour of the mix and match toggle in the sheet
-        toggle_all = root.findViewById(R.id.toggle_all_overlays);
+        toggle_all = (Switch) root.findViewById(R.id.toggle_all_overlays);
         toggle_all.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> {
                     try {
@@ -564,7 +564,7 @@ public class Overlays extends Fragment {
                 });
 
         // Allow the user to toggle the select all switch by clicking on the bar above
-        RelativeLayout toggleZone = root.findViewById(R.id.toggle_zone);
+        RelativeLayout toggleZone = (RelativeLayout) root.findViewById(R.id.toggle_zone);
         toggleZone.setOnClickListener(v -> {
             try {
                 toggle_all.setChecked(!toggle_all.isChecked());
@@ -580,7 +580,7 @@ public class Overlays extends Fragment {
         });
 
         // Allow the user to swipe down to refresh the overlay list
-        swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
             for (int i = 0; i < overlaysLists.size(); i++) {
@@ -597,7 +597,7 @@ public class Overlays extends Fragment {
         /*
           PLUGIN TYPE 3: Parse each overlay folder to see if they have folder options
          */
-        base_spinner = root.findViewById(R.id.type3_spinner);
+        base_spinner = (Spinner) root.findViewById(R.id.type3_spinner);
         Overlays overlays = this;
         base_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -808,12 +808,12 @@ public class Overlays extends Fragment {
                     RecyclerView.LayoutParams.MATCH_PARENT,
                     RecyclerView.LayoutParams.WRAP_CONTENT);
 
-        TextView text = dialog.findViewById(R.id.textField);
+        TextView text = (TextView) dialog.findViewById(R.id.textField);
         text.setText(error_logs);
-        ImageButton confirm = dialog.findViewById(R.id.confirm);
+        ImageButton confirm = (ImageButton) dialog.findViewById(R.id.confirm);
         confirm.setOnClickListener(view -> dialog.dismiss());
 
-        ImageButton copy_clipboard = dialog.findViewById(R.id.copy_clipboard);
+        ImageButton copy_clipboard = (ImageButton) dialog.findViewById(R.id.copy_clipboard);
         copy_clipboard.setOnClickListener(v -> {
             ClipboardManager clipboard =
                     (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
@@ -829,7 +829,7 @@ public class Overlays extends Fragment {
             dialog.dismiss();
         });
 
-        ImageButton send = dialog.findViewById(R.id.send);
+        ImageButton send = (ImageButton) dialog.findViewById(R.id.send);
         send.setVisibility(View.GONE);
         if (References.getOverlayMetadata(context, theme_pid, metadataEmail) != null) {
             send.setVisibility(View.VISIBLE);
@@ -1134,7 +1134,7 @@ public class Overlays extends Fragment {
                 References.writeLogCharFile(themePid, attachment);
             } else {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd-HH:mm", Locale.US);
-                log = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                log = new File(EXTERNAL_STORAGE_CACHE +
                         "/theme_error-" + dateFormat.format(new Date()) + ".txt");
                 try (FileWriter fw = new FileWriter(log, false);
                      BufferedWriter out = new BufferedWriter(fw)) {

@@ -146,18 +146,18 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
 
         ViewHolder(View view) {
             super(view);
-            cardView = view.findViewById(R.id.theme_card);
-            themeName = view.findViewById(R.id.theme_name);
-            themeAuthor = view.findViewById(R.id.theme_author);
-            themePricing = view.findViewById(R.id.theme_pricing);
-            imageView = view.findViewById(R.id.theme_icon);
-            backgroundImageView = view.findViewById(R.id.background_image);
-            wallpaper = view.findViewById(R.id.theme_wallpapers);
-            sounds = view.findViewById(R.id.theme_sounds);
-            fonts = view.findViewById(R.id.theme_fonts);
-            bootanimations = view.findViewById(R.id.theme_bootanimations);
-            overlays = view.findViewById(R.id.theme_overlays);
-            installedOrNot = view.findViewById(R.id.themeinstalled);
+            cardView = (CardView) view.findViewById(R.id.theme_card);
+            themeName = (TextView) view.findViewById(R.id.theme_name);
+            themeAuthor = (TextView) view.findViewById(R.id.theme_author);
+            themePricing = (ImageView) view.findViewById(R.id.theme_pricing);
+            imageView = (ImageView) view.findViewById(R.id.theme_icon);
+            backgroundImageView = (ImageView) view.findViewById(R.id.background_image);
+            wallpaper = (ImageView) view.findViewById(R.id.theme_wallpapers);
+            sounds = (ImageView) view.findViewById(R.id.theme_sounds);
+            fonts = (ImageView) view.findViewById(R.id.theme_fonts);
+            bootanimations = (ImageView) view.findViewById(R.id.theme_bootanimations);
+            overlays = (ImageView) view.findViewById(R.id.theme_overlays);
+            installedOrNot = (TextView) view.findViewById(R.id.themeinstalled);
         }
     }
 }

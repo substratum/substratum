@@ -121,10 +121,10 @@ public class Fonts extends Fragment {
         }
 
         root = (ViewGroup) inflater.inflate(R.layout.tab_fonts, container, false);
-        progressBar = root.findViewById(R.id.progress_bar_loader);
-        defaults = root.findViewById(R.id.restore_to_default);
-        font_holder = root.findViewById(R.id.font_holder);
-        font_placeholder = root.findViewById(R.id.font_placeholder);
+        progressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
+        defaults = (RelativeLayout) root.findViewById(R.id.restore_to_default);
+        font_holder = (RelativeLayout) root.findViewById(R.id.font_holder);
+        font_placeholder = (RelativeLayout) root.findViewById(R.id.font_placeholder);
         prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 
         try {
@@ -147,7 +147,7 @@ public class Fonts extends Fragment {
 
             ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getActivity(),
                     android.R.layout.simple_spinner_dropdown_item, fonts);
-            fontSelector = root.findViewById(R.id.fontSelection);
+            fontSelector = (Spinner) root.findViewById(R.id.fontSelection);
             fontSelector.setAdapter(adapter1);
             fontSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -326,7 +326,7 @@ public class Fonts extends Fragment {
                 try {
                     Typeface normal_tf = Typeface.createFromFile(work_directory +
                             "Roboto-Regular.ttf");
-                    TextView normal = root.findViewById(R.id.text_normal);
+                    TextView normal = (TextView) root.findViewById(R.id.text_normal);
                     normal.setTypeface(normal_tf);
                 } catch (Exception e) {
                     Log.e(TAG, "Could not load font from directory for normal template." +
@@ -335,7 +335,7 @@ public class Fonts extends Fragment {
 
                 try {
                     Typeface bold_tf = Typeface.createFromFile(work_directory + "Roboto-Black.ttf");
-                    TextView normal_bold = root.findViewById(R.id.text_bold);
+                    TextView normal_bold = (TextView) root.findViewById(R.id.text_bold);
                     normal_bold.setTypeface(bold_tf);
                 } catch (Exception e) {
                     Log.e(TAG, "Could not load font from directory for normal-bold " +
@@ -345,7 +345,7 @@ public class Fonts extends Fragment {
                 try {
                     Typeface italics_tf = Typeface.createFromFile(work_directory + "Roboto-Italic" +
                             ".ttf");
-                    TextView italics = root.findViewById(R.id.text_normal_italics);
+                    TextView italics = (TextView) root.findViewById(R.id.text_normal_italics);
                     italics.setTypeface(italics_tf);
                 } catch (Exception e) {
                     Log.e(TAG, "Could not load font from directory for italic template." +
@@ -355,7 +355,7 @@ public class Fonts extends Fragment {
                 try {
                     Typeface italics_bold_tf = Typeface.createFromFile(work_directory +
                             "Roboto-BoldItalic.ttf");
-                    TextView italics_bold = root.findViewById(R.id.text_normal_bold_italics);
+                    TextView italics_bold = (TextView) root.findViewById(R.id.text_normal_bold_italics);
                     italics_bold.setTypeface(italics_bold_tf);
                 } catch (Exception e) {
                     Log.e(TAG, "Could not load font from directory for italic-bold " +

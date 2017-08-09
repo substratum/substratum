@@ -62,8 +62,8 @@ public class TroubleshootingAdapter extends BaseAdapter {
         if (inflater != null) {
             v = inflater.inflate(R.layout.troubleshooting_row, viewGroup, false);
 
-            TextView questionsTextView = v.findViewById(R.id.trouble_ques);
-            TextView answersTextView = v.findViewById(R.id.trouble_ans);
+            TextView questionsTextView = (TextView) v.findViewById(R.id.trouble_ques);
+            TextView answersTextView = (TextView) v.findViewById(R.id.trouble_ans);
 
             String question = getStringFromResource(tQues[i]);
             String answer = getStringFromResource(tAns[i]);

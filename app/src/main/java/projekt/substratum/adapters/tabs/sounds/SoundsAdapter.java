@@ -81,7 +81,7 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHold
 
         MyViewHolder(View view) {
             super(view);
-            title = view.findViewById(R.id.title);
+            title = (TextView) view.findViewById(R.id.title);
         }
     }
 }

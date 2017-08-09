@@ -483,4 +483,36 @@ public class FileOperations {
         }
         return false;
     }
+
+    public static void copyFromAsset(Context ctx, String fileName, String targetPath) {
+        InputStream in = null;
+        OutputStream out = null;
+        try() {
+            in = ctx.getAssets().open(fileName);
+
+            out = new FileOutputStream(targetPath);
+
+            byte[] buffer = new byte[1024];
+            int read;
+            while((read = in.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
+            }
+
+        } catch(IOException e) {
+            Log.e("tag", "Failed to copy asset file: ", e);
+        } finally {
+            try {
+                if (in != null) {
+                    in.close();
+                }
+
+                if (out != null) {
+                    out.flush();
+                    out.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

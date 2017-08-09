@@ -32,6 +32,7 @@ import java.io.OutputStream;
 import java.util.Arrays;
 
 import projekt.substratum.common.References;
+import projekt.substratum.common.commands.FileOperations;
 
 public class AOPTCheck {
 
@@ -73,12 +74,12 @@ public class AOPTCheck {
             String integrityCheck = prefs.getString("compiler", "aapt");
             try {
                 if (integrityCheck.equals("aopt")) {
-                    copyAOPT("aopt" + (architecture.equals("ARM64") ? "64" : ""));
+                    FileOperations.copyFromAsset(mContext,(architecture.equals("ARM64") ? "64" : ""),aoptPath);
                     Log.d(References.SUBSTRATUM_LOG,
                             "Android Overlay Packaging Tool (" + architecture + ") " +
                                     "has been added into the compiler directory.");
                 } else {
-                    copyAOPT("aapt");
+                    FileOperations.copyFromAsset(mContext,"aapt",aoptPath);
                     Log.d(References.SUBSTRATUM_LOG,
                             "Android Asset Packaging Tool (" + architecture + ") " +
                                     "has been added into the compiler directory.");
@@ -89,7 +90,7 @@ public class AOPTCheck {
         } else {
             // Take account for x86 devices
             try {
-                copyAOPT("aapt86");
+                FileOperations.copyFromAsset(mContext,"aapt86",aoptPath);
                 Log.d(References.SUBSTRATUM_LOG,
                         "Android Asset Packaging Tool (x86) " +
                                 "has been added into the compiler directory.");
@@ -97,24 +98,9 @@ public class AOPTCheck {
                 // Suppress warning
             }
         }
-    }
-
-    private void copyAOPT(String filename) {
-        AssetManager assetManager = mContext.getAssets();
-        try (InputStream in = assetManager.open(filename);
-             OutputStream out = new FileOutputStream(aoptPath)) {
-            byte[] buffer = new byte[1024];
-            int read;
-            while ((read = in.read(buffer)) != -1) {
-                out.write(buffer, 0, read);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         File f = new File(aoptPath);
         if (f.isFile()) {
-            boolean set = f.setExecutable(true, true);
-            if (!set) Log.e("AOPTCheck", "Could not set executable...");
+            if (!f.setExecutable(true, true)) Log.e("AOPTCheck", "Could not set executable...");
         }
     }
 }

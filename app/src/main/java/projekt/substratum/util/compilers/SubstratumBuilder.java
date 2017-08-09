@@ -30,18 +30,14 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
 import java.security.KeyStore;
 import java.security.PrivateKey;
-import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,7 +47,6 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.commands.CompilerCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
-import projekt.substratum.util.key.CertificateGenerator;
 
 import static projekt.substratum.common.References.BYPASS_SUBSTRATUM_BUILDER_DELETION;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
@@ -348,25 +343,8 @@ public class SubstratumBuilder {
                 char[] keyPass = "overlay".toCharArray();
 
                 if (!key.exists()) {
-                    Log.d(SUBSTRATUM_BUILDER, "generating new keystore...");
-                    // Generate private key
-                    KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
-                    keyGen.initialize(1024, SecureRandom.getInstance("SHA1PRNG"));
-                    KeyPair keyPair = keyGen.generateKeyPair();
-                    PrivateKey privateKey = keyPair.getPrivate();
-
-                    // Generate certificate
-                    X509Certificate[] chain = new X509Certificate[1];
-                    X509Certificate certificate =
-                            CertificateGenerator.generateX509Certificate(keyPair);
-                    chain[0] = certificate;
-
-                    // Store new keystore
-                    KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
-                    keyStore.load(null, null);
-                    keyStore.setKeyEntry("key", privateKey, keyPass, chain);
-                    keyStore.setCertificateEntry("cert", certificate);
-                    keyStore.store(new FileOutputStream(key), keyPass);
+                    Log.d(SUBSTRATUM_BUILDER, "Loading keystore...");
+                    FileOperations.copyFromAsset(context,"key",key.getAbsolutePath());
                 }
 
                 KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());

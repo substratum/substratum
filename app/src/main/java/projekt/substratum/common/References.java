@@ -204,7 +204,8 @@ public class References {
     public static final String showcaseOverlays = "overlays";
     public static final String showcaseSounds = "sounds";
     // These strings control the directories that Substratum uses
-    public static final String EXTERNAL_STORAGE_CACHE = "/.substratum/";
+    public static final String EXTERNAL_STORAGE_CACHE = Environment.getExternalStorageDirectory()
+            .getAbsolutePath() + "/.substratum/";
     public static final String SUBSTRATUM_BUILDER_CACHE = "/SubstratumBuilder/";
     // These strings control the legacy overlay location
     public static final String DATA_RESOURCE_DIR = "/data/resource-cache/";

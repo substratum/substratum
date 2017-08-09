@@ -401,8 +401,7 @@ public class BootAnimationUtils {
                 // Move created boot animation to working directory
                 FileOperations.move(mContext,
                         scaledBootAnimCheck.getAbsolutePath(),
-                        Environment.getExternalStorageDirectory().getAbsolutePath() +
-                                EXTERNAL_STORAGE_CACHE + "bootanimation.zip");
+                        EXTERNAL_STORAGE_CACHE + "bootanimation.zip");
 
                 // Inject backup script for encrypted legacy and encrypted OMS devices
                 if (!has_failed && (is_encrypted || !References.checkOMS(mContext))) {

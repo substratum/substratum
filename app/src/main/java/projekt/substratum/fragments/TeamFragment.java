@@ -153,7 +153,7 @@ public class TeamFragment extends Fragment {
             }
         });
 
-        CardView harsh_card = root.findViewById(R.id.harsh_card);
+        CardView harsh_card = (CardView) root.findViewById(R.id.harsh_card);
         harsh_card.setOnClickListener(v -> {
             try {
                 String playURL = getString(R.string.team_harsh_link);

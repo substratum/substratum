@@ -712,8 +712,7 @@ public class MainActivity extends SubstratumActivity implements
 
                         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
                             // permission already granted, allow the program to continue running
-                            File directory = new File(Environment.getExternalStorageDirectory()
-                                    .getAbsolutePath() + EXTERNAL_STORAGE_CACHE);
+                            File directory = new File(EXTERNAL_STORAGE_CACHE);
                             if (!directory.exists()) {
                                 Boolean made = directory.mkdirs();
                                 if (!made) Log.e(References.SUBSTRATUM_LOG,
@@ -1101,8 +1100,7 @@ public class MainActivity extends SubstratumActivity implements
                 if (grantResults.length > 0 &&
                         grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission already granted, allow the program to continue running
-                    File directory = new File(Environment.getExternalStorageDirectory()
-                            .getAbsolutePath() + EXTERNAL_STORAGE_CACHE);
+                    File directory = new File(EXTERNAL_STORAGE_CACHE);
                     if (directory.exists()) {
                         Boolean deleted = directory.delete();
                         if (!deleted) Log.e(References.SUBSTRATUM_LOG,

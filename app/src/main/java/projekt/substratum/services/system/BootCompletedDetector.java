@@ -42,8 +42,7 @@ public class BootCompletedDetector extends BroadcastReceiver {
 
     private void clearSubstratumCompileFolder(Context context) {
         File deleted = new File(
-                Environment.getExternalStorageDirectory().getAbsolutePath() +
-                        EXTERNAL_STORAGE_CACHE);
+                EXTERNAL_STORAGE_CACHE);
         FileOperations.delete(context, deleted.getAbsolutePath());
         if (!deleted.exists())
             Log.d(TAG,

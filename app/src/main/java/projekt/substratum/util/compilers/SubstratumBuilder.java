@@ -118,9 +118,7 @@ public class SubstratumBuilder {
                                String type2,
                                String type3,
                                String override_package) {
-        File checkCompileFolder = new File(
-                Environment.getExternalStorageDirectory().getAbsolutePath() +
-                        EXTERNAL_STORAGE_CACHE);
+        File checkCompileFolder = new File(EXTERNAL_STORAGE_CACHE);
         if (!checkCompileFolder.exists() && !checkCompileFolder.mkdirs()) {
             Log.e(SUBSTRATUM_BUILDER, "Could not create compilation folder on external storage...");
         }
@@ -336,15 +334,14 @@ public class SubstratumBuilder {
         if (!has_errored_out) {
             try {
                 // Delete the previous APK if it exists in the dashboard folder
-                FileOperations.delete(context, Environment.getExternalStorageDirectory()
-                        .getAbsolutePath() +
+                FileOperations.delete(context,
                         EXTERNAL_STORAGE_CACHE + overlay_package + "." + parse2_themeName +
                         "-signed.apk");
 
                 // Sign with the built-in test key/certificate.
                 String source = work_area + "/" + overlay_package + "." + parse2_themeName +
                         "-unsigned.apk";
-                String destination = Environment.getExternalStorageDirectory().getAbsolutePath() +
+                String destination =
                         EXTERNAL_STORAGE_CACHE + overlay_package + "." + parse2_themeName +
                         "-signed.apk";
 
@@ -419,9 +416,7 @@ public class SubstratumBuilder {
 
                 if (!special_snowflake) {
                     try {
-                        ThemeManager.installOverlay(context, Environment
-                                .getExternalStorageDirectory()
-                                .getAbsolutePath() + EXTERNAL_STORAGE_CACHE +
+                        ThemeManager.installOverlay(context, EXTERNAL_STORAGE_CACHE +
                                 overlay_package + "." + parse2_themeName + "-signed.apk");
                         Log.d(References.SUBSTRATUM_BUILDER, "Silently installing APK...");
                     } catch (Exception e) {
@@ -437,15 +432,11 @@ public class SubstratumBuilder {
                             "Returning compiled APK path for later installation...");
 
                     if (variant != null) {
-                        no_install = Environment
-                                .getExternalStorageDirectory()
-                                .getAbsolutePath() +
+                        no_install =
                                 EXTERNAL_STORAGE_CACHE + overlay_package + "." +
                                 parse2_themeName + "." + varianter + "-signed.apk";
                     } else {
-                        no_install = Environment
-                                .getExternalStorageDirectory()
-                                .getAbsolutePath() +
+                        no_install =
                                 EXTERNAL_STORAGE_CACHE + overlay_package + "." +
                                 parse2_themeName + "-signed.apk";
                     }
@@ -457,8 +448,7 @@ public class SubstratumBuilder {
                     Log.d(References.SUBSTRATUM_BUILDER,
                             "Requesting PackageManager to launch signed overlay APK for " +
                                     "Samsung environment...");
-                    no_install = Environment.getExternalStorageDirectory()
-                            .getAbsolutePath() + EXTERNAL_STORAGE_CACHE + overlay_package +
+                    no_install = EXTERNAL_STORAGE_CACHE + overlay_package +
                             "." + parse2_themeName + "-signed.apk";
                 } else {
                     // At this point, it is detected to be legacy mode and Substratum will push to
@@ -471,8 +461,7 @@ public class SubstratumBuilder {
                     // For Non-Nexus devices
                     if (!References.inNexusFilter()) {
                         FileOperations.createNewFolder(vendor_location);
-                        FileOperations.move(context, Environment.getExternalStorageDirectory()
-                                .getAbsolutePath() + EXTERNAL_STORAGE_CACHE + overlay_package +
+                        FileOperations.move(context, EXTERNAL_STORAGE_CACHE + overlay_package +
                                 "." + parse2_themeName + "-signed.apk", vendor_location +
                                 overlay_package + "." + parse2_themeName +
                                 (variant == null ? "" : "." + varianter) + ".apk");
@@ -489,15 +478,13 @@ public class SubstratumBuilder {
                             String android_overlay = vendor_partition + overlay_package + "."
                                     + parse2_themeName + (variant == null ? "" : "." + varianter) +
                                     ".apk";
-                            FileOperations.move(context, Environment.getExternalStorageDirectory()
-                                    .getAbsolutePath() + EXTERNAL_STORAGE_CACHE + overlay_package +
+                            FileOperations.move(context, EXTERNAL_STORAGE_CACHE + overlay_package +
                                     "." + parse2_themeName + "-signed.apk", android_overlay);
                         } else {
                             String overlay = vendor_symlink + overlay_package + "." +
                                     parse2_themeName + (variant == null ? "" : "." + varianter) +
                                     ".apk";
-                            FileOperations.move(context, Environment.getExternalStorageDirectory()
-                                    .getAbsolutePath() + EXTERNAL_STORAGE_CACHE + overlay_package +
+                            FileOperations.move(context, EXTERNAL_STORAGE_CACHE + overlay_package +
                                     "." + parse2_themeName + "-signed.apk", overlay);
                             FileOperations.symlink(overlay, vendor_partition);
                         }

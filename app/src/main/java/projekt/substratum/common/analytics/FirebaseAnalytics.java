@@ -88,38 +88,6 @@ public class FirebaseAnalytics {
         });
     }
 
-    @SuppressWarnings("unchecked")
-    public static void withdrawNames(Context context) {
-        DatabaseReference database = getDatabaseReference();
-        database.child("blacklisted").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                SharedPreferences.Editor editor = context
-                        .getSharedPreferences(NAMES_PREFS, Context.MODE_PRIVATE).edit();
-                editor.clear();
-                ArrayList<String> listOfPackages = new ArrayList<>();
-                Object dataValue = dataSnapshot.getValue();
-                if (dataValue != null) {
-                    String data = dataValue.toString();
-                    String[] dataArr = data.substring(1, data.length() - 1).split(",");
-                    for (String aDataArr : dataArr) {
-                        String entry = aDataArr.split("=")[1];
-                        listOfPackages.add(entry);
-                    }
-
-                    HashSet set = new HashSet();
-                    set.addAll(listOfPackages);
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
-                    editor.putStringSet(dateFormat.format(new Date()), set).apply();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-    }
-
     public static void withdrawSungstratumFingerprint(Context context, int version) {
         SharedPreferences prefs = context
                 .getSharedPreferences("substratum_state", Context.MODE_PRIVATE);

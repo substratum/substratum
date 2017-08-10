@@ -604,8 +604,9 @@ public class References {
     public static void setROMVersion(Context context, boolean force) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         if (!prefs.contains("build_date") || force) {
+            String prop = getProp("ro.build.date.utc");
             prefs.edit().putInt("build_date",
-                    Integer.parseInt(getProp("ro.build.date.utc")))
+                    (prop != null) ? Integer.parseInt(prop) : 0)
                     .apply();
         }
     }

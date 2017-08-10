@@ -34,7 +34,9 @@
 # OM Library
 -keep class android.content.** { *; }
 -keep class com.android.server.theme.** { *; }
--dontwarn android.os.ServiceManager
+-dontwarn android.os.**
+-dontwarn android.content.**
+-dontwarn com.android.server.theme.**
 
 # APK Signer
 -dontwarn sun.security.**

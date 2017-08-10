@@ -214,6 +214,7 @@ public class InformationActivity extends SubstratumActivity {
         Resources res;
         Drawable hero = null;
         try {
+            Log.d("SubstratumHeroImage", "Loading hero image from '" + package_name + "'...");
             res = getPackageManager().getResourcesForApplication(package_name);
             int resourceId = res.getIdentifier(package_name + ":drawable/heroimage", null, null);
             if (0 != resourceId) {

@@ -32,7 +32,8 @@
 -keep class com.wang.avi.indicators.** { *; }
 
 # OM Library
--keep class android.content.om.** { *; }
+-keep class android.content.** { *; }
+-keep class com.android.server.theme.** { *; }
 -dontwarn android.os.ServiceManager
 
 # APK Signer

@@ -215,7 +215,8 @@ public class Overlays extends Fragment {
                     phase2.execute("");
                 }
                 for (OverlaysItem overlay : checkedOverlays) {
-                    Log.d("OverlayTargetPackageKiller", "Killing package : " + overlay.getPackageName());
+                    Log.d("OverlayTargetPackageKiller", "Killing package : " + overlay
+                            .getPackageName());
                     am.killBackgroundProcesses(overlay.getPackageName());
                 }
             } else {
@@ -255,7 +256,8 @@ public class Overlays extends Fragment {
                     phase2.execute("");
                 }
                 for (OverlaysItem overlay : checkedOverlays) {
-                    Log.d("OverlayTargetPackageKiller", "Killing package : " + overlay.getPackageName());
+                    Log.d("OverlayTargetPackageKiller", "Killing package : " + overlay
+                            .getPackageName());
                     am.killBackgroundProcesses(overlay.getPackageName());
                 }
             } else {
@@ -301,7 +303,8 @@ public class Overlays extends Fragment {
                         phase2.execute("");
                     }
                     for (OverlaysItem overlay : checkedOverlays) {
-                        Log.d("OverlayTargetPackageKiller", "Killing package : " + overlay.getPackageName());
+                        Log.d("OverlayTargetPackageKiller", "Killing package : " + overlay
+                                .getPackageName());
                         am.killBackgroundProcesses(overlay.getPackageName());
                     }
                 } else {
@@ -435,7 +438,8 @@ public class Overlays extends Fragment {
                     phase2.execute("");
                 }
                 for (OverlaysItem overlay : checkedOverlays) {
-                    Log.d("OverlayTargetPackageKiller", "Killing package : " + overlay.getPackageName());
+                    Log.d("OverlayTargetPackageKiller", "Killing package : " + overlay
+                            .getPackageName());
                     am.killBackgroundProcesses(overlay.getPackageName());
                 }
             } else {
@@ -1108,6 +1112,7 @@ public class Overlays extends Fragment {
 
             String attachment = String.format(
                     contextRef.get().getString(R.string.logcat_attachment_body),
+                    themeName,
                     device,
                     rom_version,
                     String.valueOf(BuildConfig.VERSION_CODE),

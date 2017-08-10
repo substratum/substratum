@@ -800,7 +800,7 @@
     <!-- Resources -->
     <string name="nav_drawer_resources">Resources</string>
     <string name="nav_drawer_homepage">Official homepage</string>
-    <string name="homepage_link" translatable="false">https://substratum.github.io/home/</string>
+    <string name="homepage_link" translatable="false">http://projektsubstratum.com/</string>
     <string name="nav_drawer_template">Theme Template (Themers)</string>
     <string name="template_link" translatable="false">https://github.com/substratum/template</string>
     <string name="nav_drawer_gerrit">Platform &amp; exposures Gerrit</string>

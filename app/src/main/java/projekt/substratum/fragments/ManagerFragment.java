@@ -260,7 +260,7 @@ public class ManagerFragment extends Fragment {
                     new RunUninstall(ManagerFragment.this).execute());
 
         if (!References.isSamsung(context)
-                || !References.checkThemeInterfacer(context)
+                && !References.checkOMS(context)
                         && !prefs.getBoolean("seen_legacy_warning", false))
             new AlertDialog.Builder(context)
                     .setNeutralButton(R.string.dialog_ok, (dialogInterface, i) -> {

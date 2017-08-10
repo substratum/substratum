@@ -30,9 +30,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.VectorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -169,15 +166,8 @@ public class PackageModificationDetector extends BroadcastReceiver {
                 Log.d(TAG, "'" + package_name +
                         "' has been updated with caching mode disabled.");
 
-                Drawable icon = References.grabAppIcon(context, package_name);
-                Bitmap bitmap = null;
-                if (icon instanceof VectorDrawable) {
-                    bitmap = References.getBitmapFromVector(icon);
-                } else if (icon instanceof BitmapDrawable) {
-                    bitmap = ((BitmapDrawable) icon).getBitmap();
-                } else if (icon instanceof ShapeDrawable){
-                    bitmap = ((BitmapDrawable) icon).getBitmap();
-                }
+                Bitmap bitmap = References.getBitmapFromDrawable(
+                        References.grabAppIcon(context, package_name));
 
                 new NotificationCreator(
                         context,

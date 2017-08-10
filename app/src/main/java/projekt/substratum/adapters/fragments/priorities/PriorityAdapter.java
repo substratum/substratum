@@ -22,9 +22,6 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.VectorDrawable;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.text.Html;
@@ -269,13 +266,8 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
 
                 // Grab app icon from PackageInstaller and convert it to a BitmapDrawable in bytes
                 if (prioritiesItem.getBitmapId() == null) {
-                    Bitmap bitmap = null;
-                    Drawable icon = prioritiesItem.getDrawableId();
-                    if (icon instanceof VectorDrawable) {
-                        bitmap = References.getBitmapFromVector(icon);
-                    } else if (icon instanceof BitmapDrawable) {
-                        bitmap = ((BitmapDrawable) icon).getBitmap();
-                    }
+                    Bitmap bitmap = References.getBitmapFromDrawable(
+                            prioritiesItem.getDrawableId());
 
                     try (ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
                         assert bitmap != null;

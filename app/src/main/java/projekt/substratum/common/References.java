@@ -44,6 +44,8 @@ import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.VectorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -847,6 +849,17 @@ public class References {
         Canvas canvas = new Canvas(bitmap);
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);
+        return bitmap;
+    }
+
+    public static Bitmap getBitmapFromDrawable(Drawable drawable){
+        Bitmap bitmap = null;
+        if (drawable instanceof VectorDrawable) {
+            bitmap = References.getBitmapFromVector(drawable);
+        } else if (drawable instanceof BitmapDrawable
+                | drawable instanceof ShapeDrawable) {
+            bitmap = ((BitmapDrawable) drawable).getBitmap();
+        }
         return bitmap;
     }
 

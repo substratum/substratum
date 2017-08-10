@@ -481,10 +481,12 @@ public class OverlayUpdater extends BroadcastReceiver {
                     );
                     if (sb.has_errored_out) errored_packages.add(installed_overlays.get(i));
 
-                    try {
-                        localBroadcastManager.unregisterReceiver(keyRetrieval);
-                    } catch (IllegalArgumentException e) {
-                        // Unregistered already
+                    if (encrypted) {
+                        try {
+                            localBroadcastManager.unregisterReceiver(keyRetrieval);
+                        } catch (IllegalArgumentException e) {
+                            // Unregistered already
+                        }
                     }
                 }
             }

@@ -61,10 +61,6 @@ public class FileOperations {
                 "--bind name:s:" + topic + " --bind value:s:" + fileName);
     }
 
-    public static void grantPermission(final String packager, final String permission) {
-        Root.runCommand("pm grant " + packager + " " + permission);
-    }
-
     public static void setContext(final String foldername) {
         Root.runCommand("chcon -R u:object_r:system_file:s0 " + foldername);
     }
@@ -487,7 +483,7 @@ public class FileOperations {
     public static void copyFromAsset(Context ctx, String fileName, String targetPath) {
         InputStream in = null;
         OutputStream out = null;
-        try() {
+        try {
             in = ctx.getAssets().open(fileName);
 
             out = new FileOutputStream(targetPath);

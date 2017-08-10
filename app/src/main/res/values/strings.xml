@@ -673,6 +673,8 @@
     <string name="settings_auto_updater_title">Automatically update target overlays</string>
     <string name="settings_auto_updater_text">Substratum will automatically build, compile and install an updated version of all overlays for the recently updated apps. Keeping this disabled will save battery.</string>
 
+    <string name="beta_tag">★ BETA</string>
+
     <string name="settings_theme_auto_updater_title">Automatically update theme overlays (BETA)</string>
     <string name="settings_theme_auto_updater_dialog_title">WARNING</string>
     <string name="settings_theme_auto_updater_text">Substratum will automatically build, compile and install an updated version of all overlays for the recently updated theme. Keeping this disabled will save battery.</string>

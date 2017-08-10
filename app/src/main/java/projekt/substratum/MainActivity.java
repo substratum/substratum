@@ -450,7 +450,8 @@ public class MainActivity extends SubstratumActivity implements
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_backup_restore)
                         .withIcon(R.drawable.nav_drawer_profiles)
-                        .withIdentifier(9));
+                        .withIdentifier(9)
+                        .withBadge(getString(R.string.beta_tag)));
         drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_manage)

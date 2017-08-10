@@ -95,17 +95,10 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import javax.security.auth.x500.X500Principal;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 import projekt.substratum.R;
 import projekt.substratum.activities.launch.AppShortcutLaunch;
@@ -125,6 +118,7 @@ import projekt.substratum.util.compilers.CacheCreator;
 import projekt.substratum.util.files.Root;
 import projekt.substratum.util.injectors.AOPTCheck;
 import projekt.substratum.util.readers.ReadSupportedROMsFile;
+import projekt.substratum.util.readers.ReadVariantPrioritizedColor;
 
 import static projekt.substratum.common.analytics.PackageAnalytics.PACKAGE_TAG;
 
@@ -1802,31 +1796,39 @@ public class References {
     public static String getOverlayResource(InputStream overlay) {
         String hex = null;
 
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(overlay))) {
-            // Find the name of the top most color in the file first.
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(overlay);
-            doc.getDocumentElement().normalize();
-            NodeList nList = doc.getElementsByTagName("color");
-            Node nNode = nList.item(0);
-            Element eElement = (Element) nNode;
-            String resource_name = eElement.getAttributes().item(0).getNodeValue();
-
-            if (resource_name != null) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    if (line.contains("\"" + resource_name + "\"")) {
-                        String[] split = line.substring(line.lastIndexOf("\">") + 2).split("<");
-                        hex = split[0];
-                        if (hex.startsWith("?")) hex = "#00000000";
-                    }
-                }
-            }
-        } catch (Exception e) {
-            Log.e(SUBSTRATUM_LOG, "Unable to find resources in this overlay!");
+        // Try to clone the InputStream (WARNING: Might be an ugly hek)
+        byte[] byteArray;
+        try {
+            byteArray = IOUtils.toByteArray(overlay);
+        } catch (IOException e) {
+            Log.e(SUBSTRATUM_LOG, "Unable to clone InputStream");
+            return null;
         }
 
+        try (
+                InputStream clone1 = new ByteArrayInputStream(byteArray);
+                InputStream clone2 = new ByteArrayInputStream(byteArray)
+        ) {
+            // Find the name of the top most color in the file first.
+            String resource_name = new ReadVariantPrioritizedColor(clone1).run();
+
+            if (resource_name != null) {
+                try (BufferedReader br = new BufferedReader(new InputStreamReader(clone2))) {
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        if (line.contains("\"" + resource_name + "\"")) {
+                            String[] split = line.substring(line.lastIndexOf("\">") + 2).split("<");
+                            hex = split[0];
+                            if (hex.startsWith("?")) hex = "#00000000";
+                        }
+                    }
+                } catch (IOException ioe) {
+                    Log.e(SUBSTRATUM_LOG, "Unable to find " + resource_name + " in this overlay!");
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return hex;
     }
 

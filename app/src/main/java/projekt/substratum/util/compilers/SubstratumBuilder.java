@@ -19,6 +19,7 @@
 package projekt.substratum.util.compilers;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -190,27 +191,25 @@ public class SubstratumBuilder {
             targetPackage = "com.android.systemui";
         }
 
-        int legacy_priority = References.DEFAULT_PRIORITY;
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        int legacy_priority = prefs.getInt("legacy_overlay_priority", References.DEFAULT_PRIORITY);
         if (!References.checkOMS(context)) {
             File work_area_array = new File(work_area);
 
             if (Arrays.asList(work_area_array.list()).contains("priority")) {
                 Log.d(References.SUBSTRATUM_BUILDER,
                         "A specified priority file has been found for this overlay!");
-                try (
-                        BufferedReader reader = new BufferedReader(
-                                new InputStreamReader(new FileInputStream(
-                                        new File(work_area_array.getAbsolutePath() + "/priority")
-                                )))
-                ) {
+                try (BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(new FileInputStream(
+                                new File(work_area_array.getAbsolutePath() + "/priority")
+                        )))) {
                     legacy_priority = Integer.parseInt(reader.readLine());
                 } catch (IOException e) {
                     dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
                             "There was an error parsing priority file!");
-                    legacy_priority = References.DEFAULT_PRIORITY;
+                    legacy_priority =
+                            prefs.getInt("legacy_overlay_priority", References.DEFAULT_PRIORITY);
                 }
-            } else {
-                legacy_priority = References.DEFAULT_PRIORITY;
             }
             Log.d(References.SUBSTRATUM_BUILDER,
                     "The priority for this overlay is " + legacy_priority);

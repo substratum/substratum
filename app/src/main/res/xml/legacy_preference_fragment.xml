@@ -78,6 +78,13 @@
         <Preference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:key="legacy_priority_switcher"
+            android:summary="@string/legacy_preference_priority_text"
+            android:title="@string/legacy_preference_priority_title"/>
+
+        <Preference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:key="aopt_switcher"
             android:summary="@string/settings_aapt"
             android:title="@string/settings_aopt_switcher_title"/>

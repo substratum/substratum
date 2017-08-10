@@ -49,6 +49,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import java.io.File;
@@ -639,6 +640,47 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         return false;
                     }
                 });
+
+
+        if (!References.checkOMS(getContext())) {
+            Preference priority_switcher =
+                    getPreferenceManager().findPreference("legacy_priority_switcher");
+            String formatted =
+                    String.format(getString(R.string.legacy_preference_priority_text),
+                            prefs.getInt("legacy_overlay_priority", References.DEFAULT_PRIORITY));
+            priority_switcher.setSummary(formatted);
+            priority_switcher.setOnPreferenceClickListener(
+                    preference -> {
+                        AlertDialog.Builder d = new AlertDialog.Builder(getContext());
+                        d.setTitle(getString(R.string.legacy_preference_priority_title));
+
+                        NumberPicker numberPicker = new NumberPicker(getContext());
+                        // Maximum overlay priority count
+                        numberPicker.setMaxValue(255);
+                        // Minimum overlay priority count
+                        numberPicker.setMinValue(1);
+                        // Set the value to the current chosen priority by the user
+                        numberPicker.setValue(prefs.getInt("legacy_overlay_priority",
+                                References.DEFAULT_PRIORITY));
+                        // Do not wrap selector wheel
+                        numberPicker.setWrapSelectorWheel(false);
+
+                        d.setView(numberPicker);
+                        d.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
+                            Integer new_priority = numberPicker.getValue();
+                            prefs.edit().putInt(
+                                    "legacy_overlay_priority", new_priority).apply();
+                            priority_switcher.setSummary(
+                                    String.format(
+                                            getString(R.string.legacy_preference_priority_text),
+                                            new_priority));
+                        });
+                        d.setNegativeButton(android.R.string.cancel, (dialogInterface, i) ->
+                                dialogInterface.cancel());
+                        d.show();
+                        return false;
+                    });
+        }
 
         // Finally, these functions will only work on OMS ROMs
         if (References.checkOMS(getContext())) {

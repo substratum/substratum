@@ -1796,7 +1796,8 @@ public class References {
     public static String getOverlayResource(InputStream overlay) {
         String hex = null;
 
-        // Try to clone the InputStream (WARNING: Might be an ugly hek)
+        // We need to clone the InputStream so that we can ensure that the name and color are
+        // mutually exclusive
         byte[] byteArray;
         try {
             byteArray = IOUtils.toByteArray(overlay);
@@ -1805,10 +1806,8 @@ public class References {
             return null;
         }
 
-        try (
-                InputStream clone1 = new ByteArrayInputStream(byteArray);
-                InputStream clone2 = new ByteArrayInputStream(byteArray)
-        ) {
+        try (InputStream clone1 = new ByteArrayInputStream(byteArray);
+             InputStream clone2 = new ByteArrayInputStream(byteArray)) {
             // Find the name of the top most color in the file first.
             String resource_name = new ReadVariantPrioritizedColor(clone1).run();
 

@@ -545,7 +545,7 @@
     <string name="alternate_drawer_design_title">Secondary Drawer Design</string>
     <string name="alternate_drawer_design_subtext">Uses an alternate navigation drawer design when navigating through the user interface.</string>
     <string name="logchar_autosave_title">Automatically save LogChar reports</string>
-    <string name="logchar_autosave_subtext">This will automatically save LogChar reports in /storage/emulated/0/substratum/LogChar Reports/.</string>
+    <string name="logchar_autosave_subtext">This will automatically save LogChar reports in /storage/emulated/0/substratum/LogCharReports/.</string>
 
     <string name="show_outdated_themes_title">Show all outdated themes</string>
     <string name="show_outdated_themes_content">Disabling this would allow Substratum to utilize

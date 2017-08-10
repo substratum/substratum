@@ -344,7 +344,7 @@ um das Problem zu beheben.    </string>
     <string name="alternate_drawer_design_title">Alternatives Drawer-Design</string>
     <string name="alternate_drawer_design_subtext">Verwendet eine alternative Version des Navigation-Drawers.</string>
     <string name="logchar_autosave_title">Speichere LogChar-Reports automatisch</string>
-    <string name="logchar_autosave_subtext">Dies wird automatisch einen LogChar-Report in /storage/emulated/0/substratum/LogChar Reports/ speichern.</string>
+    <string name="logchar_autosave_subtext">Dies wird automatisch einen LogChar-Report in /storage/emulated/0/substratum/LogCharReports/ speichern.</string>
     <string name="show_outdated_themes_title">Zeige alle veralteten Themes</string>
     <string name="show_outdated_themes_content">Das Deaktivieren dieser Option erlaubt Substratum den brandneuen Algorithmus zu benutzen der Themes viel schneller als sonst lädt. Das wird nur für konfigurierte 6.0.0+ plugin Themes funktionieren.</string>
     <string name="fab_menu_compile_enable">Kompilieren &amp; Aktivieren</string>

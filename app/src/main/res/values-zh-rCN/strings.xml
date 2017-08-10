@@ -335,7 +335,7 @@
     <string name="alternate_drawer_design_title">备用抽屉设计</string>
     <string name="alternate_drawer_design_subtext">浏览用户界面时使用备用导航抽屉设计</string>
     <string name="logchar_autosave_title">自动保存 LogChar 报告</string>
-    <string name="logchar_autosave_subtext">自动将 LogChar 报告保存在 /storage/emulated/0/substratum/LogChar Reports/ 中</string>
+    <string name="logchar_autosave_subtext">自动将 LogChar 报告保存在 /storage/emulated/0/substratum/LogCharReports/ 中</string>
     <string name="show_outdated_themes_title">显示所有旧版本主题</string>
     <string name="show_outdated_themes_content">禁用此项后 Substratum 将使用全新算法，主题加载速度会比平时更快。但只有在正确配置 6.0.0+ 插件时主题才会生效。</string>
     <string name="fab_menu_compile_enable">编译 &amp; 启用</string>

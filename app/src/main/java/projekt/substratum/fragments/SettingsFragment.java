@@ -611,7 +611,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                     delete(getContext(),
                                             new File(Environment.getExternalStorageDirectory() +
                                                     File.separator + "substratum" + File.separator +
-                                                    "LogChar Reports").getAbsolutePath());
+                                                    "LogCharReports").getAbsolutePath());
                                     autosave_logchar.setChecked(false);
                                 });
                         builder.show();

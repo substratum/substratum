@@ -374,7 +374,7 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="alternate_drawer_design_subtext">Použít alternativní vzhled menu, když se
  prochází uživatelským prostředím.</string>
     <string name="logchar_autosave_title">Automaticky ukládat hlášení LogChar</string>
-    <string name="logchar_autosave_subtext">Tím se automaticky uloží hlášení LogChar do /storage/emulated/0/substratum/LogChar Reports/.</string>
+    <string name="logchar_autosave_subtext">Tím se automaticky uloží hlášení LogChar do /storage/emulated/0/substratum/LogCharReports/.</string>
     <string name="show_outdated_themes_title">Zobrazit všechny neaktuální motivy</string>
     <string name="show_outdated_themes_content">Zakázání umožní Substratum použít zcela nový algoritmus, se kterým se motivy načítají mnohem rychleji než obvykle. Funguje pouze na správně nakonfigurovaných motivech se zásuvným modulem v6.0.0+.</string>
     <string name="fab_menu_compile_enable">Sestavit &amp; povolit</string>

@@ -74,8 +74,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
         CardView clearLogsButton = findViewById(R.id.clear_logs_button);
         logsCounter = findViewById(R.id.log_counter);
         logsCounter.setText(getString(R.string.clear_cache_button_loading));
-        File filer = new File(Environment.getExternalStorageDirectory() +
-                File.separator + "substratum" + File.separator + "LogChar Reports");
+        File filer = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/substratum" +  "/LogCharReports");
         if (filer.isDirectory()) {
             logsCounter.setText(String.valueOf(filer.list().length));
         } else {
@@ -151,7 +150,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             Context context = ref.get().getApplicationContext();
             delete(context, new File(Environment.getExternalStorageDirectory() +
-                    File.separator + "substratum" + File.separator + "LogChar Reports")
+                    File.separator + "substratum" + File.separator + "LogCharReports")
                     .getAbsolutePath());
             return null;
         }
@@ -161,7 +160,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
             ManageSpaceActivity activity = ref.get();
 
             File filer = new File(Environment.getExternalStorageDirectory() +
-                    File.separator + "substratum" + File.separator + "LogChar Reports");
+                    File.separator + "substratum" + File.separator + "LogCharReports");
             if (filer.isDirectory()) {
                 activity.logsCounter.setText(String.valueOf(filer.list().length));
             } else {

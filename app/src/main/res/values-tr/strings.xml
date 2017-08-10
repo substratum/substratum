@@ -450,7 +450,7 @@ sağlayan
     <string name="alternate_drawer_design_subtext">Kullanıcı arayüzü üzerinde gezinirken alternatif bir gezinme çekmecesi tasarımını kullanır.</string>
     <string name="logchar_autosave_title">LogChar raporlarını otomatik olarak kaydedin</string>
     <string name="logchar_autosave_subtext">LogChar raporlarını otomatik olarak
-/storage/emulated/0/substratum/LogChar Reports/ buraya kaydeder.</string>
+/storage/emulated/0/substratum/LogCharReports/ buraya kaydeder.</string>
     <string name="show_outdated_themes_title">Geçmişe ait tüm temaları göster</string>
     <string name="show_outdated_themes_content">Bunu devre dışı bırakmak Substratum\'un temaların
         her zamankinden daha hızlı yüklendiği yeni algoritmayı kullanmasına izin verecektir. Bu,

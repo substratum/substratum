@@ -1395,7 +1395,7 @@ public class MainActivity extends SubstratumActivity implements
         protected Void doInBackground(Void... params) {
             Context context = ref.get().getApplicationContext();
             delete(context, new File(Environment.getExternalStorageDirectory() +
-                    File.separator + "substratum" + File.separator + "LogChar Reports")
+                    File.separator + "substratum" + File.separator + "LogCharReports")
                     .getAbsolutePath());
             return null;
         }

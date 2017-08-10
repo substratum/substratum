@@ -360,7 +360,7 @@
     <string name="alternate_drawer_design_title">Antrinis Stalčiaus Dizainas</string>
     <string name="alternate_drawer_design_subtext">Naudoja alternatyvų navigacijos stalčiaus dizainą, kai naviguojama vartotojo sąsajoje.</string>
     <string name="logchar_autosave_title">Automatiškai išsaugoti \"LogChar\" ataskaitas</string>
-    <string name="logchar_autosave_subtext">Tai automatiškai išsaugos \"LogChar\" ataskaitas /storage/emulated/0/substratum/LogChar Reports/.</string>
+    <string name="logchar_autosave_subtext">Tai automatiškai išsaugos \"LogChar\" ataskaitas /storage/emulated/0/substratum/LogCharReports/.</string>
     <string name="show_outdated_themes_title">Rodyti visas pasenusias temas</string>
     <string name="show_outdated_themes_content">Tai išjungus leis \"Substratum\" panaudoti
         visiškai naują algoritmą ir temos bus užkrautos daug greičiau nei įprastai. Tai

@@ -1903,7 +1903,7 @@ public class References {
             String formattedDate = df.format(c.getTime());
 
             File logcharFolder = new File(Environment.getExternalStorageDirectory() +
-                    File.separator + "substratum" + File.separator + "LogChar Reports");
+                    File.separator + "substratum" + File.separator + "LogCharReports");
             if (!logcharFolder.exists() && logcharFolder.mkdirs()) {
                 Log.d("LogChar Utility", "Created LogChar directory!");
             }

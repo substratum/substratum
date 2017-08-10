@@ -345,7 +345,7 @@
     <string name="alternate_drawer_design_title">Альтэрнатыўнае меню</string>
     <string name="alternate_drawer_design_subtext">Выкарыстоўваць ранейшую навігацыйную панэль.</string>
     <string name="logchar_autosave_title">Аўтаматычна захоўваць справаздачы LogChar</string>
-    <string name="logchar_autosave_subtext">Гэта будзе аўтаматычна захоўваць справаздачы ў тэчку /storage/emulated/0/substratum/LogChar Reports/.</string>
+    <string name="logchar_autosave_subtext">Гэта будзе аўтаматычна захоўваць справаздачы ў тэчку /storage/emulated/0/substratum/LogCharReports/.</string>
     <string name="show_outdated_themes_title">Паказваць састарэлыя тэмы</string>
     <string name="show_outdated_themes_content">Адключэнне параметру дазволіць Substratum прымяняць новы алгарытм, з якім тэмы загружаюцца нашмат хутчэй, чым звычайна. Тычыцца толькі тэм, правільна наладжаных для плагіна 6.0.0+.</string>
     <string name="fab_menu_compile_enable">Сабраць і актываваць</string>

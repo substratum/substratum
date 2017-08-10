@@ -342,7 +342,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="alternate_drawer_design_title">Wygląd dodatkowej szuflady</string>
     <string name="alternate_drawer_design_subtext">Używaj alternatywnego modelu szuflady nawigacyjnej podczas żeglowania po interfejsie.</string>
     <string name="logchar_autosave_title">Automatyczne zapisywanie raportów LogChar</string>
-    <string name="logchar_autosave_subtext">Spowoduje to automatyczne zapisywanie raportów LogChar w / storage / emulated / 0 / substratum / LogChar Reports /.</string>
+    <string name="logchar_autosave_subtext">Spowoduje to automatyczne zapisywanie raportów LogChar w / storage / emulated / 0 / substratum / LogCharReports /.</string>
     <string name="show_outdated_themes_title">Pokaż wszystkie nieaktualne motywy</string>
     <string name="show_outdated_themes_content">Wyłączenie tego pozwoli Substratum użyć nowego algorytmu dla szybszej aktywacji motywów. Opcja ta zadziała jedynie dla poprawnie skonfigurowanych wtyczek motywów dla 6.0.0+.</string>
     <string name="fab_menu_compile_enable">Kompiluj i włącz</string>

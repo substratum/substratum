@@ -439,7 +439,7 @@
     <string name="alternate_drawer_design_title">Másodlagos Fiók Megjelenítés</string>
     <string name="alternate_drawer_design_subtext">Egy alternatív navigációs fiók megjelenítést használ, amikor a felhasználói felületen keresztül navigál.</string>
     <string name="logchar_autosave_title">Automatikusan mentse a LogChar jelentéseket</string>
-    <string name="logchar_autosave_subtext">Ez automatikusan menti a LogChar jelentéseket ide: /storage/emulated/0/substratum/LogChar Reports.</string>
+    <string name="logchar_autosave_subtext">Ez automatikusan menti a LogChar jelentéseket ide: /storage/emulated/0/substratum/LogCharReports.</string>
     <string name="show_outdated_themes_title">Összes elavult téma megjelenítése</string>
     <string name="show_outdated_themes_content">Azt letiltva lehetővé teszi a Substratum számára, hogy
         kihasználja az új algoritmust, mellyel a témák sokkal gyorsabban töltődnek be, mint máskor. Ez csak

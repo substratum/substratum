@@ -599,8 +599,9 @@ public class References {
         if (!prefs.contains("build_date")) {
             setROMVersion(context, false);
         }
+        String prop = getProp("ro.build.date.utc");
         return prefs.getInt("build_date", 0) ==
-                Integer.parseInt(getProp("ro.build.date.utc"));
+                ((prop != null && prop.length() > 0) ? Integer.parseInt(prop) : 0);
     }
 
     public static void setROMVersion(Context context, boolean force) {
@@ -608,7 +609,7 @@ public class References {
         if (!prefs.contains("build_date") || force) {
             String prop = getProp("ro.build.date.utc");
             prefs.edit().putInt("build_date",
-                    (prop != null) ? Integer.parseInt(prop) : 0)
+                    (prop != null && prop.length() > 0) ? Integer.parseInt(prop) : 0)
                     .apply();
         }
     }

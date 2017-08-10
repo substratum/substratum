@@ -22,23 +22,11 @@ import android.os.AsyncTask;
 
 import projekt.substratum.util.files.Root;
 
-import static projekt.substratum.common.References.INTERFACER_PACKAGE;
-
 public class ElevatedCommands {
-
-    // Run the specified commands in a root shell
-    public static void runCommands(final String commands) {
-        Root.runCommand(commands);
-    }
 
     // Reboot the device
     public static void reboot() {
         Root.runCommand("reboot");
-    }
-
-    // Kill the Theme Interface package to force it to restart
-    public static void restartInterfacer() {
-        Root.runCommand("pkill -f " + INTERFACER_PACKAGE);
     }
 
     // Kill zygote to force a soft rboot

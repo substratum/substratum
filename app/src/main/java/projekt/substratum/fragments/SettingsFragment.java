@@ -656,7 +656,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
                         NumberPicker numberPicker = new NumberPicker(getContext());
                         // Maximum overlay priority count
-                        numberPicker.setMaxValue(255);
+                        numberPicker.setMaxValue(999);
                         // Minimum overlay priority count
                         numberPicker.setMinValue(1);
                         // Set the value to the current chosen priority by the user

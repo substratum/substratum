@@ -336,26 +336,10 @@ public class ManagerFragment extends Fragment {
                 ArrayList<String> all_overlays;
 
                 if (References.checkOMS(fragment.context)) {
-                    ArrayList<String> active = new ArrayList<>(
+                    fragment.activated_overlays = new ArrayList<>(
                             ThemeManager.listOverlays(fragment.context, STATE_APPROVED_ENABLED));
-                    ArrayList<String> disabled = new ArrayList<>(
+                    disabled_overlays = new ArrayList<>(
                             ThemeManager.listOverlays(fragment.context, STATE_APPROVED_DISABLED));
-
-                    // ValidatorFilter out icon pack overlays from the advanced manager
-                    fragment.activated_overlays = new ArrayList<>();
-                    for (int i = 0; i < active.size(); i++) {
-                        if (!active.get(i).endsWith(".icon")) {
-                            fragment.activated_overlays.add(active.get(i));
-                        }
-                    }
-
-                    // ValidatorFilter out icon pack overlays from the advanced manager
-                    disabled_overlays = new ArrayList<>();
-                    for (int i = 0; i < disabled.size(); i++) {
-                        if (!disabled.get(i).endsWith(".icon")) {
-                            disabled_overlays.add(disabled.get(i));
-                        }
-                    }
 
                     if (fragment.prefs.getBoolean("manager_disabled_overlays", true)) {
                         all_overlays = new ArrayList<>(fragment.activated_overlays);

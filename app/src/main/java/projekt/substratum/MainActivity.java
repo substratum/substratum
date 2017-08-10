@@ -1112,7 +1112,7 @@ public class MainActivity extends SubstratumActivity implements
                         Boolean made = directory.mkdirs();
                         if (!made) Log.e(References.SUBSTRATUM_LOG,
                                 "Unable to create directory");
-                        } else {
+                    } else {
                         References.injectRescueArchives(getApplicationContext());
                         Log.d(References.SUBSTRATUM_LOG, "Successfully made dir: " + directory);
                     }

@@ -440,8 +440,10 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
             optionsSpinner2 = (Spinner) itemLayoutView.findViewById(R.id.optionsSpinner2);
             optionsSpinner3 = (Spinner) itemLayoutView.findViewById(R.id.optionsSpinner3);
             optionsSpinner4 = (Spinner) itemLayoutView.findViewById(R.id.optionsSpinner4);
-            overlayTargetPackageName = (TextView) itemLayoutView.findViewById(R.id.overlayTargetPackageName);
-            overlayTargetPackage = (TextView) itemLayoutView.findViewById(R.id.overlayTargetPackage);
+            overlayTargetPackageName = (TextView) itemLayoutView.findViewById(R.id
+                    .overlayTargetPackageName);
+            overlayTargetPackage = (TextView) itemLayoutView.findViewById(R.id
+                    .overlayTargetPackage);
         }
     }
 }

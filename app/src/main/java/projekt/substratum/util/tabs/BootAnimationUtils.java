@@ -25,7 +25,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Lunchbar;
 import android.util.DisplayMetrics;

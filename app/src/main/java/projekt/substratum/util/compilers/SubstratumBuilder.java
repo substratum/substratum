@@ -21,7 +21,6 @@ package projekt.substratum.util.compilers;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -336,14 +335,14 @@ public class SubstratumBuilder {
                 // Delete the previous APK if it exists in the dashboard folder
                 FileOperations.delete(context,
                         EXTERNAL_STORAGE_CACHE + overlay_package + "." + parse2_themeName +
-                        "-signed.apk");
+                                "-signed.apk");
 
                 // Sign with the built-in test key/certificate.
                 String source = work_area + "/" + overlay_package + "." + parse2_themeName +
                         "-unsigned.apk";
                 String destination =
                         EXTERNAL_STORAGE_CACHE + overlay_package + "." + parse2_themeName +
-                        "-signed.apk";
+                                "-signed.apk";
 
                 File key = new File(context.getDataDir() + "/key");
                 char[] keyPass = "overlay".toCharArray();
@@ -434,11 +433,11 @@ public class SubstratumBuilder {
                     if (variant != null) {
                         no_install =
                                 EXTERNAL_STORAGE_CACHE + overlay_package + "." +
-                                parse2_themeName + "." + varianter + "-signed.apk";
+                                        parse2_themeName + "." + varianter + "-signed.apk";
                     } else {
                         no_install =
                                 EXTERNAL_STORAGE_CACHE + overlay_package + "." +
-                                parse2_themeName + "-signed.apk";
+                                        parse2_themeName + "-signed.apk";
                     }
                 }
             } else {

@@ -74,7 +74,8 @@ public class ManageSpaceActivity extends AppCompatActivity {
         CardView clearLogsButton = findViewById(R.id.clear_logs_button);
         logsCounter = findViewById(R.id.log_counter);
         logsCounter.setText(getString(R.string.clear_cache_button_loading));
-        File filer = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/substratum" +  "/LogCharReports");
+        File filer = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                "/substratum" + "/LogCharReports");
         if (filer.isDirectory()) {
             logsCounter.setText(String.valueOf(filer.list().length));
         } else {

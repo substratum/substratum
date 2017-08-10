@@ -137,7 +137,8 @@ public class Sounds extends Fragment {
 
         defaults = (RelativeLayout) root.findViewById(R.id.restore_to_default);
 
-        final RelativeLayout sounds_preview = (RelativeLayout) root.findViewById(R.id.sounds_placeholder);
+        final RelativeLayout sounds_preview = (RelativeLayout) root.findViewById(R.id
+                .sounds_placeholder);
         relativeLayout = (RelativeLayout) root.findViewById(R.id.relativeLayout);
         error = (RelativeLayout) root.findViewById(R.id.error_loading_pack);
         error.setVisibility(View.GONE);

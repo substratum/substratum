@@ -355,7 +355,8 @@ public class Fonts extends Fragment {
                 try {
                     Typeface italics_bold_tf = Typeface.createFromFile(work_directory +
                             "Roboto-BoldItalic.ttf");
-                    TextView italics_bold = (TextView) root.findViewById(R.id.text_normal_bold_italics);
+                    TextView italics_bold = (TextView) root.findViewById(R.id
+                            .text_normal_bold_italics);
                     italics_bold.setTypeface(italics_bold_tf);
                 } catch (Exception e) {
                     Log.e(TAG, "Could not load font from directory for italic-bold " +

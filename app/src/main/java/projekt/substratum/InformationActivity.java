@@ -991,10 +991,10 @@ public class InformationActivity extends SubstratumActivity {
                 builder5.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
                 builder5.setMessage(R.string.uninstall_dialog_text)
                         .setPositiveButton(R.string.dialog_ok, (dialog, id12) -> {
-                               // Dismiss the dialog
-                               dialog.dismiss();
-                               new uninstallTheme().execute("");
-                         })
+                            // Dismiss the dialog
+                            dialog.dismiss();
+                            new uninstallTheme().execute("");
+                        })
                         .setNegativeButton(R.string.dialog_cancel, (dialog, id1) -> {
                             // User cancelled the dialog
                         });

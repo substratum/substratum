@@ -198,7 +198,8 @@ public class ThemeFragment extends Fragment {
     }
 
     public void refreshLayout() {
-        MaterialProgressBar materialProgressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
+        MaterialProgressBar materialProgressBar = (MaterialProgressBar) root.findViewById(R.id
+                .progress_bar_loader);
         materialProgressBar.setVisibility(View.VISIBLE);
         PackageManager packageManager = mContext.getPackageManager();
         list.clear();

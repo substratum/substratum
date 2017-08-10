@@ -19,7 +19,6 @@
 package projekt.substratum.util.readers;
 
 import android.content.Context;
-import android.os.Environment;
 
 import java.io.BufferedReader;
 import java.io.File;

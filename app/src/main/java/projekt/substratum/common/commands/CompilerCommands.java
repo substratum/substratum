@@ -149,7 +149,7 @@ public class CompilerCommands {
                 "-S " + work_area + "/" + "type2_" + additional_variant + "/ " : ""));
         // We will compile a volatile directory where we make temporary changes to
         sb.append("-S " + work_area + (References.isCachingEnabled(context) ?
-                    "/workdir/ " : noCacheDir + "/ "));
+                "/workdir/ " : noCacheDir + "/ "));
         // Build upon the system's Android framework
         sb.append("-I " + "/system/framework/framework-res.apk ");
         // If running on the AppCompat commits (first run), it will build upon the app too
@@ -157,7 +157,7 @@ public class CompilerCommands {
 
         // Specify the file output directory
         sb.append("-F " + work_area + "/" + overlay_package + "." +
-                    theme_name + "-unsigned.apk ");
+                theme_name + "-unsigned.apk ");
         // Final arguments to conclude the AOPT build
         if (ENABLE_AOPT_OUTPUT) {
             sb.append("-v ");

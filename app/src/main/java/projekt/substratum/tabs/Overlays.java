@@ -40,7 +40,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.service.notification.StatusBarNotification;
@@ -539,7 +538,8 @@ public class Overlays extends Fragment {
         RecyclerView.Adapter empty_adapter = new OverlaysAdapter(empty_array);
         mRecyclerView.setAdapter(empty_adapter);
 
-        TextView toggle_all_overlays_text = (TextView) root.findViewById(R.id.toggle_all_overlays_text);
+        TextView toggle_all_overlays_text = (TextView) root.findViewById(R.id
+                .toggle_all_overlays_text);
         toggle_all_overlays_text.setVisibility(View.VISIBLE);
 
         File work_area = new File(EXTERNAL_STORAGE_CACHE);

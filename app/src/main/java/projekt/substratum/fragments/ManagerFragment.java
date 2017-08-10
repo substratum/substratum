@@ -261,7 +261,7 @@ public class ManagerFragment extends Fragment {
 
         if (!References.isSamsung(context)
                 && !References.checkOMS(context)
-                        && !prefs.getBoolean("seen_legacy_warning", false))
+                && !prefs.getBoolean("seen_legacy_warning", false))
             new AlertDialog.Builder(context)
                     .setNeutralButton(R.string.dialog_ok, (dialogInterface, i) -> {
                         prefs.edit().putBoolean("seen_legacy_warning", true).apply();

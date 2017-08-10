@@ -139,7 +139,8 @@ public class BootAnimations extends Fragment {
         progressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
 
         vm_blown = (TextView) root.findViewById(R.id.vm_blown);
-        bootanimation_placeholder = (RelativeLayout) root.findViewById(R.id.bootanimation_placeholder);
+        bootanimation_placeholder = (RelativeLayout) root.findViewById(R.id
+                .bootanimation_placeholder);
         defaults = (RelativeLayout) root.findViewById(R.id.restore_to_default);
 
         try {

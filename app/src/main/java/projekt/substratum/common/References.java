@@ -544,8 +544,10 @@ public class References {
     }
 
     public static boolean isOMSRunning(Context context, Class<?> serviceClass) {
-        final ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        final List<ActivityManager.RunningServiceInfo> services = activityManager.getRunningServices(Integer.MAX_VALUE);
+        final ActivityManager activityManager = (ActivityManager) context.getSystemService
+                (Context.ACTIVITY_SERVICE);
+        final List<ActivityManager.RunningServiceInfo> services = activityManager
+                .getRunningServices(Integer.MAX_VALUE);
 
         for (ActivityManager.RunningServiceInfo runningServiceInfo : services) {
             Log.d(TAG, String.format("Service:%s", runningServiceInfo.service.getClassName()));

@@ -718,8 +718,8 @@ public class References {
         editor.putBoolean("show_dangerous_samsung_overlays", false);
         editor.putBoolean("autosave_logchar", true);
         editor.putBoolean("automatic_logchar_cleanup", false);
+        editor.putBoolean("display_old_themes", false);
         editor.putInt("legacy_overlay_priority", DEFAULT_PRIORITY);
-        editor.remove("display_old_themes");
         editor.remove("seen_restore_warning");
         editor.remove("previous_logchar_cleanup");
         editor.remove("seen_legacy_warning");

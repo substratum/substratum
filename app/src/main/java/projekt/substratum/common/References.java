@@ -697,8 +697,7 @@ public class References {
 
     // Load SharedPreference defaults
     public static void loadDefaultConfig(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = prefs.edit();
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
         editor.putBoolean("show_app_icon", true);
         editor.putBoolean("substratum_oms", checkOMS(context));
         editor.putBoolean("show_template_version", false);
@@ -725,6 +724,19 @@ public class References {
         editor.remove("previous_logchar_cleanup");
         editor.remove("seen_legacy_warning");
 
+        refreshInstalledThemesPref(context);
+        editor.apply();
+        editor = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE).edit();
+        editor.putBoolean("is_updating", false);
+        editor.apply();
+        new AOPTCheck().injectAOPT(context, true);
+    }
+
+    public static void refreshInstalledThemesPref(Context context){
+
+        SharedPreferences.Editor editor =
+                PreferenceManager.getDefaultSharedPreferences(context).edit();
+
         // Initial parse of what is installed on the device
         Set<String> installed_themes = new TreeSet<>();
         List<ResolveInfo> all_themes = getThemes(context);
@@ -732,12 +744,7 @@ public class References {
             installed_themes.add(all_themes.get(i).activityInfo.packageName);
         }
         editor.putStringSet("installed_themes", installed_themes);
-
         editor.apply();
-        editor = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE).edit();
-        editor.putBoolean("is_updating", false);
-        editor.apply();
-        new AOPTCheck().injectAOPT(context, true);
     }
 
     // This method configures the new devices and their configuration of their vendor folders

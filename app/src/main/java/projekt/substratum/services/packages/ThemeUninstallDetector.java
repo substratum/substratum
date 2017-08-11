@@ -70,8 +70,6 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                 References.sendKillMessage(context);
             }
 
-            if (!package_name.endsWith(".icon")) References.sendRefreshManagerMessage(context);
-
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (prefs.contains("installed_themes")) {
                 Set installed_themes = prefs.getStringSet("installed_themes", null);

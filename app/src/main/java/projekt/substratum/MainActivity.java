@@ -276,6 +276,7 @@ public class MainActivity extends SubstratumActivity implements
         }
         setContentView(R.layout.main_activity);
         cleanLogCharReportsIfNecessary();
+        References.refreshInstalledThemesPref(getApplicationContext());
 
         int selectedDrawer = 1;
         if (savedInstanceState != null) {

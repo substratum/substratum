@@ -70,7 +70,7 @@ public class AOPTCheck {
             String integrityCheck = prefs.getString("compiler", "aapt");
             try {
                 if (integrityCheck.equals("aopt")) {
-                    FileOperations.copyFromAsset(mContext, (architecture.equals("ARM64") ? "64" :
+                    FileOperations.copyFromAsset(mContext, "aopt" + (architecture.equals("ARM64") ? "64" :
                             ""), aoptPath);
                     Log.d(References.SUBSTRATUM_LOG,
                             "Android Overlay Packaging Tool (" + architecture + ") " +

@@ -1246,7 +1246,7 @@ public class MainActivity extends SubstratumActivity implements
                         textView.setVisibility(View.GONE);
                     } else if (References.isPackageInstalled(
                             context, "eu.chainfire.supersu")) {
-                        CountDownTimer Count = new CountDownTimer(5000, 1000) {
+                        new CountDownTimer(5000, 1000) {
                             public void onTick(long millisUntilFinished) {
                                 if ((millisUntilFinished / 1000) > 1) {
                                     textView.setText(String.format(
@@ -1265,8 +1265,7 @@ public class MainActivity extends SubstratumActivity implements
                                 activity.mProgressDialog.dismiss();
                                 activity.finish();
                             }
-                        };
-                        Count.start();
+                        }.start();
                     } else {
                         textView.setText(activity.getString(R.string.root_rejected_text_cm_phh));
                     }

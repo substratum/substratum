@@ -136,60 +136,63 @@ public class SoundUtils {
         @Override
         protected void onPreExecute() {
             SoundUtils soundUtils = ref.get();
-            Context context = soundUtils.mContext;
-
-            // With masq 22+, dialog is started from receiver
-            if (References.checkThemeInterfacer(context)) {
-                progress = new ProgressDialog(context, R.style.AppTheme_DialogAlert);
-                progress.setMessage(context.getString(R.string.sounds_dialog_apply_text));
-                progress.setIndeterminate(false);
-                progress.setCancelable(false);
-                progress.show();
+            if (soundUtils != null) {
+                Context context = soundUtils.mContext;
+                if (References.checkThemeInterfacer(context)) {
+                    progress = new ProgressDialog(context, R.style.AppTheme_DialogAlert);
+                    progress.setMessage(context.getString(R.string.sounds_dialog_apply_text));
+                    progress.setIndeterminate(false);
+                    progress.setCancelable(false);
+                    progress.show();
+                }
             }
         }
 
         @Override
         protected void onPostExecute(String result) {
             SoundUtils soundUtils = ref.get();
-            Context context = soundUtils.mContext;
-
-            if (References.checkThemeInterfacer(context) &&
-                    !References.isBinderInterfacer(context)) {
-                if (finishReceiver == null) {
-                    finishReceiver = new FinishReceiver(soundUtils, progress);
+            if (soundUtils != null) {
+                Context context = soundUtils.mContext;
+                if (References.checkThemeInterfacer(context) &&
+                        !References.isBinderInterfacer(context)) {
+                    if (finishReceiver == null) {
+                        finishReceiver = new FinishReceiver(soundUtils, progress);
+                    }
+                    IntentFilter intentFilter = new IntentFilter(STATUS_CHANGED);
+                    context.getApplicationContext().registerReceiver(finishReceiver, intentFilter);
+                } else {
+                    progress.dismiss();
+                    soundUtils.finishFunction();
+                    ThemeManager.restartSystemUI(context);
                 }
-                IntentFilter intentFilter = new IntentFilter(STATUS_CHANGED);
-                context.getApplicationContext().registerReceiver(finishReceiver, intentFilter);
-            } else {
-                progress.dismiss();
-                soundUtils.finishFunction();
-                ThemeManager.restartSystemUI(context);
             }
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
             SoundUtils soundUtils = ref.get();
-            Context context = soundUtils.mContext;
-            boolean[] results = SoundManager.setSounds(
-                    context,
-                    soundUtils.theme_pid,
-                    sUrl[0],
-                    soundUtils.cipher);
-            soundUtils.has_failed = results[0];
-            soundUtils.ringtone = results[1];
+            if (soundUtils != null) {
+                Context context = soundUtils.mContext;
+                boolean[] results = SoundManager.setSounds(
+                        context,
+                        soundUtils.theme_pid,
+                        sUrl[0],
+                        soundUtils.cipher);
+                soundUtils.has_failed = results[0];
+                soundUtils.ringtone = results[1];
 
-            if (!soundUtils.has_failed) {
-                SharedPreferences.Editor editor = soundUtils.prefs.edit();
-                editor.putString("sounds_applied", soundUtils.theme_pid);
-                editor.apply();
-                Log.d("SoundUtils", "Sound pack installed!");
-                FileOperations.delete(context, context.getCacheDir().getAbsolutePath() +
-                        "/SoundsCache/SoundsInjector/");
-            } else {
-                Log.e("SoundUtils", "Sound installation aborted!");
-                FileOperations.delete(context, context.getCacheDir().getAbsolutePath() +
-                        "/SoundsCache/SoundsInjector/");
+                if (!soundUtils.has_failed) {
+                    SharedPreferences.Editor editor = soundUtils.prefs.edit();
+                    editor.putString("sounds_applied", soundUtils.theme_pid);
+                    editor.apply();
+                    Log.d("SoundUtils", "Sound pack installed!");
+                    FileOperations.delete(context, context.getCacheDir().getAbsolutePath() +
+                            "/SoundsCache/SoundsInjector/");
+                } else {
+                    Log.e("SoundUtils", "Sound installation aborted!");
+                    FileOperations.delete(context, context.getCacheDir().getAbsolutePath() +
+                            "/SoundsCache/SoundsInjector/");
+                }
             }
             return null;
         }
@@ -208,14 +211,16 @@ public class SoundUtils {
         public void onReceive(Context context, Intent intent) {
             ProgressDialog progress = progressRef.get();
             SoundUtils soundUtils = soundRef.get();
-            String PRIMARY_COMMAND_KEY = "primary_command_key";
-            String COMMAND_VALUE_JOB_COMPLETE = "job_complete";
-            String command = intent.getStringExtra(PRIMARY_COMMAND_KEY);
+            if (progress != null && soundUtils != null) {
+                String PRIMARY_COMMAND_KEY = "primary_command_key";
+                String COMMAND_VALUE_JOB_COMPLETE = "job_complete";
+                String command = intent.getStringExtra(PRIMARY_COMMAND_KEY);
 
-            if (command.equals(COMMAND_VALUE_JOB_COMPLETE)) {
-                context.getApplicationContext().unregisterReceiver(finishReceiver);
-                soundUtils.finishFunction();
-                progress.dismiss();
+                if (command.equals(COMMAND_VALUE_JOB_COMPLETE)) {
+                    context.getApplicationContext().unregisterReceiver(finishReceiver);
+                    soundUtils.finishFunction();
+                    progress.dismiss();
+                }
             }
         }
     }

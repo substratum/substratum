@@ -248,60 +248,65 @@ public class Fonts extends Fragment {
         @Override
         protected void onPreExecute() {
             Fonts fragment = ref.get();
-            Context context = fragment.mContext;
-            if (References.ENABLE_EXTRAS_DIALOG) {
-                fragment.mProgressDialog = new ProgressDialog(context, R.style.RestoreDialog);
-                fragment.mProgressDialog.setMessage(
-                        context.getString(R.string.manage_dialog_performing));
-                fragment.mProgressDialog.setIndeterminate(true);
-                fragment.mProgressDialog.setCancelable(false);
-                fragment.mProgressDialog.show();
+            if (fragment != null) {
+                Context context = fragment.mContext;
+                if (References.ENABLE_EXTRAS_DIALOG) {
+                    fragment.mProgressDialog = new ProgressDialog(context, R.style.RestoreDialog);
+                    fragment.mProgressDialog.setMessage(
+                            context.getString(R.string.manage_dialog_performing));
+                    fragment.mProgressDialog.setIndeterminate(true);
+                    fragment.mProgressDialog.setCancelable(false);
+                    fragment.mProgressDialog.show();
+                }
             }
         }
 
         @Override
         protected void onPostExecute(String result) {
             Fonts fragment = ref.get();
-            Context context = fragment.mContext;
-            if (References.ENABLE_EXTRAS_DIALOG) {
-                fragment.mProgressDialog.dismiss();
-            }
-            SharedPreferences.Editor editor = fragment.prefs.edit();
-            editor.remove("fonts_applied");
-            editor.apply();
+            if (fragment != null) {
+                Context context = fragment.mContext;
+                if (References.ENABLE_EXTRAS_DIALOG) {
+                    fragment.mProgressDialog.dismiss();
+                }
+                SharedPreferences.Editor editor = fragment.prefs.edit();
+                editor.remove("fonts_applied");
+                editor.apply();
 
-
-            if (References.checkOMS(context)) {
-                Toast toast = Toast.makeText(
-                        context,
-                        R.string.manage_fonts_toast,
-                        Toast.LENGTH_SHORT);
-                toast.show();
-            } else {
-                Toast toast = Toast.makeText(
-                        context,
-                        R.string.manage_fonts_toast,
-                        Toast.LENGTH_SHORT);
-                toast.show();
-                final AlertDialog.Builder alertDialogBuilder =
-                        new AlertDialog.Builder(context);
-                alertDialogBuilder.setTitle(R.string.legacy_dialog_soft_reboot_title);
-                alertDialogBuilder.setMessage(R.string.legacy_dialog_soft_reboot_text);
-                alertDialogBuilder.setPositiveButton(android.R.string.ok,
-                        (dialog, id) -> ElevatedCommands.reboot());
-                alertDialogBuilder.setNegativeButton(R.string.remove_dialog_later,
-                        (dialog, id) -> dialog.dismiss());
-                alertDialogBuilder.setCancelable(false);
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
+                if (References.checkOMS(context)) {
+                    Toast toast = Toast.makeText(
+                            context,
+                            R.string.manage_fonts_toast,
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
+                    Toast toast = Toast.makeText(
+                            context,
+                            R.string.manage_fonts_toast,
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                    final AlertDialog.Builder alertDialogBuilder =
+                            new AlertDialog.Builder(context);
+                    alertDialogBuilder.setTitle(R.string.legacy_dialog_soft_reboot_title);
+                    alertDialogBuilder.setMessage(R.string.legacy_dialog_soft_reboot_text);
+                    alertDialogBuilder.setPositiveButton(android.R.string.ok,
+                            (dialog, id) -> ElevatedCommands.reboot());
+                    alertDialogBuilder.setNegativeButton(R.string.remove_dialog_later,
+                            (dialog, id) -> dialog.dismiss());
+                    alertDialogBuilder.setCancelable(false);
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                }
             }
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
             Fonts fragment = ref.get();
-            Context context = fragment.mContext;
-            FontManager.clearFonts(context);
+            if (fragment != null) {
+                Context context = fragment.mContext;
+                FontManager.clearFonts(context);
+            }
             return null;
         }
     }

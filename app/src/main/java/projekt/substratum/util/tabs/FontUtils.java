@@ -67,63 +67,65 @@ public class FontUtils {
         @Override
         protected void onPreExecute() {
             FontUtils fragment = ref.get();
-            Context context = fragment.mContext;
-            if (References.ENABLE_EXTRAS_DIALOG) {
-                fragment.progress = new ProgressDialog(context, R.style.AppTheme_DialogAlert);
-                fragment.progress.setMessage(context.getString(R.string.font_dialog_apply_text));
-                fragment.progress.setIndeterminate(false);
-                fragment.progress.setCancelable(false);
-                fragment.progress.show();
+            if (fragment != null) {
+                Context context = fragment.mContext;
+                if (References.ENABLE_EXTRAS_DIALOG) {
+                    fragment.progress = new ProgressDialog(context, R.style.AppTheme_DialogAlert);
+                    fragment.progress.setMessage(context.getString(R.string
+                            .font_dialog_apply_text));
+                    fragment.progress.setIndeterminate(false);
+                    fragment.progress.setCancelable(false);
+                    fragment.progress.show();
+                }
+                Boolean isInterfacer = checkOMS(context) && checkThemeInterfacer(context);
+                if (isInterfacer)
+                    Toast.makeText(context,
+                            context.getString(R.string.font_dialog_apply_success), Toast
+                                    .LENGTH_LONG).show();
             }
-            Boolean isInterfacer = checkOMS(context) && checkThemeInterfacer(context);
-            if (isInterfacer)
-                Toast.makeText(context,
-                        context.getString(R.string.font_dialog_apply_success), Toast
-                                .LENGTH_LONG).show();
         }
 
         @Override
         protected void onPostExecute(String result) {
             if (result == null || !result.equals(INTERFACER_PACKAGE)) {
                 FontUtils fragment = ref.get();
-                Context context = fragment.mContext;
-
-                if (References.ENABLE_EXTRAS_DIALOG) {
-                    fragment.progress.dismiss();
-                }
-                if (result == null) {
-                    SharedPreferences.Editor editor = fragment.prefs.edit();
-                    editor.putString("fonts_applied", fragment.theme_pid);
-                    editor.apply();
-                    Toast toast = Toast.makeText(context,
-                            context.getString(R.string.font_dialog_apply_success), Toast
-                                    .LENGTH_LONG);
-                    toast.show();
-                } else {
-                    Toast toast = Toast.makeText(context,
-                            context.getString(R.string.font_dialog_apply_failed), Toast
-                                    .LENGTH_LONG);
-                    toast.show();
-                }
-
-                // Finally, refresh the window
-                if (!References.checkThemeInterfacer(context) &&
-                        References.checkOMS(context)) {
-                    ThemeManager.restartSystemUI(context);
-                } else if (!References.checkOMS(context)) {
-                    final AlertDialog.Builder alertDialogBuilder =
-                            new AlertDialog.Builder(context);
-                    alertDialogBuilder.setTitle(context.getString(
-                            R.string.legacy_dialog_soft_reboot_title));
-                    alertDialogBuilder.setMessage(context.getString(
-                            R.string.legacy_dialog_soft_reboot_text));
-                    alertDialogBuilder.setPositiveButton(android.R.string.ok,
-                            (dialog, id) -> ElevatedCommands.reboot());
-                    alertDialogBuilder.setNegativeButton(
-                            R.string.remove_dialog_later, (dialog, id) -> dialog.dismiss());
-                    alertDialogBuilder.setCancelable(false);
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();
+                if (fragment != null) {
+                    Context context = fragment.mContext;
+                    if (References.ENABLE_EXTRAS_DIALOG) {
+                        fragment.progress.dismiss();
+                    }
+                    if (result == null) {
+                        SharedPreferences.Editor editor = fragment.prefs.edit();
+                        editor.putString("fonts_applied", fragment.theme_pid);
+                        editor.apply();
+                        Toast toast = Toast.makeText(context,
+                                context.getString(R.string.font_dialog_apply_success), Toast
+                                        .LENGTH_LONG);
+                        toast.show();
+                    } else {
+                        Toast toast = Toast.makeText(context,
+                                context.getString(R.string.font_dialog_apply_failed), Toast
+                                        .LENGTH_LONG);
+                        toast.show();
+                    }
+                    if (!References.checkThemeInterfacer(context) &&
+                            References.checkOMS(context)) {
+                        ThemeManager.restartSystemUI(context);
+                    } else if (!References.checkOMS(context)) {
+                        final AlertDialog.Builder alertDialogBuilder =
+                                new AlertDialog.Builder(context);
+                        alertDialogBuilder.setTitle(context.getString(
+                                R.string.legacy_dialog_soft_reboot_title));
+                        alertDialogBuilder.setMessage(context.getString(
+                                R.string.legacy_dialog_soft_reboot_text));
+                        alertDialogBuilder.setPositiveButton(android.R.string.ok,
+                                (dialog, id) -> ElevatedCommands.reboot());
+                        alertDialogBuilder.setNegativeButton(
+                                R.string.remove_dialog_later, (dialog, id) -> dialog.dismiss());
+                        alertDialogBuilder.setCancelable(false);
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+                    }
                 }
             }
         }
@@ -131,28 +133,30 @@ public class FontUtils {
         @Override
         protected String doInBackground(String... sUrl) {
             FontUtils fragment = ref.get();
-            Context context = fragment.mContext;
-            try {
-                Boolean isInterfacer = checkOMS(context) && checkThemeInterfacer(context);
+            if (fragment != null) {
+                Context context = fragment.mContext;
+                try {
+                    Boolean isInterfacer = checkOMS(context) && checkThemeInterfacer(context);
 
-                if (isInterfacer) {
-                    SharedPreferences.Editor editor = fragment.prefs.edit();
-                    editor.putString("fonts_applied", fragment.theme_pid);
-                    editor.apply();
+                    if (isInterfacer) {
+                        SharedPreferences.Editor editor = fragment.prefs.edit();
+                        editor.putString("fonts_applied", fragment.theme_pid);
+                        editor.apply();
+                    }
+
+                    // Inform the font manager to start setting fonts!
+                    FontManager.setFonts(
+                            context,
+                            fragment.theme_pid,
+                            sUrl[0],
+                            fragment.cipher);
+
+                    if (isInterfacer)
+                        return INTERFACER_PACKAGE;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return "failed";
                 }
-
-                // Inform the font manager to start setting fonts!
-                FontManager.setFonts(
-                        context,
-                        fragment.theme_pid,
-                        sUrl[0],
-                        fragment.cipher);
-
-                if (isInterfacer)
-                    return INTERFACER_PACKAGE;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return "failed";
             }
             return null;
         }

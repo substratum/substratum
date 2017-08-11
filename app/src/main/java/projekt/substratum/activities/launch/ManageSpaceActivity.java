@@ -126,17 +126,22 @@ public class ManageSpaceActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            Context context = ref.get().getApplicationContext();
-            delete(context, context.getCacheDir().getAbsolutePath());
+            ManageSpaceActivity activity = ref.get();
+            if (activity != null) {
+                Context context = activity.getApplicationContext();
+                delete(context, context.getCacheDir().getAbsolutePath());
+            }
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
             ManageSpaceActivity activity = ref.get();
-            Context context = activity.getApplicationContext();
-            activity.cacheCounter.setText(
-                    Formatter.formatFileSize(context, getFileSize(context.getCacheDir())));
+            if (activity != null) {
+                Context context = activity.getApplicationContext();
+                activity.cacheCounter.setText(
+                        Formatter.formatFileSize(context, getFileSize(context.getCacheDir())));
+            }
         }
     }
 
@@ -149,23 +154,27 @@ public class ManageSpaceActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            Context context = ref.get().getApplicationContext();
-            delete(context, new File(Environment.getExternalStorageDirectory() +
-                    File.separator + "substratum" + File.separator + "LogCharReports")
-                    .getAbsolutePath());
+            ManageSpaceActivity activity = ref.get();
+            if (activity != null) {
+                Context context = ref.get().getApplicationContext();
+                delete(context, new File(Environment.getExternalStorageDirectory() +
+                        File.separator + "substratum" + File.separator + "LogCharReports")
+                        .getAbsolutePath());
+            }
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
             ManageSpaceActivity activity = ref.get();
-
-            File filer = new File(Environment.getExternalStorageDirectory() +
-                    File.separator + "substratum" + File.separator + "LogCharReports");
-            if (filer.isDirectory()) {
-                activity.logsCounter.setText(String.valueOf(filer.list().length));
-            } else {
-                activity.logsCounter.setText(String.valueOf(0));
+            if (activity != null) {
+                File filer = new File(Environment.getExternalStorageDirectory() +
+                        File.separator + "substratum" + File.separator + "LogCharReports");
+                if (filer.isDirectory()) {
+                    activity.logsCounter.setText(String.valueOf(filer.list().length));
+                } else {
+                    activity.logsCounter.setText(String.valueOf(0));
+                }
             }
         }
     }
@@ -180,22 +189,23 @@ public class ManageSpaceActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
             ManageSpaceActivity activity = ref.get();
-            Context context = activity.getApplicationContext();
-
-            for (File f : context.getDataDir().listFiles()) {
-                if (!f.getName().equals("shared_prefs")) {
-                    delete(context, f.getAbsolutePath());
-                } else {
-                    for (File prefs : f.listFiles()) {
-                        String fileName = prefs.getName();
-                        if (!fileName.equals(NAMES_PREFS + ".xml") &&
-                                !fileName.equals(PACKAGES_PREFS + ".xml")) {
-                            delete(context, prefs.getAbsolutePath());
+            if (activity != null) {
+                Context context = activity.getApplicationContext();
+                for (File f : context.getDataDir().listFiles()) {
+                    if (!f.getName().equals("shared_prefs")) {
+                        delete(context, f.getAbsolutePath());
+                    } else {
+                        for (File prefs : f.listFiles()) {
+                            String fileName = prefs.getName();
+                            if (!fileName.equals(NAMES_PREFS + ".xml") &&
+                                    !fileName.equals(PACKAGES_PREFS + ".xml")) {
+                                delete(context, prefs.getAbsolutePath());
+                            }
                         }
                     }
                 }
+                References.loadDefaultConfig(context);
             }
-            References.loadDefaultConfig(context);
             return null;
         }
 
@@ -203,10 +213,12 @@ public class ManageSpaceActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             ManageSpaceActivity activity = ref.get();
-            Context context = activity.getApplicationContext();
-            activity.cacheCounter.setText(
-                    Formatter.formatFileSize(context, getFileSize(context.getCacheDir())));
-            activity.finishAffinity();
+            if (activity != null) {
+                Context context = activity.getApplicationContext();
+                activity.cacheCounter.setText(
+                        Formatter.formatFileSize(context, getFileSize(context.getCacheDir())));
+                activity.finishAffinity();
+            }
         }
     }
 }

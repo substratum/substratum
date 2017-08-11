@@ -133,74 +133,82 @@ public class SplashScreenActivity extends Activity {
         @Override
         protected void onPreExecute() {
             SplashScreenActivity activity = ref.get();
-            if (References.isSamsungDevice(activity) &&
-                    References.isPackageInstalled(activity, SST_ADDON_PACKAGE)) {
-                activity.materialProgressBar.setVisibility(View.VISIBLE);
+            if (activity != null) {
+                if (References.isSamsungDevice(activity) &&
+                        References.isPackageInstalled(activity, SST_ADDON_PACKAGE)) {
+                    activity.materialProgressBar.setVisibility(View.VISIBLE);
+                }
             }
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            Context context = ref.get().getApplicationContext();
-            prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
-            editor = prefs.edit();
-            editor.clear().apply();
+            SplashScreenActivity activity = ref.get();
+            if (activity != null) {
+                Context context = ref.get().getApplicationContext();
+                prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
+                editor = prefs.edit();
+                editor.clear().apply();
 
-            FirebaseAnalytics.withdrawBlacklistedPackages(context);
-            prefs = context.getSharedPreferences(PACKAGES_PREFS, Context.MODE_PRIVATE);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
-            while (!prefs.contains(dateFormat.format(new Date()))) {
+                FirebaseAnalytics.withdrawBlacklistedPackages(context);
+                prefs = context.getSharedPreferences(PACKAGES_PREFS, Context.MODE_PRIVATE);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
+                while (!prefs.contains(dateFormat.format(new Date()))) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                if (!References.isSamsungDevice(context) ||
+                        !References.isPackageInstalled(context, SST_ADDON_PACKAGE)) {
+                    return null;
+                }
+
+                int sstVersion = References.grabAppVersionCode(context, SST_ADDON_PACKAGE);
+                FirebaseAnalytics.withdrawSungstratumFingerprint(context, sstVersion);
+                SharedPreferences prefs2 =
+                        context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
+                while (!prefs2.contains("sungstratum_exp_fp_" + sstVersion)) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                keyRetrieval = new KeyRetrieval();
+                IntentFilter filter = new IntentFilter("projekt.substratum.PASS");
+                context.getApplicationContext().registerReceiver(keyRetrieval, filter);
+
+                Intent intent = new Intent("projekt.substratum.AUTHENTICATE");
                 try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
+                    context.startActivity(intent);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
 
-            if (!References.isSamsungDevice(context) ||
-                    !References.isPackageInstalled(context, SST_ADDON_PACKAGE)) {
-                return null;
-            }
-
-            int sstVersion = References.grabAppVersionCode(context, SST_ADDON_PACKAGE);
-            FirebaseAnalytics.withdrawSungstratumFingerprint(context, sstVersion);
-            SharedPreferences prefs2 =
-                    context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
-            while (!prefs2.contains("sungstratum_exp_fp_" + sstVersion)) {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                int counter = 0;
+                handler.postDelayed(runnable, 100);
+                while (securityIntent == null && counter < 5) {
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    counter++;
                 }
-            }
-
-            keyRetrieval = new KeyRetrieval();
-            IntentFilter filter = new IntentFilter("projekt.substratum.PASS");
-            context.getApplicationContext().registerReceiver(keyRetrieval, filter);
-
-            Intent intent = new Intent("projekt.substratum.AUTHENTICATE");
-            try {
-                context.startActivity(intent);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            int counter = 0;
-            handler.postDelayed(runnable, 100);
-            while (securityIntent == null && counter < 5) {
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                counter++;
             }
             return null;
         }
 
         @Override
         protected void onPostExecute(Void voids) {
-            ref.get().launch();
+            SplashScreenActivity activity = ref.get();
+            if (activity != null) {
+                activity.launch();
+            }
         }
 
         @SuppressWarnings("ConstantConditions")

@@ -344,7 +344,7 @@ public class SubstratumBuilder {
 
                 if (!key.exists()) {
                     Log.d(SUBSTRATUM_BUILDER, "Loading keystore...");
-                    FileOperations.copyFromAsset(context,"key",key.getAbsolutePath());
+                    FileOperations.copyFromAsset(context, "key", key.getAbsolutePath());
                 }
 
                 KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());

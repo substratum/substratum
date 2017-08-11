@@ -1222,127 +1222,133 @@ public class MainActivity extends SubstratumActivity implements
         protected void onPostExecute(Boolean result) {
             super.onPostExecute(result);
             MainActivity activity = ref.get();
-            Context context = activity.getApplicationContext();
+            if (activity != null) {
+                Context context = activity.getApplicationContext();
 
-            // Ignore root if the device is Samsung
-            boolean samsungCheck = References.isSamsungDevice(context) &&
-                    !References.isPackageInstalled(context, SST_ADDON_PACKAGE);
-            if (samsungCheck ||
-                    (!result &&
-                            !References.isSamsung(context) &&
-                            ENABLE_ROOT_CHECK && !BYPASS_ALL_VERSION_CHECKS &&
-                            !References.checkThemeInterfacer(context))) {
-                activity.mProgressDialog.setCancelable(false);
-                activity.mProgressDialog.show();
-                activity.mProgressDialog.setContentView(R.layout.root_rejected_loader);
+                // Ignore root if the device is Samsung
+                boolean samsungCheck = References.isSamsungDevice(context) &&
+                        !References.isPackageInstalled(context, SST_ADDON_PACKAGE);
+                if (samsungCheck ||
+                        (!result &&
+                                !References.isSamsung(context) &&
+                                ENABLE_ROOT_CHECK && !BYPASS_ALL_VERSION_CHECKS &&
+                                !References.checkThemeInterfacer(context))) {
+                    activity.mProgressDialog.setCancelable(false);
+                    activity.mProgressDialog.show();
+                    activity.mProgressDialog.setContentView(R.layout.root_rejected_loader);
 
-                float radius = 5;
-                View decorView = activity.getWindow().getDecorView();
-                ViewGroup rootView = (ViewGroup) decorView.findViewById(android.R.id.content);
-                Drawable windowBackground = decorView.getBackground();
+                    float radius = 5;
+                    View decorView = activity.getWindow().getDecorView();
+                    ViewGroup rootView = (ViewGroup) decorView.findViewById(android.R.id.content);
+                    Drawable windowBackground = decorView.getBackground();
 
-                BlurView blurView = activity.mProgressDialog.findViewById(R.id.blurView);
+                    BlurView blurView = activity.mProgressDialog.findViewById(R.id.blurView);
 
-                blurView.setupWith(rootView)
-                        .windowBackground(windowBackground)
-                        .blurAlgorithm(new RenderScriptBlur(context))
-                        .blurRadius(radius);
-                TextView titleView = activity.mProgressDialog.findViewById(R.id.title);
-                TextView textView = activity.mProgressDialog.findViewById(R.id.timer);
+                    blurView.setupWith(rootView)
+                            .windowBackground(windowBackground)
+                            .blurAlgorithm(new RenderScriptBlur(context))
+                            .blurRadius(radius);
+                    TextView titleView = activity.mProgressDialog.findViewById(R.id.title);
+                    TextView textView = activity.mProgressDialog.findViewById(R.id.timer);
 
-                if (References.isSamsungDevice(context)) {
-                    TextView samsungTitle =
-                            activity.mProgressDialog.findViewById(R.id.sungstratum_title);
-                    samsungTitle.setVisibility(View.VISIBLE);
-                    Button samsungButton =
-                            activity.mProgressDialog.findViewById(R.id.sungstratum_button);
-                    samsungButton.setVisibility(View.VISIBLE);
-                    samsungButton.setOnClickListener(view -> {
-                        try {
-                            Intent i = new Intent(Intent.ACTION_VIEW);
-                            i.setData(Uri.parse(context.getString(R.string.sungstratum_url)));
-                            context.startActivity(i);
-                        } catch (ActivityNotFoundException activityNotFoundException) {
-                            Toast.makeText(context,
-                                    context.getString(R.string.activity_missing_toast),
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    titleView.setVisibility(View.GONE);
-                    textView.setVisibility(View.GONE);
-                } else if (References.isPackageInstalled(
-                        context, "eu.chainfire.supersu")) {
-                    CountDownTimer Count = new CountDownTimer(5000, 1000) {
-                        public void onTick(long millisUntilFinished) {
-                            if ((millisUntilFinished / 1000) > 1) {
-                                textView.setText(String.format(
-                                        activity.getString(R.string.root_rejected_timer_plural),
-                                        (millisUntilFinished / 1000) + ""));
-                            } else {
-                                textView.setText(String.format(
-                                        activity.getString(R.string.root_rejected_timer_singular),
-                                        (millisUntilFinished / 1000) + ""));
+                    if (References.isSamsungDevice(context)) {
+                        TextView samsungTitle =
+                                activity.mProgressDialog.findViewById(R.id.sungstratum_title);
+                        samsungTitle.setVisibility(View.VISIBLE);
+                        Button samsungButton =
+                                activity.mProgressDialog.findViewById(R.id.sungstratum_button);
+                        samsungButton.setVisibility(View.VISIBLE);
+                        samsungButton.setOnClickListener(view -> {
+                            try {
+                                Intent i = new Intent(Intent.ACTION_VIEW);
+                                i.setData(Uri.parse(context.getString(R.string.sungstratum_url)));
+                                context.startActivity(i);
+                            } catch (ActivityNotFoundException activityNotFoundException) {
+                                Toast.makeText(context,
+                                        context.getString(R.string.activity_missing_toast),
+                                        Toast.LENGTH_SHORT).show();
                             }
+                        });
+                        titleView.setVisibility(View.GONE);
+                        textView.setVisibility(View.GONE);
+                    } else if (References.isPackageInstalled(
+                            context, "eu.chainfire.supersu")) {
+                        CountDownTimer Count = new CountDownTimer(5000, 1000) {
+                            public void onTick(long millisUntilFinished) {
+                                if ((millisUntilFinished / 1000) > 1) {
+                                    textView.setText(String.format(
+                                            activity.getString(R.string.root_rejected_timer_plural),
+                                            (millisUntilFinished / 1000) + ""));
+                                } else {
+                                    textView.setText(String.format(
+                                            activity.getString(R.string
+                                                    .root_rejected_timer_singular),
+
+                                            (millisUntilFinished / 1000) + ""));
+                                }
+                            }
+
+                            public void onFinish() {
+                                activity.mProgressDialog.dismiss();
+                                activity.finish();
+                            }
+                        };
+                        Count.start();
+                    } else {
+                        textView.setText(activity.getString(R.string.root_rejected_text_cm_phh));
+                    }
+
+                    new CountDownTimer(1000, 1000) {
+                        @Override
+                        public void onTick(long l) {
                         }
 
+                        @Override
                         public void onFinish() {
-                            activity.mProgressDialog.dismiss();
-                            activity.finish();
+                            activity.mProgressDialog.hide();
+                            activity.mProgressDialog.show();
                         }
-                    };
-                    Count.start();
+                    }.start();
                 } else {
-                    textView.setText(activity.getString(R.string.root_rejected_text_cm_phh));
+                    activity.showOutdatedRequestDialog();
+                    new AOPTCheck().injectAOPT(activity.getApplicationContext(), false);
+                    if (References.checkOMS(context)) new DoCleanUp(context).execute();
                 }
-
-                new CountDownTimer(1000, 1000) {
-                    @Override
-                    public void onTick(long l) {
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        activity.mProgressDialog.hide();
-                        activity.mProgressDialog.show();
-                    }
-                }.start();
-            } else {
-                activity.showOutdatedRequestDialog();
-                new AOPTCheck().injectAOPT(activity.getApplicationContext(), false);
-                if (References.checkOMS(context)) new DoCleanUp(context).execute();
             }
         }
 
         @Override
         protected Boolean doInBackground(Void... sUrl) {
             MainActivity activity = ref.get();
-            Context context = activity.getApplicationContext();
-            if (!References.isSamsungDevice(context) &&
-                    !References.checkThemeInterfacer(context)) {
-                Boolean receivedRoot = Root.requestRootAccess();
-                if (receivedRoot) {
-                    Log.d(SUBSTRATUM_LOG, "Substratum has loaded in rooted mode.");
+            if (activity != null) {
+                Context context = activity.getApplicationContext();
+                if (!References.isSamsungDevice(context) &&
+                        !References.checkThemeInterfacer(context)) {
+                    Boolean receivedRoot = Root.requestRootAccess();
+                    if (receivedRoot) {
+                        Log.d(SUBSTRATUM_LOG, "Substratum has loaded in rooted mode.");
+                    } else {
+                        Log.e(SUBSTRATUM_LOG, "Substratum was unable to load in rooted mode.");
+                    }
+                    References.injectRescueArchives(context);
+                    return receivedRoot;
+                } else if (References.isSamsungDevice(context)) {
+                    Log.d(SUBSTRATUM_LOG, "Substratum has loaded in Samsung mode.");
+                    return false;
                 } else {
-                    Log.e(SUBSTRATUM_LOG, "Substratum was unable to load in rooted mode.");
+                    Log.d(SUBSTRATUM_LOG, "Substratum has loaded in rootless mode.");
+                    return false;
                 }
-                References.injectRescueArchives(context);
-                return receivedRoot;
-            } else if (References.isSamsungDevice(context)) {
-                Log.d(SUBSTRATUM_LOG, "Substratum has loaded in Samsung mode.");
-                return false;
-            } else {
-                Log.d(SUBSTRATUM_LOG, "Substratum has loaded in rootless mode.");
-                return false;
             }
+            return false;
         }
     }
 
     private static class DoCleanUp extends AsyncTask<Void, Void, Void> {
-        @SuppressLint("StaticFieldLeak")
-        private Context context;
+        private WeakReference<Context> ref;
 
         private DoCleanUp(Context context) {
-            this.context = context;
+            ref = new WeakReference<>(context);
         }
 
         @Override
@@ -1352,34 +1358,39 @@ public class MainActivity extends SubstratumActivity implements
 
         @Override
         protected Void doInBackground(Void... sUrl) {
-            ArrayList<String> removeList = new ArrayList<>();
-            // Overlays with non-existent targets
-            List<String> state1 = ThemeManager.listOverlays(
-                    context, STATE_NOT_APPROVED_MISSING_TARGET);
-            // Uninstall overlays when the main theme is not present, regardless if enabled/disabled
-            List<String> stateAll = ThemeManager.listAllOverlays(context);
-            // We need the null check because listOverlays never returns null, but empty
-            if (state1.size() > 0 && state1.get(0) != null) {
-                for (int i = 0; i < state1.size(); i++) {
-                    Log.e("OverlayCleaner",
-                            "Target APK not found for \"" + state1.get(i) +
-                                    "\" and will be removed.");
-                    removeList.add(state1.get(i));
-                }
-            }
+            Context context = ref.get();
+            if (context != null) {
+                ArrayList<String> removeList = new ArrayList<>();
+                // Overlays with non-existent targets
+                List<String> state1 = ThemeManager.listOverlays(
+                        context, STATE_NOT_APPROVED_MISSING_TARGET);
+                // Uninstall overlays when the main theme is not present,
+                // regardless if enabled/disabled
 
-            for (int i = 0; i < stateAll.size(); i++) {
-                String parent = References.grabOverlayParent(context, stateAll.get(i));
-                if (!References.isPackageInstalled(context, parent)) {
-                    Log.e("OverlayCleaner",
-                            "Parent APK not found for \"" + stateAll.get(i) +
-                                    "\" and will be removed.");
-                    removeList.add(stateAll.get(i));
+                List<String> stateAll = ThemeManager.listAllOverlays(context);
+                // We need the null check because listOverlays never returns null, but empty
+                if (state1.size() > 0 && state1.get(0) != null) {
+                    for (int i = 0; i < state1.size(); i++) {
+                        Log.e("OverlayCleaner",
+                                "Target APK not found for \"" + state1.get(i) +
+                                        "\" and will be removed.");
+                        removeList.add(state1.get(i));
+                    }
                 }
-            }
 
-            if (removeList.size() > 0)
-                ThemeManager.uninstallOverlay(context, removeList);
+                for (int i = 0; i < stateAll.size(); i++) {
+                    String parent = References.grabOverlayParent(context, stateAll.get(i));
+                    if (!References.isPackageInstalled(context, parent)) {
+                        Log.e("OverlayCleaner",
+                                "Parent APK not found for \"" + stateAll.get(i) +
+                                        "\" and will be removed.");
+                        removeList.add(stateAll.get(i));
+                    }
+                }
+
+                if (removeList.size() > 0)
+                    ThemeManager.uninstallOverlay(context, removeList);
+            }
             return null;
         }
     }
@@ -1393,20 +1404,25 @@ public class MainActivity extends SubstratumActivity implements
 
         @Override
         protected Void doInBackground(Void... params) {
-            Context context = ref.get().getApplicationContext();
-            delete(context, new File(Environment.getExternalStorageDirectory() +
-                    File.separator + "substratum" + File.separator + "LogCharReports")
-                    .getAbsolutePath());
+            MainActivity activity = ref.get();
+            if (activity != null) {
+                Context context = activity.getApplicationContext();
+                delete(context, new File(Environment.getExternalStorageDirectory() +
+                        File.separator + "substratum" + File.separator + "LogCharReports")
+                        .getAbsolutePath());
+            }
             return null;
         }
 
         @Override
         protected void onPostExecute(Void result) {
             MainActivity activity = ref.get();
-            Context context = activity.getApplicationContext();
-            Toast.makeText(context, context.getString(R.string.cleaned_logchar_reports), Toast
-                    .LENGTH_SHORT).show();
-            activity.finishAffinity();
+            if (activity != null) {
+                Context context = activity.getApplicationContext();
+                Toast.makeText(context, context.getString(R.string.cleaned_logchar_reports), Toast
+                        .LENGTH_SHORT).show();
+                activity.finishAffinity();
+            }
         }
 
     }

@@ -20,15 +20,11 @@ package projekt.substratum.util.injectors;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.AssetManager;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Arrays;
 
 import projekt.substratum.common.References;
@@ -74,12 +70,13 @@ public class AOPTCheck {
             String integrityCheck = prefs.getString("compiler", "aapt");
             try {
                 if (integrityCheck.equals("aopt")) {
-                    FileOperations.copyFromAsset(mContext,(architecture.equals("ARM64") ? "64" : ""),aoptPath);
+                    FileOperations.copyFromAsset(mContext, (architecture.equals("ARM64") ? "64" :
+                            ""), aoptPath);
                     Log.d(References.SUBSTRATUM_LOG,
                             "Android Overlay Packaging Tool (" + architecture + ") " +
                                     "has been added into the compiler directory.");
                 } else {
-                    FileOperations.copyFromAsset(mContext,"aapt",aoptPath);
+                    FileOperations.copyFromAsset(mContext, "aapt", aoptPath);
                     Log.d(References.SUBSTRATUM_LOG,
                             "Android Asset Packaging Tool (" + architecture + ") " +
                                     "has been added into the compiler directory.");
@@ -90,7 +87,7 @@ public class AOPTCheck {
         } else {
             // Take account for x86 devices
             try {
-                FileOperations.copyFromAsset(mContext,"aapt86",aoptPath);
+                FileOperations.copyFromAsset(mContext, "aapt86", aoptPath);
                 Log.d(References.SUBSTRATUM_LOG,
                         "Android Asset Packaging Tool (x86) " +
                                 "has been added into the compiler directory.");

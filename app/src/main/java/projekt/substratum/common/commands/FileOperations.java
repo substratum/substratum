@@ -490,11 +490,11 @@ public class FileOperations {
 
             byte[] buffer = new byte[1024];
             int read;
-            while((read = in.read(buffer)) != -1) {
+            while ((read = in.read(buffer)) != -1) {
                 out.write(buffer, 0, read);
             }
 
-        } catch(IOException e) {
+        } catch (IOException e) {
             Log.e("tag", "Failed to copy asset file: ", e);
         } finally {
             try {

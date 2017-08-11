@@ -397,8 +397,6 @@ corretamente&#8230;</string>
     <string name="profile_sound">Sons</string>
     <string name="profile_wallpaper">Pacotes de áudios</string>
     <string name="profile_dialog_ok">Ok</string>
-    <string name="bottom_sheet_dialog_hide_outdated_themes">Esconder temas desatualizados (6.0.0+) [Recomendado!]</string>
-    <string name="bottom_sheet_dialog_show_outdated_themes">Mostrar temas desatualizados (pre-6.0.0)</string>
     <string name="settings_system_status">Certificação do sistema</string>
     <string name="settings_system_status_rooted">Modo root</string>
     <string name="settings_system_status_rootless">Modo rootless</string>
@@ -457,9 +455,6 @@ corretamente&#8230;</string>
     <string name="restore_fonts_text">Pacotes de tipos de letra</string>
     <string name="restore_fonts_summary">Esta função remove o conjunto de tipos de letra previamente aplicado e restaura o conjunto de tipos de letra padrão.\n</string>
     <string name="restore_fonts_button">Restaurar tipos de letra</string>
-    <string name="restore_icons_text">Pacote de ícones</string>
-    <string name="restore_icons_summary">Esta função remove o o pacote de ícones previamente aplicado e restaura os ícones padrão.\n</string>
-    <string name="restore_icons_button">Restaurar ícones</string>
     <string name="interfacer_not_authorized_toast">Esta versão do substratum não é autorizada e não funcionará com o módulo do sistema interfacer.</string>
     <string name="app_crash_title">%s continua a parar&#8230;</string>
     <string name="app_crash_content">Todas as sobreposições ativadas para esta app foram desativadas.</string>

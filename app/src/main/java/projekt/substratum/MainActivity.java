@@ -19,7 +19,6 @@
 package projekt.substratum;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
@@ -60,7 +59,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -109,7 +107,6 @@ import projekt.substratum.services.tiles.FloatUiTile;
 import projekt.substratum.util.files.Root;
 import projekt.substratum.util.helpers.ContextWrapper;
 import projekt.substratum.util.injectors.AOPTCheck;
-import projekt.substratum.util.views.SheetDialog;
 
 import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_MISSING_TARGET;
 import static projekt.substratum.common.References.BYPASS_ALL_VERSION_CHECKS;
@@ -1182,31 +1179,6 @@ public class MainActivity extends SubstratumActivity implements
         return true;
     }
 
-    public void showOutdatedRequestDialog() {
-        boolean show_outdated_themes = prefs.contains("display_old_themes");
-        if (!show_outdated_themes) {
-            SheetDialog sheetDialog = new SheetDialog(this);
-            @SuppressLint("InflateParams")
-            View sheetView = getLayoutInflater().inflate(R.layout.bottom_sheet_dialog, null);
-            LinearLayout hide = (LinearLayout) sheetView.findViewById(R.id.hide_outdated_themes);
-            LinearLayout show = (LinearLayout) sheetView.findViewById(R.id.show_outdated_themes);
-            hide.setOnClickListener(v -> {
-                prefs.edit().putBoolean("display_old_themes", false).apply();
-                Intent intent = getIntent();
-                finish();
-                startActivity(intent);
-            });
-            show.setOnClickListener(v -> {
-                prefs.edit().putBoolean("display_old_themes", true).apply();
-                sheetDialog.hide();
-            });
-            sheetDialog.setCanceledOnTouchOutside(false);
-            sheetDialog.setContentView(sheetView);
-            sheetDialog.show();
-            sheetDialog.getCurrentFocus();
-        }
-    }
-
     @Override
     public boolean onQueryTextSubmit(String query) {
         return false;
@@ -1311,7 +1283,6 @@ public class MainActivity extends SubstratumActivity implements
                         }
                     }.start();
                 } else {
-                    activity.showOutdatedRequestDialog();
                     new AOPTCheck().injectAOPT(activity.getApplicationContext(), false);
                     if (References.checkOMS(context)) new DoCleanUp(context).execute();
                 }

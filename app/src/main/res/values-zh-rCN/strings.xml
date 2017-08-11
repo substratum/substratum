@@ -414,8 +414,6 @@
     <string name="profile_sound">音效</string>
     <string name="profile_wallpaper">壁纸</string>
     <string name="profile_dialog_ok">确认</string>
-    <string name="bottom_sheet_dialog_hide_outdated_themes">隐藏不受支持的旧版本主题（早于安卓6.0）</string>
-    <string name="bottom_sheet_dialog_show_outdated_themes">显示旧版本主题（早于安卓6.0）</string>
     <string name="settings_system_status">系统认证</string>
     <string name="settings_system_status_rooted">Root 模式</string>
     <string name="settings_system_status_rootless">非 Root 模式</string>
@@ -484,9 +482,6 @@
     <string name="restore_fonts_text">字体包</string>
     <string name="restore_fonts_summary">删除已应用的字体包，还原默认字体。</string>
     <string name="restore_fonts_button">还原字体</string>
-    <string name="restore_icons_text">图标包</string>
-    <string name="restore_icons_summary">删除已应用的图标包，还原默认图标。</string>
-    <string name="restore_icons_button">还原图标</string>
     <string name="interfacer_not_authorized_toast">此版本的叠加层未获得授权，无法与主题接口一起工作。</string>
     <string name="app_crash_title">保持停止 %s</string>
     <string name="app_crash_content">已禁用此应用的所有叠加层</string>

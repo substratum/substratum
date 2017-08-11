@@ -449,8 +449,6 @@ resolver este problema.    </string>
     <string name="profile_sound">Sons</string>
     <string name="profile_wallpaper">Papéis de Parede</string>
     <string name="profile_dialog_ok">OK</string>
-    <string name="bottom_sheet_dialog_hide_outdated_themes">Esconder os temas desatualizados (6.0.0+) [recomendado]</string>
-    <string name="bottom_sheet_dialog_show_outdated_themes">Mostrar temas desatualizados (pre-6.0.0)</string>
     <string name="settings_system_status">Certificação do sistema</string>
     <string name="settings_system_status_rooted">Modo root</string>
     <string name="settings_system_status_rootless">Modo sem root</string>
@@ -519,9 +517,6 @@ resolver este problema.    </string>
     <string name="restore_fonts_text">Pacotes de Fonte</string>
     <string name="restore_fonts_summary">Essa função remove as fontes aplicadas anteriormente e restaura a fonte de fábrica\n</string>
     <string name="restore_fonts_button">Restaurar fontes</string>
-    <string name="restore_icons_text">Pacotes de ícones</string>
-    <string name="restore_icons_summary">Esta função remove o pacote de ícones aplicado anteriormente e restaura os ícones padrão. \n</string>
-    <string name="restore_icons_button">Restaurar ícones</string>
     <string name="interfacer_not_authorized_toast">Esta versão do substrato não está autorizada e não funcionará com o módulo do sistema interfacer.</string>
     <string name="app_crash_title">%s parando&#8230;</string>
     <string name="app_crash_content">Todas as camadas habilitadas para essa aplicação foram desativados.</string>

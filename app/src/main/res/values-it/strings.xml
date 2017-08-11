@@ -418,8 +418,6 @@
     <string name="profile_sound">Suoni</string>
     <string name="profile_wallpaper">Sfondi</string>
     <string name="profile_dialog_ok">OK</string>
-    <string name="bottom_sheet_dialog_hide_outdated_themes">Nascondere temi obsoleti (6.0.0+) [consigliato]</string>
-    <string name="bottom_sheet_dialog_show_outdated_themes">Visualizza temi obsoleti (pre-6.0.0)</string>
     <string name="settings_system_status">Certificazione sistema</string>
     <string name="settings_system_status_rooted">Modalità root</string>
     <string name="settings_system_status_rootless">Modalità rootless</string>
@@ -487,9 +485,6 @@
     <string name="restore_fonts_text">Pacchetti di font</string>
     <string name="restore_fonts_summary">Questa funzione rimuove il set di suoni applicato in precedenza e ripristina il set di suoni stock\n</string>
     <string name="restore_fonts_button">Ripristina i font</string>
-    <string name="restore_icons_text">Pacchetti di icone</string>
-    <string name="restore_icons_summary">Questa funzione rimuove le icone precedentemente applicate e ripristina le icone stock.\n</string>
-    <string name="restore_icons_button">Ripristinare icone</string>
     <string name="interfacer_not_authorized_toast">Questa versione di Substratum non è autorizzata e non funzionerà col modulo Interfacer di sistema.</string>
     <string name="app_crash_title">%s, continua a fermarsi&#8230;</string>
     <string name="app_crash_content">Tutti gli overlay abilitati per questa applicazione sono stati disabilitati.</string>

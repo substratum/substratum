@@ -421,8 +421,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="profile_sound">Dźwięki</string>
     <string name="profile_wallpaper">Tapety</string>
     <string name="profile_dialog_ok">OK</string>
-    <string name="bottom_sheet_dialog_hide_outdated_themes">Ukryj nieaktualne motywy (6.0.0+) [Zalecane!]</string>
-    <string name="bottom_sheet_dialog_show_outdated_themes">Pokaż nieaktualne motywy (sprzed-6.0.0)</string>
     <string name="settings_system_status">System certyfikacji</string>
     <string name="settings_system_status_rooted">Tryb roota</string>
     <string name="settings_system_status_rootless">Tryb bez roota</string>
@@ -491,9 +489,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="restore_fonts_text">Pakiety czcionek</string>
     <string name="restore_fonts_summary">Ta funkcja usuwa poprzednio użyte czcionki i przywraca systemowe\n</string>
     <string name="restore_fonts_button">Przywróć czcionki</string>
-    <string name="restore_icons_text">Pakiet ikon</string>
-    <string name="restore_icons_summary">Ta funkcja usuwa poprzednio użyte ikonki i przywraca systemowe\n</string>
-    <string name="restore_icons_button">Przywróć ikonki</string>
     <string name="interfacer_not_authorized_toast">Ta wersja Substratum nie jest autoryzowana i nie będzie działać z modułem Interfacera.</string>
     <string name="app_crash_title">%s ciągle się zatrzymuje&#8230;</string>
     <string name="app_crash_content">Wszystkie włączone nakładki dla tej aplikacji zostały wyłączone.</string>

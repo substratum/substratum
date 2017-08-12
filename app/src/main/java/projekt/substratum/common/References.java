@@ -229,6 +229,8 @@ public class References {
     private static final String resourceChangelog = "ThemeChangelog";
     // This string controls the hero image name
     private static final String heroImageResourceName = "heroimage";
+    // This string is the preference to control systemui restart opt-out
+    public static final String optOutSysUIRestartPref = "opt_out_sysui_restart";
     // This int controls the notification identifier
     public static int firebase_notification_id = 24862486;
     public static int notification_id = 2486;

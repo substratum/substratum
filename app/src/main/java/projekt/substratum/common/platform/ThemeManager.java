@@ -24,6 +24,7 @@ import android.content.om.OverlayInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -59,7 +60,6 @@ public class ThemeManager {
     public static final String disableOverlay = "cmd overlay disable";
     public static final String enableOverlay = "cmd overlay enable";
     private static final String listAllOverlays = "cmd overlay list";
-    private static final String disableAllOverlays = "cmd overlay disable-all";
     private static final String setPriority = "cmd overlay set-priority";
     private static final String[] blacklistedPackages = new String[]{
             INTERFACER_PACKAGE,
@@ -486,9 +486,15 @@ public class ThemeManager {
         if (checkOMS(context)) {
             for (String o : overlays) {
                 if (o.startsWith("com.android.systemui"))
-                    return true;
+                    return optOutFromUIRestart(context);
             }
         }
         return false;
+    }
+
+    private static boolean optOutFromUIRestart(Context context) {
+        return PreferenceManager
+                .getDefaultSharedPreferences(context)
+                .getBoolean(References.optOutSysUIRestartPref, false);
     }
 }

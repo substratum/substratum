@@ -46,7 +46,8 @@ public class AppIntroActivity extends SubstratumActivity {
             welcomeScreen = new WelcomeHelper(this, AppIntro.class);
             welcomeScreen.show(savedInstanceState);
         } else if (prefs.getBoolean("first_run", true) && isLowEnd()) {
-            References.loadDefaultConfig(getApplicationContext(), false);
+            prefs.edit().putBoolean("first_run", false).apply();
+            References.loadDefaultConfig(getApplicationContext());
             startActivity(new Intent(this, MainActivity.class));
             finish();
         } else {
@@ -61,7 +62,8 @@ public class AppIntroActivity extends SubstratumActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == WelcomeHelper.DEFAULT_WELCOME_SCREEN_REQUEST &&
                 resultCode == RESULT_OK) {
-            References.loadDefaultConfig(getApplicationContext(), false);
+            prefs.edit().putBoolean("first_run", false).apply();
+            References.loadDefaultConfig(getApplicationContext());
             startActivity(new Intent(this, MainActivity.class));
             finish();
         }

@@ -27,6 +27,7 @@ import com.stephentuso.welcome.WelcomeHelper;
 
 import projekt.substratum.MainActivity;
 import projekt.substratum.activities.base.SubstratumActivity;
+import projekt.substratum.common.References;
 import projekt.substratum.util.welcome.AppIntro;
 
 import static projekt.substratum.common.analytics.PackageAnalytics.isLowEnd;
@@ -45,7 +46,7 @@ public class AppIntroActivity extends SubstratumActivity {
             welcomeScreen = new WelcomeHelper(this, AppIntro.class);
             welcomeScreen.show(savedInstanceState);
         } else if (prefs.getBoolean("first_run", true) && isLowEnd()) {
-            prefs.edit().putBoolean("first_run", false).apply();
+            References.loadDefaultConfig(getApplicationContext(), false);
             startActivity(new Intent(this, MainActivity.class));
             finish();
         } else {
@@ -60,7 +61,7 @@ public class AppIntroActivity extends SubstratumActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == WelcomeHelper.DEFAULT_WELCOME_SCREEN_REQUEST &&
                 resultCode == RESULT_OK) {
-            prefs.edit().putBoolean("first_run", false).apply();
+            References.loadDefaultConfig(getApplicationContext(), false);
             startActivity(new Intent(this, MainActivity.class));
             finish();
         }

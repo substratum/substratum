@@ -204,7 +204,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
                         }
                     }
                 }
-                References.loadDefaultConfig(context);
+                References.loadDefaultConfig(context, true);
             }
             return null;
         }

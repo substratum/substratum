@@ -696,8 +696,9 @@ public class References {
     }
 
     // Load SharedPreference defaults
-    public static void loadDefaultConfig(Context context) {
-        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+    public static void loadDefaultConfig(Context context, Boolean shouldShowAppIntro) {
+        SharedPreferences.Editor editor =
+                PreferenceManager.getDefaultSharedPreferences(context).edit();
         editor.putBoolean("show_app_icon", true);
         editor.putBoolean("substratum_oms", checkOMS(context));
         editor.putBoolean("show_template_version", false);
@@ -723,6 +724,11 @@ public class References {
         editor.remove("seen_restore_warning");
         editor.remove("previous_logchar_cleanup");
         editor.remove("seen_legacy_warning");
+        if (shouldShowAppIntro) {
+            editor.putBoolean("first_run", true);
+        } else {
+            editor.putBoolean("first_run", false);
+        }
 
         refreshInstalledThemesPref(context);
         editor.apply();
@@ -732,8 +738,7 @@ public class References {
         new AOPTCheck().injectAOPT(context, true);
     }
 
-    public static void refreshInstalledThemesPref(Context context){
-
+    public static void refreshInstalledThemesPref(Context context) {
         SharedPreferences.Editor editor =
                 PreferenceManager.getDefaultSharedPreferences(context).edit();
 

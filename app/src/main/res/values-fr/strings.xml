@@ -330,10 +330,6 @@
     <string name="cache_clear_completion">Le cache du thème %s a été effacé !</string>
     <string name="disable_completion">Désactivation de toutes les surcouches de ce thème en cours&#8230;</string>
     <string name="enable_completion">Activation de toutes les surcouches installées de ce thème en cours&#8230;</string>
-    <string name="dynamic_actionbar_colors">Couleurs de la barre d\'action</string>
-    <string name="dynamic_actionbar_colors_subtext">Dans la fenêtre d\'information du thème, Substratum adaptera la barre d\'action repliable à la couleur dominante de l\'images de couverture.</string>
-    <string name="dynamic_navbar_colors">Couleurs de la barre de navigation dynamique</string>
-    <string name="dynamic_navbar_colors_subtext">Dans la fenêtre d\'information du thème, Substratum adaptera la barre de navigation à la couleur dominante de l\'images de couverture.</string>
     <string name="manager_title">Afficher les surcouches désactivées dans la liste</string>
     <string name="manager_subtext">Dans la liste des surcouches, afficher les surcouches désactivées avec leurs équivalentes activées</string>
     <string name="alternate_drawer_design_title">Apparence du tiroir secondaire</string>

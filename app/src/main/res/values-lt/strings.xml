@@ -351,10 +351,6 @@
     <string name="cache_clear_completion">%s temos talpyklos buvo išvalyta!</string>
     <string name="disable_completion">Visos perdangos šiai temai dabar išjungiamos&#8230;</string>
     <string name="enable_completion">Visos įdiegtos perdangos šiai temai dabar aktyvuojamos&#8230;</string>
-    <string name="dynamic_actionbar_colors">Dinaminė Veiksmų Juostos Spalva</string>
-    <string name="dynamic_actionbar_colors_subtext">Temos informacijos lange, \"Substratum\" prisitaikys prie veiksmų juostos dominuojančios spalvos.</string>
-    <string name="dynamic_navbar_colors">Dinaminė Navigacijos Juostos Spalva</string>
-    <string name="dynamic_navbar_colors_subtext">Temos informacijos lange, \"Substratum\" prisitaikys prie veiksmų juostos dominuojančios spalvos.</string>
     <string name="manager_title">Rodyti sąraše išjungtas perdangas</string>
     <string name="manager_subtext">Perdangų sąrašo lange, rodyti visas išjungtas perdangas su savo įjungtais dublikatais.</string>
     <string name="alternate_drawer_design_title">Antrinis Stalčiaus Dizainas</string>

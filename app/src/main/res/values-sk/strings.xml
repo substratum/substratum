@@ -339,10 +339,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="cache_clear_completion">%s vyrovnávacej pamäte tejto témy bolo vyčistených!</string>
     <string name="disable_completion">Všetky prekrytia pre túto tému sa teraz vypínajú&#8230;</string>
     <string name="enable_completion">Všetky prekrytia pre túto tému sa teraz zapínajú&#8230;</string>
-    <string name="dynamic_actionbar_colors">Dynamické farby lišty akcií</string>
-    <string name="dynamic_actionbar_colors_subtext">V informačnom okne témy, Substratum na rozbaľovaciu navigačnú  lištu použije dominantnú farbu hrdinského obrázku.</string>
-    <string name="dynamic_navbar_colors">Dynamické farby navigačnej lišty</string>
-    <string name="dynamic_navbar_colors_subtext">V informačnom okne témy, Substratum na navigačnú lištu použije dominantnú farbu z témy.</string>
     <string name="manager_title">Zobrazit vypnuté prekrytia v zozname</string>
     <string name="manager_subtext">V zozname vrstiev zobraziť všetky vypnuté prekrytia s ich aktivovanými náprotivkami.</string>
     <string name="alternate_drawer_design_title">Alternatívny vzhľad menu</string>

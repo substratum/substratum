@@ -336,10 +336,6 @@
     <string name="cache_clear_completion">Кэш тэмы %s выдалены!</string>
     <string name="disable_completion">Адключэнне ўсіх напластаванняў тэмы&#8230;</string>
     <string name="enable_completion">Актывацыя ўсіх усталяваных напластаванняў тэмы&#8230;</string>
-    <string name="dynamic_actionbar_colors">Афарбоўванне экшнбара</string>
-    <string name="dynamic_actionbar_colors_subtext">У акне звестак аб тэме, Substratum будзе падладжваць колер які хавае экшнбар пад стаць асноўнаму колеру ілюструючыму выявы.</string>
-    <string name="dynamic_navbar_colors">Афарбоўванне панэлі навігацыі</string>
-    <string name="dynamic_navbar_colors_subtext">У акне звестак аб тэме, Substratum будзе падладжваць колер які хавае экшнбар пад стаць асноўнаму колеру ілюструючыму выявы.</string>
     <string name="manager_title">Паказваць адключаныя напластаванні ў спісе</string>
     <string name="manager_subtext">У акне спісу напластаванняў паказваць усё адключаныя напластаванні з іх актываванымі кампанентамі.</string>
     <string name="alternate_drawer_design_title">Альтэрнатыўнае меню</string>

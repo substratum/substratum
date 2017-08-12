@@ -361,12 +361,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
  vypínají&#8230;</string>
     <string name="enable_completion">Všechny potahy pro tento motiv se nyní
  zapínají&#8230;</string>
-    <string name="dynamic_actionbar_colors">Dynamické barvy akčního panelu</string>
-    <string name="dynamic_actionbar_colors_subtext">V informačním okýnku motivu, Substratum
- adaptuje sbalitelný akční řádek na dominantní barvu hrdinského obrázku.</string>
-    <string name="dynamic_navbar_colors">Dynamické barvy navigačního panelu</string>
-    <string name="dynamic_navbar_colors_subtext">V informačním okýnku motivu, Substratum
- adaptuje sbalitelný navigační řádek na dominantní barvu hrdinského obrázku.</string>
     <string name="manager_title">Zobrazit vypnuté potahy v seznamu</string>
     <string name="manager_subtext">V okně přehledu potahů zobrazit všechny vypnuté potahy s
  jejich povolenými protějšky.</string>

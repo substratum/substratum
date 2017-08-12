@@ -348,10 +348,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="cache_clear_completion">¡Se ha borrado la caché del tema %s!</string>
     <string name="disable_completion">Todas las capas de este tema se están desactivando&#8230;</string>
     <string name="enable_completion">Todas las capas instaladas para este tema se están activando&#8230;</string>
-    <string name="dynamic_actionbar_colors">Colores dinámicos en la barra de acción</string>
-    <string name="dynamic_actionbar_colors_subtext">En la ventana de información del tema, Substratum adaptará la barra de acción plegable al color que predomine en las imágenes.</string>
-    <string name="dynamic_navbar_colors">Colores dinámicos en la barra de navegación</string>
-    <string name="dynamic_navbar_colors_subtext">En la ventana de información del tema, Substratum adaptará la barra de navegación al color que predomine en las imágenes.</string>
     <string name="manager_title">Mostrar capas desactivadas en la lista</string>
     <string name="manager_subtext">En la ventana de la lista de capas, mostrar todas las capas desactivadas y sus contrapartes activadas.</string>
     <string name="alternate_drawer_design_title">Diseño de Cajón Alternativo</string>

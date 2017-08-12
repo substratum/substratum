@@ -223,20 +223,6 @@
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:key="dynamic_actionbar"
-            android:summary="@string/dynamic_actionbar_colors_subtext"
-            android:title="@string/dynamic_actionbar_colors"/>
-
-        <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:key="dynamic_navbar"
-            android:summary="@string/dynamic_navbar_colors_subtext"
-            android:title="@string/dynamic_navbar_colors"/>
-
-        <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:key="nougat_style_cards"
             android:summary="@string/nougat_style_cards_subtext"
             android:title="@string/nougat_style_cards_title"/>

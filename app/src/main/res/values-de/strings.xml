@@ -335,10 +335,6 @@ um das Problem zu beheben.    </string>
     <string name="cache_clear_completion">Zwischenspeicher von %s wurde geleert!</string>
     <string name="disable_completion">Alle Overlays dieses Themes werden deaktiviert&#8230;</string>
     <string name="enable_completion">Alle installierten Overlays dieses Themes werden aktiviert&#8230;</string>
-    <string name="dynamic_actionbar_colors">Dynamische Farbe der App-Leiste</string>
-    <string name="dynamic_actionbar_colors_subtext">Substratum wird bei der Übersicht eines Themes die Hauptfarbe des Titelbildes auf die App-Leiste anwenden.</string>
-    <string name="dynamic_navbar_colors">Dynamische Farbe der Navigationsleiste</string>
-    <string name="dynamic_navbar_colors_subtext">Substratum wird bei der Übersicht eines Themes die Hauptfarbe des Titebildes auf die Navigationsleiste anwenden.</string>
     <string name="manager_title">Deaktivierte Overlays in der Liste anzeigen</string>
     <string name="manager_subtext">Alle deaktivierten Overlays in der Overlay-Liste mit ihren zugehörigen aktivierten Overlays anzeigen.</string>
     <string name="alternate_drawer_design_title">Alternatives Drawer-Design</string>

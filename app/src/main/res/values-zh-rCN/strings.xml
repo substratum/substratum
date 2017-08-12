@@ -326,10 +326,6 @@
     <string name="cache_clear_completion">%s 主题缓存已清除</string>
     <string name="disable_completion">已禁用这一主题中所有已安装的叠加层</string>
     <string name="enable_completion">已启用这一主题中所有已安装的叠加层</string>
-    <string name="dynamic_actionbar_colors">操作栏变色</string>
-    <string name="dynamic_actionbar_colors_subtext">动态调整操作栏以适应主图片颜色</string>
-    <string name="dynamic_navbar_colors">导航栏变色</string>
-    <string name="dynamic_navbar_colors_subtext">动态调整导航栏以适应主图片颜色</string>
     <string name="manager_title">在列表显示已禁用的叠加层</string>
     <string name="manager_subtext">在叠加层列表中显示所有叠加层，包括已启用和已禁用的。</string>
     <string name="alternate_drawer_design_title">备用抽屉设计</string>

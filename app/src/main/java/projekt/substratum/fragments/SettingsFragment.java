@@ -419,46 +419,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     return false;
                 });
 
-        final CheckBoxPreference dynamic_actionbar = (CheckBoxPreference)
-                getPreferenceManager().findPreference("dynamic_actionbar");
-        if (prefs.getBoolean("dynamic_actionbar", true)) {
-            dynamic_actionbar.setChecked(true);
-        } else {
-            dynamic_actionbar.setChecked(false);
-        }
-        dynamic_actionbar.setOnPreferenceChangeListener(
-                (preference, newValue) -> {
-                    boolean isChecked = (Boolean) newValue;
-                    if (isChecked) {
-                        prefs.edit().putBoolean("dynamic_actionbar", true).apply();
-                        dynamic_actionbar.setChecked(true);
-                    } else {
-                        prefs.edit().putBoolean("dynamic_actionbar", false).apply();
-                        dynamic_actionbar.setChecked(false);
-                    }
-                    return false;
-                });
-
-        final CheckBoxPreference dynamic_navbar = (CheckBoxPreference)
-                getPreferenceManager().findPreference("dynamic_navbar");
-        if (prefs.getBoolean("dynamic_navbar", true)) {
-            dynamic_navbar.setChecked(true);
-        } else {
-            dynamic_navbar.setChecked(false);
-        }
-        dynamic_navbar.setOnPreferenceChangeListener(
-                (preference, newValue) -> {
-                    boolean isChecked = (Boolean) newValue;
-                    if (isChecked) {
-                        prefs.edit().putBoolean("dynamic_navbar", true).apply();
-                        dynamic_navbar.setChecked(true);
-                    } else {
-                        prefs.edit().putBoolean("dynamic_navbar", false).apply();
-                        dynamic_navbar.setChecked(false);
-                    }
-                    return false;
-                });
-
         final CheckBoxPreference themeCaching = (CheckBoxPreference)
                 getPreferenceManager().findPreference("theme_caching");
         boolean to_show = prefs.getBoolean("caching_enabled", false);

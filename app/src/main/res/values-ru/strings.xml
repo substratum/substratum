@@ -336,10 +336,6 @@
     <string name="cache_clear_completion">Кэш темы %s удален!</string>
     <string name="disable_completion">Отключение всех наслоений темы&#8230;</string>
     <string name="enable_completion">Активация всех установленных наслоений темы&#8230;</string>
-    <string name="dynamic_actionbar_colors">Окрашивание экшнбара</string>
-    <string name="dynamic_actionbar_colors_subtext">В окне сведений о теме, Substratum будет подстраивать цвет скрывающегося экшнбара под стать основному цвету иллюстрирующего изображения.</string>
-    <string name="dynamic_navbar_colors">Окрашивание панели навигации</string>
-    <string name="dynamic_navbar_colors_subtext">В окне сведений о теме, Substratum будет подстраивать цвет панели навигации под стать основному цвету иллюстрирующего изображения.</string>
     <string name="manager_title">Показывать отключеные наслоения в списке</string>
     <string name="manager_subtext">В окне списка наслоений показывать все отключенные наслоения с их активированными компонентами.</string>
     <string name="alternate_drawer_design_title">Альтернативное меню</string>

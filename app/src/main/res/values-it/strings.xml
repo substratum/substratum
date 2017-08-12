@@ -332,10 +332,6 @@
     <string name="cache_clear_completion">Le cache del tema %s sono state pulite!</string>
     <string name="disable_completion">Tutti gli overlay per questo tema si stanno disattivando&#8230;</string>
     <string name="enable_completion">Tutti gli overlays installati per questo tema si stanno attivando&#8230;</string>
-    <string name="dynamic_actionbar_colors">Pulsanti della barra d\'azione dinamici</string>
-    <string name="dynamic_actionbar_colors_subtext">Nella finestra di informazione del tema, Substratum adatterà la barra d\'azione collassabile al colore dominante dell\'immagine.</string>
-    <string name="dynamic_navbar_colors">Colori della barra di navigazione dinamici</string>
-    <string name="dynamic_navbar_colors_subtext">Nella finestra di informazione del tema, Substratum adatterà la barra d\'azione collassabile al colore dominante dell\'immagine.</string>
     <string name="manager_title">Mostra gli overlays disattivati nella lista</string>
     <string name="manager_subtext">Nella finestra elenco overlay, mostra tutti gli overlay disattivati con le loro controparti attivate.</string>
     <string name="alternate_drawer_design_title">Secondo design del Drawer</string>

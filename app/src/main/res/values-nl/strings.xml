@@ -325,10 +325,6 @@
     <string name="cache_clear_completion">%s thema cache is opgeschoond!</string>
     <string name="disable_completion">Alle overlays voor dit thema worden nu gedeactiveerd&#8230;</string>
     <string name="enable_completion">Alle geïnstalleerde overlays voor dit thema worden nu geactiveerd&#8230;</string>
-    <string name="dynamic_actionbar_colors">Dynamische actiebalk kleuren</string>
-    <string name="dynamic_actionbar_colors_subtext">In het thema informatievenster zal Substratum de inklapbare actiebalk aanpassen aan de dominante kleur van de hoofdafbeelding.</string>
-    <string name="dynamic_navbar_colors">Dynamische navigatiebalk kleuren</string>
-    <string name="dynamic_navbar_colors_subtext">In het thema informatievenster zal Substratum de navigatiebalk aanpassen aan de dominante kleur van de hoofdafbeelding.</string>
     <string name="manager_title">Toon uitgeschakelde overlays in de lijst</string>
     <string name="manager_subtext">In het overlay lijst venster, toon alle uitgeschakelde overlays met hun ingeschakelde tegenhangers.</string>
     <string name="alternate_drawer_design_title">Secundaire lade design</string>

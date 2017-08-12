@@ -430,10 +430,6 @@
     <string name="cache_clear_completion">%s téma gyorsítótár törölve!</string>
     <string name="disable_completion">A téma összes fedvényének tiltása folyamatban&#8230;</string>
     <string name="enable_completion">A téma összes telepített fedvényének aktiválása folyamatban&#8230;</string>
-    <string name="dynamic_actionbar_colors">Dinamikus műveletsáv színek</string>
-    <string name="dynamic_actionbar_colors_subtext">A téma információs ablakában a Substratum az összecsukható műveletsávot a borítókép domináns színéhez igazítja.</string>
-    <string name="dynamic_navbar_colors">Dinamikus navigációs sáv színek</string>
-    <string name="dynamic_navbar_colors_subtext">A téma információs ablakában a Substratum a navigációs sávot a borítókép domináns színéhez igazítja.</string>
     <string name="manager_title">Letiltott fedvények megjelenítése a listában</string>
     <string name="manager_subtext">A fedvénylista ablak, minden letiltott a fedvényt az engedélyezett társaival együtt jelenít meg.</string>
     <string name="alternate_drawer_design_title">Másodlagos Fiók Megjelenítés</string>

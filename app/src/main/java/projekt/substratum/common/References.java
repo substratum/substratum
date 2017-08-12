@@ -80,8 +80,6 @@ import java.net.URL;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -222,9 +220,6 @@ public class References {
     private static final String SUBSTRATUM_LAUNCHER_CLASS = ".SubstratumLauncher";
     private static final String SUBSTRATUM_LAUNCHER_CLASS_PATH =
             "substratum.theme.template.SubstratumLauncher";
-    // November security update (incompatible firmware) timestamp;
-    private static final long NOVEMBER_PATCH_TIMESTAMP = 1478304000000L;
-    private static final long JANUARY_PATCH_TIMESTAMP = 1483549200000L;
     // Specific intents Substratum should be listening to
     private static final String APP_CRASHED = "projekt.substratum.APP_CRASHED";
     // Metadata used in theme templates to denote specific parts of a theme
@@ -1644,22 +1639,6 @@ public class References {
             // Theme Interfacer was not installed
         }
         return null;
-    }
-
-    public static boolean isIncompatibleFirmware() {
-        String currentPatch = getProp("ro.build.version.security_patch");
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-        try {
-            Date date = format.parse(currentPatch);
-            long currentPatchTimestamp = date.getTime();
-            return currentPatchTimestamp > NOVEMBER_PATCH_TIMESTAMP &&
-                    currentPatchTimestamp < JANUARY_PATCH_TIMESTAMP;
-        } catch (ParseException pe) {
-            // Suppress warning for ROMs that erase this prop
-        }
-
-        // Something bad happened. Aborting
-        return false;
     }
 
     public static boolean needsRecreate(Context context, ArrayList<String> list) {

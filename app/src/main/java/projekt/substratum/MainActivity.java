@@ -35,7 +35,6 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
@@ -757,16 +756,6 @@ public class MainActivity extends SubstratumActivity implements
                                     });
                             alert.show();
                         }
-
-                        if (!References.checkOMS(getApplicationContext()) &&
-                                References.isIncompatibleFirmware()) {
-                            new AlertDialog.Builder(this)
-                                    .setTitle(R.string.warning_title)
-                                    .setMessage(R.string.dangerous_warning_content)
-                                    .setPositiveButton(R.string.dialog_ok, (dialog4, which4) ->
-                                            dialog4.cancel())
-                                    .show();
-                        }
                     })
                     .setNegativeButton(R.string.deny,
                             (dialog, i) -> {
@@ -801,15 +790,6 @@ public class MainActivity extends SubstratumActivity implements
                             dialog3.cancel();
                         });
                 alert.show();
-            }
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && !References.checkOMS(
-                    getApplicationContext()) && References.isIncompatibleFirmware()) {
-                new AlertDialog.Builder(this)
-                        .setTitle(R.string.warning_title)
-                        .setMessage(R.string.dangerous_warning_content)
-                        .setPositiveButton(R.string.dialog_ok, (dialog, which) -> dialog.cancel())
-                        .show();
             }
 
             References.startKeyRetrievalReceiver(getApplicationContext());

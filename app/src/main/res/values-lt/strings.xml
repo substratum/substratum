@@ -59,12 +59,6 @@
     </string>
     <string name="tbo_dialog_proceed">Atsisiųsti</string>
     <string name="warning_title">DĖMESIO!</string>
-    <string name="dangerous_warning_content">\"Substratum\" aptiko, kad jis veikia
-        ĮKROVOS KILPOS-ŽINOMOJE PROGRAMINĖJE ĮRANGOJE (Lapkričio atnaujinimas N/N-MR1) ir 
-        griežtai rekomenduojame apgalvoti, prieš pritaikant bet kurias struktūras/Android Sistemos perdangas.\n\nJei jūs nusprendėte
-        tęsti ir jūs baigėte įkrovos kilpoje, prašome įrašyti išsigelbėjimo archyvą, kurį rasite
-        \"/storage/emulated/0/substratum/\".
-    </string>
     <string name="legacy_warning_content">\"Legacy\" yra numatyta ir mes negarantuojame, kad tai jums veiks. Prašome įsitikinti, kad jūs turite pasirinktinį atkūrimo režimą savo įrenginyje ir suprantate, kaip atstatyti įkrovos kilpą prieš tęsiant toliau.\n\nMes negalime sutvarkyti dalykus, kurie negauna apipavidalinimo ant \"legacy\", nes jie reikalauja pakeitimų iš sistemos pusės.</string>
     <string name="samsung_warning_content">\"Samsung\" palikymas teikiamas, bet mes negalime garantuoti
         visiško suderinamumo su spalvomis ir \"AOSP-built\" perdangomis. Mes pasirūpinome ir paslėpėme

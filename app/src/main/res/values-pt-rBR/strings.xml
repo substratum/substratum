@@ -65,11 +65,6 @@ para esta aba&#8230;    </string>
     </string>
     <string name="tbo_dialog_proceed">Baixar</string>
     <string name="warning_title">ATENÇÃO!</string>
-    <string name="dangerous_warning_content">O Substratum detectou que está sendo executado em um
-        FIRMWARE com problemas de BOOTLOOP-CONHECIDO (Atualização entre novembro de 2016 e janeiro de 2017, N/N-MR1) e é
-        fortemente desaconselhada a aplicação de qualquer camada na estrutura/sistema do  Android.\n\nSe você escolher
-        continuar e terminar em um bootloop, por favor, instale o arquivo de recuperação encontrado em
-        \"/storage/emulated/0/substratum/\".    </string>
     <string name="legacy_warning_content">A compatibilidade de temas é fornecida tal COMO ESTÁ, uma vez que não podemos garantir uma compatibilidade completa de cores. Certifique-se de que tem uma Recuperação personalizada para o seu dispositivo e
 conhecimentos sobre como restaurar a partir de um bootloop antes de prosseguir.\n\nNão podemos
 corrigir coisas que não estão sendo aplicadas nos temas em modo de compatibilidade, pois estas exigem mudanças ao nível do sistema.    </string>

@@ -56,7 +56,6 @@
     <string name="two_description">此主题在制作时仅支持 Google 原生应用。如果您已经安装了主题化的 Google 应用，但是不想卸载它们的话，此主题可能无法正常使用。</string>
     <string name="tbo_dialog_proceed">下载</string>
     <string name="warning_title">警告！</string>
-    <string name="dangerous_warning_content">Substratum 已经检测到一个可能使设备无限重启的固件（Android 7.x 11月及后续安全补丁），强烈建议不要应用任何框架或系统叠加层。\n\n如果您选择继续应用而导致设备无限重启，请找到 /storage/emulated/0/substratum/ 下的救援文件并在恢复模式中刷写。</string>
     <string name="legacy_warning_content">我们之所以提供旧版是因为无法保证颜色的完全兼容。请确保您的设备刷写了第三方 recovery ，并知道如何从无限重启状态中恢复正常，而不会造成进一步的风险。\n\n因为需要系统层级的修改，所以我们无法修复旧版中未应用主题的项目。</string>
     <string name="samsung_warning_content">因为我们无法保证叠加层能完全兼容三星设备，所以我们对高风险叠加层进行了隐藏。您也可以手动关闭此功能。\n\n如果因应用高风险叠加层而导致黑屏，请参考我们 XDA 论坛上的两种解决方法。</string>
     <string name="legacy_dialog_soft_reboot_title">需要重新启动！</string>

@@ -71,12 +71,6 @@
     </string>
     <string name="tbo_dialog_proceed">Letöltés</string>
     <string name="warning_title">FIGYELEM!</string>
-    <string name="dangerous_warning_content">A Substratum azt észlelte, hogy eszközén egy
-        BOOTLOOP-ISMERT FIRMWARE (2016 november - 2017 január közötti frissítés, N/N-MR1) fut, így erősen
-        javasolt, hogy NE alkalmazzon bármilyen keretrendszer/Android rendszer fedvényt.\n\nHa úgy dönt,
-        hogy folytatja és a végén bootloopba kerül, kérjük flashelje a Mentési archívumot:
-        \"/storage/emulated/0/substratum/\".
-    </string>
     <string name="legacy_warning_content">Legacy úgy működik, ahogy látszik, mivel mi nem tudjuk garantálni
         a színek teljes kompatibilitását. Győződjön meg arról, hogy egyéni recovery van a készülékén
         és megértette, hogyan kell visszaállítani a bootloopból, mielőtt folytatná.\n\nMi nem tudjuk

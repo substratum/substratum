@@ -59,8 +59,6 @@
         Pero no son necesarios para este tema!    </string>
     <string name="tbo_dialog_proceed">Descargar</string>
     <string name="warning_title">¡ADVERTENCIA!</string>
-    <string name="dangerous_warning_content">Substratum ha detectado que se está ejecutando un FIRMWARE CONOCIDO POR RIESGO DE BOOTLOOP (Actualización entre noviembre de 2016 y enero de 2017, N/N-MR1) y se recomienda encarecidamente no aplicar
-ninguna capa de framework/Sistema Android.\n\nSi decides continuar y terminas en bootloop, por favor flashea el archivo de rescate encontrado en \"/storage/emulated/0/substratum/\".    </string>
     <string name="legacy_warning_content">Legado (Legacy) se proporciona con limitaciones y riesgos, ya que no podemos garantizar que
 funcione para ti. Asegúrate de tener un recovery personalizado para tu dispositivo y
 tener el conocimiento sobre cómo salir de un bootloop antes de seguir adelante.

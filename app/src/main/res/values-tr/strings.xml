@@ -71,13 +71,6 @@
     </string>
     <string name="tbo_dialog_proceed">İndir</string>
     <string name="warning_title">UYARI!</string>
-    <string name="dangerous_warning_content">Substratum bir ÖNYÜKLEME SORUNU BİLİNEN YAZILIM (Kasım 2016 ile Ocak 2017
-        arasında ki güncelleme, N/N-MR1) üzerinde çalıştığını tespit etti ve
-        Herhangi bir framework/Android Sistemi temalarını uygulamamanızı şiddetle tavsiye ediyor.\n\nEğer devam eder ve bir önyükleme döngüsü ile karşılaşırsanız,
-        lütfen \"/storage/emulated/0/substratum/\" konumunda bulunan kurtarma arşivini
-        flaşlayın.
-    
-    </string>
     <string name="legacy_warning_content">Eski olanlar renklerle tam uyumluluğu garanti edilemeyeceği
         şekilde olduğu gibi sağlanmaktadır. Lütfen cihazınızda özel kurtarma (Twrp) yüklü
 olduğundan ve

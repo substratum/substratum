@@ -49,12 +49,6 @@
     <string name="tbo_description">Este tema suporta as Aplicações Google preparadas para temas da Team Black Out. Se não as tiver, pode tocar em Transferir para ser redirecionado para o tópico de discussão no XDA, caso contrário toque em Cancelar!</string>
     <string name="tbo_dialog_proceed">Transferir</string>
     <string name="warning_title">AVISO!</string>
-    <string name="dangerous_warning_content">O Substratum detetou que está a correr num
-        FIRMWARE CONHECIDO POR CAUSAR BOOTLOOPS (Atualizado entre Novembro de 2016 e Janeiro de 2017, N/N-MR1) e está
-        a recomendar que não aplique qualquer camada à framework/Sistema Android.\n\nSe decidir
-        continuar e acabar a ter um bootloop, por favor \"flashe\" o ficheiro de restauro que poderá encontrar em
-        \"/storage/emulated/0/substratum/\".
-    </string>
     <string name="legacy_warning_content">A compatibilidade é fornecida tal como está, uma vez que não podemos garantir uma compatibilidade completa de cores. Certifique-se de que tem uma Recuperação personalizada para o seu dispositivo e
 conhecimentos sobre como recuperar de um bootloop antes de prosseguir.\n\nNão podemos
 corrigir coisas que não estão a receber temas em modo de compatibilidade, uma vez que exigem mudanças ao nível do sistema.    </string>

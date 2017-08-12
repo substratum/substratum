@@ -18,7 +18,5 @@
   -->
 
 <resources>
-    <bool name="dynamicActionBarColors">true</bool>
-    <bool name="dynamicNavigationBarColors">true</bool>
     <bool name="SplashscreenWindowLightStatusBar">true</bool>
 </resources>

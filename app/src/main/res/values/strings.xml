@@ -115,12 +115,6 @@
     <string name="open_gapps_link" translatable="false">http://opengapps.org/</string>
 
     <string name="warning_title">WARNING!</string>
-    <string name="dangerous_warning_content">Substratum has detected that it is running on a
-        BOOTLOOP-KNOWN FIRMWARE (Update between November 2016 and January 2017, N/N-MR1) and is
-        strongly advising against applying any framework/Android System overlays.\n\nIf you choose
-        to continue and end up in a bootloop, please flash the rescue archive found in
-        "/storage/emulated/0/substratum/".
-    </string>
     <string name="legacy_warning_content">Legacy is provided as-is as we cannot guarantee full
         compatibility with colors. Please ensure you have a custom recovery for your device and have
         an understanding on how to restore from a bootloop before proceeding any further.\n\nWe

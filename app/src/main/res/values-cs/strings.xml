@@ -58,8 +58,6 @@ Pokud je nemáte, můžete kliknout na tlačítko Stáhnout a budete přesunuti 
     <string name="two_description">Tento motiv podporuje originální Google aplikace, jak byli naprogramované. Jestliže máte nainstalované Google aplikace, které podporují motivy, nemusíte je odinstalovat. Nejsou však potřebné pro použití tohoto motivu!    </string>
     <string name="tbo_dialog_proceed">Stáhnout</string>
     <string name="warning_title">VAROVÁNÍ!</string>
-    <string name="dangerous_warning_content">Substratum zjistil, že běží na ZNÁMÉM FIRMWARU SE ZAPÍNACÍ SMYČKOU (aktualizace mezi 2016 listopadu a ledna 2017, N/N-MR1) a je důrazně doporučeno neaplikovat žádný framework/Android systémový potah.\n\nPokud se rozhodnete pokračovat a skončit v zapínací smyčce, tak prosím flashněte záchraný archiv, který naleznete v \"/storage/emulated/0/substratum/\".
-    </string>
     <string name="legacy_warning_content">Legacy je dáno tak jak je a nemůžeme garantovat plnou podporu barev. Prosím přesvědčte se že máte custom recovery a víte jakpoužít záchranný/obnovovací zip.
 Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systému.    </string>
     <string name="samsung_warning_content">Samsung podpora je poskytována tak, jak je, protože nemůžeme zaručit plnou kompatibilitu s barvami a překrytím na bázi AOSP.

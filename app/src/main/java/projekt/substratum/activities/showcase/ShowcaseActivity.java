@@ -114,7 +114,7 @@ public class ShowcaseActivity extends AppCompatActivity {
     }
 
     private void swipeRefresh() {
-        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(this::recreate);
     }
 
@@ -136,7 +136,7 @@ public class ShowcaseActivity extends AppCompatActivity {
         prefs = PreferenceManager.getDefaultSharedPreferences(
                 getApplicationContext());
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             if (getSupportActionBar() != null) {
@@ -155,12 +155,12 @@ public class ShowcaseActivity extends AppCompatActivity {
                 Log.e(References.SUBSTRATUM_LOG, "Could not make showcase directory...");
         }
 
-        tabLayout = findViewById(R.id.tabs);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setTabTextColors(
                 getColor(R.color.showcase_activity_text),
                 getColor(R.color.showcase_activity_text));
         tabLayout.setVisibility(View.GONE);
-        no_network = findViewById(R.id.no_network);
+        no_network = (RelativeLayout) findViewById(R.id.no_network);
         refreshLayout();
         swipeRefresh();
     }
@@ -223,7 +223,7 @@ public class ShowcaseActivity extends AppCompatActivity {
                 links.add(newArray.get(key));
                 tabLayout.addTab(tabLayout.newTab().setText(key));
             });
-            final ViewPager viewPager = findViewById(R.id.viewpager);
+            final ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
             final ShowcaseTabsAdapter adapter = new ShowcaseTabsAdapter(
                     getSupportFragmentManager(),
                     tabLayout.getTabCount(),

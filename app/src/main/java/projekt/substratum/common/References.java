@@ -580,10 +580,10 @@ public class References {
                 } else {
                     Boolean isOMSRunning = isOMSRunning(context.getApplicationContext(),
                             IOverlayManager.class);
-                    String out = Root.runCommand("cmd overlay").split("\n")[0];
-                    if (isOMSRunning)
+                    if (isOMSRunning) {
                         Log.d(SUBSTRATUM_LOG, "Found Overlay Manager Service...");
-                    foundOms = true;
+                        foundOms = true;
+                    }
                 }
             }
 

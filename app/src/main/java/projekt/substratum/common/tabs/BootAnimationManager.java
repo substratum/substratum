@@ -32,8 +32,7 @@ import static projekt.substratum.common.References.getDeviceEncryptionStatus;
 public class BootAnimationManager {
 
     public static void setBootAnimation(Context context, String themeDirectory) {
-        String location = Environment.getExternalStorageDirectory().getAbsolutePath() +
-                EXTERNAL_STORAGE_CACHE + "bootanimation.zip";
+        String location = EXTERNAL_STORAGE_CACHE + "bootanimation.zip";
         // Check to see if device is decrypted with theme interface
         if (getDeviceEncryptionStatus(context) <= 1 && checkThemeInterfacer(context)) {
             Log.d("BootAnimationUtils",

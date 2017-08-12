@@ -111,6 +111,7 @@ import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_MISSING_TARGET;
 import static projekt.substratum.common.References.BYPASS_ALL_VERSION_CHECKS;
 import static projekt.substratum.common.References.ENABLE_ROOT_CHECK;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
+import static projekt.substratum.common.References.OVERLAY_UPDATE_RANGE;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
@@ -154,6 +155,28 @@ public class MainActivity extends SubstratumActivity implements
         } catch (NullPointerException npe) {
             // At this point, the activity is closing!
         }
+    }
+
+    private boolean checkIfOverlaysOutdated() {
+        List<String> overlays = ThemeManager.listAllOverlays(getApplicationContext());
+        for (int i = 0; i < overlays.size(); i++) {
+            int current_version = References.grabOverlaySubstratumVersion(
+                    getApplicationContext(),
+                    overlays.get(i));
+            if (current_version == 0) {
+                Log.d("OverlayOutdatedCheck",
+                        "An overlay is returning 0 as Substratum's version, " +
+                                "this overlay is way out of date!");
+                return true;
+            } else if (current_version <= OVERLAY_UPDATE_RANGE) {
+                Log.d("OverlayOutdatedCheck",
+                        "An overlay is returning " + current_version +
+                                " as Substratum's version, " +
+                                "this overlay is out of date, please uninstall and reinstall!");
+                return true;
+            }
+        }
+        return false;
     }
 
     private void switchFragment(String title, String fragment) {
@@ -794,6 +817,13 @@ public class MainActivity extends SubstratumActivity implements
                 prefs.edit().putBoolean("complexion", true).apply();
                 new References.Markdown(getApplicationContext(), prefs);
             }
+        }
+        if (checkIfOverlaysOutdated()) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.overlays_outdated)
+                    .setMessage(R.string.overlays_outdated_message)
+                    .setPositiveButton(R.string.dialog_ok, (dialogInterface, i) -> {})
+                    .show();
         }
     }
 

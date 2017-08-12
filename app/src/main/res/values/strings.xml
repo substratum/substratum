@@ -692,6 +692,9 @@
     <string name="settings_force_stop_interfacer_title">Force-stop Interfacer Service</string>
     <string name="settings_force_stop_interfacer_snackbar">Now force stopping interfacer&#8230;</string>
 
+    <string name="overlays_outdated">Overlays outdated</string>
+    <string name="overlays_outdated_message">As of version 816 and beyond, our signature for signing overlays has changed to prevent possible signature mismatches down the road.\n\nThis means that your overlays installed must be cleaned out to install new theme updates or it will say that your overlay requires a forever update!\n\nThis message will not show when all overlays are compiled using the newest Substratum!</string>
+
     <string name="root_required_title">Root required</string>
     <string name="root_required_boot_animation">Your device is encrypted, so root is necessary to apply boot animations.</string>
     <string name="root_required_boot_animation_profile">Your device is encrypted, so root is necessary to backup and restore boot animations.</string>

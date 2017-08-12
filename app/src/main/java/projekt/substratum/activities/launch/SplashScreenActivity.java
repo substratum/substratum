@@ -89,7 +89,7 @@ public class SplashScreenActivity extends Activity {
                 intent = new Intent(SplashScreenActivity.this, AppIntroActivity.class);
                 intent_launch_delay = DELAY_LAUNCH_APP_INTRO;
             } catch (OutOfMemoryError oome) {
-                Log.e(References.SUBSTRATUM_LOG, "The VM has been blown up and the rendering of " +
+                Log.e(References.SUBSTRATUM_LOG, "The VM has blown up and the rendering of " +
                         "the splash screen animated icon has been cancelled.");
             }
         }

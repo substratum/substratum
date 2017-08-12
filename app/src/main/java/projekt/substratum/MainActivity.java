@@ -563,12 +563,7 @@ public class MainActivity extends SubstratumActivity implements
                         break;
                     case 101:
                         try {
-                            String sourceURL;
-                            if (References.isSamsung(getApplicationContext())) {
-                                sourceURL = getString(R.string.telegram_link_samsung);
-                            } else {
-                                sourceURL = getString(R.string.telegram_link);
-                            }
+                            String sourceURL = getString(R.string.telegram_link);
                             Intent i = new Intent(Intent.ACTION_VIEW);
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);

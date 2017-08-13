@@ -69,7 +69,7 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.systems.Validator;
 import projekt.substratum.util.files.FileDownloader;
-import projekt.substratum.util.injectors.AOPTCheck;
+import projekt.substratum.util.injectors.CheckBinaries;
 import projekt.substratum.util.readers.ReadFilterFile;
 import projekt.substratum.util.readers.ReadRepositoriesFile;
 import projekt.substratum.util.readers.ReadResourcesFile;
@@ -458,7 +458,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             prefs.edit().putString("compiler", "aapt").apply();
                             prefs.edit().putBoolean("aopt_debug", false).apply();
                             aoptSwitcher.setSummary(R.string.settings_aapt);
-                            AOPTCheck.injectAOPT(getContext(), true);
+                            CheckBinaries.install(getContext(), true);
                             sheetDialog.hide();
                         });
                         aopt.setOnClickListener(v -> {
@@ -466,7 +466,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             prefs.edit().putString("compiler", "aopt").apply();
                             prefs.edit().putBoolean("aopt_debug", true).apply();
                             aoptSwitcher.setSummary(R.string.settings_aopt);
-                            AOPTCheck.injectAOPT(getContext(), true);
+                            CheckBinaries.install(getContext(), true);
                             sheetDialog.hide();
                         });
                         sheetDialog.setContentView(sheetView);

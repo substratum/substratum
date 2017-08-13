@@ -310,7 +310,7 @@ public class SubstratumBuilder {
                     context,
                     no_cache_dir);
 
-            has_errored_out = !runShellCommands(
+            has_errored_out = !runAOPTShellCommands(
                     commands,
                     work_area,
                     targetPkg,
@@ -324,7 +324,46 @@ public class SubstratumBuilder {
                     no_cache_dir);
         }
 
-        // 7. Sign the apk
+        // 7. Zipalign the apk
+        if (!has_errored_out) {
+            String source = work_area + "/" + overlay_package + "." + parse2_themeName +
+                    "-unsigned.apk";
+            String destination = work_area + "/" + overlay_package + "." + parse2_themeName +
+                            "-unsigned-aligned.apk";
+            String commands = CompilerCommands.createZipAlignShellCommands(context, source, destination);
+
+            Process nativeApp = null;
+            try {
+                nativeApp = Runtime.getRuntime().exec(commands);
+
+                // We need this Process to be waited for before moving on to the next function.
+                Log.d(References.SUBSTRATUM_BUILDER, "Aligning APK now...");
+                nativeApp.waitFor();
+                File alignedAPK = new File(destination);
+                if (alignedAPK.isFile()) {
+                    Log.d(References.SUBSTRATUM_BUILDER, "Zipalign successful!");
+                } else {
+                    dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                            "Zipalign has failed!");
+                    has_errored_out = true;
+                    dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                            "Zipalign of \"" + overlay_package + "\" has failed.");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                        "Unfortunately, there was an exception trying to zipalign a new APK");
+                has_errored_out = true;
+                dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                        "Installation of \"" + overlay_package + "\" has failed.");
+            } finally {
+                if (nativeApp != null) {
+                    nativeApp.destroy();
+                }
+            }
+        }
+
+        // 8. Sign the apk
         if (!has_errored_out) {
             try {
                 // Delete the previous APK if it exists in the dashboard folder
@@ -334,7 +373,7 @@ public class SubstratumBuilder {
 
                 // Sign with the built-in test key/certificate.
                 String source = work_area + "/" + overlay_package + "." + parse2_themeName +
-                        "-unsigned.apk";
+                        "-unsigned-aligned.apk";
                 String destination =
                         EXTERNAL_STORAGE_CACHE + overlay_package + "." + parse2_themeName +
                                 "-signed.apk";
@@ -378,7 +417,7 @@ public class SubstratumBuilder {
             }
         }
 
-        // 8. Install the APK silently
+        // 9. Install the APK silently
         // Superuser needed as this requires elevated privileges to run these commands
         if (!has_errored_out) {
             if (theme_oms) {
@@ -540,7 +579,7 @@ public class SubstratumBuilder {
         return commands;
     }
 
-    private boolean runShellCommands(String commands,
+    private boolean runAOPTShellCommands(String commands,
                                      String work_area,
                                      String targetPkg,
                                      String theme_name,
@@ -571,7 +610,7 @@ public class SubstratumBuilder {
                             String new_commands = processAOPTCommands(work_area, targetPkg,
                                     theme_name, overlay_package, variant, additional_variant,
                                     typeMode, true, context, no_cache_dir);
-                            return runShellCommands(
+                            return runAOPTShellCommands(
                                     new_commands, work_area, targetPkg, theme_name,
                                     overlay_package, variant, additional_variant, typeMode,
                                     true, context, no_cache_dir);

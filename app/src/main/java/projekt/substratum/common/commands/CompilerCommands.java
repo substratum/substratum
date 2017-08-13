@@ -171,4 +171,20 @@ public class CompilerCommands {
 
         return sb.toString();
     }
+
+    public static String createZipAlignShellCommands(Context context,
+                                                     String source,
+                                                     String destination) {
+        // Compiler will automatically optimize this with StringBuilder
+        String ret;
+
+        // Initialize the ZipAlign command
+        ret = context.getFilesDir().getAbsolutePath() + "/zipalign 4 ";
+        // Supply the source
+        ret += source + " ";
+        // Supply the destination
+        ret += destination;
+
+        return ret;
+    }
 }

@@ -117,7 +117,7 @@ import projekt.substratum.services.profiles.ScheduledProfileReceiver;
 import projekt.substratum.services.system.InterfacerAuthorizationReceiver;
 import projekt.substratum.util.compilers.CacheCreator;
 import projekt.substratum.util.files.Root;
-import projekt.substratum.util.injectors.AOPTCheck;
+import projekt.substratum.util.injectors.CheckBinaries;
 import projekt.substratum.util.readers.ReadSupportedROMsFile;
 import projekt.substratum.util.readers.ReadVariantPrioritizedColor;
 
@@ -736,7 +736,7 @@ public class References {
         editor = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE).edit();
         editor.putBoolean("is_updating", false);
         editor.apply();
-        AOPTCheck.injectAOPT(context, true);
+        CheckBinaries.install(context, true);
     }
 
     public static void refreshInstalledThemesPref(Context context) {

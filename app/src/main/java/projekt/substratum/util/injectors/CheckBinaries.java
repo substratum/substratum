@@ -30,9 +30,14 @@ import java.util.Arrays;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.FileOperations;
 
-public final class AOPTCheck {
+public final class CheckBinaries {
+    public static void install(Context context, Boolean forced) {
+        injectAOPT(context, forced);
+        injectZipAlign(context, forced);
+    }
+
     @SuppressWarnings("EqualsBetweenInconvertibleTypes")
-    public static void injectAOPT(Context context, Boolean forced) {
+    private static void injectAOPT(Context context, Boolean forced) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         String aoptPath = context.getFilesDir().getAbsolutePath() + "/aopt";
 
@@ -89,7 +94,40 @@ public final class AOPTCheck {
         }
         File f = new File(aoptPath);
         if (f.isFile()) {
-            if (!f.setExecutable(true, true)) Log.e("AOPTCheck", "Could not set executable...");
+            if (!f.setExecutable(true, true)) Log.e("CheckBinaries", "Could not set executable...");
+        }
+    }
+
+    private static void injectZipAlign(Context mContext, Boolean forced) {
+        String zipalignPath = mContext.getFilesDir().getAbsolutePath() + "/zipalign";
+        File f = new File(zipalignPath);
+
+        // Check if ZipAlign is already installed
+        if (f.exists() && !forced)
+            return;
+
+        if (!Arrays.toString(Build.SUPPORTED_ABIS).contains("86")) {
+            String architecture =
+                    Arrays.asList(Build.SUPPORTED_64_BIT_ABIS).size() > 0 ? "ARM64" : "ARM";
+            FileOperations.copyFromAsset(mContext, "zipalign" + (architecture.equals("ARM64") ? "64" :
+                    ""), zipalignPath);
+            Log.d(References.SUBSTRATUM_LOG,
+                    "ZipAlign (" + architecture + ") " +
+                            "has been added into the compiler directory.");
+        } else {
+            // Take account for x86 devices
+            try {
+                FileOperations.copyFromAsset(mContext, "zipalign86", zipalignPath);
+                Log.d(References.SUBSTRATUM_LOG,
+                        "ZipAlign (x86) " +
+                                "has been added into the compiler directory.");
+            } catch (Exception e) {
+                // Suppress warning
+            }
+        }
+
+        if (f.isFile()) {
+            if (!f.setExecutable(true, true)) Log.e("CheckBinaries", "Could not set executable...");
         }
     }
 }

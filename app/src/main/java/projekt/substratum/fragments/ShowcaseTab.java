@@ -30,7 +30,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -78,8 +78,8 @@ public class ShowcaseTab extends Fragment {
 
         root = (ViewGroup) inflater.inflate(R.layout.showcase_tab, container, false);
         materialProgressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
-        no_network = (ImageView) root.findViewById(R.id.no_network);
-        no_wallpapers = (ImageView) root.findViewById(R.id.none_found);
+        no_network = (RelativeLayout) root.findViewById(R.id.no_network);
+        no_wallpapers = (RelativeLayout) root.findViewById(R.id.none_found);
 
         refreshLayout();
         return root;

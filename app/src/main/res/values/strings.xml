@@ -814,7 +814,7 @@
     <string name="automatic_logchar_cleanup_title">Automatically wipe saved LogChar reports</string>
     <string name="cleaned_logchar_reports">Cleaned saved LogChar reports</string>
     <string name="legacy_overlay_uninstall_warning_text">If you are uninstalling all overlays, please use the Substratum Rescue ZIPs to avoid possible bootloops.</string>
-    <string name="auto_reload_sysui_title">Automatically Reload SystemUI</string>
-    <string name="auto_reload_sysui_summary_on">Substratum will automatically reload the SystemUI after an overlay targeting SystemUI is modified</string>
-    <string name="auto_reload_sysui_summary_off">Substratum will not automatically reload the SystemUI after an overlay targeting SystemUI is modified</string>
+    <string name="auto_reload_sysui_title">Automatically reload SystemUI</string>
+    <string name="auto_reload_sysui_summary_on">Substratum will automatically reload the SystemUI after an overlay targeting SystemUI is enabled/disabled.</string>
+    <string name="auto_reload_sysui_summary_off">Substratum will not automatically reload the SystemUI after an overlay targeting SystemUI is enabled/disabled.</string>
 </resources>

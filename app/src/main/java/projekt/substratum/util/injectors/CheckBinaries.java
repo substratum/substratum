@@ -30,24 +30,22 @@ import java.util.Arrays;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.FileOperations;
 
-public class AOPTCheck {
-
-    private Context mContext;
-    private SharedPreferences prefs;
-    private String aoptPath;
+public final class CheckBinaries {
+    public static void install(Context context, Boolean forced) {
+        injectAOPT(context, forced);
+        injectZipAlign(context, forced);
+    }
 
     @SuppressWarnings("EqualsBetweenInconvertibleTypes")
-    public void injectAOPT(Context context, Boolean forced) {
-        mContext = context;
-
-        prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        aoptPath = context.getFilesDir().getAbsolutePath() + "/aopt";
+    private static void injectAOPT(Context context, Boolean forced) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String aoptPath = context.getFilesDir().getAbsolutePath() + "/aopt";
 
         // Check if AOPT is installed on the device
         File aopt = new File(aoptPath);
 
         if (!aopt.isFile() || forced) {
-            inject();
+            inject(context, prefs, aoptPath);
         } else if (aopt.exists()) {
             Log.d(References.SUBSTRATUM_LOG,
                     "The system partition already contains an existing compiler " +
@@ -56,12 +54,11 @@ public class AOPTCheck {
             Log.e(References.SUBSTRATUM_LOG,
                     "The system partition already contains an existing compiler, " +
                             "however it does not match Substratum integrity.");
-            inject();
+            inject(context, prefs, aoptPath);
         }
     }
 
-
-    private void inject() {
+    private static void inject(Context mContext, SharedPreferences prefs, String aoptPath) {
         if (!Arrays.toString(Build.SUPPORTED_ABIS).contains("86")) {
             // Developers: AOPT-ARM (32bit) is using the legacy AAPT binary, while AAPT-ARM64
             //             (64bit) is using the brand new AOPT binary.
@@ -97,7 +94,40 @@ public class AOPTCheck {
         }
         File f = new File(aoptPath);
         if (f.isFile()) {
-            if (!f.setExecutable(true, true)) Log.e("AOPTCheck", "Could not set executable...");
+            if (!f.setExecutable(true, true)) Log.e("CheckBinaries", "Could not set executable...");
+        }
+    }
+
+    private static void injectZipAlign(Context mContext, Boolean forced) {
+        String zipalignPath = mContext.getFilesDir().getAbsolutePath() + "/zipalign";
+        File f = new File(zipalignPath);
+
+        // Check if ZipAlign is already installed
+        if (f.exists() && !forced)
+            return;
+
+        if (!Arrays.toString(Build.SUPPORTED_ABIS).contains("86")) {
+            String architecture =
+                    Arrays.asList(Build.SUPPORTED_64_BIT_ABIS).size() > 0 ? "ARM64" : "ARM";
+            FileOperations.copyFromAsset(mContext, "zipalign" + (architecture.equals("ARM64") ? "64" :
+                    ""), zipalignPath);
+            Log.d(References.SUBSTRATUM_LOG,
+                    "ZipAlign (" + architecture + ") " +
+                            "has been added into the compiler directory.");
+        } else {
+            // Take account for x86 devices
+            try {
+                FileOperations.copyFromAsset(mContext, "zipalign86", zipalignPath);
+                Log.d(References.SUBSTRATUM_LOG,
+                        "ZipAlign (x86) " +
+                                "has been added into the compiler directory.");
+            } catch (Exception e) {
+                // Suppress warning
+            }
+        }
+
+        if (f.isFile()) {
+            if (!f.setExecutable(true, true)) Log.e("CheckBinaries", "Could not set executable...");
         }
     }
 }

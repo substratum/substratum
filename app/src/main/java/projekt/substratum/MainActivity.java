@@ -105,7 +105,7 @@ import projekt.substratum.services.floatui.SubstratumFloatInterface;
 import projekt.substratum.services.tiles.FloatUiTile;
 import projekt.substratum.util.files.Root;
 import projekt.substratum.util.helpers.ContextWrapper;
-import projekt.substratum.util.injectors.AOPTCheck;
+import projekt.substratum.util.injectors.CheckBinaries;
 
 import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_MISSING_TARGET;
 import static projekt.substratum.common.References.BYPASS_ALL_VERSION_CHECKS;
@@ -1287,7 +1287,7 @@ public class MainActivity extends SubstratumActivity implements
                         }
                     }.start();
                 } else {
-                    new AOPTCheck().injectAOPT(activity.getApplicationContext(), false);
+                    CheckBinaries.install(activity.getApplicationContext(), false);
                     if (References.checkOMS(context)) new DoCleanUp(context).execute();
                 }
             }

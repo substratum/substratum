@@ -214,6 +214,8 @@ public class References {
     // Notification Channel
     public static final String DEFAULT_NOTIFICATION_CHANNEL_ID = "default";
     public static final String ONGOING_NOTIFICATION_CHANNEL_ID = "ongoing";
+    // This string is the preference to control systemui restart opt-out
+    public static final String optOutSysUIRestartPref = "opt_out_sysui_restart";
     private static final String TEMPLATE_RECEIVE_KEYS = "projekt.substratum.RECEIVE_KEYS";
     private static final String metadataSamsungSupport = "Substratum_Samsung";
     // This controls the filter used by the post-6.0.0 template checker
@@ -229,8 +231,6 @@ public class References {
     private static final String resourceChangelog = "ThemeChangelog";
     // This string controls the hero image name
     private static final String heroImageResourceName = "heroimage";
-    // This string is the preference to control systemui restart opt-out
-    public static final String optOutSysUIRestartPref = "opt_out_sysui_restart";
     // This int controls the notification identifier
     public static int firebase_notification_id = 24862486;
     public static int notification_id = 2486;
@@ -541,11 +541,12 @@ public class References {
         }
     }
 
-    public static boolean isOMSRunning(Context context, Class<?> serviceClass) {
-        final ActivityManager activityManager = (ActivityManager) context.getSystemService
-                (Context.ACTIVITY_SERVICE);
-        final List<ActivityManager.RunningServiceInfo> services = activityManager
-                .getRunningServices(Integer.MAX_VALUE);
+    private static boolean isOMSRunning(Context context, Class<?> serviceClass) {
+        final ActivityManager activityManager = (ActivityManager)
+                context.getSystemService(Context.ACTIVITY_SERVICE);
+        assert activityManager != null;
+        final List<ActivityManager.RunningServiceInfo> services =
+                activityManager.getRunningServices(Integer.MAX_VALUE);
 
         for (ActivityManager.RunningServiceInfo runningServiceInfo : services) {
             Log.d(TAG, String.format("Service:%s", runningServiceInfo.service.getClassName()));
@@ -586,6 +587,12 @@ public class References {
                     if (isOMSRunning) {
                         Log.d(SUBSTRATUM_LOG, "Found Overlay Manager Service...");
                         foundOms = true;
+                    } else {
+                        String out = Root.runCommand("cmd overlay").split("\n")[0];
+                        if (out.equals("The overlay manager has already been initialized.") ||
+                                out.equals("Overlay manager (overlay) commands:")) {
+                            foundOms = true;
+                        }
                     }
                 }
             }

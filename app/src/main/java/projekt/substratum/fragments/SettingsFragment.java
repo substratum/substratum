@@ -458,7 +458,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             prefs.edit().putString("compiler", "aapt").apply();
                             prefs.edit().putBoolean("aopt_debug", false).apply();
                             aoptSwitcher.setSummary(R.string.settings_aapt);
-                            new AOPTCheck().injectAOPT(getContext(), true);
+                            AOPTCheck.injectAOPT(getContext(), true);
                             sheetDialog.hide();
                         });
                         aopt.setOnClickListener(v -> {
@@ -466,7 +466,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             prefs.edit().putString("compiler", "aopt").apply();
                             prefs.edit().putBoolean("aopt_debug", true).apply();
                             aoptSwitcher.setSummary(R.string.settings_aopt);
-                            new AOPTCheck().injectAOPT(getContext(), true);
+                            AOPTCheck.injectAOPT(getContext(), true);
                             sheetDialog.hide();
                         });
                         sheetDialog.setContentView(sheetView);

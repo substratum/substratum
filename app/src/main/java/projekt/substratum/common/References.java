@@ -736,7 +736,7 @@ public class References {
         editor = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE).edit();
         editor.putBoolean("is_updating", false);
         editor.apply();
-        new AOPTCheck().injectAOPT(context, true);
+        AOPTCheck.injectAOPT(context, true);
     }
 
     public static void refreshInstalledThemesPref(Context context) {

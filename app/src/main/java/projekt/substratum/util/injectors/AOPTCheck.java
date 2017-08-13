@@ -30,24 +30,17 @@ import java.util.Arrays;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.FileOperations;
 
-public class AOPTCheck {
-
-    private Context mContext;
-    private SharedPreferences prefs;
-    private String aoptPath;
-
+public final class AOPTCheck {
     @SuppressWarnings("EqualsBetweenInconvertibleTypes")
-    public void injectAOPT(Context context, Boolean forced) {
-        mContext = context;
-
-        prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        aoptPath = context.getFilesDir().getAbsolutePath() + "/aopt";
+    public static void injectAOPT(Context context, Boolean forced) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String aoptPath = context.getFilesDir().getAbsolutePath() + "/aopt";
 
         // Check if AOPT is installed on the device
         File aopt = new File(aoptPath);
 
         if (!aopt.isFile() || forced) {
-            inject();
+            inject(context, prefs, aoptPath);
         } else if (aopt.exists()) {
             Log.d(References.SUBSTRATUM_LOG,
                     "The system partition already contains an existing compiler " +
@@ -56,12 +49,11 @@ public class AOPTCheck {
             Log.e(References.SUBSTRATUM_LOG,
                     "The system partition already contains an existing compiler, " +
                             "however it does not match Substratum integrity.");
-            inject();
+            inject(context, prefs, aoptPath);
         }
     }
 
-
-    private void inject() {
+    private static void inject(Context mContext, SharedPreferences prefs, String aoptPath) {
         if (!Arrays.toString(Build.SUPPORTED_ABIS).contains("86")) {
             // Developers: AOPT-ARM (32bit) is using the legacy AAPT binary, while AAPT-ARM64
             //             (64bit) is using the brand new AOPT binary.

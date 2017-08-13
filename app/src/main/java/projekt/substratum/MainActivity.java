@@ -1287,7 +1287,7 @@ public class MainActivity extends SubstratumActivity implements
                         }
                     }.start();
                 } else {
-                    new AOPTCheck().injectAOPT(activity.getApplicationContext(), false);
+                    AOPTCheck.injectAOPT(activity.getApplicationContext(), false);
                     if (References.checkOMS(context)) new DoCleanUp(context).execute();
                 }
             }

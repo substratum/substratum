@@ -482,7 +482,7 @@ public class ThemeManager {
     }
 
     public static boolean shouldRestartUI(Context context, String overlayPackageName) {
-        if (overlayPackageName.startsWith("com.android.systemui") && optOutFromUIRestart(context)){
+        if (overlayPackageName.startsWith("com.android.systemui") && optInFromUIRestart(context)){
             Log.d(References.SUBSTRATUM_LOG, "shouldRebootUI : true");
             return true;
         } else {

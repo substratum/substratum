@@ -47,6 +47,7 @@ import projekt.substratum.util.files.MD5;
 
 import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
+import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.Resources.ANDROID_STUDIO_DEBUG_KEYS;
 import static projekt.substratum.common.analytics.FirebaseAnalytics.PACKAGES_PREFS;
 import static projekt.substratum.common.analytics.PackageAnalytics.isLowEnd;
@@ -150,12 +151,17 @@ public class SplashScreenActivity extends Activity {
                 FirebaseAnalytics.withdrawBlacklistedPackages(context);
                 prefs = context.getSharedPreferences(PACKAGES_PREFS, Context.MODE_PRIVATE);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
-                while (!prefs.contains(dateFormat.format(new Date()))) {
+                int timeoutCount = 0;
+                while (!prefs.contains(dateFormat.format(new Date())) && timeoutCount < 100) {
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                    timeoutCount++;
+                }
+                if (!prefs.contains(dateFormat.format(new Date()))) {
+                    Log.d(SUBSTRATUM_LOG, "Failed to withdraw blacklisted packages.");
                 }
 
                 if (!References.isSamsungDevice(context) ||
@@ -167,12 +173,17 @@ public class SplashScreenActivity extends Activity {
                 FirebaseAnalytics.withdrawSungstratumFingerprint(context, sstVersion);
                 SharedPreferences prefs2 =
                         context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
-                while (!prefs2.contains("sungstratum_exp_fp_" + sstVersion)) {
+                timeoutCount = 0;
+                while (!prefs2.contains("sungstratum_exp_fp_" + sstVersion) && timeoutCount < 100) {
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                    timeoutCount++;
+                }
+                if (!prefs2.contains("sungstratum_exp_fp_" + sstVersion)) {
+                    Log.d(SUBSTRATUM_LOG, "Failed to withdraw sungstratum fingerprint.");
                 }
 
                 keyRetrieval = new KeyRetrieval();

@@ -25,6 +25,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ public class ThemeManager {
      * NOTE: Deprecation at the OMS3 level. We no longer support OMS3 commands.
      */
     public static final String disableOverlay = "cmd overlay disable";
-    public static final String enableOverlay = "cmd overlay enable";
+    private static final String enableOverlay = "cmd overlay enable";
     private static final String listAllOverlays = "cmd overlay list";
     private static final String setPriority = "cmd overlay set-priority";
     private static final String[] blacklistedPackages = new String[]{
@@ -152,6 +153,7 @@ public class ThemeManager {
     }
 
     public static void restartSystemUI(Context context) {
+        Log.d(References.SUBSTRATUM_LOG, "Restarting SystemUI");
         if (checkThemeInterfacer(context)) {
             ThemeInterfacerService.restartSystemUI(context);
         } else {
@@ -482,13 +484,26 @@ public class ThemeManager {
         }
     }
 
+    public static boolean shouldRestartUI(Context context, String overlayPackageName) {
+        if (overlayPackageName.startsWith("com.android.systemui") && optOutFromUIRestart(context)){
+            Log.d(References.SUBSTRATUM_LOG, "shouldRebootUI : true");
+            return true;
+        } else {
+            Log.d(References.SUBSTRATUM_LOG, "shouldRebootUI : false");
+            return false;
+        }
+    }
+
     public static boolean shouldRestartUI(Context context, ArrayList<String> overlays) {
         if (checkOMS(context)) {
             for (String o : overlays) {
-                if (o.startsWith("com.android.systemui"))
+                if (o.startsWith("com.android.systemui")) {
+                    Log.d(References.SUBSTRATUM_LOG, "shouldRebootUI : true");
                     return optOutFromUIRestart(context);
+                }
             }
         }
+        Log.d(References.SUBSTRATUM_LOG, "shouldRebootUI : false");
         return false;
     }
 

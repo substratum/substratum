@@ -318,7 +318,8 @@ public class OverlayFunctions {
                                             overlays.checkedOverlays.get(i)
                                                     .getFullOverlayParameters();
                                     if (ThemeManager.isOverlayEnabled(context, packageName)) {
-                                        ThemeManager.restartSystemUI(context);
+                                        if (ThemeManager.shouldRestartUI(context, packageName))
+                                            ThemeManager.restartSystemUI(context);
                                         break;
                                     }
                                 }
@@ -542,7 +543,6 @@ public class OverlayFunctions {
                                 if (created.exists()) {
                                     FileOperations.delete(context, created.getAbsolutePath());
                                 }
-                                ;
                                 FileOperations.createNewFolder(context, created
                                         .getAbsolutePath());
                             }

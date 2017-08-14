@@ -22,8 +22,6 @@ import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Looper;
 import android.os.RemoteException;
 
 import java.util.ArrayList;
@@ -31,11 +29,8 @@ import java.util.ArrayList;
 import projekt.substratum.common.References;
 import projekt.substratum.services.binder.BinderService;
 
-import static projekt.substratum.common.References.FIRST_WINDOW_REFRESH_DELAY;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.INTERFACER_SERVICE;
-import static projekt.substratum.common.References.MAIN_WINDOW_REFRESH_DELAY;
-import static projekt.substratum.common.References.SECOND_WINDOW_REFRESH_DELAY;
 
 public class ThemeInterfacerService {
 
@@ -61,7 +56,6 @@ public class ThemeInterfacerService {
     private static final String COMMAND_VALUE_UNINSTALL = "uninstall";
     private static final String COMMAND_VALUE_RESTART_UI = "restart_ui";
     private static final String COMMAND_VALUE_FORCE_STOP_SERVICE = "force_stop_service";
-    private static final String COMMAND_VALUE_CONFIGURATION_SHIM = "configuration_shim";
     private static final String COMMAND_VALUE_BOOTANIMATION = "bootanimation";
     private static final String COMMAND_VALUE_FONTS = "fonts";
     private static final String COMMAND_VALUE_AUDIO = "audio";
@@ -184,23 +178,6 @@ public class ThemeInterfacerService {
         Intent intent = getThemeInterfacer(context);
         intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_FORCE_STOP_SERVICE);
         context.startService(intent);
-    }
-
-    public static void configurationChangeShim(Context context) {
-        if (References.isBinderInterfacer(context)) {
-            new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                try {
-                    BinderService.getInstance().getInterfacerInterface().configurationShim(
-                            FIRST_WINDOW_REFRESH_DELAY, SECOND_WINDOW_REFRESH_DELAY);
-                } catch (RemoteException e) {
-                    // Suppress warning
-                }
-            }, MAIN_WINDOW_REFRESH_DELAY);
-        } else {
-            Intent intent = getThemeInterfacer(context);
-            intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_CONFIGURATION_SHIM);
-            context.startService(intent);
-        }
     }
 
     public static void setBootAnimation(Context context, String bootanimation_location) {

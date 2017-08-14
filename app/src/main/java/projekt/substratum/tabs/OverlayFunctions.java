@@ -951,9 +951,11 @@ public class OverlayFunctions {
 
     static class Phase4_finishEnableFunction extends AsyncTask<Void, Void, Void> {
         WeakReference<Overlays> ref;
+        WeakReference<Context> refContext;
 
         Phase4_finishEnableFunction(Overlays overlays) {
             ref = new WeakReference<>(overlays);
+            refContext = new WeakReference<>(overlays.getContext());
         }
 
         @Override
@@ -997,9 +999,8 @@ public class OverlayFunctions {
         @Override
         protected void onPostExecute(Void result) {
             Overlays overlays = ref.get();
-            if (overlays != null) {
-                Context context = overlays.getActivity();
-
+            Context context = refContext.get();
+            if (overlays != null && context != null) {
                 if (overlays.final_runner.size() > 0) {
                     overlays.progressBar.setVisibility(View.GONE);
                     if (overlays.needsRecreate(context)) {
@@ -1038,9 +1039,11 @@ public class OverlayFunctions {
 
     static class Phase4_finishDisableFunction extends AsyncTask<Void, Void, Void> {
         WeakReference<Overlays> ref;
+        WeakReference<Context> refContext;
 
         Phase4_finishDisableFunction(Overlays overlays) {
             ref = new WeakReference<>(overlays);
+            refContext = new WeakReference<>(overlays.getContext());
         }
 
         @Override
@@ -1048,10 +1051,8 @@ public class OverlayFunctions {
             Overlays overlays = ref.get();
             if (overlays != null) {
                 Activity activity = overlays.getActivity();
-
                 if (overlays.final_runner.size() > 0) {
-                    activity.runOnUiThread(() ->
-                            overlays.progressBar.setVisibility(View.VISIBLE));
+                    overlays.progressBar.setVisibility(View.VISIBLE);
                     if (overlays.toggle_all.isChecked())
                         activity.runOnUiThread(() -> overlays.toggle_all.setChecked(false));
                 }
@@ -1075,11 +1076,10 @@ public class OverlayFunctions {
         @Override
         protected void onPostExecute(Void result) {
             Overlays overlays = ref.get();
-            if (overlays != null) {
-                Context context = overlays.getActivity();
+            Context context = refContext.get();
+            if (overlays != null && context != null) {
                 Activity activity = overlays.getActivity();
-
-                activity.runOnUiThread(() -> overlays.progressBar.setVisibility(View.GONE));
+                overlays.progressBar.setVisibility(View.GONE);
                 if (overlays.final_runner.size() > 0) {
                     if (overlays.needsRecreate(context)) {
                         Handler handler = new Handler();

@@ -27,8 +27,12 @@ import android.content.Intent;
 import android.media.AudioAttributes;
 import android.util.Log;
 
+import com.google.firebase.crash.FirebaseCrash;
+
 import projekt.substratum.common.References;
 import projekt.substratum.services.binder.BinderService;
+
+import static projekt.substratum.BuildConfig.DEBUG;
 
 public class Substratum extends Application {
 
@@ -43,6 +47,7 @@ public class Substratum extends Application {
     public void onCreate() {
         super.onCreate();
         substratum = this;
+        FirebaseCrash.setCrashCollectionEnabled(!DEBUG);
         startBinderService();
         References.registerBroadcastReceivers(this);
         createNotificationChannel();

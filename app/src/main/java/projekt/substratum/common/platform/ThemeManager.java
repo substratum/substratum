@@ -455,7 +455,6 @@ public class ThemeManager {
                                         ArrayList<String> overlays) {
         ArrayList<String> temp = new ArrayList<>(overlays);
         temp.removeAll(listOverlays(context, STATE_APPROVED_DISABLED));
-        boolean shouldRestartUi = shouldRestartUI(context, temp);
         disableOverlay(context, temp);
 
         // if enabled list is not contains any overlays
@@ -463,7 +462,7 @@ public class ThemeManager {
             ThemeInterfacerService.uninstallOverlays(
                     context,
                     overlays,
-                    shouldRestartUi);
+                    false);
         } else if (References.isSamsung(context) &&
                 !Root.checkRootAccess() &&
                 !Root.requestRootAccess()) {
@@ -479,8 +478,6 @@ public class ThemeManager {
                         .append(packageName);
             }
             new ElevatedCommands.ThreadRunner().execute(command.toString());
-            if (checkOMS(context) && shouldRestartUi)
-                restartSystemUI(context);
         }
     }
 

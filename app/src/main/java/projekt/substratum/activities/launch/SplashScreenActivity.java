@@ -134,10 +134,7 @@ public class SplashScreenActivity extends Activity {
         protected void onPreExecute() {
             SplashScreenActivity activity = ref.get();
             if (activity != null) {
-                if (References.isSamsungDevice(activity) &&
-                        References.isPackageInstalled(activity, SST_ADDON_PACKAGE)) {
-                    activity.materialProgressBar.setVisibility(View.VISIBLE);
-                }
+                activity.materialProgressBar.setVisibility(View.VISIBLE);
             }
         }
 

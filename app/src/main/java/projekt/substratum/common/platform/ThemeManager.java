@@ -499,7 +499,7 @@ public class ThemeManager {
             for (String o : overlays) {
                 if (o.startsWith("com.android.systemui")) {
                     Log.d(References.SUBSTRATUM_LOG, "shouldRebootUI : true");
-                    return optOutFromUIRestart(context);
+                    return optInFromUIRestart(context);
                 }
             }
         }
@@ -507,9 +507,9 @@ public class ThemeManager {
         return false;
     }
 
-    private static boolean optOutFromUIRestart(Context context) {
+    private static boolean optInFromUIRestart(Context context) {
         return PreferenceManager
                 .getDefaultSharedPreferences(context)
-                .getBoolean(References.optOutSysUIRestartPref, false);
+                .getBoolean("opt_in_sysui_restart", true);
     }
 }

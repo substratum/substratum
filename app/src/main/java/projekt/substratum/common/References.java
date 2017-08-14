@@ -214,10 +214,6 @@ public class References {
     // Notification Channel
     public static final String DEFAULT_NOTIFICATION_CHANNEL_ID = "default";
     public static final String ONGOING_NOTIFICATION_CHANNEL_ID = "ongoing";
-    // This string is the preference to control systemui restart opt-out
-    public static final String optOutSysUIRestartPref = "opt_out_sysui_restart";
-    private static final String TEMPLATE_RECEIVE_KEYS = "projekt.substratum.RECEIVE_KEYS";
-    private static final String metadataSamsungSupport = "Substratum_Samsung";
     // This controls the filter used by the post-6.0.0 template checker
     private static final String SUBSTRATUM_THEME = "projekt.substratum.THEME";
     private static final String SUBSTRATUM_LAUNCHER_CLASS = ".SubstratumLauncher";
@@ -225,9 +221,11 @@ public class References {
             "substratum.theme.template.SubstratumLauncher";
     // Specific intents Substratum should be listening to
     private static final String APP_CRASHED = "projekt.substratum.APP_CRASHED";
+    private static final String TEMPLATE_RECEIVE_KEYS = "projekt.substratum.RECEIVE_KEYS";
     // Metadata used in theme templates to denote specific parts of a theme
     private static final String metadataVersion = "Substratum_Plugin";
     private static final String metadataThemeReady = "Substratum_ThemeReady";
+    private static final String metadataSamsungSupport = "Substratum_Samsung";
     private static final String resourceChangelog = "ThemeChangelog";
     // This string controls the hero image name
     private static final String heroImageResourceName = "heroimage";

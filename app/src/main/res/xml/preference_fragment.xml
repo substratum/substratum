@@ -198,11 +198,12 @@
             android:key="hide_app_checkbox"
             android:summary="@string/hide_app_icon_not_supported"
             android:title="@string/hide_app_icon"/>
+
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:key="opt_in_sysui_restart"
             android:defaultValue="true"
-            android:key="opt_out_sysui_restart"
             android:title="@string/auto_reload_sysui_title"
             android:summaryOn="@string/auto_reload_sysui_summary_on"
             android:summaryOff="@string/auto_reload_sysui_summary_off"/>

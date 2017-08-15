@@ -481,26 +481,21 @@ public class ThemeManager {
         }
     }
 
-    public static boolean shouldRestartUI(Context context, String overlayPackageName) {
-        if (overlayPackageName.startsWith("com.android.systemui") && optInFromUIRestart(context)){
-            Log.d(References.SUBSTRATUM_LOG, "shouldRebootUI : true");
-            return true;
-        } else {
-            Log.d(References.SUBSTRATUM_LOG, "shouldRebootUI : false");
-            return false;
+    public static boolean shouldRestartUI(Context context, String overlay) {
+        if (overlay.startsWith("com.android.systemui")) {
+            if (checkOMS(context)) {
+                return optInFromUIRestart(context);
+            }
         }
+        return false;
     }
 
     public static boolean shouldRestartUI(Context context, ArrayList<String> overlays) {
-        if (checkOMS(context)) {
-            for (String o : overlays) {
-                if (o.startsWith("com.android.systemui")) {
-                    Log.d(References.SUBSTRATUM_LOG, "shouldRebootUI : true");
-                    return optInFromUIRestart(context);
-                }
+        for (String o : overlays) {
+            if (shouldRestartUI(context, o)) {
+                return true;
             }
         }
-        Log.d(References.SUBSTRATUM_LOG, "shouldRebootUI : false");
         return false;
     }
 

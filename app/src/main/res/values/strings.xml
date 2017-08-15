@@ -792,7 +792,7 @@
     <string name="nav_drawer_gerrit">Platform &amp; exposures Gerrit</string>
     <string name="gerrit_link" translatable="false">https://substratum.review</string>
     <string name="nav_drawer_github">Platform GitHub repository</string>
-    <string name="jira_link" translatable="false">https://substratum.atlassian.com</string>
+    <string name="jira_link" translatable="false">https://substratum.atlassian.net/servicedesk</string>
     <string name="nav_drawer_jira">JIRA bug reporting system</string>
     <string name="github_link" translatable="false">https://www.github.com/SubstratumResources</string>
     <string name="nav_troubleshooting">Troubleshooting</string>

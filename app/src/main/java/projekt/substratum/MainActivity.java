@@ -417,7 +417,11 @@ public class MainActivity extends SubstratumActivity implements
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_github)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_github)
                                 .withSelectable(false)
-                                .withIdentifier(109));
+                                .withIdentifier(109),
+                        new SecondaryDrawerItem().withName(R.string.nav_drawer_jira)
+                                .withLevel(2).withIcon(R.drawable.nav_drawer_jira)
+                                .withSelectable(false)
+                                .withIdentifier(110));
 
         // Begin initializing the navigation drawer
         Boolean checkSamsungStatus = isSamsung(getApplicationContext());
@@ -696,6 +700,18 @@ public class MainActivity extends SubstratumActivity implements
                     case 109:
                         try {
                             String sourceURL = getString(R.string.github_link);
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(sourceURL));
+                            startActivity(i);
+                        } catch (Exception e) {
+                            Lunchbar.make(findViewById(android.R.id.content),
+                                    getString(R.string.activity_missing_toast),
+                                    Lunchbar.LENGTH_LONG)
+                                    .show();
+                        }
+                    case 110:
+                        try {
+                            String sourceURL = getString(R.string.jira_link);
                             Intent i = new Intent(Intent.ACTION_VIEW);
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);

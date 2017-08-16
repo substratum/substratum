@@ -113,6 +113,11 @@ public class CompilerCommands {
             metadataOverlayParent.setAttribute("android:value", themeParent);
             applicationElement.appendChild(metadataOverlayParent);
 
+            Element metadataOverlayTarget = document.createElement("meta-data");
+            metadataOverlayTarget.setAttribute("android:name", References.metadataOverlayTarget);
+            metadataOverlayTarget.setAttribute("android:value", targetPackage);
+            applicationElement.appendChild(metadataOverlayTarget);
+
             Element metadataOverlayType1a = document.createElement("meta-data");
             metadataOverlayType1a.setAttribute("android:name", References.metadataOverlayType1a);
             metadataOverlayType1a.setAttribute("android:value", type1a);

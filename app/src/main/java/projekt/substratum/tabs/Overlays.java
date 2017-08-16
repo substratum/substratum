@@ -1039,6 +1039,12 @@ public class Overlays extends Fragment {
         startActivityForResult(intent, 2486);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshList();
+    }
+
     private void refreshList() {
         if (mAdapter != null) mAdapter.notifyDataSetChanged();
 

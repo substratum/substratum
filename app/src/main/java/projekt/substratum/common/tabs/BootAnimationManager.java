@@ -19,7 +19,6 @@
 package projekt.substratum.common.tabs;
 
 import android.content.Context;
-import android.os.Environment;
 import android.util.Log;
 
 import projekt.substratum.common.commands.FileOperations;

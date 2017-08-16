@@ -140,6 +140,10 @@
         <service android:name=".services.system.SamsungPackageService"/>
 
         <activity
+            android:name=".activities.crash.SubstratumCrash"
+            android:theme="@style/DoNotThemeThisStyle"
+            android:process=":error_activity" />
+        <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:resizeableActivity="false"
             android:theme="@style/PhotoCrop.ActivityTheme"/>

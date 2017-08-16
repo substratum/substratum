@@ -713,6 +713,15 @@
     <string name="notification_overlay_found_specific" formatted="false">An overlay for %s is in %s!</string>
     <string name="notification_overlay_found_description">You can open the theme by clicking on this notification!</string>
 
+    <string name="error_activity_title">I\'m so sorry for this crash!</string>
+    <string name="error_activity_text">please forgive me&#8230;</string>
+    <string name="error_activity_button_restart">Restart</string>
+    <string name="error_activity_button_disable_overlays">Rescue Me!</string>
+    <string name="error_activity_log">Stacktrace</string>
+    <string name="error_activity_log_dialog_title">Crash Stacktrace</string>
+    <string name="error_dialog_samsung">Substratum Overlay Problem</string>
+    <string name="error_dialog_samsung_text">Unfortunately, there seems to be a problem with an overlay installed targeting Substratum and will have to be manually uninstalled using Settings.</string>
+
     <string name="community_info_overlays">Overlays</string>
     <string name="community_info_bootanimation">Boot Animations</string>
     <string name="community_info_fonts">Fonts</string>

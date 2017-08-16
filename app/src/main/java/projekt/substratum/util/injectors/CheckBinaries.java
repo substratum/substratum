@@ -67,7 +67,8 @@ public final class CheckBinaries {
             String integrityCheck = prefs.getString("compiler", "aapt");
             try {
                 if (integrityCheck.equals("aopt")) {
-                    FileOperations.copyFromAsset(mContext, "aopt" + (architecture.equals("ARM64") ? "64" :
+                    FileOperations.copyFromAsset(mContext, "aopt" + (architecture.equals("ARM64")
+                            ? "64" :
                             ""), aoptPath);
                     Log.d(References.SUBSTRATUM_LOG,
                             "Android Overlay Packaging Tool (" + architecture + ") " +
@@ -109,7 +110,8 @@ public final class CheckBinaries {
         if (!Arrays.toString(Build.SUPPORTED_ABIS).contains("86")) {
             String architecture =
                     Arrays.asList(Build.SUPPORTED_64_BIT_ABIS).size() > 0 ? "ARM64" : "ARM";
-            FileOperations.copyFromAsset(mContext, "zipalign" + (architecture.equals("ARM64") ? "64" :
+            FileOperations.copyFromAsset(mContext, "zipalign" + (architecture.equals("ARM64") ?
+                    "64" :
                     ""), zipalignPath);
             Log.d(References.SUBSTRATUM_LOG,
                     "ZipAlign (" + architecture + ") " +

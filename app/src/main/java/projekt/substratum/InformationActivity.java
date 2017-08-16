@@ -346,7 +346,8 @@ public class InformationActivity extends SubstratumActivity {
         if (toolbar != null) toolbar.setTitle(theme_name);
 
         gradientView = findViewById(R.id.gradientView);
-        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_tabbed_layout);
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id
+                .collapsing_toolbar_tabbed_layout);
         if (collapsingToolbarLayout != null) collapsingToolbarLayout.setTitle(theme_name);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -389,7 +390,8 @@ public class InformationActivity extends SubstratumActivity {
         int sheetColor = getApplicationContext().getColor(R.color.fab_menu_background_card);
         int fabColor = getApplicationContext().getColor(R.color.fab_background_color);
 
-        final FloatingActionMenu floatingActionButton = (FloatingActionMenu) findViewById(R.id.apply_fab);
+        final FloatingActionMenu floatingActionButton = (FloatingActionMenu) findViewById(R.id
+                .apply_fab);
         floatingActionButton.show();
 
         // Create material sheet FAB
@@ -612,7 +614,8 @@ public class InformationActivity extends SubstratumActivity {
                 });
             }
 
-            final TextView compile_enable_selected = (TextView) findViewById(R.id.compile_enable_selected);
+            final TextView compile_enable_selected = (TextView) findViewById(R.id
+                    .compile_enable_selected);
             if (!References.checkOMS(this)) compile_enable_selected.setVisibility(View.GONE);
             if (compile_enable_selected != null) {
                 compile_enable_selected.setOnClickListener(v -> {
@@ -629,7 +632,8 @@ public class InformationActivity extends SubstratumActivity {
                 });
             }
 
-            TextView compile_update_selected = (TextView) findViewById(R.id.compile_update_selected);
+            TextView compile_update_selected = (TextView) findViewById(R.id
+                    .compile_update_selected);
             if (!References.checkOMS(this)) {
                 compile_update_selected.setText(getString(R.string.fab_menu_compile_install));
             }

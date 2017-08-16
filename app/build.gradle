@@ -177,5 +177,7 @@ dependencies {
     // Animations
     compile 'com.github.vlad1m1r990:Lemniscate:1.2.0'
     compile 'com.daimajia.numberprogressbar:library:1.4@aar'
+    // Crash Activity
+    compile 'cat.ereza:customactivityoncrash:2.1.0'
 }
 apply plugin: 'com.google.gms.google-services'

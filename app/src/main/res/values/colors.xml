@@ -36,6 +36,12 @@
 
     <color name="bottom_sheet_dialog_background">@color/main_screen_card_background</color>
 
+    <color name="error_icons">@android:color/white</color>
+
+    <color name="do_not_theme_this_color">#212021</color>
+    <color name="do_not_theme_this_color_buttons">#393839</color>
+    <color name="do_not_theme_this_color_button_pulse">#9f9f9f</color>
+
     <color name="troubleshooting_card_line_color">@android:color/darker_gray</color>
 
     <color name="priorities_drag_handle">@color/main_screen_card_theme_title</color>

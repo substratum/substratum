@@ -89,7 +89,8 @@ public class CompilerCommands {
             rootElement.setAttribute("android:versionName", versionName);
 
             Element overlayElement = document.createElement("overlay");
-            if (!themeOms) overlayElement.setAttribute("android:priority", String.valueOf(legacyPriority));
+            if (!themeOms)
+                overlayElement.setAttribute("android:priority", String.valueOf(legacyPriority));
             overlayElement.setAttribute("android:targetPackage", targetPackage);
             if (showOverlayInSamsungSettings) {
                 Element samsungPermissionElement = document.createElement("uses-permission");
@@ -145,7 +146,8 @@ public class CompilerCommands {
 
             Element metadataOverlayVersion = document.createElement("meta-data");
             metadataOverlayVersion.setAttribute("android:name", References.metadataOverlayVersion);
-            metadataOverlayVersion.setAttribute("android:value", String.valueOf(BuildConfig.VERSION_CODE));
+            metadataOverlayVersion.setAttribute("android:value", String.valueOf(BuildConfig
+                    .VERSION_CODE));
             applicationElement.appendChild(metadataOverlayVersion);
 
             rootElement.appendChild(applicationElement);
@@ -163,7 +165,7 @@ public class CompilerCommands {
 
             return finalManifest;
 
-        } catch (ParserConfigurationException | TransformerException e){
+        } catch (ParserConfigurationException | TransformerException e) {
             e.printStackTrace();
 
         }

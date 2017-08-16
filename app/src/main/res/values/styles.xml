@@ -45,6 +45,12 @@
         <item name="welcomeTitleTextStyle">@style/WelcomeScreenText.Title.Centered</item>
     </style>
 
+    <style name="DoNotThemeThisStyle" parent="android:Theme.DeviceDefault.NoActionBar">
+        <item name="android:navigationBarColor">@color/do_not_theme_this_color</item>
+        <item name="android:statusBarColor">@color/do_not_theme_this_color</item>
+        <item name="android:windowBackground">@color/do_not_theme_this_color</item>
+    </style>
+
     <style name="LeakCanaryTheme" parent="android:Theme.Material"/>
 
     <style name="PhotoCrop.ActivityTheme" parent="Theme.AppCompat">

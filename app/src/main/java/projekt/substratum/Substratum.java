@@ -27,8 +27,11 @@ import android.content.Intent;
 import android.media.AudioAttributes;
 import android.util.Log;
 
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.crash.FirebaseCrash;
 
+import cat.ereza.customactivityoncrash.config.CaocConfig;
+import projekt.substratum.activities.crash.SubstratumCrash;
 import projekt.substratum.common.References;
 import projekt.substratum.services.binder.BinderService;
 
@@ -47,10 +50,25 @@ public class Substratum extends Application {
     public void onCreate() {
         super.onCreate();
         substratum = this;
-        FirebaseCrash.setCrashCollectionEnabled(!DEBUG);
+        try {
+            FirebaseApp.initializeApp(getApplicationContext());
+            FirebaseCrash.setCrashCollectionEnabled(!DEBUG);
+        } catch (IllegalStateException ise) {
+            // Suppress warning
+        }
         startBinderService();
         References.registerBroadcastReceivers(this);
         createNotificationChannel();
+
+        CaocConfig.Builder.create()
+                .backgroundMode(CaocConfig.BACKGROUND_MODE_SHOW_CUSTOM)
+                .enabled(true)
+                .showErrorDetails(true)
+                .showRestartButton(true)
+                .trackActivities(true)
+                .minTimeBetweenCrashesMs(1)
+                .errorActivity(SubstratumCrash.class)
+                .apply();
     }
 
     public void createNotificationChannel() {

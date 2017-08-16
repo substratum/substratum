@@ -329,8 +329,9 @@ public class SubstratumBuilder {
             String source = work_area + "/" + overlay_package + "." + parse2_themeName +
                     "-unsigned.apk";
             String destination = work_area + "/" + overlay_package + "." + parse2_themeName +
-                            "-unsigned-aligned.apk";
-            String commands = CompilerCommands.createZipAlignShellCommands(context, source, destination);
+                    "-unsigned-aligned.apk";
+            String commands = CompilerCommands.createZipAlignShellCommands(context, source,
+                    destination);
 
             Process nativeApp = null;
             try {
@@ -580,16 +581,16 @@ public class SubstratumBuilder {
     }
 
     private boolean runAOPTShellCommands(String commands,
-                                     String work_area,
-                                     String targetPkg,
-                                     String theme_name,
-                                     String overlay_package,
-                                     String variant,
-                                     String additional_variant,
-                                     int typeMode,
-                                     boolean legacySwitch,
-                                     Context context,
-                                     String no_cache_dir) {
+                                         String work_area,
+                                         String targetPkg,
+                                         String theme_name,
+                                         String overlay_package,
+                                         String variant,
+                                         String additional_variant,
+                                         int typeMode,
+                                         boolean legacySwitch,
+                                         Context context,
+                                         String no_cache_dir) {
         Process nativeApp = null;
         try {
             String line;

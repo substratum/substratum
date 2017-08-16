@@ -838,7 +838,8 @@ public class MainActivity extends SubstratumActivity implements
             new AlertDialog.Builder(this)
                     .setTitle(R.string.overlays_outdated)
                     .setMessage(R.string.overlays_outdated_message)
-                    .setPositiveButton(R.string.dialog_ok, (dialogInterface, i) -> {})
+                    .setPositiveButton(R.string.dialog_ok, (dialogInterface, i) -> {
+                    })
                     .show();
         }
     }
@@ -1236,21 +1237,26 @@ public class MainActivity extends SubstratumActivity implements
                     ViewGroup rootView = (ViewGroup) decorView.findViewById(android.R.id.content);
                     Drawable windowBackground = decorView.getBackground();
 
-                    BlurView blurView = (BlurView) activity.mProgressDialog.findViewById(R.id.blurView);
+                    BlurView blurView = (BlurView) activity.mProgressDialog.findViewById(R.id
+                            .blurView);
 
                     blurView.setupWith(rootView)
                             .windowBackground(windowBackground)
                             .blurAlgorithm(new RenderScriptBlur(context))
                             .blurRadius(radius);
-                    TextView titleView = (TextView) activity.mProgressDialog.findViewById(R.id.title);
-                    TextView textView = (TextView) activity.mProgressDialog.findViewById(R.id.timer);
+                    TextView titleView = (TextView) activity.mProgressDialog.findViewById(R.id
+                            .title);
+                    TextView textView = (TextView) activity.mProgressDialog.findViewById(R.id
+                            .timer);
 
                     if (References.isSamsungDevice(context)) {
                         TextView samsungTitle =
-                                (TextView) activity.mProgressDialog.findViewById(R.id.sungstratum_title);
+                                (TextView) activity.mProgressDialog.findViewById(R.id
+                                        .sungstratum_title);
                         samsungTitle.setVisibility(View.VISIBLE);
                         Button samsungButton =
-                                (Button) activity.mProgressDialog.findViewById(R.id.sungstratum_button);
+                                (Button) activity.mProgressDialog.findViewById(R.id
+                                        .sungstratum_button);
                         samsungButton.setVisibility(View.VISIBLE);
                         samsungButton.setOnClickListener(view -> {
                             try {

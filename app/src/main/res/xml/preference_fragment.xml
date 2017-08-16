@@ -202,11 +202,11 @@
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:key="opt_in_sysui_restart"
             android:defaultValue="true"
-            android:title="@string/auto_reload_sysui_title"
+            android:key="opt_in_sysui_restart"
+            android:summaryOff="@string/auto_reload_sysui_summary_off"
             android:summaryOn="@string/auto_reload_sysui_summary_on"
-            android:summaryOff="@string/auto_reload_sysui_summary_off"/>
+            android:title="@string/auto_reload_sysui_title"/>
 
     </PreferenceCategory>
 

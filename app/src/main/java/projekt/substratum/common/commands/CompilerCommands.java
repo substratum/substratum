@@ -19,115 +19,151 @@
 package projekt.substratum.common.commands;
 
 import android.content.Context;
+import android.util.Log;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import java.io.StringWriter;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import projekt.substratum.BuildConfig;
 import projekt.substratum.common.References;
 
 import static projekt.substratum.common.References.ENABLE_AOPT_OUTPUT;
 import static projekt.substratum.common.References.getDeviceID;
-import static projekt.substratum.common.References.metadataOverlayDevice;
-import static projekt.substratum.common.References.metadataOverlayParent;
-import static projekt.substratum.common.References.metadataOverlayTarget;
-import static projekt.substratum.common.References.metadataOverlayType1a;
-import static projekt.substratum.common.References.metadataOverlayType1b;
-import static projekt.substratum.common.References.metadataOverlayType1c;
-import static projekt.substratum.common.References.metadataOverlayType2;
-import static projekt.substratum.common.References.metadataOverlayType3;
-import static projekt.substratum.common.References.metadataOverlayVersion;
 import static projekt.substratum.common.References.permissionSamsungOverlay;
 
 public class CompilerCommands {
 
     public static String createOverlayManifest(Context context,
-                                               String overlay_package,
+                                               String overlayPackage,
                                                String parse2_themeName,
                                                String parse2_variantName,
                                                String parse2_baseName,
                                                String versionName,
                                                String targetPackage,
-                                               String theme_parent,
-                                               Boolean theme_oms,
-                                               int legacy_priority,
-                                               boolean base_variant_null,
+                                               String themeParent,
+                                               boolean themeOms,
+                                               int legacyPriority,
+                                               boolean baseVariantNull,
                                                String type1a,
                                                String type1b,
                                                String type1c,
                                                String type2,
                                                String type3,
                                                String packageNameOverride) {
-        String package_name;
-        if (base_variant_null) {
-            package_name = overlay_package + "." + parse2_themeName;
+
+        String packageName;
+        if (baseVariantNull) {
+            packageName = overlayPackage + "." + parse2_themeName;
         } else {
-            package_name = overlay_package + "." + parse2_themeName +
+            packageName = overlayPackage + "." + parse2_themeName +
                     parse2_variantName + parse2_baseName;
         }
         if (packageNameOverride != null && packageNameOverride.length() > 0) {
-            package_name = packageNameOverride;
+            packageName = packageNameOverride;
         }
+
         boolean showOverlayInSamsungSettings =
                 References.isSamsung(context) && References.toggleShowSamsungOverlayInSettings;
-        return "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n" +
+        try {
 
-                "<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\" " +
-                "package=\"" + package_name + "\"\n" +
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
-                // Version of this overlay should match the version of the theme
-                "        android:versionName=\"" + versionName + "\"> \n" +
+            // root elements
+            Document document = documentBuilder.newDocument();
+            Element rootElement = document.createElement("manifest");
+            rootElement.setAttribute("xmlns:android",
+                    "http://schemas.android.com/apk/res/android");
+            rootElement.setAttribute("package", packageName);
+            rootElement.setAttribute("android:versionName", versionName);
 
-                // Begin overlay parameters - include legacy as well (OMS ignored)
-                "    <overlay " + ((!theme_oms) ? "android:priority=\"" +
-                legacy_priority + "\" " : "") +
-                "android:targetPackage=\"" + targetPackage + "\"/>\n" +
+            Element overlayElement = document.createElement("overlay");
+            if (!themeOms) overlayElement.setAttribute("android:priority", String.valueOf(legacyPriority));
+            overlayElement.setAttribute("android:targetPackage", targetPackage);
+            if (showOverlayInSamsungSettings) {
+                Element samsungPermissionElement = document.createElement("uses-permission");
+                samsungPermissionElement.setAttribute("android:name", permissionSamsungOverlay);
+                overlayElement.appendChild(samsungPermissionElement);
+            }
+            rootElement.appendChild(overlayElement);
 
-                // Insert Samsung overlay permission if necessary
-                (showOverlayInSamsungSettings ?
-                        "        <uses-permission android:name=\"" +
-                                permissionSamsungOverlay + "\"/>\n" :
-                        "") +
+            Element applicationElement = document.createElement("application");
+            applicationElement.setAttribute("android:label", packageName);
+            applicationElement.setAttribute("allowBackup", "false");
+            applicationElement.setAttribute("android:hasCode", "false");
 
-                // Our current overlay label is set to be its own package name
-                "    <application android:label=\"" + package_name + "\" " +
-                "allowBackup=\"false\" android:hasCode=\"false\">\n" +
+            Element metadataOverlayDevice = document.createElement("meta-data");
+            metadataOverlayDevice.setAttribute("android:name", References.metadataOverlayDevice);
+            metadataOverlayDevice.setAttribute("android:value", getDeviceID(context));
+            applicationElement.appendChild(metadataOverlayDevice);
 
-                // Ensure that this overlay was specifically made for this device only
-                "        <meta-data android:name=\"" + metadataOverlayDevice + "\" " +
-                "android:value=\"" + getDeviceID(context) + "\"/>\n" +
+            Element metadataOverlayParent = document.createElement("meta-data");
+            metadataOverlayParent.setAttribute("android:name", References.metadataOverlayParent);
+            metadataOverlayParent.setAttribute("android:value", themeParent);
+            applicationElement.appendChild(metadataOverlayParent);
 
-                // We can easily track what the overlay parents are without any parsing this way
-                "        <meta-data android:name=\"" + metadataOverlayParent + "\" " +
-                "android:value=\"" + theme_parent + "\"/>\n" +
+            Element metadataOverlayType1a = document.createElement("meta-data");
+            metadataOverlayType1a.setAttribute("android:name", References.metadataOverlayType1a);
+            metadataOverlayType1a.setAttribute("android:value", type1a);
+            applicationElement.appendChild(metadataOverlayType1a);
 
-                // As we cannot read the overlay tag, we must log our target for this overlay
-                "        <meta-data android:name=\"" + metadataOverlayTarget + "\" " +
-                "android:value=\"" + targetPackage + "\"/>\n" +
+            Element metadataOverlayType1b = document.createElement("meta-data");
+            metadataOverlayType1b.setAttribute("android:name", References.metadataOverlayType1b);
+            metadataOverlayType1b.setAttribute("android:value", type1b);
+            applicationElement.appendChild(metadataOverlayType1b);
 
-                // Track the type1a file location
-                "        <meta-data android:name=\"" + metadataOverlayType1a + "\" " +
-                "android:value=\"" + type1a + "\"/>\n" +
+            Element metadataOverlayType1c = document.createElement("meta-data");
+            metadataOverlayType1c.setAttribute("android:name", References.metadataOverlayType1c);
+            metadataOverlayType1c.setAttribute("android:value", type1c);
+            applicationElement.appendChild(metadataOverlayType1c);
 
-                // Track the type1b file location
-                "        <meta-data android:name=\"" + metadataOverlayType1b + "\" " +
-                "android:value=\"" + type1b + "\"/>\n" +
+            Element metadataOverlayType2 = document.createElement("meta-data");
+            metadataOverlayType2.setAttribute("android:name", References.metadataOverlayType2);
+            metadataOverlayType2.setAttribute("android:value", type2);
+            applicationElement.appendChild(metadataOverlayType2);
 
-                // Track the type1c file location
-                "        <meta-data android:name=\"" + metadataOverlayType1c + "\" " +
-                "android:value=\"" + type1c + "\"/>\n" +
+            Element metadataOverlayType3 = document.createElement("meta-data");
+            metadataOverlayType3.setAttribute("android:name", References.metadataOverlayType3);
+            metadataOverlayType3.setAttribute("android:value", type3);
+            applicationElement.appendChild(metadataOverlayType3);
 
-                // Track the type2 file location
-                "        <meta-data android:name=\"" + metadataOverlayType2 + "\" " +
-                "android:value=\"" + type2 + "\"/>\n" +
+            Element metadataOverlayVersion = document.createElement("meta-data");
+            metadataOverlayVersion.setAttribute("android:name", References.metadataOverlayVersion);
+            metadataOverlayVersion.setAttribute("android:value", String.valueOf(BuildConfig.VERSION_CODE));
+            applicationElement.appendChild(metadataOverlayVersion);
 
-                // Track the type3 file location
-                "        <meta-data android:name=\"" + metadataOverlayType3 + "\" " +
-                "android:value=\"" + type3 + "\"/>\n" +
+            rootElement.appendChild(applicationElement);
+            document.appendChild(rootElement);
 
-                // Track the Substratum version number
-                "        <meta-data android:name=\"" + metadataOverlayVersion + "\" " +
-                "android:value=\"" + BuildConfig.VERSION_CODE + "\"/>\n" +
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource domSource = new DOMSource(document);
+            StringWriter outWriter = new StringWriter();
+            StreamResult streamResult = new StreamResult(outWriter);
+            transformer.transform(domSource, streamResult);
+            String finalManifest = outWriter.getBuffer().toString();
 
-                "    </application>\n" +
-                "</manifest>\n";
+            Log.d("CompilerCommands", finalManifest);
+
+            return finalManifest;
+
+        } catch (ParserConfigurationException | TransformerException e){
+            e.printStackTrace();
+
+        }
+
+        return "";
     }
 
     @SuppressWarnings("StringConcatenationInsideStringBufferAppend")

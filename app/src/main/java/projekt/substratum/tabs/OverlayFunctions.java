@@ -851,9 +851,7 @@ public class OverlayFunctions {
                                     } else {
                                         overlays.missingType3 = true;
                                     }
-                                } else
-
-                                {
+                                } else {
                                     if (overlays.sb.special_snowflake ||
                                             overlays.sb.no_install.length() > 0) {
                                         overlays.late_install.add(overlays.sb.no_install);
@@ -1116,17 +1114,18 @@ public class OverlayFunctions {
 
     static class Phase4_finishUpdateFunction extends AsyncTask<Void, Void, Void> {
         WeakReference<Overlays> ref;
+        WeakReference<Context> refContext;
 
         Phase4_finishUpdateFunction(Overlays overlays) {
             ref = new WeakReference<>(overlays);
+            refContext = new WeakReference<>(overlays.getContext());
         }
 
         @Override
         protected void onPreExecute() {
             Overlays overlays = ref.get();
-            if (overlays != null) {
-                Context context = overlays.getActivity();
-
+            Context context = refContext.get();
+            if (context != null && overlays != null) {
                 if (overlays.mProgressDialog != null) overlays.mProgressDialog.dismiss();
 
                 // Add dummy intent to be able to close the notification on click

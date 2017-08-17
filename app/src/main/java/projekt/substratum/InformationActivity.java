@@ -63,7 +63,6 @@ import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -856,7 +855,10 @@ public class InformationActivity extends SubstratumActivity {
                                     String.format(
                                             getString(R.string.cache_clear_completion),
                                             theme_name);
-                            createToast(format, Toast.LENGTH_LONG);
+                            currentShownLunchBar = Lunchbar.make(getView(),
+                                    format,
+                                    Lunchbar.LENGTH_LONG);
+                            currentShownLunchBar.show();
                             finish();
                         })
                         .setNegativeButton(R.string.dialog_cancel, (dialog, id17) ->
@@ -897,8 +899,10 @@ public class InformationActivity extends SubstratumActivity {
                                     // NameNotFound
                                 }
                             }
-                            createToast(getString(R.string.disable_completion), Toast.LENGTH_LONG);
-
+                            currentShownLunchBar = Lunchbar.make(getView(),
+                                    getString(R.string.disable_completion),
+                                    Lunchbar.LENGTH_LONG);
+                            currentShownLunchBar.show();
                             // Begin disabling overlays
                             ThemeManager.disableOverlay(getApplicationContext(), all_overlays);
                         })
@@ -941,7 +945,10 @@ public class InformationActivity extends SubstratumActivity {
                                     // NameNotFound
                                 }
                             }
-                            createToast(getString(R.string.enable_completion), Toast.LENGTH_LONG);
+                            currentShownLunchBar = Lunchbar.make(getView(),
+                                    getString(R.string.enable_completion),
+                                    Lunchbar.LENGTH_LONG);
+                            currentShownLunchBar.show();
 
                             // Begin enabling overlays
                             ThemeManager.enableOverlay(getApplicationContext(), all_overlays);

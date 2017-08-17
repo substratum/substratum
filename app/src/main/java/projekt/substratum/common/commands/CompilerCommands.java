@@ -159,11 +159,8 @@ public class CompilerCommands {
             StringWriter outWriter = new StringWriter();
             StreamResult streamResult = new StreamResult(outWriter);
             transformer.transform(domSource, streamResult);
-            String finalManifest = outWriter.getBuffer().toString();
 
-            Log.d("CompilerCommands", finalManifest);
-
-            return finalManifest;
+            return outWriter.getBuffer().toString();
 
         } catch (ParserConfigurationException | TransformerException e) {
             e.printStackTrace();

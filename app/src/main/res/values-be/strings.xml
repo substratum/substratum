@@ -21,7 +21,6 @@
     <string name="showcase">каталог</string>
     <string name="android">Версія Android:</string>
     <string name="device">Мадэль прылады:</string>
-    <string name="resource_checker_request">Запытаць ўкараненне камітаў праз&#8230;</string>
     <string name="resource_checker">Праверка камітаў</string>
     <string name="resource_checker_commons">Фрэймворк</string>
     <string name="resource_checker_dialog_quit">Выйсці</string>

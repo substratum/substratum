@@ -21,7 +21,6 @@
     <string name="showcase">vitrin</string>
     <string name="android">Android sürümü:</string>
     <string name="device">Cihaz modeli:</string>
-    <string name="resource_checker_request">...kullanarak hata bildirimi isteği gönder</string>
     <string name="resource_checker">Hata Bildirimi Doğrulama</string>
     <string name="resource_checker_commons">Yapı</string>
     <string name="resource_checker_dialog_quit">Çıkış</string>

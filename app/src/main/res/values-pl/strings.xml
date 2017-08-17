@@ -21,7 +21,6 @@
     <string name="showcase">prezentacja</string>
     <string name="android">Wersja systemu Android:</string>
     <string name="device">Model urządzenia:</string>
-    <string name="resource_checker_request">Wyślij prośbę scalenia rewizji przy użyciu&#8230;</string>
     <string name="resource_checker">Weryfikator rewizji</string>
     <string name="resource_checker_commons">Framework</string>
     <string name="resource_checker_dialog_quit">Wyjdź</string>

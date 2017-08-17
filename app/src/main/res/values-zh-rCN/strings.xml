@@ -21,7 +21,6 @@
     <string name="showcase">展示</string>
     <string name="android">安卓版本：</string>
     <string name="device">设备型号：</string>
-    <string name="resource_checker_request">发送提交合并请求</string>
     <string name="resource_checker">提交验证助手</string>
     <string name="resource_checker_commons">框架</string>
     <string name="resource_checker_dialog_quit">退出</string>

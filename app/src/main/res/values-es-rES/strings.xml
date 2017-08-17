@@ -21,7 +21,6 @@
     <string name="showcase">Mostrador de Temas</string>
     <string name="android">Version de Android:</string>
     <string name="device">Modelo del móvil:</string>
-    <string name="resource_checker_request">Enviar una solicitud de fusión de commit con&#8230;</string>
     <string name="resource_checker">Validador de Commits</string>
     <string name="resource_checker_commons">Framework</string>
     <string name="resource_checker_dialog_quit">Salir</string>

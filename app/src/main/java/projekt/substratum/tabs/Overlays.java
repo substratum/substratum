@@ -20,7 +20,6 @@ package projekt.substratum.tabs;
 
 
 import android.app.ActivityManager;
-import android.app.Dialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
@@ -57,7 +56,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -792,51 +790,38 @@ public class Overlays extends Fragment {
     }
 
     public void invokeLogCharDialog(Context context) {
-        final Dialog dialog = new Dialog(context, android.R.style.Theme_DeviceDefault_Dialog);
-        dialog.setContentView(R.layout.logcat_dialog);
-        dialog.setTitle(R.string.logcat_dialog_title);
-        if (dialog.getWindow() != null)
-            dialog.getWindow().setLayout(
-                    RecyclerView.LayoutParams.MATCH_PARENT,
-                    RecyclerView.LayoutParams.WRAP_CONTENT);
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context)
+                .setTitle(R.string.logcat_dialog_title)
+                .setMessage("\n" + error_logs)
+                .setNeutralButton(R.string
+                        .customactivityoncrash_error_activity_error_details_close, null)
+                .setNegativeButton(R.string
+                                .customactivityoncrash_error_activity_error_details_copy,
+                        (dialog1, which) -> {
+                            ClipboardManager clipboard =
+                                    (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
+                            ClipData clip = ClipData.newPlainText("substratum_log", error_logs);
+                            if (clipboard != null) {
+                                clipboard.setPrimaryClip(clip);
+                            }
+                            currentShownLunchBar = Lunchbar.make(
+                                    getActivityView(),
+                                    R.string.logcat_dialog_copy_success,
+                                    Lunchbar.LENGTH_LONG);
+                            currentShownLunchBar.show();
+                        });
 
-        TextView text = (TextView) dialog.findViewById(R.id.textField);
-        text.setText(error_logs);
-        ImageButton confirm = (ImageButton) dialog.findViewById(R.id.confirm);
-        confirm.setOnClickListener(view -> dialog.dismiss());
-
-        ImageButton copy_clipboard = (ImageButton) dialog.findViewById(R.id.copy_clipboard);
-        copy_clipboard.setOnClickListener(v -> {
-            ClipboardManager clipboard =
-                    (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
-            ClipData clip = ClipData.newPlainText("substratum_log", error_logs);
-            if (clipboard != null) {
-                clipboard.setPrimaryClip(clip);
-            }
-            currentShownLunchBar = Lunchbar.make(
-                    getActivityView(),
-                    R.string.logcat_dialog_copy_success,
-                    Lunchbar.LENGTH_LONG);
-            currentShownLunchBar.show();
-            dialog.dismiss();
-        });
-
-        ImageButton send = (ImageButton) dialog.findViewById(R.id.send);
-        send.setVisibility(View.GONE);
         if (References.getOverlayMetadata(context, theme_pid, metadataEmail) != null) {
-            send.setVisibility(View.VISIBLE);
-            send.setOnClickListener(v -> {
-                dialog.dismiss();
-                new SendErrorReport(
-                        context,
-                        theme_pid,
-                        error_logs.toString(),
-                        failed_packages.toString(),
-                        false
-                ).execute();
-            });
+            builder.setPositiveButton("Send", (dialogInterface, i) ->
+                    new SendErrorReport(
+                            context,
+                            theme_pid,
+                            error_logs.toString(),
+                            failed_packages.toString(),
+                            false
+                    ).execute());
         }
-        dialog.show();
+        builder.show();
     }
 
     @Override

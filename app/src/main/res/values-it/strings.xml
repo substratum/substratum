@@ -21,7 +21,6 @@
     <string name="showcase">vetrina</string>
     <string name="android">Versione Android:</string>
     <string name="device">Modello dispositivo:</string>
-    <string name="resource_checker_request">Invia una richiesta di commit merge utilizzando&#8230;</string>
     <string name="resource_checker">Commit Validator</string>
     <string name="resource_checker_commons">Framework</string>
     <string name="resource_checker_dialog_quit">Esci</string>

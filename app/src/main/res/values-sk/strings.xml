@@ -21,7 +21,6 @@
     <string name="showcase">Ukážky</string>
     <string name="android">Verzia Androidu:</string>
     <string name="device">Model zariadenia:</string>
-    <string name="resource_checker_request">Poslať žiadosť o zlúčenie pomocou&#8230;</string>
     <string name="resource_checker">Overovací asistent zdrojov</string>
     <string name="resource_checker_commons">Framework</string>
     <string name="resource_checker_dialog_quit">Ukončiť</string>

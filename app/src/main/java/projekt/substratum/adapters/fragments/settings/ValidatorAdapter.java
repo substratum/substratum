@@ -18,19 +18,14 @@
 
 package projekt.substratum.adapters.fragments.settings;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.daimajia.numberprogressbar.NumberProgressBar;
 
@@ -112,53 +107,12 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
                     }
                 }
 
-                final Dialog dialog = new Dialog(context,
-                        android.R.style.Theme_DeviceDefault_Dialog);
-                dialog.setContentView(R.layout.commit_dialog);
-                String format = String.format(
-                        context.getString(R.string.resource_commit_dialog_title),
-                        viewHolder.packName.getText());
-                dialog.setTitle(format);
-                if (dialog.getWindow() != null)
-                    dialog.getWindow().setLayout(RecyclerView.LayoutParams.MATCH_PARENT,
-                            RecyclerView.LayoutParams.WRAP_CONTENT);
-
-                TextView text = (TextView) dialog.findViewById(R.id.textField);
-                text.setText(error_logs.toString());
-                ImageButton confirm = (ImageButton) dialog.findViewById(R.id.confirm);
-                confirm.setOnClickListener(view -> dialog.dismiss());
-
-                ImageButton send = (ImageButton) dialog.findViewById(R.id.send);
-                send.setOnClickListener(v2 -> {
-                    String device = " " + Build.MODEL + " (" + Build.DEVICE + ") " +
-                            "[" + Build.FINGERPRINT + "]";
-                    String email_subject = context.getString(
-                            R.string.resource_commit_dialog_subject);
-                    String xposed = References.checkXposedVersion();
-                    if (xposed.length() > 0) {
-                        device += " {" + xposed + "}";
-                    }
-                    String email_body =
-                            String.format(context.getString(
-                                    R.string.resource_commit_dialog_body), device, error_logs,
-                                    References.getBuildProp().toString());
-                    Intent i = new Intent(Intent.ACTION_SEND);
-                    i.setType("message/rfc822");
-                    i.putExtra(Intent.EXTRA_EMAIL, new String[]{
-                            context.getString(R.string.themer_email)});
-                    i.putExtra(Intent.EXTRA_SUBJECT, email_subject);
-                    i.putExtra(Intent.EXTRA_TEXT, email_body);
-                    try {
-                        context.startActivity(Intent.createChooser(i, context.getString(
-                                R.string.resource_checker_request)));
-                    } catch (android.content.ActivityNotFoundException ex) {
-                        Toast.makeText(context,
-                                context.getString(R.string.logcat_email_activity_error),
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                dialog.show();
+                new android.app.AlertDialog.Builder(context)
+                        .setTitle(R.string.resource_commit_dialog_title)
+                        .setMessage("\n" + error_logs)
+                        .setPositiveButton(R.string
+                                .customactivityoncrash_error_activity_error_details_close, null)
+                        .show();
             });
 
             viewHolder.numberProgressBar.setProgressTextColor(

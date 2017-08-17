@@ -21,7 +21,6 @@
     <string name="showcase">bemutatóterem</string>
     <string name="android">Android verzió:</string>
     <string name="device">Eszköz modell:</string>
-    <string name="resource_checker_request">Változtatás elfogadási kérelem küldése&#8230;</string>
     <string name="resource_checker">Változtatás érvényesítő</string>
     <string name="resource_checker_commons">Keretrendszer</string>
     <string name="resource_checker_dialog_quit">Kilépés</string>

@@ -21,7 +21,6 @@
     <string name="showcase">Showcase</string>
     <string name="android">Android-Version:</string>
     <string name="device">Geräte Model:</string>
-    <string name="resource_checker_request">Sende Anfrage für die Commit-Einbindung mit&#8230;</string>
     <string name="resource_checker">Commit-Bestätiger</string>
     <string name="resource_checker_commons">Framework</string>
     <string name="resource_checker_dialog_quit">Verlassen</string>

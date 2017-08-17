@@ -21,7 +21,6 @@
     <string name="showcase">uitgelicht</string>
     <string name="android">Android versie:</string>
     <string name="device">Apparaat model:</string>
-    <string name="resource_checker_request">Verzend aanpassing samenvoegen verzoek met&#8230;</string>
     <string name="resource_checker">Aanpassing validator</string>
     <string name="resource_checker_commons">Framework</string>
     <string name="resource_checker_dialog_quit">Sluiten</string>

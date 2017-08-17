@@ -21,7 +21,6 @@
     <string name="showcase">vitrina</string>
     <string name="android">\"Android\" versija:</string>
     <string name="device">Įrenginio modelis:</string>
-    <string name="resource_checker_request">Siųsti įpareigojimą suliejimo užklausai naudojant&#8230;</string>
     <string name="resource_checker">Įpareigojimo Vertintojas</string>
     <string name="resource_checker_commons">Pagrindas</string>
     <string name="resource_checker_dialog_quit">Išeiti</string>

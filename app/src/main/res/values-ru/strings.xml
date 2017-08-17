@@ -21,7 +21,6 @@
     <string name="showcase">каталог</string>
     <string name="android">Версия Android:</string>
     <string name="device">Модель устройства:</string>
-    <string name="resource_checker_request">Запросить внедрение коммита через&#8230;</string>
     <string name="resource_checker">Проверка коммитов</string>
     <string name="resource_checker_commons">Фреймворк</string>
     <string name="resource_checker_dialog_quit">Выйти</string>

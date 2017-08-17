@@ -21,7 +21,6 @@
     <string name="showcase">Galerie de thème</string>
     <string name="android">Version Android :</string>
     <string name="device">Modèle :</string>
-    <string name="resource_checker_request">Envoyer la demande de fusion de validation en utilisant&#8230;</string>
     <string name="resource_checker">Demande de validation</string>
     <string name="resource_checker_commons">Framework</string>
     <string name="resource_checker_dialog_quit">Quitter</string>

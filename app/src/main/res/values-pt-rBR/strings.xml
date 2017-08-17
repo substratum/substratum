@@ -21,7 +21,6 @@
     <string name="showcase">mostruário</string>
     <string name="android">Versão do Android:</string>
     <string name="device">Modelo do dispositivo:</string>
-    <string name="resource_checker_request">Enviar solicitação de mesclagem de atualização usando&#8230;</string>
     <string name="resource_checker">Validador de Atualizações</string>
     <string name="resource_checker_commons">Framework</string>
     <string name="resource_checker_dialog_quit">Sair</string>

@@ -408,7 +408,7 @@ public class RecoveryFragment extends Fragment {
             super.onPostExecute(result);
             RecoveryFragment fragment = ref.get();
             if (fragment != null) {
-                Context context = fragment.getActivity();
+                Context context = fragment.getContext();
                 View view = fragment.getView();
 
                 fragment.mProgressDialog.dismiss();
@@ -422,6 +422,11 @@ public class RecoveryFragment extends Fragment {
                                         Lunchbar.LENGTH_LONG)
                                         .show();
                             }
+                            //noinspection ConstantConditions
+                            if (context != null) {
+                                ThemeManager.uninstallOverlay(
+                                        context, fragment.final_commands_array);
+                            }
                         } catch (Exception e) {
                             // At this point the window is refreshed too many times detaching the
                             // activity
@@ -429,7 +434,6 @@ public class RecoveryFragment extends Fragment {
                                     "many times, restarting current activity to preserve app " +
                                     "integrity.");
                         }
-                        ThemeManager.uninstallOverlay(context, fragment.final_commands_array);
                     } else {
                         if (view != null) {
                             Lunchbar.make(view,

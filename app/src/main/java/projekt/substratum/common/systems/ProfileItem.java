@@ -27,6 +27,7 @@ public class ProfileItem {
     private String type1c;
     private String type2;
     private String type3;
+    private String type4;
 
     ProfileItem(String packageName) {
         this.packageName = packageName;
@@ -90,5 +91,13 @@ public class ProfileItem {
 
     public void setType3(String type3) {
         this.type3 = type3;
+    }
+
+    public String getType4() {
+        return type4;
+    }
+
+    public void setType4(String type4) {
+        this.type4 = type4;
     }
 }

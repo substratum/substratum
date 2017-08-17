@@ -61,6 +61,7 @@ import static projekt.substratum.common.References.metadataOverlayType1b;
 import static projekt.substratum.common.References.metadataOverlayType1c;
 import static projekt.substratum.common.References.metadataOverlayType2;
 import static projekt.substratum.common.References.metadataOverlayType3;
+import static projekt.substratum.common.References.metadataOverlayType4;
 
 public class ProfileManager {
     public static final String SCHEDULED_PROFILE_ENABLED = "scheduled_profile_enabled";
@@ -86,6 +87,7 @@ public class ProfileManager {
     private static final String METADATA_PROFILE_TYPE1C = "type1c";
     private static final String METADATA_PROFILE_TYPE2 = "type2";
     private static final String METADATA_PROFILE_TYPE3 = "type3";
+    private static final String METADATA_PROFILE_TYPE4 = "type4";
     private static final String DAY = "day";
 
     public static void updateScheduledProfile(Context context) {
@@ -269,6 +271,8 @@ public class ProfileManager {
                                 context, packageName, metadataOverlayType2);
                         String type3 = References.getOverlayMetadata(
                                 context, packageName, metadataOverlayType3);
+                        String type4 = References.getOverlayMetadata(
+                                context, packageName, metadataOverlayType4);
 
                         xmlSerializer.startTag(null, METADATA_PROFILE_ITEM)
                                 .attribute(null, METADATA_PROFILE_PACKAGE_NAME, packageName)
@@ -279,6 +283,7 @@ public class ProfileManager {
                                 .attribute(null, METADATA_PROFILE_TYPE1C, type1c)
                                 .attribute(null, METADATA_PROFILE_TYPE2, type2)
                                 .attribute(null, METADATA_PROFILE_TYPE3, type3)
+                                .attribute(null, METADATA_PROFILE_TYPE4, type4)
                                 .endTag(null, METADATA_PROFILE_ITEM);
                     }
                     xmlSerializer.endTag(null, METADATA_PROFILE_ENABLED);
@@ -303,6 +308,8 @@ public class ProfileManager {
                                 context, packageName, metadataOverlayType2);
                         String type3 = References.getOverlayMetadata(
                                 context, packageName, metadataOverlayType3);
+                        String type4 = References.getOverlayMetadata(
+                                context, packageName, metadataOverlayType4);
 
                         xmlSerializer.startTag(null, METADATA_PROFILE_ITEM)
                                 .attribute(null, METADATA_PROFILE_PACKAGE_NAME, packageName)
@@ -313,6 +320,7 @@ public class ProfileManager {
                                 .attribute(null, METADATA_PROFILE_TYPE1C, type1c)
                                 .attribute(null, METADATA_PROFILE_TYPE2, type2)
                                 .attribute(null, METADATA_PROFILE_TYPE3, type3)
+                                .attribute(null, METADATA_PROFILE_TYPE4, type4)
                                 .endTag(null, METADATA_PROFILE_ITEM);
                     }
                     xmlSerializer.endTag(null, METADATA_PROFILE_DISABLED);
@@ -358,6 +366,7 @@ public class ProfileManager {
                         item.setType1c(e.getAttribute(METADATA_PROFILE_TYPE1C));
                         item.setType2(e.getAttribute(METADATA_PROFILE_TYPE2));
                         item.setType3(e.getAttribute(METADATA_PROFILE_TYPE3));
+                        item.setType4(e.getAttribute(METADATA_PROFILE_TYPE4));
                         map.put(e.getAttribute(METADATA_PROFILE_PACKAGE_NAME), item);
                     }
                 }

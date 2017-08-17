@@ -427,6 +427,7 @@ public class OverlayFunctions {
                     overlays.type1c = "";
                     overlays.type2 = "";
                     overlays.type3 = "";
+                    overlays.type4 = "";
 
                     overlays.current_amount = i + 1;
                     String theme_name_parsed =
@@ -714,14 +715,36 @@ public class OverlayFunctions {
                                                 (overlays.checkedOverlays
                                                         .get(i).is_variant_chosen3 ?
                                                         overlays.checkedOverlays.get(i)
-                                                                .getSelectedVariantName3() : "").
-                                                        replaceAll("\\s+", "").replaceAll
+                                                                .getSelectedVariantName3() : "") +
+                                                (overlays.checkedOverlays
+                                                        .get(i).is_variant_chosen5 ?
+                                                        overlays.checkedOverlays.get(i)
+                                                                .getSelectedVariantName5() : "")
+                                                        .replaceAll("\\s+", "").replaceAll
                                                         ("[^a-zA-Z0-9]+", "");
+
+                                if (overlays.checkedOverlays.get(i).is_variant_chosen5) {
+                                    // Copy over the type4 assets
+                                    overlays.type4 = overlays.checkedOverlays.get(i)
+                                            .getSelectedVariantName5();
+                                    String type4folder = "/type4_" + overlays.type4;
+                                    String type4folderOutput = "/assets";
+                                    String to_copy2 = Overlays.overlaysDir + "/" + current_overlay +
+                                            type4folder;
+                                    FileOperations.copyFileOrDir(
+                                            overlays.themeAssetManager,
+                                            to_copy2,
+                                            workingDirectory + type4folderOutput,
+                                            to_copy2,
+                                            overlays.cipher);
+                                }
 
                                 if (overlays.checkedOverlays.get(i).is_variant_chosen4) {
                                     packageName = (packageName + overlays.checkedOverlays.get(i)
                                             .getSelectedVariantName4()).replaceAll("\\s+", "")
                                             .replaceAll("[^a-zA-Z0-9]+", "");
+
+                                    // Copy over the type2 assets
                                     overlays.type2 = overlays.checkedOverlays.get(i)
                                             .getSelectedVariantName4();
                                     String type2folder = "/type2_" + overlays.type2;
@@ -733,6 +756,8 @@ public class OverlayFunctions {
                                             workingDirectory + type2folder,
                                             to_copy,
                                             overlays.cipher);
+
+                                    // Let's get started
                                     Log.d(Overlays.TAG, "Currently processing package" +
                                             " \"" + overlays.checkedOverlays.get(i)
                                             .getFullOverlayParameters() + "\"...");
@@ -756,6 +781,7 @@ public class OverlayFunctions {
                                                 overlays.type1c,
                                                 overlays.type2,
                                                 overlays.type3,
+                                                overlays.type4,
                                                 null);
                                         overlays.logTypes();
                                     } else {
@@ -778,6 +804,7 @@ public class OverlayFunctions {
                                                 overlays.type1c,
                                                 overlays.type2,
                                                 overlays.type3,
+                                                overlays.type4,
                                                 null);
                                         overlays.logTypes();
                                     }
@@ -805,6 +832,7 @@ public class OverlayFunctions {
                                                 overlays.type1c,
                                                 overlays.type2,
                                                 overlays.type3,
+                                                overlays.type4,
                                                 null);
                                         overlays.logTypes();
                                     } else {
@@ -826,6 +854,7 @@ public class OverlayFunctions {
                                                 overlays.type1c,
                                                 overlays.type2,
                                                 overlays.type3,
+                                                overlays.type4,
                                                 null);
                                         overlays.logTypes();
                                     }
@@ -890,6 +919,7 @@ public class OverlayFunctions {
                                         overlays.type1c,
                                         overlays.type2,
                                         overlays.type3,
+                                        overlays.type4,
                                         null);
                                 overlays.logTypes();
 

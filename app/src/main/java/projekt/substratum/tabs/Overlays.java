@@ -167,6 +167,7 @@ public class Overlays extends Fragment {
     public String type1c = "";
     public String type2 = "";
     public String type3 = "";
+    public String type4 = "";
     public Boolean encrypted = false;
     public Cipher cipher = null;
     public RefreshReceiver refreshReceiver;
@@ -184,6 +185,7 @@ public class Overlays extends Fragment {
             Log.d("Theme Type1c Resource", type1c);
             Log.d("Theme Type2  Resource", type2);
             Log.d("Theme Type3  Resource", type3);
+            Log.d("Theme Type4  Resource", type4);
         }
     }
 
@@ -961,14 +963,20 @@ public class Overlays extends Fragment {
         }
     }
 
-    public VariantItem setTypeTwoSpinners(InputStreamReader inputStreamReader) {
+    public VariantItem setTypeTwoFourSpinners(InputStreamReader inputStreamReader, Integer type) {
         try (BufferedReader reader = new BufferedReader(inputStreamReader)) {
-            return new VariantItem(String.format(getString(R.string
-                    .overlays_variant_substitute), reader.readLine()), null);
+            return new VariantItem(String.format(
+                    getString(R.string.overlays_variant_substitute), reader.readLine()), null);
         } catch (Exception e) {
             Log.d(TAG, "Falling back to default base variant text...");
-            return new VariantItem(getString(R.string.overlays_variant_default_2), null);
+            switch (type) {
+                case 2:
+                    return new VariantItem(getString(R.string.overlays_variant_default_2), null);
+                case 4:
+                    return new VariantItem(getString(R.string.overlays_variant_default_4), null);
+            }
         }
+        return null;
     }
 
     public VariantItem setTypeOneHexAndSpinner(String current, String package_identifier) {
@@ -1341,6 +1349,7 @@ public class Overlays extends Fragment {
                             ArrayList<VariantItem> type1b = new ArrayList<>();
                             ArrayList<VariantItem> type1c = new ArrayList<>();
                             ArrayList<VariantItem> type2 = new ArrayList<>();
+                            ArrayList<VariantItem> type4 = new ArrayList<>();
                             ArrayList<String> typeArray = new ArrayList<>();
 
                             Object typeArrayRaw;
@@ -1409,10 +1418,10 @@ public class Overlays extends Fragment {
                             if (References.isCachingEnabled(fragment.getContext()) &&
                                     (typeArray.contains("type2") ||
                                             typeArray.contains("type2.enc"))) {
-                                type2.add(fragment.setTypeTwoSpinners(
+                                type2.add(fragment.setTypeTwoFourSpinners(
                                         new InputStreamReader(new FileInputStream(
                                                 new File(((File) typeArrayRaw).getAbsolutePath() +
-                                                        "/type2")))));
+                                                        "/type2"))), 2));
                             } else if (typeArray.contains("type2") ||
                                     typeArray.contains("type2.enc") ||
                                     type2checker) {
@@ -1433,8 +1442,47 @@ public class Overlays extends Fragment {
                                 } catch (Exception e) {
                                     // Suppress warning
                                 }
-                                type2.add(fragment.setTypeTwoSpinners(inputStreamReader));
+                                type2.add(fragment.setTypeTwoFourSpinners(inputStreamReader, 2));
                             }
+
+                            // Begin Type4 initialization
+                            boolean type4checker = false;
+                            for (int i = 0; i < typeArray.size(); i++) {
+                                if (typeArray.get(i).startsWith("type4_")) {
+                                    type4checker = true;
+                                    break;
+                                }
+                            }
+                            if (References.isCachingEnabled(fragment.getContext()) &&
+                                    (typeArray.contains("type4") ||
+                                            typeArray.contains("type4.enc"))) {
+                                type4.add(fragment.setTypeTwoFourSpinners(
+                                        new InputStreamReader(new FileInputStream(
+                                                new File(((File) typeArrayRaw).getAbsolutePath() +
+                                                        "/type4"))), 4));
+                            } else if (typeArray.contains("type4") ||
+                                    typeArray.contains("type4.enc") ||
+                                    type4checker) {
+                                InputStreamReader inputStreamReader = null;
+                                try {
+                                    inputStreamReader =
+                                            new InputStreamReader(
+                                                    FileOperations.getInputStream(
+                                                            fragment.themeAssetManager,
+                                                            Overlays.overlaysDir + "/" +
+                                                                    package_identifier +
+                                                                    (fragment.encrypted ?
+                                                                            "/type4.enc" :
+                                                                            "/type4"),
+                                                            (fragment.encrypted ?
+                                                                    fragment.cipher :
+                                                                    null)));
+                                } catch (Exception e) {
+                                    // Suppress warning
+                                }
+                                type4.add(fragment.setTypeTwoFourSpinners(inputStreamReader, 4));
+                            }
+
                             if (typeArray.size() > 1) {
                                 for (int i = 0; i < typeArray.size(); i++) {
                                     String current = typeArray.get(i);
@@ -1457,9 +1505,16 @@ public class Overlays extends Fragment {
                                                                     current, package_identifier));
                                                     break;
                                             }
-                                        } else if (!current.contains(".") && current.length() > 5 &&
-                                                current.substring(0, 6).equals("type2_")) {
-                                            type2.add(new VariantItem(current.substring(6), null));
+                                        } else if (!current.contains(".") && current.length() > 5) {
+                                            if (current.substring(0, 6).equals("type2_")) {
+                                                type2.add(
+                                                        new VariantItem(
+                                                                current.substring(6), null));
+                                            } else if (current.substring(0, 6).equals("type4_")) {
+                                                type4.add(
+                                                        new VariantItem(
+                                                                current.substring(6), null));
+                                            }
                                         }
                                     }
                                 }
@@ -1468,11 +1523,13 @@ public class Overlays extends Fragment {
                                 VariantAdapter adapter2 = new VariantAdapter(context, type1b);
                                 VariantAdapter adapter3 = new VariantAdapter(context, type1c);
                                 VariantAdapter adapter4 = new VariantAdapter(context, type2);
+                                VariantAdapter adapter5 = new VariantAdapter(context, type4);
 
                                 boolean adapterOneChecker = type1a.size() == 0;
                                 boolean adapterTwoChecker = type1b.size() == 0;
                                 boolean adapterThreeChecker = type1c.size() == 0;
                                 boolean adapterFourChecker = type2.size() == 0;
+                                boolean adapterFiveChecker = type4.size() == 0;
 
                                 OverlaysItem overlaysItem =
                                         new OverlaysItem(
@@ -1484,6 +1541,7 @@ public class Overlays extends Fragment {
                                                 (adapterTwoChecker ? null : adapter2),
                                                 (adapterThreeChecker ? null : adapter3),
                                                 (adapterFourChecker ? null : adapter4),
+                                                (adapterFiveChecker ? null : adapter5),
                                                 context,
                                                 fragment.versionName,
                                                 sUrl[0],
@@ -1498,6 +1556,7 @@ public class Overlays extends Fragment {
                                                 package_name,
                                                 package_identifier,
                                                 false,
+                                                null,
                                                 null,
                                                 null,
                                                 null,

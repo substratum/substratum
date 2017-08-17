@@ -33,6 +33,7 @@ public class ManagerItem implements Serializable {
     private String type1c;
     private String type2;
     private String type3;
+    private String type4;
     private String themeName;
     private boolean isSelected;
     private int activationValue;
@@ -115,6 +116,14 @@ public class ManagerItem implements Serializable {
 
     public void setType3(String name) {
         this.type3 = name;
+    }
+
+    public String getType4() {
+        return type4;
+    }
+
+    public void setType4(String name) {
+        this.type4 = name;
     }
 
     public String getThemeName() {

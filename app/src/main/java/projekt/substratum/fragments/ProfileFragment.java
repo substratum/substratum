@@ -984,8 +984,8 @@ public class ProfileFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... params) {
             if (toBeCompiled != null) {
-                HashMap<String, ProfileItem> items = ProfileManager.readProfileState(profileName,
-                        STATE_APPROVED_ENABLED);
+                HashMap<String, ProfileItem> items =
+                        ProfileManager.readProfileState(profileName, STATE_APPROVED_ENABLED);
 
                 String prevTheme = "";
                 for (int i = 0; i < toBeCompiled.size(); i++) {
@@ -1076,6 +1076,7 @@ public class ProfileFragment extends Fragment {
                     String type1c = currentItem.getType1c();
                     String type2 = currentItem.getType2();
                     String type3 = currentItem.getType3();
+                    String type4 = currentItem.getType4();
 
                     String type1aDir = "overlays/" + target + "/type1a_" + type1a +
                             (encrypted ? ".xml.enc" : ".xml");
@@ -1152,6 +1153,7 @@ public class ProfileFragment extends Fragment {
                             type1c,
                             type2,
                             type3,
+                            type4,
                             compilePackage
                     );
                     if (References.checkThemeInterfacer(getContext()) &&

@@ -108,6 +108,12 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/optionsSpinner3"/>
 
+            <Spinner
+                android:id="@+id/optionsSpinner5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/optionsSpinner4"/>
+
         </RelativeLayout>
 
         <CheckBox

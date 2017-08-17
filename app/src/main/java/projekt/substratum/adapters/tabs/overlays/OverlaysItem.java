@@ -36,6 +36,7 @@ public class OverlaysItem implements Serializable {
     public boolean is_variant_chosen2 = false;
     public boolean is_variant_chosen3 = false;
     public boolean is_variant_chosen4 = false;
+    public boolean is_variant_chosen5 = false;
     public String versionName;
     boolean variant_mode = false;
     private String theme_name;
@@ -45,15 +46,18 @@ public class OverlaysItem implements Serializable {
     private VariantAdapter array2;
     private VariantAdapter array3;
     private VariantAdapter array4;
+    private VariantAdapter array5;
     private boolean isSelected;
     private int spinnerSelection = 0;
     private int spinnerSelection2 = 0;
     private int spinnerSelection3 = 0;
     private int spinnerSelection4 = 0;
+    private int spinnerSelection5 = 0;
     private String variantSelected = "";
     private String variantSelected2 = "";
     private String variantSelected3 = "";
     private String variantSelected4 = "";
+    private String variantSelected5 = "";
     private String baseResources = "";
     private Context context;
     private ArrayList<Object> enabledOverlays;
@@ -68,6 +72,7 @@ public class OverlaysItem implements Serializable {
                         VariantAdapter adapter2,
                         VariantAdapter adapter3,
                         VariantAdapter adapter4,
+                        VariantAdapter adapter5,
                         Context context,
                         String versionName,
                         String baseResources,
@@ -82,6 +87,7 @@ public class OverlaysItem implements Serializable {
         this.array2 = adapter2;
         this.array3 = adapter3;
         this.array4 = adapter4;
+        this.array5 = adapter5;
         this.context = context;
         this.versionName = versionName;
         this.theme_oms = theme_oms;
@@ -144,6 +150,10 @@ public class OverlaysItem implements Serializable {
 
     VariantAdapter getSpinnerArray4() {
         return array4;
+    }
+
+    VariantAdapter getSpinnerArray5() {
+        return array5;
     }
 
     int getSelectedVariant() {
@@ -211,6 +221,21 @@ public class OverlaysItem implements Serializable {
         spinnerSelection4 = position;
     }
 
+    int getSelectedVariant5() {
+        return spinnerSelection5;
+    }
+
+    void setSelectedVariant5(int position) {
+        if (position != 0) {
+            is_variant_chosen = true;
+            is_variant_chosen5 = true;
+        } else {
+            is_variant_chosen = false;
+            is_variant_chosen5 = false;
+        }
+        spinnerSelection5 = position;
+    }
+
     public String getSelectedVariantName() {
         return variantSelected.replaceAll("\\s+", "");
     }
@@ -241,6 +266,14 @@ public class OverlaysItem implements Serializable {
 
     void setSelectedVariantName4(String variantName) {
         this.variantSelected4 = variantName;
+    }
+
+    public String getSelectedVariantName5() {
+        return variantSelected5.replaceAll("\\s+", "");
+    }
+
+    void setSelectedVariantName5(String variantName) {
+        this.variantSelected5 = variantName;
     }
 
     Context getInheritedContext() {
@@ -292,11 +325,13 @@ public class OverlaysItem implements Serializable {
                 (((getSelectedVariant() == 0 &&
                         getSelectedVariant2() == 0 &&
                         getSelectedVariant3() == 0 &&
-                        getSelectedVariant4() == 0)) ? "" : ".") +
+                        getSelectedVariant4() == 0) &&
+                        getSelectedVariant5() == 0) ? "" : ".") +
                 (((getSelectedVariant() == 0) ? "" : getSelectedVariantName()) +
                         ((getSelectedVariant2() == 0) ? "" : getSelectedVariantName2()) +
                         ((getSelectedVariant3() == 0) ? "" : getSelectedVariantName3()) +
-                        ((getSelectedVariant4() == 0) ? "" : getSelectedVariantName4()))
+                        ((getSelectedVariant4() == 0) ? "" : getSelectedVariantName4()) +
+                        ((getSelectedVariant5() == 0) ? "" : getSelectedVariantName5()))
                         .replaceAll("\\s", "").replaceAll("[^a-zA-Z0-9]+", "") +
                 ((baseResources.length() == 0) ? "" : "." + baseResources);
     }

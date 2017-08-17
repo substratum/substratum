@@ -63,6 +63,7 @@ import static projekt.substratum.common.References.metadataOverlayType1b;
 import static projekt.substratum.common.References.metadataOverlayType1c;
 import static projekt.substratum.common.References.metadataOverlayType2;
 import static projekt.substratum.common.References.metadataOverlayType3;
+import static projekt.substratum.common.References.metadataOverlayType4;
 
 public class OverlayUpdater extends BroadcastReceiver {
 
@@ -125,7 +126,6 @@ public class OverlayUpdater extends BroadcastReceiver {
         private ArrayList<String> errored_packages;
         @SuppressLint("StaticFieldLeak")
         private Context context;
-        private Integer currentNotificationID;
         private LocalBroadcastManager localBroadcastManager;
         private KeyRetrieval keyRetrieval;
         private Intent securityIntent;
@@ -240,7 +240,6 @@ public class OverlayUpdater extends BroadcastReceiver {
                 }
                 errored_packages = new ArrayList<>();
                 upgrade_mode = "";
-                currentNotificationID = 0;
                 mNotifyManager.notify(id, mBuilder.build());
             }
         }
@@ -364,6 +363,8 @@ public class OverlayUpdater extends BroadcastReceiver {
                             context, installed_overlays.get(i), metadataOverlayType2);
                     String type3 = References.getOverlayMetadata(
                             context, installed_overlays.get(i), metadataOverlayType3);
+                    String type4 = References.getOverlayMetadata(
+                            context, installed_overlays.get(i), metadataOverlayType4);
 
                     if (type1a != null && type1a.contains("overlays/")) return null;
                     if (type1b != null && type1b.contains("overlays/")) return null;
@@ -379,6 +380,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                             (encrypted ? ".xml.enc" : ".xml");
                     String type2Dir = "overlays/" + target + "/type2_" + type2;
                     String type3Dir = "overlays/" + target + "/type3_" + type3;
+                    String type4Dir = "overlays/" + target + "/type4_" + type4;
 
                     String additional_variant = ((type2 != null && type2.length() > 0) ?
                             type2Dir.split("/")[2].substring(6) : null);
@@ -477,6 +479,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                             type1c,
                             type2,
                             type3,
+                            type4,
                             installed_overlays.get(i)
                     );
                     if (sb.has_errored_out) errored_packages.add(installed_overlays.get(i));

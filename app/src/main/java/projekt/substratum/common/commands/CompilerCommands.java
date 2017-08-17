@@ -59,6 +59,7 @@ public class CompilerCommands {
                                                String type1c,
                                                String type2,
                                                String type3,
+                                               String type4,
                                                String packageNameOverride) {
 
         String packageName;
@@ -68,7 +69,7 @@ public class CompilerCommands {
             packageName = overlayPackage + "." + parse2_themeName +
                     parse2_variantName + parse2_baseName;
         }
-        if (packageNameOverride != null && packageNameOverride.length() > 0) {
+        if (!isNullOrEmpty(packageNameOverride)) {
             packageName = packageNameOverride;
         }
 
@@ -143,6 +144,11 @@ public class CompilerCommands {
             metadataOverlayType3.setAttribute("android:value", type3);
             applicationElement.appendChild(metadataOverlayType3);
 
+            Element metadataOverlayType4 = document.createElement("meta-data");
+            metadataOverlayType4.setAttribute("android:name", References.metadataOverlayType4);
+            metadataOverlayType4.setAttribute("android:value", type4);
+            applicationElement.appendChild(metadataOverlayType4);
+
             Element metadataOverlayVersion = document.createElement("meta-data");
             metadataOverlayVersion.setAttribute("android:name", References.metadataOverlayVersion);
             metadataOverlayVersion.setAttribute("android:value", String.valueOf(BuildConfig
@@ -169,6 +175,11 @@ public class CompilerCommands {
         return "";
     }
 
+    private static boolean isNullOrEmpty(String string) {
+        if (string == null) return true;
+        return string.length() == 0;
+    }
+
     @SuppressWarnings("StringConcatenationInsideStringBufferAppend")
     public static String createAOPTShellCommands(String work_area,
                                                  String targetPkg,
@@ -176,6 +187,7 @@ public class CompilerCommands {
                                                  String theme_name,
                                                  boolean legacySwitch,
                                                  String additional_variant,
+                                                 String asset_replacement,
                                                  Context context,
                                                  String noCacheDir) {
         StringBuilder sb = new StringBuilder();
@@ -184,8 +196,11 @@ public class CompilerCommands {
         // Compile with specified manifest
         sb.append("-M " + work_area + "/AndroidManifest.xml ");
         // If the user picked a variant (type2), compile multiple directories
-        sb.append(((additional_variant != null) ?
+        sb.append(((!isNullOrEmpty(additional_variant)) ?
                 "-S " + work_area + "/" + "type2_" + additional_variant + "/ " : ""));
+        // If the user picked an asset variant (type4), compile multiple directories
+        sb.append(((!isNullOrEmpty(asset_replacement)) ?
+                "-A " + work_area + "/assets/ " : ""));
         // We will compile a volatile directory where we make temporary changes to
         sb.append("-S " + work_area + (References.isCachingEnabled(context) ?
                 "/workdir/ " : noCacheDir + "/ "));

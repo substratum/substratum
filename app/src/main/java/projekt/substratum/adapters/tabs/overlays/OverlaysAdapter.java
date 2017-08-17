@@ -73,23 +73,23 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 switch (spinnerNumber) {
                     case 1:
                         current_object.setSelectedVariant(pos);
-                        current_object.setSelectedVariantName(
-                                arg0.getSelectedItem().toString());
+                        current_object.setSelectedVariantName(arg0.getSelectedItem().toString());
                         break;
                     case 2:
                         current_object.setSelectedVariant2(pos);
-                        current_object.setSelectedVariantName2(
-                                arg0.getSelectedItem().toString());
+                        current_object.setSelectedVariantName2(arg0.getSelectedItem().toString());
                         break;
                     case 3:
                         current_object.setSelectedVariant3(pos);
-                        current_object.setSelectedVariantName3(
-                                arg0.getSelectedItem().toString());
+                        current_object.setSelectedVariantName3(arg0.getSelectedItem().toString());
                         break;
                     case 4:
                         current_object.setSelectedVariant4(pos);
-                        current_object.setSelectedVariantName4(
-                                arg0.getSelectedItem().toString());
+                        current_object.setSelectedVariantName4(arg0.getSelectedItem().toString());
+                        break;
+                    case 5:
+                        current_object.setSelectedVariant5(pos);
+                        current_object.setSelectedVariantName5(arg0.getSelectedItem().toString());
                         break;
                 }
 
@@ -104,44 +104,50 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                     } else {
                         if (viewHolder.optionsSpinner != null && viewHolder
                                 .optionsSpinner.getVisibility() == View.VISIBLE)
-                            if (viewHolder.optionsSpinner.getSelectedItemPosition()
-                                    != 0)
+                            if (viewHolder.optionsSpinner.getSelectedItemPosition() != 0)
                                 packageName = packageName + viewHolder.optionsSpinner
-                                        .getSelectedItem().toString().replaceAll("\\s+",
-                                                "").replaceAll("[^a-zA-Z0-9]+", "");
+                                        .getSelectedItem().toString()
+                                        .replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
                     }
                     if (spinnerNumber == 2) {
                         packageName = setPackageName(packageName, arg0);
                     } else {
                         if (viewHolder.optionsSpinner2 != null && viewHolder
                                 .optionsSpinner2.getVisibility() == View.VISIBLE)
-                            if (viewHolder.optionsSpinner2.getSelectedItemPosition()
-                                    != 0)
+                            if (viewHolder.optionsSpinner2.getSelectedItemPosition() != 0)
                                 packageName = packageName + viewHolder.optionsSpinner2
-                                        .getSelectedItem().toString().replaceAll("\\s+",
-                                                "").replaceAll("[^a-zA-Z0-9]+", "");
+                                        .getSelectedItem().toString()
+                                        .replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
                     }
                     if (spinnerNumber == 3) {
                         packageName = setPackageName(packageName, arg0);
                     } else {
                         if (viewHolder.optionsSpinner3 != null && viewHolder
                                 .optionsSpinner3.getVisibility() == View.VISIBLE)
-                            if (viewHolder.optionsSpinner3.getSelectedItemPosition()
-                                    != 0)
+                            if (viewHolder.optionsSpinner3.getSelectedItemPosition() != 0)
                                 packageName = packageName + viewHolder.optionsSpinner3
-                                        .getSelectedItem().toString().replaceAll("\\s+",
-                                                "").replaceAll("[^a-zA-Z0-9]+", "");
+                                        .getSelectedItem().toString().replaceAll("\\s+", "")
+                                        .replaceAll("[^a-zA-Z0-9]+", "");
                     }
                     if (spinnerNumber == 4) {
                         packageName = setPackageName(packageName, arg0);
                     } else {
                         if (viewHolder.optionsSpinner4 != null && viewHolder
                                 .optionsSpinner4.getVisibility() == View.VISIBLE)
-                            if (viewHolder.optionsSpinner4.getSelectedItemPosition()
-                                    != 0)
+                            if (viewHolder.optionsSpinner4.getSelectedItemPosition() != 0)
                                 packageName = packageName + viewHolder.optionsSpinner4
-                                        .getSelectedItem().toString().replaceAll("\\s+",
-                                                "").replaceAll("[^a-zA-Z0-9]+", "");
+                                        .getSelectedItem().toString().replaceAll("\\s+", "")
+                                        .replaceAll("[^a-zA-Z0-9]+", "");
+                    }
+                    if (spinnerNumber == 5) {
+                        packageName = setPackageName(packageName, arg0);
+                    } else {
+                        if (viewHolder.optionsSpinner5 != null && viewHolder
+                                .optionsSpinner5.getVisibility() == View.VISIBLE)
+                            if (viewHolder.optionsSpinner5.getSelectedItemPosition() != 0)
+                                packageName = packageName + viewHolder.optionsSpinner5
+                                        .getSelectedItem().toString().replaceAll("\\s+", "")
+                                        .replaceAll("[^a-zA-Z0-9]+", "");
                     }
                     commitChanges(context, current_object, viewHolder, packageName);
                 }
@@ -341,6 +347,15 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
             } else {
                 viewHolder.optionsSpinner4.setVisibility(View.GONE);
             }
+            if (current_object.getSpinnerArray5() != null) {
+                viewHolder.optionsSpinner5.setVisibility(View.VISIBLE);
+                viewHolder.optionsSpinner5.setAdapter(current_object.getSpinnerArray5());
+                viewHolder.optionsSpinner5.setOnItemSelectedListener(
+                        adapterViewOISL(context, current_object, viewHolder, 5));
+                viewHolder.optionsSpinner5.setSelection(current_object.getSelectedVariant5());
+            } else {
+                viewHolder.optionsSpinner5.setVisibility(View.GONE);
+            }
             if (current_object.isDeviceOMS()) {
                 if (current_object.isOverlayEnabled()) {
                     viewHolder.overlayTargetPackageName.setTextColor(
@@ -392,6 +407,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
             viewHolder.optionsSpinner2.setVisibility(View.GONE);
             viewHolder.optionsSpinner3.setVisibility(View.GONE);
             viewHolder.optionsSpinner4.setVisibility(View.GONE);
+            viewHolder.optionsSpinner5.setVisibility(View.GONE);
             if (current_object.isDeviceOMS()) {
                 if (current_object.isOverlayEnabled()) {
                     viewHolder.overlayTargetPackageName.setTextColor(
@@ -428,6 +444,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
         Spinner optionsSpinner2;
         Spinner optionsSpinner3;
         Spinner optionsSpinner4;
+        Spinner optionsSpinner5;
         ImageView app_icon;
 
         ViewHolder(View itemLayoutView) {
@@ -440,6 +457,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
             optionsSpinner2 = (Spinner) itemLayoutView.findViewById(R.id.optionsSpinner2);
             optionsSpinner3 = (Spinner) itemLayoutView.findViewById(R.id.optionsSpinner3);
             optionsSpinner4 = (Spinner) itemLayoutView.findViewById(R.id.optionsSpinner4);
+            optionsSpinner5 = (Spinner) itemLayoutView.findViewById(R.id.optionsSpinner5);
             overlayTargetPackageName = (TextView) itemLayoutView.findViewById(R.id
                     .overlayTargetPackageName);
             overlayTargetPackage = (TextView) itemLayoutView.findViewById(R.id

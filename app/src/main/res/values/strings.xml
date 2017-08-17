@@ -140,6 +140,7 @@
     <string name="manager_type1c">Type1c:</string>
     <string name="manager_type2">Type2 :</string>
     <string name="manager_type3">Type3 :</string>
+    <string name="manager_type4">Type4 :</string>
 
     <string name="legacy_preference_priority_title">Overlay Priority Adjustment</string>
     <string name="legacy_preference_priority_text" formatted="false">Priority is set at (default 255): %d</string>
@@ -150,6 +151,7 @@
     <string name="overlays_variant_default_1c">type1c variant&#8230;</string>
     <string name="overlays_variant_default_2">type2 variant&#8230;</string>
     <string name="overlays_variant_default_3">default base variant&#8230;</string>
+    <string name="overlays_variant_default_4">type4 variant&#8230;</string>
     <string name="overlays_up_to_date">UP-TO-DATE</string>
     <string name="overlays_update_available">Update available!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variant not installed</string>

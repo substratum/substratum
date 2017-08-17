@@ -204,6 +204,27 @@ public class ManagerAdapter extends
                     FROM_HTML_MODE_LEGACY));
         }
 
+        if (overlayList.get(position_fixed).getType4() == null) {
+            String metadata = References.getOverlayMetadata(
+                    context,
+                    packageName,
+                    References.metadataOverlayType4);
+            if (metadata != null && metadata.length() > 0) {
+                metadata = metadata.replace("_", " ");
+                String textView = "<b>" + context.getString(R.string.manager_type4) +
+                        "</b> " + metadata;
+                viewHolder.type4.setVisibility(View.VISIBLE);
+                overlayList.get(position_fixed).setType4(textView);
+                viewHolder.type4.setText(Html.fromHtml(textView, FROM_HTML_MODE_LEGACY));
+            } else {
+                viewHolder.type4.setVisibility(View.GONE);
+            }
+        } else {
+            viewHolder.type4.setVisibility(View.VISIBLE);
+            viewHolder.type4.setText(Html.fromHtml(overlayList.get(position_fixed).getType4(),
+                    FROM_HTML_MODE_LEGACY));
+        }
+
         if (overlayList.get(position_fixed).getThemeName() == null) {
             String metadata = References.getOverlayMetadata(
                     context,
@@ -295,6 +316,7 @@ public class ManagerAdapter extends
         TextView type1c;
         TextView type2;
         TextView type3;
+        TextView type4;
 
         ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
@@ -309,6 +331,7 @@ public class ManagerAdapter extends
             type1c = (TextView) itemLayoutView.findViewById(R.id.type1c);
             type2 = (TextView) itemLayoutView.findViewById(R.id.type2);
             type3 = (TextView) itemLayoutView.findViewById(R.id.type3);
+            type4 = (TextView) itemLayoutView.findViewById(R.id.type4);
         }
     }
 }

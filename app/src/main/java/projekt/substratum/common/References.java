@@ -183,6 +183,7 @@ public class References {
     public static final String metadataOverlayType1c = "Substratum_Type1c";
     public static final String metadataOverlayType2 = "Substratum_Type2";
     public static final String metadataOverlayType3 = "Substratum_Type3";
+    public static final String metadataOverlayType4 = "Substratum_Type4";
     public static final String metadataOverlayVersion = "Substratum_Version";
     // These are Samsung specific manifest values
     public static final Boolean toggleShowSamsungOverlayInSettings = false;

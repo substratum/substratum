@@ -93,6 +93,7 @@ public class SubstratumBuilder {
      * @param type1c             String location of the type1c file
      * @param type2              String location of the type2 file
      * @param type3              String location of the type3 file
+     * @param type4              String location of the type4 file
      */
     @SuppressWarnings({"ConstantConditions", "UnusedReturnValue"})
     public boolean beginAction(Context context,
@@ -111,22 +112,17 @@ public class SubstratumBuilder {
                                String type1c,
                                String type2,
                                String type3,
+                               String type4,
                                String override_package) {
+
+        // 1. Initialize the setup
         File checkCompileFolder = new File(EXTERNAL_STORAGE_CACHE);
         if (!checkCompileFolder.exists() && !checkCompileFolder.mkdirs()) {
             Log.e(SUBSTRATUM_BUILDER, "Could not create compilation folder on external storage...");
         }
-
         has_errored_out = false;
-
         debug = PreferenceManager.getDefaultSharedPreferences(context)
                 .getBoolean("theme_debug", false);
-
-        // 1. Quickly filter out what kind of type this overlay will be compiled with
-        int typeMode = 1;
-        if (additional_variant != null) {
-            typeMode = 2;
-        }
 
         // 2. Set work area to asset chosen based on the parameter passed into this class
         String work_area;
@@ -232,6 +228,7 @@ public class SubstratumBuilder {
                                         type1c,
                                         type2,
                                         type3,
+                                        type4,
                                         (override_package != null &&
                                                 override_package.length() > 0) ?
                                                 override_package : "");
@@ -256,6 +253,7 @@ public class SubstratumBuilder {
                                             type1c,
                                             type2,
                                             type3,
+                                            type4,
                                             (override_package != null &&
                                                     override_package.length() > 0) ?
                                                     override_package : "");
@@ -279,6 +277,7 @@ public class SubstratumBuilder {
                                             type1c,
                                             type2,
                                             type3,
+                                            type4,
                                             (override_package != null &&
                                                     override_package.length() > 0) ?
                                                     override_package : "");
@@ -303,9 +302,8 @@ public class SubstratumBuilder {
                     targetPkg,
                     parse2_themeName,
                     overlay_package,
-                    variant,
                     additional_variant,
-                    typeMode,
+                    type4,
                     false,
                     context,
                     no_cache_dir);
@@ -316,9 +314,8 @@ public class SubstratumBuilder {
                     targetPkg,
                     parse2_themeName,
                     overlay_package,
-                    variant,
                     additional_variant,
-                    typeMode,
+                    type4,
                     false,
                     context,
                     no_cache_dir);
@@ -527,50 +524,21 @@ public class SubstratumBuilder {
                                        String targetPkg,
                                        String theme_name,
                                        String overlay_package,
-                                       String variant,
                                        String additional_variant,
-                                       int typeMode,
+                                       String asset_replacement,
                                        boolean legacySwitch,
                                        Context context,
                                        String no_cache_dir) {
-        String commands;
-        if (typeMode == 1) {
-            commands = CompilerCommands.createAOPTShellCommands(
-                    work_area,
-                    targetPkg,
-                    overlay_package,
-                    theme_name,
-                    legacySwitch,
-                    null,
-                    context,
-                    no_cache_dir
-            );
-        } else {
-            if (variant != null) {
-                commands = CompilerCommands.createAOPTShellCommands(
-                        work_area,
-                        targetPkg,
-                        overlay_package,
-                        theme_name,
-                        legacySwitch,
-                        additional_variant,
-                        context,
-                        no_cache_dir
-                );
-            } else {
-                commands = CompilerCommands.createAOPTShellCommands(
-                        work_area,
-                        targetPkg,
-                        overlay_package,
-                        theme_name,
-                        legacySwitch,
-                        null,
-                        context,
-                        no_cache_dir
-                );
-            }
-        }
-        return commands;
+        return CompilerCommands.createAOPTShellCommands(
+                work_area,
+                targetPkg,
+                overlay_package,
+                theme_name,
+                legacySwitch,
+                additional_variant,
+                asset_replacement,
+                context,
+                no_cache_dir);
     }
 
     private boolean runAOPTShellCommands(String commands,
@@ -578,9 +546,8 @@ public class SubstratumBuilder {
                                          String targetPkg,
                                          String theme_name,
                                          String overlay_package,
-                                         String variant,
                                          String additional_variant,
-                                         int typeMode,
+                                         String asset_replacement,
                                          boolean legacySwitch,
                                          Context context,
                                          String no_cache_dir) {
@@ -602,11 +569,11 @@ public class SubstratumBuilder {
                                     "This overlay was designed using a legacy theming " +
                                             "style, now falling back to legacy compiler...");
                             String new_commands = processAOPTCommands(work_area, targetPkg,
-                                    theme_name, overlay_package, variant, additional_variant,
-                                    typeMode, true, context, no_cache_dir);
+                                    theme_name, overlay_package, additional_variant,
+                                    asset_replacement, true, context, no_cache_dir);
                             return runAOPTShellCommands(
                                     new_commands, work_area, targetPkg, theme_name,
-                                    overlay_package, variant, additional_variant, typeMode,
+                                    overlay_package, additional_variant, asset_replacement,
                                     true, context, no_cache_dir);
                         } else {
                             dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package, line);

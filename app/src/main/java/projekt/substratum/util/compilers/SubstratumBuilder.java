@@ -447,16 +447,9 @@ public class SubstratumBuilder {
                 } else {
                     Log.d(References.SUBSTRATUM_BUILDER,
                             "Returning compiled APK path for later installation...");
-
-                    if (variant != null) {
-                        no_install =
-                                EXTERNAL_STORAGE_CACHE + overlay_package + "." +
-                                        parse2_themeName + "." + varianter + "-signed.apk";
-                    } else {
-                        no_install =
-                                EXTERNAL_STORAGE_CACHE + overlay_package + "." +
-                                        parse2_themeName + "-signed.apk";
-                    }
+                    no_install =
+                            EXTERNAL_STORAGE_CACHE + overlay_package + "." +
+                                    parse2_themeName + "-signed.apk";
                 }
             } else {
                 Boolean isSamsung = References.isSamsung(context);

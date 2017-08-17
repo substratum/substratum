@@ -78,9 +78,9 @@
             style="@style/Widget.MaterialProgressBar.ProgressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_marginTop="100dp"
+            android:layout_below="@+id/toggle_zone"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
             android:indeterminate="true"/>
 
         <android.support.v4.widget.SwipeRefreshLayout

@@ -1595,10 +1595,14 @@ public class References {
 
     // Check if the system is of the Samsung variant
     public static boolean isSamsungDevice(Context context) {
-        if (FORCE_SAMSUNG_VARIANT) return true;
-        List<String> listOfFeatures =
-                Arrays.asList(context.getPackageManager().getSystemSharedLibraryNames());
-        return listOfFeatures.contains("touchwiz");
+        if (context != null) {
+            if (FORCE_SAMSUNG_VARIANT) return true;
+            List<String> listOfFeatures =
+                    Arrays.asList(context.getPackageManager().getSystemSharedLibraryNames());
+            return listOfFeatures.contains("touchwiz");
+        } else {
+            return false;
+        }
     }
 
     // Check if theme is Samsung supported

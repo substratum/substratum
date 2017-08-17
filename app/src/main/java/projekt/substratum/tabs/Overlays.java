@@ -911,7 +911,7 @@ public class Overlays extends Fragment {
                         cipher)) {
                     hex = References.getOverlayResource(name);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    // Suppress warning
                 }
             } else {
                 try (InputStream name = themeAssetManager.open(
@@ -919,7 +919,7 @@ public class Overlays extends Fragment {
                                 "/values/type1" + type + ".xml")) {
                     hex = References.getOverlayResource(name);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    // Suppress warning
                 }
             }
             return new VariantItem(formatter, hex);

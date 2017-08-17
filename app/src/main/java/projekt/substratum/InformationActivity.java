@@ -66,6 +66,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener;
@@ -108,14 +110,14 @@ import static projekt.substratum.common.References.wallpaperFragment;
 public class InformationActivity extends SubstratumActivity {
 
     private static final int LUNCHBAR_DISMISS_FAB_CLICK_DELAY = 200;
-    public static String theme_name;
-    public static String theme_pid;
-    public static String theme_mode;
-    public static byte[] encryption_key;
-    public static byte[] iv_encrypt_key;
     public static Lunchbar currentShownLunchBar;
     private static List<String> tab_checker;
     private static String wallpaperUrl;
+    public String theme_name;
+    public String theme_pid;
+    public String theme_mode;
+    public byte[] encryption_key;
+    public byte[] iv_encrypt_key;
     private Boolean uninstalled = false;
     private KenBurnsView kenBurnsView;
     private byte[] byteArray;
@@ -133,30 +135,8 @@ public class InformationActivity extends SubstratumActivity {
     private LocalBroadcastManager localBroadcastManager;
     private BroadcastReceiver refreshReceiver;
     private AsyncTask<String, Integer, String> layoutLoader;
-
-    public static String getThemeName() {
-        return theme_name;
-    }
-
-    public static String getThemePID() {
-        return theme_pid;
-    }
-
-    public static byte[] getEncryptionKey() {
-        return encryption_key;
-    }
-
-    public static byte[] getIVEncryptKey() {
-        return iv_encrypt_key;
-    }
-
-    public static String getWallpaperUrl() {
-        return wallpaperUrl;
-    }
-
-    public static Lunchbar getCurrentShownLunchBar() {
-        return currentShownLunchBar;
-    }
+    private Drawable heroImage;
+    private int dominantColor;
 
     private static int getDominantColor(Bitmap bitmap) {
         try {
@@ -214,7 +194,6 @@ public class InformationActivity extends SubstratumActivity {
         Resources res;
         Drawable hero = null;
         try {
-            Log.d("SubstratumHeroImage", "Loading hero image from '" + package_name + "'...");
             res = getPackageManager().getResourcesForApplication(package_name);
             int resourceId = res.getIdentifier(package_name + ":drawable/heroimage", null, null);
             if (0 != resourceId) {
@@ -319,11 +298,20 @@ public class InformationActivity extends SubstratumActivity {
 
         Intent currentIntent = getIntent();
         theme_name = currentIntent.getStringExtra("theme_name");
+
         theme_pid = currentIntent.getStringExtra("theme_pid");
         theme_mode = currentIntent.getStringExtra("theme_mode");
         encryption_key = currentIntent.getByteArrayExtra("encryption_key");
         iv_encrypt_key = currentIntent.getByteArrayExtra("iv_encrypt_key");
         wallpaperUrl = null;
+
+        Bundle bundle = new Bundle();
+        bundle.putString("theme_name", theme_name);
+        bundle.putString("theme_pid", theme_pid);
+        bundle.putString("theme_mode", theme_mode);
+        bundle.putByteArray("encryption_key", encryption_key);
+        bundle.putByteArray("iv_encrypt_key", iv_encrypt_key);
+        bundle.putString("wallpaperUrl", wallpaperUrl);
 
         try {
             ApplicationInfo appInfo =
@@ -359,9 +347,8 @@ public class InformationActivity extends SubstratumActivity {
         }
         if (toolbar != null) toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
-        Drawable heroImage = grabPackageHeroImage(theme_pid);
+        heroImage = grabPackageHeroImage(theme_pid);
         if (heroImage != null) heroImageBitmap = ((BitmapDrawable) heroImage).getBitmap();
-        int dominantColor;
         if (heroImageBitmap == null) {
             dominantColor = Color.TRANSPARENT;
         } else {
@@ -511,7 +498,7 @@ public class InformationActivity extends SubstratumActivity {
         }
         final InformationTabsAdapter adapter = new InformationTabsAdapter
                 (getSupportFragmentManager(), (tabLayout != null) ? tabLayout.getTabCount() : 0,
-                        theme_mode, tab_checker, wallpaperUrl);
+                        theme_mode, tab_checker, wallpaperUrl, bundle);
 
         if (viewPager != null) {
             viewPager.setOffscreenPageLimit((tabLayout != null) ? tabLayout.getTabCount() : 0);
@@ -711,16 +698,6 @@ public class InformationActivity extends SubstratumActivity {
         getMenuInflater().inflate(R.menu.theme_information_menu, menu);
 
         // Start formalizing a check for dark icons
-        Drawable heroImage = grabPackageHeroImage(theme_pid);
-        if (heroImage != null) {
-            heroImageBitmap = ((BitmapDrawable) heroImage).getBitmap();
-        }
-        int dominantColor;
-        if (heroImageBitmap == null) {
-            dominantColor = Color.TRANSPARENT;
-        } else {
-            dominantColor = getDominantColor(heroImageBitmap);
-        }
         boolean dynamicActionBarColors = getResources().getBoolean(R.bool.dynamicActionBarColors);
         shouldDarken = collapsingToolbarLayout != null &&
                 checkColorDarkness(dominantColor) &&
@@ -1044,17 +1021,6 @@ public class InformationActivity extends SubstratumActivity {
             // Unregistered already
         }
 
-        // Reset all of the parameters of this IA instance
-        theme_name = null;
-        theme_pid = null;
-        theme_mode = null;
-        encryption_key = null;
-        iv_encrypt_key = null;
-        wallpaperUrl = null;
-        kenBurnsView = null;
-        if (layoutLoader != null) layoutLoader.cancel(true);
-        heroImageBitmap = null;
-
         if (!BYPASS_SUBSTRATUM_BUILDER_DELETION &&
                 !References.isCachingEnabled(getApplicationContext())) {
             String workingDirectory =
@@ -1087,8 +1053,13 @@ public class InformationActivity extends SubstratumActivity {
                     tabLayout.setBackgroundColor(Color.parseColor("#ffff00"));
                 getWindow().setNavigationBarColor(Color.parseColor("#ffff00"));
             } else if (kenBurnsView != null) {
-                Glide.with(getApplicationContext()).load(byteArray)
-                        .apply(centerCropTransform()).into(kenBurnsView);
+                RequestOptions requestOptions = centerCropTransform();
+                requestOptions.diskCacheStrategy(DiskCacheStrategy.NONE);
+                requestOptions.skipMemoryCache(true);
+                Glide.with(getApplicationContext())
+                        .load(byteArray)
+                        .apply(requestOptions)
+                        .into(kenBurnsView);
             }
         }
 

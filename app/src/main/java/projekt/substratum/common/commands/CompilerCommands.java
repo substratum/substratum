@@ -19,7 +19,6 @@
 package projekt.substratum.common.commands;
 
 import android.content.Context;
-import android.util.Log;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

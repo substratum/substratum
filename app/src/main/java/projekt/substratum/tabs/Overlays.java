@@ -87,7 +87,6 @@ import javax.crypto.spec.SecretKeySpec;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.BuildConfig;
-import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.tabs.overlays.OverlaysAdapter;
 import projekt.substratum.adapters.tabs.overlays.OverlaysItem;
@@ -475,14 +474,14 @@ public class Overlays extends Fragment {
         localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
         localBroadcastManager.registerReceiver(refreshReceiver, filter);
 
-        theme_name = InformationActivity.getThemeName();
-        theme_pid = InformationActivity.getThemePID();
+        theme_name = getArguments().getString("theme_name");
+        theme_pid = getArguments().getString("theme_pid");
         String encrypt_check =
                 References.getOverlayMetadata(getContext(), theme_pid, metadataEncryption);
 
         if (encrypt_check != null && encrypt_check.equals(metadataEncryptionValue)) {
-            byte[] encryption_key = InformationActivity.getEncryptionKey();
-            byte[] iv_encrypt_key = InformationActivity.getIVEncryptKey();
+            byte[] encryption_key = getArguments().getByteArray("encryption_key");
+            byte[] iv_encrypt_key = getArguments().getByteArray("iv_encrypt_key");
             try {
                 cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
                 cipher.init(

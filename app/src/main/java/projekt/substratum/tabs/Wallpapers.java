@@ -40,7 +40,6 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
-import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.tabs.wallpapers.WallpaperAdapter;
 import projekt.substratum.adapters.tabs.wallpapers.WallpaperEntries;
@@ -62,7 +61,7 @@ public class Wallpapers extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
-        wallpaperUrl = InformationActivity.getWallpaperUrl();
+        wallpaperUrl = getArguments().getString("wallpaperUrl");
         root = (ViewGroup) inflater.inflate(R.layout.tab_wallpapers, container, false);
         materialProgressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
         no_network = root.findViewById(R.id.no_network);

@@ -68,7 +68,6 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
-import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.FileOperations;
@@ -109,9 +108,9 @@ public class BootAnimations extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
-        theme_pid = InformationActivity.getThemePID();
-        byte[] encryption_key = InformationActivity.getEncryptionKey();
-        byte[] iv_encrypt_key = InformationActivity.getIVEncryptKey();
+        theme_pid = getArguments().getString("theme_pid");
+        byte[] encryption_key = getArguments().getByteArray("encryption_key");
+        byte[] iv_encrypt_key = getArguments().getByteArray("iv_encrypt_key");
 
         // encrypted = encryption_key != null && iv_encrypt_key != null;
 

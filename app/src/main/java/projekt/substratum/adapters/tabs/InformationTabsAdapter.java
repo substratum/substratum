@@ -18,6 +18,7 @@
 
 package projekt.substratum.adapters.tabs;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -38,10 +39,11 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
     private Integer mNumOfTabs;
     private String theme_mode;
     private String wallpaperUrl;
+    private Bundle bundle;
 
     @SuppressWarnings("unchecked")
     public InformationTabsAdapter(FragmentManager fm, int NumOfTabs, String theme_mode,
-                                  List package_checker, String wallpaperUrl) {
+                                  List package_checker, String wallpaperUrl, Bundle bundle) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
         this.theme_mode = theme_mode;
@@ -51,6 +53,7 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
             // Suppress this warning for theme_mode launches
         }
         this.wallpaperUrl = wallpaperUrl;
+        this.bundle = bundle;
     }
 
     @Override
@@ -58,15 +61,25 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
         if (theme_mode != null && theme_mode.length() > 0) {
             switch (theme_mode) {
                 case "overlays":
-                    return new Overlays();
+                    Overlays overlays = new Overlays();
+                    overlays.setArguments(bundle);
+                    return overlays;
                 case "bootanimation":
-                    return new BootAnimations();
+                    BootAnimations bootAnimations = new BootAnimations();
+                    bootAnimations.setArguments(bundle);
+                    return bootAnimations;
                 case "fonts":
-                    return new Fonts();
+                    Fonts fonts = new Fonts();
+                    fonts.setArguments(bundle);
+                    return fonts;
                 case "audio":
-                    return new Sounds();
+                    Sounds sounds = new Sounds();
+                    sounds.setArguments(bundle);
+                    return sounds;
                 case "wallpapers":
-                    return new Wallpapers();
+                    Wallpapers wallpapers = new Wallpapers();
+                    wallpapers.setArguments(bundle);
+                    return wallpapers;
             }
         }
         return getFragment();
@@ -80,18 +93,28 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
     private Fragment getFragment() {
         if (package_checker.contains("overlays")) {
             package_checker.remove("overlays");
-            return new Overlays();
+            Overlays overlays = new Overlays();
+            overlays.setArguments(bundle);
+            return overlays;
         } else if (package_checker.contains("bootanimation")) {
             package_checker.remove("bootanimation");
-            return new BootAnimations();
+            BootAnimations bootAnimations = new BootAnimations();
+            bootAnimations.setArguments(bundle);
+            return bootAnimations;
         } else if (package_checker.contains("fonts") && References.isFontsSupported()) {
             package_checker.remove("fonts");
-            return new Fonts();
+            Fonts fonts = new Fonts();
+            fonts.setArguments(bundle);
+            return fonts;
         } else if (package_checker.contains("audio")) {
             package_checker.remove("audio");
-            return new Sounds();
+            Sounds sounds = new Sounds();
+            sounds.setArguments(bundle);
+            return sounds;
         } else if (wallpaperUrl != null) {
-            return new Wallpapers();
+            Wallpapers wallpapers = new Wallpapers();
+            wallpapers.setArguments(bundle);
+            return wallpapers;
         }
         return null;
     }

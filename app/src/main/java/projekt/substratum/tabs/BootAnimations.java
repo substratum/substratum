@@ -307,7 +307,6 @@ public class BootAnimations extends Fragment {
 
         @Override
         protected void onPreExecute() {
-            System.gc();
             paused = true;
             animation = new AnimationDrawable();
             animation.setOneShot(false);

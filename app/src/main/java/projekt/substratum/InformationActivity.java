@@ -306,8 +306,6 @@ public class InformationActivity extends SubstratumActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.information_activity);
 
-        System.gc();
-
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         // Register the theme install receiver to auto refresh the fragment

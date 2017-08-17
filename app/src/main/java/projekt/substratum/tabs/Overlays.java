@@ -1031,8 +1031,6 @@ public class Overlays extends Fragment {
     }
 
     private void refreshList() {
-        System.gc();
-
         if (mAdapter != null) mAdapter.notifyDataSetChanged();
 
         if (overlaysLists != null) {

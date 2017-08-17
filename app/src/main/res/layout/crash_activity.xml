@@ -35,9 +35,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/text"
-        android:backgroundTint="@color/do_not_theme_this_color_buttons"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
+        android:backgroundTint="@color/do_not_theme_this_color_buttons"
         android:gravity="center">
 
         <Button

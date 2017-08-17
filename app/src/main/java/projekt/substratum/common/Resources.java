@@ -94,6 +94,12 @@ public class Resources {
             // Organization Packages
             "projekt.substratum",
     };
+    // List of errors to catch
+    public static final String[] SUBSTRATUM_OVERLAY_FAULT_EXCEPTIONS = {
+            "ResourceNotFoundException",
+            "InflateException",
+            "UnsupportedOperationException"
+    };
     // Filter to adjust SystemUI elements
     static final String[] ALLOWED_SYSTEMUI_ELEMENTS = {
             "com.android.systemui.headers",

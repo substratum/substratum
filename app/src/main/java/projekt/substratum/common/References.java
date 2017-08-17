@@ -1622,6 +1622,11 @@ public class References {
         return false;
     }
 
+    // Comparing lists
+    public static boolean stringContainsItemFromList(String inputStr, String[] items) {
+        return Arrays.stream(items).parallel().anyMatch(inputStr::contains);
+    }
+
     // Obtain a live sample of the content providers in an app
     private static boolean getProviders(Context context, String trigger) {
         List<PackageInfo> list =

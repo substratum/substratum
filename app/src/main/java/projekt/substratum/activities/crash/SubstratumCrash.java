@@ -23,6 +23,8 @@ import projekt.substratum.activities.launch.RescueActivity;
 import projekt.substratum.activities.launch.SplashScreenActivity;
 import projekt.substratum.common.References;
 
+import static projekt.substratum.common.Resources.SUBSTRATUM_OVERLAY_FAULT_EXCEPTIONS;
+
 public class SubstratumCrash extends Activity {
 
     boolean shouldPulsate = false;
@@ -52,9 +54,12 @@ public class SubstratumCrash extends Activity {
             finish();
         });
 
+
+        Boolean isSubstratumOverlayFault = References.stringContainsItemFromList(stacktrace,
+                SUBSTRATUM_OVERLAY_FAULT_EXCEPTIONS);
+
         if (!References.isSamsungDevice(getApplicationContext())) {
-            if (stacktrace.contains("ResourceNotFoundException") ||
-                    stacktrace.contains("InflateException")) {
+            if (isSubstratumOverlayFault) {
                 // Pulsate the Rescue Me button
                 new Timer().scheduleAtFixedRate(new TimerTask() {
                     @Override
@@ -74,8 +79,7 @@ public class SubstratumCrash extends Activity {
                     }
                 }, 0, 400);
             }
-        } else if (stacktrace.contains("ResourceNotFoundException") ||
-                stacktrace.contains("InflateException")) {
+        } else if (isSubstratumOverlayFault) {
             rescueMeButton.setVisibility(View.GONE);
             new AlertDialog.Builder(this)
                     .setTitle(R.string.error_dialog_samsung)

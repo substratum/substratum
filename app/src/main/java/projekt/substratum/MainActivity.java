@@ -163,12 +163,7 @@ public class MainActivity extends SubstratumActivity implements
             int current_version = References.grabOverlaySubstratumVersion(
                     getApplicationContext(),
                     overlays.get(i));
-            if (current_version == 0) {
-                Log.d("OverlayOutdatedCheck",
-                        "An overlay is returning 0 as Substratum's version, " +
-                                "this overlay is way out of date!");
-                return true;
-            } else if (current_version <= OVERLAY_UPDATE_RANGE) {
+            if (current_version <= OVERLAY_UPDATE_RANGE && current_version != 0) {
                 Log.d("OverlayOutdatedCheck",
                         "An overlay is returning " + current_version +
                                 " as Substratum's version, " +

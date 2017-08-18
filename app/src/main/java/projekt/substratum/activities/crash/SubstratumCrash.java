@@ -11,6 +11,7 @@ import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Timer;
@@ -94,9 +95,14 @@ public class SubstratumCrash extends Activity {
 
         Button stacktraceButton = (Button) findViewById(R.id.logcat);
         stacktraceButton.setOnClickListener(view -> {
+            TextView showText = new TextView(this);
+            showText.setPadding(70, 30, 70, 30);
+            showText.setText(stacktrace);
+            showText.setTextIsSelectable(true);
+
             new AlertDialog.Builder(this)
                     .setTitle(R.string.error_activity_log_dialog_title)
-                    .setMessage(stacktrace)
+                    .setView(showText)
                     .setPositiveButton(R.string
                             .customactivityoncrash_error_activity_error_details_close, null)
                     .setNeutralButton(R.string

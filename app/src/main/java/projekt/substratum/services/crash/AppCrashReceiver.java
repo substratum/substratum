@@ -80,6 +80,8 @@ public class AppCrashReceiver extends BroadcastReceiver {
 
             }
         } else if (Objects.equals(packageName, "com.android.systemui")) {
+            if (ThemeManager.listEnabledOverlaysForTarget(context,
+                    "com.android.systemui").size() == 0) return;
             switch (sharedPreferences.getInt("sysui_crash_count", 0)) {
                 case 0:
                 case 1:

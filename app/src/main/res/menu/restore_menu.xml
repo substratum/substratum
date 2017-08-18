@@ -23,6 +23,6 @@
         android:id="@+id/restore_info"
         android:icon="@drawable/showcase_info"
         android:orderInCategory="1"
-        android:title="Restore info"
+        android:title="@string/menu_restore_info"
         app:showAsAction="ifRoom"/>
 </menu>

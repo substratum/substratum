@@ -284,7 +284,7 @@
     <string name="notification_done_title">主题编译成功</string>
     <string name="notification_done_upgrade_title">%s 叠加层升级完成</string>
     <string name="notification_done_upgrade_title_warning">%s 叠加层升级部分完成</string>
-    <string name="notification_done_upgrade_title_failed" formatted="false">丢失或不可配置︰ \n\n%s</string>
+    <string name="notification_done_upgrade_title_failed" >丢失或不可配置︰ \n\n%s</string>
     <string name="notification_done_update_text">已更新此应用的所有叠加层</string>
     <string name="notification_done_upgrade_text">已更新此主题的所有叠加层</string>
     <string name="notification_no_errors_found">安装叠加层时没有发生错误</string>
@@ -389,7 +389,7 @@
     <string name="profile_success_notification">成功应用配置文件</string>
     <string name="profile_failed_notification">无法应用配置文件</string>
     <string name="profile_failed_info_notification">点击查看更多</string>
-    <string name="profile_compile_progress" formatted="false">编译 %d:\n%s 的 %d</string>
+    <string name="profile_compile_progress" >编译 %d:\n%s 的 %d</string>
     <string name="profile_compile_processing">正在处理您保存的叠加层</string>
     <string name="theme_debug_mode_title">系统后备机制</string>
     <string name="theme_debug_mode_summary">当主题不可恢复时，停用旧版编译器后备机制以提供帮助。</string>
@@ -451,7 +451,7 @@
     <string name="per_app_draw_over_other_apps_request">请授予 Substratum “出现在其他应用上”和“使用情况访问”权限以便于访问前台应用，从而进行主题匹配。</string>
     <string name="per_app_usage_stats_request">请授予 Substratum “使用情况访问”权限以便于访问前台应用，从而进行主题匹配。</string>
     <string name="per_app_manual_grant">请手动授予 Substratum “出现在其他应用上”和“使用情况访问”权限以便于使用 FloatUI。</string>
-    <string name="notification_overlay_found_specific" formatted="false">%s 叠加层在 %s 中</string>
+    <string name="notification_overlay_found_specific" >%s 叠加层在 %s 中</string>
     <string name="notification_overlay_found_description">点击此通知以打开主题</string>
     <string name="community_info_overlays">叠加层</string>
     <string name="community_info_bootanimation">开机动画</string>

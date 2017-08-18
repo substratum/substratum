@@ -18,7 +18,7 @@
   -->
 
 <resources>
-    <string-array name="substratum_contributors">
+    <string-array name="substratum_contributors" translatable="false">
         <item>Alex Cruz (Mazda)</item>
         <item>Anthony Nguyen (LinkedDesigns)</item>
         <item>Benjamin Humpton (Morningstar)</item>
@@ -39,7 +39,7 @@
         <item>Travis Hall (notjustanotherdesigner)</item>
     </string-array>
 
-    <string-array name="layers_contributors">
+    <string-array name="layers_contributors" translatable="false">
         <item>Reinhard Strauch</item>
         <item>Brian Gill (Bgill55)</item>
         <item>Aldrin Holmes (CallMeAldy)</item>
@@ -49,7 +49,7 @@
         <item>Denis Suarez (Wh0Cares)</item>
     </string-array>
 
-    <string-array name="translations">
+    <string-array name="translations" translatable="false">
         <item>беларускія пераклады</item>
         <item>Překlady do češtiny</item>
         <item>中文翻译（简体）</item>
@@ -68,25 +68,25 @@
         <item>Türkçe çeviriler</item>
     </string-array>
 
-    <string-array name="belarusian_translators">
+    <string-array name="belarusian_translators" translatable="false">
         <item>Alex (alexnov2849)</item>
     </string-array>
 
-    <string-array name="czech_translators">
+    <string-array name="czech_translators" translatable="false">
         <item>Kuba Schenk (abukcz)</item>
         <item>Michal Václav Císařovský (mikicis)</item>
         <item>Ondřej Holan (blackegi1)</item>
         <item>Lukas Novotny (novas78)</item>
     </string-array>
 
-    <string-array name="dutch_translators">
+    <string-array name="dutch_translators" translatable="false">
         <item>Roy Schutte (Shizzel)</item>
         <item>Erich Maritz (Tokolozi)</item>
         <item>Mipirakas</item>
         <item>PeterPaulBron</item>
     </string-array>
 
-    <string-array name="french_translators">
+    <string-array name="french_translators" translatable="false">
         <item>Kevin Minions (Kevin_Minions)</item>
         <item>Kortxero</item>
         <item>Thomas DE SA (dekefake)</item>
@@ -95,7 +95,7 @@
         <item>Régis SIMEON (rage57frth)</item>
     </string-array>
 
-    <string-array name="german_translators">
+    <string-array name="german_translators" translatable="false">
         <item>Leon Zewe (TechnoPeter)</item>
         <item>Christian Horch (nazfalas)</item>
         <item>Christian (Blackbird1997)</item>
@@ -104,7 +104,7 @@
         <item>Mardon (markusmenzel)</item>
     </string-array>
 
-    <string-array name="hungarian_translators">
+    <string-array name="hungarian_translators" translatable="false">
         <item>Márk Kaszás (kaszasm)</item>
         <item>Gábor Vecsera (Wechy77)</item>
         <item>László Szécsényi (szecslasz)</item>
@@ -112,11 +112,11 @@
         <item>Gábor Vecsera (Wechy77)</item>
     </string-array>
 
-    <string-array name="lithuanian_translators">
+    <string-array name="lithuanian_translators" translatable="false">
         <item>Gediminas Kiaunė (gedablo666)</item>
     </string-array>
 
-    <string-array name="italian_translators">
+    <string-array name="italian_translators" translatable="false">
         <item>Giorgio C (gosha98)</item>
         <item>Francesco De Feo (fracazzo1995)</item>
         <item>axxx007xxxz</item>
@@ -128,7 +128,7 @@
         <item>matoxxi</item>
     </string-array>
 
-    <string-array name="polish_translators">
+    <string-array name="polish_translators" translatable="false">
         <item>Adam Kwiatkowski (dahakepl)</item>
         <item>dadi11</item>
         <item>Kamil (kojak1989)</item>
@@ -138,7 +138,7 @@
         <item>Piotrek Paszek (pitusek513)</item>
     </string-array>
 
-    <string-array name="russian_translators">
+    <string-array name="russian_translators" translatable="false">
         <item>Abdullah Amir (dumreview)</item>
         <item>Николай Шахов (shjin777)</item>
         <item>Vel_Djentleman</item>
@@ -150,7 +150,7 @@
         <item>SerJo87</item>
     </string-array>
 
-    <string-array name="spanish_translators">
+    <string-array name="spanish_translators" translatable="false">
         <item>Jorge Abel (JorgeAbel)</item>
         <item>dark8899</item>
         <item>Ibai Cruz (ibaiitugarpe)</item>
@@ -162,24 +162,24 @@
         <item>Ibai Lope (ibaraka95)</item>
     </string-array>
 
-    <string-array name="portuguese_brazillian_translators">
+    <string-array name="portuguese_brazillian_translators" translatable="false">
         <item>Chrys B (abacate123)</item>
         <item>Christian Schuler (christian_carro)</item>
         <item>Felipe Silva (felipesilva2655)</item>
         <item>Fred “Virkkunen” Schauß (zkaarface)</item>
     </string-array>
 
-    <string-array name="portuguese_translators">
+    <string-array name="portuguese_translators" translatable="false">
         <item>Carlos (lloco73)</item>
     </string-array>
 
-    <string-array name="slovak_translators">
+    <string-array name="slovak_translators" translatable="false">
         <item>Ja_som</item>
         <item>Slavomír Spyderco Pavúk (trance11)</item>
         <item>Róbert Barát (rbarat)</item>
     </string-array>
 
-    <string-array name="turkish_translators">
+    <string-array name="turkish_translators" translatable="false">
         <item>Mevlüt TOPÇU (xboxhunter84)</item>
         <item>Aras TOPÇU (arastopcu15)</item>
         <item>Burak Dede (TheNexus)</item>
@@ -190,7 +190,7 @@
         <item>muhammedb</item>
     </string-array>
 
-    <string-array name="chinese_translators">
+    <string-array name="chinese_translators" translatable="false">
         <item>马丁龙猪 (martincz)</item>
         <item>luosir</item>
         <item>xdygxh</item>

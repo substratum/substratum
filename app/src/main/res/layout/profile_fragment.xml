@@ -108,6 +108,7 @@
                         android:layout_marginTop="5dp"
                         android:background="@color/backup_button"
                         android:clickable="true"
+                        android:focusable="true"
                         android:foreground="?android:selectableItemBackground"
                         android:text="@string/backup_button"
                         android:textColor="@color/backup_button_text_color"/>
@@ -170,8 +171,10 @@
                         android:layout_marginEnd="5dp"
                         android:backgroundTint="@android:color/transparent"
                         android:clickable="true"
+                        android:focusable="true"
                         android:foreground="?android:selectableItemBackground"
-                        android:src="@drawable/spinner_remove_item"/>
+                        android:src="@drawable/spinner_remove_item"
+                        android:importantForAccessibility="no"/>
 
                     <Button
                         android:id="@+id/restoreButton"
@@ -181,6 +184,7 @@
                         android:layout_marginTop="5dp"
                         android:background="@color/restore_button"
                         android:clickable="true"
+                        android:focusable="true"
                         android:foreground="?android:selectableItemBackground"
                         android:text="@string/restore_button"
                         android:textColor="@color/restore_button_text_color"/>
@@ -274,7 +278,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="-"
+                                    android:text="@string/hyphen_placeholder"
                                     android:textStyle="bold"/>
 
                                 <Button

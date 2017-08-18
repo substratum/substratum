@@ -36,6 +36,7 @@
         android:layout_marginTop="4dp"
         android:layout_weight="1"
         android:clickable="true"
+        android:focusable="true"
         android:foreground="?android:selectableItemBackground"
         card_view:cardCornerRadius="2dp"
         card_view:cardElevation="1dp">
@@ -49,7 +50,8 @@
                 android:id="@+id/background_image"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:importantForAccessibility="no"/>
 
             <ImageView
                 android:id="@+id/theme_pricing"
@@ -61,7 +63,8 @@
                 android:paddingEnd="20dp"
                 android:paddingStart="20dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/showcase_paid"/>
+                android:src="@drawable/showcase_paid"
+                android:importantForAccessibility="no"/>
 
             <RelativeLayout
                 android:id="@+id/icon"
@@ -77,7 +80,8 @@
                     android:layout_alignParentEnd="true"
                     android:layout_gravity="center_vertical"
                     android:layout_marginBottom="50dp"
-                    android:layout_marginEnd="21dp"/>
+                    android:layout_marginEnd="21dp"
+                    android:importantForAccessibility="no"/>
 
             </RelativeLayout>
 
@@ -88,7 +92,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/background_image"
                 android:layout_margin="10dp"
-                android:layout_toLeftOf="@+id/theme_overlays">
+                android:layout_toStartOf="@+id/theme_overlays">
 
                 <TextView
                     android:id="@+id/theme_name"
@@ -137,7 +141,8 @@
                 android:paddingBottom="20dp"
                 android:paddingEnd="20dp"
                 android:paddingStart="2.5dp"
-                android:src="@drawable/nav_wallpapers"/>
+                android:src="@drawable/nav_wallpapers"
+                android:importantForAccessibility="no"/>
 
             <ImageView
                 android:id="@+id/theme_sounds"
@@ -148,7 +153,8 @@
                 android:paddingBottom="20dp"
                 android:paddingEnd="2.5dp"
                 android:paddingStart="2.5dp"
-                android:src="@drawable/nav_sounds"/>
+                android:src="@drawable/nav_sounds"
+                android:importantForAccessibility="no"/>
 
             <ImageView
                 android:id="@+id/theme_fonts"
@@ -159,7 +165,8 @@
                 android:paddingBottom="20dp"
                 android:paddingEnd="2.5dp"
                 android:paddingStart="2.5dp"
-                android:src="@drawable/nav_fonts"/>
+                android:src="@drawable/nav_fonts"
+                android:importantForAccessibility="no"/>
 
             <ImageView
                 android:id="@+id/theme_bootanimations"
@@ -170,7 +177,8 @@
                 android:paddingBottom="20dp"
                 android:paddingEnd="2.5dp"
                 android:paddingStart="2.5dp"
-                android:src="@drawable/nav_bootanim"/>
+                android:src="@drawable/nav_bootanim"
+                android:importantForAccessibility="no"/>
 
             <ImageView
                 android:id="@+id/theme_overlays"
@@ -181,7 +189,8 @@
                 android:paddingBottom="20dp"
                 android:paddingEnd="2.5dp"
                 android:paddingStart="2.5dp"
-                android:src="@drawable/nav_overlays"/>
+                android:src="@drawable/nav_overlays"
+                android:importantForAccessibility="no"/>
 
         </RelativeLayout>
 

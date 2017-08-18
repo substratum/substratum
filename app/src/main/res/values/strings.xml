@@ -143,7 +143,7 @@
     <string name="manager_type4">Type4 :</string>
 
     <string name="legacy_preference_priority_title">Overlay Priority Adjustment</string>
-    <string name="legacy_preference_priority_text" formatted="false">Priority is set at (default 255): %d</string>
+    <string name="legacy_preference_priority_text">Priority is set at (default 255): %d</string>
 
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">type1a variant&#8230;</string>
@@ -326,6 +326,8 @@
     <string name="menu_search">Play Store Themes</string>
     <string name="menu_showcase">Showcase</string>
     <string name="menu_uninstall">Uninstall Theme</string>
+    <string name="menu_restore_info">Restore info</string>
+    <string name="menu_showcase_info">Showcase Info</string>
 
     <string name="menu_favorite_snackbar">Successfully set %s as an app shortcut!</string>
     <string name="menu_favorite_snackbar_cleared">Removed %s from being an app shortcut.</string>
@@ -349,13 +351,13 @@
     <string name="logcat_snackbar_text">Target application/overlay outdated or mismatched configuration selected&#8230;</string>
     <string name="logcat_dialog_title">LogChar Debug Report</string>
     <string name="logcat_dialog_copy_success">Successfully copied error log to clipboard!</string>
-    <string name="logcat_email_subject" formatted="false" translatable="false">
+    <string name="logcat_email_subject" translatable="false">
         %s: Theme Bug Report</string>
-    <string name="logcat_email_body" formatted="false" translatable="false">
+    <string name="logcat_email_body" translatable="false">
         Hey %s,\n\nI have an issue with %s, and would
         like to see if you could help me resolve this issue.
     </string>
-    <string name="logcat_attachment_body" formatted="false" translatable="false">
+    <string name="logcat_attachment_body" translatable="false">
         Theme Name:\n%s\n\nDevice:\n%s\n\nROM:\n%s\n\nSubstratum Version:\n%s\n\nTheme Version:\n%s\n\nTarget Package(s):\n%s\nReport:\n%s
     </string>
     <string name="logcat_email_activity">Send bug report using&#8230;</string>
@@ -478,7 +480,7 @@
     <string name="notification_done_title">Theme compilation has completed</string>
     <string name="notification_done_upgrade_title">Overlay upgrade has completed for %s!</string>
     <string name="notification_done_upgrade_title_warning">Overlay upgrade partially completed for %s!</string>
-    <string name="notification_done_upgrade_title_failed" formatted="false">Missing or unbuildable configuration:\n\n%s</string>
+    <string name="notification_done_upgrade_title_failed">Missing or unbuildable configuration:\n\n%s</string>
     <string name="notification_done_update_text">All enabled and disabled overlays for this app have been updated.</string>
     <string name="notification_done_upgrade_text">All enabled and disabled overlays for this theme have been updated.</string>
     <string name="notification_no_errors_found">No errors while installing any overlays</string>
@@ -619,7 +621,7 @@
     <string name="profile_success_notification">Profile successfully applied!</string>
     <string name="profile_failed_notification">Profile failed to apply&#8230;</string>
     <string name="profile_failed_info_notification">Touch for more information</string>
-    <string name="profile_compile_progress" formatted="false">Compiling %d of %d:\n%s</string>
+    <string name="profile_compile_progress">Compiling %d of %d:\n%s</string>
     <string name="profile_compile_processing">Now processing your saved overlay states&#8230;</string>
 
     <string name="theme_debug_mode_title">System Fallback Interjection Bypass</string>
@@ -704,7 +706,7 @@
     <string name="per_app_usage_stats_request">Please grant Substratum "usage access" permissions to access the foreground app for matching theme targets.</string>
     <string name="per_app_manual_grant">Please manually grant Substratum "usage access" permissions and "draw over other apps" in App Settings to use FloatUI!</string>
 
-    <string name="notification_overlay_found_specific" formatted="false">An overlay for %s is in %s!</string>
+    <string name="notification_overlay_found_specific">An overlay for %s is in %s!</string>
     <string name="notification_overlay_found_description">You can open the theme by clicking on this notification!</string>
 
     <string name="error_activity_title">I\'m so sorry for this crash!</string>
@@ -823,4 +825,28 @@
     <string name="auto_reload_sysui_title">Automatically reload SystemUI</string>
     <string name="auto_reload_sysui_summary_on">Substratum will automatically reload the SystemUI after an overlay targeting SystemUI is enabled/disabled.</string>
     <string name="auto_reload_sysui_summary_off">Substratum will not automatically reload the SystemUI after an overlay targeting SystemUI is enabled/disabled.</string>
+    
+    <string name="priority_overlay_name_placeholder" translatable="false">OVERLAY NAME</string>
+    <string name="theme_name_placeholder" translatable="false">THEME NAME</string>
+    <string name="type1a_name_placeholder" translatable="false">TYPE1A VARIABLE</string>
+    <string name="type1b_name_placeholder" translatable="false">TYPE1B VARIABLE</string>
+    <string name="type1c_name_placeholder" translatable="false">TYPE1C VARIABLE</string>
+    <string name="type2_name_placeholder" translatable="false">TYPE2 VARIABLE</string>
+    <string name="type3_name_placeholder" translatable="false">TYPE3 VARIABLE</string>
+    <string name="type4_name_placeholder" translatable="false">TYPE4 VARIABLE</string>
+    <string name="api_levels_placeholder_text" translatable="false">API_LEVELS</string>
+    <string name="theme_version_placeholder_text" translatable="false">THEME_VERSION</string>
+    <string name="plugin_version_placeholder_text" translatable="false">PLUGIN_VERSION</string>
+    <string name="theme_name_placeholder_text" translatable="false">THEME_NAME</string>
+    <string name="theme_author_placeholder_text" translatable="false">THEME_AUTHOR</string>
+    <string name="cache_placeholder_text" translatable="false">CACHE</string>
+    <string name="changelog_title_placeholder_text" translatable="false">PLACEHOLDER_TITLE</string>
+    <string name="changelog_array_string_placeholder_text" translatable="false">PLACEHOLDER_ARRAY_STRING</string>
+    <string name="package_placeholder" translatable="false">PACKAGE</string>
+    <string name="package_name_placeholder" translatable="false">PACKAGE_NAME</string>
+    <string name="package_state_placeholder" translatable="false">PACKAGE_STATE</string>
+    <string name="wallpaper_name_placeholder" translatable="false">WALLPAPER_NAME</string>
+    <string name="hyphen_placeholder" translatable="false">-</string><!-- The things lint will complain about...-->
+    <string name="fonts_demo_string">AaBbCcDd123</string>
+
 </resources>

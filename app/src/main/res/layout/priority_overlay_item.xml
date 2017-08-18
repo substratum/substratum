@@ -20,11 +20,13 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                                     xmlns:app="http://schemas.android.com/apk/res-auto"
                                     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                                    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="5dp"
                                     android:layout_marginTop="5dp"
                                     android:clickable="true"
+                                    android:focusable="true"
                                     android:foreground="?android:selectableItemBackground"
                                     app:cardPreventCornerOverlap="false"
                                     app:cardUseCompatPadding="true"
@@ -60,16 +62,17 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/app_icon_container"
-            android:layout_toStartOf="@+id/card_drag"
+            android:layout_toStartOf="@id/card_drag"
             android:gravity="start|center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="NotSibling">
 
             <TextView
                 android:id="@+id/card_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="OVERLAY NAME"
+                android:text="@string/priority_overlay_name_placeholder"
                 android:textColor="@color/main_screen_card_theme_title"
                 android:textSize="14sp"
                 android:textStyle="bold"/>
@@ -79,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="THEME NAME"
+                android:text="@string/theme_name_placeholder"
                 android:textColor="@color/main_screen_card_theme_title"
                 android:textSize="14sp"/>
 
@@ -88,7 +91,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="TYPE1A VARIABLE"
+                android:text="@string/type1a_name_placeholder"
                 android:textColor="@color/main_screen_card_theme_title"
                 android:textSize="14sp"/>
 
@@ -97,7 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="TYPE1B VARIABLE"
+                android:text="@string/type1b_name_placeholder"
                 android:textColor="@color/main_screen_card_theme_title"
                 android:textSize="14sp"/>
 
@@ -106,7 +109,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="TYPE1C VARIABLE"
+                android:text="@string/type1c_name_placeholder"
                 android:textColor="@color/main_screen_card_theme_title"
                 android:textSize="14sp"/>
 
@@ -115,7 +118,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="TYPE2 VARIABLE"
+                android:text="@string/type2_name_placeholder"
                 android:textColor="@color/main_screen_card_theme_title"
                 android:textSize="14sp"/>
 
@@ -124,7 +127,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="TYPE3 VARIABLE"
+                android:text="@string/type3_name_placeholder"
                 android:textColor="@color/main_screen_card_theme_title"
                 android:textSize="14sp"/>
 
@@ -140,7 +143,6 @@
                 android:id="@+id/card_drag"
                 android:layout_width="@dimen/drag_view_size"
                 android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
                 android:layout_margin="15dp"
                 android:src="@drawable/priorities_card_move_icon"/>
         </LinearLayout>

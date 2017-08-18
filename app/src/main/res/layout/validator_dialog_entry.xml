@@ -24,6 +24,7 @@
                                     android:layout_marginBottom="3dp"
                                     android:layout_marginTop="3dp"
                                     android:clickable="true"
+                                    android:focusable="true"
                                     android:foreground="?android:selectableItemBackground"
                                     card_view:cardBackgroundColor="@android:color/transparent"
                                     card_view:cardCornerRadius="0dp"
@@ -41,7 +42,8 @@
             android:layout_marginBottom="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
-            android:src="@android:color/transparent"/>
+            android:src="@android:color/transparent"
+            android:importantForAccessibility="no"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -71,12 +73,12 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginBottom="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
-            android:src="@drawable/package_verification_failure"/>
+            android:src="@drawable/package_verification_failure"
+            android:importantForAccessibility="no"/>
 
         <com.daimajia.numberprogressbar.NumberProgressBar
             android:id="@+id/number_progress_bar"

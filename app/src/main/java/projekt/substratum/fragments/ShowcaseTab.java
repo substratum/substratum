@@ -35,6 +35,7 @@ import android.widget.RelativeLayout;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
@@ -187,22 +188,22 @@ public class ShowcaseTab extends Fragment {
             ShowcaseItem newEntry = new ShowcaseItem();
 
             for (String key : newArray.keySet()) {
-                if (!key.toLowerCase().contains("-".toLowerCase())) {
+                if (!key.toLowerCase(Locale.getDefault()).contains("-".toLowerCase(Locale.getDefault()))) {
                     newEntry.setContext(mContext);
                     newEntry.setThemeName(key);
                     newEntry.setThemeLink(newArray.get(key));
                 } else {
-                    if (key.toLowerCase().contains("-author".toLowerCase())) {
+                    if (key.toLowerCase(Locale.getDefault()).contains("-author".toLowerCase(Locale.getDefault()))) {
                         newEntry.setThemeAuthor(newArray.get(key));
-                    } else if (key.toLowerCase().contains("-pricing".toLowerCase())) {
+                    } else if (key.toLowerCase(Locale.getDefault()).contains("-pricing".toLowerCase(Locale.getDefault()))) {
                         newEntry.setThemePricing(newArray.get(key));
-                    } else if (key.toLowerCase().contains("-image-override")) {
+                    } else if (key.toLowerCase(Locale.getDefault()).contains("-image-override")) {
                         newEntry.setThemeIcon(newArray.get(key));
-                    } else if (key.toLowerCase().contains("-feature-image")) {
+                    } else if (key.toLowerCase(Locale.getDefault()).contains("-feature-image")) {
                         newEntry.setThemeBackgroundImage(newArray.get(key));
-                    } else if (key.toLowerCase().contains("-package-name")) {
+                    } else if (key.toLowerCase(Locale.getDefault()).contains("-package-name")) {
                         newEntry.setThemePackage(newArray.get(key));
-                    } else if (key.toLowerCase().contains("-support".toLowerCase())) {
+                    } else if (key.toLowerCase(Locale.getDefault()).contains("-support".toLowerCase(Locale.getDefault()))) {
                         newEntry.setThemeSupport(newArray.get(key));
                         wallpapers.add(newEntry);
                         newEntry = new ShowcaseItem();

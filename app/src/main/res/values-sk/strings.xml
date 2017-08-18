@@ -296,7 +296,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="notification_done_title">Bola dokončená kompilácia témy</string>
     <string name="notification_done_upgrade_title">Aktualizácia prekrytia pre %s je hotová!</string>
     <string name="notification_done_upgrade_title_warning">Čiastočne dokončená aktualizácia prekrytia pre %s!</string>
-    <string name="notification_done_upgrade_title_failed" formatted="false">Chýbajúca alebo nezostaviteľná konfigurácia:\n\n%s</string>
+    <string name="notification_done_upgrade_title_failed" >Chýbajúca alebo nezostaviteľná konfigurácia:\n\n%s</string>
     <string name="notification_done_update_text">Všetky povolené a zakázané prekrytia pre túto aplikáciu boli aktualizované.</string>
     <string name="notification_done_upgrade_text">Všetky povolené a zakázané prekrytia pre túto tému boli aktualizované.</string>
     <string name="notification_no_errors_found">Počas inštalácie prekrytí sa nevyskytli žiadne chyby</string>
@@ -401,7 +401,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="profile_success_notification">Profil je úspešne aplikovaný!</string>
     <string name="profile_failed_notification">Profil sa nepodarilo aplikovať&#8230;</string>
     <string name="profile_failed_info_notification">Kliknite pre viac informácií</string>
-    <string name="profile_compile_progress" formatted="false">Kompilácia %d z %d:\n%s</string>
+    <string name="profile_compile_progress" >Kompilácia %d z %d:\n%s</string>
     <string name="profile_compile_processing">Prebieha spracovanie predtým uložených nastavení prekrytí&#8230;</string>
     <string name="theme_debug_mode_title">Obídenie originálneho sytému</string>
     <string name="theme_debug_mode_summary">Zapnutie umožní, že aplikácie prestanú používať pôvodný núdzový mechanizmus kompilátora s cieľom pomôcť témam, ktoré sa dostanú do neopraviteľného stavu.</string>
@@ -463,7 +463,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="per_app_draw_over_other_apps_request">Prosím, udeľte Substratum oprávnenie \"vykresľovať cez iné aplikácie\" pre plávajúce okno a právo \"Štatistiky používania\" pre prístup aplikáciám v popredí pre zjednotenie cieľov tém.</string>
     <string name="per_app_usage_stats_request">Prosím, udeľte Substratum oprávnenie  \"Využitie prístupu\" pre prístup k cieľom tém.</string>
     <string name="per_app_manual_grant">Prosím, ručne udeľte oprávnenie k \"využitie prístupu\" a \"vykresľovanie nad ostatnými aplikáciami\" v Nastaveniach aplikácie pre používanie plávajúceho okna!</string>
-    <string name="notification_overlay_found_specific" formatted="false">Prekrytie pre %s je v %s!</string>
+    <string name="notification_overlay_found_specific" >Prekrytie pre %s je v %s!</string>
     <string name="notification_overlay_found_description">Tému môžete otvoriť kliknutím na toto upozornenie!</string>
     <string name="community_info_overlays">Prekrytia</string>
     <string name="community_info_bootanimation">Spúšťacie animácie</string>

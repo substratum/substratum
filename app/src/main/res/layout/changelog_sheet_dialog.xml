@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="PLACEHOLDER_TITLE"
+            android:text="@string/changelog_title_placeholder_text"
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="16sp"/>
     </LinearLayout>
@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="PLACEHOLDER_ARRAY_STRING"
+            android:text="@string/changelog_array_string_placeholder_text"
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="15sp"/>
     </LinearLayout>

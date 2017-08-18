@@ -303,7 +303,7 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="notification_done_title">Se completó la compilación del tema</string>
     <string name="notification_done_upgrade_title">¡Actualización de las capas ha terminado de %s!</string>
     <string name="notification_done_upgrade_title_warning">¡Actualización de overlay completada parcialmente para %s!</string>
-    <string name="notification_done_upgrade_title_failed" formatted="false">Configuración faltante o no compilable: \n\n%s</string>
+    <string name="notification_done_upgrade_title_failed" >Configuración faltante o no compilable: \n\n%s</string>
     <string name="notification_done_update_text">Todas las capas activadas y desactivadas para esta aplicación han sido actualizadas.</string>
     <string name="notification_done_upgrade_text">Todas las capas activadas y desactivadas para esta tema han sido actualizadas.</string>
     <string name="notification_no_errors_found">No hubo errores durante la instalación de las capas</string>
@@ -410,7 +410,7 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="profile_success_notification">¡Perfil aplicado con éxito!</string>
     <string name="profile_failed_notification">El perfil falló en aplicarse&#8230;</string>
     <string name="profile_failed_info_notification">Toque para más información</string>
-    <string name="profile_compile_progress" formatted="false">Compilando %d de %d:\n%s</string>
+    <string name="profile_compile_progress" >Compilando %d de %d:\n%s</string>
     <string name="profile_compile_processing">Ahora procesando tus estados de capa guardado&#8230;</string>
     <string name="theme_debug_mode_title">Derivación de la interjección de seguridad del sistema</string>
     <string name="theme_debug_mode_summary">Esto evitará que la aplicación utilice el mecanismo de suplencia al compilador legacy (legado) para ayudar a los temas cuando han alcanzado un estado irrecuperable.</string>
@@ -472,7 +472,7 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="per_app_draw_over_other_apps_request">Por favor conceda a Substratum los permisos \"dibujar sobre otras aplicaciones\" para la interfaz de usuario flotante y \"Estadísticas de uso\" para acceder a la aplicación de primer plano para coincidir con objetivos de tema.</string>
     <string name="per_app_usage_stats_request">Por favor conceda a Substratum el permiso de \"acceso de uso\" para acceder a la aplicación de primer plano para los objetivos de tema coincidentes.</string>
     <string name="per_app_manual_grant">Por favor conceder manualmente a Substratum los permisos de \"acceso de uso\" y \"dibujar sobre otras aplicaciones\" en la configuración de la aplicación para usar FloatUI!</string>
-    <string name="notification_overlay_found_specific" formatted="false">¡Una capa para %s se encuentra en %s!</string>
+    <string name="notification_overlay_found_specific" >¡Una capa para %s se encuentra en %s!</string>
     <string name="notification_overlay_found_description">¡Puede abrir el tema haciendo clic en esta notificación!</string>
     <string name="community_info_overlays">Capas</string>
     <string name="community_info_bootanimation">Animaciones de Inicio</string>

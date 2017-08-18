@@ -23,6 +23,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:clickable="true"
+                                    android:focusable="true"
                                     android:foreground="?android:selectableItemBackground"
                                     android:orientation="horizontal"
                                     card_view:cardBackgroundColor="@android:color/transparent"
@@ -49,7 +50,8 @@
                 android:layout_width="48dp"
                 android:layout_height="60dp"
                 android:layout_marginEnd="10dp"
-                android:src="@drawable/default_overlay_icon"/>
+                android:src="@drawable/default_overlay_icon"
+                android:importantForAccessibility="no"/>
 
             <ImageView
                 android:id="@+id/app_icon_sub"
@@ -59,7 +61,8 @@
                 android:layout_alignStart="@id/app_icon"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="20dp"
-                android:src="@drawable/default_overlay_icon"/>
+                android:src="@drawable/default_overlay_icon"
+                android:importantForAccessibility="no"/>
 
         </RelativeLayout>
 
@@ -85,7 +88,7 @@
                 android:id="@+id/desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="THEME NAME OR PACKAGE NAME"
+                android:text="@string/theme_name_placeholder"
                 android:textColor="@color/floatui_dialog_row_color"
                 android:textSize="14sp"/>
 
@@ -93,7 +96,7 @@
                 android:id="@+id/type1a"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TYPE1A VARIABLE"
+                android:text="@string/type1a_name_placeholder"
                 android:textColor="@color/floatui_dialog_row_color"
                 android:textSize="14sp"/>
 
@@ -101,7 +104,7 @@
                 android:id="@+id/type1b"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TYPE1B VARIABLE"
+                android:text="@string/type1b_name_placeholder"
                 android:textColor="@color/floatui_dialog_row_color"
                 android:textSize="14sp"/>
 
@@ -109,7 +112,7 @@
                 android:id="@+id/type1c"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TYPE1C VARIABLE"
+                android:text="@string/type1c_name_placeholder"
                 android:textColor="@color/floatui_dialog_row_color"
                 android:textSize="14sp"/>
 
@@ -117,7 +120,7 @@
                 android:id="@+id/type2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TYPE2 VARIABLE"
+                android:text="@string/type2_name_placeholder"
                 android:textColor="@color/floatui_dialog_row_color"
                 android:textSize="14sp"/>
 
@@ -125,7 +128,7 @@
                 android:id="@+id/type3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TYPE3 VARIABLE"
+                android:text="@string/type3_name_placeholder"
                 android:textColor="@color/floatui_dialog_row_color"
                 android:textSize="14sp"/>
 
@@ -133,7 +136,7 @@
                 android:id="@+id/type4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TYPE4 VARIABLE"
+                android:text="@string/type4_name_placeholder"
                 android:textColor="@color/floatui_dialog_row_color"
                 android:textSize="14sp"/>
 

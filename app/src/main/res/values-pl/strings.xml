@@ -290,7 +290,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="notification_done_title">Kompilacja motywu została zakończona</string>
     <string name="notification_done_upgrade_title">Uaktualnienie nakładki dla %s zakończone!</string>
     <string name="notification_done_upgrade_title_warning">Uaktualnienie nakładki częściowo zakończone dla %s!</string>
-    <string name="notification_done_upgrade_title_failed" formatted="false">Brakująca lub niedająca się zbudować konfiguracja: \n\n%s</string>
+    <string name="notification_done_upgrade_title_failed" >Brakująca lub niedająca się zbudować konfiguracja: \n\n%s</string>
     <string name="notification_done_update_text">Wszystkie włączone i wyłączone nakładki dla tej aplikacji zostały uaktualnione.</string>
     <string name="notification_done_upgrade_text">Wszystkie włączone i wyłączone nakładki dla tego motywu zostały uaktualnione.</string>
     <string name="notification_no_errors_found">Nie wystąpiły żadne błędy podczas instalowania nakładek</string>
@@ -396,7 +396,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="profile_success_notification">Profil zastosowany z powodzeniem!</string>
     <string name="profile_failed_notification">Nie można zastosować profilu&#8230;</string>
     <string name="profile_failed_info_notification">Dotknij, aby uzyskać więcej informacji</string>
-    <string name="profile_compile_progress" formatted="false">Kompilacja %d z %d:\n%s</string>
+    <string name="profile_compile_progress" >Kompilacja %d z %d:\n%s</string>
     <string name="profile_compile_processing">Teraz są przetwarzane zapisane stany twoich nakładek&#8230;</string>
     <string name="theme_debug_mode_title">Układ obejścia rezerwy systemu</string>
     <string name="theme_debug_mode_summary">To pozwoli na zaprzestanie używania przez aplikację mechanizmu awaryjnego starszego kompilatora, gdy motywy osiągną stan nie do odzyskania.</string>
@@ -458,7 +458,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="per_app_draw_over_other_apps_request">Proszę pozwolić Substratum do używania uprawnień \"zezwól na wyświetlanie nad innymi aplikacjami\" dla obsługi pływającego interfejsu i \"zezwól na dostęp do użytkowania\" w celu umożliwienia dopasowania motywu do działających aplikacji.</string>
     <string name="per_app_usage_stats_request">Proszę zezwolić aplikacji Substratum do używania uprawnienia \"dostęp do użytkowania\" w celu umożliwienia dopasowania motywu do działających aplikacji.</string>
     <string name="per_app_manual_grant">Aby używać FloatUI, proszę pozwolić aplikacji Substratum do używania uprawnień \"zezwól na dostęp do użytkowania\" i \"zezwól na wyświetlanie nad innymi aplikacjami\"!</string>
-    <string name="notification_overlay_found_specific" formatted="false">Nakładka dla %s jest w %s!</string>
+    <string name="notification_overlay_found_specific" >Nakładka dla %s jest w %s!</string>
     <string name="notification_overlay_found_description">Można otworzyć motyw poprzez kliknięcie tego powiadomienia!</string>
     <string name="community_info_overlays">Nakładki</string>
     <string name="community_info_bootanimation">Animacje rozruchu</string>

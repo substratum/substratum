@@ -22,6 +22,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:clickable="true"
+                                    android:focusable="true"
                                     android:foreground="?android:selectableItemBackground"
                                     card_view:cardBackgroundColor="@color/main_screen_card_background"
                                     card_view:cardCornerRadius="0dp"
@@ -43,9 +44,9 @@
             android:layout_marginEnd="15dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="7dp"
-            android:text="API_LEVELS"
+            android:text="@string/api_levels_placeholder_text"
             android:textColor="@color/main_screen_card_theme_author"
-            android:textSize="10sp"/>
+            android:textSize="12sp"/>
 
         <TextView
             android:id="@+id/theme_version"
@@ -55,9 +56,9 @@
             android:layout_below="@+id/api_levels"
             android:layout_marginBottom="1dp"
             android:layout_marginTop="1dp"
-            android:text="THEME_VERSION"
+            android:text="@string/theme_version_placeholder_text"
             android:textColor="@color/main_screen_card_theme_author"
-            android:textSize="10sp"/>
+            android:textSize="12sp"/>
 
         <TextView
             android:id="@+id/plugin_version"
@@ -68,9 +69,9 @@
             android:layout_marginBottom="1dp"
             android:layout_marginEnd="14dp"
             android:layout_marginTop="1dp"
-            android:text="PLUGIN_VERSION"
+            android:text="@string/plugin_version_placeholder_text"
             android:textColor="@color/main_screen_card_theme_author"
-            android:textSize="10sp"/>
+            android:textSize="12sp"/>
 
         <TextView
             android:id="@+id/theme_name"
@@ -83,7 +84,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="10dp"
             android:ellipsize="none"
-            android:text="THEME_NAME"
+            android:text="@string/theme_name_placeholder_text"
             android:textColor="@color/main_screen_card_theme_title"
             android:textSize="18sp"
             android:textStyle="bold"/>
@@ -98,7 +99,7 @@
             android:layout_marginBottom="10dp"
             android:layout_marginEnd="15dp"
             android:layout_marginStart="15dp"
-            android:text="THEME_AUTHOR"
+            android:text="@string/theme_author_placeholder_text"
             android:textColor="@color/main_screen_card_theme_author"
             android:textSize="12sp"/>
 
@@ -109,7 +110,8 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:scaleType="centerCrop"
-            android:src="@android:color/transparent"/>
+            android:src="@android:color/transparent"
+            android:importantForAccessibility="no"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -133,8 +135,10 @@
                 android:layout_marginTop="10dp"
                 android:layout_toEndOf="@+id/theme_unready_indicator"
                 android:clickable="true"
+                android:focusable="true"
                 android:foreground="?android:selectableItemBackground"
-                android:src="@drawable/tbo_icon"/>
+                android:src="@drawable/tbo_icon"
+                android:importantForAccessibility="no"/>
 
             <ImageView
                 android:id="@+id/theme_unready_indicator"
@@ -144,8 +148,10 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:clickable="true"
+                android:focusable="true"
                 android:foreground="?android:selectableItemBackground"
-                android:src="@drawable/two_icon"/>
+                android:src="@drawable/two_icon"
+                android:importantForAccessibility="no"/>
 
         </RelativeLayout>
 

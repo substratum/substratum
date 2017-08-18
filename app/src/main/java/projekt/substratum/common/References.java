@@ -328,7 +328,9 @@ public class References {
                             String key = (String) pair.getKey();
                             String value = (String) pair.getValue();
 
-                            if (line.toLowerCase().contains(key.toLowerCase())) {
+                            if (line.toLowerCase(Locale.getDefault())
+                                    .contains(key.toLowerCase(
+                                            Locale.getDefault()))) {
                                 if (value == null || value.length() == 0) {
                                     String current = key;
                                     if (current.contains(".")) {
@@ -618,7 +620,7 @@ public class References {
 
     public static boolean checkSubstratumFeature(Context context) {
         // Using lowercase because that's how we defined it in our permissions xml
-        return context.getPackageManager().hasSystemFeature(SUBSTRATUM_THEME.toLowerCase());
+        return context.getPackageManager().hasSystemFeature(SUBSTRATUM_THEME.toLowerCase(Locale.getDefault()));
     }
 
     // This method is used to determine whether there the system was dirty flashed / upgraded
@@ -661,31 +663,6 @@ public class References {
                 String line;
                 while ((line = br.readLine()) != null) {
                     result = line;
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (p != null) {
-                p.destroy();
-            }
-        }
-        return result;
-    }
-
-    // This method is used to check whether a build.prop value is found
-    public static StringBuilder getBuildProp() {
-        Process p = null;
-        StringBuilder result = new StringBuilder();
-        try {
-            p = new ProcessBuilder("/system/bin/getprop").redirectErrorStream(true).start();
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream())
-            )) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    result.append(line).append("\n");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -1589,7 +1566,9 @@ public class References {
         sungstratumPresent &= !hashBoolValue;
         sungstratumPresent &= evaluatedResponse;
         sungstratumPresent &= installer;
-        sungstratumPresent &= fingerprint.toUpperCase().equals(expFingerprint.toUpperCase());
+        sungstratumPresent &= fingerprint.toUpperCase(
+                Locale.getDefault()).equals(
+                        expFingerprint.toUpperCase(Locale.getDefault()));
         sungstratumPresent &= liveInstallerValidity;
         return sungstratumPresent;
     }
@@ -1716,8 +1695,8 @@ public class References {
                     if (search_filter != null && search_filter.length() > 0) {
                         String name = appInfo.metaData.getString(metadataName) + " " +
                                 appInfo.metaData.getString(metadataAuthor);
-                        can_continue = name.toLowerCase()
-                                .contains(search_filter.toLowerCase());
+                        can_continue = name.toLowerCase(Locale.getDefault())
+                                .contains(search_filter.toLowerCase(Locale.getDefault()));
                     }
                 }
                 if (!checkOMS(context)) {
@@ -1779,8 +1758,8 @@ public class References {
                         if (search_filter != null && search_filter.length() > 0) {
                             String name = appInfo.metaData.getString(metadataName) +
                                     " " + appInfo.metaData.getString(metadataAuthor);
-                            if (!name.toLowerCase().contains(
-                                    search_filter.toLowerCase())) {
+                            if (!name.toLowerCase(Locale.getDefault()).contains(
+                                    search_filter.toLowerCase(Locale.getDefault()))) {
                                 can_continue = false;
                             }
                         }

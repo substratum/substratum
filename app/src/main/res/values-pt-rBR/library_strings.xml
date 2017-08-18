@@ -42,8 +42,8 @@
     <!-- License section -->
     <!-- KenBurnsView -->
     <!-- Author section -->
-    <string name="library_kenburnsview_author" formatted="false">Flávio Faria</string>
-    <string name="library_kenburnsview_authorWebsite" formatted="false">https://plus.google.com/+Fl%C3%A1vioFaria1/posts</string>
+    <string name="library_kenburnsview_author" >Flávio Faria</string>
+    <string name="library_kenburnsview_authorWebsite" >https://plus.google.com/+Fl%C3%A1vioFaria1/posts</string>
     <!-- Library section -->
     <string name="library_kenburnsview_libraryDescription">Biblioteca Android que fornece uma extensão para o ImageView que cria uma experiência imersiva animando a sua tela usando o efeito Ken Burns.</string>
     <!-- OpenSource section -->

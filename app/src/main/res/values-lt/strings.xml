@@ -304,7 +304,7 @@
     <string name="notification_done_title">Temos kompiliavimas baigtas</string>
     <string name="notification_done_upgrade_title">Perdangų atnaujinimas buvo baigtas %s!</string>
     <string name="notification_done_upgrade_title_warning">Perdangų atnaujinimas beveik baigtas %s!</string>
-    <string name="notification_done_upgrade_title_failed" formatted="false">Trūksta arba nesukuriama konfigūracija:\n\n%s</string>
+    <string name="notification_done_upgrade_title_failed" >Trūksta arba nesukuriama konfigūracija:\n\n%s</string>
     <string name="notification_done_update_text">Visos įjungtos ir išjungtos perdangos šiai programai buvo atnaujintos.</string>
     <string name="notification_done_upgrade_text">Visos įjungtos ir išjungtos perdangos šiai temai buvo atnaujintos.</string>
     <string name="notification_no_errors_found">Diegiant perdangas nebuvo jokių klaidų</string>
@@ -411,7 +411,7 @@
     <string name="profile_success_notification">Profilis sėkmingai pritaikytas!</string>
     <string name="profile_failed_notification">Profilio nepavyko pritaikyti&#8230;</string>
     <string name="profile_failed_info_notification">Palieskite norėdami gauti daugiau informacijos</string>
-    <string name="profile_compile_progress" formatted="false">Kompiliuojama %d iš %d\n%s</string>
+    <string name="profile_compile_progress" >Kompiliuojama %d iš %d\n%s</string>
     <string name="profile_compile_processing">Dabar apdorojamos jūsų išsaugotų perdangų būseną&#8230;</string>
     <string name="theme_debug_mode_title">Sistemos Atsarginio Įterpimo Apėjimas</string>
     <string name="theme_debug_mode_summary">Tai sustabdys programą naudoti \"legacy\" kompiliatoriaus atsarginį mechanizmą, kad padėti temoms, kai jie pasiekia nepataisoma būklę.</string>
@@ -473,7 +473,7 @@
     <string name="per_app_draw_over_other_apps_request">Prašome suteikti \"Substratum\" \"rodyti virš kitų programų\" ir \"Naudojimo statistikos\" leidimą, kad pasiektų priekinio plano programas.</string>
     <string name="per_app_usage_stats_request">Prašome suteikti \"Substratum\" \"naudojimosi prieigos\" leidimą, kad pasiektų priekinio plano programas.</string>
     <string name="per_app_manual_grant">Prašome programų nustatymuose rankiniu būdu suteikti \"Substratum\" \"naudojimosi prieigos\" leidimą ir \"rodyti virš kitų programų\", kad galėtumėte naudotis Plaukiojančia NS!</string>
-    <string name="notification_overlay_found_specific" formatted="false">Perdangos %s yra %s!</string>
+    <string name="notification_overlay_found_specific" >Perdangos %s yra %s!</string>
     <string name="notification_overlay_found_description">Jūs galite atidaryti temą paspaudę ant šio pranešimo!</string>
     <string name="community_info_overlays">Perdangos</string>
     <string name="community_info_bootanimation">Paleidimo Animacijos</string>

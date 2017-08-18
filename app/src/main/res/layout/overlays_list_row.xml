@@ -38,7 +38,8 @@
             android:layout_width="48dp"
             android:layout_height="60dp"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/default_overlay_icon"/>
+            android:src="@drawable/default_overlay_icon"
+            android:importantForAccessibility="no"/>
 
         <RelativeLayout
             android:id="@+id/relativeLayout"
@@ -52,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:text="PACKAGE"
+                android:text="@string/package_placeholder"
                 android:textColor="@color/overlay_not_installed_list_entry"
                 android:textSize="16sp"
                 android:textStyle="bold"/>
@@ -62,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/overlayTargetPackageName"
-                android:text="PACKAGE_NAME"
+                android:text="@string/package_name_placeholder"
                 android:textColor="@color/theme_information_card_subtext"
                 android:textSize="16sp"/>
 
@@ -71,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/overlayTargetPackage"
-                android:text="PACKAGE_STATE"
+                android:text="@string/package_state_placeholder"
                 android:textColor="@color/theme_information_card_subtext"
                 android:textSize="16sp"/>
 

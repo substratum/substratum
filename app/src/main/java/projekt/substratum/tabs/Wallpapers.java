@@ -37,6 +37,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Map;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
@@ -120,7 +121,8 @@ public class Wallpapers extends Fragment {
                 WallpaperEntries newEntry = new WallpaperEntries();
 
                 for (String key : newArray.keySet()) {
-                    if (!key.toLowerCase().endsWith("-preview".toLowerCase())) {
+                    if (!key.toLowerCase(Locale.getDefault())
+                            .endsWith("-preview".toLowerCase(Locale.getDefault()))) {
                         newEntry.setCallingActivity(getActivity());
                         newEntry.setContext(getContext());
                         newEntry.setWallpaperName(key.replaceAll("~", " "));

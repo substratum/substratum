@@ -313,7 +313,7 @@ corretamente&#8230;</string>
     <string name="notification_done_title">Compilação do tema completa</string>
     <string name="notification_done_upgrade_title">A atualização de camada foi concluída para %s!</string>
     <string name="notification_done_upgrade_title_warning">Atualização de camada parcialmente concluída para %s!</string>
-    <string name="notification_done_upgrade_title_failed" formatted="false">Configuração ausente ou não configurável:\n\n%s</string>
+    <string name="notification_done_upgrade_title_failed" >Configuração ausente ou não configurável:\n\n%s</string>
     <string name="notification_done_update_text">Todas as camadas habilitadas e desabilitadas para este aplicativo foram atualizadas.</string>
     <string name="notification_done_upgrade_text">Todas as camadas ativadas e desativadas para este tema foram atualizadas.</string>
     <string name="notification_no_errors_found">Nenhum erro ao instalar as camadas</string>
@@ -420,7 +420,7 @@ resolver este problema.    </string>
     <string name="profile_success_notification">Perfil aplicado com sucesso!</string>
     <string name="profile_failed_notification">Perfil não aplicado&#8230;</string>
     <string name="profile_failed_info_notification">Toque para obter mais informações</string>
-    <string name="profile_compile_progress" formatted="false">Compilando %d de %d:\n%s</string>
+    <string name="profile_compile_progress" >Compilando %d de %d:\n%s</string>
     <string name="profile_compile_processing">Agora processando seus estados de camada salvos&#8230;</string>
     <string name="theme_debug_mode_title">Bypass de Interjeição de Contingência de Sistema</string>
     <string name="theme_debug_mode_summary">Isso irá parar o aplicativo de usar o mecanismo de contingência do compilador legacy para auxiliar os temas quando chegam num estado impossível de recuperação.</string>
@@ -482,7 +482,7 @@ resolver este problema.    </string>
     <string name="per_app_draw_over_other_apps_request">Algumas funções do Substratum necessitam de permissões extras. Conceda as seguintes permissões: \"Sobrepor outros aplicativos\" para a interface de usuário flutuante e \"Estatísticas de uso\" para aplicar o tema correspondente no aplicativo de primeiro plano.</string>
     <string name="per_app_usage_stats_request">Para que o Substratum aplique o tema correspondente no aplicativo de primeiro plano, conceda a permissão: \"Estatísticas de uso\".</string>
     <string name="per_app_manual_grant">Para que a função de interface de usuário flutuante funcione corretamente, conceda a permissão \"Sobrepor outros aplicativos\" manualmente nas configurações do sistema!</string>
-    <string name="notification_overlay_found_specific" formatted="false">Uma camada de %s está em %s!</string>
+    <string name="notification_overlay_found_specific" >Uma camada de %s está em %s!</string>
     <string name="notification_overlay_found_description">Você pode abrir o tema clicando nesta notificação!</string>
     <string name="community_info_overlays">Camadas</string>
     <string name="community_info_bootanimation">Animações de Inicialização</string>

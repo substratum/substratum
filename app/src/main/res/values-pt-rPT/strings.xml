@@ -374,7 +374,7 @@ corretamente&#8230;</string>
     <string name="profile_success_notification">Perfil aplicado com sucesso!</string>
     <string name="profile_failed_notification">Falha ao aplicar perfil&#8230;</string>
     <string name="profile_failed_info_notification">Toque para mais informações</string>
-    <string name="profile_compile_progress" formatted="false">A compilar %d de %d:\n%s</string>
+    <string name="profile_compile_progress" >A compilar %d de %d:\n%s</string>
     <string name="break_compilation_dialog_title">AVISO</string>
     <string name="break_compilation_dialog_content">Isto pode parar completamente o processo de compilação. Ative esta opção apenas se souber o que está a fazer!</string>
     <string name="break_compilation_dialog_continue">Continuar</string>
@@ -420,7 +420,7 @@ corretamente&#8230;</string>
     <string name="per_app_draw_over_other_apps_request">Por favor, conceda ao Substratum permissões de \"Desenhar sobre outras aplicações\" para a interface flutuante e \"Utilização de estatísticas\" para aceder à aplicação de fundo, de forma a corresponder os alvos do tema.</string>
     <string name="per_app_usage_stats_request">Por favor, conceda ao Substratum permissões de \"Utilização de estatísticas\" para aceder à aplicação de fundo, de forma a corresponder os alvos do tema.</string>
     <string name="per_app_manual_grant">Por favor, conceda manualmente ao Substratum permissões de \"Desenhar sobre outras aplicações\" e \"Utilização de estatísticas\" nas Definições da aplicação para poder utilizar a interface flutuante!</string>
-    <string name="notification_overlay_found_specific" formatted="false">Uma sobreposição de %s está em %s!</string>
+    <string name="notification_overlay_found_specific" >Uma sobreposição de %s está em %s!</string>
     <string name="notification_overlay_found_description">Pode abrir o tema clicando sobre esta notificação!</string>
     <string name="community_info_overlays">Camadas</string>
     <string name="community_info_bootanimation">Animações de Boot</string>

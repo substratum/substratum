@@ -389,7 +389,7 @@ sağlayan
     <string name="notification_done_title">Tema düzenlemesi tamamlandı</string>
     <string name="notification_done_upgrade_title">%s tema yükseltmesi tamamlandı!</string>
     <string name="notification_done_upgrade_title_warning">%s için tema yükseltmesi kısmen tamamlandı!</string>
-    <string name="notification_done_upgrade_title_failed" formatted="false">Eksik veya bozuk yapılandırma:\n\n%s</string>
+    <string name="notification_done_upgrade_title_failed" >Eksik veya bozuk yapılandırma:\n\n%s</string>
     <string name="notification_done_update_text">Bu uygulama için etkinleştirilen ve devre dışı bırakılmış tüm temalar güncellendi.</string>
     <string name="notification_done_upgrade_text">Bu tema için etkinleştirilmiş ve devre dışı bırakılmış tüm temalar güncellendi.</string>
     <string name="notification_no_errors_found">Temalar yüklenirken hata oluşmadı</string>
@@ -500,7 +500,7 @@ sağlayan
     <string name="profile_success_notification">Profil başarıyla uygulandı!</string>
     <string name="profile_failed_notification">Profil uygulaması başarısız oldu&#8230;</string>
     <string name="profile_failed_info_notification">Daha fazla bilgi için dokunun</string>
-    <string name="profile_compile_progress" formatted="false">Düzenleniyor %d / %d:\n%s</string>
+    <string name="profile_compile_progress" >Düzenleniyor %d / %d:\n%s</string>
     <string name="profile_compile_processing">Şimdi kaydettiğiniz tema durumları işleme koyuluyor&#8230;</string>
     <string name="theme_debug_mode_title">Sistem Geri Bildirim Müdahalesini Yoksay</string>
     <string name="theme_debug_mode_summary">Uygulamanın kurtarılamayan bir duruma geldiğinde temalara yardımcı olmak için eski derleyicinin geri dönüş mekanizmasını kullanmasını durduracaktır.</string>
@@ -562,7 +562,7 @@ sağlayan
     <string name="per_app_draw_over_other_apps_request">Yüzen kullanıcı arayüzü için Substratum\'a \"diğer uygulamalar üzerinde görüntüleme\" ve Tema hedeflerini eşleştirmek için Substratum\'a ön plan uygulamasına erişebilmek adına \"kullanım erişimi\" izni verin.</string>
     <string name="per_app_usage_stats_request">Lütfen, tema hedeflerini eşleştirmek için Substratum\'a ön plan uygulamasına erişebilmek adına \"kullanım erişimi\" izni verin.</string>
     <string name="per_app_manual_grant">Lütfen, Yüzen Arayüzü kullanmak için Uygulama Ayarlarından Substratum\'a \"kullanım erişimi\" ve \"diğer uygulamalar üzerinde görüntüle\" izinlerini verin!</string>
-    <string name="notification_overlay_found_specific" formatted="false">%s için bir tema mevcut - %s!</string>
+    <string name="notification_overlay_found_specific" >%s için bir tema mevcut - %s!</string>
     <string name="notification_overlay_found_description">Bu bildirimi tıklayarak temayı açabilirsiniz!</string>
     <string name="community_info_overlays">Temalar</string>
     <string name="community_info_bootanimation">Önyükleme Animasyonları</string>

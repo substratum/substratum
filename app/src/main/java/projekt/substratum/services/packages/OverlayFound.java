@@ -18,7 +18,6 @@
 
 package projekt.substratum.services.packages;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -49,7 +48,6 @@ import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 public class OverlayFound extends BroadcastReceiver {
 
     private final static String TAG = "OverlayFound";
-    private static final String overlaysDir = "overlays";
     private String package_name;
     private Context context;
 
@@ -83,11 +81,9 @@ public class OverlayFound extends BroadcastReceiver {
 
     private class OverlayUpdate extends AsyncTask<String, Integer, String> {
 
-        int notification_priority = Notification.PRIORITY_MAX;
         private NotificationManager mNotifyManager;
         private NotificationCompat.Builder mBuilder;
         private List<ResolveInfo> installed_themes;
-        private int id = References.notification_id;
         private ArrayList<String> matching_criteria;
 
         @Override

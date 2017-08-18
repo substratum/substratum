@@ -310,7 +310,7 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="notification_done_title">Byla dokončena kompilace motivu</string>
     <string name="notification_done_upgrade_title">Aktualizace potahů pro %s byla dokončena!</string>
     <string name="notification_done_upgrade_title_warning">Aktualizace potahů částečně dokončena pro %s!</string>
-    <string name="notification_done_upgrade_title_failed" formatted="false">Chybějící nebo nesestavitelná konfigurace:\n\n%s</string>
+    <string name="notification_done_upgrade_title_failed" >Chybějící nebo nesestavitelná konfigurace:\n\n%s</string>
     <string name="notification_done_update_text">Byly aktualizovány všechny povolené a zakázané potahy pro tuto aplikaci.</string>
     <string name="notification_done_upgrade_text">Byly aktualizovány všechny povolené a zakázané motivy pro tuto aplikaci.</string>
     <string name="notification_no_errors_found">Nenastaly žádné chyby při instalaci potahů</string>
@@ -425,7 +425,7 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="profile_success_notification">Profil je úspěšně aplikován!</string>
     <string name="profile_failed_notification">Profil se nepodařilo aplikovat&#8230;</string>
     <string name="profile_failed_info_notification">Klikněte pro více informací</string>
-    <string name="profile_compile_progress" formatted="false">Kompilace %d z %d:\n%s</string>
+    <string name="profile_compile_progress" >Kompilace %d z %d:\n%s</string>
     <string name="profile_compile_processing">Probíhá zpracování dříve uložených nastavení potahů&#8230;</string>
     <string name="theme_debug_mode_title">Obejítí originálního systému</string>
     <string name="theme_debug_mode_summary">Umožní aplikaci přestat používat původní mechanismus kompilace s cílem pomoci motivu, pokud se dostane do neřešitelné situace.</string>
@@ -487,7 +487,7 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="per_app_draw_over_other_apps_request">Prosím, udělte Substratum oprávnění \"vykreslovat přes jiné aplikace\" pro plovoucí okno a právo \"Statistiky využívání\" pro přístup aplikacím v popředí pro sjednocení cílů témat.</string>
     <string name="per_app_usage_stats_request">Prosím, udělte Substratum oprávnění \"přístup k používání\" pro přístup k odpovídajícím cílům motivů.</string>
     <string name="per_app_manual_grant">Prosím, ručně udělte oprávnění k \"využití přístupu\" a \"vykreslování nad ostatními aplikacemi\" v nastavení aplikace pro používání plovoucího okna!</string>
-    <string name="notification_overlay_found_specific" formatted="false">Potah pro %s je v %s!</string>
+    <string name="notification_overlay_found_specific" >Potah pro %s je v %s!</string>
     <string name="notification_overlay_found_description">Motiv můžete otevřít kliknutím na toto upozornění!</string>
     <string name="community_info_overlays">Potahy</string>
     <string name="community_info_bootanimation">Spouštěcí animace</string>

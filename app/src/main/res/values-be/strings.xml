@@ -294,7 +294,7 @@
     <string name="notification_done_title">Зборка тэмы завершана</string>
     <string name="notification_done_upgrade_title">Абнаўленне напластаванняў для %s завершана!</string>
     <string name="notification_done_upgrade_title_warning">Абнаўленне напластаванняў для %s часткова выканана!</string>
-    <string name="notification_done_upgrade_title_failed" formatted="false">Адсутная ці незбіраная канфігурацыя:\n\n%s</string>
+    <string name="notification_done_upgrade_title_failed" >Адсутная ці незбіраная канфігурацыя:\n\n%s</string>
     <string name="notification_done_update_text">Усе ўключаныя і адключаныя напластаванні для гэтай праграмы былі абноўленыя.</string>
     <string name="notification_done_upgrade_text">Усе ўключаныя і адключаныя напластаванні для дадзенай тэмы былі абноўленыя.</string>
     <string name="notification_no_errors_found">Памылак пры ўсталёўцы напластаванняў не ўзнікла</string>
@@ -399,7 +399,7 @@
     <string name="profile_success_notification">Профіль паспяхова ужыты!</string>
     <string name="profile_failed_notification">Не атрымалася ужыць профіль&#8230;</string>
     <string name="profile_failed_info_notification">Націсніце, каб даведацца больш</string>
-    <string name="profile_compile_progress" formatted="false">Збіраецца %d з %d:\n%s</string>
+    <string name="profile_compile_progress" >Збіраецца %d з %d:\n%s</string>
     <string name="profile_compile_processing">Аднаўленне раней прымененых налад&#8230;</string>
     <string name="theme_debug_mode_title">Абыход сістэмы вяртання</string>
     <string name="theme_debug_mode_summary">Прадухіліць выкарыстанне механізму вяртання сумяшчальнага зборшчыка, як толькі тэмы дасягаюць непапраўнага стану.</string>
@@ -461,7 +461,7 @@
     <string name="per_app_draw_over_other_apps_request">Неабходна прадаставіць дазволу \"па-над іншых вокнаў\" і \"доступ да гісторыі выкарыстання\", каб дазволіць substratum працаваць у фонавым рэжыме для суаднясення мэтаў тэмы.</string>
     <string name="per_app_usage_stats_request">Неабходна даць дазвол \"доступ да гісторыі выкарыстання\", каб дазволіць substratum працаваць у фонавым рэжыме для суаднясення мэтаў тэмы.</string>
     <string name="per_app_manual_grant">Неабходна ўручную прадаставіць дазволы \"доступ да гісторыі выкарыстання\" і \"па-над іншых вокнаў\" у наладах прыкладання для працы FloatUI!</string>
-    <string name="notification_overlay_found_specific" formatted="false">Для %s ёсць напластаванне ў %s!</string>
+    <string name="notification_overlay_found_specific" >Для %s ёсць напластаванне ў %s!</string>
     <string name="notification_overlay_found_description">Можаце перайсці да тэмы, націснуўшы на гэта апавяшчэнне!</string>
     <string name="community_info_overlays">Напластаванні</string>
     <string name="community_info_bootanimation">Анімацыі загрузкі</string>

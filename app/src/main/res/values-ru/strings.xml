@@ -294,7 +294,7 @@
     <string name="notification_done_title">Сборка темы завершена</string>
     <string name="notification_done_upgrade_title">Обновление наслоений для %s завершено!</string>
     <string name="notification_done_upgrade_title_warning">Обновление наслоений для %s частично завершено!</string>
-    <string name="notification_done_upgrade_title_failed" formatted="false">Отсутствующая или несобираемая конфигурация:\n\n%s</string>
+    <string name="notification_done_upgrade_title_failed" >Отсутствующая или несобираемая конфигурация:\n\n%s</string>
     <string name="notification_done_update_text">Полный набор наслоений для этого приложения был обновлен.</string>
     <string name="notification_done_upgrade_text">Полный набор наслоений этой темы был обновлен.</string>
     <string name="notification_no_errors_found">Ошибок при установке наслоений не возникло</string>
@@ -399,7 +399,7 @@
     <string name="profile_success_notification">Профиль успешно применен!</string>
     <string name="profile_failed_notification">Не удалось применить профиль&#8230;</string>
     <string name="profile_failed_info_notification">Нажмите, чтобы узнать больше</string>
-    <string name="profile_compile_progress" formatted="false">Собирается %d из %d:\n%s</string>
+    <string name="profile_compile_progress" >Собирается %d из %d:\n%s</string>
     <string name="profile_compile_processing">Восстановление ранее примененных настроек&#8230;</string>
     <string name="theme_debug_mode_title">Обход системы отката</string>
     <string name="theme_debug_mode_summary">Предотвратит использование механизма отката совместимого сборщика, как только темы достигают неисправимого состояния</string>
@@ -461,7 +461,7 @@
     <string name="per_app_draw_over_other_apps_request">Предоставьте Substratum разрешения \"Показывать поверх других окон\" и \"Доступ к истории использования\" для соотнесения активных приложений с причастными к ним наслоениями</string>
     <string name="per_app_usage_stats_request">Предоставьте Substratum \"Доступ к истории использования\" для соотнесения активных приложений с причастными к ним наслоениями</string>
     <string name="per_app_manual_grant">Для работы FloatUI необходимо вручную предоставить Substratum разрешения \"Показывать поверх других окон\" и \"Доступ к истории использования\" в разделе настроек \"Приложения\"!</string>
-    <string name="notification_overlay_found_specific" formatted="false">Для %s есть наслоение в %s!</string>
+    <string name="notification_overlay_found_specific" >Для %s есть наслоение в %s!</string>
     <string name="notification_overlay_found_description">Можете перейти к теме, нажав на это уведомление!</string>
     <string name="community_info_overlays">Наслоения</string>
     <string name="community_info_bootanimation">Анимации загрузки</string>

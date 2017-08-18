@@ -283,7 +283,7 @@
     <string name="notification_done_title">Thema compilatie is voltooid</string>
     <string name="notification_done_upgrade_title">Opwaarderen van %s is voltooid!</string>
     <string name="notification_done_upgrade_title_warning">Overlay opwaarderen gedeeltelijk voltooid voor %s!</string>
-    <string name="notification_done_upgrade_title_failed" formatted="false">Ontbrekende of niet te bouwen configuratie:\n\n%s</string>
+    <string name="notification_done_upgrade_title_failed" >Ontbrekende of niet te bouwen configuratie:\n\n%s</string>
     <string name="notification_done_update_text">Alle in- en uitgeschakelde overlays voor deze app zijn bijgewerkt.</string>
     <string name="notification_done_upgrade_text">Alle in- en uitgeschakelde overlays voor dit thema zijn bijgewerkt.</string>
     <string name="notification_no_errors_found">Geen fouten tijdens de installatie van de overlays</string>
@@ -388,7 +388,7 @@
     <string name="profile_success_notification">Profiel succesvol toegepast!</string>
     <string name="profile_failed_notification">Profiel toepassen mislukt&#8230;</string>
     <string name="profile_failed_info_notification">Aanraken voor meer informatie</string>
-    <string name="profile_compile_progress" formatted="false">%d van de %d compileren:\n%s</string>
+    <string name="profile_compile_progress" >%d van de %d compileren:\n%s</string>
     <string name="profile_compile_processing">Je opgeslagen overlay-staten verwerken&#8230;</string>
     <string name="theme_debug_mode_title">Systeemterugval onderbreking omzeiling</string>
     <string name="theme_debug_mode_summary">Dit zal de app weerhouden om het legacy compilator terugvalmechanisme te gebruiken om thema\'s te helpen wanneer deze een onherstelbare toestand bereiken.</string>
@@ -450,7 +450,7 @@
     <string name="per_app_draw_over_other_apps_request">Gelieve Substratum over \"over andere apps tekenen\" te machtigen voor de Zweef-UI, en over \"gebruikstoegang\" te machtigen om de voorgrond app te benaderen voor het paren van themadoelen.</string>
     <string name="per_app_usage_stats_request">Gelieve Substratum \"gebruikstoegang\" machtigingen te verlenen om de voorgrond app te benaderen voor het paren van themadoelen.</string>
     <string name="per_app_manual_grant">Gelieve handmatig Substratum \"gebruikstoegang\" en \"over andere apps tekenen\" machtigingen verlenen in App Instellingen om Zweef-UI te gebruiken!</string>
-    <string name="notification_overlay_found_specific" formatted="false">Een overlay voor %s bestaat in %s!</string>
+    <string name="notification_overlay_found_specific" >Een overlay voor %s bestaat in %s!</string>
     <string name="notification_overlay_found_description">Je kan het thema openen door op deze melding te tikken!</string>
     <string name="community_info_overlays">Overlays</string>
     <string name="community_info_bootanimation">Opstartanimaties</string>

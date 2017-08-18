@@ -380,7 +380,7 @@
     <string name="notification_done_title">Téma összeállítása befejezve</string>
     <string name="notification_done_upgrade_title">%s fedvény frissítése megtörtént!</string>
     <string name="notification_done_upgrade_title_warning">Fedvény frissítés részben kész: %s!</string>
-    <string name="notification_done_upgrade_title_failed" formatted="false">Hiányzó vagy nem építhető konfiguráció:\n\n%s</string>
+    <string name="notification_done_upgrade_title_failed" >Hiányzó vagy nem építhető konfiguráció:\n\n%s</string>
     <string name="notification_done_update_text">Az alkalmazás minden letiltott és engedélyezett fedvénye frissítésre került.</string>
     <string name="notification_done_upgrade_text">A téma minden letiltott és engedélyezett fedvénye frissítésre került.</string>
     <string name="notification_no_errors_found">Fedvények telepítése során nem lépett fel hiba</string>
@@ -490,7 +490,7 @@
     <string name="profile_success_notification">Profil sikeresen alkalmazva!</string>
     <string name="profile_failed_notification">Profil alkalmazása sikertelen&#8230;</string>
     <string name="profile_failed_info_notification">További információkért érintse meg</string>
-    <string name="profile_compile_progress" formatted="false">%d / %d összeállítása:\n%s</string>
+    <string name="profile_compile_progress" >%d / %d összeállítása:\n%s</string>
     <string name="profile_compile_processing">Mentett fedvény állapotok feldolgozása&#8230;</string>
     <string name="theme_debug_mode_title">Vészhelyzeti rendszer megkerülése</string>
     <string name="theme_debug_mode_summary">Ez megakadályozza, hogy az alkalmazás a témákat segítve az elavult összeállítási mechanizmust használja, ha azok egy javíthatatlan állapotot érnek el.</string>
@@ -553,7 +553,7 @@
     <string name="per_app_draw_over_other_apps_request">Kérjük adjon \"rajzolás más alkalmazások felett\" és \"használati statisztikák\" engedélyt a Substratum FloatUI részére az előtérben futó alkalmazáshoz illő témacélok eléréséhez.</string>
     <string name="per_app_usage_stats_request">Kérjük adjon \"használati statisztikák\" engedélyt a Substratum FloatUI részére az előtérben futó alkalmazáshoz illő témacélok eléréséhez.</string>
     <string name="per_app_manual_grant">Kérjük, kézzel engedélyezze a Substratum számára a \"használati hozzáférés\" engedélyeket, majd az alkalmazás beállításaiban a \"rajzolás más alkalmazások felett\" lehetőséget, hogy a FloatUI-t használhassa!</string>
-    <string name="notification_overlay_found_specific" formatted="false">%s téma elérhető itt: %s!</string>
+    <string name="notification_overlay_found_specific" >%s téma elérhető itt: %s!</string>
     <string name="notification_overlay_found_description">A téma megnyitásához kattintson az értesítésre!</string>
     <string name="community_info_overlays">Fedvények</string>
     <string name="community_info_bootanimation">Rendszerindítási animációk</string>

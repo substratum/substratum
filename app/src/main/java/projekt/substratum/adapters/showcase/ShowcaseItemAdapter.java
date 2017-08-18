@@ -35,6 +35,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import projekt.substratum.R;
 import projekt.substratum.common.References;
@@ -76,7 +77,7 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
         viewHolder.themeName.setText(showcaseItem.getThemeName());
         viewHolder.themeAuthor.setText(showcaseItem.getThemeAuthor());
 
-        if (showcaseItem.getThemePricing().toLowerCase().equals(References.paidTheme)) {
+        if (showcaseItem.getThemePricing().toLowerCase(Locale.getDefault()).equals(References.paidTheme)) {
             viewHolder.themePricing.setVisibility(View.VISIBLE);
         } else {
             viewHolder.themePricing.setVisibility(View.GONE);

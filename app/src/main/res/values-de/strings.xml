@@ -291,7 +291,7 @@ eingerichtet&#8230;</string>
     <string name="notification_done_title">Theme-Kompilierung abgeschlossen</string>
     <string name="notification_done_upgrade_title">Overlays von %s erfolgreich aktualisiert!</string>
     <string name="notification_done_upgrade_title_warning">Overlay-Upgrade teilweise abgeschlossen für %s!</string>
-    <string name="notification_done_upgrade_title_failed" formatted="false">Fehlende oder nicht konstruierbare Konfiguration:\n\n%s</string>
+    <string name="notification_done_upgrade_title_failed" >Fehlende oder nicht konstruierbare Konfiguration:\n\n%s</string>
     <string name="notification_done_update_text">Alle ein- und ausgeschalteten Overlays dieser App wurden aktualisiert.</string>
     <string name="notification_done_upgrade_text">Alle​ ein- und ausgeschalteten Overlays dieses Themes wurden aktualisiert.</string>
     <string name="notification_no_errors_found">Keine Fehler während der Installation der Overlays</string>
@@ -398,7 +398,7 @@ um das Problem zu beheben.    </string>
     <string name="profile_success_notification">Profil erfolgreich angewendet!</string>
     <string name="profile_failed_notification">Profil konnte nicht korrekt angewendet werden&#8230;</string>
     <string name="profile_failed_info_notification">Tippe für weitere Informationen</string>
-    <string name="profile_compile_progress" formatted="false">Kompilieren %d von %d:\n%s</string>
+    <string name="profile_compile_progress" >Kompilieren %d von %d:\n%s</string>
     <string name="profile_compile_processing">Verarbeiten deiner gespeicherten Overlay-Zustände&#8230;</string>
     <string name="theme_debug_mode_title">Umgehung des Notfall-Systems</string>
     <string name="theme_debug_mode_summary">Hierdurch wird verhindert, dass die App den veralteten Compiler nutzt, um Themes zu helfen, wenn diese einen nicht behebbaren Zustand erreichen.</string>
@@ -460,7 +460,7 @@ um das Problem zu beheben.    </string>
     <string name="per_app_draw_over_other_apps_request">Bitte gewähre Substratum die Berechtigung \"über andere Apps zeichnen\" für die schwebende Oberfläche und die Berechtigung für \"Nutzungsdaten\", damit auf die App im Vordergrund zugegriffen werden kann und Ziele für Themes ausgemacht werden können.</string>
     <string name="per_app_usage_stats_request">Bitte gewähre Substratum die Berechtigung \"Nutzungsdaten\", damit auf die App im Vordergrund zugegriffen werden kann und Ziele für Themes ausgemacht werden können.</string>
     <string name="per_app_manual_grant">Bitte gewähre Substratum in den Anwendungseinstellungen manuell die Berechtigungen für \"Nutzungszugriff\" und \"Über andere Apps zeichnen\", um FloatUI nutzen zu können!</string>
-    <string name="notification_overlay_found_specific" formatted="false">Ein Overlay für %s ist in %s!</string>
+    <string name="notification_overlay_found_specific" >Ein Overlay für %s ist in %s!</string>
     <string name="notification_overlay_found_description">Durch Klicken auf diese Benachrichtigung kannst Du das Theme öffnen!</string>
     <string name="community_info_overlays">Overlays</string>
     <string name="community_info_bootanimation">Boot-Animationen</string>

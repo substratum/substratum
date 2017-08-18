@@ -25,6 +25,7 @@
                                     android:layout_marginBottom="5dp"
                                     android:layout_marginTop="5dp"
                                     android:clickable="true"
+                                    android:focusable="true"
                                     android:foreground="?android:selectableItemBackground"
                                     app:cardPreventCornerOverlap="false"
                                     app:cardUseCompatPadding="true"
@@ -49,7 +50,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="@dimen/drag_view_margin"
                 android:layout_marginStart="15dp"
-                android:src="@drawable/default_overlay_icon"/>
+                android:src="@drawable/default_overlay_icon"
+                android:importantForAccessibility="no"/>
         </LinearLayout>
 
         <projekt.substratum.util.views.AutoTextResizer
@@ -59,9 +61,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_toEndOf="@+id/app_icon_container"
             android:layout_toStartOf="@+id/card_drag"
-            android:ellipsize="none"
             android:gravity="center_vertical"
-            android:maxLines="1"
+            android:singleLine="true"
             android:paddingEnd="@dimen/linear_text_padding"
             android:paddingStart="@dimen/linear_text_padding"
             android:textColor="@color/main_screen_card_theme_title"/>
@@ -73,6 +74,7 @@
             android:layout_alignParentEnd="true"
             android:layout_gravity="center_vertical"
             android:layout_margin="15dp"
-            android:src="@drawable/priorities_card_move_icon"/>
+            android:src="@drawable/priorities_card_move_icon"
+            android:importantForAccessibility="no"/>
     </RelativeLayout>
 </android.support.v7.widget.CardView>

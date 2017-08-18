@@ -240,6 +240,7 @@ public class ProfileManager {
         }
     }
 
+    @SuppressWarnings("RedundantCast")
     public static void writeProfileState(Context context, String profileName) {
         try {
             try (FileOutputStream outputStream = new FileOutputStream(
@@ -275,15 +276,24 @@ public class ProfileManager {
                                 context, packageName, metadataOverlayType4);
 
                         xmlSerializer.startTag(null, METADATA_PROFILE_ITEM)
-                                .attribute(null, METADATA_PROFILE_PACKAGE_NAME, packageName)
-                                .attribute(null, METADATA_PROFILE_TARGET, target)
-                                .attribute(null, METADATA_PROFILE_PARENT, parent)
-                                .attribute(null, METADATA_PROFILE_TYPE1A, type1a)
-                                .attribute(null, METADATA_PROFILE_TYPE1B, type1b)
-                                .attribute(null, METADATA_PROFILE_TYPE1C, type1c)
-                                .attribute(null, METADATA_PROFILE_TYPE2, type2)
-                                .attribute(null, METADATA_PROFILE_TYPE3, type3)
-                                .attribute(null, METADATA_PROFILE_TYPE4, type4)
+                                .attribute(null, METADATA_PROFILE_PACKAGE_NAME,
+                                        String.valueOf((Object) packageName))
+                                .attribute(null, METADATA_PROFILE_TARGET,
+                                        String.valueOf((Object) target))
+                                .attribute(null, METADATA_PROFILE_PARENT,
+                                        String.valueOf((Object) parent))
+                                .attribute(null, METADATA_PROFILE_TYPE1A,
+                                        String.valueOf((Object) type1a))
+                                .attribute(null, METADATA_PROFILE_TYPE1B,
+                                        String.valueOf((Object) type1b))
+                                .attribute(null, METADATA_PROFILE_TYPE1C,
+                                        String.valueOf((Object) type1c))
+                                .attribute(null, METADATA_PROFILE_TYPE2,
+                                        String.valueOf((Object) type2))
+                                .attribute(null, METADATA_PROFILE_TYPE3,
+                                        String.valueOf((Object) type3))
+                                .attribute(null, METADATA_PROFILE_TYPE4,
+                                        String.valueOf((Object) type4))
                                 .endTag(null, METADATA_PROFILE_ITEM);
                     }
                     xmlSerializer.endTag(null, METADATA_PROFILE_ENABLED);

@@ -87,6 +87,7 @@ public class ManagerFragment extends Fragment {
     private MaterialSheetFab materialSheetFab;
     private SharedPreferences prefs;
     private RelativeLayout relativeLayout;
+    private RelativeLayout toggle_zone;
     private ViewGroup root;
     private List<ManagerItem> overlaysList;
     private FloatingActionMenu floatingActionButton;
@@ -169,6 +170,7 @@ public class ManagerFragment extends Fragment {
         context = getContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
         root = (ViewGroup) inflater.inflate(R.layout.manager_fragment, container, false);
+        toggle_zone = (RelativeLayout) root.findViewById(R.id.toggle_zone);
         relativeLayout = (RelativeLayout) root.findViewById(R.id.no_overlays_enabled);
         mRecyclerView = (RecyclerView) root.findViewById(R.id.overlays_recycler_view);
 
@@ -238,6 +240,35 @@ public class ManagerFragment extends Fragment {
                                 "Window has lost connection with the host.");
                     }
                 });
+        toggle_zone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    overlayList = ((ManagerAdapter) mAdapter).getOverlayManagerList();
+                    if (toggle_all.isChecked()) {
+                        for (int i = 0; i < overlayList.size(); i++) {
+                            ManagerItem currentOverlay = overlayList.get(i);
+                            if (!currentOverlay.isSelected()) {
+                                currentOverlay.setSelected(true);
+                            }
+                            mAdapter.notifyDataSetChanged();
+                        }
+                    } else {
+                        for (int i = 0; i < overlayList.size(); i++) {
+                            ManagerItem currentOverlay = overlayList.get(i);
+                            if (currentOverlay.isSelected()) {
+                                currentOverlay.setSelected(false);
+                            }
+                        }
+                        mAdapter.notifyDataSetChanged();
+                    }
+                    toggle_all.setChecked(!toggle_all.isChecked());
+                } catch (Exception e) {
+                    Log.e(this.getClass().getSimpleName(),
+                            "Window has lost connection with the host.");
+                }
+            }
+        });
 
         TextView disable_selected = (TextView) root.findViewById(R.id.disable_selected);
         if (!References.checkOMS(context))
@@ -467,10 +498,12 @@ public class ManagerFragment extends Fragment {
 
                 if (fragment.overlaysList.size() == 0) {
                     fragment.floatingActionButton.hide();
+                    fragment.toggle_zone.setVisibility(View.GONE);
                     fragment.relativeLayout.setVisibility(View.VISIBLE);
                     fragment.mRecyclerView.setVisibility(View.GONE);
                 } else {
                     fragment.floatingActionButton.show();
+                    fragment.toggle_zone.setVisibility(View.VISIBLE);
                     fragment.relativeLayout.setVisibility(View.GONE);
                     fragment.mRecyclerView.setVisibility(View.VISIBLE);
                 }

@@ -99,6 +99,7 @@ import static projekt.substratum.common.References.BYPASS_SUBSTRATUM_BUILDER_DEL
 import static projekt.substratum.common.References.MANAGER_REFRESH;
 import static projekt.substratum.common.References.bootAnimationsFragment;
 import static projekt.substratum.common.References.fontsFragment;
+import static projekt.substratum.common.References.getOverlayMetadata;
 import static projekt.substratum.common.References.isSamsung;
 import static projekt.substratum.common.References.metadataOverlayParent;
 import static projekt.substratum.common.References.metadataWallpapers;
@@ -302,7 +303,7 @@ public class InformationActivity extends SubstratumActivity {
         theme_mode = currentIntent.getStringExtra("theme_mode");
         encryption_key = currentIntent.getByteArrayExtra("encryption_key");
         iv_encrypt_key = currentIntent.getByteArrayExtra("iv_encrypt_key");
-        wallpaperUrl = null;
+        wallpaperUrl = getOverlayMetadata(getApplicationContext(), theme_pid, metadataWallpapers);
 
         Bundle bundle = new Bundle();
         bundle.putString("theme_name", theme_name);
@@ -311,19 +312,6 @@ public class InformationActivity extends SubstratumActivity {
         bundle.putByteArray("encryption_key", encryption_key);
         bundle.putByteArray("iv_encrypt_key", iv_encrypt_key);
         bundle.putString("wallpaperUrl", wallpaperUrl);
-
-        try {
-            ApplicationInfo appInfo =
-                    getApplicationContext().getPackageManager().getApplicationInfo(
-                            theme_pid,
-                            PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null &&
-                    appInfo.metaData.getString(metadataWallpapers) != null) {
-                wallpaperUrl = appInfo.metaData.getString(metadataWallpapers);
-            }
-        } catch (Exception e) {
-            // NameNotFound
-        }
 
         if (theme_mode == null) {
             theme_mode = "";

@@ -140,10 +140,12 @@ public class ManagerFragment extends Fragment {
             int overlayListSize = overlayList.size();
             if (overlayList != null && overlayListSize == 0) {
                 floatingActionButton.hide();
+                toggle_zone.setVisibility(View.GONE);
                 relativeLayout.setVisibility(View.VISIBLE);
                 mRecyclerView.setVisibility(View.GONE);
             } else if (overlayList != null) {
                 floatingActionButton.show();
+                toggle_zone.setVisibility(View.VISIBLE);
                 relativeLayout.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
             }

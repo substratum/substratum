@@ -100,12 +100,15 @@
     <string name="manager_type1c">Típus1c:</string>
     <string name="manager_type2">Típus2:</string>
     <string name="manager_type3">Típus3:</string>
+    <string name="manager_type4">Type4 :</string>
+    <string name="legacy_preference_priority_title">Fedvény prioritás beállítása</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">type1a változat&#8230;</string>
     <string name="overlays_variant_default_1b">type1b változat&#8230;</string>
     <string name="overlays_variant_default_1c">type1c változat&#8230;</string>
     <string name="overlays_variant_default_2">type2 változat&#8230;</string>
     <string name="overlays_variant_default_3">alapértelmezett alap változat&#8230;</string>
+    <string name="overlays_variant_default_4">type4 változat&#8230;</string>
     <string name="overlays_up_to_date">NAPRAKÉSZ</string>
     <string name="overlays_update_available">Frissítés érhető el!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Változat nincs telepítve</string>
@@ -258,6 +261,8 @@
     <string name="menu_search">Play Áruház témák</string>
     <string name="menu_showcase">Bemutató</string>
     <string name="menu_uninstall">Téma eltávolítása</string>
+    <string name="menu_restore_info">Visszaállítási info</string>
+    <string name="menu_showcase_info">Bemutatóterem info</string>
     <string name="menu_favorite_snackbar">%s sikeresen beállítva parancsikonként!</string>
     <string name="menu_favorite_snackbar_cleared">%s eltávolítva, hogy egy alkalmazás parancsikon legyen.</string>
     <string name="changelog_title">%s téma változáslista</string>
@@ -268,9 +273,11 @@
     <string name="dialog_restart_soft_reboot_title">Lágy újraindítás</string>
     <string name="dialog_restart_soft_reboot_content">Ez egy lágy újraindítást fog végrehajtani az eszközén.</string>
     <string name="studio_applying">Betöltés&#8230;</string>
+    <string name="error_loading_theme_close">Bezárás</string>
+    <string name="error_loading_theme_close_text">A téma csomagnevének meg kell egyeznie a manifest és a kódkönyvtárakban a megfelelő kulcscsere érdekében.</string>
     <string name="logcat_snackbar_button">LogChar</string>
-    <string name="logcat_snackbar_text">Cél alkalmazás/fedvény elavult, vagy nem megfelelő konfiguráció kiválasztva&#8230;</string>
-    <string name="logcat_dialog_title">\"LogChar\" hibakeresési jelentés</string>
+    <string name="logcat_snackbar_text">Célalkalmazás/fedvény elavult, vagy nem megfelelő konfiguráció kiválasztva&#8230;</string>
+    <string name="logcat_dialog_title">LogChar hibakeresési jelentés</string>
     <string name="logcat_dialog_copy_success">Hibanapló sikeresen vágólapra másolva!</string>
     <string name="logcat_email_activity">Hibajelentés küldése ezzel&#8230;</string>
     <string name="logcat_email_activity_error">Nincs e-mail klines telepítve.</string>
@@ -380,7 +387,7 @@
     <string name="notification_done_title">Téma összeállítása befejezve</string>
     <string name="notification_done_upgrade_title">%s fedvény frissítése megtörtént!</string>
     <string name="notification_done_upgrade_title_warning">Fedvény frissítés részben kész: %s!</string>
-    <string name="notification_done_upgrade_title_failed" >Hiányzó vagy nem építhető konfiguráció:\n\n%s</string>
+    <string name="notification_done_upgrade_title_failed">Hiányzó vagy nem építhető konfiguráció:\n\n%s</string>
     <string name="notification_done_update_text">Az alkalmazás minden letiltott és engedélyezett fedvénye frissítésre került.</string>
     <string name="notification_done_upgrade_text">A téma minden letiltott és engedélyezett fedvénye frissítésre került.</string>
     <string name="notification_no_errors_found">Fedvények telepítése során nem lépett fel hiba</string>
@@ -428,7 +435,7 @@
     <string name="alternate_drawer_design_title">Másodlagos Fiók Megjelenítés</string>
     <string name="alternate_drawer_design_subtext">Egy alternatív navigációs fiók megjelenítést használ, amikor a felhasználói felületen keresztül navigál.</string>
     <string name="logchar_autosave_title">Automatikusan mentse a LogChar jelentéseket</string>
-    <string name="logchar_autosave_subtext">Ez automatikusan menti a LogChar jelentéseket ide: /storage/emulated/0/substratum/LogCharReports.</string>
+    <string name="logchar_autosave_subtext">Ez automatikusan menti a LogChar jelentéseket ide: /storage/emulated/0/substratum/LogCharReports/.</string>
     <string name="show_outdated_themes_title">Összes elavult téma megjelenítése</string>
     <string name="show_outdated_themes_content">Azt letiltva lehetővé teszi a Substratum számára, hogy
         kihasználja az új algoritmust, mellyel a témák sokkal gyorsabban töltődnek be, mint máskor. Ez csak
@@ -458,6 +465,7 @@
     <string name="team_ivan_description">Platform és Funkciók</string>
     <string name="team_surge_description">Binárisok és Algoritmusok</string>
     <string name="team_char_description">Közösség szervezése és Támogatás</string>
+    <string name="team_harsh_description">Platform és Funkciók</string>
     <string name="slide_1_title">üdvözli a substratum</string>
     <string name="slide_1_text">egy minimális, mégis erős témamotor a Sony fedvény kezelő szolgáltatása alapján</string>
     <string name="slide_2_title">egy teljesen új felhasználói felület</string>
@@ -490,12 +498,12 @@
     <string name="profile_success_notification">Profil sikeresen alkalmazva!</string>
     <string name="profile_failed_notification">Profil alkalmazása sikertelen&#8230;</string>
     <string name="profile_failed_info_notification">További információkért érintse meg</string>
-    <string name="profile_compile_progress" >%d / %d összeállítása:\n%s</string>
+    <string name="profile_compile_progress">%d / %d összeállítása:\n%s</string>
     <string name="profile_compile_processing">Mentett fedvény állapotok feldolgozása&#8230;</string>
     <string name="theme_debug_mode_title">Vészhelyzeti rendszer megkerülése</string>
     <string name="theme_debug_mode_summary">Ez megakadályozza, hogy az alkalmazás a témákat segítve az elavult összeállítási mechanizmust használja, ha azok egy javíthatatlan állapotot érnek el.</string>
     <string name="logchar_dialog_title_delete_title">FIGYELEM</string>
-    <string name="logchar_dialog_title_delete_content">Ez törli az összes mentett naplót. A folytatás megnyomásával minden napló törlődik és többé nem a naplók nem kerülnek mentésre.</string>
+    <string name="logchar_dialog_title_delete_content">Ez törli az összes mentett naplót. A folytatás megnyomásával minden napló törlődik és többé a naplók nem kerülnek mentésre.</string>
     <string name="break_compilation_dialog_title">FIGYELMEZTETÉS</string>
     <string name="break_compilation_dialog_content">Ez teljesen megszakíthatja az összeállítási folyamatot. Csak akkor engedélyezze ezt a beállítást, ha tudja mit csinál!</string>
     <string name="break_compilation_dialog_continue">Folytatás</string>
@@ -519,6 +527,7 @@
     <string name="settings_title_automation">Automatizálás</string>
     <string name="settings_auto_updater_title">Cél fedvények automatikus frissítése</string>
     <string name="settings_auto_updater_text">A Substratum a nemrégiben frissített alkalmazások számára automatikusan felépíti, összeállítja és telepíti az összes fedvény egy frissített verzióját. A kikapcsolása energiát takarít meg.</string>
+    <string name="beta_tag">★ BÉTA</string>
     <string name="settings_theme_auto_updater_title">Téma fedvények automatikus frissítése (BÉTA)</string>
     <string name="settings_theme_auto_updater_dialog_title">FIGYELMEZTETÉS</string>
     <string name="settings_theme_auto_updater_text">A Substratum a nemrégiben frissített téma számára automatikusan felépíti, összeállítja és telepíti az összes fedvény egy frissített verzióját. A kikapcsolása energiát takarít meg.</string>
@@ -540,6 +549,8 @@
     <string name="settings_crash_receiver_text">Automatikusan letiltja a fedvényt, ha a fedvénnyel rendelkező alkalmazás folyamatosan összeomlik.</string>
     <string name="settings_force_stop_interfacer_title">Interfacer szolgáltatás kényszerített leállítása</string>
     <string name="settings_force_stop_interfacer_snackbar">Interfacer kényszerített leállítása&#8230;</string>
+    <string name="overlays_outdated">A fedvények elavultak</string>
+    <string name="overlays_outdated_message">A 816 verziótól és felette, a fedvényekhez tartozó aláírásunk megváltozott annak megakadályozására, hogy az aláírások eltérőek legyenek.\n\nEz azt jelenti, hogy a telepített fedvényeit tisztítania kell az új témafrissítések telepítéséhez, ellenkező esetben azt fogja mondani, hogy a fedvények folyamatos frissítést igényelnek!\n\nEz üzenet nem jelenik meg, ha az összes fedvény a legújabb Substratum segítségével került összeállításra.</string>
     <string name="root_required_title">Root szükséges</string>
     <string name="root_required_boot_animation">A készüléke titkosított, így root szükséges a rendszerindítási animációk alkalmazásához.</string>
     <string name="root_required_boot_animation_profile">A készüléke titkosított, így root szükséges a rendszerindítási animációk mentéséhez és visszaállításához.</string>
@@ -553,8 +564,16 @@
     <string name="per_app_draw_over_other_apps_request">Kérjük adjon \"rajzolás más alkalmazások felett\" és \"használati statisztikák\" engedélyt a Substratum FloatUI részére az előtérben futó alkalmazáshoz illő témacélok eléréséhez.</string>
     <string name="per_app_usage_stats_request">Kérjük adjon \"használati statisztikák\" engedélyt a Substratum FloatUI részére az előtérben futó alkalmazáshoz illő témacélok eléréséhez.</string>
     <string name="per_app_manual_grant">Kérjük, kézzel engedélyezze a Substratum számára a \"használati hozzáférés\" engedélyeket, majd az alkalmazás beállításaiban a \"rajzolás más alkalmazások felett\" lehetőséget, hogy a FloatUI-t használhassa!</string>
-    <string name="notification_overlay_found_specific" >%s téma elérhető itt: %s!</string>
+    <string name="notification_overlay_found_specific">%s téma elérhető itt: %s!</string>
     <string name="notification_overlay_found_description">A téma megnyitásához kattintson az értesítésre!</string>
+    <string name="error_activity_title">Sajnálom az összeomlást!</string>
+    <string name="error_activity_text">kérlek, bocsáss meg&#8230;</string>
+    <string name="error_activity_button_restart">Újraindítás</string>
+    <string name="error_activity_button_disable_overlays">Ments meg!</string>
+    <string name="error_activity_log">Hibakövetés</string>
+    <string name="error_activity_log_dialog_title">Összeomlás hibakövetés</string>
+    <string name="error_dialog_samsung">Substratum fedvény probléma</string>
+    <string name="error_dialog_samsung_text">Sajnos, úgy tűnik, hogy probléma van egy Substratum-ot célzó telepített fedvénnyel, így annak kézi eltávolítása szükséges a Beállítások segítségével.</string>
     <string name="community_info_overlays">Fedvények</string>
     <string name="community_info_bootanimation">Rendszerindítási animációk</string>
     <string name="community_info_fonts">Betűtípusok</string>
@@ -620,6 +639,7 @@
     <string name="nav_drawer_template">Téma sablon (témakészítők)</string>
     <string name="nav_drawer_gerrit">Platform és Gerrit előkészítések</string>
     <string name="nav_drawer_github">Platform GitHub adattár</string>
+    <string name="nav_drawer_jira">JIRA hibajelentési rendszer</string>
     <string name="nav_troubleshooting">Hibaelhárítás</string>
     <!-- More -->
     <string name="nav_section_header_more">Továbbiak</string>
@@ -635,4 +655,14 @@
     <string name="manage_space_reset_text_desc">Gond van az alkalmazással? Vagy nemrégiben egy nagyobb verzióugrást tett a substratum egy régebbi változatáról? Egy egyszerű konfiguráció törlés biztosan megoldja a problémát!</string>
     <string name="manage_space_reset_dialog_title">Konfiguráció alaphelyzetbe?</string>
     <string name="manage_space_reset_dialog_content">Az alkalmazás bezárásra kerül a visszaállítás befejezése után!</string>
+    <string name="automatic_logchar_cleanup_summary_on">A mentett LogChar jelentések minden tizenötödik napon törlésre kerülnek</string>
+    <string name="automatic_logchar_cleanup_summary_off">Minden LogChar jelentés határozatlan ideig tárolódik</string>
+    <string name="automatic_logchar_cleanup_title">Automatikusan törölje a mentett LogChar jelentéseket</string>
+    <string name="cleaned_logchar_reports">Mentett LogChar jelentések tisztítva</string>
+    <string name="legacy_overlay_uninstall_warning_text">Ha az összes fedvényt el akarja távolítani, használja a Substratum Mentési ZIP-eket a lehetséges bootloopok elkerülésére.</string>
+    <string name="auto_reload_sysui_title">Automatikusan töltse újra a SystemUI-t</string>
+    <string name="auto_reload_sysui_summary_on">Substratum automatikusan újratölti a SystemUI-t, ha egy SystemUI-t célzó fedvény engedélyezésre/tiltásra kerül.</string>
+    <string name="auto_reload_sysui_summary_off">Substratum nem tölti újra automatikusan a SystemUI-t, ha egy SystemUI-t célzó fedvény engedélyezésre/tiltásra kerül.</string>
+    <!-- The things lint will complain about...-->
+    <string name="fonts_demo_string">Árvíztűrő tüköfúrógép</string>
 </resources>

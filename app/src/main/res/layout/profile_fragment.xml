@@ -173,8 +173,8 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?android:selectableItemBackground"
-                        android:src="@drawable/spinner_remove_item"
-                        android:importantForAccessibility="no"/>
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/spinner_remove_item"/>
 
                     <Button
                         android:id="@+id/restoreButton"

@@ -38,7 +38,7 @@
     <string name="background_needs_invalidating_button">Limpiar</string>
     <string name="background_updated_toast">La caché de recursos se ha creado!</string>
     <string name="background_updated_toast_cancel">Este tema necesita actualizar su caché de recursos antes de que sea funcional!    </string>
-    <string name="background_updated_toast_rejected">¡No se pudo crear la caché de recursos para este tema!</string>
+    <string name="background_updated_toast_rejected">¡No se ha podido crear la caché de recursos de este tema!</string>
     <string name="background_updated_toast_cleaning">Substratum está limpiando la caché de recursos de este tema&#8230;</string>
     <string name="failed_to_install_title_notification">Falló la instalación del tema</string>
     <string name="failed_to_install_text_notification">Error al instalar %s</string>
@@ -77,12 +77,15 @@ arreglar las cosas que no se están tematizando en legado porque requieren cambi
     <string name="manager_type1c">Tipo1c:</string>
     <string name="manager_type2">Tipo2:</string>
     <string name="manager_type3">Tipo3:</string>
+    <string name="manager_type4">Tipo4 :</string>
+    <string name="legacy_preference_priority_title">Ajuste de prioridad de superposición</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">type1a variante&#8230;</string>
     <string name="overlays_variant_default_1b">type1b variante&#8230;</string>
     <string name="overlays_variant_default_1c">type1c variante&#8230;</string>
     <string name="overlays_variant_default_2">type2 variante&#8230;</string>
     <string name="overlays_variant_default_3">default base variante&#8230;</string>
+    <string name="overlays_variant_default_4">variante tipo4&#8230;</string>
     <string name="overlays_up_to_date">ACTUALIZADO</string>
     <string name="overlays_update_available">Actualización disponible!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variante no instalada</string>
@@ -209,6 +212,8 @@ correctamente&#8230;</string>
     <string name="menu_search">Temas en Play Store</string>
     <string name="menu_showcase">Mostrador</string>
     <string name="menu_uninstall">Desinstalar tema</string>
+    <string name="menu_restore_info">Restaurar información</string>
+    <string name="menu_showcase_info">Información del mostrador</string>
     <string name="menu_favorite_snackbar">¡%s fijado con éxito como acceso directo a la aplicación!</string>
     <string name="menu_favorite_snackbar_cleared">Se eliminó %s del acceso directo de la aplicación.</string>
     <string name="changelog_title">Cambios del tema %s</string>
@@ -219,9 +224,11 @@ correctamente&#8230;</string>
     <string name="dialog_restart_soft_reboot_title">Reinicio suave</string>
     <string name="dialog_restart_soft_reboot_content">Esto llevará a cabo un reinicio suave de su dispositivo.</string>
     <string name="studio_applying">Cargando&#8230;</string>
+    <string name="error_loading_theme_close">Cerrar</string>
+    <string name="error_loading_theme_close_text">El nombre del paquete de este tema debe coincidir con el manifiesto y los directorios del código para intercambiar las llaves apropiadamente.</string>
     <string name="logcat_snackbar_button">LogChar</string>
     <string name="logcat_snackbar_text">Aplicación de interés/capa desactualizada o configuración incorrecta seleccionada&#8230;</string>
-    <string name="logcat_dialog_title">\"LogChar\" Debug - Informe de depuración</string>
+    <string name="logcat_dialog_title">Informe de depuración LogChar</string>
     <string name="logcat_dialog_copy_success">Registro de errores copiado completamente al portapapeles!</string>
     <string name="logcat_email_activity">Enviar informe de error usando&#8230;</string>
     <string name="logcat_email_activity_error">No hay clientes de correo electrónico instalados.</string>
@@ -289,7 +296,7 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="no_themes_description_search">\"%s\" no se encontró en la lista de temas instalados&#8230;</string>
     <string name="toast_samsung_prototype_alert">¡Substratum ocultó automáticamente las capas del sistema no soportadas por su dispositivo!</string>
     <string name="samsung_prototype_no_root_dialog">Parece que estás en un dispositivo compatible de Samsung, un addon fue lanzado para apoyar esto!</string>
-    <string name="samsung_prototype_no_root_dialog_button">¡Descarga ahora!</string>
+    <string name="samsung_prototype_no_root_dialog_button">¡Descargalo ahora!</string>
     <string name="toast_needs_caching">¡Se borró el caché de Substratum, por favor recompile este tema antes de continuar!</string>
     <string name="notification_theme_installed">Instalado</string>
     <string name="notification_theme_updated">Actualizado</string>
@@ -302,8 +309,8 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="notification_initial_title_upgrade">Los recursos de %s  se están actualizando&#8230;</string>
     <string name="notification_done_title">Se completó la compilación del tema</string>
     <string name="notification_done_upgrade_title">¡Actualización de las capas ha terminado de %s!</string>
-    <string name="notification_done_upgrade_title_warning">¡Actualización de overlay completada parcialmente para %s!</string>
-    <string name="notification_done_upgrade_title_failed" >Configuración faltante o no compilable: \n\n%s</string>
+    <string name="notification_done_upgrade_title_warning">¡Actualización de overlay completada parcialmente al %s!</string>
+    <string name="notification_done_upgrade_title_failed">Configuración faltante o no compilable: \n\n%s</string>
     <string name="notification_done_update_text">Todas las capas activadas y desactivadas para esta aplicación han sido actualizadas.</string>
     <string name="notification_done_upgrade_text">Todas las capas activadas y desactivadas para esta tema han sido actualizadas.</string>
     <string name="notification_no_errors_found">No hubo errores durante la instalación de las capas</string>
@@ -336,7 +343,7 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="vibrate_on_compiled">Notificar después que se compila el tema</string>
     <string name="vibrate_on_compiled_description">Cuando el tema ha sido compilado, vibrar el dispositivo para notificar al usuario que la compilación se ha completado.</string>
     <string name="manage_notification_channel">Gestionar canales de notificación</string>
-    <string name="manage_notification_channel_dialog_title">Seleccionar el canal de notificación para administrar</string>
+    <string name="manage_notification_channel_dialog_title">Selecciona el canal de notificación para administrar</string>
     <string name="hide_app_icon">Mostrar icono de la aplicación</string>
     <string name="hide_app_icon_toast_enabled">¡El icono de la aplicación se ha eliminado de su launcher!</string>
     <string name="hide_app_icon_toast_disabled">¡El icono de la aplicación se ha añadido a su launcher!</string>
@@ -349,8 +356,8 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="manager_subtext">En la ventana de la lista de capas, mostrar todas las capas desactivadas y sus contrapartes activadas.</string>
     <string name="alternate_drawer_design_title">Diseño de Cajón Alternativo</string>
     <string name="alternate_drawer_design_subtext">Utiliza un diseño alternativo del cajón de navegación en la interfaz de usuario.</string>
-    <string name="logchar_autosave_title">Guardar automáticamente los informes LogChar</string>
-    <string name="logchar_autosave_subtext">Esto guardará automáticamente los informes LogChar en /storage/emulated/0/substratum/LogCharReports/.</string>
+    <string name="logchar_autosave_title">Guardar automáticamente los informes de LogChar</string>
+    <string name="logchar_autosave_subtext">Esto guardará automáticamente los informes LogChar en /storage/emulated/0/substratum/LogChar Reports/.</string>
     <string name="show_outdated_themes_title">Mostrar todos los temas obsoletos</string>
     <string name="show_outdated_themes_content">Desactivar esto permitirá a Substratum utilizar el nuevo algoritmo donde se consigue cargar los temas mucho más rápido que de costumbre. Esto sólo funciona para temas con el plugin 6.0.0+ correctamente configurados.</string>
     <string name="fab_menu_compile_enable">Compilar &amp; Activar</string>
@@ -362,9 +369,9 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="fab_menu_swap_toggle">Desactivar otros temas</string>
     <string name="fab_menu_swap_toggle_legacy">Eliminar todas las capas actuales</string>
     <string name="team_title_one">Líderes del Substratum</string>
-    <string name="team_text_one">No sólo creamos algo que funciona para los usuarios, sino que trabajamos en conjunto con themers para que sea un maravilloso motor de temática para la comunidad!</string>
-    <string name="team_title_two">Traductores Substratum</string>
-    <string name="team_text_two">Un enorme agradecimiento a estos traductores por llevar a Substratum a todas las personas alrededor del mundo!</string>
+    <string name="team_text_one">No sólo creamos algo que funciona para los usuarios, sino que trabajamos en conjunto con creadores de temas para que sea un motor de temática maravilloso para la comunidad!</string>
+    <string name="team_title_two">Traductores de Substratum</string>
+    <string name="team_text_two">¡Un enorme agradecimiento a estos traductores por llevar a Substratum a todas las personas alrededor del mundo!</string>
     <string name="team_button_two">Ver Traductores</string>
     <string name="team_button_two_contribute">¡Contribuye Ahora!</string>
     <string name="team_title_three">Contribuyentes de Substratum</string>
@@ -378,6 +385,7 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="team_ivan_description">Plataforma &amp; Características</string>
     <string name="team_surge_description">Binarios &amp; Algoritmos</string>
     <string name="team_char_description">Apoyo &amp; organización comunitaria</string>
+    <string name="team_harsh_description">Plataforma &amp; Características</string>
     <string name="slide_1_title">Bienvenido a Substratum</string>
     <string name="slide_1_text">Un pequeño pero potente motor de temas, basado en los servicios de gestión de capas (OMS) de Sony</string>
     <string name="slide_2_title">Una nueva interfaz de usuario</string>
@@ -410,7 +418,7 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="profile_success_notification">¡Perfil aplicado con éxito!</string>
     <string name="profile_failed_notification">El perfil falló en aplicarse&#8230;</string>
     <string name="profile_failed_info_notification">Toque para más información</string>
-    <string name="profile_compile_progress" >Compilando %d de %d:\n%s</string>
+    <string name="profile_compile_progress">Compilando %d de %d:\n%s</string>
     <string name="profile_compile_processing">Ahora procesando tus estados de capa guardado&#8230;</string>
     <string name="theme_debug_mode_title">Derivación de la interjección de seguridad del sistema</string>
     <string name="theme_debug_mode_summary">Esto evitará que la aplicación utilice el mecanismo de suplencia al compilador legacy (legado) para ayudar a los temas cuando han alcanzado un estado irrecuperable.</string>
@@ -438,17 +446,18 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="settings_title_automation">Automatización</string>
     <string name="settings_auto_updater_title">Actualizar automáticamente capas selecionadas</string>
     <string name="settings_auto_updater_text">Substratum automáticamente construirá, compilara e instalara una versión actualizada de todas las capas de las aplicaciones recientemente actualizadas. Teniendo esto desactivado ahorrará batería.</string>
+    <string name="beta_tag">★ BETA</string>
     <string name="settings_theme_auto_updater_title">Actualizar automáticamente capa de tema (BETA)</string>
     <string name="settings_theme_auto_updater_dialog_title">ADVERTENCIA</string>
     <string name="settings_theme_auto_updater_text">Substratum automáticamente construirá, compilara e instalara una versión actualizada de todas las capas de los temas recientemente actualizados. Teniendo esto desactivado ahorrará batería.</string>
-    <string name="settings_theme_auto_updater_dialog_text">Por favor no tengas abierto PackageInstaller en primer plano mientras que la notificación este activa, los overlays del framework tienden a reiniciar PackageInstaller causando cantidades indefinidas de volver a compilar!</string>
+    <string name="settings_theme_auto_updater_dialog_text">¡Por favor no tengas abierto PackageInstaller en primer plano mientras que la notificación este activa, los overlays del framework tienden a reiniciar PackageInstaller causando cantidades indefinidas de volver a compilar!</string>
     <string name="settings_auto_alert_title">Alerta de encuentro de nueva capa instalable</string>
     <string name="settings_auto_alert_text">Al instalar una nueva aplicación por primera vez, si la aplicación puede ser tematizada por alguno de los temas instalados, se mostrará una notificación.</string>
     <string name="settings_force_english_title">Forzar Idioma Inglés</string>
     <string name="settings_force_english_text">Esto forzará a la aplicación a utilizar el idioma Inglés.</string>
     <string name="settings_force_english_toast_reverted">Forzar Inglés ha sido desactivado con éxito!</string>
     <string name="settings_manage_space_title">Administrar el uso del almacenamiento</string>
-    <string name="settings_samsung_show_dangerous_overlays">Permiten recubrimientos peligrosos</string>
+    <string name="settings_samsung_show_dangerous_overlays">Permiten recubrimientos peligrosos (no recomendado)</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Mostrar todas las plantillas normalmente peligrosas para dispositivos Samsung si el tema no es compatible.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">ADVERTENCIA</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Nos escondimos superposiciones peligroso por una razón, pero si estás seguro de que desea esta habilitado, por favor siga las instrucciones para desactivar en nuestro hilo XDA!</string>
@@ -459,6 +468,8 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="settings_crash_receiver_text">Desactivar automáticamente una capa al detectar cierres repetitivos en la aplicación superpuesta.</string>
     <string name="settings_force_stop_interfacer_title">Forzar la detención del servicio de Interfacer</string>
     <string name="settings_force_stop_interfacer_snackbar">Forzar la detención de Interfacer&#8230;</string>
+    <string name="overlays_outdated">Capas desactualizadas</string>
+    <string name="overlays_outdated_message">De la versión 816 en adelante, nuestra firma para signar las capas cambió para prevenir posibles diferencias en la firma a lo largo del camino.\n\nEsto significa que las capas instaladas deben ser limpiadas para instalar nuevas actualizaciones a su tema o de lo contrario tendrá un mensaje permanente indicando que sus capas requieren actualización.\n\nEste mensaje no aparecerá cuando las capas sean compiladas utilizando el nuevo Substratum.</string>
     <string name="root_required_title">Se requiere root</string>
     <string name="root_required_boot_animation">Su dispositivo está encriptado, por lo cual es necesario root para aplicar las animaciones de inicio.</string>
     <string name="root_required_boot_animation_profile">Su dipositivo está encriptado, por lo cual es necesario root para respaldar y restaurar las animaciones de inicio.</string>
@@ -472,8 +483,16 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="per_app_draw_over_other_apps_request">Por favor conceda a Substratum los permisos \"dibujar sobre otras aplicaciones\" para la interfaz de usuario flotante y \"Estadísticas de uso\" para acceder a la aplicación de primer plano para coincidir con objetivos de tema.</string>
     <string name="per_app_usage_stats_request">Por favor conceda a Substratum el permiso de \"acceso de uso\" para acceder a la aplicación de primer plano para los objetivos de tema coincidentes.</string>
     <string name="per_app_manual_grant">Por favor conceder manualmente a Substratum los permisos de \"acceso de uso\" y \"dibujar sobre otras aplicaciones\" en la configuración de la aplicación para usar FloatUI!</string>
-    <string name="notification_overlay_found_specific" >¡Una capa para %s se encuentra en %s!</string>
+    <string name="notification_overlay_found_specific">¡Una capa para %s se encuentra en %s!</string>
     <string name="notification_overlay_found_description">¡Puede abrir el tema haciendo clic en esta notificación!</string>
+    <string name="error_activity_title">¡Lamento mucho este cierre!</string>
+    <string name="error_activity_text">por favor discúlpeme&#8230;</string>
+    <string name="error_activity_button_restart">Reiniciar</string>
+    <string name="error_activity_button_disable_overlays">¡Rescátenme!</string>
+    <string name="error_activity_log">Rastro de la pila</string>
+    <string name="error_activity_log_dialog_title">Rastro de la pila de cierres</string>
+    <string name="error_dialog_samsung">Problema con la capa Substratum</string>
+    <string name="error_dialog_samsung_text">Desafortunadamente, parece haber un problema con una capa instalada para Substratum y tendrá que desinstalarla manualmente utilizando Ajustes.</string>
     <string name="community_info_overlays">Capas</string>
     <string name="community_info_bootanimation">Animaciones de Inicio</string>
     <string name="community_info_fonts">Fuentes</string>
@@ -539,6 +558,7 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="nav_drawer_template">Plantilla de Tema (Themers)</string>
     <string name="nav_drawer_gerrit">Plataforma &amp; Exposiciones Gerrit</string>
     <string name="nav_drawer_github">Repositorio GitHub</string>
+    <string name="nav_drawer_jira">Sistema de informes de error JIRA</string>
     <string name="nav_troubleshooting">Solución de Problemas</string>
     <!-- More -->
     <string name="nav_section_header_more">Más</string>
@@ -554,4 +574,14 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="manage_space_reset_text_desc">¿Tiene problemas con la aplicación? ¿O recientemente un gran salto desde una versión antigua de substratum? ¡Una configuración sencilla limpia definitivamente ayudaría a solucionar el problema!</string>
     <string name="manage_space_reset_dialog_title">¿Restablecer configuración?</string>
     <string name="manage_space_reset_dialog_content">La aplicación se cerrará después de completar el reseteo!</string>
+    <string name="automatic_logchar_cleanup_summary_on">Los informes de LogChar guardados se borrarán cada quince días</string>
+    <string name="automatic_logchar_cleanup_summary_off">Todos los informes LogChar se mantendrán almacenados en caché indefinidamente</string>
+    <string name="automatic_logchar_cleanup_title">Borrar automáticamente los informes LogChar guardados</string>
+    <string name="cleaned_logchar_reports">Los informes LogChar guardados fueron limpiados</string>
+    <string name="legacy_overlay_uninstall_warning_text">Si está desinstalando todas las capas, utilice los ZIPs de Substrtum Rescue para evitar posible bootloops.</string>
+    <string name="auto_reload_sysui_title">Volver a cargar SystemUI automáticamente</string>
+    <string name="auto_reload_sysui_summary_on">Substratum volverá a cargar automáticamente SystemUI después de que se active/desactive una capa para SystemUI.</string>
+    <string name="auto_reload_sysui_summary_off">Substratum no volverá a cargar automáticamente SystemUI después de que se active/desactive una capa para SystemUI.</string>
+    <!-- The things lint will complain about...-->
+    <string name="fonts_demo_string">AaBbCcDd123</string>
 </resources>

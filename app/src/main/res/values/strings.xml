@@ -825,7 +825,7 @@
     <string name="auto_reload_sysui_title">Automatically reload SystemUI</string>
     <string name="auto_reload_sysui_summary_on">Substratum will automatically reload the SystemUI after an overlay targeting SystemUI is enabled/disabled.</string>
     <string name="auto_reload_sysui_summary_off">Substratum will not automatically reload the SystemUI after an overlay targeting SystemUI is enabled/disabled.</string>
-    
+
     <string name="priority_overlay_name_placeholder" translatable="false">OVERLAY NAME</string>
     <string name="theme_name_placeholder" translatable="false">THEME NAME</string>
     <string name="type1a_name_placeholder" translatable="false">TYPE1A VARIABLE</string>

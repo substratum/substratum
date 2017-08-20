@@ -46,6 +46,6 @@ Die Idee hinter einer solchen Schnittstelle ist es, eine Server-Client-Beziehung
     <string name="answer_twelve">Bitte erstellen Sie einen Beitrag in der Google+-Community \"Substratum Development\" mit folgenden Informationen: Substratum-Version, ROM, Theme (bei Theme-spezifischen Fehlern) und wenn möglich ein Logcat.    </string>
     <string name="question_thirteen">Wie verwende ich Substratum auf meinem Samsung-Gerät?</string>
     <string name="answer_thirteen">Wenn auf ihrem Samsung-Gerät Nougat läuft, wird Substratum eine eingebaute Funktion nutzen, damit Substratum Themes funktionieren können. Substratum fordert Sie auf das Samsung-Integrations-Addon zu kaufen, wenn Sie die App zum ersten Mal starten.    </string>
-    <string name="question_fourteen">Hilfe, ich habe eine Überlagerung auf meinem Samsung-Gerät installiert und jetzt startet es nicht!</string>
+    <string name="question_fourteen">Hilfe, ich habe ein Overlay auf meinem Samsung-Gerät installiert und jetzt startet es nicht!</string>
     <string name="answer_fourteen">Schieben Sie die Navigationsanzeige heraus und gehen sie zum XDA-Thread für Anweisungen, wie Sie in dieser besonderen Situation ihr Gerät wiederstellen können.    </string>
 </resources>

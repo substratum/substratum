@@ -38,8 +38,8 @@
             android:layout_width="48dp"
             android:layout_height="60dp"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/default_overlay_icon"
-            android:importantForAccessibility="no"/>
+            android:importantForAccessibility="no"
+            android:src="@drawable/default_overlay_icon"/>
 
         <RelativeLayout
             android:id="@+id/relativeLayout"

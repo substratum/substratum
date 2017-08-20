@@ -73,6 +73,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="manager_type1c">Typ1c:</string>
     <string name="manager_type2">Typ2:</string>
     <string name="manager_type3">Typ3:</string>
+    <string name="legacy_preference_priority_title">Nastavenie priority prekrytia</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">variant type1a&#8230;</string>
     <string name="overlays_variant_default_1b">variant type1b&#8230;</string>
@@ -198,7 +199,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="menu_soft_reboot">Softvérový reštart</string>
     <string name="menu_reboot_device">Reštartovať zariadenie</string>
     <string name="menu_per_app">Plávajúce okno</string>
-    <string name="menu_restart_systemui">Reštartovať SystemUI</string>
+    <string name="menu_restart_systemui">Reštartovať systémové rozhranie</string>
     <string name="menu_alphabetize">Zmeniť spôsob triedenia</string>
     <string name="menu_search">Témy v Obchode Play</string>
     <string name="menu_showcase">Ukážky</string>
@@ -206,16 +207,16 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="menu_favorite_snackbar">Úspešne nastavené %s ako zástupca aplikácie!</string>
     <string name="menu_favorite_snackbar_cleared">Odstránený zástupca aplikácie %s.</string>
     <string name="changelog_title">%s zoznam zmien v téme</string>
-    <string name="dialog_restart_systemui_title">Reštartovať SystemUI</string>
+    <string name="dialog_restart_systemui_title">Reštartovať systémové rozhranie</string>
     <string name="dialog_restart_systemui_content">Takto urobíte reštart SystemUI na vašom zariadení.</string>
     <string name="dialog_restart_reboot_title">Reštartovať</string>
     <string name="dialog_restart_reboot_content">Toto vykoná kompletný reštart vášho zariadenia.</string>
     <string name="dialog_restart_soft_reboot_title">Softvérový reštart</string>
     <string name="dialog_restart_soft_reboot_content">Toto vykoná soft reštart vášho zariadenia.</string>
     <string name="studio_applying">Načítavanie&#8230;</string>
-    <string name="logcat_snackbar_button">Záznamy LogChar</string>
+    <string name="error_loading_theme_close">Zavrieť</string>
+    <string name="logcat_snackbar_button">Správy protokolu LogChar</string>
     <string name="logcat_snackbar_text">Cieľová aplikácia/prekrytie sú zastarané alebo majú nesprávne konfigurované prekrytia...</string>
-    <string name="logcat_dialog_title">Záznamy ladenia \"LogChar\"</string>
     <string name="logcat_dialog_copy_success">Protokol chýb sa úspešne skopíroval do schránky!</string>
     <string name="logcat_email_activity">Poslať protokol chýb pomocou&#8230;</string>
     <string name="logcat_email_activity_error">Nie sú nainštalovaní žiadni e-mailoví klienti.</string>
@@ -296,7 +297,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="notification_done_title">Bola dokončená kompilácia témy</string>
     <string name="notification_done_upgrade_title">Aktualizácia prekrytia pre %s je hotová!</string>
     <string name="notification_done_upgrade_title_warning">Čiastočne dokončená aktualizácia prekrytia pre %s!</string>
-    <string name="notification_done_upgrade_title_failed" >Chýbajúca alebo nezostaviteľná konfigurácia:\n\n%s</string>
+    <string name="notification_done_upgrade_title_failed">Chýbajúca alebo nezostaviteľná konfigurácia:\n\n%s</string>
     <string name="notification_done_update_text">Všetky povolené a zakázané prekrytia pre túto aplikáciu boli aktualizované.</string>
     <string name="notification_done_upgrade_text">Všetky povolené a zakázané prekrytia pre túto tému boli aktualizované.</string>
     <string name="notification_no_errors_found">Počas inštalácie prekrytí sa nevyskytli žiadne chyby</string>
@@ -340,8 +341,8 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="manager_subtext">V zozname vrstiev zobraziť všetky vypnuté prekrytia s ich aktivovanými náprotivkami.</string>
     <string name="alternate_drawer_design_title">Alternatívny vzhľad menu</string>
     <string name="alternate_drawer_design_subtext">Použije alternatívny vzhľad navigačného menu pre používateľské rozhranie.</string>
-    <string name="logchar_autosave_title">Automaticky ukladať záznamy LogChar</string>
-    <string name="logchar_autosave_subtext">Týmto sa záznamy LogChar automaticky uložia do /storage/emulated/0/substratum/LogCharReports/.</string>
+    <string name="logchar_autosave_title">Automaticky ukladať správy protokolu LogChar</string>
+    <string name="logchar_autosave_subtext">Týmto sa správy protokolu LogChar automaticky uložia do /storage/emulated/0/substratum/LogChar Reports/.</string>
     <string name="show_outdated_themes_title">Zobraziť všetky neaktuálne témy</string>
     <string name="show_outdated_themes_content">Vypnutie tohto parametru umožní Substratum použiť úplne nový algoritmus, s ktorým sa budú témy načítavať oveľa rýchlejšie ako zvyčajne. To však platí iba pre témy založené na module v6.0.0+.</string>
     <string name="fab_menu_compile_enable">Vytvoriť a povoliť</string>
@@ -369,6 +370,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="team_ivan_description">Platforma &amp; funkcie</string>
     <string name="team_surge_description">Binárne súbory &amp; algoritmy</string>
     <string name="team_char_description">Organizácia komunity &amp; podpora</string>
+    <string name="team_harsh_description">Platforma &amp; funkcie</string>
     <string name="slide_1_title">Vitajte v Substratum</string>
     <string name="slide_1_text">minimalistický, ale výkonný kód na zmenu tém, založený na Správcovi služieb prekrytí od Sony</string>
     <string name="slide_2_title">úplne nové používateľské rozhranie</string>
@@ -401,12 +403,12 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="profile_success_notification">Profil je úspešne aplikovaný!</string>
     <string name="profile_failed_notification">Profil sa nepodarilo aplikovať&#8230;</string>
     <string name="profile_failed_info_notification">Kliknite pre viac informácií</string>
-    <string name="profile_compile_progress" >Kompilácia %d z %d:\n%s</string>
+    <string name="profile_compile_progress">Kompilácia %d z %d:\n%s</string>
     <string name="profile_compile_processing">Prebieha spracovanie predtým uložených nastavení prekrytí&#8230;</string>
     <string name="theme_debug_mode_title">Obídenie originálneho sytému</string>
     <string name="theme_debug_mode_summary">Zapnutie umožní, že aplikácie prestanú používať pôvodný núdzový mechanizmus kompilátora s cieľom pomôcť témam, ktoré sa dostanú do neopraviteľného stavu.</string>
     <string name="logchar_dialog_title_delete_title">POZOR</string>
-    <string name="logchar_dialog_title_delete_content">Týmto odstránite všetky aktuálne uložené záznany. Stlačením tlačidla pokračovať, vymažete všetky hlásenia a záznamy a už sa už nebudú ukladať.</string>
+    <string name="logchar_dialog_title_delete_content">Týmto odstránite všetky aktuálne uložené záznamy. Stlačením tlačidla pokračovať, vymažete všetky hlásenia a záznamy a už sa už nebudú ukladať.</string>
     <string name="break_compilation_dialog_title">UPOZORNENIE</string>
     <string name="break_compilation_dialog_content">Toto by mohlo kompletne rozbiť proces kompilácie. Zapnite túto možnosť len pokiaľ viete čo robíte!</string>
     <string name="break_compilation_dialog_continue">Pokračovať</string>
@@ -429,6 +431,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="settings_title_automation">Automatizácia</string>
     <string name="settings_auto_updater_title">Automaticky aktualizovať cieľové prekrytia</string>
     <string name="settings_auto_updater_text">Substratum automaticky vytvorí, skompiluje a nainštaluje aktualizovanú verziu všetkých prekrytí pre nedávno aktualizované aplikácie. Ponechaním tohoto prepínača v stave vypnuté sa ušetrí batéria.</string>
+    <string name="beta_tag">★ BETA</string>
     <string name="settings_theme_auto_updater_title">Automaticky aktualizovať tématické prekrytia (BETA)</string>
     <string name="settings_theme_auto_updater_dialog_title">UPOZORNENIE</string>
     <string name="settings_theme_auto_updater_text">Substratum automaticky vytvorí, skompiluje a nainštaluje aktualizovanú verziu všetkých prekrytí pre nedávno aktualizované témy. Ponechaním tohoto prepínača v stave vypnuté sa ušetrí batéria.</string>
@@ -450,6 +453,9 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="settings_crash_receiver_text">Automaticky vypnúť prekrytie pri opakovanom zlyhaní pokusu o prekrytie aplikácie.</string>
     <string name="settings_force_stop_interfacer_title">Vynútené zastavenie služby Interfacer</string>
     <string name="settings_force_stop_interfacer_snackbar">Interfacer sa vynútene zastavuje&#8230;</string>
+    <string name="overlays_outdated">Prekrytia sú zastarané</string>
+    <string name="overlays_outdated_message">Od verzie 816 a neskorších sa zmenil náš podpis na podpisovanie prekryvných súborov, aby sa zabránilo možnému
+ nesúladu s podpismi na ceste.\n\nTo znamená, že vaše nainštalované prekrytia musia byť upratané tak, aby sa mohli inštalovať nové aktualizácie tém alebo sa povedie, že vaše prekrytie vyžaduje aktualizáciu navždy!\n\nTáto správa sa nezobrazí, keď sú všetky prekrytia skompilované pomocou najnovšieho Substratum.</string>
     <string name="root_required_title">Vyžaduje sa root</string>
     <string name="root_required_boot_animation">Vaše zariadenie je šifrované, takže je potrebný root pre aplikovanie spúšťacej animácie.</string>
     <string name="root_required_boot_animation_profile">Vaše zariadenie je šifrované, takže je potrebný root pre zálohovanie a obnovenie spúšťacej animácie.</string>
@@ -463,8 +469,9 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="per_app_draw_over_other_apps_request">Prosím, udeľte Substratum oprávnenie \"vykresľovať cez iné aplikácie\" pre plávajúce okno a právo \"Štatistiky používania\" pre prístup aplikáciám v popredí pre zjednotenie cieľov tém.</string>
     <string name="per_app_usage_stats_request">Prosím, udeľte Substratum oprávnenie  \"Využitie prístupu\" pre prístup k cieľom tém.</string>
     <string name="per_app_manual_grant">Prosím, ručne udeľte oprávnenie k \"využitie prístupu\" a \"vykresľovanie nad ostatnými aplikáciami\" v Nastaveniach aplikácie pre používanie plávajúceho okna!</string>
-    <string name="notification_overlay_found_specific" >Prekrytie pre %s je v %s!</string>
+    <string name="notification_overlay_found_specific">Prekrytie pre %s je v %s!</string>
     <string name="notification_overlay_found_description">Tému môžete otvoriť kliknutím na toto upozornenie!</string>
+    <string name="error_activity_button_disable_overlays">Zachráňte ma!</string>
     <string name="community_info_overlays">Prekrytia</string>
     <string name="community_info_bootanimation">Spúšťacie animácie</string>
     <string name="community_info_fonts">Písma</string>
@@ -545,4 +552,10 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="manage_space_reset_text_desc">Máte problémy s aplikáciou? Alebo ste nedávno uskutočnili veľký skok zo staršej verzie Substratum? Jednoduchá konfigurácia vám určite pomôže vyriešiť problémy!</string>
     <string name="manage_space_reset_dialog_title">Resetovať konfiguráciu?</string>
     <string name="manage_space_reset_dialog_content">Aplikácia sa po dokončení resetu ukončí!</string>
+    <string name="automatic_logchar_cleanup_summary_on">Uložené správy protokolu LogChar budú vymazané každých pätnásť dní</string>
+    <string name="automatic_logchar_cleanup_summary_off">Všetky správy protokolu LogChar budú ukladané do cache na neurčito</string>
+    <string name="automatic_logchar_cleanup_title">Automatické vymazanie uložených správ protokolu LogChar</string>
+    <string name="cleaned_logchar_reports">Vyčistené uložené správy protokolu LogChar</string>
+    <string name="legacy_overlay_uninstall_warning_text">Ak odinštalujete všetky prekrytia, prosím použite záchranné Substratum ZIPy, aby ste sa vyhli možnému uviaznutiu v spúšťacej slučke (bootloop).</string>
+    <!-- The things lint will complain about...-->
 </resources>

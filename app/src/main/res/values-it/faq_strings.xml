@@ -39,6 +39,8 @@
     <string name="question_eight">Ho riscontrato un bootloop! Come posso risolverlo?</string>
     <string name="answer_eight">Substratum ha il suo sistema di ripristino chiamato Substratum Rescue System (SRS), ovvero un sistema automatizzato che crea un archivio nella locazione di memoria /storage/emulated/0/substratum/SubstratumRescue.zip. Flasha questo ZIP dalla recovery e riavvia!    </string>
     <string name="question_nine">Alcuni elementi sembrano imperfetti dopo aver applicato un tema, cos\'è successo?    </string>
+    <string name="answer_nine">
+Riavvia il SystemUI se non l\' ha fatto automaticamente.\n2. Riavvia il dispositivo.\n3. Disabilita gli overlay, ricompila e riattiva.    </string>
     <string name="question_ten">Dove vengono installati gli overlay?</string>
     <string name="answer_ten">Gli overlay sono installati nella cartella /data/app, ciò significa che ogni overlay ottiene la propria cartella.    </string>
     <string name="question_eleven">Ottengo un errore quando cerco di aggiornare un tema dal Play Store.</string>
@@ -48,4 +50,5 @@
     <string name="question_thirteen">Come uso substratum nel mio dispositivo Samsung?</string>
     <string name="answer_thirteen">Se il tuo dispositivo Samsung ha Nougat, Substratum sarà in grado di utilizzare una funzione preinstallata così da far funzionare i temi. Substratum ti farà apparire una schermata quando avvierai l\' app per e la prima volta così da acquistare l\' addon Samsung Integration.    </string>
     <string name="question_fourteen">Aiuto, ho installato un overlay nel mio dispositivo Samsung e non si avvia più!</string>
+    <string name="answer_fourteen">Fai scorrere il navdrawer fuori e recati al thread di XDA per istruzioni su come recuperare da questa particolare situazione.    </string>
 </resources>

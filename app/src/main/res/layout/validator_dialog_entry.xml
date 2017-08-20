@@ -42,8 +42,8 @@
             android:layout_marginBottom="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
-            android:src="@android:color/transparent"
-            android:importantForAccessibility="no"/>
+            android:importantForAccessibility="no"
+            android:src="@android:color/transparent"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -77,8 +77,8 @@
             android:layout_marginBottom="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
-            android:src="@drawable/package_verification_failure"
-            android:importantForAccessibility="no"/>
+            android:importantForAccessibility="no"
+            android:src="@drawable/package_verification_failure"/>
 
         <com.daimajia.numberprogressbar.NumberProgressBar
             android:id="@+id/number_progress_bar"

@@ -69,8 +69,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginTop="20dp"
-                    android:src="@drawable/font_placeholder"
-                    android:importantForAccessibility="no"/>
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/font_placeholder"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -96,8 +96,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_marginTop="22dp"
-                    android:src="@drawable/tab_restore_default"
-                    android:importantForAccessibility="no"/>
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/tab_restore_default"/>
 
                 <TextView
                     android:layout_width="match_parent"

@@ -50,8 +50,8 @@
                 android:layout_width="48dp"
                 android:layout_height="60dp"
                 android:layout_marginEnd="10dp"
-                android:src="@drawable/default_overlay_icon"
-                android:importantForAccessibility="no"/>
+                android:importantForAccessibility="no"
+                android:src="@drawable/default_overlay_icon"/>
 
             <ImageView
                 android:id="@+id/app_icon_sub"
@@ -61,8 +61,8 @@
                 android:layout_alignStart="@id/app_icon"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="20dp"
-                android:src="@drawable/default_overlay_icon"
-                android:importantForAccessibility="no"/>
+                android:importantForAccessibility="no"
+                android:src="@drawable/default_overlay_icon"/>
 
         </RelativeLayout>
 

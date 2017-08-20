@@ -85,6 +85,7 @@ corrigir coisas que não estão sendo aplicadas nos temas em modo de compatibili
     <string name="manager_type1c">Tipo1c:</string>
     <string name="manager_type2">Tipo2 :</string>
     <string name="manager_type3">Tipo3 :</string>
+    <string name="legacy_preference_priority_title">Ajuste de Prioridade de Camadas</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">variante de tipo1a&#8230;</string>
     <string name="overlays_variant_default_1b">variante de tipo1b&#8230;</string>
@@ -230,9 +231,9 @@ corretamente&#8230;</string>
     <string name="dialog_restart_soft_reboot_title">Reinício de Software</string>
     <string name="dialog_restart_soft_reboot_content">Isso fará um reinicio suave no seu dispositivo.</string>
     <string name="studio_applying">Carregando&#8230;</string>
+    <string name="error_loading_theme_close">Fechar</string>
     <string name="logcat_snackbar_button">LogChar</string>
     <string name="logcat_snackbar_text">Aplicação de destino/camada selecionada desatualizada ou com configurações incompatíveis&#8230;</string>
-    <string name="logcat_dialog_title">Reporte Debug \"LogChar\"</string>
     <string name="logcat_dialog_copy_success">Log copiado para a área de transferência com sucesso!</string>
     <string name="logcat_email_activity">Enviar reporte de bug usando&#8230;</string>
     <string name="logcat_email_activity_error">Não há clientes de email instalados.</string>
@@ -313,7 +314,7 @@ corretamente&#8230;</string>
     <string name="notification_done_title">Compilação do tema completa</string>
     <string name="notification_done_upgrade_title">A atualização de camada foi concluída para %s!</string>
     <string name="notification_done_upgrade_title_warning">Atualização de camada parcialmente concluída para %s!</string>
-    <string name="notification_done_upgrade_title_failed" >Configuração ausente ou não configurável:\n\n%s</string>
+    <string name="notification_done_upgrade_title_failed">Configuração ausente ou não configurável:\n\n%s</string>
     <string name="notification_done_update_text">Todas as camadas habilitadas e desabilitadas para este aplicativo foram atualizadas.</string>
     <string name="notification_done_upgrade_text">Todas as camadas ativadas e desativadas para este tema foram atualizadas.</string>
     <string name="notification_no_errors_found">Nenhum erro ao instalar as camadas</string>
@@ -360,7 +361,7 @@ resolver este problema.    </string>
     <string name="alternate_drawer_design_title">Design da Gaveta Secundária</string>
     <string name="alternate_drawer_design_subtext">Usar uma gaveta de navegação alternativa quando navegar pela interface do usuário.</string>
     <string name="logchar_autosave_title">Salvar automaticamente relatórios LogChar</string>
-    <string name="logchar_autosave_subtext">Isso salvará automaticamente os relatórios LogChar em /storage/emulated/0/substratum/LogCharReports/.</string>
+    <string name="logchar_autosave_subtext">Isso salvará automaticamente relatórios LogChar em /storage/emulated/0/substratum/LogCharReports/.</string>
     <string name="show_outdated_themes_title">Mostrar todos os temas desatualizados</string>
     <string name="show_outdated_themes_content">Desabilitar isso permitirá Substratum a utilizar o novo algoritmo onde temas são carregados muito mais rápido do que o habitual. Isso só irá funcionar para temas com plugin 6.0.0+ corretamente configurados.</string>
     <string name="fab_menu_compile_enable">Compilar e Habilitar</string>
@@ -388,8 +389,9 @@ resolver este problema.    </string>
     <string name="team_ivan_description">Plataforma &amp; Características</string>
     <string name="team_surge_description">Binários &amp; Algoritmos</string>
     <string name="team_char_description">Organização comunitária &amp; Suporte</string>
+    <string name="team_harsh_description">Plataforma &amp; Características</string>
     <string name="slide_1_title">bem-vindo ao substratum</string>
-    <string name="slide_1_text">um motor de tema leve e potente com base no serviço de gerenciamento de sobreposição da Sony</string>
+    <string name="slide_1_text">um motor de tema leve e potente com base no serviço de gerenciamento de camadas da Sony</string>
     <string name="slide_2_title">uma nova interface de usuário</string>
     <string name="slide_2_text">Você ama temas? Introduzindo uma linda interface de cartões para mostrar cada um de seus temas instalados em seu dispositivo!</string>
     <string name="slide_3_title">aplique tema em cada aplicativo</string>
@@ -420,7 +422,7 @@ resolver este problema.    </string>
     <string name="profile_success_notification">Perfil aplicado com sucesso!</string>
     <string name="profile_failed_notification">Perfil não aplicado&#8230;</string>
     <string name="profile_failed_info_notification">Toque para obter mais informações</string>
-    <string name="profile_compile_progress" >Compilando %d de %d:\n%s</string>
+    <string name="profile_compile_progress">Compilando %d de %d:\n%s</string>
     <string name="profile_compile_processing">Agora processando seus estados de camada salvos&#8230;</string>
     <string name="theme_debug_mode_title">Bypass de Interjeição de Contingência de Sistema</string>
     <string name="theme_debug_mode_summary">Isso irá parar o aplicativo de usar o mecanismo de contingência do compilador legacy para auxiliar os temas quando chegam num estado impossível de recuperação.</string>
@@ -448,6 +450,7 @@ resolver este problema.    </string>
     <string name="settings_title_automation">Automação</string>
     <string name="settings_auto_updater_title">Atualizar automaticamente as camadas de destino</string>
     <string name="settings_auto_updater_text">O Substratum irá automaticamente construir, compilar e instalar uma versão atualizada de todas as camadas para os aplicativos atualizados recentemente. Manter isto desabilitado poupa bateria.</string>
+    <string name="beta_tag">★ BETA</string>
     <string name="settings_theme_auto_updater_title">Atualizar automaticamente as camadas do tema (BETA)</string>
     <string name="settings_theme_auto_updater_dialog_title">AVISO</string>
     <string name="settings_theme_auto_updater_text">O Substratum irá automaticamente construir, compilar e instalar uma versão atualizada de todas as camadas para o tema atualizado recentemente. Manter isto desabilitado poupa bateria.</string>
@@ -476,14 +479,21 @@ resolver este problema.    </string>
     <string name="per_app_notification_framework_show">Mostrar sobreposições do sistema Android</string>
     <string name="per_app_notification_framework_hide">Esconder as sobreposições do sistema Android</string>
     <string name="per_app_toast_no_overlays">Não há sobreposições configuráveis para %s!</string>
-    <string name="per_app_dialog_title">Configurar a sobreposição de %s\n</string>
+    <string name="per_app_dialog_title">Configurar a camada de %s\n</string>
     <string name="per_app_apply">Aplicar</string>
     <string name="per_app_request_title">Permissões de FloatUI</string>
     <string name="per_app_draw_over_other_apps_request">Algumas funções do Substratum necessitam de permissões extras. Conceda as seguintes permissões: \"Sobrepor outros aplicativos\" para a interface de usuário flutuante e \"Estatísticas de uso\" para aplicar o tema correspondente no aplicativo de primeiro plano.</string>
     <string name="per_app_usage_stats_request">Para que o Substratum aplique o tema correspondente no aplicativo de primeiro plano, conceda a permissão: \"Estatísticas de uso\".</string>
     <string name="per_app_manual_grant">Para que a função de interface de usuário flutuante funcione corretamente, conceda a permissão \"Sobrepor outros aplicativos\" manualmente nas configurações do sistema!</string>
-    <string name="notification_overlay_found_specific" >Uma camada de %s está em %s!</string>
+    <string name="notification_overlay_found_specific">Uma camada de %s está em %s!</string>
     <string name="notification_overlay_found_description">Você pode abrir o tema clicando nesta notificação!</string>
+    <string name="error_activity_title">Sinto muito por esse erro!</string>
+    <string name="error_activity_text">por favor, me perdoe&#8230;</string>
+    <string name="error_activity_button_restart">Reiniciar</string>
+    <string name="error_activity_button_disable_overlays">Restaure-me!</string>
+    <string name="error_activity_log">Stacktrace</string>
+    <string name="error_activity_log_dialog_title">Crash Stacktrace</string>
+    <string name="error_dialog_samsung">Problema com as Camadas do Substratum</string>
     <string name="community_info_overlays">Camadas</string>
     <string name="community_info_bootanimation">Animações de Inicialização</string>
     <string name="community_info_fonts">Fontes</string>
@@ -564,4 +574,11 @@ resolver este problema.    </string>
     <string name="manage_space_reset_text_desc">Você está tendo problemas com o aplicativo? Ou recentemente fez um grande salto de uma versão antiga do substratum? Uma instalação limpa pode com certeza ajudar a solucionar o problema!</string>
     <string name="manage_space_reset_dialog_title">Redefinir a configuração?</string>
     <string name="manage_space_reset_dialog_content">O app vai fechar após a conclusão da redefinição!</string>
+    <string name="automatic_logchar_cleanup_summary_on">Os relatórios LogChar salvos serão apagados a cada quinze dias</string>
+    <string name="automatic_logchar_cleanup_summary_off">Todos os relatórios LogChar serão armazenados em cache indefinidamente</string>
+    <string name="automatic_logchar_cleanup_title">Limpar automaticamente os relatórios LogChar salvos</string>
+    <string name="cleaned_logchar_reports">Relatórios LogChar salvos limpos</string>
+    <string name="legacy_overlay_uninstall_warning_text">Se você estiver desinstalando todas as camadas, use os ZIPs Substratum Rescue para evitar possíveis bootloops.</string>
+    <!-- The things lint will complain about...-->
+    <string name="fonts_demo_string">AaBbCcDd123</string>
 </resources>

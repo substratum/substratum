@@ -69,6 +69,7 @@
     <string name="manager_type1c">Type1c:</string>
     <string name="manager_type2">Type2 :</string>
     <string name="manager_type3">Type3 :</string>
+    <string name="legacy_preference_priority_title">Overlay prioriteit aanpassing</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">type1a variant&#8230;</string>
     <string name="overlays_variant_default_1b">type1b variant&#8230;</string>
@@ -201,9 +202,9 @@
     <string name="dialog_restart_soft_reboot_title">Snelle herstart</string>
     <string name="dialog_restart_soft_reboot_content">Dit zal je apparaat snel doen herstarten.</string>
     <string name="studio_applying">Laden&#8230;</string>
+    <string name="error_loading_theme_close">Sluiten</string>
     <string name="logcat_snackbar_button">LogChar</string>
     <string name="logcat_snackbar_text">Doel-toepassing/overlay is verouderd, of onjuiste configuratie geselecteerd&#8230;</string>
-    <string name="logcat_dialog_title">\"LogChar\" debug rapport</string>
     <string name="logcat_dialog_copy_success">Foutenlogboek succesvol gekopieerd naar klembord!</string>
     <string name="logcat_email_activity">Verzend bug rapport via&#8230;</string>
     <string name="logcat_email_activity_error">Er zijn geen e-mail clients geïnstalleerd.</string>
@@ -283,7 +284,7 @@
     <string name="notification_done_title">Thema compilatie is voltooid</string>
     <string name="notification_done_upgrade_title">Opwaarderen van %s is voltooid!</string>
     <string name="notification_done_upgrade_title_warning">Overlay opwaarderen gedeeltelijk voltooid voor %s!</string>
-    <string name="notification_done_upgrade_title_failed" >Ontbrekende of niet te bouwen configuratie:\n\n%s</string>
+    <string name="notification_done_upgrade_title_failed">Ontbrekende of niet te bouwen configuratie:\n\n%s</string>
     <string name="notification_done_update_text">Alle in- en uitgeschakelde overlays voor deze app zijn bijgewerkt.</string>
     <string name="notification_done_upgrade_text">Alle in- en uitgeschakelde overlays voor dit thema zijn bijgewerkt.</string>
     <string name="notification_no_errors_found">Geen fouten tijdens de installatie van de overlays</string>
@@ -328,7 +329,7 @@
     <string name="alternate_drawer_design_title">Secundaire lade design</string>
     <string name="alternate_drawer_design_subtext">Gebruik een alternatieve navigatielade design bij het navigeren door de gebruikersinterface.</string>
     <string name="logchar_autosave_title">LogChar rapporten automatisch opslaan</string>
-    <string name="logchar_autosave_subtext">Dit zal automatisch LogChar rapporten opslaan in /storage/emulated/0/substratum/LogCharReports/.</string>
+    <string name="logchar_autosave_subtext">Dit zal LogChar rapporten automatisch opslaan in /storage/emulated/0/substratum/LogCharReports/.</string>
     <string name="show_outdated_themes_title">Toon alle verouderde thema\'s</string>
     <string name="show_outdated_themes_content">Het uitschakelen hiervan zou Substratum toelaten om gebruik te maken van het gloednieuwe algoritme waar thema\'s veel sneller geladen worden dan normaal. Dit werkt alleen voor juist geconfigureerde 6.0.0+ plug-in thema\'s.</string>
     <string name="fab_menu_compile_enable">Bouwen &amp; inschakelen</string>
@@ -356,6 +357,7 @@
     <string name="team_ivan_description">Platform &amp; functies</string>
     <string name="team_surge_description">Binaries &amp; algoritmes</string>
     <string name="team_char_description">Communiteit organisatie &amp; ondersteuning</string>
+    <string name="team_harsh_description">Platform &amp; functies</string>
     <string name="slide_1_title">Welkom bij Substratum</string>
     <string name="slide_1_text">Een minimale maar krachtige themadienst gebaseerd op Sony\'s Overlay Manager Service (OMS)</string>
     <string name="slide_2_title">Een gloednieuwe gebruikersinterface</string>
@@ -388,7 +390,7 @@
     <string name="profile_success_notification">Profiel succesvol toegepast!</string>
     <string name="profile_failed_notification">Profiel toepassen mislukt&#8230;</string>
     <string name="profile_failed_info_notification">Aanraken voor meer informatie</string>
-    <string name="profile_compile_progress" >%d van de %d compileren:\n%s</string>
+    <string name="profile_compile_progress">%d van de %d compileren:\n%s</string>
     <string name="profile_compile_processing">Je opgeslagen overlay-staten verwerken&#8230;</string>
     <string name="theme_debug_mode_title">Systeemterugval onderbreking omzeiling</string>
     <string name="theme_debug_mode_summary">Dit zal de app weerhouden om het legacy compilator terugvalmechanisme te gebruiken om thema\'s te helpen wanneer deze een onherstelbare toestand bereiken.</string>
@@ -416,6 +418,7 @@
     <string name="settings_title_automation">Automatisering</string>
     <string name="settings_auto_updater_title">Bestemde overlays automatisch bijwerken</string>
     <string name="settings_auto_updater_text">Substratum zal automatisch een bijgewerkte versie van alle overlays, voor de recent bijgewerkte apps, bouwen, compileren en installeren. Uitschakelen is batterijbesparend.</string>
+    <string name="beta_tag">★ BETA</string>
     <string name="settings_theme_auto_updater_title">Thema overlays automatisch bijwerken (BETA)</string>
     <string name="settings_theme_auto_updater_dialog_title">WAARSCHUWING</string>
     <string name="settings_theme_auto_updater_text">Substratum zal automatisch een bijgewerkte versie van alle overlays van het recent bijgewerkte thema, bouwen, compileren en installeren. Uitschakelen is batterijbesparend.</string>
@@ -437,6 +440,8 @@
     <string name="settings_crash_receiver_text">Schakelt automatisch een overlay uit wanneer herhaalde crashes op een gethematiseerde app wordt gedetecteerd.</string>
     <string name="settings_force_stop_interfacer_title">Interfacer Service gedwongen stoppen</string>
     <string name="settings_force_stop_interfacer_snackbar">Interfacer gedwongen stoppen&#8230;</string>
+    <string name="overlays_outdated">Overlays verouderd</string>
+    <string name="overlays_outdated_message">Sinds versie 816 is de handtekening voor het ondertekenen van overlays gewijzigd, om mogelijk verkeerde handtekening-combinaties in de toekomst te voorkomen.\n\nDit betekent dat jouw geïnstalleerde overlays dienen te worden opgeschoond om nieuwe thema-updates te installeren. Anders zal het continu vertellen dat je overlay bijgewerkt moet worden!\n\nDit bericht wordt niet getoond wanneer alle overlays zijn gebouwd met de nieuwste Substratum.</string>
     <string name="root_required_title">Root vereist</string>
     <string name="root_required_boot_animation">Je apparaat is versleuteld, dus root is benodigd om opstartanimaties toe te passen.</string>
     <string name="root_required_boot_animation_profile">Je apparaat is versleuteld, dus root is benodigd om opstartanimaties toe te back-uppen en herstellen.</string>
@@ -450,8 +455,9 @@
     <string name="per_app_draw_over_other_apps_request">Gelieve Substratum over \"over andere apps tekenen\" te machtigen voor de Zweef-UI, en over \"gebruikstoegang\" te machtigen om de voorgrond app te benaderen voor het paren van themadoelen.</string>
     <string name="per_app_usage_stats_request">Gelieve Substratum \"gebruikstoegang\" machtigingen te verlenen om de voorgrond app te benaderen voor het paren van themadoelen.</string>
     <string name="per_app_manual_grant">Gelieve handmatig Substratum \"gebruikstoegang\" en \"over andere apps tekenen\" machtigingen verlenen in App Instellingen om Zweef-UI te gebruiken!</string>
-    <string name="notification_overlay_found_specific" >Een overlay voor %s bestaat in %s!</string>
+    <string name="notification_overlay_found_specific">Een overlay voor %s bestaat in %s!</string>
     <string name="notification_overlay_found_description">Je kan het thema openen door op deze melding te tikken!</string>
+    <string name="error_activity_button_disable_overlays">Help mij!</string>
     <string name="community_info_overlays">Overlays</string>
     <string name="community_info_bootanimation">Opstartanimaties</string>
     <string name="community_info_fonts">Lettertypen</string>
@@ -532,4 +538,10 @@
     <string name="manage_space_reset_text_desc">Heb je problemen met de applicatie? Of heb je recentelijk een grote versiesprong gemaakt vanuit een oude Substratum versie? Een simpele configuratie reset zal vast en zeker helpen bij het oplossen van het probleem!</string>
     <string name="manage_space_reset_dialog_title">Configuratie resetten?</string>
     <string name="manage_space_reset_dialog_content">De app zal sluiten nadat de reset is voltooid!</string>
+    <string name="automatic_logchar_cleanup_summary_on">Opgeslagen LogChar rapporten zullen iedere vijftien dagen worden gewist</string>
+    <string name="automatic_logchar_cleanup_summary_off">Alle LogChar rapporten worden gecached voor onbepaalde tijd</string>
+    <string name="automatic_logchar_cleanup_title">Automatisch opgeslagen LogChar rapporten wissen</string>
+    <string name="cleaned_logchar_reports">Opgeschoonde opgeslagen LogChar rapporten</string>
+    <string name="legacy_overlay_uninstall_warning_text">Als je alle overlays wilt deïnstalleren, gelieve de Substratum Rescue ZIPs te gebruiken om bootloops te voorkomen.</string>
+    <!-- The things lint will complain about...-->
 </resources>

@@ -71,12 +71,15 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="manager_type1c">Typ1c:</string>
     <string name="manager_type2">Typ2:</string>
     <string name="manager_type3">Typ3:</string>
+    <string name="manager_type4">Typ4 :</string>
+    <string name="legacy_preference_priority_title">Korekta priorytetu nakładki</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">wariant typ1a&#8230;</string>
     <string name="overlays_variant_default_1b">wariant typ1b&#8230;</string>
     <string name="overlays_variant_default_1c">wariant typ1c&#8230;</string>
     <string name="overlays_variant_default_2">wariant typ2&#8230;</string>
     <string name="overlays_variant_default_3">Podstawowy wariant domyślny&#8230;</string>
+    <string name="overlays_variant_default_4">wariant typ4&#8230;</string>
     <string name="overlays_up_to_date">AKTUALNE</string>
     <string name="overlays_update_available">Aktualizacja dostępna!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Wariantu nie zainstalowano</string>
@@ -193,6 +196,8 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="menu_search">Motywy w Google Play</string>
     <string name="menu_showcase">Prezentacje motywów</string>
     <string name="menu_uninstall">Odinstaluj Motyw</string>
+    <string name="menu_restore_info">Przywróć informacje</string>
+    <string name="menu_showcase_info">Informacje o prezentacji</string>
     <string name="menu_favorite_snackbar">Pomyślnie ustawiono %s jako skrót aplikacji!</string>
     <string name="menu_favorite_snackbar_cleared">Usuń %s ze skrótu aplikacji.</string>
     <string name="changelog_title">lista zmian motywu %s</string>
@@ -203,9 +208,11 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="dialog_restart_soft_reboot_title">Szybki restart</string>
     <string name="dialog_restart_soft_reboot_content">To działanie wykona miękki restart twojego urządzenia.</string>
     <string name="studio_applying">Ładowanie&#8230;</string>
+    <string name="error_loading_theme_close">Zamknij</string>
+    <string name="error_loading_theme_close_text">Nazwa pakietu musi być zgodna z listą manifestów i kodów dla właściwej wymiany kluczy.</string>
     <string name="logcat_snackbar_button">LogChar</string>
     <string name="logcat_snackbar_text">Zastosowano docelową aplikację / nakładkę przestarzałą lub niezgodną konfigurację&#8230;</string>
-    <string name="logcat_dialog_title">Raport debugowania \"LogChar\"</string>
+    <string name="logcat_dialog_title">Raport debugowania LogChar</string>
     <string name="logcat_dialog_copy_success">Pomyślnie skopiowano dziennik błędów do schowka!</string>
     <string name="logcat_email_activity">Wyślij raport błędu za pomocą...</string>
     <string name="logcat_email_activity_error">Brak zainstalowanych klientów poczty elektronicznej.</string>
@@ -290,7 +297,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="notification_done_title">Kompilacja motywu została zakończona</string>
     <string name="notification_done_upgrade_title">Uaktualnienie nakładki dla %s zakończone!</string>
     <string name="notification_done_upgrade_title_warning">Uaktualnienie nakładki częściowo zakończone dla %s!</string>
-    <string name="notification_done_upgrade_title_failed" >Brakująca lub niedająca się zbudować konfiguracja: \n\n%s</string>
+    <string name="notification_done_upgrade_title_failed">Brakująca lub niedająca się zbudować konfiguracja: \n\n%s</string>
     <string name="notification_done_update_text">Wszystkie włączone i wyłączone nakładki dla tej aplikacji zostały uaktualnione.</string>
     <string name="notification_done_upgrade_text">Wszystkie włączone i wyłączone nakładki dla tego motywu zostały uaktualnione.</string>
     <string name="notification_no_errors_found">Nie wystąpiły żadne błędy podczas instalowania nakładek</string>
@@ -336,7 +343,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="alternate_drawer_design_title">Wygląd dodatkowej szuflady</string>
     <string name="alternate_drawer_design_subtext">Używaj alternatywnego modelu szuflady nawigacyjnej podczas żeglowania po interfejsie.</string>
     <string name="logchar_autosave_title">Automatyczne zapisywanie raportów LogChar</string>
-    <string name="logchar_autosave_subtext">Spowoduje to automatyczne zapisywanie raportów LogChar w / storage / emulated / 0 / substratum / LogCharReports /.</string>
+    <string name="logchar_autosave_subtext">Spowoduje to automatyczne zapisanie raportów LogChar w / storage / emulated / 0 / substratum / LogCharReports /.</string>
     <string name="show_outdated_themes_title">Pokaż wszystkie nieaktualne motywy</string>
     <string name="show_outdated_themes_content">Wyłączenie tego pozwoli Substratum użyć nowego algorytmu dla szybszej aktywacji motywów. Opcja ta zadziała jedynie dla poprawnie skonfigurowanych wtyczek motywów dla 6.0.0+.</string>
     <string name="fab_menu_compile_enable">Kompiluj i włącz</string>
@@ -364,6 +371,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="team_ivan_description">Platforma &amp; Funkcje</string>
     <string name="team_surge_description">Pliki binarne &amp; Algorytmy</string>
     <string name="team_char_description">Organizacja społeczności &amp; Wsparcie</string>
+    <string name="team_harsh_description">Platforma &amp; Funkcje</string>
     <string name="slide_1_title">witamy w substratum</string>
     <string name="slide_1_text">minimalnym, ale potężnym silniku motywów opartym na Sony Overlay Manager Service</string>
     <string name="slide_2_title">nowy interfejs użytkownika</string>
@@ -396,7 +404,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="profile_success_notification">Profil zastosowany z powodzeniem!</string>
     <string name="profile_failed_notification">Nie można zastosować profilu&#8230;</string>
     <string name="profile_failed_info_notification">Dotknij, aby uzyskać więcej informacji</string>
-    <string name="profile_compile_progress" >Kompilacja %d z %d:\n%s</string>
+    <string name="profile_compile_progress">Kompilacja %d z %d:\n%s</string>
     <string name="profile_compile_processing">Teraz są przetwarzane zapisane stany twoich nakładek&#8230;</string>
     <string name="theme_debug_mode_title">Układ obejścia rezerwy systemu</string>
     <string name="theme_debug_mode_summary">To pozwoli na zaprzestanie używania przez aplikację mechanizmu awaryjnego starszego kompilatora, gdy motywy osiągną stan nie do odzyskania.</string>
@@ -424,6 +432,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="settings_title_automation">Automatyzacja</string>
     <string name="settings_auto_updater_title">Automatycznie aktualizuj docelowe nakładki</string>
     <string name="settings_auto_updater_text">Substratum automatycznie przebuduje, skompiluje i zainstaluje zaktualizowaną wersję wszystkich nakładek dla ostatnio aktualizowanych aplikacji. Wyłączenie tego oszczędzi baterię.</string>
+    <string name="beta_tag">★ BETA</string>
     <string name="settings_theme_auto_updater_title">Automatyczne aktualizacje nakładek motywu (BETA)</string>
     <string name="settings_theme_auto_updater_dialog_title">OSTRZEŻENIE</string>
     <string name="settings_theme_auto_updater_text">Substratum automatycznie przebuduje, skompiluje i zainstaluje zaktualizowaną wersję wszystkich nakładek dla ostatnio aktualizowanych motywów. Wyłączenie tego oszczędzi baterię.</string>
@@ -445,6 +454,8 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="settings_crash_receiver_text">Automatycznie wyłącz nakładkę, gdy będą wykryte powtarzające się awarie aplikacji.</string>
     <string name="settings_force_stop_interfacer_title">Wymuś zatrzymanie usługi Interfacer</string>
     <string name="settings_force_stop_interfacer_snackbar">Zatrzymywanie usługi interfacer&#8230;</string>
+    <string name="overlays_outdated">Nakładki nieaktualne</string>
+    <string name="overlays_outdated_message">Od wersji 816 i wyższej, nasz podpis do podpisywania nakładek został zmieniony, aby zapobiec niedopasowaniu podpisu.\n\nTo oznacza, że zainstalowane nakładki muszą zostać wyczyszczone, aby zainstalować nowe aktualizacje motywów. Inaczej wciąż będzie wyświetlane, że Twoja nakładka wymaga aktualizacji!\n\nTen komunikat nie zostanie wyświetlony, gdy wszystkie nakładki zostaną skompilowane przy użyciu najnowszego Substratum.</string>
     <string name="root_required_title">Wymagany root</string>
     <string name="root_required_boot_animation">Urządzenie jest szyfrowane, więc root jest nie zbędny do zastosowania animacji rozruchowych telefonu.</string>
     <string name="root_required_boot_animation_profile">Urządzenie jest szyfrowane, więc root jest niezbędny do tworzenia kopii zapasowych i przywracania animacji rozruchowych telefonu.</string>
@@ -458,8 +469,16 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="per_app_draw_over_other_apps_request">Proszę pozwolić Substratum do używania uprawnień \"zezwól na wyświetlanie nad innymi aplikacjami\" dla obsługi pływającego interfejsu i \"zezwól na dostęp do użytkowania\" w celu umożliwienia dopasowania motywu do działających aplikacji.</string>
     <string name="per_app_usage_stats_request">Proszę zezwolić aplikacji Substratum do używania uprawnienia \"dostęp do użytkowania\" w celu umożliwienia dopasowania motywu do działających aplikacji.</string>
     <string name="per_app_manual_grant">Aby używać FloatUI, proszę pozwolić aplikacji Substratum do używania uprawnień \"zezwól na dostęp do użytkowania\" i \"zezwól na wyświetlanie nad innymi aplikacjami\"!</string>
-    <string name="notification_overlay_found_specific" >Nakładka dla %s jest w %s!</string>
+    <string name="notification_overlay_found_specific">Nakładka dla %s jest w %s!</string>
     <string name="notification_overlay_found_description">Można otworzyć motyw poprzez kliknięcie tego powiadomienia!</string>
+    <string name="error_activity_title">Przepraszam za tą awarię!</string>
+    <string name="error_activity_text">proszę wybacz mi&#8230;</string>
+    <string name="error_activity_button_restart">Uruchom ponownie</string>
+    <string name="error_activity_button_disable_overlays">Ratuj mnie!</string>
+    <string name="error_activity_log">StackTrace</string>
+    <string name="error_activity_log_dialog_title">Crash Stacktrace</string>
+    <string name="error_dialog_samsung">Problem nakładki substratum</string>
+    <string name="error_dialog_samsung_text">Niestety, wydaje się że wystąpił problem z docelowym zainstalowaniem nakładki Substratum I musi ona zostać odinstalowana ręcznie przez ustawienia.</string>
     <string name="community_info_overlays">Nakładki</string>
     <string name="community_info_bootanimation">Animacje rozruchu</string>
     <string name="community_info_fonts">Czcionki</string>
@@ -525,6 +544,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="nav_drawer_template">Szablony (Twórcy motywów)</string>
     <string name="nav_drawer_gerrit">Platforma i ekspozycje Gerrita</string>
     <string name="nav_drawer_github">Repozytorium platformy GitHub</string>
+    <string name="nav_drawer_jira">System raportowania błędów JIRA</string>
     <string name="nav_troubleshooting">Rozwiązywanie problemów</string>
     <!-- More -->
     <string name="nav_section_header_more">Więcej</string>
@@ -540,4 +560,12 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="manage_space_reset_text_desc">Masz kłopoty z aplikacją? A może ostatnio zrobiłeś aktualizację bardzo starej wersji substratum? Proste wyczyszczenie konfiguracji zdecydowanie rozwiąże problemy!</string>
     <string name="manage_space_reset_dialog_title">Zresetować konfigurację?</string>
     <string name="manage_space_reset_dialog_content">Aplikacja zostanie zamknięta po zakończeniu resetowania!</string>
+    <string name="automatic_logchar_cleanup_summary_on">Zapisane raporty LogChar zostaną wymazane co piętnaście dni</string>
+    <string name="automatic_logchar_cleanup_summary_off">Wszystkie raporty LogChar będą przechowywane w pamięci w nieskończoność</string>
+    <string name="automatic_logchar_cleanup_title">Automatycznie wyczyść zapisane raporty LogChar</string>
+    <string name="cleaned_logchar_reports">Wyczyszczono zapisane raporty LogChar</string>
+    <string name="legacy_overlay_uninstall_warning_text">Jeśli odinstalujesz wszystkie nakładki, użyj plików odzyskiwania, aby uniknąć możliwego zapętlenia podczas uruchamiania się systemu.</string>
+    <string name="auto_reload_sysui_title">Automatyczne przeładowanie Interfejsu</string>
+    <!-- The things lint will complain about...-->
+    <string name="fonts_demo_string">AaBbCcDd123</string>
 </resources>

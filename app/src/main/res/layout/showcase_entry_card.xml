@@ -50,8 +50,8 @@
                 android:id="@+id/background_image"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:scaleType="centerCrop"
-                android:importantForAccessibility="no"/>
+                android:importantForAccessibility="no"
+                android:scaleType="centerCrop"/>
 
             <ImageView
                 android:id="@+id/theme_pricing"
@@ -60,11 +60,11 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginBottom="69dp"
                 android:layout_marginStart="6dp"
+                android:importantForAccessibility="no"
                 android:paddingEnd="20dp"
                 android:paddingStart="20dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/showcase_paid"
-                android:importantForAccessibility="no"/>
+                android:src="@drawable/showcase_paid"/>
 
             <RelativeLayout
                 android:id="@+id/icon"
@@ -138,11 +138,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
+                android:importantForAccessibility="no"
                 android:paddingBottom="20dp"
                 android:paddingEnd="20dp"
                 android:paddingStart="2.5dp"
-                android:src="@drawable/nav_wallpapers"
-                android:importantForAccessibility="no"/>
+                android:src="@drawable/nav_wallpapers"/>
 
             <ImageView
                 android:id="@+id/theme_sounds"
@@ -150,11 +150,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_toStartOf="@+id/theme_wallpapers"
+                android:importantForAccessibility="no"
                 android:paddingBottom="20dp"
                 android:paddingEnd="2.5dp"
                 android:paddingStart="2.5dp"
-                android:src="@drawable/nav_sounds"
-                android:importantForAccessibility="no"/>
+                android:src="@drawable/nav_sounds"/>
 
             <ImageView
                 android:id="@+id/theme_fonts"
@@ -162,11 +162,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_toStartOf="@+id/theme_sounds"
+                android:importantForAccessibility="no"
                 android:paddingBottom="20dp"
                 android:paddingEnd="2.5dp"
                 android:paddingStart="2.5dp"
-                android:src="@drawable/nav_fonts"
-                android:importantForAccessibility="no"/>
+                android:src="@drawable/nav_fonts"/>
 
             <ImageView
                 android:id="@+id/theme_bootanimations"
@@ -174,11 +174,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_toStartOf="@+id/theme_fonts"
+                android:importantForAccessibility="no"
                 android:paddingBottom="20dp"
                 android:paddingEnd="2.5dp"
                 android:paddingStart="2.5dp"
-                android:src="@drawable/nav_bootanim"
-                android:importantForAccessibility="no"/>
+                android:src="@drawable/nav_bootanim"/>
 
             <ImageView
                 android:id="@+id/theme_overlays"
@@ -186,11 +186,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_toStartOf="@+id/theme_bootanimations"
+                android:importantForAccessibility="no"
                 android:paddingBottom="20dp"
                 android:paddingEnd="2.5dp"
                 android:paddingStart="2.5dp"
-                android:src="@drawable/nav_overlays"
-                android:importantForAccessibility="no"/>
+                android:src="@drawable/nav_overlays"/>
 
         </RelativeLayout>
 

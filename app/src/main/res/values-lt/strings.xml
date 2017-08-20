@@ -78,12 +78,15 @@
     <string name="manager_type1c">Tipas1c:</string>
     <string name="manager_type2">Tipas2 :</string>
     <string name="manager_type3">Tipas 3:</string>
+    <string name="manager_type4">Tipas4:</string>
+    <string name="legacy_preference_priority_title">Perdangos Prioriteto Koregavimas</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">tipo1a variantas&#8230;</string>
     <string name="overlays_variant_default_1b">tipo1b variantas&#8230;</string>
     <string name="overlays_variant_default_1c">tipo1c variantas&#8230;</string>
     <string name="overlays_variant_default_2">tipo2 variantas&#8230;</string>
     <string name="overlays_variant_default_3">numatytosios bazės variantas&#8230;</string>
+    <string name="overlays_variant_default_4">tipo4 variantas&#8230;</string>
     <string name="overlays_up_to_date">Šiuometinis</string>
     <string name="overlays_update_available">Galimas atnaujinimas!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variantas neįdiegtas</string>
@@ -211,6 +214,8 @@
     <string name="menu_search">\"Play\" Parduotuvės Temos</string>
     <string name="menu_showcase">Vitrina</string>
     <string name="menu_uninstall">Išdiegti Temą</string>
+    <string name="menu_restore_info">Atkurti informaciją</string>
+    <string name="menu_showcase_info">Vitrinos Info</string>
     <string name="menu_favorite_snackbar">%s sėkmingai nustatyta, kaip programėlės piktograma!</string>
     <string name="menu_favorite_snackbar_cleared">Pašalinta %s būnant programos piktograma.</string>
     <string name="changelog_title">%s temos pakeitimų sąrašas</string>
@@ -221,6 +226,8 @@
     <string name="dialog_restart_soft_reboot_title">Paleisti iš naujo OS</string>
     <string name="dialog_restart_soft_reboot_content">Tai paleis jūsų įrenginio OS iš naujo.</string>
     <string name="studio_applying">Kraunama&#8230;</string>
+    <string name="error_loading_theme_close">Uždaryti</string>
+    <string name="error_loading_theme_close_text">Šios temos paketo vardas turi sutapti deklaracijoje ir kodų kataloguose tinkamam rakto keitimui.</string>
     <string name="logcat_snackbar_button">LogChar</string>
     <string name="logcat_snackbar_text">Pasirinkta programa/perdanga pasenusi arba pasirinkta nesuderinama konfigūracija&#8230;</string>
     <string name="logcat_dialog_title">\"LogChar\" Derinimo Ataskaita</string>
@@ -304,7 +311,7 @@
     <string name="notification_done_title">Temos kompiliavimas baigtas</string>
     <string name="notification_done_upgrade_title">Perdangų atnaujinimas buvo baigtas %s!</string>
     <string name="notification_done_upgrade_title_warning">Perdangų atnaujinimas beveik baigtas %s!</string>
-    <string name="notification_done_upgrade_title_failed" >Trūksta arba nesukuriama konfigūracija:\n\n%s</string>
+    <string name="notification_done_upgrade_title_failed">Trūksta arba nesukuriama konfigūracija:\n\n%s</string>
     <string name="notification_done_update_text">Visos įjungtos ir išjungtos perdangos šiai programai buvo atnaujintos.</string>
     <string name="notification_done_upgrade_text">Visos įjungtos ir išjungtos perdangos šiai temai buvo atnaujintos.</string>
     <string name="notification_no_errors_found">Diegiant perdangas nebuvo jokių klaidų</string>
@@ -349,7 +356,7 @@
     <string name="alternate_drawer_design_title">Antrinis Stalčiaus Dizainas</string>
     <string name="alternate_drawer_design_subtext">Naudoja alternatyvų navigacijos stalčiaus dizainą, kai naviguojama vartotojo sąsajoje.</string>
     <string name="logchar_autosave_title">Automatiškai išsaugoti \"LogChar\" ataskaitas</string>
-    <string name="logchar_autosave_subtext">Tai automatiškai išsaugos \"LogChar\" ataskaitas /storage/emulated/0/substratum/LogCharReports/.</string>
+    <string name="logchar_autosave_subtext">Tai automatiškai išsaugos \"LogChar\" ataskaitas /storage/emulated/0/substratum/LogChar Reports/.</string>
     <string name="show_outdated_themes_title">Rodyti visas pasenusias temas</string>
     <string name="show_outdated_themes_content">Tai išjungus leis \"Substratum\" panaudoti
         visiškai naują algoritmą ir temos bus užkrautos daug greičiau nei įprastai. Tai
@@ -379,6 +386,7 @@
     <string name="team_ivan_description">Platforma ir Funkcijos</string>
     <string name="team_surge_description">Dvejetainiai ir Algoritmai</string>
     <string name="team_char_description">Bendruomenės Organizacija ir Palaikymas</string>
+    <string name="team_harsh_description">Platforma ir Funkcijos</string>
     <string name="slide_1_title">sveiki atvykę į \"substratum\"</string>
     <string name="slide_1_text">minimalus, bet galingas temų variklis, remiantis \"Sony overlay manager service\"</string>
     <string name="slide_2_title">visiškai nauja vartotojo sąsaja</string>
@@ -411,7 +419,7 @@
     <string name="profile_success_notification">Profilis sėkmingai pritaikytas!</string>
     <string name="profile_failed_notification">Profilio nepavyko pritaikyti&#8230;</string>
     <string name="profile_failed_info_notification">Palieskite norėdami gauti daugiau informacijos</string>
-    <string name="profile_compile_progress" >Kompiliuojama %d iš %d\n%s</string>
+    <string name="profile_compile_progress">Kompiliuojama %d iš %d\n%s</string>
     <string name="profile_compile_processing">Dabar apdorojamos jūsų išsaugotų perdangų būseną&#8230;</string>
     <string name="theme_debug_mode_title">Sistemos Atsarginio Įterpimo Apėjimas</string>
     <string name="theme_debug_mode_summary">Tai sustabdys programą naudoti \"legacy\" kompiliatoriaus atsarginį mechanizmą, kad padėti temoms, kai jie pasiekia nepataisoma būklę.</string>
@@ -439,6 +447,7 @@
     <string name="settings_title_automation">Automatika</string>
     <string name="settings_auto_updater_title">Automatiškai atnaujinti tikslines perdangas</string>
     <string name="settings_auto_updater_text">\"Substratum\" automatiškai sukurs, sukompiliuos ir įdiegs atnaujintą versiją perdangų, neseniai atnaujintoms programoms. Palikus išjungta tausos aukumuliatorių.</string>
+    <string name="beta_tag">★ BETA</string>
     <string name="settings_theme_auto_updater_title">Automatiškai atnaujinti temos perdangas (BETA)</string>
     <string name="settings_theme_auto_updater_dialog_title">ĮSPĖJIMAS</string>
     <string name="settings_theme_auto_updater_text">\"Substratum\" automatiškai sukurs, sukompiliuos ir įdiegs atnaujintą versiją perdangų, neseniai atnaujintai temai. Palikus išjungta tausos aukumuliatorių.</string>
@@ -460,6 +469,8 @@
     <string name="settings_crash_receiver_text">Automatiškai išjungti perdangą, kai aptinkamas pasikartojantis gedimas programos perdangai.</string>
     <string name="settings_force_stop_interfacer_title">Priverstinai sustabdyti Sąsajos Tarnybą</string>
     <string name="settings_force_stop_interfacer_snackbar">Dabar sąsaja priverstinai sustabdoma&#8230;</string>
+    <string name="overlays_outdated">Pasenusios perdangos</string>
+    <string name="overlays_outdated_message">Nuo versijos 816 ir po jos, mūsų perdangų pasirašymas pasikeitė, kad išvengti galimo parašo neatitikimo.\n\nTai reiškia, kad jūsų įdiegtos perdangos turi būti išvalytos, jog įdiegti naujus temos atnaujinimus arba jums visada rodys, kad jum reikia atnaujinimo!\n\nŠio pranešimo neberodys, kai visos perdangos bus sukompiliuotos su naujausiu \"Substratum\".</string>
     <string name="root_required_title">Reikalingas \"root\"</string>
     <string name="root_required_boot_animation">Jūsų įrenginys šifruotas, todėl \"root\" yra būtinas, norėdami pritaikyti paleidimo animacijas.</string>
     <string name="root_required_boot_animation_profile">Jūsų įrenginys šifruotas, todėl \"root\" yra būtinas, norėdami sukurti atsarginę kopiją ar atkurti paleidimo animacijas.</string>
@@ -473,8 +484,16 @@
     <string name="per_app_draw_over_other_apps_request">Prašome suteikti \"Substratum\" \"rodyti virš kitų programų\" ir \"Naudojimo statistikos\" leidimą, kad pasiektų priekinio plano programas.</string>
     <string name="per_app_usage_stats_request">Prašome suteikti \"Substratum\" \"naudojimosi prieigos\" leidimą, kad pasiektų priekinio plano programas.</string>
     <string name="per_app_manual_grant">Prašome programų nustatymuose rankiniu būdu suteikti \"Substratum\" \"naudojimosi prieigos\" leidimą ir \"rodyti virš kitų programų\", kad galėtumėte naudotis Plaukiojančia NS!</string>
-    <string name="notification_overlay_found_specific" >Perdangos %s yra %s!</string>
+    <string name="notification_overlay_found_specific">Perdangos %s yra %s!</string>
     <string name="notification_overlay_found_description">Jūs galite atidaryti temą paspaudę ant šio pranešimo!</string>
+    <string name="error_activity_title">Man labai gaila dėl šio gedimo!</string>
+    <string name="error_activity_text">prašau atleisti man&#8230;</string>
+    <string name="error_activity_button_restart">Paleisti iš naujo</string>
+    <string name="error_activity_button_disable_overlays">Išgelbėti mane!</string>
+    <string name="error_activity_log">Atsekti</string>
+    <string name="error_activity_log_dialog_title">Gedimo Atsekimas</string>
+    <string name="error_dialog_samsung">\"Substratum\" Perdangos Problema</string>
+    <string name="error_dialog_samsung_text">Deja, atrodo, kad yra problema su \"Substratum\" įdiegta perdangą ir turi būti išdiegta rankiniu būdu Nustatymuose.</string>
     <string name="community_info_overlays">Perdangos</string>
     <string name="community_info_bootanimation">Paleidimo Animacijos</string>
     <string name="community_info_fonts">Šriftai</string>
@@ -540,6 +559,7 @@
     <string name="nav_drawer_template">Temos Šablonas (Apipavidalintojams)</string>
     <string name="nav_drawer_gerrit">Platformos ir ekspozicijos kodas</string>
     <string name="nav_drawer_github">Platformos \"GitHub\" saugykla</string>
+    <string name="nav_drawer_jira">\"JIRA\" klaidų ataskaitos sistema</string>
     <string name="nav_troubleshooting">Trikčių diagnostika ir šalinimas</string>
     <!-- More -->
     <string name="nav_section_header_more">Daugiau</string>
@@ -555,4 +575,14 @@
     <string name="manage_space_reset_text_desc">Ar iškilo problemų su programėlę? Ar jūs neseniai padarėte didelį šuolį iš senos \"substratum\" versijos? Paprastas konfigūravimas tikrai padės išspręsti trikčių klausimą!</string>
     <string name="manage_space_reset_dialog_title">Iš naujo nustatyti konfigūraciją?</string>
     <string name="manage_space_reset_dialog_content">Po atstatymo programėlė bus uždaryta!</string>
+    <string name="automatic_logchar_cleanup_summary_on">Išsaugotos \"LogChar\" ataskaitos bus pašalintos kas penkiolika dienų</string>
+    <string name="automatic_logchar_cleanup_summary_off">Išsaugotos \"LogChar\" ataskaitos bus talpykloje neribotam laikui</string>
+    <string name="automatic_logchar_cleanup_title">Automatiškai išvalyti \"LogChar\" ataskaitas</string>
+    <string name="cleaned_logchar_reports">Išvalyti išsaugotus \"LogChar\" ataskaitas </string>
+    <string name="legacy_overlay_uninstall_warning_text">Jei jūs išdiegiate visas perdangas, prašome naudoti \"Substratum\" Išsigelėjimo ZIP, kad išvengtumėte galimo įkrovos kilpos.</string>
+    <string name="auto_reload_sysui_title">Automatiškai perkrauti SistemosNS</string>
+    <string name="auto_reload_sysui_summary_on">\"Substratum\" automatiškai perkraus SistemosNS poto, kai SistemosNS perdangos nukreipimas yra įjungtas/išjungtas.</string>
+    <string name="auto_reload_sysui_summary_off">\"Substratum\" automatiškai ne perkraus SistemosNS poto, kai SistemosNS perdangos nukreipimas yra įjungtas/išjungtas.</string>
+    <!-- The things lint will complain about...-->
+    <string name="fonts_demo_string">AaBbCcDd123</string>
 </resources>

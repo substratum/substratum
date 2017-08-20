@@ -70,12 +70,15 @@
     <string name="manager_type1c">Тып1c:</string>
     <string name="manager_type2">Тып2 :</string>
     <string name="manager_type3">Тып3 :</string>
+    <string name="manager_type4">Type4 :</string>
+    <string name="legacy_preference_priority_title">Наладка прыярытэтаў напластаванняў</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">варыянт type1a&#8230;</string>
     <string name="overlays_variant_default_1b">варыянт type1b&#8230;</string>
     <string name="overlays_variant_default_1c">варыянт type1c&#8230;</string>
     <string name="overlays_variant_default_2">варыянт type2&#8230;</string>
     <string name="overlays_variant_default_3">варыянт па змаўчанні&#8230;</string>
+    <string name="overlays_variant_default_4">варыянт type4&#8230;</string>
     <string name="overlays_up_to_date">АКТУАЛЬНА</string>
     <string name="overlays_update_available">Даступна абнаўленне!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Варыянт не ўсталяваны</string>
@@ -198,6 +201,8 @@
     <string name="menu_search">Тэмы з Play Маркет</string>
     <string name="menu_showcase">Каталог</string>
     <string name="menu_uninstall">Выдаліць тэму</string>
+    <string name="menu_restore_info">Аднаўленне інфармацыі</string>
+    <string name="menu_showcase_info">Звесткі аб каталогу</string>
     <string name="menu_favorite_snackbar">Цэтлік для %s усталяваны!</string>
     <string name="menu_favorite_snackbar_cleared">%s больш не з\'яўляецца цэтлікам праграмы.</string>
     <string name="changelog_title">Гісторыя змен %s</string>
@@ -208,9 +213,10 @@
     <string name="dialog_restart_soft_reboot_title">Хуткая перазагрузка</string>
     <string name="dialog_restart_soft_reboot_content">Гэта дзеянне выканае мяккі перазапуск прылады.</string>
     <string name="studio_applying">Загрузка&#8230;</string>
+    <string name="error_loading_theme_close">Зычыніць</string>
+    <string name="error_loading_theme_close_text">Імя пакета дадзенай тэмы павінна адпавядаць у маніфесце і дырэкторыях ў кодзе для правільнага абмену ключамі.</string>
     <string name="logcat_snackbar_button">LogChar</string>
     <string name="logcat_snackbar_text">Мэтавая праграма/напластаванне састарэла або няправільна наладжана&#8230;</string>
-    <string name="logcat_dialog_title">Даклад справаздачы \"LogChar\"</string>
     <string name="logcat_dialog_copy_success">Журнал памылак скапіяваны ў буфер абмену!</string>
     <string name="logcat_email_activity">Адправіць справаздачу пра памылку, выкарыстоўваючы&#8230;</string>
     <string name="logcat_email_activity_error">Няма ўсталяваных кліентаў электроннай пошты.</string>
@@ -294,7 +300,7 @@
     <string name="notification_done_title">Зборка тэмы завершана</string>
     <string name="notification_done_upgrade_title">Абнаўленне напластаванняў для %s завершана!</string>
     <string name="notification_done_upgrade_title_warning">Абнаўленне напластаванняў для %s часткова выканана!</string>
-    <string name="notification_done_upgrade_title_failed" >Адсутная ці незбіраная канфігурацыя:\n\n%s</string>
+    <string name="notification_done_upgrade_title_failed">Адсутная ці незбіраная канфігурацыя:\n\n%s</string>
     <string name="notification_done_update_text">Усе ўключаныя і адключаныя напластаванні для гэтай праграмы былі абноўленыя.</string>
     <string name="notification_done_upgrade_text">Усе ўключаныя і адключаныя напластаванні для дадзенай тэмы былі абноўленыя.</string>
     <string name="notification_no_errors_found">Памылак пры ўсталёўцы напластаванняў не ўзнікла</string>
@@ -339,7 +345,7 @@
     <string name="alternate_drawer_design_title">Альтэрнатыўнае меню</string>
     <string name="alternate_drawer_design_subtext">Выкарыстоўваць ранейшую навігацыйную панэль.</string>
     <string name="logchar_autosave_title">Аўтаматычна захоўваць справаздачы LogChar</string>
-    <string name="logchar_autosave_subtext">Гэта будзе аўтаматычна захоўваць справаздачы ў тэчку /storage/emulated/0/substratum/LogCharReports/.</string>
+    <string name="logchar_autosave_subtext">Гэта будзе аўтаматычна захоўваць справаздачы ў тэчку /storage/emulated/0/substratum/LogChar Reports/.</string>
     <string name="show_outdated_themes_title">Паказваць састарэлыя тэмы</string>
     <string name="show_outdated_themes_content">Адключэнне параметру дазволіць Substratum прымяняць новы алгарытм, з якім тэмы загружаюцца нашмат хутчэй, чым звычайна. Тычыцца толькі тэм, правільна наладжаных для плагіна 6.0.0+.</string>
     <string name="fab_menu_compile_enable">Сабраць і актываваць</string>
@@ -367,6 +373,7 @@
     <string name="team_ivan_description">Платформа і магчымасці</string>
     <string name="team_surge_description">Бінарнікі і Алгарытмы</string>
     <string name="team_char_description">Падтрымка і арганізацыя супольнасці</string>
+    <string name="team_harsh_description">Платформа і магчымасці</string>
     <string name="slide_1_title">вітаем у substratum</string>
     <string name="slide_1_text">мінімалістычны, але магутны рухавічок тэм, заснаваны на Oms ад Sony</string>
     <string name="slide_2_title">зусім новы інтэрфейс</string>
@@ -399,7 +406,7 @@
     <string name="profile_success_notification">Профіль паспяхова ужыты!</string>
     <string name="profile_failed_notification">Не атрымалася ужыць профіль&#8230;</string>
     <string name="profile_failed_info_notification">Націсніце, каб даведацца больш</string>
-    <string name="profile_compile_progress" >Збіраецца %d з %d:\n%s</string>
+    <string name="profile_compile_progress">Збіраецца %d з %d:\n%s</string>
     <string name="profile_compile_processing">Аднаўленне раней прымененых налад&#8230;</string>
     <string name="theme_debug_mode_title">Абыход сістэмы вяртання</string>
     <string name="theme_debug_mode_summary">Прадухіліць выкарыстанне механізму вяртання сумяшчальнага зборшчыка, як толькі тэмы дасягаюць непапраўнага стану.</string>
@@ -428,6 +435,7 @@
     <string name="settings_auto_updater_title">Аўтаматычнае абнаўленне мэтавых напластаванняў</string>
     <string name="settings_auto_updater_text">Substratum будзе аўтаматычна збіраць і ўсталёўваць актуальныя версіі напластаванняў для нядаўна абноўленых праграм.
 Адключэнне магчымасці падоўжыць працу ад батарэі.</string>
+    <string name="beta_tag">★ BETA</string>
     <string name="settings_theme_auto_updater_title">Аўтаабнаўленне напластаванняў тэм (BETA)</string>
     <string name="settings_theme_auto_updater_dialog_title">УВАГА</string>
     <string name="settings_theme_auto_updater_text">Substratum будзе аўтаматычна ствараць, кампіляваць і ўсталёўваць абноўленую версію ўсіх напластаванняў абноўленай тэмы. Адключэнне гэтай функцыі эканоміць зарад батарэі.</string>
@@ -449,6 +457,7 @@
     <string name="settings_crash_receiver_text">Аўтаматычна адключаць напластаванні для праграм з выяўленымі паўтаральнымі аварыямі.</string>
     <string name="settings_force_stop_interfacer_title">Прымусовае спыненне службы інтэрфейсу</string>
     <string name="settings_force_stop_interfacer_snackbar">Інтэрфейс прымусова спыняецца&#8230;</string>
+    <string name="overlays_outdated">Напластасаванні састарэлыя</string>
     <string name="root_required_title">Патрабуюцца Root-правы</string>
     <string name="root_required_boot_animation">Прылада зашыфравана, для прымянення анімацыі загрузак патрабуюцца правы Суперкарыстальніка.</string>
     <string name="root_required_boot_animation_profile">Прылада зашыфравана, для рэзервавання і аднаўлення анімацыі загрузак патрабуюцца правы Суперкарыстальніка.</string>
@@ -458,11 +467,13 @@
     <string name="per_app_toast_no_overlays">Там няма ніякіх напластаванняў, сканфігураваных для %s!</string>
     <string name="per_app_dialog_title">%s\n наладчык напластаванняў</string>
     <string name="per_app_apply">Ужыць</string>
+    <string name="per_app_request_title">FloatUI дазволы</string>
     <string name="per_app_draw_over_other_apps_request">Неабходна прадаставіць дазволу \"па-над іншых вокнаў\" і \"доступ да гісторыі выкарыстання\", каб дазволіць substratum працаваць у фонавым рэжыме для суаднясення мэтаў тэмы.</string>
     <string name="per_app_usage_stats_request">Неабходна даць дазвол \"доступ да гісторыі выкарыстання\", каб дазволіць substratum працаваць у фонавым рэжыме для суаднясення мэтаў тэмы.</string>
     <string name="per_app_manual_grant">Неабходна ўручную прадаставіць дазволы \"доступ да гісторыі выкарыстання\" і \"па-над іншых вокнаў\" у наладах прыкладання для працы FloatUI!</string>
-    <string name="notification_overlay_found_specific" >Для %s ёсць напластаванне ў %s!</string>
+    <string name="notification_overlay_found_specific">Для %s ёсць напластаванне ў %s!</string>
     <string name="notification_overlay_found_description">Можаце перайсці да тэмы, націснуўшы на гэта апавяшчэнне!</string>
+    <string name="error_activity_button_disable_overlays">Выратуй мяне!</string>
     <string name="community_info_overlays">Напластаванні</string>
     <string name="community_info_bootanimation">Анімацыі загрузкі</string>
     <string name="community_info_fonts">Шрыфты</string>
@@ -543,4 +554,11 @@
     <string name="manage_space_reset_text_desc">У вас паўсталі праблемы з праграмай? Ці вы зрабілі абнаўленне з вельмі старой версіі substratum ў апошні час? Проста скіньце канфігурацыі, каб выправіць вашыя праблемы!</string>
     <string name="manage_space_reset_dialog_title">Скід канфігурацыі?</string>
     <string name="manage_space_reset_dialog_content">Праграма будзе зачынена пасля скіду!</string>
+    <string name="automatic_logchar_cleanup_summary_on">Захаваныя справаздачы LogChar будуць выдаляцца кожныя пятнаццаць дзён</string>
+    <string name="automatic_logchar_cleanup_summary_off">Усе справаздачы LogChar будзе захоўвацца ў кэшы на нявызначаны тэрмін</string>
+    <string name="automatic_logchar_cleanup_title">Аўтаматычна сцерці захаваныя справаздачы LogChar</string>
+    <string name="cleaned_logchar_reports">Ачысціць захаваныя справаздачы LogChar</string>
+    <string name="legacy_overlay_uninstall_warning_text">Пры выдаленні ўсіх напластаванняў, калі ласка, выкарыстоўвайце ратаванне Substratum ZIP-каб пазбегнуць магчымага bootloops.</string>
+    <!-- The things lint will complain about...-->
+    <string name="fonts_demo_string">AaBbCcDd123</string>
 </resources>

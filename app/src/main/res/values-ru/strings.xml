@@ -70,12 +70,15 @@
     <string name="manager_type1c">Type1c:</string>
     <string name="manager_type2">Type2 :</string>
     <string name="manager_type3">Type3 :</string>
+    <string name="manager_type4">Type4 :</string>
+    <string name="legacy_preference_priority_title">Изменение приоритета наслоения</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">Вариант type1a&#8230;</string>
     <string name="overlays_variant_default_1b">Вариант type1b&#8230;</string>
     <string name="overlays_variant_default_1c">Вариант type1c&#8230;</string>
     <string name="overlays_variant_default_2">Вариант type2&#8230;</string>
     <string name="overlays_variant_default_3">Вариант по умолчанию&#8230;</string>
+    <string name="overlays_variant_default_4">Вариант type4&#8230;</string>
     <string name="overlays_up_to_date">АКТУАЛЬНО</string>
     <string name="overlays_update_available">Доступно обновление!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Вариация не установлена</string>
@@ -198,6 +201,8 @@
     <string name="menu_search">Искать темы в Play Маркет</string>
     <string name="menu_showcase">Каталог</string>
     <string name="menu_uninstall">Удалить тему</string>
+    <string name="menu_restore_info">Сведения о восстановлении</string>
+    <string name="menu_showcase_info">Сведения о каталоге</string>
     <string name="menu_favorite_snackbar">Ярлык для %s установлен! </string>
     <string name="menu_favorite_snackbar_cleared">%s более не является ярлыком приложения</string>
     <string name="changelog_title">История изменений %s</string>
@@ -208,9 +213,11 @@
     <string name="dialog_restart_soft_reboot_title">Быстрая перезагрузка</string>
     <string name="dialog_restart_soft_reboot_content">Произойдет быстрая перезагрузка устройства</string>
     <string name="studio_applying">Загрузка&#8230;</string>
+    <string name="error_loading_theme_close">Закрыть</string>
+    <string name="error_loading_theme_close_text">Имя пакета данной темы должно соответствовать в манифесте и директориях в коде для правильного обмена ключами</string>
     <string name="logcat_snackbar_button">LogChar</string>
     <string name="logcat_snackbar_text">Целевое приложение/наслоение устарело или неправильно настроено&#8230;</string>
-    <string name="logcat_dialog_title">Отладочный отчет \"LogChar\"</string>
+    <string name="logcat_dialog_title">Отчет об ошибке LogChar</string>
     <string name="logcat_dialog_copy_success">Журнал ошибок скопирован в буфер обмена!</string>
     <string name="logcat_email_activity">Отправить отчет об ошибке, используя&#8230;</string>
     <string name="logcat_email_activity_error">Нет установленных клиентов электронной почты.</string>
@@ -294,7 +301,7 @@
     <string name="notification_done_title">Сборка темы завершена</string>
     <string name="notification_done_upgrade_title">Обновление наслоений для %s завершено!</string>
     <string name="notification_done_upgrade_title_warning">Обновление наслоений для %s частично завершено!</string>
-    <string name="notification_done_upgrade_title_failed" >Отсутствующая или несобираемая конфигурация:\n\n%s</string>
+    <string name="notification_done_upgrade_title_failed">Отсутствующая или несобираемая конфигурация:\n\n%s</string>
     <string name="notification_done_update_text">Полный набор наслоений для этого приложения был обновлен.</string>
     <string name="notification_done_upgrade_text">Полный набор наслоений этой темы был обновлен.</string>
     <string name="notification_no_errors_found">Ошибок при установке наслоений не возникло</string>
@@ -367,6 +374,7 @@
     <string name="team_ivan_description">Платформа и возможности</string>
     <string name="team_surge_description">Бинарники и Алгоритмы</string>
     <string name="team_char_description">Поддержка и организация сообщества</string>
+    <string name="team_harsh_description">Платформа и возможности</string>
     <string name="slide_1_title">приветствуем в substratum</string>
     <string name="slide_1_text">минималистичном, но мощном движке тем, основанном на OMS от Sony</string>
     <string name="slide_2_title">совершенно новый интерфейс</string>
@@ -399,7 +407,7 @@
     <string name="profile_success_notification">Профиль успешно применен!</string>
     <string name="profile_failed_notification">Не удалось применить профиль&#8230;</string>
     <string name="profile_failed_info_notification">Нажмите, чтобы узнать больше</string>
-    <string name="profile_compile_progress" >Собирается %d из %d:\n%s</string>
+    <string name="profile_compile_progress">Собирается %d из %d:\n%s</string>
     <string name="profile_compile_processing">Восстановление ранее примененных настроек&#8230;</string>
     <string name="theme_debug_mode_title">Обход системы отката</string>
     <string name="theme_debug_mode_summary">Предотвратит использование механизма отката совместимого сборщика, как только темы достигают неисправимого состояния</string>
@@ -428,6 +436,7 @@
     <string name="settings_auto_updater_title">Автообновление затрагиваемых наслоений</string>
     <string name="settings_auto_updater_text">Substratum будет автоматически собирать и устанавливать актуальные версии наслоений для недавно обновленных приложений.
 Отключение возможности продлит работу от батареи.</string>
+    <string name="beta_tag">★ BETA</string>
     <string name="settings_theme_auto_updater_title">Автообновление наслоений тем (BETA)</string>
     <string name="settings_theme_auto_updater_dialog_title">ВНИМАНИЕ</string>
     <string name="settings_theme_auto_updater_text">Substratum будет автоматически собирать и устанавливать актуальные версии всех наслоений для обновившихся тем. Отключение возможности продлит работу от батареи.</string>
@@ -449,6 +458,8 @@
     <string name="settings_crash_receiver_text">Автоматически отключать наслоения для приложений с выявленными повторяющимися вылетами.</string>
     <string name="settings_force_stop_interfacer_title">Завершить службу согласователя</string>
     <string name="settings_force_stop_interfacer_snackbar">Согласователь принудительно закрывается&#8230;</string>
+    <string name="overlays_outdated">Наслоения устарели</string>
+    <string name="overlays_outdated_message">Начиная с версии 816 и впредь, подпись для наслоений была изменена ради предотвращения возможных конфликтов подписей в дальнейшем.\n\nЭто означает, что все установленные Вами наслоения должны быть переустановлены перед применением обновлений тем, иначе Вы будете видеть требование обновить их постоянно!\n\nЭто сообщение перестанет появляться, как только все наслоения будут пересобраны новой версией Substratum.</string>
     <string name="root_required_title">Требуются Root-права</string>
     <string name="root_required_boot_animation">Устройство зашифровано, для применения анимации загрузок требуются права Суперпользователя.</string>
     <string name="root_required_boot_animation_profile">Устройство зашифровано, для резервирования и восстановления анимации загрузок требуются права Суперпользователя.</string>
@@ -458,11 +469,20 @@
     <string name="per_app_toast_no_overlays">Для %s нет настраиваемых наслоений!</string>
     <string name="per_app_dialog_title">%s\n подбор наслоений</string>
     <string name="per_app_apply">Применить</string>
+    <string name="per_app_request_title">Разрешения FloatUI</string>
     <string name="per_app_draw_over_other_apps_request">Предоставьте Substratum разрешения \"Показывать поверх других окон\" и \"Доступ к истории использования\" для соотнесения активных приложений с причастными к ним наслоениями</string>
     <string name="per_app_usage_stats_request">Предоставьте Substratum \"Доступ к истории использования\" для соотнесения активных приложений с причастными к ним наслоениями</string>
     <string name="per_app_manual_grant">Для работы FloatUI необходимо вручную предоставить Substratum разрешения \"Показывать поверх других окон\" и \"Доступ к истории использования\" в разделе настроек \"Приложения\"!</string>
-    <string name="notification_overlay_found_specific" >Для %s есть наслоение в %s!</string>
+    <string name="notification_overlay_found_specific">Для %s есть наслоение в %s!</string>
     <string name="notification_overlay_found_description">Можете перейти к теме, нажав на это уведомление!</string>
+    <string name="error_activity_title">Мне так жаль, что он вылетел!</string>
+    <string name="error_activity_text">прошу меня извинить&#8230;</string>
+    <string name="error_activity_button_restart">Перезапустить</string>
+    <string name="error_activity_button_disable_overlays">На помощь!</string>
+    <string name="error_activity_log">Журнал активности</string>
+    <string name="error_activity_log_dialog_title">Отчет о вылете</string>
+    <string name="error_dialog_samsung">Проблема с наслоением Substratum</string>
+    <string name="error_dialog_samsung_text">Похоже, с наслоением затрагивающим Substratum возникла неполадка, следует удалить его вручную в Настройках</string>
     <string name="community_info_overlays">Наслоения</string>
     <string name="community_info_bootanimation">Анимации загрузки</string>
     <string name="community_info_fonts">Шрифты</string>
@@ -528,6 +548,7 @@
     <string name="nav_drawer_template">Шаблон темы (дизайнерам)</string>
     <string name="nav_drawer_gerrit">Мониторинг платформы на Gerrit</string>
     <string name="nav_drawer_github">GitHub-репозиторий</string>
+    <string name="nav_drawer_jira">Система отсл. неполадок JIRA</string>
     <string name="nav_troubleshooting">Устранение неполадок</string>
     <!-- More -->
     <string name="nav_section_header_more">Еще</string>
@@ -543,4 +564,14 @@
     <string name="manage_space_reset_text_desc">Возникли проблемы с приложением? Или вы долгое время не обновляли substratum? Обычный сброс параметров определенно поможет устранить неполадку!</string>
     <string name="manage_space_reset_dialog_title">Сбросить параметры?</string>
     <string name="manage_space_reset_dialog_content">Приложение закроется по завершению сброса!</string>
+    <string name="automatic_logchar_cleanup_summary_on">Сохраненные отчеты LogChar будут удаляться каждые 15 дней</string>
+    <string name="automatic_logchar_cleanup_summary_off">Все отчеты LogChar хранятся неопределенный срок</string>
+    <string name="automatic_logchar_cleanup_title">Автоудаление отчетов LogChar</string>
+    <string name="cleaned_logchar_reports">Хранившиеся отчеты LogChar удалены</string>
+    <string name="legacy_overlay_uninstall_warning_text">При удалении всех наслоений, пожалуйста, используйте архивы восстановления Substratum во избежание возможных вечных загрузок.</string>
+    <string name="auto_reload_sysui_title">Автоперезапуск SystemUI</string>
+    <string name="auto_reload_sysui_summary_on">Substratum автоматически перезапустит SystemUI при включении/выключении затрагивающего его слоя</string>
+    <string name="auto_reload_sysui_summary_off">Substratum не перезапускает SystemUI при включении/выключении затрагивающего его слоя</string>
+    <!-- The things lint will complain about...-->
+    <string name="fonts_demo_string">АаБбВвГг123</string>
 </resources>

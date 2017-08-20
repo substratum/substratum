@@ -38,9 +38,9 @@
             android:layout_height="170dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:importantForAccessibility="no"
             android:scaleType="centerCrop"
-            android:src="@android:color/transparent"
-            android:importantForAccessibility="no"/>
+            android:src="@android:color/transparent"/>
 
         <TextView
             android:id="@+id/wallpaperName"
@@ -50,8 +50,8 @@
             android:layout_gravity="end"
             android:gravity="end"
             android:paddingBottom="10dp"
-            android:paddingStart="0dp"
             android:paddingEnd="15dp"
+            android:paddingStart="0dp"
             android:shadowColor="@color/wallpaper_card_text_shadow"
             android:shadowDx="1"
             android:shadowDy="1"

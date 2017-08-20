@@ -200,7 +200,6 @@ corretamente&#8230;</string>
     <string name="dialog_restart_soft_reboot_title">Reinício de Software</string>
     <string name="dialog_restart_soft_reboot_content">Isto efetua uma reinicialização de soft do seu dispositivo.</string>
     <string name="studio_applying">Carregando&#8230;</string>
-    <string name="logcat_dialog_title">Reporte Debug \"LogChar\"</string>
     <string name="logcat_dialog_copy_success">Log copiado para a área de transferência com sucesso!</string>
     <string name="logcat_email_activity">Enviar reporte de bug usando&#8230;</string>
     <string name="logcat_email_activity_error">Não há clientes de email instalados.</string>
@@ -342,6 +341,7 @@ corretamente&#8230;</string>
     <string name="team_ivan_description">Plataforma &amp; funcionalidades</string>
     <string name="team_surge_description">Binários &amp; algoritmos</string>
     <string name="team_char_description">Suporte &amp; organização comunitária</string>
+    <string name="team_harsh_description">Plataforma &amp; funcionalidades</string>
     <string name="slide_1_title">bem-vindo ao substratum</string>
     <string name="slide_1_text">um motor de tema mínimo e potente com base no serviço de gestor de sobreposição da Sony</string>
     <string name="slide_2_title">uma nova interface de usuário</string>
@@ -374,7 +374,7 @@ corretamente&#8230;</string>
     <string name="profile_success_notification">Perfil aplicado com sucesso!</string>
     <string name="profile_failed_notification">Falha ao aplicar perfil&#8230;</string>
     <string name="profile_failed_info_notification">Toque para mais informações</string>
-    <string name="profile_compile_progress" >A compilar %d de %d:\n%s</string>
+    <string name="profile_compile_progress">A compilar %d de %d:\n%s</string>
     <string name="break_compilation_dialog_title">AVISO</string>
     <string name="break_compilation_dialog_content">Isto pode parar completamente o processo de compilação. Ative esta opção apenas se souber o que está a fazer!</string>
     <string name="break_compilation_dialog_continue">Continuar</string>
@@ -420,8 +420,9 @@ corretamente&#8230;</string>
     <string name="per_app_draw_over_other_apps_request">Por favor, conceda ao Substratum permissões de \"Desenhar sobre outras aplicações\" para a interface flutuante e \"Utilização de estatísticas\" para aceder à aplicação de fundo, de forma a corresponder os alvos do tema.</string>
     <string name="per_app_usage_stats_request">Por favor, conceda ao Substratum permissões de \"Utilização de estatísticas\" para aceder à aplicação de fundo, de forma a corresponder os alvos do tema.</string>
     <string name="per_app_manual_grant">Por favor, conceda manualmente ao Substratum permissões de \"Desenhar sobre outras aplicações\" e \"Utilização de estatísticas\" nas Definições da aplicação para poder utilizar a interface flutuante!</string>
-    <string name="notification_overlay_found_specific" >Uma sobreposição de %s está em %s!</string>
+    <string name="notification_overlay_found_specific">Uma sobreposição de %s está em %s!</string>
     <string name="notification_overlay_found_description">Pode abrir o tema clicando sobre esta notificação!</string>
+    <string name="error_activity_button_disable_overlays">Salvem-me!</string>
     <string name="community_info_overlays">Camadas</string>
     <string name="community_info_bootanimation">Animações de Boot</string>
     <string name="community_info_fonts">Fontes</string>
@@ -499,4 +500,5 @@ corretamente&#8230;</string>
     <string name="manage_space_reset_text_desc">Está a ter problemas com a aplicação? Ou recentemente fez um grande salto de uma versão antiga do substratum? Uma limpeza da configuração ajuda a solucionar o problema!</string>
     <string name="manage_space_reset_dialog_title">Reiniciar configuração?</string>
     <string name="manage_space_reset_dialog_content">O app vai fechar após a conclusão do reinício!</string>
+    <!-- The things lint will complain about...-->
 </resources>

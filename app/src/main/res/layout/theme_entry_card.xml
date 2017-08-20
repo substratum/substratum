@@ -112,9 +112,9 @@
             android:layout_height="170dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:importantForAccessibility="no"
             android:scaleType="centerCrop"
-            android:src="@android:color/white"
-            android:importantForAccessibility="no"/>
+            android:src="@android:color/white"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -140,8 +140,8 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?android:selectableItemBackground"
-                android:src="@drawable/tbo_icon"
-                android:importantForAccessibility="no"/>
+                android:importantForAccessibility="no"
+                android:src="@drawable/tbo_icon"/>
 
             <ImageView
                 android:id="@+id/theme_unready_indicator"
@@ -153,8 +153,8 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?android:selectableItemBackground"
-                android:src="@drawable/two_icon"
-                android:importantForAccessibility="no"/>
+                android:importantForAccessibility="no"
+                android:src="@drawable/two_icon"/>
 
         </RelativeLayout>
 

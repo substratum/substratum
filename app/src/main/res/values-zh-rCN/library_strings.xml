@@ -42,8 +42,8 @@
     <!-- License section -->
     <!-- KenBurnsView -->
     <!-- Author section -->
-    <string name="library_kenburnsview_author" >Flávio Faria</string>
-    <string name="library_kenburnsview_authorWebsite" >https://plus.google.com/+Fl%C3%A1vioFaria1/posts</string>
+    <string name="library_kenburnsview_author">Flávio Faria</string>
+    <string name="library_kenburnsview_authorWebsite">https://plus.google.com/+Fl%C3%A1vioFaria1/posts</string>
     <!-- Library section -->
     <string name="library_kenburnsview_libraryDescription">Android 库使用 Ken Burns 技术对 ImageView 动画进行扩展，从而创造一种身临其境的体验。</string>
     <!-- OpenSource section -->

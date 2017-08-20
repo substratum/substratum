@@ -42,8 +42,8 @@
     <!-- License section -->
     <!-- KenBurnsView -->
     <!-- Author section -->
-    <string name="library_kenburnsview_author" >Flávio Faria</string>
-    <string name="library_kenburnsview_authorWebsite" >
+    <string name="library_kenburnsview_author">Flávio Faria</string>
+    <string name="library_kenburnsview_authorWebsite">
 https://plus.google.com/+Fl%C3%A1vioFaria1/posts    </string>
     <!-- Library section -->
     <string name="library_kenburnsview_libraryDescription">Android library that provides an extension to ImageView that creates an immersive experience by animating its drawable using the Ken Burns Effect.    </string>

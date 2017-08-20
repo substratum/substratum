@@ -207,7 +207,6 @@
     <string name="dialog_restart_soft_reboot_title">Riavvio leggero</string>
     <string name="dialog_restart_soft_reboot_content">Verrà eseguito un riavvio veloce del tuo dispositivo.</string>
     <string name="studio_applying">Caricamento&#8230;</string>
-    <string name="logcat_dialog_title">Report di Debug \"LogChar\"</string>
     <string name="logcat_dialog_copy_success">Il log d\'errore è stato copiato con successo!</string>
     <string name="logcat_email_activity">Manda la segnalazione di bug usando &amp;#8230</string>
     <string name="logcat_email_activity_error">Non c\'è nessuno client di posta installato.</string>
@@ -289,7 +288,7 @@
     <string name="notification_done_title">La compilazione del tema è stata completata</string>
     <string name="notification_done_upgrade_title">Aggiornamento overlay di %s è stato completato!</string>
     <string name="notification_done_upgrade_title_warning">Aggiornamento overlay parzialmente completato al %s!</string>
-    <string name="notification_done_upgrade_title_failed" >Configurazione mancante o non applicabile:\n\n%s</string>
+    <string name="notification_done_upgrade_title_failed">Configurazione mancante o non applicabile:\n\n%s</string>
     <string name="notification_done_update_text">Tutti gli overlay, abilitati e disabilitati, per questa applicazione sono stati aggiornati.</string>
     <string name="notification_done_upgrade_text">Tutti gli overlay, abilitati e disabilitati, per questo tema sono stati aggiornati.</string>
     <string name="notification_no_errors_found">Nessun errore durante l\'installazione degli overlay</string>
@@ -361,6 +360,7 @@
     <string name="team_ivan_description">Caratteristiche &amp; Piattaforma</string>
     <string name="team_surge_description">Binari &amp; Algoritmi</string>
     <string name="team_char_description">Organizzazione della Community &amp; Supporto</string>
+    <string name="team_harsh_description">Caratteristiche &amp; Piattaforma</string>
     <string name="slide_1_title">Benvenuto in substratum</string>
     <string name="slide_1_text">un minimale ma potente motore per i temi basato sull\'Overlay Manager Service di Sony</string>
     <string name="slide_2_title">una marca della nuova interfaccia utente</string>
@@ -393,7 +393,7 @@
     <string name="profile_success_notification">Profilo applicato con successo!</string>
     <string name="profile_failed_notification">Applicazione profilo fallita&#8230;</string>
     <string name="profile_failed_info_notification">Premi per ulteriori informazioni</string>
-    <string name="profile_compile_progress" >Compilazione %d di %d:\n%s</string>
+    <string name="profile_compile_progress">Compilazione %d di %d:\n%s</string>
     <string name="profile_compile_processing">Elaborazione degli overlay salvati&#8230;</string>
     <string name="theme_debug_mode_title">System Fallback Interjection Bypass</string>
     <string name="theme_debug_mode_summary">Questo fermerà l\'app da utilizzare il meccanismo di fallback del compilatore legacy per aiutare i temi quando raggiungono uno stato irrecuperabile.</string>
@@ -454,8 +454,9 @@
     <string name="per_app_draw_over_other_apps_request">Si prega di concedere a substratum le autorizzazioni \"mostra sopra altre app\" per UI fluttuante ed \"accesso ai dati di utilizzo\" per accedere alle applicazioni in primo piano e far corrispondere i target dei temi.</string>
     <string name="per_app_usage_stats_request">Si prega di concedere a substratum l\'autorizzazione \"accesso ai dati di utilizzo\" per accedere all\'app in primo piano e far corrispondere i target dei temi.</string>
     <string name="per_app_manual_grant">Per favore concedi manualmente le autorizzazioni di \"accesso ai dati di utilizzo\" e \"mostra sopra altre app\" a substratum dalle impostazioni App per usare FloatUI!</string>
-    <string name="notification_overlay_found_specific" >Un overlay per %s è in %s!</string>
+    <string name="notification_overlay_found_specific">Un overlay per %s è in %s!</string>
     <string name="notification_overlay_found_description">Puoi aprire il tema premendo su questa notifica!</string>
+    <string name="error_activity_button_disable_overlays">Salvami!</string>
     <string name="community_info_overlays">Overlays</string>
     <string name="community_info_bootanimation">Animazioni d\'avvio</string>
     <string name="community_info_fonts">Caratteri</string>
@@ -534,4 +535,5 @@
     <string name="manage_space_reset_text_desc">Hai problemi con l\'applicazione? O hai recentemente fatto un sato di versione da una vecchia versione di substratum? Una configurazione semplice sarebbe sicuramente di aiuto per risolvere il problema!</string>
     <string name="manage_space_reset_dialog_title">Reimpostare la configurazione?</string>
     <string name="manage_space_reset_dialog_content">L\'applicazione si chiuderà dopo il reset completo!</string>
+    <!-- The things lint will complain about...-->
 </resources>

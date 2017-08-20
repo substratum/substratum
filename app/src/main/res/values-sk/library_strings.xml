@@ -42,8 +42,8 @@
     <!-- License section -->
     <!-- KenBurnsView -->
     <!-- Author section -->
-    <string name="library_kenburnsview_author" >Flávio Faria</string>
-    <string name="library_kenburnsview_authorWebsite" >https://plus.google.com/+Fl%C3%A1vioFaria1/posts</string>
+    <string name="library_kenburnsview_author">Flávio Faria</string>
+    <string name="library_kenburnsview_authorWebsite">https://plus.google.com/+Fl%C3%A1vioFaria1/posts</string>
     <!-- Library section -->
     <string name="library_kenburnsview_libraryDescription">Android knižnica, ktorá poskytuje rozšírenia pre ImageView a vytvára lepší zážitok z animácií s pomocou efektu Ken Burns.    </string>
     <!-- OpenSource section -->

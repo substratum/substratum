@@ -87,7 +87,7 @@
         funkciót kihasználva megoldja, hogy a Substratum témák működjenek. A Substratum
         az alkalmazás első indításakor kérni fogja, hogy vásárolja meg a Samsung integrációs modult.
     </string>
-    <string name="question_fourteen">Segítség, egy fedvényt telepítettem a Samsung készülékem és most nem indul el!</string>
+    <string name="question_fourteen">Segítség, egy fedvényt telepítettem a Samsung készülékemre és most nem indul el!</string>
     <string name="answer_fourteen">Csúsztassa ki a navigációs panelt, és ugorjon az XDA témára az utasításokért,
         hogyan kell helyreállítani az eszközt ebben a konkrét helyzetben.
     </string>

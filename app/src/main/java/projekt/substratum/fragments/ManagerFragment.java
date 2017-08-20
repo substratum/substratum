@@ -97,6 +97,7 @@ public class ManagerFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private ProgressBar loadingBar;
     private List<ManagerItem> overlayList;
+    private Switch toggle_all;
     private FinishReceiver finishReceiver;
     private Context context;
     private LocalBroadcastManager localBroadcastManager;
@@ -154,6 +155,7 @@ public class ManagerFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         }
+        toggle_all.setChecked(false);
     }
 
     @Override
@@ -215,7 +217,7 @@ public class ManagerFragment extends Fragment {
             }
         });
 
-        Switch toggle_all = (Switch) root.findViewById(R.id.select_all);
+        toggle_all = (Switch) root.findViewById(R.id.select_all);
         toggle_all.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> {
                     try {

@@ -143,7 +143,7 @@
     <string name="manager_type4">Type4 :</string>
 
     <string name="legacy_preference_priority_title">Overlay Priority Adjustment</string>
-    <string name="legacy_preference_priority_text">Priority is set at (default 255): %d</string>
+    <string name="legacy_preference_priority_text">Priority is set at (default 999): %d</string>
 
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">type1a variant&#8230;</string>

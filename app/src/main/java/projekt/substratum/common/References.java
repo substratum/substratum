@@ -237,7 +237,7 @@ public class References {
     // This int controls the delay for window refreshes to occur
     public static int REFRESH_WINDOW_DELAY = 500;
     // This int controls the default priority level for legacy overlays
-    public static int DEFAULT_PRIORITY = 255;
+    public static int DEFAULT_PRIORITY = 999;
     // These strings control package names for system apps
     public static String settingsPackageName = "com.android.settings";
     public static String settingsSubstratumDrawableName = "ic_settings_substratum";

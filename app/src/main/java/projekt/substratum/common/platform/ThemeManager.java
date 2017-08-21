@@ -99,6 +99,7 @@ public class ThemeManager {
             try {
                 Thread.sleep(NI_restartSystemUIDelay);
                 if (shouldRestartUI(context, overlays)) restartSystemUI(context);
+                killSystemUINotificationsOnStockOreo(context);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -122,6 +123,7 @@ public class ThemeManager {
             try {
                 Thread.sleep(NI_restartSystemUIDelay);
                 if (shouldRestartUI(context, overlays)) restartSystemUI(context);
+                killSystemUINotificationsOnStockOreo(context);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -142,6 +144,7 @@ public class ThemeManager {
             }
             new ElevatedCommands.ThreadRunner().execute(commands.toString());
             if (shouldRestartUI(context, overlays)) restartSystemUI(context);
+            killSystemUINotificationsOnStockOreo(context);
         }
     }
 
@@ -158,6 +161,14 @@ public class ThemeManager {
             ThemeInterfacerService.restartSystemUI(context);
         } else {
             Root.runCommand("pkill -f com.android.systemui");
+        }
+    }
+
+    public static void killSystemUINotificationsOnStockOreo(Context context) {
+        if (!optInFromUIRestart(context) &&
+                Root.checkRootAccess() &&
+                References.checkOreo()) {
+            Root.runCommand("service call notification 1");
         }
     }
 

@@ -574,6 +574,10 @@ public class References {
         }
     }
 
+    public static Boolean checkOreo() {
+        return Build.VERSION.SDK_INT == Build.VERSION_CODES.O;
+    }
+
     public static void setAndCheckOMS(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         prefs.edit().remove("oms_state").apply();

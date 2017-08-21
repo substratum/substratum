@@ -150,7 +150,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 getString(R.string.device) + " " + Build.MODEL + " (" + Build.DEVICE + ")" + "\n");
         platformSummary.append(getString(R.string.settings_about_oms_rro_version) + " ");
         platformSummary.append(((References.checkOMS(getContext())) ?
-                getString(R.string.settings_about_oms_version_7) :
+                (References.checkOreo() ? getString(R.string.settings_about_oms_version_do) :
+                        getString(R.string.settings_about_oms_version_7)) :
                 getString(R.string.settings_about_rro_version_2)));
         systemPlatform.setSummary(platformSummary);
         systemPlatform.setIcon(References.grabAppIcon(getContext(), "com.android.systemui"));

@@ -24,6 +24,7 @@ import android.graphics.drawable.Drawable;
 import java.io.Serializable;
 
 import projekt.substratum.R;
+import projekt.substratum.common.References;
 
 public class ManagerItem implements Serializable {
 
@@ -35,6 +36,7 @@ public class ManagerItem implements Serializable {
     private String type3;
     private String type4;
     private String themeName;
+    private String labelName;
     private boolean isSelected;
     private int activationValue;
     private Context mContext;
@@ -46,6 +48,7 @@ public class ManagerItem implements Serializable {
         this.name = name;
         this.isSelected = false;
         this.updateEnabledOverlays(isActivated);
+        setLabelName(name);
     }
 
     int getActivationValue() {
@@ -130,8 +133,15 @@ public class ManagerItem implements Serializable {
         return themeName;
     }
 
-    void setThemeName(String name) {
+    public void setThemeName(String name) {
         this.themeName = name;
+    }
+
+    public String getLabelName() {return labelName;}
+
+    public void setLabelName(String packageName){
+        labelName = References.grabPackageName(getContext(),
+                References.grabOverlayTarget(getContext(), packageName));
     }
 
     public Drawable getDrawable() {

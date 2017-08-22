@@ -29,7 +29,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 
 import java.io.File;
@@ -38,7 +37,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.common.References;
@@ -57,14 +55,11 @@ public class SplashScreenActivity extends Activity {
     private static final int DELAY_LAUNCH_MAIN_ACTIVITY = 600;
     private static final int DELAY_LAUNCH_APP_INTRO = 2300;
     private Intent intent;
-    private MaterialProgressBar materialProgressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splashscreen_layout);
-
-        materialProgressBar = (MaterialProgressBar) findViewById(R.id.splash_progress);
 
         Intent currentIntent = getIntent();
         Boolean first_run = currentIntent.getBooleanExtra("first_run", false);
@@ -129,14 +124,6 @@ public class SplashScreenActivity extends Activity {
 
         CheckSamsung(SplashScreenActivity activity) {
             ref = new WeakReference<>(activity);
-        }
-
-        @Override
-        protected void onPreExecute() {
-            SplashScreenActivity activity = ref.get();
-            if (activity != null) {
-                activity.materialProgressBar.setVisibility(View.VISIBLE);
-            }
         }
 
         @Override

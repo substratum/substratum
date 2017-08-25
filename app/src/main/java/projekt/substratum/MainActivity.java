@@ -115,6 +115,7 @@ import static projekt.substratum.common.References.OVERLAY_UPDATE_RANGE;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
+import static projekt.substratum.common.References.checkAndromeda;
 import static projekt.substratum.common.References.checkUsagePermissions;
 import static projekt.substratum.common.References.isSamsung;
 import static projekt.substratum.common.commands.FileOperations.delete;
@@ -420,6 +421,8 @@ public class MainActivity extends SubstratumActivity implements
 
         // Begin initializing the navigation drawer
         Boolean checkSamsungStatus = isSamsung(getApplicationContext());
+        Boolean checkOreoRootless =
+                checkAndromeda(getApplicationContext()) && !Root.checkRootAccess();
         drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_home)
@@ -430,22 +433,24 @@ public class MainActivity extends SubstratumActivity implements
                         .withName(R.string.nav_overlays)
                         .withIcon(R.drawable.nav_overlays)
                         .withIdentifier(2));
-        if (!checkSamsungStatus) drawerBuilder.addDrawerItems(
-                new PrimaryDrawerItem()
-                        .withName(R.string.nav_bootanim)
-                        .withIcon(R.drawable.nav_bootanim)
-                        .withIdentifier(3));
+        if (!checkSamsungStatus && !checkOreoRootless)
+            drawerBuilder.addDrawerItems(
+                    new PrimaryDrawerItem()
+                            .withName(R.string.nav_bootanim)
+                            .withIcon(R.drawable.nav_bootanim)
+                            .withIdentifier(3));
         if (References.isFontsSupported() && !checkSamsungStatus)
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_fonts)
                             .withIcon(R.drawable.nav_fonts)
                             .withIdentifier(4));
-        if (!checkSamsungStatus) drawerBuilder.addDrawerItems(
-                new PrimaryDrawerItem()
-                        .withName(R.string.nav_sounds)
-                        .withIcon(R.drawable.nav_sounds)
-                        .withIdentifier(5));
+        if (!checkSamsungStatus && !checkOreoRootless)
+            drawerBuilder.addDrawerItems(
+                    new PrimaryDrawerItem()
+                            .withName(R.string.nav_sounds)
+                            .withIcon(R.drawable.nav_sounds)
+                            .withIdentifier(5));
         drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_wallpapers)
@@ -465,12 +470,13 @@ public class MainActivity extends SubstratumActivity implements
                             .withName(R.string.nav_priorities)
                             .withIcon(R.drawable.nav_drawer_priorities)
                             .withIdentifier(8));
-        if (!checkSamsungStatus) drawerBuilder.addDrawerItems(
-                new PrimaryDrawerItem()
-                        .withName(R.string.nav_backup_restore)
-                        .withIcon(R.drawable.nav_drawer_profiles)
-                        .withIdentifier(9)
-                        .withBadge(getString(R.string.beta_tag)));
+        if (!checkSamsungStatus && !checkOreoRootless)
+            drawerBuilder.addDrawerItems(
+                    new PrimaryDrawerItem()
+                            .withName(R.string.nav_backup_restore)
+                            .withIcon(R.drawable.nav_drawer_profiles)
+                            .withIdentifier(9)
+                            .withBadge(getString(R.string.beta_tag)));
         drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_manage)
@@ -1209,8 +1215,8 @@ public class MainActivity extends SubstratumActivity implements
         }
 
         @Override
-        protected void onPostExecute(Boolean result) {
-            super.onPostExecute(result);
+        protected void onPostExecute(Boolean grantedRoot) {
+            super.onPostExecute(grantedRoot);
             MainActivity activity = ref.get();
             if (activity != null) {
                 Context context = activity.getApplicationContext();
@@ -1218,11 +1224,12 @@ public class MainActivity extends SubstratumActivity implements
                 // Ignore root if the device is Samsung
                 boolean samsungCheck = References.isSamsungDevice(context) &&
                         !References.isPackageInstalled(context, SST_ADDON_PACKAGE);
-                if (samsungCheck ||
-                        (!result &&
+                if (!References.checkAndromeda(context) || samsungCheck ||
+                        (!grantedRoot &&
+                                !References.checkAndromeda(context) &&
+                                !References.checkThemeInterfacer(context) &&
                                 !References.isSamsung(context) &&
-                                ENABLE_ROOT_CHECK && !BYPASS_ALL_VERSION_CHECKS &&
-                                !References.checkThemeInterfacer(context))) {
+                                ENABLE_ROOT_CHECK && !BYPASS_ALL_VERSION_CHECKS)) {
                     activity.mProgressDialog.setCancelable(false);
                     activity.mProgressDialog.show();
                     activity.mProgressDialog.setContentView(R.layout.root_rejected_loader);
@@ -1316,7 +1323,8 @@ public class MainActivity extends SubstratumActivity implements
             if (activity != null) {
                 Context context = activity.getApplicationContext();
                 if (!References.isSamsungDevice(context) &&
-                        !References.checkThemeInterfacer(context)) {
+                        !References.checkThemeInterfacer(context) &&
+                        !References.checkAndromeda(context)) {
                     Boolean receivedRoot = Root.requestRootAccess();
                     if (receivedRoot) {
                         Log.d(SUBSTRATUM_LOG, "Substratum has loaded in rooted mode.");

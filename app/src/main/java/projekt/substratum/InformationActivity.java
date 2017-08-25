@@ -98,6 +98,7 @@ import static com.bumptech.glide.request.RequestOptions.centerCropTransform;
 import static projekt.substratum.common.References.BYPASS_SUBSTRATUM_BUILDER_DELETION;
 import static projekt.substratum.common.References.MANAGER_REFRESH;
 import static projekt.substratum.common.References.bootAnimationsFragment;
+import static projekt.substratum.common.References.checkAndromeda;
 import static projekt.substratum.common.References.fontsFragment;
 import static projekt.substratum.common.References.getOverlayMetadata;
 import static projekt.substratum.common.References.isSamsung;
@@ -402,7 +403,9 @@ public class InformationActivity extends SubstratumActivity {
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_one)));
                     }
-                    if (tab_checker.contains(bootAnimationsFragment)) {
+                    if (tab_checker.contains(bootAnimationsFragment) &&
+                            !checkAndromeda(getApplicationContext()) &&
+                            !isSamsung(getApplicationContext())) {
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_two)));
                     }
@@ -410,7 +413,9 @@ public class InformationActivity extends SubstratumActivity {
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_three)));
                     }
-                    if (tab_checker.contains(soundsFragment)) {
+                    if (tab_checker.contains(soundsFragment) &&
+                            !checkAndromeda(getApplicationContext()) &&
+                            !isSamsung(getApplicationContext())) {
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_four)));
                     }

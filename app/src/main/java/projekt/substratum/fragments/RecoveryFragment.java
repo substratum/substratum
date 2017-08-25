@@ -55,6 +55,7 @@ import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.tabs.BootAnimationManager;
 import projekt.substratum.common.tabs.FontManager;
 import projekt.substratum.common.tabs.WallpaperManager;
+import projekt.substratum.util.files.Root;
 import projekt.substratum.util.tabs.SoundUtils;
 import projekt.substratum.util.views.SheetDialog;
 
@@ -62,6 +63,7 @@ import static projekt.substratum.common.References.DATA_RESOURCE_DIR;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.VENDOR_DIR;
+import static projekt.substratum.common.References.checkAndromeda;
 
 
 public class RecoveryFragment extends Fragment {
@@ -260,7 +262,8 @@ public class RecoveryFragment extends Fragment {
         }
 
         View bootanimationCard = root.findViewById(R.id.restore_bootanimation_card);
-        if (References.isSamsung(getContext())) {
+        if (References.isSamsung(getContext()) ||
+                (checkAndromeda(getContext()) && !Root.checkRootAccess())) {
             bootanimationCard.setVisibility(View.GONE);
         }
 

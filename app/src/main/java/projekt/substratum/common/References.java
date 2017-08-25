@@ -141,12 +141,14 @@ public class References {
     public static final String SUBSTRATUM_LOG = "SubstratumLogger";
     public static final String SUBSTRATUM_VALIDATOR = "SubstratumValidator";
     // These are package names for our backend systems
+    public static final String ANDROMEDA_PACKAGE = "projekt.andromeda";
     public static final String INTERFACER_PACKAGE = "projekt.interfacer";
     public static final String INTERFACER_SERVICE = INTERFACER_PACKAGE + ".services.JobService";
     // Samsung package names
     public static final String SST_ADDON_PACKAGE = "projekt.sungstratum";
     public static final String PLAY_STORE_PACKAGE_NAME = "com.android.vending";
     // Specific intent for receiving completion status on backend
+    public static final String ANDROMEDA_BINDED = ANDROMEDA_PACKAGE + ".INITIALIZE";
     public static final String INTERFACER_BINDED = INTERFACER_PACKAGE + ".INITIALIZE";
     public static final String STATUS_CHANGED = INTERFACER_PACKAGE + ".STATUS_CHANGED";
     public static final String CRASH_PACKAGE_NAME = "projekt.substratum.EXTRA_PACKAGE_NAME";
@@ -163,10 +165,6 @@ public class References {
     // Keep it simple, stupid!
     public static final int HIDDEN_CACHING_MODE_TAP_COUNT = 7;
     public static final int SHOWCASE_SHUFFLE_COUNT = 5;
-    // Delays for Icon Pack Handling
-    public static final int MAIN_WINDOW_REFRESH_DELAY = 2000;
-    public static final int FIRST_WINDOW_REFRESH_DELAY = 1000;
-    public static final int SECOND_WINDOW_REFRESH_DELAY = 3000;
     // These strings control the current filter for themes
     public static final String metadataName = "Substratum_Name";
     public static final String metadataAuthor = "Substratum_Author";
@@ -361,6 +359,7 @@ public class References {
 
     public static void registerBroadcastReceivers(Context context) {
         try {
+            IntentFilter overlayAdded = new IntentFilter(APP_CRASHED);
             IntentFilter intentAppCrashed = new IntentFilter(APP_CRASHED);
             IntentFilter intentPackageAdded = new IntentFilter(PACKAGE_ADDED);
             intentPackageAdded.addDataScheme("package");
@@ -589,7 +588,7 @@ public class References {
                 } else {
                     Boolean isOMSRunning = isOMSRunning(context.getApplicationContext(),
                             IOverlayManager.class);
-                    if (isOMSRunning) {
+                    if (isOMSRunning || References.checkOreo()) {
                         Log.d(SUBSTRATUM_LOG, "Found Overlay Manager Service...");
                         foundOms = true;
                     } else {
@@ -624,7 +623,8 @@ public class References {
 
     public static boolean checkSubstratumFeature(Context context) {
         // Using lowercase because that's how we defined it in our permissions xml
-        return context.getPackageManager().hasSystemFeature(SUBSTRATUM_THEME.toLowerCase(Locale.getDefault()));
+        return context.getPackageManager().hasSystemFeature(SUBSTRATUM_THEME.toLowerCase(Locale
+                .getDefault()));
     }
 
     // This method is used to determine whether there the system was dirty flashed / upgraded
@@ -1532,13 +1532,22 @@ public class References {
 
     // Begin check if device is running on the latest theme interface
     public static boolean checkThemeInterfacer(Context context) {
-        if (context == null) { // If activity has already been destroyed context instance will be
-            // null
-            Log.e(SUBSTRATUM_LOG, "activity has been destroyed, cannot check if interfacer is " +
-                    "used");
+        if (context == null) {
+            Log.e(SUBSTRATUM_LOG,
+                    "activity has been destroyed, cannot check if interfacer is used");
             return false;
         }
         return getThemeInterfacerPackage(context) != null;
+    }
+
+    // Begin check if device is running on the latest theme interface
+    public static boolean checkAndromeda(Context context) {
+        if (context == null) {
+            Log.e(SUBSTRATUM_LOG,
+                    "activity has been destroyed, cannot check if andromeda is used");
+            return false;
+        }
+        return checkOreo() && getAndromedaPackage(context) != null;
     }
 
     public static boolean isBinderInterfacer(Context context) {
@@ -1572,7 +1581,7 @@ public class References {
         sungstratumPresent &= installer;
         sungstratumPresent &= fingerprint.toUpperCase(
                 Locale.getDefault()).equals(
-                        expFingerprint.toUpperCase(Locale.getDefault()));
+                expFingerprint.toUpperCase(Locale.getDefault()));
         sungstratumPresent &= liveInstallerValidity;
         return sungstratumPresent;
     }
@@ -1646,6 +1655,15 @@ public class References {
             }
         }
         return false;
+    }
+
+    public static PackageInfo getAndromedaPackage(Context context) {
+        try {
+            return context.getPackageManager().getPackageInfo(ANDROMEDA_PACKAGE, 0);
+        } catch (Exception e) {
+            // Andromeda was not installed
+        }
+        return null;
     }
 
     public static PackageInfo getThemeInterfacerPackage(Context context) {

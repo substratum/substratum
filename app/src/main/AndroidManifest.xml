@@ -49,6 +49,7 @@
     <uses-permission android:name="com.samsung.android.permission.MODIFY_THEME"/>
     <uses-permission android:name="com.samsung.contacts.permission.THEME"/>
     <uses-permission android:name="projekt.interfacer.permission.ACCESS_SERVICE"/>
+    <uses-permission android:name="projekt.andromeda.permission.ACCESS_SERVICE"/>
 
     <application
         android:name=".Substratum"
@@ -84,6 +85,7 @@
             </intent-filter>
         </receiver>
 
+        <service android:name=".services.binder.AndromedaBinderService"/>
         <service android:name=".services.binder.BinderService"/>
         <service
             android:name=".services.floatui.SubstratumFloatInterface"

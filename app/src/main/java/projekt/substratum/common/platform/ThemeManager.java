@@ -20,14 +20,20 @@ package projekt.substratum.common.platform;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.om.OverlayInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,6 +44,7 @@ import java.util.stream.Collectors;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Resources;
 import projekt.substratum.common.commands.ElevatedCommands;
+import projekt.substratum.util.files.MD5;
 import projekt.substratum.util.files.Root;
 
 import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
@@ -45,6 +52,7 @@ import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_DANGEROUS_OVERLAY;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
+import static projekt.substratum.common.References.checkAndromeda;
 import static projekt.substratum.common.References.checkOMS;
 import static projekt.substratum.common.References.checkThemeInterfacer;
 
@@ -88,8 +96,14 @@ public class ThemeManager {
         if (overlays.isEmpty()) return;
 
         if (checkThemeInterfacer(context)) {
-            ThemeInterfacerService.enableOverlays(context, overlays, shouldRestartUI(context,
-                    overlays));
+            ThemeInterfacerService.enableOverlays(
+                    context, overlays, shouldRestartUI(context, overlays));
+        } else if (checkAndromeda(context)) {
+            AndromedaService.enableOverlays(overlays);
+            File overlaysFile = new File(
+                    Environment.getExternalStorageDirectory().getAbsolutePath() +
+                            "/andromeda/overlays.xml");
+            Log.d("ThemeManager", "Removing cached overlay file - " + overlaysFile.delete());
         } else {
             StringBuilder commands = new StringBuilder(enableOverlay + " " + overlays.get(0));
             for (int i = 1; i < overlays.size(); i++) {
@@ -112,8 +126,14 @@ public class ThemeManager {
         if (overlays.isEmpty()) return;
 
         if (checkThemeInterfacer(context)) {
-            ThemeInterfacerService.disableOverlays(context, overlays, shouldRestartUI(context,
-                    overlays));
+            ThemeInterfacerService.disableOverlays(
+                    context, overlays, shouldRestartUI(context, overlays));
+        } else if (checkAndromeda(context)) {
+            AndromedaService.disableOverlays(overlays);
+            File overlaysFile = new File(
+                    Environment.getExternalStorageDirectory().getAbsolutePath() +
+                            "/andromeda/overlays.xml");
+            Log.d("ThemeManager", "Removing cached overlay file - " + overlaysFile.delete());
         } else {
             StringBuilder commands = new StringBuilder(disableOverlay + " " + overlays.get(0));
             for (int i = 1; i < overlays.size(); i++) {
@@ -134,6 +154,12 @@ public class ThemeManager {
         if (checkThemeInterfacer(context)) {
             ThemeInterfacerService.setPriority(
                     context, overlays, shouldRestartUI(context, overlays));
+        } else if (checkAndromeda(context)) {
+            AndromedaService.setPriority(overlays);
+            File overlaysFile = new File(
+                    Environment.getExternalStorageDirectory().getAbsolutePath() +
+                            "/andromeda/overlays.xml");
+            Log.d("ThemeManager", "Removing cached overlay file - " + overlaysFile.delete());
         } else {
             StringBuilder commands = new StringBuilder();
             for (int i = 0; i < overlays.size() - 1; i++) {
@@ -164,7 +190,7 @@ public class ThemeManager {
         }
     }
 
-    public static void killSystemUINotificationsOnStockOreo(Context context) {
+    private static void killSystemUINotificationsOnStockOreo(Context context) {
         if (!optInFromUIRestart(context) &&
                 Root.checkRootAccess() &&
                 References.checkOreo()) {
@@ -199,48 +225,89 @@ public class ThemeManager {
             if (References.checkOMS(context) && !References.isSamsung(context)) {
                 String enabledPrefix = "[x]";
                 String disabledPrefix = "[ ]";
-                String[] arrList = Root.runCommand(listAllOverlays)
-                        .split(System.getProperty("line.separator"));
 
-                for (String line : arrList) {
-                    if (line.startsWith(enabledPrefix) || line.startsWith(disabledPrefix)) {
-                        String packageName = line.substring(4);
-                        if (References.isPackageInstalled(context, packageName)) {
+                String[] arrList = null;
+                if (References.checkAndromeda(context)) {
+                    File overlays = new File(
+                            Environment.getExternalStorageDirectory().getAbsolutePath() +
+                                    "/andromeda/overlays.xml");
+
+                    // Call Andromeda to output the file!
+                    SharedPreferences prefs =
+                            PreferenceManager.getDefaultSharedPreferences(context);
+                    if (!overlays.exists()) {
+                        Log.d("ThemeManager", "Fetching new file from Andromeda, please wait!");
+                        AndromedaService.listOverlays();
+                        // Now we wait till the file is made quickly!
+                        while (!overlays.exists()) {
                             try {
-                                String sourceDir = context.getPackageManager()
-                                        .getApplicationInfo(packageName, 0).sourceDir;
-                                if (!sourceDir.startsWith("/vendor/overlay/")) {
-                                    list.add(packageName);
+                                Thread.sleep(100);
+                                Log.d("ThemeManager",
+                                        "Andromeda is still taking her sweet time...");
+                            } catch (InterruptedException e1) {
+                                e1.printStackTrace();
+                            }
+                        }
+                        prefs.edit().putString("andromeda_overlays",
+                                MD5.calculateMD5(overlays)).apply();
+                    } else {
+                        Log.d("ThemeManager", "Queuing list using cached file!");
+                    }
+
+                    // Andromeda's file is done!
+                    try {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            String str = new String(
+                                    Files.readAllBytes(Paths.get(overlays.getAbsolutePath())));
+                            arrList = str.split(System.getProperty("line.separator"));
+                        }
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                } else {
+                    arrList = Root.runCommand(listAllOverlays)
+                            .split(System.getProperty("line.separator"));
+                }
+
+                if (arrList != null) {
+                    for (String line : arrList) {
+                        if (line.startsWith(enabledPrefix) || line.startsWith(disabledPrefix)) {
+                            String packageName = line.substring(4);
+                            if (References.isPackageInstalled(context, packageName)) {
+                                try {
+                                    String sourceDir = context.getPackageManager()
+                                            .getApplicationInfo(packageName, 0).sourceDir;
+                                    if (!sourceDir.startsWith("/vendor/overlay/")) {
+                                        list.add(packageName);
+                                    }
+                                } catch (Exception ee) {
+                                    // Package not found blabla
                                 }
-                            } catch (Exception ee) {
-                                // Package not found blabla
                             }
                         }
                     }
                 }
-            } else {
-                if (References.isSamsung(context)) {
-                    final PackageManager pm = context.getPackageManager();
-                    List<ApplicationInfo> packages =
-                            pm.getInstalledApplications(PackageManager.GET_META_DATA);
-                    list.clear();
-                    for (ApplicationInfo packageInfo : packages) {
-                        if (References.getOverlayMetadata(
-                                context,
-                                packageInfo.packageName,
-                                References.metadataOverlayParent) != null) {
-                            list.add(packageInfo.packageName);
-                        }
+            } else if (References.isSamsung(context)) {
+                final PackageManager pm = context.getPackageManager();
+                List<ApplicationInfo> packages =
+                        pm.getInstalledApplications(PackageManager.GET_META_DATA);
+                list.clear();
+                for (ApplicationInfo packageInfo : packages) {
+                    if (References.getOverlayMetadata(
+                            context,
+                            packageInfo.packageName,
+                            References.metadataOverlayParent) != null) {
+                        list.add(packageInfo.packageName);
                     }
-                } else {
-                    File legacyCheck = new File(LEGACY_NEXUS_DIR);
-                    if (legacyCheck.exists() && legacyCheck.isDirectory()) {
-                        list.clear();
-                        String[] lister = legacyCheck.list();
-                        for (String aLister : lister) {
-                            if (aLister.endsWith(".apk")) {
-                                list.add(aLister.substring(0, aLister.length() - 4));
-                            }
+                }
+            } else {
+                File legacyCheck = new File(LEGACY_NEXUS_DIR);
+                if (legacyCheck.exists() && legacyCheck.isDirectory()) {
+                    list.clear();
+                    String[] lister = legacyCheck.list();
+                    for (String aLister : lister) {
+                        if (aLister.endsWith(".apk")) {
+                            list.add(aLister.substring(0, aLister.length() - 4));
                         }
                     }
                 }
@@ -272,7 +339,8 @@ public class ThemeManager {
             }
         } catch (Exception | NoSuchMethodError e) {
             // At this point, we probably ran into a legacy command or stock OMS
-            if (References.checkOMS(context) && !References.isSamsung(context)) {
+            if (References.checkOMS(context) &&
+                    !References.isSamsung(context)) {
                 String prefix;
                 switch (state) {
                     case STATE_APPROVED_ENABLED:
@@ -286,20 +354,72 @@ public class ThemeManager {
                         break;
                 }
 
-                String[] arrList = Root.runCommand(listAllOverlays)
-                        .split(System.getProperty("line.separator"));
-                for (String line : arrList) {
-                    if (line.startsWith(prefix)) {
-                        String packageName = line.substring(4);
-                        if (References.isPackageInstalled(context, packageName)) {
+                String[] arrList = null;
+                if (References.checkAndromeda(context)) {
+                    File overlays = new File(
+                            Environment.getExternalStorageDirectory().getAbsolutePath() +
+                                    "/andromeda/overlays.xml");
+
+                    // Call Andromeda to output the file!
+                    SharedPreferences prefs =
+                            PreferenceManager.getDefaultSharedPreferences(context);
+                    if (!overlays.exists()) {
+                        Log.d("ThemeManager", "Fetching new file from Andromeda, please wait!");
+                        AndromedaService.listOverlays();
+                        // Now we wait till the file is made quickly!
+                        while (!overlays.exists()) {
                             try {
-                                String sourceDir = context.getPackageManager()
-                                        .getApplicationInfo(packageName, 0).sourceDir;
-                                if (!sourceDir.startsWith("/vendor/overlay/")) {
-                                    list.add(packageName);
+                                Thread.sleep(100);
+                                Log.d("ThemeManager",
+                                        "Andromeda is still taking her sweet time...");
+                            } catch (InterruptedException e1) {
+                                e1.printStackTrace();
+                            }
+                        }
+                        prefs.edit().putString("andromeda_overlays",
+                                MD5.calculateMD5(overlays)).apply();
+                    } else {
+                        Log.d("ThemeManager", "Queuing list using cached file!");
+                    }
+
+                    // Now we wait till the file is made quickly!
+                    while (!overlays.exists()) {
+                        try {
+                            Thread.sleep(100);
+                            Log.d("ThemeManager", "Andromeda is still taking her sweet time...");
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+
+                    // Andromeda's file is done!
+                    try {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            String str = new String(
+                                    Files.readAllBytes(Paths.get(overlays.getAbsolutePath())));
+                            arrList = str.split(System.getProperty("line.separator"));
+                        }
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                } else {
+                    arrList = Root.runCommand(listAllOverlays)
+                            .split(System.getProperty("line.separator"));
+                }
+                if (arrList != null) {
+                    for (String line : arrList) {
+                        if (line.startsWith(prefix)) {
+                            String packageName = line.substring(4);
+                            if (References.isPackageInstalled(context, packageName)) {
+                                try {
+                                    String sourceDir = context.getPackageManager()
+                                            .getApplicationInfo(packageName, 0).sourceDir;
+                                    if (!sourceDir.startsWith("/vendor/overlay/")) {
+                                        list.add(packageName);
+                                    }
+                                } catch (Exception ee) {
+                                    // Package not found blabla
                                 }
-                            } catch (Exception ee) {
-                                // Package not found blabla
                             }
                         }
                     }
@@ -367,21 +487,76 @@ public class ThemeManager {
         } catch (Exception | NoSuchMethodError e) {
             // Stock OMS goes here
             String prefix = "[x]";
-            String[] arrList = Root.runCommand(listAllOverlays)
-                    .split(System.getProperty("line.separator"));
+            String[] arrList = null;
+            if (References.checkAndromeda(context)) {
+                File overlays = new File(
+                        Environment.getExternalStorageDirectory().getAbsolutePath() +
+                                "/andromeda/overlays.xml");
+
+                // Call Andromeda to output the file!
+                SharedPreferences prefs =
+                        PreferenceManager.getDefaultSharedPreferences(context);
+                if (!overlays.exists()) {
+                    Log.d("ThemeManager", "Fetching new file from Andromeda, please wait!");
+                    AndromedaService.listOverlays();
+                    // Now we wait till the file is made quickly!
+                    while (!overlays.exists()) {
+                        try {
+                            Thread.sleep(100);
+                            Log.d("ThemeManager",
+                                    "Andromeda is still taking her sweet time...");
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                    prefs.edit().putString("andromeda_overlays",
+                            MD5.calculateMD5(overlays)).apply();
+                } else {
+                    Log.d("ThemeManager", "Queuing list using cached file!");
+                }
+
+                // Now we wait till the file is made quickly!
+                while (!overlays.exists()) {
+                    try {
+                        Thread.sleep(100);
+                        Log.d("ThemeManager", "Andromeda is still taking her sweet time...");
+                    } catch (InterruptedException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+
+                // Andromeda's file is done!
+                try {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        String str = new String(
+                                Files.readAllBytes(Paths.get(overlays.getAbsolutePath())));
+                        arrList = str.split(System.getProperty("line.separator"));
+                    }
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            } else {
+                arrList = Root.runCommand(listAllOverlays)
+                        .split(System.getProperty("line.separator"));
+            }
             int counter = 0;
             String currentApp = "";
-            for (String line : arrList) {
-                if (line.startsWith(prefix)) {
-                    if (References.isPackageInstalled(context, line.substring(4))) {
-                        counter++;
+            if (arrList != null) {
+                for (String line : arrList) {
+                    if (line.startsWith(prefix)) {
+                        if (References.isPackageInstalled(context, line.substring(4))) {
+                            counter++;
+                        }
+                    } else {
+                        if (counter > 1) {
+                            list.add(currentApp);
+                        }
+                        counter = 0;
+                        currentApp = line;
                     }
-                } else if (!line.startsWith("---")) {
-                    if (counter > 1) {
-                        list.add(currentApp);
-                    }
-                    counter = 0;
-                    currentApp = line;
+                }
+                if (counter > 1) {
+                    list.add(currentApp);
                 }
             }
         }
@@ -445,6 +620,14 @@ public class ThemeManager {
             ArrayList<String> list = new ArrayList<>();
             list.add(overlay);
             ThemeInterfacerService.installOverlays(context, list);
+        } else if (checkAndromeda(context)) {
+            ArrayList<String> list = new ArrayList<>();
+            list.add(overlay);
+            AndromedaService.installOverlays(list);
+            File overlaysFile = new File(
+                    Environment.getExternalStorageDirectory().getAbsolutePath() +
+                            "/andromeda/overlays.xml");
+            Log.d("ThemeManager", "Removing cached overlay file - " + overlaysFile.delete());
         } else {
             new ElevatedCommands.ThreadRunner().execute("pm install -r " + overlay);
         }
@@ -453,6 +636,12 @@ public class ThemeManager {
     public static void installOverlay(Context context, ArrayList<String> overlays) {
         if (checkThemeInterfacer(context)) {
             ThemeInterfacerService.installOverlays(context, overlays);
+        } else if (checkAndromeda(context)) {
+            AndromedaService.installOverlays(overlays);
+            File overlaysFile = new File(
+                    Environment.getExternalStorageDirectory().getAbsolutePath() +
+                            "/andromeda/overlays.xml");
+            Log.d("ThemeManager", "Removing cached overlay file - " + overlaysFile.delete());
         } else {
             StringBuilder packages = new StringBuilder();
             for (String o : overlays) {
@@ -474,6 +663,12 @@ public class ThemeManager {
                     context,
                     overlays,
                     false);
+        } else if (checkAndromeda(context) && !References.isSamsung(context)) {
+            AndromedaService.uninstallOverlays(overlays);
+            File overlaysFile = new File(
+                    Environment.getExternalStorageDirectory().getAbsolutePath() +
+                            "/andromeda/overlays.xml");
+            Log.d("ThemeManager", "Removing cached overlay file - " + overlaysFile.delete());
         } else if (References.isSamsung(context) &&
                 !Root.checkRootAccess() &&
                 !Root.requestRootAccess()) {

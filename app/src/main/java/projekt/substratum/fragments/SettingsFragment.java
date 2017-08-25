@@ -175,10 +175,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 ? getString(R.string.settings_system_status_rootless)
                 : (References.isSamsung(getContext()) ?
                 getString(R.string.settings_system_status_samsung) :
-                getString(R.string.settings_system_status_rooted)))
+                (References.checkAndromeda(getContext()) ?
+                        getString(R.string.settings_system_status_andromeda) :
+                        getString(R.string.settings_system_status_rooted)))
                 + " (" + (certified ? getString(R.string.settings_system_status_certified) :
                 getString(R.string.settings_system_status_uncertified)) + ")"
-        );
+        ));
         systemStatus.setIcon(certified ?
                 getContext().getDrawable(R.drawable.system_status_certified)
                 : getContext().getDrawable(R.drawable.system_status_uncertified));

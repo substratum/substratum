@@ -33,12 +33,14 @@ import com.google.firebase.crash.FirebaseCrash;
 import cat.ereza.customactivityoncrash.config.CaocConfig;
 import projekt.substratum.activities.crash.SubstratumCrash;
 import projekt.substratum.common.References;
+import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.services.binder.BinderService;
 
 import static projekt.substratum.BuildConfig.DEBUG;
 
 public class Substratum extends Application {
 
+    private static final String ANDROMEDA_BINDER_TAG = "AndromedaBinderService";
     private static final String BINDER_TAG = "BinderService";
     private static Substratum substratum;
 
@@ -56,6 +58,7 @@ public class Substratum extends Application {
         } catch (IllegalStateException ise) {
             // Suppress warning
         }
+        startAndromedaBinderService();
         startBinderService();
         References.registerBroadcastReceivers(this);
         createNotificationChannel();
@@ -94,6 +97,20 @@ public class Substratum extends Application {
             mainChannel.setDescription(
                     getString(R.string.notification_channel_ongoing_description));
             notificationManager.createNotificationChannel(compileChannel);
+        }
+    }
+
+    public void startAndromedaBinderService() {
+        if (References.checkAndromeda(getApplicationContext())) {
+            if (checkServiceActivation(AndromedaBinderService.class)) {
+                Log.d(ANDROMEDA_BINDER_TAG,
+                        "This session will utilize the pre-connected Andromeda Binder service!");
+            } else {
+                Log.d(ANDROMEDA_BINDER_TAG,
+                        "Substratum is now connecting to the Andromeda Binder service...");
+                startService(new Intent(getApplicationContext(),
+                        AndromedaBinderService.class));
+            }
         }
     }
 

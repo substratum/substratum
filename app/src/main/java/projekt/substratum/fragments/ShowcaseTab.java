@@ -188,14 +188,17 @@ public class ShowcaseTab extends Fragment {
             ShowcaseItem newEntry = new ShowcaseItem();
 
             for (String key : newArray.keySet()) {
-                if (!key.toLowerCase(Locale.getDefault()).contains("-".toLowerCase(Locale.getDefault()))) {
+                if (!key.toLowerCase(Locale.getDefault()).contains("-".toLowerCase(Locale
+                        .getDefault()))) {
                     newEntry.setContext(mContext);
                     newEntry.setThemeName(key);
                     newEntry.setThemeLink(newArray.get(key));
                 } else {
-                    if (key.toLowerCase(Locale.getDefault()).contains("-author".toLowerCase(Locale.getDefault()))) {
+                    if (key.toLowerCase(Locale.getDefault()).contains("-author".toLowerCase
+                            (Locale.getDefault()))) {
                         newEntry.setThemeAuthor(newArray.get(key));
-                    } else if (key.toLowerCase(Locale.getDefault()).contains("-pricing".toLowerCase(Locale.getDefault()))) {
+                    } else if (key.toLowerCase(Locale.getDefault()).contains("-pricing"
+                            .toLowerCase(Locale.getDefault()))) {
                         newEntry.setThemePricing(newArray.get(key));
                     } else if (key.toLowerCase(Locale.getDefault()).contains("-image-override")) {
                         newEntry.setThemeIcon(newArray.get(key));
@@ -203,7 +206,8 @@ public class ShowcaseTab extends Fragment {
                         newEntry.setThemeBackgroundImage(newArray.get(key));
                     } else if (key.toLowerCase(Locale.getDefault()).contains("-package-name")) {
                         newEntry.setThemePackage(newArray.get(key));
-                    } else if (key.toLowerCase(Locale.getDefault()).contains("-support".toLowerCase(Locale.getDefault()))) {
+                    } else if (key.toLowerCase(Locale.getDefault()).contains("-support"
+                            .toLowerCase(Locale.getDefault()))) {
                         newEntry.setThemeSupport(newArray.get(key));
                         wallpapers.add(newEntry);
                         newEntry = new ShowcaseItem();

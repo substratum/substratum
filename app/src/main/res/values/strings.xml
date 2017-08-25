@@ -646,6 +646,7 @@
     <string name="profile_dialog_ok">OK</string>
 
     <string name="settings_system_status">System certification</string>
+    <string name="settings_system_status_andromeda">Andromeda mode</string>
     <string name="settings_system_status_rooted">Rooted mode</string>
     <string name="settings_system_status_rootless">Rootless mode</string>
     <string name="settings_system_status_samsung">Samsung mode</string>

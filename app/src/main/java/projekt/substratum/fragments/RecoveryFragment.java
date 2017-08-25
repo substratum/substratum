@@ -273,7 +273,8 @@ public class RecoveryFragment extends Fragment {
         }
 
         View soundCard = root.findViewById(R.id.restore_sounds_card);
-        if (References.isSamsung(getContext())) {
+        if (References.isSamsung(getContext()) ||
+                (checkAndromeda(getContext()) && !Root.checkRootAccess())) {
             soundCard.setVisibility(View.GONE);
         }
 

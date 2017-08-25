@@ -1221,12 +1221,17 @@ public class MainActivity extends SubstratumActivity implements
             if (activity != null) {
                 Context context = activity.getApplicationContext();
 
-                // Ignore root if the device is Samsung
-                boolean samsungCheck = References.isSamsungDevice(context) &&
-                        !References.isPackageInstalled(context, SST_ADDON_PACKAGE);
-                boolean oreoCheck = References.checkOreo() && !References.checkAndromeda(context) && !grantedRoot;
-                boolean legacyCheck = !References.checkOMS(context) && !grantedRoot;
-                boolean omsCheck = References.checkOMS(context) && !References.checkThemeInterfacer(context) && !grantedRoot;
+                boolean samsungCheck = References.isSamsungDevice(context);
+                samsungCheck &= !References.isPackageInstalled(context, SST_ADDON_PACKAGE);
+                boolean oreoCheck = References.checkOreo();
+                oreoCheck &= !References.checkAndromeda(context);
+                oreoCheck &= !grantedRoot;
+                boolean legacyCheck = !References.checkOMS(context);
+                legacyCheck &= !grantedRoot;
+                boolean omsCheck = References.checkOMS(context);
+                omsCheck &= !References.checkThemeInterfacer(context);
+                omsCheck &= !grantedRoot;
+                omsCheck &= References.checkOreo() == oreoCheck;
                 boolean switchCheck = ENABLE_ROOT_CHECK && !BYPASS_ALL_VERSION_CHECKS;
                 if (switchCheck && (samsungCheck || oreoCheck || legacyCheck || omsCheck)) {
                     activity.mProgressDialog.setCancelable(false);

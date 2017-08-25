@@ -1228,6 +1228,7 @@ public class MainActivity extends SubstratumActivity implements
                 oreoCheck &= !grantedRoot;
                 boolean legacyCheck = !References.checkOMS(context);
                 legacyCheck &= !grantedRoot;
+                legacyCheck &= References.isSamsungDevice(context) == samsungCheck;
                 boolean omsCheck = References.checkOMS(context);
                 omsCheck &= !References.checkThemeInterfacer(context);
                 omsCheck &= !grantedRoot;

@@ -1224,12 +1224,11 @@ public class MainActivity extends SubstratumActivity implements
                 // Ignore root if the device is Samsung
                 boolean samsungCheck = References.isSamsungDevice(context) &&
                         !References.isPackageInstalled(context, SST_ADDON_PACKAGE);
-                if (!References.checkAndromeda(context) || samsungCheck ||
-                        (!grantedRoot &&
-                                !References.checkAndromeda(context) &&
-                                !References.checkThemeInterfacer(context) &&
-                                !References.isSamsung(context) &&
-                                ENABLE_ROOT_CHECK && !BYPASS_ALL_VERSION_CHECKS)) {
+                boolean oreoCheck = References.checkOreo() && !References.checkAndromeda(context) && !grantedRoot;
+                boolean legacyCheck = !References.checkOMS(context) && !grantedRoot;
+                boolean omsCheck = References.checkOMS(context) && !References.checkThemeInterfacer(context) && !grantedRoot;
+                boolean switchCheck = ENABLE_ROOT_CHECK && !BYPASS_ALL_VERSION_CHECKS;
+                if (switchCheck && (samsungCheck || oreoCheck || legacyCheck || omsCheck)) {
                     activity.mProgressDialog.setCancelable(false);
                     activity.mProgressDialog.show();
                     activity.mProgressDialog.setContentView(R.layout.root_rejected_loader);

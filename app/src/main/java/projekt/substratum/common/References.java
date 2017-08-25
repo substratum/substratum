@@ -42,9 +42,11 @@ import android.content.pm.Signature;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.drawable.AdaptiveIconDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
+import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.VectorDrawable;
 import android.net.ConnectivityManager;
@@ -878,6 +880,34 @@ public class References {
         } else if (drawable instanceof BitmapDrawable
                 | drawable instanceof ShapeDrawable) {
             bitmap = ((BitmapDrawable) drawable).getBitmap();
+        } else if (drawable instanceof AdaptiveIconDrawable) {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                // First we must get the top and bottom layers of the drawable
+                Drawable backgroundDrawable = ((AdaptiveIconDrawable) drawable).getBackground();
+                Drawable foregroundDrawable = ((AdaptiveIconDrawable) drawable).getForeground();
+
+                // Then we have to set up the drawable array to format these as an instantiation
+                Drawable[] drawableArray = new Drawable[2];
+                drawableArray[0] = backgroundDrawable;
+                drawableArray[1] = foregroundDrawable;
+
+                // We then have to create a layered drawable based on the drawable array
+                LayerDrawable layerDrawable = new LayerDrawable(drawableArray);
+
+                // Now set up the width and height of the output
+                int width = layerDrawable.getIntrinsicWidth();
+                int height = layerDrawable.getIntrinsicHeight();
+
+                // Formulate the bitmap properly
+                bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+
+                // Draw the canvas
+                Canvas canvas = new Canvas(bitmap);
+
+                // Finalize
+                layerDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+                layerDrawable.draw(canvas);
+            }
         }
         return bitmap;
     }

@@ -265,8 +265,10 @@ public class ThemeManager {
                         e1.printStackTrace();
                     }
                 } else {
-                    arrList = Root.runCommand(listAllOverlays)
-                            .split(System.getProperty("line.separator"));
+                    String tempList = Root.runCommand(listAllOverlays);
+                    if (tempList != null) {
+                        arrList = tempList.split(System.getProperty("line.separator"));
+                    }
                 }
 
                 if (arrList != null) {

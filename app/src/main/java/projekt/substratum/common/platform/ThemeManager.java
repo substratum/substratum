@@ -247,7 +247,7 @@ public class ThemeManager {
     }
 
     public static List<String> listTargetWithMultipleOverlaysEnabled(Context context) {
-        return listOverlays(context, STATE_LIST_MULTIPLE_TARGETS,
+        return listOverlays(context, STATE_APPROVED_ENABLED,
                 EXPORT_RETURN_MULTIPLE_TARGETS_ENABLED);
     }
 
@@ -391,7 +391,7 @@ public class ThemeManager {
                                             line.substring(4))) {
                                         counter++;
                                     }
-                                } else {
+                                } else if (!line.startsWith("[")){
                                     if (counter > 1) list.add(currentApp);
                                     counter = 0;
                                     currentApp = line;

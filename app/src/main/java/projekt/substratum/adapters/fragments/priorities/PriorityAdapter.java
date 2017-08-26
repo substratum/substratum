@@ -264,28 +264,9 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                             String.format("%s (%s)", packageTitle, prioritiesItem.getName()));
                 }
 
-                // Grab app icon from PackageInstaller and convert it to a BitmapDrawable in bytes
-                if (prioritiesItem.getBitmapId() == null) {
-                    Bitmap bitmap = References.getBitmapFromDrawable(
-                            prioritiesItem.getDrawableId());
-
-                    try (ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
-                        assert bitmap != null;
-                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                        byte[] bitmapData = stream.toByteArray();
-                        prioritiesItem.setBitmapId(bitmapData);
-
-                        Glide.with(mContext)
-                                .load(bitmapData)
-                                .apply(centerCropTransform())
-                                .into(priorityObjectAdapter.mAppIcon);
-                    }
-                } else {
-                    Glide.with(mContext)
-                            .load(prioritiesItem.getBitmapId())
-                            .apply(centerCropTransform())
-                            .into(priorityObjectAdapter.mAppIcon);
-                }
+                Bitmap bitmap = References.getBitmapFromDrawable(
+                        prioritiesItem.getDrawableId());
+                priorityObjectAdapter.mAppIcon.setImageBitmap(bitmap);
             } catch (Exception e) {
                 e.printStackTrace();
                 // Suppress warning

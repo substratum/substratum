@@ -179,7 +179,9 @@ public class PriorityListFragment extends Fragment {
                     } catch (Exception e) {
                         // Consume window refresh
                     }
-                }, (References.checkAndromeda(getContext()) ? 0 : REFRESH_WINDOW_DELAY * 2));
+                }, (References.checkAndromeda(getContext()) ?
+                        REFRESH_WINDOW_DELAY :
+                        REFRESH_WINDOW_DELAY * 2));
             }
         });
         return root;

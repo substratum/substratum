@@ -23,7 +23,6 @@ import android.graphics.drawable.Drawable;
 public class PrioritiesItem implements PrioritiesInterface {
 
     private String mName;
-    private byte[] mBitmapId;
     private Drawable mDrawableId;
     private String type1a;
     private String type1b;
@@ -48,14 +47,6 @@ public class PrioritiesItem implements PrioritiesInterface {
 
     Drawable getDrawableId() {
         return mDrawableId;
-    }
-
-    byte[] getBitmapId() {
-        return mBitmapId;
-    }
-
-    void setBitmapId(byte[] bitmap) {
-        this.mBitmapId = bitmap;
     }
 
     public String getType1a() {

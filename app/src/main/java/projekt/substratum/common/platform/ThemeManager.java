@@ -325,7 +325,7 @@ public class ThemeManager {
                 if (References.checkAndromeda(context)) {
                     File overlays = new File(
                             Environment.getExternalStorageDirectory().getAbsolutePath() +
-                                    "/andromeda/overlays.xml");
+                                    "/.andromeda/overlays.xml");
 
                     // Call Andromeda to output the file!
                     SharedPreferences prefs =
@@ -344,7 +344,7 @@ public class ThemeManager {
 
                         // Now we wait till the file is made quickly!
                         int counter = 0;
-                        while (!overlays.exists() && counter <= 10) {
+                        while (!overlays.exists() && counter <= 20) {
                             try {
                                 Thread.sleep(100);
                                 counter++;

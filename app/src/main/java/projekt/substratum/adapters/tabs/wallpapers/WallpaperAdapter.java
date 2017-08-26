@@ -75,11 +75,6 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         WallpaperEntries wallpaperEntry = information.get(pos);
         mContext = wallpaperEntry.getContext();
 
-        // Get display ratio
-        DisplayMetrics metrics = mContext.getResources().getDisplayMetrics();
-        int height = metrics.heightPixels;
-        int width = metrics.widthPixels;
-
         Glide.with(mContext)
                 .load(wallpaperEntry.getWallpaperPreview())
                 .apply(centerCropTransform())

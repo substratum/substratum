@@ -485,9 +485,16 @@ public class InformationActivity extends SubstratumActivity {
                 setOverflowButtonColor(this, false);
             }
         }
+
+        boolean[] extra_hidden_tabs = new boolean[3];
+        extra_hidden_tabs[0] = !References.checkAndromeda(getApplicationContext()) &&
+                !References.isSamsungDevice(getApplicationContext());
+        extra_hidden_tabs[1] = References.isFontsSupported();
+        extra_hidden_tabs[2] = !References.checkAndromeda(getApplicationContext());
+
         final InformationTabsAdapter adapter = new InformationTabsAdapter
                 (getSupportFragmentManager(), (tabLayout != null) ? tabLayout.getTabCount() : 0,
-                        theme_mode, tab_checker, wallpaperUrl, bundle);
+                        theme_mode, tab_checker, wallpaperUrl, extra_hidden_tabs, bundle);
 
         if (viewPager != null) {
             viewPager.setOffscreenPageLimit((tabLayout != null) ? tabLayout.getTabCount() : 0);

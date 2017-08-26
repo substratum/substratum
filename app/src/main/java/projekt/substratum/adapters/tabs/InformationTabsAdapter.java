@@ -26,7 +26,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import projekt.substratum.common.References;
 import projekt.substratum.tabs.BootAnimations;
 import projekt.substratum.tabs.Fonts;
 import projekt.substratum.tabs.Overlays;
@@ -40,10 +39,12 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
     private String theme_mode;
     private String wallpaperUrl;
     private Bundle bundle;
+    private boolean[] extras;
 
     @SuppressWarnings("unchecked")
     public InformationTabsAdapter(FragmentManager fm, int NumOfTabs, String theme_mode,
-                                  List package_checker, String wallpaperUrl, Bundle bundle) {
+                                  List package_checker, String wallpaperUrl, boolean[] extras,
+                                  Bundle bundle) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
         this.theme_mode = theme_mode;
@@ -54,6 +55,7 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
         }
         this.wallpaperUrl = wallpaperUrl;
         this.bundle = bundle;
+        this.extras = extras;
     }
 
     @Override
@@ -96,17 +98,17 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
             Overlays overlays = new Overlays();
             overlays.setArguments(bundle);
             return overlays;
-        } else if (package_checker.contains("bootanimation")) {
+        } else if (package_checker.contains("bootanimation") && extras[0]) {
             package_checker.remove("bootanimation");
             BootAnimations bootAnimations = new BootAnimations();
             bootAnimations.setArguments(bundle);
             return bootAnimations;
-        } else if (package_checker.contains("fonts") && References.isFontsSupported()) {
+        } else if (package_checker.contains("fonts") && extras[1]) {
             package_checker.remove("fonts");
             Fonts fonts = new Fonts();
             fonts.setArguments(bundle);
             return fonts;
-        } else if (package_checker.contains("audio")) {
+        } else if (package_checker.contains("audio") && extras[2]) {
             package_checker.remove("audio");
             Sounds sounds = new Sounds();
             sounds.setArguments(bundle);

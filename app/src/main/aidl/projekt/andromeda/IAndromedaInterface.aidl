@@ -27,42 +27,40 @@ interface IAndromedaInterface {
     /**
      * Install a list of specified applications
      *
-     * @param string Filled in with a list of path names for packages to be installed from.
+     * @param overlays Filled in with a list of path names for packages to be installed from.
      */
-    void installPackage(in List<String> overlays);
+    boolean installPackage(in List<String> overlays);
 
     /**
      * Uninstall a list of specified applications
      *
-     * @param packages  Filled in with a list of path names for packages to be installed from.
-     * @param restartUi Flag to automatically restart the SystemUI.
+     * @param overlays  Filled in with a list of path names for packages to be installed from.
      */
-    void uninstallPackage(in List<String> overlays);
+    boolean uninstallPackage(in List<String> overlays);
 
     /**
-     * List of enabled overlays
+     * List enabled overlays
      */
-    void listOverlays();
+    boolean listOverlays();
 
     /**
      * Enable a specified list of overlays
      *
-     * @param string  Filled in with a list of package names to be enabled.
+     * @param overlays  Filled in with a list of package names to be enabled.
      */
-    void enableOverlay(in List<String> overlays);
+    boolean enableOverlay(in List<String> overlays);
 
     /**
      * Disable a specified list of overlays
      *
-     * @param string  Filled in with a list of package names to be disabled.
+     * @param overlays  Filled in with a list of package names to be disabled.
      */
-    void disableOverlay(in List<String> overlays);
+    boolean disableOverlay(in List<String> overlays);
 
     /**
      * Change the priority of a specified list of overlays
      *
-     * @param packages  Filled in with a list of package names to be reordered.
-     * @param restartUi Flag to automatically restart the SystemUI.
+     * @param overlays  Filled in with a list of package names to be reordered.
      */
-    void changePriority(in List<String> overlays);
+    boolean changePriority(in List<String> overlays);
 }

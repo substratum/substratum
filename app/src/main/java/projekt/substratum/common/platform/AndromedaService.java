@@ -22,55 +22,66 @@ import android.os.RemoteException;
 
 import java.util.List;
 
+import projekt.andromeda.IAndromedaInterface;
 import projekt.substratum.services.binder.AndromedaBinderService;
 
 public class AndromedaService {
 
-    public static void enableOverlays(List<String> overlays) {
-        try {
-            AndromedaBinderService.getInstance().getAndromedaInterface().enableOverlay(overlays);
-        } catch (RemoteException e) {
-            // Suppress warning
-        }
+    static IAndromedaInterface getAndromedaInterface() {
+        return AndromedaBinderService.getInstance().getAndromedaInterface();
     }
 
-    public static void disableOverlays(List<String> overlays) {
+    static boolean enableOverlays(List<String> overlays) {
         try {
-            AndromedaBinderService.getInstance().getAndromedaInterface().disableOverlay(overlays);
+            return getAndromedaInterface().enableOverlay(overlays);
         } catch (RemoteException e) {
             // Suppress warning
         }
+        return false;
     }
 
-    public static void listOverlays() {
+    static boolean disableOverlays(List<String> overlays) {
         try {
-            AndromedaBinderService.getInstance().getAndromedaInterface().listOverlays();
+            return getAndromedaInterface().disableOverlay(overlays);
         } catch (RemoteException e) {
             // Suppress warning
         }
+        return false;
     }
 
-    static void installOverlays(List<String> overlays) {
+    public static boolean listOverlays() {
         try {
-            AndromedaBinderService.getInstance().getAndromedaInterface().installPackage(overlays);
+            return getAndromedaInterface().listOverlays();
         } catch (RemoteException e) {
             // Suppress warning
         }
+        return false;
     }
 
-    public static void uninstallOverlays(List<String> overlays) {
+    static boolean installOverlays(List<String> overlays) {
         try {
-            AndromedaBinderService.getInstance().getAndromedaInterface().uninstallPackage(overlays);
+            return getAndromedaInterface().installPackage(overlays);
         } catch (RemoteException e) {
             // Suppress warning
         }
+        return false;
     }
 
-    static void setPriority(List<String> overlays) {
+    static boolean uninstallOverlays(List<String> overlays) {
         try {
-            AndromedaBinderService.getInstance().getAndromedaInterface().changePriority(overlays);
+            return getAndromedaInterface().uninstallPackage(overlays);
         } catch (RemoteException e) {
             // Suppress warning
         }
+        return false;
+    }
+
+    static boolean setPriority(List<String> overlays) {
+        try {
+            return getAndromedaInterface().changePriority(overlays);
+        } catch (RemoteException e) {
+            // Suppress warning
+        }
+        return false;
     }
 }

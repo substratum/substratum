@@ -196,7 +196,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 if (v != null) {
                     v.vibrate(30);
                 }
-                if (!References.isSamsung(mContext)) {
+                if (!References.isSamsung(mContext) && !References.checkAndromeda(mContext)) {
                     SheetDialog sheetDialog = new SheetDialog(mContext);
                     View sheetView = View.inflate(mContext, R.layout.uninstall_sheet_dialog, null);
                     LinearLayout uninstall = (LinearLayout) sheetView.findViewById(R.id.uninstall);

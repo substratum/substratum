@@ -125,8 +125,13 @@ public class ThemeManager {
             new ElevatedCommands.ThreadRunner().execute(commands.toString());
             try {
                 Thread.sleep(NI_restartSystemUIDelay);
-                if (shouldRestartUI(context, overlays)) restartSystemUI(context);
-                killSystemUINotificationsOnStockOreo(context);
+                if (shouldRestartUI(context, overlays)){
+                    if (optInFromUIRestart(context)) {
+                        restartSystemUI(context);
+                    } else {
+                        killSystemUINotificationsOnStockOreo();
+                    }
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -159,8 +164,13 @@ public class ThemeManager {
             new ElevatedCommands.ThreadRunner().execute(commands.toString());
             try {
                 Thread.sleep(NI_restartSystemUIDelay);
-                if (shouldRestartUI(context, overlays)) restartSystemUI(context);
-                killSystemUINotificationsOnStockOreo(context);
+                if (shouldRestartUI(context, overlays)){
+                    if (optInFromUIRestart(context)) {
+                        restartSystemUI(context);
+                    } else {
+                        killSystemUINotificationsOnStockOreo();
+                    }
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -190,8 +200,13 @@ public class ThemeManager {
                         .append(" ").append(packageName).append(" ").append(parentName);
             }
             new ElevatedCommands.ThreadRunner().execute(commands.toString());
-            if (shouldRestartUI(context, overlays)) restartSystemUI(context);
-            killSystemUINotificationsOnStockOreo(context);
+            if (shouldRestartUI(context, overlays)){
+                if (optInFromUIRestart(context)) {
+                    restartSystemUI(context);
+                } else {
+                    killSystemUINotificationsOnStockOreo();
+                }
+            }
         }
     }
 
@@ -211,10 +226,8 @@ public class ThemeManager {
         }
     }
 
-    private static void killSystemUINotificationsOnStockOreo(Context context) {
-        if (!optInFromUIRestart(context) &&
-                Root.checkRootAccess() &&
-                References.checkOreo()) {
+    private static void killSystemUINotificationsOnStockOreo() {
+        if (Root.checkRootAccess() && References.checkOreo()) {
             Root.runCommand("service call notification 1");
         }
     }
@@ -611,9 +624,7 @@ public class ThemeManager {
 
     public static boolean shouldRestartUI(Context context, String overlay) {
         if (overlay.startsWith("com.android.systemui")) {
-            if (checkOMS(context)) {
-                return optInFromUIRestart(context);
-            }
+            return checkOMS(context);
         }
         return false;
     }

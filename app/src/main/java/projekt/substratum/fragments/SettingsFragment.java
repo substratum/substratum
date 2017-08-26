@@ -184,7 +184,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         systemStatus.setIcon(certified ?
                 getContext().getDrawable(R.drawable.system_status_certified)
                 : getContext().getDrawable(R.drawable.system_status_uncertified));
-        if (BuildConfig.DEBUG && References.checkOMS(getContext())) {
+        if (BuildConfig.DEBUG &&
+                References.checkOMS(getContext()) &&
+                !References.checkAndromeda(getContext())) {
             systemStatus.setOnPreferenceClickListener(preference -> {
                 if (References.isNetworkAvailable(getContext())) {
                     new downloadRepositoryList().execute("");

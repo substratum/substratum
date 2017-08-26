@@ -28,6 +28,7 @@ import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
@@ -60,6 +61,8 @@ import projekt.substratum.services.notification.FloatUiButtonReceiver;
 
 import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
+import static android.view.WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+import static android.view.WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
 
 public class SubstratumFloatInterface extends Service implements FloatingViewListener {
 
@@ -258,7 +261,11 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 //noinspection ConstantConditions
                 alertDialog.getWindow().setBackgroundDrawable(
                         getDrawable(R.drawable.dialog_background));
-                alertDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    alertDialog.getWindow().setType(TYPE_APPLICATION_OVERLAY);
+                } else {
+                    alertDialog.getWindow().setType(TYPE_SYSTEM_ALERT);
+                }
                 alertDialog.show();
             }
         });

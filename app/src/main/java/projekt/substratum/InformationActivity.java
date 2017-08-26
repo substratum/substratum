@@ -33,6 +33,7 @@ import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
@@ -64,9 +65,6 @@ import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener;
@@ -94,7 +92,6 @@ import projekt.substratum.util.views.SheetDialog;
 
 import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
 import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
-import static com.bumptech.glide.request.RequestOptions.centerCropTransform;
 import static projekt.substratum.common.References.BYPASS_SUBSTRATUM_BUILDER_DELETION;
 import static projekt.substratum.common.References.MANAGER_REFRESH;
 import static projekt.substratum.common.References.bootAnimationsFragment;
@@ -1053,13 +1050,8 @@ public class InformationActivity extends SubstratumActivity {
                     tabLayout.setBackgroundColor(Color.parseColor("#ffff00"));
                 getWindow().setNavigationBarColor(Color.parseColor("#ffff00"));
             } else if (kenBurnsView != null) {
-                RequestOptions requestOptions = centerCropTransform();
-                requestOptions.diskCacheStrategy(DiskCacheStrategy.NONE);
-                requestOptions.skipMemoryCache(true);
-                Glide.with(getApplicationContext())
-                        .load(byteArray)
-                        .apply(requestOptions)
-                        .into(kenBurnsView);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                kenBurnsView.setImageBitmap(bitmap);
             }
         }
 

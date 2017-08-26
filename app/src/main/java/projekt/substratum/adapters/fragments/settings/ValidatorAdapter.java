@@ -107,8 +107,20 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
                     }
                 }
 
+                String pkg = validatorInfo.getPackageName();
+                switch (validatorInfo.getPackageName()) {
+                    case "com.android.contacts.common":
+                        pkg = "com.android.contacts";
+                        break;
+                    case "com.android.phone.common":
+                        pkg = "com.android.phone";
+                        break;
+                }
+                String format = String.format(
+                        context.getString(R.string.resource_commit_dialog_title),
+                        References.grabPackageName(context, pkg));
                 new android.app.AlertDialog.Builder(context)
-                        .setTitle(R.string.resource_commit_dialog_title)
+                        .setTitle(format)
                         .setMessage("\n" + error_logs)
                         .setPositiveButton(R.string
                                 .customactivityoncrash_error_activity_error_details_close, null)

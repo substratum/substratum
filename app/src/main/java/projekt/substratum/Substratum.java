@@ -60,7 +60,11 @@ public class Substratum extends Application {
         } catch (IllegalStateException ise) {
             // Suppress warning
         }
-        startAndromedaBinderService();
+        if (References.checkAndromeda(getApplicationContext())) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startAndromedaBinderService();
+            }
+        }
         startBinderService();
         References.registerBroadcastReceivers(this);
         createNotificationChannel();

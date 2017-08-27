@@ -145,21 +145,6 @@ coleção de animações de carregamento legais para Android.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
-    <!-- Lemniscate -->
-    <!-- Author section -->
-    <string name="library_lemniscate_author">Vladimir Jovanović</string>
-    <string name="library_lemniscate_authorWebsite">https://stackoverflow.com/users/5821000/vladimir-jovanovi</string>
-    <!-- Library section -->
-    <string name="library_lemniscate_libraryName">Lemniscate</string>
-    <string name="library_lemniscate_libraryDescription">Lemniscate é uma biblioteca que o ajudará em fazer sua visão de progresso ficar bonita e elegante.</string>
-    <string name="library_lemniscate_libraryWebsite">https://github.com/vlad1m1r990/Lemniscate</string>
-    <!-- OpenSource section -->
-    <string name="library_lemniscate_isOpenSource">true</string>
-    <string name="library_lemniscate_repositoryLink">https://github.com/vlad1m1r990/Lemniscate</string>
-    <!-- ClassPath for autoDetect section -->
-    <string name="library_lemniscate_classPath">com.github.vlad1m1r990:Lemniscate</string>
-    <!-- License section -->
-    <string name="library_lemniscate_licenseId">apache_2_0</string>
     <!-- NumberProgressBar -->
     <!-- Author section -->
     <string name="library_numberprogressbar_author">代码家</string>

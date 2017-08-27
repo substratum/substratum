@@ -175,7 +175,6 @@ dependencies {
     // Floating App Head
     compile 'com.github.recruit-lifestyle:FloatingView:2.2.3-beta1'
     // Animations
-    compile 'com.github.vlad1m1r990:Lemniscate:1.2.0'
     compile 'com.daimajia.numberprogressbar:library:1.4@aar'
     // Crash Activity
     compile 'cat.ereza:customactivityoncrash:2.1.0'

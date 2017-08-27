@@ -18,23 +18,12 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-    <com.vlad1m1r.lemniscate.roulette.EpitrochoidProgressView
+    <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="20dp"
-        app:duration="1000"
-        app:hasHole="false"
-        app:lineColor="?colorAccent"
-        app:lineLength="0.6"
-        app:lineLengthChangeable="true"
-        app:maxLineLength="0.8"
-        app:minLineLength="0.4"
-        app:sizeMultiplier="1"
-        app:strokeWidth="5dp"/>
+        android:indeterminate="true" />
 
 </RelativeLayout>

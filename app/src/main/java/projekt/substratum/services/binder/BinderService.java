@@ -18,6 +18,7 @@
 
 package projekt.substratum.services.binder;
 
+import android.app.Notification;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
@@ -25,10 +26,15 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import projekt.substratum.IInterfacerInterface;
+import projekt.substratum.R;
 import projekt.substratum.common.References;
+import projekt.substratum.common.platform.AndromedaService;
 
 import static projekt.substratum.common.References.INTERFACER_BINDED;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
@@ -53,6 +59,9 @@ public class BinderService extends Service implements ServiceConnection {
             Intent intent = new Intent(INTERFACER_BINDED);
             intent.setPackage(INTERFACER_PACKAGE);
             bindService(intent, this, Context.BIND_AUTO_CREATE);
+            if (!AndromedaService.checkServerActivity()) {
+                unbindInterfacer();
+            }
         }
     }
 
@@ -93,5 +102,23 @@ public class BinderService extends Service implements ServiceConnection {
         interfacerInterface = null;
         mBound = false;
         Log.d(TAG, "Substratum has successfully unbinded with the Interfacer module.");
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
+                getApplicationContext(),
+                References.ONGOING_NOTIFICATION_CHANNEL_ID);
+
+        mBuilder.setContentTitle(getApplicationContext().getString(
+                R.string.interfacer_notification_title))
+                .setContentText(getApplicationContext().getString(
+                        R.string.andromeda_notification_text))
+                .setSmallIcon(R.drawable.notification_icon)
+                .setPriority(Notification.PRIORITY_DEFAULT)
+                .setOngoing(true);
+
+        this.startForeground(ThreadLocalRandom.current().nextInt(0, 100 + 1), mBuilder.build());
     }
 }

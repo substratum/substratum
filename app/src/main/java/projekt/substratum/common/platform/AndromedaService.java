@@ -31,6 +31,15 @@ public class AndromedaService {
         return AndromedaBinderService.getInstance().getAndromedaInterface();
     }
 
+    public static boolean checkServerActivity() {
+        try {
+            return getAndromedaInterface().checkServerActivity();
+        } catch (RemoteException e) {
+            // Suppress warning
+        }
+        return false;
+    }
+
     static boolean enableOverlays(List<String> overlays) {
         try {
             return getAndromedaInterface().enableOverlay(overlays);

@@ -109,8 +109,11 @@ import projekt.substratum.activities.launch.ThemeLaunchActivity;
 import projekt.substratum.common.analytics.FirebaseAnalytics;
 import projekt.substratum.common.analytics.PackageAnalytics;
 import projekt.substratum.common.commands.ElevatedCommands;
+import projekt.substratum.common.platform.AndromedaService;
 import projekt.substratum.common.platform.ThemeInterfacerService;
+import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.tabs.SoundManager;
+import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.services.crash.AppCrashReceiver;
 import projekt.substratum.services.packages.OverlayFound;
 import projekt.substratum.services.packages.OverlayUpdater;
@@ -1570,7 +1573,6 @@ public class References {
         return getThemeInterfacerPackage(context) != null;
     }
 
-    // Begin check if device is running on the latest theme interface
     public static boolean checkAndromeda(Context context) {
         if (context == null) {
             Log.e(SUBSTRATUM_LOG,
@@ -1580,6 +1582,7 @@ public class References {
         return checkOreo() && getAndromedaPackage(context) != null;
     }
 
+    // Begin check if device is running on the latest theme interface
     public static boolean isBinderInterfacer(Context context) {
         PackageInfo packageInfo = getThemeInterfacerPackage(context);
         return packageInfo != null && packageInfo.versionCode >= 60;

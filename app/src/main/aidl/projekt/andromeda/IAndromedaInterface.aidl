@@ -25,6 +25,25 @@ package projekt.andromeda;
 interface IAndromedaInterface {
 
     /**
+     * Check whether the port is responding
+     */
+    boolean checkServerActivity();
+
+    /**
+     * Enable a specified list of overlays
+     *
+     * @param overlays  Filled in with a list of package names to be enabled.
+     */
+    boolean enableOverlay(in List<String> overlays);
+
+    /**
+     * Disable a specified list of overlays
+     *
+     * @param overlays  Filled in with a list of package names to be disabled.
+     */
+    boolean disableOverlay(in List<String> overlays);
+
+    /**
      * Install a list of specified applications
      *
      * @param overlays Filled in with a list of path names for packages to be installed from.
@@ -42,20 +61,6 @@ interface IAndromedaInterface {
      * List enabled overlays
      */
     boolean listOverlays();
-
-    /**
-     * Enable a specified list of overlays
-     *
-     * @param overlays  Filled in with a list of package names to be enabled.
-     */
-    boolean enableOverlay(in List<String> overlays);
-
-    /**
-     * Disable a specified list of overlays
-     *
-     * @param overlays  Filled in with a list of package names to be disabled.
-     */
-    boolean disableOverlay(in List<String> overlays);
 
     /**
      * Change the priority of a specified list of overlays

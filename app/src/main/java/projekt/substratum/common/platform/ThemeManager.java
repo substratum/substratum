@@ -522,6 +522,14 @@ public class ThemeManager {
         return list;
     }
 
+    public static List<String> listDisabledOverlaysForTarget(Context context, String target) {
+        List<String> list = new ArrayList<>();
+        List<String> overlays = listOverlays(context, STATE_APPROVED_DISABLED);
+        list.addAll(overlays.stream().filter(o -> o.startsWith(target))
+                .collect(Collectors.toList()));
+        return list;
+    }
+
     public static boolean isOverlayEnabled(Context context, String overlayName) {
         List<String> enabledOverlays = ThemeManager.listOverlays(context, STATE_APPROVED_ENABLED);
         for (String o : enabledOverlays) {

@@ -60,9 +60,6 @@ public class AndromedaBinderService extends Service implements ServiceConnection
             Intent intent = new Intent(ANDROMEDA_BINDED);
             intent.setPackage(ANDROMEDA_PACKAGE);
             bindService(intent, this, Context.BIND_AUTO_CREATE);
-            if (!AndromedaService.checkServerActivity()) {
-                unbindAndromeda();
-            }
         }
     }
 

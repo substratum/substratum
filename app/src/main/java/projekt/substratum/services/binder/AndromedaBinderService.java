@@ -25,13 +25,10 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -63,6 +60,9 @@ public class AndromedaBinderService extends Service implements ServiceConnection
             Intent intent = new Intent(ANDROMEDA_BINDED);
             intent.setPackage(ANDROMEDA_PACKAGE);
             bindService(intent, this, Context.BIND_AUTO_CREATE);
+            if (!AndromedaService.checkServerActivity()) {
+                unbindAndromeda();
+            }
         }
     }
 

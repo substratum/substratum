@@ -34,7 +34,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import projekt.substratum.IInterfacerInterface;
 import projekt.substratum.R;
 import projekt.substratum.common.References;
-import projekt.substratum.common.platform.AndromedaService;
 
 import static projekt.substratum.common.References.INTERFACER_BINDED;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
@@ -59,9 +58,6 @@ public class BinderService extends Service implements ServiceConnection {
             Intent intent = new Intent(INTERFACER_BINDED);
             intent.setPackage(INTERFACER_PACKAGE);
             bindService(intent, this, Context.BIND_AUTO_CREATE);
-            if (!AndromedaService.checkServerActivity()) {
-                unbindInterfacer();
-            }
         }
     }
 

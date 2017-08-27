@@ -18,7 +18,6 @@
 
 package projekt.substratum.services.binder;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.Service;
 import android.content.ComponentName;
@@ -109,14 +108,13 @@ public class AndromedaBinderService extends Service implements ServiceConnection
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
                 getApplicationContext(),
-                References.ONGOING_NOTIFICATION_CHANNEL_ID);
+                References.ANDROMEDA_NOTIFICATION_CHANNEL_ID);
 
         mBuilder.setContentTitle(getApplicationContext().getString(
                 R.string.andromeda_notification_title))
                 .setContentText(getApplicationContext().getString(
                         R.string.andromeda_notification_text))
                 .setSmallIcon(R.drawable.notification_icon)
-                .setPriority(Notification.PRIORITY_DEFAULT)
                 .setOngoing(true);
 
         new Thread(() -> {

@@ -218,6 +218,7 @@ public class References {
     // Notification Channel
     public static final String DEFAULT_NOTIFICATION_CHANNEL_ID = "default";
     public static final String ONGOING_NOTIFICATION_CHANNEL_ID = "ongoing";
+    public static final String ANDROMEDA_NOTIFICATION_CHANNEL_ID = "andromeda";
     // This controls the filter used by the post-6.0.0 template checker
     private static final String SUBSTRATUM_THEME = "projekt.substratum.THEME";
     private static final String SUBSTRATUM_LAUNCHER_CLASS = ".SubstratumLauncher";

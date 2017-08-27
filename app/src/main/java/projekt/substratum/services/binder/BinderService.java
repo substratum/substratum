@@ -24,6 +24,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
@@ -103,18 +104,20 @@ public class BinderService extends Service implements ServiceConnection {
     @Override
     public void onCreate() {
         super.onCreate();
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
-                getApplicationContext(),
-                References.ONGOING_NOTIFICATION_CHANNEL_ID);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
+                    getApplicationContext(),
+                    References.ONGOING_NOTIFICATION_CHANNEL_ID);
 
-        mBuilder.setContentTitle(getApplicationContext().getString(
-                R.string.interfacer_notification_title))
-                .setContentText(getApplicationContext().getString(
-                        R.string.andromeda_notification_text))
-                .setSmallIcon(R.drawable.notification_icon)
-                .setPriority(Notification.PRIORITY_DEFAULT)
-                .setOngoing(true);
+            mBuilder.setContentTitle(getApplicationContext().getString(
+                    R.string.interfacer_notification_title))
+                    .setContentText(getApplicationContext().getString(
+                            R.string.andromeda_notification_text))
+                    .setSmallIcon(R.drawable.notification_icon)
+                    .setPriority(Notification.PRIORITY_DEFAULT)
+                    .setOngoing(true);
 
-        this.startForeground(ThreadLocalRandom.current().nextInt(0, 100 + 1), mBuilder.build());
+            this.startForeground(ThreadLocalRandom.current().nextInt(0, 100 + 1), mBuilder.build());
+        }
     }
 }

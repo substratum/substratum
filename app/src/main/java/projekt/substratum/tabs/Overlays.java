@@ -88,6 +88,7 @@ import javax.crypto.spec.SecretKeySpec;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
+import projekt.substratum.Substratum;
 import projekt.substratum.adapters.tabs.overlays.OverlaysAdapter;
 import projekt.substratum.adapters.tabs.overlays.OverlaysItem;
 import projekt.substratum.adapters.tabs.overlays.VariantAdapter;
@@ -199,6 +200,8 @@ public class Overlays extends Fragment {
             compile_enable_mode = true;
             enable_mode = false;
             disable_mode = false;
+
+            new Substratum().startBinderService();
 
             overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
             checkedOverlays = new ArrayList<>();

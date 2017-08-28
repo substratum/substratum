@@ -384,14 +384,10 @@ public class MainActivity extends SubstratumActivity implements
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_youtube)
                                 .withSelectable(false)
                                 .withIdentifier(103),
-                        new SecondaryDrawerItem().withName(R.string.nav_drawer_tcf)
-                                .withLevel(2).withIcon(R.drawable.nav_drawer_tcf)
-                                .withSelectable(false)
-                                .withIdentifier(104),
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_xda_portal)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_xda_portal)
                                 .withSelectable(false)
-                                .withIdentifier(105));
+                                .withIdentifier(104));
 
         // Split the resources out for easy adapting
         ExpandableDrawerItem resources = new ExpandableDrawerItem()
@@ -634,19 +630,6 @@ public class MainActivity extends SubstratumActivity implements
                         }
                         break;
                     case 104:
-                        try {
-                            String sourceURL = getString(R.string.tcf_link);
-                            Intent i = new Intent(Intent.ACTION_VIEW);
-                            i.setData(Uri.parse(sourceURL));
-                            startActivity(i);
-                        } catch (Exception e) {
-                            Lunchbar.make(findViewById(android.R.id.content),
-                                    getString(R.string.activity_missing_toast),
-                                    Lunchbar.LENGTH_LONG)
-                                    .show();
-                        }
-                        break;
-                    case 105:
                         try {
                             String sourceURL = getString(R.string.xda_portal_link);
                             Intent i = new Intent(Intent.ACTION_VIEW);

@@ -796,10 +796,8 @@
     <string name="rawad_youtube_url" translatable="false">https://www.youtube.com/playlist?list=PLgLZvFga2ml4LGq5NfVgtSvx8msfnCDe8</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Featured content</string>
-    <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
-    <string name="tcf_link" translatable="false">http://thecyberfibre.com/</string>
     <string name="nav_drawer_xda_portal">XDA Portal</string>
-    <string name="xda_portal_link" translatable="false">https://xda-developers.com/author/punya-vashist</string>
+    <string name="xda_portal_link" translatable="false">https://www.xda-developers.com/search/substratum</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Resources</string>
     <string name="nav_drawer_homepage">Official homepage</string>

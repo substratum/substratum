@@ -27,6 +27,7 @@ import android.content.Intent;
 import android.media.AudioAttributes;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.google.firebase.FirebaseApp;
@@ -60,10 +61,8 @@ public class Substratum extends Application {
         } catch (IllegalStateException ise) {
             // Suppress warning
         }
-        if (References.checkAndromeda(getApplicationContext())) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                startAndromedaBinderService();
-            }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startAndromedaBinderService();
         }
         startBinderService();
         References.registerBroadcastReceivers(this);
@@ -107,7 +106,7 @@ public class Substratum extends Application {
             NotificationChannel andromedaChannel = new NotificationChannel(
                     References.ANDROMEDA_NOTIFICATION_CHANNEL_ID,
                     getString(R.string.notification_channel_andromeda),
-                    NotificationManager.IMPORTANCE_DEFAULT);
+                    NotificationManager.IMPORTANCE_NONE);
             andromedaChannel.setDescription(
                     getString(R.string.notification_channel_andromeda_description));
             notificationManager.createNotificationChannel(andromedaChannel);
@@ -123,7 +122,8 @@ public class Substratum extends Application {
             } else {
                 Log.d(ANDROMEDA_BINDER_TAG,
                         "Substratum is now connecting to the Andromeda Binder service...");
-                startService(new Intent(getApplicationContext(), AndromedaBinderService.class));
+                ContextCompat.startForegroundService(getApplicationContext(),
+                        new Intent(getApplicationContext(), AndromedaBinderService.class));
             }
         }
     }

@@ -29,8 +29,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 import projekt.andromeda.IAndromedaInterface;
 import projekt.substratum.R;
 import projekt.substratum.common.References;
@@ -43,6 +41,7 @@ public class AndromedaBinderService extends Service implements ServiceConnection
 
     private static final String TAG = "AndromedaBinderService";
     private static AndromedaBinderService andromedaBinderService;
+    private static int notificationId = 2017;
     private IAndromedaInterface iAndromedaInterface;
     private boolean mBound;
 
@@ -71,6 +70,48 @@ public class AndromedaBinderService extends Service implements ServiceConnection
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         andromedaBinderService = this;
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
+                getApplicationContext(),
+                References.ANDROMEDA_NOTIFICATION_CHANNEL_ID);
+
+        mBuilder.setContentTitle(getApplicationContext().getString(
+                R.string.andromeda_notification_title))
+                .setContentText(getApplicationContext().getString(
+                        R.string.andromeda_notification_text))
+                .setSmallIcon(R.drawable.notification_icon)
+                .setOngoing(true);
+
+        new Thread(() -> {
+            while (!mBound) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (AndromedaService.checkServerActivity()) {
+                startForeground(notificationId, mBuilder.build());
+                boolean failed = false;
+                while (!failed) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (!AndromedaService.checkServerActivity()) {
+                        sendBadNotification(new NotificationCompat.Builder(
+                                getApplicationContext(),
+                                References.DEFAULT_NOTIFICATION_CHANNEL_ID));
+                        failed = true;
+                    }
+                }
+            } else {
+                sendBadNotification(new NotificationCompat.Builder(
+                        getApplicationContext(),
+                        References.DEFAULT_NOTIFICATION_CHANNEL_ID));
+            }
+        }).start();
         bindAndromeda();
         return START_STICKY;
     }
@@ -101,50 +142,6 @@ public class AndromedaBinderService extends Service implements ServiceConnection
         Log.d(TAG, "Substratum has successfully unbinded with the Andromeda module.");
     }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        Integer notification_id = ThreadLocalRandom.current().nextInt(0, 100 + 1);
-
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
-                getApplicationContext(),
-                References.ANDROMEDA_NOTIFICATION_CHANNEL_ID);
-
-        mBuilder.setContentTitle(getApplicationContext().getString(
-                R.string.andromeda_notification_title))
-                .setContentText(getApplicationContext().getString(
-                        R.string.andromeda_notification_text))
-                .setSmallIcon(R.drawable.notification_icon)
-                .setOngoing(true);
-
-        new Thread(() -> {
-            while (!mBound) {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (AndromedaService.checkServerActivity()) {
-                startForeground(notification_id, mBuilder.build());
-                boolean failed = false;
-                while (!failed) {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    if (!AndromedaService.checkServerActivity()) {
-                        sendBadNotification(mBuilder);
-                        failed = true;
-                    }
-                }
-            } else {
-                sendBadNotification(mBuilder);
-            }
-        }).start();
-    }
-
     public void sendBadNotification(NotificationCompat.Builder mBuilder) {
         NotificationManager mNotifyMgr =
                 (NotificationManager)
@@ -158,7 +155,7 @@ public class AndromedaBinderService extends Service implements ServiceConnection
                             R.string.andromeda_notification_text_negation));
             mBuilder.setOngoing(false);
             mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
-            mNotifyMgr.notify(ThreadLocalRandom.current().nextInt(0, 100 + 1), mBuilder.build());
+            mNotifyMgr.notify(notificationId, mBuilder.build());
             this.stopForeground(STOP_FOREGROUND_REMOVE);
         }
         System.exit(0);

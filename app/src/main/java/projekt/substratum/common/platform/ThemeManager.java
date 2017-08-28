@@ -83,7 +83,6 @@ public class ThemeManager {
     private static final int EXPORT_RETURN_MULTIPLE_TARGETS_ENABLED = 1;
     private static final int EXPORT_RETURN_DEFAULT = 2;
     private static final int STATE_LIST_ALL_OVERLAYS = 13579;
-    private static final int STATE_LIST_MULTIPLE_TARGETS = 24760;
 
     public static boolean blacklisted(String packageName, Boolean unsupportedSamsung) {
         List<String> blacklisted = new ArrayList<>(Arrays.asList(blacklistedPackages));
@@ -376,8 +375,11 @@ public class ThemeManager {
                         }
                     }
                 } else {
-                    arrList = Root.runCommand(listAllOverlays)
-                            .split(System.getProperty("line.separator"));
+                    try {
+                        arrList = Root.runCommand(listAllOverlays)
+                                .split(System.getProperty("line.separator"));
+                    } catch (NullPointerException ignored) {
+                    }
                 }
                 switch (state2) {
                     case EXPORT_RETURN_MULTIPLE_TARGETS_ENABLED:

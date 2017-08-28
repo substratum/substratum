@@ -94,6 +94,8 @@ public class ThemeManager {
             blacklisted.add("com.android.systemui");
             blacklisted.add("com.android.systemui.headers");
             blacklisted.add("com.android.systemui.tiles");
+            blacklisted.add("com.android.systemui.navbars");
+            blacklisted.add("com.android.systemui.statusbars");
         }
         return blacklisted.contains(packageName);
     }

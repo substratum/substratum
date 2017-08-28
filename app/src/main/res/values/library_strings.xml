@@ -45,34 +45,6 @@
     <!-- License section -->
     <string name="library_commons_io_licenseId" translatable="false">apache_2_0</string>
 
-    <!-- FAB Speed Dial -->
-    <string name="define_fab_speed_dial"/>
-    <!-- Author section -->
-    <string name="library_fab_speed_dial_author" translatable="false">Yavor Ivanov</string>
-    <string name="library_fab_speed_dial_authorWebsite" translatable="false">
-        https://github.com/yavski
-    </string>
-    <!-- Library section -->
-    <string name="library_fab_speed_dial_libraryName" translatable="false">fab-speed-dial</string>
-    <string name="library_fab_speed_dial_libraryDescription">A simple library marrying together FAB
-        + menu resources + Speed dial metaphor from Material Design.
-    </string>
-    <string name="library_fab_speed_dial_libraryWebsite" translatable="false">
-        https://github.com/yavski/fab-speed-dial
-    </string>
-    <string name="library_fab_speed_dial_libraryVersion" translatable="false">1.0.4</string>
-    <!-- OpenSource section -->
-    <string name="library_fab_speed_dial_isOpenSource" translatable="false">true</string>
-    <string name="library_fab_speed_dial_repositoryLink" translatable="false">
-        https://github.com/yavski/fab-speed-dial
-    </string>
-    <!-- ClassPath for autoDetect section -->
-    <string name="library_fab_speed_dial_classPath" translatable="false">
-        io.github.yavski:fab-speed-dial
-    </string>
-    <!-- License section -->
-    <string name="library_fab_speed_dial_licenseId" translatable="false">apache_2_0</string>
-
     <!-- Gesture RecyclerView -->
     <string name="define_gesturerecycler"/>
     <!-- Author section -->
@@ -130,33 +102,6 @@
     </string>
     <!-- License section -->
     <string name="library_kenburnsview_licenseId" translatable="false">apache_2_0</string>
-
-    <!-- libsuperuser -->
-    <string name="define_libsuperuser"/>
-    <!-- Author section -->
-    <string name="library_libsuperuser_author" translatable="false">Chainfire</string>
-    <string name="library_libsuperuser_authorWebsite" translatable="false">http://su.chainfire.eu/
-    </string>
-    <!-- Library section -->
-    <string name="library_libsuperuser_libraryName" translatable="false">libsuperuser</string>
-    <string name="library_libsuperuser_libraryDescription">The goal of this library is to
-        demonstrate techniques you may want to reuse in your root app that work around common
-        problems, in as little code as possible.
-    </string>
-    <string name="library_libsuperuser_libraryWebsite" translatable="false">
-        https://github.com/Chainfire/libsuperuser
-    </string>
-    <string name="library_libsuperuser_libraryVersion" translatable="false">1.0.0</string>
-    <!-- OpenSource section -->
-    <string name="library_libsuperuser_isOpenSource" translatable="false">true</string>
-    <string name="library_libsuperuser_repositoryLink" translatable="false">
-        https://github.com/Chainfire/libsuperuser
-    </string>
-    <!-- ClassPath for autoDetect section -->
-    <string name="library_libsuperuser_classPath" translatable="false">eu.chainfire:libsuperuser
-    </string>
-    <!-- License section -->
-    <string name="library_libsuperuser_licenseId" translatable="false">apache_2_0</string>
 
     <!-- Material Progress Bar -->
     <string name="define_materialprogressbar"/>

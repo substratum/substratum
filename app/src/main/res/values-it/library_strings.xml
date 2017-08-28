@@ -49,13 +49,6 @@
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
-    <!-- libsuperuser -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_libsuperuser_libraryDescription">Lo scopo di questa libreria è dimostrare le tecniche che potresti voler riutilizzare nella tua app root per aggirare problemi comuni, con meno codice possibile.    </string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <!-- License section -->
     <!-- Material Progress Bar -->
     <!-- Author section -->
     <!-- Library section -->

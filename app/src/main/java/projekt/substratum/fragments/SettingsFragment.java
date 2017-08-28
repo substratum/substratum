@@ -129,7 +129,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         i.setData(Uri.parse(sourceURL));
                         startActivity(i);
                     } catch (ActivityNotFoundException activityNotFoundException) {
-                        // Suppress warning
+                        Lunchbar.make(getActivity().findViewById(android.R.id.content),
+                                getString(R.string.activity_missing_toast),
+                                Lunchbar.LENGTH_LONG)
+                                .show();
                     }
                     return false;
                 });
@@ -664,7 +667,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
                         } catch (ActivityNotFoundException activityNotFoundException) {
-                            // Suppress warning
+                            Lunchbar.make(getActivity().findViewById(android.R.id.content),
+                                    getString(R.string.activity_missing_toast),
+                                    Lunchbar.LENGTH_LONG)
+                                    .show();
                         }
                         return false;
                     });

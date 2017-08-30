@@ -407,6 +407,7 @@ public class Overlays extends Fragment {
                 disable_mode = false;
             }
         }
+        if (progressBar != null) progressBar.setVisibility(View.GONE);
     }
 
     public void startEnable() {
@@ -452,6 +453,7 @@ public class Overlays extends Fragment {
                 currentShownLunchBar.show();
             }
         }
+        if (progressBar != null) progressBar.setVisibility(View.GONE);
     }
 
     public void setMixAndMatchMode(boolean newValue) {

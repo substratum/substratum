@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.service.notification.StatusBarNotification;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -146,7 +147,19 @@ public class AndromedaBinderService extends Service implements ServiceConnection
         NotificationManager mNotifyMgr =
                 (NotificationManager)
                         getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
+
+        boolean isBadNotificationShowing = false;
+        StatusBarNotification[] notifications;
         if (mNotifyMgr != null) {
+            notifications = mNotifyMgr.getActiveNotifications();
+            for (StatusBarNotification notification : notifications) {
+                if (notification.getId() == notificationId) {
+                    isBadNotificationShowing = true;
+                }
+            }
+        }
+
+        if (mNotifyMgr != null && !isBadNotificationShowing) {
             mBuilder.setContentTitle(
                     getApplicationContext().getString(
                             R.string.andromeda_notification_title_negation));

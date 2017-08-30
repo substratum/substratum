@@ -174,8 +174,6 @@ dependencies {
     compile 'net.cachapa.expandablelayout:expandablelayout:2.9.1'
     // Floating App Head
     compile 'com.github.recruit-lifestyle:FloatingView:2.2.3-beta1'
-    // Animations
-    compile 'com.daimajia.numberprogressbar:library:1.4@aar'
     // Crash Activity
     compile 'cat.ereza:customactivityoncrash:2.1.0'
 }

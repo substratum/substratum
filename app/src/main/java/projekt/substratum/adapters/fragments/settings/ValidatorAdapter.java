@@ -27,8 +27,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.daimajia.numberprogressbar.NumberProgressBar;
-
 import java.util.ArrayList;
 
 import projekt.substratum.R;
@@ -68,15 +66,10 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
                 References.grabAppIcon(context, packageName));
 
         if (validatorInfo.getVerification()) {
-            viewHolder.numberProgressBar.setProgressTextColor(
-                    context.getColor(R.color.number_progress_bar_validation_success));
-            viewHolder.numberProgressBar.setReachedBarColor(
-                    context.getColor(R.color.number_progress_bar_validation_success));
             viewHolder.verificationIcon.setImageDrawable(
                     context.getDrawable(R.drawable.package_verification_success));
             viewHolder.verificationText.setText(
                     context.getString(R.string.resource_validated));
-            viewHolder.numberProgressBar.setProgress(100);
         } else {
             viewHolder.cardView.setOnClickListener(v -> {
                 ValidatorError error = validatorInfo.getPackageError();
@@ -126,12 +119,6 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
                                 .customactivityoncrash_error_activity_error_details_close, null)
                         .show();
             });
-
-            viewHolder.numberProgressBar.setProgressTextColor(
-                    context.getColor(R.color.number_progress_bar_validation_error));
-            viewHolder.numberProgressBar.setReachedBarColor(
-                    context.getColor(R.color.number_progress_bar_validation_error));
-            viewHolder.numberProgressBar.setProgress(validatorInfo.getPercentage());
         }
     }
 
@@ -146,7 +133,6 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
         TextView verificationText;
         ImageView packIcon;
         ImageView verificationIcon;
-        NumberProgressBar numberProgressBar;
 
         ViewHolder(View view) {
             super(view);
@@ -155,7 +141,6 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
             verificationIcon = (ImageView) view.findViewById(R.id.verification);
             packName = (TextView) view.findViewById(R.id.pack_name);
             verificationText = (TextView) view.findViewById(R.id.verification_text);
-            numberProgressBar = (NumberProgressBar) view.findViewById(R.id.number_progress_bar);
         }
     }
 }

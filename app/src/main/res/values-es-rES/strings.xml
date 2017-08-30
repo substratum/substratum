@@ -574,9 +574,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="manage_space_reset_text_desc">¿Tiene problemas con la aplicación? ¿O recientemente un gran salto desde una versión antigua de substratum? ¡Una configuración sencilla limpia definitivamente ayudaría a solucionar el problema!</string>
     <string name="manage_space_reset_dialog_title">¿Restablecer configuración?</string>
     <string name="manage_space_reset_dialog_content">La aplicación se cerrará después de completar el reseteo!</string>
-    <string name="automatic_logchar_cleanup_summary_on">Los informes de LogChar guardados se borrarán cada quince días</string>
-    <string name="automatic_logchar_cleanup_summary_off">Todos los informes LogChar se mantendrán almacenados en caché indefinidamente</string>
-    <string name="automatic_logchar_cleanup_title">Borrar automáticamente los informes LogChar guardados</string>
     <string name="cleaned_logchar_reports">Los informes LogChar guardados fueron limpiados</string>
     <string name="legacy_overlay_uninstall_warning_text">Si está desinstalando todas las capas, utilice los ZIPs de Substrtum Rescue para evitar posible bootloops.</string>
     <string name="auto_reload_sysui_title">Volver a cargar SystemUI automáticamente</string>

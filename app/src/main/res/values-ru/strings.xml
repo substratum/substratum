@@ -564,9 +564,6 @@
     <string name="manage_space_reset_text_desc">Возникли проблемы с приложением? Или вы долгое время не обновляли substratum? Обычный сброс параметров определенно поможет устранить неполадку!</string>
     <string name="manage_space_reset_dialog_title">Сбросить параметры?</string>
     <string name="manage_space_reset_dialog_content">Приложение закроется по завершению сброса!</string>
-    <string name="automatic_logchar_cleanup_summary_on">Сохраненные отчеты LogChar будут удаляться каждые 15 дней</string>
-    <string name="automatic_logchar_cleanup_summary_off">Все отчеты LogChar хранятся неопределенный срок</string>
-    <string name="automatic_logchar_cleanup_title">Автоудаление отчетов LogChar</string>
     <string name="cleaned_logchar_reports">Хранившиеся отчеты LogChar удалены</string>
     <string name="legacy_overlay_uninstall_warning_text">При удалении всех наслоений, пожалуйста, используйте архивы восстановления Substratum во избежание возможных вечных загрузок.</string>
     <string name="auto_reload_sysui_title">Автоперезапуск SystemUI</string>

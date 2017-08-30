@@ -575,9 +575,6 @@
     <string name="manage_space_reset_text_desc">Ar iškilo problemų su programėlę? Ar jūs neseniai padarėte didelį šuolį iš senos \"substratum\" versijos? Paprastas konfigūravimas tikrai padės išspręsti trikčių klausimą!</string>
     <string name="manage_space_reset_dialog_title">Iš naujo nustatyti konfigūraciją?</string>
     <string name="manage_space_reset_dialog_content">Po atstatymo programėlė bus uždaryta!</string>
-    <string name="automatic_logchar_cleanup_summary_on">Išsaugotos \"LogChar\" ataskaitos bus pašalintos kas penkiolika dienų</string>
-    <string name="automatic_logchar_cleanup_summary_off">Išsaugotos \"LogChar\" ataskaitos bus talpykloje neribotam laikui</string>
-    <string name="automatic_logchar_cleanup_title">Automatiškai išvalyti \"LogChar\" ataskaitas</string>
     <string name="cleaned_logchar_reports">Išvalyti išsaugotus \"LogChar\" ataskaitas </string>
     <string name="legacy_overlay_uninstall_warning_text">Jei jūs išdiegiate visas perdangas, prašome naudoti \"Substratum\" Išsigelėjimo ZIP, kad išvengtumėte galimo įkrovos kilpos.</string>
     <string name="auto_reload_sysui_title">Automatiškai perkrauti SistemosNS</string>

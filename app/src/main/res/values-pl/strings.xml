@@ -560,9 +560,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="manage_space_reset_text_desc">Masz kłopoty z aplikacją? A może ostatnio zrobiłeś aktualizację bardzo starej wersji substratum? Proste wyczyszczenie konfiguracji zdecydowanie rozwiąże problemy!</string>
     <string name="manage_space_reset_dialog_title">Zresetować konfigurację?</string>
     <string name="manage_space_reset_dialog_content">Aplikacja zostanie zamknięta po zakończeniu resetowania!</string>
-    <string name="automatic_logchar_cleanup_summary_on">Zapisane raporty LogChar zostaną wymazane co piętnaście dni</string>
-    <string name="automatic_logchar_cleanup_summary_off">Wszystkie raporty LogChar będą przechowywane w pamięci w nieskończoność</string>
-    <string name="automatic_logchar_cleanup_title">Automatycznie wyczyść zapisane raporty LogChar</string>
     <string name="cleaned_logchar_reports">Wyczyszczono zapisane raporty LogChar</string>
     <string name="legacy_overlay_uninstall_warning_text">Jeśli odinstalujesz wszystkie nakładki, użyj plików odzyskiwania, aby uniknąć możliwego zapętlenia podczas uruchamiania się systemu.</string>
     <string name="auto_reload_sysui_title">Automatyczne przeładowanie Interfejsu</string>

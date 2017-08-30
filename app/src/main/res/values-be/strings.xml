@@ -554,9 +554,6 @@
     <string name="manage_space_reset_text_desc">У вас паўсталі праблемы з праграмай? Ці вы зрабілі абнаўленне з вельмі старой версіі substratum ў апошні час? Проста скіньце канфігурацыі, каб выправіць вашыя праблемы!</string>
     <string name="manage_space_reset_dialog_title">Скід канфігурацыі?</string>
     <string name="manage_space_reset_dialog_content">Праграма будзе зачынена пасля скіду!</string>
-    <string name="automatic_logchar_cleanup_summary_on">Захаваныя справаздачы LogChar будуць выдаляцца кожныя пятнаццаць дзён</string>
-    <string name="automatic_logchar_cleanup_summary_off">Усе справаздачы LogChar будзе захоўвацца ў кэшы на нявызначаны тэрмін</string>
-    <string name="automatic_logchar_cleanup_title">Аўтаматычна сцерці захаваныя справаздачы LogChar</string>
     <string name="cleaned_logchar_reports">Ачысціць захаваныя справаздачы LogChar</string>
     <string name="legacy_overlay_uninstall_warning_text">Пры выдаленні ўсіх напластаванняў, калі ласка, выкарыстоўвайце ратаванне Substratum ZIP-каб пазбегнуць магчымага bootloops.</string>
     <!-- The things lint will complain about...-->

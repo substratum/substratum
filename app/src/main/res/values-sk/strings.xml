@@ -552,9 +552,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="manage_space_reset_text_desc">Máte problémy s aplikáciou? Alebo ste nedávno uskutočnili veľký skok zo staršej verzie Substratum? Jednoduchá konfigurácia vám určite pomôže vyriešiť problémy!</string>
     <string name="manage_space_reset_dialog_title">Resetovať konfiguráciu?</string>
     <string name="manage_space_reset_dialog_content">Aplikácia sa po dokončení resetu ukončí!</string>
-    <string name="automatic_logchar_cleanup_summary_on">Uložené správy protokolu LogChar budú vymazané každých pätnásť dní</string>
-    <string name="automatic_logchar_cleanup_summary_off">Všetky správy protokolu LogChar budú ukladané do cache na neurčito</string>
-    <string name="automatic_logchar_cleanup_title">Automatické vymazanie uložených správ protokolu LogChar</string>
     <string name="cleaned_logchar_reports">Vyčistené uložené správy protokolu LogChar</string>
     <string name="legacy_overlay_uninstall_warning_text">Ak odinštalujete všetky prekrytia, prosím použite záchranné Substratum ZIPy, aby ste sa vyhli možnému uviaznutiu v spúšťacej slučke (bootloop).</string>
     <!-- The things lint will complain about...-->

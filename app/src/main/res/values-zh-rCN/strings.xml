@@ -547,9 +547,6 @@
     <string name="manage_space_reset_text_desc">您是否在使用中遇到了问题？最近是否对 Substratum 做了大版本的跨越式更新？请进行重置操作，有利于问题的解决。</string>
     <string name="manage_space_reset_dialog_title">您确定要重置所有配置吗？</string>
     <string name="manage_space_reset_dialog_content">应用程序会在重置完成后自动关闭</string>
-    <string name="automatic_logchar_cleanup_summary_on">每隔 15 天自动清除已保存 LogChar 报告</string>
-    <string name="automatic_logchar_cleanup_summary_off">永久保存所有 LogChar 报告</string>
-    <string name="automatic_logchar_cleanup_title">自动清除已保存 LogChar 报告</string>
     <string name="cleaned_logchar_reports">清除已保存的 LogChar 报告</string>
     <string name="legacy_overlay_uninstall_warning_text">如果您正在卸载所有叠加层，请使用 Substratum 救援系统，以避免设备变砖。</string>
     <!-- The things lint will complain about...-->

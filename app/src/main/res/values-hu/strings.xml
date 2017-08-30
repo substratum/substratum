@@ -655,9 +655,6 @@
     <string name="manage_space_reset_text_desc">Gond van az alkalmazással? Vagy nemrégiben egy nagyobb verzióugrást tett a substratum egy régebbi változatáról? Egy egyszerű konfiguráció törlés biztosan megoldja a problémát!</string>
     <string name="manage_space_reset_dialog_title">Konfiguráció alaphelyzetbe?</string>
     <string name="manage_space_reset_dialog_content">Az alkalmazás bezárásra kerül a visszaállítás befejezése után!</string>
-    <string name="automatic_logchar_cleanup_summary_on">A mentett LogChar jelentések minden tizenötödik napon törlésre kerülnek</string>
-    <string name="automatic_logchar_cleanup_summary_off">Minden LogChar jelentés határozatlan ideig tárolódik</string>
-    <string name="automatic_logchar_cleanup_title">Automatikusan törölje a mentett LogChar jelentéseket</string>
     <string name="cleaned_logchar_reports">Mentett LogChar jelentések tisztítva</string>
     <string name="legacy_overlay_uninstall_warning_text">Ha az összes fedvényt el akarja távolítani, használja a Substratum Mentési ZIP-eket a lehetséges bootloopok elkerülésére.</string>
     <string name="auto_reload_sysui_title">Automatikusan töltse újra a SystemUI-t</string>

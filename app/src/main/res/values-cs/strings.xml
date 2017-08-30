@@ -584,9 +584,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="manage_space_reset_text_desc">Máte problémy s aplikací nebo jste nedávno provedli velký skok ze starší verze Subtratum? Jednoduchá konfigurace vám určitě pomůže vyřešit problémy!</string>
     <string name="manage_space_reset_dialog_title">Obnovit konfiguraci?</string>
     <string name="manage_space_reset_dialog_content">Aplikace se po dokončení restartu ukončí!</string>
-    <string name="automatic_logchar_cleanup_summary_on">Uložené zprávy protokolu LogChar budou vymazány každých patnáct dní</string>
-    <string name="automatic_logchar_cleanup_summary_off">Všechny zprávy protokolu LogChar budou ukládány do cache na neurčito</string>
-    <string name="automatic_logchar_cleanup_title">Automatické vymazání uložených zpráv protokolu LogChar</string>
     <string name="cleaned_logchar_reports">Vyčištěné uložené zprávy protokolu LogChar</string>
     <string name="legacy_overlay_uninstall_warning_text">Pokud odinstalujete všechny potahy, prosím použijte záchranné Substratum zipy, abyste se vyhnuli možnému uvíznutí ve spouštěcí smyčce (bootloop).</string>
     <string name="auto_reload_sysui_title">Automatické načtení SystemUI</string>

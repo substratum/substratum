@@ -574,9 +574,6 @@ resolver este problema.    </string>
     <string name="manage_space_reset_text_desc">Você está tendo problemas com o aplicativo? Ou recentemente fez um grande salto de uma versão antiga do substratum? Uma instalação limpa pode com certeza ajudar a solucionar o problema!</string>
     <string name="manage_space_reset_dialog_title">Redefinir a configuração?</string>
     <string name="manage_space_reset_dialog_content">O app vai fechar após a conclusão da redefinição!</string>
-    <string name="automatic_logchar_cleanup_summary_on">Os relatórios LogChar salvos serão apagados a cada quinze dias</string>
-    <string name="automatic_logchar_cleanup_summary_off">Todos os relatórios LogChar serão armazenados em cache indefinidamente</string>
-    <string name="automatic_logchar_cleanup_title">Limpar automaticamente os relatórios LogChar salvos</string>
     <string name="cleaned_logchar_reports">Relatórios LogChar salvos limpos</string>
     <string name="legacy_overlay_uninstall_warning_text">Se você estiver desinstalando todas as camadas, use os ZIPs Substratum Rescue para evitar possíveis bootloops.</string>
     <!-- The things lint will complain about...-->

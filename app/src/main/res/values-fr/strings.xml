@@ -543,9 +543,6 @@
     <string name="manage_space_reset_text_desc">Rencontrez-vous des problèmes avec l\'application ? Venez-vous de mettre à jour Substratum depuis une version très ancienne ? Un simple retour à la configuration d\'origine résoudra ce problème.</string>
     <string name="manage_space_reset_dialog_title">Réinitialiser ?</string>
     <string name="manage_space_reset_dialog_content">L\'application se fermera après la réinitialisation</string>
-    <string name="automatic_logchar_cleanup_summary_on">Les LogChar sauvegardés seront supprimés tout les 15 jours</string>
-    <string name="automatic_logchar_cleanup_summary_off">Tout les LogChar seront mis en cache indéfiniment</string>
-    <string name="automatic_logchar_cleanup_title">Supprimer automatiquement les rapports LogChar sauvegardés</string>
     <string name="cleaned_logchar_reports">Les rapports LogChar sauvegardés ont été nettoyés</string>
     <!-- The things lint will complain about...-->
     <string name="fonts_demo_string">AaBbCcDd123</string>

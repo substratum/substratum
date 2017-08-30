@@ -562,9 +562,6 @@ um das Problem zu beheben.    </string>
     <string name="manage_space_reset_text_desc">Hast du Probleme mit der App? Oder hast du in letzter Zeit ein Upgrade von einer sehr alten Version von Substratum gemacht? Das simple zurücksetzen deiner Konfiguration könnte deine Probleme beheben!</string>
     <string name="manage_space_reset_dialog_title">Konfiguration zurücksetzen?</string>
     <string name="manage_space_reset_dialog_content">Die App wird sich schließen nachdem das Zurücksetzen abgeschlossen ist!</string>
-    <string name="automatic_logchar_cleanup_summary_on">Gespeicherte LogChar-Berichte werden alle fünfzehn Tage vernichtet</string>
-    <string name="automatic_logchar_cleanup_summary_off">Alle LogChar-Berichte werden auf unbestimmte Zeit zwischengespeichert</string>
-    <string name="automatic_logchar_cleanup_title">Vernichte LogChar-Berichte automatisch</string>
     <string name="cleaned_logchar_reports">Gespeicherte LogChar-Berichte wurden bereinigt</string>
     <string name="legacy_overlay_uninstall_warning_text">Wenn Sie alle Overlays deinstallieren verwenden Sie bitte die Substratum Rettungs-ZIPs, um mögliche Bootloops zu verhindern.</string>
     <string name="auto_reload_sysui_title">SystemUI automatisch neu laden</string>

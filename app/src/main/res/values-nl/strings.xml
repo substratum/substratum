@@ -538,9 +538,6 @@
     <string name="manage_space_reset_text_desc">Heb je problemen met de applicatie? Of heb je recentelijk een grote versiesprong gemaakt vanuit een oude Substratum versie? Een simpele configuratie reset zal vast en zeker helpen bij het oplossen van het probleem!</string>
     <string name="manage_space_reset_dialog_title">Configuratie resetten?</string>
     <string name="manage_space_reset_dialog_content">De app zal sluiten nadat de reset is voltooid!</string>
-    <string name="automatic_logchar_cleanup_summary_on">Opgeslagen LogChar rapporten zullen iedere vijftien dagen worden gewist</string>
-    <string name="automatic_logchar_cleanup_summary_off">Alle LogChar rapporten worden gecached voor onbepaalde tijd</string>
-    <string name="automatic_logchar_cleanup_title">Automatisch opgeslagen LogChar rapporten wissen</string>
     <string name="cleaned_logchar_reports">Opgeschoonde opgeslagen LogChar rapporten</string>
     <string name="legacy_overlay_uninstall_warning_text">Als je alle overlays wilt deïnstalleren, gelieve de Substratum Rescue ZIPs te gebruiken om bootloops te voorkomen.</string>
     <!-- The things lint will complain about...-->

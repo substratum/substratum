@@ -664,9 +664,6 @@ sağlayan
     <string name="manage_space_reset_text_desc">Uygulamayla ilgili sorun mu yaşıyorsunuz? Veya son zamanlarda substratum\'un çok eski bir sürümünden en yeni sürümüne geçiş mi yaptınız? Basit bir yapılandırma temizleme sorun gidermeye kesinlikle yardımcı olur!</string>
     <string name="manage_space_reset_dialog_title">Yapılandırmalar sıfırlansın mı?</string>
     <string name="manage_space_reset_dialog_content">Sıfırlama tamamlandıktan sonra uygulama kapanacak!</string>
-    <string name="automatic_logchar_cleanup_summary_on">Kaydedilen LogChar raporları her 15 günde bir silinir</string>
-    <string name="automatic_logchar_cleanup_summary_off">Tüm LogChar raporları süresiz olarak önbelleğe alınır</string>
-    <string name="automatic_logchar_cleanup_title">Kaydedilen LogChar raporlarını otomatik olarak sil</string>
     <string name="cleaned_logchar_reports">Kaydedilmiş LogChar raporları temizlendi</string>
     <string name="legacy_overlay_uninstall_warning_text">Tüm temaları kaldırıyorsanız, olası bir önyükleme döngüsünden kaçınmak için lütfen Substatum Kurtama Zip\'lerini kullanın.</string>
     <string name="auto_reload_sysui_title">Sistem arayüzünü otomatik yeniden yükle</string>

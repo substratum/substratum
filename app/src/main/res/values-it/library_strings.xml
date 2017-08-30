@@ -139,16 +139,8 @@
     <!-- License section -->
     <!-- NumberProgressBar -->
     <!-- Author section -->
-    <string name="library_numberprogressbar_author">代码家</string>
-    <string name="library_numberprogressbar_authorWebsite">https://github.com/daimajia</string>
     <!-- Library section -->
-    <string name="library_numberprogressbar_libraryName">NumberProgressBar</string>
-    <string name="library_numberprogressbar_libraryDescription">Una barra di progresso sottile e sexy basata sui numeri.</string>
-    <string name="library_numberprogressbar_libraryWebsite">https://github.com/daimajia/NumberProgressBar</string>
-    <string name="library_numberprogressbar_libraryVersion">1.4</string>
     <!-- OpenSource section -->
-    <string name="library_numberprogressbar_repositoryLink">https://github.com/daimajia/NumberProgressBar</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_numberprogressbar_classPath">com.daimajia.numberprogressbar</string>
     <!-- License section -->
 </resources>

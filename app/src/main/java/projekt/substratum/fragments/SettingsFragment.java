@@ -96,7 +96,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private ArrayList<Integer> packageCounters;
     private ArrayList<Integer> packageCountersErrored;
 
-    @SuppressWarnings("StringConcatenationInsideStringBufferAppend")
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
         if (References.checkOMS(getContext())) {
@@ -107,14 +106,15 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
+        StringBuilder sb = new StringBuilder();
+
         Preference aboutSubstratum = getPreferenceManager().findPreference
                 ("about_substratum");
-        String aboutSubstratumSummary =
-                BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")";
+        sb.append(BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")");
         if (BuildConfig.DEBUG) {
-            aboutSubstratumSummary = aboutSubstratumSummary + " - " + BuildConfig.GIT_HASH;
+            sb.append(" - " + BuildConfig.GIT_HASH);
         }
-        aboutSubstratum.setSummary(aboutSubstratumSummary);
+        aboutSubstratum.setSummary(sb.toString());
         aboutSubstratum.setIcon(getContext().getDrawable(R.mipmap.main_launcher));
         aboutSubstratum.setOnPreferenceClickListener(
                 preference -> {

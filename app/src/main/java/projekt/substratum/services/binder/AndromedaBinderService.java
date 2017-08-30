@@ -157,6 +157,11 @@ public class AndromedaBinderService extends Service implements ServiceConnection
             mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
             mNotifyMgr.notify(notificationId, mBuilder.build());
             this.stopForeground(STOP_FOREGROUND_REMOVE);
+
+            Intent intent = new Intent();
+            intent.setComponent(
+                    new ComponentName("projekt.andromeda", "projekt.andromeda.InfoActivity"));
+            startActivity(intent);
         }
         System.exit(0);
     }

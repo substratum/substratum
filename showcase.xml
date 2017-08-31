@@ -15,4 +15,7 @@
     <tab id="Utilities">
         <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_apps.xml</link>
     </tab>
+	<tab id="Wallpapers">
+        <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_wallpapers.xml</link>
+    </tab>
 </substratum>

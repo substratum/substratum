@@ -126,7 +126,7 @@ public class ThemeManager {
             new ElevatedCommands.ThreadRunner().execute(commands.toString());
             try {
                 Thread.sleep(NI_restartSystemUIDelay);
-                if (shouldRestartUI(context, overlays)){
+                if (shouldRestartUI(context, overlays)) {
                     if (optInFromUIRestart(context)) {
                         restartSystemUI(context);
                     } else {
@@ -165,7 +165,7 @@ public class ThemeManager {
             new ElevatedCommands.ThreadRunner().execute(commands.toString());
             try {
                 Thread.sleep(NI_restartSystemUIDelay);
-                if (shouldRestartUI(context, overlays)){
+                if (shouldRestartUI(context, overlays)) {
                     if (optInFromUIRestart(context)) {
                         restartSystemUI(context);
                     } else {
@@ -201,7 +201,7 @@ public class ThemeManager {
                         .append(" ").append(packageName).append(" ").append(parentName);
             }
             new ElevatedCommands.ThreadRunner().execute(commands.toString());
-            if (shouldRestartUI(context, overlays)){
+            if (shouldRestartUI(context, overlays)) {
                 if (optInFromUIRestart(context)) {
                     restartSystemUI(context);
                 } else {
@@ -395,7 +395,7 @@ public class ThemeManager {
                                             line.substring(4))) {
                                         counter++;
                                     }
-                                } else if (!line.startsWith("[")){
+                                } else if (!line.startsWith("[")) {
                                     if (counter > 1) list.add(currentApp);
                                     counter = 0;
                                     currentApp = line;

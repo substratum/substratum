@@ -31,18 +31,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.thesurix.gesturerecycler.GestureAdapter;
 import com.thesurix.gesturerecycler.GestureViewHolder;
-
-import java.io.ByteArrayOutputStream;
 
 import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
 import projekt.substratum.common.References;
 
 import static android.text.Html.FROM_HTML_MODE_LEGACY;
-import static com.bumptech.glide.request.RequestOptions.centerCropTransform;
 
 public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, GestureViewHolder> {
 

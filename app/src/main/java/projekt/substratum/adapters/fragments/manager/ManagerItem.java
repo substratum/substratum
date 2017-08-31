@@ -137,9 +137,11 @@ public class ManagerItem implements Serializable {
         this.themeName = name;
     }
 
-    public String getLabelName() {return labelName;}
+    public String getLabelName() {
+        return labelName;
+    }
 
-    public void setLabelName(String packageName){
+    public void setLabelName(String packageName) {
         labelName = References.grabPackageName(getContext(),
                 References.grabOverlayTarget(getContext(), packageName));
     }

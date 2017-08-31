@@ -162,8 +162,7 @@ public class ManagerFragment extends Fragment {
             boolean alphabetize = prefs.getBoolean("alphabetize_overlays", true);
             if (alphabetize) {
                 overlayList.sort(Comparator.comparing(ManagerItem::getLabelName));
-            }
-            else
+            } else
                 overlayList.sort(Comparator.comparing(ManagerItem::getThemeName));
         }
         toggle_all.setChecked(false);
@@ -352,8 +351,7 @@ public class ManagerFragment extends Fragment {
             boolean alphabetize = prefs.getBoolean("alphabetize_overlays", false);
             if (alphabetize) {
                 prefs.edit().putBoolean("alphabetize_overlays", false).apply();
-            }
-            else{
+            } else {
                 prefs.edit().putBoolean("alphabetize_overlays", true).apply();
             }
             getActivity().invalidateOptionsMenu();
@@ -367,11 +365,12 @@ public class ManagerFragment extends Fragment {
             for (int i = 0; i < overlayList.size(); i++) {
                 Context context = overlayList.get(i).getContext();
                 String packageName = overlayList.get(i).getName();
-                if (overlayList.get(i).getThemeName() == null){
+                if (overlayList.get(i).getThemeName() == null) {
                     String metadata = References.getOverlayMetadata(
                             context, packageName, References.metadataOverlayParent);
-                    if (metadata != null && metadata.length() > 0){
-                        String pName = "<b>" + context.getString(R.string.manager_theme_name) + "</b> " +
+                    if (metadata != null && metadata.length() > 0) {
+                        String pName = "<b>" + context.getString(R.string.manager_theme_name) +
+                                "</b> " +
                                 References.grabPackageName(context, metadata);
                         overlayList.get(i).setThemeName(pName);
                     }

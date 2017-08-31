@@ -12,7 +12,7 @@
     <tab id="Plugins">
         <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_plugins.xml</link>
     </tab>
-	<tab id="Samsung">
+    <tab id="Samsung">
         <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_samsung.xml</link>
     </tab>
     <tab id="Utilities">

@@ -110,7 +110,6 @@ public class InformationActivity extends SubstratumActivity {
     private static final int LUNCHBAR_DISMISS_FAB_CLICK_DELAY = 200;
     public static Lunchbar currentShownLunchBar;
     private static List<String> tab_checker;
-    private static String wallpaperUrl;
     public String theme_name;
     public String theme_pid;
     public String theme_mode;
@@ -132,8 +131,6 @@ public class InformationActivity extends SubstratumActivity {
     private int tabPosition;
     private LocalBroadcastManager localBroadcastManager;
     private BroadcastReceiver refreshReceiver;
-    private AsyncTask<String, Integer, String> layoutLoader;
-    private Drawable heroImage;
     private int dominantColor;
 
     private static int getDominantColor(Bitmap bitmap) {
@@ -301,7 +298,7 @@ public class InformationActivity extends SubstratumActivity {
         theme_mode = currentIntent.getStringExtra("theme_mode");
         encryption_key = currentIntent.getByteArrayExtra("encryption_key");
         iv_encrypt_key = currentIntent.getByteArrayExtra("iv_encrypt_key");
-        wallpaperUrl = getOverlayMetadata(getApplicationContext(), theme_pid, metadataWallpapers);
+        String wallpaperUrl = getOverlayMetadata(getApplicationContext(), theme_pid, metadataWallpapers);
 
         Bundle bundle = new Bundle();
         bundle.putString("theme_name", theme_name);
@@ -332,7 +329,7 @@ public class InformationActivity extends SubstratumActivity {
         }
         if (toolbar != null) toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
-        heroImage = grabPackageHeroImage(theme_pid);
+        Drawable heroImage = grabPackageHeroImage(theme_pid);
         if (heroImage != null) heroImageBitmap = ((BitmapDrawable) heroImage).getBitmap();
         if (heroImageBitmap == null) {
             dominantColor = Color.TRANSPARENT;
@@ -376,7 +373,7 @@ public class InformationActivity extends SubstratumActivity {
                     fabColor);
         }
 
-        layoutLoader = new LayoutLoader().execute("");
+        new LayoutLoader().execute("");
         tabLayout = findViewById(R.id.tabs);
         if (tabLayout != null) {
             if (theme_mode.equals("")) {

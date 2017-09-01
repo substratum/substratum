@@ -33,9 +33,6 @@ import android.widget.ImageView;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
@@ -47,7 +44,6 @@ import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.Resources.ANDROID_STUDIO_DEBUG_KEYS;
-import static projekt.substratum.common.analytics.FirebaseAnalytics.PACKAGES_PREFS;
 import static projekt.substratum.common.analytics.PackageAnalytics.isLowEnd;
 
 public class SplashScreenActivity extends Activity {
@@ -135,22 +131,6 @@ public class SplashScreenActivity extends Activity {
                 editor = prefs.edit();
                 editor.clear().apply();
 
-                FirebaseAnalytics.withdrawBlacklistedPackages(context);
-                prefs = context.getSharedPreferences(PACKAGES_PREFS, Context.MODE_PRIVATE);
-                SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
-                int timeoutCount = 0;
-                while (!prefs.contains(dateFormat.format(new Date())) && timeoutCount < 100) {
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    timeoutCount++;
-                }
-                if (!prefs.contains(dateFormat.format(new Date()))) {
-                    Log.d(SUBSTRATUM_LOG, "Failed to withdraw blacklisted packages.");
-                }
-
                 if (!References.isSamsungDevice(context) ||
                         !References.isPackageInstalled(context, SST_ADDON_PACKAGE)) {
                     return null;
@@ -160,7 +140,7 @@ public class SplashScreenActivity extends Activity {
                 FirebaseAnalytics.withdrawSungstratumFingerprint(context, sstVersion);
                 SharedPreferences prefs2 =
                         context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
-                timeoutCount = 0;
+                int timeoutCount = 0;
                 while (!prefs2.contains("sungstratum_exp_fp_" + sstVersion) && timeoutCount < 100) {
                     try {
                         Thread.sleep(100);

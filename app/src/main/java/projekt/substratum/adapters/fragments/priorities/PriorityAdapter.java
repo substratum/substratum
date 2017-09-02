@@ -260,9 +260,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                             String.format("%s (%s)", packageTitle, prioritiesItem.getName()));
                 }
 
-                Bitmap bitmap = References.getBitmapFromDrawable(
-                        prioritiesItem.getDrawableId());
-                priorityObjectAdapter.mAppIcon.setImageBitmap(bitmap);
+                priorityObjectAdapter.mAppIcon.setImageDrawable(prioritiesItem.getDrawableId());
             } catch (Exception e) {
                 e.printStackTrace();
                 // Suppress warning

@@ -59,6 +59,8 @@ import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.checkAndromeda;
 import static projekt.substratum.common.References.checkOMS;
 import static projekt.substratum.common.References.checkThemeInterfacer;
+import static projekt.substratum.common.References.grabOverlayParent;
+import static projekt.substratum.common.References.isPackageInstalled;
 
 public class ThemeManager {
 
@@ -213,7 +215,7 @@ public class ThemeManager {
 
     public static void disableAllThemeOverlays(Context context) {
         List<String> list = ThemeManager.listOverlays(context, STATE_APPROVED_ENABLED).stream()
-                .filter(o -> References.grabOverlayParent(context, o) != null)
+                .filter(o -> grabOverlayParent(context, o) != null)
                 .collect(Collectors.toList());
         ThemeManager.disableOverlay(context, new ArrayList<>(list));
     }
@@ -390,9 +392,8 @@ public class ThemeManager {
                         if (arrList != null) {
                             for (String line : arrList) {
                                 if (line.startsWith(prefix)) {
-                                    if (References.isPackageInstalled(
-                                            context,
-                                            line.substring(4))) {
+                                    if (grabOverlayParent(context, line.substring(4)) != null &&
+                                            isPackageInstalled(context, line.substring(4))) {
                                         counter++;
                                     }
                                 } else if (!line.startsWith("[")) {
@@ -427,7 +428,8 @@ public class ThemeManager {
                                 }
                                 if (checker) {
                                     String packageName = line.substring(4);
-                                    if (References.isPackageInstalled(context, packageName)) {
+                                    if (grabOverlayParent(context, line.substring(4)) != null &&
+                                            isPackageInstalled(context, line.substring(4))) {
                                         try {
                                             String sourceDir = context.getPackageManager()
                                                     .getApplicationInfo(packageName, 0).sourceDir;
@@ -503,7 +505,7 @@ public class ThemeManager {
         List<String> list = new ArrayList<>();
         List<String> overlays = listAllOverlays(context);
         for (int i = 0; i < overlays.size(); i++) {
-            if (References.grabOverlayParent(context, overlays.get(i)).equals(target)) {
+            if (grabOverlayParent(context, overlays.get(i)).equals(target)) {
                 list.add(overlays.get(i));
             }
         }

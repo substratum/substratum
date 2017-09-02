@@ -80,6 +80,7 @@ import static projekt.substratum.common.References.MANAGER_REFRESH;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
 import static projekt.substratum.common.References.VENDOR_DIR;
+import static projekt.substratum.common.References.checkOMS;
 import static projekt.substratum.common.References.isSamsung;
 import static projekt.substratum.util.files.MapUtils.sortMapByValues;
 
@@ -195,6 +196,10 @@ public class ManagerFragment extends Fragment {
         loadingBar.setVisibility(View.GONE);
 
         View sheetView = root.findViewById(R.id.fab_sheet);
+        //Don't even display the "enable_selected" button to non-oms users.
+        if(!checkOMS(context)){
+            sheetView.findViewById(R.id.enable_selected).setVisibility(View.GONE);
+        }
         View overlay = root.findViewById(R.id.overlay);
         int sheetColor = context.getColor(R.color.fab_menu_background_card);
         int fabColor = context.getColor(R.color.fab_background_color);
@@ -818,6 +823,7 @@ public class ManagerFragment extends Fragment {
                         }, REFRESH_WINDOW_DELAY);
                     }
                 } else {
+                    //can be deleted now, but I'll keep it here just in case.
                     return "unauthorized";
                 }
             }

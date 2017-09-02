@@ -28,6 +28,7 @@ import java.util.Map;
 
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 
+@Deprecated
 public class OverlayManagerService {
 
     /**

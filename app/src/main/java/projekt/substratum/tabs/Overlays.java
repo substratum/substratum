@@ -102,7 +102,6 @@ import projekt.substratum.util.files.Root;
 
 import static android.content.Context.ACTIVITY_SERVICE;
 import static android.content.Context.CLIPBOARD_SERVICE;
-import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.References.DEFAULT_NOTIFICATION_CHANNEL_ID;
 import static projekt.substratum.common.References.ENABLE_PACKAGE_LOGGING;
@@ -713,7 +712,7 @@ public class Overlays extends Fragment {
     }
 
     protected List<String> updateEnabledOverlays() {
-        List<String> state5 = ThemeManager.listOverlays(getContext(), STATE_APPROVED_ENABLED);
+        List<String> state5 = ThemeManager.listOverlays(getContext(), ThemeManager.STATE_ENABLED);
         ArrayList<String> all = new ArrayList<>(state5);
 
         all_installed_overlays = new ArrayList<>();

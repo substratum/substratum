@@ -72,8 +72,6 @@ import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.util.views.FloatingActionMenu;
 
-import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
-import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static projekt.substratum.common.References.DATA_RESOURCE_DIR;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.MANAGER_REFRESH;
@@ -82,6 +80,8 @@ import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
 import static projekt.substratum.common.References.VENDOR_DIR;
 import static projekt.substratum.common.References.checkOMS;
 import static projekt.substratum.common.References.isSamsung;
+import static projekt.substratum.common.platform.ThemeManager.STATE_DISABLED;
+import static projekt.substratum.common.platform.ThemeManager.STATE_ENABLED;
 import static projekt.substratum.util.files.MapUtils.sortMapByValues;
 
 public class ManagerFragment extends Fragment {
@@ -122,7 +122,7 @@ public class ManagerFragment extends Fragment {
                 }
             } else {
                 List<String> listed =
-                        ThemeManager.listOverlays(getContext(), STATE_APPROVED_ENABLED);
+                        ThemeManager.listOverlays(getContext(), STATE_ENABLED);
                 Collections.sort(listed);
                 updated.addAll(listed.stream().map(file ->
                         new ManagerItem(getContext(), file, true)).collect(Collectors.toList()));
@@ -405,7 +405,7 @@ public class ManagerFragment extends Fragment {
     }
 
     private List<String> updateEnabledOverlays() {
-        List<String> state5 = ThemeManager.listOverlays(getContext(), STATE_APPROVED_ENABLED);
+        List<String> state5 = ThemeManager.listOverlays(getContext(), STATE_ENABLED);
         ArrayList<String> all = new ArrayList<>(state5);
         ArrayList<String> all_installed_overlays = new ArrayList<>();
 
@@ -452,11 +452,11 @@ public class ManagerFragment extends Fragment {
                     if (References.checkOMS(fragment.context)) {
                         fragment.activated_overlays = new ArrayList<>(
                                 ThemeManager.listOverlays(fragment.context,
-                                        STATE_APPROVED_ENABLED));
+                                        STATE_ENABLED));
 
                         disabled_overlays = new ArrayList<>(
                                 ThemeManager.listOverlays(fragment.context,
-                                        STATE_APPROVED_DISABLED));
+                                        STATE_DISABLED));
 
                         all_overlays = new ArrayList<>(fragment.activated_overlays);
                         all_overlays.addAll(disabled_overlays);
@@ -498,7 +498,7 @@ public class ManagerFragment extends Fragment {
                     } else {
                         // At this point, the object is an RRO formatted check
                         List<String> listed =
-                                ThemeManager.listOverlays(fragment.context, STATE_APPROVED_ENABLED);
+                                ThemeManager.listOverlays(fragment.context, STATE_ENABLED);
                         fragment.activated_overlays.addAll(listed);
                         Collections.sort(fragment.activated_overlays);
                         for (int i = 0; i < fragment.activated_overlays.size(); i++) {

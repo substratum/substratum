@@ -90,8 +90,6 @@ import projekt.substratum.util.files.Root;
 import projekt.substratum.util.views.FloatingActionMenu;
 import projekt.substratum.util.views.SheetDialog;
 
-import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
-import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static projekt.substratum.common.References.BYPASS_SUBSTRATUM_BUILDER_DELETION;
 import static projekt.substratum.common.References.MANAGER_REFRESH;
 import static projekt.substratum.common.References.bootAnimationsFragment;
@@ -872,7 +870,7 @@ public class InformationActivity extends SubstratumActivity {
                             dialog.dismiss();
                             // Get all enabled overlays
                             List<String> stateAll = ThemeManager.listOverlays(
-                                    getApplicationContext(), STATE_APPROVED_ENABLED);
+                                    getApplicationContext(), ThemeManager.STATE_ENABLED);
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {
@@ -918,7 +916,7 @@ public class InformationActivity extends SubstratumActivity {
                             dialog.dismiss();
                             // Get all disabled overlays
                             List<String> stateAll = ThemeManager.listOverlays(
-                                    getApplicationContext(), STATE_APPROVED_DISABLED);
+                                    getApplicationContext(), ThemeManager.STATE_DISABLED);
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {

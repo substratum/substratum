@@ -23,7 +23,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.om.OverlayInfo;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Xml;
@@ -52,8 +51,6 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.services.profiles.ScheduledProfileReceiver;
 
-import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
-import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static projekt.substratum.common.References.metadataOverlayParent;
 import static projekt.substratum.common.References.metadataOverlayTarget;
 import static projekt.substratum.common.References.metadataOverlayType1a;
@@ -62,6 +59,8 @@ import static projekt.substratum.common.References.metadataOverlayType1c;
 import static projekt.substratum.common.References.metadataOverlayType2;
 import static projekt.substratum.common.References.metadataOverlayType3;
 import static projekt.substratum.common.References.metadataOverlayType4;
+import static projekt.substratum.common.platform.ThemeManager.STATE_DISABLED;
+import static projekt.substratum.common.platform.ThemeManager.STATE_ENABLED;
 
 public class ProfileManager {
     public static final String SCHEDULED_PROFILE_ENABLED = "scheduled_profile_enabled";
@@ -254,7 +253,7 @@ public class ProfileManager {
                 xmlSerializer.startTag(null, METADATA_PROFILE_OVERLAYS);
 
                 // Write enabled overlays
-                List<String> enabled = ThemeManager.listOverlays(context, STATE_APPROVED_ENABLED);
+                List<String> enabled = ThemeManager.listOverlays(context, STATE_ENABLED);
                 if (enabled.size() > 0) {
                     xmlSerializer.startTag(null, METADATA_PROFILE_ENABLED);
                     for (String packageName : enabled) {
@@ -300,7 +299,7 @@ public class ProfileManager {
                 }
 
                 // Write disabled overlays
-                List<String> disabled = ThemeManager.listOverlays(context, STATE_APPROVED_DISABLED);
+                List<String> disabled = ThemeManager.listOverlays(context, STATE_DISABLED);
                 if (disabled.size() > 0) {
                     xmlSerializer.startTag(null, METADATA_PROFILE_DISABLED);
                     for (String packageName : disabled) {
@@ -366,7 +365,7 @@ public class ProfileManager {
             doc.getDocumentElement().normalize();
 
             Node items = doc.getElementsByTagName(
-                    overlayState == OverlayInfo.STATE_APPROVED_ENABLED ?
+                    overlayState == STATE_ENABLED ?
                             METADATA_PROFILE_ENABLED : METADATA_PROFILE_DISABLED)
                     .item(0);
 
@@ -407,7 +406,7 @@ public class ProfileManager {
             doc.getDocumentElement().normalize();
 
             Node items = doc.getElementsByTagName(
-                    overlayState == OverlayInfo.STATE_APPROVED_ENABLED ?
+                    overlayState == STATE_ENABLED ?
                             METADATA_PROFILE_ENABLED : METADATA_PROFILE_DISABLED).item(0);
 
             if (items != null) {
@@ -438,7 +437,7 @@ public class ProfileManager {
             doc.getDocumentElement().normalize();
 
             Node items = doc.getElementsByTagName(
-                    overlayState == OverlayInfo.STATE_APPROVED_ENABLED ?
+                    overlayState == STATE_ENABLED ?
                             METADATA_PROFILE_ENABLED : METADATA_PROFILE_DISABLED).item(0);
 
             if (items != null) {

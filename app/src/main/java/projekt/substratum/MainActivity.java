@@ -107,7 +107,6 @@ import projekt.substratum.util.files.Root;
 import projekt.substratum.util.helpers.ContextWrapper;
 import projekt.substratum.util.injectors.CheckBinaries;
 
-import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_MISSING_TARGET;
 import static projekt.substratum.common.References.BYPASS_ALL_VERSION_CHECKS;
 import static projekt.substratum.common.References.ENABLE_ROOT_CHECK;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
@@ -1355,7 +1354,7 @@ public class MainActivity extends SubstratumActivity implements
                 ArrayList<String> removeList = new ArrayList<>();
                 // Overlays with non-existent targets
                 List<String> state1 = ThemeManager.listOverlays(
-                        context, STATE_NOT_APPROVED_MISSING_TARGET);
+                        context, ThemeManager.STATE_MISSING_TARGET);
                 // Uninstall overlays when the main theme is not present,
                 // regardless if enabled/disabled
 

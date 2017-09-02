@@ -51,9 +51,8 @@ import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.util.files.MD5;
 import projekt.substratum.util.files.Root;
 
-import static android.content.om.OverlayInfo.STATE_APPROVED_DISABLED;
-import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
-import static android.content.om.OverlayInfo.STATE_NOT_APPROVED_DANGEROUS_OVERLAY;
+import static android.os.Build.VERSION.SDK_INT;
+import static android.os.Build.VERSION_CODES.O;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.checkAndromeda;
@@ -86,6 +85,11 @@ public class ThemeManager {
     private static final int EXPORT_RETURN_DEFAULT = 2;
     private static final int STATE_LIST_ALL_OVERLAYS = 13579;
 
+    // State values of OverlayInfo
+    public static final int STATE_MISSING_TARGET = SDK_INT >= O ? 0 : 1;
+    public static final int STATE_DISABLED = SDK_INT >= O ? 2 : 4;
+    public static final int STATE_ENABLED = SDK_INT >= O ? 3 : 5;
+
     public static boolean blacklisted(String packageName, Boolean unsupportedSamsung) {
         List<String> blacklisted = new ArrayList<>(Arrays.asList(blacklistedPackages));
         if (unsupportedSamsung) {
@@ -104,7 +108,7 @@ public class ThemeManager {
 
     public static void enableOverlay(Context context, ArrayList<String> overlays) {
         if (overlays.isEmpty()) return;
-        overlays.removeAll(listOverlays(context, STATE_APPROVED_ENABLED));
+        overlays.removeAll(listOverlays(context, STATE_ENABLED));
         if (overlays.isEmpty()) return;
 
         if (checkThemeInterfacer(context)) {
@@ -143,7 +147,7 @@ public class ThemeManager {
 
     public static void disableOverlay(Context context, ArrayList<String> overlays) {
         if (overlays.isEmpty()) return;
-        overlays.removeAll(listOverlays(context, STATE_APPROVED_DISABLED));
+        overlays.removeAll(listOverlays(context, STATE_DISABLED));
         if (overlays.isEmpty()) return;
 
         if (checkThemeInterfacer(context)) {
@@ -214,7 +218,7 @@ public class ThemeManager {
     }
 
     public static void disableAllThemeOverlays(Context context) {
-        List<String> list = ThemeManager.listOverlays(context, STATE_APPROVED_ENABLED).stream()
+        List<String> list = ThemeManager.listOverlays(context, STATE_ENABLED).stream()
                 .filter(o -> grabOverlayParent(context, o) != null)
                 .collect(Collectors.toList());
         ThemeManager.disableOverlay(context, new ArrayList<>(list));
@@ -250,7 +254,7 @@ public class ThemeManager {
     }
 
     public static List<String> listTargetWithMultipleOverlaysEnabled(Context context) {
-        return listOverlays(context, STATE_APPROVED_ENABLED,
+        return listOverlays(context, STATE_ENABLED,
                 EXPORT_RETURN_MULTIPLE_TARGETS_ENABLED);
     }
 
@@ -262,7 +266,7 @@ public class ThemeManager {
             if (!References.checkOMS(context)) throw new Exception();
 
             // Now let's assume everything that gets through will now be only in OMS ROMs
-            @SuppressWarnings("unchecked")
+            @SuppressWarnings({"unchecked", "deprecation"})
             Map<String, List<OverlayInfo>> allOverlays = OverlayManagerService.getAllOverlays();
             if (allOverlays != null) {
                 Set<String> set = allOverlays.keySet();
@@ -290,12 +294,11 @@ public class ThemeManager {
                     case EXPORT_RETURN_DEFAULT:
                         for (String targetPackageName : set) {
                             for (OverlayInfo oi : allOverlays.get(targetPackageName)) {
-                                if (state == STATE_APPROVED_ENABLED && oi.isEnabled()) {
+                                if (state == STATE_ENABLED && oi.isEnabled()) {
                                     list.add(oi.packageName);
-                                } else if (state == STATE_APPROVED_DISABLED && !oi.isEnabled()) {
+                                } else if (state == STATE_DISABLED && !oi.isEnabled()) {
                                     list.add(oi.packageName);
-                                } else if (state <= STATE_NOT_APPROVED_DANGEROUS_OVERLAY
-                                        && !oi.isApproved()) {
+                                } else {
                                     list.add(oi.packageName);
                                 }
                             }
@@ -310,16 +313,12 @@ public class ThemeManager {
             // At this point, we probably ran into a legacy command or stock OMS
             if (References.checkOMS(context) || References.checkOreo()) {
                 String prefix;
-                switch (state) {
-                    case STATE_APPROVED_ENABLED:
-                        prefix = "[x]";
-                        break;
-                    case STATE_APPROVED_DISABLED:
-                        prefix = "[ ]";
-                        break;
-                    default:
-                        prefix = "---";
-                        break;
+                if (state == STATE_ENABLED) {
+                    prefix = "[x]";
+                } else if (state == STATE_DISABLED) {
+                    prefix = "[ ]";
+                } else {
+                    prefix = "---";
                 }
 
                 String[] arrList = null;
@@ -453,38 +452,34 @@ public class ThemeManager {
                 }
             } else {
                 // We now know this is not OMS, so fallback for Samsung and Legacy
-                switch (state) {
-                    case STATE_LIST_ALL_OVERLAYS:
-                    case STATE_APPROVED_ENABLED:
-                        if (References.isSamsung(context)) {
-                            final PackageManager pm = context.getPackageManager();
-                            List<ApplicationInfo> packages =
-                                    pm.getInstalledApplications(PackageManager.GET_META_DATA);
-                            list.clear();
-                            for (ApplicationInfo packageInfo : packages) {
-                                if (References.getOverlayMetadata(
-                                        context,
-                                        packageInfo.packageName,
-                                        References.metadataOverlayParent) != null) {
-                                    list.add(packageInfo.packageName);
-                                }
+                if (state == STATE_LIST_ALL_OVERLAYS || state == STATE_ENABLED) {
+                    if (References.isSamsung(context)) {
+                        final PackageManager pm = context.getPackageManager();
+                        List<ApplicationInfo> packages =
+                                pm.getInstalledApplications(PackageManager.GET_META_DATA);
+                        list.clear();
+                        for (ApplicationInfo packageInfo : packages) {
+                            if (References.getOverlayMetadata(
+                                    context,
+                                    packageInfo.packageName,
+                                    References.metadataOverlayParent) != null) {
+                                list.add(packageInfo.packageName);
                             }
-                        } else {
-                            File legacyCheck = new File(LEGACY_NEXUS_DIR);
-                            if (legacyCheck.exists() && legacyCheck.isDirectory()) {
-                                list.clear();
-                                String[] lister = legacyCheck.list();
-                                for (String aLister : lister) {
-                                    if (aLister.endsWith(".apk")) {
-                                        list.add(aLister.substring(0, aLister.length() - 4));
-                                    }
+                        }
+                    } else {
+                        File legacyCheck = new File(LEGACY_NEXUS_DIR);
+                        if (legacyCheck.exists() && legacyCheck.isDirectory()) {
+                            list.clear();
+                            String[] lister = legacyCheck.list();
+                            for (String aLister : lister) {
+                                if (aLister.endsWith(".apk")) {
+                                    list.add(aLister.substring(0, aLister.length() - 4));
                                 }
                             }
                         }
-                        break;
-                    default:
-                        list.clear();
-                        break;
+                    }
+                } else {
+                    list.clear();
                 }
             }
         }
@@ -522,7 +517,7 @@ public class ThemeManager {
 
     public static List<String> listEnabledOverlaysForTarget(Context context, String target) {
         List<String> list = new ArrayList<>();
-        List<String> overlays = listOverlays(context, STATE_APPROVED_ENABLED);
+        List<String> overlays = listOverlays(context, STATE_ENABLED);
         list.addAll(overlays.stream().filter(o -> o.startsWith(target))
                 .collect(Collectors.toList()));
         return list;
@@ -530,14 +525,14 @@ public class ThemeManager {
 
     public static List<String> listDisabledOverlaysForTarget(Context context, String target) {
         List<String> list = new ArrayList<>();
-        List<String> overlays = listOverlays(context, STATE_APPROVED_DISABLED);
+        List<String> overlays = listOverlays(context, STATE_DISABLED);
         list.addAll(overlays.stream().filter(o -> o.startsWith(target))
                 .collect(Collectors.toList()));
         return list;
     }
 
     public static boolean isOverlayEnabled(Context context, String overlayName) {
-        List<String> enabledOverlays = ThemeManager.listOverlays(context, STATE_APPROVED_ENABLED);
+        List<String> enabledOverlays = ThemeManager.listOverlays(context, STATE_ENABLED);
         for (String o : enabledOverlays) {
             if (o.equals(overlayName)) return true;
         }
@@ -598,7 +593,7 @@ public class ThemeManager {
     public static void uninstallOverlay(Context context,
                                         ArrayList<String> overlays) {
         ArrayList<String> temp = new ArrayList<>(overlays);
-        temp.removeAll(listOverlays(context, STATE_APPROVED_DISABLED));
+        temp.removeAll(listOverlays(context, STATE_DISABLED));
         disableOverlay(context, temp);
 
         // if enabled list is not contains any overlays

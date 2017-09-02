@@ -1036,7 +1036,7 @@ public class Overlays extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        refreshList();
+        if (!toggle_all.isChecked()) refreshList();
     }
 
     private void refreshList() {

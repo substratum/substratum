@@ -196,10 +196,11 @@ public class ManagerFragment extends Fragment {
         loadingBar.setVisibility(View.GONE);
 
         View sheetView = root.findViewById(R.id.fab_sheet);
-        //Don't even display the "enable_selected" button to non-oms users.
-        if(!checkOMS(context)){
-            sheetView.findViewById(R.id.enable_selected).setVisibility(View.GONE);
-        }
+        //Don't even display the "enable_disable_selected" button to non-oms users.
+        if(!checkOMS(context))
+            sheetView.findViewById(R.id.enable_disable_selected).setVisibility(View.GONE);
+        else
+            sheetView.findViewById(R.id.enable_disable_selected).setVisibility(View.GONE);
         View overlay = root.findViewById(R.id.overlay);
         int sheetColor = context.getColor(R.color.fab_menu_background_card);
         int fabColor = context.getColor(R.color.fab_background_color);
@@ -300,10 +301,10 @@ public class ManagerFragment extends Fragment {
                     new RunDisable(ManagerFragment.this).execute());
         }
 
-        TextView enable_selected = (TextView) root.findViewById(R.id.enable_selected);
-        if (enable_selected != null)
-            enable_selected.setOnClickListener(v ->
-                    new RunEnable(ManagerFragment.this).execute());
+        TextView enable_disable_selected = (TextView) root.findViewById(R.id.enable_disable_selected);
+        if (enable_disable_selected != null)
+            enable_disable_selected.setOnClickListener(v ->
+                    new RunEnableDisable(ManagerFragment.this).execute());
 
         TextView uninstall_selected = (TextView) root.findViewById(R.id.uninstall);
         if (!References.checkOMS(context))
@@ -554,7 +555,7 @@ public class ManagerFragment extends Fragment {
         }
     }
 
-    private static class RunDisable extends AsyncTask<Void, Void, Void> {
+    private static class RunDisable extends AsyncTask<Void, Void, Void> {//This will be the rro disable
         private WeakReference<ManagerFragment> ref;
 
         private RunDisable(ManagerFragment fragment) {
@@ -575,132 +576,97 @@ public class ManagerFragment extends Fragment {
             ManagerFragment fragment = ref.get();
             if (fragment != null) {
                 Context context = fragment.context;
-                if (References.checkOMS(context)) {
-                    ArrayList<String> data = new ArrayList<>();
-                    fragment.overlayList = ((ManagerAdapter) fragment.mAdapter)
-                            .getOverlayManagerList();
-                    int len = fragment.overlayList.size();
-                    for (int i = 0; i < len; i++) {
-                        ManagerItem managerItem = fragment.overlayList.get(i);
-                        if (managerItem.isSelected()) data.add(managerItem.getName());
+
+                for (int i = 0; i < fragment.overlaysList.size(); i++) {
+                    if (fragment.overlaysList.get(i).isSelected()) {
+                        if (References.isSamsung(context)) {
+                            ArrayList<String> overlay = new ArrayList<>();
+                            overlay.add(fragment.overlaysList.get(i).getName());
+                            ThemeManager.uninstallOverlay(context, overlay);
+                        } else {
+                            FileOperations.mountRW();
+                            FileOperations.mountRWData();
+                            FileOperations.mountRWVendor();
+                            FileOperations.bruteforceDelete(DATA_RESOURCE_DIR +
+                                    "overlays.list");
+
+                            FileOperations.bruteforceDelete(LEGACY_NEXUS_DIR +
+                                    fragment.overlaysList.get(i).getName() + ".apk");
+                            FileOperations.bruteforceDelete(PIXEL_NEXUS_DIR +
+                                    fragment.overlaysList.get(i).getName() + ".apk");
+                            FileOperations.bruteforceDelete(VENDOR_DIR +
+                                    fragment.overlaysList.get(i).getName() + ".apk");
+                            String legacy_resource_idmap =
+                                    (LEGACY_NEXUS_DIR.substring(1, LEGACY_NEXUS_DIR.length()) +
+                                            fragment.overlaysList.get(i).getName())
+                                            .replace("/", "@") + ".apk@idmap";
+                            String pixel_resource_idmap =
+                                    (PIXEL_NEXUS_DIR.substring(1, PIXEL_NEXUS_DIR.length()) +
+                                            fragment.overlaysList.get(i).getName())
+                                            .replace("/", "@") + ".apk@idmap";
+                            String vendor_resource_idmap =
+                                    (VENDOR_DIR.substring(1, VENDOR_DIR.length()) +
+                                            fragment.overlaysList.get(i).getName())
+                                            .replace("/", "@") + ".apk@idmap";
+                            Log.d(this.getClass().getSimpleName(),
+                                    "Removing idmap resource pointer '" +
+                                            legacy_resource_idmap + "'");
+
+                            FileOperations.bruteforceDelete(DATA_RESOURCE_DIR +
+                                    legacy_resource_idmap);
+                            Log.d(this.getClass().getSimpleName(),
+                                    "Removing idmap resource pointer '" +
+                                            pixel_resource_idmap + "'");
+                            FileOperations.bruteforceDelete(DATA_RESOURCE_DIR +
+                                    pixel_resource_idmap);
+                            Log.d(this.getClass().getSimpleName(),
+                                    "Removing idmap resource pointer '" +
+                                            vendor_resource_idmap + "'");
+                            FileOperations.bruteforceDelete(DATA_RESOURCE_DIR +
+                                    vendor_resource_idmap);
+                            FileOperations.mountROVendor();
+                            FileOperations.mountROData();
+                            FileOperations.mountRO();
+                        }
                     }
+                }
 
-                    // The magic goes here
-                    ThemeManager.disableOverlay(context, data);
+                // Since we had to parse the directory to process the recyclerView,
+                // reparse it to notifyDataSetChanged
 
-                    if (!References.checkThemeInterfacer(context) &&
-                            References.needsRecreate(context, data)) {
-                        Handler handler = new Handler(Looper.getMainLooper());
-                        handler.postDelayed(() -> {
-                            // OMS may not have written all the changes so quickly just yet
-                            // so we may need to have a small delay
-                            try {
-                                List<String> updated = fragment.updateEnabledOverlays();
-                                for (int i = 0; i < fragment.overlayList.size(); i++) {
-                                    ManagerItem currentOverlay = fragment.overlayList.get(i);
-                                    currentOverlay.setSelected(false);
-                                    currentOverlay.updateEnabledOverlays(updated.contains(
-                                            currentOverlay.getName()));
-                                    fragment.loadingBar.setVisibility(View.GONE);
-                                    fragment.mAdapter.notifyDataSetChanged();
-                                }
-                            } catch (Exception e) {
-                                // Consume window refresh
-                            }
-                        }, REFRESH_WINDOW_DELAY);
+                fragment.activated_overlays.clear();
+                fragment.overlaysList.clear();
+
+                if (isSamsung(context)) {
+                    final PackageManager pm = context.getPackageManager();
+                    List<ApplicationInfo> packages =
+                            pm.getInstalledApplications(PackageManager.GET_META_DATA);
+                    for (ApplicationInfo packageInfo : packages) {
+                        if (References.getOverlayMetadata(
+                                context,
+                                packageInfo.packageName,
+                                References.metadataOverlayParent) != null) {
+                            fragment.activated_overlays.add(packageInfo.packageName);
+                        }
                     }
                 } else {
-                    for (int i = 0; i < fragment.overlaysList.size(); i++) {
-                        if (fragment.overlaysList.get(i).isSelected()) {
-                            if (References.isSamsung(context)) {
-                                ArrayList<String> overlay = new ArrayList<>();
-                                overlay.add(fragment.overlaysList.get(i).getName());
-                                ThemeManager.uninstallOverlay(context, overlay);
-                            } else {
-                                FileOperations.mountRW();
-                                FileOperations.mountRWData();
-                                FileOperations.mountRWVendor();
-                                FileOperations.bruteforceDelete(DATA_RESOURCE_DIR +
-                                        "overlays.list");
-
-                                FileOperations.bruteforceDelete(LEGACY_NEXUS_DIR +
-                                        fragment.overlaysList.get(i).getName() + ".apk");
-                                FileOperations.bruteforceDelete(PIXEL_NEXUS_DIR +
-                                        fragment.overlaysList.get(i).getName() + ".apk");
-                                FileOperations.bruteforceDelete(VENDOR_DIR +
-                                        fragment.overlaysList.get(i).getName() + ".apk");
-                                String legacy_resource_idmap =
-                                        (LEGACY_NEXUS_DIR.substring(1, LEGACY_NEXUS_DIR.length()) +
-                                                fragment.overlaysList.get(i).getName())
-                                                .replace("/", "@") + ".apk@idmap";
-                                String pixel_resource_idmap =
-                                        (PIXEL_NEXUS_DIR.substring(1, PIXEL_NEXUS_DIR.length()) +
-                                                fragment.overlaysList.get(i).getName())
-                                                .replace("/", "@") + ".apk@idmap";
-                                String vendor_resource_idmap =
-                                        (VENDOR_DIR.substring(1, VENDOR_DIR.length()) +
-                                                fragment.overlaysList.get(i).getName())
-                                                .replace("/", "@") + ".apk@idmap";
-                                Log.d(this.getClass().getSimpleName(),
-                                        "Removing idmap resource pointer '" +
-                                                legacy_resource_idmap + "'");
-
-                                FileOperations.bruteforceDelete(DATA_RESOURCE_DIR +
-                                        legacy_resource_idmap);
-                                Log.d(this.getClass().getSimpleName(),
-                                        "Removing idmap resource pointer '" +
-                                                pixel_resource_idmap + "'");
-                                FileOperations.bruteforceDelete(DATA_RESOURCE_DIR +
-                                        pixel_resource_idmap);
-                                Log.d(this.getClass().getSimpleName(),
-                                        "Removing idmap resource pointer '" +
-                                                vendor_resource_idmap + "'");
-                                FileOperations.bruteforceDelete(DATA_RESOURCE_DIR +
-                                        vendor_resource_idmap);
-                                FileOperations.mountROVendor();
-                                FileOperations.mountROData();
-                                FileOperations.mountRO();
-                            }
+                    File currentDir = new File(LEGACY_NEXUS_DIR);
+                    String[] listed = currentDir.list();
+                    for (String file : listed) {
+                        if (file.substring(file.length() - 4).equals(".apk")) {
+                            fragment.activated_overlays.add(file.substring(0, file.length() -
+                                    4));
                         }
                     }
+                }
 
-                    // Since we had to parse the directory to process the recyclerView,
-                    // reparse it to notifyDataSetChanged
+                // Automatically sort the activated overlays by alphabetical order
+                Collections.sort(fragment.activated_overlays);
 
-                    fragment.activated_overlays.clear();
-                    fragment.overlaysList.clear();
-
-                    if (isSamsung(context)) {
-                        final PackageManager pm = context.getPackageManager();
-                        List<ApplicationInfo> packages =
-                                pm.getInstalledApplications(PackageManager.GET_META_DATA);
-                        for (ApplicationInfo packageInfo : packages) {
-                            if (References.getOverlayMetadata(
-                                    context,
-                                    packageInfo.packageName,
-                                    References.metadataOverlayParent) != null) {
-                                fragment.activated_overlays.add(packageInfo.packageName);
-                            }
-                        }
-                    } else {
-                        File currentDir = new File(LEGACY_NEXUS_DIR);
-                        String[] listed = currentDir.list();
-                        for (String file : listed) {
-                            if (file.substring(file.length() - 4).equals(".apk")) {
-                                fragment.activated_overlays.add(file.substring(0, file.length() -
-                                        4));
-                            }
-                        }
-                    }
-
-                    // Automatically sort the activated overlays by alphabetical order
-                    Collections.sort(fragment.activated_overlays);
-
-                    for (int i = 0; i < fragment.activated_overlays.size(); i++) {
-                        ManagerItem st = new ManagerItem(context,
-                                fragment.activated_overlays.get(i), true);
-                        fragment.overlaysList.add(st);
-                    }
+                for (int i = 0; i < fragment.activated_overlays.size(); i++) {
+                    ManagerItem st = new ManagerItem(context,
+                            fragment.activated_overlays.get(i), true);
+                    fragment.overlaysList.add(st);
                 }
             }
             return null;
@@ -740,10 +706,10 @@ public class ManagerFragment extends Fragment {
         }
     }
 
-    private static class RunEnable extends AsyncTask<String, Integer, String> {
+    private static class RunEnableDisable extends AsyncTask<String, Integer, String> {//This will be the oms enable/disable
         private WeakReference<ManagerFragment> ref;
 
-        private RunEnable(ManagerFragment fragment) {
+        private RunEnableDisable(ManagerFragment fragment) {
             ref = new WeakReference<>(fragment);
         }
 
@@ -776,7 +742,8 @@ public class ManagerFragment extends Fragment {
             if (fragment != null) {
                 Context context = fragment.context;
 
-                ArrayList<String> data = new ArrayList<>();
+                ArrayList<String> data = new ArrayList<>();     //enabled list
+                ArrayList<String> data2 = new ArrayList<>();    //disabled list
                 fragment.overlayList = ((ManagerAdapter) fragment.mAdapter).getOverlayManagerList();
                 boolean has_failed = false;
                 int len = fragment.overlayList.size();
@@ -784,22 +751,31 @@ public class ManagerFragment extends Fragment {
                     ManagerItem managerItem = fragment.overlayList.get(i);
                     if (managerItem.isSelected()) {
                         if (References.isPackageInstalled(context,
-                                References.grabOverlayParent(context, managerItem.getName()))) {
-                            data.add(managerItem.getName());
-                        } else {
+                                References.grabOverlayParent(context, managerItem.getName())/*,
+                                true*/)) {
+                            if(ThemeManager.listOverlays(fragment.context,
+                                    STATE_APPROVED_DISABLED).contains(managerItem.getName()))
+                                data.add(managerItem.getName());
+                            else
+                                data2.add(managerItem.getName());
+                        }
+                        else{
                             has_failed = true;
                         }
                     }
                 }
-                if (!data.isEmpty()) {
-                    if (has_failed) {
+                if (!data.isEmpty() || !data2.isEmpty()) {
+                    if (has_failed) {       //could be deleted
                         Toast.makeText(context,
                                 fragment.getString(R.string.manage_system_not_permitted),
                                 Toast.LENGTH_LONG).show();
                     }
 
                     // The magic goes here
-                    ThemeManager.enableOverlay(context, data);
+                    if(!data.isEmpty())
+                        ThemeManager.enableOverlay(context, data);
+                    if(!data2.isEmpty())
+                        ThemeManager.disableOverlay(context, data2);
 
                     if (!References.checkThemeInterfacer(context) &&
                             References.needsRecreate(context, data)) {

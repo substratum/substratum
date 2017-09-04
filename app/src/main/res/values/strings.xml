@@ -551,6 +551,7 @@
     <string name="fab_menu_uninstall">Uninstall Selected</string>
     <string name="fab_menu_disable">Disable Selected</string>
     <string name="fab_menu_enable">Enable Selected</string>
+    <string name="fab_menu_enable_disable">Enable/Disable Selected</string>
     <string name="fab_menu_swap_toggle">Disable other themes</string>
     <string name="fab_menu_swap_toggle_legacy">Remove all existing</string>
 

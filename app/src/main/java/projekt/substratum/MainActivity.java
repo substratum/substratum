@@ -89,7 +89,6 @@ import eightbitlab.com.blurview.RenderScriptBlur;
 import projekt.substratum.activities.base.SubstratumActivity;
 import projekt.substratum.activities.showcase.ShowcaseActivity;
 import projekt.substratum.common.References;
-import projekt.substratum.common.analytics.FirebaseAnalytics;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
@@ -294,7 +293,6 @@ public class MainActivity extends SubstratumActivity implements
         setContentView(R.layout.main_activity);
         context = getApplicationContext();
         cleanLogCharReportsIfNecessary();
-        FirebaseAnalytics.withdrawBlacklistedPackages(context);
         References.refreshInstalledThemesPref(context);
 
         int selectedDrawer = 1;

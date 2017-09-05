@@ -72,6 +72,10 @@ public class ThemeManager {
      * NOTE: Deprecation at the OMS3 level. We no longer support OMS3 commands.
      */
     public static final String disableOverlay = "cmd overlay disable";
+    // State values of OverlayInfo
+    public static final int STATE_MISSING_TARGET = SDK_INT >= O ? 0 : 1;
+    public static final int STATE_DISABLED = SDK_INT >= O ? 2 : 4;
+    public static final int STATE_ENABLED = SDK_INT >= O ? 3 : 5;
     private static final String enableOverlay = "cmd overlay enable";
     private static final String listAllOverlays = "cmd overlay list";
     private static final String setPriority = "cmd overlay set-priority";
@@ -84,11 +88,6 @@ public class ThemeManager {
     private static final int EXPORT_RETURN_MULTIPLE_TARGETS_ENABLED = 1;
     private static final int EXPORT_RETURN_DEFAULT = 2;
     private static final int STATE_LIST_ALL_OVERLAYS = 13579;
-
-    // State values of OverlayInfo
-    public static final int STATE_MISSING_TARGET = SDK_INT >= O ? 0 : 1;
-    public static final int STATE_DISABLED = SDK_INT >= O ? 2 : 4;
-    public static final int STATE_ENABLED = SDK_INT >= O ? 3 : 5;
 
     public static boolean blacklisted(String packageName, Boolean unsupportedSamsung) {
         List<String> blacklisted = new ArrayList<>(Arrays.asList(blacklistedPackages));

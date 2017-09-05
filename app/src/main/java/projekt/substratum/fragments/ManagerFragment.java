@@ -754,7 +754,7 @@ public class ManagerFragment extends Fragment {
                                 References.grabOverlayParent(context, managerItem.getName())/*,
                                 true*/)) {
                             if (ThemeManager.listOverlays(fragment.context,
-                                    STATE_APPROVED_DISABLED).contains(managerItem.getName()))
+                                    STATE_DISABLED).contains(managerItem.getName()))
                                 data.add(managerItem.getName());
                             else
                                 data2.add(managerItem.getName());

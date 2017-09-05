@@ -174,7 +174,8 @@ public class SplashScreenActivity extends Activity {
                         //noinspection ConstantConditions
                         prefs2.edit()
                                 .putString("andromeda_fp", MD5.calculateMD5(new File(
-                                References.getInstalledDirectory(context, ANDROMEDA_PACKAGE))))
+                                        References.getInstalledDirectory(context,
+                                                ANDROMEDA_PACKAGE))))
                                 .putString("andromeda_installer", context.getPackageManager()
                                         .getInstallerPackageName(ANDROMEDA_PACKAGE))
                                 .apply();
@@ -188,7 +189,8 @@ public class SplashScreenActivity extends Activity {
                     SharedPreferences prefs2 =
                             context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
                     timeoutCount = 0;
-                    while (!prefs2.contains("sungstratum_exp_fp_" + sstVersion) && timeoutCount < 100) {
+                    while (!prefs2.contains("sungstratum_exp_fp_" + sstVersion) && timeoutCount <
+                            100) {
                         try {
                             Thread.sleep(100);
                         } catch (InterruptedException e) {

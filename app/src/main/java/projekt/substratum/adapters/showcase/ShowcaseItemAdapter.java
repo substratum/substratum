@@ -148,7 +148,7 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
 
         ViewHolder(View view) {
             super(view);
-            cardView =  view.findViewById(R.id.theme_card);
+            cardView = view.findViewById(R.id.theme_card);
             themeName = view.findViewById(R.id.theme_name);
             themeAuthor = view.findViewById(R.id.theme_author);
             themePricing = view.findViewById(R.id.theme_pricing);

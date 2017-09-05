@@ -128,7 +128,7 @@ public class BootAnimations extends Fragment {
         }
 
         root = (ViewGroup) inflater.inflate(R.layout.tab_bootanimations, container, false);
-        nsv =  root.findViewById(R.id.nestedScrollView);
+        nsv = root.findViewById(R.id.nestedScrollView);
 
         animation = new AnimationDrawable();
         animation.setOneShot(false);

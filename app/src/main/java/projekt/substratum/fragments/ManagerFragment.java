@@ -353,7 +353,6 @@ public class ManagerFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.alphabetize) {
-            materialSheetFab.hideSheet();
             boolean alphabetize = prefs.getBoolean("alphabetize_overlays", false);
             if (alphabetize) {
                 prefs.edit().putBoolean("alphabetize_overlays", false).apply();

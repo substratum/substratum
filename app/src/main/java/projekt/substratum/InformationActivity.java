@@ -298,7 +298,8 @@ public class InformationActivity extends SubstratumActivity {
         theme_mode = currentIntent.getStringExtra("theme_mode");
         encryption_key = currentIntent.getByteArrayExtra("encryption_key");
         iv_encrypt_key = currentIntent.getByteArrayExtra("iv_encrypt_key");
-        String wallpaperUrl = getOverlayMetadata(getApplicationContext(), theme_pid, metadataWallpapers);
+        String wallpaperUrl = getOverlayMetadata(getApplicationContext(), theme_pid,
+                metadataWallpapers);
 
         Bundle bundle = new Bundle();
         bundle.putString("theme_name", theme_name);

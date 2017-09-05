@@ -197,7 +197,7 @@ public class ManagerFragment extends Fragment {
 
         View sheetView = root.findViewById(R.id.fab_sheet);
         //Don't even display the "enable_disable_selected" button to non-oms users.
-        if(!checkOMS(context))
+        if (!checkOMS(context))
             sheetView.findViewById(R.id.enable_disable_selected).setVisibility(View.GONE);
         View overlay = root.findViewById(R.id.overlay);
         int sheetColor = context.getColor(R.color.fab_menu_background_card);
@@ -299,7 +299,8 @@ public class ManagerFragment extends Fragment {
                     new RunDisable(ManagerFragment.this).execute());
         }
 
-        TextView enable_disable_selected = (TextView) root.findViewById(R.id.enable_disable_selected);
+        TextView enable_disable_selected = (TextView) root.findViewById(R.id
+                .enable_disable_selected);
         if (enable_disable_selected != null)
             enable_disable_selected.setOnClickListener(v ->
                     new RunEnableDisable(ManagerFragment.this).execute());
@@ -553,7 +554,8 @@ public class ManagerFragment extends Fragment {
         }
     }
 
-    private static class RunDisable extends AsyncTask<Void, Void, Void> {//This will be the rro disable
+    private static class RunDisable extends AsyncTask<Void, Void, Void> {//This will be the rro
+        // disable
         private WeakReference<ManagerFragment> ref;
 
         private RunDisable(ManagerFragment fragment) {
@@ -704,7 +706,8 @@ public class ManagerFragment extends Fragment {
         }
     }
 
-    private static class RunEnableDisable extends AsyncTask<String, Integer, String> {//This will be the oms enable/disable
+    private static class RunEnableDisable extends AsyncTask<String, Integer, String> {//This will
+        // be the oms enable/disable
         private WeakReference<ManagerFragment> ref;
 
         private RunEnableDisable(ManagerFragment fragment) {
@@ -751,13 +754,12 @@ public class ManagerFragment extends Fragment {
                         if (References.isPackageInstalled(context,
                                 References.grabOverlayParent(context, managerItem.getName())/*,
                                 true*/)) {
-                            if(ThemeManager.listOverlays(fragment.context,
+                            if (ThemeManager.listOverlays(fragment.context,
                                     STATE_APPROVED_DISABLED).contains(managerItem.getName()))
                                 data.add(managerItem.getName());
                             else
                                 data2.add(managerItem.getName());
-                        }
-                        else{
+                        } else {
                             has_failed = true;
                         }
                     }
@@ -770,9 +772,9 @@ public class ManagerFragment extends Fragment {
                     }
 
                     // The magic goes here
-                    if(!data.isEmpty())
+                    if (!data.isEmpty())
                         ThemeManager.enableOverlay(context, data);
-                    if(!data2.isEmpty())
+                    if (!data2.isEmpty())
                         ThemeManager.disableOverlay(context, data2);
 
                     if (!References.checkThemeInterfacer(context) &&

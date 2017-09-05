@@ -121,27 +121,27 @@ dependencies {
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     testCompile 'junit:junit:4.12'
     // Android Support Libraries
-    compile 'com.android.support:appcompat-v7:26.0.1'
-    compile 'com.android.support:cardview-v7:26.0.1'
-    compile 'com.android.support:recyclerview-v7:26.0.1'
-    compile 'com.android.support:support-v13:26.0.1'
-    compile 'com.android.support:design:26.0.1'
-    compile 'com.android.support:palette-v7:26.0.1'
-    compile 'com.android.support:preference-v14:26.0.1'
+    compile 'com.android.support:appcompat-v7:26.0.2'
+    compile 'com.android.support:cardview-v7:26.0.2'
+    compile 'com.android.support:recyclerview-v7:26.0.2'
+    compile 'com.android.support:support-v13:26.0.2'
+    compile 'com.android.support:design:26.0.2'
+    compile 'com.android.support:palette-v7:26.0.2'
+    compile 'com.android.support:preference-v14:26.0.2'
     // Firebase
     compile 'com.google.firebase:firebase-core:11.2.0'
     compile 'com.google.firebase:firebase-crash:11.2.0'
     compile 'com.google.firebase:firebase-database:11.2.0'
     compile 'com.google.firebase:firebase-messaging:11.2.0'
     // Image Downloading and Caching
-    compile 'com.github.bumptech.glide:glide:4.0.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
+    compile 'com.github.bumptech.glide:glide:4.1.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.1.0'
     // Commons IO
     compile 'commons-io:commons-io:2.5'
     // APK Signer
     compile 'com.android.tools.build:apksig:2.5.0-alpha-preview-02'
     // Loading
-    compile 'me.zhanghai.android.materialprogressbar:library:1.4.1'
+    compile 'me.zhanghai.android.materialprogressbar:library:1.4.2'
     // App Intro
     compile 'com.stephentuso:welcome:1.4.1'
     // Floating Action Buttons

@@ -95,11 +95,11 @@ public class RecoveryFragment extends Fragment {
 
         setHasOptionsMenu(true);
 
-        Button overlaysButton = (Button) root.findViewById(R.id.overlaysButton);
-        Button wallpaperButton = (Button) root.findViewById(R.id.wallpaperButton);
-        Button bootanimationButton = (Button) root.findViewById(R.id.bootanimationButton);
-        Button fontsButton = (Button) root.findViewById(R.id.fontsButton);
-        Button soundsButton = (Button) root.findViewById(R.id.soundsButton);
+        Button overlaysButton = root.findViewById(R.id.overlaysButton);
+        Button wallpaperButton = root.findViewById(R.id.wallpaperButton);
+        Button bootanimationButton = root.findViewById(R.id.bootanimationButton);
+        Button fontsButton = root.findViewById(R.id.fontsButton);
+        Button soundsButton = root.findViewById(R.id.soundsButton);
 
         // Overlays Dialog
         overlaysButton.setOnClickListener(v -> {
@@ -108,8 +108,8 @@ public class RecoveryFragment extends Fragment {
                     mContext,
                     R.layout.restore_overlays_sheet_dialog,
                     null);
-            LinearLayout disable_all = (LinearLayout) sheetView.findViewById(R.id.disable_all);
-            LinearLayout uninstall_all = (LinearLayout) sheetView.findViewById(R.id.uninstall_all);
+            LinearLayout disable_all = sheetView.findViewById(R.id.disable_all);
+            LinearLayout uninstall_all = sheetView.findViewById(R.id.uninstall_all);
             if (!References.checkOMS(mContext)) disable_all.setVisibility(View.GONE);
             disable_all.setOnClickListener(view -> {
                 new RestoreFunction(this).execute(false);
@@ -128,9 +128,9 @@ public class RecoveryFragment extends Fragment {
             sheetDialog = new SheetDialog(mContext);
             View sheetView = View.inflate(mContext, R.layout.restore_wallpapers_sheet_dialog,
                     null);
-            LinearLayout home = (LinearLayout) sheetView.findViewById(R.id.home);
-            LinearLayout lock = (LinearLayout) sheetView.findViewById(R.id.lock);
-            LinearLayout both = (LinearLayout) sheetView.findViewById(R.id.both);
+            LinearLayout home = sheetView.findViewById(R.id.home);
+            LinearLayout lock = sheetView.findViewById(R.id.lock);
+            LinearLayout both = sheetView.findViewById(R.id.both);
             home.setOnClickListener(view2 -> {
                 try {
                     WallpaperManager.clearWallpaper(mContext, "home");
@@ -191,7 +191,7 @@ public class RecoveryFragment extends Fragment {
             sheetDialog = new SheetDialog(mContext);
             View sheetView = View.inflate(mContext,
                     R.layout.restore_bootanimations_sheet_dialog, null);
-            LinearLayout restore = (LinearLayout) sheetView.findViewById(R.id.restore);
+            LinearLayout restore = sheetView.findViewById(R.id.restore);
             restore.setOnClickListener(view2 -> {
                 new BootAnimationClearer(this).execute();
                 sheetDialog.hide();
@@ -205,7 +205,7 @@ public class RecoveryFragment extends Fragment {
             sheetDialog = new SheetDialog(mContext);
             View sheetView = View.inflate(mContext,
                     R.layout.restore_fonts_sheet_dialog, null);
-            LinearLayout restore = (LinearLayout) sheetView.findViewById(R.id.restore);
+            LinearLayout restore = sheetView.findViewById(R.id.restore);
             restore.setOnClickListener(view2 -> {
                 if (References.checkThemeInterfacer(mContext) ||
                         Settings.System.canWrite(mContext)) {
@@ -233,7 +233,7 @@ public class RecoveryFragment extends Fragment {
             sheetDialog = new SheetDialog(mContext);
             View sheetView = View.inflate(mContext,
                     R.layout.restore_sounds_sheet_dialog, null);
-            LinearLayout restore = (LinearLayout) sheetView.findViewById(R.id.restore);
+            LinearLayout restore = sheetView.findViewById(R.id.restore);
             restore.setOnClickListener(view2 -> {
                 if (References.checkThemeInterfacer(mContext) ||
                         Settings.System.canWrite(mContext)) {

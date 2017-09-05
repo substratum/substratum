@@ -188,11 +188,11 @@ public class ManagerFragment extends Fragment {
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
         prefs.edit().putBoolean("alphabetize_overlays", true).apply();
         root = (ViewGroup) inflater.inflate(R.layout.manager_fragment, container, false);
-        toggle_zone = (RelativeLayout) root.findViewById(R.id.toggle_zone);
-        relativeLayout = (RelativeLayout) root.findViewById(R.id.no_overlays_enabled);
-        mRecyclerView = (RecyclerView) root.findViewById(R.id.overlays_recycler_view);
+        toggle_zone = root.findViewById(R.id.toggle_zone);
+        relativeLayout = root.findViewById(R.id.no_overlays_enabled);
+        mRecyclerView = root.findViewById(R.id.overlays_recycler_view);
 
-        loadingBar = (ProgressBar) root.findViewById(R.id.header_loading_bar);
+        loadingBar = root.findViewById(R.id.header_loading_bar);
         loadingBar.setVisibility(View.GONE);
 
         View sheetView = root.findViewById(R.id.fab_sheet);
@@ -203,9 +203,9 @@ public class ManagerFragment extends Fragment {
         int sheetColor = context.getColor(R.color.fab_menu_background_card);
         int fabColor = context.getColor(R.color.fab_background_color);
 
-        progressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
+        progressBar = root.findViewById(R.id.progress_bar_loader);
 
-        floatingActionButton = (FloatingActionMenu) root.findViewById(R.id.apply_fab);
+        floatingActionButton = root.findViewById(R.id.apply_fab);
 
         // Create material sheet FAB
         if (sheetView != null && overlay != null) {
@@ -225,7 +225,7 @@ public class ManagerFragment extends Fragment {
             context.registerReceiver(finishReceiver, intentFilter);
         }
 
-        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             if (first_run != null && mRecyclerView.isShown() && !first_run) {
                 refreshList();
@@ -234,7 +234,7 @@ public class ManagerFragment extends Fragment {
             }
         });
 
-        toggle_all = (Switch) root.findViewById(R.id.select_all);
+        toggle_all = root.findViewById(R.id.select_all);
         toggle_all.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> {
                     try {
@@ -291,7 +291,7 @@ public class ManagerFragment extends Fragment {
             }
         });
 
-        TextView disable_selected = (TextView) root.findViewById(R.id.disable_selected);
+        TextView disable_selected = root.findViewById(R.id.disable_selected);
         if (!References.checkOMS(context))
             disable_selected.setText(getString(R.string.fab_menu_uninstall));
         if (disable_selected != null) {
@@ -305,7 +305,7 @@ public class ManagerFragment extends Fragment {
             enable_disable_selected.setOnClickListener(v ->
                     new RunEnableDisable(ManagerFragment.this).execute());
 
-        TextView uninstall_selected = (TextView) root.findViewById(R.id.uninstall);
+        TextView uninstall_selected = root.findViewById(R.id.uninstall);
         if (!References.checkOMS(context))
             uninstall_selected.setVisibility(View.GONE);
         if (uninstall_selected != null)
@@ -545,8 +545,7 @@ public class ManagerFragment extends Fragment {
                 }
                 if (!fragment.prefs.getBoolean("manager_disabled_overlays", true) ||
                         !References.checkOMS(fragment.context)) {
-                    LinearLayout enable_view = (LinearLayout)
-                            fragment.root.findViewById(R.id.enable);
+                    LinearLayout enable_view = fragment.root.findViewById(R.id.enable);
                     enable_view.setVisibility(View.GONE);
                 }
                 if (fragment.first_run == null) fragment.first_run = false;

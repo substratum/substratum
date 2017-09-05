@@ -41,7 +41,7 @@ public class TeamFragment extends Fragment {
         super.onCreate(savedInstanceState);
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.team_fragment, container, false);
 
-        CardView nicholas_card = (CardView) root.findViewById(R.id.nicholas_card);
+        CardView nicholas_card = root.findViewById(R.id.nicholas_card);
         nicholas_card.setOnClickListener(v -> {
             try {
                 String playURL = getString(R.string.team_nicholas_link);
@@ -57,7 +57,7 @@ public class TeamFragment extends Fragment {
             }
         });
 
-        CardView syko_card = (CardView) root.findViewById(R.id.syko_card);
+        CardView syko_card = root.findViewById(R.id.syko_card);
         syko_card.setOnClickListener(v -> {
             try {
                 String playURL = getString(R.string.team_syko_link);
@@ -73,7 +73,7 @@ public class TeamFragment extends Fragment {
             }
         });
 
-        CardView ivan_card = (CardView) root.findViewById(R.id.ivan_card);
+        CardView ivan_card = root.findViewById(R.id.ivan_card);
         ivan_card.setOnClickListener(v -> {
             try {
                 String playURL = getString(R.string.team_ivan_link);
@@ -89,7 +89,7 @@ public class TeamFragment extends Fragment {
             }
         });
 
-        CardView surge_card = (CardView) root.findViewById(R.id.surge_card);
+        CardView surge_card = root.findViewById(R.id.surge_card);
         surge_card.setOnClickListener(v -> {
             try {
                 String playURL = getString(R.string.team_surge_link);
@@ -105,7 +105,7 @@ public class TeamFragment extends Fragment {
             }
         });
 
-        CardView george_card = (CardView) root.findViewById(R.id.george_card);
+        CardView george_card = root.findViewById(R.id.george_card);
         george_card.setOnClickListener(v -> {
             try {
                 String playURL = getString(R.string.team_george_link);
@@ -121,7 +121,7 @@ public class TeamFragment extends Fragment {
             }
         });
 
-        CardView nathan_card = (CardView) root.findViewById(R.id.nathan_card);
+        CardView nathan_card = root.findViewById(R.id.nathan_card);
         nathan_card.setOnClickListener(v -> {
             try {
                 String playURL = getString(R.string.team_nathan_link);
@@ -137,7 +137,7 @@ public class TeamFragment extends Fragment {
             }
         });
 
-        CardView char_card = (CardView) root.findViewById(R.id.char_card);
+        CardView char_card = root.findViewById(R.id.char_card);
         char_card.setOnClickListener(v -> {
             try {
                 String playURL = getString(R.string.team_char_link);
@@ -153,7 +153,7 @@ public class TeamFragment extends Fragment {
             }
         });
 
-        CardView harsh_card = (CardView) root.findViewById(R.id.harsh_card);
+        CardView harsh_card = root.findViewById(R.id.harsh_card);
         harsh_card.setOnClickListener(v -> {
             try {
                 String playURL = getString(R.string.team_harsh_link);
@@ -170,7 +170,7 @@ public class TeamFragment extends Fragment {
         });
 
 
-        Button development_contributors = (Button) root.findViewById(R.id.list_button_contributors);
+        Button development_contributors = root.findViewById(R.id.list_button_contributors);
         development_contributors.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setItems(getResources().getStringArray(R.array.substratum_contributors),
@@ -180,7 +180,7 @@ public class TeamFragment extends Fragment {
             alert.show();
         });
 
-        Button contribute = (Button) root.findViewById(R.id.list_button_translators_contribute);
+        Button contribute = root.findViewById(R.id.list_button_translators_contribute);
         contribute.setOnClickListener(v -> {
             try {
                 String playURL = getString(R.string.crowdin_url);
@@ -196,7 +196,7 @@ public class TeamFragment extends Fragment {
             }
         });
 
-        Button layers = (Button) root.findViewById(R.id.list_button_layers);
+        Button layers = root.findViewById(R.id.list_button_layers);
         layers.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setItems(getResources().getStringArray(R.array.layers_contributors),
@@ -206,7 +206,7 @@ public class TeamFragment extends Fragment {
             alert.show();
         });
 
-        Button translators = (Button) root.findViewById(R.id.list_button_translators);
+        Button translators = root.findViewById(R.id.list_button_translators);
         translators.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setItems(getResources().getStringArray(R.array.translations),

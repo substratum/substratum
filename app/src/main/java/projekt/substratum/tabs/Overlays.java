@@ -517,21 +517,20 @@ public class Overlays extends Fragment {
 
         mixAndMatchMode = prefs.getBoolean("enable_swapping_overlays", false);
 
-        progressBar = (ProgressBar) root.findViewById(R.id.header_loading_bar);
+        progressBar = root.findViewById(R.id.header_loading_bar);
         progressBar.setVisibility(View.GONE);
 
-        materialProgressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
+        materialProgressBar = root.findViewById(R.id.progress_bar_loader);
 
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
-        mRecyclerView = (RecyclerView) root.findViewById(R.id.overlayRecyclerView);
+        mRecyclerView = root.findViewById(R.id.overlayRecyclerView);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         ArrayList<OverlaysItem> empty_array = new ArrayList<>();
         RecyclerView.Adapter empty_adapter = new OverlaysAdapter(empty_array);
         mRecyclerView.setAdapter(empty_adapter);
 
-        TextView toggle_all_overlays_text = (TextView) root.findViewById(R.id
-                .toggle_all_overlays_text);
+        TextView toggle_all_overlays_text = root.findViewById(R.id.toggle_all_overlays_text);
         toggle_all_overlays_text.setVisibility(View.VISIBLE);
 
         File work_area = new File(EXTERNAL_STORAGE_CACHE);
@@ -540,7 +539,7 @@ public class Overlays extends Fragment {
         }
 
         // Adjust the behaviour of the mix and match toggle in the sheet
-        toggle_all = (Switch) root.findViewById(R.id.toggle_all_overlays);
+        toggle_all = root.findViewById(R.id.toggle_all_overlays);
         toggle_all.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> {
                     try {
@@ -556,7 +555,7 @@ public class Overlays extends Fragment {
                 });
 
         // Allow the user to toggle the select all switch by clicking on the bar above
-        RelativeLayout toggleZone = (RelativeLayout) root.findViewById(R.id.toggle_zone);
+        RelativeLayout toggleZone = root.findViewById(R.id.toggle_zone);
         toggleZone.setOnClickListener(v -> {
             try {
                 toggle_all.setChecked(!toggle_all.isChecked());
@@ -572,7 +571,7 @@ public class Overlays extends Fragment {
         });
 
         // Allow the user to swipe down to refresh the overlay list
-        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(() -> {
             overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
             for (int i = 0; i < overlaysLists.size(); i++) {
@@ -589,7 +588,7 @@ public class Overlays extends Fragment {
         /*
           PLUGIN TYPE 3: Parse each overlay folder to see if they have folder options
          */
-        base_spinner = (Spinner) root.findViewById(R.id.type3_spinner);
+        base_spinner = root.findViewById(R.id.type3_spinner);
         Overlays overlays = this;
         base_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

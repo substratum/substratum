@@ -127,23 +127,22 @@ public class Sounds extends Fragment {
         }
 
         root = (ViewGroup) inflater.inflate(R.layout.tab_sounds, container, false);
-        nsv = (NestedScrollView) root.findViewById(R.id.nestedScrollView);
+        nsv = root.findViewById(R.id.nestedScrollView);
 
-        progressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
+        progressBar = root.findViewById(R.id.progress_bar_loader);
         progressBar.setVisibility(View.GONE);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-        defaults = (RelativeLayout) root.findViewById(R.id.restore_to_default);
+        defaults = root.findViewById(R.id.restore_to_default);
 
-        final RelativeLayout sounds_preview = (RelativeLayout) root.findViewById(R.id
-                .sounds_placeholder);
-        relativeLayout = (RelativeLayout) root.findViewById(R.id.relativeLayout);
-        error = (RelativeLayout) root.findViewById(R.id.error_loading_pack);
+        final RelativeLayout sounds_preview = root.findViewById(R.id.sounds_placeholder);
+        relativeLayout = root.findViewById(R.id.relativeLayout);
+        error = root.findViewById(R.id.error_loading_pack);
         error.setVisibility(View.GONE);
 
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
-        recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
+        recyclerView = root.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         ArrayList<SoundsInfo> empty_array = new ArrayList<>();
@@ -170,7 +169,7 @@ public class Sounds extends Fragment {
 
             ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getActivity(),
                     android.R.layout.simple_spinner_dropdown_item, unarchivedSounds);
-            soundsSelector = (Spinner) root.findViewById(R.id.soundsSelection);
+            soundsSelector = root.findViewById(R.id.soundsSelection);
             soundsSelector.setAdapter(adapter1);
             soundsSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -214,7 +213,7 @@ public class Sounds extends Fragment {
             Log.e(TAG, "There is no sounds.zip found within the assets of this theme!");
         }
 
-        RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getContext(), (view, position) -> {
                     wordList.get(position);
@@ -326,7 +325,7 @@ public class Sounds extends Fragment {
         protected void onPreExecute() {
             paused = true;
             progressBar.setVisibility(View.VISIBLE);
-            recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
+            recyclerView = root.findViewById(R.id.recycler_view);
         }
 
         @Override
@@ -335,7 +334,7 @@ public class Sounds extends Fragment {
                 List<SoundsInfo> adapter1 = new ArrayList<>(wordList);
 
                 if (adapter1.size() > 0) {
-                    recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
+                    recyclerView = root.findViewById(R.id.recycler_view);
                     SoundsAdapter mAdapter = new SoundsAdapter(adapter1);
                     RecyclerView.LayoutManager mLayoutManager =
                             new LinearLayoutManager(getContext());

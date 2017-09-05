@@ -243,7 +243,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 View content = inflate.inflate(R.layout.floatui_dialog, null);
                 builder.setView(content);
 
-                mRecyclerView = (RecyclerView) content.findViewById(R.id.recycler_view);
+                mRecyclerView = content.findViewById(R.id.recycler_view);
                 mRecyclerView.setAdapter(mAdapter);
 
                 mRecyclerView.setHasFixedSize(true);

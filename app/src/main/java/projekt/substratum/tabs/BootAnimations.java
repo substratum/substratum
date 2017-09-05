@@ -128,19 +128,18 @@ public class BootAnimations extends Fragment {
         }
 
         root = (ViewGroup) inflater.inflate(R.layout.tab_bootanimations, container, false);
-        nsv = (NestedScrollView) root.findViewById(R.id.nestedScrollView);
+        nsv =  root.findViewById(R.id.nestedScrollView);
 
         animation = new AnimationDrawable();
         animation.setOneShot(false);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-        progressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
+        progressBar = root.findViewById(R.id.progress_bar_loader);
 
-        vm_blown = (TextView) root.findViewById(R.id.vm_blown);
-        bootanimation_placeholder = (RelativeLayout) root.findViewById(R.id
-                .bootanimation_placeholder);
-        defaults = (RelativeLayout) root.findViewById(R.id.restore_to_default);
+        vm_blown = root.findViewById(R.id.vm_blown);
+        bootanimation_placeholder = root.findViewById(R.id.bootanimation_placeholder);
+        defaults = root.findViewById(R.id.restore_to_default);
 
         try {
             // Parses the list of items in the boot animation folder
@@ -162,7 +161,7 @@ public class BootAnimations extends Fragment {
 
             ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getActivity(),
                     android.R.layout.simple_spinner_dropdown_item, parsedBootAnimations);
-            bootAnimationSelector = (Spinner) root.findViewById(R.id.bootAnimationSelection);
+            bootAnimationSelector = root.findViewById(R.id.bootAnimationSelection);
             bootAnimationSelector.setAdapter(adapter1);
             bootAnimationSelector.setOnItemSelectedListener(
                     new AdapterView.OnItemSelectedListener() {
@@ -177,7 +176,7 @@ public class BootAnimations extends Fragment {
                                     vm_blown.setVisibility(View.GONE);
                                     animation = new AnimationDrawable();
                                     animation.setOneShot(false);
-                                    bootAnimationPreview = (ImageView) root.findViewById(
+                                    bootAnimationPreview = root.findViewById(
                                             R.id.bootAnimationPreview);
                                     bootAnimationPreview.setImageDrawable(null);
                                     images.clear();
@@ -192,7 +191,7 @@ public class BootAnimations extends Fragment {
                                     progressBar.setVisibility(View.GONE);
                                     animation = new AnimationDrawable();
                                     animation.setOneShot(false);
-                                    bootAnimationPreview = (ImageView) root.findViewById(
+                                    bootAnimationPreview = root.findViewById(
                                             R.id.bootAnimationPreview);
                                     bootAnimationPreview.setImageDrawable(null);
                                     images.clear();
@@ -309,7 +308,7 @@ public class BootAnimations extends Fragment {
             paused = true;
             animation = new AnimationDrawable();
             animation.setOneShot(false);
-            bootAnimationPreview = (ImageView) root.findViewById(R.id.bootAnimationPreview);
+            bootAnimationPreview = root.findViewById(R.id.bootAnimationPreview);
             bootAnimationPreview.setImageDrawable(null);
             images.clear();
             progressBar.setVisibility(View.VISIBLE);

@@ -115,7 +115,7 @@ public class ThemeFragment extends Fragment {
                 .setText(getString(R.string.actionbar_theme_count_loading));
 
         substratum_packages = new HashMap<>();
-        recyclerView = (RecyclerView) root.findViewById(R.id.theme_list);
+        recyclerView = root.findViewById(R.id.theme_list);
         cardView = root.findViewById(R.id.no_entry_card_view);
         cardView.setOnClickListener(v -> {
                     Intent intent = new Intent(getActivity(), ShowcaseActivity.class);
@@ -123,14 +123,14 @@ public class ThemeFragment extends Fragment {
                 }
         );
         cardView.setVisibility(View.GONE);
-        cardViewText = (TextView) cardView.findViewById(R.id.no_themes_description);
-        cardViewImage = (ImageView) cardView.findViewById(R.id.no_themes_installed);
+        cardViewText = cardView.findViewById(R.id.no_themes_description);
+        cardViewImage = cardView.findViewById(R.id.no_themes_installed);
 
         // Create it so it uses a recyclerView to parse substratum-based themes
         PackageManager packageManager = mContext.getPackageManager();
         list = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(this::refreshLayout);
 
         if (home_type.equals("")) {
@@ -198,8 +198,7 @@ public class ThemeFragment extends Fragment {
     }
 
     public void refreshLayout() {
-        MaterialProgressBar materialProgressBar = (MaterialProgressBar) root.findViewById(R.id
-                .progress_bar_loader);
+        MaterialProgressBar materialProgressBar = root.findViewById(R.id.progress_bar_loader);
         materialProgressBar.setVisibility(View.VISIBLE);
         PackageManager packageManager = mContext.getPackageManager();
         list.clear();

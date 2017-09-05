@@ -21,7 +21,6 @@ package projekt.substratum.adapters.fragments.priorities;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.text.Html;
@@ -311,15 +310,15 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
         PriorityObjectAdapter(final View view) {
             super(view);
             this.view = view;
-            mCardText = (TextView) view.findViewById(R.id.card_text);
-            mItemDrag = (ImageView) view.findViewById(R.id.card_drag);
-            mAppIcon = (ImageView) view.findViewById(R.id.app_icon);
-            tvDesc = (TextView) view.findViewById(R.id.desc);
-            type1a = (TextView) view.findViewById(R.id.type1a);
-            type1b = (TextView) view.findViewById(R.id.type1b);
-            type1c = (TextView) view.findViewById(R.id.type1c);
-            type2 = (TextView) view.findViewById(R.id.type2);
-            type3 = (TextView) view.findViewById(R.id.type3);
+            mCardText = view.findViewById(R.id.card_text);
+            mItemDrag = view.findViewById(R.id.card_drag);
+            mAppIcon = view.findViewById(R.id.app_icon);
+            tvDesc = view.findViewById(R.id.desc);
+            type1a = view.findViewById(R.id.type1a);
+            type1b = view.findViewById(R.id.type1b);
+            type1c = view.findViewById(R.id.type1c);
+            type2 = view.findViewById(R.id.type2);
+            type3 = view.findViewById(R.id.type3);
         }
 
         @Nullable
@@ -345,7 +344,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
 
         HeaderViewAdapter(final View view) {
             super(view);
-            mHeaderText = (TextView) view.findViewById(R.id.header_text);
+            mHeaderText = view.findViewById(R.id.header_text);
         }
 
         @Override

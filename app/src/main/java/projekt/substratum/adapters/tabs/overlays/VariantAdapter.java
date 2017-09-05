@@ -59,8 +59,8 @@ public class VariantAdapter extends ArrayAdapter<VariantItem> {
                     this.getContext()).inflate(R.layout.preview_spinner, parent, false);
 
             holder = new ViewHolder();
-            holder.variantName = (TextView) convertView.findViewById(R.id.variant_name);
-            holder.variantHex = (ImageView) convertView.findViewById(R.id.variant_hex);
+            holder.variantName = convertView.findViewById(R.id.variant_name);
+            holder.variantHex = convertView.findViewById(R.id.variant_hex);
 
             convertView.setTag(holder);
         } else {

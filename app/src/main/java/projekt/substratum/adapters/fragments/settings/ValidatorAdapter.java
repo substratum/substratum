@@ -136,11 +136,11 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
 
         ViewHolder(View view) {
             super(view);
-            cardView = (CardView) view.findViewById(R.id.pack_card);
-            packIcon = (ImageView) view.findViewById(R.id.pack_icon);
-            verificationIcon = (ImageView) view.findViewById(R.id.verification);
-            packName = (TextView) view.findViewById(R.id.pack_name);
-            verificationText = (TextView) view.findViewById(R.id.verification_text);
+            cardView = view.findViewById(R.id.pack_card);
+            packIcon = view.findViewById(R.id.pack_icon);
+            verificationIcon = view.findViewById(R.id.verification);
+            packName = view.findViewById(R.id.pack_name);
+            verificationText = view.findViewById(R.id.verification_text);
         }
     }
 }

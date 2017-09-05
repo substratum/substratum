@@ -320,18 +320,18 @@ public class ManagerAdapter extends
 
         ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
-            tvName = (TextView) itemLayoutView.findViewById(R.id.tvName);
-            tvDesc = (TextView) itemLayoutView.findViewById(R.id.desc);
-            card = (CardView) itemLayoutView.findViewById(R.id.overlayCard);
-            chkSelected = (CheckBox) itemLayoutView.findViewById(R.id.chkSelected);
-            appIcon = (ImageView) itemLayoutView.findViewById(R.id.app_icon);
-            appIconTarget = (ImageView) itemLayoutView.findViewById(R.id.app_icon_sub);
-            type1a = (TextView) itemLayoutView.findViewById(R.id.type1a);
-            type1b = (TextView) itemLayoutView.findViewById(R.id.type1b);
-            type1c = (TextView) itemLayoutView.findViewById(R.id.type1c);
-            type2 = (TextView) itemLayoutView.findViewById(R.id.type2);
-            type3 = (TextView) itemLayoutView.findViewById(R.id.type3);
-            type4 = (TextView) itemLayoutView.findViewById(R.id.type4);
+            tvName = itemLayoutView.findViewById(R.id.tvName);
+            tvDesc = itemLayoutView.findViewById(R.id.desc);
+            card = itemLayoutView.findViewById(R.id.overlayCard);
+            chkSelected = itemLayoutView.findViewById(R.id.chkSelected);
+            appIcon = itemLayoutView.findViewById(R.id.app_icon);
+            appIconTarget = itemLayoutView.findViewById(R.id.app_icon_sub);
+            type1a = itemLayoutView.findViewById(R.id.type1a);
+            type1b = itemLayoutView.findViewById(R.id.type1b);
+            type1c = itemLayoutView.findViewById(R.id.type1c);
+            type2 = itemLayoutView.findViewById(R.id.type2);
+            type3 = itemLayoutView.findViewById(R.id.type3);
+            type4 = itemLayoutView.findViewById(R.id.type4);
         }
     }
 }

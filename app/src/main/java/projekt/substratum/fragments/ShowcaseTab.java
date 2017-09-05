@@ -78,9 +78,9 @@ public class ShowcaseTab extends Fragment {
         }
 
         root = (ViewGroup) inflater.inflate(R.layout.showcase_tab, container, false);
-        materialProgressBar = (MaterialProgressBar) root.findViewById(R.id.progress_bar_loader);
-        no_network = (RelativeLayout) root.findViewById(R.id.no_network);
-        no_wallpapers = (RelativeLayout) root.findViewById(R.id.none_found);
+        materialProgressBar = root.findViewById(R.id.progress_bar_loader);
+        no_network = root.findViewById(R.id.no_network);
+        no_wallpapers = root.findViewById(R.id.none_found);
 
         refreshLayout();
         return root;
@@ -88,7 +88,7 @@ public class ShowcaseTab extends Fragment {
 
     private void refreshLayout() {
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
-        mRecyclerView = (RecyclerView) root.findViewById(R.id.wallpaperRecyclerView);
+        mRecyclerView = root.findViewById(R.id.wallpaperRecyclerView);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         ArrayList<WallpaperEntries> empty_array = new ArrayList<>();

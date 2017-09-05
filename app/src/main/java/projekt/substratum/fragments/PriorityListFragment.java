@@ -59,18 +59,16 @@ public class PriorityListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         final ViewGroup root = (ViewGroup)
                 inflater.inflate(R.layout.priority_list_fragment, container, false);
-        final RecyclerView recyclerView = (RecyclerView) root.findViewById(R.id.recycler_view);
-        final FloatingActionButton applyFab = (FloatingActionButton) root.findViewById(R.id
-                .profile_apply_fab);
+        final RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
+        final FloatingActionButton applyFab = root.findViewById(R.id.profile_apply_fab);
         final LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        final ProgressBar headerProgress = (ProgressBar) root.findViewById(R.id
-                .priority_header_loading_bar);
+        final ProgressBar headerProgress = root.findViewById(R.id.priority_header_loading_bar);
         headerProgress.setVisibility(View.GONE);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(manager);
 
-        Toolbar toolbar = (Toolbar) root.findViewById(R.id.action_bar_toolbar);
+        Toolbar toolbar = root.findViewById(R.id.action_bar_toolbar);
         toolbar.setTitle(getString(R.string.priority_back_title));
         toolbar.setNavigationIcon(getContext().getDrawable(R.drawable.priorities_back_button));
         toolbar.setNavigationOnClickListener(v -> {

@@ -39,7 +39,7 @@ public class SubstratumCrash extends Activity {
                 getApplicationContext(), getIntent());
         CaocConfig caocConfig = CustomActivityOnCrash.getConfigFromIntent(getIntent());
 
-        Button restartButton = (Button) findViewById(R.id.restart);
+        Button restartButton = findViewById(R.id.restart);
         restartButton.setOnClickListener(view -> {
             Intent intent = new Intent(SubstratumCrash.this, SplashScreenActivity.class);
             CustomActivityOnCrash.restartApplicationWithIntent(
@@ -48,7 +48,7 @@ public class SubstratumCrash extends Activity {
                     caocConfig);
         });
 
-        Button rescueMeButton = (Button) findViewById(R.id.rescue_me);
+        Button rescueMeButton = findViewById(R.id.rescue_me);
         rescueMeButton.setOnClickListener(view -> {
             Intent intent = new Intent(SubstratumCrash.this, RescueActivity.class);
             startActivity(intent);
@@ -93,7 +93,7 @@ public class SubstratumCrash extends Activity {
                     .show();
         }
 
-        Button stacktraceButton = (Button) findViewById(R.id.logcat);
+        Button stacktraceButton = findViewById(R.id.logcat);
         stacktraceButton.setOnClickListener(view -> {
             TextView showText = new TextView(this);
             showText.setPadding(70, 30, 70, 30);

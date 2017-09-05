@@ -43,9 +43,11 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.analytics.FirebaseAnalytics;
 import projekt.substratum.util.files.MD5;
 
+import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
 import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
+import static projekt.substratum.common.References.isAndromedaDevice;
 import static projekt.substratum.common.Resources.ANDROID_STUDIO_DEBUG_KEYS;
 import static projekt.substratum.common.analytics.FirebaseAnalytics.PACKAGES_PREFS;
 import static projekt.substratum.common.analytics.PackageAnalytics.isLowEnd;
@@ -151,48 +153,74 @@ public class SplashScreenActivity extends Activity {
                     Log.d(SUBSTRATUM_LOG, "Failed to withdraw blacklisted packages.");
                 }
 
-                if (!References.isSamsungDevice(context) ||
-                        !References.isPackageInstalled(context, SST_ADDON_PACKAGE)) {
-                    return null;
+                if (isAndromedaDevice(context)) {
+                    int andromedaVer = References.grabAppVersionCode(context, ANDROMEDA_PACKAGE);
+                    FirebaseAnalytics.withdrawAndromedaFingerprint(context, andromedaVer);
+                    SharedPreferences prefs2 =
+                            context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
+                    timeoutCount = 0;
+                    while (!prefs2.contains("andromeda_exp_fp_" + andromedaVer) &&
+                            timeoutCount < 100) {
+                        try {
+                            Thread.sleep(100);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        timeoutCount++;
+                    }
+                    if (!prefs2.contains("andromeda_exp_fp_" + andromedaVer)) {
+                        Log.d(SUBSTRATUM_LOG, "Failed to withdraw andromeda fingerprint.");
+                    } else {
+                        //noinspection ConstantConditions
+                        prefs2.edit()
+                                .putString("andromeda_fp", MD5.calculateMD5(new File(
+                                References.getInstalledDirectory(context, ANDROMEDA_PACKAGE))))
+                                .putString("andromeda_installer", context.getPackageManager()
+                                        .getInstallerPackageName(ANDROMEDA_PACKAGE))
+                                .apply();
+                    }
                 }
 
-                int sstVersion = References.grabAppVersionCode(context, SST_ADDON_PACKAGE);
-                FirebaseAnalytics.withdrawSungstratumFingerprint(context, sstVersion);
-                SharedPreferences prefs2 =
-                        context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
-                timeoutCount = 0;
-                while (!prefs2.contains("sungstratum_exp_fp_" + sstVersion) && timeoutCount < 100) {
+                if (References.isSamsungDevice(context) &&
+                        References.isPackageInstalled(context, SST_ADDON_PACKAGE)) {
+                    int sstVersion = References.grabAppVersionCode(context, SST_ADDON_PACKAGE);
+                    FirebaseAnalytics.withdrawSungstratumFingerprint(context, sstVersion);
+                    SharedPreferences prefs2 =
+                            context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
+                    timeoutCount = 0;
+                    while (!prefs2.contains("sungstratum_exp_fp_" + sstVersion) && timeoutCount < 100) {
+                        try {
+                            Thread.sleep(100);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        timeoutCount++;
+                    }
+                    if (!prefs2.contains("sungstratum_exp_fp_" + sstVersion)) {
+                        Log.d(SUBSTRATUM_LOG, "Failed to withdraw sungstratum fingerprint.");
+                    }
+
+                    keyRetrieval = new KeyRetrieval();
+                    IntentFilter filter = new IntentFilter("projekt.substratum.PASS");
+                    context.getApplicationContext().registerReceiver(keyRetrieval, filter);
+
+                    Intent intent = new Intent("projekt.substratum.AUTHENTICATE");
                     try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
+                        context.startActivity(intent);
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    timeoutCount++;
-                }
-                if (!prefs2.contains("sungstratum_exp_fp_" + sstVersion)) {
-                    Log.d(SUBSTRATUM_LOG, "Failed to withdraw sungstratum fingerprint.");
-                }
 
-                keyRetrieval = new KeyRetrieval();
-                IntentFilter filter = new IntentFilter("projekt.substratum.PASS");
-                context.getApplicationContext().registerReceiver(keyRetrieval, filter);
-
-                Intent intent = new Intent("projekt.substratum.AUTHENTICATE");
-                try {
-                    context.startActivity(intent);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                int counter = 0;
-                handler.postDelayed(runnable, 100);
-                while (securityIntent == null && counter < 5) {
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    int counter = 0;
+                    handler.postDelayed(runnable, 100);
+                    while (securityIntent == null && counter < 5) {
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        counter++;
                     }
-                    counter++;
                 }
             }
             return null;

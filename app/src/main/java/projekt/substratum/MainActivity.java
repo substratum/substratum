@@ -101,6 +101,7 @@ import projekt.substratum.fragments.SettingsFragment;
 import projekt.substratum.fragments.TeamFragment;
 import projekt.substratum.fragments.ThemeFragment;
 import projekt.substratum.fragments.TroubleshootingFragment;
+import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.services.floatui.SubstratumFloatInterface;
 import projekt.substratum.services.tiles.FloatUiTile;
 import projekt.substratum.util.files.Root;
@@ -1300,6 +1301,7 @@ public class MainActivity extends SubstratumActivity implements
                             activity.mProgressDialog.show();
                         }
                     }.start();
+                    context.stopService(new Intent(context, AndromedaBinderService.class));
                 } else {
                     CheckBinaries.install(activity.context, false);
                     if (References.checkOMS(context)) new DoCleanUp(context).execute();

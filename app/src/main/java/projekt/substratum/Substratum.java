@@ -40,6 +40,7 @@ import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.services.binder.BinderService;
 
 import static projekt.substratum.BuildConfig.DEBUG;
+import static projekt.substratum.common.References.isAndromedaDevice;
 
 public class Substratum extends Application {
 
@@ -115,7 +116,7 @@ public class Substratum extends Application {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void startAndromedaBinderService() {
-        if (References.checkAndromeda(getApplicationContext())) {
+        if (isAndromedaDevice(getApplicationContext())) {
             if (checkServiceActivation(AndromedaBinderService.class)) {
                 Log.d(ANDROMEDA_BINDER_TAG,
                         "This session will utilize the pre-connected Andromeda Binder service!");

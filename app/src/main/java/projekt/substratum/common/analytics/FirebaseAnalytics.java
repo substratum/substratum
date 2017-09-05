@@ -88,6 +88,37 @@ public class FirebaseAnalytics {
         });
     }
 
+    public static void withdrawAndromedaFingerprint(Context context, int version) {
+        SharedPreferences prefs = context
+                .getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
+        String prefKey = "andromeda_exp_fp_" + version;
+        if (!prefs.contains("andromeda_exp_fp_" + version)) {
+            SharedPreferences.Editor editor = prefs.edit();
+            for (Map.Entry<String, ?> entry : prefs.getAll().entrySet()) {
+                if (entry.getKey().startsWith("andromeda_fp_")) {
+                    editor.remove(entry.getKey());
+                }
+            }
+            DatabaseReference database = getDatabaseReference();
+            database.child("andromeda-fp")
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Object dataValue = dataSnapshot.child(String.valueOf(version))
+                                    .getValue();
+                            if (dataValue != null) {
+                                String hash = dataValue.toString();
+                                editor.putString(prefKey, hash).apply();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+        }
+    }
+
     public static void withdrawSungstratumFingerprint(Context context, int version) {
         SharedPreferences prefs = context
                 .getSharedPreferences("substratum_state", Context.MODE_PRIVATE);

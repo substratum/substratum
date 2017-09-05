@@ -1577,6 +1577,28 @@ public class References {
                     "activity has been destroyed, cannot check if andromeda is used");
             return false;
         }
+
+        SharedPreferences prefs =
+                context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
+        String fingerprint = prefs.getString("andromeda_fp", "o");
+        String expFingerprint = prefs.getString(
+                "andromeda_exp_fp_" + grabAppVersionCode(context, ANDROMEDA_BINDED), "0");
+        String installer = prefs.getString("andromeda_installer", "o");
+
+        boolean andromedaPresent = isAndromedaDevice(context);
+        andromedaPresent &= installer.equals(PLAY_STORE_PACKAGE_NAME);
+        andromedaPresent &= fingerprint.toUpperCase(Locale.getDefault())
+                .equals(expFingerprint.toUpperCase(Locale.getDefault()));
+        return andromedaPresent;
+    }
+
+    public static boolean isAndromedaDevice(Context context) {
+        if (context == null) {
+            Log.e(SUBSTRATUM_LOG,
+                    "activity has been destroyed, cannot check if andromeda is used");
+            return false;
+        }
+
         return checkOreo() && getAndromedaPackage(context) != null;
     }
 

@@ -91,7 +91,6 @@ public class AndromedaBinderService extends Service implements ServiceConnection
                 }
             }
             if (AndromedaService.checkServerActivity()) {
-                startForeground(notificationId, mBuilder.build());
                 boolean failed = false;
                 while (!failed) {
                     try {
@@ -113,6 +112,7 @@ public class AndromedaBinderService extends Service implements ServiceConnection
                         References.DEFAULT_NOTIFICATION_CHANNEL_ID));
             }
         }).start();
+        startForeground(notificationId, mBuilder.build());
         bindAndromeda();
         return START_STICKY;
     }

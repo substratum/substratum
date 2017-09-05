@@ -40,6 +40,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.WindowManager.LayoutParams;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,9 +59,6 @@ import projekt.substratum.adapters.fragments.manager.ManagerItem;
 import projekt.substratum.common.References;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.services.notification.FloatUiButtonReceiver;
-
-import static android.view.WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
-import static android.view.WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
 
 public class SubstratumFloatInterface extends Service implements FloatingViewListener {
 
@@ -256,9 +254,9 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 alertDialog.getWindow().setBackgroundDrawable(
                         getDrawable(R.drawable.dialog_background));
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    alertDialog.getWindow().setType(TYPE_APPLICATION_OVERLAY);
+                    alertDialog.getWindow().setType(LayoutParams.TYPE_APPLICATION_OVERLAY);
                 } else {
-                    alertDialog.getWindow().setType(TYPE_SYSTEM_ALERT);
+                    alertDialog.getWindow().setType(LayoutParams.TYPE_SYSTEM_ALERT);
                 }
                 alertDialog.show();
             }

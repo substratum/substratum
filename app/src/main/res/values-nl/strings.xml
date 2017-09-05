@@ -324,8 +324,6 @@
     <string name="cache_clear_completion">%s thema cache is opgeschoond!</string>
     <string name="disable_completion">Alle overlays voor dit thema worden nu gedeactiveerd&#8230;</string>
     <string name="enable_completion">Alle geïnstalleerde overlays voor dit thema worden nu geactiveerd&#8230;</string>
-    <string name="manager_title">Toon uitgeschakelde overlays in de lijst</string>
-    <string name="manager_subtext">In het overlay lijst venster, toon alle uitgeschakelde overlays met hun ingeschakelde tegenhangers.</string>
     <string name="alternate_drawer_design_title">Secundaire lade design</string>
     <string name="alternate_drawer_design_subtext">Gebruik een alternatieve navigatielade design bij het navigeren door de gebruikersinterface.</string>
     <string name="logchar_autosave_title">LogChar rapporten automatisch opslaan</string>

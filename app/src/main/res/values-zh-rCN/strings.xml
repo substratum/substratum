@@ -330,8 +330,6 @@
     <string name="cache_clear_completion">%s 主题缓存已清除</string>
     <string name="disable_completion">已禁用这一主题中所有已安装的叠加层</string>
     <string name="enable_completion">已启用这一主题中所有已安装的叠加层</string>
-    <string name="manager_title">在列表显示已禁用的叠加层</string>
-    <string name="manager_subtext">在叠加层列表中显示所有叠加层，包括已启用和已禁用的。</string>
     <string name="alternate_drawer_design_title">备用抽屉设计</string>
     <string name="alternate_drawer_design_subtext">浏览用户界面时使用备用导航抽屉设计</string>
     <string name="logchar_autosave_title">自动保存 LogChar 报告</string>

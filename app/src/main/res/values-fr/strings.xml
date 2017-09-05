@@ -329,8 +329,6 @@
     <string name="cache_clear_completion">Le cache du thème %s a été effacé !</string>
     <string name="disable_completion">Désactivation de toutes les surcouches de ce thème en cours&#8230;</string>
     <string name="enable_completion">Activation de toutes les surcouches installées de ce thème en cours&#8230;</string>
-    <string name="manager_title">Afficher les surcouches désactivées dans la liste</string>
-    <string name="manager_subtext">Dans la liste des surcouches, afficher les surcouches désactivées avec leurs équivalentes activées</string>
     <string name="alternate_drawer_design_title">Apparence du tiroir secondaire</string>
     <string name="alternate_drawer_design_subtext">Affiche une apparence différente pour le panneau de navigation lors de la navigation dans l\'interface utilisateur</string>
     <string name="logchar_autosave_title">Enregistrer automatiquement les rapport LogChar</string>

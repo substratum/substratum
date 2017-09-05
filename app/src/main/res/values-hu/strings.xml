@@ -430,8 +430,6 @@
     <string name="cache_clear_completion">%s téma gyorsítótár törölve!</string>
     <string name="disable_completion">A téma összes fedvényének tiltása folyamatban&#8230;</string>
     <string name="enable_completion">A téma összes telepített fedvényének aktiválása folyamatban&#8230;</string>
-    <string name="manager_title">Letiltott fedvények megjelenítése a listában</string>
-    <string name="manager_subtext">A fedvénylista ablak, minden letiltott a fedvényt az engedélyezett társaival együtt jelenít meg.</string>
     <string name="alternate_drawer_design_title">Másodlagos Fiók Megjelenítés</string>
     <string name="alternate_drawer_design_subtext">Egy alternatív navigációs fiók megjelenítést használ, amikor a felhasználói felületen keresztül navigál.</string>
     <string name="logchar_autosave_title">Automatikusan mentse a LogChar jelentéseket</string>

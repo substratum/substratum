@@ -439,8 +439,6 @@ sağlayan
     <string name="cache_clear_completion">%s temasının önbelleği temizlendi!</string>
     <string name="disable_completion">Bu tema için temaların tamamı artık devre dışı bırakılıyor&#8230;</string>
     <string name="enable_completion">Bu tema için yüklü temaların tamamı şimdi etkinleştiriliyor&#8230;</string>
-    <string name="manager_title">Devre dışı bırakılmış temaları listede göster</string>
-    <string name="manager_subtext">Tema listesi penceresinde, devre dışı bırakılmış tüm temaları etkin karşılıklarıyla birlikte gösterin.</string>
     <string name="alternate_drawer_design_title">İkincil Çekmece Tasarımı</string>
     <string name="alternate_drawer_design_subtext">Kullanıcı arayüzü üzerinde gezinirken alternatif bir gezinme çekmecesi tasarımını kullanır.</string>
     <string name="logchar_autosave_title">LogChar raporlarını otomatik olarak kaydet</string>

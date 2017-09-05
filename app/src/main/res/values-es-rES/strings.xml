@@ -352,8 +352,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="cache_clear_completion">¡Se ha borrado la caché del tema %s!</string>
     <string name="disable_completion">Todas las capas de este tema se están desactivando&#8230;</string>
     <string name="enable_completion">Todas las capas instaladas para este tema se están activando&#8230;</string>
-    <string name="manager_title">Mostrar capas desactivadas en la lista</string>
-    <string name="manager_subtext">En la ventana de la lista de capas, mostrar todas las capas desactivadas y sus contrapartes activadas.</string>
     <string name="alternate_drawer_design_title">Diseño de Cajón Alternativo</string>
     <string name="alternate_drawer_design_subtext">Utiliza un diseño alternativo del cajón de navegación en la interfaz de usuario.</string>
     <string name="logchar_autosave_title">Guardar automáticamente los informes de LogChar</string>

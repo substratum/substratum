@@ -329,8 +329,6 @@
     <string name="cache_clear_completion">Le cache del tema %s sono state pulite!</string>
     <string name="disable_completion">Tutti gli overlay per questo tema si stanno disattivando&#8230;</string>
     <string name="enable_completion">Tutti gli overlays installati per questo tema si stanno attivando&#8230;</string>
-    <string name="manager_title">Mostra gli overlays disattivati nella lista</string>
-    <string name="manager_subtext">Nella finestra elenco overlay, mostra tutti gli overlay disattivati con le loro controparti attivate.</string>
     <string name="alternate_drawer_design_title">Secondo design del Drawer</string>
     <string name="alternate_drawer_design_subtext">Usa un design alternativo del drawer di navigazione quando stai navigando attraverso l\'interfaccia utente.</string>
     <string name="show_outdated_themes_title">Mostra tutti i temi obsoleti</string>

@@ -351,8 +351,6 @@
     <string name="cache_clear_completion">%s temos talpyklos buvo išvalyta!</string>
     <string name="disable_completion">Visos perdangos šiai temai dabar išjungiamos&#8230;</string>
     <string name="enable_completion">Visos įdiegtos perdangos šiai temai dabar aktyvuojamos&#8230;</string>
-    <string name="manager_title">Rodyti sąraše išjungtas perdangas</string>
-    <string name="manager_subtext">Perdangų sąrašo lange, rodyti visas išjungtas perdangas su savo įjungtais dublikatais.</string>
     <string name="alternate_drawer_design_title">Antrinis Stalčiaus Dizainas</string>
     <string name="alternate_drawer_design_subtext">Naudoja alternatyvų navigacijos stalčiaus dizainą, kai naviguojama vartotojo sąsajoje.</string>
     <string name="logchar_autosave_title">Automatiškai išsaugoti \"LogChar\" ataskaitas</string>

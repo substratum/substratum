@@ -356,8 +356,6 @@ resolver este problema.    </string>
     <string name="cache_clear_completion">%s cache do tema foi removido!</string>
     <string name="disable_completion">Desativando todas as camadas desse tema&#8230;</string>
     <string name="enable_completion">Todas as camadas desse tema estão sento ativadas agora&#8230;</string>
-    <string name="manager_title">Mostrar camadas desabilitadas na lista</string>
-    <string name="manager_subtext">Na lista de camadas, mostre todas as camadas desabilitadas com suas contrapartes ativadas.</string>
     <string name="alternate_drawer_design_title">Design da Gaveta Secundária</string>
     <string name="alternate_drawer_design_subtext">Usar uma gaveta de navegação alternativa quando navegar pela interface do usuário.</string>
     <string name="logchar_autosave_title">Salvar automaticamente relatórios LogChar</string>

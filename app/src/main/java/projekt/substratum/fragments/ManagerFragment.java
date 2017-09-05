@@ -453,86 +453,41 @@ public class ManagerFragment extends Fragment {
                                 ThemeManager.listOverlays(fragment.context,
                                         STATE_APPROVED_DISABLED));
 
-                        if (fragment.prefs.getBoolean("manager_disabled_overlays", true)) {
-                            all_overlays = new ArrayList<>(fragment.activated_overlays);
-                            all_overlays.addAll(disabled_overlays);
-                            Collections.sort(all_overlays);
+                        all_overlays = new ArrayList<>(fragment.activated_overlays);
+                        all_overlays.addAll(disabled_overlays);
+                        Collections.sort(all_overlays);
 
-                            // Create the map for {package name: package identifier}
-                            HashMap<String, String> unsortedMap = new HashMap<>();
+                        // Create the map for {package name: package identifier}
+                        HashMap<String, String> unsortedMap = new HashMap<>();
 
-                            // Then let's convert all the package names to their app names
-                            for (int i = 0; i < all_overlays.size(); i++) {
-                                try {
-                                    ApplicationInfo applicationInfo = context.getPackageManager()
-                                            .getApplicationInfo(all_overlays.get(i), 0);
-                                    String packageTitle = context.getPackageManager()
-                                            .getApplicationLabel(applicationInfo).toString();
-                                    unsortedMap.put(
-                                            all_overlays.get(i),
-                                            References.grabPackageName(context,
-                                                    References.grabOverlayTarget(
-                                                            context,
-                                                            packageTitle)));
-                                } catch (Exception e) {
-                                    // Suppress warning
-                                }
-                            }
-
-                            // Sort the values list
-                            List<Pair<String, String>> sortedMap = sortMapByValues(unsortedMap);
-
-                            for (Pair<String, String> entry : sortedMap) {
-                                if (disabled_overlays.contains(entry.first)) {
-                                    ManagerItem st = new ManagerItem(context, entry.first, false);
-                                    fragment.overlaysList.add(st);
-                                } else if (fragment.activated_overlays.contains(entry.first)) {
-                                    ManagerItem st = new ManagerItem(context, entry.first, true);
-                                    fragment.overlaysList.add(st);
-                                }
-                            }
-                        } else {
-                            all_overlays = new ArrayList<>(fragment.activated_overlays);
-                            Collections.sort(all_overlays);
-
+                        // Then let's convert all the package names to their app names
+                        for (int i = 0; i < all_overlays.size(); i++) {
                             try {
-                                // Create the map for {package name: package identifier}
-                                HashMap<String, String> unsortedMap = new HashMap<>();
-
-                                // Then let's convert all the package names to their app names
-                                for (int i = 0; i < all_overlays.size(); i++) {
-                                    try {
-                                        ApplicationInfo applicationInfo = context
-                                                .getPackageManager()
-                                                .getApplicationInfo(all_overlays.get(i), 0);
-                                        String packageTitle = context.getPackageManager()
-                                                .getApplicationLabel(applicationInfo).toString();
-                                        unsortedMap.put(
-                                                all_overlays.get(i),
-                                                References.grabPackageName(context,
-                                                        References.grabOverlayTarget(context,
-                                                                packageTitle)));
-                                    } catch (Exception e) {
-                                        // Suppress warning
-                                    }
-                                }
-
-                                // Sort the values list
-                                List<Pair<String, String>> sortedMap = sortMapByValues(unsortedMap);
-
-                                sortedMap.stream().filter(entry ->
-                                        fragment.activated_overlays.contains(entry.first))
-                                        .forEach(entry -> {
-                                            ManagerItem st = new ManagerItem(context, entry.first,
-                                                    true);
-                                            fragment.overlaysList.add(st);
-                                        });
+                                ApplicationInfo applicationInfo = context.getPackageManager()
+                                        .getApplicationInfo(all_overlays.get(i), 0);
+                                String packageTitle = context.getPackageManager()
+                                        .getApplicationLabel(applicationInfo).toString();
+                                unsortedMap.put(
+                                        all_overlays.get(i),
+                                        References.grabPackageName(context,
+                                                References.grabOverlayTarget(
+                                                        context,
+                                                        packageTitle)));
                             } catch (Exception e) {
-                                Toast toast = Toast.makeText(context,
-                                        fragment.getString(
-                                                R.string.advanced_manager_overlay_read_error),
-                                        Toast.LENGTH_LONG);
-                                toast.show();
+                                // Suppress warning
+                            }
+                        }
+
+                        // Sort the values list
+                        List<Pair<String, String>> sortedMap = sortMapByValues(unsortedMap);
+
+                        for (Pair<String, String> entry : sortedMap) {
+                            if (disabled_overlays.contains(entry.first)) {
+                                ManagerItem st = new ManagerItem(context, entry.first, false);
+                                fragment.overlaysList.add(st);
+                            } else if (fragment.activated_overlays.contains(entry.first)) {
+                                ManagerItem st = new ManagerItem(context, entry.first, true);
+                                fragment.overlaysList.add(st);
                             }
                         }
                     } else {

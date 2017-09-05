@@ -535,8 +535,6 @@
     <string name="cache_clear_completion">%s theme cache has been cleared!</string>
     <string name="disable_completion">All overlays for this theme are now deactivating&#8230;</string>
     <string name="enable_completion">All installed overlays for this theme are now activating&#8230;</string>
-    <string name="manager_title">Show disabled overlays in the list</string>
-    <string name="manager_subtext">In the overlay list window, show all disabled overlays with their enabled counterparts.</string>
     <string name="alternate_drawer_design_title">Secondary Drawer Design</string>
     <string name="alternate_drawer_design_subtext">Uses an alternate navigation drawer design when navigating through the user interface.</string>
     <string name="logchar_autosave_title">Automatically save LogChar reports</string>

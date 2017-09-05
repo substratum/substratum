@@ -312,8 +312,6 @@ corretamente&#8230;</string>
     <string name="cache_clear_completion">%s cache do tema foi removido!</string>
     <string name="disable_completion">Todas as camadas deste temas estão agora sendo desativadas&#8230;</string>
     <string name="enable_completion">Todas as camadas instaladas deste temas estão agora a ser ativadas&#8230;</string>
-    <string name="manager_title">Mostrar camadas desabilitadas na lista</string>
-    <string name="manager_subtext">Na janela gestor avançado, mostrar todas as camadas desativadas com as respectivas partes ativadas.</string>
     <string name="alternate_drawer_design_title">Design da Gaveta Secundária</string>
     <string name="alternate_drawer_design_subtext">Usa uma gaveta de navegação alternativa quando navegar pela interface de utilizador.</string>
     <string name="show_outdated_themes_title">Mostrar todos os temas desatualizados</string>

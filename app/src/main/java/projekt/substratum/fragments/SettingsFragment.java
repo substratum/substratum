@@ -828,26 +828,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         return false;
                     });
 
-            final CheckBoxPreference manager_disabled_overlays = (CheckBoxPreference)
-                    getPreferenceManager().findPreference("manager_disabled_overlays");
-            if (prefs.getBoolean("manager_disabled_overlays", true)) {
-                manager_disabled_overlays.setChecked(true);
-            } else {
-                manager_disabled_overlays.setChecked(false);
-            }
-            manager_disabled_overlays.setOnPreferenceChangeListener(
-                    (preference, newValue) -> {
-                        boolean isChecked = (Boolean) newValue;
-                        if (isChecked) {
-                            prefs.edit().putBoolean("manager_disabled_overlays", true).apply();
-                            manager_disabled_overlays.setChecked(true);
-                            return true;
-                        } else {
-                            prefs.edit().putBoolean("manager_disabled_overlays", false).apply();
-                            manager_disabled_overlays.setChecked(false);
-                            return false;
-                        }
-                    });
             final CheckBoxPreference debugTheme = (CheckBoxPreference)
                     getPreferenceManager().findPreference("theme_debug");
             debugTheme.setChecked(prefs.getBoolean("theme_debug", false));

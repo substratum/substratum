@@ -338,8 +338,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="cache_clear_completion">wyczyszczono pamięć podręczną dla motywu %s!</string>
     <string name="disable_completion">Wszystkie nakładki dla tego tematu są teraz dezaktywowane&#8230;</string>
     <string name="enable_completion">Wszystkie nakładki zainstalowane dla tego motywu są teraz aktywowane&#8230;</string>
-    <string name="manager_title">Pokaż wyłączone nakładki na liście</string>
-    <string name="manager_subtext">W oknie listy nakładek, pokaż wszystkie wyłączone nakładki z ich włączonymi odpowiednikami.</string>
     <string name="alternate_drawer_design_title">Wygląd dodatkowej szuflady</string>
     <string name="alternate_drawer_design_subtext">Używaj alternatywnego modelu szuflady nawigacyjnej podczas żeglowania po interfejsie.</string>
     <string name="logchar_autosave_title">Automatyczne zapisywanie raportów LogChar</string>

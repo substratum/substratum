@@ -337,8 +337,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="cache_clear_completion">%s vyrovnávacej pamäte tejto témy bolo vyčistených!</string>
     <string name="disable_completion">Všetky prekrytia pre túto tému sa teraz vypínajú&#8230;</string>
     <string name="enable_completion">Všetky prekrytia pre túto tému sa teraz zapínajú&#8230;</string>
-    <string name="manager_title">Zobrazit vypnuté prekrytia v zozname</string>
-    <string name="manager_subtext">V zozname vrstiev zobraziť všetky vypnuté prekrytia s ich aktivovanými náprotivkami.</string>
     <string name="alternate_drawer_design_title">Alternatívny vzhľad menu</string>
     <string name="alternate_drawer_design_subtext">Použije alternatívny vzhľad navigačného menu pre používateľské rozhranie.</string>
     <string name="logchar_autosave_title">Automaticky ukladať správy protokolu LogChar</string>

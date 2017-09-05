@@ -364,9 +364,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
  vypínají&#8230;</string>
     <string name="enable_completion">Všechny potahy pro tento motiv se nyní
  zapínají&#8230;</string>
-    <string name="manager_title">Zobrazit vypnuté potahy v seznamu</string>
-    <string name="manager_subtext">V okně přehledu potahů zobrazit všechny vypnuté potahy s
- jejich povolenými protějšky.</string>
     <string name="alternate_drawer_design_title">Vedlejší vzhled menu</string>
     <string name="alternate_drawer_design_subtext">Použít alternativní vzhled menu, když se
  prochází uživatelským prostředím.</string>

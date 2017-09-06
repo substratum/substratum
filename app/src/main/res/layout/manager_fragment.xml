@@ -175,12 +175,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/disable_selected"
-                    style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
-                    android:drawableStart="@drawable/fab_menu_disable"
-                    android:text="@string/fab_menu_disable"/>
-
                 <LinearLayout
                     android:id="@+id/enable"
                     android:layout_width="match_parent"
@@ -192,6 +186,12 @@
                         android:drawableStart="@drawable/fab_menu_enable"
                         android:text="@string/fab_menu_enable_disable"/>
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/disable_selected"
+                    style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
+                    android:drawableStart="@drawable/fab_menu_disable"
+                    android:text="@string/fab_menu_disable"/>
 
                 <TextView
                     android:id="@+id/uninstall"

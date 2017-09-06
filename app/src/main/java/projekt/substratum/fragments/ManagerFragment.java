@@ -741,7 +741,6 @@ public class ManagerFragment extends Fragment {
             ManagerFragment fragment = ref.get();
             if (fragment != null) {
                 Context context = fragment.context;
-
                 ArrayList<String> data = new ArrayList<>();     //enabled list
                 ArrayList<String> data2 = new ArrayList<>();    //disabled list
                 fragment.overlayList = ((ManagerAdapter) fragment.mAdapter).getOverlayManagerList();
@@ -751,8 +750,7 @@ public class ManagerFragment extends Fragment {
                     ManagerItem managerItem = fragment.overlayList.get(i);
                     if (managerItem.isSelected()) {
                         if (References.isPackageInstalled(context,
-                                References.grabOverlayParent(context, managerItem.getName())/*,
-                                true*/)) {
+                                References.grabOverlayParent(context, managerItem.getName()))) {
                             if (ThemeManager.listOverlays(fragment.context,
                                     STATE_DISABLED).contains(managerItem.getName()))
                                 data.add(managerItem.getName());
@@ -837,29 +835,39 @@ public class ManagerFragment extends Fragment {
                 }
 
                 // The magic goes here
-                ThemeManager.uninstallOverlay(context, data);
+                if (!data.isEmpty()) {
+                    ThemeManager.uninstallOverlay(context, data);
 
-                if (!References.checkThemeInterfacer(context) &&
-                        References.needsRecreate(context, data) &&
-                        !References.isSamsung(context)) {
-                    Handler handler = new Handler(Looper.getMainLooper());
-                    handler.postDelayed(() -> {
-                        // OMS may not have written all the changes so quickly just yet
-                        // so we may need to have a small delay
-                        try {
-                            List<String> updated = fragment.updateEnabledOverlays();
-                            for (int i = 0; i < fragment.overlayList.size(); i++) {
-                                ManagerItem currentOverlay = fragment.overlayList.get(i);
-                                currentOverlay.setSelected(false);
-                                currentOverlay.updateEnabledOverlays(updated.contains(
-                                        currentOverlay.getName()));
-                                fragment.loadingBar.setVisibility(View.GONE);
-                                fragment.mAdapter.notifyDataSetChanged();
+                    if (!References.checkThemeInterfacer(context) &&
+                            References.needsRecreate(context, data) &&
+                            !References.isSamsung(context)) {
+                        Handler handler = new Handler(Looper.getMainLooper());
+                        handler.postDelayed(() -> {
+                            // OMS may not have written all the changes so quickly just yet
+                            // so we may need to have a small delay
+                            try {
+                                List<String> updated = fragment.updateEnabledOverlays();
+                                for (int i = 0; i < fragment.overlayList.size(); i++) {
+                                    ManagerItem currentOverlay = fragment.overlayList.get(i);
+                                    currentOverlay.setSelected(false);
+                                    currentOverlay.updateEnabledOverlays(updated.contains(
+                                            currentOverlay.getName()));
+                                    fragment.loadingBar.setVisibility(View.GONE);
+                                    fragment.mAdapter.notifyDataSetChanged();
+                                }
+                            } catch (Exception e) {
+                                // Consume window refresh
                             }
-                        } catch (Exception e) {
-                            // Consume window refresh
-                        }
-                    }, REFRESH_WINDOW_DELAY);
+                        }, REFRESH_WINDOW_DELAY);
+                    }
+                } else {
+                    Handler handler = new Handler(Looper.getMainLooper());
+                    handler.post(() ->
+                            Toast.makeText(
+                                    context,
+                                    context.getString(R.string.toast_could_not_uninstall),
+                                    Toast.LENGTH_SHORT).show()
+                    );
                 }
             }
             return null;

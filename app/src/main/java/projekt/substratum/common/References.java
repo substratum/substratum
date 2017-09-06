@@ -1582,7 +1582,7 @@ public class References {
                 context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
         String fingerprint = prefs.getString("andromeda_fp", "o");
         String expFingerprint = prefs.getString(
-                "andromeda_exp_fp_" + grabAppVersionCode(context, ANDROMEDA_BINDED), "0");
+                "andromeda_exp_fp_" + grabAppVersionCode(context, ANDROMEDA_PACKAGE), "0");
         String installer = prefs.getString("andromeda_installer", "o");
 
         boolean andromedaPresent = isAndromedaDevice(context);

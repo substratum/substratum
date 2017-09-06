@@ -284,6 +284,7 @@ public class MainActivity extends SubstratumActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = getApplicationContext();
         if (BuildConfig.DEBUG && !References.isSamsung(context)) {
             Log.d(SUBSTRATUM_LOG, "Substratum launched with debug mode signatures.");
             if (LeakCanary.isInAnalyzerProcess(this)) return;
@@ -292,7 +293,6 @@ public class MainActivity extends SubstratumActivity implements
                     "LeakCanary has been initialized to actively monitor memory leaks.");
         }
         setContentView(R.layout.main_activity);
-        context = getApplicationContext();
         cleanLogCharReportsIfNecessary();
         References.refreshInstalledThemesPref(context);
 

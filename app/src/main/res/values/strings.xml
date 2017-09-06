@@ -287,7 +287,7 @@
     <string name="manage_system_overlay_toast">System theme is now restoring&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Overlays are now uninstalling in the
         background&#8230;</string>
-    <string name="manage_system_not_permitted">Could not enable a few overlays due to main theme not being present.</string>
+    <string name="manage_system_not_permitted">Please select a valid overlay to change states.</string>
     <string name="manage_wallpaper_home">Home screen wallpaper</string>
     <string name="manage_wallpaper_lock">Lock screen wallpaper</string>
     <string name="manage_wallpaper_all">Home and Lock screen wallpaper</string>
@@ -469,7 +469,7 @@
     <string name="no_themes_description_search">\"%s\" was not found in the list of themes installed&#8230;</string>
 
     <string name="toast_andromeda_timed_out">Substratum lost connection with the Andromeda Backend. Please launch the application on your computer again.</string>
-    <string name="toast_could_not_uninstall">No overlays selected.</string>
+    <string name="toast_could_not_uninstall">No valid overlays selected.</string>
 
     <string name="toast_samsung_prototype_alert">Substratum automatically hid unsupported system overlays for your device!</string>
     <string name="samsung_prototype_no_root_dialog">It seems that you are on a supported Samsung device, an addon was released to support this!</string>
@@ -552,7 +552,7 @@
     <string name="fab_menu_uninstall">Uninstall Selected</string>
     <string name="fab_menu_disable">Disable Selected</string>
     <string name="fab_menu_enable">Enable Selected</string>
-    <string name="fab_menu_enable_disable">Enable/Disable Selected</string>
+    <string name="fab_menu_enable_disable">Change overlay states</string>
     <string name="fab_menu_swap_toggle">Disable other themes</string>
     <string name="fab_menu_swap_toggle_legacy">Remove all existing</string>
 

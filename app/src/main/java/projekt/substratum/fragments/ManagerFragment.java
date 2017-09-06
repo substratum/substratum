@@ -79,16 +79,16 @@ import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
 import static projekt.substratum.common.References.VENDOR_DIR;
 import static projekt.substratum.common.References.checkOMS;
-import static projekt.substratum.common.References.isSamsung;
 import static projekt.substratum.common.platform.ThemeManager.STATE_DISABLED;
 import static projekt.substratum.common.platform.ThemeManager.STATE_ENABLED;
+import static projekt.substratum.common.platform.ThemeManager.isOverlayEnabled;
 import static projekt.substratum.util.files.MapUtils.sortMapByValues;
 
 public class ManagerFragment extends Fragment {
 
     private static final int MANAGER_FRAGMENT_LOAD_DELAY = 500;
     private ArrayList<String> activated_overlays;
-    private RecyclerView.Adapter mAdapter;
+    private ManagerAdapter mAdapter;
     private MaterialSheetFab materialSheetFab;
     private SharedPreferences prefs;
     private RelativeLayout relativeLayout;
@@ -238,7 +238,7 @@ public class ManagerFragment extends Fragment {
         toggle_all.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> {
                     try {
-                        overlayList = ((ManagerAdapter) mAdapter).getOverlayManagerList();
+                        overlayList = mAdapter.getOverlayManagerList();
                         if (isChecked) {
                             for (int i = 0; i < overlayList.size(); i++) {
                                 ManagerItem currentOverlay = overlayList.get(i);
@@ -265,7 +265,7 @@ public class ManagerFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 try {
-                    overlayList = ((ManagerAdapter) mAdapter).getOverlayManagerList();
+                    overlayList = mAdapter.getOverlayManagerList();
                     if (toggle_all.isChecked()) {
                         for (int i = 0; i < overlayList.size(); i++) {
                             ManagerItem currentOverlay = overlayList.get(i);
@@ -530,7 +530,7 @@ public class ManagerFragment extends Fragment {
                 fragment.mAdapter = new ManagerAdapter(fragment.overlaysList, false);
                 fragment.mRecyclerView.setAdapter(fragment.mAdapter);
 
-                fragment.overlayList = ((ManagerAdapter) fragment.mAdapter).getOverlayManagerList();
+                fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
 
                 if (fragment.overlaysList.size() == 0) {
                     fragment.floatingActionButton.hide();
@@ -553,8 +553,8 @@ public class ManagerFragment extends Fragment {
         }
     }
 
-    private static class RunDisable extends AsyncTask<Void, Void, Void> {//This will be the rro
-        // disable
+    private static class RunDisable extends AsyncTask<Void, Void, String> {
+        // This will be the rro disable
         private WeakReference<ManagerFragment> ref;
 
         private RunDisable(ManagerFragment fragment) {
@@ -571,44 +571,60 @@ public class ManagerFragment extends Fragment {
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected String doInBackground(Void... voids) {
             ManagerFragment fragment = ref.get();
             if (fragment != null) {
                 Context context = fragment.context;
 
-                if (References.checkOMS(context)) {
+                if (References.checkOMS(context) && !References.isSamsung(context)) {
                     ArrayList<String> data = new ArrayList<>();
-                    fragment.overlayList = ((ManagerAdapter) fragment.mAdapter)
-                            .getOverlayManagerList();
+                    fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
                     int len = fragment.overlayList.size();
                     for (int i = 0; i < len; i++) {
                         ManagerItem managerItem = fragment.overlayList.get(i);
-                        if (managerItem.isSelected()) data.add(managerItem.getName());
+                        if (managerItem.isSelected() &&
+                                isOverlayEnabled(context, managerItem.getName())) {
+                            data.add(managerItem.getName());
+                            managerItem.setSelected(false);
+                        } else if (managerItem.isSelected() &&
+                                !isOverlayEnabled(context, managerItem.getName())) {
+                            managerItem.setSelected(false);
+                        }
                     }
 
-                    // The magic goes here
-                    ThemeManager.disableOverlay(context, data);
+                    if (!data.isEmpty()) {
+                        // The magic goes here
+                        ThemeManager.disableOverlay(context, data);
 
-                    if (!References.checkThemeInterfacer(context) &&
-                            References.needsRecreate(context, data)) {
-                        Handler handler = new Handler(Looper.getMainLooper());
-                        handler.postDelayed(() -> {
-                            // OMS may not have written all the changes so quickly just yet
-                            // so we may need to have a small delay
-                            try {
-                                List<String> updated = fragment.updateEnabledOverlays();
-                                for (int i = 0; i < fragment.overlayList.size(); i++) {
-                                    ManagerItem currentOverlay = fragment.overlayList.get(i);
-                                    currentOverlay.setSelected(false);
-                                    currentOverlay.updateEnabledOverlays(updated.contains(
-                                            currentOverlay.getName()));
-                                    fragment.loadingBar.setVisibility(View.GONE);
-                                    fragment.mAdapter.notifyDataSetChanged();
+                        if (!References.checkThemeInterfacer(context) &&
+                                References.needsRecreate(context, data)) {
+                            Handler handler = new Handler(Looper.getMainLooper());
+                            handler.postDelayed(() -> {
+                                // OMS may not have written all the changes so quickly just yet
+                                // so we may need to have a small delay
+                                try {
+                                    List<String> updated = fragment.updateEnabledOverlays();
+                                    for (int i = 0; i < fragment.overlayList.size(); i++) {
+                                        ManagerItem currentOverlay = fragment.overlayList.get(i);
+                                        currentOverlay.setSelected(false);
+                                        currentOverlay.updateEnabledOverlays(updated.contains(
+                                                currentOverlay.getName()));
+                                        fragment.loadingBar.setVisibility(View.GONE);
+                                        fragment.mAdapter.notifyDataSetChanged();
+                                    }
+                                } catch (Exception e) {
+                                    // Consume window refresh
                                 }
-                            } catch (Exception e) {
-                                // Consume window refresh
-                            }
-                        }, REFRESH_WINDOW_DELAY);
+                            }, REFRESH_WINDOW_DELAY);
+                        }
+                    } else {
+                        Handler handler = new Handler(Looper.getMainLooper());
+                        handler.post(() ->
+                                Toast.makeText(
+                                        context,
+                                        context.getString(R.string.toast_could_not_uninstall),
+                                        Toast.LENGTH_SHORT).show()
+                        );
                     }
                 } else {
                     for (int i = 0; i < fragment.overlaysList.size(); i++) {
@@ -666,32 +682,33 @@ public class ManagerFragment extends Fragment {
                             }
                         }
                     }
-                }
 
-                // Since we had to parse the directory to process the recyclerView,
-                // reparse it to notifyDataSetChanged
+                    // Since we had to parse the directory to process the recyclerView,
+                    // reparse it to notifyDataSetChanged
 
-                fragment.activated_overlays.clear();
-                fragment.overlaysList.clear();
+                    fragment.activated_overlays.clear();
+                    fragment.overlaysList.clear();
 
-                if (isSamsung(context)) {
-                    final PackageManager pm = context.getPackageManager();
-                    List<ApplicationInfo> packages =
-                            pm.getInstalledApplications(PackageManager.GET_META_DATA);
-                    for (ApplicationInfo packageInfo : packages) {
-                        if (References.getOverlayMetadata(
-                                context,
-                                packageInfo.packageName,
-                                References.metadataOverlayParent) != null) {
-                            fragment.activated_overlays.add(packageInfo.packageName);
+                    if (References.isSamsung(context)) {
+                        final PackageManager pm = context.getPackageManager();
+                        List<ApplicationInfo> packages =
+                                pm.getInstalledApplications(PackageManager.GET_META_DATA);
+                        for (ApplicationInfo packageInfo : packages) {
+                            if (References.getOverlayMetadata(
+                                    context,
+                                    packageInfo.packageName,
+                                    References.metadataOverlayParent) != null) {
+                                fragment.activated_overlays.add(packageInfo.packageName);
+                            }
                         }
-                    }
-                } else if (!checkOMS(context)) {
-                    File currentDir = new File(LEGACY_NEXUS_DIR);
-                    String[] listed = currentDir.list();
-                    for (String file : listed) {
-                        if (file.substring(file.length() - 4).equals(".apk")) {
-                            fragment.activated_overlays.add(file.substring(0, file.length() - 4));
+                    } else {
+                        File currentDir = new File(LEGACY_NEXUS_DIR);
+                        String[] listed = currentDir.list();
+                        for (String file : listed) {
+                            if (file.substring(file.length() - 4).equals(".apk")) {
+                                fragment.activated_overlays.add(file.substring(0,
+                                        file.length() - 4));
+                            }
                         }
                     }
                 }
@@ -709,7 +726,7 @@ public class ManagerFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(Void result) {
+        protected void onPostExecute(String result) {
             ManagerFragment fragment = ref.get();
             if (fragment != null) {
                 Context context = fragment.context;
@@ -744,9 +761,8 @@ public class ManagerFragment extends Fragment {
         }
     }
 
-    private static class RunEnableDisable extends AsyncTask<String, Integer, String> {//This
-        // will
-        // be the oms enable/disable
+    private static class RunEnableDisable extends AsyncTask<String, Integer, String> {
+        // This will be the oms enable/disable
         private WeakReference<ManagerFragment> ref;
 
         private RunEnableDisable(ManagerFragment fragment) {
@@ -783,7 +799,7 @@ public class ManagerFragment extends Fragment {
                 Context context = fragment.context;
                 ArrayList<String> data = new ArrayList<>();     //enabled list
                 ArrayList<String> data2 = new ArrayList<>();    //disabled list
-                fragment.overlayList = ((ManagerAdapter) fragment.mAdapter).getOverlayManagerList();
+                fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
                 boolean has_failed = false;
                 int len = fragment.overlayList.size();
                 for (int i = 0; i < len; i++) {
@@ -801,13 +817,7 @@ public class ManagerFragment extends Fragment {
                         }
                     }
                 }
-                if (!data.isEmpty() || !data2.isEmpty()) {
-                    if (has_failed) {       //could be deleted
-                        Toast.makeText(context,
-                                fragment.getString(R.string.manage_system_not_permitted),
-                                Toast.LENGTH_LONG).show();
-                    }
-
+                if ((!data.isEmpty() || !data2.isEmpty()) && !has_failed) {
                     // The magic goes here
                     if (!data.isEmpty())
                         ThemeManager.enableOverlay(context, data);
@@ -836,7 +846,6 @@ public class ManagerFragment extends Fragment {
                         }, REFRESH_WINDOW_DELAY);
                     }
                 } else {
-                    //can be deleted now, but I'll keep it here just in case.
                     return "unauthorized";
                 }
             }
@@ -867,8 +876,7 @@ public class ManagerFragment extends Fragment {
                 Context context = fragment.context;
 
                 ArrayList<String> data = new ArrayList<>();
-                fragment.overlayList = ((ManagerAdapter) fragment.mAdapter)
-                        .getOverlayManagerList();
+                fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
                 int len = fragment.overlayList.size();
                 for (int i = 0; i < len; i++) {
                     ManagerItem overlay1 = fragment.overlayList.get(i);

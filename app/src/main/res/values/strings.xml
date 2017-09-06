@@ -40,6 +40,7 @@
     <string name="crowdin_url" translatable="false">"http://translate.projektsubstratum.com/"</string>
     <string name="validator_url" translatable="false">"https://raw.githubusercontent.com/substratum/database/master/commit_tracker.xml"</string>
     <string name="validator_whitelist_url" translatable="false">"https://raw.githubusercontent.com/substratum/database/master/commit_whitelist.xml"</string>
+    <string name="andromeda_url" translatable="false">https://play.google.com/store/apps/details?id=projekt.andromeda</string>
     <string name="sungstratum_url" translatable="false">https://play.google.com/store/apps/details?id=projekt.sungstratum</string>
     <string name="xda_sungstratum_link" translatable="false">https://forum.xda-developers.com/apps/substratum/7-0-substratum-sex-tw-beta-t3620796</string>
 
@@ -472,6 +473,8 @@
     <string name="toast_could_not_uninstall">No valid overlays selected.</string>
 
     <string name="toast_samsung_prototype_alert">Substratum automatically hid unsupported system overlays for your device!</string>
+    <string name="andromeda_no_root_dialog">It seems that you are on a supported OMS device, an addon was released to support this!</string>
+    <string name="andromeda_no_root_dialog_button">Download now!</string>
     <string name="samsung_prototype_no_root_dialog">It seems that you are on a supported Samsung device, an addon was released to support this!</string>
     <string name="samsung_prototype_no_root_dialog_button">Download now!</string>
 

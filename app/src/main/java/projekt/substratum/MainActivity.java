@@ -108,6 +108,7 @@ import projekt.substratum.util.files.Root;
 import projekt.substratum.util.helpers.ContextWrapper;
 import projekt.substratum.util.injectors.CheckBinaries;
 
+import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
 import static projekt.substratum.common.References.BYPASS_ALL_VERSION_CHECKS;
 import static projekt.substratum.common.References.ENABLE_ROOT_CHECK;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
@@ -1250,6 +1251,27 @@ public class MainActivity extends SubstratumActivity implements
                             try {
                                 Intent i = new Intent(Intent.ACTION_VIEW);
                                 i.setData(Uri.parse(context.getString(R.string.sungstratum_url)));
+                                context.startActivity(i);
+                            } catch (ActivityNotFoundException activityNotFoundException) {
+                                Toast.makeText(context,
+                                        context.getString(R.string.activity_missing_toast),
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        titleView.setVisibility(View.GONE);
+                        textView.setVisibility(View.GONE);
+                    } else if (References.checkOreo() && !References.isPackageInstalled(context,
+                            ANDROMEDA_PACKAGE)) {
+                        TextView andromedaTitle = activity.mProgressDialog.findViewById(
+                                R.id.andromeda_title);
+                        andromedaTitle.setVisibility(View.VISIBLE);
+                        Button andromedaButton = activity.mProgressDialog.findViewById(
+                                R.id.andromeda_button);
+                        andromedaButton.setVisibility(View.VISIBLE);
+                        andromedaButton.setOnClickListener(view -> {
+                            try {
+                                Intent i = new Intent(Intent.ACTION_VIEW);
+                                i.setData(Uri.parse(context.getString(R.string.andromeda_url)));
                                 context.startActivity(i);
                             } catch (ActivityNotFoundException activityNotFoundException) {
                                 Toast.makeText(context,

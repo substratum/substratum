@@ -835,6 +835,8 @@
     <string name="auto_reload_sysui_title">Automatically reload SystemUI</string>
     <string name="auto_reload_sysui_summary_on">Substratum will automatically reload the SystemUI after an overlay targeting SystemUI is enabled/disabled.</string>
     <string name="auto_reload_sysui_summary_off">Substratum will not automatically reload the SystemUI after an overlay targeting SystemUI is enabled/disabled.</string>
+    <string name="auto_reload_sysui_dialog_title">Warning!</string>
+    <string name="auto_reload_sysui_dialog_text">On Android Oreo, notifications will be automatically cleared to simulate a restart of the cached notification channels.\n\nPlease ensure your notifications do not contain any important data. This does not affect ongoing notifications.</string>
 
     <string name="priority_overlay_name_placeholder" translatable="false">OVERLAY NAME</string>
     <string name="theme_name_placeholder" translatable="false">THEME NAME</string>

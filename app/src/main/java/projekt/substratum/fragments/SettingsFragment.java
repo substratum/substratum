@@ -76,6 +76,7 @@ import projekt.substratum.util.readers.ReadResourcesFile;
 import projekt.substratum.util.views.SheetDialog;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
+import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
 import static projekt.substratum.common.References.HIDDEN_CACHING_MODE_TAP_COUNT;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.INTERFACER_SERVICE;
@@ -683,6 +684,22 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         // Finally, these functions will only work on OMS ROMs
         if (References.checkOMS(getContext())) {
+            Preference aboutAndromeda = getPreferenceManager().findPreference("about_andromeda");
+            if (References.isAndromedaDevice(getContext())) {
+                aboutAndromeda.setIcon(References.grabAppIcon(getContext(), ANDROMEDA_PACKAGE));
+                try {
+                    PackageInfo info = getContext().getPackageManager()
+                            .getPackageInfo(ANDROMEDA_PACKAGE, 0);
+                    String versionName = info.versionName;
+                    int versionCode = info.versionCode;
+                    aboutAndromeda.setSummary(versionName + " (" + versionCode + ")");
+                } catch (Exception e) {
+                    // Suppress exception
+                }
+            } else {
+                aboutAndromeda.setVisible(false);
+            }
+
             Preference aboutInterfacer = getPreferenceManager().findPreference("about_interfacer");
             aboutInterfacer.setIcon(References.grabAppIcon(getContext(), INTERFACER_PACKAGE));
             aboutInterfacer.setOnPreferenceClickListener(

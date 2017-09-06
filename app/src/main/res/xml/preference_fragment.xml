@@ -32,6 +32,11 @@
             android:title="@string/settings_about_substratum"/>
 
         <Preference
+            android:key="about_andromeda"
+            android:summary="@string/settings_about_interfacer_not_installed"
+            android:title="@string/settings_about_andromeda"/>
+
+        <Preference
             android:key="about_interfacer"
             android:summary="@string/settings_about_interfacer_not_installed"
             android:title="@string/settings_about_interfacer"/>

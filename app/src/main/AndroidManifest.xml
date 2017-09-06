@@ -58,6 +58,7 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:manageSpaceActivity=".activities.launch.ManageSpaceActivity"
+        android:roundIcon="@mipmap/main_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning,ManifestResource"

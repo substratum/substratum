@@ -566,7 +566,7 @@ public class ManagerFragment extends Fragment {
                 }
                 if (!fragment.prefs.getBoolean("manager_disabled_overlays", true) ||
                         !References.checkOMS(fragment.context)) {
-                    LinearLayout enable_view = fragment.root.findViewById(R.id.enable);
+                    TextView enable_view = fragment.root.findViewById(R.id.enable_selected);
                     enable_view.setVisibility(View.GONE);
                 }
                 if (fragment.first_run == null) fragment.first_run = false;

@@ -369,14 +369,18 @@ public class MainActivity extends SubstratumActivity implements
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_googleplus)
                                 .withSelectable(false)
                                 .withIdentifier(100),
+                        new SecondaryDrawerItem().withName(R.string.nav_drawer_reddit)
+                                .withLevel(2).withIcon(R.drawable.nav_reddit)
+                                .withSelectable(false)
+                                .withIdentifier(101),
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_telegram)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_telegram)
                                 .withSelectable(false)
-                                .withIdentifier(101),
+                                .withIdentifier(102),
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_xda)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_xda)
                                 .withSelectable(false)
-                                .withIdentifier(102));
+                                .withIdentifier(103));
 
         // Split the featured content out for easy adapting
         ExpandableDrawerItem featured = new ExpandableDrawerItem()
@@ -386,11 +390,11 @@ public class MainActivity extends SubstratumActivity implements
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_rawad)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_youtube)
                                 .withSelectable(false)
-                                .withIdentifier(103),
+                                .withIdentifier(104),
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_xda_portal)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_xda_portal)
                                 .withSelectable(false)
-                                .withIdentifier(104));
+                                .withIdentifier(105));
 
         // Split the resources out for easy adapting
         ExpandableDrawerItem resources = new ExpandableDrawerItem()
@@ -590,7 +594,7 @@ public class MainActivity extends SubstratumActivity implements
                         break;
                     case 101:
                         try {
-                            String sourceURL = getString(R.string.telegram_link);
+                            String sourceURL = getString(R.string.reddit_link);
                             Intent i = new Intent(Intent.ACTION_VIEW);
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
@@ -602,6 +606,19 @@ public class MainActivity extends SubstratumActivity implements
                         }
                         break;
                     case 102:
+                        try {
+                            String sourceURL = getString(R.string.telegram_link);
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(sourceURL));
+                            startActivity(i);
+                        } catch (Exception e) {
+                            Lunchbar.make(findViewById(android.R.id.content),
+                                    getString(R.string.activity_missing_toast),
+                                    Lunchbar.LENGTH_LONG)
+                                    .show();
+                        }
+                        break;
+                    case 103:
                         try {
                             String sourceURL;
                             if (References.isSamsung(this)) {
@@ -619,7 +636,7 @@ public class MainActivity extends SubstratumActivity implements
                                     .show();
                         }
                         break;
-                    case 103:
+                    case 104:
                         try {
                             String sourceURL = getString(R.string.rawad_youtube_url);
                             Intent i = new Intent(Intent.ACTION_VIEW);
@@ -632,7 +649,7 @@ public class MainActivity extends SubstratumActivity implements
                                     .show();
                         }
                         break;
-                    case 104:
+                    case 105:
                         try {
                             String sourceURL = getString(R.string.xda_portal_link);
                             Intent i = new Intent(Intent.ACTION_VIEW);

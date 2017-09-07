@@ -795,13 +795,15 @@
     <string name="googleplus_link" translatable="false">https://plus.google.com/communities/102261717366580091389</string>
     <string name="nav_drawer_telegram">Telegram group chat</string>
     <string name="telegram_link" translatable="false">https://t.me/substratum</string>
-    <string name="nav_drawer_xda">XDA Subforum</string>
+    <string name="nav_drawer_xda">XDA dedicated sub-forum</string>
     <string name="xda_link" translatable="false">https://forum.xda-developers.com/apps/substratum/</string>
-    <string name="nav_drawer_rawad">Rawad\'s Theming Guides</string>
+    <string name="nav_drawer_rawad">Rawad\'s theming guides</string>
     <string name="rawad_youtube_url" translatable="false">https://www.youtube.com/playlist?list=PLgLZvFga2ml4LGq5NfVgtSvx8msfnCDe8</string>
+    <string name="nav_drawer_reddit">Reddit community</string>
+    <string name="reddit_link" translatable="false">https://www.reddit.com/r/Substratum/</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Featured content</string>
-    <string name="nav_drawer_xda_portal">XDA Portal</string>
+    <string name="nav_drawer_xda_portal">XDA portal</string>
     <string name="xda_portal_link" translatable="false">https://www.xda-developers.com/search/substratum</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Resources</string>

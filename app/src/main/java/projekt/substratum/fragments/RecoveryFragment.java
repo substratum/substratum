@@ -278,7 +278,10 @@ public class RecoveryFragment extends Fragment {
             soundCard.setVisibility(View.GONE);
         }
 
-        if (!prefs.getBoolean("seen_restore_warning", false)) showRecoveryWarning();
+        if (!prefs.getBoolean("seen_restore_warning", false) &&
+                !References.isSamsung(getContext())) {
+            showRecoveryWarning();
+        }
         return root;
     }
 

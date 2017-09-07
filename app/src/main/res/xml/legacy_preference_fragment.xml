@@ -32,6 +32,11 @@
             android:title="@string/settings_about_substratum"/>
 
         <Preference
+            android:key="about_samsung"
+            android:summary="@string/settings_about_interfacer_not_installed"
+            android:title="@string/settings_about_samsung"/>
+
+        <Preference
             android:key="system_status"
             android:summary="@string/settings_system_status_rooted"
             android:title="@string/settings_system_status"/>

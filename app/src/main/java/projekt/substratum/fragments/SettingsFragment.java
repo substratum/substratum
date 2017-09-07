@@ -80,6 +80,7 @@ import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
 import static projekt.substratum.common.References.HIDDEN_CACHING_MODE_TAP_COUNT;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.INTERFACER_SERVICE;
+import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.SUBSTRATUM_VALIDATOR;
 import static projekt.substratum.common.References.validateResource;
@@ -204,9 +205,23 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             });
         }
 
+        final Preference aboutSamsung = getPreferenceManager().findPreference("about_samsung");
         final CheckBoxPreference showDangerousSamsung = (CheckBoxPreference)
                 getPreferenceManager().findPreference("show_dangerous_samsung_overlays");
+
         if (References.isSamsung(getContext())) {
+            aboutSamsung.setVisible(true);
+            aboutSamsung.setIcon(References.grabAppIcon(getContext(), ANDROMEDA_PACKAGE));
+            try {
+                PackageInfo info = getContext().getPackageManager()
+                        .getPackageInfo(SST_ADDON_PACKAGE, 0);
+                String versionName = info.versionName;
+                int versionCode = info.versionCode;
+                aboutSamsung.setSummary(versionName + " (" + versionCode + ")");
+            } catch (Exception e) {
+                // Suppress exception
+            }
+
             boolean dangerous_samsung_overlays =
                     prefs.getBoolean("show_dangerous_samsung_overlays", false);
             if (dangerous_samsung_overlays) {
@@ -242,6 +257,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         return false;
                     });
         } else if (!References.checkOMS(getContext())) {
+            aboutSamsung.setVisible(false);
             showDangerousSamsung.setVisible(false);
         }
 

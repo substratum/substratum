@@ -664,6 +664,25 @@ public class InformationActivity extends SubstratumActivity {
                 });
             }
 
+            TextView enable_disable_selected = (TextView)
+                    findViewById(R.id.enable_disable_selected);
+            if (!References.checkOMS(this))
+                enable_disable_selected.setVisibility(View.GONE);
+            if (enable_disable_selected != null) {
+                enable_disable_selected.setOnClickListener(v -> {
+                    materialSheetFab.setEventListener(new MaterialSheetFabEventListener() {
+                        @Override
+                        public void onSheetHidden() {
+                            super.onSheetHidden();
+                            intent.putExtra("command", "EnableDisable");
+                            localBroadcastManager.sendBroadcast(intent);
+                            materialSheetFab.setEventListener(null);
+                        }
+                    });
+                    materialSheetFab.hideSheet();
+                });
+            }
+
             Boolean shouldShowSamsungWarning =
                     !prefs.getBoolean("show_dangerous_samsung_overlays", false);
             if (References.isSamsung(getApplicationContext()) &&

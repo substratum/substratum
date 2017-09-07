@@ -177,6 +177,10 @@
                         android:text="@string/fab_menu_enable"/>
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/enable_disable_selected"
+                    style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
+                    android:text="@string/fab_menu_enable_disable"/>
             </LinearLayout>
 
         </android.support.v7.widget.CardView>

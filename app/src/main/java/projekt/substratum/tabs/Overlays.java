@@ -141,7 +141,7 @@ public class Overlays extends Fragment {
     public Spinner base_spinner;
     public SharedPreferences prefs;
     public ArrayList<String> final_runner, late_install;
-    public boolean mixAndMatchMode, enable_mode, disable_mode, compile_enable_mode;
+    public boolean mixAndMatchMode, enable_mode, disable_mode, compile_enable_mode, enable_disable_mode;
     public ArrayList<String> all_installed_overlays;
     public Switch toggle_all;
     public SwipeRefreshLayout swipeRefreshLayout;
@@ -198,6 +198,7 @@ public class Overlays extends Fragment {
             compile_enable_mode = true;
             enable_mode = false;
             disable_mode = false;
+            enable_disable_mode = false;
 
             overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
             checkedOverlays = new ArrayList<>();
@@ -284,6 +285,7 @@ public class Overlays extends Fragment {
                 compile_enable_mode = false;
                 enable_mode = false;
                 disable_mode = true;
+                enable_disable_mode = false;
 
                 for (int i = 0; i < overlaysLists.size(); i++) {
                     OverlaysItem currentOverlay = overlaysLists.get(i);
@@ -320,6 +322,7 @@ public class Overlays extends Fragment {
                 compile_enable_mode = false;
                 enable_mode = false;
                 disable_mode = true;
+                enable_disable_mode = false;
 
                 for (int i = 0; i < overlaysLists.size(); i++) {
                     OverlaysItem currentOverlay = overlaysLists.get(i);
@@ -415,6 +418,7 @@ public class Overlays extends Fragment {
             compile_enable_mode = false;
             enable_mode = true;
             disable_mode = false;
+            enable_disable_mode = false;
 
             overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
             checkedOverlays = new ArrayList<>();
@@ -424,6 +428,53 @@ public class Overlays extends Fragment {
                 if (currentOverlay.isSelected() && !currentOverlay.isOverlayEnabled()) {
                     checkedOverlays.add(currentOverlay);
                 } else {
+                    currentOverlay.setSelected(false);
+                    mAdapter.notifyDataSetChanged();
+                }
+            }
+            if (!checkedOverlays.isEmpty()) {
+                getThemeCache phase2 = new getThemeCache(this);
+                if (base_spinner.getSelectedItemPosition() != 0 &&
+                        base_spinner.getVisibility() == View.VISIBLE) {
+                    phase2.execute(base_spinner.getSelectedItem().toString());
+
+                } else {
+                    phase2.execute("");
+                }
+                for (OverlaysItem overlay : checkedOverlays) {
+                    Log.d("OverlayTargetPackageKiller", "Killing package : " + overlay
+                            .getPackageName());
+                    am.killBackgroundProcesses(overlay.getPackageName());
+                }
+            } else {
+                if (toggle_all.isChecked()) toggle_all.setChecked(false);
+                is_overlay_active = false;
+                currentShownLunchBar = Lunchbar.make(
+                        getActivityView(),
+                        R.string.toast_disabled5,
+                        Lunchbar.LENGTH_LONG);
+                currentShownLunchBar.show();
+            }
+        }
+        if (progressBar != null) progressBar.setVisibility(View.GONE);
+    }
+
+    public void startEnableDisable() {
+        if (!is_overlay_active) {
+            is_overlay_active = true;
+            compile_enable_mode = false;
+            enable_mode = false;
+            disable_mode = false;
+            enable_disable_mode = true;
+
+            overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
+            checkedOverlays = new ArrayList<>();
+
+
+            for (int i = 0; i < overlaysLists.size(); i++) {
+                OverlaysItem currentOverlay = overlaysLists.get(i);
+                if (currentOverlay.isSelected()) checkedOverlays.add(currentOverlay);
+                else {
                     currentOverlay.setSelected(false);
                     mAdapter.notifyDataSetChanged();
                 }
@@ -850,10 +901,11 @@ public class Overlays extends Fragment {
         for (OverlaysItem oi : checkedOverlays) {
             String packageName = oi.getPackageName();
             if (packageName.equals("android") || packageName.equals("projekt.substratum")) {
-                if (!enable_mode && !disable_mode &&
+                if (!enable_mode && !disable_mode && !enable_disable_mode &&
                         ThemeManager.isOverlayEnabled(context, oi.getFullOverlayParameters())) {
                     return false;
-                } else if (enable_mode || disable_mode || compile_enable_mode) {
+                } else if (enable_mode || disable_mode || compile_enable_mode
+                        || enable_disable_mode) {
                     return false;
                 }
             }
@@ -1623,6 +1675,9 @@ public class Overlays extends Fragment {
                     break;
                 case "Enable":
                     if (mAdapter != null) startEnable();
+                    break;
+                case "EnableDisable":
+                    if (mAdapter != null) startEnableDisable();
                     break;
                 case "MixAndMatchMode":
                     if (mAdapter != null) {

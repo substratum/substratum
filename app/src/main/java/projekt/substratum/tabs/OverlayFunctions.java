@@ -99,7 +99,7 @@ public class OverlayFunctions {
                 overlays.final_runner = new ArrayList<>();
                 overlays.late_install = new ArrayList<>();
 
-                if (!overlays.enable_mode && !overlays.disable_mode) {
+                if (!overlays.enable_mode && !overlays.disable_mode && !overlays.enable_disable_mode) {
                     int notification_priority = Notification.PRIORITY_MAX;
 
                     // Create an Intent for the BroadcastReceiver
@@ -186,7 +186,7 @@ public class OverlayFunctions {
             Overlays overlays = ref.get();
             if (overlays != null) {
                 Context context = overlays.getActivity();
-                if (!overlays.enable_mode && !overlays.disable_mode) {
+                if (!overlays.enable_mode && !overlays.disable_mode && !overlays.enable_disable_mode) {
                     // Initialize Substratum cache with theme only if permitted
                     if (References.isCachingEnabled(context) && !overlays.has_initialized_cache) {
                         Log.d(Overlays.TAG,
@@ -250,7 +250,7 @@ public class OverlayFunctions {
                 overlays.fail_count = 0;
                 overlays.error_logs = new StringBuilder();
 
-                if (!overlays.enable_mode && !overlays.disable_mode) {
+                if (!overlays.enable_mode && !overlays.disable_mode && !overlays.enable_disable_mode) {
                     // Change title in preparation for loop to change subtext
                     if (overlays.checkActiveNotifications()) {
                         overlays.mBuilder
@@ -298,7 +298,7 @@ public class OverlayFunctions {
                     overlays.final_command.addAll(overlays.final_runner);
                 }
 
-                if (!overlays.enable_mode && !overlays.disable_mode) {
+                if (!overlays.enable_mode && !overlays.disable_mode && !overlays.enable_disable_mode) {
                     new Phase4_finishUpdateFunction(overlays).execute();
                     if (overlays.has_failed) {
                         overlays.failedFunction(context);
@@ -330,6 +330,8 @@ public class OverlayFunctions {
                     new Phase4_finishEnableFunction(overlays).execute();
                 } else if (overlays.disable_mode) {
                     new Phase4_finishDisableFunction(overlays).execute();
+                } else if (overlays.enable_disable_mode){
+                    new Phase4_finishEnableDisableFunction(overlays).execute();
                 }
                 if (References.isSamsung(context) &&
                         overlays.late_install != null &&
@@ -433,7 +435,8 @@ public class OverlayFunctions {
                     overlays.current_dialog_overlay =
                             "'" + References.grabPackageName(context, current_overlay) + "'";
 
-                    if (!overlays.enable_mode && !overlays.disable_mode) {
+                    if (!overlays.enable_mode && !overlays.disable_mode
+                            && !overlays.enable_disable_mode) {
                         publishProgress((int) overlays.current_amount);
                         if (overlays.compile_enable_mode) {
                             if (overlays.final_runner == null) {
@@ -958,7 +961,7 @@ public class OverlayFunctions {
                         if (overlays.final_runner == null)
                             overlays.final_runner = new ArrayList<>();
                         if (overlays.enable_mode || overlays.compile_enable_mode ||
-                                overlays.disable_mode) {
+                                overlays.disable_mode || overlays.enable_disable_mode) {
                             String package_name =
                                     overlays.checkedOverlays.get(i).getFullOverlayParameters();
                             if (References.isPackageInstalled(context, package_name)) {
@@ -1130,6 +1133,111 @@ public class OverlayFunctions {
                     currentShownLunchBar = Lunchbar.make(
                             overlays.getActivityView(),
                             R.string.toast_disabled4,
+                            Lunchbar.LENGTH_LONG);
+                    currentShownLunchBar.show();
+                }
+            }
+        }
+    }
+
+    static class Phase4_finishEnableDisableFunction extends AsyncTask<Void, Void, Void> {
+        WeakReference<Overlays> ref;
+        WeakReference<Context> refContext;
+
+        Phase4_finishEnableDisableFunction(Overlays overlays) {
+            ref = new WeakReference<>(overlays);
+            refContext = new WeakReference<>(overlays.getContext());
+        }
+
+        @Override
+        protected void onPreExecute() {
+            Overlays overlays = ref.get();
+            if (overlays != null) {
+                Activity activity = overlays.getActivity();
+                if (overlays.final_runner.size() > 0) {
+                    overlays.progressBar.setVisibility(View.VISIBLE);
+                    if (overlays.toggle_all.isChecked())
+                        activity.runOnUiThread(() -> overlays.toggle_all.setChecked(false));
+                }
+            }
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Overlays overlays = ref.get();
+            if (overlays != null) {
+                Context context = overlays.getActivity();
+
+                if (overlays.final_runner.size() > 0) {
+                    overlays.enable_disable_mode = false;
+
+                    ArrayList<String> enableOverlays = new ArrayList<>();
+                    ArrayList<String> disableOverlays = new ArrayList<>();
+                    for (int i = 0; i<overlays.final_command.size(); i++) {
+                        if (!overlays.checkedOverlays.get(i).isOverlayEnabled())
+                            enableOverlays.add(overlays.final_command.get(i));
+                        else
+                            disableOverlays.add(overlays.final_command.get(i));
+                    }
+                    ThemeManager.disableOverlay(context, disableOverlays);
+                    if (overlays.mixAndMatchMode) {
+                        // Buffer the disableBeforeEnabling String
+                        ArrayList<String> disableBeforeEnabling = new ArrayList<>();
+                        for (int i = 0; i < overlays.all_installed_overlays.size(); i++) {
+                            if (!References.grabOverlayParent(context,
+                                    overlays.all_installed_overlays.get(i))
+                                    .equals(overlays.theme_pid)) {
+                                disableBeforeEnabling.add(overlays.all_installed_overlays.get(i));
+                            }
+                        }
+                        ThemeManager.disableOverlay(context, disableBeforeEnabling);
+                    }
+                    ThemeManager.enableOverlay(context, enableOverlays);
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            Overlays overlays = ref.get();
+            Context context = refContext.get();
+            if (overlays != null && context != null) {
+                Activity activity = overlays.getActivity();
+                overlays.progressBar.setVisibility(View.GONE);
+                if (overlays.final_runner.size() > 0) {
+                    if (overlays.needsRecreate(context)) {
+                        Handler handler = new Handler();
+                        handler.postDelayed(() -> {
+                            // OMS may not have written all the changes so quickly just yet
+                            // so we may need to have a small delay
+                            try {
+                                overlays.overlaysLists = ((OverlaysAdapter) overlays.mAdapter)
+                                        .getOverlayList();
+                                for (int i = 0; i < overlays.overlaysLists.size(); i++) {
+                                    OverlaysItem currentOverlay = overlays.overlaysLists.get(i);
+                                    currentOverlay.setSelected(false);
+                                    currentOverlay.updateEnabledOverlays(
+                                            overlays.updateEnabledOverlays());
+                                    activity.runOnUiThread(() ->
+                                            overlays.mAdapter.notifyDataSetChanged());
+                                }
+                            } catch (Exception e) {
+                                // Consume window refresh
+                            }
+                        }, References.REFRESH_WINDOW_DELAY);
+                    }
+                } else {
+                    overlays.enable_disable_mode = false;
+                    //CURRENTLY: Showing both enable and disable errors toasts.
+                    currentShownLunchBar = Lunchbar.make(
+                            overlays.getActivityView(),
+                            R.string.toast_disabled4,
+                            Lunchbar.LENGTH_LONG);
+                    currentShownLunchBar.show();
+                    currentShownLunchBar = Lunchbar.make(
+                            overlays.getActivityView(),
+                            R.string.toast_disabled3,
                             Lunchbar.LENGTH_LONG);
                     currentShownLunchBar.show();
                 }

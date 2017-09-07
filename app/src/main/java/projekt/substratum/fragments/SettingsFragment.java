@@ -211,7 +211,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         if (References.isSamsung(getContext())) {
             aboutSamsung.setVisible(true);
-            aboutSamsung.setIcon(References.grabAppIcon(getContext(), ANDROMEDA_PACKAGE));
+            aboutSamsung.setIcon(References.grabAppIcon(getContext(), SST_ADDON_PACKAGE));
             try {
                 PackageInfo info = getContext().getPackageManager()
                         .getPackageInfo(SST_ADDON_PACKAGE, 0);
@@ -619,37 +619,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     return false;
                 });
 
-        final CheckBoxPreference restartSystemUI = (CheckBoxPreference)
-                getPreferenceManager().findPreference("opt_in_sysui_restart");
-        Boolean restartSysUI = prefs.getBoolean("opt_in_sysui_restart", true);
-        if (restartSysUI) {
-            restartSystemUI.setChecked(true);
-        } else {
-            restartSystemUI.setChecked(false);
-        }
-        restartSystemUI.setOnPreferenceChangeListener(
-                (preference, newValue) -> {
-                    boolean isChecked = (Boolean) newValue;
-                    if (isChecked) {
-                        prefs.edit().putBoolean("opt_in_sysui_restart", true).apply();
-                        restartSystemUI.setChecked(true);
-                    } else {
-                        final AlertDialog.Builder builder = new AlertDialog.Builder
-                                (getContext());
-                        builder.setTitle(R.string.auto_reload_sysui_dialog_title);
-                        builder.setMessage(R.string.auto_reload_sysui_dialog_text);
-                        builder.setNegativeButton(R.string.dialog_cancel,
-                                (dialog, id) -> dialog.dismiss());
-                        builder.setPositiveButton(R.string.break_compilation_dialog_continue,
-                                (dialog, id) -> {
-                                    prefs.edit().putBoolean("opt_in_sysui_restart", false).apply();
-                                    restartSystemUI.setChecked(false);
-                                });
-                        builder.show();
-                    }
-                    return false;
-                });
-
         final CheckBoxPreference overlay_alert = (CheckBoxPreference)
                 getPreferenceManager().findPreference("overlay_alert");
         Boolean alert_show = prefs.getBoolean("overlay_alert", false);
@@ -852,6 +821,38 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     });
             if (!References.getProp("ro.substratum.recreate").equals("true"))
                 systemUIRestart.setVisible(false);
+
+            final CheckBoxPreference restartSystemUI = (CheckBoxPreference)
+                    getPreferenceManager().findPreference("opt_in_sysui_restart");
+            Boolean restartSysUI = prefs.getBoolean("opt_in_sysui_restart", true);
+            if (restartSysUI) {
+                restartSystemUI.setChecked(true);
+            } else {
+                restartSystemUI.setChecked(false);
+            }
+            restartSystemUI.setOnPreferenceChangeListener(
+                    (preference, newValue) -> {
+                        boolean isChecked = (Boolean) newValue;
+                        if (isChecked) {
+                            prefs.edit().putBoolean("opt_in_sysui_restart", true).apply();
+                            restartSystemUI.setChecked(true);
+                        } else {
+                            final AlertDialog.Builder builder = new AlertDialog.Builder
+                                    (getContext());
+                            builder.setTitle(R.string.auto_reload_sysui_dialog_title);
+                            builder.setMessage(R.string.auto_reload_sysui_dialog_text);
+                            builder.setNegativeButton(R.string.dialog_cancel,
+                                    (dialog, id) -> dialog.dismiss());
+                            builder.setPositiveButton(R.string.break_compilation_dialog_continue,
+                                    (dialog, id) -> {
+                                        prefs.edit().putBoolean("opt_in_sysui_restart", false)
+                                                .apply();
+                                        restartSystemUI.setChecked(false);
+                                    });
+                            builder.show();
+                        }
+                        return false;
+                    });
 
             final CheckBoxPreference overlay_updater = (CheckBoxPreference)
                     getPreferenceManager().findPreference("overlay_updater");

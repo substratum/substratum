@@ -817,7 +817,7 @@
     <string name="jira_link" translatable="false">https://substratum.atlassian.net/servicedesk</string>
     <string name="nav_drawer_jira">JIRA bug reporting system</string>
     <string name="github_link" translatable="false">https://www.github.com/SubstratumResources</string>
-    <string name="nav_troubleshooting">Troubleshooting</string>
+    <string name="nav_troubleshooting">FAQs</string>
 
     <!-- More -->
     <string name="nav_section_header_more">More</string>

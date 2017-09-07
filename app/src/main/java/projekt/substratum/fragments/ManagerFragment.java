@@ -291,6 +291,17 @@ public class ManagerFragment extends Fragment {
             }
         });
 
+        TextView enable_disable_selected = root.findViewById(R.id.enable_disable_selected);
+        if (enable_disable_selected != null) {
+            enable_disable_selected.setOnClickListener(v ->
+                    new RunEnableDisable(ManagerFragment.this).execute());
+        }
+
+        TextView enable_selected = root.findViewById(R.id.enable_selected);
+        if (enable_selected != null) {
+            enable_selected.setOnClickListener(v -> new RunEnable(ManagerFragment.this).execute());
+        }
+
         TextView disable_selected = root.findViewById(R.id.disable_selected);
         if (!References.checkOMS(context))
             disable_selected.setText(getString(R.string.fab_menu_uninstall));
@@ -298,12 +309,6 @@ public class ManagerFragment extends Fragment {
             disable_selected.setOnClickListener(v ->
                     new RunDisable(ManagerFragment.this).execute());
         }
-
-        TextView enable_disable_selected = (TextView) root.findViewById(R.id
-                .enable_disable_selected);
-        if (enable_disable_selected != null)
-            enable_disable_selected.setOnClickListener(v ->
-                    new RunEnableDisable(ManagerFragment.this).execute());
 
         TextView uninstall_selected = root.findViewById(R.id.uninstall);
         if (!References.checkOMS(context))
@@ -569,6 +574,93 @@ public class ManagerFragment extends Fragment {
         }
     }
 
+    private static class RunEnable extends AsyncTask<String, Integer, String> {
+        // This will be the oms enable
+        private WeakReference<ManagerFragment> ref;
+
+        private RunEnable(ManagerFragment fragment) {
+            ref = new WeakReference<>(fragment);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            ManagerFragment fragment = ref.get();
+            if (fragment != null) {
+                fragment.materialSheetFab.hideSheet();
+                fragment.loadingBar.setVisibility(View.VISIBLE);
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            ManagerFragment fragment = ref.get();
+            if (fragment != null) {
+                Context context = fragment.context;
+                if (result != null && result.equals("unauthorized")) {
+                    Toast.makeText(context,
+                            fragment.getString(R.string.manage_system_not_permitted),
+                            Toast.LENGTH_LONG).show();
+                }
+                fragment.loadingBar.setVisibility(View.GONE);
+            }
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            ManagerFragment fragment = ref.get();
+            if (fragment != null) {
+                Context context = fragment.context;
+                ArrayList<String> data = new ArrayList<>();
+                fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
+                boolean has_failed = false;
+                int len = fragment.overlayList.size();
+                for (int i = 0; i < len; i++) {
+                    ManagerItem managerItem = fragment.overlayList.get(i);
+                    if (managerItem.isSelected()) {
+                        if (References.isPackageInstalled(context,
+                                References.grabOverlayParent(context, managerItem.getName()))) {
+                            if (ThemeManager.listOverlays(fragment.context, STATE_DISABLED)
+                                    .contains(managerItem.getName())) {
+                                data.add(managerItem.getName());
+                            }
+                        } else {
+                            has_failed = true;
+                        }
+                    }
+                }
+                if (!data.isEmpty() && !has_failed) {
+                    // The magic goes here
+                    if (!data.isEmpty()) ThemeManager.enableOverlay(context, data);
+
+                    if (!References.checkThemeInterfacer(context) &&
+                            References.needsRecreate(context, data)) {
+                        Handler handler = new Handler(Looper.getMainLooper());
+                        handler.postDelayed(() -> {
+                            // OMS may not have written all the changes so quickly just yet
+                            // so we may need to have a small delay
+                            try {
+                                List<String> updated = fragment.updateEnabledOverlays();
+                                for (int i = 0; i < fragment.overlayList.size(); i++) {
+                                    ManagerItem currentOverlay = fragment.overlayList.get(i);
+                                    currentOverlay.setSelected(false);
+                                    currentOverlay.updateEnabledOverlays(updated.contains(
+                                            currentOverlay.getName()));
+                                    fragment.loadingBar.setVisibility(View.GONE);
+                                    fragment.mAdapter.notifyDataSetChanged();
+                                }
+                            } catch (Exception e) {
+                                // Consume window refresh
+                            }
+                        }, REFRESH_WINDOW_DELAY);
+                    }
+                } else {
+                    return "unauthorized";
+                }
+            }
+            return null;
+        }
+    }
+
     private static class RunDisable extends AsyncTask<Void, Void, String> {
         // This will be the rro disable
         private WeakReference<ManagerFragment> ref;
@@ -823,11 +915,12 @@ public class ManagerFragment extends Fragment {
                     if (managerItem.isSelected()) {
                         if (References.isPackageInstalled(context,
                                 References.grabOverlayParent(context, managerItem.getName()))) {
-                            if (ThemeManager.listOverlays(fragment.context,
-                                    STATE_DISABLED).contains(managerItem.getName()))
+                            if (ThemeManager.listOverlays(fragment.context, STATE_DISABLED)
+                                    .contains(managerItem.getName())) {
                                 data.add(managerItem.getName());
-                            else
+                            } else {
                                 data2.add(managerItem.getName());
+                            }
                         } else {
                             has_failed = true;
                         }
@@ -835,10 +928,8 @@ public class ManagerFragment extends Fragment {
                 }
                 if ((!data.isEmpty() || !data2.isEmpty()) && !has_failed) {
                     // The magic goes here
-                    if (!data.isEmpty())
-                        ThemeManager.enableOverlay(context, data);
-                    if (!data2.isEmpty())
-                        ThemeManager.disableOverlay(context, data2);
+                    if (!data.isEmpty()) ThemeManager.enableOverlay(context, data);
+                    if (!data2.isEmpty()) ThemeManager.disableOverlay(context, data2);
 
                     if (!References.checkThemeInterfacer(context) &&
                             References.needsRecreate(context, data)) {

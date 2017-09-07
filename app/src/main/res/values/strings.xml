@@ -553,10 +553,10 @@
 
     <string name="fab_menu_compile_enable">Build &amp; Enable</string>
     <string name="fab_menu_compile_update">Build &amp; Update</string>
-    <string name="fab_menu_compile_install">Install Selected</string>
-    <string name="fab_menu_uninstall">Uninstall Selected</string>
-    <string name="fab_menu_disable">Disable Selected</string>
-    <string name="fab_menu_enable">Enable Selected</string>
+    <string name="fab_menu_compile_install">Install selected</string>
+    <string name="fab_menu_uninstall">Uninstall selected</string>
+    <string name="fab_menu_disable">Disable selected</string>
+    <string name="fab_menu_enable">Enable selected</string>
     <string name="fab_menu_enable_disable">Change overlay states</string>
     <string name="fab_menu_swap_toggle">Disable other themes</string>
     <string name="fab_menu_swap_toggle_legacy">Remove all existing</string>

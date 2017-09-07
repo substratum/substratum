@@ -127,7 +127,7 @@ public class ManagerFragment extends Fragment {
                 updated.addAll(listed.stream().map(file ->
                         new ManagerItem(getContext(), file, true)).collect(Collectors.toList()));
             }
-            ((ManagerAdapter) mAdapter).setOverlayManagerList(updated);
+            mAdapter.setOverlayManagerList(updated);
             overlayList = updated;
             if (References.checkOMS(getContext())) {
                 try {
@@ -163,8 +163,9 @@ public class ManagerFragment extends Fragment {
             boolean alphabetize = prefs.getBoolean("alphabetize_overlays", true);
             if (alphabetize) {
                 overlayList.sort(Comparator.comparing(ManagerItem::getLabelName));
-            } else
+            } else {
                 overlayList.sort(Comparator.comparing(ManagerItem::getThemeName));
+            }
         }
         toggle_all.setChecked(false);
     }
@@ -186,7 +187,6 @@ public class ManagerFragment extends Fragment {
 
         context = getContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        prefs.edit().putBoolean("alphabetize_overlays", true).apply();
         root = (ViewGroup) inflater.inflate(R.layout.manager_fragment, container, false);
         toggle_zone = root.findViewById(R.id.toggle_zone);
         relativeLayout = root.findViewById(R.id.no_overlays_enabled);
@@ -331,20 +331,26 @@ public class ManagerFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.overlays_list_menu, menu);
         menu.findItem(R.id.search).setVisible(false);
+        updateMenuButtonState(menu);
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    public boolean updateMenuButtonState(Menu menu) {
+        MenuItem alphabetizeMenu = menu.findItem(R.id.alphabetize);
+        boolean alphabetize = prefs.getBoolean("alphabetize_overlays", true);
+        if (alphabetize) {
+            alphabetizeMenu.setIcon(R.drawable.actionbar_alphabetize);
+        } else {
+            alphabetizeMenu.setIcon(R.drawable.actionbar_randomize);
+        }
+        return alphabetize;
     }
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-        MenuItem alphabetizeMenu = menu.findItem(R.id.alphabetize);
-        boolean alphabetize = prefs.getBoolean("alphabetize_overlays", false);
-        if (alphabetize)
-            alphabetizeMenu.setIcon(R.drawable.actionbar_alphabetize);
-        else
-            alphabetizeMenu.setIcon(R.drawable.actionbar_randomize);
+        Boolean alphabetize = updateMenuButtonState(menu);
         if ((overlayList != null && overlayList.size() > 0)) {
-            if (!alphabetize)
-                refreshThemeName();
+            if (!alphabetize) refreshThemeName();
             refreshList();
         }
         super.onPrepareOptionsMenu(menu);
@@ -356,7 +362,7 @@ public class ManagerFragment extends Fragment {
             materialSheetFab.hideSheet();
         } else {
             if (item.getItemId() == R.id.alphabetize) {
-                boolean alphabetize = prefs.getBoolean("alphabetize_overlays", false);
+                boolean alphabetize = prefs.getBoolean("alphabetize_overlays", true);
                 if (alphabetize) {
                     prefs.edit().putBoolean("alphabetize_overlays", false).apply();
                 } else {
@@ -534,6 +540,13 @@ public class ManagerFragment extends Fragment {
                 fragment.mRecyclerView.setAdapter(fragment.mAdapter);
 
                 fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
+
+                boolean alphabetize = fragment.prefs.getBoolean("alphabetize_overlays", true);
+                if (alphabetize) {
+                    fragment.overlayList.sort(Comparator.comparing(ManagerItem::getLabelName));
+                } else {
+                    fragment.overlayList.sort(Comparator.comparing(ManagerItem::getThemeName));
+                }
 
                 if (fragment.overlaysList.size() == 0) {
                     fragment.floatingActionButton.hide();

@@ -225,22 +225,7 @@ public class ManagerAdapter extends
                     FROM_HTML_MODE_LEGACY));
         }
 
-        if (overlayList.get(position_fixed).getThemeName() == null) {
-            String metadata = References.getOverlayMetadata(
-                    context,
-                    packageName,
-                    References.metadataOverlayParent);
-            if (metadata != null && metadata.length() > 0 && newUpdate) {
-                String pName = "<b>" + context.getString(R.string.manager_theme_name) + "</b> " +
-                        References.grabPackageName(context, metadata);
-                viewHolder.tvDesc.setVisibility(View.VISIBLE);
-                overlayList.get(position_fixed).setThemeName(pName);
-                viewHolder.tvDesc.setText(Html.fromHtml(pName, FROM_HTML_MODE_LEGACY));
-            } else {
-                overlayList.get(position_fixed).setThemeName("");
-                viewHolder.tvDesc.setText(packageName);
-            }
-        } else if (overlayList.get(position_fixed).getThemeName().length() == 0) {
+        if (overlayList.get(position_fixed).getThemeName().length() == 0) {
             viewHolder.tvDesc.setText(packageName);
         } else {
             viewHolder.tvDesc.setText(

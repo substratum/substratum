@@ -23,6 +23,7 @@ import android.graphics.drawable.Drawable;
 
 import java.io.Serializable;
 
+import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
 import projekt.substratum.common.References;
 
@@ -47,6 +48,23 @@ public class ManagerItem implements Serializable {
         this.mContext = context;
         this.name = name;
         this.isSelected = false;
+
+        int version = References.getOverlaySubstratumVersion(
+                context,
+                this.name,
+                References.metadataOverlayVersion);
+        Boolean newUpdate = (version != 0) && BuildConfig.VERSION_CODE >= version;
+        String metadata = References.getOverlayMetadata(
+                context,
+                this.name,
+                References.metadataOverlayParent);
+        if (metadata != null && metadata.length() > 0 && newUpdate) {
+            this.themeName = "<b>" + context.getString(R.string.manager_theme_name) + "</b> " +
+                    References.grabPackageName(context, metadata);
+        } else {
+            this.themeName = "";
+        }
+
         this.updateEnabledOverlays(isActivated);
         setLabelName(name);
     }

@@ -352,15 +352,19 @@ public class ManagerFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.alphabetize) {
-            boolean alphabetize = prefs.getBoolean("alphabetize_overlays", false);
-            if (alphabetize) {
-                prefs.edit().putBoolean("alphabetize_overlays", false).apply();
-            } else {
-                prefs.edit().putBoolean("alphabetize_overlays", true).apply();
+        if (materialSheetFab.isSheetVisible()) {
+            materialSheetFab.hideSheet();
+        } else {
+            if (item.getItemId() == R.id.alphabetize) {
+                boolean alphabetize = prefs.getBoolean("alphabetize_overlays", false);
+                if (alphabetize) {
+                    prefs.edit().putBoolean("alphabetize_overlays", false).apply();
+                } else {
+                    prefs.edit().putBoolean("alphabetize_overlays", true).apply();
+                }
+                getActivity().invalidateOptionsMenu();
+                return true;
             }
-            getActivity().invalidateOptionsMenu();
-            return true;
         }
         return super.onOptionsItemSelected(item);
     }

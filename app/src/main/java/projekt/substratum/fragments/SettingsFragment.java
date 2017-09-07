@@ -221,6 +221,21 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             } catch (Exception e) {
                 // Suppress exception
             }
+            aboutSamsung.setOnPreferenceClickListener(preference -> {
+                try {
+                    Intent intent = new Intent(Intent.ACTION_MAIN);
+                    intent.setComponent(
+                            new ComponentName(SST_ADDON_PACKAGE,
+                                    "projekt.knox.theme.system.MainActivity"));
+                    startActivity(intent);
+                } catch (Exception e) {
+                    Lunchbar.make(getActivity().findViewById(android.R.id.content),
+                            getString(R.string.activity_missing_toast),
+                            Lunchbar.LENGTH_LONG)
+                            .show();
+                }
+                return false;
+            });
 
             boolean dangerous_samsung_overlays =
                     prefs.getBoolean("show_dangerous_samsung_overlays", false);

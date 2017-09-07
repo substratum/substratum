@@ -471,7 +471,7 @@
     <string name="no_themes_description">please install a compatible theme!</string>
     <string name="no_themes_description_search">\"%s\" was not found in the list of themes installed&#8230;</string>
 
-    <string name="toast_andromeda_timed_out">Substratum lost connection with the Andromeda Backend. Please launch the application on your computer again.</string>
+    <string name="toast_andromeda_timed_out">There is a delay with the Andromeda Backend, please relaunch Substratum.</string>
     <string name="toast_could_not_uninstall">No valid overlays selected.</string>
 
     <string name="toast_samsung_prototype_alert">Substratum automatically hid unsupported system overlays for your device!</string>

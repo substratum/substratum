@@ -20,6 +20,7 @@ package projekt.substratum.common.platform;
 
 import android.content.om.OM;
 import android.content.om.OverlayInfo;
+import android.os.Process;
 import android.os.RemoteException;
 import android.util.Log;
 
@@ -34,10 +35,7 @@ public class OverlayManagerService {
     /**
      * Api for obtaining information about overlay packages.
      */
-
-    // Until we have a better implementation of obtaining the current user ID from the device from
-    // an app, we will have to statically assign the current user as the only user
-    private static final int CURRENT_USER = 0;
+    private static final int CURRENT_USER = Process.myUid() / 100000;
 
     /**
      * Returns information about all installed overlay packages for the

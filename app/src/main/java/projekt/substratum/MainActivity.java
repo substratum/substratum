@@ -713,6 +713,7 @@ public class MainActivity extends SubstratumActivity implements
                                     Lunchbar.LENGTH_LONG)
                                     .show();
                         }
+                        break;
                     case 110:
                         try {
                             String sourceURL = getString(R.string.jira_link);

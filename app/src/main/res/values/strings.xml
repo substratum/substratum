@@ -453,8 +453,8 @@
 
     <string name="sb_phase_1_loader">extracting theme</string>
     <string name="sb_phase_2_loader">installing overlay</string>
-    <string name="root_rejected_title">Superuser permissions denied</string>
-    <string name="root_rejected_text_cm_phh">unable to continue without root&#8230;</string>
+    <string name="root_rejected_title">falling back to rooted mode</string>
+    <string name="root_rejected_text_cm_phh">there are no other theme engines able to be utilized on the device without root&#8230;</string>
     <string name="root_rejected_timer_plural">closing in %s seconds&#8230;</string>
     <string name="root_rejected_timer_singular">closing in %s second&#8230;</string>
 

@@ -18,11 +18,10 @@
 
 package projekt.substratum;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
-import android.app.ProgressDialog;
+import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -108,6 +107,7 @@ import projekt.substratum.util.files.Root;
 import projekt.substratum.util.helpers.ContextWrapper;
 import projekt.substratum.util.injectors.CheckBinaries;
 
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
 import static projekt.substratum.common.References.BYPASS_ALL_VERSION_CHECKS;
 import static projekt.substratum.common.References.ENABLE_ROOT_CHECK;
@@ -134,8 +134,8 @@ public class MainActivity extends SubstratumActivity implements
     public TextView actionbar_title, actionbar_content;
     public SearchView searchView;
     private Drawer drawer;
-    private int permissionCheck;
-    private ProgressDialog mProgressDialog;
+    private int permissionCheck = PackageManager.PERMISSION_DENIED;
+    private Dialog mProgressDialog;
     private SharedPreferences prefs;
     private boolean hideBundle, hideRestartUi;
     private LocalBroadcastManager localBroadcastManager;
@@ -285,6 +285,10 @@ public class MainActivity extends SubstratumActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getApplicationContext();
+        mProgressDialog = new Dialog(this,
+                android.R.style.Theme_DeviceDefault_NoActionBar_Fullscreen);
+        mProgressDialog.setCancelable(false);
+
         if (BuildConfig.DEBUG && !References.isSamsung(context)) {
             Log.d(SUBSTRATUM_LOG, "Substratum launched with debug mode signatures.");
             if (LeakCanary.isInAnalyzerProcess(this)) return;
@@ -751,111 +755,9 @@ public class MainActivity extends SubstratumActivity implements
         drawer = drawerBuilder.build();
         drawer.setSelection(selectedDrawer, true);
 
-        permissionCheck = ContextCompat.checkSelfPermission(
-                context,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        RootRequester rootRequester = new RootRequester(this);
+        rootRequester.execute();
 
-        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            new AlertDialog.Builder(this)
-                    .setCancelable(false)
-                    .setTitle(R.string.permission_explanation_title)
-                    .setMessage(R.string.permission_explanation_text)
-                    .setPositiveButton(R.string.accept, (dialog, i) -> {
-                        dialog.cancel();
-
-                        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-                            // permission already granted, allow the program to continue running
-                            File directory = new File(EXTERNAL_STORAGE_CACHE);
-                            if (!directory.exists()) {
-                                Boolean made = directory.mkdirs();
-                                if (!made) Log.e(References.SUBSTRATUM_LOG,
-                                        "Unable to create directory");
-                            }
-                            File cacheDirectory = new File(getCacheDir(),
-                                    SUBSTRATUM_BUILDER_CACHE);
-                            if (!cacheDirectory.exists()) {
-                                Boolean made = cacheDirectory.mkdirs();
-                                if (!made) Log.e(References.SUBSTRATUM_LOG,
-                                        "Unable to create cache directory");
-                            }
-                            References.injectRescueArchives(context);
-                        } else {
-                            ActivityCompat.requestPermissions(this,
-                                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                    PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
-                        }
-
-                        if (!References.checkROMVersion(context)) {
-                            prefs.edit().remove("oms_state").apply();
-                            prefs.edit().remove("oms_version").apply();
-                            References.setROMVersion(context, true);
-                            References.setAndCheckOMS(context);
-                            this.recreate();
-                        }
-
-                        if (!References.checkOMS(context) &&
-                                !prefs.contains("legacy_dismissal")) {
-                            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                            alert.setTitle(R.string.warning_title);
-                            if (References.isSamsung(context)) {
-                                alert.setMessage(R.string.samsung_warning_content);
-                            } else {
-                                alert.setMessage(R.string.legacy_warning_content);
-                            }
-                            alert.setPositiveButton(R.string.dialog_ok, (dialog2, i2) ->
-                                    dialog2.cancel());
-                            alert.setNeutralButton(R.string.dialog_do_not_show_again,
-                                    (dialog3, i3) -> {
-                                        prefs.edit().putBoolean(
-                                                "legacy_dismissal", true).apply();
-                                        dialog3.cancel();
-                                    });
-                            alert.show();
-                        }
-                    })
-                    .setNegativeButton(R.string.deny,
-                            (dialog, i) -> {
-                                dialog.cancel();
-                                this.finish();
-                            })
-                    .show();
-        } else {
-            if (!References.checkROMVersion(context)) {
-                References.setROMVersion(context, true);
-                prefs.edit().remove("oms_state").apply();
-                prefs.edit().remove("oms_version").apply();
-                References.setAndCheckOMS(context);
-                this.recreate();
-            }
-
-            if (!References.checkOMS(context) &&
-                    !prefs.contains("legacy_dismissal")) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                alert.setTitle(R.string.warning_title);
-                if (References.isSamsung(context)) {
-                    alert.setMessage(R.string.samsung_warning_content);
-                } else {
-                    alert.setMessage(R.string.legacy_warning_content);
-                }
-                alert.setPositiveButton(R.string.dialog_ok, (dialog2, i2) ->
-                        dialog2.cancel());
-                alert.setNeutralButton(R.string.dialog_do_not_show_again,
-                        (dialog3, i3) -> {
-                            prefs.edit().putBoolean(
-                                    "legacy_dismissal", true).apply();
-                            dialog3.cancel();
-                        });
-                alert.show();
-            }
-
-            References.startKeyRetrievalReceiver(context);
-            mProgressDialog = new ProgressDialog(this, R.style.SubstratumBuilder_BlurView);
-            new RootRequester(this).execute();
-            if (!prefs.contains("complexion")) {
-                prefs.edit().putBoolean("complexion", true).apply();
-                new References.Markdown(context, prefs);
-            }
-        }
         if (checkIfOverlaysOutdated()) {
             new AlertDialog.Builder(this)
                     .setTitle(R.string.overlays_outdated)
@@ -1174,16 +1076,14 @@ public class MainActivity extends SubstratumActivity implements
                                 SUBSTRATUM_BUILDER_CACHE + file.getName());
                     }
                     Log.d("SubstratumBuilder", "The cache has been flushed!");
-                    mProgressDialog = new ProgressDialog(this, R.style.SubstratumBuilder_BlurView);
                     References.injectRescueArchives(context);
-                    new RootRequester(this).execute();
                 } else {
                     // permission was not granted, show closing dialog
                     new AlertDialog.Builder(this)
                             .setTitle(R.string.permission_not_granted_dialog_title)
                             .setMessage(R.string.permission_not_granted_dialog_message1)
                             .setPositiveButton(R.string.dialog_ok, (dialog, which) -> {
-                                if (shouldShowRequestPermissionRationale(Manifest.permission.
+                                if (shouldShowRequestPermissionRationale(
                                         WRITE_EXTERNAL_STORAGE)) {
                                     MainActivity.this.finish();
                                 } else {
@@ -1230,10 +1130,123 @@ public class MainActivity extends SubstratumActivity implements
     }
 
     private static class RootRequester extends AsyncTask<Void, Void, Boolean> {
+        boolean isRunning = true;
         private WeakReference<MainActivity> ref;
 
         private RootRequester(MainActivity activity) {
             ref = new WeakReference<>(activity);
+        }
+
+        private void permissionCheck() {
+            MainActivity activity = ref.get();
+            if (activity != null) {
+                Context context = activity.context;
+                activity.permissionCheck = ContextCompat.checkSelfPermission(
+                        context,
+                        WRITE_EXTERNAL_STORAGE);
+
+                if (activity.permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                    new AlertDialog.Builder(activity)
+                            .setCancelable(false)
+                            .setTitle(R.string.permission_explanation_title)
+                            .setMessage(R.string.permission_explanation_text)
+                            .setPositiveButton(R.string.accept, (dialog, i) -> {
+                                dialog.cancel();
+
+                                if (activity.permissionCheck == PackageManager.PERMISSION_GRANTED) {
+                                    // permission already granted,
+                                    // allow the program to continue running
+                                    File directory = new File(EXTERNAL_STORAGE_CACHE);
+                                    if (!directory.exists()) {
+                                        Boolean made = directory.mkdirs();
+                                        if (!made) Log.e(References.SUBSTRATUM_LOG,
+                                                "Unable to create directory");
+                                    }
+                                    File cacheDirectory = new File(activity.getCacheDir(),
+                                            SUBSTRATUM_BUILDER_CACHE);
+                                    if (!cacheDirectory.exists()) {
+                                        Boolean made = cacheDirectory.mkdirs();
+                                        if (!made) Log.e(References.SUBSTRATUM_LOG,
+                                                "Unable to create cache directory");
+                                    }
+                                    References.injectRescueArchives(context);
+                                } else {
+                                    ActivityCompat.requestPermissions(activity,
+                                            new String[]{
+                                                    WRITE_EXTERNAL_STORAGE},
+                                            PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+                                }
+
+                                if (!References.checkROMVersion(context)) {
+                                    activity.prefs.edit().remove("oms_state").apply();
+                                    activity.prefs.edit().remove("oms_version").apply();
+                                    References.setROMVersion(context, true);
+                                    References.setAndCheckOMS(context);
+                                    activity.recreate();
+                                }
+
+                                if (!References.checkOMS(context) &&
+                                        !activity.prefs.contains("legacy_dismissal")) {
+                                    AlertDialog.Builder alert = new AlertDialog.Builder(activity);
+                                    alert.setTitle(R.string.warning_title);
+                                    if (References.isSamsung(context)) {
+                                        alert.setMessage(R.string.samsung_warning_content);
+                                    } else {
+                                        alert.setMessage(R.string.legacy_warning_content);
+                                    }
+                                    alert.setPositiveButton(R.string.dialog_ok,
+                                            (dialog2, i2) -> dialog2.cancel());
+                                    alert.setNeutralButton(R.string.dialog_do_not_show_again,
+                                            (dialog3, i3) -> {
+                                                activity.prefs.edit().putBoolean(
+                                                        "legacy_dismissal", true).apply();
+                                                dialog3.cancel();
+                                            });
+                                    alert.show();
+                                }
+                            })
+                            .setNegativeButton(R.string.deny,
+                                    (dialog, i) -> {
+                                        dialog.cancel();
+                                        activity.finish();
+                                    })
+                            .show();
+                } else {
+                    if (!References.checkROMVersion(context)) {
+                        References.setROMVersion(context, true);
+                        activity.prefs.edit().remove("oms_state").apply();
+                        activity.prefs.edit().remove("oms_version").apply();
+                        References.setAndCheckOMS(context);
+                        activity.recreate();
+                    }
+
+                    if (!References.checkOMS(context) &&
+                            !activity.prefs.contains("legacy_dismissal")) {
+                        AlertDialog.Builder alert = new AlertDialog.Builder(activity);
+                        alert.setTitle(R.string.warning_title);
+                        if (References.isSamsung(context)) {
+                            alert.setMessage(R.string.samsung_warning_content);
+                        } else {
+                            alert.setMessage(R.string.legacy_warning_content);
+                        }
+                        alert.setPositiveButton(R.string.dialog_ok, (dialog2, i2) ->
+                                dialog2.cancel());
+                        alert.setNeutralButton(R.string.dialog_do_not_show_again,
+                                (dialog3, i3) -> {
+                                    activity.prefs.edit().putBoolean(
+                                            "legacy_dismissal", true).apply();
+                                    dialog3.cancel();
+                                });
+                        alert.show();
+                    }
+
+                    References.startKeyRetrievalReceiver(context);
+                    if (!activity.prefs.contains("complexion")) {
+                        activity.prefs.edit().putBoolean("complexion", true).apply();
+                        new References.Markdown(context, activity.prefs);
+                    }
+                }
+            }
         }
 
         @Override
@@ -1242,7 +1255,6 @@ public class MainActivity extends SubstratumActivity implements
             MainActivity activity = ref.get();
             if (activity != null) {
                 Context context = activity.context;
-
                 boolean samsungCheck = References.isSamsungDevice(context);
                 samsungCheck &= !References.isPackageInstalled(context, SST_ADDON_PACKAGE);
                 boolean oreoCheck = References.checkOreo();
@@ -1256,8 +1268,19 @@ public class MainActivity extends SubstratumActivity implements
                 omsCheck &= !grantedRoot;
                 omsCheck &= References.checkOreo() == oreoCheck;
                 boolean switchCheck = ENABLE_ROOT_CHECK && !BYPASS_ALL_VERSION_CHECKS;
-                if (switchCheck && (samsungCheck || oreoCheck || legacyCheck || omsCheck)) {
-                    activity.mProgressDialog.setCancelable(false);
+                boolean passthrough = switchCheck &&
+                        (samsungCheck || oreoCheck || legacyCheck || omsCheck);
+                showDialogOrNot(passthrough);
+                if (!passthrough) permissionCheck();
+            }
+        }
+
+        private void showDialogOrNot(Boolean passthrough) {
+            MainActivity activity = ref.get();
+            isRunning = false;
+            if (activity != null) {
+                Context context = activity.context;
+                if (passthrough) {
                     activity.mProgressDialog.show();
                     activity.mProgressDialog.setContentView(R.layout.root_rejected_loader);
 

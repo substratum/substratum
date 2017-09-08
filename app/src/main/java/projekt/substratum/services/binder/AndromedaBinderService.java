@@ -46,6 +46,7 @@ public class AndromedaBinderService extends Service implements ServiceConnection
     private static final String TAG = "AndromedaBinderService";
     private static AndromedaBinderService andromedaBinderService;
     private static int notificationId = 2017;
+    private static int badNotificationId = 2018;
     private IAndromedaInterface iAndromedaInterface;
     private boolean mBound;
 
@@ -168,7 +169,7 @@ public class AndromedaBinderService extends Service implements ServiceConnection
         if (mNotifyMgr != null) {
             notifications = mNotifyMgr.getActiveNotifications();
             for (StatusBarNotification notification : notifications) {
-                if (notification.getId() == notificationId) {
+                if (notification.getId() == badNotificationId) {
                     isBadNotificationShowing = true;
                 }
             }
@@ -182,7 +183,7 @@ public class AndromedaBinderService extends Service implements ServiceConnection
                             R.string.andromeda_notification_text_negation));
             mBuilder.setOngoing(false);
             mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
-            mNotifyMgr.notify(notificationId, mBuilder.build());
+            mNotifyMgr.notify(badNotificationId, mBuilder.build());
         }
         this.stopForeground(STOP_FOREGROUND_REMOVE);
         System.exit(0);

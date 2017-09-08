@@ -777,6 +777,7 @@ public class MainActivity extends SubstratumActivity implements
         long lastCleanupDate = prefs.getLong("previous_logchar_cleanup", 0);
         long diff = currentDate.getTime() - lastCleanupDate;
         if (TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) >= 15) {
+            prefs.edit().putLong("previous_logchar_cleanup", currentDate.getTime()).apply();
             new ClearLogs(this).execute();
             Log.d(SUBSTRATUM_LOG, "LogChar reports were wiped from the storage");
         }

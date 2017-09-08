@@ -1490,9 +1490,11 @@ public class MainActivity extends SubstratumActivity implements
             MainActivity activity = ref.get();
             if (activity != null) {
                 Context context = activity.context;
-                Toast.makeText(context, context.getString(R.string.cleaned_logchar_reports), Toast
-                        .LENGTH_SHORT).show();
+                Toast.makeText(context, context.getString(R.string.cleaned_logchar_reports),
+                        Toast.LENGTH_SHORT).show();
+                Intent intent = activity.getIntent();
                 activity.finishAffinity();
+                context.startActivity(intent);
             }
         }
 

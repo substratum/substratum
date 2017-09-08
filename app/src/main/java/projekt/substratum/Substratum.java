@@ -25,8 +25,6 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioAttributes;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
@@ -62,9 +60,7 @@ public class Substratum extends Application {
         } catch (IllegalStateException ise) {
             // Suppress warning
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startAndromedaBinderService();
-        }
+        startAndromedaBinderService(false);
         startBinderService();
         References.registerBroadcastReceivers(this);
         createNotificationChannel();
@@ -114,17 +110,20 @@ public class Substratum extends Application {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void startAndromedaBinderService() {
+    public void startAndromedaBinderService(boolean force) {
         if (isAndromedaDevice(getApplicationContext())) {
+            Intent intent = new Intent(getApplicationContext(), AndromedaBinderService.class);
+            if (force) {
+                Log.d(ANDROMEDA_BINDER_TAG, "Force stopping Andromeda Binder Service...");
+                stopService(intent);
+            }
             if (checkServiceActivation(AndromedaBinderService.class)) {
                 Log.d(ANDROMEDA_BINDER_TAG,
                         "This session will utilize the pre-connected Andromeda Binder service!");
             } else {
                 Log.d(ANDROMEDA_BINDER_TAG,
                         "Substratum is now connecting to the Andromeda Binder service...");
-                ContextCompat.startForegroundService(getApplicationContext(),
-                        new Intent(getApplicationContext(), AndromedaBinderService.class));
+                ContextCompat.startForegroundService(getApplicationContext(), intent);
             }
         }
     }

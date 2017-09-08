@@ -153,6 +153,8 @@ public class AndromedaBinderService extends Service implements ServiceConnection
     public void onServiceDisconnected(ComponentName name) {
         iAndromedaInterface = null;
         mBound = false;
+        stopForeground(STOP_FOREGROUND_REMOVE);
+        stopSelf();
         Log.d(TAG, "Substratum has successfully unbinded with the Andromeda module.");
     }
 

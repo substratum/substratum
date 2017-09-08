@@ -18,24 +18,23 @@
 
 package projekt.substratum.common.platform;
 
-import android.os.RemoteException;
-
 import java.util.List;
 
 import projekt.andromeda.IAndromedaInterface;
+import projekt.substratum.Substratum;
 import projekt.substratum.services.binder.AndromedaBinderService;
 
 public class AndromedaService {
 
-    static IAndromedaInterface getAndromedaInterface() {
+    private static IAndromedaInterface getAndromedaInterface() {
         return AndromedaBinderService.getInstance().getAndromedaInterface();
     }
 
     public static boolean checkServerActivity() {
         try {
             return getAndromedaInterface().checkServerActivity();
-        } catch (RemoteException e) {
-            // Suppress warning
+        } catch (Exception e) {
+            Substratum.getInstance().startAndromedaBinderService(true);
         }
         return false;
     }
@@ -43,8 +42,8 @@ public class AndromedaService {
     static boolean enableOverlays(List<String> overlays) {
         try {
             return getAndromedaInterface().enableOverlay(overlays);
-        } catch (RemoteException e) {
-            // Suppress warning
+        } catch (Exception e) {
+            Substratum.getInstance().startAndromedaBinderService(true);
         }
         return false;
     }
@@ -52,8 +51,8 @@ public class AndromedaService {
     static boolean disableOverlays(List<String> overlays) {
         try {
             return getAndromedaInterface().disableOverlay(overlays);
-        } catch (RemoteException e) {
-            // Suppress warning
+        } catch (Exception e) {
+            Substratum.getInstance().startAndromedaBinderService(true);
         }
         return false;
     }
@@ -61,8 +60,8 @@ public class AndromedaService {
     public static boolean listOverlays() {
         try {
             return getAndromedaInterface().listOverlays();
-        } catch (RemoteException e) {
-            // Suppress warning
+        } catch (Exception e) {
+            Substratum.getInstance().startAndromedaBinderService(true);
         }
         return false;
     }
@@ -70,8 +69,8 @@ public class AndromedaService {
     static boolean installOverlays(List<String> overlays) {
         try {
             return getAndromedaInterface().installPackage(overlays);
-        } catch (RemoteException e) {
-            // Suppress warning
+        } catch (Exception e) {
+            Substratum.getInstance().startAndromedaBinderService(true);
         }
         return false;
     }
@@ -79,8 +78,8 @@ public class AndromedaService {
     static boolean uninstallOverlays(List<String> overlays) {
         try {
             return getAndromedaInterface().uninstallPackage(overlays);
-        } catch (RemoteException e) {
-            // Suppress warning
+        } catch (Exception e) {
+            Substratum.getInstance().startAndromedaBinderService(true);
         }
         return false;
     }
@@ -88,8 +87,8 @@ public class AndromedaService {
     static boolean setPriority(List<String> overlays) {
         try {
             return getAndromedaInterface().changePriority(overlays);
-        } catch (RemoteException e) {
-            // Suppress warning
+        } catch (Exception e) {
+            Substratum.getInstance().startAndromedaBinderService(true);
         }
         return false;
     }

@@ -24,10 +24,13 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.service.notification.StatusBarNotification;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 
 import projekt.andromeda.IAndromedaInterface;
@@ -120,6 +123,16 @@ public class AndromedaBinderService extends Service implements ServiceConnection
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.d(TAG, "Substratum has disconnected from Andromeda!");
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        boolean shouldRestart = sharedPreferences.getBoolean("should_restart_service", true);
+        if (shouldRestart) {
+            sharedPreferences.edit().remove("should_restart_service").apply();
+            Log.d(TAG, "Restarting the service according to the stored preference...");
+            ContextCompat.startForegroundService(getApplicationContext(),
+                    new Intent(getApplicationContext(), AndromedaBinderService.class));
+        }
         unbindAndromeda();
     }
 

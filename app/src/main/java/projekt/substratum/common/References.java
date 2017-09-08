@@ -111,6 +111,7 @@ import projekt.substratum.common.analytics.PackageAnalytics;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.platform.ThemeInterfacerService;
 import projekt.substratum.common.tabs.SoundManager;
+import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.services.crash.AppCrashReceiver;
 import projekt.substratum.services.packages.OverlayFound;
 import projekt.substratum.services.packages.OverlayUpdater;
@@ -358,6 +359,19 @@ public class References {
             // Suppress warning
         }
         return supported_rom;
+    }
+
+    public static boolean notifyAndromedaDisconnected(Context context) {
+        try {
+            context.stopService(new Intent(context, AndromedaBinderService.class));
+            SharedPreferences sharedPreferences =
+                    PreferenceManager.getDefaultSharedPreferences(context);
+            sharedPreferences.edit().putBoolean("should_restart_service", true).apply();
+            return true;
+        } catch (Exception e) {
+            // Suppress warning
+        }
+        return false;
     }
 
     public static void registerBroadcastReceivers(Context context) {

@@ -42,6 +42,7 @@ import projekt.substratum.R;
 import projekt.substratum.common.References;
 import projekt.substratum.common.platform.ThemeManager;
 
+import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
 import static projekt.substratum.common.References.PACKAGE_ADDED;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 
@@ -62,7 +63,7 @@ public class OverlayFound extends BroadcastReceiver {
                 return;
             }
 
-            if (package_name.equals(SST_ADDON_PACKAGE)) {
+            if (package_name.equals(SST_ADDON_PACKAGE) || package_name.equals(ANDROMEDA_PACKAGE)) {
                 SharedPreferences prefs =
                         context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
                 prefs.edit().clear().apply();

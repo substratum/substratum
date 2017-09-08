@@ -267,7 +267,6 @@
     <string name="toast_backup_success">Dabartinis perdangų sąrašas išsaugotas \"/storage/emulated/0/substratum/profiles/%s\"</string>
     <string name="spinner_default_item">pasirinkite profilį&#8230;</string>
     <string name="select_to_toggle_all_overlays">Pasirinkite, kad įjungti visas perdangas</string>
-    <string name="fab_menu_select_to_toggle_all_overlays">Pasirinkite visas perdangas</string>
     <string name="permission_not_granted_dialog_title">Leidimai nesuteikti</string>
     <string name="permission_not_granted_dialog_message1">Prašome suteikti \"substratum\" saugyklos leidimą arba programėlė neveiks tinkamai!</string>
     <string name="dialog_ok">Gerai</string>
@@ -318,7 +317,6 @@
     <string name="notification_some_errors_found">Įdiegiant perdangas įvyko klaida</string>
     <string name="notification_processing">Apdorojamos perdangos</string>
     <string name="notification_processing_n">Paruošiamos temos perdangos&#8230;</string>
-    <string name="advanced_manager_overlay_read_error">Nepavyksta išanalizuoti perdangų sąrašo. Prašome atidaryti Atkūrimą ir paspauskite ant Atkurti Sistemos Temą (Išdiekite visas įdiegtas perdangas) problemos išsprendimui.    </string>
     <string name="shortcut_floatui">Plaukiojanti NS</string>
     <string name="shortcut_rescue">Išgelbėti mane!</string>
     <string name="shortcut_rescue_disabled">Išgelbėti mane!</string>
@@ -326,7 +324,6 @@
     <string name="shortcut_store_disabled">Temų Vitrina</string>
     <string name="settings_title">Apie</string>
     <string name="settings_title_1">Vartotojo Nustatymai</string>
-    <string name="settings_title_2">Perdangų Sąrašas</string>
     <string name="settings_title_3">Apipavidalinimas</string>
     <string name="settings_title_clickable">Sistemos Nustatymai</string>
     <string name="substratum_cache_clear_initial_toast">\"Substratum\" talpykla dabar išvaloma&#8230;</string>

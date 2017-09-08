@@ -240,7 +240,6 @@
     <string name="toast_backup_success">Huidige overlay lijst opgeslagen naar \"/storage/emulated/0/substratum/profiles/%s\"</string>
     <string name="spinner_default_item">kies een profiel&#8230;</string>
     <string name="select_to_toggle_all_overlays">Kies om alle overlays te schakelen</string>
-    <string name="fab_menu_select_to_toggle_all_overlays">Selecteer alle overlays</string>
     <string name="permission_not_granted_dialog_title">Machtigingen niet verleend</string>
     <string name="permission_not_granted_dialog_message1">Gelieve Substratum opslagmachtigingen te verlenen, of de app zal onjuist functioneren!</string>
     <string name="dialog_ok">OK</string>
@@ -291,7 +290,6 @@
     <string name="notification_some_errors_found">Er is een fout opgetreden tijdens de overlay installatie</string>
     <string name="notification_processing">Overlays verwerken voor</string>
     <string name="notification_processing_n">Thema overlay voorbereiden&#8230;</string>
-    <string name="advanced_manager_overlay_read_error">Kan lijst van overlays niet ontleden. Gelieve Recovery te openen en kies Herstel Systeem Thema (Deïnstalleer alle geïnstalleerde overlays) om dit probleem te verhelpen.</string>
     <string name="shortcut_floatui">Zweef-UI</string>
     <string name="shortcut_rescue">Help mij!</string>
     <string name="shortcut_rescue_disabled">Help mij!</string>
@@ -299,7 +297,6 @@
     <string name="shortcut_store_disabled">Uitgelichte thema\'s</string>
     <string name="settings_title">Over</string>
     <string name="settings_title_1">Gebruikersvoorkeuren</string>
-    <string name="settings_title_2">Overlay lijst</string>
     <string name="settings_title_3">Thematisering</string>
     <string name="settings_title_clickable">Systeemvoorkeuren</string>
     <string name="substratum_cache_clear_initial_toast">Substratum\'s cache wordt nu gewist&#8230;</string>

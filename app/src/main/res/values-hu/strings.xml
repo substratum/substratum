@@ -339,7 +339,6 @@
     </string>
     <string name="spinner_default_item">válasszon ki egy profilt&#8230;</string>
     <string name="select_to_toggle_all_overlays">Válassza ki az összes fedvény váltásához</string>
-    <string name="fab_menu_select_to_toggle_all_overlays">Összes fedvény kijelölése</string>
     <string name="permission_not_granted_dialog_title">Endedélyek nincsenek megadva</string>
     <string name="permission_not_granted_dialog_message1">Kérjük adja meg a substratumnak a tárhely
         engedélyt,
@@ -394,10 +393,6 @@
     <string name="notification_some_errors_found">Hiba történt a fedvények telepítése közben</string>
     <string name="notification_processing">Fedvény feldolgozása:</string>
     <string name="notification_processing_n">Téma fedvény előkészítése&#8230;</string>
-    <string name="advanced_manager_overlay_read_error">Fedvények listájának feldolgozása sikertelen. Kérjük, nyissa meg a
-        Recoveryt és érintse meg a Rendszertéma visszaállítása lehetőséget (Ez eltávolít minden
-        telepített fedvényt) a probléma megoldásához.
-    </string>
     <string name="shortcut_floatui">FloatUI</string>
     <string name="shortcut_rescue">Ments meg!</string>
     <string name="shortcut_rescue_disabled">Ments meg!</string>
@@ -405,7 +400,6 @@
     <string name="shortcut_store_disabled">Téma-bemutató</string>
     <string name="settings_title">Névjegy</string>
     <string name="settings_title_1">Felhasználói beállítások</string>
-    <string name="settings_title_2">Fedvénylista</string>
     <string name="settings_title_3">Témázás</string>
     <string name="settings_title_clickable">Rendszerbeállítások</string>
     <string name="substratum_cache_clear_initial_toast">Substratum gyorsítótárának törlése folyamatban&#8230;</string>

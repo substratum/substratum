@@ -391,10 +391,14 @@ public class MainActivity extends SubstratumActivity implements
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_youtube)
                                 .withSelectable(false)
                                 .withIdentifier(104),
+                        new SecondaryDrawerItem().withName(R.string.nav_drawer_tcf)
+                                .withLevel(2).withIcon(R.drawable.nav_drawer_tcf)
+                                .withSelectable(false)
+                                .withIdentifier(105),
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_xda_portal)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_xda_portal)
                                 .withSelectable(false)
-                                .withIdentifier(105));
+                                .withIdentifier(106));
 
         // Split the resources out for easy adapting
         ExpandableDrawerItem resources = new ExpandableDrawerItem()
@@ -404,23 +408,23 @@ public class MainActivity extends SubstratumActivity implements
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_homepage)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_homepage)
                                 .withSelectable(false)
-                                .withIdentifier(106),
+                                .withIdentifier(107),
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_template)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_template)
                                 .withSelectable(false)
-                                .withIdentifier(107),
+                                .withIdentifier(108),
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_gerrit)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_gerrit)
                                 .withSelectable(false)
-                                .withIdentifier(108),
+                                .withIdentifier(109),
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_github)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_github)
                                 .withSelectable(false)
-                                .withIdentifier(109),
+                                .withIdentifier(110),
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_jira)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_jira)
                                 .withSelectable(false)
-                                .withIdentifier(110));
+                                .withIdentifier(111));
 
         // Begin initializing the navigation drawer
         Boolean checkSamsungStatus = isSamsung(context);
@@ -651,7 +655,7 @@ public class MainActivity extends SubstratumActivity implements
                         break;
                     case 105:
                         try {
-                            String sourceURL = getString(R.string.xda_portal_link);
+                            String sourceURL = getString(R.string.tcf_link);
                             Intent i = new Intent(Intent.ACTION_VIEW);
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
@@ -664,7 +668,7 @@ public class MainActivity extends SubstratumActivity implements
                         break;
                     case 106:
                         try {
-                            String sourceURL = getString(R.string.homepage_link);
+                            String sourceURL = getString(R.string.xda_portal_link);
                             Intent i = new Intent(Intent.ACTION_VIEW);
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
@@ -677,7 +681,7 @@ public class MainActivity extends SubstratumActivity implements
                         break;
                     case 107:
                         try {
-                            String sourceURL = getString(R.string.template_link);
+                            String sourceURL = getString(R.string.homepage_link);
                             Intent i = new Intent(Intent.ACTION_VIEW);
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
@@ -690,7 +694,7 @@ public class MainActivity extends SubstratumActivity implements
                         break;
                     case 108:
                         try {
-                            String sourceURL = getString(R.string.gerrit_link);
+                            String sourceURL = getString(R.string.template_link);
                             Intent i = new Intent(Intent.ACTION_VIEW);
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
@@ -703,7 +707,7 @@ public class MainActivity extends SubstratumActivity implements
                         break;
                     case 109:
                         try {
-                            String sourceURL = getString(R.string.github_link);
+                            String sourceURL = getString(R.string.gerrit_link);
                             Intent i = new Intent(Intent.ACTION_VIEW);
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
@@ -715,6 +719,19 @@ public class MainActivity extends SubstratumActivity implements
                         }
                         break;
                     case 110:
+                        try {
+                            String sourceURL = getString(R.string.github_link);
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(sourceURL));
+                            startActivity(i);
+                        } catch (Exception e) {
+                            Lunchbar.make(findViewById(android.R.id.content),
+                                    getString(R.string.activity_missing_toast),
+                                    Lunchbar.LENGTH_LONG)
+                                    .show();
+                        }
+                        break;
+                    case 111:
                         try {
                             String sourceURL = getString(R.string.jira_link);
                             Intent i = new Intent(Intent.ACTION_VIEW);

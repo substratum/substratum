@@ -257,7 +257,6 @@
     </string>
     <string name="spinner_default_item">выберите профиль&#8230;</string>
     <string name="select_to_toggle_all_overlays">Переключить все наслоения</string>
-    <string name="fab_menu_select_to_toggle_all_overlays">Выбрать все наслоения</string>
     <string name="permission_not_granted_dialog_title">Разрешения не предоставлены</string>
     <string name="permission_not_granted_dialog_message1">Пожалуйста, предоставьте substratum доступ к хранилищу или приложение не сможет работать правильно!     </string>
     <string name="dialog_ok">ОК</string>
@@ -308,7 +307,6 @@
     <string name="notification_some_errors_found">В процессе установки слоя произошла ошибка</string>
     <string name="notification_processing">Применение наслоений</string>
     <string name="notification_processing_n">Подготовка наслоения темы&#8230;</string>
-    <string name="advanced_manager_overlay_read_error">Не удалось разобрать список наслоений. Откройте Восстановление и выберите Восстановить оформление (удаление всех установленных наслоений) для решения этой проблемы.    </string>
     <string name="shortcut_floatui">FloatUI</string>
     <string name="shortcut_rescue">На помощь!</string>
     <string name="shortcut_rescue_disabled">На помощь!</string>
@@ -316,7 +314,6 @@
     <string name="shortcut_store_disabled">Каталог тем</string>
     <string name="settings_title">О системе</string>
     <string name="settings_title_1">Пользовательские предпочтения</string>
-    <string name="settings_title_2">Список наслоений</string>
     <string name="settings_title_3">Оформление</string>
     <string name="settings_title_clickable">Системные настройки</string>
     <string name="substratum_cache_clear_initial_toast">Очистка кэша Substratum&#8230;</string>

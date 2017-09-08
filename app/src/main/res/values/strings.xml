@@ -434,7 +434,6 @@
     <string name="spinner_default_item">select a profile&#8230;</string>
 
     <string name="select_to_toggle_all_overlays">Select to toggle all overlays</string>
-    <string name="fab_menu_select_to_toggle_all_overlays">Select all overlays</string>
 
     <string name="permission_not_granted_dialog_title">Permissions not granted</string>
     <string name="permission_not_granted_dialog_message1">Please grant substratum storage
@@ -503,11 +502,6 @@
     <string name="notification_processing">Processing overlay for</string>
     <string name="notification_processing_n">Preparing theme overlay&#8230;</string>
 
-    <string name="advanced_manager_overlay_read_error">Unable to parse list of overlays. Please open
-        Recovery and click on Restore System Theme (Uninstall all installed overlays) to
-        resolve this issue.
-    </string>
-
     <string name="shortcut_floatui">FloatUI</string>
     <string name="shortcut_rescue">Rescue Me!</string>
     <string name="shortcut_rescue_disabled">Rescue Me!</string>
@@ -516,7 +510,6 @@
 
     <string name="settings_title">About</string>
     <string name="settings_title_1">User Preferences</string>
-    <string name="settings_title_2">Overlay List</string>
     <string name="settings_title_3">Theming</string>
     <string name="settings_title_clickable">System Preferences</string>
     <string name="substratum_cache_clear_initial_toast">Substratum\'s cache is now being wiped&#8230;</string>
@@ -805,6 +798,7 @@
     <string name="nav_drawer_featured">Featured content</string>
     <string name="nav_drawer_xda_portal">XDA portal</string>
     <string name="xda_portal_link" translatable="false">https://www.xda-developers.com/search/substratum</string>
+    <string name="tcf_link" translatable="false">https://thecyberfibre.com/</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Resources</string>
     <string name="nav_drawer_homepage">Official homepage</string>

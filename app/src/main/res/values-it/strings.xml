@@ -244,7 +244,6 @@
     <string name="toast_backup_success">La lista della sovrapposizione corrente è stata salvata qui \"/storage/emulated/0/substratum/profiles/%s\"</string>
     <string name="spinner_default_item">selezionare un profilo&#8230;</string>
     <string name="select_to_toggle_all_overlays">Seleziona tutti gli overlay</string>
-    <string name="fab_menu_select_to_toggle_all_overlays">Seleziona tutti gli overlay</string>
     <string name="permission_not_granted_dialog_title">Permessi non concessi</string>
     <string name="permission_not_granted_dialog_message1">Per favore dai i permessi d\'archiviazione a substratum o l\'applicazione non funzionerà adeguatamente!</string>
     <string name="dialog_ok">OK</string>
@@ -295,8 +294,6 @@
     <string name="notification_some_errors_found">Si è verificato un errore durante l\'installazione dell\'overlay</string>
     <string name="notification_processing">Processando overlay per</string>
     <string name="notification_processing_n">Preparando l\'overlay del tema&#8230;</string>
-    <string name="advanced_manager_overlay_read_error">Impossibile ottenere la lista degli overlay. Per favore apri il Defaults Manager a premi su \"Ripristina il tema di sistema\" (disinstalla tutti gli overlay installati) per risolvere il problema.
-    </string>
     <string name="shortcut_floatui">FloatUI</string>
     <string name="shortcut_rescue">Salvami!</string>
     <string name="shortcut_rescue_disabled">Salvami!</string>
@@ -304,7 +301,6 @@
     <string name="shortcut_store_disabled">Vetrina del tema</string>
     <string name="settings_title">Informazioni</string>
     <string name="settings_title_1">Preferenze utente</string>
-    <string name="settings_title_2">Elenco overlay</string>
     <string name="settings_title_3">Applicando il tema</string>
     <string name="settings_title_clickable">Preferenze di sistema</string>
     <string name="substratum_cache_clear_initial_toast">Le cache di Substratum stanno per essere pulite&#8230;</string>

@@ -246,7 +246,6 @@
     <string name="toast_backup_success">当前叠加层列表已保存到 /storage/emulated/0/substratum/profiles/%s</string>
     <string name="spinner_default_item">选择一个配置&#8230;</string>
     <string name="select_to_toggle_all_overlays">全选</string>
-    <string name="fab_menu_select_to_toggle_all_overlays">选择所有叠加层</string>
     <string name="permission_not_granted_dialog_title">未授予权限</string>
     <string name="permission_not_granted_dialog_message1">请授予 Substratum 存储权限，否则应用将无法正常运行！</string>
     <string name="dialog_ok">确认</string>
@@ -297,7 +296,6 @@
     <string name="notification_some_errors_found">在叠加层安装期间发生错误</string>
     <string name="notification_processing">正在处理叠加层来</string>
     <string name="notification_processing_n">正在准备主题叠加层</string>
-    <string name="advanced_manager_overlay_read_error">无法解析叠加层列表。请打开还原选项，点击还原系统主题（卸载所有已安装的叠加层）来解决此问题。</string>
     <string name="shortcut_floatui">悬浮控件</string>
     <string name="shortcut_rescue">禁用所有叠加层</string>
     <string name="shortcut_rescue_disabled">禁用所有叠加层</string>
@@ -305,7 +303,6 @@
     <string name="shortcut_store_disabled">主题展示</string>
     <string name="settings_title">关于</string>
     <string name="settings_title_1">用户首选项</string>
-    <string name="settings_title_2">叠加层列表</string>
     <string name="settings_title_3">主题</string>
     <string name="settings_title_clickable">系统首选项</string>
     <string name="substratum_cache_clear_initial_toast">正在清除 Substratum 缓存</string>

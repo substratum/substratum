@@ -265,7 +265,6 @@ correctamente&#8230;</string>
     <string name="toast_backup_success">Lista de capas actual guardado en \"/storage/emulated/0/substratum/profiles/%s\"    </string>
     <string name="spinner_default_item">Seleccione un perfil&#8230;</string>
     <string name="select_to_toggle_all_overlays">Toque para seleccionar todas las capas</string>
-    <string name="fab_menu_select_to_toggle_all_overlays">Seleccionar todas las capas</string>
     <string name="permission_not_granted_dialog_title">Permisos no concedidos</string>
     <string name="permission_not_granted_dialog_message1">Por favor, conceder los permisos de almacenamiento a Substratum
 o la aplicación no funcionará correctamente!    </string>
@@ -317,9 +316,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="notification_some_errors_found">Ha ocurrido un error durante la instalación de las capas</string>
     <string name="notification_processing">Procesando capa</string>
     <string name="notification_processing_n">Preparando las capas del tema&#8230;</string>
-    <string name="advanced_manager_overlay_read_error">No se puede analizar la lista de capas. Por favor abre Gestor de Restauración
-        y haga clic en Restaurar Tema del Sistema (Desinstalar todas las capas instaladas) para
-        resolver este problema.    </string>
     <string name="shortcut_floatui">FloatUI</string>
     <string name="shortcut_rescue">¡Rescátenme!</string>
     <string name="shortcut_rescue_disabled">¡Rescátenme!</string>
@@ -327,7 +323,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="shortcut_store_disabled">Mostrador de Temas</string>
     <string name="settings_title">Acerca de</string>
     <string name="settings_title_1">Preferencias de usuario</string>
-    <string name="settings_title_2">Lista de capas</string>
     <string name="settings_title_3">Tematizar</string>
     <string name="settings_title_clickable">Preferencias de usuario</string>
     <string name="substratum_cache_clear_initial_toast">La caché de Substratum se está borrando&#8230;</string>

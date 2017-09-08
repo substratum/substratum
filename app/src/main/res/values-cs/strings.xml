@@ -269,7 +269,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     </string>
     <string name="spinner_default_item">vyberte profil&#8230;</string>
     <string name="select_to_toggle_all_overlays">Vybete pro přepnutí všech potahů</string>
-    <string name="fab_menu_select_to_toggle_all_overlays">Vyberte všechny potahy</string>
     <string name="permission_not_granted_dialog_title">Oprávnění nejsou udělena</string>
     <string name="permission_not_granted_dialog_message1">Prosím, povolte Substratum oprávnění pro přístup k paměti, jinak nebude aplikace správně fungovat!    </string>
     <string name="dialog_ok">OK</string>
@@ -323,7 +322,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="notification_some_errors_found">Nastala chyba při instalaci potahu</string>
     <string name="notification_processing">Zpracovávání potahu pro</string>
     <string name="notification_processing_n">Připravování potahů motivu&#8230;</string>
-    <string name="advanced_manager_overlay_read_error">Nepodařilo se analyzovat seznam potahů. Na opravu otevřete složku Obnovení a klepněte na Obnovit systémový motiv (Odinstaluje všechny nainstalované potahy).    </string>
     <string name="shortcut_floatui">FloatUI</string>
     <string name="shortcut_rescue">Zachraňte mě!</string>
     <string name="shortcut_rescue_disabled">Zachraňte mě!</string>
@@ -331,7 +329,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="shortcut_store_disabled">Ukázka motivů</string>
     <string name="settings_title">O aplikaci</string>
     <string name="settings_title_1">Uživatelské předvolby</string>
-    <string name="settings_title_2">Seznam potahů</string>
     <string name="settings_title_3">Úpravy motivů</string>
     <string name="settings_title_clickable">Systémové předvolby</string>
     <string name="substratum_cache_clear_initial_toast">Mezipaměť Substratum se nyní čistí&#8230;</string>

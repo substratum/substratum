@@ -253,7 +253,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="toast_backup_success">Aktuálny zoznam prekrytí je umiestnený v ceste \"/storage/emulated/0/substratum/profily/%s\"</string>
     <string name="spinner_default_item">vyberte profil&#8230;</string>
     <string name="select_to_toggle_all_overlays">Vyberte pre prepnutie všetkých prekrytí</string>
-    <string name="fab_menu_select_to_toggle_all_overlays">Vyberte všetky prekrytia</string>
     <string name="permission_not_granted_dialog_title">Oprávnenia nie sú udelené</string>
     <string name="permission_not_granted_dialog_message1">Prosím, udeľte Substratum oprávenenia pre prístup k pamäti inak aplikácia nebude správne fungovať!</string>
     <string name="dialog_ok">OK</string>
@@ -304,7 +303,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="notification_some_errors_found">Nastala chyba pri inštalácii prekrytia</string>
     <string name="notification_processing">Spracovávanie prekrytia pre</string>
     <string name="notification_processing_n">Pripravovanie tématického prekrytia&#8230;</string>
-    <string name="advanced_manager_overlay_read_error">Nepodarilo sa analyzovať zoznam prekrytí. Na opravu otvorte priečinok Obnovenie a kliknite na Obnoviť systémovú tému (Odinštaluje všetky nainštalované prekrytia).</string>
     <string name="shortcut_floatui">Plávajúce okno</string>
     <string name="shortcut_rescue">Zachráňte ma!</string>
     <string name="shortcut_rescue_disabled">Zachráňte ma!</string>
@@ -312,7 +310,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="shortcut_store_disabled">Ukážka tém</string>
     <string name="settings_title">O aplikácii</string>
     <string name="settings_title_1">Užívateľské predvoľby</string>
-    <string name="settings_title_2">Zoznam prekrytí</string>
     <string name="settings_title_3">Úpravy témy</string>
     <string name="settings_title_clickable">Systémové predvoľby</string>
     <string name="substratum_cache_clear_initial_toast">Teraz sa čistí vyrovnávacia pamäť Substratum&#8230;</string>

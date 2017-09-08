@@ -256,7 +256,6 @@
     </string>
     <string name="spinner_default_item">выберыце профіль&#8230;</string>
     <string name="select_to_toggle_all_overlays">Пераключыць усе напластаванні</string>
-    <string name="fab_menu_select_to_toggle_all_overlays">Выбраць усе напластаванні</string>
     <string name="permission_not_granted_dialog_title">Дазволы не прадастаўлены</string>
     <string name="permission_not_granted_dialog_message1">Калі ласка, дазвольце substratum доступ да сховішча альбо праграма не зможа працаваць правільна!    </string>
     <string name="dialog_ok">OK</string>
@@ -307,7 +306,6 @@
     <string name="notification_some_errors_found">Адбылася памылка падчас усталёўкі напластавання</string>
     <string name="notification_processing">Прымяненне напластаванняў</string>
     <string name="notification_processing_n">Падрыхтоўка напластаванняў тэмы&#8230;</string>
-    <string name="advanced_manager_overlay_read_error">Не атрымалася разабраць спіс напластаванняў. Адкрыйце Аднаўленне і абярыце Аднавіць афармленне (выдаленне ўсіх усталяваных напластаванняў) для вырашэння гэтай праблемы.    </string>
     <string name="shortcut_floatui">Плаваючае акно</string>
     <string name="shortcut_rescue">Выратуй мяне!</string>
     <string name="shortcut_rescue_disabled">Выратуй мяне!</string>
@@ -315,7 +313,6 @@
     <string name="shortcut_store_disabled">Каталаг тэм</string>
     <string name="settings_title">Аб сістэме</string>
     <string name="settings_title_1">Перавагі карыстальніка</string>
-    <string name="settings_title_2">Спіс напластаванняў</string>
     <string name="settings_title_3">Афармленне</string>
     <string name="settings_title_clickable">Сістэмныя налады</string>
     <string name="substratum_cache_clear_initial_toast">Ачыстка кэша Substratum&#8230;</string>

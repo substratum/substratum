@@ -244,7 +244,6 @@
     <string name="toast_backup_success">Liste des surcouches actuelles enregistrée dans \"/storage/emulated/0/substratum/profiles/%s\"</string>
     <string name="spinner_default_item">Sélectionnez un profil&#8230;</string>
     <string name="select_to_toggle_all_overlays">Sélectionnez/désélectionnez toutes les surcouches</string>
-    <string name="fab_menu_select_to_toggle_all_overlays">Tout sélectionner</string>
     <string name="permission_not_granted_dialog_title">Autorisations non accordées</string>
     <string name="permission_not_granted_dialog_message1">Veuillez accorder à Substratum l\'autorisation \"Stockage\"
         ou l\'application ne fonctionnera pas correctement !</string>
@@ -296,7 +295,6 @@
     <string name="notification_some_errors_found">Erreur lors de l\'installation de la surcouche</string>
     <string name="notification_processing">Traitement de la surcouche en cours pour</string>
     <string name="notification_processing_n">Création et signature des surcouches en cours&#8230;</string>
-    <string name="advanced_manager_overlay_read_error">Impossible d\'analyser la liste des surcouches.\nVeuillez ouvrir \"Valeurs par défaut\" et sélectionner \"Rétablir le thème système\" (désinstalle toutes les surcouches installées) pour résoudre ce problème.</string>
     <string name="shortcut_floatui">FloatUI</string>
     <string name="shortcut_rescue">Sauvez-moi !</string>
     <string name="shortcut_rescue_disabled">Sauvez-moi !</string>
@@ -304,7 +302,6 @@
     <string name="shortcut_store_disabled">Galerie de thème</string>
     <string name="settings_title">À propos</string>
     <string name="settings_title_1">Préférences utilisateur</string>
-    <string name="settings_title_2">Liste des surcouches</string>
     <string name="settings_title_3">Thème</string>
     <string name="settings_title_clickable">Préférences système</string>
     <string name="substratum_cache_clear_initial_toast">Suppression du cache de Substratum en cours&#8230;</string>

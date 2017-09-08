@@ -348,7 +348,6 @@ sağlayan
     </string>
     <string name="spinner_default_item">bir profil seçin&#8230;</string>
     <string name="select_to_toggle_all_overlays">Seçilen tüm temalara geçiş yap</string>
-    <string name="fab_menu_select_to_toggle_all_overlays">Tüm temaları seç</string>
     <string name="permission_not_granted_dialog_title">İzin verilmeyen izinler</string>
     <string name="permission_not_granted_dialog_message1">Lütfen substratum\'a depolama izinleri verin
         veya uygulama
@@ -403,10 +402,6 @@ sağlayan
     <string name="notification_some_errors_found">Tema kurulumu sırasında bir hata oluştu</string>
     <string name="notification_processing">için tema işleniyor</string>
     <string name="notification_processing_n">Tema hazırlanıyor&#8230;</string>
-    <string name="advanced_manager_overlay_read_error">Temalar listesi ayrıştırılamadı. Lütfen Kurtarma\'yı
-        açın ve bu sorunu çözmek için Sistem Temasını Geri Yükle (yüklü tüm temaları kaldırır)
-        seçeneğini tıklayın.
-    </string>
     <string name="shortcut_floatui">Yüzen Kullanıcı Arayüzü</string>
     <string name="shortcut_rescue">Kurtar Beni!</string>
     <string name="shortcut_rescue_disabled">Kurtar Beni!</string>
@@ -414,7 +409,6 @@ sağlayan
     <string name="shortcut_store_disabled">Tema Vitrini</string>
     <string name="settings_title">Hakkında</string>
     <string name="settings_title_1">Kullanıcı Tercihleri</string>
-    <string name="settings_title_2">Tema Listesi</string>
     <string name="settings_title_3">Temala</string>
     <string name="settings_title_clickable">Kullanıcı Tercihleri</string>
     <string name="substratum_cache_clear_initial_toast">Substratum önbelleği temizleniyor&#8230;</string>

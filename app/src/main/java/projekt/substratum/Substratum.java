@@ -107,7 +107,7 @@ public class Substratum extends Application {
             NotificationChannel andromedaChannel = new NotificationChannel(
                     References.ANDROMEDA_NOTIFICATION_CHANNEL_ID,
                     getString(R.string.notification_channel_andromeda),
-                    NotificationManager.IMPORTANCE_NONE);
+                    NotificationManager.IMPORTANCE_LOW);
             andromedaChannel.setDescription(
                     getString(R.string.notification_channel_andromeda_description));
             notificationManager.createNotificationChannel(andromedaChannel);

@@ -287,7 +287,8 @@ public class RecoveryFragment extends Fragment {
 
     private void showRecoveryWarning() {
         new AlertDialog.Builder(mContext)
-                .setView(R.layout.restore_info)
+                .setTitle(R.string.restore_info_dialog_title)
+                .setMessage(R.string.restore_info_dialog_message)
                 .setPositiveButton(R.string.dialog_ok, (dialog, which) -> {
                     if (!prefs.getBoolean("seen_restore_warning", false))
                         prefs.edit().putBoolean("seen_restore_warning", true).apply();

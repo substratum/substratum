@@ -153,9 +153,7 @@ public class Overlays extends Fragment {
     public double total_amount = 0;
     public String current_dialog_overlay;
     public ProgressBar dialogProgress;
-    public FinishReceiver finishReceiver;
     public ArrayList<String> final_command;
-    public boolean isWaiting;
     public AssetManager themeAssetManager;
     public Phase3_mainFunction phase3_mainFunction;
     public Boolean missingType3 = false;
@@ -890,7 +888,6 @@ public class Overlays extends Fragment {
             // Unregistered already
         }
         try {
-            getContext().unregisterReceiver(finishReceiver);
             localBroadcastManager2.unregisterReceiver(jobReceiver);
         } catch (IllegalArgumentException e) {
             // Unregistered already
@@ -1629,27 +1626,6 @@ public class Overlays extends Fragment {
                 }
             }
             return null;
-        }
-    }
-
-    protected static class FinishReceiver extends BroadcastReceiver {
-        private WeakReference<Overlays> ref;
-
-        FinishReceiver(Overlays fragment) {
-            ref = new WeakReference<>(fragment);
-        }
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            Overlays overlays = ref.get();
-            if (overlays != null) {
-                String packageName = intent.getData().getEncodedSchemeSpecificPart();
-                String check = References.grabOverlayParent(overlays.getContext(), packageName);
-                if (check != null) {
-                    overlays.isWaiting = false;
-                    Log.d(TAG, "PACKAGE_ADDED: " + packageName);
-                }
-            }
         }
     }
 

@@ -25,7 +25,6 @@ import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
@@ -58,6 +57,7 @@ import eightbitlab.com.blurview.BlurView;
 import eightbitlab.com.blurview.RenderScriptBlur;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
+import projekt.substratum.Substratum;
 import projekt.substratum.adapters.tabs.overlays.OverlaysAdapter;
 import projekt.substratum.adapters.tabs.overlays.OverlaysItem;
 import projekt.substratum.common.References;
@@ -78,11 +78,6 @@ import static projekt.substratum.common.References.checkThemeInterfacer;
 
 public class OverlayFunctions {
     private static final String TAG = "Substratum OverlayFunctions";
-    private ProgressDialog pDialog = null;
-
-    public OverlayFunctions() {
-
-    }
 
     static class getThemeCache extends AsyncTask<String, Integer, String> {
         WeakReference<Overlays> ref;
@@ -323,12 +318,7 @@ public class OverlayFunctions {
                         }
                     }
                     if (overlays.late_install.size() == 0) {
-                        try {
-                            context.getApplicationContext()
-                                    .unregisterReceiver(overlays.finishReceiver);
-                        } catch (IllegalArgumentException e) {
-                            // Suppress warning
-                        }
+                        Substratum.getInstance().unregisterFinishReceiver();
                     }
                 } else if (overlays.enable_mode) {
                     new Phase4_finishEnableFunction(overlays).execute();
@@ -415,11 +405,7 @@ public class OverlayFunctions {
                 if ((References.checkThemeInterfacer(context) &&
                         !References.isBinderInterfacer(context)) ||
                         References.checkAndromeda(context)) {
-                    overlays.finishReceiver = new Overlays.FinishReceiver(overlays);
-                    IntentFilter filter = new IntentFilter(Intent.ACTION_PACKAGE_ADDED);
-                    filter.addDataScheme("package");
-                    context.getApplicationContext()
-                            .registerReceiver(overlays.finishReceiver, filter);
+                    Substratum.getInstance().registerFinishReceiver();
                 }
 
                 overlays.total_amount = overlays.checkedOverlays.size();
@@ -891,14 +877,14 @@ public class OverlayFunctions {
                                             !References.isBinderInterfacer(context)) ||
                                             References.checkAndromeda(context)) {
                                         // Thread wait
-                                        overlays.isWaiting = true;
+                                        Substratum.getInstance().startWaitingInstall();
                                         do {
                                             try {
                                                 Thread.sleep(Overlays.THREAD_WAIT_DURATION);
                                             } catch (InterruptedException e) {
                                                 Thread.currentThread().interrupt();
                                             }
-                                        } while (overlays.isWaiting);
+                                        } while (Substratum.getInstance().isWaitingInstall());
                                     }
                                 }
                             } else {
@@ -949,14 +935,14 @@ public class OverlayFunctions {
                                             !References.isBinderInterfacer(context)) ||
                                             References.checkAndromeda(context)) {
                                         // Thread wait
-                                        overlays.isWaiting = true;
+                                        Substratum.getInstance().startWaitingInstall();
                                         do {
                                             try {
                                                 Thread.sleep(Overlays.THREAD_WAIT_DURATION);
                                             } catch (InterruptedException e) {
                                                 Thread.currentThread().interrupt();
                                             }
-                                        } while (overlays.isWaiting);
+                                        } while (Substratum.getInstance().isWaitingInstall());
                                     }
                                 }
                             }
@@ -1413,29 +1399,21 @@ public class OverlayFunctions {
                                         !References.isBinderInterfacer(context)) ||
                                         References.checkAndromeda(context)) {
                                     // Wait until the overlays to fully install so on compile enable
-                                    // mode it can be enabled after. For now we can't use
-                                    // Overlays.FinishReceiver since it will fail on some conditions
-                                    boolean isWaiting = true;
+                                    // mode it can be enabled after.
+                                    Substratum.getInstance().startWaitingInstall();
                                     do {
                                         try {
-                                            context.getPackageManager()
-                                                    .getPackageInfo(packageName, 0);
-                                            isWaiting = false;
-                                        } catch (PackageManager.NameNotFoundException e) {
+                                            Thread.sleep(Overlays.THREAD_WAIT_DURATION);
+                                        } catch (InterruptedException e) {
                                             // Still waiting
                                         }
-                                    } while (isWaiting);
+                                    } while (Substratum.getInstance().isWaitingInstall());
                                 }
                             }
                             if (overlays.compile_enable_mode) {
                                 ThemeManager.enableOverlay(context, packages);
                             }
-                            try {
-                                context.getApplicationContext()
-                                        .unregisterReceiver(overlays.finishReceiver);
-                            } catch (IllegalArgumentException e) {
-                                // Suppress warning
-                            }
+                            Substratum.getInstance().unregisterFinishReceiver();
                             thread.quitSafely();
                         };
                         handler.post(r);

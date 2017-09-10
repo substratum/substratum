@@ -22,8 +22,10 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.AudioAttributes;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -44,7 +46,9 @@ public class Substratum extends Application {
 
     private static final String ANDROMEDA_BINDER_TAG = "AndromedaBinderService";
     private static final String BINDER_TAG = "BinderService";
+    private static final FinishReceiver finishReceiver = new FinishReceiver();
     private static Substratum substratum;
+    private static boolean isWaiting = false;
 
     public static Substratum getInstance() {
         return substratum;
@@ -149,5 +153,36 @@ public class Substratum extends Application {
             }
         }
         return false;
+    }
+
+    public void registerFinishReceiver() {
+        IntentFilter filter = new IntentFilter(Intent.ACTION_PACKAGE_ADDED);
+        filter.addDataScheme("package");
+        registerReceiver(finishReceiver, filter);
+    }
+
+    public void unregisterFinishReceiver() {
+        unregisterReceiver(finishReceiver);
+    }
+
+    public void startWaitingInstall() {
+        isWaiting = true;
+    }
+
+    public boolean isWaitingInstall() {
+        return isWaiting;
+    }
+
+    private static class FinishReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String packageName = intent.getData().getEncodedSchemeSpecificPart();
+            // Check whether the installed package is made by substratum
+            String check = References.grabOverlayParent(context, packageName);
+            if (check != null) {
+                isWaiting = false;
+                Log.d("Substratum", "PACKAGE_ADDED: " + packageName);
+            }
+        }
     }
 }

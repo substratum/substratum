@@ -76,7 +76,7 @@ import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
 import static projekt.substratum.common.References.checkOMS;
 import static projekt.substratum.common.References.checkThemeInterfacer;
 
-public class OverlayFunctions {
+class OverlayFunctions {
     private static final String TAG = "Substratum OverlayFunctions";
 
     static class getThemeCache extends AsyncTask<String, Integer, String> {
@@ -1384,13 +1384,14 @@ public class OverlayFunctions {
 
                     if (!overlays.late_install.isEmpty() && !References.isSamsung(context)) {
                         // Install remaining overlays
-                        HandlerThread thread = new HandlerThread("LateInstallThread", Thread.MAX_PRIORITY);
+                        HandlerThread thread = new HandlerThread("LateInstallThread",
+                                Thread.MAX_PRIORITY);
                         thread.start();
                         Handler handler = new Handler(thread.getLooper());
                         Runnable r = () -> {
+                            overlays.progressBar.setVisibility(View.VISIBLE);
                             ArrayList<String> packages = new ArrayList<>();
                             for (String o : overlays.late_install) {
-                                Log.d("lmao", "installing " + o);
                                 ThemeManager.installOverlay(context, o);
                                 String packageName =
                                         o.substring(o.lastIndexOf("/") + 1, o.lastIndexOf("-"));

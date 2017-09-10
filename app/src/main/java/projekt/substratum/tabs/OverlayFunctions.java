@@ -408,12 +408,12 @@ public class OverlayFunctions {
                 }
 
                 // Enable listener
-                if (References.checkThemeInterfacer(context) &&
-                        !References.isBinderInterfacer(context)) {
-                    if (overlays.finishReceiver == null) {
-                        overlays.finishReceiver = new Overlays.FinishReceiver(overlays);
-                    }
-                    IntentFilter filter = new IntentFilter(References.STATUS_CHANGED);
+                if ((References.checkThemeInterfacer(context) &&
+                        !References.isBinderInterfacer(context)) ||
+                        References.checkAndromeda(context)) {
+                    overlays.finishReceiver = new Overlays.FinishReceiver(overlays);
+                    IntentFilter filter = new IntentFilter(Intent.ACTION_PACKAGE_ADDED);
+                    filter.addDataScheme("package");
                     context.registerReceiver(overlays.finishReceiver, filter);
                 }
 
@@ -882,8 +882,9 @@ public class OverlayFunctions {
                                     if (overlays.sb.special_snowflake ||
                                             overlays.sb.no_install.length() > 0) {
                                         overlays.late_install.add(overlays.sb.no_install);
-                                    } else if (References.checkThemeInterfacer(context) &&
-                                            !References.isBinderInterfacer(context)) {
+                                    } else if ((References.checkThemeInterfacer(context) &&
+                                            !References.isBinderInterfacer(context)) ||
+                                            References.checkAndromeda(context)) {
                                         // Thread wait
                                         overlays.isWaiting = true;
                                         do {
@@ -939,8 +940,9 @@ public class OverlayFunctions {
                                     if (overlays.sb.special_snowflake ||
                                             overlays.sb.no_install.length() > 0) {
                                         overlays.late_install.add(overlays.sb.no_install);
-                                    } else if (References.checkThemeInterfacer(context) &&
-                                            !References.isBinderInterfacer(context)) {
+                                    } else if ((References.checkThemeInterfacer(context) &&
+                                            !References.isBinderInterfacer(context)) ||
+                                            References.checkAndromeda(context)) {
                                         // Thread wait
                                         overlays.isWaiting = true;
                                         do {

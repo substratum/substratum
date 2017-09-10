@@ -1641,17 +1641,13 @@ public class Overlays extends Fragment {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            String PRIMARY_COMMAND_KEY = "primary_command_key";
-            String COMMAND_VALUE_JOB_COMPLETE = "job_complete";
-            String command = intent.getStringExtra(PRIMARY_COMMAND_KEY);
-
-            if (command.equals(COMMAND_VALUE_JOB_COMPLETE)) {
-                Log.d(TAG,
-                        "Substratum is now refreshing its resources after " +
-                                "successful job completion!");
-                Overlays overlays = ref.get();
-                if (overlays != null) {
+            Overlays overlays = ref.get();
+            if (overlays != null) {
+                String packageName = intent.getData().getEncodedSchemeSpecificPart();
+                String check = References.grabOverlayParent(overlays.getContext(), packageName);
+                if (check != null) {
                     overlays.isWaiting = false;
+                    Log.d(TAG, "PACKAGE_ADDED: " + packageName);
                 }
             }
         }

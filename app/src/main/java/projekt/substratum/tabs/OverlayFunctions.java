@@ -35,6 +35,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.Looper;
 import android.support.design.widget.Lunchbar;
 import android.support.v4.app.NotificationCompat;
@@ -321,10 +322,13 @@ public class OverlayFunctions {
                             }
                         }
                     }
-                    try {
-                        context.unregisterReceiver(overlays.finishReceiver);
-                    } catch (IllegalArgumentException e) {
-                        // Suppress warning
+                    if (overlays.late_install.size() == 0) {
+                        try {
+                            context.getApplicationContext()
+                                    .unregisterReceiver(overlays.finishReceiver);
+                        } catch (IllegalArgumentException e) {
+                            // Suppress warning
+                        }
                     }
                 } else if (overlays.enable_mode) {
                     new Phase4_finishEnableFunction(overlays).execute();
@@ -414,7 +418,8 @@ public class OverlayFunctions {
                     overlays.finishReceiver = new Overlays.FinishReceiver(overlays);
                     IntentFilter filter = new IntentFilter(Intent.ACTION_PACKAGE_ADDED);
                     filter.addDataScheme("package");
-                    context.registerReceiver(overlays.finishReceiver, filter);
+                    context.getApplicationContext()
+                            .registerReceiver(overlays.finishReceiver, filter);
                 }
 
                 overlays.total_amount = overlays.checkedOverlays.size();
@@ -1393,7 +1398,47 @@ public class OverlayFunctions {
 
                     if (!overlays.late_install.isEmpty() && !References.isSamsung(context)) {
                         // Install remaining overlays
-                        ThemeManager.installOverlay(context, overlays.late_install);
+                        HandlerThread thread = new HandlerThread("LateInstallThread", Thread.MAX_PRIORITY);
+                        thread.start();
+                        Handler handler = new Handler(thread.getLooper());
+                        Runnable r = () -> {
+                            ArrayList<String> packages = new ArrayList<>();
+                            for (String o : overlays.late_install) {
+                                Log.d("lmao", "installing " + o);
+                                ThemeManager.installOverlay(context, o);
+                                String packageName =
+                                        o.substring(o.lastIndexOf("/") + 1, o.lastIndexOf("-"));
+                                packages.add(packageName);
+                                if ((References.checkThemeInterfacer(context) &&
+                                        !References.isBinderInterfacer(context)) ||
+                                        References.checkAndromeda(context)) {
+                                    // Wait until the overlays to fully install so on compile enable
+                                    // mode it can be enabled after. For now we can't use
+                                    // Overlays.FinishReceiver since it will fail on some conditions
+                                    boolean isWaiting = true;
+                                    do {
+                                        try {
+                                            context.getPackageManager()
+                                                    .getPackageInfo(packageName, 0);
+                                            isWaiting = false;
+                                        } catch (PackageManager.NameNotFoundException e) {
+                                            // Still waiting
+                                        }
+                                    } while (isWaiting);
+                                }
+                            }
+                            if (overlays.compile_enable_mode) {
+                                ThemeManager.enableOverlay(context, packages);
+                            }
+                            try {
+                                context.getApplicationContext()
+                                        .unregisterReceiver(overlays.finishReceiver);
+                            } catch (IllegalArgumentException e) {
+                                // Suppress warning
+                            }
+                            thread.quitSafely();
+                        };
+                        handler.post(r);
                     }
                 }
             }

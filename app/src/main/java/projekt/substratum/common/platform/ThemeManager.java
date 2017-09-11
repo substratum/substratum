@@ -236,13 +236,13 @@ public class ThemeManager {
                 Root.runCommand("pkill -f com.android.systemui");
             } else if (References.isAndromedaDevice(context)){
                 //(1) Enable a malformed overlay
-                AndromedaService.enableOverlays(Collections.singletonList("substratum.crasher"));
+                AndromedaService.enableOverlays(Collections.singletonList(References.CRASH_OVERLAY_PACKAGE));
 
                 //(2) Wait one second
                 new Handler().postDelayed(() ->
                         //(3) Disable it to restore SystemUI functionality
-                        AndromedaService.disableOverlays(Collections.singletonList("substratum.crasher"))
-                        ,1000L);
+                        AndromedaService.disableOverlays(Collections.singletonList(References.CRASH_OVERLAY_PACKAGE))
+                        , References.CRASH_OVERLAY_DELAY);
             }
         }
     }

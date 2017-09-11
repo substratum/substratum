@@ -30,6 +30,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -39,7 +40,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -49,6 +49,7 @@ import projekt.substratum.R;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Resources;
 import projekt.substratum.common.commands.ElevatedCommands;
+import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.util.files.MD5;
 import projekt.substratum.util.files.Root;
 
@@ -234,15 +235,15 @@ public class ThemeManager {
         } else {
             if (Root.checkRootAccess()){
                 Root.runCommand("pkill -f com.android.systemui");
-            } else if (References.isAndromedaDevice(context)){
-                //(1) Enable a malformed overlay
-                AndromedaService.enableOverlays(Collections.singletonList(References.CRASH_OVERLAY_PACKAGE));
-
-                //(2) Wait one second
-                new Handler().postDelayed(() ->
-                        //(3) Disable it to restore SystemUI functionality
-                        AndromedaService.disableOverlays(Collections.singletonList(References.CRASH_OVERLAY_PACKAGE))
-                        , References.CRASH_OVERLAY_DELAY);
+            } else if (checkAndromeda(context)){
+                if (AndromedaService.checkServerActivity()) {
+                    AndromedaService.restartSystemUI(context);
+                } else {
+                    AndromedaBinderService.getInstance()
+                            .sendBadNotification(new NotificationCompat.Builder(
+                                    context.getApplicationContext(),
+                                    References.DEFAULT_NOTIFICATION_CHANNEL_ID));
+                }
             }
         }
     }

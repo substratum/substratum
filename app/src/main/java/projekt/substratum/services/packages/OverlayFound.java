@@ -33,6 +33,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -58,6 +59,14 @@ public class OverlayFound extends BroadcastReceiver {
         if (PACKAGE_ADDED.equals(intent.getAction())) {
             this.package_name = intent.getData().toString().substring(8);
             this.context = context;
+
+            if (References.CRASH_OVERLAY_PACKAGE.equals(package_name) && References.checkAndromeda(context)){
+                //Delete apk from cache
+                if (!References.BYPASS_SUBSTRATUM_BUILDER_DELETION)
+                    new File(References.EXTERNAL_STORAGE_CACHE + References.CRASH_OVERLAY_ASSETS_FILE_NAME);
+                //Crash overlay just installed, reboot system UI
+                ThemeManager.restartSystemUI(context);
+            }
 
             if (ThemeManager.isOverlay(context, package_name)) {
                 return;

@@ -1393,7 +1393,6 @@ class OverlayFunctions {
                         thread.start();
                         Handler handler = new Handler(thread.getLooper());
                         Runnable r = () -> {
-                            overlays.progressBar.setVisibility(View.VISIBLE);
                             ArrayList<String> packages = new ArrayList<>();
                             for (String o : overlays.late_install) {
                                 ThemeManager.installOverlay(context, o);

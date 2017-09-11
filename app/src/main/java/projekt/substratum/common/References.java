@@ -136,6 +136,11 @@ public class References {
     public static final Boolean ENABLE_DIRECT_ASSETS_LOGGING = false; // Self explanatory
     public static final Boolean BYPASS_ALL_VERSION_CHECKS = false; // For developer previews only!
     public static final Boolean BYPASS_SUBSTRATUM_BUILDER_DELETION = false; // Do not delete cache?
+
+    public static final String CRASH_OVERLAY_PACKAGE = "substratum.crasher"; //Invisible overlay to force SystemUI crash
+    public static final long CRASH_OVERLAY_DELAY = 1000L; //Millis to wait before remove crash overlay
+    public static final String CRASH_OVERLAY_ASSETS_FILE_NAME = "crash_overlay-signed.apk"; //Name of crash overlay apk
+
     @SuppressWarnings("WeakerAccess")
     public static final Boolean FORCE_SAMSUNG_VARIANT = false; // Debugging on a non-Samsung device
     public static final Integer OVERLAY_UPDATE_RANGE = 815; // Overlays require updating since ver
@@ -1729,6 +1734,15 @@ public class References {
             return context.getPackageManager().getPackageInfo(ANDROMEDA_PACKAGE, 0);
         } catch (Exception e) {
             // Andromeda was not installed
+        }
+        return null;
+    }
+
+    public static PackageInfo getCrashOverlayPackage(Context context){
+        try {
+            return context.getPackageManager().getPackageInfo(CRASH_OVERLAY_PACKAGE, 0);
+        } catch (Exception e) {
+            // Crash overlay was not installed
         }
         return null;
     }

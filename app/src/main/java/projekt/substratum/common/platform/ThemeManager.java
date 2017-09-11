@@ -30,6 +30,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -48,6 +49,7 @@ import projekt.substratum.R;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Resources;
 import projekt.substratum.common.commands.ElevatedCommands;
+import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.util.files.MD5;
 import projekt.substratum.util.files.Root;
 
@@ -231,7 +233,18 @@ public class ThemeManager {
         if (checkThemeInterfacer(context)) {
             ThemeInterfacerService.restartSystemUI(context);
         } else {
-            Root.runCommand("pkill -f com.android.systemui");
+            if (Root.checkRootAccess()){
+                Root.runCommand("pkill -f com.android.systemui");
+            } else if (checkAndromeda(context)){
+                if (AndromedaService.checkServerActivity()) {
+                    AndromedaService.restartSystemUI(context);
+                } else {
+                    AndromedaBinderService.getInstance()
+                            .sendBadNotification(new NotificationCompat.Builder(
+                                    context.getApplicationContext(),
+                                    References.DEFAULT_NOTIFICATION_CHANNEL_ID));
+                }
+            }
         }
     }
 

@@ -18,10 +18,20 @@
 
 package projekt.substratum.common.platform;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.os.Handler;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
+
+import java.util.Collections;
 import java.util.List;
 
 import projekt.andromeda.IAndromedaInterface;
 import projekt.substratum.Substratum;
+import projekt.substratum.common.References;
+import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.services.binder.AndromedaBinderService;
 
 public class AndromedaService {
@@ -91,5 +101,37 @@ public class AndromedaService {
             Substratum.getInstance().startAndromedaBinderService(true);
         }
         return false;
+    }
+
+    static void restartSystemUI(Context context){
+        if (References.getCrashOverlayPackage(context) == null){
+            //(0) If not installed, install it!
+            installCrashOverlay(context);
+            return; //Return because package added receiver is called on installation finished
+        }
+
+        //(1) Enable a malformed overlay
+        AndromedaService.enableOverlays(Collections.singletonList(References.CRASH_OVERLAY_PACKAGE));
+
+        //(2) Wait one second
+        new Handler().postDelayed(() ->
+                        //(3) Disable it to restore SystemUI functionality
+                        AndromedaService.disableOverlays(Collections.singletonList(References.CRASH_OVERLAY_PACKAGE))
+                        , References.CRASH_OVERLAY_DELAY);
+    }
+
+    private static void installCrashOverlay(Context context) {
+        Log.d(References.SUBSTRATUM_LOG, "Crash overlay not found, installing it");
+        //(1) Check write external storage permission
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED)
+            return;
+
+        //(2) Copy apk file from assets to external cache
+        String path = References.EXTERNAL_STORAGE_CACHE + References.CRASH_OVERLAY_ASSETS_FILE_NAME;
+        FileOperations.copyFromAsset(context, References.CRASH_OVERLAY_ASSETS_FILE_NAME, path);
+
+        //(3) Install it
+        ThemeManager.installOverlay(context, path);
     }
 }

@@ -594,10 +594,7 @@ public class MainActivity extends SubstratumActivity implements
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
                         } catch (Exception e) {
-                            Lunchbar.make(findViewById(android.R.id.content),
-                                    getString(R.string.activity_missing_toast),
-                                    Lunchbar.LENGTH_LONG)
-                                    .show();
+                            showActivityMissingLunchbar();
                         }
                         break;
                     case 101:
@@ -607,10 +604,7 @@ public class MainActivity extends SubstratumActivity implements
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
                         } catch (Exception e) {
-                            Lunchbar.make(findViewById(android.R.id.content),
-                                    getString(R.string.activity_missing_toast),
-                                    Lunchbar.LENGTH_LONG)
-                                    .show();
+                            showActivityMissingLunchbar();
                         }
                         break;
                     case 102:
@@ -620,10 +614,7 @@ public class MainActivity extends SubstratumActivity implements
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
                         } catch (Exception e) {
-                            Lunchbar.make(findViewById(android.R.id.content),
-                                    getString(R.string.activity_missing_toast),
-                                    Lunchbar.LENGTH_LONG)
-                                    .show();
+                            showActivityMissingLunchbar();
                         }
                         break;
                     case 103:
@@ -638,10 +629,7 @@ public class MainActivity extends SubstratumActivity implements
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
                         } catch (Exception e) {
-                            Lunchbar.make(findViewById(android.R.id.content),
-                                    getString(R.string.activity_missing_toast),
-                                    Lunchbar.LENGTH_LONG)
-                                    .show();
+                            showActivityMissingLunchbar();
                         }
                         break;
                     case 104:
@@ -651,10 +639,7 @@ public class MainActivity extends SubstratumActivity implements
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
                         } catch (Exception e) {
-                            Lunchbar.make(findViewById(android.R.id.content),
-                                    getString(R.string.activity_missing_toast),
-                                    Lunchbar.LENGTH_LONG)
-                                    .show();
+                            showActivityMissingLunchbar();
                         }
                         break;
                     case 105:
@@ -664,10 +649,7 @@ public class MainActivity extends SubstratumActivity implements
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
                         } catch (Exception e) {
-                            Lunchbar.make(findViewById(android.R.id.content),
-                                    getString(R.string.activity_missing_toast),
-                                    Lunchbar.LENGTH_LONG)
-                                    .show();
+                            showActivityMissingLunchbar();
                         }
                         break;
                     case 106:
@@ -677,10 +659,7 @@ public class MainActivity extends SubstratumActivity implements
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
                         } catch (Exception e) {
-                            Lunchbar.make(findViewById(android.R.id.content),
-                                    getString(R.string.activity_missing_toast),
-                                    Lunchbar.LENGTH_LONG)
-                                    .show();
+                            showActivityMissingLunchbar();
                         }
                         break;
                     case 107:
@@ -690,10 +669,7 @@ public class MainActivity extends SubstratumActivity implements
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
                         } catch (Exception e) {
-                            Lunchbar.make(findViewById(android.R.id.content),
-                                    getString(R.string.activity_missing_toast),
-                                    Lunchbar.LENGTH_LONG)
-                                    .show();
+                            showActivityMissingLunchbar();
                         }
                         break;
                     case 108:
@@ -703,10 +679,7 @@ public class MainActivity extends SubstratumActivity implements
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
                         } catch (Exception e) {
-                            Lunchbar.make(findViewById(android.R.id.content),
-                                    getString(R.string.activity_missing_toast),
-                                    Lunchbar.LENGTH_LONG)
-                                    .show();
+                            showActivityMissingLunchbar();
                         }
                         break;
                     case 109:
@@ -716,10 +689,7 @@ public class MainActivity extends SubstratumActivity implements
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
                         } catch (Exception e) {
-                            Lunchbar.make(findViewById(android.R.id.content),
-                                    getString(R.string.activity_missing_toast),
-                                    Lunchbar.LENGTH_LONG)
-                                    .show();
+                            showActivityMissingLunchbar();
                         }
                         break;
                     case 110:
@@ -729,10 +699,7 @@ public class MainActivity extends SubstratumActivity implements
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
                         } catch (Exception e) {
-                            Lunchbar.make(findViewById(android.R.id.content),
-                                    getString(R.string.activity_missing_toast),
-                                    Lunchbar.LENGTH_LONG)
-                                    .show();
+                            showActivityMissingLunchbar();
                         }
                         break;
                     case 111:
@@ -742,10 +709,7 @@ public class MainActivity extends SubstratumActivity implements
                             i.setData(Uri.parse(sourceURL));
                             startActivity(i);
                         } catch (Exception e) {
-                            Lunchbar.make(findViewById(android.R.id.content),
-                                    getString(R.string.activity_missing_toast),
-                                    Lunchbar.LENGTH_LONG)
-                                    .show();
+                            showActivityMissingLunchbar();
                         }
                         break;
                 }
@@ -766,6 +730,13 @@ public class MainActivity extends SubstratumActivity implements
                     })
                     .show();
         }
+    }
+
+    private void showActivityMissingLunchbar() {
+        Lunchbar.make(findViewById(android.R.id.content),
+                getString(R.string.activity_missing_toast),
+                Lunchbar.LENGTH_LONG)
+                .show();
     }
 
     private void cleanLogCharReportsIfNecessary() {

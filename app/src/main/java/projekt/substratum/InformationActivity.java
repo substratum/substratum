@@ -738,8 +738,7 @@ public class InformationActivity extends SubstratumActivity {
                     PorterDuff.Mode.SRC_ATOP);
         }
 
-        if (References.checkAndromeda(getApplicationContext()) ||
-                (!isOMS && !Root.checkRootAccess())) {
+        if (!isOMS && !Root.checkRootAccess()) {
             menu.findItem(R.id.restart_systemui).setVisible(false);
         }
         if (!isOMS) {

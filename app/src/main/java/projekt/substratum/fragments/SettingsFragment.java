@@ -148,12 +148,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
 
         platformSummary = new StringBuilder();
-        platformSummary.append(getString(R.string.android) + " " +
-                References.getProp("ro.build.version.release"));
-        platformSummary.append(" (" + Build.ID + ")\n");
-        platformSummary.append(
-                getString(R.string.device) + " " + Build.MODEL + " (" + Build.DEVICE + ")" + "\n");
-        platformSummary.append(getString(R.string.settings_about_oms_rro_version) + " ");
+        platformSummary.append(String.format("%s %s ( %s )\n", getString(R.string.android),
+                References.getProp("ro.build.version.release"), Build.ID));
+        platformSummary.append(String.format("%s %s ( %s )\n",
+                getString(R.string.device), Build.MODEL, Build.DEVICE));
+        platformSummary.append(String.format("%s", getString(R.string.settings_about_oms_rro_version)));
         platformSummary.append(((References.checkOMS(getContext())) ?
                 (References.checkOreo() ? getString(R.string.settings_about_oms_version_do) :
                         getString(R.string.settings_about_oms_version_7)) :

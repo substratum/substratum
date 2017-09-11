@@ -39,6 +39,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -231,7 +232,18 @@ public class ThemeManager {
         if (checkThemeInterfacer(context)) {
             ThemeInterfacerService.restartSystemUI(context);
         } else {
-            Root.runCommand("pkill -f com.android.systemui");
+            if (Root.checkRootAccess()){
+                Root.runCommand("pkill -f com.android.systemui");
+            } else if (References.isAndromedaDevice(context)){
+                //(1) Enable a malformed overlay
+                AndromedaService.enableOverlays(Collections.singletonList("substratum.crasher"));
+
+                //(2) Wait one second
+                new Handler().postDelayed(() ->
+                        //(3) Disable it to restore SystemUI functionality
+                        AndromedaService.disableOverlays(Collections.singletonList("substratum.crasher"))
+                        ,1000L);
+            }
         }
     }
 

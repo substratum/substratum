@@ -109,17 +109,6 @@
 
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/vm_blown"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="15dp"
-                android:gravity="center"
-                android:text="@string/bootanimation_vm_exploded"
-                android:textColor="@color/bootanimation_vm_text"
-                android:textSize="20sp"
-                android:visibility="gone"/>
-
             <ImageView
                 android:id="@+id/bootAnimationPreview"
                 android:layout_width="match_parent"

@@ -28,10 +28,10 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Lunchbar;
 import android.support.v4.app.Fragment;
@@ -47,7 +47,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -83,13 +82,9 @@ public class BootAnimations extends Fragment {
     private static final int ANIMATION_FRAME_DURATION = 40;
     private static final String TAG = "BootAnimationUtils";
     private String theme_pid;
-    private AnimationDrawable animation;
-    private ViewGroup root;
-    private List<Bitmap> images = new ArrayList<>();
     private ImageView bootAnimationPreview;
     private MaterialProgressBar progressBar;
     private Spinner bootAnimationSelector;
-    private TextView vm_blown;
     private RelativeLayout bootanimation_placeholder;
     private RelativeLayout defaults;
     private ProgressDialog mProgressDialog;
@@ -102,6 +97,13 @@ public class BootAnimations extends Fragment {
     private LocalBroadcastManager localBroadcastManager;
     private Boolean encrypted = false;
     private Cipher cipher = null;
+
+    private HandlerThread previewHandlerThread = new HandlerThread("BootAnimationPreviewThread");
+    private Handler previewHandler;
+    private Runnable previewRunnable;
+    private List<String> previewImages;
+    private int previewIndex;
+    private BitmapFactory.Options options = new BitmapFactory.Options();
 
     @Override
     public View onCreateView(
@@ -127,17 +129,16 @@ public class BootAnimations extends Fragment {
             }
         }
 
-        root = (ViewGroup) inflater.inflate(R.layout.tab_bootanimations, container, false);
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.tab_bootanimations, container, false);
         nsv = root.findViewById(R.id.nestedScrollView);
 
-        animation = new AnimationDrawable();
-        animation.setOneShot(false);
+        bootAnimationPreview = root.findViewById(R.id.bootAnimationPreview);
+        previewHandlerThread.start();
 
         prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         progressBar = root.findViewById(R.id.progress_bar_loader);
 
-        vm_blown = root.findViewById(R.id.vm_blown);
         bootanimation_placeholder = root.findViewById(R.id.bootanimation_placeholder);
         defaults = root.findViewById(R.id.restore_to_default);
 
@@ -171,45 +172,44 @@ public class BootAnimations extends Fragment {
                             switch (pos) {
                                 case 0:
                                     if (current != null) current.cancel(true);
+                                    if (previewHandler != null && previewRunnable != null) {
+                                        previewHandler.removeCallbacks(previewRunnable);
+                                    }
                                     bootanimation_placeholder.setVisibility(View.VISIBLE);
                                     defaults.setVisibility(View.GONE);
-                                    vm_blown.setVisibility(View.GONE);
-                                    animation = new AnimationDrawable();
-                                    animation.setOneShot(false);
-                                    bootAnimationPreview = root.findViewById(
-                                            R.id.bootAnimationPreview);
                                     bootAnimationPreview.setImageDrawable(null);
-                                    images.clear();
+                                    bootAnimationPreview.setVisibility(View.GONE);
                                     progressBar.setVisibility(View.GONE);
                                     paused = true;
                                     break;
                                 case 1:
                                     if (current != null) current.cancel(true);
+                                    if (previewHandler != null && previewRunnable != null) {
+                                        previewHandler.removeCallbacks(previewRunnable);
+                                    }
                                     defaults.setVisibility(View.VISIBLE);
                                     bootanimation_placeholder.setVisibility(View.GONE);
-                                    vm_blown.setVisibility(View.GONE);
                                     progressBar.setVisibility(View.GONE);
-                                    animation = new AnimationDrawable();
-                                    animation.setOneShot(false);
-                                    bootAnimationPreview = root.findViewById(
-                                            R.id.bootAnimationPreview);
                                     bootAnimationPreview.setImageDrawable(null);
-                                    images.clear();
+                                    bootAnimationPreview.setVisibility(View.GONE);
                                     progressBar.setVisibility(View.GONE);
                                     paused = false;
                                     break;
                                 default:
                                     if (current != null) current.cancel(true);
+                                    bootAnimationPreview.setVisibility(View.VISIBLE);
                                     defaults.setVisibility(View.GONE);
                                     bootanimation_placeholder.setVisibility(View.GONE);
                                     String[] commands = {arg0.getSelectedItem().toString()};
+                                    if (previewHandler != null && previewRunnable != null) {
+                                        previewHandler.removeCallbacks(previewRunnable);
+                                    }
                                     current = new BootAnimationPreview().execute(commands);
                             }
                         }
 
                         @Override
-                        public void onNothingSelected(AdapterView<?> arg0) {
-                        }
+                        public void onNothingSelected(AdapterView<?> arg0) {}
                     });
         } catch (Exception e) {
             e.printStackTrace();
@@ -305,30 +305,37 @@ public class BootAnimations extends Fragment {
 
         @Override
         protected void onPreExecute() {
+            FileOperations.delete(getContext(), getContext().getCacheDir().getAbsolutePath() +
+                    "/BootAnimationCache/animation_preview/");
             paused = true;
-            animation = new AnimationDrawable();
-            animation.setOneShot(false);
-            bootAnimationPreview = root.findViewById(R.id.bootAnimationPreview);
             bootAnimationPreview.setImageDrawable(null);
-            images.clear();
             progressBar.setVisibility(View.VISIBLE);
-            if (vm_blown.getVisibility() == View.VISIBLE)
-                vm_blown.setVisibility(View.GONE);
+            previewImages = new ArrayList<>();
+            previewHandler = new Handler(previewHandlerThread.getLooper());
+            previewIndex = 0;
+            previewRunnable = () -> {
+                try {
+                    Bitmap bmp = BitmapFactory.decodeFile(previewImages.get(previewIndex), options);
+                    getActivity().runOnUiThread(() -> {
+                        bootAnimationPreview.setImageBitmap(bmp);
+                        previewIndex++;
+                        if (previewIndex == previewImages.size()) previewIndex = 0;
+                    });
+                    previewHandler.postDelayed(previewRunnable, ANIMATION_FRAME_DURATION);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            };
         }
 
         @Override
         protected void onPostExecute(String result) {
-            if ("true".equals(result))
-                vm_blown.setVisibility(View.VISIBLE);
             try {
-                Log.d(TAG, "Loaded boot animation contains " + images.size() + " frames.");
+                Log.d(TAG, "Loaded boot animation contains " + previewImages.size() + " frames.");
                 if (bootAnimationSelector.getSelectedItemPosition() > 1) {
                     Log.d(TAG, "Displaying bootanimation after render task complete!");
-                    bootAnimationPreview.setImageDrawable(animation);
-                    animation.start();
+                    previewHandler.post(previewRunnable);
                 }
-                FileOperations.delete(getContext(), getContext().getCacheDir().getAbsolutePath() +
-                        "/BootAnimationCache/animation_preview/");
                 progressBar.setVisibility(View.GONE);
                 paused = false;
             } catch (Exception e) {
@@ -386,57 +393,30 @@ public class BootAnimations extends Fragment {
                         getContext().getCacheDir().getAbsolutePath() +
                                 "/BootAnimationCache/animation_preview/");
 
-                // Begin creating the animated drawable
-                try {
-                    // Primary check: determine the size of the resample based on file size
-                    int inSampleSize =
-                            previewDeterminator(getContext().getCacheDir().getAbsolutePath() +
-                                    "/BootAnimationCache/" + source);
+                options.inPreferredConfig = Bitmap.Config.RGB_565;
+                options.inSampleSize = previewDeterminator(
+                        getContext().getCacheDir().getAbsolutePath() + "/BootAnimationCache/" +
+                                source);
 
-                    Log.d(TAG, "Resampling bootanimation for preview at scale " + inSampleSize);
-
-                    // Start working on the bootanimation preview
-                    File encompassing_directory = new File(getContext().getCacheDir(),
-                            "/BootAnimationCache/animation_preview/");
-                    String[] folders = encompassing_directory.list();
-                    for (String folder : folders) {
-                        try {
-                            String directory = getContext().getCacheDir().getAbsolutePath() +
-                                    "/BootAnimationCache/" +
-                                    "animation_preview/" + folder + "/";
-                            File current_directory = new File(directory);
-                            if (current_directory.exists()) {
-                                String[] dirObjects = current_directory.list();
-
-                                BitmapFactory.Options opts = new BitmapFactory.Options();
-                                // Drop down the resampling size so that all bootanimations work
-                                opts.inSampleSize = inSampleSize;
-                                opts.inTempStorage = new byte[32 * 1024];
-
-                                for (String string : dirObjects) {
-                                    Bitmap bitmap = BitmapFactory.decodeFile(directory +
-                                            string, opts);
-
-                                    images.add(bitmap);
+                // List images files in directory
+                File previewDirectory = new File(getContext().getCacheDir(),
+                        "/BootAnimationCache/animation_preview/");
+                String[] dirs = previewDirectory.list();
+                String[] supportedFile = {"jpg", "png", "jpeg"};
+                for (String content : dirs) {
+                    File current = new File(previewDirectory, content);
+                    if (current.isDirectory()) {
+                        String[] currentDirs = current.list();
+                        for (String currentDirContent : currentDirs) {
+                            File probablyImage = new File(current, currentDirContent);
+                            for (String ext : supportedFile) {
+                                if (probablyImage.getName().toLowerCase().endsWith(ext)) {
+                                    previewImages.add(probablyImage.getAbsolutePath());
+                                    break;
                                 }
                             }
-                        } catch (Exception e) {
-                            // Suppress warning
                         }
                     }
-
-                    for (Bitmap image : images) {
-                        BitmapDrawable frame = new BitmapDrawable(getResources(), image);
-                        animation.addFrame(frame, ANIMATION_FRAME_DURATION);
-                    }
-                } catch (OutOfMemoryError oome) {
-                    Log.e(TAG,
-                            "The VM has been blown up and the rendering of this bootanimation " +
-                                    "has been cancelled.");
-                    animation = new AnimationDrawable();
-                    animation.setOneShot(false);
-                    images.clear();
-                    return "true";
                 }
             } catch (Exception e) {
                 e.printStackTrace();

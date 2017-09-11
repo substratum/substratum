@@ -210,20 +210,16 @@ public class ThemeFragment extends Fragment {
                     (packageInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0).forEach(packageInfo ->
                     References.getSubstratumPackages(
                             mContext,
-                            packageInfo.packageName,
                             substratum_packages,
                             home_type,
-                            true,
                             MainActivity.userInput));
             Log.d(References.SUBSTRATUM_LOG,
                     "Substratum has loaded themes using the pre-499 theme database filter");
         } else {
             References.getSubstratumPackages(
                     mContext,
-                    null,
                     substratum_packages,
                     home_type,
-                    false,
                     MainActivity.userInput);
             Log.d(References.SUBSTRATUM_LOG,
                     "Substratum has loaded themes using the post-499 theme database filter");
@@ -326,20 +322,16 @@ public class ThemeFragment extends Fragment {
                             packageInfo ->
                                     References.getSubstratumPackages(
                                             mContext,
-                                            packageInfo.packageName,
                                             substratum_packages,
                                             home_type,
-                                            true,
                                             MainActivity.userInput));
                     Log.d(References.SUBSTRATUM_LOG,
                             "Substratum has loaded themes using the pre-499 theme database filter");
                 } else {
                     References.getSubstratumPackages(
                             mContext,
-                            null,
                             substratum_packages,
                             home_type,
-                            false,
                             MainActivity.userInput);
                     Log.d(References.SUBSTRATUM_LOG,
                             "Substratum has loaded themes using the " +

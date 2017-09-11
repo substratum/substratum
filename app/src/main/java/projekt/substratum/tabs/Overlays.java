@@ -141,7 +141,8 @@ public class Overlays extends Fragment {
     public Spinner base_spinner;
     public SharedPreferences prefs;
     public ArrayList<String> final_runner, late_install;
-    public boolean mixAndMatchMode, enable_mode, disable_mode, compile_enable_mode, enable_disable_mode;
+    public boolean mixAndMatchMode, enable_mode, disable_mode, compile_enable_mode,
+            enable_disable_mode;
     public ArrayList<String> all_installed_overlays;
     public Switch toggle_all;
     public SwipeRefreshLayout swipeRefreshLayout;

@@ -95,7 +95,8 @@ class OverlayFunctions {
                 overlays.final_runner = new ArrayList<>();
                 overlays.late_install = new ArrayList<>();
 
-                if (!overlays.enable_mode && !overlays.disable_mode && !overlays.enable_disable_mode) {
+                if (!overlays.enable_mode && !overlays.disable_mode && !overlays
+                        .enable_disable_mode) {
                     int notification_priority = Notification.PRIORITY_MAX;
 
                     // Create an Intent for the BroadcastReceiver
@@ -182,7 +183,8 @@ class OverlayFunctions {
             Overlays overlays = ref.get();
             if (overlays != null) {
                 Context context = overlays.getActivity();
-                if (!overlays.enable_mode && !overlays.disable_mode && !overlays.enable_disable_mode) {
+                if (!overlays.enable_mode && !overlays.disable_mode && !overlays
+                        .enable_disable_mode) {
                     // Initialize Substratum cache with theme only if permitted
                     if (References.isCachingEnabled(context) && !overlays.has_initialized_cache) {
                         Log.d(Overlays.TAG,
@@ -246,7 +248,8 @@ class OverlayFunctions {
                 overlays.fail_count = 0;
                 overlays.error_logs = new StringBuilder();
 
-                if (!overlays.enable_mode && !overlays.disable_mode && !overlays.enable_disable_mode) {
+                if (!overlays.enable_mode && !overlays.disable_mode && !overlays
+                        .enable_disable_mode) {
                     // Change title in preparation for loop to change subtext
                     if (overlays.checkActiveNotifications()) {
                         overlays.mBuilder
@@ -294,7 +297,8 @@ class OverlayFunctions {
                     overlays.final_command.addAll(overlays.final_runner);
                 }
 
-                if (!overlays.enable_mode && !overlays.disable_mode && !overlays.enable_disable_mode) {
+                if (!overlays.enable_mode && !overlays.disable_mode && !overlays
+                        .enable_disable_mode) {
                     new Phase4_finishUpdateFunction(overlays).execute();
                     if (overlays.has_failed) {
                         overlays.failedFunction(context);
@@ -324,7 +328,7 @@ class OverlayFunctions {
                     new Phase4_finishEnableFunction(overlays).execute();
                 } else if (overlays.disable_mode) {
                     new Phase4_finishDisableFunction(overlays).execute();
-                } else if (overlays.enable_disable_mode){
+                } else if (overlays.enable_disable_mode) {
                     new Phase4_finishEnableDisableFunction(overlays).execute();
                 }
                 if (References.isSamsung(context) &&
@@ -1166,7 +1170,7 @@ class OverlayFunctions {
 
                     ArrayList<String> enableOverlays = new ArrayList<>();
                     ArrayList<String> disableOverlays = new ArrayList<>();
-                    for (int i = 0; i<overlays.final_command.size(); i++) {
+                    for (int i = 0; i < overlays.final_command.size(); i++) {
                         if (!overlays.checkedOverlays.get(i).isOverlayEnabled())
                             enableOverlays.add(overlays.final_command.get(i));
                         else

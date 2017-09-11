@@ -142,8 +142,8 @@
 
         <activity
             android:name=".activities.crash.SubstratumCrash"
-            android:theme="@style/DoNotThemeThisStyle"
-            android:process=":error_activity" />
+            android:process=":error_activity"
+            android:theme="@style/DoNotThemeThisStyle"/>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:resizeableActivity="false"

@@ -179,8 +179,8 @@
 
                 <TextView
                     android:id="@+id/enable_disable_selected"
-                    android:drawableStart="@drawable/fab_menu_enable_disable"
                     style="@style/TextAppearance.MaterialSheetFab.Sheet.Item"
+                    android:drawableStart="@drawable/fab_menu_enable_disable"
                     android:text="@string/fab_menu_enable_disable"/>
             </LinearLayout>
 

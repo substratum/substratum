@@ -162,7 +162,11 @@ public class Substratum extends Application {
     }
 
     public void unregisterFinishReceiver() {
-        unregisterReceiver(finishReceiver);
+        try {
+            unregisterReceiver(finishReceiver);
+        } catch (IllegalArgumentException e) {
+            // Already unregistered
+        }
     }
 
     public void startWaitingInstall() {

@@ -129,6 +129,7 @@ public class Resources {
     static final String[] ALLOWED_LEGACY_ASSETS = {
             "overlays",
             "overlays_legacy",
+            "bootanimation",
             "sounds"
     };
     // Do not theme these packages on icon pack studio

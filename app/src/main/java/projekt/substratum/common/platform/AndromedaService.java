@@ -34,7 +34,7 @@ public class AndromedaService {
         try {
             return getAndromedaInterface().checkServerActivity();
         } catch (Exception e) {
-            Substratum.getInstance().startAndromedaBinderService(true);
+            Substratum.getInstance().startAndromedaBinderService();
         }
         return false;
     }
@@ -43,7 +43,7 @@ public class AndromedaService {
         try {
             return getAndromedaInterface().enableOverlay(overlays);
         } catch (Exception e) {
-            Substratum.getInstance().startAndromedaBinderService(true);
+            Substratum.getInstance().startAndromedaBinderService();
         }
         return false;
     }
@@ -52,7 +52,7 @@ public class AndromedaService {
         try {
             return getAndromedaInterface().disableOverlay(overlays);
         } catch (Exception e) {
-            Substratum.getInstance().startAndromedaBinderService(true);
+            Substratum.getInstance().startAndromedaBinderService();
         }
         return false;
     }
@@ -61,7 +61,7 @@ public class AndromedaService {
         try {
             return getAndromedaInterface().listOverlays();
         } catch (Exception e) {
-            Substratum.getInstance().startAndromedaBinderService(true);
+            Substratum.getInstance().startAndromedaBinderService();
         }
         return false;
     }
@@ -70,7 +70,7 @@ public class AndromedaService {
         try {
             return getAndromedaInterface().installPackage(overlays);
         } catch (Exception e) {
-            Substratum.getInstance().startAndromedaBinderService(true);
+            Substratum.getInstance().startAndromedaBinderService();
         }
         return false;
     }
@@ -79,7 +79,7 @@ public class AndromedaService {
         try {
             return getAndromedaInterface().uninstallPackage(overlays);
         } catch (Exception e) {
-            Substratum.getInstance().startAndromedaBinderService(true);
+            Substratum.getInstance().startAndromedaBinderService();
         }
         return false;
     }
@@ -88,7 +88,7 @@ public class AndromedaService {
         try {
             return getAndromedaInterface().changePriority(overlays);
         } catch (Exception e) {
-            Substratum.getInstance().startAndromedaBinderService(true);
+            Substratum.getInstance().startAndromedaBinderService();
         }
         return false;
     }

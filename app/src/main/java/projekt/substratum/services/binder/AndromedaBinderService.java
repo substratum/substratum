@@ -24,13 +24,10 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.service.notification.StatusBarNotification;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 
 import projekt.andromeda.IAndromedaInterface;
@@ -45,8 +42,6 @@ public class AndromedaBinderService extends Service implements ServiceConnection
 
     private static final String TAG = "AndromedaBinderService";
     private static AndromedaBinderService andromedaBinderService;
-    private static int notificationId = 2017;
-    private static int badNotificationId = 2018;
     private IAndromedaInterface iAndromedaInterface;
     private boolean mBound;
 
@@ -75,16 +70,6 @@ public class AndromedaBinderService extends Service implements ServiceConnection
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         andromedaBinderService = this;
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
-                getApplicationContext(),
-                References.ANDROMEDA_NOTIFICATION_CHANNEL_ID);
-
-        mBuilder.setContentTitle(getApplicationContext().getString(
-                R.string.andromeda_notification_title))
-                .setContentText(getApplicationContext().getString(
-                        R.string.andromeda_notification_text))
-                .setSmallIcon(R.drawable.notification_icon)
-                .setOngoing(true);
 
         new Thread(() -> {
             while (!mBound) {
@@ -116,7 +101,6 @@ public class AndromedaBinderService extends Service implements ServiceConnection
                         References.DEFAULT_NOTIFICATION_CHANNEL_ID));
             }
         }).start();
-        startForeground(notificationId, mBuilder.build());
         bindAndromeda();
         return START_STICKY;
     }
@@ -125,15 +109,6 @@ public class AndromedaBinderService extends Service implements ServiceConnection
     public void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "Substratum has disconnected from Andromeda!");
-        SharedPreferences sharedPreferences =
-                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        boolean shouldRestart = sharedPreferences.getBoolean("should_restart_service", true);
-        if (shouldRestart) {
-            sharedPreferences.edit().remove("should_restart_service").apply();
-            Log.d(TAG, "Restarting the service according to the stored preference...");
-            ContextCompat.startForegroundService(getApplicationContext(),
-                    new Intent(getApplicationContext(), AndromedaBinderService.class));
-        }
         unbindAndromeda();
     }
 
@@ -154,7 +129,6 @@ public class AndromedaBinderService extends Service implements ServiceConnection
     public void onServiceDisconnected(ComponentName name) {
         iAndromedaInterface = null;
         mBound = false;
-        stopForeground(STOP_FOREGROUND_REMOVE);
         stopSelf();
         Log.d(TAG, "Substratum has successfully unbinded with the Andromeda module.");
     }
@@ -166,6 +140,7 @@ public class AndromedaBinderService extends Service implements ServiceConnection
 
         boolean isBadNotificationShowing = false;
         StatusBarNotification[] notifications;
+        int badNotificationId = 2017;
         if (mNotifyMgr != null) {
             notifications = mNotifyMgr.getActiveNotifications();
             for (StatusBarNotification notification : notifications) {
@@ -185,7 +160,6 @@ public class AndromedaBinderService extends Service implements ServiceConnection
             mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
             mNotifyMgr.notify(badNotificationId, mBuilder.build());
         }
-        this.stopForeground(STOP_FOREGROUND_REMOVE);
         System.exit(0);
     }
 }

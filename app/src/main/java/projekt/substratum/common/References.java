@@ -361,19 +361,6 @@ public class References {
         return supported_rom;
     }
 
-    public static boolean notifyAndromedaDisconnected(Context context) {
-        try {
-            context.stopService(new Intent(context, AndromedaBinderService.class));
-            SharedPreferences sharedPreferences =
-                    PreferenceManager.getDefaultSharedPreferences(context);
-            sharedPreferences.edit().putBoolean("should_restart_service", true).apply();
-            return true;
-        } catch (Exception e) {
-            // Suppress warning
-        }
-        return false;
-    }
-
     public static void registerBroadcastReceivers(Context context) {
         try {
             IntentFilter overlayAdded = new IntentFilter(APP_CRASHED);

@@ -122,7 +122,6 @@ public class ThemeManager {
                                 context.getString(R.string.toast_andromeda_timed_out),
                                 Toast.LENGTH_LONG).show()
                 );
-                References.notifyAndromedaDisconnected(context);
             }
         } else {
             StringBuilder commands = new StringBuilder(enableOverlay + " " + overlays.get(0));
@@ -162,7 +161,6 @@ public class ThemeManager {
                                 context.getString(R.string.toast_andromeda_timed_out),
                                 Toast.LENGTH_LONG).show()
                 );
-                References.notifyAndromedaDisconnected(context);
             }
         } else {
             StringBuilder commands = new StringBuilder(disableOverlay + " " + overlays.get(0));
@@ -198,7 +196,6 @@ public class ThemeManager {
                                 context.getString(R.string.toast_andromeda_timed_out),
                                 Toast.LENGTH_LONG).show()
                 );
-                References.notifyAndromedaDisconnected(context);
             }
         } else {
             StringBuilder commands = new StringBuilder();
@@ -344,7 +341,6 @@ public class ThemeManager {
                                             context.getString(R.string.toast_andromeda_timed_out),
                                             Toast.LENGTH_LONG).show()
                             );
-                            References.notifyAndromedaDisconnected(context);
                         }
 
                         // Now we wait till the file is made quickly!
@@ -411,7 +407,6 @@ public class ThemeManager {
                                         context.getString(R.string.toast_andromeda_timed_out),
                                         Toast.LENGTH_LONG).show();
                             }
-                            References.notifyAndromedaDisconnected(context);
                         }
                         break;
                     case EXPORT_RETURN_ALL_OVERLAYS:
@@ -451,7 +446,6 @@ public class ThemeManager {
                                         context.getString(R.string.toast_andromeda_timed_out),
                                         Toast.LENGTH_LONG).show();
                             }
-                            References.notifyAndromedaDisconnected(context);
                         }
                         break;
                 }
@@ -567,7 +561,6 @@ public class ThemeManager {
                                 context.getString(R.string.toast_andromeda_timed_out),
                                 Toast.LENGTH_LONG).show()
                 );
-                References.notifyAndromedaDisconnected(context);
             }
         } else {
             new ElevatedCommands.ThreadRunner().execute("pm install -r " + overlay);
@@ -586,7 +579,6 @@ public class ThemeManager {
                                 context.getString(R.string.toast_andromeda_timed_out),
                                 Toast.LENGTH_LONG).show()
                 );
-                References.notifyAndromedaDisconnected(context);
             }
         } else {
             StringBuilder packages = new StringBuilder();
@@ -618,7 +610,6 @@ public class ThemeManager {
                                 context.getString(R.string.toast_andromeda_timed_out),
                                 Toast.LENGTH_LONG).show()
                 );
-                References.notifyAndromedaDisconnected(context);
             }
         } else if (References.isSamsung(context) &&
                 !Root.checkRootAccess() &&

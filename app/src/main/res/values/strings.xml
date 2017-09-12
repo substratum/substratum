@@ -55,10 +55,9 @@
     <string name="resource_dimension" translatable="false">dimens</string>
     <string name="resource_style" translatable="false">style</string>
 
-    <string name="andromeda_notification_title">Substratum and Andromeda are connected!</string>
-    <string name="andromeda_notification_title_negation">Substratum and Andromeda are NOT connected</string>
     <string name="interfacer_notification_title">Substratum and Interfacer are connected!</string>
-    <string name="andromeda_notification_text">The background theme services are binded, active and running.</string>
+    <string name="interfacer_notification_text">The background theme services are binded, active and running.</string>
+    <string name="andromeda_notification_title_negation">Substratum and Andromeda are NOT connected</string>
     <string name="andromeda_notification_text_negation">Andromeda\'s service is not running, please rerun the desktop suite!</string>
 
     <string name="resource_commit_dialog_title">Missing Resources in %s</string>

@@ -104,6 +104,7 @@ public class BinderService extends Service implements ServiceConnection {
     @Override
     public void onCreate() {
         super.onCreate();
+        // TODO: What on earth
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
                     getApplicationContext(),
@@ -112,9 +113,8 @@ public class BinderService extends Service implements ServiceConnection {
             mBuilder.setContentTitle(getApplicationContext().getString(
                     R.string.interfacer_notification_title))
                     .setContentText(getApplicationContext().getString(
-                            R.string.andromeda_notification_text))
+                            R.string.interfacer_notification_text))
                     .setSmallIcon(R.drawable.notification_icon)
-                    .setPriority(Notification.PRIORITY_DEFAULT)
                     .setOngoing(true);
 
             this.startForeground(ThreadLocalRandom.current().nextInt(0, 100 + 1), mBuilder.build());

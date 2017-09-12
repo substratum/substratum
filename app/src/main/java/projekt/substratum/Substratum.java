@@ -64,7 +64,7 @@ public class Substratum extends Application {
         } catch (IllegalStateException ise) {
             // Suppress warning
         }
-        startAndromedaBinderService(false);
+        startAndromedaBinderService();
         startBinderService();
         References.registerBroadcastReceivers(this);
         createNotificationChannel();
@@ -114,20 +114,16 @@ public class Substratum extends Application {
         }
     }
 
-    public void startAndromedaBinderService(boolean force) {
+    public void startAndromedaBinderService() {
         if (isAndromedaDevice(getApplicationContext())) {
             Intent intent = new Intent(getApplicationContext(), AndromedaBinderService.class);
-            if (force) {
-                Log.d(ANDROMEDA_BINDER_TAG, "Force stopping Andromeda Binder Service...");
-                stopService(intent);
-            }
             if (checkServiceActivation(AndromedaBinderService.class)) {
                 Log.d(ANDROMEDA_BINDER_TAG,
                         "This session will utilize the pre-connected Andromeda Binder service!");
             } else {
                 Log.d(ANDROMEDA_BINDER_TAG,
                         "Substratum is now connecting to the Andromeda Binder service...");
-                ContextCompat.startForegroundService(getApplicationContext(), intent);
+                startService(intent);
             }
         }
     }

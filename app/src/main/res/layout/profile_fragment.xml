@@ -343,6 +343,7 @@
                         android:layout_marginTop="16dp"
                         android:background="@color/restore_button"
                         android:clickable="true"
+                        android:focusable="true"
                         android:foreground="?android:selectableItemBackground"
                         android:text="@string/apply"
                         android:textColor="@color/restore_button_text_color"/>

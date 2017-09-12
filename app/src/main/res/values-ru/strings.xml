@@ -85,7 +85,7 @@
     <string name="bootanimation_vm_exploded">Визуализация анимации загрузки прекращена из-за недостатка памяти.\n\nДальнейшая установка возможна, но без предварительного просмотра.     </string>
     <string name="bootanimation_placeholder_text">выберите анимацию загрузки из выпадающего списка&#8230;</string>
     <string name="bootanimation_default_spinner">выберите анимацию загрузки&#8230;</string>
-    <string name="bootanimation_spinner_set_defaults">возврат стандартной анимации...     </string>
+    <string name="bootanimation_spinner_set_defaults">возврат стандартной анимации…     </string>
     <string name="bootanimation_defaults_text">будут удалены все пользовательские анимации загрузки, примененные на устройстве</string>
     <string name="bootanimation_dialog_apply_text">Применение анимации загрузки&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Анимация загрузки применена!</string>

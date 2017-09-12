@@ -664,7 +664,7 @@ public class InformationActivity extends SubstratumActivity {
                 });
             }
 
-            TextView enable_disable_selected = (TextView)
+            TextView enable_disable_selected =
                     findViewById(R.id.enable_disable_selected);
             if (!References.checkOMS(this))
                 enable_disable_selected.setVisibility(View.GONE);

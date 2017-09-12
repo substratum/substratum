@@ -29,7 +29,7 @@
     <string name="resource_validated">Toutes les demandes sont intactes !</string>
     <string name="resource_commit_dialog_title">Ressources manquantes pour %s</string>
     <string name="showcase_no_connection">La galerie de thème nécessite une connexion Internet pour fonctionner !</string>
-    <string name="showcase_no_themes">Une erreur est survenue lors de la mise en cache de la base de données de la galerie de thème pour cet onglet...</string>
+    <string name="showcase_no_themes">Une erreur est survenue lors de la mise en cache de la base de données de la galerie de thème pour cet onglet…</string>
     <string name="on_demand_updating_title">Première configuration du cache des ressources</string>
     <string name="on_demand_updating_text">Compilation du cache de %s en cours&#8230;</string>
     <string name="background_updating_toast">Mise à niveau en cours d\'un thème en arrière-plan, veuillez patienter !</string>

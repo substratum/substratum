@@ -38,7 +38,7 @@
     <string name="background_updated_toast">Pamięć podręczna zasobów została zbudowana!</string>
     <string name="background_updated_toast_cancel">Ten motyw musi uaktualnić swoją pamięć podręczną zasobów zanim będzie funkcjonalny!    </string>
     <string name="background_updated_toast_rejected">Nie można utworzyć zasobu pamięci podręcznej dla tego motywu!</string>
-    <string name="background_updated_toast_cleaning">Substratum czyści teraz pamięć podręczną tego motywu...</string>
+    <string name="background_updated_toast_cleaning">Substratum czyści teraz pamięć podręczną tego motywu…</string>
     <string name="failed_to_install_title_notification">Błąd instalacji motywu OMS</string>
     <string name="failed_to_install_text_notification">%s nie udało się zainstalować</string>
     <string name="actionbar_theme_count_singular">%s motyw</string>
@@ -86,7 +86,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="bootanimation_vm_exploded">Renderowanie animacji rozruchu zostało zakończone z powodu niewystarczającej alokacji ilości pamięci. Instalacja jest nadal możliwa, lecz bez renderowanego podglądu.    </string>
     <string name="bootanimation_placeholder_text">Proszę wybrać z listy animację rozruchu&#8230;</string>
     <string name="bootanimation_default_spinner">Proszę wybrać animację rozruchu&#8230;</string>
-    <string name="bootanimation_spinner_set_defaults">Przywróć domyślną animację rozruchu...    </string>
+    <string name="bootanimation_spinner_set_defaults">Przywróć domyślną animację rozruchu…    </string>
     <string name="bootanimation_defaults_text">spowoduje to usunięcie wszelkich animacji rozruchu zastosowanych w urządzeniu</string>
     <string name="bootanimation_dialog_apply_text">Animacja rozruchu jest przetwarzana&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Animacja rozruchu zastosowana!</string>
@@ -168,7 +168,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="manage_wallpaper_home_toast">Tapeta ekranu głównego pomyślnie przywrócona!</string>
     <string name="manage_wallpaper_lock_toast">Tapeta ekranu blokady pomyślnie przywrócona!</string>
     <string name="manage_wallpaper_all_toast">Tapeta pomyślnie przywrócona!</string>
-    <string name="adapter_uninstalling">Usuwanie %s...</string>
+    <string name="adapter_uninstalling">Usuwanie %s…</string>
     <string name="plugin_template">Wtyczka</string>
     <string name="api_21">Lollipop</string>
     <string name="api_22">Lollipop MR1</string>
@@ -214,7 +214,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="logcat_snackbar_text">Zastosowano docelową aplikację / nakładkę przestarzałą lub niezgodną konfigurację&#8230;</string>
     <string name="logcat_dialog_title">Raport debugowania LogChar</string>
     <string name="logcat_dialog_copy_success">Pomyślnie skopiowano dziennik błędów do schowka!</string>
-    <string name="logcat_email_activity">Wyślij raport błędu za pomocą...</string>
+    <string name="logcat_email_activity">Wyślij raport błędu za pomocą…</string>
     <string name="logcat_email_activity_error">Brak zainstalowanych klientów poczty elektronicznej.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
     <string name="logcat_processing_dialog">Przetwarzanie raportu o błędzie</string>
@@ -251,7 +251,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="toast_backup_success">Zapisano aktualną listę nakładek do
         \"/storage/emulated/0/substratum/profiles/%s\"
     </string>
-    <string name="spinner_default_item">wybierz profil...</string>
+    <string name="spinner_default_item">wybierz profil…</string>
     <string name="select_to_toggle_all_overlays">Wybierz, aby wybrać wszystkie nakładki</string>
     <string name="permission_not_granted_dialog_title">Uprawnienia nie zostały przyznane</string>
     <string name="permission_not_granted_dialog_message1">Proszę udzielić substratum uprawnień do pam. wewnętrznej, bo inaczej aplikacja nie będzie działać poprawnie!    </string>
@@ -291,7 +291,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="notification_hide">Odrzuć</string>
     <string name="notification_hide_upgrade">Anuluj</string>
     <string name="notification_initial_title">Substratum jest uruchomione</string>
-    <string name="notification_initial_title_upgrade_intent">Uaktualnianie nakładek %s...</string>
+    <string name="notification_initial_title_upgrade_intent">Uaktualnianie nakładek %s…</string>
     <string name="notification_initial_title_upgrade">Zasoby %s są teraz aktualizowane&#8230;</string>
     <string name="notification_done_title">Kompilacja motywu została zakończona</string>
     <string name="notification_done_upgrade_title">Uaktualnienie nakładki dla %s zakończone!</string>

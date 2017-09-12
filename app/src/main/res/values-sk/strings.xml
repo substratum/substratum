@@ -158,7 +158,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="nougat_style_cards_title">Rozloženie kariet podľa Android Nougat</string>
     <string name="nougat_style_cards_subtext">Zapnúť štýl kariet upozornení v štýle Android Nougat.    </string>
     <string name="uninstall_dialog_text">Naozaj chcete odinštalovať túto tému?</string>
-    <string name="manage_dialog_performing">Obnovenie do predvoleného stavu...</string>
+    <string name="manage_dialog_performing">Obnovenie do predvoleného stavu…</string>
     <string name="manage_bootanimation_title">Obnoviť spúšťaciu animáciu</string>
     <string name="manage_bootanimation_toast">Spúšťacia animácia bola úspešne obnovená!</string>
     <string name="manage_fonts_title">Obnoviť systémové písma</string>
@@ -216,7 +216,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="studio_applying">Načítavanie&#8230;</string>
     <string name="error_loading_theme_close">Zavrieť</string>
     <string name="logcat_snackbar_button">Správy protokolu LogChar</string>
-    <string name="logcat_snackbar_text">Cieľová aplikácia/prekrytie sú zastarané alebo majú nesprávne konfigurované prekrytia...</string>
+    <string name="logcat_snackbar_text">Cieľová aplikácia/prekrytie sú zastarané alebo majú nesprávne konfigurované prekrytia…</string>
     <string name="logcat_dialog_copy_success">Protokol chýb sa úspešne skopíroval do schránky!</string>
     <string name="logcat_email_activity">Poslať protokol chýb pomocou&#8230;</string>
     <string name="logcat_email_activity_error">Nie sú nainštalovaní žiadni e-mailoví klienti.</string>

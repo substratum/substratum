@@ -176,8 +176,7 @@ public class CompilerCommands {
     }
 
     private static boolean isNullOrEmpty(String string) {
-        if (string == null) return true;
-        return string.length() == 0;
+        return string == null || string.length() == 0;
     }
 
     @SuppressWarnings("StringConcatenationInsideStringBufferAppend")

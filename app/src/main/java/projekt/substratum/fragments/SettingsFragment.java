@@ -20,8 +20,6 @@ package projekt.substratum.fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
@@ -54,7 +52,6 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 import projekt.substratum.BuildConfig;
 import projekt.substratum.LauncherActivity;
@@ -367,33 +364,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             vibrate_on_compiled.setVisible(false);
             manage_notifications.setOnPreferenceClickListener(preference -> {
-                NotificationManager notificationManager =
-                        (NotificationManager) getContext().getSystemService(NOTIFICATION_SERVICE);
-                List<NotificationChannel> channels = null;
-                if (notificationManager != null) {
-                    channels = notificationManager.getNotificationChannels();
-                }
-                CharSequence[] channelNames = new CharSequence[0];
-                if (channels != null) {
-                    channelNames = new CharSequence[channels.size()];
-                    for (int i = 0; i < channels.size(); i++) {
-                        channelNames[i] = channels.get(i).getName();
-                    }
-                }
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle(R.string.manage_notification_channel_dialog_title);
-                builder.setNegativeButton(android.R.string.cancel, (dialog, i) -> dialog.cancel());
-                List<NotificationChannel> finalChannels = channels;
-                builder.setItems(channelNames, (dialog, i) -> {
-                    Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
-                    intent.putExtra(Settings.EXTRA_APP_PACKAGE, getContext().getPackageName());
-                    if (finalChannels != null) {
-                        intent.putExtra(Settings.EXTRA_CHANNEL_ID, finalChannels.get(i).getId());
-                    }
-                    startActivity(intent);
-                });
-                builder.create().show();
+                Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
+                intent.putExtra(Settings.EXTRA_APP_PACKAGE, getContext().getPackageName());
+                startActivity(intent);
                 return false;
             });
         } else {

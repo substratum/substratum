@@ -56,7 +56,7 @@ import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
  * via {@link BaseTransientBottomBar#addCallback(BaseCallback)}.</p>
  */
 @SuppressWarnings("WeakerAccess")
-public final class Lunchbar extends TransientBottom {
+public final class Lunchbar extends BaseTransientBottomBar {
 
     /**
      * Show the Snackbar indefinitely. This means that the Snackbar will be displayed from the time
@@ -280,6 +280,12 @@ public final class Lunchbar extends TransientBottom {
         public void onDismissed(Lunchbar transientBottomBar, @DismissEvent int event) {
             // Stub implementation to make API check happy.
         }
+    }
+
+    @Override
+    boolean shouldAnimate() {
+        // Force animation!
+        return true;
     }
 
     /**

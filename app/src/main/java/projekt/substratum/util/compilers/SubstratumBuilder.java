@@ -168,9 +168,6 @@ public class SubstratumBuilder {
         }
 
         // 5. Create the manifest file based on the new parsed names
-        String varianter = parse2_variantName + parse2_baseName;
-        varianter = varianter.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
-
         String targetPackage = overlay_package;
         if (References.allowedSettingsOverlay(overlay_package)) {
             targetPackage = "com.android.settings";
@@ -364,7 +361,7 @@ public class SubstratumBuilder {
         // 8. Sign the apk
         String overlayName = variant == null ?
                 overlay_package + "." + parse2_themeName :
-                overlay_package + "." + parse2_themeName + "." + varianter;
+                overlay_package + "." + parse2_themeName + parse2_variantName + parse2_baseName;
         if (!has_errored_out) {
             try {
                 // Delete the previous APK if it exists in the dashboard folder

@@ -21,7 +21,6 @@ package projekt.substratum.common.platform;
 import java.util.List;
 
 import projekt.andromeda.IAndromedaInterface;
-import projekt.substratum.Substratum;
 import projekt.substratum.services.binder.AndromedaBinderService;
 
 public class AndromedaService {
@@ -52,7 +51,7 @@ public class AndromedaService {
         try {
             return getAndromedaInterface().disableOverlay(overlays);
         } catch (Exception e) {
-            Substratum.getInstance().startAndromedaBinderService();
+            // Suppressed exception
         }
         return false;
     }

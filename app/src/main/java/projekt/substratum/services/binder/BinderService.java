@@ -18,7 +18,6 @@
 
 package projekt.substratum.services.binder;
 
-import android.app.Notification;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
@@ -73,12 +72,6 @@ public class BinderService extends Service implements ServiceConnection {
         binderService = this;
         bindInterfacer();
         return START_STICKY;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        unbindInterfacer();
     }
 
     @Nullable

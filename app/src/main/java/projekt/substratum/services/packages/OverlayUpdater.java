@@ -50,6 +50,7 @@ import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
 
+import static projekt.substratum.common.References.DEFAULT_NOTIFICATION_CHANNEL_ID;
 import static projekt.substratum.common.References.KEY_RETRIEVAL;
 import static projekt.substratum.common.References.PACKAGE_ADDED;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
@@ -85,7 +86,6 @@ public class OverlayUpdater extends BroadcastReceiver {
                             context,
                             intent.getData().toString().substring(8),
                             metadataOverlayDevice) != null ||
-                    !References.checkOMS(context) ||
                     References.isCachingEnabled(context)) {
                 return;
             }
@@ -174,7 +174,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                 errored_packages = new ArrayList<>();
                 mNotifyManager = (NotificationManager) context.getSystemService(
                         Context.NOTIFICATION_SERVICE);
-                mBuilder = new NotificationCompat.Builder(context);
+                mBuilder = new NotificationCompat.Builder(context, DEFAULT_NOTIFICATION_CHANNEL_ID);
                 String format = String.format(
                         context.getString(R.string.notification_initial_title_upgrade_intent),
                         References.grabPackageName(context, package_name));

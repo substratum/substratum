@@ -48,10 +48,6 @@ public class AppCrashReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (!References.checkOMS(context)) {
-            return;
-        }
-
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences
                 (context);
         boolean enabled = sharedPreferences.getBoolean("crash_receiver", true);

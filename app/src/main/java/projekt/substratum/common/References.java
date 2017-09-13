@@ -361,27 +361,32 @@ public class References {
 
     public static void registerBroadcastReceivers(Context context) {
         try {
-            IntentFilter overlayAdded = new IntentFilter(APP_CRASHED);
             IntentFilter intentAppCrashed = new IntentFilter(APP_CRASHED);
             IntentFilter intentPackageAdded = new IntentFilter(PACKAGE_ADDED);
             intentPackageAdded.addDataScheme("package");
             IntentFilter intentPackageFullyRemoved = new IntentFilter(PACKAGE_FULLY_REMOVED);
             intentPackageFullyRemoved.addDataScheme("package");
-            context.getApplicationContext().registerReceiver(
-                    new AppCrashReceiver(), intentAppCrashed);
-            context.getApplicationContext().registerReceiver(
-                    new OverlayFound(), intentPackageAdded);
-            context.getApplicationContext().registerReceiver(
-                    new OverlayUpdater(), intentPackageAdded);
+
+            if (checkOMS(context)) {
+                context.getApplicationContext().registerReceiver(
+                        new AppCrashReceiver(), intentAppCrashed);
+                context.getApplicationContext().registerReceiver(
+                        new OverlayFound(), intentPackageAdded);
+                context.getApplicationContext().registerReceiver(
+                        new OverlayUpdater(), intentPackageAdded);
+            }
+
+            if (checkThemeInterfacer(context)) {
+                IntentFilter interfacerAuthorize = new IntentFilter(
+                        INTERFACER_PACKAGE + ".CALLER_AUTHORIZED");
+                context.getApplicationContext().registerReceiver(
+                        new InterfacerAuthorizationReceiver(), interfacerAuthorize);
+            }
+
             context.getApplicationContext().registerReceiver(
                     new PackageModificationDetector(), intentPackageAdded);
             context.getApplicationContext().registerReceiver(
                     new PackageModificationDetector(), intentPackageFullyRemoved);
-
-            IntentFilter interfacerAuthorize = new IntentFilter(
-                    INTERFACER_PACKAGE + ".CALLER_AUTHORIZED");
-            context.getApplicationContext().registerReceiver(
-                    new InterfacerAuthorizationReceiver(), interfacerAuthorize);
 
             Log.d(SUBSTRATUM_LOG,
                     "Successfully registered broadcast receivers for Substratum functionality!");

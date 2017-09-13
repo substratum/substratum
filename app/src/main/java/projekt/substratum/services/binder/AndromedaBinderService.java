@@ -41,15 +41,10 @@ import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
 public class AndromedaBinderService extends Service implements ServiceConnection {
 
     private static final String TAG = "AndromedaBinderService";
-    private static AndromedaBinderService andromedaBinderService;
-    private IAndromedaInterface iAndromedaInterface;
+    private static IAndromedaInterface iAndromedaInterface;
     private boolean mBound;
 
-    public static AndromedaBinderService getInstance() {
-        return andromedaBinderService;
-    }
-
-    public IAndromedaInterface getAndromedaInterface() {
+    public static IAndromedaInterface getAndromedaInterface() {
         return iAndromedaInterface;
     }
 
@@ -69,8 +64,7 @@ public class AndromedaBinderService extends Service implements ServiceConnection
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        andromedaBinderService = this;
-
+        bindAndromeda();
         new Thread(() -> {
             while (!mBound) {
                 try {
@@ -101,14 +95,12 @@ public class AndromedaBinderService extends Service implements ServiceConnection
                         References.DEFAULT_NOTIFICATION_CHANNEL_ID));
             }
         }).start();
-        bindAndromeda();
         return START_STICKY;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "Substratum has disconnected from Andromeda!");
         unbindAndromeda();
     }
 
@@ -129,7 +121,6 @@ public class AndromedaBinderService extends Service implements ServiceConnection
     public void onServiceDisconnected(ComponentName name) {
         iAndromedaInterface = null;
         mBound = false;
-        stopSelf();
         Log.d(TAG, "Substratum has successfully unbinded with the Andromeda module.");
     }
 

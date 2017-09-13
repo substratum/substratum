@@ -111,7 +111,6 @@ import projekt.substratum.common.analytics.PackageAnalytics;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.platform.ThemeInterfacerService;
 import projekt.substratum.common.tabs.SoundManager;
-import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.services.crash.AppCrashReceiver;
 import projekt.substratum.services.packages.OverlayFound;
 import projekt.substratum.services.packages.OverlayUpdater;
@@ -125,7 +124,6 @@ import projekt.substratum.util.readers.ReadSupportedROMsFile;
 import projekt.substratum.util.readers.ReadVariantPrioritizedColor;
 
 import static projekt.substratum.common.analytics.PackageAnalytics.PACKAGE_TAG;
-import static projekt.substratum.tabs.Overlays.TAG;
 
 public class References {
 
@@ -553,7 +551,6 @@ public class References {
                 activityManager.getRunningServices(Integer.MAX_VALUE);
 
         for (ActivityManager.RunningServiceInfo runningServiceInfo : services) {
-            Log.d(TAG, String.format("Service:%s", runningServiceInfo.service.getClassName()));
             if (runningServiceInfo.service.getClassName().equals(serviceClass.getName())) {
                 return true;
             }

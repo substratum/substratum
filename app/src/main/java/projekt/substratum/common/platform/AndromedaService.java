@@ -27,14 +27,14 @@ import projekt.substratum.services.binder.AndromedaBinderService;
 public class AndromedaService {
 
     private static IAndromedaInterface getAndromedaInterface() {
-        return AndromedaBinderService.getInstance().getAndromedaInterface();
+        return AndromedaBinderService.getAndromedaInterface();
     }
 
     public static boolean checkServerActivity() {
         try {
             return getAndromedaInterface().checkServerActivity();
         } catch (Exception e) {
-            Substratum.getInstance().startAndromedaBinderService();
+            // Suppressed exception
         }
         return false;
     }
@@ -43,7 +43,7 @@ public class AndromedaService {
         try {
             return getAndromedaInterface().enableOverlay(overlays);
         } catch (Exception e) {
-            Substratum.getInstance().startAndromedaBinderService();
+            // Suppressed exception
         }
         return false;
     }
@@ -61,7 +61,7 @@ public class AndromedaService {
         try {
             return getAndromedaInterface().listOverlays();
         } catch (Exception e) {
-            Substratum.getInstance().startAndromedaBinderService();
+            // Suppressed exception
         }
         return false;
     }
@@ -70,7 +70,7 @@ public class AndromedaService {
         try {
             return getAndromedaInterface().installPackage(overlays);
         } catch (Exception e) {
-            Substratum.getInstance().startAndromedaBinderService();
+            // Suppressed exception
         }
         return false;
     }
@@ -79,7 +79,7 @@ public class AndromedaService {
         try {
             return getAndromedaInterface().uninstallPackage(overlays);
         } catch (Exception e) {
-            Substratum.getInstance().startAndromedaBinderService();
+            // Suppressed exception
         }
         return false;
     }
@@ -88,7 +88,7 @@ public class AndromedaService {
         try {
             return getAndromedaInterface().changePriority(overlays);
         } catch (Exception e) {
-            Substratum.getInstance().startAndromedaBinderService();
+            // Suppressed exception
         }
         return false;
     }

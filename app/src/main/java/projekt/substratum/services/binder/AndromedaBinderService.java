@@ -63,8 +63,16 @@ public class AndromedaBinderService extends Service implements ServiceConnection
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public void onCreate() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(
+                getApplicationContext(), References.ANDROMEDA_NOTIFICATION_CHANNEL_ID);
+        builder.setContentTitle(getString(R.string.andromeda_notification_title))
+                .setContentText(getString(R.string.andromeda_notification_text))
+                .setSmallIcon(R.drawable.notification_icon);
+
+        startForeground(2018, builder.build());
         bindAndromeda();
+
         new Thread(() -> {
             while (!mBound) {
                 try {
@@ -95,13 +103,12 @@ public class AndromedaBinderService extends Service implements ServiceConnection
                         References.DEFAULT_NOTIFICATION_CHANNEL_ID));
             }
         }).start();
-        return START_STICKY;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unbindAndromeda();
+        iAndromedaInterface = null;
     }
 
     @Nullable

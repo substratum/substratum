@@ -27,6 +27,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioAttributes;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.google.firebase.FirebaseApp;
@@ -121,7 +122,8 @@ public class Substratum extends Application {
             } else {
                 Log.d(ANDROMEDA_BINDER_TAG,
                         "Substratum is now connecting to the Andromeda Binder service...");
-                startService(new Intent(getApplicationContext(), AndromedaBinderService.class));
+                ContextCompat.startForegroundService(getApplicationContext(),
+                        new Intent(getApplicationContext(), AndromedaBinderService.class));
             }
         }
     }

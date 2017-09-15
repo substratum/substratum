@@ -115,7 +115,7 @@ android {
 
 ext {
     leakCanaryVersion = '1.5.1'
-    supportLibsVersion = '26.0.2'
+    supportLibsVersion = '26.1.0'
     firebaseVersion = '11.2.2'
     glideVersion = '4.1.1'
 }
@@ -171,8 +171,6 @@ dependencies {
     implementation 'org.zeroturnaround:zt-zip:1.8'
     // Dialogs
     implementation 'com.wang.avi:library:2.1.3'
-    // Blur Effect
-    implementation 'com.eightbitlab:blurview:1.3.3'
     // Image Processing
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.4.7'
     // Direct Interface to the Overlay Manager Service

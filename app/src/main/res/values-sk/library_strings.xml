@@ -26,13 +26,6 @@
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
-    <!-- FAB Speed Dial -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_fab_speed_dial_libraryDescription">Jednoduchá knižnica spájajúca plávajúce tlačidlo (FAB) + zdroje menu + Speed dial metaphor z Material Designu.    </string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <!-- License section -->
     <!-- Gesture RecyclerView -->
     <!-- Author section -->
     <!-- Library section -->
@@ -100,13 +93,6 @@ https://github.com/81813780/AVLoadingIndicatorView</string>
 https://github.com/81813780/AVLoadingIndicatorView</string>
     <!-- ClassPath for autoDetect section -->
     <string name="library_avloadingindicatorview_classPath">com.wang.avi:library</string>
-    <!-- License section -->
-    <!-- Android Image Cropper -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_androidimagecropper_libraryDescription">Výkonná (priblíženie, otočenie, viac zdrojov), prispôsobiteľná (tvar, limity, štýl), optimalizovaná (asynchrónne, vzorkovanie, matrica) a jednoduchá knižnica pre orezávanie obrázkov v Androide.</string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Floating View -->
     <!-- Author section -->

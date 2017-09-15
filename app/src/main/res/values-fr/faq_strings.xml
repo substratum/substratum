@@ -48,4 +48,5 @@
     <string name="question_thirteen">Comment utiliser substratum sur mon appareil Samsung?</string>
     <string name="answer_thirteen">Si votre appareil Samsung tourne sous Nougat, substratum sera en mesure d\'utiliser une fonctionnalité intégrée pour permettre aux thèmes substratum de fonctionner. Substratum vous invitera à acheter le Samsung Integration Addon quand vous lancerez l\'application pour la première fois.    </string>
     <string name="question_fourteen">À l\'aide, j\'ai installé une surcouche sur mon appareil Samsung et il ne veut plus démarrer !</string>
+    <string name="answer_fourteen">Faites glisser le menu (NavDrawer) puis rendez-vous sur le sujet XDA en suivant les instructions pour savoir comment palier a ce problème.    </string>
 </resources>

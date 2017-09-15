@@ -27,6 +27,12 @@
     <string name="resource_not_validated">Былі ўкаранёны новыя каміты!</string>
     <string name="resource_needs_internet">Каб прапанаваць каміты для вашай прашыўкі падключыцеся да Інтэрнэту!</string>
     <string name="resource_validated">Усе рэсурсы ў парадку!</string>
+    <string name="interfacer_notification_title">Substratum і Andromeda злучаны!</string>
+    <string name="interfacer_notification_text">Фонавыя працэсы звязаныя, актыўныя і запушчаны.</string>
+    <string name="andromeda_notification_title">Substratum і Andromeda злучаны!</string>
+    <string name="andromeda_notification_title_negation">Substratum і Andromeda не злучаны</string>
+    <string name="andromeda_notification_text">Фонавыя працэсы звязаныя, актыўныя і запушчаны.</string>
+    <string name="andromeda_notification_text_negation">Сэрвіс Andromeda ня запушчаны, калі ласка перазапусціце праграму на кампутары!</string>
     <string name="resource_commit_dialog_title">Адсутнічаюць рэсурсы ў %s</string>
     <string name="showcase_no_connection">каталог тэм патрабуе падлучэння да інтэрнэту!    </string>
     <string name="showcase_no_themes">здаецца што кэшаванне базы дадзеных каталога для гэтай укладкі прайшло няўдала&#8230;    </string>
@@ -72,6 +78,7 @@
     <string name="manager_type3">Тып3 :</string>
     <string name="manager_type4">Type4 :</string>
     <string name="legacy_preference_priority_title">Наладка прыярытэтаў напластаванняў</string>
+    <string name="legacy_preference_priority_text">Усталёўка прыярытэту (значэнне па змаўчанні 999)：%d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">варыянт type1a&#8230;</string>
     <string name="overlays_variant_default_1b">варыянт type1b&#8230;</string>
@@ -136,7 +143,10 @@
     <string name="settings_about_substratum">версія substratum</string>
     <string name="settings_about_interfacer">версія інтэрфейсу</string>
     <string name="settings_about_interfacer_not_installed">Не ўсталявана</string>
+    <string name="settings_about_andromeda">версія andromeda</string>
+    <string name="settings_about_samsung">версія substratum</string>
     <string name="settings_about_oms_rro_version">Платформа тэмы:</string>
+    <string name="settings_about_oms_version_do">Дынамічныя Напластаванні (OMS)</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Сістэмная платформа</string>
@@ -160,7 +170,7 @@
     <string name="manage_system_overlay_uninstall">Выдаліць усе усталяваныя пласты</string>
     <string name="manage_system_overlay_toast">Вяртаем сістэмнае афармленне&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Пласты будуць выдаленыя ў фонавым рэжыме&#8230;</string>
-    <string name="manage_system_not_permitted">Не атрымалася актываваць некалькі напластаванняў з-за адсутнасці асноўнай тэмы.</string>
+    <string name="manage_system_not_permitted">Калі ласка абярыце дапушчальнае напластаванне для змены станаў.</string>
     <string name="manage_wallpaper_home">На хатні экран</string>
     <string name="manage_wallpaper_lock">На экран блакавання</string>
     <string name="manage_wallpaper_all">На абодва экрана</string>
@@ -217,6 +227,7 @@
     <string name="error_loading_theme_close_text">Імя пакета дадзенай тэмы павінна адпавядаць у маніфесце і дырэкторыях ў кодзе для правільнага абмену ключамі.</string>
     <string name="logcat_snackbar_button">LogChar</string>
     <string name="logcat_snackbar_text">Мэтавая праграма/напластаванне састарэла або няправільна наладжана&#8230;</string>
+    <string name="logcat_dialog_title">Справаздача пра абмылу LogChar</string>
     <string name="logcat_dialog_copy_success">Журнал памылак скапіяваны ў буфер абмену!</string>
     <string name="logcat_email_activity">Адправіць справаздачу пра памылку, выкарыстоўваючы&#8230;</string>
     <string name="logcat_email_activity_error">Няма ўсталяваных кліентаў электроннай пошты.</string>
@@ -268,8 +279,8 @@
     <string name="uninstall_dialog_body">Выдаліць тэму</string>
     <string name="sb_phase_1_loader">распакаванне тэмы</string>
     <string name="sb_phase_2_loader">усталёўка напластавання</string>
-    <string name="root_rejected_title">Адмова ў правах суперкарыстальніка</string>
-    <string name="root_rejected_text_cm_phh">без правоў суперкарыстальніка працягнуць не ўдасца&#8230;</string>
+    <string name="root_rejected_title">вяртанне да рэжыму Root</string>
+    <string name="root_rejected_text_cm_phh">не існуе іншых мэнэджараў тэм, якія працуюць на прыладах без Root доступу&#8230;</string>
     <string name="root_rejected_timer_plural">закрыццё праз %s секунд(-ы)&#8230;</string>
     <string name="root_rejected_timer_singular">закрыццё праз %s секунду&#8230;</string>
     <string name="toast_compiled_updated">Выбраныя пласты абноўлены!</string>
@@ -283,7 +294,10 @@
     <string name="no_themes_title">не знойдзена тэм&#8230;</string>
     <string name="no_themes_description">усталюйце любую сумяшчальную тэму!</string>
     <string name="no_themes_description_search">Сярод усталяваных тэм няма \"%s\"&#8230;</string>
+    <string name="toast_could_not_uninstall">На выбраны дапушчальныя напластаванні.</string>
     <string name="toast_samsung_prototype_alert">Substratum аўтаматычна схавае непадтрымоўваныя на вашым прыладзе сістэмныя напластаванні!</string>
+    <string name="andromeda_no_root_dialog">Падобна на тое, што вы карыстаецеся сумяшчпльнай OMS прыладай, было выпушчана дапаўненне для падтрымкі гэтага!</string>
+    <string name="andromeda_no_root_dialog_button">Спампаваць зараз!</string>
     <string name="samsung_prototype_no_root_dialog">Падобна на тое, што для Вашай прылады Samsung выпушчана сумяшчальная праграма!</string>
     <string name="samsung_prototype_no_root_dialog_button">Спампаваць зараз!</string>
     <string name="toast_needs_caching">Кэш Substratum\'s быў выдалены, калі ласка, аднавіць гэтую тэму, перш чым працягнуць!</string>
@@ -327,8 +341,6 @@
     <string name="show_theme_template_version_description">Указваць мэтавыя ўзроўні SDK, версіі тэм і версіі плагінаў ў якасці пазнак для кожнай тэмы.</string>
     <string name="vibrate_on_compiled">Апавяшчэнне аб зборцы тэмы</string>
     <string name="vibrate_on_compiled_description">Вібрыраваць пасля зборкі тэмы, каб паведаміць карыстальніка аб завяршэнні працэсу.</string>
-    <string name="manage_notification_channel">Кіраванне канала апавяшчэння</string>
-    <string name="manage_notification_channel_dialog_title">Выберыце канал апавяшчэння для кіравання</string>
     <string name="hide_app_icon">Паказваць цэтлік праграмы</string>
     <string name="hide_app_icon_toast_enabled">Цэтлік выдалены з меню праграм!</string>
     <string name="hide_app_icon_toast_disabled">Цэтлік дададзены ў меню праграм!</string>
@@ -348,7 +360,8 @@
     <string name="fab_menu_compile_install">Усталяваць выбраннае</string>
     <string name="fab_menu_uninstall">Выдаліць выбраннае</string>
     <string name="fab_menu_disable">Адключыць выбраннае</string>
-    <string name="fab_menu_enable">Актываваць выбраннае</string>
+    <string name="fab_menu_enable">Уключыць выбранае</string>
+    <string name="fab_menu_enable_disable">Змяніць стан напластаванняў</string>
     <string name="fab_menu_swap_toggle">Адключыць іншыя тэмы</string>
     <string name="fab_menu_swap_toggle_legacy">Выдаліць усе існуючыя</string>
     <string name="team_title_one">Заснавальнікі Substratum</string>
@@ -421,6 +434,7 @@
     <string name="profile_wallpaper">Шпалеры</string>
     <string name="profile_dialog_ok">OK</string>
     <string name="settings_system_status">Сумяшчальнасць сістэмы</string>
+    <string name="settings_system_status_andromeda">Рэжым Andromeda</string>
     <string name="settings_system_status_rooted">Ужываецца root</string>
     <string name="settings_system_status_rootless">Без выкарыстання root</string>
     <string name="settings_system_status_samsung">Рэжым сумяшчальнасці з Samsung</string>
@@ -453,6 +467,7 @@
     <string name="settings_force_stop_interfacer_title">Прымусовае спыненне службы інтэрфейсу</string>
     <string name="settings_force_stop_interfacer_snackbar">Інтэрфейс прымусова спыняецца&#8230;</string>
     <string name="overlays_outdated">Напластасаванні састарэлыя</string>
+    <string name="overlays_outdated_message">Пачынаючы з версіі 816 і надалей, подпіс для напластаванняў быў зменены дзеля прадухілення магчымых канфліктаў подпісаў у далейшым.\n\nГэта азначае, што ўсе ўсталяваныя Вамі напластаванні павінны быць пераусталяваны перад ужываннем абнаўленняў тэм, інакш Вы будзеце бачыць патрабаванне абнавіць іх увесь час!\n\nГэта паведамленне перастане з\'яўляцца, як толькі ўсе напластаванні будуць перасабраны новай версіяй Substratum.</string>
     <string name="root_required_title">Патрабуюцца Root-правы</string>
     <string name="root_required_boot_animation">Прылада зашыфравана, для прымянення анімацыі загрузак патрабуюцца правы Суперкарыстальніка.</string>
     <string name="root_required_boot_animation_profile">Прылада зашыфравана, для рэзервавання і аднаўлення анімацыі загрузак патрабуюцца правы Суперкарыстальніка.</string>
@@ -468,7 +483,14 @@
     <string name="per_app_manual_grant">Неабходна ўручную прадаставіць дазволы \"доступ да гісторыі выкарыстання\" і \"па-над іншых вокнаў\" у наладах прыкладання для працы FloatUI!</string>
     <string name="notification_overlay_found_specific">Для %s ёсць напластаванне ў %s!</string>
     <string name="notification_overlay_found_description">Можаце перайсці да тэмы, націснуўшы на гэта апавяшчэнне!</string>
+    <string name="error_activity_title">Мне так шкада, што ён вылецеў!</string>
+    <string name="error_activity_text">прашу мяне прабачыць&#8230;</string>
+    <string name="error_activity_button_restart">Перазапусціць</string>
     <string name="error_activity_button_disable_overlays">Выратуй мяне!</string>
+    <string name="error_activity_log">Журнал актыўнасці</string>
+    <string name="error_activity_log_dialog_title">Справаздача пра вылет</string>
+    <string name="error_dialog_samsung">Праблема з напластаваннем Substratum</string>
+    <string name="error_dialog_samsung_text">Падобна на тое, што з напластаваннем закранаючым Substratum паўстала непаладка, варта выдаліць яго ўручную ў Наладах.</string>
     <string name="community_info_overlays">Напластаванні</string>
     <string name="community_info_bootanimation">Анімацыі загрузкі</string>
     <string name="community_info_fonts">Шрыфты</string>
@@ -504,6 +526,8 @@
     <string name="notification_channel_default_description">Галоўныя паведамлення (новыя і абноўленыя тэмы, завяршэнне кампіляцый тэмы і г. д.)</string>
     <string name="notification_channel_ongoing">Бягучае</string>
     <string name="notification_channel_ongoing_description">Бягучыя апавяшчэння</string>
+    <string name="notification_channel_andromeda">Статус Andromeda</string>
+    <string name="notification_channel_andromeda_description">Апавяшчэнне аб статусе падлучэння Andromeda</string>
     <!-- Nav drawer -->
     <string name="nav_home">Наборы тэм</string>
     <string name="nav_overlays">Напластаванні</string>
@@ -522,19 +546,20 @@
     <string name="nav_drawer_community">Групы і супольнасці</string>
     <string name="nav_drawer_googleplus">Супольнасці ў Google+</string>
     <string name="nav_drawer_telegram">Чат у Telegram</string>
-    <string name="nav_drawer_xda">XDA форум</string>
-    <string name="nav_drawer_rawad">Гід па тэмах ад Rawad</string>
+    <string name="nav_drawer_xda">Прысвечаны падфорум XDA</string>
+    <string name="nav_drawer_rawad">Інструкцыя па афармленні ад Rawad</string>
+    <string name="nav_drawer_reddit">Супольнасць Reddit</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Рэкамендуемае</string>
-    <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
-    <string name="nav_drawer_xda_portal">Сайт XDA</string>
+    <string name="nav_drawer_xda_portal">Партал XDA</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Рэсурсы</string>
     <string name="nav_drawer_homepage">Афіцыйны сайт</string>
     <string name="nav_drawer_template">Шаблон Тэмы (Канструктары)</string>
     <string name="nav_drawer_gerrit">Платформа і маніторынг на Gerrit</string>
     <string name="nav_drawer_github">Рэпазітар платформы на GitHub</string>
-    <string name="nav_troubleshooting">Пошук няспраўнасцяў</string>
+    <string name="nav_drawer_jira">Сістэма адсочвання непаладак JIRA</string>
+    <string name="nav_troubleshooting">FAQs</string>
     <!-- More -->
     <string name="nav_section_header_more">Яшчэ</string>
     <string name="nav_team_contributors">Каманда і саўдзельнікі</string>
@@ -551,6 +576,11 @@
     <string name="manage_space_reset_dialog_content">Праграма будзе зачынена пасля скіду!</string>
     <string name="cleaned_logchar_reports">Ачысціць захаваныя справаздачы LogChar</string>
     <string name="legacy_overlay_uninstall_warning_text">Пры выдаленні ўсіх напластаванняў, калі ласка, выкарыстоўвайце ратаванне Substratum ZIP-каб пазбегнуць магчымага bootloops.</string>
+    <string name="auto_reload_sysui_title">Аўтаперазапуск SystemUI</string>
+    <string name="auto_reload_sysui_summary_on">Substratum аўтаматычна перазапусціць SystemUI пры ўключэнні/выключэнні закранаючага яго пласта.</string>
+    <string name="auto_reload_sysui_summary_off">Substratum не перазапускае SystemUI пры ўключэнні/выключэнні закранаючага яго пласта.</string>
+    <string name="auto_reload_sysui_dialog_title">Увага!</string>
+    <string name="auto_reload_sysui_dialog_text">На Android Oreo, апавяшчэнні будуць аўтаматычна ачышчаны для сімуляцыі перазапуску кэшаваных каналаў апавяшчэнняў. \n\nКалі ласка пераканайцеся што вашы апавяшчэнні не ўтрымліваюць ніякай важнай інфармацыі пры зборцы і запуску SystemUI або framework напластаванняў. Гэта не ўплывае на бягучыя апавяшчэнне.</string>
     <!-- The things lint will complain about...-->
     <string name="fonts_demo_string">AaBbCcDd123</string>
 </resources>

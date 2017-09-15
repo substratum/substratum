@@ -27,9 +27,15 @@
     <string name="resource_not_validated">Les nouvelles demandes ont été fusionnées !</string>
     <string name="resource_needs_internet">Pour valider les demandes de votre ROM, connectez-vous à Internet !</string>
     <string name="resource_validated">Toutes les demandes sont intactes !</string>
+    <string name="interfacer_notification_title">Substratum et Interfacer sont connectés !</string>
+    <string name="interfacer_notification_text">Les services de thème d\'arrière-plan sont liés, actifs et en cours d\'exécution.</string>
+    <string name="andromeda_notification_title">Substratum et Andromeda sont connectés !</string>
+    <string name="andromeda_notification_title_negation">Substratum et Andromeda ne sont pas connectés</string>
+    <string name="andromeda_notification_text">Les services de thème d\'arrière-plan sont liés, actifs et en cours d\'exécution.</string>
+    <string name="andromeda_notification_text_negation">Les services d\'Andromeda ne sont pas en cours d\'exécution, veuillez relancer l\'application depuis votre ordinateur !</string>
     <string name="resource_commit_dialog_title">Ressources manquantes pour %s</string>
     <string name="showcase_no_connection">La galerie de thème nécessite une connexion Internet pour fonctionner !</string>
-    <string name="showcase_no_themes">Une erreur est survenue lors de la mise en cache de la base de données de la galerie de thème pour cet onglet…</string>
+    <string name="showcase_no_themes">Une erreur est survenue lors de la mise en cache de la base de données de la galerie de thème pour cet onglet...</string>
     <string name="on_demand_updating_title">Première configuration du cache des ressources</string>
     <string name="on_demand_updating_text">Compilation du cache de %s en cours&#8230;</string>
     <string name="background_updating_toast">Mise à niveau en cours d\'un thème en arrière-plan, veuillez patienter !</string>
@@ -75,12 +81,15 @@
     <string name="manager_type2">Type 2 :</string>
     <string name="manager_type3">Type 3 :</string>
     <string name="manager_type4">Type4 :</string>
+    <string name="legacy_preference_priority_title">Ajustement de la priorité des couches</string>
+    <string name="legacy_preference_priority_text">La priorité est définie à (par défaut 999) : %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">Variante type1a&#8230;</string>
     <string name="overlays_variant_default_1b">Variante type1b&#8230;</string>
     <string name="overlays_variant_default_1c">Variante type1c&#8230;</string>
     <string name="overlays_variant_default_2">Variante type2&#8230;</string>
     <string name="overlays_variant_default_3">Variante de base par défaut&#8230;</string>
+    <string name="overlays_variant_default_4">variante type4&#8230;</string>
     <string name="overlays_up_to_date">À JOUR</string>
     <string name="overlays_update_available">Mise à jour disponible !\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variante non installée</string>
@@ -92,9 +101,9 @@
     <string name="bootanimation_dialog_apply_text">Installation de l\'animation de démarrage en cours&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Animation de démarrage installée !</string>
     <string name="bootanimation_dialog_apply_failed">Échec de l\'installation de l\'animation de démarrage&#8230;</string>
-    <string name="wallpaper_dialog_wallpaper">Écran d\'accueil</string>
-    <string name="wallpaper_dialog_lockscreen">Écran de déverrouillage</string>
-    <string name="wallpaper_dialog_wallpaper_both">Écran d\'accueil et Écran de déverrouillage</string>
+    <string name="wallpaper_dialog_wallpaper">Fond d\'écran d\'accueil</string>
+    <string name="wallpaper_dialog_lockscreen">Fond d\'écran de l\'écran de déverrouillage</string>
+    <string name="wallpaper_dialog_wallpaper_both">Fond d\'écran d\'accueil et de l\'Écran de déverrouillage</string>
     <string name="wallpaper_downloading">Chargement de l\'image dans le cache en cours&#8230;</string>
     <string name="wallpaper_allscreen_success">Fonds d\'écran d\'accueil et de déverrouillage  définis !</string>
     <string name="wallpaper_allscreen_error">Impossible de définir les fonds d\'écran d\'accueil et de déverrouillage</string>
@@ -138,7 +147,10 @@
     <string name="settings_about_substratum">Version de Substratum</string>
     <string name="settings_about_interfacer">Version de l\'Interface de thème</string>
     <string name="settings_about_interfacer_not_installed">Non installé</string>
+    <string name="settings_about_andromeda">version d\'Andromeda</string>
+    <string name="settings_about_samsung">version de Sungstratum</string>
     <string name="settings_about_oms_rro_version">Plateforme thème :</string>
+    <string name="settings_about_oms_version_do">Surcouches Dynamiques (OMS)</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Plateforme système</string>
@@ -162,10 +174,10 @@
     <string name="manage_system_overlay_uninstall">Désinstaller toutes les surcouches installées</string>
     <string name="manage_system_overlay_toast">Restauration du thème système en cours&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Désinstallation en arrière-plan des surcouches en cours&#8230;</string>
-    <string name="manage_system_not_permitted">Activation de plusieurs surcouches impossible, en raison de l\'absence du thème principal.</string>
-    <string name="manage_wallpaper_home">Écran d\'accueil</string>
-    <string name="manage_wallpaper_lock">Écran de déverrouillage</string>
-    <string name="manage_wallpaper_all">Écran d\'accueil et Écran de déverrouillage</string>
+    <string name="manage_system_not_permitted">Veuillez choisir une surcouche valide.</string>
+    <string name="manage_wallpaper_home">Fond d\'écran d\'accueil</string>
+    <string name="manage_wallpaper_lock">Fond d\'écran de l\'écran de déverrouillage</string>
+    <string name="manage_wallpaper_all">Fond d\'écran d\'accueil et de l\'Écran de déverrouillage</string>
     <string name="manage_wallpaper_home_toast">Fond d\'écran d\'accueil rétabli !</string>
     <string name="manage_wallpaper_lock_toast">Fond d\'écran de déverrouillage rétabli !</string>
     <string name="manage_wallpaper_all_toast">Fond d\'écran rétabli !</string>
@@ -197,6 +209,7 @@
     <string name="menu_search">Thèmes sur le Play Store</string>
     <string name="menu_showcase">Galerie de thème</string>
     <string name="menu_uninstall">Désinstaller</string>
+    <string name="menu_restore_info">Restaurer informations</string>
     <string name="menu_favorite_snackbar">%s défini comme raccourci d\'application !</string>
     <string name="menu_favorite_snackbar_cleared">%s supprimé des raccourcis d\'application</string>
     <string name="changelog_title">Note de version du thème %s</string>
@@ -208,7 +221,10 @@
     <string name="dialog_restart_soft_reboot_content">Effectue un redémarrage logiciel de votre appareil</string>
     <string name="studio_applying">Chargement en cours&#8230;</string>
     <string name="error_loading_theme_close">Fermer</string>
+    <string name="error_loading_theme_close_text">Le nom du package de ce thème doit correspondre dans le manifeste et dans le repertoire de code pour un echange de clé sans problèmes.</string>
     <string name="logcat_snackbar_button">LogChar</string>
+    <string name="logcat_snackbar_text">Chemin de l\'application/couche perimé ou ne correspond pas à la configuration sélectionnée&#8230;</string>
+    <string name="logcat_dialog_title">Rapport de debug LogChar</string>
     <string name="logcat_dialog_copy_success">Journal d\'erreur copié dans le presse-papiers !</string>
     <string name="logcat_email_activity">Envoyer le rapport de bogue via&#8230;</string>
     <string name="logcat_email_activity_error">Aucun client de courriel installé.</string>
@@ -257,8 +273,8 @@
     <string name="uninstall_dialog_body">Désinstaller</string>
     <string name="sb_phase_1_loader">Extraction des atouts du thème en cours</string>
     <string name="sb_phase_2_loader">Création et signature des surcouches en cours</string>
-    <string name="root_rejected_title">Autorisation \"Super Utilisateur\" refusée</string>
-    <string name="root_rejected_text_cm_phh">Impossible de continuer sans droits \"Super Utilisateur\"</string>
+    <string name="root_rejected_title">retour au mode rooté</string>
+    <string name="root_rejected_text_cm_phh">aucun autre moteur de thèmes n\'est disponible sur le système sans root&#8230;</string>
     <string name="root_rejected_timer_plural">Fermeture dans %s secondes&#8230;</string>
     <string name="root_rejected_timer_singular">Fermeture dans %s seconde&#8230;</string>
     <string name="toast_compiled_updated">Surcouche(s) sélectionnée(s) mise(s) à jour !</string>
@@ -272,7 +288,10 @@
     <string name="no_themes_title">Aucun thème trouvé&#8230;</string>
     <string name="no_themes_description">Installez un thème compatible !</string>
     <string name="no_themes_description_search">\"%s\" est introuvable dans la liste des thèmes installés&#8230;</string>
+    <string name="toast_could_not_uninstall">Aucune surcouche valide n\'a été sélectionnée.</string>
     <string name="toast_samsung_prototype_alert">Substratum masque automatiquement les surcouches système non prises en charge pour votre appareil !</string>
+    <string name="andromeda_no_root_dialog">Il semble que vous soyez sur un appareil supportant le système OMS natif, une extension a été publiée pour le supporter depuis Substratum !</string>
+    <string name="andromeda_no_root_dialog_button">Télécharger maintenant !</string>
     <string name="samsung_prototype_no_root_dialog">Il semble que vous soyez sur un appareil Samsung supporté, une extension a été publiée pour le supporter !</string>
     <string name="samsung_prototype_no_root_dialog_button">Télécharger maintenant !</string>
     <string name="toast_needs_caching">Le cache de Substratum a été effacé. Veuillez recompiler ce thème avant de continuer !</string>
@@ -316,8 +335,6 @@
     <string name="show_theme_template_version_description">Afficher les niveaux cibles du kit de développement de chaque thème, la version du thème et la version de l\'extension sous forme d\'étiquette sur chacune des cartes de thème.</string>
     <string name="vibrate_on_compiled">Notification après compilation du thème</string>
     <string name="vibrate_on_compiled_description">Lorsque le thème a été compilé, faire vibrer l\'appareil pour prévenir que la compilation est terminée.</string>
-    <string name="manage_notification_channel">Gérer le canal de notification</string>
-    <string name="manage_notification_channel_dialog_title">Sélectionner le canal de notification à gérer</string>
     <string name="hide_app_icon">Afficher l\'icône de l\'application</string>
     <string name="hide_app_icon_toast_enabled">Icône de l\'application supprimée de votre lanceur !</string>
     <string name="hide_app_icon_toast_disabled">Icône de l\'application ajoutée à votre lanceur !</string>
@@ -329,6 +346,7 @@
     <string name="alternate_drawer_design_title">Apparence du tiroir secondaire</string>
     <string name="alternate_drawer_design_subtext">Affiche une apparence différente pour le panneau de navigation lors de la navigation dans l\'interface utilisateur</string>
     <string name="logchar_autosave_title">Enregistrer automatiquement les rapport LogChar</string>
+    <string name="logchar_autosave_subtext">Cela sauvegardera automatiquement le rapport LogChar sous /storage/emulated/0/substratum/LogCharReports/.</string>
     <string name="show_outdated_themes_title">Afficher tous les thèmes obsolètes</string>
     <string name="show_outdated_themes_content">Désactiver cette option permet à Substratum d\'utiliser un algorithme permettant aux thèmes de se charger beaucoup plus rapidement. Ne fonctionne que pour les thèmes possédant l\'extension correctement configurés (6.0.0+).</string>
     <string name="fab_menu_compile_enable">Compiler et activer</string>
@@ -337,6 +355,7 @@
     <string name="fab_menu_uninstall">Désinstaller la sélection</string>
     <string name="fab_menu_disable">Désactiver la sélection</string>
     <string name="fab_menu_enable">Activer la sélection</string>
+    <string name="fab_menu_enable_disable">Changer l\'état des surcouches</string>
     <string name="fab_menu_swap_toggle">Désactiver les autres thèmes</string>
     <string name="fab_menu_swap_toggle_legacy">Supprimer toutes les présentes</string>
     <string name="team_title_one">Chefs d\'équipe de Substratum</string>
@@ -350,6 +369,7 @@
     <string name="team_button_three">Afficher les collaborateurs</string>
     <string name="team_title_four">Collaborateurs de \"Layers\"</string>
     <string name="team_text_four">Ces personnes vous ont apporté le \"Gestionnaire Layers\" par le passé, et ont depuis continué à faire de grandes choses pour la préparation Substratum !</string>
+    <string name="team_button_four">Afficher les collaborateurs</string>
     <string name="team_nicholas_description">Coordonnateur du développement</string>
     <string name="team_syko_description">Fureteur du système</string>
     <string name="team_ivan_description">Plate-forme et fonctionnalités</string>
@@ -408,6 +428,7 @@
     <string name="profile_wallpaper">Fonds d\'écran</string>
     <string name="profile_dialog_ok">OK</string>
     <string name="settings_system_status">Certification système</string>
+    <string name="settings_system_status_andromeda">Mode d\'Andromeda</string>
     <string name="settings_system_status_rooted">Mode Root</string>
     <string name="settings_system_status_rootless">Mode Rootless</string>
     <string name="settings_system_status_samsung">Mode de Samsung</string>
@@ -439,6 +460,7 @@
     <string name="settings_force_stop_interfacer_title">Forcer la fermeture du service de l\'Interface de thème</string>
     <string name="settings_force_stop_interfacer_snackbar">Fermeture forcée de l\'Interface de thème en cours&#8230;</string>
     <string name="overlays_outdated">Superpositions obsolètes</string>
+    <string name="overlays_outdated_message">Depuis la version 816 et au-delà, notre signature pour signer des couches a changé pour éviter les incompatibilités de signature.\n\nCela signifie que vos couches installées doivent être désactivées pour installer les nouvelles mises à jour de thème ou il va dire que vos couches nécessitent une éternelle mise à jour ! \n\nCe message ne s’affichera pas lorsque toutes les couches seront compilées en utilisant le nouveau substratum.</string>
     <string name="root_required_title">Droits Root</string>
     <string name="root_required_boot_animation">Votre appareil est chiffré. Les droits \"Root\" sont nécessaires pour modifier l\'animation de démarrage.</string>
     <string name="root_required_boot_animation_profile">Votre appareil est chiffré. Les droits \"Root\" sont nécessaires pour pour sauvegarder et restaurer l\'animation de démarrage.</string>
@@ -458,6 +480,8 @@
     <string name="error_activity_text">s\'il vous plait pardonnez moi&#8230;</string>
     <string name="error_activity_button_restart">Redémarrer</string>
     <string name="error_activity_button_disable_overlays">Sauvez-moi !</string>
+    <string name="error_dialog_samsung">Problème de surcouche Substratum</string>
+    <string name="error_dialog_samsung_text">Oops, on dirait qu\'il y a un problème avec une surcouche installée qui vise Substratum et doit être desinstallée manuellement via Paramètres.</string>
     <string name="community_info_overlays">Surcouches</string>
     <string name="community_info_bootanimation">Animations de démarrage</string>
     <string name="community_info_fonts">Polices</string>
@@ -493,6 +517,8 @@
     <string name="notification_channel_default_description">Notifications principales (nouveau thème et mis à jour, compilation du thème terminée, etc)</string>
     <string name="notification_channel_ongoing">Persistente</string>
     <string name="notification_channel_ongoing_description">Notifications persistantes</string>
+    <string name="notification_channel_andromeda">Statut d\'Andromeda</string>
+    <string name="notification_channel_andromeda_description">Notification d’état de connexion Andromeda</string>
     <!-- Nav drawer -->
     <string name="nav_home">Thèmes</string>
     <string name="nav_overlays">Surcouches</string>
@@ -511,11 +537,11 @@
     <string name="nav_drawer_community">Groupes et communautés</string>
     <string name="nav_drawer_googleplus">Communauté Google+</string>
     <string name="nav_drawer_telegram">Groupe Telegram</string>
-    <string name="nav_drawer_xda">Sujet d\'aide sur XDA</string>
-    <string name="nav_drawer_rawad">Guide de Thématisation de Rawad</string>
+    <string name="nav_drawer_xda">Sous-forum dédié sur XDA</string>
+    <string name="nav_drawer_rawad">Guides de création de thèmes par Rawad</string>
+    <string name="nav_drawer_reddit">Communauté Reddit</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Contenu en vedette</string>
-    <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">Portail XDA</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Ressources</string>
@@ -523,7 +549,8 @@
     <string name="nav_drawer_template">Modèle de thème (concepteurs de thèmes)</string>
     <string name="nav_drawer_gerrit">Gerrit de la Plate-forme et galerie</string>
     <string name="nav_drawer_github">GitHub de la Plate-forme</string>
-    <string name="nav_troubleshooting">Dépannage</string>
+    <string name="nav_drawer_jira">Système de signalement de bug JIRA</string>
+    <string name="nav_troubleshooting">FAQ</string>
     <!-- More -->
     <string name="nav_section_header_more">Plus</string>
     <string name="nav_team_contributors">Équipe et collaborateurs</string>
@@ -539,6 +566,12 @@
     <string name="manage_space_reset_dialog_title">Réinitialiser ?</string>
     <string name="manage_space_reset_dialog_content">L\'application se fermera après la réinitialisation</string>
     <string name="cleaned_logchar_reports">Les rapports LogChar sauvegardés ont été nettoyés</string>
+    <string name="legacy_overlay_uninstall_warning_text">Si vous désinstallez toutes les couches, s\'il vous plait, utilisez Substratum Rescue ZIPs pour eviter d\'éventuels bootloops.</string>
+    <string name="auto_reload_sysui_title">Recharger automatiquement SystemUI</string>
+    <string name="auto_reload_sysui_summary_on">Substratum rechargera automatiquement SystemUI après une application ou une suppression de couche sur SystemUI.</string>
+    <string name="auto_reload_sysui_summary_off">Substratum ne rechargera pas automatiquement SystemUI après une application ou une suppression de couche sur SystemUI.</string>
+    <string name="auto_reload_sysui_dialog_title">Attention !</string>
+    <string name="auto_reload_sysui_dialog_text">Sur Android Oreo, vos notifications seront automatiquement purgées pour simuler un redémarrage des canaux de notification.\n\nVeuillez vérifier que vos notifications en cours ne sont pas importantes lors de la compilation ou l\'activation de surcouches sur SystemUI ou sur l\'interface globale. Les notifications de type \"ongoing\" comme la musique ne seront pas affectées.</string>
     <!-- The things lint will complain about...-->
     <string name="fonts_demo_string">AaBbCcDd123</string>
 </resources>

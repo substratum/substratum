@@ -267,35 +267,6 @@
     <!-- License section -->
     <string name="library_avloadingindicatorview_licenseId">apache_2_0</string>
 
-    <!-- Android Image Cropper -->
-    <string name="define_androidimagecropper"/>
-    <!-- Author section -->
-    <string name="library_androidimagecropper_author" translatable="false">ArthurHub</string>
-    <string name="library_androidimagecropper_authorWebsite" translatable="false"/>
-    <!-- Library section -->
-    <string name="library_androidimagecropper_libraryName" translatable="false">Android Image
-        Cropper
-    </string>
-    <string name="library_androidimagecropper_libraryDescription">Powerful (Zoom, Rotation,
-        Multi-Source), customizable (Shape, Limits, Style), optimized (Async, Sampling, Matrix) and
-        simple image cropping library for Android.
-    </string>
-    <string name="library_androidimagecropper_libraryWebsite" translatable="false">
-        https://github.com/ArthurHub/Android-Image-Cropper
-    </string>
-    <string name="library_androidimagecropper_libraryVersion" translatable="false">2.3</string>
-    <!-- OpenSource section -->
-    <string name="library_androidimagecropper_isOpenSource" translatable="false">true</string>
-    <string name="library_androidimagecropper_repositoryLink" translatable="false">
-        https://github.com/ArthurHub/Android-Image-Cropper
-    </string>
-    <!-- ClassPath for autoDetect section -->
-    <string name="library_androidimagecropper_classPath" translatable="false">
-        com.theartofdev.edmodo:android-image-cropper
-    </string>
-    <!-- License section -->
-    <string name="library_androidimagecropper_licenseId" translatable="false">apache_2_0</string>
-
     <!-- Floating View -->
     <string name="define_floatingview"/>
     <!-- Author section -->

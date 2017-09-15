@@ -156,7 +156,6 @@ corretamente&#8230;</string>
     <string name="manage_system_overlay_uninstall">Remove todas as camadas instaladas</string>
     <string name="manage_system_overlay_toast">Tema do Sistema está agora restaurando&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Camadas estão agora sendo desinstaladas de fundo&#8230;</string>
-    <string name="manage_system_not_permitted">Não foi possível ativar algumas camadas devido à ausência do tema principal.</string>
     <string name="manage_wallpaper_home">Papel de Parede da Tela de Início</string>
     <string name="manage_wallpaper_lock">Papel de Parede da Tela de Bloqueio</string>
     <string name="manage_wallpaper_all">Papel de parede da Tela de início e da Tela de bloqueio</string>
@@ -246,8 +245,6 @@ corretamente&#8230;</string>
     <string name="uninstall_dialog_body">Desinstalar</string>
     <string name="sb_phase_1_loader">extraindo ativos deste tema</string>
     <string name="sb_phase_2_loader">criando e assinando camada(s)</string>
-    <string name="root_rejected_title">Permissão de Superusuário negada</string>
-    <string name="root_rejected_text_cm_phh">incapaz de continuar sem root&#8230;</string>
     <string name="root_rejected_timer_plural">fechando em %s segundos&#8230;</string>
     <string name="root_rejected_timer_singular">fechando em %s segundos&#8230;</string>
     <string name="toast_compiled_updated">Camada(s) selecionada(s) atualizada!</string>
@@ -260,6 +257,7 @@ corretamente&#8230;</string>
     <string name="no_themes_title">nenhum tema encontrado&#8230;</string>
     <string name="no_themes_description">favor instalar um tema compatível!</string>
     <string name="no_themes_description_search">\"%s\" não foi encontrado na lista de temas instalados&#8230;</string>
+    <string name="andromeda_no_root_dialog_button">Transferir agora!</string>
     <string name="samsung_prototype_no_root_dialog_button">Transferir agora!</string>
     <string name="toast_needs_caching">Cache do Substratum limpa, favor reconstruir este tema antes de continuar!</string>
     <string name="notification_theme_installed">instalado</string>
@@ -299,8 +297,6 @@ corretamente&#8230;</string>
     <string name="show_theme_template_version_description">Mostrar cada níveis de SDK alvo do tema, versão do tema e versão do plugin como uma etiqueta em cada um dos cartões de tema.</string>
     <string name="vibrate_on_compiled">Notificar após o tema ser compilado</string>
     <string name="vibrate_on_compiled_description">Quando o tema for compilado, vibrar o aparelho para notificar o utilizador que a compilação foi finalizada.</string>
-    <string name="manage_notification_channel">Gerir o canal de notificação</string>
-    <string name="manage_notification_channel_dialog_title">Selecione o canal de notificação para gerir</string>
     <string name="hide_app_icon">Mostrar ícone do aplicativo</string>
     <string name="hide_app_icon_toast_enabled">O ícone do aplicativo foi removido do seu launcher!</string>
     <string name="hide_app_icon_toast_disabled">O ícone do aplicativo foi adicionado ao seu launcher!</string>
@@ -317,10 +313,6 @@ corretamente&#8230;</string>
         temas de plugin 6.0.0+ corretamente configurados.</string>
     <string name="fab_menu_compile_enable">Construir &amp; Habilitar</string>
     <string name="fab_menu_compile_update">Construir &amp; Atualizar</string>
-    <string name="fab_menu_compile_install">Instalar Selecionado</string>
-    <string name="fab_menu_uninstall">Desinstalar Selecionado</string>
-    <string name="fab_menu_disable">Desabilitar Selecionado</string>
-    <string name="fab_menu_enable">Habilitar Selecionado</string>
     <string name="fab_menu_swap_toggle">Desabilitar outros temas</string>
     <string name="fab_menu_swap_toggle_legacy">Remover todos existentes</string>
     <string name="team_title_one">Líderes do Substratum</string>
@@ -470,18 +462,14 @@ corretamente&#8230;</string>
     <string name="nav_drawer_community">Grupos &amp; comunidades</string>
     <string name="nav_drawer_googleplus">Comunidade Google+</string>
     <string name="nav_drawer_telegram">Grupo de chat do telegram</string>
-    <string name="nav_drawer_xda">XDA Subforum</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Conteúdos em destaque</string>
-    <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
-    <string name="nav_drawer_xda_portal">Portal do XDA</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Recursos</string>
     <string name="nav_drawer_homepage">Página oficial</string>
     <string name="nav_drawer_template">Modelo de Tema (Criadores de temas)</string>
     <string name="nav_drawer_gerrit">Plataforma &amp; exposições gerrit</string>
     <string name="nav_drawer_github">Repositório da plataforma GitHub</string>
-    <string name="nav_troubleshooting">Solução de Problemas</string>
     <!-- More -->
     <string name="nav_section_header_more">Mais</string>
     <string name="nav_team_contributors">Equipa &amp; colaboradores</string>

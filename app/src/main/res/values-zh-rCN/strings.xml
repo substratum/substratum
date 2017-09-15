@@ -71,6 +71,7 @@
     <string name="manager_type3">样式3：</string>
     <string name="manager_type4">Type4：</string>
     <string name="legacy_preference_priority_title">叠加层优先级调整</string>
+    <string name="legacy_preference_priority_text">优先级设置 （默认值 999）：%d</string>
     <string name="overlays_variant_substitute">%s&#8230;&#8230;</string>
     <string name="overlays_variant_default_1a">type1a 变量</string>
     <string name="overlays_variant_default_1b">type1b 变量</string>
@@ -135,6 +136,7 @@
     <string name="settings_about_substratum">Substratum 版本</string>
     <string name="settings_about_interfacer">主题接口版本</string>
     <string name="settings_about_interfacer_not_installed">未安装</string>
+    <string name="settings_about_andromeda">仙女座版本</string>
     <string name="settings_about_oms_rro_version">主题平台：</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2（旧版）</string>
@@ -159,14 +161,13 @@
     <string name="manage_system_overlay_uninstall">卸载所有已安装的叠加层</string>
     <string name="manage_system_overlay_toast">正在还原系统主题</string>
     <string name="manage_system_overlay_uninstall_toast">正在后台卸载叠加层</string>
-    <string name="manage_system_not_permitted">主题不存在。无法应用某些叠加层。</string>
     <string name="manage_wallpaper_home">主屏幕壁纸</string>
     <string name="manage_wallpaper_lock">锁屏壁纸</string>
     <string name="manage_wallpaper_all">主屏幕和锁屏壁纸</string>
     <string name="manage_wallpaper_home_toast">成功还原主屏幕壁纸</string>
     <string name="manage_wallpaper_lock_toast">成功还原锁屏壁纸</string>
     <string name="manage_wallpaper_all_toast">成功还原壁纸</string>
-    <string name="adapter_uninstalling">正在删除 %s…</string>
+    <string name="adapter_uninstalling">正在删除 %s...</string>
     <string name="plugin_template">插件</string>
     <string name="api_21">Lollipop</string>
     <string name="api_22">Lollipop MR1</string>
@@ -208,6 +209,7 @@
     <string name="dialog_restart_soft_reboot_content">软重启您的设备</string>
     <string name="studio_applying">正在加载</string>
     <string name="error_loading_theme_close">关闭</string>
+    <string name="error_loading_theme_close_text">此主题的包名必须在清单和代码目录中匹配，以便进行正确的密钥交换。</string>
     <string name="logcat_snackbar_button">LogChar</string>
     <string name="logcat_snackbar_text">选中的应用或叠加层已经过时或配置不正确</string>
     <string name="logcat_dialog_title">LogChar 调试报告</string>
@@ -258,8 +260,6 @@
     <string name="uninstall_dialog_body">卸载主题</string>
     <string name="sb_phase_1_loader">提取主题</string>
     <string name="sb_phase_2_loader">安装叠加层</string>
-    <string name="root_rejected_title">申请 Root 权限被拒绝</string>
-    <string name="root_rejected_text_cm_phh">未获取 Root 权限，无法继续</string>
     <string name="root_rejected_timer_plural">在 %s 秒后关闭</string>
     <string name="root_rejected_timer_singular">在 %s 秒后关闭</string>
     <string name="toast_compiled_updated">成功更新叠加层</string>
@@ -273,7 +273,10 @@
     <string name="no_themes_title">没有找到主题</string>
     <string name="no_themes_description">请安装一个兼容的主题</string>
     <string name="no_themes_description_search">在已安装的主题列表中无法找到 \"%s\"</string>
+    <string name="toast_could_not_uninstall">没有选择有效的叠加层</string>
     <string name="toast_samsung_prototype_alert">Substratum 会自动隐藏不支持此设备的系统叠加层</string>
+    <string name="andromeda_no_root_dialog">一个新插件已经发布，您的 OMS 设备已受支持。</string>
+    <string name="andromeda_no_root_dialog_button">立即下载</string>
     <string name="samsung_prototype_no_root_dialog">一个新插件已经发布，您的三星设备已受支持。</string>
     <string name="samsung_prototype_no_root_dialog_button">立即下载</string>
     <string name="toast_needs_caching">Substratum 的缓存已清除，请重新编译此主题</string>
@@ -317,8 +320,6 @@
     <string name="show_theme_template_version_description">在主题卡片上展示对应安卓版本号、主题版本和插件版本的标签。</string>
     <string name="vibrate_on_compiled">主题编译完成后进行通知</string>
     <string name="vibrate_on_compiled_description">在主题编译完成后，通过振动设备通知用户</string>
-    <string name="manage_notification_channel">管理通知推送</string>
-    <string name="manage_notification_channel_dialog_title">选择要管理的通知推送</string>
     <string name="hide_app_icon">显示应用图标</string>
     <string name="hide_app_icon_toast_enabled">此应用的图标已经从启动器中移除</string>
     <string name="hide_app_icon_toast_disabled">此应用的图标已经添加到启动器</string>
@@ -339,6 +340,7 @@
     <string name="fab_menu_uninstall">卸载所选项</string>
     <string name="fab_menu_disable">禁用所选项</string>
     <string name="fab_menu_enable">启用所选项</string>
+    <string name="fab_menu_enable_disable">更改叠加层所在国家</string>
     <string name="fab_menu_swap_toggle">禁用其他主题</string>
     <string name="fab_menu_swap_toggle_legacy">删除所有现有的</string>
     <string name="team_title_one">Substratum 领导者</string>
@@ -411,6 +413,7 @@
     <string name="profile_wallpaper">壁纸</string>
     <string name="profile_dialog_ok">确认</string>
     <string name="settings_system_status">系统认证</string>
+    <string name="settings_system_status_andromeda">仙女座模式</string>
     <string name="settings_system_status_rooted">Root 模式</string>
     <string name="settings_system_status_rootless">非 Root 模式</string>
     <string name="settings_system_status_samsung">三星模式</string>
@@ -462,6 +465,10 @@
     <string name="error_activity_text">请原谅我</string>
     <string name="error_activity_button_restart">重新开始</string>
     <string name="error_activity_button_disable_overlays">禁用所有叠加层</string>
+    <string name="error_activity_log">堆栈跟踪</string>
+    <string name="error_activity_log_dialog_title">堆栈跟踪崩溃</string>
+    <string name="error_dialog_samsung">叠加层问题</string>
+    <string name="error_dialog_samsung_text">通过 Substratum 安装的叠加层似乎存在问题，必须使用设置手动卸载。</string>
     <string name="community_info_overlays">叠加层</string>
     <string name="community_info_bootanimation">开机动画</string>
     <string name="community_info_fonts">字体</string>
@@ -497,6 +504,8 @@
     <string name="notification_channel_default_description">主要通知 （主题获得更新，主题编译完成，等等）</string>
     <string name="notification_channel_ongoing">正在进行</string>
     <string name="notification_channel_ongoing_description">正在进行的通知</string>
+    <string name="notification_channel_andromeda">仙女座状态</string>
+    <string name="notification_channel_andromeda_description">仙女座连接状态通知</string>
     <!-- Nav drawer -->
     <string name="nav_home">主题包</string>
     <string name="nav_overlays">叠加层</string>
@@ -515,19 +524,20 @@
     <string name="nav_drawer_community">团队和社区</string>
     <string name="nav_drawer_googleplus">Google+ 社区</string>
     <string name="nav_drawer_telegram">Telegram 交流群</string>
-    <string name="nav_drawer_xda">XDA 论坛</string>
+    <string name="nav_drawer_xda">XDA 专用分论坛</string>
     <string name="nav_drawer_rawad">主题向导</string>
+    <string name="nav_drawer_reddit">Reddit 社区</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">特色内容</string>
-    <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
-    <string name="nav_drawer_xda_portal">XDA 门户</string>
+    <string name="nav_drawer_xda_portal">XDA 论坛</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">资源</string>
     <string name="nav_drawer_homepage">官方主页</string>
     <string name="nav_drawer_template">主题模板（主题制作者）</string>
     <string name="nav_drawer_gerrit">Gerrit 代码审查</string>
     <string name="nav_drawer_github">GitHub 存储库</string>
-    <string name="nav_troubleshooting">疑难解答</string>
+    <string name="nav_drawer_jira">JIRA bug 报告系统</string>
+    <string name="nav_troubleshooting">常见问题</string>
     <!-- More -->
     <string name="nav_section_header_more">更多</string>
     <string name="nav_team_contributors">团队和贡献者</string>
@@ -544,6 +554,10 @@
     <string name="manage_space_reset_dialog_content">应用程序会在重置完成后自动关闭</string>
     <string name="cleaned_logchar_reports">清除已保存的 LogChar 报告</string>
     <string name="legacy_overlay_uninstall_warning_text">如果您正在卸载所有叠加层，请使用 Substratum 救援系统，以避免设备变砖。</string>
+    <string name="auto_reload_sysui_title">自动重新加载 SystemUI</string>
+    <string name="auto_reload_sysui_summary_on">在启用/禁用 SystemUI 后，Substratum 会自动重新加载 SystemUI</string>
+    <string name="auto_reload_sysui_summary_off">在启用/禁用 SystemUI 后，Substratum 不会自动重新加载 SystemUI</string>
+    <string name="auto_reload_sysui_dialog_title">警告！</string>
     <!-- The things lint will complain about...-->
     <string name="fonts_demo_string">AaBbCcDd123</string>
 </resources>

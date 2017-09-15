@@ -27,6 +27,12 @@
     <string name="resource_not_validated">Nowe rewizje zostały scalone!</string>
     <string name="resource_needs_internet">Aby ratyfikować rewizje w swoim ROMie, proszę połącz się z internetem!</string>
     <string name="resource_validated">Wszystkie rewizje nienaruszone!</string>
+    <string name="interfacer_notification_title">Substratum i Interfacer są połączone!</string>
+    <string name="interfacer_notification_text">Usługi motywów w tle są powiązane, aktywne i działają.</string>
+    <string name="andromeda_notification_title">Substratum i Andromeda są połączone!</string>
+    <string name="andromeda_notification_title_negation">Substratum i Andromeda nie są połączone</string>
+    <string name="andromeda_notification_text">Usługi motywów w tle są powiązane, aktywne i działają.</string>
+    <string name="andromeda_notification_text_negation">Usługa Andromedy nie działa, należy ponownie uruchomić pakiet na komputerze!</string>
     <string name="resource_commit_dialog_title">Brakujące zasoby w %s</string>
     <string name="showcase_no_connection">prezentacja motywu do funkcjonowania wymaga połączenia z internetem!    </string>
     <string name="showcase_no_themes">wygląda na to że wystąpił błąd buforowania bazy danych prezentacji       dla tej karty&#8230;    </string>
@@ -38,7 +44,7 @@
     <string name="background_updated_toast">Pamięć podręczna zasobów została zbudowana!</string>
     <string name="background_updated_toast_cancel">Ten motyw musi uaktualnić swoją pamięć podręczną zasobów zanim będzie funkcjonalny!    </string>
     <string name="background_updated_toast_rejected">Nie można utworzyć zasobu pamięci podręcznej dla tego motywu!</string>
-    <string name="background_updated_toast_cleaning">Substratum czyści teraz pamięć podręczną tego motywu…</string>
+    <string name="background_updated_toast_cleaning">Substratum czyści teraz pamięć podręczną tego motywu...</string>
     <string name="failed_to_install_title_notification">Błąd instalacji motywu OMS</string>
     <string name="failed_to_install_text_notification">%s nie udało się zainstalować</string>
     <string name="actionbar_theme_count_singular">%s motyw</string>
@@ -73,6 +79,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="manager_type3">Typ3:</string>
     <string name="manager_type4">Typ4 :</string>
     <string name="legacy_preference_priority_title">Korekta priorytetu nakładki</string>
+    <string name="legacy_preference_priority_text">Priorytet jest ustawiony na (domyślnie 999): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">wariant typ1a&#8230;</string>
     <string name="overlays_variant_default_1b">wariant typ1b&#8230;</string>
@@ -86,7 +93,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="bootanimation_vm_exploded">Renderowanie animacji rozruchu zostało zakończone z powodu niewystarczającej alokacji ilości pamięci. Instalacja jest nadal możliwa, lecz bez renderowanego podglądu.    </string>
     <string name="bootanimation_placeholder_text">Proszę wybrać z listy animację rozruchu&#8230;</string>
     <string name="bootanimation_default_spinner">Proszę wybrać animację rozruchu&#8230;</string>
-    <string name="bootanimation_spinner_set_defaults">Przywróć domyślną animację rozruchu…    </string>
+    <string name="bootanimation_spinner_set_defaults">Przywróć domyślną animację rozruchu...    </string>
     <string name="bootanimation_defaults_text">spowoduje to usunięcie wszelkich animacji rozruchu zastosowanych w urządzeniu</string>
     <string name="bootanimation_dialog_apply_text">Animacja rozruchu jest przetwarzana&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Animacja rozruchu zastosowana!</string>
@@ -137,7 +144,10 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="settings_about_substratum">Wersja substratum</string>
     <string name="settings_about_interfacer">wersja interfacera</string>
     <string name="settings_about_interfacer_not_installed">Nie zainstalowany</string>
+    <string name="settings_about_andromeda">wersja andromedy</string>
+    <string name="settings_about_samsung">wersja sungstratum</string>
     <string name="settings_about_oms_rro_version">Platforma motywu:</string>
+    <string name="settings_about_oms_version_do">Dynamiczne nakładki (OMS)</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (starsza wersja)</string>
     <string name="settings_about_system_version">Platforma systemowa</string>
@@ -161,14 +171,14 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="manage_system_overlay_uninstall">Odinstaluj wszystkie zainstalowane nakładki</string>
     <string name="manage_system_overlay_toast">Teraz jest przywracany systemowy motyw&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Nakładki są teraz odinstalowywane w tle&#8230;</string>
-    <string name="manage_system_not_permitted">Nie można aktywować kilku nakładek z powodu iż główny motyw je zawierający nie jest dostępny.</string>
+    <string name="manage_system_not_permitted">Proszę wybrać prawidłową nakładkę, aby zmienić stan.</string>
     <string name="manage_wallpaper_home">Tapeta ekranu głównego</string>
     <string name="manage_wallpaper_lock">Tapeta ekranu blokady</string>
     <string name="manage_wallpaper_all">Tapeta ekranu głównego i ekranu blokady</string>
     <string name="manage_wallpaper_home_toast">Tapeta ekranu głównego pomyślnie przywrócona!</string>
     <string name="manage_wallpaper_lock_toast">Tapeta ekranu blokady pomyślnie przywrócona!</string>
     <string name="manage_wallpaper_all_toast">Tapeta pomyślnie przywrócona!</string>
-    <string name="adapter_uninstalling">Usuwanie %s…</string>
+    <string name="adapter_uninstalling">Usuwanie %s...</string>
     <string name="plugin_template">Wtyczka</string>
     <string name="api_21">Lollipop</string>
     <string name="api_22">Lollipop MR1</string>
@@ -214,7 +224,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="logcat_snackbar_text">Zastosowano docelową aplikację / nakładkę przestarzałą lub niezgodną konfigurację&#8230;</string>
     <string name="logcat_dialog_title">Raport debugowania LogChar</string>
     <string name="logcat_dialog_copy_success">Pomyślnie skopiowano dziennik błędów do schowka!</string>
-    <string name="logcat_email_activity">Wyślij raport błędu za pomocą…</string>
+    <string name="logcat_email_activity">Wyślij raport błędu za pomocą...</string>
     <string name="logcat_email_activity_error">Brak zainstalowanych klientów poczty elektronicznej.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
     <string name="logcat_processing_dialog">Przetwarzanie raportu o błędzie</string>
@@ -251,7 +261,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="toast_backup_success">Zapisano aktualną listę nakładek do
         \"/storage/emulated/0/substratum/profiles/%s\"
     </string>
-    <string name="spinner_default_item">wybierz profil…</string>
+    <string name="spinner_default_item">wybierz profil...</string>
     <string name="select_to_toggle_all_overlays">Wybierz, aby wybrać wszystkie nakładki</string>
     <string name="permission_not_granted_dialog_title">Uprawnienia nie zostały przyznane</string>
     <string name="permission_not_granted_dialog_message1">Proszę udzielić substratum uprawnień do pam. wewnętrznej, bo inaczej aplikacja nie będzie działać poprawnie!    </string>
@@ -265,8 +275,8 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="uninstall_dialog_body">Odinstaluj Motyw</string>
     <string name="sb_phase_1_loader">wyodrębnianie motywu</string>
     <string name="sb_phase_2_loader">instalowanie nakładki</string>
-    <string name="root_rejected_title">Odmowa uprawnień Superuser</string>
-    <string name="root_rejected_text_cm_phh">nie można kontynuować bez roota&#8230;</string>
+    <string name="root_rejected_title">przełącz do trybu roota</string>
+    <string name="root_rejected_text_cm_phh">nie ma tutaj innych silników motywów możliwych do wykorzystania na urządzeniu bez roota&#8230;</string>
     <string name="root_rejected_timer_plural">zamykanie za %s sekund&#8230;</string>
     <string name="root_rejected_timer_singular">zamykanie za %s sekundy&#8230;</string>
     <string name="toast_compiled_updated">Wybrane nakładki zaktualizowane!</string>
@@ -280,7 +290,10 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="no_themes_title">nie znaleziono motywów&#8230;</string>
     <string name="no_themes_description">proszę zainstalować zgodny motyw!</string>
     <string name="no_themes_description_search">Nie znaleziono \"%s\" na liście zainstalowanych motywów&#8230;</string>
+    <string name="toast_could_not_uninstall">Nie wybrano prawidłowych nakładek.</string>
     <string name="toast_samsung_prototype_alert">Substratum automatycznie ukrył nieobsługiwane nakładki systemowe urządzenia!</string>
+    <string name="andromeda_no_root_dialog">Wydaje się, że jesteś na obsługiwanym urządzeniu OMS, w celu wsparcia tego został wydany dodatek!</string>
+    <string name="andromeda_no_root_dialog_button">Pobierz teraz!</string>
     <string name="samsung_prototype_no_root_dialog">Wydaje się, że jesteś na obsługiwanym urządzeniu Samsung, dodatek został wydany w celu wsparcia tego!</string>
     <string name="samsung_prototype_no_root_dialog_button">Pobierz teraz!</string>
     <string name="toast_needs_caching">Pamięć podręczna Substratum została wymazana, przed kontynuacją proszę przebudować ten motyw!</string>
@@ -291,7 +304,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="notification_hide">Odrzuć</string>
     <string name="notification_hide_upgrade">Anuluj</string>
     <string name="notification_initial_title">Substratum jest uruchomione</string>
-    <string name="notification_initial_title_upgrade_intent">Uaktualnianie nakładek %s…</string>
+    <string name="notification_initial_title_upgrade_intent">Uaktualnianie nakładek %s...</string>
     <string name="notification_initial_title_upgrade">Zasoby %s są teraz aktualizowane&#8230;</string>
     <string name="notification_done_title">Kompilacja motywu została zakończona</string>
     <string name="notification_done_upgrade_title">Uaktualnienie nakładki dla %s zakończone!</string>
@@ -324,8 +337,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="show_theme_template_version_description">Pokaż docelowy poziom SDK każdego motywu, jego wersję oraz wersję wtyczki jako oznaczenie na każdej z kart tematu.</string>
     <string name="vibrate_on_compiled">Powiadom mnie, gdy kompilacja motywu dobiegnie końca</string>
     <string name="vibrate_on_compiled_description">Po skompilowaniu motywu urządzenie będzie wibrować, aby poinformować użytkownika o zakończeniu kompilacji.</string>
-    <string name="manage_notification_channel">Zarządzanie kanałem powiadomień</string>
-    <string name="manage_notification_channel_dialog_title">Wybierz kanał powiadomień do zarządzania</string>
     <string name="hide_app_icon">Pokaż ikonę aplikacji</string>
     <string name="hide_app_icon_toast_enabled">Ikona programu została usunięta z twojego programu uruchamiającego!</string>
     <string name="hide_app_icon_toast_disabled">Ikona programu została dodana do twojego programu uruchamiającego!</string>
@@ -346,6 +357,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="fab_menu_uninstall">Odinstaluj zaznaczone</string>
     <string name="fab_menu_disable">Wyłącz zaznaczone</string>
     <string name="fab_menu_enable">Włącz zaznaczone</string>
+    <string name="fab_menu_enable_disable">Zmień stan nakładki</string>
     <string name="fab_menu_swap_toggle">Wyłącz inne motywy</string>
     <string name="fab_menu_swap_toggle_legacy">Usuń wszystkie istniejące</string>
     <string name="team_title_one">Liderzy Substratum</string>
@@ -418,6 +430,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="profile_wallpaper">Tapety</string>
     <string name="profile_dialog_ok">OK</string>
     <string name="settings_system_status">System certyfikacji</string>
+    <string name="settings_system_status_andromeda">Tryb Andromedy</string>
     <string name="settings_system_status_rooted">Tryb roota</string>
     <string name="settings_system_status_rootless">Tryb bez roota</string>
     <string name="settings_system_status_samsung">Tryb Samsung</string>
@@ -508,6 +521,8 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="notification_channel_default_description">Główne powiadomienia (Nowy i zaktualizowany motyw, skompilowany gotowy motyw, itp.)</string>
     <string name="notification_channel_ongoing">Trwający</string>
     <string name="notification_channel_ongoing_description">Trwające powiadomienia</string>
+    <string name="notification_channel_andromeda">Status Andromedy</string>
+    <string name="notification_channel_andromeda_description">Powiadomienia o stanie połączenia Andromedy</string>
     <!-- Nav drawer -->
     <string name="nav_home">Pakiety motywów</string>
     <string name="nav_overlays">Nakładki</string>
@@ -526,11 +541,11 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="nav_drawer_community">Grupy i społeczności</string>
     <string name="nav_drawer_googleplus">Społeczność Google+</string>
     <string name="nav_drawer_telegram">Czat grupowy Telegramu</string>
-    <string name="nav_drawer_xda">Podforum XDA</string>
-    <string name="nav_drawer_rawad">Przewodniki tematyczne Rawad</string>
+    <string name="nav_drawer_xda">Dedykowane pod-forum XDA</string>
+    <string name="nav_drawer_rawad">Przewodniki tworzenia motywów Rawad</string>
+    <string name="nav_drawer_reddit">Wspólnota Reddit</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Polecana zawartość</string>
-    <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">Portal XDA</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Zasoby</string>
@@ -539,7 +554,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="nav_drawer_gerrit">Platforma i ekspozycje Gerrita</string>
     <string name="nav_drawer_github">Repozytorium platformy GitHub</string>
     <string name="nav_drawer_jira">System raportowania błędów JIRA</string>
-    <string name="nav_troubleshooting">Rozwiązywanie problemów</string>
+    <string name="nav_troubleshooting">Najczęściej zadawane pytania</string>
     <!-- More -->
     <string name="nav_section_header_more">Więcej</string>
     <string name="nav_team_contributors">Zespół &amp; Współpracownicy</string>
@@ -557,6 +572,10 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="cleaned_logchar_reports">Wyczyszczono zapisane raporty LogChar</string>
     <string name="legacy_overlay_uninstall_warning_text">Jeśli odinstalujesz wszystkie nakładki, użyj plików odzyskiwania, aby uniknąć możliwego zapętlenia podczas uruchamiania się systemu.</string>
     <string name="auto_reload_sysui_title">Automatyczne przeładowanie Interfejsu</string>
+    <string name="auto_reload_sysui_summary_on">Substratum będzie za każdym razem automatycznie restartował interfejs systemu kiedy nakładka nadana na interfejs została włączona/wyłączona.</string>
+    <string name="auto_reload_sysui_summary_off">Substratum nie będzie automatycznie restartował interfejsu systemu kiedy nakładka nadana na interfejs będzie włączona/wyłączona.</string>
+    <string name="auto_reload_sysui_dialog_title">Ostrzeżenie!</string>
+    <string name="auto_reload_sysui_dialog_text">W Android Oreo powiadomienia zostaną automatycznie usunięte, aby symulować ponowne uruchomienie zapisanych w pamięci podręcznej kanałów powiadamiania. \n\nProszę upewnić się, że podczas kompilacji lub włączania nakładek interfejsu lub frameworku, powiadomienia nie zawierają żadnych ważnych danych. To nie ma wpływu na bieżące powiadomienia.</string>
     <!-- The things lint will complain about...-->
     <string name="fonts_demo_string">AaBbCcDd123</string>
 </resources>

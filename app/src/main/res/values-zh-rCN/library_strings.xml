@@ -26,13 +26,6 @@
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
-    <!-- FAB Speed Dial -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_fab_speed_dial_libraryDescription">一个包含浮动操作按钮、菜单资源和快速拨号的简单库，遵守 Material Design 设计规范。</string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <!-- License section -->
     <!-- Gesture RecyclerView -->
     <!-- Author section -->
     <!-- Library section -->
@@ -97,13 +90,6 @@
     <string name="library_avloadingindicatorview_repositoryLink">https://github.com/81813780/AVLoadingIndicatorView</string>
     <!-- ClassPath for autoDetect section -->
     <string name="library_avloadingindicatorview_classPath">com.wang.avi:library</string>
-    <!-- License section -->
-    <!-- Android Image Cropper -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_androidimagecropper_libraryDescription">具有强大（缩放、旋转、多源），可定制（形状、极限、样式），优化（异步、采样、矩阵）特征的 简单图像裁剪库，专为 Android 设计。</string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Floating View -->
     <!-- Author section -->

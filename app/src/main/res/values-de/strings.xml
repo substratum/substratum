@@ -27,6 +27,12 @@
     <string name="resource_not_validated">Neue Commits wurden eingebunden!</string>
     <string name="resource_needs_internet">Verbinde dich mit dem Internet, um deine ROM-Commits überprüfen zu lassen!</string>
     <string name="resource_validated">Alle Commits intakt!</string>
+    <string name="interfacer_notification_title">Substratum und Interfacer sind verbunden!</string>
+    <string name="interfacer_notification_text">Die Theme-Hintergrunddienste sind gebunden, aktiv und laufen.</string>
+    <string name="andromeda_notification_title">Substratum und Andromeda sind verbunden!</string>
+    <string name="andromeda_notification_title_negation">Substratum und Andromeda sind NICHT verbunden</string>
+    <string name="andromeda_notification_text">Die Theme-Hintergrunddienste sind gebunden, aktiv und laufen.</string>
+    <string name="andromeda_notification_text_negation">Andromeda-Dienst wird nicht ausgeführt, starten Sie bitte erneut die Desktop-Suite!</string>
     <string name="resource_commit_dialog_title">Fehlende Ressourcen in %s</string>
     <string name="showcase_no_connection">Für Themes-Showcase ist eine Internetverbindung erforderlich!</string>
     <string name="showcase_no_themes">Scheint so, als hätte es einen Fehler beim zwischenspeichern der Vorzeige-Datenbank gegeben    </string>
@@ -72,6 +78,7 @@ bei dir funktioniert. Bitte stelle sicher, dass du eine Custom-Recovery verwende
     <string name="manager_type3">Typ3:</string>
     <string name="manager_type4">Typ 4:</string>
     <string name="legacy_preference_priority_title">Anpassung der Overlay-Priorität</string>
+    <string name="legacy_preference_priority_text">Die Priorität beträgt %d (Standard 999)</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">typ1a Variante&#8230;</string>
     <string name="overlays_variant_default_1b">typ1b Variante&#8230;</string>
@@ -140,7 +147,10 @@ eingerichtet&#8230;</string>
     <string name="settings_about_substratum">Substratum-Version</string>
     <string name="settings_about_interfacer">Interfacer-Version</string>
     <string name="settings_about_interfacer_not_installed">Nicht installiert</string>
+    <string name="settings_about_andromeda">Andromeda-Version</string>
+    <string name="settings_about_samsung">Sungstratum-Version</string>
     <string name="settings_about_oms_rro_version">Theme-Plattform:</string>
+    <string name="settings_about_oms_version_do">Dynamische Overlays (OMS)</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">System-Plattform</string>
@@ -164,7 +174,7 @@ eingerichtet&#8230;</string>
     <string name="manage_system_overlay_uninstall">Alle installierten Overlays deinstallieren</string>
     <string name="manage_system_overlay_toast">System-Theme wird wiederhergestellt&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Overlays werden im Hintergrund deinstalliert&#8230;</string>
-    <string name="manage_system_not_permitted">Manche Overlays konnten nicht aktiviert werden weil das Haupt-Theme nicht vorhanden ist.</string>
+    <string name="manage_system_not_permitted">Bitte wählen Sie einen gültigen Overlay, um den Status zu ändern.</string>
     <string name="manage_wallpaper_home">Startbildschirm-Hintergrund</string>
     <string name="manage_wallpaper_lock">Sperrbildschirm-Hintergrund</string>
     <string name="manage_wallpaper_all">Start- und Sperrbildschirm-Hintergrund</string>
@@ -253,7 +263,7 @@ eingerichtet&#8230;</string>
     <string name="profile_edittext_whitespace_warning_toast">Leerzeichen im Profilnamen kann nicht verwendet werden!</string>
     <string name="toast_backup_success">Aktuelle Overlay Liste wurde gespeichert nach \"/storage/emulated/0/substratum/profiles/%s\"</string>
     <string name="spinner_default_item">Wähle ein Profil&#8230;</string>
-    <string name="select_to_toggle_all_overlays">Auswählen, um alle Overlays zu aktivieren</string>
+    <string name="select_to_toggle_all_overlays">Alle auswählen</string>
     <string name="permission_not_granted_dialog_title">Fehlende Berechtigungen</string>
     <string name="permission_not_granted_dialog_message1">Bitte gewähre Substratum Zugriff auf den Speicher, da die App ansonsten nicht ordnungsgemäß funktioniert!</string>
     <string name="dialog_ok">OK</string>
@@ -266,8 +276,8 @@ eingerichtet&#8230;</string>
     <string name="uninstall_dialog_body">Deinstallieren</string>
     <string name="sb_phase_1_loader">Assets des Themes werden extrahiert</string>
     <string name="sb_phase_2_loader">Overlay(s) installieren</string>
-    <string name="root_rejected_title">Superuser-Anfrage abgelehnt</string>
-    <string name="root_rejected_text_cm_phh">Root-Zugriff ist erforderlich&#8230;</string>
+    <string name="root_rejected_title">zurückgreifen auf Root-Modus</string>
+    <string name="root_rejected_text_cm_phh">Es gibt keine anderen Theme-Engines, die auf dem Gerät ohne Root genutzt werden können&#8230;</string>
     <string name="root_rejected_timer_plural">schließt in %s Sekunden&#8230;</string>
     <string name="root_rejected_timer_singular">schließt in %s Sekunden&#8230;</string>
     <string name="toast_compiled_updated">Overlay(s) aktualisiert!</string>
@@ -281,7 +291,10 @@ eingerichtet&#8230;</string>
     <string name="no_themes_title">Keine Themes gefunden&#8230;</string>
     <string name="no_themes_description">Bitte installiere ein kompatibles Theme!</string>
     <string name="no_themes_description_search">\"%s\" wurde nicht in der Liste von installierten Themes gefunden&#8230;</string>
+    <string name="toast_could_not_uninstall">Keine gültigen Overlays ausgewählt.</string>
     <string name="toast_samsung_prototype_alert">Substratum hat automatisch nicht unterstützte System-Overlays für dein Gerät versteckt!</string>
+    <string name="andromeda_no_root_dialog">Es sieht so aus als wärst du auf einem unterstützten Gerät, ein Addon wurde veröffentlicht um dies zu unterstützen!</string>
+    <string name="andromeda_no_root_dialog_button">Jetzt herunterladen!</string>
     <string name="samsung_prototype_no_root_dialog">Es sieht so aus als wärst du auf einem unterstützten Samsung-Gerät, ein Addon wurde veröffentlicht um dies zu unterstützen!</string>
     <string name="samsung_prototype_no_root_dialog_button">Jetzt herunterladen!</string>
     <string name="toast_needs_caching">Substratums Caches würde geleert. Bitte kompiliere das Theme neu bevor zu fortfährst!</string>
@@ -325,8 +338,6 @@ eingerichtet&#8230;</string>
     <string name="show_theme_template_version_description">Zeige die Ziel-SDK-Ebene und die Version des Themes sowie die Plugin-Version als Tag auf der Karte des jeweiligen Themes an.</string>
     <string name="vibrate_on_compiled">Nach Theme-Kompilierung benachrichtigen</string>
     <string name="vibrate_on_compiled_description">Weise den Nutzer durch Vibration darauf hin, dass die Kompilierung abgeschlossen wurde.</string>
-    <string name="manage_notification_channel">Benachrichtigungskanal verwalten</string>
-    <string name="manage_notification_channel_dialog_title">Wähle den zu verwaltenden Benachrichtigungskanal</string>
     <string name="hide_app_icon">App-Symbol anzeigen</string>
     <string name="hide_app_icon_toast_enabled">Das Anwendungssymbol wurde aus deinem Launcher entfernt!</string>
     <string name="hide_app_icon_toast_disabled">Das Anwendungssymbol wurde deinem Launcher hinzugefügt!</string>
@@ -343,10 +354,11 @@ eingerichtet&#8230;</string>
     <string name="show_outdated_themes_content">Das Deaktivieren dieser Option erlaubt Substratum den brandneuen Algorithmus zu benutzen der Themes viel schneller als sonst lädt. Das wird nur für konfigurierte 6.0.0+ plugin Themes funktionieren.</string>
     <string name="fab_menu_compile_enable">Kompilieren &amp; Aktivieren</string>
     <string name="fab_menu_compile_update">Kompilieren &amp; Aktualisieren</string>
-    <string name="fab_menu_compile_install">Installieren</string>
-    <string name="fab_menu_uninstall">Deinstallieren</string>
-    <string name="fab_menu_disable">Deaktivieren</string>
-    <string name="fab_menu_enable">Aktivieren</string>
+    <string name="fab_menu_compile_install">Ausgewählte installieren</string>
+    <string name="fab_menu_uninstall">Ausgewählte deinstallieren</string>
+    <string name="fab_menu_disable">Ausgewählte deaktivieren</string>
+    <string name="fab_menu_enable">Ausgewählte aktivieren</string>
+    <string name="fab_menu_enable_disable">Ändere Overlay-Status</string>
     <string name="fab_menu_swap_toggle">Andere Themes deaktivieren</string>
     <string name="fab_menu_swap_toggle_legacy">Alle vorhandenen entfernen</string>
     <string name="team_title_one">Chefs bei Substratum</string>
@@ -419,6 +431,7 @@ eingerichtet&#8230;</string>
     <string name="profile_wallpaper">Hintergrundbilder</string>
     <string name="profile_dialog_ok">OK</string>
     <string name="settings_system_status">Systemzertifizierung</string>
+    <string name="settings_system_status_andromeda">Andromeda-Modus</string>
     <string name="settings_system_status_rooted">Root-Modus</string>
     <string name="settings_system_status_rootless">Ohne-Root-Modus</string>
     <string name="settings_system_status_samsung">Samsung-Modus</string>
@@ -509,6 +522,8 @@ eingerichtet&#8230;</string>
     <string name="notification_channel_default_description">Hauptbenachrichtigungen (neues und aktualisiertes Theme, Theme-Kompilierung abgeschlossen, etc.)</string>
     <string name="notification_channel_ongoing">Laufende</string>
     <string name="notification_channel_ongoing_description">Laufende Benachrichtigungen</string>
+    <string name="notification_channel_andromeda">Andromeda-Status</string>
+    <string name="notification_channel_andromeda_description">Andromeda-Verbindung Statusbenachrichtigung</string>
     <!-- Nav drawer -->
     <string name="nav_home">Theme-Pakete</string>
     <string name="nav_overlays">Overlays</string>
@@ -527,11 +542,11 @@ eingerichtet&#8230;</string>
     <string name="nav_drawer_community">Gruppen &amp; Communities</string>
     <string name="nav_drawer_googleplus">Google+-Community</string>
     <string name="nav_drawer_telegram">Telegram-Gruppenchat</string>
-    <string name="nav_drawer_xda">XDA-Unterforum</string>
+    <string name="nav_drawer_xda">XDA eigenes Unterforum</string>
     <string name="nav_drawer_rawad">Rawad\'s Theming Anleitungen</string>
+    <string name="nav_drawer_reddit">Reddit-Gemeinschaft</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Empfohlene Inhalte</string>
-    <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">XDA-Portal</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Ressourcen</string>
@@ -540,7 +555,7 @@ eingerichtet&#8230;</string>
     <string name="nav_drawer_gerrit">Plattform &amp; enthüllt Gerrit</string>
     <string name="nav_drawer_github">Platform GitHub Repository</string>
     <string name="nav_drawer_jira">JIRA Bugreport-System</string>
-    <string name="nav_troubleshooting">Fehlerbehebung</string>
+    <string name="nav_troubleshooting">FAQ</string>
     <!-- More -->
     <string name="nav_section_header_more">Mehr</string>
     <string name="nav_team_contributors">Team &amp; Mitwirkende</string>
@@ -560,6 +575,8 @@ eingerichtet&#8230;</string>
     <string name="auto_reload_sysui_title">SystemUI automatisch neu laden</string>
     <string name="auto_reload_sysui_summary_on">Substratum lädt automatisch die SystemUI neu, nachdem ein Overlay, das auf die SystemUI abzielt, (de)aktiviert wurde.</string>
     <string name="auto_reload_sysui_summary_off">Substratum lädt nicht automatisch die SystemUI neu, nachdem ein Overlay, das auf die SystemUI abzielt, (de)aktiviert wurde.</string>
+    <string name="auto_reload_sysui_dialog_title">Warnung!</string>
+    <string name="auto_reload_sysui_dialog_text">In Android Oreo, Benachrichtigungen werden automatisch gelöscht, um einen Neustart der zwischengespeicherten Benachrichtigungskanäle zu simulieren.\n\nBitte gewährleisten Sie, dass Ihre Benachrichtigungen keine wichtigen Daten beim Kompilieren oder Aktivieren von SystemUI/Framework-Überlagerungen enthalten. Dies hat keinen Einfluss auf laufende Benachrichtigungen.</string>
     <!-- The things lint will complain about...-->
     <string name="fonts_demo_string">AaBbCcDd123</string>
 </resources>

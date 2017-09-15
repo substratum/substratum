@@ -27,6 +27,12 @@
     <string name="resource_not_validated">Были внедрены новые коммиты!</string>
     <string name="resource_needs_internet">Чтобы предложить коммиты для вашей прошивки подключитесь к Интернету!</string>
     <string name="resource_validated">Обновление не требуется!</string>
+    <string name="interfacer_notification_title">Substratum и Interfacer соединены!</string>
+    <string name="interfacer_notification_text">Фоновые процессы связаны, активны и запущены.</string>
+    <string name="andromeda_notification_title">Substratum и Andromeda соединены!</string>
+    <string name="andromeda_notification_title_negation">Substratum и Andromeda НЕ соединены</string>
+    <string name="andromeda_notification_text">Фоновые процессы связаны, активны и запущены.</string>
+    <string name="andromeda_notification_text_negation">Сервис Andromeda не запущен, пожалуйста перезапустите приложение на компьютере!</string>
     <string name="resource_commit_dialog_title">Отсутствуют ресурсы в %s</string>
     <string name="showcase_no_connection">каталог тем требует подключения к интернету!    </string>
     <string name="showcase_no_themes">похоже, кэширование базы данных каталога для этой вкладки прошло неудачно&#8230;    </string>
@@ -72,6 +78,7 @@
     <string name="manager_type3">Type3 :</string>
     <string name="manager_type4">Type4 :</string>
     <string name="legacy_preference_priority_title">Изменение приоритета наслоения</string>
+    <string name="legacy_preference_priority_text">Задан приоритет (по ум. 999): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">Вариант type1a&#8230;</string>
     <string name="overlays_variant_default_1b">Вариант type1b&#8230;</string>
@@ -85,7 +92,7 @@
     <string name="bootanimation_vm_exploded">Визуализация анимации загрузки прекращена из-за недостатка памяти.\n\nДальнейшая установка возможна, но без предварительного просмотра.     </string>
     <string name="bootanimation_placeholder_text">выберите анимацию загрузки из выпадающего списка&#8230;</string>
     <string name="bootanimation_default_spinner">выберите анимацию загрузки&#8230;</string>
-    <string name="bootanimation_spinner_set_defaults">возврат стандартной анимации…     </string>
+    <string name="bootanimation_spinner_set_defaults">возврат стандартной анимации...     </string>
     <string name="bootanimation_defaults_text">будут удалены все пользовательские анимации загрузки, примененные на устройстве</string>
     <string name="bootanimation_dialog_apply_text">Применение анимации загрузки&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Анимация загрузки применена!</string>
@@ -136,7 +143,10 @@
     <string name="settings_about_substratum">версия substratum</string>
     <string name="settings_about_interfacer">версия согласователя</string>
     <string name="settings_about_interfacer_not_installed">Не установлен</string>
+    <string name="settings_about_andromeda">Версия andromeda</string>
+    <string name="settings_about_samsung">Версия sungstratum</string>
     <string name="settings_about_oms_rro_version">Платформа оформления:</string>
+    <string name="settings_about_oms_version_do">Динамичные Наслоения (OMS)</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Системная платформа</string>
@@ -160,7 +170,7 @@
     <string name="manage_system_overlay_uninstall">Удалить все установленные слои</string>
     <string name="manage_system_overlay_toast">Возвращаем системное оформление&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Слои будут удалены в фоновом режиме&#8230;</string>
-    <string name="manage_system_not_permitted">Не удалось активировать несколько наслоений из-за отсутствия основной темы.</string>
+    <string name="manage_system_not_permitted">Пожалуйста выберите допустимое наслоение для изменения состояний.</string>
     <string name="manage_wallpaper_home">На домашний экран</string>
     <string name="manage_wallpaper_lock">На экран блокировки</string>
     <string name="manage_wallpaper_all">На оба экрана</string>
@@ -269,8 +279,8 @@
     <string name="uninstall_dialog_body">Удалить тему</string>
     <string name="sb_phase_1_loader">распаковка темы</string>
     <string name="sb_phase_2_loader">установка наслоения</string>
-    <string name="root_rejected_title">Отказ в правах Суперпользователя</string>
-    <string name="root_rejected_text_cm_phh">без прав Суперпользователя продолжить не удастся&#8230;</string>
+    <string name="root_rejected_title">возвращение к режиму Root</string>
+    <string name="root_rejected_text_cm_phh">не существует других менеджеров тем, работающие на устройствах без Root доступа&#8230;</string>
     <string name="root_rejected_timer_plural">закрытие через %s секунд(-ы)&#8230;</string>
     <string name="root_rejected_timer_singular">закрытие через %s секунду&#8230;</string>
     <string name="toast_compiled_updated">Выбранные слои обновлены!</string>
@@ -284,7 +294,10 @@
     <string name="no_themes_title">не найдено тем&#8230;</string>
     <string name="no_themes_description">установите любую совместимую тему!</string>
     <string name="no_themes_description_search">Среди установленных тем нет \"%s\"&#8230;</string>
+    <string name="toast_could_not_uninstall">Не выбраны допустимые наслоения.</string>
     <string name="toast_samsung_prototype_alert">Substratum автоматически скроет неподдерживаемые на вашем устройстве системные наслоения!</string>
+    <string name="andromeda_no_root_dialog">Похоже, вы используете поддерживаемое OMS устройство, было выпущено дополнение для поддержки этого!</string>
+    <string name="andromeda_no_root_dialog_button">Загрузить!</string>
     <string name="samsung_prototype_no_root_dialog">Похоже, у Вас поддерживаемое устройство Samsung, для него выпущен пакет совместимости!</string>
     <string name="samsung_prototype_no_root_dialog_button">Загрузить!</string>
     <string name="toast_needs_caching">Кэш Substratum был сброшен, сначала пересоберите данную тему!</string>
@@ -328,8 +341,6 @@
     <string name="show_theme_template_version_description">Указывать целевые уровни SDK, версии тем и версии плагинов в качестве меток для каждой темы.</string>
     <string name="vibrate_on_compiled">Уведомление о готовности темы</string>
     <string name="vibrate_on_compiled_description">Издавать вибрацию по окончанию сборки для оповещения пользователя о завершении процесса.</string>
-    <string name="manage_notification_channel">Управление каналами уведомлений</string>
-    <string name="manage_notification_channel_dialog_title">Выберите канал уведомлений для управления</string>
     <string name="hide_app_icon">Показывать значок приложения</string>
     <string name="hide_app_icon_toast_enabled">Значок удален из меню приложений!</string>
     <string name="hide_app_icon_toast_disabled">Значок добавлен в меню приложений!</string>
@@ -349,7 +360,8 @@
     <string name="fab_menu_compile_install">Установить выбранное</string>
     <string name="fab_menu_uninstall">Удалить выбранное</string>
     <string name="fab_menu_disable">Отключить выбранное</string>
-    <string name="fab_menu_enable">Применить выбранное</string>
+    <string name="fab_menu_enable">Включить выбранное</string>
+    <string name="fab_menu_enable_disable">Изменить состояния наслоений</string>
     <string name="fab_menu_swap_toggle">Отключить другие темы</string>
     <string name="fab_menu_swap_toggle_legacy">Удалить все существующие</string>
     <string name="team_title_one">Основатели Substratum</string>
@@ -422,6 +434,7 @@
     <string name="profile_wallpaper">Обои</string>
     <string name="profile_dialog_ok">ОК</string>
     <string name="settings_system_status">Пригодность системы</string>
+    <string name="settings_system_status_andromeda">Режим Andromeda</string>
     <string name="settings_system_status_rooted">Применяется root</string>
     <string name="settings_system_status_rootless">Без использования root</string>
     <string name="settings_system_status_samsung">Режим совместимости с Samsung</string>
@@ -513,6 +526,8 @@
     <string name="notification_channel_default_description">Основные уведомления (о новых и обновленных темах, завершении сборки и т. д.)</string>
     <string name="notification_channel_ongoing">Текущее</string>
     <string name="notification_channel_ongoing_description">Текущие уведомления</string>
+    <string name="notification_channel_andromeda">Статус Andromeda</string>
+    <string name="notification_channel_andromeda_description">Уведомление о статусе подключения Andromeda</string>
     <!-- Nav drawer -->
     <string name="nav_home">Тематические наборы</string>
     <string name="nav_overlays">Наслоения</string>
@@ -531,12 +546,12 @@
     <string name="nav_drawer_community">Группы и сообщества</string>
     <string name="nav_drawer_googleplus">Google+ сообщество</string>
     <string name="nav_drawer_telegram">Чат в Телеграме</string>
-    <string name="nav_drawer_xda">Подраздел на XDA</string>
-    <string name="nav_drawer_rawad">Гид по оформлению от Rawad</string>
+    <string name="nav_drawer_xda">Выделенный XDA форум</string>
+    <string name="nav_drawer_rawad">Инструкция по оформлению от Rawad</string>
+    <string name="nav_drawer_reddit">Сообщество Reddit</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Рекомендуемое</string>
-    <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
-    <string name="nav_drawer_xda_portal">Сайт XDA</string>
+    <string name="nav_drawer_xda_portal">Портал XDA</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Ресурсы</string>
     <string name="nav_drawer_homepage">Официальный сайт</string>
@@ -544,7 +559,7 @@
     <string name="nav_drawer_gerrit">Мониторинг платформы на Gerrit</string>
     <string name="nav_drawer_github">GitHub-репозиторий</string>
     <string name="nav_drawer_jira">Система отсл. неполадок JIRA</string>
-    <string name="nav_troubleshooting">Устранение неполадок</string>
+    <string name="nav_troubleshooting">Часто задаваемые вопросы</string>
     <!-- More -->
     <string name="nav_section_header_more">Еще</string>
     <string name="nav_team_contributors">Команда и соучастники</string>
@@ -564,6 +579,8 @@
     <string name="auto_reload_sysui_title">Автоперезапуск SystemUI</string>
     <string name="auto_reload_sysui_summary_on">Substratum автоматически перезапустит SystemUI при включении/выключении затрагивающего его слоя</string>
     <string name="auto_reload_sysui_summary_off">Substratum не перезапускает SystemUI при включении/выключении затрагивающего его слоя</string>
+    <string name="auto_reload_sysui_dialog_title">Внимание!</string>
+    <string name="auto_reload_sysui_dialog_text">На Android Oreo, уведомления будут автоматически очищены для симуляции перезапуска кэшированных каналов уведомлений.\n\nПожалуйста убедитесь что ваши уведомления не содержат никакой важной информации при сборке и запуске SystemUI или framework наслоений. Это не влияет на текущие уведомления.</string>
     <!-- The things lint will complain about...-->
     <string name="fonts_demo_string">АаБбВвГг123</string>
 </resources>

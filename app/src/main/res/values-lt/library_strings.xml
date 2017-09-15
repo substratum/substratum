@@ -26,13 +26,6 @@
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
-    <!-- FAB Speed Dial -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_fab_speed_dial_libraryDescription">Paprasta biblioteka kartu sujungiantis \"FAB\" + meniu išteklius + Greito surinkimo metafora iš \"Material\" Dizaino.</string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <!-- License section -->
     <!-- Gesture RecyclerView -->
     <!-- Author section -->
     <!-- Library section -->
@@ -100,13 +93,6 @@
     <!-- ClassPath for autoDetect section -->
     <string name="library_avloadingindicatorview_classPath">com.wang.avi:library</string>
     <!-- License section -->
-    <!-- Android Image Cropper -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_androidimagecropper_libraryDescription">Galingas (Priartinimas, Pasukimas, Kelių Šaltinių), pritaikomas (Forma, Ribos, Stilius), optimizuotas (Asinchroninis, Pavyzdiniai, Matrica) ir paprasta vaizdo apkarpymo biblioteka \"Android\" sistemai.</string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <!-- License section -->
     <!-- Floating View -->
     <!-- Author section -->
     <string name="library_floatingview_author">Papildyti gyvenimo būdą Co. Ltd.</string>
@@ -127,7 +113,6 @@
     <string name="library_expandablelayout_libraryDescription">\"Android išdėstymo klasė, kuri palaiko plėtinių animavimą.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
-    <!-- License section -->
     <!-- License section -->
     <!-- NumberProgressBar -->
     <!-- Author section -->

@@ -28,15 +28,6 @@
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
-    <!-- FAB Speed Dial -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_fab_speed_dial_libraryDescription">Простая бібліятэка, якая аб\'ядноўвае FAB
-        + рэсурсы меню + хуткі доступ з Material Design.
-    </string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <!-- License section -->
     <!-- Gesture RecyclerView -->
     <!-- Author section -->
     <!-- Library section -->
@@ -128,17 +119,6 @@
     </string>
     <!-- ClassPath for autoDetect section -->
     <string name="library_avloadingindicatorview_classPath">com.wang.avi:library</string>
-    <!-- License section -->
-    <!-- Android Image Cropper -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_androidimagecropper_libraryDescription">Магутная (Набліжэнне, Паварот,
-        Мнос.-крыніца), наладжвальная (Форма, межы, стыль), аптымізаваная (Асінхр,
-        сэмплінг, матрыца) і простая бібліятэка для абразання выяў на Android.
-
-    </string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Floating View -->
     <!-- Author section -->

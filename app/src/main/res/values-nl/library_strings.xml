@@ -26,13 +26,6 @@
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
-    <!-- FAB Speed Dial -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_fab_speed_dial_libraryDescription">Een eenvoudige bibliotheek die FAB + menu bronnen + snelkiezer metafoor samenvoegt uit Material Design.</string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <!-- License section -->
     <!-- Gesture RecyclerView -->
     <!-- Author section -->
     <!-- Library section -->
@@ -101,13 +94,6 @@
     <string name="library_avloadingindicatorview_classPath">com.wang.avi:library</string>
     <!-- License section -->
     <string name="library_avloadingindicatorview_licenseId">apache_2_0</string>
-    <!-- Android Image Cropper -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_androidimagecropper_libraryDescription">Krachtige (Zoom, Rotatie, Multi-Bron), aanpasbare (Vorm, Limiet, Stijl), geoptimaliseerde (Async, Sampling, Matrix) en gemakkelijke afbeelding bijsnijden bibliotheek voor Android.</string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <!-- License section -->
     <!-- Floating View -->
     <!-- Author section -->
     <string name="library_floatingview_author">Recruit Lifestyle Co. Ltd.</string>

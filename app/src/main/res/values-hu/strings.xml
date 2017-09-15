@@ -27,6 +27,12 @@
     <string name="resource_not_validated">Új változtatások elfogadásra kerültek!</string>
     <string name="resource_needs_internet">A ROM-ba beépített változtatások ellenőrzéséhez, kérjük csatlakozzon az internetre!</string>
     <string name="resource_validated">Minden változtatás átvezetve!</string>
+    <string name="interfacer_notification_title">Substratum és Interfacer össze van kötve!</string>
+    <string name="interfacer_notification_text">A háttér témaszolgáltatások aktívak és futnak.</string>
+    <string name="andromeda_notification_title">Substratum és Andromeda össze van kötve!</string>
+    <string name="andromeda_notification_title_negation">Substratum és Andromeda NINCS összekötve</string>
+    <string name="andromeda_notification_text">A háttér témaszolgáltatások aktívak és futnak.</string>
+    <string name="andromeda_notification_text_negation">Androméda szolgáltatása nem fut, futtassa újra a desktop suite-et!</string>
     <string name="resource_commit_dialog_title">Hiányzó források itt: %s</string>
     <string name="showcase_no_connection">a téma-bemutatóhoz internetkapcsolat szükséges, hogy
         működjön!
@@ -102,6 +108,7 @@
     <string name="manager_type3">Típus3:</string>
     <string name="manager_type4">Type4 :</string>
     <string name="legacy_preference_priority_title">Fedvény prioritás beállítása</string>
+    <string name="legacy_preference_priority_text">Prioritás beállított értéke (alapértelmezett: 999): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">type1a változat&#8230;</string>
     <string name="overlays_variant_default_1b">type1b változat&#8230;</string>
@@ -114,7 +121,7 @@
     <string name="overlays_overlay_not_installed">Változat nincs telepítve</string>
     <string name="bootanimation_vm_exploded">A rendszerindítási animáció renderelése megszakítva az
         elégtelen memória miatt.\n\nA rendszerindítási animáció telepítése továbbra is lehetséges
-        az előnézet-rendelelrelés nélkül.
+        az előnézet-renderelés nélkül.
     </string>
     <string name="bootanimation_placeholder_text">kérjük vállaszon ki egy rendszerindítási animációt a
         legördülő listából&#8230;</string>
@@ -193,7 +200,10 @@
     <string name="settings_about_substratum">substratum verzió</string>
     <string name="settings_about_interfacer">interfacer verzió</string>
     <string name="settings_about_interfacer_not_installed">Nincs telepítve</string>
+    <string name="settings_about_andromeda">androméda verzió</string>
+    <string name="settings_about_samsung">substratum verzió</string>
     <string name="settings_about_oms_rro_version">Téma platform:</string>
+    <string name="settings_about_oms_version_do">Dinamikus fedvények (OMS)</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Rendszer platform</string>
@@ -220,7 +230,7 @@
     <string name="manage_system_overlay_toast">Rendszertéma visszaállítása folyamatban&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Fedvények eltávolítása folyamatban a
         háttérben&#8230;</string>
-    <string name="manage_system_not_permitted">Néhány fedvény engedélyezése nem sikerült, mert a fő téma nem áll rendelkezése.</string>
+    <string name="manage_system_not_permitted">Kérjük, jelöljön ki egy érvényes fedvényt az állapotok módosításához.</string>
     <string name="manage_wallpaper_home">Kezdőképernyő háttérkép</string>
     <string name="manage_wallpaper_lock">Zárképernyő háttérkép</string>
     <string name="manage_wallpaper_all">Kezdő- és zárképernyő háttérkép</string>
@@ -355,8 +365,8 @@
     <string name="uninstall_dialog_body">Téma eltávolítása</string>
     <string name="sb_phase_1_loader">téma kicsomagolása</string>
     <string name="sb_phase_2_loader">fedvény telepítése</string>
-    <string name="root_rejected_title">Rendszergazdai jogosultságok megtagadva</string>
-    <string name="root_rejected_text_cm_phh">root nélkül nem folytatható&#8230;</string>
+    <string name="root_rejected_title">visszatérés rootolt módra</string>
+    <string name="root_rejected_text_cm_phh">nincs más olyan témamotor, amelyet a készüléken root nélkül lehetne használni&#8230;</string>
     <string name="root_rejected_timer_plural">bezárás %s mp múlva&#8230;</string>
     <string name="root_rejected_timer_singular">bezárás %s mp múlva&#8230;</string>
     <string name="toast_compiled_updated">Kijelölt fedvény(ek) frissítve!</string>
@@ -370,7 +380,10 @@
     <string name="no_themes_title">nincsenek témák&#8230;</string>
     <string name="no_themes_description">kérjük telepítsen egy kompatibilis témát!</string>
     <string name="no_themes_description_search">\"%s\" a telepített témák listájában nem található&#8230;</string>
+    <string name="toast_could_not_uninstall">Nincs érvényes kijelölt fedvény.</string>
     <string name="toast_samsung_prototype_alert">Substratum automatikusan elrejtette a készülékén nem támogatott rendszerfedvényeket!</string>
+    <string name="andromeda_no_root_dialog">Úgy tűnik, hogy támogatott OMS eszközt használ, egy add-on készült ennek támogatásához!</string>
+    <string name="andromeda_no_root_dialog_button">Töltse le most!</string>
     <string name="samsung_prototype_no_root_dialog">Úgy tűnik, hogy támogatott Samsung eszközt használ, egy add-on készült ennek támogatásához!</string>
     <string name="samsung_prototype_no_root_dialog_button">Töltse le most!</string>
     <string name="toast_needs_caching">Substratum gyorsítótára törölve lett, építse újra ezt a témát, mielőtt folytatná!</string>
@@ -414,8 +427,6 @@
     <string name="show_theme_template_version_description">Minden téma cél SDK szintjét, téma verzióját és a beépülő verzióját jelenítse meg címkeként minden témakártyán.</string>
     <string name="vibrate_on_compiled">Értesítés a téma összeállítása után</string>
     <string name="vibrate_on_compiled_description">Ha a téma összeállításra került, az eszköz rezegve értesíti a felhasználót, hogy az összeállítás befejeződött.</string>
-    <string name="manage_notification_channel">Értesítési csatorna kezelése</string>
-    <string name="manage_notification_channel_dialog_title">Válassza a értesítési csatornát a kezeléshez</string>
     <string name="hide_app_icon">Alkalmazásikon megjelenítése</string>
     <string name="hide_app_icon_toast_enabled">Az alkalmazás ikonja eltávolításra került az indítójából!</string>
     <string name="hide_app_icon_toast_disabled">Az alkalmazás ikonja hozzá lett adva az indítójához!</string>
@@ -438,6 +449,7 @@
     <string name="fab_menu_uninstall">Kiválasztott eltávolítása</string>
     <string name="fab_menu_disable">Kiválasztott letiltása</string>
     <string name="fab_menu_enable">Kiválasztottak engedélyezése</string>
+    <string name="fab_menu_enable_disable">Fedvény állapotok módosítása</string>
     <string name="fab_menu_swap_toggle">Más témák letiltása</string>
     <string name="fab_menu_swap_toggle_legacy">Összes létező eltávolítása</string>
     <string name="team_title_one">Substratum Vezetői</string>
@@ -511,6 +523,7 @@
     <string name="profile_wallpaper">Háttérképek</string>
     <string name="profile_dialog_ok">OK</string>
     <string name="settings_system_status">Rendszer tanúsítvány</string>
+    <string name="settings_system_status_andromeda">Androméda mód</string>
     <string name="settings_system_status_rooted">Rootolt mód</string>
     <string name="settings_system_status_rootless">Root nélküli mód</string>
     <string name="settings_system_status_samsung">Samsung mód</string>
@@ -601,6 +614,8 @@
     <string name="notification_channel_default_description">Fő értesítések (Új és frissített téma, téma összeállítása kész, stb)</string>
     <string name="notification_channel_ongoing">Folyamatos</string>
     <string name="notification_channel_ongoing_description">Folyamatos értesítések</string>
+    <string name="notification_channel_andromeda">Androméda állapota</string>
+    <string name="notification_channel_andromeda_description">Androméda kapcsolat állapotára vonatkozó értesítés</string>
     <!-- Nav drawer -->
     <string name="nav_home">Témacsomagok</string>
     <string name="nav_overlays">Fedvények</string>
@@ -619,11 +634,11 @@
     <string name="nav_drawer_community">Csoportok és közösségek</string>
     <string name="nav_drawer_googleplus">Google+ közösség</string>
     <string name="nav_drawer_telegram">Telegram csoportos csevegés</string>
-    <string name="nav_drawer_xda">XDA alfórum</string>
+    <string name="nav_drawer_xda">XDA dedikált alfórum</string>
     <string name="nav_drawer_rawad">Rawad témázási útmutatói</string>
+    <string name="nav_drawer_reddit">Reddit közösség</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Kiemelt tartalom</string>
-    <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">XDA portál</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Erőforrások</string>
@@ -632,7 +647,7 @@
     <string name="nav_drawer_gerrit">Platform és Gerrit előkészítések</string>
     <string name="nav_drawer_github">Platform GitHub adattár</string>
     <string name="nav_drawer_jira">JIRA hibajelentési rendszer</string>
-    <string name="nav_troubleshooting">Hibaelhárítás</string>
+    <string name="nav_troubleshooting">GYIK</string>
     <!-- More -->
     <string name="nav_section_header_more">Továbbiak</string>
     <string name="nav_team_contributors">Csapat és Közreműködők</string>
@@ -652,6 +667,8 @@
     <string name="auto_reload_sysui_title">Automatikusan töltse újra a SystemUI-t</string>
     <string name="auto_reload_sysui_summary_on">Substratum automatikusan újratölti a SystemUI-t, ha egy SystemUI-t célzó fedvény engedélyezésre/tiltásra kerül.</string>
     <string name="auto_reload_sysui_summary_off">Substratum nem tölti újra automatikusan a SystemUI-t, ha egy SystemUI-t célzó fedvény engedélyezésre/tiltásra kerül.</string>
+    <string name="auto_reload_sysui_dialog_title">Figyelmeztetés!</string>
+    <string name="auto_reload_sysui_dialog_text">Az Android Oreo rendszeren az értesítések automatikusan törlődnek a gyorsítótárazott értesítési csatornák újraindításának szimulálására.\n\nKérjük, bizonyosodjon meg arról, hogy az értesítések nem tartalmaznak fontos adatokat a rendszerfelület vagy a keretrendszer fedvények összeállításakor vagy engedélyezésekor. Ez nem érinti a folyamatos értesítéseket.</string>
     <!-- The things lint will complain about...-->
-    <string name="fonts_demo_string">Árvíztűrő tüköfúrógép</string>
+    <string name="fonts_demo_string">Árvíztűrő tükörfúrógép</string>
 </resources>

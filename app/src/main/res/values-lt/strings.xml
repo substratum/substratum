@@ -27,6 +27,12 @@
     <string name="resource_not_validated">Nauji įsipareigojimai buvo sujungti!</string>
     <string name="resource_needs_internet">Norėdami patikrinti savo ROM įpareigojimą, prašome prisijungti prie interneto!</string>
     <string name="resource_validated">Visi įpareigojimai sveiki!</string>
+    <string name="interfacer_notification_title">\"Substratum\" ir \"Interfacer\" yra prijungtos!</string>
+    <string name="interfacer_notification_text">Fono temos paslaugos susietos, aktyvios ir veikia.</string>
+    <string name="andromeda_notification_title">\"Substratum\" ir \"Andromeda\" prijungtos!</string>
+    <string name="andromeda_notification_title_negation">\"Substratum\" ir \"Andromeda\" nėra prijungtos</string>
+    <string name="andromeda_notification_text">Fono temos paslaugos susietos, aktyvios ir veikia.</string>
+    <string name="andromeda_notification_text_negation">\"Andromeda\" paslauga neveikia. Prašome pakartoti darbalaukio rinkinį!</string>
     <string name="resource_commit_dialog_title">Trūksta išteklių %s</string>
     <string name="showcase_no_connection">kad veiktu, temos vitrina reikalauja interneto ryšio!</string>
     <string name="showcase_no_themes">atrodo, jog šiame skirtuke įvyko klaida išsaugojant vitrinos duomenų bazę&#8230;    </string>
@@ -80,6 +86,7 @@
     <string name="manager_type3">Tipas 3:</string>
     <string name="manager_type4">Tipas4:</string>
     <string name="legacy_preference_priority_title">Perdangos Prioriteto Koregavimas</string>
+    <string name="legacy_preference_priority_text">Prioritetas nustatytas (numatytasis 999): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">tipo1a variantas&#8230;</string>
     <string name="overlays_variant_default_1b">tipo1b variantas&#8230;</string>
@@ -149,7 +156,10 @@
     <string name="settings_about_substratum">\"substratum\" versija</string>
     <string name="settings_about_interfacer">sąsajos versija</string>
     <string name="settings_about_interfacer_not_installed">Neįdiegta</string>
+    <string name="settings_about_andromeda">\"andromeda\" versija</string>
+    <string name="settings_about_samsung">\"substratum\" versija</string>
     <string name="settings_about_oms_rro_version">Temos platforma:</string>
+    <string name="settings_about_oms_version_do">Dinaminiai Sluoksniai (OMS)</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Sistemos platforma</string>
@@ -173,7 +183,7 @@
     <string name="manage_system_overlay_uninstall">Išdiegti visas įdiegtas pardangas</string>
     <string name="manage_system_overlay_toast">Sistemos tema atkuriama&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Perdangos išdiegiamos fone&#8230;</string>
-    <string name="manage_system_not_permitted">Nepavyko įjungti keletos perdangų, nes pagrindinė tema nebuvo pateikta.</string>
+    <string name="manage_system_not_permitted">Prašome pasirinkti galiojančias perdangas, kad pakeisti būsenas.</string>
     <string name="manage_wallpaper_home">Pagrindinio ekrano fonas</string>
     <string name="manage_wallpaper_lock">Užrakinimo ekrano fonas</string>
     <string name="manage_wallpaper_all">Pagrindinio ir užrakinimo ekrano fonas</string>
@@ -279,8 +289,8 @@
     <string name="uninstall_dialog_body">Išdiegti Temą</string>
     <string name="sb_phase_1_loader">išpakuojama tema</string>
     <string name="sb_phase_2_loader">įdiegiamos perdangos</string>
-    <string name="root_rejected_title">Superuser leidimas atmestas</string>
-    <string name="root_rejected_text_cm_phh">negalima tęsti be \"root\"&#8230;</string>
+    <string name="root_rejected_title">pereinama atgal į \"root\" režimą</string>
+    <string name="root_rejected_text_cm_phh">nėra jokių kitų temos variklių, kuriuos būtų galima naudoti įrenginyje be \"root\"&#8230;</string>
     <string name="root_rejected_timer_plural">uždaroma už %s sekundžių&#8230;</string>
     <string name="root_rejected_timer_singular">uždaroma už %s sekundės&#8230;</string>
     <string name="toast_compiled_updated">Pasirinktos perdangos atnaujintos!</string>
@@ -294,7 +304,10 @@
     <string name="no_themes_title">nerasta jokių temų&#8230;</string>
     <string name="no_themes_description">prašome įdiegti suderinamą temą!</string>
     <string name="no_themes_description_search">\"%s\" nepavyko rasti tarp įdiegtų temų&#8230;</string>
+    <string name="toast_could_not_uninstall">Nepasirinktos jokios galiojančios perdangos.</string>
     <string name="toast_samsung_prototype_alert">\"Substratum\", jūsų įrenginiui, automatiškai paslepia nepalaikomas sistemos perdangas!</string>
+    <string name="andromeda_no_root_dialog">Atrodo, kad jūs esate su palaikomu \"OMS\" įrenginiu. Šis priedas buvo išleistas, kad tai palaikytu!</string>
+    <string name="andromeda_no_root_dialog_button">Atsisiųsti dabar!</string>
     <string name="samsung_prototype_no_root_dialog">Atrodo, kad jūs esate su palaikomu \"Samsung\" įrenginiu. Šis priedas buvo išleistas, kad tai palaikytu!</string>
     <string name="samsung_prototype_no_root_dialog_button">Atsisiųsti dabar!</string>
     <string name="toast_needs_caching">Substratum talpykla buvo pašalinta, prieš tęsiant prašome atstatyti temą!</string>
@@ -338,8 +351,6 @@
     <string name="show_theme_template_version_description">Rodyti kiekvienos temos \"SDK\" lygį, temos ir įskiepio versiją kaip žymą kiekvienos temos kortelėje.</string>
     <string name="vibrate_on_compiled">Pranešti, kai tema sukompiliuota</string>
     <string name="vibrate_on_compiled_description">Kai tema sukompiliuota, suvibruoti, kad praneštu vartotojui apie užbaigtą kompiliavimą.</string>
-    <string name="manage_notification_channel">Valdyti pranešimo kanalą</string>
-    <string name="manage_notification_channel_dialog_title">Pasirinkite pranešimo kanalą valdymui</string>
     <string name="hide_app_icon">Rodyti programėlės piktogramą</string>
     <string name="hide_app_icon_toast_enabled">Programėlės piktograma buvo pašalinta iš jūsų paleidimo priemonės!</string>
     <string name="hide_app_icon_toast_disabled">Programėlės piktograma buvo pridėta į jūsų paleidimo priemonę!</string>
@@ -358,10 +369,11 @@
         veiks tik su tinkamai sukonfigūruotais 6.0.0+ temų įskiepiais.</string>
     <string name="fab_menu_compile_enable">Sukurti ir Įjungti</string>
     <string name="fab_menu_compile_update">Sukurti ir Atnaujinti</string>
-    <string name="fab_menu_compile_install">Įdiegti Pasirinktus</string>
-    <string name="fab_menu_uninstall">Išdiegti Pasirinktus</string>
-    <string name="fab_menu_disable">Išjungti Pasirinktus</string>
-    <string name="fab_menu_enable">Įjungti Pasirinktus</string>
+    <string name="fab_menu_compile_install">Įdiegti pasirinktus</string>
+    <string name="fab_menu_uninstall">Išdiegti pasirinktus</string>
+    <string name="fab_menu_disable">Išjungti pasirinktus</string>
+    <string name="fab_menu_enable">Įjungti pasirinktus</string>
+    <string name="fab_menu_enable_disable">Keisti perdangos būseną</string>
     <string name="fab_menu_swap_toggle">Išjungti kitas temas</string>
     <string name="fab_menu_swap_toggle_legacy">Pašalinti visus esamus</string>
     <string name="team_title_one">\"Substratum\" Lyderiai</string>
@@ -434,6 +446,7 @@
     <string name="profile_wallpaper">Ekrano fonai</string>
     <string name="profile_dialog_ok">Gerai</string>
     <string name="settings_system_status">Sistemos sertifikacija</string>
+    <string name="settings_system_status_andromeda">\"Andromeda\" režimas</string>
     <string name="settings_system_status_rooted">\"Root\" režimas</string>
     <string name="settings_system_status_rootless">Be \"root\" režimas</string>
     <string name="settings_system_status_samsung">\"Samsung\" režimas</string>
@@ -524,6 +537,8 @@
     <string name="notification_channel_default_description">Pagrindiniai pranešimai (Nauja ir atnaujinta tema, temos kompiliavimas baigtas ir t.t.)</string>
     <string name="notification_channel_ongoing">Vykdomi</string>
     <string name="notification_channel_ongoing_description">Vykdomi pranešimai</string>
+    <string name="notification_channel_andromeda">\"Andromeda\" statusas</string>
+    <string name="notification_channel_andromeda_description">\"Andromeda\" ryšio būsenos pranešimas</string>
     <!-- Nav drawer -->
     <string name="nav_home">Temų paketai</string>
     <string name="nav_overlays">Perdangos</string>
@@ -542,12 +557,12 @@
     <string name="nav_drawer_community">Grupės ir bendruomenės</string>
     <string name="nav_drawer_googleplus">\"Google +\" bendruomenė</string>
     <string name="nav_drawer_telegram">\"Telegram\" grupės pokalbis</string>
-    <string name="nav_drawer_xda">XDA Subforumas</string>
-    <string name="nav_drawer_rawad">\"Rawad\'s\" Apipavidalinimo Gidas</string>
+    <string name="nav_drawer_xda">XDA skirta sub-forumas</string>
+    <string name="nav_drawer_rawad">\"Rawad\'s\" apipavidalinimo gidas</string>
+    <string name="nav_drawer_reddit">Reddit bendruomenė</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Panašus tūrinys</string>
-    <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
-    <string name="nav_drawer_xda_portal">XDA Portalas</string>
+    <string name="nav_drawer_xda_portal">XDA portalas</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Ištekliai</string>
     <string name="nav_drawer_homepage">Oficialus tinklalapis</string>
@@ -555,7 +570,7 @@
     <string name="nav_drawer_gerrit">Platformos ir ekspozicijos kodas</string>
     <string name="nav_drawer_github">Platformos \"GitHub\" saugykla</string>
     <string name="nav_drawer_jira">\"JIRA\" klaidų ataskaitos sistema</string>
-    <string name="nav_troubleshooting">Trikčių diagnostika ir šalinimas</string>
+    <string name="nav_troubleshooting">DUK</string>
     <!-- More -->
     <string name="nav_section_header_more">Daugiau</string>
     <string name="nav_team_contributors">Komanda ir Bendraautoriai</string>
@@ -575,6 +590,8 @@
     <string name="auto_reload_sysui_title">Automatiškai perkrauti SistemosNS</string>
     <string name="auto_reload_sysui_summary_on">\"Substratum\" automatiškai perkraus SistemosNS poto, kai SistemosNS perdangos nukreipimas yra įjungtas/išjungtas.</string>
     <string name="auto_reload_sysui_summary_off">\"Substratum\" automatiškai ne perkraus SistemosNS poto, kai SistemosNS perdangos nukreipimas yra įjungtas/išjungtas.</string>
+    <string name="auto_reload_sysui_dialog_title">Įspėjimas!</string>
+    <string name="auto_reload_sysui_dialog_text">\"Android Oreo\" pranešimai bus automatiškai išvalomi, kad būtų imituojamas talpyklos pranešimų kanalų paleidimas iš naujo.\n\nPrašome įsitikinti, kad jūsų pranešimuose nėra jokių svarbių duomenų, kai kompiliuojate arba įjungiate SistemosNS ar perdangų struktūrą. Tai neturi įtakos vykstantiems pranešimams.</string>
     <!-- The things lint will complain about...-->
     <string name="fonts_demo_string">AaBbCcDd123</string>
 </resources>

@@ -28,15 +28,6 @@
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
-    <!-- FAB Speed Dial -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_fab_speed_dial_libraryDescription">Yüzen Tuş (FAB) + menü kaynakları + Malzeme Tasarımı\'ndan
-        hızlı arama metaforuyla birleştiren basit bir kütüphane.
-    </string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <!-- License section -->
     <!-- Gesture RecyclerView -->
     <!-- Author section -->
     <!-- Library section -->
@@ -128,16 +119,6 @@ Android 4.0+
     </string>
     <!-- ClassPath for autoDetect section -->
     <string name="library_avloadingindicatorview_classPath">com.wang.avi:library</string>
-    <!-- License section -->
-    <!-- Android Image Cropper -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_androidimagecropper_libraryDescription">Android için güçlü (Yakınlaştırma,
-        Döndürme, Çoklu Kaynak), özelleştirilebilir (Şekil, Sınırlar, Stil), optimize (Async, Örnekleme, Matrix)
-        ve basit resim kırpma kütüphanesi.
-    </string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Floating View -->
     <!-- Author section -->

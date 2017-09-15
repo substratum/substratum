@@ -27,6 +27,12 @@
     <string name="resource_not_validated">Yeni hata bildirimleri birleştirildi!</string>
     <string name="resource_needs_internet">ROM\'unuzun hata bildirimlerini doğrulamak için lütfen internete bağlanın!</string>
     <string name="resource_validated">Tüm hata bildirimleri sağlam!</string>
+    <string name="interfacer_notification_title">Substratum ve Arayüz bağlı!</string>
+    <string name="interfacer_notification_text">Arka plan tema hizmetleri bağlı, etkin ve çalışıyor.</string>
+    <string name="andromeda_notification_title">Substratum ve Andromeda bağlı!</string>
+    <string name="andromeda_notification_title_negation">Substratum ve Andromeda bağlı DEĞİL</string>
+    <string name="andromeda_notification_text">Arka plan tema hizmetleri bağlı, etkin ve çalışıyor.</string>
+    <string name="andromeda_notification_text_negation">Andromeda\'nın servisi çalışmıyor, lütfen masaüstü paketini tekrar çalıştırın!</string>
     <string name="resource_commit_dialog_title">%s Kaynakları Eksik</string>
     <string name="showcase_no_connection">tema vitrininin çalışması için internet bağlantısı
         gereklidir!
@@ -70,12 +76,12 @@
     </string>
     <string name="tbo_dialog_proceed">İndir</string>
     <string name="warning_title">UYARI!</string>
-    <string name="legacy_warning_content">Eski olanlar renklerle tam uyumluluğu garanti edilemeyeceği
-        şekilde olduğu gibi sağlanmaktadır. Lütfen cihazınızda özel kurtarma (Twrp) yüklü
+    <string name="legacy_warning_content">Legacy, renklerle tam uyumluluğu garanti edemediğimiz
+        haliyle olduğu gibi sağlanmaktadır.. Lütfen cihazınızda özel kurtarma (Twrp) yüklü
 olduğundan ve
         daha ileri gitmeden önce bir önyükleme döngüsünü nasıl düzeltebileceğiniz konusunda bir
         bilgiye sahip olduğunuzdan emin olun.\n\nSistem tarafında yapılan değişiklikleri gerektirdikleri için
-        eski temalara geçilemiyor, bunu düzeltemeyiz.
+        legacy temalara geçilemiyor, bunu düzeltemeyiz.
     </string>
     <string name="samsung_warning_content">Samsung desteği, renkler ve AOSP tarafından oluşturulan temalarla
         tam uyumluluğu garanti edemediğimiz haliyle olduğu gibi sağlanır. Cihazınız için tehlikeli
@@ -105,7 +111,8 @@ lütfen
     <string name="manager_type3">Seçenek3 :</string>
     <string name="manager_type4">Seçenek4 :</string>
     <string name="legacy_preference_priority_title">Tema Öncelik Ayarı</string>
-    <string name="overlays_variant_substitute">%s…</string>
+    <string name="legacy_preference_priority_text">Öncelik değeri (varsayılan 999) olarak ayarlanmıştır: %d</string>
+    <string name="overlays_variant_substitute">%s...</string>
     <string name="overlays_variant_default_1a">seçenek1a varyantı&#8230;</string>
     <string name="overlays_variant_default_1b">seçenek1b varyantı&#8230;</string>
     <string name="overlays_variant_default_1c">seçenek1c varyantı&#8230;</string>
@@ -198,9 +205,12 @@ bu sorunu
     <string name="settings_about_substratum">substratum sürümü</string>
     <string name="settings_about_interfacer">arayüz sürümü</string>
     <string name="settings_about_interfacer_not_installed">Yüklü değil</string>
+    <string name="settings_about_andromeda">andromeda sürümü</string>
+    <string name="settings_about_samsung">sungstratum sürümü</string>
     <string name="settings_about_oms_rro_version">Tema platformu:</string>
+    <string name="settings_about_oms_version_do">Dinamik Temalar (OMS)</string>
     <string name="settings_about_oms_version_7">OMS7</string>
-    <string name="settings_about_rro_version_2">RRO2 (Eski)</string>
+    <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Sistem platformu</string>
     <string name="settings_aopt_switcher_title">Sistem Tema Derleyici</string>
     <string name="theme_information_tab_one">Tema Yöneticisi</string>
@@ -225,7 +235,7 @@ bu sorunu
     <string name="manage_system_overlay_toast">Sistem teması geri yükleniyor&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Temalar şu anda arkaplanda
         kaldırılıyor&#8230;</string>
-    <string name="manage_system_not_permitted">Ana tema bulunmadığından birkaç tema etkinleştirilemedi.</string>
+    <string name="manage_system_not_permitted">Durumları değiştirmek için lütfen geçerli bir tema seçin.</string>
     <string name="manage_wallpaper_home">Ana ekran duvar kağıdı</string>
     <string name="manage_wallpaper_lock">Kilit ekranı duvar kağıdı</string>
     <string name="manage_wallpaper_all">Ana ve kilit ekranı duvar kağıdı</string>
@@ -364,8 +374,8 @@ sağlayan
     <string name="uninstall_dialog_body">Temayı Kaldır</string>
     <string name="sb_phase_1_loader">tema çıkartılıyor</string>
     <string name="sb_phase_2_loader">tema yükleniyor</string>
-    <string name="root_rejected_title">Superuser izinleri reddedildi</string>
-    <string name="root_rejected_text_cm_phh">kök erişimi olmadan devam edemezsiniz&#8230;</string>
+    <string name="root_rejected_title">kök erişimli moda geri dön</string>
+    <string name="root_rejected_text_cm_phh">cihazda kök erişimi olmaksızın kullanılacak başka tema motoru yok&#8230;</string>
     <string name="root_rejected_timer_plural">%s saniye içinde kapanacak&#8230;</string>
     <string name="root_rejected_timer_singular">%s saniye içinde kapanacak&#8230;</string>
     <string name="toast_compiled_updated">Seçili temalar güncellendi!</string>
@@ -379,7 +389,10 @@ sağlayan
     <string name="no_themes_title">tema bulunamadı&#8230;</string>
     <string name="no_themes_description">lütfen uyumlu bir tema yükleyin!</string>
     <string name="no_themes_description_search">\'\'%s\'\' yüklü temalar listesinde bulunamadı&#8230;</string>
+    <string name="toast_could_not_uninstall">Geçerli temalar seçilmedi.</string>
     <string name="toast_samsung_prototype_alert">Substratum, cihazınız için desteklenmeyen sistem temalarını otomatik olarak gizledi!</string>
+    <string name="andromeda_no_root_dialog">Öyle görünüyor ki, desteklenen bir OMS cihazındasınız, bunu desteklemek için bir eklenti yayınlandı!</string>
+    <string name="andromeda_no_root_dialog_button">Şimdi indirin!</string>
     <string name="samsung_prototype_no_root_dialog">Öyle görünüyor ki, desteklenen bir Samsung cihazını kullanıyorsunuz, bunu desteklemek için bir eklenti yayınlandı!</string>
     <string name="samsung_prototype_no_root_dialog_button">Şimdi indirin!</string>
     <string name="toast_needs_caching">Substratum\'un önbelleği silindi, lütfen devam etmeden önce bu temayı yeniden oluşturun!</string>
@@ -423,8 +436,6 @@ sağlayan
     <string name="show_theme_template_version_description">Her bir temanın hedef SDK düzeylerini, tema sürümünü ve eklenti sürümünü her tema kartında bir etiket olarak gösterin.</string>
     <string name="vibrate_on_compiled">Düzenlendikten sonra bildir</string>
     <string name="vibrate_on_compiled_description">Tema düzenlendiğinde, düzenlemenin tamamlandığını kullanıcıya bildirmek için cihazı titrer.</string>
-    <string name="manage_notification_channel">Bildirim kanalını yönet</string>
-    <string name="manage_notification_channel_dialog_title">Yönetilecek bildirim kanalını seçin</string>
     <string name="hide_app_icon">Uygulama simgesini göster</string>
     <string name="hide_app_icon_toast_enabled">Uygulamanın simgesi başlatıcınızdan kaldırıldı!</string>
     <string name="hide_app_icon_toast_disabled">Uygulamanın simgesi şimdi başlatıcınıza eklendi!</string>
@@ -444,10 +455,11 @@ sağlayan
         yalnızca düzgün bir şekilde yapılandırılmış 6.0.0+ eklenti temaları için çalışacaktır.</string>
     <string name="fab_menu_compile_enable">Oluştur &amp; Etkinleştir</string>
     <string name="fab_menu_compile_update">Oluştur &amp; Güncelle</string>
-    <string name="fab_menu_compile_install">Seçilenleri Yükle</string>
-    <string name="fab_menu_uninstall">Seçilenleri Kaldır</string>
-    <string name="fab_menu_disable">Seçilenleri Devre Dışı Bırak</string>
-    <string name="fab_menu_enable">Seçilenleri Etkinleştir</string>
+    <string name="fab_menu_compile_install">Seçilenleri yükle</string>
+    <string name="fab_menu_uninstall">Seçilenleri kaldır</string>
+    <string name="fab_menu_disable">Seçilenleri devre dışı bırak</string>
+    <string name="fab_menu_enable">Seçilenleri etkinleştir</string>
+    <string name="fab_menu_enable_disable">Tema durumlarını değiştir</string>
     <string name="fab_menu_swap_toggle">Diğer temaları devre dışı bırak</string>
     <string name="fab_menu_swap_toggle_legacy">Mevcut olanların tümünü kaldır</string>
     <string name="team_title_one">Substratum Liderleri</string>
@@ -462,7 +474,7 @@ sağlayan
     <string name="team_title_four">Layers\'a Katkıda Bulunanlar</string>
     <string name="team_text_four">Bu insanlar geçmişte size Layers Manager\'ı getirdiler ve o zamandan beri Substratum\'u bizim için hazır hale getirmekte çok güzel şeyler yapmaya devam ettiler!</string>
     <string name="team_button_four">Katkıda Bulunanları Göster</string>
-    <string name="team_nicholas_description">Geliştirme Düzenleyicisi</string>
+    <string name="team_nicholas_description">Geliştirme Koordinatörü</string>
     <string name="team_syko_description">Sistem Araştırmacısı</string>
     <string name="team_ivan_description">Platform &amp; Özellikler</string>
     <string name="team_surge_description">Kodlama &amp; Algoritmalar</string>
@@ -520,6 +532,7 @@ sağlayan
     <string name="profile_wallpaper">Duvar Kağıtları</string>
     <string name="profile_dialog_ok">TAMAM</string>
     <string name="settings_system_status">Sistem sertifikası</string>
+    <string name="settings_system_status_andromeda">Andromeda modu</string>
     <string name="settings_system_status_rooted">Kök erişimli mod</string>
     <string name="settings_system_status_rootless">Kök erişimsiz mod</string>
     <string name="settings_system_status_samsung">Samsung modu</string>
@@ -610,6 +623,8 @@ sağlayan
     <string name="notification_channel_default_description">Ana bildirimler (Yeni ve güncellenmiş tema, tema düzenlemesi tamamlandı, vb.)</string>
     <string name="notification_channel_ongoing">Devam eden</string>
     <string name="notification_channel_ongoing_description">Devam eden bildirimler</string>
+    <string name="notification_channel_andromeda">Andromeda durumu</string>
+    <string name="notification_channel_andromeda_description">Andromeda bağlantı durumu bildirimi</string>
     <!-- Nav drawer -->
     <string name="nav_home">Tema paketleri</string>
     <string name="nav_overlays">Temalar</string>
@@ -628,12 +643,12 @@ sağlayan
     <string name="nav_drawer_community">Gruplar &amp; topluluklar</string>
     <string name="nav_drawer_googleplus">Google+ topluluğu</string>
     <string name="nav_drawer_telegram">Telegram grup sohbeti</string>
-    <string name="nav_drawer_xda">XDA Destek Konusu</string>
-    <string name="nav_drawer_rawad">Rawad\'ın Tema Kullanım Rehberleri</string>
+    <string name="nav_drawer_xda">XDA özel alt forum</string>
+    <string name="nav_drawer_rawad">Rawad\'ın tema kullanım rehberleri</string>
+    <string name="nav_drawer_reddit">Reddit topluluğu</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Öne çıkan içerik</string>
-    <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
-    <string name="nav_drawer_xda_portal">XDA Portal</string>
+    <string name="nav_drawer_xda_portal">XDA portal</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Kaynaklar</string>
     <string name="nav_drawer_homepage">Resmi web sitesi</string>
@@ -641,7 +656,7 @@ sağlayan
     <string name="nav_drawer_gerrit">Platform &amp; Gerrit içeriği</string>
     <string name="nav_drawer_github">Platform GitHub deposu</string>
     <string name="nav_drawer_jira">JIRA hata raporlama sistemi</string>
-    <string name="nav_troubleshooting">Sorun giderme</string>
+    <string name="nav_troubleshooting">SSS</string>
     <!-- More -->
     <string name="nav_section_header_more">Daha fazla</string>
     <string name="nav_team_contributors">Takım &amp; Katkıda Bulunanlar</string>
@@ -661,6 +676,8 @@ sağlayan
     <string name="auto_reload_sysui_title">Sistem arayüzünü otomatik yeniden yükle</string>
     <string name="auto_reload_sysui_summary_on">Sistem arayüzünü hedefleyen bir tema etkin/devre dışı bırakıldıktan sonra, Substratum Sistem arayüzünü otomatik olarak yeniden yükleyecektir.</string>
     <string name="auto_reload_sysui_summary_off">Sistem arayüzünü hedefleyen bir tema etkin/devre dışı bırakıldıktan sonra, Substratum Sistem arayüzünü otomatik olarak yeniden yüklemeyecektir.</string>
+    <string name="auto_reload_sysui_dialog_title">Uyarı!</string>
+    <string name="auto_reload_sysui_dialog_text">Android Oreo\'da, ön belleğe alınmış bildirim kanallarının yeniden başlatılmasını taklit etmek için bildirimler otomatik olarak silinir.\n\nSistem kullanıcı arayüzü veya framework temalarını derlerken veya etkinleştirirken, bildirimlerinizin önemli bir veri içermediğinden emin olun. Bu, devam etmekte olan bildirimleri etkilemez.</string>
     <!-- The things lint will complain about...-->
     <string name="fonts_demo_string">AaBbCcDd123</string>
 </resources>

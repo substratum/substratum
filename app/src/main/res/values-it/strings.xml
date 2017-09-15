@@ -156,7 +156,6 @@
     <string name="manage_system_overlay_uninstall">Disinstalla tutti gli overlays installati</string>
     <string name="manage_system_overlay_toast">Il tema di sistema su sta ripristinando&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Gli overlays si stanno disinstallando in background&#8230;</string>
-    <string name="manage_system_not_permitted">Impossibile attivare alcuni overlay perchè il tema principale non è presente.</string>
     <string name="manage_wallpaper_home">Sfondo della schermata home</string>
     <string name="manage_wallpaper_lock">Sfondo della schermata di blocco</string>
     <string name="manage_wallpaper_all">Sfondo home e schermata di blocco</string>
@@ -256,8 +255,6 @@
     <string name="uninstall_dialog_body">Disinstalla</string>
     <string name="sb_phase_1_loader">Estraendo le attività da questo tema</string>
     <string name="sb_phase_2_loader">Sto creando e firmando la/le sovrapposizione/i</string>
-    <string name="root_rejected_title">Permessi superuser negati</string>
-    <string name="root_rejected_text_cm_phh">impossibile continuare senza root&#8230;</string>
     <string name="root_rejected_timer_plural">chiusura in %s secondi&#8230;</string>
     <string name="root_rejected_timer_singular">chiusura in %s secondi&#8230;</string>
     <string name="toast_compiled_updated">Overlay selezionato(i) aggiornato(i)!</string>
@@ -272,6 +269,7 @@
     <string name="no_themes_description">Per favore installa un tema compatibile!</string>
     <string name="no_themes_description_search">\"%s\" non è stato trovato nell\'elenco dei temi installati&#8230;</string>
     <string name="toast_samsung_prototype_alert">Substratum ha nascosto automaticamente gli overlay di sistema non supportati dal tuo dispositvo!</string>
+    <string name="andromeda_no_root_dialog_button">Scarica ora!</string>
     <string name="samsung_prototype_no_root_dialog">Sembra tu abbia un dispositivo Samsung supportato, un add-on è stato rilasciato per supportarlo!</string>
     <string name="samsung_prototype_no_root_dialog_button">Scarica ora!</string>
     <string name="toast_needs_caching">La cache di substratum è stata cancellata, per favore ricompila il tema prima di continuare!</string>
@@ -315,8 +313,6 @@
     <string name="show_theme_template_version_description">Mostra ogni target SDK del tema, versione del tema e la versione plugin come un tag di ognuna delle carte tema.</string>
     <string name="vibrate_on_compiled">Notifica dopo che un tema è stato compilato</string>
     <string name="vibrate_on_compiled_description">Quando il tema è stato compilato, fa vibrare il dispositivo per far notificare al utente che la compilazione è stata completata.</string>
-    <string name="manage_notification_channel">Gestisci i canali notifiche</string>
-    <string name="manage_notification_channel_dialog_title">Seleziona i canali notifiche da gestire</string>
     <string name="hide_app_icon">Mostra l\'icona dell\'app</string>
     <string name="hide_app_icon_toast_enabled">L\'icona dell\'applicazione è stata rimossa dal tuo launcher!</string>
     <string name="hide_app_icon_toast_disabled">L\'icona dell\'applicazione è stata ora aggiunta al tuo launcher!</string>
@@ -331,10 +327,6 @@
     <string name="show_outdated_themes_content">Disattivare questo permetterebbe a Substratum di utilizzare il nuovo algoritmo con cui i temi vengono caricati molto più velocemente. Questo funzionerà solo per i plugin dei temi 6.0.0+ propriamente configurati.</string>
     <string name="fab_menu_compile_enable">Costruisci &amp; Abilita</string>
     <string name="fab_menu_compile_update">Costruisci &amp; Aggiorna</string>
-    <string name="fab_menu_compile_install">Installa i selezionati</string>
-    <string name="fab_menu_uninstall">Disinstalla i selezionati</string>
-    <string name="fab_menu_disable">Disabilita selezionati</string>
-    <string name="fab_menu_enable">Abilita selezionati</string>
     <string name="fab_menu_swap_toggle">Disabilita gli altri temi</string>
     <string name="fab_menu_swap_toggle_legacy">Rimuovi tutti gli esistenti</string>
     <string name="team_title_one">Leader Substratum</string>
@@ -504,18 +496,14 @@
     <string name="nav_drawer_community">Gruppi &amp; community</string>
     <string name="nav_drawer_googleplus">Community Google+</string>
     <string name="nav_drawer_telegram">Chat di gruppo su Telegram</string>
-    <string name="nav_drawer_xda">XDA Subforum</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Contenuti in primo piano</string>
-    <string name="nav_drawer_tcf">TheCyberFibre (TFC)</string>
-    <string name="nav_drawer_xda_portal">Portale XDA</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Risorse</string>
     <string name="nav_drawer_homepage">Homepage ufficiale</string>
     <string name="nav_drawer_template">Modello del tema (Themers)</string>
     <string name="nav_drawer_gerrit">Piattaforma &amp; esposizioni Gerrit</string>
     <string name="nav_drawer_github">Repository piattaforma GitHub</string>
-    <string name="nav_troubleshooting">Risoluzione dei problemi</string>
     <!-- More -->
     <string name="nav_section_header_more">Altro</string>
     <string name="nav_team_contributors">Team &amp; collaboratori</string>

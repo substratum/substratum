@@ -27,6 +27,12 @@
     <string name="resource_not_validated">Nuevos commits han sido añadidos!</string>
     <string name="resource_needs_internet">Para validar sus commits en la ROM, ¡por favor conéctese a internet!</string>
     <string name="resource_validated">Todos los commits intactos!</string>
+    <string name="interfacer_notification_title">¡Substratum e Interfacer están conectados!</string>
+    <string name="interfacer_notification_text">Los servicios de tema en segundo plano están vinculados, activos y ejecutándose.</string>
+    <string name="andromeda_notification_title">¡Substratum y Andromeda están conectados!</string>
+    <string name="andromeda_notification_title_negation">Substratum y Andromeda NO están conectados</string>
+    <string name="andromeda_notification_text">Los servicios de tema en segundo plano están vinculados, activos y ejecutándose.</string>
+    <string name="andromeda_notification_text_negation">¡El servicio Andromeda no se está ejecutando, por favor vuelva a correr el paquete de escritorio!</string>
     <string name="resource_commit_dialog_title">Faltan recursos en %s</string>
     <string name="showcase_no_connection">¡El mostrador de temas requiere una conexión a internet para funcionar!     </string>
     <string name="showcase_no_themes">Parece que hubo un error de caché del mostrador de temas
@@ -79,6 +85,7 @@ arreglar las cosas que no se están tematizando en legado porque requieren cambi
     <string name="manager_type3">Tipo3:</string>
     <string name="manager_type4">Tipo4 :</string>
     <string name="legacy_preference_priority_title">Ajuste de prioridad de superposición</string>
+    <string name="legacy_preference_priority_text">La prioridad está fijada en (999 por defecto): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">type1a variante&#8230;</string>
     <string name="overlays_variant_default_1b">type1b variante&#8230;</string>
@@ -148,7 +155,10 @@ correctamente&#8230;</string>
     <string name="settings_about_substratum">Versión de Substratum</string>
     <string name="settings_about_interfacer">Versión de Interfacer</string>
     <string name="settings_about_interfacer_not_installed">No instalado</string>
+    <string name="settings_about_andromeda">versión de andromeda</string>
+    <string name="settings_about_samsung">versión de sungstratum</string>
     <string name="settings_about_oms_rro_version">Plataforma de Tematización:</string>
+    <string name="settings_about_oms_version_do">Capas Dinámicas (OMS)</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Plataforma del Sistema</string>
@@ -172,7 +182,7 @@ correctamente&#8230;</string>
     <string name="manage_system_overlay_uninstall">Desinstalar todas las capas instaladas</string>
     <string name="manage_system_overlay_toast">El tema del sistema está restaurándose&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Las capas están desinstalándose en segundo plano&#8230;</string>
-    <string name="manage_system_not_permitted">No se pudo activar algunas capas debido a que el tema principal no está presente.</string>
+    <string name="manage_system_not_permitted">Por favor seleccione una capa válida para cambiar estados.</string>
     <string name="manage_wallpaper_home">Fondo de pantalla de inicio</string>
     <string name="manage_wallpaper_lock">Fondo de pantalla de bloqueo</string>
     <string name="manage_wallpaper_all">Ambas</string>
@@ -278,8 +288,8 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="uninstall_dialog_body">Desinstalar tema</string>
     <string name="sb_phase_1_loader">Extrayendo el tema</string>
     <string name="sb_phase_2_loader">instalando capa(s)</string>
-    <string name="root_rejected_title">Permisos de Superuser (root) denegados</string>
-    <string name="root_rejected_text_cm_phh">No se puede continuar sin tener root&#8230;</string>
+    <string name="root_rejected_title">retornando a modo root</string>
+    <string name="root_rejected_text_cm_phh">no hay otros motores de tematización que puedan ser utilizados en el dispositivo sin root&#8230;</string>
     <string name="root_rejected_timer_plural">Cerrando en %s segundos&#8230;</string>
     <string name="root_rejected_timer_singular">Cerrando en %s segundo&#8230;</string>
     <string name="toast_compiled_updated">Capas seleccionadas actualizadas!</string>
@@ -293,7 +303,10 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="no_themes_title">No se encontraron temas&#8230;</string>
     <string name="no_themes_description">Por favor, instala un tema compatible!</string>
     <string name="no_themes_description_search">\"%s\" no se encontró en la lista de temas instalados&#8230;</string>
+    <string name="toast_could_not_uninstall">No se han seleccionado capas válidas.</string>
     <string name="toast_samsung_prototype_alert">¡Substratum ocultó automáticamente las capas del sistema no soportadas por su dispositivo!</string>
+    <string name="andromeda_no_root_dialog">¡Parece que está utilizando un dispositivo con soporte para OMS, se lanzó un complemento para soportarlo!</string>
+    <string name="andromeda_no_root_dialog_button">¡Descargalo ahora!</string>
     <string name="samsung_prototype_no_root_dialog">Parece que estás en un dispositivo compatible de Samsung, un addon fue lanzado para apoyar esto!</string>
     <string name="samsung_prototype_no_root_dialog_button">¡Descargalo ahora!</string>
     <string name="toast_needs_caching">¡Se borró el caché de Substratum, por favor recompile este tema antes de continuar!</string>
@@ -337,8 +350,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="show_theme_template_version_description">Mostrar los niveles SDK que tiene cada tema como objetivo, la versión del tema y la versión del plug-in como una etiqueta en cada una de las tarjetas del tema.</string>
     <string name="vibrate_on_compiled">Notificar después que se compila el tema</string>
     <string name="vibrate_on_compiled_description">Cuando el tema ha sido compilado, vibrar el dispositivo para notificar al usuario que la compilación se ha completado.</string>
-    <string name="manage_notification_channel">Gestionar canales de notificación</string>
-    <string name="manage_notification_channel_dialog_title">Selecciona el canal de notificación para administrar</string>
     <string name="hide_app_icon">Mostrar icono de la aplicación</string>
     <string name="hide_app_icon_toast_enabled">¡El icono de la aplicación se ha eliminado de su launcher!</string>
     <string name="hide_app_icon_toast_disabled">¡El icono de la aplicación se ha añadido a su launcher!</string>
@@ -355,10 +366,11 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="show_outdated_themes_content">Desactivar esto permitirá a Substratum utilizar el nuevo algoritmo donde se consigue cargar los temas mucho más rápido que de costumbre. Esto sólo funciona para temas con el plugin 6.0.0+ correctamente configurados.</string>
     <string name="fab_menu_compile_enable">Compilar &amp; Activar</string>
     <string name="fab_menu_compile_update">Compilar &amp; Actualizar</string>
-    <string name="fab_menu_compile_install">Instalar Seleccionados</string>
-    <string name="fab_menu_uninstall">Desinstalar Seleccionados</string>
-    <string name="fab_menu_disable">Desactivar Seleccionados</string>
-    <string name="fab_menu_enable">Activar Seleccionados</string>
+    <string name="fab_menu_compile_install">Seleccionó instalar</string>
+    <string name="fab_menu_uninstall">Seleccionó desinstalar</string>
+    <string name="fab_menu_disable">Seleccionó desactivar</string>
+    <string name="fab_menu_enable">Seleccionó activar</string>
+    <string name="fab_menu_enable_disable">Cambiar los estados de la capa</string>
     <string name="fab_menu_swap_toggle">Desactivar otros temas</string>
     <string name="fab_menu_swap_toggle_legacy">Eliminar todas las capas actuales</string>
     <string name="team_title_one">Líderes del Substratum</string>
@@ -431,6 +443,7 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="profile_wallpaper">Fondos de Pantalla</string>
     <string name="profile_dialog_ok">Ok</string>
     <string name="settings_system_status">Certificación del sistema</string>
+    <string name="settings_system_status_andromeda">Modo Andromeda</string>
     <string name="settings_system_status_rooted">Modo Root</string>
     <string name="settings_system_status_rootless">Modo rootless</string>
     <string name="settings_system_status_samsung">Modo Samsung</string>
@@ -521,6 +534,8 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="notification_channel_default_description">Principales notificaciones (nueva y actualizada tema, tema compilación completada, etcetera)</string>
     <string name="notification_channel_ongoing">Curso</string>
     <string name="notification_channel_ongoing_description">Notificaciones en curso</string>
+    <string name="notification_channel_andromeda">Estado de Andromeda</string>
+    <string name="notification_channel_andromeda_description">Notificación del estado de conexión de Andromeda</string>
     <!-- Nav drawer -->
     <string name="nav_home">Packs de temas</string>
     <string name="nav_overlays">Capas</string>
@@ -539,11 +554,11 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="nav_drawer_community">Grupos &amp; comunidades</string>
     <string name="nav_drawer_googleplus">Comunidad de Google +</string>
     <string name="nav_drawer_telegram">Chat del Grupo en Telegram</string>
-    <string name="nav_drawer_xda">Subforo XDA</string>
-    <string name="nav_drawer_rawad">Guías de tematización de Rawad</string>
+    <string name="nav_drawer_xda">Sub-foro dedicado en XDA</string>
+    <string name="nav_drawer_rawad">Guías para tematizar de Rawad</string>
+    <string name="nav_drawer_reddit">Comunidad Reddit</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Contenido Destacado</string>
-    <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">Portal en XDA</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Recursos</string>
@@ -552,7 +567,7 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="nav_drawer_gerrit">Plataforma &amp; Exposiciones Gerrit</string>
     <string name="nav_drawer_github">Repositorio GitHub</string>
     <string name="nav_drawer_jira">Sistema de informes de error JIRA</string>
-    <string name="nav_troubleshooting">Solución de Problemas</string>
+    <string name="nav_troubleshooting">FAQs</string>
     <!-- More -->
     <string name="nav_section_header_more">Más</string>
     <string name="nav_team_contributors">Equipo &amp; colaboradores</string>
@@ -572,6 +587,8 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="auto_reload_sysui_title">Volver a cargar SystemUI automáticamente</string>
     <string name="auto_reload_sysui_summary_on">Substratum volverá a cargar automáticamente SystemUI después de que se active/desactive una capa para SystemUI.</string>
     <string name="auto_reload_sysui_summary_off">Substratum no volverá a cargar automáticamente SystemUI después de que se active/desactive una capa para SystemUI.</string>
+    <string name="auto_reload_sysui_dialog_title">¡Advertencia!</string>
+    <string name="auto_reload_sysui_dialog_text">En Android Oreo, las notificaciones se limpiarán automáticamente para simular el reinicio de la caché de los canales de notificación.\n\nPor favor verifique que sus notificaciones no contienen ningún dato importante cuando compile o active capas para SystemUI o framework. Esto no afecta las notificaciones en curso.</string>
     <!-- The things lint will complain about...-->
     <string name="fonts_demo_string">AaBbCcDd123</string>
 </resources>

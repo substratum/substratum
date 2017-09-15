@@ -27,6 +27,12 @@
     <string name="resource_not_validated">Byl přidán nový zdroj!</string>
     <string name="resource_needs_internet">Pro ověření vaší ROM se připojte k internetu!</string>
     <string name="resource_validated">Všechny zdroje jsou v pořádku!</string>
+    <string name="interfacer_notification_title">Substratum a Interfacer jsou připojeni!</string>
+    <string name="interfacer_notification_text">Služby pozadí motivu jsou propojeny, aktivní a běží.</string>
+    <string name="andromeda_notification_title">Substratum a Andromeda jsou připojeni!</string>
+    <string name="andromeda_notification_title_negation">Substratum a Andromeda nejsou připojeni</string>
+    <string name="andromeda_notification_text">Služby pozadí motivu jsou propojeny, aktivní a běží.</string>
+    <string name="andromeda_notification_text_negation">Andromeda neběží, restartujte aplikaci na svém počítači!</string>
     <string name="resource_commit_dialog_title">Chybějící zdroje v %s</string>
     <string name="showcase_no_connection">ukázky motivů potřebují internetové připojení!    </string>
     <string name="showcase_no_themes">zdá se, že nastala chyba ve vyrovnávací paměti databáze pro ukázku této záložky&#8230;    </string>
@@ -80,6 +86,7 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="manager_type3">Typ3 :</string>
     <string name="manager_type4">Typ4 :</string>
     <string name="legacy_preference_priority_title">Nastavení priority potahů</string>
+    <string name="legacy_preference_priority_text">Priorita je nastavena na (výchozí 999): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">typ1a varianta&#8230;</string>
     <string name="overlays_variant_default_1b">typ1b varianta&#8230;</string>
@@ -153,7 +160,10 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="settings_about_substratum">verze Substratum</string>
     <string name="settings_about_interfacer">Verze interfaceru</string>
     <string name="settings_about_interfacer_not_installed">Není nainstalováno</string>
+    <string name="settings_about_andromeda">Verze Andromeda</string>
+    <string name="settings_about_samsung">Verze Sungstratum</string>
     <string name="settings_about_oms_rro_version">Platforma pro motivy:</string>
+    <string name="settings_about_oms_version_do">Dynamické potahy (OMS)</string>
     <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Systémová platforma</string>
@@ -178,7 +188,7 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="manage_system_overlay_uninstall">Odinstalovat všechny nainstalované potahy</string>
     <string name="manage_system_overlay_toast">Systémový motiv se nyní obnovuje&#8230;</string>
     <string name="manage_system_overlay_uninstall_toast">Probíhá odinstalování potahů na pozadí&#8230;</string>
-    <string name="manage_system_not_permitted">Nelze povolit několik potahů, protože není nastaven hlavní motiv.</string>
+    <string name="manage_system_not_permitted">Pro změnu stavů zvolte platný potah.</string>
     <string name="manage_wallpaper_home">Tapeta domácí obrazovky</string>
     <string name="manage_wallpaper_lock">Tapeta zamykací obrazovky</string>
     <string name="manage_wallpaper_all">Tapeta domácí a zamykací obrazovky</string>
@@ -226,6 +236,7 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="dialog_restart_soft_reboot_content">Takto provedete úplný soft restart vašeho zařízení.</string>
     <string name="studio_applying">Načítání&#8230;</string>
     <string name="error_loading_theme_close">Zavřít</string>
+    <string name="error_loading_theme_close_text">Název balíčku tohoto motivu musí odpovídat v manifestu a kódu pro správnou výměnu klíčů.</string>
     <string name="logcat_snackbar_button">LogChar</string>
     <string name="logcat_snackbar_text">Cílová aplikace/vybrány zastaralé nebo nesprávně konfigurované potahy&#8230;</string>
     <string name="logcat_dialog_title">Zpráva ladění LogChar</string>
@@ -281,8 +292,8 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="uninstall_dialog_body">Odinstalovat motiv</string>
     <string name="sb_phase_1_loader">extrahování motivu</string>
     <string name="sb_phase_2_loader">instalování potahů</string>
-    <string name="root_rejected_title">Oprávnění Superuser zamítnuto</string>
-    <string name="root_rejected_text_cm_phh">nelze pokračovat bez rootu&#8230;</string>
+    <string name="root_rejected_title">zpět do režimu root</string>
+    <string name="root_rejected_text_cm_phh">neexistuje žádný další správce motivů, který by mohl být použit v zařízení bez rootu&#8230;</string>
     <string name="root_rejected_timer_plural">zavírání za %s sekund&#8230;</string>
     <string name="root_rejected_timer_singular">zavírání za %s sekundu&#8230;</string>
     <string name="toast_compiled_updated">Vybrané potahy jsou aktualizovány!</string>
@@ -298,7 +309,10 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="no_themes_title">nenalezeny žádné motivy&#8230;</string>
     <string name="no_themes_description">prosím, nainstalujte kompatibilní motiv!</string>
     <string name="no_themes_description_search">\"%s\" nebylo nalezeno v seznamu nainstalovaných motivů&#8230;</string>
+    <string name="toast_could_not_uninstall">Nebyly vybrány žádné platné potahy.</string>
     <string name="toast_samsung_prototype_alert">Substratum automaticky skrylo nepodporované potahy systému pro vaše zařízení!</string>
+    <string name="andromeda_no_root_dialog">Zdá se, že používáte podporované zařízení OMS, pro které byl vydán podpůrný modul!</string>
+    <string name="andromeda_no_root_dialog_button">Stáhnout teď!</string>
     <string name="samsung_prototype_no_root_dialog">Zdá se, že používáte podporované zařízení Samsung, pro které byl vydán podpůrný modul!</string>
     <string name="samsung_prototype_no_root_dialog_button">Stáhnout teď!</string>
     <string name="toast_needs_caching">Mezipaměť Substratum byla vyčištěna, prosím znovu
@@ -348,8 +362,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="vibrate_on_compiled">Oznámit dokončení kompilace motivu</string>
     <string name="vibrate_on_compiled_description">Když je motiv zkompilován, zavibrovat zařízením
  pro oznámení uživateli, že je kompilace hotova.</string>
-    <string name="manage_notification_channel">Spravovat kanál upozornění</string>
-    <string name="manage_notification_channel_dialog_title">Vyberte kanál upozornění, který chcete spravovat</string>
     <string name="hide_app_icon">Zobrazit ikonu aplikace</string>
     <string name="hide_app_icon_toast_enabled">Ikona aplikace byla odstraněna!</string>
     <string name="hide_app_icon_toast_disabled">Ikona aplikace byla přidána!</string>
@@ -374,6 +386,7 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="fab_menu_uninstall">Odinstalovat vybrané</string>
     <string name="fab_menu_disable">Zakázat vybrané</string>
     <string name="fab_menu_enable">Povolit vybrané</string>
+    <string name="fab_menu_enable_disable">Změna stavu potahů</string>
     <string name="fab_menu_swap_toggle">Zakázat další motivy</string>
     <string name="fab_menu_swap_toggle_legacy">Odstranit všechny existující</string>
     <string name="team_title_one">Leaders of Substratum</string>
@@ -395,7 +408,7 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="team_char_description">Organizace komunity &amp; podpora</string>
     <string name="team_harsh_description">Platformy &amp; funkce</string>
     <string name="slide_1_title">vítejte v substratum</string>
-    <string name="slide_1_text">minimalistický, ale výkonný theme engine založený na správci služeb potahů od Sony</string>
+    <string name="slide_1_text">minimalistický, ale výkonný správce motivů založený na správci služeb potahů od Sony</string>
     <string name="slide_2_title">zbrusu nové uživatelské rozhraní</string>
     <string name="slide_2_text">milujete motivy? představujeme vám nádherné karetní uživatelské prostředí pro představení každého motivu na vašem zařízení!</string>
     <string name="slide_3_title">nastavování pro každou aplikaci zvlášť</string>
@@ -446,6 +459,7 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="profile_wallpaper">Tapety</string>
     <string name="profile_dialog_ok">OK</string>
     <string name="settings_system_status">Certifikace systému</string>
+    <string name="settings_system_status_andromeda">Režim Andromeda</string>
     <string name="settings_system_status_rooted">Režim s rootem</string>
     <string name="settings_system_status_rootless">Režim bez rootu</string>
     <string name="settings_system_status_samsung">Režim Samsung</string>
@@ -497,6 +511,10 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="error_activity_text">prosím odpusťte mi&#8230;</string>
     <string name="error_activity_button_restart">Restartovat</string>
     <string name="error_activity_button_disable_overlays">Zachraňte mě!</string>
+    <string name="error_activity_log">Trasování zásobníku</string>
+    <string name="error_activity_log_dialog_title">Krach trasování zásobníku</string>
+    <string name="error_dialog_samsung">Problém s potahy Substratum</string>
+    <string name="error_dialog_samsung_text">Bohužel se zdá, že existuje problém s cílovou instalací potahu Substratum a musí být ručně odinstalován v nastavení.</string>
     <string name="community_info_overlays">Potahy</string>
     <string name="community_info_bootanimation">Spouštěcí animace</string>
     <string name="community_info_fonts">Písma</string>
@@ -532,6 +550,8 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="notification_channel_default_description">Hlavní upozornění (nové a aktualizované motivy, dokončené sestavení motivů, atd.)</string>
     <string name="notification_channel_ongoing">Probíhající</string>
     <string name="notification_channel_ongoing_description">Probíhající oznámení</string>
+    <string name="notification_channel_andromeda">Stav Andromeda</string>
+    <string name="notification_channel_andromeda_description">Oznámení o stavu připojení Andromeda</string>
     <!-- Nav drawer -->
     <string name="nav_home">Balíčky motivů</string>
     <string name="nav_overlays">Potahy</string>
@@ -550,11 +570,11 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="nav_drawer_community">Skupiny a komunity</string>
     <string name="nav_drawer_googleplus">Komunita Google +</string>
     <string name="nav_drawer_telegram">Skupinový chat Telegram</string>
-    <string name="nav_drawer_xda">XDA Subforum</string>
+    <string name="nav_drawer_xda">XDA sub-fórum</string>
     <string name="nav_drawer_rawad">Příručka Rawad\'s Theming</string>
+    <string name="nav_drawer_reddit">Reddit komunita</string>
     <!-- Featured content -->
     <string name="nav_drawer_featured">Doporučený obsah</string>
-    <string name="nav_drawer_tcf">TheCyberFibre (TCF)</string>
     <string name="nav_drawer_xda_portal">XDA portál</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Zdroje</string>
@@ -563,7 +583,7 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="nav_drawer_gerrit">Platforma zdrojových kódů Gerrit</string>
     <string name="nav_drawer_github">Repozitář GitHub</string>
     <string name="nav_drawer_jira">Systém hlášení chyb JIRA</string>
-    <string name="nav_troubleshooting">Poradce při potížích</string>
+    <string name="nav_troubleshooting">FAQ</string>
     <!-- More -->
     <string name="nav_section_header_more">Více</string>
     <string name="nav_team_contributors">Tým &amp; přispěvatelé</string>
@@ -583,6 +603,8 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="auto_reload_sysui_title">Automatické načtení SystemUI</string>
     <string name="auto_reload_sysui_summary_on">Substratum automaticky načte SystemUI po povolení/zakázání cílových systémových potahů.</string>
     <string name="auto_reload_sysui_summary_off">Substratum automaticky nenačte SystemUI po povolení/zakázání cílových systémových potahů.</string>
+    <string name="auto_reload_sysui_dialog_title">Upozornění!</string>
+    <string name="auto_reload_sysui_dialog_text">V systému Android Oreo budou oznámení automaticky vymazány, aby simulovaly opětovné spuštění oznamovacích kanálů.\n\nZkontrolujte, zda vaše oznámení neobsahují žádná důležitá data při kompilaci nebo aktivaci potahů systému (SystemUI nebo framework). To neovlivňuje stávající oznámení, například hudbu.</string>
     <!-- The things lint will complain about...-->
     <string name="fonts_demo_string">AaBbCcDd123</string>
 </resources>

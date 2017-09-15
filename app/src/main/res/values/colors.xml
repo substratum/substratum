@@ -108,7 +108,7 @@
     <color name="overlay_update_available">#d4b400</color>
     <color name="overlay_update_not_needed">#008c3a</color>
 
-    <color name="window_bg_glass">#99000000</color>
+    <color name="window_bg_glass">#c8000000</color>
     <color name="cropper_bg_glass">#c8000000</color>
 
     <color name="slide_1">#5e98ce</color>

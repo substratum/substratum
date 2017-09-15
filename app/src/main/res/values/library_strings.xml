@@ -271,7 +271,7 @@
     <string name="define_blurview"/>
     <!-- Author section -->
     <string name="library_blurview_author" translatable="false">Dmitry Saviuk</string>
-    <string name="library_blurview_authorWebsite" translatable="false" />
+    <string name="library_blurview_authorWebsite" translatable="false"/>
     <!-- Library section -->
     <string name="library_blurview_libraryName" translatable="false">BlurView</string>
     <string name="library_blurview_libraryDescription">Dynamic iOS-like blur of underlying Views for
@@ -295,7 +295,7 @@
     <string name="define_androidimagecropper"/>
     <!-- Author section -->
     <string name="library_androidimagecropper_author" translatable="false">ArthurHub</string>
-    <string name="library_androidimagecropper_authorWebsite" translatable="false" />
+    <string name="library_androidimagecropper_authorWebsite" translatable="false"/>
     <!-- Library section -->
     <string name="library_androidimagecropper_libraryName" translatable="false">Android Image
         Cropper

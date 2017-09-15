@@ -129,7 +129,8 @@ public class BootAnimations extends Fragment {
             }
         }
 
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.tab_bootanimations, container, false);
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.tab_bootanimations, container,
+                false);
         nsv = root.findViewById(R.id.nestedScrollView);
 
         bootAnimationPreview = root.findViewById(R.id.bootAnimationPreview);
@@ -209,7 +210,8 @@ public class BootAnimations extends Fragment {
                         }
 
                         @Override
-                        public void onNothingSelected(AdapterView<?> arg0) {}
+                        public void onNothingSelected(AdapterView<?> arg0) {
+                        }
                     });
         } catch (Exception e) {
             e.printStackTrace();

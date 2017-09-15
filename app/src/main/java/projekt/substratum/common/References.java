@@ -1781,12 +1781,14 @@ public class References {
                     AssetManager am = otherContext.getAssets();
                     if (home_type.equals(wallpaperFragment)) {
                         if (appInfo.metaData.getString(metadataWallpapers) != null) {
-                            String[] data = {appInfo.metaData.getString(metadataAuthor), packageName};
+                            String[] data = {appInfo.metaData.getString(metadataAuthor),
+                                    packageName};
                             packages.put(appInfo.metaData.getString(metadataName), data);
                         }
                     } else {
                         if (home_type.length() == 0) {
-                            String[] data = {appInfo.metaData.getString(metadataAuthor), packageName};
+                            String[] data = {appInfo.metaData.getString(metadataAuthor),
+                                    packageName};
                             packages.put(appInfo.metaData.getString(metadataName), data);
                             Log.d(PACKAGE_TAG,
                                     "Loaded Substratum Theme: [" + packageName + "]");
@@ -1796,7 +1798,8 @@ public class References {
                             try {
                                 String[] stringArray = am.list("");
                                 if (Arrays.asList(stringArray).contains(home_type)) {
-                                    String[] data = {appInfo.metaData.getString(metadataAuthor), packageName};
+                                    String[] data = {appInfo.metaData.getString(metadataAuthor),
+                                            packageName};
                                     packages.put(appInfo.metaData.getString(metadataName), data);
                                 }
                             } catch (Exception e) {

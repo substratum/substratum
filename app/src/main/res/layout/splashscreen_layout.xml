@@ -31,8 +31,8 @@
         android:id="@+id/splashscreen_image"
         android:layout_width="@dimen/app_splash_icon_width"
         android:layout_height="@dimen/app_splash_icon_height"
-        android:src="@drawable/substratum_icon"
-        android:contentDescription="@string/app_name" />
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/substratum_icon"/>
 
     <me.zhanghai.android.materialprogressbar.MaterialProgressBar
         style="@style/Widget.MaterialProgressBar.ProgressBar"

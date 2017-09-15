@@ -27,6 +27,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioAttributes;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
@@ -41,6 +43,7 @@ import projekt.substratum.services.binder.BinderService;
 
 import static projekt.substratum.BuildConfig.DEBUG;
 import static projekt.substratum.common.References.isAndromedaDevice;
+import static projekt.substratum.common.References.isBinderInterfacer;
 
 public class Substratum extends Application {
 
@@ -58,17 +61,33 @@ public class Substratum extends Application {
     public void onCreate() {
         super.onCreate();
         substratum = this;
+
+        // Firebase debug checks
         try {
             FirebaseApp.initializeApp(getApplicationContext());
             FirebaseCrash.setCrashCollectionEnabled(!DEBUG);
         } catch (IllegalStateException ise) {
             // Suppress warning
         }
-        startAndromedaBinderService();
-        startBinderService();
-        References.registerBroadcastReceivers(this);
-        createNotificationChannel();
 
+        // Dynamically check which theme engine is running at the moment
+        if (isAndromedaDevice(getApplicationContext())) {
+            Log.d(ANDROMEDA_BINDER_TAG, "Successful to start the Andromeda binder service: " +
+                    (startBinderService(AndromedaBinderService.class) ? "Success!" : "Failed"));
+        } else if (isBinderInterfacer(getApplicationContext())) {
+            Log.d(ANDROMEDA_BINDER_TAG, "Successful to start the Interfacer binder service: " +
+                    (startBinderService(BinderService.class) ? "Success!" : "Failed"));
+        }
+
+        // Implicit broadcasts must be declared
+        References.registerBroadcastReceivers(this);
+
+        // If the device is Android Oreo, create a persistent notification
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            createNotificationChannel();
+        }
+
+        // Custom Activity on Crash initialization
         CaocConfig.Builder.create()
                 .backgroundMode(CaocConfig.BACKGROUND_MODE_SHOW_CUSTOM)
                 .enabled(true)
@@ -80,63 +99,64 @@ public class Substratum extends Application {
                 .apply();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void createNotificationChannel() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            NotificationManager notificationManager =
-                    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            NotificationChannel mainChannel = new NotificationChannel(
-                    References.DEFAULT_NOTIFICATION_CHANNEL_ID,
-                    getString(R.string.notification_channel_default),
-                    NotificationManager.IMPORTANCE_DEFAULT);
-            mainChannel.setDescription(
-                    getString(R.string.notification_channel_default_description));
-            mainChannel.setSound(null, new AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_NOTIFICATION)
-                    .build());
-            assert notificationManager != null;
-            notificationManager.createNotificationChannel(mainChannel);
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        NotificationChannel mainChannel = new NotificationChannel(
+                References.DEFAULT_NOTIFICATION_CHANNEL_ID,
+                getString(R.string.notification_channel_default),
+                NotificationManager.IMPORTANCE_DEFAULT);
+        mainChannel.setDescription(
+                getString(R.string.notification_channel_default_description));
+        mainChannel.setSound(null, new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                .build());
+        assert notificationManager != null;
+        notificationManager.createNotificationChannel(mainChannel);
 
-            NotificationChannel compileChannel = new NotificationChannel(
-                    References.ONGOING_NOTIFICATION_CHANNEL_ID,
-                    getString(R.string.notification_channel_ongoing),
-                    NotificationManager.IMPORTANCE_LOW);
-            mainChannel.setDescription(
-                    getString(R.string.notification_channel_ongoing_description));
-            notificationManager.createNotificationChannel(compileChannel);
+        NotificationChannel compileChannel = new NotificationChannel(
+                References.ONGOING_NOTIFICATION_CHANNEL_ID,
+                getString(R.string.notification_channel_ongoing),
+                NotificationManager.IMPORTANCE_LOW);
+        mainChannel.setDescription(
+                getString(R.string.notification_channel_ongoing_description));
+        notificationManager.createNotificationChannel(compileChannel);
 
-            NotificationChannel andromedaChannel = new NotificationChannel(
-                    References.ANDROMEDA_NOTIFICATION_CHANNEL_ID,
-                    getString(R.string.notification_channel_andromeda),
-                    NotificationManager.IMPORTANCE_NONE);
-            andromedaChannel.setDescription(
-                    getString(R.string.notification_channel_andromeda_description));
-            notificationManager.createNotificationChannel(andromedaChannel);
-        }
+        NotificationChannel andromedaChannel = new NotificationChannel(
+                References.ANDROMEDA_NOTIFICATION_CHANNEL_ID,
+                getString(R.string.notification_channel_andromeda),
+                NotificationManager.IMPORTANCE_NONE);
+        andromedaChannel.setDescription(
+                getString(R.string.notification_channel_andromeda_description));
+        notificationManager.createNotificationChannel(andromedaChannel);
     }
 
-    public void startAndromedaBinderService() {
-        if (isAndromedaDevice(getApplicationContext())) {
-            if (checkServiceActivation(AndromedaBinderService.class)) {
-                Log.d(ANDROMEDA_BINDER_TAG,
-                        "This session will utilize the pre-connected Andromeda Binder service!");
-            } else {
-                Log.d(ANDROMEDA_BINDER_TAG,
-                        "Substratum is now connecting to the Andromeda Binder service...");
-                ContextCompat.startForegroundService(getApplicationContext(),
-                        new Intent(getApplicationContext(), AndromedaBinderService.class));
+    public boolean startBinderService(Class className) {
+        try {
+            if (className.equals(AndromedaBinderService.class)) {
+                if (checkServiceActivation(AndromedaBinderService.class)) {
+                    Log.d(ANDROMEDA_BINDER_TAG,
+                            "This session will utilize the connected Andromeda Binder service!");
+                } else {
+                    Log.d(ANDROMEDA_BINDER_TAG,
+                            "Substratum is now connecting to the Andromeda Binder service...");
+                    ContextCompat.startForegroundService(getApplicationContext(),
+                            new Intent(getApplicationContext(), AndromedaBinderService.class));
+                }
+            } else if (className.equals(BinderService.class)) {
+                if (checkServiceActivation(BinderService.class)) {
+                    Log.d(BINDER_TAG, "This session will utilize the connected Binder service!");
+                } else {
+                    Log.d(BINDER_TAG, "Substratum is now connecting to the Binder service...");
+                    startService(new Intent(getApplicationContext(), BinderService.class));
+                }
             }
+            return true;
+        } catch (Exception e) {
+            // Suppress warnings
         }
-    }
-
-    public void startBinderService() {
-        if (References.isBinderInterfacer(getApplicationContext())) {
-            if (checkServiceActivation(BinderService.class)) {
-                Log.d(BINDER_TAG, "This session will utilize the pre-connected Binder service!");
-            } else {
-                Log.d(BINDER_TAG, "Substratum is now connecting to the Binder service...");
-                startService(new Intent(getApplicationContext(), BinderService.class));
-            }
-        }
+        return false;
     }
 
     private boolean checkServiceActivation(Class<?> serviceClass) {
@@ -151,6 +171,14 @@ public class Substratum extends Application {
         return false;
     }
 
+    public void startWaitingInstall() {
+        isWaiting = true;
+    }
+
+    public boolean isWaitingInstall() {
+        return isWaiting;
+    }
+
     public void registerFinishReceiver() {
         IntentFilter filter = new IntentFilter(Intent.ACTION_PACKAGE_ADDED);
         filter.addDataScheme("package");
@@ -163,14 +191,6 @@ public class Substratum extends Application {
         } catch (IllegalArgumentException e) {
             // Already unregistered
         }
-    }
-
-    public void startWaitingInstall() {
-        isWaiting = true;
-    }
-
-    public boolean isWaitingInstall() {
-        return isWaiting;
     }
 
     private static class FinishReceiver extends BroadcastReceiver {

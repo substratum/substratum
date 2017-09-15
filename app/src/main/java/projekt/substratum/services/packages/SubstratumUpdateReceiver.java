@@ -26,6 +26,7 @@ import android.support.v7.preference.PreferenceManager;
 
 import projekt.substratum.Substratum;
 import projekt.substratum.common.systems.ProfileManager;
+import projekt.substratum.services.binder.BinderService;
 
 import static projekt.substratum.common.systems.ProfileManager.SCHEDULED_PROFILE_ENABLED;
 
@@ -35,7 +36,7 @@ public class SubstratumUpdateReceiver extends BroadcastReceiver {
         if (intent.getAction() != null &&
                 !intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED)) return;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        Substratum.getInstance().startBinderService();
+        Substratum.getInstance().startBinderService(BinderService.class);
         boolean scheduleProfileEnabled = prefs.getBoolean(SCHEDULED_PROFILE_ENABLED, false);
         if (scheduleProfileEnabled) {
             ProfileManager.updateScheduledProfile(context);

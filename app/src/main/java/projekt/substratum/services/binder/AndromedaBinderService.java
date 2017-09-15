@@ -56,12 +56,6 @@ public class AndromedaBinderService extends Service implements ServiceConnection
         }
     }
 
-    public void unbindAndromeda() {
-        if (References.checkAndromeda(this) && mBound) {
-            unbindService(this);
-        }
-    }
-
     @Override
     public void onCreate() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(

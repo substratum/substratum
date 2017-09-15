@@ -176,12 +176,14 @@ public class Substratum extends Application {
     private static class FinishReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String packageName = intent.getData().getEncodedSchemeSpecificPart();
-            // Check whether the installed package is made by substratum
-            String check = References.grabOverlayParent(context, packageName);
-            if (check != null) {
-                isWaiting = false;
-                Log.d("Substratum", "PACKAGE_ADDED: " + packageName);
+            if (intent.getData() != null) {
+                String packageName = intent.getData().getEncodedSchemeSpecificPart();
+                // Check whether the installed package is made by substratum
+                String check = References.grabOverlayParent(context, packageName);
+                if (check != null) {
+                    isWaiting = false;
+                    Log.d("Substratum", "PACKAGE_ADDED: " + packageName);
+                }
             }
         }
     }

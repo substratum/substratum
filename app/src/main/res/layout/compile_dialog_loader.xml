@@ -26,67 +26,59 @@
                 android:gravity="center|center_horizontal"
                 android:orientation="vertical">
 
-    <eightbitlab.com.blurview.BlurView
-        android:id="@+id/blurView"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:blurOverlayColor="@color/window_bg_glass">
+        android:gravity="center_vertical">
 
-        <RelativeLayout
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/loadingIndicatorView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            app:indicatorColor="@color/compile_dialog_wave_color"
+            app:indicatorName="LineScaleIndicator"/>
+
+        <TextView
+            android:id="@+id/title"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/loadingIndicatorView"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="@string/sb_phase_1_loader"
+            android:textAllCaps="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
 
-            <com.wang.avi.AVLoadingIndicatorView
-                android:id="@+id/loadingIndicatorView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                app:indicatorColor="@color/compile_dialog_wave_color"
-                app:indicatorName="LineScaleIndicator"/>
+        <TextView
+            android:id="@+id/current_object"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/studio_applying"
+            android:textAllCaps="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/loadingIndicatorView"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_marginTop="30dp"
-                android:gravity="center"
-                android:text="@string/sb_phase_1_loader"
-                android:textAllCaps="true"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
+        <ProgressBar
+            android:id="@+id/loading_bar"
+            style="?android:progressBarStyleHorizontal"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/current_object"
+            android:layout_centerHorizontal="true"
+            android:indeterminate="true"/>
 
-            <TextView
-                android:id="@+id/current_object"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/title"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:text="@string/studio_applying"
-                android:textAllCaps="true"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
-
-            <ProgressBar
-                android:id="@+id/loading_bar"
-                style="?android:progressBarStyleHorizontal"
-                android:layout_width="170dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/current_object"
-                android:layout_centerHorizontal="true"
-                android:indeterminate="true"/>
-
-        </RelativeLayout>
-
-    </eightbitlab.com.blurview.BlurView>
+    </RelativeLayout>
 
 </RelativeLayout>

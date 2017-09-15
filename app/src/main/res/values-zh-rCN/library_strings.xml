@@ -98,13 +98,6 @@
     <!-- ClassPath for autoDetect section -->
     <string name="library_avloadingindicatorview_classPath">com.wang.avi:library</string>
     <!-- License section -->
-    <!-- BlurView -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_blurview_libraryDescription">类似于 iOS 动态模糊的底层视图，专为 Android 设计。</string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <!-- License section -->
     <!-- Android Image Cropper -->
     <!-- Author section -->
     <!-- Library section -->

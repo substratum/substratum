@@ -83,8 +83,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import eightbitlab.com.blurview.BlurView;
-import eightbitlab.com.blurview.RenderScriptBlur;
 import projekt.substratum.activities.base.SubstratumActivity;
 import projekt.substratum.activities.showcase.ShowcaseActivity;
 import projekt.substratum.common.References;
@@ -1256,17 +1254,6 @@ public class MainActivity extends SubstratumActivity implements
                     activity.mProgressDialog.show();
                     activity.mProgressDialog.setContentView(R.layout.root_rejected_loader);
 
-                    float radius = 5;
-                    View decorView = activity.getWindow().getDecorView();
-                    ViewGroup rootView = decorView.findViewById(android.R.id.content);
-                    Drawable windowBackground = decorView.getBackground();
-
-                    BlurView blurView = activity.mProgressDialog.findViewById(R.id.blurView);
-
-                    blurView.setupWith(rootView)
-                            .windowBackground(windowBackground)
-                            .blurAlgorithm(new RenderScriptBlur(context))
-                            .blurRadius(radius);
                     TextView titleView = activity.mProgressDialog.findViewById(R.id.title);
                     TextView textView = activity.mProgressDialog.findViewById(R.id.timer);
 

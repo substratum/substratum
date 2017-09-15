@@ -101,13 +101,6 @@ https://github.com/81813780/AVLoadingIndicatorView</string>
     <!-- ClassPath for autoDetect section -->
     <string name="library_avloadingindicatorview_classPath">com.wang.avi:library</string>
     <!-- License section -->
-    <!-- BlurView -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_blurview_libraryDescription">Dynamické rozmazanie pozadia pre Android ako v iOS.    </string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <!-- License section -->
     <!-- Android Image Cropper -->
     <!-- Author section -->
     <!-- Library section -->

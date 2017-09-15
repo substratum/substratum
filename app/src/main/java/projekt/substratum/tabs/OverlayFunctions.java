@@ -53,8 +53,6 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-import eightbitlab.com.blurview.BlurView;
-import eightbitlab.com.blurview.RenderScriptBlur;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
@@ -133,21 +131,6 @@ class OverlayFunctions {
                     if (overlays.mProgressDialog.getWindow() != null) {
                         overlays.mProgressDialog.getWindow().addFlags(
                                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-                    }
-
-                    final float radius = 5;
-                    final View decorView = overlays.getActivity().getWindow().getDecorView();
-                    final ViewGroup rootView = decorView.findViewById(android.R.id.content);
-
-                    final Drawable windowBackground = decorView.getBackground();
-
-                    BlurView blurView = overlays.mProgressDialog.findViewById(R.id.blurView);
-
-                    if (rootView != null) {
-                        blurView.setupWith(rootView)
-                                .windowBackground(windowBackground)
-                                .blurAlgorithm(new RenderScriptBlur(context))
-                                .blurRadius(radius);
                     }
 
                     overlays.dialogProgress = overlays.mProgressDialog.findViewById(

@@ -101,13 +101,6 @@
     <string name="library_avloadingindicatorview_classPath">com.wang.avi:library</string>
     <!-- License section -->
     <string name="library_avloadingindicatorview_licenseId">apache_2_0</string>
-    <!-- BlurView -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <string name="library_blurview_libraryDescription">Dynamische iOS-achtige vervaging van onderliggende Weergaven voor Android.</string>
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <!-- License section -->
     <!-- Android Image Cropper -->
     <!-- Author section -->
     <!-- Library section -->

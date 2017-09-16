@@ -49,7 +49,7 @@ import projekt.substratum.common.platform.ThemeInterfacerService;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.systems.ProfileManager;
 import projekt.substratum.common.tabs.WallpaperManager;
-import projekt.substratum.services.binder.BinderService;
+import projekt.substratum.services.binder.InterfacerBinderService;
 
 import static projekt.substratum.common.systems.ProfileManager.DAY_PROFILE;
 import static projekt.substratum.common.systems.ProfileManager.DAY_PROFILE_HOUR;
@@ -114,7 +114,7 @@ public class ScheduledProfileService extends JobService {
 
             if (service != null) {
                 // Make sure binder service is alive
-                Substratum.getInstance().startBinderService(BinderService.class);
+                Substratum.getInstance().startBinderService(InterfacerBinderService.class);
 
                 String profile_name = "";
                 switch (service.extra) {

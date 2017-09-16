@@ -39,15 +39,15 @@ import cat.ereza.customactivityoncrash.config.CaocConfig;
 import projekt.substratum.activities.crash.SubstratumCrash;
 import projekt.substratum.common.References;
 import projekt.substratum.services.binder.AndromedaBinderService;
-import projekt.substratum.services.binder.BinderService;
+import projekt.substratum.services.binder.InterfacerBinderService;
 
 import static projekt.substratum.BuildConfig.DEBUG;
+import static projekt.substratum.common.References.checkOreo;
 import static projekt.substratum.common.References.isAndromedaDevice;
 import static projekt.substratum.common.References.isBinderInterfacer;
 
 public class Substratum extends Application {
 
-    private static final String ANDROMEDA_BINDER_TAG = "AndromedaBinderService";
     private static final String BINDER_TAG = "BinderService";
     private static final FinishReceiver finishReceiver = new FinishReceiver();
     private static Substratum substratum;
@@ -72,11 +72,11 @@ public class Substratum extends Application {
 
         // Dynamically check which theme engine is running at the moment
         if (isAndromedaDevice(getApplicationContext())) {
-            Log.d(ANDROMEDA_BINDER_TAG, "Successful to start the Andromeda binder service: " +
+            Log.d(BINDER_TAG, "Successful to start the Andromeda binder service: " +
                     (startBinderService(AndromedaBinderService.class) ? "Success!" : "Failed"));
         } else if (isBinderInterfacer(getApplicationContext())) {
-            Log.d(ANDROMEDA_BINDER_TAG, "Successful to start the Interfacer binder service: " +
-                    (startBinderService(BinderService.class) ? "Success!" : "Failed"));
+            Log.d(BINDER_TAG, "Successful to start the Interfacer binder service: " +
+                    (startBinderService(InterfacerBinderService.class) ? "Success!" : "Failed"));
         }
 
         // Implicit broadcasts must be declared
@@ -136,20 +136,25 @@ public class Substratum extends Application {
         try {
             if (className.equals(AndromedaBinderService.class)) {
                 if (checkServiceActivation(AndromedaBinderService.class)) {
-                    Log.d(ANDROMEDA_BINDER_TAG,
+                    Log.d(BINDER_TAG,
                             "This session will utilize the connected Andromeda Binder service!");
                 } else {
-                    Log.d(ANDROMEDA_BINDER_TAG,
+                    Log.d(BINDER_TAG,
                             "Substratum is now connecting to the Andromeda Binder service...");
                     ContextCompat.startForegroundService(getApplicationContext(),
                             new Intent(getApplicationContext(), AndromedaBinderService.class));
                 }
-            } else if (className.equals(BinderService.class)) {
-                if (checkServiceActivation(BinderService.class)) {
+            } else if (className.equals(InterfacerBinderService.class)) {
+                if (checkServiceActivation(InterfacerBinderService.class)) {
                     Log.d(BINDER_TAG, "This session will utilize the connected Binder service!");
                 } else {
                     Log.d(BINDER_TAG, "Substratum is now connecting to the Binder service...");
-                    startService(new Intent(getApplicationContext(), BinderService.class));
+                    Intent i = new Intent(getApplicationContext(), InterfacerBinderService.class);
+                    if (checkOreo()) {
+                        ContextCompat.startForegroundService(getApplicationContext(), i);
+                    } else {
+                        startService(i);
+                    }
                 }
             }
             return true;

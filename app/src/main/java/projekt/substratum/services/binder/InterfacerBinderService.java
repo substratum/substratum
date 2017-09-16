@@ -23,13 +23,10 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-
-import java.util.concurrent.ThreadLocalRandom;
 
 import projekt.substratum.IInterfacerInterface;
 import projekt.substratum.R;
@@ -37,15 +34,16 @@ import projekt.substratum.common.References;
 
 import static projekt.substratum.common.References.INTERFACER_BINDED;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
+import static projekt.substratum.common.References.checkOreo;
 
-public class BinderService extends Service implements ServiceConnection {
+public class InterfacerBinderService extends Service implements ServiceConnection {
 
-    private static final String TAG = "BinderService";
-    private static BinderService binderService;
+    private static final String TAG = "InterfacerBinderService";
+    private static InterfacerBinderService binderService;
     private IInterfacerInterface interfacerInterface;
     private boolean mBound;
 
-    public static BinderService getInstance() {
+    public static InterfacerBinderService getInstance() {
         return binderService;
     }
 
@@ -61,17 +59,26 @@ public class BinderService extends Service implements ServiceConnection {
         }
     }
 
-    public void unbindInterfacer() {
-        if (References.isBinderInterfacer(this) && mBound) {
-            unbindService(this);
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        binderService = this;
+        if (checkOreo()) {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(
+                    getApplicationContext(), References.ANDROMEDA_NOTIFICATION_CHANNEL_ID);
+
+            builder.setContentTitle(getString(R.string.interfacer_notification_title))
+                    .setContentText(getString(R.string.interfacer_notification_text))
+                    .setSmallIcon(R.drawable.notification_icon);
+
+            this.startForeground(2018, builder.build());
         }
+        bindInterfacer();
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        binderService = this;
-        bindInterfacer();
-        return START_STICKY;
+    public void onDestroy() {
+        interfacerInterface = null;
     }
 
     @Nullable
@@ -92,25 +99,5 @@ public class BinderService extends Service implements ServiceConnection {
         interfacerInterface = null;
         mBound = false;
         Log.d(TAG, "Substratum has successfully unbinded with the Interfacer module.");
-    }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        // TODO: What on earth
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(
-                    getApplicationContext(),
-                    References.ONGOING_NOTIFICATION_CHANNEL_ID);
-
-            mBuilder.setContentTitle(getApplicationContext().getString(
-                    R.string.interfacer_notification_title))
-                    .setContentText(getApplicationContext().getString(
-                            R.string.interfacer_notification_text))
-                    .setSmallIcon(R.drawable.notification_icon)
-                    .setOngoing(true);
-
-            this.startForeground(ThreadLocalRandom.current().nextInt(0, 100 + 1), mBuilder.build());
-        }
     }
 }

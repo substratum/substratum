@@ -766,8 +766,8 @@
     <string name="notification_channel_default_description">Main notifications (New and updated theme, theme compile completed, etc)</string>
     <string name="notification_channel_ongoing">Ongoing</string>
     <string name="notification_channel_ongoing_description">Ongoing notifications</string>
-    <string name="notification_channel_andromeda">Andromeda status</string>
-    <string name="notification_channel_andromeda_description">Andromeda connection status notification</string>
+    <string name="notification_channel_andromeda">Theme system status</string>
+    <string name="notification_channel_andromeda_description">Theme system connection status notification</string>
     <!-- Nav drawer -->
     <string name="nav_home">Theme packs</string>
     <string name="nav_overlays">Overlays</string>

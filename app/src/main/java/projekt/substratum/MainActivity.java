@@ -1226,6 +1226,7 @@ public class MainActivity extends SubstratumActivity implements
                 boolean samsungCheck = References.isSamsungDevice(context);
                 samsungCheck &= !References.isPackageInstalled(context, SST_ADDON_PACKAGE);
                 boolean oreoCheck = References.checkOreo();
+                oreoCheck &= !References.checkThemeInterfacer(context);
                 oreoCheck &= !References.checkAndromeda(context);
                 oreoCheck &= !grantedRoot;
                 boolean legacyCheck = !References.checkOMS(context);

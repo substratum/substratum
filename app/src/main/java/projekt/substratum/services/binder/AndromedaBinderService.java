@@ -85,16 +85,12 @@ public class AndromedaBinderService extends Service implements ServiceConnection
                     }
 
                     if (!AndromedaService.checkServerActivity()) {
-                        sendBadNotification(new NotificationCompat.Builder(
-                                getApplicationContext(),
-                                References.DEFAULT_NOTIFICATION_CHANNEL_ID));
+                        sendBadNotification();
                         failed = true;
                     }
                 }
             } else {
-                sendBadNotification(new NotificationCompat.Builder(
-                        getApplicationContext(),
-                        References.DEFAULT_NOTIFICATION_CHANNEL_ID));
+                sendBadNotification();
             }
         }).start();
     }
@@ -125,11 +121,12 @@ public class AndromedaBinderService extends Service implements ServiceConnection
         Log.d(TAG, "Substratum has successfully unbinded with the Andromeda module.");
     }
 
-    public void sendBadNotification(NotificationCompat.Builder mBuilder) {
+    public void sendBadNotification() {
         NotificationManager mNotifyMgr =
                 (NotificationManager)
                         getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
 
+        final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), References.ANDROMEDA_NOTIFICATION_CHANNEL_ID);
         boolean isBadNotificationShowing = false;
         StatusBarNotification[] notifications;
         int badNotificationId = 2017;

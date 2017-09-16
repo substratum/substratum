@@ -361,13 +361,13 @@ public class References {
 
     public static void registerBroadcastReceivers(Context context) {
         try {
-            IntentFilter intentAppCrashed = new IntentFilter(APP_CRASHED);
             IntentFilter intentPackageAdded = new IntentFilter(PACKAGE_ADDED);
             intentPackageAdded.addDataScheme("package");
             IntentFilter intentPackageFullyRemoved = new IntentFilter(PACKAGE_FULLY_REMOVED);
             intentPackageFullyRemoved.addDataScheme("package");
 
             if (checkOMS(context)) {
+                IntentFilter intentAppCrashed = new IntentFilter(APP_CRASHED);
                 context.getApplicationContext().registerReceiver(
                         new AppCrashReceiver(), intentAppCrashed);
                 context.getApplicationContext().registerReceiver(
@@ -1714,7 +1714,7 @@ public class References {
         return false;
     }
 
-    public static PackageInfo getAndromedaPackage(Context context) {
+    private static PackageInfo getAndromedaPackage(Context context) {
         try {
             return context.getPackageManager().getPackageInfo(ANDROMEDA_PACKAGE, 0);
         } catch (Exception e) {

@@ -134,4 +134,33 @@ interface IInterfacerInterface {
      */
     void applyProfile(in List<String> enable, in List<String> disable, String name,
             boolean restartUi);
+
+    /**
+     * Get API Version
+     *
+     * @return           Interface API version
+     */
+    int getVersion();
+
+    /**
+     * Is caller authorised for API calls
+     *
+     * @return           Flag indicates if caller is authorised
+     */
+    boolean isAuthorised();
+
+    /**
+     * Returns information about all installed overlay packages.
+     * If there are no installed overlay packages for this user,
+     * an empty map is returned (i.e. null is never returned).
+     * The returned map is a mapping of target package names to
+     * lists of overlays. Each list for a given target package
+     * is sorted in priority order, with the overlay with the
+     * highest priority at the end of the list.
+     *
+     * @return           A Map<String, List<OverlayInfo>> with
+     *                   target package names mapped to lists
+     *                   of overlays
+     */
+    Map getAllOverlays();
 }

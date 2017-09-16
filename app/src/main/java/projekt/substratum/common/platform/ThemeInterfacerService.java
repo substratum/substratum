@@ -22,9 +22,12 @@ import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.om.OverlayInfo;
 import android.os.RemoteException;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import projekt.substratum.common.References;
 import projekt.substratum.services.binder.InterfacerBinderService;
@@ -376,5 +379,19 @@ public class ThemeInterfacerService {
             intent.putExtra(DESTINATION_FILE_KEY, destination);
             context.startService(intent);
         }
+    }
+
+    static Map<String, List<OverlayInfo>> getAllOverlays(Context context) {
+        if (References.isBinderInterfacer(context)) {
+            try {
+                //noinspection unchecked
+                return InterfacerBinderService.getInstance().getInterfacerInterface()
+                        .getAllOverlays();
+            } catch (RemoteException e) {
+                // Suppress warning
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 }

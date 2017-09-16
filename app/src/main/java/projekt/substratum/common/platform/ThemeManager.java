@@ -57,6 +57,7 @@ import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.checkAndromeda;
 import static projekt.substratum.common.References.checkOMS;
+import static projekt.substratum.common.References.checkOreo;
 import static projekt.substratum.common.References.checkThemeInterfacer;
 import static projekt.substratum.common.References.grabOverlayParent;
 import static projekt.substratum.common.References.isPackageInstalled;
@@ -265,8 +266,14 @@ public class ThemeManager {
             if (!References.checkOMS(context)) throw new Exception();
 
             // Now let's assume everything that gets through will now be only in OMS ROMs
-            @SuppressWarnings({"unchecked", "deprecation"})
-            Map<String, List<OverlayInfo>> allOverlays = OverlayManagerService.getAllOverlays();
+            Map<String, List<OverlayInfo>> allOverlays;
+            // On Oreo, use interfacer to get installed overlays
+            if (checkOreo() && checkThemeInterfacer(context)) {
+                allOverlays = ThemeInterfacerService.getAllOverlays(context);
+            } else {
+                //noinspection deprecation, unchecked
+                allOverlays = OverlayManagerService.getAllOverlays();
+            }
             if (allOverlays != null) {
                 Set<String> set = allOverlays.keySet();
                 switch (state2) {

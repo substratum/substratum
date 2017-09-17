@@ -159,11 +159,13 @@ public class ThemeFragment extends Fragment {
                     References.grabPackageHeroImage(
                             mContext, map.get(map.keySet().toArray()[i].toString())[1]));
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-            if (prefs.getBoolean("show_theme_ready_indicators", true)) {
+            if (prefs.getBoolean("show_theme_ready_indicators", true) &&
+                    !prefs.getBoolean("grid_style_cards", true)) {
                 themeItem.setThemeReadyVariable(References.grabThemeReadyVisibility(mContext,
                         map.get(map.keySet().toArray()[i].toString())[1]));
             }
-            if (prefs.getBoolean("show_template_version", false)) {
+            if (prefs.getBoolean("show_template_version", false) &&
+                    !prefs.getBoolean("grid_style_cards", true)) {
                 themeItem.setPluginVersion(References.grabPackageTemplateVersion(mContext,
                         map.get(map.keySet().toArray()[i].toString())[1]));
                 themeItem.setSDKLevels(References.grabThemeAPIs(mContext,

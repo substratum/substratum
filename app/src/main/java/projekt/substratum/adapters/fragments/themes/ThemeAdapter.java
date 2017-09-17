@@ -323,12 +323,12 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                     if (!References.isSamsung(mContext) && !References.checkAndromeda(mContext)) {
                         toBeUninstalled = themeItem;
                         new uninstallTheme().execute();
-                        sheetDialog.hide();
                     } else {
                         Uri packageURI = Uri.parse("package:" + themeItem.getThemePackage());
                         Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
                         mContext.startActivity(uninstallIntent);
                     }
+                    sheetDialog.hide();
                 });
 
                 sheetDialog.setContentView(sheetView);

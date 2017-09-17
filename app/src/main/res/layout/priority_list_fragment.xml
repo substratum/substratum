@@ -19,7 +19,6 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/tools"
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:ignore="NamespaceTypo">
@@ -33,64 +32,27 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/back_card"
+    <ProgressBar
+        android:id="@+id/priority_header_loading_bar"
+        style="?android:progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/action_bar_toolbar"
-        card_view:cardBackgroundColor="@color/main_screen_card_background"
-        card_view:cardCornerRadius="0dp"
-        card_view:cardElevation="@dimen/main_screen_card_elevation">
-
-        <ProgressBar
-            android:id="@+id/priority_header_loading_bar"
-            style="?android:progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-7dp"
-            android:indeterminate="true"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/priority_card_title2"
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/tv_content_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv"
-                android:layout_marginBottom="15dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/priority_card_content2"/>
-
-        </RelativeLayout>
-
-    </android.support.v7.widget.CardView>
+        android:layout_marginTop="-7dp"
+        android:indeterminate="true"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/back_card"
+        android:layout_below="@+id/action_bar_toolbar"
         android:paddingEnd="15dp"
         android:paddingStart="15dp"
         android:paddingTop="10dp"/>
 
-    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                     android:layout_width="match_parent"
-                                                     android:layout_height="match_parent">
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/profile_apply_fab"

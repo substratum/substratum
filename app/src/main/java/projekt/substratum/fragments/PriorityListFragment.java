@@ -25,11 +25,15 @@ import android.support.design.widget.Lunchbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -52,6 +56,33 @@ import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
 public class PriorityListFragment extends Fragment {
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.restore_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.restore_info) {
+            showPriorityInstructions();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showPriorityInstructions() {
+        new AlertDialog.Builder(getContext())
+                .setTitle(R.string.priority_instructions_title)
+                .setMessage(R.string.priority_instructions_content)
+                .setPositiveButton(android.R.string.ok, (dialogInterface, i) ->
+                        dialogInterface.dismiss())
+                .show();
+    }
+
+    @Override
     public View onCreateView(
             LayoutInflater inflater,
             ViewGroup container,
@@ -59,6 +90,9 @@ public class PriorityListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         final ViewGroup root = (ViewGroup)
                 inflater.inflate(R.layout.priority_list_fragment, container, false);
+
+        setHasOptionsMenu(true);
+
         final RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
         final FloatingActionButton applyFab = root.findViewById(R.id.profile_apply_fab);
         final LinearLayoutManager manager = new LinearLayoutManager(getContext());

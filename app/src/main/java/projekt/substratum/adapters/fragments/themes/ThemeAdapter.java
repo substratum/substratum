@@ -329,7 +329,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                         Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
                         mContext.startActivity(uninstallIntent);
                     }
-                    sheetDialog.hide();
+                    sheetDialog.dismiss();
                 });
 
                 sheetDialog.setContentView(sheetView);

@@ -851,6 +851,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             } else {
                 restartSystemUI.setChecked(false);
             }
+            if (References.isAndromedaDevice(getContext())) {
+                restartSystemUI.setVisible(false);
+            }
             restartSystemUI.setOnPreferenceChangeListener(
                     (preference, newValue) -> {
                         boolean isChecked = (Boolean) newValue;

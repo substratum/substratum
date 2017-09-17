@@ -125,14 +125,8 @@ public class ThemeFragment extends Fragment {
         swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(this::refreshLayout);
 
-        if (home_type.equals("")) {
-            // We use this because our splash screen is meant to hang (to load) than show a wheel
-            refreshLayout();
-        } else {
-            // This allows it to not hang the nav drawer activity
-            LayoutLoader layoutLoader = new LayoutLoader();
-            layoutLoader.execute("");
-        }
+        LayoutLoader layoutLoader = new LayoutLoader();
+        layoutLoader.execute("");
 
         // Now we need to sort the buffered installed Layers themes
         map = new TreeMap<>(substratum_packages);

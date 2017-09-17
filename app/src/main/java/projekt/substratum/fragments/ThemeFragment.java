@@ -162,7 +162,7 @@ public class ThemeFragment extends Fragment {
             themeItem.setThemeReadyVariable(References.grabThemeReadyVisibility(mContext,
                     map.get(map.keySet().toArray()[i].toString())[1]));
             if (prefs.getBoolean("show_template_version", false) &&
-                    !prefs.getBoolean("grid_style_cards", true)) {
+                    !prefs.getBoolean("grid_layout", true)) {
                 themeItem.setPluginVersion(References.grabPackageTemplateVersion(mContext,
                         map.get(map.keySet().toArray()[i].toString())[1]));
                 themeItem.setSDKLevels(References.grabThemeAPIs(mContext,

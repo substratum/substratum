@@ -240,6 +240,7 @@ public class References {
     // This int controls the delay for window refreshes to occur
     public static int REFRESH_WINDOW_DELAY = 500;
     // This int controls the default grid count for the theme adapter
+    public static int MIN_GRID_COUNT = 1;
     public static int DEFAULT_GRID_COUNT = 2;
     public static int MAX_GRID_COUNT = 4;
     // This int controls the default priority level for legacy overlays

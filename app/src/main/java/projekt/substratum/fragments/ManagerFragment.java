@@ -196,7 +196,7 @@ public class ManagerFragment extends Fragment {
         floatingActionButton = root.findViewById(R.id.apply_fab);
 
         // Create material sheet FAB
-        if (sheetView != null && overlay != null) {
+        if (overlay != null) {
             materialSheetFab = new MaterialSheetFab<>(
                     floatingActionButton,
                     sheetView,

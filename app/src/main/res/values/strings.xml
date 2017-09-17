@@ -331,6 +331,7 @@
     <string name="menu_disable">Disable installed overlays</string>
     <string name="menu_enable">Enable installed overlays</string>
     <string name="menu_favorite">Favorite</string>
+    <string name="menu_unfavorite">Remove favorite</string>
     <string name="menu_rate">Rate theme</string>
     <string name="menu_soft_reboot">Soft Reboot</string>
     <string name="menu_reboot_device">Reboot Device</string>
@@ -345,6 +346,9 @@
 
     <string name="menu_favorite_snackbar">Successfully set %s as an app shortcut!</string>
     <string name="menu_favorite_snackbar_cleared">Removed %s from being an app shortcut.</string>
+
+    <string name="launcher_shortcut">Shortcut on Launcher</string>
+    <string name="launcher_shortcut_toast">Successfully created a launcher icon!</string>
 
     <string name="changelog_title">%s theme changelog</string>
 

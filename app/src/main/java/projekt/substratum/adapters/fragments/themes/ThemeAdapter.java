@@ -26,6 +26,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Vibrator;
@@ -33,12 +34,14 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.Lunchbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -199,9 +202,95 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 if (v != null) {
                     v.vibrate(30);
                 }
+
+                // About the theme
+                SheetDialog sheetDialog = new SheetDialog(mContext);
+                View sheetView = View.inflate(mContext, R.layout.theme_long_press_sheet_dialog,
+                        null);
+
+                TextView aboutText = sheetView.findViewById(R.id.about_text);
+                aboutText.setText(
+                        String.format("%s\n%s\n%s",
+                                themeItem.getThemeName(),
+                                References.grabAppVersion(mContext, themeItem.getThemePackage()),
+                                References.grabPackageTemplateVersion(mContext,
+                                        themeItem.getThemePackage())));
+
+                Drawable img = References.grabAppIcon(mContext, themeItem.getThemePackage());
+                img.setBounds(0, 0, 60, 60);
+                aboutText.setCompoundDrawables(img, null, null, null);
+
+                // Favorite
+                LinearLayout favorite = sheetView.findViewById(R.id.favorite);
+
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+                Drawable favoriteImg = mContext.getDrawable(R.drawable.toolbar_favorite);
+                Drawable notFavoriteImg = mContext.getDrawable(R.drawable.toolbar_not_favorite);
+                TextView favoriteText = sheetView.findViewById(R.id.favorite_text);
+                if (prefs.getString("app_shortcut_theme", "").equals(themeItem.getThemePackage())) {
+                    assert favoriteImg != null;
+                    favoriteImg.setBounds(0, 0, 60, 60);
+                    favoriteText.setCompoundDrawables(favoriteImg, null, null, null);
+                    favoriteText.setText(mContext.getString(R.string.menu_unfavorite));
+                } else {
+                    assert notFavoriteImg != null;
+                    notFavoriteImg.setBounds(0, 0, 60, 60);
+                    favoriteText.setCompoundDrawables(notFavoriteImg, null, null, null);
+                    favoriteText.setText(mContext.getString(R.string.menu_favorite));
+                }
+
+                favorite.setOnClickListener(view1 -> {
+                    if (prefs.contains("app_shortcut_theme")) {
+                        if (!prefs.getString("app_shortcut_theme", "").equals(
+                                themeItem.getThemePackage())) {
+                            prefs.edit().remove("app_shortcut_theme").apply();
+                            References.clearShortcut(mContext);
+                            prefs.edit().putString("app_shortcut_theme",
+                                    themeItem.getThemePackage()).apply();
+                            References.createShortcut(
+                                    mContext,
+                                    themeItem.getThemePackage(),
+                                    themeItem.getThemeName());
+                            assert favoriteImg != null;
+                            favoriteImg.setBounds(0, 0, 60, 60);
+                            favoriteText.setCompoundDrawables(favoriteImg, null, null, null);
+                            favoriteText.setText(mContext.getString(R.string.menu_unfavorite));
+                        } else {
+                            prefs.edit().remove("app_shortcut_theme").apply();
+                            References.clearShortcut(mContext);
+                            assert notFavoriteImg != null;
+                            notFavoriteImg.setBounds(0, 0, 60, 60);
+                            favoriteText.setCompoundDrawables(notFavoriteImg, null, null, null);
+                            favoriteText.setText(mContext.getString(R.string.menu_favorite));
+                        }
+                    } else {
+                        prefs.edit().putString("app_shortcut_theme",
+                                themeItem.getThemePackage()).apply();
+                        References.createShortcut(
+                                mContext,
+                                themeItem.getThemePackage(),
+                                themeItem.getThemeName());
+                        assert favoriteImg != null;
+                        favoriteImg.setBounds(0, 0, 60, 60);
+                        favoriteText.setCompoundDrawables(favoriteImg, null, null, null);
+                        favoriteText.setText(mContext.getString(R.string.menu_unfavorite));
+                    }
+                });
+
+                // Shortcut
+                LinearLayout shortcut = sheetView.findViewById(R.id.shortcut);
+                shortcut.setOnClickListener(view12 -> {
+                    References.createLauncherIcon(mContext,
+                            themeItem.getThemePackage(), themeItem.getThemeName());
+                    Toast.makeText(
+                            mContext,
+                            mContext.getString(R.string.launcher_shortcut_toast),
+                            Toast.LENGTH_SHORT).show();
+                    sheetDialog.dismiss();
+                });
+
+                // Uninstalling
                 if (!References.isSamsung(mContext) && !References.checkAndromeda(mContext)) {
-                    SheetDialog sheetDialog = new SheetDialog(mContext);
-                    View sheetView = View.inflate(mContext, R.layout.uninstall_sheet_dialog, null);
                     LinearLayout uninstall = sheetView.findViewById(R.id.uninstall);
                     uninstall.setOnClickListener(view2 -> {
                         toBeUninstalled = themeItem;

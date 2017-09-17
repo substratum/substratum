@@ -421,6 +421,28 @@ public class References {
                 .getBoolean("caching_enabled", false);
     }
 
+    public static void createLauncherIcon(Context context, String theme_pid, String theme_name) {
+        Intent myIntent = new Intent(Intent.ACTION_MAIN);
+        myIntent.putExtra("theme_name", theme_name);
+        myIntent.putExtra("theme_pid", theme_pid);
+        myIntent.setComponent(
+                ComponentName.unflattenFromString(
+                        context.getPackageName() +
+                                "/" + AppShortcutLaunch.class.getName()));
+        myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+        Bitmap app_icon = ((BitmapDrawable)
+                grabAppIcon(context, theme_pid)).getBitmap();
+
+        Intent addIntent = new Intent();
+        addIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, myIntent);
+        addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, theme_name);
+        addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON, app_icon);
+        addIntent.putExtra("duplicate", false);
+        addIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
+        context.sendBroadcast(addIntent);
+    }
+
     public static void createShortcut(Context context, String theme_pid, String theme_name) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
             ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);

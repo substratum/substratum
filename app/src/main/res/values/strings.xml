@@ -678,7 +678,7 @@
     <string name="settings_force_english_toast_success" translatable="false">Successfully switched to English!</string>
     <string name="settings_force_english_toast_reverted">Successfully disabled force English!</string>
 
-    <string name="settings_manage_space_title">Manage Storage Usage</string>
+    <string name="settings_manage_space_title">Manage storage usage</string>
 
     <string name="settings_samsung_show_dangerous_overlays">Allow Dangerous Overlays</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Show all the overlays normally dangerous for Samsung devices if the theme does not support it.</string>

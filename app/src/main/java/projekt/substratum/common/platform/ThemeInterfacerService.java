@@ -266,7 +266,8 @@ public class ThemeInterfacerService {
     public static void clearThemedSounds(Context context) {
         if (References.isBinderInterfacer(context)) {
             try {
-                InterfacerBinderService.getInstance().getInterfacerInterface().applyAudio(null, null);
+                InterfacerBinderService.getInstance().getInterfacerInterface().applyAudio(null,
+                        null);
             } catch (RemoteException e) {
                 // Suppress warning
             }

@@ -137,7 +137,8 @@ public class AndromedaBinderService extends Service implements ServiceConnection
             }
         }
         if (mNotifyMgr != null && !isBadNotificationShowing) {
-            final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), References.ANDROMEDA_NOTIFICATION_CHANNEL_ID);
+            final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder
+                    (getApplicationContext(), References.ANDROMEDA_NOTIFICATION_CHANNEL_ID);
             mBuilder.setContentTitle(
                     getApplicationContext().getString(
                             R.string.andromeda_notification_title_negation));

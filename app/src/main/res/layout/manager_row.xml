@@ -138,6 +138,14 @@
                 android:textColor="@color/main_screen_card_theme_title"
                 android:textSize="14sp"/>
 
+            <TextView
+                android:id="@+id/version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/version_name_placeholder"
+                android:textColor="@color/main_screen_card_theme_title"
+                android:textSize="14sp"/>
+
         </LinearLayout>
 
         <CheckBox

@@ -92,12 +92,6 @@ public class ManagerAdapter extends
 
         viewHolder.tvName.setTextColor(overlayList.get(position_fixed).getActivationValue());
 
-        int version = References.getOverlaySubstratumVersion(
-                context,
-                packageName,
-                References.metadataOverlayVersion);
-        Boolean newUpdate = (version != 0) && BuildConfig.VERSION_CODE >= version;
-
         if (overlayList.get(position_fixed).getType1a() == null) {
             String metadata = References.getOverlayMetadata(
                     context,
@@ -225,6 +219,15 @@ public class ManagerAdapter extends
                     FROM_HTML_MODE_LEGACY));
         }
 
+        String textView = "<b>" + context.getString(R.string.manager_version) +
+                "</b> " +
+                String.valueOf(
+                        References.grabOverlaySubstratumVersion(
+                                context,
+                                overlayList.get(position_fixed)
+                                        .getName()));
+        viewHolder.version.setText(Html.fromHtml(textView, FROM_HTML_MODE_LEGACY));
+
         if (overlayList.get(position_fixed).getThemeName().length() == 0) {
             viewHolder.tvDesc.setText(packageName);
         } else {
@@ -302,6 +305,7 @@ public class ManagerAdapter extends
         TextView type2;
         TextView type3;
         TextView type4;
+        TextView version;
 
         ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
@@ -317,6 +321,7 @@ public class ManagerAdapter extends
             type2 = itemLayoutView.findViewById(R.id.type2);
             type3 = itemLayoutView.findViewById(R.id.type3);
             type4 = itemLayoutView.findViewById(R.id.type4);
+            version = itemLayoutView.findViewById(R.id.version);
         }
     }
 }

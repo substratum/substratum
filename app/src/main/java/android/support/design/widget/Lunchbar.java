@@ -252,6 +252,12 @@ public final class Lunchbar extends BaseTransientBottomBar {
         return this;
     }
 
+    @Override
+    boolean shouldAnimate() {
+        // Force animation!
+        return true;
+    }
+
     /**
      * @hide
      */
@@ -280,12 +286,6 @@ public final class Lunchbar extends BaseTransientBottomBar {
         public void onDismissed(Lunchbar transientBottomBar, @DismissEvent int event) {
             // Stub implementation to make API check happy.
         }
-    }
-
-    @Override
-    boolean shouldAnimate() {
-        // Force animation!
-        return true;
     }
 
     /**

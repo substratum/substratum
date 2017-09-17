@@ -39,6 +39,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -53,6 +56,7 @@ import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -153,6 +157,13 @@ public class ManagerFragment extends Fragment {
             if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
                 swipeRefreshLayout.setRefreshing(false);
             }
+
+            boolean alphabetize = prefs.getBoolean("alphabetize_overlays", true);
+            if (alphabetize) {
+                overlayList.sort(Comparator.comparing(ManagerItem::getLabelName));
+            } else {
+                overlayList.sort(Comparator.comparing(ManagerItem::getThemeName));
+            }
         }
         toggle_all.setChecked(false);
     }
@@ -163,6 +174,8 @@ public class ManagerFragment extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(true);
 
         // Register the theme install receiver to auto refresh the fragment
         refreshReceiver = new RefreshReceiver();
@@ -320,6 +333,74 @@ public class ManagerFragment extends Fragment {
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.overlays_list_menu, menu);
+        menu.findItem(R.id.search).setVisible(false);
+        updateMenuButtonState(menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    public boolean updateMenuButtonState(Menu menu) {
+        MenuItem alphabetizeMenu = menu.findItem(R.id.alphabetize);
+        boolean alphabetize = prefs.getBoolean("alphabetize_overlays", true);
+        if (alphabetize) {
+            alphabetizeMenu.setIcon(R.drawable.actionbar_alphabetize);
+        } else {
+            alphabetizeMenu.setIcon(R.drawable.actionbar_randomize);
+        }
+        return alphabetize;
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        Boolean alphabetize = updateMenuButtonState(menu);
+        if ((overlayList != null && overlayList.size() > 0)) {
+            if (!alphabetize) refreshThemeName();
+            refreshList();
+        }
+        super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (materialSheetFab.isSheetVisible()) {
+            materialSheetFab.hideSheet();
+        } else {
+            if (item.getItemId() == R.id.alphabetize) {
+                boolean alphabetize = prefs.getBoolean("alphabetize_overlays", true);
+                if (alphabetize) {
+                    prefs.edit().putBoolean("alphabetize_overlays", false).apply();
+                } else {
+                    prefs.edit().putBoolean("alphabetize_overlays", true).apply();
+                }
+                getActivity().invalidateOptionsMenu();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void refreshThemeName() {
+        if (overlayList != null && overlayList.size() > 0) {
+            for (int i = 0; i < overlayList.size(); i++) {
+                Context context = overlayList.get(i).getContext();
+                String packageName = overlayList.get(i).getName();
+                if (overlayList.get(i).getThemeName() == null) {
+                    String metadata = References.getOverlayMetadata(
+                            context, packageName, References.metadataOverlayParent);
+                    if (metadata != null && metadata.length() > 0) {
+                        String pName = "<b>" + context.getString(R.string.manager_theme_name) +
+                                "</b> " +
+                                References.grabPackageName(context, metadata);
+                        overlayList.get(i).setThemeName(pName);
+                    }
+                }
+            }
+        }
+    }
+
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         if (References.checkThemeInterfacer(context)) {
@@ -464,6 +545,13 @@ public class ManagerFragment extends Fragment {
                 fragment.mRecyclerView.setAdapter(fragment.mAdapter);
 
                 fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
+
+                boolean alphabetize = fragment.prefs.getBoolean("alphabetize_overlays", true);
+                if (alphabetize) {
+                    fragment.overlayList.sort(Comparator.comparing(ManagerItem::getLabelName));
+                } else {
+                    fragment.overlayList.sort(Comparator.comparing(ManagerItem::getThemeName));
+                }
 
                 if (fragment.overlaysList.size() == 0) {
                     fragment.floatingActionButton.hide();

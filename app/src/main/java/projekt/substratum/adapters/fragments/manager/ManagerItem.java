@@ -37,6 +37,7 @@ public class ManagerItem implements Serializable {
     private String type3;
     private String type4;
     private String themeName;
+    private String labelName;
     private boolean isSelected;
     private int activationValue;
     private Context mContext;
@@ -65,6 +66,7 @@ public class ManagerItem implements Serializable {
         }
 
         this.updateEnabledOverlays(isActivated);
+        setLabelName(name);
     }
 
     int getActivationValue() {
@@ -149,8 +151,17 @@ public class ManagerItem implements Serializable {
         return themeName;
     }
 
-    void setThemeName(String name) {
+    public void setThemeName(String name) {
         this.themeName = name;
+    }
+
+    public String getLabelName() {
+        return labelName;
+    }
+
+    public void setLabelName(String packageName) {
+        labelName = References.grabPackageName(getContext(),
+                References.grabOverlayTarget(getContext(), packageName));
     }
 
     public Drawable getDrawable() {

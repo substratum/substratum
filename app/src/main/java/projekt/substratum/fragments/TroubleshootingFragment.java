@@ -34,36 +34,20 @@ public class TroubleshootingFragment extends Fragment {
 
     int[] troubleshootQuestions = {
             R.string.question_one,
-            R.string.question_two,
-            R.string.question_three,
-            R.string.question_four,
             R.string.question_five,
-            R.string.question_six,
-            R.string.question_seven,
             R.string.question_eight,
             R.string.question_nine,
-            R.string.question_ten,
             R.string.question_eleven,
-            R.string.question_twelve,
-            R.string.question_thirteen,
-            R.string.question_fourteen
+            R.string.question_twelve
     };
 
     int[] troubleshootAnswers = {
             R.string.answer_one,
-            R.string.answer_two,
-            R.string.answer_three,
-            R.string.answer_four,
             R.string.answer_five,
-            R.string.answer_six,
-            R.string.answer_seven,
             R.string.answer_eight,
             R.string.answer_nine,
-            R.string.answer_ten,
             R.string.answer_eleven,
-            R.string.answer_twelve,
-            R.string.answer_thirteen,
-            R.string.answer_fourteen
+            R.string.answer_twelve
     };
 
     @Override

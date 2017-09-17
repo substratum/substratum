@@ -25,42 +25,11 @@
         priority switching.
     </string>
 
-    <string name="question_two">What is the Theme Interfacer?</string>
-    <string name="answer_two">The Theme Interfacer is the base of what allows Substratum to run
-        like a Theme Engine. The idea of an interface is to simulate the “server/client”
-        technicalities and Substratum communicates with the Interfacer handlers to signal commands
-        directly on the system.
-    </string>
-
-    <string name="question_three">What do I need in order for Substratum to work properly?</string>
-    <string name="answer_three">You will need a ROM that has support for the OMS and Theme Interfacer
-        system (ask them, they will know), this app, and a compatible theme (check its
-        Play Store description or ask the developer)
-    </string>
-
-    <string name="question_four">Can I use Substratum even if my ROM does not have OMS support?
-    </string>
-    <string name="answer_four">Yes, if your ROM has support for RRO (stock Nougat falls into
-        the category). The other requirements above are the same (root, this app, and a compatible
-        theme). You will apply the same way but the compilation and apply steps are combined and a
-        reboot is required to apply the overlays.
-    </string>
-
     <string name="question_five">How do I apply a theme?</string>
     <string name="answer_five">The application of a theme is a two part process: compilation of the
         overlays and application of the overlays. Go into the theme, click the Overlay Manager tab, select the overlays and options you
         want, hit the FAB and choose Compile/Update, then chose those same overlays, and hit the FAB
         and choose Enable Selected.
-    </string>
-
-    <string name="question_six">My overlays did not compile, what happened?</string>
-    <string name="answer_six">Delete your /system/bin/aopt file, relaunch the application, and try
-        the above process again.
-    </string>
-
-    <string name="question_seven">My theme did not apply, what happened?</string>
-    <string name="answer_seven">If you are applying a theme for the first time or from the stock
-        theme, make sure you do not have the \"Disable other themes\" option checked.
     </string>
 
     <string name="question_eight">I\'m bootlooping! How do I fix it?</string>
@@ -69,40 +38,19 @@
         /storage/emulated/0/substratum/SubstratumRescue.zip. Flash this ZIP in recovery and reboot!
     </string>
 
-    <string name="question_nine">Some elements look janky after I applied a theme, what happened?
-    </string>
+    <string name="question_nine">Some elements look janky after I applied a theme, what happened?</string>
     <string name="answer_nine">
         1. Restart SystemUI if it didn\'t do so automatically.\n2. Reboot the phone.\n3. Disable
         the overlays, recompile, and reenable.
     </string>
 
-    <string name="question_ten">Where are overlays installed?</string>
-    <string name="answer_ten">Overlays are installed in the /data/app folder, which means each
-        overlay getting its own folder.
-    </string>
-
-    <string name="question_eleven">I\'m getting an error when trying to update a theme on the Play
-        Store.
-    </string>
+    <string name="question_eleven">I\'m getting an error when trying to update a theme on the Play Store.</string>
     <string name="answer_eleven">Uninstall the theme and reinstall it.</string>
 
-    <string name="question_twelve">Who do I contact if I have a serious issue not resolved by
-        reading these steps?
-    </string>
+    <string name="question_twelve">Who do I contact if I have a serious issue not resolved by reading these steps?</string>
     <string name="answer_twelve">Please make a post in the Substratum Google+ community. Please provide
         the following information: Substratum version, ROM, theme (if issues applying one), and, if
         possible, a logcat.
-    </string>
-
-    <string name="question_thirteen">How do I use substratum on my Samsung device?</string>
-    <string name="answer_thirteen">If your Samsung device is running Nougat, Substratum will be
-        able to utilise a built-in feature to allow Substratum themes to work. Substratum will
-        prompt you to purchase the Samsung Integration Addon when you launch the app for the first time.
-    </string>
-
-    <string name="question_fourteen">Help, I installed an overlay on my Samsung device and it won\'t boot now!</string>
-    <string name="answer_fourteen">Slide the navdrawer out and head to the XDA thread for instructions
-        on how to recover from this particular situation.
     </string>
 
 </resources>

@@ -30,6 +30,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -38,7 +39,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
-import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.R;
 import projekt.substratum.adapters.showcase.ShowcaseItem;
 import projekt.substratum.adapters.showcase.ShowcaseItemAdapter;
@@ -55,7 +55,7 @@ public class ShowcaseTab extends Fragment {
 
     private ViewGroup root;
     private RecyclerView mRecyclerView;
-    private MaterialProgressBar materialProgressBar;
+    private ProgressBar materialProgressBar;
     private View no_network, no_wallpapers;
     private int current_tab_position;
     private String current_tab_address;

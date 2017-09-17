@@ -44,6 +44,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
@@ -65,7 +66,6 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.R;
 import projekt.substratum.adapters.tabs.sounds.SoundsAdapter;
 import projekt.substratum.adapters.tabs.sounds.SoundsInfo;
@@ -83,7 +83,7 @@ public class Sounds extends Fragment {
     private static final String TAG = "SoundUtils";
     private String theme_pid;
     private ViewGroup root;
-    private MaterialProgressBar progressBar;
+    private ProgressBar progressBar;
     private Spinner soundsSelector;
     private ArrayList<SoundsInfo> wordList;
     private RecyclerView recyclerView;

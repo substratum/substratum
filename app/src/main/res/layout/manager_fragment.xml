@@ -121,9 +121,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+                <ProgressBar
                     android:id="@+id/progress_bar_loader"
-                    style="@style/Widget.MaterialProgressBar.ProgressBar"
+                    style="?android:attr/indeterminateProgressStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"

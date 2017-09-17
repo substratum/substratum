@@ -147,8 +147,6 @@ dependencies {
     implementation 'commons-io:commons-io:2.5'
     // APK Signer
     implementation 'com.android.tools.build:apksig:2.5.0-alpha-preview-02'
-    // Loading
-    implementation 'me.zhanghai.android.materialprogressbar:library:1.4.2'
     // App Intro
     implementation 'com.stephentuso:welcome:1.4.1'
     // Floating Action Buttons
@@ -158,7 +156,6 @@ dependencies {
         transitive = true
     }
     // About Libraries
-    //implementation 'com.mikepenz:itemanimators:1.0.0@aar'
     implementation('com.mikepenz:aboutlibraries:5.9.7@aar') {
         transitive = true
     }

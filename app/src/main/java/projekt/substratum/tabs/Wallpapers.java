@@ -28,6 +28,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -40,7 +41,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Map;
 
-import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.R;
 import projekt.substratum.adapters.tabs.wallpapers.WallpaperAdapter;
 import projekt.substratum.adapters.tabs.wallpapers.WallpaperEntries;
@@ -54,7 +54,7 @@ public class Wallpapers extends Fragment {
     private String wallpaperUrl;
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private MaterialProgressBar materialProgressBar;
+    private ProgressBar materialProgressBar;
     private View no_network, no_wallpapers;
 
     @Override

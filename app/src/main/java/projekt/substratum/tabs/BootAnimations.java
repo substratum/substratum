@@ -45,6 +45,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
@@ -66,7 +67,6 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.R;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.FileOperations;
@@ -83,7 +83,7 @@ public class BootAnimations extends Fragment {
     private static final String TAG = "BootAnimationUtils";
     private String theme_pid;
     private ImageView bootAnimationPreview;
-    private MaterialProgressBar progressBar;
+    private ProgressBar progressBar;
     private Spinner bootAnimationSelector;
     private RelativeLayout bootanimation_placeholder;
     private RelativeLayout defaults;

@@ -29,6 +29,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import com.thesurix.gesturerecycler.DefaultItemClickListener;
@@ -38,7 +39,6 @@ import com.thesurix.gesturerecycler.RecyclerItemTouchListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.R;
 import projekt.substratum.adapters.fragments.priorities.PrioritiesInterface;
 import projekt.substratum.adapters.fragments.priorities.PrioritiesItem;
@@ -53,7 +53,7 @@ public class PriorityLoaderFragment extends Fragment {
     private PriorityAdapter adapter;
     private RelativeLayout emptyView;
     private RecyclerView recyclerView;
-    private MaterialProgressBar materialProgressBar;
+    private ProgressBar materialProgressBar;
 
     @Override
     public View onCreateView(

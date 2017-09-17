@@ -103,36 +103,6 @@
     <!-- License section -->
     <string name="library_kenburnsview_licenseId" translatable="false">apache_2_0</string>
 
-    <!-- Material Progress Bar -->
-    <string name="define_materialprogressbar"/>
-    <!-- Author section -->
-    <string name="library_materialprogressbar_author" translatable="false">Zhang Hai</string>
-    <string name="library_materialprogressbar_authorWebsite" translatable="false">
-        http://blog.zhanghai.me/
-    </string>
-    <!-- Library section -->
-    <string name="library_materialprogressbar_libraryName" translatable="false">
-        MaterialProgressBar
-    </string>
-    <string name="library_materialprogressbar_libraryDescription">Material Design ProgressBar with
-        consistent appearance on Android 4.0+.
-    </string>
-    <string name="library_materialprogressbar_libraryWebsite" translatable="false">
-        https://github.com/DreaminginCodeZH/MaterialProgressBar
-    </string>
-    <string name="library_materialprogressbar_libraryVersion" translatable="false">1.1.6</string>
-    <!-- OpenSource section -->
-    <string name="library_materialprogressbar_isOpenSource" translatable="false">true</string>
-    <string name="library_materialprogressbar_repositoryLink" translatable="false">
-        https://github.com/DreaminginCodeZH/MaterialProgressBar
-    </string>
-    <!-- ClassPath for autoDetect section -->
-    <string name="library_materialprogressbar_classPath" translatable="false">
-        me.zhanghai.android.materialprogressbar
-    </string>
-    <!-- License section -->
-    <string name="library_materialprogressbar_licenseId" translatable="false">apache_2_0</string>
-
     <!-- Material Sheet Fab -->
     <string name="define_materialsheetfab"/>
     <!-- Author section -->

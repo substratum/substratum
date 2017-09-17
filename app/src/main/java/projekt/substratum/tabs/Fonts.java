@@ -41,6 +41,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -64,7 +65,6 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.R;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.ElevatedCommands;
@@ -78,7 +78,7 @@ public class Fonts extends Fragment {
     private static final String TAG = "FontUtils";
     private String theme_pid;
     private ViewGroup root;
-    private MaterialProgressBar progressBar;
+    private ProgressBar progressBar;
     private Spinner fontSelector;
     private RelativeLayout font_holder;
     private RelativeLayout font_placeholder;

@@ -85,7 +85,6 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
 import projekt.substratum.adapters.tabs.overlays.OverlaysAdapter;
@@ -149,7 +148,7 @@ public class Overlays extends Fragment {
     public ProgressBar progressBar;
     public Boolean is_overlay_active = false;
     public StringBuilder error_logs;
-    public MaterialProgressBar materialProgressBar;
+    public ProgressBar materialProgressBar;
     public double current_amount = 0;
     public double total_amount = 0;
     public String current_dialog_overlay;

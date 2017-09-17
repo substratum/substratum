@@ -35,9 +35,9 @@
             android:paddingStart="15dp"
             android:paddingTop="10dp"/>
 
-        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+        <ProgressBar
             android:id="@+id/loading_priorities"
-            style="@style/Widget.MaterialProgressBar.ProgressBar"
+            style="?android:attr/indeterminateProgressStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"

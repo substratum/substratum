@@ -38,6 +38,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -46,7 +47,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.activities.showcase.ShowcaseActivity;
@@ -198,7 +198,7 @@ public class ThemeFragment extends Fragment {
     }
 
     public void refreshLayout() {
-        MaterialProgressBar materialProgressBar = root.findViewById(R.id.progress_bar_loader);
+        ProgressBar materialProgressBar = root.findViewById(R.id.progress_bar_loader);
         materialProgressBar.setVisibility(View.VISIBLE);
         PackageManager packageManager = mContext.getPackageManager();
         list.clear();

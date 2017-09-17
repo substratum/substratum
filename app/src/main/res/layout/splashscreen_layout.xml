@@ -19,7 +19,6 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_gravity="center"
@@ -34,12 +33,13 @@
         android:contentDescription="@string/app_name"
         android:src="@drawable/substratum_icon"/>
 
-    <me.zhanghai.android.materialprogressbar.MaterialProgressBar
-        style="@style/Widget.MaterialProgressBar.ProgressBar"
+    <ProgressBar
+        android:id="@+id/progress_bar_loader"
+        style="?android:attr/indeterminateProgressStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="102dp"
         android:indeterminate="true"
-        app:mpb_indeterminateTint="@color/colorAccent"/>
+        android:indeterminateTint="@color/colorAccent"/>
 
 </LinearLayout>

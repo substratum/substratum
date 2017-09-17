@@ -57,7 +57,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import projekt.substratum.R;
 import projekt.substratum.adapters.fragments.manager.ManagerAdapter;
 import projekt.substratum.adapters.fragments.manager.ManagerItem;
@@ -93,7 +92,7 @@ public class ManagerFragment extends Fragment {
     private FloatingActionMenu floatingActionButton;
     private SwipeRefreshLayout swipeRefreshLayout;
     private Boolean first_run = null;
-    private MaterialProgressBar progressBar;
+    private ProgressBar progressBar;
     private RecyclerView mRecyclerView;
     private ProgressBar loadingBar;
     private List<ManagerItem> overlayList;

@@ -85,6 +85,7 @@ import projekt.substratum.activities.showcase.ShowcaseActivity;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
+import projekt.substratum.common.platform.AndromedaService;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.fragments.ManagerFragment;
 import projekt.substratum.fragments.PriorityListFragment;
@@ -1226,6 +1227,10 @@ public class MainActivity extends SubstratumActivity implements
                 oreoCheck &= !References.checkThemeInterfacer(context);
                 oreoCheck &= !References.checkAndromeda(context);
                 oreoCheck &= !grantedRoot;
+                boolean andromeda_check = false;
+                if (References.isAndromedaDevice(context)) {
+                    andromeda_check = !AndromedaService.checkServerActivity();
+                }
                 boolean legacyCheck = !References.checkOMS(context);
                 legacyCheck &= !grantedRoot;
                 legacyCheck &= References.isSamsungDevice(context) == samsungCheck;
@@ -1235,7 +1240,7 @@ public class MainActivity extends SubstratumActivity implements
                 omsCheck &= References.checkOreo() == oreoCheck;
                 boolean switchCheck = ENABLE_ROOT_CHECK && !BYPASS_ALL_VERSION_CHECKS;
                 boolean passthrough = switchCheck &&
-                        (samsungCheck || oreoCheck || legacyCheck || omsCheck);
+                        (samsungCheck || oreoCheck || andromeda_check || legacyCheck || omsCheck);
                 showDialogOrNot(passthrough);
                 if (!passthrough) permissionCheck();
             }
@@ -1270,6 +1275,25 @@ public class MainActivity extends SubstratumActivity implements
                                         context.getString(R.string.activity_missing_toast),
                                         Toast.LENGTH_SHORT).show();
                             }
+                        });
+                        textView.setVisibility(View.GONE);
+                        titleView.setVisibility(View.GONE);
+                    } else if (References.isAndromedaDevice(context) &&
+                            !AndromedaService.checkServerActivity()) {
+                        TextView andromedaTitle = activity.mProgressDialog.findViewById(
+                                R.id.andromeda_title);
+                        andromedaTitle.setText(R.string.andromeda_disconnected);
+                        andromedaTitle.setVisibility(View.VISIBLE);
+                        Button andromedaButton = activity.mProgressDialog.findViewById(
+                                R.id.andromeda_button);
+                        andromedaButton.setText(R.string.andromeda_check_status);
+                        andromedaButton.setVisibility(View.VISIBLE);
+                        andromedaButton.setOnClickListener(view -> {
+                            Intent intent = new Intent();
+                            intent.setComponent(
+                                    new ComponentName(ANDROMEDA_PACKAGE,
+                                            ANDROMEDA_PACKAGE + ".InfoActivity"));
+                            context.startActivity(intent);
                         });
                         textView.setVisibility(View.GONE);
                         titleView.setVisibility(View.GONE);

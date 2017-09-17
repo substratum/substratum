@@ -149,6 +149,5 @@ public class AndromedaBinderService extends Service implements ServiceConnection
             mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
             mNotifyMgr.notify(badNotificationId, mBuilder.build());
         }
-        System.exit(0);
     }
 }

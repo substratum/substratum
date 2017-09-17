@@ -339,7 +339,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         final CheckBoxPreference nougat_style_cards = (CheckBoxPreference)
                 getPreferenceManager().findPreference("nougat_style_cards");
-        if (prefs.getBoolean("nougat_style_cards", false)) {
+        if (prefs.getBoolean("nougat_style_cards", true)) {
             nougat_style_cards.setChecked(true);
         } else {
             nougat_style_cards.setChecked(false);
@@ -407,6 +407,73 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     } else {
                         prefs.edit().putBoolean("show_template_version", false).apply();
                         show_template_version.setChecked(false);
+                    }
+                    return false;
+                });
+
+        Preference grid_style_cards_count =
+                getPreferenceManager().findPreference("grid_style_cards_count");
+        grid_style_cards_count.setVisible(false);
+        String toFormat =
+                String.format(getString(R.string.grid_size_text),
+                        prefs.getInt("grid_style_cards_count", References.DEFAULT_GRID_COUNT));
+        grid_style_cards_count.setSummary(toFormat);
+        grid_style_cards_count.setOnPreferenceClickListener(
+                preference -> {
+                    AlertDialog.Builder d = new AlertDialog.Builder(getContext());
+                    d.setTitle(getString(R.string.grid_size_title));
+
+                    NumberPicker numberPicker = new NumberPicker(getContext());
+                    // Maximum overlay priority count
+                    numberPicker.setMaxValue(References.MAX_GRID_COUNT);
+                    // Minimum overlay priority count
+                    numberPicker.setMinValue(References.DEFAULT_GRID_COUNT);
+                    // Set the value to the current chosen priority by the user
+                    numberPicker.setValue(prefs.getInt("grid_style_cards_count",
+                            References.DEFAULT_GRID_COUNT));
+                    // Do not wrap selector wheel
+                    numberPicker.setWrapSelectorWheel(false);
+
+                    d.setView(numberPicker);
+                    d.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
+                        Integer new_count = numberPicker.getValue();
+                        prefs.edit().putInt(
+                                "grid_style_cards_count", new_count).apply();
+                        grid_style_cards_count.setSummary(
+                                String.format(
+                                        getString(R.string.grid_size_text),
+                                        new_count));
+                    });
+                    d.setNegativeButton(android.R.string.cancel, (dialogInterface, i) ->
+                            dialogInterface.cancel());
+                    d.show();
+                    return false;
+                });
+
+        final CheckBoxPreference grid_style_cards = (CheckBoxPreference)
+                getPreferenceManager().findPreference("grid_style_cards");
+        if (prefs.getBoolean("grid_layout", true)) {
+            grid_style_cards.setChecked(true);
+            grid_style_cards_count.setVisible(true);
+            show_template_version.setVisible(false);
+        } else {
+            grid_style_cards.setChecked(false);
+            grid_style_cards_count.setVisible(false);
+            show_template_version.setVisible(true);
+        }
+        grid_style_cards.setOnPreferenceChangeListener(
+                (preference, newValue) -> {
+                    boolean isChecked = (Boolean) newValue;
+                    if (isChecked) {
+                        prefs.edit().putBoolean("grid_layout", true).apply();
+                        grid_style_cards.setChecked(true);
+                        grid_style_cards_count.setVisible(true);
+                        show_template_version.setVisible(false);
+                    } else {
+                        prefs.edit().putBoolean("grid_layout", false).apply();
+                        grid_style_cards.setChecked(false);
+                        grid_style_cards_count.setVisible(false);
+                        show_template_version.setVisible(true);
                     }
                     return false;
                 });

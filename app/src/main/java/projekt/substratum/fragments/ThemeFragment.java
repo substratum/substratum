@@ -31,6 +31,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -151,9 +152,13 @@ public class ThemeFragment extends Fragment {
         // Assign adapter to RecyclerView
         recyclerView.setAdapter(adapter);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-
+        if (prefs.getBoolean("grid_layout", true)) {
+            recyclerView.setLayoutManager(new GridLayoutManager(getContext(),
+                    prefs.getInt("grid_style_cards_count", 2)));
+        } else {
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+            recyclerView.setLayoutManager(layoutManager);
+        }
         return root;
     }
 

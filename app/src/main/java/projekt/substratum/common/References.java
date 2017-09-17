@@ -236,6 +236,9 @@ public class References {
     public static int notification_id_upgrade = 248600;
     // This int controls the delay for window refreshes to occur
     public static int REFRESH_WINDOW_DELAY = 500;
+    // This int controls the default grid count for the theme adapter
+    public static int DEFAULT_GRID_COUNT = 2;
+    public static int MAX_GRID_COUNT = 4;
     // This int controls the default priority level for legacy overlays
     public static int DEFAULT_PRIORITY = 999;
     // These strings control package names for system apps
@@ -695,7 +698,7 @@ public class References {
         editor.putBoolean("substratum_oms", checkOMS(context));
         editor.putBoolean("show_template_version", false);
         editor.putBoolean("vibrate_on_compiled", false);
-        editor.putBoolean("nougat_style_cards", false);
+        editor.putBoolean("nougat_style_cards", true);
         editor.putBoolean("aopt_debug", false);
         editor.putBoolean("theme_debug", false);
         editor.putBoolean("force_english", false);
@@ -711,6 +714,8 @@ public class References {
         editor.putBoolean("show_dangerous_samsung_overlays", false);
         editor.putBoolean("autosave_logchar", true);
         editor.putBoolean("display_old_themes", false);
+        editor.putBoolean("grid_style_cards", true);
+        editor.putInt("grid_style_cards_count", DEFAULT_GRID_COUNT);
         editor.putInt("legacy_overlay_priority", DEFAULT_PRIORITY);
         editor.remove("seen_restore_warning");
         editor.remove("previous_logchar_cleanup");

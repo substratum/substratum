@@ -207,6 +207,20 @@
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:key="grid_style_cards"
+            android:summary="@string/grid_style_cards_subtext"
+            android:title="@string/grid_style_cards_title"/>
+
+        <Preference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="grid_style_cards_count"
+            android:summary="@string/grid_size_text"
+            android:title="@string/grid_size_title"/>
+
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:key="nougat_style_cards"
             android:summary="@string/nougat_style_cards_subtext"
             android:title="@string/nougat_style_cards_title"/>

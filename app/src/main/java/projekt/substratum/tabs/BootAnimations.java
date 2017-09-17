@@ -325,7 +325,7 @@ public class BootAnimations extends Fragment {
                     });
                     previewHandler.postDelayed(previewRunnable, ANIMATION_FRAME_DURATION);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    // Suppress warning
                 }
             };
         }

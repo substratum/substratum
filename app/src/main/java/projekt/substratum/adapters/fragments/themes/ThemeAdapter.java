@@ -104,7 +104,10 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         } else {
             viewHolder.theme_version.setVisibility(View.INVISIBLE);
         }
-        if (themeItem.getThemeReadyVariable() == null) {
+
+        SharedPreferences pref =
+                PreferenceManager.getDefaultSharedPreferences(themeItem.getContext());
+        if (pref.getBoolean("grid_layout", true) || themeItem.getThemeReadyVariable() == null) {
             viewHolder.divider.setVisibility(View.GONE);
             viewHolder.tbo.setVisibility(View.GONE);
             viewHolder.two.setVisibility(View.GONE);

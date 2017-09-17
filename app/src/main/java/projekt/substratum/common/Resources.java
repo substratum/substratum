@@ -26,31 +26,6 @@ public class Resources {
     public static final String[] ALLOWED_SETTINGS_ELEMENTS = {
             "com.android.settings.icons",
     };
-    // Debug Keys
-    public static final int[] ANDROID_STUDIO_DEBUG_KEYS = {
-            -391541258, // nicholaschum
-            1897721985, // Telegram Build Bot
-
-            // Insert Release Keys Available for the build
-            236782367, // Release
-            326894784, // Release
-            637743013, // Release
-            768578887, // Release
-            827197839, // Release
-            783927894, // Release
-            162367398, // Release
-            345155151, // Release
-            783927894, // Release
-            168853322, // Release
-            234236563, // Release
-            976864848, // Release
-            678329548, // Release
-            948595891, // Release
-            167891490, // Release
-            609820436, // Release
-            387945779, // Release
-            815479991, // Release
-    };
 
     // Default core packages
     public static final String[] CORE_SYSTEM_PACKAGES = {
@@ -94,12 +69,14 @@ public class Resources {
             // Organization Packages
             "projekt.substratum",
     };
+
     // List of errors to catch
     public static final String[] SUBSTRATUM_OVERLAY_FAULT_EXCEPTIONS = {
             "ResourceNotFoundException",
             "InflateException",
             "UnsupportedOperationException"
     };
+
     // Filter to adjust SystemUI elements
     static final String[] ALLOWED_SYSTEMUI_ELEMENTS = {
             "com.android.systemui.headers",
@@ -107,6 +84,7 @@ public class Resources {
             "com.android.systemui.statusbars",
             "com.android.systemui.tiles"
     };
+
     // Predetermined list of new Nexus/Pixel Devices
     static final String[] NEXUS_FILTER = new String[]{
             "angler", // Nexus 6P
@@ -119,12 +97,14 @@ public class Resources {
             "muskie", // Pixel XL 2
             "taimen", // Pixel ?
     };
+
     // Filter to adjust UI sounds
     static final String[] ALLOWED_UI_THEMABLE_SOUNDS = {
             "lock_sound",
             "unlock_sound",
             "low_battery_sound"
     };
+
     // Legacy Asset Folder Check
     static final String[] ALLOWED_LEGACY_ASSETS = {
             "overlays",
@@ -132,12 +112,7 @@ public class Resources {
             "bootanimation",
             "sounds"
     };
-    // Do not theme these packages on icon pack studio
-    static final String[] BLACKLIST_STUDIO_TARGET_APPS = {
-            "com.keramidas.TitaniumBackup",
-            "com.android.cts.verifier",
-            INTERFACER_PACKAGE
-    };
+
     // Do not theme these packages
     static final String[] BLACKLIST_THEME_TARGET_APPS = {
             "com.android.cts.verifier",

@@ -48,7 +48,6 @@ import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.References.isAndromedaDevice;
-import static projekt.substratum.common.Resources.ANDROID_STUDIO_DEBUG_KEYS;
 import static projekt.substratum.common.analytics.FirebaseAnalytics.PACKAGES_PREFS;
 import static projekt.substratum.common.analytics.PackageAnalytics.isLowEnd;
 
@@ -244,24 +243,10 @@ public class SplashScreenActivity extends Activity {
                 securityIntent = intent;
                 context.getApplicationContext().unregisterReceiver(keyRetrieval);
                 if (securityIntent != null) {
-                    int hash = securityIntent.getIntExtra("app_hash", 0);
                     boolean debug = securityIntent.getBooleanExtra("app_debug", true);
                     String installer = securityIntent.getStringExtra("app_installer");
 
-                    boolean itbf = true;
-                    for (int ANDROID_STUDIO_DEBUG_KEY : ANDROID_STUDIO_DEBUG_KEYS) {
-                        if ((ANDROID_STUDIO_DEBUG_KEY++ +
-                                ++ANDROID_STUDIO_DEBUG_KEY -
-                                --ANDROID_STUDIO_DEBUG_KEY
-                                - 1) == hash) {
-                            editor.putBoolean("sungstratum", true).apply();
-                            itbf = !itbf;
-                            break;
-                        }
-                    }
                     editor.putBoolean("sungstratum_debug", debug).apply();
-
-                    editor.putBoolean("sungstratum_hash", itbf).apply();
 
                     editor.putBoolean("sungstratum_installer",
                             installer.equals(PLAY_STORE_PACKAGE_NAME)).apply();

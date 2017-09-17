@@ -1663,8 +1663,6 @@ public class References {
                 context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
 
         boolean debuggingValue = prefs.getBoolean("sungstratum_debug", true);
-        boolean hashBoolValue = prefs.getBoolean("sungstratum_hash", false);
-        boolean evaluatedResponse = prefs.getBoolean("sungstratum", false);
         boolean installer = prefs.getBoolean("sungstratum_installer", false);
         String fingerprint = prefs.getString("sungstratum_fp", "0");
         String expFingerprint = prefs.getString(
@@ -1674,8 +1672,6 @@ public class References {
                 liveInstaller.equals(PLAY_STORE_PACKAGE_NAME);
 
         boolean sungstratumPresent = !debuggingValue;
-        sungstratumPresent &= !hashBoolValue;
-        sungstratumPresent &= evaluatedResponse;
         sungstratumPresent &= installer;
         sungstratumPresent &= fingerprint.toUpperCase(
                 Locale.getDefault()).equals(

@@ -33,9 +33,9 @@
         <ImageView
             android:id="@+id/icon"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="110dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/root_rejected_image"/>
+            android:src="@drawable/ic_root_requester"/>
 
         <TextView
             android:id="@+id/title"

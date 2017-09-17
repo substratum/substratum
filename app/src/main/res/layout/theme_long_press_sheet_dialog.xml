@@ -34,18 +34,45 @@
         android:orientation="horizontal"
         android:padding="16dp">
 
-        <TextView
-            android:id="@+id/about_text"
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/default_overlay_icon"/>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:drawablePadding="16dp"
-            android:drawableStart="@drawable/default_overlay_icon"
-            android:gravity="start"
-            android:text="APP_TITLE"
-            android:textColor="?android:attr/textColorPrimary"/>
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/icon"
+            android:layout_toStartOf="@id/icons"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/about_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="16dp"
+                android:gravity="start"
+                android:text="APP_TITLE"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/more_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="16dp"
+                android:gravity="start"
+                android:text="MORE_TEXT"
+                android:textColor="?android:attr/textColorPrimary"/>
+
+        </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/icons"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

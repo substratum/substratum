@@ -35,6 +35,7 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.Lunchbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -205,20 +206,21 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
                 // About the theme
                 SheetDialog sheetDialog = new SheetDialog(mContext);
-                View sheetView = View.inflate(mContext, R.layout.theme_long_press_sheet_dialog,
-                        null);
+                View sheetView =
+                        View.inflate(mContext, R.layout.theme_long_press_sheet_dialog, null);
 
                 TextView aboutText = sheetView.findViewById(R.id.about_text);
-                aboutText.setText(
-                        String.format("%s\n%s\n%s",
-                                themeItem.getThemeName(),
-                                References.grabAppVersion(mContext, themeItem.getThemePackage()),
-                                References.grabPackageTemplateVersion(mContext,
-                                        themeItem.getThemePackage())));
+                TextView moreText = sheetView.findViewById(R.id.more_text);
+                String boldedThemeName = "<b>" + themeItem.getThemeName() + "</b>";
+                aboutText.setText(Html.fromHtml(boldedThemeName, Html.FROM_HTML_MODE_LEGACY));
+                moreText.setText(String.format("%s\n%s",
+                        References.grabAppVersion(mContext, themeItem.getThemePackage()),
+                        References.grabPackageTemplateVersion(mContext,
+                                themeItem.getThemePackage())));
 
-                Drawable img = References.grabAppIcon(mContext, themeItem.getThemePackage());
-                img.setBounds(0, 0, 60, 60);
-                aboutText.setCompoundDrawables(img, null, null, null);
+                ImageView icon = sheetView.findViewById(R.id.icon);
+                icon.setImageBitmap(References.getBitmapFromDrawable(
+                        References.grabAppIcon(mContext, themeItem.getThemePackage())));
 
                 ImageView two = sheetView.findViewById(R.id.theme_unready_indicator);
                 ImageView tbo = sheetView.findViewById(R.id.theme_ready_indicator);

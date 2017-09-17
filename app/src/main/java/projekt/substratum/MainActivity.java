@@ -34,7 +34,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -96,7 +95,6 @@ import projekt.substratum.fragments.SettingsFragment;
 import projekt.substratum.fragments.TeamFragment;
 import projekt.substratum.fragments.ThemeFragment;
 import projekt.substratum.fragments.TroubleshootingFragment;
-import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.services.floatui.SubstratumFloatInterface;
 import projekt.substratum.services.tiles.FloatUiTile;
 import projekt.substratum.util.files.Root;
@@ -281,8 +279,7 @@ public class MainActivity extends SubstratumActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getApplicationContext();
-        mProgressDialog = new Dialog(this,
-                android.R.style.Theme_DeviceDefault_NoActionBar_Fullscreen);
+        mProgressDialog = new Dialog(this, R.style.SubstratumBuilder_ActivityTheme);
         mProgressDialog.setCancelable(false);
 
         if (BuildConfig.DEBUG && !References.isSamsung(context)) {
@@ -1254,8 +1251,8 @@ public class MainActivity extends SubstratumActivity implements
                     activity.mProgressDialog.setContentView(R.layout.root_rejected_loader);
 
                     TextView titleView = activity.mProgressDialog.findViewById(R.id.title);
-                    TextView textView = activity.mProgressDialog.findViewById(R.id.timer);
-
+                    TextView textView =
+                            activity.mProgressDialog.findViewById(R.id.root_rejected_text);
                     if (References.isSamsungDevice(context)) {
                         TextView samsungTitle = activity.mProgressDialog.findViewById(
                                 R.id.sungstratum_title);
@@ -1274,10 +1271,10 @@ public class MainActivity extends SubstratumActivity implements
                                         Toast.LENGTH_SHORT).show();
                             }
                         });
-                        titleView.setVisibility(View.GONE);
                         textView.setVisibility(View.GONE);
-                    } else if (References.checkOreo() && !References.isPackageInstalled(context,
-                            ANDROMEDA_PACKAGE)) {
+                        titleView.setVisibility(View.GONE);
+                    } else if (References.checkOreo() &&
+                            !References.isPackageInstalled(context, ANDROMEDA_PACKAGE)) {
                         TextView andromedaTitle = activity.mProgressDialog.findViewById(
                                 R.id.andromeda_title);
                         andromedaTitle.setVisibility(View.VISIBLE);
@@ -1295,46 +1292,9 @@ public class MainActivity extends SubstratumActivity implements
                                         Toast.LENGTH_SHORT).show();
                             }
                         });
-                        titleView.setVisibility(View.GONE);
                         textView.setVisibility(View.GONE);
-                    } else if (References.isPackageInstalled(
-                            context, "eu.chainfire.supersu")) {
-                        new CountDownTimer(5000, 1000) {
-                            public void onTick(long millisUntilFinished) {
-                                if ((millisUntilFinished / 1000) > 1) {
-                                    textView.setText(String.format(
-                                            activity.getString(R.string.root_rejected_timer_plural),
-                                            (millisUntilFinished / 1000) + ""));
-                                } else {
-                                    textView.setText(String.format(
-                                            activity.getString(R.string
-                                                    .root_rejected_timer_singular),
-
-                                            (millisUntilFinished / 1000) + ""));
-                                }
-                            }
-
-                            public void onFinish() {
-                                activity.mProgressDialog.dismiss();
-                                activity.finish();
-                            }
-                        }.start();
-                    } else {
-                        textView.setText(activity.getString(R.string.root_rejected_text_cm_phh));
+                        titleView.setVisibility(View.GONE);
                     }
-
-                    new CountDownTimer(1000, 1000) {
-                        @Override
-                        public void onTick(long l) {
-                        }
-
-                        @Override
-                        public void onFinish() {
-                            activity.mProgressDialog.hide();
-                            activity.mProgressDialog.show();
-                        }
-                    }.start();
-                    context.stopService(new Intent(context, AndromedaBinderService.class));
                 } else {
                     CheckBinaries.install(activity.context, false);
                     if (References.checkOMS(context)) new DoCleanUp(context).execute();

@@ -454,10 +454,8 @@
 
     <string name="sb_phase_1_loader">extracting theme</string>
     <string name="sb_phase_2_loader">installing overlay</string>
-    <string name="root_rejected_title">falling back to rooted mode</string>
-    <string name="root_rejected_text_cm_phh">there are no other theme engines able to be utilized on the device without root&#8230;</string>
-    <string name="root_rejected_timer_plural">closing in %s seconds&#8230;</string>
-    <string name="root_rejected_timer_singular">closing in %s second&#8230;</string>
+    <string name="root_rejected_title">could not fall back to rooted mode</string>
+    <string name="root_rejected_text">there are no other theme engines able to be utilized on this device at this current time&#8230;</string>
 
     <string name="toast_compiled_updated">Selected overlay(s) updated!</string>
     <string name="toast_compiled_missing">One or more overlays cannot compile due to missing configurations under this set up&#8230;</string>
@@ -475,7 +473,7 @@
     <string name="toast_could_not_uninstall">No valid overlays selected.</string>
 
     <string name="toast_samsung_prototype_alert">Substratum automatically hid unsupported system overlays for your device!</string>
-    <string name="andromeda_no_root_dialog">It seems that you are on a supported OMS device, an addon was released to support this!</string>
+    <string name="andromeda_no_root_dialog">It seems that you are on a supported themable Oreo device, an addon was released to support this!</string>
     <string name="andromeda_no_root_dialog_button">Download now!</string>
     <string name="samsung_prototype_no_root_dialog">It seems that you are on a supported Samsung device, an addon was released to support this!</string>
     <string name="samsung_prototype_no_root_dialog_button">Download now!</string>

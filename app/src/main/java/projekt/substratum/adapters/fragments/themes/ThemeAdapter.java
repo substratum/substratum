@@ -34,7 +34,6 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.Lunchbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -290,20 +289,21 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 });
 
                 // Uninstalling
-                if (!References.isSamsung(mContext) && !References.checkAndromeda(mContext)) {
-                    LinearLayout uninstall = sheetView.findViewById(R.id.uninstall);
-                    uninstall.setOnClickListener(view2 -> {
+                LinearLayout uninstall = sheetView.findViewById(R.id.uninstall);
+                uninstall.setOnClickListener(view2 -> {
+                    if (!References.isSamsung(mContext) && !References.checkAndromeda(mContext)) {
                         toBeUninstalled = themeItem;
                         new uninstallTheme().execute();
                         sheetDialog.hide();
-                    });
-                    sheetDialog.setContentView(sheetView);
-                    sheetDialog.show();
-                } else {
-                    Uri packageURI = Uri.parse("package:" + themeItem.getThemePackage());
-                    Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
-                    mContext.startActivity(uninstallIntent);
-                }
+                    } else {
+                        Uri packageURI = Uri.parse("package:" + themeItem.getThemePackage());
+                        Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
+                        mContext.startActivity(uninstallIntent);
+                    }
+                });
+
+                sheetDialog.setContentView(sheetView);
+                sheetDialog.show();
             }
             return false;
         });

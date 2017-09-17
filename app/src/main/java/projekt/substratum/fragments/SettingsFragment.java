@@ -412,6 +412,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     }
                     return false;
                 });
+        if (prefs.getInt("grid_style_cards_count", References.DEFAULT_GRID_COUNT) > 1) {
+            show_template_version.setVisible(false);
+        }
 
         Preference grid_style_cards_count =
                 getPreferenceManager().findPreference("grid_style_cards_count");

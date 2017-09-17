@@ -23,8 +23,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -44,7 +42,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -62,12 +59,10 @@ public class ThemeFragment extends Fragment {
     private Map<String, String[]> map;
     private Context mContext;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private List<ApplicationInfo> list;
     private ThemeAdapter adapter;
     private View cardView;
     private ViewGroup root;
     private String home_type = "", title = "";
-    private SharedPreferences prefs;
     private TextView cardViewText;
     private ImageView cardViewImage;
     private LocalBroadcastManager localBroadcastManager;
@@ -96,7 +91,7 @@ public class ThemeFragment extends Fragment {
         localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
         localBroadcastManager.registerReceiver(refreshReceiver, intentFilter);
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         if (prefs.getBoolean("nougat_style_cards", false)) {
             root = (ViewGroup) inflater.inflate(R.layout.home_fragment_n, container, false);
         } else {
@@ -126,10 +121,6 @@ public class ThemeFragment extends Fragment {
         cardView.setVisibility(View.GONE);
         cardViewText = cardView.findViewById(R.id.no_themes_description);
         cardViewImage = cardView.findViewById(R.id.no_themes_installed);
-
-        // Create it so it uses a recyclerView to parse substratum-based themes
-        PackageManager packageManager = mContext.getPackageManager();
-        list = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
 
         swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(this::refreshLayout);
@@ -205,30 +196,15 @@ public class ThemeFragment extends Fragment {
     public void refreshLayout() {
         ProgressBar materialProgressBar = root.findViewById(R.id.progress_bar_loader);
         materialProgressBar.setVisibility(View.VISIBLE);
-        PackageManager packageManager = mContext.getPackageManager();
-        list.clear();
         substratum_packages = new HashMap<>();
-        list = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
 
-        if (prefs.getBoolean("display_old_themes", true)) {
-            list.stream().filter(packageInfo ->
-                    (packageInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0).forEach(packageInfo ->
-                    References.getSubstratumPackages(
-                            mContext,
-                            substratum_packages,
-                            home_type,
-                            MainActivity.userInput));
-            Log.d(References.SUBSTRATUM_LOG,
-                    "Substratum has loaded themes using the pre-499 theme database filter");
-        } else {
-            References.getSubstratumPackages(
-                    mContext,
-                    substratum_packages,
-                    home_type,
-                    MainActivity.userInput);
-            Log.d(References.SUBSTRATUM_LOG,
-                    "Substratum has loaded themes using the post-499 theme database filter");
-        }
+        References.getSubstratumPackages(
+                mContext,
+                substratum_packages,
+                home_type,
+                MainActivity.userInput);
+        Log.d(References.SUBSTRATUM_LOG,
+                "Substratum has listed all installed themes!");
 
         if (substratum_packages.size() == 0) {
             if (((MainActivity) getActivity()).searchView != null &&
@@ -288,62 +264,16 @@ public class ThemeFragment extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            if (isAdded()) refreshLayout();
-            if (substratum_packages.size() == 0) {
-                if (((MainActivity) getActivity()).searchView != null &&
-                        !((MainActivity) getActivity()).searchView.isIconified()) {
-                    if (MainActivity.userInput.length() > 0) {
-                        String parse = String.format(
-                                getString(R.string.no_themes_description_search),
-                                MainActivity.userInput);
-                        cardViewText.setText(parse);
-                        cardViewImage.setImageDrawable(
-                                getContext().getDrawable(R.drawable.no_themes_found));
-                    } else {
-                        cardViewText.setText(getString(R.string.no_themes_description));
-                        cardViewImage.setImageDrawable(
-                                getContext().getDrawable(R.drawable.no_themes_installed));
-                    }
-                } else {
-                    cardViewText.setText(getString(R.string.no_themes_description));
-                    cardViewImage.setImageDrawable(
-                            getContext().getDrawable(R.drawable.no_themes_installed));
-                }
-                cardView.setVisibility(View.VISIBLE);
-                recyclerView.setVisibility(View.GONE);
-            } else {
-                cardView.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
-            }
             super.onPostExecute(result);
+            refreshLayout();
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
             try {
-                if (prefs.getBoolean("display_old_themes", true)) {
-                    list.stream().filter(packageInfo ->
-                            (packageInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0).forEach(
-                            packageInfo ->
-                                    References.getSubstratumPackages(
-                                            mContext,
-                                            substratum_packages,
-                                            home_type,
-                                            MainActivity.userInput));
-                    Log.d(References.SUBSTRATUM_LOG,
-                            "Substratum has loaded themes using the pre-499 theme database filter");
-                } else {
-                    References.getSubstratumPackages(
-                            mContext,
-                            substratum_packages,
-                            home_type,
-                            MainActivity.userInput);
-                    Log.d(References.SUBSTRATUM_LOG,
-                            "Substratum has loaded themes using the " +
-                                    "post-499 theme database filter");
-                }
-            } catch (Exception e) {
-                // Exception
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
             return null;
         }

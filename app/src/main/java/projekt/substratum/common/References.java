@@ -88,6 +88,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -97,6 +98,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -713,7 +716,6 @@ public class References {
         editor.putBoolean("theme_updater", false);
         editor.putBoolean("show_dangerous_samsung_overlays", false);
         editor.putBoolean("autosave_logchar", true);
-        editor.putBoolean("display_old_themes", false);
         editor.putBoolean("grid_style_cards", true);
         editor.putInt("grid_style_cards_count", DEFAULT_GRID_COUNT);
         editor.putInt("legacy_overlay_priority", DEFAULT_PRIORITY);
@@ -1782,7 +1784,6 @@ public class References {
                 }
                 if (can_continue) {
                     Context otherContext = context.createPackageContext(packageName, 0);
-                    AssetManager am = otherContext.getAssets();
                     if (home_type.equals(wallpaperFragment)) {
                         if (appInfo.metaData.getString(metadataWallpapers) != null) {
                             String[] data = {appInfo.metaData.getString(metadataAuthor),
@@ -1800,11 +1801,22 @@ public class References {
                                 PackageAnalytics.logPackageInfo(context, packageName);
                         } else {
                             try {
-                                String[] stringArray = am.list("");
-                                if (Arrays.asList(stringArray).contains(home_type)) {
-                                    String[] data = {appInfo.metaData.getString(metadataAuthor),
-                                            packageName};
-                                    packages.put(appInfo.metaData.getString(metadataName), data);
+                                try (ZipFile zf = new ZipFile(
+                                        otherContext.getApplicationInfo().sourceDir)) {
+                                    for (Enumeration<? extends ZipEntry> e = zf.entries();
+                                         e.hasMoreElements(); ) {
+                                        ZipEntry ze = e.nextElement();
+                                        String name = ze.getName();
+                                        if (name.startsWith("assets/" + home_type + "/")) {
+                                            String[] data = {
+                                                    appInfo.metaData.getString(metadataAuthor),
+                                                    packageName};
+                                            packages.put(
+                                                    appInfo.metaData.getString(metadataName),
+                                                    data);
+                                            break;
+                                        }
+                                    }
                                 }
                             } catch (Exception e) {
                                 Log.e(SUBSTRATUM_LOG,

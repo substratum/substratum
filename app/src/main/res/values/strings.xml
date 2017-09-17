@@ -853,7 +853,7 @@
     <string name="wallpaper_name_placeholder" translatable="false">WALLPAPER_NAME</string>
     <string name="hyphen_placeholder" translatable="false">-</string><!-- The things lint will complain about...-->
     <string name="fonts_demo_string">AaBbCcDd123</string>
-    <string name="overlays_tab_package_ver_message">Installed %s version : %s</string>
+    <string name="overlays_tab_package_ver_message">Installed %s version: %s</string>
     <string name="overlays_tab_package_ver_failure">Failed to grab package version</string>
 
 </resources>

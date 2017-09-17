@@ -312,14 +312,16 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
         });
 
         viewHolder.card.setOnLongClickListener(view -> {
-            String packageVersion = References.grabAppVersion(context, current_object.getPackageName());
+            String packageVersion = References.grabAppVersion(context, current_object
+                    .getPackageName());
             if (packageVersion != null)
                 Toast.makeText(context, String.format(
                         context.getString(R.string.overlays_tab_package_ver_message),
                         current_object.getName(),
                         packageVersion), Toast.LENGTH_LONG).show();
             else
-                Toast.makeText(context, R.string.overlays_tab_package_ver_failure, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.overlays_tab_package_ver_failure, Toast
+                        .LENGTH_SHORT).show();
             return false;
         });
 

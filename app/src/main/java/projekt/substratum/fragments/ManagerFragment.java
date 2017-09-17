@@ -197,8 +197,6 @@ public class ManagerFragment extends Fragment {
         //Don't even display the "enable_disable_selected" button to non-oms users.
         if (!checkOMS(context))
             sheetView.findViewById(R.id.enable_disable_selected).setVisibility(View.GONE);
-        else
-            sheetView.findViewById(R.id.enable_disable_selected).setVisibility(View.GONE);
         View overlay = root.findViewById(R.id.overlay);
         int sheetColor = context.getColor(R.color.fab_menu_background_card);
         int fabColor = context.getColor(R.color.fab_background_color);

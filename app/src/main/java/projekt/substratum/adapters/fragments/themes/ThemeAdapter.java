@@ -220,6 +220,30 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 img.setBounds(0, 0, 60, 60);
                 aboutText.setCompoundDrawables(img, null, null, null);
 
+                ImageView two = sheetView.findViewById(R.id.theme_unready_indicator);
+                ImageView tbo = sheetView.findViewById(R.id.theme_ready_indicator);
+                tbo.setOnClickListener(v2 -> explainTBO());
+                two.setOnClickListener(v2 -> explainTWO());
+
+                switch (themeItem.getThemeReadyVariable()) {
+                    case "all":
+                        tbo.setVisibility(View.VISIBLE);
+                        two.setVisibility(View.VISIBLE);
+                        break;
+                    case "ready":
+                        tbo.setVisibility(View.VISIBLE);
+                        two.setVisibility(View.GONE);
+                        break;
+                    case "stock":
+                        tbo.setVisibility(View.GONE);
+                        two.setVisibility(View.VISIBLE);
+                        break;
+                    default:
+                        tbo.setVisibility(View.GONE);
+                        two.setVisibility(View.GONE);
+                        break;
+                }
+
                 // Favorite
                 LinearLayout favorite = sheetView.findViewById(R.id.favorite);
 
@@ -311,62 +335,65 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
             return false;
         });
 
-        viewHolder.tbo.setOnClickListener(
-                v -> new AlertDialog.Builder(mContext)
-                        .setMessage(R.string.tbo_description)
-                        .setPositiveButton(R.string.tbo_dialog_proceed,
-                                (dialog, which) -> {
-                                    try {
-                                        String playURL =
-                                                mContext.getString(R.string.tbo_theme_ready_url);
-                                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                                        intent.setData(Uri.parse(playURL));
-                                        mContext.startActivity(intent);
-                                    } catch (ActivityNotFoundException anfe) {
-                                        // Suppress warning
-                                    }
-                                })
-                        .setNegativeButton(android.R.string.cancel,
-                                (dialog, which) -> dialog.cancel())
-                        .setCancelable(true)
-                        .show()
-        );
-
-        viewHolder.two.setOnClickListener(
-                v -> new AlertDialog.Builder(mContext)
-                        .setMessage(R.string.two_description)
-                        .setCancelable(true)
-                        .setPositiveButton(R.string.dynamic_gapps_dialog,
-                                (dialog, which) -> {
-                                    try {
-                                        String playURL =
-                                                mContext.getString(R.string.dynamic_gapps_link);
-                                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                                        intent.setData(Uri.parse(playURL));
-                                        mContext.startActivity(intent);
-                                    } catch (ActivityNotFoundException anfe) {
-                                        // Suppress warning
-                                    }
-                                })
-                        .setNegativeButton(R.string.open_gapps_dialog,
-                                (dialog, which) -> {
-                                    try {
-                                        String playURL =
-                                                mContext.getString(R.string.open_gapps_link);
-                                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                                        intent.setData(Uri.parse(playURL));
-                                        mContext.startActivity(intent);
-                                    } catch (ActivityNotFoundException anfe) {
-                                        // Suppress warning
-                                    }
-                                })
-                        .setNeutralButton(android.R.string.cancel,
-                                (dialog, which) -> dialog.cancel())
-                        .show()
-        );
+        viewHolder.tbo.setOnClickListener(v -> explainTBO());
+        viewHolder.two.setOnClickListener(v -> explainTWO());
 
         viewHolder.theme_author.setText(themeItem.getThemeAuthor());
         viewHolder.imageView.setImageDrawable(themeItem.getThemeDrawable());
+    }
+
+    private void explainTBO() {
+        new AlertDialog.Builder(mContext)
+                .setMessage(R.string.tbo_description)
+                .setPositiveButton(R.string.tbo_dialog_proceed,
+                        (dialog, which) -> {
+                            try {
+                                String playURL =
+                                        mContext.getString(R.string.tbo_theme_ready_url);
+                                Intent intent = new Intent(Intent.ACTION_VIEW);
+                                intent.setData(Uri.parse(playURL));
+                                mContext.startActivity(intent);
+                            } catch (ActivityNotFoundException anfe) {
+                                // Suppress warning
+                            }
+                        })
+                .setNegativeButton(android.R.string.cancel,
+                        (dialog, which) -> dialog.cancel())
+                .setCancelable(true)
+                .show();
+    }
+
+    private void explainTWO() {
+        new AlertDialog.Builder(mContext)
+                .setMessage(R.string.two_description)
+                .setCancelable(true)
+                .setPositiveButton(R.string.dynamic_gapps_dialog,
+                        (dialog, which) -> {
+                            try {
+                                String playURL =
+                                        mContext.getString(R.string.dynamic_gapps_link);
+                                Intent intent = new Intent(Intent.ACTION_VIEW);
+                                intent.setData(Uri.parse(playURL));
+                                mContext.startActivity(intent);
+                            } catch (ActivityNotFoundException anfe) {
+                                // Suppress warning
+                            }
+                        })
+                .setNegativeButton(R.string.open_gapps_dialog,
+                        (dialog, which) -> {
+                            try {
+                                String playURL =
+                                        mContext.getString(R.string.open_gapps_link);
+                                Intent intent = new Intent(Intent.ACTION_VIEW);
+                                intent.setData(Uri.parse(playURL));
+                                mContext.startActivity(intent);
+                            } catch (ActivityNotFoundException anfe) {
+                                // Suppress warning
+                            }
+                        })
+                .setNeutralButton(android.R.string.cancel,
+                        (dialog, which) -> dialog.cancel())
+                .show();
     }
 
     @Override

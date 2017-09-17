@@ -431,16 +431,29 @@ public class References {
                                 "/" + AppShortcutLaunch.class.getName()));
         myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-        Bitmap app_icon = ((BitmapDrawable)
-                grabAppIcon(context, theme_pid)).getBitmap();
+        Bitmap app_icon = getBitmapFromDrawable(grabAppIcon(context, theme_pid));
 
-        Intent addIntent = new Intent();
-        addIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, myIntent);
-        addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, theme_name);
-        addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON, app_icon);
-        addIntent.putExtra("duplicate", false);
-        addIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
-        context.sendBroadcast(addIntent);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            Intent addIntent = new Intent();
+            addIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, myIntent);
+            addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, theme_name);
+            addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON, app_icon);
+            addIntent.putExtra("duplicate", false);
+            addIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
+            context.sendBroadcast(addIntent);
+        } else {
+            ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
+            ShortcutInfo shortcut =
+                    new ShortcutInfo.Builder(context, theme_name)
+                            .setShortLabel(theme_name)
+                            .setLongLabel(theme_name)
+                            .setIcon(Icon.createWithBitmap(app_icon))
+                            .setIntent(myIntent)
+                            .build();
+            if (shortcutManager != null) {
+                shortcutManager.requestPinShortcut(shortcut, null);
+            }
+        }
     }
 
     public static void createShortcut(Context context, String theme_pid, String theme_name) {

@@ -29,6 +29,7 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Lunchbar;
@@ -281,10 +282,12 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 shortcut.setOnClickListener(view12 -> {
                     References.createLauncherIcon(mContext,
                             themeItem.getThemePackage(), themeItem.getThemeName());
-                    Toast.makeText(
-                            mContext,
-                            mContext.getString(R.string.launcher_shortcut_toast),
-                            Toast.LENGTH_SHORT).show();
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+                        Toast.makeText(
+                                mContext,
+                                mContext.getString(R.string.launcher_shortcut_toast),
+                                Toast.LENGTH_SHORT).show();
+                    }
                     sheetDialog.dismiss();
                 });
 

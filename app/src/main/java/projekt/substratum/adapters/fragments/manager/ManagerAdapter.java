@@ -32,7 +32,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
 import projekt.substratum.common.References;
 

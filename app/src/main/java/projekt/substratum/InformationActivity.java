@@ -127,7 +127,9 @@ public class InformationActivity extends SubstratumActivity {
     private MaterialSheetFab materialSheetFab;
     private int tabPosition;
     private LocalBroadcastManager localBroadcastManager;
+    private LocalBroadcastManager localBroadcastManager2;
     private BroadcastReceiver refreshReceiver;
+    private AndromedaReceiver andromedaReceiver;
     private int dominantColor;
 
     private static int getDominantColor(Bitmap bitmap) {
@@ -284,6 +286,13 @@ public class InformationActivity extends SubstratumActivity {
         IntentFilter if1 = new IntentFilter(MANAGER_REFRESH);
         localBroadcastManager = LocalBroadcastManager.getInstance(getApplicationContext());
         localBroadcastManager.registerReceiver(refreshReceiver, if1);
+
+        if (References.isAndromedaDevice(getApplicationContext())) {
+            andromedaReceiver = new InformationActivity.AndromedaReceiver();
+            IntentFilter filter2 = new IntentFilter("AndromedaReceiver.KILL");
+            localBroadcastManager2 = LocalBroadcastManager.getInstance(getApplicationContext());
+            localBroadcastManager2.registerReceiver(andromedaReceiver, filter2);
+        }
 
         boolean dynamicActionBarColors = getResources().getBoolean(R.bool.dynamicActionBarColors);
         boolean dynamicNavBarColors = getResources().getBoolean(R.bool.dynamicNavigationBarColors);
@@ -1023,6 +1032,12 @@ public class InformationActivity extends SubstratumActivity {
             // Unregistered already
         }
 
+        try {
+            localBroadcastManager2.unregisterReceiver(andromedaReceiver);
+        } catch (IllegalArgumentException e) {
+            // Unregistered already
+        }
+
         if (!BYPASS_SUBSTRATUM_BUILDER_DELETION &&
                 !References.isCachingEnabled(getApplicationContext())) {
             String workingDirectory =
@@ -1159,6 +1174,14 @@ public class InformationActivity extends SubstratumActivity {
                 References.sendRefreshMessage(context);
                 finish();
             }
+        }
+    }
+
+    class AndromedaReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            finish();
         }
     }
 }

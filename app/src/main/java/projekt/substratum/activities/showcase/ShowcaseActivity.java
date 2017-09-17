@@ -21,7 +21,10 @@ package projekt.substratum.activities.showcase;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -29,6 +32,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Lunchbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -57,6 +61,18 @@ public class ShowcaseActivity extends AppCompatActivity {
     private RelativeLayout no_network;
     private SwipeRefreshLayout swipeRefreshLayout;
     private SharedPreferences prefs;
+    private LocalBroadcastManager localBroadcastManager;
+    private AndromedaReceiver andromedaReceiver;
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try {
+            localBroadcastManager.unregisterReceiver(andromedaReceiver);
+        } catch (IllegalArgumentException e) {
+            // Unregistered already
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -136,6 +152,13 @@ public class ShowcaseActivity extends AppCompatActivity {
 
         prefs = PreferenceManager.getDefaultSharedPreferences(
                 getApplicationContext());
+
+        if (References.isAndromedaDevice(getApplicationContext())) {
+            andromedaReceiver = new ShowcaseActivity.AndromedaReceiver();
+            IntentFilter filter2 = new IntentFilter("AndromedaReceiver.KILL");
+            localBroadcastManager = LocalBroadcastManager.getInstance(getApplicationContext());
+            localBroadcastManager.registerReceiver(andromedaReceiver, filter2);
+        }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -275,6 +298,14 @@ public class ShowcaseActivity extends AppCompatActivity {
 
             FileDownloader.init(getApplicationContext(), sUrl[0], inputFileName, "ShowcaseCache");
             return inputFileName;
+        }
+    }
+
+    class AndromedaReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            finish();
         }
     }
 }

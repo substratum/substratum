@@ -1478,6 +1478,13 @@ public class References {
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
+    public static void sendAndromedaRefreshMessage(Context context) {
+        Log.d("AndromedaReceiver",
+                "Andromeda has been killed, notifying the MainActivity now!");
+        Intent intent = new Intent("AndromedaReceiver.KILL");
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+    }
+
     public static void sendRefreshMessage(Context context) {
         Log.d("ThemeFragmentRefresher",
                 "A theme has been modified, sending update signal to refresh the list!");

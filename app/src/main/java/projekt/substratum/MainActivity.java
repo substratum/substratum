@@ -134,7 +134,9 @@ public class MainActivity extends SubstratumActivity implements
     private SharedPreferences prefs;
     private boolean hideBundle, hideRestartUi;
     private LocalBroadcastManager localBroadcastManager;
+    private LocalBroadcastManager localBroadcastManager2;
     private KillReceiver killReceiver;
+    private AndromedaReceiver andromedaReceiver;
     private Context context;
 
     public void switchToCustomToolbar(String title, String content) {
@@ -274,6 +276,11 @@ public class MainActivity extends SubstratumActivity implements
         } catch (IllegalArgumentException e) {
             // Unregistered already
         }
+        try {
+            localBroadcastManager2.unregisterReceiver(andromedaReceiver);
+        } catch (IllegalArgumentException e) {
+            // Unregistered already
+        }
     }
 
     @Override
@@ -304,6 +311,13 @@ public class MainActivity extends SubstratumActivity implements
         IntentFilter filter = new IntentFilter("MainActivity.KILL");
         localBroadcastManager = LocalBroadcastManager.getInstance(context);
         localBroadcastManager.registerReceiver(killReceiver, filter);
+
+        if (References.isAndromedaDevice(context)) {
+            andromedaReceiver = new AndromedaReceiver();
+            IntentFilter filter2 = new IntentFilter("AndromedaReceiver.KILL");
+            localBroadcastManager2 = LocalBroadcastManager.getInstance(context);
+            localBroadcastManager2.registerReceiver(andromedaReceiver, filter2);
+        }
 
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
@@ -1446,6 +1460,15 @@ public class MainActivity extends SubstratumActivity implements
         @Override
         public void onReceive(Context context, Intent intent) {
             finish();
+        }
+    }
+
+    class AndromedaReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            RootRequester rootRequester = new RootRequester(MainActivity.this);
+            rootRequester.execute();
         }
     }
 }

@@ -85,12 +85,12 @@ public class AndromedaBinderService extends Service implements ServiceConnection
                     }
 
                     if (!AndromedaService.checkServerActivity()) {
-                        sendBadNotification();
+                        sendBadNotification(getApplicationContext());
                         failed = true;
                     }
                 }
             } else {
-                sendBadNotification();
+                sendBadNotification(getApplicationContext());
             }
         }).start();
     }
@@ -121,7 +121,7 @@ public class AndromedaBinderService extends Service implements ServiceConnection
         Log.d(TAG, "Substratum has successfully unbinded with the Andromeda module.");
     }
 
-    public void sendBadNotification() {
+    public void sendBadNotification(Context context) {
         NotificationManager mNotifyMgr =
                 (NotificationManager)
                         getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
@@ -149,5 +149,7 @@ public class AndromedaBinderService extends Service implements ServiceConnection
             mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
             mNotifyMgr.notify(badNotificationId, mBuilder.build());
         }
+
+        References.sendAndromedaRefreshMessage(context);
     }
 }

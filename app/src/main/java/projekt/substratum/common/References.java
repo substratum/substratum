@@ -736,7 +736,7 @@ public class References {
         editor.putBoolean("substratum_oms", checkOMS(context));
         editor.putBoolean("show_template_version", false);
         editor.putBoolean("vibrate_on_compiled", false);
-        editor.putBoolean("nougat_style_cards", true);
+        editor.putBoolean("nougat_style_cards", false);
         editor.putBoolean("aopt_debug", false);
         editor.putBoolean("theme_debug", false);
         editor.putBoolean("force_english", false);

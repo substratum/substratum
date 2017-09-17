@@ -39,7 +39,8 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -87,10 +88,9 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         return new ViewHolder(view);
     }
 
-    private void setFadeAnimation(View view) {
-        AlphaAnimation anim = new AlphaAnimation(0.5f, 1.0f);
-        anim.setDuration(600);
-        view.startAnimation(anim);
+    private void setAnimation(Context context, View view) {
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.recyclerview_anim);
+        view.startAnimation(animation);
     }
 
     @Override
@@ -376,7 +376,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         viewHolder.theme_author.setText(themeItem.getThemeAuthor());
         viewHolder.imageView.setImageDrawable(themeItem.getThemeDrawable());
 
-        setFadeAnimation(viewHolder.itemView);
+        setAnimation(mContext, viewHolder.itemView);
     }
 
     private void explainTBO() {

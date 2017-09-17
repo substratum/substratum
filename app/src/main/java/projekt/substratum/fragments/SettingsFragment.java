@@ -144,9 +144,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
 
         platformSummary = new StringBuilder();
-        platformSummary.append(String.format("%s %s ( %s )\n", getString(R.string.android),
+        platformSummary.append(String.format("%s %s (%s)\n", getString(R.string.android),
                 References.getProp("ro.build.version.release"), Build.ID));
-        platformSummary.append(String.format("%s %s ( %s )\n",
+        platformSummary.append(String.format("%s %s (%s)\n",
                 getString(R.string.device), Build.MODEL, Build.DEVICE));
         platformSummary.append(String.format("%s", getString(R.string
                 .settings_about_oms_rro_version)));

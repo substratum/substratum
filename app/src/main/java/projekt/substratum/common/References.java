@@ -780,6 +780,10 @@ public class References {
         editor.apply();
     }
 
+    public static String grabInstallerId(Context context, String package_name) {
+        return context.getPackageManager().getInstallerPackageName(package_name);
+    }
+
     // This method configures the new devices and their configuration of their vendor folders
     public static Boolean inNexusFilter() {
         return Arrays.asList(Resources.NEXUS_FILTER).contains(Build.DEVICE);

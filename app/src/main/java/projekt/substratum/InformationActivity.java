@@ -22,7 +22,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
-import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -968,19 +967,6 @@ public class InformationActivity extends SubstratumActivity {
                 // Create the AlertDialog object and return it
                 builder4.create();
                 builder4.show();
-                return true;
-            case R.id.rate:
-                try {
-                    String playURL = "https://play.google.com/store/apps/details?id=" + theme_pid;
-                    Intent i = new Intent(Intent.ACTION_VIEW);
-                    i.setData(Uri.parse(playURL));
-                    startActivity(i);
-                } catch (ActivityNotFoundException activityNotFoundException) {
-                    currentShownLunchBar = Lunchbar.make(getView(),
-                            getString(R.string.activity_missing_toast),
-                            Lunchbar.LENGTH_LONG);
-                    currentShownLunchBar.show();
-                }
                 return true;
             case R.id.uninstall:
                 AlertDialog.Builder builder5 = new AlertDialog.Builder(InformationActivity.this);

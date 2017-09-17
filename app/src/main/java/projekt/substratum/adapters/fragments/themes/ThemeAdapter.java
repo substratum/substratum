@@ -52,6 +52,7 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.util.views.SheetDialog;
 
+import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 
 
@@ -302,6 +303,30 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                         favoriteText.setCompoundDrawables(favoriteImg, null, null, null);
                         favoriteText.setText(mContext.getString(R.string.menu_unfavorite));
                     }
+                });
+
+                // Rate Theme
+                LinearLayout rate = sheetView.findViewById(R.id.rate);
+                if (References.grabInstallerId(mContext, themeItem.getThemePackage()).equals
+                        (PLAY_STORE_PACKAGE_NAME)) {
+                    rate.setVisibility(View.VISIBLE);
+                } else {
+                    rate.setVisibility(View.GONE);
+                }
+                rate.setOnClickListener(view12 -> {
+                    try {
+                        String playURL = "https://play.google.com/store/apps/details?id=" +
+                                themeItem.getThemePackage();
+                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        i.setData(Uri.parse(playURL));
+                        mContext.startActivity(i);
+                    } catch (ActivityNotFoundException activityNotFoundException) {
+                        Toast.makeText(
+                                mContext,
+                                mContext.getString(R.string.activity_missing_toast),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                    sheetDialog.dismiss();
                 });
 
                 // Shortcut

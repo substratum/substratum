@@ -135,6 +135,28 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/rate"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawablePadding="16dp"
+            android:drawableStart="@drawable/ic_rate"
+            android:drawableTint="@color/main_screen_card_theme_title"
+            android:gravity="center"
+            android:text="@string/menu_rate"
+            android:textColor="?android:attr/textColorPrimary"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/shortcut"
         android:layout_width="match_parent"
         android:layout_height="60dp"

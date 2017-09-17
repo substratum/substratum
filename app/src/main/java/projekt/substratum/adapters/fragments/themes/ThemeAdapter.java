@@ -213,8 +213,9 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 TextView moreText = sheetView.findViewById(R.id.more_text);
                 String boldedThemeName = "<b>" + themeItem.getThemeName() + "</b>";
                 aboutText.setText(Html.fromHtml(boldedThemeName, Html.FROM_HTML_MODE_LEGACY));
-                moreText.setText(String.format("%s\n%s",
+                moreText.setText(String.format("%s (%s)\n%s",
                         References.grabAppVersion(mContext, themeItem.getThemePackage()),
+                        References.grabAppVersionCode(mContext, themeItem.getThemePackage()),
                         References.grabPackageTemplateVersion(mContext,
                                 themeItem.getThemePackage())));
 

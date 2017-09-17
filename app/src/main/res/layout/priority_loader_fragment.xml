@@ -48,6 +48,7 @@
             android:id="@+id/no_priorities_found"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_centerInParent="true"
             android:gravity="center"
             android:visibility="gone">
 
@@ -56,6 +57,7 @@
                 android:layout_width="130dp"
                 android:layout_height="130dp"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="200dp"
                 android:importantForAccessibility="no"
                 android:src="@drawable/no_priorities_loaded"/>
 

@@ -29,6 +29,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.List;
@@ -308,6 +309,18 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
 
             contact.setSelected(cb.isChecked());
             current_object.setSelected(cb.isChecked());
+        });
+
+        viewHolder.card.setOnLongClickListener(view -> {
+            String packageVersion = References.grabAppVersion(context, current_object.getPackageName());
+            if (packageVersion != null)
+                Toast.makeText(context, String.format(
+                        context.getString(R.string.overlays_tab_package_ver_message),
+                        current_object.getName(),
+                        packageVersion), Toast.LENGTH_LONG).show();
+            else
+                Toast.makeText(context, R.string.overlays_tab_package_ver_failure, Toast.LENGTH_SHORT).show();
+            return false;
         });
 
         if (current_object.variant_mode) {

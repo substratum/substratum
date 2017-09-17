@@ -56,7 +56,6 @@ import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -160,12 +159,46 @@ public class ManagerFragment extends Fragment {
 
             boolean alphabetize = prefs.getBoolean("alphabetize_overlays", true);
             if (alphabetize) {
-                overlayList.sort(Comparator.comparing(ManagerItem::getLabelName));
+                quicksort(0, overlayListSize - 1, "name");
             } else {
-                overlayList.sort(Comparator.comparing(ManagerItem::getThemeName));
+                quicksort(0, overlayListSize - 1, "theme");
             }
         }
         toggle_all.setChecked(false);
+    }
+
+
+    private void quicksort(int low, int high, String sort) {
+        int i = low, j = high;
+        ManagerItem pivot = overlayList.get(low + (high - low) / 2);
+        while (i <= j) {
+            if (sort.equals("name")) {
+                while (overlayList.get(i).getLabelName().toLowerCase().
+                        compareTo(pivot.getLabelName().toLowerCase()) < 0)
+                    i++;
+                while (overlayList.get(j).getLabelName().toLowerCase().
+                        compareTo(pivot.getLabelName().toLowerCase()) > 0)
+                    j--;
+            } else if (sort.equals("theme")) {
+                while (overlayList.get(i).getThemeName().toLowerCase().
+                        compareTo(pivot.getThemeName().toLowerCase()) < 0)
+                    i++;
+                while (overlayList.get(j).getThemeName().toLowerCase().
+                        compareTo(pivot.getThemeName().toLowerCase()) > 0)
+                    j--;
+            }
+            if (i <= j) {
+                ManagerItem temp = overlayList.get(i);
+                overlayList.set(i, overlayList.get(j));
+                overlayList.set(j, temp);
+                i++;
+                j--;
+            }
+        }
+        if (low < j)
+            quicksort(low, j, sort);
+        if (i < high)
+            quicksort(i, high, sort);
     }
 
     @Override
@@ -546,9 +579,9 @@ public class ManagerFragment extends Fragment {
 
                 boolean alphabetize = fragment.prefs.getBoolean("alphabetize_overlays", true);
                 if (alphabetize) {
-                    fragment.overlayList.sort(Comparator.comparing(ManagerItem::getLabelName));
+                    fragment.quicksort(0, fragment.overlayList.size() - 1, "name");
                 } else {
-                    fragment.overlayList.sort(Comparator.comparing(ManagerItem::getThemeName));
+                    fragment.quicksort(0, fragment.overlayList.size() - 1, "theme");
                 }
 
                 if (fragment.overlaysList.size() == 0) {

@@ -314,8 +314,9 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
                 // Rate Theme
                 LinearLayout rate = sheetView.findViewById(R.id.rate);
-                if (References.grabInstallerId(mContext, themeItem.getThemePackage()).equals
-                        (PLAY_STORE_PACKAGE_NAME)) {
+                String installer =
+                        References.grabInstallerId(mContext, themeItem.getThemePackage());
+                if (installer != null && installer.equals(PLAY_STORE_PACKAGE_NAME)) {
                     rate.setVisibility(View.VISIBLE);
                 } else {
                     rate.setVisibility(View.GONE);

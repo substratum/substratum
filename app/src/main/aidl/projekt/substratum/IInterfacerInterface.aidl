@@ -163,4 +163,12 @@ interface IInterfacerInterface {
      *                   of overlays
      */
     Map getAllOverlays();
+
+    /**
+     * Apply a specified shutdown animation
+     *
+     * @param name       Path to extract the shutdown animation archive from. Use
+     *                   null to clear the applied shutdown animation.
+     */
+    void applyShutdownAnimation(String name);
 }

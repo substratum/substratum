@@ -35,11 +35,12 @@ public class BootAnimationManager {
         String fileName = (shutdownAnimation ? "shutdownanimation" : "bootanimation");
         String location = EXTERNAL_STORAGE_CACHE + fileName + ".zip";
         // Check to see if device is decrypted with theme interface
-        if (getDeviceEncryptionStatus(context) <= 1 && checkThemeInterfacer(context)) {
+        if ((getDeviceEncryptionStatus(context) <= 1 || shutdownAnimation) &&
+                checkThemeInterfacer(context)) {
             Log.d("BootAnimationUtils",
                     "No-root option has been enabled with the inclusion of theme interfacer...");
             if (shutdownAnimation) {
-                // TODO: Ivan!
+                ThemeInterfacerService.setShutdownAnimation(context, location);
             } else {
                 ThemeInterfacerService.setBootAnimation(context, location);
             }
@@ -63,7 +64,7 @@ public class BootAnimationManager {
             // OMS with theme interface
             if (checkThemeInterfacer(context)) {
                 if (shutdownAnimation) {
-                    // TODO: Ivan!
+                    ThemeInterfacerService.clearShutdownAnimation(context);
                 } else {
                     ThemeInterfacerService.clearBootAnimation(context);
                 }

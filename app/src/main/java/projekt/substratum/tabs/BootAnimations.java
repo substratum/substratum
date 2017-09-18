@@ -247,7 +247,7 @@ public class BootAnimations extends Fragment {
 
     public void startApply() {
         if (!paused) {
-            if (References.getDeviceEncryptionStatus(getContext()) <= 1 ||
+            if ((References.getDeviceEncryptionStatus(getContext()) <= 1 || shutdownBootAnimation) ||
                     !References.checkOMS(getContext())) {
                 if (bootAnimationSelector.getSelectedItemPosition() == 1) {
                     new BootAnimationClearer().execute("");

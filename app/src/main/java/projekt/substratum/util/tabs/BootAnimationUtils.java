@@ -371,7 +371,8 @@ public class BootAnimationUtils {
                 boolean is_encrypted = References.getDeviceEncryptionStatus(mContext) > 1;
                 File themeDirectory;
                 if (References.checkOMS(mContext)) {
-                    if (!is_encrypted && References.checkSubstratumFeature(mContext)) {
+                    if ((!is_encrypted || shutdownAnimation) &&
+                            References.checkSubstratumFeature(mContext)) {
                         Log.d(TAG, "Data partition on the current device is decrypted, using " +
                                 "dedicated theme bootanimation slot...");
                         themeDirectory = new File(DATA_SYSTEM);

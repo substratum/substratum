@@ -395,4 +395,26 @@ public class ThemeInterfacerService {
         }
         return null;
     }
+
+    public static void setShutdownAnimation(Context context, String shutdownAnimationLocation) {
+        if (References.isBinderInterfacer(context)) {
+            try {
+                InterfacerBinderService.getInstance().getInterfacerInterface()
+                        .applyShutdownAnimation(shutdownAnimationLocation);
+            } catch (RemoteException e) {
+                // Suppress warning
+            }
+        }
+    }
+
+    public static void clearShutdownAnimation(Context context) {
+        if (References.isBinderInterfacer(context)) {
+            try {
+                InterfacerBinderService.getInstance().getInterfacerInterface()
+                        .applyShutdownAnimation(null);
+            } catch (RemoteException e) {
+                // Suppress warning
+            }
+        }
+    }
 }

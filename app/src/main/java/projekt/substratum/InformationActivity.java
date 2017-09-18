@@ -410,8 +410,7 @@ public class InformationActivity extends SubstratumActivity {
                                 .theme_information_tab_two)));
                     }
                     if (tab_checker.contains(shutdownAnimationsFragment) &&
-                            References.checkOreo() &&
-                            References.isBinderInterfacer(getApplicationContext())) {
+                            References.isShutdownAnimationSupported()) {
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_six)));
                     }

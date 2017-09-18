@@ -106,6 +106,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import javax.security.auth.x500.X500Principal;
 
+import dalvik.system.DexClassLoader;
 import projekt.substratum.R;
 import projekt.substratum.activities.launch.AppShortcutLaunch;
 import projekt.substratum.activities.launch.ThemeLaunchActivity;
@@ -815,6 +816,23 @@ public class References {
             // Suppress Fonts
         }
         return false;
+    }
+
+    // This method checks whether shutdown animation is supported by the system
+    public static boolean isShutdownAnimationSupported() {
+        try {
+            @SuppressLint("PrivateApi")
+            Class<?> cls = new DexClassLoader("/system/framework/services.jar",
+                    "/data/tmp/", "/data/tmp/", ClassLoader.getSystemClassLoader())
+                    .loadClass("com.android.server.power.ShutdownThread");
+            cls.getDeclaredMethod("themeShutdownAnimationExists");
+            cls.getDeclaredMethod("startShutdownAnimation");
+            cls.getDeclaredMethod("stopShutdownAnimation");
+            Log.d(SUBSTRATUM_LOG, "This system fully supports theme shutdown animation.");
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
     }
 
     // This string array contains all the SystemUI acceptable overlay packs

@@ -236,23 +236,28 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 tbo.setOnClickListener(v2 -> explainTBO());
                 two.setOnClickListener(v2 -> explainTWO());
 
-                switch (themeItem.getThemeReadyVariable()) {
-                    case "all":
-                        tbo.setVisibility(View.VISIBLE);
-                        two.setVisibility(View.VISIBLE);
-                        break;
-                    case "ready":
-                        tbo.setVisibility(View.VISIBLE);
-                        two.setVisibility(View.GONE);
-                        break;
-                    case "stock":
-                        tbo.setVisibility(View.GONE);
-                        two.setVisibility(View.VISIBLE);
-                        break;
-                    default:
-                        tbo.setVisibility(View.GONE);
-                        two.setVisibility(View.GONE);
-                        break;
+                try {
+                    switch (themeItem.getThemeReadyVariable()) {
+                        case "all":
+                            tbo.setVisibility(View.VISIBLE);
+                            two.setVisibility(View.VISIBLE);
+                            break;
+                        case "ready":
+                            tbo.setVisibility(View.VISIBLE);
+                            two.setVisibility(View.GONE);
+                            break;
+                        case "stock":
+                            tbo.setVisibility(View.GONE);
+                            two.setVisibility(View.VISIBLE);
+                            break;
+                        default:
+                            tbo.setVisibility(View.GONE);
+                            two.setVisibility(View.GONE);
+                            break;
+                    }
+                } catch(Exception ignored) {
+                    tbo.setVisibility(View.GONE);
+                    two.setVisibility(View.GONE);
                 }
 
                 // Favorite

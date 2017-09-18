@@ -158,33 +158,31 @@ public class ManagerFragment extends Fragment {
             }
 
             boolean alphabetize = prefs.getBoolean("alphabetize_overlays", true);
-            if (alphabetize) {
-                quicksort(0, overlayListSize - 1, "name");
-            } else {
-                quicksort(0, overlayListSize - 1, "theme");
+            if (overlayListSize > 0) {
+                if (alphabetize) {
+                    quicksort(0, overlayListSize - 1, "name");
+                } else {
+                    quicksort(0, overlayListSize - 1, "theme");
+                }
             }
         }
         toggle_all.setChecked(false);
     }
-
 
     private void quicksort(int low, int high, String sort) {
         int i = low, j = high;
         ManagerItem pivot = overlayList.get(low + (high - low) / 2);
         while (i <= j) {
             if (sort.equals("name")) {
-                while (overlayList.get(i).getLabelName().toLowerCase().
-                        compareTo(pivot.getLabelName().toLowerCase()) < 0)
+                while (overlayList.get(i).compareTo(pivot) < 0)
                     i++;
-                while (overlayList.get(j).getLabelName().toLowerCase().
-                        compareTo(pivot.getLabelName().toLowerCase()) > 0)
+                while (overlayList.get(j).compareTo(pivot) > 0)
                     j--;
-            } else if (sort.equals("theme")) {
-                while (overlayList.get(i).getThemeName().toLowerCase().
-                        compareTo(pivot.getThemeName().toLowerCase()) < 0)
+            }
+            else if (sort.equals("theme")) {
+                while (overlayList.get(i).compareToByTheme(pivot) < 0)
                     i++;
-                while (overlayList.get(j).getThemeName().toLowerCase().
-                        compareTo(pivot.getThemeName().toLowerCase()) > 0)
+                while (overlayList.get(j).compareToByTheme(pivot) > 0)
                     j--;
             }
             if (i <= j) {
@@ -578,10 +576,12 @@ public class ManagerFragment extends Fragment {
                 fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
 
                 boolean alphabetize = fragment.prefs.getBoolean("alphabetize_overlays", true);
-                if (alphabetize) {
-                    fragment.quicksort(0, fragment.overlayList.size() - 1, "name");
-                } else {
-                    fragment.quicksort(0, fragment.overlayList.size() - 1, "theme");
+                if (fragment.overlayList.size() > 0) {
+                    if (alphabetize) {
+                        fragment.quicksort(0, fragment.overlayList.size() - 1, "name");
+                    } else {
+                        fragment.quicksort(0, fragment.overlayList.size() - 1, "theme");
+                    }
                 }
 
                 if (fragment.overlaysList.size() == 0) {

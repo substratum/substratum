@@ -27,7 +27,7 @@ import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
 import projekt.substratum.common.References;
 
-public class ManagerItem implements Serializable {
+public class ManagerItem implements Serializable, Comparable<ManagerItem> {
 
     private String name;
     private String type1a;
@@ -64,6 +64,7 @@ public class ManagerItem implements Serializable {
         } else {
             this.themeName = "";
         }
+        setLabelName(name);
 
         this.updateEnabledOverlays(isActivated);
         setLabelName(name);
@@ -161,7 +162,7 @@ public class ManagerItem implements Serializable {
 
     public void setLabelName(String packageName) {
         labelName = References.grabPackageName(getContext(),
-                References.grabOverlayTarget(getContext(), packageName));
+                    References.grabOverlayTarget(getContext(), packageName));
     }
 
     public Drawable getDrawable() {
@@ -178,5 +179,22 @@ public class ManagerItem implements Serializable {
 
     void setTargetDrawable(Drawable drawable) {
         this.mTargetDrawable = drawable;
+    }
+
+    @Override
+    public int compareTo(@NonNull ManagerItem managerItem) {
+        int compareName = getLabelName().compareToIgnoreCase(managerItem.getLabelName());
+        if (compareName != 0){
+            return compareName;
+        }
+        return getThemeName().compareToIgnoreCase(managerItem.getThemeName());
+    }
+
+    public int compareToByTheme(@NonNull ManagerItem managerItem) {
+        int compareTheme = getThemeName().compareToIgnoreCase(managerItem.getThemeName());
+        if (compareTheme != 0){
+            return compareTheme;
+        }
+        return getLabelName().compareToIgnoreCase(managerItem.getLabelName());
     }
 }

@@ -554,7 +554,7 @@ public class RecoveryFragment extends Fragment {
         protected Void doInBackground(Void... sUrl) {
             RecoveryFragment fragment = ref.get();
             if (fragment != null) {
-                BootAnimationManager.clearBootAnimation(fragment.getActivity());
+                BootAnimationManager.clearBootAnimation(fragment.getActivity(), false);
             }
             return null;
         }

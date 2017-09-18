@@ -118,8 +118,12 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                         editor.remove("fonts_applied");
                     }
                     if (prefs.getString("bootanimation_applied", "").equals(package_name)) {
-                        BootAnimationManager.clearBootAnimation(context);
+                        BootAnimationManager.clearBootAnimation(context, false);
                         editor.remove("bootanimation_applied");
+                    }
+                    if (prefs.getString("shutdownanimation_applied", "").equals(package_name)) {
+                        BootAnimationManager.clearBootAnimation(context, true);
+                        editor.remove("shutdownanimation_applied");
                     }
                     if (prefs.getString("home_wallpaper_applied", "").equals(package_name)) {
                         try {

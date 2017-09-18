@@ -52,19 +52,14 @@ public class AndromedaBinderService extends Service implements ServiceConnection
         if (References.checkAndromeda(this) && !mBound) {
             Intent intent = new Intent(ANDROMEDA_BINDED);
             intent.setPackage(ANDROMEDA_PACKAGE);
-            bindService(intent, this, Context.BIND_AUTO_CREATE);
+            if (!bindService(intent, this, Context.BIND_AUTO_CREATE)) {
+                stopSelf();
+            }
         }
     }
 
     @Override
     public void onCreate() {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(
-                getApplicationContext(), References.ANDROMEDA_NOTIFICATION_CHANNEL_ID);
-        builder.setContentTitle(getString(R.string.andromeda_notification_title))
-                .setContentText(getString(R.string.andromeda_notification_text))
-                .setSmallIcon(R.drawable.notification_icon);
-
-        startForeground(2018, builder.build());
         bindAndromeda();
 
         new Thread(() -> {
@@ -112,6 +107,16 @@ public class AndromedaBinderService extends Service implements ServiceConnection
         iAndromedaInterface = IAndromedaInterface.Stub.asInterface(service);
         mBound = true;
         Log.d(TAG, "Substratum has successfully binded with the Andromeda module.");
+        if (iAndromedaInterface != null && AndromedaService.checkServerActivity()) {
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(
+                    getApplicationContext(), References.ANDROMEDA_NOTIFICATION_CHANNEL_ID);
+            builder.setContentTitle(getString(R.string.andromeda_notification_title))
+                    .setContentText(getString(R.string.andromeda_notification_text))
+                    .setSmallIcon(R.drawable.notification_icon);
+            startForeground(2018, builder.build());
+        } else {
+            stopSelf();
+        }
     }
 
     @Override
@@ -151,5 +156,6 @@ public class AndromedaBinderService extends Service implements ServiceConnection
         }
 
         References.sendAndromedaRefreshMessage(context);
+        stopSelf();
     }
 }

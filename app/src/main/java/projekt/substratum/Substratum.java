@@ -29,7 +29,6 @@ import android.content.IntentFilter;
 import android.media.AudioAttributes;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.google.firebase.FirebaseApp;
@@ -42,7 +41,6 @@ import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.services.binder.InterfacerBinderService;
 
 import static projekt.substratum.BuildConfig.DEBUG;
-import static projekt.substratum.common.References.checkOreo;
 import static projekt.substratum.common.References.isAndromedaDevice;
 import static projekt.substratum.common.References.isBinderInterfacer;
 
@@ -141,8 +139,7 @@ public class Substratum extends Application {
                 } else {
                     Log.d(BINDER_TAG,
                             "Substratum is now connecting to the Andromeda Binder service...");
-                    ContextCompat.startForegroundService(getApplicationContext(),
-                            new Intent(getApplicationContext(), AndromedaBinderService.class));
+                    startService(new Intent(getApplicationContext(), AndromedaBinderService.class));
                 }
             } else if (className.equals(InterfacerBinderService.class)) {
                 if (checkServiceActivation(InterfacerBinderService.class)) {
@@ -150,11 +147,7 @@ public class Substratum extends Application {
                 } else {
                     Log.d(BINDER_TAG, "Substratum is now connecting to the Binder service...");
                     Intent i = new Intent(getApplicationContext(), InterfacerBinderService.class);
-                    if (checkOreo()) {
-                        ContextCompat.startForegroundService(getApplicationContext(), i);
-                    } else {
-                        startService(i);
-                    }
+                    startService(i);
                 }
             }
             return true;

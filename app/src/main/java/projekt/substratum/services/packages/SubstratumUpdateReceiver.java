@@ -36,7 +36,6 @@ public class SubstratumUpdateReceiver extends BroadcastReceiver {
         if (intent.getAction() != null &&
                 !intent.getAction().equals(Intent.ACTION_MY_PACKAGE_REPLACED)) return;
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        Substratum.getInstance().startBinderService(InterfacerBinderService.class);
         boolean scheduleProfileEnabled = prefs.getBoolean(SCHEDULED_PROFILE_ENABLED, false);
         if (scheduleProfileEnabled) {
             ProfileManager.updateScheduledProfile(context);

@@ -409,7 +409,9 @@ public class InformationActivity extends SubstratumActivity {
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_two)));
                     }
-                    if (tab_checker.contains(shutdownAnimationsFragment)) {
+                    if (tab_checker.contains(shutdownAnimationsFragment) &&
+                            References.checkOreo() &&
+                            References.isBinderInterfacer(getApplicationContext())) {
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_six)));
                     }

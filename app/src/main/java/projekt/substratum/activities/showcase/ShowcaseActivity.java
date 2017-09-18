@@ -67,10 +67,12 @@ public class ShowcaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        try {
-            localBroadcastManager.unregisterReceiver(andromedaReceiver);
-        } catch (IllegalArgumentException e) {
-            // Unregistered already
+        if (References.isAndromedaDevice(getApplicationContext())) {
+            try {
+                localBroadcastManager.unregisterReceiver(andromedaReceiver);
+            } catch (Exception e) {
+                // Unregistered already
+            }
         }
     }
 

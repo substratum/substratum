@@ -273,13 +273,16 @@ public class MainActivity extends SubstratumActivity implements
         super.onDestroy();
         try {
             localBroadcastManager.unregisterReceiver(killReceiver);
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             // Unregistered already
         }
-        try {
-            localBroadcastManager2.unregisterReceiver(andromedaReceiver);
-        } catch (IllegalArgumentException e) {
-            // Unregistered already
+
+        if (References.isAndromedaDevice(getApplicationContext())) {
+            try {
+                localBroadcastManager2.unregisterReceiver(andromedaReceiver);
+            } catch (Exception e) {
+                // Unregistered already
+            }
         }
     }
 

@@ -1028,14 +1028,16 @@ public class InformationActivity extends SubstratumActivity {
 
         try {
             localBroadcastManager.unregisterReceiver(refreshReceiver);
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             // Unregistered already
         }
 
-        try {
-            localBroadcastManager2.unregisterReceiver(andromedaReceiver);
-        } catch (IllegalArgumentException e) {
-            // Unregistered already
+        if (References.isAndromedaDevice(getApplicationContext())) {
+            try {
+                localBroadcastManager2.unregisterReceiver(andromedaReceiver);
+            } catch (Exception e) {
+                // Unregistered already
+            }
         }
 
         if (!BYPASS_SUBSTRATUM_BUILDER_DELETION &&

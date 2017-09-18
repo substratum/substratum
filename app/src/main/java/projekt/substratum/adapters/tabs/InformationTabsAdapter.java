@@ -72,8 +72,9 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
                     return bootAnimations;
                 case "shutdownanimations":
                     BootAnimations shutdownanimations = new BootAnimations();
-                    bundle.putBoolean("shutdownanimation", true);
-                    shutdownanimations.setArguments(bundle);
+                    Bundle b = new Bundle(bundle);
+                    b.putBoolean("shutdownanimation", true);
+                    shutdownanimations.setArguments(b);
                     return shutdownanimations;
                 case "fonts":
                     Fonts fonts = new Fonts();
@@ -110,10 +111,11 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
             return bootAnimations;
         } else if (package_checker.contains("shutdownanimation") && extras[1]) {
             package_checker.remove("shutdownanimation");
-            BootAnimations bootAnimations = new BootAnimations();
-            bundle.putBoolean("shutdownanimation", true);
-            bootAnimations.setArguments(bundle);
-            return bootAnimations;
+            BootAnimations shutdownAnimations = new BootAnimations();
+            Bundle b = new Bundle(bundle);
+            b.putBoolean("shutdownanimation", true);
+            shutdownAnimations.setArguments(b);
+            return shutdownAnimations;
         } else if (package_checker.contains("fonts") && extras[2]) {
             package_checker.remove("fonts");
             Fonts fonts = new Fonts();

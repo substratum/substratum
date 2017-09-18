@@ -48,6 +48,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -112,7 +113,7 @@ public class BootAnimations extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         theme_pid = getArguments().getString("theme_pid");
-        if (getArguments().getBoolean("shutdownanimation")) {
+        if (getArguments().getBoolean("shutdownanimation", false)) {
             bootanimationsDir = "shutdownanimation";
             shutdownBootAnimation = true;
         } else {
@@ -151,6 +152,13 @@ public class BootAnimations extends Fragment {
         bootanimation_placeholder = root.findViewById(R.id.bootanimation_placeholder);
         defaults = root.findViewById(R.id.restore_to_default);
 
+        if (shutdownBootAnimation) {
+            TextView placeholderText = root.findViewById(R.id.bootanimation_placeholder_text);
+            placeholderText.setText(R.string.shutdownanimation_placeholder_text);
+            TextView restoreText = root.findViewById(R.id.restore_to_default_text);
+            restoreText.setText(R.string.shutdownanimation_defaults_text);
+        }
+
         try {
             // Parses the list of items in the boot animation folder
             Resources themeResources =
@@ -162,8 +170,12 @@ public class BootAnimations extends Fragment {
 
             // Creates the list of dropdown items
             ArrayList<String> parsedBootAnimations = new ArrayList<>();
-            parsedBootAnimations.add(getString(R.string.bootanimation_default_spinner));
-            parsedBootAnimations.add(getString(R.string.bootanimation_spinner_set_defaults));
+            parsedBootAnimations.add(getString(shutdownBootAnimation ?
+                    R.string.shutdownanimation_default_spinner :
+                    R.string.bootanimation_default_spinner));
+            parsedBootAnimations.add(getString(shutdownBootAnimation ?
+                    R.string.shutdownanimation_spinner_set_defaults :
+                    R.string.bootanimation_spinner_set_defaults));
             for (int i = 0; i < unparsedBootAnimations.size(); i++) {
                 parsedBootAnimations.add(unparsedBootAnimations.get(i).substring(0,
                         unparsedBootAnimations.get(i).length() - (encrypted ? 8 : 4)));
@@ -228,7 +240,8 @@ public class BootAnimations extends Fragment {
 
         // Enable job listener
         jobReceiver = new JobReceiver();
-        IntentFilter intentFilter = new IntentFilter("BootAnimations.START_JOB");
+        IntentFilter intentFilter = new IntentFilter(
+                (shutdownBootAnimation ? "ShutdownAnimations" : "BootAnimations") + ".START_JOB");
         localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
         localBroadcastManager.registerReceiver(jobReceiver, intentFilter);
 
@@ -243,6 +256,10 @@ public class BootAnimations extends Fragment {
         } catch (IllegalArgumentException e) {
             // Unregistered already
         }
+    }
+
+    public boolean isShutdownTab() {
+        return shutdownBootAnimation;
     }
 
     public void startApply() {
@@ -303,7 +320,8 @@ public class BootAnimations extends Fragment {
             editor.apply();
             if (getView() != null) {
                 currentShownLunchBar = Lunchbar.make(getView(),
-                        getString(R.string.manage_bootanimation_toast),
+                        getString(shutdownBootAnimation ? R.string.manage_shutdownanimation_toast :
+                                R.string.manage_bootanimation_toast),
                         Lunchbar.LENGTH_LONG);
                 currentShownLunchBar.show();
             }

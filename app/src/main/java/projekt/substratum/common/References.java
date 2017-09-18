@@ -195,6 +195,7 @@ public class References {
     public static final String homeFragment = "";
     public static final String overlaysFragment = "overlays";
     public static final String bootAnimationsFragment = "bootanimation";
+    public static final String shutdownAnimationsFragment = "shutdownanimation";
     public static final String fontsFragment = "fonts";
     public static final String soundsFragment = "audio";
     public static final String wallpaperFragment = "wallpapers";

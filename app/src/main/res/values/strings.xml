@@ -168,6 +168,10 @@
     <string name="overlays_update_available">Update available!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variant not installed</string>
 
+    <string name="shutdownanimation_default_spinner">please select a shutdown animation&#8230;</string>
+    <string name="shutdownanimation_spinner_set_defaults">restore to default boot animation&#8230;
+    </string>
+
     <string name="bootanimation_vm_exploded">Rendering of boot animation has been terminated due to
         insufficient memory allocation.\n\nInstallation of this boot animation is still possible
         without a rendered preview.
@@ -275,6 +279,7 @@
     <string name="theme_information_tab_three">Font Packs</string>
     <string name="theme_information_tab_four">Sound Packs</string>
     <string name="theme_information_tab_five">Wallpapers</string>
+    <string name="theme_information_tab_six">Shutdown animations</string>
 
     <string name="grid_style_cards_title">Grid Style Card Layout</string>
     <string name="grid_style_cards_subtext">Enable a grid styled layout for the theme cards.</string>

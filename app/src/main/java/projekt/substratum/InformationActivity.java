@@ -99,6 +99,7 @@ import static projekt.substratum.common.References.isSamsung;
 import static projekt.substratum.common.References.metadataOverlayParent;
 import static projekt.substratum.common.References.metadataWallpapers;
 import static projekt.substratum.common.References.overlaysFragment;
+import static projekt.substratum.common.References.shutdownAnimationsFragment;
 import static projekt.substratum.common.References.soundsFragment;
 import static projekt.substratum.common.References.wallpaperFragment;
 
@@ -408,6 +409,10 @@ public class InformationActivity extends SubstratumActivity {
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_two)));
                     }
+                    if (tab_checker.contains(shutdownAnimationsFragment)) {
+                        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
+                                .theme_information_tab_six)));
+                    }
                     if (tab_checker.contains(fontsFragment) && References.isFontsSupported()) {
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_three)));
@@ -434,6 +439,10 @@ public class InformationActivity extends SubstratumActivity {
                     case bootAnimationsFragment:
                         tabLayout.addTab(tabLayout.newTab().setText(
                                 getString(R.string.theme_information_tab_two)));
+                        break;
+                    case shutdownAnimationsFragment:
+                        tabLayout.addTab(tabLayout.newTab().setText(
+                                getString(R.string.theme_information_tab_six)));
                         break;
                     case fontsFragment:
                         tabLayout.addTab(tabLayout.newTab().setText(
@@ -488,11 +497,13 @@ public class InformationActivity extends SubstratumActivity {
             }
         }
 
-        boolean[] extra_hidden_tabs = new boolean[3];
+        boolean[] extra_hidden_tabs = new boolean[4];
         extra_hidden_tabs[0] = !References.checkAndromeda(getApplicationContext()) &&
                 !References.isSamsungDevice(getApplicationContext());
-        extra_hidden_tabs[1] = References.isFontsSupported();
-        extra_hidden_tabs[2] = !References.checkAndromeda(getApplicationContext());
+        extra_hidden_tabs[1] = References.checkOreo() &&
+                References.isBinderInterfacer(getApplicationContext());
+        extra_hidden_tabs[2] = References.isFontsSupported();
+        extra_hidden_tabs[3] = !References.checkAndromeda(getApplicationContext());
 
         final InformationTabsAdapter adapter = new InformationTabsAdapter
                 (getSupportFragmentManager(), (tabLayout != null) ? tabLayout.getTabCount() : 0,
@@ -514,6 +525,7 @@ public class InformationActivity extends SubstratumActivity {
                                             R.drawable.floating_action_button_icon);
                                     break;
                                 case "BootAnimations":
+                                case "ShutdownAnimations":
                                 case "Fonts":
                                 case "Sounds":
                                     floatingActionButton.show();
@@ -557,6 +569,7 @@ public class InformationActivity extends SubstratumActivity {
                                 materialSheetFab.showSheet();
                                 break;
                             case "BootAnimations":
+                            case "ShutdownAnimations":
                                 intent = new Intent("BootAnimations.START_JOB");
                                 localBroadcastManager.sendBroadcast(intent);
                                 break;

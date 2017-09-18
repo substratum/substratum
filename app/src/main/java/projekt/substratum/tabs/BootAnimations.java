@@ -78,9 +78,9 @@ import static projekt.substratum.InformationActivity.currentShownLunchBar;
 
 public class BootAnimations extends Fragment {
 
-    private static final String bootanimationsDir = "bootanimation";
     private static final int ANIMATION_FRAME_DURATION = 40;
     private static final String TAG = "BootAnimationUtils";
+    private static String bootanimationsDir = "bootanimation";
     private String theme_pid;
     private ImageView bootAnimationPreview;
     private ProgressBar progressBar;
@@ -97,6 +97,7 @@ public class BootAnimations extends Fragment {
     private LocalBroadcastManager localBroadcastManager;
     private Boolean encrypted = false;
     private Cipher cipher = null;
+    private Boolean shutdownBootAnimation;
 
     private HandlerThread previewHandlerThread = new HandlerThread("BootAnimationPreviewThread");
     private Handler previewHandler;
@@ -111,6 +112,13 @@ public class BootAnimations extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         theme_pid = getArguments().getString("theme_pid");
+        if (getArguments().getBoolean("shutdownanimation")) {
+            bootanimationsDir = "shutdownanimation";
+            shutdownBootAnimation = true;
+        } else {
+            shutdownBootAnimation = false;
+        }
+
         byte[] encryption_key = getArguments().getByteArray("encryption_key");
         byte[] iv_encrypt_key = getArguments().getByteArray("iv_encrypt_key");
 
@@ -215,7 +223,7 @@ public class BootAnimations extends Fragment {
                     });
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e(TAG, "There is no bootanimation.zip found within the assets of this theme!");
+            Log.e(TAG, "There is no animation.zip found within the assets of this theme!");
         }
 
         // Enable job listener
@@ -246,7 +254,7 @@ public class BootAnimations extends Fragment {
                 } else {
                     new BootAnimationUtils().execute(nsv,
                             bootAnimationSelector.getSelectedItem().toString(),
-                            getContext(), theme_pid, encrypted, cipher);
+                            getContext(), theme_pid, encrypted, shutdownBootAnimation, cipher);
                 }
             } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -260,7 +268,8 @@ public class BootAnimations extends Fragment {
                                 } else {
                                     new BootAnimationUtils().execute(nsv,
                                             bootAnimationSelector.getSelectedItem().toString(),
-                                            getContext(), theme_pid, encrypted, cipher);
+                                            getContext(), theme_pid, encrypted,
+                                            shutdownBootAnimation, cipher);
                                 }
                             }
                         })
@@ -286,7 +295,11 @@ public class BootAnimations extends Fragment {
         protected void onPostExecute(String result) {
             mProgressDialog.dismiss();
             SharedPreferences.Editor editor = prefs.edit();
-            editor.remove("bootanimation_applied");
+            if (shutdownBootAnimation) {
+                editor.remove("shutdownanimation_applied");
+            } else {
+                editor.remove("bootanimation_applied");
+            }
             editor.apply();
             if (getView() != null) {
                 currentShownLunchBar = Lunchbar.make(getView(),
@@ -298,7 +311,7 @@ public class BootAnimations extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            BootAnimationManager.clearBootAnimation(getContext());
+            BootAnimationManager.clearBootAnimation(getContext(), shutdownBootAnimation);
             return null;
         }
     }

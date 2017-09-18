@@ -30,14 +30,19 @@ import static projekt.substratum.common.References.getDeviceEncryptionStatus;
 
 public class BootAnimationManager {
 
-    public static void setBootAnimation(Context context, String themeDirectory) {
-        String location = EXTERNAL_STORAGE_CACHE + "bootanimation.zip";
+    public static void setBootAnimation(Context context, String themeDirectory,
+                                        Boolean shutdownAnimation) {
+        String fileName = (shutdownAnimation ? "shutdownanimation" : "bootanimation");
+        String location = EXTERNAL_STORAGE_CACHE + fileName + ".zip";
         // Check to see if device is decrypted with theme interface
         if (getDeviceEncryptionStatus(context) <= 1 && checkThemeInterfacer(context)) {
             Log.d("BootAnimationUtils",
                     "No-root option has been enabled with the inclusion of theme interfacer...");
-            ThemeInterfacerService.setBootAnimation(context, location);
-            // Otherwise, fall back to rooted operations
+            if (shutdownAnimation) {
+                // TODO: Ivan!
+            } else {
+                ThemeInterfacerService.setBootAnimation(context, location);
+            }
         } else {
             // We will mount system, make our directory, copy the bootanimation
             // zip into place, set proper permissions, then unmount
@@ -45,30 +50,44 @@ public class BootAnimationManager {
             FileOperations.mountRW();
             FileOperations.mountRWData();
             FileOperations.setPermissions(755, themeDirectory);
-            FileOperations.move(context, location, themeDirectory + "/bootanimation.zip");
-            FileOperations.setPermissions(644, themeDirectory + "/bootanimation.zip");
+            FileOperations.move(context, location, themeDirectory + "/" + fileName + ".zip");
+            FileOperations.setPermissions(644, themeDirectory + "/" + fileName + ".zip");
             FileOperations.setContext(themeDirectory);
             FileOperations.mountROData();
             FileOperations.mountRO();
         }
     }
 
-    public static void clearBootAnimation(Context context) {
+    public static void clearBootAnimation(Context context, Boolean shutdownAnimation) {
         if (getDeviceEncryptionStatus(context) <= 1) {
             // OMS with theme interface
             if (checkThemeInterfacer(context)) {
-                ThemeInterfacerService.clearBootAnimation(context);
+                if (shutdownAnimation) {
+                    // TODO: Ivan!
+                } else {
+                    ThemeInterfacerService.clearBootAnimation(context);
+                }
             } else {
-                FileOperations.delete(context, "/data/system/theme/bootanimation.zip");
+                if (shutdownAnimation) {
+                    FileOperations.delete(context, "/data/system/theme/shutdownanimation.zip");
+                } else {
+                    FileOperations.delete(context, "/data/system/theme/bootanimation.zip");
+                }
             }
         } else {
             // Encrypted OMS and legacy
-            FileOperations.mountRW();
-            FileOperations.move(context,
-                    "/system/media/bootanimation-backup.zip",
-                    "/system/media/bootanimation.zip");
-            FileOperations.delete(context, "/system/addon.d/81-subsboot.sh");
-            FileOperations.mountRO();
+            if (!shutdownAnimation) {
+                FileOperations.mountRW();
+                FileOperations.move(context,
+                        "/system/media/bootanimation-backup.zip",
+                        "/system/media/bootanimation.zip");
+                FileOperations.delete(context, "/system/addon.d/81-subsboot.sh");
+                FileOperations.mountRO();
+            } else {
+                FileOperations.mountRWData();
+                FileOperations.delete(context, "/data/system/theme/shutdownanimation.zip");
+                FileOperations.mountROData();
+            }
         }
     }
 }

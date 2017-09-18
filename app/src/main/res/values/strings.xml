@@ -781,6 +781,7 @@
     <string name="nav_home">Theme packs</string>
     <string name="nav_overlays">Overlays</string>
     <string name="nav_bootanim">Boot animations</string>
+    <string name="nav_shutdownanim">Shutdown animations</string>
     <string name="nav_fonts">Font packs</string>
     <string name="nav_sounds">Sound packs</string>
     <string name="nav_wallpapers">Wallpapers</string>

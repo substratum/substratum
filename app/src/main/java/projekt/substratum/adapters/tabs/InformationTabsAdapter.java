@@ -70,7 +70,7 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
                     BootAnimations bootAnimations = new BootAnimations();
                     bootAnimations.setArguments(bundle);
                     return bootAnimations;
-                case "shutdownanimations":
+                case "shutdownanimation":
                     BootAnimations shutdownanimations = new BootAnimations();
                     Bundle b = new Bundle(bundle);
                     b.putBoolean("shutdownanimation", true);

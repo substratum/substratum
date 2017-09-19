@@ -72,7 +72,6 @@ import projekt.substratum.util.readers.ReadRepositoriesFile;
 import projekt.substratum.util.readers.ReadResourcesFile;
 import projekt.substratum.util.views.SheetDialog;
 
-import static projekt.substratum.common.References.ANDROMEDA_NOTIFICATION_CHANNEL_ID;
 import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
 import static projekt.substratum.common.References.HIDDEN_CACHING_MODE_TAP_COUNT;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
@@ -367,7 +366,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             manage_notifications.setOnPreferenceClickListener(preference -> {
                 Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
                 intent.putExtra(Settings.EXTRA_APP_PACKAGE, getContext().getPackageName());
-                intent.putExtra(Settings.EXTRA_CHANNEL_ID, ANDROMEDA_NOTIFICATION_CHANNEL_ID);
                 startActivity(intent);
                 return false;
             });

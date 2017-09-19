@@ -949,7 +949,6 @@ public class References {
             bitmap = References.getBitmapFromVector(drawable);
         } else if (drawable instanceof BitmapDrawable
                 | drawable instanceof ShapeDrawable) {
-            //noinspection ConstantConditions
             bitmap = ((BitmapDrawable) drawable).getBitmap();
         } else if (drawable instanceof AdaptiveIconDrawable) {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {

@@ -127,6 +127,7 @@ dependencies {
     testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
     testImplementation 'junit:junit:4.12'
     // Android Support Libraries
+    implementation "com.android.support:support-annotations:$supportLibsVersion"
     implementation "com.android.support:appcompat-v7:$supportLibsVersion"
     implementation "com.android.support:exifinterface:$supportLibsVersion"
     implementation "com.android.support:cardview-v7:$supportLibsVersion"

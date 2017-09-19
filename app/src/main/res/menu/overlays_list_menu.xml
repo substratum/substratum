@@ -25,6 +25,6 @@
         android:menuCategory="secondary"
         android:orderInCategory="1"
         android:title="@string/menu_alphabetize"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         />
 </menu>

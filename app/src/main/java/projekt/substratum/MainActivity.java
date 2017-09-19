@@ -461,23 +461,29 @@ public class MainActivity extends SubstratumActivity implements
                             .withName(R.string.nav_bootanim)
                             .withIcon(R.drawable.nav_bootanim)
                             .withIdentifier(3));
+        if (References.isShutdownAnimationSupported())
+            drawerBuilder.addDrawerItems(
+                    new PrimaryDrawerItem()
+                            .withName(R.string.nav_shutdownanim)
+                            .withIcon(R.drawable.nav_shutdownanim)
+                            .withIdentifier(4));
         if (References.isFontsSupported() && !checkSamsungStatus)
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_fonts)
                             .withIcon(R.drawable.nav_fonts)
-                            .withIdentifier(4));
+                            .withIdentifier(5));
         if (!checkSamsungStatus && !checkOreoRootless)
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_sounds)
                             .withIcon(R.drawable.nav_sounds)
-                            .withIdentifier(5));
+                            .withIdentifier(6));
         drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_wallpapers)
                         .withIcon(R.drawable.nav_wallpapers)
-                        .withIdentifier(6));
+                        .withIdentifier(7));
         drawerBuilder.addDrawerItems(
                 new SectionDrawerItem()
                         .withName(R.string.nav_section_header_utilities));
@@ -485,25 +491,25 @@ public class MainActivity extends SubstratumActivity implements
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_overlay_manager)
                         .withIcon(R.drawable.nav_overlay_manager)
-                        .withIdentifier(7));
+                        .withIdentifier(8));
         if (References.checkOMS(context) && !checkSamsungStatus)
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_priorities)
                             .withIcon(R.drawable.nav_drawer_priorities)
-                            .withIdentifier(8));
+                            .withIdentifier(9));
         if (!checkSamsungStatus && !checkOreoRootless)
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_backup_restore)
                             .withIcon(R.drawable.nav_drawer_profiles)
-                            .withIdentifier(9)
+                            .withIdentifier(10)
                             .withBadge(getString(R.string.beta_tag)));
         drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_manage)
                         .withIcon(R.drawable.nav_manage)
-                        .withIdentifier(10));
+                        .withIdentifier(11));
         drawerBuilder.addDrawerItems(
                 new SectionDrawerItem()
                         .withName(R.string.nav_section_header_get_involved));
@@ -514,7 +520,7 @@ public class MainActivity extends SubstratumActivity implements
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_troubleshooting)
                         .withIcon(R.drawable.nav_troubleshooting)
-                        .withIdentifier(11));
+                        .withIdentifier(12));
         drawerBuilder.addDrawerItems(
                 new SectionDrawerItem()
                         .withName(R.string.nav_section_header_more));
@@ -522,17 +528,17 @@ public class MainActivity extends SubstratumActivity implements
                 new SecondaryDrawerItem()
                         .withName(R.string.nav_team_contributors)
                         .withIcon(R.drawable.nav_drawer_team)
-                        .withIdentifier(12));
+                        .withIdentifier(13));
         drawerBuilder.addDrawerItems(
                 new SecondaryDrawerItem()
                         .withName(getString(R.string.nav_opensource))
                         .withIcon(R.drawable.nav_drawer_licenses)
-                        .withIdentifier(13));
+                        .withIdentifier(14));
         drawerBuilder.addDrawerItems(
                 new SecondaryDrawerItem()
                         .withName(R.string.nav_settings)
                         .withIcon(R.drawable.nav_drawer_settings)
-                        .withIdentifier(14));
+                        .withIdentifier(15));
         drawerBuilder.withOnDrawerItemClickListener((view, position, drawerItem) -> {
             if (drawerItem != null) {
                 switch ((int) drawerItem.getIdentifier()) {
@@ -555,46 +561,50 @@ public class MainActivity extends SubstratumActivity implements
                                 References.bootAnimationsFragment);
                         break;
                     case 4:
+                        switchThemeFragment(getString(R.string.nav_shutdownanim),
+                                References.shutdownAnimationsFragment);
+                        break;
+                    case 5:
                         switchThemeFragment(getString(R.string.nav_fonts),
                                 References.fontsFragment);
                         break;
-                    case 5:
+                    case 6:
                         switchThemeFragment(getString(R.string.nav_sounds),
                                 References.soundsFragment);
                         break;
-                    case 6:
+                    case 7:
                         switchThemeFragment(getString(R.string.nav_wallpapers),
                                 References.wallpaperFragment);
                         break;
-                    case 7:
+                    case 8:
                         switchFragment(getString(R.string.nav_overlay_manager),
                                 ManagerFragment.class.getCanonicalName());
                         break;
-                    case 8:
+                    case 9:
                         switchFragment(getString(R.string.nav_priorities),
                                 PriorityLoaderFragment.class.getCanonicalName());
                         break;
-                    case 9:
+                    case 10:
                         switchFragment(getString(R.string.nav_backup_restore),
                                 ProfileFragment.class.getCanonicalName());
                         break;
-                    case 10:
+                    case 11:
                         switchFragment(getString(R.string.nav_manage),
                                 RecoveryFragment.class.getCanonicalName());
                         break;
-                    case 11:
+                    case 12:
                         switchFragment(getString(R.string.nav_troubleshooting),
                                 TroubleshootingFragment.class.getCanonicalName());
                         break;
-                    case 12:
+                    case 13:
                         switchFragment(getString(R.string.nav_team_contributors),
                                 TeamFragment.class.getCanonicalName());
                         break;
-                    case 13:
+                    case 14:
                         switchFragmentToLicenses(getString(R.string.nav_opensource),
                                 fragment);
                         break;
-                    case 14:
+                    case 15:
                         switchFragment(getString(R.string.nav_settings),
                                 SettingsFragment.class.getCanonicalName());
                         break;

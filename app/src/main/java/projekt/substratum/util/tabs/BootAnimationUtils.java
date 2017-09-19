@@ -112,7 +112,9 @@ public class BootAnimationUtils {
         @Override
         protected void onPreExecute() {
             progress = new ProgressDialog(mContext, R.style.AppTheme_DialogAlert);
-            progress.setMessage(mContext.getString(R.string.bootanimation_dialog_apply_text));
+            progress.setMessage(mContext.getString(shutdownAnimation ?
+                    R.string.shutdownanimation_dialog_apply_text :
+                    R.string.bootanimation_dialog_apply_text));
             progress.setIndeterminate(false);
             progress.setCancelable(false);
             progress.show();
@@ -123,13 +125,15 @@ public class BootAnimationUtils {
             progress.dismiss();
 
             if (!has_failed) {
-                Lunchbar.make(view,
-                        mContext.getString(R.string.bootanimation_dialog_apply_success),
+                Lunchbar.make(view, mContext.getString(shutdownAnimation ?
+                                R.string.shutdownanimation_dialog_apply_success :
+                                R.string.bootanimation_dialog_apply_success),
                         Lunchbar.LENGTH_LONG)
                         .show();
             } else {
-                Lunchbar.make(view,
-                        mContext.getString(R.string.bootanimation_dialog_apply_failed),
+                Lunchbar.make(view, mContext.getString(shutdownAnimation ?
+                                R.string.shutdownanimation_dialog_apply_failed :
+                                R.string.bootanimation_dialog_apply_failed),
                         Lunchbar.LENGTH_LONG)
                         .show();
             }
@@ -371,7 +375,8 @@ public class BootAnimationUtils {
                 boolean is_encrypted = References.getDeviceEncryptionStatus(mContext) > 1;
                 File themeDirectory;
                 if (References.checkOMS(mContext)) {
-                    if (!is_encrypted && References.checkSubstratumFeature(mContext)) {
+                    if ((!is_encrypted || shutdownAnimation) &&
+                            References.checkSubstratumFeature(mContext)) {
                         Log.d(TAG, "Data partition on the current device is decrypted, using " +
                                 "dedicated theme bootanimation slot...");
                         themeDirectory = new File(DATA_SYSTEM);

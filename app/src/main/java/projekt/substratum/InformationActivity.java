@@ -85,6 +85,7 @@ import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.tabs.WallpaperManager;
 import projekt.substratum.services.system.SamsungPackageService;
+import projekt.substratum.tabs.BootAnimations;
 import projekt.substratum.util.files.Root;
 import projekt.substratum.util.views.FloatingActionMenu;
 import projekt.substratum.util.views.SheetDialog;
@@ -410,8 +411,7 @@ public class InformationActivity extends SubstratumActivity {
                                 .theme_information_tab_two)));
                     }
                     if (tab_checker.contains(shutdownAnimationsFragment) &&
-                            References.checkOreo() &&
-                            References.isBinderInterfacer(getApplicationContext())) {
+                            References.isShutdownAnimationSupported()) {
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_six)));
                     }
@@ -527,7 +527,6 @@ public class InformationActivity extends SubstratumActivity {
                                             R.drawable.floating_action_button_icon);
                                     break;
                                 case "BootAnimations":
-                                case "ShutdownAnimations":
                                 case "Fonts":
                                 case "Sounds":
                                     floatingActionButton.show();
@@ -565,14 +564,15 @@ public class InformationActivity extends SubstratumActivity {
                     final Handler handler = new Handler();
                     handler.postDelayed(() -> {
                         Intent intent;
-                        switch (adapt.instantiateItem(viewPager, tabPosition)
-                                .getClass().getSimpleName()) {
+                        Object obj = adapt.instantiateItem(viewPager, tabPosition);
+                        switch (obj.getClass().getSimpleName()) {
                             case "Overlays":
                                 materialSheetFab.showSheet();
                                 break;
                             case "BootAnimations":
-                            case "ShutdownAnimations":
-                                intent = new Intent("BootAnimations.START_JOB");
+                                boolean isShutdownTab = ((BootAnimations) obj).isShutdownTab();
+                                intent = new Intent((isShutdownTab ? "ShutdownAnimations" :
+                                        "BootAnimations") + ".START_JOB");
                                 localBroadcastManager.sendBroadcast(intent);
                                 break;
                             case "Fonts":

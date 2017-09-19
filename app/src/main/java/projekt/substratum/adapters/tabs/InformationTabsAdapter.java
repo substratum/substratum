@@ -32,6 +32,13 @@ import projekt.substratum.tabs.Overlays;
 import projekt.substratum.tabs.Sounds;
 import projekt.substratum.tabs.Wallpapers;
 
+import static projekt.substratum.common.References.bootAnimationsFragment;
+import static projekt.substratum.common.References.fontsFragment;
+import static projekt.substratum.common.References.overlaysFragment;
+import static projekt.substratum.common.References.shutdownAnimationsFragment;
+import static projekt.substratum.common.References.soundsFragment;
+import static projekt.substratum.common.References.wallpaperFragment;
+
 public class InformationTabsAdapter extends FragmentStatePagerAdapter {
 
     private ArrayList package_checker;
@@ -62,28 +69,29 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         if (theme_mode != null && theme_mode.length() > 0) {
             switch (theme_mode) {
-                case "overlays":
+                case overlaysFragment:
                     Overlays overlays = new Overlays();
                     overlays.setArguments(bundle);
                     return overlays;
-                case "bootanimation":
+                case bootAnimationsFragment:
                     BootAnimations bootAnimations = new BootAnimations();
                     bootAnimations.setArguments(bundle);
                     return bootAnimations;
-                case "shutdownanimations":
+                case shutdownAnimationsFragment:
                     BootAnimations shutdownanimations = new BootAnimations();
-                    bundle.putBoolean("shutdownanimation", true);
-                    shutdownanimations.setArguments(bundle);
+                    Bundle b = new Bundle(bundle);
+                    b.putBoolean("shutdownanimation", true);
+                    shutdownanimations.setArguments(b);
                     return shutdownanimations;
-                case "fonts":
+                case fontsFragment:
                     Fonts fonts = new Fonts();
                     fonts.setArguments(bundle);
                     return fonts;
-                case "audio":
+                case soundsFragment:
                     Sounds sounds = new Sounds();
                     sounds.setArguments(bundle);
                     return sounds;
-                case "wallpapers":
+                case wallpaperFragment:
                     Wallpapers wallpapers = new Wallpapers();
                     wallpapers.setArguments(bundle);
                     return wallpapers;
@@ -98,29 +106,30 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
     }
 
     private Fragment getFragment() {
-        if (package_checker.contains("overlays")) {
-            package_checker.remove("overlays");
+        if (package_checker.contains(overlaysFragment)) {
+            package_checker.remove(overlaysFragment);
             Overlays overlays = new Overlays();
             overlays.setArguments(bundle);
             return overlays;
-        } else if (package_checker.contains("bootanimation") && extras[0]) {
-            package_checker.remove("bootanimation");
+        } else if (package_checker.contains(bootAnimationsFragment) && extras[0]) {
+            package_checker.remove(bootAnimationsFragment);
             BootAnimations bootAnimations = new BootAnimations();
             bootAnimations.setArguments(bundle);
             return bootAnimations;
-        } else if (package_checker.contains("shutdownanimation") && extras[1]) {
-            package_checker.remove("shutdownanimation");
-            BootAnimations bootAnimations = new BootAnimations();
-            bundle.putBoolean("shutdownanimation", true);
-            bootAnimations.setArguments(bundle);
-            return bootAnimations;
-        } else if (package_checker.contains("fonts") && extras[2]) {
-            package_checker.remove("fonts");
+        } else if (package_checker.contains(shutdownAnimationsFragment) && extras[1]) {
+            package_checker.remove(shutdownAnimationsFragment);
+            BootAnimations shutdownAnimations = new BootAnimations();
+            Bundle b = new Bundle(bundle);
+            b.putBoolean("shutdownanimation", true);
+            shutdownAnimations.setArguments(b);
+            return shutdownAnimations;
+        } else if (package_checker.contains(fontsFragment) && extras[2]) {
+            package_checker.remove(fontsFragment);
             Fonts fonts = new Fonts();
             fonts.setArguments(bundle);
             return fonts;
-        } else if (package_checker.contains("audio") && extras[3]) {
-            package_checker.remove("audio");
+        } else if (package_checker.contains(soundsFragment) && extras[3]) {
+            package_checker.remove(soundsFragment);
             Sounds sounds = new Sounds();
             sounds.setArguments(bundle);
             return sounds;

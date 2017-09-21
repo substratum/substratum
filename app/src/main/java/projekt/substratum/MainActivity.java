@@ -101,6 +101,9 @@ import projekt.substratum.util.helpers.ContextWrapper;
 import projekt.substratum.util.injectors.CheckBinaries;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static projekt.substratum.common.ActivityManagement.launchActivityUrl;
+import static projekt.substratum.common.ActivityManagement.launchExternalActivity;
+import static projekt.substratum.common.ActivityManagement.launchInternalActivity;
 import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
 import static projekt.substratum.common.References.BYPASS_ALL_VERSION_CHECKS;
 import static projekt.substratum.common.References.ENABLE_ROOT_CHECK;
@@ -118,9 +121,6 @@ import static projekt.substratum.common.References.checkAndromeda;
 import static projekt.substratum.common.References.checkThemeSystemModule;
 import static projekt.substratum.common.References.checkUsagePermissions;
 import static projekt.substratum.common.References.isSamsung;
-import static projekt.substratum.common.ActivityManagement.launchExternalActivity;
-import static projekt.substratum.common.ActivityManagement.launchActivityUrl;
-import static projekt.substratum.common.ActivityManagement.launchInternalActivity;
 import static projekt.substratum.common.commands.FileOperations.delete;
 
 public class MainActivity extends SubstratumActivity implements
@@ -145,21 +145,6 @@ public class MainActivity extends SubstratumActivity implements
     private KillReceiver killReceiver;
     private AndromedaReceiver andromedaReceiver;
     private Context context;
-    private FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-
-    public void switchToCustomToolbar(String title, String content) {
-        if (supportActionBar != null) supportActionBar.setTitle("");
-        if (actionbar_content != null) actionbar_content.setVisibility(View.VISIBLE);
-        if (actionbar_title != null) actionbar_title.setVisibility(View.VISIBLE);
-        if (actionbar_title != null) actionbar_title.setText(title);
-        if (actionbar_content != null) actionbar_content.setText(content);
-    }
-
-    public void switchToStockToolbar(String title) {
-        if (actionbar_content != null) actionbar_content.setVisibility(View.GONE);
-        if (actionbar_title != null) actionbar_title.setVisibility(View.GONE);
-        if (supportActionBar != null) supportActionBar.setTitle(title);
-    }
 
     private static boolean checkIfOverlaysOutdated(Context context) {
         List<String> overlays = ThemeManager.listAllOverlays(context);
@@ -178,6 +163,20 @@ public class MainActivity extends SubstratumActivity implements
         return false;
     }
 
+    public void switchToCustomToolbar(String title, String content) {
+        if (supportActionBar != null) supportActionBar.setTitle("");
+        if (actionbar_content != null) actionbar_content.setVisibility(View.VISIBLE);
+        if (actionbar_title != null) actionbar_title.setVisibility(View.VISIBLE);
+        if (actionbar_title != null) actionbar_title.setText(title);
+        if (actionbar_content != null) actionbar_content.setText(content);
+    }
+
+    public void switchToStockToolbar(String title) {
+        if (actionbar_content != null) actionbar_content.setVisibility(View.GONE);
+        if (actionbar_title != null) actionbar_title.setVisibility(View.GONE);
+        if (supportActionBar != null) supportActionBar.setTitle(title);
+    }
+
     private void switchFragment(String title, String fragment) {
         if (searchView != null) {
             if (!searchView.isIconified()) {
@@ -185,6 +184,7 @@ public class MainActivity extends SubstratumActivity implements
             }
         }
         switchToStockToolbar(title);
+        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, Fragment.instantiate(
                 MainActivity.this,
@@ -206,6 +206,7 @@ public class MainActivity extends SubstratumActivity implements
         fragment.setArguments(bundle);
 
         switchToStockToolbar(title);
+        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, fragment);
         tx.commit();
@@ -1157,7 +1158,8 @@ public class MainActivity extends SubstratumActivity implements
                     new AlertDialog.Builder(activity)
                             .setTitle(R.string.overlays_outdated)
                             .setMessage(R.string.overlays_outdated_message)
-                            .setPositiveButton(R.string.dialog_ok, (dialogInterface, i) -> {})
+                            .setPositiveButton(R.string.dialog_ok, (dialogInterface, i) -> {
+                            })
                             .show();
                 }
             }

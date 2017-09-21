@@ -320,9 +320,7 @@ public class ThemeManager {
             }
         } catch (Exception e) {
             // At this point, we probably ran into a legacy command or stock OMS
-            if (checkThemeSystemModule(context) == OVERLAY_MANAGER_SERVICE_O_UNROOTED ||
-                    checkThemeSystemModule(context) == OVERLAY_MANAGER_SERVICE_O_ROOTED ||
-                    checkThemeSystemModule(context) == OVERLAY_MANAGER_SERVICE_O_ANDROMEDA) {
+            if (References.checkOMS(context) || References.checkOreo()) {
                 String prefix;
                 if (state == STATE_ENABLED) {
                     prefix = "[x]";

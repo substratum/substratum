@@ -631,60 +631,61 @@ public class References {
     }
 
     public static int checkThemeSystemModule(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        if (prefs.getInt("CURRENT_THEME_MODE", NO_THEME_ENGINE) != NO_THEME_ENGINE) {
-            return prefs.getInt("CURRENT_THEME_MODE", NO_THEME_ENGINE);
-        }
-
-        Boolean rooted = Root.checkRootAccess();
-        if (checkOreo()) {
-            if (isAndromedaDevice(context) && !isBinderInterfacer(context)) {
-                // Andromeda mode
-                prefs.edit().putInt(
-                        "CURRENT_THEME_MODE",
-                        OVERLAY_MANAGER_SERVICE_O_ANDROMEDA
-                ).apply();
-                return OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
-            } else if (isBinderInterfacer(context)) {
-                // Interfacer mode
-                prefs.edit().putInt(
-                        "CURRENT_THEME_MODE",
-                        OVERLAY_MANAGER_SERVICE_O_UNROOTED
-                ).apply();
-                return OVERLAY_MANAGER_SERVICE_O_UNROOTED;
-            } else if (rooted) {
-                // Rooted mode
-                prefs.edit().putInt(
-                        "CURRENT_THEME_MODE",
-                        OVERLAY_MANAGER_SERVICE_O_ROOTED
-                ).apply();
-                return OVERLAY_MANAGER_SERVICE_O_UNROOTED;
+        if (context != null) {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            if (prefs.getInt("CURRENT_THEME_MODE", NO_THEME_ENGINE) != NO_THEME_ENGINE) {
+                return prefs.getInt("CURRENT_THEME_MODE", NO_THEME_ENGINE);
             }
-        } else if (checkNougat()) {
-            if (isBinderInterfacer(context)) {
-                // Interfacer mode
-                prefs.edit().putInt(
-                        "CURRENT_THEME_MODE",
-                        OVERLAY_MANAGER_SERVICE_N_UNROOTED
-                ).apply();
-                return OVERLAY_MANAGER_SERVICE_N_UNROOTED;
-            } else if (isSamsungDevice(context)) {
-                // Sungstratum mode
-                prefs.edit().putInt(
-                        "CURRENT_THEME_MODE",
-                        SAMSUNG_THEME_ENGINE_N
-                ).apply();
-                return SAMSUNG_THEME_ENGINE_N;
-            } else if (rooted) {
-                // Rooted mode
-                prefs.edit().putInt(
-                        "CURRENT_THEME_MODE",
-                        RUNTIME_RESOURCE_OVERLAY_N_ROOTED
-                ).apply();
-                return RUNTIME_RESOURCE_OVERLAY_N_ROOTED;
+
+            Boolean rooted = Root.checkRootAccess();
+            if (checkOreo()) {
+                if (isAndromedaDevice(context) && !isBinderInterfacer(context)) {
+                    // Andromeda mode
+                    prefs.edit().putInt(
+                            "CURRENT_THEME_MODE",
+                            OVERLAY_MANAGER_SERVICE_O_ANDROMEDA
+                    ).apply();
+                    return OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
+                } else if (isBinderInterfacer(context)) {
+                    // Interfacer mode
+                    prefs.edit().putInt(
+                            "CURRENT_THEME_MODE",
+                            OVERLAY_MANAGER_SERVICE_O_UNROOTED
+                    ).apply();
+                    return OVERLAY_MANAGER_SERVICE_O_UNROOTED;
+                } else if (rooted) {
+                    // Rooted mode
+                    prefs.edit().putInt(
+                            "CURRENT_THEME_MODE",
+                            OVERLAY_MANAGER_SERVICE_O_ROOTED
+                    ).apply();
+                    return OVERLAY_MANAGER_SERVICE_O_UNROOTED;
+                }
+            } else if (checkNougat()) {
+                if (isBinderInterfacer(context)) {
+                    // Interfacer mode
+                    prefs.edit().putInt(
+                            "CURRENT_THEME_MODE",
+                            OVERLAY_MANAGER_SERVICE_N_UNROOTED
+                    ).apply();
+                    return OVERLAY_MANAGER_SERVICE_N_UNROOTED;
+                } else if (isSamsungDevice(context)) {
+                    // Sungstratum mode
+                    prefs.edit().putInt(
+                            "CURRENT_THEME_MODE",
+                            SAMSUNG_THEME_ENGINE_N
+                    ).apply();
+                    return SAMSUNG_THEME_ENGINE_N;
+                } else if (rooted) {
+                    // Rooted mode
+                    prefs.edit().putInt(
+                            "CURRENT_THEME_MODE",
+                            RUNTIME_RESOURCE_OVERLAY_N_ROOTED
+                    ).apply();
+                    return RUNTIME_RESOURCE_OVERLAY_N_ROOTED;
+                }
             }
         }
-
         return NO_THEME_ENGINE;
     }
 

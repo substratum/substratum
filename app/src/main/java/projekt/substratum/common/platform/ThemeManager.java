@@ -55,10 +55,13 @@ import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.O;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ROOTED;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_UNROOTED;
 import static projekt.substratum.common.References.checkAndromeda;
 import static projekt.substratum.common.References.checkOMS;
-import static projekt.substratum.common.References.checkOreo;
 import static projekt.substratum.common.References.checkThemeInterfacer;
+import static projekt.substratum.common.References.checkThemeSystemModule;
 import static projekt.substratum.common.References.grabOverlayParent;
 import static projekt.substratum.common.References.isPackageInstalled;
 
@@ -136,7 +139,7 @@ public class ThemeManager {
                     if (optInFromUIRestart(context)) {
                         restartSystemUI(context);
                     } else {
-                        killSystemUINotificationsOnStockOreo();
+                        killSystemUINotificationsOnStockOreo(context);
                     }
                 }
             } catch (InterruptedException e) {
@@ -175,7 +178,7 @@ public class ThemeManager {
                     if (optInFromUIRestart(context)) {
                         restartSystemUI(context);
                     } else {
-                        killSystemUINotificationsOnStockOreo();
+                        killSystemUINotificationsOnStockOreo(context);
                     }
                 }
             } catch (InterruptedException e) {
@@ -211,7 +214,7 @@ public class ThemeManager {
                 if (optInFromUIRestart(context)) {
                     restartSystemUI(context);
                 } else {
-                    killSystemUINotificationsOnStockOreo();
+                    killSystemUINotificationsOnStockOreo(context);
                 }
             }
         }
@@ -233,8 +236,8 @@ public class ThemeManager {
         }
     }
 
-    private static void killSystemUINotificationsOnStockOreo() {
-        if (Root.checkRootAccess() && References.checkOreo()) {
+    private static void killSystemUINotificationsOnStockOreo(Context context) {
+        if (checkThemeSystemModule(context) == OVERLAY_MANAGER_SERVICE_O_ROOTED) {
             Root.runCommand("service call notification 1");
         }
     }
@@ -268,7 +271,7 @@ public class ThemeManager {
             // Now let's assume everything that gets through will now be only in OMS ROMs
             Map<String, List<OverlayInfo>> allOverlays;
             // On Oreo, use interfacer to get installed overlays
-            if (checkOreo() && checkThemeInterfacer(context)) {
+            if (checkThemeSystemModule(context) == OVERLAY_MANAGER_SERVICE_O_UNROOTED) {
                 allOverlays = ThemeInterfacerService.getAllOverlays(context);
             } else {
                 //noinspection deprecation, unchecked
@@ -317,7 +320,9 @@ public class ThemeManager {
             }
         } catch (Exception e) {
             // At this point, we probably ran into a legacy command or stock OMS
-            if (References.checkOMS(context) || References.checkOreo()) {
+            if (checkThemeSystemModule(context) == OVERLAY_MANAGER_SERVICE_O_UNROOTED ||
+                    checkThemeSystemModule(context) == OVERLAY_MANAGER_SERVICE_O_ROOTED ||
+                    checkThemeSystemModule(context) == OVERLAY_MANAGER_SERVICE_O_ANDROMEDA) {
                 String prefix;
                 if (state == STATE_ENABLED) {
                     prefix = "[x]";

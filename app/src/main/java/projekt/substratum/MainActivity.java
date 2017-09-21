@@ -22,7 +22,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;
 import android.app.Dialog;
-import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -39,7 +38,6 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.service.quicksettings.Tile;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Lunchbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -107,13 +105,22 @@ import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
 import static projekt.substratum.common.References.BYPASS_ALL_VERSION_CHECKS;
 import static projekt.substratum.common.References.ENABLE_ROOT_CHECK;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
+import static projekt.substratum.common.References.NO_THEME_ENGINE;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_N_UNROOTED;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_UNROOTED;
 import static projekt.substratum.common.References.OVERLAY_UPDATE_RANGE;
+import static projekt.substratum.common.References.SAMSUNG_THEME_ENGINE_N;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.References.checkAndromeda;
+import static projekt.substratum.common.References.checkThemeSystemModule;
 import static projekt.substratum.common.References.checkUsagePermissions;
 import static projekt.substratum.common.References.isSamsung;
+import static projekt.substratum.common.ActivityManagement.launchExternalActivity;
+import static projekt.substratum.common.ActivityManagement.launchActivityUrl;
+import static projekt.substratum.common.ActivityManagement.launchInternalActivity;
 import static projekt.substratum.common.commands.FileOperations.delete;
 
 public class MainActivity extends SubstratumActivity implements
@@ -138,6 +145,7 @@ public class MainActivity extends SubstratumActivity implements
     private KillReceiver killReceiver;
     private AndromedaReceiver andromedaReceiver;
     private Context context;
+    private FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
 
     public void switchToCustomToolbar(String title, String content) {
         if (supportActionBar != null) supportActionBar.setTitle("");
@@ -148,16 +156,12 @@ public class MainActivity extends SubstratumActivity implements
     }
 
     public void switchToStockToolbar(String title) {
-        try {
-            actionbar_content.setVisibility(View.GONE);
-            actionbar_title.setVisibility(View.GONE);
-            if (supportActionBar != null) supportActionBar.setTitle(title);
-        } catch (NullPointerException npe) {
-            // At this point, the activity is closing!
-        }
+        if (actionbar_content != null) actionbar_content.setVisibility(View.GONE);
+        if (actionbar_title != null) actionbar_title.setVisibility(View.GONE);
+        if (supportActionBar != null) supportActionBar.setTitle(title);
     }
 
-    private boolean checkIfOverlaysOutdated() {
+    private static boolean checkIfOverlaysOutdated(Context context) {
         List<String> overlays = ThemeManager.listAllOverlays(context);
         for (int i = 0; i < overlays.size(); i++) {
             int current_version = References.grabOverlaySubstratumVersion(
@@ -181,7 +185,6 @@ public class MainActivity extends SubstratumActivity implements
             }
         }
         switchToStockToolbar(title);
-        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, Fragment.instantiate(
                 MainActivity.this,
@@ -203,7 +206,6 @@ public class MainActivity extends SubstratumActivity implements
         fragment.setArguments(bundle);
 
         switchToStockToolbar(title);
-        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, fragment);
         tx.commit();
@@ -609,129 +611,46 @@ public class MainActivity extends SubstratumActivity implements
                                 SettingsFragment.class.getCanonicalName());
                         break;
                     case 100:
-                        try {
-                            String sourceURL = getString(R.string.googleplus_link);
-                            Intent i = new Intent(Intent.ACTION_VIEW);
-                            i.setData(Uri.parse(sourceURL));
-                            startActivity(i);
-                        } catch (Exception e) {
-                            showActivityMissingLunchbar();
-                        }
+                        launchActivityUrl(context, R.string.googleplus_link);
                         break;
                     case 101:
-                        try {
-                            String sourceURL = getString(R.string.reddit_link);
-                            Intent i = new Intent(Intent.ACTION_VIEW);
-                            i.setData(Uri.parse(sourceURL));
-                            startActivity(i);
-                        } catch (Exception e) {
-                            showActivityMissingLunchbar();
-                        }
+                        launchActivityUrl(context, R.string.reddit_link);
                         break;
                     case 102:
-                        try {
-                            String sourceURL = getString(R.string.telegram_link);
-                            Intent i = new Intent(Intent.ACTION_VIEW);
-                            i.setData(Uri.parse(sourceURL));
-                            startActivity(i);
-                        } catch (Exception e) {
-                            showActivityMissingLunchbar();
-                        }
+                        launchActivityUrl(context, R.string.telegram_link);
                         break;
                     case 103:
-                        try {
-                            String sourceURL;
-                            if (References.isSamsung(this)) {
-                                sourceURL = getString(R.string.xda_sungstratum_link);
-                            } else {
-                                sourceURL = getString(R.string.xda_link);
-                            }
-                            Intent i = new Intent(Intent.ACTION_VIEW);
-                            i.setData(Uri.parse(sourceURL));
-                            startActivity(i);
-                        } catch (Exception e) {
-                            showActivityMissingLunchbar();
+                        int sourceURL;
+                        if (References.isSamsung(this)) {
+                            sourceURL = R.string.xda_sungstratum_link;
+                        } else {
+                            sourceURL = R.string.xda_link;
                         }
+                        launchActivityUrl(context, sourceURL);
                         break;
                     case 104:
-                        try {
-                            String sourceURL = getString(R.string.rawad_youtube_url);
-                            Intent i = new Intent(Intent.ACTION_VIEW);
-                            i.setData(Uri.parse(sourceURL));
-                            startActivity(i);
-                        } catch (Exception e) {
-                            showActivityMissingLunchbar();
-                        }
+                        launchActivityUrl(context, R.string.rawad_youtube_url);
                         break;
                     case 105:
-                        try {
-                            String sourceURL = getString(R.string.tcf_link);
-                            Intent i = new Intent(Intent.ACTION_VIEW);
-                            i.setData(Uri.parse(sourceURL));
-                            startActivity(i);
-                        } catch (Exception e) {
-                            showActivityMissingLunchbar();
-                        }
+                        launchActivityUrl(context, R.string.tcf_link);
                         break;
                     case 106:
-                        try {
-                            String sourceURL = getString(R.string.xda_portal_link);
-                            Intent i = new Intent(Intent.ACTION_VIEW);
-                            i.setData(Uri.parse(sourceURL));
-                            startActivity(i);
-                        } catch (Exception e) {
-                            showActivityMissingLunchbar();
-                        }
+                        launchActivityUrl(context, R.string.xda_portal_link);
                         break;
                     case 107:
-                        try {
-                            String sourceURL = getString(R.string.homepage_link);
-                            Intent i = new Intent(Intent.ACTION_VIEW);
-                            i.setData(Uri.parse(sourceURL));
-                            startActivity(i);
-                        } catch (Exception e) {
-                            showActivityMissingLunchbar();
-                        }
+                        launchActivityUrl(context, R.string.homepage_link);
                         break;
                     case 108:
-                        try {
-                            String sourceURL = getString(R.string.template_link);
-                            Intent i = new Intent(Intent.ACTION_VIEW);
-                            i.setData(Uri.parse(sourceURL));
-                            startActivity(i);
-                        } catch (Exception e) {
-                            showActivityMissingLunchbar();
-                        }
+                        launchActivityUrl(context, R.string.template_link);
                         break;
                     case 109:
-                        try {
-                            String sourceURL = getString(R.string.gerrit_link);
-                            Intent i = new Intent(Intent.ACTION_VIEW);
-                            i.setData(Uri.parse(sourceURL));
-                            startActivity(i);
-                        } catch (Exception e) {
-                            showActivityMissingLunchbar();
-                        }
+                        launchActivityUrl(context, R.string.gerrit_link);
                         break;
                     case 110:
-                        try {
-                            String sourceURL = getString(R.string.github_link);
-                            Intent i = new Intent(Intent.ACTION_VIEW);
-                            i.setData(Uri.parse(sourceURL));
-                            startActivity(i);
-                        } catch (Exception e) {
-                            showActivityMissingLunchbar();
-                        }
+                        launchActivityUrl(context, R.string.github_link);
                         break;
                     case 111:
-                        try {
-                            String sourceURL = getString(R.string.jira_link);
-                            Intent i = new Intent(Intent.ACTION_VIEW);
-                            i.setData(Uri.parse(sourceURL));
-                            startActivity(i);
-                        } catch (Exception e) {
-                            showActivityMissingLunchbar();
-                        }
+                        launchActivityUrl(context, R.string.jira_link);
                         break;
                 }
             }
@@ -740,24 +659,7 @@ public class MainActivity extends SubstratumActivity implements
         drawer = drawerBuilder.build();
         drawer.setSelection(selectedDrawer, true);
 
-        RootRequester rootRequester = new RootRequester(this);
-        rootRequester.execute();
-
-        if (checkIfOverlaysOutdated()) {
-            new AlertDialog.Builder(this)
-                    .setTitle(R.string.overlays_outdated)
-                    .setMessage(R.string.overlays_outdated_message)
-                    .setPositiveButton(R.string.dialog_ok, (dialogInterface, i) -> {
-                    })
-                    .show();
-        }
-    }
-
-    private void showActivityMissingLunchbar() {
-        Lunchbar.make(findViewById(android.R.id.content),
-                getString(R.string.activity_missing_toast),
-                Lunchbar.LENGTH_LONG)
-                .show();
+        new RootRequester(this).execute();
     }
 
     private void cleanLogCharReportsIfNecessary() {
@@ -816,8 +718,7 @@ public class MainActivity extends SubstratumActivity implements
                 onBackPressed();
                 return true;
             case R.id.search:
-                Intent intent = new Intent(this, ShowcaseActivity.class);
-                startActivity(intent);
+                launchInternalActivity(this, ShowcaseActivity.class);
                 return true;
 
             // Begin OMS based options
@@ -1243,33 +1144,22 @@ public class MainActivity extends SubstratumActivity implements
         }
 
         @Override
-        protected void onPostExecute(Boolean grantedRoot) {
-            super.onPostExecute(grantedRoot);
+        protected void onPostExecute(Boolean dialogReturnBool) {
+            dialogReturnBool &= ENABLE_ROOT_CHECK & !BYPASS_ALL_VERSION_CHECKS;
+
+            super.onPostExecute(dialogReturnBool);
             MainActivity activity = ref.get();
             if (activity != null) {
                 Context context = activity.context;
-                boolean samsungCheck = References.isSamsungDevice(context);
-                samsungCheck &= !References.isPackageInstalled(context, SST_ADDON_PACKAGE);
-                boolean oreoCheck = References.checkOreo();
-                oreoCheck &= !References.checkThemeInterfacer(context);
-                oreoCheck &= !References.checkAndromeda(context);
-                oreoCheck &= !grantedRoot;
-                boolean andromeda_check = false;
-                if (References.isAndromedaDevice(context)) {
-                    andromeda_check = !AndromedaService.checkServerActivity();
+                showDialogOrNot(dialogReturnBool);
+                if (!dialogReturnBool) permissionCheck();
+                if (checkIfOverlaysOutdated(context)) {
+                    new AlertDialog.Builder(activity)
+                            .setTitle(R.string.overlays_outdated)
+                            .setMessage(R.string.overlays_outdated_message)
+                            .setPositiveButton(R.string.dialog_ok, (dialogInterface, i) -> {})
+                            .show();
                 }
-                boolean legacyCheck = !References.checkOMS(context);
-                legacyCheck &= !grantedRoot;
-                legacyCheck &= References.isSamsungDevice(context) == samsungCheck;
-                boolean omsCheck = References.checkOMS(context);
-                omsCheck &= !References.checkThemeInterfacer(context);
-                omsCheck &= !grantedRoot;
-                omsCheck &= References.checkOreo() == oreoCheck;
-                boolean switchCheck = ENABLE_ROOT_CHECK && !BYPASS_ALL_VERSION_CHECKS;
-                boolean passthrough = switchCheck &&
-                        (samsungCheck || oreoCheck || andromeda_check || legacyCheck || omsCheck);
-                showDialogOrNot(passthrough);
-                if (!passthrough) permissionCheck();
             }
         }
 
@@ -1292,17 +1182,8 @@ public class MainActivity extends SubstratumActivity implements
                         Button samsungButton = activity.mProgressDialog.findViewById(
                                 R.id.sungstratum_button);
                         samsungButton.setVisibility(View.VISIBLE);
-                        samsungButton.setOnClickListener(view -> {
-                            try {
-                                Intent i = new Intent(Intent.ACTION_VIEW);
-                                i.setData(Uri.parse(context.getString(R.string.sungstratum_url)));
-                                context.startActivity(i);
-                            } catch (ActivityNotFoundException activityNotFoundException) {
-                                Toast.makeText(context,
-                                        context.getString(R.string.activity_missing_toast),
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        samsungButton.setOnClickListener(view ->
+                                launchActivityUrl(context, R.string.sungstratum_url));
                         textView.setVisibility(View.GONE);
                         titleView.setVisibility(View.GONE);
                     } else if (References.isAndromedaDevice(context) &&
@@ -1316,11 +1197,7 @@ public class MainActivity extends SubstratumActivity implements
                         andromedaButton.setText(R.string.andromeda_check_status);
                         andromedaButton.setVisibility(View.VISIBLE);
                         andromedaButton.setOnClickListener(view -> {
-                            Intent intent = new Intent();
-                            intent.setComponent(
-                                    new ComponentName(ANDROMEDA_PACKAGE,
-                                            ANDROMEDA_PACKAGE + ".InfoActivity"));
-                            context.startActivity(intent);
+                            launchExternalActivity(context, ANDROMEDA_PACKAGE, "InfoActivity");
                         });
                         textView.setVisibility(View.GONE);
                         titleView.setVisibility(View.GONE);
@@ -1332,17 +1209,8 @@ public class MainActivity extends SubstratumActivity implements
                         Button andromedaButton = activity.mProgressDialog.findViewById(
                                 R.id.andromeda_button);
                         andromedaButton.setVisibility(View.VISIBLE);
-                        andromedaButton.setOnClickListener(view -> {
-                            try {
-                                Intent i = new Intent(Intent.ACTION_VIEW);
-                                i.setData(Uri.parse(context.getString(R.string.andromeda_url)));
-                                context.startActivity(i);
-                            } catch (ActivityNotFoundException activityNotFoundException) {
-                                Toast.makeText(context,
-                                        context.getString(R.string.activity_missing_toast),
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        andromedaButton.setOnClickListener(view ->
+                                launchActivityUrl(context, R.string.andromeda_url));
                         textView.setVisibility(View.GONE);
                         titleView.setVisibility(View.GONE);
                     }
@@ -1358,23 +1226,37 @@ public class MainActivity extends SubstratumActivity implements
             MainActivity activity = ref.get();
             if (activity != null) {
                 Context context = activity.context;
-                if (!References.isSamsungDevice(context) &&
-                        !References.checkThemeInterfacer(context) &&
-                        !References.checkAndromeda(context)) {
-                    Boolean receivedRoot = Root.requestRootAccess();
-                    if (receivedRoot) {
-                        Log.d(SUBSTRATUM_LOG, "Substratum has loaded in rooted mode.");
-                    } else {
-                        Log.e(SUBSTRATUM_LOG, "Substratum was unable to load in rooted mode.");
-                    }
-                    References.injectRescueArchives(context);
-                    return receivedRoot;
-                } else if (References.isSamsungDevice(context)) {
-                    Log.d(SUBSTRATUM_LOG, "Substratum has loaded in Samsung mode.");
-                    return false;
-                } else {
-                    Log.d(SUBSTRATUM_LOG, "Substratum has loaded in rootless mode.");
-                    return false;
+
+                // Samsung mode, but what if package is not installed?
+                boolean samsungCheck = checkThemeSystemModule(context) == SAMSUNG_THEME_ENGINE_N;
+                if (samsungCheck) {
+                    // Throw the dialog when sungstratum addon is not installed
+                    return !References.isPackageInstalled(context, SST_ADDON_PACKAGE);
+                }
+
+                // Check if the system is Andromeda mode
+                boolean andromeda_check =
+                        checkThemeSystemModule(context) == OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
+                if (andromeda_check) {
+                    // Throw the dialog when checkServerActivity() isn't working
+                    return !AndromedaService.checkServerActivity();
+                }
+
+                // Check if the system is legacy
+                boolean legacyCheck =
+                        checkThemeSystemModule(context) == NO_THEME_ENGINE;
+                if (legacyCheck) {
+                    // Throw the dialog, after checking for root
+                    return !Root.requestRootAccess();
+                }
+
+                // Check for OMS
+                boolean omsCheck = References.checkOMS(context);
+                if (omsCheck) {
+                    int checked = checkThemeSystemModule(context);
+                    return checked != OVERLAY_MANAGER_SERVICE_O_UNROOTED &&
+                            checked != OVERLAY_MANAGER_SERVICE_N_UNROOTED &&
+                            !Root.requestRootAccess();
                 }
             }
             return false;

@@ -24,6 +24,7 @@ import android.app.AppOpsManager;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.app.admin.DevicePolicyManager;
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -51,6 +52,7 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.VectorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
@@ -220,6 +222,13 @@ public class References {
     public static final String DEFAULT_NOTIFICATION_CHANNEL_ID = "default";
     public static final String ONGOING_NOTIFICATION_CHANNEL_ID = "ongoing";
     public static final String ANDROMEDA_NOTIFICATION_CHANNEL_ID = "andromeda";
+    public static final int OVERLAY_MANAGER_SERVICE_O_ANDROMEDA = 1089303;
+    public static final int OVERLAY_MANAGER_SERVICE_O_UNROOTED = 13970147;
+    public static final int OVERLAY_MANAGER_SERVICE_O_ROOTED = 1310794;
+    public static final int RUNTIME_RESOURCE_OVERLAY_N_ROOTED = 8282713;
+    public static final int OVERLAY_MANAGER_SERVICE_N_UNROOTED = 18723789;
+    public static final int SAMSUNG_THEME_ENGINE_N = 2389284;
+    public static final int NO_THEME_ENGINE = 0;
     // This controls the filter used by the post-6.0.0 template checker
     private static final String SUBSTRATUM_THEME = "projekt.substratum.THEME";
     private static final String SUBSTRATUM_LAUNCHER_CLASS = ".SubstratumLauncher";
@@ -623,8 +632,72 @@ public class References {
         }
     }
 
+    public static int checkThemeSystemModule(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        if (prefs.getInt("CURRENT_THEME_MODE", NO_THEME_ENGINE) != NO_THEME_ENGINE) {
+            return prefs.getInt("CURRENT_THEME_MODE", NO_THEME_ENGINE);
+        }
+
+        Boolean rooted = Root.checkRootAccess();
+        if (checkOreo()) {
+            if (isAndromedaDevice(context) && !isBinderInterfacer(context)) {
+                // Andromeda mode
+                prefs.edit().putInt(
+                        "CURRENT_THEME_MODE",
+                        OVERLAY_MANAGER_SERVICE_O_ANDROMEDA
+                ).apply();
+                return OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
+            } else if (isBinderInterfacer(context)) {
+                // Interfacer mode
+                prefs.edit().putInt(
+                        "CURRENT_THEME_MODE",
+                        OVERLAY_MANAGER_SERVICE_O_UNROOTED
+                ).apply();
+                return OVERLAY_MANAGER_SERVICE_O_UNROOTED;
+            } else if (rooted) {
+                // Rooted mode
+                prefs.edit().putInt(
+                        "CURRENT_THEME_MODE",
+                        OVERLAY_MANAGER_SERVICE_O_ROOTED
+                ).apply();
+                return OVERLAY_MANAGER_SERVICE_O_UNROOTED;
+            }
+        } else if (checkNougat()) {
+            if (isBinderInterfacer(context)) {
+                // Interfacer mode
+                prefs.edit().putInt(
+                        "CURRENT_THEME_MODE",
+                        OVERLAY_MANAGER_SERVICE_N_UNROOTED
+                ).apply();
+                return OVERLAY_MANAGER_SERVICE_N_UNROOTED;
+            } else if (isSamsungDevice(context)) {
+                // Sungstratum mode
+                prefs.edit().putInt(
+                        "CURRENT_THEME_MODE",
+                        SAMSUNG_THEME_ENGINE_N
+                ).apply();
+                return SAMSUNG_THEME_ENGINE_N;
+            } else if (rooted) {
+                // Rooted mode
+                prefs.edit().putInt(
+                        "CURRENT_THEME_MODE",
+                        RUNTIME_RESOURCE_OVERLAY_N_ROOTED
+                ).apply();
+                return RUNTIME_RESOURCE_OVERLAY_N_ROOTED;
+            }
+        }
+
+        return NO_THEME_ENGINE;
+    }
+
+    @Deprecated
     public static Boolean checkOreo() {
         return Build.VERSION.SDK_INT == Build.VERSION_CODES.O;
+    }
+
+    private static Boolean checkNougat() {
+        return Build.VERSION.SDK_INT == Build.VERSION_CODES.N ||
+                Build.VERSION.SDK_INT == Build.VERSION_CODES.N_MR1;
     }
 
     public static void setAndCheckOMS(Context context) {
@@ -1675,7 +1748,7 @@ public class References {
             return false;
         }
 
-        return checkOreo() && getAndromedaPackage(context) != null;
+        return getAndromedaPackage(context) != null;
     }
 
     // Begin check if device is running on the latest theme interface

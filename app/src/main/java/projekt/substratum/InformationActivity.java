@@ -555,6 +555,7 @@ public class InformationActivity extends SubstratumActivity {
 
                         @Override
                         public void onTabReselected(TabLayout.Tab tab) {
+                            viewPager.setCurrentItem(tab.getPosition());
                         }
                     });
 

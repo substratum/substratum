@@ -440,7 +440,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="settings_system_status">Certifikácia systému</string>
     <string name="settings_system_status_andromeda">Režim Andromeda</string>
     <string name="settings_system_status_rooted">Režim s rootom</string>
-    <string name="settings_system_status_rootless">Režim bez rootu</string>
     <string name="settings_system_status_samsung">Samsung režim</string>
     <string name="settings_system_status_certified">Certifikované</string>
     <string name="settings_system_status_uncertified">Necertifikované</string>

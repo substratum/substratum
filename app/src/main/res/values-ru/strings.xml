@@ -420,7 +420,6 @@
     <string name="settings_system_status">Пригодность системы</string>
     <string name="settings_system_status_andromeda">Режим Andromeda</string>
     <string name="settings_system_status_rooted">Применяется root</string>
-    <string name="settings_system_status_rootless">Без использования root</string>
     <string name="settings_system_status_samsung">Режим совместимости с Samsung</string>
     <string name="settings_system_status_certified">Одобрена</string>
     <string name="settings_system_status_uncertified">Неодобрена</string>

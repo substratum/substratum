@@ -403,7 +403,6 @@
     <string name="settings_system_status">系统认证</string>
     <string name="settings_system_status_andromeda">仙女座模式</string>
     <string name="settings_system_status_rooted">Root 模式</string>
-    <string name="settings_system_status_rootless">非 Root 模式</string>
     <string name="settings_system_status_samsung">三星模式</string>
     <string name="settings_system_status_certified">已认证</string>
     <string name="settings_system_status_uncertified">未认证</string>

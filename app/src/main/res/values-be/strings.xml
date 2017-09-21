@@ -421,7 +421,6 @@
     <string name="settings_system_status">Сумяшчальнасць сістэмы</string>
     <string name="settings_system_status_andromeda">Рэжым Andromeda</string>
     <string name="settings_system_status_rooted">Ужываецца root</string>
-    <string name="settings_system_status_rootless">Без выкарыстання root</string>
     <string name="settings_system_status_samsung">Рэжым сумяшчальнасці з Samsung</string>
     <string name="settings_system_status_certified">Сумяшчальная</string>
     <string name="settings_system_status_uncertified">Несумяшчальная</string>

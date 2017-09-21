@@ -100,6 +100,19 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="overlays_up_to_date">AKTUÁLNÍ</string>
     <string name="overlays_update_available">Dostupná aktualizace!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Varianta není nainstalována</string>
+    <string name="shutdownanimation_placeholder_text">Prosím, vyberte animaci při vypnutí ze seznamu&#8230;</string>
+    <string name="shutdownanimation_default_spinner">Prosím, vyberte animaci při vypnutí&#8230;</string>
+    <string name="shutdownanimation_spinner_set_defaults">Obnovit výchozí animaci při vypnutí&#8230;</string>
+    <string name="shutdownanimation_defaults_text">Toto vyčistí všechny vlastní animace při vypnutí
+        aplikované na tomto zařízení</string>
+    <string name="shutdownanimation_dialog_apply_text">Zpracovávání animace při vypnutí&#8230;</string>
+    <string name="shutdownanimation_dialog_apply_success">Animace při vypnutí nastavena!</string>
+    <string name="shutdownanimation_dialog_apply_failed">Animaci při vypnutí se nepodařilo použít&#8230;</string>
+    <string name="bootanimation_placeholder_text">Prosím, vyberte spouštěcí animaci ze seznamu&#8230;</string>
+    <string name="bootanimation_default_spinner">Prosím, vyberte spouštěcí animaci&#8230;</string>
+    <string name="bootanimation_spinner_set_defaults">Obnovit na výchozí spouštěcí animaci&#8230;</string>
+    <string name="bootanimation_defaults_text">Toto vyčistí všechny vlastní spouštěcí animace
+        aplikované na tomto zařízení</string>
     <string name="bootanimation_dialog_apply_text">Zpracovávání spouštěcí animace&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Spouštěcí animace nastavena!</string>
     <string name="bootanimation_dialog_apply_failed">Spouštěcí animaci se nepodařilo použít&#8230;</string>
@@ -178,6 +191,8 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="manage_dialog_performing">Obnovení na výchozí&#8230;</string>
     <string name="manage_bootanimation_title">Obnovit spouštěcí animaci</string>
     <string name="manage_bootanimation_toast">Spouštěcí animace byla úspěšně obnovena!</string>
+    <string name="manage_shutdownanimation_title">Obnovit animaci Při vypnutí</string>
+    <string name="manage_shutdownanimation_toast">Animace při vypnutí byla úspěšně obnovena!</string>
     <string name="manage_fonts_title">Obnovit systémové písma</string>
     <string name="manage_fonts_toast">Písma byla úspěšně obnovena!</string>
     <string name="manage_sounds_title">Obnovit systémové zvuky</string>
@@ -277,6 +292,7 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="profile_edittext_whitespace_warning_toast">Nelze použít mezery v názvu profilu!</string>
     <string name="toast_backup_success">Aktuální seznam potahů je umístěn do \"/storage/emulated/0/substratum/profiles/%s\"
     </string>
+    <string name="profile_restoration_message">Zpracování profilu obnovení&#8230;</string>
     <string name="spinner_default_item">vyberte profil&#8230;</string>
     <string name="select_to_toggle_all_overlays">Vybete pro přepnutí všech potahů</string>
     <string name="permission_not_granted_dialog_title">Oprávnění nejsou udělena</string>
@@ -362,6 +378,8 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="vibrate_on_compiled">Oznámit dokončení kompilace motivu</string>
     <string name="vibrate_on_compiled_description">Když je motiv zkompilován, zavibrovat zařízením
  pro oznámení uživateli, že je kompilace hotova.</string>
+    <string name="manage_notification_channel">Spravovat kanál upozornění</string>
+    <string name="manage_notification_channel_dialog_title">Vyberte kanál upozornění, který chcete spravovat</string>
     <string name="hide_app_icon">Zobrazit ikonu aplikace</string>
     <string name="hide_app_icon_toast_enabled">Ikona aplikace byla odstraněna!</string>
     <string name="hide_app_icon_toast_disabled">Ikona aplikace byla přidána!</string>
@@ -461,7 +479,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="settings_system_status">Certifikace systému</string>
     <string name="settings_system_status_andromeda">Režim Andromeda</string>
     <string name="settings_system_status_rooted">Režim s rootem</string>
-    <string name="settings_system_status_rootless">Režim bez rootu</string>
     <string name="settings_system_status_samsung">Režim Samsung</string>
     <string name="settings_system_status_certified">Certifikováno</string>
     <string name="settings_system_status_uncertified">Necertifikováno</string>

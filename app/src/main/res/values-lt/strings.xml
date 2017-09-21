@@ -431,7 +431,6 @@
     <string name="settings_system_status">Sistemos sertifikacija</string>
     <string name="settings_system_status_andromeda">\"Andromeda\" režimas</string>
     <string name="settings_system_status_rooted">\"Root\" režimas</string>
-    <string name="settings_system_status_rootless">Be \"root\" režimas</string>
     <string name="settings_system_status_samsung">\"Samsung\" režimas</string>
     <string name="settings_system_status_certified">Sertifikuota</string>
     <string name="settings_system_status_uncertified">Nesertifikuotas</string>

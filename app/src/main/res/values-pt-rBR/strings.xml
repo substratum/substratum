@@ -441,7 +441,6 @@ corretamente&#8230;</string>
     <string name="settings_system_status">Certificação do sistema</string>
     <string name="settings_system_status_andromeda">Modo Andromeda</string>
     <string name="settings_system_status_rooted">Modo root</string>
-    <string name="settings_system_status_rootless">Modo sem root</string>
     <string name="settings_system_status_samsung">Modo Samsung</string>
     <string name="settings_system_status_certified">Certificado</string>
     <string name="settings_system_status_uncertified">Não certificado</string>

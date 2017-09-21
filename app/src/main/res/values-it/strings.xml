@@ -388,7 +388,6 @@
     <string name="profile_dialog_ok">OK</string>
     <string name="settings_system_status">Certificazione sistema</string>
     <string name="settings_system_status_rooted">Modalità root</string>
-    <string name="settings_system_status_rootless">Modalità rootless</string>
     <string name="settings_system_status_samsung">Modalità Samsung</string>
     <string name="settings_system_status_certified">Certificato</string>
     <string name="settings_system_status_uncertified">Non certificato</string>

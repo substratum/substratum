@@ -429,7 +429,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="settings_system_status">Certificación del sistema</string>
     <string name="settings_system_status_andromeda">Modo Andromeda</string>
     <string name="settings_system_status_rooted">Modo Root</string>
-    <string name="settings_system_status_rootless">Modo rootless</string>
     <string name="settings_system_status_samsung">Modo Samsung</string>
     <string name="settings_system_status_certified">Certificado</string>
     <string name="settings_system_status_uncertified">Sin certificar</string>

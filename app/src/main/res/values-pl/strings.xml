@@ -434,7 +434,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="settings_system_status">System certyfikacji</string>
     <string name="settings_system_status_andromeda">Tryb Andromedy</string>
     <string name="settings_system_status_rooted">Tryb roota</string>
-    <string name="settings_system_status_rootless">Tryb bez roota</string>
     <string name="settings_system_status_samsung">Tryb Samsung</string>
     <string name="settings_system_status_certified">Atestowany</string>
     <string name="settings_system_status_uncertified">Nie atestowany</string>

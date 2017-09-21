@@ -515,7 +515,6 @@
     <string name="settings_system_status">Rendszer tanúsítvány</string>
     <string name="settings_system_status_andromeda">Androméda mód</string>
     <string name="settings_system_status_rooted">Rootolt mód</string>
-    <string name="settings_system_status_rootless">Root nélküli mód</string>
     <string name="settings_system_status_samsung">Samsung mód</string>
     <string name="settings_system_status_certified">Hitelesített</string>
     <string name="settings_system_status_uncertified">Nem hitelesített</string>

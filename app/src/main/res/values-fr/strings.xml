@@ -415,7 +415,6 @@
     <string name="settings_system_status">Certification système</string>
     <string name="settings_system_status_andromeda">Mode d\'Andromeda</string>
     <string name="settings_system_status_rooted">Mode Root</string>
-    <string name="settings_system_status_rootless">Mode Rootless</string>
     <string name="settings_system_status_samsung">Mode de Samsung</string>
     <string name="settings_system_status_certified">Certifié</string>
     <string name="settings_system_status_uncertified">Non certifié</string>

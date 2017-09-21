@@ -418,7 +418,6 @@ eingerichtet&#8230;</string>
     <string name="settings_system_status">Systemzertifizierung</string>
     <string name="settings_system_status_andromeda">Andromeda-Modus</string>
     <string name="settings_system_status_rooted">Root-Modus</string>
-    <string name="settings_system_status_rootless">Ohne-Root-Modus</string>
     <string name="settings_system_status_samsung">Samsung-Modus</string>
     <string name="settings_system_status_certified">Zertizifiert</string>
     <string name="settings_system_status_uncertified">Unzertifiziert</string>

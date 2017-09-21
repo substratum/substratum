@@ -125,6 +125,21 @@ lütfen
     <string name="overlays_up_to_date">GÜNCEL</string>
     <string name="overlays_update_available">Güncelleme mevcut!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Varyant yüklü değil</string>
+    <string name="shutdownanimation_placeholder_text">Lütfen açılan listeden bir önyükleme animasyonu
+        seçin&#8230;</string>
+    <string name="shutdownanimation_default_spinner">Lütfen bir kapatma animasyonu seçin&#8230;</string>
+    <string name="shutdownanimation_spinner_set_defaults">Varsayılan kapatma animasyonunu geri yükle&#8230;</string>
+    <string name="shutdownanimation_defaults_text">Bu, cihazınızda uygulanan tüm önyükleme
+        animasyonlarını temizler</string>
+    <string name="shutdownanimation_dialog_apply_text">Kapatma animasyonu işleniyor&#8230;</string>
+    <string name="shutdownanimation_dialog_apply_success">Kapatma animasyonu uygulandı!</string>
+    <string name="shutdownanimation_dialog_apply_failed">Kapatma animasyonu uygulanırken hata oluştu&#8230;</string>
+    <string name="bootanimation_placeholder_text">Lütfen açılan listeden bir önyükleme animasyonu
+        seçin&#8230;</string>
+    <string name="bootanimation_default_spinner">Lütfen bir önyükleme animasyonu seçin&#8230;</string>
+    <string name="bootanimation_spinner_set_defaults">Varsayılan önyükleme animasyonunu geri yükle&#8230;</string>
+    <string name="bootanimation_defaults_text">Bu, cihazınızda uygulanan tüm önyükleme
+        animasyonlarını temizler</string>
     <string name="bootanimation_dialog_apply_text">Önyükleme animasyonu işleniyor&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Önyükleme animasyonu uygulandı!</string>
     <string name="bootanimation_dialog_apply_failed">Önyükleme animasyonu uygulanırken hata oluştu&#8230;</string>
@@ -219,6 +234,8 @@ bu sorunu
     <string name="manage_dialog_performing">Varsayılana geri yükleniyor&#8230;</string>
     <string name="manage_bootanimation_title">Önyükleme Animasyonunu Geri Yükle</string>
     <string name="manage_bootanimation_toast">Önyükleme animasyonu geri yükleme başarılı!</string>
+    <string name="manage_shutdownanimation_title">Kapatma Animasyonunu Geri Yükle</string>
+    <string name="manage_shutdownanimation_toast">Kapatma animasyonu geri yükleme başarılı!</string>
     <string name="manage_fonts_title">Sistem Yazı Tiplerini Geri Yükle</string>
     <string name="manage_fonts_toast">Yazı tipleri geri yükleme başarılı!</string>
     <string name="manage_sounds_title">Sistem Seslerini Geri Yükle</string>
@@ -344,6 +361,7 @@ bu sorunu
     <string name="toast_backup_success">Şuan ki tema listesi
         \"/storage/emulated/0/substratum/profiles/%s\" kaydedildi\"
     </string>
+    <string name="profile_restoration_message">Profil yenilemesi işleniyor&#8230;</string>
     <string name="spinner_default_item">bir profil seçin&#8230;</string>
     <string name="select_to_toggle_all_overlays">Seçilen tüm temalara geçiş yap</string>
     <string name="permission_not_granted_dialog_title">İzin verilmeyen izinler</string>
@@ -425,6 +443,8 @@ bu sorunu
     <string name="show_theme_template_version_description">Her bir temanın hedef SDK düzeylerini, tema sürümünü ve eklenti sürümünü her tema kartında bir etiket olarak gösterin.</string>
     <string name="vibrate_on_compiled">Düzenlendikten sonra bildir</string>
     <string name="vibrate_on_compiled_description">Tema düzenlendiğinde, düzenlemenin tamamlandığını kullanıcıya bildirmek için cihazı titrer.</string>
+    <string name="manage_notification_channel">Bildirim kanalını yönet</string>
+    <string name="manage_notification_channel_dialog_title">Yönetilecek bildirim kanalını seçin</string>
     <string name="hide_app_icon">Uygulama simgesini göster</string>
     <string name="hide_app_icon_toast_enabled">Uygulamanın simgesi başlatıcınızdan kaldırıldı!</string>
     <string name="hide_app_icon_toast_disabled">Uygulamanın simgesi şimdi başlatıcınıza eklendi!</string>
@@ -523,7 +543,6 @@ bu sorunu
     <string name="settings_system_status">Sistem sertifikası</string>
     <string name="settings_system_status_andromeda">Andromeda modu</string>
     <string name="settings_system_status_rooted">Kök erişimli mod</string>
-    <string name="settings_system_status_rootless">Kök erişimsiz mod</string>
     <string name="settings_system_status_samsung">Samsung modu</string>
     <string name="settings_system_status_certified">Sertifikalı</string>
     <string name="settings_system_status_uncertified">Sertifikasız</string>

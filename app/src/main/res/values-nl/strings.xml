@@ -410,7 +410,6 @@
     <string name="settings_system_status">Systeem certificatie</string>
     <string name="settings_system_status_andromeda">Andromeda modus</string>
     <string name="settings_system_status_rooted">Root modus</string>
-    <string name="settings_system_status_rootless">Rootloze modus</string>
     <string name="settings_system_status_samsung">Samsung modus</string>
     <string name="settings_system_status_certified">Gecertificeerd</string>
     <string name="settings_system_status_uncertified">Niet gecertificeerd</string>

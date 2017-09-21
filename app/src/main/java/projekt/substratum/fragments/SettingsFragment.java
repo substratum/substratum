@@ -53,6 +53,7 @@ import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,16 +98,19 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private int tapCount = 0;
     private ArrayList<Integer> packageCounters;
     private ArrayList<Integer> packageCountersErrored;
+    private Context mContext;
 
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
-        if (References.checkOMS(getContext())) {
+        mContext = getContext();
+
+        if (References.checkOMS(mContext)) {
             addPreferencesFromResource(R.xml.preference_fragment);
         } else {
             addPreferencesFromResource(R.xml.legacy_preference_fragment);
         }
 
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 
         StringBuilder sb = new StringBuilder();
 
@@ -117,7 +121,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             sb.append(" - " + BuildConfig.GIT_HASH);
         }
         aboutSubstratum.setSummary(sb.toString());
-        aboutSubstratum.setIcon(getContext().getDrawable(R.mipmap.main_launcher));
+        aboutSubstratum.setIcon(mContext.getDrawable(R.mipmap.main_launcher));
         aboutSubstratum.setOnPreferenceClickListener(
                 preference -> {
                     try {
@@ -141,8 +145,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         systemPlatform = getPreferenceManager().findPreference("system_platform");
 
-        if (References.checkOMS(getContext())) {
-            new checkROMSupportList().execute(
+        if (References.checkOMS(mContext)) {
+            new checkROMSupportList(this).execute(
                     getString(R.string.supported_roms_url),
                     "supported_roms.xml");
         }
@@ -154,21 +158,21 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 getString(R.string.device), Build.MODEL, Build.DEVICE));
         platformSummary.append(String.format("%s ", getString(R.string
                 .settings_about_oms_rro_version)));
-        platformSummary.append(((References.checkOMS(getContext())) ?
+        platformSummary.append(((References.checkOMS(mContext)) ?
                 (References.checkOreo() ? getString(R.string.settings_about_oms_version_do) :
                         getString(R.string.settings_about_oms_version_7)) :
                 getString(R.string.settings_about_rro_version_2)));
         systemPlatform.setSummary(platformSummary);
-        systemPlatform.setIcon(References.grabAppIcon(getContext(), "com.android.systemui"));
+        systemPlatform.setIcon(References.grabAppIcon(mContext, "com.android.systemui"));
 
         Preference systemStatus = getPreferenceManager().findPreference("system_status");
-        boolean full_oms = References.checkOMS(getContext()) &&
-                References.checkSubstratumFeature(getContext());
-        boolean interfacer = References.checkThemeInterfacer(getContext()) &&
-                !References.isSamsung(getContext());
+        boolean full_oms = References.checkOMS(mContext) &&
+                References.checkSubstratumFeature(mContext);
+        boolean interfacer = References.checkThemeInterfacer(mContext) &&
+                !References.isSamsung(mContext);
         boolean verified = prefs.getBoolean("complexion", true);
         boolean certified = verified;
-        if (References.checkOMS(getContext())) {
+        if (References.checkOMS(mContext)) {
             if (interfacer) {
                 certified = verified && full_oms;
             } else {
@@ -178,23 +182,23 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         systemStatus.setSummary((interfacer
                 ? getString(R.string.settings_system_status_rootless)
-                : (References.isSamsung(getContext()) ?
+                : (References.isSamsung(mContext) ?
                 getString(R.string.settings_system_status_samsung) :
-                (References.checkAndromeda(getContext()) ?
+                (References.checkAndromeda(mContext) ?
                         getString(R.string.settings_system_status_andromeda) :
                         getString(R.string.settings_system_status_rooted)))
                 + " (" + (certified ? getString(R.string.settings_system_status_certified) :
                 getString(R.string.settings_system_status_uncertified)) + ")"
         ));
         systemStatus.setIcon(certified ?
-                getContext().getDrawable(R.drawable.system_status_certified)
-                : getContext().getDrawable(R.drawable.system_status_uncertified));
+                mContext.getDrawable(R.drawable.system_status_certified)
+                : mContext.getDrawable(R.drawable.system_status_uncertified));
         if (BuildConfig.DEBUG &&
-                References.checkOMS(getContext()) &&
-                !References.checkAndromeda(getContext())) {
+                References.checkOMS(mContext) &&
+                !References.checkAndromeda(mContext)) {
             systemStatus.setOnPreferenceClickListener(preference -> {
-                if (References.isNetworkAvailable(getContext())) {
-                    new downloadRepositoryList().execute("");
+                if (References.isNetworkAvailable(mContext)) {
+                    new downloadRepositoryList(this).execute("");
                 } else if (getView() != null) {
                     Lunchbar.make(getView(),
                             R.string.resource_needs_internet,
@@ -209,11 +213,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         final CheckBoxPreference showDangerousSamsung = (CheckBoxPreference)
                 getPreferenceManager().findPreference("show_dangerous_samsung_overlays");
 
-        if (References.isSamsung(getContext())) {
+        if (References.isSamsung(mContext)) {
             aboutSamsung.setVisible(true);
-            aboutSamsung.setIcon(References.grabAppIcon(getContext(), SST_ADDON_PACKAGE));
+            aboutSamsung.setIcon(References.grabAppIcon(mContext, SST_ADDON_PACKAGE));
             try {
-                PackageInfo info = getContext().getPackageManager()
+                PackageInfo info = mContext.getPackageManager()
                         .getPackageInfo(SST_ADDON_PACKAGE, 0);
                 String versionName = info.versionName;
                 int versionCode = info.versionCode;
@@ -249,7 +253,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         boolean isChecked = (Boolean) newValue;
                         if (isChecked) {
                             final AlertDialog.Builder builder =
-                                    new AlertDialog.Builder(getContext());
+                                    new AlertDialog.Builder(mContext);
                             builder.setTitle(
                                     R.string.settings_samsung_show_dangerous_overlays_warning_title);
                             builder.setMessage(
@@ -271,7 +275,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         }
                         return false;
                     });
-        } else if (!References.checkOMS(getContext())) {
+        } else if (!References.checkOMS(mContext)) {
             aboutSamsung.setVisible(false);
             showDangerousSamsung.setVisible(false);
         }
@@ -289,14 +293,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     boolean isChecked = (Boolean) newValue;
                     if (isChecked) {
                         forceEnglish.setChecked(true);
-                        Toast.makeText(getContext(),
+                        Toast.makeText(mContext,
                                 getString(R.string.settings_force_english_toast_success),
                                 Toast.LENGTH_SHORT).show();
                         prefs.edit().putBoolean("force_english", true).apply();
                         getActivity().recreate();
                     } else {
                         forceEnglish.setChecked(false);
-                        Toast.makeText(getContext(),
+                        Toast.makeText(mContext,
                                 getString(R.string.settings_force_english_toast_reverted),
                                 Toast.LENGTH_SHORT).show();
                         prefs.edit().putBoolean("force_english", false).apply();
@@ -308,10 +312,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         final Preference purgeCache = getPreferenceManager().findPreference("purge_cache");
         purgeCache.setOnPreferenceClickListener(
                 preference -> {
-                    new deleteCache().execute("");
+                    new deleteCache(this).execute("");
                     return false;
                 });
-        if (!References.isCachingEnabled(getContext())) purgeCache.setVisible(false);
+        if (!References.isCachingEnabled(mContext)) purgeCache.setVisible(false);
 
         final CheckBoxPreference alternate_drawer_design = (CheckBoxPreference)
                 getPreferenceManager().findPreference("alternate_drawer_design");
@@ -326,14 +330,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     if (isChecked) {
                         prefs.edit().putBoolean("alternate_drawer_design", true).apply();
                         alternate_drawer_design.setChecked(true);
-                        Toast.makeText(getContext(),
+                        Toast.makeText(mContext,
                                 getString(R.string.substratum_restart_toast),
                                 Toast.LENGTH_SHORT).show();
                         getActivity().recreate();
                     } else {
                         prefs.edit().putBoolean("alternate_drawer_design", false).apply();
                         alternate_drawer_design.setChecked(false);
-                        Toast.makeText(getContext(),
+                        Toast.makeText(mContext,
                                 getString(R.string.substratum_restart_toast),
                                 Toast.LENGTH_SHORT).show();
                         getActivity().recreate();
@@ -369,7 +373,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             vibrate_on_compiled.setVisible(false);
             manage_notifications.setOnPreferenceClickListener(preference -> {
                 NotificationManager notificationManager =
-                        (NotificationManager) getContext().getSystemService(NOTIFICATION_SERVICE);
+                        (NotificationManager) mContext.getSystemService(NOTIFICATION_SERVICE);
                 List<NotificationChannel> channels = null;
                 if (notificationManager != null) {
                     channels = notificationManager.getNotificationChannels();
@@ -388,7 +392,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 List<NotificationChannel> finalChannels = channels;
                 builder.setItems(channelNames, (dialog, i) -> {
                     Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
-                    intent.putExtra(Settings.EXTRA_APP_PACKAGE, getContext().getPackageName());
+                    intent.putExtra(Settings.EXTRA_APP_PACKAGE, mContext.getPackageName());
                     if (finalChannels != null) {
                         intent.putExtra(Settings.EXTRA_CHANNEL_ID, finalChannels.get(i).getId());
                     }
@@ -450,10 +454,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         grid_style_cards_count.setSummary(toFormat);
         grid_style_cards_count.setOnPreferenceClickListener(
                 preference -> {
-                    AlertDialog.Builder d = new AlertDialog.Builder(getContext());
+                    AlertDialog.Builder d = new AlertDialog.Builder(mContext);
                     d.setTitle(getString(R.string.grid_size_title));
 
-                    NumberPicker numberPicker = new NumberPicker(getContext());
+                    NumberPicker numberPicker = new NumberPicker(mContext);
                     // Maximum overlay priority count
                     numberPicker.setMaxValue(References.MAX_GRID_COUNT);
                     // Minimum overlay priority count
@@ -499,7 +503,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             boolean isChecked = (Boolean) newValue;
             prefs.edit().putBoolean("caching_enabled", isChecked).apply();
             purgeCache.setVisible(isChecked);
-            new deleteCache().execute();
+            new deleteCache(this).execute();
             return true;
         }));
 
@@ -518,8 +522,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             aoptSwitcher.setOnPreferenceClickListener(
                     preference -> {
                         SheetDialog sheetDialog =
-                                new SheetDialog(getContext());
-                        View sheetView = View.inflate(getContext(),
+                                new SheetDialog(mContext);
+                        View sheetView = View.inflate(mContext,
                                 R.layout.aopt_sheet_dialog, null);
 
                         LinearLayout aapt = sheetView.findViewById(R.id.aapt);
@@ -529,7 +533,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             prefs.edit().putString("compiler", "aapt").apply();
                             prefs.edit().putBoolean("aopt_debug", false).apply();
                             aoptSwitcher.setSummary(R.string.settings_aapt);
-                            CheckBinaries.install(getContext(), true);
+                            CheckBinaries.install(mContext, true);
                             sheetDialog.hide();
                         });
                         aopt.setOnClickListener(v -> {
@@ -537,7 +541,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             prefs.edit().putString("compiler", "aopt").apply();
                             prefs.edit().putBoolean("aopt_debug", true).apply();
                             aoptSwitcher.setSummary(R.string.settings_aopt);
-                            CheckBinaries.install(getContext(), true);
+                            CheckBinaries.install(mContext, true);
                             sheetDialog.hide();
                         });
                         sheetDialog.setContentView(sheetView);
@@ -545,13 +549,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         return false;
                     });
 
-            if (References.checkOMS(getContext())) {
+            if (References.checkOMS(mContext)) {
                 crashReceiver.setChecked(prefs.getBoolean("crash_receiver", true));
                 crashReceiver.setOnPreferenceChangeListener((preference, newValue) -> {
                     boolean isChecked = (Boolean) newValue;
                     if (!isChecked) {
                         final AlertDialog.Builder builder =
-                                new AlertDialog.Builder(getContext());
+                                new AlertDialog.Builder(mContext);
                         builder.setTitle(R.string.theme_safety_dialog_title);
                         builder.setMessage(R.string.theme_safety_dialog_content);
                         builder.setNegativeButton(R.string.dialog_cancel,
@@ -569,12 +573,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     }
                     return false;
                 });
-                if (!References.checkSubstratumFeature(getContext())) {
+                if (!References.checkSubstratumFeature(mContext)) {
                     crashReceiver.setVisible(false);
                 }
             }
         } else {
-            if (References.checkOMS(getContext())) {
+            if (References.checkOMS(mContext)) {
                 crashReceiver.setVisible(false);
             }
             aoptSwitcher.setVisible(false);
@@ -583,7 +587,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         // Hidden caching mode option
         if (!themeCaching.isVisible()) {
             systemPlatform.setOnPreferenceClickListener(preference -> {
-                if (!References.isSamsung(getContext())) {
+                if (!References.isSamsung(mContext)) {
                     tapCount++;
                     if (tapCount == 1) {
                         new Handler().postDelayed(() -> tapCount = 0, 2000);
@@ -631,7 +635,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         autosave_logchar.setChecked(true);
                     } else {
                         final AlertDialog.Builder builder = new AlertDialog.Builder
-                                (getContext());
+                                (mContext);
                         builder.setTitle(R.string.logchar_dialog_title_delete_title);
                         builder.setMessage(R.string.logchar_dialog_title_delete_content);
                         builder.setNegativeButton(R.string.dialog_cancel,
@@ -639,7 +643,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         builder.setPositiveButton(R.string.break_compilation_dialog_continue,
                                 (dialog, id) -> {
                                     prefs.edit().putBoolean("autosave_logchar", false).apply();
-                                    delete(getContext(),
+                                    delete(mContext,
                                             new File(Environment.getExternalStorageDirectory() +
                                                     File.separator + "substratum" + File.separator +
                                                     "LogCharReports").getAbsolutePath());
@@ -673,7 +677,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 });
 
 
-        if (!References.checkOMS(getContext())) {
+        if (!References.checkOMS(mContext)) {
             Preference priority_switcher =
                     getPreferenceManager().findPreference("legacy_priority_switcher");
             String formatted =
@@ -682,10 +686,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             priority_switcher.setSummary(formatted);
             priority_switcher.setOnPreferenceClickListener(
                     preference -> {
-                        AlertDialog.Builder d = new AlertDialog.Builder(getContext());
+                        AlertDialog.Builder d = new AlertDialog.Builder(mContext);
                         d.setTitle(getString(R.string.legacy_preference_priority_title));
 
-                        NumberPicker numberPicker = new NumberPicker(getContext());
+                        NumberPicker numberPicker = new NumberPicker(mContext);
                         // Maximum overlay priority count
                         numberPicker.setMaxValue(999);
                         // Minimum overlay priority count
@@ -714,12 +718,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
 
         // Finally, these functions will only work on OMS ROMs
-        if (References.checkOMS(getContext())) {
+        if (References.checkOMS(mContext)) {
             Preference aboutAndromeda = getPreferenceManager().findPreference("about_andromeda");
-            if (References.isAndromedaDevice(getContext())) {
-                aboutAndromeda.setIcon(References.grabAppIcon(getContext(), ANDROMEDA_PACKAGE));
+            if (References.isAndromedaDevice(mContext)) {
+                aboutAndromeda.setIcon(References.grabAppIcon(mContext, ANDROMEDA_PACKAGE));
                 try {
-                    PackageInfo info = getContext().getPackageManager()
+                    PackageInfo info = mContext.getPackageManager()
                             .getPackageInfo(ANDROMEDA_PACKAGE, 0);
                     String versionName = info.versionName;
                     int versionCode = info.versionCode;
@@ -732,7 +736,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
 
             Preference aboutInterfacer = getPreferenceManager().findPreference("about_interfacer");
-            aboutInterfacer.setIcon(References.grabAppIcon(getContext(), INTERFACER_PACKAGE));
+            aboutInterfacer.setIcon(References.grabAppIcon(mContext, INTERFACER_PACKAGE));
             aboutInterfacer.setOnPreferenceClickListener(
                     preference -> {
                         try {
@@ -754,7 +758,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         return false;
                     });
             try {
-                PackageInfo pInfo = References.getThemeInterfacerPackage(getContext());
+                PackageInfo pInfo = References.getThemeInterfacerPackage(mContext);
                 assert pInfo != null;
                 String versionName = pInfo.versionName;
                 int versionCode = pInfo.versionCode;
@@ -763,7 +767,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 // Suppress exception
             }
 
-            if (!References.checkSubstratumFeature(getContext())) {
+            if (!References.checkSubstratumFeature(mContext)) {
                 aboutInterfacer.setVisible(false);
             }
 
@@ -775,7 +779,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             } else {
                 hide_app_checkbox.setChecked(false);
             }
-            if (validateResource(getContext(),
+            if (validateResource(mContext,
                     References.settingsPackageName,
                     References.settingsSubstratumDrawableName,
                     "drawable")) {
@@ -787,8 +791,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         boolean isChecked = (Boolean) newValue;
                         if (isChecked) {
                             prefs.edit().putBoolean("show_app_icon", true).apply();
-                            PackageManager p = getContext().getPackageManager();
-                            ComponentName componentName = new ComponentName(getContext(),
+                            PackageManager p = mContext.getPackageManager();
+                            ComponentName componentName = new ComponentName(mContext,
                                     LauncherActivity.class);
                             p.setComponentEnabledSetting(
                                     componentName,
@@ -803,8 +807,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             hide_app_checkbox.setChecked(true);
                         } else {
                             prefs.edit().putBoolean("show_app_icon", false).apply();
-                            PackageManager p = getContext().getPackageManager();
-                            ComponentName componentName = new ComponentName(getContext(),
+                            PackageManager p = mContext.getPackageManager();
+                            ComponentName componentName = new ComponentName(mContext,
                                     LauncherActivity.class);
                             p.setComponentEnabledSetting(componentName,
                                     PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
@@ -861,7 +865,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             } else {
                 restartSystemUI.setChecked(false);
             }
-            if (References.isAndromedaDevice(getContext())) {
+            if (References.isAndromedaDevice(mContext)) {
                 restartSystemUI.setVisible(false);
             }
             restartSystemUI.setOnPreferenceChangeListener(
@@ -872,7 +876,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             restartSystemUI.setChecked(true);
                         } else {
                             final AlertDialog.Builder builder = new AlertDialog.Builder
-                                    (getContext());
+                                    (mContext);
                             builder.setTitle(R.string.auto_reload_sysui_dialog_title);
                             builder.setMessage(R.string.auto_reload_sysui_dialog_text);
                             builder.setNegativeButton(R.string.dialog_cancel,
@@ -923,7 +927,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         boolean isChecked = (Boolean) newValue;
                         if (isChecked) {
                             final AlertDialog.Builder builder = new AlertDialog.Builder
-                                    (getContext());
+                                    (mContext);
                             builder.setTitle(R.string.settings_theme_auto_updater_dialog_title);
                             builder.setMessage(R.string.settings_theme_auto_updater_dialog_text);
                             builder.setNegativeButton(R.string.dialog_cancel,
@@ -950,7 +954,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         boolean isChecked = (Boolean) newValue;
                         if (isChecked) {
                             final AlertDialog.Builder builder = new AlertDialog.Builder
-                                    (getContext());
+                                    (mContext);
                             builder.setTitle(R.string.break_compilation_dialog_title);
                             builder.setMessage(R.string.break_compilation_dialog_content);
                             builder.setNegativeButton(R.string.dialog_cancel,
@@ -972,7 +976,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             final Preference restartInterfacer = getPreferenceManager()
                     .findPreference("force_stop_interfacer");
             restartInterfacer.setOnPreferenceClickListener(preference -> {
-                ThemeManager.forceStopService(getContext());
+                ThemeManager.forceStopService(mContext);
                 if (getView() != null) {
                     Lunchbar.make(getView(),
                             R.string.settings_force_stop_interfacer_snackbar,
@@ -982,7 +986,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 return false;
             });
             try {
-                Context interfacerContext = getContext().createPackageContext(INTERFACER_PACKAGE,
+                Context interfacerContext = mContext.createPackageContext(INTERFACER_PACKAGE,
                         Context.CONTEXT_IGNORE_SECURITY | Context.CONTEXT_INCLUDE_CODE);
                 ClassLoader interfacerClassLoader = interfacerContext.getClassLoader();
                 Class<?> cls = Class.forName(INTERFACER_SERVICE, true, interfacerClassLoader);
@@ -994,36 +998,54 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
     }
 
-    private class deleteCache extends AsyncTask<String, Integer, String> {
+    private static class deleteCache extends AsyncTask<String, Integer, String> {
+        private WeakReference<SettingsFragment> ref;
+
+        deleteCache(SettingsFragment settingsFragment) {
+            ref = new WeakReference<>(settingsFragment);
+        }
+
         @Override
         protected void onPreExecute() {
-            mProgressDialog = new ProgressDialog(getContext());
-            mProgressDialog.setMessage(getString(R.string.substratum_cache_clear_initial_toast));
-            mProgressDialog.setIndeterminate(true);
-            mProgressDialog.setCancelable(false);
-            mProgressDialog.show();
-            References.clearAllNotifications(getContext());
+            SettingsFragment settingsFragment = ref.get();
+            if (settingsFragment != null) {
+                settingsFragment.mProgressDialog = new ProgressDialog(settingsFragment.mContext);
+                settingsFragment.mProgressDialog.setMessage(
+                        settingsFragment.getString(R.string.substratum_cache_clear_initial_toast));
+                settingsFragment.mProgressDialog.setIndeterminate(true);
+                settingsFragment.mProgressDialog.setCancelable(false);
+                settingsFragment.mProgressDialog.show();
+                References.clearAllNotifications(settingsFragment.mContext);
+            }
         }
 
         @Override
         protected void onPostExecute(String result) {
-            mProgressDialog.cancel();
+            SettingsFragment settingsFragment = ref.get();
+            if (settingsFragment != null) {
+                settingsFragment.mProgressDialog.cancel();
+            }
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
-            // Delete the directory
-            try {
-                File dir = new File(
-                        getContext().getCacheDir().getAbsolutePath() + SUBSTRATUM_BUILDER_CACHE);
-                deleteDir(dir);
-            } catch (Exception e) {
-                // Suppress warning
+            SettingsFragment settingsFragment = ref.get();
+            if (settingsFragment != null) {
+                // Delete the directory
+                try {
+                    File dir = new File(
+                            settingsFragment.mContext.
+                                    getCacheDir().getAbsolutePath() + SUBSTRATUM_BUILDER_CACHE);
+                    deleteDir(dir);
+                } catch (Exception e) {
+                    // Suppress warning
+                }
+                // Reset the flag for is_updating
+                SharedPreferences prefsPrivate =
+                        settingsFragment.mContext.
+                                getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
+                prefsPrivate.edit().remove("is_updating").apply();
             }
-            // Reset the flag for is_updating
-            SharedPreferences prefsPrivate =
-                    getContext().getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
-            prefsPrivate.edit().remove("is_updating").apply();
             return null;
         }
 
@@ -1041,349 +1063,400 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
     }
 
-    private class checkROMSupportList extends AsyncTask<String, Integer, String> {
+    private static class checkROMSupportList extends AsyncTask<String, Integer, String> {
+
+        private WeakReference<SettingsFragment> ref;
+
+        checkROMSupportList(SettingsFragment settingsFragment) {
+            ref = new WeakReference<>(settingsFragment);
+        }
 
         @SuppressWarnings("ConstantConditions")
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+            SettingsFragment settingsFragment = ref.get();
+            if (settingsFragment != null) {
+                if (!References.checkThemeInterfacer(settingsFragment.mContext)) {
+                    return;
+                }
 
-            if (!References.checkThemeInterfacer(getContext())) {
-                return;
-            }
+                if (!References.isNetworkAvailable(settingsFragment.mContext)) {
+                    settingsFragment.platformSummary.append("\n")
+                            .append(settingsFragment.getString(R.string.rom_status))
+                            .append(" ")
+                            .append(settingsFragment.getString(R.string.rom_status_network));
+                    settingsFragment.systemPlatform.setSummary(
+                            settingsFragment.platformSummary.toString());
+                    return;
+                }
 
-            if (!References.isNetworkAvailable(getContext())) {
-                platformSummary.append("\n")
-                        .append(getString(R.string.rom_status))
-                        .append(" ")
-                        .append(getString(R.string.rom_status_network));
-                systemPlatform.setSummary(platformSummary.toString());
-                return;
-            }
+                if (result.length() > 0) {
+                    String supportedRom = String.format(
+                            settingsFragment.getString(R.string.rom_status_supported), result);
+                    settingsFragment.platformSummary.append("\n")
+                            .append(settingsFragment.getString(R.string.rom_status))
+                            .append(" ")
+                            .append(supportedRom);
+                    settingsFragment.systemPlatform.setSummary(
+                            settingsFragment.platformSummary.toString());
+                    return;
+                }
 
-            if (result.length() > 0) {
-                String supportedRom = String.format(
-                        getString(R.string.rom_status_supported), result);
-                platformSummary.append("\n")
-                        .append(getString(R.string.rom_status))
-                        .append(" ")
-                        .append(supportedRom);
-                systemPlatform.setSummary(platformSummary.toString());
-                return;
-            }
-
-            if (result.equals("")) {
-                platformSummary.append("\n")
-                        .append(getString(R.string.rom_status))
-                        .append(" ")
-                        .append(getString(R.string.rom_status_unsupported));
-                systemPlatform.setSummary(platformSummary.toString());
+                if (result.equals("")) {
+                    settingsFragment.platformSummary.append("\n")
+                            .append(settingsFragment.getString(R.string.rom_status))
+                            .append(" ")
+                            .append(settingsFragment.getString(R.string.rom_status_unsupported));
+                    settingsFragment.systemPlatform.setSummary(
+                            settingsFragment.platformSummary.toString());
+                }
             }
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
-            return References.checkFirmwareSupport(getContext(), sUrl[0], sUrl[1]);
+            SettingsFragment settingsFragment = ref.get();
+            if (settingsFragment != null) {
+                return References.checkFirmwareSupport(settingsFragment.mContext, sUrl[0], sUrl[1]);
+            }
+            return null;
         }
     }
 
-    private class downloadRepositoryList extends AsyncTask<String, Integer, ArrayList<String>> {
+    private static class downloadRepositoryList extends AsyncTask<String, Integer,
+            ArrayList<String>> {
+
+        private WeakReference<SettingsFragment> ref;
+
+        downloadRepositoryList(SettingsFragment settingsFragment) {
+            ref = new WeakReference<>(settingsFragment);
+        }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dialog = new Dialog(getActivity());
-            dialog.setContentView(R.layout.validator_dialog);
-            dialog.setCancelable(false);
-            dialog.show();
+            SettingsFragment settingsFragment = ref.get();
+            if (settingsFragment != null) {
+                settingsFragment.dialog = new Dialog(settingsFragment.getActivity());
+                settingsFragment.dialog.setContentView(R.layout.validator_dialog);
+                settingsFragment.dialog.setCancelable(false);
+                settingsFragment.dialog.show();
+            }
         }
 
         @Override
         protected void onPostExecute(ArrayList<String> result) {
             super.onPostExecute(result);
-
-            ArrayList<String> erroredPackages = new ArrayList<>();
-            for (int x = 0; x < errors.size(); x++) {
-                ValidatorError error = errors.get(x);
-                erroredPackages.add(error.getPackageName());
-            }
-
-            dialog.dismiss();
-            Dialog dialog2 = new Dialog(getContext());
-            dialog2.setContentView(R.layout.validator_dialog_inner);
-            RecyclerView recyclerView = dialog2.findViewById(R.id.recycler_view);
-            ArrayList<ValidatorInfo> validatorInfos = new ArrayList<>();
-            for (int i = 0; i < result.size(); i++) {
-                boolean validated = !erroredPackages.contains(result.get(i));
-                ValidatorInfo validatorInfo = new ValidatorInfo(getContext(), result.get(i),
-                        validated,
-                        result.get(i).endsWith(".common"));
-
-                validatorInfo.setPercentage(
-                        packageCounters.get(i) - packageCountersErrored.get(i),
-                        packageCounters.get(i));
-
-                for (int x = 0; x < errors.size(); x++) {
-                    if (result.get(i).equals(errors.get(x).getPackageName())) {
-                        validatorInfo.setPackageError(errors.get(x));
-                        break;
-                    }
+            SettingsFragment settingsFragment = ref.get();
+            if (settingsFragment != null) {
+                ArrayList<String> erroredPackages = new ArrayList<>();
+                for (int x = 0; x < settingsFragment.errors.size(); x++) {
+                    ValidatorError error = settingsFragment.errors.get(x);
+                    erroredPackages.add(error.getPackageName());
                 }
-                validatorInfos.add(validatorInfo);
+
+                settingsFragment.dialog.dismiss();
+                Dialog dialog2 = new Dialog(settingsFragment.mContext);
+                dialog2.setContentView(R.layout.validator_dialog_inner);
+                RecyclerView recyclerView = dialog2.findViewById(R.id.recycler_view);
+                ArrayList<ValidatorInfo> validatorInfos = new ArrayList<>();
+                for (int i = 0; i < result.size(); i++) {
+                    boolean validated = !erroredPackages.contains(result.get(i));
+                    ValidatorInfo validatorInfo = new ValidatorInfo(
+                            settingsFragment.mContext,
+                            result.get(i),
+                            validated,
+                            result.get(i).endsWith(".common"));
+
+                    validatorInfo.setPercentage(
+                            settingsFragment.packageCounters.get(i) -
+                                    settingsFragment.packageCountersErrored.get(i),
+                            settingsFragment.packageCounters.get(i));
+
+                    for (int x = 0; x < settingsFragment.errors.size(); x++) {
+                        if (result.get(i).equals(settingsFragment.errors.get(x).getPackageName())) {
+                            validatorInfo.setPackageError(settingsFragment.errors.get(x));
+                            break;
+                        }
+                    }
+                    validatorInfos.add(validatorInfo);
+                }
+                ValidatorAdapter validatorAdapter = new ValidatorAdapter(validatorInfos);
+                recyclerView.setAdapter(validatorAdapter);
+                RecyclerView.LayoutManager layoutManager =
+                        new LinearLayoutManager(settingsFragment.mContext);
+                recyclerView.setLayoutManager(layoutManager);
+
+                Button button = dialog2.findViewById(R.id.button_done);
+                button.setOnClickListener(v -> dialog2.dismiss());
+
+                WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+                //noinspection ConstantConditions
+                layoutParams.copyFrom(dialog2.getWindow().getAttributes());
+                layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
+                layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
+                dialog2.getWindow().setAttributes(layoutParams);
+                dialog2.show();
             }
-            ValidatorAdapter validatorAdapter = new ValidatorAdapter(validatorInfos);
-            recyclerView.setAdapter(validatorAdapter);
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-            recyclerView.setLayoutManager(layoutManager);
-
-            Button button = dialog2.findViewById(R.id.button_done);
-            button.setOnClickListener(v -> dialog2.dismiss());
-
-            WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-            //noinspection ConstantConditions
-            layoutParams.copyFrom(dialog2.getWindow().getAttributes());
-            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
-            layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT;
-            dialog2.getWindow().setAttributes(layoutParams);
-            dialog2.show();
         }
 
         @Override
         protected ArrayList<String> doInBackground(String... sUrl) {
             // First, we have to download the repository list into the cache
-            FileDownloader.init(getContext(), getString(R.string.validator_url),
-                    "repository_names.xml", "ValidatorCache");
-
-            FileDownloader.init(getContext(), getString(R.string.validator_whitelist_url),
-                    "resource_whitelist.xml", "ValidatorCache");
-
-            ArrayList<Repository> repositories =
-                    ReadRepositoriesFile.main(getContext().getCacheDir().getAbsolutePath() +
-                            "/ValidatorCache/repository_names.xml");
-
-            ArrayList<ValidatorFilter> whitelist =
-                    ReadFilterFile.main(getContext().getCacheDir().getAbsolutePath() +
-                            "/ValidatorCache/resource_whitelist.xml");
-
+            SettingsFragment settingsFragment = ref.get();
             ArrayList<String> packages = new ArrayList<>();
-            packageCounters = new ArrayList<>();
-            packageCountersErrored = new ArrayList<>();
-            errors = new ArrayList<>();
-            for (int i = 0; i < repositories.size(); i++) {
-                Repository repository = repositories.get(i);
-                // Now we have to check all the packages
-                String packageName = repository.getPackageName();
-                ValidatorError validatorError = new ValidatorError(packageName);
-                Boolean has_errored = false;
+            if (settingsFragment != null) {
+                FileDownloader.init(
+                        settingsFragment.mContext,
+                        settingsFragment.getString(R.string.validator_url),
+                        "repository_names.xml", "ValidatorCache");
 
-                int resource_counter = 0;
-                int resource_counter_errored = 0;
+                FileDownloader.init(
+                        settingsFragment.mContext,
+                        settingsFragment.getString(R.string.validator_whitelist_url),
+                        "resource_whitelist.xml", "ValidatorCache");
 
-                String tempPackageName = (packageName.endsWith(".common") ?
-                        packageName.substring(0, packageName.length() - 7) :
-                        packageName);
+                ArrayList<Repository> repositories =
+                        ReadRepositoriesFile.main(
+                                settingsFragment.mContext.getCacheDir().getAbsolutePath() +
+                                        "/ValidatorCache/repository_names.xml");
 
-                if (References.isPackageInstalled(getContext(), tempPackageName)) {
-                    packages.add(packageName);
+                ArrayList<ValidatorFilter> whitelist =
+                        ReadFilterFile.main(
+                                settingsFragment.mContext.getCacheDir().getAbsolutePath() +
+                                        "/ValidatorCache/resource_whitelist.xml");
 
-                    // Check if there's a bools commit check
-                    if (repository.getBools() != null) {
-                        FileDownloader.init(getContext(), repository.getBools(),
-                                tempPackageName + ".bools.xml", "ValidatorCache");
-                        ArrayList<String> bools =
-                                ReadResourcesFile.main(
-                                        getContext().getCacheDir().getAbsolutePath() +
-                                                "/ValidatorCache/" + tempPackageName + ".bools.xml",
-                                        "bool");
-                        for (int j = 0; j < bools.size(); j++) {
-                            boolean validated = Validator.checkResourceObject(
-                                    getContext(),
-                                    tempPackageName,
-                                    "bool",
-                                    bools.get(j));
-                            if (validated) {
-                                if (VALIDATE_WITH_LOGS)
-                                    Log.d("BoolCheck", "Resource exists: " + bools.get(j));
-                            } else {
-                                boolean bypassed = false;
-                                for (int x = 0; x < whitelist.size(); x++) {
-                                    String currentPackage = whitelist.get(x).getPackageName();
-                                    ArrayList<String> currentWhitelist = whitelist.get(x)
-                                            .getFilter();
-                                    if (currentPackage.equals(packageName)) {
-                                        if (currentWhitelist.contains(bools.get(j))) {
-                                            if (VALIDATE_WITH_LOGS)
-                                                Log.d("BoolCheck",
-                                                        "Resource bypassed using filter: " +
-                                                                bools.get(j));
-                                            bypassed = true;
-                                            break;
+                settingsFragment.packageCounters = new ArrayList<>();
+                settingsFragment.packageCountersErrored = new ArrayList<>();
+                settingsFragment.errors = new ArrayList<>();
+                for (int i = 0; i < repositories.size(); i++) {
+                    Repository repository = repositories.get(i);
+                    // Now we have to check all the packages
+                    String packageName = repository.getPackageName();
+                    ValidatorError validatorError = new ValidatorError(packageName);
+                    Boolean has_errored = false;
+
+                    int resource_counter = 0;
+                    int resource_counter_errored = 0;
+
+                    String tempPackageName = (packageName.endsWith(".common") ?
+                            packageName.substring(0, packageName.length() - 7) :
+                            packageName);
+
+                    if (References.isPackageInstalled(settingsFragment.mContext, tempPackageName)) {
+                        packages.add(packageName);
+
+                        // Check if there's a bools commit check
+                        if (repository.getBools() != null) {
+                            FileDownloader.init(settingsFragment.mContext, repository.getBools(),
+                                    tempPackageName + ".bools.xml", "ValidatorCache");
+                            ArrayList<String> bools =
+                                    ReadResourcesFile.main(
+                                            settingsFragment.mContext.
+                                                    getCacheDir().getAbsolutePath() +
+                                                    "/ValidatorCache/" + tempPackageName +
+                                                    ".bools.xml",
+                                            "bool");
+                            for (int j = 0; j < bools.size(); j++) {
+                                boolean validated = Validator.checkResourceObject(
+                                        settingsFragment.mContext,
+                                        tempPackageName,
+                                        "bool",
+                                        bools.get(j));
+                                if (validated) {
+                                    if (VALIDATE_WITH_LOGS)
+                                        Log.d("BoolCheck", "Resource exists: " + bools.get(j));
+                                } else {
+                                    boolean bypassed = false;
+                                    for (int x = 0; x < whitelist.size(); x++) {
+                                        String currentPackage = whitelist.get(x).getPackageName();
+                                        ArrayList<String> currentWhitelist = whitelist.get(x)
+                                                .getFilter();
+                                        if (currentPackage.equals(packageName)) {
+                                            if (currentWhitelist.contains(bools.get(j))) {
+                                                if (VALIDATE_WITH_LOGS)
+                                                    Log.d("BoolCheck",
+                                                            "Resource bypassed using filter: " +
+                                                                    bools.get(j));
+                                                bypassed = true;
+                                                break;
+                                            }
                                         }
                                     }
-                                }
-                                if (!bypassed) {
-                                    if (VALIDATE_WITH_LOGS)
-                                        Log.e("BoolCheck",
-                                                "Resource does not exist: " + bools.get(j));
-                                    has_errored = true;
-                                    validatorError.addBoolError(
-                                            "{" + getString(R.string.resource_boolean) + "} " +
-                                                    bools.get(j));
-                                    resource_counter_errored++;
-                                }
-                            }
-                            resource_counter++;
-                        }
-                    }
-                    // Then go through the entire list of colors
-                    if (repository.getColors() != null) {
-                        FileDownloader.init(getContext(), repository.getColors(),
-                                tempPackageName + ".colors.xml", "ValidatorCache");
-                        ArrayList<String> colors = ReadResourcesFile.main(getContext()
-                                .getCacheDir().getAbsolutePath() +
-                                "/ValidatorCache/" + tempPackageName + ".colors.xml", "color");
-                        for (int j = 0; j < colors.size(); j++) {
-                            boolean validated = Validator.checkResourceObject(
-                                    getContext(),
-                                    tempPackageName,
-                                    "color",
-                                    colors.get(j));
-                            if (validated) {
-                                if (VALIDATE_WITH_LOGS)
-                                    Log.d("ColorCheck", "Resource exists: " + colors.get(j));
-                            } else {
-                                boolean bypassed = false;
-                                for (int x = 0; x < whitelist.size(); x++) {
-                                    String currentPackage = whitelist.get(x).getPackageName();
-                                    ArrayList<String> currentWhitelist = whitelist.get(x)
-                                            .getFilter();
-                                    if (currentPackage.equals(packageName)) {
-                                        if (currentWhitelist.contains(colors.get(j))) {
-                                            if (VALIDATE_WITH_LOGS)
-                                                Log.d("ColorCheck",
-                                                        "Resource bypassed using filter: " +
-                                                                colors.get(j));
-                                            bypassed = true;
-                                            break;
-                                        }
+                                    if (!bypassed) {
+                                        if (VALIDATE_WITH_LOGS)
+                                            Log.e("BoolCheck",
+                                                    "Resource does not exist: " + bools.get(j));
+                                        has_errored = true;
+                                        validatorError.addBoolError(
+                                                "{" + settingsFragment.getString(
+                                                        R.string.resource_boolean) + "} " +
+                                                        bools.get(j));
+                                        resource_counter_errored++;
                                     }
                                 }
-                                if (!bypassed) {
-                                    if (VALIDATE_WITH_LOGS)
-                                        Log.e("ColorCheck",
-                                                "Resource does not exist: " + colors.get(j));
-                                    has_errored = true;
-                                    validatorError.addBoolError(
-                                            "{" + getString(R.string.resource_color) + "} " +
-                                                    colors.get(j));
-                                    resource_counter_errored++;
-                                }
+                                resource_counter++;
                             }
-                            resource_counter++;
                         }
-                    }
-                    // Next, dimensions may need to be exposed
-                    if (repository.getDimens() != null) {
-                        FileDownloader.init(getContext(), repository.getDimens(),
-                                tempPackageName + ".dimens.xml", "ValidatorCache");
-                        ArrayList<String> dimens = ReadResourcesFile.main(
-                                getContext().getCacheDir().getAbsolutePath() +
-                                        "/ValidatorCache/" + tempPackageName +
-                                        ".dimens.xml", "dimen");
-                        for (int j = 0; j < dimens.size(); j++) {
-                            boolean validated = Validator.checkResourceObject(
-                                    getContext(),
-                                    tempPackageName,
-                                    "dimen",
-                                    dimens.get(j));
-                            if (validated) {
-                                if (VALIDATE_WITH_LOGS)
-                                    Log.d("DimenCheck", "Resource exists: " + dimens.get(j));
-                            } else {
-                                boolean bypassed = false;
-                                for (int x = 0; x < whitelist.size(); x++) {
-                                    String currentPackage = whitelist.get(x).getPackageName();
-                                    ArrayList<String> currentWhitelist = whitelist.get(x)
-                                            .getFilter();
-                                    if (currentPackage.equals(packageName)) {
-                                        if (currentWhitelist.contains(dimens.get(j))) {
-                                            if (VALIDATE_WITH_LOGS)
-                                                Log.d("DimenCheck",
-                                                        "Resource bypassed using filter: " +
-                                                                dimens.get(j));
-                                            bypassed = true;
-                                            break;
+                        // Then go through the entire list of colors
+                        if (repository.getColors() != null) {
+                            FileDownloader.init(settingsFragment.mContext, repository.getColors(),
+                                    tempPackageName + ".colors.xml", "ValidatorCache");
+                            ArrayList<String> colors = ReadResourcesFile.main(
+                                    settingsFragment.mContext
+                                            .getCacheDir().getAbsolutePath() +
+                                            "/ValidatorCache/" + tempPackageName + ".colors.xml",
+                                    "color");
+                            for (int j = 0; j < colors.size(); j++) {
+                                boolean validated = Validator.checkResourceObject(
+                                        settingsFragment.mContext,
+                                        tempPackageName,
+                                        "color",
+                                        colors.get(j));
+                                if (validated) {
+                                    if (VALIDATE_WITH_LOGS)
+                                        Log.d("ColorCheck", "Resource exists: " + colors.get(j));
+                                } else {
+                                    boolean bypassed = false;
+                                    for (int x = 0; x < whitelist.size(); x++) {
+                                        String currentPackage = whitelist.get(x).getPackageName();
+                                        ArrayList<String> currentWhitelist = whitelist.get(x)
+                                                .getFilter();
+                                        if (currentPackage.equals(packageName)) {
+                                            if (currentWhitelist.contains(colors.get(j))) {
+                                                if (VALIDATE_WITH_LOGS)
+                                                    Log.d("ColorCheck",
+                                                            "Resource bypassed using filter: " +
+                                                                    colors.get(j));
+                                                bypassed = true;
+                                                break;
+                                            }
                                         }
                                     }
-                                }
-                                if (!bypassed) {
-                                    if (VALIDATE_WITH_LOGS)
-                                        Log.e("DimenCheck",
-                                                "Resource does not exist: " + dimens.get(j));
-                                    has_errored = true;
-                                    validatorError.addBoolError(
-                                            "{" + getString(R.string.resource_dimension) + "} " +
-                                                    dimens.get(j));
-                                    resource_counter_errored++;
-                                }
-                            }
-                            resource_counter++;
-                        }
-                    }
-                    // Finally, check if styles are exposed
-                    if (repository.getStyles() != null) {
-                        FileDownloader.init(getContext(), repository.getStyles(),
-                                tempPackageName + ".styles.xml", "ValidatorCache");
-                        ArrayList<String> styles = ReadResourcesFile.main(getContext()
-                                .getCacheDir().getAbsolutePath() +
-                                "/ValidatorCache/" + tempPackageName + ".styles.xml", "style");
-                        for (int j = 0; j < styles.size(); j++) {
-                            boolean validated = Validator.checkResourceObject(
-                                    getContext(),
-                                    tempPackageName,
-                                    "style",
-                                    styles.get(j));
-                            if (validated) {
-                                if (VALIDATE_WITH_LOGS)
-                                    Log.d("StyleCheck", "Resource exists: " + styles.get(j));
-                            } else {
-                                boolean bypassed = false;
-                                for (int x = 0; x < whitelist.size(); x++) {
-                                    String currentPackage = whitelist.get(x).getPackageName();
-                                    ArrayList<String> currentWhitelist = whitelist.get(x)
-                                            .getFilter();
-                                    if (currentPackage.equals(packageName)) {
-                                        if (currentWhitelist.contains(styles.get(j))) {
-                                            if (VALIDATE_WITH_LOGS)
-                                                Log.d("StyleCheck",
-                                                        "Resource bypassed using filter: " +
-                                                                styles.get(j));
-                                            bypassed = true;
-                                            break;
-                                        }
+                                    if (!bypassed) {
+                                        if (VALIDATE_WITH_LOGS)
+                                            Log.e("ColorCheck",
+                                                    "Resource does not exist: " + colors.get(j));
+                                        has_errored = true;
+                                        validatorError.addBoolError(
+                                                "{" + settingsFragment.getString(
+                                                        R.string.resource_color) + "} " +
+                                                        colors.get(j));
+                                        resource_counter_errored++;
                                     }
                                 }
-                                if (!bypassed) {
-                                    if (VALIDATE_WITH_LOGS)
-                                        Log.e("StyleCheck",
-                                                "Resource does not exist: " + styles.get(j));
-                                    has_errored = true;
-                                    validatorError.addBoolError(
-                                            "{" + getString(R.string.resource_style) + "} " +
-                                                    styles.get(j));
-                                    resource_counter_errored++;
-                                }
+                                resource_counter++;
                             }
-                            resource_counter++;
                         }
-                    }
-                    packageCounters.add(resource_counter);
-                    packageCountersErrored.add(resource_counter_errored);
-                } else if (VALIDATE_WITH_LOGS)
-                    Log.d(SUBSTRATUM_VALIDATOR,
-                            "This device does not come built-in with '" + packageName + "', " +
-                                    "skipping resource verification...");
-                if (has_errored) errors.add(validatorError);
+                        // Next, dimensions may need to be exposed
+                        if (repository.getDimens() != null) {
+                            FileDownloader.init(settingsFragment.mContext, repository.getDimens(),
+                                    tempPackageName + ".dimens.xml", "ValidatorCache");
+                            ArrayList<String> dimens = ReadResourcesFile.main(
+                                    settingsFragment.mContext.getCacheDir().getAbsolutePath() +
+                                            "/ValidatorCache/" + tempPackageName +
+                                            ".dimens.xml", "dimen");
+                            for (int j = 0; j < dimens.size(); j++) {
+                                boolean validated = Validator.checkResourceObject(
+                                        settingsFragment.mContext,
+                                        tempPackageName,
+                                        "dimen",
+                                        dimens.get(j));
+                                if (validated) {
+                                    if (VALIDATE_WITH_LOGS)
+                                        Log.d("DimenCheck", "Resource exists: " + dimens.get(j));
+                                } else {
+                                    boolean bypassed = false;
+                                    for (int x = 0; x < whitelist.size(); x++) {
+                                        String currentPackage = whitelist.get(x).getPackageName();
+                                        ArrayList<String> currentWhitelist = whitelist.get(x)
+                                                .getFilter();
+                                        if (currentPackage.equals(packageName)) {
+                                            if (currentWhitelist.contains(dimens.get(j))) {
+                                                if (VALIDATE_WITH_LOGS)
+                                                    Log.d("DimenCheck",
+                                                            "Resource bypassed using filter: " +
+                                                                    dimens.get(j));
+                                                bypassed = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if (!bypassed) {
+                                        if (VALIDATE_WITH_LOGS)
+                                            Log.e("DimenCheck",
+                                                    "Resource does not exist: " + dimens.get(j));
+                                        has_errored = true;
+                                        validatorError.addBoolError(
+                                                "{" + settingsFragment.getString(
+                                                        R.string.resource_dimension) + "}" +
+                                                        " " +
+                                                        dimens.get(j));
+                                        resource_counter_errored++;
+                                    }
+                                }
+                                resource_counter++;
+                            }
+                        }
+                        // Finally, check if styles are exposed
+                        if (repository.getStyles() != null) {
+                            FileDownloader.init(settingsFragment.mContext, repository.getStyles(),
+                                    tempPackageName + ".styles.xml", "ValidatorCache");
+                            ArrayList<String> styles = ReadResourcesFile.main(
+                                    settingsFragment.mContext
+                                            .getCacheDir().getAbsolutePath() +
+                                            "/ValidatorCache/" + tempPackageName + ".styles.xml",
+                                    "style");
+                            for (int j = 0; j < styles.size(); j++) {
+                                boolean validated = Validator.checkResourceObject(
+                                        settingsFragment.mContext,
+                                        tempPackageName,
+                                        "style",
+                                        styles.get(j));
+                                if (validated) {
+                                    if (VALIDATE_WITH_LOGS)
+                                        Log.d("StyleCheck", "Resource exists: " + styles.get(j));
+                                } else {
+                                    boolean bypassed = false;
+                                    for (int x = 0; x < whitelist.size(); x++) {
+                                        String currentPackage = whitelist.get(x).getPackageName();
+                                        ArrayList<String> currentWhitelist = whitelist.get(x)
+                                                .getFilter();
+                                        if (currentPackage.equals(packageName)) {
+                                            if (currentWhitelist.contains(styles.get(j))) {
+                                                if (VALIDATE_WITH_LOGS)
+                                                    Log.d("StyleCheck",
+                                                            "Resource bypassed using filter: " +
+                                                                    styles.get(j));
+                                                bypassed = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if (!bypassed) {
+                                        if (VALIDATE_WITH_LOGS)
+                                            Log.e("StyleCheck",
+                                                    "Resource does not exist: " + styles.get(j));
+                                        has_errored = true;
+                                        validatorError.addBoolError(
+                                                "{" + settingsFragment.getString(
+                                                        R.string.resource_style) + "} " +
+                                                        styles.get(j));
+                                        resource_counter_errored++;
+                                    }
+                                }
+                                resource_counter++;
+                            }
+                        }
+                        settingsFragment.packageCounters.add(resource_counter);
+                        settingsFragment.packageCountersErrored.add(resource_counter_errored);
+                    } else if (VALIDATE_WITH_LOGS)
+                        Log.d(SUBSTRATUM_VALIDATOR,
+                                "This device does not come built-in with '" + packageName + "', " +
+                                        "skipping resource verification...");
+                    if (has_errored) settingsFragment.errors.add(validatorError);
+                }
             }
             return packages;
         }

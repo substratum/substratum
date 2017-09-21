@@ -380,7 +380,6 @@ public class OverlayUpdater extends BroadcastReceiver {
                             (encrypted ? ".xml.enc" : ".xml");
                     String type2Dir = "overlays/" + target + "/type2_" + type2;
                     String type3Dir = "overlays/" + target + "/type3_" + type3;
-                    String type4Dir = "overlays/" + target + "/type4_" + type4;
 
                     String additional_variant = ((type2 != null && type2.length() > 0) ?
                             type2Dir.split("/")[2].substring(6) : null);

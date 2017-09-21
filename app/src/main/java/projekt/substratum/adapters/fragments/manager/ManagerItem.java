@@ -157,13 +157,13 @@ public class ManagerItem implements Serializable, Comparable<ManagerItem> {
         this.themeName = name;
     }
 
-    public String getLabelName() {
+    private String getLabelName() {
         return labelName;
     }
 
-    public void setLabelName(String packageName) {
+    private void setLabelName(String packageName) {
         labelName = References.grabPackageName(getContext(),
-                    References.grabOverlayTarget(getContext(), packageName));
+                References.grabOverlayTarget(getContext(), packageName));
     }
 
     public Drawable getDrawable() {
@@ -185,7 +185,7 @@ public class ManagerItem implements Serializable, Comparable<ManagerItem> {
     @Override
     public int compareTo(@NonNull ManagerItem managerItem) {
         int compareName = getLabelName().compareToIgnoreCase(managerItem.getLabelName());
-        if (compareName != 0){
+        if (compareName != 0) {
             return compareName;
         }
         return getThemeName().compareToIgnoreCase(managerItem.getThemeName());
@@ -193,7 +193,7 @@ public class ManagerItem implements Serializable, Comparable<ManagerItem> {
 
     public int compareToByTheme(@NonNull ManagerItem managerItem) {
         int compareTheme = getThemeName().compareToIgnoreCase(managerItem.getThemeName());
-        if (compareTheme != 0){
+        if (compareTheme != 0) {
             return compareTheme;
         }
         return getLabelName().compareToIgnoreCase(managerItem.getLabelName());

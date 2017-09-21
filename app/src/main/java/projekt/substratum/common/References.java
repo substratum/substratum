@@ -24,7 +24,6 @@ import android.app.AppOpsManager;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.app.admin.DevicePolicyManager;
-import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -52,7 +51,6 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.VectorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
@@ -222,6 +220,7 @@ public class References {
     public static final String DEFAULT_NOTIFICATION_CHANNEL_ID = "default";
     public static final String ONGOING_NOTIFICATION_CHANNEL_ID = "ongoing";
     public static final String ANDROMEDA_NOTIFICATION_CHANNEL_ID = "andromeda";
+    // Different theme systems
     public static final int OVERLAY_MANAGER_SERVICE_O_ANDROMEDA = 1089303;
     public static final int OVERLAY_MANAGER_SERVICE_O_UNROOTED = 13970147;
     public static final int OVERLAY_MANAGER_SERVICE_O_ROOTED = 1310794;
@@ -558,12 +557,11 @@ public class References {
                 Environment.getExternalStorageDirectory().getAbsolutePath() +
                         File.separator + "substratum" +
                         File.separator + "SubstratumRescue_Legacy.zip");
-        if (rescueFile.exists()) {
-            rescueFile.delete();
+        if (rescueFile.exists() && rescueFile.delete()) {
+            Log.e(SUBSTRATUM_LOG, "Deleted the rescue file!");
         }
-
-        if (rescueFileLegacy.exists()) {
-            rescueFileLegacy.delete();
+        if (rescueFileLegacy.exists() && rescueFileLegacy.delete()) {
+            Log.e(SUBSTRATUM_LOG, "Deleted the rescue legacy file!");
         }
         copyRescueFile(context, "rescue_legacy.dat",
                 Environment.getExternalStorageDirectory().getAbsolutePath() +
@@ -690,7 +688,6 @@ public class References {
         return NO_THEME_ENGINE;
     }
 
-    @Deprecated
     public static Boolean checkOreo() {
         return Build.VERSION.SDK_INT == Build.VERSION_CODES.O;
     }
@@ -1022,6 +1019,7 @@ public class References {
             bitmap = References.getBitmapFromVector(drawable);
         } else if (drawable instanceof BitmapDrawable
                 | drawable instanceof ShapeDrawable) {
+            //noinspection ConstantConditions
             bitmap = ((BitmapDrawable) drawable).getBitmap();
         } else if (drawable instanceof AdaptiveIconDrawable) {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -1892,12 +1890,13 @@ public class References {
         }
     }
 
-    // This method checks whether these are legitimate packages for Substratum
+    // This method checks whether these are legitimate packages for Substratum,
+    // then mutates the input.
     @SuppressWarnings("unchecked")
-    public static HashMap<String, String[]> getSubstratumPackages(Context context,
-                                                                  HashMap packages,
-                                                                  String home_type,
-                                                                  String search_filter) {
+    public static void getSubstratumPackages(Context context,
+                                             HashMap packages,
+                                             String home_type,
+                                             String search_filter) {
         try {
             List<ResolveInfo> listOfThemes = getThemes(context);
             for (ResolveInfo ri : listOfThemes) {
@@ -1964,7 +1963,6 @@ public class References {
         } catch (Exception e) {
             // Suppress warning
         }
-        return packages;
     }
 
     @SuppressWarnings("deprecation")

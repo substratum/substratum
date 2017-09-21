@@ -79,6 +79,7 @@ public class ScheduledProfileReceiver extends BroadcastReceiver {
                 NotificationManager mNotifyManager =
                         (NotificationManager) context.getSystemService(Context
                                 .NOTIFICATION_SERVICE);
+                @SuppressWarnings("deprecation")
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
                 mBuilder.setContentTitle(
                         String.format(context.getString(R.string.profile_notification_title),

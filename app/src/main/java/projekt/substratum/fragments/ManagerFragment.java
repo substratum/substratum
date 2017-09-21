@@ -178,8 +178,7 @@ public class ManagerFragment extends Fragment {
                     i++;
                 while (overlayList.get(j).compareTo(pivot) > 0)
                     j--;
-            }
-            else if (sort.equals("theme")) {
+            } else if (sort.equals("theme")) {
                 while (overlayList.get(i).compareToByTheme(pivot) < 0)
                     i++;
                 while (overlayList.get(j).compareToByTheme(pivot) > 0)

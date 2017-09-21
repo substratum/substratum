@@ -73,10 +73,6 @@ public class FileDownloader {
                             + " " + connection.getResponseMessage());
                 }
 
-                // This will be useful to display download percentage
-                // might be -1: server did not report the length
-                int fileLength = connection.getContentLength();
-
                 // Download the file
                 input = connection.getInputStream();
 

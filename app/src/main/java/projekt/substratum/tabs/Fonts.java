@@ -94,6 +94,10 @@ public class Fonts extends Fragment {
     private Boolean encrypted = false;
     private Cipher cipher = null;
 
+    public Fonts getInstance() {
+        return this;
+    }
+
     @Override
     public View onCreateView(
             LayoutInflater inflater,
@@ -180,7 +184,7 @@ public class Fonts extends Fragment {
                             defaults.setVisibility(View.GONE);
                             font_placeholder.setVisibility(View.GONE);
                             String[] commands = {arg0.getSelectedItem().toString()};
-                            current = new FontPreview().execute(commands);
+                            current = new FontPreview(getInstance()).execute(commands);
                     }
                 }
 
@@ -310,121 +314,145 @@ public class Fonts extends Fragment {
         }
     }
 
-    private class FontPreview extends AsyncTask<String, Integer, String> {
+    private static class FontPreview extends AsyncTask<String, Integer, String> {
+
+        private WeakReference<Fonts> ref;
+
+        FontPreview(Fonts fonts) {
+            ref = new WeakReference<>(fonts);
+        }
 
         @Override
         protected void onPreExecute() {
-            paused = true;
-            font_holder.setVisibility(View.INVISIBLE);
-            progressBar.setVisibility(View.VISIBLE);
+            Fonts fonts = ref.get();
+            if (fonts != null) {
+                fonts.paused = true;
+                fonts.font_holder.setVisibility(View.INVISIBLE);
+                fonts.progressBar.setVisibility(View.VISIBLE);
+            }
         }
 
         @Override
         protected void onPostExecute(String result) {
-            try {
-                Log.d(TAG, "Fonts have been loaded on the drawing panel.");
-
-                String work_directory = mContext.getCacheDir().getAbsolutePath() +
-                        "/FontCache/font_preview/";
-
+            Fonts fonts = ref.get();
+            if (fonts != null) {
                 try {
-                    Typeface normal_tf = Typeface.createFromFile(work_directory +
-                            "Roboto-Regular.ttf");
-                    TextView normal = root.findViewById(R.id.text_normal);
-                    normal.setTypeface(normal_tf);
-                } catch (Exception e) {
-                    Log.e(TAG, "Could not load font from directory for normal template." +
-                            " Maybe it wasn't themed?");
-                }
+                    Log.d(TAG, "Fonts have been loaded on the drawing panel.");
 
-                try {
-                    Typeface bold_tf = Typeface.createFromFile(work_directory + "Roboto-Black.ttf");
-                    TextView normal_bold = root.findViewById(R.id.text_bold);
-                    normal_bold.setTypeface(bold_tf);
-                } catch (Exception e) {
-                    Log.e(TAG, "Could not load font from directory for normal-bold " +
-                            "template. Maybe it wasn't themed?");
-                }
+                    String work_directory = fonts.mContext.getCacheDir().getAbsolutePath() +
+                            "/FontCache/font_preview/";
 
-                try {
-                    Typeface italics_tf = Typeface.createFromFile(work_directory + "Roboto-Italic" +
-                            ".ttf");
-                    TextView italics = root.findViewById(R.id.text_normal_italics);
-                    italics.setTypeface(italics_tf);
-                } catch (Exception e) {
-                    Log.e(TAG, "Could not load font from directory for italic template." +
-                            " Maybe it wasn't themed?");
-                }
+                    try {
+                        Typeface normal_tf = Typeface.createFromFile(work_directory +
+                                "Roboto-Regular.ttf");
+                        TextView normal = fonts.root.findViewById(R.id.text_normal);
+                        normal.setTypeface(normal_tf);
+                    } catch (Exception e) {
+                        Log.e(TAG, "Could not load font from directory for normal template." +
+                                " Maybe it wasn't themed?");
+                    }
 
-                try {
-                    Typeface italics_bold_tf = Typeface.createFromFile(work_directory +
-                            "Roboto-BoldItalic.ttf");
-                    TextView italics_bold = root.findViewById(R.id.text_normal_bold_italics);
-                    italics_bold.setTypeface(italics_bold_tf);
-                } catch (Exception e) {
-                    Log.e(TAG, "Could not load font from directory for italic-bold " +
-                            "template. Maybe it wasn't themed?");
-                }
+                    try {
+                        Typeface bold_tf = Typeface.createFromFile(work_directory +
+                                "Roboto-Black.ttf");
 
-                FileOperations.delete(mContext, mContext.getCacheDir().getAbsolutePath() +
-                        "/FontCache/font_preview/");
-                font_holder.setVisibility(View.VISIBLE);
-                progressBar.setVisibility(View.GONE);
-                paused = false;
-            } catch (Exception e) {
-                Log.e("Fonts",
-                        "Window was destroyed before AsyncTask could complete postExecute()");
+                        TextView normal_bold = fonts.root.findViewById(R.id.text_bold);
+                        normal_bold.setTypeface(bold_tf);
+                    } catch (Exception e) {
+                        Log.e(TAG, "Could not load font from directory for normal-bold " +
+                                "template. Maybe it wasn't themed?");
+                    }
+
+                    try {
+                        Typeface italics_tf = Typeface.createFromFile(work_directory +
+                                "Roboto-Italic" +
+                                ".ttf");
+                        TextView italics = fonts.root.findViewById(R.id.text_normal_italics);
+                        italics.setTypeface(italics_tf);
+                    } catch (Exception e) {
+                        Log.e(TAG, "Could not load font from directory for italic template." +
+                                " Maybe it wasn't themed?");
+                    }
+
+                    try {
+                        Typeface italics_bold_tf = Typeface.createFromFile(work_directory +
+                                "Roboto-BoldItalic.ttf");
+                        TextView italics_bold = fonts.root.findViewById(
+                                R.id.text_normal_bold_italics);
+                        italics_bold.setTypeface(italics_bold_tf);
+                    } catch (Exception e) {
+                        Log.e(TAG, "Could not load font from directory for italic-bold " +
+                                "template. Maybe it wasn't themed?");
+                    }
+
+                    FileOperations.delete(fonts.mContext,
+                            fonts.mContext.getCacheDir().getAbsolutePath() +
+                                    "/FontCache/font_preview/");
+                    fonts.font_holder.setVisibility(View.VISIBLE);
+                    fonts.progressBar.setVisibility(View.GONE);
+                    fonts.paused = false;
+                } catch (Exception e) {
+                    Log.e("Fonts",
+                            "Window was destroyed before AsyncTask could complete postExecute()");
+                }
             }
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
-            try {
-                File cacheDirectory = new File(mContext.getCacheDir(), "/FontCache/");
-                if (!cacheDirectory.exists()) {
-                    if (cacheDirectory.mkdirs()) Log.d(TAG, "FontCache folder created");
-                }
-                File cacheDirectory2 = new File(mContext.getCacheDir(),
-                        "/FontCache/font_preview/");
-
-                if (!cacheDirectory2.exists()) {
-                    if (cacheDirectory2.mkdirs()) Log.d(TAG,
-                            "FontCache work folder created");
-                } else {
-                    FileOperations.delete(mContext,
-                            mContext.getCacheDir().getAbsolutePath() +
-                                    "/FontCache/font_preview/");
-                    if (cacheDirectory2.mkdirs()) Log.d(TAG, "FontCache folder recreated");
-                }
-
-                // Copy the font.zip from assets/fonts of the theme's assets
-                String source = sUrl[0] + ".zip";
-
-                if (encrypted) {
-                    FileOperations.copyFileOrDir(
-                            themeAssetManager,
-                            fontsDir + "/" + source + ".enc",
-                            getContext().getCacheDir().getAbsolutePath() +
-                                    "/FontCache/" + source,
-                            fontsDir + "/" + source + ".enc",
-                            cipher);
-                } else {
-                    try (InputStream inputStream = themeAssetManager.open(fontsDir + "/" + source);
-                         OutputStream outputStream =
-                                 new FileOutputStream(mContext.getCacheDir().getAbsolutePath() +
-                                         "/FontCache/" + source)) {
-                        CopyStream(inputStream, outputStream);
-                    } catch (Exception e) {
-                        Log.e(TAG,
-                                "There is no fonts.zip found within the assets of this theme!");
+            Fonts fonts = ref.get();
+            if (fonts != null) {
+                try {
+                    File cacheDirectory = new File(fonts.mContext.getCacheDir(), "/FontCache/");
+                    if (!cacheDirectory.exists()) {
+                        if (cacheDirectory.mkdirs()) Log.d(TAG, "FontCache folder created");
                     }
-                }
+                    File cacheDirectory2 = new File(fonts.mContext.getCacheDir(),
+                            "/FontCache/font_preview/");
 
-                // Unzip the fonts to get it prepared for the preview
-                unzip(mContext.getCacheDir().getAbsolutePath() + "/FontCache/" + source,
-                        mContext.getCacheDir().getAbsolutePath() + "/FontCache/font_preview/");
-            } catch (Exception e) {
-                Log.e(TAG, "Unexpectedly lost connection to the application host");
+                    if (!cacheDirectory2.exists()) {
+                        if (cacheDirectory2.mkdirs()) Log.d(TAG,
+                                "FontCache work folder created");
+                    } else {
+                        FileOperations.delete(fonts.mContext,
+                                fonts.mContext.getCacheDir().getAbsolutePath() +
+                                        "/FontCache/font_preview/");
+                        if (cacheDirectory2.mkdirs()) Log.d(TAG, "FontCache folder recreated");
+                    }
+
+                    // Copy the font.zip from assets/fonts of the theme's assets
+                    String source = sUrl[0] + ".zip";
+
+                    if (fonts.encrypted) {
+                        FileOperations.copyFileOrDir(
+                                fonts.themeAssetManager,
+                                fontsDir + "/" + source + ".enc",
+                                fonts.mContext.getCacheDir().getAbsolutePath() +
+                                        "/FontCache/" + source,
+                                fontsDir + "/" + source + ".enc",
+                                fonts.cipher);
+                    } else {
+                        try (InputStream inputStream =
+                                     fonts.themeAssetManager.open(fontsDir + "/" + source);
+
+                             OutputStream outputStream =
+                                     new FileOutputStream(
+                                             fonts.mContext.getCacheDir().getAbsolutePath() +
+                                                     "/FontCache/" + source)) {
+                            CopyStream(inputStream, outputStream);
+                        } catch (Exception e) {
+                            Log.e(TAG,
+                                    "There is no fonts.zip found within the assets of this theme!");
+                        }
+                    }
+
+                    // Unzip the fonts to get it prepared for the preview
+                    unzip(fonts.mContext.getCacheDir().getAbsolutePath() + "/FontCache/" + source,
+                            fonts.mContext.getCacheDir().getAbsolutePath() +
+                                    "/FontCache/font_preview/");
+                } catch (Exception e) {
+                    Log.e(TAG, "Unexpectedly lost connection to the application host");
+                }
             }
             return null;
         }

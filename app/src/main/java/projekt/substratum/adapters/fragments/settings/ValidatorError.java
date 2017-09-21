@@ -35,18 +35,6 @@ public class ValidatorError {
         this.bools.add(bools);
     }
 
-    public void addColorError(String colors) {
-        this.colors.add(colors);
-    }
-
-    public void addDimenError(String dimens) {
-        this.dimens.add(dimens);
-    }
-
-    public void addStyleError(String styles) {
-        this.styles.add(styles);
-    }
-
     public String getPackageName() {
         return this.packageName;
     }

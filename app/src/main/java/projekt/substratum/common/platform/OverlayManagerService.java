@@ -19,12 +19,10 @@
 package projekt.substratum.common.platform;
 
 import android.content.om.OM;
-import android.content.om.OverlayInfo;
 import android.os.Process;
 import android.os.RemoteException;
 import android.util.Log;
 
-import java.util.List;
 import java.util.Map;
 
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
@@ -55,43 +53,6 @@ public class OverlayManagerService {
         } catch (RemoteException re) {
             Log.e(SUBSTRATUM_LOG,
                     "Unable to obtain the map of current overlays on the device.");
-        }
-        return null;
-    }
-
-    /**
-     * Returns information about all overlays for the given target package for
-     * the specified user. The returned list is ordered according to the
-     * overlay priority with the highest priority at the end of the list.
-     *
-     * @param targetPackageName The name of the target package.
-     * @return A list of OverlayInfo objects; if no overlays exist for the
-     * requested package, an empty list is returned.
-     */
-    public static List getOverlayInfosForTarget(String targetPackageName) {
-        try {
-            return OM.get().getOverlayInfosForTarget(targetPackageName, CURRENT_USER);
-        } catch (RemoteException re) {
-            Log.e(SUBSTRATUM_LOG,
-                    "Unable to obtain the list of current overlays on the device.");
-        }
-        return null;
-    }
-
-    /**
-     * Returns information about the overlay with the given package name for the
-     * specified user.
-     *
-     * @param packageName The name of the overlay package.
-     * @return The OverlayInfo for the overlay package; or null if no such
-     * overlay package exists.
-     */
-    public static OverlayInfo getOverlayInfo(String packageName) {
-        try {
-            return OM.get().getOverlayInfo(packageName, CURRENT_USER);
-        } catch (RemoteException re) {
-            Log.e(SUBSTRATUM_LOG,
-                    "Unable to obtain the overlay information for \"" + packageName + "\".");
         }
         return null;
     }
@@ -164,50 +125,5 @@ public class OverlayManagerService {
                             currentBoundPackage + "\" with parent \"" + newParentPackage + "\".");
         }
         return false;
-    }
-
-    /**
-     * Change the priority of the given overlay to the highest priority relative to
-     * the other overlays with the same target and user.
-     *
-     * @param packageName The name of the overlay package whose priority should
-     *                    be adjusted.
-     */
-    public static boolean setHighestPriority(String packageName) {
-        try {
-            return OM.get().setHighestPriority(packageName, CURRENT_USER);
-        } catch (RemoteException re) {
-            Log.e(SUBSTRATUM_LOG,
-                    "Unable to set highest priority for \"" + packageName + "\".");
-        }
-        return false;
-    }
-
-    /**
-     * Change the priority of the overlay to the lowest priority relative to
-     * the other overlays for the same target and user.
-     *
-     * @param packageName The name of the overlay package whose priority should
-     *                    be adjusted.
-     */
-    public static boolean setLowestPriority(String packageName) {
-        try {
-            return OM.get().setLowestPriority(packageName, CURRENT_USER);
-        } catch (RemoteException re) {
-            Log.e(SUBSTRATUM_LOG,
-                    "Unable to set lowest priority for \"" + packageName + "\".");
-        }
-        return false;
-    }
-
-    /**
-     * Force refresh assets after job completion
-     */
-    public static void refresh() {
-        try {
-            OM.get().refresh(CURRENT_USER);
-        } catch (RemoteException re) {
-            Log.e(SUBSTRATUM_LOG, "Unable to refresh windows!");
-        }
     }
 }

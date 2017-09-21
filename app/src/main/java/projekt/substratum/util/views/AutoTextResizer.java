@@ -30,6 +30,8 @@ import android.util.AttributeSet;
 import android.util.SparseIntArray;
 import android.util.TypedValue;
 
+@SuppressWarnings("DeprecatedIsStillUsed")
+@Deprecated // After API 26, there is a new API that supposedly replaces this
 public class AutoTextResizer extends android.support.v7.widget.AppCompatTextView {
 
     private static final int NO_LINE_LIMIT = -1;

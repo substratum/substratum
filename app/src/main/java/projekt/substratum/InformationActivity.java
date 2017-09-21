@@ -73,6 +73,7 @@ import org.apache.commons.io.output.ByteArrayOutputStream;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -133,6 +134,7 @@ public class InformationActivity extends SubstratumActivity {
     private BroadcastReceiver refreshReceiver;
     private AndromedaReceiver andromedaReceiver;
     private int dominantColor;
+    private Context mContext;
 
     private static int getDominantColor(Bitmap bitmap) {
         try {
@@ -214,7 +216,7 @@ public class InformationActivity extends SubstratumActivity {
                 if (resultUri.toString().contains("homescreen_wallpaper")) {
                     try {
                         WallpaperManager.setWallpaper(
-                                getApplicationContext(),
+                                mContext,
                                 resultUri.toString().substring(7),
                                 "home");
                         editor.putString("home_wallpaper_applied", theme_pid);
@@ -232,7 +234,7 @@ public class InformationActivity extends SubstratumActivity {
                 } else if (resultUri.toString().contains("lockscreen_wallpaper")) {
                     try {
                         WallpaperManager.setWallpaper(
-                                getApplicationContext(),
+                                mContext,
                                 resultUri.toString().substring(7),
                                 "lock");
                         editor.putString("lock_wallpaper_applied", theme_pid);
@@ -250,7 +252,7 @@ public class InformationActivity extends SubstratumActivity {
                 } else if (resultUri.toString().contains("all_wallpaper")) {
                     try {
                         WallpaperManager.setWallpaper(
-                                getApplicationContext(),
+                                mContext,
                                 resultUri.toString().substring(7),
                                 "all");
                         editor.putString("home_wallpaper_applied", theme_pid);
@@ -281,18 +283,19 @@ public class InformationActivity extends SubstratumActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.information_activity);
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        mContext = getApplicationContext();
+        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 
         // Register the theme install receiver to auto refresh the fragment
         refreshReceiver = new RefreshReceiver();
         IntentFilter if1 = new IntentFilter(MANAGER_REFRESH);
-        localBroadcastManager = LocalBroadcastManager.getInstance(getApplicationContext());
+        localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
         localBroadcastManager.registerReceiver(refreshReceiver, if1);
 
-        if (References.isAndromedaDevice(getApplicationContext())) {
+        if (References.isAndromedaDevice(mContext)) {
             andromedaReceiver = new InformationActivity.AndromedaReceiver();
             IntentFilter filter2 = new IntentFilter("AndromedaReceiver.KILL");
-            localBroadcastManager2 = LocalBroadcastManager.getInstance(getApplicationContext());
+            localBroadcastManager2 = LocalBroadcastManager.getInstance(mContext);
             localBroadcastManager2.registerReceiver(andromedaReceiver, filter2);
         }
 
@@ -306,7 +309,7 @@ public class InformationActivity extends SubstratumActivity {
         theme_mode = currentIntent.getStringExtra("theme_mode");
         encryption_key = currentIntent.getByteArrayExtra("encryption_key");
         iv_encrypt_key = currentIntent.getByteArrayExtra("iv_encrypt_key");
-        String wallpaperUrl = getOverlayMetadata(getApplicationContext(), theme_pid,
+        String wallpaperUrl = getOverlayMetadata(mContext, theme_pid,
                 metadataWallpapers);
 
         Bundle bundle = new Bundle();
@@ -364,8 +367,8 @@ public class InformationActivity extends SubstratumActivity {
 
         View sheetView = findViewById(R.id.fab_sheet);
         View overlay = findViewById(R.id.overlay);
-        int sheetColor = getApplicationContext().getColor(R.color.fab_menu_background_card);
-        int fabColor = getApplicationContext().getColor(R.color.fab_background_color);
+        int sheetColor = mContext.getColor(R.color.fab_menu_background_card);
+        int fabColor = mContext.getColor(R.color.fab_background_color);
 
         final FloatingActionMenu floatingActionButton = findViewById(R.id.apply_fab);
         floatingActionButton.show();
@@ -380,17 +383,17 @@ public class InformationActivity extends SubstratumActivity {
                     fabColor);
         }
 
-        new LayoutLoader().execute("");
+        new LayoutLoader(this).execute("");
         tabLayout = findViewById(R.id.tabs);
         if (tabLayout != null) {
             if (theme_mode.equals("")) {
                 try {
-                    Context otherContext = getApplicationContext().createPackageContext
+                    Context otherContext = mContext.createPackageContext
                             (theme_pid, 0);
                     AssetManager am = otherContext.getAssets();
                     List found_folders = Arrays.asList(am.list(""));
                     tab_checker = new ArrayList<>();
-                    if (!References.checkOMS(getApplicationContext())) {
+                    if (!References.checkOMS(mContext)) {
                         for (int i = 0; i < found_folders.size(); i++) {
                             if (References.allowedForLegacy(found_folders.get(i).toString())) {
                                 tab_checker.add(found_folders.get(i).toString());
@@ -405,8 +408,8 @@ public class InformationActivity extends SubstratumActivity {
                                 .theme_information_tab_one)));
                     }
                     if (tab_checker.contains(bootAnimationsFragment) &&
-                            !checkAndromeda(getApplicationContext()) &&
-                            !isSamsung(getApplicationContext())) {
+                            !checkAndromeda(mContext) &&
+                            !isSamsung(mContext)) {
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_two)));
                     }
@@ -420,8 +423,8 @@ public class InformationActivity extends SubstratumActivity {
                                 .theme_information_tab_three)));
                     }
                     if (tab_checker.contains(soundsFragment) &&
-                            !checkAndromeda(getApplicationContext()) &&
-                            !isSamsung(getApplicationContext())) {
+                            !checkAndromeda(mContext) &&
+                            !isSamsung(mContext)) {
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_four)));
                     }
@@ -500,12 +503,12 @@ public class InformationActivity extends SubstratumActivity {
         }
 
         boolean[] extra_hidden_tabs = new boolean[4];
-        extra_hidden_tabs[0] = !References.checkAndromeda(getApplicationContext()) &&
-                !References.isSamsungDevice(getApplicationContext());
+        extra_hidden_tabs[0] = !References.checkAndromeda(mContext) &&
+                !References.isSamsungDevice(mContext);
         extra_hidden_tabs[1] = References.checkOreo() &&
-                References.isBinderInterfacer(getApplicationContext());
+                References.isBinderInterfacer(mContext);
         extra_hidden_tabs[2] = References.isFontsSupported();
-        extra_hidden_tabs[3] = !References.checkAndromeda(getApplicationContext());
+        extra_hidden_tabs[3] = !References.checkAndromeda(mContext);
 
         final InformationTabsAdapter adapter = new InformationTabsAdapter
                 (getSupportFragmentManager(), (tabLayout != null) ? tabLayout.getTabCount() : 0,
@@ -557,7 +560,7 @@ public class InformationActivity extends SubstratumActivity {
 
             PagerAdapter adapt = viewPager.getAdapter();
             LocalBroadcastManager localBroadcastManager =
-                    LocalBroadcastManager.getInstance(getApplicationContext());
+                    LocalBroadcastManager.getInstance(mContext);
             floatingActionButton.setOnClickListener(v -> {
                 try {
                     boolean isLunchbarOpen = closeAllLunchBars();
@@ -592,9 +595,9 @@ public class InformationActivity extends SubstratumActivity {
 
             Intent intent = new Intent("Overlays.START_JOB");
             Switch enable_swap = findViewById(R.id.enable_swap);
-            if (!References.checkOMS(this) && !References.isSamsung(getApplicationContext())) {
+            if (!References.checkOMS(this) && !References.isSamsung(mContext)) {
                 enable_swap.setText(getString(R.string.fab_menu_swap_toggle_legacy));
-            } else if (References.isSamsung(getApplicationContext())) {
+            } else if (References.isSamsung(mContext)) {
                 View fab_menu_divider = findViewById(R.id.fab_menu_divider);
                 fab_menu_divider.setVisibility(View.GONE);
                 enable_swap.setVisibility(View.GONE);
@@ -708,8 +711,8 @@ public class InformationActivity extends SubstratumActivity {
 
             Boolean shouldShowSamsungWarning =
                     !prefs.getBoolean("show_dangerous_samsung_overlays", false);
-            if (References.isSamsung(getApplicationContext()) &&
-                    !References.isSamsungTheme(getApplicationContext(), theme_pid) &&
+            if (References.isSamsung(mContext) &&
+                    !References.isSamsungTheme(mContext, theme_pid) &&
                     shouldShowSamsungWarning) {
                 currentShownLunchBar = Lunchbar.make(
                         getView(),
@@ -717,7 +720,7 @@ public class InformationActivity extends SubstratumActivity {
                         Lunchbar.LENGTH_SHORT);
                 currentShownLunchBar.show();
             }
-            if (References.isSamsung(getApplicationContext())) {
+            if (References.isSamsung(mContext)) {
                 startService(new Intent(getBaseContext(), SamsungPackageService.class));
             }
         }
@@ -734,7 +737,7 @@ public class InformationActivity extends SubstratumActivity {
                 dynamicActionBarColors && prefs.getBoolean("dynamic_actionbar", true);
 
         // Start dynamically showing menu items
-        boolean isOMS = References.checkOMS(getApplicationContext());
+        boolean isOMS = References.checkOMS(mContext);
         boolean isMR1orHigher = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1;
 
         if (!isMR1orHigher) menu.findItem(R.id.favorite).setVisible(false);
@@ -753,7 +756,7 @@ public class InformationActivity extends SubstratumActivity {
                     getColor(R.color.information_activity_dark_icon_mode),
                     PorterDuff.Mode.SRC_ATOP);
         }
-        if (References.grabThemeChangelog(getApplicationContext(), theme_pid) != null) {
+        if (References.grabThemeChangelog(mContext, theme_pid) != null) {
             MenuItem changelog = menu.findItem(R.id.changelog);
             changelog.setVisible(true);
             if (shouldDarken) changelog.getIcon().setColorFilter(
@@ -761,7 +764,7 @@ public class InformationActivity extends SubstratumActivity {
                     PorterDuff.Mode.SRC_ATOP);
         }
 
-        if (References.checkAndromeda(getApplicationContext()) ||
+        if (References.checkAndromeda(mContext) ||
                 (!isOMS && !Root.checkRootAccess())) {
             menu.findItem(R.id.restart_systemui).setVisible(false);
         }
@@ -769,14 +772,14 @@ public class InformationActivity extends SubstratumActivity {
             menu.findItem(R.id.disable).setVisible(false);
             menu.findItem(R.id.enable).setVisible(false);
         }
-        if (isOMS || isSamsung(getApplicationContext())) {
-            if (isSamsung(getApplicationContext())) menu.findItem(R.id.clean).setVisible(false);
+        if (isOMS || isSamsung(mContext)) {
+            if (isSamsung(mContext)) menu.findItem(R.id.clean).setVisible(false);
             menu.findItem(R.id.reboot_device).setVisible(false);
             menu.findItem(R.id.soft_reboot).setVisible(false);
             menu.findItem(R.id.uninstall).setVisible(false);
         }
 
-        if (!References.isUserApp(getApplicationContext(), theme_pid)) {
+        if (!References.isUserApp(mContext, theme_pid)) {
             menu.findItem(R.id.uninstall).setVisible(false);
         }
 
@@ -793,12 +796,12 @@ public class InformationActivity extends SubstratumActivity {
             case R.id.favorite:
                 if (prefs.contains("app_shortcut_theme")) {
                     if (prefs.getString("app_shortcut_theme", "").equals(theme_pid)) {
-                        new AppShortcutClearer().execute("");
+                        new AppShortcutClearer(this).execute("");
                     } else {
-                        new AppShortcutCreator().execute("favorite");
+                        new AppShortcutCreator(this).execute("favorite");
                     }
                 } else {
-                    new AppShortcutCreator().execute("favorite");
+                    new AppShortcutCreator(this).execute("favorite");
                 }
                 return true;
             case R.id.changelog:
@@ -815,7 +818,7 @@ public class InformationActivity extends SubstratumActivity {
                 TextView text = textBox.findViewById(R.id.text);
 
                 String[] changelog_parsing =
-                        References.grabThemeChangelog(getApplicationContext(), theme_pid);
+                        References.grabThemeChangelog(mContext, theme_pid);
                 StringBuilder to_show = new StringBuilder();
                 if (changelog_parsing != null) {
                     for (String aChangelog_parsing : changelog_parsing) {
@@ -830,20 +833,20 @@ public class InformationActivity extends SubstratumActivity {
             case R.id.clean:
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(InformationActivity.this);
                 builder1.setTitle(theme_name);
-                builder1.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
+                builder1.setIcon(References.grabAppIcon(mContext, theme_pid));
                 builder1.setMessage(R.string.clean_dialog_body)
                         .setPositiveButton(R.string.dialog_ok, (dialog, id18) -> {
                             // Dismiss the dialog
                             dialog.dismiss();
                             // Get all installed overlays
                             List<String> stateAll = ThemeManager.listAllOverlays(
-                                    getApplicationContext());
+                                    mContext);
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {
                                 try {
                                     String current = stateAll.get(j);
-                                    ApplicationInfo appInfo = getApplicationContext()
+                                    ApplicationInfo appInfo = mContext
                                             .getPackageManager().getApplicationInfo(
                                                     current, PackageManager.GET_META_DATA);
                                     if (appInfo.metaData != null &&
@@ -862,7 +865,7 @@ public class InformationActivity extends SubstratumActivity {
 
                             // Begin uninstalling overlays for this package
                             ThemeManager.uninstallOverlay(
-                                    getApplicationContext(),
+                                    mContext,
                                     all_overlays
                             );
                         })
@@ -876,13 +879,13 @@ public class InformationActivity extends SubstratumActivity {
             case R.id.clean_cache:
                 AlertDialog.Builder builder2 = new AlertDialog.Builder(InformationActivity.this);
                 builder2.setTitle(theme_name);
-                builder2.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
+                builder2.setIcon(References.grabAppIcon(mContext, theme_pid));
                 builder2.setMessage(R.string.clean_cache_dialog_body)
                         .setPositiveButton(R.string.dialog_ok, (dialog, id110) -> {
                             // Dismiss the dialog
                             dialog.dismiss();
                             FileOperations.delete(
-                                    getApplicationContext(), getBuildDirPath() + theme_pid + "/");
+                                    mContext, getBuildDirPath() + theme_pid + "/");
                             String format =
                                     String.format(
                                             getString(R.string.cache_clear_completion),
@@ -902,20 +905,20 @@ public class InformationActivity extends SubstratumActivity {
             case R.id.disable:
                 AlertDialog.Builder builder3 = new AlertDialog.Builder(InformationActivity.this);
                 builder3.setTitle(theme_name);
-                builder3.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
+                builder3.setIcon(References.grabAppIcon(mContext, theme_pid));
                 builder3.setMessage(R.string.disable_dialog_body)
                         .setPositiveButton(R.string.dialog_ok, (dialog, id16) -> {
                             // Dismiss the dialog
                             dialog.dismiss();
                             // Get all enabled overlays
                             List<String> stateAll = ThemeManager.listOverlays(
-                                    getApplicationContext(), ThemeManager.STATE_ENABLED);
+                                    mContext, ThemeManager.STATE_ENABLED);
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {
                                 try {
                                     String current = stateAll.get(j);
-                                    ApplicationInfo appInfo = getApplicationContext()
+                                    ApplicationInfo appInfo = mContext
                                             .getPackageManager().getApplicationInfo(
                                                     current, PackageManager.GET_META_DATA);
                                     if (appInfo.metaData != null &&
@@ -936,7 +939,7 @@ public class InformationActivity extends SubstratumActivity {
                                     Lunchbar.LENGTH_LONG);
                             currentShownLunchBar.show();
                             // Begin disabling overlays
-                            ThemeManager.disableOverlay(getApplicationContext(), all_overlays);
+                            ThemeManager.disableOverlay(mContext, all_overlays);
                         })
                         .setNegativeButton(R.string.dialog_cancel, (dialog, id15) -> {
                             // User cancelled the dialog
@@ -948,20 +951,20 @@ public class InformationActivity extends SubstratumActivity {
             case R.id.enable:
                 AlertDialog.Builder builder4 = new AlertDialog.Builder(InformationActivity.this);
                 builder4.setTitle(theme_name);
-                builder4.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
+                builder4.setIcon(References.grabAppIcon(mContext, theme_pid));
                 builder4.setMessage(R.string.enable_dialog_body)
                         .setPositiveButton(R.string.dialog_ok, (dialog, id14) -> {
                             // Dismiss the dialog
                             dialog.dismiss();
                             // Get all disabled overlays
                             List<String> stateAll = ThemeManager.listOverlays(
-                                    getApplicationContext(), ThemeManager.STATE_DISABLED);
+                                    mContext, ThemeManager.STATE_DISABLED);
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {
                                 try {
                                     String current = stateAll.get(j);
-                                    ApplicationInfo appInfo = getApplicationContext()
+                                    ApplicationInfo appInfo = mContext
                                             .getPackageManager().getApplicationInfo(
                                                     current, PackageManager.GET_META_DATA);
                                     if (appInfo.metaData != null &&
@@ -983,7 +986,7 @@ public class InformationActivity extends SubstratumActivity {
                             currentShownLunchBar.show();
 
                             // Begin enabling overlays
-                            ThemeManager.enableOverlay(getApplicationContext(), all_overlays);
+                            ThemeManager.enableOverlay(mContext, all_overlays);
                         })
                         .setNegativeButton(R.string.dialog_cancel, (dialog, id13) ->
                                 dialog
@@ -995,12 +998,12 @@ public class InformationActivity extends SubstratumActivity {
             case R.id.uninstall:
                 AlertDialog.Builder builder5 = new AlertDialog.Builder(InformationActivity.this);
                 builder5.setTitle(theme_name);
-                builder5.setIcon(References.grabAppIcon(getApplicationContext(), theme_pid));
+                builder5.setIcon(References.grabAppIcon(mContext, theme_pid));
                 builder5.setMessage(R.string.uninstall_dialog_text)
                         .setPositiveButton(R.string.dialog_ok, (dialog, id12) -> {
                             // Dismiss the dialog
                             dialog.dismiss();
-                            new uninstallTheme().execute("");
+                            new uninstallTheme(this).execute("");
                         })
                         .setNegativeButton(R.string.dialog_cancel, (dialog, id1) -> {
                             // User cancelled the dialog
@@ -1010,7 +1013,7 @@ public class InformationActivity extends SubstratumActivity {
                 builder5.show();
                 return true;
             case R.id.restart_systemui:
-                ThemeManager.restartSystemUI(getApplicationContext());
+                ThemeManager.restartSystemUI(mContext);
                 return true;
             case R.id.reboot_device:
                 ElevatedCommands.reboot();
@@ -1028,7 +1031,7 @@ public class InformationActivity extends SubstratumActivity {
             materialSheetFab.hideSheet();
         } else {
             if (uninstalled)
-                References.sendRefreshMessage(getApplicationContext());
+                References.sendRefreshMessage(mContext);
             finish();
         }
     }
@@ -1037,7 +1040,7 @@ public class InformationActivity extends SubstratumActivity {
     public void onDestroy() {
         super.onDestroy();
 
-        if (References.isSamsung(getApplicationContext())) {
+        if (References.isSamsung(mContext)) {
             stopService(new Intent(getBaseContext(), SamsungPackageService.class));
         }
 
@@ -1047,7 +1050,7 @@ public class InformationActivity extends SubstratumActivity {
             // Unregistered already
         }
 
-        if (References.isAndromedaDevice(getApplicationContext())) {
+        if (References.isAndromedaDevice(mContext)) {
             try {
                 localBroadcastManager2.unregisterReceiver(andromedaReceiver);
             } catch (Exception e) {
@@ -1056,127 +1059,206 @@ public class InformationActivity extends SubstratumActivity {
         }
 
         if (!BYPASS_SUBSTRATUM_BUILDER_DELETION &&
-                !References.isCachingEnabled(getApplicationContext())) {
+                !References.isCachingEnabled(mContext)) {
             String workingDirectory =
-                    getApplicationContext().getCacheDir().getAbsolutePath();
+                    mContext.getCacheDir().getAbsolutePath();
             File deleted = new File(workingDirectory);
-            FileOperations.delete(getApplicationContext(), deleted.getAbsolutePath());
+            FileOperations.delete(mContext, deleted.getAbsolutePath());
             if (!deleted.exists()) Log.d(References.SUBSTRATUM_BUILDER,
                     "Successfully cleared Substratum cache!");
         }
     }
 
-    private class LayoutLoader extends AsyncTask<String, Integer, String> {
+    private static class LayoutLoader extends AsyncTask<String, Integer, String> {
+        private WeakReference<InformationActivity> ref;
+
+        LayoutLoader(InformationActivity informationActivity) {
+            ref = new WeakReference<>(informationActivity);
+        }
 
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-
-            if (!prefs.getBoolean("complexion", false)) {
-                if (gradientView != null)
-                    gradientView.setVisibility(View.GONE);
-                if (kenBurnsView != null)
-                    kenBurnsView.setBackgroundColor(Color.parseColor("#ffff00"));
-                if (collapsingToolbarLayout != null) {
-                    collapsingToolbarLayout.setStatusBarScrimColor(Color.parseColor("#ffff00"));
-                    collapsingToolbarLayout.setContentScrimColor(Color.parseColor("#ffff00"));
+            InformationActivity informationActivity = ref.get();
+            if (informationActivity != null) {
+                if (!informationActivity.prefs.getBoolean("complexion", false)) {
+                    if (informationActivity.gradientView != null)
+                        informationActivity.gradientView.setVisibility(View.GONE);
+                    if (informationActivity.kenBurnsView != null)
+                        informationActivity.kenBurnsView.
+                                setBackgroundColor(Color.parseColor("#ffff00"));
+                    if (informationActivity.collapsingToolbarLayout != null) {
+                        informationActivity.collapsingToolbarLayout.
+                                setStatusBarScrimColor(Color.parseColor("#ffff00"));
+                        informationActivity.collapsingToolbarLayout.
+                                setContentScrimColor(Color.parseColor("#ffff00"));
+                    }
+                    if (informationActivity.appBarLayout != null)
+                        informationActivity.appBarLayout.
+                                setBackgroundColor(Color.parseColor("#ffff00"));
+                    if (informationActivity.tabLayout != null)
+                        informationActivity.tabLayout.
+                                setBackgroundColor(Color.parseColor("#ffff00"));
+                    informationActivity.getWindow().
+                            setNavigationBarColor(Color.parseColor("#ffff00"));
+                } else if (informationActivity.kenBurnsView != null) {
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(
+                            informationActivity.byteArray, 0, informationActivity.byteArray.length);
+                    informationActivity.kenBurnsView.setImageBitmap(bitmap);
                 }
-                if (appBarLayout != null)
-                    appBarLayout.setBackgroundColor(Color.parseColor("#ffff00"));
-                if (tabLayout != null)
-                    tabLayout.setBackgroundColor(Color.parseColor("#ffff00"));
-                getWindow().setNavigationBarColor(Color.parseColor("#ffff00"));
-            } else if (kenBurnsView != null) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-                kenBurnsView.setImageBitmap(bitmap);
             }
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
-            kenBurnsView = findViewById(R.id.kenburnsView);
-            if (heroImageBitmap != null) {
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                heroImageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                byteArray = stream.toByteArray();
+            InformationActivity informationActivity = ref.get();
+            if (informationActivity != null) {
+                informationActivity.kenBurnsView =
+                        informationActivity.findViewById(R.id.kenburnsView);
+                if (informationActivity.heroImageBitmap != null) {
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    informationActivity.heroImageBitmap.compress(
+                            Bitmap.CompressFormat.JPEG, 100, stream);
+                    informationActivity.byteArray = stream.toByteArray();
+                }
             }
             return null;
         }
     }
 
-    private class AppShortcutCreator extends AsyncTask<String, Integer, String> {
+    private static class AppShortcutCreator extends AsyncTask<String, Integer, String> {
+        private WeakReference<InformationActivity> ref;
+
+        AppShortcutCreator(InformationActivity informationActivity) {
+            ref = new WeakReference<>(informationActivity);
+        }
 
         @Override
         protected void onPostExecute(String result) {
-            prefs.edit().putString("app_shortcut_theme", theme_pid).apply();
-            favorite.setIcon(getDrawable(R.drawable.toolbar_favorite));
-            if (shouldDarken) favorite.getIcon().setColorFilter(
-                    getColor(R.color.information_activity_dark_icon_mode),
-                    PorterDuff.Mode.SRC_ATOP);
-            String format = String.format(getString(R.string.menu_favorite_snackbar), result);
-            currentShownLunchBar = Lunchbar.make(getView(),
-                    format,
-                    Lunchbar.LENGTH_LONG);
-            currentShownLunchBar.show();
+            InformationActivity informationActivity = ref.get();
+            if (informationActivity != null) {
+                informationActivity.prefs.edit().
+                        putString("app_shortcut_theme", informationActivity.theme_pid).apply();
+                informationActivity.favorite.setIcon(
+                        informationActivity.getDrawable(R.drawable.toolbar_favorite));
+                if (informationActivity.shouldDarken)
+                    informationActivity.favorite.getIcon().setColorFilter(
+                            informationActivity.getColor(R.color
+                                    .information_activity_dark_icon_mode),
+                            PorterDuff.Mode.SRC_ATOP);
+                String format = String.format(
+                        informationActivity.getString(R.string.menu_favorite_snackbar), result);
+                currentShownLunchBar = Lunchbar.make(
+                        informationActivity.getView(),
+                        format,
+                        Lunchbar.LENGTH_LONG);
+                currentShownLunchBar.show();
+            }
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
-            References.createShortcut(getApplicationContext(), theme_pid, theme_name);
-            return theme_name;
+            InformationActivity informationActivity = ref.get();
+            if (informationActivity != null) {
+                References.createShortcut(
+                        informationActivity.mContext,
+                        informationActivity.theme_pid,
+                        informationActivity.theme_name);
+                return informationActivity.theme_name;
+            }
+            return null;
         }
     }
 
-    private class AppShortcutClearer extends AsyncTask<String, Integer, String> {
+    private static class AppShortcutClearer extends AsyncTask<String, Integer, String> {
+        private WeakReference<InformationActivity> ref;
+
+        AppShortcutClearer(InformationActivity informationActivity) {
+            ref = new WeakReference<>(informationActivity);
+        }
 
         @Override
         protected void onPostExecute(String result) {
-            prefs.edit().remove("app_shortcut_theme").apply();
-            favorite.setIcon(getDrawable(R.drawable.toolbar_not_favorite));
-            if (shouldDarken) favorite.getIcon().setColorFilter(
-                    getColor(R.color.information_activity_dark_icon_mode),
-                    PorterDuff.Mode.SRC_ATOP);
-            String format = String.format(
-                    getString(R.string.menu_favorite_snackbar_cleared),
-                    result);
-            currentShownLunchBar = Lunchbar.make(getView(),
-                    format,
-                    Lunchbar.LENGTH_LONG);
-            currentShownLunchBar.show();
+            InformationActivity informationActivity = ref.get();
+            if (informationActivity != null) {
+                informationActivity.prefs.edit().remove("app_shortcut_theme").apply();
+                informationActivity.favorite.setIcon(
+                        informationActivity.getDrawable(R.drawable.toolbar_not_favorite));
+                if (informationActivity.shouldDarken)
+                    informationActivity.favorite.getIcon().setColorFilter(
+                            informationActivity.getColor(R.color
+                                    .information_activity_dark_icon_mode),
+                            PorterDuff.Mode.SRC_ATOP);
+                String format = String.format(
+                        informationActivity.getString(R.string.menu_favorite_snackbar_cleared),
+                        result);
+                currentShownLunchBar = Lunchbar.make(
+                        informationActivity.getView(),
+                        format,
+                        Lunchbar.LENGTH_LONG);
+                currentShownLunchBar.show();
+            }
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
-            References.clearShortcut(getApplicationContext());
-            return theme_name;
+            InformationActivity informationActivity = ref.get();
+            if (informationActivity != null) {
+                References.clearShortcut(informationActivity.mContext);
+                return informationActivity.theme_name;
+            }
+            return null;
         }
     }
 
-    private class uninstallTheme extends AsyncTask<String, Integer, String> {
+    private static class uninstallTheme extends AsyncTask<String, Integer, String> {
+        private WeakReference<InformationActivity> ref;
+
+        uninstallTheme(InformationActivity informationActivity) {
+            ref = new WeakReference<>(informationActivity);
+        }
+
         @Override
         protected void onPreExecute() {
-            String parseMe = String.format(getString(R.string.adapter_uninstalling), theme_name);
-            mProgressDialog = new ProgressDialog(InformationActivity.this);
-            mProgressDialog.setMessage(parseMe);
-            mProgressDialog.setIndeterminate(true);
-            mProgressDialog.setCancelable(false);
-            mProgressDialog.show();
-            // Clear the notification of building theme if shown
-            NotificationManager manager = (NotificationManager)
-                    getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-            manager.cancel(References.notification_id);
+            InformationActivity informationActivity = ref.get();
+            if (informationActivity != null) {
+                String parseMe = String.format(
+                        informationActivity.getString(R.string.adapter_uninstalling),
+                        informationActivity.theme_name);
+
+                informationActivity.mProgressDialog = new ProgressDialog(informationActivity);
+                informationActivity.mProgressDialog.setMessage(parseMe);
+                informationActivity.mProgressDialog.setIndeterminate(true);
+                informationActivity.mProgressDialog.setCancelable(false);
+                informationActivity.mProgressDialog.show();
+                // Clear the notification of building theme if shown
+                NotificationManager manager = (NotificationManager)
+                        informationActivity.mContext
+                                .getSystemService(Context.NOTIFICATION_SERVICE);
+                if (manager != null) {
+                    manager.cancel(References.notification_id);
+                }
+            }
         }
 
         @Override
         protected void onPostExecute(String result) {
-            mProgressDialog.cancel();
-            uninstalled = true;
-            onBackPressed();
+            InformationActivity informationActivity = ref.get();
+            if (informationActivity != null) {
+                informationActivity.mProgressDialog.cancel();
+                informationActivity.uninstalled = true;
+                informationActivity.onBackPressed();
+            }
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
-            References.uninstallPackage(getApplicationContext(), theme_pid);
+            InformationActivity informationActivity = ref.get();
+            if (informationActivity != null) {
+                References.uninstallPackage(
+                        informationActivity.mContext,
+                        informationActivity.theme_pid);
+            }
             return null;
         }
     }

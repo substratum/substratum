@@ -144,7 +144,7 @@ public class MainActivity extends SubstratumActivity implements
     private LocalBroadcastManager localBroadcastManager2;
     private KillReceiver killReceiver;
     private AndromedaReceiver andromedaReceiver;
-    private Context context;
+    private Context mContext;
 
     private static boolean checkIfOverlaysOutdated(Context context) {
         List<String> overlays = ThemeManager.listAllOverlays(context);
@@ -280,7 +280,7 @@ public class MainActivity extends SubstratumActivity implements
             // Unregistered already
         }
 
-        if (References.isAndromedaDevice(getApplicationContext())) {
+        if (References.isAndromedaDevice(mContext)) {
             try {
                 localBroadcastManager2.unregisterReceiver(andromedaReceiver);
             } catch (Exception e) {
@@ -292,11 +292,11 @@ public class MainActivity extends SubstratumActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        context = getApplicationContext();
+        mContext = getApplicationContext();
         mProgressDialog = new Dialog(this, R.style.SubstratumBuilder_ActivityTheme);
         mProgressDialog.setCancelable(false);
 
-        if (BuildConfig.DEBUG && !References.isSamsung(context)) {
+        if (BuildConfig.DEBUG && !References.isSamsung(mContext)) {
             Log.d(SUBSTRATUM_LOG, "Substratum launched with debug mode signatures.");
             if (LeakCanary.isInAnalyzerProcess(this)) return;
             installLeakCanary();
@@ -305,7 +305,7 @@ public class MainActivity extends SubstratumActivity implements
         }
         setContentView(R.layout.main_activity);
         cleanLogCharReportsIfNecessary();
-        References.refreshInstalledThemesPref(context);
+        References.refreshInstalledThemesPref(mContext);
 
         int selectedDrawer = 1;
         if (savedInstanceState != null) {
@@ -315,23 +315,23 @@ public class MainActivity extends SubstratumActivity implements
         // Register the main app receiver to auto kill the activity
         killReceiver = new KillReceiver();
         IntentFilter filter = new IntentFilter("MainActivity.KILL");
-        localBroadcastManager = LocalBroadcastManager.getInstance(context);
+        localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
         localBroadcastManager.registerReceiver(killReceiver, filter);
 
-        if (References.isAndromedaDevice(context)) {
+        if (References.isAndromedaDevice(mContext)) {
             andromedaReceiver = new AndromedaReceiver();
             IntentFilter filter2 = new IntentFilter("AndromedaReceiver.KILL");
-            localBroadcastManager2 = LocalBroadcastManager.getInstance(context);
+            localBroadcastManager2 = LocalBroadcastManager.getInstance(mContext);
             localBroadcastManager2.registerReceiver(andromedaReceiver, filter2);
         }
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 
         actionbar_title = findViewById(R.id.activity_title);
         actionbar_content = findViewById(R.id.theme_count);
 
-        References.setROMVersion(context, false);
-        References.setAndCheckOMS(context);
+        References.setROMVersion(mContext, false);
+        References.setAndCheckOMS(mContext);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -445,9 +445,9 @@ public class MainActivity extends SubstratumActivity implements
                                 .withIdentifier(111));
 
         // Begin initializing the navigation drawer
-        Boolean checkSamsungStatus = isSamsung(context);
+        Boolean checkSamsungStatus = isSamsung(mContext);
         Boolean checkOreoRootless =
-                checkAndromeda(context) && !Root.checkRootAccess();
+                checkAndromeda(mContext) && !Root.checkRootAccess();
         drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_home)
@@ -495,7 +495,7 @@ public class MainActivity extends SubstratumActivity implements
                         .withName(R.string.nav_overlay_manager)
                         .withIcon(R.drawable.nav_overlay_manager)
                         .withIdentifier(8));
-        if (References.checkOMS(context) && !checkSamsungStatus)
+        if (References.checkOMS(mContext) && !checkSamsungStatus)
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_priorities)
@@ -547,9 +547,9 @@ public class MainActivity extends SubstratumActivity implements
                 switch ((int) drawerItem.getIdentifier()) {
                     case 1:
                         switchThemeFragment(((References.checkOMS(
-                                context) ?
+                                mContext) ?
                                         getString(R.string.app_name) :
-                                        (References.isSamsung(context) ?
+                                        (References.isSamsung(mContext) ?
                                                 getString(R.string.samsung_app_name) :
                                                 getString(R.string.legacy_app_name)))
                                 ),
@@ -612,13 +612,13 @@ public class MainActivity extends SubstratumActivity implements
                                 SettingsFragment.class.getCanonicalName());
                         break;
                     case 100:
-                        launchActivityUrl(context, R.string.googleplus_link);
+                        launchActivityUrl(mContext, R.string.googleplus_link);
                         break;
                     case 101:
-                        launchActivityUrl(context, R.string.reddit_link);
+                        launchActivityUrl(mContext, R.string.reddit_link);
                         break;
                     case 102:
-                        launchActivityUrl(context, R.string.telegram_link);
+                        launchActivityUrl(mContext, R.string.telegram_link);
                         break;
                     case 103:
                         int sourceURL;
@@ -627,31 +627,31 @@ public class MainActivity extends SubstratumActivity implements
                         } else {
                             sourceURL = R.string.xda_link;
                         }
-                        launchActivityUrl(context, sourceURL);
+                        launchActivityUrl(mContext, sourceURL);
                         break;
                     case 104:
-                        launchActivityUrl(context, R.string.rawad_youtube_url);
+                        launchActivityUrl(mContext, R.string.rawad_youtube_url);
                         break;
                     case 105:
-                        launchActivityUrl(context, R.string.tcf_link);
+                        launchActivityUrl(mContext, R.string.tcf_link);
                         break;
                     case 106:
-                        launchActivityUrl(context, R.string.xda_portal_link);
+                        launchActivityUrl(mContext, R.string.xda_portal_link);
                         break;
                     case 107:
-                        launchActivityUrl(context, R.string.homepage_link);
+                        launchActivityUrl(mContext, R.string.homepage_link);
                         break;
                     case 108:
-                        launchActivityUrl(context, R.string.template_link);
+                        launchActivityUrl(mContext, R.string.template_link);
                         break;
                     case 109:
-                        launchActivityUrl(context, R.string.gerrit_link);
+                        launchActivityUrl(mContext, R.string.gerrit_link);
                         break;
                     case 110:
-                        launchActivityUrl(context, R.string.github_link);
+                        launchActivityUrl(mContext, R.string.github_link);
                         break;
                     case 111:
-                        launchActivityUrl(context, R.string.jira_link);
+                        launchActivityUrl(mContext, R.string.jira_link);
                         break;
                 }
             }
@@ -692,8 +692,8 @@ public class MainActivity extends SubstratumActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_menu, menu);
 
-        boolean isOMS = References.checkOMS(context);
-        if (isOMS || isSamsung(context)) {
+        boolean isOMS = References.checkOMS(mContext);
+        if (isOMS || isSamsung(mContext)) {
             menu.findItem(R.id.reboot_device).setVisible(false);
             menu.findItem(R.id.soft_reboot).setVisible(false);
         }
@@ -705,14 +705,14 @@ public class MainActivity extends SubstratumActivity implements
         searchItem.setVisible(!hideBundle);
         MenuItem restartUi = menu.findItem(R.id.restart_systemui);
         restartUi.setVisible(!hideRestartUi &&
-                !References.checkAndromeda(context) &&
+                !References.checkAndromeda(mContext) &&
                 (isOMS || Root.checkRootAccess()));
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        SharedPreferences prefs = context.getSharedPreferences(
+        SharedPreferences prefs = mContext.getSharedPreferences(
                 "substratum_state", Context.MODE_PRIVATE);
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -725,17 +725,17 @@ public class MainActivity extends SubstratumActivity implements
             // Begin OMS based options
             case R.id.per_app:
                 if (!References.isServiceRunning(SubstratumFloatInterface.class,
-                        context)) {
-                    if (Settings.canDrawOverlays(context) &&
-                            checkUsagePermissions(context)) {
+                        mContext)) {
+                    if (Settings.canDrawOverlays(mContext) &&
+                            checkUsagePermissions(mContext)) {
                         showFloatingHead();
-                    } else if (!Settings.canDrawOverlays(context)) {
+                    } else if (!Settings.canDrawOverlays(mContext)) {
                         DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
                             switch (which) {
                                 case DialogInterface.BUTTON_POSITIVE:
                                     Intent draw_over_apps = new Intent(
                                             Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                                            Uri.parse("package:" + context
+                                            Uri.parse("package:" + mContext
                                                     .getPackageName()));
                                     startActivityForResult(draw_over_apps,
                                             PERMISSIONS_REQUEST_DRAW_OVER_OTHER_APPS);
@@ -751,7 +751,7 @@ public class MainActivity extends SubstratumActivity implements
                                 .setPositiveButton(R.string.dialog_ok, dialogClickListener)
                                 .setNegativeButton(R.string.dialog_cancel, dialogClickListener)
                                 .show();
-                    } else if (!checkUsagePermissions(context)) {
+                    } else if (!checkUsagePermissions(mContext)) {
                         DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
                             switch (which) {
                                 case DialogInterface.BUTTON_POSITIVE:
@@ -781,7 +781,7 @@ public class MainActivity extends SubstratumActivity implements
                 DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
                     switch (which) {
                         case DialogInterface.BUTTON_POSITIVE:
-                            ThemeManager.restartSystemUI(context);
+                            ThemeManager.restartSystemUI(mContext);
                             break;
                         case DialogInterface.BUTTON_NEGATIVE:
                             break;
@@ -882,15 +882,15 @@ public class MainActivity extends SubstratumActivity implements
 
     public void showFloatingHead() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
-                context);
+                mContext);
         prefs.edit().putInt("float_tile", Tile.STATE_ACTIVE).apply();
-        FloatUiTile.requestListeningState(context,
-                new ComponentName(context, FloatUiTile.class));
-        context.startService(new Intent(context,
+        FloatUiTile.requestListeningState(mContext,
+                new ComponentName(mContext, FloatUiTile.class));
+        mContext.startService(new Intent(mContext,
                 SubstratumFloatInterface.class));
         PackageManager packageManager = getPackageManager();
         ComponentName componentName =
-                new ComponentName(context, FloatUiTile.class);
+                new ComponentName(mContext, FloatUiTile.class);
         packageManager.setComponentEnabledSetting(
                 componentName,
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
@@ -900,30 +900,30 @@ public class MainActivity extends SubstratumActivity implements
 
     private void hideFloatingHead() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
-                context);
+                mContext);
         prefs.edit().putInt("float_tile", Tile.STATE_INACTIVE).apply();
-        FloatUiTile.requestListeningState(context,
-                new ComponentName(context, FloatUiTile.class));
-        stopService(new Intent(context,
+        FloatUiTile.requestListeningState(mContext,
+                new ComponentName(mContext, FloatUiTile.class));
+        stopService(new Intent(mContext,
                 SubstratumFloatInterface.class));
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case PERMISSIONS_REQUEST_DRAW_OVER_OTHER_APPS:
-                if (!checkUsagePermissions(context)) {
+                if (!checkUsagePermissions(mContext)) {
                     Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
                     startActivityForResult(intent, PERMISSIONS_REQUEST_USAGE_ACCESS_SETTINGS);
                 } else {
-                    if (Settings.canDrawOverlays(context) &&
-                            checkUsagePermissions(context)) {
+                    if (Settings.canDrawOverlays(mContext) &&
+                            checkUsagePermissions(mContext)) {
                         showFloatingHead();
                     }
                 }
                 break;
             case PERMISSIONS_REQUEST_USAGE_ACCESS_SETTINGS:
-                if (Settings.canDrawOverlays(context) &&
-                        checkUsagePermissions(context)) {
+                if (Settings.canDrawOverlays(mContext) &&
+                        checkUsagePermissions(mContext)) {
                     showFloatingHead();
                 }
                 break;
@@ -953,7 +953,7 @@ public class MainActivity extends SubstratumActivity implements
                         if (!made) Log.e(References.SUBSTRATUM_LOG,
                                 "Unable to create directory");
                     } else {
-                        References.injectRescueArchives(context);
+                        References.injectRescueArchives(mContext);
                         Log.d(References.SUBSTRATUM_LOG, "Successfully made dir: " + directory);
                     }
                     File cacheDirectory = new File(getCacheDir(),
@@ -966,12 +966,12 @@ public class MainActivity extends SubstratumActivity implements
                     File[] fileList = new File(getCacheDir().getAbsolutePath() +
                             SUBSTRATUM_BUILDER_CACHE).listFiles();
                     for (File file : fileList) {
-                        FileOperations.delete(context, getCacheDir()
+                        FileOperations.delete(mContext, getCacheDir()
                                 .getAbsolutePath() +
                                 SUBSTRATUM_BUILDER_CACHE + file.getName());
                     }
                     Log.d("SubstratumBuilder", "The cache has been flushed!");
-                    References.injectRescueArchives(context);
+                    References.injectRescueArchives(mContext);
                 } else {
                     // permission was not granted, show closing dialog
                     new AlertDialog.Builder(this)
@@ -1035,7 +1035,7 @@ public class MainActivity extends SubstratumActivity implements
         private void permissionCheck() {
             MainActivity activity = ref.get();
             if (activity != null) {
-                Context context = activity.context;
+                Context context = activity.mContext;
                 activity.permissionCheck = ContextCompat.checkSelfPermission(
                         context,
                         WRITE_EXTERNAL_STORAGE);
@@ -1151,7 +1151,7 @@ public class MainActivity extends SubstratumActivity implements
             super.onPostExecute(dialogReturnBool);
             MainActivity activity = ref.get();
             if (activity != null) {
-                Context context = activity.context;
+                Context context = activity.mContext;
                 showDialogOrNot(dialogReturnBool);
                 if (!dialogReturnBool) permissionCheck();
                 if (checkIfOverlaysOutdated(context)) {
@@ -1169,7 +1169,7 @@ public class MainActivity extends SubstratumActivity implements
             MainActivity activity = ref.get();
             isRunning = false;
             if (activity != null) {
-                Context context = activity.context;
+                Context context = activity.mContext;
                 if (passthrough) {
                     activity.mProgressDialog.show();
                     activity.mProgressDialog.setContentView(R.layout.root_rejected_loader);
@@ -1198,9 +1198,8 @@ public class MainActivity extends SubstratumActivity implements
                                 R.id.andromeda_button);
                         andromedaButton.setText(R.string.andromeda_check_status);
                         andromedaButton.setVisibility(View.VISIBLE);
-                        andromedaButton.setOnClickListener(view -> {
-                            launchExternalActivity(context, ANDROMEDA_PACKAGE, "InfoActivity");
-                        });
+                        andromedaButton.setOnClickListener(view ->
+                                launchExternalActivity(context, ANDROMEDA_PACKAGE, "InfoActivity"));
                         textView.setVisibility(View.GONE);
                         titleView.setVisibility(View.GONE);
                     } else if (References.checkOreo() &&
@@ -1217,7 +1216,7 @@ public class MainActivity extends SubstratumActivity implements
                         titleView.setVisibility(View.GONE);
                     }
                 } else {
-                    CheckBinaries.install(activity.context, false);
+                    CheckBinaries.install(activity.mContext, false);
                     if (References.checkOMS(context)) new DoCleanUp(context).execute();
                 }
             }
@@ -1227,7 +1226,7 @@ public class MainActivity extends SubstratumActivity implements
         protected Boolean doInBackground(Void... sUrl) {
             MainActivity activity = ref.get();
             if (activity != null) {
-                Context context = activity.context;
+                Context context = activity.mContext;
 
                 // Samsung mode, but what if package is not installed?
                 boolean samsungCheck = checkThemeSystemModule(context) == SAMSUNG_THEME_ENGINE_N;
@@ -1329,7 +1328,7 @@ public class MainActivity extends SubstratumActivity implements
         protected Void doInBackground(Void... params) {
             MainActivity activity = ref.get();
             if (activity != null) {
-                Context context = activity.context;
+                Context context = activity.mContext;
                 delete(context, new File(Environment.getExternalStorageDirectory() +
                         File.separator + "substratum" + File.separator + "LogCharReports")
                         .getAbsolutePath());
@@ -1341,7 +1340,7 @@ public class MainActivity extends SubstratumActivity implements
         protected void onPostExecute(Void result) {
             MainActivity activity = ref.get();
             if (activity != null) {
-                Context context = activity.context;
+                Context context = activity.mContext;
                 Toast.makeText(context, context.getString(R.string.cleaned_logchar_reports),
                         Toast.LENGTH_SHORT).show();
                 Intent intent = activity.getIntent();

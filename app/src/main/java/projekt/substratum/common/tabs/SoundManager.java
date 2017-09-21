@@ -528,12 +528,10 @@ public class SoundManager {
         return path;
     }
 
-    private static boolean setUISounds(String sound_name, String location) {
+    private static void setUISounds(String sound_name, String location) {
         if (References.allowedUISound(sound_name)) {
             FileOperations.adjustContentProvider(SYSTEM_CONTENT_URI, sound_name, location);
-            return true;
         }
-        return false;
     }
 
     private static void setDefaultUISounds(String sound_name, String sound_file) {
@@ -541,8 +539,8 @@ public class SoundManager {
                 "/system/media/audio/ui/" + sound_file);
     }
 
-    private static boolean setAudible(Context context, File ringtone, File ringtoneCache, int type,
-                                      String name) {
+    private static void setAudible(Context context, File ringtone, File ringtoneCache, int type,
+                                   String name) {
         final String path = ringtone.getAbsolutePath();
         final String mimeType = name.endsWith(".ogg") ? "application/ogg" : "application/mp3";
         ContentValues values = new ContentValues();
@@ -575,13 +573,13 @@ public class SoundManager {
         try {
             RingtoneManager.setActualDefaultRingtoneUri(context, type, newUri);
         } catch (Exception e) {
-            return false;
+            // Suppress warning
         }
-        return true;
     }
 
-    private static boolean setUIAudible(Context context, File localized_ringtone,
-                                        File ringtone_file, int type, String name) {
+    @SuppressWarnings("SameParameterValue")
+    private static void setUIAudible(Context context, File localized_ringtone,
+                                     File ringtone_file, int type, String name) {
         final String path = ringtone_file.getAbsolutePath();
 
         final String path_clone = "/system/media/audio/ui/" + name + ".ogg";
@@ -622,12 +620,10 @@ public class SoundManager {
             RingtoneManager.setActualDefaultRingtoneUri(context, type, newUri);
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
-        return true;
     }
 
-    private static boolean setDefaultAudible(Context context, int type) {
+    private static void setDefaultAudible(Context context, int type) {
         final String audiblePath = getDefaultAudiblePath(type);
         if (audiblePath != null) {
             Uri uri = MediaStore.Audio.Media.getContentUriForPath(audiblePath);
@@ -643,10 +639,7 @@ public class SoundManager {
             }
             if (uri != null)
                 RingtoneManager.setActualDefaultRingtoneUri(context, type, uri);
-        } else {
-            return false;
         }
-        return true;
     }
 
     private static void clearAudibles(Context context, String audiblePath) {

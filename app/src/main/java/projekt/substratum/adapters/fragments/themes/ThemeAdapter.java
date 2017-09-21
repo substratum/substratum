@@ -255,7 +255,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                             two.setVisibility(View.GONE);
                             break;
                     }
-                } catch(Exception ignored) {
+                } catch (Exception ignored) {
                     tbo.setVisibility(View.GONE);
                     two.setVisibility(View.GONE);
                 }

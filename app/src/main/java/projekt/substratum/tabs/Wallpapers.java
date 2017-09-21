@@ -18,6 +18,7 @@
 
 package projekt.substratum.tabs;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -35,6 +36,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -56,12 +58,14 @@ public class Wallpapers extends Fragment {
     private SwipeRefreshLayout swipeRefreshLayout;
     private ProgressBar materialProgressBar;
     private View no_network, no_wallpapers;
+    private Context mContext;
 
     @Override
     public View onCreateView(
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
+        mContext = getContext();
         wallpaperUrl = getArguments().getString("wallpaperUrl");
         root = (ViewGroup) inflater.inflate(R.layout.tab_wallpapers, container, false);
         materialProgressBar = root.findViewById(R.id.progress_bar_loader);
@@ -81,15 +85,15 @@ public class Wallpapers extends Fragment {
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
         mRecyclerView = root.findViewById(R.id.wallpaperRecyclerView);
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         ArrayList<WallpaperEntries> empty_array = new ArrayList<>();
         RecyclerView.Adapter empty_adapter = new WallpaperAdapter(empty_array);
         mRecyclerView.setAdapter(empty_adapter);
         no_wallpapers.setVisibility(View.GONE);
         no_network.setVisibility(View.GONE);
 
-        if (References.isNetworkAvailable(getContext())) {
-            downloadResources downloadTask = new downloadResources();
+        if (References.isNetworkAvailable(mContext)) {
+            downloadResources downloadTask = new downloadResources(this);
             downloadTask.execute(wallpaperUrl, "current_wallpapers.xml");
         } else {
             mRecyclerView.setVisibility(View.GONE);
@@ -100,117 +104,131 @@ public class Wallpapers extends Fragment {
 
     }
 
-    private class downloadResources extends AsyncTask<String, Integer, String> {
+    private static class downloadResources extends AsyncTask<String, Integer, String> {
+        private WeakReference<Wallpapers> ref;
+
+        downloadResources(Wallpapers wallpapers) {
+            ref = new WeakReference<>(wallpapers);
+        }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mRecyclerView.setVisibility(View.GONE);
-            materialProgressBar.setVisibility(View.VISIBLE);
+            Wallpapers wallpapers = ref.get();
+            if (wallpapers != null) {
+                wallpapers.mRecyclerView.setVisibility(View.GONE);
+                wallpapers.materialProgressBar.setVisibility(View.VISIBLE);
+            }
         }
 
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            try {
-                String[] checkerCommands = {getContext().getCacheDir() + "/current_wallpapers.xml"};
+            Wallpapers wallpapers = ref.get();
+            if (wallpapers != null) {
+                try {
+                    String[] checkerCommands = {
+                            wallpapers.mContext.getCacheDir() + "/current_wallpapers.xml"};
 
-                @SuppressWarnings("unchecked") final Map<String, String> newArray =
-                        ReadCloudWallpaperFile.main(checkerCommands);
-                ArrayList<WallpaperEntries> wallpapers = new ArrayList<>();
-                WallpaperEntries newEntry = new WallpaperEntries();
+                    @SuppressWarnings("unchecked") final Map<String, String> newArray =
+                            ReadCloudWallpaperFile.main(checkerCommands);
+                    ArrayList<WallpaperEntries> wallpaperEntries = new ArrayList<>();
+                    WallpaperEntries newEntry = new WallpaperEntries();
 
-                for (String key : newArray.keySet()) {
-                    if (!key.toLowerCase(Locale.getDefault())
-                            .endsWith("-preview".toLowerCase(Locale.getDefault()))) {
-                        newEntry.setCallingActivity(getActivity());
-                        newEntry.setContext(getContext());
-                        newEntry.setWallpaperName(key.replaceAll("~", " "));
-                        newEntry.setWallpaperLink(newArray.get(key));
-                    } else {
-                        // This is a preview image to be displayed on the card
-                        newEntry.setWallpaperPreview(newArray.get(key));
-                        wallpapers.add(newEntry);
-                        newEntry = new WallpaperEntries();
+                    for (String key : newArray.keySet()) {
+                        if (!key.toLowerCase(Locale.getDefault())
+                                .endsWith("-preview".toLowerCase(Locale.getDefault()))) {
+                            newEntry.setCallingActivity(wallpapers.getActivity());
+                            newEntry.setContext(wallpapers.mContext);
+                            newEntry.setWallpaperName(key.replaceAll("~", " "));
+                            newEntry.setWallpaperLink(newArray.get(key));
+                        } else {
+                            // This is a preview image to be displayed on the card
+                            newEntry.setWallpaperPreview(newArray.get(key));
+                            wallpaperEntries.add(newEntry);
+                            newEntry = new WallpaperEntries();
+                        }
                     }
+                    RecyclerView.Adapter mAdapter = new WallpaperAdapter(wallpaperEntries);
+                    wallpapers.mRecyclerView.setAdapter(mAdapter);
+
+                    if (wallpaperEntries.size() == 0)
+                        wallpapers.no_wallpapers.setVisibility(View.VISIBLE);
+
+                    wallpapers.mRecyclerView.setVisibility(View.VISIBLE);
+                    wallpapers.materialProgressBar.setVisibility(View.GONE);
+                } catch (Exception e) {
+                    // Suppress warning
                 }
-                RecyclerView.Adapter mAdapter = new WallpaperAdapter(wallpapers);
-                mRecyclerView.setAdapter(mAdapter);
-
-                if (wallpapers.size() == 0)
-                    no_wallpapers.setVisibility(View.VISIBLE);
-
-                mRecyclerView.setVisibility(View.VISIBLE);
-                materialProgressBar.setVisibility(View.GONE);
-            } catch (Exception e) {
-                // Suppress warning
             }
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
+            Wallpapers wallpapers = ref.get();
+            if (wallpapers != null) {
+                InputStream input = null;
+                OutputStream output = null;
+                HttpURLConnection connection = null;
 
-            InputStream input = null;
-            OutputStream output = null;
-            HttpURLConnection connection = null;
-
-            try {
-                File current_wallpapers = new File(getContext().getCacheDir() +
-                        "/current_wallpapers.xml");
-                if (current_wallpapers.exists() && !current_wallpapers.delete()) {
-                    Log.e(TAG, "Unable to delete current wallpaper stash.");
-                }
-
-                URL url = new URL(sUrl[0]);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
-
-                // expect HTTP 200 OK, so we don't mistakenly save error report
-                // instead of the file
-                if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                    return "Server returned HTTP " + connection.getResponseCode()
-                            + " " + connection.getResponseMessage();
-                }
-
-                // this will be useful to display download percentage
-                // might be -1: server did not report the length
-                int fileLength = connection.getContentLength();
-
-                // download the file
-                input = connection.getInputStream();
-
-                output = new FileOutputStream(
-                        getContext().getCacheDir().getAbsolutePath() + "/" + sUrl[1]);
-
-                byte data[] = new byte[8192];
-                long total = 0;
-                int count;
-                while ((count = input.read(data)) != -1) {
-                    // allow canceling with back button
-                    if (isCancelled()) {
-                        input.close();
-                        return null;
-                    }
-                    total += count;
-                    // publishing the progress....
-                    if (fileLength > 0) // only if total length is known
-                        publishProgress((int) (total * 100 / fileLength));
-                    output.write(data, 0, count);
-                }
-            } catch (Exception e) {
-                return e.toString();
-            } finally {
                 try {
-                    if (output != null)
-                        output.close();
-                    if (input != null)
-                        input.close();
-                } catch (IOException ignored) {
-                    // Suppress warning
-                }
+                    File current_wallpapers = new File(wallpapers.mContext.getCacheDir() +
+                            "/current_wallpapers.xml");
+                    if (current_wallpapers.exists() && !current_wallpapers.delete()) {
+                        Log.e(TAG, "Unable to delete current wallpaper stash.");
+                    }
 
-                if (connection != null)
-                    connection.disconnect();
+                    URL url = new URL(sUrl[0]);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.connect();
+
+                    // expect HTTP 200 OK, so we don't mistakenly save error report
+                    // instead of the file
+                    if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                        return "Server returned HTTP " + connection.getResponseCode()
+                                + " " + connection.getResponseMessage();
+                    }
+
+                    // this will be useful to display download percentage
+                    // might be -1: server did not report the length
+                    int fileLength = connection.getContentLength();
+
+                    // download the file
+                    input = connection.getInputStream();
+
+                    output = new FileOutputStream(
+                            wallpapers.mContext.getCacheDir().getAbsolutePath() + "/" + sUrl[1]);
+
+                    byte data[] = new byte[8192];
+                    long total = 0;
+                    int count;
+                    while ((count = input.read(data)) != -1) {
+                        // allow canceling with back button
+                        if (isCancelled()) {
+                            input.close();
+                            return null;
+                        }
+                        total += count;
+                        // publishing the progress....
+                        if (fileLength > 0) // only if total length is known
+                            publishProgress((int) (total * 100 / fileLength));
+                        output.write(data, 0, count);
+                    }
+                } catch (Exception e) {
+                    return e.toString();
+                } finally {
+                    try {
+                        if (output != null)
+                            output.close();
+                        if (input != null)
+                            input.close();
+                    } catch (IOException ignored) {
+                        // Suppress warning
+                    }
+
+                    if (connection != null)
+                        connection.disconnect();
+                }
             }
             return null;
         }

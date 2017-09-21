@@ -36,6 +36,7 @@ import com.thesurix.gesturerecycler.DefaultItemClickListener;
 import com.thesurix.gesturerecycler.GestureManager;
 import com.thesurix.gesturerecycler.RecyclerItemTouchListener;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,7 +83,7 @@ public class PriorityLoaderFragment extends Fragment {
         app_list = new ArrayList<>();
         adapter = new PriorityAdapter(getContext(), R.layout.priority_loader_item);
 
-        LoadPrioritizedOverlays loadPrioritizedOverlays = new LoadPrioritizedOverlays();
+        LoadPrioritizedOverlays loadPrioritizedOverlays = new LoadPrioritizedOverlays(this);
         loadPrioritizedOverlays.execute("");
 
         recyclerView.addOnItemTouchListener(new RecyclerItemTouchListener(getActivity(),
@@ -106,37 +107,53 @@ public class PriorityLoaderFragment extends Fragment {
         return root;
     }
 
-    private class LoadPrioritizedOverlays extends AsyncTask<String, Integer, String> {
+    private static class LoadPrioritizedOverlays extends AsyncTask<String, Integer, String> {
+
+        private WeakReference<PriorityLoaderFragment> ref;
+
+        LoadPrioritizedOverlays(PriorityLoaderFragment priorityLoaderFragment) {
+            ref = new WeakReference<>(priorityLoaderFragment);
+        }
 
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            if (prioritiesList.isEmpty()) {
-                emptyView.setVisibility(View.VISIBLE);
-                materialProgressBar.setVisibility(View.GONE);
-            } else {
-                emptyView.setVisibility(View.GONE);
-                materialProgressBar.setVisibility(View.GONE);
+            PriorityLoaderFragment fragment = ref.get();
+            if (fragment != null) {
+                if (fragment.prioritiesList.isEmpty()) {
+                    fragment.emptyView.setVisibility(View.VISIBLE);
+                    fragment.materialProgressBar.setVisibility(View.GONE);
+                } else {
+                    fragment.emptyView.setVisibility(View.GONE);
+                    fragment.materialProgressBar.setVisibility(View.GONE);
+                }
+
+                fragment.adapter.setData(fragment.prioritiesList);
+                fragment.recyclerView.setAdapter(fragment.adapter);
+
+                new GestureManager.Builder(fragment.recyclerView)
+                        .setGestureFlags(
+                                ItemTouchHelper.LEFT |
+                                        ItemTouchHelper.RIGHT,
+                                ItemTouchHelper.UP |
+                                        ItemTouchHelper.DOWN)
+                        .build();
             }
-
-            adapter.setData(prioritiesList);
-            recyclerView.setAdapter(adapter);
-
-            new GestureManager.Builder(recyclerView)
-                    .setGestureFlags(
-                            ItemTouchHelper.LEFT |
-                                    ItemTouchHelper.RIGHT,
-                            ItemTouchHelper.UP |
-                                    ItemTouchHelper.DOWN)
-                    .build();
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
-            List<String> targets = ThemeManager.listTargetWithMultipleOverlaysEnabled(getContext());
-            for (String t : targets) {
-                prioritiesList.add(new PrioritiesItem(t, References.grabAppIcon(getContext(), t)));
-                app_list.add(t);
+            PriorityLoaderFragment fragment = ref.get();
+            if (fragment != null) {
+                List<String> targets =
+                        ThemeManager.listTargetWithMultipleOverlaysEnabled(fragment.getContext());
+
+                for (String t : targets) {
+                    fragment.prioritiesList.add(new PrioritiesItem(t, References.grabAppIcon(
+                            fragment.getContext(),
+                            t)));
+                    fragment.app_list.add(t);
+                }
             }
             return null;
         }

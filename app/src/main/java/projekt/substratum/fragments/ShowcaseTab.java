@@ -33,6 +33,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Locale;
@@ -97,9 +98,9 @@ public class ShowcaseTab extends Fragment {
         no_network.setVisibility(View.GONE);
 
         if (References.isNetworkAvailable(mContext)) {
-            downloadResources downloadTask = new downloadResources();
-            downloadTask.execute(current_tab_address, "showcase_tab_" + current_tab_position + "" +
-                    ".xml");
+            downloadResources downloadTask = new downloadResources(this);
+            downloadTask.execute(current_tab_address,
+                    "showcase_tab_" + current_tab_position + "" + ".xml");
         } else {
             mRecyclerView.setVisibility(View.GONE);
             materialProgressBar.setVisibility(View.GONE);
@@ -109,117 +110,136 @@ public class ShowcaseTab extends Fragment {
 
     }
 
-    private class downloadResources extends AsyncTask<String, Integer, ArrayList> {
+    private static class downloadResources extends AsyncTask<String, Integer, ArrayList> {
+        private WeakReference<ShowcaseTab> ref;
+
+        downloadResources(ShowcaseTab showcaseTab) {
+            ref = new WeakReference<>(showcaseTab);
+        }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            mRecyclerView.setVisibility(View.GONE);
-            materialProgressBar.setVisibility(View.VISIBLE);
+            ShowcaseTab showcaseTab = ref.get();
+            if (showcaseTab != null) {
+                showcaseTab.mRecyclerView.setVisibility(View.GONE);
+                showcaseTab.materialProgressBar.setVisibility(View.VISIBLE);
+            }
         }
 
         @Override
         @SuppressWarnings("unchecked")
         protected void onPostExecute(ArrayList result) {
             super.onPostExecute(result);
+            ShowcaseTab showcaseTab = ref.get();
+            if (showcaseTab != null) {
+                ShowcaseItemAdapter mAdapter = new ShowcaseItemAdapter(result);
+                showcaseTab.mRecyclerView.setAdapter(mAdapter);
 
-            ShowcaseItemAdapter mAdapter = new ShowcaseItemAdapter(result);
-            mRecyclerView.setAdapter(mAdapter);
+                if (result.size() == 0) showcaseTab.no_wallpapers.setVisibility(View.VISIBLE);
 
-            if (result.size() == 0) no_wallpapers.setVisibility(View.VISIBLE);
-
-            mRecyclerView.setVisibility(View.VISIBLE);
-            materialProgressBar.setVisibility(View.GONE);
+                showcaseTab.mRecyclerView.setVisibility(View.VISIBLE);
+                showcaseTab.materialProgressBar.setVisibility(View.GONE);
+            }
         }
 
         @Override
         protected ArrayList doInBackground(String... sUrl) {
-            String inputFileName = sUrl[1];
+            ShowcaseTab showcaseTab = ref.get();
             ArrayList<ShowcaseItem> wallpapers = new ArrayList<>();
+            if (showcaseTab != null) {
+                String inputFileName = sUrl[1];
 
-            File showcase_directory = new File(mContext.getCacheDir() + "/ShowcaseCache/");
-            if (!showcase_directory.exists()) {
-                Boolean made = showcase_directory.mkdir();
-                if (!made)
-                    Log.e(References.SUBSTRATUM_LOG, "Could not make showcase directory...");
-            }
-
-            File current_wallpapers = new File(mContext.getCacheDir() +
-                    "/ShowcaseCache/" + inputFileName);
-            if (current_wallpapers.exists()) {
-                // We create a temporary file to check whether we should be replacing the
-                // current
-                inputFileName = inputFileName.substring(0, inputFileName.length() - 4) + ".xml";
-            }
-
-            FileDownloader.init(mContext, sUrl[0], inputFileName, "ShowcaseCache");
-
-            if (inputFileName.endsWith("-temp.xml")) {
-                String existing = MD5.calculateMD5(new File(mContext.getCacheDir() +
-                        "/ShowcaseCache/" + sUrl[1]));
-                String new_file = MD5.calculateMD5(new File(mContext.getCacheDir() +
-                        "/ShowcaseCache/" + inputFileName));
-                if (existing != null && !existing.equals(new_file)) {
-                    Log.e("ShowcaseActivity", "Tab " + current_tab_position +
-                            " has been updated from the cloud!");
-                    File renameMe = new File(mContext.getCacheDir() +
-                            "/ShowcaseCache/" +
-                            sUrl[1].substring(0, sUrl[1].length() - 4) + "-temp.xml");
-                    Boolean renamed = renameMe.renameTo(new File(mContext.getCacheDir() +
-                            "/ShowcaseCache/" + sUrl[1]));
-                    if (!renamed) Log.e(References.SUBSTRATUM_LOG,
-                            "Could not replace the old tab file with the new tab file...");
-                } else {
-                    File deleteMe = new File(mContext.getCacheDir() +
-                            "/" + inputFileName);
-                    Boolean deleted = deleteMe.delete();
-                    if (!deleted) Log.e(References.SUBSTRATUM_LOG,
-                            "Could not delete temporary tab file...");
+                File showcase_directory = new File(
+                        showcaseTab.mContext.getCacheDir() + "/ShowcaseCache/");
+                if (!showcase_directory.exists()) {
+                    Boolean made = showcase_directory.mkdir();
+                    if (!made)
+                        Log.e(References.SUBSTRATUM_LOG, "Could not make showcase directory...");
                 }
-            }
 
-            inputFileName = sUrl[1];
+                File current_wallpapers = new File(showcaseTab.mContext.getCacheDir() +
+                        "/ShowcaseCache/" + inputFileName);
+                if (current_wallpapers.exists()) {
+                    // We create a temporary file to check whether we should be replacing the
+                    // current
+                    inputFileName = inputFileName.substring(0, inputFileName.length() - 4) + ".xml";
+                }
 
-            String[] checkerCommands = {mContext.getCacheDir() + "/ShowcaseCache/" + inputFileName};
+                FileDownloader.init(showcaseTab.mContext, sUrl[0], inputFileName, "ShowcaseCache");
 
-            @SuppressWarnings("unchecked") final Map<String, String> newArray =
-                    ReadCloudShowcaseFile.main(checkerCommands);
-            ShowcaseItem newEntry = new ShowcaseItem();
-
-            for (String key : newArray.keySet()) {
-                if (!key.toLowerCase(Locale.getDefault()).contains("-".toLowerCase(Locale
-                        .getDefault()))) {
-                    newEntry.setContext(mContext);
-                    newEntry.setThemeName(key);
-                    newEntry.setThemeLink(newArray.get(key));
-                } else {
-                    if (key.toLowerCase(Locale.getDefault()).contains("-author".toLowerCase
-                            (Locale.getDefault()))) {
-                        newEntry.setThemeAuthor(newArray.get(key));
-                    } else if (key.toLowerCase(Locale.getDefault()).contains("-pricing"
-                            .toLowerCase(Locale.getDefault()))) {
-                        newEntry.setThemePricing(newArray.get(key));
-                    } else if (key.toLowerCase(Locale.getDefault()).contains("-image-override")) {
-                        newEntry.setThemeIcon(newArray.get(key));
-                    } else if (key.toLowerCase(Locale.getDefault()).contains("-feature-image")) {
-                        newEntry.setThemeBackgroundImage(newArray.get(key));
-                    } else if (key.toLowerCase(Locale.getDefault()).contains("-package-name")) {
-                        newEntry.setThemePackage(newArray.get(key));
-                    } else if (key.toLowerCase(Locale.getDefault()).contains("-support"
-                            .toLowerCase(Locale.getDefault()))) {
-                        newEntry.setThemeSupport(newArray.get(key));
-                        wallpapers.add(newEntry);
-                        newEntry = new ShowcaseItem();
-                        newEntry.setContext(mContext);
+                if (inputFileName.endsWith("-temp.xml")) {
+                    String existing = MD5.calculateMD5(new File(showcaseTab.mContext.getCacheDir() +
+                            "/ShowcaseCache/" + sUrl[1]));
+                    String new_file = MD5.calculateMD5(new File(showcaseTab.mContext.getCacheDir() +
+                            "/ShowcaseCache/" + inputFileName));
+                    if (existing != null && !existing.equals(new_file)) {
+                        Log.e("ShowcaseActivity", "Tab " + showcaseTab.current_tab_position +
+                                " has been updated from the cloud!");
+                        File renameMe = new File(showcaseTab.mContext.getCacheDir() +
+                                "/ShowcaseCache/" +
+                                sUrl[1].substring(0, sUrl[1].length() - 4) + "-temp.xml");
+                        Boolean renamed = renameMe.renameTo(new File(
+                                showcaseTab.mContext.getCacheDir() +
+                                        "/ShowcaseCache/" + sUrl[1]));
+                        if (!renamed) Log.e(References.SUBSTRATUM_LOG,
+                                "Could not replace the old tab file with the new tab file...");
+                    } else {
+                        File deleteMe = new File(showcaseTab.mContext.getCacheDir() +
+                                "/" + inputFileName);
+                        Boolean deleted = deleteMe.delete();
+                        if (!deleted) Log.e(References.SUBSTRATUM_LOG,
+                                "Could not delete temporary tab file...");
                     }
                 }
-            }
-            // Shuffle the deck - every time it will change the order of themes!
-            long seed = System.nanoTime();
-            boolean alphabetize = prefs.getBoolean("alphabetize_showcase", false);
-            if (!alphabetize) {
-                for (int i = 0; i <= SHOWCASE_SHUFFLE_COUNT; i++)
-                    Collections.shuffle(wallpapers, new Random(seed));
+
+                inputFileName = sUrl[1];
+
+                String[] checkerCommands = {
+                        showcaseTab.mContext.getCacheDir() + "/ShowcaseCache/" + inputFileName};
+
+
+                @SuppressWarnings("unchecked") final Map<String, String> newArray =
+                        ReadCloudShowcaseFile.main(checkerCommands);
+                ShowcaseItem newEntry = new ShowcaseItem();
+
+                for (String key : newArray.keySet()) {
+                    if (!key.toLowerCase(Locale.getDefault()).contains("-".toLowerCase(Locale
+                            .getDefault()))) {
+                        newEntry.setContext(showcaseTab.mContext);
+                        newEntry.setThemeName(key);
+                        newEntry.setThemeLink(newArray.get(key));
+                    } else {
+                        if (key.toLowerCase(Locale.getDefault()).contains("-author".toLowerCase
+                                (Locale.getDefault()))) {
+                            newEntry.setThemeAuthor(newArray.get(key));
+                        } else if (key.toLowerCase(Locale.getDefault()).contains("-pricing"
+                                .toLowerCase(Locale.getDefault()))) {
+                            newEntry.setThemePricing(newArray.get(key));
+                        } else if (key.toLowerCase(Locale.getDefault()).contains("-image-override" +
+                                "")) {
+                            newEntry.setThemeIcon(newArray.get(key));
+                        } else if (key.toLowerCase(Locale.getDefault()).contains
+                                ("-feature-image")) {
+                            newEntry.setThemeBackgroundImage(newArray.get(key));
+                        } else if (key.toLowerCase(Locale.getDefault()).contains("-package-name")) {
+                            newEntry.setThemePackage(newArray.get(key));
+                        } else if (key.toLowerCase(Locale.getDefault()).contains("-support"
+                                .toLowerCase(Locale.getDefault()))) {
+                            newEntry.setThemeSupport(newArray.get(key));
+                            wallpapers.add(newEntry);
+                            newEntry = new ShowcaseItem();
+                            newEntry.setContext(showcaseTab.mContext);
+                        }
+                    }
+                }
+                // Shuffle the deck - every time it will change the order of themes!
+                long seed = System.nanoTime();
+                boolean alphabetize = showcaseTab.prefs.getBoolean("alphabetize_showcase", false);
+                if (!alphabetize) {
+                    for (int i = 0; i <= SHOWCASE_SHUFFLE_COUNT; i++)
+                        Collections.shuffle(wallpapers, new Random(seed));
+                }
             }
             return wallpapers;
         }

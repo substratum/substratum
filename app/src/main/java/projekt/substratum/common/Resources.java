@@ -28,6 +28,7 @@ public class Resources {
     };
 
     // Default core packages
+    @SuppressWarnings("unused")
     public static final String[] CORE_SYSTEM_PACKAGES = {
 
             // Core AOSP System Packages

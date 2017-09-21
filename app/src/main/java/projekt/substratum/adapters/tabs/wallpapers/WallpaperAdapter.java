@@ -43,6 +43,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -110,7 +111,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                         }
 
                         // Download the image
-                        new downloadWallpaper().execute(
+                        new downloadWallpaper(this).execute(
                                 wallpaperEntry.getWallpaperLink(),
                                 "homescreen_wallpaper" + extension);
 
@@ -139,7 +140,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                         }
 
                         // Download the image
-                        new downloadWallpaper().execute(
+                        new downloadWallpaper(this).execute(
                                 wallpaperEntry.getWallpaperLink(),
                                 "lockscreen_wallpaper" + extension2);
 
@@ -169,7 +170,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                         }
 
                         // Download the image
-                        new downloadWallpaper().execute(
+                        new downloadWallpaper(this).execute(
                                 wallpaperEntry.getWallpaperLink(),
                                 "all_wallpaper" + extension3);
 
@@ -199,6 +200,128 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         return information.size();
     }
 
+    private static class downloadWallpaper extends AsyncTask<String, Integer, String> {
+
+        private WeakReference<WallpaperAdapter> ref;
+
+        downloadWallpaper(WallpaperAdapter wallpaperAdapter) {
+            ref = new WeakReference<>(wallpaperAdapter);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            WallpaperAdapter wallpaperAdapter = ref.get();
+            if (wallpaperAdapter != null) {
+                // Instantiate Progress Dialog
+                wallpaperAdapter.mProgressDialog = new ProgressDialog(wallpaperAdapter.mContext);
+                wallpaperAdapter.mProgressDialog.setMessage(
+                        wallpaperAdapter.mContext.getString(R.string.wallpaper_downloading));
+                wallpaperAdapter.mProgressDialog.setIndeterminate(false);
+                wallpaperAdapter.mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                wallpaperAdapter.mProgressDialog.setCancelable(false);
+
+                // Take CPU lock to prevent CPU from going off if the user
+                // presses the power button during download
+                PowerManager pm = (PowerManager)
+                        wallpaperAdapter.mContext.getSystemService(Context.POWER_SERVICE);
+                if (pm != null) {
+                    wallpaperAdapter.mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                            getClass().getName());
+                }
+                wallpaperAdapter.mWakeLock.acquire(10 * 60 * 1000L /*10 minutes*/);
+                wallpaperAdapter.mProgressDialog.show();
+            }
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... progress) {
+            super.onProgressUpdate(progress);
+            // if we get here, length is known, now set indeterminate to false
+            WallpaperAdapter wallpaperAdapter = ref.get();
+            if (wallpaperAdapter != null) {
+                wallpaperAdapter.mProgressDialog.setIndeterminate(false);
+                wallpaperAdapter.mProgressDialog.setMax(100);
+                wallpaperAdapter.mProgressDialog.setProgress(progress[0]);
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            WallpaperAdapter wallpaperAdapter = ref.get();
+            if (wallpaperAdapter != null) {
+                wallpaperAdapter.mWakeLock.release();
+                wallpaperAdapter.mProgressDialog.dismiss();
+            }
+        }
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            WallpaperAdapter wallpaperAdapter = ref.get();
+            if (wallpaperAdapter != null) {
+
+                InputStream input = null;
+                OutputStream output = null;
+                HttpURLConnection connection = null;
+
+                try {
+                    URL url = new URL(sUrl[0]);
+                    connection = (HttpURLConnection) url.openConnection();
+                    connection.connect();
+
+                    // expect HTTP 200 OK, so we don't mistakenly save error report
+                    // instead of the file
+                    if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                        return "Server returned HTTP " + connection.getResponseCode()
+                                + " " + connection.getResponseMessage();
+                    }
+
+                    // this will be useful to display download percentage
+                    // might be -1: server did not report the length
+                    int fileLength = connection.getContentLength();
+
+                    // download the file
+                    input = connection.getInputStream();
+
+                    output = new FileOutputStream(
+                            wallpaperAdapter.mContext.getCacheDir().getAbsolutePath() +
+                                    "/" + sUrl[1]);
+
+                    byte data[] = new byte[4096];
+                    long total = 0;
+                    int count;
+                    while ((count = input.read(data)) != -1) {
+                        // allow canceling with back button
+                        if (isCancelled()) {
+                            input.close();
+                            return null;
+                        }
+                        total += count;
+                        // publishing the progress....
+                        if (fileLength > 0) // only if total length is known
+                            publishProgress((int) (total * 100 / fileLength));
+                        output.write(data, 0, count);
+                    }
+                } catch (Exception e) {
+                    return e.toString();
+                } finally {
+                    try {
+                        if (output != null)
+                            output.close();
+                        if (input != null)
+                            input.close();
+                    } catch (IOException ignored) {
+                    }
+
+                    if (connection != null)
+                        connection.disconnect();
+                }
+            }
+            return null;
+        }
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView wallpaperName;
@@ -209,108 +332,6 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
             cardView = view.findViewById(R.id.wallpaperCard);
             imageView = view.findViewById(R.id.wallpaperImage);
             wallpaperName = view.findViewById(R.id.wallpaperName);
-        }
-    }
-
-    private class downloadWallpaper extends AsyncTask<String, Integer, String> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            // Instantiate Progress Dialog
-            mProgressDialog = new ProgressDialog(mContext);
-            mProgressDialog.setMessage(mContext.getString(R.string.wallpaper_downloading));
-            mProgressDialog.setIndeterminate(false);
-            mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            mProgressDialog.setCancelable(false);
-
-            // Take CPU lock to prevent CPU from going off if the user
-            // presses the power button during download
-            PowerManager pm = (PowerManager)
-                    mContext.getSystemService(Context.POWER_SERVICE);
-            if (pm != null) {
-                mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-                        getClass().getName());
-            }
-            mWakeLock.acquire(10 * 60 * 1000L /*10 minutes*/);
-            mProgressDialog.show();
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... progress) {
-            super.onProgressUpdate(progress);
-            // if we get here, length is known, now set indeterminate to false
-            mProgressDialog.setIndeterminate(false);
-            mProgressDialog.setMax(100);
-            mProgressDialog.setProgress(progress[0]);
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-            mWakeLock.release();
-            mProgressDialog.dismiss();
-        }
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-            InputStream input = null;
-            OutputStream output = null;
-            HttpURLConnection connection = null;
-
-            try {
-                URL url = new URL(sUrl[0]);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
-
-                // expect HTTP 200 OK, so we don't mistakenly save error report
-                // instead of the file
-                if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                    return "Server returned HTTP " + connection.getResponseCode()
-                            + " " + connection.getResponseMessage();
-                }
-
-                // this will be useful to display download percentage
-                // might be -1: server did not report the length
-                int fileLength = connection.getContentLength();
-
-                // download the file
-                input = connection.getInputStream();
-
-                output = new FileOutputStream(
-                        mContext.getCacheDir().getAbsolutePath() + "/" + sUrl[1]);
-
-                byte data[] = new byte[4096];
-                long total = 0;
-                int count;
-                while ((count = input.read(data)) != -1) {
-                    // allow canceling with back button
-                    if (isCancelled()) {
-                        input.close();
-                        return null;
-                    }
-                    total += count;
-                    // publishing the progress....
-                    if (fileLength > 0) // only if total length is known
-                        publishProgress((int) (total * 100 / fileLength));
-                    output.write(data, 0, count);
-                }
-            } catch (Exception e) {
-                return e.toString();
-            } finally {
-                try {
-                    if (output != null)
-                        output.close();
-                    if (input != null)
-                        input.close();
-                } catch (IOException ignored) {
-                }
-
-                if (connection != null)
-                    connection.disconnect();
-            }
-            return null;
         }
     }
 }

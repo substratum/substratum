@@ -108,6 +108,7 @@ public class ThemeInterfacerService {
         }
     }
 
+    @SuppressWarnings("SameParameterValue")
     public static void uninstallOverlays(Context context,
                                          ArrayList<String> overlays,
                                          boolean restartUi) {

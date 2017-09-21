@@ -72,8 +72,4 @@ public class ValidatorInfo {
     public void setPercentage(int one, int two) {
         this.mPercentage = (int) (((double) one / (double) two) * 100);
     }
-
-    int getPercentage() {
-        return this.mPercentage;
-    }
 }

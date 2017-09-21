@@ -579,28 +579,6 @@ public class ThemeManager {
         }
     }
 
-    public static void installOverlay(Context context, ArrayList<String> overlays) {
-        if (checkThemeInterfacer(context)) {
-            ThemeInterfacerService.installOverlays(context, overlays);
-        } else if (checkAndromeda(context)) {
-            if (!AndromedaService.installOverlays(overlays)) {
-                Handler handler = new Handler(Looper.getMainLooper());
-                handler.post(() ->
-                        Toast.makeText(
-                                context,
-                                context.getString(R.string.toast_andromeda_timed_out),
-                                Toast.LENGTH_LONG).show()
-                );
-            }
-        } else {
-            StringBuilder packages = new StringBuilder();
-            for (String o : overlays) {
-                packages.append(o).append(" ");
-            }
-            new ElevatedCommands.ThreadRunner().execute("pm install -r " + packages);
-        }
-    }
-
     public static void uninstallOverlay(Context context,
                                         ArrayList<String> overlays) {
         ArrayList<String> temp = new ArrayList<>(overlays);

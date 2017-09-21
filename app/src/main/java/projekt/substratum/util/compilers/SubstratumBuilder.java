@@ -133,15 +133,6 @@ public class SubstratumBuilder {
             work_area = context.getCacheDir().getAbsolutePath() + SUBSTRATUM_BUILDER_CACHE;
         }
 
-        if (!theme_oms) {
-            File check_legacy = new File(context.getCacheDir().getAbsolutePath() +
-                    SUBSTRATUM_BUILDER_CACHE + theme_pid + "/assets/overlays_legacy/" +
-                    overlay_package);
-            if (check_legacy.exists()) {
-                work_area = check_legacy.getAbsolutePath();
-            }
-        }
-
         // 3. Create a modified Android Manifest for use with aopt
         File root = new File(work_area + "/AndroidManifest.xml");
 

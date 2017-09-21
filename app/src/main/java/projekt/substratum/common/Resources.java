@@ -109,7 +109,6 @@ public class Resources {
     // Legacy Asset Folder Check
     static final String[] ALLOWED_LEGACY_ASSETS = {
             "overlays",
-            "overlays_legacy",
             "bootanimation",
             "sounds"
     };

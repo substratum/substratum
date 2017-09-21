@@ -402,8 +402,7 @@ public class InformationActivity extends SubstratumActivity {
                     } else {
                         tab_checker = Arrays.asList(am.list(""));
                     }
-                    if (tab_checker.contains(overlaysFragment) ||
-                            tab_checker.contains("overlays_legacy")) {
+                    if (tab_checker.contains(overlaysFragment)) {
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_one)));
                     }

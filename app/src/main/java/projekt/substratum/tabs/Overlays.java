@@ -666,13 +666,6 @@ public class Overlays extends Fragment {
             File f = new File(getContext().getCacheDir().getAbsoluteFile() +
                     SUBSTRATUM_BUILDER_CACHE +
                     theme_pid + "/assets/overlays/android/");
-            if (!References.checkOMS(getContext())) {
-                File check_file = new File(getContext().getCacheDir().getAbsoluteFile() +
-                        SUBSTRATUM_BUILDER_CACHE + theme_pid + "/assets/overlays_legacy/android/");
-                if (check_file.exists() && check_file.isDirectory()) {
-                    f = new File(check_file.getAbsolutePath());
-                }
-            }
 
             if (!References.isCachingEnabled(getContext())) {
                 String[] listArray = themeAssetManager.list("overlays/android");
@@ -1290,15 +1283,6 @@ public class Overlays extends Fragment {
                                 References.SUBSTRATUM_BUILDER_CACHE + fragment.theme_pid +
                                 "/assets/overlays/");
 
-                        if (!References.checkOMS(context)) {
-                            File check_file = new File(context.getCacheDir().getAbsoluteFile() +
-                                    References.SUBSTRATUM_BUILDER_CACHE + fragment.theme_pid +
-                                    "/assets/overlays_legacy/");
-                            if (check_file.exists() && check_file.isDirectory()) {
-                                overlaysDirectory = new File(check_file.getAbsolutePath());
-                            }
-                        }
-
                         File[] fileArray = overlaysDirectory.listFiles();
                         if (fileArray != null && fileArray.length > 0) {
                             for (File file : fileArray) {
@@ -1411,18 +1395,6 @@ public class Overlays extends Fragment {
                                 // Sort the typeArray so that the types are asciibetical
                                 Collections.addAll(typeArray, (String[]) typeArrayRaw);
                                 Collections.sort(typeArray);
-                            }
-
-                            if (!References.checkOMS(context)) {
-                                File check_file = new File(
-                                        context.getCacheDir().getAbsoluteFile() +
-                                                References.SUBSTRATUM_BUILDER_CACHE + fragment
-                                                .theme_pid
-                                                + "/assets/overlays_legacy/" + package_identifier +
-                                                "/");
-                                if (check_file.exists() && check_file.isDirectory()) {
-                                    typeArrayRaw = new File(check_file.getAbsolutePath());
-                                }
                             }
 
                             File[] fileArray;

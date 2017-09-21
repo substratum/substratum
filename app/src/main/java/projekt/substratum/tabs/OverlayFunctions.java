@@ -483,15 +483,6 @@ class OverlayFunctions {
                                     References.SUBSTRATUM_BUILDER_CACHE + overlays.theme_pid +
                                     "/assets/overlays/" + current_overlay;
 
-                            if (!References.checkOMS(context)) {
-                                File check_legacy = new File(context.getCacheDir()
-                                        .getAbsolutePath() + References.SUBSTRATUM_BUILDER_CACHE +
-                                        overlays.theme_pid + "/assets/overlays_legacy/" +
-                                        current_overlay);
-                                if (check_legacy.exists()) {
-                                    workingDirectory = check_legacy.getAbsolutePath();
-                                }
-                            }
                             String suffix = ((sUrl[0].length() != 0) ?
                                     "/type3_" + parsedVariant : "/res");
                             String unparsedSuffix =

@@ -157,7 +157,7 @@ public class ManagerItem implements Serializable, Comparable<ManagerItem> {
         this.themeName = name;
     }
 
-    private String getLabelName() {
+    public String getLabelName() {
         return labelName;
     }
 

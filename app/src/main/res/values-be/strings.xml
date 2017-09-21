@@ -77,6 +77,7 @@
     <string name="manager_type2">Тып2 :</string>
     <string name="manager_type3">Тып3 :</string>
     <string name="manager_type4">Type4 :</string>
+    <string name="manager_version">Версія :</string>
     <string name="legacy_preference_priority_title">Наладка прыярытэтаў напластаванняў</string>
     <string name="legacy_preference_priority_text">Усталёўка прыярытэту (значэнне па змаўчанні 999)：%d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
@@ -89,11 +90,6 @@
     <string name="overlays_up_to_date">АКТУАЛЬНА</string>
     <string name="overlays_update_available">Даступна абнаўленне!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Варыянт не ўсталяваны</string>
-    <string name="bootanimation_vm_exploded">Візуалізацыя анімацыі загрузкі спыненая з-за недахопу памяці.\n\nДалейшая ўсталёўка магчыма, але без папярэдняга прагляду.    </string>
-    <string name="bootanimation_placeholder_text">выберыце анімацыю загрузкі з выпадальнага спісу&#8230;</string>
-    <string name="bootanimation_default_spinner">выберыце анімацыю загрузкі&#8230;</string>
-    <string name="bootanimation_spinner_set_defaults">вяртаем стандартную анімацыю загрузкі&#8230;    </string>
-    <string name="bootanimation_defaults_text">будуць выдалены ўсе карыстальніцкія анімацыі загрузкі, ужытыя на прыладзе</string>
     <string name="bootanimation_dialog_apply_text">Ужыванне анімацыі загрузкі&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Анімацыя загрузкі ўжыта!</string>
     <string name="bootanimation_dialog_apply_failed">Не ўдалося ужыць анімацыю загрузкі&#8230;</string>
@@ -157,7 +153,6 @@
     <string name="theme_information_tab_four">Наборы гукаў</string>
     <string name="theme_information_tab_five">Шпалеры</string>
     <string name="nougat_style_cards_title">Карты напластаванняў ў стылі Nougat</string>
-    <string name="nougat_style_cards_subtext">Ужыць стыль карт у выглядзе апавяшчэнняў Android Nougat.    </string>
     <string name="uninstall_dialog_text">Вы ўпэўненыя, што хочаце выдаліць гэтую тэму?</string>
     <string name="manage_dialog_performing">Вяртаем стандартнае&#8230;</string>
     <string name="manage_bootanimation_title">Аднавіць анімацыю загрузкі</string>
@@ -233,11 +228,6 @@
     <string name="logcat_email_activity_error">Няма ўсталяваных кліентаў электроннай пошты.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
     <string name="logcat_processing_dialog">Стварэнне справаздачы пра памылку</string>
-    <string name="priority_card_title">Dynamic Priority System (DPS)</string>
-    <string name="priority_card_content">Dynamic Priority System - адмысловая працэдура, якая дазваляе арганізаваць напластаванні тэмы з рознымі прыярытэтамі, ігнаруючы выконвацца сістэмай OMS.\n\nНапрыклад, калі спатрэбіцца змясціць пэўны пласт-над іншым, якое закранае тую ж праграму.\n\nПачынаючы з Overlay Manager Service, прыярытэты ідуць у адваротным парадку, самыя важныя напластаванні трапляюць у канец спісу.
-    </string>
-    <string name="priority_card_title2">Інструкцыі</string>
-    <string name="priority_card_content2">Улічваючы асаблівасці працы OverlayManagerService, усе напластаванні размеркаваны ў зваротным парадку, дзе ніжні пункт мае найвышэйшы прыярытэт (пачатковы пошук рэсурсаў), а верхні пункт найменшы прыярытэт (канчатковы пошук рэсурсаў).    </string>
     <string name="priority_no_multiple_overlays_title">няма праграм з некалькімі
         напластаваннямі&#8230;</string>
     <string name="priority_no_multiple_overlays_text">уключыце два і больш напластаванні на адну праграму, каб скарыстацца мной!    </string>
@@ -279,10 +269,6 @@
     <string name="uninstall_dialog_body">Выдаліць тэму</string>
     <string name="sb_phase_1_loader">распакаванне тэмы</string>
     <string name="sb_phase_2_loader">усталёўка напластавання</string>
-    <string name="root_rejected_title">вяртанне да рэжыму Root</string>
-    <string name="root_rejected_text_cm_phh">не існуе іншых мэнэджараў тэм, якія працуюць на прыладах без Root доступу&#8230;</string>
-    <string name="root_rejected_timer_plural">закрыццё праз %s секунд(-ы)&#8230;</string>
-    <string name="root_rejected_timer_singular">закрыццё праз %s секунду&#8230;</string>
     <string name="toast_compiled_updated">Выбраныя пласты абноўлены!</string>
     <string name="toast_compiled_missing">Вы не можаце сабраць адно або некалькі напластаванняў з-за адсутнасць канфігурацыі ў гэтым наборы&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Выбранныя напластаванні абнаўляюцца з некаторымі памылкамі!</string>
@@ -296,7 +282,6 @@
     <string name="no_themes_description_search">Сярод усталяваных тэм няма \"%s\"&#8230;</string>
     <string name="toast_could_not_uninstall">На выбраны дапушчальныя напластаванні.</string>
     <string name="toast_samsung_prototype_alert">Substratum аўтаматычна схавае непадтрымоўваныя на вашым прыладзе сістэмныя напластаванні!</string>
-    <string name="andromeda_no_root_dialog">Падобна на тое, што вы карыстаецеся сумяшчпльнай OMS прыладай, было выпушчана дапаўненне для падтрымкі гэтага!</string>
     <string name="andromeda_no_root_dialog_button">Спампаваць зараз!</string>
     <string name="samsung_prototype_no_root_dialog">Падобна на тое, што для Вашай прылады Samsung выпушчана сумяшчальная праграма!</string>
     <string name="samsung_prototype_no_root_dialog_button">Спампаваць зараз!</string>
@@ -454,7 +439,6 @@
     <string name="settings_force_english_title">Прымусова англійская</string>
     <string name="settings_force_english_text">Праграма зменіць мову на англійскую.</string>
     <string name="settings_force_english_toast_reverted">Прымусова англійская адключана!</string>
-    <string name="settings_manage_space_title">Аптымізацыя выкарыстання памяці</string>
     <string name="settings_samsung_show_dangerous_overlays">Рызыкоўныя напластаванні</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Паказваць усё рызыкоўныя для прылад ад Samsung напластаванні, нават калі яны не падтрымліваюцца тэмай афармлення.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">УВАГА</string>
@@ -526,8 +510,6 @@
     <string name="notification_channel_default_description">Галоўныя паведамлення (новыя і абноўленыя тэмы, завяршэнне кампіляцый тэмы і г. д.)</string>
     <string name="notification_channel_ongoing">Бягучае</string>
     <string name="notification_channel_ongoing_description">Бягучыя апавяшчэння</string>
-    <string name="notification_channel_andromeda">Статус Andromeda</string>
-    <string name="notification_channel_andromeda_description">Апавяшчэнне аб статусе падлучэння Andromeda</string>
     <!-- Nav drawer -->
     <string name="nav_home">Наборы тэм</string>
     <string name="nav_overlays">Напластаванні</string>

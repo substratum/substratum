@@ -78,8 +78,11 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="manager_type2">Typ2:</string>
     <string name="manager_type3">Typ3:</string>
     <string name="manager_type4">Typ4 :</string>
+    <string name="manager_version">Wersja:</string>
     <string name="legacy_preference_priority_title">Korekta priorytetu nakładki</string>
     <string name="legacy_preference_priority_text">Priorytet jest ustawiony na (domyślnie 999): %d</string>
+    <string name="grid_size_title">Dopasowanie kolumny wyświetlanego motywu</string>
+    <string name="grid_size_text">Liczba kolumn jest ustawiona na (domyślnie 2): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">wariant typ1a&#8230;</string>
     <string name="overlays_variant_default_1b">wariant typ1b&#8230;</string>
@@ -90,11 +93,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="overlays_up_to_date">AKTUALNE</string>
     <string name="overlays_update_available">Aktualizacja dostępna!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Wariantu nie zainstalowano</string>
-    <string name="bootanimation_vm_exploded">Renderowanie animacji rozruchu zostało zakończone z powodu niewystarczającej alokacji ilości pamięci. Instalacja jest nadal możliwa, lecz bez renderowanego podglądu.    </string>
-    <string name="bootanimation_placeholder_text">Proszę wybrać z listy animację rozruchu&#8230;</string>
-    <string name="bootanimation_default_spinner">Proszę wybrać animację rozruchu&#8230;</string>
-    <string name="bootanimation_spinner_set_defaults">Przywróć domyślną animację rozruchu...    </string>
-    <string name="bootanimation_defaults_text">spowoduje to usunięcie wszelkich animacji rozruchu zastosowanych w urządzeniu</string>
     <string name="bootanimation_dialog_apply_text">Animacja rozruchu jest przetwarzana&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Animacja rozruchu zastosowana!</string>
     <string name="bootanimation_dialog_apply_failed">Nie można zastosować animacji rozruchu&#8230;</string>
@@ -157,8 +155,11 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="theme_information_tab_three">Pakiety czcionek</string>
     <string name="theme_information_tab_four">Pakiety dźwięków</string>
     <string name="theme_information_tab_five">Tapety</string>
+    <string name="theme_information_tab_six">Animacje zamykania</string>
+    <string name="grid_style_cards_title">Układ kart w stylu siatki</string>
+    <string name="grid_style_cards_subtext">Włącz układ stylizowany siatki dla kart motywów.</string>
     <string name="nougat_style_cards_title">Układ kart w stylu Nougat</string>
-    <string name="nougat_style_cards_subtext">Włącz powiadomienie w stylu kart z Android Nougat.    </string>
+    <string name="nougat_style_cards_subtext">Włącz powiadomienie w stylu kart z Android Nougat.</string>
     <string name="uninstall_dialog_text">Czy chcesz odinstalować ten motyw?</string>
     <string name="manage_dialog_performing">Przywracanie domyślnych&#8230;</string>
     <string name="manage_bootanimation_title">Przywróć animację rozruchu</string>
@@ -197,6 +198,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="menu_disable">Wyłącz zainstalowane nakładki</string>
     <string name="menu_enable">Włącz zainstalowane nakładki</string>
     <string name="menu_favorite">Ulubione</string>
+    <string name="menu_unfavorite">Usuń ulubione</string>
     <string name="menu_rate">Oceń motyw</string>
     <string name="menu_soft_reboot">Szybki restart</string>
     <string name="menu_reboot_device">Uruchom ponownie urządzenie</string>
@@ -210,6 +212,8 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="menu_showcase_info">Informacje o prezentacji</string>
     <string name="menu_favorite_snackbar">Pomyślnie ustawiono %s jako skrót aplikacji!</string>
     <string name="menu_favorite_snackbar_cleared">Usuń %s ze skrótu aplikacji.</string>
+    <string name="launcher_shortcut">Skrót w programie rozruchowym</string>
+    <string name="launcher_shortcut_toast">Pomyślnie utworzono ikonę dla programu rozruchowego!</string>
     <string name="changelog_title">lista zmian motywu %s</string>
     <string name="dialog_restart_systemui_title">Restart Interfejsu</string>
     <string name="dialog_restart_systemui_content">To działanie wykona restart Interfejsu na twoim urządzeniu.</string>
@@ -228,11 +232,8 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="logcat_email_activity_error">Brak zainstalowanych klientów poczty elektronicznej.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
     <string name="logcat_processing_dialog">Przetwarzanie raportu o błędzie</string>
-    <string name="priority_card_title">Dynamiczny System Priorytetowy (DSP)</string>
-    <string name="priority_card_content">Dynamiczny system priorytetów to zaawansowana procedura pozwalająca nakładkom, by były organizowane według innych priorytetów, ignorując domyślne priorytety systemowe OMS.\n\nNa przykład, kiedy chcemy użyć specyficznej nakładki na wierzchu innej nakładki przeznaczonej dla tej samej aplikacji.\n\nWraz z wprowadzeniem OMS, priorytety są odwrócone i najważniejsze nakładki znajdują się na dole każdej listy.
-    </string>
-    <string name="priority_card_title2">Instrukcje</string>
-    <string name="priority_card_content2">W ten sposób OverlayManagerService działa, wszystkie style są ułożone względem priorytetu, najniższy ma największy priorytet (wygląd początkowy), a najwyższy ma najniższy priorytet (wygląd końcowy).    </string>
+    <string name="priority_instructions_title">Instrukcje</string>
+    <string name="priority_instructions_content">Usługa Menedżera Nakładek (Oms) działa w ten sposób, że wszystkie priorytety nakładek są układane w odwróconym porządku, gdzie najniższy ma największy priorytet (początkowe wyszukiwanie zasobów), a najwyższy ma najniższy priorytet (końcowe wyszukiwanie zasobów).    </string>
     <string name="priority_no_multiple_overlays_title">brak aplikacji z wieloma nakładkami&#8230;</string>
     <string name="priority_no_multiple_overlays_text">włącz dwie lub więcej nakładek na jednej aplikacji aby mnie użyć!    </string>
     <string name="manager_no_overlays_title">brak zainstalowanych nakładek&#8230;</string>
@@ -275,10 +276,8 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="uninstall_dialog_body">Odinstaluj Motyw</string>
     <string name="sb_phase_1_loader">wyodrębnianie motywu</string>
     <string name="sb_phase_2_loader">instalowanie nakładki</string>
-    <string name="root_rejected_title">przełącz do trybu roota</string>
-    <string name="root_rejected_text_cm_phh">nie ma tutaj innych silników motywów możliwych do wykorzystania na urządzeniu bez roota&#8230;</string>
-    <string name="root_rejected_timer_plural">zamykanie za %s sekund&#8230;</string>
-    <string name="root_rejected_timer_singular">zamykanie za %s sekundy&#8230;</string>
+    <string name="root_rejected_title">nie można było wrócić do trybu z rootem</string>
+    <string name="root_rejected_text">w obecnym czasie nie ma innych silników tematycznych, które można wykorzystać na tym urządzeniu&#8230;</string>
     <string name="toast_compiled_updated">Wybrane nakładki zaktualizowane!</string>
     <string name="toast_compiled_missing">Nie można skompilować jednej lub wielu nakładek z powodu braku konfiguracji w tym zestawie&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Wybrane nakładki zaktualizowane z pewnymi błędami!</string>
@@ -290,9 +289,12 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="no_themes_title">nie znaleziono motywów&#8230;</string>
     <string name="no_themes_description">proszę zainstalować zgodny motyw!</string>
     <string name="no_themes_description_search">Nie znaleziono \"%s\" na liście zainstalowanych motywów&#8230;</string>
+    <string name="toast_andromeda_timed_out">Występuje opóźnienie z usługą Andromedy, proszę ponownie uruchomić Substratum.</string>
     <string name="toast_could_not_uninstall">Nie wybrano prawidłowych nakładek.</string>
     <string name="toast_samsung_prototype_alert">Substratum automatycznie ukrył nieobsługiwane nakładki systemowe urządzenia!</string>
-    <string name="andromeda_no_root_dialog">Wydaje się, że jesteś na obsługiwanym urządzeniu OMS, w celu wsparcia tego został wydany dodatek!</string>
+    <string name="andromeda_disconnected">klient desktopowy andromeda musi połączyć się z urządzeniem, aby mógł funkcjonować z substratum!</string>
+    <string name="andromeda_check_status">Sprawdź status</string>
+    <string name="andromeda_no_root_dialog">Wydaje się, że jesteś na obsługiwanym urządzeniu z Oreo, dodatek został już wydany!</string>
     <string name="andromeda_no_root_dialog_button">Pobierz teraz!</string>
     <string name="samsung_prototype_no_root_dialog">Wydaje się, że jesteś na obsługiwanym urządzeniu Samsung, dodatek został wydany w celu wsparcia tego!</string>
     <string name="samsung_prototype_no_root_dialog_button">Pobierz teraz!</string>
@@ -449,7 +451,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="settings_force_english_title">Wymuś język angielski</string>
     <string name="settings_force_english_text">Włączenie tej opcji wymusi przełączenie interfejsu aplikacji na język angielski.</string>
     <string name="settings_force_english_toast_reverted">Pomyślnie wyłączono wymuszenie języka angielskiego!</string>
-    <string name="settings_manage_space_title">Zarządzaj użyciem pamięci</string>
+    <string name="settings_manage_space_title">Zarządzaj zużyciem pamięci masowej</string>
     <string name="settings_samsung_show_dangerous_overlays">Zezwalaj na niebezpieczne nakładki</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Pokaż wszystkie nakładki zwykle niebezpieczne dla urządzeń Samsung, jeżeli motyw nie wspiera go.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">OSTRZEŻENIE</string>
@@ -521,12 +523,13 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="notification_channel_default_description">Główne powiadomienia (Nowy i zaktualizowany motyw, skompilowany gotowy motyw, itp.)</string>
     <string name="notification_channel_ongoing">Trwający</string>
     <string name="notification_channel_ongoing_description">Trwające powiadomienia</string>
-    <string name="notification_channel_andromeda">Status Andromedy</string>
-    <string name="notification_channel_andromeda_description">Powiadomienia o stanie połączenia Andromedy</string>
+    <string name="notification_channel_andromeda">Status systemu motywów</string>
+    <string name="notification_channel_andromeda_description">Powiadomienia o stanie połączenia</string>
     <!-- Nav drawer -->
     <string name="nav_home">Pakiety motywów</string>
     <string name="nav_overlays">Nakładki</string>
     <string name="nav_bootanim">Animacje rozruchu</string>
+    <string name="nav_shutdownanim">Animacje zamykania</string>
     <string name="nav_fonts">Pakiety czcionek</string>
     <string name="nav_sounds">Pakiety dźwięków</string>
     <string name="nav_wallpapers">Tapety</string>
@@ -578,4 +581,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="auto_reload_sysui_dialog_text">W Android Oreo powiadomienia zostaną automatycznie usunięte, aby symulować ponowne uruchomienie zapisanych w pamięci podręcznej kanałów powiadamiania. \n\nProszę upewnić się, że podczas kompilacji lub włączania nakładek interfejsu lub frameworku, powiadomienia nie zawierają żadnych ważnych danych. To nie ma wpływu na bieżące powiadomienia.</string>
     <!-- The things lint will complain about...-->
     <string name="fonts_demo_string">AaBbCcDd123</string>
+    <string name="overlays_tab_package_ver_message">Zainstalowana wersja %s: %s</string>
+    <string name="overlays_tab_package_ver_failure">Nie można pobrać wersji pakietu</string>
 </resources>

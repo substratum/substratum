@@ -93,11 +93,6 @@
     <string name="overlays_up_to_date">À JOUR</string>
     <string name="overlays_update_available">Mise à jour disponible !\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variante non installée</string>
-    <string name="bootanimation_vm_exploded">Rendu de l\'animation de démarrage interrompu en raison d\'allocation de mémoire insuffisante.\n\nL\'installation de cette animation de démarrage reste possible, mais sans aperçu du rendu.</string>
-    <string name="bootanimation_placeholder_text">Sélectionnez une animation de démarrage à partir de la liste déroulante&#8230;</string>
-    <string name="bootanimation_default_spinner">Sélectionnez une animation de démarrage&#8230;</string>
-    <string name="bootanimation_spinner_set_defaults">Rétablir l\'animation de démarrage par défaut</string>
-    <string name="bootanimation_defaults_text">Effacer toutes les animations de démarrage définies sur votre appareil</string>
     <string name="bootanimation_dialog_apply_text">Installation de l\'animation de démarrage en cours&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Animation de démarrage installée !</string>
     <string name="bootanimation_dialog_apply_failed">Échec de l\'installation de l\'animation de démarrage&#8230;</string>
@@ -161,7 +156,6 @@
     <string name="theme_information_tab_four">Paquets de son</string>
     <string name="theme_information_tab_five">Fonds d\'écran</string>
     <string name="nougat_style_cards_title">Disposition Nougat</string>
-    <string name="nougat_style_cards_subtext">Activer la disposition des notifications Android Nougat</string>
     <string name="uninstall_dialog_text">Voulez-vous vraiment désinstaller ce thème ?</string>
     <string name="manage_dialog_performing">Restauration des valeurs par défaut en cours&#8230;</string>
     <string name="manage_bootanimation_title">Rétablir l\'animation de démarrage par défaut</string>
@@ -230,10 +224,6 @@
     <string name="logcat_email_activity_error">Aucun client de courriel installé.</string>
     <string name="logcat_email_xposed_check">\"Xposed Framework\"</string>
     <string name="logcat_processing_dialog">Rapport d\'erreur en cours</string>
-    <string name="priority_card_title">Système de priorité dynamique (DPS)</string>
-    <string name="priority_card_content">Le Système de priorité dynamique est une procédure détaillée permettant au thème de surcouches d\'être organisé selon des priorités différentes, en ignorant les priorités appliquées par défaut du Gestionnaire de service de surcouche.\n\nPar exemple, lorsque deux surcouches ciblent la même application, il peut être utile d\'organiser l\'ordre dans lequel elles s\'appliquent.\n\nAvec le Gestionnaire de service de surcouche, les priorités sont inversées. La surcouche de plus haute priorité se trouve dans la partie la plus basse de chaque liste.</string>
-    <string name="priority_card_title2">Instructions </string>
-    <string name="priority_card_content2">De par le fonctionnement du service de gestion des surcouches, toutes les priorités de surcouche sont disposées dans un ordre inversé où la partie inférieure est la plus haute priorité (recherche initiale des ressources) et la partie supérieure est la plus basse priorité (recherche finale des ressources).</string>
     <string name="priority_no_multiple_overlays_title">Aucune application possédant des surcouches multiples&#8230;</string>
     <string name="priority_no_multiple_overlays_text">Activez deux surcouches ou plus pour la même application, pour pouvoir m\'utiliser !</string>
     <string name="manager_no_overlays_title">Aucune surcouche installée&#8230;</string>
@@ -273,10 +263,6 @@
     <string name="uninstall_dialog_body">Désinstaller</string>
     <string name="sb_phase_1_loader">Extraction des atouts du thème en cours</string>
     <string name="sb_phase_2_loader">Création et signature des surcouches en cours</string>
-    <string name="root_rejected_title">retour au mode rooté</string>
-    <string name="root_rejected_text_cm_phh">aucun autre moteur de thèmes n\'est disponible sur le système sans root&#8230;</string>
-    <string name="root_rejected_timer_plural">Fermeture dans %s secondes&#8230;</string>
-    <string name="root_rejected_timer_singular">Fermeture dans %s seconde&#8230;</string>
     <string name="toast_compiled_updated">Surcouche(s) sélectionnée(s) mise(s) à jour !</string>
     <string name="toast_compiled_missing">Une ou plusieurs surcouches ne peuvent pas être compilée(s), en raison de paramètres manquants dans cette sélection&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Surcouche(s) sélectionnée(s) mise(s) à jour avec quelques erreurs !</string>
@@ -290,7 +276,6 @@
     <string name="no_themes_description_search">\"%s\" est introuvable dans la liste des thèmes installés&#8230;</string>
     <string name="toast_could_not_uninstall">Aucune surcouche valide n\'a été sélectionnée.</string>
     <string name="toast_samsung_prototype_alert">Substratum masque automatiquement les surcouches système non prises en charge pour votre appareil !</string>
-    <string name="andromeda_no_root_dialog">Il semble que vous soyez sur un appareil supportant le système OMS natif, une extension a été publiée pour le supporter depuis Substratum !</string>
     <string name="andromeda_no_root_dialog_button">Télécharger maintenant !</string>
     <string name="samsung_prototype_no_root_dialog">Il semble que vous soyez sur un appareil Samsung supporté, une extension a été publiée pour le supporter !</string>
     <string name="samsung_prototype_no_root_dialog_button">Télécharger maintenant !</string>
@@ -447,7 +432,6 @@
     <string name="settings_force_english_title">Forcer la langue anglaise</string>
     <string name="settings_force_english_text">Force l\'application à utiliser la langue anglaise</string>
     <string name="settings_force_english_toast_reverted">Langue anglaise désactivée !</string>
-    <string name="settings_manage_space_title">Gestion de l\'espace de stockage</string>
     <string name="settings_samsung_show_dangerous_overlays">Autoriser les surcouches dangereuses</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Afficher toutes les surcouches normalement dangereuses pour les appareils Samsung si le thème ne le supporte pas.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">AVERTISSEMENT</string>
@@ -517,8 +501,6 @@
     <string name="notification_channel_default_description">Notifications principales (nouveau thème et mis à jour, compilation du thème terminée, etc)</string>
     <string name="notification_channel_ongoing">Persistente</string>
     <string name="notification_channel_ongoing_description">Notifications persistantes</string>
-    <string name="notification_channel_andromeda">Statut d\'Andromeda</string>
-    <string name="notification_channel_andromeda_description">Notification d’état de connexion Andromeda</string>
     <!-- Nav drawer -->
     <string name="nav_home">Thèmes</string>
     <string name="nav_overlays">Surcouches</string>

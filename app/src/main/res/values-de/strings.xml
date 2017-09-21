@@ -89,11 +89,6 @@ bei dir funktioniert. Bitte stelle sicher, dass du eine Custom-Recovery verwende
     <string name="overlays_up_to_date">AKTUELL</string>
     <string name="overlays_update_available">Aktualisierung verfügbar!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variante nicht installiert</string>
-    <string name="bootanimation_vm_exploded">Rendering der Boot-Animation wurde aufgrund ungenügender Speicherplatzzuweisung beendet.\n\nDie Installation dieser Boot-Animation ist ohne gerenderte Vorschau weiterhin möglich.</string>
-    <string name="bootanimation_placeholder_text">Bitte wähle eine Boot-Animation aus der Dropdown-Liste&#8230;</string>
-    <string name="bootanimation_default_spinner">Boot-Animation wählen&#8230;</string>
-    <string name="bootanimation_spinner_set_defaults">Standard-Bootanimation wiederherstellen&#8230;    </string>
-    <string name="bootanimation_defaults_text">Hiermit werden alle angewendeten Bootanimationen deaktiviert</string>
     <string name="bootanimation_dialog_apply_text">Boot-Animation wird angewendet&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Boot-Animation angewendet!</string>
     <string name="bootanimation_dialog_apply_failed">Anwenden der Boot-Animation fehlgeschlagen&#8230;</string>
@@ -161,7 +156,6 @@ eingerichtet&#8230;</string>
     <string name="theme_information_tab_four">Soundpakete</string>
     <string name="theme_information_tab_five">Hintergrundbilder</string>
     <string name="nougat_style_cards_title">Karten-Layout im Nougat-Stil</string>
-    <string name="nougat_style_cards_subtext">Aktiviere Theme-Karten im Android Nougat Benachrichtigungsstil</string>
     <string name="uninstall_dialog_text">Wollen Sie dieses Theme wirklich deinstallieren?</string>
     <string name="manage_dialog_performing">Auf Standard zurücksetzen&#8230;</string>
     <string name="manage_bootanimation_title">Wiederherstellen der Boot-Animation</string>
@@ -232,10 +226,6 @@ eingerichtet&#8230;</string>
     <string name="logcat_email_activity_error">Es ist keine E-Mail-App installiert.</string>
     <string name="logcat_email_xposed_check">Xposed-Framework</string>
     <string name="logcat_processing_dialog">Fehlermeldung in Bearbeitung</string>
-    <string name="priority_card_title">Dynamisches Prioritäten-System (DPS)</string>
-    <string name="priority_card_content">Das \"Dynamische Prioritäten-System\" ist ein erweitertes Verfahren, welches das Organisieren von Theme-Overlays mit unterschiedlichen Prioritäten ermöglicht und die vom OMS-System standardmäßig angewandten Prioritäten ignoriert.\n\nEin nützliches Beispiel könnte das Strukturieren eines bestimmten Overlays überhalb eines anderen – innerhalb derselben Anwendung.\n\nMit der Einführung des \"Overlay-Manager-Service\" sind die Prioritäten umgekehrt – sprich das Overlay mit der höchsten Priorität sitzt am Boden der Liste.</string>
-    <string name="priority_card_title2">Anweisungen</string>
-    <string name="priority_card_content2">Mit der Art wie OMS arbeitet, werden alle Overlay Prioritäten in verkehrter Reihenfolge geordnet. Unten ist das Overlay mit der hochsten Priorität und oben das mit der niedrigsten.</string>
     <string name="priority_no_multiple_overlays_title">Keine Apps mit mehreren Overlays&#8230;</string>
     <string name="priority_no_multiple_overlays_text">Aktiviere 2 oder mehr Overlays um mich zu benutzen!</string>
     <string name="manager_no_overlays_title">Keine Overlays installiert&#8230;</string>
@@ -276,10 +266,6 @@ eingerichtet&#8230;</string>
     <string name="uninstall_dialog_body">Deinstallieren</string>
     <string name="sb_phase_1_loader">Assets des Themes werden extrahiert</string>
     <string name="sb_phase_2_loader">Overlay(s) installieren</string>
-    <string name="root_rejected_title">zurückgreifen auf Root-Modus</string>
-    <string name="root_rejected_text_cm_phh">Es gibt keine anderen Theme-Engines, die auf dem Gerät ohne Root genutzt werden können&#8230;</string>
-    <string name="root_rejected_timer_plural">schließt in %s Sekunden&#8230;</string>
-    <string name="root_rejected_timer_singular">schließt in %s Sekunden&#8230;</string>
     <string name="toast_compiled_updated">Overlay(s) aktualisiert!</string>
     <string name="toast_compiled_missing">Eine oder mehrere Overlays können aufgrund von fehlenden Konfigurationen in dieser Konstellation nicht kompiliert werden&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Ausgewählte(s) Overlay(s) mit einigen Fehlern aktualisiert!</string>
@@ -293,7 +279,6 @@ eingerichtet&#8230;</string>
     <string name="no_themes_description_search">\"%s\" wurde nicht in der Liste von installierten Themes gefunden&#8230;</string>
     <string name="toast_could_not_uninstall">Keine gültigen Overlays ausgewählt.</string>
     <string name="toast_samsung_prototype_alert">Substratum hat automatisch nicht unterstützte System-Overlays für dein Gerät versteckt!</string>
-    <string name="andromeda_no_root_dialog">Es sieht so aus als wärst du auf einem unterstützten Gerät, ein Addon wurde veröffentlicht um dies zu unterstützen!</string>
     <string name="andromeda_no_root_dialog_button">Jetzt herunterladen!</string>
     <string name="samsung_prototype_no_root_dialog">Es sieht so aus als wärst du auf einem unterstützten Samsung-Gerät, ein Addon wurde veröffentlicht um dies zu unterstützen!</string>
     <string name="samsung_prototype_no_root_dialog_button">Jetzt herunterladen!</string>
@@ -450,7 +435,6 @@ eingerichtet&#8230;</string>
     <string name="settings_force_english_title">Englische Sprache forcieren</string>
     <string name="settings_force_english_text">Dies zwingt die Anwendung, die englische Sprache zu verwenden.</string>
     <string name="settings_force_english_toast_reverted">Forcieren der englischen Sprache erfolgreich deaktiviert!</string>
-    <string name="settings_manage_space_title">Speichernutzung verwalten</string>
     <string name="settings_samsung_show_dangerous_overlays">Riskante Overlays erlauben</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Zeige all die Overlays an, die normalerweise riskant für Samsung-Geräte sind, falls das Theme es nicht unterstützt.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">WARNUNG</string>
@@ -522,8 +506,6 @@ eingerichtet&#8230;</string>
     <string name="notification_channel_default_description">Hauptbenachrichtigungen (neues und aktualisiertes Theme, Theme-Kompilierung abgeschlossen, etc.)</string>
     <string name="notification_channel_ongoing">Laufende</string>
     <string name="notification_channel_ongoing_description">Laufende Benachrichtigungen</string>
-    <string name="notification_channel_andromeda">Andromeda-Status</string>
-    <string name="notification_channel_andromeda_description">Andromeda-Verbindung Statusbenachrichtigung</string>
     <!-- Nav drawer -->
     <string name="nav_home">Theme-Pakete</string>
     <string name="nav_overlays">Overlays</string>

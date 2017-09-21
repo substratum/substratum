@@ -89,11 +89,6 @@
     <string name="overlays_up_to_date">АКТУАЛЬНО</string>
     <string name="overlays_update_available">Доступно обновление!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Вариация не установлена</string>
-    <string name="bootanimation_vm_exploded">Визуализация анимации загрузки прекращена из-за недостатка памяти.\n\nДальнейшая установка возможна, но без предварительного просмотра.     </string>
-    <string name="bootanimation_placeholder_text">выберите анимацию загрузки из выпадающего списка&#8230;</string>
-    <string name="bootanimation_default_spinner">выберите анимацию загрузки&#8230;</string>
-    <string name="bootanimation_spinner_set_defaults">возврат стандартной анимации...     </string>
-    <string name="bootanimation_defaults_text">будут удалены все пользовательские анимации загрузки, примененные на устройстве</string>
     <string name="bootanimation_dialog_apply_text">Применение анимации загрузки&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Анимация загрузки применена!</string>
     <string name="bootanimation_dialog_apply_failed">Не удалось применить анимацию загрузки&#8230;</string>
@@ -157,7 +152,6 @@
     <string name="theme_information_tab_four">Наборы звуков</string>
     <string name="theme_information_tab_five">Обои</string>
     <string name="nougat_style_cards_title">Подача в стиле Nougat</string>
-    <string name="nougat_style_cards_subtext">Отображать список тем в стиле уведомлений Android Nougat</string>
     <string name="uninstall_dialog_text">Вы уверены, что хотите удалить эту тему?</string>
     <string name="manage_dialog_performing">Возвращаем стандартное&#8230;</string>
     <string name="manage_bootanimation_title">Восстановить анимацию загрузки</string>
@@ -233,11 +227,6 @@
     <string name="logcat_email_activity_error">Нет установленных клиентов электронной почты.</string>
     <string name="logcat_email_xposed_check">Фреймворк Xposed</string>
     <string name="logcat_processing_dialog">Создание отчета об ошибке</string>
-    <string name="priority_card_title">Dynamic Priority System (DPS)</string>
-    <string name="priority_card_content">Dynamic Priority System - особая процедура, позволяющая организовать наслоения темы с различными приоритетами, игнорируя соблюдаемые системой OMS.\n\nНапример, если понадобится поместить определенный слой поверх другого, затрагивающего то же приложение.\n\nНачиная с Overlay Manager Service, приоритеты идут в обратном порядке, самые важные наслоения попадают в конец списка.
-    </string>
-    <string name="priority_card_title2">Руководство</string>
-    <string name="priority_card_content2">Учитывая особенности работы OverlayManagerService, все наслоения распределены в обратном порядке, где нижний пункт имеет наивысший приоритет (начальный поиск ресурсов), а верхний пункт наименьший приоритет (заключительный поиск ресурсов)</string>
     <string name="priority_no_multiple_overlays_title">нет приложений с несколькими
         наслоениями&#8230;</string>
     <string name="priority_no_multiple_overlays_text">Включите два и более наслоения на одно приложение, чтобы воспользоваться мной!     </string>
@@ -279,10 +268,6 @@
     <string name="uninstall_dialog_body">Удалить тему</string>
     <string name="sb_phase_1_loader">распаковка темы</string>
     <string name="sb_phase_2_loader">установка наслоения</string>
-    <string name="root_rejected_title">возвращение к режиму Root</string>
-    <string name="root_rejected_text_cm_phh">не существует других менеджеров тем, работающие на устройствах без Root доступа&#8230;</string>
-    <string name="root_rejected_timer_plural">закрытие через %s секунд(-ы)&#8230;</string>
-    <string name="root_rejected_timer_singular">закрытие через %s секунду&#8230;</string>
     <string name="toast_compiled_updated">Выбранные слои обновлены!</string>
     <string name="toast_compiled_missing">Одно или несколько наслоений не могут быть собраны из-за отсутствующих настроек&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Выбранные слои обновлены с неполадками!</string>
@@ -296,7 +281,6 @@
     <string name="no_themes_description_search">Среди установленных тем нет \"%s\"&#8230;</string>
     <string name="toast_could_not_uninstall">Не выбраны допустимые наслоения.</string>
     <string name="toast_samsung_prototype_alert">Substratum автоматически скроет неподдерживаемые на вашем устройстве системные наслоения!</string>
-    <string name="andromeda_no_root_dialog">Похоже, вы используете поддерживаемое OMS устройство, было выпущено дополнение для поддержки этого!</string>
     <string name="andromeda_no_root_dialog_button">Загрузить!</string>
     <string name="samsung_prototype_no_root_dialog">Похоже, у Вас поддерживаемое устройство Samsung, для него выпущен пакет совместимости!</string>
     <string name="samsung_prototype_no_root_dialog_button">Загрузить!</string>
@@ -454,7 +438,6 @@
     <string name="settings_force_english_title">Принудительный английский</string>
     <string name="settings_force_english_text">Приложение сменит язык на английский.</string>
     <string name="settings_force_english_toast_reverted">Принудительный английский отключен!</string>
-    <string name="settings_manage_space_title">Потребление памяти</string>
     <string name="settings_samsung_show_dangerous_overlays">Рискованные наслоения</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Показывать все рискованные для устройств от Samsung наслоения, даже если они не поддерживаются темой оформления.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">ВНИМАНИЕ</string>
@@ -526,8 +509,6 @@
     <string name="notification_channel_default_description">Основные уведомления (о новых и обновленных темах, завершении сборки и т. д.)</string>
     <string name="notification_channel_ongoing">Текущее</string>
     <string name="notification_channel_ongoing_description">Текущие уведомления</string>
-    <string name="notification_channel_andromeda">Статус Andromeda</string>
-    <string name="notification_channel_andromeda_description">Уведомление о статусе подключения Andromeda</string>
     <!-- Nav drawer -->
     <string name="nav_home">Тематические наборы</string>
     <string name="nav_overlays">Наслоения</string>

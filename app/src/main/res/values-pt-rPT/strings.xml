@@ -72,11 +72,6 @@ corrigir coisas que não estão a receber temas em modo de compatibilidade, uma 
     <string name="overlays_up_to_date">ATUALIZADO</string>
     <string name="overlays_update_available">Atualização disponível!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variável não instalada</string>
-    <string name="bootanimation_vm_exploded">A renderização da animação de boot foi finalizada devido à alocação insuficiente de memória.\n\nInstalação desta animação de boot permanece possível sem uma visualização renderizada.</string>
-    <string name="bootanimation_placeholder_text">favor selecionar uma animação de boot da lista suspensa&#8230;</string>
-    <string name="bootanimation_default_spinner">favor selecionar uma animação de boot&#8230;</string>
-    <string name="bootanimation_spinner_set_defaults">restaurar animação de arranque predefinida&#8230;    </string>
-    <string name="bootanimation_defaults_text">isto vai limpar qualquer animação de arranque aplicada no dispositivo</string>
     <string name="bootanimation_dialog_apply_text">Animação de boot está processando&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Animação de boot aplicada!</string>
     <string name="bootanimation_dialog_apply_failed">Animação de boot falhou ao aplicar&#8230;</string>
@@ -143,7 +138,6 @@ corretamente&#8230;</string>
     <string name="theme_information_tab_four">Pacotes de fontes</string>
     <string name="theme_information_tab_five">Pacotes de áudios</string>
     <string name="nougat_style_cards_title">Aparência do Cartão Nougat</string>
-    <string name="nougat_style_cards_subtext">Habilitar estilo dos cartões de tema Android Nougat.</string>
     <string name="uninstall_dialog_text">Tem a certeza que deseja desinstalar este tema?</string>
     <string name="manage_dialog_performing">Restaurando ao padrão&#8230;</string>
     <string name="manage_bootanimation_title">Restaura a animação de boot padrão do seu aparelho</string>
@@ -204,10 +198,6 @@ corretamente&#8230;</string>
     <string name="logcat_email_activity_error">Não há clientes de email instalados.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
     <string name="logcat_processing_dialog">Relatório de erros de processamento</string>
-    <string name="priority_card_title">Sistema de Prioridade Dinâmica (DPS)</string>
-    <string name="priority_card_content">O Sistema de prioridade dinâmica é um procedimento avançado que permite que camadas de tema sejam organizadas com prioridades diferentes, ignorando o padrão OMS de prioridades aplicado pelo sistema.\n\nUm exemplo de quando isso estaria em uso seria querer estruturar uma camada específica em cima da outra camada visando o mesmo aplicativo.\n\nCom a introdução do Overlay Service Manager, as prioridades são invertidas, e as camadas mais importantes residem na parte inferior de cada lista.</string>
-    <string name="priority_card_title2">Instruções</string>
-    <string name="priority_card_content2">Com a forma que o OverlayManagerService funciona, todas as prioridades de camadas são dispostas em uma ordem invertida onde o fundo é a maior prioridade (pesquisa de recurso inicial) e o topo é a prioridade mais baixa (pesquisa de recurso final).</string>
     <string name="priority_no_multiple_overlays_title">nenhum aplicativo com múltiplas camadas&#8230;</string>
     <string name="priority_no_multiple_overlays_text">habilite duas ou mais camadas em um aplicativo para me usar!</string>
     <string name="manager_no_overlays_title">nenhuma camada instalada&#8230;</string>
@@ -245,8 +235,6 @@ corretamente&#8230;</string>
     <string name="uninstall_dialog_body">Desinstalar</string>
     <string name="sb_phase_1_loader">extraindo ativos deste tema</string>
     <string name="sb_phase_2_loader">criando e assinando camada(s)</string>
-    <string name="root_rejected_timer_plural">fechando em %s segundos&#8230;</string>
-    <string name="root_rejected_timer_singular">fechando em %s segundos&#8230;</string>
     <string name="toast_compiled_updated">Camada(s) selecionada(s) atualizada!</string>
     <string name="toast_compiled_updated_with_errors">Camada(s) selecionada(s) atualizada(s) com alguns erros!</string>
     <string name="toast_disabled3">Favor compilar esta camada antes de aplicar!</string>
@@ -390,7 +378,6 @@ corretamente&#8230;</string>
     <string name="settings_force_english_title">Forçar língua inglesa</string>
     <string name="settings_force_english_text">Isto vai forçar a aplicação a usar a língua inglesa.</string>
     <string name="settings_force_english_toast_reverted">Forçar inglês desativado com sucesso!</string>
-    <string name="settings_manage_space_title">Gerir o uso do armazenamento</string>
     <string name="settings_samsung_show_dangerous_overlays">Permitir superposições perigosas</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">AVISO</string>
     <string name="settings_theme_caching_title">Recursos de tema em cache</string>

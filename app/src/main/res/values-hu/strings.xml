@@ -107,8 +107,11 @@
     <string name="manager_type2">Típus2:</string>
     <string name="manager_type3">Típus3:</string>
     <string name="manager_type4">Type4 :</string>
+    <string name="manager_version">Verzió :</string>
     <string name="legacy_preference_priority_title">Fedvény prioritás beállítása</string>
     <string name="legacy_preference_priority_text">Prioritás beállított értéke (alapértelmezett: 999): %d</string>
+    <string name="grid_size_title">Téma kijelző oszlopok beállítása</string>
+    <string name="grid_size_text">Oszlopok beállított száma (alapértelmezett 2): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">type1a változat&#8230;</string>
     <string name="overlays_variant_default_1b">type1b változat&#8230;</string>
@@ -119,17 +122,6 @@
     <string name="overlays_up_to_date">NAPRAKÉSZ</string>
     <string name="overlays_update_available">Frissítés érhető el!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Változat nincs telepítve</string>
-    <string name="bootanimation_vm_exploded">A rendszerindítási animáció renderelése megszakítva az
-        elégtelen memória miatt.\n\nA rendszerindítási animáció telepítése továbbra is lehetséges
-        az előnézet-renderelés nélkül.
-    </string>
-    <string name="bootanimation_placeholder_text">kérjük vállaszon ki egy rendszerindítási animációt a
-        legördülő listából&#8230;</string>
-    <string name="bootanimation_default_spinner">kérjük, válasszon rendszerindítási animációt&#8230;</string>
-    <string name="bootanimation_spinner_set_defaults">alapértelmezett rendszerindítási animáció visszaállítása&#8230;
-    </string>
-    <string name="bootanimation_defaults_text">ez törli a készülékén alkalmazott egyéni
-        rendszerindítási animációkat</string>
     <string name="bootanimation_dialog_apply_text">Rendszerindítási animáció feldolgozása&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Rendszerindítási animáció alkalmazva!</string>
     <string name="bootanimation_dialog_apply_failed">Rendszerindítási animáció alkalmazása sikertelen&#8230;</string>
@@ -213,10 +205,11 @@
     <string name="theme_information_tab_three">Betűkészlet csomagok</string>
     <string name="theme_information_tab_four">Hangcsomagok</string>
     <string name="theme_information_tab_five">Háttérképek</string>
+    <string name="theme_information_tab_six">Kikapcsolási animációk</string>
+    <string name="grid_style_cards_title">Rács stílusú kártya elrendezés</string>
+    <string name="grid_style_cards_subtext">Rács stílusú elrendezés engedélyezése a téma kártyák számára.</string>
     <string name="nougat_style_cards_title">Nougat stílusú kártya elrendezés</string>
-    <string name="nougat_style_cards_subtext">Android Nougat Értesítés stílusú témakártyák
-        engedélyezése.
-    </string>
+    <string name="nougat_style_cards_subtext">Android Nugát értesítés stílusú téma kártyák engedélyezése.</string>
     <string name="uninstall_dialog_text">Biztosan törölni szeretné ezt a témát?</string>
     <string name="manage_dialog_performing">Alapértelmezett visszaállítása&#8230;</string>
     <string name="manage_bootanimation_title">Rendszerindítási animáció visszaállítása</string>
@@ -262,6 +255,7 @@
     <string name="menu_disable">Telepített fedvények letiltása</string>
     <string name="menu_enable">Telepített fedvények engedélyezése</string>
     <string name="menu_favorite">Kedvenc</string>
+    <string name="menu_unfavorite">Kedvenc eltávolítása</string>
     <string name="menu_rate">Téma értékelése</string>
     <string name="menu_soft_reboot">Lágy újraindítás</string>
     <string name="menu_reboot_device">Készülék újraindítása</string>
@@ -275,6 +269,8 @@
     <string name="menu_showcase_info">Bemutatóterem info</string>
     <string name="menu_favorite_snackbar">%s sikeresen beállítva parancsikonként!</string>
     <string name="menu_favorite_snackbar_cleared">%s eltávolítva, hogy egy alkalmazás parancsikon legyen.</string>
+    <string name="launcher_shortcut">Parancsikon az indítóban</string>
+    <string name="launcher_shortcut_toast">Indító ikon sikeresen létrehozva!</string>
     <string name="changelog_title">%s téma változáslista</string>
     <string name="dialog_restart_systemui_title">SystemUI újraindítása</string>
     <string name="dialog_restart_systemui_content">Ez egy SystemUI újraindítást fog végrehajtani az eszközén.</string>
@@ -293,18 +289,11 @@
     <string name="logcat_email_activity_error">Nincs e-mail klines telepítve.</string>
     <string name="logcat_email_xposed_check">Xposed keretrendszer</string>
     <string name="logcat_processing_dialog">Hibajelentés feldolgozása</string>
-    <string name="priority_card_title">Dinamikus prioritási rendszer (DPS)</string>
-    <string name="priority_card_content">A Dinamikus prioritási rendszer (DPS) egy speciális eljárás, amely lehetővé
-        teszi a téma fedvények különböző prioritások szerinti csoportosítását, figyelmen kívül hagyva
-        az alapértelmezett OMS prioritásokat.\n\nEgy példa ennek esetleges használatára, amikor egy
-        speciális fedvényt kíván létrehozni egy másik fedvény fölé ugyanazon alkalmazás
-        számára.\n\nA Fedvény kezelő szolgáltatás utasításával a prioritások megfordulnak,
-        és a legfelső fedvény kerül minden lista aljára.
-    </string>
-    <string name="priority_card_title2">Utasítások</string>
-    <string name="priority_card_content2">Az OMS működése szerint az összes fedvény prioritás
+    <string name="priority_instructions_title">Utasítások</string>
+    <string name="priority_instructions_content">Az OMS működése szerint az összes fedvény prioritás
         fordított sorrendben meghatározott, ahol az alsó a legmagasabb prioritású
-        (kezdeti erőforrás keresés) és a felső a legalacsonyabb prioritású (végső erőforrás keresés).
+        (kezdeti erőforrás keresés) és a felső a legalacsonyabb prioritású
+        (végső erőforrás keresés).
     </string>
     <string name="priority_no_multiple_overlays_title">több fedvényes alkalmazás
         nem található&#8230;</string>
@@ -365,10 +354,8 @@
     <string name="uninstall_dialog_body">Téma eltávolítása</string>
     <string name="sb_phase_1_loader">téma kicsomagolása</string>
     <string name="sb_phase_2_loader">fedvény telepítése</string>
-    <string name="root_rejected_title">visszatérés rootolt módra</string>
-    <string name="root_rejected_text_cm_phh">nincs más olyan témamotor, amelyet a készüléken root nélkül lehetne használni&#8230;</string>
-    <string name="root_rejected_timer_plural">bezárás %s mp múlva&#8230;</string>
-    <string name="root_rejected_timer_singular">bezárás %s mp múlva&#8230;</string>
+    <string name="root_rejected_title">nem térhet vissza rootolt módba</string>
+    <string name="root_rejected_text">nincs olyan egyéb témamotor, amely ezen a készüléken jelenleg használhatóak&#8230;</string>
     <string name="toast_compiled_updated">Kijelölt fedvény(ek) frissítve!</string>
     <string name="toast_compiled_missing">Egy vagy több fedvény nem állítható össze a beállításban hiányzó konfigurációk miatt&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Kiválasztott fedvény(ek) bizonyos hibákkal frissítve!</string>
@@ -380,9 +367,12 @@
     <string name="no_themes_title">nincsenek témák&#8230;</string>
     <string name="no_themes_description">kérjük telepítsen egy kompatibilis témát!</string>
     <string name="no_themes_description_search">\"%s\" a telepített témák listájában nem található&#8230;</string>
+    <string name="toast_andromeda_timed_out">Az Andromeda Backend késleltetése van, kérjük, indítsa újra a Substratumot.</string>
     <string name="toast_could_not_uninstall">Nincs érvényes kijelölt fedvény.</string>
     <string name="toast_samsung_prototype_alert">Substratum automatikusan elrejtette a készülékén nem támogatott rendszerfedvényeket!</string>
-    <string name="andromeda_no_root_dialog">Úgy tűnik, hogy támogatott OMS eszközt használ, egy add-on készült ennek támogatásához!</string>
+    <string name="andromeda_disconnected">az andromeda asztali kliensnek csatlakoznia kell a készülékéhez, hogy képes legyen a substratummal működni!</string>
+    <string name="andromeda_check_status">Állapot ellenőrzése</string>
+    <string name="andromeda_no_root_dialog">Úgy tűnik, hogy támogatott Oreos eszközt használ, egy add-on készült ennek támogatásához!</string>
     <string name="andromeda_no_root_dialog_button">Töltse le most!</string>
     <string name="samsung_prototype_no_root_dialog">Úgy tűnik, hogy támogatott Samsung eszközt használ, egy add-on készült ennek támogatásához!</string>
     <string name="samsung_prototype_no_root_dialog_button">Töltse le most!</string>
@@ -614,12 +604,13 @@
     <string name="notification_channel_default_description">Fő értesítések (Új és frissített téma, téma összeállítása kész, stb)</string>
     <string name="notification_channel_ongoing">Folyamatos</string>
     <string name="notification_channel_ongoing_description">Folyamatos értesítések</string>
-    <string name="notification_channel_andromeda">Androméda állapota</string>
-    <string name="notification_channel_andromeda_description">Androméda kapcsolat állapotára vonatkozó értesítés</string>
+    <string name="notification_channel_andromeda">Téma rendszer állapota</string>
+    <string name="notification_channel_andromeda_description">Téma rendszer csatlakozási állapot értesítés</string>
     <!-- Nav drawer -->
     <string name="nav_home">Témacsomagok</string>
     <string name="nav_overlays">Fedvények</string>
     <string name="nav_bootanim">Rendszerindítási animációk</string>
+    <string name="nav_shutdownanim">Kikapcsolási animációk</string>
     <string name="nav_fonts">Betűkészlet csomagok</string>
     <string name="nav_sounds">Hangcsomagok</string>
     <string name="nav_wallpapers">Háttérképek</string>
@@ -671,4 +662,6 @@
     <string name="auto_reload_sysui_dialog_text">Az Android Oreo rendszeren az értesítések automatikusan törlődnek a gyorsítótárazott értesítési csatornák újraindításának szimulálására.\n\nKérjük, bizonyosodjon meg arról, hogy az értesítések nem tartalmaznak fontos adatokat a rendszerfelület vagy a keretrendszer fedvények összeállításakor vagy engedélyezésekor. Ez nem érinti a folyamatos értesítéseket.</string>
     <!-- The things lint will complain about...-->
     <string name="fonts_demo_string">Árvíztűrő tükörfúrógép</string>
+    <string name="overlays_tab_package_ver_message">Telepített %s verzió: %s</string>
+    <string name="overlays_tab_package_ver_failure">A csomag verziója nem tölthető le</string>
 </resources>

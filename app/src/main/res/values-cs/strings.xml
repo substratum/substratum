@@ -85,8 +85,11 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="manager_type2">Typ2 :</string>
     <string name="manager_type3">Typ3 :</string>
     <string name="manager_type4">Typ4 :</string>
+    <string name="manager_version">Verze :</string>
     <string name="legacy_preference_priority_title">Nastavení priority potahů</string>
     <string name="legacy_preference_priority_text">Priorita je nastavena na (výchozí 999): %d</string>
+    <string name="grid_size_title">Nastavení počtu sloupců motivu</string>
+    <string name="grid_size_text">Počet sloupců je nastaven na (výchozí 2): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">typ1a varianta&#8230;</string>
     <string name="overlays_variant_default_1b">typ1b varianta&#8230;</string>
@@ -97,13 +100,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="overlays_up_to_date">AKTUÁLNÍ</string>
     <string name="overlays_update_available">Dostupná aktualizace!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Varianta není nainstalována</string>
-    <string name="bootanimation_vm_exploded">Vykreslování spouštěcí animace bylo ukončeno z důvodu nedostatku paměti.\n\nInstalace spouštěcí animace je stále možná, ale bez vykreslení ukázky.
-    </string>
-    <string name="bootanimation_placeholder_text">prosím, vyberte spouštěcí animaci ze seznamu&#8230;</string>
-    <string name="bootanimation_default_spinner">prosím, vyberte spouštěcí animaci&#8230;</string>
-    <string name="bootanimation_spinner_set_defaults">obnovit na výchozí spouštěcí animaci&#8230;    </string>
-    <string name="bootanimation_defaults_text">toto vyčistí všechny vlastní spouštěcí animace
-        aplikované na tomto zařízení</string>
     <string name="bootanimation_dialog_apply_text">Zpracovávání spouštěcí animace&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Spouštěcí animace nastavena!</string>
     <string name="bootanimation_dialog_apply_failed">Spouštěcí animaci se nepodařilo použít&#8230;</string>
@@ -173,9 +169,11 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="theme_information_tab_three">Balíčky písem</string>
     <string name="theme_information_tab_four">Balíčky zvuků</string>
     <string name="theme_information_tab_five">Tapety</string>
+    <string name="theme_information_tab_six">Animace při vypnutí</string>
+    <string name="grid_style_cards_title">Rozvržení karet v mřížkovém stylu</string>
+    <string name="grid_style_cards_subtext">Povolit mřížkový styl pro karty motivu.</string>
     <string name="nougat_style_cards_title">Rozvržení karet podle Android Nougat</string>
-    <string name="nougat_style_cards_subtext">Povolit styl karet oznámení podle Android Nougat.
-    </string>
+    <string name="nougat_style_cards_subtext">Povolit styl karet oznámení podle Android Nougat.</string>
     <string name="uninstall_dialog_text">Opravdu chcete odinstalovat tento motiv?</string>
     <string name="manage_dialog_performing">Obnovení na výchozí&#8230;</string>
     <string name="manage_bootanimation_title">Obnovit spouštěcí animaci</string>
@@ -214,6 +212,7 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="menu_disable">Zakázat nainstalované potahy</string>
     <string name="menu_enable">Povolit nainstalované potahy</string>
     <string name="menu_favorite">Oblíbené</string>
+    <string name="menu_unfavorite">Odstranit oblíbené</string>
     <string name="menu_rate">Ohodnotit motiv</string>
     <string name="menu_soft_reboot">Soft restart</string>
     <string name="menu_reboot_device">Restartovat zařízení</string>
@@ -227,6 +226,8 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="menu_showcase_info">Informace o prezentaci</string>
     <string name="menu_favorite_snackbar">Úspěšně nastaveno %s jako zástupce na aplikaci!</string>
     <string name="menu_favorite_snackbar_cleared">Odstraněn zástupce aplikace pro %s.</string>
+    <string name="launcher_shortcut">Odkaz na spouštěč</string>
+    <string name="launcher_shortcut_toast">Ikona spouštěče byla úspěšně vytvořena!</string>
     <string name="changelog_title">%s seznam změn motivu</string>
     <string name="dialog_restart_systemui_title">Restartovat SystemUI</string>
     <string name="dialog_restart_systemui_content">Takto provedete restartování SystemUI na vašem zařízení.</string>
@@ -245,10 +246,8 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="logcat_email_activity_error">Nejsou nainstalováni žádní emailový klienti.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
     <string name="logcat_processing_dialog">Zpracování zprávy o chybách</string>
-    <string name="priority_card_title">Dynamický prioritní systém (DPS)</string>
-    <string name="priority_card_content">Dynamický prioritní systém je pokročilá procedura povolování tématických překrytí tak, aby byly sestaveny s různými prioritami a obchází původní OMS systém.\n\nJako příklad použití je zobrazení specifického překrytí nad jiným překrytím u téže aplikace.\n\nSe zavedením služby Overlay Manager jsou priority obrácené a nejvíce důležité překrytí je umístěno na konci každého seznamu.    </string>
-    <string name="priority_card_title2">Pokyny</string>
-    <string name="priority_card_content2">S tím, jak Správce služeb překrytí funguje, všechny priority překrytí jsou napsány v obráceném pořadí, kde spodní je s nejvyšší prioritou (původní zdroj vyhledávání) a vrchní má nejnižší prioritu (poslední zdroj vyhledávání).    </string>
+    <string name="priority_instructions_title">Pokyny</string>
+    <string name="priority_instructions_content">Tím jak správce potahů funguje, všechny priority potahů jsou uloženy v opačném pořadí, kde spodní má nejvyšší prioritu (původní zdroj vyhledávání) a horní má nejnižší prioritu (poslední zdroj vyhledávání).    </string>
     <string name="priority_no_multiple_overlays_title">žádné aplikace s více potahy&#8230;</string>
     <string name="priority_no_multiple_overlays_text">aby jste mě mohli používat, povolte dvě nebo více překrytí na jednu aplikaci!    </string>
     <string name="manager_no_overlays_title">nejsou nainstalovány žádné potahy&#8230;</string>
@@ -292,10 +291,8 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="uninstall_dialog_body">Odinstalovat motiv</string>
     <string name="sb_phase_1_loader">extrahování motivu</string>
     <string name="sb_phase_2_loader">instalování potahů</string>
-    <string name="root_rejected_title">zpět do režimu root</string>
-    <string name="root_rejected_text_cm_phh">neexistuje žádný další správce motivů, který by mohl být použit v zařízení bez rootu&#8230;</string>
-    <string name="root_rejected_timer_plural">zavírání za %s sekund&#8230;</string>
-    <string name="root_rejected_timer_singular">zavírání za %s sekundu&#8230;</string>
+    <string name="root_rejected_title">nebylo možné vrátit se do režimu s rootem</string>
+    <string name="root_rejected_text">momentálně nejsou v tomto zařízení k dispozici další motivy&#8230;</string>
     <string name="toast_compiled_updated">Vybrané potahy jsou aktualizovány!</string>
     <string name="toast_compiled_missing">Jeden nebo více potahů nelze zkompilovat kvůli chybějící konfiguraci v rámci tohoto nastavení&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Vybrané potahy jsou aktualizovány s pár
@@ -309,9 +306,12 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="no_themes_title">nenalezeny žádné motivy&#8230;</string>
     <string name="no_themes_description">prosím, nainstalujte kompatibilní motiv!</string>
     <string name="no_themes_description_search">\"%s\" nebylo nalezeno v seznamu nainstalovaných motivů&#8230;</string>
+    <string name="toast_andromeda_timed_out">Zpoždění Andromeda Backend, restartujte Substratum.</string>
     <string name="toast_could_not_uninstall">Nebyly vybrány žádné platné potahy.</string>
     <string name="toast_samsung_prototype_alert">Substratum automaticky skrylo nepodporované potahy systému pro vaše zařízení!</string>
-    <string name="andromeda_no_root_dialog">Zdá se, že používáte podporované zařízení OMS, pro které byl vydán podpůrný modul!</string>
+    <string name="andromeda_disconnected">desktopový klient Andromeda se musí připojit k vašemu zařízení, aby mohl pracovat se Substratum!</string>
+    <string name="andromeda_check_status">Zkontrolovat stav</string>
+    <string name="andromeda_no_root_dialog">Zdá se, že používáte podporované zařízení Oreo, pro které byl vydán podpůrný modul!</string>
     <string name="andromeda_no_root_dialog_button">Stáhnout teď!</string>
     <string name="samsung_prototype_no_root_dialog">Zdá se, že používáte podporované zařízení Samsung, pro které byl vydán podpůrný modul!</string>
     <string name="samsung_prototype_no_root_dialog_button">Stáhnout teď!</string>
@@ -550,12 +550,13 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="notification_channel_default_description">Hlavní upozornění (nové a aktualizované motivy, dokončené sestavení motivů, atd.)</string>
     <string name="notification_channel_ongoing">Probíhající</string>
     <string name="notification_channel_ongoing_description">Probíhající oznámení</string>
-    <string name="notification_channel_andromeda">Stav Andromeda</string>
-    <string name="notification_channel_andromeda_description">Oznámení o stavu připojení Andromeda</string>
+    <string name="notification_channel_andromeda">Stav systémového motivu</string>
+    <string name="notification_channel_andromeda_description">Oznámení o stavu připojení systémového motivu</string>
     <!-- Nav drawer -->
     <string name="nav_home">Balíčky motivů</string>
     <string name="nav_overlays">Potahy</string>
     <string name="nav_bootanim">Spouštěcí animace</string>
+    <string name="nav_shutdownanim">Animace při vypnutí</string>
     <string name="nav_fonts">Balíčky písem</string>
     <string name="nav_sounds">Balíčky zvuků</string>
     <string name="nav_wallpapers">Tapety</string>
@@ -607,4 +608,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="auto_reload_sysui_dialog_text">V systému Android Oreo budou oznámení automaticky vymazány, aby simulovaly opětovné spuštění oznamovacích kanálů.\n\nZkontrolujte, zda vaše oznámení neobsahují žádná důležitá data při kompilaci nebo aktivaci potahů systému (SystemUI nebo framework). To neovlivňuje stávající oznámení, například hudbu.</string>
     <!-- The things lint will complain about...-->
     <string name="fonts_demo_string">AaBbCcDd123</string>
+    <string name="overlays_tab_package_ver_message">Nainstalované %s verze: %s</string>
+    <string name="overlays_tab_package_ver_failure">Nepodařilo se zachytit verzi balíčku</string>
 </resources>

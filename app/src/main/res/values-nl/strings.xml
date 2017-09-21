@@ -88,11 +88,6 @@
     <string name="overlays_up_to_date">UP-TO-DATE</string>
     <string name="overlays_update_available">Update beschikbaar!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variant niet geïnstalleerd</string>
-    <string name="bootanimation_vm_exploded">Weergave van de opstartanimatie is beëindigd door onvoldoende geheugenallocatie.\n\nInstallatie van deze opstartanimatie is nog steeds mogelijk zonder voorbeeldweergave.</string>
-    <string name="bootanimation_placeholder_text">kies een opstartanimatie uit de keuzelijst&#8230;</string>
-    <string name="bootanimation_default_spinner">selecteer een opstartanimatie&#8230;</string>
-    <string name="bootanimation_spinner_set_defaults">standaard opstartanimatie herstellen&#8230;</string>
-    <string name="bootanimation_defaults_text">dit zal iedere toegepaste opstartanimatie ongedaan maken</string>
     <string name="bootanimation_dialog_apply_text">Opstartanimatie wordt verwerkt&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Opstartanimatie toegepast!</string>
     <string name="bootanimation_dialog_apply_failed">Opstartanimatie toepassen mislukt&#8230;</string>
@@ -156,7 +151,6 @@
     <string name="theme_information_tab_four">Geluidspakketten</string>
     <string name="theme_information_tab_five">Achtergronden</string>
     <string name="nougat_style_cards_title">Nougat stijl kaart lay-out</string>
-    <string name="nougat_style_cards_subtext">Android Nougat meldingsstijl themakaarten inschakelen.</string>
     <string name="uninstall_dialog_text">Weet je zeker dat je dit thema wilt deïnstalleren?</string>
     <string name="manage_dialog_performing">Standaarden herstellen&#8230;</string>
     <string name="manage_bootanimation_title">Herstel opstartanimatie</string>
@@ -226,10 +220,6 @@
     <string name="logcat_email_activity_error">Er zijn geen e-mail clients geïnstalleerd.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
     <string name="logcat_processing_dialog">Foutrapport verwerken</string>
-    <string name="priority_card_title">Dynamische Prioriteit Systeem (DPS)</string>
-    <string name="priority_card_content">Het Dynamische Prioriteit Systeem is een geavanceerde procedure die mogelijk maakt dat thema overlays georganiseerd worden met verschillende prioriteiten, waardoor de standaard OMS systeem-toegepaste prioriteiten worden genegeerd.\n\nDit komt o.a. van pas wanneer je een specifieke overlay over een andere overlay binnen dezelfde applicatie zou willen structureren.\n\nMet de introductie van de Overlay Beheer Service zijn de prioriteiten omgekeerd en bevindt de bovenste overlay zich onderaan iedere lijst.</string>
-    <string name="priority_card_title2">Instructies</string>
-    <string name="priority_card_content2">Op de manier dat OverlayBeheerService werkt, worden alle overlay prioriteiten weergegeven op omgekeerde volgorde van prioriteit, waar de onderste de hoogste prioriteit heeft (eerst gevonden bron), heeft de bovenste de laagste prioriteit (laatst gevonden bron).</string>
     <string name="priority_no_multiple_overlays_title">geen apps met meerdere overlays&#8230;</string>
     <string name="priority_no_multiple_overlays_text">schakel twee of meer overlays in op één app om mij te gebruiken!</string>
     <string name="manager_no_overlays_title">geen overlays geïnstalleerd&#8230;</string>
@@ -268,10 +258,6 @@
     <string name="uninstall_dialog_body">Thema deïnstalleren</string>
     <string name="sb_phase_1_loader">thema uitpakken</string>
     <string name="sb_phase_2_loader">overlay installeren</string>
-    <string name="root_rejected_title">terugvallen naar rootmodus</string>
-    <string name="root_rejected_text_cm_phh">er zijn geen andere themadiensten die gebruikt kunnen worden op het apparaat zonder root&#8230;</string>
-    <string name="root_rejected_timer_plural">sluiten in %s seconden&#8230;</string>
-    <string name="root_rejected_timer_singular">sluiten in %s seconde&#8230;</string>
     <string name="toast_compiled_updated">Geselecteerde overlay(s) bijgewerkt!</string>
     <string name="toast_compiled_missing">Eén of meer overlays kunnen niet compileren door ontbrekende configuraties onder deze opstelling&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Geselecteerde overlay(s) bijgewerkt met fouten!</string>
@@ -285,7 +271,6 @@
     <string name="no_themes_description_search">\"%s\" werd niet gevonden in de lijst van geïnstalleerde thema\'s&#8230;</string>
     <string name="toast_could_not_uninstall">Geen geldige overlays geselecteerd.</string>
     <string name="toast_samsung_prototype_alert">Substratum heeft automatisch niet-ondersteunde systeemoverlays verborgen voor jouw apparaat!</string>
-    <string name="andromeda_no_root_dialog">Het lijkt erop dat je een ondersteund OMS-apparaat hebt, hiervoor is een ondersteunende add-on vrijgegeven!</string>
     <string name="andromeda_no_root_dialog_button">Download nu!</string>
     <string name="samsung_prototype_no_root_dialog">Het lijkt erop dat je een ondersteund Samsung apparaat hebt, hiervoor is een ondersteunende add-on vrijgegeven!</string>
     <string name="samsung_prototype_no_root_dialog_button">Download nu!</string>
@@ -442,7 +427,6 @@
     <string name="settings_force_english_title">Engelse taal afdwingen</string>
     <string name="settings_force_english_text">Hiermee dwing je de applicatie om de Engelse taal te gebruiken.</string>
     <string name="settings_force_english_toast_reverted">Engelse taal afdwingen succesvol uitgeschakeld!</string>
-    <string name="settings_manage_space_title">Beheer opslagruimtegebruik</string>
     <string name="settings_samsung_show_dangerous_overlays">Gevaarlijke overlays toestaan</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Alle overlays weergeven die normaal gevaarlijk zijn voor Samsung apparaten als het thema dit niet ondersteund.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">WAARSCHUWING</string>
@@ -514,8 +498,6 @@
     <string name="notification_channel_default_description">Primaire meldingen (Nieuw en bijgewerkt thema, thema compilatie voltooid, etc.)</string>
     <string name="notification_channel_ongoing">Actief</string>
     <string name="notification_channel_ongoing_description">Actieve meldingen</string>
-    <string name="notification_channel_andromeda">Andromeda status</string>
-    <string name="notification_channel_andromeda_description">Andromeda verbindingsstatus melding</string>
     <!-- Nav drawer -->
     <string name="nav_home">Themapakketten</string>
     <string name="nav_overlays">Overlays</string>

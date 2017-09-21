@@ -97,13 +97,6 @@
     <string name="overlays_up_to_date">Šiuometinis</string>
     <string name="overlays_update_available">Galimas atnaujinimas!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variantas neįdiegtas</string>
-    <string name="bootanimation_vm_exploded">Atvaizdavimas paleidimo animacijos buvo nutraukta dėl nepakankamo atminties paskirstymo.\n\nĮdiegimas šios paleidimo animacijos vis dar įmanomas be peržiūros atvaizdavimo.    </string>
-    <string name="bootanimation_placeholder_text">prašome pasirinkti paleidimo animaciją išskleidžiamajame sąraše&#8230;</string>
-    <string name="bootanimation_default_spinner">prašome pasirinkti paleidimo animaciją&#8230;</string>
-    <string name="bootanimation_spinner_set_defaults">atkurti numatytąją paleidimo animaciją&#8230;
-    </string>
-    <string name="bootanimation_defaults_text">tai išvalis bet kokias pasirinktines paleidimo animacijas,
-        kurios buvo pritaikytos jūsų įrenginyje</string>
     <string name="bootanimation_dialog_apply_text">Paleidimo animacijos apdirbimas&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Paleidimo animacija pritaikyta!</string>
     <string name="bootanimation_dialog_apply_failed">Paleidimo animacijos nepavyko pritaikyti&#8230;</string>
@@ -170,7 +163,6 @@
     <string name="theme_information_tab_four">Garsų Paketai</string>
     <string name="theme_information_tab_five">Ekrano fonai</string>
     <string name="nougat_style_cards_title">\"Nougat\" Stiliaus Kortelių Išdėstymas</string>
-    <string name="nougat_style_cards_subtext">Įjungti \"Android Nougat\" Pranešimų stiliaus temų korteles.</string>
     <string name="uninstall_dialog_text">Ar jūs tikrai norite išdiegti šią temą?</string>
     <string name="manage_dialog_performing">Atkuriama į numatytąjį&#8230;</string>
     <string name="manage_bootanimation_title">Atkurti Paleidimo Animaciją</string>
@@ -246,10 +238,6 @@
     <string name="logcat_email_activity_error">Nėra įdiegtų jokių el.pašto programėlių.</string>
     <string name="logcat_email_xposed_check">\"Xposed\" Struktūra</string>
     <string name="logcat_processing_dialog">Apdorojimo klaidos ataskaita</string>
-    <string name="priority_card_title">Dinamine Prioriteto Sistema (DPS)</string>
-    <string name="priority_card_content">Dinaminė Prioriteto Sistema yra pažangi procedūra, kuri leidžia temos perdangoms būti organizuotomis su skirtingais prioritetais, ignoruojant numatytąjį \"OMS\" sistemos taikomiems prioritetams.\n\nPavyzdžiui, kai tai būtų naudojama norint suformuoti specifinę perdangą ant viršaus kitos perdangos tai pačiai programėlei.\n\nSu įvedimu \"Overlays Manager Service\" prioritetai yra anuliuojami ir dauguma perdangų pasilieka kiekvieno sąrašo apačioje.</string>
-    <string name="priority_card_title2">Instrukcijos</string>
-    <string name="priority_card_content2">\"OverlayManagerService\" veikimo principas toks, jog visų perdangų prioritetai išdėstyti apverstąją tvarka. Apačioje yra aukščiausias prioritetas (pradinių išteklių apžvalga) ir viršuje - žemiausias prioritetas (galutinė resursų apžvalga).</string>
     <string name="priority_no_multiple_overlays_title">jokių programėlių su keliomis perdangomis&#8230;</string>
     <string name="priority_no_multiple_overlays_text">įjunkite dvi ar daugiau perdangų vienai programėlei, kad galėtumėte mane naudoti!</string>
     <string name="manager_no_overlays_title">neįdiegta jokių perdangų&#8230;</string>
@@ -289,10 +277,6 @@
     <string name="uninstall_dialog_body">Išdiegti Temą</string>
     <string name="sb_phase_1_loader">išpakuojama tema</string>
     <string name="sb_phase_2_loader">įdiegiamos perdangos</string>
-    <string name="root_rejected_title">pereinama atgal į \"root\" režimą</string>
-    <string name="root_rejected_text_cm_phh">nėra jokių kitų temos variklių, kuriuos būtų galima naudoti įrenginyje be \"root\"&#8230;</string>
-    <string name="root_rejected_timer_plural">uždaroma už %s sekundžių&#8230;</string>
-    <string name="root_rejected_timer_singular">uždaroma už %s sekundės&#8230;</string>
     <string name="toast_compiled_updated">Pasirinktos perdangos atnaujintos!</string>
     <string name="toast_compiled_missing">Vienos ar daugiau perdangų negalima sukompiliuoti dėl trūkstamų konfigūracijų&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Pasirinktos perdangos atnaujintos su klaidomis!</string>
@@ -306,7 +290,6 @@
     <string name="no_themes_description_search">\"%s\" nepavyko rasti tarp įdiegtų temų&#8230;</string>
     <string name="toast_could_not_uninstall">Nepasirinktos jokios galiojančios perdangos.</string>
     <string name="toast_samsung_prototype_alert">\"Substratum\", jūsų įrenginiui, automatiškai paslepia nepalaikomas sistemos perdangas!</string>
-    <string name="andromeda_no_root_dialog">Atrodo, kad jūs esate su palaikomu \"OMS\" įrenginiu. Šis priedas buvo išleistas, kad tai palaikytu!</string>
     <string name="andromeda_no_root_dialog_button">Atsisiųsti dabar!</string>
     <string name="samsung_prototype_no_root_dialog">Atrodo, kad jūs esate su palaikomu \"Samsung\" įrenginiu. Šis priedas buvo išleistas, kad tai palaikytu!</string>
     <string name="samsung_prototype_no_root_dialog_button">Atsisiųsti dabar!</string>
@@ -465,7 +448,6 @@
     <string name="settings_force_english_title">Priverstinė Anglų Kalba</string>
     <string name="settings_force_english_text">Tai privers programėlei naudoti anglų kalba.</string>
     <string name="settings_force_english_toast_reverted">Sėkmingai išjungta priverstinė anglų kalba!</string>
-    <string name="settings_manage_space_title">Tvarkyti Saugyklos Naudojimą</string>
     <string name="settings_samsung_show_dangerous_overlays">Leisti Pavojingas Perdangas</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Rodyti visas pavojingas perdangas \"Samsung\" įrengianiams, jei tema to nepaliko.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">ĮSPĖJIMAS</string>
@@ -537,8 +519,6 @@
     <string name="notification_channel_default_description">Pagrindiniai pranešimai (Nauja ir atnaujinta tema, temos kompiliavimas baigtas ir t.t.)</string>
     <string name="notification_channel_ongoing">Vykdomi</string>
     <string name="notification_channel_ongoing_description">Vykdomi pranešimai</string>
-    <string name="notification_channel_andromeda">\"Andromeda\" statusas</string>
-    <string name="notification_channel_andromeda_description">\"Andromeda\" ryšio būsenos pranešimas</string>
     <!-- Nav drawer -->
     <string name="nav_home">Temų paketai</string>
     <string name="nav_overlays">Perdangos</string>

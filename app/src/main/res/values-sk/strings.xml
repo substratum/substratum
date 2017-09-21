@@ -80,8 +80,11 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="manager_type2">Typ2:</string>
     <string name="manager_type3">Typ3:</string>
     <string name="manager_type4">Typ4 :</string>
+    <string name="manager_version">Verzia:</string>
     <string name="legacy_preference_priority_title">Nastavenie priority prekrytia</string>
     <string name="legacy_preference_priority_text">Priorita je nastavená na (predvolene 999): %d</string>
+    <string name="grid_size_title">Nastavenie počtu stĺpcov témy</string>
+    <string name="grid_size_text">Počet stĺpcov je nastavený na (predvolene 2): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">variant type1a&#8230;</string>
     <string name="overlays_variant_default_1b">variant type1b&#8230;</string>
@@ -92,12 +95,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="overlays_up_to_date">AKTUÁLNE</string>
     <string name="overlays_update_available">Je dostupná aktualizácia!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variant nie je nainštalovaný</string>
-    <string name="bootanimation_vm_exploded">Renderovanie spúšťacej animácie bolo ukončené z dôvodu nedostatku pamäti.\n\nInštalácia spúšťacej animácie je stále možná, ale bez vykreslenia ukážky.
-    </string>
-    <string name="bootanimation_placeholder_text">prosím, vyberte spúšťaciu animáciu z rozbaľovacieho zoznamu&#8230;</string>
-    <string name="bootanimation_default_spinner">prosím, vyberte spúšťaciu animáciu&#8230;</string>
-    <string name="bootanimation_spinner_set_defaults">obnoviť na predvolenú spúšťaciu animáciu&#8230;</string>
-    <string name="bootanimation_defaults_text">toto vymaže všetky vlastné spúšťacie animácie aplikované na tomto zariadení</string>
     <string name="bootanimation_dialog_apply_text">Spracováva sa spúšťacia animácia&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Spúšťacia animácia je aplikovaná!</string>
     <string name="bootanimation_dialog_apply_failed">Použitie spúšťacej animácie sa nepodarilo&#8230;</string>
@@ -167,8 +164,11 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="theme_information_tab_three">Balíčky písiem</string>
     <string name="theme_information_tab_four">Balíčky zvukov</string>
     <string name="theme_information_tab_five">Tapety na plochu</string>
+    <string name="theme_information_tab_six">Animácia pri vypnutí</string>
+    <string name="grid_style_cards_title">Rozloženie kariet v štýle mriežky</string>
+    <string name="grid_style_cards_subtext">Aktivovať štýl mriežky pre karty tém.</string>
     <string name="nougat_style_cards_title">Rozloženie kariet podľa Android Nougat</string>
-    <string name="nougat_style_cards_subtext">Zapnúť štýl kariet upozornení v štýle Android Nougat.    </string>
+    <string name="nougat_style_cards_subtext">Zapnúť štýl kariet upozornení podľa Android Nougat.</string>
     <string name="uninstall_dialog_text">Naozaj chcete odinštalovať túto tému?</string>
     <string name="manage_dialog_performing">Obnovenie do predvoleného stavu...</string>
     <string name="manage_bootanimation_title">Obnoviť spúšťaciu animáciu</string>
@@ -207,6 +207,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="menu_disable">Vypnúť nainštalované prekrytia</string>
     <string name="menu_enable">Zapnúť nainštalované prekrytia</string>
     <string name="menu_favorite">Obľúbené</string>
+    <string name="menu_unfavorite">Odstrániť obľúbené</string>
     <string name="menu_rate">Ohodnotiť tému</string>
     <string name="menu_soft_reboot">Softvérový reštart</string>
     <string name="menu_reboot_device">Reštartovať zariadenie</string>
@@ -220,6 +221,8 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="menu_showcase_info">Informácie o zobrazení</string>
     <string name="menu_favorite_snackbar">Úspešne nastavené %s ako zástupca aplikácie!</string>
     <string name="menu_favorite_snackbar_cleared">Odstránený zástupca aplikácie %s.</string>
+    <string name="launcher_shortcut">Odkaz na spúšťač</string>
+    <string name="launcher_shortcut_toast">Ikona spúšťača bola úspešne vytvorená!</string>
     <string name="changelog_title">%s zoznam zmien v téme</string>
     <string name="dialog_restart_systemui_title">Reštartovať systémové rozhranie</string>
     <string name="dialog_restart_systemui_content">Takto urobíte reštart SystemUI na vašom zariadení.</string>
@@ -238,10 +241,8 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="logcat_email_activity_error">Nie sú nainštalovaní žiadni e-mailoví klienti.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
     <string name="logcat_processing_dialog">Spracovanie správy o chybách</string>
-    <string name="priority_card_title">Dynamický Prioritný Systém (DPS)</string>
-    <string name="priority_card_content">Dynamický prioritný systém je pokročilá procedúra povoľovania tématických prekrytí tak, aby boli zostavené s rôznymi prioritami a obchádza pôvodný OMS systém.\n\nAko príklad použitia je zobrazenie špecifického prekrytia nad iným prekrytím u tej istej aplikácie.\n\nSo zavedením služby Manažér prekrytí sú priority obrátené a najviac dôležité  prekrytie je umiestnené na konci každého zoznamu.</string>
-    <string name="priority_card_title2">Pokyny</string>
-    <string name="priority_card_content2">S tým ako Správca služieb prekrytí funguje, všetky priority prekrytí sú napísané v obrátenom poradí, kde spodné je s najvyššou prioritou (pôvodný zdroj vyhľadávania) a vrchné má najnižšiu prioritu (posledný zdroj vyhľadávania).</string>
+    <string name="priority_instructions_title">Pokyny</string>
+    <string name="priority_instructions_content">S tým ako Správca služieb prekrytí funguje, všetky priority prekrytí sú uložené v obrátenom poradí, kde spodné je s najvyššou prioritou (pôvodný zdroj vyhľadávania) a vrchné má najnižšiu prioritu (posledný zdroj vyhľadávania).    </string>
     <string name="priority_no_multiple_overlays_title">žiadne aplikácie s viacerými prekrytiami&#8230;</string>
     <string name="priority_no_multiple_overlays_text">aby ste ma mohli používať, povoľte dve alebo viac prekrytí na jednu aplikáciu!</string>
     <string name="manager_no_overlays_title">nie sú nainštalované žiadne prekrytia&#8230;</string>
@@ -281,8 +282,8 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="uninstall_dialog_body">Odinštalovať tému</string>
     <string name="sb_phase_1_loader">extrahovanie témy</string>
     <string name="sb_phase_2_loader">inštalovanie prekrytia</string>
-    <string name="root_rejected_timer_plural">uzatvorenie za %s sekúnd&#8230;</string>
-    <string name="root_rejected_timer_singular">uzatvorenie za %s sekúdu&#8230;</string>
+    <string name="root_rejected_title">nebolo možné vrátiť sa do root režimu</string>
+    <string name="root_rejected_text">pre toto zariadenie nie je k dispozícii žiadne iné témy&#8230;</string>
     <string name="toast_compiled_updated">Vybrané prekrytia sú aktualizované!</string>
     <string name="toast_compiled_missing">Jedno alebo viac prekrytí nie je možné vytvoriť (skompilovať) kvôli chýbajúcej konfigurácii v rámci tohto nastavenia&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Vybrané prekrytia sa aktualizovali s nejakými chybami!</string>
@@ -294,9 +295,12 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="no_themes_title">nenašli sa žiadne témy&#8230;</string>
     <string name="no_themes_description">prosím, nainštalujte kompatibilnú tému!</string>
     <string name="no_themes_description_search">\"%s\" nebola nájdená v zozname nainštalovaných tém&#8230;</string>
+    <string name="toast_andromeda_timed_out">Oneskorenie Andromeda Backend, prosím, reštartujte Substratum.</string>
     <string name="toast_could_not_uninstall">Nebolo zvolené žiadne platné prekrytie.</string>
     <string name="toast_samsung_prototype_alert">Substratum automaticky skryl nepodporované prekrytia systému pre vaše zariadenie!</string>
-    <string name="andromeda_no_root_dialog">Zdá sa, že používate podporované OMS zariadenie, pre ktoré bol vydaný podporný modul!</string>
+    <string name="andromeda_disconnected">Andromeda desktop klient sa musí pripojiť k vášmu zariadeniu, aby mohol pracovať so Substratum!</string>
+    <string name="andromeda_check_status">Skontrolovať stav</string>
+    <string name="andromeda_no_root_dialog">Zdá sa, že používate podporované Oreo zariadenie, pre ktoré bol vydaný podporný modul!</string>
     <string name="andromeda_no_root_dialog_button">Stiahnuť teraz!</string>
     <string name="samsung_prototype_no_root_dialog">Zdá sa, že používate podporované zariadenie Samsung, pre ktoré bol vydaný podporný modul!</string>
     <string name="samsung_prototype_no_root_dialog_button">Stiahnuť teraz!</string>
@@ -357,6 +361,10 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="show_outdated_themes_content">Vypnutie tohto parametru umožní Substratum použiť úplne nový algoritmus, s ktorým sa budú témy načítavať oveľa rýchlejšie ako zvyčajne. To však platí iba pre témy založené na module v6.0.0+.</string>
     <string name="fab_menu_compile_enable">Vytvoriť a povoliť</string>
     <string name="fab_menu_compile_update">Vytvoriť a aktualizovať</string>
+    <string name="fab_menu_compile_install">Nainštalovať označené</string>
+    <string name="fab_menu_uninstall">Odinštalovať označené</string>
+    <string name="fab_menu_disable">Zakázať označené</string>
+    <string name="fab_menu_enable">Povoliť označené</string>
     <string name="fab_menu_enable_disable">Zmena stavu prekrytí</string>
     <string name="fab_menu_swap_toggle">Zakázať iné témy</string>
     <string name="fab_menu_swap_toggle_legacy">Odstrániť všetky existujúce</string>
@@ -522,12 +530,13 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="notification_channel_default_description">Hlavné upozornenia (Nová a aktualizovaná téma, dokončená kompilácia témy, atď.)</string>
     <string name="notification_channel_ongoing">Prebiehajúce</string>
     <string name="notification_channel_ongoing_description">Prebiehajúce upozornenia</string>
-    <string name="notification_channel_andromeda">Stav Andromeda</string>
-    <string name="notification_channel_andromeda_description">Oznámenie o stave pripojenia Andromedy</string>
+    <string name="notification_channel_andromeda">Stav systémovéj témy</string>
+    <string name="notification_channel_andromeda_description">Upozornenie o stave pripojenia systému</string>
     <!-- Nav drawer -->
     <string name="nav_home">Balíčky tém</string>
     <string name="nav_overlays">Prekrytia</string>
     <string name="nav_bootanim">Spúšťacie animácie</string>
+    <string name="nav_shutdownanim">Animácia pri vypnutí</string>
     <string name="nav_fonts">Balíčky písiem</string>
     <string name="nav_sounds">Balíčky zvukov</string>
     <string name="nav_wallpapers">Tapety na plochu</string>
@@ -555,6 +564,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="nav_drawer_gerrit">Platforma zdrojových kódov Gerrit</string>
     <string name="nav_drawer_github">Platforma úložiska GitHub</string>
     <string name="nav_drawer_jira">Systém hlásenia chýb JIRA</string>
+    <string name="nav_troubleshooting">Často kladené otázky</string>
     <!-- More -->
     <string name="nav_section_header_more">Viac</string>
     <string name="nav_team_contributors">Tím &amp; prispievatelia</string>
@@ -578,4 +588,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="auto_reload_sysui_dialog_text">V systéme Android Oreo budú upozornenia automaticky vymazané, aby sa simulovalo opätovné spustenie oznamovacích kanálov.\n\nUistite sa, že vaše upozornenia neobsahujú žiadne dôležité údaje ak prebieha kompilácia alebo aktivovanie systémových prekrytí (SystemUI alebo framework). Toto neovplyvňuje prebiehajúce upozornenia, ako napríklad hudba.</string>
     <!-- The things lint will complain about...-->
     <string name="fonts_demo_string">AaBbCcDd123</string>
+    <string name="overlays_tab_package_ver_message">Nainštalované %s verzia: %s</string>
+    <string name="overlays_tab_package_ver_failure">Nepodarilo zachytiť verziu balíka</string>
 </resources>

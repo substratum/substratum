@@ -96,12 +96,6 @@ arreglar las cosas que no se están tematizando en legado porque requieren cambi
     <string name="overlays_up_to_date">ACTUALIZADO</string>
     <string name="overlays_update_available">Actualización disponible!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variante no instalada</string>
-    <string name="bootanimation_vm_exploded">La renderización de la animación de inicio se ha terminado debido a la falta de asignación de memoria. \n\nLa instalación de esta animación de inicio sigue siendo posible aún sin la vista previa.    </string>
-    <string name="bootanimation_placeholder_text">Seleccione una animación de inicio de la lista desplegable&#8230;</string>
-    <string name="bootanimation_default_spinner">Seleccione una animación de inicio&#8230;</string>
-    <string name="bootanimation_spinner_set_defaults">Restaurar la animación de inicio por defecto&#8230;    </string>
-    <string name="bootanimation_defaults_text">Esto borrará cualquier animación de inicio personalizada
-        aplicado en el dispositivo</string>
     <string name="bootanimation_dialog_apply_text">La animación de inicio se está procesando&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Animación de inicio aplicada!</string>
     <string name="bootanimation_dialog_apply_failed">La animación de inicio no se aplicó&#8230;</string>
@@ -169,7 +163,6 @@ correctamente&#8230;</string>
     <string name="theme_information_tab_four">Packs de Sonidos</string>
     <string name="theme_information_tab_five">Fondos de Pantalla</string>
     <string name="nougat_style_cards_title">Disposición de tarjetas estilo Nougat</string>
-    <string name="nougat_style_cards_subtext">Activar el estilo de notificación Nougat en las tarjetas temáticas.    </string>
     <string name="uninstall_dialog_text">¿Seguro que quieres desinstalar este tema?</string>
     <string name="manage_dialog_performing">Restaurando a valores por defecto&#8230;</string>
     <string name="manage_bootanimation_title">Restaurar Animación de Inicio</string>
@@ -244,10 +237,6 @@ correctamente&#8230;</string>
     <string name="logcat_email_activity_error">No hay clientes de correo electrónico instalados.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
     <string name="logcat_processing_dialog">Procesando informe de errores</string>
-    <string name="priority_card_title">Sistema de Prioridad Dinámica (DPS)</string>
-    <string name="priority_card_content">El Sistema de Prioridad Dinámica (DPS) es un procedimiento avanzado que permite a las capas de los temas organizarse con diferentes prioridades, haciendo caso omiso a las prioridades aplicadas por defecto del sistema OMS.\n\nUn ejemplo de cuando puede ser útil sería, cuando falla una capa con estructura específica en la parte superior de otra plantilla orientado a la misma aplicación.\n\nCon la introducción de la Overlay Service Manager, las prioridades se invierten, y la mayor parte o prioridad de capa reside en la parte inferior de cada lista.</string>
-    <string name="priority_card_title2">Instrucciones</string>
-    <string name="priority_card_content2">Con la forma en que funciona OverlayManagerService, todas las prioridades de una capa están dispuestas en un orden inverso donde la parte inferior es la prioridad más alta (de búsqueda inicial de recursos) y la parte superior es la prioridad más baja (de búsqueda definitiva de recursos).</string>
     <string name="priority_no_multiple_overlays_title">No hay apps con múltiples capas&#8230;</string>
     <string name="priority_no_multiple_overlays_text">Activa dos o más capas en una app para usarme!</string>
     <string name="manager_no_overlays_title">no hay capas instaladas&#8230;</string>
@@ -288,10 +277,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="uninstall_dialog_body">Desinstalar tema</string>
     <string name="sb_phase_1_loader">Extrayendo el tema</string>
     <string name="sb_phase_2_loader">instalando capa(s)</string>
-    <string name="root_rejected_title">retornando a modo root</string>
-    <string name="root_rejected_text_cm_phh">no hay otros motores de tematización que puedan ser utilizados en el dispositivo sin root&#8230;</string>
-    <string name="root_rejected_timer_plural">Cerrando en %s segundos&#8230;</string>
-    <string name="root_rejected_timer_singular">Cerrando en %s segundo&#8230;</string>
     <string name="toast_compiled_updated">Capas seleccionadas actualizadas!</string>
     <string name="toast_compiled_missing">Una o más capas no se pueden compilar debido a las configuraciones que faltan en esta elección&#8230;</string>
     <string name="toast_compiled_updated_with_errors">¡Las capas seleccionadas se actualizaron con algunos errores!</string>
@@ -305,7 +290,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="no_themes_description_search">\"%s\" no se encontró en la lista de temas instalados&#8230;</string>
     <string name="toast_could_not_uninstall">No se han seleccionado capas válidas.</string>
     <string name="toast_samsung_prototype_alert">¡Substratum ocultó automáticamente las capas del sistema no soportadas por su dispositivo!</string>
-    <string name="andromeda_no_root_dialog">¡Parece que está utilizando un dispositivo con soporte para OMS, se lanzó un complemento para soportarlo!</string>
     <string name="andromeda_no_root_dialog_button">¡Descargalo ahora!</string>
     <string name="samsung_prototype_no_root_dialog">Parece que estás en un dispositivo compatible de Samsung, un addon fue lanzado para apoyar esto!</string>
     <string name="samsung_prototype_no_root_dialog_button">¡Descargalo ahora!</string>
@@ -462,7 +446,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="settings_force_english_title">Forzar Idioma Inglés</string>
     <string name="settings_force_english_text">Esto forzará a la aplicación a utilizar el idioma Inglés.</string>
     <string name="settings_force_english_toast_reverted">Forzar Inglés ha sido desactivado con éxito!</string>
-    <string name="settings_manage_space_title">Administrar el uso del almacenamiento</string>
     <string name="settings_samsung_show_dangerous_overlays">Permiten recubrimientos peligrosos (no recomendado)</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Mostrar todas las plantillas normalmente peligrosas para dispositivos Samsung si el tema no es compatible.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">ADVERTENCIA</string>
@@ -534,8 +517,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="notification_channel_default_description">Principales notificaciones (nueva y actualizada tema, tema compilación completada, etcetera)</string>
     <string name="notification_channel_ongoing">Curso</string>
     <string name="notification_channel_ongoing_description">Notificaciones en curso</string>
-    <string name="notification_channel_andromeda">Estado de Andromeda</string>
-    <string name="notification_channel_andromeda_description">Notificación del estado de conexión de Andromeda</string>
     <!-- Nav drawer -->
     <string name="nav_home">Packs de temas</string>
     <string name="nav_overlays">Capas</string>

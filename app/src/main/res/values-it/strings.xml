@@ -78,11 +78,6 @@
     <string name="overlays_up_to_date">Aggiornato</string>
     <string name="overlays_update_available">Aggiornamento disponibile!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variante non installata</string>
-    <string name="bootanimation_vm_exploded">Il rendering dell\'animazione d\'avvio è stato interrotto a causa della memoria di allocazione insufficiente.\nL\'installazione di questa animazione d\'avvio è comunque possibile senza una preview.    </string>
-    <string name="bootanimation_placeholder_text">Perfavore seleziona un\'animazione d\'avvio dalla lista&#8230;</string>
-    <string name="bootanimation_default_spinner">Perfavore seleziona un\'animazione d\'avvio&#8230;</string>
-    <string name="bootanimation_spinner_set_defaults">ripristina l\'animazione d\'avvio predefinita&#8230;    </string>
-    <string name="bootanimation_defaults_text">questo cancellerà tutte le animazioni d\'avvio personalizzate applicate sul tuo dispositivo</string>
     <string name="bootanimation_dialog_apply_text">L\'animazione d\'avvio è in elaborazione&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Animazione d\'avvio applicata!</string>
     <string name="bootanimation_dialog_apply_failed">L\'animazione d\'avvio non è stata applicata&#8230;</string>
@@ -143,7 +138,6 @@
     <string name="theme_information_tab_four">Pacchetti di suoni</string>
     <string name="theme_information_tab_five">Sfondi</string>
     <string name="nougat_style_cards_title">Stile Layout di Nougat</string>
-    <string name="nougat_style_cards_subtext">Abilita le notifiche di Android Nougat come le carte temi.</string>
     <string name="uninstall_dialog_text">Sei sicuro di voler disinstallare questo tema?</string>
     <string name="manage_dialog_performing">Ripristinando il default&#8230;</string>
     <string name="manage_bootanimation_title">Ripristina l\'animazione d\'avvio originaria del tuo telefono</string>
@@ -211,10 +205,6 @@
     <string name="logcat_email_activity_error">Non c\'è nessuno client di posta installato.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
     <string name="logcat_processing_dialog">Elaborazione report errori</string>
-    <string name="priority_card_title">Sistema di priorità dinamica (DPS)</string>
-    <string name="priority_card_content">Il Dynamic Priority System è una procedura avanzata che permette agli overlays del tema di essere organizzati con differenti priorità, ignorando le priorità OMS applicate di default per il sistema.\n\nUn esempio di questo è il voler posizionare un overlay su un altro overlay per una stessa specifica applicazione.\n\nCon l\'introduzione dell\'Overlay Manager Service, le priorità sono state invertite, e l\'overlay principale si trova nell\'ultima posizione di ogni lista.    </string>
-    <string name="priority_card_title2">Istruzioni</string>
-    <string name="priority_card_content2">Per come funziona l\'OverlayManagerService, tutte le priorità delle sovrapposizioni sono disposte in un ordine invertito, dove quella più in basso ha la priorità più alta (ricerca di risorse iniziale) e quella più in alto ha la priorità più bassa (ricerca di risorse finale).    </string>
     <string name="priority_no_multiple_overlays_title">nessuna applicazione con overlay multipli&#8230;</string>
     <string name="priority_no_multiple_overlays_text">abilita due o più overlay su un\'app per usarmi!    </string>
     <string name="manager_no_overlays_title">Non è installata alcuna sovrapposizione&#8230;</string>
@@ -255,8 +245,6 @@
     <string name="uninstall_dialog_body">Disinstalla</string>
     <string name="sb_phase_1_loader">Estraendo le attività da questo tema</string>
     <string name="sb_phase_2_loader">Sto creando e firmando la/le sovrapposizione/i</string>
-    <string name="root_rejected_timer_plural">chiusura in %s secondi&#8230;</string>
-    <string name="root_rejected_timer_singular">chiusura in %s secondi&#8230;</string>
     <string name="toast_compiled_updated">Overlay selezionato(i) aggiornato(i)!</string>
     <string name="toast_compiled_missing">Uno o più overlay non possono essere compilati a causa di configurazioni mancanti sotto questo setup&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Overlay selezionato(i) aggiornato(i) con errori!</string>
@@ -416,7 +404,6 @@
     <string name="settings_force_english_title">Forza la lingua inglese</string>
     <string name="settings_force_english_text">Questo forzerà l\'applicazione ad usare la lingua inglese.</string>
     <string name="settings_force_english_toast_reverted">Lingua inglese disattivata con successo!</string>
-    <string name="settings_manage_space_title">Gestisci l\'utilizzo della memoria</string>
     <string name="settings_samsung_show_dangerous_overlays">Abilita gli overlay pericolosi</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Mostra tutti gli overlay normalmente pericolosi per i dispositivi Samsung se il tema non lo supporta.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">ATTENZIONE</string>

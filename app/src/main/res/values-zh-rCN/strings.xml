@@ -70,6 +70,7 @@
     <string name="manager_type2">样式2：</string>
     <string name="manager_type3">样式3：</string>
     <string name="manager_type4">Type4：</string>
+    <string name="manager_version">版本：</string>
     <string name="legacy_preference_priority_title">叠加层优先级调整</string>
     <string name="legacy_preference_priority_text">优先级设置 （默认值 999）：%d</string>
     <string name="overlays_variant_substitute">%s&#8230;&#8230;</string>
@@ -82,11 +83,6 @@
     <string name="overlays_up_to_date">最新</string>
     <string name="overlays_update_available">有可用更新！\n（%s）</string>
     <string name="overlays_overlay_not_installed">变量未安装</string>
-    <string name="bootanimation_vm_exploded">由于内存不足，开机动画的渲染已停止。\n\n此开机动画在没有渲染预览的情况下仍然能被安装。</string>
-    <string name="bootanimation_placeholder_text">请从下拉列表中选择一个开机动画</string>
-    <string name="bootanimation_default_spinner">请选择一个开机动画</string>
-    <string name="bootanimation_spinner_set_defaults">还原到默认的开机动画</string>
-    <string name="bootanimation_defaults_text">这将清除您应用的所有自定义开机动画</string>
     <string name="bootanimation_dialog_apply_text">正在处理开机动画</string>
     <string name="bootanimation_dialog_apply_success">成功应用开机动画</string>
     <string name="bootanimation_dialog_apply_failed">开机动画应用失败</string>
@@ -148,7 +144,6 @@
     <string name="theme_information_tab_four">音效包</string>
     <string name="theme_information_tab_five">壁纸</string>
     <string name="nougat_style_cards_title">Nougat 卡片风格布局</string>
-    <string name="nougat_style_cards_subtext">使用安卓 Nougat 通知样式的主题卡片</string>
     <string name="uninstall_dialog_text">您确定想卸载此主题吗？</string>
     <string name="manage_dialog_performing">还原到默认值</string>
     <string name="manage_bootanimation_title">还原开机动画</string>
@@ -218,10 +213,6 @@
     <string name="logcat_email_activity_error">没有安装电子邮件客户端。</string>
     <string name="logcat_email_xposed_check">Xposed 框架</string>
     <string name="logcat_processing_dialog">正在处理错误报告</string>
-    <string name="priority_card_title">动态优先系统 （DPS）</string>
-    <string name="priority_card_content">动态优先级系统是高级程序。允许主题的叠加层使用不同的优先级，而忽视默认提供的优先级。\n\n当此功能开启时，可以构建另一个特别的叠加层覆盖住同一应用的顶部。 \n\n在 Overlay Manager Service（OMS）的作用下，优先级最高的叠加层会驻留在每个列表的底部。</string>
-    <string name="priority_card_title2">说明</string>
-    <string name="priority_card_content2">Overlay Manager Service（OMS）的工作方式是默认所有叠加层都以底部为最高优先级 （初始资源查找），顶部为最低优先级 （最后资源查找） 的倒序排列。</string>
     <string name="priority_no_multiple_overlays_title">没有应用具有多个叠加层</string>
     <string name="priority_no_multiple_overlays_text">使用此功能需要您对同一应用启用多个叠加层</string>
     <string name="manager_no_overlays_title">没有已安装的叠加层</string>
@@ -260,8 +251,6 @@
     <string name="uninstall_dialog_body">卸载主题</string>
     <string name="sb_phase_1_loader">提取主题</string>
     <string name="sb_phase_2_loader">安装叠加层</string>
-    <string name="root_rejected_timer_plural">在 %s 秒后关闭</string>
-    <string name="root_rejected_timer_singular">在 %s 秒后关闭</string>
     <string name="toast_compiled_updated">成功更新叠加层</string>
     <string name="toast_compiled_missing">在当前设置下，由于缺少某些配置，有一个或多个叠加层不能正常编译。</string>
     <string name="toast_compiled_updated_with_errors">叠加层更新时出现问题</string>
@@ -275,7 +264,6 @@
     <string name="no_themes_description_search">在已安装的主题列表中无法找到 \"%s\"</string>
     <string name="toast_could_not_uninstall">没有选择有效的叠加层</string>
     <string name="toast_samsung_prototype_alert">Substratum 会自动隐藏不支持此设备的系统叠加层</string>
-    <string name="andromeda_no_root_dialog">一个新插件已经发布，您的 OMS 设备已受支持。</string>
     <string name="andromeda_no_root_dialog_button">立即下载</string>
     <string name="samsung_prototype_no_root_dialog">一个新插件已经发布，您的三星设备已受支持。</string>
     <string name="samsung_prototype_no_root_dialog_button">立即下载</string>
@@ -432,7 +420,6 @@
     <string name="settings_force_english_title">使用英语环境</string>
     <string name="settings_force_english_text">开启此选项后应用语言会更改为英语</string>
     <string name="settings_force_english_toast_reverted">英语环境已关闭</string>
-    <string name="settings_manage_space_title">管理存储空间</string>
     <string name="settings_samsung_show_dangerous_overlays">允许使用高风险叠加层</string>
     <string name="settings_samsung_show_dangerous_overlays_text">即使主题不受支持，仍在三星设备上显示所有高风险叠加层。</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">警告</string>
@@ -504,8 +491,6 @@
     <string name="notification_channel_default_description">主要通知 （主题获得更新，主题编译完成，等等）</string>
     <string name="notification_channel_ongoing">正在进行</string>
     <string name="notification_channel_ongoing_description">正在进行的通知</string>
-    <string name="notification_channel_andromeda">仙女座状态</string>
-    <string name="notification_channel_andromeda_description">仙女座连接状态通知</string>
     <!-- Nav drawer -->
     <string name="nav_home">主题包</string>
     <string name="nav_overlays">叠加层</string>

@@ -53,6 +53,8 @@ import projekt.substratum.adapters.fragments.themes.ThemeAdapter;
 import projekt.substratum.adapters.fragments.themes.ThemeItem;
 import projekt.substratum.common.References;
 
+import static projekt.substratum.common.References.DEFAULT_GRID_COUNT;
+
 public class ThemeFragment extends Fragment {
 
     private HashMap<String, String[]> substratum_packages;
@@ -140,7 +142,7 @@ public class ThemeFragment extends Fragment {
 
             if (prefs.getBoolean("grid_layout", true)) {
                 recyclerView.setLayoutManager(new GridLayoutManager(getContext(),
-                        prefs.getInt("grid_style_cards_count", 2)));
+                        prefs.getInt("grid_style_cards_count", DEFAULT_GRID_COUNT)));
             } else {
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
                 recyclerView.setLayoutManager(layoutManager);

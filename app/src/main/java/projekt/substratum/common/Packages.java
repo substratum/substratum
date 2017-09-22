@@ -567,15 +567,20 @@ public class Packages {
                 if (can_continue) {
                     Context otherContext = context.createPackageContext(packageName, 0);
                     if (home_type.equals(wallpaperFragment)) {
-                        if (appInfo.metaData.getString(metadataWallpapers) != null) {
-                            String[] data = {appInfo.metaData.getString(metadataAuthor),
-                                    packageName};
+                        String wallpaperCheck = appInfo.metaData.getString(metadataWallpapers);
+                        if (wallpaperCheck != null && wallpaperCheck.length() > 0) {
+                            String[] data = {
+                                    appInfo.metaData.getString(metadataAuthor),
+                                    packageName
+                            };
                             packages.put(appInfo.metaData.getString(metadataName), data);
                         }
                     } else {
                         if (home_type.length() == 0) {
-                            String[] data = {appInfo.metaData.getString(metadataAuthor),
-                                    packageName};
+                            String[] data = {
+                                    appInfo.metaData.getString(metadataAuthor),
+                                    packageName
+                            };
                             packages.put(appInfo.metaData.getString(metadataName), data);
                             Log.d(PACKAGE_TAG,
                                     "Loaded Substratum Theme: [" + packageName + "]");

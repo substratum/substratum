@@ -18,13 +18,8 @@ import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -33,6 +28,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import projekt.substratum.common.analytics.PackageAnalytics;
+import projekt.substratum.util.files.FileDownloader;
 import projekt.substratum.util.files.Root;
 import projekt.substratum.util.readers.ReadSupportedROMsFile;
 
@@ -402,41 +398,18 @@ public class Systems {
         return blacklistedPackageFound;
     }
 
-    public static String checkFirmwareSupport(Context context, String urls, String inputFileName) {
+    public static String checkFirmwareSupport(Context context, String url, String fileName) {
         String supported_rom = "";
         try {
-            HttpURLConnection connection = (HttpURLConnection) new URL(urls).openConnection();
-            connection.connect();
-
             if (isNetworkAvailable(context)) {
-                try (InputStream input = connection.getInputStream();
-                     OutputStream output = new FileOutputStream(
-                             context.getCacheDir().getAbsolutePath() + "/" + inputFileName)) {
-
-                    // expect HTTP 200 OK, so we don't mistakenly save error report
-                    // instead of the file
-                    if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                        return "Server returned HTTP " + connection.getResponseCode()
-                                + " " + connection.getResponseMessage();
-                    }
-
-                    byte data[] = new byte[4096];
-                    int count;
-                    while ((count = input.read(data)) != -1) {
-                        // allow canceling with back button
-                        output.write(data, 0, count);
-                    }
-                }
+                FileDownloader.init(context, url, "", fileName);
             } else {
-                File check = new File(context.getCacheDir().getAbsolutePath() +
-                        "/" + inputFileName);
-                if (!check.exists()) {
-                    return "";
-                }
+                File check = new File(context.getCacheDir().getAbsolutePath() + "/" + fileName);
+                if (!check.exists()) return "";
             }
 
             HashMap<String, String> listOfRoms =
-                    ReadSupportedROMsFile.main(context.getCacheDir() + "/" + inputFileName);
+                    ReadSupportedROMsFile.main(context.getCacheDir() + "/" + fileName);
             Boolean supported = false;
 
             // First check if it is a valid prop

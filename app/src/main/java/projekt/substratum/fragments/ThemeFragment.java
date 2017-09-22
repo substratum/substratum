@@ -245,13 +245,15 @@ public class ThemeFragment extends Fragment {
         }
 
         // Now we need to sort the buffered installed themes
-        map = new TreeMap<>(substratum_packages);
-        if (adapter == null) {
-            adapter = new ThemeAdapter(prepareData());
-            recyclerView.setAdapter(adapter);
-        } else {
-            adapter.updateInformation(prepareData());
-            adapter.notifyDataSetChanged();
+        if (substratum_packages != null) {
+            map = new TreeMap<>(substratum_packages);
+            if (adapter == null) {
+                adapter = new ThemeAdapter(prepareData());
+                recyclerView.setAdapter(adapter);
+            } else {
+                adapter.updateInformation(prepareData());
+                adapter.notifyDataSetChanged();
+            }
         }
         swipeRefreshLayout.setRefreshing(false);
         materialProgressBar.setVisibility(View.GONE);

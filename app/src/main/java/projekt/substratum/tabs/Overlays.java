@@ -1196,7 +1196,10 @@ public class Overlays extends Fragment {
                     i.putExtra(Intent.EXTRA_EMAIL, new String[]{themeEmail});
                     i.putExtra(Intent.EXTRA_SUBJECT, emailSubject);
                     i.putExtra(Intent.EXTRA_TEXT, emailBody);
-                    i.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(result));
+                    i.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(
+                            ref.get(),
+                            ref.get().getPackageName() + ".provider",
+                            result));
                     try {
                         context.startActivity(Intent.createChooser(i,
                                 context.getString(R.string.logcat_email_activity)));

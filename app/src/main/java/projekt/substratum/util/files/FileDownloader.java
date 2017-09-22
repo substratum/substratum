@@ -53,7 +53,8 @@ public class FileDownloader {
             // First create the cache folder
             File directory = new File(context.getCacheDir().getAbsolutePath() + "/" +
                     destinationFolder);
-            if (!directory.exists()) {
+            if (!destinationFolder.endsWith(".png") && !destinationFolder.endsWith(".jpg") &&
+                    !directory.exists()) {
                 Boolean made = directory.mkdir();
                 if (!made)
                     Log.e(References.SUBSTRATUM_LOG,
@@ -76,9 +77,13 @@ public class FileDownloader {
                 // Download the file
                 input = connection.getInputStream();
 
-                output = new FileOutputStream(
-                        context.getCacheDir().getAbsolutePath() + "/" +
-                                destinationFolder + "/" + outputFile);
+                String outputDir = context.getCacheDir().getAbsolutePath() + "/" +
+                        destinationFolder +
+                        (outputFile != null && outputFile.length() > 0 ? "/" + outputFile : "");
+
+                Log.d(References.SUBSTRATUM_LOG, "Placing file in: " + outputDir);
+
+                output = new FileOutputStream(outputDir);
 
                 // Begin writing the data into the file
                 byte data[] = new byte[8192];

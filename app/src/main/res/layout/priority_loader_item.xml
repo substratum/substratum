@@ -54,7 +54,7 @@
                 android:src="@drawable/default_overlay_icon"/>
         </LinearLayout>
 
-        <projekt.substratum.util.views.AutoTextResizer
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/card_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -64,8 +64,12 @@
             android:gravity="center_vertical"
             android:paddingEnd="@dimen/linear_text_padding"
             android:paddingStart="@dimen/linear_text_padding"
-            android:singleLine="true"
-            android:textColor="@color/main_screen_card_theme_title"/>
+            android:singleLine="false"
+            android:textColor="@color/main_screen_card_theme_title"
+            app:autoSizeMaxTextSize="15sp"
+            app:autoSizeMinTextSize="5sp"
+            app:autoSizeStepGranularity="2sp"
+            app:autoSizeTextType="uniform"/>
 
         <ImageView
             android:id="@+id/card_drag"

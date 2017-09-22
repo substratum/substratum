@@ -55,7 +55,6 @@ import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.O;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
-import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ROOTED;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_UNROOTED;
 import static projekt.substratum.common.References.checkAndromeda;

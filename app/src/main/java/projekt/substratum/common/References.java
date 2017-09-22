@@ -179,6 +179,7 @@ public class References {
     // This string controls the hero image name
     static final String heroImageResourceName = "heroimage";
     static final String heroImageGridResourceName = "heroimage_grid";
+    static final String heroImageKenBurnsResourceName = "heroimage_banner";
     // Specific intents Substratum should be listening to
     static final String APP_CRASHED = "projekt.substratum.APP_CRASHED";
     @SuppressWarnings("WeakerAccess")

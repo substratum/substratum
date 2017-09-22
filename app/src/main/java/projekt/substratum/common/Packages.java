@@ -52,6 +52,7 @@ import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.References.SUBSTRATUM_THEME;
 import static projekt.substratum.common.References.heroImageGridResourceName;
+import static projekt.substratum.common.References.heroImageKenBurnsResourceName;
 import static projekt.substratum.common.References.heroImageResourceName;
 import static projekt.substratum.common.References.metadataAuthor;
 import static projekt.substratum.common.References.metadataName;
@@ -447,6 +448,11 @@ public class Packages {
                     getInt("grid_style_cards_count", 1) != 1 && isThemesView) {
                 resourceId = res.getIdentifier(
                         package_name + ":drawable/" + heroImageGridResourceName, null, null);
+                if (resourceId == 0) resourceId = res.getIdentifier(
+                        package_name + ":drawable/" + heroImageResourceName, null, null);
+            } else if (!isThemesView) {
+                resourceId = res.getIdentifier(
+                        package_name + ":drawable/" + heroImageKenBurnsResourceName, null, null);
                 if (resourceId == 0) resourceId = res.getIdentifier(
                         package_name + ":drawable/" + heroImageResourceName, null, null);
             } else {

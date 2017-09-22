@@ -118,6 +118,7 @@ public class References {
     public static final String metadataEncryption = "Substratum_Encryption";
     public static final String metadataEncryptionValue = "onCompileVerify";
     public static final String metadataWallpapers = "Substratum_Wallpapers";
+    public static final String metadataHeroOverride = "Substratum_HeroOverride";
     public static final String metadataOverlayDevice = "Substratum_Device";
     public static final String metadataOverlayParent = "Substratum_Parent";
     public static final String metadataOverlayTarget = "Substratum_Target";

@@ -100,6 +100,7 @@ import static projekt.substratum.common.References.BYPASS_SUBSTRATUM_BUILDER_DEL
 import static projekt.substratum.common.References.MANAGER_REFRESH;
 import static projekt.substratum.common.References.bootAnimationsFragment;
 import static projekt.substratum.common.References.fontsFragment;
+import static projekt.substratum.common.References.metadataHeroOverride;
 import static projekt.substratum.common.References.metadataOverlayParent;
 import static projekt.substratum.common.References.metadataWallpapers;
 import static projekt.substratum.common.References.overlaysFragment;
@@ -168,6 +169,53 @@ public class InformationActivity extends SubstratumActivity {
             overflow.setImageResource(dark_mode ? R.drawable.information_activity_overflow_dark :
                     R.drawable.information_activity_overflow_light);
         });
+    }
+
+    private void autoSetToolbarIcons(boolean dynamicActionBarColors) {
+        if (collapsingToolbarLayout != null && checkColorDarkness(dominantColor) &&
+                dynamicActionBarColors && prefs.getBoolean("dynamic_actionbar", true)) {
+            setDarkToolbarIcons();
+        } else if (collapsingToolbarLayout != null) {
+            setLightToolbarIcons();
+        }
+    }
+
+    private void setDarkToolbarIcons() {
+        collapsingToolbarLayout.setCollapsedTitleTextColor(
+                getColor(R.color.information_activity_dark_icon_mode));
+        collapsingToolbarLayout.setExpandedTitleColor(
+                getColor(R.color.information_activity_dark_icon_mode));
+        tabLayout.setTabTextColors(
+                getColor(R.color.information_activity_dark_text_mode),
+                getColor(R.color.information_activity_dark_text_mode));
+
+        Drawable upArrow = getDrawable(R.drawable.information_activity_back_dark);
+        if (upArrow != null)
+            upArrow.setColorFilter(getColor(R.color.information_activity_dark_icon_mode),
+                    PorterDuff.Mode.SRC_ATOP);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setHomeAsUpIndicator(upArrow);
+        }
+        setOverflowButtonColor(this, true);
+    }
+
+    private void setLightToolbarIcons() {
+        collapsingToolbarLayout.setCollapsedTitleTextColor(
+                getColor(R.color.information_activity_light_icon_mode));
+        collapsingToolbarLayout.setExpandedTitleColor(
+                getColor(R.color.information_activity_light_icon_mode));
+        tabLayout.setTabTextColors(
+                getColor(R.color.information_activity_light_text_mode),
+                getColor(R.color.information_activity_light_text_mode));
+
+        Drawable upArrow = getDrawable(R.drawable.information_activity_back_light);
+        if (upArrow != null)
+            upArrow.setColorFilter(getColor(R.color.information_activity_light_icon_mode),
+                    PorterDuff.Mode.SRC_ATOP);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setHomeAsUpIndicator(upArrow);
+        }
+        setOverflowButtonColor(this, false);
     }
 
     private boolean closeAllLunchBars() {
@@ -470,37 +518,25 @@ public class InformationActivity extends SubstratumActivity {
             if (dynamicActionBarColors && prefs.getBoolean("dynamic_actionbar", true))
                 tabLayout.setBackgroundColor(dominantColor);
 
-            if (collapsingToolbarLayout != null && checkColorDarkness(dominantColor) &&
-                    dynamicActionBarColors && prefs.getBoolean("dynamic_actionbar", true)) {
-                collapsingToolbarLayout.setCollapsedTitleTextColor(
-                        getColor(R.color.information_activity_dark_icon_mode));
-                collapsingToolbarLayout.setExpandedTitleColor(
-                        getColor(R.color.information_activity_dark_icon_mode));
-                tabLayout.setTabTextColors(
-                        getColor(R.color.information_activity_dark_text_mode),
-                        getColor(R.color.information_activity_dark_text_mode));
-
-                Drawable upArrow = getDrawable(R.drawable.information_activity_back_dark);
-                if (upArrow != null)
-                    upArrow.setColorFilter(getColor(R.color.information_activity_dark_icon_mode),
-                            PorterDuff.Mode.SRC_ATOP);
-                getSupportActionBar().setHomeAsUpIndicator(upArrow);
-                setOverflowButtonColor(this, true);
-            } else if (collapsingToolbarLayout != null) {
-                collapsingToolbarLayout.setCollapsedTitleTextColor(
-                        getColor(R.color.information_activity_light_icon_mode));
-                collapsingToolbarLayout.setExpandedTitleColor(
-                        getColor(R.color.information_activity_light_icon_mode));
-                tabLayout.setTabTextColors(
-                        getColor(R.color.information_activity_light_text_mode),
-                        getColor(R.color.information_activity_light_text_mode));
-
-                Drawable upArrow = getDrawable(R.drawable.information_activity_back_light);
-                if (upArrow != null)
-                    upArrow.setColorFilter(getColor(R.color.information_activity_light_icon_mode),
-                            PorterDuff.Mode.SRC_ATOP);
-                getSupportActionBar().setHomeAsUpIndicator(upArrow);
-                setOverflowButtonColor(this, false);
+            String toOverrideHero =
+                    Packages.getOverlayMetadata(
+                            getApplicationContext(),
+                            theme_pid,
+                            metadataHeroOverride);
+            if (toOverrideHero != null) {
+                switch (toOverrideHero) {
+                    case "dark":
+                        setDarkToolbarIcons();
+                        break;
+                    case "light":
+                        setLightToolbarIcons();
+                        break;
+                    default:
+                        autoSetToolbarIcons(dynamicActionBarColors);
+                        break;
+                }
+            } else {
+                autoSetToolbarIcons(dynamicActionBarColors);
             }
         }
 

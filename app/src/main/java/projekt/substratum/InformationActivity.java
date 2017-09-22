@@ -374,6 +374,7 @@ public class InformationActivity extends SubstratumActivity {
         new LayoutLoader(this).execute("");
         tabLayout = findViewById(R.id.tabs);
         if (tabLayout != null) {
+            // First, take account for whether the theme was launched normally
             if (theme_mode.equals("")) {
                 try {
                     Context otherContext = mContext.createPackageContext
@@ -391,29 +392,35 @@ public class InformationActivity extends SubstratumActivity {
                     } else {
                         tab_checker = Arrays.asList(am.list(""));
                     }
+                    boolean isWallpaperOnly = true;
                     if (tab_checker.contains(overlaysFragment)) {
+                        isWallpaperOnly = false;
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_one)));
                     }
                     if (tab_checker.contains(bootAnimationsFragment) &&
                             !checkAndromeda(mContext) &&
                             !isSamsung(mContext)) {
+                        isWallpaperOnly = false;
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_two)));
                     }
                     if (tab_checker.contains(shutdownAnimationsFragment) &&
                             projekt.substratum.common.Resources.isShutdownAnimationSupported()) {
+                        isWallpaperOnly = false;
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_six)));
                     }
                     if (tab_checker.contains(fontsFragment) && projekt.substratum.common
                             .Resources.isFontsSupported()) {
+                        isWallpaperOnly = false;
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_three)));
                     }
                     if (tab_checker.contains(soundsFragment) &&
                             !checkAndromeda(mContext) &&
                             !isSamsung(mContext)) {
+                        isWallpaperOnly = false;
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_four)));
                     }
@@ -421,10 +428,16 @@ public class InformationActivity extends SubstratumActivity {
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_five)));
                     }
+                    if (isWallpaperOnly && wallpaperUrl != null) {
+                        final Handler handler = new Handler();
+                        handler.postDelayed(() ->
+                                runOnUiThread(floatingActionButton::hide), 500);
+                    }
                 } catch (Exception e) {
                     Log.e(References.SUBSTRATUM_LOG, "Could not refresh list of asset folders.");
                 }
             } else {
+                // At this point, theme was launched in their tab specific sections
                 switch (theme_mode) {
                     case overlaysFragment:
                         tabLayout.addTab(tabLayout.newTab().setText(

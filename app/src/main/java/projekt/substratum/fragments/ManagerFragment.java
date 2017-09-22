@@ -30,8 +30,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.util.Pair;
@@ -260,10 +258,14 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
 
         swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(() -> {
-            if (first_run != null && mRecyclerView.isShown() && !first_run) {
-                refreshList();
+            if (searchView.isIconified()) {
+                if (first_run != null && mRecyclerView.isShown() && !first_run) {
+                    refreshList();
+                } else {
+                    swipeRefreshLayout.setRefreshing(false);
+                }
             } else {
-                swipeRefreshLayout.setRefreshing(false);
+                refreshLayout();
             }
         });
 
@@ -444,82 +446,26 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         materialProgressBar.setVisibility(View.VISIBLE);
 
         List<ManagerItem> updated = new ArrayList<>();
-
         boolean alphabetize = prefs.getBoolean("alphabetize_overlays", true);
         if (overlayList.size() > 0) {
-            if (userInput.compareTo("") != 0) {
+            if (userInput.length() > 0) {
+                List<ManagerItem> returnList = new ArrayList<>();
                 if (alphabetize) {
-                    int i = 0, j = overlayList.size() - 1;
-                    for (; i < overlayList.size(); i++) {
-                        if (overlayList.get(i).getLabelName().toLowerCase().
-                                replaceAll(" ", "").
-                                startsWith(userInput.toLowerCase().
-                                        replaceAll(" ", "")))
-                            break;
-                    }
-                    if (i == overlayList.size()) i--;
-                    if (i != j) {
-                        for (; j > 0; j--) {
-                            if (overlayList.get(j).getLabelName().toLowerCase().
-                                    replaceAll(" ", "").
-                                    startsWith(userInput.toLowerCase().
-                                            replaceAll(" ", "")))
-                                break;
-                        }
-                        updated = overlayList.subList(i, j);
-                    } else if (overlayList.get(i).getLabelName().toLowerCase().
-                            replaceAll(" ", "").
-                            startsWith(userInput.replaceAll(" ", "")))
-                        updated.add(overlayList.get(i));
-                }
-                else {
-                    List<List<ManagerItem>> themesList = new ArrayList<>();
-                    int i = 0;
-                    int j = 0;
-                    if (overlayList.size() > 2) {
-                        while (i < overlayList.size() - 2) {
-                            j = i;
-                            while (overlayList.get(i).getThemeName().
-                                    equals(overlayList.get(i + 1).getThemeName())) {
-                                i++;
-                                if (i == overlayList.size() - 2) break;
-                            }
-                            i++;
-                            if (i == overlayList.size() - 1) i++;
-                            themesList.add(overlayList.subList(j, i));
+                    for (int i = 0; i < overlayList.size(); i++) {
+                        if (overlayList.get(i).getLabelName().toLowerCase()
+                                .contains(userInput.toLowerCase())) {
+                            returnList.add(overlaysList.get(i));
                         }
                     }
-                    else {
-                        if (overlayList.size() > 1) j = 2;
-                        else j++;
-                        themesList.add(overlayList.subList(j, i));
-                    }
-
-                    for (i = 0; i < themesList.size(); i++) {
-                        int m = 0, n = themesList.get(i).size() - 1;
-                        for (; m < themesList.get(i).size(); m++) {
-                            if (themesList.get(i).get(m).getLabelName().toLowerCase().
-                                    replaceAll(" ", "").
-                                    startsWith(userInput.toLowerCase().
-                                            replaceAll(" ", "")))
-                                break;
+                } else {
+                    for (int i = 0; i < overlayList.size(); i++) {
+                        if (overlayList.get(i).getThemeName().toLowerCase()
+                                .contains(userInput.toLowerCase())) {
+                            returnList.add(overlaysList.get(i));
                         }
-                        if (m == themesList.get(i).size()) m--;
-                        if (m != n) {
-                            for (; n > 0; n--) {
-                                if (themesList.get(i).get(n).getLabelName().toLowerCase().
-                                        replaceAll(" ", "").
-                                        startsWith(userInput.toLowerCase().
-                                                replaceAll(" ", "")))
-                                    break;
-                            }
-                            updated.addAll(themesList.get(i).subList(m, n));
-                        } else if (themesList.get(i).get(m).getLabelName().toLowerCase().
-                                replaceAll(" ", "").
-                                startsWith(userInput.replaceAll(" ", "")))
-                            updated.add(themesList.get(i).get(m));
                     }
                 }
+                updated = returnList;
                 mAdapter.setOverlayManagerList(updated);
 
                 floatingActionButton.show();
@@ -528,10 +474,31 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 mRecyclerView.setVisibility(View.VISIBLE);
 
                 mAdapter.notifyDataSetChanged();
-            } else
+            } else {
                 refreshList();
+            }
         }
 
+        if (!searchView.isIconified() && updated.size() == 0 && userInput.length() > 0) {
+            toggle_zone.setVisibility(View.GONE);
+            relativeLayout.setVisibility(View.VISIBLE);
+            TextView titleView = root.findViewById(R.id.no_themes_title);
+            titleView.setText(getString(R.string.no_overlays_title));
+
+            TextView textView = root.findViewById(R.id.no_themes_description);
+            String formatter = String.format(
+                    getString(R.string.no_overlays_description_search), userInput);
+            textView.setText(formatter);
+        } else {
+            toggle_zone.setVisibility(View.VISIBLE);
+            relativeLayout.setVisibility(View.GONE);
+
+            TextView titleView = root.findViewById(R.id.no_themes_title);
+            titleView.setText(getString(R.string.manager_no_overlays_title));
+
+            TextView textView = root.findViewById(R.id.no_themes_description);
+            textView.setText(getString(R.string.manager_no_overlays_text));
+        }
         swipeRefreshLayout.setRefreshing(false);
         materialProgressBar.setVisibility(View.GONE);
     }

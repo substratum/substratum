@@ -18,6 +18,7 @@
 
 package projekt.substratum.adapters.tabs.wallpapers;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
@@ -60,6 +61,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
     private ArrayList<WallpaperEntries> information;
     private Context mContext;
     private PowerManager.WakeLock mWakeLock;
+    private AsyncTask current_download;
 
     public WallpaperAdapter(ArrayList<WallpaperEntries> information) {
         this.information = information;
@@ -105,96 +107,23 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                     android.R.string.cancel,
                     (dialog, which) -> dialog.dismiss());
             builder.setAdapter(arrayAdapter, (dialog, which) -> {
+                String mode = "homescreen_wallpaper";
                 switch (which) {
                     case 0:
-                        dialog.cancel();
-
-                        // Find out the extension of the image
-                        String extension;
-                        if (wallpaperEntry.getWallpaperLink().endsWith(".png")) {
-                            extension = ".png";
-                        } else {
-                            extension = ".jpg";
-                        }
-
-                        // Download the image
-                        new downloadWallpaper(this).execute(
-                                wallpaperEntry.getWallpaperLink(),
-                                "homescreen_wallpaper" + extension);
-
-                        // Crop the image, and send the request back to InformationActivity
-                        CropImage.activity(Uri.fromFile(new File(
-                                mContext.getCacheDir().getAbsolutePath() +
-                                        "/" + "homescreen_wallpaper" + extension)))
-                                .setGuidelines(CropImageView.Guidelines.ON)
-                                .setFixAspectRatio(false)
-                                .setInitialCropWindowPaddingRatio(0)
-                                .setActivityTitle(wallpaperEntry.getWallpaperName())
-                                .setOutputUri(Uri.fromFile(new File(
-                                        mContext.getCacheDir().getAbsolutePath() +
-                                                "/" + "homescreen_wallpaper" + extension)))
-                                .start(wallpaperEntry.getCallingActivity());
-                        break;
                     case 1:
-                        dialog.cancel();
-
-                        // Find out the extension of the image
-                        String extension2;
-                        if (wallpaperEntry.getWallpaperLink().endsWith(".png")) {
-                            extension2 = ".png";
-                        } else {
-                            extension2 = ".jpg";
-                        }
-
-                        // Download the image
-                        new downloadWallpaper(this).execute(
-                                wallpaperEntry.getWallpaperLink(),
-                                "lockscreen_wallpaper" + extension2);
-
-                        // Crop the image, and send the request back to
-                        // InformationActivity
-                        CropImage.activity(Uri.fromFile(new File(
-                                mContext.getCacheDir().getAbsolutePath() +
-                                        "/" + "lockscreen_wallpaper" + extension2)))
-                                .setGuidelines(CropImageView.Guidelines.ON)
-                                .setFixAspectRatio(false)
-                                .setInitialCropWindowPaddingRatio(0)
-                                .setActivityTitle(wallpaperEntry.getWallpaperName())
-                                .setOutputUri(Uri.fromFile(new File(
-                                        mContext.getCacheDir().getAbsolutePath() +
-                                                "/" + "lockscreen_wallpaper" + extension2)))
-                                .start(wallpaperEntry.getCallingActivity());
-                        break;
+                        if (which == 1) mode = "lockscreen_wallpaper";
                     case 2:
+                        if (which == 2) mode = "all_wallpaper";
                         dialog.cancel();
 
-                        // Find out the extension of the image
-                        String extension3;
-                        if (wallpaperEntry.getWallpaperLink().endsWith(".png")) {
-                            extension3 = ".png";
-                        } else {
-                            extension3 = ".jpg";
-                        }
-
                         // Download the image
-                        new downloadWallpaper(this).execute(
+                        current_download = new downloadWallpaper(
+                                this,
+                                wallpaperEntry.getCallingActivity()
+                        ).execute(
                                 wallpaperEntry.getWallpaperLink(),
-                                "all_wallpaper" + extension3);
-
-                        // Crop the image, and send the request back to
-                        // InformationActivity
-                        CropImage.activity(Uri.fromFile(new File(
-                                mContext.getCacheDir().getAbsolutePath() +
-                                        "/" + "all_wallpaper" + extension3)))
-                                .setGuidelines(CropImageView.Guidelines.ON)
-                                .setFixAspectRatio(false)
-                                .setInitialCropWindowPaddingRatio(0)
-                                .setActivityTitle(wallpaperEntry.getWallpaperName())
-                                .setOutputUri(Uri.fromFile(new File(
-                                        mContext.getCacheDir().getAbsolutePath() +
-                                                "/" + "all_wallpaper" +
-                                                extension3)))
-                                .start(wallpaperEntry.getCallingActivity());
+                                mode,
+                                wallpaperEntry.getWallpaperName());
                         break;
                 }
             });
@@ -211,9 +140,15 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
     private static class downloadWallpaper extends AsyncTask<String, Integer, String> {
 
         private WeakReference<WallpaperAdapter> ref;
+        private String wallpaperLink;
+        private String extension;
+        private String directory_output;
+        private String wallpaperName;
+        private WeakReference<Activity> activity;
 
-        downloadWallpaper(WallpaperAdapter wallpaperAdapter) {
+        downloadWallpaper(WallpaperAdapter wallpaperAdapter, Activity callingActivity) {
             ref = new WeakReference<>(wallpaperAdapter);
+            activity = new WeakReference<>(callingActivity);
         }
 
         @Override
@@ -227,7 +162,6 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                         wallpaperAdapter.mContext.getString(R.string.wallpaper_downloading));
                 wallpaperAdapter.mProgressDialog.setIndeterminate(false);
                 wallpaperAdapter.mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                wallpaperAdapter.mProgressDialog.setCancelable(false);
 
                 // Take CPU lock to prevent CPU from going off if the user
                 // presses the power button during download
@@ -238,6 +172,8 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                             getClass().getName());
                 }
                 wallpaperAdapter.mWakeLock.acquire(10 * 60 * 1000L /*10 minutes*/);
+                wallpaperAdapter.mProgressDialog.setOnCancelListener(
+                        dialogInterface -> wallpaperAdapter.current_download.cancel(true));
                 wallpaperAdapter.mProgressDialog.show();
             }
         }
@@ -258,9 +194,23 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             WallpaperAdapter wallpaperAdapter = ref.get();
-            if (wallpaperAdapter != null) {
+            if (wallpaperAdapter != null && activity != null) {
                 wallpaperAdapter.mWakeLock.release();
                 wallpaperAdapter.mProgressDialog.dismiss();
+
+                // Crop the image, and send the request back to
+                // InformationActivity
+                CropImage.activity(Uri.fromFile(new File(
+                        wallpaperAdapter.mContext.getCacheDir().getAbsolutePath() +
+                                "/" + directory_output)))
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .setFixAspectRatio(false)
+                        .setInitialCropWindowPaddingRatio(0)
+                        .setActivityTitle(wallpaperName)
+                        .setOutputUri(Uri.fromFile(new File(
+                                wallpaperAdapter.mContext.getCacheDir().getAbsolutePath() +
+                                        "/" + directory_output)))
+                        .start(activity.get());
             }
         }
 
@@ -268,13 +218,21 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         protected String doInBackground(String... sUrl) {
             WallpaperAdapter wallpaperAdapter = ref.get();
             if (wallpaperAdapter != null) {
+                wallpaperLink = sUrl[0];
+                if (wallpaperLink.endsWith(".png")) {
+                    extension = ".png";
+                } else {
+                    extension = ".jpg";
+                }
+                directory_output = sUrl[1] + extension;
+                wallpaperName = sUrl[2];
 
                 InputStream input = null;
                 OutputStream output = null;
                 HttpURLConnection connection = null;
 
                 try {
-                    URL url = new URL(sUrl[0]);
+                    URL url = new URL(wallpaperLink);
                     connection = (HttpURLConnection) url.openConnection();
                     connection.connect();
 
@@ -294,7 +252,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
 
                     output = new FileOutputStream(
                             wallpaperAdapter.mContext.getCacheDir().getAbsolutePath() +
-                                    "/" + sUrl[1]);
+                                    "/" + directory_output);
 
                     byte data[] = new byte[4096];
                     long total = 0;

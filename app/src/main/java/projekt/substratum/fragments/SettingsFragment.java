@@ -389,7 +389,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle(R.string.manage_notification_channel_dialog_title);
-                builder.setNegativeButton(android.R.string.cancel, (dialog, i) -> dialog.cancel());
+                builder.setNegativeButton(R.string.error_loading_theme_close,
+                        (dialog, i) -> dialog.cancel());
                 List<NotificationChannel> finalChannels = channels;
                 builder.setItems(channelNames, (dialog, i) -> {
                     Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);

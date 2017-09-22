@@ -538,7 +538,7 @@
     <string name="vibrate_on_compiled">Notify after theme is compiled</string>
     <string name="vibrate_on_compiled_description">When the theme has been compiled, vibrate the device to notify the user that the compilation has completed.</string>
     <string name="manage_notification_channel">Adjust notification channels</string>
-    <string name="manage_notification_channel_dialog_title">Select the notification channel to adjust in Settings</string>
+    <string name="manage_notification_channel_dialog_title">Select the notification channel</string>
     <string name="hide_app_icon">Show app icon</string>
     <string name="hide_app_icon_toast_enabled">The app\'s icon has been removed from your launcher!</string>
     <string name="hide_app_icon_toast_disabled">The app\'s icon has now been added to your launcher!</string>

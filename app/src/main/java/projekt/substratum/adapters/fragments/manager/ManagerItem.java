@@ -66,10 +66,8 @@ public class ManagerItem implements Serializable, Comparable<ManagerItem> {
         } else {
             this.themeName = "";
         }
-        setLabelName(name);
-
         this.updateEnabledOverlays(isActivated);
-        setLabelName(name);
+        setLabelName(context);
     }
 
     int getActivationValue() {
@@ -162,9 +160,22 @@ public class ManagerItem implements Serializable, Comparable<ManagerItem> {
         return labelName;
     }
 
-    private void setLabelName(String packageName) {
-        labelName = Packages.getPackageName(getContext(),
-                Packages.getOverlayTarget(getContext(), packageName));
+    private void setLabelName(Context context) {
+        String packageName = getName();
+        String targetPackage = Packages.getOverlayTarget(context, packageName);
+        if (packageName.startsWith("com.android.systemui.headers")) {
+            labelName = context.getString(R.string.systemui_headers);
+        } else if (packageName.startsWith("com.android.systemui.navbars")) {
+            labelName = context.getString(R.string.systemui_navigation);
+        } else if (packageName.startsWith("com.android.systemui.statusbars")) {
+            labelName = context.getString(R.string.systemui_statusbar);
+        } else if (packageName.startsWith("com.android.systemui.tiles")) {
+            labelName = context.getString(R.string.systemui_qs_tiles);
+        } else if (packageName.startsWith("com.android.settings.icons")) {
+            labelName = context.getString(R.string.settings_icons);
+        } else {
+            labelName = Packages.getPackageName(context, targetPackage);
+        }
     }
 
     public Drawable getDrawable() {

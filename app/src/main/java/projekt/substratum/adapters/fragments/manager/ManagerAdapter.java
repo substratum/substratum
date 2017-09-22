@@ -67,22 +67,8 @@ public class ManagerAdapter extends
         final int position_fixed = position;
         Context context = overlayList.get(position_fixed).getContext();
         String packageName = overlayList.get(position_fixed).getName();
-        String targetPackage = Packages.getOverlayTarget(context, packageName);
 
-        String title;
-        if (packageName.startsWith("com.android.systemui.headers")) {
-            title = context.getString(R.string.systemui_headers);
-        } else if (packageName.startsWith("com.android.systemui.navbars")) {
-            title = context.getString(R.string.systemui_navigation);
-        } else if (packageName.startsWith("com.android.systemui.statusbars")) {
-            title = context.getString(R.string.systemui_statusbar);
-        } else if (packageName.startsWith("com.android.systemui.tiles")) {
-            title = context.getString(R.string.systemui_qs_tiles);
-        } else if (packageName.startsWith("com.android.settings.icons")) {
-            title = context.getString(R.string.settings_icons);
-        } else {
-            title = Packages.getPackageName(context, targetPackage);
-        }
+        String title = overlayList.get(position_fixed).getLabelName();
 
         if (title != null && title.length() > 0) {
             viewHolder.tvName.setText(title);

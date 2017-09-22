@@ -466,6 +466,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     // Set the value to the current chosen priority by the user
                     numberPicker.setValue(prefs.getInt("grid_style_cards_count",
                             References.DEFAULT_GRID_COUNT));
+                    // Do not show the soft keyboard
+                    numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
                     // Do not wrap selector wheel
                     numberPicker.setWrapSelectorWheel(false);
 

@@ -605,12 +605,15 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                                         .getApplicationInfo(all_overlays.get(i), 0);
                                 String packageTitle = context.getPackageManager()
                                         .getApplicationLabel(applicationInfo).toString();
-                                unsortedMap.put(
-                                        all_overlays.get(i),
-                                        Packages.getPackageName(context,
-                                                Packages.getOverlayTarget(
-                                                        context,
-                                                        packageTitle)));
+                                String targetApplication = Packages.getOverlayTarget(
+                                        context,
+                                        packageTitle);
+
+                                if (Packages.isPackageInstalled(context, targetApplication)) {
+                                    unsortedMap.put(
+                                            all_overlays.get(i),
+                                            Packages.getPackageName(context, targetApplication));
+                                }
                             } catch (Exception e) {
                                 // Suppress warning
                             }

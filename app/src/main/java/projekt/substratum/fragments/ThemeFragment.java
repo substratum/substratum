@@ -138,26 +138,20 @@ public class ThemeFragment extends Fragment {
 
         // Now we need to sort the buffered installed Layers themes
         if (substratum_packages != null) {
-            try {
-                map = new TreeMap<>(substratum_packages);
+            map = new TreeMap<>(substratum_packages);
 
-                ArrayList<ThemeItem> themeItems = prepareData();
-                adapter = new ThemeAdapter(themeItems);
+            ArrayList<ThemeItem> themeItems = prepareData();
+            adapter = new ThemeAdapter(themeItems);
 
-                // Assign adapter to RecyclerView
-                recyclerView.setAdapter(adapter);
+            // Assign adapter to RecyclerView
+            recyclerView.setAdapter(adapter);
 
-                if (prefs.getBoolean("grid_layout", true)) {
-                    recyclerView.setLayoutManager(new GridLayoutManager(getContext(),
-                            prefs.getInt("grid_style_cards_count", DEFAULT_GRID_COUNT)));
-                } else {
-                    RecyclerView.LayoutManager layoutManager =
-                            new LinearLayoutManager(getContext());
-
-                    recyclerView.setLayoutManager(layoutManager);
-                }
-            } catch (Exception e) {
-                // Suppress warning
+            if (prefs.getBoolean("grid_layout", true)) {
+                recyclerView.setLayoutManager(new GridLayoutManager(getContext(),
+                        prefs.getInt("grid_style_cards_count", DEFAULT_GRID_COUNT)));
+            } else {
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+                recyclerView.setLayoutManager(layoutManager);
             }
         }
         return root;
@@ -258,17 +252,13 @@ public class ThemeFragment extends Fragment {
 
         // Now we need to sort the buffered installed themes
         if (substratum_packages != null) {
-            try {
-                map = new TreeMap<>(substratum_packages);
-                if (adapter == null) {
-                    adapter = new ThemeAdapter(prepareData());
-                    recyclerView.setAdapter(adapter);
-                } else {
-                    adapter.updateInformation(prepareData());
-                    adapter.notifyDataSetChanged();
-                }
-            } catch (Exception e) {
-                // Suppress warning
+            map = new TreeMap<>(substratum_packages);
+            if (adapter == null) {
+                adapter = new ThemeAdapter(prepareData());
+                recyclerView.setAdapter(adapter);
+            } else {
+                adapter.updateInformation(prepareData());
+                adapter.notifyDataSetChanged();
             }
         }
         swipeRefreshLayout.setRefreshing(false);

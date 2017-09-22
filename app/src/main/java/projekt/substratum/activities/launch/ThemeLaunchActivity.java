@@ -27,7 +27,9 @@ import android.os.Bundle;
 import java.util.concurrent.ThreadLocalRandom;
 
 import projekt.substratum.InformationActivity;
+import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
 
 import static android.content.pm.PackageManager.GET_META_DATA;
 
@@ -146,14 +148,14 @@ public class ThemeLaunchActivity extends Activity {
                                 theme_piracy_check,
                                 encryption_key,
                                 iv_encrypt_key,
-                                References.checkOMS(getApplicationContext())
+                                Systems.checkOMS(getApplicationContext())
                         ));
             }
         } else if (legacyTheme && requestCode != 10000) {
             startActivity(
                     launchThemeActivity(
                             getApplicationContext(),
-                            References.grabPackageName(getApplicationContext(), package_name),
+                            Packages.getPackageName(getApplicationContext(), package_name),
                             null,
                             package_name,
                             theme_mode,
@@ -163,7 +165,7 @@ public class ThemeLaunchActivity extends Activity {
                             null,
                             null,
                             null,
-                            References.checkOMS(getApplicationContext())
+                            Systems.checkOMS(getApplicationContext())
                     ));
         }
         legacyTheme = false;

@@ -51,6 +51,7 @@ import projekt.substratum.R;
 import projekt.substratum.activities.showcase.ShowcaseActivity;
 import projekt.substratum.adapters.fragments.themes.ThemeAdapter;
 import projekt.substratum.adapters.fragments.themes.ThemeItem;
+import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 
 import static projekt.substratum.common.References.DEFAULT_GRID_COUNT;
@@ -166,18 +167,18 @@ public class ThemeFragment extends Fragment {
             themeItem.setThemeAuthor(map.get(map.keySet().toArray()[i].toString())[0]);
             themeItem.setThemePackage(map.get(map.keySet().toArray()[i].toString())[1]);
             themeItem.setThemeDrawable(
-                    References.grabPackageHeroImage(
+                    Packages.getPackageHeroImage(
                             mContext, map.get(map.keySet().toArray()[i].toString())[1]));
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-            themeItem.setThemeReadyVariable(References.grabThemeReadyVisibility(mContext,
+            themeItem.setThemeReadyVariable(Packages.getThemeReadyVisibility(mContext,
                     map.get(map.keySet().toArray()[i].toString())[1]));
             if (prefs.getBoolean("show_template_version", false) &&
                     !prefs.getBoolean("grid_layout", true)) {
-                themeItem.setPluginVersion(References.grabPackageTemplateVersion(mContext,
+                themeItem.setPluginVersion(Packages.getPackageTemplateVersion(mContext,
                         map.get(map.keySet().toArray()[i].toString())[1]));
-                themeItem.setSDKLevels(References.grabThemeAPIs(mContext,
+                themeItem.setSDKLevels(Packages.getThemeAPIs(mContext,
                         map.get(map.keySet().toArray()[i].toString())[1]));
-                themeItem.setThemeVersion(References.grabThemeVersion(mContext,
+                themeItem.setThemeVersion(Packages.getThemeVersion(mContext,
                         map.get(map.keySet().toArray()[i].toString())[1]));
             } else {
                 themeItem.setPluginVersion(null);
@@ -201,7 +202,7 @@ public class ThemeFragment extends Fragment {
         materialProgressBar.setVisibility(View.VISIBLE);
         substratum_packages = new HashMap<>();
 
-        References.getSubstratumPackages(
+        Packages.getSubstratumPackages(
                 mContext,
                 substratum_packages,
                 home_type,

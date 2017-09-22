@@ -50,7 +50,11 @@ import java.io.File;
 import java.util.ArrayList;
 
 import projekt.substratum.R;
+import projekt.substratum.common.Broadcasts;
+import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
+import projekt.substratum.common.Theming;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.util.views.SheetDialog;
 
@@ -143,7 +147,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
         viewHolder.cardView.setOnClickListener(
                 v -> {
-                    if (References.isCachingEnabled(mContext)) {
+                    if (Theming.isCachingEnabled(mContext)) {
                         SharedPreferences prefs =
                                 mContext.getSharedPreferences(
                                         "substratum_state",
@@ -153,19 +157,19 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                                 .putBoolean("is_updating", false).apply();
                         if (!prefs.getBoolean("is_updating", true)) {
                             // Process fail case if user uninstalls an app and goes back an activity
-                            if (References.isPackageInstalled(
+                            if (Packages.isPackageInstalled(
                                     mContext, themeItem.getThemePackage())) {
                                 File checkSubstratumVerity = new File(
                                         mContext.getCacheDir().getAbsoluteFile() +
                                                 SUBSTRATUM_BUILDER_CACHE +
                                                 themeItem.getThemePackage() + "/substratum.xml");
                                 if (checkSubstratumVerity.exists()) {
-                                    References.launchTheme(mContext,
+                                    Theming.launchTheme(mContext,
                                             themeItem.getThemePackage(),
                                             themeItem.getThemeMode()
                                     );
                                 } else {
-                                    new References.SubstratumThemeUpdate(
+                                    new Theming.SubstratumThemeUpdate(
                                             mContext,
                                             themeItem.getThemePackage(),
                                             themeItem.getThemeName(),
@@ -197,7 +201,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                             }
                         }
                     } else {
-                        References.launchTheme(mContext,
+                        Theming.launchTheme(mContext,
                                 themeItem.getThemePackage(),
                                 themeItem.getThemeMode()
                         );
@@ -206,7 +210,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
         viewHolder.cardView.setOnLongClickListener(view -> {
             // Vibrate the device alerting the user they are about to do something dangerous!
-            if (References.isUserApp(mContext, themeItem.getThemePackage())) {
+            if (Packages.isUserApp(mContext, themeItem.getThemePackage())) {
                 Vibrator v = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
                 if (v != null) {
                     v.vibrate(30);
@@ -222,14 +226,14 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 String boldedThemeName = "<b>" + themeItem.getThemeName() + "</b>";
                 aboutText.setText(Html.fromHtml(boldedThemeName, Html.FROM_HTML_MODE_LEGACY));
                 moreText.setText(String.format("%s (%s)\n%s",
-                        References.grabAppVersion(mContext, themeItem.getThemePackage()),
-                        References.grabAppVersionCode(mContext, themeItem.getThemePackage()),
-                        References.grabPackageTemplateVersion(mContext,
+                        Packages.getAppVersion(mContext, themeItem.getThemePackage()),
+                        Packages.getAppVersionCode(mContext, themeItem.getThemePackage()),
+                        Packages.getPackageTemplateVersion(mContext,
                                 themeItem.getThemePackage())));
 
                 ImageView icon = sheetView.findViewById(R.id.icon);
-                icon.setImageBitmap(References.getBitmapFromDrawable(
-                        References.grabAppIcon(mContext, themeItem.getThemePackage())));
+                icon.setImageBitmap(Packages.getBitmapFromDrawable(
+                        Packages.getAppIcon(mContext, themeItem.getThemePackage())));
 
                 ImageView two = sheetView.findViewById(R.id.theme_unready_indicator);
                 ImageView tbo = sheetView.findViewById(R.id.theme_ready_indicator);
@@ -320,7 +324,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 // Rate Theme
                 LinearLayout rate = sheetView.findViewById(R.id.rate);
                 String installer =
-                        References.grabInstallerId(mContext, themeItem.getThemePackage());
+                        Packages.getInstallerId(mContext, themeItem.getThemePackage());
                 if (installer != null && installer.equals(PLAY_STORE_PACKAGE_NAME)) {
                     rate.setVisibility(View.VISIBLE);
                 } else {
@@ -359,7 +363,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 // Uninstalling
                 LinearLayout uninstall = sheetView.findViewById(R.id.uninstall);
                 uninstall.setOnClickListener(view2 -> {
-                    if (!References.isSamsung(mContext) && !References.checkAndromeda(mContext)) {
+                    if (!Systems.isSamsung(mContext) && !Systems.checkAndromeda(mContext)) {
                         toBeUninstalled = themeItem;
                         new uninstallTheme().execute();
                     } else {
@@ -496,7 +500,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         protected void onPostExecute(String result) {
             if (toBeUninstalled != null) {
                 toBeUninstalled = null;
-                References.sendRefreshMessage(mContext);
+                Broadcasts.sendRefreshMessage(mContext);
                 mProgressDialog.cancel();
             }
         }
@@ -505,7 +509,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         protected String doInBackground(String... sUrl) {
             if (toBeUninstalled != null) {
                 // Uninstall theme
-                References.uninstallPackage(mContext, toBeUninstalled.getThemePackage());
+                Packages.uninstallPackage(mContext, toBeUninstalled.getThemePackage());
             }
             return null;
         }

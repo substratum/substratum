@@ -43,7 +43,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
+import projekt.substratum.common.Resources;
+import projekt.substratum.common.Systems;
+import projekt.substratum.common.Theming;
 import projekt.substratum.common.commands.CompilerCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
@@ -126,7 +130,7 @@ public class SubstratumBuilder {
 
         // 2. Set work area to asset chosen based on the parameter passed into this class
         String work_area;
-        if (References.isCachingEnabled(context)) {
+        if (Theming.isCachingEnabled(context)) {
             work_area = context.getCacheDir().getAbsolutePath() + SUBSTRATUM_BUILDER_CACHE +
                     theme_pid + "/assets/overlays/" + overlay_package;
         } else {
@@ -160,16 +164,16 @@ public class SubstratumBuilder {
 
         // 5. Create the manifest file based on the new parsed names
         String targetPackage = overlay_package;
-        if (References.allowedSettingsOverlay(overlay_package)) {
+        if (Resources.allowedSettingsOverlay(overlay_package)) {
             targetPackage = "com.android.settings";
         }
-        if (References.allowedSystemUIOverlay(overlay_package)) {
+        if (Resources.allowedSystemUIOverlay(overlay_package)) {
             targetPackage = "com.android.systemui";
         }
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         int legacy_priority = prefs.getInt("legacy_overlay_priority", References.DEFAULT_PRIORITY);
-        if (!References.checkOMS(context)) {
+        if (!Systems.checkOMS(context)) {
             File work_area_array = new File(work_area);
 
             if (Arrays.asList(work_area_array.list()).contains("priority")) {
@@ -284,7 +288,7 @@ public class SubstratumBuilder {
 
         // 6. Compile the new theme apk based on new manifest, framework-res.apk and extracted asset
         if (!has_errored_out) {
-            String targetPkg = References.getInstalledDirectory(context, targetPackage);
+            String targetPkg = Packages.getInstalledDirectory(context, targetPackage);
             String commands = processAOPTCommands(
                     work_area,
                     targetPkg,
@@ -412,7 +416,7 @@ public class SubstratumBuilder {
                 if (overlay_package.equals("android") ||
                         overlay_package.equals("projekt.substratum")) {
                     special_snowflake = ThemeManager.isOverlayEnabled(context, overlayName) ||
-                            References.checkOreo();
+                            Systems.checkOreo();
                 }
 
                 if (!special_snowflake) {
@@ -435,7 +439,7 @@ public class SubstratumBuilder {
                             EXTERNAL_STORAGE_CACHE + overlayName + "-signed.apk";
                 }
             } else {
-                Boolean isSamsung = References.isSamsung(context);
+                Boolean isSamsung = Systems.isSamsung(context);
                 if (isSamsung) {
                     // Take account for Samsung's package manager installation mode
                     Log.d(References.SUBSTRATUM_BUILDER,
@@ -451,7 +455,7 @@ public class SubstratumBuilder {
 
                     FileOperations.mountRW();
                     // For Non-Nexus devices
-                    if (!References.inNexusFilter()) {
+                    if (!Resources.inNexusFilter()) {
                         FileOperations.createNewFolder(vendor_location);
                         FileOperations.move(context, EXTERNAL_STORAGE_CACHE + overlayName +
                                 "-signed.apk", vendor_location + overlayName + ".apk");
@@ -488,7 +492,7 @@ public class SubstratumBuilder {
         }
 
         // Finally, clean this compilation code's cache
-        if (!BYPASS_SUBSTRATUM_BUILDER_DELETION && !References.isCachingEnabled(context)) {
+        if (!BYPASS_SUBSTRATUM_BUILDER_DELETION && !Theming.isCachingEnabled(context)) {
             String workingDirectory =
                     context.getCacheDir().getAbsolutePath() + SUBSTRATUM_BUILDER_CACHE;
             File deleted = new File(workingDirectory);

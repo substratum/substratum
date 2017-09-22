@@ -44,7 +44,7 @@ import projekt.substratum.R;
 import projekt.substratum.adapters.fragments.priorities.PrioritiesInterface;
 import projekt.substratum.adapters.fragments.priorities.PrioritiesItem;
 import projekt.substratum.adapters.fragments.priorities.PriorityAdapter;
-import projekt.substratum.common.References;
+import projekt.substratum.common.Packages;
 import projekt.substratum.common.platform.ThemeManager;
 
 public class PriorityLoaderFragment extends Fragment {
@@ -149,7 +149,7 @@ public class PriorityLoaderFragment extends Fragment {
                         ThemeManager.listTargetWithMultipleOverlaysEnabled(fragment.getContext());
 
                 for (String t : targets) {
-                    fragment.prioritiesList.add(new PrioritiesItem(t, References.grabAppIcon(
+                    fragment.prioritiesList.add(new PrioritiesItem(t, Packages.getAppIcon(
                             fragment.getContext(),
                             t)));
                     fragment.app_list.add(t);

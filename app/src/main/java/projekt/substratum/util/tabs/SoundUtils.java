@@ -39,6 +39,7 @@ import javax.crypto.Cipher;
 
 import projekt.substratum.R;
 import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.tabs.SoundManager;
@@ -88,14 +89,14 @@ public class SoundUtils {
                     .show();
         }
 
-        if (!References.checkThemeInterfacer(mContext)) {
+        if (!Systems.checkThemeInterfacer(mContext)) {
             FileOperations.mountROData();
             FileOperations.mountRO();
         }
 
         if (ringtone) {
             ringtone = false;
-            if (!References.checkThemeInterfacer(mContext) &&
+            if (!Systems.checkThemeInterfacer(mContext) &&
                     !Settings.System.canWrite(mContext)) {
                 new AlertDialog.Builder(mContext)
                         .setTitle(mContext.getString(R.string.sounds_dialog_permissions_title))
@@ -138,7 +139,7 @@ public class SoundUtils {
             SoundUtils soundUtils = ref.get();
             if (soundUtils != null) {
                 Context context = soundUtils.mContext;
-                if (References.checkThemeInterfacer(context)) {
+                if (Systems.checkThemeInterfacer(context)) {
                     progress = new ProgressDialog(context, R.style.AppTheme_DialogAlert);
                     progress.setMessage(context.getString(R.string.sounds_dialog_apply_text));
                     progress.setIndeterminate(false);
@@ -153,8 +154,8 @@ public class SoundUtils {
             SoundUtils soundUtils = ref.get();
             if (soundUtils != null) {
                 Context context = soundUtils.mContext;
-                if (References.checkThemeInterfacer(context) &&
-                        !References.isBinderInterfacer(context)) {
+                if (Systems.checkThemeInterfacer(context) &&
+                        !Systems.isBinderInterfacer(context)) {
                     if (finishReceiver == null) {
                         finishReceiver = new FinishReceiver(soundUtils, progress);
                     }

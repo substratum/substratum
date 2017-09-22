@@ -51,6 +51,7 @@ import java.util.Map;
 import projekt.substratum.R;
 import projekt.substratum.adapters.showcase.ShowcaseTabsAdapter;
 import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
 import projekt.substratum.util.files.FileDownloader;
 import projekt.substratum.util.files.MD5;
 import projekt.substratum.util.readers.ReadShowcaseTabsFile;
@@ -67,7 +68,7 @@ public class ShowcaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (References.isAndromedaDevice(getApplicationContext())) {
+        if (Systems.isAndromedaDevice(getApplicationContext())) {
             try {
                 localBroadcastManager.unregisterReceiver(andromedaReceiver);
             } catch (Exception e) {
@@ -99,9 +100,9 @@ public class ShowcaseActivity extends AppCompatActivity {
             case R.id.search:
                 try {
                     String playURL;
-                    if (References.checkOMS(getApplicationContext())) {
+                    if (Systems.checkOMS(getApplicationContext())) {
                         playURL = getString(R.string.search_play_store_url);
-                    } else if (References.isSamsung(getApplicationContext())) {
+                    } else if (Systems.isSamsung(getApplicationContext())) {
                         playURL = getString(R.string.search_play_store_url_samsung);
                     } else {
                         playURL = getString(R.string.search_play_store_url_legacy);
@@ -155,7 +156,7 @@ public class ShowcaseActivity extends AppCompatActivity {
         prefs = PreferenceManager.getDefaultSharedPreferences(
                 getApplicationContext());
 
-        if (References.isAndromedaDevice(getApplicationContext())) {
+        if (Systems.isAndromedaDevice(getApplicationContext())) {
             andromedaReceiver = new ShowcaseActivity.AndromedaReceiver();
             IntentFilter filter2 = new IntentFilter("AndromedaReceiver.KILL");
             localBroadcastManager = LocalBroadcastManager.getInstance(getApplicationContext());

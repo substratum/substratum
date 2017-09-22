@@ -33,6 +33,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import projekt.substratum.R;
+import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 
 import static android.text.Html.FROM_HTML_MODE_LEGACY;
@@ -66,7 +67,7 @@ public class ManagerAdapter extends
         final int position_fixed = position;
         Context context = overlayList.get(position_fixed).getContext();
         String packageName = overlayList.get(position_fixed).getName();
-        String targetPackage = References.grabOverlayTarget(context, packageName);
+        String targetPackage = Packages.getOverlayTarget(context, packageName);
 
         String title;
         if (packageName.startsWith("com.android.systemui.headers")) {
@@ -80,7 +81,7 @@ public class ManagerAdapter extends
         } else if (packageName.startsWith("com.android.settings.icons")) {
             title = context.getString(R.string.settings_icons);
         } else {
-            title = References.grabPackageName(context, targetPackage);
+            title = Packages.getPackageName(context, targetPackage);
         }
 
         if (title != null && title.length() > 0) {
@@ -92,7 +93,7 @@ public class ManagerAdapter extends
         viewHolder.tvName.setTextColor(overlayList.get(position_fixed).getActivationValue());
 
         if (overlayList.get(position_fixed).getType1a() == null) {
-            String metadata = References.getOverlayMetadata(
+            String metadata = Packages.getOverlayMetadata(
                     context,
                     packageName,
                     References.metadataOverlayType1a);
@@ -114,7 +115,7 @@ public class ManagerAdapter extends
         }
 
         if (overlayList.get(position_fixed).getType1b() == null) {
-            String metadata = References.getOverlayMetadata(
+            String metadata = Packages.getOverlayMetadata(
                     context,
                     packageName,
                     References.metadataOverlayType1b);
@@ -135,7 +136,7 @@ public class ManagerAdapter extends
         }
 
         if (overlayList.get(position_fixed).getType1c() == null) {
-            String metadata = References.getOverlayMetadata(
+            String metadata = Packages.getOverlayMetadata(
                     context,
                     packageName,
                     References.metadataOverlayType1c);
@@ -156,7 +157,7 @@ public class ManagerAdapter extends
         }
 
         if (overlayList.get(position_fixed).getType2() == null) {
-            String metadata = References.getOverlayMetadata(
+            String metadata = Packages.getOverlayMetadata(
                     context,
                     packageName,
                     References.metadataOverlayType2);
@@ -177,7 +178,7 @@ public class ManagerAdapter extends
         }
 
         if (overlayList.get(position_fixed).getType3() == null) {
-            String metadata = References.getOverlayMetadata(
+            String metadata = Packages.getOverlayMetadata(
                     context,
                     packageName,
                     References.metadataOverlayType3);
@@ -198,7 +199,7 @@ public class ManagerAdapter extends
         }
 
         if (overlayList.get(position_fixed).getType4() == null) {
-            String metadata = References.getOverlayMetadata(
+            String metadata = Packages.getOverlayMetadata(
                     context,
                     packageName,
                     References.metadataOverlayType4);
@@ -221,7 +222,7 @@ public class ManagerAdapter extends
         String textView = "<b>" + context.getString(R.string.manager_version) +
                 "</b> " +
                 String.valueOf(
-                        References.grabOverlaySubstratumVersion(
+                        Packages.getOverlaySubstratumVersion(
                                 context,
                                 overlayList.get(position_fixed)
                                         .getName()));
@@ -254,9 +255,9 @@ public class ManagerAdapter extends
             contact.setSelected(cb.isChecked());
         });
         if (overlayList.get(position_fixed).getDrawable() == null) {
-            Drawable app_icon = References.grabAppIcon(
+            Drawable app_icon = Packages.getAppIcon(
                     overlayList.get(position_fixed).getContext(),
-                    References.grabOverlayParent(
+                    Packages.getOverlayParent(
                             overlayList.get(position_fixed).getContext(),
                             overlayList.get(position_fixed).getName()));
             overlayList.get(position_fixed).setDrawable(app_icon);
@@ -265,9 +266,9 @@ public class ManagerAdapter extends
             viewHolder.appIcon.setImageDrawable(overlayList.get(position_fixed).getDrawable());
         }
         if (overlayList.get(position_fixed).getTargetDrawable() == null) {
-            Drawable app_icon = References.grabAppIcon(
+            Drawable app_icon = Packages.getAppIcon(
                     overlayList.get(position_fixed).getContext(),
-                    References.grabOverlayTarget(
+                    Packages.getOverlayTarget(
                             overlayList.get(position_fixed).getContext(),
                             overlayList.get(position_fixed).getName()));
             overlayList.get(position_fixed).setTargetDrawable(app_icon);

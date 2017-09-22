@@ -35,7 +35,8 @@ import java.io.File;
 import java.util.List;
 
 import projekt.substratum.R;
-import projekt.substratum.common.References;
+import projekt.substratum.common.Packages;
+import projekt.substratum.common.Systems;
 
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
@@ -312,7 +313,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
         });
 
         viewHolder.card.setOnLongClickListener(view -> {
-            String packageVersion = References.grabAppVersion(context, current_object
+            String packageVersion = Packages.getAppVersion(context, current_object
                     .getPackageName());
             if (packageVersion != null)
                 Toast.makeText(context, String.format(
@@ -386,7 +387,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                     }
                 }
             } else {
-                if (References.isSamsung(context)) {
+                if (Systems.isSamsung(context)) {
                     if (current_object.isOverlayEnabled()) {
                         viewHolder.overlayTargetPackageName.setTextColor(
                                 context.getColor(R.color.overlay_installed_list_entry));

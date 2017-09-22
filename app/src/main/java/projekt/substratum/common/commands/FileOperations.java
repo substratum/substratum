@@ -43,7 +43,7 @@ import projekt.substratum.common.platform.ThemeInterfacerService;
 import projekt.substratum.util.files.Root;
 
 import static projekt.substratum.common.References.ENABLE_DIRECT_ASSETS_LOGGING;
-import static projekt.substratum.common.References.checkThemeInterfacer;
+import static projekt.substratum.common.Systems.checkThemeInterfacer;
 
 public class FileOperations {
 

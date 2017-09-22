@@ -56,7 +56,10 @@ import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.adapters.tabs.overlays.OverlaysAdapter;
 import projekt.substratum.adapters.tabs.overlays.OverlaysItem;
+import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
+import projekt.substratum.common.Theming;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
@@ -69,8 +72,8 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.References.DEFAULT_NOTIFICATION_CHANNEL_ID;
 import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
-import static projekt.substratum.common.References.checkOMS;
-import static projekt.substratum.common.References.checkThemeInterfacer;
+import static projekt.substratum.common.Systems.checkOMS;
+import static projekt.substratum.common.Systems.checkThemeInterfacer;
 
 class OverlayFunctions {
     private static final String TAG = "Substratum OverlayFunctions";
@@ -167,7 +170,7 @@ class OverlayFunctions {
                 if (!overlays.enable_mode && !overlays.disable_mode && !overlays
                         .enable_disable_mode) {
                     // Initialize Substratum cache with theme only if permitted
-                    if (References.isCachingEnabled(context) && !overlays.has_initialized_cache) {
+                    if (Theming.isCachingEnabled(context) && !overlays.has_initialized_cache) {
                         Log.d(Overlays.TAG,
                                 "Decompiling and initializing work area with the " +
                                         "selected theme's assets...");
@@ -312,7 +315,7 @@ class OverlayFunctions {
                 } else if (overlays.enable_disable_mode) {
                     new Phase4_finishEnableDisableFunction(overlays).execute();
                 }
-                if (References.isSamsung(context) &&
+                if (Systems.isSamsung(context) &&
                         overlays.late_install != null &&
                         overlays.late_install.size() > 0) {
                     if (Root.checkRootAccess() && Root.requestRootAccess()) {
@@ -335,7 +338,7 @@ class OverlayFunctions {
                         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                         overlays.startActivityForResult(intent, 2486);
                     }
-                } else if (!References.checkOMS(context) &&
+                } else if (!Systems.checkOMS(context) &&
                         overlays.final_runner.size() == overlays.fail_count) {
                     final AlertDialog.Builder alertDialogBuilder =
                             new AlertDialog.Builder(context);
@@ -372,9 +375,9 @@ class OverlayFunctions {
                 String parsedVariant = sUrl[0].replaceAll("\\s+", "");
                 String unparsedVariant = sUrl[0];
                 overlays.failed_packages = new StringBuilder();
-                if (overlays.mixAndMatchMode && !References.checkOMS(context)) {
+                if (overlays.mixAndMatchMode && !Systems.checkOMS(context)) {
                     String current_directory;
-                    if (References.inNexusFilter()) {
+                    if (projekt.substratum.common.Resources.inNexusFilter()) {
                         current_directory = References.PIXEL_NEXUS_DIR;
                     } else {
                         current_directory = References.LEGACY_NEXUS_DIR;
@@ -387,9 +390,9 @@ class OverlayFunctions {
                 }
 
                 // Enable listener
-                if ((References.checkThemeInterfacer(context) &&
-                        !References.isBinderInterfacer(context)) ||
-                        References.checkAndromeda(context)) {
+                if ((Systems.checkThemeInterfacer(context) &&
+                        !Systems.isBinderInterfacer(context)) ||
+                        Systems.checkAndromeda(context)) {
                     Substratum.getInstance().registerFinishReceiver();
                 }
 
@@ -409,7 +412,7 @@ class OverlayFunctions {
 
                     String current_overlay = overlays.checkedOverlays.get(i).getPackageName();
                     overlays.current_dialog_overlay =
-                            "'" + References.grabPackageName(context, current_overlay) + "'";
+                            "'" + Packages.getPackageName(context, current_overlay) + "'";
 
                     if (!overlays.enable_mode && !overlays.disable_mode
                             && !overlays.enable_disable_mode) {
@@ -420,14 +423,15 @@ class OverlayFunctions {
                             }
                             String package_name = overlays.checkedOverlays.get(i)
                                     .getFullOverlayParameters();
-                            if (References.isPackageInstalled(context, package_name) ||
+                            if (Packages.isPackageInstalled(context, package_name) ||
                                     overlays.compile_enable_mode) {
                                 overlays.final_runner.add(package_name);
                             }
                         }
                         try {
                             String packageTitle = "";
-                            if (References.allowedSystemUIOverlay(current_overlay)) {
+                            if (projekt.substratum.common.Resources.allowedSystemUIOverlay
+                                    (current_overlay)) {
                                 switch (current_overlay) {
                                     case "com.android.systemui.headers":
                                         packageTitle = context.getString(R.string.systemui_headers);
@@ -445,7 +449,8 @@ class OverlayFunctions {
                                                 .systemui_qs_tiles);
                                         break;
                                 }
-                            } else if (References.allowedSettingsOverlay(current_overlay)) {
+                            } else if (projekt.substratum.common.Resources.allowedSettingsOverlay
+                                    (current_overlay)) {
                                 switch (current_overlay) {
                                     case "com.android.settings.icons":
                                         packageTitle = context.getString(R.string.settings_icons);
@@ -489,7 +494,7 @@ class OverlayFunctions {
                                     ((sUrl[0].length() != 0) ? "/type3_" + unparsedVariant :
                                             "/res");
                             overlays.type3 = parsedVariant;
-                            if (References.isCachingEnabled(context)) {
+                            if (Theming.isCachingEnabled(context)) {
                                 File srcDir = new File(workingDirectory +
                                         ((sUrl[0].length() != 0) ? "/type3_" + sUrl[0] : "/res"));
                                 File destDir = new File(workingDirectory + "/workdir");
@@ -530,7 +535,7 @@ class OverlayFunctions {
                                     overlays.type1a =
                                             overlays.checkedOverlays.get(i)
                                                     .getSelectedVariantName();
-                                    if (References.isCachingEnabled(context)) {
+                                    if (Theming.isCachingEnabled(context)) {
                                         String sourceLocation = workingDirectory + "/type1a_" +
                                                 overlays.checkedOverlays.get(i)
                                                         .getSelectedVariantName()
@@ -580,7 +585,7 @@ class OverlayFunctions {
                                     overlays.type1b =
                                             overlays.checkedOverlays.get(i)
                                                     .getSelectedVariantName2();
-                                    if (References.isCachingEnabled(context)) {
+                                    if (Theming.isCachingEnabled(context)) {
                                         String sourceLocation2 = workingDirectory + "/type1b_" +
                                                 overlays.checkedOverlays.get(i)
                                                         .getSelectedVariantName2() + ".xml";
@@ -625,7 +630,7 @@ class OverlayFunctions {
                                     overlays.type1c =
                                             overlays.checkedOverlays.get(i)
                                                     .getSelectedVariantName3();
-                                    if (References.isCachingEnabled(context)) {
+                                    if (Theming.isCachingEnabled(context)) {
                                         String sourceLocation3 = workingDirectory + "/type1c_" +
                                                 overlays.checkedOverlays.get(i)
                                                         .getSelectedVariantName3() + ".xml";
@@ -738,7 +743,7 @@ class OverlayFunctions {
                                                         .getSelectedVariantName4(),
                                                 sUrl[0],
                                                 overlays.versionName,
-                                                References.checkOMS(context),
+                                                Systems.checkOMS(context),
                                                 overlays.theme_pid,
                                                 suffix,
                                                 overlays.type1a,
@@ -761,7 +766,7 @@ class OverlayFunctions {
                                                         .getSelectedVariantName4(),
                                                 null,
                                                 overlays.versionName,
-                                                References.checkOMS(context),
+                                                Systems.checkOMS(context),
                                                 overlays.theme_pid,
                                                 suffix,
                                                 overlays.type1a,
@@ -789,7 +794,7 @@ class OverlayFunctions {
                                                 null,
                                                 sUrl[0],
                                                 overlays.versionName,
-                                                References.checkOMS(context),
+                                                Systems.checkOMS(context),
                                                 overlays.theme_pid,
                                                 suffix,
                                                 overlays.type1a,
@@ -811,7 +816,7 @@ class OverlayFunctions {
                                                 null,
                                                 null,
                                                 overlays.versionName,
-                                                References.checkOMS(context),
+                                                Systems.checkOMS(context),
                                                 overlays.theme_pid,
                                                 suffix,
                                                 overlays.type1a,
@@ -838,7 +843,7 @@ class OverlayFunctions {
                                         overlays.failed_packages.append(current_overlay);
                                         overlays.failed_packages.append(" (");
                                         overlays.failed_packages.append(
-                                                References.grabAppVersion(context,
+                                                Packages.getAppVersion(context,
                                                         current_overlay));
                                         overlays.failed_packages.append(")\n");
                                         overlays.has_failed = true;
@@ -849,9 +854,9 @@ class OverlayFunctions {
                                     if (overlays.sb.special_snowflake ||
                                             overlays.sb.no_install.length() > 0) {
                                         overlays.late_install.add(overlays.sb.no_install);
-                                    } else if ((References.checkThemeInterfacer(context) &&
-                                            !References.isBinderInterfacer(context)) ||
-                                            References.checkAndromeda(context)) {
+                                    } else if ((Systems.checkThemeInterfacer(context) &&
+                                            !Systems.isBinderInterfacer(context)) ||
+                                            Systems.checkAndromeda(context)) {
                                         // Thread wait
                                         Substratum.getInstance().startWaitingInstall();
                                         do {
@@ -877,7 +882,7 @@ class OverlayFunctions {
                                         null,
                                         null,
                                         overlays.versionName,
-                                        References.checkOMS(context),
+                                        Systems.checkOMS(context),
                                         overlays.theme_pid,
                                         suffix,
                                         overlays.type1a,
@@ -900,16 +905,16 @@ class OverlayFunctions {
                                     overlays.failed_packages.append(current_overlay);
                                     overlays.failed_packages.append(" (");
                                     overlays.failed_packages.append(
-                                            References.grabAppVersion(context, current_overlay));
+                                            Packages.getAppVersion(context, current_overlay));
                                     overlays.failed_packages.append(")\n");
                                     overlays.has_failed = true;
                                 } else {
                                     if (overlays.sb.special_snowflake ||
                                             overlays.sb.no_install.length() > 0) {
                                         overlays.late_install.add(overlays.sb.no_install);
-                                    } else if ((References.checkThemeInterfacer(context) &&
-                                            !References.isBinderInterfacer(context)) ||
-                                            References.checkAndromeda(context)) {
+                                    } else if ((Systems.checkThemeInterfacer(context) &&
+                                            !Systems.isBinderInterfacer(context)) ||
+                                            Systems.checkAndromeda(context)) {
                                         // Thread wait
                                         Substratum.getInstance().startWaitingInstall();
                                         do {
@@ -933,7 +938,7 @@ class OverlayFunctions {
                                 overlays.disable_mode || overlays.enable_disable_mode) {
                             String package_name =
                                     overlays.checkedOverlays.get(i).getFullOverlayParameters();
-                            if (References.isPackageInstalled(context, package_name)) {
+                            if (Packages.isPackageInstalled(context, package_name)) {
                                 overlays.final_runner.add(package_name);
                             }
                         }
@@ -975,7 +980,7 @@ class OverlayFunctions {
                         // Buffer the disableBeforeEnabling String
                         ArrayList<String> disableBeforeEnabling = new ArrayList<>();
                         for (int i = 0; i < overlays.all_installed_overlays.size(); i++) {
-                            if (!References.grabOverlayParent(context,
+                            if (!Packages.getOverlayParent(context,
                                     overlays.all_installed_overlays.get(i))
                                     .equals(overlays.theme_pid)) {
                                 disableBeforeEnabling.add(overlays.all_installed_overlays.get(i));
@@ -1153,7 +1158,7 @@ class OverlayFunctions {
                         // Buffer the disableBeforeEnabling String
                         ArrayList<String> disableBeforeEnabling = new ArrayList<>();
                         for (int i = 0; i < overlays.all_installed_overlays.size(); i++) {
-                            if (!References.grabOverlayParent(context,
+                            if (!Packages.getOverlayParent(context,
                                     overlays.all_installed_overlays.get(i))
                                     .equals(overlays.theme_pid)) {
                                 disableBeforeEnabling.add(overlays.all_installed_overlays.get(i));
@@ -1292,14 +1297,14 @@ class OverlayFunctions {
                         // Buffer the disableBeforeEnabling String
                         ArrayList<String> disableBeforeEnabling = new ArrayList<>();
                         for (String p : overlays.all_installed_overlays) {
-                            if (!overlays.theme_pid.equals(References.
-                                    grabOverlayParent(context, p))) {
+                            if (!overlays.theme_pid.equals(Packages.
+                                    getOverlayParent(context, p))) {
                                 disableBeforeEnabling.add(p);
                             } else {
                                 for (OverlaysItem oi : overlays.checkedOverlays) {
                                     String targetOverlay = oi.getPackageName();
                                     if (targetOverlay.equals(
-                                            References.grabOverlayTarget(context, p))) {
+                                            Packages.getOverlayTarget(context, p))) {
                                         disableBeforeEnabling.add(p);
                                     }
                                 }
@@ -1358,7 +1363,7 @@ class OverlayFunctions {
                         }, REFRESH_WINDOW_DELAY);
                     }
 
-                    if (!overlays.late_install.isEmpty() && !References.isSamsung(context)) {
+                    if (!overlays.late_install.isEmpty() && !Systems.isSamsung(context)) {
                         // Install remaining overlays
                         HandlerThread thread = new HandlerThread("LateInstallThread",
                                 Thread.MAX_PRIORITY);
@@ -1371,9 +1376,9 @@ class OverlayFunctions {
                                 String packageName =
                                         o.substring(o.lastIndexOf("/") + 1, o.lastIndexOf("-"));
                                 packages.add(packageName);
-                                if ((References.checkThemeInterfacer(context) &&
-                                        !References.isBinderInterfacer(context)) ||
-                                        References.checkAndromeda(context)) {
+                                if ((Systems.checkThemeInterfacer(context) &&
+                                        !Systems.isBinderInterfacer(context)) ||
+                                        Systems.checkAndromeda(context)) {
                                     // Wait until the overlays to fully install so on compile enable
                                     // mode it can be enabled after.
                                     Substratum.getInstance().startWaitingInstall();

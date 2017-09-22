@@ -39,7 +39,9 @@ import java.util.Locale;
 
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
+import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
 import projekt.substratum.common.analytics.FirebaseAnalytics;
 import projekt.substratum.util.files.MD5;
 
@@ -47,7 +49,7 @@ import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
 import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
-import static projekt.substratum.common.References.isAndromedaDevice;
+import static projekt.substratum.common.Systems.isAndromedaDevice;
 import static projekt.substratum.common.analytics.FirebaseAnalytics.PACKAGES_PREFS;
 import static projekt.substratum.common.analytics.PackageAnalytics.isLowEnd;
 
@@ -153,7 +155,7 @@ public class SplashScreenActivity extends Activity {
                 }
 
                 if (isAndromedaDevice(context)) {
-                    int andromedaVer = References.grabAppVersionCode(context, ANDROMEDA_PACKAGE);
+                    int andromedaVer = Packages.getAppVersionCode(context, ANDROMEDA_PACKAGE);
                     FirebaseAnalytics.withdrawAndromedaFingerprint(context, andromedaVer);
                     SharedPreferences prefs2 =
                             context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
@@ -173,7 +175,7 @@ public class SplashScreenActivity extends Activity {
                         //noinspection ConstantConditions
                         prefs2.edit()
                                 .putString("andromeda_fp", MD5.calculateMD5(new File(
-                                        References.getInstalledDirectory(context,
+                                        Packages.getInstalledDirectory(context,
                                                 ANDROMEDA_PACKAGE))))
                                 .putString("andromeda_installer", context.getPackageManager()
                                         .getInstallerPackageName(ANDROMEDA_PACKAGE))
@@ -181,9 +183,9 @@ public class SplashScreenActivity extends Activity {
                     }
                 }
 
-                if (References.isSamsungDevice(context) &&
-                        References.isPackageInstalled(context, SST_ADDON_PACKAGE)) {
-                    int sstVersion = References.grabAppVersionCode(context, SST_ADDON_PACKAGE);
+                if (Systems.isSamsungDevice(context) &&
+                        Packages.isPackageInstalled(context, SST_ADDON_PACKAGE)) {
+                    int sstVersion = Packages.getAppVersionCode(context, SST_ADDON_PACKAGE);
                     FirebaseAnalytics.withdrawSungstratumFingerprint(context, sstVersion);
                     SharedPreferences prefs2 =
                             context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
@@ -252,7 +254,7 @@ public class SplashScreenActivity extends Activity {
                             installer.equals(PLAY_STORE_PACKAGE_NAME)).apply();
 
                     editor.putString("sungstratum_fp", MD5.calculateMD5(new File(
-                            References.getInstalledDirectory(context, SST_ADDON_PACKAGE))));
+                            Packages.getInstalledDirectory(context, SST_ADDON_PACKAGE))));
 
                     editor.apply();
                 }

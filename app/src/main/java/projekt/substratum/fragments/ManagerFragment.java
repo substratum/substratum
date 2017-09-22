@@ -64,7 +64,9 @@ import java.util.stream.Collectors;
 import projekt.substratum.R;
 import projekt.substratum.adapters.fragments.manager.ManagerAdapter;
 import projekt.substratum.adapters.fragments.manager.ManagerItem;
+import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
@@ -76,7 +78,7 @@ import static projekt.substratum.common.References.MANAGER_REFRESH;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
 import static projekt.substratum.common.References.VENDOR_DIR;
-import static projekt.substratum.common.References.checkOMS;
+import static projekt.substratum.common.Systems.checkOMS;
 import static projekt.substratum.common.platform.ThemeManager.STATE_DISABLED;
 import static projekt.substratum.common.platform.ThemeManager.STATE_ENABLED;
 import static projekt.substratum.common.platform.ThemeManager.isOverlayEnabled;
@@ -111,10 +113,10 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     private void refreshList() {
         if (overlayList != null && mAdapter != null) {
             List<ManagerItem> updated = new ArrayList<>();
-            if (References.checkOMS(getContext()) && !References.isSamsung(getContext())) {
+            if (Systems.checkOMS(getContext()) && !Systems.isSamsung(getContext())) {
                 for (int i = 0; i < overlayList.size(); i++) {
                     if (!overlayList.get(i).getName().endsWith(".icon") &&
-                            References.isPackageInstalled(
+                            Packages.isPackageInstalled(
                                     getContext(),
                                     overlayList.get(i).getName())) {
                         updated.add(overlayList.get(i));
@@ -129,7 +131,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             }
             mAdapter.setOverlayManagerList(updated);
             overlayList = updated;
-            if (References.checkOMS(getContext())) {
+            if (Systems.checkOMS(getContext())) {
                 try {
                     List<String> update = updateEnabledOverlays();
                     for (int i = 0; i < overlayList.size(); i++) {
@@ -250,7 +252,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
 
         new LayoutReloader(ManagerFragment.this).execute();
 
-        if (References.checkThemeInterfacer(context)) {
+        if (Systems.checkThemeInterfacer(context)) {
             finishReceiver = new FinishReceiver(ManagerFragment.this);
             IntentFilter intentFilter = new IntentFilter(References.STATUS_CHANGED);
             context.registerReceiver(finishReceiver, intentFilter);
@@ -338,7 +340,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         }
 
         TextView disable_selected = root.findViewById(R.id.disable_selected);
-        if (!References.checkOMS(context))
+        if (!Systems.checkOMS(context))
             disable_selected.setText(getString(R.string.fab_menu_uninstall));
         if (disable_selected != null) {
             disable_selected.setOnClickListener(v ->
@@ -346,14 +348,14 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         }
 
         TextView uninstall_selected = root.findViewById(R.id.uninstall);
-        if (!References.checkOMS(context))
+        if (!Systems.checkOMS(context))
             uninstall_selected.setVisibility(View.GONE);
         if (uninstall_selected != null)
             uninstall_selected.setOnClickListener(v ->
                     new RunUninstall(ManagerFragment.this).execute());
 
-        if (!References.isSamsung(context)
-                && !References.checkOMS(context)
+        if (!Systems.isSamsung(context)
+                && !Systems.checkOMS(context)
                 && !prefs.getBoolean("seen_legacy_warning", false))
             new AlertDialog.Builder(context)
                     .setNeutralButton(R.string.dialog_ok, (dialogInterface, i) -> {
@@ -428,12 +430,12 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 Context context = overlayList.get(i).getContext();
                 String packageName = overlayList.get(i).getName();
                 if (overlayList.get(i).getThemeName() == null) {
-                    String metadata = References.getOverlayMetadata(
+                    String metadata = Packages.getOverlayMetadata(
                             context, packageName, References.metadataOverlayParent);
                     if (metadata != null && metadata.length() > 0) {
                         String pName = "<b>" + context.getString(R.string.manager_theme_name) +
                                 "</b> " +
-                                References.grabPackageName(context, metadata);
+                                Packages.getPackageName(context, metadata);
                         overlayList.get(i).setThemeName(pName);
                     }
                 }
@@ -506,7 +508,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (References.checkThemeInterfacer(context)) {
+        if (Systems.checkThemeInterfacer(context)) {
             try {
                 context.unregisterReceiver(finishReceiver);
             } catch (IllegalArgumentException e) {
@@ -580,7 +582,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     ArrayList<String> disabled_overlays;
                     ArrayList<String> all_overlays;
 
-                    if (References.checkOMS(fragment.context)) {
+                    if (Systems.checkOMS(fragment.context)) {
                         fragment.activated_overlays = new ArrayList<>(
                                 ThemeManager.listOverlays(fragment.context,
                                         STATE_ENABLED));
@@ -605,8 +607,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                                         .getApplicationLabel(applicationInfo).toString();
                                 unsortedMap.put(
                                         all_overlays.get(i),
-                                        References.grabPackageName(context,
-                                                References.grabOverlayTarget(
+                                        Packages.getPackageName(context,
+                                                Packages.getOverlayTarget(
                                                         context,
                                                         packageTitle)));
                             } catch (Exception e) {
@@ -684,7 +686,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     fragment.mRecyclerView.setVisibility(View.VISIBLE);
                 }
                 if (!fragment.prefs.getBoolean("manager_disabled_overlays", true) ||
-                        !References.checkOMS(fragment.context)) {
+                        !Systems.checkOMS(fragment.context)) {
                     TextView enable_view = fragment.root.findViewById(R.id.enable_selected);
                     enable_view.setVisibility(View.GONE);
                 }
@@ -736,8 +738,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 for (int i = 0; i < len; i++) {
                     ManagerItem managerItem = fragment.overlayList.get(i);
                     if (managerItem.isSelected()) {
-                        if (References.isPackageInstalled(context,
-                                References.grabOverlayParent(context, managerItem.getName()))) {
+                        if (Packages.isPackageInstalled(context,
+                                Packages.getOverlayParent(context, managerItem.getName()))) {
                             if (ThemeManager.listOverlays(fragment.context, STATE_DISABLED)
                                     .contains(managerItem.getName())) {
                                 data.add(managerItem.getName());
@@ -751,8 +753,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     // The magic goes here
                     if (!data.isEmpty()) ThemeManager.enableOverlay(context, data);
 
-                    if (!References.checkThemeInterfacer(context) &&
-                            References.needsRecreate(context, data)) {
+                    if (!Systems.checkThemeInterfacer(context) &&
+                            Packages.needsRecreate(context, data)) {
                         Handler handler = new Handler(Looper.getMainLooper());
                         handler.postDelayed(() -> {
                             // OMS may not have written all the changes so quickly just yet
@@ -803,7 +805,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             if (fragment != null) {
                 Context context = fragment.context;
 
-                if (References.checkOMS(context) && !References.isSamsung(context)) {
+                if (Systems.checkOMS(context) && !Systems.isSamsung(context)) {
                     ArrayList<String> data = new ArrayList<>();
                     fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
                     int len = fragment.overlayList.size();
@@ -823,8 +825,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                         // The magic goes here
                         ThemeManager.disableOverlay(context, data);
 
-                        if (!References.checkThemeInterfacer(context) &&
-                                References.needsRecreate(context, data)) {
+                        if (!Systems.checkThemeInterfacer(context) &&
+                                Packages.needsRecreate(context, data)) {
                             Handler handler = new Handler(Looper.getMainLooper());
                             handler.postDelayed(() -> {
                                 // OMS may not have written all the changes so quickly just yet
@@ -856,7 +858,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 } else {
                     for (int i = 0; i < fragment.overlaysList.size(); i++) {
                         if (fragment.overlaysList.get(i).isSelected()) {
-                            if (References.isSamsung(context)) {
+                            if (Systems.isSamsung(context)) {
                                 ArrayList<String> overlay = new ArrayList<>();
                                 overlay.add(fragment.overlaysList.get(i).getName());
                                 ThemeManager.uninstallOverlay(context, overlay);
@@ -916,12 +918,12 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     fragment.activated_overlays.clear();
                     fragment.overlaysList.clear();
 
-                    if (References.isSamsung(context)) {
+                    if (Systems.isSamsung(context)) {
                         final PackageManager pm = context.getPackageManager();
                         List<ApplicationInfo> packages =
                                 pm.getInstalledApplications(PackageManager.GET_META_DATA);
                         for (ApplicationInfo packageInfo : packages) {
-                            if (References.getOverlayMetadata(
+                            if (Packages.getOverlayMetadata(
                                     context,
                                     packageInfo.packageName,
                                     References.metadataOverlayParent) != null) {
@@ -960,7 +962,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 fragment.mAdapter.notifyDataSetChanged();
                 fragment.loadingBar.setVisibility(View.GONE);
 
-                if (!References.checkOMS(context) && !References.isSamsung(context)) {
+                if (!Systems.checkOMS(context) && !Systems.isSamsung(context)) {
                     Toast.makeText(
                             context,
                             fragment.getString(R.string.toast_disabled6),
@@ -1032,8 +1034,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 for (int i = 0; i < len; i++) {
                     ManagerItem managerItem = fragment.overlayList.get(i);
                     if (managerItem.isSelected()) {
-                        if (References.isPackageInstalled(context,
-                                References.grabOverlayParent(context, managerItem.getName()))) {
+                        if (Packages.isPackageInstalled(context,
+                                Packages.getOverlayParent(context, managerItem.getName()))) {
                             if (ThemeManager.listOverlays(fragment.context, STATE_DISABLED)
                                     .contains(managerItem.getName())) {
                                 data.add(managerItem.getName());
@@ -1050,8 +1052,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     if (!data.isEmpty()) ThemeManager.enableOverlay(context, data);
                     if (!data2.isEmpty()) ThemeManager.disableOverlay(context, data2);
 
-                    if (!References.checkThemeInterfacer(context) &&
-                            References.needsRecreate(context, data)) {
+                    if (!Systems.checkThemeInterfacer(context) &&
+                            Packages.needsRecreate(context, data)) {
                         Handler handler = new Handler(Looper.getMainLooper());
                         handler.postDelayed(() -> {
                             // OMS may not have written all the changes so quickly just yet
@@ -1113,9 +1115,9 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 if (!data.isEmpty()) {
                     ThemeManager.uninstallOverlay(context, data);
 
-                    if (!References.checkThemeInterfacer(context) &&
-                            References.needsRecreate(context, data) &&
-                            !References.isSamsung(context)) {
+                    if (!Systems.checkThemeInterfacer(context) &&
+                            Packages.needsRecreate(context, data) &&
+                            !Systems.isSamsung(context)) {
                         Handler handler = new Handler(Looper.getMainLooper());
                         handler.postDelayed(() -> {
                             // OMS may not have written all the changes so quickly just yet

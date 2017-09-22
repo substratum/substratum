@@ -70,7 +70,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import projekt.substratum.R;
-import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.tabs.BootAnimationManager;
 import projekt.substratum.util.files.Root;
@@ -271,9 +271,9 @@ public class BootAnimations extends Fragment {
 
     public void startApply() {
         if (!paused) {
-            if ((References.getDeviceEncryptionStatus(mContext) <= 1 ||
+            if ((Systems.getDeviceEncryptionStatus(mContext) <= 1 ||
                     shutdownBootAnimation) ||
-                    !References.checkOMS(mContext)) {
+                    !Systems.checkOMS(mContext)) {
                 if (bootAnimationSelector.getSelectedItemPosition() == 1) {
                     new BootAnimationClearer(this).execute("");
                 } else {

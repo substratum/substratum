@@ -45,24 +45,26 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import projekt.substratum.R;
+import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Resources;
+import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.util.files.MD5;
 import projekt.substratum.util.files.Root;
 
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.O;
+import static projekt.substratum.common.Packages.getOverlayParent;
+import static projekt.substratum.common.Packages.isPackageInstalled;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ROOTED;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_UNROOTED;
-import static projekt.substratum.common.References.checkAndromeda;
-import static projekt.substratum.common.References.checkOMS;
-import static projekt.substratum.common.References.checkThemeInterfacer;
-import static projekt.substratum.common.References.checkThemeSystemModule;
-import static projekt.substratum.common.References.grabOverlayParent;
-import static projekt.substratum.common.References.isPackageInstalled;
+import static projekt.substratum.common.Systems.checkAndromeda;
+import static projekt.substratum.common.Systems.checkOMS;
+import static projekt.substratum.common.Systems.checkThemeInterfacer;
+import static projekt.substratum.common.Systems.checkThemeSystemModule;
 
 public class ThemeManager {
 
@@ -221,7 +223,7 @@ public class ThemeManager {
 
     public static void disableAllThemeOverlays(Context context) {
         List<String> list = ThemeManager.listOverlays(context, STATE_ENABLED).stream()
-                .filter(o -> grabOverlayParent(context, o) != null)
+                .filter(o -> getOverlayParent(context, o) != null)
                 .collect(Collectors.toList());
         ThemeManager.disableOverlay(context, new ArrayList<>(list));
     }
@@ -264,8 +266,8 @@ public class ThemeManager {
         List<String> list = new ArrayList<>();
         try {
             // Throw certain exceptions intentionally when unsupported device found
-            if (References.isSamsung(context)) throw new Exception();
-            if (!References.checkOMS(context)) throw new Exception();
+            if (Systems.isSamsung(context)) throw new Exception();
+            if (!Systems.checkOMS(context)) throw new Exception();
 
             // Now let's assume everything that gets through will now be only in OMS ROMs
             Map<String, List<OverlayInfo>> allOverlays;
@@ -319,7 +321,7 @@ public class ThemeManager {
             }
         } catch (Exception e) {
             // At this point, we probably ran into a legacy command or stock OMS
-            if (References.checkOMS(context) || References.checkOreo()) {
+            if (Systems.checkOMS(context) || Systems.checkOreo()) {
                 String prefix;
                 if (state == STATE_ENABLED) {
                     prefix = "[x]";
@@ -332,7 +334,7 @@ public class ThemeManager {
                 String[] arrList = null;
 
                 // This is a check for Oreo and Andromeda's integration
-                if (References.checkAndromeda(context)) {
+                if (Systems.checkAndromeda(context)) {
                     File overlays = new File(
                             Environment.getExternalStorageDirectory().getAbsolutePath() +
                                     "/.andromeda/overlays.xml");
@@ -399,7 +401,7 @@ public class ThemeManager {
                         if (arrList != null) {
                             for (String line : arrList) {
                                 if (line.startsWith(prefix)) {
-                                    if (grabOverlayParent(context, line.substring(4)) != null &&
+                                    if (getOverlayParent(context, line.substring(4)) != null &&
                                             isPackageInstalled(context, line.substring(4))) {
                                         counter++;
                                     }
@@ -435,7 +437,7 @@ public class ThemeManager {
                                 }
                                 if (checker) {
                                     String packageName = line.substring(4);
-                                    if (grabOverlayParent(context, line.substring(4)) != null &&
+                                    if (getOverlayParent(context, line.substring(4)) != null &&
                                             isPackageInstalled(context, line.substring(4))) {
                                         try {
                                             String sourceDir = context.getPackageManager()
@@ -461,13 +463,13 @@ public class ThemeManager {
             } else {
                 // We now know this is not OMS, so fallback for Samsung and Legacy
                 if (state == STATE_LIST_ALL_OVERLAYS || state == STATE_ENABLED) {
-                    if (References.isSamsung(context)) {
+                    if (Systems.isSamsung(context)) {
                         final PackageManager pm = context.getPackageManager();
                         List<ApplicationInfo> packages =
                                 pm.getInstalledApplications(PackageManager.GET_META_DATA);
                         list.clear();
                         for (ApplicationInfo packageInfo : packages) {
-                            if (References.getOverlayMetadata(
+                            if (Packages.getOverlayMetadata(
                                     context,
                                     packageInfo.packageName,
                                     References.metadataOverlayParent) != null) {
@@ -508,7 +510,7 @@ public class ThemeManager {
         List<String> list = new ArrayList<>();
         List<String> overlays = listAllOverlays(context);
         for (int i = 0; i < overlays.size(); i++) {
-            if (grabOverlayParent(context, overlays.get(i)).equals(target)) {
+            if (getOverlayParent(context, overlays.get(i)).equals(target)) {
                 list.add(overlays.get(i));
             }
         }
@@ -583,12 +585,12 @@ public class ThemeManager {
         disableOverlay(context, temp);
 
         // if enabled list is not contains any overlays
-        if (checkThemeInterfacer(context) && !References.isSamsung(context)) {
+        if (checkThemeInterfacer(context) && !Systems.isSamsung(context)) {
             ThemeInterfacerService.uninstallOverlays(
                     context,
                     overlays,
                     false);
-        } else if (checkAndromeda(context) && !References.isSamsung(context)) {
+        } else if (checkAndromeda(context) && !Systems.isSamsung(context)) {
             if (!AndromedaService.uninstallOverlays(overlays)) {
                 Handler handler = new Handler(Looper.getMainLooper());
                 handler.post(() ->
@@ -598,7 +600,7 @@ public class ThemeManager {
                                 Toast.LENGTH_LONG).show()
                 );
             }
-        } else if (References.isSamsung(context) &&
+        } else if (Systems.isSamsung(context) &&
                 !Root.checkRootAccess() &&
                 !Root.requestRootAccess()) {
             for (int i = 0; i < overlays.size(); i++) {

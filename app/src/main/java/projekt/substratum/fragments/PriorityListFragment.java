@@ -48,7 +48,8 @@ import projekt.substratum.R;
 import projekt.substratum.adapters.fragments.priorities.PrioritiesInterface;
 import projekt.substratum.adapters.fragments.priorities.PrioritiesItem;
 import projekt.substratum.adapters.fragments.priorities.PriorityAdapter;
-import projekt.substratum.common.References;
+import projekt.substratum.common.Packages;
+import projekt.substratum.common.Systems;
 import projekt.substratum.common.platform.ThemeManager;
 
 import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
@@ -128,7 +129,7 @@ public class PriorityListFragment extends Fragment {
                 ThemeManager.listEnabledOverlaysForTarget(getContext(), obtained_key);
         for (String o : overlays) {
             prioritiesList.add(new PrioritiesItem(o,
-                    References.grabOverlayParentIcon(getContext(), o)));
+                    Packages.getOverlayParentIcon(getContext(), o)));
             workable_list.add(o);
         }
 
@@ -201,7 +202,7 @@ public class PriorityListFragment extends Fragment {
             }
             headerProgress.setVisibility(View.VISIBLE);
             ThemeManager.setPriority(getContext(), workable_list);
-            if (References.needsRecreate(getContext(), workable_list)) {
+            if (Packages.needsRecreate(getContext(), workable_list)) {
                 Handler handler = new Handler();
                 handler.postDelayed(() -> {
                     // OMS may not have written all the changes so
@@ -211,7 +212,7 @@ public class PriorityListFragment extends Fragment {
                     } catch (Exception e) {
                         // Consume window refresh
                     }
-                }, (References.checkAndromeda(getContext()) ?
+                }, (Systems.checkAndromeda(getContext()) ?
                         REFRESH_WINDOW_DELAY :
                         REFRESH_WINDOW_DELAY * 2));
             }

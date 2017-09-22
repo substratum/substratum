@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Locale;
 
 import projekt.substratum.R;
+import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
@@ -77,14 +78,13 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
         viewHolder.themeName.setText(showcaseItem.getThemeName());
         viewHolder.themeAuthor.setText(showcaseItem.getThemeAuthor());
 
-        if (showcaseItem.getThemePricing().toLowerCase(Locale.getDefault()).equals(References
-                .paidTheme)) {
+        if (showcaseItem.getThemePricing().toLowerCase(Locale.US).equals(References.paidTheme)) {
             viewHolder.themePricing.setVisibility(View.VISIBLE);
         } else {
             viewHolder.themePricing.setVisibility(View.GONE);
         }
 
-        if (References.isPackageInstalled(context, showcaseItem.getThemePackage())) {
+        if (Packages.isPackageInstalled(context, showcaseItem.getThemePackage())) {
             viewHolder.installedOrNot.setVisibility(View.VISIBLE);
         } else {
             viewHolder.installedOrNot.setVisibility(View.GONE);

@@ -70,7 +70,7 @@ import javax.crypto.spec.SecretKeySpec;
 import projekt.substratum.R;
 import projekt.substratum.adapters.tabs.sounds.SoundsAdapter;
 import projekt.substratum.adapters.tabs.sounds.SoundsInfo;
-import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.util.tabs.SoundUtils;
 import projekt.substratum.util.views.RecyclerItemClickListener;
@@ -304,7 +304,7 @@ public class Sounds extends Fragment {
         protected void onPreExecute() {
             Sounds sounds = ref.get();
             if (sounds != null) {
-                if (References.checkThemeInterfacer(sounds.mContext)) {
+                if (Systems.checkThemeInterfacer(sounds.mContext)) {
                     sounds.mProgressDialog = new ProgressDialog(
                             sounds.getActivity(), R.style.RestoreDialog);
                     sounds.mProgressDialog.setMessage(
@@ -320,7 +320,7 @@ public class Sounds extends Fragment {
         protected void onPostExecute(String result) {
             Sounds sounds = ref.get();
             if (sounds != null) {
-                if (References.checkThemeInterfacer(sounds.mContext))
+                if (Systems.checkThemeInterfacer(sounds.mContext))
                     sounds.mProgressDialog.dismiss();
                 SharedPreferences.Editor editor = sounds.prefs.edit();
                 editor.remove("sounds_applied");
@@ -463,7 +463,8 @@ public class Sounds extends Fragment {
                         listFilesForFolder(fileEntry);
                     } else {
                         if (!fileEntry.getName().substring(0, 1).equals(".") &&
-                                References.allowedSounds(fileEntry.getName())) {
+                                projekt.substratum.common.Resources.allowedSounds(fileEntry
+                                        .getName())) {
                             sounds.wordList.add(new SoundsInfo(sounds.mContext, fileEntry.getName(),
                                     fileEntry.getAbsolutePath()));
                         }

@@ -23,6 +23,7 @@ import projekt.substratum.R;
 import projekt.substratum.activities.launch.RescueActivity;
 import projekt.substratum.activities.launch.SplashScreenActivity;
 import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
 
 import static projekt.substratum.common.Resources.SUBSTRATUM_OVERLAY_FAULT_EXCEPTIONS;
 
@@ -59,7 +60,7 @@ public class SubstratumCrash extends Activity {
         Boolean isSubstratumOverlayFault = References.stringContainsItemFromList(stacktrace,
                 SUBSTRATUM_OVERLAY_FAULT_EXCEPTIONS);
 
-        if (!References.isSamsungDevice(getApplicationContext())) {
+        if (!Systems.isSamsungDevice(getApplicationContext())) {
             if (isSubstratumOverlayFault) {
                 // Pulsate the Rescue Me button
                 new Timer().scheduleAtFixedRate(new TimerTask() {

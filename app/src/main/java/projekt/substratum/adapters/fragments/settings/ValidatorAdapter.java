@@ -30,7 +30,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import projekt.substratum.R;
-import projekt.substratum.common.References;
+import projekt.substratum.common.Packages;
 
 public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.ViewHolder> {
     private ArrayList<ValidatorInfo> information;
@@ -58,12 +58,12 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
 
         viewHolder.packName.setText(
                 String.format("%s%s",
-                        References.grabPackageName(context, packageName),
+                        Packages.getPackageName(context, packageName),
                         (validatorInfo.getCommons()) ? " " +
                                 context.getString(R.string.resource_checker_commons) : ""));
 
         viewHolder.packIcon.setImageDrawable(
-                References.grabAppIcon(context, packageName));
+                Packages.getAppIcon(context, packageName));
 
         if (validatorInfo.getVerification()) {
             viewHolder.verificationIcon.setImageDrawable(
@@ -111,7 +111,7 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
                 }
                 String format = String.format(
                         context.getString(R.string.resource_commit_dialog_title),
-                        References.grabPackageName(context, pkg));
+                        Packages.getPackageName(context, pkg));
                 new android.app.AlertDialog.Builder(context)
                         .setTitle(format)
                         .setMessage("\n" + error_logs)

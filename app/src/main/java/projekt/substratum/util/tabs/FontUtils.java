@@ -32,13 +32,14 @@ import javax.crypto.Cipher;
 
 import projekt.substratum.R;
 import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.tabs.FontManager;
 
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
-import static projekt.substratum.common.References.checkOMS;
-import static projekt.substratum.common.References.checkThemeInterfacer;
+import static projekt.substratum.common.Systems.checkOMS;
+import static projekt.substratum.common.Systems.checkThemeInterfacer;
 
 public class FontUtils {
 
@@ -108,10 +109,10 @@ public class FontUtils {
                                         .LENGTH_LONG);
                         toast.show();
                     }
-                    if (!References.checkThemeInterfacer(context) &&
-                            References.checkOMS(context)) {
+                    if (!Systems.checkThemeInterfacer(context) &&
+                            Systems.checkOMS(context)) {
                         ThemeManager.restartSystemUI(context);
-                    } else if (!References.checkOMS(context)) {
+                    } else if (!Systems.checkOMS(context)) {
                         final AlertDialog.Builder alertDialogBuilder =
                                 new AlertDialog.Builder(context);
                         alertDialogBuilder.setTitle(context.getString(

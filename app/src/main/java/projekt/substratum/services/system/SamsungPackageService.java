@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import projekt.substratum.common.References;
+import projekt.substratum.common.Broadcasts;
 
 public class SamsungPackageService extends Service {
 
@@ -53,7 +53,7 @@ public class SamsungPackageService extends Service {
                 List<ApplicationInfo> currentApps = pm.getInstalledApplications(0);
                 if (initialPackageCount < currentApps.size()) {
                     initialPackageCount = currentApps.size();
-                    References.sendOverlayRefreshMessage(getApplicationContext());
+                    Broadcasts.sendOverlayRefreshMessage(getApplicationContext());
                 }
             }
         }, 0, 1000);

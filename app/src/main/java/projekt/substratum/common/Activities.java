@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import projekt.substratum.R;
 
-public class ActivityManagement {
+public class Activities {
 
     public static void launchActivityUrl(Context context, int resource) {
         try {

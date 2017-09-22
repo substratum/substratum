@@ -56,7 +56,7 @@ import java.util.zip.ZipOutputStream;
 import javax.crypto.Cipher;
 
 import projekt.substratum.R;
-import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.tabs.BootAnimationManager;
 
@@ -137,7 +137,7 @@ public class BootAnimationUtils {
                         Lunchbar.LENGTH_LONG)
                         .show();
             }
-            if (!References.checkThemeInterfacer(mContext)) {
+            if (!Systems.checkThemeInterfacer(mContext)) {
                 FileOperations.mountROData();
                 FileOperations.mountRO();
             }
@@ -318,7 +318,7 @@ public class BootAnimationUtils {
                             CRC32 crc32 = new CRC32();
                             int size = 0;
                             ByteBuffer buffer = ByteBuffer.wrap(bytes);
-                            line = String.format(Locale.getDefault(),
+                            line = String.format(Locale.US,
                                     "%d %d %s\n", scaledWidth, scaledHeight, info[2]);
                             buffer.put(line.getBytes());
                             size += line.getBytes().length;
@@ -372,16 +372,16 @@ public class BootAnimationUtils {
             if (!has_failed) {
                 Log.d(TAG, "Moving boot animation to theme directory " +
                         "and setting correct contextual parameters...");
-                boolean is_encrypted = References.getDeviceEncryptionStatus(mContext) > 1;
+                boolean is_encrypted = Systems.getDeviceEncryptionStatus(mContext) > 1;
                 File themeDirectory;
-                if (References.checkOMS(mContext)) {
+                if (Systems.checkOMS(mContext)) {
                     if ((!is_encrypted || shutdownAnimation) &&
-                            References.checkSubstratumFeature(mContext)) {
+                            Systems.checkSubstratumFeature(mContext)) {
                         Log.d(TAG, "Data partition on the current device is decrypted, using " +
                                 "dedicated theme bootanimation slot...");
                         themeDirectory = new File(DATA_SYSTEM);
                         if (!themeDirectory.exists()) {
-                            if (!References.checkThemeInterfacer(mContext)) {
+                            if (!Systems.checkThemeInterfacer(mContext)) {
                                 FileOperations.mountRWData();
                             }
                             FileOperations.createNewFolder(mContext, DATA_SYSTEM);
@@ -416,12 +416,12 @@ public class BootAnimationUtils {
                                         "shutdownanimation.zip" : "bootanimation.zip"));
 
                 // Inject backup script for encrypted legacy and encrypted OMS devices
-                if (!has_failed && (is_encrypted || !References.checkOMS(mContext)) &&
+                if (!has_failed && (is_encrypted || !Systems.checkOMS(mContext)) &&
                         !shutdownAnimation) {
                     FileOperations.mountRW();
                     File backupScript = new File("/system/addon.d/" + BACKUP_SCRIPT);
 
-                    if (References.checkSubstratumFeature(mContext)) {
+                    if (Systems.checkSubstratumFeature(mContext)) {
                         if (!backupScript.exists()) {
                             AssetManager assetManager = mContext.getAssets();
                             String backupScriptPath =

@@ -18,7 +18,18 @@
 
 package projekt.substratum.common;
 
+import android.annotation.SuppressLint;
+import android.os.Build;
+import android.util.Log;
+
+import java.util.Arrays;
+
+import dalvik.system.DexClassLoader;
+import projekt.substratum.common.tabs.SoundManager;
+
+import static projekt.substratum.common.References.FORCE_SAMSUNG_VARIANT;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
+import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 
 public class Resources {
 
@@ -79,7 +90,7 @@ public class Resources {
     };
 
     // Filter to adjust SystemUI elements
-    static final String[] ALLOWED_SYSTEMUI_ELEMENTS = {
+    private static final String[] ALLOWED_SYSTEMUI_ELEMENTS = {
             "com.android.systemui.headers",
             "com.android.systemui.navbars",
             "com.android.systemui.statusbars",
@@ -87,7 +98,7 @@ public class Resources {
     };
 
     // Predetermined list of new Nexus/Pixel Devices
-    static final String[] NEXUS_FILTER = new String[]{
+    private static final String[] NEXUS_FILTER = new String[]{
             "angler", // Nexus 6P
             "bullhead", // Nexus 5X
             "flounder", // Nexus 9
@@ -100,22 +111,90 @@ public class Resources {
     };
 
     // Filter to adjust UI sounds
-    static final String[] ALLOWED_UI_THEMABLE_SOUNDS = {
+    private static final String[] ALLOWED_UI_THEMABLE_SOUNDS = {
             "lock_sound",
             "unlock_sound",
             "low_battery_sound"
     };
 
     // Legacy Asset Folder Check
-    static final String[] ALLOWED_LEGACY_ASSETS = {
+    private static final String[] ALLOWED_LEGACY_ASSETS = {
             "overlays",
             "bootanimation",
             "sounds"
     };
 
     // Do not theme these packages
-    static final String[] BLACKLIST_THEME_TARGET_APPS = {
+    private static final String[] BLACKLIST_THEME_TARGET_APPS = {
             "com.android.cts.verifier",
             INTERFACER_PACKAGE
     };
+
+    // This method configures the new devices and their configuration of their vendor folders
+    public static Boolean inNexusFilter() {
+        return Arrays.asList(NEXUS_FILTER).contains(Build.DEVICE);
+    }
+
+    // This string array contains all the SystemUI acceptable overlay packs
+    public static Boolean allowedSounds(String current) {
+        return Arrays.asList(SoundManager.ALLOWED_SOUNDS).contains(current);
+    }
+
+    // This string array contains all the SystemUI acceptable overlay packs
+    public static Boolean allowedSystemUIOverlay(String current) {
+        return Arrays.asList(ALLOWED_SYSTEMUI_ELEMENTS).contains(current);
+    }
+
+    // This string array contains all the Settings acceptable overlay packs
+    public static Boolean allowedSettingsOverlay(String current) {
+        return Arrays.asList(ALLOWED_SETTINGS_ELEMENTS).contains(current);
+    }
+
+    // This string array contains all the SystemUI acceptable sound files
+    public static Boolean allowedUISound(String targetValue) {
+        return Arrays.asList(ALLOWED_UI_THEMABLE_SOUNDS).contains(targetValue);
+    }
+
+    // This string array contains all the legacy allowed folders
+    public static Boolean allowedForLegacy(String targetValue) {
+        return Arrays.asList(ALLOWED_LEGACY_ASSETS).contains(targetValue);
+    }
+
+    // This string array contains all blacklisted app for theme
+    public static Boolean allowedAppOverlay(String targetValue) {
+        return !Arrays.asList(BLACKLIST_THEME_TARGET_APPS).contains(targetValue);
+    }
+
+    // This method checks whether fonts is supported by the system
+    public static boolean isFontsSupported() {
+        if (FORCE_SAMSUNG_VARIANT) return false;
+        try {
+            Class<?> cls = Class.forName("android.graphics.Typeface");
+            cls.getDeclaredMethod("getSystemFontDirLocation");
+            cls.getDeclaredMethod("getThemeFontConfigLocation");
+            cls.getDeclaredMethod("getThemeFontDirLocation");
+            Log.d(SUBSTRATUM_LOG, "This system fully supports font hotswapping.");
+            return true;
+        } catch (Exception ex) {
+            // Suppress Fonts
+        }
+        return false;
+    }
+
+    // This method checks whether shutdown animation is supported by the system
+    public static boolean isShutdownAnimationSupported() {
+        try {
+            @SuppressLint("PrivateApi")
+            Class<?> cls = new DexClassLoader("/system/framework/services.jar",
+                    "/data/tmp/", "/data/tmp/", ClassLoader.getSystemClassLoader())
+                    .loadClass("com.android.server.power.ShutdownThread");
+            cls.getDeclaredMethod("themeShutdownAnimationExists");
+            cls.getDeclaredMethod("startShutdownAnimation");
+            cls.getDeclaredMethod("stopShutdownAnimation");
+            Log.d(SUBSTRATUM_LOG, "This system fully supports theme shutdown animation.");
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
+    }
 }

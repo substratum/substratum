@@ -40,7 +40,10 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import projekt.substratum.R;
+import projekt.substratum.common.Broadcasts;
+import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
+import projekt.substratum.common.Theming;
 import projekt.substratum.common.platform.ThemeManager;
 
 import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
@@ -68,7 +71,7 @@ public class OverlayFound extends BroadcastReceiver {
                 SharedPreferences prefs =
                         context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
                 prefs.edit().clear().apply();
-                References.sendKillMessage(context);
+                Broadcasts.sendKillMessage(context);
             }
 
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -99,7 +102,7 @@ public class OverlayFound extends BroadcastReceiver {
             if (overlayFound != null) {
                 mNotifyManager = (NotificationManager) overlayFound.context.getSystemService(
                         Context.NOTIFICATION_SERVICE);
-                installed_themes = References.getThemes(overlayFound.context);
+                installed_themes = Packages.getThemes(overlayFound.context);
             }
         }
 
@@ -121,9 +124,9 @@ public class OverlayFound extends BroadcastReceiver {
                 mBuilder.setOngoing(false);
                 mBuilder.setSmallIcon(R.drawable.notification_overlay_found);
                 mBuilder.setLargeIcon(((BitmapDrawable)
-                        References.grabAppIcon(overlayFound.context, theme_package)).getBitmap());
+                        Packages.getAppIcon(overlayFound.context, theme_package)).getBitmap());
 
-                Intent notificationIntent = References.themeIntent(
+                Intent notificationIntent = Theming.themeIntent(
                         overlayFound.context, theme_package, null,
                         References.TEMPLATE_THEME_MODE);
                 PendingIntent contentIntent = PendingIntent.getActivity(
@@ -136,8 +139,8 @@ public class OverlayFound extends BroadcastReceiver {
                 String format = String.format(
                         overlayFound.context.getString(
                                 R.string.notification_overlay_found_specific),
-                        References.grabPackageName(overlayFound.context, overlayFound.package_name),
-                        References.grabPackageName(overlayFound.context, theme_package));
+                        Packages.getPackageName(overlayFound.context, overlayFound.package_name),
+                        Packages.getPackageName(overlayFound.context, theme_package));
                 mBuilder.setContentTitle(format);
                 mBuilder.setContentText(
                         overlayFound.context.getString(

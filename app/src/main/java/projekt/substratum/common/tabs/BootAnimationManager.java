@@ -25,8 +25,8 @@ import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeInterfacerService;
 
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
-import static projekt.substratum.common.References.checkThemeInterfacer;
-import static projekt.substratum.common.References.getDeviceEncryptionStatus;
+import static projekt.substratum.common.Systems.checkThemeInterfacer;
+import static projekt.substratum.common.Systems.getDeviceEncryptionStatus;
 
 public class BootAnimationManager {
 

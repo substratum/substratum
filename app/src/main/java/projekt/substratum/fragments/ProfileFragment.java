@@ -71,7 +71,10 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import projekt.substratum.R;
+import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
+import projekt.substratum.common.Theming;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeInterfacerService;
@@ -217,7 +220,7 @@ public class ProfileFragment extends Fragment {
                     // Suppress Fonts
                 }
                 CharSequence[] items;
-                if (References.checkOMS(mContext) || fonts_allowed) {
+                if (Systems.checkOMS(mContext) || fonts_allowed) {
                     items = new CharSequence[]{
                             getString(R.string.profile_boot_animation),
                             getString(R.string.profile_font),
@@ -237,8 +240,8 @@ public class ProfileFragment extends Fragment {
                         .setMultiChoiceItems(items, null, (dialog1, which, isChecked) -> {
                             if (isChecked) {
                                 if (items[which].equals(getString(R.string.profile_boot_animation))
-                                        && References.getDeviceEncryptionStatus(mContext) > 1
-                                        && References.checkThemeInterfacer(mContext)) {
+                                        && Systems.getDeviceEncryptionStatus(mContext) > 1
+                                        && Systems.checkThemeInterfacer(mContext)) {
                                     AlertDialog dialog2 = new AlertDialog.Builder(mContext)
                                             .setTitle(R.string.root_required_title)
                                             .setMessage(R.string
@@ -356,7 +359,7 @@ public class ProfileFragment extends Fragment {
         });
 
         final CardView scheduledProfileCard = root.findViewById(R.id.cardListView3);
-        if (References.checkOMS(mContext) && References.checkThemeInterfacer(getContext
+        if (Systems.checkOMS(mContext) && Systems.checkThemeInterfacer(getContext
                 ())) {
             final ExpandableLayout scheduledProfileLayout = root.findViewById(
                     R.id.scheduled_profile_card_content_container);
@@ -508,7 +511,7 @@ public class ProfileFragment extends Fragment {
             ProfileFragment profileFragment = ref.get();
             if (profileFragment != null) {
                 profileFragment.headerProgress.setVisibility(View.GONE);
-                if (References.checkOMS(profileFragment.mContext)) {
+                if (Systems.checkOMS(profileFragment.mContext)) {
                     String directory_parse = String.format(
                             profileFragment.getString(R.string.toast_backup_success),
                             profileFragment.backup_getText);
@@ -551,7 +554,7 @@ public class ProfileFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                if (References.checkOMS(profileFragment.mContext)) {
+                if (Systems.checkOMS(profileFragment.mContext)) {
                     File profileDir = new File(Environment
                             .getExternalStorageDirectory().getAbsolutePath() +
                             "/substratum/profiles/" + profileFragment.backup_getText + "/");
@@ -631,7 +634,7 @@ public class ProfileFragment extends Fragment {
                     }
 
                     // Backup system bootanimation if encrypted
-                    if (References.getDeviceEncryptionStatus(profileFragment.mContext) > 1 &&
+                    if (Systems.getDeviceEncryptionStatus(profileFragment.mContext) > 1 &&
                             profileFragment.selectedBackup.contains(
                                     profileFragment.getString(R.string.profile_boot_animation))) {
                         FileOperations.copy(profileFragment.mContext,
@@ -652,7 +655,7 @@ public class ProfileFragment extends Fragment {
                     }
                 } else {
                     String current_directory;
-                    if (References.inNexusFilter()) {
+                    if (projekt.substratum.common.Resources.inNexusFilter()) {
                         current_directory = "/system/overlay/";
                     } else {
                         current_directory = "/system/vendor/overlay/";
@@ -758,7 +761,7 @@ public class ProfileFragment extends Fragment {
             super.onPostExecute(result);
             ProfileFragment profileFragment = ref.get();
             if (profileFragment != null) {
-                if (References.checkOMS(profileFragment.mContext)) {
+                if (Systems.checkOMS(profileFragment.mContext)) {
                     if (profileFragment.cannot_run_overlays.size() > 0) {
                         new AlertDialog.Builder(profileFragment.mContext)
                                 .setTitle(profileFragment.getString(R.string.restore_dialog_title))
@@ -790,7 +793,7 @@ public class ProfileFragment extends Fragment {
                     }
                 } else {
                     String current_directory;
-                    if (References.inNexusFilter()) {
+                    if (projekt.substratum.common.Resources.inNexusFilter()) {
                         current_directory = PIXEL_NEXUS_DIR;
                     } else {
                         current_directory = LEGACY_NEXUS_DIR;
@@ -839,7 +842,8 @@ public class ProfileFragment extends Fragment {
                         String vendor_partition = VENDOR_DIR;
                         String vendor_symlink = PIXEL_NEXUS_DIR;
                         String current_vendor =
-                                ((References.inNexusFilter()) ? vendor_partition :
+                                ((projekt.substratum.common.Resources.inNexusFilter()) ?
+                                        vendor_partition :
                                         vendor_location);
                         FileOperations.mountRW();
                         File vendor = new File(current_vendor);
@@ -915,7 +919,7 @@ public class ProfileFragment extends Fragment {
         protected String doInBackground(String... sUrl) {
             ProfileFragment profileFragment = ref.get();
             if (profileFragment != null) {
-                if (References.checkOMS(profileFragment.mContext)) {  // RRO doesn't need this
+                if (Systems.checkOMS(profileFragment.mContext)) {  // RRO doesn't need this
                     profile_name = sUrl[0];
                     profileFragment.cannot_run_overlays = new ArrayList<>();
                     profileFragment.dialog_message = new StringBuilder();
@@ -936,7 +940,7 @@ public class ProfileFragment extends Fragment {
                         for (int i = 0, size = profile.size(); i < size; i++) {
                             String packageName = profile.get(i).get(0);
                             String targetPackage = profile.get(i).get(1);
-                            if (References.isPackageInstalled(profileFragment.mContext,
+                            if (Packages.isPackageInstalled(profileFragment.mContext,
                                     targetPackage)) {
                                 if (!packageName.endsWith(".icon")) {
                                     if (system.contains(packageName)) {
@@ -1067,8 +1071,8 @@ public class ProfileFragment extends Fragment {
                     FileOperations.createNewFolder(EXTERNAL_STORAGE_CACHE);
                 }
                 if (toBeCompiled != null) {
-                    if (References.checkThemeInterfacer(profileFragment.mContext) &&
-                            !References.isBinderInterfacer(profileFragment.mContext)) {
+                    if (Systems.checkThemeInterfacer(profileFragment.mContext) &&
+                            !Systems.isBinderInterfacer(profileFragment.mContext)) {
                         if (profileFragment.finishReceiver == null)
                             profileFragment.finishReceiver = new FinishReceiver(profileFragment);
                         IntentFilter filter = new IntentFilter(STATUS_CHANGED);
@@ -1114,7 +1118,7 @@ public class ProfileFragment extends Fragment {
 
                         Boolean encrypted = false;
                         String encrypt_check =
-                                References.getOverlayMetadata(
+                                Packages.getOverlayMetadata(
                                         profileFragment.mContext, theme, metadataEncryption);
 
                         if (encrypt_check != null && encrypt_check.equals
@@ -1122,11 +1126,11 @@ public class ProfileFragment extends Fragment {
                                 !theme.equals(prevTheme)) {
                             prevTheme = theme;
                             Log.d(TAG, "This overlay for " +
-                                    References.grabPackageName(profileFragment.mContext, theme) +
+                                    Packages.getPackageName(profileFragment.mContext, theme) +
                                     " is encrypted, passing handshake to the theme package...");
                             encrypted = true;
 
-                            References.grabThemeKeys(profileFragment.mContext, theme);
+                            Theming.getThemeKeys(profileFragment.mContext, theme);
 
                             keyRetrieval = new KeyRetrieval();
                             IntentFilter if1 = new IntentFilter(KEY_RETRIEVAL);
@@ -1253,13 +1257,13 @@ public class ProfileFragment extends Fragment {
                                 profileFragment.mContext,
                                 theme,
                                 target,
-                                References.grabPackageName(profileFragment.mContext, theme),
+                                Packages.getPackageName(profileFragment.mContext, theme),
                                 compilePackage,
                                 additional_variant,
                                 base_variant,
-                                References.grabAppVersion(profileFragment.mContext,
+                                Packages.getAppVersion(profileFragment.mContext,
                                         currentItem.getParentTheme()),
-                                References.checkOMS(profileFragment.mContext),
+                                Systems.checkOMS(profileFragment.mContext),
                                 theme,
                                 suffix,
                                 type1a,
@@ -1270,8 +1274,8 @@ public class ProfileFragment extends Fragment {
                                 type4,
                                 compilePackage
                         );
-                        if (References.checkThemeInterfacer(profileFragment.mContext) &&
-                                !References.isBinderInterfacer(profileFragment.mContext)) {
+                        if (Systems.checkThemeInterfacer(profileFragment.mContext) &&
+                                !Systems.isBinderInterfacer(profileFragment.mContext)) {
                             // Thread wait
                             profileFragment.isWaiting = true;
                             do {
@@ -1319,7 +1323,7 @@ public class ProfileFragment extends Fragment {
                 // Encrypted devices boot Animation
                 File bootanimation = new File(theme, "bootanimation.zip");
                 if (bootanimation.exists() &&
-                        References.getDeviceEncryptionStatus(profileFragment.mContext) > 1) {
+                        Systems.getDeviceEncryptionStatus(profileFragment.mContext) > 1) {
                     FileOperations.mountRW();
                     FileOperations.move(profileFragment.mContext, "/system/media/bootanimation.zip",
                             "/system/madia/bootanimation-backup.zip");
@@ -1329,7 +1333,7 @@ public class ProfileFragment extends Fragment {
                     FileOperations.mountRO();
                 }
 
-                if (References.checkThemeInterfacer(profileFragment.mContext)) {
+                if (Systems.checkThemeInterfacer(profileFragment.mContext)) {
                     ArrayList<String> toBeDisabled =
                             new ArrayList<>(ThemeManager.listOverlays(
                                     profileFragment.mContext, STATE_ENABLED));

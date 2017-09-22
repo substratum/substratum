@@ -36,13 +36,15 @@ import com.google.firebase.crash.FirebaseCrash;
 
 import cat.ereza.customactivityoncrash.config.CaocConfig;
 import projekt.substratum.activities.crash.SubstratumCrash;
+import projekt.substratum.common.Broadcasts;
+import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.services.binder.InterfacerBinderService;
 
 import static projekt.substratum.BuildConfig.DEBUG;
-import static projekt.substratum.common.References.isAndromedaDevice;
-import static projekt.substratum.common.References.isBinderInterfacer;
+import static projekt.substratum.common.Systems.isAndromedaDevice;
+import static projekt.substratum.common.Systems.isBinderInterfacer;
 
 public class Substratum extends Application {
 
@@ -78,7 +80,7 @@ public class Substratum extends Application {
         }
 
         // Implicit broadcasts must be declared
-        References.registerBroadcastReceivers(this);
+        Broadcasts.registerBroadcastReceivers(this);
 
         // If the device is Android Oreo, create a persistent notification
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -197,7 +199,7 @@ public class Substratum extends Application {
             if (intent.getData() != null) {
                 String packageName = intent.getData().getEncodedSchemeSpecificPart();
                 // Check whether the installed package is made by substratum
-                String check = References.grabOverlayParent(context, packageName);
+                String check = Packages.getOverlayParent(context, packageName);
                 if (check != null) {
                     isWaiting = false;
                     Log.d("Substratum", "PACKAGE_ADDED: " + packageName);

@@ -51,7 +51,11 @@ import javax.crypto.spec.SecretKeySpec;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
+import projekt.substratum.common.Broadcasts;
+import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
+import projekt.substratum.common.Theming;
 import projekt.substratum.util.compilers.CacheCreator;
 import projekt.substratum.util.helpers.NotificationCreator;
 
@@ -71,7 +75,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         this.mContext = context;
-        References.sendOverlayRefreshMessage(mContext);
+        Broadcasts.sendOverlayRefreshMessage(mContext);
 
         Uri packageName = intent.getData();
         if (packageName != null) {
@@ -80,7 +84,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
             return;
         }
 
-        if (!package_name.endsWith(".icon")) References.sendRefreshManagerMessage(context);
+        if (!package_name.endsWith(".icon")) Broadcasts.sendRefreshManagerMessage(context);
 
         // First, check if the app installed is actually a substratum theme
         try {
@@ -119,7 +123,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
         }
 
         // Legacy check to see if an OMS theme is guarded from being installed on legacy
-        if (!References.checkOMS(context)) {
+        if (!Systems.checkOMS(context)) {
             try {
                 ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                         package_name, PackageManager.GET_META_DATA);
@@ -151,7 +155,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                                 Notification.PRIORITY_MAX,
                                 References.notification_id).createNotification();
 
-                        References.uninstallPackage(mContext, package_name);
+                        Packages.uninstallPackage(mContext, package_name);
                         return;
                     }
                 }
@@ -163,12 +167,12 @@ public class PackageModificationDetector extends BroadcastReceiver {
         if (replacing) {
             // We need to check if this is a new install or not
             Log.d(TAG, "'" + package_name + "' has been updated.");
-            if (!References.isCachingEnabled(context)) {
+            if (!Theming.isCachingEnabled(context)) {
                 Log.d(TAG, "'" + package_name +
                         "' has been updated with caching mode disabled.");
 
-                Bitmap bitmap = References.getBitmapFromDrawable(
-                        References.grabAppIcon(context, package_name));
+                Bitmap bitmap = Packages.getBitmapFromDrawable(
+                        Packages.getAppIcon(context, package_name));
 
                 new NotificationCreator(
                         context,
@@ -176,7 +180,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                                 R.string.notification_theme_updated),
                         mContext.getString(R.string.notification_theme_updated_content),
                         true,
-                        grabPendingIntent(package_name),
+                        getPendingIntent(package_name),
                         R.drawable.notification_updated,
                         bitmap,
                         Notification.PRIORITY_MAX,
@@ -187,7 +191,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                 prefs.edit().putBoolean("is_updating", true).apply();
                 new ThemeCacher(this).execute("");
             }
-        } else if (!References.isCachingEnabled(context)) {
+        } else if (!Theming.isCachingEnabled(context)) {
             // This is a new install, but caching mode is disabled, so pass right through!
             Log.d(TAG, "'" + package_name + "' has been installed with caching mode disabled.");
 
@@ -197,7 +201,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                             R.string.notification_theme_installed),
                     mContext.getString(R.string.notification_theme_installed_content),
                     true,
-                    grabPendingIntent(package_name),
+                    getPendingIntent(package_name),
                     R.drawable.notification_icon,
                     BitmapFactory.decodeResource(
                             mContext.getResources(), R.mipmap.main_launcher),
@@ -207,7 +211,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
             Log.d(TAG, "'" + package_name + "' has been installed with caching mode enabled.");
             new ThemeCacher(this).execute("");
         }
-        References.sendRefreshMessage(context);
+        Broadcasts.sendRefreshMessage(context);
     }
 
     private String getThemeName(String package_name) {
@@ -216,7 +220,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
             ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
-                if (References.checkOMS(mContext) &&
+                if (Systems.checkOMS(mContext) &&
                         appInfo.metaData.getString(References.metadataName) != null &&
                         appInfo.metaData.getString(References.metadataAuthor) != null) {
                     return appInfo.metaData.getString(References.metadataName);
@@ -232,12 +236,12 @@ public class PackageModificationDetector extends BroadcastReceiver {
         return null;
     }
 
-    public PendingIntent grabPendingIntent(String package_name) {
+    public PendingIntent getPendingIntent(String package_name) {
         Intent notificationIntent;
         PendingIntent pIntent = null;
         try {
             Intent myIntent =
-                    References.sendLaunchIntent(
+                    Theming.sendLaunchIntent(
                             mContext, package_name, false, null, true);
             if (myIntent != null) {
                 TaskStackBuilder stackBuilder = TaskStackBuilder.create(mContext);
@@ -305,11 +309,11 @@ public class PackageModificationDetector extends BroadcastReceiver {
                                 packageModificationDetector.mContext.getString(
                                         R.string.notification_theme_updated_content),
                                 true,
-                                packageModificationDetector.grabPendingIntent(
+                                packageModificationDetector.getPendingIntent(
                                         packageModificationDetector.package_name),
                                 R.drawable.notification_updated,
                                 ((BitmapDrawable)
-                                        References.grabAppIcon(
+                                        Packages.getAppIcon(
                                                 packageModificationDetector.mContext,
                                                 INTERFACER_PACKAGE
                                         )).getBitmap(),
@@ -325,7 +329,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                                 packageModificationDetector.mContext.getString(
                                         R.string.notification_theme_installed_content),
                                 true,
-                                packageModificationDetector.grabPendingIntent(
+                                packageModificationDetector.getPendingIntent(
                                         packageModificationDetector.package_name),
                                 R.drawable.notification_icon,
                                 BitmapFactory.decodeResource(
@@ -345,25 +349,25 @@ public class PackageModificationDetector extends BroadcastReceiver {
         protected String doInBackground(String... sUrl) {
             PackageModificationDetector packageModificationDetector = ref.get();
             if (packageModificationDetector != null) {
-                boolean cacheable = References.isPackageDebuggable(
+                boolean cacheable = Packages.isPackageDebuggable(
                         packageModificationDetector.mContext,
                         packageModificationDetector.package_name);
                 if (!cacheable) return null;
 
                 String encrypt_check =
-                        References.getOverlayMetadata(
+                        Packages.getOverlayMetadata(
                                 packageModificationDetector.mContext,
                                 packageModificationDetector.package_name,
                                 metadataEncryption);
 
                 if (encrypt_check != null && encrypt_check.equals(metadataEncryptionValue)) {
                     Log.d(TAG, "This overlay for " +
-                            References.grabPackageName(
+                            Packages.getPackageName(
                                     packageModificationDetector.mContext,
                                     packageModificationDetector.package_name) +
                             " is encrypted, passing handshake to the theme package...");
 
-                    References.grabThemeKeys(
+                    Theming.getThemeKeys(
                             packageModificationDetector.mContext,
                             packageModificationDetector.package_name);
 

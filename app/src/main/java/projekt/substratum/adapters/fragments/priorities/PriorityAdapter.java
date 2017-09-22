@@ -35,6 +35,7 @@ import com.thesurix.gesturerecycler.GestureViewHolder;
 
 import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
+import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 
 import static android.text.Html.FROM_HTML_MODE_LEGACY;
@@ -77,7 +78,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                         .getApplicationInfo(prioritiesItem.getName(), PackageManager.GET_META_DATA);
                 String packageTitle = mContext.getPackageManager()
                         .getApplicationLabel(applicationInfo).toString();
-                String targetPackage = References.grabOverlayTarget(
+                String targetPackage = Packages.getOverlayTarget(
                         mContext, prioritiesItem.getName());
                 String title;
                 if (packageTitle.startsWith("com.android.systemui.headers")) {
@@ -91,7 +92,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                 } else if (packageTitle.startsWith("com.android.settings.icons")) {
                     title = mContext.getString(R.string.settings_icons);
                 } else {
-                    title = References.grabPackageName(mContext, targetPackage);
+                    title = Packages.getPackageName(mContext, targetPackage);
                 }
 
                 if (title != null && title.length() > 0) {
@@ -102,14 +103,14 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
 
                 if (applicationInfo.metaData != null) {
                     if (applicationInfo.metaData.getString("Substratum_Device") != null) {
-                        int version = References.getOverlaySubstratumVersion(
+                        int version = Packages.getOverlaySubstratumVersion(
                                 mContext,
                                 packageTitle,
                                 References.metadataOverlayVersion);
                         Boolean newUpdate = (version != 0) && BuildConfig.VERSION_CODE >= version;
 
                         if (prioritiesItem.getType1a() == null) {
-                            String metadata = References.getOverlayMetadata(
+                            String metadata = Packages.getOverlayMetadata(
                                     mContext,
                                     packageTitle,
                                     References.metadataOverlayType1a);
@@ -133,7 +134,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                         }
 
                         if (prioritiesItem.getType1b() == null) {
-                            String metadata = References.getOverlayMetadata(
+                            String metadata = Packages.getOverlayMetadata(
                                     mContext,
                                     packageTitle,
                                     References.metadataOverlayType1b);
@@ -157,7 +158,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                         }
 
                         if (prioritiesItem.getType1c() == null) {
-                            String metadata = References.getOverlayMetadata(
+                            String metadata = Packages.getOverlayMetadata(
                                     mContext,
                                     packageTitle,
                                     References.metadataOverlayType1c);
@@ -180,7 +181,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                         }
 
                         if (prioritiesItem.getType2() == null) {
-                            String metadata = References.getOverlayMetadata(
+                            String metadata = Packages.getOverlayMetadata(
                                     mContext,
                                     packageTitle,
                                     References.metadataOverlayType2);
@@ -203,7 +204,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                         }
 
                         if (prioritiesItem.getType3() == null) {
-                            String metadata = References.getOverlayMetadata(
+                            String metadata = Packages.getOverlayMetadata(
                                     mContext,
                                     packageTitle,
                                     References.metadataOverlayType3);
@@ -227,14 +228,14 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                         }
 
                         if (prioritiesItem.getThemeName() == null) {
-                            String metadata = References.getOverlayMetadata(
+                            String metadata = Packages.getOverlayMetadata(
                                     mContext,
                                     packageTitle,
                                     References.metadataOverlayParent);
                             if (metadata != null && metadata.length() > 0 && newUpdate) {
                                 String pName = "<b>" +
                                         mContext.getString(R.string.manager_theme_name) + "</b> " +
-                                        References.grabPackageName(mContext, metadata);
+                                        Packages.getPackageName(mContext, metadata);
                                 priorityObjectAdapter.tvDesc.setVisibility(View.VISIBLE);
                                 prioritiesItem.setThemeName(pName);
                                 priorityObjectAdapter.tvDesc.setText(Html.fromHtml(pName,

@@ -36,10 +36,12 @@ import javax.xml.transform.stream.StreamResult;
 
 import projekt.substratum.BuildConfig;
 import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
+import projekt.substratum.common.Theming;
 
 import static projekt.substratum.common.References.ENABLE_AOPT_OUTPUT;
-import static projekt.substratum.common.References.getDeviceID;
 import static projekt.substratum.common.References.permissionSamsungOverlay;
+import static projekt.substratum.common.Systems.getDeviceID;
 
 public class CompilerCommands {
 
@@ -74,7 +76,7 @@ public class CompilerCommands {
         }
 
         boolean showOverlayInSamsungSettings =
-                References.isSamsung(context) && References.toggleShowSamsungOverlayInSettings;
+                Systems.isSamsung(context) && References.toggleShowSamsungOverlayInSettings;
         try {
 
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -201,7 +203,7 @@ public class CompilerCommands {
         sb.append(((!isNullOrEmpty(asset_replacement)) ?
                 "-A " + work_area + "/assets/ " : ""));
         // We will compile a volatile directory where we make temporary changes to
-        sb.append("-S " + work_area + (References.isCachingEnabled(context) ?
+        sb.append("-S " + work_area + (Theming.isCachingEnabled(context) ?
                 "/workdir/ " : noCacheDir + "/ "));
         // Build upon the system's Android framework
         sb.append("-I " + "/system/framework/framework-res.apk ");

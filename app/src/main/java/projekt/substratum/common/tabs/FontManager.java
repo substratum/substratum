@@ -39,8 +39,8 @@ import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeInterfacerService;
 import projekt.substratum.common.platform.ThemeManager;
 
-import static projekt.substratum.common.References.checkOMS;
-import static projekt.substratum.common.References.checkThemeInterfacer;
+import static projekt.substratum.common.Systems.checkOMS;
+import static projekt.substratum.common.Systems.checkThemeInterfacer;
 
 public class FontManager {
 

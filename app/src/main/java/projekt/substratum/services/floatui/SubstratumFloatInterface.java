@@ -56,6 +56,7 @@ import jp.co.recruit_lifestyle.android.floatingview.FloatingViewManager;
 import projekt.substratum.R;
 import projekt.substratum.adapters.fragments.manager.ManagerAdapter;
 import projekt.substratum.adapters.fragments.manager.ManagerItem;
+import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.services.notification.FloatUiButtonReceiver;
@@ -121,7 +122,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 inflater.inflate(R.layout.floatui_head, null, false);
         iconView.setOnClickListener(v -> {
             String packageName =
-                    References.grabPackageName(getApplicationContext(), foregroundedApp());
+                    Packages.getPackageName(getApplicationContext(), foregroundedApp());
             String dialogTitle = String.format(getString(R.string.per_app_dialog_title),
                     packageName);
 

@@ -41,14 +41,14 @@ import java.util.zip.ZipInputStream;
 import javax.crypto.Cipher;
 
 import projekt.substratum.R;
-import projekt.substratum.common.References;
+import projekt.substratum.common.Resources;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeInterfacerService;
 import projekt.substratum.common.platform.ThemeManager;
 
-import static projekt.substratum.common.References.checkOMS;
-import static projekt.substratum.common.References.checkThemeInterfacer;
-import static projekt.substratum.common.References.getProp;
+import static projekt.substratum.common.Systems.checkOMS;
+import static projekt.substratum.common.Systems.checkThemeInterfacer;
+import static projekt.substratum.common.Systems.getProp;
 
 public class SoundManager {
 
@@ -529,7 +529,7 @@ public class SoundManager {
     }
 
     private static void setUISounds(String sound_name, String location) {
-        if (References.allowedUISound(sound_name)) {
+        if (Resources.allowedUISound(sound_name)) {
             FileOperations.adjustContentProvider(SYSTEM_CONTENT_URI, sound_name, location);
         }
     }

@@ -47,7 +47,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import projekt.substratum.common.References;
+import projekt.substratum.common.Packages;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.services.profiles.ScheduledProfileReceiver;
 
@@ -257,21 +257,21 @@ public class ProfileManager {
                 if (enabled.size() > 0) {
                     xmlSerializer.startTag(null, METADATA_PROFILE_ENABLED);
                     for (String packageName : enabled) {
-                        String target = References.getOverlayMetadata(
+                        String target = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayTarget);
-                        String parent = References.getOverlayMetadata(
+                        String parent = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayParent);
-                        String type1a = References.getOverlayMetadata(
+                        String type1a = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayType1a);
-                        String type1b = References.getOverlayMetadata(
+                        String type1b = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayType1b);
-                        String type1c = References.getOverlayMetadata(
+                        String type1c = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayType1c);
-                        String type2 = References.getOverlayMetadata(
+                        String type2 = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayType2);
-                        String type3 = References.getOverlayMetadata(
+                        String type3 = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayType3);
-                        String type4 = References.getOverlayMetadata(
+                        String type4 = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayType4);
 
                         xmlSerializer.startTag(null, METADATA_PROFILE_ITEM)
@@ -303,21 +303,21 @@ public class ProfileManager {
                 if (disabled.size() > 0) {
                     xmlSerializer.startTag(null, METADATA_PROFILE_DISABLED);
                     for (String packageName : disabled) {
-                        String target = References.getOverlayMetadata(
+                        String target = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayTarget);
-                        String parent = References.getOverlayMetadata(
+                        String parent = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayParent);
-                        String type1a = References.getOverlayMetadata(
+                        String type1a = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayType1a);
-                        String type1b = References.getOverlayMetadata(
+                        String type1b = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayType1b);
-                        String type1c = References.getOverlayMetadata(
+                        String type1c = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayType1c);
-                        String type2 = References.getOverlayMetadata(
+                        String type2 = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayType2);
-                        String type3 = References.getOverlayMetadata(
+                        String type3 = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayType3);
-                        String type4 = References.getOverlayMetadata(
+                        String type4 = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayType4);
 
                         xmlSerializer.startTag(null, METADATA_PROFILE_ITEM)

@@ -27,7 +27,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import projekt.substratum.common.References;
+import projekt.substratum.common.Packages;
+import projekt.substratum.common.Systems;
 
 public class OverlaysItem implements Serializable {
 
@@ -97,7 +98,7 @@ public class OverlaysItem implements Serializable {
         variant_mode = true;
         this.enabledOverlays = new ArrayList<>();
         this.enabledOverlays.addAll(enabledOverlays);
-        this.app_icon = References.grabAppIcon(context, packageName);
+        this.app_icon = Packages.getAppIcon(context, packageName);
     }
 
     boolean isDeviceOMS() {
@@ -338,7 +339,7 @@ public class OverlaysItem implements Serializable {
 
     public boolean isOverlayEnabled() {
         return (isPackageInstalled(getFullOverlayParameters()) &&
-                (References.isSamsung(context) || enabledOverlays.contains
+                (Systems.isSamsung(context) || enabledOverlays.contains
                         (getFullOverlayParameters())));
     }
 }

@@ -66,7 +66,10 @@ import projekt.substratum.adapters.fragments.settings.ValidatorAdapter;
 import projekt.substratum.adapters.fragments.settings.ValidatorError;
 import projekt.substratum.adapters.fragments.settings.ValidatorFilter;
 import projekt.substratum.adapters.fragments.settings.ValidatorInfo;
+import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
+import projekt.substratum.common.Theming;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.systems.Validator;
 import projekt.substratum.util.files.FileDownloader;
@@ -77,7 +80,8 @@ import projekt.substratum.util.readers.ReadResourcesFile;
 import projekt.substratum.util.views.SheetDialog;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
-import static projekt.substratum.common.ActivityManagement.launchExternalActivity;
+import static projekt.substratum.common.Activities.launchExternalActivity;
+import static projekt.substratum.common.Packages.validateResource;
 import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
 import static projekt.substratum.common.References.HIDDEN_CACHING_MODE_TAP_COUNT;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
@@ -85,7 +89,6 @@ import static projekt.substratum.common.References.INTERFACER_SERVICE;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.SUBSTRATUM_VALIDATOR;
-import static projekt.substratum.common.References.validateResource;
 import static projekt.substratum.common.commands.FileOperations.delete;
 import static projekt.substratum.common.systems.Validator.VALIDATE_WITH_LOGS;
 
@@ -105,7 +108,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     public void onCreatePreferences(Bundle bundle, String s) {
         mContext = getContext();
 
-        if (References.checkOMS(mContext)) {
+        if (Systems.checkOMS(mContext)) {
             addPreferencesFromResource(R.xml.preference_fragment);
         } else {
             addPreferencesFromResource(R.xml.legacy_preference_fragment);
@@ -146,7 +149,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         systemPlatform = getPreferenceManager().findPreference("system_platform");
 
-        if (References.checkOMS(mContext)) {
+        if (Systems.checkOMS(mContext)) {
             new checkROMSupportList(this).execute(
                     getString(R.string.supported_roms_url),
                     "supported_roms.xml");
@@ -154,26 +157,26 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         platformSummary = new StringBuilder();
         platformSummary.append(String.format("%s %s (%s)\n", getString(R.string.android),
-                References.getProp("ro.build.version.release"), Build.ID));
+                Systems.getProp("ro.build.version.release"), Build.ID));
         platformSummary.append(String.format("%s %s (%s)\n",
                 getString(R.string.device), Build.MODEL, Build.DEVICE));
         platformSummary.append(String.format("%s ", getString(R.string
                 .settings_about_oms_rro_version)));
-        platformSummary.append(((References.checkOMS(mContext)) ?
-                (References.checkOreo() ? getString(R.string.settings_about_oms_version_do) :
+        platformSummary.append(((Systems.checkOMS(mContext)) ?
+                (Systems.checkOreo() ? getString(R.string.settings_about_oms_version_do) :
                         getString(R.string.settings_about_oms_version_7)) :
                 getString(R.string.settings_about_rro_version_2)));
         systemPlatform.setSummary(platformSummary);
-        systemPlatform.setIcon(References.grabAppIcon(mContext, "com.android.systemui"));
+        systemPlatform.setIcon(Packages.getAppIcon(mContext, "com.android.systemui"));
 
         Preference systemStatus = getPreferenceManager().findPreference("system_status");
-        boolean full_oms = References.checkOMS(mContext) &&
-                References.checkSubstratumFeature(mContext);
-        boolean interfacer = References.checkThemeInterfacer(mContext) &&
-                !References.isSamsung(mContext);
+        boolean full_oms = Systems.checkOMS(mContext) &&
+                Systems.checkSubstratumFeature(mContext);
+        boolean interfacer = Systems.checkThemeInterfacer(mContext) &&
+                !Systems.isSamsung(mContext);
         boolean verified = prefs.getBoolean("complexion", true);
         boolean certified = verified;
-        if (References.checkOMS(mContext)) {
+        if (Systems.checkOMS(mContext)) {
             if (interfacer) {
                 certified = verified && full_oms;
             } else {
@@ -183,9 +186,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         systemStatus.setSummary((interfacer
                 ? getString(R.string.settings_system_status_rootless)
-                : (References.isSamsung(mContext) ?
+                : (Systems.isSamsung(mContext) ?
                 getString(R.string.settings_system_status_samsung) :
-                (References.checkAndromeda(mContext) ?
+                (Systems.checkAndromeda(mContext) ?
                         getString(R.string.settings_system_status_andromeda) :
                         getString(R.string.settings_system_status_rooted)))
                 + " (" + (certified ? getString(R.string.settings_system_status_certified) :
@@ -195,8 +198,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 mContext.getDrawable(R.drawable.system_status_certified)
                 : mContext.getDrawable(R.drawable.system_status_uncertified));
         if (BuildConfig.DEBUG &&
-                References.checkOMS(mContext) &&
-                !References.checkAndromeda(mContext)) {
+                Systems.checkOMS(mContext) &&
+                !Systems.checkAndromeda(mContext)) {
             systemStatus.setOnPreferenceClickListener(preference -> {
                 if (References.isNetworkAvailable(mContext)) {
                     new downloadRepositoryList(this).execute("");
@@ -214,9 +217,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         final CheckBoxPreference showDangerousSamsung = (CheckBoxPreference)
                 getPreferenceManager().findPreference("show_dangerous_samsung_overlays");
 
-        if (References.isSamsung(mContext)) {
+        if (Systems.isSamsung(mContext)) {
             aboutSamsung.setVisible(true);
-            aboutSamsung.setIcon(References.grabAppIcon(mContext, SST_ADDON_PACKAGE));
+            aboutSamsung.setIcon(Packages.getAppIcon(mContext, SST_ADDON_PACKAGE));
             try {
                 PackageInfo info = mContext.getPackageManager()
                         .getPackageInfo(SST_ADDON_PACKAGE, 0);
@@ -276,7 +279,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         }
                         return false;
                     });
-        } else if (!References.checkOMS(mContext)) {
+        } else if (!Systems.checkOMS(mContext)) {
             aboutSamsung.setVisible(false);
             showDangerousSamsung.setVisible(false);
         }
@@ -316,7 +319,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     new deleteCache(this).execute("");
                     return false;
                 });
-        if (!References.isCachingEnabled(mContext)) purgeCache.setVisible(false);
+        if (!Theming.isCachingEnabled(mContext)) purgeCache.setVisible(false);
 
         final CheckBoxPreference alternate_drawer_design = (CheckBoxPreference)
                 getPreferenceManager().findPreference("alternate_drawer_design");
@@ -553,7 +556,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         return false;
                     });
 
-            if (References.checkOMS(mContext)) {
+            if (Systems.checkOMS(mContext)) {
                 crashReceiver.setChecked(prefs.getBoolean("crash_receiver", true));
                 crashReceiver.setOnPreferenceChangeListener((preference, newValue) -> {
                     boolean isChecked = (Boolean) newValue;
@@ -577,12 +580,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     }
                     return false;
                 });
-                if (!References.checkSubstratumFeature(mContext)) {
+                if (!Systems.checkSubstratumFeature(mContext)) {
                     crashReceiver.setVisible(false);
                 }
             }
         } else {
-            if (References.checkOMS(mContext)) {
+            if (Systems.checkOMS(mContext)) {
                 crashReceiver.setVisible(false);
             }
             aoptSwitcher.setVisible(false);
@@ -591,7 +594,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         // Hidden caching mode option
         if (!themeCaching.isVisible()) {
             systemPlatform.setOnPreferenceClickListener(preference -> {
-                if (!References.isSamsung(mContext)) {
+                if (!Systems.isSamsung(mContext)) {
                     tapCount++;
                     if (tapCount == 1) {
                         new Handler().postDelayed(() -> tapCount = 0, 2000);
@@ -681,7 +684,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 });
 
 
-        if (!References.checkOMS(mContext)) {
+        if (!Systems.checkOMS(mContext)) {
             Preference priority_switcher =
                     getPreferenceManager().findPreference("legacy_priority_switcher");
             String formatted =
@@ -722,10 +725,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
 
         // Finally, these functions will only work on OMS ROMs
-        if (References.checkOMS(mContext)) {
+        if (Systems.checkOMS(mContext)) {
             Preference aboutAndromeda = getPreferenceManager().findPreference("about_andromeda");
-            if (References.isAndromedaDevice(mContext)) {
-                aboutAndromeda.setIcon(References.grabAppIcon(mContext, ANDROMEDA_PACKAGE));
+            if (Systems.isAndromedaDevice(mContext)) {
+                aboutAndromeda.setIcon(Packages.getAppIcon(mContext, ANDROMEDA_PACKAGE));
                 try {
                     PackageInfo info = mContext.getPackageManager()
                             .getPackageInfo(ANDROMEDA_PACKAGE, 0);
@@ -744,7 +747,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
 
             Preference aboutInterfacer = getPreferenceManager().findPreference("about_interfacer");
-            aboutInterfacer.setIcon(References.grabAppIcon(mContext, INTERFACER_PACKAGE));
+            aboutInterfacer.setIcon(Packages.getAppIcon(mContext, INTERFACER_PACKAGE));
             aboutInterfacer.setOnPreferenceClickListener(
                     preference -> {
                         try {
@@ -766,7 +769,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         return false;
                     });
             try {
-                PackageInfo pInfo = References.getThemeInterfacerPackage(mContext);
+                PackageInfo pInfo = Systems.getThemeInterfacerPackage(mContext);
                 assert pInfo != null;
                 String versionName = pInfo.versionName;
                 int versionCode = pInfo.versionCode;
@@ -775,7 +778,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 // Suppress exception
             }
 
-            if (!References.checkSubstratumFeature(mContext)) {
+            if (!Systems.checkSubstratumFeature(mContext)) {
                 aboutInterfacer.setVisible(false);
             }
 
@@ -862,7 +865,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         }
                         return false;
                     });
-            if (!References.getProp("ro.substratum.recreate").equals("true"))
+            if (!Systems.getProp("ro.substratum.recreate").equals("true"))
                 systemUIRestart.setVisible(false);
 
             final CheckBoxPreference restartSystemUI = (CheckBoxPreference)
@@ -873,7 +876,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             } else {
                 restartSystemUI.setChecked(false);
             }
-            if (References.isAndromedaDevice(mContext)) {
+            if (Systems.isAndromedaDevice(mContext)) {
                 restartSystemUI.setVisible(false);
             }
             restartSystemUI.setOnPreferenceChangeListener(
@@ -1085,7 +1088,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             super.onPostExecute(result);
             SettingsFragment settingsFragment = ref.get();
             if (settingsFragment != null) {
-                if (!References.checkThemeInterfacer(settingsFragment.mContext)) {
+                if (!Systems.checkThemeInterfacer(settingsFragment.mContext)) {
                     return;
                 }
 
@@ -1126,7 +1129,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         protected String doInBackground(String... sUrl) {
             SettingsFragment settingsFragment = ref.get();
             if (settingsFragment != null) {
-                return References.checkFirmwareSupport(settingsFragment.mContext, sUrl[0], sUrl[1]);
+                return Systems.checkFirmwareSupport(settingsFragment.mContext, sUrl[0], sUrl[1]);
             }
             return null;
         }
@@ -1252,7 +1255,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             packageName.substring(0, packageName.length() - 7) :
                             packageName);
 
-                    if (References.isPackageInstalled(settingsFragment.mContext, tempPackageName)) {
+                    if (Packages.isPackageInstalled(settingsFragment.mContext, tempPackageName)) {
                         packages.add(packageName);
 
                         // Check if there's a bools commit check

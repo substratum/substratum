@@ -29,7 +29,8 @@ import java.io.File;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.activities.base.SubstratumActivity;
-import projekt.substratum.common.References;
+import projekt.substratum.common.Packages;
+import projekt.substratum.common.Theming;
 
 public class AppShortcutLaunch extends SubstratumActivity {
 
@@ -39,8 +40,8 @@ public class AppShortcutLaunch extends SubstratumActivity {
         Intent currentIntent = getIntent();
         String theme_pid = currentIntent.getStringExtra("theme_pid");
 
-        if (!References.isCachingEnabled(getApplicationContext())) {
-            References.launchTheme(this, theme_pid, null);
+        if (!Theming.isCachingEnabled(getApplicationContext())) {
+            Theming.launchTheme(this, theme_pid, null);
         } else {
             SharedPreferences prefs = this.getSharedPreferences(
                     "substratum_state", Context.MODE_PRIVATE);
@@ -48,12 +49,12 @@ public class AppShortcutLaunch extends SubstratumActivity {
                 prefs.edit().putBoolean("is_updating", false).apply();
             if (!prefs.getBoolean("is_updating", true)) {
                 // Process fail case if user uninstalls an app and goes back an activity
-                if (References.isPackageInstalled(this, theme_pid)) {
+                if (Packages.isPackageInstalled(this, theme_pid)) {
                     File checkSubstratumVerity = new File(
                             getBuildDirPath() + theme_pid, "substratum.xml");
 
                     if (checkSubstratumVerity.exists()) {
-                        References.launchTheme(this, theme_pid, null);
+                        Theming.launchTheme(this, theme_pid, null);
                     } else {
                         createToast(getString(R.string.toast_needs_caching), Toast.LENGTH_LONG);
                         Intent intent = new Intent(this, MainActivity.class);

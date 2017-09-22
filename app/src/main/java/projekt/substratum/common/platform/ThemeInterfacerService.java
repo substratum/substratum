@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
 import projekt.substratum.services.binder.InterfacerBinderService;
 
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
@@ -93,7 +93,7 @@ public class ThemeInterfacerService {
     }
 
     static void installOverlays(Context context, ArrayList<String> overlays) {
-        if (References.isBinderInterfacer(context)) {
+        if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .installPackage(overlays);
@@ -112,7 +112,7 @@ public class ThemeInterfacerService {
     public static void uninstallOverlays(Context context,
                                          ArrayList<String> overlays,
                                          boolean restartUi) {
-        if (References.isBinderInterfacer(context)) {
+        if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .uninstallPackage(overlays, restartUi);
@@ -130,7 +130,7 @@ public class ThemeInterfacerService {
     }
 
     static void enableOverlays(Context context, ArrayList<String> overlays, boolean restartUi) {
-        if (References.isBinderInterfacer(context)) {
+        if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .enableOverlay(overlays, restartUi);
@@ -147,7 +147,7 @@ public class ThemeInterfacerService {
     }
 
     static void disableOverlays(Context context, ArrayList<String> overlays, boolean restartUi) {
-        if (References.isBinderInterfacer(context)) {
+        if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .disableOverlay(overlays, restartUi);
@@ -164,7 +164,7 @@ public class ThemeInterfacerService {
     }
 
     public static void restartSystemUI(Context context) {
-        if (References.isBinderInterfacer(context)) {
+        if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .restartSystemUI();
@@ -185,7 +185,7 @@ public class ThemeInterfacerService {
     }
 
     public static void setBootAnimation(Context context, String bootanimation_location) {
-        if (References.isBinderInterfacer(context)) {
+        if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .applyBootanimation(bootanimation_location);
@@ -201,7 +201,7 @@ public class ThemeInterfacerService {
     }
 
     public static void clearBootAnimation(Context context) {
-        if (References.isBinderInterfacer(context)) {
+        if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .applyBootanimation(null);
@@ -216,7 +216,7 @@ public class ThemeInterfacerService {
     }
 
     public static void setFonts(Context context, String pid, String name) {
-        if (References.isBinderInterfacer(context)) {
+        if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .applyFonts(pid, name);
@@ -233,7 +233,7 @@ public class ThemeInterfacerService {
     }
 
     public static void clearFonts(Context context) {
-        if (References.isBinderInterfacer(context)) {
+        if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .applyFonts(null, null);
@@ -248,7 +248,7 @@ public class ThemeInterfacerService {
     }
 
     public static void setThemedSounds(Context context, String pid, String name) {
-        if (References.isBinderInterfacer(context)) {
+        if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .applyAudio(pid, name);
@@ -265,7 +265,7 @@ public class ThemeInterfacerService {
     }
 
     public static void clearThemedSounds(Context context) {
-        if (References.isBinderInterfacer(context)) {
+        if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface().applyAudio(null,
                         null);
@@ -280,7 +280,7 @@ public class ThemeInterfacerService {
     }
 
     static void setPriority(Context context, ArrayList<String> overlays, boolean restartUi) {
-        if (References.isBinderInterfacer(context)) {
+        if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .changePriority(overlays, restartUi);
@@ -297,7 +297,7 @@ public class ThemeInterfacerService {
     }
 
     public static void copy(Context context, String source, String destination) {
-        if (References.isBinderInterfacer(context)) {
+        if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .copy(source, destination);
@@ -314,7 +314,7 @@ public class ThemeInterfacerService {
     }
 
     public static void move(Context context, String source, String destination) {
-        if (References.isBinderInterfacer(context)) {
+        if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .move(source, destination);
@@ -331,7 +331,7 @@ public class ThemeInterfacerService {
     }
 
     public static void delete(Context context, String directory, boolean deleteParent) {
-        if (References.isBinderInterfacer(context)) {
+        if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .deleteDirectory(directory, deleteParent);
@@ -349,7 +349,7 @@ public class ThemeInterfacerService {
 
     public static void applyProfile(Context context, String name, ArrayList<String> toBeDisabled,
                                     ArrayList<String> toBeEnabled, boolean restartUi) {
-        if (References.isBinderInterfacer(context)) {
+        if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .applyProfile(toBeEnabled, toBeDisabled, name, restartUi);
@@ -368,7 +368,7 @@ public class ThemeInterfacerService {
     }
 
     public static void createNewFolder(Context context, String destination) {
-        if (References.isBinderInterfacer(context)) {
+        if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .mkdir(destination);
@@ -384,7 +384,7 @@ public class ThemeInterfacerService {
     }
 
     static Map<String, List<OverlayInfo>> getAllOverlays(Context context) {
-        if (References.isBinderInterfacer(context)) {
+        if (Systems.isBinderInterfacer(context)) {
             try {
                 //noinspection unchecked
                 return InterfacerBinderService.getInstance().getInterfacerInterface()
@@ -398,7 +398,7 @@ public class ThemeInterfacerService {
     }
 
     public static void setShutdownAnimation(Context context, String shutdownAnimationLocation) {
-        if (References.isBinderInterfacer(context)) {
+        if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .applyShutdownAnimation(shutdownAnimationLocation);
@@ -409,7 +409,7 @@ public class ThemeInterfacerService {
     }
 
     public static void clearShutdownAnimation(Context context) {
-        if (References.isBinderInterfacer(context)) {
+        if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .applyShutdownAnimation(null);

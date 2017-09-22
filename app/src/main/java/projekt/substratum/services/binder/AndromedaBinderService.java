@@ -32,7 +32,9 @@ import android.util.Log;
 
 import projekt.andromeda.IAndromedaInterface;
 import projekt.substratum.R;
+import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
 import projekt.substratum.common.platform.AndromedaService;
 
 import static projekt.substratum.common.References.ANDROMEDA_BINDED;
@@ -49,7 +51,7 @@ public class AndromedaBinderService extends Service implements ServiceConnection
     }
 
     public void bindAndromeda() {
-        if (References.checkAndromeda(this) && !mBound) {
+        if (Systems.checkAndromeda(this) && !mBound) {
             Intent intent = new Intent(ANDROMEDA_BINDED);
             intent.setPackage(ANDROMEDA_PACKAGE);
             if (!bindService(intent, this, Context.BIND_AUTO_CREATE)) {
@@ -155,7 +157,7 @@ public class AndromedaBinderService extends Service implements ServiceConnection
             mNotifyMgr.notify(badNotificationId, mBuilder.build());
         }
 
-        References.sendAndromedaRefreshMessage(context);
+        Broadcasts.sendAndromedaRefreshMessage(context);
         stopSelf();
     }
 }

@@ -32,7 +32,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import projekt.substratum.R;
-import projekt.substratum.common.References;
+import projekt.substratum.common.Packages;
 
 public class VariantAdapter extends ArrayAdapter<VariantItem> {
 
@@ -91,7 +91,7 @@ public class VariantAdapter extends ArrayAdapter<VariantItem> {
                             // Now check the package name
                             String working_package = working_value.split(":")[0];
                             String working_color = working_value.split("/")[1];
-                            int color = References.grabColorResource(
+                            int color = Packages.getColorResource(
                                     getContext(), working_package, working_color);
                             if (color != 0) {
                                 item.setColor(color);

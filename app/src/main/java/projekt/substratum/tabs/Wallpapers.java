@@ -136,8 +136,8 @@ public class Wallpapers extends Fragment {
                     WallpaperEntries newEntry = new WallpaperEntries();
 
                     for (String key : newArray.keySet()) {
-                        if (!key.toLowerCase(Locale.getDefault())
-                                .endsWith("-preview".toLowerCase(Locale.getDefault()))) {
+                        if (!key.toLowerCase(Locale.US)
+                                .endsWith("-preview".toLowerCase(Locale.US))) {
                             newEntry.setCallingActivity(wallpapers.getActivity());
                             newEntry.setContext(wallpapers.mContext);
                             newEntry.setWallpaperName(key.replaceAll("~", " "));

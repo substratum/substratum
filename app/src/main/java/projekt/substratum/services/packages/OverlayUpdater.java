@@ -45,7 +45,9 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import projekt.substratum.R;
-import projekt.substratum.common.References;
+import projekt.substratum.common.Packages;
+import projekt.substratum.common.Systems;
+import projekt.substratum.common.Theming;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
@@ -82,18 +84,18 @@ public class OverlayUpdater extends BroadcastReceiver {
             String package_name = intent.getData().toString().substring(8);
 
             if (ThemeManager.isOverlay(context, intent.getData().toString().substring(8)) ||
-                    References.getOverlayMetadata(
+                    Packages.getOverlayMetadata(
                             context,
                             intent.getData().toString().substring(8),
                             metadataOverlayDevice) != null ||
-                    References.isCachingEnabled(context)) {
+                    Theming.isCachingEnabled(context)) {
                 return;
             }
 
             // When the package is being updated, continue.
             Boolean replacing = intent.getBooleanExtra(Intent.EXTRA_REPLACING, false);
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            if (replacing && !References.getThemesArray(context).contains(package_name)) {
+            if (replacing && !Packages.getThemesArray(context).contains(package_name)) {
                 // When the package is replacing, and also not a theme, update the overlays too!
                 Boolean to_update = prefs.getBoolean("overlay_updater", false);
                 if (!to_update) return;
@@ -103,7 +105,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                         APP_UPGRADE,
                         APP_UPGRADE_NOTIFICATION_ID
                 ).execute(APP_UPGRADE);
-            } else if (replacing && References.getThemesArray(context).contains(package_name)) {
+            } else if (replacing && Packages.getThemesArray(context).contains(package_name)) {
                 // When the package is replacing, and also a theme, update the overlays too!
                 Boolean to_update = prefs.getBoolean("theme_updater", false);
                 if (!to_update) return;
@@ -177,11 +179,11 @@ public class OverlayUpdater extends BroadcastReceiver {
                 mBuilder = new NotificationCompat.Builder(context, DEFAULT_NOTIFICATION_CHANNEL_ID);
                 String format = String.format(
                         context.getString(R.string.notification_initial_title_upgrade_intent),
-                        References.grabPackageName(context, package_name));
+                        Packages.getPackageName(context, package_name));
                 mBuilder.setContentTitle(format)
                         .setProgress(100, 0, true)
-                        .setLargeIcon(References.getBitmapFromVector(
-                                References.grabAppIcon(
+                        .setLargeIcon(Packages.getBitmapFromVector(
+                                Packages.getAppIcon(
                                         context,
                                         package_name)))
                         .setSmallIcon(android.R.drawable.ic_popup_sync)
@@ -198,8 +200,8 @@ public class OverlayUpdater extends BroadcastReceiver {
                 mBuilder.setAutoCancel(true);
                 mBuilder.setProgress(0, 0, false);
                 mBuilder.setOngoing(false);
-                mBuilder.setLargeIcon(References.getBitmapFromVector(
-                        References.grabAppIcon(
+                mBuilder.setLargeIcon(Packages.getBitmapFromVector(
+                        Packages.getAppIcon(
                                 context,
                                 package_name)));
 
@@ -207,7 +209,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                     mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
                     String format = String.format(
                             context.getString(R.string.notification_done_upgrade_title_warning),
-                            References.grabPackageName(context, package_name));
+                            Packages.getPackageName(context, package_name));
                     mBuilder.setContentTitle(format);
 
                     StringBuilder stringBuilder = new StringBuilder();
@@ -225,7 +227,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                     mBuilder.setSmallIcon(R.drawable.notification_success_icon);
                     String format = String.format(
                             context.getString(R.string.notification_done_upgrade_title),
-                            References.grabPackageName(context, package_name));
+                            Packages.getPackageName(context, package_name));
                     mBuilder.setContentTitle(format);
                     switch (upgrade_mode) {
                         case APP_UPGRADE:
@@ -259,45 +261,45 @@ public class OverlayUpdater extends BroadcastReceiver {
                     switch (upgrade_mode) {
                         case APP_UPGRADE:
                             mBuilder.setContentText(
-                                    References.grabPackageName(context, package_name) + " (" +
-                                            References.grabPackageName(
+                                    Packages.getPackageName(context, package_name) + " (" +
+                                            Packages.getPackageName(
                                                     context,
-                                                    References.grabOverlayParent(
+                                                    Packages.getOverlayParent(
                                                             context,
                                                             installed_overlays.get(i))
                                             ) + ")");
                             break;
                         case THEME_UPGRADE:
                             mBuilder.setContentText(
-                                    References.grabPackageName(context,
-                                            References.grabOverlayTarget(
+                                    Packages.getPackageName(context,
+                                            Packages.getOverlayTarget(
                                                     context,
                                                     installed_overlays.get(i))));
                             mBuilder.setLargeIcon(
-                                    References.getBitmapFromVector(
-                                            References.grabAppIcon(
+                                    Packages.getBitmapFromVector(
+                                            Packages.getAppIcon(
                                                     context,
-                                                    References.grabOverlayTarget(
+                                                    Packages.getOverlayTarget(
                                                             context,
                                                             installed_overlays.get(i)))));
                             break;
                     }
                     mNotifyManager.notify(id, mBuilder.build());
 
-                    String theme = References.getOverlayMetadata(context,
+                    String theme = Packages.getOverlayMetadata(context,
                             installed_overlays.get(i), metadataOverlayParent);
 
                     Boolean encrypted = false;
                     String encrypt_check =
-                            References.getOverlayMetadata(context, theme, metadataEncryption);
+                            Packages.getOverlayMetadata(context, theme, metadataEncryption);
 
                     if (encrypt_check != null && encrypt_check.equals(metadataEncryptionValue)) {
                         Log.d(TAG, "This overlay for " +
-                                References.grabPackageName(context, theme) +
+                                Packages.getPackageName(context, theme) +
                                 " is encrypted, passing handshake to the theme package...");
                         encrypted = true;
 
-                        References.grabThemeKeys(context, theme);
+                        Theming.getThemeKeys(context, theme);
 
                         keyRetrieval = new KeyRetrieval();
                         IntentFilter if1 = new IntentFilter(KEY_RETRIEVAL);
@@ -350,20 +352,20 @@ public class OverlayUpdater extends BroadcastReceiver {
                     assert themeResources != null;
                     themeAssetManager = themeResources.getAssets();
 
-                    String target = References.getOverlayMetadata(
+                    String target = Packages.getOverlayMetadata(
                             context, installed_overlays.get(i), metadataOverlayTarget);
 
-                    String type1a = References.getOverlayMetadata(
+                    String type1a = Packages.getOverlayMetadata(
                             context, installed_overlays.get(i), metadataOverlayType1a);
-                    String type1b = References.getOverlayMetadata(
+                    String type1b = Packages.getOverlayMetadata(
                             context, installed_overlays.get(i), metadataOverlayType1b);
-                    String type1c = References.getOverlayMetadata(
+                    String type1c = Packages.getOverlayMetadata(
                             context, installed_overlays.get(i), metadataOverlayType1c);
-                    String type2 = References.getOverlayMetadata(
+                    String type2 = Packages.getOverlayMetadata(
                             context, installed_overlays.get(i), metadataOverlayType2);
-                    String type3 = References.getOverlayMetadata(
+                    String type3 = Packages.getOverlayMetadata(
                             context, installed_overlays.get(i), metadataOverlayType3);
-                    String type4 = References.getOverlayMetadata(
+                    String type4 = Packages.getOverlayMetadata(
                             context, installed_overlays.get(i), metadataOverlayType4);
 
                     if (type1a != null && type1a.contains("overlays/")) return null;
@@ -404,7 +406,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                     String listDir = overlaysDir + "/" +
                             (upgrade_mode.equals(APP_UPGRADE) ?
                                     package_name :
-                                    References.grabOverlayTarget(context, installed_overlays.get(i))
+                                    Packages.getOverlayTarget(context, installed_overlays.get(i))
                             ) + suffix;
                     FileOperations.copyFileOrDir(
                             themeAssetManager,
@@ -458,19 +460,19 @@ public class OverlayUpdater extends BroadcastReceiver {
                             theme,
                             (upgrade_mode.equals(APP_UPGRADE) ?
                                     package_name :
-                                    References.grabOverlayTarget(
+                                    Packages.getOverlayTarget(
                                             context,
                                             installed_overlays.get(i))),
-                            References.grabPackageName(context, theme),
+                            Packages.getPackageName(context, theme),
                             (upgrade_mode.equals(APP_UPGRADE) ?
                                     package_name :
-                                    References.grabOverlayTarget(
+                                    Packages.getOverlayTarget(
                                             context,
                                             installed_overlays.get(i))),
                             additional_variant,
                             base_variant,
-                            References.grabAppVersion(context, installed_overlays.get(i)),
-                            References.checkOMS(context),
+                            Packages.getAppVersion(context, installed_overlays.get(i)),
+                            Systems.checkOMS(context),
                             theme,
                             suffix,
                             type1a,

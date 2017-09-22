@@ -48,7 +48,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import projekt.substratum.R;
+import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
+import projekt.substratum.common.Resources;
+import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
@@ -63,7 +66,7 @@ import static projekt.substratum.common.References.DATA_RESOURCE_DIR;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.VENDOR_DIR;
-import static projekt.substratum.common.References.checkAndromeda;
+import static projekt.substratum.common.Systems.checkAndromeda;
 
 
 public class RecoveryFragment extends Fragment {
@@ -110,7 +113,7 @@ public class RecoveryFragment extends Fragment {
                     null);
             LinearLayout disable_all = sheetView.findViewById(R.id.disable_all);
             LinearLayout uninstall_all = sheetView.findViewById(R.id.uninstall_all);
-            if (!References.checkOMS(mContext)) disable_all.setVisibility(View.GONE);
+            if (!Systems.checkOMS(mContext)) disable_all.setVisibility(View.GONE);
             disable_all.setOnClickListener(view -> {
                 new RestoreFunction(this).execute(false);
                 sheetDialog.hide();
@@ -207,7 +210,7 @@ public class RecoveryFragment extends Fragment {
                     R.layout.restore_fonts_sheet_dialog, null);
             LinearLayout restore = sheetView.findViewById(R.id.restore);
             restore.setOnClickListener(view2 -> {
-                if (References.checkThemeInterfacer(mContext) ||
+                if (Systems.checkThemeInterfacer(mContext) ||
                         Settings.System.canWrite(mContext)) {
                     new FontsClearer(this).execute("");
                 } else {
@@ -235,7 +238,7 @@ public class RecoveryFragment extends Fragment {
                     R.layout.restore_sounds_sheet_dialog, null);
             LinearLayout restore = sheetView.findViewById(R.id.restore);
             restore.setOnClickListener(view2 -> {
-                if (References.checkThemeInterfacer(mContext) ||
+                if (Systems.checkThemeInterfacer(mContext) ||
                         Settings.System.canWrite(mContext)) {
                     new SoundsClearer(this).execute();
                 } else {
@@ -257,29 +260,29 @@ public class RecoveryFragment extends Fragment {
         });
 
         View overlayCard = root.findViewById(R.id.restore_overlay_card);
-        if (References.isSamsung(getContext())) {
+        if (Systems.isSamsung(getContext())) {
             overlayCard.setVisibility(View.GONE);
         }
 
         View bootanimationCard = root.findViewById(R.id.restore_bootanimation_card);
-        if (References.isSamsung(getContext()) ||
+        if (Systems.isSamsung(getContext()) ||
                 (checkAndromeda(getContext()) && !Root.checkRootAccess())) {
             bootanimationCard.setVisibility(View.GONE);
         }
 
         View fontsCard = root.findViewById(R.id.restore_fonts_card);
-        if (!References.isFontsSupported()) {
+        if (!Resources.isFontsSupported()) {
             fontsCard.setVisibility(View.GONE);
         }
 
         View soundCard = root.findViewById(R.id.restore_sounds_card);
-        if (References.isSamsung(getContext()) ||
+        if (Systems.isSamsung(getContext()) ||
                 (checkAndromeda(getContext()) && !Root.checkRootAccess())) {
             soundCard.setVisibility(View.GONE);
         }
 
         if (!prefs.getBoolean("seen_restore_warning", false) &&
-                !References.isSamsung(getContext())) {
+                !Systems.isSamsung(getContext())) {
             showRecoveryWarning();
         }
         return root;
@@ -351,7 +354,7 @@ public class RecoveryFragment extends Fragment {
                 editor.remove("fonts_applied");
                 editor.apply();
 
-                if (References.checkOMS(context)) {
+                if (Systems.checkOMS(context)) {
                     Toast toast = Toast.makeText(
                             context,
                             R.string.manage_fonts_toast,
@@ -421,7 +424,7 @@ public class RecoveryFragment extends Fragment {
 
                 fragment.mProgressDialog.dismiss();
                 if (withUninstall) {
-                    if (References.checkOMS(context)) {
+                    if (Systems.checkOMS(context)) {
                         try {
                             if (view != null) {
                                 Lunchbar.make(view,
@@ -484,12 +487,12 @@ public class RecoveryFragment extends Fragment {
                 withUninstall = sUrl[0];
 
                 if (withUninstall) {
-                    if (References.checkOMS(context)) {
+                    if (Systems.checkOMS(context)) {
                         List<String> overlays = ThemeManager.listAllOverlays(context);
 
                         fragment.final_commands_array = new ArrayList<>();
                         fragment.final_commands_array.addAll(overlays.stream()
-                                .filter(o -> References.grabOverlayParent(context, o) != null)
+                                .filter(o -> Packages.getOverlayParent(context, o) != null)
                                 .collect(Collectors.toList()));
                     } else {
                         FileOperations.mountRW();

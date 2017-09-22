@@ -80,7 +80,12 @@ import java.util.concurrent.TimeUnit;
 
 import projekt.substratum.activities.base.SubstratumActivity;
 import projekt.substratum.activities.showcase.ShowcaseActivity;
+import projekt.substratum.common.Broadcasts;
+import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
+import projekt.substratum.common.Resources;
+import projekt.substratum.common.Systems;
+import projekt.substratum.common.Theming;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.AndromedaService;
@@ -101,9 +106,9 @@ import projekt.substratum.util.helpers.ContextWrapper;
 import projekt.substratum.util.injectors.CheckBinaries;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-import static projekt.substratum.common.ActivityManagement.launchActivityUrl;
-import static projekt.substratum.common.ActivityManagement.launchExternalActivity;
-import static projekt.substratum.common.ActivityManagement.launchInternalActivity;
+import static projekt.substratum.common.Activities.launchActivityUrl;
+import static projekt.substratum.common.Activities.launchExternalActivity;
+import static projekt.substratum.common.Activities.launchInternalActivity;
 import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
 import static projekt.substratum.common.References.BYPASS_ALL_VERSION_CHECKS;
 import static projekt.substratum.common.References.ENABLE_ROOT_CHECK;
@@ -117,10 +122,10 @@ import static projekt.substratum.common.References.SAMSUNG_THEME_ENGINE_N;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
-import static projekt.substratum.common.References.checkAndromeda;
-import static projekt.substratum.common.References.checkThemeSystemModule;
-import static projekt.substratum.common.References.checkUsagePermissions;
-import static projekt.substratum.common.References.isSamsung;
+import static projekt.substratum.common.Systems.checkAndromeda;
+import static projekt.substratum.common.Systems.checkThemeSystemModule;
+import static projekt.substratum.common.Systems.checkUsagePermissions;
+import static projekt.substratum.common.Systems.isSamsung;
 import static projekt.substratum.common.commands.FileOperations.delete;
 
 public class MainActivity extends SubstratumActivity implements
@@ -149,7 +154,7 @@ public class MainActivity extends SubstratumActivity implements
     private static boolean checkIfOverlaysOutdated(Context context) {
         List<String> overlays = ThemeManager.listAllOverlays(context);
         for (int i = 0; i < overlays.size(); i++) {
-            int current_version = References.grabOverlaySubstratumVersion(
+            int current_version = Packages.getOverlaySubstratumVersion(
                     context,
                     overlays.get(i));
             if (current_version <= OVERLAY_UPDATE_RANGE && current_version != 0) {
@@ -280,7 +285,7 @@ public class MainActivity extends SubstratumActivity implements
             // Unregistered already
         }
 
-        if (References.isAndromedaDevice(mContext)) {
+        if (Systems.isAndromedaDevice(mContext)) {
             try {
                 localBroadcastManager2.unregisterReceiver(andromedaReceiver);
             } catch (Exception e) {
@@ -296,7 +301,7 @@ public class MainActivity extends SubstratumActivity implements
         mProgressDialog = new Dialog(this, R.style.SubstratumBuilder_ActivityTheme);
         mProgressDialog.setCancelable(false);
 
-        if (BuildConfig.DEBUG && !References.isSamsung(mContext)) {
+        if (BuildConfig.DEBUG && !Systems.isSamsung(mContext)) {
             Log.d(SUBSTRATUM_LOG, "Substratum launched with debug mode signatures.");
             if (LeakCanary.isInAnalyzerProcess(this)) return;
             installLeakCanary();
@@ -305,7 +310,7 @@ public class MainActivity extends SubstratumActivity implements
         }
         setContentView(R.layout.main_activity);
         cleanLogCharReportsIfNecessary();
-        References.refreshInstalledThemesPref(mContext);
+        Theming.refreshInstalledThemesPref(mContext);
 
         int selectedDrawer = 1;
         if (savedInstanceState != null) {
@@ -318,7 +323,7 @@ public class MainActivity extends SubstratumActivity implements
         localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
         localBroadcastManager.registerReceiver(killReceiver, filter);
 
-        if (References.isAndromedaDevice(mContext)) {
+        if (Systems.isAndromedaDevice(mContext)) {
             andromedaReceiver = new AndromedaReceiver();
             IntentFilter filter2 = new IntentFilter("AndromedaReceiver.KILL");
             localBroadcastManager2 = LocalBroadcastManager.getInstance(mContext);
@@ -330,8 +335,8 @@ public class MainActivity extends SubstratumActivity implements
         actionbar_title = findViewById(R.id.activity_title);
         actionbar_content = findViewById(R.id.theme_count);
 
-        References.setROMVersion(mContext, false);
-        References.setAndCheckOMS(mContext);
+        Systems.setROMVersion(mContext, false);
+        Systems.setAndCheckOMS(mContext);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -464,13 +469,13 @@ public class MainActivity extends SubstratumActivity implements
                             .withName(R.string.nav_bootanim)
                             .withIcon(R.drawable.nav_bootanim)
                             .withIdentifier(3));
-        if (References.isShutdownAnimationSupported())
+        if (Resources.isShutdownAnimationSupported())
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_shutdownanim)
                             .withIcon(R.drawable.nav_shutdownanim)
                             .withIdentifier(4));
-        if (References.isFontsSupported() && !checkSamsungStatus)
+        if (Resources.isFontsSupported() && !checkSamsungStatus)
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_fonts)
@@ -495,7 +500,7 @@ public class MainActivity extends SubstratumActivity implements
                         .withName(R.string.nav_overlay_manager)
                         .withIcon(R.drawable.nav_overlay_manager)
                         .withIdentifier(8));
-        if (References.checkOMS(mContext) && !checkSamsungStatus)
+        if (Systems.checkOMS(mContext) && !checkSamsungStatus)
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_priorities)
@@ -546,10 +551,10 @@ public class MainActivity extends SubstratumActivity implements
             if (drawerItem != null) {
                 switch ((int) drawerItem.getIdentifier()) {
                     case 1:
-                        switchThemeFragment(((References.checkOMS(
+                        switchThemeFragment(((Systems.checkOMS(
                                 mContext) ?
                                         getString(R.string.app_name) :
-                                        (References.isSamsung(mContext) ?
+                                        (Systems.isSamsung(mContext) ?
                                                 getString(R.string.samsung_app_name) :
                                                 getString(R.string.legacy_app_name)))
                                 ),
@@ -622,7 +627,7 @@ public class MainActivity extends SubstratumActivity implements
                         break;
                     case 103:
                         int sourceURL;
-                        if (References.isSamsung(this)) {
+                        if (Systems.isSamsung(this)) {
                             sourceURL = R.string.xda_sungstratum_link;
                         } else {
                             sourceURL = R.string.xda_link;
@@ -692,7 +697,7 @@ public class MainActivity extends SubstratumActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_menu, menu);
 
-        boolean isOMS = References.checkOMS(mContext);
+        boolean isOMS = Systems.checkOMS(mContext);
         if (isOMS || isSamsung(mContext)) {
             menu.findItem(R.id.reboot_device).setVisible(false);
             menu.findItem(R.id.soft_reboot).setVisible(false);
@@ -705,7 +710,7 @@ public class MainActivity extends SubstratumActivity implements
         searchItem.setVisible(!hideBundle);
         MenuItem restartUi = menu.findItem(R.id.restart_systemui);
         restartUi.setVisible(!hideRestartUi &&
-                !References.checkAndromeda(mContext) &&
+                !Systems.checkAndromeda(mContext) &&
                 (isOMS || Root.checkRootAccess()));
         return true;
     }
@@ -1072,19 +1077,19 @@ public class MainActivity extends SubstratumActivity implements
                                             PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
                                 }
 
-                                if (!References.checkROMVersion(context)) {
+                                if (!Systems.checkROMVersion(context)) {
                                     activity.prefs.edit().remove("oms_state").apply();
                                     activity.prefs.edit().remove("oms_version").apply();
-                                    References.setROMVersion(context, true);
-                                    References.setAndCheckOMS(context);
+                                    Systems.setROMVersion(context, true);
+                                    Systems.setAndCheckOMS(context);
                                     activity.recreate();
                                 }
 
-                                if (!References.checkOMS(context) &&
+                                if (!Systems.checkOMS(context) &&
                                         !activity.prefs.contains("legacy_dismissal")) {
                                     AlertDialog.Builder alert = new AlertDialog.Builder(activity);
                                     alert.setTitle(R.string.warning_title);
-                                    if (References.isSamsung(context)) {
+                                    if (Systems.isSamsung(context)) {
                                         alert.setMessage(R.string.samsung_warning_content);
                                     } else {
                                         alert.setMessage(R.string.legacy_warning_content);
@@ -1107,19 +1112,19 @@ public class MainActivity extends SubstratumActivity implements
                                     })
                             .show();
                 } else {
-                    if (!References.checkROMVersion(context)) {
-                        References.setROMVersion(context, true);
+                    if (!Systems.checkROMVersion(context)) {
+                        Systems.setROMVersion(context, true);
                         activity.prefs.edit().remove("oms_state").apply();
                         activity.prefs.edit().remove("oms_version").apply();
-                        References.setAndCheckOMS(context);
+                        Systems.setAndCheckOMS(context);
                         activity.recreate();
                     }
 
-                    if (!References.checkOMS(context) &&
+                    if (!Systems.checkOMS(context) &&
                             !activity.prefs.contains("legacy_dismissal")) {
                         AlertDialog.Builder alert = new AlertDialog.Builder(activity);
                         alert.setTitle(R.string.warning_title);
-                        if (References.isSamsung(context)) {
+                        if (Systems.isSamsung(context)) {
                             alert.setMessage(R.string.samsung_warning_content);
                         } else {
                             alert.setMessage(R.string.legacy_warning_content);
@@ -1135,7 +1140,7 @@ public class MainActivity extends SubstratumActivity implements
                         alert.show();
                     }
 
-                    References.startKeyRetrievalReceiver(context);
+                    Broadcasts.startKeyRetrievalReceiver(context);
                     if (!activity.prefs.contains("complexion")) {
                         activity.prefs.edit().putBoolean("complexion", true).apply();
                         new References.Markdown(context, activity.prefs);
@@ -1177,7 +1182,7 @@ public class MainActivity extends SubstratumActivity implements
                     TextView titleView = activity.mProgressDialog.findViewById(R.id.title);
                     TextView textView =
                             activity.mProgressDialog.findViewById(R.id.root_rejected_text);
-                    if (References.isSamsungDevice(context)) {
+                    if (Systems.isSamsungDevice(context)) {
                         TextView samsungTitle = activity.mProgressDialog.findViewById(
                                 R.id.sungstratum_title);
                         samsungTitle.setVisibility(View.VISIBLE);
@@ -1188,7 +1193,7 @@ public class MainActivity extends SubstratumActivity implements
                                 launchActivityUrl(context, R.string.sungstratum_url));
                         textView.setVisibility(View.GONE);
                         titleView.setVisibility(View.GONE);
-                    } else if (References.isAndromedaDevice(context) &&
+                    } else if (Systems.isAndromedaDevice(context) &&
                             !AndromedaService.checkServerActivity()) {
                         TextView andromedaTitle = activity.mProgressDialog.findViewById(
                                 R.id.andromeda_title);
@@ -1202,8 +1207,8 @@ public class MainActivity extends SubstratumActivity implements
                                 launchExternalActivity(context, ANDROMEDA_PACKAGE, "InfoActivity"));
                         textView.setVisibility(View.GONE);
                         titleView.setVisibility(View.GONE);
-                    } else if (References.checkOreo() &&
-                            !References.isPackageInstalled(context, ANDROMEDA_PACKAGE)) {
+                    } else if (Systems.checkOreo() &&
+                            !Packages.isPackageInstalled(context, ANDROMEDA_PACKAGE)) {
                         TextView andromedaTitle = activity.mProgressDialog.findViewById(
                                 R.id.andromeda_title);
                         andromedaTitle.setVisibility(View.VISIBLE);
@@ -1217,7 +1222,7 @@ public class MainActivity extends SubstratumActivity implements
                     }
                 } else {
                     CheckBinaries.install(activity.mContext, false);
-                    if (References.checkOMS(context)) new DoCleanUp(context).execute();
+                    if (Systems.checkOMS(context)) new DoCleanUp(context).execute();
                 }
             }
         }
@@ -1232,7 +1237,7 @@ public class MainActivity extends SubstratumActivity implements
                 boolean samsungCheck = checkThemeSystemModule(context) == SAMSUNG_THEME_ENGINE_N;
                 if (samsungCheck) {
                     // Throw the dialog when sungstratum addon is not installed
-                    return !References.isPackageInstalled(context, SST_ADDON_PACKAGE);
+                    return !Packages.isPackageInstalled(context, SST_ADDON_PACKAGE);
                 }
 
                 // Check if the system is Andromeda mode
@@ -1252,7 +1257,7 @@ public class MainActivity extends SubstratumActivity implements
                 }
 
                 // Check for OMS
-                boolean omsCheck = References.checkOMS(context);
+                boolean omsCheck = Systems.checkOMS(context);
                 if (omsCheck) {
                     int checked = checkThemeSystemModule(context);
                     return checked != OVERLAY_MANAGER_SERVICE_O_UNROOTED &&
@@ -1299,9 +1304,9 @@ public class MainActivity extends SubstratumActivity implements
                 }
 
                 for (int i = 0; i < stateAll.size(); i++) {
-                    String parent = References.grabOverlayParent(context, stateAll.get(i));
+                    String parent = Packages.getOverlayParent(context, stateAll.get(i));
                     if (parent != null) {
-                        if (!References.isPackageInstalled(context, parent)) {
+                        if (!Packages.isPackageInstalled(context, parent)) {
                             Log.e("OverlayCleaner",
                                     "Parent APK not found for \"" + stateAll.get(i) +
                                             "\" and will be removed.");

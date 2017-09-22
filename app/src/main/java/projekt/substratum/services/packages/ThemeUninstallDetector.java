@@ -35,6 +35,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import projekt.substratum.common.Broadcasts;
+import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
@@ -67,14 +69,14 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                 SharedPreferences prefs =
                         context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
                 prefs.edit().clear().apply();
-                References.sendKillMessage(context);
+                Broadcasts.sendKillMessage(context);
             }
 
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (prefs.contains("installed_themes")) {
                 Set installed_themes = prefs.getStringSet("installed_themes", null);
                 if (installed_themes != null && installed_themes.contains(package_name)) {
-                    References.sendRefreshMessage(context);
+                    Broadcasts.sendRefreshMessage(context);
                     // Get all installed overlays for this package
                     List<String> stateAll = ThemeManager.listAllOverlays(context);
 
@@ -148,7 +150,7 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
 
                     // Clear off the old preserved list of themes with the new batch
                     Set<String> installed = new TreeSet<>();
-                    List<ResolveInfo> all_themes = References.getThemes(context);
+                    List<ResolveInfo> all_themes = Packages.getThemes(context);
                     for (int i = 0; i < all_themes.size(); i++) {
                         installed.add(all_themes.get(i).activityInfo.packageName);
                     }

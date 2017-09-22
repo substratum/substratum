@@ -33,7 +33,7 @@ import projekt.substratum.common.References;
 import projekt.substratum.services.floatui.SubstratumFloatInterface;
 import projekt.substratum.services.tiles.FloatUiTile;
 
-import static projekt.substratum.common.References.checkUsagePermissions;
+import static projekt.substratum.common.Systems.checkUsagePermissions;
 
 public class FloatUILaunchActivity extends SubstratumActivity {
 

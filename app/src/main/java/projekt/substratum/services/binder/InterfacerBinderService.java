@@ -31,10 +31,11 @@ import android.util.Log;
 import projekt.substratum.IInterfacerInterface;
 import projekt.substratum.R;
 import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
 
 import static projekt.substratum.common.References.INTERFACER_BINDED;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
-import static projekt.substratum.common.References.checkOreo;
+import static projekt.substratum.common.Systems.checkOreo;
 
 public class InterfacerBinderService extends Service implements ServiceConnection {
 
@@ -52,7 +53,7 @@ public class InterfacerBinderService extends Service implements ServiceConnectio
     }
 
     public void bindInterfacer() {
-        if (References.isBinderInterfacer(this) && !mBound) {
+        if (Systems.isBinderInterfacer(this) && !mBound) {
             Intent intent = new Intent(INTERFACER_BINDED);
             intent.setPackage(INTERFACER_PACKAGE);
             bindService(intent, this, Context.BIND_AUTO_CREATE);

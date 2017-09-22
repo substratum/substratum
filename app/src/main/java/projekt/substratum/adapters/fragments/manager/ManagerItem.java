@@ -26,6 +26,7 @@ import java.io.Serializable;
 
 import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
+import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 
 public class ManagerItem implements Serializable, Comparable<ManagerItem> {
@@ -50,18 +51,18 @@ public class ManagerItem implements Serializable, Comparable<ManagerItem> {
         this.name = name;
         this.isSelected = false;
 
-        int version = References.getOverlaySubstratumVersion(
+        int version = Packages.getOverlaySubstratumVersion(
                 context,
                 this.name,
                 References.metadataOverlayVersion);
         Boolean newUpdate = (version != 0) && BuildConfig.VERSION_CODE >= version;
-        String metadata = References.getOverlayMetadata(
+        String metadata = Packages.getOverlayMetadata(
                 context,
                 this.name,
                 References.metadataOverlayParent);
         if (metadata != null && metadata.length() > 0 && newUpdate) {
             this.themeName = "<b>" + context.getString(R.string.manager_theme_name) + "</b> " +
-                    References.grabPackageName(context, metadata);
+                    Packages.getPackageName(context, metadata);
         } else {
             this.themeName = "";
         }
@@ -162,8 +163,8 @@ public class ManagerItem implements Serializable, Comparable<ManagerItem> {
     }
 
     private void setLabelName(String packageName) {
-        labelName = References.grabPackageName(getContext(),
-                References.grabOverlayTarget(getContext(), packageName));
+        labelName = Packages.getPackageName(getContext(),
+                Packages.getOverlayTarget(getContext(), packageName));
     }
 
     public Drawable getDrawable() {

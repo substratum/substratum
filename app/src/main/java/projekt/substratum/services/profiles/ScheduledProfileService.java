@@ -43,7 +43,9 @@ import java.util.List;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.activities.profiles.ProfileErrorInfoActivity;
+import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeInterfacerService;
 import projekt.substratum.common.platform.ThemeManager;
@@ -52,8 +54,8 @@ import projekt.substratum.common.tabs.WallpaperManager;
 import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.services.binder.InterfacerBinderService;
 
-import static projekt.substratum.common.References.isAndromedaDevice;
-import static projekt.substratum.common.References.isBinderInterfacer;
+import static projekt.substratum.common.Systems.isAndromedaDevice;
+import static projekt.substratum.common.Systems.isBinderInterfacer;
 import static projekt.substratum.common.systems.ProfileManager.DAY_PROFILE;
 import static projekt.substratum.common.systems.ProfileManager.DAY_PROFILE_HOUR;
 import static projekt.substratum.common.systems.ProfileManager.DAY_PROFILE_MINUTE;
@@ -177,7 +179,7 @@ public class ScheduledProfileService extends JobService {
                     for (int i = 0, size = profile.size(); i < size; i++) {
                         String packageName = profile.get(i).get(0);
                         String targetPackage = profile.get(i).get(1);
-                        if (References.isPackageInstalled(context, targetPackage)) {
+                        if (Packages.isPackageInstalled(context, targetPackage)) {
                             if (!packageName.endsWith(".icon")) {
                                 if (system.contains(packageName)) {
                                     to_be_run.add(packageName);
@@ -218,7 +220,7 @@ public class ScheduledProfileService extends JobService {
                     // Encrypted devices boot Animation
                     File bootanimation = new File(theme, "bootanimation.zip");
                     if (bootanimation.exists() &&
-                            References.getDeviceEncryptionStatus(context) > 1) {
+                            Systems.getDeviceEncryptionStatus(context) > 1) {
                         FileOperations.mountRW();
                         FileOperations.move(context, "/system/media/bootanimation.zip",
                                 "/system/madia/bootanimation-backup.zip");

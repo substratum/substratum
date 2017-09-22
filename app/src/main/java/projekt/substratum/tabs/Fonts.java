@@ -67,6 +67,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import projekt.substratum.R;
 import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.tabs.FontManager;
@@ -219,7 +220,7 @@ public class Fonts extends Fragment {
 
     public void startApply() {
         if (!paused) {
-            if (References.checkThemeInterfacer(mContext) ||
+            if (Systems.checkThemeInterfacer(mContext) ||
                     Settings.System.canWrite(mContext)) {
                 if (fontSelector.getSelectedItemPosition() == 1) {
                     new FontsClearer(this).execute("");
@@ -276,7 +277,7 @@ public class Fonts extends Fragment {
                 editor.remove("fonts_applied");
                 editor.apply();
 
-                if (References.checkOMS(context)) {
+                if (Systems.checkOMS(context)) {
                     Toast toast = Toast.makeText(
                             context,
                             R.string.manage_fonts_toast,

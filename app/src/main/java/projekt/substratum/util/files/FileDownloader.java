@@ -35,15 +35,18 @@ import projekt.substratum.common.References;
 public class FileDownloader {
 
     /**
-     * @param context           getContext() or getApplicationContext()
-     * @param fileUrl           direct link to the XML file, could use PasteBin or a server XML file
-     * @param outputFile        the filename of the XML file, including .xml (e.g. hello.xml)
-     * @param destinationFolder the folder that encompasses this download cache (e.g. vCache)
+     * @param context                 getContext() or getApplicationContext()
+     * @param fileUrl                 direct link to the XML file, could use PasteBin or a
+     *                                server XML file
+     * @param outputFile              the filename of the XML file, including .xml
+     *                                (e.g. hello.xml)
+     * @param destinationFileOrFolder the folder that encompasses this download cache
+     *                                (e.g. vCache)
      */
     public static void init(Context context,
                             String fileUrl,
                             String outputFile,
-                            String destinationFolder) throws NetworkOnMainThreadException {
+                            String destinationFileOrFolder) throws NetworkOnMainThreadException {
 
         try {
             InputStream input = null;
@@ -52,13 +55,22 @@ public class FileDownloader {
 
             // First create the cache folder
             File directory = new File(context.getCacheDir().getAbsolutePath() + "/" +
-                    destinationFolder);
-            if (!destinationFolder.endsWith(".png") && !destinationFolder.endsWith(".jpg") &&
+                    destinationFileOrFolder);
+            if (!destinationFileOrFolder.endsWith(".png") &&
+                    !destinationFileOrFolder.endsWith(".jpg") &&
+                    !destinationFileOrFolder.endsWith(".xml") &&
                     !directory.exists()) {
                 Boolean made = directory.mkdir();
                 if (!made)
                     Log.e(References.SUBSTRATUM_LOG,
                             "Could not make " + directory.getAbsolutePath() + " directory...");
+            } else if (destinationFileOrFolder.endsWith(".xml") &&
+                    !directory.isDirectory() &&
+                    directory.exists()) {
+                if (!directory.delete()) {
+                    Log.e(References.SUBSTRATUM_LOG, "Could not delete file: " +
+                            directory.getAbsolutePath());
+                }
             }
 
             // Once the cache folder is created, start downloading the file
@@ -78,7 +90,7 @@ public class FileDownloader {
                 input = connection.getInputStream();
 
                 String outputDir = context.getCacheDir().getAbsolutePath() + "/" +
-                        destinationFolder +
+                        destinationFileOrFolder +
                         (outputFile != null && outputFile.length() > 0 ? "/" + outputFile : "");
 
                 Log.d(References.SUBSTRATUM_LOG, "Placing file in: " + outputDir);

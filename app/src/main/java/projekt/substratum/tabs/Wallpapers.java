@@ -25,20 +25,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.lang.ref.WeakReference;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Map;
@@ -47,11 +39,11 @@ import projekt.substratum.R;
 import projekt.substratum.adapters.tabs.wallpapers.WallpaperAdapter;
 import projekt.substratum.adapters.tabs.wallpapers.WallpaperEntries;
 import projekt.substratum.common.References;
+import projekt.substratum.util.files.FileDownloader;
 import projekt.substratum.util.readers.ReadCloudWallpaperFile;
 
 public class Wallpapers extends Fragment {
 
-    private static final String TAG = "WallpaperUtils";
     private ViewGroup root;
     private String wallpaperUrl;
     private RecyclerView mRecyclerView;
@@ -167,68 +159,7 @@ public class Wallpapers extends Fragment {
         protected String doInBackground(String... sUrl) {
             Wallpapers wallpapers = ref.get();
             if (wallpapers != null) {
-                InputStream input = null;
-                OutputStream output = null;
-                HttpURLConnection connection = null;
-
-                try {
-                    File current_wallpapers = new File(wallpapers.mContext.getCacheDir() +
-                            "/current_wallpapers.xml");
-                    if (current_wallpapers.exists() && !current_wallpapers.delete()) {
-                        Log.e(TAG, "Unable to delete current wallpaper stash.");
-                    }
-
-                    URL url = new URL(sUrl[0]);
-                    connection = (HttpURLConnection) url.openConnection();
-                    connection.connect();
-
-                    // expect HTTP 200 OK, so we don't mistakenly save error report
-                    // instead of the file
-                    if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                        return "Server returned HTTP " + connection.getResponseCode()
-                                + " " + connection.getResponseMessage();
-                    }
-
-                    // this will be useful to display download percentage
-                    // might be -1: server did not report the length
-                    int fileLength = connection.getContentLength();
-
-                    // download the file
-                    input = connection.getInputStream();
-
-                    output = new FileOutputStream(
-                            wallpapers.mContext.getCacheDir().getAbsolutePath() + "/" + sUrl[1]);
-
-                    byte data[] = new byte[8192];
-                    long total = 0;
-                    int count;
-                    while ((count = input.read(data)) != -1) {
-                        // allow canceling with back button
-                        if (isCancelled()) {
-                            input.close();
-                            return null;
-                        }
-                        total += count;
-                        // publishing the progress....
-                        if (fileLength > 0) // only if total length is known
-                            publishProgress((int) (total * 100 / fileLength));
-                        output.write(data, 0, count);
-                    }
-                } catch (Exception e) {
-                    return e.toString();
-                } finally {
-                    try {
-                        if (output != null)
-                            output.close();
-                        if (input != null)
-                            input.close();
-                    } catch (IOException ignored) {
-                        // Suppress warning
-                    }
-
-                    if (connection != null)
-                        connection.disconnect();
-                }
+                FileDownloader.init(wallpapers.mContext, sUrl[0], "", sUrl[1]);
             }
             return null;
         }

@@ -47,6 +47,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import projekt.substratum.R;
@@ -196,7 +197,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                                         Lunchbar.LENGTH_INDEFINITE)
                                         .setAction(mContext.getString(
                                                 R.string.background_needs_invalidating_button),
-                                                view -> new deleteCache().execute(""))
+                                                view -> new deleteCache(this).execute(""))
                                         .show();
                             }
                         }
@@ -365,7 +366,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 uninstall.setOnClickListener(view2 -> {
                     if (!Systems.isSamsung(mContext) && !Systems.checkAndromeda(mContext)) {
                         toBeUninstalled = themeItem;
-                        new uninstallTheme().execute();
+                        new uninstallTheme(this).execute();
                     } else {
                         Uri packageURI = Uri.parse("package:" + themeItem.getThemePackage());
                         Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
@@ -448,6 +449,119 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         return information.size();
     }
 
+    private static class uninstallTheme extends AsyncTask<String, Integer, String> {
+        private WeakReference<ThemeAdapter> ref;
+
+        uninstallTheme(ThemeAdapter themeAdapter) {
+            ref = new WeakReference<>(themeAdapter);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            ThemeAdapter themeAdapter = ref.get();
+            if (themeAdapter != null) {
+                if (themeAdapter.toBeUninstalled != null) {
+                    String parseMe = String.format(
+                            themeAdapter.mContext.getString(R.string.adapter_uninstalling),
+                            themeAdapter.toBeUninstalled.getThemeName());
+                    themeAdapter.mProgressDialog = new ProgressDialog(themeAdapter.mContext);
+                    themeAdapter.mProgressDialog.setMessage(parseMe);
+                    themeAdapter.mProgressDialog.setIndeterminate(true);
+                    themeAdapter.mProgressDialog.setCancelable(false);
+                    themeAdapter.mProgressDialog.show();
+                    // Clear the notification of building theme if shown
+                    NotificationManager manager = (NotificationManager)
+                            themeAdapter.mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+                    if (manager != null) {
+                        manager.cancel(References.notification_id);
+                    }
+                }
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            ThemeAdapter themeAdapter = ref.get();
+            if (themeAdapter != null) {
+                if (themeAdapter.toBeUninstalled != null) {
+                    themeAdapter.toBeUninstalled = null;
+                    Broadcasts.sendRefreshMessage(themeAdapter.mContext);
+                    themeAdapter.mProgressDialog.cancel();
+                }
+            }
+        }
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            ThemeAdapter themeAdapter = ref.get();
+            if (themeAdapter != null) {
+                if (themeAdapter.toBeUninstalled != null) {
+                    // Uninstall theme
+                    Packages.uninstallPackage(
+                            themeAdapter.mContext,
+                            themeAdapter.toBeUninstalled.getThemePackage());
+                }
+            }
+            return null;
+        }
+    }
+
+    private static class deleteCache extends AsyncTask<String, Integer, String> {
+        private WeakReference<ThemeAdapter> ref;
+
+        deleteCache(ThemeAdapter themeAdapter) {
+            ref = new WeakReference<>(themeAdapter);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            ThemeAdapter themeAdapter = ref.get();
+            if (themeAdapter != null) {
+                themeAdapter.mProgressDialog = new ProgressDialog(themeAdapter.mContext);
+                themeAdapter.mProgressDialog.setMessage(
+                        themeAdapter.mContext.getString(
+                                R.string.substratum_cache_clear_initial_toast));
+                themeAdapter.mProgressDialog.setIndeterminate(true);
+                themeAdapter.mProgressDialog.setCancelable(false);
+                themeAdapter.mProgressDialog.show();
+                References.clearAllNotifications(themeAdapter.mContext);
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            ThemeAdapter themeAdapter = ref.get();
+            if (themeAdapter != null) {
+                // Since the cache is invalidated, better relaunch the app now
+                themeAdapter.mProgressDialog.cancel();
+                themeAdapter.mActivity.finish();
+                themeAdapter.mContext.startActivity(themeAdapter.mActivity.getIntent());
+            }
+        }
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            ThemeAdapter themeAdapter = ref.get();
+            if (themeAdapter != null) {
+                // Delete the directory
+                try {
+                    FileOperations.delete(
+                            themeAdapter.mContext,
+                            themeAdapter.mContext.getCacheDir().getAbsolutePath() +
+                                    SUBSTRATUM_BUILDER_CACHE);
+                } catch (Exception e) {
+                    // Suppress warning
+                }
+                // Reset the flag for is_updating
+                SharedPreferences prefsPrivate =
+                        themeAdapter.mContext.getSharedPreferences("substratum_state",
+                                Context.MODE_PRIVATE);
+                prefsPrivate.edit().remove("is_updating").apply();
+            }
+            return null;
+        }
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView theme_name;
@@ -472,83 +586,6 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
             divider = view.findViewById(R.id.theme_ready_divider);
             tbo = view.findViewById(R.id.theme_ready_indicator);
             two = view.findViewById(R.id.theme_unready_indicator);
-        }
-    }
-
-    private class uninstallTheme extends AsyncTask<String, Integer, String> {
-        @Override
-        protected void onPreExecute() {
-            if (toBeUninstalled != null) {
-                String parseMe = String.format(
-                        mContext.getString(R.string.adapter_uninstalling),
-                        toBeUninstalled.getThemeName());
-                mProgressDialog = new ProgressDialog(mContext);
-                mProgressDialog.setMessage(parseMe);
-                mProgressDialog.setIndeterminate(true);
-                mProgressDialog.setCancelable(false);
-                mProgressDialog.show();
-                // Clear the notification of building theme if shown
-                NotificationManager manager = (NotificationManager)
-                        mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                if (manager != null) {
-                    manager.cancel(References.notification_id);
-                }
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            if (toBeUninstalled != null) {
-                toBeUninstalled = null;
-                Broadcasts.sendRefreshMessage(mContext);
-                mProgressDialog.cancel();
-            }
-        }
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-            if (toBeUninstalled != null) {
-                // Uninstall theme
-                Packages.uninstallPackage(mContext, toBeUninstalled.getThemePackage());
-            }
-            return null;
-        }
-    }
-
-    private class deleteCache extends AsyncTask<String, Integer, String> {
-        @Override
-        protected void onPreExecute() {
-            mProgressDialog = new ProgressDialog(mContext);
-            mProgressDialog.setMessage(
-                    mContext.getString(R.string.substratum_cache_clear_initial_toast));
-            mProgressDialog.setIndeterminate(true);
-            mProgressDialog.setCancelable(false);
-            mProgressDialog.show();
-            References.clearAllNotifications(mContext);
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            // Since the cache is invalidated, better relaunch the app now
-            mProgressDialog.cancel();
-            mActivity.finish();
-            mContext.startActivity(mActivity.getIntent());
-        }
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-            // Delete the directory
-            try {
-                FileOperations.delete(mContext, mContext.getCacheDir().getAbsolutePath() +
-                        SUBSTRATUM_BUILDER_CACHE);
-            } catch (Exception e) {
-                // Suppress warning
-            }
-            // Reset the flag for is_updating
-            SharedPreferences prefsPrivate = mContext.getSharedPreferences("substratum_state",
-                    Context.MODE_PRIVATE);
-            prefsPrivate.edit().remove("is_updating").apply();
-            return null;
         }
     }
 }

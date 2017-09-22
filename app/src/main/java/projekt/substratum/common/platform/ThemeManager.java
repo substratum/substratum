@@ -308,6 +308,10 @@ public class ThemeManager {
                                     list.add(oi.packageName);
                                 } else if (state == STATE_DISABLED && !oi.isEnabled()) {
                                     list.add(oi.packageName);
+                                } else if (state == STATE_MISSING_TARGET) {
+                                    if (oi.state == STATE_MISSING_TARGET) {
+                                        list.add(oi.packageName);
+                                    }
                                 } else if (state == STATE_LIST_ALL_OVERLAYS) {
                                     list.add(oi.packageName);
                                 }

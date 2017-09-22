@@ -429,7 +429,7 @@
     <string name="settings_auto_updater_text">Substratum будзе аўтаматычна збіраць і ўсталёўваць актуальныя версіі напластаванняў для нядаўна абноўленых праграм.
 Адключэнне магчымасці падоўжыць працу ад батарэі.</string>
     <string name="beta_tag">★ BETA</string>
-    <string name="settings_theme_auto_updater_title">Аўтаабнаўленне напластаванняў тэм (BETA)</string>
+    <string name="settings_theme_auto_updater_title">Аўтаабнаўленне напластаванняў тэм</string>
     <string name="settings_theme_auto_updater_dialog_title">УВАГА</string>
     <string name="settings_theme_auto_updater_text">Substratum будзе аўтаматычна ствараць, кампіляваць і ўсталёўваць абноўленую версію ўсіх напластаванняў абноўленай тэмы. Адключэнне гэтай функцыі эканоміць зарад батарэі.</string>
     <string name="settings_theme_auto_updater_dialog_text">Калі ласка, НЕ пакідайце ўсталёўшчык пакетаў (праграм) адкрытым, пакуль апавяшчэнне ў сіле. Напластаванняў фреймворка ўласціва перазапускаць ўсталёўшчык, выклікаючы працэс пересборкі мноства разоў!</string>

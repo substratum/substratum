@@ -550,7 +550,7 @@ bu sorunu
     <string name="settings_auto_updater_title">Hedeflenen temaları otomatik olarak güncelle</string>
     <string name="settings_auto_updater_text">Substratum, yeni güncellenen uygulamalar için otomatik olarak tüm temaların güncellenmiş bir sürümünü kuracak, düzenleyecek ve yükleyecektir. Bunu devre dışı bırakmak pil tasarrufu sağlayacaktır.</string>
     <string name="beta_tag">★ BETA</string>
-    <string name="settings_theme_auto_updater_title">Temaları otomatik olarak güncelle (BETA)</string>
+    <string name="settings_theme_auto_updater_title">Temaları otomatik olarak güncelle</string>
     <string name="settings_theme_auto_updater_dialog_title">UYARI</string>
     <string name="settings_theme_auto_updater_text">Substratum, yakın zamanda güncellenen temaya ait tüm temaların güncellenmiş bir sürümünü otomatik olarak oluşturacak, düzenleyecek ve yükleyecektir. Bunu devre dışı bırakmak pil tasarrufu sağlayacaktır.</string>
     <string name="settings_theme_auto_updater_dialog_text">Bildirim görüntülenirken lütfen Paket Yükleyicisini ön planda açmayın, bu Paket Yükleyicisinin temaların derleme işlemini tekrar etmesine sebep olacaktır!</string>

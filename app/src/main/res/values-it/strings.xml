@@ -394,7 +394,7 @@
     <string name="settings_title_automation">Automazione</string>
     <string name="settings_auto_updater_title">Aggiornare automaticamente gli overlay selezionati</string>
     <string name="settings_auto_updater_text">Substratum automaticamente costruirà, compilerà e installerà una versione aggiornata di tutti gli overlay per le app recentemente aggiornate. Disattivando questa opzione risparmierai batteria.</string>
-    <string name="settings_theme_auto_updater_title">Aggiorna automaticamente gli overlay del tema (BETA)</string>
+    <string name="settings_theme_auto_updater_title">Aggiorna automaticamente gli overlay del tema</string>
     <string name="settings_theme_auto_updater_dialog_title">ATTENZIONE</string>
     <string name="settings_theme_auto_updater_text">Substratum automaticamente costruirà, compilerà e installerà una versione aggiornata di tutti gli overlay per il tema appena aggiornato. Disattivando questa opzione risparmierai batteria.</string>
     <string name="settings_theme_auto_updater_dialog_text">Si prega di verificare che PackageInstaller non sia aperto in primo piano in presenza della notifica dal momento che potrebbe essere riavviato dagli overlay del framework provocando così un\'indefinita successione di tentativi di compilazione!</string>

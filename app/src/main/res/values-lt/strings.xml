@@ -438,7 +438,7 @@
     <string name="settings_auto_updater_title">Automatiškai atnaujinti tikslines perdangas</string>
     <string name="settings_auto_updater_text">\"Substratum\" automatiškai sukurs, sukompiliuos ir įdiegs atnaujintą versiją perdangų, neseniai atnaujintoms programoms. Palikus išjungta tausos aukumuliatorių.</string>
     <string name="beta_tag">★ BETA</string>
-    <string name="settings_theme_auto_updater_title">Automatiškai atnaujinti temos perdangas (BETA)</string>
+    <string name="settings_theme_auto_updater_title">Automatiškai atnaujinti temos perdangas</string>
     <string name="settings_theme_auto_updater_dialog_title">ĮSPĖJIMAS</string>
     <string name="settings_theme_auto_updater_text">\"Substratum\" automatiškai sukurs, sukompiliuos ir įdiegs atnaujintą versiją perdangų, neseniai atnaujintai temai. Palikus išjungta tausos aukumuliatorių.</string>
     <string name="settings_theme_auto_updater_dialog_text">Prašome neturėti Paketo Įdiegiklio atidaryto aktyviame lange. Kai pasirodo pranešimas, perdangų struktūra linkusi paleisti iš naujo Paketo Įdiegiklį, kas sukelia neriboto kiekio kompiliavimą!</string>

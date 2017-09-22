@@ -428,7 +428,7 @@
     <string name="settings_auto_updater_text">Substratum будет автоматически собирать и устанавливать актуальные версии наслоений для недавно обновленных приложений.
 Отключение возможности продлит работу от батареи.</string>
     <string name="beta_tag">★ BETA</string>
-    <string name="settings_theme_auto_updater_title">Автообновление наслоений тем (BETA)</string>
+    <string name="settings_theme_auto_updater_title">Автообновление наслоений тем</string>
     <string name="settings_theme_auto_updater_dialog_title">ВНИМАНИЕ</string>
     <string name="settings_theme_auto_updater_text">Substratum будет автоматически собирать и устанавливать актуальные версии всех наслоений для обновившихся тем. Отключение возможности продлит работу от батареи.</string>
     <string name="settings_theme_auto_updater_dialog_text">Пожалуйста, НЕ оставляйте установщик пакетов (приложений) открытым, пока уведомление в силе. Наслоениям фреймворка свойственно перезапускать установщик, вызывая процесс пересборки множество раз!</string>

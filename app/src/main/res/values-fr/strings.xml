@@ -422,7 +422,7 @@
     <string name="settings_auto_updater_title">Mise à jour automatique des applications</string>
     <string name="settings_auto_updater_text">Substratum compilera et installera automatiquement les surcouches des applications récemment mises à jour. Désactiver cette fonctionnalité permet d\'économiser de la batterie</string>
     <string name="beta_tag">★ BETA</string>
-    <string name="settings_theme_auto_updater_title">Automatiquement mettre à jour les surcouches du thème (BETA)</string>
+    <string name="settings_theme_auto_updater_title">Automatiquement mettre à jour les surcouches du thème</string>
     <string name="settings_theme_auto_updater_dialog_title">AVERTISSEMENT</string>
     <string name="settings_theme_auto_updater_text">Substratum compilera et installera automatiquement les surcouches d\'un thème récemment mis à jour. Désactiver cette fonctionnalité permet d\'économiser de la batterie.</string>
     <string name="settings_theme_auto_updater_dialog_text">Assurez-vous que l\'installateur de paquet est bien fermé lorsque la notification est affichée. Les surcouches du \"framework\" ont tendance à redémarrer l\'installateur de paquet, provoquant des recompilations en boucle !</string>

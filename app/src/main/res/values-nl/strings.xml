@@ -417,7 +417,7 @@
     <string name="settings_auto_updater_title">Bestemde overlays automatisch bijwerken</string>
     <string name="settings_auto_updater_text">Substratum zal automatisch een bijgewerkte versie van alle overlays, voor de recent bijgewerkte apps, bouwen, compileren en installeren. Uitschakelen is batterijbesparend.</string>
     <string name="beta_tag">★ BETA</string>
-    <string name="settings_theme_auto_updater_title">Thema overlays automatisch bijwerken (BETA)</string>
+    <string name="settings_theme_auto_updater_title">Thema overlays automatisch bijwerken</string>
     <string name="settings_theme_auto_updater_dialog_title">WAARSCHUWING</string>
     <string name="settings_theme_auto_updater_text">Substratum zal automatisch een bijgewerkte versie van alle overlays van het recent bijgewerkte thema, bouwen, compileren en installeren. Uitschakelen is batterijbesparend.</string>
     <string name="settings_theme_auto_updater_dialog_text">Gelieve Pakket-installatie NIET in de voorgrond te openen wanneer de melding actief is. Framework overlays hebben de neiging Pakket-installatie te herstarten, waardoor vele hercompilaties plaatsvinden!</string>

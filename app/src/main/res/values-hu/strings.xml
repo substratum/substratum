@@ -522,7 +522,7 @@
     <string name="settings_auto_updater_title">Cél fedvények automatikus frissítése</string>
     <string name="settings_auto_updater_text">A Substratum a nemrégiben frissített alkalmazások számára automatikusan felépíti, összeállítja és telepíti az összes fedvény egy frissített verzióját. A kikapcsolása energiát takarít meg.</string>
     <string name="beta_tag">★ BÉTA</string>
-    <string name="settings_theme_auto_updater_title">Téma fedvények automatikus frissítése (BÉTA)</string>
+    <string name="settings_theme_auto_updater_title">Téma fedvények automatikus frissítése</string>
     <string name="settings_theme_auto_updater_dialog_title">FIGYELMEZTETÉS</string>
     <string name="settings_theme_auto_updater_text">A Substratum a nemrégiben frissített téma számára automatikusan felépíti, összeállítja és telepíti az összes fedvény egy frissített verzióját. A kikapcsolása energiát takarít meg.</string>
     <string name="settings_theme_auto_updater_dialog_text">Az előtérben NE legyen megnyitva a Csomagtelepítő, ha az értesítés megjelenik, mivel a keretrendszer fedvények hajlamosak újraindítani a csomagtelepítőt, mely határozatlan mennyiségű újrafordítást okozhat!</string>

@@ -486,7 +486,7 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="settings_auto_updater_title">Automaticky aktualizovat cílené potahy</string>
     <string name="settings_auto_updater_text">Substratum automaticky vytvoří, zkompiluje a nainstaluje aktualizovanou verzi všech potahů pro nedávno aktualizované aplikace. Ponecháním tohoto přepínače ve stavu vypnuto se ušetří baterie.</string>
     <string name="beta_tag">★ BETA</string>
-    <string name="settings_theme_auto_updater_title">Automaticky aktualizovat potahy motivu (BETA)</string>
+    <string name="settings_theme_auto_updater_title">Automaticky aktualizovat potahy motivu</string>
     <string name="settings_theme_auto_updater_dialog_title">VAROVÁNÍ</string>
     <string name="settings_theme_auto_updater_text">Substratum automaticky vytvoří, zkompiluje a nainstaluje aktualizovanou verzi všech potahů pro nedávno aktualizované motivy. Ponecháním tohoto přepínače ve stavu vypnuto se ušetří baterie.</string>
     <string name="settings_theme_auto_updater_dialog_text">Prosím, nemějte v popředí otevřenou aplikaci PackageInstaller, když je zobrazeno upozornění. Framework potahů má tendenci restartovat PackageInstaller, což způsobuje množství rekompilací!</string>

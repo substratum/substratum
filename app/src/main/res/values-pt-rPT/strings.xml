@@ -370,7 +370,7 @@ corretamente&#8230;</string>
     <string name="settings_title_automation">Automação</string>
     <string name="settings_auto_updater_title">Atualizar automaticamente as sobreposições de destino</string>
     <string name="settings_auto_updater_text">O substratum vai compilar e instalar uma versão atualizada de todas as sobreposições para o tema recentemente atualizado. Manter desativado poupa bateria.</string>
-    <string name="settings_theme_auto_updater_title">Atualizar automaticamente as sobreposições do tema (BETA)</string>
+    <string name="settings_theme_auto_updater_title">Atualizar automaticamente as sobreposições do tema</string>
     <string name="settings_theme_auto_updater_dialog_title">AVISO</string>
     <string name="settings_theme_auto_updater_text">O substratum vai compilar e instalar uma versão atualizada de todas as sobreposições para o tema recentemente atualizado. Manter desativado poupa bateria.</string>
     <string name="settings_auto_alert_title">Alerta de nova sobreposição instalável encontrado</string>

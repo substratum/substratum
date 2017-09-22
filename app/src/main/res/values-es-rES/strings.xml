@@ -436,7 +436,7 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="settings_auto_updater_title">Actualizar automáticamente capas selecionadas</string>
     <string name="settings_auto_updater_text">Substratum automáticamente construirá, compilara e instalara una versión actualizada de todas las capas de las aplicaciones recientemente actualizadas. Teniendo esto desactivado ahorrará batería.</string>
     <string name="beta_tag">★ BETA</string>
-    <string name="settings_theme_auto_updater_title">Actualizar automáticamente capa de tema (BETA)</string>
+    <string name="settings_theme_auto_updater_title">Actualizar automáticamente capa de tema</string>
     <string name="settings_theme_auto_updater_dialog_title">ADVERTENCIA</string>
     <string name="settings_theme_auto_updater_text">Substratum automáticamente construirá, compilara e instalara una versión actualizada de todas las capas de los temas recientemente actualizados. Teniendo esto desactivado ahorrará batería.</string>
     <string name="settings_theme_auto_updater_dialog_text">¡Por favor no tengas abierto PackageInstaller en primer plano mientras que la notificación este activa, los overlays del framework tienden a reiniciar PackageInstaller causando cantidades indefinidas de volver a compilar!</string>

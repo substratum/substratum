@@ -410,7 +410,7 @@
     <string name="settings_auto_updater_title">自动更新目标叠加层</string>
     <string name="settings_auto_updater_text">Substratum 会自动为获得更新的目标叠加层生成、编译和安装一个新的版本。禁用此功能可以省电。</string>
     <string name="beta_tag">测试版</string>
-    <string name="settings_theme_auto_updater_title">自动更新主题叠加层（测试）</string>
+    <string name="settings_theme_auto_updater_title">自动更新主题叠加层</string>
     <string name="settings_theme_auto_updater_dialog_title">警告</string>
     <string name="settings_theme_auto_updater_text">Substratum 会自动为获得更新的主题叠加层生成、编译和安装一个新的版本。禁用此功能可以省电。</string>
     <string name="settings_theme_auto_updater_dialog_text">在通知开启时，请勿在前台打开 PackageInstaller，否则框架重叠会使 PackageInstaller 重启，并导致无限期的重新编译。</string>

@@ -441,7 +441,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="settings_auto_updater_title">Automatycznie aktualizuj docelowe nakładki</string>
     <string name="settings_auto_updater_text">Substratum automatycznie przebuduje, skompiluje i zainstaluje zaktualizowaną wersję wszystkich nakładek dla ostatnio aktualizowanych aplikacji. Wyłączenie tego oszczędzi baterię.</string>
     <string name="beta_tag">★ BETA</string>
-    <string name="settings_theme_auto_updater_title">Automatyczne aktualizacje nakładek motywu (BETA)</string>
+    <string name="settings_theme_auto_updater_title">Automatyczne aktualizacje nakładek motywu</string>
     <string name="settings_theme_auto_updater_dialog_title">OSTRZEŻENIE</string>
     <string name="settings_theme_auto_updater_text">Substratum automatycznie przebuduje, skompiluje i zainstaluje zaktualizowaną wersję wszystkich nakładek dla ostatnio aktualizowanych motywów. Wyłączenie tego oszczędzi baterię.</string>
     <string name="settings_theme_auto_updater_dialog_text">Proszę nie utrzymywać otwartego Pakietu Instalacyjnego na pierwszym planie podczas gdy powiadomienie jest włączone, struktura nakładek ma tendencję do ponownego uruchamiania Pakietu Instalacyjnego powodując nieokreślone ilości ponownych kompilacji!</string>

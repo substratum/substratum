@@ -425,7 +425,7 @@ eingerichtet&#8230;</string>
     <string name="settings_auto_updater_title">Ausgewählte Overlays automatisch aktualisieren</string>
     <string name="settings_auto_updater_text">Substratum wird automatisch für alle aktualisierten Apps eine aktualisierte Version der Overlays erstellen, kompilieren und installieren. Diese Funktion ausgeschaltet zu lassen spart Akku.</string>
     <string name="beta_tag">★ BETA</string>
-    <string name="settings_theme_auto_updater_title">Aktualisiere Theme-Overlays automatisch (BETA)</string>
+    <string name="settings_theme_auto_updater_title">Aktualisiere Theme-Overlays automatisch</string>
     <string name="settings_theme_auto_updater_dialog_title">WARNUNG</string>
     <string name="settings_theme_auto_updater_text">Substratum wird automatisch für alle aktualisierten Themes eine aktualisierte Version der Overlays erstellen, kompilieren und installieren. Diese Funktion ausgeschaltet zu lassen spart Akku.</string>
     <string name="settings_theme_auto_updater_dialog_text">Bitte öffne NICHT den Packet-Installer im Vordergrund während die Benachrichtigung erscheint. Framework Overlays tendieren dazu den Packet-Installer neuzustarten, was eine unendliche Anzahl an Neukompilierungen zur Folge hat!</string>

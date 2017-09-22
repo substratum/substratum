@@ -447,7 +447,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="settings_auto_updater_title">Automaticky aktualizovať cieľové prekrytia</string>
     <string name="settings_auto_updater_text">Substratum automaticky vytvorí, skompiluje a nainštaluje aktualizovanú verziu všetkých prekrytí pre nedávno aktualizované aplikácie. Ponechaním tohoto prepínača v stave vypnuté sa ušetrí batéria.</string>
     <string name="beta_tag">★ BETA</string>
-    <string name="settings_theme_auto_updater_title">Automaticky aktualizovať tématické prekrytia (BETA)</string>
+    <string name="settings_theme_auto_updater_title">Automaticky aktualizovať tématické prekrytia</string>
     <string name="settings_theme_auto_updater_dialog_title">UPOZORNENIE</string>
     <string name="settings_theme_auto_updater_text">Substratum automaticky vytvorí, skompiluje a nainštaluje aktualizovanú verziu všetkých prekrytí pre nedávno aktualizované témy. Ponechaním tohoto prepínača v stave vypnuté sa ušetrí batéria.</string>
     <string name="settings_theme_auto_updater_dialog_text">Prosím, nemajte v popredí otvorenú aplikáciu PackageInstaller, keď je zobrazené upozornenie. Framework prekrytia majú tendenciu reštartovať PackageInstaller, čo spôsobuje množstvo rekompilácií!</string>

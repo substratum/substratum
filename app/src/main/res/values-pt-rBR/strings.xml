@@ -448,7 +448,7 @@ corretamente&#8230;</string>
     <string name="settings_auto_updater_title">Atualizar automaticamente as camadas de destino</string>
     <string name="settings_auto_updater_text">O Substratum irá automaticamente construir, compilar e instalar uma versão atualizada de todas as camadas para os aplicativos atualizados recentemente. Manter isto desabilitado poupa bateria.</string>
     <string name="beta_tag">★ BETA</string>
-    <string name="settings_theme_auto_updater_title">Atualizar automaticamente as camadas do tema (BETA)</string>
+    <string name="settings_theme_auto_updater_title">Atualizar automaticamente as camadas do tema</string>
     <string name="settings_theme_auto_updater_dialog_title">AVISO</string>
     <string name="settings_theme_auto_updater_text">O Substratum irá automaticamente construir, compilar e instalar uma versão atualizada de todas as camadas para o tema atualizado recentemente. Manter isto desabilitado poupa bateria.</string>
     <string name="settings_theme_auto_updater_dialog_text">Por favor, NÃO tenha o Instalador de Pacotes aberto no primeiro plano enquanto a notificação está ativa, a estrutura de camadas tende a reiniciar o Instalador de Pacotes causando quantidades indefinidas de recompilações!</string>

@@ -18,6 +18,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.VectorDrawable;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import org.apache.commons.io.IOUtils;
@@ -50,6 +51,7 @@ import static projekt.substratum.common.References.ENABLE_PACKAGE_LOGGING;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.References.SUBSTRATUM_THEME;
+import static projekt.substratum.common.References.heroImageGridResourceName;
 import static projekt.substratum.common.References.heroImageResourceName;
 import static projekt.substratum.common.References.metadataAuthor;
 import static projekt.substratum.common.References.metadataName;
@@ -433,13 +435,24 @@ public class Packages {
     }
 
     // Get Theme Hero Image
-    public static Drawable getPackageHeroImage(Context mContext, String package_name) {
+    public static Drawable getPackageHeroImage(Context mContext, String package_name,
+                                               boolean isThemesView) {
         android.content.res.Resources res;
         Drawable hero = mContext.getDrawable(android.R.color.transparent); // Initialize to be clear
         try {
             res = mContext.getPackageManager().getResourcesForApplication(package_name);
-            int resourceId = res.getIdentifier(
-                    package_name + ":drawable/" + heroImageResourceName, null, null);
+            int resourceId;
+            if (PreferenceManager.
+                    getDefaultSharedPreferences(mContext).
+                    getInt("grid_style_cards_count", 1) != 1 && isThemesView) {
+                resourceId = res.getIdentifier(
+                        package_name + ":drawable/" + heroImageGridResourceName, null, null);
+                if (resourceId == 0) resourceId = res.getIdentifier(
+                        package_name + ":drawable/" + heroImageResourceName, null, null);
+            } else {
+                resourceId = res.getIdentifier(
+                        package_name + ":drawable/" + heroImageResourceName, null, null);
+            }
             if (0 != resourceId) {
                 hero = mContext.getPackageManager().getDrawable(package_name, resourceId, null);
             }

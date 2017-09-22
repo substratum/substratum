@@ -376,7 +376,7 @@ public class InformationActivity extends SubstratumActivity {
         }
         if (toolbar != null) toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
-        Drawable heroImage = getPackageHeroImage(getApplicationContext(), theme_pid);
+        Drawable heroImage = getPackageHeroImage(getApplicationContext(), theme_pid, false);
         if (heroImage != null) heroImageBitmap = ((BitmapDrawable) heroImage).getBitmap();
         if (heroImageBitmap == null) {
             dominantColor = Color.TRANSPARENT;

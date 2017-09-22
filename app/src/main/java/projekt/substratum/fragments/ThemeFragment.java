@@ -168,7 +168,7 @@ public class ThemeFragment extends Fragment {
             themeItem.setThemePackage(map.get(map.keySet().toArray()[i].toString())[1]);
             themeItem.setThemeDrawable(
                     Packages.getPackageHeroImage(
-                            mContext, map.get(map.keySet().toArray()[i].toString())[1]));
+                            mContext, map.get(map.keySet().toArray()[i].toString())[1], true));
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
             themeItem.setThemeReadyVariable(Packages.getThemeReadyVisibility(mContext,
                     map.get(map.keySet().toArray()[i].toString())[1]));

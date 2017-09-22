@@ -129,20 +129,22 @@ public class ThemeFragment extends Fragment {
         new LayoutLoader(this).execute("");
 
         // Now we need to sort the buffered installed Layers themes
-        map = new TreeMap<>(substratum_packages);
+        if (substratum_packages != null) {
+            map = new TreeMap<>(substratum_packages);
 
-        ArrayList<ThemeItem> themeItems = prepareData();
-        adapter = new ThemeAdapter(themeItems);
+            ArrayList<ThemeItem> themeItems = prepareData();
+            adapter = new ThemeAdapter(themeItems);
 
-        // Assign adapter to RecyclerView
-        recyclerView.setAdapter(adapter);
+            // Assign adapter to RecyclerView
+            recyclerView.setAdapter(adapter);
 
-        if (prefs.getBoolean("grid_layout", true)) {
-            recyclerView.setLayoutManager(new GridLayoutManager(getContext(),
-                    prefs.getInt("grid_style_cards_count", 2)));
-        } else {
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-            recyclerView.setLayoutManager(layoutManager);
+            if (prefs.getBoolean("grid_layout", true)) {
+                recyclerView.setLayoutManager(new GridLayoutManager(getContext(),
+                        prefs.getInt("grid_style_cards_count", 2)));
+            } else {
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+                recyclerView.setLayoutManager(layoutManager);
+            }
         }
         return root;
     }

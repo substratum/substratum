@@ -40,6 +40,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -125,8 +126,7 @@ public class ThemeFragment extends Fragment {
         swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(this::refreshLayout);
 
-        LayoutLoader layoutLoader = new LayoutLoader();
-        layoutLoader.execute("");
+        new LayoutLoader(this).execute("");
 
         // Now we need to sort the buffered installed Layers themes
         map = new TreeMap<>(substratum_packages);
@@ -253,12 +253,20 @@ public class ThemeFragment extends Fragment {
         materialProgressBar.setVisibility(View.GONE);
     }
 
-    private class LayoutLoader extends AsyncTask<String, Integer, String> {
+    private static class LayoutLoader extends AsyncTask<String, Integer, String> {
+        private WeakReference<ThemeFragment> ref;
+
+        LayoutLoader(ThemeFragment themeFragment) {
+            ref = new WeakReference<>(themeFragment);
+        }
 
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            refreshLayout();
+            ThemeFragment themeFragment = ref.get();
+            if (themeFragment != null) {
+                themeFragment.refreshLayout();
+            }
         }
 
         @Override

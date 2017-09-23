@@ -156,8 +156,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="theme_information_tab_four">Pakiety dźwięków</string>
     <string name="theme_information_tab_five">Tapety</string>
     <string name="theme_information_tab_six">Animacje zamykania</string>
-    <string name="grid_style_cards_title">Układ kart w stylu siatki</string>
-    <string name="grid_style_cards_subtext">Włącz układ stylizowany siatki dla kart motywów.</string>
     <string name="nougat_style_cards_title">Układ kart w stylu Nougat</string>
     <string name="nougat_style_cards_subtext">Włącz powiadomienie w stylu kart z Android Nougat.</string>
     <string name="uninstall_dialog_text">Czy chcesz odinstalować ten motyw?</string>
@@ -351,8 +349,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="alternate_drawer_design_subtext">Używaj alternatywnego modelu szuflady nawigacyjnej podczas żeglowania po interfejsie.</string>
     <string name="logchar_autosave_title">Automatyczne zapisywanie raportów LogChar</string>
     <string name="logchar_autosave_subtext">Spowoduje to automatyczne zapisanie raportów LogChar w / storage / emulated / 0 / substratum / LogCharReports /.</string>
-    <string name="show_outdated_themes_title">Pokaż wszystkie nieaktualne motywy</string>
-    <string name="show_outdated_themes_content">Wyłączenie tego pozwoli Substratum użyć nowego algorytmu dla szybszej aktywacji motywów. Opcja ta zadziała jedynie dla poprawnie skonfigurowanych wtyczek motywów dla 6.0.0+.</string>
     <string name="fab_menu_compile_enable">Kompiluj i włącz</string>
     <string name="fab_menu_compile_update">Kompiluj i zaktualizuj</string>
     <string name="fab_menu_compile_install">Instaluj zaznaczone</string>

@@ -282,8 +282,6 @@
     <string name="theme_information_tab_five">Wallpapers</string>
     <string name="theme_information_tab_six">Shutdown animations</string>
 
-    <string name="grid_style_cards_title">Grid Style Card Layout</string>
-    <string name="grid_style_cards_subtext">Enable a grid styled layout for the theme cards.</string>
     <string name="nougat_style_cards_title">Nougat Style Card Layout</string>
     <string name="nougat_style_cards_subtext">Enable Android Nougat Notification styled theme cards.</string>
 
@@ -292,7 +290,6 @@
     <string name="manage_dialog_performing">Restoring to default&#8230;</string>
     <string name="manage_bootanimation_title">Restore Boot Animation</string>
     <string name="manage_bootanimation_toast">Boot animation restored successfully!</string>
-    <string name="manage_shutdownanimation_title">Restore Shutdown Animation</string>
     <string name="manage_shutdownanimation_toast">Shutdown animation restored successfully!</string>
     <string name="manage_fonts_title">Restore System Font</string>
     <string name="manage_fonts_toast">Fonts restored successfully!</string>
@@ -538,7 +535,6 @@
     <string name="vibrate_on_compiled">Notify after theme is compiled</string>
     <string name="vibrate_on_compiled_description">When the theme has been compiled, vibrate the device to notify the user that the compilation has completed.</string>
     <string name="manage_notification_channel">Manage notifications</string>
-    <string name="manage_notification_channel_dialog_title">Select the notification channel</string>
     <string name="hide_app_icon">Show app icon</string>
     <string name="hide_app_icon_toast_enabled">The app\'s icon has been removed from your launcher!</string>
     <string name="hide_app_icon_toast_disabled">The app\'s icon has now been added to your launcher!</string>
@@ -551,11 +547,6 @@
     <string name="alternate_drawer_design_subtext">Uses an alternate navigation drawer design when navigating through the user interface.</string>
     <string name="logchar_autosave_title">Automatically save LogChar reports</string>
     <string name="logchar_autosave_subtext">This will automatically save LogChar reports in /storage/emulated/0/substratum/LogCharReports/.</string>
-
-    <string name="show_outdated_themes_title">Show all outdated themes</string>
-    <string name="show_outdated_themes_content">Disabling this would allow Substratum to utilize
-        the brand new algorithm where themes get loaded up much faster than usual. This will only
-        work for properly configured 6.0.0+ plugin themes.</string>
 
     <string name="fab_menu_compile_enable">Build &amp; Enable</string>
     <string name="fab_menu_compile_update">Build &amp; Update</string>
@@ -802,7 +793,7 @@
     <string name="googleplus_link" translatable="false">https://plus.google.com/communities/102261717366580091389</string>
     <string name="nav_drawer_telegram">Telegram group chat</string>
     <string name="telegram_link" translatable="false">https://t.me/substratum</string>
-    <string name="nav_drawer_xda">XDA dedicated sub-forum</string>
+    <string name="nav_drawer_xda">XDA dedicated subforum</string>
     <string name="xda_link" translatable="false">https://forum.xda-developers.com/apps/substratum/</string>
     <string name="nav_drawer_rawad">Rawad\'s theming guides</string>
     <string name="rawad_youtube_url" translatable="false">https://www.youtube.com/playlist?list=PLgLZvFga2ml4LGq5NfVgtSvx8msfnCDe8</string>
@@ -812,8 +803,6 @@
     <string name="nav_drawer_featured">Featured content</string>
     <string name="nav_drawer_xda_portal">XDA portal</string>
     <string name="xda_portal_link" translatable="false">https://www.xda-developers.com/search/substratum</string>
-    <string name="nav_drawer_tcf" translatable="false">TheCyberFibre (TCF)</string>
-    <string name="tcf_link" translatable="false">https://thecyberfibre.com/</string>
     <!-- Resources -->
     <string name="nav_drawer_resources">Resources</string>
     <string name="nav_drawer_homepage">Official homepage</string>

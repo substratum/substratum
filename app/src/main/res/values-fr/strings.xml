@@ -332,8 +332,6 @@
     <string name="alternate_drawer_design_subtext">Affiche une apparence différente pour le panneau de navigation lors de la navigation dans l\'interface utilisateur</string>
     <string name="logchar_autosave_title">Enregistrer automatiquement les rapport LogChar</string>
     <string name="logchar_autosave_subtext">Cela sauvegardera automatiquement le rapport LogChar sous /storage/emulated/0/substratum/LogCharReports/.</string>
-    <string name="show_outdated_themes_title">Afficher tous les thèmes obsolètes</string>
-    <string name="show_outdated_themes_content">Désactiver cette option permet à Substratum d\'utiliser un algorithme permettant aux thèmes de se charger beaucoup plus rapidement. Ne fonctionne que pour les thèmes possédant l\'extension correctement configurés (6.0.0+).</string>
     <string name="fab_menu_compile_enable">Compiler et activer</string>
     <string name="fab_menu_compile_update">Compiler et mettre à jour</string>
     <string name="fab_menu_compile_install">Installer la sélection</string>

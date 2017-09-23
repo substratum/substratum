@@ -165,8 +165,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="theme_information_tab_four">Balíčky zvukov</string>
     <string name="theme_information_tab_five">Tapety na plochu</string>
     <string name="theme_information_tab_six">Animácia pri vypnutí</string>
-    <string name="grid_style_cards_title">Rozloženie kariet v štýle mriežky</string>
-    <string name="grid_style_cards_subtext">Aktivovať štýl mriežky pre karty tém.</string>
     <string name="nougat_style_cards_title">Rozloženie kariet podľa Android Nougat</string>
     <string name="nougat_style_cards_subtext">Zapnúť štýl kariet upozornení podľa Android Nougat.</string>
     <string name="uninstall_dialog_text">Naozaj chcete odinštalovať túto tému?</string>
@@ -357,8 +355,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="alternate_drawer_design_subtext">Použije alternatívny vzhľad navigačného menu pre používateľské rozhranie.</string>
     <string name="logchar_autosave_title">Automaticky ukladať správy protokolu LogChar</string>
     <string name="logchar_autosave_subtext">Týmto sa správy protokolu LogChar automaticky uložia do /storage/emulated/0/substratum/LogChar Reports/.</string>
-    <string name="show_outdated_themes_title">Zobraziť všetky neaktuálne témy</string>
-    <string name="show_outdated_themes_content">Vypnutie tohto parametru umožní Substratum použiť úplne nový algoritmus, s ktorým sa budú témy načítavať oveľa rýchlejšie ako zvyčajne. To však platí iba pre témy založené na module v6.0.0+.</string>
     <string name="fab_menu_compile_enable">Vytvoriť a povoliť</string>
     <string name="fab_menu_compile_update">Vytvoriť a aktualizovať</string>
     <string name="fab_menu_compile_install">Nainštalovať označené</string>

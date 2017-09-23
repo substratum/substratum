@@ -335,8 +335,6 @@ eingerichtet&#8230;</string>
     <string name="alternate_drawer_design_subtext">Verwendet eine alternative Version des Navigation-Drawers.</string>
     <string name="logchar_autosave_title">Speichere LogChar-Reports automatisch</string>
     <string name="logchar_autosave_subtext">Dies wird automatisch einen LogChar-Bericht in /storage/emulated/0/substratum/LogChar Reports/ speichern.</string>
-    <string name="show_outdated_themes_title">Zeige alle veralteten Themes</string>
-    <string name="show_outdated_themes_content">Das Deaktivieren dieser Option erlaubt Substratum den brandneuen Algorithmus zu benutzen der Themes viel schneller als sonst lädt. Das wird nur für konfigurierte 6.0.0+ plugin Themes funktionieren.</string>
     <string name="fab_menu_compile_enable">Kompilieren &amp; Aktivieren</string>
     <string name="fab_menu_compile_update">Kompilieren &amp; Aktualisieren</string>
     <string name="fab_menu_compile_install">Ausgewählte installieren</string>

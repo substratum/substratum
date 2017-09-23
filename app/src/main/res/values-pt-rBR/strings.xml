@@ -358,8 +358,6 @@ corretamente&#8230;</string>
     <string name="alternate_drawer_design_subtext">Usar uma gaveta de navegação alternativa quando navegar pela interface do usuário.</string>
     <string name="logchar_autosave_title">Salvar automaticamente relatórios LogChar</string>
     <string name="logchar_autosave_subtext">Isso salvará automaticamente relatórios LogChar em /storage/emulated/0/substratum/LogCharReports/.</string>
-    <string name="show_outdated_themes_title">Mostrar todos os temas desatualizados</string>
-    <string name="show_outdated_themes_content">Desabilitar isso permitirá Substratum a utilizar o novo algoritmo onde temas são carregados muito mais rápido do que o habitual. Isso só irá funcionar para temas com plugin 6.0.0+ corretamente configurados.</string>
     <string name="fab_menu_compile_enable">Compilar e Habilitar</string>
     <string name="fab_menu_compile_update">Compilar e Atualizar</string>
     <string name="fab_menu_compile_install">Instalar selecionado</string>

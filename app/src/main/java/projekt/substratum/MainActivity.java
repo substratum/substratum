@@ -414,14 +414,10 @@ public class MainActivity extends SubstratumActivity implements
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_youtube)
                                 .withSelectable(false)
                                 .withIdentifier(104),
-                        new SecondaryDrawerItem().withName(R.string.nav_drawer_tcf)
-                                .withLevel(2).withIcon(R.drawable.nav_drawer_tcf)
-                                .withSelectable(false)
-                                .withIdentifier(105),
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_xda_portal)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_xda_portal)
                                 .withSelectable(false)
-                                .withIdentifier(106));
+                                .withIdentifier(105));
 
         // Split the resources out for easy adapting
         ExpandableDrawerItem resources = new ExpandableDrawerItem()
@@ -431,23 +427,23 @@ public class MainActivity extends SubstratumActivity implements
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_homepage)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_homepage)
                                 .withSelectable(false)
-                                .withIdentifier(107),
+                                .withIdentifier(106),
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_template)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_template)
                                 .withSelectable(false)
-                                .withIdentifier(108),
+                                .withIdentifier(107),
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_gerrit)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_gerrit)
                                 .withSelectable(false)
-                                .withIdentifier(109),
+                                .withIdentifier(108),
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_github)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_github)
                                 .withSelectable(false)
-                                .withIdentifier(110),
+                                .withIdentifier(109),
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_jira)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_jira)
                                 .withSelectable(false)
-                                .withIdentifier(111));
+                                .withIdentifier(110));
 
         // Begin initializing the navigation drawer
         Boolean checkSamsungStatus = isSamsung(mContext);
@@ -638,24 +634,21 @@ public class MainActivity extends SubstratumActivity implements
                         launchActivityUrl(mContext, R.string.rawad_youtube_url);
                         break;
                     case 105:
-                        launchActivityUrl(mContext, R.string.tcf_link);
-                        break;
-                    case 106:
                         launchActivityUrl(mContext, R.string.xda_portal_link);
                         break;
-                    case 107:
+                    case 106:
                         launchActivityUrl(mContext, R.string.homepage_link);
                         break;
-                    case 108:
+                    case 107:
                         launchActivityUrl(mContext, R.string.template_link);
                         break;
-                    case 109:
+                    case 108:
                         launchActivityUrl(mContext, R.string.gerrit_link);
                         break;
-                    case 110:
+                    case 109:
                         launchActivityUrl(mContext, R.string.github_link);
                         break;
-                    case 111:
+                    case 110:
                         launchActivityUrl(mContext, R.string.jira_link);
                         break;
                 }

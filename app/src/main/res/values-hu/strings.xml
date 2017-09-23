@@ -206,8 +206,6 @@
     <string name="theme_information_tab_four">Hangcsomagok</string>
     <string name="theme_information_tab_five">Háttérképek</string>
     <string name="theme_information_tab_six">Kikapcsolási animációk</string>
-    <string name="grid_style_cards_title">Rács stílusú kártya elrendezés</string>
-    <string name="grid_style_cards_subtext">Rács stílusú elrendezés engedélyezése a téma kártyák számára.</string>
     <string name="nougat_style_cards_title">Nougat stílusú kártya elrendezés</string>
     <string name="nougat_style_cards_subtext">Android Nugát értesítés stílusú téma kártyák engedélyezése.</string>
     <string name="uninstall_dialog_text">Biztosan törölni szeretné ezt a témát?</string>
@@ -429,10 +427,6 @@
     <string name="alternate_drawer_design_subtext">Egy alternatív navigációs fiók megjelenítést használ, amikor a felhasználói felületen keresztül navigál.</string>
     <string name="logchar_autosave_title">Automatikusan mentse a LogChar jelentéseket</string>
     <string name="logchar_autosave_subtext">Ez automatikusan menti a LogChar jelentéseket ide: /storage/emulated/0/substratum/LogCharReports/.</string>
-    <string name="show_outdated_themes_title">Összes elavult téma megjelenítése</string>
-    <string name="show_outdated_themes_content">Azt letiltva lehetővé teszi a Substratum számára, hogy
-        kihasználja az új algoritmust, mellyel a témák sokkal gyorsabban töltődnek be, mint máskor. Ez csak
-        megfelelően konfigurált 6.0.0+ beépülő téma esetén működik.</string>
     <string name="fab_menu_compile_enable">Építés és Engedélyezés</string>
     <string name="fab_menu_compile_update">Építés és Frissítés</string>
     <string name="fab_menu_compile_install">Kiválasztott telepítése</string>

@@ -311,8 +311,6 @@
     <string name="enable_completion">Tutti gli overlays installati per questo tema si stanno attivando&#8230;</string>
     <string name="alternate_drawer_design_title">Secondo design del Drawer</string>
     <string name="alternate_drawer_design_subtext">Usa un design alternativo del drawer di navigazione quando stai navigando attraverso l\'interfaccia utente.</string>
-    <string name="show_outdated_themes_title">Mostra tutti i temi obsoleti</string>
-    <string name="show_outdated_themes_content">Disattivare questo permetterebbe a Substratum di utilizzare il nuovo algoritmo con cui i temi vengono caricati molto più velocemente. Questo funzionerà solo per i plugin dei temi 6.0.0+ propriamente configurati.</string>
     <string name="fab_menu_compile_enable">Costruisci &amp; Abilita</string>
     <string name="fab_menu_compile_update">Costruisci &amp; Aggiorna</string>
     <string name="fab_menu_swap_toggle">Disabilita gli altri temi</string>

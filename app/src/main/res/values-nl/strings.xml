@@ -327,8 +327,6 @@
     <string name="alternate_drawer_design_subtext">Gebruik een alternatieve navigatielade design bij het navigeren door de gebruikersinterface.</string>
     <string name="logchar_autosave_title">LogChar rapporten automatisch opslaan</string>
     <string name="logchar_autosave_subtext">Dit zal LogChar rapporten automatisch opslaan in /storage/emulated/0/substratum/LogCharReports/.</string>
-    <string name="show_outdated_themes_title">Toon alle verouderde thema\'s</string>
-    <string name="show_outdated_themes_content">Het uitschakelen hiervan zou Substratum toelaten om gebruik te maken van het gloednieuwe algoritme waar thema\'s veel sneller geladen worden dan normaal. Dit werkt alleen voor juist geconfigureerde 6.0.0+ plug-in thema\'s.</string>
     <string name="fab_menu_compile_enable">Bouwen &amp; inschakelen</string>
     <string name="fab_menu_compile_update">Bouwen &amp; bijwerken</string>
     <string name="fab_menu_compile_install">Selectie installeren</string>

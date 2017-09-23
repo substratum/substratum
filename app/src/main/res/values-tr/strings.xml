@@ -226,15 +226,12 @@ bu sorunu
     <string name="theme_information_tab_four">Ses Paketleri</string>
     <string name="theme_information_tab_five">Duvar Kağıtları</string>
     <string name="theme_information_tab_six">Kapatma animasyonları</string>
-    <string name="grid_style_cards_title">Klavuz Stili Kart Düzeni</string>
-    <string name="grid_style_cards_subtext">Tema kartları için bir klavuz düzeni etkinleştirin.</string>
     <string name="nougat_style_cards_title">Nougat Stili Kart Düzeni</string>
     <string name="nougat_style_cards_subtext">Android Nougat Bildirimi tarzı tema kartlarını etkinleştirin.</string>
     <string name="uninstall_dialog_text">Bu temayı kaldırmak istediğinizden emin misiniz?</string>
     <string name="manage_dialog_performing">Varsayılana geri yükleniyor&#8230;</string>
     <string name="manage_bootanimation_title">Önyükleme Animasyonunu Geri Yükle</string>
     <string name="manage_bootanimation_toast">Önyükleme animasyonu geri yükleme başarılı!</string>
-    <string name="manage_shutdownanimation_title">Kapatma Animasyonunu Geri Yükle</string>
     <string name="manage_shutdownanimation_toast">Kapatma animasyonu geri yükleme başarılı!</string>
     <string name="manage_fonts_title">Sistem Yazı Tiplerini Geri Yükle</string>
     <string name="manage_fonts_toast">Yazı tipleri geri yükleme başarılı!</string>
@@ -444,7 +441,6 @@ bu sorunu
     <string name="vibrate_on_compiled">Düzenlendikten sonra bildir</string>
     <string name="vibrate_on_compiled_description">Tema düzenlendiğinde, düzenlemenin tamamlandığını kullanıcıya bildirmek için cihazı titrer.</string>
     <string name="manage_notification_channel">Bildirim kanalını yönet</string>
-    <string name="manage_notification_channel_dialog_title">Yönetilecek bildirim kanalını seçin</string>
     <string name="hide_app_icon">Uygulama simgesini göster</string>
     <string name="hide_app_icon_toast_enabled">Uygulamanın simgesi başlatıcınızdan kaldırıldı!</string>
     <string name="hide_app_icon_toast_disabled">Uygulamanın simgesi şimdi başlatıcınıza eklendi!</string>
@@ -458,10 +454,6 @@ bu sorunu
     <string name="logchar_autosave_title">LogChar raporlarını otomatik olarak kaydet</string>
     <string name="logchar_autosave_subtext">Bu, LogChar raporlarını otomatik olarak buraya kaydeder
 /storage/emulated/0/substratum/LogCharReports/.</string>
-    <string name="show_outdated_themes_title">Geçmişe ait tüm temaları göster</string>
-    <string name="show_outdated_themes_content">Bunu devre dışı bırakmak Substratum\'un temaların
-        her zamankinden daha hızlı yüklendiği yeni algoritmayı kullanmasına izin verecektir. Bu,
-        yalnızca düzgün bir şekilde yapılandırılmış 6.0.0+ eklenti temaları için çalışacaktır.</string>
     <string name="fab_menu_compile_enable">Oluştur &amp; Etkinleştir</string>
     <string name="fab_menu_compile_update">Oluştur &amp; Güncelle</string>
     <string name="fab_menu_compile_install">Seçilenleri yükle</string>

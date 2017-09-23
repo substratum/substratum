@@ -183,15 +183,12 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="theme_information_tab_four">Balíčky zvuků</string>
     <string name="theme_information_tab_five">Tapety</string>
     <string name="theme_information_tab_six">Animace při vypnutí</string>
-    <string name="grid_style_cards_title">Rozvržení karet v mřížkovém stylu</string>
-    <string name="grid_style_cards_subtext">Povolit mřížkový styl pro karty motivu.</string>
     <string name="nougat_style_cards_title">Rozvržení karet podle Android Nougat</string>
     <string name="nougat_style_cards_subtext">Povolit styl karet oznámení podle Android Nougat.</string>
     <string name="uninstall_dialog_text">Opravdu chcete odinstalovat tento motiv?</string>
     <string name="manage_dialog_performing">Obnovení na výchozí&#8230;</string>
     <string name="manage_bootanimation_title">Obnovit spouštěcí animaci</string>
     <string name="manage_bootanimation_toast">Spouštěcí animace byla úspěšně obnovena!</string>
-    <string name="manage_shutdownanimation_title">Obnovit animaci Při vypnutí</string>
     <string name="manage_shutdownanimation_toast">Animace při vypnutí byla úspěšně obnovena!</string>
     <string name="manage_fonts_title">Obnovit systémové písma</string>
     <string name="manage_fonts_toast">Písma byla úspěšně obnovena!</string>
@@ -379,7 +376,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="vibrate_on_compiled_description">Když je motiv zkompilován, zavibrovat zařízením
  pro oznámení uživateli, že je kompilace hotova.</string>
     <string name="manage_notification_channel">Spravovat kanál upozornění</string>
-    <string name="manage_notification_channel_dialog_title">Vyberte kanál upozornění, který chcete spravovat</string>
     <string name="hide_app_icon">Zobrazit ikonu aplikace</string>
     <string name="hide_app_icon_toast_enabled">Ikona aplikace byla odstraněna!</string>
     <string name="hide_app_icon_toast_disabled">Ikona aplikace byla přidána!</string>
@@ -396,8 +392,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
  prochází uživatelským prostředím.</string>
     <string name="logchar_autosave_title">Automaticky ukládat hlášení LogChar</string>
     <string name="logchar_autosave_subtext">Tímto se zprávy protokolu LogChar automaticky uloží do /storage/emulated/0/substratum/LogCharReports/.</string>
-    <string name="show_outdated_themes_title">Zobrazit všechny neaktuální motivy</string>
-    <string name="show_outdated_themes_content">Zakázání umožní Substratum použít zcela nový algoritmus, se kterým se motivy načítají mnohem rychleji než obvykle. Funguje pouze na správně nakonfigurovaných motivech se zásuvným modulem v6.0.0+.</string>
     <string name="fab_menu_compile_enable">Sestavit &amp; povolit</string>
     <string name="fab_menu_compile_update">Sestavit &amp; aktualizovat</string>
     <string name="fab_menu_compile_install">Instalovat vybrané</string>

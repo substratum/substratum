@@ -315,15 +315,16 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
         viewHolder.card.setOnLongClickListener(view -> {
             String packageVersion = Packages.getAppVersion(context, current_object
                     .getPackageName());
-            if (packageVersion != null)
+            if (packageVersion != null) {
                 Toast.makeText(context, String.format(
                         context.getString(R.string.overlays_tab_package_ver_message),
                         current_object.getName(),
                         packageVersion), Toast.LENGTH_LONG).show();
-            else
+            } else {
                 Toast.makeText(context, R.string.overlays_tab_package_ver_failure, Toast
                         .LENGTH_SHORT).show();
-            return false;
+            }
+            return true;
         });
 
         if (current_object.variant_mode) {

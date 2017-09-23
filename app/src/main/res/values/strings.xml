@@ -313,6 +313,9 @@
         /storage/emulated/0/substratum/.\n\n<b>Firebase: </b>
         Substratum utilizes Google\'s Firebase to download crucial information from our
         centralized real-time database to improve core services and security enhancements.
+        \n\n<b>Theme Interfacer:</b>
+        (only supported ROMs). Allows Substratum to elevate its permissions to install
+        packages, enable overlays etc.
     </string>
 
     <string name="priority_back_title">Back to overlays</string>

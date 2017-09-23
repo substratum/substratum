@@ -50,6 +50,7 @@
     <uses-permission android:name="com.samsung.android.permission.MODIFY_THEME"/>
     <uses-permission android:name="com.samsung.contacts.permission.THEME"/>
     <uses-permission android:name="projekt.interfacer.permission.ACCESS_SERVICE"/>
+    <uses-permission android:name="projekt.interfacer.permission.ACCESS_SERVICE_INNER"/>
 
     <application
         android:name=".Substratum"

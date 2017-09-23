@@ -29,6 +29,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -73,6 +75,7 @@ import com.squareup.leakcanary.RefWatcher;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -113,6 +116,7 @@ import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
 import static projekt.substratum.common.References.BYPASS_ALL_VERSION_CHECKS;
 import static projekt.substratum.common.References.ENABLE_ROOT_CHECK;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
+import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.NO_THEME_ENGINE;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_N_UNROOTED;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
@@ -842,6 +846,20 @@ public class MainActivity extends SubstratumActivity implements
         }
     }
 
+    private static boolean isNewInterfacerPermissionAvailable(Context context) {
+
+        try {
+            PackageInfo info = context.getPackageManager().getPackageInfo(INTERFACER_PACKAGE, PackageManager.GET_PERMISSIONS);
+
+            return Arrays.stream(info.permissions)
+                    .anyMatch(permissionInfo -> permissionInfo.name.equals("projekt.interfacer.permission.ACCESS_SERVICE_INNER"));
+
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
     @Override
     public void onBackPressed() {
         if (!searchView.isIconified()) {
@@ -933,10 +951,15 @@ public class MainActivity extends SubstratumActivity implements
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
                                            @NonNull int[] grantResults) {
+
+        boolean isInterfacerPermissionNotGranted = (isNewInterfacerPermissionAvailable(this)
+                && ContextCompat.checkSelfPermission(this, "projekt.interfacer.permission.ACCESS_SERVICE_INNER") == PackageManager.PERMISSION_DENIED);
+
         switch (requestCode) {
             case PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
                 if (grantResults.length > 0 &&
-                        grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                        !isInterfacerPermissionNotGranted) {
                     // permission already granted, allow the program to continue running
                     File directory = new File(EXTERNAL_STORAGE_CACHE);
                     if (directory.exists()) {
@@ -1038,7 +1061,10 @@ public class MainActivity extends SubstratumActivity implements
                         context,
                         WRITE_EXTERNAL_STORAGE);
 
-                if (activity.permissionCheck != PackageManager.PERMISSION_GRANTED) {
+                boolean isInterfacerPermissionNotGranted = (isNewInterfacerPermissionAvailable(activity)
+                        && ContextCompat.checkSelfPermission(activity, "projekt.interfacer.permission.ACCESS_SERVICE_INNER") == PackageManager.PERMISSION_DENIED);
+
+                if (activity.permissionCheck != PackageManager.PERMISSION_GRANTED || isInterfacerPermissionNotGranted) {
                     new AlertDialog.Builder(activity)
                             .setCancelable(false)
                             .setTitle(R.string.permission_explanation_title)
@@ -1046,7 +1072,8 @@ public class MainActivity extends SubstratumActivity implements
                             .setPositiveButton(R.string.accept, (dialog, i) -> {
                                 dialog.cancel();
 
-                                if (activity.permissionCheck == PackageManager.PERMISSION_GRANTED) {
+                                if (activity.permissionCheck == PackageManager.PERMISSION_GRANTED
+                                        && !isInterfacerPermissionNotGranted) {
                                     // permission already granted,
                                     // allow the program to continue running
                                     File directory = new File(EXTERNAL_STORAGE_CACHE);
@@ -1066,7 +1093,8 @@ public class MainActivity extends SubstratumActivity implements
                                 } else {
                                     ActivityCompat.requestPermissions(activity,
                                             new String[]{
-                                                    WRITE_EXTERNAL_STORAGE},
+                                                    WRITE_EXTERNAL_STORAGE,
+                                                    "projekt.interfacer.permission.ACCESS_SERVICE_INNER"},
                                             PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
                                 }
 

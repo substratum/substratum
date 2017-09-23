@@ -19,6 +19,7 @@
 package projekt.substratum.common;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Build;
 import android.util.Log;
 
@@ -30,6 +31,8 @@ import projekt.substratum.common.tabs.SoundManager;
 import static projekt.substratum.common.References.FORCE_SAMSUNG_VARIANT;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
+import static projekt.substratum.common.Systems.checkAndromeda;
+import static projekt.substratum.common.Systems.isSamsung;
 
 public class Resources {
 
@@ -165,7 +168,7 @@ public class Resources {
         return !Arrays.asList(BLACKLIST_THEME_TARGET_APPS).contains(targetValue);
     }
 
-    // This method checks whether fonts is supported by the system
+    // This method checks whether custom fonts is supported by the system
     public static boolean isFontsSupported() {
         if (FORCE_SAMSUNG_VARIANT) return false;
         try {
@@ -181,7 +184,17 @@ public class Resources {
         return false;
     }
 
-    // This method checks whether shutdown animation is supported by the system
+    // This method checks whether custom sounds is supported by the system
+    public static boolean isSoundsSupported(Context context) {
+        return !checkAndromeda(context) && !isSamsung(context);
+    }
+
+    // This method checks whether custom boot animation is supported by the system
+    public static boolean isBootAnimationSupported(Context context) {
+        return !checkAndromeda(context) && !isSamsung(context);
+    }
+
+    // This method checks whether custom shutdown animation is supported by the system
     public static boolean isShutdownAnimationSupported() {
         try {
             @SuppressLint("PrivateApi")
@@ -196,5 +209,10 @@ public class Resources {
         } catch (Exception ex) {
             return false;
         }
+    }
+
+    // This method checks whether user profiles is supported by the system
+    public static boolean isProfilesSupported(Context context) {
+        return !checkAndromeda(context) && !isSamsung(context);
     }
 }

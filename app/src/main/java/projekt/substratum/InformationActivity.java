@@ -82,6 +82,7 @@ import projekt.substratum.adapters.tabs.InformationTabsAdapter;
 import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
+import projekt.substratum.common.Resources;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
@@ -106,7 +107,6 @@ import static projekt.substratum.common.References.overlaysFragment;
 import static projekt.substratum.common.References.shutdownAnimationsFragment;
 import static projekt.substratum.common.References.soundsFragment;
 import static projekt.substratum.common.References.wallpaperFragment;
-import static projekt.substratum.common.Systems.checkAndromeda;
 import static projekt.substratum.common.Systems.isSamsung;
 
 public class InformationActivity extends SubstratumActivity {
@@ -446,27 +446,24 @@ public class InformationActivity extends SubstratumActivity {
                                 .theme_information_tab_one)));
                     }
                     if (tab_checker.contains(bootAnimationsFragment) &&
-                            !checkAndromeda(mContext) &&
-                            !isSamsung(mContext)) {
+                            Resources.isBootAnimationSupported(mContext)) {
                         isWallpaperOnly = false;
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_two)));
                     }
                     if (tab_checker.contains(shutdownAnimationsFragment) &&
-                            projekt.substratum.common.Resources.isShutdownAnimationSupported()) {
+                            Resources.isShutdownAnimationSupported()) {
                         isWallpaperOnly = false;
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_six)));
                     }
-                    if (tab_checker.contains(fontsFragment) && projekt.substratum.common
-                            .Resources.isFontsSupported()) {
+                    if (tab_checker.contains(fontsFragment) && Resources.isFontsSupported()) {
                         isWallpaperOnly = false;
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_three)));
                     }
                     if (tab_checker.contains(soundsFragment) &&
-                            !checkAndromeda(mContext) &&
-                            !isSamsung(mContext)) {
+                            Resources.isSoundsSupported(mContext)) {
                         isWallpaperOnly = false;
                         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string
                                 .theme_information_tab_four)));

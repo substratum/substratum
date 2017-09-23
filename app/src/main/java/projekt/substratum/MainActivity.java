@@ -122,7 +122,6 @@ import static projekt.substratum.common.References.SAMSUNG_THEME_ENGINE_N;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
-import static projekt.substratum.common.Systems.checkAndromeda;
 import static projekt.substratum.common.Systems.checkThemeSystemModule;
 import static projekt.substratum.common.Systems.checkUsagePermissions;
 import static projekt.substratum.common.Systems.isSamsung;
@@ -446,9 +445,6 @@ public class MainActivity extends SubstratumActivity implements
                                 .withIdentifier(110));
 
         // Begin initializing the navigation drawer
-        Boolean checkSamsungStatus = isSamsung(mContext);
-        Boolean checkOreoRootless =
-                checkAndromeda(mContext) && !Root.checkRootAccess();
         drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_home)
@@ -459,7 +455,7 @@ public class MainActivity extends SubstratumActivity implements
                         .withName(R.string.nav_overlays)
                         .withIcon(R.drawable.nav_overlays)
                         .withIdentifier(2));
-        if (!checkSamsungStatus && !checkOreoRootless)
+        if (Resources.isBootAnimationSupported(mContext))
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_bootanim)
@@ -471,13 +467,13 @@ public class MainActivity extends SubstratumActivity implements
                             .withName(R.string.nav_shutdownanim)
                             .withIcon(R.drawable.nav_shutdownanim)
                             .withIdentifier(4));
-        if (Resources.isFontsSupported() && !checkSamsungStatus)
+        if (Resources.isFontsSupported())
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_fonts)
                             .withIcon(R.drawable.nav_fonts)
                             .withIdentifier(5));
-        if (!checkSamsungStatus && !checkOreoRootless)
+        if (Resources.isSoundsSupported(mContext))
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_sounds)
@@ -496,13 +492,13 @@ public class MainActivity extends SubstratumActivity implements
                         .withName(R.string.nav_overlay_manager)
                         .withIcon(R.drawable.nav_overlay_manager)
                         .withIdentifier(8));
-        if (Systems.checkOMS(mContext) && !checkSamsungStatus)
+        if (Systems.checkOMS(mContext) && !isSamsung(mContext))
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_priorities)
                             .withIcon(R.drawable.nav_drawer_priorities)
                             .withIdentifier(9));
-        if (!checkSamsungStatus && !checkOreoRootless)
+        if (Resources.isProfilesSupported(mContext))
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_backup_restore)

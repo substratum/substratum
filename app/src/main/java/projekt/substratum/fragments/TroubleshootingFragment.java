@@ -37,7 +37,6 @@ public class TroubleshootingFragment extends Fragment {
             R.string.question_five,
             R.string.question_eight,
             R.string.question_nine,
-            R.string.question_eleven,
             R.string.question_twelve
     };
 
@@ -46,7 +45,6 @@ public class TroubleshootingFragment extends Fragment {
             R.string.answer_five,
             R.string.answer_eight,
             R.string.answer_nine,
-            R.string.answer_eleven,
             R.string.answer_twelve
     };
 

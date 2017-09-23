@@ -26,8 +26,6 @@
     <string name="answer_eight">Substratum 内置了一个恢复系统，它被称为 Substratum 救援系统（SRS）。这是一个自动化的系统，它会将救援文件存储为 /storage/emulated/0/substratum/SubstratumRescue.zip 。请您在恢复模式（Recovery）中刷写此压缩包并重启设备。</string>
     <string name="question_nine">当我应用一个主题后，为什么有一些元素看上去非常小？</string>
     <string name="answer_nine">1. 如果没有自动重启系统界面，请进行手动操作。\n2. 重启手机。\n3. 禁用或删除叠加层，重新编译后再进行应用。</string>
-    <string name="question_eleven">尝试通过 Play Store 更新主题时出现了一个错误</string>
-    <string name="answer_eleven">请卸载并重新安装主题。</string>
     <string name="question_twelve">我现在仍有未解决的问题，我可以从哪里获得帮助？</string>
     <string name="answer_twelve">请在 Substratum Google+ 社区发表帖子，并提供以下信息︰ Substratum 版本，ROM信息，主题（至少提供一个出现问题的）。如果可以的话，请通过 logcat 提供一份运行日志。</string>
 </resources>

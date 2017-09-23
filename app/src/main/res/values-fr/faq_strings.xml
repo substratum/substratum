@@ -28,6 +28,5 @@
 1. Redémarrez l\'interface utilisateur si ça ne s\'est pas fait automatiquement.\n2. Redémarrez le téléphone.\n3. Désactivez
     les surcouches, recompilez et réactivez.
     </string>
-    <string name="answer_eleven">Désinstallez le thème et réinstallez-le.</string>
     <string name="answer_twelve">Veuillez créer un message dans la communauté Google+ \"Substratum Development\". Veuillez fournir les informations suivantes : version de Substratum, version de la ROM, thème (si les problème surviennent en appliquant le thème), et, si possible, un journal du système (\"logcat\").</string>
 </resources>

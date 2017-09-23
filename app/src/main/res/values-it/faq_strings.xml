@@ -30,6 +30,5 @@
     <string name="answer_eight">Substratum ha il suo sistema di ripristino chiamato Substratum Rescue System (SRS), ovvero un sistema automatizzato che crea un archivio nella locazione di memoria /storage/emulated/0/substratum/SubstratumRescue.zip. Flasha questo ZIP dalla recovery e riavvia!    </string>
     <string name="answer_nine">
 Riavvia il SystemUI se non l\' ha fatto automaticamente.\n2. Riavvia il dispositivo.\n3. Disabilita gli overlay, ricompila e riattiva.    </string>
-    <string name="answer_eleven">Disinstalla il tema ed installalo nuovamente.</string>
     <string name="answer_twelve">Per favore scrivi un post sulla community Google+ di Substratum e fornisci le seguenti informazioni: la versione di Substratum, ROM, tema (in caso di errori legati ad esso) e se possibile un logcat.    </string>
 </resources>

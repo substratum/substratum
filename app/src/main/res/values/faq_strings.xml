@@ -44,9 +44,6 @@
         the overlays, recompile, and reenable.
     </string>
 
-    <string name="question_eleven">I\'m getting an error when trying to update a theme on the Play Store.</string>
-    <string name="answer_eleven">Uninstall the theme and reinstall it.</string>
-
     <string name="question_twelve">Who do I contact if I have a serious issue not resolved by reading these steps?</string>
     <string name="answer_twelve">Please make a post in the Substratum Google+ community. Please provide
         the following information: Substratum version, ROM, theme (if issues applying one), and, if

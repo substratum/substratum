@@ -31,6 +31,5 @@
     <string name="answer_nine">
 1. Reinicie o SystemUI se não o fez automaticamente.\n2. Reinicie o telefone.\n3. Desative
         as camadas, recompile e reative.    </string>
-    <string name="answer_eleven">Desinstale o tema e o reinstale.</string>
     <string name="answer_twelve">Faça uma postagem na comunidade Substratum do Google+. Forneça as seguintes informações: Versão do Substratum, ROM, tema (se houver problemas de aplicação) e, se possível, um logcat.    </string>
 </resources>

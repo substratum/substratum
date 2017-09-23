@@ -27,6 +27,5 @@
         Systeem (SRS), wat een geautomatiseerd systeem is dat een archief dumpt in 
         /storage/emulated/0/substratum/SubstratumRescue.zip. Flash deze ZIP in recovery en herstart! 
     </string>
-    <string name="answer_eleven">Verwijder het thema en installeer het opnieuw.</string>
     <string name="answer_twelve">Gelieve een bericht aan te maken in de Substratum Google+ communiteit. Verstrek hierbij de volgende informatie: Substratum versie, ROM, thema (bij problemen met toepassen) en, indien mogelijk, een logcat.</string>
 </resources>

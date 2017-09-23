@@ -26,6 +26,5 @@
     <string name="answer_eight">\"Substratum\" turi savo atkūrimo režimą, vadinamą \"Substratum Rescue System (SRS)\",kuris yra automatizuotas ir įkelia archyvą į \"/storage/emulated/0/substratum/SubstratumRescue.zip\". Iraškite šį \"ZIP\" atkūrimo režime ir paleiskite įrenginį iš naujo.</string>
     <string name="answer_nine">
 1. Paleiskite iš naujo SistemosNS, jei tai nebuvo atlikta automatiškai.\n2. Paleiskite iš naujo įrenginį.\n3. Išjunkite perdangas, perkompiliuokite ir per naujo įjunkite.    </string>
-    <string name="answer_eleven">Ištrinkite temą ir įrašykite per naujo.</string>
     <string name="answer_twelve">Prašome parašyti į \"Substratum Google+\" bendruomenę. Prašome pateikti šią informaciją: \"Substratum\" versiją, \"ROM\", temą (jei problema pritaikant vieną) ir jei įmanoma \"logcat\".    </string>
 </resources>

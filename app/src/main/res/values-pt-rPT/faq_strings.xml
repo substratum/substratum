@@ -24,6 +24,5 @@
     <string name="answer_five">A aplicação de um tema é um processo de duas partes: compilação da sobreposições e aplicação das sobreposições. Ir para o tema, clique na guia Gestor de sobreposições selecione as sobreposições e as opções que quer, escolha FAB e escolha Compilar/atualizar, depois escolha essas mesmas sobreposições, e toque em FAB e escolher ativar selecionado.    </string>
     <string name="question_eight">Estou em bootloop! Como resolvo isso?</string>
     <string name="answer_eight">O Substratum tem o seu próprio sistema de recuperação chamado Substratum Rescue System (SRS), que é um sistema automatizado que guarda um arquivo ZIP em /storage/emulated/0/substratum/SubstratumRescue.zip. \"Flashe\" esse ZIP no modo de recuperação e reinicie o dispositivo.    </string>
-    <string name="answer_eleven">Desinstale o tema e volte a instalá-lo.</string>
     <string name="answer_twelve">Faça, por favor, um comentário na comunidade Google+ do  Substratum. Por favor, forneça as seguintes informações: versão do Substratum, ROM, qual o tema (se for um problema na aplicação de um) e, se possível, um logcat.    </string>
 </resources>

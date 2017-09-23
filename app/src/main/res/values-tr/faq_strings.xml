@@ -42,8 +42,6 @@
         1. Otomatik olarak yapmadıysa Sistem Arayüzünü yeniden başlatın.\n2. Telefonu yeniden
         başlatın.\n3. Temaları devre dışı bırakın, yeniden düzenleyip tekrar etkinleştirin.
     </string>
-    <string name="question_eleven">Play Store\'da bir temayı güncellemeye çalışırken bir hata alıyorum.</string>
-    <string name="answer_eleven">Temayı kaldırın ve yeniden yükleyin.</string>
     <string name="question_twelve">Bu adımları okuyarak çözülmeyen ciddi bir sorun yaşarsam kiminle iletişime geçmeliyim?</string>
     <string name="answer_twelve">Lütfen Substratum Google+ topluluğuna bir mesaj atın. Lütfen aşağıdaki
         bilgileri sağlayın: Substratum sürümü, ROM, tema (uygulanan sorunlar varsa)

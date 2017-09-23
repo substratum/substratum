@@ -27,8 +27,6 @@
     <string name="question_nine">Některé věci mohou vypadat špatně po použití motivu, co mám udělat?</string>
     <string name="answer_nine">
 1. Restartovat SystemUI pokud se již automaticky nestalo.\n2. Restartovat telefon.\n3. Zakažte potahy, znovu kompilujte a znovu povolte.    </string>
-    <string name="question_eleven">Dostávám chybu při snaze aktualizovat motiv z Obchodu Play.</string>
-    <string name="answer_eleven">Odinstalujte motiv a znovu ho nainstalujte.</string>
     <string name="question_twelve">Koho mám kontaktovat, když mám vážný problém, který nejde vyřešit těmito kroky?</string>
     <string name="answer_twelve">Prosím vytvořte příspěvek v komunitě Substratum na Google+.
 Prosím poskytněte tyto informace: verze Substratum, ROM, motiv a logcat.    </string>

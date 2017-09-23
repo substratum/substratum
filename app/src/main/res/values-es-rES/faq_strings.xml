@@ -31,7 +31,6 @@
         1. Reinicie SystemUI si esto no ocurrió automáticamente.\n2. Reinicie el teléfono.\n3.
         Desactive las capas, recompile, and vuelva a activarlas.
     </string>
-    <string name="answer_eleven">Desinstale el tema y vuelva a instalarlo.</string>
     <string name="answer_twelve">Haz una publicación en la comunidad de Substratum en Google+. Proporcione
         la siguiente información: Versión de Substratum, ROM, Tema (si se aplica una) y, si es
         posible, un logcat.    </string>

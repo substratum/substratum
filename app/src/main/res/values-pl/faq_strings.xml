@@ -30,8 +30,6 @@ lecz cechuje się takimi możliwościami jak na przykład brakiem potrzeby resta
     <string name="question_nine">Niektóre elementy wyglądają na zepsute po zastosowaniu motywu, co się stało?</string>
     <string name="answer_nine">
 1. Uruchom ponownie interfejs jeżeli nie stało się to automatycznie. \n2. Uruchom ponownie urządzenie.\n3. Wyłącz nakładki, zrekompiluj i ponownie zastosuj.    </string>
-    <string name="question_eleven">Otrzymuję komunikat o błędzie podczas próby aktualizacji motywu w Sklepie Play.</string>
-    <string name="answer_eleven">Odinstaluj motyw i zainstaluj go ponownie.</string>
     <string name="question_twelve">Z kim należy się skontaktować jeśli mam poważne problemy których nie mogę rozwiązać poprzez czytanie tych kroków?</string>
     <string name="answer_twelve">Proszę o utworzenie postu w społeczności Substratum na Google+. Proszę również o podanie następujących informacji: wersja Substratum, ROM, motyw (jeśli są problemy podczas ustawiania) i jeśli to możliwe, logcat.    </string>
 </resources>

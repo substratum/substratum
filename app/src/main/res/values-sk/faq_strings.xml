@@ -26,8 +26,6 @@
     <string name="answer_eight">Substratum má svoj vlastný systém obnovy nazývaný Substratum Rescue System (SRS), je to automatizovaný systém, ktorý vytvorí SubstratumRescue.zip archív do /storage/emulated/0/substratum/. Flashnite tento zip pomocou recovery a reštartujte zariadenie!</string>
     <string name="question_nine">Niektoré prvky po aplikovaní témy vyzerajú zvláštne, čo sa stalo?</string>
     <string name="answer_nine">1. Reštartujte SystemUI, ak sa tak nestalo automaticky.\n2. Reštartujte zariadenie.\n3. Zrušte  prekrytia, skompilujte a aplikujte znovu.</string>
-    <string name="question_eleven">Pri aktualizovaní témy v Obchode Play mi vyhadzuje chybu.</string>
-    <string name="answer_eleven">Tému odinštalujte a znovu ju nainštalujte.</string>
     <string name="question_twelve">Koho mám kontaktovať, ak mám vážny problém, ktorý som nevyriešil pomocou týchto krokov?</string>
     <string name="answer_twelve">Prosím, vytvorte príspevok v BitSyko komunite na G+. Prosím, uveďte nasledujúce informácie v angličtine: verzia Substratum, ROM, téma (ak sa vyskytol problém pri aplikovaní) a, ak je to možné, logcat.</string>
 </resources>

@@ -116,6 +116,9 @@ public class ThemeFragment extends Fragment {
 
         substratum_packages = new HashMap<>();
         recyclerView = root.findViewById(R.id.theme_list);
+        if (prefs.getInt("grid_style_cards_count", References.DEFAULT_GRID_COUNT) > 1) {
+            recyclerView.setPadding(10, 0, 10, 0);
+        }
         cardView = root.findViewById(R.id.no_entry_card_view);
         cardView.setOnClickListener(v -> {
                     Intent intent = new Intent(getActivity(), ShowcaseActivity.class);

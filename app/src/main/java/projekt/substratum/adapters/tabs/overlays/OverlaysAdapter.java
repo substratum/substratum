@@ -19,6 +19,7 @@
 package projekt.substratum.adapters.tabs.overlays;
 
 import android.content.Context;
+import android.support.design.widget.Lunchbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -29,15 +30,16 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.util.List;
 
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
+import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 
+import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 
@@ -316,13 +318,31 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
             String packageVersion = Packages.getAppVersion(context, current_object
                     .getPackageName());
             if (packageVersion != null) {
-                Toast.makeText(context, String.format(
+                String version = String.format(
                         context.getString(R.string.overlays_tab_package_ver_message),
                         current_object.getName(),
-                        packageVersion), Toast.LENGTH_LONG).show();
+                        packageVersion);
+
+                currentShownLunchBar = Lunchbar.make(
+                        current_object.getActivityView(),
+                        version,
+                        Lunchbar.LENGTH_LONG);
+                currentShownLunchBar.setAction(context.getString(android.R.string.copy),
+                        view1 -> {
+                            References.copyToClipboard(context, "version", version);
+                            currentShownLunchBar = Lunchbar.make(
+                                    current_object.getActivityView(),
+                                    R.string.overlays_tab_package_ver_message_copied,
+                                    Lunchbar.LENGTH_SHORT);
+                            currentShownLunchBar.show();
+                        });
+                currentShownLunchBar.show();
             } else {
-                Toast.makeText(context, R.string.overlays_tab_package_ver_failure, Toast
-                        .LENGTH_SHORT).show();
+                currentShownLunchBar = Lunchbar.make(
+                        current_object.getActivityView(),
+                        R.string.overlays_tab_package_ver_failure,
+                        Lunchbar.LENGTH_LONG);
+                currentShownLunchBar.show();
             }
             return true;
         });

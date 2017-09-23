@@ -22,6 +22,8 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.support.design.widget.Lunchbar;
+import android.view.View;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -64,6 +66,8 @@ public class OverlaysItem implements Serializable {
     private ArrayList<Object> enabledOverlays;
     private Drawable app_icon;
     private Boolean theme_oms;
+    private Lunchbar lunchbar;
+    private View activityView;
 
     public OverlaysItem(String theme_name,
                         String name,
@@ -78,7 +82,8 @@ public class OverlaysItem implements Serializable {
                         String versionName,
                         String baseResources,
                         List enabledOverlays,
-                        Boolean theme_oms) {
+                        Boolean theme_oms,
+                        View activityView) {
 
         this.theme_name = theme_name;
         this.name = name;
@@ -99,6 +104,11 @@ public class OverlaysItem implements Serializable {
         this.enabledOverlays = new ArrayList<>();
         this.enabledOverlays.addAll(enabledOverlays);
         this.app_icon = Packages.getAppIcon(context, packageName);
+        this.activityView = activityView;
+    }
+
+    View getActivityView() {
+        return this.activityView;
     }
 
     boolean isDeviceOMS() {

@@ -2,8 +2,6 @@ package projekt.substratum.activities.crash;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -109,22 +107,15 @@ public class SubstratumCrash extends Activity {
                     .setNeutralButton(R.string
                                     .customactivityoncrash_error_activity_error_details_copy,
                             (dialog1, which) -> {
-                                copyErrorToClipboard(stacktrace);
+                                References.copyToClipboard(getApplicationContext(),
+                                        getString(R.string
+                                                .customactivityoncrash_error_activity_error_details_clipboard_label),
+                                        stacktrace);
                                 Toast.makeText(this,
                                         R.string.customactivityoncrash_error_activity_error_details_copied,
                                         Toast.LENGTH_SHORT).show();
                             })
                     .show();
         });
-    }
-
-    private void copyErrorToClipboard(String stacktrace) {
-        ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText(
-                getString(R.string
-                        .customactivityoncrash_error_activity_error_details_clipboard_label),
-                stacktrace);
-        assert clipboard != null;
-        clipboard.setPrimaryClip(clip);
     }
 }

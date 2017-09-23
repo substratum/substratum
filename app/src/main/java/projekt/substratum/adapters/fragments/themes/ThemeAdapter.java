@@ -316,7 +316,8 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         viewHolder.theme_author.setText(themeItem.getThemeAuthor());
         viewHolder.imageView.setImageDrawable(themeItem.getThemeDrawable());
 
-        References.setRecyclerViewAnimation(mContext, viewHolder.itemView, R.anim.recyclerview_anim);
+        References.setRecyclerViewAnimation(mContext, viewHolder.itemView, R.anim
+                .recyclerview_anim);
     }
 
     private void explainTBO() {

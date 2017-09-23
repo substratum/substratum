@@ -20,6 +20,8 @@ package projekt.substratum.common;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -68,6 +70,8 @@ import projekt.substratum.activities.launch.AppShortcutLaunch;
 import projekt.substratum.common.analytics.FirebaseAnalytics;
 import projekt.substratum.services.profiles.ScheduledProfileReceiver;
 import projekt.substratum.util.injectors.CheckBinaries;
+
+import static android.content.Context.CLIPBOARD_SERVICE;
 
 public class References {
 
@@ -544,6 +548,17 @@ public class References {
         }
     }
 
+    // Copy an object to the system's clipboard
+    public static void copyToClipboard(Context context, String id, String content) {
+        ClipboardManager clipboard =
+                (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText(id, content);
+        if (clipboard != null) {
+            clipboard.setPrimaryClip(clip);
+        }
+    }
+
+    // Set recycler view animations
     public static void setRecyclerViewAnimation(Context context,
                                                 View view,
                                                 int animation_resource) {

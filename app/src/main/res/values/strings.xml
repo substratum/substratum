@@ -835,6 +835,7 @@
     <string name="hyphen_placeholder" translatable="false">-</string><!-- The things lint will complain about...-->
     <string name="fonts_demo_string">AaBbCcDd123</string>
     <string name="overlays_tab_package_ver_message">Installed %s version: %s</string>
+    <string name="overlays_tab_package_ver_message_copied">Successfully copied version code to clipboard!</string>
     <string name="overlays_tab_package_ver_failure">Failed to grab package version</string>
 
 </resources>

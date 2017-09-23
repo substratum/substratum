@@ -25,8 +25,6 @@ import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -100,7 +98,6 @@ import projekt.substratum.util.files.MapUtils;
 import projekt.substratum.util.files.Root;
 
 import static android.content.Context.ACTIVITY_SERVICE;
-import static android.content.Context.CLIPBOARD_SERVICE;
 import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.References.DEFAULT_NOTIFICATION_CHANNEL_ID;
 import static projekt.substratum.common.References.ENABLE_PACKAGE_LOGGING;
@@ -821,12 +818,8 @@ public class Overlays extends Fragment {
                 .setNegativeButton(R.string
                                 .customactivityoncrash_error_activity_error_details_copy,
                         (dialog1, which) -> {
-                            ClipboardManager clipboard =
-                                    (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
-                            ClipData clip = ClipData.newPlainText("substratum_log", error_logs);
-                            if (clipboard != null) {
-                                clipboard.setPrimaryClip(clip);
-                            }
+                            References.copyToClipboard(context,
+                                    "substratum_log", error_logs.toString());
                             currentShownLunchBar = Lunchbar.make(
                                     getActivityView(),
                                     R.string.logcat_dialog_copy_success,
@@ -1499,7 +1492,8 @@ public class Overlays extends Fragment {
                                                 fragment.versionName,
                                                 sUrl[0],
                                                 state5overlays,
-                                                Systems.checkOMS(context));
+                                                Systems.checkOMS(context),
+                                                fragment.getActivityView());
                                 fragment.values2.add(overlaysItem);
                             } else {
                                 // At this point, there is no spinner adapter, so it should be null
@@ -1518,7 +1512,8 @@ public class Overlays extends Fragment {
                                                 fragment.versionName,
                                                 sUrl[0],
                                                 state5overlays,
-                                                Systems.checkOMS(context));
+                                                Systems.checkOMS(context),
+                                                fragment.getActivityView());
                                 fragment.values2.add(overlaysItem);
                             }
                         } catch (Exception e) {

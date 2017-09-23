@@ -18,6 +18,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -162,11 +163,11 @@ public class Theming {
     // This class serves to update the theme's cache on demand
     public static class SubstratumThemeUpdate extends AsyncTask<Void, Integer, String> {
         private final String TAG = "SubstratumThemeUpdate";
+        private WeakReference<Context> context;
         private ProgressDialog progress;
         private String theme_name, theme_package, theme_mode;
         private Boolean launch = false;
         private Boolean cacheable = false;
-        private Context mContext;
         private LocalBroadcastManager localBroadcastManager;
         private KeyRetrieval keyRetrieval;
         private Intent securityIntent;
@@ -193,7 +194,7 @@ public class Theming {
 
         public SubstratumThemeUpdate(Context mContext, String theme_package, String theme_name,
                                      String theme_mode) {
-            this.mContext = mContext;
+            this.context = new WeakReference<>(mContext);
             this.theme_package = theme_package;
             this.theme_name = theme_name;
             this.theme_mode = theme_mode;
@@ -202,100 +203,109 @@ public class Theming {
 
         @Override
         protected void onPreExecute() {
-            progress = new ProgressDialog(mContext, R.style.AppTheme_DialogAlert);
+            Context mContext = context.get();
+            if (mContext != null) {
+                progress = new ProgressDialog(mContext, R.style.AppTheme_DialogAlert);
 
-            String parse = String.format(mContext.getString(R.string.on_demand_updating_text),
-                    theme_name);
+                String parse = String.format(
+                        mContext.getString(R.string.on_demand_updating_text),
+                        theme_name);
 
-            progress.setTitle(mContext.getString(R.string.on_demand_updating_title));
-            progress.setMessage(parse);
-            progress.setIndeterminate(false);
-            progress.setCancelable(false);
-            if (cacheable) progress.show();
+                progress.setTitle(mContext.getString(R.string.on_demand_updating_title));
+                progress.setMessage(parse);
+                progress.setIndeterminate(false);
+                progress.setCancelable(false);
+                if (cacheable) progress.show();
+            }
         }
 
         @Override
         protected void onPostExecute(String result) {
-            if (progress != null) {
-                progress.dismiss();
-            }
-            if (launch) {
-                Toast.makeText(mContext, mContext.getString(R.string
-                                .background_updated_toast),
-                        Toast.LENGTH_SHORT).show();
-                // At this point, we can safely assume that the theme has successfully extracted
-                launchTheme(mContext, theme_package, theme_mode);
-            } else if (!cacheable) {
-                Toast.makeText(mContext, mContext.getString(R.string.
-                                background_updated_toast_rejected),
-                        Toast.LENGTH_SHORT).show();
-                // Just in case.
-                new CacheCreator().wipeCache(mContext, theme_package);
-            } else {
-                Toast.makeText(mContext, mContext.getString(R.string
-                                .background_updated_toast_cancel),
-                        Toast.LENGTH_SHORT).show();
-                // We don't want this cache anymore, delete it from the system completely
-                new CacheCreator().wipeCache(mContext, theme_package);
+            Context mContext = context.get();
+            if (mContext != null) {
+                if (progress != null) {
+                    progress.dismiss();
+                }
+                if (launch) {
+                    Toast.makeText(mContext, mContext.getString(R.string
+                                    .background_updated_toast),
+                            Toast.LENGTH_SHORT).show();
+                    // At this point, we can safely assume that the theme has successfully extracted
+                    launchTheme(mContext, theme_package, theme_mode);
+                } else if (!cacheable) {
+                    Toast.makeText(mContext, mContext.getString(R.string.
+                                    background_updated_toast_rejected),
+                            Toast.LENGTH_SHORT).show();
+                    // Just in case.
+                    new CacheCreator().wipeCache(mContext, theme_package);
+                } else {
+                    Toast.makeText(mContext, mContext.getString(R.string
+                                    .background_updated_toast_cancel),
+                            Toast.LENGTH_SHORT).show();
+                    // We don't want this cache anymore, delete it from the system completely
+                    new CacheCreator().wipeCache(mContext, theme_package);
+                }
             }
         }
 
         @Override
         protected String doInBackground(Void... Params) {
-            if (!cacheable) return null;
+            Context mContext = context.get();
+            if (mContext != null) {
+                if (!cacheable) return null;
 
-            String encrypt_check =
-                    Packages.getOverlayMetadata(mContext, theme_package, References
-                            .metadataEncryption);
+                String encrypt_check =
+                        Packages.getOverlayMetadata(mContext, theme_package, References
+                                .metadataEncryption);
 
-            if (encrypt_check != null && encrypt_check.equals(metadataEncryptionValue)) {
-                Log.d(TAG, "This overlay for " +
-                        Packages.getPackageName(mContext, theme_package) +
-                        " is encrypted, passing handshake to the theme package...");
+                if (encrypt_check != null && encrypt_check.equals(metadataEncryptionValue)) {
+                    Log.d(TAG, "This overlay for " +
+                            Packages.getPackageName(mContext, theme_package) +
+                            " is encrypted, passing handshake to the theme package...");
 
-                getThemeKeys(mContext, theme_package);
+                    getThemeKeys(mContext, theme_package);
 
-                keyRetrieval = new KeyRetrieval();
-                IntentFilter if1 = new IntentFilter(KEY_RETRIEVAL);
-                localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
-                localBroadcastManager.registerReceiver(keyRetrieval, if1);
+                    keyRetrieval = new KeyRetrieval();
+                    IntentFilter if1 = new IntentFilter(KEY_RETRIEVAL);
+                    localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
+                    localBroadcastManager.registerReceiver(keyRetrieval, if1);
 
-                int counter = 0;
-                handler.postDelayed(runnable, 100);
-                while (securityIntent == null && counter < 5) {
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    int counter = 0;
+                    handler.postDelayed(runnable, 100);
+                    while (securityIntent == null && counter < 5) {
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        counter++;
                     }
-                    counter++;
-                }
-                if (counter > 5) {
-                    Log.e(TAG, "Could not receive handshake in time...");
-                    return null;
-                }
-
-                if (securityIntent != null) {
-                    try {
-                        byte[] encryption_key =
-                                securityIntent.getByteArrayExtra("encryption_key");
-                        byte[] iv_encrypt_key =
-                                securityIntent.getByteArrayExtra("iv_encrypt_key");
-
-                        cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-                        cipher.init(
-                                Cipher.DECRYPT_MODE,
-                                new SecretKeySpec(encryption_key, "AES"),
-                                new IvParameterSpec(iv_encrypt_key)
-                        );
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    if (counter > 5) {
+                        Log.e(TAG, "Could not receive handshake in time...");
                         return null;
                     }
-                }
-            }
 
-            launch = new CacheCreator().initializeCache(mContext, theme_package, cipher);
+                    if (securityIntent != null) {
+                        try {
+                            byte[] encryption_key =
+                                    securityIntent.getByteArrayExtra("encryption_key");
+                            byte[] iv_encrypt_key =
+                                    securityIntent.getByteArrayExtra("iv_encrypt_key");
+
+                            cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+                            cipher.init(
+                                    Cipher.DECRYPT_MODE,
+                                    new SecretKeySpec(encryption_key, "AES"),
+                                    new IvParameterSpec(iv_encrypt_key)
+                            );
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            return null;
+                        }
+                    }
+                }
+                launch = new CacheCreator().initializeCache(mContext, theme_package, cipher);
+            }
             return null;
         }
 

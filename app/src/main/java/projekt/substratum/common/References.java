@@ -39,6 +39,9 @@ import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -539,6 +542,13 @@ public class References {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void setRecyclerViewAnimation(Context context,
+                                                View view,
+                                                int animation_resource) {
+        Animation animation = AnimationUtils.loadAnimation(context, animation_resource);
+        view.startAnimation(animation);
     }
 
     public static class Markdown extends AsyncTask<Void, Void, Void> {

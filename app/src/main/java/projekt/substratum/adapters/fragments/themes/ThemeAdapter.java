@@ -37,8 +37,6 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -85,11 +83,6 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                     viewGroup, false);
         }
         return new ViewHolder(view);
-    }
-
-    private void setAnimation(Context context, View view) {
-        Animation animation = AnimationUtils.loadAnimation(context, R.anim.recyclerview_anim);
-        view.startAnimation(animation);
     }
 
     @Override
@@ -323,7 +316,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         viewHolder.theme_author.setText(themeItem.getThemeAuthor());
         viewHolder.imageView.setImageDrawable(themeItem.getThemeDrawable());
 
-        setAnimation(mContext, viewHolder.itemView);
+        References.setRecyclerViewAnimation(mContext, viewHolder.itemView, R.anim.recyclerview_anim);
     }
 
     private void explainTBO() {

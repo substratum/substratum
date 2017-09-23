@@ -251,13 +251,13 @@
     <string name="settings_about_samsung">sungstratum version</string>
     <string name="settings_about_oms_rro_version">Theme platform:</string>
     <string name="settings_about_oms_version_do">Dynamic Overlays (OMS)</string>
-    <string name="settings_about_oms_version_7">OMS7</string>
+    <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
 
     <string name="settings_about_system_version">System platform</string>
     <string name="settings_about_system_content" translatable="false">%NULL$</string>
 
-    <string name="settings_aopt_switcher_title">System Overlay Compiler</string>
+    <string name="settings_aopt_switcher_title">System overlay compiler</string>
     <string name="settings_aapt" translatable="false">Android Asset Packaging Tool (Stable)</string>
     <string name="settings_aopt" translatable="false">Android Overlay Packaging Tool (Cutting Edge)</string>
 
@@ -268,8 +268,8 @@
     <string name="theme_information_tab_five">Wallpapers</string>
     <string name="theme_information_tab_six">Shutdown animations</string>
 
-    <string name="nougat_style_cards_title">Nougat Style Card Layout</string>
-    <string name="nougat_style_cards_subtext">Enable Android Nougat Notification styled theme cards.</string>
+    <string name="nougat_style_cards_title">Nougat style card layout</string>
+    <string name="nougat_style_cards_subtext">Enable Android Nougat notification styled theme cards.</string>
 
     <string name="uninstall_dialog_text">Are you sure you want to uninstall this theme?</string>
 
@@ -481,11 +481,11 @@
     <string name="notification_initial_title">Substratum is running</string>
     <string name="notification_initial_title_upgrade_intent">Upgrading %s\'s overlays&#8230;</string>
     <string name="notification_done_title">Theme compilation has completed</string>
-    <string name="notification_done_upgrade_title">Overlay upgrade has completed for %s!</string>
-    <string name="notification_done_upgrade_title_warning">Overlay upgrade partially completed for %s!</string>
+    <string name="notification_done_upgrade_title">Overlay refresh has completed for %s!</string>
+    <string name="notification_done_upgrade_title_warning">Overlay refresh partially completed for %s!</string>
     <string name="notification_done_upgrade_title_failed">Missing or unbuildable configuration:\n\n%s</string>
-    <string name="notification_done_update_text">All enabled and disabled overlays for this app have been updated.</string>
-    <string name="notification_done_upgrade_text">All enabled and disabled overlays for this theme have been updated.</string>
+    <string name="notification_done_update_text">All overlays for this app have been updated.</string>
+    <string name="notification_done_upgrade_text">All overlays for this theme have been updated.</string>
     <string name="notification_no_errors_found">No errors while installing any overlays</string>
     <string name="notification_some_errors_found">An error has occurred during overlay installation</string>
     <string name="notification_processing">Processing overlay for</string>
@@ -498,9 +498,9 @@
     <string name="shortcut_store_disabled">Theme Showcase</string>
 
     <string name="settings_title">About</string>
-    <string name="settings_title_1">User Preferences</string>
+    <string name="settings_title_1">User preferences</string>
     <string name="settings_title_3">Theming</string>
-    <string name="settings_title_clickable">System Preferences</string>
+    <string name="settings_title_clickable">System preferences</string>
     <string name="substratum_restart_toast">Substratum restarted automatically after a settings change.</string>
     <string name="restart_systemui">Post-enable SystemUI recreate</string>
     <string name="restart_systemui_subtext">Automatically recreate the SystemUI after enabling/disabling a SystemUI overlay</string>
@@ -518,10 +518,10 @@
     <string name="hide_app_icon_supported">This will allow you to toggle between having the launcher icon visible or invisible on your home screen.</string>
     <string name="disable_completion">All overlays for this theme are now deactivating&#8230;</string>
     <string name="enable_completion">All installed overlays for this theme are now activating&#8230;</string>
-    <string name="alternate_drawer_design_title">Secondary Drawer Design</string>
-    <string name="alternate_drawer_design_subtext">Uses an alternate navigation drawer design when navigating through the user interface.</string>
-    <string name="logchar_autosave_title">Automatically save LogChar reports</string>
-    <string name="logchar_autosave_subtext">This will automatically save LogChar reports in /storage/emulated/0/substratum/LogCharReports/.</string>
+    <string name="alternate_drawer_design_title">Secondary drawer design</string>
+    <string name="alternate_drawer_design_subtext">An alternative navigation drawer design.</string>
+    <string name="logchar_autosave_title">Retain LogChar reports</string>
+    <string name="logchar_autosave_subtext">All LogChar reports will be stored in /storage/emulated/0/substratum/LogCharReports/.</string>
 
     <string name="fab_menu_compile_enable">Build &amp; Enable</string>
     <string name="fab_menu_compile_update">Build &amp; Update</string>
@@ -610,7 +610,7 @@
     <string name="profile_compile_progress">Compiling %d of %d:\n%s</string>
     <string name="profile_compile_processing">Now processing your saved overlay states&#8230;</string>
 
-    <string name="theme_debug_mode_title">System Fallback Interjection Bypass</string>
+    <string name="theme_debug_mode_title">Legacy compiler fallback bypass</string>
     <string name="theme_debug_mode_summary">This will stop the app from using the legacy compiler fallback mechanism to help themes when they reach an unrecoverable state.</string>
     <string name="logchar_dialog_title_delete_title">ATTENTION</string>
     <string name="logchar_dialog_title_delete_content">This will delete all of the currently saved logs. By pressing continue, all logs will be cleared and logs will no longer be saved.</string>
@@ -640,20 +640,20 @@
 
     <string name="settings_title_automation">Automation</string>
 
-    <string name="settings_auto_updater_title">Automatically update target overlays</string>
-    <string name="settings_auto_updater_text">Substratum will automatically build, compile and install an updated version of all overlays for the recently updated apps. Keeping this disabled will save battery.</string>
+    <string name="settings_auto_updater_title">App-based overlay refresher</string>
+    <string name="settings_auto_updater_text">Automatically build and install an updated version of all overlays for the recently updated, themed application.</string>
 
     <string name="beta_tag">★ BETA</string>
 
-    <string name="settings_theme_auto_updater_title">Automatically update theme overlays</string>
+    <string name="settings_theme_auto_updater_title">Theme-based overlay refresher</string>
     <string name="settings_theme_auto_updater_dialog_title">WARNING</string>
-    <string name="settings_theme_auto_updater_text">Substratum will automatically build, compile and install an updated version of all overlays for the recently updated theme. Keeping this disabled will save battery.</string>
+    <string name="settings_theme_auto_updater_text">Automatically build and install an updated version of all overlays for the recently updated theme.</string>
     <string name="settings_theme_auto_updater_dialog_text">Please do NOT have PackageInstaller open in the foreground while the notification is up, framework overlays tend to restart PackageInstaller causing indefinite amounts of recompiling!</string>
 
     <string name="settings_auto_alert_title">New installable overlay found alert</string>
-    <string name="settings_auto_alert_text">When installing a new application for the first time, if the application is themed by any of the installed themes, a notification will show up.</string>
+    <string name="settings_auto_alert_text">Show a notification when a recently installed app has an overlay available in a theme.</string>
 
-    <string name="settings_force_english_title">Force English Language</string>
+    <string name="settings_force_english_title">Force English language</string>
     <string name="settings_force_english_text">This will force the application to use the English language.</string>
     <string name="settings_force_english_toast_success" translatable="false">Successfully switched to English!</string>
     <string name="settings_force_english_toast_reverted">Successfully disabled force English!</string>
@@ -665,7 +665,7 @@
     <string name="settings_samsung_show_dangerous_overlays_warning_title">WARNING</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">We hid dangerous overlays for a reason, but if you are sure you want this enabled, please follow the instructions to disable it on our XDA thread!</string>
 
-    <string name="settings_crash_receiver_title">Theme Safety Crash Receiver</string>
+    <string name="settings_crash_receiver_title">Theme safety crash receiver</string>
     <string name="settings_crash_receiver_text">Automatically disable an overlay when detecting repetitive crashes on the overlaid app.</string>
 
     <string name="settings_force_stop_interfacer_title">Force-stop Interfacer Service</string>
@@ -805,7 +805,7 @@
     <string name="manage_space_reset_dialog_content">The app will close after reset is complete!</string>
     <string name="cleaned_logchar_reports">Cleaned saved LogChar reports</string>
     <string name="legacy_overlay_uninstall_warning_text">If you are uninstalling all overlays, please use the Substratum Rescue ZIPs to avoid possible bootloops.</string>
-    <string name="auto_reload_sysui_title">Automatically reload SystemUI</string>
+    <string name="auto_reload_sysui_title">Dynamically reload SystemUI</string>
     <string name="auto_reload_sysui_summary_on">Substratum will automatically reload the SystemUI after an overlay targeting SystemUI is enabled/disabled.</string>
     <string name="auto_reload_sysui_summary_off">Substratum will not automatically reload the SystemUI after an overlay targeting SystemUI is enabled/disabled.</string>
     <string name="auto_reload_sysui_dialog_title">Warning!</string>

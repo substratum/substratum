@@ -100,13 +100,6 @@
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:key="autosave_logchar"
-            android:summary="@string/logchar_autosave_subtext"
-            android:title="@string/logchar_autosave_title"/>
-
-        <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:key="overlay_updater"
             android:summary="@string/settings_auto_updater_text"
             android:title="@string/settings_auto_updater_title"/>
@@ -131,6 +124,13 @@
             android:key="crash_receiver"
             android:summary="@string/settings_crash_receiver_text"
             android:title="@string/settings_crash_receiver_title"/>
+
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="autosave_logchar"
+            android:summary="@string/logchar_autosave_subtext"
+            android:title="@string/logchar_autosave_title"/>
 
     </PreferenceCategory>
 

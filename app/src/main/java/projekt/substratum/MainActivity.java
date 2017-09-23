@@ -38,6 +38,7 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.service.quicksettings.Tile;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Lunchbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -51,6 +52,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -106,6 +108,7 @@ import projekt.substratum.util.helpers.ContextWrapper;
 import projekt.substratum.util.injectors.CheckBinaries;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.Activities.launchActivityUrl;
 import static projekt.substratum.common.Activities.launchExternalActivity;
 import static projekt.substratum.common.Activities.launchInternalActivity;
@@ -148,7 +151,9 @@ public class MainActivity extends SubstratumActivity implements
     private LocalBroadcastManager localBroadcastManager2;
     private KillReceiver killReceiver;
     private AndromedaReceiver andromedaReceiver;
+    private UpdaterReceiver updaterReceiver;
     private Context mContext;
+    public StringBuilder error_logs;
 
     private static boolean checkIfOverlaysOutdated(Context context) {
         List<String> overlays = ThemeManager.listAllOverlays(context);
@@ -321,6 +326,10 @@ public class MainActivity extends SubstratumActivity implements
         IntentFilter filter = new IntentFilter("MainActivity.KILL");
         localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
         localBroadcastManager.registerReceiver(killReceiver, filter);
+
+        updaterReceiver = new UpdaterReceiver();
+        IntentFilter filter3 = new IntentFilter("Updater.Lunchbar");
+        localBroadcastManager.registerReceiver(updaterReceiver, filter3);
 
         if (Systems.isAndromedaDevice(mContext)) {
             andromedaReceiver = new AndromedaReceiver();
@@ -1359,6 +1368,41 @@ public class MainActivity extends SubstratumActivity implements
         public void onReceive(Context context, Intent intent) {
             RootRequester rootRequester = new RootRequester(MainActivity.this);
             rootRequester.execute();
+        }
+    }
+
+    class UpdaterReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            currentShownLunchBar = Lunchbar.make(
+                    ((ViewGroup) findViewById(android.R.id.content)).getChildAt(0),
+                    R.string.logcat_snackbar_text,
+                    Lunchbar.LENGTH_INDEFINITE);
+            currentShownLunchBar.setAction(getString(R.string.logcat_snackbar_button), view -> {
+                currentShownLunchBar.dismiss();
+                invokeLogCharDialog(context);
+            });
+        }
+
+        public void invokeLogCharDialog(Context context) {
+            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context)
+                    .setTitle(R.string.logcat_dialog_title)
+                    .setMessage("\n" + error_logs)
+                    .setNeutralButton(R.string
+                            .customactivityoncrash_error_activity_error_details_close, null)
+                    .setNegativeButton(R.string
+                                    .customactivityoncrash_error_activity_error_details_copy,
+                            (dialog1, which) -> {
+                                References.copyToClipboard(context,
+                                        "substratum_log", error_logs.toString());
+                                currentShownLunchBar = Lunchbar.make(
+                                        ((ViewGroup) findViewById(android.R.id.content)).getChildAt(0),
+                                        R.string.logcat_dialog_copy_success,
+                                        Lunchbar.LENGTH_LONG);
+                                currentShownLunchBar.show();
+                            });
+            builder.show();
         }
     }
 }

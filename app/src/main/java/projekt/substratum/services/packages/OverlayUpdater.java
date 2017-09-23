@@ -21,6 +21,7 @@ package projekt.substratum.services.packages;
 import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -32,9 +33,12 @@ import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Lunchbar;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+
+import com.squareup.haha.perflib.Main;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -44,6 +48,8 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import projekt.substratum.InformationActivity;
+import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.Systems;
@@ -52,6 +58,7 @@ import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
 
+import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.References.DEFAULT_NOTIFICATION_CHANNEL_ID;
 import static projekt.substratum.common.References.KEY_RETRIEVAL;
 import static projekt.substratum.common.References.PACKAGE_ADDED;
@@ -176,6 +183,10 @@ public class OverlayUpdater extends BroadcastReceiver {
                 mNotifyManager = (NotificationManager) context.getSystemService(
                         Context.NOTIFICATION_SERVICE);
                 mBuilder = new NotificationCompat.Builder(context, DEFAULT_NOTIFICATION_CHANNEL_ID);
+                Intent notificationIntent = new Intent(context, MainActivity.class);
+                PendingIntent intent =
+                        PendingIntent.getActivity(context, 0, notificationIntent,
+                                PendingIntent.FLAG_UPDATE_CURRENT);
                 String format = String.format(
                         context.getString(R.string.notification_initial_title_upgrade_intent),
                         Packages.getPackageName(context, package_name));
@@ -187,6 +198,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                                         package_name)))
                         .setSmallIcon(android.R.drawable.ic_popup_sync)
                         .setPriority(notification_priority)
+                        .setContentIntent(intent)
                         .setOngoing(true);
                 mNotifyManager.notify(id, mBuilder.build());
             }
@@ -222,6 +234,8 @@ public class OverlayUpdater extends BroadcastReceiver {
                             context.getString(R.string.notification_done_upgrade_title_failed),
                             stringBuilder.toString());
                     mBuilder.setContentText(format2);
+                    LocalBroadcastManager.getInstance(context).sendBroadcast
+                            (new Intent("Updater.Lunchbar"));
                 } else {
                     mBuilder.setSmallIcon(R.drawable.notification_success_icon);
                     String format = String.format(

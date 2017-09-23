@@ -202,18 +202,14 @@ bu sorunu
     <string name="settings_about_samsung">sungstratum sürümü</string>
     <string name="settings_about_oms_rro_version">Tema platformu:</string>
     <string name="settings_about_oms_version_do">Dinamik Temalar (OMS)</string>
-    <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Sistem platformu</string>
-    <string name="settings_aopt_switcher_title">Sistem Tema Derleyici</string>
     <string name="theme_information_tab_one">Tema Yöneticisi</string>
     <string name="theme_information_tab_two">Önyükleme animasyonları</string>
     <string name="theme_information_tab_three">Yazı Tipi Paketleri</string>
     <string name="theme_information_tab_four">Ses Paketleri</string>
     <string name="theme_information_tab_five">Duvar Kağıtları</string>
     <string name="theme_information_tab_six">Kapatma animasyonları</string>
-    <string name="nougat_style_cards_title">Nougat Stili Kart Düzeni</string>
-    <string name="nougat_style_cards_subtext">Android Nougat Bildirimi tarzı tema kartlarını etkinleştirin.</string>
     <string name="uninstall_dialog_text">Bu temayı kaldırmak istediğinizden emin misiniz?</string>
     <string name="manage_dialog_performing">Varsayılana geri yükleniyor&#8230;</string>
     <string name="manage_bootanimation_title">Önyükleme Animasyonunu Geri Yükle</string>
@@ -392,11 +388,7 @@ bu sorunu
     <string name="notification_initial_title">Substratum çalışıyor</string>
     <string name="notification_initial_title_upgrade_intent">%s yükseltiliyor&#8230;</string>
     <string name="notification_done_title">Tema düzenlemesi tamamlandı</string>
-    <string name="notification_done_upgrade_title">%s tema yükseltmesi tamamlandı!</string>
-    <string name="notification_done_upgrade_title_warning">%s için tema yükseltmesi kısmen tamamlandı!</string>
     <string name="notification_done_upgrade_title_failed">Eksik veya bozuk yapılandırma:\n\n%s</string>
-    <string name="notification_done_update_text">Bu uygulama için etkinleştirilen ve devre dışı bırakılmış tüm temalar güncellendi.</string>
-    <string name="notification_done_upgrade_text">Bu tema için etkinleştirilmiş ve devre dışı bırakılmış tüm temalar güncellendi.</string>
     <string name="notification_no_errors_found">Temalar yüklenirken hata oluşmadı</string>
     <string name="notification_some_errors_found">Tema kurulumu sırasında bir hata oluştu</string>
     <string name="notification_processing">için tema işleniyor</string>
@@ -407,9 +399,7 @@ bu sorunu
     <string name="shortcut_store">Tema Vitrini</string>
     <string name="shortcut_store_disabled">Tema Vitrini</string>
     <string name="settings_title">Hakkında</string>
-    <string name="settings_title_1">Kullanıcı Tercihleri</string>
     <string name="settings_title_3">Temala</string>
-    <string name="settings_title_clickable">Kullanıcı Tercihleri</string>
     <string name="substratum_restart_toast">Substratum ayarlar değiştirildikten sonra yeniden başlatılacak.</string>
     <string name="restart_systemui">Etkinleştirildikten sonra Sistem Kullanıcı Arayüzünü yeniden oluştur</string>
     <string name="restart_systemui_subtext">Sistem temasını etkinleştirdikten/devre dışı bıraktıktan sonra Sistem Arayüzünü otomatik olarak yeniden oluştur</string>
@@ -426,11 +416,6 @@ bu sorunu
     <string name="hide_app_icon_supported">Ana ekranınızda başlatıcı simgesinin görünür veya görünmez olması arasında geçiş yapmanızı sağlar.</string>
     <string name="disable_completion">Bu tema için temaların tamamı artık devre dışı bırakılıyor&#8230;</string>
     <string name="enable_completion">Bu tema için yüklü temaların tamamı şimdi etkinleştiriliyor&#8230;</string>
-    <string name="alternate_drawer_design_title">İkincil Çekmece Tasarımı</string>
-    <string name="alternate_drawer_design_subtext">Kullanıcı arayüzü üzerinde gezinirken alternatif bir gezinme çekmecesi tasarımını kullanır.</string>
-    <string name="logchar_autosave_title">LogChar raporlarını otomatik olarak kaydet</string>
-    <string name="logchar_autosave_subtext">Bu, LogChar raporlarını otomatik olarak buraya kaydeder
-/storage/emulated/0/substratum/LogCharReports/.</string>
     <string name="fab_menu_compile_enable">Oluştur &amp; Etkinleştir</string>
     <string name="fab_menu_compile_update">Oluştur &amp; Güncelle</string>
     <string name="fab_menu_compile_install">Seçilenleri yükle</string>
@@ -492,7 +477,6 @@ bu sorunu
     <string name="profile_failed_info_notification">Daha fazla bilgi için dokunun</string>
     <string name="profile_compile_progress">Düzenleniyor %d / %d:\n%s</string>
     <string name="profile_compile_processing">Şimdi kaydettiğiniz tema durumları işleme koyuluyor&#8230;</string>
-    <string name="theme_debug_mode_title">Sistem Geri Bildirim Müdahalesini Yoksay</string>
     <string name="theme_debug_mode_summary">Uygulamanın kurtarılamayan bir duruma geldiğinde temalara yardımcı olmak için eski derleyicinin geri dönüş mekanizmasını kullanmasını durduracaktır.</string>
     <string name="logchar_dialog_title_delete_title">DİKKAT</string>
     <string name="logchar_dialog_title_delete_content">Şu anda kaydedilmiş olan tüm kayıtlar silinecektir. Devam tuşuna basarak tüm günlükler silinir ve günlükler artık kaydedilmez.</string>
@@ -517,16 +501,10 @@ bu sorunu
     <string name="settings_system_status_certified">Sertifikalı</string>
     <string name="settings_system_status_uncertified">Sertifikasız</string>
     <string name="settings_title_automation">Otomasyon</string>
-    <string name="settings_auto_updater_title">Hedeflenen temaları otomatik olarak güncelle</string>
-    <string name="settings_auto_updater_text">Substratum, yeni güncellenen uygulamalar için otomatik olarak tüm temaların güncellenmiş bir sürümünü kuracak, düzenleyecek ve yükleyecektir. Bunu devre dışı bırakmak pil tasarrufu sağlayacaktır.</string>
     <string name="beta_tag">★ BETA</string>
-    <string name="settings_theme_auto_updater_title">Temaları otomatik olarak güncelle</string>
     <string name="settings_theme_auto_updater_dialog_title">UYARI</string>
-    <string name="settings_theme_auto_updater_text">Substratum, yakın zamanda güncellenen temaya ait tüm temaların güncellenmiş bir sürümünü otomatik olarak oluşturacak, düzenleyecek ve yükleyecektir. Bunu devre dışı bırakmak pil tasarrufu sağlayacaktır.</string>
     <string name="settings_theme_auto_updater_dialog_text">Bildirim görüntülenirken lütfen Paket Yükleyicisini ön planda açmayın, bu Paket Yükleyicisinin temaların derleme işlemini tekrar etmesine sebep olacaktır!</string>
     <string name="settings_auto_alert_title">Yeni kurulabilir tema bulundu uyarısı</string>
-    <string name="settings_auto_alert_text">İlk kez yeni bir uygulama yüklediğinizde, uygulamanın yüklü temalardan herhangi birinde uyumlu bir temaya sahip ise, bir bildirim görüntülenecektir.</string>
-    <string name="settings_force_english_title">İngilizceye Zorla</string>
     <string name="settings_force_english_text">Uygulamayı İngilizce kullanmaya zorlar.</string>
     <string name="settings_force_english_toast_reverted">İngilizceye zorlama başarıyla devre dışı bırakıldı!</string>
     <string name="settings_manage_space_title">Depolama alanını yönet</string>
@@ -534,7 +512,6 @@ bu sorunu
     <string name="settings_samsung_show_dangerous_overlays_text">Tema desteklemiyorsa normal olarak Samsung cihazları için tehlikeli olan temeları göster.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">UYARI</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Tehlikeli temaları bir nedenden dolayı gizledik, ancak bu özelliğin etkin olmasını istediğinizden eminseniz, lütfen XDA konumuzdan devre dışı bırakmak için gerekli talimatları uygulayın!</string>
-    <string name="settings_crash_receiver_title">Tema Güvenliği Çökme Algılayıcı</string>
     <string name="settings_crash_receiver_text">Tema uygulanan bir uygulamada tekrar eden çökmeler tespit edildiğinde temayı otomatik olarak devre dışı bırak.</string>
     <string name="settings_force_stop_interfacer_title">Arayüz Hizmetini Durdurmaya Zorla</string>
     <string name="settings_force_stop_interfacer_snackbar">Arayüz hizmeti durdurmaya zorlanıyor&#8230;</string>
@@ -648,7 +625,6 @@ bu sorunu
     <string name="manage_space_reset_dialog_content">Sıfırlama tamamlandıktan sonra uygulama kapanacak!</string>
     <string name="cleaned_logchar_reports">Kaydedilmiş LogChar raporları temizlendi</string>
     <string name="legacy_overlay_uninstall_warning_text">Tüm temaları kaldırıyorsanız, olası bir önyükleme döngüsünden kaçınmak için lütfen Substatum Kurtama Zip\'lerini kullanın.</string>
-    <string name="auto_reload_sysui_title">Sistem arayüzünü otomatik yeniden yükle</string>
     <string name="auto_reload_sysui_summary_on">Sistem arayüzünü hedefleyen bir tema etkin/devre dışı bırakıldıktan sonra, Substratum Sistem arayüzünü otomatik olarak yeniden yükleyecektir.</string>
     <string name="auto_reload_sysui_summary_off">Sistem arayüzünü hedefleyen bir tema etkin/devre dışı bırakıldıktan sonra, Substratum Sistem arayüzünü otomatik olarak yeniden yüklemeyecektir.</string>
     <string name="auto_reload_sysui_dialog_title">Uyarı!</string>

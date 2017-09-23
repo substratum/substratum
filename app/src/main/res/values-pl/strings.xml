@@ -148,18 +148,14 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="settings_about_samsung">wersja sungstratum</string>
     <string name="settings_about_oms_rro_version">Platforma motywu:</string>
     <string name="settings_about_oms_version_do">Dynamiczne nakładki (OMS)</string>
-    <string name="settings_about_oms_version_7">OMS7</string>
     <string name="settings_about_rro_version_2">RRO2 (starsza wersja)</string>
     <string name="settings_about_system_version">Platforma systemowa</string>
-    <string name="settings_aopt_switcher_title">Kompilator Nakładek</string>
     <string name="theme_information_tab_one">Menedżer nakładek</string>
     <string name="theme_information_tab_two">Animacje rozruchu</string>
     <string name="theme_information_tab_three">Pakiety czcionek</string>
     <string name="theme_information_tab_four">Pakiety dźwięków</string>
     <string name="theme_information_tab_five">Tapety</string>
     <string name="theme_information_tab_six">Animacje zamykania</string>
-    <string name="nougat_style_cards_title">Układ kart w stylu Nougat</string>
-    <string name="nougat_style_cards_subtext">Włącz powiadomienie w stylu kart z Android Nougat.</string>
     <string name="uninstall_dialog_text">Czy chcesz odinstalować ten motyw?</string>
     <string name="manage_dialog_performing">Przywracanie domyślnych&#8230;</string>
     <string name="manage_bootanimation_title">Przywróć animację rozruchu</string>
@@ -233,7 +229,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="logcat_email_xposed_check">Xposed Framework</string>
     <string name="logcat_processing_dialog">Przetwarzanie raportu o błędzie</string>
     <string name="priority_instructions_title">Instrukcje</string>
-    <string name="priority_instructions_content">Usługa Menedżera Nakładek (Oms) działa w ten sposób, że wszystkie priorytety nakładek są układane w odwróconym porządku, gdzie najniższy ma największy priorytet (początkowe wyszukiwanie zasobów), a najwyższy ma najniższy priorytet (końcowe wyszukiwanie zasobów).    </string>
+    <string name="priority_instructions_content">Usługa Menedżera Nakładek (OMS) działa w ten sposób, że wszystkie nakładki są układane względem priorytetu, najniższy na liście ma największy priorytet (początkowe wyszukiwanie zasobów), a najwyższy ma najniższy priorytet (końcowe wyszukiwanie zasobów).    </string>
     <string name="priority_no_multiple_overlays_title">brak aplikacji z wieloma nakładkami&#8230;</string>
     <string name="priority_no_multiple_overlays_text">włącz dwie lub więcej nakładek na jednej aplikacji aby mnie użyć!    </string>
     <string name="manager_no_overlays_title">brak zainstalowanych nakładek&#8230;</string>
@@ -307,11 +303,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="notification_initial_title">Substratum jest uruchomione</string>
     <string name="notification_initial_title_upgrade_intent">Uaktualnianie nakładek %s...</string>
     <string name="notification_done_title">Kompilacja motywu została zakończona</string>
-    <string name="notification_done_upgrade_title">Uaktualnienie nakładki dla %s zakończone!</string>
-    <string name="notification_done_upgrade_title_warning">Uaktualnienie nakładki częściowo zakończone dla %s!</string>
     <string name="notification_done_upgrade_title_failed">Brakująca lub niedająca się zbudować konfiguracja: \n\n%s</string>
-    <string name="notification_done_update_text">Wszystkie włączone i wyłączone nakładki dla tej aplikacji zostały uaktualnione.</string>
-    <string name="notification_done_upgrade_text">Wszystkie włączone i wyłączone nakładki dla tego motywu zostały uaktualnione.</string>
     <string name="notification_no_errors_found">Nie wystąpiły żadne błędy podczas instalowania nakładek</string>
     <string name="notification_some_errors_found">Wystąpił błąd podczas instalowania nakładki</string>
     <string name="notification_processing">Nakładki do przetworzenia</string>
@@ -322,9 +314,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="shortcut_store">Prezentacja Motywu</string>
     <string name="shortcut_store_disabled">Prezentacja Motywu</string>
     <string name="settings_title">O</string>
-    <string name="settings_title_1">Preferencje użytkownika</string>
     <string name="settings_title_3">Skórki</string>
-    <string name="settings_title_clickable">Preferencje systemowe</string>
     <string name="substratum_restart_toast">Substratum zostanie automatycznie uruchomione po zmianie ustawień.</string>
     <string name="restart_systemui">Załącz ponownie Interfejs po jego odtworzeniu</string>
     <string name="restart_systemui_subtext">Automatyczne ponowne odtwarzanie interfejsu po włączeniu/wyłączeniu nakładki interfejsu</string>
@@ -334,6 +324,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="show_theme_template_version_description">Pokaż docelowy poziom SDK każdego motywu, jego wersję oraz wersję wtyczki jako oznaczenie na każdej z kart tematu.</string>
     <string name="vibrate_on_compiled">Powiadom mnie, gdy kompilacja motywu dobiegnie końca</string>
     <string name="vibrate_on_compiled_description">Po skompilowaniu motywu urządzenie będzie wibrować, aby poinformować użytkownika o zakończeniu kompilacji.</string>
+    <string name="manage_notification_channel">Zarządzanie powiadomieniami</string>
     <string name="hide_app_icon">Pokaż ikonę aplikacji</string>
     <string name="hide_app_icon_toast_enabled">Ikona programu została usunięta z twojego programu uruchamiającego!</string>
     <string name="hide_app_icon_toast_disabled">Ikona programu została dodana do twojego programu uruchamiającego!</string>
@@ -341,10 +332,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="hide_app_icon_supported">To pozwoli wybrać czy ikona programu ma być widoczna lub ukryta na twoim ekranie głównym.</string>
     <string name="disable_completion">Wszystkie nakładki dla tego tematu są teraz dezaktywowane&#8230;</string>
     <string name="enable_completion">Wszystkie nakładki zainstalowane dla tego motywu są teraz aktywowane&#8230;</string>
-    <string name="alternate_drawer_design_title">Wygląd dodatkowej szuflady</string>
-    <string name="alternate_drawer_design_subtext">Używaj alternatywnego modelu szuflady nawigacyjnej podczas żeglowania po interfejsie.</string>
-    <string name="logchar_autosave_title">Automatyczne zapisywanie raportów LogChar</string>
-    <string name="logchar_autosave_subtext">Spowoduje to automatyczne zapisanie raportów LogChar w / storage / emulated / 0 / substratum / LogCharReports /.</string>
     <string name="fab_menu_compile_enable">Kompiluj i włącz</string>
     <string name="fab_menu_compile_update">Kompiluj i zaktualizuj</string>
     <string name="fab_menu_compile_install">Instaluj zaznaczone</string>
@@ -406,7 +393,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="profile_failed_info_notification">Dotknij, aby uzyskać więcej informacji</string>
     <string name="profile_compile_progress">Kompilacja %d z %d:\n%s</string>
     <string name="profile_compile_processing">Teraz są przetwarzane zapisane stany twoich nakładek&#8230;</string>
-    <string name="theme_debug_mode_title">Układ obejścia rezerwy systemu</string>
     <string name="theme_debug_mode_summary">To pozwoli na zaprzestanie używania przez aplikację mechanizmu awaryjnego starszego kompilatora, gdy motywy osiągną stan nie do odzyskania.</string>
     <string name="logchar_dialog_title_delete_title">UWAGA</string>
     <string name="logchar_dialog_title_delete_content">Spowoduje to usunięcie wszystkich aktualnie zapisanych dzienników. Przez naciśnięcie przycisku Dalej, wszystkie dzienniki zostaną usunięte i nie będą zapisywane.</string>
@@ -431,16 +417,10 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="settings_system_status_certified">Atestowany</string>
     <string name="settings_system_status_uncertified">Nie atestowany</string>
     <string name="settings_title_automation">Automatyzacja</string>
-    <string name="settings_auto_updater_title">Automatycznie aktualizuj docelowe nakładki</string>
-    <string name="settings_auto_updater_text">Substratum automatycznie przebuduje, skompiluje i zainstaluje zaktualizowaną wersję wszystkich nakładek dla ostatnio aktualizowanych aplikacji. Wyłączenie tego oszczędzi baterię.</string>
     <string name="beta_tag">★ BETA</string>
-    <string name="settings_theme_auto_updater_title">Automatycznie aktualizuj nakładki motywu</string>
     <string name="settings_theme_auto_updater_dialog_title">OSTRZEŻENIE</string>
-    <string name="settings_theme_auto_updater_text">Substratum automatycznie przebuduje, skompiluje i zainstaluje zaktualizowaną wersję wszystkich nakładek dla ostatnio aktualizowanych motywów. Wyłączenie tego oszczędzi baterię.</string>
     <string name="settings_theme_auto_updater_dialog_text">Proszę nie utrzymywać otwartego Pakietu Instalacyjnego na pierwszym planie podczas gdy powiadomienie jest włączone, struktura nakładek ma tendencję do ponownego uruchamiania Pakietu Instalacyjnego powodując nieokreślone ilości ponownych kompilacji!</string>
     <string name="settings_auto_alert_title">Pojawiła się nowa instalacyjna nakładka</string>
-    <string name="settings_auto_alert_text">Podczas instalowania nowej aplikacji po raz pierwszy, jeśli aplikacja jest objęta dowolnym z zainstalowanych motywów, pojawi się powiadomienie.</string>
-    <string name="settings_force_english_title">Wymuś język angielski</string>
     <string name="settings_force_english_text">Włączenie tej opcji wymusi przełączenie interfejsu aplikacji na język angielski.</string>
     <string name="settings_force_english_toast_reverted">Pomyślnie wyłączono wymuszenie języka angielskiego!</string>
     <string name="settings_manage_space_title">Zarządzaj zużyciem pamięci masowej</string>
@@ -448,7 +428,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="settings_samsung_show_dangerous_overlays_text">Pokaż wszystkie nakładki zwykle niebezpieczne dla urządzeń Samsung, jeżeli motyw nie wspiera go.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">OSTRZEŻENIE</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Schowaliśmy niebezpieczne nakładki z pewnego powodu, ale jeżeli jesteś pewien aby były włączone, proszę postępuj zgodnie z instrukcjami zawartymi w naszym wątku na XDA jak je wyłączyć!</string>
-    <string name="settings_crash_receiver_title">Bezpieczny Odbiornik Awarii Motywu</string>
     <string name="settings_crash_receiver_text">Automatycznie wyłącz nakładkę, gdy będą wykryte powtarzające się awarie aplikacji.</string>
     <string name="settings_force_stop_interfacer_title">Wymuś zatrzymanie usługi Interfacer</string>
     <string name="settings_force_stop_interfacer_snackbar">Zatrzymywanie usługi interfacer&#8230;</string>
@@ -533,6 +512,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="nav_drawer_community">Grupy i społeczności</string>
     <string name="nav_drawer_googleplus">Społeczność Google+</string>
     <string name="nav_drawer_telegram">Czat grupowy Telegramu</string>
+    <string name="nav_drawer_xda">Dedykowane pod-forum XDA</string>
     <string name="nav_drawer_rawad">Przewodniki tworzenia motywów Rawad</string>
     <string name="nav_drawer_reddit">Wspólnota Reddit</string>
     <!-- Featured content -->
@@ -562,7 +542,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="manage_space_reset_dialog_content">Aplikacja zostanie zamknięta po zakończeniu resetowania!</string>
     <string name="cleaned_logchar_reports">Wyczyszczono zapisane raporty LogChar</string>
     <string name="legacy_overlay_uninstall_warning_text">Jeśli odinstalujesz wszystkie nakładki, użyj plików odzyskiwania, aby uniknąć możliwego zapętlenia podczas uruchamiania się systemu.</string>
-    <string name="auto_reload_sysui_title">Automatyczne przeładowanie Interfejsu</string>
     <string name="auto_reload_sysui_summary_on">Substratum będzie za każdym razem automatycznie restartował interfejs systemu kiedy nakładka nadana na interfejs została włączona/wyłączona.</string>
     <string name="auto_reload_sysui_summary_off">Substratum nie będzie automatycznie restartował interfejsu systemu kiedy nakładka nadana na interfejs będzie włączona/wyłączona.</string>
     <string name="auto_reload_sysui_dialog_title">Ostrzeżenie!</string>

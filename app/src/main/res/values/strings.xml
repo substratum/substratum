@@ -137,7 +137,7 @@
     <string name="manager_type4">Type4 :</string>
     <string name="manager_version">Version :</string>
 
-    <string name="legacy_preference_priority_title">Overlay Priority Adjustment</string>
+    <string name="legacy_preference_priority_title">Overlay priority adjustment</string>
     <string name="legacy_preference_priority_text">Priority is set at (default 999): %d</string>
 
     <string name="grid_size_title">Theme display column adjustment</string>
@@ -660,7 +660,7 @@
 
     <string name="settings_manage_space_title">Manage storage usage</string>
 
-    <string name="settings_samsung_show_dangerous_overlays">Allow Dangerous Overlays</string>
+    <string name="settings_samsung_show_dangerous_overlays">Allow dangerous overlays</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Show all the overlays normally dangerous for Samsung devices if the theme does not support it.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">WARNING</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">We hid dangerous overlays for a reason, but if you are sure you want this enabled, please follow the instructions to disable it on our XDA thread!</string>

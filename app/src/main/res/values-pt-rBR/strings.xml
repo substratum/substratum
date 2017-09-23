@@ -37,17 +37,6 @@
     <string name="showcase_no_connection">a vitrine de temas requer uma conexão com a internet para funcionar!</string>
     <string name="showcase_no_themes">parece que ocorreu um erro de cache do banco de dados do mostruário
 para esta aba&#8230;    </string>
-    <string name="on_demand_updating_title">Inicializador do Cache de Recursos</string>
-    <string name="on_demand_updating_text">Recompilando o cache do tema %s &#8230;</string>
-    <string name="background_updating_toast">Um tema está sendo atualizado em segundo plano, por favor aguarde a finalização!    </string>
-    <string name="background_needs_invalidating">Opa! O cache está corrompido.</string>
-    <string name="background_needs_invalidating_button">Apagar</string>
-    <string name="background_updated_toast">O cache dos recursos foi compilado!</string>
-    <string name="background_updated_toast_cancel">Este tema precisa atualizar seu cache de recursos
-        antes para ser funcional!
-    </string>
-    <string name="background_updated_toast_rejected">Não foi possível criar o cache de recursos para este tema!</string>
-    <string name="background_updated_toast_cleaning">O Substratum está limpando o cache de recursos deste tema&#8230;</string>
     <string name="failed_to_install_title_notification">Falha ao instalar um tema OMS</string>
     <string name="failed_to_install_text_notification">%s falhou ao instalar</string>
     <string name="actionbar_theme_count_singular">%s tema</string>
@@ -95,6 +84,8 @@ corrigir coisas que não estão sendo aplicadas nos temas em modo de compatibili
     <string name="manager_version">Versão :</string>
     <string name="legacy_preference_priority_title">Ajuste de Prioridade de Camadas</string>
     <string name="legacy_preference_priority_text">Prioridade está definida como (padrão 999): %d</string>
+    <string name="grid_size_title">Ajuste do esquema das colunas do tema</string>
+    <string name="grid_size_text">O número de colunas está definido para: %d (padrão 2)</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">variante de tipo1a&#8230;</string>
     <string name="overlays_variant_default_1b">variante de tipo1b&#8230;</string>
@@ -105,6 +96,19 @@ corrigir coisas que não estão sendo aplicadas nos temas em modo de compatibili
     <string name="overlays_up_to_date">ATUALIZADO</string>
     <string name="overlays_update_available">Atualização disponível!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variante não instalada</string>
+    <string name="shutdownanimation_placeholder_text">Por favor, selecione uma animação de encerramento através da lista suspensa&#8230;</string>
+    <string name="shutdownanimation_default_spinner">Por favor, selecione uma animação de encerramento&#8230;</string>
+    <string name="shutdownanimation_spinner_set_defaults">Repor a animação de encerramento predefinida&#8230;</string>
+    <string name="shutdownanimation_defaults_text">Isto irá limpar qualquer animação personalizada de encerramento
+        que esteja aplicada no seu dispositivo</string>
+    <string name="shutdownanimation_dialog_apply_text">A processar animação de encerramento&#8230;</string>
+    <string name="shutdownanimation_dialog_apply_success">Animação de encerramento aplicada!</string>
+    <string name="shutdownanimation_dialog_apply_failed">Falha ao aplicar a animação de encerramento&#8230;</string>
+    <string name="bootanimation_placeholder_text">Por favor, selecione uma animação de arranque através da lista suspensa&#8230;</string>
+    <string name="bootanimation_default_spinner">Por favor, selecione uma animação de arranque&#8230;</string>
+    <string name="bootanimation_spinner_set_defaults">Repor a animação de arranque predefinida&#8230;</string>
+    <string name="bootanimation_defaults_text">Isto irá limpar qualquer animação personalizada de arranque
+        que esteja aplicada no seu dispositivo</string>
     <string name="bootanimation_dialog_apply_text">Animação de boot está processando&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Animação de boot aplicada!</string>
     <string name="bootanimation_dialog_apply_failed">Animação de boot falhou ao aplicar&#8230;</string>
@@ -171,11 +175,14 @@ corretamente&#8230;</string>
     <string name="theme_information_tab_three">Pacotes de Fonte</string>
     <string name="theme_information_tab_four">Pacotes de Som</string>
     <string name="theme_information_tab_five">Papéis de Parede</string>
+    <string name="theme_information_tab_six">Animações de encerramento</string>
     <string name="nougat_style_cards_title">Aparência do Cartão Nougat</string>
+    <string name="nougat_style_cards_subtext">Ativar o esquema de cartões ao estilo Nougat para as notificações.</string>
     <string name="uninstall_dialog_text">Você tem certeza que deseja desinstalar este tema?</string>
     <string name="manage_dialog_performing">Restaurando ao padrão&#8230;</string>
     <string name="manage_bootanimation_title">Restaura a animação de boot padrão do seu aparelho</string>
     <string name="manage_bootanimation_toast">Animação de Boot restaurada com sucesso!</string>
+    <string name="manage_shutdownanimation_toast">Animação de encerramento reposta com sucesso!</string>
     <string name="manage_fonts_title">Restaura Fonte do Sistema</string>
     <string name="manage_fonts_toast">Fontes restauradas com sucesso!</string>
     <string name="manage_sounds_title">Restaura os Áudios do Sistema</string>
@@ -211,10 +218,10 @@ corretamente&#8230;</string>
     <string name="priority_back_title">Voltar para camadas</string>
     <string name="priority_success_toast">Prioridades foram mudadas e as janelas estão atualizando&#8230;</string>
     <string name="menu_clean">Limpar camadas</string>
-    <string name="menu_clean_cache">Limpar cache do tema</string>
     <string name="menu_disable">Desabilitar camadas instaladas</string>
     <string name="menu_enable">Habilitar camadas instaladas</string>
     <string name="menu_favorite">Favorito</string>
+    <string name="menu_unfavorite">Remover favorito</string>
     <string name="menu_rate">Avaliar o tema</string>
     <string name="menu_soft_reboot">Reinício de Software</string>
     <string name="menu_reboot_device">Reiniciar Aparelho</string>
@@ -228,6 +235,8 @@ corretamente&#8230;</string>
     <string name="menu_showcase_info">Informação do mostruário</string>
     <string name="menu_favorite_snackbar">%s foi colocado como atalho com sucesso!</string>
     <string name="menu_favorite_snackbar_cleared">Atalho do aplicativo %s removido.</string>
+    <string name="launcher_shortcut">Atalho na gaveta de aplicações</string>
+    <string name="launcher_shortcut_toast">Icon criado com sucesso!</string>
     <string name="changelog_title">Mudanças do tema %s tema</string>
     <string name="dialog_restart_systemui_title">Reiniciar SystemUI</string>
     <string name="dialog_restart_systemui_content">Isso fará com que a SystemUI do seu dispositivo reinicie.</string>
@@ -274,6 +283,7 @@ corretamente&#8230;</string>
     <string name="profile_edittext_title">Novo Perfil:</string>
     <string name="profile_edittext_whitespace_warning_toast">Não é possível usar espaço no nome do perfil!</string>
     <string name="toast_backup_success">Lista atual de camadas salva em \"/storage/emulated/0/substratum/profiles/%s\"</string>
+    <string name="profile_restoration_message">A processar a reposição do perfil&#8230;</string>
     <string name="spinner_default_item">selecionar um perfil&#8230;</string>
     <string name="select_to_toggle_all_overlays">Selecione para alternar todas as camadas</string>
     <string name="permission_not_granted_dialog_title">Permissões não garantidas</string>
@@ -281,13 +291,14 @@ corretamente&#8230;</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Não mostrar novamente</string>
     <string name="dialog_cancel">Cancelar</string>
-    <string name="clean_cache_dialog_body">Deseja limpar o cache deste tema?</string>
     <string name="clean_dialog_body">Deseja limpar todas as camadas deste tema?</string>
     <string name="disable_dialog_body">Deseja desabilitar todas as camadas deste tema?</string>
     <string name="enable_dialog_body">Deseja habilitar todas as camadas instaladas deste tema?</string>
     <string name="uninstall_dialog_body">Desinstalar</string>
     <string name="sb_phase_1_loader">extraindo ativos deste tema</string>
     <string name="sb_phase_2_loader">criando e assinando camada(s)</string>
+    <string name="root_rejected_title">não foi possível reverter para o modo de root</string>
+    <string name="root_rejected_text">não existem atualmente outros motores de temas possíveis de serem utilizados neste dispositivo&#8230;</string>
     <string name="toast_compiled_updated">Camada(s) selecionada(s) atualizada!</string>
     <string name="toast_compiled_missing">Uma ou mais camadas não puderam ser compiladas devido falta de configurações&#8230;</string>
     <string name="toast_compiled_updated_with_errors">A camada (as) selecionada foi atualizada com erros!</string>
@@ -295,26 +306,27 @@ corretamente&#8230;</string>
     <string name="toast_disabled4">Não pode desabilitar uma camada que não tenha compilado!</string>
     <string name="toast_disabled5">Por favor selecione uma camada valida antes de realizar essa ação.</string>
     <string name="toast_disabled6">Camada(s) selecionada(s) removida(s)!</string>
-    <string name="toast_uninstalled">Você desinstalou esse tema! Ele desaparecerá após a próximo reinício!</string>
     <string name="no_themes_title">nenhum tema encontrado&#8230;</string>
+    <string name="no_overlays_title">não foram encontradas camadas&#8230;</string>
     <string name="no_themes_description">favor instalar um tema compatível!</string>
     <string name="no_themes_description_search">\"%s\" não foi encontrado na lista de temas instalados&#8230;</string>
+    <string name="no_overlays_description_search">\"%s\" não foi encontrada na lista de camadas instaladas&#8230;</string>
+    <string name="toast_andromeda_timed_out">Há um atraso no Backend do Andromeda. Por favor, reinicie o Substratum.</string>
     <string name="toast_could_not_uninstall">Nenhuma camada válida selecionada.</string>
     <string name="toast_samsung_prototype_alert">Substratum automaticamente escondeu as sobreposições de sistema sem suporte para o seu dispositivo!</string>
+    <string name="andromeda_disconnected">o cliente de ambiente de trabalho do andromeda necessita de se ligar ao seu dispositivo para poder funcionar com o substratum!</string>
     <string name="andromeda_check_status">Verificar status</string>
+    <string name="andromeda_no_root_dialog">Parece que está a utilizar um dispositivo suportado com Android Oreo. Foi lançado um plugin para torná-lo compatível!</string>
     <string name="andromeda_no_root_dialog_button">Baixe Agora!</string>
     <string name="samsung_prototype_no_root_dialog">Parece que você está em um dispositivo Samsung suportado, um complemento foi lançado para suportar isso!</string>
     <string name="samsung_prototype_no_root_dialog_button">Baixe Agora!</string>
-    <string name="toast_needs_caching">O cache do Substratum foi limpo, por favor recompile esse tema antes de continuar!</string>
     <string name="notification_theme_installed">instalado</string>
     <string name="notification_theme_updated">atualizado</string>
     <string name="notification_theme_installed_content">Tema instalado com sucesso.</string>
     <string name="notification_theme_updated_content">Recursos atualizados com sucesso.</string>
     <string name="notification_hide">Ignorar</string>
-    <string name="notification_hide_upgrade">Cancelar</string>
     <string name="notification_initial_title">Substratum está aberto</string>
     <string name="notification_initial_title_upgrade_intent">Atualizando %s camadas&#8230;</string>
-    <string name="notification_initial_title_upgrade">%s recursos estão agora atualizando&#8230;</string>
     <string name="notification_done_title">Compilação do tema completa</string>
     <string name="notification_done_upgrade_title">A atualização de camada foi concluída para %s!</string>
     <string name="notification_done_upgrade_title_warning">Atualização de camada parcialmente concluída para %s!</string>
@@ -334,10 +346,7 @@ corretamente&#8230;</string>
     <string name="settings_title_1">Preferências do Usuário</string>
     <string name="settings_title_3">Aplicando tema</string>
     <string name="settings_title_clickable">Preferências do Sistema</string>
-    <string name="substratum_cache_clear_initial_toast">O cache do Substratum está sendo apagado&#8230;</string>
     <string name="substratum_restart_toast">Substratum irá reiniciar automaticamente após as configurações serem alteradas.</string>
-    <string name="purge_cache">Invalidar o cache do tema</string>
-    <string name="purge_cache_subtext">Isso irá destruir todos os temas armazenados e o cache do aplicativo.</string>
     <string name="restart_systemui">Habilitar após recriar o SystemUI </string>
     <string name="restart_systemui_subtext">Recriar automaticamente a SystemUI após habilitar/desabilitar uma camada dá SystemUI</string>
     <string name="restart_systemui_toast_enabled">SystemUI será recriada dinamicamente ao invés de reiniciar!</string>
@@ -351,7 +360,6 @@ corretamente&#8230;</string>
     <string name="hide_app_icon_toast_disabled">O ícone do aplicativo foi adicionado à sua gaveta de aplicativos!</string>
     <string name="hide_app_icon_not_supported">Mudança não suportada</string>
     <string name="hide_app_icon_supported">Isso permitirá você alternar entre ter o ícone do aplicativo visível ou não a partir da sua tela de início.</string>
-    <string name="cache_clear_completion">%s cache do tema foi removido!</string>
     <string name="disable_completion">Desativando todas as camadas desse tema&#8230;</string>
     <string name="enable_completion">Todas as camadas desse tema estão sento ativadas agora&#8230;</string>
     <string name="alternate_drawer_design_title">Design da Gaveta Secundária</string>
@@ -439,6 +447,7 @@ corretamente&#8230;</string>
     <string name="settings_system_status">Certificação do sistema</string>
     <string name="settings_system_status_andromeda">Modo Andromeda</string>
     <string name="settings_system_status_rooted">Modo root</string>
+    <string name="settings_system_status_rootless">Modo nativo</string>
     <string name="settings_system_status_samsung">Modo Samsung</string>
     <string name="settings_system_status_certified">Certificado</string>
     <string name="settings_system_status_uncertified">Não certificado</string>
@@ -446,7 +455,7 @@ corretamente&#8230;</string>
     <string name="settings_auto_updater_title">Atualizar automaticamente as camadas de destino</string>
     <string name="settings_auto_updater_text">O Substratum irá automaticamente construir, compilar e instalar uma versão atualizada de todas as camadas para os aplicativos atualizados recentemente. Manter isto desabilitado poupa bateria.</string>
     <string name="beta_tag">★ BETA</string>
-    <string name="settings_theme_auto_updater_title">Atualizar automaticamente as camadas do tema</string>
+    <string name="settings_theme_auto_updater_title">Atualizar automaticamente camadas de temas</string>
     <string name="settings_theme_auto_updater_dialog_title">AVISO</string>
     <string name="settings_theme_auto_updater_text">O Substratum irá automaticamente construir, compilar e instalar uma versão atualizada de todas as camadas para o tema atualizado recentemente. Manter isto desabilitado poupa bateria.</string>
     <string name="settings_theme_auto_updater_dialog_text">Por favor, NÃO tenha o Instalador de Pacotes aberto no primeiro plano enquanto a notificação está ativa, a estrutura de camadas tende a reiniciar o Instalador de Pacotes causando quantidades indefinidas de recompilações!</string>
@@ -455,13 +464,11 @@ corretamente&#8230;</string>
     <string name="settings_force_english_title">Forçar a línguagem Inglês</string>
     <string name="settings_force_english_text">Isto irá forçar o aplicativo a usar a línguagem Inglês.</string>
     <string name="settings_force_english_toast_reverted">Desativado com sucesso forçar linguagem Inglês!</string>
+    <string name="settings_manage_space_title">Gerir a utilização do armazenamento</string>
     <string name="settings_samsung_show_dangerous_overlays">Permitir Camadas Perigosas</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Mostre todas as camadas normalmente perigosas para dispositivos Samsung se o tema não suportar.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">AVISO</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Nós escondemos camadas perigosas por algum motivo, mas se você tiver certeza de que deseja ativa-las, siga as instruções para desativar isto no nosso tópico de discussão no XDA!</string>
-    <string name="settings_theme_caching_title">Armazenar Recursos de Temas</string>
-    <string name="settings_theme_caching_text">Todos os recursos de temas ativos serão extraídos para o diretório de cache.</string>
-    <string name="settings_theme_caching_found_snackbar">Você descobriu o recurso oculto modo cache de recursos!</string>
     <string name="settings_crash_receiver_title">Receptor de Falhas de Segurança do Tema</string>
     <string name="settings_crash_receiver_text">Desabilitar uma camada automaticamente quando detectadas falhas repetidas no aplicativo com camada.</string>
     <string name="settings_force_stop_interfacer_title">Forçar parada do Serviço do Interfacer</string>
@@ -526,10 +533,13 @@ corretamente&#8230;</string>
     <string name="notification_channel_default_description">Principais notificações (Novidades e atualizações de temas, copilação do tema concluída, etc.)</string>
     <string name="notification_channel_ongoing">Em curso</string>
     <string name="notification_channel_ongoing_description">Notificações em curso</string>
+    <string name="notification_channel_andromeda">Estado do tema do sistema</string>
+    <string name="notification_channel_andromeda_description">Notificação do estado da ligação do tema do sistema</string>
     <!-- Nav drawer -->
     <string name="nav_home">Pacotes de tema</string>
     <string name="nav_overlays">Camadas</string>
     <string name="nav_bootanim">Animações de inicialização</string>
+    <string name="nav_shutdownanim">Animações de encerramento</string>
     <string name="nav_fonts">Pacotes de Fonte</string>
     <string name="nav_sounds">Pacote de sons</string>
     <string name="nav_wallpapers">Papéis de Parede</string>
@@ -544,7 +554,6 @@ corretamente&#8230;</string>
     <string name="nav_drawer_community">Grupos &amp; comunidades</string>
     <string name="nav_drawer_googleplus">Comunidade Google+</string>
     <string name="nav_drawer_telegram">Grupo no Telegram</string>
-    <string name="nav_drawer_xda">Sub-fórum dedicado do XDA</string>
     <string name="nav_drawer_rawad">Guias de criação de temas por Rawad</string>
     <string name="nav_drawer_reddit">Comunidade Reddit</string>
     <!-- Featured content -->
@@ -582,4 +591,5 @@ corretamente&#8230;</string>
     <!-- The things lint will complain about...-->
     <string name="fonts_demo_string">AaBbCcDd123</string>
     <string name="overlays_tab_package_ver_message">Instalado %s versão: %s</string>
+    <string name="overlays_tab_package_ver_failure">Falha ao obter a versão do pacote</string>
 </resources>

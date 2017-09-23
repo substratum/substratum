@@ -36,16 +36,6 @@
     <string name="resource_commit_dialog_title">Chybějící zdroje v %s</string>
     <string name="showcase_no_connection">ukázky motivů potřebují internetové připojení!    </string>
     <string name="showcase_no_themes">zdá se, že nastala chyba ve vyrovnávací paměti databáze pro ukázku této záložky&#8230;    </string>
-    <string name="on_demand_updating_title">Inicializátor zdrojů mezipaměti</string>
-    <string name="on_demand_updating_text">mezipaměť %s se zrovna předělává&#8230;</string>
-    <string name="background_updating_toast">Substratum připravuje motiv na pozadí, prosím počkejte na dokončení!
-    </string>
-    <string name="background_needs_invalidating">Ale ne! Došlo k chybě v mezipaměti.</string>
-    <string name="background_needs_invalidating_button">Vyčistit</string>
-    <string name="background_updated_toast">Zdrojová mezipamět byla vybudována!</string>
-    <string name="background_updated_toast_cancel">Tento motiv vyžaduje aktualizaci zdrojů!    </string>
-    <string name="background_updated_toast_rejected">Pro tento motiv se nepodařilo vytvořit mezipaměť pro zdroje!</string>
-    <string name="background_updated_toast_cleaning">Substratum čistí zdroje tohoto motivu&#8230;</string>
     <string name="failed_to_install_title_notification">Nepodařilo se instalovat OMS motiv</string>
     <string name="failed_to_install_text_notification">Nepodařilo se nainstalovat %s</string>
     <string name="actionbar_theme_count_singular">%s motiv</string>
@@ -220,7 +210,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="priority_back_title">Zpět k potahům</string>
     <string name="priority_success_toast">Priority byly změněny a okna se obnovují&#8230;</string>
     <string name="menu_clean">Vyčistit nainstalované potahy</string>
-    <string name="menu_clean_cache">Vyčistit mezipaměť motivů</string>
     <string name="menu_disable">Zakázat nainstalované potahy</string>
     <string name="menu_enable">Povolit nainstalované potahy</string>
     <string name="menu_favorite">Oblíbené</string>
@@ -297,7 +286,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Znovu nezobrazovat</string>
     <string name="dialog_cancel">Zrušit</string>
-    <string name="clean_cache_dialog_body">Chcete vyčistit mezipaměť tohoto motivu?</string>
     <string name="clean_dialog_body">Chcete vyčistit všechny potahy pro tento motiv?</string>
     <string name="disable_dialog_body">Chcete vypnout všechny potahy pro tento motiv?</string>
     <string name="enable_dialog_body">Chcete zapnout všechny potahy pro tento motiv?    </string>
@@ -314,11 +302,11 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="toast_disabled4">Nemůžete zakázat potah, který nemáte zkompilovaný!</string>
     <string name="toast_disabled5">Prosím, vyberte správný potah před provedením této akce.</string>
     <string name="toast_disabled6">Vybrané potahy jsou odstraněny!</string>
-    <string name="toast_uninstalled">Právě jste odinstalovali tento motiv! Bude pryč při dalším
- obnovení!</string>
     <string name="no_themes_title">nenalezeny žádné motivy&#8230;</string>
+    <string name="no_overlays_title">nenalezeny žádné potahy&#8230;</string>
     <string name="no_themes_description">prosím, nainstalujte kompatibilní motiv!</string>
     <string name="no_themes_description_search">\"%s\" nebylo nalezeno v seznamu nainstalovaných motivů&#8230;</string>
+    <string name="no_overlays_description_search">\"%s\" nebylo nalezeno v seznamu nainstalovaných potahů&#8230;</string>
     <string name="toast_andromeda_timed_out">Zpoždění Andromeda Backend, restartujte Substratum.</string>
     <string name="toast_could_not_uninstall">Nebyly vybrány žádné platné potahy.</string>
     <string name="toast_samsung_prototype_alert">Substratum automaticky skrylo nepodporované potahy systému pro vaše zařízení!</string>
@@ -328,17 +316,13 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="andromeda_no_root_dialog_button">Stáhnout teď!</string>
     <string name="samsung_prototype_no_root_dialog">Zdá se, že používáte podporované zařízení Samsung, pro které byl vydán podpůrný modul!</string>
     <string name="samsung_prototype_no_root_dialog_button">Stáhnout teď!</string>
-    <string name="toast_needs_caching">Mezipaměť Substratum byla vyčištěna, prosím znovu
- postavte tento motiv před pokračováním!</string>
     <string name="notification_theme_installed">nainstalováno</string>
     <string name="notification_theme_updated">aktualizováno</string>
     <string name="notification_theme_installed_content">Motiv byl úspěšně nainstalován.</string>
     <string name="notification_theme_updated_content">Zdroje byli úspěšně obnoveny.</string>
     <string name="notification_hide">Odmítnout</string>
-    <string name="notification_hide_upgrade">Zrušit</string>
     <string name="notification_initial_title">Substratum je spuštěno</string>
     <string name="notification_initial_title_upgrade_intent">Aktualizace potahů%s&#8230;</string>
-    <string name="notification_initial_title_upgrade">%s zdroje se nyní aktualizují&#8230;</string>
     <string name="notification_done_title">Byla dokončena kompilace motivu</string>
     <string name="notification_done_upgrade_title">Aktualizace potahů pro %s byla dokončena!</string>
     <string name="notification_done_upgrade_title_warning">Aktualizace potahů částečně dokončena pro %s!</string>
@@ -358,11 +342,8 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="settings_title_1">Uživatelské předvolby</string>
     <string name="settings_title_3">Úpravy motivů</string>
     <string name="settings_title_clickable">Systémové předvolby</string>
-    <string name="substratum_cache_clear_initial_toast">Mezipaměť Substratum se nyní čistí&#8230;</string>
     <string name="substratum_restart_toast">Substratum se automaticky restartovalo po
  změně.</string>
-    <string name="purge_cache">Neplatná vyrovnávací paměť motivu</string>
-    <string name="purge_cache_subtext">Toto vymaže všechny uložené motivy a mezipaměť aplikae.</string>
     <string name="restart_systemui">Znovuvytvoření po povolení SystemUI</string>
     <string name="restart_systemui_subtext">Automaticky znovu vytvořit SystemUI po
  povolení/zakázání potahu SystemUI</string>
@@ -375,14 +356,12 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="vibrate_on_compiled">Oznámit dokončení kompilace motivu</string>
     <string name="vibrate_on_compiled_description">Když je motiv zkompilován, zavibrovat zařízením
  pro oznámení uživateli, že je kompilace hotova.</string>
-    <string name="manage_notification_channel">Spravovat kanál upozornění</string>
     <string name="hide_app_icon">Zobrazit ikonu aplikace</string>
     <string name="hide_app_icon_toast_enabled">Ikona aplikace byla odstraněna!</string>
     <string name="hide_app_icon_toast_disabled">Ikona aplikace byla přidána!</string>
     <string name="hide_app_icon_not_supported">Změna není podporována</string>
     <string name="hide_app_icon_supported">Toto umožní přepínat mezi ikonou viditelnou nebo neviditelnou ve
  spouštěči aplikací.</string>
-    <string name="cache_clear_completion">%s mezipaměť tohoto motivu byla vyčištěna!</string>
     <string name="disable_completion">Všechny potahy pro tento motiv se nyní
  vypínají&#8230;</string>
     <string name="enable_completion">Všechny potahy pro tento motiv se nyní
@@ -473,6 +452,7 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="settings_system_status">Certifikace systému</string>
     <string name="settings_system_status_andromeda">Režim Andromeda</string>
     <string name="settings_system_status_rooted">Režim s rootem</string>
+    <string name="settings_system_status_rootless">Nativní režim</string>
     <string name="settings_system_status_samsung">Režim Samsung</string>
     <string name="settings_system_status_certified">Certifikováno</string>
     <string name="settings_system_status_uncertified">Necertifikováno</string>
@@ -480,7 +460,7 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="settings_auto_updater_title">Automaticky aktualizovat cílené potahy</string>
     <string name="settings_auto_updater_text">Substratum automaticky vytvoří, zkompiluje a nainstaluje aktualizovanou verzi všech potahů pro nedávno aktualizované aplikace. Ponecháním tohoto přepínače ve stavu vypnuto se ušetří baterie.</string>
     <string name="beta_tag">★ BETA</string>
-    <string name="settings_theme_auto_updater_title">Automaticky aktualizovat potahy motivu</string>
+    <string name="settings_theme_auto_updater_title">Automaticky aktualizovat potahy motivů</string>
     <string name="settings_theme_auto_updater_dialog_title">VAROVÁNÍ</string>
     <string name="settings_theme_auto_updater_text">Substratum automaticky vytvoří, zkompiluje a nainstaluje aktualizovanou verzi všech potahů pro nedávno aktualizované motivy. Ponecháním tohoto přepínače ve stavu vypnuto se ušetří baterie.</string>
     <string name="settings_theme_auto_updater_dialog_text">Prosím, nemějte v popředí otevřenou aplikaci PackageInstaller, když je zobrazeno upozornění. Framework potahů má tendenci restartovat PackageInstaller, což způsobuje množství rekompilací!</string>
@@ -494,9 +474,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="settings_samsung_show_dangerous_overlays_text">Zobrazit všechny potahy, které jsou za normálních okolností nebezpečné pro zařízení Samsung, i když je jejich motivy nepodporují.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">VAROVÁNÍ</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Skryli jsme nebezpečné potahy z nějakého důvodu, ale pokud jste si jisti, že chcete, aby byly povoleny, postupujte podle pokynů v našem vlákně XDA a vypněte jejich skrytí!</string>
-    <string name="settings_theme_caching_title">Vyrovnávací paměť zdrojů motivů</string>
-    <string name="settings_theme_caching_text">Všechny zdroje motivů budou extrahované do adresáře vyrovnávací paměti.</string>
-    <string name="settings_theme_caching_found_snackbar">Objevili jste skrytý režim vyrovnávací paměti!</string>
     <string name="settings_crash_receiver_title">Ošetření pádů při aplikaci motivu</string>
     <string name="settings_crash_receiver_text">Automaticky vypnout potahy při opakovaném selhání překrytí aplikace.</string>
     <string name="settings_force_stop_interfacer_title">Vynucené ukončení služby Interfacer</string>
@@ -582,7 +559,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="nav_drawer_community">Skupiny a komunity</string>
     <string name="nav_drawer_googleplus">Komunita Google +</string>
     <string name="nav_drawer_telegram">Skupinový chat Telegram</string>
-    <string name="nav_drawer_xda">XDA sub-fórum</string>
     <string name="nav_drawer_rawad">Příručka Rawad\'s Theming</string>
     <string name="nav_drawer_reddit">Reddit komunita</string>
     <!-- Featured content -->

@@ -23,30 +23,20 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.TaskStackBuilder;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-import java.lang.ref.WeakReference;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.ThreadLocalRandom;
-
-import javax.crypto.Cipher;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
 
 import projekt.substratum.InformationActivity;
 import projekt.substratum.MainActivity;
@@ -56,21 +46,12 @@ import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.Theming;
-import projekt.substratum.util.compilers.CacheCreator;
 import projekt.substratum.util.helpers.NotificationCreator;
-
-import static projekt.substratum.common.References.INTERFACER_PACKAGE;
-import static projekt.substratum.common.References.KEY_RETRIEVAL;
-import static projekt.substratum.common.References.metadataEncryption;
-import static projekt.substratum.common.References.metadataEncryptionValue;
 
 public class PackageModificationDetector extends BroadcastReceiver {
 
     private final static String TAG = "SubstratumDetector";
-    private SharedPreferences prefs;
     private Context mContext;
-    private String package_name;
-    private Boolean replacing;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -78,6 +59,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
         Broadcasts.sendOverlayRefreshMessage(mContext);
 
         Uri packageName = intent.getData();
+        String package_name;
         if (packageName != null) {
             package_name = packageName.toString().substring(8);
         } else {
@@ -104,8 +86,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
         }
 
         // When it is a proper theme, then we can continue
-        replacing = intent.getBooleanExtra(Intent.EXTRA_REPLACING, false);
-        prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
+        Boolean replacing = intent.getBooleanExtra(Intent.EXTRA_REPLACING, false);
 
         // Let's add it to the list of installed themes on shared prefs
         SharedPreferences mainPrefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -167,34 +148,21 @@ public class PackageModificationDetector extends BroadcastReceiver {
         if (replacing) {
             // We need to check if this is a new install or not
             Log.d(TAG, "'" + package_name + "' has been updated.");
-            if (!Theming.isCachingEnabled(context)) {
-                Log.d(TAG, "'" + package_name +
-                        "' has been updated with caching mode disabled.");
+            Bitmap bitmap = Packages.getBitmapFromDrawable(
+                    Packages.getAppIcon(context, package_name));
 
-                Bitmap bitmap = Packages.getBitmapFromDrawable(
-                        Packages.getAppIcon(context, package_name));
-
-                new NotificationCreator(
-                        context,
-                        getThemeName(package_name) + " " + mContext.getString(
-                                R.string.notification_theme_updated),
-                        mContext.getString(R.string.notification_theme_updated_content),
-                        true,
-                        getPendingIntent(package_name),
-                        R.drawable.notification_updated,
-                        bitmap,
-                        Notification.PRIORITY_MAX,
-                        ThreadLocalRandom.current().nextInt(0, 1000)).createNotification();
-            } else {
-                Log.d(TAG, "'" + package_name +
-                        "' has been updated with caching mode enabled.");
-                prefs.edit().putBoolean("is_updating", true).apply();
-                new ThemeCacher(this).execute("");
-            }
-        } else if (!Theming.isCachingEnabled(context)) {
-            // This is a new install, but caching mode is disabled, so pass right through!
-            Log.d(TAG, "'" + package_name + "' has been installed with caching mode disabled.");
-
+            new NotificationCreator(
+                    context,
+                    getThemeName(package_name) + " " + mContext.getString(
+                            R.string.notification_theme_updated),
+                    mContext.getString(R.string.notification_theme_updated_content),
+                    true,
+                    getPendingIntent(package_name),
+                    R.drawable.notification_updated,
+                    bitmap,
+                    Notification.PRIORITY_MAX,
+                    ThreadLocalRandom.current().nextInt(0, 1000)).createNotification();
+        } else {
             new NotificationCreator(
                     context,
                     getThemeName(package_name) + " " + mContext.getString(
@@ -207,9 +175,6 @@ public class PackageModificationDetector extends BroadcastReceiver {
                             mContext.getResources(), R.mipmap.main_launcher),
                     Notification.PRIORITY_MAX,
                     ThreadLocalRandom.current().nextInt(0, 1000)).createNotification();
-        } else {
-            Log.d(TAG, "'" + package_name + "' has been installed with caching mode enabled.");
-            new ThemeCacher(this).execute("");
         }
         Broadcasts.sendRefreshMessage(context);
     }
@@ -260,170 +225,5 @@ public class PackageModificationDetector extends BroadcastReceiver {
             // Suppress warning
         }
         return pIntent;
-    }
-
-    private static class ThemeCacher extends AsyncTask<String, Integer, String> {
-
-        Boolean success = false;
-        private WeakReference<PackageModificationDetector> ref;
-        private LocalBroadcastManager localBroadcastManager;
-        private KeyRetrieval keyRetrieval;
-        private Intent securityIntent;
-        private Cipher cipher;
-        private Handler handler = new Handler();
-        private Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                Log.d(TAG, "Waiting for encryption key handshake approval...");
-                if (securityIntent != null) {
-                    Log.d(TAG, "Encryption key handshake approved!");
-                    handler.removeCallbacks(runnable);
-                } else {
-                    Log.d(TAG, "Encryption key still null...");
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    handler.postDelayed(this, 100);
-                }
-            }
-        };
-
-        ThemeCacher(PackageModificationDetector packageModificationDetector) {
-            ref = new WeakReference<>(packageModificationDetector);
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            PackageModificationDetector packageModificationDetector = ref.get();
-            if (packageModificationDetector != null) {
-                if (success) {
-                    if (packageModificationDetector.replacing) {
-                        new NotificationCreator(
-                                packageModificationDetector.mContext,
-                                packageModificationDetector.getThemeName(
-                                        packageModificationDetector.package_name) + " " +
-                                        packageModificationDetector.mContext.getString(
-                                                R.string.notification_theme_updated),
-                                packageModificationDetector.mContext.getString(
-                                        R.string.notification_theme_updated_content),
-                                true,
-                                packageModificationDetector.getPendingIntent(
-                                        packageModificationDetector.package_name),
-                                R.drawable.notification_updated,
-                                ((BitmapDrawable)
-                                        Packages.getAppIcon(
-                                                packageModificationDetector.mContext,
-                                                INTERFACER_PACKAGE
-                                        )).getBitmap(),
-                                Notification.PRIORITY_MAX,
-                                ThreadLocalRandom.current().nextInt(0, 1000)).createNotification();
-                    } else {
-                        new NotificationCreator(
-                                packageModificationDetector.mContext,
-                                packageModificationDetector.getThemeName(
-                                        packageModificationDetector.package_name) + " " +
-                                        packageModificationDetector.mContext.getString(
-                                                R.string.notification_theme_installed),
-                                packageModificationDetector.mContext.getString(
-                                        R.string.notification_theme_installed_content),
-                                true,
-                                packageModificationDetector.getPendingIntent(
-                                        packageModificationDetector.package_name),
-                                R.drawable.notification_icon,
-                                BitmapFactory.decodeResource(
-                                        packageModificationDetector.mContext.getResources(),
-                                        R.mipmap.main_launcher),
-                                Notification.PRIORITY_MAX,
-                                ThreadLocalRandom.current().nextInt(0, 1000)).createNotification();
-                    }
-                } else {
-                    Log.d(TAG, "Process was interrupted by the user, rolling back changes...");
-                }
-                packageModificationDetector.prefs.edit().putBoolean("is_updating", false).apply();
-            }
-        }
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-            PackageModificationDetector packageModificationDetector = ref.get();
-            if (packageModificationDetector != null) {
-                boolean cacheable = Packages.isPackageDebuggable(
-                        packageModificationDetector.mContext,
-                        packageModificationDetector.package_name);
-                if (!cacheable) return null;
-
-                String encrypt_check =
-                        Packages.getOverlayMetadata(
-                                packageModificationDetector.mContext,
-                                packageModificationDetector.package_name,
-                                metadataEncryption);
-
-                if (encrypt_check != null && encrypt_check.equals(metadataEncryptionValue)) {
-                    Log.d(TAG, "This overlay for " +
-                            Packages.getPackageName(
-                                    packageModificationDetector.mContext,
-                                    packageModificationDetector.package_name) +
-                            " is encrypted, passing handshake to the theme package...");
-
-                    Theming.getThemeKeys(
-                            packageModificationDetector.mContext,
-                            packageModificationDetector.package_name);
-
-                    keyRetrieval = new KeyRetrieval();
-                    IntentFilter if1 = new IntentFilter(KEY_RETRIEVAL);
-                    localBroadcastManager = LocalBroadcastManager.getInstance(
-                            packageModificationDetector.mContext);
-                    localBroadcastManager.registerReceiver(keyRetrieval, if1);
-
-                    int counter = 0;
-                    handler.postDelayed(runnable, 100);
-                    while (securityIntent == null && counter < 5) {
-                        try {
-                            Thread.sleep(500);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        counter++;
-                    }
-                    if (counter > 5) {
-                        Log.e(TAG, "Could not receive handshake in time...");
-                        return null;
-                    }
-
-                    if (securityIntent != null) {
-                        try {
-                            byte[] encryption_key =
-                                    securityIntent.getByteArrayExtra("encryption_key");
-                            byte[] iv_encrypt_key =
-                                    securityIntent.getByteArrayExtra("iv_encrypt_key");
-
-                            cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-                            cipher.init(
-                                    Cipher.DECRYPT_MODE,
-                                    new SecretKeySpec(encryption_key, "AES"),
-                                    new IvParameterSpec(iv_encrypt_key)
-                            );
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            return null;
-                        }
-                    }
-                }
-                success = new CacheCreator().initializeCache(
-                        packageModificationDetector.mContext,
-                        packageModificationDetector.package_name,
-                        cipher);
-            }
-            return null;
-        }
-
-        class KeyRetrieval extends BroadcastReceiver {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                securityIntent = intent;
-            }
-        }
     }
 }

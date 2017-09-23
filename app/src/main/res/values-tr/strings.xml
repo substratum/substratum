@@ -40,20 +40,6 @@
     <string name="showcase_no_themes">vitrin veritabanı bu sekme için önbelleğe alınırken bir hata oluştu
         gibi görünüyor&#8230;
     </string>
-    <string name="on_demand_updating_title">Kaynak Önbelleği Yeniden Oluşturuluyor</string>
-    <string name="on_demand_updating_text">%s önbelleği tekrar oluşturuluyor&#8230;</string>
-    <string name="background_updating_toast">Substratum bir temayı arka planda hazırlıyor,
-        lütfen bunun bitmesini bekleyin!
-    </string>
-    <string name="background_needs_invalidating">Hata! Önbellekte bir bozulma meydana geldi.</string>
-    <string name="background_needs_invalidating_button">Temizle</string>
-    <string name="background_updated_toast">Kaynak önbelleği yeniden oluşturuldu!</string>
-    <string name="background_updated_toast_cancel">Bu temanın çalışması için, öncelikle kaynak önbelleğini
-        yükseltmesi gerekiyor!
-    </string>
-    <string name="background_updated_toast_rejected">Bu tema için kaynak önbellek oluşturulamadı!</string>
-    <string name="background_updated_toast_cleaning">Substratum şu anda bu temanın kaynak
-        önbelleğini temizliyor&#8230;</string>
     <string name="failed_to_install_title_notification">OMS teması yüklenemedi</string>
     <string name="failed_to_install_text_notification">%s yüklemesi başarısız oldu</string>
     <string name="actionbar_theme_count_singular">%s tema</string>
@@ -270,7 +256,6 @@ bu sorunu
     <string name="priority_back_title">Temalara geri dön</string>
     <string name="priority_success_toast">Öncelikler değiştirildi ve pencereler yenileniyor&#8230;</string>
     <string name="menu_clean">Yüklü temaları temizle</string>
-    <string name="menu_clean_cache">Tema önbelleğini temizle</string>
     <string name="menu_disable">Yüklü tüm temaları devre dışı bırak</string>
     <string name="menu_enable">Yüklü tüm temaları etkinleştir</string>
     <string name="menu_favorite">Favori</string>
@@ -369,7 +354,6 @@ bu sorunu
     <string name="dialog_ok">TAMAM</string>
     <string name="dialog_do_not_show_again">Bir daha gösterme</string>
     <string name="dialog_cancel">İptal</string>
-    <string name="clean_cache_dialog_body">Bu temanın önbelleğini temizlemek istiyor musunuz?</string>
     <string name="clean_dialog_body">Bu tema için tüm temaları temizlemek istiyor musunuz?</string>
     <string name="disable_dialog_body">Bu tema için tüm temalarıı devre dışı bırakmak istiyor musunuz?</string>
     <string name="enable_dialog_body">Bu tema için tüm temaları etkinleştirmek istiyormusunuz?
@@ -386,10 +370,11 @@ bu sorunu
     <string name="toast_disabled4">Düzenlenmemiş temaları devre dışı bırakamazsınız!</string>
     <string name="toast_disabled5">Bu işlemi gerçekleştirmeden önce lütfen geçerli bir tema seçin.</string>
     <string name="toast_disabled6">Seçilen temalar kaldırıldı!</string>
-    <string name="toast_uninstalled">Bu temayı yeni kaldırdınız! Bir sonraki yenilemede görünmeyecektir!</string>
     <string name="no_themes_title">tema bulunamadı&#8230;</string>
+    <string name="no_overlays_title">tema bulunamadı&#8230;</string>
     <string name="no_themes_description">lütfen uyumlu bir tema yükleyin!</string>
     <string name="no_themes_description_search">\'\'%s\'\' yüklü temalar listesinde bulunamadı&#8230;</string>
+    <string name="no_overlays_description_search">\'\'%s\'\' yüklü temalar listesinde bulunamadı&#8230;</string>
     <string name="toast_andromeda_timed_out">Andromeda Backend ile bir gecikme var, lütfen Substratum\'u yeniden başlatın.</string>
     <string name="toast_could_not_uninstall">Geçerli temalar seçilmedi.</string>
     <string name="toast_samsung_prototype_alert">Substratum, cihazınız için desteklenmeyen sistem temalarını otomatik olarak gizledi!</string>
@@ -399,16 +384,13 @@ bu sorunu
     <string name="andromeda_no_root_dialog_button">Şimdi indirin!</string>
     <string name="samsung_prototype_no_root_dialog">Öyle görünüyor ki, desteklenen bir Samsung cihazını kullanıyorsunuz, bunu desteklemek için bir eklenti yayınlandı!</string>
     <string name="samsung_prototype_no_root_dialog_button">Şimdi indirin!</string>
-    <string name="toast_needs_caching">Substratum\'un önbelleği silindi, lütfen devam etmeden önce bu temayı yeniden oluşturun!</string>
     <string name="notification_theme_installed">yüklendi</string>
     <string name="notification_theme_updated">güncellendi</string>
     <string name="notification_theme_installed_content">Tema başarıyla yüklendi.</string>
     <string name="notification_theme_updated_content">Kaynaklar başarıyla güncellendi.</string>
     <string name="notification_hide">Yoksay</string>
-    <string name="notification_hide_upgrade">İptal</string>
     <string name="notification_initial_title">Substratum çalışıyor</string>
     <string name="notification_initial_title_upgrade_intent">%s yükseltiliyor&#8230;</string>
-    <string name="notification_initial_title_upgrade">%s kaynakları şuan güncelleniyor&#8230;</string>
     <string name="notification_done_title">Tema düzenlemesi tamamlandı</string>
     <string name="notification_done_upgrade_title">%s tema yükseltmesi tamamlandı!</string>
     <string name="notification_done_upgrade_title_warning">%s için tema yükseltmesi kısmen tamamlandı!</string>
@@ -428,10 +410,7 @@ bu sorunu
     <string name="settings_title_1">Kullanıcı Tercihleri</string>
     <string name="settings_title_3">Temala</string>
     <string name="settings_title_clickable">Kullanıcı Tercihleri</string>
-    <string name="substratum_cache_clear_initial_toast">Substratum önbelleği temizleniyor&#8230;</string>
     <string name="substratum_restart_toast">Substratum ayarlar değiştirildikten sonra yeniden başlatılacak.</string>
-    <string name="purge_cache">Tema Önbelleğini Geçersiz Kıl</string>
-    <string name="purge_cache_subtext">Saklanan tüm tema ve uygulama ön belleklerini yok edecektir.</string>
     <string name="restart_systemui">Etkinleştirildikten sonra Sistem Kullanıcı Arayüzünü yeniden oluştur</string>
     <string name="restart_systemui_subtext">Sistem temasını etkinleştirdikten/devre dışı bıraktıktan sonra Sistem Arayüzünü otomatik olarak yeniden oluştur</string>
     <string name="restart_systemui_toast_enabled">Sistem Arayüzünü, yeniden başlatma yerine dinamik olarak yeniden oluşturulacak!</string>
@@ -440,13 +419,11 @@ bu sorunu
     <string name="show_theme_template_version_description">Her bir temanın hedef SDK düzeylerini, tema sürümünü ve eklenti sürümünü her tema kartında bir etiket olarak gösterin.</string>
     <string name="vibrate_on_compiled">Düzenlendikten sonra bildir</string>
     <string name="vibrate_on_compiled_description">Tema düzenlendiğinde, düzenlemenin tamamlandığını kullanıcıya bildirmek için cihazı titrer.</string>
-    <string name="manage_notification_channel">Bildirim kanalını yönet</string>
     <string name="hide_app_icon">Uygulama simgesini göster</string>
     <string name="hide_app_icon_toast_enabled">Uygulamanın simgesi başlatıcınızdan kaldırıldı!</string>
     <string name="hide_app_icon_toast_disabled">Uygulamanın simgesi şimdi başlatıcınıza eklendi!</string>
     <string name="hide_app_icon_not_supported">Değişim desteklenmiyor</string>
     <string name="hide_app_icon_supported">Ana ekranınızda başlatıcı simgesinin görünür veya görünmez olması arasında geçiş yapmanızı sağlar.</string>
-    <string name="cache_clear_completion">%s temasının önbelleği temizlendi!</string>
     <string name="disable_completion">Bu tema için temaların tamamı artık devre dışı bırakılıyor&#8230;</string>
     <string name="enable_completion">Bu tema için yüklü temaların tamamı şimdi etkinleştiriliyor&#8230;</string>
     <string name="alternate_drawer_design_title">İkincil Çekmece Tasarımı</string>
@@ -535,6 +512,7 @@ bu sorunu
     <string name="settings_system_status">Sistem sertifikası</string>
     <string name="settings_system_status_andromeda">Andromeda modu</string>
     <string name="settings_system_status_rooted">Kök erişimli mod</string>
+    <string name="settings_system_status_rootless">Yerel mod</string>
     <string name="settings_system_status_samsung">Samsung modu</string>
     <string name="settings_system_status_certified">Sertifikalı</string>
     <string name="settings_system_status_uncertified">Sertifikasız</string>
@@ -556,9 +534,6 @@ bu sorunu
     <string name="settings_samsung_show_dangerous_overlays_text">Tema desteklemiyorsa normal olarak Samsung cihazları için tehlikeli olan temeları göster.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">UYARI</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Tehlikeli temaları bir nedenden dolayı gizledik, ancak bu özelliğin etkin olmasını istediğinizden eminseniz, lütfen XDA konumuzdan devre dışı bırakmak için gerekli talimatları uygulayın!</string>
-    <string name="settings_theme_caching_title">Tema Kaynakları Önbelleği</string>
-    <string name="settings_theme_caching_text">Tema varlığı kaynaklarının tümü önbellek dizininde ayıklanır.</string>
-    <string name="settings_theme_caching_found_snackbar">Gizli kaynak önbellekleme modunu keşfedin!</string>
     <string name="settings_crash_receiver_title">Tema Güvenliği Çökme Algılayıcı</string>
     <string name="settings_crash_receiver_text">Tema uygulanan bir uygulamada tekrar eden çökmeler tespit edildiğinde temayı otomatik olarak devre dışı bırak.</string>
     <string name="settings_force_stop_interfacer_title">Arayüz Hizmetini Durdurmaya Zorla</string>
@@ -644,7 +619,6 @@ bu sorunu
     <string name="nav_drawer_community">Gruplar &amp; topluluklar</string>
     <string name="nav_drawer_googleplus">Google+ topluluğu</string>
     <string name="nav_drawer_telegram">Telegram grup sohbeti</string>
-    <string name="nav_drawer_xda">XDA özel alt forum</string>
     <string name="nav_drawer_rawad">Rawad\'ın tema kullanım rehberleri</string>
     <string name="nav_drawer_reddit">Reddit topluluğu</string>
     <!-- Featured content -->

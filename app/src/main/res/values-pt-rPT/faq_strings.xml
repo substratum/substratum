@@ -19,10 +19,16 @@
   -->
 <resources>
     <string name="question_one">O que é o Substratum?</string>
-    <string name="answer_one">O Substratum é uma aplicação que tem como vantagem o uso do Overlay Manager Services (OMS) da Sony.         Funciona de forma semelhante ao Layers em termos de estabilidade e personalização (por ser construído em         cima do RRO) mas com algumas funcionalidades extra, tais como aplicar o tema sem reiniciar o dispositivo,         animações de reinicialização, tipos de letra e mudança prioritária.    </string>
+    <string name="answer_one">O Substratum é uma aplicação que tem como vantagem o uso do Overlay Manager Services (OMS) da Sony.         Funciona de forma semelhante ao Layers em termos de estabilidade e personalização (por ser construído em         cima do RRO) mas com algumas funcionalidades extra, tais como a aplicação do tema sem reiniciar o dispositivo,         animações de arranque, tipos de letra e alterações de prioridade.    </string>
     <string name="question_five">Como aplico um tema?</string>
-    <string name="answer_five">A aplicação de um tema é um processo de duas partes: compilação da sobreposições e aplicação das sobreposições. Ir para o tema, clique na guia Gestor de sobreposições selecione as sobreposições e as opções que quer, escolha FAB e escolha Compilar/atualizar, depois escolha essas mesmas sobreposições, e toque em FAB e escolher ativar selecionado.    </string>
+    <string name="answer_five">A aplicação de um tema é um processo de duas partes: compilação e aplicação das camadas. Selecione o tema, toque no separador \"Gestor de Camadas\", selecione as camadas e opções que deseja, toque no botão de ação flutuante e escolha \"Compilar/Atualizar\". Depois, selecione essas mesmas camadas, toque novamente no botão de ação flutuante e escolha \"Ativar Selecionadas\".    </string>
     <string name="question_eight">Estou em bootloop! Como resolvo isso?</string>
     <string name="answer_eight">O Substratum tem o seu próprio sistema de recuperação chamado Substratum Rescue System (SRS), que é um sistema automatizado que guarda um arquivo ZIP em /storage/emulated/0/substratum/SubstratumRescue.zip. \"Flashe\" esse ZIP no modo de recuperação e reinicie o dispositivo.    </string>
-    <string name="answer_twelve">Faça, por favor, um comentário na comunidade Google+ do  Substratum. Por favor, forneça as seguintes informações: versão do Substratum, ROM, qual o tema (se for um problema na aplicação de um) e, se possível, um logcat.    </string>
+    <string name="question_nine">Alguns elementos parecem defeituosos depois de aplicar o tema. O que aconteceu?</string>
+    <string name="answer_nine">
+        1. Reinicie a IU do Sistema se a mesma não foi reiniciada automaticamente.\n2. Reinicie o dispositivo.\n3. Desative
+        as camadas, recompile e volte a ativar.
+    </string>
+    <string name="question_twelve">Quem devo contactar se tiver um problema sério não resolvido após ler estes passos?</string>
+    <string name="answer_twelve">Por favor, faça um comentário na comunidade Google+ do Substratum. Por favor, forneça as seguintes informações: versão do Substratum, ROM, qual o tema (se for um problema na aplicação de um) e, se possível, um logcat.    </string>
 </resources>

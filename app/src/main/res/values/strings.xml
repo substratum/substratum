@@ -71,20 +71,6 @@
         for this tab&#8230;
     </string>
 
-    <string name="on_demand_updating_title">Resource Cache Initializer</string>
-    <string name="on_demand_updating_text">%s\'s cache is now rebuilding&#8230;</string>
-    <string name="background_updating_toast">Substratum is getting a theme ready in the background,
-        please wait for this to finish!
-    </string>
-    <string name="background_needs_invalidating">Oops! A corruption in the cache has occurred.</string>
-    <string name="background_needs_invalidating_button">Wipe</string>
-    <string name="background_updated_toast">Resource cache has been built!</string>
-    <string name="background_updated_toast_cancel">This theme needs to upgrade its resource cache
-        before it is functional!
-    </string>
-    <string name="background_updated_toast_rejected">Could not create resource cache for this theme!</string>
-    <string name="background_updated_toast_cleaning">Substratum is now clearing up this theme\'s
-        resource cache&#8230;</string>
     <string name="failed_to_install_title_notification">Failed to install OMS theme</string>
     <string name="failed_to_install_text_notification">%s failed to install</string>
 
@@ -333,7 +319,6 @@
     <string name="priority_success_toast">Priorities have been changed and windows are refreshing&#8230;</string>
 
     <string name="menu_clean">Clean installed overlays</string>
-    <string name="menu_clean_cache">Clean theme cache</string>
     <string name="menu_disable">Disable installed overlays</string>
     <string name="menu_enable">Enable installed overlays</string>
     <string name="menu_favorite">Favorite</string>
@@ -452,7 +437,6 @@
     <string name="dialog_do_not_show_again">Do not show again</string>
     <string name="dialog_cancel">Cancel</string>
 
-    <string name="clean_cache_dialog_body">Do you want to clean this theme\'s cache?</string>
     <string name="clean_dialog_body">Do you want to clean all overlays for this theme?</string>
     <string name="disable_dialog_body">Do you want to disable all overlays for this theme?</string>
     <string name="enable_dialog_body">Do you want to enable all installed overlays for this theme?
@@ -471,7 +455,6 @@
     <string name="toast_disabled4">You can\'t disable an overlay you don\'t have compiled!</string>
     <string name="toast_disabled5">Please select a valid overlay before performing this action.</string>
     <string name="toast_disabled6">Selected overlay(s) removed!</string>
-    <string name="toast_uninstalled">You just uninstalled this theme! I\'ll be gone on your next refresh!</string>
     <string name="no_themes_title">no themes found&#8230;</string>
     <string name="no_overlays_title">no overlays found&#8230;</string>
     <string name="no_themes_description">please install a compatible theme!</string>
@@ -489,18 +472,14 @@
     <string name="samsung_prototype_no_root_dialog">It seems that you are on a supported Samsung device, an addon was released to support this!</string>
     <string name="samsung_prototype_no_root_dialog_button">Download now!</string>
 
-    <string name="toast_needs_caching">Substratum\'s cache was wiped, please rebuild this theme before continuing!</string>
-
     <string name="notification_theme_installed">installed</string>
     <string name="notification_theme_updated">updated</string>
     <string name="notification_theme_installed_content">Theme successfully installed.</string>
     <string name="notification_theme_updated_content">Resources successfully updated.</string>
 
     <string name="notification_hide">Dismiss</string>
-    <string name="notification_hide_upgrade">Cancel</string>
     <string name="notification_initial_title">Substratum is running</string>
     <string name="notification_initial_title_upgrade_intent">Upgrading %s\'s overlays&#8230;</string>
-    <string name="notification_initial_title_upgrade">%s resources are now upgrading&#8230;</string>
     <string name="notification_done_title">Theme compilation has completed</string>
     <string name="notification_done_upgrade_title">Overlay upgrade has completed for %s!</string>
     <string name="notification_done_upgrade_title_warning">Overlay upgrade partially completed for %s!</string>
@@ -522,10 +501,7 @@
     <string name="settings_title_1">User Preferences</string>
     <string name="settings_title_3">Theming</string>
     <string name="settings_title_clickable">System Preferences</string>
-    <string name="substratum_cache_clear_initial_toast">Substratum\'s cache is now being wiped&#8230;</string>
     <string name="substratum_restart_toast">Substratum restarted automatically after a settings change.</string>
-    <string name="purge_cache">Invalidate Theme Cache</string>
-    <string name="purge_cache_subtext">This will destroy all stored theme and application cache.</string>
     <string name="restart_systemui">Post-enable SystemUI recreate</string>
     <string name="restart_systemui_subtext">Automatically recreate the SystemUI after enabling/disabling a SystemUI overlay</string>
     <string name="restart_systemui_toast_enabled">SystemUI will recreate dynamically instead of restarting!</string>
@@ -540,7 +516,6 @@
     <string name="hide_app_icon_toast_disabled">The app\'s icon has now been added to your launcher!</string>
     <string name="hide_app_icon_not_supported">Change not supported</string>
     <string name="hide_app_icon_supported">This will allow you to toggle between having the launcher icon visible or invisible on your home screen.</string>
-    <string name="cache_clear_completion">%s theme cache has been cleared!</string>
     <string name="disable_completion">All overlays for this theme are now deactivating&#8230;</string>
     <string name="enable_completion">All installed overlays for this theme are now activating&#8230;</string>
     <string name="alternate_drawer_design_title">Secondary Drawer Design</string>
@@ -689,10 +664,6 @@
     <string name="settings_samsung_show_dangerous_overlays_text">Show all the overlays normally dangerous for Samsung devices if the theme does not support it.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">WARNING</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">We hid dangerous overlays for a reason, but if you are sure you want this enabled, please follow the instructions to disable it on our XDA thread!</string>
-
-    <string name="settings_theme_caching_title">Cache Theme Resources</string>
-    <string name="settings_theme_caching_text">All theme asset resources will be extracted in the cache directory.</string>
-    <string name="settings_theme_caching_found_snackbar">You just discovered the hidden resource caching mode!</string>
 
     <string name="settings_crash_receiver_title">Theme Safety Crash Receiver</string>
     <string name="settings_crash_receiver_text">Automatically disable an overlay when detecting repetitive crashes on the overlaid app.</string>

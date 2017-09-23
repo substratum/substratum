@@ -83,7 +83,6 @@ import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
-import projekt.substratum.common.Theming;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
@@ -821,9 +820,6 @@ public class InformationActivity extends SubstratumActivity {
         if (!Packages.isUserApp(mContext, theme_pid)) {
             menu.findItem(R.id.uninstall).setVisible(false);
         }
-
-        menu.findItem(R.id.clean_cache).setVisible(prefs.getBoolean("caching_enabled", false));
-
         return true;
     }
 
@@ -914,32 +910,6 @@ public class InformationActivity extends SubstratumActivity {
                 // Create the AlertDialog object and return it
                 builder1.create();
                 builder1.show();
-                return true;
-            case R.id.clean_cache:
-                AlertDialog.Builder builder2 = new AlertDialog.Builder(InformationActivity.this);
-                builder2.setTitle(theme_name);
-                builder2.setIcon(Packages.getAppIcon(mContext, theme_pid));
-                builder2.setMessage(R.string.clean_cache_dialog_body)
-                        .setPositiveButton(R.string.dialog_ok, (dialog, id110) -> {
-                            // Dismiss the dialog
-                            dialog.dismiss();
-                            FileOperations.delete(
-                                    mContext, getBuildDirPath() + theme_pid + "/");
-                            String format =
-                                    String.format(
-                                            getString(R.string.cache_clear_completion),
-                                            theme_name);
-                            currentShownLunchBar = Lunchbar.make(getView(),
-                                    format,
-                                    Lunchbar.LENGTH_LONG);
-                            currentShownLunchBar.show();
-                            finish();
-                        })
-                        .setNegativeButton(R.string.dialog_cancel, (dialog, id17) ->
-                                dialog.cancel());
-                // Create the AlertDialog object and return it
-                builder2.create();
-                builder2.show();
                 return true;
             case R.id.disable:
                 AlertDialog.Builder builder3 = new AlertDialog.Builder(InformationActivity.this);
@@ -1097,8 +1067,7 @@ public class InformationActivity extends SubstratumActivity {
             }
         }
 
-        if (!BYPASS_SUBSTRATUM_BUILDER_DELETION &&
-                !Theming.isCachingEnabled(mContext)) {
+        if (!BYPASS_SUBSTRATUM_BUILDER_DELETION) {
             String workingDirectory =
                     mContext.getCacheDir().getAbsolutePath();
             File deleted = new File(workingDirectory);

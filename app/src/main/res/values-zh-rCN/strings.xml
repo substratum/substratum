@@ -30,15 +30,6 @@
     <string name="resource_commit_dialog_title">在 %s 中缺少资源</string>
     <string name="showcase_no_connection">主题展示需要网络连接才能正常工作</string>
     <string name="showcase_no_themes">缓存此选项卡的展示数据库时出错</string>
-    <string name="on_demand_updating_title">资源缓存初始化</string>
-    <string name="on_demand_updating_text">正在重建%s的缓存</string>
-    <string name="background_updating_toast">Substratum 正在后台准备主题，请耐心等待</string>
-    <string name="background_needs_invalidating">缓存出现问题</string>
-    <string name="background_needs_invalidating_button">清除</string>
-    <string name="background_updated_toast">资源缓存初始化完成</string>
-    <string name="background_updated_toast_cancel">启用此主题前需要升级资源缓存</string>
-    <string name="background_updated_toast_rejected">无法创建此主题的资源缓存</string>
-    <string name="background_updated_toast_cleaning">Substratum 正在清除此主题的资源缓存</string>
     <string name="failed_to_install_title_notification">未能安装 OMS 主题</string>
     <string name="failed_to_install_text_notification">%s 安装失败</string>
     <string name="actionbar_theme_count_singular">%s 主题</string>
@@ -178,7 +169,6 @@
     <string name="priority_back_title">回到叠加层</string>
     <string name="priority_success_toast">优先级已经被更改，窗口正在刷新</string>
     <string name="menu_clean">清除已安装的叠加层</string>
-    <string name="menu_clean_cache">清除主题缓存</string>
     <string name="menu_disable">禁用已安装的叠加层</string>
     <string name="menu_enable">启用已安装的叠加层</string>
     <string name="menu_favorite">收藏</string>
@@ -244,7 +234,6 @@
     <string name="dialog_ok">确认</string>
     <string name="dialog_do_not_show_again">不再显示</string>
     <string name="dialog_cancel">取消</string>
-    <string name="clean_cache_dialog_body">您想要清除此主题的缓存吗？</string>
     <string name="clean_dialog_body">您想要清除此主题的所有叠加层吗？</string>
     <string name="disable_dialog_body">您想要禁用此主题中所有叠加层吗？</string>
     <string name="enable_dialog_body">您想要启用此主题中所有已安装的叠加层吗？    </string>
@@ -258,7 +247,6 @@
     <string name="toast_disabled4">无法禁用未编译的叠加层</string>
     <string name="toast_disabled5">执行此操作前，请先选择一个有效的叠加层。</string>
     <string name="toast_disabled6">叠加层已删除</string>
-    <string name="toast_uninstalled">已卸载此主题。进行刷新后会在列表中消失。</string>
     <string name="no_themes_title">没有找到主题</string>
     <string name="no_themes_description">请安装一个兼容的主题</string>
     <string name="no_themes_description_search">在已安装的主题列表中无法找到 \"%s\"</string>
@@ -267,16 +255,13 @@
     <string name="andromeda_no_root_dialog_button">立即下载</string>
     <string name="samsung_prototype_no_root_dialog">一个新插件已经发布，您的三星设备已受支持。</string>
     <string name="samsung_prototype_no_root_dialog_button">立即下载</string>
-    <string name="toast_needs_caching">Substratum 的缓存已清除，请重新编译此主题</string>
     <string name="notification_theme_installed">已安装</string>
     <string name="notification_theme_updated">已更新</string>
     <string name="notification_theme_installed_content">成功安装主题</string>
     <string name="notification_theme_updated_content">成功更新资源</string>
     <string name="notification_hide">忽略</string>
-    <string name="notification_hide_upgrade">取消</string>
     <string name="notification_initial_title">Substratum 正在运行</string>
     <string name="notification_initial_title_upgrade_intent">正在升级 %s 叠加层</string>
-    <string name="notification_initial_title_upgrade">%s 资源正在升级</string>
     <string name="notification_done_title">主题编译成功</string>
     <string name="notification_done_upgrade_title">%s 叠加层升级完成</string>
     <string name="notification_done_upgrade_title_warning">%s 叠加层升级部分完成</string>
@@ -296,10 +281,7 @@
     <string name="settings_title_1">用户首选项</string>
     <string name="settings_title_3">主题</string>
     <string name="settings_title_clickable">系统首选项</string>
-    <string name="substratum_cache_clear_initial_toast">正在清除 Substratum 缓存</string>
     <string name="substratum_restart_toast">Substratum 会在设置改变后自动重启</string>
-    <string name="purge_cache">无效主题缓存</string>
-    <string name="purge_cache_subtext">清除所有主题和应用程序缓存</string>
     <string name="restart_systemui">重建随后启用的系统界面</string>
     <string name="restart_systemui_subtext">在启用或禁用系统界面叠加层后，自动重建系统界面</string>
     <string name="restart_systemui_toast_enabled">系统界面将会动态更新，而不是重启设备。</string>
@@ -313,7 +295,6 @@
     <string name="hide_app_icon_toast_disabled">此应用的图标已经添加到启动器</string>
     <string name="hide_app_icon_not_supported">不支持该改动</string>
     <string name="hide_app_icon_supported">这将允许您在主屏幕上显示或隐藏启动器图标。</string>
-    <string name="cache_clear_completion">%s 主题缓存已清除</string>
     <string name="disable_completion">已禁用这一主题中所有已安装的叠加层</string>
     <string name="enable_completion">已启用这一主题中所有已安装的叠加层</string>
     <string name="alternate_drawer_design_title">备用抽屉设计</string>
@@ -408,7 +389,6 @@
     <string name="settings_auto_updater_title">自动更新目标叠加层</string>
     <string name="settings_auto_updater_text">Substratum 会自动为获得更新的目标叠加层生成、编译和安装一个新的版本。禁用此功能可以省电。</string>
     <string name="beta_tag">测试版</string>
-    <string name="settings_theme_auto_updater_title">自动更新主题叠加层</string>
     <string name="settings_theme_auto_updater_dialog_title">警告</string>
     <string name="settings_theme_auto_updater_text">Substratum 会自动为获得更新的主题叠加层生成、编译和安装一个新的版本。禁用此功能可以省电。</string>
     <string name="settings_theme_auto_updater_dialog_text">在通知开启时，请勿在前台打开 PackageInstaller，否则框架重叠会使 PackageInstaller 重启，并导致无限期的重新编译。</string>
@@ -421,9 +401,6 @@
     <string name="settings_samsung_show_dangerous_overlays_text">即使主题不受支持，仍在三星设备上显示所有高风险叠加层。</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">警告</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">我们因为某些原因隐藏了高风险叠加层。如果您确实需要使用这些叠加层，请参照 XDA 论坛上的说明手动关闭隐藏功能。</string>
-    <string name="settings_theme_caching_title">缓存主题资源</string>
-    <string name="settings_theme_caching_text">在缓存目录中提取所有主题资源</string>
-    <string name="settings_theme_caching_found_snackbar">您刚刚发现了隐藏的资源缓存模式！</string>
     <string name="settings_crash_receiver_title">主题崩溃检测</string>
     <string name="settings_crash_receiver_text">当检测到应用程序重复崩溃时，自动禁用叠加层</string>
     <string name="settings_force_stop_interfacer_title">停止主题接口服务</string>
@@ -506,7 +483,6 @@
     <string name="nav_drawer_community">团队和社区</string>
     <string name="nav_drawer_googleplus">Google+ 社区</string>
     <string name="nav_drawer_telegram">Telegram 交流群</string>
-    <string name="nav_drawer_xda">XDA 专用分论坛</string>
     <string name="nav_drawer_rawad">主题向导</string>
     <string name="nav_drawer_reddit">Reddit 社区</string>
     <!-- Featured content -->

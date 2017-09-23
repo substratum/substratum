@@ -38,7 +38,6 @@ import java.util.TreeSet;
 import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
-import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.tabs.BootAnimationManager;
 import projekt.substratum.common.tabs.FontManager;
@@ -47,7 +46,6 @@ import projekt.substratum.common.tabs.WallpaperManager;
 
 import static projekt.substratum.common.References.PACKAGE_FULLY_REMOVED;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
-import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.metadataOverlayParent;
 
 public class ThemeUninstallDetector extends BroadcastReceiver {
@@ -102,13 +100,6 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
 
                     // Uninstall all overlays for this package
                     ThemeManager.uninstallOverlay(context, all_overlays);
-
-                    // Clear SubstratumBuilder cache for this package
-                    Log.d(TAG, "Now purging caches for \"" + package_name + "\"...");
-                    FileOperations.delete(
-                            context,
-                            context.getCacheDir().getAbsolutePath() +
-                                    SUBSTRATUM_BUILDER_CACHE + package_name + "/");
 
                     SharedPreferences.Editor editor = prefs.edit();
                     if (prefs.getString("sounds_applied", "").equals(package_name)) {

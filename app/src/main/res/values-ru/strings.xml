@@ -36,15 +36,6 @@
     <string name="resource_commit_dialog_title">Отсутствуют ресурсы в %s</string>
     <string name="showcase_no_connection">каталог тем требует подключения к интернету!    </string>
     <string name="showcase_no_themes">похоже, кэширование базы данных каталога для этой вкладки прошло неудачно&#8230;    </string>
-    <string name="on_demand_updating_title">Инициализация кэша ресурсов</string>
-    <string name="on_demand_updating_text">Сейчас пересоздается кэш %s&#8230;</string>
-    <string name="background_updating_toast">Substratum подготавливает тему в фоне, подождите!    </string>
-    <string name="background_needs_invalidating">Опаньки! Кэш поврежден.</string>
-    <string name="background_needs_invalidating_button">Очистить</string>
-    <string name="background_updated_toast">Кэш ресурсов собран!</string>
-    <string name="background_updated_toast_cancel">Ресурсы этой темы нужно обновить перед использованием!    </string>
-    <string name="background_updated_toast_rejected">Не удалось создать кэш ресурсов для этой темы!</string>
-    <string name="background_updated_toast_cleaning">Substratum очищает кэш ресурсов этой темы&#8230;</string>
     <string name="failed_to_install_title_notification">Не удалось установить OMS тему</string>
     <string name="failed_to_install_text_notification">Установка %s не удалась</string>
     <string name="actionbar_theme_count_singular">%s тема</string>
@@ -192,7 +183,6 @@
     <string name="priority_back_title">Перейти к наслоениям</string>
     <string name="priority_success_toast">Приоритеты были изменены, обновление окон&#8230;</string>
     <string name="menu_clean">Удалить установленное</string>
-    <string name="menu_clean_cache">Очистить кэш темы</string>
     <string name="menu_disable">Отключить активные наслоения</string>
     <string name="menu_enable">Применить установленное</string>
     <string name="menu_favorite">В избранное</string>
@@ -261,7 +251,6 @@
     <string name="dialog_ok">ОК</string>
     <string name="dialog_do_not_show_again">Не показывать снова</string>
     <string name="dialog_cancel">Отмена</string>
-    <string name="clean_cache_dialog_body">Вы действительно хотите очистить кэш этой темы?</string>
     <string name="clean_dialog_body">Вы действительно хотите удалить все наслоения из этой темы?</string>
     <string name="disable_dialog_body">Вы действительно хотите отключить все наслоения из этой темы?</string>
     <string name="enable_dialog_body">Вы действительно хотите применить все установленные наслоения из этой темы?</string>
@@ -275,7 +264,6 @@
     <string name="toast_disabled4">Нельзя отключить несобранное наслоение!</string>
     <string name="toast_disabled5">Выберите допустимое наслоение до выполнения этого действия.</string>
     <string name="toast_disabled6">Выбранные слои удалены!</string>
-    <string name="toast_uninstalled">Вы удалили тему! Я исчезну при следующем обновлении!</string>
     <string name="no_themes_title">не найдено тем&#8230;</string>
     <string name="no_themes_description">установите любую совместимую тему!</string>
     <string name="no_themes_description_search">Среди установленных тем нет \"%s\"&#8230;</string>
@@ -284,16 +272,13 @@
     <string name="andromeda_no_root_dialog_button">Загрузить!</string>
     <string name="samsung_prototype_no_root_dialog">Похоже, у Вас поддерживаемое устройство Samsung, для него выпущен пакет совместимости!</string>
     <string name="samsung_prototype_no_root_dialog_button">Загрузить!</string>
-    <string name="toast_needs_caching">Кэш Substratum был сброшен, сначала пересоберите данную тему!</string>
     <string name="notification_theme_installed">установлена</string>
     <string name="notification_theme_updated">обновлена</string>
     <string name="notification_theme_installed_content">Тема успешно установлена.</string>
     <string name="notification_theme_updated_content">Ресурсы обновлены.</string>
     <string name="notification_hide">Отменить</string>
-    <string name="notification_hide_upgrade">Отмена</string>
     <string name="notification_initial_title">Substratum запущен</string>
     <string name="notification_initial_title_upgrade_intent">Обновление наслоений %s&#8230;</string>
-    <string name="notification_initial_title_upgrade">Ресурсы %s обновляются&#8230;</string>
     <string name="notification_done_title">Сборка темы завершена</string>
     <string name="notification_done_upgrade_title">Обновление наслоений для %s завершено!</string>
     <string name="notification_done_upgrade_title_warning">Обновление наслоений для %s частично завершено!</string>
@@ -313,10 +298,7 @@
     <string name="settings_title_1">Пользовательские предпочтения</string>
     <string name="settings_title_3">Оформление</string>
     <string name="settings_title_clickable">Системные настройки</string>
-    <string name="substratum_cache_clear_initial_toast">Очистка кэша Substratum&#8230;</string>
     <string name="substratum_restart_toast">Substratum перезапущен после изменения настроек.</string>
-    <string name="purge_cache">Сбросить кэш тем</string>
-    <string name="purge_cache_subtext">Кэш всех имеющихся тем и приложений будет уничтожен.</string>
     <string name="restart_systemui">Динамическая пересборка SystemUI</string>
     <string name="restart_systemui_subtext">Автоматическая пересборка SystemUI после активации/отключения связанных с ним наслоений</string>
     <string name="restart_systemui_toast_enabled">SystemUI будет пересобираться в реальном времени вместо перезапуска!</string>
@@ -330,7 +312,6 @@
     <string name="hide_app_icon_toast_disabled">Значок добавлен в меню приложений!</string>
     <string name="hide_app_icon_not_supported">Возможность не предусмотрена</string>
     <string name="hide_app_icon_supported">Возможность убрать/вернуть значок приложения на домашнем экране</string>
-    <string name="cache_clear_completion">Кэш темы %s удален!</string>
     <string name="disable_completion">Отключение всех наслоений темы&#8230;</string>
     <string name="enable_completion">Активация всех установленных наслоений темы&#8230;</string>
     <string name="alternate_drawer_design_title">Альтернативное меню</string>
@@ -426,7 +407,6 @@
     <string name="settings_auto_updater_text">Substratum будет автоматически собирать и устанавливать актуальные версии наслоений для недавно обновленных приложений.
 Отключение возможности продлит работу от батареи.</string>
     <string name="beta_tag">★ BETA</string>
-    <string name="settings_theme_auto_updater_title">Автообновление наслоений тем</string>
     <string name="settings_theme_auto_updater_dialog_title">ВНИМАНИЕ</string>
     <string name="settings_theme_auto_updater_text">Substratum будет автоматически собирать и устанавливать актуальные версии всех наслоений для обновившихся тем. Отключение возможности продлит работу от батареи.</string>
     <string name="settings_theme_auto_updater_dialog_text">Пожалуйста, НЕ оставляйте установщик пакетов (приложений) открытым, пока уведомление в силе. Наслоениям фреймворка свойственно перезапускать установщик, вызывая процесс пересборки множество раз!</string>
@@ -439,9 +419,6 @@
     <string name="settings_samsung_show_dangerous_overlays_text">Показывать все рискованные для устройств от Samsung наслоения, даже если они не поддерживаются темой оформления.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">ВНИМАНИЕ</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Рискованные наслоения спрятаны не просто так, но если Вы предпочтете таковые оставить - изучите инструкцию по их отключению в теме на XDA!</string>
-    <string name="settings_theme_caching_title">Кэширование ресурсов темы</string>
-    <string name="settings_theme_caching_text">Все компоненты темы будут извлечены в папку кэша.</string>
-    <string name="settings_theme_caching_found_snackbar">Вы обнаружили скрытую возможность кэширования тем!</string>
     <string name="settings_crash_receiver_title">Отслеживание вылетов</string>
     <string name="settings_crash_receiver_text">Автоматически отключать наслоения для приложений с выявленными повторяющимися вылетами.</string>
     <string name="settings_force_stop_interfacer_title">Завершить службу согласователя</string>
@@ -524,7 +501,6 @@
     <string name="nav_drawer_community">Группы и сообщества</string>
     <string name="nav_drawer_googleplus">Google+ сообщество</string>
     <string name="nav_drawer_telegram">Чат в Телеграме</string>
-    <string name="nav_drawer_xda">Выделенный XDA форум</string>
     <string name="nav_drawer_rawad">Инструкция по оформлению от Rawad</string>
     <string name="nav_drawer_reddit">Сообщество Reddit</string>
     <!-- Featured content -->

@@ -44,10 +44,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import org.zeroturnaround.zip.commons.FileUtils;
-
 import java.io.File;
-import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
@@ -59,12 +56,10 @@ import projekt.substratum.adapters.tabs.overlays.OverlaysItem;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
-import projekt.substratum.common.Theming;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.services.notification.NotificationButtonReceiver;
-import projekt.substratum.util.compilers.CacheCreator;
 import projekt.substratum.util.compilers.SubstratumBuilder;
 import projekt.substratum.util.files.Root;
 
@@ -167,34 +162,16 @@ class OverlayFunctions {
             Overlays overlays = ref.get();
             if (overlays != null) {
                 Context context = overlays.getActivity();
-                if (!overlays.enable_mode && !overlays.disable_mode && !overlays
-                        .enable_disable_mode) {
-                    // Initialize Substratum cache with theme only if permitted
-                    if (Theming.isCachingEnabled(context) && !overlays.has_initialized_cache) {
-                        Log.d(Overlays.TAG,
-                                "Decompiling and initializing work area with the " +
-                                        "selected theme's assets...");
-                        overlays.sb = new SubstratumBuilder();
-
-                        File versioning = new File(context.getCacheDir().getAbsoluteFile() +
-                                References.SUBSTRATUM_BUILDER_CACHE + overlays.theme_pid +
-                                "/substratum.xml");
-                        if (versioning.exists()) {
-                            overlays.has_initialized_cache = true;
-                        } else {
-                            new CacheCreator().initializeCache(context, overlays.theme_pid,
-                                    overlays.cipher);
-                            overlays.has_initialized_cache = true;
-                        }
-                    } else {
-                        try {
-                            Resources themeResources = context.getPackageManager()
-                                    .getResourcesForApplication(overlays.theme_pid);
-                            overlays.themeAssetManager = themeResources.getAssets();
-                        } catch (PackageManager.NameNotFoundException e) {
-                            // Suppress exception
-                        }
+                if (!overlays.enable_mode &&
+                        !overlays.disable_mode &&
+                        !overlays.enable_disable_mode) {
+                    try {
+                        Resources themeResources = context.getPackageManager()
+                                .getResourcesForApplication(overlays.theme_pid);
+                        overlays.themeAssetManager = themeResources.getAssets();
                         Log.d(Overlays.TAG, "Work area is ready to be compiled!");
+                    } catch (PackageManager.NameNotFoundException e) {
+                        // Suppress exception
                     }
                     if (sUrl[0].length() != 0) {
                         return sUrl[0];
@@ -484,39 +461,23 @@ class OverlayFunctions {
                                         overlays.mBuilder.build());
                             }
 
-                            String workingDirectory = context.getCacheDir().getAbsolutePath() +
-                                    References.SUBSTRATUM_BUILDER_CACHE + overlays.theme_pid +
-                                    "/assets/overlays/" + current_overlay;
-
                             String suffix = ((sUrl[0].length() != 0) ?
                                     "/type3_" + parsedVariant : "/res");
                             String unparsedSuffix =
                                     ((sUrl[0].length() != 0) ? "/type3_" + unparsedVariant :
                                             "/res");
                             overlays.type3 = parsedVariant;
-                            if (Theming.isCachingEnabled(context)) {
-                                File srcDir = new File(workingDirectory +
-                                        ((sUrl[0].length() != 0) ? "/type3_" + sUrl[0] : "/res"));
-                                File destDir = new File(workingDirectory + "/workdir");
-                                if (destDir.exists()) {
-                                    FileOperations.delete(context, destDir.getAbsolutePath());
-                                }
-                                try {
-                                    FileUtils.copyDirectory(srcDir, destDir);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            } else {
-                                workingDirectory = context.getCacheDir().getAbsolutePath() +
-                                        References.SUBSTRATUM_BUILDER_CACHE.substring(0,
-                                                References.SUBSTRATUM_BUILDER_CACHE.length() - 1);
-                                File created = new File(workingDirectory);
-                                if (created.exists()) {
-                                    FileOperations.delete(context, created.getAbsolutePath());
-                                }
-                                FileOperations.createNewFolder(context, created
-                                        .getAbsolutePath());
+
+                            String workingDirectory = context.getCacheDir().getAbsolutePath() +
+                                    References.SUBSTRATUM_BUILDER_CACHE.substring(0,
+                                            References.SUBSTRATUM_BUILDER_CACHE.length() - 1);
+
+                            File created = new File(workingDirectory);
+                            if (created.exists()) {
+                                FileOperations.delete(context, created.getAbsolutePath());
                             }
+                            FileOperations.createNewFolder(context, created
+                                    .getAbsolutePath());
                             String listDir = Overlays.overlaysDir + "/" + current_overlay +
                                     unparsedSuffix;
 
@@ -535,49 +496,28 @@ class OverlayFunctions {
                                     overlays.type1a =
                                             overlays.checkedOverlays.get(i)
                                                     .getSelectedVariantName();
-                                    if (Theming.isCachingEnabled(context)) {
-                                        String sourceLocation = workingDirectory + "/type1a_" +
-                                                overlays.checkedOverlays.get(i)
-                                                        .getSelectedVariantName()
-                                                + ".xml";
+                                    Log.d(Overlays.TAG, "You have selected variant file \"" +
+                                            overlays.checkedOverlays.get(i)
+                                                    .getSelectedVariantName() + "\"");
+                                    Log.d(Overlays.TAG, "Moving variant file to: " +
+                                            workingDirectory + suffix + "/values/type1a.xml");
 
-                                        String targetLocation = workingDirectory +
-                                                "/workdir/values/type1a.xml";
+                                    String to_copy =
+                                            Overlays.overlaysDir + "/" + current_overlay +
+                                                    "/type1a_" +
+                                                    overlays.checkedOverlays.get(i)
+                                                            .getSelectedVariantName() +
+                                                    (overlays.encrypted ? ".xml.enc" : ".xml");
 
-                                        Log.d(Overlays.TAG,
-                                                "You have selected variant file \"" +
-                                                        overlays.checkedOverlays.get(i)
-                                                                .getSelectedVariantName() + "\"");
-                                        Log.d(Overlays.TAG, "Moving variant file to: " +
-                                                targetLocation);
-                                        FileOperations.copy(
-                                                context,
-                                                sourceLocation,
-                                                targetLocation);
-                                    } else {
-                                        Log.d(Overlays.TAG, "You have selected variant file \"" +
-                                                overlays.checkedOverlays.get(i)
-                                                        .getSelectedVariantName() + "\"");
-                                        Log.d(Overlays.TAG, "Moving variant file to: " +
-                                                workingDirectory + suffix + "/values/type1a.xml");
-
-                                        String to_copy =
-                                                Overlays.overlaysDir + "/" + current_overlay +
-                                                        "/type1a_" +
-                                                        overlays.checkedOverlays.get(i)
-                                                                .getSelectedVariantName() +
-                                                        (overlays.encrypted ? ".xml.enc" : ".xml");
-
-                                        FileOperations.copyFileOrDir(
-                                                overlays.themeAssetManager,
-                                                to_copy,
-                                                workingDirectory + suffix + (
-                                                        overlays.encrypted ?
-                                                                "/values/type1a.xml.enc" :
-                                                                "/values/type1a.xml"),
-                                                to_copy,
-                                                overlays.cipher);
-                                    }
+                                    FileOperations.copyFileOrDir(
+                                            overlays.themeAssetManager,
+                                            to_copy,
+                                            workingDirectory + suffix + (
+                                                    overlays.encrypted ?
+                                                            "/values/type1a.xml.enc" :
+                                                            "/values/type1a.xml"),
+                                            to_copy,
+                                            overlays.cipher);
                                 }
 
                                 // Type 1b
@@ -585,93 +525,56 @@ class OverlayFunctions {
                                     overlays.type1b =
                                             overlays.checkedOverlays.get(i)
                                                     .getSelectedVariantName2();
-                                    if (Theming.isCachingEnabled(context)) {
-                                        String sourceLocation2 = workingDirectory + "/type1b_" +
-                                                overlays.checkedOverlays.get(i)
-                                                        .getSelectedVariantName2() + ".xml";
+                                    Log.d(Overlays.TAG, "You have selected variant file \"" +
+                                            overlays.checkedOverlays.get(i)
+                                                    .getSelectedVariantName2() + "\"");
+                                    Log.d(Overlays.TAG, "Moving variant file to: " +
+                                            workingDirectory + suffix + "/values/type1b.xml");
 
-                                        String targetLocation2 = workingDirectory +
-                                                "/workdir/values/type1b.xml";
+                                    String to_copy =
+                                            Overlays.overlaysDir + "/" + current_overlay +
+                                                    "/type1b_" +
+                                                    overlays.checkedOverlays.get(i)
+                                                            .getSelectedVariantName2() +
+                                                    (overlays.encrypted ? ".xml.enc" : ".xml");
 
-                                        Log.d(Overlays.TAG, "You have selected variant file \"" +
-                                                overlays.checkedOverlays.get(i)
-                                                        .getSelectedVariantName2() + "\"");
-                                        Log.d(Overlays.TAG, "Moving variant file to: " +
-                                                targetLocation2);
-                                        FileOperations.copy(context, sourceLocation2,
-                                                targetLocation2);
-                                    } else {
-                                        Log.d(Overlays.TAG, "You have selected variant file \"" +
-                                                overlays.checkedOverlays.get(i)
-                                                        .getSelectedVariantName2() + "\"");
-                                        Log.d(Overlays.TAG, "Moving variant file to: " +
-                                                workingDirectory + suffix + "/values/type1b.xml");
-
-                                        String to_copy =
-                                                Overlays.overlaysDir + "/" + current_overlay +
-                                                        "/type1b_" +
-                                                        overlays.checkedOverlays.get(i)
-                                                                .getSelectedVariantName2() +
-                                                        (overlays.encrypted ? ".xml.enc" : ".xml");
-
-                                        FileOperations.copyFileOrDir(
-                                                overlays.themeAssetManager,
-                                                to_copy,
-                                                workingDirectory + suffix + (
-                                                        overlays.encrypted ?
-                                                                "/values/type1b.xml.enc" :
-                                                                "/values/type1b.xml"),
-                                                to_copy,
-                                                overlays.cipher);
-                                    }
+                                    FileOperations.copyFileOrDir(
+                                            overlays.themeAssetManager,
+                                            to_copy,
+                                            workingDirectory + suffix + (
+                                                    overlays.encrypted ?
+                                                            "/values/type1b.xml.enc" :
+                                                            "/values/type1b.xml"),
+                                            to_copy,
+                                            overlays.cipher);
                                 }
                                 // Type 1c
                                 if (overlays.checkedOverlays.get(i).is_variant_chosen3) {
                                     overlays.type1c =
                                             overlays.checkedOverlays.get(i)
                                                     .getSelectedVariantName3();
-                                    if (Theming.isCachingEnabled(context)) {
-                                        String sourceLocation3 = workingDirectory + "/type1c_" +
-                                                overlays.checkedOverlays.get(i)
-                                                        .getSelectedVariantName3() + ".xml";
+                                    Log.d(Overlays.TAG, "You have selected variant file \"" +
+                                            overlays.checkedOverlays.get(i)
+                                                    .getSelectedVariantName3() + "\"");
+                                    Log.d(Overlays.TAG, "Moving variant file to: " +
+                                            workingDirectory + suffix + "/values/type1c.xml");
 
-                                        String targetLocation3 = workingDirectory +
-                                                "/workdir/values/type1c.xml";
+                                    String to_copy =
+                                            Overlays.overlaysDir + "/" + current_overlay +
+                                                    "/type1c_" +
+                                                    overlays.checkedOverlays.get(i)
+                                                            .getSelectedVariantName3() +
+                                                    (overlays.encrypted ? ".xml.enc" : ".xml");
 
-                                        Log.d(Overlays.TAG, "You have selected variant file \"" +
-                                                overlays.checkedOverlays.get(i)
-                                                        .getSelectedVariantName3() + "\"");
-                                        Log.d(Overlays.TAG, "Moving variant file to: " +
-                                                targetLocation3);
-
-                                        FileOperations.copy(
-                                                context,
-                                                sourceLocation3,
-                                                targetLocation3);
-                                    } else {
-                                        Log.d(Overlays.TAG, "You have selected variant file \"" +
-                                                overlays.checkedOverlays.get(i)
-                                                        .getSelectedVariantName3() + "\"");
-                                        Log.d(Overlays.TAG, "Moving variant file to: " +
-                                                workingDirectory + suffix + "/values/type1c.xml");
-
-                                        String to_copy =
-                                                Overlays.overlaysDir + "/" + current_overlay +
-                                                        "/type1c_" +
-                                                        overlays.checkedOverlays.get(i)
-                                                                .getSelectedVariantName3() +
-                                                        (overlays.encrypted ? ".xml.enc" : ".xml");
-
-                                        FileOperations.copyFileOrDir(
-                                                overlays.themeAssetManager,
-                                                to_copy,
-                                                workingDirectory + suffix + (
-                                                        overlays.encrypted ?
-                                                                "/values/type1c.xml.enc" :
-                                                                "/values/type1c.xml"),
-                                                to_copy,
-                                                overlays.cipher);
-                                    }
+                                    FileOperations.copyFileOrDir(
+                                            overlays.themeAssetManager,
+                                            to_copy,
+                                            workingDirectory + suffix + (
+                                                    overlays.encrypted ?
+                                                            "/values/type1c.xml.enc" :
+                                                            "/values/type1c.xml"),
+                                            to_copy,
+                                            overlays.cipher);
                                 }
 
                                 String packageName =
@@ -735,7 +638,6 @@ class OverlayFunctions {
                                         overlays.sb = new SubstratumBuilder();
                                         overlays.sb.beginAction(
                                                 context,
-                                                overlays.theme_pid,
                                                 current_overlay,
                                                 overlays.theme_name,
                                                 packageName,
@@ -758,7 +660,6 @@ class OverlayFunctions {
                                         overlays.sb = new SubstratumBuilder();
                                         overlays.sb.beginAction(
                                                 context,
-                                                overlays.theme_pid,
                                                 current_overlay,
                                                 overlays.theme_name,
                                                 packageName,
@@ -787,7 +688,6 @@ class OverlayFunctions {
                                         overlays.sb = new SubstratumBuilder();
                                         overlays.sb.beginAction(
                                                 context,
-                                                overlays.theme_pid,
                                                 current_overlay,
                                                 overlays.theme_name,
                                                 packageName,
@@ -809,7 +709,6 @@ class OverlayFunctions {
                                         overlays.sb = new SubstratumBuilder();
                                         overlays.sb.beginAction(
                                                 context,
-                                                overlays.theme_pid,
                                                 current_overlay,
                                                 overlays.theme_name,
                                                 packageName,
@@ -875,7 +774,6 @@ class OverlayFunctions {
                                 overlays.sb = new SubstratumBuilder();
                                 overlays.sb.beginAction(
                                         context,
-                                        overlays.theme_pid,
                                         current_overlay,
                                         overlays.theme_name,
                                         null,

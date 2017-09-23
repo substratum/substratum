@@ -37,15 +37,6 @@
     <string name="showcase_no_connection">¡El mostrador de temas requiere una conexión a internet para funcionar!     </string>
     <string name="showcase_no_themes">Parece que hubo un error de caché del mostrador de temas
         Para esta sección&#8230;    </string>
-    <string name="on_demand_updating_title">Generando la caché de recursos</string>
-    <string name="on_demand_updating_text">La caché de %s se está creando&#8230;</string>
-    <string name="background_updating_toast">Un tema está actualizándose en segundo plano, por favor espere a que finalice!    </string>
-    <string name="background_needs_invalidating">¡Uy! Se ha producido un error en la caché.</string>
-    <string name="background_needs_invalidating_button">Limpiar</string>
-    <string name="background_updated_toast">La caché de recursos se ha creado!</string>
-    <string name="background_updated_toast_cancel">Este tema necesita actualizar su caché de recursos antes de que sea funcional!    </string>
-    <string name="background_updated_toast_rejected">¡No se ha podido crear la caché de recursos de este tema!</string>
-    <string name="background_updated_toast_cleaning">Substratum está limpiando la caché de recursos de este tema&#8230;</string>
     <string name="failed_to_install_title_notification">Falló la instalación del tema</string>
     <string name="failed_to_install_text_notification">Error al instalar %s</string>
     <string name="actionbar_theme_count_singular">%s tema</string>
@@ -202,7 +193,6 @@ correctamente&#8230;</string>
     <string name="priority_back_title">Volver a las capas</string>
     <string name="priority_success_toast">Las prioridades se han cambiado y las ventanas se han actualizado&#8230;</string>
     <string name="menu_clean">Borrar capas instaladas</string>
-    <string name="menu_clean_cache">Limpiar la caché de los temas</string>
     <string name="menu_disable">Desactivar capas instaladas</string>
     <string name="menu_enable">Activar capas instaladas</string>
     <string name="menu_favorite">Agregar a favorito</string>
@@ -270,7 +260,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="dialog_ok">Ok</string>
     <string name="dialog_do_not_show_again">No volver a mostrar</string>
     <string name="dialog_cancel">Cancelar</string>
-    <string name="clean_cache_dialog_body">¿Quieres limpiar la caché de este tema?</string>
     <string name="clean_dialog_body">¿Quieres borrar todas las capas instaladas de este tema?</string>
     <string name="disable_dialog_body">¿Quieres desactivar todas las capas de este tema?</string>
     <string name="enable_dialog_body">¿Quieres activar todas las capas instaladas de este tema?    </string>
@@ -284,7 +273,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="toast_disabled4">No puede desactivar una capa que no haya compilado!</string>
     <string name="toast_disabled5">Seleccione una capa válida antes de realizar esta acción.</string>
     <string name="toast_disabled6">Capas seleccionadas eliminadas!</string>
-    <string name="toast_uninstalled">¡Usted acaba de desinstalar este tema! ¡Desaparecerá al refrescar!</string>
     <string name="no_themes_title">No se encontraron temas&#8230;</string>
     <string name="no_themes_description">Por favor, instala un tema compatible!</string>
     <string name="no_themes_description_search">\"%s\" no se encontró en la lista de temas instalados&#8230;</string>
@@ -293,16 +281,13 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="andromeda_no_root_dialog_button">¡Descargalo ahora!</string>
     <string name="samsung_prototype_no_root_dialog">Parece que estás en un dispositivo compatible de Samsung, un addon fue lanzado para apoyar esto!</string>
     <string name="samsung_prototype_no_root_dialog_button">¡Descargalo ahora!</string>
-    <string name="toast_needs_caching">¡Se borró el caché de Substratum, por favor recompile este tema antes de continuar!</string>
     <string name="notification_theme_installed">Instalado</string>
     <string name="notification_theme_updated">Actualizado</string>
     <string name="notification_theme_installed_content">Tema instalado correctamente.</string>
     <string name="notification_theme_updated_content">Recursos actualizados correctamente.</string>
     <string name="notification_hide">Cancelar</string>
-    <string name="notification_hide_upgrade">Cancelar</string>
     <string name="notification_initial_title">Substratum se está ejecutando</string>
     <string name="notification_initial_title_upgrade_intent">Actualizando %s de capas&#8230;</string>
-    <string name="notification_initial_title_upgrade">Los recursos de %s  se están actualizando&#8230;</string>
     <string name="notification_done_title">Se completó la compilación del tema</string>
     <string name="notification_done_upgrade_title">¡Actualización de las capas ha terminado de %s!</string>
     <string name="notification_done_upgrade_title_warning">¡Actualización de overlay completada parcialmente al %s!</string>
@@ -322,10 +307,7 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="settings_title_1">Preferencias de usuario</string>
     <string name="settings_title_3">Tematizar</string>
     <string name="settings_title_clickable">Preferencias de usuario</string>
-    <string name="substratum_cache_clear_initial_toast">La caché de Substratum se está borrando&#8230;</string>
     <string name="substratum_restart_toast">Substratum se reinició automáticamente después de un cambio de configuración.</string>
-    <string name="purge_cache">Invalidar la Caché del Tema</string>
-    <string name="purge_cache_subtext">Esto destruirá todos los temas almacenados y el caché de la aplicación.</string>
     <string name="restart_systemui">Post-enable SystemUI recreate</string>
     <string name="restart_systemui_subtext">Recrear automáticamente el SystemUI después de activar o desactivar una capa de SystemUI</string>
     <string name="restart_systemui_toast_enabled">¡SystemUI se recreará de forma dinámica en vez de reiniciar!</string>
@@ -339,7 +321,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="hide_app_icon_toast_disabled">¡El icono de la aplicación se ha añadido a su launcher!</string>
     <string name="hide_app_icon_not_supported">Cambio no es compatible</string>
     <string name="hide_app_icon_supported">Esto le permitirá variar entre tener el icono del lanzador visible o invisible en la pantalla principal.</string>
-    <string name="cache_clear_completion">¡Se ha borrado la caché del tema %s!</string>
     <string name="disable_completion">Todas las capas de este tema se están desactivando&#8230;</string>
     <string name="enable_completion">Todas las capas instaladas para este tema se están activando&#8230;</string>
     <string name="alternate_drawer_design_title">Diseño de Cajón Alternativo</string>
@@ -434,7 +415,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="settings_auto_updater_title">Actualizar automáticamente capas selecionadas</string>
     <string name="settings_auto_updater_text">Substratum automáticamente construirá, compilara e instalara una versión actualizada de todas las capas de las aplicaciones recientemente actualizadas. Teniendo esto desactivado ahorrará batería.</string>
     <string name="beta_tag">★ BETA</string>
-    <string name="settings_theme_auto_updater_title">Actualizar automáticamente capa de tema</string>
     <string name="settings_theme_auto_updater_dialog_title">ADVERTENCIA</string>
     <string name="settings_theme_auto_updater_text">Substratum automáticamente construirá, compilara e instalara una versión actualizada de todas las capas de los temas recientemente actualizados. Teniendo esto desactivado ahorrará batería.</string>
     <string name="settings_theme_auto_updater_dialog_text">¡Por favor no tengas abierto PackageInstaller en primer plano mientras que la notificación este activa, los overlays del framework tienden a reiniciar PackageInstaller causando cantidades indefinidas de volver a compilar!</string>
@@ -447,9 +427,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="settings_samsung_show_dangerous_overlays_text">Mostrar todas las plantillas normalmente peligrosas para dispositivos Samsung si el tema no es compatible.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">ADVERTENCIA</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Nos escondimos superposiciones peligroso por una razón, pero si estás seguro de que desea esta habilitado, por favor siga las instrucciones para desactivar en nuestro hilo XDA!</string>
-    <string name="settings_theme_caching_title">Recursos Caché del Tema</string>
-    <string name="settings_theme_caching_text">Todos los recursos activos del tema serán extraídos al directorio caché.</string>
-    <string name="settings_theme_caching_found_snackbar">Acabas de descubrir el recurso oculto del modo de caché!</string>
     <string name="settings_crash_receiver_title">Receptor de cierres para seguridad del tema</string>
     <string name="settings_crash_receiver_text">Desactivar automáticamente una capa al detectar cierres repetitivos en la aplicación superpuesta.</string>
     <string name="settings_force_stop_interfacer_title">Forzar la detención del servicio de Interfacer</string>
@@ -532,7 +509,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="nav_drawer_community">Grupos &amp; comunidades</string>
     <string name="nav_drawer_googleplus">Comunidad de Google +</string>
     <string name="nav_drawer_telegram">Chat del Grupo en Telegram</string>
-    <string name="nav_drawer_xda">Sub-foro dedicado en XDA</string>
     <string name="nav_drawer_rawad">Guías para tematizar de Rawad</string>
     <string name="nav_drawer_reddit">Comunidad Reddit</string>
     <!-- Featured content -->

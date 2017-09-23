@@ -28,8 +28,10 @@
     </string>
     <string name="question_eight">Estou em bootloop! Como eu conserto isso?</string>
     <string name="answer_eight">Substratum tem seu próprio sistema de recuperação chamado Substratum Rescue System (SRS), no qual é um processo automatizado que salva um arquivo em /storage/emulated/0/substratum/SubstratumRescue.zip. Dê flash neste zip em seu recovery e reinicie.</string>
+    <string name="question_nine">Alguns elementos parecem defeituosos depois de aplicar o tema. O que aconteceu?</string>
     <string name="answer_nine">
 1. Reinicie o SystemUI se não o fez automaticamente.\n2. Reinicie o telefone.\n3. Desative
         as camadas, recompile e reative.    </string>
+    <string name="question_twelve">Quem devo contactar se tiver um problema sério não resolvido após ler estes passos?</string>
     <string name="answer_twelve">Faça uma postagem na comunidade Substratum do Google+. Forneça as seguintes informações: Versão do Substratum, ROM, tema (se houver problemas de aplicação) e, se possível, um logcat.    </string>
 </resources>

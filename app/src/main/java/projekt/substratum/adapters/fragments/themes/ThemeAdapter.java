@@ -18,7 +18,6 @@
 
 package projekt.substratum.adapters.fragments.themes;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
@@ -32,7 +31,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
-import android.support.design.widget.Lunchbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -46,7 +44,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
@@ -56,18 +53,15 @@ import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.Theming;
-import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.util.views.SheetDialog;
 
 import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
-import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 
 
 public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> {
     private ArrayList<ThemeItem> information;
     private Context mContext;
     private ProgressDialog mProgressDialog;
-    private Activity mActivity;
     private ThemeItem toBeUninstalled;
 
     public ThemeAdapter(ArrayList<ThemeItem> information) {
@@ -102,7 +96,6 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder viewHolder, int pos) {
         ThemeItem themeItem = information.get(pos);
         mContext = themeItem.getContext();
-        mActivity = themeItem.getActivity();
 
         viewHolder.theme_name.setText(themeItem.getThemeName());
         viewHolder.theme_author.setText(themeItem.getThemeAuthor());
@@ -147,67 +140,10 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         }
 
         viewHolder.cardView.setOnClickListener(
-                v -> {
-                    if (Theming.isCachingEnabled(mContext)) {
-                        SharedPreferences prefs =
-                                mContext.getSharedPreferences(
-                                        "substratum_state",
-                                        Context.MODE_PRIVATE
-                                );
-                        if (!prefs.contains("is_updating")) prefs.edit()
-                                .putBoolean("is_updating", false).apply();
-                        if (!prefs.getBoolean("is_updating", true)) {
-                            // Process fail case if user uninstalls an app and goes back an activity
-                            if (Packages.isPackageInstalled(
-                                    mContext, themeItem.getThemePackage())) {
-                                File checkSubstratumVerity = new File(
-                                        mContext.getCacheDir().getAbsoluteFile() +
-                                                SUBSTRATUM_BUILDER_CACHE +
-                                                themeItem.getThemePackage() + "/substratum.xml");
-                                if (checkSubstratumVerity.exists()) {
-                                    Theming.launchTheme(mContext,
-                                            themeItem.getThemePackage(),
-                                            themeItem.getThemeMode()
-                                    );
-                                } else {
-                                    new Theming.SubstratumThemeUpdate(
-                                            mContext,
-                                            themeItem.getThemePackage(),
-                                            themeItem.getThemeName(),
-                                            themeItem.getThemeMode())
-                                            .execute();
-                                }
-                            } else {
-                                Lunchbar.make(v,
-                                        mContext.getString(R.string.toast_uninstalled),
-                                        Lunchbar.LENGTH_LONG)
-                                        .show();
-                                mActivity.recreate();
-                            }
-                        } else {
-                            if (References.isNotificationVisible(
-                                    mContext, References.notification_id_upgrade)) {
-                                Lunchbar.make(v,
-                                        mContext.getString(R.string.background_updating_toast),
-                                        Lunchbar.LENGTH_LONG)
-                                        .show();
-                            } else {
-                                Lunchbar.make(v,
-                                        mContext.getString(R.string.background_needs_invalidating),
-                                        Lunchbar.LENGTH_INDEFINITE)
-                                        .setAction(mContext.getString(
-                                                R.string.background_needs_invalidating_button),
-                                                view -> new deleteCache(this).execute(""))
-                                        .show();
-                            }
-                        }
-                    } else {
-                        Theming.launchTheme(mContext,
-                                themeItem.getThemePackage(),
-                                themeItem.getThemeMode()
-                        );
-                    }
-                });
+                v -> Theming.launchTheme(mContext,
+                        themeItem.getThemePackage(),
+                        themeItem.getThemeMode()
+                ));
 
         viewHolder.cardView.setOnLongClickListener(view -> {
             // Vibrate the device alerting the user they are about to do something dangerous!
@@ -501,62 +437,6 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                             themeAdapter.mContext,
                             themeAdapter.toBeUninstalled.getThemePackage());
                 }
-            }
-            return null;
-        }
-    }
-
-    private static class deleteCache extends AsyncTask<String, Integer, String> {
-        private WeakReference<ThemeAdapter> ref;
-
-        deleteCache(ThemeAdapter themeAdapter) {
-            ref = new WeakReference<>(themeAdapter);
-        }
-
-        @Override
-        protected void onPreExecute() {
-            ThemeAdapter themeAdapter = ref.get();
-            if (themeAdapter != null) {
-                themeAdapter.mProgressDialog = new ProgressDialog(themeAdapter.mContext);
-                themeAdapter.mProgressDialog.setMessage(
-                        themeAdapter.mContext.getString(
-                                R.string.substratum_cache_clear_initial_toast));
-                themeAdapter.mProgressDialog.setIndeterminate(true);
-                themeAdapter.mProgressDialog.setCancelable(false);
-                themeAdapter.mProgressDialog.show();
-                References.clearAllNotifications(themeAdapter.mContext);
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            ThemeAdapter themeAdapter = ref.get();
-            if (themeAdapter != null) {
-                // Since the cache is invalidated, better relaunch the app now
-                themeAdapter.mProgressDialog.cancel();
-                themeAdapter.mActivity.finish();
-                themeAdapter.mContext.startActivity(themeAdapter.mActivity.getIntent());
-            }
-        }
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-            ThemeAdapter themeAdapter = ref.get();
-            if (themeAdapter != null) {
-                // Delete the directory
-                try {
-                    FileOperations.delete(
-                            themeAdapter.mContext,
-                            themeAdapter.mContext.getCacheDir().getAbsolutePath() +
-                                    SUBSTRATUM_BUILDER_CACHE);
-                } catch (Exception e) {
-                    // Suppress warning
-                }
-                // Reset the flag for is_updating
-                SharedPreferences prefsPrivate =
-                        themeAdapter.mContext.getSharedPreferences("substratum_state",
-                                Context.MODE_PRIVATE);
-                prefsPrivate.edit().remove("is_updating").apply();
             }
             return null;
         }

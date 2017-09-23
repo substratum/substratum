@@ -32,7 +32,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.net.Uri;
@@ -66,7 +65,6 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -94,7 +92,6 @@ import projekt.substratum.adapters.tabs.overlays.VariantItem;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
-import projekt.substratum.common.Theming;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
@@ -111,7 +108,6 @@ import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER;
-import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.metadataEmail;
 import static projekt.substratum.common.References.metadataEncryption;
 import static projekt.substratum.common.References.metadataEncryptionValue;
@@ -133,7 +129,6 @@ public class Overlays extends Fragment {
     public String versionName;
     public NotificationManager mNotifyManager;
     public NotificationCompat.Builder mBuilder;
-    public boolean has_initialized_cache = false;
     public boolean has_failed = false;
     public int fail_count;
     public StringBuilder failed_packages;
@@ -666,21 +661,8 @@ public class Overlays extends Fragment {
             ArrayList<VariantItem> type3 = new ArrayList<>();
             ArrayList<String> stringArray = new ArrayList<>();
 
-            File f = new File(getContext().getCacheDir().getAbsoluteFile() +
-                    SUBSTRATUM_BUILDER_CACHE +
-                    theme_pid + "/assets/overlays/android/");
-
-            if (!Theming.isCachingEnabled(getContext())) {
-                String[] listArray = themeAssetManager.list("overlays/android");
-                Collections.addAll(stringArray, listArray);
-            } else {
-                File[] fileArray = f.listFiles();
-                if (fileArray != null && fileArray.length > 0) {
-                    for (File file : fileArray) {
-                        stringArray.add(file.getName());
-                    }
-                }
-            }
+            String[] listArray = themeAssetManager.list("overlays/android");
+            Collections.addAll(stringArray, listArray);
 
             if (stringArray.contains("type3") || stringArray.contains("type3.enc")) {
                 InputStream inputStream;
@@ -689,10 +671,8 @@ public class Overlays extends Fragment {
                             themeAssetManager,
                             "overlays/android/type3.enc",
                             cipher);
-                } else if (!Theming.isCachingEnabled(getContext())) {
-                    inputStream = themeAssetManager.open("overlays/android/type3");
                 } else {
-                    inputStream = new FileInputStream(new File(f.getAbsolutePath() + "/type3"));
+                    inputStream = themeAssetManager.open("overlays/android/type3");
                 }
 
                 try (BufferedReader reader = new BufferedReader(
@@ -903,20 +883,15 @@ public class Overlays extends Fragment {
         return Systems.checkOMS(getContext()) && !has_failed;
     }
 
-    public VariantItem setTypeOneSpinners(Object typeArrayRaw,
-                                          String package_identifier,
+    public VariantItem setTypeOneSpinners(String package_identifier,
                                           String type) {
         InputStream inputStream = null;
         try {
-            // Bypasses the caching mode, since if it's encrypted, caching mode is useless anyways
             if (encrypted) {
                 inputStream = FileOperations.getInputStream(
                         themeAssetManager,
                         overlaysDir + "/" + package_identifier + "/type1" + type + ".enc",
                         cipher);
-            } else if (Theming.isCachingEnabled(getContext())) {
-                inputStream = new FileInputStream(
-                        new File(((File) typeArrayRaw).getAbsolutePath() + "/type1" + type));
             } else {
                 inputStream = themeAssetManager.open(
                         overlaysDir + "/" + package_identifier + "/type1" + type);
@@ -1261,15 +1236,9 @@ public class Overlays extends Fragment {
                 Context context = fragment.getActivity();
                 // Refresh asset manager
                 try {
-                    if (!Theming.isCachingEnabled(context)) {
-                        try {
-                            Resources themeResources = context.getPackageManager()
-                                    .getResourcesForApplication(fragment.theme_pid);
-                            fragment.themeAssetManager = themeResources.getAssets();
-                        } catch (PackageManager.NameNotFoundException e) {
-                            // Suppress exception
-                        }
-                    }
+                    Resources themeResources = context.getPackageManager()
+                            .getResourcesForApplication(fragment.theme_pid);
+                    fragment.themeAssetManager = themeResources.getAssets();
 
                     // Get the current theme_pid's versionName so that we can version our overlays
                     fragment.versionName = Packages.getAppVersion(context, fragment.theme_pid);
@@ -1284,25 +1253,12 @@ public class Overlays extends Fragment {
                     // inside this theme
 
                     ArrayList<String> overlaysFolder = new ArrayList<>();
-                    if (Theming.isCachingEnabled(context)) {
-                        File overlaysDirectory = new File(context.getCacheDir().getAbsoluteFile() +
-                                References.SUBSTRATUM_BUILDER_CACHE + fragment.theme_pid +
-                                "/assets/overlays/");
-
-                        File[] fileArray = overlaysDirectory.listFiles();
-                        if (fileArray != null && fileArray.length > 0) {
-                            for (File file : fileArray) {
-                                overlaysFolder.add(file.getName());
-                            }
-                        }
-                    } else {
-                        try {
-                            String[] overlayList = fragment.themeAssetManager.list(Overlays
-                                    .overlaysDir);
-                            Collections.addAll(overlaysFolder, overlayList);
-                        } catch (IOException ioe) {
-                            ioe.printStackTrace();
-                        }
+                    try {
+                        String[] overlayList =
+                                fragment.themeAssetManager.list(Overlays.overlaysDir);
+                        Collections.addAll(overlaysFolder, overlayList);
+                    } catch (IOException ioe) {
+                        ioe.printStackTrace();
                     }
 
                     SharedPreferences prefs =
@@ -1393,30 +1349,12 @@ public class Overlays extends Fragment {
                             ArrayList<VariantItem> type4 = new ArrayList<>();
                             ArrayList<String> typeArray = new ArrayList<>();
 
-                            Object typeArrayRaw;
-                            if (Theming.isCachingEnabled(context)) {
-                                typeArrayRaw = new File(context.getCacheDir().getAbsoluteFile() +
-                                        References.SUBSTRATUM_BUILDER_CACHE + fragment.theme_pid
-                                        + "/assets/overlays/" + package_identifier);
-                            } else {
-                                // Begin the no caching algorithm
-                                typeArrayRaw = fragment.themeAssetManager.list(
-                                        Overlays.overlaysDir + "/" + package_identifier);
+                            Object typeArrayRaw = fragment.themeAssetManager.list(
+                                    Overlays.overlaysDir + "/" + package_identifier);
 
-                                // Sort the typeArray so that the types are asciibetical
-                                Collections.addAll(typeArray, (String[]) typeArrayRaw);
-                                Collections.sort(typeArray);
-                            }
-
-                            File[] fileArray;
-                            if (Theming.isCachingEnabled(context)) {
-                                fileArray = ((File) typeArrayRaw).listFiles();
-                                if (fileArray != null && fileArray.length > 0) {
-                                    for (File file : fileArray) {
-                                        typeArray.add(file.getName());
-                                    }
-                                }
-                            }
+                            // Sort the typeArray so that the types are asciibetical
+                            Collections.addAll(typeArray, (String[]) typeArrayRaw);
+                            Collections.sort(typeArray);
 
                             // Sort the typeArray so that the types are asciibetical
                             Collections.sort(typeArray);
@@ -1424,17 +1362,17 @@ public class Overlays extends Fragment {
                             // Let's start adding the type xmls to be parsed into the spinners
                             if (typeArray.contains("type1a") || typeArray.contains("type1a.enc")) {
                                 type1a.add(fragment.setTypeOneSpinners(
-                                        typeArrayRaw, package_identifier, "a"));
+                                        package_identifier, "a"));
                             }
 
                             if (typeArray.contains("type1b") || typeArray.contains("type1b.enc")) {
                                 type1b.add(fragment.setTypeOneSpinners(
-                                        typeArrayRaw, package_identifier, "b"));
+                                        package_identifier, "b"));
                             }
 
                             if (typeArray.contains("type1c") || typeArray.contains("type1c.enc")) {
                                 type1c.add(fragment.setTypeOneSpinners(
-                                        typeArrayRaw, package_identifier, "c"));
+                                        package_identifier, "c"));
                             }
 
                             boolean type2checker = false;
@@ -1444,14 +1382,7 @@ public class Overlays extends Fragment {
                                     break;
                                 }
                             }
-                            if (Theming.isCachingEnabled(fragment.getContext()) &&
-                                    (typeArray.contains("type2") ||
-                                            typeArray.contains("type2.enc"))) {
-                                type2.add(fragment.setTypeTwoFourSpinners(
-                                        new InputStreamReader(new FileInputStream(
-                                                new File(((File) typeArrayRaw).getAbsolutePath() +
-                                                        "/type2"))), 2));
-                            } else if (typeArray.contains("type2") ||
+                            if (typeArray.contains("type2") ||
                                     typeArray.contains("type2.enc") ||
                                     type2checker) {
                                 InputStreamReader inputStreamReader = null;
@@ -1482,14 +1413,7 @@ public class Overlays extends Fragment {
                                     break;
                                 }
                             }
-                            if (Theming.isCachingEnabled(fragment.getContext()) &&
-                                    (typeArray.contains("type4") ||
-                                            typeArray.contains("type4.enc"))) {
-                                type4.add(fragment.setTypeTwoFourSpinners(
-                                        new InputStreamReader(new FileInputStream(
-                                                new File(((File) typeArrayRaw).getAbsolutePath() +
-                                                        "/type4"))), 4));
-                            } else if (typeArray.contains("type4") ||
+                            if (typeArray.contains("type4") ||
                                     typeArray.contains("type4.enc") ||
                                     type4checker) {
                                 InputStreamReader inputStreamReader = null;

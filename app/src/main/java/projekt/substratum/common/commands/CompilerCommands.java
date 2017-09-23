@@ -37,7 +37,6 @@ import javax.xml.transform.stream.StreamResult;
 import projekt.substratum.BuildConfig;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
-import projekt.substratum.common.Theming;
 
 import static projekt.substratum.common.References.ENABLE_AOPT_OUTPUT;
 import static projekt.substratum.common.References.permissionSamsungOverlay;
@@ -190,7 +189,7 @@ public class CompilerCommands {
                                                  String additional_variant,
                                                  String asset_replacement,
                                                  Context context,
-                                                 String noCacheDir) {
+                                                 String dir) {
         StringBuilder sb = new StringBuilder();
         // Initialize the AOPT command
         sb.append(context.getFilesDir().getAbsolutePath() + "/aopt p ");
@@ -203,8 +202,7 @@ public class CompilerCommands {
         sb.append(((!isNullOrEmpty(asset_replacement)) ?
                 "-A " + work_area + "/assets/ " : ""));
         // We will compile a volatile directory where we make temporary changes to
-        sb.append("-S " + work_area + (Theming.isCachingEnabled(context) ?
-                "/workdir/ " : noCacheDir + "/ "));
+        sb.append("-S " + work_area + dir + "/ ");
         // Build upon the system's Android framework
         sb.append("-I " + "/system/framework/framework-res.apk ");
         // If running on the AppCompat commits (first run), it will build upon the app too

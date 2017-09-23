@@ -20,7 +20,6 @@ package projekt.substratum.common;
 
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
-import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -39,7 +38,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.service.notification.StatusBarNotification;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -60,7 +58,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.Set;
 
 import projekt.substratum.R;
@@ -108,7 +105,6 @@ public class References {
     public static final String TEMPLATE_THEME_MODE = "projekt.substratum.THEME";
     public static final String TEMPLATE_GET_KEYS = "projekt.substratum.GET_KEYS";
     // Keep it simple, stupid!
-    public static final int HIDDEN_CACHING_MODE_TAP_COUNT = 7;
     public static final int SHOWCASE_SHUFFLE_COUNT = 5;
     // These strings control the current filter for themes
     public static final String metadataName = "Substratum_Name";
@@ -190,7 +186,6 @@ public class References {
     // This int controls the notification identifier
     public static int firebase_notification_id = 24862486;
     public static int notification_id = 2486;
-    public static int notification_id_upgrade = 248600;
     // This int controls the delay for window refreshes to occur
     public static int REFRESH_WINDOW_DELAY = 500;
     // This int controls the default grid count for the theme adapter
@@ -394,9 +389,6 @@ public class References {
 
         Theming.refreshInstalledThemesPref(context);
         editor.apply();
-        editor = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE).edit();
-        editor.putBoolean("is_updating", false);
-        editor.apply();
         CheckBinaries.install(context, true);
     }
 
@@ -497,31 +489,6 @@ public class References {
         }
         uncertified = false;
         return false;
-    }
-
-    // Check if notification is visible for the user
-    public static boolean isNotificationVisible(Context mContext, int notification_id) {
-        NotificationManager mNotificationManager = (NotificationManager)
-                mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-        assert mNotificationManager != null;
-        StatusBarNotification[] notifications = mNotificationManager.getActiveNotifications();
-        for (StatusBarNotification notification : notifications) {
-            if (notification.getId() == notification_id) return true;
-        }
-        return false;
-    }
-
-    // Clear all of the current notifications of Substratum when a cache clear is called
-    public static void clearAllNotifications(Context mContext) {
-        NotificationManager mNotificationManager = (NotificationManager)
-                mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-        assert mNotificationManager != null;
-        StatusBarNotification[] notifications = mNotificationManager.getActiveNotifications();
-        for (StatusBarNotification notification : notifications) {
-            if (Objects.equals(notification.getPackageName(), mContext.getPackageName())) {
-                mNotificationManager.cancel(notification.getId());
-            }
-        }
     }
 
     // Comparing lists

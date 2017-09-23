@@ -87,8 +87,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                     Packages.getOverlayMetadata(
                             context,
                             intent.getData().toString().substring(8),
-                            metadataOverlayDevice) != null ||
-                    Theming.isCachingEnabled(context)) {
+                            metadataOverlayDevice) != null) {
                 return;
             }
 
@@ -457,7 +456,6 @@ public class OverlayUpdater extends BroadcastReceiver {
                     SubstratumBuilder sb = new SubstratumBuilder();
                     sb.beginAction(
                             context,
-                            theme,
                             (upgrade_mode.equals(APP_UPGRADE) ?
                                     package_name :
                                     Packages.getOverlayTarget(

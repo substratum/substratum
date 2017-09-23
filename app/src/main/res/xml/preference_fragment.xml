@@ -70,20 +70,6 @@
             android:key="manage_space"
             android:title="@string/settings_manage_space_title"/>
 
-        <CheckBoxPreference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:key="theme_caching"
-            android:summary="@string/settings_theme_caching_text"
-            android:title="@string/settings_theme_caching_title"/>
-
-        <Preference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:key="purge_cache"
-            android:summary="@string/purge_cache_subtext"
-            android:title="@string/purge_cache"/>
-
         <Preference
             android:layout_width="match_parent"
             android:layout_height="match_parent"

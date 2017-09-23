@@ -18,18 +18,9 @@
 
 package projekt.substratum.activities.launch;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.Toast;
 
-import java.io.File;
-
-import projekt.substratum.MainActivity;
-import projekt.substratum.R;
 import projekt.substratum.activities.base.SubstratumActivity;
-import projekt.substratum.common.Packages;
 import projekt.substratum.common.Theming;
 
 public class AppShortcutLaunch extends SubstratumActivity {
@@ -37,34 +28,7 @@ public class AppShortcutLaunch extends SubstratumActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent currentIntent = getIntent();
-        String theme_pid = currentIntent.getStringExtra("theme_pid");
-
-        if (!Theming.isCachingEnabled(getApplicationContext())) {
-            Theming.launchTheme(this, theme_pid, null);
-        } else {
-            SharedPreferences prefs = this.getSharedPreferences(
-                    "substratum_state", Context.MODE_PRIVATE);
-            if (!prefs.contains("is_updating"))
-                prefs.edit().putBoolean("is_updating", false).apply();
-            if (!prefs.getBoolean("is_updating", true)) {
-                // Process fail case if user uninstalls an app and goes back an activity
-                if (Packages.isPackageInstalled(this, theme_pid)) {
-                    File checkSubstratumVerity = new File(
-                            getBuildDirPath() + theme_pid, "substratum.xml");
-
-                    if (checkSubstratumVerity.exists()) {
-                        Theming.launchTheme(this, theme_pid, null);
-                    } else {
-                        createToast(getString(R.string.toast_needs_caching), Toast.LENGTH_LONG);
-                        Intent intent = new Intent(this, MainActivity.class);
-                        startActivity(intent);
-                    }
-                } else {
-                    createToast(getString(R.string.toast_uninstalled), Toast.LENGTH_LONG);
-                }
-            }
-        }
+        Theming.launchTheme(this, getIntent().getStringExtra("theme_pid"), null);
         finish();
     }
 }

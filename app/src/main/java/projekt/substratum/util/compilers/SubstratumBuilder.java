@@ -47,7 +47,6 @@ import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Resources;
 import projekt.substratum.common.Systems;
-import projekt.substratum.common.Theming;
 import projekt.substratum.common.commands.CompilerCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
@@ -78,7 +77,6 @@ public class SubstratumBuilder {
      * Prior to running this function, you must have copied all the files to the working directory!
      *
      * @param context            self explanatory
-     * @param theme_pid          the package ID used to compile the APK.
      * @param overlay_package    the target package to be overlaid (e.g. com.android.settings).
      * @param theme_name         the theme's name to be stripped of symbols for the new package.
      * @param variant            a String flag to tell the compiler to build variant mode. This
@@ -101,7 +99,6 @@ public class SubstratumBuilder {
      */
     @SuppressWarnings({"ConstantConditions", "UnusedReturnValue"})
     public boolean beginAction(Context context,
-                               String theme_pid,
                                String overlay_package,
                                String theme_name,
                                String variant,
@@ -129,13 +126,7 @@ public class SubstratumBuilder {
                 .getBoolean("theme_debug", false);
 
         // 2. Set work area to asset chosen based on the parameter passed into this class
-        String work_area;
-        if (Theming.isCachingEnabled(context)) {
-            work_area = context.getCacheDir().getAbsolutePath() + SUBSTRATUM_BUILDER_CACHE +
-                    theme_pid + "/assets/overlays/" + overlay_package;
-        } else {
-            work_area = context.getCacheDir().getAbsolutePath() + SUBSTRATUM_BUILDER_CACHE;
-        }
+        String work_area = context.getCacheDir().getAbsolutePath() + SUBSTRATUM_BUILDER_CACHE;
 
         // 3. Create a modified Android Manifest for use with aopt
         File root = new File(work_area + "/AndroidManifest.xml");
@@ -492,7 +483,7 @@ public class SubstratumBuilder {
         }
 
         // Finally, clean this compilation code's cache
-        if (!BYPASS_SUBSTRATUM_BUILDER_DELETION && !Theming.isCachingEnabled(context)) {
+        if (!BYPASS_SUBSTRATUM_BUILDER_DELETION) {
             String workingDirectory =
                     context.getCacheDir().getAbsolutePath() + SUBSTRATUM_BUILDER_CACHE;
             File deleted = new File(workingDirectory);

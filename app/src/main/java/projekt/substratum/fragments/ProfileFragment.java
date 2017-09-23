@@ -1255,7 +1255,6 @@ public class ProfileFragment extends Fragment {
                         SubstratumBuilder sb = new SubstratumBuilder();
                         sb.beginAction(
                                 profileFragment.mContext,
-                                theme,
                                 target,
                                 Packages.getPackageName(profileFragment.mContext, theme),
                                 compilePackage,

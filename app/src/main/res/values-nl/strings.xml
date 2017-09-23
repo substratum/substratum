@@ -36,15 +36,6 @@
     <string name="resource_commit_dialog_title">Ontbrekende middelen in %s</string>
     <string name="showcase_no_connection">uitgelichte thema\'s vergt internetverbinding om te functioneren!</string>
     <string name="showcase_no_themes">het lijkt erop dat er een fout was bij het cachen van de uitgelicht database voor dit tabblad&#8230;</string>
-    <string name="on_demand_updating_title">Broncache initialisatie</string>
-    <string name="on_demand_updating_text">%s\'s cache bouwt opnieuw op&#8230;</string>
-    <string name="background_updating_toast">Substratum maakt een thema klaar op de achtergrond, een moment geduld aub!</string>
-    <string name="background_needs_invalidating">Oeps! Een corruptie in de cache doet zich voor.</string>
-    <string name="background_needs_invalidating_button">Wissen</string>
-    <string name="background_updated_toast">Broncache is opgebouwd!</string>
-    <string name="background_updated_toast_cancel">Dit thema moet zijn broncache opwaarderen voordat het functioneert!</string>
-    <string name="background_updated_toast_rejected">Kon de broncache voor dit thema niet aanmaken!</string>
-    <string name="background_updated_toast_cleaning">Substratum ruimt nu dit thema\'s broncache op&#8230;</string>
     <string name="failed_to_install_title_notification">Installatie van OMS thema mislukt</string>
     <string name="failed_to_install_text_notification">%s installeren mislukt</string>
     <string name="actionbar_theme_count_singular">%s thema</string>
@@ -185,7 +176,6 @@
     <string name="priority_back_title">Terug naar overlays</string>
     <string name="priority_success_toast">Prioriteiten zijn gewijzigd en vensters verversen&#8230;</string>
     <string name="menu_clean">Geïnstalleerde overlays opruimen</string>
-    <string name="menu_clean_cache">Thema cache opruimen</string>
     <string name="menu_disable">Geïnstalleerde overlays uitschakelen</string>
     <string name="menu_enable">Geïnstalleerde overlays inschakelen</string>
     <string name="menu_favorite">Favoriet</string>
@@ -251,7 +241,6 @@
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Niet opnieuw weergeven</string>
     <string name="dialog_cancel">Annuleren</string>
-    <string name="clean_cache_dialog_body">Wil je de cache van dit thema opschonen?</string>
     <string name="clean_dialog_body">Wil je alle overlays voor dit thema opschonen?</string>
     <string name="disable_dialog_body">Wil je alle overlays voor dit thema uitschakelen?</string>
     <string name="enable_dialog_body">Wil je alle geïnstalleerde overlays voor dit thema inschakelen?</string>
@@ -265,7 +254,6 @@
     <string name="toast_disabled4">Je kunt een niet gecompileerde overlay niet uitschakelen!</string>
     <string name="toast_disabled5">Gelieve een geldige overlay te kiezen vóór het uitvoeren van deze actie.</string>
     <string name="toast_disabled6">Geselecteerde overlay(s) verwijderd!</string>
-    <string name="toast_uninstalled">Je hebt zojuist dit thema gedeïnstalleerd! Ik zal weg zijn na de volgende verversing!</string>
     <string name="no_themes_title">geen thema\'s gevonden&#8230;</string>
     <string name="no_themes_description">gelieve een compatibel thema te installeren!</string>
     <string name="no_themes_description_search">\"%s\" werd niet gevonden in de lijst van geïnstalleerde thema\'s&#8230;</string>
@@ -274,16 +262,13 @@
     <string name="andromeda_no_root_dialog_button">Download nu!</string>
     <string name="samsung_prototype_no_root_dialog">Het lijkt erop dat je een ondersteund Samsung apparaat hebt, hiervoor is een ondersteunende add-on vrijgegeven!</string>
     <string name="samsung_prototype_no_root_dialog_button">Download nu!</string>
-    <string name="toast_needs_caching">Substratum\'s cache was gewist, gelieve dit thema opnieuw te bouwen voordat je doorgaat!</string>
     <string name="notification_theme_installed">geïnstalleerd</string>
     <string name="notification_theme_updated">bijgewerkt</string>
     <string name="notification_theme_installed_content">Thema succesvol geïnstalleerd.</string>
     <string name="notification_theme_updated_content">Bronnen succesvol bijgewerkt.</string>
     <string name="notification_hide">Negeren</string>
-    <string name="notification_hide_upgrade">Annuleren</string>
     <string name="notification_initial_title">Substratum wordt uitgevoerd</string>
     <string name="notification_initial_title_upgrade_intent">%s\'s overlays opwaarderen&#8230;</string>
-    <string name="notification_initial_title_upgrade">%s bronnen worden nu opgewaardeerd&#8230;</string>
     <string name="notification_done_title">Thema compilatie is voltooid</string>
     <string name="notification_done_upgrade_title">Opwaarderen van %s is voltooid!</string>
     <string name="notification_done_upgrade_title_warning">Overlay opwaarderen gedeeltelijk voltooid voor %s!</string>
@@ -303,10 +288,7 @@
     <string name="settings_title_1">Gebruikersvoorkeuren</string>
     <string name="settings_title_3">Thematisering</string>
     <string name="settings_title_clickable">Systeemvoorkeuren</string>
-    <string name="substratum_cache_clear_initial_toast">Substratum\'s cache wordt nu gewist&#8230;</string>
     <string name="substratum_restart_toast">Substratum werd automatisch herstart na een instellingswijziging.</string>
-    <string name="purge_cache">Vernietig themacache</string>
-    <string name="purge_cache_subtext">Dit zal alle opgeslagen thema- en applicatiecache vernietigen.</string>
     <string name="restart_systemui">Na-inschakelen Systeem-UI opnieuw maken</string>
     <string name="restart_systemui_subtext">Automatisch de Systeem-UI opnieuw maken na inschakelen/uitschakelen van een Systeem-UI overlay</string>
     <string name="restart_systemui_toast_enabled">Systeem-UI wordt dynamisch opnieuw gemaakt i.p.v. herstarten!</string>
@@ -320,7 +302,6 @@
     <string name="hide_app_icon_toast_disabled">Het app pictogram is toegevoegd aan je launcher!</string>
     <string name="hide_app_icon_not_supported">Wijziging niet ondersteund</string>
     <string name="hide_app_icon_supported">Stelt je in staat om te schakelen tussen een zichtbaar of onzichtbaar pictogram op je thuisscherm.</string>
-    <string name="cache_clear_completion">%s thema cache is opgeschoond!</string>
     <string name="disable_completion">Alle overlays voor dit thema worden nu gedeactiveerd&#8230;</string>
     <string name="enable_completion">Alle geïnstalleerde overlays voor dit thema worden nu geactiveerd&#8230;</string>
     <string name="alternate_drawer_design_title">Secundaire lade design</string>
@@ -415,7 +396,6 @@
     <string name="settings_auto_updater_title">Bestemde overlays automatisch bijwerken</string>
     <string name="settings_auto_updater_text">Substratum zal automatisch een bijgewerkte versie van alle overlays, voor de recent bijgewerkte apps, bouwen, compileren en installeren. Uitschakelen is batterijbesparend.</string>
     <string name="beta_tag">★ BETA</string>
-    <string name="settings_theme_auto_updater_title">Thema overlays automatisch bijwerken</string>
     <string name="settings_theme_auto_updater_dialog_title">WAARSCHUWING</string>
     <string name="settings_theme_auto_updater_text">Substratum zal automatisch een bijgewerkte versie van alle overlays van het recent bijgewerkte thema, bouwen, compileren en installeren. Uitschakelen is batterijbesparend.</string>
     <string name="settings_theme_auto_updater_dialog_text">Gelieve Pakket-installatie NIET in de voorgrond te openen wanneer de melding actief is. Framework overlays hebben de neiging Pakket-installatie te herstarten, waardoor vele hercompilaties plaatsvinden!</string>
@@ -428,9 +408,6 @@
     <string name="settings_samsung_show_dangerous_overlays_text">Alle overlays weergeven die normaal gevaarlijk zijn voor Samsung apparaten als het thema dit niet ondersteund.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">WAARSCHUWING</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Wij hebben gevaarlijke overlays verborgen voor een reden, maar als je er zeker van bent dat je dit wilt inschakelen, gelieve de instructies te volgen in ons XDA thread!</string>
-    <string name="settings_theme_caching_title">Themabronnen cachen</string>
-    <string name="settings_theme_caching_text">Alle thema bestandsbronnen worden uitgepakt in de cachemap.</string>
-    <string name="settings_theme_caching_found_snackbar">Je hebt zojuist de verborgen bron caching modus ontdekt!</string>
     <string name="settings_crash_receiver_title">Themaveiligheid crashontvanger</string>
     <string name="settings_crash_receiver_text">Schakelt automatisch een overlay uit wanneer herhaalde crashes op een gethematiseerde app wordt gedetecteerd.</string>
     <string name="settings_force_stop_interfacer_title">Interfacer Service gedwongen stoppen</string>
@@ -513,7 +490,6 @@
     <string name="nav_drawer_community">Groepen &amp; communiteiten</string>
     <string name="nav_drawer_googleplus">Google+ communiteit</string>
     <string name="nav_drawer_telegram">Telegram groepschat</string>
-    <string name="nav_drawer_xda">XDA toegewijd sub-forum</string>
     <string name="nav_drawer_rawad">Rawad\'s themagidsen</string>
     <string name="nav_drawer_reddit">Reddit communiteit</string>
     <!-- Featured content -->

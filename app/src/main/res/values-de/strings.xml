@@ -36,15 +36,6 @@
     <string name="resource_commit_dialog_title">Fehlende Ressourcen in %s</string>
     <string name="showcase_no_connection">Für Themes-Showcase ist eine Internetverbindung erforderlich!</string>
     <string name="showcase_no_themes">Scheint so, als hätte es einen Fehler beim zwischenspeichern der Vorzeige-Datenbank gegeben    </string>
-    <string name="on_demand_updating_title">Resource Cache Initialisierer</string>
-    <string name="on_demand_updating_text">Cache von %s wird neu erstellt&#8230;</string>
-    <string name="background_updating_toast">Substratum bereitet ein Theme im Hintergrund vor, bitte warte bis es fertig ist!    </string>
-    <string name="background_needs_invalidating">Hoppla! Der Cache wurde beschädigt.</string>
-    <string name="background_needs_invalidating_button">Löschen</string>
-    <string name="background_updated_toast">Resource-Cache wurde erstellt!</string>
-    <string name="background_updated_toast_cancel">Dieses Theme muss erst seinen Resourcen-Cache aktualisieren, bevor es verwendet werden kann!</string>
-    <string name="background_updated_toast_rejected">Konnte für dieses Theme kein Ressourcen-Cache erstellen!</string>
-    <string name="background_updated_toast_cleaning">Substratum säubert nun den Resource-Cache des Themes&#8230;</string>
     <string name="failed_to_install_title_notification">Installation des OMS-Themes fehlgeschlagen</string>
     <string name="failed_to_install_text_notification">Installation von %s fehlgeschlagen</string>
     <string name="actionbar_theme_count_singular">%s Theme</string>
@@ -191,7 +182,6 @@ eingerichtet&#8230;</string>
     <string name="priority_back_title">Zurück zu Overlays</string>
     <string name="priority_success_toast">Prioritäten wurden geändert und Fenster werden aktualisiert&#8230;</string>
     <string name="menu_clean">Overlays entfernen</string>
-    <string name="menu_clean_cache">Lösche Theme Cache</string>
     <string name="menu_disable">Installierte Overlays deaktivieren</string>
     <string name="menu_enable">Installierte Overlays aktivieren</string>
     <string name="menu_favorite">Favorit</string>
@@ -259,7 +249,6 @@ eingerichtet&#8230;</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Nicht erneut anzeigen</string>
     <string name="dialog_cancel">Abbrechen</string>
-    <string name="clean_cache_dialog_body">Möchtest du den Zwischenspeicher des Themes leeren?</string>
     <string name="clean_dialog_body">Sollen alle Overlays dieses Themes entfernt werden?</string>
     <string name="disable_dialog_body">Sollen alle Overlays dieses Themes deaktiviert werden?</string>
     <string name="enable_dialog_body">Sollen alle installierten Overlays dieses Themes aktiviert werden?</string>
@@ -273,7 +262,6 @@ eingerichtet&#8230;</string>
     <string name="toast_disabled4">Du kannst keinen Overlay deaktivieren, der nicht kompiliert wurde!</string>
     <string name="toast_disabled5">Bitte wähle ein gültiges Overlay aus, bevor du mit dieser Aktion fortfährst.</string>
     <string name="toast_disabled6">Ausgewählte(s) Overlay(s) entfernt!</string>
-    <string name="toast_uninstalled">Du hast dieses Theme gerade deinstalliert! Es wird bei deiner nächsten Aktualisierung verschwunden sein!</string>
     <string name="no_themes_title">Keine Themes gefunden&#8230;</string>
     <string name="no_themes_description">Bitte installiere ein kompatibles Theme!</string>
     <string name="no_themes_description_search">\"%s\" wurde nicht in der Liste von installierten Themes gefunden&#8230;</string>
@@ -282,16 +270,13 @@ eingerichtet&#8230;</string>
     <string name="andromeda_no_root_dialog_button">Jetzt herunterladen!</string>
     <string name="samsung_prototype_no_root_dialog">Es sieht so aus als wärst du auf einem unterstützten Samsung-Gerät, ein Addon wurde veröffentlicht um dies zu unterstützen!</string>
     <string name="samsung_prototype_no_root_dialog_button">Jetzt herunterladen!</string>
-    <string name="toast_needs_caching">Substratums Caches würde geleert. Bitte kompiliere das Theme neu bevor zu fortfährst!</string>
     <string name="notification_theme_installed">installiert</string>
     <string name="notification_theme_updated">aktualisiert</string>
     <string name="notification_theme_installed_content">Theme erfolgreich installiert.</string>
     <string name="notification_theme_updated_content">Ressourcen erfolgreich aktualisiert.</string>
     <string name="notification_hide">Ausblenden</string>
-    <string name="notification_hide_upgrade">Abbrechen</string>
     <string name="notification_initial_title">Substratum läuft im Hintergrund</string>
     <string name="notification_initial_title_upgrade_intent">Aktualisiere die Overlays von %s&#8230;</string>
-    <string name="notification_initial_title_upgrade">%s-Ressourcen werden aktualisiert&#8230;</string>
     <string name="notification_done_title">Theme-Kompilierung abgeschlossen</string>
     <string name="notification_done_upgrade_title">Overlays von %s erfolgreich aktualisiert!</string>
     <string name="notification_done_upgrade_title_warning">Overlay-Upgrade teilweise abgeschlossen für %s!</string>
@@ -311,10 +296,7 @@ eingerichtet&#8230;</string>
     <string name="settings_title_1">Benutzereinstellungen</string>
     <string name="settings_title_3">Theming</string>
     <string name="settings_title_clickable">Systemkonfiguration</string>
-    <string name="substratum_cache_clear_initial_toast">Substratum-Zwischenspeicher wird geleert&#8230;</string>
     <string name="substratum_restart_toast">Substratum wurde nach einer Änderung der Einstellungen automatisch neugestartet.</string>
-    <string name="purge_cache">Ungültiger Theme-Zwischenspeicher</string>
-    <string name="purge_cache_subtext">Dies wird den Zwischenspeicher aller installierten Themes und Apps zerstören.</string>
     <string name="restart_systemui">SystemUI-Neuerstellung aktivieren </string>
     <string name="restart_systemui_subtext">SystemUI automatisch wiederaufbauen, nachdem ein SystemUI-Overlay aktiviert/deaktiviert wurde</string>
     <string name="restart_systemui_toast_enabled">SystemUI wird dynamisch wiederaufgebaut, anstatt neugestartet zu werden!</string>
@@ -328,7 +310,6 @@ eingerichtet&#8230;</string>
     <string name="hide_app_icon_toast_disabled">Das Anwendungssymbol wurde deinem Launcher hinzugefügt!</string>
     <string name="hide_app_icon_not_supported">Nicht unterstützt</string>
     <string name="hide_app_icon_supported">Legt fest, ob das Anwendungssymbol im Launcher sichtbar ist oder nicht.</string>
-    <string name="cache_clear_completion">Zwischenspeicher von %s wurde geleert!</string>
     <string name="disable_completion">Alle Overlays dieses Themes werden deaktiviert&#8230;</string>
     <string name="enable_completion">Alle installierten Overlays dieses Themes werden aktiviert&#8230;</string>
     <string name="alternate_drawer_design_title">Alternatives Drawer-Design</string>
@@ -423,7 +404,6 @@ eingerichtet&#8230;</string>
     <string name="settings_auto_updater_title">Ausgewählte Overlays automatisch aktualisieren</string>
     <string name="settings_auto_updater_text">Substratum wird automatisch für alle aktualisierten Apps eine aktualisierte Version der Overlays erstellen, kompilieren und installieren. Diese Funktion ausgeschaltet zu lassen spart Akku.</string>
     <string name="beta_tag">★ BETA</string>
-    <string name="settings_theme_auto_updater_title">Aktualisiere Theme-Overlays automatisch</string>
     <string name="settings_theme_auto_updater_dialog_title">WARNUNG</string>
     <string name="settings_theme_auto_updater_text">Substratum wird automatisch für alle aktualisierten Themes eine aktualisierte Version der Overlays erstellen, kompilieren und installieren. Diese Funktion ausgeschaltet zu lassen spart Akku.</string>
     <string name="settings_theme_auto_updater_dialog_text">Bitte öffne NICHT den Packet-Installer im Vordergrund während die Benachrichtigung erscheint. Framework Overlays tendieren dazu den Packet-Installer neuzustarten, was eine unendliche Anzahl an Neukompilierungen zur Folge hat!</string>
@@ -436,9 +416,6 @@ eingerichtet&#8230;</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Zeige all die Overlays an, die normalerweise riskant für Samsung-Geräte sind, falls das Theme es nicht unterstützt.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">WARNUNG</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Wir haben unsere Gründe gefährliche Overlays zu verstecken, aber wenn du sicher bist, dass du dies eingeschaltet haben willst, folge bitte den Anweisungen in unserem XDA Thread um dies auszuschalten!</string>
-    <string name="settings_theme_caching_title">Theme-Zwischenspeicher-Ressourcen</string>
-    <string name="settings_theme_caching_text">Alle Theme-Daten werden in das Zwischenspeicher-Verzeichnis extrahiert.</string>
-    <string name="settings_theme_caching_found_snackbar">Du hast gerade den versteckten Zwischenspeicher-Ressourcen-Modus entdeckt!</string>
     <string name="settings_crash_receiver_title">Thema-Sicherheit Absturz-Empfänger</string>
     <string name="settings_crash_receiver_text">Deaktiviert automatisch ein Overlay, wenn wiederholt Abstürze von der überlagerten App erkannt werden.</string>
     <string name="settings_force_stop_interfacer_title">Erzwingt Stop des Interfacer-Dienstes</string>
@@ -521,7 +498,6 @@ eingerichtet&#8230;</string>
     <string name="nav_drawer_community">Gruppen &amp; Communities</string>
     <string name="nav_drawer_googleplus">Google+-Community</string>
     <string name="nav_drawer_telegram">Telegram-Gruppenchat</string>
-    <string name="nav_drawer_xda">XDA eigenes Unterforum</string>
     <string name="nav_drawer_rawad">Rawad\'s Theming Anleitungen</string>
     <string name="nav_drawer_reddit">Reddit-Gemeinschaft</string>
     <!-- Featured content -->

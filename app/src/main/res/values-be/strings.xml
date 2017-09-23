@@ -36,15 +36,6 @@
     <string name="resource_commit_dialog_title">Адсутнічаюць рэсурсы ў %s</string>
     <string name="showcase_no_connection">каталог тэм патрабуе падлучэння да інтэрнэту!    </string>
     <string name="showcase_no_themes">здаецца што кэшаванне базы дадзеных каталога для гэтай укладкі прайшло няўдала&#8230;    </string>
-    <string name="on_demand_updating_title">Ініцыялізацыя кэша рэсурсаў</string>
-    <string name="on_demand_updating_text">%s зараз кэш пераствараецца&#8230;</string>
-    <string name="background_updating_toast">Substratum падрыхтоўвае тэму ў фоне, пачакайце!    </string>
-    <string name="background_needs_invalidating">Вельмі жаль! Кэш пашкоджаны.</string>
-    <string name="background_needs_invalidating_button">Ачысціць</string>
-    <string name="background_updated_toast">Кэш рэсурсаў быў створаны!</string>
-    <string name="background_updated_toast_cancel">Рэсурсы гэтай тэмы трэба абнавіць перад выкарыстаннем!    </string>
-    <string name="background_updated_toast_rejected">Вы не можаце стварыць кэш рэсурсаў для гэтай тэмы!</string>
-    <string name="background_updated_toast_cleaning">Substratum ачышчае рэсурсы гэтай тэмы&#8230;</string>
     <string name="failed_to_install_title_notification">Не атрымалася ўсталяваць OMS тэму</string>
     <string name="failed_to_install_text_notification">Усталёўка %s не ўдалася</string>
     <string name="actionbar_theme_count_singular">%s тэма</string>
@@ -193,7 +184,6 @@
     <string name="priority_back_title">Перайсці да напластаванняў</string>
     <string name="priority_success_toast">Прыярытэты былі змененыя, абнаўленне вокнаў&#8230;</string>
     <string name="menu_clean">Ачысціць усталяваныя напластаванні</string>
-    <string name="menu_clean_cache">Ачысціць кэш тэмы</string>
     <string name="menu_disable">Адключыць актыўныя напластаванні</string>
     <string name="menu_enable">Актываваць усталяваныя пласты</string>
     <string name="menu_favorite">Абранае</string>
@@ -262,7 +252,6 @@
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Не паказваць зноў</string>
     <string name="dialog_cancel">Скасаваць</string>
-    <string name="clean_cache_dialog_body">Вы сапраўды жадаеце ачысціць кэш гэтай тэмы?</string>
     <string name="clean_dialog_body">Вы сапраўды жадаеце скінуць ўсе напластаванні з гэтай тэмы?</string>
     <string name="disable_dialog_body">Вы сапраўды жадаеце адключыць усе напластаванні з гэтай тэмы?</string>
     <string name="enable_dialog_body">Вы сапраўды жадаеце ўжыць усе ўсталяваныя напластаванні з гэтай тэмы?    </string>
@@ -276,7 +265,6 @@
     <string name="toast_disabled4">Нельга адключыць несабранае напластаванне!</string>
     <string name="toast_disabled5">Перад выкананнем гэтай аперацыі неабходна выбраць правільнае напластаванне.</string>
     <string name="toast_disabled6">Выбраныя пласты выдалены!</string>
-    <string name="toast_uninstalled">Я выдаліў гэтую тэму! Знікну ў наступным абнаўленні!</string>
     <string name="no_themes_title">не знойдзена тэм&#8230;</string>
     <string name="no_themes_description">усталюйце любую сумяшчальную тэму!</string>
     <string name="no_themes_description_search">Сярод усталяваных тэм няма \"%s\"&#8230;</string>
@@ -285,16 +273,13 @@
     <string name="andromeda_no_root_dialog_button">Спампаваць зараз!</string>
     <string name="samsung_prototype_no_root_dialog">Падобна на тое, што для Вашай прылады Samsung выпушчана сумяшчальная праграма!</string>
     <string name="samsung_prototype_no_root_dialog_button">Спампаваць зараз!</string>
-    <string name="toast_needs_caching">Кэш Substratum\'s быў выдалены, калі ласка, аднавіць гэтую тэму, перш чым працягнуць!</string>
     <string name="notification_theme_installed">усталявана</string>
     <string name="notification_theme_updated">абноўлена</string>
     <string name="notification_theme_installed_content">Тэма ўсталявана.</string>
     <string name="notification_theme_updated_content">Рэсурсы абноўленыя.</string>
     <string name="notification_hide">Скасаваць</string>
-    <string name="notification_hide_upgrade">Скасаваць</string>
     <string name="notification_initial_title">Substratum запушчаны</string>
     <string name="notification_initial_title_upgrade_intent">Абнаўленне напластаванняў %s&#8230;</string>
-    <string name="notification_initial_title_upgrade">Рэсурсы %s абнаўляюцца&#8230;</string>
     <string name="notification_done_title">Зборка тэмы завершана</string>
     <string name="notification_done_upgrade_title">Абнаўленне напластаванняў для %s завершана!</string>
     <string name="notification_done_upgrade_title_warning">Абнаўленне напластаванняў для %s часткова выканана!</string>
@@ -314,10 +299,7 @@
     <string name="settings_title_1">Перавагі карыстальніка</string>
     <string name="settings_title_3">Афармленне</string>
     <string name="settings_title_clickable">Сістэмныя налады</string>
-    <string name="substratum_cache_clear_initial_toast">Ачыстка кэша Substratum&#8230;</string>
     <string name="substratum_restart_toast">Substratum аўтаматычна перазапусціцца пасля змены налад.</string>
-    <string name="purge_cache">Ануляваць кэш тэм</string>
-    <string name="purge_cache_subtext">Гэта ачысціць ўсе тэмы і кэш праграмы.</string>
     <string name="restart_systemui">Дынамічнае узнаўленне SystemUI</string>
     <string name="restart_systemui_subtext">Аўтаматычнае узнаўленне SystemUI пасля актывацыі/адключэння звязаных з ім напластаванняў</string>
     <string name="restart_systemui_toast_enabled">SystemUI будзе аднаўляцца ў рэальным часе замест перазапуску!</string>
@@ -331,7 +313,6 @@
     <string name="hide_app_icon_toast_disabled">Цэтлік дададзены ў меню праграм!</string>
     <string name="hide_app_icon_not_supported">Магчымасць не прадугледжаная</string>
     <string name="hide_app_icon_supported">Магчымасць прыбраць/вярнуць цэтлік праграмы на хатнім экране.</string>
-    <string name="cache_clear_completion">Кэш тэмы %s выдалены!</string>
     <string name="disable_completion">Адключэнне ўсіх напластаванняў тэмы&#8230;</string>
     <string name="enable_completion">Актывацыя ўсіх усталяваных напластаванняў тэмы&#8230;</string>
     <string name="alternate_drawer_design_title">Альтэрнатыўнае меню</string>
@@ -427,7 +408,6 @@
     <string name="settings_auto_updater_text">Substratum будзе аўтаматычна збіраць і ўсталёўваць актуальныя версіі напластаванняў для нядаўна абноўленых праграм.
 Адключэнне магчымасці падоўжыць працу ад батарэі.</string>
     <string name="beta_tag">★ BETA</string>
-    <string name="settings_theme_auto_updater_title">Аўтаабнаўленне напластаванняў тэм</string>
     <string name="settings_theme_auto_updater_dialog_title">УВАГА</string>
     <string name="settings_theme_auto_updater_text">Substratum будзе аўтаматычна ствараць, кампіляваць і ўсталёўваць абноўленую версію ўсіх напластаванняў абноўленай тэмы. Адключэнне гэтай функцыі эканоміць зарад батарэі.</string>
     <string name="settings_theme_auto_updater_dialog_text">Калі ласка, НЕ пакідайце ўсталёўшчык пакетаў (праграм) адкрытым, пакуль апавяшчэнне ў сіле. Напластаванняў фреймворка ўласціва перазапускаць ўсталёўшчык, выклікаючы працэс пересборкі мноства разоў!</string>
@@ -440,9 +420,6 @@
     <string name="settings_samsung_show_dangerous_overlays_text">Паказваць усё рызыкоўныя для прылад ад Samsung напластаванні, нават калі яны не падтрымліваюцца тэмай афармлення.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">УВАГА</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Рызыкоўныя напластаванні схаваны не проста так, але калі Вы аддасце перавагу такія пакінуць - вывучыце інструкцыю па іх адключэннб ў тэме на XDA!</string>
-    <string name="settings_theme_caching_title">Кэшаванне рэсурсаў тэмы</string>
-    <string name="settings_theme_caching_text">Усе кампаненты тэмы будуць вынятыя ў тэчку кэша.</string>
-    <string name="settings_theme_caching_found_snackbar">Вы выявілі ўтоеную магчымасць кэшавання тем!</string>
     <string name="settings_crash_receiver_title">Выяўленне аварыі тэмы</string>
     <string name="settings_crash_receiver_text">Аўтаматычна адключаць напластаванні для праграм з выяўленымі паўтаральнымі аварыямі.</string>
     <string name="settings_force_stop_interfacer_title">Прымусовае спыненне службы інтэрфейсу</string>
@@ -525,7 +502,6 @@
     <string name="nav_drawer_community">Групы і супольнасці</string>
     <string name="nav_drawer_googleplus">Супольнасці ў Google+</string>
     <string name="nav_drawer_telegram">Чат у Telegram</string>
-    <string name="nav_drawer_xda">Прысвечаны падфорум XDA</string>
     <string name="nav_drawer_rawad">Інструкцыя па афармленні ад Rawad</string>
     <string name="nav_drawer_reddit">Супольнасць Reddit</string>
     <!-- Featured content -->

@@ -36,15 +36,6 @@
     <string name="resource_commit_dialog_title">Chýbajúce zdroje v %s</string>
     <string name="showcase_no_connection">Ukážky tém vyžadujú pripojenie k internetu!</string>
     <string name="showcase_no_themes">Zdá sa, že nastala chyba vo vyrovnávacej pamäti databázy pre ukážku tejto záložky&#8230;    </string>
-    <string name="on_demand_updating_title">Načítavanie zdrojov</string>
-    <string name="on_demand_updating_text">%s sa načítava&#8230;</string>
-    <string name="background_updating_toast">Substratum pripravuje tému na pozadí. Prosím počkajte, kým sa proces dokončí!</string>
-    <string name="background_needs_invalidating">Ale nie! Vyskytla sa chyba vo vyrovnávacej pamäti.</string>
-    <string name="background_needs_invalidating_button">Vyčistiť</string>
-    <string name="background_updated_toast">Zdroje boli načítané!</string>
-    <string name="background_updated_toast_cancel">Táto téma vyžaduje aktualizáciu zdrojov!</string>
-    <string name="background_updated_toast_rejected">Pre túto tému sa nepodarilo vytvoriť vyrovnávaciu pamäť pre zdroje!</string>
-    <string name="background_updated_toast_cleaning">Substratum čistí zdroje témy&#8230;</string>
     <string name="failed_to_install_title_notification">Nepodarilo sa nainštalovať OMS tému</string>
     <string name="failed_to_install_text_notification">Nepodarilo sa nainštalovať %s</string>
     <string name="actionbar_theme_count_singular">%s téma</string>
@@ -201,7 +192,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="priority_back_title">Späť na prekrytia</string>
     <string name="priority_success_toast">Priority boli zmenené a okná sa obnovujú&#8230;</string>
     <string name="menu_clean">Vyčistiť nainštalované prekrytia</string>
-    <string name="menu_clean_cache">Vyčistiť vyrovnávaciu pamäť témy</string>
     <string name="menu_disable">Vypnúť nainštalované prekrytia</string>
     <string name="menu_enable">Zapnúť nainštalované prekrytia</string>
     <string name="menu_favorite">Obľúbené</string>
@@ -273,7 +263,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Znovu nezobrazovať</string>
     <string name="dialog_cancel">Zrušiť</string>
-    <string name="clean_cache_dialog_body">Chcete vyčistiť vyrovnávaciu pamäť tejto témy?</string>
     <string name="clean_dialog_body">Chcete vyčistiť všetky prekrytia pre túto tému?</string>
     <string name="disable_dialog_body">Chcete vypnúť všetky prekrytia pre túto tému?</string>
     <string name="enable_dialog_body">Chcete zapnúť všetky nainštalované prekrytia pre túto tému?</string>
@@ -289,7 +278,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="toast_disabled4">Nemôžete zakázať prekrytie, ktoré nemáte skompilované!</string>
     <string name="toast_disabled5">Prosím, pred vykonaním tejto akcie, vyberte platné prekrytie.</string>
     <string name="toast_disabled6">Vybrané prekrytia boli odstránené!</string>
-    <string name="toast_uninstalled">Práve ste odinštalovali túto tému! Bude preč pri nasledujúcom obnovení!</string>
     <string name="no_themes_title">nenašli sa žiadne témy&#8230;</string>
     <string name="no_themes_description">prosím, nainštalujte kompatibilnú tému!</string>
     <string name="no_themes_description_search">\"%s\" nebola nájdená v zozname nainštalovaných tém&#8230;</string>
@@ -302,16 +290,13 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="andromeda_no_root_dialog_button">Stiahnuť teraz!</string>
     <string name="samsung_prototype_no_root_dialog">Zdá sa, že používate podporované zariadenie Samsung, pre ktoré bol vydaný podporný modul!</string>
     <string name="samsung_prototype_no_root_dialog_button">Stiahnuť teraz!</string>
-    <string name="toast_needs_caching">Vyrovnávacia pamäť Substratum bola vyčistená, pred pokračovaním prosím znovu nainštalujte túto tému!</string>
     <string name="notification_theme_installed">nainštalované</string>
     <string name="notification_theme_updated">aktualizované</string>
     <string name="notification_theme_installed_content">Téma bola úspešne nainštalovaná.</string>
     <string name="notification_theme_updated_content">Zdroje boli úspešne aktualizované.</string>
     <string name="notification_hide">Zamietnuť</string>
-    <string name="notification_hide_upgrade">Zrušiť</string>
     <string name="notification_initial_title">Substratum je spustené</string>
     <string name="notification_initial_title_upgrade_intent">Aktualizácia prekrytí %s&#8230;</string>
-    <string name="notification_initial_title_upgrade">%s zdroje sa teraz aktualizujú&#8230;</string>
     <string name="notification_done_title">Bola dokončená kompilácia témy</string>
     <string name="notification_done_upgrade_title">Aktualizácia prekrytia pre %s je hotová!</string>
     <string name="notification_done_upgrade_title_warning">Čiastočne dokončená aktualizácia prekrytia pre %s!</string>
@@ -331,10 +316,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="settings_title_1">Užívateľské predvoľby</string>
     <string name="settings_title_3">Úpravy témy</string>
     <string name="settings_title_clickable">Systémové predvoľby</string>
-    <string name="substratum_cache_clear_initial_toast">Teraz sa čistí vyrovnávacia pamäť Substratum&#8230;</string>
     <string name="substratum_restart_toast">Substratum sa po zmene nastavení automaticky reštartovalo.</string>
-    <string name="purge_cache">Neplatná vyrovnávacia pamäť témy</string>
-    <string name="purge_cache_subtext">To vymaže všetky uložené témy a vyrovnávaciu pamäť aplikácie.</string>
     <string name="restart_systemui">Aktualizácia používateľského rozhrania</string>
     <string name="restart_systemui_subtext">Automaticky obnoví používateľské rozhranie po povolení/zakázaní originálneho systémového prekrytia</string>
     <string name="restart_systemui_toast_enabled">SystemUI sa namiesto reštartovania dynamicky obnoví!</string>
@@ -348,7 +330,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="hide_app_icon_toast_disabled">Ikona aplikácie bola pridaná!</string>
     <string name="hide_app_icon_not_supported">Zmena nie je podporovaná</string>
     <string name="hide_app_icon_supported">Zobrazenie alebo nezobrazenie ikony aplikácie na domovskej obrazovke.</string>
-    <string name="cache_clear_completion">%s vyrovnávacej pamäte tejto témy bolo vyčistených!</string>
     <string name="disable_completion">Všetky prekrytia pre túto tému sa teraz vypínajú&#8230;</string>
     <string name="enable_completion">Všetky prekrytia pre túto tému sa teraz zapínajú&#8230;</string>
     <string name="alternate_drawer_design_title">Alternatívny vzhľad menu</string>
@@ -443,7 +424,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="settings_auto_updater_title">Automaticky aktualizovať cieľové prekrytia</string>
     <string name="settings_auto_updater_text">Substratum automaticky vytvorí, skompiluje a nainštaluje aktualizovanú verziu všetkých prekrytí pre nedávno aktualizované aplikácie. Ponechaním tohoto prepínača v stave vypnuté sa ušetrí batéria.</string>
     <string name="beta_tag">★ BETA</string>
-    <string name="settings_theme_auto_updater_title">Automaticky aktualizovať tématické prekrytia</string>
     <string name="settings_theme_auto_updater_dialog_title">UPOZORNENIE</string>
     <string name="settings_theme_auto_updater_text">Substratum automaticky vytvorí, skompiluje a nainštaluje aktualizovanú verziu všetkých prekrytí pre nedávno aktualizované témy. Ponechaním tohoto prepínača v stave vypnuté sa ušetrí batéria.</string>
     <string name="settings_theme_auto_updater_dialog_text">Prosím, nemajte v popredí otvorenú aplikáciu PackageInstaller, keď je zobrazené upozornenie. Framework prekrytia majú tendenciu reštartovať PackageInstaller, čo spôsobuje množstvo rekompilácií!</string>
@@ -457,9 +437,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="settings_samsung_show_dangerous_overlays_text">Zobraziť všetky prekrytia, ktoré sú za normálnych okolností nebezpečné pre zariadenia Samsung, aj keď ich téma nepodporuje.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">UPOZORNENIE</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Skryli sme nebezpečné prekrytia z nejakého dôvodu, ale ak ste si istí, že chcete, aby to boli povolené, postupujte podľa pokynov v našom vlákne XDA a vypnite ich skrytie!</string>
-    <string name="settings_theme_caching_title">Vyrovnávacia pamäť zdrojov tém</string>
-    <string name="settings_theme_caching_text">Všetky zdroje tém budú extrahované do adresára vyrovnávacej pamäte.</string>
-    <string name="settings_theme_caching_found_snackbar">Práve ste objavili skrytý režim vyrovnávacej pamäte!</string>
     <string name="settings_crash_receiver_title">Ošetrenie pádov pri aplikovaní témy</string>
     <string name="settings_crash_receiver_text">Automaticky vypnúť prekrytie pri opakovanom zlyhaní pokusu o prekrytie aplikácie.</string>
     <string name="settings_force_stop_interfacer_title">Vynútené zastavenie služby Interfacer</string>
@@ -546,7 +523,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="nav_drawer_community">Skupiny a komunity</string>
     <string name="nav_drawer_googleplus">Komunita Google +</string>
     <string name="nav_drawer_telegram">Skupinový chat Telegram</string>
-    <string name="nav_drawer_xda">XDA sub-fórum</string>
     <string name="nav_drawer_rawad">Sprievodca Rawad\'s theming</string>
     <string name="nav_drawer_reddit">Spoločnosť Reddit</string>
     <!-- Featured content -->

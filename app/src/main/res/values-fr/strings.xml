@@ -36,15 +36,6 @@
     <string name="resource_commit_dialog_title">Ressources manquantes pour %s</string>
     <string name="showcase_no_connection">La galerie de thème nécessite une connexion Internet pour fonctionner !</string>
     <string name="showcase_no_themes">Une erreur est survenue lors de la mise en cache de la base de données de la galerie de thème pour cet onglet...</string>
-    <string name="on_demand_updating_title">Première configuration du cache des ressources</string>
-    <string name="on_demand_updating_text">Compilation du cache de %s en cours&#8230;</string>
-    <string name="background_updating_toast">Mise à niveau en cours d\'un thème en arrière-plan, veuillez patienter !</string>
-    <string name="background_needs_invalidating">Mince ! Une corruption dans le cache est survenue.</string>
-    <string name="background_needs_invalidating_button">Supprimer</string>
-    <string name="background_updated_toast">Compilation du cache effectuée !</string>
-    <string name="background_updated_toast_cancel">Ce thème a besoin de mettre à jour son cache de ressources avant d\'être fonctionnel !</string>
-    <string name="background_updated_toast_rejected">Impossible de créer le cache de ressources pour ce thème !</string>
-    <string name="background_updated_toast_cleaning">Substratum supprime le cache de ressources de ce thème&#8230;</string>
     <string name="failed_to_install_title_notification">Échec de l\'installation du thème</string>
     <string name="failed_to_install_text_notification">Échec de l\'installation de %s</string>
     <string name="actionbar_theme_count_singular">%s thème</string>
@@ -190,7 +181,6 @@
     <string name="priority_back_title">Retour aux surcouches</string>
     <string name="priority_success_toast">Les priorités ont été modifiées et les fenêtres sont en cours d\'actualisation&#8230;</string>
     <string name="menu_clean">Nettoyer les surcouches</string>
-    <string name="menu_clean_cache">Nettoyer le cache du thème</string>
     <string name="menu_disable">Désactiver les surcouches installées</string>
     <string name="menu_enable">Activer les surcouches installées</string>
     <string name="menu_favorite">Favoris</string>
@@ -256,7 +246,6 @@
     <string name="dialog_ok">OK</string>
     <string name="dialog_do_not_show_again">Ne plus afficher</string>
     <string name="dialog_cancel">Annuler</string>
-    <string name="clean_cache_dialog_body">Voulez-vous nettoyer le cache de ce thème ?</string>
     <string name="clean_dialog_body">Voulez-vous nettoyer toutes les surcouches pour ce thème ?</string>
     <string name="disable_dialog_body">Voulez-vous désactiver toutes les surcouches pour ce thème ?</string>
     <string name="enable_dialog_body">Voulez-vous activer toutes les surcouches pour ce thème ?</string>
@@ -270,7 +259,6 @@
     <string name="toast_disabled4">Vous ne pouvez pas désactiver une surcouche que vous n\'avez pas compilé !</string>
     <string name="toast_disabled5">Sélectionnez une surcouche valide avant d\'effectuer cette action</string>
     <string name="toast_disabled6">Surcouche(s) sélectionnée(s) supprimée(s) !</string>
-    <string name="toast_uninstalled">Vous venez de désinstaller ce thème ! Je disparaîtrai après la prochaine actualisation !</string>
     <string name="no_themes_title">Aucun thème trouvé&#8230;</string>
     <string name="no_themes_description">Installez un thème compatible !</string>
     <string name="no_themes_description_search">\"%s\" est introuvable dans la liste des thèmes installés&#8230;</string>
@@ -279,16 +267,13 @@
     <string name="andromeda_no_root_dialog_button">Télécharger maintenant !</string>
     <string name="samsung_prototype_no_root_dialog">Il semble que vous soyez sur un appareil Samsung supporté, une extension a été publiée pour le supporter !</string>
     <string name="samsung_prototype_no_root_dialog_button">Télécharger maintenant !</string>
-    <string name="toast_needs_caching">Le cache de Substratum a été effacé. Veuillez recompiler ce thème avant de continuer !</string>
     <string name="notification_theme_installed">Installé</string>
     <string name="notification_theme_updated">Mis à jour</string>
     <string name="notification_theme_installed_content">Thème installé</string>
     <string name="notification_theme_updated_content">Ressources mises à jour</string>
     <string name="notification_hide">Masquer</string>
-    <string name="notification_hide_upgrade">Annuler</string>
     <string name="notification_initial_title">Substratum est en cours d\'exécution</string>
     <string name="notification_initial_title_upgrade_intent">Mise à niveau des surcouches de %s en cours&#8230;</string>
-    <string name="notification_initial_title_upgrade">Mise à niveau des ressources de %s en cours&#8230;</string>
     <string name="notification_done_title">Compilation de thème terminée</string>
     <string name="notification_done_upgrade_title">Mise à jour de la surcouche %s terminée !</string>
     <string name="notification_done_upgrade_title_warning">Mise à jour de la surcouche %s incomplète !</string>
@@ -308,10 +293,7 @@
     <string name="settings_title_1">Préférences utilisateur</string>
     <string name="settings_title_3">Thème</string>
     <string name="settings_title_clickable">Préférences système</string>
-    <string name="substratum_cache_clear_initial_toast">Suppression du cache de Substratum en cours&#8230;</string>
     <string name="substratum_restart_toast">Substratum a redémarré automatiquement après une modification des paramètres</string>
-    <string name="purge_cache">Réinitialiser le cache du thème</string>
-    <string name="purge_cache_subtext">Ceci supprimera tous les thèmes stockés et le cache de l\'application.</string>
     <string name="restart_systemui">Actualisation de l\'interface utilisateur\n</string>
     <string name="restart_systemui_subtext">Recréer automatiquement l\'interface utilisateur après l\'activation/la désactivation d\'une de ses surcouches</string>
     <string name="restart_systemui_toast_enabled">L\'interface utilisateur va se reconstruire dynamiquement au lieu de redémarrer !</string>
@@ -325,7 +307,6 @@
     <string name="hide_app_icon_toast_disabled">Icône de l\'application ajoutée à votre lanceur !</string>
     <string name="hide_app_icon_not_supported">Modification non prise en charge</string>
     <string name="hide_app_icon_supported">Permet d\'afficher ou non un raccourci sur l\'écran d\'accueil</string>
-    <string name="cache_clear_completion">Le cache du thème %s a été effacé !</string>
     <string name="disable_completion">Désactivation de toutes les surcouches de ce thème en cours&#8230;</string>
     <string name="enable_completion">Activation de toutes les surcouches installées de ce thème en cours&#8230;</string>
     <string name="alternate_drawer_design_title">Apparence du tiroir secondaire</string>
@@ -420,7 +401,6 @@
     <string name="settings_auto_updater_title">Mise à jour automatique des applications</string>
     <string name="settings_auto_updater_text">Substratum compilera et installera automatiquement les surcouches des applications récemment mises à jour. Désactiver cette fonctionnalité permet d\'économiser de la batterie</string>
     <string name="beta_tag">★ BETA</string>
-    <string name="settings_theme_auto_updater_title">Automatiquement mettre à jour les surcouches du thème</string>
     <string name="settings_theme_auto_updater_dialog_title">AVERTISSEMENT</string>
     <string name="settings_theme_auto_updater_text">Substratum compilera et installera automatiquement les surcouches d\'un thème récemment mis à jour. Désactiver cette fonctionnalité permet d\'économiser de la batterie.</string>
     <string name="settings_theme_auto_updater_dialog_text">Assurez-vous que l\'installateur de paquet est bien fermé lorsque la notification est affichée. Les surcouches du \"framework\" ont tendance à redémarrer l\'installateur de paquet, provoquant des recompilations en boucle !</string>
@@ -433,9 +413,6 @@
     <string name="settings_samsung_show_dangerous_overlays_text">Afficher toutes les surcouches normalement dangereuses pour les appareils Samsung si le thème ne le supporte pas.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">AVERTISSEMENT</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Nous masquons les surcouches dangereuses pour une raison, mais si vous êtes sûr•e de vouloir l\'activer, veuillez suivre les instructions de désactivation sur notre sujet XDA !</string>
-    <string name="settings_theme_caching_title">Cache des ressources de thème</string>
-    <string name="settings_theme_caching_text">Activer la mise en cache des ressources de thème dans le répertoire du cache</string>
-    <string name="settings_theme_caching_found_snackbar">Vous venez de découvrir l\'option de mise en cache des ressources de thème !</string>
     <string name="settings_crash_receiver_title">Collecteur d\'erreur de thème</string>
     <string name="settings_crash_receiver_text">Désactiver automatiquement une surcouche lors de la détection d\'erreurs répétitives de l\'application</string>
     <string name="settings_force_stop_interfacer_title">Forcer la fermeture du service de l\'Interface de thème</string>
@@ -516,7 +493,6 @@
     <string name="nav_drawer_community">Groupes et communautés</string>
     <string name="nav_drawer_googleplus">Communauté Google+</string>
     <string name="nav_drawer_telegram">Groupe Telegram</string>
-    <string name="nav_drawer_xda">Sous-forum dédié sur XDA</string>
     <string name="nav_drawer_rawad">Guides de création de thèmes par Rawad</string>
     <string name="nav_drawer_reddit">Communauté Reddit</string>
     <!-- Featured content -->

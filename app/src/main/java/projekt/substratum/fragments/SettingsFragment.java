@@ -20,7 +20,6 @@ package projekt.substratum.fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Context;
@@ -33,7 +32,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.design.widget.Lunchbar;
@@ -66,7 +64,6 @@ import projekt.substratum.adapters.fragments.settings.ValidatorInfo;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
-import projekt.substratum.common.Theming;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.systems.Validator;
 import projekt.substratum.util.files.FileDownloader;
@@ -79,23 +76,19 @@ import projekt.substratum.util.views.SheetDialog;
 import static projekt.substratum.common.Activities.launchExternalActivity;
 import static projekt.substratum.common.Packages.validateResource;
 import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
-import static projekt.substratum.common.References.HIDDEN_CACHING_MODE_TAP_COUNT;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.INTERFACER_SERVICE;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
-import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.SUBSTRATUM_VALIDATOR;
 import static projekt.substratum.common.commands.FileOperations.delete;
 import static projekt.substratum.common.systems.Validator.VALIDATE_WITH_LOGS;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
-    private ProgressDialog mProgressDialog;
     private StringBuilder platformSummary;
     private Preference systemPlatform;
     private ArrayList<ValidatorError> errors;
     private Dialog dialog;
-    private int tapCount = 0;
     private ArrayList<Integer> packageCounters;
     private ArrayList<Integer> packageCountersErrored;
     private Context mContext;
@@ -309,14 +302,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     return false;
                 });
 
-        final Preference purgeCache = getPreferenceManager().findPreference("purge_cache");
-        purgeCache.setOnPreferenceClickListener(
-                preference -> {
-                    new deleteCache(this).execute("");
-                    return false;
-                });
-        if (!Theming.isCachingEnabled(mContext)) purgeCache.setVisible(false);
-
         final CheckBoxPreference alternate_drawer_design = (CheckBoxPreference)
                 getPreferenceManager().findPreference("alternate_drawer_design");
         if (prefs.getBoolean("alternate_drawer_design", false)) {
@@ -472,19 +457,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     return false;
                 });
 
-        final CheckBoxPreference themeCaching = (CheckBoxPreference)
-                getPreferenceManager().findPreference("theme_caching");
-        boolean to_show = prefs.getBoolean("caching_enabled", false);
-        themeCaching.setChecked(to_show);
-        themeCaching.setVisible(to_show);
-        themeCaching.setOnPreferenceChangeListener(((preference, newValue) -> {
-            boolean isChecked = (Boolean) newValue;
-            prefs.edit().putBoolean("caching_enabled", isChecked).apply();
-            purgeCache.setVisible(isChecked);
-            new deleteCache(this).execute();
-            return true;
-        }));
-
         // These should run if the app is running in debug mode
         final Preference aoptSwitcher = getPreferenceManager().findPreference
                 ("aopt_switcher");
@@ -560,29 +532,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 crashReceiver.setVisible(false);
             }
             aoptSwitcher.setVisible(false);
-        }
-
-        // Hidden caching mode option
-        if (!themeCaching.isVisible()) {
-            systemPlatform.setOnPreferenceClickListener(preference -> {
-                if (!Systems.isSamsung(mContext)) {
-                    tapCount++;
-                    if (tapCount == 1) {
-                        new Handler().postDelayed(() -> tapCount = 0, 2000);
-                    } else if (tapCount == HIDDEN_CACHING_MODE_TAP_COUNT) {
-                        themeCaching.setVisible(true);
-                        tapCount = 0;
-                        if (getView() != null) {
-                            Lunchbar.make(getView(),
-                                    R.string.settings_theme_caching_found_snackbar,
-                                    Lunchbar.LENGTH_LONG)
-                                    .show();
-                        }
-                        systemPlatform.setOnPreferenceClickListener(null);
-                    }
-                }
-                return false;
-            });
         }
 
         // Manage Space Activity
@@ -976,71 +925,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 restartInterfacer.setVisible(true);
             } catch (Exception ex) {
                 restartInterfacer.setVisible(false);
-            }
-        }
-    }
-
-    private static class deleteCache extends AsyncTask<String, Integer, String> {
-        private WeakReference<SettingsFragment> ref;
-
-        deleteCache(SettingsFragment settingsFragment) {
-            ref = new WeakReference<>(settingsFragment);
-        }
-
-        @Override
-        protected void onPreExecute() {
-            SettingsFragment settingsFragment = ref.get();
-            if (settingsFragment != null) {
-                settingsFragment.mProgressDialog = new ProgressDialog(settingsFragment.mContext);
-                settingsFragment.mProgressDialog.setMessage(
-                        settingsFragment.getString(R.string.substratum_cache_clear_initial_toast));
-                settingsFragment.mProgressDialog.setIndeterminate(true);
-                settingsFragment.mProgressDialog.setCancelable(false);
-                settingsFragment.mProgressDialog.show();
-                References.clearAllNotifications(settingsFragment.mContext);
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            SettingsFragment settingsFragment = ref.get();
-            if (settingsFragment != null) {
-                settingsFragment.mProgressDialog.cancel();
-            }
-        }
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-            SettingsFragment settingsFragment = ref.get();
-            if (settingsFragment != null) {
-                // Delete the directory
-                try {
-                    File dir = new File(
-                            settingsFragment.mContext.
-                                    getCacheDir().getAbsolutePath() + SUBSTRATUM_BUILDER_CACHE);
-                    deleteDir(dir);
-                } catch (Exception e) {
-                    // Suppress warning
-                }
-                // Reset the flag for is_updating
-                SharedPreferences prefsPrivate =
-                        settingsFragment.mContext.
-                                getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
-                prefsPrivate.edit().remove("is_updating").apply();
-            }
-            return null;
-        }
-
-        boolean deleteDir(File dir) {
-            if (dir != null && dir.isDirectory()) {
-                String[] children = dir.list();
-                for (String aChildren : children) {
-                    boolean success = deleteDir(new File(dir, aChildren));
-                    if (!success) return false;
-                }
-                return dir.delete();
-            } else {
-                return dir != null && dir.isFile() && dir.delete();
             }
         }
     }

@@ -101,16 +101,6 @@
             </intent-filter>
         </service>
         <service
-            android:name=".services.tiles.ShowcaseTile"
-            android:enabled="true"
-            android:icon="@drawable/quicksettings_showcase"
-            android:label="@string/showcase"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
-            <intent-filter>
-                <action android:name="android.service.quicksettings.action.QS_TILE"/>
-            </intent-filter>
-        </service>
-        <service
             android:name=".services.tiles.FloatUiTile"
             android:enabled="false"
             android:icon="@drawable/floatui_tile"

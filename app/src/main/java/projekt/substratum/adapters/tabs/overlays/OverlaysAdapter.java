@@ -315,8 +315,24 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
         });
 
         viewHolder.card.setOnLongClickListener(view -> {
-            String packageVersion = Packages.getAppVersion(context, current_object
-                    .getPackageName());
+            String packageName = current_object.getPackageName();
+            String packageVersion;
+            switch (packageName) {
+                case "com.android.systemui.headers":
+                case "com.android.systemui.navbars":
+                case "com.android.systemui.statusbars":
+                case "com.android.systemui.tiles":
+                    packageVersion = Packages.getAppVersion(
+                            context, "com.android.systemui");
+                    break;
+                case "com.android.settings.icons":
+                    packageVersion = Packages.getAppVersion(
+                            context, "com.android.settings");
+                    break;
+                default:
+                    packageVersion = Packages.getAppVersion(
+                            context, packageName);
+            }
             if (packageVersion != null) {
                 String version = String.format(
                         context.getString(R.string.overlays_tab_package_ver_message),

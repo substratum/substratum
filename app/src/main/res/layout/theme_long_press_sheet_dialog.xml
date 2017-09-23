@@ -26,7 +26,6 @@
               app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
     <RelativeLayout
-        android:id="@+id/about"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="false"

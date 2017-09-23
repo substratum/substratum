@@ -89,8 +89,9 @@ class OverlayFunctions {
                 overlays.final_runner = new ArrayList<>();
                 overlays.late_install = new ArrayList<>();
 
-                if (!overlays.enable_mode && !overlays.disable_mode && !overlays
-                        .enable_disable_mode) {
+                if (!overlays.enable_mode &&
+                        !overlays.disable_mode &&
+                        !overlays.enable_disable_mode) {
                     int notification_priority = Notification.PRIORITY_MAX;
 
                     // Create an Intent for the BroadcastReceiver

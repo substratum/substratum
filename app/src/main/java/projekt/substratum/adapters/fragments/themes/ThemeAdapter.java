@@ -162,8 +162,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                                 themeItem.getThemePackage())));
 
                 ImageView icon = sheetView.findViewById(R.id.icon);
-                icon.setImageBitmap(Packages.getBitmapFromDrawable(
-                        Packages.getAppIcon(mContext, themeItem.getThemePackage())));
+                icon.setImageDrawable(Packages.getAppIcon(mContext, themeItem.getThemePackage()));
 
                 ImageView two = sheetView.findViewById(R.id.theme_unready_indicator);
                 ImageView tbo = sheetView.findViewById(R.id.theme_ready_indicator);

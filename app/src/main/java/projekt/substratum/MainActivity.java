@@ -142,6 +142,7 @@ public class MainActivity extends SubstratumActivity implements
     private static ActionBar supportActionBar;
     public TextView actionbar_title, actionbar_content;
     public SearchView searchView;
+    public StringBuilder error_logs;
     private Drawer drawer;
     private int permissionCheck = PackageManager.PERMISSION_DENIED;
     private Dialog mProgressDialog;
@@ -153,7 +154,6 @@ public class MainActivity extends SubstratumActivity implements
     private AndromedaReceiver andromedaReceiver;
     private UpdaterReceiver updaterReceiver;
     private Context mContext;
-    public StringBuilder error_logs;
 
     private static boolean checkIfOverlaysOutdated(Context context) {
         List<String> overlays = ThemeManager.listAllOverlays(context);
@@ -1397,7 +1397,8 @@ public class MainActivity extends SubstratumActivity implements
                                 References.copyToClipboard(context,
                                         "substratum_log", error_logs.toString());
                                 currentShownLunchBar = Lunchbar.make(
-                                        ((ViewGroup) findViewById(android.R.id.content)).getChildAt(0),
+                                        ((ViewGroup) findViewById(android.R.id.content))
+                                                .getChildAt(0),
                                         R.string.logcat_dialog_copy_success,
                                         Lunchbar.LENGTH_LONG);
                                 currentShownLunchBar.show();

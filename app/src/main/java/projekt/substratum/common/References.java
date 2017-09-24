@@ -252,8 +252,10 @@ public class References {
             Icon app_icon;
             Drawable app_icon_drawable = Packages.getAppIcon(context, theme_pid);
             //If we are on Oreo and the Theme uses an adaptiveIcon, we have to treat it properly
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O && app_icon_drawable instanceof AdaptiveIconDrawable ) {
-                    app_icon = Icon.createWithAdaptiveBitmap(Packages.getBitmapFromDrawable(app_icon_drawable));
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O &&
+                    app_icon_drawable instanceof AdaptiveIconDrawable) {
+                app_icon = Icon.createWithAdaptiveBitmap(Packages.getBitmapFromDrawable
+                        (app_icon_drawable));
             } else {
                 app_icon = Icon.createWithBitmap(Packages.getBitmapFromDrawable(app_icon_drawable));
             }

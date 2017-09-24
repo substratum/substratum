@@ -33,12 +33,9 @@ import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.design.widget.Lunchbar;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-
-import com.squareup.haha.perflib.Main;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -48,7 +45,6 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import projekt.substratum.InformationActivity;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
@@ -58,7 +54,6 @@ import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
 
-import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.References.DEFAULT_NOTIFICATION_CHANNEL_ID;
 import static projekt.substratum.common.References.KEY_RETRIEVAL;
 import static projekt.substratum.common.References.PACKAGE_ADDED;

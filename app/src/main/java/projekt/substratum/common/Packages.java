@@ -553,11 +553,11 @@ public class Packages {
     // This method checks whether these are legitimate packages for Substratum,
     // then mutates the input.
     @SuppressWarnings("unchecked")
-    public static void getSubstratumPackages(Context context,
-                                             HashMap packages,
-                                             String home_type,
-                                             String search_filter) {
+    public static HashMap<String, String[]> getSubstratumPackages(Context context,
+                                                String home_type,
+                                                String search_filter) {
         try {
+            HashMap returnMap = new HashMap<>();
             List<ResolveInfo> listOfThemes = getThemes(context);
             for (ResolveInfo ri : listOfThemes) {
                 String packageName = ri.activityInfo.packageName;
@@ -585,7 +585,7 @@ public class Packages {
                                     appInfo.metaData.getString(metadataAuthor),
                                     packageName
                             };
-                            packages.put(appInfo.metaData.getString(metadataName), data);
+                            returnMap.put(appInfo.metaData.getString(metadataName), data);
                         }
                     } else {
                         if (home_type.length() == 0) {
@@ -593,7 +593,7 @@ public class Packages {
                                     appInfo.metaData.getString(metadataAuthor),
                                     packageName
                             };
-                            packages.put(appInfo.metaData.getString(metadataName), data);
+                            returnMap.put(appInfo.metaData.getString(metadataName), data);
                             Log.d(PACKAGE_TAG,
                                     "Loaded Substratum Theme: [" + packageName + "]");
                             if (ENABLE_PACKAGE_LOGGING)
@@ -610,7 +610,7 @@ public class Packages {
                                             String[] data = {
                                                     appInfo.metaData.getString(metadataAuthor),
                                                     packageName};
-                                            packages.put(
+                                            returnMap.put(
                                                     appInfo.metaData.getString(metadataName),
                                                     data);
                                             break;
@@ -625,9 +625,11 @@ public class Packages {
                     }
                 }
             }
+            return returnMap;
         } catch (Exception e) {
             // Suppress warning
         }
+        return null;
     }
 
     // This method parses a specific overlay resource file (.xml) and returns the specified value

@@ -18,6 +18,7 @@
 
 package projekt.substratum.fragments;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +30,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -51,26 +53,152 @@ import projekt.substratum.R;
 import projekt.substratum.activities.showcase.ShowcaseActivity;
 import projekt.substratum.adapters.fragments.themes.ThemeAdapter;
 import projekt.substratum.adapters.fragments.themes.ThemeItem;
+import projekt.substratum.common.Activities;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 
 import static projekt.substratum.common.References.DEFAULT_GRID_COUNT;
+import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 
 public class ThemeFragment extends Fragment {
 
-    private HashMap<String, String[]> substratum_packages;
-    private RecyclerView recyclerView;
-    private Map<String, String[]> map;
     private Context mContext;
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private ThemeAdapter adapter;
-    private View cardView;
-    private ViewGroup root;
-    private String home_type = "", title = "";
-    private TextView cardViewText;
-    private ImageView cardViewImage;
     private LocalBroadcastManager localBroadcastManager;
     private BroadcastReceiver refreshReceiver;
+    private SharedPreferences prefs;
+    private ViewGroup root;
+    private String home_type;
+    private String toolbar_title;
+
+    private static ArrayList<ThemeItem> prepareData(Map<String, String[]> map,
+                                                    Context context,
+                                                    Activity activity,
+                                                    String home_type) {
+        ArrayList<ThemeItem> themes = new ArrayList<>();
+        for (int i = 0; i < map.size(); i++) {
+            ThemeItem themeItem = new ThemeItem();
+            themeItem.setThemeName(map.keySet().toArray()[i].toString());
+            themeItem.setThemeAuthor(map.get(map.keySet().toArray()[i].toString())[0]);
+            themeItem.setThemePackage(map.get(map.keySet().toArray()[i].toString())[1]);
+            themeItem.setThemeDrawable(
+                    Packages.getPackageHeroImage(
+                            context, map.get(map.keySet().toArray()[i].toString())[1], true));
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            themeItem.setThemeReadyVariable(Packages.getThemeReadyVisibility(context,
+                    map.get(map.keySet().toArray()[i].toString())[1]));
+            if (prefs.getBoolean("show_template_version", false) &&
+                    !prefs.getBoolean("grid_layout", true)) {
+                themeItem.setPluginVersion(Packages.getPackageTemplateVersion(context,
+                        map.get(map.keySet().toArray()[i].toString())[1]));
+                themeItem.setSDKLevels(Packages.getThemeAPIs(context,
+                        map.get(map.keySet().toArray()[i].toString())[1]));
+                themeItem.setThemeVersion(Packages.getThemeVersion(context,
+                        map.get(map.keySet().toArray()[i].toString())[1]));
+            } else {
+                themeItem.setPluginVersion(null);
+                themeItem.setSDKLevels(null);
+                themeItem.setThemeVersion(null);
+            }
+            themeItem.setThemeMode((home_type.length() == 0) ? null : home_type);
+            themeItem.setContext(context);
+            themeItem.setActivity(activity);
+            themes.add(themeItem);
+        }
+        return themes;
+    }
+
+    public static void refreshLayout(SharedPreferences prefs,
+                                     ViewGroup root,
+                                     Context mContext,
+                                     Activity activity,
+                                     String home_type,
+                                     String toolbarTitle) {
+
+        ProgressBar materialProgressBar = root.findViewById(R.id.progress_bar_loader);
+        RecyclerView recyclerView = root.findViewById(R.id.theme_list);
+        SwipeRefreshLayout swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
+        CardView cardView = root.findViewById(R.id.no_entry_card_view);
+        TextView cardViewText = cardView.findViewById(R.id.no_themes_description);
+        ImageView cardViewImage = cardView.findViewById(R.id.no_themes_installed);
+
+        materialProgressBar.setVisibility(View.VISIBLE);
+        HashMap<String, String[]> substratum_packages = Packages.getSubstratumPackages(
+                mContext,
+                home_type,
+                MainActivity.userInput);
+        Log.d(References.SUBSTRATUM_LOG, "Substratum has listed all installed themes!");
+
+        if (substratum_packages != null) {
+            if (substratum_packages.size() == 0) {
+                if (((MainActivity) activity).searchView != null &&
+                        !((MainActivity) activity).searchView.isIconified()) {
+                    if (MainActivity.userInput.length() > 0) {
+                        String parse = String.format(
+                                mContext.getString(R.string.no_themes_description_search),
+                                MainActivity.userInput);
+                        cardViewText.setText(parse);
+                        cardViewImage.setImageDrawable(
+                                mContext.getDrawable(R.drawable.no_themes_found));
+                    } else {
+                        cardViewText.setText(mContext.getString(R.string.no_themes_description));
+                        cardViewImage.setImageDrawable(
+                                mContext.getDrawable(R.drawable.no_themes_installed));
+                    }
+                } else {
+                    cardViewText.setText(mContext.getString(R.string.no_themes_description));
+                    cardViewImage.setImageDrawable(
+                            mContext.getDrawable(R.drawable.no_themes_installed));
+                }
+                cardView.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
+            } else {
+                cardView.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
+            }
+
+            // Now let's place the proper amount of theme count into the context text
+            String parse;
+            if (substratum_packages.size() == 0) {
+                ((MainActivity) activity).switchToStockToolbar(toolbarTitle);
+            } else if (substratum_packages.size() == 1) {
+                parse = String.format(mContext.getString(R.string.actionbar_theme_count_singular),
+                        String.valueOf(substratum_packages.size()));
+                ((MainActivity) activity).switchToCustomToolbar(toolbarTitle, parse);
+            } else {
+                parse = String.format(mContext.getString(R.string.actionbar_theme_count_plural),
+                        String.valueOf(substratum_packages.size()));
+                ((MainActivity) activity).switchToCustomToolbar(toolbarTitle, parse);
+            }
+
+            // Now we need to sort the buffered installed themes
+            Map<String, String[]> map = new TreeMap<>(substratum_packages);
+            ArrayList<ThemeItem> themeItems = prepareData(map, mContext, activity, home_type);
+            ThemeAdapter adapter = new ThemeAdapter(themeItems);
+
+            // Assign adapter to RecyclerView
+            recyclerView.setAdapter(adapter);
+
+            // Begin to set the formatting of the layouts
+            if (prefs.getInt("grid_style_cards_count", DEFAULT_GRID_COUNT) > 1) {
+                if (!prefs.getBoolean("nougat_style_cards", false)) {
+                    recyclerView.setPadding(10, 0, 10, 0);
+                }
+            }
+            if (prefs.getBoolean("grid_layout", true)) {
+                recyclerView.setLayoutManager(new GridLayoutManager(mContext,
+                        prefs.getInt("grid_style_cards_count", DEFAULT_GRID_COUNT)));
+            } else {
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
+                recyclerView.setLayoutManager(layoutManager);
+            }
+        } else {
+            Log.e(SUBSTRATUM_LOG, "Queuing of the installed themes have resulted in a null list.");
+        }
+
+        // Conclude
+        swipeRefreshLayout.setRefreshing(false);
+        materialProgressBar.setVisibility(View.GONE);
+    }
 
     @Override
     public void onDestroy() {
@@ -89,193 +217,67 @@ public class ThemeFragment extends Fragment {
             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Register the theme install receiver to auto refresh the fragment
-        refreshReceiver = new ThemeInstallReceiver();
-        IntentFilter intentFilter = new IntentFilter("ThemeFragment.REFRESH");
-        localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
-        localBroadcastManager.registerReceiver(refreshReceiver, intentFilter);
+        mContext = getContext();
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         if (prefs.getBoolean("nougat_style_cards", false)) {
             root = (ViewGroup) inflater.inflate(R.layout.home_fragment_n, container, false);
         } else {
             root = (ViewGroup) inflater.inflate(R.layout.home_fragment, container, false);
         }
 
-        mContext = getContext();
+        // Register the theme install receiver to auto refresh the fragment
+        refreshReceiver = new ThemeInstallReceiver();
+        IntentFilter intentFilter = new IntentFilter("ThemeFragment.REFRESH");
+        localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
+        localBroadcastManager.registerReceiver(refreshReceiver, intentFilter);
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             home_type = bundle.getString("home_type");
-            title = bundle.getString("title");
+            toolbar_title = bundle.getString("title");
         }
 
         // Initialize a proper loading sequence so the user does not see the unparsed string
-        ((MainActivity) getActivity()).actionbar_content
-                .setText(getString(R.string.actionbar_theme_count_loading));
+        ((MainActivity) getActivity())
+                .actionbar_content.setText(R.string.actionbar_theme_count_loading);
 
-        substratum_packages = new HashMap<>();
-        recyclerView = root.findViewById(R.id.theme_list);
-        if (prefs.getInt("grid_style_cards_count", References.DEFAULT_GRID_COUNT) > 1) {
-            if (!prefs.getBoolean("nougat_style_cards", false)) {
-                recyclerView.setPadding(10, 0, 10, 0);
-            }
-        }
-        cardView = root.findViewById(R.id.no_entry_card_view);
-        cardView.setOnClickListener(v -> {
-                    Intent intent = new Intent(getActivity(), ShowcaseActivity.class);
-                    startActivity(intent);
-                }
-        );
+        View cardView = root.findViewById(R.id.no_entry_card_view);
+        cardView.setOnClickListener(v ->
+                Activities.launchInternalActivity(mContext, ShowcaseActivity.class));
         cardView.setVisibility(View.GONE);
-        cardViewText = cardView.findViewById(R.id.no_themes_description);
-        cardViewImage = cardView.findViewById(R.id.no_themes_installed);
 
-        swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setOnRefreshListener(this::refreshLayout);
+        SwipeRefreshLayout swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(() -> new LayoutLoader(this).execute());
 
-        new LayoutLoader(this).execute("");
+        // Let's start loading everything
+        new LayoutLoader(this).execute();
 
-        // Now we need to sort the buffered installed Layers themes
-        if (substratum_packages != null) {
-            map = new TreeMap<>(substratum_packages);
-
-            ArrayList<ThemeItem> themeItems = prepareData();
-            adapter = new ThemeAdapter(themeItems);
-
-            // Assign adapter to RecyclerView
-            recyclerView.setAdapter(adapter);
-
-            if (prefs.getBoolean("grid_layout", true)) {
-                recyclerView.setLayoutManager(new GridLayoutManager(getContext(),
-                        prefs.getInt("grid_style_cards_count", DEFAULT_GRID_COUNT)));
-            } else {
-                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-                recyclerView.setLayoutManager(layoutManager);
-            }
-        }
         return root;
     }
 
-    private ArrayList<ThemeItem> prepareData() {
-
-        ArrayList<ThemeItem> themes = new ArrayList<>();
-        for (int i = 0; i < map.size(); i++) {
-            ThemeItem themeItem = new ThemeItem();
-            themeItem.setThemeName(map.keySet().toArray()[i].toString());
-            themeItem.setThemeAuthor(map.get(map.keySet().toArray()[i].toString())[0]);
-            themeItem.setThemePackage(map.get(map.keySet().toArray()[i].toString())[1]);
-            themeItem.setThemeDrawable(
-                    Packages.getPackageHeroImage(
-                            mContext, map.get(map.keySet().toArray()[i].toString())[1], true));
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-            themeItem.setThemeReadyVariable(Packages.getThemeReadyVisibility(mContext,
-                    map.get(map.keySet().toArray()[i].toString())[1]));
-            if (prefs.getBoolean("show_template_version", false) &&
-                    !prefs.getBoolean("grid_layout", true)) {
-                themeItem.setPluginVersion(Packages.getPackageTemplateVersion(mContext,
-                        map.get(map.keySet().toArray()[i].toString())[1]));
-                themeItem.setSDKLevels(Packages.getThemeAPIs(mContext,
-                        map.get(map.keySet().toArray()[i].toString())[1]));
-                themeItem.setThemeVersion(Packages.getThemeVersion(mContext,
-                        map.get(map.keySet().toArray()[i].toString())[1]));
-            } else {
-                themeItem.setPluginVersion(null);
-                themeItem.setSDKLevels(null);
-                themeItem.setThemeVersion(null);
-            }
-            if (home_type.length() == 0) {
-                themeItem.setThemeMode(null);
-            } else {
-                themeItem.setThemeMode(home_type);
-            }
-            themeItem.setContext(mContext);
-            themeItem.setActivity(getActivity());
-            themes.add(themeItem);
-        }
-        return themes;
-    }
-
-    public void refreshLayout() {
-        ProgressBar materialProgressBar = root.findViewById(R.id.progress_bar_loader);
-        materialProgressBar.setVisibility(View.VISIBLE);
-        substratum_packages = new HashMap<>();
-
-        Packages.getSubstratumPackages(
-                mContext,
-                substratum_packages,
-                home_type,
-                MainActivity.userInput);
-        Log.d(References.SUBSTRATUM_LOG,
-                "Substratum has listed all installed themes!");
-
-        if (substratum_packages.size() == 0) {
-            if (((MainActivity) getActivity()).searchView != null &&
-                    !((MainActivity) getActivity()).searchView.isIconified()) {
-                if (MainActivity.userInput.length() > 0) {
-                    String parse = String.format(
-                            getString(R.string.no_themes_description_search),
-                            MainActivity.userInput);
-                    cardViewText.setText(parse);
-                    cardViewImage.setImageDrawable(
-                            getContext().getDrawable(R.drawable.no_themes_found));
-                } else {
-                    cardViewText.setText(getString(R.string.no_themes_description));
-                    cardViewImage.setImageDrawable(
-                            getContext().getDrawable(R.drawable.no_themes_installed));
-                }
-            } else {
-                cardViewText.setText(getString(R.string.no_themes_description));
-                cardViewImage.setImageDrawable(
-                        getContext().getDrawable(R.drawable.no_themes_installed));
-            }
-            cardView.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
-        } else {
-            cardView.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
-        }
-
-        // Now let's place the proper amount of theme count into the context text
-        String parse;
-        if (substratum_packages.size() == 0) {
-            ((MainActivity) getActivity()).switchToStockToolbar(title);
-        } else if (substratum_packages.size() == 1) {
-            parse = String.format(getString(R.string.actionbar_theme_count_singular),
-                    String.valueOf(substratum_packages.size()));
-            ((MainActivity) getActivity()).switchToCustomToolbar(title, parse);
-        } else {
-            parse = String.format(getString(R.string.actionbar_theme_count_plural),
-                    String.valueOf(substratum_packages.size()));
-            ((MainActivity) getActivity()).switchToCustomToolbar(title, parse);
-        }
-
-        // Now we need to sort the buffered installed themes
-        map = new TreeMap<>(substratum_packages);
-        if (adapter == null) {
-            adapter = new ThemeAdapter(prepareData());
-            recyclerView.setAdapter(adapter);
-        } else {
-            adapter.updateInformation(prepareData());
-            adapter.notifyDataSetChanged();
-        }
-        swipeRefreshLayout.setRefreshing(false);
-        materialProgressBar.setVisibility(View.GONE);
-    }
-
     private static class LayoutLoader extends AsyncTask<String, Integer, String> {
-        private WeakReference<ThemeFragment> ref;
+        // The reason for this class is so that we can have a small delay before loading the
+        // fragment, so it won't freeze up the navigation drawer on fragment switch.
+
+        private WeakReference<ThemeFragment> fragment;
 
         LayoutLoader(ThemeFragment themeFragment) {
-            ref = new WeakReference<>(themeFragment);
+            this.fragment = new WeakReference<>(themeFragment);
         }
 
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            ThemeFragment themeFragment = ref.get();
+            ThemeFragment themeFragment = fragment.get();
             if (themeFragment != null) {
-                themeFragment.refreshLayout();
+                refreshLayout(
+                        themeFragment.prefs,
+                        themeFragment.root,
+                        themeFragment.mContext,
+                        themeFragment.getActivity(),
+                        themeFragment.home_type,
+                        themeFragment.toolbar_title);
             }
         }
 
@@ -294,7 +296,8 @@ public class ThemeFragment extends Fragment {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            refreshLayout();
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            refreshLayout(prefs, root, mContext, getActivity(), home_type, toolbar_title);
         }
     }
 }

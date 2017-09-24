@@ -32,6 +32,8 @@ import android.content.pm.ShortcutManager;
 import android.content.pm.Signature;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.AdaptiveIconDrawable;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -247,7 +249,14 @@ public class References {
     public static void createShortcut(Context context, String theme_pid, String theme_name) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
             ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
-            Bitmap app_icon = Packages.getBitmapFromDrawable(Packages.getAppIcon(context, theme_pid));
+            Icon app_icon;
+            Drawable app_icon_drawable = Packages.getAppIcon(context, theme_pid);
+            //If we are on Oreo and the Theme uses an adaptiveIcon, we have to treat it properly
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O && app_icon_drawable instanceof AdaptiveIconDrawable ) {
+                    app_icon = Icon.createWithAdaptiveBitmap(Packages.getBitmapFromDrawable(app_icon_drawable));
+            } else {
+                app_icon = Icon.createWithBitmap(Packages.getBitmapFromDrawable(app_icon_drawable));
+            }
             try {
                 Intent myIntent = new Intent(Intent.ACTION_MAIN);
                 myIntent.putExtra("theme_name", theme_name);
@@ -262,7 +271,7 @@ public class References {
                         new ShortcutInfo.Builder(context, "favorite")
                                 .setShortLabel(theme_name)
                                 .setLongLabel(theme_name)
-                                .setIcon(Icon.createWithBitmap(app_icon))
+                                .setIcon(app_icon)
                                 .setIntent(myIntent)
                                 .build();
                 if (shortcutManager != null) {

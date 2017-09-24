@@ -676,31 +676,6 @@ public class Packages {
         return hex;
     }
 
-    public static boolean isPackageDebuggable(Context context, String packageName) {
-        X500Principal DEBUG_1 = new X500Principal("C=US,O=Android,CN=Android Debug");
-        X500Principal DEBUG_2 = new X500Principal("CN=Android Debug,O=Android,C=US");
-        boolean debuggable = false;
-
-        try {
-            @SuppressLint("PackageManagerGetSignatures")
-            PackageInfo pinfo = context.getPackageManager()
-                    .getPackageInfo(packageName, PackageManager.GET_SIGNATURES);
-            Signature signatures[] = pinfo.signatures;
-            CertificateFactory cf = CertificateFactory.getInstance("X.509");
-
-            for (Signature signature : signatures) {
-                ByteArrayInputStream stream = new ByteArrayInputStream(signature.toByteArray());
-                X509Certificate cert = (X509Certificate) cf.generateCertificate(stream);
-                debuggable = cert.getSubjectX500Principal().equals(DEBUG_1) ||
-                        cert.getSubjectX500Principal().equals(DEBUG_2);
-                if (debuggable) break;
-            }
-        } catch (PackageManager.NameNotFoundException | CertificateException e) {
-            // Cache variable will remain false
-        }
-        return debuggable;
-    }
-
     // Obtain a live sample of the content providers in an app
     static boolean getProviders(Context context, String trigger) {
         List<PackageInfo> list =

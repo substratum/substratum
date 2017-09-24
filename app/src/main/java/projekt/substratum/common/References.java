@@ -32,7 +32,6 @@ import android.content.pm.ShortcutManager;
 import android.content.pm.Signature;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Icon;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -248,8 +247,7 @@ public class References {
     public static void createShortcut(Context context, String theme_pid, String theme_name) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
             ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
-            Bitmap app_icon = ((BitmapDrawable)
-                    Packages.getAppIcon(context, theme_pid)).getBitmap();
+            Bitmap app_icon = Packages.getBitmapFromDrawable(Packages.getAppIcon(context, theme_pid));
             try {
                 Intent myIntent = new Intent(Intent.ACTION_MAIN);
                 myIntent.putExtra("theme_name", theme_name);

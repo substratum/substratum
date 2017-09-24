@@ -208,6 +208,7 @@ public class ManagerItem implements Serializable, Comparable<ManagerItem> {
         if (compareTheme != 0) {
             return compareTheme;
         }
+        if (managerItem.getLabelName() == null) return compareTheme;
         return getLabelName().compareToIgnoreCase(managerItem.getLabelName());
     }
 }

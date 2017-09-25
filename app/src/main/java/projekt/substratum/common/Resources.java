@@ -32,7 +32,6 @@ import static projekt.substratum.common.References.FORCE_SAMSUNG_VARIANT;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.Systems.checkAndromeda;
-import static projekt.substratum.common.Systems.checkOreo;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 import static projekt.substratum.common.Systems.isSamsung;
 
@@ -189,7 +188,7 @@ public class Resources {
     // This method checks whether custom sounds is supported by the system
     public static boolean isSoundsSupported(Context context) {
         return !checkAndromeda(context) && !isSamsung(context) &&
-                !(checkOreo() && !checkThemeInterfacer(context));
+                !checkThemeInterfacer(context);
     }
 
     // This method checks whether custom boot animation is supported by the system

@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -554,8 +553,8 @@ public class Packages {
     // then mutates the input.
     @SuppressWarnings("unchecked")
     public static HashMap<String, String[]> getSubstratumPackages(Context context,
-                                                String home_type,
-                                                String search_filter) {
+                                                                  String home_type,
+                                                                  String search_filter) {
         try {
             HashMap returnMap = new HashMap<>();
             List<ResolveInfo> listOfThemes = getThemes(context);
@@ -564,65 +563,70 @@ public class Packages {
                 ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
                         packageName, PackageManager.GET_META_DATA);
 
-                Boolean can_continue = true;
+                // By default, we will have to enforce continuation to false, if a poorly adapted
+                // theme did not implement the proper meta data.
+                Boolean can_continue = false;
                 if (appInfo.metaData.getString(metadataName) != null &&
-                        appInfo.metaData.getString(metadataAuthor) != null) {
+                        appInfo.metaData.getString(metadataAuthor) != null &&
+                        appInfo.metaData.getString(metadataVersion) != null) {
+                    // The theme app contains the proper metadata
+                    can_continue = true;
+                    // If the user is searching using the search bar
                     if (search_filter != null && search_filter.length() > 0) {
-                        String name = appInfo.metaData.getString(metadataName) +
-                                " " + appInfo.metaData.getString(metadataAuthor);
-                        if (!name.toLowerCase(Locale.US).contains(
-                                search_filter.toLowerCase(Locale.US))) {
-                            can_continue = false;
-                        }
+                        @SuppressWarnings("StringBufferReplaceableByString")
+                        StringBuilder filtered = new StringBuilder();
+                        filtered.append(appInfo.metaData.getString(metadataName));
+                        filtered.append(appInfo.metaData.getString(metadataAuthor));
+                        can_continue =
+                                filtered
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(search_filter.toLowerCase());
                     }
                 }
                 if (can_continue) {
-                    Context otherContext = context.createPackageContext(packageName, 0);
+                    // Let's prepare ourselves for appending into the hash map for this theme
+                    String[] data = {
+                            appInfo.metaData.getString(metadataAuthor),
+                            packageName
+                    };
+                    // Take the other package's context
+                    Context other = context.createPackageContext(packageName, 0);
+                    // Check if it is wallpaper mode, if it is, bail out early
                     if (home_type.equals(wallpaperFragment)) {
                         String wallpaperCheck = appInfo.metaData.getString(metadataWallpapers);
                         if (wallpaperCheck != null && wallpaperCheck.length() > 0) {
-                            String[] data = {
-                                    appInfo.metaData.getString(metadataAuthor),
-                                    packageName
-                            };
                             returnMap.put(appInfo.metaData.getString(metadataName), data);
                         }
                     } else {
+                        // Well, it's not wallpaper mode, so let's keep going!
                         if (home_type.length() == 0) {
-                            String[] data = {
-                                    appInfo.metaData.getString(metadataAuthor),
-                                    packageName
-                            };
                             returnMap.put(appInfo.metaData.getString(metadataName), data);
-                            Log.d(PACKAGE_TAG,
-                                    "Loaded Substratum Theme: [" + packageName + "]");
+                            Log.d(PACKAGE_TAG, "Loaded Substratum Theme: [" + packageName + "]");
                             if (ENABLE_PACKAGE_LOGGING)
                                 PackageAnalytics.logPackageInfo(context, packageName);
                         } else {
-                            try {
-                                try (ZipFile zf = new ZipFile(
-                                        otherContext.getApplicationInfo().sourceDir)) {
-                                    for (Enumeration<? extends ZipEntry> e = zf.entries();
-                                         e.hasMoreElements(); ) {
-                                        ZipEntry ze = e.nextElement();
-                                        String name = ze.getName();
-                                        if (name.startsWith("assets/" + home_type + "/")) {
-                                            String[] data = {
-                                                    appInfo.metaData.getString(metadataAuthor),
-                                                    packageName};
-                                            returnMap.put(
-                                                    appInfo.metaData.getString(metadataName),
-                                                    data);
-                                            break;
-                                        }
+                            // We now have to open a specific fragment
+                            try (ZipFile zf = new ZipFile(other.getApplicationInfo().sourceDir)) {
+                                for (Enumeration<? extends ZipEntry> e = zf.entries();
+                                     e.hasMoreElements(); ) {
+                                    ZipEntry ze = e.nextElement();
+                                    String name = ze.getName();
+                                    if (name.startsWith("assets/" + home_type + "/")) {
+                                        returnMap.put(
+                                                appInfo.metaData.getString(metadataName),
+                                                data);
+                                        break;
                                     }
                                 }
                             } catch (Exception e) {
-                                Log.e(SUBSTRATUM_LOG,
-                                        "Unable to find package identifier");
+                                Log.e(SUBSTRATUM_LOG, "Unable to find package identifier");
                             }
                         }
                     }
+                } else {
+                    Log.e(PACKAGE_TAG, "Skipping package: '" + packageName +
+                            "' - due to incorrect metadata installation");
                 }
             }
             return returnMap;

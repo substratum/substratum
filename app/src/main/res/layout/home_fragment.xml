@@ -21,6 +21,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 tools:context="MainActivity">
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -36,15 +37,6 @@
             <include
                 android:id="@+id/no_entry_card_view"
                 layout="@layout/no_entry_card"/>
-
-            <ProgressBar
-                android:id="@+id/progress_bar_loader"
-                style="?android:attr/indeterminateProgressStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_marginTop="20dp"
-                android:indeterminate="true"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/theme_list"

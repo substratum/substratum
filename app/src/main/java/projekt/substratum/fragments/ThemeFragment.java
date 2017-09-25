@@ -39,7 +39,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
@@ -55,7 +54,6 @@ import projekt.substratum.adapters.fragments.themes.ThemeAdapter;
 import projekt.substratum.adapters.fragments.themes.ThemeItem;
 import projekt.substratum.common.Activities;
 import projekt.substratum.common.Packages;
-import projekt.substratum.common.References;
 
 import static projekt.substratum.common.References.DEFAULT_GRID_COUNT;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
@@ -111,22 +109,15 @@ public class ThemeFragment extends Fragment {
                                      ViewGroup root,
                                      Context mContext,
                                      Activity activity,
-                                     String home_type,
-                                     String toolbarTitle) {
+                                     String toolbarTitle,
+                                     HashMap<String, String[]> substratum_packages,
+                                     ArrayList<ThemeItem> themeItems) {
 
-        ProgressBar materialProgressBar = root.findViewById(R.id.progress_bar_loader);
         RecyclerView recyclerView = root.findViewById(R.id.theme_list);
         SwipeRefreshLayout swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
         CardView cardView = root.findViewById(R.id.no_entry_card_view);
         TextView cardViewText = cardView.findViewById(R.id.no_themes_description);
         ImageView cardViewImage = cardView.findViewById(R.id.no_themes_installed);
-
-        materialProgressBar.setVisibility(View.VISIBLE);
-        HashMap<String, String[]> substratum_packages = Packages.getSubstratumPackages(
-                mContext,
-                home_type,
-                MainActivity.userInput);
-        Log.d(References.SUBSTRATUM_LOG, "Substratum has listed all installed themes!");
 
         if (substratum_packages != null) {
             if (substratum_packages.size() == 0) {
@@ -171,8 +162,6 @@ public class ThemeFragment extends Fragment {
             }
 
             // Now we need to sort the buffered installed themes
-            Map<String, String[]> map = new TreeMap<>(substratum_packages);
-            ArrayList<ThemeItem> themeItems = prepareData(map, mContext, activity, home_type);
             ThemeAdapter adapter = new ThemeAdapter(themeItems);
 
             // Assign adapter to RecyclerView
@@ -197,7 +186,10 @@ public class ThemeFragment extends Fragment {
 
         // Conclude
         swipeRefreshLayout.setRefreshing(false);
-        materialProgressBar.setVisibility(View.GONE);
+    }
+
+    private ThemeFragment getInstance() {
+        return this;
     }
 
     @Override
@@ -216,15 +208,9 @@ public class ThemeFragment extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         mContext = getContext();
-
         prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-        if (prefs.getBoolean("nougat_style_cards", false)) {
-            root = (ViewGroup) inflater.inflate(R.layout.home_fragment_n, container, false);
-        } else {
-            root = (ViewGroup) inflater.inflate(R.layout.home_fragment, container, false);
-        }
+        root = (ViewGroup) inflater.inflate(R.layout.home_fragment, container, false);
 
         // Register the theme install receiver to auto refresh the fragment
         refreshReceiver = new ThemeInstallReceiver();
@@ -238,17 +224,17 @@ public class ThemeFragment extends Fragment {
             toolbar_title = bundle.getString("title");
         }
 
-        // Initialize a proper loading sequence so the user does not see the unparsed string
-        ((MainActivity) getActivity())
-                .actionbar_content.setText(R.string.actionbar_theme_count_loading);
+        SwipeRefreshLayout swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(() -> new LayoutLoader(this).execute());
+        swipeRefreshLayout.setRefreshing(true);
+
+        ((MainActivity)
+                getActivity()).actionbar_content.setText(R.string.actionbar_theme_count_loading);
 
         View cardView = root.findViewById(R.id.no_entry_card_view);
         cardView.setOnClickListener(v ->
                 Activities.launchInternalActivity(mContext, ShowcaseActivity.class));
         cardView.setVisibility(View.GONE);
-
-        SwipeRefreshLayout swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setOnRefreshListener(() -> new LayoutLoader(this).execute());
 
         // Let's start loading everything
         new LayoutLoader(this).execute();
@@ -257,10 +243,9 @@ public class ThemeFragment extends Fragment {
     }
 
     private static class LayoutLoader extends AsyncTask<String, Integer, String> {
-        // The reason for this class is so that we can have a small delay before loading the
-        // fragment, so it won't freeze up the navigation drawer on fragment switch.
-
         private WeakReference<ThemeFragment> fragment;
+        private HashMap<String, String[]> substratum_packages;
+        private ArrayList<ThemeItem> themeItems;
 
         LayoutLoader(ThemeFragment themeFragment) {
             this.fragment = new WeakReference<>(themeFragment);
@@ -276,17 +261,26 @@ public class ThemeFragment extends Fragment {
                         themeFragment.root,
                         themeFragment.mContext,
                         themeFragment.getActivity(),
-                        themeFragment.home_type,
-                        themeFragment.toolbar_title);
+                        themeFragment.toolbar_title,
+                        substratum_packages,
+                        themeItems);
             }
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            ThemeFragment themeFragment = fragment.get();
+            if (themeFragment != null) {
+                this.substratum_packages = Packages.getSubstratumPackages(
+                        themeFragment.mContext,
+                        themeFragment.home_type,
+                        MainActivity.userInput);
+                Map<String, String[]> map = new TreeMap<>(this.substratum_packages);
+                this.themeItems = prepareData(
+                        map,
+                        themeFragment.mContext,
+                        themeFragment.getActivity(),
+                        themeFragment.home_type);
             }
             return null;
         }
@@ -296,8 +290,7 @@ public class ThemeFragment extends Fragment {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            refreshLayout(prefs, root, mContext, getActivity(), home_type, toolbar_title);
+            new LayoutLoader(getInstance()).execute();
         }
     }
 }

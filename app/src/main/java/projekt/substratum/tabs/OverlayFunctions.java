@@ -462,11 +462,23 @@ class OverlayFunctions {
                                         overlays.mBuilder.build());
                             }
 
-                            String suffix = ((sUrl[0].length() != 0) ?
+                            String unparsedSuffix;
+                            boolean useType3CommonDir = false;
+                            if (sUrl[0].length() != 0) {
+                                useType3CommonDir = overlays.themeAssetManager
+                                        .list(Overlays.overlaysDir + "/" + current_overlay +
+                                                "/type3-common").length > 0;
+                                if (useType3CommonDir) {
+                                    unparsedSuffix = "/type3-common";
+                                } else {
+                                    unparsedSuffix = "/type3_" + unparsedVariant;
+                                }
+                            } else {
+                                unparsedSuffix = "/res";
+                            }
+
+                            String parsedSuffix = ((sUrl[0].length() != 0) ?
                                     "/type3_" + parsedVariant : "/res");
-                            String unparsedSuffix =
-                                    ((sUrl[0].length() != 0) ? "/type3_" + unparsedVariant :
-                                            "/res");
                             overlays.type3 = parsedVariant;
 
                             String workingDirectory = context.getCacheDir().getAbsolutePath() +
@@ -485,10 +497,22 @@ class OverlayFunctions {
                             FileOperations.copyFileOrDir(
                                     overlays.themeAssetManager,
                                     listDir,
-                                    workingDirectory + suffix,
+                                    workingDirectory + parsedSuffix,
                                     listDir,
                                     overlays.cipher
                             );
+
+                            if (useType3CommonDir) {
+                                String type3Dir = Overlays.overlaysDir + "/" + current_overlay +
+                                        "/type3_" + unparsedVariant;
+                                FileOperations.copyFileOrDir(
+                                        overlays.themeAssetManager,
+                                        type3Dir,
+                                        workingDirectory + parsedSuffix,
+                                        type3Dir,
+                                        overlays.cipher
+                                );
+                            }
 
                             if (overlays.checkedOverlays.get(i).is_variant_chosen ||
                                     sUrl[0].length() != 0) {
@@ -501,7 +525,7 @@ class OverlayFunctions {
                                             overlays.checkedOverlays.get(i)
                                                     .getSelectedVariantName() + "\"");
                                     Log.d(Overlays.TAG, "Moving variant file to: " +
-                                            workingDirectory + suffix + "/values/type1a.xml");
+                                            workingDirectory + parsedSuffix + "/values/type1a.xml");
 
                                     String to_copy =
                                             Overlays.overlaysDir + "/" + current_overlay +
@@ -513,7 +537,7 @@ class OverlayFunctions {
                                     FileOperations.copyFileOrDir(
                                             overlays.themeAssetManager,
                                             to_copy,
-                                            workingDirectory + suffix + (
+                                            workingDirectory + parsedSuffix + (
                                                     overlays.encrypted ?
                                                             "/values/type1a.xml.enc" :
                                                             "/values/type1a.xml"),
@@ -530,7 +554,7 @@ class OverlayFunctions {
                                             overlays.checkedOverlays.get(i)
                                                     .getSelectedVariantName2() + "\"");
                                     Log.d(Overlays.TAG, "Moving variant file to: " +
-                                            workingDirectory + suffix + "/values/type1b.xml");
+                                            workingDirectory + parsedSuffix + "/values/type1b.xml");
 
                                     String to_copy =
                                             Overlays.overlaysDir + "/" + current_overlay +
@@ -542,7 +566,7 @@ class OverlayFunctions {
                                     FileOperations.copyFileOrDir(
                                             overlays.themeAssetManager,
                                             to_copy,
-                                            workingDirectory + suffix + (
+                                            workingDirectory + parsedSuffix + (
                                                     overlays.encrypted ?
                                                             "/values/type1b.xml.enc" :
                                                             "/values/type1b.xml"),
@@ -558,7 +582,7 @@ class OverlayFunctions {
                                             overlays.checkedOverlays.get(i)
                                                     .getSelectedVariantName3() + "\"");
                                     Log.d(Overlays.TAG, "Moving variant file to: " +
-                                            workingDirectory + suffix + "/values/type1c.xml");
+                                            workingDirectory + parsedSuffix + "/values/type1c.xml");
 
                                     String to_copy =
                                             Overlays.overlaysDir + "/" + current_overlay +
@@ -570,7 +594,7 @@ class OverlayFunctions {
                                     FileOperations.copyFileOrDir(
                                             overlays.themeAssetManager,
                                             to_copy,
-                                            workingDirectory + suffix + (
+                                            workingDirectory + parsedSuffix + (
                                                     overlays.encrypted ?
                                                             "/values/type1c.xml.enc" :
                                                             "/values/type1c.xml"),
@@ -648,7 +672,7 @@ class OverlayFunctions {
                                                 overlays.versionName,
                                                 Systems.checkOMS(context),
                                                 overlays.theme_pid,
-                                                suffix,
+                                                parsedSuffix,
                                                 overlays.type1a,
                                                 overlays.type1b,
                                                 overlays.type1c,
@@ -671,7 +695,7 @@ class OverlayFunctions {
                                                 overlays.versionName,
                                                 Systems.checkOMS(context),
                                                 overlays.theme_pid,
-                                                suffix,
+                                                parsedSuffix,
                                                 overlays.type1a,
                                                 overlays.type1b,
                                                 overlays.type1c,
@@ -699,7 +723,7 @@ class OverlayFunctions {
                                                 overlays.versionName,
                                                 Systems.checkOMS(context),
                                                 overlays.theme_pid,
-                                                suffix,
+                                                parsedSuffix,
                                                 overlays.type1a,
                                                 overlays.type1b,
                                                 overlays.type1c,
@@ -721,7 +745,7 @@ class OverlayFunctions {
                                                 overlays.versionName,
                                                 Systems.checkOMS(context),
                                                 overlays.theme_pid,
-                                                suffix,
+                                                parsedSuffix,
                                                 overlays.type1a,
                                                 overlays.type1b,
                                                 overlays.type1c,
@@ -787,7 +811,7 @@ class OverlayFunctions {
                                         overlays.versionName,
                                         Systems.checkOMS(context),
                                         overlays.theme_pid,
-                                        suffix,
+                                        parsedSuffix,
                                         overlays.type1a,
                                         overlays.type1b,
                                         overlays.type1c,

@@ -133,7 +133,6 @@ corrigir coisas que não estão a receber temas em modo de compatibilidade, uma 
     <string name="sounds_spinner_set_defaults">repor os sons predefinidos&#8230;    </string>
     <string name="sounds_spinner_defaults_text">isto apaga qualquer som personalizado
        aplicado no dispositivo</string>
-    <string name="sounds_dialog_apply_text">A processar o Pacote de Áudio&#8230;</string>
     <string name="sounds_dialog_apply_success">Pacote de sons aplicado!</string>
     <string name="sounds_dialog_apply_failed">Falha ao aplicar pacote de sons&#8230;</string>
     <string name="sounds_default_spinner">por favor, selecione um pacote de áudio&#8230;</string>

@@ -99,7 +99,6 @@
     <string name="sounds_placeholder_text">请从下拉列表中选择一个音效包</string>
     <string name="sounds_spinner_set_defaults">还原默认音效</string>
     <string name="sounds_spinner_defaults_text">这将清除您应用的所有自定义音效</string>
-    <string name="sounds_dialog_apply_text">正在处理音效包</string>
     <string name="sounds_dialog_apply_success">成功应用音效包</string>
     <string name="sounds_dialog_apply_failed">音效包应用失败</string>
     <string name="sounds_default_spinner">请选择一个音效包</string>

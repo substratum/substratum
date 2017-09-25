@@ -18,7 +18,6 @@
 
 package projekt.substratum.tabs;
 
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -70,7 +69,6 @@ import javax.crypto.spec.SecretKeySpec;
 import projekt.substratum.R;
 import projekt.substratum.adapters.tabs.sounds.SoundsAdapter;
 import projekt.substratum.adapters.tabs.sounds.SoundsInfo;
-import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.util.tabs.SoundUtils;
 import projekt.substratum.util.views.RecyclerItemClickListener;
@@ -92,7 +90,6 @@ public class Sounds extends Fragment {
     private int previous_position;
     private RelativeLayout relativeLayout, error;
     private RelativeLayout defaults;
-    private ProgressDialog mProgressDialog;
     private SharedPreferences prefs;
     private AsyncTask current;
     private NestedScrollView nsv;
@@ -301,27 +298,9 @@ public class Sounds extends Fragment {
         }
 
         @Override
-        protected void onPreExecute() {
-            Sounds sounds = ref.get();
-            if (sounds != null) {
-                if (Systems.checkThemeInterfacer(sounds.mContext)) {
-                    sounds.mProgressDialog = new ProgressDialog(
-                            sounds.getActivity(), R.style.RestoreDialog);
-                    sounds.mProgressDialog.setMessage(
-                            sounds.getString(R.string.manage_dialog_performing));
-                    sounds.mProgressDialog.setIndeterminate(true);
-                    sounds.mProgressDialog.setCancelable(false);
-                    sounds.mProgressDialog.show();
-                }
-            }
-        }
-
-        @Override
         protected void onPostExecute(String result) {
             Sounds sounds = ref.get();
             if (sounds != null) {
-                if (Systems.checkThemeInterfacer(sounds.mContext))
-                    sounds.mProgressDialog.dismiss();
                 SharedPreferences.Editor editor = sounds.prefs.edit();
                 editor.remove("sounds_applied");
                 editor.apply();

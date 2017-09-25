@@ -157,7 +157,6 @@
     </string>
     <string name="sounds_spinner_defaults_text">ez törli a készüléken alkalmazott
         egyéni hangokat</string>
-    <string name="sounds_dialog_apply_text">Hang csomag feldolgozása&#8230;</string>
     <string name="sounds_dialog_apply_success">Hang csomag alkalmazva!</string>
     <string name="sounds_dialog_apply_failed">Hang csomag alkalmazása sikertelen&#8230;</string>
     <string name="sounds_default_spinner">kérjük, válasszon hang csomagot&#8230;</string>

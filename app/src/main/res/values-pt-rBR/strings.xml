@@ -134,7 +134,6 @@ corrigir coisas que não estão sendo aplicadas nos temas em modo de compatibili
     <string name="sounds_placeholder_text">favor selecionar um pacote de áudio da lista suspensa&#8230;</string>
     <string name="sounds_spinner_set_defaults">restaurar sons padrões&#8230;    </string>
     <string name="sounds_spinner_defaults_text">isso apagará todos os sons de temas aplicados no seu dispositivo</string>
-    <string name="sounds_dialog_apply_text">Pacote de áudio está processando&#8230;</string>
     <string name="sounds_dialog_apply_success">Pacote de áudio aplicado!</string>
     <string name="sounds_dialog_apply_failed">Pacote de áudio falhou ao aplicar&#8230;</string>
     <string name="sounds_default_spinner">favor selecione um pacote de áudio&#8230;</string>

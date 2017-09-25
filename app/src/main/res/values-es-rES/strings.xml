@@ -112,7 +112,6 @@ arreglar las cosas que no se están tematizando en legado porque requieren cambi
     <string name="sounds_placeholder_text">Seleccione un pack de sonido de la lista despegable&#8230;</string>
     <string name="sounds_spinner_set_defaults">restaurar sonidos por defecto&#8230;    </string>
     <string name="sounds_spinner_defaults_text">Esto borrará cualquier sonido personalizado aplicado en el dispositivo</string>
-    <string name="sounds_dialog_apply_text">Pack de sonido se está procesando&#8230;</string>
     <string name="sounds_dialog_apply_success">Pack de sonido aplicado!</string>
     <string name="sounds_dialog_apply_failed">El pack de sonido no se aplicó&#8230;</string>
     <string name="sounds_default_spinner">Seleccione un pack de sonido&#8230;</string>

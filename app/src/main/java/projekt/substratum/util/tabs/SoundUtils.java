@@ -18,7 +18,6 @@
 
 package projekt.substratum.util.tabs;
 
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -127,26 +126,10 @@ public class SoundUtils {
     }
 
     private static class SoundsHandlerAsync extends AsyncTask<String, Integer, String> {
-        private ProgressDialog progress;
         private WeakReference<SoundUtils> ref;
 
         private SoundsHandlerAsync(SoundUtils soundUtils) {
             ref = new WeakReference<>(soundUtils);
-        }
-
-        @Override
-        protected void onPreExecute() {
-            SoundUtils soundUtils = ref.get();
-            if (soundUtils != null) {
-                Context context = soundUtils.mContext;
-                if (Systems.checkThemeInterfacer(context)) {
-                    progress = new ProgressDialog(context, R.style.AppTheme_DialogAlert);
-                    progress.setMessage(context.getString(R.string.sounds_dialog_apply_text));
-                    progress.setIndeterminate(false);
-                    progress.setCancelable(false);
-                    progress.show();
-                }
-            }
         }
 
         @Override
@@ -157,12 +140,11 @@ public class SoundUtils {
                 if (Systems.checkThemeInterfacer(context) &&
                         !Systems.isBinderInterfacer(context)) {
                     if (finishReceiver == null) {
-                        finishReceiver = new FinishReceiver(soundUtils, progress);
+                        finishReceiver = new FinishReceiver(soundUtils);
                     }
                     IntentFilter intentFilter = new IntentFilter(STATUS_CHANGED);
                     context.getApplicationContext().registerReceiver(finishReceiver, intentFilter);
                 } else {
-                    progress.dismiss();
                     soundUtils.finishFunction();
                     ThemeManager.restartSystemUI(context);
                 }
@@ -200,19 +182,16 @@ public class SoundUtils {
     }
 
     static class FinishReceiver extends BroadcastReceiver {
-        private WeakReference<ProgressDialog> progressRef;
         private WeakReference<SoundUtils> soundRef;
 
-        private FinishReceiver(SoundUtils soundUtils, ProgressDialog progress) {
-            progressRef = new WeakReference<>(progress);
+        private FinishReceiver(SoundUtils soundUtils) {
             soundRef = new WeakReference<>(soundUtils);
         }
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            ProgressDialog progress = progressRef.get();
             SoundUtils soundUtils = soundRef.get();
-            if (progress != null && soundUtils != null) {
+            if (soundUtils != null) {
                 String PRIMARY_COMMAND_KEY = "primary_command_key";
                 String COMMAND_VALUE_JOB_COMPLETE = "job_complete";
                 String command = intent.getStringExtra(PRIMARY_COMMAND_KEY);
@@ -220,7 +199,6 @@ public class SoundUtils {
                 if (command.equals(COMMAND_VALUE_JOB_COMPLETE)) {
                     context.getApplicationContext().unregisterReceiver(finishReceiver);
                     soundUtils.finishFunction();
-                    progress.dismiss();
                 }
             }
         }

@@ -131,7 +131,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="sounds_spinner_set_defaults">obnovit výchozí zvuky&#8230;
     </string>
     <string name="sounds_spinner_defaults_text">toto vyčistí všechny vlastní zvuky použité v zařízení</string>
-    <string name="sounds_dialog_apply_text">Balíček zvuků se zpracovává&#8230;</string>
     <string name="sounds_dialog_apply_success">Zvukový balíček byl použit!</string>
     <string name="sounds_dialog_apply_failed">Zvukový balíček se nepodařilo použít&#8230;</string>
     <string name="sounds_default_spinner">prosím, vyberte balíček zvuků&#8230;</string>

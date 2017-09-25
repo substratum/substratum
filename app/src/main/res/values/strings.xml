@@ -207,7 +207,6 @@
     </string>
     <string name="sounds_spinner_defaults_text">this will clear out any custom sounds
         applied on your device</string>
-    <string name="sounds_dialog_apply_text">Sound pack is processing&#8230;</string>
     <string name="sounds_dialog_apply_success">Sound pack applied!</string>
     <string name="sounds_dialog_apply_failed">Sound pack failed to apply&#8230;</string>
     <string name="sounds_default_spinner">please select a sound pack&#8230;</string>

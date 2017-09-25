@@ -106,7 +106,6 @@
     <string name="sounds_placeholder_text">выберыце набор гукаў з выпадальнага спісу&#8230;</string>
     <string name="sounds_spinner_set_defaults">вяртаем стандартныя гукі&#8230;    </string>
     <string name="sounds_spinner_defaults_text">будуць выдалены ўсе карыстальніцкія гукі, ужытыя на прыладзе</string>
-    <string name="sounds_dialog_apply_text">Ужыванне набору гукаў&#8230;</string>
     <string name="sounds_dialog_apply_success">Набор гукаў ужыты!</string>
     <string name="sounds_dialog_apply_failed">Не атрымалася ўжыць набор гукаў&#8230;</string>
     <string name="sounds_default_spinner">выберыце набор гукаў&#8230;</string>

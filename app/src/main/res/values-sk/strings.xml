@@ -111,7 +111,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="sounds_placeholder_text">prosím, vyberte balíček zvukov zo zoznamu&#8230;</string>
     <string name="sounds_spinner_set_defaults">obnoviť na predvolené zvuky&#8230;</string>
     <string name="sounds_spinner_defaults_text">toto vymaže všetky vlastné zvuky aplikované na tomto zariadení</string>
-    <string name="sounds_dialog_apply_text">Spracováva sa balíček zvukov&#8230;</string>
     <string name="sounds_dialog_apply_success">Balíček zvukov je aplikovaný!</string>
     <string name="sounds_dialog_apply_failed">Balíček zvukov sa nepodarilo aplikovať&#8230;</string>
     <string name="sounds_default_spinner">prosím, vyberte balíček zvukov&#8230;</string>

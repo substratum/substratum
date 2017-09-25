@@ -120,7 +120,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="sounds_placeholder_text">proszę wybrać pakiet dźwięków z listy&#8230;</string>
     <string name="sounds_spinner_set_defaults">przywracanie domyślnych dźwięków&#8230;    </string>
     <string name="sounds_spinner_defaults_text">spowoduje to usunięcie wszystkich niestandardowych dźwięków zastosowanych na twoim urządzeniu</string>
-    <string name="sounds_dialog_apply_text">Pakiet dźwięków jest przetwarzany&#8230;</string>
     <string name="sounds_dialog_apply_success">Paczka dźwięków zastosowana!</string>
     <string name="sounds_dialog_apply_failed">Nie udało się zastosować pakietu dźwięków&#8230;</string>
     <string name="sounds_default_spinner">proszę wybrać pakiet dźwięków&#8230;</string>

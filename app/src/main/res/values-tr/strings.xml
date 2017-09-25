@@ -162,7 +162,6 @@ lütfen
     </string>
     <string name="sounds_spinner_defaults_text">cihazınızda uygulanan özel seslerin
         tümünü silecek</string>
-    <string name="sounds_dialog_apply_text">Ses paketi işleniyor&#8230;</string>
     <string name="sounds_dialog_apply_success">Ses paketi uygulandı!</string>
     <string name="sounds_dialog_apply_failed">Ses paketi uygulanamadı&#8230;</string>
     <string name="sounds_default_spinner">lütfen bir ses paketi seçin&#8230;</string>

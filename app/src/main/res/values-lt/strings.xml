@@ -116,7 +116,6 @@
     </string>
     <string name="sounds_spinner_defaults_text">tai išvalis bet kokius pasirinktinius garsus,
         kurie buvo pritaikyti jūsų įrenginyje</string>
-    <string name="sounds_dialog_apply_text">Garso paketo apdirbimas&#8230;</string>
     <string name="sounds_dialog_apply_success">Garso paketas pritaikytas!</string>
     <string name="sounds_dialog_apply_failed">Garso paketo nepavyko pritaikyti&#8230;</string>
     <string name="sounds_default_spinner">prašome pasirinkti garso paketą&#8230;</string>

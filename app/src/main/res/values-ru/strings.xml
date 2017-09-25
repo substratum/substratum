@@ -105,7 +105,6 @@
     <string name="sounds_placeholder_text">выберите набор звуков из выпадающего списка&#8230;</string>
     <string name="sounds_spinner_set_defaults">возврат стандартных звуков&#8230;</string>
     <string name="sounds_spinner_defaults_text">будут удалены все пользовательские звуки, примененные на устройстве</string>
-    <string name="sounds_dialog_apply_text">Применение набора звуков&#8230;</string>
     <string name="sounds_dialog_apply_success">Набор звуков применен!</string>
     <string name="sounds_dialog_apply_failed">Не удалось применить набор звуков&#8230;</string>
     <string name="sounds_default_spinner">выберите набор звуков&#8230;</string>

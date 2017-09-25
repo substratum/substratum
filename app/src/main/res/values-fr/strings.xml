@@ -109,7 +109,6 @@
     <string name="sounds_placeholder_text">Sélectionnez un paquet de son dans la liste déroulante&#8230;</string>
     <string name="sounds_spinner_set_defaults">Rétablir le paquet de son par défaut</string>
     <string name="sounds_spinner_defaults_text">Effacer tous les paquets de son définis sur votre appareil</string>
-    <string name="sounds_dialog_apply_text">Installation du paquet de son en cours&#8230;</string>
     <string name="sounds_dialog_apply_success">Paquet de son installé !</string>
     <string name="sounds_dialog_apply_failed">Échec de l\'installation du paquet de son&#8230;</string>
     <string name="sounds_default_spinner">Sélectionnez un paquet de son&#8230;</string>

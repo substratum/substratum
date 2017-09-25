@@ -104,7 +104,6 @@
     <string name="sounds_placeholder_text">kies een geluidspakket uit de keuzelijst&#8230;</string>
     <string name="sounds_spinner_set_defaults">herstel standaardgeluiden&#8230;</string>
     <string name="sounds_spinner_defaults_text">dit zal iedere toegepaste geluiden ongedaan maken</string>
-    <string name="sounds_dialog_apply_text">Geluidspakket wordt verwerkt&#8230;</string>
     <string name="sounds_dialog_apply_success">Geluidspakket toegepast!</string>
     <string name="sounds_dialog_apply_failed">Geluidspakket toepassen mislukt&#8230;</string>
     <string name="sounds_default_spinner">kies een geluidspakket&#8230;</string>

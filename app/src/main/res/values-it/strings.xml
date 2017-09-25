@@ -94,7 +94,6 @@
     <string name="sounds_placeholder_text">per favore seleziona un pacchetto di suoni dalla lista&#8230;</string>
     <string name="sounds_spinner_set_defaults">ripristina i suoni di default&#8230;    </string>
     <string name="sounds_spinner_defaults_text">questo cancellerà tutti i suoni personalizzati applicati sul tuo dispositivo</string>
-    <string name="sounds_dialog_apply_text">Il pacchetto di suoni è in processo&#8230;</string>
     <string name="sounds_dialog_apply_success">Il pacchetto di suoni è stato applicato!</string>
     <string name="sounds_dialog_apply_failed">L\'applicazione del pacchetto dei suoni ha fallito&#8230;</string>
     <string name="sounds_default_spinner">per favore seleziona un pacchetto di suoni&#8230;</string>

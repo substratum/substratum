@@ -105,7 +105,6 @@ bei dir funktioniert. Bitte stelle sicher, dass du eine Custom-Recovery verwende
     <string name="sounds_placeholder_text">Bitte wähle ein Soundpaket aus der Dropdown-Liste&#8230;</string>
     <string name="sounds_spinner_set_defaults">Standardtöne wiederherstellen&#8230;    </string>
     <string name="sounds_spinner_defaults_text">Hiermit werden alle angewendeten Töne deaktiviert</string>
-    <string name="sounds_dialog_apply_text">Soundpaket wird angewendet&#8230;</string>
     <string name="sounds_dialog_apply_success">Soundpaket wurde angewendet!</string>
     <string name="sounds_dialog_apply_failed">Anwenden des Soundpakets fehlgeschlagen&#8230;</string>
     <string name="sounds_default_spinner">Soundpaket wählen&#8230;</string>

@@ -36,6 +36,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import android.view.ViewGroup;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -48,6 +49,7 @@ import javax.crypto.spec.SecretKeySpec;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
+import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.Theming;
 import projekt.substratum.common.commands.FileOperations;
@@ -131,10 +133,12 @@ public class OverlayUpdater extends BroadcastReceiver {
         private Context context;
         private LocalBroadcastManager localBroadcastManager;
         private KeyRetrieval keyRetrieval;
+        private UpdaterLogs updaterLogs;
         private Intent securityIntent;
         private Cipher cipher;
         private String upgrade_mode = "";
         private String package_name;
+        private StringBuilder error_logs = new StringBuilder();
         private int id;
         private Handler handler = new Handler();
         private Runnable runnable = new Runnable() {
@@ -178,10 +182,6 @@ public class OverlayUpdater extends BroadcastReceiver {
                 mNotifyManager = (NotificationManager) context.getSystemService(
                         Context.NOTIFICATION_SERVICE);
                 mBuilder = new NotificationCompat.Builder(context, DEFAULT_NOTIFICATION_CHANNEL_ID);
-                Intent notificationIntent = new Intent(context, MainActivity.class);
-                PendingIntent intent =
-                        PendingIntent.getActivity(context, 0, notificationIntent,
-                                PendingIntent.FLAG_UPDATE_CURRENT);
                 String format = String.format(
                         context.getString(R.string.notification_initial_title_upgrade_intent),
                         Packages.getPackageName(context, package_name));
@@ -193,7 +193,6 @@ public class OverlayUpdater extends BroadcastReceiver {
                                         package_name)))
                         .setSmallIcon(android.R.drawable.ic_popup_sync)
                         .setPriority(notification_priority)
-                        .setContentIntent(intent)
                         .setOngoing(true);
                 mNotifyManager.notify(id, mBuilder.build());
             }
@@ -229,8 +228,15 @@ public class OverlayUpdater extends BroadcastReceiver {
                             context.getString(R.string.notification_done_upgrade_title_failed),
                             stringBuilder.toString());
                     mBuilder.setContentText(format2);
-                    LocalBroadcastManager.getInstance(context).sendBroadcast
-                            (new Intent("Updater.Lunchbar"));
+                    Intent intent = new Intent("logs");
+                    PendingIntent pintent = PendingIntent.getBroadcast(context, 0,
+                            intent, PendingIntent.FLAG_ONE_SHOT);
+                    mBuilder.setContentIntent(pintent);
+                    //SharedPreferences sharedPreferences =
+                    //        PreferenceManager.getDefaultSharedPreferences(context);
+                    //sharedPreferences.edit().putBoolean("Updater_Logcat", true).apply();
+                    //sharedPreferences.edit().putString
+                    //        ("updater_logs", error_logs.toString()).apply();
                 } else {
                     mBuilder.setSmallIcon(R.drawable.notification_success_icon);
                     String format = String.format(
@@ -313,6 +319,10 @@ public class OverlayUpdater extends BroadcastReceiver {
                         IntentFilter if1 = new IntentFilter(KEY_RETRIEVAL);
                         localBroadcastManager = LocalBroadcastManager.getInstance(context);
                         localBroadcastManager.registerReceiver(keyRetrieval, if1);
+
+                        updaterLogs = new UpdaterLogs();
+                        IntentFilter if2 = new IntentFilter("logs");
+                        localBroadcastManager.registerReceiver(updaterLogs, if2);
 
                         int counter = 0;
                         handler.postDelayed(runnable, 100);
@@ -490,7 +500,15 @@ public class OverlayUpdater extends BroadcastReceiver {
                             type4,
                             installed_overlays.get(i)
                     );
-                    if (sb.has_errored_out) errored_packages.add(installed_overlays.get(i));
+                    if (sb.has_errored_out) {
+                        errored_packages.add(installed_overlays.get(i));
+                        if (sb.getErrorLogs() != null) {
+                            if (error_logs.length() == 0)
+                                error_logs.append(sb.getErrorLogs());
+                            else
+                                error_logs.append("\n").append(sb.getErrorLogs());
+                        }
+                    }
 
                     if (encrypted) {
                         try {
@@ -509,6 +527,34 @@ public class OverlayUpdater extends BroadcastReceiver {
             @Override
             public void onReceive(Context context, Intent intent) {
                 securityIntent = intent;
+            }
+        }
+
+        class UpdaterLogs extends BroadcastReceiver {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                try{
+                    if (intent.getAction().equals("logs"))
+                        invokeLogCharDialog(context);
+                }catch (NullPointerException e){
+                    //suppress
+                }
+            }
+
+            public void invokeLogCharDialog(Context context) {
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context)
+                        .setTitle(R.string.logcat_dialog_title)
+                        .setMessage("\n" + error_logs)
+                        .setNeutralButton(R.string
+                                .customactivityoncrash_error_activity_error_details_close, null)
+                        .setNegativeButton(R.string
+                                        .customactivityoncrash_error_activity_error_details_copy,
+                                (dialog1, which) -> {
+                            References.copyToClipboard(context,
+                                    "substratum_log",
+                                    error_logs.toString());
+                        });
+                builder.show();
             }
         }
     }

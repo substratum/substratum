@@ -149,16 +149,17 @@ public class ThemeFragment extends Fragment {
 
             // Now let's place the proper amount of theme count into the context text
             String parse;
-            if (substratum_packages.size() == 0) {
-                ((MainActivity) activity).switchToStockToolbar(toolbarTitle);
-            } else if (substratum_packages.size() == 1) {
+            WeakReference<MainActivity> ref = new WeakReference<>((MainActivity) activity);
+            if (substratum_packages.size() == 0 && ref.get() != null) {
+                ref.get().switchToStockToolbar(toolbarTitle);
+            } else if (substratum_packages.size() == 1 && ref.get() != null) {
                 parse = String.format(mContext.getString(R.string.actionbar_theme_count_singular),
                         String.valueOf(substratum_packages.size()));
-                ((MainActivity) activity).switchToCustomToolbar(toolbarTitle, parse);
-            } else {
+                ref.get().switchToCustomToolbar(toolbarTitle, parse);
+            } else if (ref.get() != null) {
                 parse = String.format(mContext.getString(R.string.actionbar_theme_count_plural),
                         String.valueOf(substratum_packages.size()));
-                ((MainActivity) activity).switchToCustomToolbar(toolbarTitle, parse);
+                ref.get().switchToCustomToolbar(toolbarTitle, parse);
             }
 
             // Now we need to sort the buffered installed themes

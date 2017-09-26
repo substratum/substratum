@@ -942,7 +942,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             SettingsFragment settingsFragment = ref.get();
-            if (settingsFragment != null) {
+            if (settingsFragment == null) return;
+            try {
                 if (!Systems.checkThemeInterfacer(settingsFragment.mContext)) {
                     return;
                 }
@@ -977,7 +978,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     settingsFragment.systemPlatform.setSummary(
                             settingsFragment.platformSummary.toString());
                 }
-            }
+            } catch (IllegalStateException ignored) { /* Not much we can do about this */}
         }
 
         @Override

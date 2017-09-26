@@ -76,6 +76,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import projekt.substratum.activities.base.SubstratumActivity;
 import projekt.substratum.adapters.tabs.InformationTabsAdapter;
@@ -91,6 +92,7 @@ import projekt.substratum.common.tabs.WallpaperManager;
 import projekt.substratum.services.system.SamsungPackageService;
 import projekt.substratum.tabs.BootAnimations;
 import projekt.substratum.util.files.Root;
+import projekt.substratum.util.helpers.ContextWrapper;
 import projekt.substratum.util.views.FloatingActionMenu;
 import projekt.substratum.util.views.SheetDialog;
 
@@ -1072,6 +1074,18 @@ public class InformationActivity extends SubstratumActivity {
             if (!deleted.exists()) Log.d(References.SUBSTRATUM_BUILDER,
                     "Successfully cleared Substratum cache!");
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        Context newBase = base;
+        prefs = PreferenceManager.getDefaultSharedPreferences(base);
+        boolean languageCheck = prefs.getBoolean("force_english", false);
+        if (languageCheck) {
+            Locale newLocale = new Locale(Locale.ENGLISH.getLanguage());
+            newBase = ContextWrapper.wrapNewLocale(base, newLocale);
+        }
+        super.attachBaseContext(newBase);
     }
 
     private static class LayoutLoader extends AsyncTask<String, Integer, String> {

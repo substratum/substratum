@@ -19,7 +19,6 @@
 package projekt.substratum.activities.showcase;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
@@ -36,13 +35,14 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.Toolbar;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -56,7 +56,7 @@ import projekt.substratum.util.files.FileDownloader;
 import projekt.substratum.util.files.MD5;
 import projekt.substratum.util.readers.ReadShowcaseTabsFile;
 
-public class ShowcaseActivity extends Activity {
+public class ShowcaseActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private RelativeLayout no_network;
@@ -165,11 +165,11 @@ public class ShowcaseActivity extends Activity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) {
-            setActionBar(toolbar);
-            if (getActionBar() != null) {
-                getActionBar().setDisplayHomeAsUpEnabled(true);
-                getActionBar().setHomeButtonEnabled(false);
-                getActionBar().setTitle(R.string.showcase);
+            setSupportActionBar(toolbar);
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setHomeButtonEnabled(false);
+                getSupportActionBar().setTitle(R.string.showcase);
             }
             toolbar.setNavigationOnClickListener((view) -> onBackPressed());
         }
@@ -253,7 +253,7 @@ public class ShowcaseActivity extends Activity {
             });
             final ViewPager viewPager = findViewById(R.id.viewpager);
             final ShowcaseTabsAdapter adapter = new ShowcaseTabsAdapter(
-                    getFragmentManager(),
+                    getSupportFragmentManager(),
                     tabLayout.getTabCount(),
                     links);
             if (viewPager != null) {

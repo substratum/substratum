@@ -16,19 +16,28 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.activities.launch;
+package projekt.substratum.activities.base;
 
-import android.os.Bundle;
+import android.annotation.SuppressLint;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
-import projekt.substratum.activities.base.SubstratumActivity;
-import projekt.substratum.common.Theming;
+import java.io.File;
 
-public class AppShortcutLaunch extends SubstratumActivity {
+@SuppressLint("Registered")
+public class SubstratumActivity extends AppCompatActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Theming.launchTheme(this, getIntent().getStringExtra("theme_pid"), null);
-        finish();
+    public static final String CACHE_BUILD_DIR = "SubstratumBuilder";
+
+    public File getBuildDir() {
+        return new File(getCacheDir() + "/" + CACHE_BUILD_DIR);
+    }
+
+    public String getBuildDirPath() {
+        return getBuildDir().getAbsolutePath() + "/";
+    }
+
+    public void createToast(String message, int length) {
+        Toast.makeText(this, message, length).show();
     }
 }

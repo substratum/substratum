@@ -18,7 +18,6 @@
 
 package projekt.substratum.activities.launch;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
@@ -27,14 +26,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projekt.substratum.R;
+import projekt.substratum.activities.base.SubstratumActivity;
 import projekt.substratum.common.platform.ThemeManager;
 
-public class RescueActivity extends Activity {
+public class RescueActivity extends SubstratumActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toast.makeText(this, getString(R.string.rescue_toast), Toast.LENGTH_LONG).show();
+        createToast(getString(R.string.rescue_toast), Toast.LENGTH_LONG);
         Handler handler = new Handler();
         handler.postDelayed(() ->
                 runOnUiThread(() -> {

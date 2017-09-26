@@ -20,7 +20,6 @@ package projekt.substratum.tabs;
 
 
 import android.app.ActivityManager;
-import android.app.Fragment;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
@@ -40,6 +39,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.service.notification.StatusBarNotification;
 import android.support.design.widget.Lunchbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.content.LocalBroadcastManager;

@@ -18,17 +18,17 @@
 
 package projekt.substratum.activities.launch;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Process;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
 import android.text.format.Formatter;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -41,7 +41,7 @@ import static projekt.substratum.common.analytics.FirebaseAnalytics.PACKAGES_PRE
 import static projekt.substratum.common.commands.FileOperations.delete;
 import static projekt.substratum.common.commands.FileOperations.getFileSize;
 
-public class ManageSpaceActivity extends Activity {
+public class ManageSpaceActivity extends AppCompatActivity {
 
     private TextView cacheCounter;
     private TextView logsCounter;
@@ -53,10 +53,10 @@ public class ManageSpaceActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_space);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setActionBar(toolbar);
-        if (getActionBar() != null) {
-            getActionBar().setDisplayHomeAsUpEnabled(true);
-            getActionBar().setDisplayShowHomeEnabled(true);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
         if (toolbar != null) toolbar.setNavigationOnClickListener(v -> onBackPressed());
 

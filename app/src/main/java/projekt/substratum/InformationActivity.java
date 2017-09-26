@@ -52,6 +52,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -61,7 +62,6 @@ import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
@@ -78,6 +78,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import projekt.substratum.activities.base.SubstratumActivity;
 import projekt.substratum.adapters.tabs.InformationTabsAdapter;
 import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
@@ -110,7 +111,7 @@ import static projekt.substratum.common.References.soundsFragment;
 import static projekt.substratum.common.References.wallpaperFragment;
 import static projekt.substratum.common.Systems.isSamsung;
 
-public class InformationActivity extends Activity {
+public class InformationActivity extends SubstratumActivity {
 
     private static final int LUNCHBAR_DISMISS_FAB_CLICK_DELAY = 200;
     public static Lunchbar currentShownLunchBar;
@@ -197,8 +198,8 @@ public class InformationActivity extends Activity {
         if (upArrow != null)
             upArrow.setColorFilter(getColor(R.color.information_activity_dark_icon_mode),
                     PorterDuff.Mode.SRC_ATOP);
-        if (getActionBar() != null) {
-            getActionBar().setHomeAsUpIndicator(upArrow);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setHomeAsUpIndicator(upArrow);
         }
         setOverflowButtonColor(this, true);
     }
@@ -216,8 +217,8 @@ public class InformationActivity extends Activity {
         if (upArrow != null)
             upArrow.setColorFilter(getColor(R.color.information_activity_light_icon_mode),
                     PorterDuff.Mode.SRC_ATOP);
-        if (getActionBar() != null) {
-            getActionBar().setHomeAsUpIndicator(upArrow);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setHomeAsUpIndicator(upArrow);
         }
         setOverflowButtonColor(this, false);
     }
@@ -373,10 +374,10 @@ public class InformationActivity extends Activity {
 
         final ViewPager viewPager = findViewById(R.id.viewpager);
 
-        setActionBar(toolbar);
-        if (getActionBar() != null) {
-            getActionBar().setDisplayHomeAsUpEnabled(true);
-            getActionBar().setDisplayShowHomeEnabled(true);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
         if (toolbar != null) toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
@@ -550,7 +551,7 @@ public class InformationActivity extends Activity {
         extra_hidden_tabs[3] = !Systems.checkAndromeda(mContext);
 
         final InformationTabsAdapter adapter = new InformationTabsAdapter
-                (getFragmentManager(), (tabLayout != null) ? tabLayout.getTabCount() : 0,
+                (getSupportFragmentManager(), (tabLayout != null) ? tabLayout.getTabCount() : 0,
                         theme_mode, tab_checker, wallpaperUrl, extra_hidden_tabs, bundle);
 
         if (viewPager != null) {

@@ -45,7 +45,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -79,6 +78,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import projekt.substratum.activities.base.SubstratumActivity;
 import projekt.substratum.activities.showcase.ShowcaseActivity;
 import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
@@ -127,8 +127,7 @@ import static projekt.substratum.common.Systems.checkUsagePermissions;
 import static projekt.substratum.common.Systems.isSamsung;
 import static projekt.substratum.common.commands.FileOperations.delete;
 
-//TODO: Migrate to android.app.Activity post haste.
-public class MainActivity extends AppCompatActivity implements
+public class MainActivity extends SubstratumActivity implements
         ActivityCompat.OnRequestPermissionsResultCallback, SearchView.OnQueryTextListener {
 
     private static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;

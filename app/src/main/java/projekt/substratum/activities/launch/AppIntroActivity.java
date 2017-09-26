@@ -18,6 +18,7 @@
 
 package projekt.substratum.activities.launch;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -26,13 +27,12 @@ import android.preference.PreferenceManager;
 import com.stephentuso.welcome.WelcomeHelper;
 
 import projekt.substratum.MainActivity;
-import projekt.substratum.activities.base.SubstratumActivity;
 import projekt.substratum.common.References;
 import projekt.substratum.util.welcome.AppIntro;
 
 import static projekt.substratum.common.analytics.PackageAnalytics.isLowEnd;
 
-public class AppIntroActivity extends SubstratumActivity {
+public class AppIntroActivity extends Activity {
 
     private SharedPreferences prefs;
     private WelcomeHelper welcomeScreen;

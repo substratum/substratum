@@ -18,6 +18,7 @@
 
 package projekt.substratum.activities.floatui;
 
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,14 +29,13 @@ import android.service.quicksettings.Tile;
 import android.widget.Toast;
 
 import projekt.substratum.R;
-import projekt.substratum.activities.base.SubstratumActivity;
 import projekt.substratum.common.References;
 import projekt.substratum.services.floatui.SubstratumFloatInterface;
 import projekt.substratum.services.tiles.FloatUiTile;
 
 import static projekt.substratum.common.Systems.checkUsagePermissions;
 
-public class FloatUILaunchActivity extends SubstratumActivity {
+public class FloatUILaunchActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +49,8 @@ public class FloatUILaunchActivity extends SubstratumActivity {
                 triggerFloatingHead(false);
             }
         } else {
-            createToast(getString(R.string.per_app_manual_grant),
-                    Toast.LENGTH_LONG);
+            Toast.makeText(getApplicationContext(), getString(R.string.per_app_manual_grant),
+                    Toast.LENGTH_LONG).show();
         }
         finish();
     }

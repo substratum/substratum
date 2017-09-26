@@ -24,7 +24,7 @@
     android:layout_height="match_parent"
     android:background="@color/theme_information_background"
     android:fitsSystemWindows="true"
-    tools:context=".MainActivity">
+    tools:context=".InformationActivity">
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
@@ -72,7 +72,7 @@
                 android:background="@drawable/actionbar_gradient"
                 android:fitsSystemWindows="true"/>
 
-            <android.support.v7.widget.Toolbar
+            <Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"

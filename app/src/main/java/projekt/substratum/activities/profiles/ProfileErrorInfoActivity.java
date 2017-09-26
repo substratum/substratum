@@ -18,15 +18,15 @@
 
 package projekt.substratum.activities.profiles;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 
 import projekt.substratum.R;
-import projekt.substratum.activities.base.SubstratumActivity;
 
-public class ProfileErrorInfoActivity extends SubstratumActivity {
+public class ProfileErrorInfoActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

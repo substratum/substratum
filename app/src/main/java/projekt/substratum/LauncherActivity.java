@@ -18,15 +18,15 @@
 
 package projekt.substratum;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
-import projekt.substratum.activities.base.SubstratumActivity;
 import projekt.substratum.activities.launch.SplashScreenActivity;
 
-public class LauncherActivity extends SubstratumActivity {
+public class LauncherActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

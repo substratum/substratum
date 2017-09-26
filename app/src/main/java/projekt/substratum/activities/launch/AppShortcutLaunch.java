@@ -18,12 +18,12 @@
 
 package projekt.substratum.activities.launch;
 
+import android.app.Activity;
 import android.os.Bundle;
 
-import projekt.substratum.activities.base.SubstratumActivity;
 import projekt.substratum.common.Theming;
 
-public class AppShortcutLaunch extends SubstratumActivity {
+public class AppShortcutLaunch extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

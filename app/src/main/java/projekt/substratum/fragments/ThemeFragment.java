@@ -172,6 +172,9 @@ public class ThemeFragment extends Fragment {
             if (prefs.getInt("grid_style_cards_count", DEFAULT_GRID_COUNT) > 1) {
                 if (!prefs.getBoolean("nougat_style_cards", false)) {
                     recyclerView.setPadding(10, 0, 10, 0);
+                } else if (prefs.getBoolean("nougat_style_cards", false) &&
+                        prefs.getInt("grid_style_cards_count", 1) == 1) {
+                    recyclerView.setPadding(0, 0 , 0, 0);
                 } else {
                     recyclerView.setPadding(0, 0, 0, 0);
                 }

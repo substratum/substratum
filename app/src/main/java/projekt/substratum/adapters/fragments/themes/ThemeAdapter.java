@@ -66,10 +66,6 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         this.information = information;
     }
 
-    public void updateInformation(ArrayList<ThemeItem> information) {
-        this.information = information;
-    }
-
     @Override
     public ThemeAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         SharedPreferences prefs =

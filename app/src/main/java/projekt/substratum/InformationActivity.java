@@ -165,9 +165,13 @@ public class InformationActivity extends Activity {
             if (outViews.isEmpty()) {
                 return;
             }
-            AppCompatImageView overflow = (AppCompatImageView) outViews.get(0);
-            overflow.setImageResource(dark_mode ? R.drawable.information_activity_overflow_dark :
-                    R.drawable.information_activity_overflow_light);
+            for (View view : outViews) {
+                if (view instanceof AppCompatImageView) {
+                    AppCompatImageView overflow = (AppCompatImageView) view;
+                    overflow.setImageResource(dark_mode ? R.drawable.information_activity_overflow_dark :
+                            R.drawable.information_activity_overflow_light);
+                }
+            }
         });
     }
 

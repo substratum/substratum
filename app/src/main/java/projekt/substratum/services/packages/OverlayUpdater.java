@@ -36,7 +36,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-import android.view.ViewGroup;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -46,7 +45,6 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
@@ -96,6 +94,10 @@ public class OverlayUpdater extends BroadcastReceiver {
             }
 
             // When the package is being updated, continue.
+
+            UpdaterLogs updaterLogs = new UpdaterLogs();
+            IntentFilter if2 = new IntentFilter("logs");
+            LocalBroadcastManager.getInstance(context).registerReceiver(updaterLogs, if2);
             Boolean replacing = intent.getBooleanExtra(Intent.EXTRA_REPLACING, false);
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (replacing && !Packages.getThemesArray(context).contains(package_name)) {
@@ -118,6 +120,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                         THEME_UPGRADE,
                         THEME_UPGRADE_NOTIFICATION_ID
                 ).execute(APP_UPGRADE);
+                //LocalBroadcastManager.getInstance(context).unregisterReceiver(updaterLogs);
             }
         }
     }
@@ -133,7 +136,6 @@ public class OverlayUpdater extends BroadcastReceiver {
         private Context context;
         private LocalBroadcastManager localBroadcastManager;
         private KeyRetrieval keyRetrieval;
-        private UpdaterLogs updaterLogs;
         private Intent securityIntent;
         private Cipher cipher;
         private String upgrade_mode = "";
@@ -195,6 +197,9 @@ public class OverlayUpdater extends BroadcastReceiver {
                         .setPriority(notification_priority)
                         .setOngoing(true);
                 mNotifyManager.notify(id, mBuilder.build());
+
+                localBroadcastManager = LocalBroadcastManager.getInstance(context);
+
             }
         }
 
@@ -229,7 +234,8 @@ public class OverlayUpdater extends BroadcastReceiver {
                             stringBuilder.toString());
                     mBuilder.setContentText(format2);
                     Intent intent = new Intent("logs");
-                    PendingIntent pintent = PendingIntent.getBroadcast(context, 0,
+                    intent.putExtra("error_logs", error_logs.toString());
+                    PendingIntent pintent = PendingIntent.getActivity(context, 0,
                             intent, PendingIntent.FLAG_ONE_SHOT);
                     mBuilder.setContentIntent(pintent);
                     //SharedPreferences sharedPreferences =
@@ -317,12 +323,8 @@ public class OverlayUpdater extends BroadcastReceiver {
 
                         keyRetrieval = new KeyRetrieval();
                         IntentFilter if1 = new IntentFilter(KEY_RETRIEVAL);
-                        localBroadcastManager = LocalBroadcastManager.getInstance(context);
                         localBroadcastManager.registerReceiver(keyRetrieval, if1);
 
-                        updaterLogs = new UpdaterLogs();
-                        IntentFilter if2 = new IntentFilter("logs");
-                        localBroadcastManager.registerReceiver(updaterLogs, if2);
 
                         int counter = 0;
                         handler.postDelayed(runnable, 100);
@@ -530,32 +532,34 @@ public class OverlayUpdater extends BroadcastReceiver {
             }
         }
 
-        class UpdaterLogs extends BroadcastReceiver {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                try{
-                    if (intent.getAction().equals("logs"))
-                        invokeLogCharDialog(context);
-                }catch (NullPointerException e){
-                    //suppress
+
+    }
+    class UpdaterLogs extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction() != null) {
+                if (intent.getAction().equals("logs")) {
+                    if (intent.getStringExtra("error_logs") != null)
+                        invokeLogCharDialog(context, intent.getStringExtra("error_logs"));
                 }
             }
+            LocalBroadcastManager.getInstance(context).unregisterReceiver(this);
+        }
 
-            public void invokeLogCharDialog(Context context) {
-                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context)
-                        .setTitle(R.string.logcat_dialog_title)
-                        .setMessage("\n" + error_logs)
-                        .setNeutralButton(R.string
-                                .customactivityoncrash_error_activity_error_details_close, null)
-                        .setNegativeButton(R.string
-                                        .customactivityoncrash_error_activity_error_details_copy,
-                                (dialog1, which) -> {
-                            References.copyToClipboard(context,
-                                    "substratum_log",
-                                    error_logs.toString());
-                        });
-                builder.show();
-            }
+        public void invokeLogCharDialog(Context context, String error_logs) {
+            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context)
+                    .setTitle(R.string.logcat_dialog_title)
+                    .setMessage("\n" + error_logs)
+                    .setNeutralButton(R.string
+                            .customactivityoncrash_error_activity_error_details_close, null)
+                    .setNegativeButton(R.string
+                                    .customactivityoncrash_error_activity_error_details_copy,
+                            (dialog1, which) -> {
+                                References.copyToClipboard(context,
+                                        "substratum_log",
+                                        error_logs);
+                            });
+            builder.show();
         }
     }
 }

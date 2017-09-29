@@ -326,10 +326,6 @@ public class MainActivity extends SubstratumActivity implements
         localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
         localBroadcastManager.registerReceiver(killReceiver, filter);
 
-        UpdaterReceiver updaterReceiver = new UpdaterReceiver();
-        IntentFilter filter3 = new IntentFilter("Updater.Lunchbar");
-        localBroadcastManager.registerReceiver(updaterReceiver, filter3);
-
         if (Systems.isAndromedaDevice(mContext)) {
             andromedaReceiver = new AndromedaReceiver();
             IntentFilter filter2 = new IntentFilter("AndromedaReceiver.KILL");

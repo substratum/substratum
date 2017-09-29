@@ -123,11 +123,28 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     }
                 }
             } else {
-                List<String> listed =
-                        ThemeManager.listOverlays(getContext(), STATE_ENABLED);
-                Collections.sort(listed);
-                updated.addAll(listed.stream().map(file ->
-                        new ManagerItem(getContext(), file, true)).collect(Collectors.toList()));
+                Boolean checkInstalled = true;
+                for (int i = 0; i < overlayList.size(); i++) {
+                    if (!overlayList.get(i).getName().endsWith(".icon")) {
+                        if (!Packages.isPackageInstalled(
+                                        getContext(),
+                                        overlayList.get(i).getName())) {
+                            checkInstalled = false;
+                            break;
+                        }
+                    }
+                }
+                if (checkInstalled) {
+                    List<String> listed =
+                            ThemeManager.listOverlays(getContext(), STATE_ENABLED);
+                    Collections.sort(listed);
+                    updated.addAll(listed.stream().map(file ->
+                            new ManagerItem(getContext(), file, true)).
+                            collect(Collectors.toList()));
+                }
+                else
+                    Log.d("ManagerFragment",
+                            "Some overlays not installed, Samsung issue.");
             }
             mAdapter.setOverlayManagerList(updated);
             overlayList = updated;
@@ -162,13 +179,18 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 swipeRefreshLayout.setRefreshing(false);
             }
 
-            boolean alphabetize = prefs.getBoolean("alphabetize_overlays", true);
-            if (overlayListSize > 0) {
-                if (alphabetize) {
-                    quicksort(0, overlayListSize - 1, "name");
-                } else {
-                    quicksort(0, overlayListSize - 1, "theme");
+            try {
+                boolean alphabetize = prefs.getBoolean("alphabetize_overlays", true);
+                if (overlayListSize > 0) {
+                    if (alphabetize) {
+                        quicksort(0, overlayListSize - 1, "name");
+                    } else {
+                        quicksort(0, overlayListSize - 1, "theme");
+                    }
                 }
+            }catch (NullPointerException e){
+                Log.d("ManagerFragment", "Refreshing list failed at sorting.");
+                quicksort(0, overlayListSize - 1, "name");
             }
         }
         toggle_all.setChecked(false);

@@ -152,7 +152,6 @@ public class MainActivity extends SubstratumActivity implements
     private LocalBroadcastManager localBroadcastManager2;
     private KillReceiver killReceiver;
     private AndromedaReceiver andromedaReceiver;
-    private UpdaterReceiver updaterReceiver;
     private Context mContext;
 
     private static boolean checkIfOverlaysOutdated(Context context) {
@@ -327,7 +326,7 @@ public class MainActivity extends SubstratumActivity implements
         localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
         localBroadcastManager.registerReceiver(killReceiver, filter);
 
-        updaterReceiver = new UpdaterReceiver();
+        UpdaterReceiver updaterReceiver = new UpdaterReceiver();
         IntentFilter filter3 = new IntentFilter("Updater.Lunchbar");
         localBroadcastManager.registerReceiver(updaterReceiver, filter3);
 

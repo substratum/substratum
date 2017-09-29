@@ -188,7 +188,7 @@ public class Resources {
     // This method checks whether custom sounds is supported by the system
     public static boolean isSoundsSupported(Context context) {
         return !checkAndromeda(context) && !isSamsung(context) &&
-                !checkThemeInterfacer(context);
+                checkThemeInterfacer(context);
     }
 
     // This method checks whether custom boot animation is supported by the system

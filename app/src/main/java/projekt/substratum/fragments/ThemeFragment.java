@@ -173,10 +173,10 @@ public class ThemeFragment extends Fragment {
                 if (!prefs.getBoolean("nougat_style_cards", false)) {
                     recyclerView.setPadding(10, 0, 10, 0);
                 } else {
-                    recyclerView.setPadding(0, 0 , 0, 0);
+                    recyclerView.setPadding(0, 0, 0, 0);
                 }
             } else if (prefs.getBoolean("nougat_style_cards", false)) {
-                recyclerView.setPadding(0, 0 , 0, 0);
+                recyclerView.setPadding(0, 0, 0, 0);
             }
             if (prefs.getBoolean("grid_layout", true)) {
                 recyclerView.setLayoutManager(new GridLayoutManager(mContext,

@@ -155,20 +155,20 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 boolean alphabetize = prefs.getBoolean("alphabetize_overlays", true);
                 if (overlayListSize > 0) {
                     if (alphabetize) {
-                        quicksort(0, overlayListSize - 1, "name");
+                        quickSort(0, overlayListSize - 1, "name");
                     } else {
-                        quicksort(0, overlayListSize - 1, "theme");
+                        quickSort(0, overlayListSize - 1, "theme");
                     }
                 }
             } catch (NullPointerException e) {
                 Log.d("ManagerFragment", "Refreshing list failed at sorting.");
-                quicksort(0, overlayListSize - 1, "name");
+                quickSort(0, overlayListSize - 1, "name");
             }
         }
         toggle_all.setChecked(false);
     }
 
-    private void quicksort(int low, int high, String sort) {
+    private void quickSort(int low, int high, String sort) {
         int i = low, j = high;
         ManagerItem pivot = overlayList.get(low + (high - low) / 2);
         while (i <= j) {
@@ -192,9 +192,9 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             }
         }
         if (low < j)
-            quicksort(low, j, sort);
+            quickSort(low, j, sort);
         if (i < high)
-            quicksort(i, high, sort);
+            quickSort(i, high, sort);
     }
 
     @Override
@@ -670,9 +670,9 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 boolean alphabetize = fragment.prefs.getBoolean("alphabetize_overlays", true);
                 if (fragment.overlayList.size() > 0) {
                     if (alphabetize) {
-                        fragment.quicksort(0, fragment.overlayList.size() - 1, "name");
+                        fragment.quickSort(0, fragment.overlayList.size() - 1, "name");
                     } else {
-                        fragment.quicksort(0, fragment.overlayList.size() - 1, "theme");
+                        fragment.quickSort(0, fragment.overlayList.size() - 1, "theme");
                     }
                 }
 

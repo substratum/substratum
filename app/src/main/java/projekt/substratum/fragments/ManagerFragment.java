@@ -59,7 +59,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import projekt.substratum.R;
 import projekt.substratum.adapters.fragments.manager.ManagerAdapter;
@@ -72,6 +71,7 @@ import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.util.views.FloatingActionMenu;
 
+import static projekt.substratum.common.Packages.isPackageInstalled;
 import static projekt.substratum.common.References.DATA_RESOURCE_DIR;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.MANAGER_REFRESH;
@@ -113,38 +113,10 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     private void refreshList() {
         if (overlayList != null && mAdapter != null) {
             List<ManagerItem> updated = new ArrayList<>();
-            if (Systems.checkOMS(getContext()) && !Systems.isSamsung(getContext())) {
-                for (int i = 0; i < overlayList.size(); i++) {
-                    if (!overlayList.get(i).getName().endsWith(".icon") &&
-                            Packages.isPackageInstalled(
-                                    getContext(),
-                                    overlayList.get(i).getName())) {
-                        updated.add(overlayList.get(i));
-                    }
+            for (int i = 0; i < overlayList.size(); i++) {
+                if (isPackageInstalled(getContext(), overlayList.get(i).getName())) {
+                    updated.add(overlayList.get(i));
                 }
-            } else {
-                Boolean checkInstalled = true;
-                for (int i = 0; i < overlayList.size(); i++) {
-                    if (!overlayList.get(i).getName().endsWith(".icon")) {
-                        if (!Packages.isPackageInstalled(
-                                        getContext(),
-                                        overlayList.get(i).getName())) {
-                            checkInstalled = false;
-                            break;
-                        }
-                    }
-                }
-                if (checkInstalled) {
-                    List<String> listed =
-                            ThemeManager.listOverlays(getContext(), STATE_ENABLED);
-                    Collections.sort(listed);
-                    updated.addAll(listed.stream().map(file ->
-                            new ManagerItem(getContext(), file, true)).
-                            collect(Collectors.toList()));
-                }
-                else
-                    Log.d("ManagerFragment",
-                            "Some overlays not installed, Samsung issue.");
             }
             mAdapter.setOverlayManagerList(updated);
             overlayList = updated;
@@ -188,7 +160,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                         quicksort(0, overlayListSize - 1, "theme");
                     }
                 }
-            }catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 Log.d("ManagerFragment", "Refreshing list failed at sorting.");
                 quicksort(0, overlayListSize - 1, "name");
             }
@@ -634,7 +606,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                                         context,
                                         packageTitle);
 
-                                if (Packages.isPackageInstalled(context, targetApplication)) {
+                                if (isPackageInstalled(context, targetApplication)) {
                                     unsortedMap.put(
                                             all_overlays.get(i),
                                             Packages.getPackageName(context, targetApplication));
@@ -766,7 +738,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 for (int i = 0; i < len; i++) {
                     ManagerItem managerItem = fragment.overlayList.get(i);
                     if (managerItem.isSelected()) {
-                        if (Packages.isPackageInstalled(context,
+                        if (isPackageInstalled(context,
                                 Packages.getOverlayParent(context, managerItem.getName()))) {
                             if (ThemeManager.listOverlays(fragment.context, STATE_DISABLED)
                                     .contains(managerItem.getName())) {
@@ -1062,7 +1034,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 for (int i = 0; i < len; i++) {
                     ManagerItem managerItem = fragment.overlayList.get(i);
                     if (managerItem.isSelected()) {
-                        if (Packages.isPackageInstalled(context,
+                        if (isPackageInstalled(context,
                                 Packages.getOverlayParent(context, managerItem.getName()))) {
                             if (ThemeManager.listOverlays(fragment.context, STATE_DISABLED)
                                     .contains(managerItem.getName())) {

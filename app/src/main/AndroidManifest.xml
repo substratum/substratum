@@ -46,7 +46,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
     <uses-permission android:name="com.samsung.android.permission.MODIFY_THEME"/>
     <uses-permission android:name="com.samsung.contacts.permission.THEME"/>
     <uses-permission android:name="projekt.interfacer.permission.ACCESS_SERVICE"/>
@@ -63,6 +63,10 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning,ManifestResource"
         tools:replace="android:allowBackup">
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.1"/>
+
         <receiver android:name=".services.system.BootCompletedDetector">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>

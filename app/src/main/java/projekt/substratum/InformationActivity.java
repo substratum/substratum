@@ -169,7 +169,8 @@ public class InformationActivity extends SubstratumActivity {
             for (View view : outViews) {
                 if (view instanceof AppCompatImageView) {
                     AppCompatImageView overflow = (AppCompatImageView) view;
-                    overflow.setImageResource(dark_mode ? R.drawable.information_activity_overflow_dark :
+                    overflow.setImageResource(dark_mode ? R.drawable
+                            .information_activity_overflow_dark :
                             R.drawable.information_activity_overflow_light);
                 }
             }
@@ -543,12 +544,15 @@ public class InformationActivity extends SubstratumActivity {
         }
 
         boolean[] extra_hidden_tabs = new boolean[4];
+        // Boot animation visibility
         extra_hidden_tabs[0] = !Systems.checkAndromeda(mContext) &&
                 !Systems.isSamsungDevice(mContext);
-        extra_hidden_tabs[1] = Systems.checkOreo() &&
-                Systems.isBinderInterfacer(mContext);
-        extra_hidden_tabs[2] = projekt.substratum.common.Resources.isFontsSupported();
-        extra_hidden_tabs[3] = !Systems.checkAndromeda(mContext);
+        // Shutdown animation visibility
+        extra_hidden_tabs[1] = Systems.checkOreo() && Systems.isBinderInterfacer(mContext);
+        // Fonts visibility
+        extra_hidden_tabs[2] = Resources.isFontsSupported();
+        // Sounds visibility
+        extra_hidden_tabs[3] = Systems.isBinderInterfacer(mContext);
 
         final InformationTabsAdapter adapter = new InformationTabsAdapter
                 (getSupportFragmentManager(), (tabLayout != null) ? tabLayout.getTabCount() : 0,

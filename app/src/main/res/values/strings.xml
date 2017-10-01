@@ -127,7 +127,7 @@
     <string name="abort_overlay_toast_success">All overlays uninstalled!</string>
     <string name="rescue_toast">Rescuing your system&#8230;</string>
 
-    <string name="reboot_awaiting_manager_title">OVERLAY AWAITING REBOOT</string>
+    <string name="reboot_awaiting_manager_title">ERROR READING OVERLAY</string>
     <string name="manager_theme_name">Theme:</string>
     <string name="manager_type1a">Type1a:</string>
     <string name="manager_type1b">Type1b:</string>

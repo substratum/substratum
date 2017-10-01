@@ -172,16 +172,19 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         int i = low, j = high;
         ManagerItem pivot = overlayList.get(low + (high - low) / 2);
         while (i <= j) {
-            if (sort.equals("name")) {
-                while (overlayList.get(i).compareTo(pivot) < 0)
-                    i++;
-                while (overlayList.get(j).compareTo(pivot) > 0)
-                    j--;
-            } else if (sort.equals("theme")) {
-                while (overlayList.get(i).compareToByTheme(pivot) < 0)
-                    i++;
-                while (overlayList.get(j).compareToByTheme(pivot) > 0)
-                    j--;
+            switch (sort) {
+                case "name":
+                    while (overlayList.get(i).compareTo(pivot) < 0)
+                        i++;
+                    while (overlayList.get(j).compareTo(pivot) > 0)
+                        j--;
+                    break;
+                case "theme":
+                    while (overlayList.get(i).compareToByTheme(pivot) < 0)
+                        i++;
+                    while (overlayList.get(j).compareToByTheme(pivot) > 0)
+                        j--;
+                    break;
             }
             if (i <= j) {
                 ManagerItem temp = overlayList.get(i);
@@ -191,10 +194,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 j--;
             }
         }
-        if (low < j)
-            quickSort(low, j, sort);
-        if (i < high)
-            quickSort(i, high, sort);
+        if (low < j) quickSort(low, j, sort);
+        if (i < high) quickSort(i, high, sort);
     }
 
     @Override

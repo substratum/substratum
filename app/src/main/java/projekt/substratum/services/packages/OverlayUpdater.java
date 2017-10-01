@@ -93,11 +93,12 @@ public class OverlayUpdater extends BroadcastReceiver {
                 return;
             }
 
-            // When the package is being updated, continue.
-
+            // Let's start the intent filter
             UpdaterLogs updaterLogs = new UpdaterLogs();
-            IntentFilter if2 = new IntentFilter("logs");
+            IntentFilter if2 = new IntentFilter("Updater.LOGS");
             LocalBroadcastManager.getInstance(context).registerReceiver(updaterLogs, if2);
+
+            // When the package is being updated, continue.
             Boolean replacing = intent.getBooleanExtra(Intent.EXTRA_REPLACING, false);
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (replacing && !Packages.getThemesArray(context).contains(package_name)) {
@@ -120,7 +121,6 @@ public class OverlayUpdater extends BroadcastReceiver {
                         THEME_UPGRADE,
                         THEME_UPGRADE_NOTIFICATION_ID
                 ).execute(APP_UPGRADE);
-                //LocalBroadcastManager.getInstance(context).unregisterReceiver(updaterLogs);
             }
         }
     }
@@ -233,16 +233,11 @@ public class OverlayUpdater extends BroadcastReceiver {
                             context.getString(R.string.notification_done_upgrade_title_failed),
                             stringBuilder.toString());
                     mBuilder.setContentText(format2);
-                    Intent intent = new Intent("logs");
+                    Intent intent = new Intent("Updater.LOGS");
                     intent.putExtra("error_logs", error_logs.toString());
                     PendingIntent pintent = PendingIntent.getActivity(context, 0,
                             intent, PendingIntent.FLAG_ONE_SHOT);
                     mBuilder.setContentIntent(pintent);
-                    //SharedPreferences sharedPreferences =
-                    //        PreferenceManager.getDefaultSharedPreferences(context);
-                    //sharedPreferences.edit().putBoolean("Updater_Logcat", true).apply();
-                    //sharedPreferences.edit().putString
-                    //        ("updater_logs", error_logs.toString()).apply();
                 } else {
                     mBuilder.setSmallIcon(R.drawable.notification_success_icon);
                     String format = String.format(
@@ -531,14 +526,13 @@ public class OverlayUpdater extends BroadcastReceiver {
                 securityIntent = intent;
             }
         }
-
-
     }
+
     class UpdaterLogs extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction() != null) {
-                if (intent.getAction().equals("logs")) {
+                if (intent.getAction().equals("Updater.LOGS")) {
                     if (intent.getStringExtra("error_logs") != null)
                         invokeLogCharDialog(context, intent.getStringExtra("error_logs"));
                 }

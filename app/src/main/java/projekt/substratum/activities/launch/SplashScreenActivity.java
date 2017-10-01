@@ -208,6 +208,7 @@ public class SplashScreenActivity extends Activity {
                     context.getApplicationContext().registerReceiver(keyRetrieval, filter);
 
                     Intent intent = new Intent("projekt.substratum.AUTHENTICATE");
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     try {
                         context.startActivity(intent);
                     } catch (Exception e) {

@@ -362,15 +362,18 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         }
 
         TextView disable_selected = root.findViewById(R.id.disable_selected);
-        if (!Systems.checkOMS(context))
-            disable_selected.setText(getString(R.string.fab_menu_uninstall));
         if (disable_selected != null) {
+            if (!Systems.checkOMS(context) && !Systems.isSamsungDevice(context)) {
+                disable_selected.setText(getString(R.string.fab_menu_uninstall));
+            } else {
+                disable_selected.setVisibility(View.GONE);
+            }
             disable_selected.setOnClickListener(v ->
                     new RunDisable(ManagerFragment.this).execute());
         }
 
         TextView uninstall_selected = root.findViewById(R.id.uninstall);
-        if (!Systems.checkOMS(context))
+        if (!Systems.checkOMS(context) && !Systems.isSamsungDevice(context))
             uninstall_selected.setVisibility(View.GONE);
         if (uninstall_selected != null)
             uninstall_selected.setOnClickListener(v ->

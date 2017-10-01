@@ -584,9 +584,12 @@ public class ThemeManager {
 
     public static void uninstallOverlay(Context context,
                                         ArrayList<String> overlays) {
-        ArrayList<String> temp = new ArrayList<>(overlays);
-        temp.removeAll(listOverlays(context, STATE_DISABLED));
-        disableOverlay(context, temp);
+
+        if (Systems.checkOMS(context)) {
+            ArrayList<String> temp = new ArrayList<>(overlays);
+            temp.removeAll(listOverlays(context, STATE_DISABLED));
+            disableOverlay(context, temp);
+        }
 
         // if enabled list is not contains any overlays
         if (checkThemeInterfacer(context) && !Systems.isSamsung(context)) {

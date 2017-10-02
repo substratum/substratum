@@ -74,16 +74,6 @@
 
         </RelativeLayout>
 
-        <ProgressBar
-            android:id="@+id/progress_bar_loader"
-            style="?android:attr/indeterminateProgressStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/toggle_zone"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
-            android:indeterminate="true"/>
-
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefreshLayout"
             android:layout_width="wrap_content"

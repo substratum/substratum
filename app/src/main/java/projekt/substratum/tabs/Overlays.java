@@ -143,7 +143,6 @@ public class Overlays extends Fragment {
     public ProgressBar progressBar;
     public Boolean is_overlay_active = false;
     public StringBuilder error_logs;
-    public ProgressBar materialProgressBar;
     public double current_amount = 0;
     public double total_amount = 0;
     public String current_dialog_overlay;
@@ -561,8 +560,6 @@ public class Overlays extends Fragment {
         progressBar = root.findViewById(R.id.header_loading_bar);
         progressBar.setVisibility(View.GONE);
 
-        materialProgressBar = root.findViewById(R.id.progress_bar_loader);
-
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
         mRecyclerView = root.findViewById(R.id.overlayRecyclerView);
         mRecyclerView.setHasFixedSize(true);
@@ -613,30 +610,19 @@ public class Overlays extends Fragment {
 
         // Allow the user to swipe down to refresh the overlay list
         swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
-            for (int i = 0; i < overlaysLists.size(); i++) {
-                OverlaysItem currentOverlay = overlaysLists.get(i);
-                currentOverlay.setSelected(false);
-                currentOverlay.updateEnabledOverlays(updateEnabledOverlays());
-                mAdapter.notifyDataSetChanged();
-            }
-            toggle_all.setChecked(false);
-            swipeRefreshLayout.setRefreshing(false);
-        });
-        swipeRefreshLayout.setVisibility(View.GONE);
+        swipeRefreshLayout.setOnRefreshListener(this::refreshList);
 
         /*
           PLUGIN TYPE 3: Parse each overlay folder to see if they have folder options
          */
-        base_spinner = root.findViewById(R.id.type3_spinner);
         Overlays overlays = this;
+        base_spinner = root.findViewById(R.id.type3_spinner);
         base_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long id) {
                 if (pos == 0) {
                     toggle_all.setChecked(false);
-                    new LoadOverlays(overlays).execute("");
+                    refreshList();
                 } else {
                     toggle_all.setChecked(false);
                     String[] commands = {arg0.getSelectedItem().toString()};
@@ -705,12 +691,12 @@ public class Overlays extends Fragment {
                 } else {
                     toggle_all_overlays_text.setVisibility(View.VISIBLE);
                     base_spinner.setVisibility(View.INVISIBLE);
-                    new LoadOverlays(this).execute("");
+                    refreshList();
                 }
             } else {
                 toggle_all_overlays_text.setVisibility(View.VISIBLE);
                 base_spinner.setVisibility(View.INVISIBLE);
-                new LoadOverlays(this).execute("");
+                refreshList();
             }
         } catch (Exception e) {
             if (base_spinner.getVisibility() == View.VISIBLE) {
@@ -1048,17 +1034,7 @@ public class Overlays extends Fragment {
     }
 
     private void refreshList() {
-        if (mAdapter != null) mAdapter.notifyDataSetChanged();
-
-        if (overlaysLists != null) {
-            for (int i = 0; i < overlaysLists.size(); i++) {
-                OverlaysItem currentOverlay = overlaysLists.get(i);
-                if (currentOverlay.isSelected()) {
-                    currentOverlay.setSelected(false);
-                }
-                mAdapter.notifyDataSetChanged();
-            }
-        }
+        new LoadOverlays(this).execute("");
     }
 
     private static class SendErrorReport extends AsyncTask<Void, Void, File> {
@@ -1193,11 +1169,8 @@ public class Overlays extends Fragment {
         protected void onPreExecute() {
             Overlays fragment = ref.get();
             if (fragment != null) {
-                if (fragment.materialProgressBar != null) {
-                    fragment.materialProgressBar.setVisibility(View.VISIBLE);
-                }
+                fragment.swipeRefreshLayout.setRefreshing(true);
                 fragment.mRecyclerView.setVisibility(View.INVISIBLE);
-                fragment.swipeRefreshLayout.setVisibility(View.GONE);
                 fragment.toggle_all.setEnabled(false);
                 fragment.base_spinner.setEnabled(false);
             }
@@ -1208,16 +1181,13 @@ public class Overlays extends Fragment {
             super.onPostExecute(result);
             Overlays fragment = ref.get();
             if (fragment != null) {
-                if (fragment.materialProgressBar != null) {
-                    fragment.materialProgressBar.setVisibility(View.GONE);
-                }
+                fragment.swipeRefreshLayout.setRefreshing(false);
                 fragment.toggle_all.setEnabled(true);
                 fragment.base_spinner.setEnabled(true);
                 fragment.mAdapter = new OverlaysAdapter(fragment.values2);
                 fragment.mRecyclerView.setAdapter(fragment.mAdapter);
                 fragment.mAdapter.notifyDataSetChanged();
                 fragment.mRecyclerView.setVisibility(View.VISIBLE);
-                fragment.swipeRefreshLayout.setVisibility(View.VISIBLE);
             }
         }
 

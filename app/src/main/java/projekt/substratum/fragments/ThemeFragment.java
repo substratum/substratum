@@ -60,6 +60,7 @@ import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 
 public class ThemeFragment extends Fragment {
 
+    private static final int THEME_FRAGMENT_INITIAL_DELAY = 500;
     private Context mContext;
     private LocalBroadcastManager localBroadcastManager;
     private BroadcastReceiver refreshReceiver;
@@ -67,6 +68,7 @@ public class ThemeFragment extends Fragment {
     private ViewGroup root;
     private String home_type;
     private String toolbar_title;
+    private Boolean first_boot = true;
 
     private static ArrayList<ThemeItem> prepareData(Map<String, String[]> map,
                                                     Context context,
@@ -292,6 +294,12 @@ public class ThemeFragment extends Fragment {
                         themeFragment.mContext,
                         themeFragment.getActivity(),
                         themeFragment.home_type);
+                try {
+                    Thread.sleep(themeFragment.first_boot ? THEME_FRAGMENT_INITIAL_DELAY : 0);
+                } catch (InterruptedException ie) {
+                    // Suppress warning
+                }
+                if (themeFragment.first_boot) themeFragment.first_boot = false;
             }
             return null;
         }

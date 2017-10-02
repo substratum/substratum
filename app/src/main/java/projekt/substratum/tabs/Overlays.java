@@ -617,20 +617,12 @@ public class Overlays extends Fragment {
          */
         SharedPreferences prefs2 =
                 getContext().getSharedPreferences("base_variant", Context.MODE_PRIVATE);
-        Overlays overlays = this;
         base_spinner = root.findViewById(R.id.type3_spinner);
         base_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long id) {
                 prefs2.edit().putInt(theme_pid, pos).apply();
-                if (pos == 0) {
-                    toggle_all.setChecked(false);
-                    refreshList();
-                } else {
-                    toggle_all.setChecked(false);
-                    String[] commands = {arg0.getSelectedItem().toString()};
-                    new LoadOverlays(overlays).execute(commands);
-                }
+                refreshList();
             }
 
             @Override
@@ -691,6 +683,16 @@ public class Overlays extends Fragment {
                     toggle_all_overlays_text.setVisibility(View.GONE);
                     base_spinner.setVisibility(View.VISIBLE);
                     base_spinner.setAdapter(adapter1);
+                    try {
+                        Log.d(TAG,
+                                "Assigning the spinner position: " + prefs2.getInt(theme_pid, 0));
+                        base_spinner.setSelection(prefs2.getInt(theme_pid, 0));
+                    } catch (Exception e) {
+                        // Should be OutOfBounds, but let's catch everything
+                        Log.d(TAG, "Falling back to default spinner position due to an error...");
+                        prefs2.edit().putInt(theme_pid, 0).apply();
+                        base_spinner.setSelection(0);
+                    }
                 } else {
                     toggle_all_overlays_text.setVisibility(View.VISIBLE);
                     base_spinner.setVisibility(View.INVISIBLE);
@@ -708,18 +710,6 @@ public class Overlays extends Fragment {
             }
             e.printStackTrace();
             Log.e(TAG, "Could not parse list of base options for this theme!");
-        }
-
-        if (base_spinner.getVisibility() == View.VISIBLE) {
-            try {
-                Log.d(TAG, "Assigning the spinner position: " + prefs2.getInt(theme_pid, 0));
-                base_spinner.setSelection(prefs2.getInt(theme_pid, 0));
-            } catch (Exception e) {
-                // Should be OutOfBounds, but let's catch everything
-                Log.d(TAG, "Falling back to default spinner position due to an error...");
-                prefs2.edit().putInt(theme_pid, 0).apply();
-                base_spinner.setSelection(0);
-            }
         }
 
         // Enable job listener
@@ -1049,7 +1039,15 @@ public class Overlays extends Fragment {
     }
 
     private void refreshList() {
-        new LoadOverlays(this).execute("");
+        toggle_all.setChecked(false);
+        if (base_spinner != null && base_spinner.getSelectedItem() != null) {
+            String[] commands = {
+                    base_spinner.getSelectedItem().toString()
+            };
+            new LoadOverlays(this).execute(commands);
+        } else {
+            new LoadOverlays(this).execute("");
+        }
     }
 
     private static class SendErrorReport extends AsyncTask<Void, Void, File> {

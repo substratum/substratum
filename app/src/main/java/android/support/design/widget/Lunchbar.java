@@ -17,17 +17,14 @@
 package android.support.design.widget;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RestrictTo;
 import android.support.annotation.StringRes;
 import android.support.design.R;
 import android.support.design.internal.SnackbarContentLayout;
 import android.text.TextUtils;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,8 +34,6 @@ import android.widget.TextView;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-
-import static android.support.annotation.RestrictTo.Scope.LIBRARY_GROUP;
 
 /**
  * Snackbars provide lightweight feedback about an operation. They show a brief message at the
@@ -258,9 +253,6 @@ public final class Lunchbar extends BaseTransientBottomBar {
         return true;
     }
 
-    /**
-     * @hide
-     */
     @IntDef({LENGTH_INDEFINITE, LENGTH_SHORT, LENGTH_LONG})
     @IntRange(from = 1)
     @Retention(RetentionPolicy.SOURCE)
@@ -285,42 +277,6 @@ public final class Lunchbar extends BaseTransientBottomBar {
         @Override
         public void onDismissed(Lunchbar transientBottomBar, @DismissEvent int event) {
             // Stub implementation to make API check happy.
-        }
-    }
-
-    /**
-     * @hide Note: this class is here to provide backwards-compatible way for apps written before
-     * the existence of the base {@link BaseTransientBottomBar} class.
-     */
-    @RestrictTo(LIBRARY_GROUP)
-    public static final class SnackbarLayout extends SnackbarBaseLayout {
-        @SuppressLint("RestrictedApi")
-        public SnackbarLayout(Context context) {
-            super(context);
-        }
-
-        @SuppressLint("RestrictedApi")
-        public SnackbarLayout(Context context, AttributeSet attrs) {
-            super(context, attrs);
-        }
-
-        @Override
-        protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-            super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-            // Work around our backwards-compatible refactoring of Snackbar and inner content
-            // being inflated against snackbar's parent (instead of against the snackbar itself).
-            // Every child that is width=MATCH_PARENT is remeasured again and given the full width
-            // minus the paddings.
-            int childCount = getChildCount();
-            int availableWidth = getMeasuredWidth() - getPaddingLeft() - getPaddingRight();
-            for (int i = 0; i < childCount; i++) {
-                View child = getChildAt(i);
-                if (child.getLayoutParams().width == ViewGroup.LayoutParams.MATCH_PARENT) {
-                    child.measure(MeasureSpec.makeMeasureSpec(availableWidth, MeasureSpec.EXACTLY),
-                            MeasureSpec.makeMeasureSpec(child.getMeasuredHeight(),
-                                    MeasureSpec.EXACTLY));
-                }
-            }
         }
     }
 }

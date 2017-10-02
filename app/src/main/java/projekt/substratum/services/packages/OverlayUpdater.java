@@ -479,14 +479,6 @@ public class OverlayUpdater extends BroadcastReceiver {
                     if (!workDir.exists() && !workDir.mkdirs())
                         Log.e(TAG, "Could not make cache directory...");
 
-                    boolean isVariantChosen =
-                            type1a == null || type1b == null ||
-                                    type1c == null || type2 == null ||
-                                    type3 == null || type4 == null;
-
-                    if (isVariantChosen)
-                        Log.d(TAG, "SubstratumBuilder will now build in variant mode!");
-
                     String packageName =
                             (type1a != null && type1a.length() > 0 ?
                                     type1a.replaceAll("\\s+", "") : "") +
@@ -578,11 +570,9 @@ public class OverlayUpdater extends BroadcastReceiver {
                             .customactivityoncrash_error_activity_error_details_close, null)
                     .setNegativeButton(R.string
                                     .customactivityoncrash_error_activity_error_details_copy,
-                            (dialog1, which) -> {
-                                References.copyToClipboard(context,
-                                        "substratum_log",
-                                        error_logs);
-                            });
+                            (dialog1, which) -> References.copyToClipboard(context,
+                                    "substratum_log",
+                                    error_logs));
             builder.show();
         }
     }

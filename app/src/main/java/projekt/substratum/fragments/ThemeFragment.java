@@ -70,6 +70,15 @@ public class ThemeFragment extends Fragment {
     private String toolbar_title;
     private Boolean first_boot = true;
 
+    private void resetRecyclerView(RecyclerView mRecyclerView) {
+        // Initialize the recycler view with an empty adapter first
+        ArrayList<ThemeItem> empty_array = new ArrayList<>();
+        ThemeAdapter empty_adapter = new ThemeAdapter(empty_array);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        mRecyclerView.setAdapter(empty_adapter);
+    }
+
     private static ArrayList<ThemeItem> prepareData(Map<String, String[]> map,
                                                     Context context,
                                                     Activity activity,
@@ -236,6 +245,9 @@ public class ThemeFragment extends Fragment {
             home_type = bundle.getString("home_type");
             toolbar_title = bundle.getString("title");
         }
+
+        RecyclerView recyclerView = root.findViewById(R.id.theme_list);
+        resetRecyclerView(recyclerView);
 
         SwipeRefreshLayout swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(() -> new LayoutLoader(this).execute());

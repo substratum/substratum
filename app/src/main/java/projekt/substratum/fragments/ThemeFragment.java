@@ -154,7 +154,8 @@ public class ThemeFragment extends Fragment {
                 if (substratum_packages.size() == 0) {
                     mainActivity.switchToStockToolbar(toolbarTitle);
                 } else if (substratum_packages.size() == 1) {
-                    parse = String.format(mContext.getString(R.string.actionbar_theme_count_singular),
+                    parse = String.format(
+                            mContext.getString(R.string.actionbar_theme_count_singular),
                             String.valueOf(substratum_packages.size()));
                     mainActivity.switchToCustomToolbar(toolbarTitle, parse);
                 } else {

@@ -17,6 +17,7 @@
   -->
 
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
                                                  xmlns:tools="http://schemas.android.com/tools"
                                                  android:layout_width="match_parent"
                                                  android:layout_height="match_parent"
@@ -90,8 +91,13 @@
                 android:layout_marginTop="5dp"
                 android:clipToPadding="false"
                 android:paddingBottom="90dp"
-                android:scrollbars="vertical"
-                android:visibility="gone"/>
+                android:scrollbars="none"
+                android:visibility="gone"
+                app:fastScrollEnabled="true"
+                app:fastScrollHorizontalThumbDrawable="@drawable/thumb_drawable"
+                app:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"
+                app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"
+                app:fastScrollVerticalTrackDrawable="@drawable/line_drawable"/>
 
         </android.support.v4.widget.SwipeRefreshLayout>
 

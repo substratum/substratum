@@ -244,6 +244,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
 
         swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(() -> {
+            toggle_all.setChecked(false);
             if (searchView.isIconified()) {
                 if (first_run != null && mRecyclerView.isShown() && !first_run) {
                     new LayoutReloader(ManagerFragment.this).execute();

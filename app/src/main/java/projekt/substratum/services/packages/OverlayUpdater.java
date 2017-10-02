@@ -397,6 +397,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                             (encrypted ? ".xml.enc" : ".xml");
                     String type2Dir = "overlays/" + target + "/type2_" + type2;
                     String type3Dir = "overlays/" + target + "/type3_" + type3;
+                    String type4Dir = "overlays/" + target + "/type4_" + type4;
 
                     String additional_variant = ((type2 != null && type2.length() > 0) ?
                             type2Dir.split("/")[2].substring(6) : null);
@@ -438,7 +439,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                                 (encrypted ? cipher : null));
                     }
 
-                    // Handle the type1s
+                    // Handle the types
                     if (type1a != null && type1a.length() > 0) {
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
@@ -464,10 +465,41 @@ public class OverlayUpdater extends BroadcastReceiver {
                                 (encrypted ? cipher : null));
                     }
 
+                    if (type4 != null && type4.length() > 0) {
+                        FileOperations.copyFileOrDir(
+                                themeAssetManager,
+                                type4Dir,
+                                workingDirectory + "/assets",
+                                type1cDir,
+                                (encrypted ? cipher : null));
+                    }
+
                     File workDir = new File(context.getCacheDir().getAbsolutePath() +
                             SUBSTRATUM_BUILDER_CACHE);
                     if (!workDir.exists() && !workDir.mkdirs())
                         Log.e(TAG, "Could not make cache directory...");
+
+                    boolean isVariantChosen =
+                            type1a == null || type1b == null ||
+                                    type1c == null || type2 == null ||
+                                    type3 == null || type4 == null;
+
+                    if (isVariantChosen)
+                        Log.d(TAG, "SubstratumBuilder will now build in variant mode!");
+
+                    String packageName =
+                            (type1a != null && type1a.length() > 0 ?
+                                    type1a.replaceAll("\\s+", "") : "") +
+                                    (type1b != null && type1b.length() > 0 ?
+                                            type1b.replaceAll("\\s+", "") : "") +
+                                    (type1c != null && type1c.length() > 0 ?
+                                            type1c.replaceAll("\\s+", "") : "") +
+                                    (type2 != null && type2.length() > 0 ?
+                                            type2.replaceAll("\\s+", "") : "") +
+                                    (type3 != null && type3.length() > 0 ?
+                                            type3.replaceAll("\\s+", "") : "") +
+                                    (type4 != null && type4.length() > 0 ?
+                                            type4.replaceAll("\\s+", "") : "");
 
                     SubstratumBuilder sb = new SubstratumBuilder();
                     sb.beginAction(
@@ -478,14 +510,11 @@ public class OverlayUpdater extends BroadcastReceiver {
                                             context,
                                             installed_overlays.get(i))),
                             Packages.getPackageName(context, theme),
-                            (upgrade_mode.equals(APP_UPGRADE) ?
-                                    package_name :
-                                    Packages.getOverlayTarget(
-                                            context,
-                                            installed_overlays.get(i))),
+                            packageName,
                             additional_variant,
                             base_variant,
-                            Packages.getAppVersion(context, installed_overlays.get(i)),
+                            Packages.getAppVersion(context,
+                                    Packages.getOverlayParent(context, installed_overlays.get(i))),
                             Systems.checkOMS(context),
                             theme,
                             suffix,
@@ -495,7 +524,8 @@ public class OverlayUpdater extends BroadcastReceiver {
                             type2,
                             type3,
                             type4,
-                            installed_overlays.get(i)
+                            installed_overlays.get(i),
+                            true
                     );
                     if (sb.has_errored_out) {
                         errored_packages.add(installed_overlays.get(i));

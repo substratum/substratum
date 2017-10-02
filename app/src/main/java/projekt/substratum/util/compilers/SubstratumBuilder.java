@@ -96,6 +96,8 @@ public class SubstratumBuilder {
      * @param type2              String location of the type2 file
      * @param type3              String location of the type3 file
      * @param type4              String location of the type4 file
+     * @param override_package   String package to tell whether we should change the package name
+     * @param overlay_updater    Boolean flag to tell whether special_snowflake should be skipped
      */
     @SuppressWarnings({"ConstantConditions", "UnusedReturnValue"})
     public boolean beginAction(Context context,
@@ -114,7 +116,8 @@ public class SubstratumBuilder {
                                String type2,
                                String type3,
                                String type4,
-                               String override_package) {
+                               String override_package,
+                               Boolean overlay_updater) {
 
         // 1. Initialize the setup
         File checkCompileFolder = new File(EXTERNAL_STORAGE_CACHE);
@@ -407,7 +410,7 @@ public class SubstratumBuilder {
                 if (overlay_package.equals("android") ||
                         overlay_package.equals("projekt.substratum")) {
                     special_snowflake = ThemeManager.isOverlayEnabled(context, overlayName) ||
-                            Systems.checkOreo();
+                            Systems.checkOreo() && !overlay_updater;
                 }
 
                 if (!special_snowflake) {
@@ -577,10 +580,14 @@ public class SubstratumBuilder {
                 }
             }
         } catch (IOException ioe) {
-            Log.d(SUBSTRATUM_BUILDER, "An Android Oreo specific error message has been " +
-                    "detected and has been whitelisted to continue moving forward " +
-                    "with overlay compilation.");
-            return !has_errored_out;
+            if (Systems.checkOMS(context)) {
+                Log.d(SUBSTRATUM_BUILDER, "An Android Oreo specific error message has been " +
+                        "detected and has been whitelisted to continue moving forward " +
+                        "with overlay compilation.");
+                return !has_errored_out;
+            } else {
+                ioe.printStackTrace();
+            }
         } catch (Exception e) {
             e.printStackTrace();
             dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,

@@ -655,7 +655,8 @@ class OverlayFunctions {
                                                 overlays.type2,
                                                 overlays.type3,
                                                 overlays.type4,
-                                                null);
+                                                null,
+                                                false);
                                         overlays.logTypes();
                                     } else {
                                         overlays.sb = new SubstratumBuilder();
@@ -677,7 +678,8 @@ class OverlayFunctions {
                                                 overlays.type2,
                                                 overlays.type3,
                                                 overlays.type4,
-                                                null);
+                                                null,
+                                                false);
                                         overlays.logTypes();
                                     }
                                 } else {
@@ -704,7 +706,8 @@ class OverlayFunctions {
                                                 overlays.type2,
                                                 overlays.type3,
                                                 overlays.type4,
-                                                null);
+                                                null,
+                                                false);
                                         overlays.logTypes();
                                     } else {
                                         overlays.sb = new SubstratumBuilder();
@@ -725,7 +728,8 @@ class OverlayFunctions {
                                                 overlays.type2,
                                                 overlays.type3,
                                                 overlays.type4,
-                                                null);
+                                                null,
+                                                false);
                                         overlays.logTypes();
                                     }
                                 }
@@ -790,7 +794,8 @@ class OverlayFunctions {
                                         overlays.type2,
                                         overlays.type3,
                                         overlays.type4,
-                                        null);
+                                        null,
+                                        false);
                                 overlays.logTypes();
 
                                 if (overlays.sb.has_errored_out) {

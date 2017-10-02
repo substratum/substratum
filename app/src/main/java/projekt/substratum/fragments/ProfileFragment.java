@@ -1271,7 +1271,8 @@ public class ProfileFragment extends Fragment {
                                 type2,
                                 type3,
                                 type4,
-                                compilePackage
+                                compilePackage,
+                                false
                         );
                         if (Systems.checkThemeInterfacer(profileFragment.mContext) &&
                                 !Systems.isBinderInterfacer(profileFragment.mContext)) {

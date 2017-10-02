@@ -1170,8 +1170,9 @@ public class Overlays extends Fragment {
             Overlays fragment = ref.get();
             if (fragment != null) {
                 fragment.swipeRefreshLayout.setRefreshing(true);
-                fragment.mRecyclerView.setVisibility(View.INVISIBLE);
+                fragment.mRecyclerView.setEnabled(false);
                 fragment.toggle_all.setEnabled(false);
+                fragment.toggle_all.setChecked(false);
                 fragment.base_spinner.setEnabled(false);
             }
         }
@@ -1182,6 +1183,7 @@ public class Overlays extends Fragment {
             Overlays fragment = ref.get();
             if (fragment != null) {
                 fragment.swipeRefreshLayout.setRefreshing(false);
+                fragment.mRecyclerView.setEnabled(true);
                 fragment.toggle_all.setEnabled(true);
                 fragment.base_spinner.setEnabled(true);
                 fragment.mAdapter = new OverlaysAdapter(fragment.values2);

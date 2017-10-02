@@ -71,6 +71,10 @@ import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.util.views.FloatingActionMenu;
 
+import static projekt.substratum.common.Packages.getOverlayMetadata;
+import static projekt.substratum.common.Packages.getOverlayParent;
+import static projekt.substratum.common.Packages.getOverlayTarget;
+import static projekt.substratum.common.Packages.getPackageName;
 import static projekt.substratum.common.Packages.isPackageInstalled;
 import static projekt.substratum.common.References.DATA_RESOURCE_DIR;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
@@ -86,7 +90,7 @@ import static projekt.substratum.util.files.MapUtils.sortMapByValues;
 
 public class ManagerFragment extends Fragment implements SearchView.OnQueryTextListener {
 
-    private static final int MANAGER_FRAGMENT_LOAD_DELAY = 500;
+    private static final int MANAGER_FRAGMENT_INITIAL_DELAY = 500;
     private ArrayList<String> activated_overlays;
     private ManagerAdapter mAdapter;
     private MaterialSheetFab materialSheetFab;
@@ -108,64 +112,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     private BroadcastReceiver refreshReceiver;
     private SearchView searchView;
     private String userInput = "";
-
-    private void refreshList() {
-        if (overlayList != null && mAdapter != null) {
-            List<ManagerItem> updated = new ArrayList<>();
-            for (int i = 0; i < overlayList.size(); i++) {
-                if (isPackageInstalled(getContext(), overlayList.get(i).getName())) {
-                    updated.add(overlayList.get(i));
-                }
-            }
-            mAdapter.setOverlayManagerList(updated);
-            overlayList = updated;
-            if (Systems.checkOMS(getContext())) {
-                try {
-                    List<String> update = updateEnabledOverlays();
-                    for (int i = 0; i < overlayList.size(); i++) {
-                        ManagerItem currentOverlay = overlayList.get(i);
-                        currentOverlay.setSelected(false);
-                        currentOverlay.updateEnabledOverlays(
-                                update.contains(currentOverlay.getName()));
-                        mAdapter.notifyDataSetChanged();
-                    }
-                } catch (Exception e) {
-                    // Consume window refresh
-                }
-            }
-            int overlayListSize = overlayList.size();
-            if (overlayList != null && overlayListSize == 0) {
-                floatingActionButton.hide();
-                toggle_zone.setVisibility(View.GONE);
-                relativeLayout.setVisibility(View.VISIBLE);
-                mRecyclerView.setVisibility(View.GONE);
-            } else if (overlayList != null) {
-                floatingActionButton.show();
-                toggle_zone.setVisibility(View.VISIBLE);
-                relativeLayout.setVisibility(View.GONE);
-                mRecyclerView.setVisibility(View.VISIBLE);
-            }
-            mAdapter.notifyDataSetChanged();
-            if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-
-            try {
-                boolean alphabetize = prefs.getBoolean("alphabetize_overlays", true);
-                if (overlayListSize > 0) {
-                    if (alphabetize) {
-                        quickSort(0, overlayListSize - 1, "name");
-                    } else {
-                        quickSort(0, overlayListSize - 1, "theme");
-                    }
-                }
-            } catch (NullPointerException e) {
-                Log.d("ManagerFragment", "Refreshing list failed at sorting.");
-                quickSort(0, overlayListSize - 1, "name");
-            }
-        }
-        toggle_all.setChecked(false);
-    }
+    private Boolean first_boot = true;
 
     private void quickSort(int low, int high, String sort) {
         int i = low, j = high;
@@ -195,6 +142,15 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         }
         if (low < j) quickSort(low, j, sort);
         if (i < high) quickSort(i, high, sort);
+    }
+
+    private void resetRecyclerView() {
+        // Initialize the recycler view with an empty adapter first
+        ArrayList<ManagerItem> empty_array = new ArrayList<>();
+        RecyclerView.Adapter empty_adapter = new ManagerAdapter(empty_array, false);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        mRecyclerView.setAdapter(empty_adapter);
     }
 
     @Override
@@ -246,12 +202,12 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         swipeRefreshLayout.setOnRefreshListener(() -> {
             if (searchView.isIconified()) {
                 if (first_run != null && mRecyclerView.isShown() && !first_run) {
-                    new LayoutReloader(ManagerFragment.this).execute();
+                    new LayoutReloader(ManagerFragment.this, userInput).execute();
                 } else {
                     swipeRefreshLayout.setRefreshing(false);
                 }
             } else {
-                new LayoutReloader(ManagerFragment.this).execute();
+                new LayoutReloader(ManagerFragment.this, userInput).execute();
             }
         });
 
@@ -283,7 +239,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     }
                 });
 
-        new LayoutReloader(ManagerFragment.this).execute();
+        resetRecyclerView();
+        new LayoutReloader(ManagerFragment.this, userInput).execute();
 
         if (Systems.checkThemeInterfacer(context)) {
             finishReceiver = new FinishReceiver(ManagerFragment.this);
@@ -398,7 +355,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         Boolean alphabetize = updateMenuButtonState(menu);
         if ((overlayList != null && overlayList.size() > 0)) {
             if (!alphabetize) refreshThemeName();
-            refreshList();
+            new LayoutReloader(ManagerFragment.this, userInput).execute();
         }
         super.onPrepareOptionsMenu(menu);
     }
@@ -428,75 +385,17 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 Context context = overlayList.get(i).getContext();
                 String packageName = overlayList.get(i).getName();
                 if (overlayList.get(i).getThemeName() == null) {
-                    String metadata = Packages.getOverlayMetadata(
+                    String metadata = getOverlayMetadata(
                             context, packageName, References.metadataOverlayParent);
                     if (metadata != null && metadata.length() > 0) {
                         String pName = "<b>" + context.getString(R.string.manager_theme_name) +
                                 "</b> " +
-                                Packages.getPackageName(context, metadata);
+                                getPackageName(context, metadata);
                         overlayList.get(i).setThemeName(pName);
                     }
                 }
             }
         }
-    }
-
-    public void refreshLayout() {
-        List<ManagerItem> updated = new ArrayList<>();
-        boolean alphabetize = prefs.getBoolean("alphabetize_overlays", true);
-        if (overlayList.size() > 0) {
-            if (userInput.length() > 0) {
-                List<ManagerItem> returnList = new ArrayList<>();
-                if (alphabetize) {
-                    for (int i = 0; i < overlayList.size(); i++) {
-                        if (overlayList.get(i).getLabelName().toLowerCase()
-                                .contains(userInput.toLowerCase())) {
-                            returnList.add(overlaysList.get(i));
-                        }
-                    }
-                } else {
-                    for (int i = 0; i < overlayList.size(); i++) {
-                        if (overlayList.get(i).getThemeName().toLowerCase()
-                                .contains(userInput.toLowerCase())) {
-                            returnList.add(overlaysList.get(i));
-                        }
-                    }
-                }
-                updated = returnList;
-                mAdapter.setOverlayManagerList(updated);
-
-                floatingActionButton.show();
-                toggle_zone.setVisibility(View.VISIBLE);
-                relativeLayout.setVisibility(View.GONE);
-                mRecyclerView.setVisibility(View.VISIBLE);
-
-                mAdapter.notifyDataSetChanged();
-            } else {
-                refreshList();
-            }
-        }
-
-        if (!searchView.isIconified() && updated.size() == 0 && userInput.length() > 0) {
-            toggle_zone.setVisibility(View.GONE);
-            relativeLayout.setVisibility(View.VISIBLE);
-            TextView titleView = root.findViewById(R.id.no_themes_title);
-            titleView.setText(getString(R.string.no_overlays_title));
-
-            TextView textView = root.findViewById(R.id.no_themes_description);
-            String formatter = String.format(
-                    getString(R.string.no_overlays_description_search), userInput);
-            textView.setText(formatter);
-        } else {
-            toggle_zone.setVisibility(View.GONE);
-            relativeLayout.setVisibility(View.VISIBLE);
-
-            TextView titleView = root.findViewById(R.id.no_themes_title);
-            titleView.setText(getString(R.string.manager_no_overlays_title));
-
-            TextView textView = root.findViewById(R.id.no_themes_description);
-            textView.setText(getString(R.string.manager_no_overlays_text));
-        }
-        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -540,16 +439,18 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     public boolean onQueryTextChange(String newText) {
         if (!userInput.equals(newText)) {
             userInput = newText;
-            refreshLayout();
+            new LayoutReloader(ManagerFragment.this, userInput).execute();
         }
         return true;
     }
 
     private static class LayoutReloader extends AsyncTask<Void, Void, Void> {
         private WeakReference<ManagerFragment> ref;
+        private WeakReference<String> userInput;
 
-        private LayoutReloader(ManagerFragment fragment) {
+        private LayoutReloader(ManagerFragment fragment, String input) {
             ref = new WeakReference<>(fragment);
+            userInput = new WeakReference<>(input);
         }
 
         @Override
@@ -559,11 +460,10 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 fragment.swipeRefreshLayout.setRefreshing(true);
                 fragment.toggle_all.setChecked(false);
                 fragment.toggle_all.setEnabled(false);
-                fragment.mRecyclerView.setHasFixedSize(true);
-                fragment.mRecyclerView.setLayoutManager(new LinearLayoutManager(fragment.context));
-                ArrayList<ManagerItem> empty_array = new ArrayList<>();
-                RecyclerView.Adapter empty_adapter = new ManagerAdapter(empty_array, false);
-                fragment.mRecyclerView.setAdapter(empty_adapter);
+                fragment.mRecyclerView.setEnabled(false);
+                if (userInput.get() != null && userInput.get().length() > 0) {
+                    fragment.resetRecyclerView();
+                }
             }
         }
 
@@ -596,35 +496,50 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
 
                         // Then let's convert all the package names to their app names
                         for (int i = 0; i < all_overlays.size(); i++) {
-                            try {
-                                ApplicationInfo applicationInfo = context.getPackageManager()
-                                        .getApplicationInfo(all_overlays.get(i), 0);
-                                String packageTitle = context.getPackageManager()
-                                        .getApplicationLabel(applicationInfo).toString();
-                                String targetApplication = Packages.getOverlayTarget(
-                                        context,
-                                        packageTitle);
-
-                                if (isPackageInstalled(context, targetApplication)) {
-                                    unsortedMap.put(
-                                            all_overlays.get(i),
-                                            Packages.getPackageName(context, targetApplication));
+                            boolean can_continue = true;
+                            if (userInput.get() != null && userInput.get().length() > 0) {
+                                StringBuilder combined = new StringBuilder();
+                                combined.append(getOverlayParent(context, all_overlays.get(i)));
+                                combined.append(getPackageName(context,
+                                        getOverlayTarget(context, all_overlays.get(i))));
+                                if (!combined.toString().toLowerCase().contains(
+                                        userInput.get().toLowerCase())) {
+                                    can_continue = false;
                                 }
-                            } catch (Exception e) {
-                                // Suppress warning
+                            }
+                            if (can_continue) {
+                                try {
+                                    ApplicationInfo applicationInfo = context.getPackageManager()
+                                            .getApplicationInfo(all_overlays.get(i), 0);
+                                    String packageTitle = context.getPackageManager()
+                                            .getApplicationLabel(applicationInfo).toString();
+                                    String targetApplication = Packages.getOverlayTarget(
+                                            context,
+                                            packageTitle);
+
+                                    if (isPackageInstalled(context, targetApplication)) {
+                                        unsortedMap.put(
+                                                all_overlays.get(i),
+                                                getPackageName(context, targetApplication));
+                                    }
+                                } catch (Exception e) {
+                                    // Suppress warning
+                                }
                             }
                         }
 
-                        // Sort the values list
-                        List<Pair<String, String>> sortedMap = sortMapByValues(unsortedMap);
+                        if (unsortedMap.size() > 0) {
+                            // Sort the values list
+                            List<Pair<String, String>> sortedMap = sortMapByValues(unsortedMap);
 
-                        for (Pair<String, String> entry : sortedMap) {
-                            if (disabled_overlays.contains(entry.first)) {
-                                ManagerItem st = new ManagerItem(context, entry.first, false);
-                                fragment.overlaysList.add(st);
-                            } else if (fragment.activated_overlays.contains(entry.first)) {
-                                ManagerItem st = new ManagerItem(context, entry.first, true);
-                                fragment.overlaysList.add(st);
+                            for (Pair<String, String> entry : sortedMap) {
+                                if (disabled_overlays.contains(entry.first)) {
+                                    ManagerItem st = new ManagerItem(context, entry.first, false);
+                                    fragment.overlaysList.add(st);
+                                } else if (fragment.activated_overlays.contains(entry.first)) {
+                                    ManagerItem st = new ManagerItem(context, entry.first, true);
+                                    fragment.overlaysList.add(st);
+                                }
                             }
                         }
                     } else {
@@ -639,11 +554,13 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                             fragment.overlaysList.add(st);
                         }
                     }
+
                     try {
-                        Thread.sleep(MANAGER_FRAGMENT_LOAD_DELAY);
+                        Thread.sleep(fragment.first_boot ? MANAGER_FRAGMENT_INITIAL_DELAY : 0);
                     } catch (InterruptedException ie) {
                         // Suppress warning
                     }
+                    if (fragment.first_boot) fragment.first_boot = false;
                 } catch (Exception e) {
                     // Consume window refresh
                 }
@@ -658,10 +575,9 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             if (fragment != null) {
                 fragment.swipeRefreshLayout.setRefreshing(false);
                 fragment.toggle_all.setEnabled(true);
-                fragment.mRecyclerView.setHasFixedSize(true);
-                fragment.mRecyclerView.setLayoutManager(new LinearLayoutManager(fragment.context));
                 fragment.mAdapter = new ManagerAdapter(fragment.overlaysList, false);
                 fragment.mRecyclerView.setAdapter(fragment.mAdapter);
+                fragment.mRecyclerView.setEnabled(true);
 
                 fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
 
@@ -679,6 +595,18 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     fragment.toggle_zone.setVisibility(View.GONE);
                     fragment.relativeLayout.setVisibility(View.VISIBLE);
                     fragment.mRecyclerView.setVisibility(View.GONE);
+
+                    TextView titleView = fragment.root.findViewById(R.id.no_themes_title);
+                    titleView.setText(fragment.getString(R.string.manager_no_overlays_title));
+                    TextView textView = fragment.root.findViewById(R.id.no_themes_description);
+                    textView.setText(fragment.getString(R.string.manager_no_overlays_text));
+
+                    if (!fragment.searchView.isIconified() && userInput.get().length() > 0) {
+                        titleView.setText(fragment.getString(R.string.no_overlays_title));
+                        String formatter = String.format(fragment.getString(
+                                R.string.no_overlays_description_search), userInput.get());
+                        textView.setText(formatter);
+                    }
                 } else {
                     fragment.floatingActionButton.show();
                     fragment.toggle_zone.setVisibility(View.VISIBLE);
@@ -739,7 +667,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     ManagerItem managerItem = fragment.overlayList.get(i);
                     if (managerItem.isSelected()) {
                         if (isPackageInstalled(context,
-                                Packages.getOverlayParent(context, managerItem.getName()))) {
+                                getOverlayParent(context, managerItem.getName()))) {
                             if (ThemeManager.listOverlays(fragment.context, STATE_DISABLED)
                                     .contains(managerItem.getName())) {
                                 data.add(managerItem.getName());
@@ -923,7 +851,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                         List<ApplicationInfo> packages =
                                 pm.getInstalledApplications(PackageManager.GET_META_DATA);
                         for (ApplicationInfo packageInfo : packages) {
-                            if (Packages.getOverlayMetadata(
+                            if (getOverlayMetadata(
                                     context,
                                     packageInfo.packageName,
                                     References.metadataOverlayParent) != null) {
@@ -1035,7 +963,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     ManagerItem managerItem = fragment.overlayList.get(i);
                     if (managerItem.isSelected()) {
                         if (isPackageInstalled(context,
-                                Packages.getOverlayParent(context, managerItem.getName()))) {
+                                getOverlayParent(context, managerItem.getName()))) {
                             if (ThemeManager.listOverlays(fragment.context, STATE_DISABLED)
                                     .contains(managerItem.getName())) {
                                 data.add(managerItem.getName());
@@ -1170,7 +1098,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         public void onReceive(Context context, Intent intent) {
             ManagerFragment fragment = ref.get();
             if (fragment != null) {
-                fragment.refreshList();
+                new LayoutReloader(fragment, fragment.userInput);
                 fragment.loadingBar.setVisibility(View.GONE);
             }
         }
@@ -1181,7 +1109,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.d("ManagerRefresher", "A package has been modified, now refreshing the list...");
-            refreshList();
+            new LayoutReloader(ManagerFragment.this, userInput).execute();
         }
     }
 }

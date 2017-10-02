@@ -90,7 +90,8 @@
                 android:layout_marginTop="5dp"
                 android:clipToPadding="false"
                 android:paddingBottom="90dp"
-                android:scrollbars="vertical"/>
+                android:scrollbars="vertical"
+                android:visibility="gone"/>
 
         </android.support.v4.widget.SwipeRefreshLayout>
 

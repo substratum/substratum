@@ -57,7 +57,7 @@
                 android:layout_width="130dp"
                 android:layout_height="130dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="200dp"
+                android:layout_marginTop="50dp"
                 android:importantForAccessibility="no"
                 android:src="@drawable/no_priorities_loaded"/>
 

@@ -72,14 +72,14 @@
             android:id="@+id/no_overlays_enabled"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:layout_marginTop="50dp"
             android:visibility="gone">
 
             <ImageView
                 android:id="@+id/no_themes_enabled"
                 android:layout_width="130dp"
                 android:layout_height="130dp"
-                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
                 android:src="@drawable/no_priorities_loaded"
                 tools:ignore="ContentDescription"/>
 

@@ -255,14 +255,6 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             }
         });
 
-        new LayoutReloader(ManagerFragment.this).execute();
-
-        if (Systems.checkThemeInterfacer(context)) {
-            finishReceiver = new FinishReceiver(ManagerFragment.this);
-            IntentFilter intentFilter = new IntentFilter(References.STATUS_CHANGED);
-            context.registerReceiver(finishReceiver, intentFilter);
-        }
-
         toggle_all = root.findViewById(R.id.select_all);
         toggle_all.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> {
@@ -290,6 +282,15 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                                 "Window has lost connection with the host.");
                     }
                 });
+
+        new LayoutReloader(ManagerFragment.this).execute();
+
+        if (Systems.checkThemeInterfacer(context)) {
+            finishReceiver = new FinishReceiver(ManagerFragment.this);
+            IntentFilter intentFilter = new IntentFilter(References.STATUS_CHANGED);
+            context.registerReceiver(finishReceiver, intentFilter);
+        }
+
         toggle_zone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

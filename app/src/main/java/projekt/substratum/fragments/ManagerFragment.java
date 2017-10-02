@@ -244,7 +244,6 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
 
         swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(() -> {
-            toggle_all.setChecked(false);
             if (searchView.isIconified()) {
                 if (first_run != null && mRecyclerView.isShown() && !first_run) {
                     new LayoutReloader(ManagerFragment.this).execute();
@@ -557,6 +556,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             ManagerFragment fragment = ref.get();
             if (fragment != null) {
                 fragment.swipeRefreshLayout.setRefreshing(true);
+                fragment.toggle_all.setChecked(false);
+                fragment.toggle_all.setEnabled(false);
                 fragment.mRecyclerView.setHasFixedSize(true);
                 fragment.mRecyclerView.setLayoutManager(new LinearLayoutManager(fragment.context));
                 ArrayList<ManagerItem> empty_array = new ArrayList<>();
@@ -655,6 +656,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             ManagerFragment fragment = ref.get();
             if (fragment != null) {
                 fragment.swipeRefreshLayout.setRefreshing(false);
+                fragment.toggle_all.setEnabled(true);
                 fragment.mRecyclerView.setHasFixedSize(true);
                 fragment.mRecyclerView.setLayoutManager(new LinearLayoutManager(fragment.context));
                 fragment.mAdapter = new ManagerAdapter(fragment.overlaysList, false);

@@ -376,6 +376,8 @@ public class References {
     public static void loadDefaultConfig(Context context) {
         SharedPreferences.Editor editor =
                 PreferenceManager.getDefaultSharedPreferences(context).edit();
+        SharedPreferences.Editor editor2 =
+                context.getSharedPreferences("base_variant", Context.MODE_PRIVATE).edit();
         editor.putBoolean("show_app_icon", true);
         editor.putBoolean("substratum_oms", Systems.checkOMS(context));
         editor.putBoolean("show_template_version", false);
@@ -402,9 +404,10 @@ public class References {
         editor.remove("seen_restore_warning");
         editor.remove("previous_logchar_cleanup");
         editor.remove("seen_legacy_warning");
-
+        editor2.clear();
         Theming.refreshInstalledThemesPref(context);
         editor.apply();
+        editor2.apply();
         CheckBinaries.install(context, true);
     }
 

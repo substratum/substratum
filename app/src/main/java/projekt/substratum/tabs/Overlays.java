@@ -615,11 +615,14 @@ public class Overlays extends Fragment {
         /*
           PLUGIN TYPE 3: Parse each overlay folder to see if they have folder options
          */
+        SharedPreferences prefs2 =
+                getContext().getSharedPreferences("base_variant", Context.MODE_PRIVATE);
         Overlays overlays = this;
         base_spinner = root.findViewById(R.id.type3_spinner);
         base_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long id) {
+                prefs2.edit().putInt(theme_pid, pos).apply();
                 if (pos == 0) {
                     toggle_all.setChecked(false);
                     refreshList();
@@ -705,6 +708,18 @@ public class Overlays extends Fragment {
             }
             e.printStackTrace();
             Log.e(TAG, "Could not parse list of base options for this theme!");
+        }
+
+        if (base_spinner.getVisibility() == View.VISIBLE) {
+            try {
+                Log.d(TAG, "Assigning the spinner position: " + prefs2.getInt(theme_pid, 0));
+                base_spinner.setSelection(prefs2.getInt(theme_pid, 0));
+            } catch (Exception e) {
+                // Should be OutOfBounds, but let's catch everything
+                Log.d(TAG, "Falling back to default spinner position due to an error...");
+                prefs2.edit().putInt(theme_pid, 0).apply();
+                base_spinner.setSelection(0);
+            }
         }
 
         // Enable job listener

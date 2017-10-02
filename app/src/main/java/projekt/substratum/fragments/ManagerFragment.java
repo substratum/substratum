@@ -98,7 +98,6 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     private FloatingActionMenu floatingActionButton;
     private SwipeRefreshLayout swipeRefreshLayout;
     private Boolean first_run = null;
-    private ProgressBar progressBar;
     private RecyclerView mRecyclerView;
     private ProgressBar loadingBar;
     private List<ManagerItem> overlayList;
@@ -231,8 +230,6 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         int sheetColor = context.getColor(R.color.fab_menu_background_card);
         int fabColor = context.getColor(R.color.fab_background_color);
 
-        progressBar = root.findViewById(R.id.progress_bar_loader);
-
         floatingActionButton = root.findViewById(R.id.apply_fab);
 
         // Create material sheet FAB
@@ -245,6 +242,19 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     fabColor);
         }
 
+        swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            if (searchView.isIconified()) {
+                if (first_run != null && mRecyclerView.isShown() && !first_run) {
+                    new LayoutReloader(ManagerFragment.this).execute();
+                } else {
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+            } else {
+                new LayoutReloader(ManagerFragment.this).execute();
+            }
+        });
+
         new LayoutReloader(ManagerFragment.this).execute();
 
         if (Systems.checkThemeInterfacer(context)) {
@@ -252,19 +262,6 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             IntentFilter intentFilter = new IntentFilter(References.STATUS_CHANGED);
             context.registerReceiver(finishReceiver, intentFilter);
         }
-
-        swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            if (searchView.isIconified()) {
-                if (first_run != null && mRecyclerView.isShown() && !first_run) {
-                    refreshList();
-                } else {
-                    swipeRefreshLayout.setRefreshing(false);
-                }
-            } else {
-                refreshLayout();
-            }
-        });
 
         toggle_all = root.findViewById(R.id.select_all);
         toggle_all.setOnCheckedChangeListener(
@@ -444,9 +441,6 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     }
 
     public void refreshLayout() {
-        ProgressBar materialProgressBar = root.findViewById(R.id.progress_bar_loader);
-        materialProgressBar.setVisibility(View.VISIBLE);
-
         List<ManagerItem> updated = new ArrayList<>();
         boolean alphabetize = prefs.getBoolean("alphabetize_overlays", true);
         if (overlayList.size() > 0) {
@@ -492,8 +486,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     getString(R.string.no_overlays_description_search), userInput);
             textView.setText(formatter);
         } else {
-            toggle_zone.setVisibility(View.VISIBLE);
-            relativeLayout.setVisibility(View.GONE);
+            toggle_zone.setVisibility(View.GONE);
+            relativeLayout.setVisibility(View.VISIBLE);
 
             TextView titleView = root.findViewById(R.id.no_themes_title);
             titleView.setText(getString(R.string.manager_no_overlays_title));
@@ -502,7 +496,6 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             textView.setText(getString(R.string.manager_no_overlays_text));
         }
         swipeRefreshLayout.setRefreshing(false);
-        materialProgressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -562,7 +555,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         protected void onPreExecute() {
             ManagerFragment fragment = ref.get();
             if (fragment != null) {
-                fragment.progressBar.setVisibility(View.VISIBLE);
+                fragment.swipeRefreshLayout.setRefreshing(true);
                 fragment.mRecyclerView.setHasFixedSize(true);
                 fragment.mRecyclerView.setLayoutManager(new LinearLayoutManager(fragment.context));
                 ArrayList<ManagerItem> empty_array = new ArrayList<>();
@@ -660,7 +653,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             super.onPostExecute(result);
             ManagerFragment fragment = ref.get();
             if (fragment != null) {
-                fragment.progressBar.setVisibility(View.GONE);
+                fragment.swipeRefreshLayout.setRefreshing(false);
                 fragment.mRecyclerView.setHasFixedSize(true);
                 fragment.mRecyclerView.setLayoutManager(new LinearLayoutManager(fragment.context));
                 fragment.mAdapter = new ManagerAdapter(fragment.overlaysList, false);

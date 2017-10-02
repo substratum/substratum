@@ -46,7 +46,7 @@
             android:layout_marginTop="12dp"
             android:clickable="true"
             android:focusable="true"
-            android:visibility="gone">
+            android:visibility="invisible">
 
             <TextView
                 android:id="@+id/toggle_all_overlays_text"
@@ -120,16 +120,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
-                <ProgressBar
-                    android:id="@+id/progress_bar_loader"
-                    style="?android:attr/indeterminateProgressStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:layout_marginTop="20dp"
-                    android:indeterminate="true"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/overlays_recycler_view"

@@ -57,6 +57,7 @@ import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -113,36 +114,6 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     private SearchView searchView;
     private String userInput = "";
     private Boolean first_boot = true;
-
-    private void quickSort(int low, int high, String sort) {
-        int i = low, j = high;
-        ManagerItem pivot = overlayList.get(low + (high - low) / 2);
-        while (i <= j) {
-            switch (sort) {
-                case "name":
-                    while (overlayList.get(i).compareTo(pivot) < 0)
-                        i++;
-                    while (overlayList.get(j).compareTo(pivot) > 0)
-                        j--;
-                    break;
-                case "theme":
-                    while (overlayList.get(i).compareToByTheme(pivot) < 0)
-                        i++;
-                    while (overlayList.get(j).compareToByTheme(pivot) > 0)
-                        j--;
-                    break;
-            }
-            if (i <= j) {
-                ManagerItem temp = overlayList.get(i);
-                overlayList.set(i, overlayList.get(j));
-                overlayList.set(j, temp);
-                i++;
-                j--;
-            }
-        }
-        if (low < j) quickSort(low, j, sort);
-        if (i < high) quickSort(i, high, sort);
-    }
 
     private void resetRecyclerView() {
         // Initialize the recycler view with an empty adapter first
@@ -575,18 +546,22 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             if (fragment != null) {
                 fragment.swipeRefreshLayout.setRefreshing(false);
                 fragment.toggle_all.setEnabled(true);
+
                 fragment.mAdapter = new ManagerAdapter(fragment.overlaysList, false);
                 fragment.mRecyclerView.setAdapter(fragment.mAdapter);
                 fragment.mRecyclerView.setEnabled(true);
 
                 fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
 
+                fragment.overlayList
+                        .removeIf(managerItem -> managerItem.getLabelName() == null || managerItem.getThemeName() == null);
+
                 boolean alphabetize = fragment.prefs.getBoolean("alphabetize_overlays", true);
                 if (fragment.overlayList.size() > 0) {
                     if (alphabetize) {
-                        fragment.quickSort(0, fragment.overlayList.size() - 1, "name");
+                        fragment.overlayList.sort(Comparator.comparing(ManagerItem::getLabelName, String.CASE_INSENSITIVE_ORDER));
                     } else {
-                        fragment.quickSort(0, fragment.overlayList.size() - 1, "theme");
+                        fragment.overlayList.sort(Comparator.comparing(ManagerItem::getThemeName, String.CASE_INSENSITIVE_ORDER));
                     }
                 }
 

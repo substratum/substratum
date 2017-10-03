@@ -29,7 +29,7 @@ import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 
-public class ManagerItem implements Serializable, Comparable<ManagerItem> {
+public class ManagerItem implements Serializable {
 
     private String name;
     private String type1a;
@@ -192,23 +192,5 @@ public class ManagerItem implements Serializable, Comparable<ManagerItem> {
 
     void setTargetDrawable(Drawable drawable) {
         this.mTargetDrawable = drawable;
-    }
-
-    @Override
-    public int compareTo(@NonNull ManagerItem managerItem) {
-        int compareName = getLabelName().compareToIgnoreCase(managerItem.getLabelName());
-        if (compareName != 0) {
-            return compareName;
-        }
-        return getThemeName().compareToIgnoreCase(managerItem.getThemeName());
-    }
-
-    public int compareToByTheme(@NonNull ManagerItem managerItem) {
-        int compareTheme = getThemeName().compareToIgnoreCase(managerItem.getThemeName());
-        if (compareTheme != 0) {
-            return compareTheme;
-        }
-        if (managerItem.getLabelName() == null || getLabelName() == null) return compareTheme;
-        return getLabelName().compareToIgnoreCase(managerItem.getLabelName());
     }
 }

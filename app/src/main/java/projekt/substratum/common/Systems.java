@@ -79,17 +79,24 @@ public class Systems {
         }
     }
 
-    public static int checkThemeSystemModule(Context context) {
+    public static int checkThemeSystemModule(Context context, boolean firstLaunch) {
         if (context != null) {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            if (prefs.getInt("CURRENT_THEME_MODE", NO_THEME_ENGINE) !=
-                    NO_THEME_ENGINE) {
+            if (!firstLaunch &&
+                    prefs.getInt("CURRENT_THEME_MODE", NO_THEME_ENGINE) != NO_THEME_ENGINE) {
                 return prefs.getInt("CURRENT_THEME_MODE", NO_THEME_ENGINE);
             }
 
             Boolean rooted = Root.checkRootAccess();
             if (checkOreo()) {
-                if (isAndromedaDevice(context) && !isBinderInterfacer(context)) {
+                if (rooted) {
+                    // Rooted mode
+                    prefs.edit().putInt(
+                            "CURRENT_THEME_MODE",
+                            OVERLAY_MANAGER_SERVICE_O_ROOTED
+                    ).apply();
+                    return OVERLAY_MANAGER_SERVICE_O_ROOTED;
+                } else if (isAndromedaDevice(context) && !isBinderInterfacer(context)) {
                     // Andromeda mode
                     prefs.edit().putInt(
                             "CURRENT_THEME_MODE",
@@ -101,13 +108,6 @@ public class Systems {
                     prefs.edit().putInt(
                             "CURRENT_THEME_MODE",
                             OVERLAY_MANAGER_SERVICE_O_UNROOTED
-                    ).apply();
-                    return OVERLAY_MANAGER_SERVICE_O_UNROOTED;
-                } else if (rooted) {
-                    // Rooted mode
-                    prefs.edit().putInt(
-                            "CURRENT_THEME_MODE",
-                            OVERLAY_MANAGER_SERVICE_O_ROOTED
                     ).apply();
                     return OVERLAY_MANAGER_SERVICE_O_UNROOTED;
                 }
@@ -137,6 +137,10 @@ public class Systems {
             }
         }
         return NO_THEME_ENGINE;
+    }
+
+    public static int checkThemeSystemModule(Context context) {
+        return checkThemeSystemModule(context, false);
     }
 
     public static Boolean checkOreo() {

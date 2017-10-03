@@ -558,8 +558,10 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 ArrayList<String> toRemove = new ArrayList<>();
                 for (int i = 0; i < fragment.overlayList.size(); i ++) {
                     if (fragment.overlayList.get(i).getThemeName() == null ||
-                            fragment.overlayList.get(i).getLabelName() == null)
+                            fragment.overlayList.get(i).getLabelName() == null) {
                         toRemove.add(fragment.overlayList.get(i).getName());
+                        fragment.overlayList.remove(i);
+                    }
                 }
                 if (!toRemove.isEmpty()) ThemeManager.uninstallOverlay(context, toRemove);
 

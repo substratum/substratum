@@ -769,7 +769,7 @@ public class Overlays extends Fragment {
             mBuilder.setContentTitle(context.getString(R.string.notification_done_title));
             mBuilder.setContentText(context.getString(R.string.notification_some_errors_found));
             if (prefs.getBoolean("vibrate_on_compiled", false)) {
-                mBuilder.setVibrate(new long[]{100, 200, 100, 500});
+                mBuilder.setVibrate(new long[]{200, 400, 200, 1000});
             }
             mNotifyManager.notify(id, mBuilder.build());
         }

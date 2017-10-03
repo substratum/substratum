@@ -87,6 +87,7 @@ import static projekt.substratum.common.Systems.checkOMS;
 import static projekt.substratum.common.platform.ThemeManager.STATE_DISABLED;
 import static projekt.substratum.common.platform.ThemeManager.STATE_ENABLED;
 import static projekt.substratum.common.platform.ThemeManager.isOverlayEnabled;
+import static projekt.substratum.common.platform.ThemeManager.uninstallOverlay;
 import static projekt.substratum.util.files.MapUtils.sortMapByValues;
 
 public class ManagerFragment extends Fragment implements SearchView.OnQueryTextListener {
@@ -543,6 +544,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             ManagerFragment fragment = ref.get();
+            Context context = fragment.context;
             if (fragment != null) {
                 fragment.swipeRefreshLayout.setRefreshing(false);
                 fragment.toggle_all.setEnabled(true);
@@ -553,20 +555,30 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
 
                 fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
 
-                fragment.overlayList
-                        .removeIf(managerItem -> managerItem.getLabelName() == null || managerItem.getThemeName() == null);
+                ArrayList<String> toRemove = new ArrayList<>();
+                for (int i = 0; i < fragment.overlayList.size(); i ++) {
+                    if (fragment.overlayList.get(i).getThemeName() == null ||
+                            fragment.overlayList.get(i).getLabelName() == null)
+                        toRemove.add(fragment.overlayList.get(i).getName());
+                }
+                if (!toRemove.isEmpty()) ThemeManager.uninstallOverlay(context, toRemove);
+
 
                 boolean alphabetize = fragment.prefs.getBoolean("alphabetize_overlays", true);
                 if (fragment.overlayList.size() > 0) {
                     if (alphabetize) {
                         fragment.overlayList.sort(
-                                Comparator.comparing(ManagerItem::getLabelName, String.CASE_INSENSITIVE_ORDER)
-                                        .thenComparing(ManagerItem::getThemeName, String.CASE_INSENSITIVE_ORDER)
+                                Comparator.comparing(ManagerItem::getLabelName,
+                                        String.CASE_INSENSITIVE_ORDER)
+                                        .thenComparing(ManagerItem::getThemeName,
+                                                String.CASE_INSENSITIVE_ORDER)
                         );
                     } else {
                         fragment.overlayList.sort(
-                                Comparator.comparing(ManagerItem::getThemeName, String.CASE_INSENSITIVE_ORDER)
-                                        .thenComparing(ManagerItem::getLabelName, String.CASE_INSENSITIVE_ORDER));
+                                Comparator.comparing(ManagerItem::getThemeName,
+                                        String.CASE_INSENSITIVE_ORDER)
+                                        .thenComparing(ManagerItem::getLabelName,
+                                                String.CASE_INSENSITIVE_ORDER));
                     }
                 }
 

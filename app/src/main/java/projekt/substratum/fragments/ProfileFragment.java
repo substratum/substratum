@@ -209,18 +209,9 @@ public class ProfileFragment extends Fragment {
         backupButton.setOnClickListener(v -> {
             if (backup_name.getText().length() > 0) {
                 selectedBackup = new ArrayList<>();
-                boolean fonts_allowed = false;
-                try {
-                    Class<?> cls = Class.forName("android.graphics.Typeface");
-                    cls.getDeclaredMethod("getSystemFontDirLocation");
-                    cls.getDeclaredMethod("getThemeFontConfigLocation");
-                    cls.getDeclaredMethod("getThemeFontDirLocation");
-                    fonts_allowed = true;
-                } catch (Exception ex) {
-                    // Suppress Fonts
-                }
                 CharSequence[] items;
-                if (Systems.checkOMS(mContext) || fonts_allowed) {
+                if (Systems.checkOMS(mContext) ||
+                        projekt.substratum.common.Resources.isFontsSupported()) {
                     items = new CharSequence[]{
                             getString(R.string.profile_boot_animation),
                             getString(R.string.profile_font),

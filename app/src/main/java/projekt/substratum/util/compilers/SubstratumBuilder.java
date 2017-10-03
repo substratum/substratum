@@ -559,6 +559,7 @@ public class SubstratumBuilder {
                     }
                 }
                 if (errored) {
+                    has_errored_out = true;
                     dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
                             "Installation of \"" + overlay_package + "\" has failed.");
                 } else {

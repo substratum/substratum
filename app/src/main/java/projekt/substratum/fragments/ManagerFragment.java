@@ -559,9 +559,14 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 boolean alphabetize = fragment.prefs.getBoolean("alphabetize_overlays", true);
                 if (fragment.overlayList.size() > 0) {
                     if (alphabetize) {
-                        fragment.overlayList.sort(Comparator.comparing(ManagerItem::getLabelName, String.CASE_INSENSITIVE_ORDER));
+                        fragment.overlayList.sort(
+                                Comparator.comparing(ManagerItem::getLabelName, String.CASE_INSENSITIVE_ORDER)
+                                        .thenComparing(ManagerItem::getThemeName, String.CASE_INSENSITIVE_ORDER)
+                        );
                     } else {
-                        fragment.overlayList.sort(Comparator.comparing(ManagerItem::getThemeName, String.CASE_INSENSITIVE_ORDER));
+                        fragment.overlayList.sort(
+                                Comparator.comparing(ManagerItem::getThemeName, String.CASE_INSENSITIVE_ORDER)
+                                        .thenComparing(ManagerItem::getLabelName, String.CASE_INSENSITIVE_ORDER));
                     }
                 }
 

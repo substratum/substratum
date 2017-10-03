@@ -1041,7 +1041,7 @@ public class Overlays extends Fragment {
 
     private void refreshList() {
         toggle_all.setChecked(false);
-        if (base_spinner != null && base_spinner.getSelectedItem() != null) {
+        if (base_spinner != null && base_spinner.getSelectedItemPosition() > 0) {
             String[] commands = {
                     base_spinner.getSelectedItem().toString()
             };

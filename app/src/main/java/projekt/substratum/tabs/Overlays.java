@@ -618,17 +618,18 @@ public class Overlays extends Fragment {
         SharedPreferences prefs2 =
                 getContext().getSharedPreferences("base_variant", Context.MODE_PRIVATE);
         base_spinner = root.findViewById(R.id.type3_spinner);
-        base_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long id) {
-                prefs2.edit().putInt(theme_pid, pos).apply();
-                refreshList();
-            }
+        base_spinner.post(() -> base_spinner.setOnItemSelectedListener(
+                new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long id) {
+                        prefs2.edit().putInt(theme_pid, pos).apply();
+                        refreshList();
+                    }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
-        });
+                    @Override
+                    public void onNothingSelected(AdapterView<?> arg0) {
+                    }
+                }));
         base_spinner.setEnabled(false);
 
         try {

@@ -139,7 +139,6 @@ public class MainActivity extends SubstratumActivity implements
     private static ActionBar supportActionBar;
     public TextView actionbar_title, actionbar_content;
     public SearchView searchView;
-    public StringBuilder error_logs;
     private Drawer drawer;
     private int permissionCheck = PackageManager.PERMISSION_DENIED;
     private Dialog mProgressDialog;
@@ -1222,9 +1221,10 @@ public class MainActivity extends SubstratumActivity implements
             MainActivity activity = ref.get();
             if (activity != null) {
                 Context context = activity.mContext;
+                int themeSystemModule = checkThemeSystemModule(context, true);
 
                 // Samsung mode, but what if package is not installed?
-                boolean samsungCheck = checkThemeSystemModule(context) == SAMSUNG_THEME_ENGINE_N;
+                boolean samsungCheck = themeSystemModule == SAMSUNG_THEME_ENGINE_N;
                 if (samsungCheck) {
                     // Throw the dialog when sungstratum addon is not installed
                     return !Packages.isPackageInstalled(context, SST_ADDON_PACKAGE);
@@ -1232,15 +1232,16 @@ public class MainActivity extends SubstratumActivity implements
 
                 // Check if the system is Andromeda mode
                 boolean andromeda_check =
-                        checkThemeSystemModule(context) == OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
+                        themeSystemModule == OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
                 if (andromeda_check) {
+                    Log.d("lmao", "here1");
                     // Throw the dialog when checkServerActivity() isn't working
                     return !AndromedaService.checkServerActivity();
                 }
 
                 // Check if the system is legacy
                 boolean legacyCheck =
-                        checkThemeSystemModule(context) == NO_THEME_ENGINE;
+                        themeSystemModule == NO_THEME_ENGINE;
                 if (legacyCheck) {
                     // Throw the dialog, after checking for root
                     return !Root.requestRootAccess();
@@ -1249,9 +1250,8 @@ public class MainActivity extends SubstratumActivity implements
                 // Check for OMS
                 boolean omsCheck = Systems.checkOMS(context);
                 if (omsCheck) {
-                    int checked = checkThemeSystemModule(context);
-                    return checked != OVERLAY_MANAGER_SERVICE_O_UNROOTED &&
-                            checked != OVERLAY_MANAGER_SERVICE_N_UNROOTED &&
+                    return themeSystemModule != OVERLAY_MANAGER_SERVICE_O_UNROOTED &&
+                            themeSystemModule != OVERLAY_MANAGER_SERVICE_N_UNROOTED &&
                             !Root.requestRootAccess();
                 }
             }

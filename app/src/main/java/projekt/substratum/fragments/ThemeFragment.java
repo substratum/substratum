@@ -60,7 +60,7 @@ import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 
 public class ThemeFragment extends Fragment {
 
-    private static final int THEME_FRAGMENT_INITIAL_DELAY = 500;
+    private static final int THEME_FRAGMENT_INITIAL_DELAY = 300;
     private Context mContext;
     private LocalBroadcastManager localBroadcastManager;
     private BroadcastReceiver refreshReceiver;

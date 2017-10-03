@@ -836,5 +836,6 @@
     <string name="overlays_tab_package_ver_message">Installed %s version: %s</string>
     <string name="overlays_tab_package_ver_message_copied">Successfully copied version code to clipboard!</string>
     <string name="overlays_tab_package_ver_failure">Failed to grab package version</string>
+    <string name="settings_create_manager_fragment_shortcut_title">Create a launcher icon leading to Overlay List</string>
 
 </resources>

@@ -655,6 +655,12 @@ public class MainActivity extends SubstratumActivity implements
         drawer.setSelection(selectedDrawer, true);
 
         new RootRequester(this).execute();
+
+        if (getIntent() != null && getIntent().getBooleanExtra("launch_manager_fragment", false)) {
+            switchFragment(getString(R.string.nav_overlay_manager),
+                    ManagerFragment.class.getCanonicalName());
+            drawer.setSelection(8);
+        }
     }
 
     private void cleanLogCharReportsIfNecessary() {

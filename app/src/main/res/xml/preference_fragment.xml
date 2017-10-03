@@ -73,6 +73,12 @@
         <Preference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:key="create_manager_fragment_shortcut"
+            android:title="@string/settings_create_manager_fragment_shortcut_title"/>
+
+        <Preference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:key="force_stop_interfacer"
             android:title="@string/settings_force_stop_interfacer_title"/>
 

@@ -66,6 +66,7 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
+import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.activities.launch.AppShortcutLaunch;
 import projekt.substratum.common.analytics.FirebaseAnalytics;
@@ -211,17 +212,28 @@ public class References {
     private static Boolean uncertified = null;
     private static int hashValue;
 
-    public static void createLauncherIcon(Context context, String theme_pid, String theme_name) {
+    public static void createLauncherIcon(Context context, String theme_pid, String theme_name, boolean launchManagerFragment) {
         Intent myIntent = new Intent(Intent.ACTION_MAIN);
-        myIntent.putExtra("theme_name", theme_name);
-        myIntent.putExtra("theme_pid", theme_pid);
-        myIntent.setComponent(
-                ComponentName.unflattenFromString(
-                        context.getPackageName() +
-                                "/" + AppShortcutLaunch.class.getName()));
+        if (!launchManagerFragment) {
+            myIntent.putExtra("theme_pid", theme_pid);
+            myIntent.setComponent(
+                    ComponentName.unflattenFromString(
+                            context.getPackageName() +
+                                    "/" + AppShortcutLaunch.class.getName()));
+        } else {
+            myIntent.putExtra("launch_manager_fragment", true);
+            myIntent.setComponent(ComponentName.unflattenFromString(
+                    context.getPackageName() +
+                            "/" + MainActivity.class.getName()));
+        }
         myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-        Bitmap app_icon = Packages.getBitmapFromDrawable(Packages.getAppIcon(context, theme_pid));
+        Bitmap app_icon;
+        if (!launchManagerFragment) {
+            app_icon = Packages.getBitmapFromDrawable(Packages.getAppIcon(context, theme_pid));
+        } else {
+            app_icon = Packages.getBitmapFromDrawable(Packages.getAppIcon(context, context.getPackageName()));
+        }
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             Intent addIntent = new Intent();
@@ -244,6 +256,10 @@ public class References {
                 shortcutManager.requestPinShortcut(shortcut, null);
             }
         }
+    }
+
+    public static void createLauncherIcon(Context context, String theme_pid, String theme_name) {
+        createLauncherIcon(context, theme_pid, theme_name, false);
     }
 
     public static void createShortcut(Context context, String theme_pid, String theme_name) {

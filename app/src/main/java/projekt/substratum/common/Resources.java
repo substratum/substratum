@@ -28,7 +28,6 @@ import java.util.Arrays;
 import dalvik.system.DexClassLoader;
 import projekt.substratum.common.tabs.SoundManager;
 
-import static projekt.substratum.common.References.FORCE_SAMSUNG_VARIANT;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.Systems.checkAndromeda;
@@ -171,7 +170,6 @@ public class Resources {
 
     // This method checks whether custom fonts is supported by the system
     public static boolean isFontsSupported() {
-        if (FORCE_SAMSUNG_VARIANT) return false;
         try {
             Class<?> cls = Class.forName("android.graphics.Typeface");
             cls.getDeclaredMethod("getSystemFontDirLocation");

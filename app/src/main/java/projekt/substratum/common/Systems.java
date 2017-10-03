@@ -34,7 +34,6 @@ import projekt.substratum.util.readers.ReadSupportedROMsFile;
 
 import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
 import static projekt.substratum.common.References.BYPASS_ALL_VERSION_CHECKS;
-import static projekt.substratum.common.References.FORCE_SAMSUNG_VARIANT;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.NO_THEME_ENGINE;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_N_UNROOTED;
@@ -67,7 +66,6 @@ public class Systems {
 
     // This method is used to determine whether there the system is initiated with OMS
     public static Boolean checkOMS(@NonNull Context context) {
-        if (FORCE_SAMSUNG_VARIANT) return false;
         //noinspection ConstantConditions
         if (context == null) return true; // Safe to assume that window refreshes only on OMS
         if (!BYPASS_ALL_VERSION_CHECKS) {
@@ -243,7 +241,6 @@ public class Systems {
 
     // Check if the system is of the Samsung variant
     public static boolean isSamsung(Context context) {
-        if (FORCE_SAMSUNG_VARIANT) return true;
         boolean isTouchWiz = isSamsungDevice(context);
         if (!isTouchWiz) return false;
 
@@ -272,7 +269,6 @@ public class Systems {
     // Check if the system is of the Samsung variant
     public static boolean isSamsungDevice(Context context) {
         if (context != null) {
-            if (FORCE_SAMSUNG_VARIANT) return true;
             List<String> listOfFeatures =
                     Arrays.asList(context.getPackageManager().getSystemSharedLibraryNames());
             return listOfFeatures.contains("touchwiz");

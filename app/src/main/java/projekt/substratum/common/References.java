@@ -84,7 +84,6 @@ public class References {
     public static final Boolean BYPASS_ALL_VERSION_CHECKS = false; // For developer previews only!
     public static final Boolean BYPASS_SUBSTRATUM_BUILDER_DELETION = false; // Do not delete cache?
     @SuppressWarnings("WeakerAccess")
-    public static final Boolean FORCE_SAMSUNG_VARIANT = false; // Debugging on a non-Samsung device
     public static final Integer OVERLAY_UPDATE_RANGE = 815; // Overlays require updating since ver
     // These are specific log tags for different classes
     public static final String SUBSTRATUM_BUILDER = "SubstratumBuilder";

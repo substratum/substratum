@@ -133,7 +133,7 @@ public class ThemeManager {
             for (int i = 1; i < overlays.size(); i++) {
                 commands.append(";" + enableOverlay + " ").append(overlays.get(i));
             }
-            new ElevatedCommands.ThreadRunner().execute(commands.toString());
+            ElevatedCommands.runThreadedCommand(commands.toString());
             try {
                 Thread.sleep(NI_restartSystemUIDelay);
                 if (shouldRestartUI(context, overlays)) {
@@ -172,7 +172,7 @@ public class ThemeManager {
             for (int i = 1; i < overlays.size(); i++) {
                 commands.append(";" + disableOverlay + " ").append(overlays.get(i));
             }
-            new ElevatedCommands.ThreadRunner().execute(commands.toString());
+            ElevatedCommands.runThreadedCommand(commands.toString());
             try {
                 Thread.sleep(NI_restartSystemUIDelay);
                 if (shouldRestartUI(context, overlays)) {
@@ -210,7 +210,7 @@ public class ThemeManager {
                 commands.append((commands.length() == 0) ? "" : " && ").append(setPriority)
                         .append(" ").append(packageName).append(" ").append(parentName);
             }
-            new ElevatedCommands.ThreadRunner().execute(commands.toString());
+            ElevatedCommands.runThreadedCommand(commands.toString());
             if (shouldRestartUI(context, overlays)) {
                 if (optInFromUIRestart(context)) {
                     restartSystemUI(context);
@@ -578,7 +578,7 @@ public class ThemeManager {
                 );
             }
         } else {
-            new ElevatedCommands.ThreadRunner().execute("pm install -r " + overlay);
+            ElevatedCommands.runThreadedCommand("pm install -r " + overlay);
         }
     }
 
@@ -622,7 +622,7 @@ public class ThemeManager {
                         .append("pm uninstall ")
                         .append(packageName);
             }
-            new ElevatedCommands.ThreadRunner().execute(command.toString());
+            ElevatedCommands.runThreadedCommand(command.toString());
         }
     }
 

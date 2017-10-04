@@ -18,8 +18,6 @@
 
 package projekt.substratum.common.commands;
 
-import android.os.AsyncTask;
-
 import projekt.substratum.util.files.Root;
 
 public class ElevatedCommands {
@@ -29,20 +27,18 @@ public class ElevatedCommands {
         Root.runCommand("reboot");
     }
 
-    // Kill zygote to force a soft rboot
+    // Kill zygote to force a soft reboot
     public static void softReboot() {
         Root.runCommand("pkill -f zygote");
     }
 
-    public static class ThreadRunner extends AsyncTask<String, Integer, String> {
-        @Override
-        protected String doInBackground(String... sUrl) {
+    public static void runThreadedCommand(String command) {
+        new Thread(() -> {
             try {
-                Root.runCommand(sUrl[0]);
+                Root.runCommand(command);
             } catch (Exception e) {
                 // Consume window refresh
             }
-            return null;
-        }
+        }).start();
     }
 }

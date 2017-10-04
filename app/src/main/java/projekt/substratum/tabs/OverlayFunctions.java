@@ -66,7 +66,10 @@ import projekt.substratum.util.files.Root;
 import static android.content.Context.NOTIFICATION_SERVICE;
 import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.References.DEFAULT_NOTIFICATION_CHANNEL_ID;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ROOTED;
 import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
+import static projekt.substratum.common.References.RUNTIME_RESOURCE_OVERLAY_N_ROOTED;
 import static projekt.substratum.common.Systems.checkOMS;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 
@@ -367,10 +370,13 @@ class OverlayFunctions {
                     }
                 }
 
-                // Enable listener
-                if ((Systems.checkThemeInterfacer(context) &&
-                        !Systems.isBinderInterfacer(context)) ||
-                        Systems.checkAndromeda(context)) {
+                // Enable finish install listener
+                // system on root, old interfacer and andromeda need this
+                int system = Systems.checkThemeSystemModule(context);
+                boolean needToWait = system == OVERLAY_MANAGER_SERVICE_O_ANDROMEDA ||
+                        system == OVERLAY_MANAGER_SERVICE_O_ROOTED ||
+                        system == RUNTIME_RESOURCE_OVERLAY_N_ROOTED;
+                if (needToWait) {
                     Substratum.getInstance().registerFinishReceiver();
                 }
 
@@ -782,9 +788,7 @@ class OverlayFunctions {
                                     if (overlays.sb.special_snowflake ||
                                             overlays.sb.no_install.length() > 0) {
                                         overlays.late_install.add(overlays.sb.no_install);
-                                    } else if ((Systems.checkThemeInterfacer(context) &&
-                                            !Systems.isBinderInterfacer(context)) ||
-                                            Systems.checkAndromeda(context)) {
+                                    } else if (needToWait) {
                                         // Thread wait
                                         Substratum.getInstance().startWaitingInstall();
                                         do {
@@ -840,9 +844,7 @@ class OverlayFunctions {
                                     if (overlays.sb.special_snowflake ||
                                             overlays.sb.no_install.length() > 0) {
                                         overlays.late_install.add(overlays.sb.no_install);
-                                    } else if ((Systems.checkThemeInterfacer(context) &&
-                                            !Systems.isBinderInterfacer(context)) ||
-                                            Systems.checkAndromeda(context)) {
+                                    } else if (needToWait) {
                                         // Thread wait
                                         Substratum.getInstance().startWaitingInstall();
                                         do {

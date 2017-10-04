@@ -545,7 +545,7 @@ public class Packages {
             list.add(packageName);
             ThemeInterfacerService.uninstallOverlays(context, list, false);
         } else {
-            new ElevatedCommands.ThreadRunner().execute("pm uninstall " + packageName);
+            ElevatedCommands.runThreadedCommand("pm uninstall " + packageName);
         }
     }
 

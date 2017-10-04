@@ -1216,7 +1216,7 @@ class OverlayFunctions {
             Overlays overlays = ref.get();
             if (overlays != null) {
                 Activity activity = overlays.getActivity();
-                Context context = overlays.getContext();
+                Context context = refContext.get();
 
                 if (!overlays.has_failed || overlays.final_runner.size() > overlays.fail_count) {
                     new StringBuilder();
@@ -1290,43 +1290,43 @@ class OverlayFunctions {
                             }
                         }, REFRESH_WINDOW_DELAY);
                     }
+                }
 
-                    if (!overlays.late_install.isEmpty() && !Systems.isSamsung(context)) {
-                        // Install remaining overlays
-                        HandlerThread thread = new HandlerThread("LateInstallThread",
-                                Thread.MAX_PRIORITY);
-                        thread.start();
-                        Handler handler = new Handler(thread.getLooper());
-                        Runnable r = () -> {
-                            ArrayList<String> packages = new ArrayList<>();
-                            for (String o : overlays.late_install) {
-                                ThemeManager.installOverlay(context, o);
-                                String packageName =
-                                        o.substring(o.lastIndexOf("/") + 1, o.lastIndexOf("-"));
-                                packages.add(packageName);
-                                if ((Systems.checkThemeInterfacer(context) &&
-                                        !Systems.isBinderInterfacer(context)) ||
-                                        Systems.checkAndromeda(context)) {
-                                    // Wait until the overlays to fully install so on compile enable
-                                    // mode it can be enabled after.
-                                    Substratum.getInstance().startWaitingInstall();
-                                    do {
-                                        try {
-                                            Thread.sleep(Overlays.THREAD_WAIT_DURATION);
-                                        } catch (InterruptedException e) {
-                                            // Still waiting
-                                        }
-                                    } while (Substratum.getInstance().isWaitingInstall());
-                                }
+                if (!overlays.late_install.isEmpty() && !Systems.isSamsung(context)) {
+                    // Install remaining overlays
+                    HandlerThread thread = new HandlerThread("LateInstallThread",
+                            Thread.MAX_PRIORITY);
+                    thread.start();
+                    Handler handler = new Handler(thread.getLooper());
+                    Runnable r = () -> {
+                        ArrayList<String> packages = new ArrayList<>();
+                        for (String o : overlays.late_install) {
+                            ThemeManager.installOverlay(context, o);
+                            String packageName =
+                                    o.substring(o.lastIndexOf("/") + 1, o.lastIndexOf("-"));
+                            packages.add(packageName);
+                            if ((Systems.checkThemeInterfacer(context) &&
+                                    !Systems.isBinderInterfacer(context)) ||
+                                    Systems.checkAndromeda(context)) {
+                                // Wait until the overlays to fully install so on compile enable
+                                // mode it can be enabled after.
+                                Substratum.getInstance().startWaitingInstall();
+                                do {
+                                    try {
+                                        Thread.sleep(Overlays.THREAD_WAIT_DURATION);
+                                    } catch (InterruptedException e) {
+                                        // Still waiting
+                                    }
+                                } while (Substratum.getInstance().isWaitingInstall());
                             }
-                            if (overlays.compile_enable_mode) {
-                                ThemeManager.enableOverlay(context, packages);
-                            }
-                            Substratum.getInstance().unregisterFinishReceiver();
-                            thread.quitSafely();
-                        };
-                        handler.post(r);
-                    }
+                        }
+                        if (overlays.compile_enable_mode) {
+                            ThemeManager.enableOverlay(context, packages);
+                        }
+                        Substratum.getInstance().unregisterFinishReceiver();
+                        thread.quitSafely();
+                    };
+                    handler.post(r);
                 }
             }
             return null;

@@ -652,15 +652,15 @@ public class MainActivity extends SubstratumActivity implements
             return false;
         });
         drawer = drawerBuilder.build();
-        drawer.setSelection(selectedDrawer, true);
-
-        new RootRequester(this).execute();
-
         if (getIntent() != null && getIntent().getBooleanExtra("launch_manager_fragment", false)) {
             switchFragment(getString(R.string.nav_overlay_manager),
                     ManagerFragment.class.getCanonicalName());
             drawer.setSelection(8);
+        } else {
+            drawer.setSelection(selectedDrawer, true);
         }
+
+        new RootRequester(this).execute();
     }
 
     private void cleanLogCharReportsIfNecessary() {
@@ -929,6 +929,19 @@ public class MainActivity extends SubstratumActivity implements
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (intent != null) {
+            setIntent(intent);
+            if (getIntent().getBooleanExtra("launch_manager_fragment", false)) {
+                switchFragment(getString(R.string.nav_overlay_manager),
+                        ManagerFragment.class.getCanonicalName());
+                drawer.setSelection(8);
+            }
         }
     }
 

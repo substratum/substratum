@@ -212,7 +212,11 @@ public class References {
     private static Boolean uncertified = null;
     private static int hashValue;
 
-    public static void createLauncherIcon(Context context, String theme_pid, String theme_name, boolean launchManagerFragment) {
+    public static void createLauncherIcon(
+            Context context,
+            String theme_pid,
+            String theme_name,
+            boolean launchManagerFragment) {
         Intent myIntent = new Intent(Intent.ACTION_MAIN);
         if (!launchManagerFragment) {
             myIntent.putExtra("theme_pid", theme_pid);
@@ -232,7 +236,8 @@ public class References {
         if (!launchManagerFragment) {
             app_icon = Packages.getBitmapFromDrawable(Packages.getAppIcon(context, theme_pid));
         } else {
-            app_icon = Packages.getBitmapFromDrawable(Packages.getAppIcon(context, context.getPackageName()));
+            app_icon = Packages.getBitmapFromDrawable(Packages.getAppIcon(context, context
+                    .getPackageName()));
         }
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {

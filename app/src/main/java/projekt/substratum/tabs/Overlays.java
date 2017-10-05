@@ -779,7 +779,7 @@ public class Overlays extends Fragment {
                 context.getString(R.string.toast_compiled_updated_with_errors),
                 Toast.LENGTH_LONG).show();
 
-        if(prefs.getBoolean("autosave_logchar", true)) {
+        if (prefs.getBoolean("autosave_logchar", true)) {
             new SendErrorReport(
                     context,
                     theme_pid,

@@ -87,7 +87,6 @@ import static projekt.substratum.common.Systems.checkOMS;
 import static projekt.substratum.common.platform.ThemeManager.STATE_DISABLED;
 import static projekt.substratum.common.platform.ThemeManager.STATE_ENABLED;
 import static projekt.substratum.common.platform.ThemeManager.isOverlayEnabled;
-import static projekt.substratum.common.platform.ThemeManager.uninstallOverlay;
 import static projekt.substratum.util.files.MapUtils.sortMapByValues;
 
 public class ManagerFragment extends Fragment implements SearchView.OnQueryTextListener {
@@ -556,7 +555,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
 
                 ArrayList<String> toRemove = new ArrayList<>();
-                for (int i = 0; i < fragment.overlayList.size(); i ++) {
+                for (int i = 0; i < fragment.overlayList.size(); i++) {
                     if (fragment.overlayList.get(i).getThemeName() == null ||
                             fragment.overlayList.get(i).getLabelName() == null) {
                         toRemove.add(fragment.overlayList.get(i).getName());

@@ -59,12 +59,6 @@
             android:key="manage_space"
             android:title="@string/settings_manage_space_title"/>
 
-        <Preference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:key="create_manager_fragment_shortcut"
-            android:title="@string/settings_create_manager_fragment_shortcut_title"/>
-
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"

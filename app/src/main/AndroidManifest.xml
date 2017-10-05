@@ -265,6 +265,14 @@
             android:label="@string/title_activity_manage_space"
             android:resizeableActivity="false"
             android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".activities.launch.OverlayManagerActivity"
+            android:resizeableActivity="false"
+            android:theme="@style/Theme.AppCompat.Translucent">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

@@ -212,7 +212,7 @@ public class References {
     private static Boolean uncertified = null;
     private static int hashValue;
 
-    public static void createLauncherIcon(
+    public static Intent createLauncherIcon(
             Context context,
             String theme_pid,
             String theme_name,
@@ -232,13 +232,9 @@ public class References {
         }
         myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-        Bitmap app_icon;
-        if (!launchManagerFragment) {
-            app_icon = Packages.getBitmapFromDrawable(Packages.getAppIcon(context, theme_pid));
-        } else {
-            app_icon = Packages.getBitmapFromDrawable(Packages.getAppIcon(context, context
-                    .getPackageName()));
-        }
+        if (launchManagerFragment) return myIntent;
+
+        Bitmap app_icon = Packages.getBitmapFromDrawable(Packages.getAppIcon(context, theme_pid));
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             Intent addIntent = new Intent();
@@ -261,6 +257,7 @@ public class References {
                 shortcutManager.requestPinShortcut(shortcut, null);
             }
         }
+        return myIntent;
     }
 
     public static void createLauncherIcon(Context context, String theme_pid, String theme_name) {

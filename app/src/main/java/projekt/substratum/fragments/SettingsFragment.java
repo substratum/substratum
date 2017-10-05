@@ -531,17 +531,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     return false;
                 });
 
-        // Overlay list launcher icon
-        Preference createManagerFragmentShortcut = getPreferenceManager()
-                .findPreference("create_manager_fragment_shortcut");
-        createManagerFragmentShortcut.setOnPreferenceClickListener(preference -> {
-            References.createLauncherIcon(mContext,
-                    null,
-                    getString(R.string.app_name),
-                    true);
-            return false;
-        });
-
         final CheckBoxPreference autosave_logchar = (CheckBoxPreference)
                 getPreferenceManager().findPreference("autosave_logchar");
         Boolean save_logchar = prefs.getBoolean("autosave_logchar", true);

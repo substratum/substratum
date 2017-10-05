@@ -42,4 +42,16 @@
             android:targetClass="projekt.substratum.activities.launch.RescueActivity"
             android:targetPackage="projekt.substratum"/>
     </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/app_shortcut_overlay_manager"
+        android:shortcutDisabledMessage="@string/shortcut_overlay_manager_disabled"
+        android:shortcutId="overlaymanager"
+        android:shortcutLongLabel="@string/shortcut_overlay_manager"
+        android:shortcutShortLabel="@string/shortcut_overlay_manager">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="projekt.substratum.activities.launch.OverlayManagerActivity"
+            android:targetPackage="projekt.substratum"/>
+    </shortcut>
 </shortcuts>

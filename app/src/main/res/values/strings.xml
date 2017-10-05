@@ -495,6 +495,8 @@
     <string name="shortcut_rescue_disabled">Rescue Me!</string>
     <string name="shortcut_store">Theme Showcase</string>
     <string name="shortcut_store_disabled">Theme Showcase</string>
+    <string name="shortcut_overlay_manager">Overlay Manager</string>
+    <string name="shortcut_overlay_manager_disabled">Overlay Manager</string>
 
     <string name="settings_title">About</string>
     <string name="settings_title_1">User preferences</string>
@@ -836,6 +838,5 @@
     <string name="overlays_tab_package_ver_message">Installed %s version: %s</string>
     <string name="overlays_tab_package_ver_message_copied">Successfully copied version code to clipboard!</string>
     <string name="overlays_tab_package_ver_failure">Failed to grab package version</string>
-    <string name="settings_create_manager_fragment_shortcut_title">Create a launcher icon leading to Overlay List</string>
 
 </resources>

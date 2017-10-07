@@ -38,6 +38,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.service.notification.StatusBarNotification;
+import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Lunchbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
@@ -718,7 +719,26 @@ public class Overlays extends Fragment {
         IntentFilter intentFilter = new IntentFilter("Overlays.START_JOB");
         localBroadcastManager2 = LocalBroadcastManager.getInstance(getContext());
         localBroadcastManager2.registerReceiver(jobReceiver, intentFilter);
+
+        if (savedInstanceState != null) {
+            if (savedInstanceState.getBoolean("show_logchar", false)) {
+                error_logs = new StringBuilder(savedInstanceState.getString("error_logs", ""));
+                failed_packages =
+                        new StringBuilder(savedInstanceState.getString("failed_packages", ""));
+                invokeLogCharLunchBar(getContext());
+            }
+        }
         return root;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        if (error_logs != null) {
+            savedInstanceState.putBoolean("show_logchar", true);
+            savedInstanceState.putString("error_logs", error_logs.toString());
+            savedInstanceState.putString("failed_packages", failed_packages.toString());
+        }
     }
 
     protected List<String> updateEnabledOverlays() {
@@ -789,6 +809,11 @@ public class Overlays extends Fragment {
             ).execute();
         }
 
+        invokeLogCharLunchBar(context);
+    }
+
+    @SuppressWarnings("unchecked")
+    public void invokeLogCharLunchBar(Context context) {
         currentShownLunchBar = Lunchbar.make(
                 getActivityView(),
                 R.string.logcat_snackbar_text,
@@ -796,6 +821,15 @@ public class Overlays extends Fragment {
         currentShownLunchBar.setAction(getString(R.string.logcat_snackbar_button), view -> {
             currentShownLunchBar.dismiss();
             invokeLogCharDialog(context);
+        });
+        currentShownLunchBar.addCallback(new BaseTransientBottomBar.BaseCallback() {
+            @Override
+            public void onDismissed(Object transientBottomBar, int event) {
+                super.onDismissed(transientBottomBar, event);
+                if (event == BaseTransientBottomBar.BaseCallback.DISMISS_EVENT_SWIPE) {
+                    error_logs = null;
+                }
+            }
         });
         currentShownLunchBar.show();
     }
@@ -829,6 +863,7 @@ public class Overlays extends Fragment {
                     ).execute());
         }
         builder.show();
+        error_logs = null;
     }
 
     @Override

@@ -211,10 +211,10 @@ class OverlayFunctions {
                 overlays.missingType3 = false;
                 overlays.has_failed = false;
                 overlays.fail_count = 0;
-                overlays.error_logs = new StringBuilder();
 
                 if (!overlays.enable_mode && !overlays.disable_mode && !overlays
                         .enable_disable_mode) {
+                    overlays.error_logs = new StringBuilder();
                     // Change title in preparation for loop to change subtext
                     if (overlays.checkActiveNotifications()) {
                         overlays.mBuilder

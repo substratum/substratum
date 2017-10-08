@@ -66,7 +66,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
             return;
         }
 
-        if (!package_name.endsWith(".icon")) Broadcasts.sendRefreshManagerMessage(context);
+        Broadcasts.sendRefreshManagerMessage(context);
 
         // First, check if the app installed is actually a substratum theme
         try {

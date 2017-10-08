@@ -149,6 +149,11 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                     editor.apply();
                 }
             }
+
+            ArrayList<String> orphanedOverlays = new ArrayList<>();
+            orphanedOverlays.addAll(ThemeManager.listOverlays(
+                    context, ThemeManager.STATE_MISSING_TARGET));
+            ThemeManager.uninstallOverlay(context, orphanedOverlays);
         }
     }
 }

@@ -1278,10 +1278,10 @@ public class MainActivity extends SubstratumActivity implements
         }
     }
 
-    private static class DoCleanUp extends AsyncTask<Void, Void, Void> {
+    public static class DoCleanUp extends AsyncTask<Void, Void, Void> {
         private WeakReference<Context> ref;
 
-        private DoCleanUp(Context context) {
+        public DoCleanUp(Context context) {
             ref = new WeakReference<>(context);
         }
 

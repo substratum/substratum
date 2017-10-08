@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import projekt.substratum.MainActivity;
 import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
@@ -150,10 +151,7 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                 }
             }
 
-            ArrayList<String> orphanedOverlays = new ArrayList<>();
-            orphanedOverlays.addAll(ThemeManager.listOverlays(
-                    context, ThemeManager.STATE_MISSING_TARGET));
-            ThemeManager.uninstallOverlay(context, orphanedOverlays);
+            new MainActivity.DoCleanUp(context).execute();
         }
     }
 }

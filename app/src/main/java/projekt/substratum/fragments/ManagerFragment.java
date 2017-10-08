@@ -61,6 +61,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
+import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.fragments.manager.ManagerAdapter;
 import projekt.substratum.adapters.fragments.manager.ManagerItem;
@@ -554,16 +555,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
 
                 fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
 
-                ArrayList<String> toRemove = new ArrayList<>();
-                for (int i = 0; i < fragment.overlayList.size(); i++) {
-                    if (fragment.overlayList.get(i).getThemeName() == null ||
-                            fragment.overlayList.get(i).getLabelName() == null) {
-                        toRemove.add(fragment.overlayList.get(i).getName());
-                        fragment.overlayList.remove(i);
-                    }
-                }
-                if (!toRemove.isEmpty()) ThemeManager.uninstallOverlay(context, toRemove);
-
+                new MainActivity.DoCleanUp(context).execute();
 
                 boolean alphabetize = fragment.prefs.getBoolean("alphabetize_overlays", true);
                 if (fragment.overlayList.size() > 0) {

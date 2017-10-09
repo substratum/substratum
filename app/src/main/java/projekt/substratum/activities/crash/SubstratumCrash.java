@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
@@ -20,9 +21,17 @@ import cat.ereza.customactivityoncrash.config.CaocConfig;
 import projekt.substratum.R;
 import projekt.substratum.activities.launch.RescueActivity;
 import projekt.substratum.activities.launch.SplashScreenActivity;
+import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 
+import static projekt.substratum.common.References.NO_THEME_ENGINE;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_N_UNROOTED;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ROOTED;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_UNROOTED;
+import static projekt.substratum.common.References.RUNTIME_RESOURCE_OVERLAY_N_ROOTED;
+import static projekt.substratum.common.References.SAMSUNG_THEME_ENGINE_N;
 import static projekt.substratum.common.Resources.SUBSTRATUM_OVERLAY_FAULT_EXCEPTIONS;
 
 public class SubstratumCrash extends Activity {
@@ -34,8 +43,7 @@ public class SubstratumCrash extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.crash_activity);
 
-        String stacktrace = CustomActivityOnCrash.getAllErrorDetailsFromIntent(
-                getApplicationContext(), getIntent());
+        String stacktrace = createErrorReport(getIntent());
         CaocConfig caocConfig = CustomActivityOnCrash.getConfigFromIntent(getIntent());
 
         Button restartButton = findViewById(R.id.restart);
@@ -117,5 +125,58 @@ public class SubstratumCrash extends Activity {
                             })
                     .show();
         });
+    }
+
+    private String createErrorReport(Intent intent) {
+        String versionName = Packages.getAppVersion(this, getPackageName());
+        String details = "";
+
+        details += "Build version: " + versionName + "\n";
+        details += "Device: " + Build.MODEL + " (" + Build.DEVICE + ") " + "[" + Build.FINGERPRINT +
+                "]";
+
+        String xposed = References.checkXposedVersion();
+        if (!xposed.isEmpty()) details += " {" + xposed + "}";
+        details +=  "\n";
+
+        String rom = Systems.checkFirmwareSupport(this, getString(R.string.supported_roms_url),
+                "supported_roms.xml");
+        String romVersion = Build.VERSION.RELEASE + " - " +
+                (!rom.isEmpty() ? rom : "Unknown");
+        details += "ROM: " + romVersion + "\n";
+        details += "Theme system: ";
+        switch (Systems.checkThemeSystemModule(this)) {
+            case NO_THEME_ENGINE:
+                details += "Not detected";
+                break;
+            case OVERLAY_MANAGER_SERVICE_O_ROOTED:
+                details += "OMS (root)";
+                break;
+            case OVERLAY_MANAGER_SERVICE_O_ANDROMEDA:
+                details += "OMS (andromeda)";
+                break;
+            case OVERLAY_MANAGER_SERVICE_O_UNROOTED:
+            case OVERLAY_MANAGER_SERVICE_N_UNROOTED:
+                details += "OMS (interfacer)";
+                break;
+            case SAMSUNG_THEME_ENGINE_N:
+                details += "RRO (Samsung)";
+                break;
+            case RUNTIME_RESOURCE_OVERLAY_N_ROOTED:
+                details += "RRO (Legacy)";
+                break;
+        }
+        details += "\n\n";
+
+        details += "Stack trace:\n";
+        details += CustomActivityOnCrash.getStackTraceFromIntent(intent);
+
+        String activityLog = CustomActivityOnCrash.getActivityLogFromIntent(intent);
+        if (activityLog != null) {
+            details += "\n\nUser actions:\n";
+            details += activityLog;
+        }
+
+        return details;
     }
 }

@@ -720,25 +720,11 @@ public class Overlays extends Fragment {
         localBroadcastManager2 = LocalBroadcastManager.getInstance(getContext());
         localBroadcastManager2.registerReceiver(jobReceiver, intentFilter);
 
-        if (savedInstanceState != null) {
-            if (savedInstanceState.getBoolean("show_logchar", false)) {
-                error_logs = new StringBuilder(savedInstanceState.getString("error_logs", ""));
-                failed_packages =
-                        new StringBuilder(savedInstanceState.getString("failed_packages", ""));
-                invokeLogCharLunchBar(getContext());
-            }
+        setRetainInstance(true);
+        if (error_logs != null) {
+            invokeLogCharLunchBar(getContext());
         }
         return root;
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        if (error_logs != null) {
-            savedInstanceState.putBoolean("show_logchar", true);
-            savedInstanceState.putString("error_logs", error_logs.toString());
-            savedInstanceState.putString("failed_packages", failed_packages.toString());
-        }
     }
 
     protected List<String> updateEnabledOverlays() {

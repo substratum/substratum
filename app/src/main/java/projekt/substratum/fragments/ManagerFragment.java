@@ -635,7 +635,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                             fragment.getString(R.string.manage_system_not_permitted),
                             Toast.LENGTH_LONG).show();
                 }
-                fragment.loadingBar.setVisibility(View.GONE);
+                new LayoutReloader(fragment, fragment.userInput).execute();
             }
         }
 
@@ -872,8 +872,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             ManagerFragment fragment = ref.get();
             if (fragment != null) {
                 Context context = fragment.context;
-                fragment.mAdapter.notifyDataSetChanged();
-                fragment.loadingBar.setVisibility(View.GONE);
+                new LayoutReloader(fragment, fragment.userInput).execute();
 
                 if (!Systems.checkOMS(context) && !Systems.isSamsung(context)) {
                     Toast.makeText(
@@ -930,8 +929,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                             fragment.getString(R.string.manage_system_not_permitted),
                             Toast.LENGTH_LONG).show();
                 }
-                fragment.loadingBar.setVisibility(View.GONE);
-                fragment.mAdapter.notifyDataSetChanged();
+                new LayoutReloader(fragment, fragment.userInput).execute();
             }
         }
 
@@ -1068,7 +1066,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         protected void onPostExecute(Void result) {
             ManagerFragment fragment = ref.get();
             if (fragment != null) {
-                fragment.loadingBar.setVisibility(View.GONE);
+                new LayoutReloader(fragment, fragment.userInput).execute();
             }
         }
     }

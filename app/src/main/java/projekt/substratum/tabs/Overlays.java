@@ -721,9 +721,9 @@ public class Overlays extends Fragment {
         localBroadcastManager2.registerReceiver(jobReceiver, intentFilter);
 
         setRetainInstance(true);
-        if (error_logs != null) {
+        if (error_logs != null)
+            if (error_logs.length() > 0)
             invokeLogCharLunchBar(getContext());
-        }
         return root;
     }
 

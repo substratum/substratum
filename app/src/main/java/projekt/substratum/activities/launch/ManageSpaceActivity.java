@@ -21,7 +21,6 @@ package projekt.substratum.activities.launch;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Process;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +35,7 @@ import java.lang.ref.WeakReference;
 import projekt.substratum.R;
 import projekt.substratum.common.References;
 
+import static projekt.substratum.common.References.LOGCHAR_DIR;
 import static projekt.substratum.common.analytics.FirebaseAnalytics.NAMES_PREFS;
 import static projekt.substratum.common.analytics.FirebaseAnalytics.PACKAGES_PREFS;
 import static projekt.substratum.common.commands.FileOperations.delete;
@@ -74,8 +74,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
         CardView clearLogsButton = findViewById(R.id.clear_logs_button);
         logsCounter = findViewById(R.id.log_counter);
         logsCounter.setText(getString(R.string.clear_cache_button_loading));
-        File filer = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
-                "/substratum" + "/LogCharReports");
+        File filer = new File(LOGCHAR_DIR);
         if (filer.isDirectory()) {
             logsCounter.setText(String.valueOf(filer.list().length));
         } else {
@@ -157,9 +156,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
             ManageSpaceActivity activity = ref.get();
             if (activity != null) {
                 Context context = ref.get().getApplicationContext();
-                delete(context, new File(Environment.getExternalStorageDirectory() +
-                        File.separator + "substratum" + File.separator + "LogCharReports")
-                        .getAbsolutePath());
+                delete(context, new File(LOGCHAR_DIR).getAbsolutePath());
             }
             return null;
         }
@@ -168,8 +165,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             ManageSpaceActivity activity = ref.get();
             if (activity != null) {
-                File filer = new File(Environment.getExternalStorageDirectory() +
-                        File.separator + "substratum" + File.separator + "LogCharReports");
+                File filer = new File(LOGCHAR_DIR);
                 if (filer.isDirectory()) {
                     activity.logsCounter.setText(String.valueOf(filer.list().length));
                 } else {

@@ -728,18 +728,10 @@ public class Overlays extends Fragment {
     }
 
     protected List<String> updateEnabledOverlays() {
-        List<String> state5 = ThemeManager.listOverlays(getContext(), ThemeManager.STATE_ENABLED);
-        ArrayList<String> all = new ArrayList<>(state5);
-
-        all_installed_overlays = new ArrayList<>();
-
-        // ValidatorFilter out icon pack overlays from all overlays
-        for (int i = 0; i < all.size(); i++) {
-            if (!all.get(i).endsWith(".icon")) {
-                all_installed_overlays.add(all.get(i));
-            }
-        }
-        return new ArrayList<>(all_installed_overlays);
+        return new ArrayList<>(ThemeManager.listOverlays(
+                getContext(),
+                ThemeManager.STATE_DISABLED
+        ));
     }
 
     protected boolean checkActiveNotifications() {

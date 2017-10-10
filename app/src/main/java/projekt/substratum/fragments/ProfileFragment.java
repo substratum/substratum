@@ -933,12 +933,10 @@ public class ProfileFragment extends Fragment {
                             String targetPackage = profile.get(i).get(1);
                             if (Packages.isPackageInstalled(profileFragment.mContext,
                                     targetPackage)) {
-                                if (!packageName.endsWith(".icon")) {
-                                    if (system.contains(packageName)) {
-                                        to_be_run.add(packageName);
-                                    } else {
-                                        profileFragment.cannot_run_overlays.add(profile.get(i));
-                                    }
+                                if (system.contains(packageName)) {
+                                    to_be_run.add(packageName);
+                                } else {
+                                    profileFragment.cannot_run_overlays.add(profile.get(i));
                                 }
                             }
                         }

@@ -33,7 +33,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.service.quicksettings.Tile;
@@ -113,6 +112,7 @@ import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
 import static projekt.substratum.common.References.BYPASS_ALL_VERSION_CHECKS;
 import static projekt.substratum.common.References.ENABLE_ROOT_CHECK;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
+import static projekt.substratum.common.References.LOGCHAR_DIR;
 import static projekt.substratum.common.References.NO_THEME_ENGINE;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_N_UNROOTED;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
@@ -1343,9 +1343,7 @@ public class MainActivity extends SubstratumActivity implements
             MainActivity activity = ref.get();
             if (activity != null) {
                 Context context = activity.mContext;
-                delete(context, new File(Environment.getExternalStorageDirectory() +
-                        File.separator + "substratum" + File.separator + "LogCharReports")
-                        .getAbsolutePath());
+                delete(context, new File(LOGCHAR_DIR).getAbsolutePath());
             }
             return null;
         }

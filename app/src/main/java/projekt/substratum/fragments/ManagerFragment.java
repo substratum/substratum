@@ -931,6 +931,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                             Toast.LENGTH_LONG).show();
                 }
                 fragment.loadingBar.setVisibility(View.GONE);
+                fragment.mAdapter.notifyDataSetChanged();
             }
         }
 

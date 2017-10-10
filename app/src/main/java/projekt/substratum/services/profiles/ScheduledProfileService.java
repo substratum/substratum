@@ -180,12 +180,10 @@ public class ScheduledProfileService extends JobService {
                         String packageName = profile.get(i).get(0);
                         String targetPackage = profile.get(i).get(1);
                         if (Packages.isPackageInstalled(context, targetPackage)) {
-                            if (!packageName.endsWith(".icon")) {
-                                if (system.contains(packageName)) {
-                                    to_be_run.add(packageName);
-                                } else {
-                                    cannot_run_overlays.add(profile.get(i));
-                                }
+                            if (system.contains(packageName)) {
+                                to_be_run.add(packageName);
+                            } else {
+                                cannot_run_overlays.add(profile.get(i));
                             }
                         }
                     }

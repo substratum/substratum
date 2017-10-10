@@ -389,17 +389,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     }
 
     private List<String> updateEnabledOverlays() {
-        List<String> state5 = ThemeManager.listOverlays(getContext(), STATE_ENABLED);
-        ArrayList<String> all = new ArrayList<>(state5);
-        ArrayList<String> all_installed_overlays = new ArrayList<>();
-
-        // Filter out icon pack overlays from all overlays
-        for (int i = 0; i < all.size(); i++) {
-            if (!all.get(i).endsWith(".icon")) {
-                all_installed_overlays.add(all.get(i));
-            }
-        }
-        return new ArrayList<>(all_installed_overlays);
+        return new ArrayList<>(ThemeManager.listOverlays(getContext(), STATE_ENABLED));
     }
 
     @Override

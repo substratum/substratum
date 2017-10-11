@@ -1010,7 +1010,6 @@ public class Overlays extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case 2486:
-                refreshList();
                 FileOperations.delete(getContext(),
                         new File(late_install.get(0)).getAbsolutePath());
                 if (late_install != null && late_install.size() > 0) late_install.remove(0);

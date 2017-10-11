@@ -64,7 +64,6 @@
     <string name="activity_missing_toast">Désolé, aucune application trouvée qui pourrait gérer cette demande !</string>
     <string name="abort_overlay_toast_success">Toutes les surcouches sont désinstallées !</string>
     <string name="rescue_toast">Restauration système en cours&#8230;</string>
-    <string name="reboot_awaiting_manager_title">Surcouche en attente de redémarrage</string>
     <string name="manager_theme_name">Thème :</string>
     <string name="manager_type1a">Type 1a :</string>
     <string name="manager_type1b">Type 1b :</string>
@@ -72,7 +71,6 @@
     <string name="manager_type2">Type 2 :</string>
     <string name="manager_type3">Type 3 :</string>
     <string name="manager_type4">Type4 :</string>
-    <string name="legacy_preference_priority_title">Ajustement de la priorité des couches</string>
     <string name="legacy_preference_priority_text">La priorité est définie à (par défaut 999) : %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">Variante type1a&#8230;</string>
@@ -281,6 +279,8 @@
     <string name="shortcut_rescue_disabled">Sauvez-moi !</string>
     <string name="shortcut_store">Galerie de thème</string>
     <string name="shortcut_store_disabled">Galerie de thème</string>
+    <string name="shortcut_overlay_manager">Gestionnaire de surcouche</string>
+    <string name="shortcut_overlay_manager_disabled">Gestionnaire de surcouche</string>
     <string name="settings_title">À propos</string>
     <string name="settings_title_3">Thème</string>
     <string name="substratum_restart_toast">Substratum a redémarré automatiquement après une modification des paramètres</string>
@@ -389,7 +389,6 @@
     <string name="settings_auto_alert_title">Alerte de nouvelle surcouche</string>
     <string name="settings_force_english_text">Force l\'application à utiliser la langue anglaise</string>
     <string name="settings_force_english_toast_reverted">Langue anglaise désactivée !</string>
-    <string name="settings_samsung_show_dangerous_overlays">Autoriser les surcouches dangereuses</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Afficher toutes les surcouches normalement dangereuses pour les appareils Samsung si le thème ne le supporte pas.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">AVERTISSEMENT</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Nous masquons les surcouches dangereuses pour une raison, mais si vous êtes sûr•e de vouloir l\'activer, veuillez suivre les instructions de désactivation sur notre sujet XDA !</string>

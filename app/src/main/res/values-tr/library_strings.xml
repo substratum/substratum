@@ -58,7 +58,7 @@
         sayfaya geçiş işlemi gerçekleştiren kayan aksiyon düğmesini uygulayan kütüphane.
 Android 4.0+
         sürümlerinde (API düzeyleri &gt;= 14) herhangi bir Yüzen Tuş (FAB) kitaplığıyla kullanılabilir.
-    
+
     </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->

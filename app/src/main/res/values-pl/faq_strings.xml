@@ -21,7 +21,7 @@
     <string name="question_one">Czym jest Substratum?</string>
     <string name="answer_one">Substratum to aplikacja która wykorzystuje Sony Overlay Manager Service (OMS)
 Rozwiązanie to jest bardzo podobne do Layers pod względem stabilności oraz personalizacji (ponieważ bazuje na RRO Layers)
-lecz cechuje się takimi możliwościami jak na przykład brakiem potrzeby restartu urządzenia po wprowadzeniu motywu, możliwością zmiany animacji uruchamiania, czcionki lub przełączaniem priorytetów. 
+lecz cechuje się takimi możliwościami jak na przykład brakiem potrzeby restartu urządzenia po wprowadzeniu motywu, możliwością zmiany animacji uruchamiania, czcionki lub przełączaniem priorytetów.
 </string>
     <string name="question_five">Jak zastosować motyw?</string>
     <string name="answer_five">Zastosowanie motywu jest procesem składającym się z dwóch części: kompilacji nakładek i zastosowania nakładek. Przejdź do motywu, kliknij kartę Menedżer nakładek, wybierz, które chcesz opcje, naciśnij przycisk FAB i wybierz Kompiluj i zaktualizuj. Następnie wybierz te same nakładki, naciśnij przycisk FAB i wybierz Włącz zaznaczone.    </string>

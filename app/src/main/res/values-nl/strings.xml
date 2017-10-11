@@ -59,7 +59,6 @@
     <string name="activity_missing_toast">Er zijn geen apps gevonden die dit verzoek kunnen verwerken, sorry!</string>
     <string name="abort_overlay_toast_success">Alle overlays gedeïnstalleerd!</string>
     <string name="rescue_toast">Je systeem redden&#8230;</string>
-    <string name="reboot_awaiting_manager_title">OVERLAY WACHT HERSTART AF</string>
     <string name="manager_theme_name">Thema:</string>
     <string name="manager_type1a">Type1a:</string>
     <string name="manager_type1b">Type1b:</string>
@@ -67,8 +66,11 @@
     <string name="manager_type2">Type2 :</string>
     <string name="manager_type3">Type3 :</string>
     <string name="manager_type4">Type4:</string>
-    <string name="legacy_preference_priority_title">Overlay prioriteit aanpassing</string>
+    <string name="manager_version">Versie:</string>
+    <string name="legacy_preference_priority_title">Overlay prioriteitsaanpassing</string>
     <string name="legacy_preference_priority_text">Prioriteit is ingesteld op (standaard 999): %d</string>
+    <string name="grid_size_title">Themaweergave kolomaanpassing</string>
+    <string name="grid_size_text">Aantal kolommen is ingesteld op (standaard 2): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">type1a variant&#8230;</string>
     <string name="overlays_variant_default_1b">type1b variant&#8230;</string>
@@ -79,6 +81,17 @@
     <string name="overlays_up_to_date">UP-TO-DATE</string>
     <string name="overlays_update_available">Update beschikbaar!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variant niet geïnstalleerd</string>
+    <string name="shutdownanimation_placeholder_text">Gelieve een afsluitanimatie te kiezen uit de keuzelijst&#8230;</string>
+    <string name="shutdownanimation_default_spinner">Gelieve een afsluitanimatie te kiezen&#8230;</string>
+    <string name="shutdownanimation_spinner_set_defaults">Standaard afsluitanimatie terugzetten&#8230;</string>
+    <string name="shutdownanimation_defaults_text">Dit zal iedere toegepaste afsluitanimatie op het apparaat ongedaan maken</string>
+    <string name="shutdownanimation_dialog_apply_text">Afsluitanimatie wordt verwerkt&#8230;</string>
+    <string name="shutdownanimation_dialog_apply_success">Afsluitanimatie toegepast!</string>
+    <string name="shutdownanimation_dialog_apply_failed">Afsluitanimatie toepassen mislukt&#8230;</string>
+    <string name="bootanimation_placeholder_text">Gelieve een opstartanimatie te kiezen uit de keuzelijst&#8230;</string>
+    <string name="bootanimation_default_spinner">Gelieve een opstartanimatie te kiezen&#8230;</string>
+    <string name="bootanimation_spinner_set_defaults">Standaard opstartanimatie terugzetten&#8230;</string>
+    <string name="bootanimation_defaults_text">Dit zal iedere toegepaste opstartanimatie op het apparaat ongedaan maken</string>
     <string name="bootanimation_dialog_apply_text">Opstartanimatie wordt verwerkt&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Opstartanimatie toegepast!</string>
     <string name="bootanimation_dialog_apply_failed">Opstartanimatie toepassen mislukt&#8230;</string>
@@ -131,17 +144,23 @@
     <string name="settings_about_samsung">sungstratum versie</string>
     <string name="settings_about_oms_rro_version">Themaplatform:</string>
     <string name="settings_about_oms_version_do">Dynamische Overlays (OMS)</string>
+    <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Systeemplatform:</string>
+    <string name="settings_aopt_switcher_title">Systeem overlay compilator</string>
     <string name="theme_information_tab_one">Overlay beheer</string>
     <string name="theme_information_tab_two">Opstartanimaties</string>
     <string name="theme_information_tab_three">Lettertypepakketten</string>
     <string name="theme_information_tab_four">Geluidspakketten</string>
     <string name="theme_information_tab_five">Achtergronden</string>
+    <string name="theme_information_tab_six">Afsluitanimaties</string>
+    <string name="nougat_style_cards_title">Nougat-stijl kaart lay-out</string>
+    <string name="nougat_style_cards_subtext">Android Nougat meldingsstijl themakaarten inschakelen.</string>
     <string name="uninstall_dialog_text">Weet je zeker dat je dit thema wilt deïnstalleren?</string>
     <string name="manage_dialog_performing">Standaarden herstellen&#8230;</string>
     <string name="manage_bootanimation_title">Herstel opstartanimatie</string>
     <string name="manage_bootanimation_toast">Opstartanimatie succesvol herstelt!</string>
+    <string name="manage_shutdownanimation_toast">Afsluitanimatie succesvol herstelt!</string>
     <string name="manage_fonts_title">Herstel systeemlettertype</string>
     <string name="manage_fonts_toast">Lettertypen succesvol herstelt!</string>
     <string name="manage_sounds_title">Herstel systeemgeluiden</string>
@@ -175,6 +194,7 @@
     <string name="menu_disable">Geïnstalleerde overlays uitschakelen</string>
     <string name="menu_enable">Geïnstalleerde overlays inschakelen</string>
     <string name="menu_favorite">Favoriet</string>
+    <string name="menu_unfavorite">Favoriet verwijderen</string>
     <string name="menu_rate">Beoordeel thema</string>
     <string name="menu_soft_reboot">Snelle herstart</string>
     <string name="menu_reboot_device">Herstart apparaat</string>
@@ -188,6 +208,8 @@
     <string name="menu_showcase_info">Showcase info</string>
     <string name="menu_favorite_snackbar">%s succesvol ingesteld als app-snelkoppeling!</string>
     <string name="menu_favorite_snackbar_cleared">%s verwijderd als app-snelkoppeling.</string>
+    <string name="launcher_shortcut">Snelkoppeling in Launcher</string>
+    <string name="launcher_shortcut_toast">Launcher-pictogram succesvol aangemaakt!</string>
     <string name="changelog_title">%s thema wijzigingen</string>
     <string name="dialog_restart_systemui_title">Herstart Systeem-UI</string>
     <string name="dialog_restart_systemui_content">Dit zal een Systeem-UI herstart uitvoeren.</string>
@@ -206,6 +228,8 @@
     <string name="logcat_email_activity_error">Er zijn geen e-mail clients geïnstalleerd.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
     <string name="logcat_processing_dialog">Foutrapport verwerken</string>
+    <string name="priority_instructions_title">Instructies</string>
+    <string name="priority_instructions_content">De Overlay Manager Service werkt als volgt. Alle overlay prioriteiten worden weergegeven op omgekeerde volgorde, waar de onderste de hoogste prioriteit heeft (eerste opzoekbron) en de bovenste de laagste prioriteit heeft (laatste opzoekbron).</string>
     <string name="priority_no_multiple_overlays_title">geen apps met meerdere overlays&#8230;</string>
     <string name="priority_no_multiple_overlays_text">schakel twee of meer overlays in op één app om mij te gebruiken!</string>
     <string name="manager_no_overlays_title">geen overlays geïnstalleerd&#8230;</string>
@@ -230,6 +254,7 @@
     <string name="profile_edittext_title">Nieuw profiel:</string>
     <string name="profile_edittext_whitespace_warning_toast">Kan geen spatie gebruiken in profielnaam!</string>
     <string name="toast_backup_success">Huidige overlay lijst opgeslagen naar \"/storage/emulated/0/substratum/profiles/%s\"</string>
+    <string name="profile_restoration_message">Profielherstel verwerken&#8230;</string>
     <string name="spinner_default_item">kies een profiel&#8230;</string>
     <string name="select_to_toggle_all_overlays">Kies om alle overlays te schakelen</string>
     <string name="permission_not_granted_dialog_title">Machtigingen niet verleend</string>
@@ -243,6 +268,8 @@
     <string name="uninstall_dialog_body">Thema deïnstalleren</string>
     <string name="sb_phase_1_loader">thema uitpakken</string>
     <string name="sb_phase_2_loader">overlay installeren</string>
+    <string name="root_rejected_title">kon niet terugvallen op rootmodus</string>
+    <string name="root_rejected_text">er zijn momenteel geen andere themadiensten die gebruikt kunnen worden op dit apparaat&#8230;</string>
     <string name="toast_compiled_updated">Geselecteerde overlay(s) bijgewerkt!</string>
     <string name="toast_compiled_missing">Eén of meer overlays kunnen niet compileren door ontbrekende configuraties onder deze opstelling&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Geselecteerde overlay(s) bijgewerkt met fouten!</string>
@@ -251,10 +278,16 @@
     <string name="toast_disabled5">Gelieve een geldige overlay te kiezen vóór het uitvoeren van deze actie.</string>
     <string name="toast_disabled6">Geselecteerde overlay(s) verwijderd!</string>
     <string name="no_themes_title">geen thema\'s gevonden&#8230;</string>
+    <string name="no_overlays_title">geen overlays gevonden&#8230;</string>
     <string name="no_themes_description">gelieve een compatibel thema te installeren!</string>
     <string name="no_themes_description_search">\"%s\" werd niet gevonden in de lijst van geïnstalleerde thema\'s&#8230;</string>
+    <string name="no_overlays_description_search">\"%s\" werd niet gevonden in de lijst van geïnstalleerde overlays&#8230;</string>
+    <string name="toast_andromeda_timed_out">Er is een vertraging met de Andromeda Backend, herstart Substratum aub.</string>
     <string name="toast_could_not_uninstall">Geen geldige overlays geselecteerd.</string>
     <string name="toast_samsung_prototype_alert">Substratum heeft automatisch niet-ondersteunde systeemoverlays verborgen voor jouw apparaat!</string>
+    <string name="andromeda_disconnected">de andromeda desktop client dient te verbinden met jouw apparaat om kunnen functioneren met substratum!</string>
+    <string name="andromeda_check_status">Status controleren</string>
+    <string name="andromeda_no_root_dialog">Het lijkt erop dat je een ondersteund Oreo-apparaat hebt, hiervoor is een ondersteunende add-on vrijgegeven!</string>
     <string name="andromeda_no_root_dialog_button">Download nu!</string>
     <string name="samsung_prototype_no_root_dialog">Het lijkt erop dat je een ondersteund Samsung apparaat hebt, hiervoor is een ondersteunende add-on vrijgegeven!</string>
     <string name="samsung_prototype_no_root_dialog_button">Download nu!</string>
@@ -266,7 +299,11 @@
     <string name="notification_initial_title">Substratum wordt uitgevoerd</string>
     <string name="notification_initial_title_upgrade_intent">%s\'s overlays opwaarderen&#8230;</string>
     <string name="notification_done_title">Thema compilatie is voltooid</string>
+    <string name="notification_done_upgrade_title">Overlay verversing voltooid voor %s!</string>
+    <string name="notification_done_upgrade_title_warning">Overlay verversing gedeeltelijk voltooid voor %s!</string>
     <string name="notification_done_upgrade_title_failed">Ontbrekende of niet te bouwen configuratie:\n\n%s</string>
+    <string name="notification_done_update_text">Alle overlays voor deze app zijn bijgewerkt.</string>
+    <string name="notification_done_upgrade_text">Alle overlays voor dit thema zijn bijgewerkt.</string>
     <string name="notification_no_errors_found">Geen fouten tijdens de installatie van de overlays</string>
     <string name="notification_some_errors_found">Er is een fout opgetreden tijdens de overlay installatie</string>
     <string name="notification_processing">Overlays verwerken voor</string>
@@ -276,8 +313,12 @@
     <string name="shortcut_rescue_disabled">Help mij!</string>
     <string name="shortcut_store">Uitgelichte thema\'s</string>
     <string name="shortcut_store_disabled">Uitgelichte thema\'s</string>
+    <string name="shortcut_overlay_manager">Overlay beheer</string>
+    <string name="shortcut_overlay_manager_disabled">Overlay beheer</string>
     <string name="settings_title">Over</string>
+    <string name="settings_title_1">Gebruikersvoorkeuren</string>
     <string name="settings_title_3">Thematisering</string>
+    <string name="settings_title_clickable">Systeemvoorkeuren</string>
     <string name="substratum_restart_toast">Substratum werd automatisch herstart na een instellingswijziging.</string>
     <string name="restart_systemui">Na-inschakelen Systeem-UI opnieuw maken</string>
     <string name="restart_systemui_subtext">Automatisch de Systeem-UI opnieuw maken na inschakelen/uitschakelen van een Systeem-UI overlay</string>
@@ -287,6 +328,7 @@
     <string name="show_theme_template_version_description">Toon ieder thema\'s SDK-niveaudoel, themaversie en plug-in versie als een label op iedere themakaart.</string>
     <string name="vibrate_on_compiled">Melden nadat het thema is gecompileerd</string>
     <string name="vibrate_on_compiled_description">Wanneer het thema gecompileerd is, tril het apparaat om de gebruiker te melden dat de compilatie voltooid is.</string>
+    <string name="manage_notification_channel">Meldingen beheren</string>
     <string name="hide_app_icon">Toon app pictogram</string>
     <string name="hide_app_icon_toast_enabled">Het app pictogram is verwijderd uit je launcher!</string>
     <string name="hide_app_icon_toast_disabled">Het app pictogram is toegevoegd aan je launcher!</string>
@@ -294,6 +336,10 @@
     <string name="hide_app_icon_supported">Stelt je in staat om te schakelen tussen een zichtbaar of onzichtbaar pictogram op je thuisscherm.</string>
     <string name="disable_completion">Alle overlays voor dit thema worden nu gedeactiveerd&#8230;</string>
     <string name="enable_completion">Alle geïnstalleerde overlays voor dit thema worden nu geactiveerd&#8230;</string>
+    <string name="alternate_drawer_design_title">Secundair lade ontwerp</string>
+    <string name="alternate_drawer_design_subtext">Een alternatief navigatielade ontwerp.</string>
+    <string name="logchar_autosave_title">LogChar rapporten behouden</string>
+    <string name="logchar_autosave_subtext">Alle LogChar rapporten worden bewaard in /storage/emulated/0/substratum/LogCharReports/.</string>
     <string name="fab_menu_compile_enable">Bouwen &amp; inschakelen</string>
     <string name="fab_menu_compile_update">Bouwen &amp; bijwerken</string>
     <string name="fab_menu_compile_install">Selectie installeren</string>
@@ -355,6 +401,7 @@
     <string name="profile_failed_info_notification">Aanraken voor meer informatie</string>
     <string name="profile_compile_progress">%d van de %d compileren:\n%s</string>
     <string name="profile_compile_processing">Je opgeslagen overlay-staten verwerken&#8230;</string>
+    <string name="theme_debug_mode_title">Legacy compilator terugval omzeilen</string>
     <string name="theme_debug_mode_summary">Dit zal de app weerhouden om het legacy compilator terugvalmechanisme te gebruiken om thema\'s te helpen wanneer deze een onherstelbare toestand bereiken.</string>
     <string name="logchar_dialog_title_delete_title">LET OP</string>
     <string name="logchar_dialog_title_delete_content">Dit verwijdert alle momenteel opgeslagen logs. Door doorgaan te tikken, worden alle logs gewist en niet langer opgeslagen.</string>
@@ -378,16 +425,24 @@
     <string name="settings_system_status_certified">Gecertificeerd</string>
     <string name="settings_system_status_uncertified">Niet gecertificeerd</string>
     <string name="settings_title_automation">Automatisering</string>
+    <string name="settings_auto_updater_title">App-gebaseerde overlay verversing</string>
+    <string name="settings_auto_updater_text">Automatisch een bijgewerkte versie van alle overlays bouwen en installeren voor recent bijgewerkte, gethematiseerde applicaties.</string>
     <string name="beta_tag">★ BETA</string>
+    <string name="settings_theme_auto_updater_title">Thema-gebaseerde overlay verversing</string>
     <string name="settings_theme_auto_updater_dialog_title">WAARSCHUWING</string>
+    <string name="settings_theme_auto_updater_text">Automatisch een bijgewerkte versie van alle overlays bouwen en installeren voor recent bijgewerkte thema\'s.</string>
     <string name="settings_theme_auto_updater_dialog_text">Gelieve Pakket-installatie NIET in de voorgrond te openen wanneer de melding actief is. Framework overlays hebben de neiging Pakket-installatie te herstarten, waardoor vele hercompilaties plaatsvinden!</string>
     <string name="settings_auto_alert_title">Nieuwe installeerbare overlay gevonden melding</string>
+    <string name="settings_auto_alert_text">Een melding weergeven als er overlays beschikbaar zijn voor recent geïnstalleerde apps.</string>
+    <string name="settings_force_english_title">Engelse taal afdwingen</string>
     <string name="settings_force_english_text">Hiermee dwing je de applicatie om de Engelse taal te gebruiken.</string>
     <string name="settings_force_english_toast_reverted">Engelse taal afdwingen succesvol uitgeschakeld!</string>
+    <string name="settings_manage_space_title">Opslaggebruik beheren</string>
     <string name="settings_samsung_show_dangerous_overlays">Gevaarlijke overlays toestaan</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Alle overlays weergeven die normaal gevaarlijk zijn voor Samsung apparaten als het thema dit niet ondersteund.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">WAARSCHUWING</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Wij hebben gevaarlijke overlays verborgen voor een reden, maar als je er zeker van bent dat je dit wilt inschakelen, gelieve de instructies te volgen in ons XDA thread!</string>
+    <string name="settings_crash_receiver_title">Themaveiligheid crashontvanger</string>
     <string name="settings_crash_receiver_text">Schakelt automatisch een overlay uit wanneer herhaalde crashes op een gethematiseerde app wordt gedetecteerd.</string>
     <string name="settings_force_stop_interfacer_title">Interfacer Service gedwongen stoppen</string>
     <string name="settings_force_stop_interfacer_snackbar">Interfacer gedwongen stoppen&#8230;</string>
@@ -451,10 +506,13 @@
     <string name="notification_channel_default_description">Primaire meldingen (Nieuw en bijgewerkt thema, thema compilatie voltooid, etc.)</string>
     <string name="notification_channel_ongoing">Actief</string>
     <string name="notification_channel_ongoing_description">Actieve meldingen</string>
+    <string name="notification_channel_andromeda">Themasysteem status</string>
+    <string name="notification_channel_andromeda_description">Themasysteem verbindingsstatusmelding</string>
     <!-- Nav drawer -->
     <string name="nav_home">Themapakketten</string>
     <string name="nav_overlays">Overlays</string>
     <string name="nav_bootanim">Opstartanimaties</string>
+    <string name="nav_shutdownanim">Afsluitanimaties</string>
     <string name="nav_fonts">Lettertypepakketten</string>
     <string name="nav_sounds">Geluidspakketten</string>
     <string name="nav_wallpapers">Achtergronden</string>
@@ -469,6 +527,7 @@
     <string name="nav_drawer_community">Groepen &amp; communiteiten</string>
     <string name="nav_drawer_googleplus">Google+ communiteit</string>
     <string name="nav_drawer_telegram">Telegram groepschat</string>
+    <string name="nav_drawer_xda">Toegewijd XDA-subforum</string>
     <string name="nav_drawer_rawad">Rawad\'s themagidsen</string>
     <string name="nav_drawer_reddit">Reddit communiteit</string>
     <!-- Featured content -->
@@ -498,10 +557,14 @@
     <string name="manage_space_reset_dialog_content">De app zal sluiten nadat de reset is voltooid!</string>
     <string name="cleaned_logchar_reports">Opgeschoonde opgeslagen LogChar rapporten</string>
     <string name="legacy_overlay_uninstall_warning_text">Als je alle overlays wilt deïnstalleren, gelieve de Substratum Rescue ZIPs te gebruiken om bootloops te voorkomen.</string>
+    <string name="auto_reload_sysui_title">Systeem-UI dynamisch herladen</string>
     <string name="auto_reload_sysui_summary_on">Substratum zal automatisch de Systeem-UI herladen nadat een overlay hiervoor is gewijzigd.</string>
     <string name="auto_reload_sysui_summary_off">Substratum zal niet automatisch de Systeem-UI herladen nadat een overlay hiervoor is gewijzigd.</string>
     <string name="auto_reload_sysui_dialog_title">Waarschuwing!</string>
     <string name="auto_reload_sysui_dialog_text">Op Android Oreo worden meldingen automatisch gewist om een herstart van de gecachte meldingskanalen te simuleren.\n\nGelieve te verzekeren dat je meldingen geen belangrijke data bevatten tijdens het compileren of inschakelen van Systeem-UI of framework overlays. Dit heeft geen invloed op persistente meldingen.</string>
     <!-- The things lint will complain about...-->
     <string name="fonts_demo_string">AaBbCcDd123</string>
+    <string name="overlays_tab_package_ver_message">Geïnstalleerde %s versie: %s</string>
+    <string name="overlays_tab_package_ver_message_copied">Versiecode succesvol gekopieerd naar klembord!</string>
+    <string name="overlays_tab_package_ver_failure">Verkrijgen van pakketversie mislukt</string>
 </resources>

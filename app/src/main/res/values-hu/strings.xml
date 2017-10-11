@@ -85,7 +85,6 @@
     </string>
     <string name="abort_overlay_toast_success">Minden fedvény eltávolítva!</string>
     <string name="rescue_toast">A rendszer megmentése&#8230;</string>
-    <string name="reboot_awaiting_manager_title">FEDVÉNY ÚJRAINDÍTÁSRA VÁR</string>
     <string name="manager_theme_name">Téma:</string>
     <string name="manager_type1a">Típus1a:</string>
     <string name="manager_type1b">Típus1b:</string>
@@ -196,14 +195,18 @@
     <string name="settings_about_samsung">substratum verzió</string>
     <string name="settings_about_oms_rro_version">Téma platform:</string>
     <string name="settings_about_oms_version_do">Dinamikus fedvények (OMS)</string>
+    <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Rendszer platform</string>
+    <string name="settings_aopt_switcher_title">Rendszerfedvény összeállító</string>
     <string name="theme_information_tab_one">Fedvény kezelő</string>
     <string name="theme_information_tab_two">Rendszerindítási animációk</string>
     <string name="theme_information_tab_three">Betűkészlet csomagok</string>
     <string name="theme_information_tab_four">Hangcsomagok</string>
     <string name="theme_information_tab_five">Háttérképek</string>
     <string name="theme_information_tab_six">Kikapcsolási animációk</string>
+    <string name="nougat_style_cards_title">Nougat stílusú kártya elrendezés</string>
+    <string name="nougat_style_cards_subtext">Android Nugát értesítés stílusú téma kártyák engedélyezése.</string>
     <string name="uninstall_dialog_text">Biztosan törölni szeretné ezt a témát?</string>
     <string name="manage_dialog_performing">Alapértelmezett visszaállítása&#8230;</string>
     <string name="manage_bootanimation_title">Rendszerindítási animáció visszaállítása</string>
@@ -379,7 +382,11 @@
     <string name="notification_initial_title">Substratum fut</string>
     <string name="notification_initial_title_upgrade_intent">%s fedvényeinek frissítése&#8230;</string>
     <string name="notification_done_title">Téma összeállítása befejezve</string>
+    <string name="notification_done_upgrade_title">Fedvény frissítés befejezve: %s!</string>
+    <string name="notification_done_upgrade_title_warning">Fedvény frissítés részben kész: %s!</string>
     <string name="notification_done_upgrade_title_failed">Hiányzó vagy nem építhető konfiguráció:\n\n%s</string>
+    <string name="notification_done_update_text">Az alkalmazás összes fedvénye frissítésre került.</string>
+    <string name="notification_done_upgrade_text">A téma összes fedvénye frissítésre került.</string>
     <string name="notification_no_errors_found">Fedvények telepítése során nem lépett fel hiba</string>
     <string name="notification_some_errors_found">Hiba történt a fedvények telepítése közben</string>
     <string name="notification_processing">Fedvény feldolgozása:</string>
@@ -389,8 +396,12 @@
     <string name="shortcut_rescue_disabled">Ments meg!</string>
     <string name="shortcut_store">Téma-bemutató</string>
     <string name="shortcut_store_disabled">Téma-bemutató</string>
+    <string name="shortcut_overlay_manager">Fedvény kezelő</string>
+    <string name="shortcut_overlay_manager_disabled">Fedvény kezelő</string>
     <string name="settings_title">Névjegy</string>
+    <string name="settings_title_1">Felhasználói beállítások</string>
     <string name="settings_title_3">Témázás</string>
+    <string name="settings_title_clickable">Rendszerbeállítások</string>
     <string name="substratum_restart_toast">Substratum automatikusan újraindult a beállítások módosítása után.</string>
     <string name="restart_systemui">SystemUI újjáépítésének utó-engedélyezése</string>
     <string name="restart_systemui_subtext">Automatikusan létrehozza a SystemUI-t újra, miután egy SystemUI-fedvény engedélyezésre/tiltásra került</string>
@@ -400,6 +411,7 @@
     <string name="show_theme_template_version_description">Minden téma cél SDK szintjét, téma verzióját és a beépülő verzióját jelenítse meg címkeként minden témakártyán.</string>
     <string name="vibrate_on_compiled">Értesítés a téma összeállítása után</string>
     <string name="vibrate_on_compiled_description">Ha a téma összeállításra került, az eszköz rezegve értesíti a felhasználót, hogy az összeállítás befejeződött.</string>
+    <string name="manage_notification_channel">Értesítések kezelése</string>
     <string name="hide_app_icon">Alkalmazásikon megjelenítése</string>
     <string name="hide_app_icon_toast_enabled">Az alkalmazás ikonja eltávolításra került az indítójából!</string>
     <string name="hide_app_icon_toast_disabled">Az alkalmazás ikonja hozzá lett adva az indítójához!</string>
@@ -407,6 +419,10 @@
     <string name="hide_app_icon_supported">Ez lehetővé teszi, hogy váltson a látható és láthatatlan indító ikon között a kezdőképernyőjén.</string>
     <string name="disable_completion">A téma összes fedvényének tiltása folyamatban&#8230;</string>
     <string name="enable_completion">A téma összes telepített fedvényének aktiválása folyamatban&#8230;</string>
+    <string name="alternate_drawer_design_title">Másodlagos fiók megjelenítés</string>
+    <string name="alternate_drawer_design_subtext">Egy alternatív navigációs fiók kinézet.</string>
+    <string name="logchar_autosave_title">LogChar jelentések megtartása</string>
+    <string name="logchar_autosave_subtext">Az összes LogChar jelentés ide kerül mentésre: /storage/emulated/0/substratum/LogCharReports/.</string>
     <string name="fab_menu_compile_enable">Építés és Engedélyezés</string>
     <string name="fab_menu_compile_update">Építés és Frissítés</string>
     <string name="fab_menu_compile_install">Kiválasztott telepítése</string>
@@ -468,6 +484,7 @@
     <string name="profile_failed_info_notification">További információkért érintse meg</string>
     <string name="profile_compile_progress">%d / %d összeállítása:\n%s</string>
     <string name="profile_compile_processing">Mentett fedvény állapotok feldolgozása&#8230;</string>
+    <string name="theme_debug_mode_title">Elavult összeállítási mechanizmus megkerülése</string>
     <string name="theme_debug_mode_summary">Ez megakadályozza, hogy az alkalmazás a témákat segítve az elavult összeállítási mechanizmust használja, ha azok egy javíthatatlan állapotot érnek el.</string>
     <string name="logchar_dialog_title_delete_title">FIGYELEM</string>
     <string name="logchar_dialog_title_delete_content">Ez törli az összes mentett naplót. A folytatás megnyomásával minden napló törlődik és többé a naplók nem kerülnek mentésre.</string>
@@ -488,15 +505,20 @@
     <string name="settings_system_status">Rendszer tanúsítvány</string>
     <string name="settings_system_status_andromeda">Androméda mód</string>
     <string name="settings_system_status_rooted">Rootolt mód</string>
-    <string name="settings_system_status_rootless">Natív mód</string>
     <string name="settings_system_status_samsung">Samsung mód</string>
     <string name="settings_system_status_certified">Hitelesített</string>
     <string name="settings_system_status_uncertified">Nem hitelesített</string>
     <string name="settings_title_automation">Automatizálás</string>
+    <string name="settings_auto_updater_title">Alkalmazásalapú fedvényfrissítő</string>
+    <string name="settings_auto_updater_text">Automatikusan állítson össze és telepítsen a nemrégiben frissített témázott alaklmazáshoz frissített verziójú fedvényt.</string>
     <string name="beta_tag">★ BÉTA</string>
+    <string name="settings_theme_auto_updater_title">Témaalapú fedvényfrissítő</string>
     <string name="settings_theme_auto_updater_dialog_title">FIGYELMEZTETÉS</string>
+    <string name="settings_theme_auto_updater_text">Automatikusan állítson össze és telepítsen a nemrégiben frissített témához frissített verziójú fedvényt.</string>
     <string name="settings_theme_auto_updater_dialog_text">Az előtérben NE legyen megnyitva a Csomagtelepítő, ha az értesítés megjelenik, mivel a keretrendszer fedvények hajlamosak újraindítani a csomagtelepítőt, mely határozatlan mennyiségű újrafordítást okozhat!</string>
     <string name="settings_auto_alert_title">Új telepíthető fedvény elérhető riasztás</string>
+    <string name="settings_auto_alert_text">Értesítés megjelenítése, ha egy nemrég telepített alkalmazásnak elérhető fedvénye van a témában.</string>
+    <string name="settings_force_english_title">Angol nyelv kényszerítése</string>
     <string name="settings_force_english_text">Ez arra kényszeríti az alkalmazást, hogy az angol nyelvet használja.</string>
     <string name="settings_force_english_toast_reverted">Angol kényszerítése sikeresen kikapcsolva!</string>
     <string name="settings_manage_space_title">Tárhely használat kezelése</string>
@@ -504,6 +526,7 @@
     <string name="settings_samsung_show_dangerous_overlays_text">A Samsung készülékek számára veszélyes összes fedvény megjelenítése, abban az esetben, ha a téma nem támogatja azt.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">FIGYELMEZTETÉS</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Okkal rejtettük el a veszélyes fedvényeket, de ha biztos benne, hogy engedélyezni kívánja, kövesse az XDA témában lévő utasításokat a kikapcsoláshoz!</string>
+    <string name="settings_crash_receiver_title">Alkalmazás összeomlások biztonságos kezelése</string>
     <string name="settings_crash_receiver_text">Automatikusan letiltja a fedvényt, ha a fedvénnyel rendelkező alkalmazás folyamatosan összeomlik.</string>
     <string name="settings_force_stop_interfacer_title">Interfacer szolgáltatás kényszerített leállítása</string>
     <string name="settings_force_stop_interfacer_snackbar">Interfacer kényszerített leállítása&#8230;</string>
@@ -582,12 +605,13 @@
     <string name="nav_overlay_manager">Fedvénylista</string>
     <string name="nav_priorities">Prioritások</string>
     <string name="nav_backup_restore">Profilok</string>
-    <string name="nav_manage">Recovery</string>
+    <string name="nav_manage">Visszaállítás</string>
     <!-- Community -->
     <string name="nav_section_header_get_involved">Közösség</string>
     <string name="nav_drawer_community">Csoportok és közösségek</string>
     <string name="nav_drawer_googleplus">Google+ közösség</string>
     <string name="nav_drawer_telegram">Telegram csoportos csevegés</string>
+    <string name="nav_drawer_xda">XDA dedikált alfórum</string>
     <string name="nav_drawer_rawad">Rawad témázási útmutatói</string>
     <string name="nav_drawer_reddit">Reddit közösség</string>
     <!-- Featured content -->
@@ -617,6 +641,7 @@
     <string name="manage_space_reset_dialog_content">Az alkalmazás bezárásra kerül a visszaállítás befejezése után!</string>
     <string name="cleaned_logchar_reports">Mentett LogChar jelentések tisztítva</string>
     <string name="legacy_overlay_uninstall_warning_text">Ha az összes fedvényt el akarja távolítani, használja a Substratum Mentési ZIP-eket a lehetséges bootloopok elkerülésére.</string>
+    <string name="auto_reload_sysui_title">SystemUI dinamikus újratöltése</string>
     <string name="auto_reload_sysui_summary_on">Substratum automatikusan újratölti a SystemUI-t, ha egy SystemUI-t célzó fedvény engedélyezésre/tiltásra kerül.</string>
     <string name="auto_reload_sysui_summary_off">Substratum nem tölti újra automatikusan a SystemUI-t, ha egy SystemUI-t célzó fedvény engedélyezésre/tiltásra kerül.</string>
     <string name="auto_reload_sysui_dialog_title">Figyelmeztetés!</string>
@@ -624,5 +649,6 @@
     <!-- The things lint will complain about...-->
     <string name="fonts_demo_string">Árvíztűrő tükörfúrógép</string>
     <string name="overlays_tab_package_ver_message">Telepített %s verzió: %s</string>
+    <string name="overlays_tab_package_ver_message_copied">Verzió kód sikeresen vágólapra másolva!</string>
     <string name="overlays_tab_package_ver_failure">A csomag verziója nem tölthető le</string>
 </resources>

@@ -52,7 +52,7 @@
     <string name="systemui_statusbar">Ícones da Barra de Estado da IU do Sistema</string>
     <string name="tbo_description">Este tema suporta as Aplicações Google preparadas para temas da Team Black Out. Se não as tiver, pode tocar em Transferir para ser redirecionado para o tópico de discussão no XDA, caso contrário toque em Cancelar!</string>
     <string name="two_description">Este tema suporta as aplicações da Google, tal e qual como foram feitas!
-        Se tiver instaladas as Aplicações Google \"Theme Ready\" não precisa de removê-las, 
+        Se tiver instaladas as Aplicações Google \"Theme Ready\" não precisa de removê-las,
         mas não são necessárias para este tema!
     </string>
     <string name="tbo_dialog_proceed">Transferir</string>
@@ -292,7 +292,7 @@ corretamente&#8230;</string>
     <string name="select_to_toggle_all_overlays">Selecione para ativar/desativar todas as camadas</string>
     <string name="permission_not_granted_dialog_title">Permissões não garantidas</string>
     <string name="permission_not_granted_dialog_message1">Por favor, garanta ao Substratum
-        permissões de armazenamento 
+        permissões de armazenamento
         ou a aplicação não funcionará corretamente!
     </string>
     <string name="dialog_ok">Ok</string>

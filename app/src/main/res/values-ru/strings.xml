@@ -60,7 +60,6 @@
     <string name="activity_missing_toast">Не найдено приложения, способного выполнить задачу, извините!</string>
     <string name="abort_overlay_toast_success">Все слои удалены!</string>
     <string name="rescue_toast">Восстановление системы&#8230;</string>
-    <string name="reboot_awaiting_manager_title">НАСЛОЕНИЕ ОЖИДАЕТ ПЕРЕЗАГРУЗКИ</string>
     <string name="manager_theme_name">Оформление:</string>
     <string name="manager_type1a">Type1a:</string>
     <string name="manager_type1b">Type1b:</string>
@@ -68,8 +67,11 @@
     <string name="manager_type2">Type2 :</string>
     <string name="manager_type3">Type3 :</string>
     <string name="manager_type4">Type4 :</string>
+    <string name="manager_version">Версия :</string>
     <string name="legacy_preference_priority_title">Изменение приоритета наслоения</string>
     <string name="legacy_preference_priority_text">Задан приоритет (по ум. 999): %d</string>
+    <string name="grid_size_title">Регулировка расположения дисплея для темы</string>
+    <string name="grid_size_text">Количество столбцов (2 по умолчанию): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">Вариант type1a&#8230;</string>
     <string name="overlays_variant_default_1b">Вариант type1b&#8230;</string>
@@ -80,6 +82,17 @@
     <string name="overlays_up_to_date">АКТУАЛЬНО</string>
     <string name="overlays_update_available">Доступно обновление!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Вариация не установлена</string>
+    <string name="shutdownanimation_placeholder_text">Пожалуйста выберите анимацию выключения из выпадающего списка&#8230;</string>
+    <string name="shutdownanimation_default_spinner">Пожалуйста выберите анимацию выключения&#8230;</string>
+    <string name="shutdownanimation_spinner_set_defaults">Вернуть стандартную анимацию выключения&#8230;</string>
+    <string name="shutdownanimation_defaults_text">Это отключит любые кастомные анимации выключения применённые на вашем устройстве</string>
+    <string name="shutdownanimation_dialog_apply_text">Применение анимации выключения&#8230;</string>
+    <string name="shutdownanimation_dialog_apply_success">Анимация выключения применена!</string>
+    <string name="shutdownanimation_dialog_apply_failed">Не удалось применить анимацию выключения&#8230;</string>
+    <string name="bootanimation_placeholder_text">Пожалуйста выберите анимацию загрузки из выпадающего списка&#8230;</string>
+    <string name="bootanimation_default_spinner">Пожалуйста выберите анимацию загрузки&#8230;</string>
+    <string name="bootanimation_spinner_set_defaults">Вернуть стандартную анимацию загрузки&#8230;</string>
+    <string name="bootanimation_defaults_text">Это отключит любые кастомные анимации загрузки применённые на вашем устройстве</string>
     <string name="bootanimation_dialog_apply_text">Применение анимации загрузки&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Анимация загрузки применена!</string>
     <string name="bootanimation_dialog_apply_failed">Не удалось применить анимацию загрузки&#8230;</string>
@@ -132,17 +145,23 @@
     <string name="settings_about_samsung">Версия sungstratum</string>
     <string name="settings_about_oms_rro_version">Платформа оформления:</string>
     <string name="settings_about_oms_version_do">Динамичные Наслоения (OMS)</string>
+    <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Системная платформа</string>
+    <string name="settings_aopt_switcher_title">Системный сборщик наслоений</string>
     <string name="theme_information_tab_one">Управление слоями</string>
     <string name="theme_information_tab_two">Анимации загрузки</string>
     <string name="theme_information_tab_three">Наборы шрифтов</string>
     <string name="theme_information_tab_four">Наборы звуков</string>
     <string name="theme_information_tab_five">Обои</string>
+    <string name="theme_information_tab_six">Анимации выключения</string>
+    <string name="nougat_style_cards_title">Nougat-стилизованные карточки</string>
+    <string name="nougat_style_cards_subtext">Отображать список тем в стиле уведомлений Android Nougat.</string>
     <string name="uninstall_dialog_text">Вы уверены, что хотите удалить эту тему?</string>
     <string name="manage_dialog_performing">Возвращаем стандартное&#8230;</string>
     <string name="manage_bootanimation_title">Восстановить анимацию загрузки</string>
     <string name="manage_bootanimation_toast">Анимация загрузки восстановлена!</string>
+    <string name="manage_shutdownanimation_toast">Анимация выключения восстановлена успешно!</string>
     <string name="manage_fonts_title">Восстановить шрифт</string>
     <string name="manage_fonts_toast">Шрифты восстановлены!</string>
     <string name="manage_sounds_title">Восстановить системные звуки</string>
@@ -182,6 +201,7 @@
     <string name="menu_disable">Отключить активные наслоения</string>
     <string name="menu_enable">Применить установленное</string>
     <string name="menu_favorite">В избранное</string>
+    <string name="menu_unfavorite">Удалить избранное</string>
     <string name="menu_rate">Оценить тему</string>
     <string name="menu_soft_reboot">Быстрая перезагрузка</string>
     <string name="menu_reboot_device">Полная перезагрузка</string>
@@ -195,6 +215,8 @@
     <string name="menu_showcase_info">Сведения о каталоге</string>
     <string name="menu_favorite_snackbar">Ярлык для %s установлен! </string>
     <string name="menu_favorite_snackbar_cleared">%s более не является ярлыком приложения</string>
+    <string name="launcher_shortcut">Ярлык в лаунчере</string>
+    <string name="launcher_shortcut_toast">Успешно создан ярлык лаунчера!</string>
     <string name="changelog_title">История изменений %s</string>
     <string name="dialog_restart_systemui_title">Перезапустить SystemUI</string>
     <string name="dialog_restart_systemui_content">Процесс SystemUI будет перезапущен</string>
@@ -213,6 +235,8 @@
     <string name="logcat_email_activity_error">Нет установленных клиентов электронной почты.</string>
     <string name="logcat_email_xposed_check">Фреймворк Xposed</string>
     <string name="logcat_processing_dialog">Создание отчета об ошибке</string>
+    <string name="priority_instructions_title">Инструкции</string>
+    <string name="priority_instructions_content">Учитывая особенности работы OverlayManagerService, все наслоения распределены в обратном порядке, где нижний пункт имеет наивысший приоритет (начальный поиск ресурсов), а верхний пункт наименьший приоритет (заключительный поиск ресурсов).    </string>
     <string name="priority_no_multiple_overlays_title">нет приложений с несколькими
         наслоениями&#8230;</string>
     <string name="priority_no_multiple_overlays_text">Включите два и более наслоения на одно приложение, чтобы воспользоваться мной!     </string>
@@ -240,6 +264,7 @@
     <string name="toast_backup_success">Текущий список наслоений сохранен в
         \"/storage/emulated/0/substratum/profiles/%s\"
     </string>
+    <string name="profile_restoration_message">Восстановление профиля&#8230;</string>
     <string name="spinner_default_item">выберите профиль&#8230;</string>
     <string name="select_to_toggle_all_overlays">Переключить все наслоения</string>
     <string name="permission_not_granted_dialog_title">Разрешения не предоставлены</string>
@@ -253,6 +278,8 @@
     <string name="uninstall_dialog_body">Удалить тему</string>
     <string name="sb_phase_1_loader">распаковка темы</string>
     <string name="sb_phase_2_loader">установка наслоения</string>
+    <string name="root_rejected_title">не возможно возвратиться в Root-режим</string>
+    <string name="root_rejected_text">другие менеджеры тем не могут быть использованы на этом устройстве&#8230;</string>
     <string name="toast_compiled_updated">Выбранные слои обновлены!</string>
     <string name="toast_compiled_missing">Одно или несколько наслоений не могут быть собраны из-за отсутствующих настроек&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Выбранные слои обновлены с неполадками!</string>
@@ -261,10 +288,16 @@
     <string name="toast_disabled5">Выберите допустимое наслоение до выполнения этого действия.</string>
     <string name="toast_disabled6">Выбранные слои удалены!</string>
     <string name="no_themes_title">не найдено тем&#8230;</string>
+    <string name="no_overlays_title">оверлеи не найдены&#8230;</string>
     <string name="no_themes_description">установите любую совместимую тему!</string>
     <string name="no_themes_description_search">Среди установленных тем нет \"%s\"&#8230;</string>
+    <string name="no_overlays_description_search">Среди установленных тем нет \"%s\"&#8230;</string>
+    <string name="toast_andromeda_timed_out">Возникла проблема с Andromeda Backend, пожалуйста перезапустите приложение.</string>
     <string name="toast_could_not_uninstall">Не выбраны допустимые наслоения.</string>
     <string name="toast_samsung_prototype_alert">Substratum автоматически скроет неподдерживаемые на вашем устройстве системные наслоения!</string>
+    <string name="andromeda_disconnected">настольному клиенту Andromeda необходимо подключиться к устройству для работы Substratum!</string>
+    <string name="andromeda_check_status">Проверить статус</string>
+    <string name="andromeda_no_root_dialog">Похоже, у Вас поддерживаемое устройство Oreo, для него выпущен пакет совместимости!</string>
     <string name="andromeda_no_root_dialog_button">Загрузить!</string>
     <string name="samsung_prototype_no_root_dialog">Похоже, у Вас поддерживаемое устройство Samsung, для него выпущен пакет совместимости!</string>
     <string name="samsung_prototype_no_root_dialog_button">Загрузить!</string>
@@ -276,7 +309,11 @@
     <string name="notification_initial_title">Substratum запущен</string>
     <string name="notification_initial_title_upgrade_intent">Обновление наслоений %s&#8230;</string>
     <string name="notification_done_title">Сборка темы завершена</string>
+    <string name="notification_done_upgrade_title">Обновление наслоений для %s завершено!</string>
+    <string name="notification_done_upgrade_title_warning">Обновление наслоений для %s частично завершено!</string>
     <string name="notification_done_upgrade_title_failed">Отсутствующая или несобираемая конфигурация:\n\n%s</string>
+    <string name="notification_done_update_text">Все наслоения для этого приложения были обновлены.</string>
+    <string name="notification_done_upgrade_text">Все наслоения для этой темы были обновлены.</string>
     <string name="notification_no_errors_found">Ошибок при установке наслоений не возникло</string>
     <string name="notification_some_errors_found">В процессе установки слоя произошла ошибка</string>
     <string name="notification_processing">Применение наслоений</string>
@@ -286,8 +323,12 @@
     <string name="shortcut_rescue_disabled">На помощь!</string>
     <string name="shortcut_store">Каталог тем</string>
     <string name="shortcut_store_disabled">Каталог тем</string>
+    <string name="shortcut_overlay_manager">Управление слоями</string>
+    <string name="shortcut_overlay_manager_disabled">Управление слоями</string>
     <string name="settings_title">О системе</string>
+    <string name="settings_title_1">Пользовательские предпочтения</string>
     <string name="settings_title_3">Оформление</string>
+    <string name="settings_title_clickable">Системные настройки</string>
     <string name="substratum_restart_toast">Substratum перезапущен после изменения настроек.</string>
     <string name="restart_systemui">Динамическая пересборка SystemUI</string>
     <string name="restart_systemui_subtext">Автоматическая пересборка SystemUI после активации/отключения связанных с ним наслоений</string>
@@ -297,6 +338,7 @@
     <string name="show_theme_template_version_description">Указывать целевые уровни SDK, версии тем и версии плагинов в качестве меток для каждой темы.</string>
     <string name="vibrate_on_compiled">Уведомление о готовности темы</string>
     <string name="vibrate_on_compiled_description">Издавать вибрацию по окончанию сборки для оповещения пользователя о завершении процесса.</string>
+    <string name="manage_notification_channel">Управление уведомлениями</string>
     <string name="hide_app_icon">Показывать значок приложения</string>
     <string name="hide_app_icon_toast_enabled">Значок удален из меню приложений!</string>
     <string name="hide_app_icon_toast_disabled">Значок добавлен в меню приложений!</string>
@@ -304,6 +346,10 @@
     <string name="hide_app_icon_supported">Возможность убрать/вернуть значок приложения на домашнем экране</string>
     <string name="disable_completion">Отключение всех наслоений темы&#8230;</string>
     <string name="enable_completion">Активация всех установленных наслоений темы&#8230;</string>
+    <string name="alternate_drawer_design_title">Альтернативное меню</string>
+    <string name="alternate_drawer_design_subtext">Альтернативный дизайн Navigation Drawer.</string>
+    <string name="logchar_autosave_title">Сохранить LogChar отчеты</string>
+    <string name="logchar_autosave_subtext">Все LogChar сообщения будут храниться в /storage/emulated/0/substratum/LogCharReports /.</string>
     <string name="fab_menu_compile_enable">Собрать и применить</string>
     <string name="fab_menu_compile_update">Собрать и обновить</string>
     <string name="fab_menu_compile_install">Установить выбранное</string>
@@ -365,6 +411,7 @@
     <string name="profile_failed_info_notification">Нажмите, чтобы узнать больше</string>
     <string name="profile_compile_progress">Собирается %d из %d:\n%s</string>
     <string name="profile_compile_processing">Восстановление ранее примененных настроек&#8230;</string>
+    <string name="theme_debug_mode_title">Обход возврата прежних версий компилятора</string>
     <string name="theme_debug_mode_summary">Предотвратит использование механизма отката совместимого сборщика, как только темы достигают неисправимого состояния</string>
     <string name="logchar_dialog_title_delete_title">ВНИМАНИЕ</string>
     <string name="logchar_dialog_title_delete_content">Все сохраненные отчеты будут удалены. Если вы продолжите, они исчезнут навсегда и не будут появляться впредь.</string>
@@ -388,16 +435,24 @@
     <string name="settings_system_status_certified">Одобрена</string>
     <string name="settings_system_status_uncertified">Неодобрена</string>
     <string name="settings_title_automation">Автоматизация</string>
+    <string name="settings_auto_updater_title">Перезапуск оверлея приложением</string>
+    <string name="settings_auto_updater_text">Автоматически создавать и устанавливать обновленную версию всех оверлеев для недавно обновленных, тематических приложений.</string>
     <string name="beta_tag">★ BETA</string>
+    <string name="settings_theme_auto_updater_title">Перезапуск оверлея приложением</string>
     <string name="settings_theme_auto_updater_dialog_title">ВНИМАНИЕ</string>
+    <string name="settings_theme_auto_updater_text">Автоматически создавать и устанавливать обновленную версию всех оверлеев для недавно обновленных тем.</string>
     <string name="settings_theme_auto_updater_dialog_text">Пожалуйста, НЕ оставляйте установщик пакетов (приложений) открытым, пока уведомление в силе. Наслоениям фреймворка свойственно перезапускать установщик, вызывая процесс пересборки множество раз!</string>
     <string name="settings_auto_alert_title">Наслоения для новых приложений</string>
+    <string name="settings_auto_alert_text">Показать уведомление, когда недавно установленное приложение имеет доступ к оверлею в теме.</string>
+    <string name="settings_force_english_title">Принудительный английский</string>
     <string name="settings_force_english_text">Приложение сменит язык на английский.</string>
     <string name="settings_force_english_toast_reverted">Принудительный английский отключен!</string>
-    <string name="settings_samsung_show_dangerous_overlays">Рискованные наслоения</string>
+    <string name="settings_manage_space_title">Управление потреблением памяти</string>
+    <string name="settings_samsung_show_dangerous_overlays">Разрешить нестабильные наслоения</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Показывать все рискованные для устройств от Samsung наслоения, даже если они не поддерживаются темой оформления.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">ВНИМАНИЕ</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Рискованные наслоения спрятаны не просто так, но если Вы предпочтете таковые оставить - изучите инструкцию по их отключению в теме на XDA!</string>
+    <string name="settings_crash_receiver_title">Отслеживание вылетов</string>
     <string name="settings_crash_receiver_text">Автоматически отключать наслоения для приложений с выявленными повторяющимися вылетами.</string>
     <string name="settings_force_stop_interfacer_title">Завершить службу согласователя</string>
     <string name="settings_force_stop_interfacer_snackbar">Согласователь принудительно закрывается&#8230;</string>
@@ -461,10 +516,13 @@
     <string name="notification_channel_default_description">Основные уведомления (о новых и обновленных темах, завершении сборки и т. д.)</string>
     <string name="notification_channel_ongoing">Текущее</string>
     <string name="notification_channel_ongoing_description">Текущие уведомления</string>
+    <string name="notification_channel_andromeda">Системный статус темы</string>
+    <string name="notification_channel_andromeda_description">Уведомление о статусе подключения системы</string>
     <!-- Nav drawer -->
     <string name="nav_home">Тематические наборы</string>
     <string name="nav_overlays">Наслоения</string>
     <string name="nav_bootanim">Анимации загрузки</string>
+    <string name="nav_shutdownanim">Анимации выключения</string>
     <string name="nav_fonts">Наборы шрифтов</string>
     <string name="nav_sounds">Наборы звуков</string>
     <string name="nav_wallpapers">Обои</string>
@@ -479,6 +537,7 @@
     <string name="nav_drawer_community">Группы и сообщества</string>
     <string name="nav_drawer_googleplus">Google+ сообщество</string>
     <string name="nav_drawer_telegram">Чат в Телеграме</string>
+    <string name="nav_drawer_xda">Выделенный XDA форум</string>
     <string name="nav_drawer_rawad">Инструкция по оформлению от Rawad</string>
     <string name="nav_drawer_reddit">Сообщество Reddit</string>
     <!-- Featured content -->
@@ -508,10 +567,14 @@
     <string name="manage_space_reset_dialog_content">Приложение закроется по завершению сброса!</string>
     <string name="cleaned_logchar_reports">Хранившиеся отчеты LogChar удалены</string>
     <string name="legacy_overlay_uninstall_warning_text">При удалении всех наслоений, пожалуйста, используйте архивы восстановления Substratum во избежание возможных вечных загрузок.</string>
+    <string name="auto_reload_sysui_title">Автоперезапуск SystemUI</string>
     <string name="auto_reload_sysui_summary_on">Substratum автоматически перезапустит SystemUI при включении/выключении затрагивающего его слоя</string>
     <string name="auto_reload_sysui_summary_off">Substratum не перезапускает SystemUI при включении/выключении затрагивающего его слоя</string>
     <string name="auto_reload_sysui_dialog_title">Внимание!</string>
     <string name="auto_reload_sysui_dialog_text">На Android Oreo, уведомления будут автоматически очищены для симуляции перезапуска кэшированных каналов уведомлений.\n\nПожалуйста убедитесь что ваши уведомления не содержат никакой важной информации при сборке и запуске SystemUI или framework наслоений. Это не влияет на текущие уведомления.</string>
     <!-- The things lint will complain about...-->
     <string name="fonts_demo_string">АаБбВвГг123</string>
+    <string name="overlays_tab_package_ver_message">Установлено %s версия %s</string>
+    <string name="overlays_tab_package_ver_message_copied">Код версии скопирован в буфер обмена!</string>
+    <string name="overlays_tab_package_ver_failure">Не удалось получить версии пакета</string>
 </resources>

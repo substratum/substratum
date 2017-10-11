@@ -834,7 +834,7 @@
     <string name="package_name_placeholder" translatable="false">PACKAGE_NAME</string>
     <string name="package_state_placeholder" translatable="false">PACKAGE_STATE</string>
     <string name="wallpaper_name_placeholder" translatable="false">WALLPAPER_NAME</string>
-    <string name="hyphen_placeholder" translatable="false">-</string><!-- The things lint will complain about...-->
+    <string name="hyphen_placeholder" translatable="false">-</string>
     <string name="fonts_demo_string">AaBbCcDd123</string>
     <string name="overlays_tab_package_ver_message">Installed %s version: %s</string>
     <string name="overlays_tab_package_ver_message_copied">Successfully copied version code to clipboard!</string>

@@ -67,7 +67,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     </string>
     <string name="abort_overlay_toast_success">Všechny potahy odinstalovány!</string>
     <string name="rescue_toast">Záchrana systému&#8230;</string>
-    <string name="reboot_awaiting_manager_title">POTAH ČEKÁ NA RESTARTOVÁNÍ</string>
     <string name="manager_theme_name">Motiv:</string>
     <string name="manager_type1a">Typ1a:</string>
     <string name="manager_type1b">Typ1b:</string>
@@ -162,14 +161,18 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="settings_about_samsung">Verze Sungstratum</string>
     <string name="settings_about_oms_rro_version">Platforma pro motivy:</string>
     <string name="settings_about_oms_version_do">Dynamické potahy (OMS)</string>
+    <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Systémová platforma</string>
+    <string name="settings_aopt_switcher_title">Kompilátor systémových potahů</string>
     <string name="theme_information_tab_one">Správce potahů</string>
     <string name="theme_information_tab_two">Spouštěcí animace</string>
     <string name="theme_information_tab_three">Balíčky písem</string>
     <string name="theme_information_tab_four">Balíčky zvuků</string>
     <string name="theme_information_tab_five">Tapety</string>
     <string name="theme_information_tab_six">Animace při vypnutí</string>
+    <string name="nougat_style_cards_title">Rozvržení karet podle Android Nougat</string>
+    <string name="nougat_style_cards_subtext">Povolit styl karet oznámení podle Android Nougat.</string>
     <string name="uninstall_dialog_text">Opravdu chcete odinstalovat tento motiv?</string>
     <string name="manage_dialog_performing">Obnovení na výchozí&#8230;</string>
     <string name="manage_bootanimation_title">Obnovit spouštěcí animaci</string>
@@ -273,7 +276,7 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="profile_edittext_whitespace_warning_toast">Nelze použít mezery v názvu profilu!</string>
     <string name="toast_backup_success">Aktuální seznam potahů je umístěn do \"/storage/emulated/0/substratum/profiles/%s\"
     </string>
-    <string name="profile_restoration_message">Zpracování profilu obnovení&#8230;</string>
+    <string name="profile_restoration_message">Probíhá obnova profilu&#8230;</string>
     <string name="spinner_default_item">vyberte profil&#8230;</string>
     <string name="select_to_toggle_all_overlays">Vybete pro přepnutí všech potahů</string>
     <string name="permission_not_granted_dialog_title">Oprávnění nejsou udělena</string>
@@ -319,7 +322,11 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="notification_initial_title">Substratum je spuštěno</string>
     <string name="notification_initial_title_upgrade_intent">Aktualizace potahů%s&#8230;</string>
     <string name="notification_done_title">Byla dokončena kompilace motivu</string>
+    <string name="notification_done_upgrade_title">Obnovení potahů pro %s bylo dokončeno!</string>
+    <string name="notification_done_upgrade_title_warning">Obnovení potahů částečně dokončeno pro %s!</string>
     <string name="notification_done_upgrade_title_failed">Chybějící nebo nesestavitelná konfigurace:\n\n%s</string>
+    <string name="notification_done_update_text">Byly aktualizovány všechny potahy pro tuto aplikaci.</string>
+    <string name="notification_done_upgrade_text">Byly aktualizovány všechny potahy pro tento motiv.</string>
     <string name="notification_no_errors_found">Nenastaly žádné chyby při instalaci potahů</string>
     <string name="notification_some_errors_found">Nastala chyba při instalaci potahu</string>
     <string name="notification_processing">Zpracovávání potahu pro</string>
@@ -329,8 +336,12 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="shortcut_rescue_disabled">Zachraňte mě!</string>
     <string name="shortcut_store">Ukázka motivů</string>
     <string name="shortcut_store_disabled">Ukázka motivů</string>
+    <string name="shortcut_overlay_manager">Správce potahů</string>
+    <string name="shortcut_overlay_manager_disabled">Správce potahů</string>
     <string name="settings_title">O aplikaci</string>
+    <string name="settings_title_1">Uživatelské předvolby</string>
     <string name="settings_title_3">Úpravy motivů</string>
+    <string name="settings_title_clickable">Systémové předvolby</string>
     <string name="substratum_restart_toast">Substratum se automaticky restartovalo po
  změně.</string>
     <string name="restart_systemui">Znovuvytvoření po povolení SystemUI</string>
@@ -345,6 +356,7 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="vibrate_on_compiled">Oznámit dokončení kompilace motivu</string>
     <string name="vibrate_on_compiled_description">Když je motiv zkompilován, zavibrovat zařízením
  pro oznámení uživateli, že je kompilace hotova.</string>
+    <string name="manage_notification_channel">Spravovat upozornění</string>
     <string name="hide_app_icon">Zobrazit ikonu aplikace</string>
     <string name="hide_app_icon_toast_enabled">Ikona aplikace byla odstraněna!</string>
     <string name="hide_app_icon_toast_disabled">Ikona aplikace byla přidána!</string>
@@ -355,6 +367,10 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
  vypínají&#8230;</string>
     <string name="enable_completion">Všechny potahy pro tento motiv se nyní
  zapínají&#8230;</string>
+    <string name="alternate_drawer_design_title">Vedlejší vzhled menu</string>
+    <string name="alternate_drawer_design_subtext">Alternativní vzhled zásuvky navigace.</string>
+    <string name="logchar_autosave_title">Zachovat zprávy LogChar</string>
+    <string name="logchar_autosave_subtext">Všechny zprávy LogChar budou uloženy ve /storage/emulated/0/substratum/LogCharReports/.</string>
     <string name="fab_menu_compile_enable">Sestavit &amp; povolit</string>
     <string name="fab_menu_compile_update">Sestavit &amp; aktualizovat</string>
     <string name="fab_menu_compile_install">Instalovat vybrané</string>
@@ -416,6 +432,7 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="profile_failed_info_notification">Klikněte pro více informací</string>
     <string name="profile_compile_progress">Kompilace %d z %d:\n%s</string>
     <string name="profile_compile_processing">Probíhá zpracování dříve uložených nastavení potahů&#8230;</string>
+    <string name="theme_debug_mode_title">Vynechání starého mechanismu kompilace</string>
     <string name="theme_debug_mode_summary">Umožní aplikaci přestat používat původní mechanismus kompilace s cílem pomoci motivu, pokud se dostane do neřešitelné situace.</string>
     <string name="logchar_dialog_title_delete_title">POZOR</string>
     <string name="logchar_dialog_title_delete_content">Tímto odstraníte všechny aktuálně uložené hlášení. Stisknutím tlačítka pokračovat budou všechny hlášení vymazány a záznamy již nebudou uloženy.</string>
@@ -435,15 +452,20 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="settings_system_status">Certifikace systému</string>
     <string name="settings_system_status_andromeda">Režim Andromeda</string>
     <string name="settings_system_status_rooted">Režim s rootem</string>
-    <string name="settings_system_status_rootless">Nativní režim</string>
     <string name="settings_system_status_samsung">Režim Samsung</string>
     <string name="settings_system_status_certified">Certifikováno</string>
     <string name="settings_system_status_uncertified">Necertifikováno</string>
     <string name="settings_title_automation">Automatizace</string>
+    <string name="settings_auto_updater_title">Obnovení potahů založené na aplikaci</string>
+    <string name="settings_auto_updater_text">Automaticky vytvořit a nainstalovat aktualizovanou verzi všech potahů pro nedávno aktualizovanou aplikaci podporující motivy.</string>
     <string name="beta_tag">★ BETA</string>
+    <string name="settings_theme_auto_updater_title">Obnovení potahů založené na motivu</string>
     <string name="settings_theme_auto_updater_dialog_title">VAROVÁNÍ</string>
+    <string name="settings_theme_auto_updater_text">Automaticky vytvořit a nainstalovat aktualizovanou verzi všech potahů pro nedávno aktualizované motivy.</string>
     <string name="settings_theme_auto_updater_dialog_text">Prosím, nemějte v popředí otevřenou aplikaci PackageInstaller, když je zobrazeno upozornění. Framework potahů má tendenci restartovat PackageInstaller, což způsobuje množství rekompilací!</string>
     <string name="settings_auto_alert_title">Oznámení nově nainstalovaných potahů</string>
+    <string name="settings_auto_alert_text">Zobrazit oznámení, když nedávno nainstalována aplikace má k dispozici potahy v motivu.</string>
+    <string name="settings_force_english_title">Vynutit anglický jazyk</string>
     <string name="settings_force_english_text">Toto přinutí aplikaci, aby používala anglický jazyk.</string>
     <string name="settings_force_english_toast_reverted">Vynucená angličtina byla úspěšně zakázána!</string>
     <string name="settings_manage_space_title">Správa využití úložiště</string>
@@ -451,6 +473,7 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="settings_samsung_show_dangerous_overlays_text">Zobrazit všechny potahy, které jsou za normálních okolností nebezpečné pro zařízení Samsung, i když je jejich motivy nepodporují.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">VAROVÁNÍ</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Skryli jsme nebezpečné potahy z nějakého důvodu, ale pokud jste si jisti, že chcete, aby byly povoleny, postupujte podle pokynů v našem vlákně XDA a vypněte jejich skrytí!</string>
+    <string name="settings_crash_receiver_title">Ošetření pádů při aplikaci motivu</string>
     <string name="settings_crash_receiver_text">Automaticky vypnout potahy při opakovaném selhání překrytí aplikace.</string>
     <string name="settings_force_stop_interfacer_title">Vynucené ukončení služby Interfacer</string>
     <string name="settings_force_stop_interfacer_snackbar">Interfacer se vynuceně ukončuje&#8230;</string>
@@ -535,6 +558,7 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="nav_drawer_community">Skupiny a komunity</string>
     <string name="nav_drawer_googleplus">Komunita Google +</string>
     <string name="nav_drawer_telegram">Skupinový chat Telegram</string>
+    <string name="nav_drawer_xda">XDA subfórum</string>
     <string name="nav_drawer_rawad">Příručka Rawad\'s Theming</string>
     <string name="nav_drawer_reddit">Reddit komunita</string>
     <!-- Featured content -->
@@ -564,6 +588,7 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="manage_space_reset_dialog_content">Aplikace se po dokončení restartu ukončí!</string>
     <string name="cleaned_logchar_reports">Vyčištěné uložené zprávy protokolu LogChar</string>
     <string name="legacy_overlay_uninstall_warning_text">Pokud odinstalujete všechny potahy, prosím použijte záchranné Substratum zipy, abyste se vyhnuli možnému uvíznutí ve spouštěcí smyčce (bootloop).</string>
+    <string name="auto_reload_sysui_title">Dynamické načtení SystemUI</string>
     <string name="auto_reload_sysui_summary_on">Substratum automaticky načte SystemUI po povolení/zakázání cílových systémových potahů.</string>
     <string name="auto_reload_sysui_summary_off">Substratum automaticky nenačte SystemUI po povolení/zakázání cílových systémových potahů.</string>
     <string name="auto_reload_sysui_dialog_title">Upozornění!</string>
@@ -571,5 +596,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <!-- The things lint will complain about...-->
     <string name="fonts_demo_string">AaBbCcDd123</string>
     <string name="overlays_tab_package_ver_message">Nainstalované %s verze: %s</string>
+    <string name="overlays_tab_package_ver_message_copied">Kód verze byl úspěšně zkopírován do schránky!</string>
     <string name="overlays_tab_package_ver_failure">Nepodařilo se zachytit verzi balíčku</string>
 </resources>

@@ -31,7 +31,7 @@
     <!-- Gesture RecyclerView -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_gesturerecycler_libraryDescription">Ezt a könyvtárat biztosítja a csúsztatási és
+    <string name="library_gesturerecycler_libraryDescription">Ez a könyvtár biztosítja a csúsztatási és
         fogd és vidd támogatást a RecyclerView részére.
     </string>
     <!-- OpenSource section -->

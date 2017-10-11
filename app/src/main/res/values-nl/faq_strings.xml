@@ -24,8 +24,12 @@
     <string name="answer_five">De toepassing van een thema is een tweedelig proces: compilatie van de overlays en het toepassen ervan. Ga naar een thema, tik op het Overlay Beheer tab, kies de overlays en opties die je wilt, raak de zwevende knop aan en kies Compileren/Bijwerken, kies daarna dezelfde overlays, raak de zwevende knop aan en kies Selectie Inschakelen.</string>
     <string name="question_eight">Mijn apparaat blijft herstarten! Hoe los ik dit op?</string>
     <string name="answer_eight">Substratum heeft zijn eigen herstelsysteem genaamd Substratum Rescue
-        Systeem (SRS), wat een geautomatiseerd systeem is dat een archief dumpt in 
-        /storage/emulated/0/substratum/SubstratumRescue.zip. Flash deze ZIP in recovery en herstart! 
+        Systeem (SRS), wat een geautomatiseerd systeem is dat een archief dumpt in
+        /storage/emulated/0/substratum/SubstratumRescue.zip. Flash deze ZIP in recovery en herstart!
     </string>
+    <string name="question_nine">Sommige elementen lijken te haperen na het toepassen van een thema, wat is er gebeurd?</string>
+    <string name="answer_nine">
+1. Herstart Systeem-UI als dit niet automatisch is gebeurd.\n2. Herstart je apparaat.\n3. Deïnstalleer en/of verwijder de overlays, hercompileer en pas opnieuw toe.</string>
+    <string name="question_twelve">Met wie neem ik contact op als ik een serieus probleem heb dat niet opgelost wordt met deze stappen?</string>
     <string name="answer_twelve">Gelieve een bericht aan te maken in de Substratum Google+ communiteit. Verstrek hierbij de volgende informatie: Substratum versie, ROM, thema (bij problemen met toepassen) en, indien mogelijk, een logcat.</string>
 </resources>

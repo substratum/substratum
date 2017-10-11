@@ -47,7 +47,7 @@
     <string name="library_kenburnsview_libraryDescription">Android бібліятэка, з\'яўляецца
         дадаткам да ImageView, якая стварае паўнату карцінкі за кошт прымянення эфекту
         Кена Бернса з выявай.
-    
+
     </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
@@ -86,7 +86,7 @@
     <string name="library_zt_zip_libraryDescription">Праект сабраны з дапамогай пакетаў java.util.zip.*
         для патокагава доступу. Падтрымліваюцца самыя аптымальныя метады працы з
         файлавай сістэмай.
-    
+
     </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->

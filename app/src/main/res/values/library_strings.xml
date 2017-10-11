@@ -20,7 +20,7 @@
 <resources>
     <!-- http://def-builder.mikepenz.com/ -->
     <!-- commons-io -->
-    <string name="define_commons_io"/>
+    <string name="define_commons_io" />
     <!-- Author section -->
     <string name="library_commons_io_author" translatable="false">Apache</string>
     <string name="library_commons_io_authorWebsite" translatable="false">
@@ -46,7 +46,7 @@
     <string name="library_commons_io_licenseId" translatable="false">apache_2_0</string>
 
     <!-- Gesture RecyclerView -->
-    <string name="define_gesturerecycler"/>
+    <string name="define_gesturerecycler" />
     <!-- Author section -->
     <string name="library_gesturerecycler_author" translatable="false">Paweł Surówka</string>
     <string name="library_gesturerecycler_authorWebsite" translatable="false">
@@ -75,7 +75,7 @@
     <string name="library_gesturerecycler_licenseId" translatable="false">apache_2_0</string>
 
     <!-- KenBurnsView -->
-    <string name="define_kenburnsview"/>
+    <string name="define_kenburnsview" />
     <!-- Author section -->
     <string name="library_kenburnsview_author">Flávio Faria</string>
     <string name="library_kenburnsview_authorWebsite">
@@ -104,7 +104,7 @@
     <string name="library_kenburnsview_licenseId" translatable="false">apache_2_0</string>
 
     <!-- Material Sheet Fab -->
-    <string name="define_materialsheetfab"/>
+    <string name="define_materialsheetfab" />
     <!-- Author section -->
     <string name="library_materialsheetfab_author" translatable="false">Gordon Wong</string>
     <string name="library_materialsheetfab_authorWebsite" translatable="false">
@@ -134,7 +134,7 @@
     <string name="library_materialsheetfab_licenseId" translatable="false">mit</string>
 
     <!-- Welcome -->
-    <string name="define_welcome_android"/>
+    <string name="define_welcome_android" />
     <!-- Author section -->
     <string name="library_welcome_android_author" translatable="false">Stephen Tuso</string>
     <string name="library_welcome_android_authorWebsite" translatable="false">
@@ -161,7 +161,7 @@
     <string name="library_welcome_android_licenseId" translatable="false">apache_2_0</string>
 
     <!-- ZipSigner -->
-    <string name="define_zipsigner"/>
+    <string name="define_zipsigner" />
     <!-- Author section -->
     <string name="library_zipsigner_author" translatable="false">Ken Ellinwood</string>
     <string name="library_zipsigner_authorWebsite" translatable="false">
@@ -188,7 +188,7 @@
     <string name="library_zipsigner_licenseId" translatable="false">apache_2_0</string>
 
     <!-- ZT-Zip -->
-    <string name="define_zt_zip"/>
+    <string name="define_zt_zip" />
     <!-- Author section -->
     <string name="library_zt_zip_author" translatable="false">ZeroTurnAround</string>
     <string name="library_zt_zip_authorWebsite" translatable="false">http://zeroturnaround.com/
@@ -214,7 +214,7 @@
     <string name="library_zt_zip_licenseId" translatable="false">apache_2_0</string>
 
     <!-- AV Loading Indicator View -->
-    <string name="define_avloadingindicatorview"/>
+    <string name="define_avloadingindicatorview" />
     <!-- Author section -->
     <string name="library_avloadingindicatorview_author">Jack Wang</string>
     <string name="library_avloadingindicatorview_authorWebsite">http://hlong.xyz/</string>
@@ -238,7 +238,7 @@
     <string name="library_avloadingindicatorview_licenseId">apache_2_0</string>
 
     <!-- Floating View -->
-    <string name="define_floatingview"/>
+    <string name="define_floatingview" />
     <!-- Author section -->
     <string name="library_floatingview_author">Recruit Lifestyle Co. Ltd.</string>
     <string name="library_floatingview_authorWebsite">http://engineer.recruit-lifestyle.co.jp/</string>
@@ -256,7 +256,7 @@
     <string name="library_floatingview_licenseId">apache_2_0</string>
 
     <!-- ExpandableLayout -->
-    <string name="define_expandablelayout"/>
+    <string name="define_expandablelayout" />
     <!-- Author section -->
     <string name="library_expandablelayout_author" translatable="false">Daniel Cachapa</string>
     <string name="library_expandablelayout_authorWebsite" translatable="false">https://github.com/cachapa</string>

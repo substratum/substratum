@@ -391,7 +391,7 @@ public class InformationActivity extends SubstratumActivity {
         }
 
         appBarLayout = findViewById(R.id.appbar);
-        appBarLayout.setBackgroundColor(dominantColor);
+        if (appBarLayout != null) appBarLayout.setBackgroundColor(dominantColor);
 
         if (collapsingToolbarLayout != null &&
                 dynamicActionBarColors &&

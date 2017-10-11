@@ -138,7 +138,6 @@ public class Overlays extends Fragment {
     public ArrayList<String> final_runner, late_install;
     public boolean mixAndMatchMode, enable_mode, disable_mode, compile_enable_mode,
             enable_disable_mode;
-    public ArrayList<String> all_installed_overlays;
     public Switch toggle_all;
     public SwipeRefreshLayout swipeRefreshLayout;
     public ProgressBar progressBar;

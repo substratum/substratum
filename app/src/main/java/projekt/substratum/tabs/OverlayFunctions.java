@@ -47,6 +47,7 @@ import android.widget.TextView;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.List;
 
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
@@ -909,11 +910,11 @@ class OverlayFunctions {
                     if (overlays.mixAndMatchMode) {
                         // Buffer the disableBeforeEnabling String
                         ArrayList<String> disableBeforeEnabling = new ArrayList<>();
-                        for (int i = 0; i < overlays.all_installed_overlays.size(); i++) {
-                            if (!Packages.getOverlayParent(context,
-                                    overlays.all_installed_overlays.get(i))
+                        List<String> all_installed_overlays = ThemeManager.listAllOverlays(context);
+                        for (int i = 0; i < all_installed_overlays.size(); i++) {
+                            if (!Packages.getOverlayParent(context, all_installed_overlays.get(i))
                                     .equals(overlays.theme_pid)) {
-                                disableBeforeEnabling.add(overlays.all_installed_overlays.get(i));
+                                disableBeforeEnabling.add(all_installed_overlays.get(i));
                             }
                         }
                         ThemeManager.disableOverlay(context, disableBeforeEnabling);
@@ -1087,11 +1088,11 @@ class OverlayFunctions {
                     if (overlays.mixAndMatchMode) {
                         // Buffer the disableBeforeEnabling String
                         ArrayList<String> disableBeforeEnabling = new ArrayList<>();
-                        for (int i = 0; i < overlays.all_installed_overlays.size(); i++) {
-                            if (!Packages.getOverlayParent(context,
-                                    overlays.all_installed_overlays.get(i))
+                        List<String> all_installed_overlays = ThemeManager.listAllOverlays(context);
+                        for (int i = 0; i < all_installed_overlays.size(); i++) {
+                            if (!Packages.getOverlayParent(context, all_installed_overlays.get(i))
                                     .equals(overlays.theme_pid)) {
-                                disableBeforeEnabling.add(overlays.all_installed_overlays.get(i));
+                                disableBeforeEnabling.add(all_installed_overlays.get(i));
                             }
                         }
                         ThemeManager.disableOverlay(context, disableBeforeEnabling);
@@ -1226,7 +1227,8 @@ class OverlayFunctions {
                     if (overlays.compile_enable_mode && overlays.mixAndMatchMode) {
                         // Buffer the disableBeforeEnabling String
                         ArrayList<String> disableBeforeEnabling = new ArrayList<>();
-                        for (String p : overlays.all_installed_overlays) {
+                        List<String> all_installed_overlays = ThemeManager.listAllOverlays(context);
+                        for (String p : all_installed_overlays) {
                             if (!overlays.theme_pid.equals(Packages.
                                     getOverlayParent(context, p))) {
                                 disableBeforeEnabling.add(p);

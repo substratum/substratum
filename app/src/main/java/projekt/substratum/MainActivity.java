@@ -182,10 +182,8 @@ public class MainActivity extends SubstratumActivity implements
     }
 
     private void switchFragment(String title, String fragment) {
-        if (searchView != null) {
-            if (!searchView.isIconified()) {
-                searchView.setIconified(true);
-            }
+        if (searchView != null && !searchView.isIconified()) {
+            searchView.setIconified(true);
         }
         switchToStockToolbar(title);
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
@@ -194,7 +192,7 @@ public class MainActivity extends SubstratumActivity implements
                 MainActivity.this,
                 fragment));
         tx.commit();
-        hideBundle = true;
+        hideBundle = !title.equals(getString(R.string.nav_overlay_manager));
         hideRestartUi = !title.equals(getString(R.string.nav_overlay_manager));
         supportInvalidateOptionsMenu();
     }

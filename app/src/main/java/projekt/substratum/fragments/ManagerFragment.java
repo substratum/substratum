@@ -409,6 +409,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     private static class LayoutReloader extends AsyncTask<Void, Void, Void> {
         private WeakReference<ManagerFragment> ref;
         private WeakReference<String> userInput;
+        private int currentPosition;
 
         private LayoutReloader(ManagerFragment fragment, String input) {
             ref = new WeakReference<>(fragment);
@@ -419,6 +420,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         protected void onPreExecute() {
             ManagerFragment fragment = ref.get();
             if (fragment != null) {
+                currentPosition = ((LinearLayoutManager) fragment.mRecyclerView.getLayoutManager())
+                        .findFirstCompletelyVisibleItemPosition();
                 fragment.swipeRefreshLayout.setRefreshing(true);
                 fragment.toggle_all.setChecked(false);
                 fragment.toggle_all.setEnabled(false);
@@ -541,6 +544,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 fragment.loadingBar.setVisibility(View.GONE);
                 fragment.mAdapter = new ManagerAdapter(fragment.overlaysList, false);
                 fragment.mRecyclerView.setAdapter(fragment.mAdapter);
+                fragment.mRecyclerView.getLayoutManager().scrollToPosition(currentPosition);
                 fragment.mRecyclerView.setEnabled(true);
                 fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
 

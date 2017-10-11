@@ -148,6 +148,9 @@ public class ManagerItem implements Serializable {
     }
 
     public String getThemeName() {
+        if (themeName == null) {
+            themeName = getContext().getString(R.string.reboot_awaiting_manager_title);
+        }
         return themeName;
     }
 

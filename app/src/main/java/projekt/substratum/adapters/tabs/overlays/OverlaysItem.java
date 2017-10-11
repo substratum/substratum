@@ -20,9 +20,7 @@ package projekt.substratum.adapters.tabs.overlays;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import android.support.design.widget.Lunchbar;
 import android.view.View;
 
 import java.io.Serializable;
@@ -31,6 +29,7 @@ import java.util.List;
 
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.Systems;
+import projekt.substratum.common.platform.ThemeManager;
 
 public class OverlaysItem implements Serializable {
 
@@ -66,7 +65,6 @@ public class OverlaysItem implements Serializable {
     private ArrayList<Object> enabledOverlays;
     private Drawable app_icon;
     private Boolean theme_oms;
-    private Lunchbar lunchbar;
     private View activityView;
 
     public OverlaysItem(String theme_name,
@@ -320,17 +318,6 @@ public class OverlaysItem implements Serializable {
         return false;
     }
 
-    public boolean isPackageInstalled(String package_name) {
-        try {
-            PackageManager pm = context.getPackageManager();
-            pm.getPackageInfo(package_name, PackageManager.GET_ACTIVITIES);
-            return true;
-        } catch (Exception e) {
-            // Suppress warning
-        }
-        return false;
-    }
-
     public String getFullOverlayParameters() {
         return getPackageName() + "." + getThemeName() +
                 (((getSelectedVariant() == 0 &&
@@ -348,8 +335,11 @@ public class OverlaysItem implements Serializable {
     }
 
     public boolean isOverlayEnabled() {
-        return (isPackageInstalled(getFullOverlayParameters()) &&
-                (Systems.isSamsung(context) || enabledOverlays.contains
-                        (getFullOverlayParameters())));
+        if (Systems.isSamsungDevice(context)) {
+            return enabledOverlays.contains(getFullOverlayParameters());
+        } else {
+            return Packages.isPackageInstalled(context, getFullOverlayParameters()) &&
+                    ThemeManager.isOverlayEnabled(context, getFullOverlayParameters());
+        }
     }
 }

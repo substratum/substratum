@@ -1015,12 +1015,12 @@ public class Overlays extends Fragment {
                         new File(late_install.get(0)).getAbsolutePath());
                 if (late_install != null && late_install.size() > 0) late_install.remove(0);
                 if (late_install.size() > 0) {
-                    uninstallMultipleAPKs();
+                    installMultipleAPKs();
                 }
         }
     }
 
-    private void uninstallMultipleAPKs() {
+    private void installMultipleAPKs() {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         Uri uri = FileProvider.getUriForFile(
                 getContext(),

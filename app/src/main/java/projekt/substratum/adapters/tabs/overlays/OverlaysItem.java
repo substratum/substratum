@@ -337,9 +337,12 @@ public class OverlaysItem implements Serializable {
     public boolean isOverlayEnabled() {
         boolean installed = Packages.isPackageInstalled(context, getFullOverlayParameters());
         if (Systems.isSamsungDevice(context)) {
-            return installed && enabledOverlays.contains(getFullOverlayParameters());
+            return installed;
         } else {
-            return installed && ThemeManager.isOverlayEnabled(context, getFullOverlayParameters());
+            return installed && (
+                    ThemeManager.isOverlayEnabled(context, getFullOverlayParameters()) ||
+                            enabledOverlays.contains(getFullOverlayParameters())
+            );
         }
     }
 }

@@ -159,6 +159,9 @@ public class ManagerItem implements Serializable {
     }
 
     public String getLabelName() {
+        if (labelName == null) {
+            labelName = getContext().getString(R.string.reboot_awaiting_manager_title);
+        }
         return labelName;
     }
 

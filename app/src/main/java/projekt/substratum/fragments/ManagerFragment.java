@@ -305,6 +305,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         MenuItem searchItem = menu.findItem(R.id.action_search);
         searchItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         searchItem.setVisible(true);
+        searchItem.setIcon(R.drawable.actionbar_search);
         searchView = (SearchView) searchItem.getActionView();
         if (searchView != null) searchView.setOnQueryTextListener(this);
         updateMenuButtonState(menu);

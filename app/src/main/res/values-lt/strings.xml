@@ -59,8 +59,8 @@
     <string name="samsung_warning_content">\"Samsung\" palikymas teikiamas, bet mes negalime garantuoti
         visiško suderinamumo su spalvomis ir \"AOSP-built\" perdangomis. Mes pasirūpinome ir paslėpėme
         pavojingas perdangas jūsų įrenginiui, tačiau rankiniu būdu galite tai išjungti nustatymuose
-        savo nuožiūra.\n\nJei bet kokiu atveju susidursite su galima juodojo ekrano problema,        
-        prašome pasikonsultuoti mūsų \"XDA\" temoje dėl dviejų atkūrimo būdų.    
+        savo nuožiūra.\n\nJei bet kokiu atveju susidursite su galima juodojo ekrano problema,
+        prašome pasikonsultuoti mūsų \"XDA\" temoje dėl dviejų atkūrimo būdų.
 
     </string>
     <string name="legacy_dialog_soft_reboot_title">Būtina paleisti iš naujo</string>
@@ -68,7 +68,6 @@
     <string name="activity_missing_toast">Nebuvo rasta nei viena programėlė, kuri galėtu palaikyti šį prašymą, atsiprašome!</string>
     <string name="abort_overlay_toast_success">Visos perdangos pašalintos!</string>
     <string name="rescue_toast">Gelbėjama jūsų sistema&#8230;</string>
-    <string name="reboot_awaiting_manager_title">PERDANGOS LAUKIA PERKROVIMO</string>
     <string name="manager_theme_name">Tema:</string>
     <string name="manager_type1a">Tipas1a:</string>
     <string name="manager_type1b">Tipas1b:</string>
@@ -76,8 +75,11 @@
     <string name="manager_type2">Tipas2 :</string>
     <string name="manager_type3">Tipas 3:</string>
     <string name="manager_type4">Tipas4:</string>
-    <string name="legacy_preference_priority_title">Perdangos Prioriteto Koregavimas</string>
+    <string name="manager_version">Versija :</string>
+    <string name="legacy_preference_priority_title">Perdangos prioriteto koregavimas</string>
     <string name="legacy_preference_priority_text">Prioritetas nustatytas (numatytasis 999): %d</string>
+    <string name="grid_size_title">Temos ekrano stulpelio koregavimas</string>
+    <string name="grid_size_text">Stulpelių skaičius nustatytas (numatytasis 2): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">tipo1a variantas&#8230;</string>
     <string name="overlays_variant_default_1b">tipo1b variantas&#8230;</string>
@@ -88,6 +90,20 @@
     <string name="overlays_up_to_date">Šiuometinis</string>
     <string name="overlays_update_available">Galimas atnaujinimas!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variantas neįdiegtas</string>
+    <string name="shutdownanimation_placeholder_text">Prašome pasirinkti išjungimo animaciją išskleidžiamajame sąraše&#8230;</string>
+    <string name="shutdownanimation_default_spinner">Prašome pasirinkti išjungimo animaciją&#8230;</string>
+    <string name="shutdownanimation_spinner_set_defaults">Atkurti numatytąją išjungimo animacija&#8230;</string>
+    <string name="shutdownanimation_defaults_text">Tai išvalis bet kokias pasirinktines išjungimo animacijas,
+        kurios buvo pritaikytos jūsų įrenginyje</string>
+    <string name="shutdownanimation_dialog_apply_text">Išjungimo animacijos apdirbimas&#8230;</string>
+    <string name="shutdownanimation_dialog_apply_success">Išjungimo animacija pritaikyta!</string>
+    <string name="shutdownanimation_dialog_apply_failed">Išjungimo animacijos nepavyko pritaikyti&#8230;</string>
+    <string name="bootanimation_placeholder_text">Prašome pasirinkti paleidimo animaciją išskleidžiamajame
+        sąraše&#8230;</string>
+    <string name="bootanimation_default_spinner">Prašome pasirinkti paleidimo animaciją&#8230;</string>
+    <string name="bootanimation_spinner_set_defaults">Atkurti numatytąją paleidimo animaciją&#8230;</string>
+    <string name="bootanimation_defaults_text">Tai išvalis bet kokias pasirinktines paleidimo animacijas,
+        kurios buvo pritaikytos jūsų įrenginyje</string>
     <string name="bootanimation_dialog_apply_text">Paleidimo animacijos apdirbimas&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Paleidimo animacija pritaikyta!</string>
     <string name="bootanimation_dialog_apply_failed">Paleidimo animacijos nepavyko pritaikyti&#8230;</string>
@@ -143,20 +159,23 @@
     <string name="settings_about_samsung">\"substratum\" versija</string>
     <string name="settings_about_oms_rro_version">Temos platforma:</string>
     <string name="settings_about_oms_version_do">Dinaminiai Sluoksniai (OMS)</string>
-    <string name="settings_about_oms_version_7">OMS7</string>
+    <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Sistemos platforma</string>
-    <string name="settings_aopt_switcher_title">Sistemos Perdangų Kompiliatorius</string>
+    <string name="settings_aopt_switcher_title">Sistemos perdangų kompiliatorius</string>
     <string name="theme_information_tab_one">Greitas Pritaikymas</string>
     <string name="theme_information_tab_two">Paleidimo animacijos</string>
     <string name="theme_information_tab_three">Šriftų Paketai</string>
     <string name="theme_information_tab_four">Garsų Paketai</string>
     <string name="theme_information_tab_five">Ekrano fonai</string>
-    <string name="nougat_style_cards_title">\"Nougat\" Stiliaus Kortelių Išdėstymas</string>
+    <string name="theme_information_tab_six">Išjungimo animacijos</string>
+    <string name="nougat_style_cards_title">\"Nougat\" stiliaus kortelių išdėstymas</string>
+    <string name="nougat_style_cards_subtext">Įjungti \"Android Nougat\" pranešimų stiliaus temų korteles.</string>
     <string name="uninstall_dialog_text">Ar jūs tikrai norite išdiegti šią temą?</string>
     <string name="manage_dialog_performing">Atkuriama į numatytąjį&#8230;</string>
     <string name="manage_bootanimation_title">Atkurti Paleidimo Animaciją</string>
     <string name="manage_bootanimation_toast">Paleidimo animacija atkurta sėkmingai!</string>
+    <string name="manage_shutdownanimation_toast">Išjungimo animacija atkurta sėkmingai!</string>
     <string name="manage_fonts_title">Atkurti Sistemos Šriftą</string>
     <string name="manage_fonts_toast">Šriftai atkurti sėkmingai!</string>
     <string name="manage_sounds_title">Atkurti Sistemos Garsus</string>
@@ -188,7 +207,7 @@
         vidinę saugyklą, kad galėtu laikyti gelbėjimosi archyvus, kurie išsaugoti
         /storage/emulated/0/substratum/.\n\n<b>"Firebase":</b>
         \"Substratum\" naudoja \"Google Firebase\", kad atsisiųstų svarbios informacijos iš mūsų
-        centralizuotos realaus laiko duomenų bazės, kad pagerinti pagrindines paslaugas ir saugumo patobulinimus.    
+        centralizuotos realaus laiko duomenų bazės, kad pagerinti pagrindines paslaugas ir saugumo patobulinimus.
     </string>
     <string name="priority_back_title">Sugrįžti į perdangas</string>
     <string name="priority_success_toast">Prioritetai buvo pakeisti. Langai atnaujinami&#8230;</string>
@@ -196,6 +215,7 @@
     <string name="menu_disable">Išjungti įdiegtas perdangas</string>
     <string name="menu_enable">Įjungti įdiegtas perdangas</string>
     <string name="menu_favorite">Mėgstamiausi</string>
+    <string name="menu_unfavorite">Pašalinti mėgstamiausia</string>
     <string name="menu_rate">Įvertinti temą</string>
     <string name="menu_soft_reboot">Paleisti iš naujo OS</string>
     <string name="menu_reboot_device">Paleisti įrenginį iš naujo</string>
@@ -209,6 +229,8 @@
     <string name="menu_showcase_info">Vitrinos Info</string>
     <string name="menu_favorite_snackbar">%s sėkmingai nustatyta, kaip programėlės piktograma!</string>
     <string name="menu_favorite_snackbar_cleared">Pašalinta %s būnant programos piktograma.</string>
+    <string name="launcher_shortcut">Nuoroda paleidimo priemonėje</string>
+    <string name="launcher_shortcut_toast">Sėkmingai sukūrėte paleidimo priemonės piktogramą!</string>
     <string name="changelog_title">%s temos pakeitimų sąrašas</string>
     <string name="dialog_restart_systemui_title">Paleisti iš naujo SistemosNS</string>
     <string name="dialog_restart_systemui_content">Tai paleis jūsų įrenginio SistemosNS iš naujo.</string>
@@ -227,6 +249,12 @@
     <string name="logcat_email_activity_error">Nėra įdiegtų jokių el.pašto programėlių.</string>
     <string name="logcat_email_xposed_check">\"Xposed\" Struktūra</string>
     <string name="logcat_processing_dialog">Apdorojimo klaidos ataskaita</string>
+    <string name="priority_instructions_title">Instrukcijos</string>
+    <string name="priority_instructions_content">\"OverlayManagerService\" veikimo principas toks, jog visų
+        perdangų prioritetai išdėstyti apverstąją tvarka, kai apačioje yra aukščiausias
+        prioritetas (pradinių išteklių apžvalga) ir viršuje - žemiausias prioritetas
+        (galutinė resursų apžvalga).
+    </string>
     <string name="priority_no_multiple_overlays_title">jokių programėlių su keliomis perdangomis&#8230;</string>
     <string name="priority_no_multiple_overlays_text">įjunkite dvi ar daugiau perdangų vienai programėlei, kad galėtumėte mane naudoti!</string>
     <string name="manager_no_overlays_title">neįdiegta jokių perdangų&#8230;</string>
@@ -252,6 +280,7 @@
     <string name="profile_edittext_title">Naujas Profilis:</string>
     <string name="profile_edittext_whitespace_warning_toast">Negalima naudoti tarpų profilio pavadinime!</string>
     <string name="toast_backup_success">Dabartinis perdangų sąrašas išsaugotas \"/storage/emulated/0/substratum/profiles/%s\"</string>
+    <string name="profile_restoration_message">Apdorojamas profilio restauravimas&#8230;</string>
     <string name="spinner_default_item">pasirinkite profilį&#8230;</string>
     <string name="select_to_toggle_all_overlays">Pasirinkite, kad įjungti visas perdangas</string>
     <string name="permission_not_granted_dialog_title">Leidimai nesuteikti</string>
@@ -265,6 +294,8 @@
     <string name="uninstall_dialog_body">Išdiegti Temą</string>
     <string name="sb_phase_1_loader">išpakuojama tema</string>
     <string name="sb_phase_2_loader">įdiegiamos perdangos</string>
+    <string name="root_rejected_title">negalėjo gryžti į \"root\" režimą</string>
+    <string name="root_rejected_text">šiuo metu nėra jokių kitų temos variklių, kurie gali būti naudojami šiame įrenginyje&#8230;</string>
     <string name="toast_compiled_updated">Pasirinktos perdangos atnaujintos!</string>
     <string name="toast_compiled_missing">Vienos ar daugiau perdangų negalima sukompiliuoti dėl trūkstamų konfigūracijų&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Pasirinktos perdangos atnaujintos su klaidomis!</string>
@@ -273,10 +304,16 @@
     <string name="toast_disabled5">Prašome pasirinkti tinkamą perdangą prieš atliekant šį veiksmą.</string>
     <string name="toast_disabled6">Pasirinktos perdangos pašalintos!</string>
     <string name="no_themes_title">nerasta jokių temų&#8230;</string>
+    <string name="no_overlays_title">nerasta jokių perdangų&#8230;</string>
     <string name="no_themes_description">prašome įdiegti suderinamą temą!</string>
     <string name="no_themes_description_search">\"%s\" nepavyko rasti tarp įdiegtų temų&#8230;</string>
+    <string name="no_overlays_description_search">\"%s\" sąraše nepavyko rasti įdiegtų perdangų&#8230;</string>
+    <string name="toast_andromeda_timed_out">Vėluojama su \"Andromeda Backend\". Prašome paleisti \"Substratum\" iš naujo.</string>
     <string name="toast_could_not_uninstall">Nepasirinktos jokios galiojančios perdangos.</string>
     <string name="toast_samsung_prototype_alert">\"Substratum\", jūsų įrenginiui, automatiškai paslepia nepalaikomas sistemos perdangas!</string>
+    <string name="andromeda_disconnected">\"andromeda\" darbalaukio klientui reikia prisijungti prie jūsų įrenginio, kad galėtų veikti su \"substratum\"!</string>
+    <string name="andromeda_check_status">Patikrinti būseną</string>
+    <string name="andromeda_no_root_dialog">Atrodo, kad jūs esate su palaikomu \"Oreo\" įrenginiu. Šis priedas buvo išleistas, kad tai palaikytu!</string>
     <string name="andromeda_no_root_dialog_button">Atsisiųsti dabar!</string>
     <string name="samsung_prototype_no_root_dialog">Atrodo, kad jūs esate su palaikomu \"Samsung\" įrenginiu. Šis priedas buvo išleistas, kad tai palaikytu!</string>
     <string name="samsung_prototype_no_root_dialog_button">Atsisiųsti dabar!</string>
@@ -288,11 +325,11 @@
     <string name="notification_initial_title">\"Substratum\" veikia</string>
     <string name="notification_initial_title_upgrade_intent">Atnaujinamos %s perdangos&#8230;</string>
     <string name="notification_done_title">Temos kompiliavimas baigtas</string>
-    <string name="notification_done_upgrade_title">Perdangų atnaujinimas buvo baigtas %s!</string>
-    <string name="notification_done_upgrade_title_warning">Perdangų atnaujinimas beveik baigtas %s!</string>
+    <string name="notification_done_upgrade_title">Perdangų patobulinimas buvo baigtas %s!</string>
+    <string name="notification_done_upgrade_title_warning">Perdangų patobulinimas beveik baigtas %s!</string>
     <string name="notification_done_upgrade_title_failed">Trūksta arba nesukuriama konfigūracija:\n\n%s</string>
-    <string name="notification_done_update_text">Visos įjungtos ir išjungtos perdangos šiai programai buvo atnaujintos.</string>
-    <string name="notification_done_upgrade_text">Visos įjungtos ir išjungtos perdangos šiai temai buvo atnaujintos.</string>
+    <string name="notification_done_update_text">Visos perdangos šiai programėlei buvo atnaujintos.</string>
+    <string name="notification_done_upgrade_text">Visos perdangos šiai temai buvo atnaujintos.</string>
     <string name="notification_no_errors_found">Diegiant perdangas nebuvo jokių klaidų</string>
     <string name="notification_some_errors_found">Įdiegiant perdangas įvyko klaida</string>
     <string name="notification_processing">Apdorojamos perdangos</string>
@@ -302,10 +339,12 @@
     <string name="shortcut_rescue_disabled">Išgelbėti mane!</string>
     <string name="shortcut_store">Temų Vitrina</string>
     <string name="shortcut_store_disabled">Temų Vitrina</string>
+    <string name="shortcut_overlay_manager">Greitas Pritaikymas</string>
+    <string name="shortcut_overlay_manager_disabled">Greitas Pritaikymas</string>
     <string name="settings_title">Apie</string>
-    <string name="settings_title_1">Vartotojo Nustatymai</string>
+    <string name="settings_title_1">Vartotojo nustatymai</string>
     <string name="settings_title_3">Apipavidalinimas</string>
-    <string name="settings_title_clickable">Sistemos Nustatymai</string>
+    <string name="settings_title_clickable">Sistemos nustatymai</string>
     <string name="substratum_restart_toast">\"Substratum\" persikrovė automatiškai po nustatymų pakeitimo.</string>
     <string name="restart_systemui">Atkurti po SistemosNS įjungimo </string>
     <string name="restart_systemui_subtext">Automatiškai atkurti SistemosNS po įjungimo/išjungimo SistemosNS perdangos</string>
@@ -315,6 +354,7 @@
     <string name="show_theme_template_version_description">Rodyti kiekvienos temos \"SDK\" lygį, temos ir įskiepio versiją kaip žymą kiekvienos temos kortelėje.</string>
     <string name="vibrate_on_compiled">Pranešti, kai tema sukompiliuota</string>
     <string name="vibrate_on_compiled_description">Kai tema sukompiliuota, suvibruoti, kad praneštu vartotojui apie užbaigtą kompiliavimą.</string>
+    <string name="manage_notification_channel">Valdyti pranešimus</string>
     <string name="hide_app_icon">Rodyti programėlės piktogramą</string>
     <string name="hide_app_icon_toast_enabled">Programėlės piktograma buvo pašalinta iš jūsų paleidimo priemonės!</string>
     <string name="hide_app_icon_toast_disabled">Programėlės piktograma buvo pridėta į jūsų paleidimo priemonę!</string>
@@ -322,10 +362,10 @@
     <string name="hide_app_icon_supported">Tai leis jums perjungti tarp matomos ir nematomos paleidimo priemonės piktogramos pradžios ekrane.</string>
     <string name="disable_completion">Visos perdangos šiai temai dabar išjungiamos&#8230;</string>
     <string name="enable_completion">Visos įdiegtos perdangos šiai temai dabar aktyvuojamos&#8230;</string>
-    <string name="alternate_drawer_design_title">Antrinis Stalčiaus Dizainas</string>
-    <string name="alternate_drawer_design_subtext">Naudoja alternatyvų navigacijos stalčiaus dizainą, kai naviguojama vartotojo sąsajoje.</string>
-    <string name="logchar_autosave_title">Automatiškai išsaugoti \"LogChar\" ataskaitas</string>
-    <string name="logchar_autosave_subtext">Tai automatiškai išsaugos \"LogChar\" ataskaitas /storage/emulated/0/substratum/LogChar Reports/.</string>
+    <string name="alternate_drawer_design_title">Antrinio stalčiaus dizainas</string>
+    <string name="alternate_drawer_design_subtext">Alternatyvus navigacijos stalčiaus dizainas.</string>
+    <string name="logchar_autosave_title">Išsaugoti \"LogChar\" ataskaitas</string>
+    <string name="logchar_autosave_subtext">Visos \"LogChar\" ataskaitos bus saugomos /storage/emulated/0/substratum/LogCharReports/.</string>
     <string name="fab_menu_compile_enable">Sukurti ir Įjungti</string>
     <string name="fab_menu_compile_update">Sukurti ir Atnaujinti</string>
     <string name="fab_menu_compile_install">Įdiegti pasirinktus</string>
@@ -387,7 +427,7 @@
     <string name="profile_failed_info_notification">Palieskite norėdami gauti daugiau informacijos</string>
     <string name="profile_compile_progress">Kompiliuojama %d iš %d\n%s</string>
     <string name="profile_compile_processing">Dabar apdorojamos jūsų išsaugotų perdangų būseną&#8230;</string>
-    <string name="theme_debug_mode_title">Sistemos Atsarginio Įterpimo Apėjimas</string>
+    <string name="theme_debug_mode_title">\"Legacy\" kompiliatorius atsarginis aplinkkelis</string>
     <string name="theme_debug_mode_summary">Tai sustabdys programą naudoti \"legacy\" kompiliatoriaus atsarginį mechanizmą, kad padėti temoms, kai jie pasiekia nepataisoma būklę.</string>
     <string name="logchar_dialog_title_delete_title">DĖMESIO</string>
     <string name="logchar_dialog_title_delete_content">Tai panaikins visus šiuo metu išsaugotus registrus. Spausdami toliau, bus ištrinti visi registrai ir jie niekada nebebus išsaugoti.</string>
@@ -411,22 +451,24 @@
     <string name="settings_system_status_certified">Sertifikuota</string>
     <string name="settings_system_status_uncertified">Nesertifikuotas</string>
     <string name="settings_title_automation">Automatika</string>
-    <string name="settings_auto_updater_title">Automatiškai atnaujinti tikslines perdangas</string>
-    <string name="settings_auto_updater_text">\"Substratum\" automatiškai sukurs, sukompiliuos ir įdiegs atnaujintą versiją perdangų, neseniai atnaujintoms programoms. Palikus išjungta tausos aukumuliatorių.</string>
+    <string name="settings_auto_updater_title">Programų pagrindu atliktas perdangos atnaujinimas</string>
+    <string name="settings_auto_updater_text">Automatiškai sukurti ir įdiegti versiją atnaujintoms perdengoms, skirtą, neseniai atnaujintai apipavidalinamai programai.</string>
     <string name="beta_tag">★ BETA</string>
+    <string name="settings_theme_auto_updater_title">Temos pagrindu atliktas perdangos atnaujinimas</string>
     <string name="settings_theme_auto_updater_dialog_title">ĮSPĖJIMAS</string>
-    <string name="settings_theme_auto_updater_text">\"Substratum\" automatiškai sukurs, sukompiliuos ir įdiegs atnaujintą versiją perdangų, neseniai atnaujintai temai. Palikus išjungta tausos aukumuliatorių.</string>
+    <string name="settings_theme_auto_updater_text">Automatiškai sukurti ir įdiegti atnaujintą versiją visoms perdengoms, skirtą, neseniai atnaujintai temai.</string>
     <string name="settings_theme_auto_updater_dialog_text">Prašome neturėti Paketo Įdiegiklio atidaryto aktyviame lange. Kai pasirodo pranešimas, perdangų struktūra linkusi paleisti iš naujo Paketo Įdiegiklį, kas sukelia neriboto kiekio kompiliavimą!</string>
     <string name="settings_auto_alert_title">Naujos įdiegiamos perdangos įspėjimas</string>
-    <string name="settings_auto_alert_text">Kai pirmą kartą įdiegiate naują programėlę ir ji yra apipavidalinta bet kurios iš idiegtų temų, pasirodys pranešimas.</string>
-    <string name="settings_force_english_title">Priverstinė Anglų Kalba</string>
+    <string name="settings_auto_alert_text">Rodyti pranešimą, kai neseniai įdiegtos programėlės turi prieinamą sluoksnį temoje.</string>
+    <string name="settings_force_english_title">Priverstinė anglų kalba</string>
     <string name="settings_force_english_text">Tai privers programėlei naudoti anglų kalba.</string>
     <string name="settings_force_english_toast_reverted">Sėkmingai išjungta priverstinė anglų kalba!</string>
-    <string name="settings_samsung_show_dangerous_overlays">Leisti Pavojingas Perdangas</string>
+    <string name="settings_manage_space_title">Tvarkyti saugyklos naudojimą</string>
+    <string name="settings_samsung_show_dangerous_overlays">Leisti pavojingas perdangas</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Rodyti visas pavojingas perdangas \"Samsung\" įrengianiams, jei tema to nepaliko.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">ĮSPĖJIMAS</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Mes paslėpėme perdangas dėl priežasties, bet jei jūs esate tikras jūs galite tai įjungti. Prašome vadovautis pateiktais nurodymais, kaip tai išjungti mūsų \"XDA\" temoje!</string>
-    <string name="settings_crash_receiver_title">Temos Saugumo Klaidos Gavėjas</string>
+    <string name="settings_crash_receiver_title">Temos saugumo klaidos gavėjas</string>
     <string name="settings_crash_receiver_text">Automatiškai išjungti perdangą, kai aptinkamas pasikartojantis gedimas programos perdangai.</string>
     <string name="settings_force_stop_interfacer_title">Priverstinai sustabdyti Sąsajos Tarnybą</string>
     <string name="settings_force_stop_interfacer_snackbar">Dabar sąsaja priverstinai sustabdoma&#8230;</string>
@@ -490,10 +532,13 @@
     <string name="notification_channel_default_description">Pagrindiniai pranešimai (Nauja ir atnaujinta tema, temos kompiliavimas baigtas ir t.t.)</string>
     <string name="notification_channel_ongoing">Vykdomi</string>
     <string name="notification_channel_ongoing_description">Vykdomi pranešimai</string>
+    <string name="notification_channel_andromeda">Temos sistemos būsena</string>
+    <string name="notification_channel_andromeda_description">Temos sistemos ryšio būsenos pranešimas</string>
     <!-- Nav drawer -->
     <string name="nav_home">Temų paketai</string>
     <string name="nav_overlays">Perdangos</string>
     <string name="nav_bootanim">Paleidimo animacijos</string>
+    <string name="nav_shutdownanim">Išjungimo animacijos</string>
     <string name="nav_fonts">Šriftų paketai</string>
     <string name="nav_sounds">Garsų paketai</string>
     <string name="nav_wallpapers">Ekrano fonai</string>
@@ -508,6 +553,7 @@
     <string name="nav_drawer_community">Grupės ir bendruomenės</string>
     <string name="nav_drawer_googleplus">\"Google +\" bendruomenė</string>
     <string name="nav_drawer_telegram">\"Telegram\" grupės pokalbis</string>
+    <string name="nav_drawer_xda">XDA skirta subforumas</string>
     <string name="nav_drawer_rawad">\"Rawad\'s\" apipavidalinimo gidas</string>
     <string name="nav_drawer_reddit">Reddit bendruomenė</string>
     <!-- Featured content -->
@@ -537,11 +583,14 @@
     <string name="manage_space_reset_dialog_content">Po atstatymo programėlė bus uždaryta!</string>
     <string name="cleaned_logchar_reports">Išvalyti išsaugotus \"LogChar\" ataskaitas </string>
     <string name="legacy_overlay_uninstall_warning_text">Jei jūs išdiegiate visas perdangas, prašome naudoti \"Substratum\" Išsigelėjimo ZIP, kad išvengtumėte galimo įkrovos kilpos.</string>
-    <string name="auto_reload_sysui_title">Automatiškai perkrauti SistemosNS</string>
+    <string name="auto_reload_sysui_title">Dinamiškai perkrauti SistemosNS</string>
     <string name="auto_reload_sysui_summary_on">\"Substratum\" automatiškai perkraus SistemosNS poto, kai SistemosNS perdangos nukreipimas yra įjungtas/išjungtas.</string>
     <string name="auto_reload_sysui_summary_off">\"Substratum\" automatiškai ne perkraus SistemosNS poto, kai SistemosNS perdangos nukreipimas yra įjungtas/išjungtas.</string>
     <string name="auto_reload_sysui_dialog_title">Įspėjimas!</string>
     <string name="auto_reload_sysui_dialog_text">\"Android Oreo\" pranešimai bus automatiškai išvalomi, kad būtų imituojamas talpyklos pranešimų kanalų paleidimas iš naujo.\n\nPrašome įsitikinti, kad jūsų pranešimuose nėra jokių svarbių duomenų, kai kompiliuojate arba įjungiate SistemosNS ar perdangų struktūrą. Tai neturi įtakos vykstantiems pranešimams.</string>
     <!-- The things lint will complain about...-->
     <string name="fonts_demo_string">AaBbCcDd123</string>
+    <string name="overlays_tab_package_ver_message">Įdiegta %s versija: %s</string>
+    <string name="overlays_tab_package_ver_message_copied">Versijos kodas sėkmingai nukopijuotas į iškarpinę!</string>
+    <string name="overlays_tab_package_ver_failure">Nepavyko paimti paketo versijos</string>
 </resources>

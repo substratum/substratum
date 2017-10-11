@@ -60,7 +60,6 @@ bei dir funktioniert. Bitte stelle sicher, dass du eine Custom-Recovery verwende
     <string name="activity_missing_toast">Es wurden keine Anwendungen gefunden, welche diese Anfrage ausführen könnten, sorry!</string>
     <string name="abort_overlay_toast_success">Alle Overlays deinstalliert!</string>
     <string name="rescue_toast">Rette dein System&#8230;</string>
-    <string name="reboot_awaiting_manager_title">DAS OVERLAY BENÖTIGT EINEN NEUSTART</string>
     <string name="manager_theme_name">Theme:</string>
     <string name="manager_type1a">Typ1a:</string>
     <string name="manager_type1b">Typ1b:</string>
@@ -68,6 +67,7 @@ bei dir funktioniert. Bitte stelle sicher, dass du eine Custom-Recovery verwende
     <string name="manager_type2">Typ2:</string>
     <string name="manager_type3">Typ3:</string>
     <string name="manager_type4">Typ 4:</string>
+    <string name="manager_version">Version :</string>
     <string name="legacy_preference_priority_title">Anpassung der Overlay-Priorität</string>
     <string name="legacy_preference_priority_text">Die Priorität beträgt %d (Standard 999)</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
@@ -284,6 +284,8 @@ eingerichtet&#8230;</string>
     <string name="shortcut_rescue_disabled">Rette mich!</string>
     <string name="shortcut_store">Theme-Showcase</string>
     <string name="shortcut_store_disabled">Theme-Showcase</string>
+    <string name="shortcut_overlay_manager">Overlay-Manager</string>
+    <string name="shortcut_overlay_manager_disabled">Overlay-Manager</string>
     <string name="settings_title">Über</string>
     <string name="settings_title_3">Theming</string>
     <string name="substratum_restart_toast">Substratum wurde nach einer Änderung der Einstellungen automatisch neugestartet.</string>
@@ -392,7 +394,6 @@ eingerichtet&#8230;</string>
     <string name="settings_auto_alert_title">Alarm wegen eines gefundenen neuen installierbaren Overlays</string>
     <string name="settings_force_english_text">Dies zwingt die Anwendung, die englische Sprache zu verwenden.</string>
     <string name="settings_force_english_toast_reverted">Forcieren der englischen Sprache erfolgreich deaktiviert!</string>
-    <string name="settings_samsung_show_dangerous_overlays">Riskante Overlays erlauben</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Zeige all die Overlays an, die normalerweise riskant für Samsung-Geräte sind, falls das Theme es nicht unterstützt.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">WARNUNG</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Wir haben unsere Gründe gefährliche Overlays zu verstecken, aber wenn du sicher bist, dass du dies eingeschaltet haben willst, folge bitte den Anweisungen in unserem XDA Thread um dies auszuschalten!</string>

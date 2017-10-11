@@ -63,7 +63,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     </string>
     <string name="abort_overlay_toast_success">Všetky prekrytia boli odinštalované!</string>
     <string name="rescue_toast">Záchrana systému&#8230;</string>
-    <string name="reboot_awaiting_manager_title">PREKRYTIE ČAKÁ NA REŠTART</string>
     <string name="manager_theme_name">Téma:</string>
     <string name="manager_type1a">Typ1a:</string>
     <string name="manager_type1b">Typ1b:</string>
@@ -86,6 +85,17 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="overlays_up_to_date">AKTUÁLNE</string>
     <string name="overlays_update_available">Je dostupná aktualizácia!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variant nie je nainštalovaný</string>
+    <string name="shutdownanimation_placeholder_text">Prosím, vyberte z rozbaľovacieho zoznamu animáciu pri vypnutí&#8230;</string>
+    <string name="shutdownanimation_default_spinner">Prosím, vyberte animáciu pri vypnutí&#8230;</string>
+    <string name="shutdownanimation_spinner_set_defaults">Obnoviť predvolenú animáciu pri vypnutí&#8230;</string>
+    <string name="shutdownanimation_defaults_text">Toto vymaže všetky vlastné animácie pri vypnutí aplikované na tomto zariadení</string>
+    <string name="shutdownanimation_dialog_apply_text">Spracováva sa animácia pri vypnutí&#8230;</string>
+    <string name="shutdownanimation_dialog_apply_success">Animácia pri vypnutí je nastavená!</string>
+    <string name="shutdownanimation_dialog_apply_failed">Nastavenie animácie pri vypnutí sa nepodarilo&#8230;</string>
+    <string name="bootanimation_placeholder_text">Prosím, vyberte spúšťaciu animáciu z rozbaľovacieho zoznamu&#8230;</string>
+    <string name="bootanimation_default_spinner">Prosím, vyberte spúšťaciu animáciu&#8230;</string>
+    <string name="bootanimation_spinner_set_defaults">Obnoviť na predvolenú spúšťaciu animáciu&#8230;</string>
+    <string name="bootanimation_defaults_text">Toto vymaže všetky vlastné spúšťacie animácie aplikované na tomto zariadení</string>
     <string name="bootanimation_dialog_apply_text">Spracováva sa spúšťacia animácia&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Spúšťacia animácia je aplikovaná!</string>
     <string name="bootanimation_dialog_apply_failed">Použitie spúšťacej animácie sa nepodarilo&#8230;</string>
@@ -145,18 +155,23 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="settings_about_samsung">Verzia Substratum</string>
     <string name="settings_about_oms_rro_version">Platforma témy:</string>
     <string name="settings_about_oms_version_do">Dynamické prekrytia (OMS)</string>
+    <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Systémová platforma</string>
+    <string name="settings_aopt_switcher_title">Kompilátor systémových prekrytí</string>
     <string name="theme_information_tab_one">Správca prekrytí</string>
     <string name="theme_information_tab_two">Spúšťacie animácie</string>
     <string name="theme_information_tab_three">Balíčky písiem</string>
     <string name="theme_information_tab_four">Balíčky zvukov</string>
     <string name="theme_information_tab_five">Tapety na plochu</string>
     <string name="theme_information_tab_six">Animácia pri vypnutí</string>
+    <string name="nougat_style_cards_title">Rozloženie kariet podľa Android Nougat</string>
+    <string name="nougat_style_cards_subtext">Zapnúť štýl kariet upozornení podľa Android Nougat.</string>
     <string name="uninstall_dialog_text">Naozaj chcete odinštalovať túto tému?</string>
     <string name="manage_dialog_performing">Obnovenie do predvoleného stavu...</string>
     <string name="manage_bootanimation_title">Obnoviť spúšťaciu animáciu</string>
     <string name="manage_bootanimation_toast">Spúšťacia animácia bola úspešne obnovená!</string>
+    <string name="manage_shutdownanimation_toast">Spúšťacia animácia bola úspešne obnovená!</string>
     <string name="manage_fonts_title">Obnoviť systémové písma</string>
     <string name="manage_fonts_toast">Fonty písma boli úspešne obnovené!</string>
     <string name="manage_sounds_title">Obnoviť systémové zvuky</string>
@@ -251,6 +266,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="profile_edittext_title">Nový profil:</string>
     <string name="profile_edittext_whitespace_warning_toast">Nemôžete používať medzery v názove profilu!</string>
     <string name="toast_backup_success">Aktuálny zoznam prekrytí je umiestnený v ceste \"/storage/emulated/0/substratum/profily/%s\"</string>
+    <string name="profile_restoration_message">Prebieha obnova profilu&#8230;</string>
     <string name="spinner_default_item">vyberte profil&#8230;</string>
     <string name="select_to_toggle_all_overlays">Vyberte pre prepnutie všetkých prekrytí</string>
     <string name="permission_not_granted_dialog_title">Oprávnenia nie sú udelené</string>
@@ -274,8 +290,10 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="toast_disabled5">Prosím, pred vykonaním tejto akcie, vyberte platné prekrytie.</string>
     <string name="toast_disabled6">Vybrané prekrytia boli odstránené!</string>
     <string name="no_themes_title">nenašli sa žiadne témy&#8230;</string>
+    <string name="no_overlays_title">nenašli sa žiadne prekrytia&#8230;</string>
     <string name="no_themes_description">prosím, nainštalujte kompatibilnú tému!</string>
     <string name="no_themes_description_search">\"%s\" nebola nájdená v zozname nainštalovaných tém&#8230;</string>
+    <string name="no_overlays_description_search">\"%s\" nebola nájdená v zozname nainštalovaných prekrytí&#8230;</string>
     <string name="toast_andromeda_timed_out">Oneskorenie Andromeda Backend, prosím, reštartujte Substratum.</string>
     <string name="toast_could_not_uninstall">Nebolo zvolené žiadne platné prekrytie.</string>
     <string name="toast_samsung_prototype_alert">Substratum automaticky skryl nepodporované prekrytia systému pre vaše zariadenie!</string>
@@ -293,7 +311,11 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="notification_initial_title">Substratum je spustené</string>
     <string name="notification_initial_title_upgrade_intent">Aktualizácia prekrytí %s&#8230;</string>
     <string name="notification_done_title">Bola dokončená kompilácia témy</string>
+    <string name="notification_done_upgrade_title">Aktualizácia prekrytia pre %s je hotová!</string>
+    <string name="notification_done_upgrade_title_warning">Čiastočne dokončená aktualizácia prekrytia pre %s!</string>
     <string name="notification_done_upgrade_title_failed">Chýbajúca alebo nezostaviteľná konfigurácia:\n\n%s</string>
+    <string name="notification_done_update_text">Všetky povolené prekrytia pre túto aplikáciu boli aktualizované.</string>
+    <string name="notification_done_upgrade_text">Všetky povolené prekrytia pre túto tému boli aktualizované.</string>
     <string name="notification_no_errors_found">Počas inštalácie prekrytí sa nevyskytli žiadne chyby</string>
     <string name="notification_some_errors_found">Nastala chyba pri inštalácii prekrytia</string>
     <string name="notification_processing">Spracovávanie prekrytia pre</string>
@@ -303,8 +325,12 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="shortcut_rescue_disabled">Zachráňte ma!</string>
     <string name="shortcut_store">Ukážka tém</string>
     <string name="shortcut_store_disabled">Ukážka tém</string>
+    <string name="shortcut_overlay_manager">Správca prekrytí</string>
+    <string name="shortcut_overlay_manager_disabled">Správca prekrytí</string>
     <string name="settings_title">O aplikácii</string>
+    <string name="settings_title_1">Užívateľské predvoľby</string>
     <string name="settings_title_3">Úpravy témy</string>
+    <string name="settings_title_clickable">Systémové predvoľby</string>
     <string name="substratum_restart_toast">Substratum sa po zmene nastavení automaticky reštartovalo.</string>
     <string name="restart_systemui">Aktualizácia používateľského rozhrania</string>
     <string name="restart_systemui_subtext">Automaticky obnoví používateľské rozhranie po povolení/zakázaní originálneho systémového prekrytia</string>
@@ -314,6 +340,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="show_theme_template_version_description">Zobraziť cieľovú SDK, verziu témy a verziu zásuvného modulu ako značku na karte každej témy.</string>
     <string name="vibrate_on_compiled">Upozorniť po dokončení vytvárania témy</string>
     <string name="vibrate_on_compiled_description">Po vytvorení (skompilovaní) témy zariadenie zavibruje aby upozornilo užívateľa.</string>
+    <string name="manage_notification_channel">Spravovať notifikácie</string>
     <string name="hide_app_icon">Zobraziť ikonu aplikácie</string>
     <string name="hide_app_icon_toast_enabled">Ikona aplikácie bola odstránená!</string>
     <string name="hide_app_icon_toast_disabled">Ikona aplikácie bola pridaná!</string>
@@ -321,6 +348,10 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="hide_app_icon_supported">Zobrazenie alebo nezobrazenie ikony aplikácie na domovskej obrazovke.</string>
     <string name="disable_completion">Všetky prekrytia pre túto tému sa teraz vypínajú&#8230;</string>
     <string name="enable_completion">Všetky prekrytia pre túto tému sa teraz zapínajú&#8230;</string>
+    <string name="alternate_drawer_design_title">Alternatívny vzhľad navigačného panela</string>
+    <string name="alternate_drawer_design_subtext">Alternatívny vzhľad navigačného panela.</string>
+    <string name="logchar_autosave_title">Zachovať LogChar správy</string>
+    <string name="logchar_autosave_subtext">Všetky správy LogChar budú uložené v ceste /storage/emulated/0/substratum/LogCharReports /.</string>
     <string name="fab_menu_compile_enable">Vytvoriť a povoliť</string>
     <string name="fab_menu_compile_update">Vytvoriť a aktualizovať</string>
     <string name="fab_menu_compile_install">Nainštalovať označené</string>
@@ -382,6 +413,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="profile_failed_info_notification">Kliknite pre viac informácií</string>
     <string name="profile_compile_progress">Kompilácia %d z %d:\n%s</string>
     <string name="profile_compile_processing">Prebieha spracovanie predtým uložených nastavení prekrytí&#8230;</string>
+    <string name="theme_debug_mode_title">Vynechanie starého mechanizmu kompilácie</string>
     <string name="theme_debug_mode_summary">Zapnutie umožní, že aplikácie prestanú používať pôvodný núdzový mechanizmus kompilátora s cieľom pomôcť témam, ktoré sa dostanú do neopraviteľného stavu.</string>
     <string name="logchar_dialog_title_delete_title">POZOR</string>
     <string name="logchar_dialog_title_delete_content">Týmto odstránite všetky aktuálne uložené záznamy. Stlačením tlačidla pokračovať, vymažete všetky hlásenia a záznamy a už sa už nebudú ukladať.</string>
@@ -405,10 +437,16 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="settings_system_status_certified">Certifikované</string>
     <string name="settings_system_status_uncertified">Necertifikované</string>
     <string name="settings_title_automation">Automatizácia</string>
+    <string name="settings_auto_updater_title">Obnovenie prekrytia založené na aplikácii</string>
+    <string name="settings_auto_updater_text">Automaticky vytvoriť a nainštalovať aktualizovanú verziu všetkých prekrytí pre nedávno aktualizovanú aplikáciu, ktorá podporuje témy.</string>
     <string name="beta_tag">★ BETA</string>
+    <string name="settings_theme_auto_updater_title">Obnovenie prekrytia založené na téme</string>
     <string name="settings_theme_auto_updater_dialog_title">UPOZORNENIE</string>
+    <string name="settings_theme_auto_updater_text">Automaticky vytvoriť a nainštalovať aktualizovanú verziu všetkých prekrytí pre nedávno aktualizovanú tému.</string>
     <string name="settings_theme_auto_updater_dialog_text">Prosím, nemajte v popredí otvorenú aplikáciu PackageInstaller, keď je zobrazené upozornenie. Framework prekrytia majú tendenciu reštartovať PackageInstaller, čo spôsobuje množstvo rekompilácií!</string>
     <string name="settings_auto_alert_title">Prekrytia pre nové aplikácie</string>
+    <string name="settings_auto_alert_text">Zobraziť upozornenie, keď nedávno nainštalovaná aplikácia má k dispozícii prekrytie v téme.</string>
+    <string name="settings_force_english_title">Vynútiť anglický jazyk</string>
     <string name="settings_force_english_text">Toto prinúti aplikáciu, aby používala anglický jazyk.</string>
     <string name="settings_force_english_toast_reverted">Vynútenie angličtiny bolo úspešne zakázané!</string>
     <string name="settings_manage_space_title">Správa využitia úložiska</string>
@@ -416,6 +454,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="settings_samsung_show_dangerous_overlays_text">Zobraziť všetky prekrytia, ktoré sú za normálnych okolností nebezpečné pre zariadenia Samsung, aj keď ich téma nepodporuje.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">UPOZORNENIE</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Skryli sme nebezpečné prekrytia z nejakého dôvodu, ale ak ste si istí, že chcete, aby to boli povolené, postupujte podľa pokynov v našom vlákne XDA a vypnite ich skrytie!</string>
+    <string name="settings_crash_receiver_title">Ošetrenie pádov pri aplikovaní témy</string>
     <string name="settings_crash_receiver_text">Automaticky vypnúť prekrytie pri opakovanom zlyhaní pokusu o prekrytie aplikácie.</string>
     <string name="settings_force_stop_interfacer_title">Vynútené zastavenie služby Interfacer</string>
     <string name="settings_force_stop_interfacer_snackbar">Interfacer sa vynútene zastavuje&#8230;</string>
@@ -501,6 +540,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="nav_drawer_community">Skupiny a komunity</string>
     <string name="nav_drawer_googleplus">Komunita Google +</string>
     <string name="nav_drawer_telegram">Skupinový chat Telegram</string>
+    <string name="nav_drawer_xda">XDA sub-fórum</string>
     <string name="nav_drawer_rawad">Sprievodca Rawad\'s theming</string>
     <string name="nav_drawer_reddit">Spoločnosť Reddit</string>
     <!-- Featured content -->
@@ -530,6 +570,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="manage_space_reset_dialog_content">Aplikácia sa po dokončení resetu ukončí!</string>
     <string name="cleaned_logchar_reports">Vyčistené uložené správy protokolu LogChar</string>
     <string name="legacy_overlay_uninstall_warning_text">Ak odinštalujete všetky prekrytia, prosím použite záchranné Substratum ZIPy, aby ste sa vyhli možnému uviaznutiu v spúšťacej slučke (bootloop).</string>
+    <string name="auto_reload_sysui_title">Automatické načítanie systémové rozhrania</string>
     <string name="auto_reload_sysui_summary_on">Substratum automaticky načíta systémové rozhranie po zapnutí/vypnutí cieľových systémových prekrytí.</string>
     <string name="auto_reload_sysui_summary_off">Substratum automaticky nenačíta systémové rozhranie po zapnutí/vypnutí cieľových systémových prekrytí.</string>
     <string name="auto_reload_sysui_dialog_title">Upozornenie!</string>
@@ -537,5 +578,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <!-- The things lint will complain about...-->
     <string name="fonts_demo_string">AaBbCcDd123</string>
     <string name="overlays_tab_package_ver_message">Nainštalované %s verzia: %s</string>
+    <string name="overlays_tab_package_ver_message_copied">Kód verzie sa úspešne skopíroval do schránky!</string>
     <string name="overlays_tab_package_ver_failure">Nepodarilo zachytiť verziu balíka</string>
 </resources>

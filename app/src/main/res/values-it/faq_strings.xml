@@ -28,7 +28,9 @@
     </string>
     <string name="question_eight">Ho riscontrato un bootloop! Come posso risolverlo?</string>
     <string name="answer_eight">Substratum ha il suo sistema di ripristino chiamato Substratum Rescue System (SRS), ovvero un sistema automatizzato che crea un archivio nella locazione di memoria /storage/emulated/0/substratum/SubstratumRescue.zip. Flasha questo ZIP dalla recovery e riavvia!    </string>
+    <string name="question_nine">Alcuni elementi sembrano imperfetti dopo aver applicato un tema, cos\'è successo?</string>
     <string name="answer_nine">
 Riavvia il SystemUI se non l\' ha fatto automaticamente.\n2. Riavvia il dispositivo.\n3. Disabilita gli overlay, ricompila e riattiva.    </string>
+    <string name="question_twelve">Chi posso contattare se riscontro un problema serio non risolvibile seguendo questi passaggi?</string>
     <string name="answer_twelve">Per favore scrivi un post sulla community Google+ di Substratum e fornisci le seguenti informazioni: la versione di Substratum, ROM, tema (in caso di errori legati ad esso) e se possibile un logcat.    </string>
 </resources>

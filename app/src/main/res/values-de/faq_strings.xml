@@ -24,7 +24,9 @@
     <string name="answer_five">Die Anwendung eines Themes ist 2-Wege-Prozess: Das Kompilieren der Overlays und die Anwendung der Overlays. Öffne ein Theme, tippe auf den Overlay-Manager-Tab, wähle die Overlays und Optionen die du willst aus, tippe auf den FAB und wähle Kompilieren/Updaten, dann wähle die selben Overlays und tippe auf den FAB und wähle aktivieren.    </string>
     <string name="question_eight">Ich stecke in einem Bootloop fest! Wie behebe ich das?</string>
     <string name="answer_eight">Substratum besitzt sein eigenes Recovery-System namens \"Substratum Rescue System\" (SRS). Dies ist ein automatisiertes System, welches ein Archiv speichert: \"/storage/emulated/0/substratum/SubstratumRescue.zip\". Flashe diese ZIP-Datei in deiner Recovery und starte neu!</string>
+    <string name="question_nine">Manche Elemente sehen seltsam aus nachdem ein Theme angewendet wurde, was lief schief?</string>
     <string name="answer_nine">
 1. Starte SystemUI neu, falls dies nicht automatisch geschehen ist.\n2. Starte das Gerät neu.\n3. Deaktiviere oder lösche die Overlays und kompiliere sie anschließend neu.    </string>
+    <string name="question_twelve">Wen kontaktiere ich bei ernsthaften Problemen, die durch diese Schritte nicht behoben werden konnten?</string>
     <string name="answer_twelve">Bitte erstellen Sie einen Beitrag in der Google+-Community \"Substratum Development\" mit folgenden Informationen: Substratum-Version, ROM, Theme (bei Theme-spezifischen Fehlern) und wenn möglich ein Logcat.    </string>
 </resources>

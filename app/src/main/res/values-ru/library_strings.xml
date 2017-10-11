@@ -47,7 +47,7 @@
     <string name="library_kenburnsview_libraryDescription">Android библиотека, является
         дополнением к ImageView, создающая полноту картинки за счет применения эффекта
         Кена Бернса к изображению.
-    
+
     </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
@@ -86,7 +86,7 @@
     <string name="library_zt_zip_libraryDescription">Проект собран с помощью пакетов java.util.zip.*
         для потокового доступа. Поддерживаются самые оптимальные методы работы с
         файловой системой.
-    
+
     </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->

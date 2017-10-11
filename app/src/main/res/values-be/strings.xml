@@ -60,7 +60,6 @@
     <string name="activity_missing_toast">Не знойдзена праграмы, здольнай выканаць задачу, прабачце!    </string>
     <string name="abort_overlay_toast_success">Усе пласты выдалены!</string>
     <string name="rescue_toast">Сістэма выратавання&#8230;</string>
-    <string name="reboot_awaiting_manager_title">НАПЛАСТАВАННЕ ЧАКАЕ ПЕРАЗАГРУЗКА</string>
     <string name="manager_theme_name">Тэма:</string>
     <string name="manager_type1a">Тып1a:</string>
     <string name="manager_type1b">Тып1b:</string>
@@ -69,8 +68,10 @@
     <string name="manager_type3">Тып3 :</string>
     <string name="manager_type4">Type4 :</string>
     <string name="manager_version">Версія :</string>
-    <string name="legacy_preference_priority_title">Наладка прыярытэтаў напластаванняў</string>
+    <string name="legacy_preference_priority_title">Змена прыярытэту напластаванняў</string>
     <string name="legacy_preference_priority_text">Усталёўка прыярытэту (значэнне па змаўчанні 999)：%d</string>
+    <string name="grid_size_title">Рэгуляванне размяшчэння дысплея для тэмы</string>
+    <string name="grid_size_text">Колькасць слупкоў (2 па змаўчанні): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">варыянт type1a&#8230;</string>
     <string name="overlays_variant_default_1b">варыянт type1b&#8230;</string>
@@ -81,6 +82,16 @@
     <string name="overlays_up_to_date">АКТУАЛЬНА</string>
     <string name="overlays_update_available">Даступна абнаўленне!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Варыянт не ўсталяваны</string>
+    <string name="shutdownanimation_placeholder_text">Калі ласка выберыце анімацыю выключэння з выпадальнага спісу&#8230;</string>
+    <string name="shutdownanimation_default_spinner">Калі ласка выберыце анімацыю выключэння&#8230;</string>
+    <string name="shutdownanimation_spinner_set_defaults">Вярнуць стандартную анімацыю выключэння&#8230;</string>
+    <string name="shutdownanimation_defaults_text">Гэта адключыць любыя кастамныя анімацыі выключэння ўжытыя на вашай прыладзе</string>
+    <string name="shutdownanimation_dialog_apply_text">Ужыванне анімацыі выключэння&#8230;</string>
+    <string name="shutdownanimation_dialog_apply_success">Анімацыя выключэння ўжыта!</string>
+    <string name="shutdownanimation_dialog_apply_failed">Не ўдалося ўжыць анімацыю выключэння&#8230;</string>
+    <string name="bootanimation_placeholder_text">Калі ласка выберыце анімацыю загрузкі з выпадальнага спісу&#8230;</string>
+    <string name="bootanimation_default_spinner">Калі ласка выберыце анімацыю загрузкі&#8230;</string>
+    <string name="bootanimation_spinner_set_defaults">Вярнуць стандартную анімацыю загрузкі&#8230;</string>
     <string name="bootanimation_dialog_apply_text">Ужыванне анімацыі загрузкі&#8230;</string>
     <string name="bootanimation_dialog_apply_success">Анімацыя загрузкі ўжыта!</string>
     <string name="bootanimation_dialog_apply_failed">Не ўдалося ужыць анімацыю загрузкі&#8230;</string>
@@ -174,7 +185,7 @@
         шэраг важных дазволаў.\n\n<b>Сховішча: </b> Substratum неабходна звяртацца да
         унутранай памяці для захавання архіваў аднаўлення сістэмы, размешчаных у
         /storage/emulated/0/substratum/.\n\n<b>Firebase: </b>
-        Substratum выкарыстоўвае Firebase ад Google для атрымання патрэбных звестак з нашай 
+        Substratum выкарыстоўвае Firebase ад Google для атрымання патрэбных звестак з нашай
          цэнтралізаванай базы дадзеных, дзеля павышэння якасці асноўных функцый і бяспекі.
     </string>
     <string name="priority_back_title">Перайсці да напластаванняў</string>
@@ -287,6 +298,8 @@
     <string name="shortcut_rescue_disabled">Выратуй мяне!</string>
     <string name="shortcut_store">Каталаг тэм</string>
     <string name="shortcut_store_disabled">Каталаг тэм</string>
+    <string name="shortcut_overlay_manager">Кіраванне пластамі</string>
+    <string name="shortcut_overlay_manager_disabled">Кіраванне пластамі</string>
     <string name="settings_title">Аб сістэме</string>
     <string name="settings_title_3">Афармленне</string>
     <string name="substratum_restart_toast">Substratum аўтаматычна перазапусціцца пасля змены налад.</string>
@@ -395,7 +408,6 @@
     <string name="settings_auto_alert_title">Напластаванні для новых праграм</string>
     <string name="settings_force_english_text">Праграма зменіць мову на англійскую.</string>
     <string name="settings_force_english_toast_reverted">Прымусова англійская адключана!</string>
-    <string name="settings_samsung_show_dangerous_overlays">Рызыкоўныя напластаванні</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Паказваць усё рызыкоўныя для прылад ад Samsung напластаванні, нават калі яны не падтрымліваюцца тэмай афармлення.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">УВАГА</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Рызыкоўныя напластаванні схаваны не проста так, але калі Вы аддасце перавагу такія пакінуць - вывучыце інструкцыю па іх адключэннб ў тэме на XDA!</string>

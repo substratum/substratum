@@ -207,7 +207,7 @@ corretamente&#8230;</string>
     <string name="permission_explanation_text">Substratum pode não funcionar como devido sem
         algumas permissões cruciais garantidas.\n\n<b>Armazenamento:</b> Substratum necessita de utilizar seu
         armazenamento interno para armazenar os arquivos de resgate do sistema, localizados em
-        /storage/emulated/0/substratum/.\n\n<b>Firebase:</b> 
+        /storage/emulated/0/substratum/.\n\n<b>Firebase:</b>
         Substratum usa Firebase do Google para baixar informações cruciais de nossas
         databases centralizadas de tempo real para aprimorar os serviços e melhorar a segurança.    </string>
     <string name="priority_back_title">Voltar para camadas</string>

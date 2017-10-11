@@ -534,15 +534,14 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             ManagerFragment fragment = ref.get();
-            Context context = fragment.context;
             if (fragment != null) {
+                Context context = fragment.context;
                 fragment.swipeRefreshLayout.setRefreshing(false);
                 fragment.toggle_all.setEnabled(true);
-
+                fragment.loadingBar.setVisibility(View.GONE);
                 fragment.mAdapter = new ManagerAdapter(fragment.overlaysList, false);
                 fragment.mRecyclerView.setAdapter(fragment.mAdapter);
                 fragment.mRecyclerView.setEnabled(true);
-
                 fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
 
                 new MainActivity.DoCleanUp(context).execute();

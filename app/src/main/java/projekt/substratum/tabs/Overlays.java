@@ -38,7 +38,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.service.notification.StatusBarNotification;
-import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.Lunchbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
@@ -165,9 +164,6 @@ public class Overlays extends Fragment {
     public ActivityManager am;
     public boolean decryptedAssetsExceptionReached;
     public int overlaysWaiting = 0;
-
-    public Overlays() {
-    }
 
     protected void logTypes() {
         if (ENABLE_PACKAGE_LOGGING) {
@@ -719,10 +715,11 @@ public class Overlays extends Fragment {
         localBroadcastManager2 = LocalBroadcastManager.getInstance(getContext());
         localBroadcastManager2.registerReceiver(jobReceiver, intentFilter);
 
+        // Enable the instance to be retained for LogChar invoke after configuration change
         setRetainInstance(true);
-        if (error_logs != null)
-            if (error_logs.length() > 0)
+        if (error_logs != null && error_logs.length() > 0) {
             invokeLogCharLunchBar(getContext());
+        }
         return root;
     }
 
@@ -791,37 +788,30 @@ public class Overlays extends Fragment {
 
     @SuppressWarnings("unchecked")
     public void invokeLogCharLunchBar(Context context) {
+        StringBuilder errorLogCopy = new StringBuilder(error_logs);
+        error_logs = new StringBuilder();
         currentShownLunchBar = Lunchbar.make(
                 getActivityView(),
                 R.string.logcat_snackbar_text,
                 Lunchbar.LENGTH_INDEFINITE);
         currentShownLunchBar.setAction(getString(R.string.logcat_snackbar_button), view -> {
             currentShownLunchBar.dismiss();
-            invokeLogCharDialog(context);
-        });
-        currentShownLunchBar.addCallback(new BaseTransientBottomBar.BaseCallback() {
-            @Override
-            public void onDismissed(Object transientBottomBar, int event) {
-                super.onDismissed(transientBottomBar, event);
-                if (event == BaseTransientBottomBar.BaseCallback.DISMISS_EVENT_SWIPE) {
-                    error_logs = null;
-                }
-            }
+            invokeLogCharDialog(context, errorLogCopy);
         });
         currentShownLunchBar.show();
     }
 
-    public void invokeLogCharDialog(Context context) {
+    public void invokeLogCharDialog(Context context, StringBuilder logs) {
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context)
                 .setTitle(R.string.logcat_dialog_title)
-                .setMessage("\n" + error_logs)
+                .setMessage("\n" + logs)
                 .setNeutralButton(R.string
                         .customactivityoncrash_error_activity_error_details_close, null)
                 .setNegativeButton(R.string
                                 .customactivityoncrash_error_activity_error_details_copy,
                         (dialog1, which) -> {
                             References.copyToClipboard(context,
-                                    "substratum_log", error_logs.toString());
+                                    "substratum_log", logs.toString());
                             currentShownLunchBar = Lunchbar.make(
                                     getActivityView(),
                                     R.string.logcat_dialog_copy_success,
@@ -830,17 +820,16 @@ public class Overlays extends Fragment {
                         });
 
         if (Packages.getOverlayMetadata(context, theme_pid, metadataEmail) != null) {
-            builder.setPositiveButton("Send", (dialogInterface, i) ->
+            builder.setPositiveButton(getString(R.string.logcat_send), (dialogInterface, i) ->
                     new SendErrorReport(
                             context,
                             theme_pid,
-                            error_logs.toString(),
+                            logs.toString(),
                             failed_packages.toString(),
                             false
                     ).execute());
         }
         builder.show();
-        error_logs = null;
     }
 
     @Override

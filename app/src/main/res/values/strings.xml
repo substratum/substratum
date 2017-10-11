@@ -368,6 +368,7 @@
     <string name="logcat_attachment_body" translatable="false">
         Theme Name:\n%s\n\nDevice:\n%s\n\nROM:\n%s\n\nSubstratum Version:\n%s\n\nTheme Version:\n%s\n\nTarget Package(s):\n%s\nReport:\n%s
     </string>
+    <string name="logcat_send">Send</string>
     <string name="logcat_email_activity">Send bug report using&#8230;</string>
     <string name="logcat_email_activity_error">There are no email clients installed.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>

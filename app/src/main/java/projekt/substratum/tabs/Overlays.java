@@ -164,6 +164,7 @@ public class Overlays extends Fragment {
     public ActivityManager am;
     public boolean decryptedAssetsExceptionReached;
     public int overlaysWaiting = 0;
+    private int currentPosition;
 
     protected void logTypes() {
         if (ENABLE_PACKAGE_LOGGING) {
@@ -1039,6 +1040,8 @@ public class Overlays extends Fragment {
     }
 
     private void refreshList() {
+        currentPosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager())
+                .findFirstCompletelyVisibleItemPosition();
         toggle_all.setChecked(false);
         if (base_spinner != null && base_spinner.getSelectedItemPosition() > 0) {
             String[] commands = {
@@ -1201,8 +1204,11 @@ public class Overlays extends Fragment {
                 fragment.base_spinner.setEnabled(true);
                 fragment.mAdapter = new OverlaysAdapter(fragment.values2);
                 fragment.mRecyclerView.setAdapter(fragment.mAdapter);
+                fragment.mRecyclerView.getLayoutManager()
+                        .scrollToPosition(fragment.currentPosition);
                 fragment.mAdapter.notifyDataSetChanged();
                 fragment.mRecyclerView.setVisibility(View.VISIBLE);
+                fragment.currentPosition = 0;
             }
         }
 

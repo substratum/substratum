@@ -1208,7 +1208,6 @@ public class Overlays extends Fragment {
                         .scrollToPosition(fragment.currentPosition);
                 fragment.mAdapter.notifyDataSetChanged();
                 fragment.mRecyclerView.setVisibility(View.VISIBLE);
-                fragment.currentPosition = 0;
             }
         }
 

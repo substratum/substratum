@@ -40,6 +40,7 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 
 import static projekt.substratum.InformationActivity.currentShownLunchBar;
+import static projekt.substratum.common.Packages.isPackageInstalled;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 
@@ -166,7 +167,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
     // Magical easy reset checking for the adapter
     // Function that runs when a user picks a spinner dropdown item that is index 0
     private void zeroIndex(Context context, OverlaysItem current_object, ViewHolder viewHolder) {
-        if (current_object.isPackageInstalled((current_object.getFullOverlayParameters()))) {
+        if (isPackageInstalled(context, current_object.getFullOverlayParameters())) {
             viewHolder.overlayState.setVisibility(View.VISIBLE);
             // Check whether currently installed overlay is up to date with
             // theme_pid's versionName
@@ -192,7 +193,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
         if (current_object.isOverlayEnabled()) {
             viewHolder.overlayTargetPackageName.setTextColor(
                     context.getColor(R.color.overlay_installed_list_entry));
-        } else if (current_object.isPackageInstalled(current_object.getFullOverlayParameters())) {
+        } else if (isPackageInstalled(context, current_object.getFullOverlayParameters())) {
             viewHolder.overlayTargetPackageName.setTextColor(
                     context.getColor(R.color.overlay_not_enabled_list_entry));
         } else {
@@ -204,7 +205,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
     // Function that runs when a user picks a spinner dropdown item that is index >= 1
     private void commitChanges(Context context, OverlaysItem current_object,
                                ViewHolder viewHolder, String packageName) {
-        if (current_object.isPackageInstalled(
+        if (isPackageInstalled(context,
                 current_object.getPackageName() + "." + current_object.getThemeName() +
                         "." + packageName +
                         ((current_object.getBaseResources().length() > 0) ?
@@ -229,7 +230,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
             if (current_object.isOverlayEnabled()) {
                 viewHolder.overlayTargetPackageName.setTextColor(
                         context.getColor(R.color.overlay_installed_list_entry));
-            } else if (current_object.isPackageInstalled(
+            } else if (isPackageInstalled(context,
                     current_object.getFullOverlayParameters())) {
                 viewHolder.overlayTargetPackageName.setTextColor(
                         context.getColor(R.color.overlay_not_enabled_list_entry));
@@ -245,8 +246,8 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
             if (current_object.isOverlayEnabled()) {
                 viewHolder.overlayTargetPackageName.setTextColor(
                         context.getColor(R.color.overlay_installed_list_entry));
-            } else if (current_object.isPackageInstalled(current_object
-                    .getFullOverlayParameters())) {
+            } else if (isPackageInstalled(context,
+                    current_object.getFullOverlayParameters())) {
                 viewHolder.overlayTargetPackageName.setTextColor(
                         context.getColor(R.color.overlay_not_enabled_list_entry));
             } else {
@@ -270,7 +271,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
 
         viewHolder.overlayTargetPackage.setText(current_object.getPackageName());
 
-        if (current_object.isPackageInstalled(
+        if (isPackageInstalled(context,
                 current_object.getPackageName() + "." + current_object.getThemeName() +
                         ((current_object.getBaseResources().length() > 0) ?
                                 "." + current_object.getBaseResources() : ""))) {
@@ -414,8 +415,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                     viewHolder.overlayTargetPackageName.setTextColor(
                             context.getColor(R.color.overlay_installed_list_entry));
                 } else {
-                    if (current_object.isPackageInstalled(current_object
-                            .getFullOverlayParameters())) {
+                    if (isPackageInstalled(context, current_object.getFullOverlayParameters())) {
                         viewHolder.overlayTargetPackageName.setTextColor(
                                 context.getColor(R.color.overlay_not_enabled_list_entry));
                     } else {
@@ -465,8 +465,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 if (current_object.isOverlayEnabled()) {
                     viewHolder.overlayTargetPackageName.setTextColor(
                             context.getColor(R.color.overlay_installed_list_entry));
-                } else if (current_object.isPackageInstalled(current_object
-                        .getFullOverlayParameters())) {
+                } else if (isPackageInstalled(context, current_object.getFullOverlayParameters())) {
                     viewHolder.overlayTargetPackageName.setTextColor(
                             context.getColor(R.color.overlay_not_enabled_list_entry));
                 } else {

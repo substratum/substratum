@@ -137,7 +137,7 @@ public class SubstratumCrash extends Activity {
 
         String xposed = References.checkXposedVersion();
         if (!xposed.isEmpty()) details += " {" + xposed + "}";
-        details +=  "\n";
+        details += "\n";
 
         String rom = Systems.checkFirmwareSupport(this, getString(R.string.supported_roms_url),
                 "supported_roms.xml");

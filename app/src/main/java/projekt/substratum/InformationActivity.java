@@ -765,9 +765,6 @@ public class InformationActivity extends SubstratumActivity {
                         Lunchbar.LENGTH_SHORT);
                 currentShownLunchBar.show();
             }
-            if (Systems.isSamsung(mContext)) {
-                startService(new Intent(getBaseContext(), SamsungPackageService.class));
-            }
         }
     }
 

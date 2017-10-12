@@ -270,7 +270,6 @@ eingerichtet&#8230;</string>
     <string name="notification_theme_updated">aktualisiert</string>
     <string name="notification_theme_installed_content">Theme erfolgreich installiert.</string>
     <string name="notification_theme_updated_content">Ressourcen erfolgreich aktualisiert.</string>
-    <string name="notification_hide">Ausblenden</string>
     <string name="notification_initial_title">Substratum läuft im Hintergrund</string>
     <string name="notification_initial_title_upgrade_intent">Aktualisiere die Overlays von %s&#8230;</string>
     <string name="notification_done_title">Theme-Kompilierung abgeschlossen</string>

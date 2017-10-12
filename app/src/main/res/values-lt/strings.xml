@@ -321,7 +321,6 @@
     <string name="notification_theme_updated">atnaujinta</string>
     <string name="notification_theme_installed_content">Tema sėkmingai įdiegta.</string>
     <string name="notification_theme_updated_content">Resursai sėkmingai atnaujinti.</string>
-    <string name="notification_hide">Pamiršti</string>
     <string name="notification_initial_title">\"Substratum\" veikia</string>
     <string name="notification_initial_title_upgrade_intent">Atnaujinamos %s perdangos&#8230;</string>
     <string name="notification_done_title">Temos kompiliavimas baigtas</string>

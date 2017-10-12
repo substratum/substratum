@@ -318,7 +318,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="notification_theme_updated">aktualizováno</string>
     <string name="notification_theme_installed_content">Motiv byl úspěšně nainstalován.</string>
     <string name="notification_theme_updated_content">Zdroje byli úspěšně obnoveny.</string>
-    <string name="notification_hide">Odmítnout</string>
     <string name="notification_initial_title">Substratum je spuštěno</string>
     <string name="notification_initial_title_upgrade_intent">Aktualizace potahů%s&#8230;</string>
     <string name="notification_done_title">Byla dokončena kompilace motivu</string>

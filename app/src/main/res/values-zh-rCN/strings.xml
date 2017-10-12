@@ -255,7 +255,6 @@
     <string name="notification_theme_updated">已更新</string>
     <string name="notification_theme_installed_content">成功安装主题</string>
     <string name="notification_theme_updated_content">成功更新资源</string>
-    <string name="notification_hide">忽略</string>
     <string name="notification_initial_title">Substratum 正在运行</string>
     <string name="notification_initial_title_upgrade_intent">正在升级 %s 叠加层</string>
     <string name="notification_done_title">主题编译成功</string>

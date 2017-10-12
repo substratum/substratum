@@ -301,7 +301,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="notification_theme_updated">zaktualizowany</string>
     <string name="notification_theme_installed_content">Pomyślnie zainstalowano motyw.</string>
     <string name="notification_theme_updated_content">Zaktualizowano pomyślnie zasoby.</string>
-    <string name="notification_hide">Odrzuć</string>
     <string name="notification_initial_title">Substratum jest uruchomione</string>
     <string name="notification_initial_title_upgrade_intent">Uaktualnianie nakładek %s...</string>
     <string name="notification_done_title">Kompilacja motywu została zakończona</string>

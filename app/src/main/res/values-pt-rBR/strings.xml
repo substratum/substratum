@@ -319,7 +319,6 @@ corretamente&#8230;</string>
     <string name="notification_theme_updated">atualizado</string>
     <string name="notification_theme_installed_content">Tema instalado com sucesso.</string>
     <string name="notification_theme_updated_content">Recursos atualizados com sucesso.</string>
-    <string name="notification_hide">Ignorar</string>
     <string name="notification_initial_title">Substratum está aberto</string>
     <string name="notification_initial_title_upgrade_intent">Atualizando %s camadas&#8230;</string>
     <string name="notification_done_title">Compilação do tema completa</string>

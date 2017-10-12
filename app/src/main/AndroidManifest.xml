@@ -73,7 +73,6 @@
             </intent-filter>
         </receiver>
         <receiver android:name=".services.notification.FloatUiButtonReceiver"/>
-        <receiver android:name=".services.notification.NotificationButtonReceiver"/>
         <receiver android:name=".services.packages.ThemeUninstallDetector">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_FULLY_REMOVED"/>

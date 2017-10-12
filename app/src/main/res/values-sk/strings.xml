@@ -307,7 +307,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="notification_theme_updated">aktualizované</string>
     <string name="notification_theme_installed_content">Téma bola úspešne nainštalovaná.</string>
     <string name="notification_theme_updated_content">Zdroje boli úspešne aktualizované.</string>
-    <string name="notification_hide">Zamietnuť</string>
     <string name="notification_initial_title">Substratum je spustené</string>
     <string name="notification_initial_title_upgrade_intent">Aktualizácia prekrytí %s&#8230;</string>
     <string name="notification_done_title">Bola dokončená kompilácia témy</string>

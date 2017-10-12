@@ -386,7 +386,6 @@ bu sorunu
     <string name="notification_theme_updated">güncellendi</string>
     <string name="notification_theme_installed_content">Tema başarıyla yüklendi.</string>
     <string name="notification_theme_updated_content">Kaynaklar başarıyla güncellendi.</string>
-    <string name="notification_hide">Yoksay</string>
     <string name="notification_initial_title">Substratum çalışıyor</string>
     <string name="notification_initial_title_upgrade_intent">%s yükseltiliyor&#8230;</string>
     <string name="notification_done_title">Tema düzenlemesi tamamlandı</string>

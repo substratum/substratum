@@ -304,7 +304,6 @@
     <string name="notification_theme_updated">Aggiornato</string>
     <string name="notification_theme_installed_content">Il tema è stato installato con successo.</string>
     <string name="notification_theme_updated_content">Le sorgenti sono state aggiornate con successo.</string>
-    <string name="notification_hide">Nascondi</string>
     <string name="notification_initial_title">Substratum sta funzionando</string>
     <string name="notification_initial_title_upgrade_intent">Aggiornamento overlay di %s&#8230;</string>
     <string name="notification_done_title">La compilazione del tema è stata completata</string>

@@ -32,7 +32,7 @@ public class NotificationButtonReceiver extends BroadcastReceiver {
         NotificationManager manager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (manager != null) {
-            manager.cancel(References.notification_id);
+            manager.cancel(References.notification_id_compiler);
         }
     }
 }

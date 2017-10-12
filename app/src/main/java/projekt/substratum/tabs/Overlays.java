@@ -129,7 +129,6 @@ public class Overlays extends Fragment {
     public boolean has_failed = false;
     public int fail_count;
     public StringBuilder failed_packages;
-    public int id = References.notification_id;
     public ArrayList<OverlaysItem> values2;
     public RecyclerView mRecyclerView;
     public Spinner base_spinner;
@@ -754,7 +753,7 @@ public class Overlays extends Fragment {
 
         // Closing off the persistent notification
         if (checkActiveNotifications()) {
-            mNotifyManager.cancel(id);
+            mNotifyManager.cancel(References.notification_id_compiler);
             mBuilder = new NotificationCompat.Builder(context, DEFAULT_NOTIFICATION_CHANNEL_ID);
             mBuilder.setAutoCancel(true);
             mBuilder.setProgress(0, 0, false);
@@ -766,7 +765,7 @@ public class Overlays extends Fragment {
             if (prefs.getBoolean("vibrate_on_compiled", false)) {
                 mBuilder.setVibrate(new long[]{200, 400, 200, 1000});
             }
-            mNotifyManager.notify(id, mBuilder.build());
+            mNotifyManager.notify(References.notification_id_compiler, mBuilder.build());
         }
 
         Toast.makeText(
@@ -838,7 +837,7 @@ public class Overlays extends Fragment {
         super.onDestroy();
         if (phase3_mainFunction != null && mNotifyManager != null) {
             if (phase3_mainFunction.getStatus() == AsyncTask.Status.RUNNING) {
-                mNotifyManager.cancel(id);
+                mNotifyManager.cancel(References.notification_id_compiler);
             }
         }
         try {

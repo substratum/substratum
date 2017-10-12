@@ -196,6 +196,7 @@ public class References {
     // This int controls the notification identifier
     public static int firebase_notification_id = 24862486;
     public static int notification_id = 2486;
+    public static int notification_id_compiler = 17589715;
     // This int controls the delay for window refreshes to occur
     public static int REFRESH_WINDOW_DELAY = 500;
     // This int controls the default grid count for the theme adapter

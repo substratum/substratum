@@ -90,6 +90,20 @@ public class Packages {
         }
     }
 
+    public static boolean isAvailablePackage(Context context, String packageName) {
+        final PackageManager pm = context.getPackageManager();
+        if (isPackageInstalled(context, packageName)) {
+            try {
+                int enabled = pm.getApplicationEnabledSetting(packageName);
+                return enabled != PackageManager.COMPONENT_ENABLED_STATE_DISABLED &&
+                    enabled != PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER;
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        return false;
+    }
+
     // This method validates the resources by their name in a specific package
     public static Boolean validateResource(Context mContext, String package_Name,
                                            String resource_name, String resource_type) {

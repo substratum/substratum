@@ -239,8 +239,9 @@ public class Systems {
 
     // Begin check if device is running on the latest theme interface
     public static boolean isBinderInterfacer(Context context) {
+        boolean isEnabled = Packages.isAvailablePackage(context, References.INTERFACER_PACKAGE);
         PackageInfo packageInfo = getThemeInterfacerPackage(context);
-        return packageInfo != null && packageInfo.versionCode >= 60;
+        return packageInfo != null && packageInfo.versionCode >= 60 && isEnabled;
     }
 
     // Check if the system is of the Samsung variant

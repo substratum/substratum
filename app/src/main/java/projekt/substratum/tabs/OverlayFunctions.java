@@ -60,7 +60,6 @@ import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
-import projekt.substratum.services.notification.NotificationButtonReceiver;
 import projekt.substratum.util.compilers.SubstratumBuilder;
 import projekt.substratum.util.files.Root;
 
@@ -98,15 +97,6 @@ class OverlayFunctions {
                         !overlays.enable_disable_mode) {
                     int notification_priority = Notification.PRIORITY_MAX;
 
-                    // Create an Intent for the BroadcastReceiver
-                    Intent buttonIntent = new Intent(context, NotificationButtonReceiver.class);
-
-                    // Create the PendingIntent
-                    PendingIntent btPendingIntent = PendingIntent.getBroadcast(
-                            context, 0, buttonIntent, 0);
-                    PendingIntent resultPendingIntent = PendingIntent.getActivity(
-                            context, 0, new Intent(), 0);
-
                     // This is the time when the notification should be shown on the user's screen
                     overlays.mNotifyManager =
                             (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
@@ -115,11 +105,8 @@ class OverlayFunctions {
                     overlays.mBuilder.setContentTitle(
                             context.getString(R.string.notification_initial_title))
                             .setProgress(100, 0, true)
-                            .addAction(android.R.color.transparent, context.getString(R.string
-                                    .notification_hide), btPendingIntent)
                             .setSmallIcon(android.R.drawable.ic_popup_sync)
                             .setPriority(notification_priority)
-                            .setContentIntent(resultPendingIntent)
                             .setOngoing(true);
                     overlays.mNotifyManager.notify(
                             References.notification_id_compiler, overlays.mBuilder.build());

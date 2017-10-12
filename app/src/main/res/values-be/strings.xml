@@ -284,7 +284,6 @@
     <string name="notification_theme_updated">абноўлена</string>
     <string name="notification_theme_installed_content">Тэма ўсталявана.</string>
     <string name="notification_theme_updated_content">Рэсурсы абноўленыя.</string>
-    <string name="notification_hide">Скасаваць</string>
     <string name="notification_initial_title">Substratum запушчаны</string>
     <string name="notification_initial_title_upgrade_intent">Абнаўленне напластаванняў %s&#8230;</string>
     <string name="notification_done_title">Зборка тэмы завершана</string>

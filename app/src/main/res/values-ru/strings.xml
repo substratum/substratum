@@ -305,7 +305,6 @@
     <string name="notification_theme_updated">обновлена</string>
     <string name="notification_theme_installed_content">Тема успешно установлена.</string>
     <string name="notification_theme_updated_content">Ресурсы обновлены.</string>
-    <string name="notification_hide">Отменить</string>
     <string name="notification_initial_title">Substratum запущен</string>
     <string name="notification_initial_title_upgrade_intent">Обновление наслоений %s&#8230;</string>
     <string name="notification_done_title">Сборка темы завершена</string>

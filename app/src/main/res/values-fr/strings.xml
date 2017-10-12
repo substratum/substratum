@@ -265,7 +265,6 @@
     <string name="notification_theme_updated">Mis à jour</string>
     <string name="notification_theme_installed_content">Thème installé</string>
     <string name="notification_theme_updated_content">Ressources mises à jour</string>
-    <string name="notification_hide">Masquer</string>
     <string name="notification_initial_title">Substratum est en cours d\'exécution</string>
     <string name="notification_initial_title_upgrade_intent">Mise à niveau des surcouches de %s en cours&#8230;</string>
     <string name="notification_done_title">Compilation de thème terminée</string>

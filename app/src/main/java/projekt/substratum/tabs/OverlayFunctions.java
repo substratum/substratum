@@ -1178,10 +1178,10 @@ class OverlayFunctions {
                         PendingIntent.getActivity(context, 0, notificationIntent,
                                 PendingIntent.FLAG_CANCEL_CURRENT);
 
+                overlays.mNotifyManager.cancel(References.notification_id_compiler);
                 if (!overlays.has_failed) {
                     // Closing off the persistent notification
                     if (overlays.checkActiveNotifications()) {
-                        overlays.mNotifyManager.cancel(References.notification_id_compiler);
                         overlays.mBuilder = new NotificationCompat.Builder(
                                 context, DEFAULT_NOTIFICATION_CHANNEL_ID);
                         overlays.mBuilder.setAutoCancel(true);

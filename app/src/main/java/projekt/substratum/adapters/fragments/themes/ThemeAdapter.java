@@ -398,7 +398,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                     NotificationManager manager = (NotificationManager)
                             themeAdapter.mContext.getSystemService(Context.NOTIFICATION_SERVICE);
                     if (manager != null) {
-                        manager.cancel(References.notification_id);
+                        manager.cancel(References.notification_id_compiler);
                     }
                 }
             }

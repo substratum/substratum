@@ -89,7 +89,6 @@ import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.tabs.WallpaperManager;
-import projekt.substratum.services.system.SamsungPackageService;
 import projekt.substratum.tabs.BootAnimations;
 import projekt.substratum.util.files.Root;
 import projekt.substratum.util.helpers.ContextWrapper;
@@ -1053,8 +1052,11 @@ public class InformationActivity extends SubstratumActivity {
     public void onDestroy() {
         super.onDestroy();
 
-        if (Systems.isSamsung(mContext)) {
-            stopService(new Intent(getBaseContext(), SamsungPackageService.class));
+        // Close the active compiling notification if the app was closed from recents
+        NotificationManager manager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (manager != null) {
+            manager.cancel(References.notification_id_compiler);
         }
 
         try {
@@ -1260,7 +1262,7 @@ public class InformationActivity extends SubstratumActivity {
                         informationActivity.mContext
                                 .getSystemService(Context.NOTIFICATION_SERVICE);
                 if (manager != null) {
-                    manager.cancel(References.notification_id);
+                    manager.cancel(References.notification_id_compiler);
                 }
             }
         }

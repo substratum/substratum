@@ -181,11 +181,6 @@ public class CompilerCommands {
     }
 
     @SuppressWarnings("StringConcatenationInsideStringBufferAppend")
-    public static String createAOPTDumpShellCommands(Context context, String packageDir) {
-        return context.getFilesDir().getAbsolutePath() + "/aopt dump badging " + packageDir;
-    }
-
-    @SuppressWarnings("StringConcatenationInsideStringBufferAppend")
     public static String createAOPTShellCommands(String work_area,
                                                  String targetPkg,
                                                  String overlay_package,

@@ -752,21 +752,19 @@ public class Overlays extends Fragment {
                         PendingIntent.FLAG_CANCEL_CURRENT);
 
         // Closing off the persistent notification
-        if (checkActiveNotifications()) {
-            mNotifyManager.cancel(References.notification_id_compiler);
-            mBuilder = new NotificationCompat.Builder(context, DEFAULT_NOTIFICATION_CHANNEL_ID);
-            mBuilder.setAutoCancel(true);
-            mBuilder.setProgress(0, 0, false);
-            mBuilder.setOngoing(false);
-            mBuilder.setContentIntent(intent);
-            mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
-            mBuilder.setContentTitle(context.getString(R.string.notification_done_title));
-            mBuilder.setContentText(context.getString(R.string.notification_some_errors_found));
-            if (prefs.getBoolean("vibrate_on_compiled", false)) {
-                mBuilder.setVibrate(new long[]{200, 400, 200, 1000});
-            }
-            mNotifyManager.notify(References.notification_id_compiler, mBuilder.build());
+        mNotifyManager.cancel(References.notification_id_compiler);
+        mBuilder = new NotificationCompat.Builder(context, DEFAULT_NOTIFICATION_CHANNEL_ID);
+        mBuilder.setAutoCancel(true);
+        mBuilder.setProgress(0, 0, false);
+        mBuilder.setOngoing(false);
+        mBuilder.setContentIntent(intent);
+        mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
+        mBuilder.setContentTitle(context.getString(R.string.notification_done_title));
+        mBuilder.setContentText(context.getString(R.string.notification_some_errors_found));
+        if (prefs.getBoolean("vibrate_on_compiled", false)) {
+            mBuilder.setVibrate(new long[]{200, 400, 200, 1000});
         }
+        mNotifyManager.notify(References.notification_id_compiler, mBuilder.build());
 
         Toast.makeText(
                 context,

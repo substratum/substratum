@@ -121,7 +121,8 @@ class OverlayFunctions {
                             .setPriority(notification_priority)
                             .setContentIntent(resultPendingIntent)
                             .setOngoing(true);
-                    overlays.mNotifyManager.notify(overlays.id, overlays.mBuilder.build());
+                    overlays.mNotifyManager.notify(
+                            References.notification_id_compiler, overlays.mBuilder.build());
                     overlays.mProgressDialog = null;
                     overlays.mProgressDialog = new ProgressDialog(context,
                             R.style.SubstratumBuilder_ActivityTheme);
@@ -222,7 +223,8 @@ class OverlayFunctions {
                                 .setContentTitle(
                                         context.getString(R.string.notification_processing_n))
                                 .setProgress(100, 0, false);
-                        overlays.mNotifyManager.notify(overlays.id, overlays.mBuilder.build());
+                        overlays.mNotifyManager.notify(
+                                References.notification_id_compiler, overlays.mBuilder.build());
                     }
                     overlays.loader_string.setText(context.getResources().getString(
                             R.string.sb_phase_2_loader));
@@ -465,7 +467,7 @@ class OverlayFunctions {
                                             context.getString(R.string.notification_processing) +
                                                     "\"" + packageTitle + "\"");
                                 }
-                                overlays.mNotifyManager.notify(overlays.id,
+                                overlays.mNotifyManager.notify(References.notification_id_compiler,
                                         overlays.mBuilder.build());
                             }
 
@@ -1179,7 +1181,7 @@ class OverlayFunctions {
                 if (!overlays.has_failed) {
                     // Closing off the persistent notification
                     if (overlays.checkActiveNotifications()) {
-                        overlays.mNotifyManager.cancel(overlays.id);
+                        overlays.mNotifyManager.cancel(References.notification_id_compiler);
                         overlays.mBuilder = new NotificationCompat.Builder(
                                 context, DEFAULT_NOTIFICATION_CHANNEL_ID);
                         overlays.mBuilder.setAutoCancel(true);
@@ -1194,7 +1196,8 @@ class OverlayFunctions {
                         if (overlays.prefs.getBoolean("vibrate_on_compiled", false)) {
                             overlays.mBuilder.setVibrate(new long[]{100, 200, 100, 500});
                         }
-                        overlays.mNotifyManager.notify(overlays.id, overlays.mBuilder.build());
+                        overlays.mNotifyManager.notify(
+                                References.notification_id_compiler, overlays.mBuilder.build());
                     }
 
                     if (overlays.missingType3) {

@@ -105,6 +105,8 @@ import projekt.substratum.util.helpers.ContextWrapper;
 import projekt.substratum.util.injectors.CheckBinaries;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static android.os.Build.VERSION.SDK_INT;
+import static android.os.Build.VERSION_CODES.O;
 import static projekt.substratum.common.Activities.launchActivityUrl;
 import static projekt.substratum.common.Activities.launchExternalActivity;
 import static projekt.substratum.common.Activities.launchInternalActivity;
@@ -126,6 +128,8 @@ import static projekt.substratum.common.Systems.checkThemeSystemModule;
 import static projekt.substratum.common.Systems.checkUsagePermissions;
 import static projekt.substratum.common.Systems.isSamsung;
 import static projekt.substratum.common.commands.FileOperations.delete;
+import static projekt.substratum.common.platform.ThemeManager.STATE_MISSING_TARGET_N;
+import static projekt.substratum.common.platform.ThemeManager.STATE_MISSING_TARGET_O;
 
 public class MainActivity extends SubstratumActivity implements
         ActivityCompat.OnRequestPermissionsResultCallback, SearchView.OnQueryTextListener {
@@ -1295,7 +1299,7 @@ public class MainActivity extends SubstratumActivity implements
                 ArrayList<String> removeList = new ArrayList<>();
                 // Overlays with non-existent targets
                 List<String> state1 = ThemeManager.listOverlays(
-                        context, ThemeManager.STATE_MISSING_TARGET);
+                        context, SDK_INT >= O ? STATE_MISSING_TARGET_O : STATE_MISSING_TARGET_N);
                 // Uninstall overlays when the main theme is not present,
                 // regardless if enabled/disabled
 

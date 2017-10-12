@@ -726,7 +726,7 @@ public class Overlays extends Fragment {
     protected List<String> updateEnabledOverlays() {
         return new ArrayList<>(ThemeManager.listOverlays(
                 getContext(),
-                ThemeManager.STATE_DISABLED
+                ThemeManager.STATE_ENABLED
         ));
     }
 

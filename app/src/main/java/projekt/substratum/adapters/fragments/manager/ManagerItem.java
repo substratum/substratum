@@ -19,6 +19,7 @@
 package projekt.substratum.adapters.fragments.manager;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 
 import java.io.Serializable;
@@ -27,6 +28,9 @@ import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
+
+import static projekt.substratum.common.References.runShellCommand;
+import static projekt.substratum.common.commands.CompilerCommands.createAOPTDumpShellCommands;
 
 public class ManagerItem implements Serializable {
 
@@ -149,6 +153,25 @@ public class ManagerItem implements Serializable {
 
     public String getThemeName() {
         if (themeName == null) {
+            String commands = null;
+            try {
+                commands = createAOPTDumpShellCommands(
+                        getContext(),
+                        getContext().getPackageManager().getApplicationInfo(this.name, 0)
+                                .publicSourceDir);
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+            StringBuilder sb = runShellCommand(commands);
+            if (sb != null) {
+                try {
+                    String packageName = sb.toString().substring(9).split("\\s+")[0];
+                    themeName = packageName.substring(6, packageName.length() - 1);
+                    return themeName;
+                } catch (Exception e) {
+                    // Suppress warning
+                }
+            }
             themeName = getContext().getString(R.string.reboot_awaiting_manager_title);
         }
         return themeName;
@@ -160,6 +183,28 @@ public class ManagerItem implements Serializable {
 
     public String getLabelName() {
         if (labelName == null) {
+            String commands = null;
+            try {
+                commands = createAOPTDumpShellCommands(
+                        getContext(),
+                        getContext().getPackageManager().getApplicationInfo(this.name, 0)
+                                .publicSourceDir);
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+            StringBuilder sb = runShellCommand(commands);
+            if (sb != null) {
+                try {
+                    String packageName = sb.toString().substring(9).split("\\s+")[0];
+                    String packageNameStripped = packageName.substring(6, packageName.length() - 1);
+                    setName(packageNameStripped);
+                    setLabelName(getContext());
+                    if (labelName == null) labelName = packageNameStripped;
+                    return labelName;
+                } catch (Exception e) {
+                    // Suppress warning
+                }
+            }
             labelName = getContext().getString(R.string.reboot_awaiting_manager_title);
         }
         return labelName;

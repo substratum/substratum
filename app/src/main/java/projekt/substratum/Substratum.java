@@ -39,8 +39,10 @@ import projekt.substratum.activities.crash.SubstratumCrash;
 import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
 import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.services.binder.InterfacerBinderService;
+import projekt.substratum.services.system.SamsungPackageService;
 
 import static projekt.substratum.BuildConfig.DEBUG;
 import static projekt.substratum.common.Systems.isAndromedaDevice;
@@ -97,6 +99,11 @@ public class Substratum extends Application {
                 .minTimeBetweenCrashesMs(1)
                 .errorActivity(SubstratumCrash.class)
                 .apply();
+
+        // Samsung refresher
+        if (Systems.isSamsungDevice(getApplicationContext())) {
+            startService(new Intent(getBaseContext(), SamsungPackageService.class));
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

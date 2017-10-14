@@ -18,119 +18,112 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:gravity="center|center_horizontal"
-                android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:gravity="center|center_horizontal|center_vertical">
 
-    <RelativeLayout
+
+    <ImageView
+        android:id="@+id/icon"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical">
+        android:layout_height="110dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_root_requester" />
 
-        <ImageView
-            android:id="@+id/icon"
-            android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_root_requester"/>
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/icon"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="@string/root_rejected_title"
+        android:textAllCaps="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/icon"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:text="@string/root_rejected_title"
-            android:textAllCaps="true"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/root_rejected_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="@string/root_rejected_text"
+        android:textAllCaps="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/root_rejected_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/title"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:text="@string/root_rejected_text"
-            android:textAllCaps="true"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/sungstratum_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/root_rejected_text"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="@string/samsung_prototype_no_root_dialog"
+        android:textAllCaps="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/sungstratum_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/root_rejected_text"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:text="@string/samsung_prototype_no_root_dialog"
-            android:textAllCaps="true"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:visibility="gone"/>
+    <TextView
+        android:id="@+id/andromeda_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/root_rejected_text"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="@string/andromeda_no_root_dialog"
+        android:textAllCaps="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/andromeda_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/root_rejected_text"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:text="@string/andromeda_no_root_dialog"
-            android:textAllCaps="true"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:visibility="gone"/>
+    <Button
+        android:id="@+id/sungstratum_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sungstratum_title"
+        android:layout_centerHorizontal="true"
+        android:text="@string/samsung_prototype_no_root_dialog_button"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:visibility="gone" />
 
-        <Button
-            android:id="@+id/sungstratum_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/sungstratum_title"
-            android:layout_centerHorizontal="true"
-            android:text="@string/samsung_prototype_no_root_dialog_button"
-            android:textAllCaps="true"
-            android:textStyle="bold"
-            android:visibility="gone"/>
+    <Button
+        android:id="@+id/andromeda_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/andromeda_title"
+        android:layout_centerHorizontal="true"
+        android:text="@string/andromeda_no_root_dialog_button"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:visibility="gone" />
 
-        <Button
-            android:id="@+id/andromeda_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/andromeda_title"
-            android:layout_centerHorizontal="true"
-            android:text="@string/andromeda_no_root_dialog_button"
-            android:textAllCaps="true"
-            android:textStyle="bold"
-            android:visibility="gone"/>
-
-    </RelativeLayout>
 
 </RelativeLayout>

@@ -56,9 +56,11 @@ import projekt.substratum.util.files.Root;
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.O;
 import static projekt.substratum.common.Packages.getOverlayParent;
+import static projekt.substratum.common.Packages.getOverlayTarget;
 import static projekt.substratum.common.Packages.isPackageInstalled;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_N_UNROOTED;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ROOTED;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_UNROOTED;
 import static projekt.substratum.common.Systems.checkAndromeda;
@@ -78,9 +80,12 @@ public class ThemeManager {
      */
     public static final String disableOverlay = "cmd overlay disable";
     // State values of OverlayInfo
-    public static final int STATE_MISSING_TARGET = SDK_INT >= O ? 0 : 1;
-    public static final int STATE_DISABLED = SDK_INT >= O ? 2 : 4;
-    public static final int STATE_ENABLED = SDK_INT >= O ? 3 : 5;
+    public static final int STATE_MISSING_TARGET_N = 1;
+    public static final int STATE_MISSING_TARGET_O = 0;
+    public static final int STATE_DISABLED_N = 4;
+    public static final int STATE_DISABLED_O = 2;
+    public static final int STATE_ENABLED_N = 5;
+    public static final int STATE_ENABLED_O = 3;
     private static final String enableOverlay = "cmd overlay enable";
     private static final String listAllOverlays = "cmd overlay list";
     private static final String setPriority = "cmd overlay set-priority";
@@ -112,13 +117,44 @@ public class ThemeManager {
 
     public static void enableOverlay(Context context, ArrayList<String> overlays) {
         if (overlays.isEmpty()) return;
-        overlays.removeAll(listOverlays(context, STATE_ENABLED));
+        overlays.removeAll(listOverlays(context,
+                SDK_INT >= O ? ThemeManager.STATE_ENABLED_O : ThemeManager.STATE_ENABLED_N));
         if (overlays.isEmpty()) return;
 
-        if (checkThemeInterfacer(context)) {
+        final boolean hasThemeInterfacer = checkThemeInterfacer(context);
+        final boolean hasAndromeda = checkAndromeda(context);
+
+        if (hasThemeInterfacer || hasAndromeda) {
+            final SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+            if (sharedPrefs.getBoolean("auto_disable_target_overlays", false)) {
+                for (String overlay : overlays) {
+                    // Disable other overlays for target if preference enabled
+                    final String overlayTarget = getOverlayTarget(context, overlay);
+                    if (overlayTarget != null && !overlayTarget.isEmpty()) {
+                        ArrayList<String> enabledOverlaysForTarget = new ArrayList<>(
+                                listEnabledOverlaysForTarget(context,
+                                        overlayTarget));
+                        disableOverlay(context, enabledOverlaysForTarget);
+                    }
+                }
+            }
+        } else {
+            for (String overlay : overlays) {
+                // Disable other overlays for target in legacy mode
+                final String overlayTarget = getOverlayTarget(context, overlay);
+                if (overlayTarget != null && !overlayTarget.isEmpty()) {
+                    ArrayList<String> enabledOverlaysForTarget = new ArrayList<>(
+                            listEnabledOverlaysForTarget(context,
+                                    overlayTarget));
+                    disableOverlay(context, enabledOverlaysForTarget);
+                }
+            }
+        }
+
+        if (hasThemeInterfacer) {
             ThemeInterfacerService.enableOverlays(
                     context, overlays, shouldRestartUI(context, overlays));
-        } else if (checkAndromeda(context)) {
+        } else if (hasAndromeda) {
             if (!AndromedaService.enableOverlays(overlays)) {
                 Handler handler = new Handler(Looper.getMainLooper());
                 handler.post(() ->
@@ -151,7 +187,8 @@ public class ThemeManager {
 
     public static void disableOverlay(Context context, ArrayList<String> overlays) {
         if (overlays.isEmpty()) return;
-        overlays.removeAll(listOverlays(context, STATE_DISABLED));
+        overlays.removeAll(listOverlays(context,
+                SDK_INT >= O ? ThemeManager.STATE_DISABLED_O : ThemeManager.STATE_DISABLED_N));
         if (overlays.isEmpty()) return;
 
         if (checkThemeInterfacer(context)) {
@@ -222,7 +259,8 @@ public class ThemeManager {
     }
 
     public static void disableAllThemeOverlays(Context context) {
-        List<String> list = ThemeManager.listOverlays(context, STATE_ENABLED).stream()
+        List<String> list = ThemeManager.listOverlays(context,
+                SDK_INT >= O ? ThemeManager.STATE_ENABLED_O : ThemeManager.STATE_ENABLED_N).stream()
                 .filter(o -> getOverlayParent(context, o) != null)
                 .collect(Collectors.toList());
         ThemeManager.disableOverlay(context, new ArrayList<>(list));
@@ -258,35 +296,56 @@ public class ThemeManager {
     }
 
     public static List<String> listTargetWithMultipleOverlaysEnabled(Context context) {
-        return listOverlays(context, STATE_ENABLED,
+        return listOverlays(context,
+                SDK_INT >= O ? ThemeManager.STATE_ENABLED_O : ThemeManager.STATE_ENABLED_N,
                 EXPORT_RETURN_MULTIPLE_TARGETS_ENABLED);
     }
 
-    public static List<String> listOverlays(Context context, int state, int state2) {
+    /**
+     *
+     * All-in-one overlay listing
+     *
+     * @param context       Self explanatory
+     * @param state         Initial state of overlays wanted to be obtained in the final list
+     * @param force         State of return List<String> to contain a certain object,
+     *                      e.g. EXPORT_RETURN_MULTIPLE_TARGETS_ENABLED will return in a mode with
+     *                      multiple overlays enabled for each target, this will then take @param
+     *                      state to secondary priority.
+     * @return              List of overlays with the state and force
+     *                      (default: EXPORT_RETURN_DEFAULT)
+     */
+    private static List<String> listOverlays(final Context context,
+                                            final int state,
+                                            final int force) {
         List<String> list = new ArrayList<>();
         try {
-            // Throw certain exceptions intentionally when unsupported device found
+            // Throw certain exceptions intentionally when direct interfacing is not supported
             if (Systems.isSamsung(context)) throw new Exception();
+            if (Systems.isAndromedaDevice(context)) throw new Exception();
+            if (!Systems.isBinderInterfacer(context)) throw new Exception();
             if (!Systems.checkOMS(context)) throw new Exception();
 
             // Now let's assume everything that gets through will now be only in OMS ROMs
             Map<String, List<OverlayInfo>> allOverlays;
             // On Oreo, use interfacer to get installed overlays
-            if (checkThemeSystemModule(context) == OVERLAY_MANAGER_SERVICE_O_UNROOTED) {
-                allOverlays = ThemeInterfacerService.getAllOverlays(context);
-            } else {
-                //noinspection deprecation, unchecked
-                allOverlays = OverlayManagerService.getAllOverlays();
+            switch (checkThemeSystemModule(context)) {
+                case OVERLAY_MANAGER_SERVICE_O_UNROOTED:
+                case OVERLAY_MANAGER_SERVICE_N_UNROOTED:
+                    allOverlays = ThemeInterfacerService.getAllOverlays(context);
+                    break;
+                default:
+                    //noinspection deprecation, unchecked
+                    allOverlays = OverlayManagerService.getAllOverlays();
             }
+
             if (allOverlays != null) {
                 Set<String> set = allOverlays.keySet();
-                switch (state2) {
+                switch (force) {
+                    // Allow the program to call a fixed specific function
                     case EXPORT_RETURN_ALL_OVERLAYS:
                         for (String targetPackageName : set) {
                             for (OverlayInfo oi : allOverlays.get(targetPackageName)) {
-                                if (oi.isApproved()) {
-                                    list.add(oi.packageName);
-                                }
+                                if (oi.isApproved()) list.add(oi.packageName);
                             }
                         }
                         break;
@@ -295,25 +354,38 @@ public class ThemeManager {
                             List<OverlayInfo> targetOverlays = allOverlays.get(targetPackageName);
                             int targetOverlaysSize = targetOverlays.size();
                             int count = 0;
-                            for (OverlayInfo oi : targetOverlays) {
-                                if (oi.isEnabled()) count++;
-                            }
+                            for (OverlayInfo oi : targetOverlays) if (oi.isEnabled()) count++;
                             if (targetOverlaysSize > 1 && count > 1) list.add(targetPackageName);
                         }
                         break;
-                    case EXPORT_RETURN_DEFAULT:
+                    default:
                         for (String targetPackageName : set) {
                             for (OverlayInfo oi : allOverlays.get(targetPackageName)) {
-                                if (state == STATE_ENABLED && oi.isEnabled()) {
-                                    list.add(oi.packageName);
-                                } else if (state == STATE_DISABLED && !oi.isEnabled()) {
-                                    list.add(oi.packageName);
-                                } else if (state == STATE_MISSING_TARGET) {
-                                    if (oi.state == STATE_MISSING_TARGET) {
+                                switch (state) {
+                                    case STATE_ENABLED_O:
+                                    case STATE_ENABLED_N:
+                                        if (oi.isEnabled()) {
+                                            list.add(oi.packageName);
+                                        }
+                                        break;
+                                    case STATE_DISABLED_O:
+                                    case STATE_DISABLED_N:
+                                        if (!oi.isEnabled()) {
+                                            list.add(oi.packageName);
+                                        }
+                                        break;
+                                    case STATE_MISSING_TARGET_O:
+                                    case STATE_MISSING_TARGET_N:
+                                        switch (oi.state) {
+                                            case STATE_MISSING_TARGET_O:
+                                            case STATE_MISSING_TARGET_N:
+                                                list.add(oi.packageName);
+                                                break;
+                                        }
+                                        break;
+                                    case STATE_LIST_ALL_OVERLAYS:
                                         list.add(oi.packageName);
-                                    }
-                                } else if (state == STATE_LIST_ALL_OVERLAYS) {
-                                    list.add(oi.packageName);
+                                        break;
                                 }
                             }
                         }
@@ -327,16 +399,23 @@ public class ThemeManager {
             // At this point, we probably ran into a legacy command or stock OMS
             if (Systems.checkOMS(context) || Systems.checkOreo()) {
                 String prefix;
-                if (state == STATE_ENABLED) {
-                    prefix = "[x]";
-                } else if (state == STATE_DISABLED) {
-                    prefix = "[ ]";
-                } else {
-                    prefix = "---";
+                switch (state) {
+                    case STATE_ENABLED_O:
+                    case STATE_ENABLED_N:
+                        prefix = "[x]";
+                        break;
+                    case STATE_DISABLED_O:
+                    case STATE_DISABLED_N:
+                        prefix = "[ ]";
+                        break;
+                    default:
+                        prefix = "---";
+                        break;
                 }
 
                 String[] arrList = null;
 
+                // TODO: Do not call a cached file for Andromeda mode
                 // This is a check for Oreo and Andromeda's integration
                 if (Systems.checkAndromeda(context)) {
                     File overlays = new File(
@@ -347,33 +426,32 @@ public class ThemeManager {
                     SharedPreferences prefs =
                             PreferenceManager.getDefaultSharedPreferences(context);
                     if (!overlays.exists()) {
-                        Log.d("ThemeManager", "Fetching new file from Andromeda, please wait!");
-                        if (!AndromedaService.listOverlays()) {
-                            Handler handler = new Handler(Looper.getMainLooper());
-                            handler.post(() ->
-                                    Toast.makeText(
-                                            context,
-                                            context.getString(R.string.toast_andromeda_timed_out),
-                                            Toast.LENGTH_LONG).show()
-                            );
-                        }
+                        Log.d("ThemeManager",
+                                "Fetching new file from Andromeda, please wait!");
+
+                        // Call Andromeda to make a new file
+                        boolean listed = AndromedaService.listOverlays();
 
                         // Now we wait till the file is made quickly!
-                        int counter = 0;
-                        while (!overlays.exists() && counter <= 20) {
-                            try {
-                                Thread.sleep(100);
-                                counter++;
-                                Log.d("ThemeManager",
-                                        "Substratum is still waiting for a response " +
-                                                "from Andromeda...");
-                            } catch (InterruptedException e1) {
-                                e1.printStackTrace();
+                        if (listed) {
+                            int counter = 0;
+                            while (!overlays.exists() && counter <= 20) {
+                                try {
+                                    Thread.sleep(100);
+                                    counter++;
+                                    Log.d("ThemeManager",
+                                            "Substratum is still waiting for a response " +
+                                                    "from Andromeda...");
+                                } catch (InterruptedException e1) {
+                                    e1.printStackTrace();
+                                }
                             }
-                        }
-                        if (overlays.exists()) {
-                            prefs.edit().putString("andromeda_overlays",
-                                    MD5.calculateMD5(overlays)).apply();
+                            if (overlays.exists()) {
+                                Log.d("ThemeManager",
+                                        "Substratum has received a response from Andromeda!");
+                                prefs.edit().putString("andromeda_overlays",
+                                        MD5.calculateMD5(overlays)).apply();
+                            }
                         }
                     } else {
                         Log.d("ThemeManager", "Queuing list using cached file!");
@@ -398,7 +476,7 @@ public class ThemeManager {
                     } catch (NullPointerException ignored) {
                     }
                 }
-                switch (state2) {
+                switch (force) {
                     case EXPORT_RETURN_MULTIPLE_TARGETS_ENABLED:
                         int counter = 0;
                         String currentApp = "";
@@ -466,34 +544,38 @@ public class ThemeManager {
                 }
             } else {
                 // We now know this is not OMS, so fallback for Samsung and Legacy
-                if (state == STATE_LIST_ALL_OVERLAYS || state == STATE_ENABLED) {
-                    if (Systems.isSamsung(context)) {
-                        final PackageManager pm = context.getPackageManager();
-                        List<ApplicationInfo> packages =
-                                pm.getInstalledApplications(PackageManager.GET_META_DATA);
-                        list.clear();
-                        for (ApplicationInfo packageInfo : packages) {
-                            if (Packages.getOverlayMetadata(
-                                    context,
-                                    packageInfo.packageName,
-                                    References.metadataOverlayParent) != null) {
-                                list.add(packageInfo.packageName);
-                            }
-                        }
-                    } else {
-                        File legacyCheck = new File(LEGACY_NEXUS_DIR);
-                        if (legacyCheck.exists() && legacyCheck.isDirectory()) {
+                switch (state) {
+                    case STATE_LIST_ALL_OVERLAYS:
+                    case STATE_ENABLED_O:
+                    case STATE_ENABLED_N:
+                        if (Systems.isSamsung(context)) {
+                            final PackageManager pm = context.getPackageManager();
+                            List<ApplicationInfo> packages =
+                                    pm.getInstalledApplications(PackageManager.GET_META_DATA);
                             list.clear();
-                            String[] lister = legacyCheck.list();
-                            for (String aLister : lister) {
-                                if (aLister.endsWith(".apk")) {
-                                    list.add(aLister.substring(0, aLister.length() - 4));
+                            for (ApplicationInfo packageInfo : packages) {
+                                if (Packages.getOverlayMetadata(
+                                        context,
+                                        packageInfo.packageName,
+                                        References.metadataOverlayParent) != null) {
+                                    list.add(packageInfo.packageName);
+                                }
+                            }
+                        } else {
+                            File legacyCheck = new File(LEGACY_NEXUS_DIR);
+                            if (legacyCheck.exists() && legacyCheck.isDirectory()) {
+                                list.clear();
+                                String[] lister = legacyCheck.list();
+                                for (String aLister : lister) {
+                                    if (aLister.endsWith(".apk")) {
+                                        list.add(aLister.substring(0, aLister.length() - 4));
+                                    }
                                 }
                             }
                         }
-                    }
-                } else {
-                    list.clear();
+                    default:
+                        list.clear();
+                        break;
                 }
             }
         }
@@ -531,7 +613,8 @@ public class ThemeManager {
 
     public static List<String> listEnabledOverlaysForTarget(Context context, String target) {
         List<String> list = new ArrayList<>();
-        List<String> overlays = listOverlays(context, STATE_ENABLED);
+        List<String> overlays = listOverlays(context,
+                SDK_INT >= O ? ThemeManager.STATE_ENABLED_O : ThemeManager.STATE_ENABLED_N);
         list.addAll(overlays.stream().filter(o -> o.startsWith(target))
                 .collect(Collectors.toList()));
         return list;
@@ -539,14 +622,16 @@ public class ThemeManager {
 
     public static List<String> listDisabledOverlaysForTarget(Context context, String target) {
         List<String> list = new ArrayList<>();
-        List<String> overlays = listOverlays(context, STATE_DISABLED);
+        List<String> overlays = listOverlays(context,
+                SDK_INT >= O ? ThemeManager.STATE_DISABLED_O : ThemeManager.STATE_DISABLED_N);
         list.addAll(overlays.stream().filter(o -> o.startsWith(target))
                 .collect(Collectors.toList()));
         return list;
     }
 
     public static boolean isOverlayEnabled(Context context, String overlayName) {
-        List<String> enabledOverlays = ThemeManager.listOverlays(context, STATE_ENABLED);
+        List<String> enabledOverlays = ThemeManager.listOverlays(context,
+                SDK_INT >= O ? ThemeManager.STATE_ENABLED_O : ThemeManager.STATE_ENABLED_N);
         for (String o : enabledOverlays) {
             if (o.equals(overlayName)) return true;
         }
@@ -561,11 +646,14 @@ public class ThemeManager {
      */
 
     public static void installOverlay(Context context, String overlay) {
-        if (checkThemeInterfacer(context)) {
+        final boolean hasThemeInterfacer = checkThemeInterfacer(context);
+        final boolean hasAndromeda = checkAndromeda(context);
+
+        if (hasThemeInterfacer) {
             ArrayList<String> list = new ArrayList<>();
             list.add(overlay);
             ThemeInterfacerService.installOverlays(context, list);
-        } else if (checkAndromeda(context)) {
+        } else if (hasAndromeda) {
             ArrayList<String> list = new ArrayList<>();
             list.add(overlay);
             if (!AndromedaService.installOverlays(list)) {
@@ -587,7 +675,8 @@ public class ThemeManager {
 
         if (Systems.checkOMS(context)) {
             ArrayList<String> temp = new ArrayList<>(overlays);
-            temp.removeAll(listOverlays(context, STATE_DISABLED));
+            temp.removeAll(listOverlays(context,
+                    SDK_INT >= O ? ThemeManager.STATE_DISABLED_O : ThemeManager.STATE_DISABLED_N));
             disableOverlay(context, temp);
         }
 

@@ -97,12 +97,21 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     public void onCreatePreferences(Bundle bundle, String s) {
         mContext = getContext();
 
-        if (Systems.checkOMS(mContext)) {
+        final boolean hasAndromeda = Systems.checkAndromeda(mContext);
+        final boolean hasThemeInterfacer = Systems.checkThemeInterfacer(mContext);
+        final boolean hasOMS = Systems.checkOMS(mContext);
+        final boolean isSamsung = Systems.isSamsung(mContext);
+
+        if (hasOMS) {
             addPreferencesFromResource(R.xml.preference_fragment);
         } else {
             addPreferencesFromResource(R.xml.legacy_preference_fragment);
+            if (!hasAndromeda) {
+                final CheckBoxPreference disableTargetOverlayPref = (CheckBoxPreference)
+                        findPreference("auto_disable_target_overlays");
+                disableTargetOverlayPref.setVisible(false);
+            }
         }
-
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 
         StringBuilder sb = new StringBuilder();
@@ -138,7 +147,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         systemPlatform = getPreferenceManager().findPreference("system_platform");
 
-        if (Systems.checkOMS(mContext)) {
+        if (hasOMS) {
             new checkROMSupportList(this).execute(
                     getString(R.string.supported_roms_url),
                     "supported_roms.xml");
@@ -151,7 +160,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 getString(R.string.device), Build.MODEL, Build.DEVICE));
         platformSummary.append(String.format("%s ", getString(R.string
                 .settings_about_oms_rro_version)));
-        platformSummary.append(((Systems.checkOMS(mContext)) ?
+        platformSummary.append((hasOMS ?
                 (Systems.checkOreo() ? getString(R.string.settings_about_oms_version_do) :
                         getString(R.string.settings_about_oms_version_7)) :
                 getString(R.string.settings_about_rro_version_2)));
@@ -159,13 +168,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         systemPlatform.setIcon(Packages.getAppIcon(mContext, "com.android.systemui"));
 
         Preference systemStatus = getPreferenceManager().findPreference("system_status");
-        boolean full_oms = Systems.checkOMS(mContext) &&
+        boolean full_oms = hasOMS &&
                 Systems.checkSubstratumFeature(mContext);
-        boolean interfacer = Systems.checkThemeInterfacer(mContext) &&
-                !Systems.isSamsung(mContext);
+        boolean interfacer = hasThemeInterfacer &&
+                !isSamsung;
         boolean verified = prefs.getBoolean("complexion", true);
         boolean certified = verified;
-        if (Systems.checkOMS(mContext)) {
+        if (hasOMS) {
             if (interfacer) {
                 certified = verified && full_oms;
             } else {
@@ -175,9 +184,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         systemStatus.setSummary((interfacer
                 ? getString(R.string.settings_system_status_rootless)
-                : (Systems.isSamsung(mContext) ?
+                : (isSamsung ?
                 getString(R.string.settings_system_status_samsung) :
-                (Systems.checkAndromeda(mContext) ?
+                (hasAndromeda ?
                         getString(R.string.settings_system_status_andromeda) :
                         getString(R.string.settings_system_status_rooted)))
                 + " (" + (certified ? getString(R.string.settings_system_status_certified) :
@@ -187,8 +196,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 mContext.getDrawable(R.drawable.system_status_certified)
                 : mContext.getDrawable(R.drawable.system_status_uncertified));
         if (BuildConfig.DEBUG &&
-                Systems.checkOMS(mContext) &&
-                !Systems.checkAndromeda(mContext)) {
+                hasOMS &&
+                !hasAndromeda) {
             systemStatus.setOnPreferenceClickListener(preference -> {
                 if (References.isNetworkAvailable(mContext)) {
                     new downloadRepositoryList(this).execute("");
@@ -206,7 +215,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         final CheckBoxPreference showDangerousSamsung = (CheckBoxPreference)
                 getPreferenceManager().findPreference("show_dangerous_samsung_overlays");
 
-        if (Systems.isSamsung(mContext)) {
+        if (isSamsung) {
             aboutSamsung.setVisible(true);
             aboutSamsung.setIcon(Packages.getAppIcon(mContext, SST_ADDON_PACKAGE));
             try {
@@ -253,7 +262,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         }
                         return false;
                     });
-        } else if (!Systems.checkOMS(mContext)) {
+        } else if (!hasOMS) {
             aboutSamsung.setVisible(false);
             showDangerousSamsung.setVisible(false);
         }
@@ -484,7 +493,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         return false;
                     });
 
-            if (Systems.checkOMS(mContext)) {
+            if (hasOMS) {
                 crashReceiver.setChecked(prefs.getBoolean("crash_receiver", true));
                 crashReceiver.setOnPreferenceChangeListener((preference, newValue) -> {
                     boolean isChecked = (Boolean) newValue;
@@ -513,7 +522,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 }
             }
         } else {
-            if (Systems.checkOMS(mContext)) {
+            if (hasOMS) {
                 crashReceiver.setVisible(false);
             }
             aoptSwitcher.setVisible(false);
@@ -589,7 +598,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 });
 
 
-        if (!Systems.checkOMS(mContext)) {
+        if (!hasOMS) {
             Preference priority_switcher =
                     getPreferenceManager().findPreference("legacy_priority_switcher");
             String formatted =
@@ -630,7 +639,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
 
         // Finally, these functions will only work on OMS ROMs
-        if (Systems.checkOMS(mContext)) {
+        if (hasOMS) {
             Preference aboutAndromeda = getPreferenceManager().findPreference("about_andromeda");
             if (Systems.isAndromedaDevice(mContext)) {
                 aboutAndromeda.setIcon(Packages.getAppIcon(mContext, ANDROMEDA_PACKAGE));

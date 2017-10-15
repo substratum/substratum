@@ -79,8 +79,8 @@ public class Packages {
             String package_name,
             boolean enabled) {
         try {
-            ApplicationInfo ai = context.getPackageManager().getApplicationInfo(package_name, 0);
             PackageManager pm = context.getPackageManager();
+            ApplicationInfo ai = pm.getApplicationInfo(package_name, 0);
             pm.getPackageInfo(package_name, PackageManager.GET_ACTIVITIES);
             if (enabled) return ai.enabled;
             // if package doesn't exist, an Exception will be thrown, so return true in every case

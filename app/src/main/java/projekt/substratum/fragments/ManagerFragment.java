@@ -73,6 +73,8 @@ import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.util.views.FloatingActionMenu;
 
+import static android.os.Build.VERSION.SDK_INT;
+import static android.os.Build.VERSION_CODES.O;
 import static projekt.substratum.common.Packages.getOverlayMetadata;
 import static projekt.substratum.common.Packages.getOverlayParent;
 import static projekt.substratum.common.Packages.getOverlayTarget;
@@ -85,8 +87,6 @@ import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
 import static projekt.substratum.common.References.VENDOR_DIR;
 import static projekt.substratum.common.Systems.checkOMS;
-import static projekt.substratum.common.platform.ThemeManager.STATE_DISABLED;
-import static projekt.substratum.common.platform.ThemeManager.STATE_ENABLED;
 import static projekt.substratum.common.platform.ThemeManager.isOverlayEnabled;
 import static projekt.substratum.util.files.MapUtils.sortMapByValues;
 
@@ -386,7 +386,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     }
 
     private List<String> updateEnabledOverlays() {
-        return new ArrayList<>(ThemeManager.listOverlays(getContext(), STATE_ENABLED));
+        return new ArrayList<>(ThemeManager.listOverlays(getContext(),
+                SDK_INT >= O ? ThemeManager.STATE_ENABLED_O : ThemeManager.STATE_ENABLED_N));
     }
 
     @Override
@@ -443,11 +444,13 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     if (Systems.checkOMS(fragment.context)) {
                         fragment.activated_overlays = new ArrayList<>(
                                 ThemeManager.listOverlays(fragment.context,
-                                        STATE_ENABLED));
+                                        SDK_INT >= O ? ThemeManager.STATE_DISABLED_O :
+                                                ThemeManager.STATE_DISABLED_N));
 
                         disabled_overlays = new ArrayList<>(
                                 ThemeManager.listOverlays(fragment.context,
-                                        STATE_DISABLED));
+                                        SDK_INT >= O ? ThemeManager.STATE_DISABLED_O :
+                                                ThemeManager.STATE_DISABLED_N));
 
                         all_overlays = new ArrayList<>(fragment.activated_overlays);
                         all_overlays.addAll(disabled_overlays);
@@ -507,7 +510,9 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     } else {
                         // At this point, the object is an RRO formatted check
                         List<String> listed =
-                                ThemeManager.listOverlays(fragment.context, STATE_ENABLED);
+                                ThemeManager.listOverlays(fragment.context,
+                                        SDK_INT >= O ? ThemeManager.STATE_ENABLED_O :
+                                                ThemeManager.STATE_ENABLED_N);
                         fragment.activated_overlays.addAll(listed);
                         Collections.sort(fragment.activated_overlays);
                         for (int i = 0; i < fragment.activated_overlays.size(); i++) {
@@ -643,7 +648,9 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     if (managerItem.isSelected()) {
                         if (isPackageInstalled(context,
                                 getOverlayParent(context, managerItem.getName()))) {
-                            if (ThemeManager.listOverlays(fragment.context, STATE_DISABLED)
+                            if (ThemeManager.listOverlays(fragment.context,
+                                    SDK_INT >= O ? ThemeManager.STATE_DISABLED_O :
+                                            ThemeManager.STATE_DISABLED_N)
                                     .contains(managerItem.getName())) {
                                 data.add(managerItem.getName());
                             }
@@ -938,7 +945,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     if (managerItem.isSelected()) {
                         if (isPackageInstalled(context,
                                 getOverlayParent(context, managerItem.getName()))) {
-                            if (ThemeManager.listOverlays(fragment.context, STATE_DISABLED)
+                            if (ThemeManager.listOverlays(fragment.context, SDK_INT >= O ?
+                                    ThemeManager.STATE_DISABLED_O : ThemeManager.STATE_DISABLED_N)
                                     .contains(managerItem.getName())) {
                                 data.add(managerItem.getName());
                             } else {

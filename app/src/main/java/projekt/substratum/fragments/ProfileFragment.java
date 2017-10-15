@@ -84,6 +84,8 @@ import projekt.substratum.common.systems.ProfileManager;
 import projekt.substratum.common.tabs.WallpaperManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
 
+import static android.os.Build.VERSION.SDK_INT;
+import static android.os.Build.VERSION_CODES.O;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
 import static projekt.substratum.common.References.KEY_RETRIEVAL;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
@@ -93,7 +95,6 @@ import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.VENDOR_DIR;
 import static projekt.substratum.common.References.metadataEncryption;
 import static projekt.substratum.common.References.metadataEncryptionValue;
-import static projekt.substratum.common.platform.ThemeManager.STATE_ENABLED;
 import static projekt.substratum.common.systems.ProfileManager.DAY_PROFILE;
 import static projekt.substratum.common.systems.ProfileManager.DAY_PROFILE_HOUR;
 import static projekt.substratum.common.systems.ProfileManager.DAY_PROFILE_MINUTE;
@@ -924,7 +925,9 @@ public class ProfileFragment extends Fragment {
                     if (overlays.exists()) {
                         List<List<String>> profile =
                                 ProfileManager.readProfileStatePackageWithTargetPackage(
-                                        profile_name, STATE_ENABLED);
+                                        profile_name,
+                                        SDK_INT >= O ? ThemeManager.STATE_ENABLED_O :
+                                                ThemeManager.STATE_ENABLED_N);
                         system = ThemeManager.listAllOverlays(profileFragment.mContext);
 
                         // Now process the overlays to be enabled
@@ -1083,7 +1086,9 @@ public class ProfileFragment extends Fragment {
             if (profileFragment != null) {
                 if (toBeCompiled != null) {
                     HashMap<String, ProfileItem> items =
-                            ProfileManager.readProfileState(profileName, STATE_ENABLED);
+                            ProfileManager.readProfileState(profileName,
+                                    SDK_INT >= O ? ThemeManager.STATE_ENABLED_O :
+                                            ThemeManager.STATE_ENABLED_N);
 
                     String prevTheme = "";
                     for (int i = 0; i < toBeCompiled.size(); i++) {
@@ -1325,7 +1330,9 @@ public class ProfileFragment extends Fragment {
                 if (Systems.checkThemeInterfacer(profileFragment.mContext)) {
                     ArrayList<String> toBeDisabled =
                             new ArrayList<>(ThemeManager.listOverlays(
-                                    profileFragment.mContext, STATE_ENABLED));
+                                    profileFragment.mContext,
+                                    SDK_INT >= O ? ThemeManager.STATE_ENABLED_O :
+                                            ThemeManager.STATE_ENABLED_N));
                     boolean shouldRestartUi = ThemeManager.shouldRestartUI(
                             profileFragment.mContext, toBeDisabled)
                             || ThemeManager.shouldRestartUI(profileFragment.mContext, toBeRun);

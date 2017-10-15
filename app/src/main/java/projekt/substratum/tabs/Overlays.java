@@ -98,6 +98,8 @@ import projekt.substratum.util.files.MapUtils;
 import projekt.substratum.util.files.Root;
 
 import static android.content.Context.ACTIVITY_SERVICE;
+import static android.os.Build.VERSION.SDK_INT;
+import static android.os.Build.VERSION_CODES.O;
 import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.References.DEFAULT_NOTIFICATION_CHANNEL_ID;
 import static projekt.substratum.common.References.ENABLE_PACKAGE_LOGGING;
@@ -726,7 +728,7 @@ public class Overlays extends Fragment {
     protected List<String> updateEnabledOverlays() {
         return new ArrayList<>(ThemeManager.listOverlays(
                 getContext(),
-                ThemeManager.STATE_DISABLED
+                SDK_INT >= O ? ThemeManager.STATE_ENABLED_O : ThemeManager.STATE_ENABLED_N
         ));
     }
 

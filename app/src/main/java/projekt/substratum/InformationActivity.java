@@ -95,6 +95,8 @@ import projekt.substratum.util.helpers.ContextWrapper;
 import projekt.substratum.util.views.FloatingActionMenu;
 import projekt.substratum.util.views.SheetDialog;
 
+import static android.os.Build.VERSION.SDK_INT;
+import static android.os.Build.VERSION_CODES.O;
 import static projekt.substratum.common.Packages.getOverlayMetadata;
 import static projekt.substratum.common.Packages.getPackageHeroImage;
 import static projekt.substratum.common.References.BYPASS_SUBSTRATUM_BUILDER_DELETION;
@@ -428,7 +430,7 @@ public class InformationActivity extends SubstratumActivity {
         tabLayout = findViewById(R.id.tabs);
         if (tabLayout != null) {
             // First, take account for whether the theme was launched normally
-            if (theme_mode.equals("")) {
+            if (theme_mode.isEmpty()) {
                 try {
                     Context otherContext = mContext.createPackageContext
                             (theme_pid, 0);
@@ -924,7 +926,8 @@ public class InformationActivity extends SubstratumActivity {
                             dialog.dismiss();
                             // Get all enabled overlays
                             List<String> stateAll = ThemeManager.listOverlays(
-                                    mContext, ThemeManager.STATE_ENABLED);
+                                    mContext, SDK_INT >= O ? ThemeManager.STATE_ENABLED_O :
+                                            ThemeManager.STATE_ENABLED_N);
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {
@@ -970,7 +973,8 @@ public class InformationActivity extends SubstratumActivity {
                             dialog.dismiss();
                             // Get all disabled overlays
                             List<String> stateAll = ThemeManager.listOverlays(
-                                    mContext, ThemeManager.STATE_DISABLED);
+                                    mContext, SDK_INT >= O ? ThemeManager.STATE_DISABLED_O :
+                                            ThemeManager.STATE_DISABLED_N);
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {

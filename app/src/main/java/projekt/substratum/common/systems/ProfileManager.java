@@ -51,6 +51,8 @@ import projekt.substratum.common.Packages;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.services.profiles.ScheduledProfileReceiver;
 
+import static android.os.Build.VERSION.SDK_INT;
+import static android.os.Build.VERSION_CODES.O;
 import static projekt.substratum.common.References.metadataOverlayParent;
 import static projekt.substratum.common.References.metadataOverlayTarget;
 import static projekt.substratum.common.References.metadataOverlayType1a;
@@ -59,8 +61,6 @@ import static projekt.substratum.common.References.metadataOverlayType1c;
 import static projekt.substratum.common.References.metadataOverlayType2;
 import static projekt.substratum.common.References.metadataOverlayType3;
 import static projekt.substratum.common.References.metadataOverlayType4;
-import static projekt.substratum.common.platform.ThemeManager.STATE_DISABLED;
-import static projekt.substratum.common.platform.ThemeManager.STATE_ENABLED;
 
 public class ProfileManager {
     public static final String SCHEDULED_PROFILE_ENABLED = "scheduled_profile_enabled";
@@ -253,7 +253,8 @@ public class ProfileManager {
                 xmlSerializer.startTag(null, METADATA_PROFILE_OVERLAYS);
 
                 // Write enabled overlays
-                List<String> enabled = ThemeManager.listOverlays(context, STATE_ENABLED);
+                List<String> enabled = ThemeManager.listOverlays(context,
+                        SDK_INT >= O ? ThemeManager.STATE_ENABLED_O : ThemeManager.STATE_ENABLED_N);
                 if (enabled.size() > 0) {
                     xmlSerializer.startTag(null, METADATA_PROFILE_ENABLED);
                     for (String packageName : enabled) {
@@ -299,7 +300,9 @@ public class ProfileManager {
                 }
 
                 // Write disabled overlays
-                List<String> disabled = ThemeManager.listOverlays(context, STATE_DISABLED);
+                List<String> disabled = ThemeManager.listOverlays(context,
+                        SDK_INT >= O ? ThemeManager.STATE_DISABLED_O :
+                                ThemeManager.STATE_DISABLED_N);
                 if (disabled.size() > 0) {
                     xmlSerializer.startTag(null, METADATA_PROFILE_DISABLED);
                     for (String packageName : disabled) {
@@ -365,7 +368,9 @@ public class ProfileManager {
             doc.getDocumentElement().normalize();
 
             Node items = doc.getElementsByTagName(
-                    overlayState == STATE_ENABLED ?
+                    overlayState ==
+                            (SDK_INT >= O ? ThemeManager.STATE_ENABLED_O :
+                                    ThemeManager.STATE_ENABLED_N) ?
                             METADATA_PROFILE_ENABLED : METADATA_PROFILE_DISABLED)
                     .item(0);
 
@@ -406,7 +411,9 @@ public class ProfileManager {
             doc.getDocumentElement().normalize();
 
             Node items = doc.getElementsByTagName(
-                    overlayState == STATE_ENABLED ?
+                    overlayState ==
+                            (SDK_INT >= O ? ThemeManager.STATE_ENABLED_O :
+                                    ThemeManager.STATE_ENABLED_N) ?
                             METADATA_PROFILE_ENABLED : METADATA_PROFILE_DISABLED).item(0);
 
             if (items != null) {
@@ -437,7 +444,8 @@ public class ProfileManager {
             doc.getDocumentElement().normalize();
 
             Node items = doc.getElementsByTagName(
-                    overlayState == STATE_ENABLED ?
+                    overlayState == (SDK_INT >= O ? ThemeManager.STATE_ENABLED_O :
+                            ThemeManager.STATE_ENABLED_N) ?
                             METADATA_PROFILE_ENABLED : METADATA_PROFILE_DISABLED).item(0);
 
             if (items != null) {

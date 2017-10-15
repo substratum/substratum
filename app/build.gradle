@@ -33,7 +33,7 @@ def keystorePropertiesFile = rootProject.file("keystore.properties")
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    buildToolsVersion "26.0.2"
 
     lintOptions {
         checkReleaseBuilds false
@@ -111,6 +111,7 @@ ext {
     firebaseVersion = '11.4.2'
     glideVersion = '4.1.1'
 }
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     // Leak Checks and Test Cases

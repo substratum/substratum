@@ -523,6 +523,9 @@
     <string name="alternate_drawer_design_subtext">An alternative navigation drawer design.</string>
     <string name="logchar_autosave_title">Retain LogChar reports</string>
     <string name="logchar_autosave_subtext">All LogChar reports will be stored in /storage/emulated/0/substratum/LogCharReports/.</string>
+    <string name="auto_disable_target_overlays">Auto-disable other overlays for target</string>
+    <string name="auto_disable_target_overlays_on">Other target overlays will be disabled when installing / enabling a new overlay</string>
+    <string name="auto_disable_target_overlays_off">Other target overlays will remain unchanged when installing / enabling a new overlay</string>
 
     <string name="fab_menu_compile_enable">Build &amp; Enable</string>
     <string name="fab_menu_compile_update">Build &amp; Update</string>

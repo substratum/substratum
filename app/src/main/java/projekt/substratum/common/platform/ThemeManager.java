@@ -129,26 +129,32 @@ public class ThemeManager {
             if (sharedPrefs.getBoolean("auto_disable_target_overlays", false)) {
                 for (String overlay : overlays) {
                     // Disable other overlays for target if preference enabled
-                    ArrayList<String> enabledOverlaysForTarget = new ArrayList<>(
-                            listEnabledOverlaysForTarget(context,
-                                    getOverlayTarget(context, overlay)));
-                    disableOverlay(context, enabledOverlaysForTarget);
+                    final String overlayTarget = getOverlayTarget(context, overlay);
+                    if (overlayTarget != null && !overlayTarget.isEmpty()) {
+                        ArrayList<String> enabledOverlaysForTarget = new ArrayList<>(
+                                listEnabledOverlaysForTarget(context,
+                                        overlayTarget));
+                        disableOverlay(context, enabledOverlaysForTarget);
+                    }
                 }
             }
         } else {
             for (String overlay : overlays) {
                 // Disable other overlays for target in legacy mode
-                ArrayList<String> enabledOverlaysForTarget = new ArrayList<>(
-                        listEnabledOverlaysForTarget(context,
-                                getOverlayTarget(context, overlay)));
-                disableOverlay(context, enabledOverlaysForTarget);
+                final String overlayTarget = getOverlayTarget(context, overlay);
+                if (overlayTarget != null && !overlayTarget.isEmpty()) {
+                    ArrayList<String> enabledOverlaysForTarget = new ArrayList<>(
+                            listEnabledOverlaysForTarget(context,
+                                    overlayTarget));
+                    disableOverlay(context, enabledOverlaysForTarget);
+                }
             }
         }
 
-        if (checkThemeInterfacer(context)) {
+        if (hasThemeInterfacer) {
             ThemeInterfacerService.enableOverlays(
                     context, overlays, shouldRestartUI(context, overlays));
-        } else if (checkAndromeda(context)) {
+        } else if (hasAndromeda) {
             if (!AndromedaService.enableOverlays(overlays)) {
                 Handler handler = new Handler(Looper.getMainLooper());
                 handler.post(() ->
@@ -573,7 +579,6 @@ public class ThemeManager {
                 }
             }
         }
-        if (!list.isEmpty()) Log.d("ThemeManager", list.get(0));
         return list;
     }
 
@@ -643,23 +648,6 @@ public class ThemeManager {
     public static void installOverlay(Context context, String overlay) {
         final boolean hasThemeInterfacer = checkThemeInterfacer(context);
         final boolean hasAndromeda = checkAndromeda(context);
-
-        if (hasThemeInterfacer || hasAndromeda) {
-            final SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-            if (sharedPrefs.getBoolean("auto_disable_target_overlays", false)) {
-                // Disable other overlays for target if preference enabled
-                ArrayList<String> enabledOverlaysForTarget = new ArrayList<>(
-                        listEnabledOverlaysForTarget(context,
-                                getOverlayTarget(context, overlay)));
-                disableOverlay(context, enabledOverlaysForTarget);
-            }
-        } else {
-            // Disable other overlays for target in legacy mode
-            ArrayList<String> enabledOverlaysForTarget = new ArrayList<>(
-                    listEnabledOverlaysForTarget(context,
-                            getOverlayTarget(context, overlay)));
-            disableOverlay(context, enabledOverlaysForTarget);
-        }
 
         if (hasThemeInterfacer) {
             ArrayList<String> list = new ArrayList<>();

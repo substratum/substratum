@@ -183,6 +183,14 @@
             android:summaryOn="@string/auto_reload_sysui_summary_on"
             android:title="@string/auto_reload_sysui_title"/>
 
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:defaultValue="false"
+            android:key="auto_disable_target_overlays"
+            android:summaryOn="Other target overlays will be disabled when installing / enabling a new overlay"
+            android:summaryOff="Other target overlays will remain unchanged when installing / enabling a new overlay"
+            android:title="Auto-disable other overlays for target" />
     </PreferenceCategory>
 
     <PreferenceCategory

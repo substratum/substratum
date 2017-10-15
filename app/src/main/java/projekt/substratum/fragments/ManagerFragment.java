@@ -115,6 +115,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     private SearchView searchView;
     private String userInput = "";
     private Boolean first_boot = true;
+    private Handler handler = new Handler();
 
     private void resetRecyclerView() {
         // Initialize the recycler view with an empty adapter first
@@ -298,9 +299,11 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.overlays_list_menu, menu);
-        menu.findItem(R.id.search).setVisible(true);
+        menu.findItem(R.id.search).setVisible(false);
         menu.findItem(R.id.restart_systemui).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         menu.findItem(R.id.per_app).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.findItem(R.id.action_search).setVisible(true);
+        menu.findItem(R.id.action_search).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         searchView = ((MainActivity) getActivity()).searchView;
         if (searchView != null) searchView.setOnQueryTextListener(this);
         updateMenuButtonState(menu);
@@ -390,16 +393,25 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        return false;
+        if (!userInput.equals(query)) {
+            userInput = query;
+        }
+        new LayoutReloader(ManagerFragment.this, userInput).execute();
+
+        return true;
     }
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        if (!userInput.equals(newText)) {
-            userInput = newText;
-            new LayoutReloader(ManagerFragment.this, userInput).execute();
-        }
-        return true;
+        //if (!userInput.equals(newText)) {
+        //    userInput = newText;
+        //}
+        //new LayoutReloader(ManagerFragment.this, userInput).execute();
+        //handler.removeCallbacks(null);
+        //Runnable task = () -> new LayoutReloader(ManagerFragment.this,
+        //        userInput).execute();
+        //handler.postDelayed(task, 600);
+        return false;
     }
 
     private static class LayoutReloader extends AsyncTask<Void, Void, Void> {
@@ -460,7 +472,20 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                             boolean can_continue = true;
                             if (userInput.get() != null && userInput.get().length() > 0) {
                                 StringBuilder combined = new StringBuilder();
-                                combined.append(getOverlayParent(context, all_overlays.get(i)));
+                                //TODO
+                                //Do we really want to check for theme name too?
+                                //THIS IS NOT THE OPTIMAL FIX! THAT'S ONLY TO GET THINGS WORKING,
+                                //BUT THE PROPER FIX WILL BE TO START DEALING WITH ManagerItem FROM
+                                //HERE ON.
+                                String metadata = Packages.getOverlayMetadata(
+                                        context,
+                                        all_overlays.get(i),
+                                        References.metadataOverlayParent);
+                                if (metadata != null && metadata.length() > 0) {
+                                    combined.append(Packages.getPackageName(context, metadata));
+                                } else {
+                                    combined.append("");
+                                }
                                 combined.append(getPackageName(context,
                                         getOverlayTarget(context, all_overlays.get(i))));
                                 if (!combined.toString().toLowerCase().contains(
@@ -512,7 +537,12 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                         for (int i = 0; i < fragment.activated_overlays.size(); i++) {
                             ManagerItem st = new ManagerItem(context,
                                     fragment.activated_overlays.get(i), true);
-                            fragment.overlaysList.add(st);
+                            StringBuilder combined = new StringBuilder();
+                            combined.append(st.getLabelName());
+                            combined.append(st.getThemeName());
+                            if (combined.toString().toLowerCase().contains(
+                                    userInput.get().toLowerCase()))
+                                fragment.overlaysList.add(st);
                         }
                     }
 
@@ -575,7 +605,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     TextView textView = fragment.root.findViewById(R.id.no_themes_description);
                     textView.setText(fragment.getString(R.string.manager_no_overlays_text));
 
-                    if (!fragment.searchView.isIconified() && userInput.get().length() > 0) {
+                    if (userInput.get() != null && !fragment.searchView.isIconified() &&
+                            userInput.get().length() > 0) {
                         titleView.setText(fragment.getString(R.string.no_overlays_title));
                         String formatter = String.format(fragment.getString(
                                 R.string.no_overlays_description_search), userInput.get());

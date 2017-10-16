@@ -198,6 +198,7 @@ public class ShowcaseActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class DownloadTabs extends AsyncTask<String, Integer, String> {
 
         @Override

@@ -111,7 +111,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_toEndOf="@+id/erase_logs_title"
                 android:gravity="end"
-                android:text="LOGS"/>
+                android:text="@string/logs_placeholder"/>
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>

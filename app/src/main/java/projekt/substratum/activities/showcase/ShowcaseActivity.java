@@ -19,6 +19,7 @@
 package projekt.substratum.activities.showcase;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
@@ -45,6 +46,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -141,7 +143,7 @@ public class ShowcaseActivity extends AppCompatActivity {
     private void refreshLayout() {
         if (References.isNetworkAvailable(getApplicationContext())) {
             no_network.setVisibility(View.GONE);
-            DownloadTabs downloadTabs = new DownloadTabs();
+            DownloadTabs downloadTabs = new DownloadTabs(this);
             downloadTabs.execute(getString(R.string.showcase_tabs), "showcase_tabs.xml");
         } else {
             no_network.setVisibility(View.VISIBLE);
@@ -198,70 +200,93 @@ public class ShowcaseActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private class DownloadTabs extends AsyncTask<String, Integer, String> {
+    private static class DownloadTabs extends AsyncTask<String, Integer, String> {
+
+        private final WeakReference<ShowcaseActivity> showcaseActivityWR;
+
+        DownloadTabs(ShowcaseActivity activity) {
+            showcaseActivityWR = new WeakReference<>(activity);
+        }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
         }
 
-        @SuppressLint("ClickableViewAccessibility")
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            tabLayout.setVisibility(View.VISIBLE);
-
-            String resultant = result;
-
-            if (resultant.endsWith("-temp.xml")) {
-                String existing = MD5.calculateMD5(new File(getApplicationContext().getCacheDir() +
-                        "/ShowcaseCache/" + "showcase_tabs.xml"));
-                String new_file = MD5.calculateMD5(new File(getApplicationContext().getCacheDir() +
-                        "/ShowcaseCache/" + "showcase_tabs-temp.xml"));
-                if (existing != null && !existing.equals(new_file)) {
-                    // MD5s don't match
-                    File renameMe = new File(getApplicationContext().getCacheDir() +
-                            "/ShowcaseCache/" + "showcase_tabs-temp.xml");
-                    boolean move = renameMe.renameTo(
-                            new File(getApplicationContext().getCacheDir() +
-                                    "/ShowcaseCache/" + "showcase_tabs.xml"));
-                    if (move) Log.e("SubstratumShowcase",
-                            "Successfully updated the showcase tabs database");
-                } else {
-                    File deleteMe = new File(getApplicationContext().getCacheDir() +
-                            "/ShowcaseCache/" + "showcase_tabs-temp.xml");
-                    boolean deleted = deleteMe.delete();
-                    if (!deleted) Log.e("SubstratumShowcase",
-                            "Unable to delete temporary tab file.");
-                }
+            if (result == null) {
+                return;
             }
 
-            resultant = "showcase_tabs.xml";
+            ShowcaseActivity activity = showcaseActivityWR.get();
 
-            String[] checkerCommands = {getApplicationContext().getCacheDir() +
-                    "/ShowcaseCache/" + resultant};
+            if (activity != null) {
 
-            @SuppressWarnings("unchecked") final Map<String, String> newArray =
-                    ReadShowcaseTabsFile.main(checkerCommands);
+                final TabLayout tabLayout = activity.findViewById(R.id.tabs);
+                final ViewPager viewPager = activity.findViewById(R.id.viewpager);
+                final SwipeRefreshLayout swipeRefreshLayout = activity.swipeRefreshLayout;
 
-            ArrayList<String> links = new ArrayList<>();
+                if (tabLayout == null || viewPager == null || swipeRefreshLayout == null) {
+                    return;
+                }
 
-            newArray.keySet().stream().filter(key -> tabLayout != null).forEach(key -> {
-                links.add(newArray.get(key));
-                tabLayout.addTab(tabLayout.newTab().setText(key));
-            });
-            final ViewPager viewPager = findViewById(R.id.viewpager);
-            final ShowcaseTabsAdapter adapter = new ShowcaseTabsAdapter(
-                    getSupportFragmentManager(),
-                    tabLayout.getTabCount(),
-                    links);
-            if (viewPager != null) {
+                tabLayout.setVisibility(View.VISIBLE);
+
+                String resultant = result;
+
+                if (resultant.endsWith("-temp.xml")) {
+                    String existing = MD5.calculateMD5(new File(activity.getCacheDir() +
+                            "/ShowcaseCache/" + "showcase_tabs.xml"));
+                    String new_file = MD5.calculateMD5(new File(activity.getCacheDir() +
+                            "/ShowcaseCache/" + "showcase_tabs-temp.xml"));
+                    if (existing != null && !existing.equals(new_file)) {
+                        // MD5s don't match
+                        File renameMe = new File(activity.getCacheDir() +
+                                "/ShowcaseCache/" + "showcase_tabs-temp.xml");
+                        boolean move = renameMe.renameTo(
+                                new File(activity.getCacheDir() +
+                                        "/ShowcaseCache/" + "showcase_tabs.xml"));
+                        if (move) Log.e("SubstratumShowcase",
+                                "Successfully updated the showcase tabs database");
+                    } else {
+                        File deleteMe = new File(activity.getCacheDir() +
+                                "/ShowcaseCache/" + "showcase_tabs-temp.xml");
+                        boolean deleted = deleteMe.delete();
+                        if (!deleted) Log.e("SubstratumShowcase",
+                                "Unable to delete temporary tab file.");
+                    }
+                }
+
+                resultant = "showcase_tabs.xml";
+
+                String[] checkerCommands = {activity.getCacheDir() +
+                        "/ShowcaseCache/" + resultant};
+
+                final Map<String, String> newArray =
+                        ReadShowcaseTabsFile.main(checkerCommands);
+
+                ArrayList<String> links = new ArrayList<>();
+
+                newArray.keySet()
+                        .forEach(key -> {
+                            links.add(newArray.get(key));
+                            tabLayout.addTab(tabLayout.newTab().setText(key));
+                        });
+
+                final ShowcaseTabsAdapter adapter = new ShowcaseTabsAdapter(
+                        activity.getSupportFragmentManager(),
+                        tabLayout.getTabCount(),
+                        links);
+
                 viewPager.setOffscreenPageLimit(tabLayout.getTabCount());
                 viewPager.setAdapter(adapter);
                 viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener
                         (tabLayout));
+
+                //Fix for SwipeToRefresh in ViewPager (without it horizontal scrolling is impossible)
                 viewPager.setOnTouchListener((v, event) -> {
                     swipeRefreshLayout.setEnabled(false);
                     switch (event.getAction()) {
@@ -292,16 +317,23 @@ public class ShowcaseActivity extends AppCompatActivity {
         protected String doInBackground(String... sUrl) {
             String inputFileName = sUrl[1];
 
-            File current_wallpapers = new File(
-                    getApplicationContext().getCacheDir() + "/ShowcaseCache/" + inputFileName);
-            if (current_wallpapers.exists()) {
-                // We create a temporary file to check whether we should be replacing the current
-                inputFileName = inputFileName.substring(0, inputFileName.length() - 4) +
-                        "-temp.xml";
-            }
+            Activity activity = showcaseActivityWR.get();
 
-            FileDownloader.init(getApplicationContext(), sUrl[0], inputFileName, "ShowcaseCache");
-            return inputFileName;
+            if (activity != null) {
+
+                File current_wallpapers = new File(
+                        activity.getCacheDir() + "/ShowcaseCache/" + inputFileName);
+                if (current_wallpapers.exists()) {
+                    // We create a temporary file to check whether we should be replacing the current
+                    inputFileName = inputFileName.substring(0, inputFileName.length() - 4) +
+                            "-temp.xml";
+                }
+
+                FileDownloader.init(activity, sUrl[0], inputFileName, "ShowcaseCache");
+                return inputFileName;
+            } else {
+                return null;
+            }
         }
     }
 

@@ -32,7 +32,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 public class ReadShowcaseTabsFile {
 
-    public static Map main(String argv[]) {
+    public static Map<String, String> main(String argv[]) {
 
         Map<String, String> map = new TreeMap<>();
         Map<String, String> emptyMap = new TreeMap<>();

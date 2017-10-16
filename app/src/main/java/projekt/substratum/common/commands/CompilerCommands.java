@@ -70,7 +70,7 @@ public class CompilerCommands {
             packageName = overlayPackage + "." + parse2_themeName +
                     parse2_variantName + parse2_baseName;
         }
-        if (!isNullOrEmpty(packageNameOverride)) {
+        if (isNotNullOrEmpty(packageNameOverride)) {
             packageName = packageNameOverride;
         }
 
@@ -176,8 +176,8 @@ public class CompilerCommands {
         return "";
     }
 
-    private static boolean isNullOrEmpty(String string) {
-        return string == null || string.length() == 0;
+    private static boolean isNotNullOrEmpty(String string) {
+        return string != null && string.length() != 0;
     }
 
     @SuppressWarnings("StringConcatenationInsideStringBufferAppend")
@@ -196,10 +196,10 @@ public class CompilerCommands {
         // Compile with specified manifest
         sb.append("-M " + work_area + "/AndroidManifest.xml ");
         // If the user picked a variant (type2), compile multiple directories
-        sb.append(((!isNullOrEmpty(additional_variant)) ?
+        sb.append(((isNotNullOrEmpty(additional_variant)) ?
                 "-S " + work_area + "/" + "type2_" + additional_variant + "/ " : ""));
         // If the user picked an asset variant (type4), compile multiple directories
-        sb.append(((!isNullOrEmpty(asset_replacement)) ?
+        sb.append(((isNotNullOrEmpty(asset_replacement)) ?
                 "-A " + work_area + "/assets/ " : ""));
         // We will compile a volatile directory where we make temporary changes to
         sb.append("-S " + work_area + dir + "/ ");

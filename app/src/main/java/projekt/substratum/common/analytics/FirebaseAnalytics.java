@@ -18,6 +18,7 @@
 
 package projekt.substratum.common.analytics;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -45,6 +46,7 @@ public class FirebaseAnalytics {
     public static final String PACKAGES_PREFS = "prefs";
     private static FirebaseDatabase mDatabase;
 
+    @SuppressLint("MissingFirebaseInstanceTokenRefresh")
     private static DatabaseReference getDatabaseReference() {
         if (mDatabase == null) {
             mDatabase = FirebaseDatabase.getInstance();

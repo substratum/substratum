@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:drawablePadding="16dp"
                 android:gravity="start"
-                android:text="APP_TITLE"
+                android:text="@string/app_title_placeholder"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textStyle="bold"/>
 
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:drawablePadding="16dp"
                 android:gravity="start"
-                android:text="MORE_TEXT"
+                android:text="@string/more_text_placeholder"
                 android:textColor="?android:attr/textColorPrimary"/>
 
         </LinearLayout>

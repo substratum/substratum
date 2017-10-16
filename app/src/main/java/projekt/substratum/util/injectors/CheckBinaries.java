@@ -36,7 +36,6 @@ public final class CheckBinaries {
         injectZipAlign(context, forced);
     }
 
-    @SuppressWarnings("EqualsBetweenInconvertibleTypes")
     private static void injectAOPT(Context context, Boolean forced) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         String aoptPath = context.getFilesDir().getAbsolutePath() + "/aopt";

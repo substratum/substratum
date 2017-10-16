@@ -56,6 +56,7 @@ import projekt.substratum.util.files.Root;
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.O;
 import static projekt.substratum.common.Packages.getOverlayParent;
+import static projekt.substratum.common.Packages.getOverlayTarget;
 import static projekt.substratum.common.Packages.isPackageInstalled;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
@@ -115,10 +116,28 @@ public class ThemeManager {
         overlays.removeAll(listOverlays(context, STATE_ENABLED));
         if (overlays.isEmpty()) return;
 
-        if (checkThemeInterfacer(context)) {
+        final SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+
+        if (sharedPrefs.getBoolean("auto_disable_target_overlays", false)) {
+            for (String overlay : overlays) {
+                // Disable other overlays for target if preference enabled
+                final String overlayTarget = getOverlayTarget(context, overlay);
+                if (overlayTarget != null && !overlayTarget.isEmpty()) {
+                    ArrayList<String> enabledOverlaysForTarget = new ArrayList<>(
+                            listEnabledOverlaysForTarget(context,
+                                    overlayTarget));
+                    disableOverlay(context, enabledOverlaysForTarget);
+                }
+            }
+        }
+
+        final boolean hasThemeInterfacer = checkThemeInterfacer(context);
+        final boolean hasAndromeda = checkAndromeda(context);
+
+        if (hasThemeInterfacer) {
             ThemeInterfacerService.enableOverlays(
                     context, overlays, shouldRestartUI(context, overlays));
-        } else if (checkAndromeda(context)) {
+        } else if (hasAndromeda) {
             if (!AndromedaService.enableOverlays(overlays)) {
                 Handler handler = new Handler(Looper.getMainLooper());
                 handler.post(() ->

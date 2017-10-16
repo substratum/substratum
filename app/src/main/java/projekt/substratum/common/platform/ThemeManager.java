@@ -126,7 +126,11 @@ public class ThemeManager {
                     ArrayList<String> enabledOverlaysForTarget = new ArrayList<>(
                             listEnabledOverlaysForTarget(context,
                                     overlayTarget));
-                    disableOverlay(context, enabledOverlaysForTarget);
+                    if (Systems.checkOMS(context)) {
+                        disableOverlay(context, enabledOverlaysForTarget);
+                    } else {
+                        uninstallOverlay(context, enabledOverlaysForTarget);
+                    }
                 }
             }
         }

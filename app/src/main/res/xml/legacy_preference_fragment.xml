@@ -135,6 +135,15 @@
             android:summary="@string/show_theme_template_version_description"
             android:title="@string/show_theme_template_version"/>
 
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:defaultValue="false"
+            android:key="auto_disable_target_overlays"
+            android:summaryOn="@string/auto_disable_target_overlays_on"
+            android:summaryOff="@string/auto_disable_target_overlays_off"
+            android:title="@string/auto_disable_target_overlays" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

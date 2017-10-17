@@ -18,18 +18,18 @@
 
 apply plugin: 'com.android.application'
 
-def gitHash = { ->
-    def stdout = new ByteArrayOutputStream()
+final def gitHash = { ->
+    final def stdout = new ByteArrayOutputStream()
     exec {
         commandLine 'git', 'rev-parse', '--short', 'HEAD'
         standardOutput = stdout
     }
-    return stdout.toString().trim()
+    stdout.toString().trim()
 }
 
 // Create a variable called keystorePropertiesFile, and initialize it to your
 // keystore.properties file, in the rootProject folder.
-def keystorePropertiesFile = rootProject.file("keystore.properties")
+final def keystorePropertiesFile = rootProject.file("keystore.properties")
 
 android {
     compileSdkVersion 26
@@ -40,7 +40,7 @@ android {
         abortOnError false
     }
 
-    android.applicationVariants.all { variant ->
+    android.applicationVariants.all { final variant ->
         variant.outputs.all {
             outputFileName = "substratum_${variant.versionCode}_${gitHash()}.apk"
         }
@@ -59,7 +59,7 @@ android {
     // If the keystore file exists
     if (keystorePropertiesFile.exists()) {
         // Initialize a new Properties() object called keystoreProperties.
-        def keystoreProperties = new Properties()
+        final def keystoreProperties = new Properties()
 
         // Load your keystore.properties file into the keystoreProperties object.
         keystoreProperties.load(new FileInputStream(keystorePropertiesFile))

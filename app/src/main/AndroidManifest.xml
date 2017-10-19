@@ -131,7 +131,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
-        <service android:name=".services.system.SamsungPackageService"/>
 
         <activity
             android:name=".activities.crash.SubstratumCrash"

@@ -57,7 +57,7 @@ public class FontUtils {
         new FontHandlerAsync(this).execute(arguments);
     }
 
-    private static class FontHandlerAsync extends AsyncTask<String, Integer, String> {
+    private static final class FontHandlerAsync extends AsyncTask<String, Integer, String> {
 
         private WeakReference<FontUtils> ref;
 

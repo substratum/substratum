@@ -318,7 +318,7 @@ public class RecoveryFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    private static class FontsClearer extends AsyncTask<String, Integer, String> {
+    private static final class FontsClearer extends AsyncTask<String, Integer, String> {
 
         private WeakReference<RecoveryFragment> ref;
 
@@ -392,7 +392,7 @@ public class RecoveryFragment extends Fragment {
         }
     }
 
-    private static class RestoreFunction extends AsyncTask<Boolean, Void, Void> {
+    private static final class RestoreFunction extends AsyncTask<Boolean, Void, Void> {
         private boolean withUninstall;
         private WeakReference<RecoveryFragment> ref;
 
@@ -514,7 +514,7 @@ public class RecoveryFragment extends Fragment {
         }
     }
 
-    private static class BootAnimationClearer extends AsyncTask<Void, Void, Void> {
+    private static final class BootAnimationClearer extends AsyncTask<Void, Void, Void> {
         private WeakReference<RecoveryFragment> ref;
 
         private BootAnimationClearer(RecoveryFragment fragment) {
@@ -563,7 +563,7 @@ public class RecoveryFragment extends Fragment {
         }
     }
 
-    private static class SoundsClearer extends AsyncTask<Void, Void, Void> {
+    private static final class SoundsClearer extends AsyncTask<Void, Void, Void> {
         private WeakReference<RecoveryFragment> ref;
 
         private SoundsClearer(RecoveryFragment fragment) {

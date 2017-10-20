@@ -125,7 +125,7 @@ public class SoundUtils {
         }
     }
 
-    private static class SoundsHandlerAsync extends AsyncTask<String, Integer, String> {
+    private static final class SoundsHandlerAsync extends AsyncTask<String, Integer, String> {
         private WeakReference<SoundUtils> ref;
 
         private SoundsHandlerAsync(SoundUtils soundUtils) {
@@ -181,7 +181,7 @@ public class SoundUtils {
         }
     }
 
-    static class FinishReceiver extends BroadcastReceiver {
+    static final class FinishReceiver extends BroadcastReceiver {
         private WeakReference<SoundUtils> soundRef;
 
         private FinishReceiver(SoundUtils soundUtils) {

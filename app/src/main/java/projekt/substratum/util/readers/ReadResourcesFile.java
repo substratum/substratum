@@ -30,7 +30,8 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-public class ReadResourcesFile {
+public enum ReadResourcesFile {
+    ;
 
     public static List<String> main(String file, String tag) {
 

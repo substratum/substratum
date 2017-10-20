@@ -28,7 +28,8 @@ import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 import static projekt.substratum.common.Systems.getDeviceEncryptionStatus;
 
-public class BootAnimationManager {
+public enum BootAnimationManager {
+    ;
 
     public static void setBootAnimation(Context context, String themeDirectory,
                                         Boolean shutdownAnimation) {

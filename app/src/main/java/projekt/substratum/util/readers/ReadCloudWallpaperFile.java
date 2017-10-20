@@ -30,7 +30,8 @@ import java.util.TreeMap;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-public class ReadCloudWallpaperFile {
+public enum ReadCloudWallpaperFile {
+    ;
 
     public static Map main(String argv[]) {
 

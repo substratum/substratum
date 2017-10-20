@@ -32,7 +32,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import projekt.substratum.adapters.fragments.settings.ValidatorFilter;
 
-public class ReadFilterFile {
+public enum ReadFilterFile {
+    ;
 
     public static List<ValidatorFilter> main(String file) {
 

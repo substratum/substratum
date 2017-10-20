@@ -9,7 +9,8 @@ import android.widget.Toast;
 
 import projekt.substratum.R;
 
-public class Activities {
+public enum Activities {
+    ;
 
     public static void launchActivityUrl(Context context, int resource) {
         try {

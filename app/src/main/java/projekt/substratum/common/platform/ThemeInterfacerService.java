@@ -35,7 +35,8 @@ import projekt.substratum.services.binder.InterfacerBinderService;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.INTERFACER_SERVICE;
 
-public class ThemeInterfacerService {
+public enum ThemeInterfacerService {
+    ;
 
     private static final String INTERFACER_TOKEN = "interfacer_token";
     private static final String PRIMARY_COMMAND_KEY = "primary_command_key";

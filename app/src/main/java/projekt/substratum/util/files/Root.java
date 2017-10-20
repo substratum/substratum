@@ -26,7 +26,8 @@ import java.io.OutputStreamWriter;
 
 import projekt.substratum.common.References;
 
-public class Root {
+public enum Root {
+    ;
 
     private static SU su;
 

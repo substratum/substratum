@@ -43,7 +43,8 @@ import java.util.Set;
 import projekt.substratum.common.References;
 
 @SuppressWarnings("AccessStaticViaInstance")
-public class FirebaseAnalytics {
+public enum FirebaseAnalytics {
+    ;
 
     public static final String NAMES_PREFS = "names";
     public static final String PACKAGES_PREFS = "prefs";

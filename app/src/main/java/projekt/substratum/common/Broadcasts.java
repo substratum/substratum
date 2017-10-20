@@ -25,7 +25,9 @@ import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.References.TEMPLATE_RECEIVE_KEYS;
 import static projekt.substratum.common.References.scheduledProfileReceiver;
 
-public class Broadcasts {
+public enum Broadcasts {
+    ;
+
     static void sendLocalizedKeyMessage(Context context,
                                         byte[] encryption_key,
                                         byte[] iv_encrypt_key) {

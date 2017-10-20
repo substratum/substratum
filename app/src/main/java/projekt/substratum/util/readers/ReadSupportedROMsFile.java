@@ -30,7 +30,8 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-public class ReadSupportedROMsFile {
+public enum ReadSupportedROMsFile {
+    ;
 
     public static Map<String, String> main(String file) {
 

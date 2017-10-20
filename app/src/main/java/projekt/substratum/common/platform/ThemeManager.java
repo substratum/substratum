@@ -68,7 +68,8 @@ import static projekt.substratum.common.Systems.checkOMS;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 import static projekt.substratum.common.Systems.checkThemeSystemModule;
 
-public class ThemeManager {
+public enum ThemeManager {
+    ;
 
     /**
      * Begin interaction with the OverlayManagerService binaries.

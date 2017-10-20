@@ -50,7 +50,8 @@ import static projekt.substratum.common.Systems.checkOMS;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 import static projekt.substratum.common.Systems.getProp;
 
-public class SoundManager {
+public enum SoundManager {
+    ;
 
     public static final String[] ALLOWED_SOUNDS = {
             "alarm.mp3",

@@ -23,7 +23,8 @@ import java.util.List;
 import projekt.andromeda.IAndromedaInterface;
 import projekt.substratum.services.binder.AndromedaBinderService;
 
-public class AndromedaService {
+public enum AndromedaService {
+    ;
 
     private static IAndromedaInterface getAndromedaInterface() {
         return AndromedaBinderService.getAndromedaInterface();

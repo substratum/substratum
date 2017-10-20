@@ -30,7 +30,9 @@ import java.util.Arrays;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.FileOperations;
 
-public class CheckBinaries {
+public enum CheckBinaries {
+    ;
+
     public static void install(Context context, Boolean forced) {
         injectAOPT(context, forced);
         injectZipAlign(context, forced);

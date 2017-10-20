@@ -35,7 +35,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import projekt.substratum.adapters.fragments.settings.Repository;
 import projekt.substratum.common.References;
 
-public class ReadRepositoriesFile {
+public enum ReadRepositoriesFile {
+    ;
 
     public static List<Repository> main(String file) {
 

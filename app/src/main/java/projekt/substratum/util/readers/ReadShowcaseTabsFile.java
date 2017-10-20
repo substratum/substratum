@@ -30,7 +30,8 @@ import java.util.TreeMap;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-public class ReadShowcaseTabsFile {
+public enum ReadShowcaseTabsFile {
+    ;
 
     public static Map<String, String> main(String argv[]) {
 

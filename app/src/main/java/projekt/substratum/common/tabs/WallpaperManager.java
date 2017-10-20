@@ -25,7 +25,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class WallpaperManager {
+public enum WallpaperManager {
+    ;
 
     public static void setWallpaper(Context context, String path, String which) throws IOException {
         android.app.WallpaperManager wallpaperManager =

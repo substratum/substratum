@@ -44,7 +44,8 @@ import static projekt.substratum.common.References.ENABLE_AOPT_OUTPUT;
 import static projekt.substratum.common.References.permissionSamsungOverlay;
 import static projekt.substratum.common.Systems.getDeviceID;
 
-public class CompilerCommands {
+public enum CompilerCommands {
+    ;
 
     public static String createOverlayManifest(Context context,
                                                String overlayPackage,

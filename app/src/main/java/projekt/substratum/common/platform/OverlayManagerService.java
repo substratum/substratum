@@ -28,7 +28,8 @@ import java.util.Map;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 
 @Deprecated
-public class OverlayManagerService {
+public enum OverlayManagerService {
+    ;
 
     /**
      * Api for obtaining information about overlay packages.

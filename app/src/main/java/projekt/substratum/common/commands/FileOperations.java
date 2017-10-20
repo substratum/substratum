@@ -45,7 +45,8 @@ import projekt.substratum.util.files.Root;
 import static projekt.substratum.common.References.ENABLE_DIRECT_ASSETS_LOGGING;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 
-public class FileOperations {
+public enum FileOperations {
+    ;
 
     private static final String COPY_LOG = "SubstratumCopy";
     private static final String COPYDIR_LOG = "SubstratumCopyDir";

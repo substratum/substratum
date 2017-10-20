@@ -65,7 +65,9 @@ import static projekt.substratum.common.Systems.checkOMS;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 import static projekt.substratum.common.analytics.PackageAnalytics.PACKAGE_TAG;
 
-public class Packages {
+public enum Packages {
+    ;
+
     public static String getInstallerId(Context context, String package_name) {
         return context.getPackageManager().getInstallerPackageName(package_name);
     }

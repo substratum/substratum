@@ -21,7 +21,8 @@ package projekt.substratum.common.systems;
 import android.content.Context;
 import android.content.res.Resources;
 
-public class Validator {
+public enum Validator {
+    ;
 
     public static final Boolean VALIDATE_WITH_LOGS = false;
 

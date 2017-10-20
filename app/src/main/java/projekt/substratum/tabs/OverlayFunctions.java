@@ -73,7 +73,8 @@ import static projekt.substratum.common.References.RUNTIME_RESOURCE_OVERLAY_N_RO
 import static projekt.substratum.common.Systems.checkOMS;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 
-class OverlayFunctions {
+enum OverlayFunctions {
+    ;
     private static final String TAG = "Substratum OverlayFunctions";
 
     static class getThemeCache extends AsyncTask<String, Integer, String> {

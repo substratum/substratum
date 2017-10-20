@@ -32,7 +32,8 @@ import java.net.URL;
 
 import projekt.substratum.common.References;
 
-public class FileDownloader {
+public enum FileDownloader {
+    ;
 
     /**
      * @param context                 getContext() or getApplicationContext()

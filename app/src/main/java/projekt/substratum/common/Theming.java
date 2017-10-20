@@ -24,7 +24,8 @@ import static projekt.substratum.common.References.TEMPLATE_THEME_MODE;
 import static projekt.substratum.common.References.hashPassthrough;
 import static projekt.substratum.common.References.spreadYourWingsAndFly;
 
-public class Theming {
+public enum Theming {
+    ;
 
     public static void refreshInstalledThemesPref(Context context) {
         SharedPreferences.Editor editor =

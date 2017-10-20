@@ -75,7 +75,8 @@ import projekt.substratum.util.injectors.CheckBinaries;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 
-public class References {
+public enum References {
+    ;
 
     public static final Boolean ENABLE_ROOT_CHECK = true; // Force the app to run without root
     public static final Boolean ENABLE_EXTRAS_DIALOG = false; // Show a dialog when applying extras

@@ -26,7 +26,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class MapUtils {
+public enum MapUtils {
+    ;
 
     public static <S, T extends Comparable<T>> List<Pair<S, T>> sortMapByValues(Map<S, T> map) {
         List<Pair<S, T>> list = map.entrySet().stream().map(entry -> new Pair<>(entry.getKey(),

@@ -63,7 +63,8 @@ import static projekt.substratum.common.References.metadataOverlayType4;
 import static projekt.substratum.common.platform.ThemeManager.STATE_DISABLED;
 import static projekt.substratum.common.platform.ThemeManager.STATE_ENABLED;
 
-public class ProfileManager {
+public enum ProfileManager {
+    ;
     public static final String SCHEDULED_PROFILE_ENABLED = "scheduled_profile_enabled";
     public static final String SCHEDULED_PROFILE_TYPE_EXTRA = "type";
     public static final String SCHEDULED_PROFILE_CURRENT_PROFILE = "current_profile";

@@ -48,7 +48,9 @@ import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.References.SUBSTRATUM_THEME;
 import static projekt.substratum.common.References.isNetworkAvailable;
 
-public class Systems {
+public enum Systems {
+    ;
+
     private static boolean isOMSRunning(Context context, Class<?> serviceClass) {
         final ActivityManager activityManager = (ActivityManager)
                 context.getSystemService(Context.ACTIVITY_SERVICE);

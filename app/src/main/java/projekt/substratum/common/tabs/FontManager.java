@@ -42,7 +42,8 @@ import projekt.substratum.common.platform.ThemeManager;
 import static projekt.substratum.common.Systems.checkOMS;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 
-public class FontManager {
+public enum FontManager {
+    ;
 
     public static void setFonts(
             Context context,

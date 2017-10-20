@@ -20,7 +20,8 @@ package projekt.substratum.common.commands;
 
 import projekt.substratum.util.files.Root;
 
-public class ElevatedCommands {
+public enum ElevatedCommands {
+    ;
 
     // Reboot the device
     public static void reboot() {

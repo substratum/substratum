@@ -148,7 +148,7 @@
     <string name="manage_wallpaper_home_toast">成功还原主屏幕壁纸</string>
     <string name="manage_wallpaper_lock_toast">成功还原锁屏壁纸</string>
     <string name="manage_wallpaper_all_toast">成功还原壁纸</string>
-    <string name="adapter_uninstalling">正在删除 %s...</string>
+    <string name="adapter_uninstalling">正在删除 %s…</string>
     <string name="plugin_template">插件</string>
     <string name="api_21">Lollipop</string>
     <string name="api_22">Lollipop MR1</string>

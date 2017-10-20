@@ -99,7 +99,7 @@ lütfen
     <string name="legacy_preference_priority_title">Tema öncelik ayarı</string>
     <string name="grid_size_title">Tema görüntüleme sütun ayarı</string>
     <string name="grid_size_text">Sütun sayısı, (varsayılan 2) olarak ayarlandı: %d</string>
-    <string name="overlays_variant_substitute">%s...</string>
+    <string name="overlays_variant_substitute">%s…</string>
     <string name="overlays_variant_default_1a">seçenek1a varyantı&#8230;</string>
     <string name="overlays_variant_default_1b">seçenek1b varyantı&#8230;</string>
     <string name="overlays_variant_default_1c">seçenek1c varyantı&#8230;</string>

@@ -35,7 +35,7 @@
     <string name="andromeda_notification_text_negation">Les services d\'Andromeda ne sont pas en cours d\'exécution, veuillez relancer l\'application depuis votre ordinateur !</string>
     <string name="resource_commit_dialog_title">Ressources manquantes pour %s</string>
     <string name="showcase_no_connection">La galerie de thème nécessite une connexion Internet pour fonctionner !</string>
-    <string name="showcase_no_themes">Une erreur est survenue lors de la mise en cache de la base de données de la galerie de thème pour cet onglet...</string>
+    <string name="showcase_no_themes">Une erreur est survenue lors de la mise en cache de la base de données de la galerie de thème pour cet onglet…</string>
     <string name="failed_to_install_title_notification">Échec de l\'installation du thème</string>
     <string name="failed_to_install_text_notification">Échec de l\'installation de %s</string>
     <string name="actionbar_theme_count_singular">%s thème</string>

@@ -32,6 +32,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -68,7 +69,7 @@ public class FirebaseAnalytics {
                 SharedPreferences.Editor editor = context
                         .getSharedPreferences(PACKAGES_PREFS, Context.MODE_PRIVATE).edit();
                 editor.clear();
-                List<String> listOfPackages = new ArrayList<>();
+                Collection<String> listOfPackages = new ArrayList<>();
                 Object dataValue = dataSnapshot.getValue();
                 if (dataValue != null) {
                     String data = dataValue.toString();

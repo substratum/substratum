@@ -46,6 +46,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.SortedMap;
@@ -129,7 +130,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
             ArrayList<String> enabledOverlaysForForegroundPackage = new ArrayList<>(
                     ThemeManager.listEnabledOverlaysForTarget(getApplicationContext(),
                             foregroundedApp()));
-            List<String> disabledOverlaysForForegroundPackage = new ArrayList<>(
+            Collection<String> disabledOverlaysForForegroundPackage = new ArrayList<>(
                     ThemeManager.listDisabledOverlaysForTarget(getApplicationContext(),
                             foregroundedApp()));
 

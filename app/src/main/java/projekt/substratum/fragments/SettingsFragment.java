@@ -51,6 +51,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import projekt.substratum.BuildConfig;
@@ -1012,7 +1013,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             super.onPostExecute(result);
             SettingsFragment settingsFragment = ref.get();
             if (settingsFragment != null) {
-                List<String> erroredPackages = new ArrayList<>();
+                Collection<String> erroredPackages = new ArrayList<>();
                 for (int x = 0; x < settingsFragment.errors.size(); x++) {
                     ValidatorError error = settingsFragment.errors.get(x);
                     erroredPackages.add(error.getPackageName());

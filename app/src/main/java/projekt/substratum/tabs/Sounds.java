@@ -46,6 +46,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -171,7 +172,7 @@ public class Sounds extends Fragment {
                         archivedSounds.get(i).length() - (encrypted ? 8 : 4)));
             }
 
-            ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getActivity(),
+            SpinnerAdapter adapter1 = new ArrayAdapter<>(getActivity(),
                     android.R.layout.simple_spinner_dropdown_item, unarchivedSounds);
             soundsSelector = root.findViewById(R.id.soundsSelection);
             soundsSelector.setAdapter(adapter1);

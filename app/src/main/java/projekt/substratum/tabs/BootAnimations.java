@@ -48,6 +48,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import java.io.BufferedInputStream;
@@ -187,7 +188,7 @@ public class BootAnimations extends Fragment {
                         unparsedBootAnimations.get(i).length() - (encrypted ? 8 : 4)));
             }
 
-            ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getActivity(),
+            SpinnerAdapter adapter1 = new ArrayAdapter<>(getActivity(),
                     android.R.layout.simple_spinner_dropdown_item, parsedBootAnimations);
             bootAnimationSelector = root.findViewById(R.id.bootAnimationSelection);
             bootAnimationSelector.setAdapter(adapter1);

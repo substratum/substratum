@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 
+import java.io.Serializable;
 import java.util.concurrent.ThreadLocalRandom;
 
 import projekt.substratum.InformationActivity;
@@ -44,13 +45,13 @@ public class ThemeLaunchActivity extends Activity {
                                              String theme_author,
                                              String theme_pid,
                                              String theme_mode,
-                                             Integer theme_hash,
-                                             Boolean theme_launch_type,
-                                             Boolean theme_debug,
-                                             Boolean theme_piracy_check,
+                                             Serializable theme_hash,
+                                             Serializable theme_launch_type,
+                                             Serializable theme_debug,
+                                             Serializable theme_piracy_check,
                                              byte[] encryption_key,
                                              byte[] iv_encrypt_key,
-                                             Boolean theme_legacy) {
+                                             Serializable theme_legacy) {
 
         Intent intent = new Intent(context, InformationActivity.class);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);

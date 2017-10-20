@@ -501,8 +501,8 @@ public class SubstratumBuilder {
                                        String targetPkg,
                                        String theme_name,
                                        String overlay_package,
-                                       String additional_variant,
-                                       String asset_replacement,
+                                       CharSequence additional_variant,
+                                       CharSequence asset_replacement,
                                        boolean legacySwitch,
                                        Context context,
                                        String no_cache_dir) {

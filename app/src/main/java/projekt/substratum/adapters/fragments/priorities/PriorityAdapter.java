@@ -285,7 +285,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
             mName = name;
         }
 
-        public String getName() {
+        public CharSequence getName() {
             return mName;
         }
 

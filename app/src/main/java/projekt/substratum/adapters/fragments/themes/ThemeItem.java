@@ -44,7 +44,7 @@ public class ThemeItem {
         this.themeName = themeName;
     }
 
-    String getThemeAuthor() {
+    CharSequence getThemeAuthor() {
         return themeAuthor;
     }
 
@@ -60,7 +60,7 @@ public class ThemeItem {
         this.themePackage = themePackage;
     }
 
-    String getPluginVersion() {
+    CharSequence getPluginVersion() {
         return pluginVersion;
     }
 
@@ -92,7 +92,7 @@ public class ThemeItem {
         this.themeContext = context;
     }
 
-    String getSDKLevels() {
+    CharSequence getSDKLevels() {
         return sdkLevels;
     }
 
@@ -100,7 +100,7 @@ public class ThemeItem {
         this.sdkLevels = sdkLevels;
     }
 
-    String getThemeVersion() {
+    CharSequence getThemeVersion() {
         return themeVersion;
     }
 

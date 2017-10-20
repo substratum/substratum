@@ -37,7 +37,7 @@ public class SubstratumActivity extends AppCompatActivity {
         return getBuildDir().getAbsolutePath() + "/";
     }
 
-    public void createToast(String message, int length) {
+    public void createToast(CharSequence message, int length) {
         Toast.makeText(this, message, length).show();
     }
 }

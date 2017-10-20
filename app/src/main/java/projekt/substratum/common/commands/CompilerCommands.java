@@ -28,6 +28,8 @@ import java.io.StringWriter;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -161,9 +163,9 @@ public class CompilerCommands {
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
-            DOMSource domSource = new DOMSource(document);
+            Source domSource = new DOMSource(document);
             StringWriter outWriter = new StringWriter();
-            StreamResult streamResult = new StreamResult(outWriter);
+            Result streamResult = new StreamResult(outWriter);
             transformer.transform(domSource, streamResult);
 
             return outWriter.getBuffer().toString();
@@ -176,7 +178,7 @@ public class CompilerCommands {
         return "";
     }
 
-    private static boolean isNotNullOrEmpty(String string) {
+    private static boolean isNotNullOrEmpty(CharSequence string) {
         return string != null && string.length() != 0;
     }
 
@@ -186,8 +188,8 @@ public class CompilerCommands {
                                                  String overlay_package,
                                                  String theme_name,
                                                  boolean legacySwitch,
-                                                 String additional_variant,
-                                                 String asset_replacement,
+                                                 CharSequence additional_variant,
+                                                 CharSequence asset_replacement,
                                                  Context context,
                                                  String dir) {
         StringBuilder sb = new StringBuilder();

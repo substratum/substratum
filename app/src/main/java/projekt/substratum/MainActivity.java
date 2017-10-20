@@ -173,7 +173,7 @@ public class MainActivity extends SubstratumActivity implements
         }
     }
 
-    public void switchToCustomToolbar(String title, String content) {
+    public void switchToCustomToolbar(CharSequence title, CharSequence content) {
         if (supportActionBar != null) supportActionBar.setTitle("");
         if (actionbar_content != null) actionbar_content.setVisibility(View.VISIBLE);
         if (actionbar_title != null) actionbar_title.setVisibility(View.VISIBLE);
@@ -181,7 +181,7 @@ public class MainActivity extends SubstratumActivity implements
         if (actionbar_content != null) actionbar_content.setText(content);
     }
 
-    public void switchToStockToolbar(String title) {
+    public void switchToStockToolbar(CharSequence title) {
         if (actionbar_content != null) actionbar_content.setVisibility(View.GONE);
         if (actionbar_title != null) actionbar_title.setVisibility(View.GONE);
         if (supportActionBar != null) supportActionBar.setTitle(title);
@@ -223,7 +223,7 @@ public class MainActivity extends SubstratumActivity implements
         supportInvalidateOptionsMenu();
     }
 
-    private void switchFragmentToLicenses(String title, LibsSupportFragment fragment) {
+    private void switchFragmentToLicenses(CharSequence title, LibsSupportFragment fragment) {
         if (searchView != null && !searchView.isIconified()) {
             searchView.setIconified(true);
         }

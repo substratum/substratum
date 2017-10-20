@@ -22,9 +22,11 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.widget.SpinnerAdapter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import projekt.substratum.common.Packages;
@@ -79,7 +81,7 @@ public class OverlaysItem implements Serializable {
                         Context context,
                         String versionName,
                         String baseResources,
-                        List enabledOverlays,
+                        Collection enabledOverlays,
                         Boolean theme_oms,
                         View activityView) {
 
@@ -145,23 +147,23 @@ public class OverlaysItem implements Serializable {
         this.isSelected = isSelected;
     }
 
-    VariantAdapter getSpinnerArray() {
+    SpinnerAdapter getSpinnerArray() {
         return array;
     }
 
-    VariantAdapter getSpinnerArray2() {
+    SpinnerAdapter getSpinnerArray2() {
         return array2;
     }
 
-    VariantAdapter getSpinnerArray3() {
+    SpinnerAdapter getSpinnerArray3() {
         return array3;
     }
 
-    VariantAdapter getSpinnerArray4() {
+    SpinnerAdapter getSpinnerArray4() {
         return array4;
     }
 
-    VariantAdapter getSpinnerArray5() {
+    SpinnerAdapter getSpinnerArray5() {
         return array5;
     }
 
@@ -180,7 +182,7 @@ public class OverlaysItem implements Serializable {
         spinnerSelection = position;
     }
 
-    public void updateEnabledOverlays(List<String> enabledOverlays) {
+    public void updateEnabledOverlays(Collection<String> enabledOverlays) {
         this.enabledOverlays = new ArrayList<>();
         this.enabledOverlays.addAll(enabledOverlays);
     }

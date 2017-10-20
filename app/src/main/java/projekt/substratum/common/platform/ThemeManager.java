@@ -39,6 +39,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -96,7 +97,7 @@ public class ThemeManager {
     private static final int STATE_LIST_ALL_OVERLAYS = 13579;
 
     public static boolean blacklisted(String packageName, Boolean unsupportedSamsung) {
-        List<String> blacklisted = new ArrayList<>(Arrays.asList(blacklistedPackages));
+        Collection<String> blacklisted = new ArrayList<>(Arrays.asList(blacklistedPackages));
         if (unsupportedSamsung) {
             blacklisted.addAll(new ArrayList<>(Arrays.asList(Resources.ALLOWED_SETTINGS_ELEMENTS)));
             blacklisted.add("android");

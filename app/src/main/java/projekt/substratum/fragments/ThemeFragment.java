@@ -111,7 +111,7 @@ public class ThemeFragment extends Fragment {
                                      ViewGroup root,
                                      Context mContext,
                                      Activity activity,
-                                     String toolbarTitle,
+                                     CharSequence toolbarTitle,
                                      Map<String, String[]> substratum_packages,
                                      ArrayList<ThemeItem> themeItems) {
 

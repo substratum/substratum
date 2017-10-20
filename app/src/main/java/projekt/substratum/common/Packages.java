@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -237,8 +238,8 @@ public class Packages {
                 PackageManager.GET_META_DATA);
     }
 
-    public static List<String> getThemesArray(Context context) {
-        List<String> returnArray = new ArrayList<>();
+    public static Collection<String> getThemesArray(Context context) {
+        Collection<String> returnArray = new ArrayList<>();
         List<ResolveInfo> themesResolveInfo = getThemes(context);
         for (int i = 0; i < themesResolveInfo.size(); i++) {
             returnArray.add(themesResolveInfo.get(i).activityInfo.packageName);
@@ -570,7 +571,7 @@ public class Packages {
     // then mutates the input.
     @SuppressWarnings("unchecked")
     public static HashMap<String, String[]> getSubstratumPackages(Context context,
-                                                                  String home_type,
+                                                                  CharSequence home_type,
                                                                   String search_filter) {
         try {
             HashMap returnMap = new HashMap<>();
@@ -706,7 +707,7 @@ public class Packages {
 
     // Obtain a live sample of the intents in an app
     static boolean getIntents(Context context, String trigger) {
-        List<Intent> intentArray = new ArrayList<>();
+        Collection<Intent> intentArray = new ArrayList<>();
         intentArray.add(new Intent(Intent.ACTION_BOOT_COMPLETED));
         intentArray.add(new Intent(Intent.ACTION_PACKAGE_ADDED));
         intentArray.add(new Intent(Intent.ACTION_PACKAGE_CHANGED));

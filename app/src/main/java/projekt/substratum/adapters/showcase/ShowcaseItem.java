@@ -40,7 +40,7 @@ public class ShowcaseItem {
         this.mContext = mContext;
     }
 
-    String getThemeAuthor() {
+    CharSequence getThemeAuthor() {
         return themeAuthor;
     }
 
@@ -56,7 +56,7 @@ public class ShowcaseItem {
         this.themePricing = themePricing;
     }
 
-    public String getThemeName() {
+    public CharSequence getThemeName() {
         return themeName;
     }
 

@@ -28,7 +28,6 @@ public class ValidatorInfo {
     private Boolean mVerified;
     private Boolean mCommons;
     private ValidatorError mValidatorError;
-    private int mPercentage = 0;
 
     public ValidatorInfo(Context mContext, String package_name, Boolean verified, Boolean commons) {
         this.mContext = mContext;
@@ -70,6 +69,6 @@ public class ValidatorInfo {
     }
 
     public void setPercentage(int one, int two) {
-        this.mPercentage = (int) (((double) one / (double) two) * 100);
+        int mPercentage = (int) (((double) one / (double) two) * 100);
     }
 }

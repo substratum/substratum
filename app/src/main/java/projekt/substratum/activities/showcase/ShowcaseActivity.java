@@ -59,7 +59,6 @@ import projekt.substratum.util.readers.ReadShowcaseTabsFile;
 
 public class ShowcaseActivity extends AppCompatActivity {
 
-    private TabLayout tabLayout;
     private RelativeLayout no_network;
     private SwipeRefreshLayout swipeRefreshLayout;
     private SharedPreferences prefs;
@@ -183,7 +182,7 @@ public class ShowcaseActivity extends AppCompatActivity {
                 Log.e(References.SUBSTRATUM_LOG, "Could not make showcase directory...");
         }
 
-        tabLayout = findViewById(R.id.tabs);
+        TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setTabTextColors(
                 getColor(R.color.showcase_activity_text),
                 getColor(R.color.showcase_activity_text));

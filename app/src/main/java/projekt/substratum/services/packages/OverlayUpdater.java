@@ -179,7 +179,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                     installed_overlays = ThemeManager.listOverlaysByTheme(context, package_name);
                     break;
             }
-            if (upgrade_mode != null && !upgrade_mode.equals("") && installed_overlays.size() > 0) {
+            if (upgrade_mode != null && !"".equals(upgrade_mode) && installed_overlays.size() > 0) {
                 errored_packages = new ArrayList<>();
                 mNotifyManager = (NotificationManager) context.getSystemService(
                         Context.NOTIFICATION_SERVICE);
@@ -554,7 +554,7 @@ public class OverlayUpdater extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction() != null) {
-                if (intent.getAction().equals("Updater.LOGS")) {
+                if ("Updater.LOGS".equals(intent.getAction())) {
                     if (intent.getStringExtra("error_logs") != null)
                         invokeLogCharDialog(context, intent.getStringExtra("error_logs"));
                 }

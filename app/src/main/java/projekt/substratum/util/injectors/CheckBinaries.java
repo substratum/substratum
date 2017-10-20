@@ -67,8 +67,8 @@ public enum CheckBinaries {
                     Arrays.asList(Build.SUPPORTED_64_BIT_ABIS).size() > 0 ? "ARM64" : "ARM";
             String integrityCheck = prefs.getString("compiler", "aapt");
             try {
-                if (integrityCheck.equals("aopt")) {
-                    FileOperations.copyFromAsset(mContext, "aopt" + (architecture.equals("ARM64")
+                if ("aopt".equals(integrityCheck)) {
+                    FileOperations.copyFromAsset(mContext, "aopt" + ("ARM64".equals(architecture)
                             ? "64" :
                             ""), aoptPath);
                     Log.d(References.SUBSTRATUM_LOG,
@@ -111,7 +111,7 @@ public enum CheckBinaries {
         if (!Arrays.toString(Build.SUPPORTED_ABIS).contains("86")) {
             String architecture =
                     Arrays.asList(Build.SUPPORTED_64_BIT_ABIS).size() > 0 ? "ARM64" : "ARM";
-            FileOperations.copyFromAsset(mContext, "zipalign" + (architecture.equals("ARM64") ?
+            FileOperations.copyFromAsset(mContext, "zipalign" + ("ARM64".equals(architecture) ?
                     "64" :
                     ""), zipalignPath);
             Log.d(References.SUBSTRATUM_LOG,

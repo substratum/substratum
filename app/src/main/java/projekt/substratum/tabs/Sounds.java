@@ -441,7 +441,7 @@ public class Sounds extends Fragment {
                     if (fileEntry.isDirectory()) {
                         listFilesForFolder(fileEntry);
                     } else {
-                        if (!fileEntry.getName().substring(0, 1).equals(".") &&
+                        if (!".".equals(fileEntry.getName().substring(0, 1)) &&
                                 projekt.substratum.common.Resources.allowedSounds(fileEntry
                                         .getName())) {
                             sounds.wordList.add(new SoundsInfo(sounds.mContext, fileEntry.getName(),

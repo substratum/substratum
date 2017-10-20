@@ -152,7 +152,7 @@ public class SubstratumBuilder {
         }
         if (parse2_baseName.length() > 0) parse2_baseName = "." + parse2_baseName;
 
-        if (parse2_themeName.equals("")) {
+        if ("".equals(parse2_themeName)) {
             parse2_themeName = "no_name";
         }
 
@@ -407,8 +407,8 @@ public class SubstratumBuilder {
         if (!has_errored_out) {
             if (theme_oms) {
                 special_snowflake = false;
-                if (overlay_package.equals("android") ||
-                        overlay_package.equals("projekt.substratum")) {
+                if ("android".equals(overlay_package) ||
+                        "projekt.substratum".equals(overlay_package)) {
                     special_snowflake = ThemeManager.isOverlayEnabled(context, overlayName) ||
                             Systems.checkOreo() && !overlay_updater;
                 }
@@ -462,7 +462,7 @@ public class SubstratumBuilder {
                         FileOperations.createNewFolder(vendor_symlink);
                         FileOperations.createNewFolder(vendor_partition);
                         // On nexus devices, put framework overlay to /vendor/overlay/
-                        if (overlay_package.equals("android")) {
+                        if ("android".equals(overlay_package)) {
                             String android_overlay = vendor_partition + overlayName + ".apk";
                             FileOperations.move(context, EXTERNAL_STORAGE_CACHE + overlayName +
                                     "-signed.apk", android_overlay);

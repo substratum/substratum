@@ -304,9 +304,9 @@ public class OverlaysItem implements Serializable {
 
     boolean compareInstalledVariantOverlay(String varianted) {
         String variant = varianted;
-        if (!variant.substring(0, 1).equals(".")) variant = "." + variant;
+        if (!".".equals(variant.substring(0, 1))) variant = "." + variant;
         String base = baseResources;
-        if (baseResources.length() > 0 && !baseResources.substring(0, 1).equals(".")) {
+        if (baseResources.length() > 0 && !".".equals(baseResources.substring(0, 1))) {
             base = "." + base;
         }
         try {

@@ -273,7 +273,7 @@ enum OverlayFunctions {
                             for (int i = 0; i < overlays.checkedOverlays.size(); i++) {
                                 String targetOverlay = overlays.checkedOverlays.get(i)
                                         .getPackageName();
-                                if (targetOverlay.equals("com.android.systemui")) {
+                                if ("com.android.systemui".equals(targetOverlay)) {
                                     String packageName =
                                             overlays.checkedOverlays.get(i)
                                                     .getFullOverlayParameters();

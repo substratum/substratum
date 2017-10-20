@@ -806,7 +806,7 @@ public class ProfileFragment extends Fragment {
                                 profileFragment.profile_selector.getSelectedItem() + "/");
                         String[] located_files = profile_apk_files.list();
                         for (String found : located_files) {
-                            if (!found.equals("audio")) {
+                            if (!"audio".equals(found)) {
                                 FileOperations.copyDir(profileFragment.mContext, Environment
                                         .getExternalStorageDirectory()
                                         .getAbsolutePath() +
@@ -860,7 +860,7 @@ public class ProfileFragment extends Fragment {
                                 profileFragment.profile_selector.getSelectedItem() + "/");
                         String[] located_files = profile_apk_files.list();
                         for (String found : located_files) {
-                            if (!found.equals("audio")) {
+                            if (!"audio".equals(found)) {
                                 FileOperations.copyDir(profileFragment.mContext, Environment
                                         .getExternalStorageDirectory()
                                         .getAbsolutePath() +

@@ -674,10 +674,10 @@ public class Overlays extends Fragment {
             if (stringArray.size() > 1) {
                 for (int i = 0; i < stringArray.size(); i++) {
                     String current = stringArray.get(i);
-                    if (!current.equals("res") &&
+                    if (!"res".equals(current) &&
                             !current.contains(".") &&
                             current.length() >= 6 &&
-                            current.substring(0, 6).equals("type3_")) {
+                            "type3_".equals(current.substring(0, 6))) {
                         type3.add(new VariantItem(current.substring(6), null));
                     }
                 }
@@ -858,7 +858,7 @@ public class Overlays extends Fragment {
     protected boolean needsRecreate(Context context) {
         for (OverlaysItem oi : checkedOverlays) {
             String packageName = oi.getPackageName();
-            if (packageName.equals("android") || packageName.equals("projekt.substratum")) {
+            if ("android".equals(packageName) || "projekt.substratum".equals(packageName)) {
                 if (!enable_mode && !disable_mode && !enable_disable_mode &&
                         ThemeManager.isOverlayEnabled(context, oi.getFullOverlayParameters())) {
                     return false;
@@ -1440,7 +1440,7 @@ public class Overlays extends Fragment {
                             if (typeArray.size() > 1) {
                                 for (int i = 0; i < typeArray.size(); i++) {
                                     String current = typeArray.get(i);
-                                    if (!current.equals("res")) {
+                                    if (!"res".equals(current)) {
                                         if (current.contains(".xml")) {
                                             switch (current.substring(0, 7)) {
                                                 case "type1a_":
@@ -1460,11 +1460,11 @@ public class Overlays extends Fragment {
                                                     break;
                                             }
                                         } else if (!current.contains(".") && current.length() > 5) {
-                                            if (current.substring(0, 6).equals("type2_")) {
+                                            if ("type2_".equals(current.substring(0, 6))) {
                                                 type2.add(
                                                         new VariantItem(
                                                                 current.substring(6), null));
-                                            } else if (current.substring(0, 6).equals("type4_")) {
+                                            } else if ("type4_".equals(current.substring(0, 6))) {
                                                 type4.add(
                                                         new VariantItem(
                                                                 current.substring(6), null));

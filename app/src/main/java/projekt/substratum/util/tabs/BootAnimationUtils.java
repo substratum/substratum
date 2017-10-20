@@ -269,7 +269,7 @@ public class BootAnimationUtils {
                         entry.setCrc(ze.getCrc());
                         entry.setSize(ze.getSize());
                         entry.setCompressedSize(ze.getSize());
-                        if (!ze.getName().equals("desc.txt")) {
+                        if (!"desc.txt".equals(ze.getName())) {
                             // just copy this entry straight over into the output zip
                             zos.putNextEntry(entry);
                             while ((len = bootAni.read(bytes)) > 0) {

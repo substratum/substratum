@@ -93,7 +93,7 @@ public enum FileOperations {
             try (BufferedReader stdInput = new BufferedReader(new
                     InputStreamReader(process.getInputStream()))) {
                 // if it has toolbox instead of toybox, handle
-                if (stdInput.readLine().equals("toolbox")) {
+                if ("toolbox".equals(stdInput.readLine())) {
                     result = "remount," + mountType;
                 }
             }

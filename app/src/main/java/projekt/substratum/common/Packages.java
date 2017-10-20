@@ -734,7 +734,7 @@ public enum Packages {
 
     public static boolean needsRecreate(Context context, Iterable<String> list) {
         for (String o : list) {
-            if (o.equals("android") || o.equals("projekt.substratum")) {
+            if ("android".equals(o) || "projekt.substratum".equals(o)) {
                 return false;
             }
         }

@@ -188,7 +188,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
             if (activity != null) {
                 Context context = activity.getApplicationContext();
                 for (File f : context.getDataDir().listFiles()) {
-                    if (!f.getName().equals("shared_prefs")) {
+                    if (!"shared_prefs".equals(f.getName())) {
                         delete(context, f.getAbsolutePath());
                     } else {
                         for (File prefs : f.listFiles()) {

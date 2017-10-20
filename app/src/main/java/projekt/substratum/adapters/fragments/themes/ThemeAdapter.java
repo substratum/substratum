@@ -111,15 +111,15 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
             viewHolder.divider.setVisibility(View.GONE);
             viewHolder.tbo.setVisibility(View.GONE);
             viewHolder.two.setVisibility(View.GONE);
-        } else if (themeItem.getThemeReadyVariable().equals("all")) {
+        } else if ("all".equals(themeItem.getThemeReadyVariable())) {
             viewHolder.divider.setVisibility(View.VISIBLE);
             viewHolder.tbo.setVisibility(View.VISIBLE);
             viewHolder.two.setVisibility(View.VISIBLE);
-        } else if (themeItem.getThemeReadyVariable().equals("ready")) {
+        } else if ("ready".equals(themeItem.getThemeReadyVariable())) {
             viewHolder.divider.setVisibility(View.VISIBLE);
             viewHolder.tbo.setVisibility(View.VISIBLE);
             viewHolder.two.setVisibility(View.GONE);
-        } else if (themeItem.getThemeReadyVariable().equals("stock")) {
+        } else if ("stock".equals(themeItem.getThemeReadyVariable())) {
             viewHolder.divider.setVisibility(View.VISIBLE);
             viewHolder.tbo.setVisibility(View.GONE);
             viewHolder.two.setVisibility(View.VISIBLE);

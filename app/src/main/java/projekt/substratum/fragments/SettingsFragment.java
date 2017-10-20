@@ -458,7 +458,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 getPreferenceManager().findPreference("crash_receiver");
 
         if (BuildConfig.DEBUG) {
-            if (prefs.getString("compiler", "aapt").equals("aapt")) {
+            if ("aapt".equals(prefs.getString("compiler", "aapt"))) {
                 aoptSwitcher.setSummary(R.string.settings_aapt);
             } else {
                 aoptSwitcher.setSummary(R.string.settings_aopt);
@@ -781,7 +781,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         }
                         return false;
                     });
-            if (!Systems.getProp("ro.substratum.recreate").equals("true"))
+            if (!"true".equals(Systems.getProp("ro.substratum.recreate")))
                 systemUIRestart.setVisible(false);
 
             final CheckBoxPreference restartSystemUI = (CheckBoxPreference)
@@ -966,7 +966,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     return;
                 }
 
-                if (result.equals("")) {
+                if ("".equals(result)) {
                     settingsFragment.platformSummary.append("\n")
                             .append(settingsFragment.getString(R.string.rom_status))
                             .append(" ")

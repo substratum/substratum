@@ -170,8 +170,8 @@ public enum Systems {
                         foundOms = true;
                     } else {
                         String out = Root.runCommand("cmd overlay").split("\n")[0];
-                        if (out.equals("The overlay manager has already been initialized.") ||
-                                out.equals("Overlay manager (overlay) commands:")) {
+                        if ("The overlay manager has already been initialized.".equals(out) ||
+                                "Overlay manager (overlay) commands:".equals(out)) {
                             Log.d(SUBSTRATUM_LOG, "Found Overlay Manager Service...");
                             foundOms = true;
                         }

@@ -78,6 +78,8 @@ import static projekt.substratum.common.Packages.validateResource;
 import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.INTERFACER_SERVICE;
+import static projekt.substratum.common.References.MAX_PRIORITY;
+import static projekt.substratum.common.References.MIN_PRIORITY;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_VALIDATOR;
 import static projekt.substratum.common.commands.FileOperations.delete;
@@ -599,6 +601,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     getPreferenceManager().findPreference("legacy_priority_switcher");
             String formatted =
                     String.format(getString(R.string.legacy_preference_priority_text),
+                            References.DEFAULT_PRIORITY,
                             prefs.getInt("legacy_overlay_priority", References.DEFAULT_PRIORITY));
             priority_switcher.setSummary(formatted);
             priority_switcher.setOnPreferenceClickListener(
@@ -608,9 +611,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
                         NumberPicker numberPicker = new NumberPicker(mContext);
                         // Maximum overlay priority count
-                        numberPicker.setMaxValue(999);
+                        numberPicker.setMaxValue(MAX_PRIORITY);
                         // Minimum overlay priority count
-                        numberPicker.setMinValue(1);
+                        numberPicker.setMinValue(MIN_PRIORITY);
                         // Set the value to the current chosen priority by the user
                         numberPicker.setValue(prefs.getInt("legacy_overlay_priority",
                                 References.DEFAULT_PRIORITY));
@@ -625,6 +628,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             priority_switcher.setSummary(
                                     String.format(
                                             getString(R.string.legacy_preference_priority_text),
+                                            References.DEFAULT_PRIORITY,
                                             new_priority));
                         });
                         d.setNegativeButton(android.R.string.cancel, (dialogInterface, i) ->

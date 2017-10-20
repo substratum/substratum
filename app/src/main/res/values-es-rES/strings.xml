@@ -76,7 +76,6 @@ arreglar las cosas que no se están tematizando en legado porque requieren cambi
     <string name="manager_type3">Tipo3:</string>
     <string name="manager_type4">Tipo4 :</string>
     <string name="legacy_preference_priority_title">Ajuste de prioridad de superposición</string>
-    <string name="legacy_preference_priority_text">La prioridad está fijada en (999 por defecto): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">type1a variante&#8230;</string>
     <string name="overlays_variant_default_1b">type1b variante&#8230;</string>

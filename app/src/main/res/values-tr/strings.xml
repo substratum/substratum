@@ -97,7 +97,6 @@ lütfen
     <string name="manager_type4">Seçenek4 :</string>
     <string name="manager_version">Sürüm :</string>
     <string name="legacy_preference_priority_title">Tema öncelik ayarı</string>
-    <string name="legacy_preference_priority_text">Öncelik değeri (varsayılan 999) olarak ayarlanmıştır: %d</string>
     <string name="grid_size_title">Tema görüntüleme sütun ayarı</string>
     <string name="grid_size_text">Sütun sayısı, (varsayılan 2) olarak ayarlandı: %d</string>
     <string name="overlays_variant_substitute">%s...</string>

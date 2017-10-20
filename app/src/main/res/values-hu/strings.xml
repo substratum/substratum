@@ -94,7 +94,6 @@
     <string name="manager_type4">Type4 :</string>
     <string name="manager_version">Verzió :</string>
     <string name="legacy_preference_priority_title">Fedvény prioritás beállítása</string>
-    <string name="legacy_preference_priority_text">Prioritás beállított értéke (alapértelmezett: 999): %d</string>
     <string name="grid_size_title">Téma kijelző oszlopok beállítása</string>
     <string name="grid_size_text">Oszlopok beállított száma (alapértelmezett 2): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>

@@ -72,7 +72,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="manager_type4">Typ4 :</string>
     <string name="manager_version">Verzia:</string>
     <string name="legacy_preference_priority_title">Nastavenie priority prekrytia</string>
-    <string name="legacy_preference_priority_text">Priorita je nastavená na (predvolene 999): %d</string>
     <string name="grid_size_title">Nastavenie počtu stĺpcov témy</string>
     <string name="grid_size_text">Počet stĺpcov je nastavený na (predvolene 2): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>

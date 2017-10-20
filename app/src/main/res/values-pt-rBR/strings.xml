@@ -83,7 +83,6 @@ corrigir coisas que não estão sendo aplicadas nos temas em modo de compatibili
     <string name="manager_type4">Type4 :</string>
     <string name="manager_version">Versão :</string>
     <string name="legacy_preference_priority_title">Ajuste de Prioridade de Camadas</string>
-    <string name="legacy_preference_priority_text">Prioridade está definida como (padrão 999): %d</string>
     <string name="grid_size_title">Ajuste do esquema das colunas do tema</string>
     <string name="grid_size_text">O número de colunas está definido para: %d (padrão 2)</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>

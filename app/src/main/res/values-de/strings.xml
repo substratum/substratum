@@ -69,7 +69,6 @@ bei dir funktioniert. Bitte stelle sicher, dass du eine Custom-Recovery verwende
     <string name="manager_type4">Typ 4:</string>
     <string name="manager_version">Version :</string>
     <string name="legacy_preference_priority_title">Anpassung der Overlay-Priorität</string>
-    <string name="legacy_preference_priority_text">Die Priorität beträgt %d (Standard 999)</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">typ1a Variante&#8230;</string>
     <string name="overlays_variant_default_1b">typ1b Variante&#8230;</string>

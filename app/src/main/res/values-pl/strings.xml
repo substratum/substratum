@@ -70,7 +70,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="manager_type4">Typ4 :</string>
     <string name="manager_version">Wersja:</string>
     <string name="legacy_preference_priority_title">Korekta priorytetu nakładki</string>
-    <string name="legacy_preference_priority_text">Priorytet jest ustawiony na (domyślnie 999): %d</string>
     <string name="grid_size_title">Dopasowanie kolumny wyświetlanego motywu</string>
     <string name="grid_size_text">Liczba kolumn jest ustawiona na (domyślnie 2): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>

@@ -68,7 +68,6 @@
     <string name="manager_type4">Tipo4 :</string>
     <string name="manager_version">Versione :</string>
     <string name="legacy_preference_priority_title">Regolazione priorità overlay</string>
-    <string name="legacy_preference_priority_text">La priorità è impostata su (predefinito 999): %d</string>
     <string name="grid_size_title">Regolazione della colonna di visualizzazione del tema</string>
     <string name="grid_size_text">Il numero di colonne è impostato su (predefinito 2): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>

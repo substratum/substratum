@@ -63,7 +63,6 @@
     <string name="manager_type4">Type4：</string>
     <string name="manager_version">版本：</string>
     <string name="legacy_preference_priority_title">叠加层优先级调整</string>
-    <string name="legacy_preference_priority_text">优先级设置 （默认值 999）：%d</string>
     <string name="overlays_variant_substitute">%s&#8230;&#8230;</string>
     <string name="overlays_variant_default_1a">type1a 变量</string>
     <string name="overlays_variant_default_1b">type1b 变量</string>

@@ -69,7 +69,6 @@
     <string name="manager_type4">Type4 :</string>
     <string name="manager_version">Версія :</string>
     <string name="legacy_preference_priority_title">Змена прыярытэту напластаванняў</string>
-    <string name="legacy_preference_priority_text">Усталёўка прыярытэту (значэнне па змаўчанні 999)：%d</string>
     <string name="grid_size_title">Рэгуляванне размяшчэння дысплея для тэмы</string>
     <string name="grid_size_text">Колькасць слупкоў (2 па змаўчанні): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>

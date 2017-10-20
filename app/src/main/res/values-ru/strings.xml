@@ -69,7 +69,6 @@
     <string name="manager_type4">Type4 :</string>
     <string name="manager_version">Версия :</string>
     <string name="legacy_preference_priority_title">Изменение приоритета наслоения</string>
-    <string name="legacy_preference_priority_text">Задан приоритет (по ум. 999): %d</string>
     <string name="grid_size_title">Регулировка расположения дисплея для темы</string>
     <string name="grid_size_text">Количество столбцов (2 по умолчанию): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>

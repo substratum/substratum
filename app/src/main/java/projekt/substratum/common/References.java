@@ -205,6 +205,8 @@ public class References {
     public static int MAX_GRID_COUNT = 4;
     // This int controls the default priority level for legacy overlays
     public static int DEFAULT_PRIORITY = 999;
+    public static int MIN_PRIORITY = 1;
+    public static int MAX_PRIORITY = 9999;
     // These strings control package names for system apps
     public static String settingsPackageName = "com.android.settings";
     public static String settingsSubstratumDrawableName = "ic_settings_substratum";

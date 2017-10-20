@@ -71,7 +71,6 @@
     <string name="manager_type2">Type 2 :</string>
     <string name="manager_type3">Type 3 :</string>
     <string name="manager_type4">Type4 :</string>
-    <string name="legacy_preference_priority_text">La priorité est définie à (par défaut 999) : %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">Variante type1a&#8230;</string>
     <string name="overlays_variant_default_1b">Variante type1b&#8230;</string>

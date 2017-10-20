@@ -77,7 +77,6 @@
     <string name="manager_type4">Tipas4:</string>
     <string name="manager_version">Versija :</string>
     <string name="legacy_preference_priority_title">Perdangos prioriteto koregavimas</string>
-    <string name="legacy_preference_priority_text">Prioritetas nustatytas (numatytasis 999): %d</string>
     <string name="grid_size_title">Temos ekrano stulpelio koregavimas</string>
     <string name="grid_size_text">Stulpelių skaičius nustatytas (numatytasis 2): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>

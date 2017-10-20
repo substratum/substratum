@@ -171,7 +171,7 @@ public class BootAnimations extends Fragment {
                     mContext.getPackageManager().getResourcesForApplication(theme_pid);
             themeAssetManager = themeResources.getAssets();
             String[] fileArray = themeAssetManager.list(bootanimationsDir);
-            ArrayList<String> unparsedBootAnimations = new ArrayList<>();
+            List<String> unparsedBootAnimations = new ArrayList<>();
             Collections.addAll(unparsedBootAnimations, fileArray);
 
             // Creates the list of dropdown items

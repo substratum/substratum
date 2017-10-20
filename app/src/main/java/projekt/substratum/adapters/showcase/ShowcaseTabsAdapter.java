@@ -24,14 +24,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import projekt.substratum.fragments.ShowcaseTab;
 
 public class ShowcaseTabsAdapter extends FragmentPagerAdapter {
-    private ArrayList fragment_links;
+    private List fragment_links;
     private Integer mNumOfTabs;
 
-    public ShowcaseTabsAdapter(FragmentManager fm, int mNumOfTabs, ArrayList fragment_links) {
+    public ShowcaseTabsAdapter(FragmentManager fm, int mNumOfTabs, List fragment_links) {
         super(fm);
         this.mNumOfTabs = mNumOfTabs;
         this.fragment_links = fragment_links;

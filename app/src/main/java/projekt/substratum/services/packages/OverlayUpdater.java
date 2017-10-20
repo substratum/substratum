@@ -131,7 +131,7 @@ public class OverlayUpdater extends BroadcastReceiver {
         private NotificationManager mNotifyManager;
         private NotificationCompat.Builder mBuilder;
         private List<String> installed_overlays;
-        private ArrayList<String> errored_packages;
+        private List<String> errored_packages;
         @SuppressLint("StaticFieldLeak")
         private Context context;
         private LocalBroadcastManager localBroadcastManager;

@@ -25,6 +25,7 @@ import org.w3c.dom.NodeList;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -33,10 +34,10 @@ import projekt.substratum.adapters.fragments.settings.ValidatorFilter;
 
 public class ReadFilterFile {
 
-    public static ArrayList<ValidatorFilter> main(String file) {
+    public static List<ValidatorFilter> main(String file) {
 
-        ArrayList<ValidatorFilter> list = new ArrayList<>();
-        ArrayList<ValidatorFilter> emptyList = new ArrayList<>();
+        List<ValidatorFilter> list = new ArrayList<>();
+        List<ValidatorFilter> emptyList = new ArrayList<>();
 
         try {
             File fXmlFile = new File(file);
@@ -52,7 +53,7 @@ public class ReadFilterFile {
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
                     ValidatorFilter current = new ValidatorFilter(eElement.getAttribute("name"));
-                    ArrayList<String> filtered = new ArrayList<>();
+                    List<String> filtered = new ArrayList<>();
                     boolean unknown = false;
                     int counter = 1;
                     while (!unknown) {

@@ -30,13 +30,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 
 public class VariantAdapter extends ArrayAdapter<VariantItem> {
 
-    public VariantAdapter(Context context, ArrayList<VariantItem> variantItemArrayList) {
+    public VariantAdapter(Context context, List<VariantItem> variantItemArrayList) {
         super(context, R.layout.preview_spinner, R.id.variant_name, variantItemArrayList);
     }
 

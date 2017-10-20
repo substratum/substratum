@@ -42,6 +42,7 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.List;
 
 import projekt.substratum.R;
 import projekt.substratum.common.References;
@@ -52,12 +53,12 @@ import static com.bumptech.glide.request.RequestOptions.centerCropTransform;
 
 public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.ViewHolder> {
     private ProgressDialog mProgressDialog;
-    private ArrayList<WallpaperEntries> information;
+    private List<WallpaperEntries> information;
     private Context mContext;
     private PowerManager.WakeLock mWakeLock;
     private AsyncTask current_download;
 
-    public WallpaperAdapter(ArrayList<WallpaperEntries> information) {
+    public WallpaperAdapter(List<WallpaperEntries> information) {
         this.information = information;
     }
 

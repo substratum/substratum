@@ -45,9 +45,9 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 import static com.bumptech.glide.request.RequestOptions.centerCropTransform;
 
 public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapter.ViewHolder> {
-    private ArrayList<ShowcaseItem> information;
+    private List<ShowcaseItem> information;
 
-    public ShowcaseItemAdapter(ArrayList<ShowcaseItem> information) {
+    public ShowcaseItemAdapter(List<ShowcaseItem> information) {
         this.information = information;
     }
 

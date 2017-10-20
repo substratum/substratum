@@ -90,7 +90,7 @@ public class OverlayFound extends BroadcastReceiver {
         private NotificationManager mNotifyManager;
         private NotificationCompat.Builder mBuilder;
         private List<ResolveInfo> installed_themes;
-        private ArrayList<String> matching_criteria;
+        private List<String> matching_criteria;
 
         OverlayUpdate(OverlayFound overlayFound) {
             ref = new WeakReference<>(overlayFound);

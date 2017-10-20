@@ -19,12 +19,13 @@
 package projekt.substratum.adapters.fragments.settings;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ValidatorError {
-    private ArrayList<String> bools = new ArrayList<>();
-    private ArrayList<String> colors = new ArrayList<>();
-    private ArrayList<String> dimens = new ArrayList<>();
-    private ArrayList<String> styles = new ArrayList<>();
+    private List<String> bools = new ArrayList<>();
+    private List<String> colors = new ArrayList<>();
+    private List<String> dimens = new ArrayList<>();
+    private List<String> styles = new ArrayList<>();
     private String packageName;
 
     public ValidatorError(String packageName) {
@@ -39,19 +40,19 @@ public class ValidatorError {
         return this.packageName;
     }
 
-    ArrayList<String> getBoolErrors() {
+    List<String> getBoolErrors() {
         return this.bools;
     }
 
-    ArrayList<String> getColorErrors() {
+    List<String> getColorErrors() {
         return this.colors;
     }
 
-    ArrayList<String> getDimenErrors() {
+    List<String> getDimenErrors() {
         return this.dimens;
     }
 
-    ArrayList<String> getStyleErrors() {
+    List<String> getStyleErrors() {
         return this.styles;
     }
 }

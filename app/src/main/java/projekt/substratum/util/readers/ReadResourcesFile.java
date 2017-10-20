@@ -25,16 +25,17 @@ import org.w3c.dom.NodeList;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 public class ReadResourcesFile {
 
-    public static ArrayList<String> main(String file, String tag) {
+    public static List<String> main(String file, String tag) {
 
-        ArrayList<String> list = new ArrayList<>();
-        ArrayList<String> emptyList = new ArrayList<>();
+        List<String> list = new ArrayList<>();
+        List<String> emptyList = new ArrayList<>();
 
         try {
             File fXmlFile = new File(file);

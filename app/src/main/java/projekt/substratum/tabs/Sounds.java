@@ -159,7 +159,7 @@ public class Sounds extends Fragment {
                     mContext.getPackageManager().getResourcesForApplication(theme_pid);
             themeAssetManager = themeResources.getAssets();
             String[] fileArray = themeAssetManager.list(soundsDir);
-            ArrayList<String> archivedSounds = new ArrayList<>();
+            List<String> archivedSounds = new ArrayList<>();
             Collections.addAll(archivedSounds, fileArray);
 
             // Creates the list of dropdown items

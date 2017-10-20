@@ -589,7 +589,7 @@ public class ThemeManager {
             list.add(overlay);
             ThemeInterfacerService.installOverlays(context, list);
         } else if (checkAndromeda(context)) {
-            ArrayList<String> list = new ArrayList<>();
+            List<String> list = new ArrayList<>();
             list.add(overlay);
             if (!AndromedaService.installOverlays(list)) {
                 Handler handler = new Handler(Looper.getMainLooper());
@@ -656,7 +656,7 @@ public class ThemeManager {
         return false;
     }
 
-    public static boolean shouldRestartUI(Context context, ArrayList<String> overlays) {
+    public static boolean shouldRestartUI(Context context, Iterable<String> overlays) {
         for (String o : overlays) {
             if (shouldRestartUI(context, o)) {
                 return true;

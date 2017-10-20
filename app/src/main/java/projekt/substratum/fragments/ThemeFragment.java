@@ -112,7 +112,7 @@ public class ThemeFragment extends Fragment {
                                      Context mContext,
                                      Activity activity,
                                      String toolbarTitle,
-                                     HashMap<String, String[]> substratum_packages,
+                                     Map<String, String[]> substratum_packages,
                                      ArrayList<ThemeItem> themeItems) {
 
         RecyclerView recyclerView = root.findViewById(R.id.theme_list);

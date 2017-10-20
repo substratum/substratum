@@ -42,6 +42,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -353,9 +354,9 @@ public class ProfileManager {
         }
     }
 
-    public static HashMap<String, ProfileItem> readProfileState(String profileName,
-                                                                int overlayState) {
-        HashMap<String, ProfileItem> map = new HashMap<>();
+    public static Map<String, ProfileItem> readProfileState(String profileName,
+                                                            int overlayState) {
+        Map<String, ProfileItem> map = new HashMap<>();
         try (InputStream input = new FileInputStream(Environment.getExternalStorageDirectory()
                 .getAbsolutePath() + "/substratum/profiles/" + profileName + "/overlay_state" +
                 ".xml")) {

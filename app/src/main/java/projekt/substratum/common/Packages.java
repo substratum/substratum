@@ -237,8 +237,8 @@ public class Packages {
                 PackageManager.GET_META_DATA);
     }
 
-    public static ArrayList<String> getThemesArray(Context context) {
-        ArrayList<String> returnArray = new ArrayList<>();
+    public static List<String> getThemesArray(Context context) {
+        List<String> returnArray = new ArrayList<>();
         List<ResolveInfo> themesResolveInfo = getThemes(context);
         for (int i = 0; i < themesResolveInfo.size(); i++) {
             returnArray.add(themesResolveInfo.get(i).activityInfo.packageName);
@@ -706,7 +706,7 @@ public class Packages {
 
     // Obtain a live sample of the intents in an app
     static boolean getIntents(Context context, String trigger) {
-        ArrayList<Intent> intentArray = new ArrayList<>();
+        List<Intent> intentArray = new ArrayList<>();
         intentArray.add(new Intent(Intent.ACTION_BOOT_COMPLETED));
         intentArray.add(new Intent(Intent.ACTION_PACKAGE_ADDED));
         intentArray.add(new Intent(Intent.ACTION_PACKAGE_CHANGED));
@@ -729,7 +729,7 @@ public class Packages {
         return false;
     }
 
-    public static boolean needsRecreate(Context context, ArrayList<String> list) {
+    public static boolean needsRecreate(Context context, Iterable<String> list) {
         for (String o : list) {
             if (o.equals("android") || o.equals("projekt.substratum")) {
                 return false;

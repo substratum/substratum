@@ -60,6 +60,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
@@ -448,8 +449,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     Context context = fragment.context;
                     fragment.overlaysList = new ArrayList<>();
                     fragment.activated_overlays = new ArrayList<>();
-                    ArrayList<String> disabled_overlays;
-                    ArrayList<String> all_overlays;
+                    List<String> disabled_overlays;
+                    List<String> all_overlays;
 
                     if (Systems.checkOMS(fragment.context)) {
                         fragment.activated_overlays = new ArrayList<>(
@@ -465,7 +466,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                         Collections.sort(all_overlays);
 
                         // Create the map for {package name: package identifier}
-                        HashMap<String, String> unsortedMap = new HashMap<>();
+                        Map<String, String> unsortedMap = new HashMap<>();
 
                         // Then let's convert all the package names to their app names
                         for (int i = 0; i < all_overlays.size(); i++) {

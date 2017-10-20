@@ -19,20 +19,21 @@
 package projekt.substratum.adapters.fragments.settings;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ValidatorFilter {
-    private ArrayList<String> filter;
+    private List<String> filter;
     private String packageName;
 
     public ValidatorFilter(String packageName) {
         this.packageName = packageName;
     }
 
-    public ArrayList<String> getFilter() {
+    public List<String> getFilter() {
         return this.filter;
     }
 
-    public void setFilter(ArrayList<String> filter) {
+    public void setFilter(List<String> filter) {
         this.filter = filter;
     }
 

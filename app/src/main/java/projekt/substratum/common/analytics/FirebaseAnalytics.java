@@ -34,8 +34,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import projekt.substratum.common.References;
 
@@ -66,7 +68,7 @@ public class FirebaseAnalytics {
                 SharedPreferences.Editor editor = context
                         .getSharedPreferences(PACKAGES_PREFS, Context.MODE_PRIVATE).edit();
                 editor.clear();
-                ArrayList<String> listOfPackages = new ArrayList<>();
+                List<String> listOfPackages = new ArrayList<>();
                 Object dataValue = dataSnapshot.getValue();
                 if (dataValue != null) {
                     String data = dataValue.toString();
@@ -76,7 +78,7 @@ public class FirebaseAnalytics {
                         listOfPackages.add(entry);
                     }
 
-                    HashSet set = new HashSet();
+                    Set set = new HashSet();
                     set.addAll(listOfPackages);
                     SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
                     editor.putStringSet(dateFormat.format(new Date()), set);

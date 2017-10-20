@@ -71,11 +71,13 @@ import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.crypto.Cipher;
@@ -136,7 +138,7 @@ public class Overlays extends Fragment {
     public RecyclerView mRecyclerView;
     public Spinner base_spinner;
     public SharedPreferences prefs;
-    public ArrayList<String> final_runner, late_install;
+    public List<String> final_runner, late_install;
     public boolean mixAndMatchMode, enable_mode, disable_mode, compile_enable_mode,
             enable_disable_mode;
     public Switch toggle_all;
@@ -637,7 +639,7 @@ public class Overlays extends Fragment {
             themeAssetManager = themeResources.getAssets();
 
             ArrayList<VariantItem> type3 = new ArrayList<>();
-            ArrayList<String> stringArray = new ArrayList<>();
+            List<String> stringArray = new ArrayList<>();
 
             String[] listArray = themeAssetManager.list("overlays/android");
             Collections.addAll(stringArray, listArray);
@@ -1228,13 +1230,13 @@ public class Overlays extends Fragment {
                     String parse1_themeName = fragment.theme_name.replaceAll("\\s+", "");
                     String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
 
-                    ArrayList<String> values = new ArrayList<>();
+                    List<String> values = new ArrayList<>();
                     fragment.values2 = new ArrayList<>();
 
                     // Buffer the initial values list so that we get the list of packages
                     // inside this theme
 
-                    ArrayList<String> overlaysFolder = new ArrayList<>();
+                    Collection<String> overlaysFolder = new ArrayList<>();
                     try {
                         String[] overlayList =
                                 fragment.themeAssetManager.list(Overlays.overlaysDir);
@@ -1265,7 +1267,7 @@ public class Overlays extends Fragment {
                             .collect(Collectors.toList()));
 
                     // Create the map for {package name: package identifier}
-                    HashMap<String, String> unsortedMap = new HashMap<>();
+                    Map<String, String> unsortedMap = new HashMap<>();
 
                     // Then let's convert all the package names to their app names
                     for (int i = 0; i < values.size(); i++) {
@@ -1345,7 +1347,7 @@ public class Overlays extends Fragment {
                             ArrayList<VariantItem> type1c = new ArrayList<>();
                             ArrayList<VariantItem> type2 = new ArrayList<>();
                             ArrayList<VariantItem> type4 = new ArrayList<>();
-                            ArrayList<String> typeArray = new ArrayList<>();
+                            List<String> typeArray = new ArrayList<>();
 
                             Object typeArrayRaw = fragment.themeAssetManager.list(
                                     Overlays.overlaysDir + "/" + package_identifier);

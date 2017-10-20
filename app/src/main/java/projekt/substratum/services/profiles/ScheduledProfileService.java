@@ -228,7 +228,7 @@ public class ScheduledProfileService extends JobService {
                         FileOperations.mountRO();
                     }
 
-                    ArrayList<String> toBeDisabled = new ArrayList<>(system);
+                    Iterable<String> toBeDisabled = new ArrayList<>(system);
                     boolean shouldRestartUi = ThemeManager.shouldRestartUI(context, toBeDisabled)
                             || ThemeManager.shouldRestartUI(context, to_be_run);
                     ThemeInterfacerService.applyProfile(

@@ -65,6 +65,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -1082,7 +1083,7 @@ public class ProfileFragment extends Fragment {
             ProfileFragment profileFragment = ref.get();
             if (profileFragment != null) {
                 if (toBeCompiled != null) {
-                    HashMap<String, ProfileItem> items =
+                    Map<String, ProfileItem> items =
                             ProfileManager.readProfileState(profileName, STATE_ENABLED);
 
                     String prevTheme = "";

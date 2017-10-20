@@ -25,16 +25,17 @@ import org.w3c.dom.NodeList;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 public class ReadSupportedROMsFile {
 
-    public static HashMap<String, String> main(String file) {
+    public static Map<String, String> main(String file) {
 
-        HashMap<String, String> hashMap = new HashMap<>();
-        HashMap<String, String> emptyMap = new HashMap<>();
+        Map<String, String> hashMap = new HashMap<>();
+        Map<String, String> emptyMap = new HashMap<>();
 
         try {
             File fXmlFile = new File(file);

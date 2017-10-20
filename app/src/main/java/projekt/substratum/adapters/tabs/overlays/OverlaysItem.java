@@ -62,7 +62,7 @@ public class OverlaysItem implements Serializable {
     private String variantSelected5 = "";
     private String baseResources = "";
     private Context context;
-    private ArrayList<Object> enabledOverlays;
+    private List<Object> enabledOverlays;
     private Drawable app_icon;
     private Boolean theme_oms;
     private View activityView;

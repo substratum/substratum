@@ -27,6 +27,7 @@ import org.w3c.dom.NodeList;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -36,10 +37,10 @@ import projekt.substratum.common.References;
 
 public class ReadRepositoriesFile {
 
-    public static ArrayList<Repository> main(String file) {
+    public static List<Repository> main(String file) {
 
-        ArrayList<Repository> list = new ArrayList<>();
-        ArrayList<Repository> emptyList = new ArrayList<>();
+        List<Repository> list = new ArrayList<>();
+        List<Repository> emptyList = new ArrayList<>();
 
         try {
             File fXmlFile = new File(file);

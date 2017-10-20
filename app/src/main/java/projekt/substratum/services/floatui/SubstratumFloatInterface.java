@@ -129,7 +129,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
             ArrayList<String> enabledOverlaysForForegroundPackage = new ArrayList<>(
                     ThemeManager.listEnabledOverlaysForTarget(getApplicationContext(),
                             foregroundedApp()));
-            ArrayList<String> disabledOverlaysForForegroundPackage = new ArrayList<>(
+            List<String> disabledOverlaysForForegroundPackage = new ArrayList<>(
                     ThemeManager.listDisabledOverlaysForTarget(getApplicationContext(),
                             foregroundedApp()));
 
@@ -140,7 +140,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                         .listDisabledOverlaysForTarget(getApplicationContext(), "android"));
             }
 
-            ArrayList<String> to_be_shown = new ArrayList<>();
+            List<String> to_be_shown = new ArrayList<>();
             to_be_shown.addAll(enabledOverlaysForForegroundPackage);
             to_be_shown.addAll(disabledOverlaysForForegroundPackage);
             Collections.sort(to_be_shown);

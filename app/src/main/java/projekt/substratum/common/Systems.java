@@ -409,7 +409,7 @@ public class Systems {
                 if (!check.exists()) return "";
             }
 
-            HashMap<String, String> listOfRoms =
+            Map<String, String> listOfRoms =
                     ReadSupportedROMsFile.main(context.getCacheDir() + "/" + fileName);
             Boolean supported = false;
 

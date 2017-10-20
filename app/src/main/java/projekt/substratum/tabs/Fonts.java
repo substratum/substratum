@@ -58,6 +58,7 @@ import java.io.OutputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -137,7 +138,7 @@ public class Fonts extends Fragment {
                     (theme_pid);
             themeAssetManager = themeResources.getAssets();
             String[] fileArray = themeAssetManager.list(fontsDir);
-            ArrayList<String> unparsedFonts = new ArrayList<>();
+            List<String> unparsedFonts = new ArrayList<>();
             Collections.addAll(unparsedFonts, fileArray);
 
             // Creates the list of dropdown items

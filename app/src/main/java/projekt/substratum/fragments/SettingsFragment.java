@@ -51,6 +51,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.List;
 
 import projekt.substratum.BuildConfig;
 import projekt.substratum.LauncherActivity;
@@ -89,7 +90,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     private StringBuilder platformSummary;
     private Preference systemPlatform;
-    private ArrayList<ValidatorError> errors;
+    private List<ValidatorError> errors;
     private Dialog dialog;
     private ArrayList<Integer> packageCounters;
     private ArrayList<Integer> packageCountersErrored;
@@ -1011,7 +1012,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             super.onPostExecute(result);
             SettingsFragment settingsFragment = ref.get();
             if (settingsFragment != null) {
-                ArrayList<String> erroredPackages = new ArrayList<>();
+                List<String> erroredPackages = new ArrayList<>();
                 for (int x = 0; x < settingsFragment.errors.size(); x++) {
                     ValidatorError error = settingsFragment.errors.get(x);
                     erroredPackages.add(error.getPackageName());
@@ -1078,12 +1079,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         settingsFragment.getString(R.string.validator_whitelist_url),
                         "resource_whitelist.xml", "ValidatorCache");
 
-                ArrayList<Repository> repositories =
+                List<Repository> repositories =
                         ReadRepositoriesFile.main(
                                 settingsFragment.mContext.getCacheDir().getAbsolutePath() +
                                         "/ValidatorCache/repository_names.xml");
 
-                ArrayList<ValidatorFilter> whitelist =
+                List<ValidatorFilter> whitelist =
                         ReadFilterFile.main(
                                 settingsFragment.mContext.getCacheDir().getAbsolutePath() +
                                         "/ValidatorCache/resource_whitelist.xml");
@@ -1112,7 +1113,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         if (repository.getBools() != null) {
                             FileDownloader.init(settingsFragment.mContext, repository.getBools(),
                                     tempPackageName + ".bools.xml", "ValidatorCache");
-                            ArrayList<String> bools =
+                            List<String> bools =
                                     ReadResourcesFile.main(
                                             settingsFragment.mContext.
                                                     getCacheDir().getAbsolutePath() +
@@ -1132,7 +1133,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                     boolean bypassed = false;
                                     for (int x = 0; x < whitelist.size(); x++) {
                                         String currentPackage = whitelist.get(x).getPackageName();
-                                        ArrayList<String> currentWhitelist = whitelist.get(x)
+                                        List<String> currentWhitelist = whitelist.get(x)
                                                 .getFilter();
                                         if (currentPackage.equals(packageName)) {
                                             if (currentWhitelist.contains(bools.get(j))) {
@@ -1164,7 +1165,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         if (repository.getColors() != null) {
                             FileDownloader.init(settingsFragment.mContext, repository.getColors(),
                                     tempPackageName + ".colors.xml", "ValidatorCache");
-                            ArrayList<String> colors = ReadResourcesFile.main(
+                            List<String> colors = ReadResourcesFile.main(
                                     settingsFragment.mContext
                                             .getCacheDir().getAbsolutePath() +
                                             "/ValidatorCache/" + tempPackageName + ".colors.xml",
@@ -1182,7 +1183,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                     boolean bypassed = false;
                                     for (int x = 0; x < whitelist.size(); x++) {
                                         String currentPackage = whitelist.get(x).getPackageName();
-                                        ArrayList<String> currentWhitelist = whitelist.get(x)
+                                        List<String> currentWhitelist = whitelist.get(x)
                                                 .getFilter();
                                         if (currentPackage.equals(packageName)) {
                                             if (currentWhitelist.contains(colors.get(j))) {
@@ -1214,7 +1215,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         if (repository.getDimens() != null) {
                             FileDownloader.init(settingsFragment.mContext, repository.getDimens(),
                                     tempPackageName + ".dimens.xml", "ValidatorCache");
-                            ArrayList<String> dimens = ReadResourcesFile.main(
+                            List<String> dimens = ReadResourcesFile.main(
                                     settingsFragment.mContext.getCacheDir().getAbsolutePath() +
                                             "/ValidatorCache/" + tempPackageName +
                                             ".dimens.xml", "dimen");
@@ -1231,7 +1232,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                     boolean bypassed = false;
                                     for (int x = 0; x < whitelist.size(); x++) {
                                         String currentPackage = whitelist.get(x).getPackageName();
-                                        ArrayList<String> currentWhitelist = whitelist.get(x)
+                                        List<String> currentWhitelist = whitelist.get(x)
                                                 .getFilter();
                                         if (currentPackage.equals(packageName)) {
                                             if (currentWhitelist.contains(dimens.get(j))) {
@@ -1264,7 +1265,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         if (repository.getStyles() != null) {
                             FileDownloader.init(settingsFragment.mContext, repository.getStyles(),
                                     tempPackageName + ".styles.xml", "ValidatorCache");
-                            ArrayList<String> styles = ReadResourcesFile.main(
+                            List<String> styles = ReadResourcesFile.main(
                                     settingsFragment.mContext
                                             .getCacheDir().getAbsolutePath() +
                                             "/ValidatorCache/" + tempPackageName + ".styles.xml",
@@ -1282,7 +1283,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                     boolean bypassed = false;
                                     for (int x = 0; x < whitelist.size(); x++) {
                                         String currentPackage = whitelist.get(x).getPackageName();
-                                        ArrayList<String> currentWhitelist = whitelist.get(x)
+                                        List<String> currentWhitelist = whitelist.get(x)
                                                 .getFilter();
                                         if (currentPackage.equals(packageName)) {
                                             if (currentWhitelist.contains(styles.get(j))) {

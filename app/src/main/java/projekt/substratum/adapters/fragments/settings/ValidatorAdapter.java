@@ -28,14 +28,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 
 public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.ViewHolder> {
-    private ArrayList<ValidatorInfo> information;
+    private List<ValidatorInfo> information;
 
-    public ValidatorAdapter(ArrayList<ValidatorInfo> information) {
+    public ValidatorAdapter(List<ValidatorInfo> information) {
         this.information = information;
     }
 
@@ -73,10 +74,10 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
         } else {
             viewHolder.cardView.setOnClickListener(v -> {
                 ValidatorError error = validatorInfo.getPackageError();
-                ArrayList<String> boolErrors = error.getBoolErrors();
-                ArrayList<String> colorErrors = error.getColorErrors();
-                ArrayList<String> dimenErrors = error.getDimenErrors();
-                ArrayList<String> styleErrors = error.getStyleErrors();
+                List<String> boolErrors = error.getBoolErrors();
+                List<String> colorErrors = error.getColorErrors();
+                List<String> dimenErrors = error.getDimenErrors();
+                List<String> styleErrors = error.getStyleErrors();
 
                 StringBuilder error_logs = new StringBuilder();
                 if (boolErrors.size() > 0) {

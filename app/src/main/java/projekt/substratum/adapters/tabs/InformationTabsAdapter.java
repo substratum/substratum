@@ -42,7 +42,7 @@ import static projekt.substratum.common.References.wallpaperFragment;
 
 public class InformationTabsAdapter extends FragmentStatePagerAdapter {
 
-    private ArrayList package_checker;
+    private List package_checker;
     private Integer mNumOfTabs;
     private String theme_mode;
     private String wallpaperUrl;

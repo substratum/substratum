@@ -44,6 +44,7 @@ import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.List;
 
 import projekt.substratum.R;
 import projekt.substratum.common.Broadcasts;
@@ -57,12 +58,12 @@ import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
 
 
 public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> {
-    private ArrayList<ThemeItem> information;
+    private List<ThemeItem> information;
     private Context mContext;
     private ProgressDialog mProgressDialog;
     private ThemeItem toBeUninstalled;
 
-    public ThemeAdapter(ArrayList<ThemeItem> information) {
+    public ThemeAdapter(List<ThemeItem> information) {
         this.information = information;
     }
 

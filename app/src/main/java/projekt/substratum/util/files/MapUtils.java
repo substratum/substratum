@@ -23,11 +23,12 @@ import android.support.v4.util.Pair;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class MapUtils {
 
-    public static <S, T extends Comparable<T>> List<Pair<S, T>> sortMapByValues(HashMap<S, T> map) {
+    public static <S, T extends Comparable<T>> List<Pair<S, T>> sortMapByValues(Map<S, T> map) {
         List<Pair<S, T>> list = map.entrySet().stream().map(entry -> new Pair<>(entry.getKey(),
                 entry.getValue())).collect(Collectors.toList());
 

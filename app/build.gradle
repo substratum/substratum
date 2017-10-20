@@ -114,9 +114,11 @@ ext {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     // Leak Checks and Test Cases
+    /*
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
     testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
+    */
     testImplementation 'junit:junit:4.12'
     // Android Support Libraries
     implementation "com.android.support:appcompat-v7:$supportLibsVersion"

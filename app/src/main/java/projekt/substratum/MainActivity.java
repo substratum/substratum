@@ -18,9 +18,7 @@
 
 package projekt.substratum;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Application;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -66,8 +64,6 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
-import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -231,6 +227,7 @@ public class MainActivity extends SubstratumActivity implements
         supportInvalidateOptionsMenu();
     }
 
+    /*
     protected void installLeakCanary() {
         LeakCanary.enableDisplayLeakActivity(this);
         RefWatcher refWatcher = LeakCanary.refWatcher(this).build();
@@ -272,6 +269,7 @@ public class MainActivity extends SubstratumActivity implements
                     }
                 });
     }
+    */
 
     @Override
     public void onDestroy() {
@@ -300,10 +298,12 @@ public class MainActivity extends SubstratumActivity implements
 
         if (BuildConfig.DEBUG && !Systems.isSamsung(mContext)) {
             Log.d(SUBSTRATUM_LOG, "Substratum launched with debug mode signatures.");
+            /*
             if (LeakCanary.isInAnalyzerProcess(this)) return;
             installLeakCanary();
             Log.d(SUBSTRATUM_LOG,
                     "LeakCanary has been initialized to actively monitor memory leaks.");
+            */
         }
         setContentView(R.layout.main_activity);
         cleanLogCharReportsIfNecessary();

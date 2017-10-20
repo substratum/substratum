@@ -24,6 +24,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import projekt.substratum.tabs.BootAnimations;
@@ -46,11 +47,11 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
     private String theme_mode;
     private String wallpaperUrl;
     private Bundle bundle;
-    private boolean[] extras;
+    private HashMap<String, Boolean> extras;
 
     @SuppressWarnings("unchecked")
     public InformationTabsAdapter(FragmentManager fm, int NumOfTabs, String theme_mode,
-                                  List package_checker, String wallpaperUrl, boolean[] extras,
+                                  List package_checker, String wallpaperUrl, HashMap<String, Boolean> extras,
                                   Bundle bundle) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
@@ -111,24 +112,28 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
             Overlays overlays = new Overlays();
             overlays.setArguments(bundle);
             return overlays;
-        } else if (package_checker.contains(bootAnimationsFragment) && extras[0]) {
+        } else if (package_checker.contains(bootAnimationsFragment) &&
+                extras.get(bootAnimationsFragment)) {
             package_checker.remove(bootAnimationsFragment);
             BootAnimations bootAnimations = new BootAnimations();
             bootAnimations.setArguments(bundle);
             return bootAnimations;
-        } else if (package_checker.contains(shutdownAnimationsFragment) && extras[1]) {
+        } else if (package_checker.contains(shutdownAnimationsFragment) &&
+                extras.get(shutdownAnimationsFragment)) {
             package_checker.remove(shutdownAnimationsFragment);
             BootAnimations shutdownAnimations = new BootAnimations();
             Bundle b = new Bundle(bundle);
-            b.putBoolean("shutdownanimation", true);
+            b.putBoolean(shutdownAnimationsFragment, true);
             shutdownAnimations.setArguments(b);
             return shutdownAnimations;
-        } else if (package_checker.contains(fontsFragment) && extras[2]) {
+        } else if (package_checker.contains(fontsFragment) &&
+                extras.get(fontsFragment)) {
             package_checker.remove(fontsFragment);
             Fonts fonts = new Fonts();
             fonts.setArguments(bundle);
             return fonts;
-        } else if (package_checker.contains(soundsFragment) && extras[3]) {
+        } else if (package_checker.contains(soundsFragment) &&
+                extras.get(soundsFragment)) {
             package_checker.remove(soundsFragment);
             Sounds sounds = new Sounds();
             sounds.setArguments(bundle);

@@ -75,6 +75,7 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -542,16 +543,17 @@ public class InformationActivity extends SubstratumActivity {
             }
         }
 
-        boolean[] extra_hidden_tabs = new boolean[4];
+        HashMap<String, Boolean> extra_hidden_tabs = new HashMap<>();
         // Boot animation visibility
-        extra_hidden_tabs[0] = !Systems.checkAndromeda(mContext) &&
-                !Systems.isSamsungDevice(mContext);
+        extra_hidden_tabs.put(bootAnimationsFragment, !Systems.checkAndromeda(mContext) &&
+                !Systems.isSamsungDevice(mContext));
         // Shutdown animation visibility
-        extra_hidden_tabs[1] = Systems.checkOreo() && Systems.isBinderInterfacer(mContext);
+        extra_hidden_tabs.put(shutdownAnimationsFragment, Systems.checkOreo() &&
+                Systems.isBinderInterfacer(mContext));
         // Fonts visibility
-        extra_hidden_tabs[2] = Resources.isFontsSupported();
+        extra_hidden_tabs.put(fontsFragment, Resources.isFontsSupported());
         // Sounds visibility
-        extra_hidden_tabs[3] = Systems.isBinderInterfacer(mContext);
+        extra_hidden_tabs.put(soundsFragment, Systems.isBinderInterfacer(mContext));
 
         final InformationTabsAdapter adapter = new InformationTabsAdapter
                 (getSupportFragmentManager(), (tabLayout != null) ? tabLayout.getTabCount() : 0,

@@ -146,7 +146,7 @@ public class InformationActivity extends SubstratumActivity {
         try {
             Palette palette = Palette.from(bitmap).generate();
             return palette.getDominantColor(Color.TRANSPARENT);
-        } catch (IllegalArgumentException iae) {
+        } catch (IllegalArgumentException ignored) {
             // Suppress warning
         }
         return Color.TRANSPARENT;
@@ -179,7 +179,7 @@ public class InformationActivity extends SubstratumActivity {
 
     private void autoSetToolbarIcons(boolean dynamicActionBarColors) {
         if (collapsingToolbarLayout != null && checkColorDarkness(dominantColor) &&
-                dynamicActionBarColors && prefs.getBoolean("dynamic_actionbar", true)) {
+                dynamicActionBarColors) {
             setDarkToolbarIcons();
         } else if (collapsingToolbarLayout != null) {
             setLightToolbarIcons();
@@ -362,9 +362,7 @@ public class InformationActivity extends SubstratumActivity {
         bundle.putByteArray("iv_encrypt_key", iv_encrypt_key);
         bundle.putString("wallpaperUrl", wallpaperUrl);
 
-        if (theme_mode == null) {
-            theme_mode = "";
-        }
+        if (theme_mode == null) theme_mode = "";
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) toolbar.setTitle(theme_name);
@@ -394,13 +392,12 @@ public class InformationActivity extends SubstratumActivity {
         if (appBarLayout != null) appBarLayout.setBackgroundColor(dominantColor);
 
         if (collapsingToolbarLayout != null &&
-                dynamicActionBarColors &&
-                prefs.getBoolean("dynamic_actionbar", true)) {
+                dynamicActionBarColors) {
             collapsingToolbarLayout.setStatusBarScrimColor(dominantColor);
             collapsingToolbarLayout.setContentScrimColor(dominantColor);
         }
 
-        if (dynamicNavBarColors && prefs.getBoolean("dynamic_navbar", true)) {
+        if (dynamicNavBarColors) {
             getWindow().setNavigationBarColor(dominantColor);
             if (checkColorDarkness(dominantColor)) {
                 getWindow().setNavigationBarColor(getColor(R.color.theme_information_background));
@@ -518,7 +515,7 @@ public class InformationActivity extends SubstratumActivity {
             }
 
             tabLayout.setTabGravity(TabLayout.MODE_SCROLLABLE);
-            if (dynamicActionBarColors && prefs.getBoolean("dynamic_actionbar", true))
+            if (dynamicActionBarColors)
                 tabLayout.setBackgroundColor(dominantColor);
 
             String toOverrideHero =
@@ -777,7 +774,7 @@ public class InformationActivity extends SubstratumActivity {
         boolean dynamicActionBarColors = getResources().getBoolean(R.bool.dynamicActionBarColors);
         shouldDarken = collapsingToolbarLayout != null &&
                 checkColorDarkness(dominantColor) &&
-                dynamicActionBarColors && prefs.getBoolean("dynamic_actionbar", true);
+                dynamicActionBarColors;
 
         // Start dynamically showing menu items
         boolean isOMS = Systems.checkOMS(mContext);

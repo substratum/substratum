@@ -1252,6 +1252,8 @@ public class Overlays extends Fragment {
                             projekt.substratum.common.Resources.allowedSystemUIOverlay
                                     (package_name) ||
                             projekt.substratum.common.Resources.allowedSettingsOverlay
+                                    (package_name) ||
+                            projekt.substratum.common.Resources.allowedFrameworkOverlay
                                     (package_name)) &&
                             (!showDangerous || !ThemeManager.blacklisted(
                                     package_name,
@@ -1293,6 +1295,20 @@ public class Overlays extends Fragment {
                                 switch (values.get(i)) {
                                     case "com.android.settings.icons":
                                         package_name = context.getString(R.string.settings_icons);
+                                        break;
+                                }
+                                unsortedMap.put(values.get(i), package_name);
+                            } else if (projekt.substratum.common.Resources.allowedFrameworkOverlay
+                                    (values.get(i))) {
+                                String package_name = "";
+                                switch (values.get(i)) {
+                                    case "fwk":
+                                        package_name = context.getString(
+                                                R.string.samsung_framework);
+                                        break;
+                                    case "commit":
+                                        package_name = context.getString(
+                                                R.string.lg_framework);
                                         break;
                                 }
                                 unsortedMap.put(values.get(i), package_name);

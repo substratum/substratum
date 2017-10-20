@@ -472,6 +472,9 @@
     <string name="samsung_prototype_no_root_dialog">It seems that you are on a supported Samsung device, an addon was released to support this!</string>
     <string name="samsung_prototype_no_root_dialog_button">Download now!</string>
 
+    <string name="samsung_framework">Samsung Common Framework</string>
+    <string name="lg_framework">LG Common Framework</string>
+
     <string name="notification_theme_installed">installed</string>
     <string name="notification_theme_updated">updated</string>
     <string name="notification_theme_installed_content">Theme successfully installed.</string>

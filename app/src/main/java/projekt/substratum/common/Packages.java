@@ -57,6 +57,7 @@ import static projekt.substratum.common.References.metadataVersion;
 import static projekt.substratum.common.References.metadataWallpapers;
 import static projekt.substratum.common.References.resourceChangelog;
 import static projekt.substratum.common.References.wallpaperFragment;
+import static projekt.substratum.common.Resources.allowedFrameworkOverlay;
 import static projekt.substratum.common.Resources.allowedSettingsOverlay;
 import static projekt.substratum.common.Resources.allowedSystemUIOverlay;
 import static projekt.substratum.common.Systems.checkOMS;
@@ -96,7 +97,7 @@ public class Packages {
             try {
                 int enabled = pm.getApplicationEnabledSetting(packageName);
                 return enabled != PackageManager.COMPONENT_ENABLED_STATE_DISABLED &&
-                    enabled != PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER;
+                        enabled != PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER;
             } catch (Exception e) {
                 return false;
             }
@@ -180,6 +181,8 @@ public class Packages {
                 icon = context.getPackageManager().getApplicationIcon("com.android.systemui");
             } else if (allowedSettingsOverlay(package_name)) {
                 icon = context.getPackageManager().getApplicationIcon("com.android.settings");
+            } else if (allowedFrameworkOverlay(package_name)) {
+                icon = context.getPackageManager().getApplicationIcon("android");
             } else {
                 icon = context.getPackageManager().getApplicationIcon(package_name);
             }

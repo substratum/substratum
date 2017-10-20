@@ -36,6 +36,12 @@ import static projekt.substratum.common.Systems.isSamsung;
 
 public class Resources {
 
+    // Filter to adjust framework elements
+    private static final String[] ALLOWED_FRAMEWORK_ELEMENTS = {
+            "fwk",
+            "common"
+    };
+
     // Filter to adjust Settings elements
     public static final String[] ALLOWED_SETTINGS_ELEMENTS = {
             "com.android.settings.icons",
@@ -151,6 +157,11 @@ public class Resources {
     // This string array contains all the Settings acceptable overlay packs
     public static Boolean allowedSettingsOverlay(String current) {
         return Arrays.asList(ALLOWED_SETTINGS_ELEMENTS).contains(current);
+    }
+
+    // This string array contains all the framework acceptable overlay packs
+    public static Boolean allowedFrameworkOverlay(String current) {
+        return Arrays.asList(ALLOWED_FRAMEWORK_ELEMENTS).contains(current);
     }
 
     // This string array contains all the SystemUI acceptable sound files

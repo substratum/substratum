@@ -430,6 +430,17 @@ class OverlayFunctions {
                                         packageTitle = context.getString(R.string.settings_icons);
                                         break;
                                 }
+                            } else if (projekt.substratum.common.Resources.allowedFrameworkOverlay
+                                    (current_overlay)) {
+                                switch (current_overlay) {
+                                    case "fwk":
+                                        packageTitle = context.getString(
+                                                R.string.samsung_framework);
+                                        break;
+                                    case "commit":
+                                        packageTitle = context.getString(R.string.lg_framework);
+                                        break;
+                                }
                             } else {
                                 ApplicationInfo applicationInfo =
                                         null;

@@ -110,7 +110,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                         if (viewHolder.optionsSpinner != null && viewHolder
                                 .optionsSpinner.getVisibility() == View.VISIBLE)
                             if (viewHolder.optionsSpinner.getSelectedItemPosition() != 0)
-                                packageName = packageName + viewHolder.optionsSpinner
+                                packageName += viewHolder.optionsSpinner
                                         .getSelectedItem().toString()
                                         .replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
                     }
@@ -120,7 +120,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                         if (viewHolder.optionsSpinner2 != null && viewHolder
                                 .optionsSpinner2.getVisibility() == View.VISIBLE)
                             if (viewHolder.optionsSpinner2.getSelectedItemPosition() != 0)
-                                packageName = packageName + viewHolder.optionsSpinner2
+                                packageName += viewHolder.optionsSpinner2
                                         .getSelectedItem().toString()
                                         .replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
                     }
@@ -130,7 +130,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                         if (viewHolder.optionsSpinner3 != null && viewHolder
                                 .optionsSpinner3.getVisibility() == View.VISIBLE)
                             if (viewHolder.optionsSpinner3.getSelectedItemPosition() != 0)
-                                packageName = packageName + viewHolder.optionsSpinner3
+                                packageName += viewHolder.optionsSpinner3
                                         .getSelectedItem().toString().replaceAll("\\s+", "")
                                         .replaceAll("[^a-zA-Z0-9]+", "");
                     }
@@ -140,7 +140,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                         if (viewHolder.optionsSpinner4 != null && viewHolder
                                 .optionsSpinner4.getVisibility() == View.VISIBLE)
                             if (viewHolder.optionsSpinner4.getSelectedItemPosition() != 0)
-                                packageName = packageName + viewHolder.optionsSpinner4
+                                packageName += viewHolder.optionsSpinner4
                                         .getSelectedItem().toString().replaceAll("\\s+", "")
                                         .replaceAll("[^a-zA-Z0-9]+", "");
                     }
@@ -150,7 +150,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                         if (viewHolder.optionsSpinner5 != null && viewHolder
                                 .optionsSpinner5.getVisibility() == View.VISIBLE)
                             if (viewHolder.optionsSpinner5.getSelectedItemPosition() != 0)
-                                packageName = packageName + viewHolder.optionsSpinner5
+                                packageName += viewHolder.optionsSpinner5
                                         .getSelectedItem().toString().replaceAll("\\s+", "")
                                         .replaceAll("[^a-zA-Z0-9]+", "");
                     }

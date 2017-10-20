@@ -973,8 +973,7 @@ public class ProfileFragment extends Fragment {
                     }
                 } else {
                     String profile_name = sUrl[0];
-                    profileFragment.to_be_run_commands = profileFragment.to_be_run_commands +
-                            " && mount -o rw,remount /system";
+                    profileFragment.to_be_run_commands += " && mount -o rw,remount /system";
                     profileFragment.to_be_run_commands = profileFragment.to_be_run_commands +
                             " && mv -f /system/media/bootanimation.zip" +
                             " /system/media/bootanimation-backup.zip";

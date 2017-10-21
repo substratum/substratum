@@ -1215,8 +1215,10 @@ class OverlayFunctions {
                     }
                 }
 
-                if (InformationActivity.compilingProcess) {
+                if (InformationActivity.compilingProcess &&
+                        InformationActivity.shouldRestartActivity) {
                     // Gracefully finish
+                    InformationActivity.shouldRestartActivity = false;
                     InformationActivity.compilingProcess = false;
                     Broadcasts.sendActivityFinisherMessage(
                             overlays.getContext(), overlays.theme_pid);

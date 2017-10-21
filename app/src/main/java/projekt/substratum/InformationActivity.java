@@ -146,7 +146,7 @@ public class InformationActivity extends SubstratumActivity {
     private ActivityFinisher activityFinisher;
     private int dominantColor;
     private Context mContext;
-    private Boolean shouldRestartActivity = false;
+    public static Boolean shouldRestartActivity = false;
 
     private static int getDominantColor(Bitmap bitmap) {
         try {

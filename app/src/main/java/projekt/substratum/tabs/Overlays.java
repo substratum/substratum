@@ -53,6 +53,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -96,6 +97,7 @@ import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
 import projekt.substratum.util.files.MapUtils;
 import projekt.substratum.util.files.Root;
+import projekt.substratum.util.views.SheetDialog;
 
 import static android.content.Context.ACTIVITY_SERVICE;
 import static projekt.substratum.InformationActivity.currentShownLunchBar;
@@ -116,8 +118,9 @@ public class Overlays extends Fragment {
     public static final String overlaysDir = "overlays";
     public static final String TAG = SUBSTRATUM_BUILDER;
     public static final int THREAD_WAIT_DURATION = 500;
+    public ImageView loader_image;
     public TextView loader_string;
-    public ProgressDialog mProgressDialog;
+    public SheetDialog mCompileDialog;
     public SubstratumBuilder sb;
     public List<OverlaysItem> overlaysLists, checkedOverlays;
     public RecyclerView.Adapter mAdapter;

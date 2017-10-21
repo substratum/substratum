@@ -70,21 +70,6 @@
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
-    <!-- AV Loading Indicator View -->
-    <!-- Author section -->
-    <string name="library_avloadingindicatorview_author">Jack Wang</string>
-    <string name="library_avloadingindicatorview_authorWebsite">http://hlong.xyz/</string>
-    <!-- Library section -->
-    <string name="library_avloadingindicatorview_libraryName">AVLoadingIndicatorView</string>
-    <string name="library_avloadingindicatorview_libraryDescription">AVLoadingIndicatorView ist eine
-        Sammlung von schönen Lade-Animationen für Android.</string>
-    <string name="library_avloadingindicatorview_libraryWebsite">https://github.com/81813780/AVLoadingIndicatorView</string>
-    <string name="library_avloadingindicatorview_libraryVersion">2.1.3</string>
-    <!-- OpenSource section -->
-    <string name="library_avloadingindicatorview_repositoryLink">https://github.com/81813780/AVLoadingIndicatorView</string>
-    <!-- ClassPath for autoDetect section -->
-    <string name="library_avloadingindicatorview_classPath">com.wang.avi:library</string>
-    <!-- License section -->
     <!-- Floating View -->
     <!-- Author section -->
     <string name="library_floatingview_author">Rekrut Lifestyle Co. Ltd.</string>

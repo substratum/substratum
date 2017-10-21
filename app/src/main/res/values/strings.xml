@@ -443,7 +443,7 @@
     <string name="uninstall_dialog_body">Uninstall Theme</string>
 
     <string name="sb_phase_1_loader">extracting theme</string>
-    <string name="sb_phase_2_loader">installing overlay</string>
+    <string name="sb_phase_2_loader">building and installing overlay</string>
     <string name="root_rejected_title">could not fall back to rooted mode</string>
     <string name="root_rejected_text">there are no other theme engines able to be utilized on this device at this current time&#8230;</string>
 

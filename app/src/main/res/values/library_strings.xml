@@ -213,30 +213,6 @@
     <!-- License section -->
     <string name="library_zt_zip_licenseId" translatable="false">apache_2_0</string>
 
-    <!-- AV Loading Indicator View -->
-    <string name="define_avloadingindicatorview" />
-    <!-- Author section -->
-    <string name="library_avloadingindicatorview_author">Jack Wang</string>
-    <string name="library_avloadingindicatorview_authorWebsite">http://hlong.xyz/</string>
-    <!-- Library section -->
-    <string name="library_avloadingindicatorview_libraryName">AVLoadingIndicatorView</string>
-    <string name="library_avloadingindicatorview_libraryDescription">AVLoadingIndicatorView is a
-        collection of nice loading animations for Android.
-    </string>
-    <string name="library_avloadingindicatorview_libraryWebsite">
-        https://github.com/81813780/AVLoadingIndicatorView
-    </string>
-    <string name="library_avloadingindicatorview_libraryVersion">2.1.3</string>
-    <!-- OpenSource section -->
-    <string name="library_avloadingindicatorview_isOpenSource">true</string>
-    <string name="library_avloadingindicatorview_repositoryLink">
-        https://github.com/81813780/AVLoadingIndicatorView
-    </string>
-    <!-- ClassPath for autoDetect section -->
-    <string name="library_avloadingindicatorview_classPath">com.wang.avi:library</string>
-    <!-- License section -->
-    <string name="library_avloadingindicatorview_licenseId">apache_2_0</string>
-
     <!-- Floating View -->
     <string name="define_floatingview" />
     <!-- Author section -->

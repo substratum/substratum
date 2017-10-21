@@ -22,12 +22,10 @@ import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -63,6 +61,7 @@ import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
 import projekt.substratum.util.files.Root;
+import projekt.substratum.util.views.SheetDialog;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 import static projekt.substratum.InformationActivity.currentShownLunchBar;
@@ -111,27 +110,29 @@ class OverlayFunctions {
                             .setOngoing(true);
                     overlays.mNotifyManager.notify(
                             References.notification_id_compiler, overlays.mBuilder.build());
-                    overlays.mProgressDialog = null;
-                    overlays.mProgressDialog = new ProgressDialog(context,
-                            R.style.SubstratumBuilder_ActivityTheme);
-                    overlays.mProgressDialog.setIndeterminate(false);
-                    overlays.mProgressDialog.setCancelable(false);
-                    overlays.mProgressDialog.show();
+
+                    overlays.mCompileDialog = new SheetDialog(context);
+                    overlays.mCompileDialog.setCancelable(false);
+                    View sheetView = View.inflate(context,
+                            R.layout.compile_sheet_dialog, null);
+                    overlays.mCompileDialog.setContentView(sheetView);
+                    overlays.mCompileDialog.show();
                     InformationActivity.compilingProcess = true;
-                    overlays.mProgressDialog.setContentView(R.layout.compile_dialog_loader);
-                    if (overlays.mProgressDialog.getWindow() != null) {
-                        overlays.mProgressDialog.getWindow().addFlags(
+
+                    // Do not sleep the device when the sheet is raised
+                    if (overlays.mCompileDialog.getWindow() != null) {
+                        overlays.mCompileDialog.getWindow().addFlags(
                                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                     }
 
-                    overlays.dialogProgress = overlays.mProgressDialog.findViewById(
-                            R.id.loading_bar);
-                    overlays.dialogProgress.setProgressTintList(
-                            ColorStateList.valueOf(context.getColor(
-                                    R.color.compile_dialog_wave_color)));
-                    overlays.dialogProgress.setIndeterminate(false);
-
-                    overlays.loader_string = overlays.mProgressDialog.findViewById(R.id.title);
+                    // Set the variables for the sheet dialog's titles
+                    overlays.dialogProgress =
+                            overlays.mCompileDialog.findViewById(R.id.loading_bar);
+                    if (overlays.dialogProgress != null) {
+                        overlays.dialogProgress.setIndeterminate(false);
+                    }
+                    overlays.loader_image = overlays.mCompileDialog.findViewById(R.id.icon);
+                    overlays.loader_string = overlays.mCompileDialog.findViewById(R.id.title);
                     overlays.loader_string.setText(context.getResources().getString(
                             R.string.sb_phase_1_loader));
                 }
@@ -185,6 +186,7 @@ class OverlayFunctions {
 
     static class Phase3_mainFunction extends AsyncTask<String, Integer, String> {
         private WeakReference<Overlays> ref;
+        private String currentPackageName = "";
 
         Phase3_mainFunction(Overlays overlays) {
             ref = new WeakReference<>(overlays);
@@ -228,8 +230,13 @@ class OverlayFunctions {
             super.onProgressUpdate(values);
             Overlays overlays = ref.get();
             if (overlays != null) {
-                TextView textView = overlays.mProgressDialog.findViewById(R.id.current_object);
-                textView.setText(overlays.current_dialog_overlay);
+                TextView textView = overlays.mCompileDialog.findViewById(R.id.current_object);
+                if (textView != null) {
+                    textView.setText(overlays.current_dialog_overlay);
+                }
+                overlays.loader_image.setImageBitmap(
+                        Packages.getBitmapFromDrawable(
+                                Packages.getAppIcon(overlays.getContext(), currentPackageName)));
                 double progress = (overlays.current_amount / overlays.total_amount) * 100;
                 overlays.dialogProgress.setProgress((int) progress, true);
             }
@@ -389,6 +396,7 @@ class OverlayFunctions {
                     String current_overlay = overlays.checkedOverlays.get(i).getPackageName();
                     overlays.current_dialog_overlay =
                             "'" + Packages.getPackageName(context, current_overlay) + "'";
+                    currentPackageName = current_overlay;
 
                     if (!overlays.enable_mode && !overlays.disable_mode
                             && !overlays.enable_disable_mode) {
@@ -1166,7 +1174,7 @@ class OverlayFunctions {
             Overlays overlays = ref.get();
             Context context = refContext.get();
             if (context != null && overlays != null) {
-                if (overlays.mProgressDialog != null) overlays.mProgressDialog.dismiss();
+                if (overlays.mCompileDialog != null) overlays.mCompileDialog.dismiss();
 
                 // Add dummy intent to be able to close the notification on click
                 Intent notificationIntent = new Intent(context, InformationActivity.class);

@@ -64,7 +64,8 @@ public class PackageModificationDetector extends BroadcastReceiver {
             return;
         }
 
-        if (intent.getAction() != null && intent.getAction().equals(PACKAGE_FULLY_REMOVED)) {
+        if ((intent.getAction() != null && intent.getAction().equals(PACKAGE_FULLY_REMOVED)) ||
+                Systems.isSamsungDevice(context)) {
             Broadcasts.sendOverlayRefreshMessage(mContext);
             Broadcasts.sendRefreshManagerMessage(mContext);
             return;

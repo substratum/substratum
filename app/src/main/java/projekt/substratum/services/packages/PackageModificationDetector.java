@@ -45,6 +45,8 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.util.helpers.NotificationCreator;
 
+import static projekt.substratum.common.References.PACKAGE_FULLY_REMOVED;
+
 public class PackageModificationDetector extends BroadcastReceiver {
 
     private final static String TAG = "SubstratumDetector";
@@ -59,6 +61,12 @@ public class PackageModificationDetector extends BroadcastReceiver {
         if (packageName != null) {
             package_name = packageName.toString().substring(8);
         } else {
+            return;
+        }
+
+        if (intent.getAction() != null && intent.getAction().equals(PACKAGE_FULLY_REMOVED)) {
+            Broadcasts.sendOverlayRefreshMessage(mContext);
+            Broadcasts.sendRefreshManagerMessage(mContext);
             return;
         }
 

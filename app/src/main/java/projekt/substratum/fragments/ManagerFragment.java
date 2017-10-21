@@ -25,7 +25,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -94,7 +93,6 @@ import static projekt.substratum.util.files.MapUtils.sortMapByValues;
 public class ManagerFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private static final int MANAGER_FRAGMENT_INITIAL_DELAY = 500;
-    private static final int UNINSTALL_REQUEST_CODE = 12675;
     private ArrayList<String> activated_overlays;
     private ManagerAdapter mAdapter;
     private MaterialSheetFab materialSheetFab;
@@ -117,7 +115,6 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     private SearchView searchView;
     private String userInput = "";
     private Boolean first_boot = true;
-    private ArrayList<String> queuedUninstall;
 
     private void resetRecyclerView() {
         // Initialize the recycler view with an empty adapter first
@@ -404,26 +401,6 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             new LayoutReloader(ManagerFragment.this, userInput).execute();
         }
         return true;
-    }
-
-    private void uninstallMultipleAPKS() {
-        if (queuedUninstall.size() > 0) {
-            Uri packageURI = Uri.parse("package:" + queuedUninstall.get(0));
-            Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
-            getActivity().startActivityForResult(uninstallIntent, UNINSTALL_REQUEST_CODE);
-        }
-
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case UNINSTALL_REQUEST_CODE:
-                if (queuedUninstall != null && queuedUninstall.size() > 0) {
-                    queuedUninstall.remove(0);
-                    uninstallMultipleAPKS();
-                }
-        }
     }
 
     private static class LayoutReloader extends AsyncTask<Void, Void, Void> {
@@ -1017,7 +994,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         protected void onPreExecute() {
             ManagerFragment fragment = ref.get();
             if (fragment != null) {
-                fragment.queuedUninstall = new ArrayList<>();
+                MainActivity.queuedUninstall = new ArrayList<>();
                 fragment.materialSheetFab.hideSheet();
                 fragment.loadingBar.setVisibility(View.VISIBLE);
             }
@@ -1036,7 +1013,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     ManagerItem overlay1 = fragment.overlayList.get(i);
                     if (overlay1.isSelected()) data.add(overlay1.getName());
                     if (Systems.isSamsungDevice(context))
-                        fragment.queuedUninstall.add(overlay1.getName());
+                        MainActivity.queuedUninstall.add(overlay1.getName());
                 }
 
                 // The magic goes here
@@ -1083,10 +1060,9 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         protected void onPostExecute(Void result) {
             ManagerFragment fragment = ref.get();
             if (fragment != null) {
-                if (!Systems.isSamsungDevice(fragment.context)) {
-                    new LayoutReloader(fragment, fragment.userInput).execute();
-                } else {
-                    fragment.uninstallMultipleAPKS();
+                new LayoutReloader(fragment, fragment.userInput).execute();
+                if (Systems.isSamsungDevice(fragment.context)) {
+                    MainActivity.uninstallMultipleAPKS(fragment.getActivity());
                 }
             }
         }

@@ -18,6 +18,7 @@
 
 package projekt.substratum;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
@@ -129,9 +130,11 @@ public class MainActivity extends SubstratumActivity implements
     private static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
     private static final int PERMISSIONS_REQUEST_DRAW_OVER_OTHER_APPS = 2;
     private static final int PERMISSIONS_REQUEST_USAGE_ACCESS_SETTINGS = 3;
+    private static final int UNINSTALL_REQUEST_CODE = 12675;
     private static final String SELECTED_DRAWER_ITEM = "selected_drawer_item";
     public static String userInput = "";
     public static MenuItem searchItem;
+    public static ArrayList<String> queuedUninstall;
     private static ActionBar supportActionBar;
     public TextView actionbar_title, actionbar_content;
     public SearchView searchView;
@@ -161,6 +164,14 @@ public class MainActivity extends SubstratumActivity implements
             }
         }
         return false;
+    }
+
+    public static void uninstallMultipleAPKS(Activity activity) {
+        if (MainActivity.queuedUninstall.size() > 0) {
+            Uri packageURI = Uri.parse("package:" + MainActivity.queuedUninstall.get(0));
+            Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
+            activity.startActivityForResult(uninstallIntent, UNINSTALL_REQUEST_CODE);
+        }
     }
 
     public void switchToCustomToolbar(String title, String content) {

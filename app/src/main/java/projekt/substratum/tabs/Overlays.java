@@ -164,6 +164,7 @@ public class Overlays extends Fragment {
     public boolean decryptedAssetsExceptionReached;
     public int overlaysWaiting = 0;
     private int currentPosition;
+    private boolean first_launch = true;
 
     protected void logTypes() {
         if (ENABLE_PACKAGE_LOGGING) {
@@ -1027,6 +1028,15 @@ public class Overlays extends Fragment {
                 "application/vnd.android.package-archive");
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         startActivityForResult(intent, 2486);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (first_launch) {
+            first_launch = false;
+            refreshList();
+        }
     }
 
     private void refreshList() {

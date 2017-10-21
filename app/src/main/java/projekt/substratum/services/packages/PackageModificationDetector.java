@@ -45,6 +45,7 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.util.helpers.NotificationCreator;
 
+import static projekt.substratum.common.References.PACKAGE_ADDED;
 import static projekt.substratum.common.References.PACKAGE_FULLY_REMOVED;
 
 public class PackageModificationDetector extends BroadcastReceiver {
@@ -64,8 +65,10 @@ public class PackageModificationDetector extends BroadcastReceiver {
             return;
         }
 
-        if ((intent.getAction() != null && intent.getAction().equals(PACKAGE_FULLY_REMOVED)) ||
-                Systems.isSamsungDevice(context)) {
+        if (intent.getAction() != null &&
+                (intent.getAction().equals(PACKAGE_FULLY_REMOVED) ||
+                        (intent.getAction().equals(PACKAGE_ADDED) &&
+                                Systems.isSamsungDevice(context)))) {
             Broadcasts.sendOverlayRefreshMessage(mContext);
             Broadcasts.sendRefreshManagerMessage(mContext);
             return;

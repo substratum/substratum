@@ -20,7 +20,6 @@
     <string name="app_name" translatable="false">substratum</string>
     <string name="legacy_app_name" translatable="false">substratum legacy</string>
     <string name="samsung_app_name" translatable="false">sungstratum</string>
-    <string name="debug_app_name" translatable="false">debugger</string>
     <string name="showcase">showcase</string>
     <string name="drawer_name" translatable="false">projekt substratum</string>
 

@@ -51,8 +51,6 @@
         <item name="android:windowBackground">@color/do_not_theme_this_color</item>
     </style>
 
-    <style name="LeakCanaryTheme" parent="android:Theme.Material" />
-
     <style name="PhotoCrop.ActivityTheme" parent="Theme.AppCompat">
         <item name="colorPrimary">@android:color/transparent</item>
         <item name="colorPrimaryDark">@android:color/transparent</item>

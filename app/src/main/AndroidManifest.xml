@@ -188,23 +188,6 @@
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts"/>
         </activity>
-        <!--
-        <activity
-            android:name="com.squareup.leakcanary.internal.DisplayLeakActivity"
-            android:enabled="false"
-            android:icon="@mipmap/debug_icon"
-            android:label="@string/debug_app_name"
-            android:resizeableActivity="false"
-            android:taskAffinity="com.squareup.leakcanary.${applicationId}"
-            android:theme="@style/LeakCanaryTheme"
-            tools:replace="android:icon,android:label,android:taskAffinity,android:theme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
-        -->
         <activity
             android:name=".activities.launch.AppShortcutLaunch"
             android:resizeableActivity="false"

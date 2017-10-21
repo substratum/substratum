@@ -227,50 +227,6 @@ public class MainActivity extends SubstratumActivity implements
         supportInvalidateOptionsMenu();
     }
 
-    /*
-    protected void installLeakCanary() {
-        LeakCanary.enableDisplayLeakActivity(this);
-        RefWatcher refWatcher = LeakCanary.refWatcher(this).build();
-        getApplication().registerActivityLifecycleCallbacks(
-                new Application.ActivityLifecycleCallbacks() {
-
-                    @Override
-                    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                    }
-
-                    @Override
-                    public void onActivityStarted(Activity activity) {
-                    }
-
-                    @Override
-                    public void onActivityResumed(Activity activity) {
-                    }
-
-                    @Override
-                    public void onActivityPaused(Activity activity) {
-                    }
-
-                    @Override
-                    public void onActivityStopped(Activity activity) {
-                    }
-
-                    @Override
-                    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-                    }
-
-                    @Override
-                    public void onActivityDestroyed(Activity activity) {
-                        if (activity instanceof MainActivity) {
-                            return;
-                        } else if (activity instanceof InformationActivity) {
-                            return;
-                        }
-                        refWatcher.watch(activity);
-                    }
-                });
-    }
-    */
-
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -298,12 +254,6 @@ public class MainActivity extends SubstratumActivity implements
 
         if (BuildConfig.DEBUG && !Systems.isSamsung(mContext)) {
             Log.d(SUBSTRATUM_LOG, "Substratum launched with debug mode signatures.");
-            /*
-            if (LeakCanary.isInAnalyzerProcess(this)) return;
-            installLeakCanary();
-            Log.d(SUBSTRATUM_LOG,
-                    "LeakCanary has been initialized to actively monitor memory leaks.");
-            */
         }
         setContentView(R.layout.main_activity);
         cleanLogCharReportsIfNecessary();

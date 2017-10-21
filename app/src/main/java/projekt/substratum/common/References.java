@@ -108,6 +108,7 @@ public class References {
     public static final String PACKAGE_ADDED = Intent.ACTION_PACKAGE_ADDED;
     public static final String PACKAGE_FULLY_REMOVED = Intent.ACTION_PACKAGE_FULLY_REMOVED;
     // App intents to send
+    public static final String ACTIVITY_FINISHER = "projekt.substratum.ACTIVITY_FINISHER";
     public static final String MANAGER_REFRESH = "projekt.substratum.MANAGER_REFRESH";
     public static final String KEY_RETRIEVAL = "Substratum.KeyRetrieval";
     public static final String TEMPLATE_THEME_MODE = "projekt.substratum.THEME";

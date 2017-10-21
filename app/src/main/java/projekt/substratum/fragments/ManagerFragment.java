@@ -136,9 +136,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
 
         // Register the theme install receiver to auto refresh the fragment
         refreshReceiver = new RefreshReceiver();
-        IntentFilter if1 = new IntentFilter(MANAGER_REFRESH);
         localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
-        localBroadcastManager.registerReceiver(refreshReceiver, if1);
+        localBroadcastManager.registerReceiver(refreshReceiver, new IntentFilter(MANAGER_REFRESH));
 
         context = getContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(context);

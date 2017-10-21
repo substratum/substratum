@@ -159,9 +159,9 @@ public class ShowcaseActivity extends AppCompatActivity {
 
         if (Systems.isAndromedaDevice(getApplicationContext())) {
             andromedaReceiver = new ShowcaseActivity.AndromedaReceiver();
-            IntentFilter filter2 = new IntentFilter("AndromedaReceiver.KILL");
             localBroadcastManager = LocalBroadcastManager.getInstance(getApplicationContext());
-            localBroadcastManager.registerReceiver(andromedaReceiver, filter2);
+            localBroadcastManager.registerReceiver(andromedaReceiver,
+                    new IntentFilter("AndromedaReceiver.KILL"));
         }
 
         Toolbar toolbar = findViewById(R.id.toolbar);

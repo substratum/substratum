@@ -54,6 +54,7 @@ import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.adapters.tabs.overlays.OverlaysAdapter;
 import projekt.substratum.adapters.tabs.overlays.OverlaysItem;
+import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
@@ -116,6 +117,7 @@ class OverlayFunctions {
                     overlays.mProgressDialog.setIndeterminate(false);
                     overlays.mProgressDialog.setCancelable(false);
                     overlays.mProgressDialog.show();
+                    InformationActivity.compilingProcess = true;
                     overlays.mProgressDialog.setContentView(R.layout.compile_dialog_loader);
                     if (overlays.mProgressDialog.getWindow() != null) {
                         overlays.mProgressDialog.getWindow().addFlags(
@@ -1211,6 +1213,13 @@ class OverlayFunctions {
                                 Lunchbar.LENGTH_LONG);
                         currentShownLunchBar.show();
                     }
+                }
+
+                if (InformationActivity.compilingProcess) {
+                    // Gracefully finish
+                    InformationActivity.compilingProcess = false;
+                    Broadcasts.sendActivityFinisherMessage(
+                            overlays.getContext(), overlays.theme_pid);
                 }
             }
         }

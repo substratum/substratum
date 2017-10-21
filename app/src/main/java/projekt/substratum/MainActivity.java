@@ -144,7 +144,6 @@ public class MainActivity extends SubstratumActivity implements
     private SharedPreferences prefs;
     private boolean hideBundle, hideRestartUi;
     private LocalBroadcastManager localBroadcastManager;
-    private LocalBroadcastManager localBroadcastManager2;
     private KillReceiver killReceiver;
     private AndromedaReceiver andromedaReceiver;
     private Context mContext;
@@ -249,7 +248,7 @@ public class MainActivity extends SubstratumActivity implements
 
         if (Systems.isAndromedaDevice(mContext)) {
             try {
-                localBroadcastManager2.unregisterReceiver(andromedaReceiver);
+                localBroadcastManager.unregisterReceiver(andromedaReceiver);
             } catch (Exception e) {
                 // Unregistered already
             }
@@ -277,15 +276,13 @@ public class MainActivity extends SubstratumActivity implements
 
         // Register the main app receiver to auto kill the activity
         killReceiver = new KillReceiver();
-        IntentFilter filter = new IntentFilter("MainActivity.KILL");
         localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
-        localBroadcastManager.registerReceiver(killReceiver, filter);
+        localBroadcastManager.registerReceiver(killReceiver, new IntentFilter("MainActivity.KILL"));
 
         if (Systems.isAndromedaDevice(mContext)) {
             andromedaReceiver = new AndromedaReceiver();
-            IntentFilter filter2 = new IntentFilter("AndromedaReceiver.KILL");
-            localBroadcastManager2 = LocalBroadcastManager.getInstance(mContext);
-            localBroadcastManager2.registerReceiver(andromedaReceiver, filter2);
+            localBroadcastManager.registerReceiver(andromedaReceiver,
+                    new IntentFilter("AndromedaReceiver.KILL"));
         }
 
         prefs = PreferenceManager.getDefaultSharedPreferences(mContext);

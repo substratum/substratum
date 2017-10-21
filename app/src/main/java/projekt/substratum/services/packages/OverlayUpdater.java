@@ -95,8 +95,8 @@ public class OverlayUpdater extends BroadcastReceiver {
 
             // Let's start the intent filter
             UpdaterLogs updaterLogs = new UpdaterLogs();
-            IntentFilter if2 = new IntentFilter("Updater.LOGS");
-            LocalBroadcastManager.getInstance(context).registerReceiver(updaterLogs, if2);
+            LocalBroadcastManager.getInstance(context).registerReceiver(updaterLogs,
+                    new IntentFilter("Updater.LOGS"));
 
             // When the package is being updated, continue.
             Boolean replacing = intent.getBooleanExtra(Intent.EXTRA_REPLACING, false);
@@ -317,8 +317,8 @@ public class OverlayUpdater extends BroadcastReceiver {
                         Theming.getThemeKeys(context, theme);
 
                         keyRetrieval = new KeyRetrieval();
-                        IntentFilter if1 = new IntentFilter(KEY_RETRIEVAL);
-                        localBroadcastManager.registerReceiver(keyRetrieval, if1);
+                        localBroadcastManager.registerReceiver(keyRetrieval,
+                                new IntentFilter(KEY_RETRIEVAL));
 
 
                         int counter = 0;

@@ -150,7 +150,7 @@ public class Overlays extends Fragment {
     public Phase3_mainFunction phase3_mainFunction;
     public Boolean missingType3 = false;
     public JobReceiver jobReceiver;
-    public LocalBroadcastManager localBroadcastManager, localBroadcastManager2;
+    public LocalBroadcastManager localBroadcastManager;
     public String type1a = "";
     public String type1b = "";
     public String type1c = "";
@@ -509,9 +509,9 @@ public class Overlays extends Fragment {
 
         // Register the theme install receiver to auto refresh the fragment
         refreshReceiver = new RefreshReceiver();
-        IntentFilter filter = new IntentFilter("Overlay.REFRESH");
         localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
-        localBroadcastManager.registerReceiver(refreshReceiver, filter);
+        localBroadcastManager.registerReceiver(refreshReceiver,
+                new IntentFilter("Overlay.REFRESH"));
 
         theme_name = getArguments().getString("theme_name");
         theme_pid = getArguments().getString("theme_pid");
@@ -712,8 +712,7 @@ public class Overlays extends Fragment {
         // Enable job listener
         jobReceiver = new JobReceiver();
         IntentFilter intentFilter = new IntentFilter("Overlays.START_JOB");
-        localBroadcastManager2 = LocalBroadcastManager.getInstance(getContext());
-        localBroadcastManager2.registerReceiver(jobReceiver, intentFilter);
+        localBroadcastManager.registerReceiver(jobReceiver, intentFilter);
 
         // Enable the instance to be retained for LogChar invoke after configuration change
         setRetainInstance(true);
@@ -844,7 +843,7 @@ public class Overlays extends Fragment {
             // Unregistered already
         }
         try {
-            localBroadcastManager2.unregisterReceiver(jobReceiver);
+            localBroadcastManager.unregisterReceiver(jobReceiver);
         } catch (IllegalArgumentException e) {
             // Unregistered already
         }

@@ -200,9 +200,8 @@ public class Fonts extends Fragment {
 
         // Enable job listener
         jobReceiver = new JobReceiver();
-        IntentFilter intentFilter = new IntentFilter("Fonts.START_JOB");
         localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
-        localBroadcastManager.registerReceiver(jobReceiver, intentFilter);
+        localBroadcastManager.registerReceiver(jobReceiver, new IntentFilter("Fonts.START_JOB"));
 
         return root;
     }

@@ -36,17 +36,10 @@ import static projekt.substratum.common.Systems.isSamsung;
 
 public class Resources {
 
-    // Filter to adjust framework elements
-    private static final String[] ALLOWED_FRAMEWORK_ELEMENTS = {
-            "fwk",
-            "common"
-    };
-
     // Filter to adjust Settings elements
     public static final String[] ALLOWED_SETTINGS_ELEMENTS = {
             "com.android.settings.icons",
     };
-
     // Default core packages
     @SuppressWarnings("unused")
     public static final String[] CORE_SYSTEM_PACKAGES = {
@@ -90,14 +83,17 @@ public class Resources {
             // Organization Packages
             "projekt.substratum",
     };
-
     // List of errors to catch
     public static final String[] SUBSTRATUM_OVERLAY_FAULT_EXCEPTIONS = {
             "ResourceNotFoundException",
             "InflateException",
             "UnsupportedOperationException"
     };
-
+    // Filter to adjust framework elements
+    private static final String[] ALLOWED_FRAMEWORK_ELEMENTS = {
+            "fwk",
+            "common"
+    };
     // Filter to adjust SystemUI elements
     private static final String[] ALLOWED_SYSTEMUI_ELEMENTS = {
             "com.android.systemui.headers",

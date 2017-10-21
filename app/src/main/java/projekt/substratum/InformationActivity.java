@@ -62,6 +62,7 @@ import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
@@ -86,6 +87,7 @@ import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Resources;
 import projekt.substratum.common.Systems;
+import projekt.substratum.common.Theming;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
@@ -98,8 +100,10 @@ import projekt.substratum.util.views.SheetDialog;
 
 import static projekt.substratum.common.Packages.getOverlayMetadata;
 import static projekt.substratum.common.Packages.getPackageHeroImage;
+import static projekt.substratum.common.References.ACTIVITY_FINISHER;
 import static projekt.substratum.common.References.BYPASS_SUBSTRATUM_BUILDER_DELETION;
 import static projekt.substratum.common.References.MANAGER_REFRESH;
+import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.References.bootAnimationsFragment;
 import static projekt.substratum.common.References.fontsFragment;
 import static projekt.substratum.common.References.metadataHeroOverride;
@@ -115,6 +119,7 @@ public class InformationActivity extends SubstratumActivity {
 
     private static final int LUNCHBAR_DISMISS_FAB_CLICK_DELAY = 200;
     public static Lunchbar currentShownLunchBar;
+    public static Boolean compilingProcess;
     private static List<String> tab_checker;
     public String theme_name;
     public String theme_pid;
@@ -136,11 +141,12 @@ public class InformationActivity extends SubstratumActivity {
     private MaterialSheetFab materialSheetFab;
     private int tabPosition;
     private LocalBroadcastManager localBroadcastManager;
-    private LocalBroadcastManager localBroadcastManager2;
     private BroadcastReceiver refreshReceiver;
     private AndromedaReceiver andromedaReceiver;
+    private ActivityFinisher activityFinisher;
     private int dominantColor;
     private Context mContext;
+    private Boolean shouldRestartActivity = false;
 
     private static int getDominantColor(Bitmap bitmap) {
         try {
@@ -327,18 +333,21 @@ public class InformationActivity extends SubstratumActivity {
 
         mContext = getApplicationContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
 
         // Register the theme install receiver to auto refresh the fragment
         refreshReceiver = new RefreshReceiver();
-        IntentFilter if1 = new IntentFilter(MANAGER_REFRESH);
-        localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
-        localBroadcastManager.registerReceiver(refreshReceiver, if1);
+        localBroadcastManager.registerReceiver(refreshReceiver,
+                new IntentFilter(MANAGER_REFRESH));
+
+        activityFinisher = new ActivityFinisher();
+        localBroadcastManager.registerReceiver(activityFinisher,
+                new IntentFilter(ACTIVITY_FINISHER));
 
         if (Systems.isAndromedaDevice(mContext)) {
             andromedaReceiver = new InformationActivity.AndromedaReceiver();
-            IntentFilter filter2 = new IntentFilter("AndromedaReceiver.KILL");
-            localBroadcastManager2 = LocalBroadcastManager.getInstance(mContext);
-            localBroadcastManager2.registerReceiver(andromedaReceiver, filter2);
+            localBroadcastManager.registerReceiver(andromedaReceiver,
+                    new IntentFilter("AndromedaReceiver.KILL"));
         }
 
         boolean dynamicActionBarColors = getResources().getBoolean(R.bool.dynamicActionBarColors);
@@ -1064,9 +1073,15 @@ public class InformationActivity extends SubstratumActivity {
             // Unregistered already
         }
 
+        try {
+            localBroadcastManager.unregisterReceiver(activityFinisher);
+        } catch (Exception e) {
+            // Unregistered already
+        }
+
         if (Systems.isAndromedaDevice(mContext)) {
             try {
-                localBroadcastManager2.unregisterReceiver(andromedaReceiver);
+                localBroadcastManager.unregisterReceiver(andromedaReceiver);
             } catch (Exception e) {
                 // Unregistered already
             }
@@ -1306,6 +1321,31 @@ public class InformationActivity extends SubstratumActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             finish();
+        }
+    }
+
+    class ActivityFinisher extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null && !compilingProcess) {
+                String package_name = intent.getStringExtra("theme_pid");
+                if (package_name != null && package_name.equals(theme_pid)) {
+                    String to_format = String.format(getString(R.string.toast_activity_finished),
+                            theme_name);
+                    Log.d(SUBSTRATUM_LOG,
+                            theme_name + " was just updated, now closing InformationActivity...");
+                    createToast(to_format, Toast.LENGTH_LONG);
+                    finish();
+                    Handler handler = new Handler();
+                    handler.postDelayed(() ->
+                            Theming.launchTheme(mContext, theme_pid, theme_mode), 500);
+                }
+            } else if (compilingProcess) {
+                Log.d(SUBSTRATUM_LOG,
+                        "Tried to restart activity but theme was compiling, delaying...");
+                shouldRestartActivity = true;
+            }
         }
     }
 }

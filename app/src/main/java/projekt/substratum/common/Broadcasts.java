@@ -14,6 +14,7 @@ import projekt.substratum.services.packages.PackageModificationDetector;
 import projekt.substratum.services.profiles.ScheduledProfileReceiver;
 import projekt.substratum.services.system.InterfacerAuthorizationReceiver;
 
+import static projekt.substratum.common.References.ACTIVITY_FINISHER;
 import static projekt.substratum.common.References.APP_CRASHED;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.KEY_RETRIEVAL;
@@ -63,6 +64,14 @@ public class Broadcasts {
         Log.d("OverlayRefresher",
                 "A theme has been modified, sending update signal to refresh the list!");
         Intent intent = new Intent("Overlay.REFRESH");
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+    }
+
+    public static void sendActivityFinisherMessage(Context context, String package_name) {
+        Log.d("ThemeInstaller",
+                "A theme has been installed, sending update signal to app for further processing!");
+        Intent intent = new Intent(ACTIVITY_FINISHER);
+        intent.putExtra("theme_pid", package_name);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 

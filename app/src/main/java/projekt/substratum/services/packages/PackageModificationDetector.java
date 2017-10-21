@@ -182,6 +182,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                     ThreadLocalRandom.current().nextInt(0, 1000)).createNotification();
         }
         Broadcasts.sendRefreshMessage(mContext);
+        Broadcasts.sendActivityFinisherMessage(mContext, package_name);
     }
 
     public PendingIntent getPendingIntent(String package_name) {

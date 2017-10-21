@@ -120,6 +120,7 @@ public class InformationActivity extends SubstratumActivity {
     private static final int LUNCHBAR_DISMISS_FAB_CLICK_DELAY = 200;
     public static Lunchbar currentShownLunchBar;
     public static Boolean compilingProcess;
+    public static Boolean shouldRestartActivity = false;
     private static List<String> tab_checker;
     public String theme_name;
     public String theme_pid;
@@ -146,7 +147,6 @@ public class InformationActivity extends SubstratumActivity {
     private ActivityFinisher activityFinisher;
     private int dominantColor;
     private Context mContext;
-    public static Boolean shouldRestartActivity = false;
 
     private static int getDominantColor(Bitmap bitmap) {
         try {

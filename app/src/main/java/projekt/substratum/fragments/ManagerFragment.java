@@ -94,7 +94,7 @@ import static projekt.substratum.util.files.MapUtils.sortMapByValues;
 public class ManagerFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private static final int MANAGER_FRAGMENT_INITIAL_DELAY = 500;
-    private static final int UNINSTALL_REQUEST_CODE = 24763851;
+    private static final int UNINSTALL_REQUEST_CODE = 12675;
     private ArrayList<String> activated_overlays;
     private ManagerAdapter mAdapter;
     private MaterialSheetFab materialSheetFab;

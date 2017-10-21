@@ -18,7 +18,6 @@
 
 package projekt.substratum.adapters.fragments.settings;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ValidatorFilter {

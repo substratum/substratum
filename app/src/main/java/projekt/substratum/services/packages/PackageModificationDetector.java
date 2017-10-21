@@ -65,13 +65,21 @@ public class PackageModificationDetector extends BroadcastReceiver {
             return;
         }
 
-        if (intent.getAction() != null &&
-                (intent.getAction().equals(PACKAGE_FULLY_REMOVED) ||
-                        (intent.getAction().equals(PACKAGE_ADDED) &&
-                                Systems.isSamsungDevice(context)))) {
-            Broadcasts.sendOverlayRefreshMessage(mContext);
-            Broadcasts.sendRefreshManagerMessage(mContext);
-            return;
+        if (intent.getAction() != null) {
+            switch (intent.getAction()) {
+                case PACKAGE_ADDED:
+                    Broadcasts.sendOverlayRefreshMessage(mContext);
+                    if (Systems.isSamsungDevice(context)) {
+                        Broadcasts.sendRefreshManagerMessage(mContext);
+                    }
+                    break;
+                case PACKAGE_FULLY_REMOVED:
+                    Broadcasts.sendRefreshManagerMessage(mContext);
+                    if (Systems.isSamsungDevice(context)) {
+                        Broadcasts.sendOverlayRefreshMessage(mContext);
+                    }
+                    return;
+            }
         }
 
         try {

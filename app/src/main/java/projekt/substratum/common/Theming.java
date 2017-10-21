@@ -45,7 +45,7 @@ public class Theming {
     public static Intent sendLaunchIntent(Context mContext, String currentTheme,
                                           boolean theme_legacy, String theme_mode,
                                           Boolean notification) {
-        Intent originalIntent = new Intent(Intent.ACTION_MAIN);
+        Intent originalIntent = new Intent(TEMPLATE_THEME_MODE);
         if (theme_legacy)
             originalIntent.putExtra("theme_legacy", true);
         if (theme_mode != null) {

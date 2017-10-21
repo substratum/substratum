@@ -30,7 +30,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.preference.PreferenceManager;
-import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
 import java.util.HashSet;
@@ -38,14 +37,12 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.ThreadLocalRandom;
 
-import projekt.substratum.InformationActivity;
-import projekt.substratum.MainActivity;
 import projekt.substratum.R;
+import projekt.substratum.activities.launch.AppShortcutLaunch;
 import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
-import projekt.substratum.common.Theming;
 import projekt.substratum.util.helpers.NotificationCreator;
 
 public class PackageModificationDetector extends BroadcastReceiver {
@@ -56,7 +53,6 @@ public class PackageModificationDetector extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         this.mContext = context;
-        Broadcasts.sendOverlayRefreshMessage(mContext);
 
         Uri packageName = intent.getData();
         String package_name;
@@ -66,13 +62,22 @@ public class PackageModificationDetector extends BroadcastReceiver {
             return;
         }
 
-        Broadcasts.sendRefreshManagerMessage(context);
-
-        // First, check if the app installed is actually a substratum theme
         try {
             ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
+                // First, check if the app installed is actually a substratum overlay
+                String check_overlay_parent =
+                        appInfo.metaData.getString(References.metadataOverlayParent);
+                String check_overlay_target =
+                        appInfo.metaData.getString(References.metadataOverlayTarget);
+                if (check_overlay_parent != null && check_overlay_target != null) {
+                    Broadcasts.sendOverlayRefreshMessage(mContext);
+                    Broadcasts.sendRefreshManagerMessage(mContext);
+                    return;
+                }
+
+                // Then, check if the app installed is actually a substratum theme
                 String check_theme_name =
                         appInfo.metaData.getString(References.metadataName);
                 String check_theme_author =
@@ -89,7 +94,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
         Boolean replacing = intent.getBooleanExtra(Intent.EXTRA_REPLACING, false);
 
         // Let's add it to the list of installed themes on shared prefs
-        SharedPreferences mainPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences mainPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         Set<String> installed_themes =
                 mainPrefs.getStringSet("installed_themes", new HashSet<>());
         Set<String> installed_sorted = new TreeSet<>();
@@ -104,7 +109,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
         }
 
         // Legacy check to see if an OMS theme is guarded from being installed on legacy
-        if (!Systems.checkOMS(context)) {
+        if (!Systems.checkOMS(mContext)) {
             try {
                 ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                         package_name, PackageManager.GET_META_DATA);
@@ -125,7 +130,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                                 mContext, 0, showIntent, 0);
 
                         new NotificationCreator(
-                                context,
+                                mContext,
                                 mContext.getString(
                                         R.string.failed_to_install_title_notification),
                                 parse,
@@ -149,11 +154,11 @@ public class PackageModificationDetector extends BroadcastReceiver {
             // We need to check if this is a new install or not
             Log.d(TAG, "'" + package_name + "' has been updated.");
             Bitmap bitmap = Packages.getBitmapFromDrawable(
-                    Packages.getAppIcon(context, package_name));
+                    Packages.getAppIcon(mContext, package_name));
 
             new NotificationCreator(
-                    context,
-                    getThemeName(package_name) + " " + mContext.getString(
+                    mContext,
+                    Packages.getPackageName(mContext, package_name) + " " + mContext.getString(
                             R.string.notification_theme_updated),
                     mContext.getString(R.string.notification_theme_updated_content),
                     true,
@@ -164,8 +169,8 @@ public class PackageModificationDetector extends BroadcastReceiver {
                     ThreadLocalRandom.current().nextInt(0, 1000)).createNotification();
         } else {
             new NotificationCreator(
-                    context,
-                    getThemeName(package_name) + " " + mContext.getString(
+                    mContext,
+                    Packages.getPackageName(mContext, package_name) + " " + mContext.getString(
                             R.string.notification_theme_installed),
                     mContext.getString(R.string.notification_theme_installed_content),
                     true,
@@ -176,54 +181,12 @@ public class PackageModificationDetector extends BroadcastReceiver {
                     Notification.PRIORITY_MAX,
                     ThreadLocalRandom.current().nextInt(0, 1000)).createNotification();
         }
-        Broadcasts.sendRefreshMessage(context);
-    }
-
-    private String getThemeName(String package_name) {
-        // Simulate the Layers Plugin feature by filtering all installed apps and their metadata
-        try {
-            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
-                    package_name, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null) {
-                if (Systems.checkOMS(mContext) &&
-                        appInfo.metaData.getString(References.metadataName) != null &&
-                        appInfo.metaData.getString(References.metadataAuthor) != null) {
-                    return appInfo.metaData.getString(References.metadataName);
-                } else if (appInfo.metaData.getBoolean(References.metadataLegacy, false) &&
-                        appInfo.metaData.getString(References.metadataName) != null &&
-                        appInfo.metaData.getString(References.metadataAuthor) != null) {
-                    return appInfo.metaData.getString(References.metadataName);
-                }
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Unable to find package identifier (INDEX OUT OF BOUNDS)");
-        }
-        return null;
+        Broadcasts.sendRefreshMessage(mContext);
     }
 
     public PendingIntent getPendingIntent(String package_name) {
-        Intent notificationIntent;
-        PendingIntent pIntent = null;
-        try {
-            Intent myIntent =
-                    Theming.sendLaunchIntent(
-                            mContext, package_name, false, null, true);
-            if (myIntent != null) {
-                TaskStackBuilder stackBuilder = TaskStackBuilder.create(mContext);
-                stackBuilder.addParentStack(InformationActivity.class);
-                stackBuilder.addNextIntent(myIntent);
-                pIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_CANCEL_CURRENT);
-            } else {
-                notificationIntent = new Intent(mContext, MainActivity.class);
-                pIntent = PendingIntent.getActivity(
-                        mContext,
-                        0,
-                        notificationIntent,
-                        PendingIntent.FLAG_CANCEL_CURRENT);
-            }
-        } catch (Exception e) {
-            // Suppress warning
-        }
-        return pIntent;
+        Intent myIntent = new Intent(mContext, AppShortcutLaunch.class);
+        myIntent.putExtra("theme_pid", package_name);
+        return PendingIntent.getActivity(mContext, 0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
     }
 }

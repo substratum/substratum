@@ -1030,12 +1030,6 @@ public class Overlays extends Fragment {
         startActivityForResult(intent, 2486);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (!toggle_all.isChecked()) refreshList();
-    }
-
     private void refreshList() {
         currentPosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager())
                 .findFirstCompletelyVisibleItemPosition();

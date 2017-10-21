@@ -883,6 +883,12 @@ public class MainActivity extends SubstratumActivity implements
                     showFloatingHead();
                 }
                 break;
+            case UNINSTALL_REQUEST_CODE:
+                if (queuedUninstall != null && queuedUninstall.size() > 0) {
+                    queuedUninstall.remove(0);
+                    uninstallMultipleAPKS(this);
+                }
+                break;
             default:
                 break;
         }

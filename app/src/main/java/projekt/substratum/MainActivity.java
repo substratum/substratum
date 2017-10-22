@@ -666,6 +666,7 @@ public class MainActivity extends SubstratumActivity implements
         return true;
     }
 
+    @SuppressWarnings("LocalCanBeFinal")
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         final SharedPreferences prefs = this.mContext.getSharedPreferences(

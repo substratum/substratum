@@ -32,19 +32,19 @@ public class ProfileErrorInfoActivity extends SubstratumActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.restore_dialog_title))
-                .setMessage(getIntent().getStringExtra("dialog_message"))
+                .setTitle(this.getString(R.string.restore_dialog_title))
+                .setMessage(this.getIntent().getStringExtra("dialog_message"))
                 .setCancelable(false)
-                .setPositiveButton(getString(R.string.dialog_ok), (dialogInterface, i) -> {
+                .setPositiveButton(this.getString(R.string.dialog_ok), (dialogInterface, i) -> {
                     PackageManager manager = this.getPackageManager();
                     Intent intent = manager.getLaunchIntentForPackage("projekt.substratum");
                     if (intent != null) {
                         intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                        startActivity(intent);
+                        this.startActivity(intent);
                     }
-                    finish();
+                    this.finish();
                 })
-                .setOnCancelListener(dialogInterface -> finish())
+                .setOnCancelListener(dialogInterface -> this.finish())
                 .setCancelable(true)
                 .create()
                 .show();

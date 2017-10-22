@@ -64,21 +64,21 @@ public class TimePickerFragment extends DialogFragment implements
         }
 
         return new TimePickerDialog(
-                getActivity(),
+                this.getActivity(),
                 this,
                 hour,
                 minute,
-                DateFormat.is24HourFormat(getActivity()));
+                DateFormat.is24HourFormat(this.getActivity()));
     }
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         if ((flag & FLAG_START_TIME) != 0) {
-            Button startTime = getActivity().findViewById(R.id.night_start_time);
-            startTime.setText(References.parseTime(getActivity(), hourOfDay, minute));
+            Button startTime = this.getActivity().findViewById(R.id.night_start_time);
+            startTime.setText(References.parseTime(this.getActivity(), hourOfDay, minute));
             ProfileFragment.setNightProfileStart(hourOfDay, minute);
         } else if ((flag & FLAG_END_TIME) != 0) {
-            Button endTime = getActivity().findViewById((R.id.night_end_time));
-            endTime.setText(References.parseTime(getActivity(), hourOfDay, minute));
+            Button endTime = this.getActivity().findViewById((R.id.night_end_time));
+            endTime.setText(References.parseTime(this.getActivity(), hourOfDay, minute));
             ProfileFragment.setDayProfileStart(hourOfDay, minute);
         }
     }

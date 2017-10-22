@@ -28,7 +28,7 @@ public class AppShortcutLaunch extends SubstratumActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Theming.launchTheme(this, getIntent().getStringExtra("theme_pid"), null);
-        finish();
+        Theming.launchTheme(this, this.getIntent().getStringExtra("theme_pid"), null);
+        this.finish();
     }
 }

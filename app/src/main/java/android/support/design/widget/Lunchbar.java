@@ -188,7 +188,7 @@ public final class Lunchbar extends BaseTransientBottomBar {
      */
     @NonNull
     public Lunchbar setText(@StringRes int resId) {
-        return setText(getContext().getText(resId));
+        return this.setText(this.getContext().getText(resId));
     }
 
     /**
@@ -211,7 +211,7 @@ public final class Lunchbar extends BaseTransientBottomBar {
             tv.setOnClickListener(view -> {
                 listener.onClick(view);
                 // Now dismiss the Snackbar
-                dispatchDismiss(BaseCallback.DISMISS_EVENT_ACTION);
+                this.dispatchDismiss(BaseCallback.DISMISS_EVENT_ACTION);
             });
         }
         return this;
@@ -236,10 +236,10 @@ public final class Lunchbar extends BaseTransientBottomBar {
         // The logic in this method emulates what we had before support for multiple
         // registered callbacks.
         if (this.mCallback != null) {
-            removeCallback(this.mCallback);
+            this.removeCallback(this.mCallback);
         }
         if (callback != null) {
-            addCallback(callback);
+            this.addCallback(callback);
         }
         // Update the deprecated field so that we can remove the passed callback the next
         // time we're called

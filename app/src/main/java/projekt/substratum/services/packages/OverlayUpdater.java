@@ -557,7 +557,7 @@ public class OverlayUpdater extends BroadcastReceiver {
             if (intent.getAction() != null) {
                 if ("Updater.LOGS".equals(intent.getAction())) {
                     if (intent.getStringExtra("error_logs") != null)
-                        invokeLogCharDialog(context, intent.getStringExtra("error_logs"));
+                        this.invokeLogCharDialog(context, intent.getStringExtra("error_logs"));
                 }
             }
             LocalBroadcastManager.getInstance(context).unregisterReceiver(this);

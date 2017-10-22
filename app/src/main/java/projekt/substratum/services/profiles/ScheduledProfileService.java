@@ -92,10 +92,10 @@ public class ScheduledProfileService extends JobService {
             new ApplyProfile(this).execute();
             return true;
         } else {
-            this.mBuilder.setContentTitle(getString(R.string.scheduled_night_profile))
+            this.mBuilder.setContentTitle(this.getString(R.string.scheduled_night_profile))
                     .setSmallIcon(R.drawable.ic_substratum)
                     .setPriority(Notification.PRIORITY_DEFAULT)
-                    .setContentText(getString(R.string.profile_failed_notification));
+                    .setContentText(this.getString(R.string.profile_failed_notification));
             this.mNotifyManager.notify(NOTIFICATION_ID, this.mBuilder.build());
             return false;
         }

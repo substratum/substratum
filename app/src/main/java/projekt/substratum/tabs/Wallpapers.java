@@ -57,8 +57,8 @@ public class Wallpapers extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
-        this.mContext = getContext();
-        this.wallpaperUrl = getArguments().getString("wallpaperUrl");
+        this.mContext = this.getContext();
+        this.wallpaperUrl = this.getArguments().getString("wallpaperUrl");
         this.root = (ViewGroup) inflater.inflate(R.layout.tab_wallpapers, container, false);
         this.materialProgressBar = this.root.findViewById(R.id.progress_bar_loader);
         this.no_network = this.root.findViewById(R.id.no_network);
@@ -66,10 +66,10 @@ public class Wallpapers extends Fragment {
 
         this.swipeRefreshLayout = this.root.findViewById(R.id.swipeRefreshLayout);
         this.swipeRefreshLayout.setOnRefreshListener(() -> {
-            refreshLayout();
+            this.refreshLayout();
             this.swipeRefreshLayout.setRefreshing(false);
         });
-        refreshLayout();
+        this.refreshLayout();
         return this.root;
     }
 

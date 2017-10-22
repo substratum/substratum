@@ -41,19 +41,19 @@ public class AppIntroActivity extends SubstratumActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        this.prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         if (this.prefs.getBoolean("first_run", true) && !isLowEnd()) {
             this.welcomeScreen = new WelcomeHelper(this, AppIntro.class);
             this.welcomeScreen.show(savedInstanceState);
         } else if (this.prefs.getBoolean("first_run", true) && isLowEnd()) {
             this.prefs.edit().putBoolean("first_run", false).apply();
-            References.loadDefaultConfig(getApplicationContext());
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
+            References.loadDefaultConfig(this.getApplicationContext());
+            this.startActivity(new Intent(this, MainActivity.class));
+            this.finish();
         } else {
             Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            this.startActivity(intent);
+            this.finish();
         }
     }
 
@@ -63,9 +63,9 @@ public class AppIntroActivity extends SubstratumActivity {
         if (requestCode == WelcomeHelper.DEFAULT_WELCOME_SCREEN_REQUEST &&
                 resultCode == RESULT_OK) {
             this.prefs.edit().putBoolean("first_run", false).apply();
-            References.loadDefaultConfig(getApplicationContext());
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
+            References.loadDefaultConfig(this.getApplicationContext());
+            this.startActivity(new Intent(this, MainActivity.class));
+            this.finish();
         }
     }
 

@@ -37,11 +37,11 @@ public class LaunchActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         SharedPreferences prefs =
-                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
 
         Intent intent = new Intent(this, SplashScreenActivity.class);
         intent.putExtra("first_run", prefs.getBoolean("first_run", true));
-        startActivity(intent);
+        this.startActivity(intent);
         this.finish();
     }
 }

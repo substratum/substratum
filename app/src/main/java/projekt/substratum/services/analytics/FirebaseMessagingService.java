@@ -39,13 +39,13 @@ public class FirebaseMessagingService extends
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, showIntent, 0);
 
         NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this, References.DEFAULT_NOTIFICATION_CHANNEL_ID)
                         .setContentIntent(contentIntent)
                         .setAutoCancel(true)
                         .setSmallIcon(R.mipmap.main_launcher)
-                        .setContentTitle(getString(R.string.app_name))
+                        .setContentTitle(this.getString(R.string.app_name))
                         .setContentText(remoteMessage.getNotification().getBody());
         Notification notification = mBuilder.build();
         if (notificationManager != null) {

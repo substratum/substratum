@@ -295,7 +295,7 @@ public class OverlaysItem implements Serializable {
     boolean compareInstalledOverlay() {
         try {
             PackageInfo pinfo =
-                    this.context.getPackageManager().getPackageInfo(getFullOverlayParameters(), 0);
+                    this.context.getPackageManager().getPackageInfo(this.getFullOverlayParameters(), 0);
             return pinfo.versionName.equals(this.versionName);
         } catch (Exception e) {
             // Suppress warning
@@ -313,7 +313,7 @@ public class OverlaysItem implements Serializable {
         try {
             PackageInfo pinfo =
                     this.context.getPackageManager().getPackageInfo(
-                            getPackageName() + "." + this.theme_name + variant + base, 0);
+                            this.getPackageName() + "." + this.theme_name + variant + base, 0);
             return pinfo.versionName.equals(this.versionName);
         } catch (Exception e) {
             // Suppress warning
@@ -322,29 +322,29 @@ public class OverlaysItem implements Serializable {
     }
 
     public String getFullOverlayParameters() {
-        return getPackageName() + "." + getThemeName() +
-                (((getSelectedVariant() == 0 &&
-                        getSelectedVariant2() == 0 &&
-                        getSelectedVariant3() == 0 &&
-                        getSelectedVariant4() == 0) &&
-                        getSelectedVariant5() == 0) ? "" : ".") +
-                (((getSelectedVariant() == 0) ? "" : getSelectedVariantName()) +
-                        ((getSelectedVariant2() == 0) ? "" : getSelectedVariantName2()) +
-                        ((getSelectedVariant3() == 0) ? "" : getSelectedVariantName3()) +
-                        ((getSelectedVariant4() == 0) ? "" : getSelectedVariantName4()) +
-                        ((getSelectedVariant5() == 0) ? "" : getSelectedVariantName5()))
+        return this.getPackageName() + "." + this.getThemeName() +
+                (((this.getSelectedVariant() == 0 &&
+                        this.getSelectedVariant2() == 0 &&
+                        this.getSelectedVariant3() == 0 &&
+                        this.getSelectedVariant4() == 0) &&
+                        this.getSelectedVariant5() == 0) ? "" : ".") +
+                (((this.getSelectedVariant() == 0) ? "" : this.getSelectedVariantName()) +
+                        ((this.getSelectedVariant2() == 0) ? "" : this.getSelectedVariantName2()) +
+                        ((this.getSelectedVariant3() == 0) ? "" : this.getSelectedVariantName3()) +
+                        ((this.getSelectedVariant4() == 0) ? "" : this.getSelectedVariantName4()) +
+                        ((this.getSelectedVariant5() == 0) ? "" : this.getSelectedVariantName5()))
                         .replaceAll("\\s", "").replaceAll("[^a-zA-Z0-9]+", "") +
                 ((this.baseResources.length() == 0) ? "" : "." + this.baseResources);
     }
 
     public boolean isOverlayEnabled() {
-        boolean installed = Packages.isPackageInstalled(this.context, getFullOverlayParameters());
+        boolean installed = Packages.isPackageInstalled(this.context, this.getFullOverlayParameters());
         if (Systems.isSamsungDevice(this.context)) {
             return installed;
         } else {
             return installed && (
-                    ThemeManager.isOverlayEnabled(this.context, getFullOverlayParameters()) ||
-                            this.enabledOverlays.contains(getFullOverlayParameters())
+                    ThemeManager.isOverlayEnabled(this.context, this.getFullOverlayParameters()) ||
+                            this.enabledOverlays.contains(this.getFullOverlayParameters())
             );
         }
     }

@@ -67,7 +67,7 @@ public class ManagerItem implements Serializable {
             this.themeName = "";
         }
         this.updateEnabledOverlays(isActivated);
-        setLabelName(context);
+        this.setLabelName(context);
     }
 
     int getActivationValue() {
@@ -150,7 +150,7 @@ public class ManagerItem implements Serializable {
 
     public String getThemeName() {
         if (this.themeName == null) {
-            this.themeName = getContext().getString(R.string.reboot_awaiting_manager_title);
+            this.themeName = this.getContext().getString(R.string.reboot_awaiting_manager_title);
         }
         return this.themeName;
     }
@@ -161,13 +161,13 @@ public class ManagerItem implements Serializable {
 
     public String getLabelName() {
         if (this.labelName == null) {
-            this.labelName = getContext().getString(R.string.reboot_awaiting_manager_title);
+            this.labelName = this.getContext().getString(R.string.reboot_awaiting_manager_title);
         }
         return this.labelName;
     }
 
     private void setLabelName(Context context) {
-        String packageName = getName();
+        String packageName = this.getName();
         String targetPackage = Packages.getOverlayTarget(context, packageName);
         if (packageName.startsWith("com.android.systemui.headers")) {
             this.labelName = context.getString(R.string.systemui_headers);

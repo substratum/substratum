@@ -30,11 +30,11 @@ public class SubstratumActivity extends AppCompatActivity {
     public static final String CACHE_BUILD_DIR = "SubstratumBuilder";
 
     public File getBuildDir() {
-        return new File(getCacheDir() + "/" + CACHE_BUILD_DIR);
+        return new File(this.getCacheDir() + "/" + CACHE_BUILD_DIR);
     }
 
     public String getBuildDirPath() {
-        return getBuildDir().getAbsolutePath() + "/";
+        return this.getBuildDir().getAbsolutePath() + "/";
     }
 
     public void createToast(CharSequence message, int length) {

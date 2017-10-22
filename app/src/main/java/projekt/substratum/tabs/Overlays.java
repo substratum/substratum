@@ -183,7 +183,7 @@ public class Overlays extends Fragment {
     }
 
     public View getActivityView() {
-        return ((ViewGroup) getActivity().findViewById(android.R.id.content)).getChildAt(0);
+        return ((ViewGroup) this.getActivity().findViewById(android.R.id.content)).getChildAt(0);
     }
 
     public void startCompileEnableMode() {
@@ -220,7 +220,7 @@ public class Overlays extends Fragment {
                 if (this.toggle_all.isChecked()) this.toggle_all.setChecked(false);
                 this.is_overlay_active = false;
                 currentShownLunchBar = Lunchbar.make(
-                        getActivityView(),
+                        this.getActivityView(),
                         R.string.toast_disabled5,
                         Lunchbar.LENGTH_LONG);
                 currentShownLunchBar.show();
@@ -260,7 +260,7 @@ public class Overlays extends Fragment {
                 if (this.toggle_all.isChecked()) this.toggle_all.setChecked(false);
                 this.is_overlay_active = false;
                 currentShownLunchBar = Lunchbar.make(
-                        getActivityView(),
+                        this.getActivityView(),
                         R.string.toast_disabled5,
                         Lunchbar.LENGTH_LONG);
                 currentShownLunchBar.show();
@@ -275,7 +275,7 @@ public class Overlays extends Fragment {
             this.overlaysLists = ((OverlaysAdapter) this.mAdapter).getOverlayList();
             this.checkedOverlays = new ArrayList<>();
 
-            if (Systems.checkOMS(getContext())) {
+            if (Systems.checkOMS(this.getContext())) {
                 this.compile_enable_mode = false;
                 this.enable_mode = false;
                 this.disable_mode = true;
@@ -307,7 +307,7 @@ public class Overlays extends Fragment {
                     if (this.toggle_all.isChecked()) this.toggle_all.setChecked(false);
                     this.is_overlay_active = false;
                     currentShownLunchBar = Lunchbar.make(
-                            getActivityView(),
+                            this.getActivityView(),
                             R.string.toast_disabled5,
                             Lunchbar.LENGTH_LONG);
                     currentShownLunchBar.show();
@@ -336,14 +336,14 @@ public class Overlays extends Fragment {
                 }
 
                 if (!this.checkedOverlays.isEmpty()) {
-                    if (Systems.isSamsung(getContext())) {
+                    if (Systems.isSamsung(this.getContext())) {
                         if (Root.checkRootAccess() && Root.requestRootAccess()) {
                             ArrayList<String> checked_overlays = new ArrayList<>();
                             for (int i = 0; i < this.checkedOverlays.size(); i++) {
                                 checked_overlays.add(
                                         this.checkedOverlays.get(i).getFullOverlayParameters());
                             }
-                            ThemeManager.uninstallOverlay(getContext(), checked_overlays);
+                            ThemeManager.uninstallOverlay(this.getContext(), checked_overlays);
                         } else {
                             for (int i = 0; i < this.checkedOverlays.size(); i++) {
                                 Uri packageURI = Uri.parse("package:" +
@@ -351,13 +351,13 @@ public class Overlays extends Fragment {
                                 Intent uninstallIntent =
                                         new Intent(Intent.ACTION_DELETE, packageURI);
 
-                                startActivity(uninstallIntent);
+                                this.startActivity(uninstallIntent);
                             }
                         }
                     } else {
                         for (int i = 0; i < this.checkedOverlays.size(); i++) {
                             FileOperations.mountRW();
-                            FileOperations.delete(getContext(), current_directory +
+                            FileOperations.delete(this.getContext(), current_directory +
                                     this.checkedOverlays.get(i).getFullOverlayParameters() + ".apk");
                             this.mAdapter.notifyDataSetChanged();
                         }
@@ -370,15 +370,15 @@ public class Overlays extends Fragment {
                                 currentOverlay.setSelected(false);
                             }
                         }
-                        Toast.makeText(getContext(),
-                                getString(R.string.toast_disabled6),
+                        Toast.makeText(this.getContext(),
+                                this.getString(R.string.toast_disabled6),
                                 Toast.LENGTH_SHORT).show();
                         AlertDialog.Builder alertDialogBuilder =
-                                new AlertDialog.Builder(getContext());
+                                new AlertDialog.Builder(this.getContext());
                         alertDialogBuilder.setTitle(
-                                getString(R.string.legacy_dialog_soft_reboot_title));
+                                this.getString(R.string.legacy_dialog_soft_reboot_title));
                         alertDialogBuilder.setMessage(
-                                getString(R.string.legacy_dialog_soft_reboot_text));
+                                this.getString(R.string.legacy_dialog_soft_reboot_text));
                         alertDialogBuilder.setPositiveButton(
                                 android.R.string.ok,
                                 (dialog, id12) -> ElevatedCommands.reboot());
@@ -394,7 +394,7 @@ public class Overlays extends Fragment {
                     if (this.toggle_all.isChecked()) this.toggle_all.setChecked(false);
                     this.is_overlay_active = false;
                     currentShownLunchBar = Lunchbar.make(
-                            getActivityView(),
+                            this.getActivityView(),
                             R.string.toast_disabled5,
                             Lunchbar.LENGTH_LONG);
                     currentShownLunchBar.show();
@@ -443,7 +443,7 @@ public class Overlays extends Fragment {
                 if (this.toggle_all.isChecked()) this.toggle_all.setChecked(false);
                 this.is_overlay_active = false;
                 currentShownLunchBar = Lunchbar.make(
-                        getActivityView(),
+                        this.getActivityView(),
                         R.string.toast_disabled5,
                         Lunchbar.LENGTH_LONG);
                 currentShownLunchBar.show();
@@ -489,7 +489,7 @@ public class Overlays extends Fragment {
                 if (this.toggle_all.isChecked()) this.toggle_all.setChecked(false);
                 this.is_overlay_active = false;
                 currentShownLunchBar = Lunchbar.make(
-                        getActivityView(),
+                        this.getActivityView(),
                         R.string.toast_disabled5,
                         Lunchbar.LENGTH_LONG);
                 currentShownLunchBar.show();
@@ -500,7 +500,7 @@ public class Overlays extends Fragment {
     public void setMixAndMatchMode(boolean newValue) {
         this.mixAndMatchMode = newValue;
         this.prefs.edit().putBoolean("enable_swapping_overlays", this.mixAndMatchMode).apply();
-        updateEnabledOverlays();
+        this.updateEnabledOverlays();
     }
 
     @Override
@@ -509,24 +509,24 @@ public class Overlays extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.tab_overlays, container, false);
-        this.prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        this.prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
 
-        this.am = (ActivityManager) getContext().getSystemService(ACTIVITY_SERVICE);
+        this.am = (ActivityManager) this.getContext().getSystemService(ACTIVITY_SERVICE);
 
         // Register the theme install receiver to auto refresh the fragment
         this.refreshReceiver = new RefreshReceiver();
-        this.localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
+        this.localBroadcastManager = LocalBroadcastManager.getInstance(this.getContext());
         this.localBroadcastManager.registerReceiver(this.refreshReceiver,
                 new IntentFilter("Overlay.REFRESH"));
 
-        this.theme_name = getArguments().getString("theme_name");
-        this.theme_pid = getArguments().getString("theme_pid");
+        this.theme_name = this.getArguments().getString("theme_name");
+        this.theme_pid = this.getArguments().getString("theme_pid");
         String encrypt_check =
-                Packages.getOverlayMetadata(getContext(), this.theme_pid, metadataEncryption);
+                Packages.getOverlayMetadata(this.getContext(), this.theme_pid, metadataEncryption);
 
         if (encrypt_check != null && encrypt_check.equals(metadataEncryptionValue)) {
-            byte[] encryption_key = getArguments().getByteArray("encryption_key");
-            byte[] iv_encrypt_key = getArguments().getByteArray("iv_encrypt_key");
+            byte[] encryption_key = this.getArguments().getByteArray("encryption_key");
+            byte[] iv_encrypt_key = this.getArguments().getByteArray("iv_encrypt_key");
             try {
                 this.cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
                 this.cipher.init(
@@ -547,12 +547,12 @@ public class Overlays extends Fragment {
 
         if (this.decryptedAssetsExceptionReached) {
             currentShownLunchBar = Lunchbar.make(
-                    getActivityView(),
+                    this.getActivityView(),
                     R.string.error_loading_theme_close_text,
                     Lunchbar.LENGTH_INDEFINITE);
-            currentShownLunchBar.setAction(getString(R.string.error_loading_theme_close), view -> {
+            currentShownLunchBar.setAction(this.getString(R.string.error_loading_theme_close), view -> {
                 currentShownLunchBar.dismiss();
-                getActivity().finish();
+                this.getActivity().finish();
             });
             currentShownLunchBar.show();
         }
@@ -565,7 +565,7 @@ public class Overlays extends Fragment {
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
         this.mRecyclerView = root.findViewById(R.id.overlayRecyclerView);
         this.mRecyclerView.setHasFixedSize(true);
-        this.mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        this.mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         ArrayList<OverlaysItem> empty_array = new ArrayList<>();
         RecyclerView.Adapter empty_adapter = new OverlaysAdapter(empty_array);
         this.mRecyclerView.setAdapter(empty_adapter);
@@ -618,14 +618,14 @@ public class Overlays extends Fragment {
           PLUGIN TYPE 3: Parse each overlay folder to see if they have folder options
          */
         SharedPreferences prefs2 =
-                getContext().getSharedPreferences("base_variant", Context.MODE_PRIVATE);
+                this.getContext().getSharedPreferences("base_variant", Context.MODE_PRIVATE);
         this.base_spinner = root.findViewById(R.id.type3_spinner);
         this.base_spinner.post(() -> this.base_spinner.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long id) {
                         prefs2.edit().putInt(Overlays.this.theme_pid, pos).apply();
-                        refreshList();
+                        Overlays.this.refreshList();
                     }
 
                     @Override
@@ -635,7 +635,7 @@ public class Overlays extends Fragment {
         this.base_spinner.setEnabled(false);
 
         try {
-            Resources themeResources = getContext().getPackageManager()
+            Resources themeResources = this.getContext().getPackageManager()
                     .getResourcesForApplication(this.theme_pid);
             this.themeAssetManager = themeResources.getAssets();
 
@@ -659,16 +659,16 @@ public class Overlays extends Fragment {
                 try (BufferedReader reader = new BufferedReader(
                         new InputStreamReader(inputStream))) {
                     String formatter = String.format(
-                            getString(R.string.overlays_variant_substitute), reader.readLine());
+                            this.getString(R.string.overlays_variant_substitute), reader.readLine());
                     type3.add(new VariantItem(formatter, null));
                 } catch (IOException e) {
                     Log.e(TAG, "There was an error parsing asset file!");
-                    type3.add(new VariantItem(getString(R.string
+                    type3.add(new VariantItem(this.getString(R.string
                             .overlays_variant_default_3), null));
                 }
                 inputStream.close();
             } else {
-                type3.add(new VariantItem(getString(R.string.overlays_variant_default_3), null));
+                type3.add(new VariantItem(this.getString(R.string.overlays_variant_default_3), null));
             }
 
             if (stringArray.size() > 1) {
@@ -681,7 +681,7 @@ public class Overlays extends Fragment {
                         type3.add(new VariantItem(current.substring(6), null));
                     }
                 }
-                SpinnerAdapter adapter1 = new VariantAdapter(getActivity(), type3);
+                SpinnerAdapter adapter1 = new VariantAdapter(this.getActivity(), type3);
                 if (type3.size() > 1) {
                     toggle_all_overlays_text.setVisibility(View.GONE);
                     this.base_spinner.setVisibility(View.VISIBLE);
@@ -699,12 +699,12 @@ public class Overlays extends Fragment {
                 } else {
                     toggle_all_overlays_text.setVisibility(View.VISIBLE);
                     this.base_spinner.setVisibility(View.INVISIBLE);
-                    refreshList();
+                    this.refreshList();
                 }
             } else {
                 toggle_all_overlays_text.setVisibility(View.VISIBLE);
                 this.base_spinner.setVisibility(View.INVISIBLE);
-                refreshList();
+                this.refreshList();
             }
         } catch (Exception e) {
             if (this.base_spinner.getVisibility() == View.VISIBLE) {
@@ -721,16 +721,16 @@ public class Overlays extends Fragment {
         this.localBroadcastManager.registerReceiver(this.jobReceiver, intentFilter);
 
         // Enable the instance to be retained for LogChar invoke after configuration change
-        setRetainInstance(true);
+        this.setRetainInstance(true);
         if (this.error_logs != null && this.error_logs.length() > 0) {
-            invokeLogCharLunchBar(getContext());
+            this.invokeLogCharLunchBar(this.getContext());
         }
         return root;
     }
 
     protected List<String> updateEnabledOverlays() {
         return new ArrayList<>(ThemeManager.listOverlays(
-                getContext(),
+                this.getContext(),
                 ThemeManager.STATE_ENABLED
         ));
     }
@@ -738,7 +738,7 @@ public class Overlays extends Fragment {
     protected boolean checkActiveNotifications() {
         StatusBarNotification[] activeNotifications = this.mNotifyManager.getActiveNotifications();
         for (StatusBarNotification statusBarNotification : activeNotifications) {
-            if (statusBarNotification.getPackageName().equals(getContext().getPackageName())) {
+            if (statusBarNotification.getPackageName().equals(this.getContext().getPackageName())) {
                 return true;
             }
         }
@@ -786,7 +786,7 @@ public class Overlays extends Fragment {
             ).execute();
         }
 
-        invokeLogCharLunchBar(context);
+        this.invokeLogCharLunchBar(context);
     }
 
     @SuppressWarnings("unchecked")
@@ -794,12 +794,12 @@ public class Overlays extends Fragment {
         CharSequence errorLogCopy = new StringBuilder(this.error_logs);
         this.error_logs = new StringBuilder();
         currentShownLunchBar = Lunchbar.make(
-                getActivityView(),
+                this.getActivityView(),
                 R.string.logcat_snackbar_text,
                 Lunchbar.LENGTH_INDEFINITE);
-        currentShownLunchBar.setAction(getString(R.string.logcat_snackbar_button), view -> {
+        currentShownLunchBar.setAction(this.getString(R.string.logcat_snackbar_button), view -> {
             currentShownLunchBar.dismiss();
-            invokeLogCharDialog(context, errorLogCopy);
+            this.invokeLogCharDialog(context, errorLogCopy);
         });
         currentShownLunchBar.show();
     }
@@ -816,14 +816,14 @@ public class Overlays extends Fragment {
                             References.copyToClipboard(context,
                                     "substratum_log", logs.toString());
                             currentShownLunchBar = Lunchbar.make(
-                                    getActivityView(),
+                                    this.getActivityView(),
                                     R.string.logcat_dialog_copy_success,
                                     Lunchbar.LENGTH_LONG);
                             currentShownLunchBar.show();
                         });
 
         if (Packages.getOverlayMetadata(context, this.theme_pid, metadataEmail) != null) {
-            builder.setPositiveButton(getString(R.string.logcat_send), (dialogInterface, i) ->
+            builder.setPositiveButton(this.getString(R.string.logcat_send), (dialogInterface, i) ->
                     new SendErrorReport(
                             context,
                             this.theme_pid,
@@ -868,7 +868,7 @@ public class Overlays extends Fragment {
                 }
             }
         }
-        return Systems.checkOMS(getContext()) && !this.has_failed;
+        return Systems.checkOMS(this.getContext()) && !this.has_failed;
     }
 
     public VariantItem setTypeOneSpinners(String package_identifier,
@@ -905,7 +905,7 @@ public class Overlays extends Fragment {
                 new InputStreamReader(inputStream))) {
             // This adjusts it so that we have the spinner text set
             String formatter = String.format(
-                    getString(R.string.overlays_variant_substitute),
+                    this.getString(R.string.overlays_variant_substitute),
                     reader.readLine());
             // This is the default type1 xml hex, if present
             String hex = null;
@@ -955,13 +955,13 @@ public class Overlays extends Fragment {
             switch (type) {
                 case "a":
                     return new VariantItem(
-                            getString(R.string.overlays_variant_default_1a), hex);
+                            this.getString(R.string.overlays_variant_default_1a), hex);
                 case "b":
                     return new VariantItem(
-                            getString(R.string.overlays_variant_default_1b), hex);
+                            this.getString(R.string.overlays_variant_default_1b), hex);
                 case "c":
                     return new VariantItem(
-                            getString(R.string.overlays_variant_default_1c), hex);
+                            this.getString(R.string.overlays_variant_default_1c), hex);
                 default:
                     return null;
             }
@@ -971,14 +971,14 @@ public class Overlays extends Fragment {
     public VariantItem setTypeTwoFourSpinners(InputStreamReader inputStreamReader, Integer type) {
         try (BufferedReader reader = new BufferedReader(inputStreamReader)) {
             return new VariantItem(String.format(
-                    getString(R.string.overlays_variant_substitute), reader.readLine()), null);
+                    this.getString(R.string.overlays_variant_substitute), reader.readLine()), null);
         } catch (Exception e) {
             Log.d(TAG, "Falling back to default base variant text...");
             switch (type) {
                 case 2:
-                    return new VariantItem(getString(R.string.overlays_variant_default_2), null);
+                    return new VariantItem(this.getString(R.string.overlays_variant_default_2), null);
                 case 4:
-                    return new VariantItem(getString(R.string.overlays_variant_default_4), null);
+                    return new VariantItem(this.getString(R.string.overlays_variant_default_4), null);
             }
         }
         return null;
@@ -1013,11 +1013,11 @@ public class Overlays extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case 2486:
-                FileOperations.delete(getContext(),
+                FileOperations.delete(this.getContext(),
                         new File(this.late_install.get(0)).getAbsolutePath());
                 if (this.late_install != null && this.late_install.size() > 0) this.late_install.remove(0);
                 if (this.late_install.size() > 0) {
-                    installMultipleAPKs();
+                    this.installMultipleAPKs();
                 }
         }
     }
@@ -1025,20 +1025,20 @@ public class Overlays extends Fragment {
     private void installMultipleAPKs() {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         Uri uri = FileProvider.getUriForFile(
-                getContext(),
-                getContext().getApplicationContext().getPackageName() + ".provider",
+                this.getContext(),
+                this.getContext().getApplicationContext().getPackageName() + ".provider",
                 new File(this.late_install.get(0)));
         intent.setDataAndType(
                 uri,
                 "application/vnd.android.package-archive");
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        startActivityForResult(intent, 2486);
+        this.startActivityForResult(intent, 2486);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (!this.toggle_all.isChecked()) refreshList();
+        if (!this.toggle_all.isChecked()) this.refreshList();
     }
 
     private void refreshList() {
@@ -1544,29 +1544,29 @@ public class Overlays extends Fragment {
     class JobReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (!isAdded()) return;
+            if (!Overlays.this.isAdded()) return;
 
             String command = intent.getStringExtra("command");
             switch (command) {
                 case "CompileEnable":
-                    if (Overlays.this.mAdapter != null) startCompileEnableMode();
+                    if (Overlays.this.mAdapter != null) Overlays.this.startCompileEnableMode();
                     break;
                 case "CompileUpdate":
-                    if (Overlays.this.mAdapter != null) startCompileUpdateMode();
+                    if (Overlays.this.mAdapter != null) Overlays.this.startCompileUpdateMode();
                     break;
                 case "Disable":
-                    if (Overlays.this.mAdapter != null) startDisable();
+                    if (Overlays.this.mAdapter != null) Overlays.this.startDisable();
                     break;
                 case "Enable":
-                    if (Overlays.this.mAdapter != null) startEnable();
+                    if (Overlays.this.mAdapter != null) Overlays.this.startEnable();
                     break;
                 case "EnableDisable":
-                    if (Overlays.this.mAdapter != null) startEnableDisable();
+                    if (Overlays.this.mAdapter != null) Overlays.this.startEnableDisable();
                     break;
                 case "MixAndMatchMode":
                     if (Overlays.this.mAdapter != null) {
                         boolean newValue = intent.getBooleanExtra("newValue", false);
-                        setMixAndMatchMode(newValue);
+                        Overlays.this.setMixAndMatchMode(newValue);
                     }
                     break;
             }
@@ -1584,7 +1584,7 @@ public class Overlays extends Fragment {
                     Overlays.this.progressBar.setVisibility(View.GONE);
                 }
             }
-            refreshList();
+            Overlays.this.refreshList();
         }
     }
 }

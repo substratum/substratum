@@ -67,7 +67,7 @@ public class PriorityListFragment extends Fragment {
         int id = item.getItemId();
 
         if (id == R.id.restore_info) {
-            showPriorityInstructions();
+            this.showPriorityInstructions();
             return true;
         }
 
@@ -75,7 +75,7 @@ public class PriorityListFragment extends Fragment {
     }
 
     private void showPriorityInstructions() {
-        new AlertDialog.Builder(getContext())
+        new AlertDialog.Builder(this.getContext())
                 .setTitle(R.string.priority_instructions_title)
                 .setMessage(R.string.priority_instructions_content)
                 .setPositiveButton(android.R.string.ok, (dialogInterface, i) ->
@@ -92,11 +92,11 @@ public class PriorityListFragment extends Fragment {
         final ViewGroup root = (ViewGroup)
                 inflater.inflate(R.layout.priority_list_fragment, container, false);
 
-        setHasOptionsMenu(true);
+        this.setHasOptionsMenu(true);
 
         final RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
         final FloatingActionButton applyFab = root.findViewById(R.id.profile_apply_fab);
-        final LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        final LinearLayoutManager manager = new LinearLayoutManager(this.getContext());
         final ProgressBar headerProgress = root.findViewById(R.id.priority_header_loading_bar);
         headerProgress.setVisibility(View.GONE);
 
@@ -104,11 +104,11 @@ public class PriorityListFragment extends Fragment {
         recyclerView.setLayoutManager(manager);
 
         Toolbar toolbar = root.findViewById(R.id.action_bar_toolbar);
-        toolbar.setTitle(getString(R.string.priority_back_title));
-        toolbar.setNavigationIcon(getContext().getDrawable(R.drawable.priorities_back_button));
+        toolbar.setTitle(this.getString(R.string.priority_back_title));
+        toolbar.setNavigationIcon(this.getContext().getDrawable(R.drawable.priorities_back_button));
         toolbar.setNavigationOnClickListener(v -> {
             Fragment fragment = new PriorityLoaderFragment();
-            FragmentManager fm = getActivity().getSupportFragmentManager();
+            FragmentManager fm = this.getActivity().getSupportFragmentManager();
             FragmentTransaction transaction = fm.beginTransaction();
             transaction.setCustomAnimations(
                     android.R.anim.slide_in_left, android.R.anim.slide_out_right);
@@ -126,15 +126,15 @@ public class PriorityListFragment extends Fragment {
         final List<PrioritiesInterface> prioritiesList = new ArrayList<>();
         final ArrayList<String> workable_list = new ArrayList<>();
         List<String> overlays =
-                ThemeManager.listEnabledOverlaysForTarget(getContext(), obtained_key);
+                ThemeManager.listEnabledOverlaysForTarget(this.getContext(), obtained_key);
         for (String o : overlays) {
             prioritiesList.add(new PrioritiesItem(o,
-                    Packages.getOverlayParentIcon(getContext(), o)));
+                    Packages.getOverlayParentIcon(this.getContext(), o)));
             workable_list.add(o);
         }
 
         final PriorityAdapter adapter = new PriorityAdapter(
-                getContext(), R.layout.priority_overlay_item);
+                this.getContext(), R.layout.priority_overlay_item);
         adapter.setData(prioritiesList);
 
         recyclerView.setAdapter(adapter);
@@ -194,25 +194,25 @@ public class PriorityListFragment extends Fragment {
 
         applyFab.setOnClickListener(v -> {
             applyFab.hide();
-            if (getView() != null) {
-                Lunchbar.make(getView(),
-                        getString(R.string.priority_success_toast),
+            if (this.getView() != null) {
+                Lunchbar.make(this.getView(),
+                        this.getString(R.string.priority_success_toast),
                         Lunchbar.LENGTH_INDEFINITE)
                         .show();
             }
             headerProgress.setVisibility(View.VISIBLE);
-            ThemeManager.setPriority(getContext(), workable_list);
-            if (Packages.needsRecreate(getContext(), workable_list)) {
+            ThemeManager.setPriority(this.getContext(), workable_list);
+            if (Packages.needsRecreate(this.getContext(), workable_list)) {
                 Handler handler = new Handler();
                 handler.postDelayed(() -> {
                     // OMS may not have written all the changes so
                     // quickly just yet so we may need to have a small delay
                     try {
-                        getActivity().recreate();
+                        this.getActivity().recreate();
                     } catch (Exception e) {
                         // Consume window refresh
                     }
-                }, (Systems.checkAndromeda(getContext()) ?
+                }, (Systems.checkAndromeda(this.getContext()) ?
                         REFRESH_WINDOW_DELAY :
                         REFRESH_WINDOW_DELAY * 2));
             }

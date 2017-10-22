@@ -56,7 +56,7 @@ public class InterfacerBinderService extends Service implements ServiceConnectio
         if (Systems.isBinderInterfacer(this) && !this.mBound) {
             Intent intent = new Intent(INTERFACER_BINDED);
             intent.setPackage(INTERFACER_PACKAGE);
-            bindService(intent, this, Context.BIND_AUTO_CREATE);
+            this.bindService(intent, this, Context.BIND_AUTO_CREATE);
         }
     }
 
@@ -66,15 +66,15 @@ public class InterfacerBinderService extends Service implements ServiceConnectio
         binderService = this;
         if (checkOreo()) {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(
-                    getApplicationContext(), References.ANDROMEDA_NOTIFICATION_CHANNEL_ID);
+                    this.getApplicationContext(), References.ANDROMEDA_NOTIFICATION_CHANNEL_ID);
 
-            builder.setContentTitle(getString(R.string.interfacer_notification_title))
-                    .setContentText(getString(R.string.interfacer_notification_text))
+            builder.setContentTitle(this.getString(R.string.interfacer_notification_title))
+                    .setContentText(this.getString(R.string.interfacer_notification_text))
                     .setSmallIcon(R.drawable.notification_icon);
 
             this.startForeground(2018, builder.build());
         }
-        bindInterfacer();
+        this.bindInterfacer();
     }
 
     @Override

@@ -68,7 +68,7 @@ public class ShowcaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (Systems.isAndromedaDevice(getApplicationContext())) {
+        if (Systems.isAndromedaDevice(this.getApplicationContext())) {
             try {
                 this.localBroadcastManager.unregisterReceiver(this.andromedaReceiver);
             } catch (Exception e) {
@@ -79,7 +79,7 @@ public class ShowcaseActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.showcase_menu, menu);
+        this.getMenuInflater().inflate(R.menu.showcase_menu, menu);
 
         MenuItem alphabetizeMenu = menu.findItem(R.id.alphabetize);
         boolean alphabetize = this.prefs.getBoolean("alphabetize_showcase", false);
@@ -95,30 +95,30 @@ public class ShowcaseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                onBackPressed();
+                this.onBackPressed();
                 return true;
             case R.id.search:
                 try {
                     String playURL;
-                    if (Systems.checkOMS(getApplicationContext())) {
-                        playURL = getString(R.string.search_play_store_url);
-                    } else if (Systems.isSamsung(getApplicationContext())) {
-                        playURL = getString(R.string.search_play_store_url_samsung);
+                    if (Systems.checkOMS(this.getApplicationContext())) {
+                        playURL = this.getString(R.string.search_play_store_url);
+                    } else if (Systems.isSamsung(this.getApplicationContext())) {
+                        playURL = this.getString(R.string.search_play_store_url_samsung);
                     } else {
-                        playURL = getString(R.string.search_play_store_url_legacy);
+                        playURL = this.getString(R.string.search_play_store_url_legacy);
                     }
                     Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(playURL));
-                    startActivity(i);
+                    this.startActivity(i);
                 } catch (ActivityNotFoundException activityNotFoundException) {
-                    Lunchbar.make(findViewById(android.R.id.content),
-                            getString(R.string.activity_missing_toast),
+                    Lunchbar.make(this.findViewById(android.R.id.content),
+                            this.getString(R.string.activity_missing_toast),
                             Lunchbar.LENGTH_LONG)
                             .show();
                 }
                 return true;
             case R.id.info:
-                launchShowcaseInfo();
+                this.launchShowcaseInfo();
                 return true;
             case R.id.alphabetize:
                 boolean alphabetize = this.prefs.getBoolean("alphabetize_showcase", false);
@@ -134,15 +134,15 @@ public class ShowcaseActivity extends AppCompatActivity {
     }
 
     private void swipeRefresh() {
-        this.swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        this.swipeRefreshLayout = this.findViewById(R.id.swipeRefreshLayout);
         this.swipeRefreshLayout.setOnRefreshListener(this::recreate);
     }
 
     private void refreshLayout() {
-        if (References.isNetworkAvailable(getApplicationContext())) {
+        if (References.isNetworkAvailable(this.getApplicationContext())) {
             this.no_network.setVisibility(View.GONE);
             DownloadTabs downloadTabs = new DownloadTabs(this);
-            downloadTabs.execute(getString(R.string.showcase_tabs), "showcase_tabs.xml");
+            downloadTabs.execute(this.getString(R.string.showcase_tabs), "showcase_tabs.xml");
         } else {
             this.no_network.setVisibility(View.VISIBLE);
         }
@@ -151,45 +151,45 @@ public class ShowcaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.showcase_activity);
+        this.setContentView(R.layout.showcase_activity);
 
         this.prefs = PreferenceManager.getDefaultSharedPreferences(
-                getApplicationContext());
+                this.getApplicationContext());
 
-        if (Systems.isAndromedaDevice(getApplicationContext())) {
+        if (Systems.isAndromedaDevice(this.getApplicationContext())) {
             this.andromedaReceiver = new ShowcaseActivity.AndromedaReceiver();
-            this.localBroadcastManager = LocalBroadcastManager.getInstance(getApplicationContext());
+            this.localBroadcastManager = LocalBroadcastManager.getInstance(this.getApplicationContext());
             this.localBroadcastManager.registerReceiver(this.andromedaReceiver,
                     new IntentFilter("AndromedaReceiver.KILL"));
         }
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = this.findViewById(R.id.toolbar);
         if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            if (getSupportActionBar() != null) {
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                getSupportActionBar().setHomeButtonEnabled(false);
-                getSupportActionBar().setTitle(R.string.showcase);
+            this.setSupportActionBar(toolbar);
+            if (this.getSupportActionBar() != null) {
+                this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                this.getSupportActionBar().setHomeButtonEnabled(false);
+                this.getSupportActionBar().setTitle(R.string.showcase);
             }
-            toolbar.setNavigationOnClickListener((view) -> onBackPressed());
+            toolbar.setNavigationOnClickListener((view) -> this.onBackPressed());
         }
 
         File showcase_directory =
-                new File(getApplicationContext().getCacheDir() + "/ShowcaseCache/");
+                new File(this.getApplicationContext().getCacheDir() + "/ShowcaseCache/");
         if (!showcase_directory.exists()) {
             Boolean made = showcase_directory.mkdir();
             if (!made)
                 Log.e(References.SUBSTRATUM_LOG, "Could not make showcase directory...");
         }
 
-        TabLayout tabLayout = findViewById(R.id.tabs);
+        TabLayout tabLayout = this.findViewById(R.id.tabs);
         tabLayout.setTabTextColors(
-                getColor(R.color.showcase_activity_text),
-                getColor(R.color.showcase_activity_text));
+                this.getColor(R.color.showcase_activity_text),
+                this.getColor(R.color.showcase_activity_text));
         tabLayout.setVisibility(View.GONE);
-        this.no_network = findViewById(R.id.no_network);
-        refreshLayout();
-        swipeRefresh();
+        this.no_network = this.findViewById(R.id.no_network);
+        this.refreshLayout();
+        this.swipeRefresh();
     }
 
     private void launchShowcaseInfo() {
@@ -340,7 +340,7 @@ public class ShowcaseActivity extends AppCompatActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            finish();
+            ShowcaseActivity.this.finish();
         }
     }
 }

@@ -133,7 +133,7 @@ public class ProfileFragment extends Fragment {
 
     public void RefreshSpinner() {
         this.list.clear();
-        this.list.add(getResources().getString(R.string.spinner_default_item));
+        this.list.add(this.getResources().getString(R.string.spinner_default_item));
 
         // Now lets add all the located profiles
         File f = new File(
@@ -158,7 +158,7 @@ public class ProfileFragment extends Fragment {
         super.onCreate(savedInstanceState);
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.profile_fragment, container, false);
 
-        this.mContext = getContext();
+        this.mContext = this.getContext();
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
 
@@ -197,7 +197,7 @@ public class ProfileFragment extends Fragment {
         this.backup_name.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
                 InputMethodManager imm = (InputMethodManager)
-                        getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        this.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 if (imm != null) {
                     imm.hideSoftInputFromWindow(this.backup_name.getWindowToken(),
                             InputMethodManager.RESULT_UNCHANGED_SHOWN);
@@ -213,24 +213,24 @@ public class ProfileFragment extends Fragment {
                 if (Systems.checkOMS(this.mContext) ||
                         projekt.substratum.common.Resources.isFontsSupported()) {
                     items = new CharSequence[]{
-                            getString(R.string.profile_boot_animation),
-                            getString(R.string.profile_font),
-                            getString(R.string.profile_overlay),
-                            getString(R.string.profile_sound),
-                            getString(R.string.profile_wallpaper)};
+                            this.getString(R.string.profile_boot_animation),
+                            this.getString(R.string.profile_font),
+                            this.getString(R.string.profile_overlay),
+                            this.getString(R.string.profile_sound),
+                            this.getString(R.string.profile_wallpaper)};
                 } else {
                     items = new CharSequence[]{
-                            getString(R.string.profile_boot_animation),
-                            getString(R.string.profile_overlay),
-                            getString(R.string.profile_sound),
-                            getString(R.string.profile_wallpaper)};
+                            this.getString(R.string.profile_boot_animation),
+                            this.getString(R.string.profile_overlay),
+                            this.getString(R.string.profile_sound),
+                            this.getString(R.string.profile_wallpaper)};
                 }
 
                 AlertDialog dialog = new AlertDialog.Builder(this.mContext)
                         .setTitle(R.string.profile_dialog_title)
                         .setMultiChoiceItems(items, null, (dialog1, which, isChecked) -> {
                             if (isChecked) {
-                                if (items[which].equals(getString(R.string.profile_boot_animation))
+                                if (items[which].equals(this.getString(R.string.profile_boot_animation))
                                         && Systems.getDeviceEncryptionStatus(this.mContext) > 1
                                         && Systems.checkThemeInterfacer(this.mContext)) {
                                     AlertDialog dialog2 = new AlertDialog.Builder(this.mContext)
@@ -266,15 +266,15 @@ public class ProfileFragment extends Fragment {
                 });
 
                 InputMethodManager imm = (InputMethodManager)
-                        getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        this.getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 if (imm != null) {
                     imm.hideSoftInputFromWindow(backupButton.getWindowToken(),
                             InputMethodManager.RESULT_UNCHANGED_SHOWN);
                 }
             } else {
-                if (getView() != null) {
-                    Lunchbar.make(getView(),
-                            getString(R.string.profile_edittext_empty_toast),
+                if (this.getView() != null) {
+                    Lunchbar.make(this.getView(),
+                            this.getString(R.string.profile_edittext_empty_toast),
                             Lunchbar.LENGTH_LONG)
                             .show();
                 }
@@ -287,7 +287,7 @@ public class ProfileFragment extends Fragment {
 
         this.list = new ArrayList<>();
         this.adapter = new ArrayAdapter<>(this.mContext, android.R.layout.simple_spinner_item, this.list);
-        RefreshSpinner();
+        this.RefreshSpinner();
 
         // Specify the layout to use when the list of choices appears
         this.adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -296,13 +296,13 @@ public class ProfileFragment extends Fragment {
         ImageButton imageButton = root.findViewById(R.id.remove_profile);
         imageButton.setOnClickListener(v -> {
             if (this.profile_selector.getSelectedItemPosition() > 0) {
-                String formatted = String.format(getString(R.string.delete_dialog_text),
+                String formatted = String.format(this.getString(R.string.delete_dialog_text),
                         this.profile_selector.getSelectedItem());
                 new AlertDialog.Builder(this.mContext)
-                        .setTitle(getString(R.string.delete_dialog_title))
+                        .setTitle(this.getString(R.string.delete_dialog_title))
                         .setMessage(formatted)
                         .setCancelable(false)
-                        .setPositiveButton(getString(R.string.delete_dialog_okay),
+                        .setPositiveButton(this.getString(R.string.delete_dialog_okay),
                                 (dialog, which) -> {
                                     File f1 = new File(Environment
                                             .getExternalStorageDirectory().getAbsolutePath()
@@ -318,16 +318,16 @@ public class ProfileFragment extends Fragment {
                                                     .getAbsolutePath() +
                                                     "/substratum/profiles/" +
                                                     this.profile_selector.getSelectedItem());
-                                    RefreshSpinner();
+                                    this.RefreshSpinner();
                                 })
-                        .setNegativeButton(getString(R.string.dialog_cancel),
+                        .setNegativeButton(this.getString(R.string.dialog_cancel),
                                 (dialog, which) -> dialog.cancel())
                         .create()
                         .show();
             } else {
-                if (getView() != null) {
-                    Lunchbar.make(getView(),
-                            getString(R.string.profile_delete_button_none_selected_toast),
+                if (this.getView() != null) {
+                    Lunchbar.make(this.getView(),
+                            this.getString(R.string.profile_delete_button_none_selected_toast),
                             Lunchbar.LENGTH_LONG)
                             .show();
                 }
@@ -340,9 +340,9 @@ public class ProfileFragment extends Fragment {
                 RestoreFunction restoreFunction = new RestoreFunction(this);
                 restoreFunction.execute(this.profile_selector.getSelectedItem().toString());
             } else {
-                if (getView() != null) {
-                    Lunchbar.make(getView(),
-                            getString(R.string.restore_button_none_selected_toast),
+                if (this.getView() != null) {
+                    Lunchbar.make(this.getView(),
+                            this.getString(R.string.restore_button_none_selected_toast),
                             Lunchbar.LENGTH_LONG)
                             .show();
                 }
@@ -350,7 +350,7 @@ public class ProfileFragment extends Fragment {
         });
 
         final CardView scheduledProfileCard = root.findViewById(R.id.cardListView3);
-        if (Systems.checkOMS(this.mContext) && Systems.checkThemeInterfacer(getContext
+        if (Systems.checkOMS(this.mContext) && Systems.checkThemeInterfacer(this.getContext
                 ())) {
             final ExpandableLayout scheduledProfileLayout = root.findViewById(
                     R.id.scheduled_profile_card_content_container);
@@ -364,11 +364,11 @@ public class ProfileFragment extends Fragment {
                 this.dayNightEnabled = b;
             });
 
-            final FragmentManager fm = getActivity().getSupportFragmentManager();
+            final FragmentManager fm = this.getActivity().getSupportFragmentManager();
             final Button startTime = root.findViewById(R.id.night_start_time);
             startTime.setOnClickListener(view -> {
                 DialogFragment timePickerFragment = new TimePickerFragment();
-                if (startTime.getText().equals(getResources().getString(R.string.start_time))) {
+                if (startTime.getText().equals(this.getResources().getString(R.string.start_time))) {
                     TimePickerFragment.setFlag(TimePickerFragment.FLAG_START_TIME);
                 } else {
                     TimePickerFragment.setFlag(
@@ -380,7 +380,7 @@ public class ProfileFragment extends Fragment {
             final Button endTime = root.findViewById(R.id.night_end_time);
             endTime.setOnClickListener(view -> {
                 DialogFragment timePickerFragment = new TimePickerFragment();
-                if (endTime.getText().equals(getResources().getString(R.string.end_time))) {
+                if (endTime.getText().equals(this.getResources().getString(R.string.end_time))) {
                     TimePickerFragment.setFlag(TimePickerFragment.FLAG_END_TIME);
                 } else {
                     TimePickerFragment.setFlag(
@@ -395,9 +395,9 @@ public class ProfileFragment extends Fragment {
             this.nightProfile.setAdapter(this.adapter);
 
             if (prefs.getBoolean(SCHEDULED_PROFILE_ENABLED, false)) {
-                String day = prefs.getString(DAY_PROFILE, getResources()
+                String day = prefs.getString(DAY_PROFILE, this.getResources()
                         .getString(R.string.spinner_default_item));
-                String night = prefs.getString(NIGHT_PROFILE, getResources()
+                String night = prefs.getString(NIGHT_PROFILE, this.getResources()
                         .getString(R.string.spinner_default_item));
                 dayHour = prefs.getInt(DAY_PROFILE_HOUR, 0);
                 dayMinute = prefs.getInt(DAY_PROFILE_MINUTE, 0);
@@ -407,8 +407,8 @@ public class ProfileFragment extends Fragment {
 
                 scheduledProfileLayout.expand(false);
                 dayNightSwitch.setChecked(true);
-                startTime.setText(References.parseTime(getActivity(), nightHour, nightMinute));
-                endTime.setText(References.parseTime(getActivity(), dayHour, dayMinute));
+                startTime.setText(References.parseTime(this.getActivity(), nightHour, nightMinute));
+                endTime.setText(References.parseTime(this.getActivity(), dayHour, dayMinute));
                 this.dayProfile.setSelection(this.adapter.getPosition(day));
                 this.nightProfile.setSelection(this.adapter.getPosition(night));
             }
@@ -419,45 +419,45 @@ public class ProfileFragment extends Fragment {
                 if (this.dayNightEnabled) {
                     if (this.dayProfile.getSelectedItemPosition() > 0 &&
                             this.nightProfile.getSelectedItemPosition() > 0) {
-                        if (!startTime.getText().equals(getResources()
+                        if (!startTime.getText().equals(this.getResources()
                                 .getString(R.string.start_time)) && !endTime.getText()
-                                .equals(getResources().getString(R.string.end_time))) {
+                                .equals(this.getResources().getString(R.string.end_time))) {
                             if (dayHour != nightHour || dayMinute != nightMinute) {
-                                ProfileManager.enableScheduledProfile(getActivity(),
+                                ProfileManager.enableScheduledProfile(this.getActivity(),
                                         this.dayProfile.getSelectedItem().toString(), dayHour, dayMinute,
                                         this.nightProfile.getSelectedItem().toString(), nightHour,
                                         nightMinute);
-                                if (getView() != null) {
-                                    Lunchbar.make(getView(),
+                                if (this.getView() != null) {
+                                    Lunchbar.make(this.getView(),
                                             R.string.scheduled_profile_apply_success,
                                             Lunchbar.LENGTH_LONG)
                                             .show();
                                 }
                             } else {
-                                if (getView() != null) {
-                                    Lunchbar.make(getView(), R.string.time_equal_warning,
+                                if (this.getView() != null) {
+                                    Lunchbar.make(this.getView(), R.string.time_equal_warning,
                                             Lunchbar.LENGTH_LONG)
                                             .show();
                                 }
                             }
                         } else {
-                            if (getView() != null) {
-                                Lunchbar.make(getView(), R.string.time_empty_warning,
+                            if (this.getView() != null) {
+                                Lunchbar.make(this.getView(), R.string.time_empty_warning,
                                         Lunchbar.LENGTH_LONG)
                                         .show();
                             }
                         }
                     } else {
-                        if (getView() != null) {
-                            Lunchbar.make(getView(), R.string.profile_empty_warning,
+                        if (this.getView() != null) {
+                            Lunchbar.make(this.getView(), R.string.profile_empty_warning,
                                     Lunchbar.LENGTH_LONG)
                                     .show();
                         }
                     }
                 } else {
-                    ProfileManager.disableScheduledProfile(getActivity());
-                    if (getView() != null) {
-                        Lunchbar.make(getView(),
+                    ProfileManager.disableScheduledProfile(this.getActivity());
+                    if (this.getView() != null) {
+                        Lunchbar.make(this.getView(),
                                 R.string.scheduled_profile_disable_success,
                                 Lunchbar.LENGTH_LONG)
                                 .show();
@@ -1105,7 +1105,7 @@ public class ProfileFragment extends Fragment {
                                 i + 1,
                                 this.toBeCompiled.size(),
                                 compilePackage);
-                        publishProgress(format);
+                        this.publishProgress(format);
 
                         String theme = currentItem.getParentTheme();
 
@@ -1285,9 +1285,9 @@ public class ProfileFragment extends Fragment {
                     }
                 }
 
-                publishProgress(profileFragment.getString(R.string.profile_compile_processing));
-                if (this.profileName != null && this.toBeRun != null) continueProcess();
-                continueProcessWallpaper();
+                this.publishProgress(profileFragment.getString(R.string.profile_compile_processing));
+                if (this.profileName != null && this.toBeRun != null) this.continueProcess();
+                this.continueProcessWallpaper();
             }
             return null;
         }

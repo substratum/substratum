@@ -62,7 +62,7 @@ public class BootCompletedDetector extends BroadcastReceiver {
             if (prefs.getBoolean(SCHEDULED_PROFILE_ENABLED, false)) {
                 ProfileManager.updateScheduledProfile(context);
             }
-            clearSubstratumCompileFolder(context);
+            this.clearSubstratumCompileFolder(context);
             new GlideClear().execute();
             new References.Markdown(context, prefs);
         }

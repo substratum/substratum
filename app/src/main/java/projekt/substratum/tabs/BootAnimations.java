@@ -118,17 +118,17 @@ public class BootAnimations extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
-        this.mContext = getContext();
-        this.theme_pid = getArguments().getString("theme_pid");
-        if (getArguments().getBoolean("shutdownanimation", false)) {
+        this.mContext = this.getContext();
+        this.theme_pid = this.getArguments().getString("theme_pid");
+        if (this.getArguments().getBoolean("shutdownanimation", false)) {
             bootanimationsDir = "shutdownanimation";
             this.shutdownBootAnimation = true;
         } else {
             this.shutdownBootAnimation = false;
         }
 
-        byte[] encryption_key = getArguments().getByteArray("encryption_key");
-        byte[] iv_encrypt_key = getArguments().getByteArray("iv_encrypt_key");
+        byte[] encryption_key = this.getArguments().getByteArray("encryption_key");
+        byte[] iv_encrypt_key = this.getArguments().getByteArray("iv_encrypt_key");
 
         // encrypted = encryption_key != null && iv_encrypt_key != null;
 
@@ -177,10 +177,10 @@ public class BootAnimations extends Fragment {
 
             // Creates the list of dropdown items
             ArrayList<String> parsedBootAnimations = new ArrayList<>();
-            parsedBootAnimations.add(getString(this.shutdownBootAnimation ?
+            parsedBootAnimations.add(this.getString(this.shutdownBootAnimation ?
                     R.string.shutdownanimation_default_spinner :
                     R.string.bootanimation_default_spinner));
-            parsedBootAnimations.add(getString(this.shutdownBootAnimation ?
+            parsedBootAnimations.add(this.getString(this.shutdownBootAnimation ?
                     R.string.shutdownanimation_spinner_set_defaults :
                     R.string.bootanimation_spinner_set_defaults));
             for (int i = 0; i < unparsedBootAnimations.size(); i++) {
@@ -188,7 +188,7 @@ public class BootAnimations extends Fragment {
                         unparsedBootAnimations.get(i).length() - (this.encrypted ? 8 : 4)));
             }
 
-            SpinnerAdapter adapter1 = new ArrayAdapter<>(getActivity(),
+            SpinnerAdapter adapter1 = new ArrayAdapter<>(this.getActivity(),
                     android.R.layout.simple_spinner_dropdown_item, parsedBootAnimations);
             this.bootAnimationSelector = root.findViewById(R.id.bootAnimationSelection);
             this.bootAnimationSelector.setAdapter(adapter1);
@@ -232,7 +232,7 @@ public class BootAnimations extends Fragment {
                                     if (BootAnimations.this.previewHandler != null && BootAnimations.this.previewRunnable != null) {
                                         BootAnimations.this.previewHandler.removeCallbacks(BootAnimations.this.previewRunnable);
                                     }
-                                    BootAnimations.this.current = new BootAnimationPreview(getInstance())
+                                    BootAnimations.this.current = new BootAnimationPreview(BootAnimations.this.getInstance())
                                             .execute(commands);
                             }
                         }
@@ -467,7 +467,7 @@ public class BootAnimations extends Fragment {
                                      new FileOutputStream(bootAnimations.mContext.getCacheDir()
                                              .getAbsolutePath() +
                                              "/BootAnimationCache/" + source)) {
-                            CopyStream(inputStream, outputStream);
+                            this.CopyStream(inputStream, outputStream);
                         } catch (Exception e) {
                             Log.e(TAG,
                                     "There is no bootanimation.zip found within the assets of " +
@@ -476,13 +476,13 @@ public class BootAnimations extends Fragment {
                     }
 
                     // Unzip the boot animation to get it prepared for the preview
-                    unzip(bootAnimations.mContext.getCacheDir().getAbsolutePath() +
+                    this.unzip(bootAnimations.mContext.getCacheDir().getAbsolutePath() +
                                     "/BootAnimationCache/" + source,
                             bootAnimations.mContext.getCacheDir().getAbsolutePath() +
                                     "/BootAnimationCache/animation_preview/");
 
                     bootAnimations.options.inPreferredConfig = Bitmap.Config.RGB_565;
-                    bootAnimations.options.inSampleSize = previewDeterminator(
+                    bootAnimations.options.inSampleSize = this.previewDeterminator(
                             bootAnimations.mContext.getCacheDir().getAbsolutePath() +
                                     "/BootAnimationCache/" + source);
 
@@ -572,8 +572,8 @@ public class BootAnimations extends Fragment {
     class JobReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (!isAdded()) return;
-            startApply();
+            if (!BootAnimations.this.isAdded()) return;
+            BootAnimations.this.startApply();
         }
     }
 }

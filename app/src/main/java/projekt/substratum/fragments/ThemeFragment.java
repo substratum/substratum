@@ -227,7 +227,7 @@ public class ThemeFragment extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.mContext = getContext();
+        this.mContext = this.getContext();
         this.prefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
         this.root = (ViewGroup) inflater.inflate(R.layout.home_fragment, container, false);
 
@@ -244,14 +244,14 @@ public class ThemeFragment extends Fragment {
         }
 
         RecyclerView recyclerView = this.root.findViewById(R.id.theme_list);
-        resetRecyclerView(recyclerView);
+        this.resetRecyclerView(recyclerView);
 
         SwipeRefreshLayout swipeRefreshLayout = this.root.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(() -> new LayoutLoader(this).execute());
         swipeRefreshLayout.setRefreshing(true);
 
         ((MainActivity)
-                getActivity()).actionbar_content.setText(R.string.actionbar_theme_count_loading);
+                this.getActivity()).actionbar_content.setText(R.string.actionbar_theme_count_loading);
 
         View cardView = this.root.findViewById(R.id.no_entry_card_view);
         cardView.setOnClickListener(v ->
@@ -319,7 +319,7 @@ public class ThemeFragment extends Fragment {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            new LayoutLoader(getInstance()).execute();
+            new LayoutLoader(ThemeFragment.this.getInstance()).execute();
         }
     }
 }

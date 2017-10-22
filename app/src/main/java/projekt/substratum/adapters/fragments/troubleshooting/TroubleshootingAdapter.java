@@ -66,8 +66,8 @@ public class TroubleshootingAdapter extends BaseAdapter {
             TextView questionsTextView = v.findViewById(R.id.trouble_ques);
             TextView answersTextView = v.findViewById(R.id.trouble_ans);
 
-            String question = getStringFromResource(this.tQues[i]);
-            String answer = getStringFromResource(this.tAns[i]);
+            String question = this.getStringFromResource(this.tQues[i]);
+            String answer = this.getStringFromResource(this.tAns[i]);
 
             questionsTextView.setText(question);
             answersTextView.setText(answer);

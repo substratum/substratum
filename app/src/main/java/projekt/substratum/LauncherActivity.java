@@ -33,11 +33,11 @@ public class LauncherActivity extends SubstratumActivity {
         super.onCreate(savedInstanceState);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
-                getApplicationContext());
+                this.getApplicationContext());
 
         Intent intent = new Intent(this, SplashScreenActivity.class);
         intent.putExtra("first_run", prefs.getBoolean("first_run", true));
-        startActivity(intent);
-        finish();
+        this.startActivity(intent);
+        this.finish();
     }
 }

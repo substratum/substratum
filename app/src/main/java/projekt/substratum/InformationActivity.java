@@ -184,48 +184,48 @@ public class InformationActivity extends SubstratumActivity {
     }
 
     private void autoSetToolbarIcons(boolean dynamicActionBarColors) {
-        if (this.collapsingToolbarLayout != null && checkColorDarkness(this.dominantColor) &&
+        if (this.collapsingToolbarLayout != null && this.checkColorDarkness(this.dominantColor) &&
                 dynamicActionBarColors) {
-            setDarkToolbarIcons();
+            this.setDarkToolbarIcons();
         } else if (this.collapsingToolbarLayout != null) {
-            setLightToolbarIcons();
+            this.setLightToolbarIcons();
         }
     }
 
     private void setDarkToolbarIcons() {
         this.collapsingToolbarLayout.setCollapsedTitleTextColor(
-                getColor(R.color.information_activity_dark_icon_mode));
+                this.getColor(R.color.information_activity_dark_icon_mode));
         this.collapsingToolbarLayout.setExpandedTitleColor(
-                getColor(R.color.information_activity_dark_icon_mode));
+                this.getColor(R.color.information_activity_dark_icon_mode));
         this.tabLayout.setTabTextColors(
-                getColor(R.color.information_activity_dark_text_mode),
-                getColor(R.color.information_activity_dark_text_mode));
+                this.getColor(R.color.information_activity_dark_text_mode),
+                this.getColor(R.color.information_activity_dark_text_mode));
 
-        Drawable upArrow = getDrawable(R.drawable.information_activity_back_dark);
+        Drawable upArrow = this.getDrawable(R.drawable.information_activity_back_dark);
         if (upArrow != null)
-            upArrow.setColorFilter(getColor(R.color.information_activity_dark_icon_mode),
+            upArrow.setColorFilter(this.getColor(R.color.information_activity_dark_icon_mode),
                     PorterDuff.Mode.SRC_ATOP);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setHomeAsUpIndicator(upArrow);
+        if (this.getSupportActionBar() != null) {
+            this.getSupportActionBar().setHomeAsUpIndicator(upArrow);
         }
         setOverflowButtonColor(this, true);
     }
 
     private void setLightToolbarIcons() {
         this.collapsingToolbarLayout.setCollapsedTitleTextColor(
-                getColor(R.color.information_activity_light_icon_mode));
+                this.getColor(R.color.information_activity_light_icon_mode));
         this.collapsingToolbarLayout.setExpandedTitleColor(
-                getColor(R.color.information_activity_light_icon_mode));
+                this.getColor(R.color.information_activity_light_icon_mode));
         this.tabLayout.setTabTextColors(
-                getColor(R.color.information_activity_light_text_mode),
-                getColor(R.color.information_activity_light_text_mode));
+                this.getColor(R.color.information_activity_light_text_mode),
+                this.getColor(R.color.information_activity_light_text_mode));
 
-        Drawable upArrow = getDrawable(R.drawable.information_activity_back_light);
+        Drawable upArrow = this.getDrawable(R.drawable.information_activity_back_light);
         if (upArrow != null)
-            upArrow.setColorFilter(getColor(R.color.information_activity_light_icon_mode),
+            upArrow.setColorFilter(this.getColor(R.color.information_activity_light_icon_mode),
                     PorterDuff.Mode.SRC_ATOP);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setHomeAsUpIndicator(upArrow);
+        if (this.getSupportActionBar() != null) {
+            this.getSupportActionBar().setHomeAsUpIndicator(upArrow);
         }
         setOverflowButtonColor(this, false);
     }
@@ -268,13 +268,13 @@ public class InformationActivity extends SubstratumActivity {
                                 resultUri.toString().substring(7),
                                 "home");
                         editor.putString("home_wallpaper_applied", this.theme_pid);
-                        currentShownLunchBar = Lunchbar.make(getView(),
-                                getString(R.string.wallpaper_homescreen_success),
+                        currentShownLunchBar = Lunchbar.make(this.getView(),
+                                this.getString(R.string.wallpaper_homescreen_success),
                                 Lunchbar.LENGTH_LONG);
                         currentShownLunchBar.show();
                     } catch (IOException e) {
-                        currentShownLunchBar = Lunchbar.make(getView(),
-                                getString(R.string.wallpaper_homescreen_error),
+                        currentShownLunchBar = Lunchbar.make(this.getView(),
+                                this.getString(R.string.wallpaper_homescreen_error),
                                 Lunchbar.LENGTH_LONG);
                         currentShownLunchBar.show();
                         e.printStackTrace();
@@ -286,13 +286,13 @@ public class InformationActivity extends SubstratumActivity {
                                 resultUri.toString().substring(7),
                                 "lock");
                         editor.putString("lock_wallpaper_applied", this.theme_pid);
-                        currentShownLunchBar = Lunchbar.make(getView(),
-                                getString(R.string.wallpaper_lockscreen_success),
+                        currentShownLunchBar = Lunchbar.make(this.getView(),
+                                this.getString(R.string.wallpaper_lockscreen_success),
                                 Lunchbar.LENGTH_LONG);
                         currentShownLunchBar.show();
                     } catch (IOException e) {
-                        currentShownLunchBar = Lunchbar.make(getView(),
-                                getString(R.string.wallpaper_lockscreen_error),
+                        currentShownLunchBar = Lunchbar.make(this.getView(),
+                                this.getString(R.string.wallpaper_lockscreen_error),
                                 Lunchbar.LENGTH_LONG);
                         currentShownLunchBar.show();
                         e.printStackTrace();
@@ -305,13 +305,13 @@ public class InformationActivity extends SubstratumActivity {
                                 "all");
                         editor.putString("home_wallpaper_applied", this.theme_pid);
                         editor.putString("lock_wallpaper_applied", this.theme_pid);
-                        currentShownLunchBar = Lunchbar.make(getView(),
-                                getString(R.string.wallpaper_allscreen_success),
+                        currentShownLunchBar = Lunchbar.make(this.getView(),
+                                this.getString(R.string.wallpaper_allscreen_success),
                                 Lunchbar.LENGTH_LONG);
                         currentShownLunchBar.show();
                     } catch (IOException e) {
-                        currentShownLunchBar = Lunchbar.make(getView(),
-                                getString(R.string.wallpaper_allscreen_error),
+                        currentShownLunchBar = Lunchbar.make(this.getView(),
+                                this.getString(R.string.wallpaper_allscreen_error),
                                 Lunchbar.LENGTH_LONG);
                         currentShownLunchBar.show();
                         e.printStackTrace();
@@ -329,9 +329,9 @@ public class InformationActivity extends SubstratumActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.information_activity);
+        this.setContentView(R.layout.information_activity);
 
-        this.mContext = getApplicationContext();
+        this.mContext = this.getApplicationContext();
         this.prefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
         this.localBroadcastManager = LocalBroadcastManager.getInstance(this.mContext);
 
@@ -350,10 +350,10 @@ public class InformationActivity extends SubstratumActivity {
                     new IntentFilter("AndromedaReceiver.KILL"));
         }
 
-        boolean dynamicActionBarColors = getResources().getBoolean(R.bool.dynamicActionBarColors);
-        boolean dynamicNavBarColors = getResources().getBoolean(R.bool.dynamicNavigationBarColors);
+        boolean dynamicActionBarColors = this.getResources().getBoolean(R.bool.dynamicActionBarColors);
+        boolean dynamicNavBarColors = this.getResources().getBoolean(R.bool.dynamicNavigationBarColors);
 
-        Intent currentIntent = getIntent();
+        Intent currentIntent = this.getIntent();
         this.theme_name = currentIntent.getStringExtra("theme_name");
 
         this.theme_pid = currentIntent.getStringExtra("theme_pid");
@@ -373,23 +373,23 @@ public class InformationActivity extends SubstratumActivity {
 
         if (this.theme_mode == null) this.theme_mode = "";
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = this.findViewById(R.id.toolbar);
         if (toolbar != null) toolbar.setTitle(this.theme_name);
 
-        this.gradientView = findViewById(R.id.gradientView);
-        this.collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar_tabbed_layout);
+        this.gradientView = this.findViewById(R.id.gradientView);
+        this.collapsingToolbarLayout = this.findViewById(R.id.collapsing_toolbar_tabbed_layout);
         if (this.collapsingToolbarLayout != null) this.collapsingToolbarLayout.setTitle(this.theme_name);
 
-        final ViewPager viewPager = findViewById(R.id.viewpager);
+        final ViewPager viewPager = this.findViewById(R.id.viewpager);
 
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        this.setSupportActionBar(toolbar);
+        if (this.getSupportActionBar() != null) {
+            this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            this.getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-        if (toolbar != null) toolbar.setNavigationOnClickListener(v -> onBackPressed());
+        if (toolbar != null) toolbar.setNavigationOnClickListener(v -> this.onBackPressed());
 
-        Drawable heroImage = getPackageHeroImage(getApplicationContext(), this.theme_pid, false);
+        Drawable heroImage = getPackageHeroImage(this.getApplicationContext(), this.theme_pid, false);
         if (heroImage != null) this.heroImageBitmap = ((BitmapDrawable) heroImage).getBitmap();
         if (this.heroImageBitmap == null) {
             this.dominantColor = Color.TRANSPARENT;
@@ -397,7 +397,7 @@ public class InformationActivity extends SubstratumActivity {
             this.dominantColor = getDominantColor(this.heroImageBitmap);
         }
 
-        this.appBarLayout = findViewById(R.id.appbar);
+        this.appBarLayout = this.findViewById(R.id.appbar);
         if (this.appBarLayout != null) this.appBarLayout.setBackgroundColor(this.dominantColor);
 
         if (this.collapsingToolbarLayout != null &&
@@ -407,18 +407,18 @@ public class InformationActivity extends SubstratumActivity {
         }
 
         if (dynamicNavBarColors) {
-            getWindow().setNavigationBarColor(this.dominantColor);
-            if (checkColorDarkness(this.dominantColor)) {
-                getWindow().setNavigationBarColor(getColor(R.color.theme_information_background));
+            this.getWindow().setNavigationBarColor(this.dominantColor);
+            if (this.checkColorDarkness(this.dominantColor)) {
+                this.getWindow().setNavigationBarColor(this.getColor(R.color.theme_information_background));
             }
         }
 
-        View sheetView = findViewById(R.id.fab_sheet);
-        View overlay = findViewById(R.id.overlay);
+        View sheetView = this.findViewById(R.id.fab_sheet);
+        View overlay = this.findViewById(R.id.overlay);
         int sheetColor = this.mContext.getColor(R.color.fab_menu_background_card);
         int fabColor = this.mContext.getColor(R.color.fab_background_color);
 
-        final FloatingActionMenu floatingActionButton = findViewById(R.id.apply_fab);
+        final FloatingActionMenu floatingActionButton = this.findViewById(R.id.apply_fab);
         floatingActionButton.show();
 
         // Create material sheet FAB
@@ -432,7 +432,7 @@ public class InformationActivity extends SubstratumActivity {
         }
 
         new LayoutLoader(this).execute("");
-        this.tabLayout = findViewById(R.id.tabs);
+        this.tabLayout = this.findViewById(R.id.tabs);
         if (this.tabLayout != null) {
             // First, take account for whether the theme was launched normally
             if ("".equals(this.theme_mode)) {
@@ -455,40 +455,40 @@ public class InformationActivity extends SubstratumActivity {
                     boolean isWallpaperOnly = true;
                     if (tab_checker.contains(overlaysFragment)) {
                         isWallpaperOnly = false;
-                        this.tabLayout.addTab(this.tabLayout.newTab().setText(getString(R.string
+                        this.tabLayout.addTab(this.tabLayout.newTab().setText(this.getString(R.string
                                 .theme_information_tab_one)));
                     }
                     if (tab_checker.contains(bootAnimationsFragment) &&
                             Resources.isBootAnimationSupported(this.mContext)) {
                         isWallpaperOnly = false;
-                        this.tabLayout.addTab(this.tabLayout.newTab().setText(getString(R.string
+                        this.tabLayout.addTab(this.tabLayout.newTab().setText(this.getString(R.string
                                 .theme_information_tab_two)));
                     }
                     if (tab_checker.contains(shutdownAnimationsFragment) &&
                             Resources.isShutdownAnimationSupported()) {
                         isWallpaperOnly = false;
-                        this.tabLayout.addTab(this.tabLayout.newTab().setText(getString(R.string
+                        this.tabLayout.addTab(this.tabLayout.newTab().setText(this.getString(R.string
                                 .theme_information_tab_six)));
                     }
                     if (tab_checker.contains(fontsFragment) && Resources.isFontsSupported()) {
                         isWallpaperOnly = false;
-                        this.tabLayout.addTab(this.tabLayout.newTab().setText(getString(R.string
+                        this.tabLayout.addTab(this.tabLayout.newTab().setText(this.getString(R.string
                                 .theme_information_tab_three)));
                     }
                     if (tab_checker.contains(soundsFragment) &&
                             Resources.isSoundsSupported(this.mContext)) {
                         isWallpaperOnly = false;
-                        this.tabLayout.addTab(this.tabLayout.newTab().setText(getString(R.string
+                        this.tabLayout.addTab(this.tabLayout.newTab().setText(this.getString(R.string
                                 .theme_information_tab_four)));
                     }
                     if (wallpaperUrl != null && wallpaperUrl.length() > 0) {
-                        this.tabLayout.addTab(this.tabLayout.newTab().setText(getString(R.string
+                        this.tabLayout.addTab(this.tabLayout.newTab().setText(this.getString(R.string
                                 .theme_information_tab_five)));
                     }
                     if (isWallpaperOnly && wallpaperUrl != null && wallpaperUrl.length() > 0) {
                         final Handler handler = new Handler();
                         handler.postDelayed(() ->
-                                runOnUiThread(floatingActionButton::hide), 500);
+                                this.runOnUiThread(floatingActionButton::hide), 500);
                     }
                 } catch (Exception e) {
                     Log.e(References.SUBSTRATUM_LOG, "Could not refresh list of asset folders.");
@@ -498,27 +498,27 @@ public class InformationActivity extends SubstratumActivity {
                 switch (this.theme_mode) {
                     case overlaysFragment:
                         this.tabLayout.addTab(this.tabLayout.newTab().setText(
-                                getString(R.string.theme_information_tab_one)));
+                                this.getString(R.string.theme_information_tab_one)));
                         break;
                     case bootAnimationsFragment:
                         this.tabLayout.addTab(this.tabLayout.newTab().setText(
-                                getString(R.string.theme_information_tab_two)));
+                                this.getString(R.string.theme_information_tab_two)));
                         break;
                     case shutdownAnimationsFragment:
                         this.tabLayout.addTab(this.tabLayout.newTab().setText(
-                                getString(R.string.theme_information_tab_six)));
+                                this.getString(R.string.theme_information_tab_six)));
                         break;
                     case fontsFragment:
                         this.tabLayout.addTab(this.tabLayout.newTab().setText(
-                                getString(R.string.theme_information_tab_three)));
+                                this.getString(R.string.theme_information_tab_three)));
                         break;
                     case soundsFragment:
                         this.tabLayout.addTab(this.tabLayout.newTab().setText(
-                                getString(R.string.theme_information_tab_four)));
+                                this.getString(R.string.theme_information_tab_four)));
                         break;
                     case wallpaperFragment:
                         this.tabLayout.addTab(this.tabLayout.newTab().setText(
-                                getString(R.string.theme_information_tab_five)));
+                                this.getString(R.string.theme_information_tab_five)));
                         break;
                 }
             }
@@ -529,23 +529,23 @@ public class InformationActivity extends SubstratumActivity {
 
             String toOverrideHero =
                     Packages.getOverlayMetadata(
-                            getApplicationContext(),
+                            this.getApplicationContext(),
                             this.theme_pid,
                             metadataHeroOverride);
             if (toOverrideHero != null) {
                 switch (toOverrideHero) {
                     case "dark":
-                        setDarkToolbarIcons();
+                        this.setDarkToolbarIcons();
                         break;
                     case "light":
-                        setLightToolbarIcons();
+                        this.setLightToolbarIcons();
                         break;
                     default:
-                        autoSetToolbarIcons(dynamicActionBarColors);
+                        this.autoSetToolbarIcons(dynamicActionBarColors);
                         break;
                 }
             } else {
-                autoSetToolbarIcons(dynamicActionBarColors);
+                this.autoSetToolbarIcons(dynamicActionBarColors);
             }
         }
 
@@ -562,7 +562,7 @@ public class InformationActivity extends SubstratumActivity {
         extra_hidden_tabs.put(soundsFragment, Systems.isBinderInterfacer(this.mContext));
 
         final InformationTabsAdapter adapter = new InformationTabsAdapter
-                (getSupportFragmentManager(), (this.tabLayout != null) ? this.tabLayout.getTabCount() : 0,
+                (this.getSupportFragmentManager(), (this.tabLayout != null) ? this.tabLayout.getTabCount() : 0,
                         this.theme_mode, tab_checker, wallpaperUrl, extra_hidden_tabs, bundle);
 
         if (viewPager != null) {
@@ -615,7 +615,7 @@ public class InformationActivity extends SubstratumActivity {
                     LocalBroadcastManager.getInstance(this.mContext);
             floatingActionButton.setOnClickListener(v -> {
                 try {
-                    boolean isLunchbarOpen = closeAllLunchBars();
+                    boolean isLunchbarOpen = this.closeAllLunchBars();
                     final Handler handler = new Handler();
                     handler.postDelayed(() -> {
                         Intent intent;
@@ -646,11 +646,11 @@ public class InformationActivity extends SubstratumActivity {
             });
 
             Intent intent = new Intent("Overlays.START_JOB");
-            Switch enable_swap = findViewById(R.id.enable_swap);
+            Switch enable_swap = this.findViewById(R.id.enable_swap);
             if (!Systems.checkOMS(this) && !Systems.isSamsung(this.mContext)) {
-                enable_swap.setText(getString(R.string.fab_menu_swap_toggle_legacy));
+                enable_swap.setText(this.getString(R.string.fab_menu_swap_toggle_legacy));
             } else if (Systems.isSamsung(this.mContext)) {
-                View fab_menu_divider = findViewById(R.id.fab_menu_divider);
+                View fab_menu_divider = this.findViewById(R.id.fab_menu_divider);
                 fab_menu_divider.setVisibility(View.GONE);
                 enable_swap.setVisibility(View.GONE);
             }
@@ -669,7 +669,7 @@ public class InformationActivity extends SubstratumActivity {
                 });
             }
 
-            final TextView compile_enable_selected = findViewById(R.id.compile_enable_selected);
+            final TextView compile_enable_selected = this.findViewById(R.id.compile_enable_selected);
             if (!Systems.checkOMS(this)) compile_enable_selected.setVisibility(View.GONE);
             if (compile_enable_selected != null) {
                 compile_enable_selected.setOnClickListener(v -> {
@@ -686,9 +686,9 @@ public class InformationActivity extends SubstratumActivity {
                 });
             }
 
-            TextView compile_update_selected = findViewById(R.id.compile_update_selected);
+            TextView compile_update_selected = this.findViewById(R.id.compile_update_selected);
             if (!Systems.checkOMS(this)) {
-                compile_update_selected.setText(getString(R.string.fab_menu_compile_install));
+                compile_update_selected.setText(this.getString(R.string.fab_menu_compile_install));
             }
             if (compile_update_selected != null) {
                 compile_update_selected.setOnClickListener(v -> {
@@ -705,9 +705,9 @@ public class InformationActivity extends SubstratumActivity {
                 });
             }
 
-            TextView disable_selected = findViewById(R.id.disable_selected);
+            TextView disable_selected = this.findViewById(R.id.disable_selected);
             if (!Systems.checkOMS(this)) {
-                disable_selected.setText(getString(R.string.fab_menu_uninstall));
+                disable_selected.setText(this.getString(R.string.fab_menu_uninstall));
             }
             if (disable_selected != null) {
                 disable_selected.setOnClickListener(v -> {
@@ -724,9 +724,9 @@ public class InformationActivity extends SubstratumActivity {
                 });
             }
 
-            LinearLayout enable_zone = findViewById(R.id.enable);
+            LinearLayout enable_zone = this.findViewById(R.id.enable);
             if (!Systems.checkOMS(this)) enable_zone.setVisibility(View.GONE);
-            TextView enable_selected = findViewById(R.id.enable_selected);
+            TextView enable_selected = this.findViewById(R.id.enable_selected);
             if (enable_selected != null) {
                 enable_selected.setOnClickListener(v -> {
                     this.materialSheetFab.setEventListener(new MaterialSheetFabEventListener() {
@@ -743,7 +743,7 @@ public class InformationActivity extends SubstratumActivity {
             }
 
             TextView enable_disable_selected =
-                    findViewById(R.id.enable_disable_selected);
+                    this.findViewById(R.id.enable_disable_selected);
             if (!Systems.checkOMS(this))
                 enable_disable_selected.setVisibility(View.GONE);
             if (enable_disable_selected != null) {
@@ -767,7 +767,7 @@ public class InformationActivity extends SubstratumActivity {
                     !Packages.isSamsungTheme(this.mContext, this.theme_pid) &&
                     shouldShowSamsungWarning) {
                 currentShownLunchBar = Lunchbar.make(
-                        getView(),
+                        this.getView(),
                         R.string.toast_samsung_prototype_alert,
                         Lunchbar.LENGTH_SHORT);
                 currentShownLunchBar.show();
@@ -777,12 +777,12 @@ public class InformationActivity extends SubstratumActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.theme_information_menu, menu);
+        this.getMenuInflater().inflate(R.menu.theme_information_menu, menu);
 
         // Start formalizing a check for dark icons
-        boolean dynamicActionBarColors = getResources().getBoolean(R.bool.dynamicActionBarColors);
+        boolean dynamicActionBarColors = this.getResources().getBoolean(R.bool.dynamicActionBarColors);
         this.shouldDarken = this.collapsingToolbarLayout != null &&
-                checkColorDarkness(this.dominantColor) &&
+                this.checkColorDarkness(this.dominantColor) &&
                 dynamicActionBarColors;
 
         // Start dynamically showing menu items
@@ -794,22 +794,22 @@ public class InformationActivity extends SubstratumActivity {
             this.favorite = menu.findItem(R.id.favorite);
             if (this.prefs.contains("app_shortcut_theme")) {
                 if (this.prefs.getString("app_shortcut_theme", "").equals(this.theme_pid)) {
-                    this.favorite.setIcon(getDrawable(R.drawable.toolbar_favorite));
+                    this.favorite.setIcon(this.getDrawable(R.drawable.toolbar_favorite));
                 } else {
-                    this.favorite.setIcon(getDrawable(R.drawable.toolbar_not_favorite));
+                    this.favorite.setIcon(this.getDrawable(R.drawable.toolbar_not_favorite));
                 }
             } else {
-                this.favorite.setIcon(getDrawable(R.drawable.toolbar_not_favorite));
+                this.favorite.setIcon(this.getDrawable(R.drawable.toolbar_not_favorite));
             }
             if (this.shouldDarken) this.favorite.getIcon().setColorFilter(
-                    getColor(R.color.information_activity_dark_icon_mode),
+                    this.getColor(R.color.information_activity_dark_icon_mode),
                     PorterDuff.Mode.SRC_ATOP);
         }
         if (Packages.getThemeChangelog(this.mContext, this.theme_pid) != null) {
             MenuItem changelog = menu.findItem(R.id.changelog);
             changelog.setVisible(true);
             if (this.shouldDarken) changelog.getIcon().setColorFilter(
-                    getColor(R.color.information_activity_dark_icon_mode),
+                    this.getColor(R.color.information_activity_dark_icon_mode),
                     PorterDuff.Mode.SRC_ATOP);
         }
 
@@ -853,11 +853,11 @@ public class InformationActivity extends SubstratumActivity {
             case R.id.changelog:
                 SheetDialog sheetDialog = new SheetDialog(this);
                 @SuppressLint("InflateParams")
-                View sheetView = getLayoutInflater().inflate(R.layout.changelog_sheet_dialog, null);
+                View sheetView = this.getLayoutInflater().inflate(R.layout.changelog_sheet_dialog, null);
 
                 LinearLayout titleBox = sheetView.findViewById(R.id.title_box);
                 TextView title = titleBox.findViewById(R.id.title);
-                String format_me = String.format(getString(R.string.changelog_title), this.theme_name);
+                String format_me = String.format(this.getString(R.string.changelog_title), this.theme_name);
                 title.setText(format_me);
 
                 LinearLayout textBox = sheetView.findViewById(R.id.text_box);
@@ -954,8 +954,8 @@ public class InformationActivity extends SubstratumActivity {
                                     // NameNotFound
                                 }
                             }
-                            currentShownLunchBar = Lunchbar.make(getView(),
-                                    getString(R.string.disable_completion),
+                            currentShownLunchBar = Lunchbar.make(this.getView(),
+                                    this.getString(R.string.disable_completion),
                                     Lunchbar.LENGTH_LONG);
                             currentShownLunchBar.show();
                             // Begin disabling overlays
@@ -1000,8 +1000,8 @@ public class InformationActivity extends SubstratumActivity {
                                     // NameNotFound
                                 }
                             }
-                            currentShownLunchBar = Lunchbar.make(getView(),
-                                    getString(R.string.enable_completion),
+                            currentShownLunchBar = Lunchbar.make(this.getView(),
+                                    this.getString(R.string.enable_completion),
                                     Lunchbar.LENGTH_LONG);
                             currentShownLunchBar.show();
 
@@ -1052,7 +1052,7 @@ public class InformationActivity extends SubstratumActivity {
         } else {
             if (this.uninstalled)
                 Broadcasts.sendRefreshMessage(this.mContext);
-            finish();
+            this.finish();
         }
     }
 
@@ -1062,7 +1062,7 @@ public class InformationActivity extends SubstratumActivity {
 
         // Close the active compiling notification if the app was closed from recents
         NotificationManager manager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         if (manager != null) {
             manager.cancel(References.notification_id_compiler);
         }
@@ -1315,7 +1315,7 @@ public class InformationActivity extends SubstratumActivity {
                 Log.d("ThemeUninstaller",
                         "The theme was uninstalled, so the activity is now closing!");
                 Broadcasts.sendRefreshMessage(context);
-                finish();
+                InformationActivity.this.finish();
             }
         }
     }
@@ -1324,7 +1324,7 @@ public class InformationActivity extends SubstratumActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            finish();
+            InformationActivity.this.finish();
         }
     }
 
@@ -1335,12 +1335,12 @@ public class InformationActivity extends SubstratumActivity {
             if (intent != null && !compilingProcess) {
                 String package_name = intent.getStringExtra("theme_pid");
                 if (package_name != null && package_name.equals(InformationActivity.this.theme_pid)) {
-                    String to_format = String.format(getString(R.string.toast_activity_finished),
+                    String to_format = String.format(InformationActivity.this.getString(R.string.toast_activity_finished),
                             InformationActivity.this.theme_name);
                     Log.d(SUBSTRATUM_LOG,
                             InformationActivity.this.theme_name + " was just updated, now closing InformationActivity...");
-                    createToast(to_format, Toast.LENGTH_LONG);
-                    finish();
+                    InformationActivity.this.createToast(to_format, Toast.LENGTH_LONG);
+                    InformationActivity.this.finish();
                     Handler handler = new Handler();
                     handler.postDelayed(() ->
                             Theming.launchTheme(InformationActivity.this.mContext, InformationActivity.this.theme_pid, InformationActivity.this.theme_mode), 500);

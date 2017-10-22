@@ -91,12 +91,12 @@ public class RecoveryFragment extends Fragment {
             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.mContext = getContext();
+        this.mContext = this.getContext();
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.restore_fragment, container, false);
 
         this.prefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
 
-        setHasOptionsMenu(true);
+        this.setHasOptionsMenu(true);
 
         Button overlaysButton = root.findViewById(R.id.overlaysButton);
         Button wallpaperButton = root.findViewById(R.id.wallpaperButton);
@@ -137,9 +137,9 @@ public class RecoveryFragment extends Fragment {
             home.setOnClickListener(view2 -> {
                 try {
                     WallpaperManager.clearWallpaper(this.mContext, "home");
-                    if (getView() != null) {
-                        Lunchbar.make(getView(),
-                                getString(R.string.manage_wallpaper_home_toast),
+                    if (this.getView() != null) {
+                        Lunchbar.make(this.getView(),
+                                this.getString(R.string.manage_wallpaper_home_toast),
                                 Lunchbar.LENGTH_LONG)
                                 .show();
                     }
@@ -155,9 +155,9 @@ public class RecoveryFragment extends Fragment {
             lock.setOnClickListener(view2 -> {
                 try {
                     WallpaperManager.clearWallpaper(this.mContext, "lock");
-                    if (getView() != null) {
-                        Lunchbar.make(getView(),
-                                getString(R.string.manage_wallpaper_lock_toast),
+                    if (this.getView() != null) {
+                        Lunchbar.make(this.getView(),
+                                this.getString(R.string.manage_wallpaper_lock_toast),
                                 Lunchbar.LENGTH_LONG)
                                 .show();
                     }
@@ -170,9 +170,9 @@ public class RecoveryFragment extends Fragment {
             both.setOnClickListener(view2 -> {
                 try {
                     WallpaperManager.clearWallpaper(this.mContext, "all");
-                    if (getView() != null) {
-                        Lunchbar.make(getView(),
-                                getString(R.string.manage_wallpaper_all_toast),
+                    if (this.getView() != null) {
+                        Lunchbar.make(this.getView(),
+                                this.getString(R.string.manage_wallpaper_all_toast),
                                 Lunchbar.LENGTH_LONG)
                                 .show();
                     }
@@ -216,12 +216,12 @@ public class RecoveryFragment extends Fragment {
                 } else {
                     Intent intent = new Intent(
                             Settings.ACTION_MANAGE_WRITE_SETTINGS);
-                    intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
+                    intent.setData(Uri.parse("package:" + this.getActivity().getPackageName()));
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    if (getView() != null) {
-                        Lunchbar.make(getView(),
-                                getString(R.string.fonts_dialog_permissions_grant_toast),
+                    this.startActivity(intent);
+                    if (this.getView() != null) {
+                        Lunchbar.make(this.getView(),
+                                this.getString(R.string.fonts_dialog_permissions_grant_toast),
                                 Lunchbar.LENGTH_LONG).show();
                     }
                 }
@@ -244,12 +244,12 @@ public class RecoveryFragment extends Fragment {
                 } else {
                     Intent intent = new Intent(
                             Settings.ACTION_MANAGE_WRITE_SETTINGS);
-                    intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
+                    intent.setData(Uri.parse("package:" + this.getActivity().getPackageName()));
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    if (getView() != null) {
-                        Lunchbar.make(getView(),
-                                getString(R.string.sounds_dialog_permissions_grant_toast),
+                    this.startActivity(intent);
+                    if (this.getView() != null) {
+                        Lunchbar.make(this.getView(),
+                                this.getString(R.string.sounds_dialog_permissions_grant_toast),
                                 Lunchbar.LENGTH_LONG).show();
                     }
                 }
@@ -260,13 +260,13 @@ public class RecoveryFragment extends Fragment {
         });
 
         View overlayCard = root.findViewById(R.id.restore_overlay_card);
-        if (Systems.isSamsung(getContext())) {
+        if (Systems.isSamsung(this.getContext())) {
             overlayCard.setVisibility(View.GONE);
         }
 
         View bootanimationCard = root.findViewById(R.id.restore_bootanimation_card);
-        if (Systems.isSamsung(getContext()) ||
-                (checkAndromeda(getContext()) && !Root.checkRootAccess())) {
+        if (Systems.isSamsung(this.getContext()) ||
+                (checkAndromeda(this.getContext()) && !Root.checkRootAccess())) {
             bootanimationCard.setVisibility(View.GONE);
         }
 
@@ -276,14 +276,14 @@ public class RecoveryFragment extends Fragment {
         }
 
         View soundCard = root.findViewById(R.id.restore_sounds_card);
-        if (Systems.isSamsung(getContext()) ||
-                (checkAndromeda(getContext()) && !Root.checkRootAccess())) {
+        if (Systems.isSamsung(this.getContext()) ||
+                (checkAndromeda(this.getContext()) && !Root.checkRootAccess())) {
             soundCard.setVisibility(View.GONE);
         }
 
         if (!this.prefs.getBoolean("seen_restore_warning", false) &&
-                !Systems.isSamsung(getContext())) {
-            showRecoveryWarning();
+                !Systems.isSamsung(this.getContext())) {
+            this.showRecoveryWarning();
         }
         return root;
     }
@@ -311,7 +311,7 @@ public class RecoveryFragment extends Fragment {
         int id = item.getItemId();
 
         if (id == R.id.restore_info) {
-            showRecoveryWarning();
+            this.showRecoveryWarning();
             return true;
         }
 

@@ -51,29 +51,29 @@ public class ManageSpaceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_space);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        this.setContentView(R.layout.activity_manage_space);
+        Toolbar toolbar = this.findViewById(R.id.toolbar);
+        this.setSupportActionBar(toolbar);
+        if (this.getSupportActionBar() != null) {
+            this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            this.getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-        if (toolbar != null) toolbar.setNavigationOnClickListener(v -> onBackPressed());
+        if (toolbar != null) toolbar.setNavigationOnClickListener(v -> this.onBackPressed());
 
-        CardView clearCacheButton = findViewById(R.id.clear_cache_button);
-        CardView resetAppButton = findViewById(R.id.reset_app_button);
-        this.cacheCounter = findViewById(R.id.cache_counter);
-        this.cacheCounter.setText(getString(R.string.clear_cache_button_loading));
-        this.cacheCounter.setText(Formatter.formatFileSize(this, getFileSize(getCacheDir())));
+        CardView clearCacheButton = this.findViewById(R.id.clear_cache_button);
+        CardView resetAppButton = this.findViewById(R.id.reset_app_button);
+        this.cacheCounter = this.findViewById(R.id.cache_counter);
+        this.cacheCounter.setText(this.getString(R.string.clear_cache_button_loading));
+        this.cacheCounter.setText(Formatter.formatFileSize(this, getFileSize(this.getCacheDir())));
 
         clearCacheButton.setOnClickListener(v -> {
-            this.cacheCounter.setText(getString(R.string.clear_cache_button_loading));
+            this.cacheCounter.setText(this.getString(R.string.clear_cache_button_loading));
             new ClearCache(this).execute();
         });
 
-        CardView clearLogsButton = findViewById(R.id.clear_logs_button);
-        this.logsCounter = findViewById(R.id.log_counter);
-        this.logsCounter.setText(getString(R.string.clear_cache_button_loading));
+        CardView clearLogsButton = this.findViewById(R.id.clear_logs_button);
+        this.logsCounter = this.findViewById(R.id.log_counter);
+        this.logsCounter.setText(this.getString(R.string.clear_cache_button_loading));
         File filer = new File(LOGCHAR_DIR);
         if (filer.isDirectory()) {
             this.logsCounter.setText(String.valueOf(filer.list().length));
@@ -82,7 +82,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
         }
 
         clearLogsButton.setOnClickListener(v -> {
-            this.logsCounter.setText(getString(R.string.clear_cache_button_loading));
+            this.logsCounter.setText(this.getString(R.string.clear_cache_button_loading));
             new ClearLogs(this).execute();
         });
 
@@ -98,14 +98,14 @@ public class ManageSpaceActivity extends AppCompatActivity {
                     .create();
             dialog.show();
         });
-        this.callingPackage = getCallingPackage();
+        this.callingPackage = this.getCallingPackage();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        this.cacheCounter.setText(getString(R.string.clear_cache_button_loading));
-        this.cacheCounter.setText(Formatter.formatFileSize(this, getFileSize(getCacheDir())));
+        this.cacheCounter.setText(this.getString(R.string.clear_cache_button_loading));
+        this.cacheCounter.setText(Formatter.formatFileSize(this, getFileSize(this.getCacheDir())));
     }
 
     @Override

@@ -67,7 +67,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
     @Override
     public void onBindViewHolder(final GestureViewHolder holder, final int position) {
         super.onBindViewHolder(holder, position);
-        final PrioritiesInterface prioritiesInterface = getData().get(position);
+        final PrioritiesInterface prioritiesInterface = this.getData().get(position);
 
         if (prioritiesInterface.getType() == PrioritiesInterface.PrioritiesItemType.CONTENT) {
             PriorityObjectAdapter priorityObjectAdapter = (PriorityObjectAdapter) holder;
@@ -275,7 +275,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
 
     @Override
     public int getItemViewType(final int position) {
-        return getData().get(position).getType().ordinal();
+        return this.getData().get(position).getType().ordinal();
     }
 
     private class PrioritiesHeader implements PrioritiesInterface {

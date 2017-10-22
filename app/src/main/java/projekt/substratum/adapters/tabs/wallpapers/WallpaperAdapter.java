@@ -160,7 +160,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                         wallpaperAdapter.mContext.getSystemService(Context.POWER_SERVICE);
                 if (pm != null) {
                     wallpaperAdapter.mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-                            getClass().getName());
+                            this.getClass().getName());
                 }
                 wallpaperAdapter.mWakeLock.acquire(10 * 60 * 1000L /*10 minutes*/);
                 wallpaperAdapter.mProgressDialog.setOnCancelListener(

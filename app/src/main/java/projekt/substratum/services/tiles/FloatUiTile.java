@@ -30,27 +30,27 @@ public class FloatUiTile extends TileService {
 
     @Override
     public void onTileAdded() {
-        switchState();
+        this.switchState();
         super.onTileAdded();
     }
 
     @Override
     public void onStartListening() {
-        switchState();
+        this.switchState();
         super.onStartListening();
     }
 
     @Override
     public void onClick() {
         Intent intent = new Intent(this, FloatUILaunchActivity.class);
-        startActivityAndCollapse(intent);
+        this.startActivityAndCollapse(intent);
     }
 
     private void switchState() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
-                getApplicationContext());
+                this.getApplicationContext());
         int state = prefs.getInt("float_tile", Tile.STATE_INACTIVE);
-        Tile tile = getQsTile();
+        Tile tile = this.getQsTile();
         if (tile != null) {
             tile.setState(state);
             tile.updateTile();

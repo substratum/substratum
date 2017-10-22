@@ -200,7 +200,7 @@ public class BootAnimationUtils {
                                      this.mContext.getCacheDir().getAbsolutePath() +
                                              "/BootAnimationCache/AnimationCreator/" +
                                              bootanimation + ".zip")) {
-                            CopyStream(inputStream, outputStream);
+                            this.CopyStream(inputStream, outputStream);
                         }
                     } catch (Exception e) {
                         this.has_failed = true;

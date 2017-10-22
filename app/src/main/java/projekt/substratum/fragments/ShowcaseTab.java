@@ -68,7 +68,7 @@ public class ShowcaseTab extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
-        this.mContext = getContext();
+        this.mContext = this.getContext();
         this.prefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
 
         Bundle bundle = this.getArguments();
@@ -82,7 +82,7 @@ public class ShowcaseTab extends Fragment {
         this.no_network = this.root.findViewById(R.id.no_network);
         this.no_wallpapers = this.root.findViewById(R.id.none_found);
 
-        refreshLayout();
+        this.refreshLayout();
         return this.root;
     }
 

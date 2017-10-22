@@ -134,14 +134,14 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setHasOptionsMenu(true);
+        this.setHasOptionsMenu(true);
 
         // Register the theme install receiver to auto refresh the fragment
         this.refreshReceiver = new RefreshReceiver();
-        this.localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
+        this.localBroadcastManager = LocalBroadcastManager.getInstance(this.getContext());
         this.localBroadcastManager.registerReceiver(this.refreshReceiver, new IntentFilter(MANAGER_REFRESH));
 
-        this.context = getContext();
+        this.context = this.getContext();
         this.prefs = PreferenceManager.getDefaultSharedPreferences(this.context);
         this.root = (ViewGroup) inflater.inflate(R.layout.manager_fragment, container, false);
         this.toggle_zone = this.root.findViewById(R.id.toggle_zone);
@@ -212,7 +212,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     }
                 });
 
-        resetRecyclerView();
+        this.resetRecyclerView();
         new LayoutReloader(ManagerFragment.this, this.userInput).execute();
 
         if (Systems.checkThemeInterfacer(this.context)) {
@@ -266,7 +266,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         if (disable_selected != null) {
             if (!Systems.checkOMS(this.context)) {
                 if (!Systems.isSamsungDevice(this.context)) {
-                    disable_selected.setText(getString(R.string.fab_menu_uninstall));
+                    disable_selected.setText(this.getString(R.string.fab_menu_uninstall));
                 } else {
                     disable_selected.setVisibility(View.GONE);
                 }
@@ -305,9 +305,9 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         menu.findItem(R.id.per_app).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         menu.findItem(R.id.action_search).setVisible(true);
         menu.findItem(R.id.action_search).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        this.searchView = ((MainActivity) getActivity()).searchView;
+        this.searchView = ((MainActivity) this.getActivity()).searchView;
         if (this.searchView != null) this.searchView.setOnQueryTextListener(this);
-        updateMenuButtonState(menu);
+        this.updateMenuButtonState(menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -324,9 +324,9 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-        Boolean alphabetize = updateMenuButtonState(menu);
+        Boolean alphabetize = this.updateMenuButtonState(menu);
         if ((this.overlayList != null && this.overlayList.size() > 0)) {
-            if (!alphabetize) refreshThemeName();
+            if (!alphabetize) this.refreshThemeName();
             new LayoutReloader(ManagerFragment.this, this.userInput).execute();
         }
         super.onPrepareOptionsMenu(menu);
@@ -344,7 +344,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 } else {
                     this.prefs.edit().putBoolean("alphabetize_overlays", true).apply();
                 }
-                getActivity().invalidateOptionsMenu();
+                this.getActivity().invalidateOptionsMenu();
                 return true;
             }
         }
@@ -389,7 +389,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     }
 
     private List<String> updateEnabledOverlays() {
-        return new ArrayList<>(ThemeManager.listOverlays(getContext(), STATE_ENABLED));
+        return new ArrayList<>(ThemeManager.listOverlays(this.getContext(), STATE_ENABLED));
     }
 
     @Override

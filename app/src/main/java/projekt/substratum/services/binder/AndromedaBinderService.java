@@ -54,15 +54,15 @@ public class AndromedaBinderService extends Service implements ServiceConnection
         if (Systems.checkAndromeda(this) && !this.mBound) {
             Intent intent = new Intent(ANDROMEDA_BINDED);
             intent.setPackage(ANDROMEDA_PACKAGE);
-            if (!bindService(intent, this, Context.BIND_AUTO_CREATE)) {
-                stopSelf();
+            if (!this.bindService(intent, this, Context.BIND_AUTO_CREATE)) {
+                this.stopSelf();
             }
         }
     }
 
     @Override
     public void onCreate() {
-        bindAndromeda();
+        this.bindAndromeda();
 
         new Thread(() -> {
             while (!this.mBound) {
@@ -82,12 +82,12 @@ public class AndromedaBinderService extends Service implements ServiceConnection
                     }
 
                     if (!AndromedaService.checkServerActivity()) {
-                        sendBadNotification(getApplicationContext());
+                        this.sendBadNotification(this.getApplicationContext());
                         failed = true;
                     }
                 }
             } else {
-                sendBadNotification(getApplicationContext());
+                this.sendBadNotification(this.getApplicationContext());
             }
         }).start();
     }
@@ -111,13 +111,13 @@ public class AndromedaBinderService extends Service implements ServiceConnection
         Log.d(TAG, "Substratum has successfully binded with the Andromeda module.");
         if (iAndromedaInterface != null && AndromedaService.checkServerActivity()) {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(
-                    getApplicationContext(), References.ANDROMEDA_NOTIFICATION_CHANNEL_ID);
-            builder.setContentTitle(getString(R.string.andromeda_notification_title))
-                    .setContentText(getString(R.string.andromeda_notification_text))
+                    this.getApplicationContext(), References.ANDROMEDA_NOTIFICATION_CHANNEL_ID);
+            builder.setContentTitle(this.getString(R.string.andromeda_notification_title))
+                    .setContentText(this.getString(R.string.andromeda_notification_text))
                     .setSmallIcon(R.drawable.notification_icon);
-            startForeground(2018, builder.build());
+            this.startForeground(2018, builder.build());
         } else {
-            stopSelf();
+            this.stopSelf();
         }
     }
 
@@ -131,7 +131,7 @@ public class AndromedaBinderService extends Service implements ServiceConnection
     public void sendBadNotification(Context context) {
         NotificationManager mNotifyMgr =
                 (NotificationManager)
-                        getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
+                        this.getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
         boolean isBadNotificationShowing = false;
         final int badNotificationId = 2017;
         if (mNotifyMgr != null) {
@@ -145,12 +145,12 @@ public class AndromedaBinderService extends Service implements ServiceConnection
         }
         if (mNotifyMgr != null && !isBadNotificationShowing) {
             final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder
-                    (getApplicationContext(), References.ANDROMEDA_NOTIFICATION_CHANNEL_ID);
+                    (this.getApplicationContext(), References.ANDROMEDA_NOTIFICATION_CHANNEL_ID);
             mBuilder.setContentTitle(
-                    getApplicationContext().getString(
+                    this.getApplicationContext().getString(
                             R.string.andromeda_notification_title_negation));
             mBuilder.setContentText(
-                    getApplicationContext().getString(
+                    this.getApplicationContext().getString(
                             R.string.andromeda_notification_text_negation));
             mBuilder.setOngoing(false);
             mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
@@ -158,6 +158,6 @@ public class AndromedaBinderService extends Service implements ServiceConnection
         }
 
         Broadcasts.sendAndromedaRefreshMessage(context);
-        stopSelf();
+        this.stopSelf();
     }
 }

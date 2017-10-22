@@ -163,8 +163,8 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
                 ImageView two = sheetView.findViewById(R.id.theme_unready_indicator);
                 ImageView tbo = sheetView.findViewById(R.id.theme_ready_indicator);
-                tbo.setOnClickListener(v2 -> explainTBO());
-                two.setOnClickListener(v2 -> explainTWO());
+                tbo.setOnClickListener(v2 -> this.explainTBO());
+                two.setOnClickListener(v2 -> this.explainTWO());
 
                 try {
                     switch (themeItem.getThemeReadyVariable()) {
@@ -306,8 +306,8 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
             return false;
         });
 
-        viewHolder.tbo.setOnClickListener(v -> explainTBO());
-        viewHolder.two.setOnClickListener(v -> explainTWO());
+        viewHolder.tbo.setOnClickListener(v -> this.explainTBO());
+        viewHolder.two.setOnClickListener(v -> this.explainTWO());
 
         viewHolder.theme_author.setText(themeItem.getThemeAuthor());
         viewHolder.imageView.setImageDrawable(themeItem.getThemeDrawable());

@@ -41,12 +41,12 @@ public class SubstratumCrash extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.crash_activity);
+        this.setContentView(R.layout.crash_activity);
 
-        String stacktrace = createErrorReport(getIntent());
-        CaocConfig caocConfig = CustomActivityOnCrash.getConfigFromIntent(getIntent());
+        String stacktrace = this.createErrorReport(this.getIntent());
+        CaocConfig caocConfig = CustomActivityOnCrash.getConfigFromIntent(this.getIntent());
 
-        Button restartButton = findViewById(R.id.restart);
+        Button restartButton = this.findViewById(R.id.restart);
         restartButton.setOnClickListener(view -> {
             Intent intent = new Intent(SubstratumCrash.this, SplashScreenActivity.class);
             CustomActivityOnCrash.restartApplicationWithIntent(
@@ -55,32 +55,32 @@ public class SubstratumCrash extends Activity {
                     caocConfig);
         });
 
-        Button rescueMeButton = findViewById(R.id.rescue_me);
+        Button rescueMeButton = this.findViewById(R.id.rescue_me);
         rescueMeButton.setOnClickListener(view -> {
             Intent intent = new Intent(SubstratumCrash.this, RescueActivity.class);
-            startActivity(intent);
-            finish();
+            this.startActivity(intent);
+            this.finish();
         });
 
 
         Boolean isSubstratumOverlayFault = References.stringContainsItemFromList(stacktrace,
                 SUBSTRATUM_OVERLAY_FAULT_EXCEPTIONS);
 
-        if (!Systems.isSamsungDevice(getApplicationContext())) {
+        if (!Systems.isSamsungDevice(this.getApplicationContext())) {
             if (isSubstratumOverlayFault) {
                 // Pulsate the Rescue Me button
                 new Timer().scheduleAtFixedRate(new TimerTask() {
                     @Override
                     public void run() {
                         if (SubstratumCrash.this.shouldPulsate) {
-                            runOnUiThread(() ->
+                            SubstratumCrash.this.runOnUiThread(() ->
                                     rescueMeButton.getBackground().setColorFilter(
-                                            getColor(R.color.do_not_theme_this_color_button_pulse),
+                                            SubstratumCrash.this.getColor(R.color.do_not_theme_this_color_button_pulse),
                                             PorterDuff.Mode.SRC_ATOP));
                         } else {
-                            runOnUiThread(() ->
+                            SubstratumCrash.this.runOnUiThread(() ->
                                     rescueMeButton.getBackground().setColorFilter(
-                                            getColor(R.color.do_not_theme_this_color_buttons),
+                                            SubstratumCrash.this.getColor(R.color.do_not_theme_this_color_buttons),
                                             PorterDuff.Mode.SRC_ATOP));
                         }
                         SubstratumCrash.this.shouldPulsate = !SubstratumCrash.this.shouldPulsate;
@@ -95,12 +95,12 @@ public class SubstratumCrash extends Activity {
                     .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
                         Intent intent = new Intent(
                                 Settings.ACTION_MANAGE_ALL_APPLICATIONS_SETTINGS);
-                        startActivity(intent);
+                        this.startActivity(intent);
                     })
                     .show();
         }
 
-        Button stacktraceButton = findViewById(R.id.logcat);
+        Button stacktraceButton = this.findViewById(R.id.logcat);
         stacktraceButton.setOnClickListener(view -> {
             TextView showText = new TextView(this);
             showText.setPadding(70, 30, 70, 30);
@@ -115,8 +115,8 @@ public class SubstratumCrash extends Activity {
                     .setNeutralButton(R.string
                                     .customactivityoncrash_error_activity_error_details_copy,
                             (dialog1, which) -> {
-                                References.copyToClipboard(getApplicationContext(),
-                                        getString(R.string
+                                References.copyToClipboard(this.getApplicationContext(),
+                                        this.getString(R.string
                                                 .customactivityoncrash_error_activity_error_details_clipboard_label),
                                         stacktrace);
                                 Toast.makeText(this,
@@ -128,7 +128,7 @@ public class SubstratumCrash extends Activity {
     }
 
     private String createErrorReport(Intent intent) {
-        String versionName = Packages.getAppVersion(this, getPackageName());
+        String versionName = Packages.getAppVersion(this, this.getPackageName());
         String details = "";
 
         details += "Build version: " + versionName + "\n";
@@ -139,7 +139,7 @@ public class SubstratumCrash extends Activity {
         if (!xposed.isEmpty()) details += " {" + xposed + "}";
         details += "\n";
 
-        String rom = Systems.checkFirmwareSupport(this, getString(R.string.supported_roms_url),
+        String rom = Systems.checkFirmwareSupport(this, this.getString(R.string.supported_roms_url),
                 "supported_roms.xml");
         String romVersion = Build.VERSION.RELEASE + " - " +
                 (!rom.isEmpty() ? rom : "Unknown");

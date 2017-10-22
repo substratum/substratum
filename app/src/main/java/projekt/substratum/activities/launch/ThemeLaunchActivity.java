@@ -84,7 +84,7 @@ public class ThemeLaunchActivity extends Activity {
         super.onCreate(savedInstanceState);
         int intent_id = (int) ThreadLocalRandom.current().nextLong(0, 9999);
 
-        Intent activityExtras = getIntent();
+        Intent activityExtras = this.getIntent();
         this.package_name = activityExtras.getStringExtra("package_name");
         Boolean omsCheck = activityExtras.getBooleanExtra("oms_check", false);
         this.theme_mode = activityExtras.getStringExtra("theme_mode");
@@ -104,12 +104,12 @@ public class ThemeLaunchActivity extends Activity {
 
         try {
             assert action != null;
-            startActivityForResult(myIntent,
+            this.startActivityForResult(myIntent,
                     (action.equals(References.TEMPLATE_GET_KEYS) ? 10000 : intent_id));
         } catch (Exception e) {
             try {
                 this.legacyTheme = true;
-                startActivityForResult(myIntent,
+                this.startActivityForResult(myIntent,
                         (action.equals(References.TEMPLATE_GET_KEYS) ? 10000 : intent_id));
             } catch (Exception e2) {
                 // Suppress warning
@@ -136,9 +136,9 @@ public class ThemeLaunchActivity extends Activity {
                 byte[] encryption_key = intent.getByteArray("encryption_key");
                 byte[] iv_encrypt_key = intent.getByteArray("iv_encrypt_key");
 
-                startActivity(
+                this.startActivity(
                         launchThemeActivity(
-                                getApplicationContext(),
+                                this.getApplicationContext(),
                                 theme_name,
                                 theme_author,
                                 theme_pid,
@@ -149,14 +149,14 @@ public class ThemeLaunchActivity extends Activity {
                                 theme_piracy_check,
                                 encryption_key,
                                 iv_encrypt_key,
-                                Systems.checkOMS(getApplicationContext())
+                                Systems.checkOMS(this.getApplicationContext())
                         ));
             }
         } else if (this.legacyTheme && requestCode != 10000) {
-            startActivity(
+            this.startActivity(
                     launchThemeActivity(
-                            getApplicationContext(),
-                            Packages.getPackageName(getApplicationContext(), this.package_name),
+                            this.getApplicationContext(),
+                            Packages.getPackageName(this.getApplicationContext(), this.package_name),
                             null,
                             this.package_name,
                             this.theme_mode,
@@ -166,10 +166,10 @@ public class ThemeLaunchActivity extends Activity {
                             null,
                             null,
                             null,
-                            Systems.checkOMS(getApplicationContext())
+                            Systems.checkOMS(this.getApplicationContext())
                     ));
         }
         this.legacyTheme = false;
-        finish();
+        this.finish();
     }
 }

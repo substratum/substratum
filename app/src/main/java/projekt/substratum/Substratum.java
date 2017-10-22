@@ -64,19 +64,19 @@ public class Substratum extends Application {
 
         // Firebase debug checks
         try {
-            FirebaseApp.initializeApp(getApplicationContext());
+            FirebaseApp.initializeApp(this.getApplicationContext());
             FirebaseCrash.setCrashCollectionEnabled(!DEBUG);
         } catch (IllegalStateException ise) {
             // Suppress warning
         }
 
         // Dynamically check which theme engine is running at the moment
-        if (isAndromedaDevice(getApplicationContext())) {
+        if (isAndromedaDevice(this.getApplicationContext())) {
             Log.d(BINDER_TAG, "Successful to start the Andromeda binder service: " +
-                    (startBinderService(AndromedaBinderService.class) ? "Success!" : "Failed"));
-        } else if (isBinderInterfacer(getApplicationContext())) {
+                    (this.startBinderService(AndromedaBinderService.class) ? "Success!" : "Failed"));
+        } else if (isBinderInterfacer(this.getApplicationContext())) {
             Log.d(BINDER_TAG, "Successful to start the Interfacer binder service: " +
-                    (startBinderService(InterfacerBinderService.class) ? "Success!" : "Failed"));
+                    (this.startBinderService(InterfacerBinderService.class) ? "Success!" : "Failed"));
         }
 
         // Implicit broadcasts must be declared
@@ -84,7 +84,7 @@ public class Substratum extends Application {
 
         // If the device is Android Oreo, create a persistent notification
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            createNotificationChannel();
+            this.createNotificationChannel();
         }
 
         // Custom Activity on Crash initialization
@@ -102,13 +102,13 @@ public class Substratum extends Application {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void createNotificationChannel() {
         NotificationManager notificationManager =
-                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                (NotificationManager) this.getSystemService(NOTIFICATION_SERVICE);
         NotificationChannel mainChannel = new NotificationChannel(
                 References.DEFAULT_NOTIFICATION_CHANNEL_ID,
-                getString(R.string.notification_channel_default),
+                this.getString(R.string.notification_channel_default),
                 NotificationManager.IMPORTANCE_DEFAULT);
         mainChannel.setDescription(
-                getString(R.string.notification_channel_default_description));
+                this.getString(R.string.notification_channel_default_description));
         mainChannel.setSound(null, new AudioAttributes.Builder()
                 .setUsage(AudioAttributes.USAGE_NOTIFICATION)
                 .build());
@@ -117,39 +117,39 @@ public class Substratum extends Application {
 
         NotificationChannel compileChannel = new NotificationChannel(
                 References.ONGOING_NOTIFICATION_CHANNEL_ID,
-                getString(R.string.notification_channel_ongoing),
+                this.getString(R.string.notification_channel_ongoing),
                 NotificationManager.IMPORTANCE_LOW);
         mainChannel.setDescription(
-                getString(R.string.notification_channel_ongoing_description));
+                this.getString(R.string.notification_channel_ongoing_description));
         notificationManager.createNotificationChannel(compileChannel);
 
         NotificationChannel andromedaChannel = new NotificationChannel(
                 References.ANDROMEDA_NOTIFICATION_CHANNEL_ID,
-                getString(R.string.notification_channel_andromeda),
+                this.getString(R.string.notification_channel_andromeda),
                 NotificationManager.IMPORTANCE_NONE);
         andromedaChannel.setDescription(
-                getString(R.string.notification_channel_andromeda_description));
+                this.getString(R.string.notification_channel_andromeda_description));
         notificationManager.createNotificationChannel(andromedaChannel);
     }
 
     public boolean startBinderService(Class className) {
         try {
             if (className.equals(AndromedaBinderService.class)) {
-                if (checkServiceActivation(AndromedaBinderService.class)) {
+                if (this.checkServiceActivation(AndromedaBinderService.class)) {
                     Log.d(BINDER_TAG,
                             "This session will utilize the connected Andromeda Binder service!");
                 } else {
                     Log.d(BINDER_TAG,
                             "Substratum is now connecting to the Andromeda Binder service...");
-                    startService(new Intent(getApplicationContext(), AndromedaBinderService.class));
+                    this.startService(new Intent(this.getApplicationContext(), AndromedaBinderService.class));
                 }
             } else if (className.equals(InterfacerBinderService.class)) {
-                if (checkServiceActivation(InterfacerBinderService.class)) {
+                if (this.checkServiceActivation(InterfacerBinderService.class)) {
                     Log.d(BINDER_TAG, "This session will utilize the connected Binder service!");
                 } else {
                     Log.d(BINDER_TAG, "Substratum is now connecting to the Binder service...");
-                    Intent i = new Intent(getApplicationContext(), InterfacerBinderService.class);
-                    startService(i);
+                    Intent i = new Intent(this.getApplicationContext(), InterfacerBinderService.class);
+                    this.startService(i);
                 }
             }
             return true;
@@ -160,7 +160,7 @@ public class Substratum extends Application {
     }
 
     private boolean checkServiceActivation(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager manager = (ActivityManager) this.getSystemService(Context.ACTIVITY_SERVICE);
         assert manager != null;
         for (ActivityManager.RunningServiceInfo service :
                 manager.getRunningServices(Integer.MAX_VALUE)) {
@@ -182,12 +182,12 @@ public class Substratum extends Application {
     public void registerFinishReceiver() {
         IntentFilter filter = new IntentFilter(Intent.ACTION_PACKAGE_ADDED);
         filter.addDataScheme("package");
-        registerReceiver(finishReceiver, filter);
+        this.registerReceiver(finishReceiver, filter);
     }
 
     public void unregisterFinishReceiver() {
         try {
-            unregisterReceiver(finishReceiver);
+            this.unregisterReceiver(finishReceiver);
         } catch (IllegalArgumentException e) {
             // Already unregistered
         }

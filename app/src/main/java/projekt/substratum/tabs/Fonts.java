@@ -106,10 +106,10 @@ public class Fonts extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
-        this.mContext = getContext();
-        this.theme_pid = getArguments().getString("theme_pid");
-        byte[] encryption_key = getArguments().getByteArray("encryption_key");
-        byte[] iv_encrypt_key = getArguments().getByteArray("iv_encrypt_key");
+        this.mContext = this.getContext();
+        this.theme_pid = this.getArguments().getString("theme_pid");
+        byte[] encryption_key = this.getArguments().getByteArray("encryption_key");
+        byte[] iv_encrypt_key = this.getArguments().getByteArray("iv_encrypt_key");
 
         // encrypted = encryption_key != null && iv_encrypt_key != null;
 
@@ -144,14 +144,14 @@ public class Fonts extends Fragment {
 
             // Creates the list of dropdown items
             ArrayList<String> fonts = new ArrayList<>();
-            fonts.add(getString(R.string.font_default_spinner));
-            fonts.add(getString(R.string.font_spinner_set_defaults));
+            fonts.add(this.getString(R.string.font_default_spinner));
+            fonts.add(this.getString(R.string.font_spinner_set_defaults));
             for (int i = 0; i < unparsedFonts.size(); i++) {
                 fonts.add(unparsedFonts.get(i).substring(0,
                         unparsedFonts.get(i).length() - (this.encrypted ? 8 : 4)));
             }
 
-            SpinnerAdapter adapter1 = new ArrayAdapter<>(getActivity(),
+            SpinnerAdapter adapter1 = new ArrayAdapter<>(this.getActivity(),
                     android.R.layout.simple_spinner_dropdown_item, fonts);
             this.fontSelector = this.root.findViewById(R.id.fontSelection);
             this.fontSelector.setAdapter(adapter1);
@@ -187,7 +187,7 @@ public class Fonts extends Fragment {
                             Fonts.this.defaults.setVisibility(View.GONE);
                             Fonts.this.font_placeholder.setVisibility(View.GONE);
                             String[] commands = {arg0.getSelectedItem().toString()};
-                            Fonts.this.current = new FontPreview(getInstance()).execute(commands);
+                            Fonts.this.current = new FontPreview(Fonts.this.getInstance()).execute(commands);
                     }
                 }
 
@@ -231,11 +231,11 @@ public class Fonts extends Fragment {
                 }
             } else {
                 Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
-                intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
+                intent.setData(Uri.parse("package:" + this.getActivity().getPackageName()));
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                this.startActivity(intent);
                 Toast toast = Toast.makeText(this.mContext,
-                        getString(R.string.fonts_dialog_permissions_grant_toast2),
+                        this.getString(R.string.fonts_dialog_permissions_grant_toast2),
                         Toast.LENGTH_LONG);
                 toast.show();
             }
@@ -443,7 +443,7 @@ public class Fonts extends Fragment {
                                      new FileOutputStream(
                                              fonts.mContext.getCacheDir().getAbsolutePath() +
                                                      "/FontCache/" + source)) {
-                            CopyStream(inputStream, outputStream);
+                            this.CopyStream(inputStream, outputStream);
                         } catch (Exception e) {
                             Log.e(TAG,
                                     "There is no fonts.zip found within the assets of this theme!");
@@ -451,7 +451,7 @@ public class Fonts extends Fragment {
                     }
 
                     // Unzip the fonts to get it prepared for the preview
-                    unzip(fonts.mContext.getCacheDir().getAbsolutePath() + "/FontCache/" + source,
+                    this.unzip(fonts.mContext.getCacheDir().getAbsolutePath() + "/FontCache/" + source,
                             fonts.mContext.getCacheDir().getAbsolutePath() +
                                     "/FontCache/font_preview/");
                 } catch (Exception e) {
@@ -500,8 +500,8 @@ public class Fonts extends Fragment {
     class JobReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (!isAdded()) return;
-            startApply();
+            if (!Fonts.this.isAdded()) return;
+            Fonts.this.startApply();
         }
     }
 }

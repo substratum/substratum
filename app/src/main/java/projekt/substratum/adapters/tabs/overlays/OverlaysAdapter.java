@@ -100,13 +100,13 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 }
 
                 if (pos == 0) {
-                    zeroIndex(context, current_object, viewHolder);
+                    OverlaysAdapter.this.zeroIndex(context, current_object, viewHolder);
                 }
 
                 if (pos >= 1) {
                     String packageName = "";
                     if (spinnerNumber == 1) {
-                        packageName = setPackageName(packageName, arg0);
+                        packageName = this.setPackageName(packageName, arg0);
                     } else {
                         if (viewHolder.optionsSpinner != null && viewHolder
                                 .optionsSpinner.getVisibility() == View.VISIBLE)
@@ -116,7 +116,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                                         .replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
                     }
                     if (spinnerNumber == 2) {
-                        packageName = setPackageName(packageName, arg0);
+                        packageName = this.setPackageName(packageName, arg0);
                     } else {
                         if (viewHolder.optionsSpinner2 != null && viewHolder
                                 .optionsSpinner2.getVisibility() == View.VISIBLE)
@@ -126,7 +126,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                                         .replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
                     }
                     if (spinnerNumber == 3) {
-                        packageName = setPackageName(packageName, arg0);
+                        packageName = this.setPackageName(packageName, arg0);
                     } else {
                         if (viewHolder.optionsSpinner3 != null && viewHolder
                                 .optionsSpinner3.getVisibility() == View.VISIBLE)
@@ -136,7 +136,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                                         .replaceAll("[^a-zA-Z0-9]+", "");
                     }
                     if (spinnerNumber == 4) {
-                        packageName = setPackageName(packageName, arg0);
+                        packageName = this.setPackageName(packageName, arg0);
                     } else {
                         if (viewHolder.optionsSpinner4 != null && viewHolder
                                 .optionsSpinner4.getVisibility() == View.VISIBLE)
@@ -146,7 +146,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                                         .replaceAll("[^a-zA-Z0-9]+", "");
                     }
                     if (spinnerNumber == 5) {
-                        packageName = setPackageName(packageName, arg0);
+                        packageName = this.setPackageName(packageName, arg0);
                     } else {
                         if (viewHolder.optionsSpinner5 != null && viewHolder
                                 .optionsSpinner5.getVisibility() == View.VISIBLE)
@@ -155,7 +155,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                                         .getSelectedItem().toString().replaceAll("\\s+", "")
                                         .replaceAll("[^a-zA-Z0-9]+", "");
                     }
-                    commitChanges(context, current_object, viewHolder, packageName);
+                    OverlaysAdapter.this.commitChanges(context, current_object, viewHolder, packageName);
                 }
             }
 
@@ -370,7 +370,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 viewHolder.optionsSpinner.setVisibility(View.VISIBLE);
                 viewHolder.optionsSpinner.setAdapter(current_object.getSpinnerArray());
                 viewHolder.optionsSpinner.setOnItemSelectedListener(
-                        adapterViewOISL(context, current_object, viewHolder, 1));
+                        this.adapterViewOISL(context, current_object, viewHolder, 1));
                 viewHolder.optionsSpinner.setSelection(current_object.getSelectedVariant());
             } else {
                 viewHolder.optionsSpinner.setVisibility(View.GONE);
@@ -379,7 +379,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 viewHolder.optionsSpinner2.setVisibility(View.VISIBLE);
                 viewHolder.optionsSpinner2.setAdapter(current_object.getSpinnerArray2());
                 viewHolder.optionsSpinner2.setOnItemSelectedListener(
-                        adapterViewOISL(context, current_object, viewHolder, 2));
+                        this.adapterViewOISL(context, current_object, viewHolder, 2));
                 viewHolder.optionsSpinner2.setSelection(current_object.getSelectedVariant2());
             } else {
                 viewHolder.optionsSpinner2.setVisibility(View.GONE);
@@ -388,7 +388,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 viewHolder.optionsSpinner3.setVisibility(View.VISIBLE);
                 viewHolder.optionsSpinner3.setAdapter(current_object.getSpinnerArray3());
                 viewHolder.optionsSpinner3.setOnItemSelectedListener(
-                        adapterViewOISL(context, current_object, viewHolder, 3));
+                        this.adapterViewOISL(context, current_object, viewHolder, 3));
                 viewHolder.optionsSpinner3.setSelection(current_object.getSelectedVariant3());
             } else {
                 viewHolder.optionsSpinner3.setVisibility(View.GONE);
@@ -397,7 +397,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 viewHolder.optionsSpinner4.setVisibility(View.VISIBLE);
                 viewHolder.optionsSpinner4.setAdapter(current_object.getSpinnerArray4());
                 viewHolder.optionsSpinner4.setOnItemSelectedListener(
-                        adapterViewOISL(context, current_object, viewHolder, 4));
+                        this.adapterViewOISL(context, current_object, viewHolder, 4));
                 viewHolder.optionsSpinner4.setSelection(current_object.getSelectedVariant4());
             } else {
                 viewHolder.optionsSpinner4.setVisibility(View.GONE);
@@ -406,7 +406,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 viewHolder.optionsSpinner5.setVisibility(View.VISIBLE);
                 viewHolder.optionsSpinner5.setAdapter(current_object.getSpinnerArray5());
                 viewHolder.optionsSpinner5.setOnItemSelectedListener(
-                        adapterViewOISL(context, current_object, viewHolder, 5));
+                        this.adapterViewOISL(context, current_object, viewHolder, 5));
                 viewHolder.optionsSpinner5.setSelection(current_object.getSelectedVariant5());
             } else {
                 viewHolder.optionsSpinner5.setVisibility(View.GONE);

@@ -49,19 +49,19 @@ public class FloatingActionMenu extends FloatingActionButton implements Animated
 
     @Override
     public void show() {
-        show(0, 0);
+        this.show(0, 0);
     }
 
     @Override
     public void show(float translationX, float translationY) {
         // Set FAB's translation
-        setTranslation(translationX, translationY);
+        this.setTranslation(translationX, translationY);
 
         // Only use scale animation if FAB is hidden
-        if (getVisibility() != View.VISIBLE) {
+        if (this.getVisibility() != View.VISIBLE) {
             // Pivots indicate where the animation begins from
-            float pivotX = getPivotX() + translationX;
-            float pivotY = getPivotY() + translationY;
+            float pivotX = this.getPivotX() + translationX;
+            float pivotY = this.getPivotY() + translationY;
 
             ScaleAnimation anim;
             // If pivots are 0, that means the FAB hasn't been drawn yet so just use the
@@ -75,35 +75,35 @@ public class FloatingActionMenu extends FloatingActionButton implements Animated
 
             // Animate FAB expanding
             anim.setDuration(FAB_ANIM_DURATION);
-            anim.setInterpolator(getInterpolator());
-            startAnimation(anim);
+            anim.setInterpolator(this.getInterpolator());
+            this.startAnimation(anim);
         }
-        setVisibility(View.VISIBLE);
+        this.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hide() {
         // Only use scale animation if FAB is visible
-        if (getVisibility() == View.VISIBLE) {
+        if (this.getVisibility() == View.VISIBLE) {
             // Pivots indicate where the animation begins from
-            float pivotX = getPivotX() + getTranslationX();
-            float pivotY = getPivotY() + getTranslationY();
+            float pivotX = this.getPivotX() + this.getTranslationX();
+            float pivotY = this.getPivotY() + this.getTranslationY();
 
             // Animate FAB shrinking
             ScaleAnimation anim = new ScaleAnimation(1, 0, 1, 0, pivotX, pivotY);
             anim.setDuration(FAB_ANIM_DURATION);
-            anim.setInterpolator(getInterpolator());
-            startAnimation(anim);
+            anim.setInterpolator(this.getInterpolator());
+            this.startAnimation(anim);
         }
-        setVisibility(View.INVISIBLE);
+        this.setVisibility(View.INVISIBLE);
     }
 
     private void setTranslation(float translationX, float translationY) {
-        animate().setInterpolator(getInterpolator()).setDuration(FAB_ANIM_DURATION)
+        this.animate().setInterpolator(this.getInterpolator()).setDuration(FAB_ANIM_DURATION)
                 .translationX(translationX).translationY(translationY);
     }
 
     private Interpolator getInterpolator() {
-        return AnimationUtils.loadInterpolator(getContext(), R.interpolator.msf_interpolator);
+        return AnimationUtils.loadInterpolator(this.getContext(), R.interpolator.msf_interpolator);
     }
 }

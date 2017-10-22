@@ -29,11 +29,11 @@ public class OverlayManagerActivity extends SubstratumActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getApplicationContext().startActivity(
-                References.createLauncherIcon(getApplicationContext(),
+        this.getApplicationContext().startActivity(
+                References.createLauncherIcon(this.getApplicationContext(),
                         null,
-                        getString(R.string.app_name),
+                        this.getString(R.string.app_name),
                         true));
-        finish();
+        this.finish();
     }
 }

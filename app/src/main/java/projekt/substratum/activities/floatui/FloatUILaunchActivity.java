@@ -40,33 +40,33 @@ public class FloatUILaunchActivity extends SubstratumActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Settings.canDrawOverlays(getApplicationContext()) &&
-                checkUsagePermissions(getApplicationContext())) {
+        if (Settings.canDrawOverlays(this.getApplicationContext()) &&
+                checkUsagePermissions(this.getApplicationContext())) {
             if (!References.isServiceRunning(SubstratumFloatInterface.class,
-                    getApplicationContext())) {
-                triggerFloatingHead(true);
+                    this.getApplicationContext())) {
+                this.triggerFloatingHead(true);
             } else {
-                triggerFloatingHead(false);
+                this.triggerFloatingHead(false);
             }
         } else {
-            createToast(getString(R.string.per_app_manual_grant),
+            this.createToast(this.getString(R.string.per_app_manual_grant),
                     Toast.LENGTH_LONG);
         }
-        finish();
+        this.finish();
     }
 
     public void triggerFloatingHead(Boolean show) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
-                getApplicationContext());
+                this.getApplicationContext());
         int active = (show) ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE;
         prefs.edit().putInt("float_tile", active).apply();
-        FloatUiTile.requestListeningState(getApplicationContext(),
-                new ComponentName(getApplicationContext(), FloatUiTile.class));
+        FloatUiTile.requestListeningState(this.getApplicationContext(),
+                new ComponentName(this.getApplicationContext(), FloatUiTile.class));
         if (show) {
-            getApplicationContext().startService(new Intent(getApplicationContext(),
+            this.getApplicationContext().startService(new Intent(this.getApplicationContext(),
                     SubstratumFloatInterface.class));
         } else {
-            stopService(new Intent(getApplicationContext(),
+            this.stopService(new Intent(this.getApplicationContext(),
                     SubstratumFloatInterface.class));
         }
     }

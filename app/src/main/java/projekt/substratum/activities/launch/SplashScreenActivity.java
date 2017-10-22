@@ -62,9 +62,9 @@ public class SplashScreenActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.splashscreen_layout);
+        this.setContentView(R.layout.splashscreen_layout);
 
-        Intent currentIntent = getIntent();
+        Intent currentIntent = this.getIntent();
         Boolean first_run = currentIntent.getBooleanExtra("first_run", false);
         this.intent = new Intent(SplashScreenActivity.this, MainActivity.class);
         int intent_launch_delay = DELAY_LAUNCH_MAIN_ACTIVITY;
@@ -74,8 +74,8 @@ public class SplashScreenActivity extends Activity {
             // set its background to our AnimationDrawable XML resource.
 
             try {
-                ImageView img = findViewById(R.id.splashscreen_image);
-                img.setImageDrawable(getDrawable(R.drawable.splashscreen_intro));
+                ImageView img = this.findViewById(R.id.splashscreen_image);
+                img.setImageDrawable(this.getDrawable(R.drawable.splashscreen_intro));
 
                 // Get the background, which has been compiled to an AnimationDrawable object.
                 AnimationDrawable frameAnimation = (AnimationDrawable) img.getDrawable();
@@ -98,8 +98,8 @@ public class SplashScreenActivity extends Activity {
     }
 
     private void launch() {
-        startActivity(this.intent);
-        finish();
+        this.startActivity(this.intent);
+        this.finish();
     }
 
     static class CheckSamsung extends AsyncTask<Void, Void, Void> {

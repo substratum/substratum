@@ -67,11 +67,11 @@ public class PriorityLoaderFragment extends Fragment {
 
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
         PriorityAdapter empty_adapter = new PriorityAdapter(
-                getContext(), R.layout.priority_loader_item);
+                this.getContext(), R.layout.priority_loader_item);
         this.recyclerView = root.findViewById(R.id.recycler_view);
         this.recyclerView.setAdapter(empty_adapter);
 
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        LinearLayoutManager manager = new LinearLayoutManager(this.getContext());
         this.recyclerView.setHasFixedSize(true);
         this.recyclerView.setLayoutManager(manager);
 
@@ -81,12 +81,12 @@ public class PriorityLoaderFragment extends Fragment {
         // Begin loading up list
         this.prioritiesList = new ArrayList<>();
         this.app_list = new ArrayList<>();
-        this.adapter = new PriorityAdapter(getContext(), R.layout.priority_loader_item);
+        this.adapter = new PriorityAdapter(this.getContext(), R.layout.priority_loader_item);
 
         LoadPrioritizedOverlays loadPrioritizedOverlays = new LoadPrioritizedOverlays(this);
         loadPrioritizedOverlays.execute("");
 
-        this.recyclerView.addOnItemTouchListener(new RecyclerItemTouchListener(getActivity(),
+        this.recyclerView.addOnItemTouchListener(new RecyclerItemTouchListener(this.getActivity(),
                 new DefaultItemClickListener() {
                     @Override
                     public boolean onItemClick(final View view, final int position) {
@@ -95,7 +95,7 @@ public class PriorityLoaderFragment extends Fragment {
                         Bundle bundle = new Bundle();
                         bundle.putString("package_name", PriorityLoaderFragment.this.app_list.get(position));
                         fragment.setArguments(bundle);
-                        FragmentManager fm = getActivity().getSupportFragmentManager();
+                        FragmentManager fm = PriorityLoaderFragment.this.getActivity().getSupportFragmentManager();
                         FragmentTransaction transaction = fm.beginTransaction();
                         transaction.setCustomAnimations(
                                 android.R.anim.fade_in, android.R.anim.fade_out);

@@ -98,7 +98,7 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
                     return wallpapers;
             }
         }
-        return getFragment();
+        return this.getFragment();
     }
 
     @Override

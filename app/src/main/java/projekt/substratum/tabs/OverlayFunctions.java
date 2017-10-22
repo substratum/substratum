@@ -403,7 +403,7 @@ enum OverlayFunctions {
 
                     if (!overlays.enable_mode && !overlays.disable_mode
                             && !overlays.enable_disable_mode) {
-                        publishProgress((int) overlays.current_amount);
+                        this.publishProgress((int) overlays.current_amount);
                         if (overlays.compile_enable_mode) {
                             if (overlays.final_runner == null) {
                                 overlays.final_runner = new ArrayList<>();

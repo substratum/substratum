@@ -111,7 +111,7 @@ public class OverlayFound extends BroadcastReceiver {
         protected void onPostExecute(String result) {
             if (this.matching_criteria.size() > 0) {
                 for (int i = 0; i < this.matching_criteria.size(); i++) {
-                    bundleNotifications(this.matching_criteria.get(i));
+                    this.bundleNotifications(this.matching_criteria.get(i));
                 }
             }
         }

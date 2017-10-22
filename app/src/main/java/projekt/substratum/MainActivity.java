@@ -191,16 +191,16 @@ public class MainActivity extends SubstratumActivity implements
         if (this.searchView != null && !this.searchView.isIconified()) {
             this.searchView.setIconified(true);
         }
-        switchToStockToolbar(title);
-        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+        this.switchToStockToolbar(title);
+        FragmentTransaction tx = this.getSupportFragmentManager().beginTransaction();
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, Fragment.instantiate(
                 MainActivity.this,
                 fragment));
         tx.commit();
-        this.hideBundle = !title.equals(getString(R.string.nav_overlay_manager));
-        this.hideRestartUi = !title.equals(getString(R.string.nav_overlay_manager));
-        supportInvalidateOptionsMenu();
+        this.hideBundle = !title.equals(this.getString(R.string.nav_overlay_manager));
+        this.hideRestartUi = !title.equals(this.getString(R.string.nav_overlay_manager));
+        this.supportInvalidateOptionsMenu();
     }
 
     private void switchThemeFragment(String title, String home_type) {
@@ -213,28 +213,28 @@ public class MainActivity extends SubstratumActivity implements
         bundle.putString("title", title);
         fragment.setArguments(bundle);
 
-        switchToStockToolbar(title);
-        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+        this.switchToStockToolbar(title);
+        FragmentTransaction tx = this.getSupportFragmentManager().beginTransaction();
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, fragment);
         tx.commit();
         this.hideBundle = false;
         this.hideRestartUi = true;
-        supportInvalidateOptionsMenu();
+        this.supportInvalidateOptionsMenu();
     }
 
     private void switchFragmentToLicenses(CharSequence title, LibsSupportFragment fragment) {
         if (this.searchView != null && !this.searchView.isIconified()) {
             this.searchView.setIconified(true);
         }
-        switchToStockToolbar(title);
-        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+        this.switchToStockToolbar(title);
+        FragmentTransaction tx = this.getSupportFragmentManager().beginTransaction();
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, fragment);
         tx.commit();
         this.hideBundle = true;
         this.hideRestartUi = true;
-        supportInvalidateOptionsMenu();
+        this.supportInvalidateOptionsMenu();
     }
 
     @Override
@@ -258,15 +258,15 @@ public class MainActivity extends SubstratumActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.mContext = getApplicationContext();
+        this.mContext = this.getApplicationContext();
         this.mProgressDialog = new Dialog(this, R.style.SubstratumBuilder_ActivityTheme);
         this.mProgressDialog.setCancelable(false);
 
         if (BuildConfig.DEBUG && !Systems.isSamsung(this.mContext)) {
             Log.d(SUBSTRATUM_LOG, "Substratum launched with debug mode signatures.");
         }
-        setContentView(R.layout.main_activity);
-        cleanLogCharReportsIfNecessary();
+        this.setContentView(R.layout.main_activity);
+        this.cleanLogCharReportsIfNecessary();
         Theming.refreshInstalledThemesPref(this.mContext);
 
         int selectedDrawer = 1;
@@ -287,23 +287,23 @@ public class MainActivity extends SubstratumActivity implements
 
         this.prefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
 
-        this.actionbar_title = findViewById(R.id.activity_title);
-        this.actionbar_content = findViewById(R.id.theme_count);
+        this.actionbar_title = this.findViewById(R.id.activity_title);
+        this.actionbar_content = this.findViewById(R.id.theme_count);
 
         Systems.setROMVersion(this.mContext, false);
         Systems.setAndCheckOMS(this.mContext);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = this.findViewById(R.id.toolbar);
         if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            if (getSupportActionBar() != null) {
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                getSupportActionBar().setHomeButtonEnabled(false);
-                getSupportActionBar().setTitle("");
+            this.setSupportActionBar(toolbar);
+            if (this.getSupportActionBar() != null) {
+                this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                this.getSupportActionBar().setHomeButtonEnabled(false);
+                this.getSupportActionBar().setTitle("");
             }
         }
-        supportActionBar = getSupportActionBar();
-        switchToStockToolbar(getString(R.string.app_name));
+        supportActionBar = this.getSupportActionBar();
+        this.switchToStockToolbar(this.getString(R.string.app_name));
 
         String versionName = BuildConfig.VERSION_NAME;
         if (BuildConfig.DEBUG) {
@@ -317,7 +317,7 @@ public class MainActivity extends SubstratumActivity implements
                 .withSelectionListEnabledForSingleProfile(false)
                 .addProfiles(
                         new ProfileDrawerItem()
-                                .withName(getString(R.string.drawer_name))
+                                .withName(this.getString(R.string.drawer_name))
                                 .withEmail(versionName))
                 .withCurrentProfileHiddenInList(true)
                 .build();
@@ -460,7 +460,7 @@ public class MainActivity extends SubstratumActivity implements
                             .withName(R.string.nav_backup_restore)
                             .withIcon(R.drawable.nav_drawer_profiles)
                             .withIdentifier(10)
-                            .withBadge(getString(R.string.beta_tag)));
+                            .withBadge(this.getString(R.string.beta_tag)));
         drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_manage)
@@ -487,7 +487,7 @@ public class MainActivity extends SubstratumActivity implements
                         .withIdentifier(13));
         drawerBuilder.addDrawerItems(
                 new SecondaryDrawerItem()
-                        .withName(getString(R.string.nav_opensource))
+                        .withName(this.getString(R.string.nav_opensource))
                         .withIcon(R.drawable.nav_drawer_licenses)
                         .withIdentifier(14));
         drawerBuilder.addDrawerItems(
@@ -499,69 +499,69 @@ public class MainActivity extends SubstratumActivity implements
             if (drawerItem != null) {
                 switch ((int) drawerItem.getIdentifier()) {
                     case 1:
-                        switchThemeFragment(((Systems.checkOMS(
+                        this.switchThemeFragment(((Systems.checkOMS(
                                 this.mContext) ?
-                                        getString(R.string.app_name) :
+                                        this.getString(R.string.app_name) :
                                         (Systems.isSamsung(this.mContext) ?
-                                                getString(R.string.samsung_app_name) :
-                                                getString(R.string.legacy_app_name)))
+                                                this.getString(R.string.samsung_app_name) :
+                                                this.getString(R.string.legacy_app_name)))
                                 ),
                                 References.homeFragment);
                         break;
                     case 2:
-                        switchThemeFragment(getString(R.string.nav_overlays),
+                        this.switchThemeFragment(this.getString(R.string.nav_overlays),
                                 References.overlaysFragment);
                         break;
                     case 3:
-                        switchThemeFragment(getString(R.string.nav_bootanim),
+                        this.switchThemeFragment(this.getString(R.string.nav_bootanim),
                                 References.bootAnimationsFragment);
                         break;
                     case 4:
-                        switchThemeFragment(getString(R.string.nav_shutdownanim),
+                        this.switchThemeFragment(this.getString(R.string.nav_shutdownanim),
                                 References.shutdownAnimationsFragment);
                         break;
                     case 5:
-                        switchThemeFragment(getString(R.string.nav_fonts),
+                        this.switchThemeFragment(this.getString(R.string.nav_fonts),
                                 References.fontsFragment);
                         break;
                     case 6:
-                        switchThemeFragment(getString(R.string.nav_sounds),
+                        this.switchThemeFragment(this.getString(R.string.nav_sounds),
                                 References.soundsFragment);
                         break;
                     case 7:
-                        switchThemeFragment(getString(R.string.nav_wallpapers),
+                        this.switchThemeFragment(this.getString(R.string.nav_wallpapers),
                                 References.wallpaperFragment);
                         break;
                     case 8:
-                        switchFragment(getString(R.string.nav_overlay_manager),
+                        this.switchFragment(this.getString(R.string.nav_overlay_manager),
                                 ManagerFragment.class.getCanonicalName());
                         break;
                     case 9:
-                        switchFragment(getString(R.string.nav_priorities),
+                        this.switchFragment(this.getString(R.string.nav_priorities),
                                 PriorityLoaderFragment.class.getCanonicalName());
                         break;
                     case 10:
-                        switchFragment(getString(R.string.nav_backup_restore),
+                        this.switchFragment(this.getString(R.string.nav_backup_restore),
                                 ProfileFragment.class.getCanonicalName());
                         break;
                     case 11:
-                        switchFragment(getString(R.string.nav_manage),
+                        this.switchFragment(this.getString(R.string.nav_manage),
                                 RecoveryFragment.class.getCanonicalName());
                         break;
                     case 12:
-                        switchFragment(getString(R.string.nav_troubleshooting),
+                        this.switchFragment(this.getString(R.string.nav_troubleshooting),
                                 TroubleshootingFragment.class.getCanonicalName());
                         break;
                     case 13:
-                        switchFragment(getString(R.string.nav_team_contributors),
+                        this.switchFragment(this.getString(R.string.nav_team_contributors),
                                 TeamFragment.class.getCanonicalName());
                         break;
                     case 14:
-                        switchFragmentToLicenses(getString(R.string.nav_opensource),
+                        this.switchFragmentToLicenses(this.getString(R.string.nav_opensource),
                                 fragment);
                         break;
                     case 15:
-                        switchFragment(getString(R.string.nav_settings),
+                        this.switchFragment(this.getString(R.string.nav_settings),
                                 SettingsFragment.class.getCanonicalName());
                         break;
                     case 100:
@@ -608,8 +608,8 @@ public class MainActivity extends SubstratumActivity implements
             return false;
         });
         this.drawer = drawerBuilder.build();
-        if (getIntent() != null && getIntent().getBooleanExtra("launch_manager_fragment", false)) {
-            switchFragment(getString(R.string.nav_overlay_manager),
+        if (this.getIntent() != null && this.getIntent().getBooleanExtra("launch_manager_fragment", false)) {
+            this.switchFragment(this.getString(R.string.nav_overlay_manager),
                     ManagerFragment.class.getCanonicalName());
             this.drawer.setSelection(8);
         } else {
@@ -646,7 +646,7 @@ public class MainActivity extends SubstratumActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_menu, menu);
+        this.getMenuInflater().inflate(R.menu.activity_menu, menu);
 
         boolean isOMS = Systems.checkOMS(this.mContext);
         if (isOMS || isSamsung(this.mContext)) {
@@ -672,7 +672,7 @@ public class MainActivity extends SubstratumActivity implements
                 "substratum_state", Context.MODE_PRIVATE);
         switch (item.getItemId()) {
             case android.R.id.home:
-                onBackPressed();
+                this.onBackPressed();
                 return true;
             case R.id.search:
                 launchInternalActivity(this, ShowcaseActivity.class);
@@ -684,7 +684,7 @@ public class MainActivity extends SubstratumActivity implements
                         this.mContext)) {
                     if (Settings.canDrawOverlays(this.mContext) &&
                             checkUsagePermissions(this.mContext)) {
-                        showFloatingHead();
+                        this.showFloatingHead();
                     } else if (!Settings.canDrawOverlays(this.mContext)) {
                         DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
                             switch (which) {
@@ -693,7 +693,7 @@ public class MainActivity extends SubstratumActivity implements
                                             Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                                             Uri.parse("package:" + this.mContext
                                                     .getPackageName()));
-                                    startActivityForResult(draw_over_apps,
+                                    this.startActivityForResult(draw_over_apps,
                                             PERMISSIONS_REQUEST_DRAW_OVER_OTHER_APPS);
                                     break;
                                 case DialogInterface.BUTTON_NEGATIVE:
@@ -713,7 +713,7 @@ public class MainActivity extends SubstratumActivity implements
                                 case DialogInterface.BUTTON_POSITIVE:
                                     Intent usage = new Intent(Settings
                                             .ACTION_USAGE_ACCESS_SETTINGS);
-                                    startActivityForResult(usage,
+                                    this.startActivityForResult(usage,
                                             PERMISSIONS_REQUEST_USAGE_ACCESS_SETTINGS);
                                     break;
                                 case DialogInterface.BUTTON_NEGATIVE:
@@ -729,7 +729,7 @@ public class MainActivity extends SubstratumActivity implements
                                 .show();
                     }
                 } else {
-                    hideFloatingHead();
+                    this.hideFloatingHead();
                 }
                 return true;
 
@@ -745,12 +745,12 @@ public class MainActivity extends SubstratumActivity implements
                 };
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle(getString(R.string.dialog_restart_systemui_title));
-                builder.setMessage(getString(R.string.dialog_restart_systemui_content));
+                builder.setTitle(this.getString(R.string.dialog_restart_systemui_title));
+                builder.setMessage(this.getString(R.string.dialog_restart_systemui_content));
                 builder.setPositiveButton(
-                        getString(R.string.restore_dialog_okay), dialogClickListener);
+                        this.getString(R.string.restore_dialog_okay), dialogClickListener);
                 builder.setNegativeButton(
-                        getString(R.string.dialog_cancel), dialogClickListener);
+                        this.getString(R.string.dialog_cancel), dialogClickListener);
                 builder.show();
                 return true;
             // Begin RRO based options
@@ -766,12 +766,12 @@ public class MainActivity extends SubstratumActivity implements
                     }
                 };
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle(getString(R.string.dialog_restart_reboot_title));
-                builder.setMessage(getString(R.string.dialog_restart_reboot_content));
+                builder.setTitle(this.getString(R.string.dialog_restart_reboot_title));
+                builder.setMessage(this.getString(R.string.dialog_restart_reboot_content));
                 builder.setPositiveButton(
-                        getString(R.string.restore_dialog_okay), dialogClickListener);
+                        this.getString(R.string.restore_dialog_okay), dialogClickListener);
                 builder.setNegativeButton(
-                        getString(R.string.dialog_cancel), dialogClickListener);
+                        this.getString(R.string.dialog_cancel), dialogClickListener);
                 builder.show();
                 return true;
 
@@ -787,12 +787,12 @@ public class MainActivity extends SubstratumActivity implements
                     }
                 };
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle(getString(R.string.dialog_restart_soft_reboot_title));
-                builder.setMessage(getString(R.string.dialog_restart_soft_reboot_content));
+                builder.setTitle(this.getString(R.string.dialog_restart_soft_reboot_title));
+                builder.setMessage(this.getString(R.string.dialog_restart_soft_reboot_content));
                 builder.setPositiveButton(
-                        getString(R.string.restore_dialog_okay), dialogClickListener);
+                        this.getString(R.string.restore_dialog_okay), dialogClickListener);
                 builder.setNegativeButton(
-                        getString(R.string.dialog_cancel), dialogClickListener);
+                        this.getString(R.string.dialog_cancel), dialogClickListener);
                 builder.show();
                 return true;
             default:
@@ -807,10 +807,10 @@ public class MainActivity extends SubstratumActivity implements
         } else if (this.drawer != null && this.drawer.isDrawerOpen()) {
             this.drawer.closeDrawer();
         } else {
-            Fragment f = getSupportFragmentManager().findFragmentById(R.id.main);
+            Fragment f = this.getSupportFragmentManager().findFragmentById(R.id.main);
             if (f instanceof PriorityListFragment) {
                 Fragment fragment = new PriorityLoaderFragment();
-                FragmentManager fm = getSupportFragmentManager();
+                FragmentManager fm = this.getSupportFragmentManager();
                 FragmentTransaction transaction = fm.beginTransaction();
                 transaction.setCustomAnimations(
                         android.R.anim.slide_in_left, android.R.anim.slide_out_right);
@@ -844,14 +844,14 @@ public class MainActivity extends SubstratumActivity implements
                 new ComponentName(this.mContext, FloatUiTile.class));
         this.mContext.startService(new Intent(this.mContext,
                 SubstratumFloatInterface.class));
-        PackageManager packageManager = getPackageManager();
+        PackageManager packageManager = this.getPackageManager();
         ComponentName componentName =
                 new ComponentName(this.mContext, FloatUiTile.class);
         packageManager.setComponentEnabledSetting(
                 componentName,
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                 PackageManager.DONT_KILL_APP);
-        startService(new Intent(this, FloatUiTile.class));
+        this.startService(new Intent(this, FloatUiTile.class));
     }
 
     private void hideFloatingHead() {
@@ -860,7 +860,7 @@ public class MainActivity extends SubstratumActivity implements
         prefs.edit().putInt("float_tile", Tile.STATE_INACTIVE).apply();
         FloatUiTile.requestListeningState(this.mContext,
                 new ComponentName(this.mContext, FloatUiTile.class));
-        stopService(new Intent(this.mContext,
+        this.stopService(new Intent(this.mContext,
                 SubstratumFloatInterface.class));
     }
 
@@ -869,18 +869,18 @@ public class MainActivity extends SubstratumActivity implements
             case PERMISSIONS_REQUEST_DRAW_OVER_OTHER_APPS:
                 if (!checkUsagePermissions(this.mContext)) {
                     Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
-                    startActivityForResult(intent, PERMISSIONS_REQUEST_USAGE_ACCESS_SETTINGS);
+                    this.startActivityForResult(intent, PERMISSIONS_REQUEST_USAGE_ACCESS_SETTINGS);
                 } else {
                     if (Settings.canDrawOverlays(this.mContext) &&
                             checkUsagePermissions(this.mContext)) {
-                        showFloatingHead();
+                        this.showFloatingHead();
                     }
                 }
                 break;
             case PERMISSIONS_REQUEST_USAGE_ACCESS_SETTINGS:
                 if (Settings.canDrawOverlays(this.mContext) &&
                         checkUsagePermissions(this.mContext)) {
-                    showFloatingHead();
+                    this.showFloatingHead();
                 }
                 break;
             case UNINSTALL_REQUEST_CODE:
@@ -898,9 +898,9 @@ public class MainActivity extends SubstratumActivity implements
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         if (intent != null) {
-            setIntent(intent);
-            if (getIntent().getBooleanExtra("launch_manager_fragment", false)) {
-                switchFragment(getString(R.string.nav_overlay_manager),
+            this.setIntent(intent);
+            if (this.getIntent().getBooleanExtra("launch_manager_fragment", false)) {
+                this.switchFragment(this.getString(R.string.nav_overlay_manager),
                         ManagerFragment.class.getCanonicalName());
                 this.drawer.setSelection(8);
             }
@@ -931,17 +931,17 @@ public class MainActivity extends SubstratumActivity implements
                         References.injectRescueArchives(this.mContext);
                         Log.d(References.SUBSTRATUM_LOG, "Successfully made dir: " + directory);
                     }
-                    File cacheDirectory = new File(getCacheDir(),
+                    File cacheDirectory = new File(this.getCacheDir(),
                             SUBSTRATUM_BUILDER_CACHE);
                     if (!cacheDirectory.exists()) {
                         Boolean made = cacheDirectory.mkdirs();
                         if (!made) Log.e(References.SUBSTRATUM_LOG,
                                 "Unable to create cache directory");
                     }
-                    File[] fileList = new File(getCacheDir().getAbsolutePath() +
+                    File[] fileList = new File(this.getCacheDir().getAbsolutePath() +
                             SUBSTRATUM_BUILDER_CACHE).listFiles();
                     for (File file : fileList) {
-                        FileOperations.delete(this.mContext, getCacheDir()
+                        FileOperations.delete(this.mContext, this.getCacheDir()
                                 .getAbsolutePath() +
                                 SUBSTRATUM_BUILDER_CACHE + file.getName());
                     }
@@ -953,7 +953,7 @@ public class MainActivity extends SubstratumActivity implements
                             .setTitle(R.string.permission_not_granted_dialog_title)
                             .setMessage(R.string.permission_not_granted_dialog_message1)
                             .setPositiveButton(R.string.dialog_ok, (dialog, which) -> {
-                                if (shouldShowRequestPermissionRationale(
+                                if (this.shouldShowRequestPermissionRationale(
                                         WRITE_EXTERNAL_STORAGE)) {
                                     MainActivity.this.finish();
                                 } else {
@@ -981,12 +981,12 @@ public class MainActivity extends SubstratumActivity implements
     public boolean onQueryTextChange(String query) {
         if (!userInput.equals(query)) {
             userInput = query;
-            Fragment f = getSupportFragmentManager().findFragmentById(R.id.main);
-            getSupportFragmentManager()
+            Fragment f = this.getSupportFragmentManager().findFragmentById(R.id.main);
+            this.getSupportFragmentManager()
                     .beginTransaction()
                     .detach(f)
                     .commitNowAllowingStateLoss();
-            getSupportFragmentManager()
+            this.getSupportFragmentManager()
                     .beginTransaction()
                     .attach(f)
                     .commitAllowingStateLoss();
@@ -1128,8 +1128,8 @@ public class MainActivity extends SubstratumActivity implements
             MainActivity activity = this.ref.get();
             if (activity != null) {
                 Context context = activity.mContext;
-                showDialogOrNot(dialogReturnBool);
-                if (!dialogReturnBool) permissionCheck();
+                this.showDialogOrNot(dialogReturnBool);
+                if (!dialogReturnBool) this.permissionCheck();
                 if (checkIfOverlaysOutdated(context)) {
                     new AlertDialog.Builder(activity)
                             .setTitle(R.string.overlays_outdated)
@@ -1332,7 +1332,7 @@ public class MainActivity extends SubstratumActivity implements
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            finish();
+            MainActivity.this.finish();
         }
     }
 

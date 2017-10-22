@@ -182,7 +182,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                             R.string.notification_theme_updated),
                     this.mContext.getString(R.string.notification_theme_updated_content),
                     true,
-                    getPendingIntent(package_name),
+                    this.getPendingIntent(package_name),
                     R.drawable.notification_updated,
                     bitmap,
                     Notification.PRIORITY_MAX,
@@ -194,7 +194,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                             R.string.notification_theme_installed),
                     this.mContext.getString(R.string.notification_theme_installed_content),
                     true,
-                    getPendingIntent(package_name),
+                    this.getPendingIntent(package_name),
                     R.drawable.notification_icon,
                     BitmapFactory.decodeResource(
                             this.mContext.getResources(), R.mipmap.main_launcher),

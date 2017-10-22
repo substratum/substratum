@@ -42,13 +42,13 @@ public class VariantAdapter extends ArrayAdapter<VariantItem> {
 
     @Override
     public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
-        return getCustomView(position, convertView, parent);
+        return this.getCustomView(position, convertView, parent);
     }
 
     @NonNull
     @Override
     public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-        return getCustomView(position, convertView, parent);
+        return this.getCustomView(position, convertView, parent);
     }
 
     private View getCustomView(int position, View convertView, ViewGroup parent) {
@@ -67,7 +67,7 @@ public class VariantAdapter extends ArrayAdapter<VariantItem> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        VariantItem item = getItem(position);
+        VariantItem item = this.getItem(position);
         if (item != null) {
             try {
                 // First check if our model contains a saved color value
@@ -92,7 +92,7 @@ public class VariantAdapter extends ArrayAdapter<VariantItem> {
                             String working_package = working_value.split(":")[0];
                             String working_color = working_value.split("/")[1];
                             int color = Packages.getColorResource(
-                                    getContext(), working_package, working_color);
+                                    this.getContext(), working_package, working_color);
                             if (color != 0) {
                                 item.setColor(color);
                                 ColorStateList csl = new ColorStateList(

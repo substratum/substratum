@@ -44,14 +44,14 @@ public class TeamFragment extends Fragment {
         CardView nicholas_card = root.findViewById(R.id.nicholas_card);
         nicholas_card.setOnClickListener(v -> {
             try {
-                String playURL = getString(R.string.team_nicholas_link);
+                String playURL = this.getString(R.string.team_nicholas_link);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(playURL));
-                startActivity(i);
+                this.startActivity(i);
             } catch (ActivityNotFoundException activityNotFoundException) {
-                if (getActivity() != null)
-                    Lunchbar.make(getActivity().findViewById(android.R.id.content),
-                            getString(R.string.activity_missing_toast),
+                if (this.getActivity() != null)
+                    Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
+                            this.getString(R.string.activity_missing_toast),
                             Lunchbar.LENGTH_LONG)
                             .show();
             }
@@ -60,14 +60,14 @@ public class TeamFragment extends Fragment {
         CardView syko_card = root.findViewById(R.id.syko_card);
         syko_card.setOnClickListener(v -> {
             try {
-                String playURL = getString(R.string.team_syko_link);
+                String playURL = this.getString(R.string.team_syko_link);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(playURL));
-                startActivity(i);
+                this.startActivity(i);
             } catch (ActivityNotFoundException activityNotFoundException) {
-                if (getActivity() != null)
-                    Lunchbar.make(getActivity().findViewById(android.R.id.content),
-                            getString(R.string.activity_missing_toast),
+                if (this.getActivity() != null)
+                    Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
+                            this.getString(R.string.activity_missing_toast),
                             Lunchbar.LENGTH_LONG)
                             .show();
             }
@@ -76,14 +76,14 @@ public class TeamFragment extends Fragment {
         CardView ivan_card = root.findViewById(R.id.ivan_card);
         ivan_card.setOnClickListener(v -> {
             try {
-                String playURL = getString(R.string.team_ivan_link);
+                String playURL = this.getString(R.string.team_ivan_link);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(playURL));
-                startActivity(i);
+                this.startActivity(i);
             } catch (ActivityNotFoundException activityNotFoundException) {
-                if (getActivity() != null)
-                    Lunchbar.make(getActivity().findViewById(android.R.id.content),
-                            getString(R.string.activity_missing_toast),
+                if (this.getActivity() != null)
+                    Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
+                            this.getString(R.string.activity_missing_toast),
                             Lunchbar.LENGTH_LONG)
                             .show();
             }
@@ -92,14 +92,14 @@ public class TeamFragment extends Fragment {
         CardView surge_card = root.findViewById(R.id.surge_card);
         surge_card.setOnClickListener(v -> {
             try {
-                String playURL = getString(R.string.team_surge_link);
+                String playURL = this.getString(R.string.team_surge_link);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(playURL));
-                startActivity(i);
+                this.startActivity(i);
             } catch (ActivityNotFoundException activityNotFoundException) {
-                if (getActivity() != null)
-                    Lunchbar.make(getActivity().findViewById(android.R.id.content),
-                            getString(R.string.activity_missing_toast),
+                if (this.getActivity() != null)
+                    Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
+                            this.getString(R.string.activity_missing_toast),
                             Lunchbar.LENGTH_LONG)
                             .show();
             }
@@ -108,14 +108,14 @@ public class TeamFragment extends Fragment {
         CardView george_card = root.findViewById(R.id.george_card);
         george_card.setOnClickListener(v -> {
             try {
-                String playURL = getString(R.string.team_george_link);
+                String playURL = this.getString(R.string.team_george_link);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(playURL));
-                startActivity(i);
+                this.startActivity(i);
             } catch (ActivityNotFoundException activityNotFoundException) {
-                if (getActivity() != null)
-                    Lunchbar.make(getActivity().findViewById(android.R.id.content),
-                            getString(R.string.activity_missing_toast),
+                if (this.getActivity() != null)
+                    Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
+                            this.getString(R.string.activity_missing_toast),
                             Lunchbar.LENGTH_LONG)
                             .show();
             }
@@ -124,14 +124,14 @@ public class TeamFragment extends Fragment {
         CardView nathan_card = root.findViewById(R.id.nathan_card);
         nathan_card.setOnClickListener(v -> {
             try {
-                String playURL = getString(R.string.team_nathan_link);
+                String playURL = this.getString(R.string.team_nathan_link);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(playURL));
-                startActivity(i);
+                this.startActivity(i);
             } catch (ActivityNotFoundException activityNotFoundException) {
-                if (getActivity() != null)
-                    Lunchbar.make(getActivity().findViewById(android.R.id.content),
-                            getString(R.string.activity_missing_toast),
+                if (this.getActivity() != null)
+                    Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
+                            this.getString(R.string.activity_missing_toast),
                             Lunchbar.LENGTH_LONG)
                             .show();
             }
@@ -140,14 +140,14 @@ public class TeamFragment extends Fragment {
         CardView char_card = root.findViewById(R.id.char_card);
         char_card.setOnClickListener(v -> {
             try {
-                String playURL = getString(R.string.team_char_link);
+                String playURL = this.getString(R.string.team_char_link);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(playURL));
-                startActivity(i);
+                this.startActivity(i);
             } catch (ActivityNotFoundException activityNotFoundException) {
-                if (getActivity() != null)
-                    Lunchbar.make(getActivity().findViewById(android.R.id.content),
-                            getString(R.string.activity_missing_toast),
+                if (this.getActivity() != null)
+                    Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
+                            this.getString(R.string.activity_missing_toast),
                             Lunchbar.LENGTH_LONG)
                             .show();
             }
@@ -156,14 +156,14 @@ public class TeamFragment extends Fragment {
         CardView harsh_card = root.findViewById(R.id.harsh_card);
         harsh_card.setOnClickListener(v -> {
             try {
-                String playURL = getString(R.string.team_harsh_link);
+                String playURL = this.getString(R.string.team_harsh_link);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(playURL));
-                startActivity(i);
+                this.startActivity(i);
             } catch (ActivityNotFoundException activityNotFoundException) {
-                if (getActivity() != null)
-                    Lunchbar.make(getActivity().findViewById(android.R.id.content),
-                            getString(R.string.activity_missing_toast),
+                if (this.getActivity() != null)
+                    Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
+                            this.getString(R.string.activity_missing_toast),
                             Lunchbar.LENGTH_LONG)
                             .show();
             }
@@ -172,8 +172,8 @@ public class TeamFragment extends Fragment {
 
         Button development_contributors = root.findViewById(R.id.list_button_contributors);
         development_contributors.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setItems(getResources().getStringArray(R.array.substratum_contributors),
+            AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
+            builder.setItems(this.getResources().getStringArray(R.array.substratum_contributors),
                     (dialog, item) -> {
                     });
             AlertDialog alert = builder.create();
@@ -183,14 +183,14 @@ public class TeamFragment extends Fragment {
         Button contribute = root.findViewById(R.id.list_button_translators_contribute);
         contribute.setOnClickListener(v -> {
             try {
-                String playURL = getString(R.string.crowdin_url);
+                String playURL = this.getString(R.string.crowdin_url);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(playURL));
-                startActivity(i);
+                this.startActivity(i);
             } catch (ActivityNotFoundException activityNotFoundException) {
-                if (getActivity() != null)
-                    Lunchbar.make(getActivity().findViewById(android.R.id.content),
-                            getString(R.string.activity_missing_toast),
+                if (this.getActivity() != null)
+                    Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
+                            this.getString(R.string.activity_missing_toast),
                             Lunchbar.LENGTH_LONG)
                             .show();
             }
@@ -198,8 +198,8 @@ public class TeamFragment extends Fragment {
 
         Button layers = root.findViewById(R.id.list_button_layers);
         layers.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setItems(getResources().getStringArray(R.array.layers_contributors),
+            AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
+            builder.setItems(this.getResources().getStringArray(R.array.layers_contributors),
                     (dialog, item) -> {
                     });
             AlertDialog alert = builder.create();
@@ -208,110 +208,110 @@ public class TeamFragment extends Fragment {
 
         Button translators = root.findViewById(R.id.list_button_translators);
         translators.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setItems(getResources().getStringArray(R.array.translations),
+            AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
+            builder.setItems(this.getResources().getStringArray(R.array.translations),
                     (dialog, item) -> {
                         dialog.cancel();
-                        AlertDialog.Builder builder2 = new AlertDialog.Builder(getActivity());
+                        AlertDialog.Builder builder2 = new AlertDialog.Builder(this.getActivity());
                         switch (item) {
                             case 0:
                                 builder2.setItems(
-                                        getResources().getStringArray(R.array
+                                        this.getResources().getStringArray(R.array
                                                 .belarusian_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 1:
                                 builder2.setItems(
-                                        getResources().getStringArray(R.array.czech_translators),
+                                        this.getResources().getStringArray(R.array.czech_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 2:
                                 builder2.setItems(
-                                        getResources().getStringArray(R.array.chinese_translators),
+                                        this.getResources().getStringArray(R.array.chinese_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 3:
                                 builder2.setItems(
-                                        getResources().getStringArray(R.array.french_translators),
+                                        this.getResources().getStringArray(R.array.french_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 4:
                                 builder2.setItems(
-                                        getResources().getStringArray(R.array.german_translators),
+                                        this.getResources().getStringArray(R.array.german_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 5:
                                 builder2.setItems(
-                                        getResources().getStringArray(R.array
+                                        this.getResources().getStringArray(R.array
                                                 .hungarian_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 6:
                                 builder2.setItems(
-                                        getResources().getStringArray(R.array.italian_translators),
+                                        this.getResources().getStringArray(R.array.italian_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 7:
                                 builder2.setItems(
-                                        getResources().getStringArray(R.array
+                                        this.getResources().getStringArray(R.array
                                                 .lithuanian_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 8:
                                 builder2.setItems(
-                                        getResources().getStringArray(R.array.dutch_translators),
+                                        this.getResources().getStringArray(R.array.dutch_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 9:
                                 builder2.setItems(
-                                        getResources().getStringArray(R.array.polish_translators),
+                                        this.getResources().getStringArray(R.array.polish_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 10:
                                 builder2.setItems(
-                                        getResources().getStringArray(R.array
+                                        this.getResources().getStringArray(R.array
                                                 .portuguese_brazillian_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 11:
                                 builder2.setItems(
-                                        getResources().getStringArray(R.array
+                                        this.getResources().getStringArray(R.array
                                                 .portuguese_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 12:
                                 builder2.setItems(
-                                        getResources().getStringArray(R.array.russian_translators),
+                                        this.getResources().getStringArray(R.array.russian_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 13:
                                 builder2.setItems(
-                                        getResources().getStringArray(R.array.slovak_translators),
+                                        this.getResources().getStringArray(R.array.slovak_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 14:
                                 builder2.setItems(
-                                        getResources().getStringArray(R.array.spanish_translators),
+                                        this.getResources().getStringArray(R.array.spanish_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 15:
                                 builder2.setItems(
-                                        getResources().getStringArray(R.array.turkish_translators),
+                                        this.getResources().getStringArray(R.array.turkish_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;

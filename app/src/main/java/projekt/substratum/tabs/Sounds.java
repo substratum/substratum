@@ -111,10 +111,10 @@ public class Sounds extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
-        this.mContext = getContext();
-        this.theme_pid = getArguments().getString("theme_pid");
-        byte[] encryption_key = getArguments().getByteArray("encryption_key");
-        byte[] iv_encrypt_key = getArguments().getByteArray("iv_encrypt_key");
+        this.mContext = this.getContext();
+        this.theme_pid = this.getArguments().getString("theme_pid");
+        byte[] encryption_key = this.getArguments().getByteArray("encryption_key");
+        byte[] iv_encrypt_key = this.getArguments().getByteArray("iv_encrypt_key");
 
         // encrypted = encryption_key != null && iv_encrypt_key != null;
 
@@ -165,14 +165,14 @@ public class Sounds extends Fragment {
 
             // Creates the list of dropdown items
             ArrayList<String> unarchivedSounds = new ArrayList<>();
-            unarchivedSounds.add(getString(R.string.sounds_default_spinner));
-            unarchivedSounds.add(getString(R.string.sounds_spinner_set_defaults));
+            unarchivedSounds.add(this.getString(R.string.sounds_default_spinner));
+            unarchivedSounds.add(this.getString(R.string.sounds_spinner_set_defaults));
             for (int i = 0; i < archivedSounds.size(); i++) {
                 unarchivedSounds.add(archivedSounds.get(i).substring(0,
                         archivedSounds.get(i).length() - (this.encrypted ? 8 : 4)));
             }
 
-            SpinnerAdapter adapter1 = new ArrayAdapter<>(getActivity(),
+            SpinnerAdapter adapter1 = new ArrayAdapter<>(this.getActivity(),
                     android.R.layout.simple_spinner_dropdown_item, unarchivedSounds);
             this.soundsSelector = this.root.findViewById(R.id.soundsSelection);
             this.soundsSelector.setAdapter(adapter1);
@@ -205,7 +205,7 @@ public class Sounds extends Fragment {
                             sounds_preview.setVisibility(View.GONE);
                             Sounds.this.relativeLayout.setVisibility(View.VISIBLE);
                             String[] commands = {arg0.getSelectedItem().toString()};
-                            Sounds.this.current = new SoundsPreview(getInstance()).execute(commands);
+                            Sounds.this.current = new SoundsPreview(Sounds.this.getInstance()).execute(commands);
                     }
                 }
 
@@ -224,7 +224,7 @@ public class Sounds extends Fragment {
                     this.wordList.get(position);
                     try {
                         if (!this.mp.isPlaying() || position != this.previous_position) {
-                            stopPlayer();
+                            this.stopPlayer();
                             ((ImageButton)
                                     view.findViewById(R.id.play)).setImageResource(
                                     R.drawable.sounds_preview_stop);
@@ -232,7 +232,7 @@ public class Sounds extends Fragment {
                             this.mp.prepare();
                             this.mp.start();
                         } else {
-                            stopPlayer();
+                            this.stopPlayer();
                         }
                         this.previous_position = position;
                     } catch (IOException ioe) {
@@ -240,7 +240,7 @@ public class Sounds extends Fragment {
                     }
                 })
         );
-        this.mp.setOnCompletionListener(mediaPlayer -> stopPlayer());
+        this.mp.setOnCompletionListener(mediaPlayer -> this.stopPlayer());
 
         // Enable job listener
         this.jobReceiver = new JobReceiver();
@@ -408,7 +408,7 @@ public class Sounds extends Fragment {
                                      new FileOutputStream(
                                              sounds.mContext.getCacheDir().getAbsolutePath() +
                                                      "/SoundsCache/" + source)) {
-                            CopyStream(inputStream, outputStream);
+                            this.CopyStream(inputStream, outputStream);
                         } catch (Exception e) {
                             e.printStackTrace();
                             Log.e(TAG, "There is no sounds.zip found within the assets " +
@@ -418,7 +418,7 @@ public class Sounds extends Fragment {
                     }
 
                     // Unzip the sounds archive to get it prepared for the preview
-                    unzip(sounds.mContext.getCacheDir().
+                    this.unzip(sounds.mContext.getCacheDir().
                                     getAbsolutePath() + "/SoundsCache/" + source,
                             sounds.mContext.getCacheDir().getAbsolutePath() +
                                     "/SoundsCache/sounds_preview/");
@@ -427,7 +427,7 @@ public class Sounds extends Fragment {
                     File testDirectory =
                             new File(sounds.mContext.getCacheDir().getAbsolutePath() +
                                     "/SoundsCache/sounds_preview/");
-                    listFilesForFolder(testDirectory);
+                    this.listFilesForFolder(testDirectory);
                 } catch (Exception e) {
                     e.printStackTrace();
                     Log.e(TAG, "Unexpectedly lost connection to the application host");
@@ -441,7 +441,7 @@ public class Sounds extends Fragment {
             if (sounds != null) {
                 for (final File fileEntry : folder.listFiles()) {
                     if (fileEntry.isDirectory()) {
-                        listFilesForFolder(fileEntry);
+                        this.listFilesForFolder(fileEntry);
                     } else {
                         if (!".".equals(fileEntry.getName().substring(0, 1)) &&
                                 projekt.substratum.common.Resources.allowedSounds(fileEntry
@@ -493,8 +493,8 @@ public class Sounds extends Fragment {
     class JobReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (!isAdded()) return;
-            startApply();
+            if (!Sounds.this.isAdded()) return;
+            Sounds.this.startApply();
         }
     }
 }

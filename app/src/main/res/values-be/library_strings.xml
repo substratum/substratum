@@ -17,12 +17,12 @@
   ~ You should have received a copy of the GNU General Public License
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- http://def-builder.mikepenz.com/ -->
     <!-- commons-io -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_commons_io_libraryDescription">Commons IO гэта набор дапаможных
+    <string name="library_commons_io_libraryDescription" tools:keep="@string/library_commons_io_libraryDescription">Commons IO гэта набор дапаможных
         утыліт для распрацоўкі IO функцыяналу.
     </string>
     <!-- OpenSource section -->
@@ -31,7 +31,7 @@
     <!-- Gesture RecyclerView -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_gesturerecycler_libraryDescription">Бібліятэка, якая забяспечвае падтрымку &amp; drag
+    <string name="library_gesturerecycler_libraryDescription" tools:keep="@string/library_gesturerecycler_libraryDescription">Бібліятэка, якая забяспечвае падтрымку &amp; drag
         and drop для RecyclerView.
     </string>
     <!-- OpenSource section -->
@@ -39,12 +39,12 @@
     <!-- License section -->
     <!-- KenBurnsView -->
     <!-- Author section -->
-    <string name="library_kenburnsview_author">Flávio Faria</string>
-    <string name="library_kenburnsview_authorWebsite">
+    <string name="library_kenburnsview_author" tools:keep="@string/library_kenburnsview_author">Flávio Faria</string>
+    <string name="library_kenburnsview_authorWebsite" tools:keep="@string/library_kenburnsview_authorWebsite">
         https://plus.google.com/+Fl%C3%A1vioFaria1/posts
     </string>
     <!-- Library section -->
-    <string name="library_kenburnsview_libraryDescription">Android бібліятэка, з\'яўляецца
+    <string name="library_kenburnsview_libraryDescription" tools:keep="@string/library_kenburnsview_libraryDescription">Android бібліятэка, з\'яўляецца
         дадаткам да ImageView, якая стварае паўнату карцінкі за кошт прымянення эфекту
         Кена Бернса з выявай.
 
@@ -55,7 +55,7 @@
     <!-- Material Sheet Fab -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_materialsheetfab_libraryDescription">Бібліятэка, ўкараняючая анімацыю
+    <string name="library_materialsheetfab_libraryDescription" tools:keep="@string/library_materialsheetfab_libraryDescription">Бібліятэка, ўкараняючая анімацыю
         ўсплывальнай кнопкі пад кіраўніцтве Material Design от Google.
         Дастасавальна да любой бібліятэцы FAB на Android 4.0+ (Узроўні API &gt;= 14).
     </string>
@@ -65,7 +65,7 @@
     <!-- Welcome -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_welcome_android_libraryDescription">Просты ў выкарыстанні і наладжвальны
+    <string name="library_welcome_android_libraryDescription" tools:keep="@string/library_welcome_android_libraryDescription">Просты ў выкарыстанні і наладжвальны
         экран прывітання для Android праграм.
     </string>
     <!-- OpenSource section -->
@@ -74,7 +74,7 @@
     <!-- ZipSigner -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_zipsigner_libraryDescription">ZipSigner - Android бібліятэка для подпісу
+    <string name="library_zipsigner_libraryDescription" tools:keep="@string/library_zipsigner_libraryDescription">ZipSigner - Android бібліятэка для подпісу
         Zip, Apk, и Jar файлаў непасрэдна на Android прыладах.
     </string>
     <!-- OpenSource section -->
@@ -83,7 +83,7 @@
     <!-- ZT-Zip -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_zt_zip_libraryDescription">Праект сабраны з дапамогай пакетаў java.util.zip.*
+    <string name="library_zt_zip_libraryDescription" tools:keep="@string/library_zt_zip_libraryDescription">Праект сабраны з дапамогай пакетаў java.util.zip.*
         для патокагава доступу. Падтрымліваюцца самыя аптымальныя метады працы з
         файлавай сістэмай.
 
@@ -93,22 +93,22 @@
     <!-- License section -->
     <!-- Floating View -->
     <!-- Author section -->
-    <string name="library_floatingview_author">Recruit Lifestyle Co. Ltd.</string>
-    <string name="library_floatingview_authorWebsite">http://engineer.recruit-lifestyle.co.jp/</string>
+    <string name="library_floatingview_author" tools:keep="@string/library_floatingview_author">Recruit Lifestyle Co. Ltd.</string>
+    <string name="library_floatingview_authorWebsite" tools:keep="@string/library_floatingview_authorWebsite">http://engineer.recruit-lifestyle.co.jp/</string>
     <!-- Library section -->
-    <string name="library_floatingview_libraryName">FloatingView</string>
-    <string name="library_floatingview_libraryDescription">Android бібліятэка для паказу ўсплывальных вокнаў на падабенстве Facebook Chat Heads для распрацоўшчыкаў адкрытага зыходнага кода.</string>
-    <string name="library_floatingview_libraryWebsite">https://github.com/recruit-lifestyle/FloatingView/</string>
-    <string name="library_floatingview_libraryVersion">2.2</string>
+    <string name="library_floatingview_libraryName" tools:keep="@string/library_floatingview_libraryName">FloatingView</string>
+    <string name="library_floatingview_libraryDescription" tools:keep="@string/library_floatingview_libraryDescription">Android бібліятэка для паказу ўсплывальных вокнаў на падабенстве Facebook Chat Heads для распрацоўшчыкаў адкрытага зыходнага кода.</string>
+    <string name="library_floatingview_libraryWebsite" tools:keep="@string/library_floatingview_libraryWebsite">https://github.com/recruit-lifestyle/FloatingView/</string>
+    <string name="library_floatingview_libraryVersion" tools:keep="@string/library_floatingview_libraryVersion">2.2</string>
     <!-- OpenSource section -->
-    <string name="library_floatingview_repositoryLink">https://github.com/recruit-lifestyle/FloatingView/</string>
+    <string name="library_floatingview_repositoryLink" tools:keep="@string/library_floatingview_repositoryLink">https://github.com/recruit-lifestyle/FloatingView/</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_floatingview_classPath">jp.co.recruit_lifestyle.android.floatingview.FloatingView</string>
+    <string name="library_floatingview_classPath" tools:keep="@string/library_floatingview_classPath">jp.co.recruit_lifestyle.android.floatingview.FloatingView</string>
     <!-- License section -->
     <!-- ExpandableLayout -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_expandablelayout_libraryDescription">Клас для Android макета з падтрымкай анімаванага пашырэння і памяншэння даччыных адлюстраванняў.</string>
+    <string name="library_expandablelayout_libraryDescription" tools:keep="@string/library_expandablelayout_libraryDescription">Клас для Android макета з падтрымкай анімаванага пашырэння і памяншэння даччыных адлюстраванняў.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->

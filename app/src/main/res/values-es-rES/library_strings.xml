@@ -17,78 +17,78 @@
   ~ You should have received a copy of the GNU General Public License
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- http://def-builder.mikepenz.com/ -->
     <!-- commons-io -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_commons_io_libraryDescription">Commons IO es una biblioteca de utilidades para ayudar a desarrollar funciones de IO.    </string>
+    <string name="library_commons_io_libraryDescription" tools:keep="@string/library_commons_io_libraryDescription">Commons IO es una biblioteca de utilidades para ayudar a desarrollar funciones de IO.    </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Gesture RecyclerView -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_gesturerecycler_libraryDescription">Esta biblioteca proporciona deslizar &amp; y arrastrar y soltar apoyo para RecyclerView.    </string>
+    <string name="library_gesturerecycler_libraryDescription" tools:keep="@string/library_gesturerecycler_libraryDescription">Esta biblioteca proporciona deslizar &amp; y arrastrar y soltar apoyo para RecyclerView.    </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- KenBurnsView -->
     <!-- Author section -->
-    <string name="library_kenburnsview_author">Flávio Faria</string>
-    <string name="library_kenburnsview_authorWebsite">
+    <string name="library_kenburnsview_author" tools:keep="@string/library_kenburnsview_author">Flávio Faria</string>
+    <string name="library_kenburnsview_authorWebsite" tools:keep="@string/library_kenburnsview_authorWebsite">
 https://plus.google.com/+Fl%C3%A1vioFaria1/posts    </string>
     <!-- Library section -->
-    <string name="library_kenburnsview_libraryDescription">Android library that provides an extension to ImageView that creates an immersive experience by animating its drawable using the Ken Burns Effect.    </string>
+    <string name="library_kenburnsview_libraryDescription" tools:keep="@string/library_kenburnsview_libraryDescription">Android library that provides an extension to ImageView that creates an immersive experience by animating its drawable using the Ken Burns Effect.    </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Material Sheet Fab -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_materialsheetfab_libraryDescription">Biblioteca que implementa el botón de acción flotante para la transición de hojas de la documentación de Material Design de Google. Puede ser utilizado con cualquier biblioteca de Fab en Android 4.0 o superior (niveles de API&gt; = 14).    </string>
+    <string name="library_materialsheetfab_libraryDescription" tools:keep="@string/library_materialsheetfab_libraryDescription">Biblioteca que implementa el botón de acción flotante para la transición de hojas de la documentación de Material Design de Google. Puede ser utilizado con cualquier biblioteca de Fab en Android 4.0 o superior (niveles de API&gt; = 14).    </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Welcome -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_welcome_android_libraryDescription">Facilidad para usar y pantalla de bienvenida personalizable para aplicaciones de Android.    </string>
+    <string name="library_welcome_android_libraryDescription" tools:keep="@string/library_welcome_android_libraryDescription">Facilidad para usar y pantalla de bienvenida personalizable para aplicaciones de Android.    </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- ZipSigner -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_zipsigner_libraryDescription">ZipSigner es una biblioteca de Android para la firma de los archivos Zip, Apk, y/o archivos Jar a bordo de  dispositivos Android.    </string>
+    <string name="library_zipsigner_libraryDescription" tools:keep="@string/library_zipsigner_libraryDescription">ZipSigner es una biblioteca de Android para la firma de los archivos Zip, Apk, y/o archivos Jar a bordo de  dispositivos Android.    </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- ZT-Zip -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_zt_zip_libraryDescription">El proyecto se construye a partir de java.util.zip. * basado en paquetes de flujo de acceso. También se admite la mayoría de los métodos de conveniencia para el uso del sistema de archivos.    </string>
+    <string name="library_zt_zip_libraryDescription" tools:keep="@string/library_zt_zip_libraryDescription">El proyecto se construye a partir de java.util.zip. * basado en paquetes de flujo de acceso. También se admite la mayoría de los métodos de conveniencia para el uso del sistema de archivos.    </string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Floating View -->
     <!-- Author section -->
-    <string name="library_floatingview_author">Recruit Lifestyle Co. Ltd.</string>
-    <string name="library_floatingview_authorWebsite">http://engineer.recruit-lifestyle.co.jp/</string>
+    <string name="library_floatingview_author" tools:keep="@string/library_floatingview_author">Recruit Lifestyle Co. Ltd.</string>
+    <string name="library_floatingview_authorWebsite" tools:keep="@string/library_floatingview_authorWebsite">http://engineer.recruit-lifestyle.co.jp/</string>
     <!-- Library section -->
-    <string name="library_floatingview_libraryName">FloatingView</string>
-    <string name="library_floatingview_libraryDescription">Una librería de Android para llevar las vistas flotantes como Facebook Chat Heads a la comunidad de código abierto.</string>
-    <string name="library_floatingview_libraryWebsite">https://github.com/recruit-lifestyle/FloatingView/</string>
-    <string name="library_floatingview_libraryVersion">2.2</string>
+    <string name="library_floatingview_libraryName" tools:keep="@string/library_floatingview_libraryName">FloatingView</string>
+    <string name="library_floatingview_libraryDescription" tools:keep="@string/library_floatingview_libraryDescription">Una librería de Android para llevar las vistas flotantes como Facebook Chat Heads a la comunidad de código abierto.</string>
+    <string name="library_floatingview_libraryWebsite" tools:keep="@string/library_floatingview_libraryWebsite">https://github.com/recruit-lifestyle/FloatingView/</string>
+    <string name="library_floatingview_libraryVersion" tools:keep="@string/library_floatingview_libraryVersion">2.2</string>
     <!-- OpenSource section -->
-    <string name="library_floatingview_repositoryLink">https://github.com/recruit-lifestyle/FloatingView/</string>
+    <string name="library_floatingview_repositoryLink" tools:keep="@string/library_floatingview_repositoryLink">https://github.com/recruit-lifestyle/FloatingView/</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_floatingview_classPath">jp.co.recruit_lifestyle.android.floatingview.FloatingView</string>
+    <string name="library_floatingview_classPath" tools:keep="@string/library_floatingview_classPath">jp.co.recruit_lifestyle.android.floatingview.FloatingView</string>
     <!-- License section -->
     <!-- ExpandableLayout -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_expandablelayout_libraryDescription">Una clase de diseño de Android que soporta animar la expansión y el colapso de sus vistas secundarias.</string>
+    <string name="library_expandablelayout_libraryDescription" tools:keep="@string/library_expandablelayout_libraryDescription">Una clase de diseño de Android que soporta animar la expansión y el colapso de sus vistas secundarias.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->

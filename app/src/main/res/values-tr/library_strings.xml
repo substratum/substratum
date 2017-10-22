@@ -17,12 +17,12 @@
   ~ You should have received a copy of the GNU General Public License
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- http://def-builder.mikepenz.com/ -->
     <!-- commons-io -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_commons_io_libraryDescription">Commons IO, işlevsellik geliştirmeye yardımcı
+    <string name="library_commons_io_libraryDescription" tools:keep="@string/library_commons_io_libraryDescription">Commons IO, işlevsellik geliştirmeye yardımcı
         olacak yardımcı programların bir kütüphanesidir.
     </string>
     <!-- OpenSource section -->
@@ -31,7 +31,7 @@
     <!-- Gesture RecyclerView -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_gesturerecycler_libraryDescription">Bu kütüphane, Silme Görünümü için hızlıca kaydırma ve sürükleyip
+    <string name="library_gesturerecycler_libraryDescription" tools:keep="@string/library_gesturerecycler_libraryDescription">Bu kütüphane, Silme Görünümü için hızlıca kaydırma ve sürükleyip
         bırakma desteği sağlar.
     </string>
     <!-- OpenSource section -->
@@ -39,12 +39,12 @@
     <!-- License section -->
     <!-- KenBurnsView -->
     <!-- Author section -->
-    <string name="library_kenburnsview_author">Flávio Faria</string>
-    <string name="library_kenburnsview_authorWebsite">
+    <string name="library_kenburnsview_author" tools:keep="@string/library_kenburnsview_author">Flávio Faria</string>
+    <string name="library_kenburnsview_authorWebsite" tools:keep="@string/library_kenburnsview_authorWebsite">
         https://plus.google.com/+Fl%C3%A1vioFaria1/posts
     </string>
     <!-- Library section -->
-    <string name="library_kenburnsview_libraryDescription">Ken Burns Efektini kullanarak çizilebilirliğini
+    <string name="library_kenburnsview_libraryDescription" tools:keep="@string/library_kenburnsview_libraryDescription">Ken Burns Efektini kullanarak çizilebilirliğini
         canlandırarak etkileyici bir deneyim yaratan ImageView için bir uzantı
         sağlayan Android kütüphanesi.
     </string>
@@ -54,7 +54,7 @@
     <!-- Material Sheet Fab -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_materialsheetfab_libraryDescription">Google\'ın Malzeme Tasarımı dokümanından
+    <string name="library_materialsheetfab_libraryDescription" tools:keep="@string/library_materialsheetfab_libraryDescription">Google\'ın Malzeme Tasarımı dokümanından
         sayfaya geçiş işlemi gerçekleştiren kayan aksiyon düğmesini uygulayan kütüphane.
 Android 4.0+
         sürümlerinde (API düzeyleri &gt;= 14) herhangi bir Yüzen Tuş (FAB) kitaplığıyla kullanılabilir.
@@ -66,7 +66,7 @@ Android 4.0+
     <!-- Welcome -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_welcome_android_libraryDescription">Android uygulamaları için kullanımı kolay
+    <string name="library_welcome_android_libraryDescription" tools:keep="@string/library_welcome_android_libraryDescription">Android uygulamaları için kullanımı kolay
         ve özelleştirilebilir hoş geldiniz ekranı.
     </string>
     <!-- OpenSource section -->
@@ -75,7 +75,7 @@ Android 4.0+
     <!-- ZipSigner -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_zipsigner_libraryDescription">ZipSigner, Android cihazlarda Zip, Apk ve/veya Jar dosyalarını
+    <string name="library_zipsigner_libraryDescription" tools:keep="@string/library_zipsigner_libraryDescription">ZipSigner, Android cihazlarda Zip, Apk ve/veya Jar dosyalarını
         imzalamak için bir Android kütüphanesidir.
     </string>
     <!-- OpenSource section -->
@@ -84,7 +84,7 @@ Android 4.0+
     <!-- ZT-Zip -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_zt_zip_libraryDescription">Proje, akış tabanlı erişim için java.util.zip.*
+    <string name="library_zt_zip_libraryDescription" tools:keep="@string/library_zt_zip_libraryDescription">Proje, akış tabanlı erişim için java.util.zip.*
         paketleri kullanılarak oluşturulmuştur. Dosya sistemi kullanımı için çoğu kolaylık yöntemi de
         desteklenmektedir.
     </string>
@@ -93,22 +93,22 @@ Android 4.0+
     <!-- License section -->
     <!-- Floating View -->
     <!-- Author section -->
-    <string name="library_floatingview_author">Recruit Lifestyle Co. Ltd.</string>
-    <string name="library_floatingview_authorWebsite">http://engineer.recruit-lifestyle.co.jp/</string>
+    <string name="library_floatingview_author" tools:keep="@string/library_floatingview_author">Recruit Lifestyle Co. Ltd.</string>
+    <string name="library_floatingview_authorWebsite" tools:keep="@string/library_floatingview_authorWebsite">http://engineer.recruit-lifestyle.co.jp/</string>
     <!-- Library section -->
-    <string name="library_floatingview_libraryName">Yüzen Görünüm</string>
-    <string name="library_floatingview_libraryDescription">Facebook Sohbet Başları gibi Yüzen Görünümleri açık kaynak topluluğuna getiren bir Android kütüphanesi.</string>
-    <string name="library_floatingview_libraryWebsite">https://github.com/recruit-lifestyle/FloatingView/</string>
-    <string name="library_floatingview_libraryVersion">2.2</string>
+    <string name="library_floatingview_libraryName" tools:keep="@string/library_floatingview_libraryName">Yüzen Görünüm</string>
+    <string name="library_floatingview_libraryDescription" tools:keep="@string/library_floatingview_libraryDescription">Facebook Sohbet Başları gibi Yüzen Görünümleri açık kaynak topluluğuna getiren bir Android kütüphanesi.</string>
+    <string name="library_floatingview_libraryWebsite" tools:keep="@string/library_floatingview_libraryWebsite">https://github.com/recruit-lifestyle/FloatingView/</string>
+    <string name="library_floatingview_libraryVersion" tools:keep="@string/library_floatingview_libraryVersion">2.2</string>
     <!-- OpenSource section -->
-    <string name="library_floatingview_repositoryLink">https://github.com/recruit-lifestyle/FloatingView/</string>
+    <string name="library_floatingview_repositoryLink" tools:keep="@string/library_floatingview_repositoryLink">https://github.com/recruit-lifestyle/FloatingView/</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_floatingview_classPath">jp.co.recruit_lifestyle.android.floatingview.FloatingView</string>
+    <string name="library_floatingview_classPath" tools:keep="@string/library_floatingview_classPath">jp.co.recruit_lifestyle.android.floatingview.FloatingView</string>
     <!-- License section -->
     <!-- ExpandableLayout -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_expandablelayout_libraryDescription">Küçük görünümlerinin genişlemesi ve daraltılması animasyonunu destekleyen bir Android düzenİ sınıfı.</string>
+    <string name="library_expandablelayout_libraryDescription" tools:keep="@string/library_expandablelayout_libraryDescription">Küçük görünümlerinin genişlemesi ve daraltılması animasyonunu destekleyen bir Android düzenİ sınıfı.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->

@@ -17,77 +17,77 @@
   ~ You should have received a copy of the GNU General Public License
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- http://def-builder.mikepenz.com/ -->
     <!-- commons-io -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_commons_io_libraryDescription">Commons IO ist eine Funktionsbibliothek, welche die Entwicklung von IO-Funktionalität unterstützt.</string>
+    <string name="library_commons_io_libraryDescription" tools:keep="@string/library_commons_io_libraryDescription">Commons IO ist eine Funktionsbibliothek, welche die Entwicklung von IO-Funktionalität unterstützt.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Gesture RecyclerView -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_gesturerecycler_libraryDescription">Diese Bibliothek ermöglicht die Unterstützung für Wischgesten und Drag-&amp;-Drop bei RecyclerView.</string>
+    <string name="library_gesturerecycler_libraryDescription" tools:keep="@string/library_gesturerecycler_libraryDescription">Diese Bibliothek ermöglicht die Unterstützung für Wischgesten und Drag-&amp;-Drop bei RecyclerView.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- KenBurnsView -->
     <!-- Author section -->
-    <string name="library_kenburnsview_author">Flávio Faria</string>
-    <string name="library_kenburnsview_authorWebsite">https://plus.google.com/+Fl%C3%A1vioFaria1/posts</string>
+    <string name="library_kenburnsview_author" tools:keep="@string/library_kenburnsview_author">Flávio Faria</string>
+    <string name="library_kenburnsview_authorWebsite" tools:keep="@string/library_kenburnsview_authorWebsite">https://plus.google.com/+Fl%C3%A1vioFaria1/posts</string>
     <!-- Library section -->
-    <string name="library_kenburnsview_libraryDescription">Android-Bibliothek, die ImageView erweitert, welches eine mitreißende Erfahrung durch Animieren der Grafiken mittels Ken-Burns-Effekt erschafft.</string>
+    <string name="library_kenburnsview_libraryDescription" tools:keep="@string/library_kenburnsview_libraryDescription">Android-Bibliothek, die ImageView erweitert, welches eine mitreißende Erfahrung durch Animieren der Grafiken mittels Ken-Burns-Effekt erschafft.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Material Sheet Fab -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_materialsheetfab_libraryDescription">Diese Bibliothek implementiert den Floating-Action-Button übergreifend mit der Material-Design-Dokumentation von Google. Er kann mit jeder FAB-Bibliothek auf Android 4.0+ (API-Level &gt;=14) verwendet werden.</string>
+    <string name="library_materialsheetfab_libraryDescription" tools:keep="@string/library_materialsheetfab_libraryDescription">Diese Bibliothek implementiert den Floating-Action-Button übergreifend mit der Material-Design-Dokumentation von Google. Er kann mit jeder FAB-Bibliothek auf Android 4.0+ (API-Level &gt;=14) verwendet werden.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Welcome -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_welcome_android_libraryDescription">Eine einfach zu nutzende und anzupassende Willkommens-Ansicht für Android-Apps.</string>
+    <string name="library_welcome_android_libraryDescription" tools:keep="@string/library_welcome_android_libraryDescription">Eine einfach zu nutzende und anzupassende Willkommens-Ansicht für Android-Apps.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- ZipSigner -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_zipsigner_libraryDescription">ZipSigner ist eine Android-Bibliothek für das signieren von ZIP-, APK- oder JAR-Dateien auf Android-Geräten.</string>
+    <string name="library_zipsigner_libraryDescription" tools:keep="@string/library_zipsigner_libraryDescription">ZipSigner ist eine Android-Bibliothek für das signieren von ZIP-, APK- oder JAR-Dateien auf Android-Geräten.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- ZT-Zip -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_zt_zip_libraryDescription">Das Projekt baut auf java.util.zip.*-Paketen für streambasierten Zugang auf. Die gängigsten Methoden zum Zugriff auf das Dateisystem werden ebenfalls unterstützt.</string>
+    <string name="library_zt_zip_libraryDescription" tools:keep="@string/library_zt_zip_libraryDescription">Das Projekt baut auf java.util.zip.*-Paketen für streambasierten Zugang auf. Die gängigsten Methoden zum Zugriff auf das Dateisystem werden ebenfalls unterstützt.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->
     <!-- Floating View -->
     <!-- Author section -->
-    <string name="library_floatingview_author">Rekrut Lifestyle Co. Ltd.</string>
-    <string name="library_floatingview_authorWebsite">http://engineer.recruit-lifestyle.co.jp/</string>
+    <string name="library_floatingview_author" tools:keep="@string/library_floatingview_author">Rekrut Lifestyle Co. Ltd.</string>
+    <string name="library_floatingview_authorWebsite" tools:keep="@string/library_floatingview_authorWebsite">http://engineer.recruit-lifestyle.co.jp/</string>
     <!-- Library section -->
-    <string name="library_floatingview_libraryName">Fliegende Ansichten</string>
-    <string name="library_floatingview_libraryDescription">Eine Android Bibliothek, die fliegende Ansichten wie die Facebook \"Chatsymbole\" in die \"Open Source\" Community bringen will.</string>
-    <string name="library_floatingview_libraryWebsite">https://github.com/recruit-lifestyle/FloatingView/</string>
-    <string name="library_floatingview_libraryVersion">2.2</string>
+    <string name="library_floatingview_libraryName" tools:keep="@string/library_floatingview_libraryName">Fliegende Ansichten</string>
+    <string name="library_floatingview_libraryDescription" tools:keep="@string/library_floatingview_libraryDescription">Eine Android Bibliothek, die fliegende Ansichten wie die Facebook \"Chatsymbole\" in die \"Open Source\" Community bringen will.</string>
+    <string name="library_floatingview_libraryWebsite" tools:keep="@string/library_floatingview_libraryWebsite">https://github.com/recruit-lifestyle/FloatingView/</string>
+    <string name="library_floatingview_libraryVersion" tools:keep="@string/library_floatingview_libraryVersion">2.2</string>
     <!-- OpenSource section -->
-    <string name="library_floatingview_repositoryLink">https://github.com/recruit-lifestyle/FloatingView/</string>
+    <string name="library_floatingview_repositoryLink" tools:keep="@string/library_floatingview_repositoryLink">https://github.com/recruit-lifestyle/FloatingView/</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_floatingview_classPath">jp.co.recruit_lifestyle.android.floatingview.FloatingView</string>
+    <string name="library_floatingview_classPath" tools:keep="@string/library_floatingview_classPath">jp.co.recruit_lifestyle.android.floatingview.FloatingView</string>
     <!-- License section -->
     <!-- ExpandableLayout -->
     <!-- Author section -->
     <!-- Library section -->
-    <string name="library_expandablelayout_libraryDescription">Eine Android-Layout-Klasse, die das Animieren des Ausbaus und des Zusammenbruchs seiner untergeordneten Ansichten unterstützt.</string>
+    <string name="library_expandablelayout_libraryDescription" tools:keep="@string/library_expandablelayout_libraryDescription">Eine Android-Layout-Klasse, die das Animieren des Ausbaus und des Zusammenbruchs seiner untergeordneten Ansichten unterstützt.</string>
     <!-- OpenSource section -->
     <!-- ClassPath for autoDetect section -->
     <!-- License section -->

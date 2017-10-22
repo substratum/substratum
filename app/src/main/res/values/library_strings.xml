@@ -17,237 +17,237 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- http://def-builder.mikepenz.com/ -->
     <!-- commons-io -->
-    <string name="define_commons_io" />
+    <string name="define_commons_io" tools:keep="@string/define_commons_io" />
     <!-- Author section -->
-    <string name="library_commons_io_author" translatable="false">Apache</string>
-    <string name="library_commons_io_authorWebsite" translatable="false">
+    <string name="library_commons_io_author" translatable="false" tools:keep="@string/library_commons_io_author">Apache</string>
+    <string name="library_commons_io_authorWebsite" translatable="false" tools:keep="@string/library_commons_io_authorWebsite">
         http://commons.apache.org/
     </string>
     <!-- Library section -->
-    <string name="library_commons_io_libraryName" translatable="false">Commons IO</string>
-    <string name="library_commons_io_libraryDescription">Commons IO is a library of utilities to
+    <string name="library_commons_io_libraryName" translatable="false" tools:keep="@string/library_commons_io_libraryName">Commons IO</string>
+    <string name="library_commons_io_libraryDescription" tools:keep="@string/library_commons_io_libraryDescription">Commons IO is a library of utilities to
         assist with developing IO functionality.
     </string>
-    <string name="library_commons_io_libraryWebsite" translatable="false">
+    <string name="library_commons_io_libraryWebsite" translatable="false" tools:keep="@string/library_commons_io_libraryWebsite">
         https://commons.apache.org/proper/commons-io/
     </string>
-    <string name="library_commons_io_libraryVersion" translatable="false">1.0</string>
+    <string name="library_commons_io_libraryVersion" translatable="false" tools:keep="@string/library_commons_io_libraryVersion">1.0</string>
     <!-- OpenSource section -->
-    <string name="library_commons_io_isOpenSource" translatable="false">true</string>
-    <string name="library_commons_io_repositoryLink" translatable="false">
+    <string name="library_commons_io_isOpenSource" translatable="false" tools:keep="@string/library_commons_io_isOpenSource">true</string>
+    <string name="library_commons_io_repositoryLink" translatable="false" tools:keep="@string/library_commons_io_repositoryLink">
         https://commons.apache.org/proper/commons-io/
     </string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_commons_io_classPath" translatable="false">commons-io</string>
+    <string name="library_commons_io_classPath" translatable="false" tools:keep="@string/library_commons_io_classPath">commons-io</string>
     <!-- License section -->
-    <string name="library_commons_io_licenseId" translatable="false">apache_2_0</string>
+    <string name="library_commons_io_licenseId" translatable="false" tools:keep="@string/library_commons_io_licenseId">apache_2_0</string>
 
     <!-- Gesture RecyclerView -->
-    <string name="define_gesturerecycler" />
+    <string name="define_gesturerecycler" tools:keep="@string/define_gesturerecycler" />
     <!-- Author section -->
-    <string name="library_gesturerecycler_author" translatable="false">Paweł Surówka</string>
-    <string name="library_gesturerecycler_authorWebsite" translatable="false">
+    <string name="library_gesturerecycler_author" translatable="false" tools:keep="@string/library_gesturerecycler_author">Paweł Surówka</string>
+    <string name="library_gesturerecycler_authorWebsite" translatable="false" tools:keep="@string/library_gesturerecycler_authorWebsite">
         https://github.com/thesurix/gesture-recycler
     </string>
     <!-- Library section -->
-    <string name="library_gesturerecycler_libraryName" translatable="false">Gesture Recycler
+    <string name="library_gesturerecycler_libraryName" translatable="false" tools:keep="@string/library_gesturerecycler_libraryName">Gesture Recycler
     </string>
-    <string name="library_gesturerecycler_libraryDescription">This library provides swipe &amp; drag
+    <string name="library_gesturerecycler_libraryDescription" tools:keep="@string/library_gesturerecycler_libraryDescription">This library provides swipe &amp; drag
         and drop support for RecyclerView.
     </string>
-    <string name="library_gesturerecycler_libraryWebsite" translatable="false">
+    <string name="library_gesturerecycler_libraryWebsite" translatable="false" tools:keep="@string/library_gesturerecycler_libraryWebsite">
         https://github.com/thesurix/gesture-recycler
     </string>
-    <string name="library_gesturerecycler_libraryVersion" translatable="false">1.3.1</string>
+    <string name="library_gesturerecycler_libraryVersion" translatable="false" tools:keep="@string/library_gesturerecycler_libraryVersion">1.3.1</string>
     <!-- OpenSource section -->
-    <string name="library_gesturerecycler_isOpenSource" translatable="false">true</string>
-    <string name="library_gesturerecycler_repositoryLink" translatable="false">
+    <string name="library_gesturerecycler_isOpenSource" translatable="false" tools:keep="@string/library_gesturerecycler_isOpenSource">true</string>
+    <string name="library_gesturerecycler_repositoryLink" translatable="false" tools:keep="@string/library_gesturerecycler_repositoryLink">
         https://github.com/thesurix/gesture-recycler
     </string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_gesturerecycler_classPath" translatable="false">
+    <string name="library_gesturerecycler_classPath" translatable="false" tools:keep="@string/library_gesturerecycler_classPath">
         com.thesurix.gesturerecycler:gesture-recycler
     </string>
     <!-- License section -->
-    <string name="library_gesturerecycler_licenseId" translatable="false">apache_2_0</string>
+    <string name="library_gesturerecycler_licenseId" translatable="false" tools:keep="@string/library_gesturerecycler_licenseId">apache_2_0</string>
 
     <!-- KenBurnsView -->
-    <string name="define_kenburnsview" />
+    <string name="define_kenburnsview" tools:keep="@string/define_kenburnsview" />
     <!-- Author section -->
-    <string name="library_kenburnsview_author">Flávio Faria</string>
-    <string name="library_kenburnsview_authorWebsite">
+    <string name="library_kenburnsview_author" tools:keep="@string/library_kenburnsview_author">Flávio Faria</string>
+    <string name="library_kenburnsview_authorWebsite" tools:keep="@string/library_kenburnsview_authorWebsite">
         https://plus.google.com/+Fl%C3%A1vioFaria1/posts
     </string>
     <!-- Library section -->
-    <string name="library_kenburnsview_libraryName" translatable="false">KenBurnsView</string>
-    <string name="library_kenburnsview_libraryDescription">Android library that provides an
+    <string name="library_kenburnsview_libraryName" translatable="false" tools:keep="@string/library_kenburnsview_libraryName">KenBurnsView</string>
+    <string name="library_kenburnsview_libraryDescription" tools:keep="@string/library_kenburnsview_libraryDescription">Android library that provides an
         extension to ImageView that creates an immersive experience by animating its drawable using
         the Ken Burns Effect.
     </string>
-    <string name="library_kenburnsview_libraryWebsite" translatable="false">
+    <string name="library_kenburnsview_libraryWebsite" translatable="false" tools:keep="@string/library_kenburnsview_libraryWebsite">
         https://github.com/flavioarfaria/KenBurnsView
     </string>
-    <string name="library_kenburnsview_libraryVersion" translatable="false">1.0.7</string>
+    <string name="library_kenburnsview_libraryVersion" translatable="false" tools:keep="@string/library_kenburnsview_libraryVersion">1.0.7</string>
     <!-- OpenSource section -->
-    <string name="library_kenburnsview_isOpenSource" translatable="false">true</string>
-    <string name="library_kenburnsview_repositoryLink" translatable="false">
+    <string name="library_kenburnsview_isOpenSource" translatable="false" tools:keep="@string/library_kenburnsview_isOpenSource">true</string>
+    <string name="library_kenburnsview_repositoryLink" translatable="false" tools:keep="@string/library_kenburnsview_repositoryLink">
         https://github.com/flavioarfaria/KenBurnsView
     </string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_kenburnsview_classPath" translatable="false">
+    <string name="library_kenburnsview_classPath" translatable="false" tools:keep="@string/library_kenburnsview_classPath">
         com.flaviofaria:kenburnsview
     </string>
     <!-- License section -->
-    <string name="library_kenburnsview_licenseId" translatable="false">apache_2_0</string>
+    <string name="library_kenburnsview_licenseId" translatable="false" tools:keep="@string/library_kenburnsview_licenseId">apache_2_0</string>
 
     <!-- Material Sheet Fab -->
-    <string name="define_materialsheetfab" />
+    <string name="define_materialsheetfab" tools:keep="@string/define_materialsheetfab" />
     <!-- Author section -->
-    <string name="library_materialsheetfab_author" translatable="false">Gordon Wong</string>
-    <string name="library_materialsheetfab_authorWebsite" translatable="false">
+    <string name="library_materialsheetfab_author" translatable="false" tools:keep="@string/library_materialsheetfab_author">Gordon Wong</string>
+    <string name="library_materialsheetfab_authorWebsite" translatable="false" tools:keep="@string/library_materialsheetfab_authorWebsite">
         http://gordonwong.com/
     </string>
     <!-- Library section -->
-    <string name="library_materialsheetfab_libraryName" translatable="false">MaterialSheetFab
+    <string name="library_materialsheetfab_libraryName" translatable="false" tools:keep="@string/library_materialsheetfab_libraryName">MaterialSheetFab
     </string>
-    <string name="library_materialsheetfab_libraryDescription">Library that implements the floating
+    <string name="library_materialsheetfab_libraryDescription" tools:keep="@string/library_materialsheetfab_libraryDescription">Library that implements the floating
         action button to sheet transition from Google\'s Material Design documentation. It can be
         used with any FAB library on Android 4.0+ (API levels >= 14).
     </string>
-    <string name="library_materialsheetfab_libraryWebsite" translatable="false">
+    <string name="library_materialsheetfab_libraryWebsite" translatable="false" tools:keep="@string/library_materialsheetfab_libraryWebsite">
         https://github.com/gowong/material-sheet-fab/
     </string>
-    <string name="library_materialsheetfab_libraryVersion" translatable="false">1.2.1</string>
+    <string name="library_materialsheetfab_libraryVersion" translatable="false" tools:keep="@string/library_materialsheetfab_libraryVersion">1.2.1</string>
     <!-- OpenSource section -->
-    <string name="library_materialsheetfab_isOpenSource" translatable="false">true</string>
-    <string name="library_materialsheetfab_repositoryLink" translatable="false">
+    <string name="library_materialsheetfab_isOpenSource" translatable="false" tools:keep="@string/library_materialsheetfab_isOpenSource">true</string>
+    <string name="library_materialsheetfab_repositoryLink" translatable="false" tools:keep="@string/library_materialsheetfab_repositoryLink">
         https://github.com/gowong/material-sheet-fab/
     </string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_materialsheetfab_classPath" translatable="false">
+    <string name="library_materialsheetfab_classPath" translatable="false" tools:keep="@string/library_materialsheetfab_classPath">
         com.gordonwong:material-sheet-fab
     </string>
     <!-- License section -->
-    <string name="library_materialsheetfab_licenseId" translatable="false">mit</string>
+    <string name="library_materialsheetfab_licenseId" translatable="false" tools:keep="@string/library_materialsheetfab_licenseId">mit</string>
 
     <!-- Welcome -->
-    <string name="define_welcome_android" />
+    <string name="define_welcome_android" tools:keep="@string/define_welcome_android" />
     <!-- Author section -->
-    <string name="library_welcome_android_author" translatable="false">Stephen Tuso</string>
-    <string name="library_welcome_android_authorWebsite" translatable="false">
+    <string name="library_welcome_android_author" translatable="false" tools:keep="@string/library_welcome_android_author">Stephen Tuso</string>
+    <string name="library_welcome_android_authorWebsite" translatable="false" tools:keep="@string/library_welcome_android_authorWebsite">
         https://github.com/stephentuso
     </string>
     <!-- Library section -->
-    <string name="library_welcome_android_libraryName" translatable="false">Welcome</string>
-    <string name="library_welcome_android_libraryDescription">An easy to use and customizable
+    <string name="library_welcome_android_libraryName" translatable="false" tools:keep="@string/library_welcome_android_libraryName">Welcome</string>
+    <string name="library_welcome_android_libraryDescription" tools:keep="@string/library_welcome_android_libraryDescription">An easy to use and customizable
         welcome screen for Android apps.
     </string>
-    <string name="library_welcome_android_libraryWebsite" translatable="false">
+    <string name="library_welcome_android_libraryWebsite" translatable="false" tools:keep="@string/library_welcome_android_libraryWebsite">
         https://github.com/stephentuso/welcome-android
     </string>
-    <string name="library_welcome_android_libraryVersion" translatable="false">0.7.2</string>
+    <string name="library_welcome_android_libraryVersion" translatable="false" tools:keep="@string/library_welcome_android_libraryVersion">0.7.2</string>
     <!-- OpenSource section -->
-    <string name="library_welcome_android_isOpenSource" translatable="false">true</string>
-    <string name="library_welcome_android_repositoryLink" translatable="false">
+    <string name="library_welcome_android_isOpenSource" translatable="false" tools:keep="@string/library_welcome_android_isOpenSource">true</string>
+    <string name="library_welcome_android_repositoryLink" translatable="false" tools:keep="@string/library_welcome_android_repositoryLink">
         https://github.com/stephentuso/welcome-android
     </string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_welcome_android_classPath" translatable="false">com.stephentuso:welcome
+    <string name="library_welcome_android_classPath" translatable="false" tools:keep="@string/library_welcome_android_classPath">com.stephentuso:welcome
     </string>
     <!-- License section -->
-    <string name="library_welcome_android_licenseId" translatable="false">apache_2_0</string>
+    <string name="library_welcome_android_licenseId" translatable="false" tools:keep="@string/library_welcome_android_licenseId">apache_2_0</string>
 
     <!-- ZipSigner -->
-    <string name="define_zipsigner" />
+    <string name="define_zipsigner" tools:keep="@string/define_zipsigner" />
     <!-- Author section -->
-    <string name="library_zipsigner_author" translatable="false">Ken Ellinwood</string>
-    <string name="library_zipsigner_authorWebsite" translatable="false">
+    <string name="library_zipsigner_author" translatable="false" tools:keep="@string/library_zipsigner_author">Ken Ellinwood</string>
+    <string name="library_zipsigner_authorWebsite" translatable="false" tools:keep="@string/library_zipsigner_authorWebsite">
         https://sites.google.com/site/zipsigner/home
     </string>
     <!-- Library section -->
-    <string name="library_zipsigner_libraryName" translatable="false">ZipSigner</string>
-    <string name="library_zipsigner_libraryDescription">ZipSigner is an Android library for signing
+    <string name="library_zipsigner_libraryName" translatable="false" tools:keep="@string/library_zipsigner_libraryName">ZipSigner</string>
+    <string name="library_zipsigner_libraryDescription" tools:keep="@string/library_zipsigner_libraryDescription">ZipSigner is an Android library for signing
         Zip, Apk, and/or Jar files on-board Android devices.
     </string>
-    <string name="library_zipsigner_libraryWebsite" translatable="false">
+    <string name="library_zipsigner_libraryWebsite" translatable="false" tools:keep="@string/library_zipsigner_libraryWebsite">
         https://code.google.com/archive/p/zip-signer/
     </string>
-    <string name="library_zipsigner_libraryVersion" translatable="false">1.17</string>
+    <string name="library_zipsigner_libraryVersion" translatable="false" tools:keep="@string/library_zipsigner_libraryVersion">1.17</string>
     <!-- OpenSource section -->
-    <string name="library_zipsigner_isOpenSource" translatable="false">true</string>
-    <string name="library_zipsigner_repositoryLink" translatable="false">
+    <string name="library_zipsigner_isOpenSource" translatable="false" tools:keep="@string/library_zipsigner_isOpenSource">true</string>
+    <string name="library_zipsigner_repositoryLink" translatable="false" tools:keep="@string/library_zipsigner_repositoryLink">
         https://code.google.com/archive/p/zip-signer/
     </string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_zipsigner_classPath" translatable="false">kellinwood.security.zipsigner
+    <string name="library_zipsigner_classPath" translatable="false" tools:keep="@string/library_zipsigner_classPath">kellinwood.security.zipsigner
     </string>
     <!-- License section -->
-    <string name="library_zipsigner_licenseId" translatable="false">apache_2_0</string>
+    <string name="library_zipsigner_licenseId" translatable="false" tools:keep="@string/library_zipsigner_licenseId">apache_2_0</string>
 
     <!-- ZT-Zip -->
-    <string name="define_zt_zip" />
+    <string name="define_zt_zip" tools:keep="@string/define_zt_zip" />
     <!-- Author section -->
-    <string name="library_zt_zip_author" translatable="false">ZeroTurnAround</string>
-    <string name="library_zt_zip_authorWebsite" translatable="false">http://zeroturnaround.com/
+    <string name="library_zt_zip_author" translatable="false" tools:keep="@string/library_zt_zip_author">ZeroTurnAround</string>
+    <string name="library_zt_zip_authorWebsite" translatable="false" tools:keep="@string/library_zt_zip_authorWebsite">http://zeroturnaround.com/
     </string>
     <!-- Library section -->
-    <string name="library_zt_zip_libraryName" translatable="false">ZT-Zip</string>
-    <string name="library_zt_zip_libraryDescription">The project is built using java.util.zip.*
+    <string name="library_zt_zip_libraryName" translatable="false" tools:keep="@string/library_zt_zip_libraryName">ZT-Zip</string>
+    <string name="library_zt_zip_libraryDescription" tools:keep="@string/library_zt_zip_libraryDescription">The project is built using java.util.zip.*
         packages for stream based access. Most convenience methods for filesystem usage is also
         supported.
     </string>
-    <string name="library_zt_zip_libraryWebsite" translatable="false">
+    <string name="library_zt_zip_libraryWebsite" translatable="false" tools:keep="@string/library_zt_zip_libraryWebsite">
         https://github.com/zeroturnaround/zt-zip
     </string>
-    <string name="library_zt_zip_libraryVersion" translatable="false">1.9</string>
+    <string name="library_zt_zip_libraryVersion" translatable="false" tools:keep="@string/library_zt_zip_libraryVersion">1.9</string>
     <!-- OpenSource section -->
-    <string name="library_zt_zip_isOpenSource" translatable="false">true</string>
-    <string name="library_zt_zip_repositoryLink" translatable="false">
+    <string name="library_zt_zip_isOpenSource" translatable="false" tools:keep="@string/library_zt_zip_isOpenSource">true</string>
+    <string name="library_zt_zip_repositoryLink" translatable="false" tools:keep="@string/library_zt_zip_repositoryLink">
         https://github.com/zeroturnaround/zt-zip
     </string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_zt_zip_classPath" translatable="false">org.zeroturnaround.zt-zip</string>
+    <string name="library_zt_zip_classPath" translatable="false" tools:keep="@string/library_zt_zip_classPath">org.zeroturnaround.zt-zip</string>
     <!-- License section -->
-    <string name="library_zt_zip_licenseId" translatable="false">apache_2_0</string>
+    <string name="library_zt_zip_licenseId" translatable="false" tools:keep="@string/library_zt_zip_licenseId">apache_2_0</string>
 
     <!-- Floating View -->
-    <string name="define_floatingview" />
+    <string name="define_floatingview" tools:keep="@string/define_floatingview" />
     <!-- Author section -->
-    <string name="library_floatingview_author">Recruit Lifestyle Co. Ltd.</string>
-    <string name="library_floatingview_authorWebsite">http://engineer.recruit-lifestyle.co.jp/</string>
+    <string name="library_floatingview_author" tools:keep="@string/library_floatingview_author">Recruit Lifestyle Co. Ltd.</string>
+    <string name="library_floatingview_authorWebsite" tools:keep="@string/library_floatingview_authorWebsite">http://engineer.recruit-lifestyle.co.jp/</string>
     <!-- Library section -->
-    <string name="library_floatingview_libraryName">FloatingView</string>
-    <string name="library_floatingview_libraryDescription">An Android library to bring Floating Views such as Facebook Chat Heads to the open source community.</string>
-    <string name="library_floatingview_libraryWebsite">https://github.com/recruit-lifestyle/FloatingView/</string>
-    <string name="library_floatingview_libraryVersion">2.2</string>
+    <string name="library_floatingview_libraryName" tools:keep="@string/library_floatingview_libraryName">FloatingView</string>
+    <string name="library_floatingview_libraryDescription" tools:keep="@string/library_floatingview_libraryDescription">An Android library to bring Floating Views such as Facebook Chat Heads to the open source community.</string>
+    <string name="library_floatingview_libraryWebsite" tools:keep="@string/library_floatingview_libraryWebsite">https://github.com/recruit-lifestyle/FloatingView/</string>
+    <string name="library_floatingview_libraryVersion" tools:keep="@string/library_floatingview_libraryVersion">2.2</string>
     <!-- OpenSource section -->
-    <string name="library_floatingview_isOpenSource">true</string>
-    <string name="library_floatingview_repositoryLink">https://github.com/recruit-lifestyle/FloatingView/</string>
+    <string name="library_floatingview_isOpenSource" tools:keep="@string/library_floatingview_isOpenSource">true</string>
+    <string name="library_floatingview_repositoryLink" tools:keep="@string/library_floatingview_repositoryLink">https://github.com/recruit-lifestyle/FloatingView/</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_floatingview_classPath">jp.co.recruit_lifestyle.android.floatingview.FloatingView</string>
+    <string name="library_floatingview_classPath" tools:keep="@string/library_floatingview_classPath">jp.co.recruit_lifestyle.android.floatingview.FloatingView</string>
     <!-- License section -->
-    <string name="library_floatingview_licenseId">apache_2_0</string>
+    <string name="library_floatingview_licenseId" tools:keep="@string/library_floatingview_licenseId">apache_2_0</string>
 
     <!-- ExpandableLayout -->
-    <string name="define_expandablelayout" />
+    <string name="define_expandablelayout" tools:keep="@string/define_expandablelayout" />
     <!-- Author section -->
-    <string name="library_expandablelayout_author" translatable="false">Daniel Cachapa</string>
-    <string name="library_expandablelayout_authorWebsite" translatable="false">https://github.com/cachapa</string>
+    <string name="library_expandablelayout_author" translatable="false" tools:keep="@string/library_expandablelayout_author">Daniel Cachapa</string>
+    <string name="library_expandablelayout_authorWebsite" translatable="false" tools:keep="@string/library_expandablelayout_authorWebsite">https://github.com/cachapa</string>
     <!-- Library section -->
-    <string name="library_expandablelayout_libraryName" translatable="false">ExpandableLayout</string>
-    <string name="library_expandablelayout_libraryDescription">An Android layout class that supports animating the expansion and collapse of its child views.</string>
-    <string name="library_expandablelayout_libraryWebsite" translatable="false">https://github.com/cachapa/ExpandableLayout</string>
-    <string name="library_expandablelayout_libraryVersion" translatable="false">2.6</string>
+    <string name="library_expandablelayout_libraryName" translatable="false" tools:keep="@string/library_expandablelayout_libraryName">ExpandableLayout</string>
+    <string name="library_expandablelayout_libraryDescription" tools:keep="@string/library_expandablelayout_libraryDescription">An Android layout class that supports animating the expansion and collapse of its child views.</string>
+    <string name="library_expandablelayout_libraryWebsite" translatable="false" tools:keep="@string/library_expandablelayout_libraryWebsite">https://github.com/cachapa/ExpandableLayout</string>
+    <string name="library_expandablelayout_libraryVersion" translatable="false" tools:keep="@string/library_expandablelayout_libraryVersion">2.6</string>
     <!-- OpenSource section -->
-    <string name="library_expandablelayout_isOpenSource" translatable="false">true</string>
-    <string name="library_expandablelayout_repositoryLink" translatable="false">https://github.com/cachapa/ExpandableLayout</string>
+    <string name="library_expandablelayout_isOpenSource" translatable="false" tools:keep="@string/library_expandablelayout_isOpenSource">true</string>
+    <string name="library_expandablelayout_repositoryLink" translatable="false" tools:keep="@string/library_expandablelayout_repositoryLink">https://github.com/cachapa/ExpandableLayout</string>
     <!-- ClassPath for autoDetect section -->
-    <string name="library_expandablelayout_classPath" translatable="false">net.cachapa.expandablelayout:expandablelayout</string>
+    <string name="library_expandablelayout_classPath" translatable="false" tools:keep="@string/library_expandablelayout_classPath">net.cachapa.expandablelayout:expandablelayout</string>
     <!-- License section -->
-    <string name="library_expandablelayout_licenseId" translatable="false">apache_2_0</string>
+    <string name="library_expandablelayout_licenseId" translatable="false" tools:keep="@string/library_expandablelayout_licenseId">apache_2_0</string>
 
     <!-- NumberProgressBar -->
     <!-- Author section -->

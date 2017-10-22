@@ -171,7 +171,7 @@ enum OverlayFunctions {
                     } catch (final PackageManager.NameNotFoundException e) {
                         // Suppress exception
                     }
-                    if (sUrl[0].length() != 0) {
+                    if (!sUrl[0].isEmpty()) {
                         return sUrl[0];
                     } else {
                         return null;
@@ -288,7 +288,7 @@ enum OverlayFunctions {
                             }
                         }
                     }
-                    if (overlays.late_install.size() == 0) {
+                    if (overlays.late_install.isEmpty()) {
                         Substratum.getInstance().unregisterFinishReceiver();
                     }
                 } else if (overlays.enable_mode) {
@@ -300,7 +300,7 @@ enum OverlayFunctions {
                 }
                 if (Systems.isSamsung(context) &&
                         overlays.late_install != null &&
-                        overlays.late_install.size() > 0) {
+                        !overlays.late_install.isEmpty()) {
                     if (Root.checkRootAccess() && Root.requestRootAccess()) {
                         overlays.progressBar.setVisibility(View.VISIBLE);
                         overlays.overlaysWaiting = overlays.late_install.size();
@@ -484,7 +484,7 @@ enum OverlayFunctions {
 
                             final String unparsedSuffix;
                             boolean useType3CommonDir = false;
-                            if (sUrl[0].length() != 0) {
+                            if (!sUrl[0].isEmpty()) {
                                 useType3CommonDir = overlays.themeAssetManager
                                         .list(Overlays.overlaysDir + "/" + current_overlay +
                                                 "/type3-common").length > 0;
@@ -497,7 +497,7 @@ enum OverlayFunctions {
                                 unparsedSuffix = "/res";
                             }
 
-                            final String parsedSuffix = ((sUrl[0].length() != 0) ?
+                            final String parsedSuffix = ((!sUrl[0].isEmpty()) ?
                                     "/type3_" + parsedVariant : "/res");
                             overlays.type3 = parsedVariant;
 
@@ -535,7 +535,7 @@ enum OverlayFunctions {
                             }
 
                             if (overlays.checkedOverlays.get(i).is_variant_chosen ||
-                                    sUrl[0].length() != 0) {
+                                    !sUrl[0].isEmpty()) {
                                 // Type 1a
                                 if (overlays.checkedOverlays.get(i).is_variant_chosen1) {
                                     overlays.type1a =
@@ -679,7 +679,7 @@ enum OverlayFunctions {
                                     Log.d(Overlays.TAG, "Currently processing package" +
                                             " \"" + overlays.checkedOverlays.get(i)
                                             .getFullOverlayParameters() + "\"...");
-                                    if (sUrl[0].length() != 0) {
+                                    if (!sUrl[0].isEmpty()) {
                                         overlays.sb = new SubstratumBuilder();
                                         overlays.sb.beginAction(
                                                 context,
@@ -731,7 +731,7 @@ enum OverlayFunctions {
                                             " \"" + overlays.checkedOverlays.get(i)
                                             .getFullOverlayParameters() + "\"...");
 
-                                    if (sUrl[0].length() != 0) {
+                                    if (!sUrl[0].isEmpty()) {
                                         overlays.sb = new SubstratumBuilder();
                                         overlays.sb.beginAction(
                                                 context,
@@ -800,7 +800,7 @@ enum OverlayFunctions {
                                     }
                                 } else {
                                     if (overlays.sb.special_snowflake ||
-                                            overlays.sb.no_install.length() > 0) {
+                                            !overlays.sb.no_install.isEmpty()) {
                                         overlays.late_install.add(overlays.sb.no_install);
                                     } else if (needToWait) {
                                         // Thread wait
@@ -856,7 +856,7 @@ enum OverlayFunctions {
                                     overlays.has_failed = true;
                                 } else {
                                     if (overlays.sb.special_snowflake ||
-                                            overlays.sb.no_install.length() > 0) {
+                                            !overlays.sb.no_install.isEmpty()) {
                                         overlays.late_install.add(overlays.sb.no_install);
                                     } else if (needToWait) {
                                         // Thread wait
@@ -918,7 +918,7 @@ enum OverlayFunctions {
             if (overlays != null) {
                 final Context context = overlays.getActivity();
 
-                if (overlays.final_runner.size() > 0) {
+                if (!overlays.final_runner.isEmpty()) {
                     overlays.enable_mode = false;
 
                     if (overlays.mixAndMatchMode) {
@@ -946,7 +946,7 @@ enum OverlayFunctions {
             final Overlays overlays = this.ref.get();
             final Context context = this.refContext.get();
             if (overlays != null && context != null) {
-                if (overlays.final_runner.size() > 0) {
+                if (!overlays.final_runner.isEmpty()) {
                     overlays.progressBar.setVisibility(View.GONE);
                     if (overlays.needsRecreate(context)) {
                         final Handler handler = new Handler();
@@ -997,7 +997,7 @@ enum OverlayFunctions {
             final Overlays overlays = this.ref.get();
             if (overlays != null) {
                 final Activity activity = overlays.getActivity();
-                if (overlays.final_runner.size() > 0) {
+                if (!overlays.final_runner.isEmpty()) {
                     overlays.progressBar.setVisibility(View.VISIBLE);
                     if (overlays.toggle_all.isChecked())
                         activity.runOnUiThread(() -> overlays.toggle_all.setChecked(false));
@@ -1011,7 +1011,7 @@ enum OverlayFunctions {
             if (overlays != null) {
                 final Context context = overlays.getActivity();
 
-                if (overlays.final_runner.size() > 0) {
+                if (!overlays.final_runner.isEmpty()) {
                     overlays.disable_mode = false;
                     ThemeManager.disableOverlay(context, overlays.final_command);
                 }
@@ -1026,7 +1026,7 @@ enum OverlayFunctions {
             if (overlays != null && context != null) {
                 final Activity activity = overlays.getActivity();
                 overlays.progressBar.setVisibility(View.GONE);
-                if (overlays.final_runner.size() > 0) {
+                if (!overlays.final_runner.isEmpty()) {
                     if (overlays.needsRecreate(context)) {
                         final Handler handler = new Handler();
                         handler.postDelayed(() -> {
@@ -1075,7 +1075,7 @@ enum OverlayFunctions {
             final Overlays overlays = this.ref.get();
             if (overlays != null) {
                 final Activity activity = overlays.getActivity();
-                if (overlays.final_runner.size() > 0) {
+                if (!overlays.final_runner.isEmpty()) {
                     overlays.progressBar.setVisibility(View.VISIBLE);
                     if (overlays.toggle_all.isChecked())
                         activity.runOnUiThread(() -> overlays.toggle_all.setChecked(false));
@@ -1089,7 +1089,7 @@ enum OverlayFunctions {
             if (overlays != null) {
                 final Context context = overlays.getActivity();
 
-                if (overlays.final_runner.size() > 0) {
+                if (!overlays.final_runner.isEmpty()) {
                     overlays.enable_disable_mode = false;
 
                     final ArrayList<String> enableOverlays = new ArrayList<>();
@@ -1126,7 +1126,7 @@ enum OverlayFunctions {
             if (overlays != null && context != null) {
                 final Activity activity = overlays.getActivity();
                 overlays.progressBar.setVisibility(View.GONE);
-                if (overlays.final_runner.size() > 0) {
+                if (!overlays.final_runner.isEmpty()) {
                     if (overlays.needsRecreate(context)) {
                         final Handler handler = new Handler();
                         handler.postDelayed(() -> {
@@ -1285,7 +1285,7 @@ enum OverlayFunctions {
                         ThemeManager.enableOverlay(context, overlays.final_command);
                     }
 
-                    if (overlays.final_runner.size() == 0) {
+                    if (overlays.final_runner.isEmpty()) {
                         if (overlays.base_spinner.getSelectedItemPosition() == 0) {
                             activity.runOnUiThread(() -> overlays.mAdapter.notifyDataSetChanged());
                         } else {

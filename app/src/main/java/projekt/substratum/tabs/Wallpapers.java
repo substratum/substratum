@@ -145,7 +145,7 @@ public class Wallpapers extends Fragment {
                     final RecyclerView.Adapter mAdapter = new WallpaperAdapter(wallpaperEntries);
                     wallpapers.mRecyclerView.setAdapter(mAdapter);
 
-                    if (wallpaperEntries.size() == 0)
+                    if (wallpaperEntries.isEmpty())
                         wallpapers.no_wallpapers.setVisibility(View.VISIBLE);
 
                     wallpapers.mRecyclerView.setVisibility(View.VISIBLE);

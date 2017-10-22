@@ -592,7 +592,7 @@ public enum Packages {
                     // The theme app contains the proper metadata
                     can_continue = true;
                     // If the user is searching using the search bar
-                    if (search_filter != null && search_filter.length() > 0) {
+                    if (search_filter != null && !search_filter.isEmpty()) {
                         @SuppressWarnings("StringBufferReplaceableByString") final StringBuilder filtered = new StringBuilder();
                         filtered.append(appInfo.metaData.getString(metadataName));
                         filtered.append(appInfo.metaData.getString(metadataAuthor));
@@ -614,7 +614,7 @@ public enum Packages {
                     // Check if it is wallpaper mode, if it is, bail out early
                     if (home_type.equals(wallpaperFragment)) {
                         final String wallpaperCheck = appInfo.metaData.getString(metadataWallpapers);
-                        if (wallpaperCheck != null && wallpaperCheck.length() > 0) {
+                        if (wallpaperCheck != null && !wallpaperCheck.isEmpty()) {
                             returnMap.put(appInfo.metaData.getString(metadataName), data);
                         }
                     } else {

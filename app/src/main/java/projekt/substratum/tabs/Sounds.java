@@ -347,7 +347,7 @@ public class Sounds extends Fragment {
                 try {
                     final List<SoundsInfo> adapter1 = new ArrayList<>(sounds.wordList);
 
-                    if (adapter1.size() > 0) {
+                    if (!adapter1.isEmpty()) {
                         sounds.recyclerView = sounds.root.findViewById(R.id.recycler_view);
                         final SoundsAdapter mAdapter = new SoundsAdapter(adapter1);
                         final RecyclerView.LayoutManager mLayoutManager =

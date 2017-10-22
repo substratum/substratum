@@ -325,7 +325,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     @Override
     public void onPrepareOptionsMenu(final Menu menu) {
         final Boolean alphabetize = this.updateMenuButtonState(menu);
-        if ((this.overlayList != null && this.overlayList.size() > 0)) {
+        if ((this.overlayList != null && !this.overlayList.isEmpty())) {
             if (!alphabetize) this.refreshThemeName();
             new LayoutReloader(ManagerFragment.this, this.userInput).execute();
         }
@@ -352,14 +352,14 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     }
 
     public void refreshThemeName() {
-        if (this.overlayList != null && this.overlayList.size() > 0) {
+        if (this.overlayList != null && !this.overlayList.isEmpty()) {
             for (int i = 0; i < this.overlayList.size(); i++) {
                 final Context context = this.overlayList.get(i).getContext();
                 final String packageName = this.overlayList.get(i).getName();
                 if (this.overlayList.get(i).getThemeName() == null) {
                     final String metadata = getOverlayMetadata(
                             context, packageName, References.metadataOverlayParent);
-                    if (metadata != null && metadata.length() > 0) {
+                    if (metadata != null && !metadata.isEmpty()) {
                         final String pName = "<b>" + context.getString(R.string.manager_theme_name) +
                                 "</b> " +
                                 getPackageName(context, metadata);
@@ -436,7 +436,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 fragment.toggle_all.setChecked(false);
                 fragment.toggle_all.setEnabled(false);
                 fragment.mRecyclerView.setEnabled(false);
-                if (this.userInput.get() != null && this.userInput.get().length() > 0) {
+                if (this.userInput.get() != null && !this.userInput.get().isEmpty()) {
                     fragment.resetRecyclerView();
                 }
             }
@@ -472,7 +472,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                         // Then let's convert all the package names to their app names
                         for (int i = 0; i < all_overlays.size(); i++) {
                             boolean can_continue = true;
-                            if (this.userInput.get() != null && this.userInput.get().length() > 0) {
+                            if (this.userInput.get() != null && !this.userInput.get().isEmpty()) {
                                 final StringBuilder combined = new StringBuilder();
                                 //TODO
                                 //Do we really want to check for theme name too?
@@ -483,7 +483,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                                         context,
                                         all_overlays.get(i),
                                         References.metadataOverlayParent);
-                                if (metadata != null && metadata.length() > 0) {
+                                if (metadata != null && !metadata.isEmpty()) {
                                     combined.append(Packages.getPackageName(context, metadata));
                                 } else {
                                     combined.append("");
@@ -516,7 +516,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                             }
                         }
 
-                        if (unsortedMap.size() > 0) {
+                        if (!unsortedMap.isEmpty()) {
                             // Sort the values list
                             final List<Pair<String, String>> sortedMap = sortMapByValues(unsortedMap);
 
@@ -579,7 +579,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 new MainActivity.DoCleanUp(context).execute();
 
                 final boolean alphabetize = fragment.prefs.getBoolean("alphabetize_overlays", true);
-                if (fragment.overlayList.size() > 0) {
+                if (!fragment.overlayList.isEmpty()) {
                     if (alphabetize) {
                         fragment.overlayList.sort(
                                 Comparator.comparing(ManagerItem::getLabelName,
@@ -596,7 +596,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     }
                 }
 
-                if (fragment.overlaysList.size() == 0) {
+                if (fragment.overlaysList.isEmpty()) {
                     fragment.floatingActionButton.hide();
                     fragment.toggle_zone.setVisibility(View.GONE);
                     fragment.relativeLayout.setVisibility(View.VISIBLE);
@@ -608,7 +608,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     textView.setText(fragment.getString(R.string.manager_no_overlays_text));
 
                     if (this.userInput.get() != null && !fragment.searchView.isIconified() &&
-                            this.userInput.get().length() > 0) {
+                            !this.userInput.get().isEmpty()) {
                         titleView.setText(fragment.getString(R.string.no_overlays_title));
                         final String formatter = String.format(fragment.getString(
                                 R.string.no_overlays_description_search), this.userInput.get());

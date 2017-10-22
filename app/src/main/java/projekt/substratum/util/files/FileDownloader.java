@@ -92,7 +92,7 @@ public enum FileDownloader {
 
                 final String outputDir = context.getCacheDir().getAbsolutePath() + "/" +
                         destinationFileOrFolder +
-                        (outputFile != null && outputFile.length() > 0 ? "/" + outputFile : "");
+                        (outputFile != null && !outputFile.isEmpty() ? "/" + outputFile : "");
 
                 Log.d(References.SUBSTRATUM_LOG, "Placing file in: " + outputDir);
 

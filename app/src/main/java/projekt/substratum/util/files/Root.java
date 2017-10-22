@@ -33,7 +33,7 @@ public enum Root {
 
     public static boolean checkRootAccess() {
         final StringBuilder check = References.runShellCommand("which su");
-        return check != null && check.toString().length() > 0;
+        return check != null && !check.toString().isEmpty();
     }
 
     public static boolean requestRootAccess() {

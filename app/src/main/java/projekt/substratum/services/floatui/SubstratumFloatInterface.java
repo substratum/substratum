@@ -81,7 +81,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                     UsageStatsManager.INTERVAL_DAILY, time - 1000 * 1000, time);
         }
         String foregroundApp = "";
-        if (stats != null && stats.size() > 0) {
+        if (stats != null && !stats.isEmpty()) {
             final SortedMap<Long, UsageStats> mySortedMap = new TreeMap<>();
             for (final UsageStats usageStats : stats) {
                 mySortedMap.put(usageStats.getLastTimeUsed(), usageStats);
@@ -146,7 +146,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
             to_be_shown.addAll(disabledOverlaysForForegroundPackage);
             Collections.sort(to_be_shown);
 
-            if (to_be_shown.size() == 0) {
+            if (to_be_shown.isEmpty()) {
                 final String format = String.format(
                         this.getString(R.string.per_app_toast_no_overlays), packageName);
                 Toast.makeText(this.getApplicationContext(), format, Toast.LENGTH_SHORT).show();
@@ -216,9 +216,9 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                     // Run the overlay management after a 0.1 second delay
                     final Handler handler = new Handler();
                     handler.postDelayed(() -> {
-                        if (to_enable.size() > 0)
+                        if (!to_enable.isEmpty())
                             ThemeManager.enableOverlay(this.getApplicationContext(), to_enable);
-                        if (to_disable.size() > 0)
+                        if (!to_disable.isEmpty())
                             ThemeManager.disableOverlay(this.getApplicationContext(), to_disable);
 
                         if (this.trigger_systemui_restart) {

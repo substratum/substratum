@@ -307,7 +307,7 @@ public class OverlaysItem implements Serializable {
         String variant = varianted;
         if (!".".equals(variant.substring(0, 1))) variant = "." + variant;
         String base = this.baseResources;
-        if (this.baseResources.length() > 0 && !".".equals(this.baseResources.substring(0, 1))) {
+        if (!this.baseResources.isEmpty() && !".".equals(this.baseResources.substring(0, 1))) {
             base = "." + base;
         }
         try {
@@ -334,7 +334,7 @@ public class OverlaysItem implements Serializable {
                         ((this.getSelectedVariant4() == 0) ? "" : this.getSelectedVariantName4()) +
                         ((this.getSelectedVariant5() == 0) ? "" : this.getSelectedVariantName5()))
                         .replaceAll("\\s", "").replaceAll("[^a-zA-Z0-9]+", "") +
-                ((this.baseResources.length() == 0) ? "" : "." + this.baseResources);
+                ((this.baseResources.isEmpty()) ? "" : "." + this.baseResources);
     }
 
     public boolean isOverlayEnabled() {

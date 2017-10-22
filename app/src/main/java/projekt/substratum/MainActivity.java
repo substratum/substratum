@@ -166,7 +166,7 @@ public class MainActivity extends SubstratumActivity implements
     }
 
     public static void uninstallMultipleAPKS(final Activity activity) {
-        if (MainActivity.queuedUninstall.size() > 0) {
+        if (!MainActivity.queuedUninstall.isEmpty()) {
             final Uri packageURI = Uri.parse("package:" + MainActivity.queuedUninstall.get(0));
             final Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
             activity.startActivityForResult(uninstallIntent, UNINSTALL_REQUEST_CODE);
@@ -885,7 +885,7 @@ public class MainActivity extends SubstratumActivity implements
                 }
                 break;
             case UNINSTALL_REQUEST_CODE:
-                if (queuedUninstall != null && queuedUninstall.size() > 0) {
+                if (queuedUninstall != null && !queuedUninstall.isEmpty()) {
                     queuedUninstall.remove(0);
                     uninstallMultipleAPKS(this);
                 }
@@ -1268,7 +1268,7 @@ public class MainActivity extends SubstratumActivity implements
 
                 final List<String> stateAll = ThemeManager.listAllOverlays(context);
                 // We need the null check because listOverlays never returns null, but empty
-                if (state1.size() > 0 && state1.get(0) != null) {
+                if (!state1.isEmpty() && state1.get(0) != null) {
                     for (int i = 0; i < state1.size(); i++) {
                         Log.e("OverlayCleaner",
                                 "Target APK not found for \"" + state1.get(i) +
@@ -1289,7 +1289,7 @@ public class MainActivity extends SubstratumActivity implements
                     }
                 }
 
-                if (removeList.size() > 0)
+                if (!removeList.isEmpty())
                     ThemeManager.uninstallOverlay(context, removeList);
             }
             return null;

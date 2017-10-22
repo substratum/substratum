@@ -143,14 +143,14 @@ public class SubstratumBuilder {
             final String parse1_variantName = variant.replaceAll("\\s+", "");
             parse2_variantName = parse1_variantName.replaceAll("[^a-zA-Z0-9]+", "");
         }
-        if (parse2_variantName.length() > 0) parse2_variantName = "." + parse2_variantName;
+        if (!parse2_variantName.isEmpty()) parse2_variantName = "." + parse2_variantName;
 
         String parse2_baseName = "";
         if (base_variant != null) {
             final String parse1_baseName = base_variant.replaceAll("\\s+", "");
             parse2_baseName = parse1_baseName.replaceAll("[^a-zA-Z0-9]+", "");
         }
-        if (parse2_baseName.length() > 0) parse2_baseName = "." + parse2_baseName;
+        if (!parse2_baseName.isEmpty()) parse2_baseName = "." + parse2_baseName;
 
         if ("".equals(parse2_themeName)) {
             parse2_themeName = "no_name";
@@ -216,7 +216,7 @@ public class SubstratumBuilder {
                                         type3,
                                         type4,
                                         (override_package != null &&
-                                                override_package.length() > 0) ?
+                                                !override_package.isEmpty()) ?
                                                 override_package : "");
                         pw.write(manifest);
                     } else {
@@ -241,7 +241,7 @@ public class SubstratumBuilder {
                                             type3,
                                             type4,
                                             (override_package != null &&
-                                                    override_package.length() > 0) ?
+                                                    !override_package.isEmpty()) ?
                                                     override_package : "");
                             pw.write(manifest);
                         } else {
@@ -265,7 +265,7 @@ public class SubstratumBuilder {
                                             type3,
                                             type4,
                                             (override_package != null &&
-                                                    override_package.length() > 0) ?
+                                                    !override_package.isEmpty()) ?
                                                     override_package : "");
                             pw.write(manifest);
                         }
@@ -605,9 +605,9 @@ public class SubstratumBuilder {
     }
 
     private void dumpErrorLogs(final String tag, final String overlay, final String message) {
-        if (message.length() > 0) {
+        if (!message.isEmpty()) {
             Log.e(tag, message);
-            if (this.error_logs.length() == 0) {
+            if (this.error_logs.isEmpty()) {
                 this.error_logs = "» [" + overlay + "]: " + message;
             } else {
                 this.error_logs += "\n" + "» [" + overlay + "]: " + message;

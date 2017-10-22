@@ -99,7 +99,7 @@ public class ThemeFragment extends Fragment {
                 themeItem.setSDKLevels(null);
                 themeItem.setThemeVersion(null);
             }
-            themeItem.setThemeMode((home_type.length() == 0) ? null : home_type);
+            themeItem.setThemeMode((home_type.isEmpty()) ? null : home_type);
             themeItem.setContext(context);
             themeItem.setActivity(activity);
             themes.add(themeItem);
@@ -122,10 +122,10 @@ public class ThemeFragment extends Fragment {
         final ImageView cardViewImage = cardView.findViewById(R.id.no_themes_installed);
 
         if (substratum_packages != null) {
-            if (substratum_packages.size() == 0) {
+            if (substratum_packages.isEmpty()) {
                 if (((MainActivity) activity).searchView != null &&
                         !((MainActivity) activity).searchView.isIconified()) {
-                    if (MainActivity.userInput.length() > 0) {
+                    if (!MainActivity.userInput.isEmpty()) {
                         final String parse = String.format(
                                 mContext.getString(R.string.no_themes_description_search),
                                 MainActivity.userInput);
@@ -152,7 +152,7 @@ public class ThemeFragment extends Fragment {
             // Now let's place the proper amount of theme count into the context text
             final String parse;
             final WeakReference<MainActivity> ref = new WeakReference<>((MainActivity) activity);
-            if (substratum_packages.size() == 0 && ref.get() != null) {
+            if (substratum_packages.isEmpty() && ref.get() != null) {
                 ref.get().switchToStockToolbar(toolbarTitle);
             } else if (substratum_packages.size() == 1 && ref.get() != null) {
                 parse = String.format(mContext.getString(R.string.actionbar_theme_count_singular),

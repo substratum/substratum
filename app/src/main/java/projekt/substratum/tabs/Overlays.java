@@ -897,7 +897,7 @@ public class Overlays extends Fragment {
         } catch (final NullPointerException npe) {
             // Suppress warning
         }
-        final String suffix = ((parsedVariant.length() != 0) ? "/type3_" + parsedVariant : "/res");
+        final String suffix = ((!parsedVariant.isEmpty()) ? "/type3_" + parsedVariant : "/res");
 
         // Type1 Spinner Text Adjustments
         assert inputStream != null;
@@ -1015,8 +1015,8 @@ public class Overlays extends Fragment {
             case 2486:
                 FileOperations.delete(this.getContext(),
                         new File(this.late_install.get(0)).getAbsolutePath());
-                if (this.late_install != null && this.late_install.size() > 0) this.late_install.remove(0);
-                if (this.late_install.size() > 0) {
+                if (this.late_install != null && !this.late_install.isEmpty()) this.late_install.remove(0);
+                if (!this.late_install.isEmpty()) {
                     this.installMultipleAPKs();
                 }
         }
@@ -1484,11 +1484,11 @@ public class Overlays extends Fragment {
                                 final VariantAdapter adapter4 = new VariantAdapter(context, type2);
                                 final VariantAdapter adapter5 = new VariantAdapter(context, type4);
 
-                                final boolean adapterOneChecker = type1a.size() == 0;
-                                final boolean adapterTwoChecker = type1b.size() == 0;
-                                final boolean adapterThreeChecker = type1c.size() == 0;
-                                final boolean adapterFourChecker = type2.size() == 0;
-                                final boolean adapterFiveChecker = type4.size() == 0;
+                                final boolean adapterOneChecker = type1a.isEmpty();
+                                final boolean adapterTwoChecker = type1b.isEmpty();
+                                final boolean adapterThreeChecker = type1c.isEmpty();
+                                final boolean adapterFourChecker = type2.isEmpty();
+                                final boolean adapterFiveChecker = type4.isEmpty();
 
                                 final OverlaysItem overlaysItem =
                                         new OverlaysItem(

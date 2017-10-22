@@ -64,7 +64,7 @@ public class AppCrashReceiver extends BroadcastReceiver {
             Log.e(TAG, "Now disabling all overlays for \'" + packageName + "\'...");
 
             final List<String> overlays = ThemeManager.listEnabledOverlaysForTarget(context, packageName);
-            if (overlays.size() > 0) {
+            if (!overlays.isEmpty()) {
                 for (final String overlay : overlays) {
                     Log.d("AppCrashReciever", String.format("Disabling overlay %s for package " +
                             "%s", overlay, packageName));
@@ -77,7 +77,7 @@ public class AppCrashReceiver extends BroadcastReceiver {
             }
         } else if (Objects.equals(packageName, "com.android.systemui")) {
             if (ThemeManager.listEnabledOverlaysForTarget(context,
-                    "com.android.systemui").size() == 0) return;
+                    "com.android.systemui").isEmpty()) return;
             switch (sharedPreferences.getInt("sysui_crash_count", 0)) {
                 case 0:
                 case 1:

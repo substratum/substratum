@@ -211,7 +211,7 @@ public class ScheduledProfileService extends JobService {
                     }
                 }
 
-                if (cannot_run_overlays.size() == 0) {
+                if (cannot_run_overlays.isEmpty()) {
                     final File theme = new File(
                             Environment.getExternalStorageDirectory().getAbsolutePath() +
                                     "/substratum/profiles/" + processed + "/theme");

@@ -481,11 +481,11 @@ public class InformationActivity extends SubstratumActivity {
                         this.tabLayout.addTab(this.tabLayout.newTab().setText(this.getString(R.string
                                 .theme_information_tab_four)));
                     }
-                    if (wallpaperUrl != null && wallpaperUrl.length() > 0) {
+                    if (wallpaperUrl != null && !wallpaperUrl.isEmpty()) {
                         this.tabLayout.addTab(this.tabLayout.newTab().setText(this.getString(R.string
                                 .theme_information_tab_five)));
                     }
-                    if (isWallpaperOnly && wallpaperUrl != null && wallpaperUrl.length() > 0) {
+                    if (isWallpaperOnly && wallpaperUrl != null && !wallpaperUrl.isEmpty()) {
                         final Handler handler = new Handler();
                         handler.postDelayed(() ->
                                 this.runOnUiThread(floatingActionButton::hide), 500);

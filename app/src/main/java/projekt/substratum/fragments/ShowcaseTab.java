@@ -137,7 +137,7 @@ public class ShowcaseTab extends Fragment {
                 final ShowcaseItemAdapter mAdapter = new ShowcaseItemAdapter(result);
                 showcaseTab.mRecyclerView.setAdapter(mAdapter);
 
-                if (result.size() == 0) showcaseTab.no_wallpapers.setVisibility(View.VISIBLE);
+                if (result.isEmpty()) showcaseTab.no_wallpapers.setVisibility(View.VISIBLE);
 
                 showcaseTab.mRecyclerView.setVisibility(View.VISIBLE);
                 showcaseTab.materialProgressBar.setVisibility(View.GONE);

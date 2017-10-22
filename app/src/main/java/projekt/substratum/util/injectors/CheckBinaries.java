@@ -64,7 +64,7 @@ public enum CheckBinaries {
             // Developers: AOPT-ARM (32bit) is using the legacy AAPT binary, while AAPT-ARM64
             //             (64bit) is using the brand new AOPT binary.
             final String architecture =
-                    Arrays.asList(Build.SUPPORTED_64_BIT_ABIS).size() > 0 ? "ARM64" : "ARM";
+                    !Arrays.asList(Build.SUPPORTED_64_BIT_ABIS).isEmpty() ? "ARM64" : "ARM";
             final String integrityCheck = prefs.getString("compiler", "aapt");
             try {
                 if ("aopt".equals(integrityCheck)) {
@@ -110,7 +110,7 @@ public enum CheckBinaries {
 
         if (!Arrays.toString(Build.SUPPORTED_ABIS).contains("86")) {
             final String architecture =
-                    Arrays.asList(Build.SUPPORTED_64_BIT_ABIS).size() > 0 ? "ARM64" : "ARM";
+                    !Arrays.asList(Build.SUPPORTED_64_BIT_ABIS).isEmpty() ? "ARM64" : "ARM";
             FileOperations.copyFromAsset(mContext, "zipalign" + ("ARM64".equals(architecture) ?
                     "64" :
                     ""), zipalignPath);

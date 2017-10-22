@@ -256,7 +256,7 @@ public enum ProfileManager {
 
                 // Write enabled overlays
                 final List<String> enabled = ThemeManager.listOverlays(context, STATE_ENABLED);
-                if (enabled.size() > 0) {
+                if (!enabled.isEmpty()) {
                     xmlSerializer.startTag(null, METADATA_PROFILE_ENABLED);
                     for (final String packageName : enabled) {
                         final String target = Packages.getOverlayMetadata(
@@ -302,7 +302,7 @@ public enum ProfileManager {
 
                 // Write disabled overlays
                 final List<String> disabled = ThemeManager.listOverlays(context, STATE_DISABLED);
-                if (disabled.size() > 0) {
+                if (!disabled.isEmpty()) {
                     xmlSerializer.startTag(null, METADATA_PROFILE_DISABLED);
                     for (final String packageName : disabled) {
                         final String target = Packages.getOverlayMetadata(

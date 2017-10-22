@@ -955,7 +955,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     return;
                 }
 
-                if (result.length() > 0) {
+                if (!result.isEmpty()) {
                     final String supportedRom = String.format(
                             settingsFragment.getString(R.string.rom_status_supported), result);
                     settingsFragment.platformSummary.append("\n")

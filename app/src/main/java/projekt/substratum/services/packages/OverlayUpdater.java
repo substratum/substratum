@@ -180,7 +180,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                     this.installed_overlays = ThemeManager.listOverlaysByTheme(this.context, this.package_name);
                     break;
             }
-            if (this.upgrade_mode != null && !"".equals(this.upgrade_mode) && this.installed_overlays.size() > 0) {
+            if (this.upgrade_mode != null && !"".equals(this.upgrade_mode) && !this.installed_overlays.isEmpty()) {
                 this.errored_packages = new ArrayList<>();
                 this.mNotifyManager = (NotificationManager) this.context.getSystemService(
                         Context.NOTIFICATION_SERVICE);
@@ -206,7 +206,7 @@ public class OverlayUpdater extends BroadcastReceiver {
 
         @Override
         protected void onPostExecute(final String result) {
-            if (this.installed_overlays.size() > 0) {
+            if (!this.installed_overlays.isEmpty()) {
                 this.mNotifyManager.cancel(this.id);
                 this.mBuilder.setAutoCancel(true);
                 this.mBuilder.setProgress(0, 0, false);
@@ -216,7 +216,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                                 this.context,
                                 this.package_name)));
 
-                if (this.errored_packages.size() > 0) {
+                if (!this.errored_packages.isEmpty()) {
                     this.mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
                     final String format = String.format(
                             this.context.getString(R.string.notification_done_upgrade_title_warning),
@@ -265,7 +265,7 @@ public class OverlayUpdater extends BroadcastReceiver {
         @SuppressWarnings("ConstantConditions")
         @Override
         protected String doInBackground(final String... sUrl) {
-            if (this.installed_overlays.size() > 0) {
+            if (!this.installed_overlays.isEmpty()) {
                 Log.d(TAG, "'" + this.package_name +
                         "' was just updated with overlays present, updating...");
                 for (int i = 0; i < this.installed_overlays.size(); i++) {
@@ -400,13 +400,13 @@ public class OverlayUpdater extends BroadcastReceiver {
                     final String type3Dir = "overlays/" + target + "/type3_" + type3;
                     final String type4Dir = "overlays/" + target + "/type4_" + type4;
 
-                    final String additional_variant = ((type2 != null && type2.length() > 0) ?
+                    final String additional_variant = ((type2 != null && !type2.isEmpty()) ?
                             type2Dir.split("/")[2].substring(6) : null);
-                    final String base_variant = ((type3Dir != null && type3Dir.length() > 0) ?
+                    final String base_variant = ((type3Dir != null && !type3Dir.isEmpty()) ?
                             type3Dir.split("/")[2].substring(6) : null);
 
                     // Prenotions
-                    final String suffix = ((type3 != null && type3.length() != 0) ?
+                    final String suffix = ((type3 != null && !type3.isEmpty()) ?
                             "/" + type3Dir : "/res");
                     final String workingDirectory = this.context.getCacheDir().getAbsolutePath() +
                             SUBSTRATUM_BUILDER_CACHE.substring(0,
@@ -431,7 +431,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                             workingDirectory + suffix,
                             listDir,
                             (encrypted ? this.cipher : null));
-                    if (type2 != null && type2.length() > 0) {
+                    if (type2 != null && !type2.isEmpty()) {
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
                                 listDir,
@@ -441,7 +441,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                     }
 
                     // Handle the types
-                    if (type1a != null && type1a.length() > 0) {
+                    if (type1a != null && !type1a.isEmpty()) {
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
                                 type1aDir,
@@ -449,7 +449,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                                 type1aDir,
                                 (encrypted ? this.cipher : null));
                     }
-                    if (type1b != null && type1b.length() > 0) {
+                    if (type1b != null && !type1b.isEmpty()) {
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
                                 type1bDir,
@@ -457,7 +457,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                                 type1bDir,
                                 (encrypted ? this.cipher : null));
                     }
-                    if (type1c != null && type1c.length() > 0) {
+                    if (type1c != null && !type1c.isEmpty()) {
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
                                 type1cDir,
@@ -466,7 +466,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                                 (encrypted ? this.cipher : null));
                     }
 
-                    if (type4 != null && type4.length() > 0) {
+                    if (type4 != null && !type4.isEmpty()) {
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
                                 type4Dir,
@@ -481,17 +481,17 @@ public class OverlayUpdater extends BroadcastReceiver {
                         Log.e(TAG, "Could not make cache directory...");
 
                     final String packageName =
-                            (type1a != null && type1a.length() > 0 ?
+                            (type1a != null && !type1a.isEmpty() ?
                                     type1a.replaceAll("\\s+", "") : "") +
-                                    (type1b != null && type1b.length() > 0 ?
+                                    (type1b != null && !type1b.isEmpty() ?
                                             type1b.replaceAll("\\s+", "") : "") +
-                                    (type1c != null && type1c.length() > 0 ?
+                                    (type1c != null && !type1c.isEmpty() ?
                                             type1c.replaceAll("\\s+", "") : "") +
-                                    (type2 != null && type2.length() > 0 ?
+                                    (type2 != null && !type2.isEmpty() ?
                                             type2.replaceAll("\\s+", "") : "") +
-                                    (type3 != null && type3.length() > 0 ?
+                                    (type3 != null && !type3.isEmpty() ?
                                             type3.replaceAll("\\s+", "") : "") +
-                                    (type4 != null && type4.length() > 0 ?
+                                    (type4 != null && !type4.isEmpty() ?
                                             type4.replaceAll("\\s+", "") : "");
 
                     final SubstratumBuilder sb = new SubstratumBuilder();

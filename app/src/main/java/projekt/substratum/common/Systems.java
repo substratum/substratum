@@ -329,7 +329,7 @@ public enum Systems {
         }
         final String prop = getProp("ro.build.date.utc");
         return prefs.getInt("build_date", 0) ==
-                ((prop != null && prop.length() > 0) ? Integer.parseInt(prop) : 0);
+                ((prop != null && !prop.isEmpty()) ? Integer.parseInt(prop) : 0);
     }
 
     public static void setROMVersion(final Context context, final boolean force) {
@@ -337,7 +337,7 @@ public enum Systems {
         if (!prefs.contains("build_date") || force) {
             final String prop = getProp("ro.build.date.utc");
             prefs.edit().putInt("build_date",
-                    (prop != null && prop.length() > 0) ? Integer.parseInt(prop) : 0)
+                    (prop != null && !prop.isEmpty()) ? Integer.parseInt(prop) : 0)
                     .apply();
         }
     }
@@ -424,8 +424,8 @@ public enum Systems {
                 try (BufferedReader reader = new BufferedReader(
                         new InputStreamReader(process.getInputStream()))) {
                     final String line = reader.readLine();
-                    if (line != null && line.length() > 0) {
-                        if (value == null || value.length() == 0) {
+                    if (line != null && !line.isEmpty()) {
+                        if (value == null || value.isEmpty()) {
                             String current = key;
                             if (current.contains(".")) {
                                 current = current.split("\\.")[1];
@@ -461,7 +461,7 @@ public enum Systems {
                             if (line.toLowerCase(Locale.US)
                                     .contains(key.toLowerCase(
                                             Locale.US))) {
-                                if (value == null || value.length() == 0) {
+                                if (value == null || value.isEmpty()) {
                                     String current = key;
                                     if (current.contains(".")) {
                                         current = current.split("\\.")[1];

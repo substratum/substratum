@@ -80,22 +80,22 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
                 final List<String> styleErrors = error.getStyleErrors();
 
                 final StringBuilder error_logs = new StringBuilder();
-                if (boolErrors.size() > 0) {
+                if (!boolErrors.isEmpty()) {
                     for (int i = 0; i < boolErrors.size(); i++) {
                         error_logs.append(boolErrors.get(i)).append("\n");
                     }
                 }
-                if (colorErrors.size() > 0) {
+                if (!colorErrors.isEmpty()) {
                     for (int i = 0; i < colorErrors.size(); i++) {
                         error_logs.append(colorErrors.get(i)).append("\n");
                     }
                 }
-                if (dimenErrors.size() > 0) {
+                if (!dimenErrors.isEmpty()) {
                     for (int i = 0; i < dimenErrors.size(); i++) {
                         error_logs.append(dimenErrors.get(i)).append("\n");
                     }
                 }
-                if (styleErrors.size() > 0) {
+                if (!styleErrors.isEmpty()) {
                     for (int i = 0; i < styleErrors.size(); i++) {
                         error_logs.append(styleErrors.get(i)).append("\n");
                     }

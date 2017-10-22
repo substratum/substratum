@@ -89,7 +89,7 @@ public enum ReadCloudShowcaseFile {
                     final String addon_support = eElement.getElementsByTagName("support").item(0).
                             getTextContent();
 
-                    if (addon_image.length() == 0 && addon_backgroundimage.length() == 0) {
+                    if (addon_image.isEmpty() && addon_backgroundimage.isEmpty()) {
                         final String[] finalArray = {addon_download_name, addon_download_link,
                                 addon_author, addon_pricing, addon_package_name, addon_support};
                         map.put(finalArray[0], finalArray[1]);

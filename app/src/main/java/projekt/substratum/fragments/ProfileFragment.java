@@ -755,7 +755,7 @@ public class ProfileFragment extends Fragment {
             final ProfileFragment profileFragment = this.ref.get();
             if (profileFragment != null) {
                 if (Systems.checkOMS(profileFragment.mContext)) {
-                    if (profileFragment.cannot_run_overlays.size() > 0) {
+                    if (!profileFragment.cannot_run_overlays.isEmpty()) {
                         new AlertDialog.Builder(profileFragment.mContext)
                                 .setTitle(profileFragment.getString(R.string.restore_dialog_title))
                                 .setMessage(profileFragment.dialog_message)
@@ -1192,11 +1192,11 @@ public class ProfileFragment extends Fragment {
                         final String type1cDir = "overlays/" + target + "/type1c_" + type1c +
                                 (encrypted ? ".xml.enc" : ".xml");
 
-                        final String additional_variant = (type2.length() > 0 ? type2 : null);
-                        final String base_variant = (type3.length() > 0 ? type3 : null);
+                        final String additional_variant = (!type2.isEmpty() ? type2 : null);
+                        final String base_variant = (!type3.isEmpty() ? type3 : null);
 
                         // Prenotions
-                        final String suffix = (type3.length() != 0 ?
+                        final String suffix = (!type3.isEmpty() ?
                                 "/type3_" + type3 : "/res");
                         final String workingDirectory =
                                 profileFragment.mContext.getCacheDir().getAbsolutePath() +
@@ -1220,7 +1220,7 @@ public class ProfileFragment extends Fragment {
                                 (encrypted ? this.cipher : null));
 
                         // Handle the type1s
-                        if (type1a.length() > 0) {
+                        if (!type1a.isEmpty()) {
                             FileOperations.copyFileOrDir(
                                     themeAssetManager,
                                     type1aDir,
@@ -1228,7 +1228,7 @@ public class ProfileFragment extends Fragment {
                                     type1aDir,
                                     (encrypted ? this.cipher : null));
                         }
-                        if (type1b.length() > 0) {
+                        if (!type1b.isEmpty()) {
                             FileOperations.copyFileOrDir(
                                     themeAssetManager,
                                     type1bDir,
@@ -1236,7 +1236,7 @@ public class ProfileFragment extends Fragment {
                                     type1bDir,
                                     (encrypted ? this.cipher : null));
                         }
-                        if (type1c.length() > 0) {
+                        if (!type1c.isEmpty()) {
                             FileOperations.copyFileOrDir(
                                     themeAssetManager,
                                     type1cDir,

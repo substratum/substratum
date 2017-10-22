@@ -471,7 +471,7 @@ public enum Packages {
                 resourceId = res.getIdentifier(
                         package_name + ":drawable/" + heroImageResourceName, null, null);
             }
-            if (0 != resourceId) {
+            if (resourceId != 0) {
                 hero = mContext.getPackageManager().getDrawable(package_name, resourceId, null);
             }
             return hero;

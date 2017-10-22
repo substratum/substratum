@@ -55,7 +55,7 @@ public class ManagerItem implements Serializable {
                 context,
                 this.name,
                 References.metadataOverlayVersion);
-        final Boolean newUpdate = (version != 0) && BuildConfig.VERSION_CODE >= version;
+        final Boolean newUpdate = (version != 0) && version <= BuildConfig.VERSION_CODE;
         final String metadata = Packages.getOverlayMetadata(
                 context,
                 this.name,

@@ -108,7 +108,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                 this.mContext,
                                 packageTitle,
                                 References.metadataOverlayVersion);
-                        final Boolean newUpdate = (version != 0) && BuildConfig.VERSION_CODE >= version;
+                        final Boolean newUpdate = (version != 0) && version <= BuildConfig.VERSION_CODE;
 
                         if (prioritiesItem.getType1a() == null) {
                             String metadata = Packages.getOverlayMetadata(

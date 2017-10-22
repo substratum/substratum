@@ -36,7 +36,7 @@ import static projekt.substratum.common.Resources.SUBSTRATUM_OVERLAY_FAULT_EXCEP
 
 public class SubstratumCrash extends Activity {
 
-    boolean shouldPulsate = false;
+    boolean shouldPulsate;
 
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {

@@ -35,14 +35,14 @@ import projekt.substratum.common.platform.ThemeManager;
 
 public class OverlaysItem implements Serializable {
 
-    public boolean is_variant_chosen = false;
-    public boolean is_variant_chosen1 = false;
-    public boolean is_variant_chosen2 = false;
-    public boolean is_variant_chosen3 = false;
-    public boolean is_variant_chosen4 = false;
-    public boolean is_variant_chosen5 = false;
+    public boolean is_variant_chosen;
+    public boolean is_variant_chosen1;
+    public boolean is_variant_chosen2;
+    public boolean is_variant_chosen3;
+    public boolean is_variant_chosen4;
+    public boolean is_variant_chosen5;
     public String versionName;
-    boolean variant_mode = false;
+    boolean variant_mode;
     private final String theme_name;
     private String name;
     private final String package_name;
@@ -52,11 +52,11 @@ public class OverlaysItem implements Serializable {
     private final VariantAdapter array4;
     private final VariantAdapter array5;
     private boolean isSelected;
-    private int spinnerSelection = 0;
-    private int spinnerSelection2 = 0;
-    private int spinnerSelection3 = 0;
-    private int spinnerSelection4 = 0;
-    private int spinnerSelection5 = 0;
+    private int spinnerSelection;
+    private int spinnerSelection2;
+    private int spinnerSelection3;
+    private int spinnerSelection4;
+    private int spinnerSelection5;
     private String variantSelected = "";
     private String variantSelected2 = "";
     private String variantSelected3 = "";

@@ -90,12 +90,12 @@ public class Fonts extends Fragment {
     private SharedPreferences prefs;
     private AsyncTask current;
     private AssetManager themeAssetManager;
-    private boolean paused = false;
+    private boolean paused;
     private JobReceiver jobReceiver;
     private LocalBroadcastManager localBroadcastManager;
     private Context mContext;
     private final Boolean encrypted = false;
-    private Cipher cipher = null;
+    private Cipher cipher;
 
     public Fonts getInstance() {
         return this;

@@ -51,7 +51,7 @@ public class Substratum extends Application {
     private static final String BINDER_TAG = "BinderService";
     private static final FinishReceiver finishReceiver = new FinishReceiver();
     private static Substratum substratum;
-    private static boolean isWaiting = false;
+    private static boolean isWaiting;
 
     public static Substratum getInstance() {
         return substratum;

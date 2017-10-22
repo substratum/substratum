@@ -104,7 +104,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     private List<ManagerItem> overlaysList;
     private FloatingActionMenu floatingActionButton;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private Boolean first_run = null;
+    private Boolean first_run;
     private RecyclerView mRecyclerView;
     private ProgressBar loadingBar;
     private List<ManagerItem> overlayList;

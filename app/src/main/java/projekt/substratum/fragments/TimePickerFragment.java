@@ -40,7 +40,7 @@ public class TimePickerFragment extends DialogFragment implements
     public static final int FLAG_END_TIME = 2;
     public static final int FLAG_GET_VALUE = 4;
 
-    private static int flag = 0;
+    private static int flag;
 
     public static void setFlag(final int f) {
         flag = f;

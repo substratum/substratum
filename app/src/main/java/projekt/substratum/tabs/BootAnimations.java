@@ -95,11 +95,11 @@ public class BootAnimations extends Fragment {
     private AsyncTask current;
     private NestedScrollView nsv;
     private AssetManager themeAssetManager;
-    private boolean paused = false;
+    private boolean paused;
     private JobReceiver jobReceiver;
     private LocalBroadcastManager localBroadcastManager;
     private final Boolean encrypted = false;
-    private Cipher cipher = null;
+    private Cipher cipher;
     private Boolean shutdownBootAnimation;
     private Context mContext;
     private final HandlerThread previewHandlerThread = new HandlerThread("BootAnimationPreviewThread");

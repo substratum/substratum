@@ -52,7 +52,7 @@ public class SoundUtils {
     private Context mContext;
     private String theme_pid;
     private boolean has_failed;
-    private boolean ringtone = false;
+    private boolean ringtone;
     private SharedPreferences prefs;
     private View view;
     private Cipher cipher;

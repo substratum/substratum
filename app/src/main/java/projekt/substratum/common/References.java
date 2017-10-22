@@ -215,7 +215,7 @@ public enum References {
     // Localized variables shared amongst common resources
     static ScheduledProfileReceiver scheduledProfileReceiver;
     // These values control the dynamic certification of substratum
-    private static Boolean uncertified = null;
+    private static Boolean uncertified;
     private static int hashValue;
 
     public static Intent createLauncherIcon(

@@ -132,7 +132,7 @@ public class Overlays extends Fragment {
     public String versionName;
     public NotificationManager mNotifyManager;
     public NotificationCompat.Builder mBuilder;
-    public boolean has_failed = false;
+    public boolean has_failed;
     public int fail_count;
     public StringBuilder failed_packages;
     public ArrayList<OverlaysItem> values2;
@@ -147,8 +147,8 @@ public class Overlays extends Fragment {
     public ProgressBar progressBar;
     public Boolean is_overlay_active = false;
     public StringBuilder error_logs;
-    public double current_amount = 0;
-    public double total_amount = 0;
+    public double current_amount;
+    public double total_amount;
     public String current_dialog_overlay;
     public ProgressBar dialogProgress;
     public ArrayList<String> final_command;
@@ -164,11 +164,11 @@ public class Overlays extends Fragment {
     public String type3 = "";
     public String type4 = "";
     public Boolean encrypted = false;
-    public Cipher cipher = null;
+    public Cipher cipher;
     public RefreshReceiver refreshReceiver;
     public ActivityManager am;
     public boolean decryptedAssetsExceptionReached;
-    public int overlaysWaiting = 0;
+    public int overlaysWaiting;
     private int currentPosition;
 
     protected void logTypes() {

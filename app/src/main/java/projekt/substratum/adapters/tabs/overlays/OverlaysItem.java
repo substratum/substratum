@@ -313,7 +313,7 @@ public class OverlaysItem implements Serializable {
         try {
             final PackageInfo pinfo =
                     this.context.getPackageManager().getPackageInfo(
-                            this.getPackageName() + "." + this.theme_name + variant + base, 0);
+                            this.package_name + "." + this.theme_name + variant + base, 0);
             return pinfo.versionName.equals(this.versionName);
         } catch (final Exception e) {
             // Suppress warning
@@ -322,17 +322,17 @@ public class OverlaysItem implements Serializable {
     }
 
     public String getFullOverlayParameters() {
-        return this.getPackageName() + "." + this.getThemeName() +
-                (((this.getSelectedVariant() == 0 &&
-                        this.getSelectedVariant2() == 0 &&
-                        this.getSelectedVariant3() == 0 &&
-                        this.getSelectedVariant4() == 0) &&
-                        this.getSelectedVariant5() == 0) ? "" : ".") +
-                (((this.getSelectedVariant() == 0) ? "" : this.getSelectedVariantName()) +
-                        ((this.getSelectedVariant2() == 0) ? "" : this.getSelectedVariantName2()) +
-                        ((this.getSelectedVariant3() == 0) ? "" : this.getSelectedVariantName3()) +
-                        ((this.getSelectedVariant4() == 0) ? "" : this.getSelectedVariantName4()) +
-                        ((this.getSelectedVariant5() == 0) ? "" : this.getSelectedVariantName5()))
+        return this.package_name + "." + this.theme_name +
+                (((this.spinnerSelection == 0 &&
+                        this.spinnerSelection2 == 0 &&
+                        this.spinnerSelection3 == 0 &&
+                        this.spinnerSelection4 == 0) &&
+                        this.spinnerSelection5 == 0) ? "" : ".") +
+                (((this.spinnerSelection == 0) ? "" : this.getSelectedVariantName()) +
+                        ((this.spinnerSelection2 == 0) ? "" : this.getSelectedVariantName2()) +
+                        ((this.spinnerSelection3 == 0) ? "" : this.getSelectedVariantName3()) +
+                        ((this.spinnerSelection4 == 0) ? "" : this.getSelectedVariantName4()) +
+                        ((this.spinnerSelection5 == 0) ? "" : this.getSelectedVariantName5()))
                         .replaceAll("\\s", "").replaceAll("[^a-zA-Z0-9]+", "") +
                 ((this.baseResources.isEmpty()) ? "" : "." + this.baseResources);
     }

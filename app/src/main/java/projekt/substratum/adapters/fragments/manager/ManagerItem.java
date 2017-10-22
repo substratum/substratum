@@ -150,7 +150,7 @@ public class ManagerItem implements Serializable {
 
     public String getThemeName() {
         if (this.themeName == null) {
-            this.themeName = this.getContext().getString(R.string.reboot_awaiting_manager_title);
+            this.themeName = this.mContext.getString(R.string.reboot_awaiting_manager_title);
         }
         return this.themeName;
     }
@@ -161,13 +161,13 @@ public class ManagerItem implements Serializable {
 
     public String getLabelName() {
         if (this.labelName == null) {
-            this.labelName = this.getContext().getString(R.string.reboot_awaiting_manager_title);
+            this.labelName = this.mContext.getString(R.string.reboot_awaiting_manager_title);
         }
         return this.labelName;
     }
 
     private void setLabelName(final Context context) {
-        final String packageName = this.getName();
+        final String packageName = this.name;
         final String targetPackage = Packages.getOverlayTarget(context, packageName);
         if (packageName.startsWith("com.android.systemui.headers")) {
             this.labelName = context.getString(R.string.systemui_headers);

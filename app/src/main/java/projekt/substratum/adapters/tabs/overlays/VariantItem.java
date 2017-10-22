@@ -47,7 +47,7 @@ public class VariantItem implements Serializable {
 
     @Override
     public String toString() {
-        return this.getVariantName();
+        return this.variant_name;
     }
 
     public int getColor() {

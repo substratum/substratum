@@ -359,7 +359,7 @@ public class BootAnimationUtils {
                         "Finalizing the boot animation descriptor file and " +
                                 "committing changes to the archive...");
 
-                final ZipEntrySource[] addedEntries = new ZipEntrySource[]{
+                final ZipEntrySource[] addedEntries = {
                         new FileSource("desc.txt", new File(
                                 this.mContext.getCacheDir().getAbsolutePath() +
                                         "/BootAnimationCache/AnimationCreator/desc.txt"))

@@ -104,7 +104,7 @@ public enum Resources {
     };
 
     // Predetermined list of new Nexus/Pixel Devices
-    private static final String[] NEXUS_FILTER = new String[]{
+    private static final String[] NEXUS_FILTER = {
             "angler", // Nexus 6P
             "bullhead", // Nexus 5X
             "flounder", // Nexus 9

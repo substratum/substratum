@@ -87,7 +87,7 @@ public enum ThemeManager {
     private static final String enableOverlay = "cmd overlay enable";
     private static final String listAllOverlays = "cmd overlay list";
     private static final String setPriority = "cmd overlay set-priority";
-    private static final String[] blacklistedPackages = new String[]{
+    private static final String[] blacklistedPackages = {
             INTERFACER_PACKAGE,
     };
     // Non-Interfacer (NI) values

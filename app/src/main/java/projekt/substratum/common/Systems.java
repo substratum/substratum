@@ -378,7 +378,7 @@ public enum Systems {
     // Check for the denied packages if existing on the device
     static boolean checkPackageSupport(final Context context) {
         boolean blacklistedPackageFound = false;
-        final String[] blacklistedPackages = new String[]{
+        final String[] blacklistedPackages = {
                 "com.android.vending.billing.InAppBillingService.",
                 "com.android.vending.billing.InAppBillingService.LOCK",
                 "com.android.vending.billing.InAppBillingService.LACK",

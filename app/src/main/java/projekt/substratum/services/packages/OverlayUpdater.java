@@ -180,7 +180,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                     this.installed_overlays = ThemeManager.listOverlaysByTheme(this.context, this.package_name);
                     break;
             }
-            if ((this.upgrade_mode != null) && !"".equals(this.upgrade_mode) && !this.installed_overlays.isEmpty()) {
+            if ((this.upgrade_mode != null) && this.upgrade_mode != null && !this.upgrade_mode.isEmpty() && !this.installed_overlays.isEmpty()) {
                 this.errored_packages = new ArrayList<>();
                 this.mNotifyManager = (NotificationManager) this.context.getSystemService(
                         Context.NOTIFICATION_SERVICE);

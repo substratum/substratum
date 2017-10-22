@@ -434,7 +434,7 @@ public class InformationActivity extends SubstratumActivity {
         this.tabLayout = this.findViewById(R.id.tabs);
         if (this.tabLayout != null) {
             // First, take account for whether the theme was launched normally
-            if ("".equals(this.theme_mode)) {
+            if (this.theme_mode != null && this.theme_mode.isEmpty()) {
                 try {
                     final Context otherContext = this.mContext.createPackageContext
                             (this.theme_pid, 0);

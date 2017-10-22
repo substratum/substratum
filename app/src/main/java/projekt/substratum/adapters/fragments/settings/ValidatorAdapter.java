@@ -36,6 +36,7 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
     private final List<ValidatorInfo> information;
 
     public ValidatorAdapter(List<ValidatorInfo> information) {
+        super();
         this.information = information;
     }
 

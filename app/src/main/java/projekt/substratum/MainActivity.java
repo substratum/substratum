@@ -1004,6 +1004,7 @@ public class MainActivity extends SubstratumActivity implements
         private final WeakReference<MainActivity> ref;
 
         private RootRequester(MainActivity activity) {
+            super();
             ref = new WeakReference<>(activity);
         }
 
@@ -1244,6 +1245,7 @@ public class MainActivity extends SubstratumActivity implements
         private final WeakReference<Context> ref;
 
         public DoCleanUp(Context context) {
+            super();
             ref = new WeakReference<>(context);
         }
 
@@ -1297,6 +1299,7 @@ public class MainActivity extends SubstratumActivity implements
         private final WeakReference<MainActivity> ref;
 
         ClearLogs(MainActivity activity) {
+            super();
             ref = new WeakReference<>(activity);
         }
 

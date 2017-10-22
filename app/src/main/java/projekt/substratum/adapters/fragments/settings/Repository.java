@@ -26,6 +26,7 @@ public class Repository {
     private final String packageName;
 
     public Repository(String packageName) {
+        super();
         this.packageName = packageName;
     }
 

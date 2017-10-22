@@ -608,6 +608,7 @@ public enum References {
         private final SharedPreferences prefs;
 
         public Markdown(Context context, SharedPreferences prefs) {
+            super();
             this.context = context;
             this.prefs = prefs;
         }

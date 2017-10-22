@@ -93,6 +93,7 @@ public class OverlayFound extends BroadcastReceiver {
         private List<String> matching_criteria;
 
         OverlayUpdate(OverlayFound overlayFound) {
+            super();
             ref = new WeakReference<>(overlayFound);
         }
 

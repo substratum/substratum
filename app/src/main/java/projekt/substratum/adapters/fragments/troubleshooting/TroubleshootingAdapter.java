@@ -34,6 +34,7 @@ public class TroubleshootingAdapter extends BaseAdapter {
     private final Context context;
 
     public TroubleshootingAdapter(int[] tQues, int[] tAns, Context context) {
+        super();
         this.tQues = tQues;
         this.tAns = tAns;
         this.context = context;

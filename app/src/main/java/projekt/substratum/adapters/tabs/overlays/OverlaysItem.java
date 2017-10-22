@@ -84,6 +84,7 @@ public class OverlaysItem implements Serializable {
                         Collection enabledOverlays,
                         Boolean theme_oms,
                         View activityView) {
+        super();
 
         this.theme_name = theme_name;
         this.name = name;

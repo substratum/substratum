@@ -129,6 +129,7 @@ public class SoundUtils {
         private final WeakReference<SoundUtils> ref;
 
         private SoundsHandlerAsync(SoundUtils soundUtils) {
+            super();
             ref = new WeakReference<>(soundUtils);
         }
 
@@ -185,6 +186,7 @@ public class SoundUtils {
         private final WeakReference<SoundUtils> soundRef;
 
         private FinishReceiver(SoundUtils soundUtils) {
+            super();
             soundRef = new WeakReference<>(soundUtils);
         }
 

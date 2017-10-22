@@ -34,6 +34,7 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHold
     private final List<SoundsInfo> soundsList;
 
     public SoundsAdapter(List<SoundsInfo> soundsList) {
+        super();
         this.soundsList = soundsList;
     }
 

@@ -30,6 +30,7 @@ public class ValidatorInfo {
     private ValidatorError mValidatorError;
 
     public ValidatorInfo(Context mContext, String package_name, Boolean verified, Boolean commons) {
+        super();
         this.mContext = mContext;
         this.package_name = package_name;
         this.mVerified = verified;

@@ -930,6 +930,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         private final WeakReference<SettingsFragment> ref;
 
         checkROMSupportList(SettingsFragment settingsFragment) {
+            super();
             ref = new WeakReference<>(settingsFragment);
         }
 
@@ -993,6 +994,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         private final WeakReference<SettingsFragment> ref;
 
         downloadRepositoryList(SettingsFragment settingsFragment) {
+            super();
             ref = new WeakReference<>(settingsFragment);
         }
 

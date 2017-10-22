@@ -46,6 +46,7 @@ public class ManagerItem implements Serializable {
     private Drawable mTargetDrawable;
 
     public ManagerItem(Context context, String name, boolean isActivated) {
+        super();
         this.mContext = context;
         this.name = name;
         this.isSelected = false;

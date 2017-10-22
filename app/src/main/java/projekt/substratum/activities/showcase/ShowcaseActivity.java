@@ -203,6 +203,7 @@ public class ShowcaseActivity extends AppCompatActivity {
         private final WeakReference<ShowcaseActivity> showcaseActivityWR;
 
         DownloadTabs(ShowcaseActivity activity) {
+            super();
             showcaseActivityWR = new WeakReference<>(activity);
         }
 

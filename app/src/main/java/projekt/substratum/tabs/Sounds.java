@@ -294,6 +294,7 @@ public class Sounds extends Fragment {
         private final WeakReference<Sounds> ref;
 
         SoundsClearer(Sounds sounds) {
+            super();
             ref = new WeakReference<>(sounds);
         }
 
@@ -325,6 +326,7 @@ public class Sounds extends Fragment {
         private final WeakReference<Sounds> ref;
 
         SoundsPreview(Sounds sounds) {
+            super();
             ref = new WeakReference<>(sounds);
         }
 

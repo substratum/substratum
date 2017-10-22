@@ -100,6 +100,7 @@ public class Wallpapers extends Fragment {
         private final WeakReference<Wallpapers> ref;
 
         downloadResources(Wallpapers wallpapers) {
+            super();
             ref = new WeakReference<>(wallpapers);
         }
 

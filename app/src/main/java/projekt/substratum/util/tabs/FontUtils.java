@@ -62,6 +62,7 @@ public class FontUtils {
         private final WeakReference<FontUtils> ref;
 
         private FontHandlerAsync(FontUtils fragment) {
+            super();
             ref = new WeakReference<>(fragment);
         }
 

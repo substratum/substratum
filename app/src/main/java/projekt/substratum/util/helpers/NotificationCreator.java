@@ -41,6 +41,7 @@ public class NotificationCreator {
     public NotificationCreator(Context context, String content_title, String content_text,
                                Boolean auto_cancel, PendingIntent intent, int small_icon,
                                Bitmap big_icon, int notification_priority, int invoke_id) {
+        super();
         this.mContext = context;
         this.content_title = content_title;
         this.content_text = content_text;

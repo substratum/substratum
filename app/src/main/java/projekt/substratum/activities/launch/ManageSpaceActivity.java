@@ -120,6 +120,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
         private final WeakReference<ManageSpaceActivity> ref;
 
         ClearCache(ManageSpaceActivity activity) {
+            super();
             ref = new WeakReference<>(activity);
         }
 
@@ -148,6 +149,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
         private final WeakReference<ManageSpaceActivity> ref;
 
         ClearLogs(ManageSpaceActivity activity) {
+            super();
             ref = new WeakReference<>(activity);
         }
 
@@ -179,6 +181,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
         private final WeakReference<ManageSpaceActivity> ref;
 
         ResetApp(ManageSpaceActivity activity) {
+            super();
             ref = new WeakReference<>(activity);
         }
 

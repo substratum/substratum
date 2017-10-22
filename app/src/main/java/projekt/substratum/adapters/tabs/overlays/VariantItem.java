@@ -27,6 +27,7 @@ public class VariantItem implements Serializable {
     private int color = 0;
 
     public VariantItem(String variant_name, String variant_hex) {
+        super();
         this.variant_name = variant_name;
         if (variant_hex == null) {
             forceHidden = true;

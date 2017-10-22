@@ -58,6 +58,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
     private AsyncTask current_download;
 
     public WallpaperAdapter(List<WallpaperEntries> information) {
+        super();
         this.information = information;
     }
 
@@ -136,6 +137,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         private final WeakReference<Activity> activity;
 
         downloadWallpaper(WallpaperAdapter wallpaperAdapter, Activity callingActivity) {
+            super();
             ref = new WeakReference<>(wallpaperAdapter);
             activity = new WeakReference<>(callingActivity);
         }

@@ -114,6 +114,7 @@ public class ShowcaseTab extends Fragment {
         private final WeakReference<ShowcaseTab> ref;
 
         downloadResources(ShowcaseTab showcaseTab) {
+            super();
             ref = new WeakReference<>(showcaseTab);
         }
 

@@ -1113,6 +1113,7 @@ public class InformationActivity extends SubstratumActivity {
         private final WeakReference<InformationActivity> ref;
 
         LayoutLoader(InformationActivity informationActivity) {
+            super();
             ref = new WeakReference<>(informationActivity);
         }
 
@@ -1170,6 +1171,7 @@ public class InformationActivity extends SubstratumActivity {
         private final WeakReference<InformationActivity> ref;
 
         AppShortcutCreator(InformationActivity informationActivity) {
+            super();
             ref = new WeakReference<>(informationActivity);
         }
 
@@ -1214,6 +1216,7 @@ public class InformationActivity extends SubstratumActivity {
         private final WeakReference<InformationActivity> ref;
 
         AppShortcutClearer(InformationActivity informationActivity) {
+            super();
             ref = new WeakReference<>(informationActivity);
         }
 
@@ -1255,6 +1258,7 @@ public class InformationActivity extends SubstratumActivity {
         private final WeakReference<InformationActivity> ref;
 
         uninstallTheme(InformationActivity informationActivity) {
+            super();
             ref = new WeakReference<>(informationActivity);
         }
 

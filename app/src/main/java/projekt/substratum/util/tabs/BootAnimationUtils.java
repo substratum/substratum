@@ -100,6 +100,7 @@ public class BootAnimationUtils {
                                   Boolean encrypted,
                                   Boolean shutdownAnimation,
                                   Cipher cipher) {
+            super();
             this.mContext = context;
             this.view = view;
             this.theme_pid = theme_pid;

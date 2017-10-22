@@ -81,6 +81,7 @@ enum OverlayFunctions {
         WeakReference<Overlays> ref;
 
         getThemeCache(Overlays overlays) {
+            super();
             ref = new WeakReference<>(overlays);
         }
 
@@ -190,6 +191,7 @@ enum OverlayFunctions {
         private String currentPackageName = "";
 
         Phase3_mainFunction(Overlays overlays) {
+            super();
             ref = new WeakReference<>(overlays);
         }
 
@@ -896,6 +898,7 @@ enum OverlayFunctions {
         WeakReference<Context> refContext;
 
         Phase4_finishEnableFunction(Overlays overlays) {
+            super();
             ref = new WeakReference<>(overlays);
             refContext = new WeakReference<>(overlays.getContext());
         }
@@ -984,6 +987,7 @@ enum OverlayFunctions {
         WeakReference<Context> refContext;
 
         Phase4_finishDisableFunction(Overlays overlays) {
+            super();
             ref = new WeakReference<>(overlays);
             refContext = new WeakReference<>(overlays.getContext());
         }
@@ -1061,6 +1065,7 @@ enum OverlayFunctions {
         WeakReference<Context> refContext;
 
         Phase4_finishEnableDisableFunction(Overlays overlays) {
+            super();
             ref = new WeakReference<>(overlays);
             refContext = new WeakReference<>(overlays.getContext());
         }
@@ -1166,6 +1171,7 @@ enum OverlayFunctions {
         WeakReference<Context> refContext;
 
         Phase4_finishUpdateFunction(Overlays overlays) {
+            super();
             ref = new WeakReference<>(overlays);
             refContext = new WeakReference<>(overlays.getContext());
         }

@@ -63,6 +63,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
     private ThemeItem toBeUninstalled;
 
     public ThemeAdapter(List<ThemeItem> information) {
+        super();
         this.information = information;
     }
 
@@ -378,6 +379,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         private final WeakReference<ThemeAdapter> ref;
 
         uninstallTheme(ThemeAdapter themeAdapter) {
+            super();
             ref = new WeakReference<>(themeAdapter);
         }
 

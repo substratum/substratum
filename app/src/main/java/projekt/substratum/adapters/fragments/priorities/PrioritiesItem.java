@@ -32,6 +32,7 @@ public class PrioritiesItem implements PrioritiesInterface {
     private String themeName;
 
     public PrioritiesItem(final String name, Drawable drawable) {
+        super();
         mName = name;
         mDrawableId = drawable;
     }

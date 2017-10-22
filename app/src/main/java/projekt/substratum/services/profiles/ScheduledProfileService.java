@@ -110,6 +110,7 @@ public class ScheduledProfileService extends JobService {
         private final WeakReference<ScheduledProfileService> ref;
 
         ApplyProfile(ScheduledProfileService service) {
+            super();
             ref = new WeakReference<>(service);
         }
 

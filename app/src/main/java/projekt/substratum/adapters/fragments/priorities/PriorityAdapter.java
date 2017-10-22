@@ -46,6 +46,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
     private final int mItemResId;
 
     public PriorityAdapter(final Context context, @LayoutRes final int itemResId) {
+        super();
         this.mContext = context;
         this.mItemResId = itemResId;
     }
@@ -282,6 +283,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
         private final String mName;
 
         public PrioritiesHeader(final String name) {
+            super();
             mName = name;
         }
 

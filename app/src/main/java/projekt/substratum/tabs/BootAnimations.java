@@ -310,6 +310,7 @@ public class BootAnimations extends Fragment {
         private final WeakReference<BootAnimations> ref;
 
         BootAnimationClearer(BootAnimations bootAnimations) {
+            super();
             ref = new WeakReference<>(bootAnimations);
         }
 
@@ -365,6 +366,7 @@ public class BootAnimations extends Fragment {
         private final WeakReference<BootAnimations> ref;
 
         BootAnimationPreview(BootAnimations bootAnimations) {
+            super();
             ref = new WeakReference<>(bootAnimations);
         }
 

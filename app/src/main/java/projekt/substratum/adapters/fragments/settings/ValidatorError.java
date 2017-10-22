@@ -29,6 +29,7 @@ public class ValidatorError {
     private final String packageName;
 
     public ValidatorError(String packageName) {
+        super();
         this.packageName = packageName;
     }
 

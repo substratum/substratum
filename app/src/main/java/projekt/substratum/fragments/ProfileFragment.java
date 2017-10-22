@@ -485,6 +485,7 @@ public class ProfileFragment extends Fragment {
         private final WeakReference<ProfileFragment> ref;
 
         BackupFunction(ProfileFragment profileFragment) {
+            super();
             ref = new WeakReference<>(profileFragment);
         }
 
@@ -736,6 +737,7 @@ public class ProfileFragment extends Fragment {
         private final WeakReference<ProfileFragment> ref;
 
         RestoreFunction(ProfileFragment profileFragment) {
+            super();
             ref = new WeakReference<>(profileFragment);
         }
 
@@ -1021,12 +1023,14 @@ public class ProfileFragment extends Fragment {
         };
 
         ContinueRestore(ProfileFragment profileFragment) {
+            super();
             this.ref = new WeakReference<>(profileFragment);
         }
 
         ContinueRestore(ProfileFragment profileFragment,
                         String profileName,
                         ArrayList<String> tobeRun) {
+            super();
             this.ref = new WeakReference<>(profileFragment);
             this.profileName = profileName;
             this.toBeRun = tobeRun;
@@ -1036,6 +1040,7 @@ public class ProfileFragment extends Fragment {
                         String profileName,
                         List<List<String>> toBeCompiled,
                         ArrayList<String> toBeRun) {
+            super();
             this.ref = new WeakReference<>(profileFragment);
             this.profileName = profileName;
             this.toBeCompiled = toBeCompiled;
@@ -1395,6 +1400,7 @@ public class ProfileFragment extends Fragment {
         private final WeakReference<ProfileFragment> ref;
 
         FinishReceiver(ProfileFragment profileFragment) {
+            super();
             ref = new WeakReference<>(profileFragment);
         }
 

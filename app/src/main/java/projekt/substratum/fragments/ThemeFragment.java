@@ -270,6 +270,7 @@ public class ThemeFragment extends Fragment {
         private ArrayList<ThemeItem> themeItems;
 
         LayoutLoader(ThemeFragment themeFragment) {
+            super();
             this.fragment = new WeakReference<>(themeFragment);
         }
 

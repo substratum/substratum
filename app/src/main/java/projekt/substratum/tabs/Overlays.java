@@ -1073,6 +1073,7 @@ public class Overlays extends Fragment {
                         String errorLog,
                         String failedPackages,
                         Boolean autosaveInstance) {
+            super();
             ref = new WeakReference<>(context);
             this.themePid = themePid;
             this.errorLog = errorLog;
@@ -1183,6 +1184,7 @@ public class Overlays extends Fragment {
         private final WeakReference<Overlays> ref;
 
         LoadOverlays(Overlays fragment) {
+            super();
             ref = new WeakReference<>(fragment);
         }
 

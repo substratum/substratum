@@ -62,6 +62,7 @@ public enum Root {
         private boolean firstTry;
 
         SU() {
+            super();
             try {
                 firstTry = true;
                 process = Runtime.getRuntime().exec("su");

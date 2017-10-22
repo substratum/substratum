@@ -247,6 +247,7 @@ public class Fonts extends Fragment {
         private final WeakReference<Fonts> ref;
 
         private FontsClearer(Fonts fragment) {
+            super();
             ref = new WeakReference<>(fragment);
         }
 
@@ -321,6 +322,7 @@ public class Fonts extends Fragment {
         private final WeakReference<Fonts> ref;
 
         FontPreview(Fonts fonts) {
+            super();
             ref = new WeakReference<>(fonts);
         }
 

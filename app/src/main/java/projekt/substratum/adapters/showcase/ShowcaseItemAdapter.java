@@ -47,6 +47,7 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
     private final List<ShowcaseItem> information;
 
     public ShowcaseItemAdapter(List<ShowcaseItem> information) {
+        super();
         this.information = information;
     }
 

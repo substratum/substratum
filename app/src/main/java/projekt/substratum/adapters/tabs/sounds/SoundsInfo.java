@@ -26,6 +26,7 @@ public class SoundsInfo {
     private final Context mContext;
 
     public SoundsInfo(Context mContext, String title, String absolute_path) {
+        super();
         this.mContext = mContext;
         this.title = title;
         this.absolute_path = absolute_path;

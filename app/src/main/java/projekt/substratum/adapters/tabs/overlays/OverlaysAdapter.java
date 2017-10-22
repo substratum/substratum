@@ -49,6 +49,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
     private final List<OverlaysItem> overlayList;
 
     public OverlaysAdapter(List<OverlaysItem> overlayInfo) {
+        super();
         this.overlayList = overlayInfo;
     }
 

@@ -163,6 +163,7 @@ public class OverlayUpdater extends BroadcastReceiver {
         };
 
         OverlayUpdate(Context context, String package_name, String mode, int id) {
+            super();
             this.context = context;
             this.package_name = package_name;
             this.upgrade_mode = mode;

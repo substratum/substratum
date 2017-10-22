@@ -126,6 +126,7 @@ public class SplashScreenActivity extends Activity {
         };
 
         CheckSamsung(SplashScreenActivity activity) {
+            super();
             ref = new WeakReference<>(activity);
         }
 

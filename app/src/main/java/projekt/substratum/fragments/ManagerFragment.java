@@ -421,6 +421,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         private int currentPosition;
 
         private LayoutReloader(ManagerFragment fragment, String input) {
+            super();
             ref = new WeakReference<>(fragment);
             userInput = new WeakReference<>(input);
         }
@@ -634,6 +635,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         private final WeakReference<ManagerFragment> ref;
 
         private RunEnable(ManagerFragment fragment) {
+            super();
             ref = new WeakReference<>(fragment);
         }
 
@@ -721,6 +723,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         private final WeakReference<ManagerFragment> ref;
 
         private RunDisable(ManagerFragment fragment) {
+            super();
             ref = new WeakReference<>(fragment);
         }
 
@@ -928,6 +931,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         private final WeakReference<ManagerFragment> ref;
 
         private RunEnableDisable(ManagerFragment fragment) {
+            super();
             ref = new WeakReference<>(fragment);
         }
 
@@ -1018,6 +1022,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         private final WeakReference<ManagerFragment> ref;
 
         private RunUninstall(ManagerFragment fragment) {
+            super();
             ref = new WeakReference<>(fragment);
         }
 
@@ -1103,6 +1108,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         private final WeakReference<ManagerFragment> ref;
 
         private FinishReceiver(ManagerFragment fragment) {
+            super();
             ref = new WeakReference<>(fragment);
         }
 

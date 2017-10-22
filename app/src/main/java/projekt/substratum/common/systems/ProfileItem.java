@@ -30,6 +30,7 @@ public class ProfileItem {
     private String type4;
 
     ProfileItem(String packageName) {
+        super();
         this.packageName = packageName;
     }
 

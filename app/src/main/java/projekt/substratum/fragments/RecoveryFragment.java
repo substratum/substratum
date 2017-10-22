@@ -323,6 +323,7 @@ public class RecoveryFragment extends Fragment {
         private final WeakReference<RecoveryFragment> ref;
 
         private FontsClearer(RecoveryFragment fragment) {
+            super();
             ref = new WeakReference<>(fragment);
         }
 
@@ -397,6 +398,7 @@ public class RecoveryFragment extends Fragment {
         private final WeakReference<RecoveryFragment> ref;
 
         private RestoreFunction(RecoveryFragment fragment) {
+            super();
             ref = new WeakReference<>(fragment);
         }
 
@@ -518,6 +520,7 @@ public class RecoveryFragment extends Fragment {
         private final WeakReference<RecoveryFragment> ref;
 
         private BootAnimationClearer(RecoveryFragment fragment) {
+            super();
             ref = new WeakReference<>(fragment);
         }
 
@@ -567,6 +570,7 @@ public class RecoveryFragment extends Fragment {
         private final WeakReference<RecoveryFragment> ref;
 
         private SoundsClearer(RecoveryFragment fragment) {
+            super();
             ref = new WeakReference<>(fragment);
         }
 

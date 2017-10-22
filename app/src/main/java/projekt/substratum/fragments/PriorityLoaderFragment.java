@@ -112,6 +112,7 @@ public class PriorityLoaderFragment extends Fragment {
         private final WeakReference<PriorityLoaderFragment> ref;
 
         LoadPrioritizedOverlays(PriorityLoaderFragment priorityLoaderFragment) {
+            super();
             ref = new WeakReference<>(priorityLoaderFragment);
         }
 

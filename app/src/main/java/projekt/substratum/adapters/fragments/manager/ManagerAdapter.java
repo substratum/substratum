@@ -45,6 +45,7 @@ public class ManagerAdapter extends
     private final Boolean floatui;
 
     public ManagerAdapter(List<ManagerItem> overlays, Boolean floatui) {
+        super();
         this.floatui = floatui;
         this.overlayList = overlays;
     }

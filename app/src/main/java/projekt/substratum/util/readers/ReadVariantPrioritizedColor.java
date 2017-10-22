@@ -33,6 +33,7 @@ public class ReadVariantPrioritizedColor {
     private static InputStream fileName;
 
     public ReadVariantPrioritizedColor(InputStream _fileName) {
+        super();
         fileName = _fileName;
     }
 

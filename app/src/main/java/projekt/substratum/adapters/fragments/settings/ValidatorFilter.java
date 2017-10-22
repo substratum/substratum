@@ -25,6 +25,7 @@ public class ValidatorFilter {
     private final String packageName;
 
     public ValidatorFilter(String packageName) {
+        super();
         this.packageName = packageName;
     }
 

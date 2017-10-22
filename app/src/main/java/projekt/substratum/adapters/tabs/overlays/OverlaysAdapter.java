@@ -46,7 +46,7 @@ import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 
 public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHolder> {
 
-    private List<OverlaysItem> overlayList;
+    private final List<OverlaysItem> overlayList;
 
     public OverlaysAdapter(List<OverlaysItem> overlayInfo) {
         this.overlayList = overlayInfo;

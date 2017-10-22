@@ -482,7 +482,7 @@ public class ProfileFragment extends Fragment {
 
     private static class BackupFunction extends AsyncTask<String, Integer, String> {
 
-        private WeakReference<ProfileFragment> ref;
+        private final WeakReference<ProfileFragment> ref;
 
         BackupFunction(ProfileFragment profileFragment) {
             ref = new WeakReference<>(profileFragment);
@@ -733,7 +733,7 @@ public class ProfileFragment extends Fragment {
         ArrayList<String> to_be_run = new ArrayList<>(); // Overlays going to be enabled
         String profile_name;
 
-        private WeakReference<ProfileFragment> ref;
+        private final WeakReference<ProfileFragment> ref;
 
         RestoreFunction(ProfileFragment profileFragment) {
             ref = new WeakReference<>(profileFragment);
@@ -999,9 +999,9 @@ public class ProfileFragment extends Fragment {
         private KeyRetrieval keyRetrieval;
         private Intent securityIntent;
         private Cipher cipher;
-        private Handler handler = new Handler();
-        private WeakReference<ProfileFragment> ref;
-        private Runnable runnable = new Runnable() {
+        private final Handler handler = new Handler();
+        private final WeakReference<ProfileFragment> ref;
+        private final Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 Log.d(TAG, "Waiting for encryption key handshake approval...");
@@ -1392,7 +1392,7 @@ public class ProfileFragment extends Fragment {
 
     static class FinishReceiver extends BroadcastReceiver {
 
-        private WeakReference<ProfileFragment> ref;
+        private final WeakReference<ProfileFragment> ref;
 
         FinishReceiver(ProfileFragment profileFragment) {
             ref = new WeakReference<>(profileFragment);

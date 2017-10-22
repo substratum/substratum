@@ -116,7 +116,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     private SearchView searchView;
     private String userInput = "";
     private Boolean first_boot = true;
-    private Handler handler = new Handler();
+    private final Handler handler = new Handler();
 
     private void resetRecyclerView() {
         // Initialize the recycler view with an empty adapter first
@@ -416,8 +416,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     }
 
     private static final class LayoutReloader extends AsyncTask<Void, Void, Void> {
-        private WeakReference<ManagerFragment> ref;
-        private WeakReference<String> userInput;
+        private final WeakReference<ManagerFragment> ref;
+        private final WeakReference<String> userInput;
         private int currentPosition;
 
         private LayoutReloader(ManagerFragment fragment, String input) {
@@ -631,7 +631,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
 
     private static final class RunEnable extends AsyncTask<String, Integer, String> {
         // This will be the oms enable
-        private WeakReference<ManagerFragment> ref;
+        private final WeakReference<ManagerFragment> ref;
 
         private RunEnable(ManagerFragment fragment) {
             ref = new WeakReference<>(fragment);
@@ -718,7 +718,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
 
     private static final class RunDisable extends AsyncTask<Void, Void, String> {
         // This will be the rro disable
-        private WeakReference<ManagerFragment> ref;
+        private final WeakReference<ManagerFragment> ref;
 
         private RunDisable(ManagerFragment fragment) {
             ref = new WeakReference<>(fragment);
@@ -925,7 +925,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
 
     private static final class RunEnableDisable extends AsyncTask<String, Integer, String> {
         // This will be the oms enable/disable
-        private WeakReference<ManagerFragment> ref;
+        private final WeakReference<ManagerFragment> ref;
 
         private RunEnableDisable(ManagerFragment fragment) {
             ref = new WeakReference<>(fragment);
@@ -1015,7 +1015,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     }
 
     private static final class RunUninstall extends AsyncTask<Void, Void, Void> {
-        private WeakReference<ManagerFragment> ref;
+        private final WeakReference<ManagerFragment> ref;
 
         private RunUninstall(ManagerFragment fragment) {
             ref = new WeakReference<>(fragment);
@@ -1100,7 +1100,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     }
 
     private static final class FinishReceiver extends BroadcastReceiver {
-        private WeakReference<ManagerFragment> ref;
+        private final WeakReference<ManagerFragment> ref;
 
         private FinishReceiver(ManagerFragment fragment) {
             ref = new WeakReference<>(fragment);

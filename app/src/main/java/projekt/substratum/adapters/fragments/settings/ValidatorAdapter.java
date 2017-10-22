@@ -33,7 +33,7 @@ import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 
 public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.ViewHolder> {
-    private List<ValidatorInfo> information;
+    private final List<ValidatorInfo> information;
 
     public ValidatorAdapter(List<ValidatorInfo> information) {
         this.information = information;

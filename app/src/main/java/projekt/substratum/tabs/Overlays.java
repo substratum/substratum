@@ -1056,14 +1056,17 @@ public class Overlays extends Fragment {
     }
 
     private static class SendErrorReport extends AsyncTask<Void, Void, File> {
-        private WeakReference<Context> ref;
-        private String themePid;
-        private String errorLog;
-        private String themeName, themeAuthor, themeEmail;
-        private String emailSubject, emailBody;
-        private String failedPackages;
+        private final WeakReference<Context> ref;
+        private final String themePid;
+        private final String errorLog;
+        private final String themeName;
+        private final String themeAuthor;
+        private final String themeEmail;
+        private final String emailSubject;
+        private final String emailBody;
+        private final String failedPackages;
         private ProgressDialog progressDialog;
-        private Boolean autosaveInstance;
+        private final Boolean autosaveInstance;
 
         SendErrorReport(Context context,
                         String themePid,
@@ -1177,7 +1180,7 @@ public class Overlays extends Fragment {
     }
 
     private static class LoadOverlays extends AsyncTask<String, Integer, String> {
-        private WeakReference<Overlays> ref;
+        private final WeakReference<Overlays> ref;
 
         LoadOverlays(Overlays fragment) {
             ref = new WeakReference<>(fragment);

@@ -279,7 +279,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
 
     private class PrioritiesHeader implements PrioritiesInterface {
 
-        private String mName;
+        private final String mName;
 
         public PrioritiesHeader(final String name) {
             mName = name;
@@ -306,7 +306,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
         TextView type2;
         TextView type3;
         View view;
-        private ImageView mItemDrag;
+        private final ImageView mItemDrag;
 
         PriorityObjectAdapter(final View view) {
             super(view);

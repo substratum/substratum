@@ -22,7 +22,7 @@ import java.util.List;
 
 public class ValidatorFilter {
     private List<String> filter;
-    private String packageName;
+    private final String packageName;
 
     public ValidatorFilter(String packageName) {
         this.packageName = packageName;

@@ -97,7 +97,7 @@ public class Wallpapers extends Fragment {
     }
 
     private static class downloadResources extends AsyncTask<String, Integer, String> {
-        private WeakReference<Wallpapers> ref;
+        private final WeakReference<Wallpapers> ref;
 
         downloadResources(Wallpapers wallpapers) {
             ref = new WeakReference<>(wallpapers);

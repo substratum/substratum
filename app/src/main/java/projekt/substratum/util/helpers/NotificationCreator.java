@@ -28,13 +28,15 @@ import projekt.substratum.common.References;
 
 public class NotificationCreator {
 
-    private Context mContext;
-    private String content_title, content_text;
-    private Boolean auto_cancel;
-    private PendingIntent intent;
-    private int small_icon;
-    private Bitmap big_icon;
-    private int notification_priority, invoke_id;
+    private final Context mContext;
+    private final String content_title;
+    private final String content_text;
+    private final Boolean auto_cancel;
+    private final PendingIntent intent;
+    private final int small_icon;
+    private final Bitmap big_icon;
+    private final int notification_priority;
+    private final int invoke_id;
 
     public NotificationCreator(Context context, String content_title, String content_text,
                                Boolean auto_cancel, PendingIntent intent, int small_icon,

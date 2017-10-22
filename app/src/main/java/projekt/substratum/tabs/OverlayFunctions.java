@@ -186,7 +186,7 @@ enum OverlayFunctions {
     }
 
     static class Phase3_mainFunction extends AsyncTask<String, Integer, String> {
-        private WeakReference<Overlays> ref;
+        private final WeakReference<Overlays> ref;
         private String currentPackageName = "";
 
         Phase3_mainFunction(Overlays overlays) {

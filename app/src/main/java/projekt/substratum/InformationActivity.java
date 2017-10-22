@@ -1110,7 +1110,7 @@ public class InformationActivity extends SubstratumActivity {
     }
 
     private static class LayoutLoader extends AsyncTask<String, Integer, String> {
-        private WeakReference<InformationActivity> ref;
+        private final WeakReference<InformationActivity> ref;
 
         LayoutLoader(InformationActivity informationActivity) {
             ref = new WeakReference<>(informationActivity);
@@ -1167,7 +1167,7 @@ public class InformationActivity extends SubstratumActivity {
     }
 
     private static class AppShortcutCreator extends AsyncTask<String, Integer, String> {
-        private WeakReference<InformationActivity> ref;
+        private final WeakReference<InformationActivity> ref;
 
         AppShortcutCreator(InformationActivity informationActivity) {
             ref = new WeakReference<>(informationActivity);
@@ -1211,7 +1211,7 @@ public class InformationActivity extends SubstratumActivity {
     }
 
     private static class AppShortcutClearer extends AsyncTask<String, Integer, String> {
-        private WeakReference<InformationActivity> ref;
+        private final WeakReference<InformationActivity> ref;
 
         AppShortcutClearer(InformationActivity informationActivity) {
             ref = new WeakReference<>(informationActivity);
@@ -1252,7 +1252,7 @@ public class InformationActivity extends SubstratumActivity {
     }
 
     private static class uninstallTheme extends AsyncTask<String, Integer, String> {
-        private WeakReference<InformationActivity> ref;
+        private final WeakReference<InformationActivity> ref;
 
         uninstallTheme(InformationActivity informationActivity) {
             ref = new WeakReference<>(informationActivity);

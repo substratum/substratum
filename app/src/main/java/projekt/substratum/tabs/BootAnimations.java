@@ -98,16 +98,16 @@ public class BootAnimations extends Fragment {
     private boolean paused = false;
     private JobReceiver jobReceiver;
     private LocalBroadcastManager localBroadcastManager;
-    private Boolean encrypted = false;
+    private final Boolean encrypted = false;
     private Cipher cipher = null;
     private Boolean shutdownBootAnimation;
     private Context mContext;
-    private HandlerThread previewHandlerThread = new HandlerThread("BootAnimationPreviewThread");
+    private final HandlerThread previewHandlerThread = new HandlerThread("BootAnimationPreviewThread");
     private Handler previewHandler;
     private Runnable previewRunnable;
     private List<String> previewImages;
     private int previewIndex;
-    private BitmapFactory.Options options = new BitmapFactory.Options();
+    private final BitmapFactory.Options options = new BitmapFactory.Options();
 
     public BootAnimations getInstance() {
         return this;
@@ -307,7 +307,7 @@ public class BootAnimations extends Fragment {
     }
 
     private static class BootAnimationClearer extends AsyncTask<String, Integer, String> {
-        private WeakReference<BootAnimations> ref;
+        private final WeakReference<BootAnimations> ref;
 
         BootAnimationClearer(BootAnimations bootAnimations) {
             ref = new WeakReference<>(bootAnimations);
@@ -362,7 +362,7 @@ public class BootAnimations extends Fragment {
     }
 
     private static class BootAnimationPreview extends AsyncTask<String, Integer, String> {
-        private WeakReference<BootAnimations> ref;
+        private final WeakReference<BootAnimations> ref;
 
         BootAnimationPreview(BootAnimations bootAnimations) {
             ref = new WeakReference<>(bootAnimations);

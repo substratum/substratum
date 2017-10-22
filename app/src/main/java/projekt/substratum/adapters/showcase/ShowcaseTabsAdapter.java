@@ -28,8 +28,8 @@ import java.util.List;
 import projekt.substratum.fragments.ShowcaseTab;
 
 public class ShowcaseTabsAdapter extends FragmentPagerAdapter {
-    private List fragment_links;
-    private Integer mNumOfTabs;
+    private final List fragment_links;
+    private final Integer mNumOfTabs;
 
     public ShowcaseTabsAdapter(FragmentManager fm, int mNumOfTabs, List fragment_links) {
         super(fm);

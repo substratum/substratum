@@ -57,7 +57,7 @@ import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
 
 
 public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> {
-    private List<ThemeItem> information;
+    private final List<ThemeItem> information;
     private Context mContext;
     private ProgressDialog mProgressDialog;
     private ThemeItem toBeUninstalled;
@@ -375,7 +375,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
     }
 
     private static class uninstallTheme extends AsyncTask<String, Integer, String> {
-        private WeakReference<ThemeAdapter> ref;
+        private final WeakReference<ThemeAdapter> ref;
 
         uninstallTheme(ThemeAdapter themeAdapter) {
             ref = new WeakReference<>(themeAdapter);

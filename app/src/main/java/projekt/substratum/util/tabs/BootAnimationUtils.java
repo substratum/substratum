@@ -83,16 +83,16 @@ public class BootAnimationUtils {
     private static class BootAnimationHandlerAsync extends AsyncTask<String, Integer, String> {
 
         @SuppressLint("StaticFieldLeak")
-        private Context mContext;
+        private final Context mContext;
         private ProgressDialog progress;
         private Boolean has_failed;
         @SuppressLint("StaticFieldLeak")
-        private View view;
-        private String theme_pid;
-        private SharedPreferences prefs;
-        private Boolean encrypted;
-        private Cipher cipher;
-        private Boolean shutdownAnimation;
+        private final View view;
+        private final String theme_pid;
+        private final SharedPreferences prefs;
+        private final Boolean encrypted;
+        private final Cipher cipher;
+        private final Boolean shutdownAnimation;
 
         BootAnimationHandlerAsync(View view,
                                   Context context,

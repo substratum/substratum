@@ -111,7 +111,7 @@ public class ShowcaseTab extends Fragment {
     }
 
     private static class downloadResources extends AsyncTask<String, Integer, ArrayList> {
-        private WeakReference<ShowcaseTab> ref;
+        private final WeakReference<ShowcaseTab> ref;
 
         downloadResources(ShowcaseTab showcaseTab) {
             ref = new WeakReference<>(showcaseTab);

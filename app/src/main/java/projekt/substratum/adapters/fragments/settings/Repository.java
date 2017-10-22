@@ -23,7 +23,7 @@ public class Repository {
     private String colors;
     private String dimens;
     private String styles;
-    private String packageName;
+    private final String packageName;
 
     public Repository(String packageName) {
         this.packageName = packageName;

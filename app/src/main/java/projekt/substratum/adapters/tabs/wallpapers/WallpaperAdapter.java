@@ -52,7 +52,7 @@ import static com.bumptech.glide.request.RequestOptions.centerCropTransform;
 
 public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.ViewHolder> {
     private ProgressDialog mProgressDialog;
-    private List<WallpaperEntries> information;
+    private final List<WallpaperEntries> information;
     private Context mContext;
     private PowerManager.WakeLock mWakeLock;
     private AsyncTask current_download;
@@ -128,12 +128,12 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
 
     private static class downloadWallpaper extends AsyncTask<String, Integer, String> {
 
-        private WeakReference<WallpaperAdapter> ref;
+        private final WeakReference<WallpaperAdapter> ref;
         private String wallpaperLink;
         private String extension;
         private String directory_output;
         private String wallpaperName;
-        private WeakReference<Activity> activity;
+        private final WeakReference<Activity> activity;
 
         downloadWallpaper(WallpaperAdapter wallpaperAdapter, Activity callingActivity) {
             ref = new WeakReference<>(wallpaperAdapter);

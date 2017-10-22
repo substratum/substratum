@@ -320,7 +320,7 @@ public class RecoveryFragment extends Fragment {
 
     private static final class FontsClearer extends AsyncTask<String, Integer, String> {
 
-        private WeakReference<RecoveryFragment> ref;
+        private final WeakReference<RecoveryFragment> ref;
 
         private FontsClearer(RecoveryFragment fragment) {
             ref = new WeakReference<>(fragment);
@@ -394,7 +394,7 @@ public class RecoveryFragment extends Fragment {
 
     private static final class RestoreFunction extends AsyncTask<Boolean, Void, Void> {
         private boolean withUninstall;
-        private WeakReference<RecoveryFragment> ref;
+        private final WeakReference<RecoveryFragment> ref;
 
         private RestoreFunction(RecoveryFragment fragment) {
             ref = new WeakReference<>(fragment);
@@ -515,7 +515,7 @@ public class RecoveryFragment extends Fragment {
     }
 
     private static final class BootAnimationClearer extends AsyncTask<Void, Void, Void> {
-        private WeakReference<RecoveryFragment> ref;
+        private final WeakReference<RecoveryFragment> ref;
 
         private BootAnimationClearer(RecoveryFragment fragment) {
             ref = new WeakReference<>(fragment);
@@ -564,7 +564,7 @@ public class RecoveryFragment extends Fragment {
     }
 
     private static final class SoundsClearer extends AsyncTask<Void, Void, Void> {
-        private WeakReference<RecoveryFragment> ref;
+        private final WeakReference<RecoveryFragment> ref;
 
         private SoundsClearer(RecoveryFragment fragment) {
             ref = new WeakReference<>(fragment);

@@ -29,9 +29,9 @@ import projekt.substratum.R;
 
 public class TroubleshootingAdapter extends BaseAdapter {
 
-    private int[] tQues;
-    private int[] tAns;
-    private Context context;
+    private final int[] tQues;
+    private final int[] tAns;
+    private final Context context;
 
     public TroubleshootingAdapter(int[] tQues, int[] tAns, Context context) {
         this.tQues = tQues;

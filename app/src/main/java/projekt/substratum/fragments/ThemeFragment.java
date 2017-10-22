@@ -265,7 +265,7 @@ public class ThemeFragment extends Fragment {
     }
 
     private static class LayoutLoader extends AsyncTask<String, Integer, String> {
-        private WeakReference<ThemeFragment> fragment;
+        private final WeakReference<ThemeFragment> fragment;
         private HashMap<String, String[]> substratum_packages;
         private ArrayList<ThemeItem> themeItems;
 

@@ -31,7 +31,7 @@ import projekt.substratum.R;
 
 public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHolder> {
 
-    private List<SoundsInfo> soundsList;
+    private final List<SoundsInfo> soundsList;
 
     public SoundsAdapter(List<SoundsInfo> soundsList) {
         this.soundsList = soundsList;

@@ -1001,7 +1001,7 @@ public class MainActivity extends SubstratumActivity implements
 
     private static final class RootRequester extends AsyncTask<Void, Void, Boolean> {
         boolean isRunning = true;
-        private WeakReference<MainActivity> ref;
+        private final WeakReference<MainActivity> ref;
 
         private RootRequester(MainActivity activity) {
             ref = new WeakReference<>(activity);
@@ -1241,7 +1241,7 @@ public class MainActivity extends SubstratumActivity implements
     }
 
     public static class DoCleanUp extends AsyncTask<Void, Void, Void> {
-        private WeakReference<Context> ref;
+        private final WeakReference<Context> ref;
 
         public DoCleanUp(Context context) {
             ref = new WeakReference<>(context);
@@ -1294,7 +1294,7 @@ public class MainActivity extends SubstratumActivity implements
     }
 
     public static class ClearLogs extends AsyncTask<Void, Void, Void> {
-        private WeakReference<MainActivity> ref;
+        private final WeakReference<MainActivity> ref;
 
         ClearLogs(MainActivity activity) {
             ref = new WeakReference<>(activity);

@@ -87,7 +87,7 @@ public class Sounds extends Fragment {
     private Spinner soundsSelector;
     private ArrayList<SoundsInfo> wordList;
     private RecyclerView recyclerView;
-    private MediaPlayer mp = new MediaPlayer();
+    private final MediaPlayer mp = new MediaPlayer();
     private int previous_position;
     private RelativeLayout relativeLayout, error;
     private RelativeLayout defaults;
@@ -98,7 +98,7 @@ public class Sounds extends Fragment {
     private boolean paused = false;
     private JobReceiver jobReceiver;
     private LocalBroadcastManager localBroadcastManager;
-    private Boolean encrypted = false;
+    private final Boolean encrypted = false;
     private Cipher cipher = null;
     private Context mContext;
 
@@ -291,7 +291,7 @@ public class Sounds extends Fragment {
     }
 
     private static class SoundsClearer extends AsyncTask<String, Integer, String> {
-        private WeakReference<Sounds> ref;
+        private final WeakReference<Sounds> ref;
 
         SoundsClearer(Sounds sounds) {
             ref = new WeakReference<>(sounds);
@@ -322,7 +322,7 @@ public class Sounds extends Fragment {
     }
 
     private static class SoundsPreview extends AsyncTask<String, Integer, String> {
-        private WeakReference<Sounds> ref;
+        private final WeakReference<Sounds> ref;
 
         SoundsPreview(Sounds sounds) {
             ref = new WeakReference<>(sounds);

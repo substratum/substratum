@@ -42,7 +42,7 @@ public class ManagerAdapter extends
         RecyclerView.Adapter<ManagerAdapter.ViewHolder> {
 
     private List<ManagerItem> overlayList;
-    private Boolean floatui;
+    private final Boolean floatui;
 
     public ManagerAdapter(List<ManagerItem> overlays, Boolean floatui) {
         this.floatui = floatui;

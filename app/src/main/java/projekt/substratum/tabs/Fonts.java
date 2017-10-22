@@ -94,7 +94,7 @@ public class Fonts extends Fragment {
     private JobReceiver jobReceiver;
     private LocalBroadcastManager localBroadcastManager;
     private Context mContext;
-    private Boolean encrypted = false;
+    private final Boolean encrypted = false;
     private Cipher cipher = null;
 
     public Fonts getInstance() {
@@ -244,7 +244,7 @@ public class Fonts extends Fragment {
 
     private static final class FontsClearer extends AsyncTask<String, Integer, String> {
 
-        private WeakReference<Fonts> ref;
+        private final WeakReference<Fonts> ref;
 
         private FontsClearer(Fonts fragment) {
             ref = new WeakReference<>(fragment);
@@ -318,7 +318,7 @@ public class Fonts extends Fragment {
 
     private static class FontPreview extends AsyncTask<String, Integer, String> {
 
-        private WeakReference<Fonts> ref;
+        private final WeakReference<Fonts> ref;
 
         FontPreview(Fonts fonts) {
             ref = new WeakReference<>(fonts);

@@ -41,7 +41,7 @@ public class ManagerItem implements Serializable {
     private String labelName;
     private boolean isSelected;
     private int activationValue;
-    private Context mContext;
+    private final Context mContext;
     private Drawable mDrawable;
     private Drawable mTargetDrawable;
 

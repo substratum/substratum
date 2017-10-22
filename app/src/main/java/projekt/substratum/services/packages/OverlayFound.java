@@ -86,7 +86,7 @@ public class OverlayFound extends BroadcastReceiver {
 
     private static class OverlayUpdate extends AsyncTask<String, Integer, String> {
 
-        private WeakReference<OverlayFound> ref;
+        private final WeakReference<OverlayFound> ref;
         private NotificationManager mNotifyManager;
         private NotificationCompat.Builder mBuilder;
         private List<ResolveInfo> installed_themes;

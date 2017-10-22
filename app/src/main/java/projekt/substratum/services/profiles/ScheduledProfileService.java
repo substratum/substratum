@@ -107,7 +107,7 @@ public class ScheduledProfileService extends JobService {
     }
 
     private static class ApplyProfile extends AsyncTask<Void, Void, Void> {
-        private WeakReference<ScheduledProfileService> ref;
+        private final WeakReference<ScheduledProfileService> ref;
 
         ApplyProfile(ScheduledProfileService service) {
             ref = new WeakReference<>(service);

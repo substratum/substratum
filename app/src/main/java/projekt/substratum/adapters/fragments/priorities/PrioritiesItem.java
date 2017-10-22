@@ -22,8 +22,8 @@ import android.graphics.drawable.Drawable;
 
 public class PrioritiesItem implements PrioritiesInterface {
 
-    private String mName;
-    private Drawable mDrawableId;
+    private final String mName;
+    private final Drawable mDrawableId;
     private String type1a;
     private String type1b;
     private String type1c;

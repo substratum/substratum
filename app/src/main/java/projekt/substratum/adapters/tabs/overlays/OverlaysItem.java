@@ -43,14 +43,14 @@ public class OverlaysItem implements Serializable {
     public boolean is_variant_chosen5 = false;
     public String versionName;
     boolean variant_mode = false;
-    private String theme_name;
+    private final String theme_name;
     private String name;
-    private String package_name;
-    private VariantAdapter array;
-    private VariantAdapter array2;
-    private VariantAdapter array3;
-    private VariantAdapter array4;
-    private VariantAdapter array5;
+    private final String package_name;
+    private final VariantAdapter array;
+    private final VariantAdapter array2;
+    private final VariantAdapter array3;
+    private final VariantAdapter array4;
+    private final VariantAdapter array5;
     private boolean isSelected;
     private int spinnerSelection = 0;
     private int spinnerSelection2 = 0;
@@ -63,11 +63,11 @@ public class OverlaysItem implements Serializable {
     private String variantSelected4 = "";
     private String variantSelected5 = "";
     private String baseResources = "";
-    private Context context;
+    private final Context context;
     private List<Object> enabledOverlays;
-    private Drawable app_icon;
-    private Boolean theme_oms;
-    private View activityView;
+    private final Drawable app_icon;
+    private final Boolean theme_oms;
+    private final View activityView;
 
     public OverlaysItem(String theme_name,
                         String name,

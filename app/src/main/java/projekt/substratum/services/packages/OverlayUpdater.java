@@ -133,17 +133,17 @@ public class OverlayUpdater extends BroadcastReceiver {
         private List<String> installed_overlays;
         private List<String> errored_packages;
         @SuppressLint("StaticFieldLeak")
-        private Context context;
+        private final Context context;
         private LocalBroadcastManager localBroadcastManager;
         private KeyRetrieval keyRetrieval;
         private Intent securityIntent;
         private Cipher cipher;
         private String upgrade_mode = "";
-        private String package_name;
-        private StringBuilder error_logs = new StringBuilder();
-        private int id;
-        private Handler handler = new Handler();
-        private Runnable runnable = new Runnable() {
+        private final String package_name;
+        private final StringBuilder error_logs = new StringBuilder();
+        private final int id;
+        private final Handler handler = new Handler();
+        private final Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 Log.d(TAG, "Waiting for encryption key handshake approval...");

@@ -19,7 +19,7 @@
 package projekt.substratum.common.systems;
 
 public class ProfileItem {
-    private String packageName;
+    private final String packageName;
     private String targetPackage;
     private String parentTheme;
     private String type1a;

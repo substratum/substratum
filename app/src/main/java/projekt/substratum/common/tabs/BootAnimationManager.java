@@ -31,10 +31,10 @@ import static projekt.substratum.common.Systems.getDeviceEncryptionStatus;
 public enum BootAnimationManager {
     ;
 
-    public static void setBootAnimation(Context context, String themeDirectory,
-                                        Boolean shutdownAnimation) {
-        String fileName = (shutdownAnimation ? "shutdownanimation" : "bootanimation");
-        String location = EXTERNAL_STORAGE_CACHE + fileName + ".zip";
+    public static void setBootAnimation(final Context context, final String themeDirectory,
+                                        final Boolean shutdownAnimation) {
+        final String fileName = (shutdownAnimation ? "shutdownanimation" : "bootanimation");
+        final String location = EXTERNAL_STORAGE_CACHE + fileName + ".zip";
         // Check to see if device is decrypted with theme interface
         if ((getDeviceEncryptionStatus(context) <= 1 || shutdownAnimation) &&
                 checkThemeInterfacer(context)) {
@@ -60,7 +60,7 @@ public enum BootAnimationManager {
         }
     }
 
-    public static void clearBootAnimation(Context context, Boolean shutdownAnimation) {
+    public static void clearBootAnimation(final Context context, final Boolean shutdownAnimation) {
         if (getDeviceEncryptionStatus(context) <= 1) {
             // OMS with theme interface
             if (checkThemeInterfacer(context)) {

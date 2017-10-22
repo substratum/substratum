@@ -28,17 +28,17 @@ import java.io.InputStream;
 public enum WallpaperManager {
     ;
 
-    public static void setWallpaper(Context context, String path, String which) throws IOException {
-        android.app.WallpaperManager wallpaperManager =
+    public static void setWallpaper(final Context context, final String path, final String which) throws IOException {
+        final android.app.WallpaperManager wallpaperManager =
                 android.app.WallpaperManager.getInstance(context);
         switch (which) {
             case "home":
                 // Set home screen wallpaper
                 // Get current lock screen wallpaper to be applied later
-                ParcelFileDescriptor lockFile =
+                final ParcelFileDescriptor lockFile =
                         wallpaperManager.getWallpaperFile(android.app.WallpaperManager.FLAG_LOCK);
                 if (lockFile != null) {
-                    InputStream input = new FileInputStream(lockFile.getFileDescriptor());
+                    final InputStream input = new FileInputStream(lockFile.getFileDescriptor());
                     // Now apply the wallpapers
                     wallpaperManager.setStream(new FileInputStream(path), null, true,
                             android.app.WallpaperManager.FLAG_SYSTEM);
@@ -63,17 +63,17 @@ public enum WallpaperManager {
         }
     }
 
-    public static void clearWallpaper(Context context, String which) throws IOException {
-        android.app.WallpaperManager wallpaperManager =
+    public static void clearWallpaper(final Context context, final String which) throws IOException {
+        final android.app.WallpaperManager wallpaperManager =
                 android.app.WallpaperManager.getInstance(context);
         switch (which) {
             case "home":
                 // Clear home screen wallpaper
                 // Get current lock screen wallpaper to be applied later
-                ParcelFileDescriptor lockFile =
+                final ParcelFileDescriptor lockFile =
                         wallpaperManager.getWallpaperFile(android.app.WallpaperManager.FLAG_LOCK);
                 if (lockFile != null) {
-                    InputStream input = new FileInputStream(lockFile.getFileDescriptor());
+                    final InputStream input = new FileInputStream(lockFile.getFileDescriptor());
                     // Clear home wallpaper
                     wallpaperManager.clear(android.app.WallpaperManager.FLAG_SYSTEM);
                     // Reapply lock screen wallpaper

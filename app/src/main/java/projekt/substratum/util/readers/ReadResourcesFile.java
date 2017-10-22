@@ -33,29 +33,29 @@ import javax.xml.parsers.DocumentBuilderFactory;
 public enum ReadResourcesFile {
     ;
 
-    public static List<String> main(String file, String tag) {
+    public static List<String> main(final String file, final String tag) {
 
-        List<String> list = new ArrayList<>();
-        List<String> emptyList = new ArrayList<>();
+        final List<String> list = new ArrayList<>();
+        final List<String> emptyList = new ArrayList<>();
 
         try {
-            File fXmlFile = new File(file);
+            final File fXmlFile = new File(file);
 
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(fXmlFile);
+            final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            final DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            final Document doc = dBuilder.parse(fXmlFile);
             doc.getDocumentElement().normalize();
-            NodeList nList = doc.getElementsByTagName(tag);
+            final NodeList nList = doc.getElementsByTagName(tag);
 
             for (int temp = 0; temp < nList.getLength(); temp++) {
-                Node nNode = nList.item(temp);
+                final Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element eElement = (Element) nNode;
+                    final Element eElement = (Element) nNode;
                     list.add(eElement.getAttribute("name"));
                 }
             }
             return list;
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
             return emptyList;
         }

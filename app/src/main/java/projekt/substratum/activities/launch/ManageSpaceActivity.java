@@ -49,10 +49,10 @@ public class ManageSpaceActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_manage_space);
-        Toolbar toolbar = this.findViewById(R.id.toolbar);
+        final Toolbar toolbar = this.findViewById(R.id.toolbar);
         this.setSupportActionBar(toolbar);
         if (this.getSupportActionBar() != null) {
             this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -60,8 +60,8 @@ public class ManageSpaceActivity extends AppCompatActivity {
         }
         if (toolbar != null) toolbar.setNavigationOnClickListener(v -> this.onBackPressed());
 
-        CardView clearCacheButton = this.findViewById(R.id.clear_cache_button);
-        CardView resetAppButton = this.findViewById(R.id.reset_app_button);
+        final CardView clearCacheButton = this.findViewById(R.id.clear_cache_button);
+        final CardView resetAppButton = this.findViewById(R.id.reset_app_button);
         this.cacheCounter = this.findViewById(R.id.cache_counter);
         this.cacheCounter.setText(this.getString(R.string.clear_cache_button_loading));
         this.cacheCounter.setText(Formatter.formatFileSize(this, getFileSize(this.getCacheDir())));
@@ -71,10 +71,10 @@ public class ManageSpaceActivity extends AppCompatActivity {
             new ClearCache(this).execute();
         });
 
-        CardView clearLogsButton = this.findViewById(R.id.clear_logs_button);
+        final CardView clearLogsButton = this.findViewById(R.id.clear_logs_button);
         this.logsCounter = this.findViewById(R.id.log_counter);
         this.logsCounter.setText(this.getString(R.string.clear_cache_button_loading));
-        File filer = new File(LOGCHAR_DIR);
+        final File filer = new File(LOGCHAR_DIR);
         if (filer.isDirectory()) {
             this.logsCounter.setText(String.valueOf(filer.list().length));
         } else {
@@ -87,7 +87,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
         });
 
         resetAppButton.setOnClickListener(v -> {
-            AlertDialog dialog = new AlertDialog.Builder(this)
+            final AlertDialog dialog = new AlertDialog.Builder(this)
                     .setTitle(R.string.manage_space_reset_dialog_title)
                     .setMessage(R.string.manage_space_reset_dialog_content)
                     .setNegativeButton(android.R.string.no, (dialog1, which) -> dialog1.dismiss())
@@ -119,26 +119,26 @@ public class ManageSpaceActivity extends AppCompatActivity {
     private static class ClearCache extends AsyncTask<Void, Void, Void> {
         private final WeakReference<ManageSpaceActivity> ref;
 
-        ClearCache(ManageSpaceActivity activity) {
+        ClearCache(final ManageSpaceActivity activity) {
             super();
             this.ref = new WeakReference<>(activity);
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
-            ManageSpaceActivity activity = this.ref.get();
+        protected Void doInBackground(final Void... params) {
+            final ManageSpaceActivity activity = this.ref.get();
             if (activity != null) {
-                Context context = activity.getApplicationContext();
+                final Context context = activity.getApplicationContext();
                 delete(context, context.getCacheDir().getAbsolutePath());
             }
             return null;
         }
 
         @Override
-        protected void onPostExecute(Void result) {
-            ManageSpaceActivity activity = this.ref.get();
+        protected void onPostExecute(final Void result) {
+            final ManageSpaceActivity activity = this.ref.get();
             if (activity != null) {
-                Context context = activity.getApplicationContext();
+                final Context context = activity.getApplicationContext();
                 activity.cacheCounter.setText(
                         Formatter.formatFileSize(context, getFileSize(context.getCacheDir())));
             }
@@ -148,26 +148,26 @@ public class ManageSpaceActivity extends AppCompatActivity {
     private static class ClearLogs extends AsyncTask<Void, Void, Void> {
         private final WeakReference<ManageSpaceActivity> ref;
 
-        ClearLogs(ManageSpaceActivity activity) {
+        ClearLogs(final ManageSpaceActivity activity) {
             super();
             this.ref = new WeakReference<>(activity);
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
-            ManageSpaceActivity activity = this.ref.get();
+        protected Void doInBackground(final Void... params) {
+            final ManageSpaceActivity activity = this.ref.get();
             if (activity != null) {
-                Context context = this.ref.get().getApplicationContext();
+                final Context context = this.ref.get().getApplicationContext();
                 delete(context, new File(LOGCHAR_DIR).getAbsolutePath());
             }
             return null;
         }
 
         @Override
-        protected void onPostExecute(Void result) {
-            ManageSpaceActivity activity = this.ref.get();
+        protected void onPostExecute(final Void result) {
+            final ManageSpaceActivity activity = this.ref.get();
             if (activity != null) {
-                File filer = new File(LOGCHAR_DIR);
+                final File filer = new File(LOGCHAR_DIR);
                 if (filer.isDirectory()) {
                     activity.logsCounter.setText(String.valueOf(filer.list().length));
                 } else {
@@ -180,22 +180,22 @@ public class ManageSpaceActivity extends AppCompatActivity {
     private static class ResetApp extends AsyncTask<Void, Void, Void> {
         private final WeakReference<ManageSpaceActivity> ref;
 
-        ResetApp(ManageSpaceActivity activity) {
+        ResetApp(final ManageSpaceActivity activity) {
             super();
             this.ref = new WeakReference<>(activity);
         }
 
         @Override
-        protected Void doInBackground(Void... params) {
-            ManageSpaceActivity activity = this.ref.get();
+        protected Void doInBackground(final Void... params) {
+            final ManageSpaceActivity activity = this.ref.get();
             if (activity != null) {
-                Context context = activity.getApplicationContext();
-                for (File f : context.getDataDir().listFiles()) {
+                final Context context = activity.getApplicationContext();
+                for (final File f : context.getDataDir().listFiles()) {
                     if (!"shared_prefs".equals(f.getName())) {
                         delete(context, f.getAbsolutePath());
                     } else {
-                        for (File prefs : f.listFiles()) {
-                            String fileName = prefs.getName();
+                        for (final File prefs : f.listFiles()) {
+                            final String fileName = prefs.getName();
                             if (!fileName.equals(NAMES_PREFS + ".xml") &&
                                     !fileName.equals(PACKAGES_PREFS + ".xml")) {
                                 delete(context, prefs.getAbsolutePath());
@@ -210,10 +210,10 @@ public class ManageSpaceActivity extends AppCompatActivity {
 
 
         @Override
-        protected void onPostExecute(Void result) {
-            ManageSpaceActivity activity = this.ref.get();
+        protected void onPostExecute(final Void result) {
+            final ManageSpaceActivity activity = this.ref.get();
             if (activity != null) {
-                Context context = activity.getApplicationContext();
+                final Context context = activity.getApplicationContext();
                 activity.cacheCounter.setText(
                         Formatter.formatFileSize(context, getFileSize(context.getCacheDir())));
                 activity.finishAffinity();

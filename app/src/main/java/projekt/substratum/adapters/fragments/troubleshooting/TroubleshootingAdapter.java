@@ -33,7 +33,7 @@ public class TroubleshootingAdapter extends BaseAdapter {
     private final int[] tAns;
     private final Context context;
 
-    public TroubleshootingAdapter(int[] tQues, int[] tAns, Context context) {
+    public TroubleshootingAdapter(final int[] tQues, final int[] tAns, final Context context) {
         super();
         this.tQues = tQues;
         this.tAns = tAns;
@@ -46,28 +46,28 @@ public class TroubleshootingAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
+    public Object getItem(final int i) {
         return this.tQues[i];
     }
 
     @Override
-    public long getItemId(int i) {
+    public long getItemId(final int i) {
         return i;
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        LayoutInflater inflater = (LayoutInflater) this.context.getSystemService
+    public View getView(final int i, final View view, final ViewGroup viewGroup) {
+        final LayoutInflater inflater = (LayoutInflater) this.context.getSystemService
                 (Context.LAYOUT_INFLATER_SERVICE);
         View v = null;
         if (inflater != null) {
             v = inflater.inflate(R.layout.troubleshooting_row, viewGroup, false);
 
-            TextView questionsTextView = v.findViewById(R.id.trouble_ques);
-            TextView answersTextView = v.findViewById(R.id.trouble_ans);
+            final TextView questionsTextView = v.findViewById(R.id.trouble_ques);
+            final TextView answersTextView = v.findViewById(R.id.trouble_ans);
 
-            String question = this.getStringFromResource(this.tQues[i]);
-            String answer = this.getStringFromResource(this.tAns[i]);
+            final String question = this.getStringFromResource(this.tQues[i]);
+            final String answer = this.getStringFromResource(this.tAns[i]);
 
             questionsTextView.setText(question);
             answersTextView.setText(answer);
@@ -75,7 +75,7 @@ public class TroubleshootingAdapter extends BaseAdapter {
         return v;
     }
 
-    private String getStringFromResource(int stringId) {
+    private String getStringFromResource(final int stringId) {
         return this.context.getResources().getString(stringId);
     }
 }

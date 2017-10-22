@@ -38,7 +38,7 @@ public class AppIntroActivity extends SubstratumActivity {
     private WelcomeHelper welcomeScreen;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         this.prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
@@ -51,14 +51,14 @@ public class AppIntroActivity extends SubstratumActivity {
             this.startActivity(new Intent(this, MainActivity.class));
             this.finish();
         } else {
-            Intent intent = new Intent(this, MainActivity.class);
+            final Intent intent = new Intent(this, MainActivity.class);
             this.startActivity(intent);
             this.finish();
         }
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == WelcomeHelper.DEFAULT_WELCOME_SCREEN_REQUEST &&
                 resultCode == RESULT_OK) {
@@ -70,7 +70,7 @@ public class AppIntroActivity extends SubstratumActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
         this.welcomeScreen.onSaveInstanceState(outState);
     }

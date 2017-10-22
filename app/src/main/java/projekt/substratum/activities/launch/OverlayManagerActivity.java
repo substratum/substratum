@@ -27,7 +27,7 @@ import projekt.substratum.common.References;
 public class OverlayManagerActivity extends SubstratumActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getApplicationContext().startActivity(
                 References.createLauncherIcon(this.getApplicationContext(),

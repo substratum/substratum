@@ -29,7 +29,7 @@ import projekt.substratum.activities.base.SubstratumActivity;
 public class ProfileErrorInfoActivity extends SubstratumActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         new AlertDialog.Builder(this)
                 .setTitle(this.getString(R.string.restore_dialog_title))

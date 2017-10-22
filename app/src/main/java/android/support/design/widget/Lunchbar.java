@@ -78,7 +78,7 @@ public final class Lunchbar extends BaseTransientBottomBar {
     @Nullable
     private BaseCallback<Lunchbar> mCallback;
 
-    private Lunchbar(ViewGroup parent, View content, ContentViewCallback contentViewCallback) {
+    private Lunchbar(final ViewGroup parent, final View content, final ContentViewCallback contentViewCallback) {
         super(parent, content, contentViewCallback);
     }
 
@@ -100,8 +100,8 @@ public final class Lunchbar extends BaseTransientBottomBar {
      *                 #LENGTH_LONG}
      */
     @NonNull
-    public static Lunchbar make(@NonNull View view, @NonNull CharSequence text,
-                                @Duration int duration) {
+    public static Lunchbar make(@NonNull final View view, @NonNull final CharSequence text,
+                                @Duration final int duration) {
         final ViewGroup parent = findSuitableParent(view);
         if (parent == null) {
             throw new IllegalArgumentException("No suitable parent found from the given view. "
@@ -136,7 +136,7 @@ public final class Lunchbar extends BaseTransientBottomBar {
      *                 #LENGTH_LONG}
      */
     @NonNull
-    public static Lunchbar make(@NonNull View view, @StringRes int resId, @Duration int duration) {
+    public static Lunchbar make(@NonNull final View view, @StringRes final int resId, @Duration final int duration) {
         return make(view, view.getResources().getText(resId), duration);
     }
 
@@ -174,7 +174,7 @@ public final class Lunchbar extends BaseTransientBottomBar {
      * @param message The new text for this {@link BaseTransientBottomBar}.
      */
     @NonNull
-    public Lunchbar setText(@NonNull CharSequence message) {
+    public Lunchbar setText(@NonNull final CharSequence message) {
         final SnackbarContentLayout contentLayout = (SnackbarContentLayout) this.mView.getChildAt(0);
         @SuppressLint("RestrictedApi") final TextView tv = contentLayout.getMessageView();
         tv.setText(message);
@@ -187,7 +187,7 @@ public final class Lunchbar extends BaseTransientBottomBar {
      * @param resId The new text for this {@link BaseTransientBottomBar}.
      */
     @NonNull
-    public Lunchbar setText(@StringRes int resId) {
+    public Lunchbar setText(@StringRes final int resId) {
         return this.setText(this.getContext().getText(resId));
     }
 
@@ -198,7 +198,7 @@ public final class Lunchbar extends BaseTransientBottomBar {
      * @param listener callback to be invoked when the action is clicked
      */
     @NonNull
-    public Lunchbar setAction(CharSequence text, final View.OnClickListener listener) {
+    public Lunchbar setAction(final CharSequence text, final View.OnClickListener listener) {
         final SnackbarContentLayout contentLayout = (SnackbarContentLayout) this.mView.getChildAt(0);
         @SuppressLint("RestrictedApi") final TextView tv = contentLayout.getActionView();
 
@@ -232,7 +232,7 @@ public final class Lunchbar extends BaseTransientBottomBar {
     @SuppressWarnings("unchecked")
     @Deprecated
     @NonNull
-    public Lunchbar setCallback(Callback callback) {
+    public Lunchbar setCallback(final Callback callback) {
         // The logic in this method emulates what we had before support for multiple
         // registered callbacks.
         if (this.mCallback != null) {
@@ -270,12 +270,12 @@ public final class Lunchbar extends BaseTransientBottomBar {
     public static class Callback extends BaseCallback<Lunchbar> {
 
         @Override
-        public void onShown(Lunchbar sb) {
+        public void onShown(final Lunchbar sb) {
             // Stub implementation to make API check happy.
         }
 
         @Override
-        public void onDismissed(Lunchbar transientBottomBar, @DismissEvent int event) {
+        public void onDismissed(final Lunchbar transientBottomBar, @DismissEvent final int event) {
             // Stub implementation to make API check happy.
         }
     }

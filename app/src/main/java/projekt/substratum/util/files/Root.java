@@ -32,17 +32,17 @@ public enum Root {
     private static SU su;
 
     public static boolean checkRootAccess() {
-        StringBuilder check = References.runShellCommand("which su");
+        final StringBuilder check = References.runShellCommand("which su");
         return check != null && check.toString().length() > 0;
     }
 
     public static boolean requestRootAccess() {
-        SU su = getSU();
+        final SU su = getSU();
         su.runCommand("echo /testRoot/");
         return !su.denied;
     }
 
-    public static String runCommand(String command) {
+    public static String runCommand(final String command) {
         return getSU().runCommand(command);
     }
 
@@ -70,7 +70,7 @@ public enum Root {
                         .getOutputStream()));
                 this.bufferedReader = new BufferedReader(new InputStreamReader(this.process.getInputStream
                         ()));
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 this.denied = true;
                 this.closed = true;
             }
@@ -78,13 +78,13 @@ public enum Root {
 
         synchronized String runCommand(final String command) {
             try {
-                StringBuilder sb = new StringBuilder();
-                String callback = "/shellCallback/";
+                final StringBuilder sb = new StringBuilder();
+                final String callback = "/shellCallback/";
                 this.bufferedWriter.write(command + "\necho " + callback + "\n");
                 this.bufferedWriter.flush();
 
                 int i;
-                char[] buffer = new char[256];
+                final char[] buffer = new char[256];
                 while (true) {
                     sb.append(buffer, 0, this.bufferedReader.read(buffer));
                     if ((i = sb.indexOf(callback)) > -1) {
@@ -94,10 +94,10 @@ public enum Root {
                 }
                 this.firstTry = false;
                 return sb.toString().trim();
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 this.closed = true;
                 if (this.firstTry) this.denied = true;
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 this.denied = true;
             }
             return null;
@@ -121,7 +121,7 @@ public enum Root {
                 }
 
                 this.closed = true;
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 e.printStackTrace();
             }
         }

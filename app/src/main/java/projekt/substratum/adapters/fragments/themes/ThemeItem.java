@@ -40,7 +40,7 @@ public class ThemeItem {
         return this.themeName;
     }
 
-    public void setThemeName(String themeName) {
+    public void setThemeName(final String themeName) {
         this.themeName = themeName;
     }
 
@@ -48,7 +48,7 @@ public class ThemeItem {
         return this.themeAuthor;
     }
 
-    public void setThemeAuthor(String themeAuthor) {
+    public void setThemeAuthor(final String themeAuthor) {
         this.themeAuthor = themeAuthor;
     }
 
@@ -56,7 +56,7 @@ public class ThemeItem {
         return this.themePackage;
     }
 
-    public void setThemePackage(String themePackage) {
+    public void setThemePackage(final String themePackage) {
         this.themePackage = themePackage;
     }
 
@@ -64,7 +64,7 @@ public class ThemeItem {
         return this.pluginVersion;
     }
 
-    public void setPluginVersion(String pluginVersion) {
+    public void setPluginVersion(final String pluginVersion) {
         this.pluginVersion = pluginVersion;
     }
 
@@ -72,7 +72,7 @@ public class ThemeItem {
         return this.themeDrawable;
     }
 
-    public void setThemeDrawable(Drawable drawable) {
+    public void setThemeDrawable(final Drawable drawable) {
         this.themeDrawable = drawable;
     }
 
@@ -80,7 +80,7 @@ public class ThemeItem {
         return this.activity;
     }
 
-    public void setActivity(Activity activity) {
+    public void setActivity(final Activity activity) {
         this.activity = activity;
     }
 
@@ -88,7 +88,7 @@ public class ThemeItem {
         return this.themeContext;
     }
 
-    public void setContext(Context context) {
+    public void setContext(final Context context) {
         this.themeContext = context;
     }
 
@@ -96,7 +96,7 @@ public class ThemeItem {
         return this.sdkLevels;
     }
 
-    public void setSDKLevels(String sdkLevels) {
+    public void setSDKLevels(final String sdkLevels) {
         this.sdkLevels = sdkLevels;
     }
 
@@ -104,7 +104,7 @@ public class ThemeItem {
         return this.themeVersion;
     }
 
-    public void setThemeVersion(String themeVersion) {
+    public void setThemeVersion(final String themeVersion) {
         this.themeVersion = themeVersion;
     }
 
@@ -112,7 +112,7 @@ public class ThemeItem {
         return this.themeReady;
     }
 
-    public void setThemeReadyVariable(String themeVisibility) {
+    public void setThemeReadyVariable(final String themeVisibility) {
         this.themeReady = themeVisibility;
     }
 
@@ -120,7 +120,7 @@ public class ThemeItem {
         return this.themeMode;
     }
 
-    public void setThemeMode(String themeMode) {
+    public void setThemeMode(final String themeMode) {
         this.themeMode = themeMode;
     }
 }

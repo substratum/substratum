@@ -142,71 +142,70 @@ public enum Resources {
     }
 
     // This string array contains all the SystemUI acceptable overlay packs
-    public static Boolean allowedSounds(String current) {
+    public static Boolean allowedSounds(final String current) {
         return Arrays.asList(SoundManager.ALLOWED_SOUNDS).contains(current);
     }
 
     // This string array contains all the SystemUI acceptable overlay packs
-    public static Boolean allowedSystemUIOverlay(String current) {
+    public static Boolean allowedSystemUIOverlay(final String current) {
         return Arrays.asList(ALLOWED_SYSTEMUI_ELEMENTS).contains(current);
     }
 
     // This string array contains all the Settings acceptable overlay packs
-    public static Boolean allowedSettingsOverlay(String current) {
+    public static Boolean allowedSettingsOverlay(final String current) {
         return Arrays.asList(ALLOWED_SETTINGS_ELEMENTS).contains(current);
     }
 
     // This string array contains all the framework acceptable overlay packs
-    public static Boolean allowedFrameworkOverlay(String current) {
+    public static Boolean allowedFrameworkOverlay(final String current) {
         return Arrays.asList(ALLOWED_FRAMEWORK_ELEMENTS).contains(current);
     }
 
     // This string array contains all the SystemUI acceptable sound files
-    public static Boolean allowedUISound(String targetValue) {
+    public static Boolean allowedUISound(final String targetValue) {
         return Arrays.asList(ALLOWED_UI_THEMABLE_SOUNDS).contains(targetValue);
     }
 
     // This string array contains all the legacy allowed folders
-    public static Boolean allowedForLegacy(String targetValue) {
+    public static Boolean allowedForLegacy(final String targetValue) {
         return Arrays.asList(ALLOWED_LEGACY_ASSETS).contains(targetValue);
     }
 
     // This string array contains all blacklisted app for theme
-    public static Boolean allowedAppOverlay(String targetValue) {
+    public static Boolean allowedAppOverlay(final String targetValue) {
         return !Arrays.asList(BLACKLIST_THEME_TARGET_APPS).contains(targetValue);
     }
 
     // This method checks whether custom fonts is supported by the system
     public static boolean isFontsSupported() {
         try {
-            Class<?> cls = Class.forName("android.graphics.Typeface");
+            final Class<?> cls = Class.forName("android.graphics.Typeface");
             cls.getDeclaredMethod("getSystemFontDirLocation");
             cls.getDeclaredMethod("getThemeFontConfigLocation");
             cls.getDeclaredMethod("getThemeFontDirLocation");
             Log.d(SUBSTRATUM_LOG, "This system fully supports font hotswapping.");
             return true;
-        } catch (Exception ex) {
+        } catch (final Exception ex) {
             // Suppress Fonts
         }
         return false;
     }
 
     // This method checks whether custom sounds is supported by the system
-    public static boolean isSoundsSupported(Context context) {
+    public static boolean isSoundsSupported(final Context context) {
         return !checkAndromeda(context) && !isSamsung(context) &&
                 checkThemeInterfacer(context);
     }
 
     // This method checks whether custom boot animation is supported by the system
-    public static boolean isBootAnimationSupported(Context context) {
+    public static boolean isBootAnimationSupported(final Context context) {
         return !checkAndromeda(context) && !isSamsung(context);
     }
 
     // This method checks whether custom shutdown animation is supported by the system
     public static boolean isShutdownAnimationSupported() {
         try {
-            @SuppressLint("PrivateApi")
-            Class<?> cls = new DexClassLoader("/system/framework/services.jar",
+            @SuppressLint("PrivateApi") final Class<?> cls = new DexClassLoader("/system/framework/services.jar",
                     "/data/tmp/", "/data/tmp/", ClassLoader.getSystemClassLoader())
                     .loadClass("com.android.server.power.ShutdownThread");
             cls.getDeclaredMethod("themeShutdownAnimationExists");
@@ -214,13 +213,13 @@ public enum Resources {
             cls.getDeclaredMethod("stopShutdownAnimation");
             Log.d(SUBSTRATUM_LOG, "This system fully supports theme shutdown animation.");
             return true;
-        } catch (Exception ex) {
+        } catch (final Exception ex) {
             return false;
         }
     }
 
     // This method checks whether user profiles is supported by the system
-    public static boolean isProfilesSupported(Context context) {
+    public static boolean isProfilesSupported(final Context context) {
         return !checkAndromeda(context) && !isSamsung(context);
     }
 }

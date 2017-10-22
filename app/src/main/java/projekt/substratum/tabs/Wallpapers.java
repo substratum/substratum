@@ -54,9 +54,9 @@ public class Wallpapers extends Fragment {
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
-            ViewGroup container,
-            Bundle savedInstanceState) {
+            final LayoutInflater inflater,
+            final ViewGroup container,
+            final Bundle savedInstanceState) {
         this.mContext = this.getContext();
         this.wallpaperUrl = this.getArguments().getString("wallpaperUrl");
         this.root = (ViewGroup) inflater.inflate(R.layout.tab_wallpapers, container, false);
@@ -78,14 +78,14 @@ public class Wallpapers extends Fragment {
         this.mRecyclerView = this.root.findViewById(R.id.wallpaperRecyclerView);
         this.mRecyclerView.setHasFixedSize(true);
         this.mRecyclerView.setLayoutManager(new LinearLayoutManager(this.mContext));
-        ArrayList<WallpaperEntries> empty_array = new ArrayList<>();
-        RecyclerView.Adapter empty_adapter = new WallpaperAdapter(empty_array);
+        final ArrayList<WallpaperEntries> empty_array = new ArrayList<>();
+        final RecyclerView.Adapter empty_adapter = new WallpaperAdapter(empty_array);
         this.mRecyclerView.setAdapter(empty_adapter);
         this.no_wallpapers.setVisibility(View.GONE);
         this.no_network.setVisibility(View.GONE);
 
         if (References.isNetworkAvailable(this.mContext)) {
-            downloadResources downloadTask = new downloadResources(this);
+            final downloadResources downloadTask = new downloadResources(this);
             downloadTask.execute(this.wallpaperUrl, "current_wallpapers.xml");
         } else {
             this.mRecyclerView.setVisibility(View.GONE);
@@ -99,7 +99,7 @@ public class Wallpapers extends Fragment {
     private static class downloadResources extends AsyncTask<String, Integer, String> {
         private final WeakReference<Wallpapers> ref;
 
-        downloadResources(Wallpapers wallpapers) {
+        downloadResources(final Wallpapers wallpapers) {
             super();
             this.ref = new WeakReference<>(wallpapers);
         }
@@ -107,7 +107,7 @@ public class Wallpapers extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Wallpapers wallpapers = this.ref.get();
+            final Wallpapers wallpapers = this.ref.get();
             if (wallpapers != null) {
                 wallpapers.mRecyclerView.setVisibility(View.GONE);
                 wallpapers.materialProgressBar.setVisibility(View.VISIBLE);
@@ -115,20 +115,20 @@ public class Wallpapers extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(String result) {
+        protected void onPostExecute(final String result) {
             super.onPostExecute(result);
-            Wallpapers wallpapers = this.ref.get();
+            final Wallpapers wallpapers = this.ref.get();
             if (wallpapers != null) {
                 try {
-                    String[] checkerCommands = {
+                    final String[] checkerCommands = {
                             wallpapers.mContext.getCacheDir() + "/current_wallpapers.xml"};
 
                     @SuppressWarnings("unchecked") final Map<String, String> newArray =
                             ReadCloudWallpaperFile.main(checkerCommands);
-                    ArrayList<WallpaperEntries> wallpaperEntries = new ArrayList<>();
+                    final ArrayList<WallpaperEntries> wallpaperEntries = new ArrayList<>();
                     WallpaperEntries newEntry = new WallpaperEntries();
 
-                    for (String key : newArray.keySet()) {
+                    for (final String key : newArray.keySet()) {
                         if (!key.toLowerCase(Locale.US)
                                 .endsWith("-preview".toLowerCase(Locale.US))) {
                             newEntry.setCallingActivity(wallpapers.getActivity());
@@ -142,7 +142,7 @@ public class Wallpapers extends Fragment {
                             newEntry = new WallpaperEntries();
                         }
                     }
-                    RecyclerView.Adapter mAdapter = new WallpaperAdapter(wallpaperEntries);
+                    final RecyclerView.Adapter mAdapter = new WallpaperAdapter(wallpaperEntries);
                     wallpapers.mRecyclerView.setAdapter(mAdapter);
 
                     if (wallpaperEntries.size() == 0)
@@ -150,15 +150,15 @@ public class Wallpapers extends Fragment {
 
                     wallpapers.mRecyclerView.setVisibility(View.VISIBLE);
                     wallpapers.materialProgressBar.setVisibility(View.GONE);
-                } catch (Exception e) {
+                } catch (final Exception e) {
                     // Suppress warning
                 }
             }
         }
 
         @Override
-        protected String doInBackground(String... sUrl) {
-            Wallpapers wallpapers = this.ref.get();
+        protected String doInBackground(final String... sUrl) {
+            final Wallpapers wallpapers = this.ref.get();
             if (wallpapers != null) {
                 FileDownloader.init(wallpapers.mContext, sUrl[0], "", sUrl[1]);
             }

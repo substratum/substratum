@@ -29,7 +29,7 @@ public class ProfileItem {
     private String type3;
     private String type4;
 
-    ProfileItem(String packageName) {
+    ProfileItem(final String packageName) {
         super();
         this.packageName = packageName;
     }
@@ -42,7 +42,7 @@ public class ProfileItem {
         return this.targetPackage;
     }
 
-    public void setTargetPackage(String targetPackage) {
+    public void setTargetPackage(final String targetPackage) {
         this.targetPackage = targetPackage;
     }
 
@@ -50,7 +50,7 @@ public class ProfileItem {
         return this.parentTheme;
     }
 
-    void setParentTheme(String parentTheme) {
+    void setParentTheme(final String parentTheme) {
         this.parentTheme = parentTheme;
     }
 
@@ -58,7 +58,7 @@ public class ProfileItem {
         return this.type1a;
     }
 
-    public void setType1a(String type1a) {
+    public void setType1a(final String type1a) {
         this.type1a = type1a;
     }
 
@@ -66,7 +66,7 @@ public class ProfileItem {
         return this.type1b;
     }
 
-    public void setType1b(String type1b) {
+    public void setType1b(final String type1b) {
         this.type1b = type1b;
     }
 
@@ -74,7 +74,7 @@ public class ProfileItem {
         return this.type1c;
     }
 
-    public void setType1c(String type1c) {
+    public void setType1c(final String type1c) {
         this.type1c = type1c;
     }
 
@@ -82,7 +82,7 @@ public class ProfileItem {
         return this.type2;
     }
 
-    public void setType2(String type2) {
+    public void setType2(final String type2) {
         this.type2 = type2;
     }
 
@@ -90,7 +90,7 @@ public class ProfileItem {
         return this.type3;
     }
 
-    public void setType3(String type3) {
+    public void setType3(final String type3) {
         this.type3 = type3;
     }
 
@@ -98,7 +98,7 @@ public class ProfileItem {
         return this.type4;
     }
 
-    public void setType4(String type4) {
+    public void setType4(final String type4) {
         this.type4 = type4;
     }
 }

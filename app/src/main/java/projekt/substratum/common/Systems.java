@@ -50,14 +50,14 @@ import static projekt.substratum.common.References.isNetworkAvailable;
 public enum Systems {
     ;
 
-    private static boolean isOMSRunning(Context context, Class<?> serviceClass) {
+    private static boolean isOMSRunning(final Context context, final Class<?> serviceClass) {
         final ActivityManager activityManager = (ActivityManager)
                 context.getSystemService(Context.ACTIVITY_SERVICE);
         assert activityManager != null;
         final List<ActivityManager.RunningServiceInfo> services =
                 activityManager.getRunningServices(Integer.MAX_VALUE);
 
-        for (ActivityManager.RunningServiceInfo runningServiceInfo : services) {
+        for (final ActivityManager.RunningServiceInfo runningServiceInfo : services) {
             if (runningServiceInfo.service.getClassName().equals(serviceClass.getName())) {
                 return true;
             }
@@ -66,11 +66,11 @@ public enum Systems {
     }
 
     // This method is used to determine whether there the system is initiated with OMS
-    public static Boolean checkOMS(@NonNull Context context) {
+    public static Boolean checkOMS(@NonNull final Context context) {
         //noinspection ConstantConditions
         if (context == null) return true; // Safe to assume that window refreshes only on OMS
         if (!BYPASS_ALL_VERSION_CHECKS) {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (!prefs.contains("oms_state")) {
                 setAndCheckOMS(context);
             }
@@ -80,15 +80,15 @@ public enum Systems {
         }
     }
 
-    public static int checkThemeSystemModule(Context context, boolean firstLaunch) {
+    public static int checkThemeSystemModule(final Context context, final boolean firstLaunch) {
         if (context != null) {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (!firstLaunch &&
                     prefs.getInt("CURRENT_THEME_MODE", NO_THEME_ENGINE) != NO_THEME_ENGINE) {
                 return prefs.getInt("CURRENT_THEME_MODE", NO_THEME_ENGINE);
             }
 
-            Boolean rooted = Root.checkRootAccess();
+            final Boolean rooted = Root.checkRootAccess();
             if (checkOreo()) {
                 if (rooted) {
                     // Rooted mode
@@ -140,7 +140,7 @@ public enum Systems {
         return NO_THEME_ENGINE;
     }
 
-    public static int checkThemeSystemModule(Context context) {
+    public static int checkThemeSystemModule(final Context context) {
         return checkThemeSystemModule(context, false);
     }
 
@@ -153,8 +153,8 @@ public enum Systems {
                 Build.VERSION.SDK_INT == Build.VERSION_CODES.N_MR1;
     }
 
-    public static void setAndCheckOMS(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+    public static void setAndCheckOMS(final Context context) {
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         prefs.edit().remove("oms_state").apply();
         try {
             boolean foundOms = false;
@@ -162,13 +162,13 @@ public enum Systems {
                 if (checkThemeInterfacer(context)) {
                     foundOms = true;
                 } else {
-                    Boolean isOMSRunning = isOMSRunning(context.getApplicationContext(),
+                    final Boolean isOMSRunning = isOMSRunning(context.getApplicationContext(),
                             IOverlayManager.class);
                     if (isOMSRunning || checkOreo()) {
                         Log.d(SUBSTRATUM_LOG, "Found Overlay Manager Service...");
                         foundOms = true;
                     } else {
-                        String out = Root.runCommand("cmd overlay").split("\n")[0];
+                        final String out = Root.runCommand("cmd overlay").split("\n")[0];
                         if ("The overlay manager has already been initialized.".equals(out) ||
                                 "Overlay manager (overlay) commands:".equals(out)) {
                             Log.d(SUBSTRATUM_LOG, "Found Overlay Manager Service...");
@@ -189,7 +189,7 @@ public enum Systems {
                 Log.d(SUBSTRATUM_LOG, "Initializing Substratum with the second " +
                         "iteration of the Resource Runtime Overlay system...");
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             prefs.edit().putBoolean("oms_state", false).apply();
             prefs.edit().putInt("oms_version", 0).apply();
             Log.d(SUBSTRATUM_LOG, "Initializing Substratum with the second " +
@@ -198,7 +198,7 @@ public enum Systems {
     }
 
     // Begin check if device is running on the latest theme interface
-    public static boolean checkThemeInterfacer(Context context) {
+    public static boolean checkThemeInterfacer(final Context context) {
         if (context == null) {
             Log.e(SUBSTRATUM_LOG,
                     "activity has been destroyed, cannot check if interfacer is used");
@@ -207,19 +207,19 @@ public enum Systems {
         return getThemeInterfacerPackage(context) != null;
     }
 
-    public static boolean checkAndromeda(Context context) {
+    public static boolean checkAndromeda(final Context context) {
         if (context == null) {
             Log.e(SUBSTRATUM_LOG,
                     "activity has been destroyed, cannot check if andromeda is used");
             return false;
         }
 
-        SharedPreferences prefs =
+        final SharedPreferences prefs =
                 context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
-        String fingerprint = prefs.getString("andromeda_fp", "o");
-        String expFingerprint = prefs.getString(
+        final String fingerprint = prefs.getString("andromeda_fp", "o");
+        final String expFingerprint = prefs.getString(
                 "andromeda_exp_fp_" + Packages.getAppVersionCode(context, ANDROMEDA_PACKAGE), "0");
-        String installer = prefs.getString("andromeda_installer", "o");
+        final String installer = prefs.getString("andromeda_installer", "o");
 
         boolean andromedaPresent = isAndromedaDevice(context);
         andromedaPresent &= installer.equals(PLAY_STORE_PACKAGE_NAME);
@@ -228,7 +228,7 @@ public enum Systems {
         return andromedaPresent;
     }
 
-    public static boolean isAndromedaDevice(Context context) {
+    public static boolean isAndromedaDevice(final Context context) {
         if (context == null) {
             Log.e(SUBSTRATUM_LOG,
                     "activity has been destroyed, cannot check if andromeda is used");
@@ -239,28 +239,28 @@ public enum Systems {
     }
 
     // Begin check if device is running on the latest theme interface
-    public static boolean isBinderInterfacer(Context context) {
-        boolean isEnabled = Packages.isAvailablePackage(context, References.INTERFACER_PACKAGE);
-        PackageInfo packageInfo = getThemeInterfacerPackage(context);
+    public static boolean isBinderInterfacer(final Context context) {
+        final boolean isEnabled = Packages.isAvailablePackage(context, References.INTERFACER_PACKAGE);
+        final PackageInfo packageInfo = getThemeInterfacerPackage(context);
         return packageInfo != null && packageInfo.versionCode >= 60 && isEnabled;
     }
 
     // Check if the system is of the Samsung variant
-    public static boolean isSamsung(Context context) {
-        boolean isTouchWiz = isSamsungDevice(context);
+    public static boolean isSamsung(final Context context) {
+        final boolean isTouchWiz = isSamsungDevice(context);
         if (!isTouchWiz) return false;
 
-        SharedPreferences prefs =
+        final SharedPreferences prefs =
                 context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
 
-        boolean debuggingValue = prefs.getBoolean("sungstratum_debug", true);
-        boolean installer = prefs.getBoolean("sungstratum_installer", false);
-        String fingerprint = prefs.getString("sungstratum_fp", "0");
-        String expFingerprint = prefs.getString(
+        final boolean debuggingValue = prefs.getBoolean("sungstratum_debug", true);
+        final boolean installer = prefs.getBoolean("sungstratum_installer", false);
+        final String fingerprint = prefs.getString("sungstratum_fp", "0");
+        final String expFingerprint = prefs.getString(
                 "sungstratum_exp_fp_" + Packages.getAppVersionCode(context, SST_ADDON_PACKAGE),
                 "o");
-        String liveInstaller = PackageAnalytics.getPackageInstaller(context, SST_ADDON_PACKAGE);
-        boolean liveInstallerValidity = liveInstaller != null &&
+        final String liveInstaller = PackageAnalytics.getPackageInstaller(context, SST_ADDON_PACKAGE);
+        final boolean liveInstallerValidity = liveInstaller != null &&
                 liveInstaller.equals(PLAY_STORE_PACKAGE_NAME);
 
         boolean sungstratumPresent = !debuggingValue;
@@ -273,9 +273,9 @@ public enum Systems {
     }
 
     // Check if the system is of the Samsung variant
-    public static boolean isSamsungDevice(Context context) {
+    public static boolean isSamsungDevice(final Context context) {
         if (context != null) {
-            List<String> listOfFeatures =
+            final List<String> listOfFeatures =
                     Arrays.asList(context.getPackageManager().getSystemSharedLibraryNames());
             return listOfFeatures.contains("touchwiz");
         } else {
@@ -283,25 +283,25 @@ public enum Systems {
         }
     }
 
-    private static PackageInfo getAndromedaPackage(Context context) {
+    private static PackageInfo getAndromedaPackage(final Context context) {
         try {
             return context.getPackageManager().getPackageInfo(ANDROMEDA_PACKAGE, 0);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             // Andromeda was not installed
         }
         return null;
     }
 
-    public static PackageInfo getThemeInterfacerPackage(Context context) {
+    public static PackageInfo getThemeInterfacerPackage(final Context context) {
         try {
             return context.getPackageManager().getPackageInfo(INTERFACER_PACKAGE, 0);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             // Theme Interfacer was not installed
         }
         return null;
     }
 
-    public static int getDeviceEncryptionStatus(Context context) {
+    public static int getDeviceEncryptionStatus(final Context context) {
         // 0: ENCRYPTION_STATUS_UNSUPPORTED
         // 1: ENCRYPTION_STATUS_INACTIVE
         // 2: ENCRYPTION_STATUS_ACTIVATING
@@ -315,27 +315,27 @@ public enum Systems {
         return status;
     }
 
-    public static boolean checkSubstratumFeature(Context context) {
+    public static boolean checkSubstratumFeature(final Context context) {
         // Using lowercase because that's how we defined it in our permissions xml
         return context.getPackageManager()
                 .hasSystemFeature(SUBSTRATUM_THEME.toLowerCase(Locale.US));
     }
 
     // This method is used to determine whether there the system was dirty flashed / upgraded
-    public static Boolean checkROMVersion(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+    public static Boolean checkROMVersion(final Context context) {
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         if (!prefs.contains("build_date")) {
             setROMVersion(context, false);
         }
-        String prop = getProp("ro.build.date.utc");
+        final String prop = getProp("ro.build.date.utc");
         return prefs.getInt("build_date", 0) ==
                 ((prop != null && prop.length() > 0) ? Integer.parseInt(prop) : 0);
     }
 
-    public static void setROMVersion(Context context, boolean force) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+    public static void setROMVersion(final Context context, final boolean force) {
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         if (!prefs.contains("build_date") || force) {
-            String prop = getProp("ro.build.date.utc");
+            final String prop = getProp("ro.build.date.utc");
             prefs.edit().putInt("build_date",
                     (prop != null && prop.length() > 0) ? Integer.parseInt(prop) : 0)
                     .apply();
@@ -344,13 +344,13 @@ public enum Systems {
 
     // This method is used to obtain the device ID of the current device (set up)
     @SuppressLint("HardwareIds")
-    public static String getDeviceID(Context context) {
+    public static String getDeviceID(final Context context) {
         return Settings.Secure.getString(context.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
     }
 
     // This method is used to check whether a build.prop value is found
-    public static String getProp(String propName) {
+    public static String getProp(final String propName) {
         Process p = null;
         String result = "";
         try {
@@ -362,10 +362,10 @@ public enum Systems {
                 while ((line = br.readLine()) != null) {
                     result = line;
                 }
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 e.printStackTrace();
             }
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         } finally {
             if (p != null) {
@@ -376,9 +376,9 @@ public enum Systems {
     }
 
     // Check for the denied packages if existing on the device
-    static boolean checkPackageSupport(Context context) {
+    static boolean checkPackageSupport(final Context context) {
         boolean blacklistedPackageFound = false;
-        String[] blacklistedPackages = new String[]{
+        final String[] blacklistedPackages = new String[]{
                 "com.android.vending.billing.InAppBillingService.",
                 "com.android.vending.billing.InAppBillingService.LOCK",
                 "com.android.vending.billing.InAppBillingService.LACK",
@@ -391,7 +391,7 @@ public enum Systems {
                 "zone.jasi2169.uretpatcher",
                 "zone.jasi2169."
         };
-        for (String packageName : blacklistedPackages) {
+        for (final String packageName : blacklistedPackages) {
             if (Packages.isPackageInstalled(context, packageName, false)) {
                 blacklistedPackageFound = true;
                 break;
@@ -400,30 +400,30 @@ public enum Systems {
         return blacklistedPackageFound;
     }
 
-    public static String checkFirmwareSupport(Context context, String url, String fileName) {
+    public static String checkFirmwareSupport(final Context context, final String url, final String fileName) {
         String supported_rom = "";
         try {
             if (isNetworkAvailable(context)) {
                 FileDownloader.init(context, url, "", fileName);
             } else {
-                File check = new File(context.getCacheDir().getAbsolutePath() + "/" + fileName);
+                final File check = new File(context.getCacheDir().getAbsolutePath() + "/" + fileName);
                 if (!check.exists()) return "";
             }
 
-            Map<String, String> listOfRoms =
+            final Map<String, String> listOfRoms =
                     ReadSupportedROMsFile.main(context.getCacheDir() + "/" + fileName);
             Boolean supported = false;
 
             // First check if it is a valid prop
-            for (Object o : listOfRoms.entrySet()) {
-                Map.Entry pair = (Map.Entry) o;
-                String key = (String) pair.getKey();
-                String value = (String) pair.getValue();
-                Process process = Runtime.getRuntime().exec("getprop " + key);
+            for (final Object o : listOfRoms.entrySet()) {
+                final Map.Entry pair = (Map.Entry) o;
+                final String key = (String) pair.getKey();
+                final String value = (String) pair.getValue();
+                final Process process = Runtime.getRuntime().exec("getprop " + key);
                 process.waitFor();
                 try (BufferedReader reader = new BufferedReader(
                         new InputStreamReader(process.getInputStream()))) {
-                    String line = reader.readLine();
+                    final String line = reader.readLine();
                     if (line != null && line.length() > 0) {
                         if (value == null || value.length() == 0) {
                             String current = key;
@@ -445,18 +445,18 @@ public enum Systems {
 
             // Then check ro.product.flavor
             if (!supported) {
-                Iterator it = listOfRoms.entrySet().iterator();
-                Process process = Runtime.getRuntime().exec("getprop ro.build.flavor");
+                final Iterator it = listOfRoms.entrySet().iterator();
+                final Process process = Runtime.getRuntime().exec("getprop ro.build.flavor");
                 process.waitFor();
                 try (BufferedReader reader = new BufferedReader(
                         new InputStreamReader(process.getInputStream()))) {
                     String line;
                     while ((line = reader.readLine()) != null) {
                         while (it.hasNext()) {
-                            Map.Entry pair = (Map.Entry) it.next();
+                            final Map.Entry pair = (Map.Entry) it.next();
 
-                            String key = (String) pair.getKey();
-                            String value = (String) pair.getValue();
+                            final String key = (String) pair.getKey();
+                            final String value = (String) pair.getValue();
 
                             if (line.toLowerCase(Locale.US)
                                     .contains(key.toLowerCase(
@@ -483,27 +483,27 @@ public enum Systems {
                     }
                 }
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             // Suppress warning
         }
         return supported_rom;
     }
 
     // Check usage permissions
-    public static boolean checkUsagePermissions(Context mContext) {
+    public static boolean checkUsagePermissions(final Context mContext) {
         try {
-            PackageManager packageManager = mContext.getPackageManager();
-            ApplicationInfo applicationInfo =
+            final PackageManager packageManager = mContext.getPackageManager();
+            final ApplicationInfo applicationInfo =
                     packageManager.getApplicationInfo(mContext.getPackageName(), 0);
-            AppOpsManager appOpsManager = (AppOpsManager)
+            final AppOpsManager appOpsManager = (AppOpsManager)
                     mContext.getSystemService(Context.APP_OPS_SERVICE);
             assert appOpsManager != null;
-            int mode = appOpsManager.checkOpNoThrow(
+            final int mode = appOpsManager.checkOpNoThrow(
                     AppOpsManager.OPSTR_GET_USAGE_STATS,
                     applicationInfo.uid,
                     applicationInfo.packageName);
             return mode == AppOpsManager.MODE_ALLOWED;
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch (final PackageManager.NameNotFoundException e) {
             return false;
         }
     }

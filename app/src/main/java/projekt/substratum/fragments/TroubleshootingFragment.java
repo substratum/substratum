@@ -49,10 +49,10 @@ public class TroubleshootingFragment extends Fragment {
     };
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
+                             final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View root = inflater.inflate(R.layout.troubleshooting_fragment, container, false);
+        final View root = inflater.inflate(R.layout.troubleshooting_fragment, container, false);
 
         this.troubleshootListView = root.findViewById(R.id.troubleshoot_list_view);
 
@@ -66,7 +66,7 @@ public class TroubleshootingFragment extends Fragment {
                 ));
 
         // This avoids from having a janky look with the last card getting cut off
-        View footer = LayoutInflater.from(
+        final View footer = LayoutInflater.from(
                 this.getActivity()).inflate(
                 R.layout.troubleshooting_list_footer, this.troubleshootListView, false);
         this.troubleshootListView.addFooterView(footer);

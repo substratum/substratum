@@ -26,7 +26,7 @@ import projekt.substratum.common.Theming;
 public class AppShortcutLaunch extends SubstratumActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Theming.launchTheme(this, this.getIntent().getStringExtra("theme_pid"), null);
         this.finish();

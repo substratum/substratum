@@ -57,14 +57,14 @@ import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
 public class PriorityListFragment extends Fragment {
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
         inflater.inflate(R.menu.restore_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        final int id = item.getItemId();
 
         if (id == R.id.restore_info) {
             this.showPriorityInstructions();
@@ -85,9 +85,9 @@ public class PriorityListFragment extends Fragment {
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
-            ViewGroup container,
-            Bundle savedInstanceState) {
+            final LayoutInflater inflater,
+            final ViewGroup container,
+            final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final ViewGroup root = (ViewGroup)
                 inflater.inflate(R.layout.priority_list_fragment, container, false);
@@ -103,13 +103,13 @@ public class PriorityListFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(manager);
 
-        Toolbar toolbar = root.findViewById(R.id.action_bar_toolbar);
+        final Toolbar toolbar = root.findViewById(R.id.action_bar_toolbar);
         toolbar.setTitle(this.getString(R.string.priority_back_title));
         toolbar.setNavigationIcon(this.getContext().getDrawable(R.drawable.priorities_back_button));
         toolbar.setNavigationOnClickListener(v -> {
-            Fragment fragment = new PriorityLoaderFragment();
-            FragmentManager fm = this.getActivity().getSupportFragmentManager();
-            FragmentTransaction transaction = fm.beginTransaction();
+            final Fragment fragment = new PriorityLoaderFragment();
+            final FragmentManager fm = this.getActivity().getSupportFragmentManager();
+            final FragmentTransaction transaction = fm.beginTransaction();
             transaction.setCustomAnimations(
                     android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             transaction.replace(R.id.main, fragment);
@@ -118,16 +118,16 @@ public class PriorityListFragment extends Fragment {
 
         // Begin loading up list
         String obtained_key = "";
-        Bundle bundle = this.getArguments();
+        final Bundle bundle = this.getArguments();
         if (bundle != null) {
             obtained_key = bundle.getString("package_name", null);
         }
 
         final List<PrioritiesInterface> prioritiesList = new ArrayList<>();
         final ArrayList<String> workable_list = new ArrayList<>();
-        List<String> overlays =
+        final List<String> overlays =
                 ThemeManager.listEnabledOverlaysForTarget(this.getContext(), obtained_key);
-        for (String o : overlays) {
+        for (final String o : overlays) {
             prioritiesList.add(new PrioritiesItem(o,
                     Packages.getOverlayParentIcon(this.getContext(), o)));
             workable_list.add(o);
@@ -156,9 +156,9 @@ public class PriorityListFragment extends Fragment {
 
                     @Override
                     public void onItemReorder(
-                            PrioritiesInterface item,
-                            int fromPos,
-                            int toPos) {
+                            final PrioritiesInterface item,
+                            final int fromPos,
+                            final int toPos) {
                         /*
                         ==========================================================================
                         A detailed explanation of the OMS "om set-priority PACKAGE PARENT" command
@@ -182,7 +182,7 @@ public class PriorityListFragment extends Fragment {
                         */
 
                         if (fromPos != toPos) {
-                            String move_package = workable_list.get(fromPos);
+                            final String move_package = workable_list.get(fromPos);
                             // As workable list is a simulation of the priority list without object
                             // values, we have to simulate the events such as adding above parents
                             workable_list.remove(fromPos);
@@ -203,13 +203,13 @@ public class PriorityListFragment extends Fragment {
             headerProgress.setVisibility(View.VISIBLE);
             ThemeManager.setPriority(this.getContext(), workable_list);
             if (Packages.needsRecreate(this.getContext(), workable_list)) {
-                Handler handler = new Handler();
+                final Handler handler = new Handler();
                 handler.postDelayed(() -> {
                     // OMS may not have written all the changes so
                     // quickly just yet so we may need to have a small delay
                     try {
                         this.getActivity().recreate();
-                    } catch (Exception e) {
+                    } catch (final Exception e) {
                         // Consume window refresh
                     }
                 }, (Systems.checkAndromeda(this.getContext()) ?

@@ -73,8 +73,8 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
 
     @SuppressWarnings("WrongConstant")
     public String foregroundedApp() {
-        UsageStatsManager mUsageStatsManager = (UsageStatsManager) this.getSystemService("usagestats");
-        long time = System.currentTimeMillis();
+        final UsageStatsManager mUsageStatsManager = (UsageStatsManager) this.getSystemService("usagestats");
+        final long time = System.currentTimeMillis();
         List<UsageStats> stats = null;
         if (mUsageStatsManager != null) {
             stats = mUsageStatsManager.queryUsageStats(
@@ -82,8 +82,8 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
         }
         String foregroundApp = "";
         if (stats != null && stats.size() > 0) {
-            SortedMap<Long, UsageStats> mySortedMap = new TreeMap<>();
-            for (UsageStats usageStats : stats) {
+            final SortedMap<Long, UsageStats> mySortedMap = new TreeMap<>();
+            for (final UsageStats usageStats : stats) {
                 mySortedMap.put(usageStats.getLastTimeUsed(), usageStats);
             }
             if (!mySortedMap.isEmpty()) {
@@ -94,7 +94,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
         if (mUsageStatsManager != null) {
             usageEvents = mUsageStatsManager.queryEvents(time - 1000 * 1000, time);
         }
-        UsageEvents.Event event = new UsageEvents.Event();
+        final UsageEvents.Event event = new UsageEvents.Event();
         // Get the last event in the doubly linked list
         if (usageEvents != null) {
             while (usageEvents.hasNextEvent()) {
@@ -109,7 +109,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public int onStartCommand(final Intent intent, final int flags, final int startId) {
         if (this.mFloatingViewManager != null) {
             return START_STICKY;
         }
@@ -122,15 +122,15 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
         @SuppressLint("InflateParams") final ImageView iconView = (ImageView)
                 inflater.inflate(R.layout.floatui_head, null, false);
         iconView.setOnClickListener(v -> {
-            String packageName =
+            final String packageName =
                     Packages.getPackageName(this.getApplicationContext(), this.foregroundedApp());
-            String dialogTitle = String.format(this.getString(R.string.per_app_dialog_title),
+            final String dialogTitle = String.format(this.getString(R.string.per_app_dialog_title),
                     packageName);
 
-            ArrayList<String> enabledOverlaysForForegroundPackage = new ArrayList<>(
+            final ArrayList<String> enabledOverlaysForForegroundPackage = new ArrayList<>(
                     ThemeManager.listEnabledOverlaysForTarget(this.getApplicationContext(),
                             this.foregroundedApp()));
-            Collection<String> disabledOverlaysForForegroundPackage = new ArrayList<>(
+            final Collection<String> disabledOverlaysForForegroundPackage = new ArrayList<>(
                     ThemeManager.listDisabledOverlaysForTarget(this.getApplicationContext(),
                             this.foregroundedApp()));
 
@@ -141,21 +141,21 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                         .listDisabledOverlaysForTarget(this.getApplicationContext(), "android"));
             }
 
-            List<String> to_be_shown = new ArrayList<>();
+            final List<String> to_be_shown = new ArrayList<>();
             to_be_shown.addAll(enabledOverlaysForForegroundPackage);
             to_be_shown.addAll(disabledOverlaysForForegroundPackage);
             Collections.sort(to_be_shown);
 
             if (to_be_shown.size() == 0) {
-                String format = String.format(
+                final String format = String.format(
                         this.getString(R.string.per_app_toast_no_overlays), packageName);
                 Toast.makeText(this.getApplicationContext(), format, Toast.LENGTH_SHORT).show();
             } else {
                 this.final_check = new ArrayList<>();
                 for (int j = 0; j < to_be_shown.size(); j++) {
-                    Boolean is_enabled = enabledOverlaysForForegroundPackage.contains(to_be_shown
+                    final Boolean is_enabled = enabledOverlaysForForegroundPackage.contains(to_be_shown
                             .get(j));
-                    ManagerItem managerItem = new ManagerItem(
+                    final ManagerItem managerItem = new ManagerItem(
                             this.getApplicationContext(), to_be_shown.get(j), is_enabled);
                     if (is_enabled) {
                         managerItem.setSelected(true);
@@ -163,11 +163,11 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                     this.final_check.add(managerItem);
                 }
 
-                RecyclerView mRecyclerView;
+                final RecyclerView mRecyclerView;
                 this.mAdapter = new ManagerAdapter(this.final_check, true);
 
                 // Set a custom title
-                TextView title = new TextView(this);
+                final TextView title = new TextView(this);
                 title.setText(dialogTitle);
                 title.setBackgroundColor(this.getColor(R.color.floatui_dialog_header_background));
                 title.setPadding(20, 40, 20, 40);
@@ -177,13 +177,13 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 title.setAllCaps(true);
 
                 // Initialize the AlertDialog Builder
-                AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FloatUiDialog);
+                final AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FloatUiDialog);
                 builder.setCustomTitle(title);
                 builder.setPositiveButton(R.string.per_app_apply, (dialog, which) -> {
                     this.trigger_service_restart = false;
                     this.trigger_systemui_restart = false;
-                    ArrayList<String> to_enable = new ArrayList<>();
-                    ArrayList<String> to_disable = new ArrayList<>();
+                    final ArrayList<String> to_enable = new ArrayList<>();
+                    final ArrayList<String> to_disable = new ArrayList<>();
 
                     for (int i = 0; i < this.final_check.size(); i++) {
                         if (this.mAdapter.getOverlayManagerList().get(i).isSelected()) {
@@ -191,7 +191,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                             if (!enabledOverlaysForForegroundPackage
                                     .contains(this.final_check.get(i).getName())) {
                                 // It is not enabled, append it to the list
-                                String package_name = this.final_check.get(i).getName();
+                                final String package_name = this.final_check.get(i).getName();
                                 to_enable.add(package_name);
                                 if (package_name.startsWith("android.") ||
                                         package_name.startsWith(this.getPackageName() + ".") ||
@@ -201,7 +201,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                         } else if (!disabledOverlaysForForegroundPackage
                                 .contains(this.final_check.get(i).getName())) {
                             // It is disabled, append it to the list
-                            String package_name = this.final_check.get(i).getName();
+                            final String package_name = this.final_check.get(i).getName();
                             to_disable.add(package_name);
                             if (package_name.startsWith("android.") ||
                                     package_name.startsWith(this.getPackageName() + ".") ||
@@ -242,9 +242,8 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 builder.setNegativeButton(android.R.string.cancel,
                         (dialog, which) -> dialog.cancel());
 
-                LayoutInflater inflate = LayoutInflater.from(this.getApplicationContext());
-                @SuppressLint("InflateParams")
-                View content = inflate.inflate(R.layout.floatui_dialog, null);
+                final LayoutInflater inflate = LayoutInflater.from(this.getApplicationContext());
+                @SuppressLint("InflateParams") final View content = inflate.inflate(R.layout.floatui_dialog, null);
                 builder.setView(content);
 
                 mRecyclerView = content.findViewById(R.id.recycler_view);
@@ -253,7 +252,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 mRecyclerView.setHasFixedSize(true);
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getApplicationContext()));
 
-                AlertDialog alertDialog = builder.create();
+                final AlertDialog alertDialog = builder.create();
                 //noinspection ConstantConditions
                 alertDialog.getWindow().setBackgroundDrawable(
                         this.getDrawable(R.drawable.dialog_background));
@@ -284,7 +283,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
     }
 
     @Override
-    public IBinder onBind(Intent intent) {
+    public IBinder onBind(final Intent intent) {
         return null;
     }
 
@@ -294,7 +293,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
     }
 
     @Override
-    public void onTouchFinished(boolean isFinishing, int x, int y) {
+    public void onTouchFinished(final boolean isFinishing, final int x, final int y) {
     }
 
     private void destroy() {
@@ -306,10 +305,10 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
 
     private Notification createNotification() {
         // Create an Intent for the BroadcastReceiver
-        Intent buttonIntent = new Intent(this.getApplicationContext(), FloatUiButtonReceiver.class);
+        final Intent buttonIntent = new Intent(this.getApplicationContext(), FloatUiButtonReceiver.class);
 
         // Create the PendingIntent
-        PendingIntent btPendingIntent = PendingIntent.getBroadcast(
+        final PendingIntent btPendingIntent = PendingIntent.getBroadcast(
                 this.getApplicationContext(), 0, buttonIntent, 0);
 
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(this,

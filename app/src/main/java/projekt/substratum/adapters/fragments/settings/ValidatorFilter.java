@@ -24,7 +24,7 @@ public class ValidatorFilter {
     private List<String> filter;
     private final String packageName;
 
-    public ValidatorFilter(String packageName) {
+    public ValidatorFilter(final String packageName) {
         super();
         this.packageName = packageName;
     }
@@ -33,7 +33,7 @@ public class ValidatorFilter {
         return this.filter;
     }
 
-    public void setFilter(List<String> filter) {
+    public void setFilter(final List<String> filter) {
         this.filter = filter;
     }
 

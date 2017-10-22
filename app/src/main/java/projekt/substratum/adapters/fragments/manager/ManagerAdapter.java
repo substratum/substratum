@@ -44,15 +44,15 @@ public class ManagerAdapter extends
     private List<ManagerItem> overlayList;
     private final Boolean floatui;
 
-    public ManagerAdapter(List<ManagerItem> overlays, Boolean floatui) {
+    public ManagerAdapter(final List<ManagerItem> overlays, final Boolean floatui) {
         super();
         this.floatui = floatui;
         this.overlayList = overlays;
     }
 
     @Override
-    public ManagerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemLayoutView;
+    public ManagerAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+        final View itemLayoutView;
         if (this.floatui) {
             itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.floatui_row, parent, false);
@@ -64,12 +64,12 @@ public class ManagerAdapter extends
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
         final int position_fixed = position;
-        Context context = this.overlayList.get(position_fixed).getContext();
-        String packageName = this.overlayList.get(position_fixed).getName();
+        final Context context = this.overlayList.get(position_fixed).getContext();
+        final String packageName = this.overlayList.get(position_fixed).getName();
 
-        String title = this.overlayList.get(position_fixed).getLabelName();
+        final String title = this.overlayList.get(position_fixed).getLabelName();
 
         if (title != null && title.length() > 0) {
             viewHolder.tvName.setText(title);
@@ -87,7 +87,7 @@ public class ManagerAdapter extends
 
             if (metadata != null && metadata.length() > 0) {
                 metadata = metadata.replace("_", " ");
-                String textView = "<b>" + context.getString(R.string.manager_type1a) +
+                final String textView = "<b>" + context.getString(R.string.manager_type1a) +
                         "</b> " + metadata;
                 viewHolder.type1a.setVisibility(View.VISIBLE);
                 this.overlayList.get(position_fixed).setType1a(textView);
@@ -108,7 +108,7 @@ public class ManagerAdapter extends
                     References.metadataOverlayType1b);
             if (metadata != null && metadata.length() > 0) {
                 metadata = metadata.replace("_", " ");
-                String textView = "<b>" + context.getString(R.string.manager_type1b) +
+                final String textView = "<b>" + context.getString(R.string.manager_type1b) +
                         "</b> " + metadata;
                 viewHolder.type1b.setVisibility(View.VISIBLE);
                 this.overlayList.get(position_fixed).setType1b(textView);
@@ -129,7 +129,7 @@ public class ManagerAdapter extends
                     References.metadataOverlayType1c);
             if (metadata != null && metadata.length() > 0) {
                 metadata = metadata.replace("_", " ");
-                String textView = "<b>" + context.getString(R.string.manager_type1c) +
+                final String textView = "<b>" + context.getString(R.string.manager_type1c) +
                         "</b> " + metadata;
                 viewHolder.type1c.setVisibility(View.VISIBLE);
                 this.overlayList.get(position_fixed).setType1c(textView);
@@ -150,7 +150,7 @@ public class ManagerAdapter extends
                     References.metadataOverlayType2);
             if (metadata != null && metadata.length() > 0) {
                 metadata = metadata.replace("_", " ");
-                String textView = "<b>" + context.getString(R.string.manager_type2) +
+                final String textView = "<b>" + context.getString(R.string.manager_type2) +
                         "</b> " + metadata;
                 viewHolder.type2.setVisibility(View.VISIBLE);
                 this.overlayList.get(position_fixed).setType2(textView);
@@ -171,7 +171,7 @@ public class ManagerAdapter extends
                     References.metadataOverlayType3);
             if (metadata != null && metadata.length() > 0) {
                 metadata = metadata.replace("_", " ");
-                String textView = "<b>" + context.getString(R.string.manager_type3) +
+                final String textView = "<b>" + context.getString(R.string.manager_type3) +
                         "</b> " + metadata;
                 viewHolder.type3.setVisibility(View.VISIBLE);
                 this.overlayList.get(position_fixed).setType3(textView);
@@ -192,7 +192,7 @@ public class ManagerAdapter extends
                     References.metadataOverlayType4);
             if (metadata != null && metadata.length() > 0) {
                 metadata = metadata.replace("_", " ");
-                String textView = "<b>" + context.getString(R.string.manager_type4) +
+                final String textView = "<b>" + context.getString(R.string.manager_type4) +
                         "</b> " + metadata;
                 viewHolder.type4.setVisibility(View.VISIBLE);
                 this.overlayList.get(position_fixed).setType4(textView);
@@ -206,7 +206,7 @@ public class ManagerAdapter extends
                     FROM_HTML_MODE_LEGACY));
         }
 
-        String textView = "<b>" + context.getString(R.string.manager_version) +
+        final String textView = "<b>" + context.getString(R.string.manager_version) +
                 "</b> " +
                 String.valueOf(
                         Packages.getOverlaySubstratumVersion(
@@ -226,8 +226,8 @@ public class ManagerAdapter extends
         viewHolder.chkSelected.setChecked(this.overlayList.get(position_fixed).isSelected());
         viewHolder.chkSelected.setTag(this.overlayList.get(position_fixed));
         viewHolder.chkSelected.setOnClickListener(view -> {
-            CheckBox checkBox = (CheckBox) view;
-            ManagerItem contact = (ManagerItem) checkBox.getTag();
+            final CheckBox checkBox = (CheckBox) view;
+            final ManagerItem contact = (ManagerItem) checkBox.getTag();
 
             contact.setSelected(checkBox.isChecked());
             this.overlayList.get(position_fixed).setSelected(checkBox.isChecked());
@@ -235,14 +235,14 @@ public class ManagerAdapter extends
         viewHolder.card.setOnClickListener(view -> {
             viewHolder.chkSelected.setChecked(!viewHolder.chkSelected.isChecked());
 
-            CheckBox cb = viewHolder.chkSelected;
-            ManagerItem contact = (ManagerItem) cb.getTag();
+            final CheckBox cb = viewHolder.chkSelected;
+            final ManagerItem contact = (ManagerItem) cb.getTag();
 
             contact.setSelected(cb.isChecked());
             contact.setSelected(cb.isChecked());
         });
         if (this.overlayList.get(position_fixed).getDrawable() == null) {
-            Drawable app_icon = Packages.getAppIcon(
+            final Drawable app_icon = Packages.getAppIcon(
                     this.overlayList.get(position_fixed).getContext(),
                     Packages.getOverlayParent(
                             this.overlayList.get(position_fixed).getContext(),
@@ -253,7 +253,7 @@ public class ManagerAdapter extends
             viewHolder.appIcon.setImageDrawable(this.overlayList.get(position_fixed).getDrawable());
         }
         if (this.overlayList.get(position_fixed).getTargetDrawable() == null) {
-            Drawable app_icon = Packages.getAppIcon(
+            final Drawable app_icon = Packages.getAppIcon(
                     this.overlayList.get(position_fixed).getContext(),
                     Packages.getOverlayTarget(
                             this.overlayList.get(position_fixed).getContext(),
@@ -275,7 +275,7 @@ public class ManagerAdapter extends
         return this.overlayList;
     }
 
-    public void setOverlayManagerList(List<ManagerItem> overlayList) {
+    public void setOverlayManagerList(final List<ManagerItem> overlayList) {
         this.overlayList = overlayList;
     }
 
@@ -294,7 +294,7 @@ public class ManagerAdapter extends
         TextView type4;
         TextView version;
 
-        ViewHolder(View itemLayoutView) {
+        ViewHolder(final View itemLayoutView) {
             super(itemLayoutView);
             this.tvName = itemLayoutView.findViewById(R.id.tvName);
             this.tvDesc = itemLayoutView.findViewById(R.id.desc);

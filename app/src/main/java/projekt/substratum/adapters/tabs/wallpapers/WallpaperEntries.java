@@ -33,7 +33,7 @@ public class WallpaperEntries {
         return this.mActivity;
     }
 
-    public void setCallingActivity(Activity mActivity) {
+    public void setCallingActivity(final Activity mActivity) {
         this.mActivity = mActivity;
     }
 
@@ -41,7 +41,7 @@ public class WallpaperEntries {
         return this.mContext;
     }
 
-    public void setContext(Context mContext) {
+    public void setContext(final Context mContext) {
         this.mContext = mContext;
     }
 
@@ -49,7 +49,7 @@ public class WallpaperEntries {
         return this.wallpaperName;
     }
 
-    public void setWallpaperName(String wallpaperName) {
+    public void setWallpaperName(final String wallpaperName) {
         this.wallpaperName = wallpaperName;
     }
 
@@ -57,7 +57,7 @@ public class WallpaperEntries {
         return this.wallpaperLink;
     }
 
-    public void setWallpaperLink(String wallpaperLink) {
+    public void setWallpaperLink(final String wallpaperLink) {
         this.wallpaperLink = wallpaperLink;
     }
 
@@ -65,7 +65,7 @@ public class WallpaperEntries {
         return this.wallpaperPreview;
     }
 
-    public void setWallpaperPreview(String wallpaperPreview) {
+    public void setWallpaperPreview(final String wallpaperPreview) {
         this.wallpaperPreview = wallpaperPreview;
     }
 }

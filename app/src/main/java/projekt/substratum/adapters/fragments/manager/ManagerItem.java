@@ -45,18 +45,18 @@ public class ManagerItem implements Serializable {
     private Drawable mDrawable;
     private Drawable mTargetDrawable;
 
-    public ManagerItem(Context context, String name, boolean isActivated) {
+    public ManagerItem(final Context context, final String name, final boolean isActivated) {
         super();
         this.mContext = context;
         this.name = name;
         this.isSelected = false;
 
-        int version = Packages.getOverlaySubstratumVersion(
+        final int version = Packages.getOverlaySubstratumVersion(
                 context,
                 this.name,
                 References.metadataOverlayVersion);
-        Boolean newUpdate = (version != 0) && BuildConfig.VERSION_CODE >= version;
-        String metadata = Packages.getOverlayMetadata(
+        final Boolean newUpdate = (version != 0) && BuildConfig.VERSION_CODE >= version;
+        final String metadata = Packages.getOverlayMetadata(
                 context,
                 this.name,
                 References.metadataOverlayParent);
@@ -78,7 +78,7 @@ public class ManagerItem implements Serializable {
         return this.name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -86,7 +86,7 @@ public class ManagerItem implements Serializable {
         return this.isSelected;
     }
 
-    public void setSelected(boolean isSelected) {
+    public void setSelected(final boolean isSelected) {
         this.isSelected = isSelected;
     }
 
@@ -94,7 +94,7 @@ public class ManagerItem implements Serializable {
         return this.mContext;
     }
 
-    public void updateEnabledOverlays(boolean isActivated) {
+    public void updateEnabledOverlays(final boolean isActivated) {
         this.activationValue =
                 ((isActivated) ? this.mContext.getColor(R.color.overlay_installed_list_entry) :
                         this.mContext.getColor(R.color.overlay_not_enabled_list_entry));
@@ -104,7 +104,7 @@ public class ManagerItem implements Serializable {
         return this.type1a;
     }
 
-    public void setType1a(String name) {
+    public void setType1a(final String name) {
         this.type1a = name;
     }
 
@@ -112,7 +112,7 @@ public class ManagerItem implements Serializable {
         return this.type1b;
     }
 
-    public void setType1b(String name) {
+    public void setType1b(final String name) {
         this.type1b = name;
     }
 
@@ -120,7 +120,7 @@ public class ManagerItem implements Serializable {
         return this.type1c;
     }
 
-    public void setType1c(String name) {
+    public void setType1c(final String name) {
         this.type1c = name;
     }
 
@@ -128,7 +128,7 @@ public class ManagerItem implements Serializable {
         return this.type2;
     }
 
-    public void setType2(String name) {
+    public void setType2(final String name) {
         this.type2 = name;
     }
 
@@ -136,7 +136,7 @@ public class ManagerItem implements Serializable {
         return this.type3;
     }
 
-    public void setType3(String name) {
+    public void setType3(final String name) {
         this.type3 = name;
     }
 
@@ -144,7 +144,7 @@ public class ManagerItem implements Serializable {
         return this.type4;
     }
 
-    public void setType4(String name) {
+    public void setType4(final String name) {
         this.type4 = name;
     }
 
@@ -155,7 +155,7 @@ public class ManagerItem implements Serializable {
         return this.themeName;
     }
 
-    public void setThemeName(String name) {
+    public void setThemeName(final String name) {
         this.themeName = name;
     }
 
@@ -166,9 +166,9 @@ public class ManagerItem implements Serializable {
         return this.labelName;
     }
 
-    private void setLabelName(Context context) {
-        String packageName = this.getName();
-        String targetPackage = Packages.getOverlayTarget(context, packageName);
+    private void setLabelName(final Context context) {
+        final String packageName = this.getName();
+        final String targetPackage = Packages.getOverlayTarget(context, packageName);
         if (packageName.startsWith("com.android.systemui.headers")) {
             this.labelName = context.getString(R.string.systemui_headers);
         } else if (packageName.startsWith("com.android.systemui.navbars")) {
@@ -188,7 +188,7 @@ public class ManagerItem implements Serializable {
         return this.mDrawable;
     }
 
-    public void setDrawable(Drawable drawable) {
+    public void setDrawable(final Drawable drawable) {
         this.mDrawable = drawable;
     }
 
@@ -196,7 +196,7 @@ public class ManagerItem implements Serializable {
         return this.mTargetDrawable;
     }
 
-    void setTargetDrawable(Drawable drawable) {
+    void setTargetDrawable(final Drawable drawable) {
         this.mTargetDrawable = drawable;
     }
 }

@@ -35,19 +35,19 @@ import projekt.substratum.common.platform.ThemeManager;
 public class RescueActivity extends SubstratumActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (Systems.isSamsungDevice(this.getApplicationContext())) {
             this.startActivity(new Intent(Settings.ACTION_MANAGE_ALL_APPLICATIONS_SETTINGS));
         } else {
             this.createToast(this.getString(R.string.rescue_toast), Toast.LENGTH_LONG);
-            Handler handler = new Handler();
+            final Handler handler = new Handler();
             handler.postDelayed(() -> {
-                List<String> android = ThemeManager.listEnabledOverlaysForTarget(
+                final List<String> android = ThemeManager.listEnabledOverlaysForTarget(
                         this.getApplicationContext(), "android");
-                List<String> substratum = ThemeManager.listEnabledOverlaysForTarget(
+                final List<String> substratum = ThemeManager.listEnabledOverlaysForTarget(
                         this.getApplicationContext(), "projekt.substratum");
-                ArrayList<String> to_be_disabled = new ArrayList<>(android);
+                final ArrayList<String> to_be_disabled = new ArrayList<>(android);
                 to_be_disabled.addAll(substratum);
                 ThemeManager.disableOverlay(this.getApplicationContext(), to_be_disabled);
             }, 500);

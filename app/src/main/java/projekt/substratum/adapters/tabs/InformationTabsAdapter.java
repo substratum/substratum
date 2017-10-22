@@ -50,15 +50,15 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
     private final HashMap<String, Boolean> extras;
 
     @SuppressWarnings("unchecked")
-    public InformationTabsAdapter(FragmentManager fm, int NumOfTabs, String theme_mode,
-                                  List package_checker, String wallpaperUrl, HashMap<String, Boolean> extras,
-                                  Bundle bundle) {
+    public InformationTabsAdapter(final FragmentManager fm, final int NumOfTabs, final String theme_mode,
+                                  final List package_checker, final String wallpaperUrl, final HashMap<String, Boolean> extras,
+                                  final Bundle bundle) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
         this.theme_mode = theme_mode;
         try {
             this.package_checker = new ArrayList<>(package_checker);
-        } catch (NullPointerException npe) {
+        } catch (final NullPointerException npe) {
             // Suppress this warning for theme_mode launches
         }
         this.wallpaperUrl = wallpaperUrl;
@@ -67,33 +67,33 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override
-    public Fragment getItem(int position) {
+    public Fragment getItem(final int position) {
         if (this.theme_mode != null && this.theme_mode.length() > 0) {
             switch (this.theme_mode) {
                 case overlaysFragment:
-                    Overlays overlays = new Overlays();
+                    final Overlays overlays = new Overlays();
                     overlays.setArguments(this.bundle);
                     return overlays;
                 case bootAnimationsFragment:
-                    BootAnimations bootAnimations = new BootAnimations();
+                    final BootAnimations bootAnimations = new BootAnimations();
                     bootAnimations.setArguments(this.bundle);
                     return bootAnimations;
                 case shutdownAnimationsFragment:
-                    BootAnimations shutdownanimations = new BootAnimations();
-                    Bundle b = new Bundle(this.bundle);
+                    final BootAnimations shutdownanimations = new BootAnimations();
+                    final Bundle b = new Bundle(this.bundle);
                     b.putBoolean("shutdownanimation", true);
                     shutdownanimations.setArguments(b);
                     return shutdownanimations;
                 case fontsFragment:
-                    Fonts fonts = new Fonts();
+                    final Fonts fonts = new Fonts();
                     fonts.setArguments(this.bundle);
                     return fonts;
                 case soundsFragment:
-                    Sounds sounds = new Sounds();
+                    final Sounds sounds = new Sounds();
                     sounds.setArguments(this.bundle);
                     return sounds;
                 case wallpaperFragment:
-                    Wallpapers wallpapers = new Wallpapers();
+                    final Wallpapers wallpapers = new Wallpapers();
                     wallpapers.setArguments(this.bundle);
                     return wallpapers;
             }
@@ -109,37 +109,37 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
     private Fragment getFragment() {
         if (this.package_checker.contains(overlaysFragment)) {
             this.package_checker.remove(overlaysFragment);
-            Overlays overlays = new Overlays();
+            final Overlays overlays = new Overlays();
             overlays.setArguments(this.bundle);
             return overlays;
         } else if (this.package_checker.contains(bootAnimationsFragment) &&
                 this.extras.get(bootAnimationsFragment)) {
             this.package_checker.remove(bootAnimationsFragment);
-            BootAnimations bootAnimations = new BootAnimations();
+            final BootAnimations bootAnimations = new BootAnimations();
             bootAnimations.setArguments(this.bundle);
             return bootAnimations;
         } else if (this.package_checker.contains(shutdownAnimationsFragment) &&
                 this.extras.get(shutdownAnimationsFragment)) {
             this.package_checker.remove(shutdownAnimationsFragment);
-            BootAnimations shutdownAnimations = new BootAnimations();
-            Bundle b = new Bundle(this.bundle);
+            final BootAnimations shutdownAnimations = new BootAnimations();
+            final Bundle b = new Bundle(this.bundle);
             b.putBoolean(shutdownAnimationsFragment, true);
             shutdownAnimations.setArguments(b);
             return shutdownAnimations;
         } else if (this.package_checker.contains(fontsFragment) &&
                 this.extras.get(fontsFragment)) {
             this.package_checker.remove(fontsFragment);
-            Fonts fonts = new Fonts();
+            final Fonts fonts = new Fonts();
             fonts.setArguments(this.bundle);
             return fonts;
         } else if (this.package_checker.contains(soundsFragment) &&
                 this.extras.get(soundsFragment)) {
             this.package_checker.remove(soundsFragment);
-            Sounds sounds = new Sounds();
+            final Sounds sounds = new Sounds();
             sounds.setArguments(this.bundle);
             return sounds;
         } else if (this.wallpaperUrl != null) {
-            Wallpapers wallpapers = new Wallpapers();
+            final Wallpapers wallpapers = new Wallpapers();
             wallpapers.setArguments(this.bundle);
             return wallpapers;
         }

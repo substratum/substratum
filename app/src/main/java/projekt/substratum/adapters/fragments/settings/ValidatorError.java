@@ -28,12 +28,12 @@ public class ValidatorError {
     private final List<String> styles = new ArrayList<>();
     private final String packageName;
 
-    public ValidatorError(String packageName) {
+    public ValidatorError(final String packageName) {
         super();
         this.packageName = packageName;
     }
 
-    public void addBoolError(String bools) {
+    public void addBoolError(final String bools) {
         this.bools.add(bools);
     }
 

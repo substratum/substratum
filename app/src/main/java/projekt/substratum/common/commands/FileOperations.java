@@ -83,12 +83,12 @@ public enum FileOperations {
         Root.runCommand("ln -s " + source + " " + destination);
     }
 
-    private static String checkBox(String mountType) {
+    private static String checkBox(final String mountType) {
         Process process = null;
         // default style is "toybox" style, because aosp has toybox not toolbox
         String result = mountType + ",remount";
         try {
-            Runtime rt = Runtime.getRuntime();
+            final Runtime rt = Runtime.getRuntime();
             process = rt.exec(new String[]{"readlink", "/system/bin/mount"});
             try (BufferedReader stdInput = new BufferedReader(new
                     InputStreamReader(process.getInputStream()))) {
@@ -97,7 +97,7 @@ public enum FileOperations {
                     result = "remount," + mountType;
                 }
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
         } finally {
             if (process != null) {
@@ -131,10 +131,10 @@ public enum FileOperations {
         Root.runCommand("mount -o " + checkBox("ro") + " /vendor");
     }
 
-    public static void createNewFolder(Context context, String destination) {
-        String dataDir = context.getDataDir().getAbsolutePath();
-        String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-        boolean needRoot = (
+    public static void createNewFolder(final Context context, final String destination) {
+        final String dataDir = context.getDataDir().getAbsolutePath();
+        final String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
+        final boolean needRoot = (
                 !destination.startsWith(dataDir) && !destination.startsWith(externalDir) &&
                         !destination.startsWith("/system")) || (!destination.startsWith(dataDir) &&
                 !destination.startsWith(externalDir) && !destination.startsWith("/system"));
@@ -145,9 +145,9 @@ public enum FileOperations {
         }
     }
 
-    public static void createNewFolder(String foldername) {
+    public static void createNewFolder(final String foldername) {
         Log.d(CREATE_LOG, "Using rootless operation to create " + foldername);
-        File folder = new File(foldername);
+        final File folder = new File(foldername);
         if (!folder.exists()) {
             Log.d(CREATE_LOG, "Operation " + (folder.mkdirs() ? "succeeded" : "failed"));
             if (!folder.exists()) {
@@ -159,10 +159,10 @@ public enum FileOperations {
         }
     }
 
-    public static void copy(Context context, String source, String destination) {
-        String dataDir = context.getDataDir().getAbsolutePath();
-        String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-        boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir) &&
+    public static void copy(final Context context, final String source, final String destination) {
+        final String dataDir = context.getDataDir().getAbsolutePath();
+        final String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
+        final boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir) &&
                 !source.startsWith("/system")) || (!destination.startsWith(dataDir) &&
                 !destination.startsWith(externalDir) && !destination.startsWith("/system"));
         if (checkThemeInterfacer(context) && needRoot) {
@@ -171,7 +171,7 @@ public enum FileOperations {
             ThemeInterfacerService.copy(context, source, destination);
 
             // Wait until copy succeeds
-            File file = new File(destination);
+            final File file = new File(destination);
             try {
                 int retryCount = 0;
                 while (!file.exists() && retryCount < 5) {
@@ -180,7 +180,7 @@ public enum FileOperations {
                 }
                 if (retryCount == 5) Log.d(COPY_LOG, "Operation timed out!");
                 Log.d(COPY_LOG, "Operation " + (file.exists() ? "succeeded" : "failed"));
-            } catch (InterruptedException e) {
+            } catch (final InterruptedException e) {
                 Thread.interrupted();
             }
         } else {
@@ -188,14 +188,14 @@ public enum FileOperations {
         }
     }
 
-    private static void copy(String source, String destination) {
+    private static void copy(final String source, final String destination) {
         Log.d(COPY_LOG,
                 "Using rootless operation to copy " + source + " to " + destination);
-        File in = new File(source);
-        File out = new File(destination);
+        final File in = new File(source);
+        final File out = new File(destination);
         try {
             FileUtils.copyFile(in, out);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             // Suppress warning
         }
         if (!out.exists()) {
@@ -206,10 +206,10 @@ public enum FileOperations {
         Log.d(COPY_LOG, "Operation " + (out.exists() ? "succeeded" : "failed"));
     }
 
-    public static void copyDir(Context context, String source, String destination) {
-        String dataDir = context.getDataDir().getAbsolutePath();
-        String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-        boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir) &&
+    public static void copyDir(final Context context, final String source, final String destination) {
+        final String dataDir = context.getDataDir().getAbsolutePath();
+        final String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
+        final boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir) &&
                 !source.startsWith("/system")) || (!destination.startsWith(dataDir) &&
                 !destination.startsWith(externalDir) && !destination.startsWith("/system"));
         if (checkThemeInterfacer(context) && needRoot) {
@@ -219,14 +219,14 @@ public enum FileOperations {
         }
     }
 
-    private static void copyDir(String source, String destination) {
+    private static void copyDir(final String source, final String destination) {
         Log.d(COPYDIR_LOG,
                 "Using rootless operation to copy " + source + " to " + destination);
-        File in = new File(source);
-        File out = new File(destination);
+        final File in = new File(source);
+        final File out = new File(destination);
         try {
             FileUtils.copyDirectory(in, out);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             // Suppress warning
         }
         if (!out.exists()) {
@@ -237,28 +237,28 @@ public enum FileOperations {
         Log.d(COPYDIR_LOG, "Operation " + (out.exists() ? "succeeded" : "failed"));
     }
 
-    public static void bruteforceDelete(String directory) {
+    public static void bruteforceDelete(final String directory) {
         Root.runCommand("rm -rf " + directory);
     }
 
-    public static void delete(Context context, String directory) {
+    public static void delete(final Context context, final String directory) {
         delete(context, directory, true);
     }
 
-    public static void delete(Context context, String directory, boolean deleteParent) {
-        String dataDir = context.getDataDir().getAbsolutePath();
-        String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-        boolean needRoot = (!directory.startsWith(dataDir) && !directory.startsWith(externalDir) &&
+    public static void delete(final Context context, final String directory, final boolean deleteParent) {
+        final String dataDir = context.getDataDir().getAbsolutePath();
+        final String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
+        final boolean needRoot = (!directory.startsWith(dataDir) && !directory.startsWith(externalDir) &&
                 !directory.startsWith("/system"));
         if (checkThemeInterfacer(context) && needRoot) {
             Log.d(DELETE_LOG, "Using theme interfacer operation to delete " + directory);
             ThemeInterfacerService.delete(context, directory, deleteParent);
 
             // Wait until delete success
-            File file = new File(directory);
+            final File file = new File(directory);
             try {
                 int retryCount = 0;
-                boolean notDone = (deleteParent && file.exists()) ||
+                final boolean notDone = (deleteParent && file.exists()) ||
                         (!deleteParent && file.list().length == 0);
                 while (notDone && retryCount < 5) {
                     Thread.sleep(1000);
@@ -266,7 +266,7 @@ public enum FileOperations {
                 }
                 if (retryCount == 5) Log.d(DELETE_LOG, "Operation timed out!");
                 Log.d(DELETE_LOG, "Operation " + (!file.exists() ? "succeeded" : "failed"));
-            } catch (InterruptedException e) {
+            } catch (final InterruptedException e) {
                 Thread.interrupted();
             }
         } else {
@@ -274,18 +274,18 @@ public enum FileOperations {
         }
     }
 
-    private static void delete(String directory, boolean deleteParent) {
+    private static void delete(final String directory, final boolean deleteParent) {
         Log.d(DELETE_LOG, "Using rootless operation to delete " + directory);
-        File dir = new File(directory);
+        final File dir = new File(directory);
         try {
             if (deleteParent) {
                 FileUtils.forceDelete(dir);
             } else {
                 FileUtils.cleanDirectory(dir);
             }
-        } catch (FileNotFoundException e) {
+        } catch (final FileNotFoundException e) {
             Log.d(DELETE_LOG, "File already " + (deleteParent ? "deleted." : "cleaned."));
-        } catch (IOException e) {
+        } catch (final IOException e) {
             // Suppress warning
         }
         if (dir.exists()) {
@@ -294,9 +294,9 @@ public enum FileOperations {
             if (deleteParent) {
                 Root.runCommand("rm -rf " + directory);
             } else {
-                StringBuilder command = new StringBuilder("rm -rf ");
+                final StringBuilder command = new StringBuilder("rm -rf ");
                 if (dir.isDirectory()) {
-                    for (File child : dir.listFiles()) {
+                    for (final File child : dir.listFiles()) {
                         command.append(child.getAbsolutePath()).append(" ");
                     }
                     Root.runCommand(command.toString());
@@ -308,10 +308,10 @@ public enum FileOperations {
         Log.d(DELETE_LOG, "Operation " + (!dir.exists() ? "succeeded" : "failed"));
     }
 
-    public static void move(Context context, String source, String destination) {
-        String dataDir = context.getDataDir().getAbsolutePath();
-        String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-        boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir) &&
+    public static void move(final Context context, final String source, final String destination) {
+        final String dataDir = context.getDataDir().getAbsolutePath();
+        final String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
+        final boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir) &&
                 !source.startsWith("/system")) || (!destination.startsWith(dataDir) &&
                 !destination.startsWith(externalDir) && !destination.startsWith("/system"));
         if (checkThemeInterfacer(context) && needRoot) {
@@ -320,7 +320,7 @@ public enum FileOperations {
             ThemeInterfacerService.move(context, source, destination);
 
             // Wait until move success
-            File file = new File(destination);
+            final File file = new File(destination);
             try {
                 int retryCount = 0;
                 while (!file.exists() && retryCount < 5) {
@@ -329,7 +329,7 @@ public enum FileOperations {
                 }
                 if (retryCount == 5) Log.d(MOVE_LOG, "Operation timed out");
                 Log.d(MOVE_LOG, "Operation " + (file.exists() ? "succeeded" : "failed"));
-            } catch (InterruptedException e) {
+            } catch (final InterruptedException e) {
                 Thread.interrupted();
             }
         } else {
@@ -337,18 +337,18 @@ public enum FileOperations {
         }
     }
 
-    private static void move(String source, String destination) {
+    private static void move(final String source, final String destination) {
         Log.d(MOVE_LOG, "Using rootless operation to move " + source + " to " +
                 destination);
-        File in = new File(source);
-        File out = new File(destination);
+        final File in = new File(source);
+        final File out = new File(destination);
         try {
             if (in.isFile()) {
                 FileUtils.moveFile(in, out);
             } else if (in.isDirectory()) {
                 FileUtils.moveDirectory(in, out);
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             Log.d(MOVE_LOG,
                     "Rootless operation failed, falling back to rooted mode...");
             Root.runCommand("mv -f " + source + " " + destination);
@@ -356,10 +356,10 @@ public enum FileOperations {
         Log.d(MOVE_LOG, "Operation " + (out.exists() ? "succeeded" : "failed"));
     }
 
-    public static long getFileSize(File source) {
+    public static long getFileSize(final File source) {
         long size = 0;
         if (source.isDirectory()) {
-            for (File file : source.listFiles()) {
+            for (final File file : source.listFiles()) {
                 size += getFileSize(file);
             }
         } else {
@@ -376,10 +376,10 @@ public enum FileOperations {
      * @param cipherKey    the decryption key for the Cipher object
      */
     public static InputStream getInputStream(
-            @NonNull AssetManager assetManager,
-            @NonNull String filePath,
-            @Nullable Cipher cipherKey) throws IOException {
-        InputStream inputStream = assetManager.open(filePath);
+            @NonNull final AssetManager assetManager,
+            @NonNull final String filePath,
+            @Nullable final Cipher cipherKey) throws IOException {
+        final InputStream inputStream = assetManager.open(filePath);
         if (cipherKey != null && filePath.endsWith(ENCRYPTION_EXTENSION)) {
             return new CipherInputStream(inputStream, cipherKey);
         }
@@ -397,9 +397,9 @@ public enum FileOperations {
      *                     only extracts to a specified folder without the asset manager's list
      *                     structure.
      */
-    public static boolean copyFileOrDir(AssetManager assetManager, String listDir,
-                                        String destination, String remember, Cipher cipher) {
-        String assets[];
+    public static boolean copyFileOrDir(final AssetManager assetManager, final String listDir,
+                                        final String destination, final String remember, final Cipher cipher) {
+        final String[] assets;
         if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, "Source: " + listDir);
         if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, "Destination: " + destination);
         try {
@@ -409,34 +409,34 @@ public enum FileOperations {
                 if (ENABLE_DIRECT_ASSETS_LOGGING)
                     Log.d(DA_LOG, "This is a file object, directly copying...");
                 if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, listDir);
-                boolean copied = copyFile(assetManager, listDir, destination, remember, cipher);
+                final boolean copied = copyFile(assetManager, listDir, destination, remember, cipher);
                 if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, "File operation status: " +
                         ((copied) ? "Success!" : "Failed"));
             } else {
                 // This will be a folder if the size is greater than 0
-                String fullPath = (destination + "/" + listDir.substring(remember.length()))
+                final String fullPath = (destination + "/" + listDir.substring(remember.length()))
                         .replaceAll("\\s+", "");
-                File dir = new File(fullPath);
+                final File dir = new File(fullPath);
                 if (!dir.exists()) {
                     Log.d(DA_LOG, "Attempting to copy: " + dir.getAbsolutePath() + "/");
                     Log.d(DA_LOG, "File operation status: " +
                             ((dir.mkdir()) ? "Success!" : "Failed"));
                 }
-                for (String asset : assets) {
+                for (final String asset : assets) {
                     copyFileOrDir(assetManager, listDir + "/" + asset, destination, remember,
                             cipher);
                 }
             }
             return true;
-        } catch (IOException ex) {
+        } catch (final IOException ex) {
             if (ENABLE_DIRECT_ASSETS_LOGGING)
                 Log.e(DA_LOG, "An IOException has been reached: " + ex.getMessage());
         }
         return false;
     }
 
-    private static boolean copyFile(AssetManager assetManager, String filename,
-                                    String destination, String remember, Cipher cipher) {
+    private static boolean copyFile(final AssetManager assetManager, final String filename,
+                                    final String destination, final String remember, final Cipher cipher) {
         InputStream inputStream = null;
         OutputStream outputStream = null;
         try {
@@ -446,21 +446,21 @@ public enum FileOperations {
             } else if (cipher == null && filename.endsWith(".enc")) {
                 return false;
             }
-            String destinationFile = destination + filename.replaceAll("\\s+", "")
+            final String destinationFile = destination + filename.replaceAll("\\s+", "")
                     .substring(remember.replaceAll("\\s+", "").length());
             outputStream = new FileOutputStream(
                     (cipher != null ?
                             destinationFile.substring(0, destinationFile.length() - 4) :
                             destinationFile));
 
-            byte[] buffer = new byte[8192];
+            final byte[] buffer = new byte[8192];
             int read;
             while ((read = inputStream.read(buffer)) != -1) {
                 outputStream.write(buffer, 0, read);
             }
 
             return true;
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
             if (ENABLE_DIRECT_ASSETS_LOGGING)
                 Log.e(DA_LOG, "An exception has been reached: " + e.getMessage());
@@ -474,14 +474,14 @@ public enum FileOperations {
                     outputStream.flush();
                     outputStream.close();
                 }
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 // Suppress warning
             }
         }
         return false;
     }
 
-    public static void copyFromAsset(Context ctx, String fileName, String targetPath) {
+    public static void copyFromAsset(final Context ctx, final String fileName, final String targetPath) {
         InputStream in = null;
         OutputStream out = null;
         try {
@@ -489,13 +489,13 @@ public enum FileOperations {
 
             out = new FileOutputStream(targetPath);
 
-            byte[] buffer = new byte[1024];
+            final byte[] buffer = new byte[1024];
             int read;
             while ((read = in.read(buffer)) != -1) {
                 out.write(buffer, 0, read);
             }
 
-        } catch (IOException e) {
+        } catch (final IOException e) {
             Log.e("tag", "Failed to copy asset file: ", e);
         } finally {
             try {
@@ -507,7 +507,7 @@ public enum FileOperations {
                     out.flush();
                     out.close();
                 }
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 e.printStackTrace();
             }
         }

@@ -29,13 +29,13 @@ import projekt.substratum.activities.launch.SplashScreenActivity;
 public class LauncherActivity extends SubstratumActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
                 this.getApplicationContext());
 
-        Intent intent = new Intent(this, SplashScreenActivity.class);
+        final Intent intent = new Intent(this, SplashScreenActivity.class);
         intent.putExtra("first_run", prefs.getBoolean("first_run", true));
         this.startActivity(intent);
         this.finish();

@@ -65,13 +65,13 @@ public class ShowcaseTab extends Fragment {
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
-            ViewGroup container,
-            Bundle savedInstanceState) {
+            final LayoutInflater inflater,
+            final ViewGroup container,
+            final Bundle savedInstanceState) {
         this.mContext = this.getContext();
         this.prefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
 
-        Bundle bundle = this.getArguments();
+        final Bundle bundle = this.getArguments();
         if (bundle != null) {
             this.current_tab_position = bundle.getInt("tab_count", 0);
             this.current_tab_address = bundle.getString("tabbed_address");
@@ -91,14 +91,14 @@ public class ShowcaseTab extends Fragment {
         this.mRecyclerView = this.root.findViewById(R.id.wallpaperRecyclerView);
         this.mRecyclerView.setHasFixedSize(true);
         this.mRecyclerView.setLayoutManager(new LinearLayoutManager(this.mContext));
-        ArrayList<WallpaperEntries> empty_array = new ArrayList<>();
-        RecyclerView.Adapter empty_adapter = new WallpaperAdapter(empty_array);
+        final ArrayList<WallpaperEntries> empty_array = new ArrayList<>();
+        final RecyclerView.Adapter empty_adapter = new WallpaperAdapter(empty_array);
         this.mRecyclerView.setAdapter(empty_adapter);
         this.no_wallpapers.setVisibility(View.GONE);
         this.no_network.setVisibility(View.GONE);
 
         if (References.isNetworkAvailable(this.mContext)) {
-            downloadResources downloadTask = new downloadResources(this);
+            final downloadResources downloadTask = new downloadResources(this);
             downloadTask.execute(this.current_tab_address,
                     "showcase_tab_" + this.current_tab_position + "" + ".xml");
         } else {
@@ -113,7 +113,7 @@ public class ShowcaseTab extends Fragment {
     private static class downloadResources extends AsyncTask<String, Integer, ArrayList> {
         private final WeakReference<ShowcaseTab> ref;
 
-        downloadResources(ShowcaseTab showcaseTab) {
+        downloadResources(final ShowcaseTab showcaseTab) {
             super();
             this.ref = new WeakReference<>(showcaseTab);
         }
@@ -121,7 +121,7 @@ public class ShowcaseTab extends Fragment {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            ShowcaseTab showcaseTab = this.ref.get();
+            final ShowcaseTab showcaseTab = this.ref.get();
             if (showcaseTab != null) {
                 showcaseTab.mRecyclerView.setVisibility(View.GONE);
                 showcaseTab.materialProgressBar.setVisibility(View.VISIBLE);
@@ -130,11 +130,11 @@ public class ShowcaseTab extends Fragment {
 
         @Override
         @SuppressWarnings("unchecked")
-        protected void onPostExecute(ArrayList result) {
+        protected void onPostExecute(final ArrayList result) {
             super.onPostExecute(result);
-            ShowcaseTab showcaseTab = this.ref.get();
+            final ShowcaseTab showcaseTab = this.ref.get();
             if (showcaseTab != null) {
-                ShowcaseItemAdapter mAdapter = new ShowcaseItemAdapter(result);
+                final ShowcaseItemAdapter mAdapter = new ShowcaseItemAdapter(result);
                 showcaseTab.mRecyclerView.setAdapter(mAdapter);
 
                 if (result.size() == 0) showcaseTab.no_wallpapers.setVisibility(View.VISIBLE);
@@ -145,21 +145,21 @@ public class ShowcaseTab extends Fragment {
         }
 
         @Override
-        protected ArrayList doInBackground(String... sUrl) {
-            ShowcaseTab showcaseTab = this.ref.get();
-            ArrayList<ShowcaseItem> wallpapers = new ArrayList<>();
+        protected ArrayList doInBackground(final String... sUrl) {
+            final ShowcaseTab showcaseTab = this.ref.get();
+            final ArrayList<ShowcaseItem> wallpapers = new ArrayList<>();
             if (showcaseTab != null) {
                 String inputFileName = sUrl[1];
 
-                File showcase_directory = new File(
+                final File showcase_directory = new File(
                         showcaseTab.mContext.getCacheDir() + "/ShowcaseCache/");
                 if (!showcase_directory.exists()) {
-                    Boolean made = showcase_directory.mkdir();
+                    final Boolean made = showcase_directory.mkdir();
                     if (!made)
                         Log.e(References.SUBSTRATUM_LOG, "Could not make showcase directory...");
                 }
 
-                File current_wallpapers = new File(showcaseTab.mContext.getCacheDir() +
+                final File current_wallpapers = new File(showcaseTab.mContext.getCacheDir() +
                         "/ShowcaseCache/" + inputFileName);
                 if (current_wallpapers.exists()) {
                     // We create a temporary file to check whether we should be replacing the
@@ -170,25 +170,25 @@ public class ShowcaseTab extends Fragment {
                 FileDownloader.init(showcaseTab.mContext, sUrl[0], inputFileName, "ShowcaseCache");
 
                 if (inputFileName.endsWith("-temp.xml")) {
-                    String existing = MD5.calculateMD5(new File(showcaseTab.mContext.getCacheDir() +
+                    final String existing = MD5.calculateMD5(new File(showcaseTab.mContext.getCacheDir() +
                             "/ShowcaseCache/" + sUrl[1]));
-                    String new_file = MD5.calculateMD5(new File(showcaseTab.mContext.getCacheDir() +
+                    final String new_file = MD5.calculateMD5(new File(showcaseTab.mContext.getCacheDir() +
                             "/ShowcaseCache/" + inputFileName));
                     if (existing != null && !existing.equals(new_file)) {
                         Log.e("ShowcaseActivity", "Tab " + showcaseTab.current_tab_position +
                                 " has been updated from the cloud!");
-                        File renameMe = new File(showcaseTab.mContext.getCacheDir() +
+                        final File renameMe = new File(showcaseTab.mContext.getCacheDir() +
                                 "/ShowcaseCache/" +
                                 sUrl[1].substring(0, sUrl[1].length() - 4) + "-temp.xml");
-                        Boolean renamed = renameMe.renameTo(new File(
+                        final Boolean renamed = renameMe.renameTo(new File(
                                 showcaseTab.mContext.getCacheDir() +
                                         "/ShowcaseCache/" + sUrl[1]));
                         if (!renamed) Log.e(References.SUBSTRATUM_LOG,
                                 "Could not replace the old tab file with the new tab file...");
                     } else {
-                        File deleteMe = new File(showcaseTab.mContext.getCacheDir() +
+                        final File deleteMe = new File(showcaseTab.mContext.getCacheDir() +
                                 "/" + inputFileName);
-                        Boolean deleted = deleteMe.delete();
+                        final Boolean deleted = deleteMe.delete();
                         if (!deleted) Log.e(References.SUBSTRATUM_LOG,
                                 "Could not delete temporary tab file...");
                     }
@@ -196,7 +196,7 @@ public class ShowcaseTab extends Fragment {
 
                 inputFileName = sUrl[1];
 
-                String[] checkerCommands = {
+                final String[] checkerCommands = {
                         showcaseTab.mContext.getCacheDir() + "/ShowcaseCache/" + inputFileName};
 
 
@@ -204,7 +204,7 @@ public class ShowcaseTab extends Fragment {
                         ReadCloudShowcaseFile.main(checkerCommands);
                 ShowcaseItem newEntry = new ShowcaseItem();
 
-                for (String key : newArray.keySet()) {
+                for (final String key : newArray.keySet()) {
                     if (!key.toLowerCase(Locale.US).contains("-".toLowerCase(Locale
                             .getDefault()))) {
                         newEntry.setContext(showcaseTab.mContext);
@@ -235,8 +235,8 @@ public class ShowcaseTab extends Fragment {
                     }
                 }
                 // Shuffle the deck - every time it will change the order of themes!
-                long seed = System.nanoTime();
-                boolean alphabetize = showcaseTab.prefs.getBoolean("alphabetize_showcase", false);
+                final long seed = System.nanoTime();
+                final boolean alphabetize = showcaseTab.prefs.getBoolean("alphabetize_showcase", false);
                 if (!alphabetize) {
                     for (int i = 0; i <= SHOWCASE_SHUFFLE_COUNT; i++)
                         Collections.shuffle(wallpapers, new Random(seed));

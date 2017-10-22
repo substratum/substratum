@@ -54,7 +54,7 @@ public class InterfacerBinderService extends Service implements ServiceConnectio
 
     public void bindInterfacer() {
         if (Systems.isBinderInterfacer(this) && !this.mBound) {
-            Intent intent = new Intent(INTERFACER_BINDED);
+            final Intent intent = new Intent(INTERFACER_BINDED);
             intent.setPackage(INTERFACER_PACKAGE);
             this.bindService(intent, this, Context.BIND_AUTO_CREATE);
         }
@@ -65,7 +65,7 @@ public class InterfacerBinderService extends Service implements ServiceConnectio
         super.onCreate();
         binderService = this;
         if (checkOreo()) {
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(
+            final NotificationCompat.Builder builder = new NotificationCompat.Builder(
                     this.getApplicationContext(), References.ANDROMEDA_NOTIFICATION_CHANNEL_ID);
 
             builder.setContentTitle(this.getString(R.string.interfacer_notification_title))
@@ -84,19 +84,19 @@ public class InterfacerBinderService extends Service implements ServiceConnectio
 
     @Nullable
     @Override
-    public IBinder onBind(Intent intent) {
+    public IBinder onBind(final Intent intent) {
         return null;
     }
 
     @Override
-    public void onServiceConnected(ComponentName name, IBinder service) {
+    public void onServiceConnected(final ComponentName name, final IBinder service) {
         this.interfacerInterface = IInterfacerInterface.Stub.asInterface(service);
         this.mBound = true;
         Log.d(TAG, "Substratum has successfully binded with the Interfacer module.");
     }
 
     @Override
-    public void onServiceDisconnected(ComponentName name) {
+    public void onServiceDisconnected(final ComponentName name) {
         this.interfacerInterface = null;
         this.mBound = false;
         Log.d(TAG, "Substratum has successfully unbinded with the Interfacer module.");

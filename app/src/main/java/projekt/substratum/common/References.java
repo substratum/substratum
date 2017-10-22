@@ -219,11 +219,11 @@ public enum References {
     private static int hashValue;
 
     public static Intent createLauncherIcon(
-            Context context,
-            String theme_pid,
-            String theme_name,
-            boolean launchManagerFragment) {
-        Intent myIntent = new Intent(Intent.ACTION_MAIN);
+            final Context context,
+            final String theme_pid,
+            final String theme_name,
+            final boolean launchManagerFragment) {
+        final Intent myIntent = new Intent(Intent.ACTION_MAIN);
         if (!launchManagerFragment) {
             myIntent.putExtra("theme_pid", theme_pid);
             myIntent.setComponent(
@@ -240,10 +240,10 @@ public enum References {
 
         if (launchManagerFragment) return myIntent;
 
-        Bitmap app_icon = Packages.getBitmapFromDrawable(Packages.getAppIcon(context, theme_pid));
+        final Bitmap app_icon = Packages.getBitmapFromDrawable(Packages.getAppIcon(context, theme_pid));
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            Intent addIntent = new Intent();
+            final Intent addIntent = new Intent();
             addIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, myIntent);
             addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, theme_name);
             addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON, app_icon);
@@ -251,8 +251,8 @@ public enum References {
             addIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
             context.sendBroadcast(addIntent);
         } else {
-            ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
-            ShortcutInfo shortcut =
+            final ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
+            final ShortcutInfo shortcut =
                     new ShortcutInfo.Builder(context, theme_name)
                             .setShortLabel(theme_name)
                             .setLongLabel(theme_name)
@@ -266,15 +266,15 @@ public enum References {
         return myIntent;
     }
 
-    public static void createLauncherIcon(Context context, String theme_pid, String theme_name) {
+    public static void createLauncherIcon(final Context context, final String theme_pid, final String theme_name) {
         createLauncherIcon(context, theme_pid, theme_name, false);
     }
 
-    public static void createShortcut(Context context, String theme_pid, String theme_name) {
+    public static void createShortcut(final Context context, final String theme_pid, final String theme_name) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-            ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
-            Icon app_icon;
-            Drawable app_icon_drawable = Packages.getAppIcon(context, theme_pid);
+            final ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
+            final Icon app_icon;
+            final Drawable app_icon_drawable = Packages.getAppIcon(context, theme_pid);
             //If we are on Oreo and the Theme uses an adaptiveIcon, we have to treat it properly
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O &&
                     app_icon_drawable instanceof AdaptiveIconDrawable) {
@@ -284,7 +284,7 @@ public enum References {
                 app_icon = Icon.createWithBitmap(Packages.getBitmapFromDrawable(app_icon_drawable));
             }
             try {
-                Intent myIntent = new Intent(Intent.ACTION_MAIN);
+                final Intent myIntent = new Intent(Intent.ACTION_MAIN);
                 myIntent.putExtra("theme_name", theme_name);
                 myIntent.putExtra("theme_pid", theme_pid);
                 myIntent.setComponent(
@@ -293,7 +293,7 @@ public enum References {
                                         "/" + AppShortcutLaunch.class.getName()));
                 myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-                ShortcutInfo shortcut =
+                final ShortcutInfo shortcut =
                         new ShortcutInfo.Builder(context, "favorite")
                                 .setShortLabel(theme_name)
                                 .setLongLabel(theme_name)
@@ -304,15 +304,15 @@ public enum References {
                     shortcutManager.setDynamicShortcuts(Collections.singletonList(shortcut));
                 }
                 Log.d(SUBSTRATUM_LOG, "Successfully added dynamic app shortcut!");
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public static void clearShortcut(Context context) {
+    public static void clearShortcut(final Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-            ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
+            final ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
             if (shortcutManager != null) {
                 shortcutManager.removeAllDynamicShortcuts();
             }
@@ -322,16 +322,16 @@ public enum References {
 
     public static String checkXposedVersion() {
         String xposed_version = "";
-        File f = new File("/system/framework/XposedBridge.jar");
+        final File f = new File("/system/framework/XposedBridge.jar");
         if (f.isFile()) {
-            File file = new File("/system/", "xposed.prop");
+            final File file = new File("/system/", "xposed.prop");
             try {
-                BufferedReader br = new BufferedReader(new FileReader(file));
-                String unparsed_br = br.readLine();
+                final BufferedReader br = new BufferedReader(new FileReader(file));
+                final String unparsed_br = br.readLine();
                 xposed_version = unparsed_br.substring(8, 10);
-            } catch (FileNotFoundException e) {
+            } catch (final FileNotFoundException e) {
                 Log.e("XposedChecker", "'xposed.prop' could not be found!");
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 Log.e("XposedChecker", "Unable to parse BufferedReader from 'xposed.prop'");
             }
             xposed_version = ", " + R.string.logcat_email_xposed_check + " (" +
@@ -341,16 +341,16 @@ public enum References {
     }
 
     // This method is used to place the Substratum Rescue archives if they are not present
-    public static void injectRescueArchives(Context context) {
-        File storageDirectory = new File(Environment.getExternalStorageDirectory(), "/substratum/");
+    public static void injectRescueArchives(final Context context) {
+        final File storageDirectory = new File(Environment.getExternalStorageDirectory(), "/substratum/");
         if (!storageDirectory.exists() && !storageDirectory.mkdirs()) {
             Log.e(SUBSTRATUM_LOG, "Unable to create storage directory");
         }
-        File rescueFile = new File(
+        final File rescueFile = new File(
                 Environment.getExternalStorageDirectory().getAbsolutePath() +
                         File.separator + "substratum" +
                         File.separator + "SubstratumRescue.zip");
-        File rescueFileLegacy = new File(
+        final File rescueFileLegacy = new File(
                 Environment.getExternalStorageDirectory().getAbsolutePath() +
                         File.separator + "substratum" +
                         File.separator + "SubstratumRescue_Legacy.zip");
@@ -370,12 +370,12 @@ public enum References {
                         File.separator + "SubstratumRescue.zip");
     }
 
-    private static void copyRescueFile(Context context, String sourceFileName, String
+    private static void copyRescueFile(final Context context, final String sourceFileName, final String
             destFileName) {
-        AssetManager assetManager = context.getAssets();
+        final AssetManager assetManager = context.getAssets();
 
-        File destFile = new File(destFileName);
-        File destParentDir = destFile.getParentFile();
+        final File destFile = new File(destFileName);
+        final File destParentDir = destFile.getParentFile();
         if (!destParentDir.exists() && !destParentDir.mkdir()) {
             Log.e(SUBSTRATUM_LOG,
                     "Unable to create directories for rescue archive dumps.");
@@ -385,22 +385,22 @@ public enum References {
                 InputStream in = assetManager.open(sourceFileName);
                 OutputStream out = new FileOutputStream(destFile)
         ) {
-            byte[] buffer = new byte[8192];
+            final byte[] buffer = new byte[8192];
             int read;
             while ((read = in.read(buffer)) != -1) {
                 out.write(buffer, 0, read);
             }
 
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
         }
     }
 
     // Load SharedPreference defaults
-    public static void loadDefaultConfig(Context context) {
-        SharedPreferences.Editor editor =
+    public static void loadDefaultConfig(final Context context) {
+        final SharedPreferences.Editor editor =
                 PreferenceManager.getDefaultSharedPreferences(context).edit();
-        SharedPreferences.Editor editor2 =
+        final SharedPreferences.Editor editor2 =
                 context.getSharedPreferences("base_variant", Context.MODE_PRIVATE).edit();
         editor.putBoolean("show_app_icon", true);
         editor.putBoolean("substratum_oms", Systems.checkOMS(context));
@@ -436,20 +436,20 @@ public enum References {
     }
 
     // This method checks whether there is any network available for Wallpapers
-    public static boolean isNetworkAvailable(Context mContext) {
-        ConnectivityManager connectivityManager
+    public static boolean isNetworkAvailable(final Context mContext) {
+        final ConnectivityManager connectivityManager
                 = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         assert connectivityManager != null;
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        final NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     // Check if a service is running from our app
-    public static boolean isServiceRunning(Class<?> serviceClass, Context context) {
-        ActivityManager manager = (ActivityManager)
+    public static boolean isServiceRunning(final Class<?> serviceClass, final Context context) {
+        final ActivityManager manager = (ActivityManager)
                 context.getSystemService(Context.ACTIVITY_SERVICE);
         assert manager != null;
-        for (ActivityManager.RunningServiceInfo service :
+        for (final ActivityManager.RunningServiceInfo service :
                 manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
                 return true;
@@ -460,57 +460,56 @@ public enum References {
 
     // Run shell command and return a StringBuilder of the output
     @SuppressWarnings("SameParameterValue")
-    public static StringBuilder runShellCommand(String input) {
+    public static StringBuilder runShellCommand(final String input) {
         try {
-            Process shell = Runtime.getRuntime().exec(input);
-            BufferedReader reader =
+            final Process shell = Runtime.getRuntime().exec(input);
+            final BufferedReader reader =
                     new BufferedReader(new InputStreamReader(shell.getInputStream()));
 
-            StringBuilder returnString = new StringBuilder();
+            final StringBuilder returnString = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
                 returnString.append(line).append("\n");
             }
             return returnString;
-        } catch (Exception e) {
+        } catch (final Exception e) {
             // Suppress warning
         }
         return null;
     }
 
-    static int hashPassthrough(Context context) {
+    static int hashPassthrough(final Context context) {
         if (hashValue != 0) {
             return hashValue;
         }
         try {
-            @SuppressLint("PackageManagerGetSignatures")
-            Signature[] sigs = context.getPackageManager().getPackageInfo(
+            @SuppressLint("PackageManagerGetSignatures") final Signature[] sigs = context.getPackageManager().getPackageInfo(
                     context.getPackageName(),
                     PackageManager.GET_SIGNATURES).signatures;
-            for (Signature sig : sigs) {
+            for (final Signature sig : sigs) {
                 if (sig != null) {
                     hashValue = sig.hashCode();
                     return hashValue;
                 }
             }
-        } catch (PackageManager.NameNotFoundException nnfe) {
+        } catch (final PackageManager.NameNotFoundException nnfe) {
             nnfe.printStackTrace();
         }
         return 0;
     }
 
-    static Boolean spreadYourWingsAndFly(Context context) {
+    static Boolean spreadYourWingsAndFly(final Context context) {
         if (uncertified != null) {
             return uncertified;
         }
-        SharedPreferences prefs = context
+        final SharedPreferences prefs = context
                 .getSharedPreferences(FirebaseAnalytics.PACKAGES_PREFS, Context.MODE_PRIVATE);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
-        String date = dateFormat.format(new Date());
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
+        final String date = dateFormat.format(new Date());
 
         if (prefs.contains(date)) {
-            Set<String> pref = prefs.getStringSet(date, new HashSet<>());
-            for (String check : pref) {
+            final Set<String> pref = prefs.getStringSet(date, new HashSet<>());
+            for (final String check : pref) {
                 if (Packages.isPackageInstalled(context, check, false)) {
                     Log.d("PatcherDatabase",
                             "The database has triggered a primary level blacklist package.");
@@ -535,14 +534,14 @@ public enum References {
     }
 
     // Comparing lists
-    public static boolean stringContainsItemFromList(String inputStr, String[] items) {
+    public static boolean stringContainsItemFromList(final String inputStr, final String[] items) {
         return Arrays.stream(items).parallel().anyMatch(inputStr::contains);
     }
 
     @SuppressWarnings("deprecation")
-    public static CharSequence parseTime(Context context, int hour, int minute) {
-        Locale locale;
-        String parse;
+    public static CharSequence parseTime(final Context context, int hour, final int minute) {
+        final Locale locale;
+        final String parse;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             locale = context.getResources().getConfiguration().getLocales().get(0);
@@ -553,7 +552,7 @@ public enum References {
         if (android.text.format.DateFormat.is24HourFormat(context)) {
             parse = String.format(locale, "%02d:%02d", hour, minute);
         } else {
-            String AM_PM = hour <= 12 ? "AM" : "PM";
+            final String AM_PM = hour <= 12 ? "AM" : "PM";
             hour = hour <= 12 ? hour : hour - 12;
             parse = String.format(locale, "%d:%02d " + AM_PM, hour, minute);
         }
@@ -561,44 +560,43 @@ public enum References {
     }
 
     // Save a text file from LogChar
-    public static void writeLogCharFile(String packageName, String data) {
+    public static void writeLogCharFile(final String packageName, final String data) {
         try {
-            Calendar c = Calendar.getInstance();
-            @SuppressLint("SimpleDateFormat")
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-            String formattedDate = df.format(c.getTime());
+            final Calendar c = Calendar.getInstance();
+            @SuppressLint("SimpleDateFormat") final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+            final String formattedDate = df.format(c.getTime());
 
-            File logcharFolder = new File(Environment.getExternalStorageDirectory() +
+            final File logcharFolder = new File(Environment.getExternalStorageDirectory() +
                     File.separator + "substratum" + File.separator + "LogCharReports");
             if (!logcharFolder.exists() && logcharFolder.mkdirs()) {
                 Log.d("LogChar Utility", "Created LogChar directory!");
             }
 
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(
+            final BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(
                     new File(logcharFolder.getAbsolutePath() + File.separator +
                             packageName + "_" + formattedDate + ".txt")));
             bufferedWriter.write(data);
             bufferedWriter.close();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
     }
 
     // Copy an object to the system's clipboard
-    public static void copyToClipboard(Context context, CharSequence id, CharSequence content) {
-        ClipboardManager clipboard =
+    public static void copyToClipboard(final Context context, final CharSequence id, final CharSequence content) {
+        final ClipboardManager clipboard =
                 (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
-        ClipData clip = ClipData.newPlainText(id, content);
+        final ClipData clip = ClipData.newPlainText(id, content);
         if (clipboard != null) {
             clipboard.setPrimaryClip(clip);
         }
     }
 
     // Set recycler view animations
-    public static void setRecyclerViewAnimation(Context context,
-                                                View view,
-                                                int animation_resource) {
-        Animation animation = AnimationUtils.loadAnimation(context, animation_resource);
+    public static void setRecyclerViewAnimation(final Context context,
+                                                final View view,
+                                                final int animation_resource) {
+        final Animation animation = AnimationUtils.loadAnimation(context, animation_resource);
         view.startAnimation(animation);
     }
 
@@ -607,19 +605,19 @@ public enum References {
         private final Context context;
         private final SharedPreferences prefs;
 
-        public Markdown(Context context, SharedPreferences prefs) {
+        public Markdown(final Context context, final SharedPreferences prefs) {
             super();
             this.context = context;
             this.prefs = prefs;
         }
 
         @Override
-        protected void onPostExecute(Void result) {
+        protected void onPostExecute(final Void result) {
             super.onPostExecute(result);
         }
 
         @Override
-        protected Void doInBackground(Void... sUrl) {
+        protected Void doInBackground(final Void... sUrl) {
             this.prefs.edit().putBoolean("complexion",
                     !spreadYourWingsAndFly(this.context) && hashPassthrough(this.context) != 0).apply();
             return null;

@@ -12,27 +12,27 @@ import projekt.substratum.R;
 public enum Activities {
     ;
 
-    public static void launchActivityUrl(Context context, int resource) {
+    public static void launchActivityUrl(final Context context, final int resource) {
         try {
-            Intent i = new Intent(Intent.ACTION_VIEW);
+            final Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(context.getString(resource)));
             context.startActivity(i);
-        } catch (ActivityNotFoundException activityNotFoundException) {
+        } catch (final ActivityNotFoundException activityNotFoundException) {
             Toast.makeText(context,
                     context.getString(R.string.activity_missing_toast),
                     Toast.LENGTH_SHORT).show();
         }
     }
 
-    public static void launchExternalActivity(Context context, String packageName, String
+    public static void launchExternalActivity(final Context context, final String packageName, final String
             className) {
-        Intent intent = new Intent();
+        final Intent intent = new Intent();
         intent.setComponent(new ComponentName(packageName, packageName + "." + className));
         context.startActivity(intent);
     }
 
-    public static void launchInternalActivity(Context context, Class target) {
-        Intent intent = new Intent(context, target);
+    public static void launchInternalActivity(final Context context, final Class target) {
+        final Intent intent = new Intent(context, target);
         context.startActivity(intent);
     }
 

@@ -28,7 +28,7 @@ public class AppIntro extends WelcomeActivity {
 
     @Override
     protected WelcomeConfiguration configuration() {
-        WelcomeConfiguration.Builder welcomeBuilder = new WelcomeConfiguration.Builder(this);
+        final WelcomeConfiguration.Builder welcomeBuilder = new WelcomeConfiguration.Builder(this);
         welcomeBuilder.page(
                 new BasicPage(
                         R.drawable.appintro_slide_1,

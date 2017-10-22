@@ -33,33 +33,33 @@ import javax.xml.parsers.DocumentBuilderFactory;
 public enum ReadSupportedROMsFile {
     ;
 
-    public static Map<String, String> main(String file) {
+    public static Map<String, String> main(final String file) {
 
-        Map<String, String> hashMap = new HashMap<>();
-        Map<String, String> emptyMap = new HashMap<>();
+        final Map<String, String> hashMap = new HashMap<>();
+        final Map<String, String> emptyMap = new HashMap<>();
 
         try {
-            File fXmlFile = new File(file);
+            final File fXmlFile = new File(file);
 
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(fXmlFile);
+            final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            final DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            final Document doc = dBuilder.parse(fXmlFile);
             doc.getDocumentElement().normalize();
-            NodeList nList = doc.getElementsByTagName("rom");
+            final NodeList nList = doc.getElementsByTagName("rom");
 
             for (int temp = 0; temp < nList.getLength(); temp++) {
-                Node nNode = nList.item(temp);
+                final Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element eElement = (Element) nNode;
+                    final Element eElement = (Element) nNode;
 
-                    String name = eElement.getAttribute("name");
-                    String id = eElement.getAttribute("id");
+                    final String name = eElement.getAttribute("name");
+                    final String id = eElement.getAttribute("id");
 
                     hashMap.put(id, name);
                 }
             }
             return hashMap;
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
             return emptyMap;
         }

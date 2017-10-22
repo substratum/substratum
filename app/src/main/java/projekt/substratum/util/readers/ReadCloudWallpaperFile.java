@@ -33,35 +33,35 @@ import javax.xml.parsers.DocumentBuilderFactory;
 public enum ReadCloudWallpaperFile {
     ;
 
-    public static Map main(String argv[]) {
+    public static Map main(final String[] argv) {
 
-        Map<String, String> map = new TreeMap<>();
-        Map<String, String> emptyMap = new TreeMap<>();
+        final Map<String, String> map = new TreeMap<>();
+        final Map<String, String> emptyMap = new TreeMap<>();
 
         try {
-            File fXmlFile = new File(argv[0]);
+            final File fXmlFile = new File(argv[0]);
 
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(fXmlFile);
+            final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            final DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            final Document doc = dBuilder.parse(fXmlFile);
             doc.getDocumentElement().normalize();
-            NodeList nList = doc.getElementsByTagName("wallpaper");
+            final NodeList nList = doc.getElementsByTagName("wallpaper");
 
             for (int temp = 0; temp < nList.getLength(); temp++) {
-                Node nNode = nList.item(temp);
+                final Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element eElement = (Element) nNode;
+                    final Element eElement = (Element) nNode;
 
                     // Replace all spaces with a tilde first, as tilde "~" is lower priority than
                     // "-", we have to put this first.
-                    String addon_download_name = eElement.getAttribute("id")
+                    final String addon_download_name = eElement.getAttribute("id")
                             .replaceAll("\\s+", "~");
-                    String addon_download_link = eElement.getElementsByTagName("link").item(0).
+                    final String addon_download_link = eElement.getElementsByTagName("link").item(0).
                             getTextContent();
-                    String addon_preview_link = eElement.getElementsByTagName("preview").item(0).
+                    final String addon_preview_link = eElement.getElementsByTagName("preview").item(0).
                             getTextContent();
 
-                    String[] finalArray = {addon_download_name, addon_download_link,
+                    final String[] finalArray = {addon_download_name, addon_download_link,
                             addon_preview_link};
 
                     map.put(finalArray[0], finalArray[1]);
@@ -69,7 +69,7 @@ public enum ReadCloudWallpaperFile {
                 }
             }
             return map;
-        } catch (Exception e) {
+        } catch (final Exception e) {
             return emptyMap;
         }
     }

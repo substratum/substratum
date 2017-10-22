@@ -91,15 +91,15 @@ public enum ProfileManager {
     private static final String METADATA_PROFILE_TYPE4 = "type4";
     private static final String DAY = "day";
 
-    public static void updateScheduledProfile(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, ScheduledProfileReceiver.class);
+    public static void updateScheduledProfile(final Context context) {
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        final AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        final Intent intent = new Intent(context, ScheduledProfileReceiver.class);
         intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, NIGHT);
-        PendingIntent nightIntent = PendingIntent.getBroadcast(context, 0, intent,
+        final PendingIntent nightIntent = PendingIntent.getBroadcast(context, 0, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, DAY);
-        PendingIntent dayIntent = PendingIntent.getBroadcast(context, 1, intent,
+        final PendingIntent dayIntent = PendingIntent.getBroadcast(context, 1, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         final String currentProfile = prefs.getString(SCHEDULED_PROFILE_CURRENT_PROFILE, "");
@@ -109,17 +109,17 @@ public enum ProfileManager {
         final int nightMinute = prefs.getInt(NIGHT_PROFILE_MINUTE, 0);
 
         // Set up current calendar instance
-        Calendar current = Calendar.getInstance();
+        final Calendar current = Calendar.getInstance();
         current.setTimeInMillis(System.currentTimeMillis());
 
         // Set up day night calendar instance
-        Calendar calendarNight = Calendar.getInstance();
+        final Calendar calendarNight = Calendar.getInstance();
         calendarNight.setTimeInMillis(System.currentTimeMillis());
         calendarNight.set(Calendar.HOUR_OF_DAY, nightHour);
         calendarNight.set(Calendar.MINUTE, nightMinute);
         calendarNight.set(Calendar.SECOND, 0);
 
-        Calendar calendarDay = Calendar.getInstance();
+        final Calendar calendarDay = Calendar.getInstance();
         calendarDay.setTimeInMillis(System.currentTimeMillis());
         calendarDay.set(Calendar.HOUR_OF_DAY, dayHour);
         calendarDay.set(Calendar.MINUTE, dayMinute);
@@ -147,32 +147,32 @@ public enum ProfileManager {
         }
     }
 
-    public static void enableScheduledProfile(Context context, String dayProfile,
-                                              int dayHour, int dayMinute, String nightProfile,
-                                              int nightHour, int nightMinute) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = prefs.edit();
-        AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, ScheduledProfileReceiver.class);
+    public static void enableScheduledProfile(final Context context, final String dayProfile,
+                                              final int dayHour, final int dayMinute, final String nightProfile,
+                                              final int nightHour, final int nightMinute) {
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        final SharedPreferences.Editor editor = prefs.edit();
+        final AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        final Intent intent = new Intent(context, ScheduledProfileReceiver.class);
         intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, NIGHT);
-        PendingIntent nightIntent = PendingIntent.getBroadcast(context, 0, intent,
+        final PendingIntent nightIntent = PendingIntent.getBroadcast(context, 0, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, DAY);
-        PendingIntent dayIntent = PendingIntent.getBroadcast(context, 1, intent,
+        final PendingIntent dayIntent = PendingIntent.getBroadcast(context, 1, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Set up current calendar instance
-        Calendar current = Calendar.getInstance();
+        final Calendar current = Calendar.getInstance();
         current.setTimeInMillis(System.currentTimeMillis());
 
         // Set up day night calendar instance
-        Calendar calendarNight = Calendar.getInstance();
+        final Calendar calendarNight = Calendar.getInstance();
         calendarNight.setTimeInMillis(System.currentTimeMillis());
         calendarNight.set(Calendar.HOUR_OF_DAY, nightHour);
         calendarNight.set(Calendar.MINUTE, nightMinute);
         calendarNight.set(Calendar.SECOND, 0);
 
-        Calendar calendarDay = Calendar.getInstance();
+        final Calendar calendarDay = Calendar.getInstance();
         calendarDay.setTimeInMillis(System.currentTimeMillis());
         calendarDay.set(Calendar.HOUR_OF_DAY, dayHour);
         calendarDay.set(Calendar.MINUTE, dayMinute);
@@ -214,16 +214,16 @@ public enum ProfileManager {
         editor.apply();
     }
 
-    public static void disableScheduledProfile(Context context) {
-        SharedPreferences.Editor editor =
+    public static void disableScheduledProfile(final Context context) {
+        final SharedPreferences.Editor editor =
                 PreferenceManager.getDefaultSharedPreferences(context).edit();
-        AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, ScheduledProfileReceiver.class);
+        final AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        final Intent intent = new Intent(context, ScheduledProfileReceiver.class);
         intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, NIGHT);
-        PendingIntent nightIntent =
+        final PendingIntent nightIntent =
                 PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, DAY);
-        PendingIntent dayIntent =
+        final PendingIntent dayIntent =
                 PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (alarmMgr != null) {
@@ -242,12 +242,12 @@ public enum ProfileManager {
     }
 
     @SuppressWarnings("RedundantCast")
-    public static void writeProfileState(Context context, String profileName) {
+    public static void writeProfileState(final Context context, final String profileName) {
         try {
             try (FileOutputStream outputStream = new FileOutputStream(
                     Environment.getExternalStorageDirectory().getAbsolutePath() +
                             "/substratum/profiles/" + profileName + "/overlay_state.xml")) {
-                XmlSerializer xmlSerializer = Xml.newSerializer();
+                final XmlSerializer xmlSerializer = Xml.newSerializer();
                 xmlSerializer.setOutput(outputStream, "UTF-8");
                 xmlSerializer.setFeature(
                         "http://xmlpull.org/v1/doc/features.html#indent-output", true);
@@ -255,25 +255,25 @@ public enum ProfileManager {
                 xmlSerializer.startTag(null, METADATA_PROFILE_OVERLAYS);
 
                 // Write enabled overlays
-                List<String> enabled = ThemeManager.listOverlays(context, STATE_ENABLED);
+                final List<String> enabled = ThemeManager.listOverlays(context, STATE_ENABLED);
                 if (enabled.size() > 0) {
                     xmlSerializer.startTag(null, METADATA_PROFILE_ENABLED);
-                    for (String packageName : enabled) {
-                        String target = Packages.getOverlayMetadata(
+                    for (final String packageName : enabled) {
+                        final String target = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayTarget);
-                        String parent = Packages.getOverlayMetadata(
+                        final String parent = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayParent);
-                        String type1a = Packages.getOverlayMetadata(
+                        final String type1a = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayType1a);
-                        String type1b = Packages.getOverlayMetadata(
+                        final String type1b = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayType1b);
-                        String type1c = Packages.getOverlayMetadata(
+                        final String type1c = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayType1c);
-                        String type2 = Packages.getOverlayMetadata(
+                        final String type2 = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayType2);
-                        String type3 = Packages.getOverlayMetadata(
+                        final String type3 = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayType3);
-                        String type4 = Packages.getOverlayMetadata(
+                        final String type4 = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayType4);
 
                         xmlSerializer.startTag(null, METADATA_PROFILE_ITEM)
@@ -301,25 +301,25 @@ public enum ProfileManager {
                 }
 
                 // Write disabled overlays
-                List<String> disabled = ThemeManager.listOverlays(context, STATE_DISABLED);
+                final List<String> disabled = ThemeManager.listOverlays(context, STATE_DISABLED);
                 if (disabled.size() > 0) {
                     xmlSerializer.startTag(null, METADATA_PROFILE_DISABLED);
-                    for (String packageName : disabled) {
-                        String target = Packages.getOverlayMetadata(
+                    for (final String packageName : disabled) {
+                        final String target = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayTarget);
-                        String parent = Packages.getOverlayMetadata(
+                        final String parent = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayParent);
-                        String type1a = Packages.getOverlayMetadata(
+                        final String type1a = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayType1a);
-                        String type1b = Packages.getOverlayMetadata(
+                        final String type1b = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayType1b);
-                        String type1c = Packages.getOverlayMetadata(
+                        final String type1c = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayType1c);
-                        String type2 = Packages.getOverlayMetadata(
+                        final String type2 = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayType2);
-                        String type3 = Packages.getOverlayMetadata(
+                        final String type3 = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayType3);
-                        String type4 = Packages.getOverlayMetadata(
+                        final String type4 = Packages.getOverlayMetadata(
                                 context, packageName, metadataOverlayType4);
 
                         xmlSerializer.startTag(null, METADATA_PROFILE_ITEM)
@@ -350,34 +350,34 @@ public enum ProfileManager {
                 xmlSerializer.endDocument();
                 xmlSerializer.flush();
             }
-        } catch (IOException ioe) {
+        } catch (final IOException ioe) {
             // Suppress exception
         }
     }
 
-    public static Map<String, ProfileItem> readProfileState(String profileName,
-                                                            int overlayState) {
-        Map<String, ProfileItem> map = new HashMap<>();
+    public static Map<String, ProfileItem> readProfileState(final String profileName,
+                                                            final int overlayState) {
+        final Map<String, ProfileItem> map = new HashMap<>();
         try (InputStream input = new FileInputStream(Environment.getExternalStorageDirectory()
                 .getAbsolutePath() + "/substratum/profiles/" + profileName + "/overlay_state" +
                 ".xml")) {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(input);
+            final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            final DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            final Document doc = dBuilder.parse(input);
             doc.getDocumentElement().normalize();
 
-            Node items = doc.getElementsByTagName(
+            final Node items = doc.getElementsByTagName(
                     overlayState == STATE_ENABLED ?
                             METADATA_PROFILE_ENABLED : METADATA_PROFILE_DISABLED)
                     .item(0);
 
             if (items != null) {
-                NodeList childNodes = items.getChildNodes();
-                int listLength = childNodes.getLength();
+                final NodeList childNodes = items.getChildNodes();
+                final int listLength = childNodes.getLength();
                 for (int i = 0; i < listLength; i++) {
                     if (childNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
-                        Element e = (Element) childNodes.item(i);
-                        ProfileItem item =
+                        final Element e = (Element) childNodes.item(i);
+                        final ProfileItem item =
                                 new ProfileItem(e.getAttribute(METADATA_PROFILE_PACKAGE_NAME));
                         item.setParentTheme(e.getAttribute(METADATA_PROFILE_PARENT));
                         item.setTargetPackage(e.getAttribute(METADATA_PROFILE_TARGET));
@@ -397,26 +397,26 @@ public enum ProfileManager {
         return map;
     }
 
-    public static List<String> readProfileStatePackage(String profileName, int overlayState) {
-        List<String> list = new ArrayList<>();
+    public static List<String> readProfileStatePackage(final String profileName, final int overlayState) {
+        final List<String> list = new ArrayList<>();
         try (InputStream input = new FileInputStream(Environment.getExternalStorageDirectory()
                 .getAbsolutePath() + "/substratum/profiles/" + profileName + "/overlay_state" +
                 ".xml")) {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(input);
+            final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            final DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            final Document doc = dBuilder.parse(input);
             doc.getDocumentElement().normalize();
 
-            Node items = doc.getElementsByTagName(
+            final Node items = doc.getElementsByTagName(
                     overlayState == STATE_ENABLED ?
                             METADATA_PROFILE_ENABLED : METADATA_PROFILE_DISABLED).item(0);
 
             if (items != null) {
-                NodeList childNodes = items.getChildNodes();
-                int listLength = childNodes.getLength();
+                final NodeList childNodes = items.getChildNodes();
+                final int listLength = childNodes.getLength();
                 for (int i = 0; i < listLength; i++) {
                     if (childNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
-                        Element element = (Element) childNodes.item(i);
+                        final Element element = (Element) childNodes.item(i);
                         list.add(element.getAttribute(METADATA_PROFILE_PACKAGE_NAME));
                     }
                 }
@@ -427,28 +427,28 @@ public enum ProfileManager {
         return list;
     }
 
-    public static List<List<String>> readProfileStatePackageWithTargetPackage(String profileName,
-                                                                              int overlayState) {
-        List<List<String>> list = new ArrayList<>();
+    public static List<List<String>> readProfileStatePackageWithTargetPackage(final String profileName,
+                                                                              final int overlayState) {
+        final List<List<String>> list = new ArrayList<>();
         try (InputStream input = new FileInputStream(Environment.getExternalStorageDirectory()
                 .getAbsolutePath() + "/substratum/profiles/" + profileName + "/overlay_state" +
                 ".xml")) {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(input);
+            final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            final DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            final Document doc = dBuilder.parse(input);
             doc.getDocumentElement().normalize();
 
-            Node items = doc.getElementsByTagName(
+            final Node items = doc.getElementsByTagName(
                     overlayState == STATE_ENABLED ?
                             METADATA_PROFILE_ENABLED : METADATA_PROFILE_DISABLED).item(0);
 
             if (items != null) {
-                NodeList childNodes = items.getChildNodes();
-                int listLength = childNodes.getLength();
+                final NodeList childNodes = items.getChildNodes();
+                final int listLength = childNodes.getLength();
                 for (int i = 0; i < listLength; i++) {
                     if (childNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
-                        Element element = (Element) childNodes.item(i);
-                        List<String> overlay = new ArrayList<>();
+                        final Element element = (Element) childNodes.item(i);
+                        final List<String> overlay = new ArrayList<>();
                         overlay.add(element.getAttribute(METADATA_PROFILE_PACKAGE_NAME));
                         overlay.add(element.getAttribute(METADATA_PROFILE_TARGET));
                         list.add(overlay);

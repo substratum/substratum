@@ -42,13 +42,13 @@ public class TimePickerFragment extends DialogFragment implements
 
     private static int flag = 0;
 
-    public static void setFlag(int f) {
+    public static void setFlag(final int f) {
         flag = f;
     }
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog(final Bundle savedInstanceState) {
         final Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
@@ -71,13 +71,13 @@ public class TimePickerFragment extends DialogFragment implements
                 DateFormat.is24HourFormat(this.getActivity()));
     }
 
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+    public void onTimeSet(final TimePicker view, final int hourOfDay, final int minute) {
         if ((flag & FLAG_START_TIME) != 0) {
-            Button startTime = this.getActivity().findViewById(R.id.night_start_time);
+            final Button startTime = this.getActivity().findViewById(R.id.night_start_time);
             startTime.setText(References.parseTime(this.getActivity(), hourOfDay, minute));
             ProfileFragment.setNightProfileStart(hourOfDay, minute);
         } else if ((flag & FLAG_END_TIME) != 0) {
-            Button endTime = this.getActivity().findViewById((R.id.night_end_time));
+            final Button endTime = this.getActivity().findViewById((R.id.night_end_time));
             endTime.setText(References.parseTime(this.getActivity(), hourOfDay, minute));
             ProfileFragment.setDayProfileStart(hourOfDay, minute);
         }

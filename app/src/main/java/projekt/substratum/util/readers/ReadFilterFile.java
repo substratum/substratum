@@ -35,35 +35,35 @@ import projekt.substratum.adapters.fragments.settings.ValidatorFilter;
 public enum ReadFilterFile {
     ;
 
-    public static List<ValidatorFilter> main(String file) {
+    public static List<ValidatorFilter> main(final String file) {
 
-        List<ValidatorFilter> list = new ArrayList<>();
-        List<ValidatorFilter> emptyList = new ArrayList<>();
+        final List<ValidatorFilter> list = new ArrayList<>();
+        final List<ValidatorFilter> emptyList = new ArrayList<>();
 
         try {
-            File fXmlFile = new File(file);
+            final File fXmlFile = new File(file);
 
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(fXmlFile);
+            final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            final DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            final Document doc = dBuilder.parse(fXmlFile);
             doc.getDocumentElement().normalize();
-            NodeList nList = doc.getElementsByTagName("repo");
+            final NodeList nList = doc.getElementsByTagName("repo");
 
             for (int temp = 0; temp < nList.getLength(); temp++) {
-                Node nNode = nList.item(temp);
+                final Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element eElement = (Element) nNode;
-                    ValidatorFilter current = new ValidatorFilter(eElement.getAttribute("name"));
-                    List<String> filtered = new ArrayList<>();
+                    final Element eElement = (Element) nNode;
+                    final ValidatorFilter current = new ValidatorFilter(eElement.getAttribute("name"));
+                    final List<String> filtered = new ArrayList<>();
                     boolean unknown = false;
                     int counter = 1;
                     while (!unknown) {
                         try {
-                            String filterObject = eElement.getElementsByTagName("filter" + counter)
+                            final String filterObject = eElement.getElementsByTagName("filter" + counter)
                                     .item(0).getTextContent();
                             filtered.add(filterObject);
                             counter++;
-                        } catch (Exception e) {
+                        } catch (final Exception e) {
                             unknown = true;
                         }
                     }
@@ -72,7 +72,7 @@ public enum ReadFilterFile {
                 }
             }
             return list;
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
             return emptyList;
         }

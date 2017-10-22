@@ -69,21 +69,21 @@ public class OverlaysItem implements Serializable {
     private final Boolean theme_oms;
     private final View activityView;
 
-    public OverlaysItem(String theme_name,
-                        String name,
-                        String packageName,
-                        boolean isSelected,
-                        VariantAdapter adapter,
-                        VariantAdapter adapter2,
-                        VariantAdapter adapter3,
-                        VariantAdapter adapter4,
-                        VariantAdapter adapter5,
-                        Context context,
-                        String versionName,
-                        String baseResources,
-                        Collection enabledOverlays,
-                        Boolean theme_oms,
-                        View activityView) {
+    public OverlaysItem(final String theme_name,
+                        final String name,
+                        final String packageName,
+                        final boolean isSelected,
+                        final VariantAdapter adapter,
+                        final VariantAdapter adapter2,
+                        final VariantAdapter adapter3,
+                        final VariantAdapter adapter4,
+                        final VariantAdapter adapter5,
+                        final Context context,
+                        final String versionName,
+                        final String baseResources,
+                        final Collection enabledOverlays,
+                        final Boolean theme_oms,
+                        final View activityView) {
         super();
 
         this.theme_name = theme_name;
@@ -124,7 +124,7 @@ public class OverlaysItem implements Serializable {
         return this.name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -144,7 +144,7 @@ public class OverlaysItem implements Serializable {
         return this.isSelected;
     }
 
-    public void setSelected(boolean isSelected) {
+    public void setSelected(final boolean isSelected) {
         this.isSelected = isSelected;
     }
 
@@ -172,7 +172,7 @@ public class OverlaysItem implements Serializable {
         return this.spinnerSelection;
     }
 
-    void setSelectedVariant(int position) {
+    void setSelectedVariant(final int position) {
         if (position != 0) {
             this.is_variant_chosen = true;
             this.is_variant_chosen1 = true;
@@ -183,7 +183,7 @@ public class OverlaysItem implements Serializable {
         this.spinnerSelection = position;
     }
 
-    public void updateEnabledOverlays(Collection<String> enabledOverlays) {
+    public void updateEnabledOverlays(final Collection<String> enabledOverlays) {
         this.enabledOverlays = new ArrayList<>();
         this.enabledOverlays.addAll(enabledOverlays);
     }
@@ -192,7 +192,7 @@ public class OverlaysItem implements Serializable {
         return this.spinnerSelection2;
     }
 
-    void setSelectedVariant2(int position) {
+    void setSelectedVariant2(final int position) {
         if (position != 0) {
             this.is_variant_chosen = true;
             this.is_variant_chosen2 = true;
@@ -207,7 +207,7 @@ public class OverlaysItem implements Serializable {
         return this.spinnerSelection3;
     }
 
-    void setSelectedVariant3(int position) {
+    void setSelectedVariant3(final int position) {
         if (position != 0) {
             this.is_variant_chosen = true;
             this.is_variant_chosen3 = true;
@@ -222,7 +222,7 @@ public class OverlaysItem implements Serializable {
         return this.spinnerSelection4;
     }
 
-    void setSelectedVariant4(int position) {
+    void setSelectedVariant4(final int position) {
         if (position != 0) {
             this.is_variant_chosen = true;
             this.is_variant_chosen4 = true;
@@ -237,7 +237,7 @@ public class OverlaysItem implements Serializable {
         return this.spinnerSelection5;
     }
 
-    void setSelectedVariant5(int position) {
+    void setSelectedVariant5(final int position) {
         if (position != 0) {
             this.is_variant_chosen = true;
             this.is_variant_chosen5 = true;
@@ -252,7 +252,7 @@ public class OverlaysItem implements Serializable {
         return this.variantSelected.replaceAll("\\s+", "");
     }
 
-    void setSelectedVariantName(String variantName) {
+    void setSelectedVariantName(final String variantName) {
         this.variantSelected = variantName;
     }
 
@@ -260,7 +260,7 @@ public class OverlaysItem implements Serializable {
         return this.variantSelected2.replaceAll("\\s+", "");
     }
 
-    void setSelectedVariantName2(String variantName) {
+    void setSelectedVariantName2(final String variantName) {
         this.variantSelected2 = variantName;
     }
 
@@ -268,7 +268,7 @@ public class OverlaysItem implements Serializable {
         return this.variantSelected3.replaceAll("\\s+", "");
     }
 
-    void setSelectedVariantName3(String variantName) {
+    void setSelectedVariantName3(final String variantName) {
         this.variantSelected3 = variantName;
     }
 
@@ -276,7 +276,7 @@ public class OverlaysItem implements Serializable {
         return this.variantSelected4.replaceAll("\\s+", "");
     }
 
-    void setSelectedVariantName4(String variantName) {
+    void setSelectedVariantName4(final String variantName) {
         this.variantSelected4 = variantName;
     }
 
@@ -284,7 +284,7 @@ public class OverlaysItem implements Serializable {
         return this.variantSelected5.replaceAll("\\s+", "");
     }
 
-    void setSelectedVariantName5(String variantName) {
+    void setSelectedVariantName5(final String variantName) {
         this.variantSelected5 = variantName;
     }
 
@@ -294,16 +294,16 @@ public class OverlaysItem implements Serializable {
 
     boolean compareInstalledOverlay() {
         try {
-            PackageInfo pinfo =
+            final PackageInfo pinfo =
                     this.context.getPackageManager().getPackageInfo(this.getFullOverlayParameters(), 0);
             return pinfo.versionName.equals(this.versionName);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             // Suppress warning
         }
         return false;
     }
 
-    boolean compareInstalledVariantOverlay(String varianted) {
+    boolean compareInstalledVariantOverlay(final String varianted) {
         String variant = varianted;
         if (!".".equals(variant.substring(0, 1))) variant = "." + variant;
         String base = this.baseResources;
@@ -311,11 +311,11 @@ public class OverlaysItem implements Serializable {
             base = "." + base;
         }
         try {
-            PackageInfo pinfo =
+            final PackageInfo pinfo =
                     this.context.getPackageManager().getPackageInfo(
                             this.getPackageName() + "." + this.theme_name + variant + base, 0);
             return pinfo.versionName.equals(this.versionName);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             // Suppress warning
         }
         return false;
@@ -338,7 +338,7 @@ public class OverlaysItem implements Serializable {
     }
 
     public boolean isOverlayEnabled() {
-        boolean installed = Packages.isPackageInstalled(this.context, this.getFullOverlayParameters());
+        final boolean installed = Packages.isPackageInstalled(this.context, this.getFullOverlayParameters());
         if (Systems.isSamsungDevice(this.context)) {
             return installed;
         } else {

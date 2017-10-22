@@ -57,21 +57,21 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
     private PowerManager.WakeLock mWakeLock;
     private AsyncTask current_download;
 
-    public WallpaperAdapter(List<WallpaperEntries> information) {
+    public WallpaperAdapter(final List<WallpaperEntries> information) {
         super();
         this.information = information;
     }
 
     @Override
-    public WallpaperAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(
+    public WallpaperAdapter.ViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int i) {
+        final View view = LayoutInflater.from(
                 viewGroup.getContext()).inflate(R.layout.wallpaper_entry_card, viewGroup, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, int pos) {
-        WallpaperEntries wallpaperEntry = this.information.get(pos);
+    public void onBindViewHolder(final ViewHolder viewHolder, final int pos) {
+        final WallpaperEntries wallpaperEntry = this.information.get(pos);
         this.mContext = wallpaperEntry.getContext();
 
         Glide.with(this.mContext)
@@ -84,7 +84,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
 
         viewHolder.cardView.setOnClickListener(view -> {
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this.mContext);
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this.mContext);
             final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                     this.mContext, R.layout.wallpaper_dialog_listview);
             arrayAdapter.add(this.mContext.getString(R.string.wallpaper_dialog_wallpaper));
@@ -136,7 +136,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         private String wallpaperName;
         private final WeakReference<Activity> activity;
 
-        downloadWallpaper(WallpaperAdapter wallpaperAdapter, Activity callingActivity) {
+        downloadWallpaper(final WallpaperAdapter wallpaperAdapter, final Activity callingActivity) {
             super();
             this.ref = new WeakReference<>(wallpaperAdapter);
             this.activity = new WeakReference<>(callingActivity);
@@ -145,7 +145,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            WallpaperAdapter wallpaperAdapter = this.ref.get();
+            final WallpaperAdapter wallpaperAdapter = this.ref.get();
             if (wallpaperAdapter != null) {
                 // Instantiate Progress Dialog
                 wallpaperAdapter.mProgressDialog = new ProgressDialog(wallpaperAdapter.mContext);
@@ -156,7 +156,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
 
                 // Take CPU lock to prevent CPU from going off if the user
                 // presses the power button during download
-                PowerManager pm = (PowerManager)
+                final PowerManager pm = (PowerManager)
                         wallpaperAdapter.mContext.getSystemService(Context.POWER_SERVICE);
                 if (pm != null) {
                     wallpaperAdapter.mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
@@ -170,10 +170,10 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         }
 
         @Override
-        protected void onProgressUpdate(Integer... progress) {
+        protected void onProgressUpdate(final Integer... progress) {
             super.onProgressUpdate(progress);
             // if we get here, length is known, now set indeterminate to false
-            WallpaperAdapter wallpaperAdapter = this.ref.get();
+            final WallpaperAdapter wallpaperAdapter = this.ref.get();
             if (wallpaperAdapter != null) {
                 wallpaperAdapter.mProgressDialog.setIndeterminate(false);
                 wallpaperAdapter.mProgressDialog.setMax(100);
@@ -182,9 +182,9 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         }
 
         @Override
-        protected void onPostExecute(String result) {
+        protected void onPostExecute(final String result) {
             super.onPostExecute(result);
-            WallpaperAdapter wallpaperAdapter = this.ref.get();
+            final WallpaperAdapter wallpaperAdapter = this.ref.get();
             if (wallpaperAdapter != null && this.activity != null) {
                 wallpaperAdapter.mWakeLock.release();
                 wallpaperAdapter.mProgressDialog.dismiss();
@@ -206,8 +206,8 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         }
 
         @Override
-        protected String doInBackground(String... sUrl) {
-            WallpaperAdapter wallpaperAdapter = this.ref.get();
+        protected String doInBackground(final String... sUrl) {
+            final WallpaperAdapter wallpaperAdapter = this.ref.get();
             if (wallpaperAdapter != null) {
                 this.wallpaperLink = sUrl[0];
                 if (this.wallpaperLink.endsWith(".png")) {
@@ -233,7 +233,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         TextView wallpaperName;
         ImageView imageView;
 
-        ViewHolder(View view) {
+        ViewHolder(final View view) {
             super(view);
             this.cardView = view.findViewById(R.id.wallpaperCard);
             this.imageView = view.findViewById(R.id.wallpaperImage);

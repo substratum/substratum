@@ -33,17 +33,17 @@ import projekt.substratum.common.commands.FileOperations;
 public enum CheckBinaries {
     ;
 
-    public static void install(Context context, Boolean forced) {
+    public static void install(final Context context, final Boolean forced) {
         injectAOPT(context, forced);
         injectZipAlign(context, forced);
     }
 
-    private static void injectAOPT(Context context, Boolean forced) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        String aoptPath = context.getFilesDir().getAbsolutePath() + "/aopt";
+    private static void injectAOPT(final Context context, final Boolean forced) {
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        final String aoptPath = context.getFilesDir().getAbsolutePath() + "/aopt";
 
         // Check if AOPT is installed on the device
-        File aopt = new File(aoptPath);
+        final File aopt = new File(aoptPath);
 
         if (!aopt.isFile() || forced) {
             inject(context, prefs, aoptPath);
@@ -59,13 +59,13 @@ public enum CheckBinaries {
         }
     }
 
-    private static void inject(Context mContext, SharedPreferences prefs, String aoptPath) {
+    private static void inject(final Context mContext, final SharedPreferences prefs, final String aoptPath) {
         if (!Arrays.toString(Build.SUPPORTED_ABIS).contains("86")) {
             // Developers: AOPT-ARM (32bit) is using the legacy AAPT binary, while AAPT-ARM64
             //             (64bit) is using the brand new AOPT binary.
-            String architecture =
+            final String architecture =
                     Arrays.asList(Build.SUPPORTED_64_BIT_ABIS).size() > 0 ? "ARM64" : "ARM";
-            String integrityCheck = prefs.getString("compiler", "aapt");
+            final String integrityCheck = prefs.getString("compiler", "aapt");
             try {
                 if ("aopt".equals(integrityCheck)) {
                     FileOperations.copyFromAsset(mContext, "aopt" + ("ARM64".equals(architecture)
@@ -80,7 +80,7 @@ public enum CheckBinaries {
                             "Android Asset Packaging Tool (" + architecture + ") " +
                                     "has been added into the compiler directory.");
                 }
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 // Suppress warning
             }
         } else {
@@ -90,26 +90,26 @@ public enum CheckBinaries {
                 Log.d(References.SUBSTRATUM_LOG,
                         "Android Asset Packaging Tool (x86) " +
                                 "has been added into the compiler directory.");
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 // Suppress warning
             }
         }
-        File f = new File(aoptPath);
+        final File f = new File(aoptPath);
         if (f.isFile()) {
             if (!f.setExecutable(true, true)) Log.e("CheckBinaries", "Could not set executable...");
         }
     }
 
-    private static void injectZipAlign(Context mContext, Boolean forced) {
-        String zipalignPath = mContext.getFilesDir().getAbsolutePath() + "/zipalign";
-        File f = new File(zipalignPath);
+    private static void injectZipAlign(final Context mContext, final Boolean forced) {
+        final String zipalignPath = mContext.getFilesDir().getAbsolutePath() + "/zipalign";
+        final File f = new File(zipalignPath);
 
         // Check if ZipAlign is already installed
         if (f.exists() && !forced)
             return;
 
         if (!Arrays.toString(Build.SUPPORTED_ABIS).contains("86")) {
-            String architecture =
+            final String architecture =
                     Arrays.asList(Build.SUPPORTED_64_BIT_ABIS).size() > 0 ? "ARM64" : "ARM";
             FileOperations.copyFromAsset(mContext, "zipalign" + ("ARM64".equals(architecture) ?
                     "64" :
@@ -124,7 +124,7 @@ public enum CheckBinaries {
                 Log.d(References.SUBSTRATUM_LOG,
                         "ZipAlign (x86) " +
                                 "has been added into the compiler directory.");
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 // Suppress warning
             }
         }

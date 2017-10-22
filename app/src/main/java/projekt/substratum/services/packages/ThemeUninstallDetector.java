@@ -54,10 +54,10 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
     private static final String TAG = "ThemeUninstallDetector";
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(final Context context, final Intent intent) {
         if (PACKAGE_FULLY_REMOVED.equals(intent.getAction())) {
-            Uri packageName = intent.getData();
-            String package_name;
+            final Uri packageName = intent.getData();
+            final String package_name;
             if (packageName != null) {
                 package_name = packageName.toString().substring(8);
             } else {
@@ -65,36 +65,36 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
             }
 
             if (package_name.equals(SST_ADDON_PACKAGE)) {
-                SharedPreferences prefs =
+                final SharedPreferences prefs =
                         context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
                 prefs.edit().clear().apply();
                 Broadcasts.sendKillMessage(context);
             }
 
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (prefs.contains("installed_themes")) {
-                Set installed_themes = prefs.getStringSet("installed_themes", null);
+                final Set installed_themes = prefs.getStringSet("installed_themes", null);
                 if (installed_themes != null && installed_themes.contains(package_name)) {
                     Broadcasts.sendRefreshMessage(context);
                     // Get all installed overlays for this package
-                    List<String> stateAll = ThemeManager.listAllOverlays(context);
+                    final List<String> stateAll = ThemeManager.listAllOverlays(context);
 
-                    ArrayList<String> all_overlays = new ArrayList<>();
+                    final ArrayList<String> all_overlays = new ArrayList<>();
                     for (int j = 0; j < stateAll.size(); j++) {
                         try {
-                            String current = stateAll.get(j);
-                            ApplicationInfo appInfo =
+                            final String current = stateAll.get(j);
+                            final ApplicationInfo appInfo =
                                     context.getPackageManager().getApplicationInfo(
                                             current, PackageManager.GET_META_DATA);
                             if (appInfo.metaData != null &&
                                     appInfo.metaData.getString(metadataOverlayParent) != null) {
-                                String parent =
+                                final String parent =
                                         appInfo.metaData.getString(metadataOverlayParent);
                                 if (parent != null && parent.equals(package_name)) {
                                     all_overlays.add(current);
                                 }
                             }
-                        } catch (Exception e) {
+                        } catch (final Exception e) {
                             // NameNotFound
                         }
                     }
@@ -102,7 +102,7 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                     // Uninstall all overlays for this package
                     ThemeManager.uninstallOverlay(context, all_overlays);
 
-                    SharedPreferences.Editor editor = prefs.edit();
+                    final SharedPreferences.Editor editor = prefs.edit();
                     if (prefs.getString("sounds_applied", "").equals(package_name)) {
                         SoundManager.clearSounds(context);
                         editor.remove("sounds_applied");
@@ -123,7 +123,7 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                         try {
                             WallpaperManager.clearWallpaper(context, "home");
                             editor.remove("home_wallpaper_applied");
-                        } catch (IOException e) {
+                        } catch (final IOException e) {
                             Log.e(TAG, "Failed to restore home screen wallpaper!");
                         }
                     }
@@ -131,7 +131,7 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                         try {
                             WallpaperManager.clearWallpaper(context, "lock");
                             editor.remove("lock_wallpaper_applied");
-                        } catch (IOException e) {
+                        } catch (final IOException e) {
                             Log.e(TAG, "Failed to restore lock screen wallpaper!");
                         }
                     }
@@ -141,8 +141,8 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                     }
 
                     // Clear off the old preserved list of themes with the new batch
-                    Set<String> installed = new TreeSet<>();
-                    List<ResolveInfo> all_themes = Packages.getThemes(context);
+                    final Set<String> installed = new TreeSet<>();
+                    final List<ResolveInfo> all_themes = Packages.getThemes(context);
                     for (int i = 0; i < all_themes.size(); i++) {
                         installed.add(all_themes.get(i).activityInfo.packageName);
                     }

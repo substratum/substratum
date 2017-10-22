@@ -46,10 +46,10 @@ public enum FontManager {
     ;
 
     public static void setFonts(
-            Context context,
-            String theme_pid,
-            String name,
-            Cipher cipher) {
+            final Context context,
+            final String theme_pid,
+            final String name,
+            final Cipher cipher) {
         if (checkOMS(context) && checkThemeInterfacer(context)) {
             ThemeInterfacerService.setFonts(context, theme_pid, name);
         } else {
@@ -59,28 +59,28 @@ public enum FontManager {
                 Log.d("FontUtils",
                         "Copying over the selected fonts to working directory...");
 
-                File cacheDirectory = new File(context.getCacheDir(), "/FontCache/");
+                final File cacheDirectory = new File(context.getCacheDir(), "/FontCache/");
                 if (!cacheDirectory.exists() && cacheDirectory.mkdirs()) {
                     Log.d("FontUtils", "Successfully created cache folder!");
                 }
-                File cacheDirectory2 = new File(
+                final File cacheDirectory2 = new File(
                         context.getCacheDir(), "/FontCache/FontCreator/");
                 if (!cacheDirectory2.exists() && cacheDirectory2.mkdirs()) {
                     Log.d("FontUtils", "Successfully created cache folder work directory!");
                 } else {
                     FileOperations.delete(context,
                             context.getCacheDir().getAbsolutePath() + "/FontCache/FontCreator/");
-                    boolean created = cacheDirectory2.mkdirs();
+                    final boolean created = cacheDirectory2.mkdirs();
                     if (created) Log.d("FontUtils",
                             "Successfully recreated cache folder work directory!");
                 }
 
                 // Copy the font.zip from assets/fonts of the theme's assets
-                String sourceFile = name + ".zip";
+                final String sourceFile = name + ".zip";
 
                 try {
-                    Context otherContext = context.createPackageContext(theme_pid, 0);
-                    AssetManager am = otherContext.getAssets();
+                    final Context otherContext = context.createPackageContext(theme_pid, 0);
+                    final AssetManager am = otherContext.getAssets();
 
                     if (cipher != null) {
                         FileOperations.copyFileOrDir(
@@ -94,7 +94,7 @@ public enum FontManager {
                         try (InputStream inputStream = am.open("fonts/" + sourceFile);
                              OutputStream outputStream = new FileOutputStream(context.getCacheDir()
                                      .getAbsolutePath() + "/FontCache/" + sourceFile)) {
-                            byte[] buffer = new byte[5120];
+                            final byte[] buffer = new byte[5120];
                             int length = inputStream.read(buffer);
                             while (length > 0) {
                                 outputStream.write(buffer, 0, length);
@@ -102,26 +102,26 @@ public enum FontManager {
                             }
                         }
                     }
-                } catch (Exception e) {
+                } catch (final Exception e) {
                     Log.e("FontUtils",
                             "There is no fonts.zip found within the assets of this theme! " +
                                     e.getMessage());
                 }
 
                 // Unzip the fonts to get it prepared for the preview
-                String source =
+                final String source =
                         context.getCacheDir().getAbsolutePath() + "/FontCache/" + sourceFile;
-                String destination =
+                final String destination =
                         context.getCacheDir().getAbsolutePath() + "/FontCache/FontCreator/";
 
                 try (ZipInputStream inputStream = new ZipInputStream(
                         new BufferedInputStream(new FileInputStream(source)))) {
                     ZipEntry zipEntry;
                     int count;
-                    byte[] buffer = new byte[8192];
+                    final byte[] buffer = new byte[8192];
                     while ((zipEntry = inputStream.getNextEntry()) != null) {
-                        File file = new File(destination, zipEntry.getName());
-                        File dir = zipEntry.isDirectory() ? file : file.getParentFile();
+                        final File file = new File(destination, zipEntry.getName());
+                        final File dir = zipEntry.isDirectory() ? file : file.getParentFile();
                         if (!dir.isDirectory() && !dir.mkdirs())
                             throw new FileNotFoundException(
                                     "Failed to ensure directory: " + dir.getAbsolutePath());
@@ -132,7 +132,7 @@ public enum FontManager {
                                 outputStream.write(buffer, 0, count);
                         }
                     }
-                } catch (Exception e) {
+                } catch (final Exception e) {
                     e.printStackTrace();
                     Log.e("FontUtils",
                             "An issue has occurred while attempting to decompress this archive. " +
@@ -140,14 +140,14 @@ public enum FontManager {
                 }
 
                 // Copy all the system fonts to /data/system/theme/fonts
-                File dataSystemThemeDir = new File("/data/system/theme");
+                final File dataSystemThemeDir = new File("/data/system/theme");
                 if (!dataSystemThemeDir.exists()) {
                     if (!checkThemeInterfacer(context)) {
                         FileOperations.mountRWData();
                     }
                     FileOperations.createNewFolder(context, "/data/system/theme/");
                 }
-                File dataSystemThemeFontsDir = new File("/data/system/theme/fonts");
+                final File dataSystemThemeFontsDir = new File("/data/system/theme/fonts");
                 if (!dataSystemThemeFontsDir.exists()) {
                     if (!checkThemeInterfacer(context)) {
                         FileOperations.mountRWData();
@@ -162,20 +162,20 @@ public enum FontManager {
                 }
 
                 // Copy font configuration file (fonts.xml) to the working directory
-                File fontsConfig = new File(context.getCacheDir().getAbsolutePath() +
+                final File fontsConfig = new File(context.getCacheDir().getAbsolutePath() +
                         "/FontCache/FontCreator/fonts.xml");
                 if (!fontsConfig.exists()) {
-                    AssetManager assetManager = context.getAssets();
+                    final AssetManager assetManager = context.getAssets();
                     final String filename = "fonts.xml";
                     try (InputStream in = assetManager.open(filename);
                          OutputStream out = new FileOutputStream(context.getCacheDir()
                                  .getAbsolutePath() + "/FontCache/FontCreator/" + filename)) {
-                        byte[] buffer = new byte[1024];
+                        final byte[] buffer = new byte[1024];
                         int read;
                         while ((read = in.read(buffer)) != -1) {
                             out.write(buffer, 0, read);
                         }
-                    } catch (IOException e) {
+                    } catch (final IOException e) {
                         Log.e("FontUtils",
                                 "Failed to move font configuration file to working directory! " +
                                         e.getMessage());
@@ -196,13 +196,13 @@ public enum FontManager {
                 FileOperations.mountROData();
                 FileOperations.setContext("/data/system/theme");
                 FileOperations.setProp("sys.refresh_theme", "1");
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public static void clearFonts(Context context) {
+    public static void clearFonts(final Context context) {
         if (checkOMS(context) && checkThemeInterfacer(context)) {
             ThemeInterfacerService.clearFonts(context);
         } else {

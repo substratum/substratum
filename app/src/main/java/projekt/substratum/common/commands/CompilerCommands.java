@@ -47,24 +47,24 @@ import static projekt.substratum.common.Systems.getDeviceID;
 public enum CompilerCommands {
     ;
 
-    public static String createOverlayManifest(Context context,
-                                               String overlayPackage,
-                                               String parse2_themeName,
-                                               String parse2_variantName,
-                                               String parse2_baseName,
-                                               String versionName,
-                                               String targetPackage,
-                                               String themeParent,
-                                               boolean themeOms,
-                                               int legacyPriority,
-                                               boolean baseVariantNull,
-                                               String type1a,
-                                               String type1b,
-                                               String type1c,
-                                               String type2,
-                                               String type3,
-                                               String type4,
-                                               String packageNameOverride) {
+    public static String createOverlayManifest(final Context context,
+                                               final String overlayPackage,
+                                               final String parse2_themeName,
+                                               final String parse2_variantName,
+                                               final String parse2_baseName,
+                                               final String versionName,
+                                               final String targetPackage,
+                                               final String themeParent,
+                                               final boolean themeOms,
+                                               final int legacyPriority,
+                                               final boolean baseVariantNull,
+                                               final String type1a,
+                                               final String type1b,
+                                               final String type1c,
+                                               final String type2,
+                                               final String type3,
+                                               final String type4,
+                                               final String packageNameOverride) {
 
         String packageName;
         if (baseVariantNull) {
@@ -77,83 +77,83 @@ public enum CompilerCommands {
             packageName = packageNameOverride;
         }
 
-        boolean showOverlayInSamsungSettings =
+        final boolean showOverlayInSamsungSettings =
                 Systems.isSamsung(context) && References.toggleShowSamsungOverlayInSettings;
         try {
 
-            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            final DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            final DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
             // root elements
-            Document document = documentBuilder.newDocument();
-            Element rootElement = document.createElement("manifest");
+            final Document document = documentBuilder.newDocument();
+            final Element rootElement = document.createElement("manifest");
             rootElement.setAttribute("xmlns:android",
                     "http://schemas.android.com/apk/res/android");
             rootElement.setAttribute("package", packageName);
             rootElement.setAttribute("android:versionName", versionName);
 
-            Element overlayElement = document.createElement("overlay");
+            final Element overlayElement = document.createElement("overlay");
             if (!themeOms)
                 overlayElement.setAttribute("android:priority", String.valueOf(legacyPriority));
             overlayElement.setAttribute("android:targetPackage", targetPackage);
             if (showOverlayInSamsungSettings) {
-                Element samsungPermissionElement = document.createElement("uses-permission");
+                final Element samsungPermissionElement = document.createElement("uses-permission");
                 samsungPermissionElement.setAttribute("android:name", permissionSamsungOverlay);
                 overlayElement.appendChild(samsungPermissionElement);
             }
             rootElement.appendChild(overlayElement);
 
-            Element applicationElement = document.createElement("application");
+            final Element applicationElement = document.createElement("application");
             applicationElement.setAttribute("android:label", packageName);
             applicationElement.setAttribute("allowBackup", "false");
             applicationElement.setAttribute("android:hasCode", "false");
 
-            Element metadataOverlayDevice = document.createElement("meta-data");
+            final Element metadataOverlayDevice = document.createElement("meta-data");
             metadataOverlayDevice.setAttribute("android:name", References.metadataOverlayDevice);
             metadataOverlayDevice.setAttribute("android:value", getDeviceID(context));
             applicationElement.appendChild(metadataOverlayDevice);
 
-            Element metadataOverlayParent = document.createElement("meta-data");
+            final Element metadataOverlayParent = document.createElement("meta-data");
             metadataOverlayParent.setAttribute("android:name", References.metadataOverlayParent);
             metadataOverlayParent.setAttribute("android:value", themeParent);
             applicationElement.appendChild(metadataOverlayParent);
 
-            Element metadataOverlayTarget = document.createElement("meta-data");
+            final Element metadataOverlayTarget = document.createElement("meta-data");
             metadataOverlayTarget.setAttribute("android:name", References.metadataOverlayTarget);
             metadataOverlayTarget.setAttribute("android:value", targetPackage);
             applicationElement.appendChild(metadataOverlayTarget);
 
-            Element metadataOverlayType1a = document.createElement("meta-data");
+            final Element metadataOverlayType1a = document.createElement("meta-data");
             metadataOverlayType1a.setAttribute("android:name", References.metadataOverlayType1a);
             metadataOverlayType1a.setAttribute("android:value", type1a);
             applicationElement.appendChild(metadataOverlayType1a);
 
-            Element metadataOverlayType1b = document.createElement("meta-data");
+            final Element metadataOverlayType1b = document.createElement("meta-data");
             metadataOverlayType1b.setAttribute("android:name", References.metadataOverlayType1b);
             metadataOverlayType1b.setAttribute("android:value", type1b);
             applicationElement.appendChild(metadataOverlayType1b);
 
-            Element metadataOverlayType1c = document.createElement("meta-data");
+            final Element metadataOverlayType1c = document.createElement("meta-data");
             metadataOverlayType1c.setAttribute("android:name", References.metadataOverlayType1c);
             metadataOverlayType1c.setAttribute("android:value", type1c);
             applicationElement.appendChild(metadataOverlayType1c);
 
-            Element metadataOverlayType2 = document.createElement("meta-data");
+            final Element metadataOverlayType2 = document.createElement("meta-data");
             metadataOverlayType2.setAttribute("android:name", References.metadataOverlayType2);
             metadataOverlayType2.setAttribute("android:value", type2);
             applicationElement.appendChild(metadataOverlayType2);
 
-            Element metadataOverlayType3 = document.createElement("meta-data");
+            final Element metadataOverlayType3 = document.createElement("meta-data");
             metadataOverlayType3.setAttribute("android:name", References.metadataOverlayType3);
             metadataOverlayType3.setAttribute("android:value", type3);
             applicationElement.appendChild(metadataOverlayType3);
 
-            Element metadataOverlayType4 = document.createElement("meta-data");
+            final Element metadataOverlayType4 = document.createElement("meta-data");
             metadataOverlayType4.setAttribute("android:name", References.metadataOverlayType4);
             metadataOverlayType4.setAttribute("android:value", type4);
             applicationElement.appendChild(metadataOverlayType4);
 
-            Element metadataOverlayVersion = document.createElement("meta-data");
+            final Element metadataOverlayVersion = document.createElement("meta-data");
             metadataOverlayVersion.setAttribute("android:name", References.metadataOverlayVersion);
             metadataOverlayVersion.setAttribute("android:value", String.valueOf(BuildConfig
                     .VERSION_CODE));
@@ -162,11 +162,11 @@ public enum CompilerCommands {
             rootElement.appendChild(applicationElement);
             document.appendChild(rootElement);
 
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            Source domSource = new DOMSource(document);
-            StringWriter outWriter = new StringWriter();
-            Result streamResult = new StreamResult(outWriter);
+            final TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            final Transformer transformer = transformerFactory.newTransformer();
+            final Source domSource = new DOMSource(document);
+            final StringWriter outWriter = new StringWriter();
+            final Result streamResult = new StreamResult(outWriter);
             transformer.transform(domSource, streamResult);
 
             return outWriter.getBuffer().toString();
@@ -179,21 +179,21 @@ public enum CompilerCommands {
         return "";
     }
 
-    private static boolean isNotNullOrEmpty(CharSequence string) {
+    private static boolean isNotNullOrEmpty(final CharSequence string) {
         return string != null && string.length() != 0;
     }
 
     @SuppressWarnings("StringConcatenationInsideStringBufferAppend")
-    public static String createAOPTShellCommands(String work_area,
-                                                 String targetPkg,
-                                                 String overlay_package,
-                                                 String theme_name,
-                                                 boolean legacySwitch,
-                                                 CharSequence additional_variant,
-                                                 CharSequence asset_replacement,
-                                                 Context context,
-                                                 String dir) {
-        StringBuilder sb = new StringBuilder();
+    public static String createAOPTShellCommands(final String work_area,
+                                                 final String targetPkg,
+                                                 final String overlay_package,
+                                                 final String theme_name,
+                                                 final boolean legacySwitch,
+                                                 final CharSequence additional_variant,
+                                                 final CharSequence asset_replacement,
+                                                 final Context context,
+                                                 final String dir) {
+        final StringBuilder sb = new StringBuilder();
         // Initialize the AOPT command
         sb.append(context.getFilesDir().getAbsolutePath() + "/aopt p ");
         // Compile with specified manifest
@@ -228,9 +228,9 @@ public enum CompilerCommands {
         return sb.toString();
     }
 
-    public static String createZipAlignShellCommands(Context context,
-                                                     String source,
-                                                     String destination) {
+    public static String createZipAlignShellCommands(final Context context,
+                                                     final String source,
+                                                     final String destination) {
         // Compiler will automatically optimize this with StringBuilder
         String ret;
 

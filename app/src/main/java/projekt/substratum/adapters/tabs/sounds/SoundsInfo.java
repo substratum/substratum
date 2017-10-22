@@ -25,7 +25,7 @@ public class SoundsInfo {
     private final String absolute_path;
     private final Context mContext;
 
-    public SoundsInfo(Context mContext, String title, String absolute_path) {
+    public SoundsInfo(final Context mContext, final String title, final String absolute_path) {
         super();
         this.mContext = mContext;
         this.title = title;
@@ -44,7 +44,7 @@ public class SoundsInfo {
         return this.title;
     }
 
-    public void setTitle(String name) {
+    public void setTitle(final String name) {
         this.title = name;
     }
 }

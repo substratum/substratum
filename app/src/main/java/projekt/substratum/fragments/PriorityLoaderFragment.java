@@ -58,20 +58,20 @@ public class PriorityLoaderFragment extends Fragment {
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
-            ViewGroup container,
-            Bundle savedInstanceState) {
+            final LayoutInflater inflater,
+            final ViewGroup container,
+            final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final ViewGroup root = (ViewGroup)
                 inflater.inflate(R.layout.priority_loader_fragment, container, false);
 
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
-        PriorityAdapter empty_adapter = new PriorityAdapter(
+        final PriorityAdapter empty_adapter = new PriorityAdapter(
                 this.getContext(), R.layout.priority_loader_item);
         this.recyclerView = root.findViewById(R.id.recycler_view);
         this.recyclerView.setAdapter(empty_adapter);
 
-        LinearLayoutManager manager = new LinearLayoutManager(this.getContext());
+        final LinearLayoutManager manager = new LinearLayoutManager(this.getContext());
         this.recyclerView.setHasFixedSize(true);
         this.recyclerView.setLayoutManager(manager);
 
@@ -83,20 +83,20 @@ public class PriorityLoaderFragment extends Fragment {
         this.app_list = new ArrayList<>();
         this.adapter = new PriorityAdapter(this.getContext(), R.layout.priority_loader_item);
 
-        LoadPrioritizedOverlays loadPrioritizedOverlays = new LoadPrioritizedOverlays(this);
+        final LoadPrioritizedOverlays loadPrioritizedOverlays = new LoadPrioritizedOverlays(this);
         loadPrioritizedOverlays.execute("");
 
         this.recyclerView.addOnItemTouchListener(new RecyclerItemTouchListener(this.getActivity(),
                 new DefaultItemClickListener() {
                     @Override
                     public boolean onItemClick(final View view, final int position) {
-                        Fragment fragment = new PriorityListFragment();
+                        final Fragment fragment = new PriorityListFragment();
 
-                        Bundle bundle = new Bundle();
+                        final Bundle bundle = new Bundle();
                         bundle.putString("package_name", PriorityLoaderFragment.this.app_list.get(position));
                         fragment.setArguments(bundle);
-                        FragmentManager fm = PriorityLoaderFragment.this.getActivity().getSupportFragmentManager();
-                        FragmentTransaction transaction = fm.beginTransaction();
+                        final FragmentManager fm = PriorityLoaderFragment.this.getActivity().getSupportFragmentManager();
+                        final FragmentTransaction transaction = fm.beginTransaction();
                         transaction.setCustomAnimations(
                                 android.R.anim.fade_in, android.R.anim.fade_out);
                         transaction.replace(R.id.main, fragment);
@@ -111,15 +111,15 @@ public class PriorityLoaderFragment extends Fragment {
 
         private final WeakReference<PriorityLoaderFragment> ref;
 
-        LoadPrioritizedOverlays(PriorityLoaderFragment priorityLoaderFragment) {
+        LoadPrioritizedOverlays(final PriorityLoaderFragment priorityLoaderFragment) {
             super();
             this.ref = new WeakReference<>(priorityLoaderFragment);
         }
 
         @Override
-        protected void onPostExecute(String result) {
+        protected void onPostExecute(final String result) {
             super.onPostExecute(result);
-            PriorityLoaderFragment fragment = this.ref.get();
+            final PriorityLoaderFragment fragment = this.ref.get();
             if (fragment != null) {
                 if (fragment.prioritiesList.isEmpty()) {
                     fragment.emptyView.setVisibility(View.VISIBLE);
@@ -143,13 +143,13 @@ public class PriorityLoaderFragment extends Fragment {
         }
 
         @Override
-        protected String doInBackground(String... sUrl) {
-            PriorityLoaderFragment fragment = this.ref.get();
+        protected String doInBackground(final String... sUrl) {
+            final PriorityLoaderFragment fragment = this.ref.get();
             if (fragment != null) {
-                List<String> targets =
+                final List<String> targets =
                         ThemeManager.listTargetWithMultipleOverlaysEnabled(fragment.getContext());
 
-                for (String t : targets) {
+                for (final String t : targets) {
                     fragment.prioritiesList.add(new PrioritiesItem(t, Packages.getAppIcon(
                             fragment.getContext(),
                             t)));

@@ -31,18 +31,18 @@ public class ShowcaseTabsAdapter extends FragmentPagerAdapter {
     private final List fragment_links;
     private final Integer mNumOfTabs;
 
-    public ShowcaseTabsAdapter(FragmentManager fm, int mNumOfTabs, List fragment_links) {
+    public ShowcaseTabsAdapter(final FragmentManager fm, final int mNumOfTabs, final List fragment_links) {
         super(fm);
         this.mNumOfTabs = mNumOfTabs;
         this.fragment_links = fragment_links;
     }
 
     @Override
-    public Fragment getItem(int position) {
-        Bundle bundle = new Bundle();
+    public Fragment getItem(final int position) {
+        final Bundle bundle = new Bundle();
         bundle.putInt("tab_count", position);
         bundle.putString("tabbed_address", this.fragment_links.get(position).toString());
-        Fragment fragment = new ShowcaseTab();
+        final Fragment fragment = new ShowcaseTab();
         fragment.setArguments(bundle);
         return fragment;
     }

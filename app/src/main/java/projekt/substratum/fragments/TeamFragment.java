@@ -36,19 +36,19 @@ import projekt.substratum.R;
 public class TeamFragment extends Fragment {
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle
             savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.team_fragment, container, false);
+        final ViewGroup root = (ViewGroup) inflater.inflate(R.layout.team_fragment, container, false);
 
-        CardView nicholas_card = root.findViewById(R.id.nicholas_card);
+        final CardView nicholas_card = root.findViewById(R.id.nicholas_card);
         nicholas_card.setOnClickListener(v -> {
             try {
-                String playURL = this.getString(R.string.team_nicholas_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
+                final String playURL = this.getString(R.string.team_nicholas_link);
+                final Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(playURL));
                 this.startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
+            } catch (final ActivityNotFoundException activityNotFoundException) {
                 if (this.getActivity() != null)
                     Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
                             this.getString(R.string.activity_missing_toast),
@@ -57,14 +57,14 @@ public class TeamFragment extends Fragment {
             }
         });
 
-        CardView syko_card = root.findViewById(R.id.syko_card);
+        final CardView syko_card = root.findViewById(R.id.syko_card);
         syko_card.setOnClickListener(v -> {
             try {
-                String playURL = this.getString(R.string.team_syko_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
+                final String playURL = this.getString(R.string.team_syko_link);
+                final Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(playURL));
                 this.startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
+            } catch (final ActivityNotFoundException activityNotFoundException) {
                 if (this.getActivity() != null)
                     Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
                             this.getString(R.string.activity_missing_toast),
@@ -73,14 +73,14 @@ public class TeamFragment extends Fragment {
             }
         });
 
-        CardView ivan_card = root.findViewById(R.id.ivan_card);
+        final CardView ivan_card = root.findViewById(R.id.ivan_card);
         ivan_card.setOnClickListener(v -> {
             try {
-                String playURL = this.getString(R.string.team_ivan_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
+                final String playURL = this.getString(R.string.team_ivan_link);
+                final Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(playURL));
                 this.startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
+            } catch (final ActivityNotFoundException activityNotFoundException) {
                 if (this.getActivity() != null)
                     Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
                             this.getString(R.string.activity_missing_toast),
@@ -89,14 +89,14 @@ public class TeamFragment extends Fragment {
             }
         });
 
-        CardView surge_card = root.findViewById(R.id.surge_card);
+        final CardView surge_card = root.findViewById(R.id.surge_card);
         surge_card.setOnClickListener(v -> {
             try {
-                String playURL = this.getString(R.string.team_surge_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
+                final String playURL = this.getString(R.string.team_surge_link);
+                final Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(playURL));
                 this.startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
+            } catch (final ActivityNotFoundException activityNotFoundException) {
                 if (this.getActivity() != null)
                     Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
                             this.getString(R.string.activity_missing_toast),
@@ -105,14 +105,14 @@ public class TeamFragment extends Fragment {
             }
         });
 
-        CardView george_card = root.findViewById(R.id.george_card);
+        final CardView george_card = root.findViewById(R.id.george_card);
         george_card.setOnClickListener(v -> {
             try {
-                String playURL = this.getString(R.string.team_george_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
+                final String playURL = this.getString(R.string.team_george_link);
+                final Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(playURL));
                 this.startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
+            } catch (final ActivityNotFoundException activityNotFoundException) {
                 if (this.getActivity() != null)
                     Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
                             this.getString(R.string.activity_missing_toast),
@@ -121,14 +121,14 @@ public class TeamFragment extends Fragment {
             }
         });
 
-        CardView nathan_card = root.findViewById(R.id.nathan_card);
+        final CardView nathan_card = root.findViewById(R.id.nathan_card);
         nathan_card.setOnClickListener(v -> {
             try {
-                String playURL = this.getString(R.string.team_nathan_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
+                final String playURL = this.getString(R.string.team_nathan_link);
+                final Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(playURL));
                 this.startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
+            } catch (final ActivityNotFoundException activityNotFoundException) {
                 if (this.getActivity() != null)
                     Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
                             this.getString(R.string.activity_missing_toast),
@@ -137,14 +137,14 @@ public class TeamFragment extends Fragment {
             }
         });
 
-        CardView char_card = root.findViewById(R.id.char_card);
+        final CardView char_card = root.findViewById(R.id.char_card);
         char_card.setOnClickListener(v -> {
             try {
-                String playURL = this.getString(R.string.team_char_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
+                final String playURL = this.getString(R.string.team_char_link);
+                final Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(playURL));
                 this.startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
+            } catch (final ActivityNotFoundException activityNotFoundException) {
                 if (this.getActivity() != null)
                     Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
                             this.getString(R.string.activity_missing_toast),
@@ -153,14 +153,14 @@ public class TeamFragment extends Fragment {
             }
         });
 
-        CardView harsh_card = root.findViewById(R.id.harsh_card);
+        final CardView harsh_card = root.findViewById(R.id.harsh_card);
         harsh_card.setOnClickListener(v -> {
             try {
-                String playURL = this.getString(R.string.team_harsh_link);
-                Intent i = new Intent(Intent.ACTION_VIEW);
+                final String playURL = this.getString(R.string.team_harsh_link);
+                final Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(playURL));
                 this.startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
+            } catch (final ActivityNotFoundException activityNotFoundException) {
                 if (this.getActivity() != null)
                     Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
                             this.getString(R.string.activity_missing_toast),
@@ -170,24 +170,24 @@ public class TeamFragment extends Fragment {
         });
 
 
-        Button development_contributors = root.findViewById(R.id.list_button_contributors);
+        final Button development_contributors = root.findViewById(R.id.list_button_contributors);
         development_contributors.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
             builder.setItems(this.getResources().getStringArray(R.array.substratum_contributors),
                     (dialog, item) -> {
                     });
-            AlertDialog alert = builder.create();
+            final AlertDialog alert = builder.create();
             alert.show();
         });
 
-        Button contribute = root.findViewById(R.id.list_button_translators_contribute);
+        final Button contribute = root.findViewById(R.id.list_button_translators_contribute);
         contribute.setOnClickListener(v -> {
             try {
-                String playURL = this.getString(R.string.crowdin_url);
-                Intent i = new Intent(Intent.ACTION_VIEW);
+                final String playURL = this.getString(R.string.crowdin_url);
+                final Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(playURL));
                 this.startActivity(i);
-            } catch (ActivityNotFoundException activityNotFoundException) {
+            } catch (final ActivityNotFoundException activityNotFoundException) {
                 if (this.getActivity() != null)
                     Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
                             this.getString(R.string.activity_missing_toast),
@@ -196,23 +196,23 @@ public class TeamFragment extends Fragment {
             }
         });
 
-        Button layers = root.findViewById(R.id.list_button_layers);
+        final Button layers = root.findViewById(R.id.list_button_layers);
         layers.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
             builder.setItems(this.getResources().getStringArray(R.array.layers_contributors),
                     (dialog, item) -> {
                     });
-            AlertDialog alert = builder.create();
+            final AlertDialog alert = builder.create();
             alert.show();
         });
 
-        Button translators = root.findViewById(R.id.list_button_translators);
+        final Button translators = root.findViewById(R.id.list_button_translators);
         translators.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
             builder.setItems(this.getResources().getStringArray(R.array.translations),
                     (dialog, item) -> {
                         dialog.cancel();
-                        AlertDialog.Builder builder2 = new AlertDialog.Builder(this.getActivity());
+                        final AlertDialog.Builder builder2 = new AlertDialog.Builder(this.getActivity());
                         switch (item) {
                             case 0:
                                 builder2.setItems(
@@ -316,10 +316,10 @@ public class TeamFragment extends Fragment {
                                         });
                                 break;
                         }
-                        AlertDialog alert2 = builder2.create();
+                        final AlertDialog alert2 = builder2.create();
                         alert2.show();
                     });
-            AlertDialog alert = builder.create();
+            final AlertDialog alert = builder.create();
             alert.show();
         });
         return root;

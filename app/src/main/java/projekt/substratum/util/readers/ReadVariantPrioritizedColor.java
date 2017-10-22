@@ -32,22 +32,22 @@ public class ReadVariantPrioritizedColor {
 
     private static InputStream fileName;
 
-    public ReadVariantPrioritizedColor(InputStream _fileName) {
+    public ReadVariantPrioritizedColor(final InputStream _fileName) {
         super();
         fileName = _fileName;
     }
 
     public String run() {
         try {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(fileName);
+            final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            final DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            final Document doc = dBuilder.parse(fileName);
             doc.getDocumentElement().normalize();
-            NodeList nList = doc.getElementsByTagName("color");
-            Node nNode = nList.item(0);
-            Node eElement = (Element) nNode;
+            final NodeList nList = doc.getElementsByTagName("color");
+            final Node nNode = nList.item(0);
+            final Node eElement = (Element) nNode;
             return eElement.getAttributes().item(0).getNodeValue();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             // At this point, the file does not exist!
         }
         return null;

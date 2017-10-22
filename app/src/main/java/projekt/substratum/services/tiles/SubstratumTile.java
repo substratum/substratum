@@ -32,11 +32,11 @@ public class SubstratumTile extends TileService {
     @Override
     public void onClick() {
         try {
-            Intent intent = new Intent(this, LauncherActivity.class);
+            final Intent intent = new Intent(this, LauncherActivity.class);
             this.startActivityAndCollapse(intent);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             // At this point, the app is most likely hidden and set to only open from Settings
-            Intent intent = new Intent(this, LaunchActivity.class);
+            final Intent intent = new Intent(this, LaunchActivity.class);
             this.startActivityAndCollapse(intent);
         }
     }

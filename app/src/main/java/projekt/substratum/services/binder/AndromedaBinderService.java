@@ -52,7 +52,7 @@ public class AndromedaBinderService extends Service implements ServiceConnection
 
     public void bindAndromeda() {
         if (Systems.checkAndromeda(this) && !this.mBound) {
-            Intent intent = new Intent(ANDROMEDA_BINDED);
+            final Intent intent = new Intent(ANDROMEDA_BINDED);
             intent.setPackage(ANDROMEDA_PACKAGE);
             if (!this.bindService(intent, this, Context.BIND_AUTO_CREATE)) {
                 this.stopSelf();
@@ -100,17 +100,17 @@ public class AndromedaBinderService extends Service implements ServiceConnection
 
     @Nullable
     @Override
-    public IBinder onBind(Intent intent) {
+    public IBinder onBind(final Intent intent) {
         return null;
     }
 
     @Override
-    public void onServiceConnected(ComponentName name, IBinder service) {
+    public void onServiceConnected(final ComponentName name, final IBinder service) {
         iAndromedaInterface = IAndromedaInterface.Stub.asInterface(service);
         this.mBound = true;
         Log.d(TAG, "Substratum has successfully binded with the Andromeda module.");
         if (iAndromedaInterface != null && AndromedaService.checkServerActivity()) {
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(
+            final NotificationCompat.Builder builder = new NotificationCompat.Builder(
                     this.getApplicationContext(), References.ANDROMEDA_NOTIFICATION_CHANNEL_ID);
             builder.setContentTitle(this.getString(R.string.andromeda_notification_title))
                     .setContentText(this.getString(R.string.andromeda_notification_text))
@@ -122,22 +122,22 @@ public class AndromedaBinderService extends Service implements ServiceConnection
     }
 
     @Override
-    public void onServiceDisconnected(ComponentName name) {
+    public void onServiceDisconnected(final ComponentName name) {
         iAndromedaInterface = null;
         this.mBound = false;
         Log.d(TAG, "Substratum has successfully unbinded with the Andromeda module.");
     }
 
-    public void sendBadNotification(Context context) {
-        NotificationManager mNotifyMgr =
+    public void sendBadNotification(final Context context) {
+        final NotificationManager mNotifyMgr =
                 (NotificationManager)
                         this.getApplicationContext().getSystemService(NOTIFICATION_SERVICE);
         boolean isBadNotificationShowing = false;
         final int badNotificationId = 2017;
         if (mNotifyMgr != null) {
-            StatusBarNotification[] notifications;
+            final StatusBarNotification[] notifications;
             notifications = mNotifyMgr.getActiveNotifications();
-            for (StatusBarNotification notification : notifications) {
+            for (final StatusBarNotification notification : notifications) {
                 if (notification.getId() == badNotificationId) {
                     isBadNotificationShowing = true;
                 }

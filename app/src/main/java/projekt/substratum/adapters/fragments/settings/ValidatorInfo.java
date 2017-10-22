@@ -29,7 +29,7 @@ public class ValidatorInfo {
     private final Boolean mCommons;
     private ValidatorError mValidatorError;
 
-    public ValidatorInfo(Context mContext, String package_name, Boolean verified, Boolean commons) {
+    public ValidatorInfo(final Context mContext, final String package_name, final Boolean verified, final Boolean commons) {
         super();
         this.mContext = mContext;
         this.package_name = package_name;
@@ -45,7 +45,7 @@ public class ValidatorInfo {
         return this.mValidatorError;
     }
 
-    public void setPackageError(ValidatorError validatorError) {
+    public void setPackageError(final ValidatorError validatorError) {
         this.mValidatorError = validatorError;
     }
 
@@ -61,7 +61,7 @@ public class ValidatorInfo {
         return this.mDrawable;
     }
 
-    public void setDrawable(Drawable drawable) {
+    public void setDrawable(final Drawable drawable) {
         this.mDrawable = drawable;
     }
 
@@ -69,7 +69,7 @@ public class ValidatorInfo {
         return this.mVerified;
     }
 
-    public void setPercentage(int one, int two) {
-        int mPercentage = (int) (((double) one / (double) two) * 100);
+    public void setPercentage(final int one, final int two) {
+        final int mPercentage = (int) (((double) one / (double) two) * 100);
     }
 }

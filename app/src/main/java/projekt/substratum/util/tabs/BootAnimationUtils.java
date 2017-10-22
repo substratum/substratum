@@ -69,13 +69,13 @@ public class BootAnimationUtils {
     private static final String SYSTEM_MEDIA = "/system/media/";
     private static final String BACKUP_SCRIPT = "81-subsboot.sh";
 
-    public void execute(View view,
-                        String arguments,
-                        Context context,
-                        String theme_pid,
-                        Boolean encrypted,
-                        Boolean shutdownAnimation,
-                        Cipher cipher) {
+    public void execute(final View view,
+                        final String arguments,
+                        final Context context,
+                        final String theme_pid,
+                        final Boolean encrypted,
+                        final Boolean shutdownAnimation,
+                        final Cipher cipher) {
         new BootAnimationHandlerAsync(
                 view, context, theme_pid, encrypted, shutdownAnimation, cipher).execute(arguments);
     }
@@ -94,12 +94,12 @@ public class BootAnimationUtils {
         private final Cipher cipher;
         private final Boolean shutdownAnimation;
 
-        BootAnimationHandlerAsync(View view,
-                                  Context context,
-                                  String theme_pid,
-                                  Boolean encrypted,
-                                  Boolean shutdownAnimation,
-                                  Cipher cipher) {
+        BootAnimationHandlerAsync(final View view,
+                                  final Context context,
+                                  final String theme_pid,
+                                  final Boolean encrypted,
+                                  final Boolean shutdownAnimation,
+                                  final Cipher cipher) {
             super();
             this.mContext = context;
             this.view = view;
@@ -122,7 +122,7 @@ public class BootAnimationUtils {
         }
 
         @Override
-        protected void onPostExecute(String result) {
+        protected void onPostExecute(final String result) {
             this.progress.dismiss();
 
             if (!this.has_failed) {
@@ -145,38 +145,38 @@ public class BootAnimationUtils {
         }
 
         @Override
-        protected String doInBackground(String... sUrl) {
+        protected String doInBackground(final String... sUrl) {
             this.has_failed = false;
 
             // Move the file from assets folder to a new working area
             Log.d(TAG, "Copying over the selected boot animation to working directory...");
 
-            File cacheDirectory = new File(this.mContext.getCacheDir(), "/BootAnimationCache/");
+            final File cacheDirectory = new File(this.mContext.getCacheDir(), "/BootAnimationCache/");
             if (!cacheDirectory.exists() && cacheDirectory.mkdirs())
                 Log.d(TAG, "Bootanimation folder created");
 
-            File cacheDirectory2 = new File(this.mContext.getCacheDir(),
+            final File cacheDirectory2 = new File(this.mContext.getCacheDir(),
                     "/BootAnimationCache/AnimationCreator/");
             if (!cacheDirectory2.exists() && cacheDirectory2.mkdirs()) {
                 Log.d(TAG, "Bootanimation work folder created");
             } else {
                 FileOperations.delete(this.mContext, this.mContext.getCacheDir().getAbsolutePath() +
                         "/BootAnimationCache/AnimationCreator/");
-                boolean created = cacheDirectory2.mkdirs();
+                final boolean created = cacheDirectory2.mkdirs();
                 if (created) Log.d(TAG, "Bootanimation folder recreated");
             }
 
             String bootanimation = sUrl[0];
 
-            String directory = (this.shutdownAnimation ? "shutdownanimation" : "bootanimation");
+            final String directory = (this.shutdownAnimation ? "shutdownanimation" : "bootanimation");
 
             // Now let's take out desc.txt from the theme's assets (bootanimation.zip) and parse it
             if (!this.has_failed) {
                 Log.d(TAG, "Analyzing integrity of boot animation descriptor file...");
                 if (this.cipher != null) {
                     try {
-                        Context otherContext = this.mContext.createPackageContext(this.theme_pid, 0);
-                        AssetManager themeAssetManager = otherContext.getAssets();
+                        final Context otherContext = this.mContext.createPackageContext(this.theme_pid, 0);
+                        final AssetManager themeAssetManager = otherContext.getAssets();
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
                                 directory + "/" + bootanimation +
@@ -187,13 +187,13 @@ public class BootAnimationUtils {
                                 directory + "/" + bootanimation +
                                         (this.encrypted ? ".zip.enc" : ".zip"),
                                 this.cipher);
-                    } catch (PackageManager.NameNotFoundException e) {
+                    } catch (final PackageManager.NameNotFoundException e) {
                         e.printStackTrace();
                     }
                 } else {
                     try {
-                        Context otherContext = this.mContext.createPackageContext(this.theme_pid, 0);
-                        AssetManager am = otherContext.getAssets();
+                        final Context otherContext = this.mContext.createPackageContext(this.theme_pid, 0);
+                        final AssetManager am = otherContext.getAssets();
                         try (InputStream inputStream = am.open(
                                 directory + "/" + bootanimation + ".zip");
                              OutputStream outputStream = new FileOutputStream(
@@ -202,7 +202,7 @@ public class BootAnimationUtils {
                                              bootanimation + ".zip")) {
                             this.CopyStream(inputStream, outputStream);
                         }
-                    } catch (Exception e) {
+                    } catch (final Exception e) {
                         this.has_failed = true;
                         Log.e(TAG,
                                 "There is no animation.zip found within the assets " +
@@ -212,20 +212,20 @@ public class BootAnimationUtils {
                 }
 
                 // Rename the file
-                File workingDirectory = new File(
+                final File workingDirectory = new File(
                         this.mContext.getCacheDir().getAbsolutePath() +
                                 "/BootAnimationCache/AnimationCreator/");
-                File from = new File(workingDirectory, bootanimation + ".zip");
+                final File from = new File(workingDirectory, bootanimation + ".zip");
                 bootanimation =
                         bootanimation.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
-                File to = new File(workingDirectory, bootanimation + ".zip");
-                boolean rename = from.renameTo(to);
+                final File to = new File(workingDirectory, bootanimation + ".zip");
+                final boolean rename = from.renameTo(to);
                 if (rename)
                     Log.d(TAG, "Boot Animation successfully moved to new directory");
             }
 
             if (!this.has_failed) {
-                boolean exists = ZipUtil.containsEntry(
+                final boolean exists = ZipUtil.containsEntry(
                         new File(this.mContext.getCacheDir().getAbsolutePath() +
                                 "/BootAnimationCache/AnimationCreator/" +
                                 bootanimation + ".zip"), "desc.txt");
@@ -265,7 +265,7 @@ public class BootAnimationUtils {
                     final byte[] bytes = new byte[4096];
                     int len;
                     while ((ze = bootAni.getNextEntry()) != null) {
-                        ZipEntry entry = new ZipEntry(ze.getName());
+                        final ZipEntry entry = new ZipEntry(ze.getName());
                         entry.setMethod(ZipEntry.STORED);
                         entry.setCrc(ze.getCrc());
                         entry.setSize(ze.getSize());
@@ -282,18 +282,18 @@ public class BootAnimationUtils {
                                     (bootAni));
                             final String[] info = reader.readLine().split(" ");
 
-                            int scaledWidth;
+                            final int scaledWidth;
                             int scaledHeight;
-                            WindowManager wm = (WindowManager) this.mContext.getSystemService
+                            final WindowManager wm = (WindowManager) this.mContext.getSystemService
                                     (Context.WINDOW_SERVICE);
-                            DisplayMetrics dm = new DisplayMetrics();
+                            final DisplayMetrics dm = new DisplayMetrics();
                             if (wm != null) {
                                 wm.getDefaultDisplay().getRealMetrics(dm);
                             }
                             // just in case the device is in landscape orientation we will
                             // swap the values since most (if not all) animations are portrait
-                            int prevent_lint_w = dm.widthPixels;
-                            int prevent_lint_h = dm.heightPixels;
+                            final int prevent_lint_w = dm.widthPixels;
+                            final int prevent_lint_h = dm.heightPixels;
                             if (dm.widthPixels > dm.heightPixels) {
                                 scaledWidth = prevent_lint_h;
                                 scaledHeight = prevent_lint_w;
@@ -302,23 +302,23 @@ public class BootAnimationUtils {
                                 scaledHeight = dm.heightPixels;
                             }
 
-                            int width = Integer.parseInt(info[0]);
-                            int height = Integer.parseInt(info[1]);
+                            final int width = Integer.parseInt(info[0]);
+                            final int height = Integer.parseInt(info[1]);
 
-                            int prevent_lint = scaledWidth;
+                            final int prevent_lint = scaledWidth;
                             if (width == height) {
                                 scaledHeight = prevent_lint;
                             } else {
                                 // adjust scaledHeight to retain original aspect ratio
-                                float scale = (float) scaledWidth / (float) width;
-                                int newHeight = (int) ((float) height * scale);
+                                final float scale = (float) scaledWidth / (float) width;
+                                final int newHeight = (int) ((float) height * scale);
                                 if (newHeight < scaledHeight)
                                     scaledHeight = newHeight;
                             }
 
-                            CRC32 crc32 = new CRC32();
+                            final CRC32 crc32 = new CRC32();
                             int size = 0;
-                            ByteBuffer buffer = ByteBuffer.wrap(bytes);
+                            final ByteBuffer buffer = ByteBuffer.wrap(bytes);
                             line = String.format(Locale.US,
                                     "%d %d %s\n", scaledWidth, scaledHeight, info[2]);
                             buffer.put(line.getBytes());
@@ -338,7 +338,7 @@ public class BootAnimationUtils {
                             zos.write(buffer.array(), 0, size);
                         }
                     }
-                } catch (Exception e) {
+                } catch (final Exception e) {
                     e.printStackTrace();
                     Log.e(TAG, "The boot animation descriptor file (desc.txt) " +
                             "could not be parsed properly!");
@@ -347,7 +347,7 @@ public class BootAnimationUtils {
                     if (reader != null) {
                         try {
                             reader.close();
-                        } catch (IOException e) {
+                        } catch (final IOException e) {
                             // Suppress warning
                         }
                     }
@@ -359,7 +359,7 @@ public class BootAnimationUtils {
                         "Finalizing the boot animation descriptor file and " +
                                 "committing changes to the archive...");
 
-                ZipEntrySource[] addedEntries = new ZipEntrySource[]{
+                final ZipEntrySource[] addedEntries = new ZipEntrySource[]{
                         new FileSource("desc.txt", new File(
                                 this.mContext.getCacheDir().getAbsolutePath() +
                                         "/BootAnimationCache/AnimationCreator/desc.txt"))
@@ -373,8 +373,8 @@ public class BootAnimationUtils {
             if (!this.has_failed) {
                 Log.d(TAG, "Moving boot animation to theme directory " +
                         "and setting correct contextual parameters...");
-                boolean is_encrypted = Systems.getDeviceEncryptionStatus(this.mContext) > 1;
-                File themeDirectory;
+                final boolean is_encrypted = Systems.getDeviceEncryptionStatus(this.mContext) > 1;
+                final File themeDirectory;
                 if (Systems.checkOMS(this.mContext)) {
                     if ((!is_encrypted || this.shutdownAnimation) &&
                             Systems.checkSubstratumFeature(this.mContext)) {
@@ -399,7 +399,7 @@ public class BootAnimationUtils {
                     themeDirectory = new File(SYSTEM_MEDIA);
                 }
 
-                File scaledBootAnimCheck = new File(this.mContext.getCacheDir()
+                final File scaledBootAnimCheck = new File(this.mContext.getCacheDir()
                         .getAbsolutePath() + "/BootAnimationCache/AnimationCreator/" +
                         "scaled-" + bootanimation + ".zip");
                 if (scaledBootAnimCheck.exists()) {
@@ -420,37 +420,37 @@ public class BootAnimationUtils {
                 if (!this.has_failed && (is_encrypted || !Systems.checkOMS(this.mContext)) &&
                         !this.shutdownAnimation) {
                     FileOperations.mountRW();
-                    File backupScript = new File("/system/addon.d/" + BACKUP_SCRIPT);
+                    final File backupScript = new File("/system/addon.d/" + BACKUP_SCRIPT);
 
                     if (Systems.checkSubstratumFeature(this.mContext)) {
                         if (!backupScript.exists()) {
-                            AssetManager assetManager = this.mContext.getAssets();
-                            String backupScriptPath =
+                            final AssetManager assetManager = this.mContext.getAssets();
+                            final String backupScriptPath =
                                     this.mContext.getFilesDir().getAbsolutePath() + "/" + BACKUP_SCRIPT;
                             OutputStream out = null;
                             InputStream in = null;
                             try {
                                 out = new FileOutputStream(backupScriptPath);
                                 in = assetManager.open(BACKUP_SCRIPT);
-                                byte[] buffer = new byte[1024];
+                                final byte[] buffer = new byte[1024];
                                 int read;
                                 while ((read = in.read(buffer)) != -1) {
                                     out.write(buffer, 0, read);
                                 }
-                            } catch (Exception e) {
+                            } catch (final Exception e) {
                                 e.printStackTrace();
                             } finally {
                                 if (in != null) {
                                     try {
                                         in.close();
-                                    } catch (IOException e) {
+                                    } catch (final IOException e) {
                                         // Suppress warning
                                     }
                                 }
                                 if (out != null) {
                                     try {
                                         out.close();
-                                    } catch (IOException e) {
+                                    } catch (final IOException e) {
                                         // Suppress warning
                                     }
                                 }
@@ -461,14 +461,14 @@ public class BootAnimationUtils {
                         }
                     }
 
-                    File backupDirectory = new File(themeDirectory.getAbsolutePath() +
+                    final File backupDirectory = new File(themeDirectory.getAbsolutePath() +
                             "/bootanimation-backup.zip");
                     if (!backupDirectory.exists()) {
                         FileOperations.move(this.mContext, themeDirectory.getAbsolutePath()
                                 + "/bootanimation.zip", backupDirectory.getAbsolutePath());
                     }
 
-                    File bootAnimationCheck = new File(themeDirectory.getAbsolutePath() +
+                    final File bootAnimationCheck = new File(themeDirectory.getAbsolutePath() +
                             "/bootanimation.zip");
 
                     if (backupDirectory.exists()) {
@@ -491,7 +491,7 @@ public class BootAnimationUtils {
             }
 
             if (!this.has_failed) {
-                SharedPreferences.Editor editor = this.prefs.edit();
+                final SharedPreferences.Editor editor = this.prefs.edit();
                 if (this.shutdownAnimation) {
                     editor.putString("shutdownanimation_applied", this.theme_pid);
                 } else {
@@ -509,8 +509,8 @@ public class BootAnimationUtils {
             return null;
         }
 
-        private void CopyStream(InputStream Input, OutputStream Output) throws IOException {
-            byte[] buffer = new byte[5120];
+        private void CopyStream(final InputStream Input, final OutputStream Output) throws IOException {
+            final byte[] buffer = new byte[5120];
             int length = Input.read(buffer);
             while (length > 0) {
                 Output.write(buffer, 0, length);

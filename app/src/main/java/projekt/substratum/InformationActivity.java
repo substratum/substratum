@@ -148,11 +148,11 @@ public class InformationActivity extends SubstratumActivity {
     private int dominantColor;
     private Context mContext;
 
-    private static int getDominantColor(Bitmap bitmap) {
+    private static int getDominantColor(final Bitmap bitmap) {
         try {
-            Palette palette = Palette.from(bitmap).generate();
+            final Palette palette = Palette.from(bitmap).generate();
             return palette.getDominantColor(Color.TRANSPARENT);
-        } catch (IllegalArgumentException ignored) {
+        } catch (final IllegalArgumentException ignored) {
             // Suppress warning
         }
         return Color.TRANSPARENT;
@@ -172,9 +172,9 @@ public class InformationActivity extends SubstratumActivity {
             if (outViews.isEmpty()) {
                 return;
             }
-            for (View view : outViews) {
+            for (final View view : outViews) {
                 if (view instanceof AppCompatImageView) {
-                    AppCompatImageView overflow = (AppCompatImageView) view;
+                    final AppCompatImageView overflow = (AppCompatImageView) view;
                     overflow.setImageResource(dark_mode ? R.drawable
                             .information_activity_overflow_dark :
                             R.drawable.information_activity_overflow_light);
@@ -183,7 +183,7 @@ public class InformationActivity extends SubstratumActivity {
         });
     }
 
-    private void autoSetToolbarIcons(boolean dynamicActionBarColors) {
+    private void autoSetToolbarIcons(final boolean dynamicActionBarColors) {
         if (this.collapsingToolbarLayout != null && this.checkColorDarkness(this.dominantColor) &&
                 dynamicActionBarColors) {
             this.setDarkToolbarIcons();
@@ -201,7 +201,7 @@ public class InformationActivity extends SubstratumActivity {
                 this.getColor(R.color.information_activity_dark_text_mode),
                 this.getColor(R.color.information_activity_dark_text_mode));
 
-        Drawable upArrow = this.getDrawable(R.drawable.information_activity_back_dark);
+        final Drawable upArrow = this.getDrawable(R.drawable.information_activity_back_dark);
         if (upArrow != null)
             upArrow.setColorFilter(this.getColor(R.color.information_activity_dark_icon_mode),
                     PorterDuff.Mode.SRC_ATOP);
@@ -220,7 +220,7 @@ public class InformationActivity extends SubstratumActivity {
                 this.getColor(R.color.information_activity_light_text_mode),
                 this.getColor(R.color.information_activity_light_text_mode));
 
-        Drawable upArrow = this.getDrawable(R.drawable.information_activity_back_light);
+        final Drawable upArrow = this.getDrawable(R.drawable.information_activity_back_light);
         if (upArrow != null)
             upArrow.setColorFilter(this.getColor(R.color.information_activity_light_icon_mode),
                     PorterDuff.Mode.SRC_ATOP);
@@ -244,8 +244,8 @@ public class InformationActivity extends SubstratumActivity {
         return ((ViewGroup) this.findViewById(android.R.id.content)).getChildAt(0);
     }
 
-    private boolean checkColorDarkness(int color) {
-        double darkness =
+    private boolean checkColorDarkness(final int color) {
+        final double darkness =
                 1 - (0.299 * Color.red(color) +
                         0.587 * Color.green(color) +
                         0.114 * Color.blue(color)) / 255;
@@ -253,14 +253,14 @@ public class InformationActivity extends SubstratumActivity {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // Image Cropper Request Capture
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            final CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
-                SharedPreferences.Editor editor = this.prefs.edit();
-                Uri resultUri = result.getUri();
+                final SharedPreferences.Editor editor = this.prefs.edit();
+                final Uri resultUri = result.getUri();
                 if (resultUri.toString().contains("homescreen_wallpaper")) {
                     try {
                         WallpaperManager.setWallpaper(
@@ -272,7 +272,7 @@ public class InformationActivity extends SubstratumActivity {
                                 this.getString(R.string.wallpaper_homescreen_success),
                                 Lunchbar.LENGTH_LONG);
                         currentShownLunchBar.show();
-                    } catch (IOException e) {
+                    } catch (final IOException e) {
                         currentShownLunchBar = Lunchbar.make(this.getView(),
                                 this.getString(R.string.wallpaper_homescreen_error),
                                 Lunchbar.LENGTH_LONG);
@@ -290,7 +290,7 @@ public class InformationActivity extends SubstratumActivity {
                                 this.getString(R.string.wallpaper_lockscreen_success),
                                 Lunchbar.LENGTH_LONG);
                         currentShownLunchBar.show();
-                    } catch (IOException e) {
+                    } catch (final IOException e) {
                         currentShownLunchBar = Lunchbar.make(this.getView(),
                                 this.getString(R.string.wallpaper_lockscreen_error),
                                 Lunchbar.LENGTH_LONG);
@@ -309,7 +309,7 @@ public class InformationActivity extends SubstratumActivity {
                                 this.getString(R.string.wallpaper_allscreen_success),
                                 Lunchbar.LENGTH_LONG);
                         currentShownLunchBar.show();
-                    } catch (IOException e) {
+                    } catch (final IOException e) {
                         currentShownLunchBar = Lunchbar.make(this.getView(),
                                 this.getString(R.string.wallpaper_allscreen_error),
                                 Lunchbar.LENGTH_LONG);
@@ -327,7 +327,7 @@ public class InformationActivity extends SubstratumActivity {
 
     @SuppressWarnings("ConstantConditions")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.information_activity);
 
@@ -350,20 +350,20 @@ public class InformationActivity extends SubstratumActivity {
                     new IntentFilter("AndromedaReceiver.KILL"));
         }
 
-        boolean dynamicActionBarColors = this.getResources().getBoolean(R.bool.dynamicActionBarColors);
-        boolean dynamicNavBarColors = this.getResources().getBoolean(R.bool.dynamicNavigationBarColors);
+        final boolean dynamicActionBarColors = this.getResources().getBoolean(R.bool.dynamicActionBarColors);
+        final boolean dynamicNavBarColors = this.getResources().getBoolean(R.bool.dynamicNavigationBarColors);
 
-        Intent currentIntent = this.getIntent();
+        final Intent currentIntent = this.getIntent();
         this.theme_name = currentIntent.getStringExtra("theme_name");
 
         this.theme_pid = currentIntent.getStringExtra("theme_pid");
         this.theme_mode = currentIntent.getStringExtra("theme_mode");
         this.encryption_key = currentIntent.getByteArrayExtra("encryption_key");
         this.iv_encrypt_key = currentIntent.getByteArrayExtra("iv_encrypt_key");
-        String wallpaperUrl = getOverlayMetadata(this.mContext, this.theme_pid,
+        final String wallpaperUrl = getOverlayMetadata(this.mContext, this.theme_pid,
                 metadataWallpapers);
 
-        Bundle bundle = new Bundle();
+        final Bundle bundle = new Bundle();
         bundle.putString("theme_name", this.theme_name);
         bundle.putString("theme_pid", this.theme_pid);
         bundle.putString("theme_mode", this.theme_mode);
@@ -373,7 +373,7 @@ public class InformationActivity extends SubstratumActivity {
 
         if (this.theme_mode == null) this.theme_mode = "";
 
-        Toolbar toolbar = this.findViewById(R.id.toolbar);
+        final Toolbar toolbar = this.findViewById(R.id.toolbar);
         if (toolbar != null) toolbar.setTitle(this.theme_name);
 
         this.gradientView = this.findViewById(R.id.gradientView);
@@ -389,7 +389,7 @@ public class InformationActivity extends SubstratumActivity {
         }
         if (toolbar != null) toolbar.setNavigationOnClickListener(v -> this.onBackPressed());
 
-        Drawable heroImage = getPackageHeroImage(this.getApplicationContext(), this.theme_pid, false);
+        final Drawable heroImage = getPackageHeroImage(this.getApplicationContext(), this.theme_pid, false);
         if (heroImage != null) this.heroImageBitmap = ((BitmapDrawable) heroImage).getBitmap();
         if (this.heroImageBitmap == null) {
             this.dominantColor = Color.TRANSPARENT;
@@ -413,10 +413,10 @@ public class InformationActivity extends SubstratumActivity {
             }
         }
 
-        View sheetView = this.findViewById(R.id.fab_sheet);
-        View overlay = this.findViewById(R.id.overlay);
-        int sheetColor = this.mContext.getColor(R.color.fab_menu_background_card);
-        int fabColor = this.mContext.getColor(R.color.fab_background_color);
+        final View sheetView = this.findViewById(R.id.fab_sheet);
+        final View overlay = this.findViewById(R.id.overlay);
+        final int sheetColor = this.mContext.getColor(R.color.fab_menu_background_card);
+        final int fabColor = this.mContext.getColor(R.color.fab_background_color);
 
         final FloatingActionMenu floatingActionButton = this.findViewById(R.id.apply_fab);
         floatingActionButton.show();
@@ -437,10 +437,10 @@ public class InformationActivity extends SubstratumActivity {
             // First, take account for whether the theme was launched normally
             if ("".equals(this.theme_mode)) {
                 try {
-                    Context otherContext = this.mContext.createPackageContext
+                    final Context otherContext = this.mContext.createPackageContext
                             (this.theme_pid, 0);
-                    AssetManager am = otherContext.getAssets();
-                    List found_folders = Arrays.asList(am.list(""));
+                    final AssetManager am = otherContext.getAssets();
+                    final List found_folders = Arrays.asList(am.list(""));
                     tab_checker = new ArrayList<>();
                     if (!Systems.checkOMS(this.mContext)) {
                         for (int i = 0; i < found_folders.size(); i++) {
@@ -490,7 +490,7 @@ public class InformationActivity extends SubstratumActivity {
                         handler.postDelayed(() ->
                                 this.runOnUiThread(floatingActionButton::hide), 500);
                     }
-                } catch (Exception e) {
+                } catch (final Exception e) {
                     Log.e(References.SUBSTRATUM_LOG, "Could not refresh list of asset folders.");
                 }
             } else {
@@ -527,7 +527,7 @@ public class InformationActivity extends SubstratumActivity {
             if (dynamicActionBarColors)
                 this.tabLayout.setBackgroundColor(this.dominantColor);
 
-            String toOverrideHero =
+            final String toOverrideHero =
                     Packages.getOverlayMetadata(
                             this.getApplicationContext(),
                             this.theme_pid,
@@ -549,7 +549,7 @@ public class InformationActivity extends SubstratumActivity {
             }
         }
 
-        HashMap<String, Boolean> extra_hidden_tabs = new HashMap<>();
+        final HashMap<String, Boolean> extra_hidden_tabs = new HashMap<>();
         // Boot animation visibility
         extra_hidden_tabs.put(bootAnimationsFragment, !Systems.checkAndromeda(this.mContext) &&
                 !Systems.isSamsungDevice(this.mContext));
@@ -571,7 +571,7 @@ public class InformationActivity extends SubstratumActivity {
             viewPager.addOnPageChangeListener(
                     new TabLayout.TabLayoutOnPageChangeListener(InformationActivity.this.tabLayout) {
                         @Override
-                        public void onPageSelected(int position) {
+                        public void onPageSelected(final int position) {
                             InformationActivity.this.tabPosition = position;
                             switch (viewPager.getAdapter().instantiateItem(viewPager, InformationActivity.this.tabPosition)
                                     .getClass().getSimpleName()) {
@@ -596,36 +596,36 @@ public class InformationActivity extends SubstratumActivity {
             if (this.tabLayout != null) this.tabLayout.addOnTabSelectedListener(
                     new TabLayout.OnTabSelectedListener() {
                         @Override
-                        public void onTabSelected(TabLayout.Tab tab) {
+                        public void onTabSelected(final TabLayout.Tab tab) {
                             viewPager.setCurrentItem(tab.getPosition());
                         }
 
                         @Override
-                        public void onTabUnselected(TabLayout.Tab tab) {
+                        public void onTabUnselected(final TabLayout.Tab tab) {
                         }
 
                         @Override
-                        public void onTabReselected(TabLayout.Tab tab) {
+                        public void onTabReselected(final TabLayout.Tab tab) {
                             viewPager.setCurrentItem(tab.getPosition());
                         }
                     });
 
-            PagerAdapter adapt = viewPager.getAdapter();
-            LocalBroadcastManager localBroadcastManager =
+            final PagerAdapter adapt = viewPager.getAdapter();
+            final LocalBroadcastManager localBroadcastManager =
                     LocalBroadcastManager.getInstance(this.mContext);
             floatingActionButton.setOnClickListener(v -> {
                 try {
-                    boolean isLunchbarOpen = this.closeAllLunchBars();
+                    final boolean isLunchbarOpen = this.closeAllLunchBars();
                     final Handler handler = new Handler();
                     handler.postDelayed(() -> {
-                        Intent intent;
-                        Object obj = adapt.instantiateItem(viewPager, this.tabPosition);
+                        final Intent intent;
+                        final Object obj = adapt.instantiateItem(viewPager, this.tabPosition);
                         switch (obj.getClass().getSimpleName()) {
                             case "Overlays":
                                 this.materialSheetFab.showSheet();
                                 break;
                             case "BootAnimations":
-                                boolean isShutdownTab = ((BootAnimations) obj).isShutdownTab();
+                                final boolean isShutdownTab = ((BootAnimations) obj).isShutdownTab();
                                 intent = new Intent((isShutdownTab ? "ShutdownAnimations" :
                                         "BootAnimations") + ".START_JOB");
                                 localBroadcastManager.sendBroadcast(intent);
@@ -640,22 +640,22 @@ public class InformationActivity extends SubstratumActivity {
                                 break;
                         }
                     }, isLunchbarOpen ? LUNCHBAR_DISMISS_FAB_CLICK_DELAY : 0);
-                } catch (NullPointerException npe) {
+                } catch (final NullPointerException npe) {
                     // Suppress warning
                 }
             });
 
-            Intent intent = new Intent("Overlays.START_JOB");
-            Switch enable_swap = this.findViewById(R.id.enable_swap);
+            final Intent intent = new Intent("Overlays.START_JOB");
+            final Switch enable_swap = this.findViewById(R.id.enable_swap);
             if (!Systems.checkOMS(this) && !Systems.isSamsung(this.mContext)) {
                 enable_swap.setText(this.getString(R.string.fab_menu_swap_toggle_legacy));
             } else if (Systems.isSamsung(this.mContext)) {
-                View fab_menu_divider = this.findViewById(R.id.fab_menu_divider);
+                final View fab_menu_divider = this.findViewById(R.id.fab_menu_divider);
                 fab_menu_divider.setVisibility(View.GONE);
                 enable_swap.setVisibility(View.GONE);
             }
             if (enable_swap != null) {
-                boolean enabled = this.prefs.getBoolean("enable_swapping_overlays", true);
+                final boolean enabled = this.prefs.getBoolean("enable_swapping_overlays", true);
                 intent.putExtra("command", "MixAndMatchMode");
                 intent.putExtra("newValue", enabled);
                 localBroadcastManager.sendBroadcast(intent);
@@ -686,7 +686,7 @@ public class InformationActivity extends SubstratumActivity {
                 });
             }
 
-            TextView compile_update_selected = this.findViewById(R.id.compile_update_selected);
+            final TextView compile_update_selected = this.findViewById(R.id.compile_update_selected);
             if (!Systems.checkOMS(this)) {
                 compile_update_selected.setText(this.getString(R.string.fab_menu_compile_install));
             }
@@ -705,7 +705,7 @@ public class InformationActivity extends SubstratumActivity {
                 });
             }
 
-            TextView disable_selected = this.findViewById(R.id.disable_selected);
+            final TextView disable_selected = this.findViewById(R.id.disable_selected);
             if (!Systems.checkOMS(this)) {
                 disable_selected.setText(this.getString(R.string.fab_menu_uninstall));
             }
@@ -724,9 +724,9 @@ public class InformationActivity extends SubstratumActivity {
                 });
             }
 
-            LinearLayout enable_zone = this.findViewById(R.id.enable);
+            final LinearLayout enable_zone = this.findViewById(R.id.enable);
             if (!Systems.checkOMS(this)) enable_zone.setVisibility(View.GONE);
-            TextView enable_selected = this.findViewById(R.id.enable_selected);
+            final TextView enable_selected = this.findViewById(R.id.enable_selected);
             if (enable_selected != null) {
                 enable_selected.setOnClickListener(v -> {
                     this.materialSheetFab.setEventListener(new MaterialSheetFabEventListener() {
@@ -742,7 +742,7 @@ public class InformationActivity extends SubstratumActivity {
                 });
             }
 
-            TextView enable_disable_selected =
+            final TextView enable_disable_selected =
                     this.findViewById(R.id.enable_disable_selected);
             if (!Systems.checkOMS(this))
                 enable_disable_selected.setVisibility(View.GONE);
@@ -761,7 +761,7 @@ public class InformationActivity extends SubstratumActivity {
                 });
             }
 
-            Boolean shouldShowSamsungWarning =
+            final Boolean shouldShowSamsungWarning =
                     !this.prefs.getBoolean("show_dangerous_samsung_overlays", false);
             if (Systems.isSamsung(this.mContext) &&
                     !Packages.isSamsungTheme(this.mContext, this.theme_pid) &&
@@ -776,18 +776,18 @@ public class InformationActivity extends SubstratumActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         this.getMenuInflater().inflate(R.menu.theme_information_menu, menu);
 
         // Start formalizing a check for dark icons
-        boolean dynamicActionBarColors = this.getResources().getBoolean(R.bool.dynamicActionBarColors);
+        final boolean dynamicActionBarColors = this.getResources().getBoolean(R.bool.dynamicActionBarColors);
         this.shouldDarken = this.collapsingToolbarLayout != null &&
                 this.checkColorDarkness(this.dominantColor) &&
                 dynamicActionBarColors;
 
         // Start dynamically showing menu items
-        boolean isOMS = Systems.checkOMS(this.mContext);
-        boolean isMR1orHigher = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1;
+        final boolean isOMS = Systems.checkOMS(this.mContext);
+        final boolean isMR1orHigher = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1;
 
         if (!isMR1orHigher) menu.findItem(R.id.favorite).setVisible(false);
         if (isMR1orHigher) {
@@ -806,7 +806,7 @@ public class InformationActivity extends SubstratumActivity {
                     PorterDuff.Mode.SRC_ATOP);
         }
         if (Packages.getThemeChangelog(this.mContext, this.theme_pid) != null) {
-            MenuItem changelog = menu.findItem(R.id.changelog);
+            final MenuItem changelog = menu.findItem(R.id.changelog);
             changelog.setVisible(true);
             if (this.shouldDarken) changelog.getIcon().setColorFilter(
                     this.getColor(R.color.information_activity_dark_icon_mode),
@@ -835,8 +835,8 @@ public class InformationActivity extends SubstratumActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        final int id = item.getItemId();
 
         switch (id) {
             case R.id.favorite:
@@ -851,23 +851,22 @@ public class InformationActivity extends SubstratumActivity {
                 }
                 return true;
             case R.id.changelog:
-                SheetDialog sheetDialog = new SheetDialog(this);
-                @SuppressLint("InflateParams")
-                View sheetView = this.getLayoutInflater().inflate(R.layout.changelog_sheet_dialog, null);
+                final SheetDialog sheetDialog = new SheetDialog(this);
+                @SuppressLint("InflateParams") final View sheetView = this.getLayoutInflater().inflate(R.layout.changelog_sheet_dialog, null);
 
-                LinearLayout titleBox = sheetView.findViewById(R.id.title_box);
-                TextView title = titleBox.findViewById(R.id.title);
-                String format_me = String.format(this.getString(R.string.changelog_title), this.theme_name);
+                final LinearLayout titleBox = sheetView.findViewById(R.id.title_box);
+                final TextView title = titleBox.findViewById(R.id.title);
+                final String format_me = String.format(this.getString(R.string.changelog_title), this.theme_name);
                 title.setText(format_me);
 
-                LinearLayout textBox = sheetView.findViewById(R.id.text_box);
-                TextView text = textBox.findViewById(R.id.text);
+                final LinearLayout textBox = sheetView.findViewById(R.id.text_box);
+                final TextView text = textBox.findViewById(R.id.text);
 
-                String[] changelog_parsing =
+                final String[] changelog_parsing =
                         Packages.getThemeChangelog(this.mContext, this.theme_pid);
-                StringBuilder to_show = new StringBuilder();
+                final StringBuilder to_show = new StringBuilder();
                 if (changelog_parsing != null) {
-                    for (String aChangelog_parsing : changelog_parsing) {
+                    for (final String aChangelog_parsing : changelog_parsing) {
                         to_show.append("\u2022 ").append(aChangelog_parsing).append("\n");
                     }
                 }
@@ -877,7 +876,7 @@ public class InformationActivity extends SubstratumActivity {
                 sheetDialog.show();
                 return true;
             case R.id.clean:
-                AlertDialog.Builder builder1 = new AlertDialog.Builder(InformationActivity.this);
+                final AlertDialog.Builder builder1 = new AlertDialog.Builder(InformationActivity.this);
                 builder1.setTitle(this.theme_name);
                 builder1.setIcon(Packages.getAppIcon(this.mContext, this.theme_pid));
                 builder1.setMessage(R.string.clean_dialog_body)
@@ -923,7 +922,7 @@ public class InformationActivity extends SubstratumActivity {
                 builder1.show();
                 return true;
             case R.id.disable:
-                AlertDialog.Builder builder3 = new AlertDialog.Builder(InformationActivity.this);
+                final AlertDialog.Builder builder3 = new AlertDialog.Builder(InformationActivity.this);
                 builder3.setTitle(this.theme_name);
                 builder3.setIcon(Packages.getAppIcon(this.mContext, this.theme_pid));
                 builder3.setMessage(R.string.disable_dialog_body)
@@ -969,7 +968,7 @@ public class InformationActivity extends SubstratumActivity {
                 builder3.show();
                 return true;
             case R.id.enable:
-                AlertDialog.Builder builder4 = new AlertDialog.Builder(InformationActivity.this);
+                final AlertDialog.Builder builder4 = new AlertDialog.Builder(InformationActivity.this);
                 builder4.setTitle(this.theme_name);
                 builder4.setIcon(Packages.getAppIcon(this.mContext, this.theme_pid));
                 builder4.setMessage(R.string.enable_dialog_body)
@@ -1016,7 +1015,7 @@ public class InformationActivity extends SubstratumActivity {
                 builder4.show();
                 return true;
             case R.id.uninstall:
-                AlertDialog.Builder builder5 = new AlertDialog.Builder(InformationActivity.this);
+                final AlertDialog.Builder builder5 = new AlertDialog.Builder(InformationActivity.this);
                 builder5.setTitle(this.theme_name);
                 builder5.setIcon(Packages.getAppIcon(this.mContext, this.theme_pid));
                 builder5.setMessage(R.string.uninstall_dialog_text)
@@ -1061,7 +1060,7 @@ public class InformationActivity extends SubstratumActivity {
         super.onDestroy();
 
         // Close the active compiling notification if the app was closed from recents
-        NotificationManager manager =
+        final NotificationManager manager =
                 (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         if (manager != null) {
             manager.cancel(References.notification_id_compiler);
@@ -1069,28 +1068,28 @@ public class InformationActivity extends SubstratumActivity {
 
         try {
             this.localBroadcastManager.unregisterReceiver(this.refreshReceiver);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             // Unregistered already
         }
 
         try {
             this.localBroadcastManager.unregisterReceiver(this.activityFinisher);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             // Unregistered already
         }
 
         if (Systems.isAndromedaDevice(this.mContext)) {
             try {
                 this.localBroadcastManager.unregisterReceiver(this.andromedaReceiver);
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 // Unregistered already
             }
         }
 
         if (!BYPASS_SUBSTRATUM_BUILDER_DELETION) {
-            String workingDirectory =
+            final String workingDirectory =
                     this.mContext.getCacheDir().getAbsolutePath();
-            File deleted = new File(workingDirectory);
+            final File deleted = new File(workingDirectory);
             FileOperations.delete(this.mContext, deleted.getAbsolutePath());
             if (!deleted.exists()) Log.d(References.SUBSTRATUM_BUILDER,
                     "Successfully cleared Substratum cache!");
@@ -1098,12 +1097,12 @@ public class InformationActivity extends SubstratumActivity {
     }
 
     @Override
-    protected void attachBaseContext(Context base) {
+    protected void attachBaseContext(final Context base) {
         Context newBase = base;
         this.prefs = PreferenceManager.getDefaultSharedPreferences(base);
-        boolean languageCheck = this.prefs.getBoolean("force_english", false);
+        final boolean languageCheck = this.prefs.getBoolean("force_english", false);
         if (languageCheck) {
-            Locale newLocale = new Locale(Locale.ENGLISH.getLanguage());
+            final Locale newLocale = new Locale(Locale.ENGLISH.getLanguage());
             newBase = ContextWrapper.wrapNewLocale(base, newLocale);
         }
         super.attachBaseContext(newBase);
@@ -1112,15 +1111,15 @@ public class InformationActivity extends SubstratumActivity {
     private static class LayoutLoader extends AsyncTask<String, Integer, String> {
         private final WeakReference<InformationActivity> ref;
 
-        LayoutLoader(InformationActivity informationActivity) {
+        LayoutLoader(final InformationActivity informationActivity) {
             super();
             this.ref = new WeakReference<>(informationActivity);
         }
 
         @Override
-        protected void onPostExecute(String result) {
+        protected void onPostExecute(final String result) {
             super.onPostExecute(result);
-            InformationActivity informationActivity = this.ref.get();
+            final InformationActivity informationActivity = this.ref.get();
             if (informationActivity != null) {
                 if (!informationActivity.prefs.getBoolean("complexion", false)) {
                     if (informationActivity.gradientView != null)
@@ -1143,7 +1142,7 @@ public class InformationActivity extends SubstratumActivity {
                     informationActivity.getWindow().
                             setNavigationBarColor(Color.parseColor("#ffff00"));
                 } else if (informationActivity.kenBurnsView != null) {
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(
+                    final Bitmap bitmap = BitmapFactory.decodeByteArray(
                             informationActivity.byteArray, 0, informationActivity.byteArray.length);
                     informationActivity.kenBurnsView.setImageBitmap(bitmap);
                 }
@@ -1151,13 +1150,13 @@ public class InformationActivity extends SubstratumActivity {
         }
 
         @Override
-        protected String doInBackground(String... sUrl) {
-            InformationActivity informationActivity = this.ref.get();
+        protected String doInBackground(final String... sUrl) {
+            final InformationActivity informationActivity = this.ref.get();
             if (informationActivity != null) {
                 informationActivity.kenBurnsView =
                         informationActivity.findViewById(R.id.kenburnsView);
                 if (informationActivity.heroImageBitmap != null) {
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    final ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     informationActivity.heroImageBitmap.compress(
                             Bitmap.CompressFormat.JPEG, 100, stream);
                     informationActivity.byteArray = stream.toByteArray();
@@ -1170,14 +1169,14 @@ public class InformationActivity extends SubstratumActivity {
     private static class AppShortcutCreator extends AsyncTask<String, Integer, String> {
         private final WeakReference<InformationActivity> ref;
 
-        AppShortcutCreator(InformationActivity informationActivity) {
+        AppShortcutCreator(final InformationActivity informationActivity) {
             super();
             this.ref = new WeakReference<>(informationActivity);
         }
 
         @Override
-        protected void onPostExecute(String result) {
-            InformationActivity informationActivity = this.ref.get();
+        protected void onPostExecute(final String result) {
+            final InformationActivity informationActivity = this.ref.get();
             if (informationActivity != null) {
                 informationActivity.prefs.edit().
                         putString("app_shortcut_theme", informationActivity.theme_pid).apply();
@@ -1188,7 +1187,7 @@ public class InformationActivity extends SubstratumActivity {
                             informationActivity.getColor(R.color
                                     .information_activity_dark_icon_mode),
                             PorterDuff.Mode.SRC_ATOP);
-                String format = String.format(
+                final String format = String.format(
                         informationActivity.getString(R.string.menu_favorite_snackbar), result);
                 currentShownLunchBar = Lunchbar.make(
                         informationActivity.getView(),
@@ -1199,8 +1198,8 @@ public class InformationActivity extends SubstratumActivity {
         }
 
         @Override
-        protected String doInBackground(String... sUrl) {
-            InformationActivity informationActivity = this.ref.get();
+        protected String doInBackground(final String... sUrl) {
+            final InformationActivity informationActivity = this.ref.get();
             if (informationActivity != null) {
                 References.createShortcut(
                         informationActivity.mContext,
@@ -1215,14 +1214,14 @@ public class InformationActivity extends SubstratumActivity {
     private static class AppShortcutClearer extends AsyncTask<String, Integer, String> {
         private final WeakReference<InformationActivity> ref;
 
-        AppShortcutClearer(InformationActivity informationActivity) {
+        AppShortcutClearer(final InformationActivity informationActivity) {
             super();
             this.ref = new WeakReference<>(informationActivity);
         }
 
         @Override
-        protected void onPostExecute(String result) {
-            InformationActivity informationActivity = this.ref.get();
+        protected void onPostExecute(final String result) {
+            final InformationActivity informationActivity = this.ref.get();
             if (informationActivity != null) {
                 informationActivity.prefs.edit().remove("app_shortcut_theme").apply();
                 informationActivity.favorite.setIcon(
@@ -1232,7 +1231,7 @@ public class InformationActivity extends SubstratumActivity {
                             informationActivity.getColor(R.color
                                     .information_activity_dark_icon_mode),
                             PorterDuff.Mode.SRC_ATOP);
-                String format = String.format(
+                final String format = String.format(
                         informationActivity.getString(R.string.menu_favorite_snackbar_cleared),
                         result);
                 currentShownLunchBar = Lunchbar.make(
@@ -1244,8 +1243,8 @@ public class InformationActivity extends SubstratumActivity {
         }
 
         @Override
-        protected String doInBackground(String... sUrl) {
-            InformationActivity informationActivity = this.ref.get();
+        protected String doInBackground(final String... sUrl) {
+            final InformationActivity informationActivity = this.ref.get();
             if (informationActivity != null) {
                 References.clearShortcut(informationActivity.mContext);
                 return informationActivity.theme_name;
@@ -1257,16 +1256,16 @@ public class InformationActivity extends SubstratumActivity {
     private static class uninstallTheme extends AsyncTask<String, Integer, String> {
         private final WeakReference<InformationActivity> ref;
 
-        uninstallTheme(InformationActivity informationActivity) {
+        uninstallTheme(final InformationActivity informationActivity) {
             super();
             this.ref = new WeakReference<>(informationActivity);
         }
 
         @Override
         protected void onPreExecute() {
-            InformationActivity informationActivity = this.ref.get();
+            final InformationActivity informationActivity = this.ref.get();
             if (informationActivity != null) {
-                String parseMe = String.format(
+                final String parseMe = String.format(
                         informationActivity.getString(R.string.adapter_uninstalling),
                         informationActivity.theme_name);
 
@@ -1276,7 +1275,7 @@ public class InformationActivity extends SubstratumActivity {
                 informationActivity.mProgressDialog.setCancelable(false);
                 informationActivity.mProgressDialog.show();
                 // Clear the notification of building theme if shown
-                NotificationManager manager = (NotificationManager)
+                final NotificationManager manager = (NotificationManager)
                         informationActivity.mContext
                                 .getSystemService(Context.NOTIFICATION_SERVICE);
                 if (manager != null) {
@@ -1286,8 +1285,8 @@ public class InformationActivity extends SubstratumActivity {
         }
 
         @Override
-        protected void onPostExecute(String result) {
-            InformationActivity informationActivity = this.ref.get();
+        protected void onPostExecute(final String result) {
+            final InformationActivity informationActivity = this.ref.get();
             if (informationActivity != null) {
                 informationActivity.mProgressDialog.cancel();
                 informationActivity.uninstalled = true;
@@ -1296,8 +1295,8 @@ public class InformationActivity extends SubstratumActivity {
         }
 
         @Override
-        protected String doInBackground(String... sUrl) {
-            InformationActivity informationActivity = this.ref.get();
+        protected String doInBackground(final String... sUrl) {
+            final InformationActivity informationActivity = this.ref.get();
             if (informationActivity != null) {
                 Packages.uninstallPackage(
                         informationActivity.mContext,
@@ -1310,7 +1309,7 @@ public class InformationActivity extends SubstratumActivity {
     class RefreshReceiver extends BroadcastReceiver {
 
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(final Context context, final Intent intent) {
             if (!Packages.isPackageInstalled(context, InformationActivity.this.theme_pid)) {
                 Log.d("ThemeUninstaller",
                         "The theme was uninstalled, so the activity is now closing!");
@@ -1323,7 +1322,7 @@ public class InformationActivity extends SubstratumActivity {
     class AndromedaReceiver extends BroadcastReceiver {
 
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(final Context context, final Intent intent) {
             InformationActivity.this.finish();
         }
     }
@@ -1331,17 +1330,17 @@ public class InformationActivity extends SubstratumActivity {
     class ActivityFinisher extends BroadcastReceiver {
 
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(final Context context, final Intent intent) {
             if (intent != null && !compilingProcess) {
-                String package_name = intent.getStringExtra("theme_pid");
+                final String package_name = intent.getStringExtra("theme_pid");
                 if (package_name != null && package_name.equals(InformationActivity.this.theme_pid)) {
-                    String to_format = String.format(InformationActivity.this.getString(R.string.toast_activity_finished),
+                    final String to_format = String.format(InformationActivity.this.getString(R.string.toast_activity_finished),
                             InformationActivity.this.theme_name);
                     Log.d(SUBSTRATUM_LOG,
                             InformationActivity.this.theme_name + " was just updated, now closing InformationActivity...");
                     InformationActivity.this.createToast(to_format, Toast.LENGTH_LONG);
                     InformationActivity.this.finish();
-                    Handler handler = new Handler();
+                    final Handler handler = new Handler();
                     handler.postDelayed(() ->
                             Theming.launchTheme(InformationActivity.this.mContext, InformationActivity.this.theme_pid, InformationActivity.this.theme_mode), 500);
                 }

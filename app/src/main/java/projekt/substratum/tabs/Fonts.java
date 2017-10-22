@@ -103,13 +103,13 @@ public class Fonts extends Fragment {
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
-            ViewGroup container,
-            Bundle savedInstanceState) {
+            final LayoutInflater inflater,
+            final ViewGroup container,
+            final Bundle savedInstanceState) {
         this.mContext = this.getContext();
         this.theme_pid = this.getArguments().getString("theme_pid");
-        byte[] encryption_key = this.getArguments().getByteArray("encryption_key");
-        byte[] iv_encrypt_key = this.getArguments().getByteArray("iv_encrypt_key");
+        final byte[] encryption_key = this.getArguments().getByteArray("encryption_key");
+        final byte[] iv_encrypt_key = this.getArguments().getByteArray("iv_encrypt_key");
 
         // encrypted = encryption_key != null && iv_encrypt_key != null;
 
@@ -121,7 +121,7 @@ public class Fonts extends Fragment {
                         new SecretKeySpec(encryption_key, "AES"),
                         new IvParameterSpec(iv_encrypt_key)
                 );
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 e.printStackTrace();
             }
         }
@@ -135,15 +135,15 @@ public class Fonts extends Fragment {
 
         try {
             // Parses the list of items in the fonts folder
-            Resources themeResources = this.mContext.getPackageManager().getResourcesForApplication
+            final Resources themeResources = this.mContext.getPackageManager().getResourcesForApplication
                     (this.theme_pid);
             this.themeAssetManager = themeResources.getAssets();
-            String[] fileArray = this.themeAssetManager.list(fontsDir);
-            List<String> unparsedFonts = new ArrayList<>();
+            final String[] fileArray = this.themeAssetManager.list(fontsDir);
+            final List<String> unparsedFonts = new ArrayList<>();
             Collections.addAll(unparsedFonts, fileArray);
 
             // Creates the list of dropdown items
-            ArrayList<String> fonts = new ArrayList<>();
+            final ArrayList<String> fonts = new ArrayList<>();
             fonts.add(this.getString(R.string.font_default_spinner));
             fonts.add(this.getString(R.string.font_spinner_set_defaults));
             for (int i = 0; i < unparsedFonts.size(); i++) {
@@ -151,15 +151,15 @@ public class Fonts extends Fragment {
                         unparsedFonts.get(i).length() - (this.encrypted ? 8 : 4)));
             }
 
-            SpinnerAdapter adapter1 = new ArrayAdapter<>(this.getActivity(),
+            final SpinnerAdapter adapter1 = new ArrayAdapter<>(this.getActivity(),
                     android.R.layout.simple_spinner_dropdown_item, fonts);
             this.fontSelector = this.root.findViewById(R.id.fontSelection);
             this.fontSelector.setAdapter(adapter1);
             this.fontSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
                 @Override
-                public void onItemSelected(AdapterView<?> arg0, View arg1,
-                                           int pos, long id) {
+                public void onItemSelected(final AdapterView<?> arg0, final View arg1,
+                                           final int pos, final long id) {
                     switch (pos) {
                         case 0:
                             if (Fonts.this.current != null)
@@ -186,16 +186,16 @@ public class Fonts extends Fragment {
                                 Fonts.this.current.cancel(true);
                             Fonts.this.defaults.setVisibility(View.GONE);
                             Fonts.this.font_placeholder.setVisibility(View.GONE);
-                            String[] commands = {arg0.getSelectedItem().toString()};
+                            final String[] commands = {arg0.getSelectedItem().toString()};
                             Fonts.this.current = new FontPreview(Fonts.this.getInstance()).execute(commands);
                     }
                 }
 
                 @Override
-                public void onNothingSelected(AdapterView<?> arg0) {
+                public void onNothingSelected(final AdapterView<?> arg0) {
                 }
             });
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
             Log.e(TAG, "There is no font.zip found within the assets of this theme!");
         }
@@ -213,7 +213,7 @@ public class Fonts extends Fragment {
         super.onDestroy();
         try {
             this.localBroadcastManager.unregisterReceiver(this.jobReceiver);
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             // unregistered already
         }
     }
@@ -230,11 +230,11 @@ public class Fonts extends Fragment {
                             this.mContext, this.theme_pid, this.cipher);
                 }
             } else {
-                Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                final Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
                 intent.setData(Uri.parse("package:" + this.getActivity().getPackageName()));
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 this.startActivity(intent);
-                Toast toast = Toast.makeText(this.mContext,
+                final Toast toast = Toast.makeText(this.mContext,
                         this.getString(R.string.fonts_dialog_permissions_grant_toast2),
                         Toast.LENGTH_LONG);
                 toast.show();
@@ -246,16 +246,16 @@ public class Fonts extends Fragment {
 
         private final WeakReference<Fonts> ref;
 
-        private FontsClearer(Fonts fragment) {
+        private FontsClearer(final Fonts fragment) {
             super();
             this.ref = new WeakReference<>(fragment);
         }
 
         @Override
         protected void onPreExecute() {
-            Fonts fragment = this.ref.get();
+            final Fonts fragment = this.ref.get();
             if (fragment != null) {
-                Context context = fragment.mContext;
+                final Context context = fragment.mContext;
                 if (References.ENABLE_EXTRAS_DIALOG) {
                     fragment.mProgressDialog = new ProgressDialog(context, R.style.RestoreDialog);
                     fragment.mProgressDialog.setMessage(
@@ -268,25 +268,25 @@ public class Fonts extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(String result) {
-            Fonts fragment = this.ref.get();
+        protected void onPostExecute(final String result) {
+            final Fonts fragment = this.ref.get();
             if (fragment != null) {
-                Context context = fragment.mContext;
+                final Context context = fragment.mContext;
                 if (References.ENABLE_EXTRAS_DIALOG) {
                     fragment.mProgressDialog.dismiss();
                 }
-                SharedPreferences.Editor editor = fragment.prefs.edit();
+                final SharedPreferences.Editor editor = fragment.prefs.edit();
                 editor.remove("fonts_applied");
                 editor.apply();
 
                 if (Systems.checkOMS(context)) {
-                    Toast toast = Toast.makeText(
+                    final Toast toast = Toast.makeText(
                             context,
                             R.string.manage_fonts_toast,
                             Toast.LENGTH_SHORT);
                     toast.show();
                 } else {
-                    Toast toast = Toast.makeText(
+                    final Toast toast = Toast.makeText(
                             context,
                             R.string.manage_fonts_toast,
                             Toast.LENGTH_SHORT);
@@ -300,17 +300,17 @@ public class Fonts extends Fragment {
                     alertDialogBuilder.setNegativeButton(R.string.remove_dialog_later,
                             (dialog, id) -> dialog.dismiss());
                     alertDialogBuilder.setCancelable(false);
-                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    final AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
                 }
             }
         }
 
         @Override
-        protected String doInBackground(String... sUrl) {
-            Fonts fragment = this.ref.get();
+        protected String doInBackground(final String... sUrl) {
+            final Fonts fragment = this.ref.get();
             if (fragment != null) {
-                Context context = fragment.mContext;
+                final Context context = fragment.mContext;
                 FontManager.clearFonts(context);
             }
             return null;
@@ -321,14 +321,14 @@ public class Fonts extends Fragment {
 
         private final WeakReference<Fonts> ref;
 
-        FontPreview(Fonts fonts) {
+        FontPreview(final Fonts fonts) {
             super();
             this.ref = new WeakReference<>(fonts);
         }
 
         @Override
         protected void onPreExecute() {
-            Fonts fonts = this.ref.get();
+            final Fonts fonts = this.ref.get();
             if (fonts != null) {
                 fonts.paused = true;
                 fonts.font_holder.setVisibility(View.INVISIBLE);
@@ -337,54 +337,54 @@ public class Fonts extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(String result) {
-            Fonts fonts = this.ref.get();
+        protected void onPostExecute(final String result) {
+            final Fonts fonts = this.ref.get();
             if (fonts != null) {
                 try {
                     Log.d(TAG, "Fonts have been loaded on the drawing panel.");
 
-                    String work_directory = fonts.mContext.getCacheDir().getAbsolutePath() +
+                    final String work_directory = fonts.mContext.getCacheDir().getAbsolutePath() +
                             "/FontCache/font_preview/";
 
                     try {
-                        Typeface normal_tf = Typeface.createFromFile(work_directory +
+                        final Typeface normal_tf = Typeface.createFromFile(work_directory +
                                 "Roboto-Regular.ttf");
-                        TextView normal = fonts.root.findViewById(R.id.text_normal);
+                        final TextView normal = fonts.root.findViewById(R.id.text_normal);
                         normal.setTypeface(normal_tf);
-                    } catch (Exception e) {
+                    } catch (final Exception e) {
                         Log.e(TAG, "Could not load font from directory for normal template." +
                                 " Maybe it wasn't themed?");
                     }
 
                     try {
-                        Typeface bold_tf = Typeface.createFromFile(work_directory +
+                        final Typeface bold_tf = Typeface.createFromFile(work_directory +
                                 "Roboto-Black.ttf");
 
-                        TextView normal_bold = fonts.root.findViewById(R.id.text_bold);
+                        final TextView normal_bold = fonts.root.findViewById(R.id.text_bold);
                         normal_bold.setTypeface(bold_tf);
-                    } catch (Exception e) {
+                    } catch (final Exception e) {
                         Log.e(TAG, "Could not load font from directory for normal-bold " +
                                 "template. Maybe it wasn't themed?");
                     }
 
                     try {
-                        Typeface italics_tf = Typeface.createFromFile(work_directory +
+                        final Typeface italics_tf = Typeface.createFromFile(work_directory +
                                 "Roboto-Italic" +
                                 ".ttf");
-                        TextView italics = fonts.root.findViewById(R.id.text_normal_italics);
+                        final TextView italics = fonts.root.findViewById(R.id.text_normal_italics);
                         italics.setTypeface(italics_tf);
-                    } catch (Exception e) {
+                    } catch (final Exception e) {
                         Log.e(TAG, "Could not load font from directory for italic template." +
                                 " Maybe it wasn't themed?");
                     }
 
                     try {
-                        Typeface italics_bold_tf = Typeface.createFromFile(work_directory +
+                        final Typeface italics_bold_tf = Typeface.createFromFile(work_directory +
                                 "Roboto-BoldItalic.ttf");
-                        TextView italics_bold = fonts.root.findViewById(
+                        final TextView italics_bold = fonts.root.findViewById(
                                 R.id.text_normal_bold_italics);
                         italics_bold.setTypeface(italics_bold_tf);
-                    } catch (Exception e) {
+                    } catch (final Exception e) {
                         Log.e(TAG, "Could not load font from directory for italic-bold " +
                                 "template. Maybe it wasn't themed?");
                     }
@@ -395,7 +395,7 @@ public class Fonts extends Fragment {
                     fonts.font_holder.setVisibility(View.VISIBLE);
                     fonts.progressBar.setVisibility(View.GONE);
                     fonts.paused = false;
-                } catch (Exception e) {
+                } catch (final Exception e) {
                     Log.e("Fonts",
                             "Window was destroyed before AsyncTask could complete postExecute()");
                 }
@@ -403,15 +403,15 @@ public class Fonts extends Fragment {
         }
 
         @Override
-        protected String doInBackground(String... sUrl) {
-            Fonts fonts = this.ref.get();
+        protected String doInBackground(final String... sUrl) {
+            final Fonts fonts = this.ref.get();
             if (fonts != null) {
                 try {
-                    File cacheDirectory = new File(fonts.mContext.getCacheDir(), "/FontCache/");
+                    final File cacheDirectory = new File(fonts.mContext.getCacheDir(), "/FontCache/");
                     if (!cacheDirectory.exists()) {
                         if (cacheDirectory.mkdirs()) Log.d(TAG, "FontCache folder created");
                     }
-                    File cacheDirectory2 = new File(fonts.mContext.getCacheDir(),
+                    final File cacheDirectory2 = new File(fonts.mContext.getCacheDir(),
                             "/FontCache/font_preview/");
 
                     if (!cacheDirectory2.exists()) {
@@ -425,7 +425,7 @@ public class Fonts extends Fragment {
                     }
 
                     // Copy the font.zip from assets/fonts of the theme's assets
-                    String source = sUrl[0] + ".zip";
+                    final String source = sUrl[0] + ".zip";
 
                     if (fonts.encrypted) {
                         FileOperations.copyFileOrDir(
@@ -444,7 +444,7 @@ public class Fonts extends Fragment {
                                              fonts.mContext.getCacheDir().getAbsolutePath() +
                                                      "/FontCache/" + source)) {
                             this.CopyStream(inputStream, outputStream);
-                        } catch (Exception e) {
+                        } catch (final Exception e) {
                             Log.e(TAG,
                                     "There is no fonts.zip found within the assets of this theme!");
                         }
@@ -454,22 +454,22 @@ public class Fonts extends Fragment {
                     this.unzip(fonts.mContext.getCacheDir().getAbsolutePath() + "/FontCache/" + source,
                             fonts.mContext.getCacheDir().getAbsolutePath() +
                                     "/FontCache/font_preview/");
-                } catch (Exception e) {
+                } catch (final Exception e) {
                     Log.e(TAG, "Unexpectedly lost connection to the application host");
                 }
             }
             return null;
         }
 
-        private void unzip(String source, String destination) {
+        private void unzip(final String source, final String destination) {
             try (ZipInputStream inputStream = new ZipInputStream(
                     new BufferedInputStream(new FileInputStream(source)))) {
                 ZipEntry zipEntry;
                 int count;
-                byte[] buffer = new byte[8192];
+                final byte[] buffer = new byte[8192];
                 while ((zipEntry = inputStream.getNextEntry()) != null) {
-                    File file = new File(destination, zipEntry.getName());
-                    File dir = zipEntry.isDirectory() ? file : file.getParentFile();
+                    final File file = new File(destination, zipEntry.getName());
+                    final File dir = zipEntry.isDirectory() ? file : file.getParentFile();
                     if (!dir.isDirectory() && !dir.mkdirs())
                         throw new FileNotFoundException("Failed to ensure directory: " +
                                 dir.getAbsolutePath());
@@ -480,15 +480,15 @@ public class Fonts extends Fragment {
                             outputStream.write(buffer, 0, count);
                     }
                 }
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 e.printStackTrace();
                 Log.e(TAG,
                         "An issue has occurred while attempting to decompress this archive.");
             }
         }
 
-        private void CopyStream(InputStream Input, OutputStream Output) throws IOException {
-            byte[] buffer = new byte[5120];
+        private void CopyStream(final InputStream Input, final OutputStream Output) throws IOException {
+            final byte[] buffer = new byte[5120];
             int length = Input.read(buffer);
             while (length > 0) {
                 Output.write(buffer, 0, length);
@@ -499,7 +499,7 @@ public class Fonts extends Fragment {
 
     class JobReceiver extends BroadcastReceiver {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(final Context context, final Intent intent) {
             if (!Fonts.this.isAdded()) return;
             Fonts.this.startApply();
         }

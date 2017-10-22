@@ -33,7 +33,7 @@ public enum ElevatedCommands {
         Root.runCommand("pkill -f zygote");
     }
 
-    public static void runThreadedCommand(String command) {
+    public static void runThreadedCommand(final String command) {
         new Thread(() -> {
             try {
                 Root.runCommand(command);

@@ -33,36 +33,36 @@ import javax.xml.parsers.DocumentBuilderFactory;
 public enum ReadShowcaseTabsFile {
     ;
 
-    public static Map<String, String> main(String argv[]) {
+    public static Map<String, String> main(final String[] argv) {
 
-        Map<String, String> map = new TreeMap<>();
-        Map<String, String> emptyMap = new TreeMap<>();
+        final Map<String, String> map = new TreeMap<>();
+        final Map<String, String> emptyMap = new TreeMap<>();
 
         try {
-            File fXmlFile = new File(argv[0]);
+            final File fXmlFile = new File(argv[0]);
 
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(fXmlFile);
+            final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            final DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            final Document doc = dBuilder.parse(fXmlFile);
             doc.getDocumentElement().normalize();
-            NodeList nList = doc.getElementsByTagName("tab");
+            final NodeList nList = doc.getElementsByTagName("tab");
 
             for (int temp = 0; temp < nList.getLength(); temp++) {
-                Node nNode = nList.item(temp);
+                final Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element eElement = (Element) nNode;
+                    final Element eElement = (Element) nNode;
 
-                    String addon_download_name = eElement.getAttribute("id");
-                    String addon_download_link = eElement.getElementsByTagName("link")
+                    final String addon_download_name = eElement.getAttribute("id");
+                    final String addon_download_link = eElement.getElementsByTagName("link")
                             .item(0).getTextContent();
 
-                    String[] finalArray = {addon_download_name, addon_download_link};
+                    final String[] finalArray = {addon_download_name, addon_download_link};
 
                     map.put(finalArray[0], finalArray[1]);
                 }
             }
             return map;
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
             return emptyMap;
         }

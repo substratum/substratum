@@ -49,7 +49,7 @@ public class FontUtils {
     private SharedPreferences prefs;
     private Cipher cipher;
 
-    public void execute(String arguments, Context context, String theme_pid, Cipher cipher) {
+    public void execute(final String arguments, final Context context, final String theme_pid, final Cipher cipher) {
         this.prefs = PreferenceManager.getDefaultSharedPreferences(context);
         this.mContext = context;
         this.theme_pid = theme_pid;
@@ -61,16 +61,16 @@ public class FontUtils {
 
         private final WeakReference<FontUtils> ref;
 
-        private FontHandlerAsync(FontUtils fragment) {
+        private FontHandlerAsync(final FontUtils fragment) {
             super();
             this.ref = new WeakReference<>(fragment);
         }
 
         @Override
         protected void onPreExecute() {
-            FontUtils fragment = this.ref.get();
+            final FontUtils fragment = this.ref.get();
             if (fragment != null) {
-                Context context = fragment.mContext;
+                final Context context = fragment.mContext;
                 if (References.ENABLE_EXTRAS_DIALOG) {
                     fragment.progress = new ProgressDialog(context, R.style.AppTheme_DialogAlert);
                     fragment.progress.setMessage(context.getString(R.string
@@ -79,7 +79,7 @@ public class FontUtils {
                     fragment.progress.setCancelable(false);
                     fragment.progress.show();
                 }
-                Boolean isInterfacer = checkOMS(context) && checkThemeInterfacer(context);
+                final Boolean isInterfacer = checkOMS(context) && checkThemeInterfacer(context);
                 if (isInterfacer)
                     Toast.makeText(context,
                             context.getString(R.string.font_dialog_apply_success), Toast
@@ -88,24 +88,24 @@ public class FontUtils {
         }
 
         @Override
-        protected void onPostExecute(String result) {
+        protected void onPostExecute(final String result) {
             if (result == null || !result.equals(INTERFACER_PACKAGE)) {
-                FontUtils fragment = this.ref.get();
+                final FontUtils fragment = this.ref.get();
                 if (fragment != null) {
-                    Context context = fragment.mContext;
+                    final Context context = fragment.mContext;
                     if (References.ENABLE_EXTRAS_DIALOG) {
                         fragment.progress.dismiss();
                     }
                     if (result == null) {
-                        SharedPreferences.Editor editor = fragment.prefs.edit();
+                        final SharedPreferences.Editor editor = fragment.prefs.edit();
                         editor.putString("fonts_applied", fragment.theme_pid);
                         editor.apply();
-                        Toast toast = Toast.makeText(context,
+                        final Toast toast = Toast.makeText(context,
                                 context.getString(R.string.font_dialog_apply_success), Toast
                                         .LENGTH_LONG);
                         toast.show();
                     } else {
-                        Toast toast = Toast.makeText(context,
+                        final Toast toast = Toast.makeText(context,
                                 context.getString(R.string.font_dialog_apply_failed), Toast
                                         .LENGTH_LONG);
                         toast.show();
@@ -125,7 +125,7 @@ public class FontUtils {
                         alertDialogBuilder.setNegativeButton(
                                 R.string.remove_dialog_later, (dialog, id) -> dialog.dismiss());
                         alertDialogBuilder.setCancelable(false);
-                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        final AlertDialog alertDialog = alertDialogBuilder.create();
                         alertDialog.show();
                     }
                 }
@@ -133,15 +133,15 @@ public class FontUtils {
         }
 
         @Override
-        protected String doInBackground(String... sUrl) {
-            FontUtils fragment = this.ref.get();
+        protected String doInBackground(final String... sUrl) {
+            final FontUtils fragment = this.ref.get();
             if (fragment != null) {
-                Context context = fragment.mContext;
+                final Context context = fragment.mContext;
                 try {
-                    Boolean isInterfacer = checkOMS(context) && checkThemeInterfacer(context);
+                    final Boolean isInterfacer = checkOMS(context) && checkThemeInterfacer(context);
 
                     if (isInterfacer) {
-                        SharedPreferences.Editor editor = fragment.prefs.edit();
+                        final SharedPreferences.Editor editor = fragment.prefs.edit();
                         editor.putString("fonts_applied", fragment.theme_pid);
                         editor.apply();
                     }
@@ -155,7 +155,7 @@ public class FontUtils {
 
                     if (isInterfacer)
                         return INTERFACER_PACKAGE;
-                } catch (Exception e) {
+                } catch (final Exception e) {
                     e.printStackTrace();
                     return "failed";
                 }

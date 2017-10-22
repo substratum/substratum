@@ -44,10 +44,10 @@ public enum FileDownloader {
      * @param destinationFileOrFolder the folder that encompasses this download cache
      *                                (e.g. vCache)
      */
-    public static void init(Context context,
-                            String fileUrl,
-                            String outputFile,
-                            String destinationFileOrFolder) throws NetworkOnMainThreadException {
+    public static void init(final Context context,
+                            final String fileUrl,
+                            final String outputFile,
+                            final String destinationFileOrFolder) throws NetworkOnMainThreadException {
 
         try {
             InputStream input = null;
@@ -55,13 +55,13 @@ public enum FileDownloader {
             HttpURLConnection connection = null;
 
             // First create the cache folder
-            File directory = new File(context.getCacheDir().getAbsolutePath() + "/" +
+            final File directory = new File(context.getCacheDir().getAbsolutePath() + "/" +
                     destinationFileOrFolder);
             if (!destinationFileOrFolder.endsWith(".png") &&
                     !destinationFileOrFolder.endsWith(".jpg") &&
                     !destinationFileOrFolder.endsWith(".xml") &&
                     !directory.exists()) {
-                Boolean made = directory.mkdir();
+                final Boolean made = directory.mkdir();
                 if (!made)
                     Log.e(References.SUBSTRATUM_LOG,
                             "Could not make " + directory.getAbsolutePath() + " directory...");
@@ -76,7 +76,7 @@ public enum FileDownloader {
 
             // Once the cache folder is created, start downloading the file
             try {
-                URL url = new URL(fileUrl);
+                final URL url = new URL(fileUrl);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
 
@@ -90,7 +90,7 @@ public enum FileDownloader {
                 // Download the file
                 input = connection.getInputStream();
 
-                String outputDir = context.getCacheDir().getAbsolutePath() + "/" +
+                final String outputDir = context.getCacheDir().getAbsolutePath() + "/" +
                         destinationFileOrFolder +
                         (outputFile != null && outputFile.length() > 0 ? "/" + outputFile : "");
 
@@ -99,12 +99,12 @@ public enum FileDownloader {
                 output = new FileOutputStream(outputDir);
 
                 // Begin writing the data into the file
-                byte data[] = new byte[8192];
+                final byte[] data = new byte[8192];
                 int count;
                 while ((count = input.read(data)) != -1) {
                     output.write(data, 0, count);
                 }
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 e.printStackTrace();
             } finally {
                 try {
@@ -112,7 +112,7 @@ public enum FileDownloader {
                         output.close();
                     if (input != null)
                         input.close();
-                } catch (IOException ioe) {
+                } catch (final IOException ioe) {
                     // Suppress warning
                 }
 
@@ -121,7 +121,7 @@ public enum FileDownloader {
                 Log.d("FileDownloader",
                         "File download function has concluded for '" + fileUrl + "'.");
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
         }
     }

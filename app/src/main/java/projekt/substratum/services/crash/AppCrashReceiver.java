@@ -47,25 +47,25 @@ public class AppCrashReceiver extends BroadcastReceiver {
     public final static int NOTIFICATION_ID = 2476;
 
     @Override
-    public void onReceive(Context context, Intent intent) {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences
+    public void onReceive(final Context context, final Intent intent) {
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences
                 (context);
-        boolean enabled = sharedPreferences.getBoolean("crash_receiver", true);
+        final boolean enabled = sharedPreferences.getBoolean("crash_receiver", true);
         if (!enabled) return;
 
 
-        String packageName =
+        final String packageName =
                 intent.getStringExtra(CRASH_PACKAGE_NAME);
-        boolean repeating =
+        final boolean repeating =
                 intent.getBooleanExtra(CRASH_REPEATING, false);
 
         if (repeating) {
             Log.e(TAG, "\'" + packageName + "\' is repeatedly stopping...");
             Log.e(TAG, "Now disabling all overlays for \'" + packageName + "\'...");
 
-            List<String> overlays = ThemeManager.listEnabledOverlaysForTarget(context, packageName);
+            final List<String> overlays = ThemeManager.listEnabledOverlaysForTarget(context, packageName);
             if (overlays.size() > 0) {
-                for (String overlay : overlays) {
+                for (final String overlay : overlays) {
                     Log.d("AppCrashReciever", String.format("Disabling overlay %s for package " +
                             "%s", overlay, packageName));
                 }
@@ -105,11 +105,11 @@ public class AppCrashReceiver extends BroadcastReceiver {
         }
     }
 
-    private void postNotificationAndDisableOverlays(Context context, String packageName,
-                                                    List<String> overlays) {
-        String app_crash_title =
+    private void postNotificationAndDisableOverlays(final Context context, final String packageName,
+                                                    final List<String> overlays) {
+        final String app_crash_title =
                 String.format(context.getString(R.string.app_crash_title), packageName);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context,
+        final NotificationCompat.Builder builder = new NotificationCompat.Builder(context,
                 References.DEFAULT_NOTIFICATION_CHANNEL_ID);
         builder.setSmallIcon(R.drawable.notification_overlay_corruption);
         builder.setContentTitle(app_crash_title);
@@ -117,7 +117,7 @@ public class AppCrashReceiver extends BroadcastReceiver {
         builder.setOngoing(false);
         builder.setPriority(NotificationCompat.PRIORITY_MAX);
         builder.setCategory(NotificationCompat.CATEGORY_SERVICE);
-        NotificationManager mNotifyMgr =
+        final NotificationManager mNotifyMgr =
                 (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
         if (mNotifyMgr != null) {
             mNotifyMgr.notify(NOTIFICATION_ID, builder.build());
@@ -126,13 +126,13 @@ public class AppCrashReceiver extends BroadcastReceiver {
         ThemeManager.disableOverlay(context, new ArrayList<>(overlays));
     }
 
-    private String getApplicationLabel(Context context, String packageName) {
+    private String getApplicationLabel(final Context context, String packageName) {
         try {
-            ApplicationInfo applicationInfo = context.getPackageManager()
+            final ApplicationInfo applicationInfo = context.getPackageManager()
                     .getApplicationInfo(packageName, 0);
             packageName = context.getPackageManager()
                     .getApplicationLabel(applicationInfo).toString();
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch (final PackageManager.NameNotFoundException e) {
             // Suppress warning
         }
         return packageName;

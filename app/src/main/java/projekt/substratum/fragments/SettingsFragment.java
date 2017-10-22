@@ -98,7 +98,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private Context mContext;
 
     @Override
-    public void onCreatePreferences(Bundle bundle, String s) {
+    public void onCreatePreferences(final Bundle bundle, final String s) {
         this.mContext = this.getContext();
 
         final boolean isSamsung = Systems.isSamsung(this.mContext);
@@ -114,9 +114,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
 
-        StringBuilder sb = new StringBuilder();
+        final StringBuilder sb = new StringBuilder();
 
-        Preference aboutSubstratum = this.getPreferenceManager().findPreference
+        final Preference aboutSubstratum = this.getPreferenceManager().findPreference
                 ("about_substratum");
         sb.append(BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")");
         if (BuildConfig.DEBUG) {
@@ -127,16 +127,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         aboutSubstratum.setOnPreferenceClickListener(
                 preference -> {
                     try {
-                        String sourceURL;
+                        final String sourceURL;
                         if (BuildConfig.DEBUG) {
                             sourceURL = this.getString(R.string.substratum_github_commits);
                         } else {
                             sourceURL = this.getString(R.string.substratum_github);
                         }
-                        Intent i = new Intent(Intent.ACTION_VIEW);
+                        final Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri.parse(sourceURL));
                         this.startActivity(i);
-                    } catch (ActivityNotFoundException activityNotFoundException) {
+                    } catch (final ActivityNotFoundException activityNotFoundException) {
                         Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
                                 this.getString(R.string.activity_missing_toast),
                                 Lunchbar.LENGTH_LONG)
@@ -167,12 +167,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         this.systemPlatform.setSummary(this.platformSummary);
         this.systemPlatform.setIcon(Packages.getAppIcon(this.mContext, "com.android.systemui"));
 
-        Preference systemStatus = this.getPreferenceManager().findPreference("system_status");
-        boolean full_oms = isOMS &&
+        final Preference systemStatus = this.getPreferenceManager().findPreference("system_status");
+        final boolean full_oms = isOMS &&
                 Systems.checkSubstratumFeature(this.mContext);
-        boolean interfacer = hasThemeInterfacer &&
+        final boolean interfacer = hasThemeInterfacer &&
                 !isSamsung;
-        boolean verified = prefs.getBoolean("complexion", true);
+        final boolean verified = prefs.getBoolean("complexion", true);
         boolean certified = verified;
         if (isOMS) {
             if (interfacer) {
@@ -219,16 +219,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             aboutSamsung.setVisible(true);
             aboutSamsung.setIcon(Packages.getAppIcon(this.mContext, SST_ADDON_PACKAGE));
             try {
-                PackageInfo info = this.mContext.getPackageManager()
+                final PackageInfo info = this.mContext.getPackageManager()
                         .getPackageInfo(SST_ADDON_PACKAGE, 0);
-                String versionName = info.versionName;
-                int versionCode = info.versionCode;
+                final String versionName = info.versionName;
+                final int versionCode = info.versionCode;
                 aboutSamsung.setSummary(versionName + " (" + versionCode + ")");
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 // Suppress exception
             }
 
-            boolean dangerous_samsung_overlays =
+            final boolean dangerous_samsung_overlays =
                     prefs.getBoolean("show_dangerous_samsung_overlays", false);
             if (dangerous_samsung_overlays) {
                 showDangerousSamsung.setChecked(true);
@@ -237,7 +237,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
             showDangerousSamsung.setOnPreferenceChangeListener(
                     (preference, newValue) -> {
-                        boolean isChecked = (Boolean) newValue;
+                        final boolean isChecked = (Boolean) newValue;
                         if (isChecked) {
                             final AlertDialog.Builder builder =
                                     new AlertDialog.Builder(this.mContext);
@@ -269,7 +269,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         final CheckBoxPreference forceEnglish = (CheckBoxPreference)
                 this.getPreferenceManager().findPreference("force_english_locale");
-        boolean force = prefs.getBoolean("force_english", false);
+        final boolean force = prefs.getBoolean("force_english", false);
         if (force) {
             forceEnglish.setChecked(true);
         } else {
@@ -277,7 +277,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
         forceEnglish.setOnPreferenceChangeListener(
                 (preference, newValue) -> {
-                    boolean isChecked = (Boolean) newValue;
+                    final boolean isChecked = (Boolean) newValue;
                     if (isChecked) {
                         forceEnglish.setChecked(true);
                         Toast.makeText(this.mContext,
@@ -305,7 +305,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
         alternate_drawer_design.setOnPreferenceChangeListener(
                 (preference, newValue) -> {
-                    boolean isChecked = (Boolean) newValue;
+                    final boolean isChecked = (Boolean) newValue;
                     if (isChecked) {
                         prefs.edit().putBoolean("alternate_drawer_design", true).apply();
                         alternate_drawer_design.setChecked(true);
@@ -333,7 +333,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
         nougat_style_cards.setOnPreferenceChangeListener(
                 (preference, newValue) -> {
-                    boolean isChecked = (Boolean) newValue;
+                    final boolean isChecked = (Boolean) newValue;
                     if (isChecked) {
                         prefs.edit().putBoolean("nougat_style_cards", true).apply();
                         nougat_style_cards.setChecked(true);
@@ -351,7 +351,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             vibrate_on_compiled.setVisible(false);
             manage_notifications.setOnPreferenceClickListener(preference -> {
-                Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+                final Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
                 intent.putExtra(Settings.EXTRA_APP_PACKAGE, this.mContext.getPackageName());
                 this.startActivity(intent);
                 return false;
@@ -365,7 +365,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
             vibrate_on_compiled.setOnPreferenceChangeListener(
                     (preference, newValue) -> {
-                        boolean isChecked = (Boolean) newValue;
+                        final boolean isChecked = (Boolean) newValue;
                         if (isChecked) {
                             prefs.edit().putBoolean("vibrate_on_compiled", true).apply();
                             vibrate_on_compiled.setChecked(true);
@@ -387,7 +387,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
         show_template_version.setOnPreferenceChangeListener(
                 (preference, newValue) -> {
-                    boolean isChecked = (Boolean) newValue;
+                    final boolean isChecked = (Boolean) newValue;
                     if (isChecked) {
                         prefs.edit().putBoolean("show_template_version", true).apply();
                         show_template_version.setChecked(true);
@@ -401,18 +401,18 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             show_template_version.setVisible(false);
         }
 
-        Preference grid_style_cards_count =
+        final Preference grid_style_cards_count =
                 this.getPreferenceManager().findPreference("grid_style_cards_count");
-        String toFormat =
+        final String toFormat =
                 String.format(this.getString(R.string.grid_size_text),
                         prefs.getInt("grid_style_cards_count", References.DEFAULT_GRID_COUNT));
         grid_style_cards_count.setSummary(toFormat);
         grid_style_cards_count.setOnPreferenceClickListener(
                 preference -> {
-                    AlertDialog.Builder d = new AlertDialog.Builder(this.mContext);
+                    final AlertDialog.Builder d = new AlertDialog.Builder(this.mContext);
                     d.setTitle(this.getString(R.string.grid_size_title));
 
-                    NumberPicker numberPicker = new NumberPicker(this.mContext);
+                    final NumberPicker numberPicker = new NumberPicker(this.mContext);
                     // Maximum overlay priority count
                     numberPicker.setMaxValue(References.MAX_GRID_COUNT);
                     // Minimum overlay priority count
@@ -427,7 +427,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
                     d.setView(numberPicker);
                     d.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
-                        Integer new_count = numberPicker.getValue();
+                        final Integer new_count = numberPicker.getValue();
                         prefs.edit().putInt(
                                 "grid_style_cards_count", new_count).apply();
                         switch (new_count) {
@@ -465,13 +465,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
             aoptSwitcher.setOnPreferenceClickListener(
                     preference -> {
-                        SheetDialog sheetDialog =
+                        final SheetDialog sheetDialog =
                                 new SheetDialog(this.mContext);
-                        View sheetView = View.inflate(this.mContext,
+                        final View sheetView = View.inflate(this.mContext,
                                 R.layout.aopt_sheet_dialog, null);
 
-                        LinearLayout aapt = sheetView.findViewById(R.id.aapt);
-                        LinearLayout aopt = sheetView.findViewById(R.id.aopt);
+                        final LinearLayout aapt = sheetView.findViewById(R.id.aapt);
+                        final LinearLayout aopt = sheetView.findViewById(R.id.aopt);
                         aapt.setOnClickListener(v -> {
                             prefs.edit().remove("compiler").apply();
                             prefs.edit().putString("compiler", "aapt").apply();
@@ -496,7 +496,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             if (isOMS) {
                 crashReceiver.setChecked(prefs.getBoolean("crash_receiver", true));
                 crashReceiver.setOnPreferenceChangeListener((preference, newValue) -> {
-                    boolean isChecked = (Boolean) newValue;
+                    final boolean isChecked = (Boolean) newValue;
                     if (!isChecked) {
                         final AlertDialog.Builder builder =
                                 new AlertDialog.Builder(this.mContext);
@@ -529,12 +529,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
 
         // Manage Space Activity
-        Preference manageSpace = this.getPreferenceManager().findPreference("manage_space");
+        final Preference manageSpace = this.getPreferenceManager().findPreference("manage_space");
         manageSpace.setOnPreferenceClickListener(
                 preference -> {
                     try {
                         this.startActivity(new Intent(this.getActivity(), ManageSpaceActivity.class));
-                    } catch (ActivityNotFoundException activityNotFoundException) {
+                    } catch (final ActivityNotFoundException activityNotFoundException) {
                         // Suppress warning
                     }
                     return false;
@@ -542,7 +542,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         final CheckBoxPreference autosave_logchar = (CheckBoxPreference)
                 this.getPreferenceManager().findPreference("autosave_logchar");
-        Boolean save_logchar = prefs.getBoolean("autosave_logchar", true);
+        final Boolean save_logchar = prefs.getBoolean("autosave_logchar", true);
         if (save_logchar) {
             autosave_logchar.setChecked(true);
         } else {
@@ -550,7 +550,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
         autosave_logchar.setOnPreferenceChangeListener(
                 (preference, newValue) -> {
-                    boolean isChecked = (Boolean) newValue;
+                    final boolean isChecked = (Boolean) newValue;
                     if (isChecked) {
                         prefs.edit().putBoolean("autosave_logchar", true).apply();
                         autosave_logchar.setChecked(true);
@@ -577,7 +577,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         final CheckBoxPreference overlay_alert = (CheckBoxPreference)
                 this.getPreferenceManager().findPreference("overlay_alert");
-        Boolean alert_show = prefs.getBoolean("overlay_alert", false);
+        final Boolean alert_show = prefs.getBoolean("overlay_alert", false);
         if (alert_show) {
             overlay_alert.setChecked(true);
         } else {
@@ -585,7 +585,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
         overlay_alert.setOnPreferenceChangeListener(
                 (preference, newValue) -> {
-                    boolean isChecked = (Boolean) newValue;
+                    final boolean isChecked = (Boolean) newValue;
                     if (isChecked) {
                         prefs.edit().putBoolean("overlay_alert", true).apply();
                         overlay_alert.setChecked(true);
@@ -599,19 +599,19 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
 
         if (!isOMS) {
-            Preference priority_switcher =
+            final Preference priority_switcher =
                     this.getPreferenceManager().findPreference("legacy_priority_switcher");
-            String formatted =
+            final String formatted =
                     String.format(this.getString(R.string.legacy_preference_priority_text),
                             References.DEFAULT_PRIORITY,
                             prefs.getInt("legacy_overlay_priority", References.DEFAULT_PRIORITY));
             priority_switcher.setSummary(formatted);
             priority_switcher.setOnPreferenceClickListener(
                     preference -> {
-                        AlertDialog.Builder d = new AlertDialog.Builder(this.mContext);
+                        final AlertDialog.Builder d = new AlertDialog.Builder(this.mContext);
                         d.setTitle(this.getString(R.string.legacy_preference_priority_title));
 
-                        NumberPicker numberPicker = new NumberPicker(this.mContext);
+                        final NumberPicker numberPicker = new NumberPicker(this.mContext);
                         // Maximum overlay priority count
                         numberPicker.setMaxValue(MAX_PRIORITY);
                         // Minimum overlay priority count
@@ -624,7 +624,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
                         d.setView(numberPicker);
                         d.setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
-                            Integer new_priority = numberPicker.getValue();
+                            final Integer new_priority = numberPicker.getValue();
                             prefs.edit().putInt(
                                     "legacy_overlay_priority", new_priority).apply();
                             priority_switcher.setSummary(
@@ -642,16 +642,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         // Finally, these functions will only work on OMS ROMs
         if (isOMS) {
-            Preference aboutAndromeda = this.getPreferenceManager().findPreference("about_andromeda");
+            final Preference aboutAndromeda = this.getPreferenceManager().findPreference("about_andromeda");
             if (Systems.isAndromedaDevice(this.mContext)) {
                 aboutAndromeda.setIcon(Packages.getAppIcon(this.mContext, ANDROMEDA_PACKAGE));
                 try {
-                    PackageInfo info = this.mContext.getPackageManager()
+                    final PackageInfo info = this.mContext.getPackageManager()
                             .getPackageInfo(ANDROMEDA_PACKAGE, 0);
-                    String versionName = info.versionName;
-                    int versionCode = info.versionCode;
+                    final String versionName = info.versionName;
+                    final int versionCode = info.versionCode;
                     aboutAndromeda.setSummary(versionName + " (" + versionCode + ")");
-                } catch (Exception e) {
+                } catch (final Exception e) {
                     // Suppress exception
                 }
                 aboutAndromeda.setOnPreferenceClickListener(preference -> {
@@ -662,21 +662,21 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 aboutAndromeda.setVisible(false);
             }
 
-            Preference aboutInterfacer = this.getPreferenceManager().findPreference("about_interfacer");
+            final Preference aboutInterfacer = this.getPreferenceManager().findPreference("about_interfacer");
             aboutInterfacer.setIcon(Packages.getAppIcon(this.mContext, INTERFACER_PACKAGE));
             aboutInterfacer.setOnPreferenceClickListener(
                     preference -> {
                         try {
-                            String sourceURL;
+                            final String sourceURL;
                             if (BuildConfig.DEBUG) {
                                 sourceURL = this.getString(R.string.interfacer_github_commits);
                             } else {
                                 sourceURL = this.getString(R.string.interfacer_github);
                             }
-                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            final Intent i = new Intent(Intent.ACTION_VIEW);
                             i.setData(Uri.parse(sourceURL));
                             this.startActivity(i);
-                        } catch (ActivityNotFoundException activityNotFoundException) {
+                        } catch (final ActivityNotFoundException activityNotFoundException) {
                             Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
                                     this.getString(R.string.activity_missing_toast),
                                     Lunchbar.LENGTH_LONG)
@@ -685,12 +685,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         return false;
                     });
             try {
-                PackageInfo pInfo = Systems.getThemeInterfacerPackage(this.mContext);
+                final PackageInfo pInfo = Systems.getThemeInterfacerPackage(this.mContext);
                 assert pInfo != null;
-                String versionName = pInfo.versionName;
-                int versionCode = pInfo.versionCode;
+                final String versionName = pInfo.versionName;
+                final int versionCode = pInfo.versionCode;
                 aboutInterfacer.setSummary(versionName + " (" + versionCode + ")");
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 // Suppress exception
             }
 
@@ -715,11 +715,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
             hide_app_checkbox.setOnPreferenceChangeListener(
                     (preference, newValue) -> {
-                        boolean isChecked = (Boolean) newValue;
+                        final boolean isChecked = (Boolean) newValue;
                         if (isChecked) {
                             prefs.edit().putBoolean("show_app_icon", true).apply();
-                            PackageManager p = this.mContext.getPackageManager();
-                            ComponentName componentName = new ComponentName(this.mContext,
+                            final PackageManager p = this.mContext.getPackageManager();
+                            final ComponentName componentName = new ComponentName(this.mContext,
                                     LauncherActivity.class);
                             p.setComponentEnabledSetting(
                                     componentName,
@@ -734,8 +734,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             hide_app_checkbox.setChecked(true);
                         } else {
                             prefs.edit().putBoolean("show_app_icon", false).apply();
-                            PackageManager p = this.mContext.getPackageManager();
-                            ComponentName componentName = new ComponentName(this.mContext,
+                            final PackageManager p = this.mContext.getPackageManager();
+                            final ComponentName componentName = new ComponentName(this.mContext,
                                     LauncherActivity.class);
                             p.setComponentEnabledSetting(componentName,
                                     PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
@@ -759,7 +759,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
             systemUIRestart.setOnPreferenceChangeListener(
                     (preference, newValue) -> {
-                        boolean isChecked = (Boolean) newValue;
+                        final boolean isChecked = (Boolean) newValue;
                         if (isChecked) {
                             prefs.edit().putBoolean("systemui_recreate", true).apply();
                             if (this.getView() != null) {
@@ -786,7 +786,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
             final CheckBoxPreference restartSystemUI = (CheckBoxPreference)
                     this.getPreferenceManager().findPreference("opt_in_sysui_restart");
-            Boolean restartSysUI = prefs.getBoolean("opt_in_sysui_restart", true);
+            final Boolean restartSysUI = prefs.getBoolean("opt_in_sysui_restart", true);
             if (restartSysUI) {
                 restartSystemUI.setChecked(true);
             } else {
@@ -797,7 +797,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
             restartSystemUI.setOnPreferenceChangeListener(
                     (preference, newValue) -> {
-                        boolean isChecked = (Boolean) newValue;
+                        final boolean isChecked = (Boolean) newValue;
                         if (isChecked) {
                             prefs.edit().putBoolean("opt_in_sysui_restart", true).apply();
                             restartSystemUI.setChecked(true);
@@ -821,7 +821,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
             final CheckBoxPreference overlay_updater = (CheckBoxPreference)
                     this.getPreferenceManager().findPreference("overlay_updater");
-            Boolean overlay_show = prefs.getBoolean("overlay_updater", false);
+            final Boolean overlay_show = prefs.getBoolean("overlay_updater", false);
             if (overlay_show) {
                 overlay_updater.setChecked(true);
             } else {
@@ -829,7 +829,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
             overlay_updater.setOnPreferenceChangeListener(
                     (preference, newValue) -> {
-                        boolean isChecked = (Boolean) newValue;
+                        final boolean isChecked = (Boolean) newValue;
                         if (isChecked) {
                             prefs.edit().putBoolean("overlay_updater", true).apply();
                             overlay_updater.setChecked(true);
@@ -843,7 +843,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
             final CheckBoxPreference theme_updater = (CheckBoxPreference)
                     this.getPreferenceManager().findPreference("theme_updater");
-            Boolean theme_show = prefs.getBoolean("theme_updater", false);
+            final Boolean theme_show = prefs.getBoolean("theme_updater", false);
             if (theme_show) {
                 theme_updater.setChecked(true);
             } else {
@@ -851,7 +851,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
             theme_updater.setOnPreferenceChangeListener(
                     (preference, newValue) -> {
-                        boolean isChecked = (Boolean) newValue;
+                        final boolean isChecked = (Boolean) newValue;
                         if (isChecked) {
                             final AlertDialog.Builder builder = new AlertDialog.Builder
                                     (this.mContext);
@@ -878,7 +878,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             debugTheme.setChecked(prefs.getBoolean("theme_debug", false));
             debugTheme.setOnPreferenceChangeListener(
                     (preference, newValue) -> {
-                        boolean isChecked = (Boolean) newValue;
+                        final boolean isChecked = (Boolean) newValue;
                         if (isChecked) {
                             final AlertDialog.Builder builder = new AlertDialog.Builder
                                     (this.mContext);
@@ -913,13 +913,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 return false;
             });
             try {
-                Context interfacerContext = this.mContext.createPackageContext(INTERFACER_PACKAGE,
+                final Context interfacerContext = this.mContext.createPackageContext(INTERFACER_PACKAGE,
                         Context.CONTEXT_IGNORE_SECURITY | Context.CONTEXT_INCLUDE_CODE);
-                ClassLoader interfacerClassLoader = interfacerContext.getClassLoader();
-                Class<?> cls = Class.forName(INTERFACER_SERVICE, true, interfacerClassLoader);
+                final ClassLoader interfacerClassLoader = interfacerContext.getClassLoader();
+                final Class<?> cls = Class.forName(INTERFACER_SERVICE, true, interfacerClassLoader);
                 cls.getDeclaredMethod("forceStopService");
                 restartInterfacer.setVisible(true);
-            } catch (Exception ex) {
+            } catch (final Exception ex) {
                 restartInterfacer.setVisible(false);
             }
         }
@@ -929,16 +929,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         private final WeakReference<SettingsFragment> ref;
 
-        checkROMSupportList(SettingsFragment settingsFragment) {
+        checkROMSupportList(final SettingsFragment settingsFragment) {
             super();
             this.ref = new WeakReference<>(settingsFragment);
         }
 
         @SuppressWarnings("ConstantConditions")
         @Override
-        protected void onPostExecute(String result) {
+        protected void onPostExecute(final String result) {
             super.onPostExecute(result);
-            SettingsFragment settingsFragment = this.ref.get();
+            final SettingsFragment settingsFragment = this.ref.get();
             if (settingsFragment == null) return;
             try {
                 if (!Systems.checkThemeInterfacer(settingsFragment.mContext)) {
@@ -956,7 +956,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 }
 
                 if (result.length() > 0) {
-                    String supportedRom = String.format(
+                    final String supportedRom = String.format(
                             settingsFragment.getString(R.string.rom_status_supported), result);
                     settingsFragment.platformSummary.append("\n")
                             .append(settingsFragment.getString(R.string.rom_status))
@@ -975,12 +975,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     settingsFragment.systemPlatform.setSummary(
                             settingsFragment.platformSummary.toString());
                 }
-            } catch (IllegalStateException ignored) { /* Not much we can do about this */}
+            } catch (final IllegalStateException ignored) { /* Not much we can do about this */}
         }
 
         @Override
-        protected String doInBackground(String... sUrl) {
-            SettingsFragment settingsFragment = this.ref.get();
+        protected String doInBackground(final String... sUrl) {
+            final SettingsFragment settingsFragment = this.ref.get();
             if (settingsFragment != null) {
                 return Systems.checkFirmwareSupport(settingsFragment.mContext, sUrl[0], sUrl[1]);
             }
@@ -993,7 +993,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         private final WeakReference<SettingsFragment> ref;
 
-        downloadRepositoryList(SettingsFragment settingsFragment) {
+        downloadRepositoryList(final SettingsFragment settingsFragment) {
             super();
             this.ref = new WeakReference<>(settingsFragment);
         }
@@ -1001,7 +1001,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            SettingsFragment settingsFragment = this.ref.get();
+            final SettingsFragment settingsFragment = this.ref.get();
             if (settingsFragment != null) {
                 settingsFragment.dialog = new Dialog(settingsFragment.getActivity());
                 settingsFragment.dialog.setContentView(R.layout.validator_dialog);
@@ -1011,24 +1011,24 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
 
         @Override
-        protected void onPostExecute(ArrayList<String> result) {
+        protected void onPostExecute(final ArrayList<String> result) {
             super.onPostExecute(result);
-            SettingsFragment settingsFragment = this.ref.get();
+            final SettingsFragment settingsFragment = this.ref.get();
             if (settingsFragment != null) {
-                Collection<String> erroredPackages = new ArrayList<>();
+                final Collection<String> erroredPackages = new ArrayList<>();
                 for (int x = 0; x < settingsFragment.errors.size(); x++) {
-                    ValidatorError error = settingsFragment.errors.get(x);
+                    final ValidatorError error = settingsFragment.errors.get(x);
                     erroredPackages.add(error.getPackageName());
                 }
 
                 settingsFragment.dialog.dismiss();
-                Dialog dialog2 = new Dialog(settingsFragment.mContext);
+                final Dialog dialog2 = new Dialog(settingsFragment.mContext);
                 dialog2.setContentView(R.layout.validator_dialog_inner);
-                RecyclerView recyclerView = dialog2.findViewById(R.id.recycler_view);
-                ArrayList<ValidatorInfo> validatorInfos = new ArrayList<>();
+                final RecyclerView recyclerView = dialog2.findViewById(R.id.recycler_view);
+                final ArrayList<ValidatorInfo> validatorInfos = new ArrayList<>();
                 for (int i = 0; i < result.size(); i++) {
-                    boolean validated = !erroredPackages.contains(result.get(i));
-                    ValidatorInfo validatorInfo = new ValidatorInfo(
+                    final boolean validated = !erroredPackages.contains(result.get(i));
+                    final ValidatorInfo validatorInfo = new ValidatorInfo(
                             settingsFragment.mContext,
                             result.get(i),
                             validated,
@@ -1047,16 +1047,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     }
                     validatorInfos.add(validatorInfo);
                 }
-                ValidatorAdapter validatorAdapter = new ValidatorAdapter(validatorInfos);
+                final ValidatorAdapter validatorAdapter = new ValidatorAdapter(validatorInfos);
                 recyclerView.setAdapter(validatorAdapter);
-                RecyclerView.LayoutManager layoutManager =
+                final RecyclerView.LayoutManager layoutManager =
                         new LinearLayoutManager(settingsFragment.mContext);
                 recyclerView.setLayoutManager(layoutManager);
 
-                Button button = dialog2.findViewById(R.id.button_done);
+                final Button button = dialog2.findViewById(R.id.button_done);
                 button.setOnClickListener(v -> dialog2.dismiss());
 
-                WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+                final WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
                 //noinspection ConstantConditions
                 layoutParams.copyFrom(dialog2.getWindow().getAttributes());
                 layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
@@ -1067,10 +1067,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
 
         @Override
-        protected ArrayList<String> doInBackground(String... sUrl) {
+        protected ArrayList<String> doInBackground(final String... sUrl) {
             // First, we have to download the repository list into the cache
-            SettingsFragment settingsFragment = this.ref.get();
-            ArrayList<String> packages = new ArrayList<>();
+            final SettingsFragment settingsFragment = this.ref.get();
+            final ArrayList<String> packages = new ArrayList<>();
             if (settingsFragment != null) {
                 FileDownloader.init(
                         settingsFragment.mContext,
@@ -1082,12 +1082,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         settingsFragment.getString(R.string.validator_whitelist_url),
                         "resource_whitelist.xml", "ValidatorCache");
 
-                List<Repository> repositories =
+                final List<Repository> repositories =
                         ReadRepositoriesFile.main(
                                 settingsFragment.mContext.getCacheDir().getAbsolutePath() +
                                         "/ValidatorCache/repository_names.xml");
 
-                List<ValidatorFilter> whitelist =
+                final List<ValidatorFilter> whitelist =
                         ReadFilterFile.main(
                                 settingsFragment.mContext.getCacheDir().getAbsolutePath() +
                                         "/ValidatorCache/resource_whitelist.xml");
@@ -1096,16 +1096,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 settingsFragment.packageCountersErrored = new ArrayList<>();
                 settingsFragment.errors = new ArrayList<>();
                 for (int i = 0; i < repositories.size(); i++) {
-                    Repository repository = repositories.get(i);
+                    final Repository repository = repositories.get(i);
                     // Now we have to check all the packages
-                    String packageName = repository.getPackageName();
-                    ValidatorError validatorError = new ValidatorError(packageName);
+                    final String packageName = repository.getPackageName();
+                    final ValidatorError validatorError = new ValidatorError(packageName);
                     Boolean has_errored = false;
 
                     int resource_counter = 0;
                     int resource_counter_errored = 0;
 
-                    String tempPackageName = (packageName.endsWith(".common") ?
+                    final String tempPackageName = (packageName.endsWith(".common") ?
                             packageName.substring(0, packageName.length() - 7) :
                             packageName);
 
@@ -1116,7 +1116,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         if (repository.getBools() != null) {
                             FileDownloader.init(settingsFragment.mContext, repository.getBools(),
                                     tempPackageName + ".bools.xml", "ValidatorCache");
-                            List<String> bools =
+                            final List<String> bools =
                                     ReadResourcesFile.main(
                                             settingsFragment.mContext.
                                                     getCacheDir().getAbsolutePath() +
@@ -1124,7 +1124,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                                     ".bools.xml",
                                             "bool");
                             for (int j = 0; j < bools.size(); j++) {
-                                boolean validated = Validator.checkResourceObject(
+                                final boolean validated = Validator.checkResourceObject(
                                         settingsFragment.mContext,
                                         tempPackageName,
                                         "bool",
@@ -1135,8 +1135,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 } else {
                                     boolean bypassed = false;
                                     for (int x = 0; x < whitelist.size(); x++) {
-                                        String currentPackage = whitelist.get(x).getPackageName();
-                                        List<String> currentWhitelist = whitelist.get(x)
+                                        final String currentPackage = whitelist.get(x).getPackageName();
+                                        final List<String> currentWhitelist = whitelist.get(x)
                                                 .getFilter();
                                         if (currentPackage.equals(packageName)) {
                                             if (currentWhitelist.contains(bools.get(j))) {
@@ -1168,13 +1168,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         if (repository.getColors() != null) {
                             FileDownloader.init(settingsFragment.mContext, repository.getColors(),
                                     tempPackageName + ".colors.xml", "ValidatorCache");
-                            List<String> colors = ReadResourcesFile.main(
+                            final List<String> colors = ReadResourcesFile.main(
                                     settingsFragment.mContext
                                             .getCacheDir().getAbsolutePath() +
                                             "/ValidatorCache/" + tempPackageName + ".colors.xml",
                                     "color");
                             for (int j = 0; j < colors.size(); j++) {
-                                boolean validated = Validator.checkResourceObject(
+                                final boolean validated = Validator.checkResourceObject(
                                         settingsFragment.mContext,
                                         tempPackageName,
                                         "color",
@@ -1185,8 +1185,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 } else {
                                     boolean bypassed = false;
                                     for (int x = 0; x < whitelist.size(); x++) {
-                                        String currentPackage = whitelist.get(x).getPackageName();
-                                        List<String> currentWhitelist = whitelist.get(x)
+                                        final String currentPackage = whitelist.get(x).getPackageName();
+                                        final List<String> currentWhitelist = whitelist.get(x)
                                                 .getFilter();
                                         if (currentPackage.equals(packageName)) {
                                             if (currentWhitelist.contains(colors.get(j))) {
@@ -1218,12 +1218,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         if (repository.getDimens() != null) {
                             FileDownloader.init(settingsFragment.mContext, repository.getDimens(),
                                     tempPackageName + ".dimens.xml", "ValidatorCache");
-                            List<String> dimens = ReadResourcesFile.main(
+                            final List<String> dimens = ReadResourcesFile.main(
                                     settingsFragment.mContext.getCacheDir().getAbsolutePath() +
                                             "/ValidatorCache/" + tempPackageName +
                                             ".dimens.xml", "dimen");
                             for (int j = 0; j < dimens.size(); j++) {
-                                boolean validated = Validator.checkResourceObject(
+                                final boolean validated = Validator.checkResourceObject(
                                         settingsFragment.mContext,
                                         tempPackageName,
                                         "dimen",
@@ -1234,8 +1234,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 } else {
                                     boolean bypassed = false;
                                     for (int x = 0; x < whitelist.size(); x++) {
-                                        String currentPackage = whitelist.get(x).getPackageName();
-                                        List<String> currentWhitelist = whitelist.get(x)
+                                        final String currentPackage = whitelist.get(x).getPackageName();
+                                        final List<String> currentWhitelist = whitelist.get(x)
                                                 .getFilter();
                                         if (currentPackage.equals(packageName)) {
                                             if (currentWhitelist.contains(dimens.get(j))) {
@@ -1268,13 +1268,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         if (repository.getStyles() != null) {
                             FileDownloader.init(settingsFragment.mContext, repository.getStyles(),
                                     tempPackageName + ".styles.xml", "ValidatorCache");
-                            List<String> styles = ReadResourcesFile.main(
+                            final List<String> styles = ReadResourcesFile.main(
                                     settingsFragment.mContext
                                             .getCacheDir().getAbsolutePath() +
                                             "/ValidatorCache/" + tempPackageName + ".styles.xml",
                                     "style");
                             for (int j = 0; j < styles.size(); j++) {
-                                boolean validated = Validator.checkResourceObject(
+                                final boolean validated = Validator.checkResourceObject(
                                         settingsFragment.mContext,
                                         tempPackageName,
                                         "style",
@@ -1285,8 +1285,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 } else {
                                     boolean bypassed = false;
                                     for (int x = 0; x < whitelist.size(); x++) {
-                                        String currentPackage = whitelist.get(x).getPackageName();
-                                        List<String> currentWhitelist = whitelist.get(x)
+                                        final String currentPackage = whitelist.get(x).getPackageName();
+                                        final List<String> currentWhitelist = whitelist.get(x)
                                                 .getFilter();
                                         if (currentPackage.equals(packageName)) {
                                             if (currentWhitelist.contains(styles.get(j))) {

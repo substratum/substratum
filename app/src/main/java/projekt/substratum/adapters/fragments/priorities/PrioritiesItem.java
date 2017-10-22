@@ -31,7 +31,7 @@ public class PrioritiesItem implements PrioritiesInterface {
     private String type3;
     private String themeName;
 
-    public PrioritiesItem(final String name, Drawable drawable) {
+    public PrioritiesItem(final String name, final Drawable drawable) {
         super();
         this.mName = name;
         this.mDrawableId = drawable;
@@ -54,7 +54,7 @@ public class PrioritiesItem implements PrioritiesInterface {
         return this.type1a;
     }
 
-    public void setType1a(String name) {
+    public void setType1a(final String name) {
         this.type1a = name;
     }
 
@@ -62,7 +62,7 @@ public class PrioritiesItem implements PrioritiesInterface {
         return this.type1b;
     }
 
-    public void setType1b(String name) {
+    public void setType1b(final String name) {
         this.type1b = name;
     }
 
@@ -70,7 +70,7 @@ public class PrioritiesItem implements PrioritiesInterface {
         return this.type1c;
     }
 
-    public void setType1c(String name) {
+    public void setType1c(final String name) {
         this.type1c = name;
     }
 
@@ -78,7 +78,7 @@ public class PrioritiesItem implements PrioritiesInterface {
         return this.type2;
     }
 
-    public void setType2(String name) {
+    public void setType2(final String name) {
         this.type2 = name;
     }
 
@@ -86,7 +86,7 @@ public class PrioritiesItem implements PrioritiesInterface {
         return this.type3;
     }
 
-    public void setType3(String name) {
+    public void setType3(final String name) {
         this.type3 = name;
     }
 
@@ -94,7 +94,7 @@ public class PrioritiesItem implements PrioritiesInterface {
         return this.themeName;
     }
 
-    void setThemeName(String name) {
+    void setThemeName(final String name) {
         this.themeName = name;
     }
 }

@@ -77,10 +77,10 @@ public enum SoundManager {
     private static final String SYSTEM_CONTENT_URI = "content://settings/global";
 
     public static boolean[] setSounds(
-            Context context,
-            String theme_pid,
-            String name,
-            Cipher cipher) {
+            final Context context,
+            final String theme_pid,
+            final String name,
+            final Cipher cipher) {
         boolean has_failed = false;
         boolean ringtone = false;
 
@@ -91,18 +91,18 @@ public enum SoundManager {
             // Move the file from assets folder to a new working area
             Log.d("SoundUtils", "Copying over the selected sounds to working directory...");
 
-            File cacheDirectory = new File(context.getCacheDir(), "/SoundsCache/");
+            final File cacheDirectory = new File(context.getCacheDir(), "/SoundsCache/");
             if (!cacheDirectory.exists()) {
-                boolean created = cacheDirectory.mkdirs();
+                final boolean created = cacheDirectory.mkdirs();
                 if (created) Log.d("SoundUtils", "Sounds folder created");
             }
-            File cacheDirectory2 = new File(context.getCacheDir(), "/SoundsCache/SoundsInjector/");
+            final File cacheDirectory2 = new File(context.getCacheDir(), "/SoundsCache/SoundsInjector/");
             if (!cacheDirectory2.exists() && cacheDirectory2.mkdirs()) {
                 Log.d("SoundUtils", "Sounds work folder created");
             } else {
                 FileOperations.delete(context, context.getCacheDir().getAbsolutePath() +
                         "/SoundsCache/SoundsInjector/");
-                boolean created = cacheDirectory2.mkdirs();
+                final boolean created = cacheDirectory2.mkdirs();
                 if (created) Log.d("SoundUtils", "Sounds work folder recreated");
             }
 
@@ -110,8 +110,8 @@ public enum SoundManager {
 
             Log.d("SoundUtils", "Analyzing integrity of sounds archive file...");
             try {
-                Context otherContext = context.createPackageContext(theme_pid, 0);
-                AssetManager am = otherContext.getAssets();
+                final Context otherContext = context.createPackageContext(theme_pid, 0);
+                final AssetManager am = otherContext.getAssets();
 
                 if (cipher != null) {
                     FileOperations.copyFileOrDir(
@@ -126,7 +126,7 @@ public enum SoundManager {
                          OutputStream outputStream = new FileOutputStream(context.getCacheDir()
                                  .getAbsolutePath() + "/SoundsCache/SoundsInjector/" +
                                  sounds + ".zip")) {
-                        byte[] buffer = new byte[5120];
+                        final byte[] buffer = new byte[5120];
                         int length = inputStream.read(buffer);
                         while (length > 0) {
                             outputStream.write(buffer, 0, length);
@@ -134,7 +134,7 @@ public enum SoundManager {
                         }
                     }
                 }
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 Log.e("SoundUtils",
                         "There is no sounds.zip found within the assets of this theme! " +
                                 e.getMessage());
@@ -142,27 +142,27 @@ public enum SoundManager {
             }
 
             // Rename the file
-            File workingDirectory = new File(context.getCacheDir().getAbsolutePath() +
+            final File workingDirectory = new File(context.getCacheDir().getAbsolutePath() +
                     "/SoundsCache/SoundsInjector/");
-            File from = new File(workingDirectory, sounds + ".zip");
+            final File from = new File(workingDirectory, sounds + ".zip");
             sounds = sounds.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
-            File to = new File(workingDirectory, sounds + ".zip");
-            boolean rename = from.renameTo(to);
+            final File to = new File(workingDirectory, sounds + ".zip");
+            final boolean rename = from.renameTo(to);
             if (rename) Log.d("SoundUtils", "Sounds archive successfully moved to new directory");
 
             // Unzip the sounds archive to get it prepared for the preview
-            String source = context.getCacheDir().getAbsolutePath() +
+            final String source = context.getCacheDir().getAbsolutePath() +
                     "/SoundsCache/SoundsInjector/" + sounds + ".zip";
-            String destination = context.getCacheDir().getAbsolutePath() +
+            final String destination = context.getCacheDir().getAbsolutePath() +
                     "/SoundsCache/SoundsInjector/";
             try (ZipInputStream inputStream = new ZipInputStream(
                     new BufferedInputStream(new FileInputStream(source)))) {
                 ZipEntry zipEntry;
                 int count;
-                byte[] buffer = new byte[8192];
+                final byte[] buffer = new byte[8192];
                 while ((zipEntry = inputStream.getNextEntry()) != null) {
-                    File file = new File(destination, zipEntry.getName());
-                    File dir = zipEntry.isDirectory() ? file : file.getParentFile();
+                    final File file = new File(destination, zipEntry.getName());
+                    final File dir = zipEntry.isDirectory() ? file : file.getParentFile();
                     if (!dir.isDirectory() && !dir.mkdirs())
                         throw new FileNotFoundException(
                                 "Failed to ensure directory: " + dir.getAbsolutePath());
@@ -174,7 +174,7 @@ public enum SoundManager {
                         }
                     }
                 }
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 Log.e("SoundUtils",
                         "An issue has occurred while attempting to decompress this archive. " +
                                 e.getMessage());
@@ -185,14 +185,14 @@ public enum SoundManager {
                         "Moving sounds to theme directory " +
                                 "and setting correct contextual parameters...");
 
-                File themeDirectory = new File("/data/system/theme/");
+                final File themeDirectory = new File("/data/system/theme/");
                 if (!themeDirectory.exists()) {
                     FileOperations.mountRWData();
                     FileOperations.createNewFolder("/data/system/theme/");
                     FileOperations.setPermissions(755, "/data/system/theme/");
                     FileOperations.mountROData();
                 }
-                File audioDirectory = new File("/data/system/theme/audio/");
+                final File audioDirectory = new File("/data/system/theme/audio/");
                 if (!audioDirectory.exists()) {
                     FileOperations.mountRWData();
                     FileOperations.createNewFolder("/data/system/theme/audio/");
@@ -205,7 +205,7 @@ public enum SoundManager {
         return new boolean[]{has_failed, ringtone};
     }
 
-    public static void clearSounds(Context context) {
+    public static void clearSounds(final Context context) {
         // ATTENTION (to developers):
         //
         // Sounds that aren't cleared (for testing purposes), but removed from the folder
@@ -226,24 +226,24 @@ public enum SoundManager {
         }
     }
 
-    private static boolean perform_action(Context context) {
+    private static boolean perform_action(final Context context) {
         // Let's start with user interface sounds
-        File ui = new File(context.getCacheDir().getAbsolutePath() +
+        final File ui = new File(context.getCacheDir().getAbsolutePath() +
                 "/SoundsCache/SoundsInjector/ui/");
-        File ui_temp = new File("/data/system/theme/audio/ui/");
+        final File ui_temp = new File("/data/system/theme/audio/ui/");
         if (ui_temp.exists()) {
             FileOperations.delete(context, "/data/system/theme/audio/ui/");
         }
         if (ui.exists()) {
             FileOperations.createNewFolder("/data/system/theme/audio/ui/");
 
-            File effect_tick_mp3 = new File(context.getCacheDir().getAbsolutePath() +
+            final File effect_tick_mp3 = new File(context.getCacheDir().getAbsolutePath() +
                     "/SoundsCache/SoundsInjector/ui/Effect_Tick.mp3");
-            File effect_tick_ogg = new File(context.getCacheDir().getAbsolutePath() +
+            final File effect_tick_ogg = new File(context.getCacheDir().getAbsolutePath() +
                     "/SoundsCache/SoundsInjector/ui/Effect_Tick.ogg");
             if (effect_tick_mp3.exists() || effect_tick_ogg.exists()) {
-                boolean mp3 = effect_tick_mp3.exists();
-                boolean ogg = effect_tick_ogg.exists();
+                final boolean mp3 = effect_tick_mp3.exists();
+                final boolean ogg = effect_tick_ogg.exists();
                 if (mp3) {
                     FileOperations.copyDir(
                             context,
@@ -272,13 +272,13 @@ public enum SoundManager {
                 setDefaultUISounds("lock_sound", "Lock.ogg");
             }
 
-            File new_lock_mp3 = new File(context.getCacheDir().getAbsolutePath() +
+            final File new_lock_mp3 = new File(context.getCacheDir().getAbsolutePath() +
                     "/SoundsCache/SoundsInjector/ui/Lock.mp3");
-            File new_lock_ogg = new File(context.getCacheDir().getAbsolutePath() +
+            final File new_lock_ogg = new File(context.getCacheDir().getAbsolutePath() +
                     "/SoundsCache/SoundsInjector/ui/Lock.ogg");
             if (new_lock_mp3.exists() || new_lock_ogg.exists()) {
-                boolean mp3 = new_lock_mp3.exists();
-                boolean ogg = new_lock_ogg.exists();
+                final boolean mp3 = new_lock_mp3.exists();
+                final boolean ogg = new_lock_ogg.exists();
                 if (mp3) {
                     FileOperations.move(
                             context,
@@ -299,13 +299,13 @@ public enum SoundManager {
                 setDefaultUISounds("lock_sound", "Lock.ogg");
             }
 
-            File new_unlock_mp3 = new File(context.getCacheDir().getAbsolutePath() +
+            final File new_unlock_mp3 = new File(context.getCacheDir().getAbsolutePath() +
                     "/SoundsCache/SoundsInjector/ui/Unlock.mp3");
-            File new_unlock_ogg = new File(context.getCacheDir().getAbsolutePath() +
+            final File new_unlock_ogg = new File(context.getCacheDir().getAbsolutePath() +
                     "/SoundsCache/SoundsInjector/ui/Unlock.ogg");
             if (new_unlock_mp3.exists() || new_unlock_ogg.exists()) {
-                boolean mp3 = new_unlock_mp3.exists();
-                boolean ogg = new_unlock_ogg.exists();
+                final boolean mp3 = new_unlock_mp3.exists();
+                final boolean ogg = new_unlock_ogg.exists();
                 if (mp3) {
                     FileOperations.move(
                             context,
@@ -326,13 +326,13 @@ public enum SoundManager {
                 setDefaultUISounds("unlock_sound", "Unlock.ogg");
             }
 
-            File new_lowbattery_mp3 = new File(context.getCacheDir().getAbsolutePath() +
+            final File new_lowbattery_mp3 = new File(context.getCacheDir().getAbsolutePath() +
                     "/SoundsCache/SoundsInjector/ui/LowBattery.mp3");
-            File new_lowbattery_ogg = new File(context.getCacheDir().getAbsolutePath() +
+            final File new_lowbattery_ogg = new File(context.getCacheDir().getAbsolutePath() +
                     "/SoundsCache/SoundsInjector/ui/LowBattery.ogg");
             if (new_lowbattery_mp3.exists() || new_lowbattery_ogg.exists()) {
-                boolean mp3 = new_lowbattery_mp3.exists();
-                boolean ogg = new_lowbattery_ogg.exists();
+                final boolean mp3 = new_lowbattery_mp3.exists();
+                final boolean ogg = new_lowbattery_ogg.exists();
                 if (mp3) {
                     FileOperations.move(
                             context,
@@ -360,19 +360,19 @@ public enum SoundManager {
         }
 
         // Now let's set the common user's sound files found in Settings
-        File alarms = new File(context.getCacheDir().getAbsolutePath() +
+        final File alarms = new File(context.getCacheDir().getAbsolutePath() +
                 "/SoundsCache/SoundsInjector/alarms/");
-        File alarms_temp = new File("/data/system/theme/audio/alarms/");
+        final File alarms_temp = new File("/data/system/theme/audio/alarms/");
         if (alarms_temp.exists())
             FileOperations.delete(context, "/data/system/theme/audio/alarms/");
         if (alarms.exists()) {
-            File new_alarm_mp3 = new File(context.getCacheDir().getAbsolutePath() +
+            final File new_alarm_mp3 = new File(context.getCacheDir().getAbsolutePath() +
                     "/SoundsCache/SoundsInjector/alarms/" + "/alarm.mp3");
-            File new_alarm_ogg = new File(context.getCacheDir().getAbsolutePath() +
+            final File new_alarm_ogg = new File(context.getCacheDir().getAbsolutePath() +
                     "/SoundsCache/SoundsInjector/alarms/" + "/alarm.ogg");
             if (new_alarm_mp3.exists() || new_alarm_ogg.exists()) {
-                boolean mp3 = new_alarm_mp3.exists();
-                boolean ogg = new_alarm_ogg.exists();
+                final boolean mp3 = new_alarm_mp3.exists();
+                final boolean ogg = new_alarm_ogg.exists();
 
                 FileOperations.copyDir(
                         context,
@@ -406,20 +406,20 @@ public enum SoundManager {
         }
 
 
-        File notifications = new File(context.getCacheDir().getAbsolutePath() +
+        final File notifications = new File(context.getCacheDir().getAbsolutePath() +
                 "/SoundsCache/SoundsInjector/notifications/");
-        File notifications_temp = new File("/data/system/theme/audio/notifications/");
+        final File notifications_temp = new File("/data/system/theme/audio/notifications/");
         if (notifications_temp.exists())
             FileOperations.delete(context, "/data/system/theme/audio/notifications/");
         if (notifications.exists()) {
-            File new_notifications_mp3 = new File(context.getCacheDir().getAbsolutePath() +
+            final File new_notifications_mp3 = new File(context.getCacheDir().getAbsolutePath() +
                     "/SoundsCache/SoundsInjector/notifications/" + "/notification.mp3");
-            File new_notifications_ogg = new File(context.getCacheDir()
+            final File new_notifications_ogg = new File(context.getCacheDir()
                     .getAbsolutePath() +
                     "/SoundsCache/SoundsInjector/notifications/" + "/notification.ogg");
             if (new_notifications_mp3.exists() || new_notifications_ogg.exists()) {
-                boolean mp3 = new_notifications_mp3.exists();
-                boolean ogg = new_notifications_ogg.exists();
+                final boolean mp3 = new_notifications_mp3.exists();
+                final boolean ogg = new_notifications_ogg.exists();
 
                 FileOperations.copyDir(
                         context,
@@ -453,21 +453,21 @@ public enum SoundManager {
             }
         }
 
-        File ringtones = new File(context.getCacheDir().getAbsolutePath() +
+        final File ringtones = new File(context.getCacheDir().getAbsolutePath() +
                 "/SoundsCache/SoundsInjector/ringtones/");
-        File ringtones_temp = new File("/data/system/theme/audio/ringtones/");
-        Boolean ringtone;
+        final File ringtones_temp = new File("/data/system/theme/audio/ringtones/");
+        final Boolean ringtone;
         if (ringtones_temp.exists())
             FileOperations.delete(context, "/data/system/theme/audio/ringtones/");
         if (ringtones.exists()) {
             ringtone = true;
-            File new_ringtones_mp3 = new File(context.getCacheDir().getAbsolutePath() +
+            final File new_ringtones_mp3 = new File(context.getCacheDir().getAbsolutePath() +
                     "/SoundsCache/SoundsInjector/ringtones/ringtone.mp3");
-            File new_ringtones_ogg = new File(context.getCacheDir().getAbsolutePath() +
+            final File new_ringtones_ogg = new File(context.getCacheDir().getAbsolutePath() +
                     "/SoundsCache/SoundsInjector/ringtones/ringtone.ogg");
             if (new_ringtones_mp3.exists() || new_ringtones_ogg.exists()) {
-                boolean mp3 = new_ringtones_mp3.exists();
-                boolean ogg = new_ringtones_ogg.exists();
+                final boolean mp3 = new_ringtones_mp3.exists();
+                final boolean ogg = new_ringtones_ogg.exists();
 
                 FileOperations.copyDir(
                         context,
@@ -506,7 +506,7 @@ public enum SoundManager {
         return ringtone;
     }
 
-    private static String getDefaultAudiblePath(int type) {
+    private static String getDefaultAudiblePath(final int type) {
         final String name;
         final String path;
         switch (type) {
@@ -529,22 +529,22 @@ public enum SoundManager {
         return path;
     }
 
-    private static void setUISounds(String sound_name, String location) {
+    private static void setUISounds(final String sound_name, final String location) {
         if (Resources.allowedUISound(sound_name)) {
             FileOperations.adjustContentProvider(SYSTEM_CONTENT_URI, sound_name, location);
         }
     }
 
-    private static void setDefaultUISounds(String sound_name, String sound_file) {
+    private static void setDefaultUISounds(final String sound_name, final String sound_file) {
         FileOperations.adjustContentProvider(SYSTEM_CONTENT_URI, sound_name,
                 "/system/media/audio/ui/" + sound_file);
     }
 
-    private static void setAudible(Context context, File ringtone, File ringtoneCache, int type,
-                                   String name) {
+    private static void setAudible(final Context context, final File ringtone, final File ringtoneCache, final int type,
+                                   final String name) {
         final String path = ringtone.getAbsolutePath();
         final String mimeType = name.endsWith(".ogg") ? "application/ogg" : "application/mp3";
-        ContentValues values = new ContentValues();
+        final ContentValues values = new ContentValues();
         values.put(MediaStore.MediaColumns.DATA, path);
         values.put(MediaStore.MediaColumns.TITLE, name);
         values.put(MediaStore.MediaColumns.MIME_TYPE, mimeType);
@@ -555,15 +555,15 @@ public enum SoundManager {
         values.put(MediaStore.Audio.Media.IS_ALARM, type == RingtoneManager.TYPE_ALARM);
         values.put(MediaStore.Audio.Media.IS_MUSIC, false);
 
-        Uri uri = MediaStore.Audio.Media.getContentUriForPath(path);
+        final Uri uri = MediaStore.Audio.Media.getContentUriForPath(path);
         Uri newUri = null;
-        Cursor c = context.getContentResolver().query(uri,
+        final Cursor c = context.getContentResolver().query(uri,
                 new String[]{MediaStore.MediaColumns._ID},
                 MediaStore.MediaColumns.DATA + "='" + path + "'",
                 null, null);
         if (c != null && c.getCount() > 0) {
             c.moveToFirst();
-            long id = c.getLong(0);
+            final long id = c.getLong(0);
             c.close();
             newUri = Uri.withAppendedPath(Uri.parse(MEDIA_CONTENT_URI), "" + id);
             context.getContentResolver().update(uri, values,
@@ -573,19 +573,19 @@ public enum SoundManager {
             newUri = context.getContentResolver().insert(uri, values);
         try {
             RingtoneManager.setActualDefaultRingtoneUri(context, type, newUri);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             // Suppress warning
         }
     }
 
     @SuppressWarnings("SameParameterValue")
-    private static void setUIAudible(Context context, File localized_ringtone,
-                                     File ringtone_file, int type, String name) {
+    private static void setUIAudible(final Context context, final File localized_ringtone,
+                                     final File ringtone_file, final int type, final String name) {
         final String path = ringtone_file.getAbsolutePath();
 
         final String path_clone = "/system/media/audio/ui/" + name + ".ogg";
 
-        ContentValues values = new ContentValues();
+        final ContentValues values = new ContentValues();
         values.put(MediaStore.MediaColumns.DATA, path);
         values.put(MediaStore.MediaColumns.TITLE, name);
         values.put(MediaStore.MediaColumns.MIME_TYPE, "application/ogg");
@@ -595,22 +595,22 @@ public enum SoundManager {
         values.put(MediaStore.Audio.Media.IS_ALARM, false);
         values.put(MediaStore.Audio.Media.IS_MUSIC, true);
 
-        Uri uri = MediaStore.Audio.Media.getContentUriForPath(path);
+        final Uri uri = MediaStore.Audio.Media.getContentUriForPath(path);
         Uri newUri = null;
-        Cursor c = context.getContentResolver().query(uri,
+        final Cursor c = context.getContentResolver().query(uri,
                 new String[]{MediaStore.MediaColumns._ID},
                 MediaStore.MediaColumns.DATA + "='" + path_clone + "'",
                 null, null);
         if (c != null && c.getCount() > 0) {
             c.moveToFirst();
-            long id = c.getLong(0);
+            final long id = c.getLong(0);
             Log.e("ContentResolver", id + "");
             c.close();
             newUri = Uri.withAppendedPath(Uri.parse(MEDIA_CONTENT_URI), "" + id);
             try {
                 context.getContentResolver().update(uri, values,
                         MediaStore.MediaColumns._ID + "=" + id, null);
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 Log.d("SoundUtils", "The content provider does not need to be updated. " +
                         e.getMessage());
             }
@@ -619,22 +619,22 @@ public enum SoundManager {
             newUri = context.getContentResolver().insert(uri, values);
         try {
             RingtoneManager.setActualDefaultRingtoneUri(context, type, newUri);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
         }
     }
 
-    private static void setDefaultAudible(Context context, int type) {
+    private static void setDefaultAudible(final Context context, final int type) {
         final String audiblePath = getDefaultAudiblePath(type);
         if (audiblePath != null) {
             Uri uri = MediaStore.Audio.Media.getContentUriForPath(audiblePath);
-            Cursor c = context.getContentResolver().query(uri,
+            final Cursor c = context.getContentResolver().query(uri,
                     new String[]{MediaStore.MediaColumns._ID},
                     MediaStore.MediaColumns.DATA + "='" + audiblePath + "'",
                     null, null);
             if (c != null && c.getCount() > 0) {
                 c.moveToFirst();
-                long id = c.getLong(0);
+                final long id = c.getLong(0);
                 c.close();
                 uri = Uri.withAppendedPath(Uri.parse(MEDIA_CONTENT_URI), "" + id);
             }
@@ -643,16 +643,16 @@ public enum SoundManager {
         }
     }
 
-    private static void clearAudibles(Context context, String audiblePath) {
+    private static void clearAudibles(final Context context, final String audiblePath) {
         final File audibleDir = new File(audiblePath);
         if (audibleDir.exists() && audibleDir.isDirectory()) {
-            String[] files = audibleDir.list();
+            final String[] files = audibleDir.list();
             final ContentResolver resolver = context.getContentResolver();
-            for (String s : files) {
+            for (final String s : files) {
                 final String filePath = audiblePath + File.separator + s;
-                Uri uri = MediaStore.Audio.Media.getContentUriForPath(filePath);
+                final Uri uri = MediaStore.Audio.Media.getContentUriForPath(filePath);
                 resolver.delete(uri, MediaStore.MediaColumns.DATA + "=\"" + filePath + "\"", null);
-                boolean deleted = (new File(filePath)).delete();
+                final boolean deleted = (new File(filePath)).delete();
                 if (deleted) Log.e("SoundUtils", "Database cleared");
             }
         }

@@ -71,18 +71,18 @@ public class ShowcaseActivity extends AppCompatActivity {
         if (Systems.isAndromedaDevice(this.getApplicationContext())) {
             try {
                 this.localBroadcastManager.unregisterReceiver(this.andromedaReceiver);
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 // Unregistered already
             }
         }
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         this.getMenuInflater().inflate(R.menu.showcase_menu, menu);
 
-        MenuItem alphabetizeMenu = menu.findItem(R.id.alphabetize);
-        boolean alphabetize = this.prefs.getBoolean("alphabetize_showcase", false);
+        final MenuItem alphabetizeMenu = menu.findItem(R.id.alphabetize);
+        final boolean alphabetize = this.prefs.getBoolean("alphabetize_showcase", false);
         if (alphabetize) {
             alphabetizeMenu.setIcon(R.drawable.actionbar_alphabetize);
         } else {
@@ -92,14 +92,14 @@ public class ShowcaseActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.onBackPressed();
                 return true;
             case R.id.search:
                 try {
-                    String playURL;
+                    final String playURL;
                     if (Systems.checkOMS(this.getApplicationContext())) {
                         playURL = this.getString(R.string.search_play_store_url);
                     } else if (Systems.isSamsung(this.getApplicationContext())) {
@@ -107,10 +107,10 @@ public class ShowcaseActivity extends AppCompatActivity {
                     } else {
                         playURL = this.getString(R.string.search_play_store_url_legacy);
                     }
-                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    final Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(playURL));
                     this.startActivity(i);
-                } catch (ActivityNotFoundException activityNotFoundException) {
+                } catch (final ActivityNotFoundException activityNotFoundException) {
                     Lunchbar.make(this.findViewById(android.R.id.content),
                             this.getString(R.string.activity_missing_toast),
                             Lunchbar.LENGTH_LONG)
@@ -121,7 +121,7 @@ public class ShowcaseActivity extends AppCompatActivity {
                 this.launchShowcaseInfo();
                 return true;
             case R.id.alphabetize:
-                boolean alphabetize = this.prefs.getBoolean("alphabetize_showcase", false);
+                final boolean alphabetize = this.prefs.getBoolean("alphabetize_showcase", false);
                 if (!alphabetize) {
                     this.prefs.edit().putBoolean("alphabetize_showcase", true).apply();
                 } else {
@@ -141,7 +141,7 @@ public class ShowcaseActivity extends AppCompatActivity {
     private void refreshLayout() {
         if (References.isNetworkAvailable(this.getApplicationContext())) {
             this.no_network.setVisibility(View.GONE);
-            DownloadTabs downloadTabs = new DownloadTabs(this);
+            final DownloadTabs downloadTabs = new DownloadTabs(this);
             downloadTabs.execute(this.getString(R.string.showcase_tabs), "showcase_tabs.xml");
         } else {
             this.no_network.setVisibility(View.VISIBLE);
@@ -149,7 +149,7 @@ public class ShowcaseActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.showcase_activity);
 
@@ -163,7 +163,7 @@ public class ShowcaseActivity extends AppCompatActivity {
                     new IntentFilter("AndromedaReceiver.KILL"));
         }
 
-        Toolbar toolbar = this.findViewById(R.id.toolbar);
+        final Toolbar toolbar = this.findViewById(R.id.toolbar);
         if (toolbar != null) {
             this.setSupportActionBar(toolbar);
             if (this.getSupportActionBar() != null) {
@@ -174,15 +174,15 @@ public class ShowcaseActivity extends AppCompatActivity {
             toolbar.setNavigationOnClickListener((view) -> this.onBackPressed());
         }
 
-        File showcase_directory =
+        final File showcase_directory =
                 new File(this.getApplicationContext().getCacheDir() + "/ShowcaseCache/");
         if (!showcase_directory.exists()) {
-            Boolean made = showcase_directory.mkdir();
+            final Boolean made = showcase_directory.mkdir();
             if (!made)
                 Log.e(References.SUBSTRATUM_LOG, "Could not make showcase directory...");
         }
 
-        TabLayout tabLayout = this.findViewById(R.id.tabs);
+        final TabLayout tabLayout = this.findViewById(R.id.tabs);
         tabLayout.setTabTextColors(
                 this.getColor(R.color.showcase_activity_text),
                 this.getColor(R.color.showcase_activity_text));
@@ -193,7 +193,7 @@ public class ShowcaseActivity extends AppCompatActivity {
     }
 
     private void launchShowcaseInfo() {
-        Dialog dialog = new Dialog(this, R.style.ShowcaseDialog);
+        final Dialog dialog = new Dialog(this, R.style.ShowcaseDialog);
         dialog.setContentView(R.layout.showcase_info);
         dialog.show();
     }
@@ -202,7 +202,7 @@ public class ShowcaseActivity extends AppCompatActivity {
 
         private final WeakReference<ShowcaseActivity> showcaseActivityWR;
 
-        DownloadTabs(ShowcaseActivity activity) {
+        DownloadTabs(final ShowcaseActivity activity) {
             super();
             this.showcaseActivityWR = new WeakReference<>(activity);
         }
@@ -213,14 +213,14 @@ public class ShowcaseActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String result) {
+        protected void onPostExecute(final String result) {
             super.onPostExecute(result);
 
             if (result == null) {
                 return;
             }
 
-            ShowcaseActivity activity = this.showcaseActivityWR.get();
+            final ShowcaseActivity activity = this.showcaseActivityWR.get();
 
             if (activity != null) {
 
@@ -237,23 +237,23 @@ public class ShowcaseActivity extends AppCompatActivity {
                 String resultant = result;
 
                 if (resultant.endsWith("-temp.xml")) {
-                    String existing = MD5.calculateMD5(new File(activity.getCacheDir() +
+                    final String existing = MD5.calculateMD5(new File(activity.getCacheDir() +
                             "/ShowcaseCache/" + "showcase_tabs.xml"));
-                    String new_file = MD5.calculateMD5(new File(activity.getCacheDir() +
+                    final String new_file = MD5.calculateMD5(new File(activity.getCacheDir() +
                             "/ShowcaseCache/" + "showcase_tabs-temp.xml"));
                     if (existing != null && !existing.equals(new_file)) {
                         // MD5s don't match
-                        File renameMe = new File(activity.getCacheDir() +
+                        final File renameMe = new File(activity.getCacheDir() +
                                 "/ShowcaseCache/" + "showcase_tabs-temp.xml");
-                        boolean move = renameMe.renameTo(
+                        final boolean move = renameMe.renameTo(
                                 new File(activity.getCacheDir() +
                                         "/ShowcaseCache/" + "showcase_tabs.xml"));
                         if (move) Log.e("SubstratumShowcase",
                                 "Successfully updated the showcase tabs database");
                     } else {
-                        File deleteMe = new File(activity.getCacheDir() +
+                        final File deleteMe = new File(activity.getCacheDir() +
                                 "/ShowcaseCache/" + "showcase_tabs-temp.xml");
-                        boolean deleted = deleteMe.delete();
+                        final boolean deleted = deleteMe.delete();
                         if (!deleted) Log.e("SubstratumShowcase",
                                 "Unable to delete temporary tab file.");
                     }
@@ -261,13 +261,13 @@ public class ShowcaseActivity extends AppCompatActivity {
 
                 resultant = "showcase_tabs.xml";
 
-                String[] checkerCommands = {activity.getCacheDir() +
+                final String[] checkerCommands = {activity.getCacheDir() +
                         "/ShowcaseCache/" + resultant};
 
                 final Map<String, String> newArray =
                         ReadShowcaseTabsFile.main(checkerCommands);
 
-                ArrayList<String> links = new ArrayList<>();
+                final ArrayList<String> links = new ArrayList<>();
 
                 newArray.keySet()
                         .forEach(key -> {
@@ -297,30 +297,30 @@ public class ShowcaseActivity extends AppCompatActivity {
                 });
                 tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                     @Override
-                    public void onTabSelected(TabLayout.Tab tab) {
+                    public void onTabSelected(final TabLayout.Tab tab) {
                         viewPager.setCurrentItem(tab.getPosition());
                     }
 
                     @Override
-                    public void onTabUnselected(TabLayout.Tab tab) {
+                    public void onTabUnselected(final TabLayout.Tab tab) {
                     }
 
                     @Override
-                    public void onTabReselected(TabLayout.Tab tab) {
+                    public void onTabReselected(final TabLayout.Tab tab) {
                     }
                 });
             }
         }
 
         @Override
-        protected String doInBackground(String... sUrl) {
+        protected String doInBackground(final String... sUrl) {
             String inputFileName = sUrl[1];
 
-            Activity activity = this.showcaseActivityWR.get();
+            final Activity activity = this.showcaseActivityWR.get();
 
             if (activity != null) {
 
-                File current_wallpapers = new File(
+                final File current_wallpapers = new File(
                         activity.getCacheDir() + "/ShowcaseCache/" + inputFileName);
                 if (current_wallpapers.exists()) {
                     // We create a temporary file to check whether we should be replacing the current
@@ -339,7 +339,7 @@ public class ShowcaseActivity extends AppCompatActivity {
     class AndromedaReceiver extends BroadcastReceiver {
 
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(final Context context, final Intent intent) {
             ShowcaseActivity.this.finish();
         }
     }

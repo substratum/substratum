@@ -66,7 +66,7 @@ public class Substratum extends Application {
         try {
             FirebaseApp.initializeApp(this.getApplicationContext());
             FirebaseCrash.setCrashCollectionEnabled(!DEBUG);
-        } catch (IllegalStateException ise) {
+        } catch (final IllegalStateException ise) {
             // Suppress warning
         }
 
@@ -101,9 +101,9 @@ public class Substratum extends Application {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void createNotificationChannel() {
-        NotificationManager notificationManager =
+        final NotificationManager notificationManager =
                 (NotificationManager) this.getSystemService(NOTIFICATION_SERVICE);
-        NotificationChannel mainChannel = new NotificationChannel(
+        final NotificationChannel mainChannel = new NotificationChannel(
                 References.DEFAULT_NOTIFICATION_CHANNEL_ID,
                 this.getString(R.string.notification_channel_default),
                 NotificationManager.IMPORTANCE_DEFAULT);
@@ -115,7 +115,7 @@ public class Substratum extends Application {
         assert notificationManager != null;
         notificationManager.createNotificationChannel(mainChannel);
 
-        NotificationChannel compileChannel = new NotificationChannel(
+        final NotificationChannel compileChannel = new NotificationChannel(
                 References.ONGOING_NOTIFICATION_CHANNEL_ID,
                 this.getString(R.string.notification_channel_ongoing),
                 NotificationManager.IMPORTANCE_LOW);
@@ -123,7 +123,7 @@ public class Substratum extends Application {
                 this.getString(R.string.notification_channel_ongoing_description));
         notificationManager.createNotificationChannel(compileChannel);
 
-        NotificationChannel andromedaChannel = new NotificationChannel(
+        final NotificationChannel andromedaChannel = new NotificationChannel(
                 References.ANDROMEDA_NOTIFICATION_CHANNEL_ID,
                 this.getString(R.string.notification_channel_andromeda),
                 NotificationManager.IMPORTANCE_NONE);
@@ -132,7 +132,7 @@ public class Substratum extends Application {
         notificationManager.createNotificationChannel(andromedaChannel);
     }
 
-    public boolean startBinderService(Class className) {
+    public boolean startBinderService(final Class className) {
         try {
             if (className.equals(AndromedaBinderService.class)) {
                 if (this.checkServiceActivation(AndromedaBinderService.class)) {
@@ -148,21 +148,21 @@ public class Substratum extends Application {
                     Log.d(BINDER_TAG, "This session will utilize the connected Binder service!");
                 } else {
                     Log.d(BINDER_TAG, "Substratum is now connecting to the Binder service...");
-                    Intent i = new Intent(this.getApplicationContext(), InterfacerBinderService.class);
+                    final Intent i = new Intent(this.getApplicationContext(), InterfacerBinderService.class);
                     this.startService(i);
                 }
             }
             return true;
-        } catch (Exception e) {
+        } catch (final Exception e) {
             // Suppress warnings
         }
         return false;
     }
 
-    private boolean checkServiceActivation(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) this.getSystemService(Context.ACTIVITY_SERVICE);
+    private boolean checkServiceActivation(final Class<?> serviceClass) {
+        final ActivityManager manager = (ActivityManager) this.getSystemService(Context.ACTIVITY_SERVICE);
         assert manager != null;
-        for (ActivityManager.RunningServiceInfo service :
+        for (final ActivityManager.RunningServiceInfo service :
                 manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
                 return true;
@@ -180,7 +180,7 @@ public class Substratum extends Application {
     }
 
     public void registerFinishReceiver() {
-        IntentFilter filter = new IntentFilter(Intent.ACTION_PACKAGE_ADDED);
+        final IntentFilter filter = new IntentFilter(Intent.ACTION_PACKAGE_ADDED);
         filter.addDataScheme("package");
         this.registerReceiver(finishReceiver, filter);
     }
@@ -188,18 +188,18 @@ public class Substratum extends Application {
     public void unregisterFinishReceiver() {
         try {
             this.unregisterReceiver(finishReceiver);
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             // Already unregistered
         }
     }
 
     private static class FinishReceiver extends BroadcastReceiver {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(final Context context, final Intent intent) {
             if (intent.getData() != null) {
-                String packageName = intent.getData().getEncodedSchemeSpecificPart();
+                final String packageName = intent.getData().getEncodedSchemeSpecificPart();
                 // Check whether the installed package is made by substratum
-                String check = Packages.getOverlayParent(context, packageName);
+                final String check = Packages.getOverlayParent(context, packageName);
                 if (check != null) {
                     isWaiting = false;
                     Log.d("Substratum", "PACKAGE_ADDED: " + packageName);

@@ -33,25 +33,25 @@ public enum AndromedaService {
     public static boolean checkServerActivity() {
         try {
             return getAndromedaInterface().checkServerActivity();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             // Suppressed exception
         }
         return false;
     }
 
-    static boolean enableOverlays(List<String> overlays) {
+    static boolean enableOverlays(final List<String> overlays) {
         try {
             return getAndromedaInterface().enableOverlay(overlays);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             // Suppressed exception
         }
         return false;
     }
 
-    static boolean disableOverlays(List<String> overlays) {
+    static boolean disableOverlays(final List<String> overlays) {
         try {
             return getAndromedaInterface().disableOverlay(overlays);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             // Suppressed exception
         }
         return false;
@@ -60,34 +60,34 @@ public enum AndromedaService {
     public static boolean listOverlays() {
         try {
             return getAndromedaInterface().listOverlays();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             // Suppressed exception
         }
         return false;
     }
 
-    static boolean installOverlays(List<String> overlays) {
+    static boolean installOverlays(final List<String> overlays) {
         try {
             return getAndromedaInterface().installPackage(overlays);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             // Suppressed exception
         }
         return false;
     }
 
-    static boolean uninstallOverlays(List<String> overlays) {
+    static boolean uninstallOverlays(final List<String> overlays) {
         try {
             return getAndromedaInterface().uninstallPackage(overlays);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             // Suppressed exception
         }
         return false;
     }
 
-    static boolean setPriority(List<String> overlays) {
+    static boolean setPriority(final List<String> overlays) {
         try {
             return getAndromedaInterface().changePriority(overlays);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             // Suppressed exception
         }
         return false;

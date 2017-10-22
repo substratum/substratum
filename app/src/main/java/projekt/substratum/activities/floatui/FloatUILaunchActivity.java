@@ -38,7 +38,7 @@ import static projekt.substratum.common.Systems.checkUsagePermissions;
 public class FloatUILaunchActivity extends SubstratumActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (Settings.canDrawOverlays(this.getApplicationContext()) &&
                 checkUsagePermissions(this.getApplicationContext())) {
@@ -55,10 +55,10 @@ public class FloatUILaunchActivity extends SubstratumActivity {
         this.finish();
     }
 
-    public void triggerFloatingHead(Boolean show) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+    public void triggerFloatingHead(final Boolean show) {
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
                 this.getApplicationContext());
-        int active = (show) ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE;
+        final int active = (show) ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE;
         prefs.edit().putInt("float_tile", active).apply();
         FloatUiTile.requestListeningState(this.getApplicationContext(),
                 new ComponentName(this.getApplicationContext(), FloatUiTile.class));

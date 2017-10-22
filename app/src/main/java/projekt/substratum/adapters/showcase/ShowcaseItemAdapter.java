@@ -46,22 +46,22 @@ import static com.bumptech.glide.request.RequestOptions.centerCropTransform;
 public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapter.ViewHolder> {
     private final List<ShowcaseItem> information;
 
-    public ShowcaseItemAdapter(List<ShowcaseItem> information) {
+    public ShowcaseItemAdapter(final List<ShowcaseItem> information) {
         super();
         this.information = information;
     }
 
     @Override
-    public ShowcaseItemAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(
+    public ShowcaseItemAdapter.ViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int i) {
+        final View view = LayoutInflater.from(
                 viewGroup.getContext()).inflate(R.layout.showcase_entry_card, viewGroup, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, int pos) {
-        ShowcaseItem showcaseItem = this.information.get(pos);
-        Context context = showcaseItem.getContext();
+    public void onBindViewHolder(final ViewHolder viewHolder, final int pos) {
+        final ShowcaseItem showcaseItem = this.information.get(pos);
+        final Context context = showcaseItem.getContext();
 
         Glide.with(context)
                 .load(showcaseItem.getThemeIcon())
@@ -90,8 +90,8 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
             viewHolder.installedOrNot.setVisibility(View.GONE);
         }
 
-        String[] supported = showcaseItem.getThemeSupport().split("\\|");
-        List supported_array = Arrays.asList(supported);
+        final String[] supported = showcaseItem.getThemeSupport().split("\\|");
+        final List supported_array = Arrays.asList(supported);
         if (supported_array.contains(References.showcaseWallpapers)) {
             viewHolder.wallpaper.setAlpha((float) 1.0);
         } else {
@@ -120,10 +120,10 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
 
         viewHolder.cardView.setOnClickListener(view -> {
             try {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
+                final Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(showcaseItem.getThemeLink()));
                 context.startActivity(intent);
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 e.printStackTrace();
                 Lunchbar.make(view,
                         context.getString(R.string.activity_missing_toast),
@@ -146,7 +146,7 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
         ImageView imageView, backgroundImageView, wallpaper, sounds, fonts, bootanimations,
                 overlays;
 
-        ViewHolder(View view) {
+        ViewHolder(final View view) {
             super(view);
             this.cardView = view.findViewById(R.id.theme_card);
             this.themeName = view.findViewById(R.id.theme_name);

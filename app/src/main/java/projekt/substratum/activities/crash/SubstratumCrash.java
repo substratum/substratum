@@ -39,31 +39,31 @@ public class SubstratumCrash extends Activity {
     boolean shouldPulsate = false;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.crash_activity);
 
-        String stacktrace = this.createErrorReport(this.getIntent());
-        CaocConfig caocConfig = CustomActivityOnCrash.getConfigFromIntent(this.getIntent());
+        final String stacktrace = this.createErrorReport(this.getIntent());
+        final CaocConfig caocConfig = CustomActivityOnCrash.getConfigFromIntent(this.getIntent());
 
-        Button restartButton = this.findViewById(R.id.restart);
+        final Button restartButton = this.findViewById(R.id.restart);
         restartButton.setOnClickListener(view -> {
-            Intent intent = new Intent(SubstratumCrash.this, SplashScreenActivity.class);
+            final Intent intent = new Intent(SubstratumCrash.this, SplashScreenActivity.class);
             CustomActivityOnCrash.restartApplicationWithIntent(
                     SubstratumCrash.this,
                     intent,
                     caocConfig);
         });
 
-        Button rescueMeButton = this.findViewById(R.id.rescue_me);
+        final Button rescueMeButton = this.findViewById(R.id.rescue_me);
         rescueMeButton.setOnClickListener(view -> {
-            Intent intent = new Intent(SubstratumCrash.this, RescueActivity.class);
+            final Intent intent = new Intent(SubstratumCrash.this, RescueActivity.class);
             this.startActivity(intent);
             this.finish();
         });
 
 
-        Boolean isSubstratumOverlayFault = References.stringContainsItemFromList(stacktrace,
+        final Boolean isSubstratumOverlayFault = References.stringContainsItemFromList(stacktrace,
                 SUBSTRATUM_OVERLAY_FAULT_EXCEPTIONS);
 
         if (!Systems.isSamsungDevice(this.getApplicationContext())) {
@@ -100,9 +100,9 @@ public class SubstratumCrash extends Activity {
                     .show();
         }
 
-        Button stacktraceButton = this.findViewById(R.id.logcat);
+        final Button stacktraceButton = this.findViewById(R.id.logcat);
         stacktraceButton.setOnClickListener(view -> {
-            TextView showText = new TextView(this);
+            final TextView showText = new TextView(this);
             showText.setPadding(70, 30, 70, 30);
             showText.setText(stacktrace);
             showText.setTextIsSelectable(true);
@@ -127,21 +127,21 @@ public class SubstratumCrash extends Activity {
         });
     }
 
-    private String createErrorReport(Intent intent) {
-        String versionName = Packages.getAppVersion(this, this.getPackageName());
+    private String createErrorReport(final Intent intent) {
+        final String versionName = Packages.getAppVersion(this, this.getPackageName());
         String details = "";
 
         details += "Build version: " + versionName + "\n";
         details += "Device: " + Build.MODEL + " (" + Build.DEVICE + ") " + "[" + Build.FINGERPRINT +
                 "]";
 
-        String xposed = References.checkXposedVersion();
+        final String xposed = References.checkXposedVersion();
         if (!xposed.isEmpty()) details += " {" + xposed + "}";
         details += "\n";
 
-        String rom = Systems.checkFirmwareSupport(this, this.getString(R.string.supported_roms_url),
+        final String rom = Systems.checkFirmwareSupport(this, this.getString(R.string.supported_roms_url),
                 "supported_roms.xml");
-        String romVersion = Build.VERSION.RELEASE + " - " +
+        final String romVersion = Build.VERSION.RELEASE + " - " +
                 (!rom.isEmpty() ? rom : "Unknown");
         details += "ROM: " + romVersion + "\n";
         details += "Theme system: ";
@@ -171,7 +171,7 @@ public class SubstratumCrash extends Activity {
         details += "Stack trace:\n";
         details += CustomActivityOnCrash.getStackTraceFromIntent(intent);
 
-        String activityLog = CustomActivityOnCrash.getActivityLogFromIntent(intent);
+        final String activityLog = CustomActivityOnCrash.getActivityLogFromIntent(intent);
         if (activityLog != null) {
             details += "\n\nUser actions:\n";
             details += activityLog;

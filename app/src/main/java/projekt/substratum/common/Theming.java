@@ -27,13 +27,13 @@ import static projekt.substratum.common.References.spreadYourWingsAndFly;
 public enum Theming {
     ;
 
-    public static void refreshInstalledThemesPref(Context context) {
-        SharedPreferences.Editor editor =
+    public static void refreshInstalledThemesPref(final Context context) {
+        final SharedPreferences.Editor editor =
                 PreferenceManager.getDefaultSharedPreferences(context).edit();
 
         // Initial parse of what is installed on the device
-        Set<String> installed_themes = new TreeSet<>();
-        List<ResolveInfo> all_themes = Packages.getThemes(context);
+        final Set<String> installed_themes = new TreeSet<>();
+        final List<ResolveInfo> all_themes = Packages.getThemes(context);
         for (int i = 0; i < all_themes.size(); i++) {
             installed_themes.add(all_themes.get(i).activityInfo.packageName);
         }
@@ -43,10 +43,10 @@ public enum Theming {
 
     // Locate the proper launch intent for the themes
     @SuppressWarnings("SameParameterValue")
-    public static Intent sendLaunchIntent(Context mContext, String currentTheme,
-                                          boolean theme_legacy, String theme_mode,
-                                          Boolean notification) {
-        Intent originalIntent = new Intent(TEMPLATE_THEME_MODE);
+    public static Intent sendLaunchIntent(final Context mContext, final String currentTheme,
+                                          final boolean theme_legacy, final String theme_mode,
+                                          final Boolean notification) {
+        final Intent originalIntent = new Intent(TEMPLATE_THEME_MODE);
         if (theme_legacy)
             originalIntent.putExtra("theme_legacy", true);
         if (theme_mode != null) {
@@ -59,10 +59,10 @@ public enum Theming {
         originalIntent.putExtra("hash_passthrough", hashPassthrough(mContext));
         originalIntent.putExtra("certified", !spreadYourWingsAndFly(mContext));
         try {
-            PackageManager pm = mContext.getPackageManager();
-            PackageInfo info = pm.getPackageInfo(currentTheme, PackageManager.GET_ACTIVITIES);
-            ActivityInfo[] list = info.activities;
-            for (ActivityInfo aList : list) {
+            final PackageManager pm = mContext.getPackageManager();
+            final PackageInfo info = pm.getPackageInfo(currentTheme, PackageManager.GET_ACTIVITIES);
+            final ActivityInfo[] list = info.activities;
+            for (final ActivityInfo aList : list) {
                 // We need to look for what the themer assigned the class to be! This is a dynamic
                 // function that only launches the correct SubstratumLauncher class. Having it
                 // hardcoded is bad.
@@ -78,17 +78,17 @@ public enum Theming {
                     return originalIntent;
                 }
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             // Suppress warning
         }
         return null;
     }
 
     // Launch intent for a theme
-    public static void launchTheme(Context mContext,
-                                   String package_name,
-                                   String theme_mode) {
-        Intent theme_intent = themeIntent(
+    public static void launchTheme(final Context mContext,
+                                   final String package_name,
+                                   final String theme_mode) {
+        final Intent theme_intent = themeIntent(
                 mContext,
                 package_name,
                 theme_mode,
@@ -97,27 +97,27 @@ public enum Theming {
     }
 
     // Key return of a theme
-    public static void getThemeKeys(Context mContext, String package_name) {
-        Intent theme_intent = themeIntent(
+    public static void getThemeKeys(final Context mContext, final String package_name) {
+        final Intent theme_intent = themeIntent(
                 mContext,
                 package_name,
                 null,
                 TEMPLATE_GET_KEYS);
         try {
             mContext.startActivity(theme_intent);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static Intent themeIntent(Context mContext,
-                                     String package_name,
-                                     String theme_mode,
-                                     String actionIntent) {
-        boolean should_debug = projekt.substratum.BuildConfig.DEBUG;
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+    public static Intent themeIntent(final Context mContext,
+                                     final String package_name,
+                                     final String theme_mode,
+                                     final String actionIntent) {
+        final boolean should_debug = projekt.substratum.BuildConfig.DEBUG;
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         if (should_debug) Log.d("ThemeLauncher", "Creating new intent...");
-        Intent intentActivity;
+        final Intent intentActivity;
         if (actionIntent.equals(TEMPLATE_GET_KEYS)) {
             intentActivity = new Intent();
         } else {

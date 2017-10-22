@@ -48,34 +48,34 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
 
     private final List<OverlaysItem> overlayList;
 
-    public OverlaysAdapter(List<OverlaysItem> overlayInfo) {
+    public OverlaysAdapter(final List<OverlaysItem> overlayInfo) {
         super();
         this.overlayList = overlayInfo;
     }
 
     @Override
-    public OverlaysAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemLayoutView = LayoutInflater.from(
+    public OverlaysAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+        final View itemLayoutView = LayoutInflater.from(
                 parent.getContext()).inflate(R.layout.overlays_list_row, parent, false);
         return new ViewHolder(itemLayoutView);
     }
 
-    private AdapterView.OnItemSelectedListener adapterViewOISL(Context context,
-                                                               OverlaysItem current_object,
-                                                               ViewHolder viewHolder,
-                                                               int spinnerNumber) {
+    private AdapterView.OnItemSelectedListener adapterViewOISL(final Context context,
+                                                               final OverlaysItem current_object,
+                                                               final ViewHolder viewHolder,
+                                                               final int spinnerNumber) {
         return new AdapterView.OnItemSelectedListener() {
 
-            String setPackageName(String packageName, AdapterView<?> arg0) {
+            String setPackageName(final String packageName, final AdapterView<?> arg0) {
                 return packageName + arg0.getSelectedItem().toString()
                         .replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
             }
 
             @Override
-            public void onItemSelected(AdapterView<?> arg0,
-                                       View arg1,
-                                       int pos,
-                                       long id) {
+            public void onItemSelected(final AdapterView<?> arg0,
+                                       final View arg1,
+                                       final int pos,
+                                       final long id) {
                 switch (spinnerNumber) {
                     case 1:
                         current_object.setSelectedVariant(pos);
@@ -160,20 +160,20 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
+            public void onNothingSelected(final AdapterView<?> arg0) {
             }
         };
     }
 
     // Magical easy reset checking for the adapter
     // Function that runs when a user picks a spinner dropdown item that is index 0
-    private void zeroIndex(Context context, OverlaysItem current_object, ViewHolder viewHolder) {
+    private void zeroIndex(final Context context, final OverlaysItem current_object, final ViewHolder viewHolder) {
         if (isPackageInstalled(context, current_object.getFullOverlayParameters())) {
             viewHolder.overlayState.setVisibility(View.VISIBLE);
             // Check whether currently installed overlay is up to date with
             // theme_pid's versionName
             if (!current_object.compareInstalledOverlay()) {
-                String format = String.format(context.getString(R.string.overlays_update_available),
+                final String format = String.format(context.getString(R.string.overlays_update_available),
                         current_object.versionName);
                 viewHolder.overlayState.setText(format);
                 viewHolder.overlayState.setTextColor(
@@ -204,8 +204,8 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
     }
 
     // Function that runs when a user picks a spinner dropdown item that is index >= 1
-    private void commitChanges(Context context, OverlaysItem current_object,
-                               ViewHolder viewHolder, String packageName) {
+    private void commitChanges(final Context context, final OverlaysItem current_object,
+                               final ViewHolder viewHolder, final String packageName) {
         if (isPackageInstalled(context,
                 current_object.getPackageName() + "." + current_object.getThemeName() +
                         "." + packageName +
@@ -216,7 +216,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
             // theme_pid's versionName
             if (!current_object.compareInstalledVariantOverlay(
                     packageName)) {
-                String format = String.format(context.getString(R.string.overlays_update_available),
+                final String format = String.format(context.getString(R.string.overlays_update_available),
                         current_object.versionName);
 
                 viewHolder.overlayState.setText(format);
@@ -261,10 +261,10 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
 
-        OverlaysItem current_object = this.overlayList.get(position);
-        Context context = current_object.getInheritedContext();
+        final OverlaysItem current_object = this.overlayList.get(position);
+        final Context context = current_object.getInheritedContext();
 
         viewHolder.app_icon.setImageDrawable(current_object.getAppIcon());
 
@@ -279,7 +279,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
             viewHolder.overlayState.setVisibility(View.VISIBLE);
             // Check whether currently installed overlay is up to date with theme_pid's versionName
             if (!current_object.compareInstalledOverlay()) {
-                String format = String.format(
+                final String format = String.format(
                         context.getString(R.string.overlays_update_available),
                         current_object.versionName);
                 viewHolder.overlayState.setText(format);
@@ -299,8 +299,8 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
         viewHolder.checkBox.setTag(current_object);
 
         viewHolder.checkBox.setOnClickListener(v -> {
-            CheckBox cb = (CheckBox) v;
-            OverlaysItem contact = (OverlaysItem) cb.getTag();
+            final CheckBox cb = (CheckBox) v;
+            final OverlaysItem contact = (OverlaysItem) cb.getTag();
 
             contact.setSelected(cb.isChecked());
             current_object.setSelected(cb.isChecked());
@@ -309,16 +309,16 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
         viewHolder.card.setOnClickListener(v -> {
             viewHolder.checkBox.setChecked(!viewHolder.checkBox.isChecked());
 
-            CheckBox cb = viewHolder.checkBox;
-            OverlaysItem contact = (OverlaysItem) cb.getTag();
+            final CheckBox cb = viewHolder.checkBox;
+            final OverlaysItem contact = (OverlaysItem) cb.getTag();
 
             contact.setSelected(cb.isChecked());
             current_object.setSelected(cb.isChecked());
         });
 
         viewHolder.card.setOnLongClickListener(view -> {
-            String packageName = current_object.getPackageName();
-            String packageVersion;
+            final String packageName = current_object.getPackageName();
+            final String packageVersion;
             switch (packageName) {
                 case "com.android.systemui.headers":
                 case "com.android.systemui.navbars":
@@ -336,7 +336,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                             context, packageName);
             }
             if (packageVersion != null) {
-                String version = String.format(
+                final String version = String.format(
                         context.getString(R.string.overlays_tab_package_ver_message),
                         current_object.getName(),
                         packageVersion);
@@ -435,14 +435,14 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                     }
                 } else {
                     // At this point, the object is an RRO formatted check
-                    File file = new File(PIXEL_NEXUS_DIR);
-                    File file2 = new File(LEGACY_NEXUS_DIR);
+                    final File file = new File(PIXEL_NEXUS_DIR);
+                    final File file2 = new File(LEGACY_NEXUS_DIR);
                     if (file.exists() || file2.exists()) {
-                        File filer1 = new File(
+                        final File filer1 = new File(
                                 file.getAbsolutePath() + "/" +
                                         current_object.getPackageName() + "." +
                                         current_object.getThemeName() + ".apk");
-                        File filer2 = new File(
+                        final File filer2 = new File(
                                 file2.getAbsolutePath() + "/" +
                                         current_object.getPackageName() + "." +
                                         current_object.getThemeName() + ".apk");
@@ -500,7 +500,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
         Spinner optionsSpinner5;
         ImageView app_icon;
 
-        ViewHolder(View itemLayoutView) {
+        ViewHolder(final View itemLayoutView) {
             super(itemLayoutView);
             this.app_icon = itemLayoutView.findViewById(R.id.app_icon);
             this.card = itemLayoutView.findViewById(R.id.card);

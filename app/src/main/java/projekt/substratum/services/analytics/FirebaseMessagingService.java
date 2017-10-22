@@ -34,20 +34,20 @@ public class FirebaseMessagingService extends
         com.google.firebase.messaging.FirebaseMessagingService {
 
     @Override
-    public void onMessageReceived(RemoteMessage remoteMessage) {
-        Intent showIntent = new Intent();
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, showIntent, 0);
+    public void onMessageReceived(final RemoteMessage remoteMessage) {
+        final Intent showIntent = new Intent();
+        final PendingIntent contentIntent = PendingIntent.getActivity(this, 0, showIntent, 0);
 
-        NotificationManager notificationManager =
+        final NotificationManager notificationManager =
                 (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-        NotificationCompat.Builder mBuilder =
+        final NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this, References.DEFAULT_NOTIFICATION_CHANNEL_ID)
                         .setContentIntent(contentIntent)
                         .setAutoCancel(true)
                         .setSmallIcon(R.mipmap.main_launcher)
                         .setContentTitle(this.getString(R.string.app_name))
                         .setContentText(remoteMessage.getNotification().getBody());
-        Notification notification = mBuilder.build();
+        final Notification notification = mBuilder.build();
         if (notificationManager != null) {
             notificationManager.notify(References.firebase_notification_id, notification);
         }

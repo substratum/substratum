@@ -72,37 +72,37 @@ public enum ThemeInterfacerService {
     private static final String COMMAND_VALUE_PROFILE = "profile";
     private static final String COMMAND_VALUE_MKDIR = "mkdir";
 
-    private static Intent getThemeInterfacer(Context context) {
-        Intent intent = new Intent();
+    private static Intent getThemeInterfacer(final Context context) {
+        final Intent intent = new Intent();
         intent.setComponent(
                 new ComponentName(
                         INTERFACER_PACKAGE,
                         INTERFACER_SERVICE));
-        PendingIntent pending = PendingIntent.getActivity(context, 0, new Intent(), 0);
+        final PendingIntent pending = PendingIntent.getActivity(context, 0, new Intent(), 0);
         intent.putExtra(INTERFACER_TOKEN, pending);
         intent.putExtra(JOB_TIME_KEY, System.currentTimeMillis());
         return intent;
     }
 
     @Deprecated
-    public static Intent getInterfacer(Context context) {
-        Intent intent = new Intent();
-        PendingIntent pending = PendingIntent.getActivity(context, 0, new Intent(), 0);
+    public static Intent getInterfacer(final Context context) {
+        final Intent intent = new Intent();
+        final PendingIntent pending = PendingIntent.getActivity(context, 0, new Intent(), 0);
         intent.putExtra(INTERFACER_TOKEN, pending);
         intent.putExtra(JOB_TIME_KEY, System.currentTimeMillis());
         return intent;
     }
 
-    static void installOverlays(Context context, ArrayList<String> overlays) {
+    static void installOverlays(final Context context, final ArrayList<String> overlays) {
         if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .installPackage(overlays);
-            } catch (RemoteException e) {
+            } catch (final RemoteException e) {
                 // Suppress warning
             }
         } else {
-            Intent intent = getThemeInterfacer(context);
+            final Intent intent = getThemeInterfacer(context);
             intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_INSTALL);
             intent.putExtra(INSTALL_LIST_KEY, overlays);
             context.startService(intent);
@@ -110,18 +110,18 @@ public enum ThemeInterfacerService {
     }
 
     @SuppressWarnings("SameParameterValue")
-    public static void uninstallOverlays(Context context,
-                                         ArrayList<String> overlays,
-                                         boolean restartUi) {
+    public static void uninstallOverlays(final Context context,
+                                         final ArrayList<String> overlays,
+                                         final boolean restartUi) {
         if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .uninstallPackage(overlays, restartUi);
-            } catch (RemoteException e) {
+            } catch (final RemoteException e) {
                 // Suppress warning
             }
         } else {
-            Intent intent = getThemeInterfacer(context);
+            final Intent intent = getThemeInterfacer(context);
             intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_UNINSTALL);
             intent.putExtra(UNINSTALL_LIST_KEY, overlays);
             // Only need to set if true, will restart SystemUI when done processing packages
@@ -130,16 +130,16 @@ public enum ThemeInterfacerService {
         }
     }
 
-    static void enableOverlays(Context context, ArrayList<String> overlays, boolean restartUi) {
+    static void enableOverlays(final Context context, final ArrayList<String> overlays, final boolean restartUi) {
         if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .enableOverlay(overlays, restartUi);
-            } catch (RemoteException e) {
+            } catch (final RemoteException e) {
                 // Suppress warning
             }
         } else {
-            Intent intent = getThemeInterfacer(context);
+            final Intent intent = getThemeInterfacer(context);
             intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_ENABLE);
             intent.putExtra(ENABLE_LIST_KEY, overlays);
             intent.putExtra(WITH_RESTART_UI_KEY, restartUi);
@@ -147,16 +147,16 @@ public enum ThemeInterfacerService {
         }
     }
 
-    static void disableOverlays(Context context, ArrayList<String> overlays, boolean restartUi) {
+    static void disableOverlays(final Context context, final ArrayList<String> overlays, final boolean restartUi) {
         if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .disableOverlay(overlays, restartUi);
-            } catch (RemoteException e) {
+            } catch (final RemoteException e) {
                 // Suppress warning
             }
         } else {
-            Intent intent = getThemeInterfacer(context);
+            final Intent intent = getThemeInterfacer(context);
             intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_DISABLE);
             intent.putExtra(DISABLE_LIST_KEY, overlays);
             intent.putExtra(WITH_RESTART_UI_KEY, restartUi);
@@ -164,68 +164,68 @@ public enum ThemeInterfacerService {
         }
     }
 
-    public static void restartSystemUI(Context context) {
+    public static void restartSystemUI(final Context context) {
         if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .restartSystemUI();
-            } catch (RemoteException e) {
+            } catch (final RemoteException e) {
                 // Suppress warning
             }
         } else {
-            Intent intent = getThemeInterfacer(context);
+            final Intent intent = getThemeInterfacer(context);
             intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_RESTART_UI);
             context.startService(intent);
         }
     }
 
-    static void forceStopService(Context context) {
-        Intent intent = getThemeInterfacer(context);
+    static void forceStopService(final Context context) {
+        final Intent intent = getThemeInterfacer(context);
         intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_FORCE_STOP_SERVICE);
         context.startService(intent);
     }
 
-    public static void setBootAnimation(Context context, String bootanimation_location) {
+    public static void setBootAnimation(final Context context, final String bootanimation_location) {
         if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .applyBootanimation(bootanimation_location);
-            } catch (RemoteException e) {
+            } catch (final RemoteException e) {
                 // Suppress warning
             }
         } else {
-            Intent intent = getThemeInterfacer(context);
+            final Intent intent = getThemeInterfacer(context);
             intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_BOOTANIMATION);
             intent.putExtra(BOOTANIMATION_FILE_NAME, bootanimation_location);
             context.startService(intent);
         }
     }
 
-    public static void clearBootAnimation(Context context) {
+    public static void clearBootAnimation(final Context context) {
         if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .applyBootanimation(null);
-            } catch (RemoteException e) {
+            } catch (final RemoteException e) {
                 // Suppress warning
             }
         } else {
-            Intent intent = getThemeInterfacer(context);
+            final Intent intent = getThemeInterfacer(context);
             intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_BOOTANIMATION);
             context.startService((intent));
         }
     }
 
-    public static void setFonts(Context context, String pid, String name) {
+    public static void setFonts(final Context context, final String pid, final String name) {
         if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .applyFonts(pid, name);
-            } catch (RemoteException e) {
+            } catch (final RemoteException e) {
                 // Suppress warning
             }
         } else {
-            Intent intent = getThemeInterfacer(context);
+            final Intent intent = getThemeInterfacer(context);
             intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_FONTS);
             intent.putExtra(FONTS_FILENAME, name);
             intent.putExtra(FONTS_PID, pid);
@@ -233,31 +233,31 @@ public enum ThemeInterfacerService {
         }
     }
 
-    public static void clearFonts(Context context) {
+    public static void clearFonts(final Context context) {
         if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .applyFonts(null, null);
-            } catch (RemoteException e) {
+            } catch (final RemoteException e) {
                 // Suppress warning
             }
         } else {
-            Intent intent = getThemeInterfacer(context);
+            final Intent intent = getThemeInterfacer(context);
             intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_FONTS);
             context.startService(intent);
         }
     }
 
-    public static void setThemedSounds(Context context, String pid, String name) {
+    public static void setThemedSounds(final Context context, final String pid, final String name) {
         if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .applyAudio(pid, name);
-            } catch (RemoteException e) {
+            } catch (final RemoteException e) {
                 // Suppress warning
             }
         } else {
-            Intent intent = getThemeInterfacer(context);
+            final Intent intent = getThemeInterfacer(context);
             intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_AUDIO);
             intent.putExtra(AUDIO_PID, pid);
             intent.putExtra(AUDIO_FILENAME, name);
@@ -265,31 +265,31 @@ public enum ThemeInterfacerService {
         }
     }
 
-    public static void clearThemedSounds(Context context) {
+    public static void clearThemedSounds(final Context context) {
         if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface().applyAudio(null,
                         null);
-            } catch (RemoteException e) {
+            } catch (final RemoteException e) {
                 // Suppress warning
             }
         } else {
-            Intent intent = getThemeInterfacer(context);
+            final Intent intent = getThemeInterfacer(context);
             intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_AUDIO);
             context.startService(intent);
         }
     }
 
-    static void setPriority(Context context, ArrayList<String> overlays, boolean restartUi) {
+    static void setPriority(final Context context, final ArrayList<String> overlays, final boolean restartUi) {
         if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .changePriority(overlays, restartUi);
-            } catch (RemoteException e) {
+            } catch (final RemoteException e) {
                 // Suppress warning
             }
         } else {
-            Intent intent = getThemeInterfacer(context);
+            final Intent intent = getThemeInterfacer(context);
             intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_PRIORITY);
             intent.putExtra(PRIORITY_LIST_KEY, overlays);
             intent.putExtra(WITH_RESTART_UI_KEY, restartUi);
@@ -297,16 +297,16 @@ public enum ThemeInterfacerService {
         }
     }
 
-    public static void copy(Context context, String source, String destination) {
+    public static void copy(final Context context, final String source, final String destination) {
         if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .copy(source, destination);
-            } catch (RemoteException e) {
+            } catch (final RemoteException e) {
                 // Suppress warning
             }
         } else {
-            Intent intent = getThemeInterfacer(context);
+            final Intent intent = getThemeInterfacer(context);
             intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_COPY);
             intent.putExtra(SOURCE_FILE_KEY, source);
             intent.putExtra(DESTINATION_FILE_KEY, destination);
@@ -314,16 +314,16 @@ public enum ThemeInterfacerService {
         }
     }
 
-    public static void move(Context context, String source, String destination) {
+    public static void move(final Context context, final String source, final String destination) {
         if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .move(source, destination);
-            } catch (RemoteException e) {
+            } catch (final RemoteException e) {
                 // Suppress warning
             }
         } else {
-            Intent intent = getThemeInterfacer(context);
+            final Intent intent = getThemeInterfacer(context);
             intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_MOVE);
             intent.putExtra(SOURCE_FILE_KEY, source);
             intent.putExtra(DESTINATION_FILE_KEY, destination);
@@ -331,16 +331,16 @@ public enum ThemeInterfacerService {
         }
     }
 
-    public static void delete(Context context, String directory, boolean deleteParent) {
+    public static void delete(final Context context, final String directory, final boolean deleteParent) {
         if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .deleteDirectory(directory, deleteParent);
-            } catch (RemoteException e) {
+            } catch (final RemoteException e) {
                 // Suppress warning
             }
         } else {
-            Intent intent = getThemeInterfacer(context);
+            final Intent intent = getThemeInterfacer(context);
             intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_DELETE);
             intent.putExtra(SOURCE_FILE_KEY, directory);
             intent.putExtra(WITH_DELETE_PARENT_KEY, deleteParent);
@@ -348,17 +348,17 @@ public enum ThemeInterfacerService {
         }
     }
 
-    public static void applyProfile(Context context, String name, ArrayList<String> toBeDisabled,
-                                    ArrayList<String> toBeEnabled, boolean restartUi) {
+    public static void applyProfile(final Context context, final String name, final ArrayList<String> toBeDisabled,
+                                    final ArrayList<String> toBeEnabled, final boolean restartUi) {
         if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .applyProfile(toBeEnabled, toBeDisabled, name, restartUi);
-            } catch (RemoteException e) {
+            } catch (final RemoteException e) {
                 // Suppress warning
             }
         } else {
-            Intent intent = getThemeInterfacer(context);
+            final Intent intent = getThemeInterfacer(context);
             intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_PROFILE);
             intent.putExtra(PROFILE_NAME_KEY, name);
             intent.putExtra(DISABLE_LIST_KEY, toBeDisabled);
@@ -368,29 +368,29 @@ public enum ThemeInterfacerService {
         }
     }
 
-    public static void createNewFolder(Context context, String destination) {
+    public static void createNewFolder(final Context context, final String destination) {
         if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .mkdir(destination);
-            } catch (RemoteException e) {
+            } catch (final RemoteException e) {
                 // Suppress warning
             }
         } else {
-            Intent intent = getThemeInterfacer(context);
+            final Intent intent = getThemeInterfacer(context);
             intent.putExtra(PRIMARY_COMMAND_KEY, COMMAND_VALUE_MKDIR);
             intent.putExtra(DESTINATION_FILE_KEY, destination);
             context.startService(intent);
         }
     }
 
-    static Map<String, List<OverlayInfo>> getAllOverlays(Context context) {
+    static Map<String, List<OverlayInfo>> getAllOverlays(final Context context) {
         if (Systems.isBinderInterfacer(context)) {
             try {
                 //noinspection unchecked
                 return InterfacerBinderService.getInstance().getInterfacerInterface()
                         .getAllOverlays();
-            } catch (RemoteException e) {
+            } catch (final RemoteException e) {
                 // Suppress warning
                 e.printStackTrace();
             }
@@ -398,23 +398,23 @@ public enum ThemeInterfacerService {
         return null;
     }
 
-    public static void setShutdownAnimation(Context context, String shutdownAnimationLocation) {
+    public static void setShutdownAnimation(final Context context, final String shutdownAnimationLocation) {
         if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .applyShutdownAnimation(shutdownAnimationLocation);
-            } catch (RemoteException e) {
+            } catch (final RemoteException e) {
                 // Suppress warning
             }
         }
     }
 
-    public static void clearShutdownAnimation(Context context) {
+    public static void clearShutdownAnimation(final Context context) {
         if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
                         .applyShutdownAnimation(null);
-            } catch (RemoteException e) {
+            } catch (final RemoteException e) {
                 // Suppress warning
             }
         }

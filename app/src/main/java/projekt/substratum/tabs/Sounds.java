@@ -108,13 +108,13 @@ public class Sounds extends Fragment {
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater,
-            ViewGroup container,
-            Bundle savedInstanceState) {
+            final LayoutInflater inflater,
+            final ViewGroup container,
+            final Bundle savedInstanceState) {
         this.mContext = this.getContext();
         this.theme_pid = this.getArguments().getString("theme_pid");
-        byte[] encryption_key = this.getArguments().getByteArray("encryption_key");
-        byte[] iv_encrypt_key = this.getArguments().getByteArray("iv_encrypt_key");
+        final byte[] encryption_key = this.getArguments().getByteArray("encryption_key");
+        final byte[] iv_encrypt_key = this.getArguments().getByteArray("iv_encrypt_key");
 
         // encrypted = encryption_key != null && iv_encrypt_key != null;
 
@@ -126,7 +126,7 @@ public class Sounds extends Fragment {
                         new SecretKeySpec(encryption_key, "AES"),
                         new IvParameterSpec(iv_encrypt_key)
                 );
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 e.printStackTrace();
             }
         }
@@ -150,21 +150,21 @@ public class Sounds extends Fragment {
         this.recyclerView = this.root.findViewById(R.id.recycler_view);
         this.recyclerView.setHasFixedSize(true);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(this.mContext));
-        ArrayList<SoundsInfo> empty_array = new ArrayList<>();
-        RecyclerView.Adapter empty_adapter = new SoundsAdapter(empty_array);
+        final ArrayList<SoundsInfo> empty_array = new ArrayList<>();
+        final RecyclerView.Adapter empty_adapter = new SoundsAdapter(empty_array);
         this.recyclerView.setAdapter(empty_adapter);
 
         try {
             // Parses the list of items in the sounds folder
-            Resources themeResources =
+            final Resources themeResources =
                     this.mContext.getPackageManager().getResourcesForApplication(this.theme_pid);
             this.themeAssetManager = themeResources.getAssets();
-            String[] fileArray = this.themeAssetManager.list(soundsDir);
-            List<String> archivedSounds = new ArrayList<>();
+            final String[] fileArray = this.themeAssetManager.list(soundsDir);
+            final List<String> archivedSounds = new ArrayList<>();
             Collections.addAll(archivedSounds, fileArray);
 
             // Creates the list of dropdown items
-            ArrayList<String> unarchivedSounds = new ArrayList<>();
+            final ArrayList<String> unarchivedSounds = new ArrayList<>();
             unarchivedSounds.add(this.getString(R.string.sounds_default_spinner));
             unarchivedSounds.add(this.getString(R.string.sounds_spinner_set_defaults));
             for (int i = 0; i < archivedSounds.size(); i++) {
@@ -172,13 +172,13 @@ public class Sounds extends Fragment {
                         archivedSounds.get(i).length() - (this.encrypted ? 8 : 4)));
             }
 
-            SpinnerAdapter adapter1 = new ArrayAdapter<>(this.getActivity(),
+            final SpinnerAdapter adapter1 = new ArrayAdapter<>(this.getActivity(),
                     android.R.layout.simple_spinner_dropdown_item, unarchivedSounds);
             this.soundsSelector = this.root.findViewById(R.id.soundsSelection);
             this.soundsSelector.setAdapter(adapter1);
             this.soundsSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
-                public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long id) {
+                public void onItemSelected(final AdapterView<?> arg0, final View arg1, final int pos, final long id) {
                     switch (pos) {
                         case 0:
                             if (Sounds.this.current != null) Sounds.this.current.cancel(true);
@@ -204,21 +204,21 @@ public class Sounds extends Fragment {
                             Sounds.this.error.setVisibility(View.GONE);
                             sounds_preview.setVisibility(View.GONE);
                             Sounds.this.relativeLayout.setVisibility(View.VISIBLE);
-                            String[] commands = {arg0.getSelectedItem().toString()};
+                            final String[] commands = {arg0.getSelectedItem().toString()};
                             Sounds.this.current = new SoundsPreview(Sounds.this.getInstance()).execute(commands);
                     }
                 }
 
                 @Override
-                public void onNothingSelected(AdapterView<?> arg0) {
+                public void onNothingSelected(final AdapterView<?> arg0) {
                 }
             });
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
             Log.e(TAG, "There is no sounds.zip found within the assets of this theme!");
         }
 
-        RecyclerView recyclerView = this.root.findViewById(R.id.recycler_view);
+        final RecyclerView recyclerView = this.root.findViewById(R.id.recycler_view);
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(this.mContext, (view, position) -> {
                     this.wordList.get(position);
@@ -235,7 +235,7 @@ public class Sounds extends Fragment {
                             this.stopPlayer();
                         }
                         this.previous_position = position;
-                    } catch (IOException ioe) {
+                    } catch (final IOException ioe) {
                         Log.e(TAG, "Playback has failed for " + this.wordList.get(position).getTitle());
                     }
                 })
@@ -276,7 +276,7 @@ public class Sounds extends Fragment {
                 this.mContext.getApplicationContext().unregisterReceiver(finishReceiver);
             }
             this.localBroadcastManager.unregisterReceiver(this.jobReceiver);
-        } catch (IllegalArgumentException e) {
+        } catch (final IllegalArgumentException e) {
             // Unregistered already
         }
     }
@@ -293,16 +293,16 @@ public class Sounds extends Fragment {
     private static class SoundsClearer extends AsyncTask<String, Integer, String> {
         private final WeakReference<Sounds> ref;
 
-        SoundsClearer(Sounds sounds) {
+        SoundsClearer(final Sounds sounds) {
             super();
             this.ref = new WeakReference<>(sounds);
         }
 
         @Override
-        protected void onPostExecute(String result) {
-            Sounds sounds = this.ref.get();
+        protected void onPostExecute(final String result) {
+            final Sounds sounds = this.ref.get();
             if (sounds != null) {
-                SharedPreferences.Editor editor = sounds.prefs.edit();
+                final SharedPreferences.Editor editor = sounds.prefs.edit();
                 editor.remove("sounds_applied");
                 editor.apply();
                 currentShownLunchBar = Lunchbar.make(sounds.nsv,
@@ -313,8 +313,8 @@ public class Sounds extends Fragment {
         }
 
         @Override
-        protected String doInBackground(String... sUrl) {
-            Sounds sounds = this.ref.get();
+        protected String doInBackground(final String... sUrl) {
+            final Sounds sounds = this.ref.get();
             if (sounds != null) {
                 new SoundUtils().SoundsClearer(sounds.mContext);
             }
@@ -325,14 +325,14 @@ public class Sounds extends Fragment {
     private static class SoundsPreview extends AsyncTask<String, Integer, String> {
         private final WeakReference<Sounds> ref;
 
-        SoundsPreview(Sounds sounds) {
+        SoundsPreview(final Sounds sounds) {
             super();
             this.ref = new WeakReference<>(sounds);
         }
 
         @Override
         protected void onPreExecute() {
-            Sounds sounds = this.ref.get();
+            final Sounds sounds = this.ref.get();
             if (sounds != null) {
                 sounds.paused = true;
                 sounds.progressBar.setVisibility(View.VISIBLE);
@@ -341,16 +341,16 @@ public class Sounds extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(String result) {
-            Sounds sounds = this.ref.get();
+        protected void onPostExecute(final String result) {
+            final Sounds sounds = this.ref.get();
             if (sounds != null) {
                 try {
-                    List<SoundsInfo> adapter1 = new ArrayList<>(sounds.wordList);
+                    final List<SoundsInfo> adapter1 = new ArrayList<>(sounds.wordList);
 
                     if (adapter1.size() > 0) {
                         sounds.recyclerView = sounds.root.findViewById(R.id.recycler_view);
-                        SoundsAdapter mAdapter = new SoundsAdapter(adapter1);
-                        RecyclerView.LayoutManager mLayoutManager =
+                        final SoundsAdapter mAdapter = new SoundsAdapter(adapter1);
+                        final RecyclerView.LayoutManager mLayoutManager =
                                 new LinearLayoutManager(sounds.mContext);
 
                         sounds.recyclerView.setLayoutManager(mLayoutManager);
@@ -363,22 +363,22 @@ public class Sounds extends Fragment {
                         sounds.error.setVisibility(View.VISIBLE);
                     }
                     sounds.progressBar.setVisibility(View.GONE);
-                } catch (Exception e) {
+                } catch (final Exception e) {
                     Log.e(TAG, "Window was destroyed before AsyncTask could perform postExecute()");
                 }
             }
         }
 
         @Override
-        protected String doInBackground(String... sUrl) {
-            Sounds sounds = this.ref.get();
+        protected String doInBackground(final String... sUrl) {
+            final Sounds sounds = this.ref.get();
             if (sounds != null) {
                 try {
-                    File cacheDirectory = new File(sounds.mContext.getCacheDir(), "/SoundsCache/");
+                    final File cacheDirectory = new File(sounds.mContext.getCacheDir(), "/SoundsCache/");
                     if (!cacheDirectory.exists() && cacheDirectory.mkdirs()) {
                         Log.d(TAG, "Sounds folder created");
                     }
-                    File cacheDirectory2 = new File(sounds.mContext.getCacheDir(), "/SoundCache/" +
+                    final File cacheDirectory2 = new File(sounds.mContext.getCacheDir(), "/SoundCache/" +
                             "sounds_preview/");
                     if (!cacheDirectory2.exists() && cacheDirectory2.mkdirs()) {
                         Log.d(TAG, "Sounds work folder created");
@@ -386,13 +386,13 @@ public class Sounds extends Fragment {
                         FileOperations.delete(sounds.mContext,
                                 sounds.mContext.getCacheDir().getAbsolutePath() +
                                         "/SoundsCache/sounds_preview/");
-                        boolean created = cacheDirectory2.mkdirs();
+                        final boolean created = cacheDirectory2.mkdirs();
                         if (created) Log.d(TAG, "Sounds folder recreated");
                     }
 
                     // Copy the sounds.zip from assets/sounds of the theme's assets
 
-                    String source = sUrl[0] + ".zip";
+                    final String source = sUrl[0] + ".zip";
                     if (sounds.encrypted) {
                         FileOperations.copyFileOrDir(
                                 sounds.themeAssetManager,
@@ -409,7 +409,7 @@ public class Sounds extends Fragment {
                                              sounds.mContext.getCacheDir().getAbsolutePath() +
                                                      "/SoundsCache/" + source)) {
                             this.CopyStream(inputStream, outputStream);
-                        } catch (Exception e) {
+                        } catch (final Exception e) {
                             e.printStackTrace();
                             Log.e(TAG, "There is no sounds.zip found within the assets " +
                                     "of this theme!");
@@ -424,11 +424,11 @@ public class Sounds extends Fragment {
                                     "/SoundsCache/sounds_preview/");
 
                     sounds.wordList = new ArrayList<>();
-                    File testDirectory =
+                    final File testDirectory =
                             new File(sounds.mContext.getCacheDir().getAbsolutePath() +
                                     "/SoundsCache/sounds_preview/");
                     this.listFilesForFolder(testDirectory);
-                } catch (Exception e) {
+                } catch (final Exception e) {
                     e.printStackTrace();
                     Log.e(TAG, "Unexpectedly lost connection to the application host");
                 }
@@ -437,7 +437,7 @@ public class Sounds extends Fragment {
         }
 
         void listFilesForFolder(final File folder) {
-            Sounds sounds = this.ref.get();
+            final Sounds sounds = this.ref.get();
             if (sounds != null) {
                 for (final File fileEntry : folder.listFiles()) {
                     if (fileEntry.isDirectory()) {
@@ -454,15 +454,15 @@ public class Sounds extends Fragment {
             }
         }
 
-        private void unzip(String source, String destination) {
+        private void unzip(final String source, final String destination) {
             try (ZipInputStream inputStream =
                          new ZipInputStream(new BufferedInputStream(new FileInputStream(source)))) {
                 ZipEntry zipEntry;
                 int count;
-                byte[] buffer = new byte[8192];
+                final byte[] buffer = new byte[8192];
                 while ((zipEntry = inputStream.getNextEntry()) != null) {
-                    File file = new File(destination, zipEntry.getName());
-                    File dir = zipEntry.isDirectory() ? file : file.getParentFile();
+                    final File file = new File(destination, zipEntry.getName());
+                    final File dir = zipEntry.isDirectory() ? file : file.getParentFile();
                     if (!dir.isDirectory() && !dir.mkdirs())
                         throw new FileNotFoundException("Failed to ensure directory: " +
                                 dir.getAbsolutePath());
@@ -474,14 +474,14 @@ public class Sounds extends Fragment {
                         }
                     }
                 }
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 e.printStackTrace();
                 Log.e(TAG, "An issue has occurred while attempting to decompress this archive.");
             }
         }
 
-        private void CopyStream(InputStream Input, OutputStream Output) throws IOException {
-            byte[] buffer = new byte[5120];
+        private void CopyStream(final InputStream Input, final OutputStream Output) throws IOException {
+            final byte[] buffer = new byte[5120];
             int length = Input.read(buffer);
             while (length > 0) {
                 Output.write(buffer, 0, length);
@@ -492,7 +492,7 @@ public class Sounds extends Fragment {
 
     class JobReceiver extends BroadcastReceiver {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive(final Context context, final Intent intent) {
             if (!Sounds.this.isAdded()) return;
             Sounds.this.startApply();
         }

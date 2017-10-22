@@ -25,7 +25,7 @@ public class Repository {
     private String styles;
     private final String packageName;
 
-    public Repository(String packageName) {
+    public Repository(final String packageName) {
         super();
         this.packageName = packageName;
     }
@@ -38,7 +38,7 @@ public class Repository {
         return this.bools;
     }
 
-    public void setBools(String bools) {
+    public void setBools(final String bools) {
         this.bools = bools;
     }
 
@@ -46,7 +46,7 @@ public class Repository {
         return this.colors;
     }
 
-    public void setColors(String colors) {
+    public void setColors(final String colors) {
         this.colors = colors;
     }
 
@@ -54,7 +54,7 @@ public class Repository {
         return this.dimens;
     }
 
-    public void setDimens(String dimens) {
+    public void setDimens(final String dimens) {
         this.dimens = dimens;
     }
 
@@ -62,7 +62,7 @@ public class Repository {
         return this.styles;
     }
 
-    public void setStyles(String styles) {
+    public void setStyles(final String styles) {
         this.styles = styles;
     }
 }

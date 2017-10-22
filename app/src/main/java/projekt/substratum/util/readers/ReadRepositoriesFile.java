@@ -38,60 +38,60 @@ import projekt.substratum.common.References;
 public enum ReadRepositoriesFile {
     ;
 
-    public static List<Repository> main(String file) {
+    public static List<Repository> main(final String file) {
 
-        List<Repository> list = new ArrayList<>();
-        List<Repository> emptyList = new ArrayList<>();
+        final List<Repository> list = new ArrayList<>();
+        final List<Repository> emptyList = new ArrayList<>();
 
         try {
-            File fXmlFile = new File(file);
+            final File fXmlFile = new File(file);
 
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(fXmlFile);
+            final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            final DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            final Document doc = dBuilder.parse(fXmlFile);
             doc.getDocumentElement().normalize();
-            NodeList nList = doc.getElementsByTagName("repo");
+            final NodeList nList = doc.getElementsByTagName("repo");
 
             for (int temp = 0; temp < nList.getLength(); temp++) {
-                Node nNode = nList.item(temp);
+                final Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element eElement = (Element) nNode;
-                    Repository current = new Repository(eElement.getAttribute("name"));
+                    final Element eElement = (Element) nNode;
+                    final Repository current = new Repository(eElement.getAttribute("name"));
                     Log.d(References.SUBSTRATUM_VALIDATOR,
                             "Pulling live resources from '" + current.getPackageName() + "'!");
                     try {
-                        String bools = eElement.getElementsByTagName("bools")
+                        final String bools = eElement.getElementsByTagName("bools")
                                 .item(0).getTextContent();
                         current.setBools(bools);
-                    } catch (Exception e) {
+                    } catch (final Exception e) {
                         // Suppress warning
                     }
                     try {
-                        String colors = eElement.getElementsByTagName("colors")
+                        final String colors = eElement.getElementsByTagName("colors")
                                 .item(0).getTextContent();
                         current.setColors(colors);
-                    } catch (Exception e) {
+                    } catch (final Exception e) {
                         // Suppress warning
                     }
                     try {
-                        String dimens = eElement.getElementsByTagName("dimens")
+                        final String dimens = eElement.getElementsByTagName("dimens")
                                 .item(0).getTextContent();
                         current.setDimens(dimens);
-                    } catch (Exception e) {
+                    } catch (final Exception e) {
                         // Suppress warning
                     }
                     try {
-                        String styles = eElement.getElementsByTagName("styles")
+                        final String styles = eElement.getElementsByTagName("styles")
                                 .item(0).getTextContent();
                         current.setStyles(styles);
-                    } catch (Exception e) {
+                    } catch (final Exception e) {
                         // Suppress warning
                     }
                     list.add(current);
                 }
             }
             return list;
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
             return emptyList;
         }

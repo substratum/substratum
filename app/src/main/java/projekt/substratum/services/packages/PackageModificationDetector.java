@@ -54,11 +54,11 @@ public class PackageModificationDetector extends BroadcastReceiver {
     private Context mContext;
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(final Context context, final Intent intent) {
         this.mContext = context;
 
-        Uri packageName = intent.getData();
-        String package_name;
+        final Uri packageName = intent.getData();
+        final String package_name;
         if (packageName != null) {
             package_name = packageName.toString().substring(8);
         } else {
@@ -83,13 +83,13 @@ public class PackageModificationDetector extends BroadcastReceiver {
         }
 
         try {
-            ApplicationInfo appInfo = this.mContext.getPackageManager().getApplicationInfo(
+            final ApplicationInfo appInfo = this.mContext.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
                 // First, check if the app installed is actually a substratum overlay
-                String check_overlay_parent =
+                final String check_overlay_parent =
                         appInfo.metaData.getString(References.metadataOverlayParent);
-                String check_overlay_target =
+                final String check_overlay_target =
                         appInfo.metaData.getString(References.metadataOverlayTarget);
                 if (check_overlay_parent != null && check_overlay_target != null) {
                     Broadcasts.sendOverlayRefreshMessage(this.mContext);
@@ -98,28 +98,28 @@ public class PackageModificationDetector extends BroadcastReceiver {
                 }
 
                 // Then, check if the app installed is actually a substratum theme
-                String check_theme_name =
+                final String check_theme_name =
                         appInfo.metaData.getString(References.metadataName);
-                String check_theme_author =
+                final String check_theme_author =
                         appInfo.metaData.getString(References.metadataAuthor);
                 if (check_theme_name == null && check_theme_author == null) return;
             } else {
                 return;
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             return;
         }
 
         // When it is a proper theme, then we can continue
-        Boolean replacing = intent.getBooleanExtra(Intent.EXTRA_REPLACING, false);
+        final Boolean replacing = intent.getBooleanExtra(Intent.EXTRA_REPLACING, false);
 
         // Let's add it to the list of installed themes on shared prefs
-        SharedPreferences mainPrefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
-        Set<String> installed_themes =
+        final SharedPreferences mainPrefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
+        final Set<String> installed_themes =
                 mainPrefs.getStringSet("installed_themes", new HashSet<>());
-        Set<String> installed_sorted = new TreeSet<>();
+        final Set<String> installed_sorted = new TreeSet<>();
 
-        int beginning_size = installed_themes.size();
+        final int beginning_size = installed_themes.size();
         if (!installed_themes.contains(package_name)) {
             installed_themes.add(package_name);
             installed_sorted.addAll(installed_themes);
@@ -131,22 +131,22 @@ public class PackageModificationDetector extends BroadcastReceiver {
         // Legacy check to see if an OMS theme is guarded from being installed on legacy
         if (!Systems.checkOMS(this.mContext)) {
             try {
-                ApplicationInfo appInfo = this.mContext.getPackageManager().getApplicationInfo(
+                final ApplicationInfo appInfo = this.mContext.getPackageManager().getApplicationInfo(
                         package_name, PackageManager.GET_META_DATA);
                 if (appInfo.metaData != null) {
-                    Boolean check_legacy =
+                    final Boolean check_legacy =
                             appInfo.metaData.getBoolean(References.metadataLegacy);
                     if (!check_legacy) {
                         Log.e(TAG, "Device is non-OMS, while an " +
                                 "OMS theme is installed, aborting operation!");
 
-                        String parse = String.format(this.mContext.getString(
+                        final String parse = String.format(this.mContext.getString(
                                 R.string.failed_to_install_text_notification),
                                 appInfo.metaData.getString(
                                         References.metadataName));
 
-                        Intent showIntent = new Intent();
-                        PendingIntent contentIntent = PendingIntent.getActivity(
+                        final Intent showIntent = new Intent();
+                        final PendingIntent contentIntent = PendingIntent.getActivity(
                                 this.mContext, 0, showIntent, 0);
 
                         new NotificationCreator(
@@ -165,7 +165,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                         return;
                     }
                 }
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 // Suppress warning
             }
         }
@@ -173,7 +173,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
         if (replacing) {
             // We need to check if this is a new install or not
             Log.d(TAG, "'" + package_name + "' has been updated.");
-            Bitmap bitmap = Packages.getBitmapFromDrawable(
+            final Bitmap bitmap = Packages.getBitmapFromDrawable(
                     Packages.getAppIcon(this.mContext, package_name));
 
             new NotificationCreator(
@@ -205,8 +205,8 @@ public class PackageModificationDetector extends BroadcastReceiver {
         Broadcasts.sendActivityFinisherMessage(this.mContext, package_name);
     }
 
-    public PendingIntent getPendingIntent(String package_name) {
-        Intent myIntent = new Intent(this.mContext, AppShortcutLaunch.class);
+    public PendingIntent getPendingIntent(final String package_name) {
+        final Intent myIntent = new Intent(this.mContext, AppShortcutLaunch.class);
         myIntent.putExtra("theme_pid", package_name);
         return PendingIntent.getActivity(this.mContext, 0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
     }

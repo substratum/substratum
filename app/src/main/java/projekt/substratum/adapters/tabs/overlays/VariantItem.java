@@ -26,7 +26,7 @@ public class VariantItem implements Serializable {
     private final boolean forceHidden;
     private int color = 0;
 
-    public VariantItem(String variant_name, String variant_hex) {
+    public VariantItem(final String variant_name, final String variant_hex) {
         super();
         this.variant_name = variant_name;
         if (variant_hex == null) {
@@ -54,7 +54,7 @@ public class VariantItem implements Serializable {
         return this.color;
     }
 
-    public void setColor(int color) {
+    public void setColor(final int color) {
         this.color = color;
     }
 

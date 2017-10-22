@@ -57,11 +57,11 @@ public class SoundUtils {
     private View view;
     private Cipher cipher;
 
-    public void execute(View view,
-                        String arguments,
-                        Context context,
-                        String theme_pid,
-                        Cipher cipher) {
+    public void execute(final View view,
+                        final String arguments,
+                        final Context context,
+                        final String theme_pid,
+                        final Cipher cipher) {
         this.mContext = context;
         this.theme_pid = theme_pid;
         this.view = view;
@@ -71,7 +71,7 @@ public class SoundUtils {
         new SoundsHandlerAsync(this).execute(arguments);
     }
 
-    public void SoundsClearer(Context context) {
+    public void SoundsClearer(final Context context) {
         SoundManager.clearSounds(context);
     }
 
@@ -128,22 +128,22 @@ public class SoundUtils {
     private static final class SoundsHandlerAsync extends AsyncTask<String, Integer, String> {
         private final WeakReference<SoundUtils> ref;
 
-        private SoundsHandlerAsync(SoundUtils soundUtils) {
+        private SoundsHandlerAsync(final SoundUtils soundUtils) {
             super();
             this.ref = new WeakReference<>(soundUtils);
         }
 
         @Override
-        protected void onPostExecute(String result) {
-            SoundUtils soundUtils = this.ref.get();
+        protected void onPostExecute(final String result) {
+            final SoundUtils soundUtils = this.ref.get();
             if (soundUtils != null) {
-                Context context = soundUtils.mContext;
+                final Context context = soundUtils.mContext;
                 if (Systems.checkThemeInterfacer(context) &&
                         !Systems.isBinderInterfacer(context)) {
                     if (finishReceiver == null) {
                         finishReceiver = new FinishReceiver(soundUtils);
                     }
-                    IntentFilter intentFilter = new IntentFilter(STATUS_CHANGED);
+                    final IntentFilter intentFilter = new IntentFilter(STATUS_CHANGED);
                     context.getApplicationContext().registerReceiver(finishReceiver, intentFilter);
                 } else {
                     soundUtils.finishFunction();
@@ -153,11 +153,11 @@ public class SoundUtils {
         }
 
         @Override
-        protected String doInBackground(String... sUrl) {
-            SoundUtils soundUtils = this.ref.get();
+        protected String doInBackground(final String... sUrl) {
+            final SoundUtils soundUtils = this.ref.get();
             if (soundUtils != null) {
-                Context context = soundUtils.mContext;
-                boolean[] results = SoundManager.setSounds(
+                final Context context = soundUtils.mContext;
+                final boolean[] results = SoundManager.setSounds(
                         context,
                         soundUtils.theme_pid,
                         sUrl[0],
@@ -166,7 +166,7 @@ public class SoundUtils {
                 soundUtils.ringtone = results[1];
 
                 if (!soundUtils.has_failed) {
-                    SharedPreferences.Editor editor = soundUtils.prefs.edit();
+                    final SharedPreferences.Editor editor = soundUtils.prefs.edit();
                     editor.putString("sounds_applied", soundUtils.theme_pid);
                     editor.apply();
                     Log.d("SoundUtils", "Sound pack installed!");
@@ -185,18 +185,18 @@ public class SoundUtils {
     static final class FinishReceiver extends BroadcastReceiver {
         private final WeakReference<SoundUtils> soundRef;
 
-        private FinishReceiver(SoundUtils soundUtils) {
+        private FinishReceiver(final SoundUtils soundUtils) {
             super();
             this.soundRef = new WeakReference<>(soundUtils);
         }
 
         @Override
-        public void onReceive(Context context, Intent intent) {
-            SoundUtils soundUtils = this.soundRef.get();
+        public void onReceive(final Context context, final Intent intent) {
+            final SoundUtils soundUtils = this.soundRef.get();
             if (soundUtils != null) {
-                String PRIMARY_COMMAND_KEY = "primary_command_key";
-                String COMMAND_VALUE_JOB_COMPLETE = "job_complete";
-                String command = intent.getStringExtra(PRIMARY_COMMAND_KEY);
+                final String PRIMARY_COMMAND_KEY = "primary_command_key";
+                final String COMMAND_VALUE_JOB_COMPLETE = "job_complete";
+                final String command = intent.getStringExtra(PRIMARY_COMMAND_KEY);
 
                 if (command.equals(COMMAND_VALUE_JOB_COMPLETE)) {
                     context.getApplicationContext().unregisterReceiver(finishReceiver);

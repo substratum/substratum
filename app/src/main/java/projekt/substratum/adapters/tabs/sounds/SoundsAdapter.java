@@ -33,23 +33,23 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHold
 
     private final List<SoundsInfo> soundsList;
 
-    public SoundsAdapter(List<SoundsInfo> soundsList) {
+    public SoundsAdapter(final List<SoundsInfo> soundsList) {
         super();
         this.soundsList = soundsList;
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(
+    public MyViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+        final View itemView = LayoutInflater.from(
                 parent.getContext()).inflate(R.layout.sounds_list_row, parent, false);
         return new MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        SoundsInfo sounds = this.soundsList.get(position);
-        Context context = sounds.getContext();
-        String current_sound = sounds.getTitle().substring(0, sounds.getTitle().length() - 4);
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
+        final SoundsInfo sounds = this.soundsList.get(position);
+        final Context context = sounds.getContext();
+        final String current_sound = sounds.getTitle().substring(0, sounds.getTitle().length() - 4);
         switch (current_sound) {
             case "alarm":
                 holder.title.setText(context.getString(R.string.sounds_alarm));
@@ -80,7 +80,7 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHold
     class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title;
 
-        MyViewHolder(View view) {
+        MyViewHolder(final View view) {
             super(view);
             this.title = view.findViewById(R.id.title);
         }

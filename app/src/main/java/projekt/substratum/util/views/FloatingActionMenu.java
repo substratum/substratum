@@ -35,15 +35,15 @@ public class FloatingActionMenu extends FloatingActionButton implements Animated
 
     private static final int FAB_ANIM_DURATION = 200;
 
-    public FloatingActionMenu(Context context) {
+    public FloatingActionMenu(final Context context) {
         super(context);
     }
 
-    public FloatingActionMenu(Context context, AttributeSet attrs) {
+    public FloatingActionMenu(final Context context, final AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public FloatingActionMenu(Context context, AttributeSet attrs, int defStyleAttr) {
+    public FloatingActionMenu(final Context context, final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -53,17 +53,17 @@ public class FloatingActionMenu extends FloatingActionButton implements Animated
     }
 
     @Override
-    public void show(float translationX, float translationY) {
+    public void show(final float translationX, final float translationY) {
         // Set FAB's translation
         this.setTranslation(translationX, translationY);
 
         // Only use scale animation if FAB is hidden
         if (this.getVisibility() != View.VISIBLE) {
             // Pivots indicate where the animation begins from
-            float pivotX = this.getPivotX() + translationX;
-            float pivotY = this.getPivotY() + translationY;
+            final float pivotX = this.getPivotX() + translationX;
+            final float pivotY = this.getPivotY() + translationY;
 
-            ScaleAnimation anim;
+            final ScaleAnimation anim;
             // If pivots are 0, that means the FAB hasn't been drawn yet so just use the
             // center of the FAB
             if (pivotX == 0 || pivotY == 0) {
@@ -86,11 +86,11 @@ public class FloatingActionMenu extends FloatingActionButton implements Animated
         // Only use scale animation if FAB is visible
         if (this.getVisibility() == View.VISIBLE) {
             // Pivots indicate where the animation begins from
-            float pivotX = this.getPivotX() + this.getTranslationX();
-            float pivotY = this.getPivotY() + this.getTranslationY();
+            final float pivotX = this.getPivotX() + this.getTranslationX();
+            final float pivotY = this.getPivotY() + this.getTranslationY();
 
             // Animate FAB shrinking
-            ScaleAnimation anim = new ScaleAnimation(1, 0, 1, 0, pivotX, pivotY);
+            final ScaleAnimation anim = new ScaleAnimation(1, 0, 1, 0, pivotX, pivotY);
             anim.setDuration(FAB_ANIM_DURATION);
             anim.setInterpolator(this.getInterpolator());
             this.startAnimation(anim);
@@ -98,7 +98,7 @@ public class FloatingActionMenu extends FloatingActionButton implements Animated
         this.setVisibility(View.INVISIBLE);
     }
 
-    private void setTranslation(float translationX, float translationY) {
+    private void setTranslation(final float translationX, final float translationY) {
         this.animate().setInterpolator(this.getInterpolator()).setDuration(FAB_ANIM_DURATION)
                 .translationX(translationX).translationY(translationY);
     }

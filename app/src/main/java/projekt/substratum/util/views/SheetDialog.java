@@ -26,13 +26,13 @@ import android.view.WindowManager;
 
 public class SheetDialog extends BottomSheetDialog {
 
-    public SheetDialog(@NonNull Context context) {
+    public SheetDialog(@NonNull final Context context) {
         super(context);
     }
 
     @SuppressWarnings("ConstantConditions")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
     }

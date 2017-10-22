@@ -26,16 +26,16 @@ public enum Validator {
 
     public static final Boolean VALIDATE_WITH_LOGS = false;
 
-    public static boolean checkResourceObject(Context context,
-                                              String package_name,
-                                              String type,
-                                              String object_name) {
+    public static boolean checkResourceObject(final Context context,
+                                              final String package_name,
+                                              final String type,
+                                              final String object_name) {
         try {
-            Resources res = context.getPackageManager().getResourcesForApplication(package_name);
-            int object = res.getIdentifier(
+            final Resources res = context.getPackageManager().getResourcesForApplication(package_name);
+            final int object = res.getIdentifier(
                     package_name + ":" + type + "/" + object_name, type, package_name);
             return object != 0;
-        } catch (Exception e) {
+        } catch (final Exception e) {
             // Suppress warning
         }
         return false;

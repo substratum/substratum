@@ -305,9 +305,8 @@ public class BootAnimationUtils {
                             final int width = Integer.parseInt(info[0]);
                             final int height = Integer.parseInt(info[1]);
 
-                            final int prevent_lint = scaledWidth;
                             if (width == height) {
-                                scaledHeight = prevent_lint;
+                                scaledHeight = scaledWidth;
                             } else {
                                 // adjust scaledHeight to retain original aspect ratio
                                 final float scale = (float) scaledWidth / (float) width;

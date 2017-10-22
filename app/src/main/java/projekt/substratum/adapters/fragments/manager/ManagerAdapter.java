@@ -65,11 +65,10 @@ public class ManagerAdapter extends
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
-        final int position_fixed = position;
-        final Context context = this.overlayList.get(position_fixed).getContext();
-        final String packageName = this.overlayList.get(position_fixed).getName();
+        final Context context = this.overlayList.get(position).getContext();
+        final String packageName = this.overlayList.get(position).getName();
 
-        final String title = this.overlayList.get(position_fixed).getLabelName();
+        final String title = this.overlayList.get(position).getLabelName();
 
         if ((title != null) && !title.isEmpty()) {
             viewHolder.tvName.setText(title);
@@ -77,9 +76,9 @@ public class ManagerAdapter extends
             viewHolder.tvName.setText(R.string.reboot_awaiting_manager_title);
         }
 
-        viewHolder.tvName.setTextColor(this.overlayList.get(position_fixed).getActivationValue());
+        viewHolder.tvName.setTextColor(this.overlayList.get(position).getActivationValue());
 
-        if (this.overlayList.get(position_fixed).getType1a() == null) {
+        if (this.overlayList.get(position).getType1a() == null) {
             String metadata = Packages.getOverlayMetadata(
                     context,
                     packageName,
@@ -90,18 +89,18 @@ public class ManagerAdapter extends
                 final String textView = "<b>" + context.getString(R.string.manager_type1a) +
                         "</b> " + metadata;
                 viewHolder.type1a.setVisibility(View.VISIBLE);
-                this.overlayList.get(position_fixed).setType1a(textView);
+                this.overlayList.get(position).setType1a(textView);
                 viewHolder.type1a.setText(Html.fromHtml(textView, FROM_HTML_MODE_LEGACY));
             } else {
                 viewHolder.type1a.setVisibility(View.GONE);
             }
         } else {
             viewHolder.type1a.setVisibility(View.VISIBLE);
-            viewHolder.type1a.setText(Html.fromHtml(this.overlayList.get(position_fixed).getType1a(),
+            viewHolder.type1a.setText(Html.fromHtml(this.overlayList.get(position).getType1a(),
                     FROM_HTML_MODE_LEGACY));
         }
 
-        if (this.overlayList.get(position_fixed).getType1b() == null) {
+        if (this.overlayList.get(position).getType1b() == null) {
             String metadata = Packages.getOverlayMetadata(
                     context,
                     packageName,
@@ -111,18 +110,18 @@ public class ManagerAdapter extends
                 final String textView = "<b>" + context.getString(R.string.manager_type1b) +
                         "</b> " + metadata;
                 viewHolder.type1b.setVisibility(View.VISIBLE);
-                this.overlayList.get(position_fixed).setType1b(textView);
+                this.overlayList.get(position).setType1b(textView);
                 viewHolder.type1b.setText(Html.fromHtml(textView, FROM_HTML_MODE_LEGACY));
             } else {
                 viewHolder.type1b.setVisibility(View.GONE);
             }
         } else {
             viewHolder.type1b.setVisibility(View.VISIBLE);
-            viewHolder.type1b.setText(Html.fromHtml(this.overlayList.get(position_fixed).getType1b(),
+            viewHolder.type1b.setText(Html.fromHtml(this.overlayList.get(position).getType1b(),
                     FROM_HTML_MODE_LEGACY));
         }
 
-        if (this.overlayList.get(position_fixed).getType1c() == null) {
+        if (this.overlayList.get(position).getType1c() == null) {
             String metadata = Packages.getOverlayMetadata(
                     context,
                     packageName,
@@ -132,18 +131,18 @@ public class ManagerAdapter extends
                 final String textView = "<b>" + context.getString(R.string.manager_type1c) +
                         "</b> " + metadata;
                 viewHolder.type1c.setVisibility(View.VISIBLE);
-                this.overlayList.get(position_fixed).setType1c(textView);
+                this.overlayList.get(position).setType1c(textView);
                 viewHolder.type1c.setText(Html.fromHtml(textView, FROM_HTML_MODE_LEGACY));
             } else {
                 viewHolder.type1c.setVisibility(View.GONE);
             }
         } else {
             viewHolder.type1c.setVisibility(View.VISIBLE);
-            viewHolder.type1c.setText(Html.fromHtml(this.overlayList.get(position_fixed).getType1c(),
+            viewHolder.type1c.setText(Html.fromHtml(this.overlayList.get(position).getType1c(),
                     FROM_HTML_MODE_LEGACY));
         }
 
-        if (this.overlayList.get(position_fixed).getType2() == null) {
+        if (this.overlayList.get(position).getType2() == null) {
             String metadata = Packages.getOverlayMetadata(
                     context,
                     packageName,
@@ -153,18 +152,18 @@ public class ManagerAdapter extends
                 final String textView = "<b>" + context.getString(R.string.manager_type2) +
                         "</b> " + metadata;
                 viewHolder.type2.setVisibility(View.VISIBLE);
-                this.overlayList.get(position_fixed).setType2(textView);
+                this.overlayList.get(position).setType2(textView);
                 viewHolder.type2.setText(Html.fromHtml(textView, FROM_HTML_MODE_LEGACY));
             } else {
                 viewHolder.type2.setVisibility(View.GONE);
             }
         } else {
             viewHolder.type2.setVisibility(View.VISIBLE);
-            viewHolder.type2.setText(Html.fromHtml(this.overlayList.get(position_fixed).getType2(),
+            viewHolder.type2.setText(Html.fromHtml(this.overlayList.get(position).getType2(),
                     FROM_HTML_MODE_LEGACY));
         }
 
-        if (this.overlayList.get(position_fixed).getType3() == null) {
+        if (this.overlayList.get(position).getType3() == null) {
             String metadata = Packages.getOverlayMetadata(
                     context,
                     packageName,
@@ -174,18 +173,18 @@ public class ManagerAdapter extends
                 final String textView = "<b>" + context.getString(R.string.manager_type3) +
                         "</b> " + metadata;
                 viewHolder.type3.setVisibility(View.VISIBLE);
-                this.overlayList.get(position_fixed).setType3(textView);
+                this.overlayList.get(position).setType3(textView);
                 viewHolder.type3.setText(Html.fromHtml(textView, FROM_HTML_MODE_LEGACY));
             } else {
                 viewHolder.type3.setVisibility(View.GONE);
             }
         } else {
             viewHolder.type3.setVisibility(View.VISIBLE);
-            viewHolder.type3.setText(Html.fromHtml(this.overlayList.get(position_fixed).getType3(),
+            viewHolder.type3.setText(Html.fromHtml(this.overlayList.get(position).getType3(),
                     FROM_HTML_MODE_LEGACY));
         }
 
-        if (this.overlayList.get(position_fixed).getType4() == null) {
+        if (this.overlayList.get(position).getType4() == null) {
             String metadata = Packages.getOverlayMetadata(
                     context,
                     packageName,
@@ -195,14 +194,14 @@ public class ManagerAdapter extends
                 final String textView = "<b>" + context.getString(R.string.manager_type4) +
                         "</b> " + metadata;
                 viewHolder.type4.setVisibility(View.VISIBLE);
-                this.overlayList.get(position_fixed).setType4(textView);
+                this.overlayList.get(position).setType4(textView);
                 viewHolder.type4.setText(Html.fromHtml(textView, FROM_HTML_MODE_LEGACY));
             } else {
                 viewHolder.type4.setVisibility(View.GONE);
             }
         } else {
             viewHolder.type4.setVisibility(View.VISIBLE);
-            viewHolder.type4.setText(Html.fromHtml(this.overlayList.get(position_fixed).getType4(),
+            viewHolder.type4.setText(Html.fromHtml(this.overlayList.get(position).getType4(),
                     FROM_HTML_MODE_LEGACY));
         }
 
@@ -211,26 +210,26 @@ public class ManagerAdapter extends
                 String.valueOf(
                         Packages.getOverlaySubstratumVersion(
                                 context,
-                                this.overlayList.get(position_fixed)
+                                this.overlayList.get(position)
                                         .getName()));
         viewHolder.version.setText(Html.fromHtml(textView, FROM_HTML_MODE_LEGACY));
 
-        if (this.overlayList.get(position_fixed).getThemeName().isEmpty()) {
+        if (this.overlayList.get(position).getThemeName().isEmpty()) {
             viewHolder.tvDesc.setText(packageName);
         } else {
             viewHolder.tvDesc.setText(
-                    Html.fromHtml(this.overlayList.get(position_fixed).getThemeName(),
+                    Html.fromHtml(this.overlayList.get(position).getThemeName(),
                             FROM_HTML_MODE_LEGACY));
         }
 
-        viewHolder.chkSelected.setChecked(this.overlayList.get(position_fixed).isSelected());
-        viewHolder.chkSelected.setTag(this.overlayList.get(position_fixed));
+        viewHolder.chkSelected.setChecked(this.overlayList.get(position).isSelected());
+        viewHolder.chkSelected.setTag(this.overlayList.get(position));
         viewHolder.chkSelected.setOnClickListener(view -> {
             final CheckBox checkBox = (CheckBox) view;
             final ManagerItem contact = (ManagerItem) checkBox.getTag();
 
             contact.setSelected(checkBox.isChecked());
-            this.overlayList.get(position_fixed).setSelected(checkBox.isChecked());
+            this.overlayList.get(position).setSelected(checkBox.isChecked());
         });
         viewHolder.card.setOnClickListener(view -> {
             viewHolder.chkSelected.setChecked(!viewHolder.chkSelected.isChecked());
@@ -241,28 +240,28 @@ public class ManagerAdapter extends
             contact.setSelected(cb.isChecked());
             contact.setSelected(cb.isChecked());
         });
-        if (this.overlayList.get(position_fixed).getDrawable() == null) {
+        if (this.overlayList.get(position).getDrawable() == null) {
             final Drawable app_icon = Packages.getAppIcon(
-                    this.overlayList.get(position_fixed).getContext(),
+                    this.overlayList.get(position).getContext(),
                     Packages.getOverlayParent(
-                            this.overlayList.get(position_fixed).getContext(),
-                            this.overlayList.get(position_fixed).getName()));
-            this.overlayList.get(position_fixed).setDrawable(app_icon);
+                            this.overlayList.get(position).getContext(),
+                            this.overlayList.get(position).getName()));
+            this.overlayList.get(position).setDrawable(app_icon);
             viewHolder.appIcon.setImageDrawable(app_icon);
         } else {
-            viewHolder.appIcon.setImageDrawable(this.overlayList.get(position_fixed).getDrawable());
+            viewHolder.appIcon.setImageDrawable(this.overlayList.get(position).getDrawable());
         }
-        if (this.overlayList.get(position_fixed).getTargetDrawable() == null) {
+        if (this.overlayList.get(position).getTargetDrawable() == null) {
             final Drawable app_icon = Packages.getAppIcon(
-                    this.overlayList.get(position_fixed).getContext(),
+                    this.overlayList.get(position).getContext(),
                     Packages.getOverlayTarget(
-                            this.overlayList.get(position_fixed).getContext(),
-                            this.overlayList.get(position_fixed).getName()));
-            this.overlayList.get(position_fixed).setTargetDrawable(app_icon);
+                            this.overlayList.get(position).getContext(),
+                            this.overlayList.get(position).getName()));
+            this.overlayList.get(position).setTargetDrawable(app_icon);
             viewHolder.appIconTarget.setImageDrawable(app_icon);
         } else {
             viewHolder.appIconTarget.setImageDrawable(
-                    this.overlayList.get(position_fixed).getTargetDrawable());
+                    this.overlayList.get(position).getTargetDrawable());
         }
     }
 

@@ -212,7 +212,7 @@ public class PriorityListFragment extends Fragment {
                     } catch (final Exception e) {
                         // Consume window refresh
                     }
-                }, (Systems.checkAndromeda(this.getContext()) ?
+                }, (long) (Systems.checkAndromeda(this.getContext()) ?
                         REFRESH_WINDOW_DELAY :
                         (REFRESH_WINDOW_DELAY << 1)));
             }

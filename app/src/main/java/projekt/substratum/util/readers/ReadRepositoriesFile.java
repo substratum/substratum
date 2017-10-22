@@ -52,7 +52,7 @@ public enum ReadRepositoriesFile {
             final List<Repository> list = new ArrayList<>();
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 final Node nNode = nList.item(temp);
-                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                if ((int) nNode.getNodeType() == (int) Node.ELEMENT_NODE) {
                     final Element eElement = (Element) nNode;
                     final Repository current = new Repository(eElement.getAttribute("name"));
                     Log.d(References.SUBSTRATUM_VALIDATOR,

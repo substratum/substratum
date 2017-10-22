@@ -47,7 +47,7 @@ public enum ReadCloudWallpaperFile {
             final Map<String, String> map = new TreeMap<>();
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 final Node nNode = nList.item(temp);
-                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                if ((int) nNode.getNodeType() == (int) Node.ELEMENT_NODE) {
                     final Element eElement = (Element) nNode;
 
                     // Replace all spaces with a tilde first, as tilde "~" is lower priority than

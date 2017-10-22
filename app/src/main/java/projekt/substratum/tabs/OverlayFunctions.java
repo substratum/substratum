@@ -240,7 +240,7 @@ enum OverlayFunctions {
                 overlays.loader_image.setImageBitmap(
                         Packages.getBitmapFromDrawable(
                                 Packages.getAppIcon(overlays.getContext(), this.currentPackageName)));
-                final double progress = (overlays.current_amount / overlays.total_amount) * 100;
+                final double progress = (overlays.current_amount / overlays.total_amount) * 100.0;
                 overlays.dialogProgress.setProgress((int) progress, true);
             }
         }
@@ -382,7 +382,7 @@ enum OverlayFunctions {
                     Substratum.getInstance().registerFinishReceiver();
                 }
 
-                overlays.total_amount = overlays.checkedOverlays.size();
+                overlays.total_amount = (double) overlays.checkedOverlays.size();
                 for (int i = 0; i < overlays.checkedOverlays.size(); i++) {
                     overlays.type1a = "";
                     overlays.type1b = "";
@@ -391,7 +391,7 @@ enum OverlayFunctions {
                     overlays.type3 = "";
                     overlays.type4 = "";
 
-                    overlays.current_amount = i + 1;
+                    overlays.current_amount = (double) (i + 1);
                     final String theme_name_parsed =
                             overlays.theme_name.replaceAll("\\s+", "")
                                     .replaceAll("[^a-zA-Z0-9]+", "");
@@ -470,7 +470,7 @@ enum OverlayFunctions {
                             // Initialize working notification
                             if (overlays.checkActiveNotifications()) {
                                 overlays.mBuilder.setProgress(100, (int) (((double) (i + 1) /
-                                        overlays.checkedOverlays.size()) * 100), false);
+                                        (double) overlays.checkedOverlays.size()) * 100.0), false);
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                                     overlays.mBuilder.setContentText("\"" + packageTitle + "\"");
                                 } else {
@@ -807,7 +807,7 @@ enum OverlayFunctions {
                                         Substratum.getInstance().startWaitingInstall();
                                         do {
                                             try {
-                                                Thread.sleep(Overlays.THREAD_WAIT_DURATION);
+                                                Thread.sleep((long) Overlays.THREAD_WAIT_DURATION);
                                             } catch (final InterruptedException e) {
                                                 Thread.currentThread().interrupt();
                                             }
@@ -863,7 +863,7 @@ enum OverlayFunctions {
                                         Substratum.getInstance().startWaitingInstall();
                                         do {
                                             try {
-                                                Thread.sleep(Overlays.THREAD_WAIT_DURATION);
+                                                Thread.sleep((long) Overlays.THREAD_WAIT_DURATION);
                                             } catch (final InterruptedException e) {
                                                 Thread.currentThread().interrupt();
                                             }
@@ -966,7 +966,7 @@ enum OverlayFunctions {
                             } catch (final Exception e) {
                                 // Consume window refresh
                             }
-                        }, References.REFRESH_WINDOW_DELAY);
+                        }, (long) References.REFRESH_WINDOW_DELAY);
                     }
                 } else {
                     overlays.compile_enable_mode = false;
@@ -1046,7 +1046,7 @@ enum OverlayFunctions {
                             } catch (final Exception e) {
                                 // Consume window refresh
                             }
-                        }, References.REFRESH_WINDOW_DELAY);
+                        }, (long) References.REFRESH_WINDOW_DELAY);
                     }
                 } else {
                     overlays.disable_mode = false;
@@ -1146,7 +1146,7 @@ enum OverlayFunctions {
                             } catch (final Exception e) {
                                 // Consume window refresh
                             }
-                        }, References.REFRESH_WINDOW_DELAY);
+                        }, (long) References.REFRESH_WINDOW_DELAY);
                     }
                 } else {
                     overlays.enable_disable_mode = false;
@@ -1209,7 +1209,7 @@ enum OverlayFunctions {
                         overlays.mBuilder.setContentText(
                                 context.getString(R.string.notification_no_errors_found));
                         if (overlays.prefs.getBoolean("vibrate_on_compiled", false)) {
-                            overlays.mBuilder.setVibrate(new long[]{100, 200, 100, 500});
+                            overlays.mBuilder.setVibrate(new long[]{100L, 200L, 100L, 500L});
                         }
                         overlays.mNotifyManager.notify(
                                 References.notification_id_compiler, overlays.mBuilder.build());
@@ -1318,7 +1318,7 @@ enum OverlayFunctions {
                             } catch (final Exception e) {
                                 // Consume window refresh
                             }
-                        }, REFRESH_WINDOW_DELAY);
+                        }, (long) REFRESH_WINDOW_DELAY);
                     }
                 }
 
@@ -1343,7 +1343,7 @@ enum OverlayFunctions {
                                 Substratum.getInstance().startWaitingInstall();
                                 do {
                                     try {
-                                        Thread.sleep(Overlays.THREAD_WAIT_DURATION);
+                                        Thread.sleep((long) Overlays.THREAD_WAIT_DURATION);
                                     } catch (final InterruptedException e) {
                                         // Still waiting
                                     }

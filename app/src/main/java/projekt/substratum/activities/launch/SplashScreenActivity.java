@@ -94,7 +94,7 @@ public class SplashScreenActivity extends Activity {
         }
 
         final Handler handler = new Handler();
-        handler.postDelayed(() -> new CheckSamsung(this).execute(), intent_launch_delay);
+        handler.postDelayed(() -> new CheckSamsung(this).execute(), (long) intent_launch_delay);
     }
 
     private void launch() {
@@ -116,11 +116,11 @@ public class SplashScreenActivity extends Activity {
                     CheckSamsung.this.handler.removeCallbacks(CheckSamsung.this.runnable);
                 } else {
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(500L);
                     } catch (final InterruptedException e) {
                         e.printStackTrace();
                     }
-                    CheckSamsung.this.handler.postDelayed(this, 100);
+                    CheckSamsung.this.handler.postDelayed(this, 100L);
                 }
             }
         };
@@ -145,7 +145,7 @@ public class SplashScreenActivity extends Activity {
                 int timeoutCount = 0;
                 while (!this.prefs.contains(dateFormat.format(new Date())) && (timeoutCount < 100)) {
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(100L);
                     } catch (final InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -164,7 +164,7 @@ public class SplashScreenActivity extends Activity {
                     while (!prefs2.contains("andromeda_exp_fp_" + andromedaVer) &&
                             (timeoutCount < 100)) {
                         try {
-                            Thread.sleep(100);
+                            Thread.sleep(100L);
                         } catch (final InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -194,7 +194,7 @@ public class SplashScreenActivity extends Activity {
                     while (!prefs2.contains("sungstratum_exp_fp_" + sstVersion) && (timeoutCount <
                             100)) {
                         try {
-                            Thread.sleep(100);
+                            Thread.sleep(100L);
                         } catch (final InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -216,11 +216,11 @@ public class SplashScreenActivity extends Activity {
                         e.printStackTrace();
                     }
 
-                    this.handler.postDelayed(this.runnable, 100);
+                    this.handler.postDelayed(this.runnable, 100L);
                     int counter = 0;
                     while ((this.securityIntent == null) && (counter < 5)) {
                         try {
-                            Thread.sleep(500);
+                            Thread.sleep(500L);
                         } catch (final InterruptedException e) {
                             e.printStackTrace();
                         }

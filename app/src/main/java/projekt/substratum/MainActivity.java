@@ -347,19 +347,19 @@ public class MainActivity extends SubstratumActivity implements
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_googleplus)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_googleplus)
                                 .withSelectable(false)
-                                .withIdentifier(100),
+                                .withIdentifier(100L),
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_reddit)
                                 .withLevel(2).withIcon(R.drawable.nav_reddit)
                                 .withSelectable(false)
-                                .withIdentifier(101),
+                                .withIdentifier(101L),
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_telegram)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_telegram)
                                 .withSelectable(false)
-                                .withIdentifier(102),
+                                .withIdentifier(102L),
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_xda)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_xda)
                                 .withSelectable(false)
-                                .withIdentifier(103));
+                                .withIdentifier(103L));
 
         // Split the featured content out for easy adapting
         final ExpandableDrawerItem featured = new ExpandableDrawerItem()
@@ -369,11 +369,11 @@ public class MainActivity extends SubstratumActivity implements
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_rawad)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_youtube)
                                 .withSelectable(false)
-                                .withIdentifier(104),
+                                .withIdentifier(104L),
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_xda_portal)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_xda_portal)
                                 .withSelectable(false)
-                                .withIdentifier(105));
+                                .withIdentifier(105L));
 
         // Split the resources out for easy adapting
         final ExpandableDrawerItem resources = new ExpandableDrawerItem()
@@ -383,64 +383,64 @@ public class MainActivity extends SubstratumActivity implements
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_homepage)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_homepage)
                                 .withSelectable(false)
-                                .withIdentifier(106),
+                                .withIdentifier(106L),
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_template)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_template)
                                 .withSelectable(false)
-                                .withIdentifier(107),
+                                .withIdentifier(107L),
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_gerrit)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_gerrit)
                                 .withSelectable(false)
-                                .withIdentifier(108),
+                                .withIdentifier(108L),
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_github)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_github)
                                 .withSelectable(false)
-                                .withIdentifier(109),
+                                .withIdentifier(109L),
                         new SecondaryDrawerItem().withName(R.string.nav_drawer_jira)
                                 .withLevel(2).withIcon(R.drawable.nav_drawer_jira)
                                 .withSelectable(false)
-                                .withIdentifier(110));
+                                .withIdentifier(110L));
 
         // Begin initializing the navigation drawer
         drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_home)
                         .withIcon(R.drawable.nav_theme_packs)
-                        .withIdentifier(1));
+                        .withIdentifier(1L));
         drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_overlays)
                         .withIcon(R.drawable.nav_overlays)
-                        .withIdentifier(2));
+                        .withIdentifier(2L));
         if (Resources.isBootAnimationSupported(this.mContext))
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_bootanim)
                             .withIcon(R.drawable.nav_bootanim)
-                            .withIdentifier(3));
+                            .withIdentifier(3L));
         if (Resources.isShutdownAnimationSupported())
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_shutdownanim)
                             .withIcon(R.drawable.nav_shutdownanim)
-                            .withIdentifier(4));
+                            .withIdentifier(4L));
         if (Resources.isFontsSupported())
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_fonts)
                             .withIcon(R.drawable.nav_fonts)
-                            .withIdentifier(5));
+                            .withIdentifier(5L));
         if (Resources.isSoundsSupported(this.mContext))
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_sounds)
                             .withIcon(R.drawable.nav_sounds)
-                            .withIdentifier(6));
+                            .withIdentifier(6L));
         drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_wallpapers)
                         .withIcon(R.drawable.nav_wallpapers)
-                        .withIdentifier(7));
+                        .withIdentifier(7L));
         drawerBuilder.addDrawerItems(
                 new SectionDrawerItem()
                         .withName(R.string.nav_section_header_utilities));
@@ -448,25 +448,25 @@ public class MainActivity extends SubstratumActivity implements
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_overlay_manager)
                         .withIcon(R.drawable.nav_overlay_manager)
-                        .withIdentifier(8));
+                        .withIdentifier(8L));
         if (Systems.checkOMS(this.mContext) && !isSamsung(this.mContext))
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_priorities)
                             .withIcon(R.drawable.nav_drawer_priorities)
-                            .withIdentifier(9));
+                            .withIdentifier(9L));
         if (Resources.isProfilesSupported(this.mContext))
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_backup_restore)
                             .withIcon(R.drawable.nav_drawer_profiles)
-                            .withIdentifier(10)
+                            .withIdentifier(10L)
                             .withBadge(this.getString(R.string.beta_tag)));
         drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_manage)
                         .withIcon(R.drawable.nav_manage)
-                        .withIdentifier(11));
+                        .withIdentifier(11L));
         drawerBuilder.addDrawerItems(
                 new SectionDrawerItem()
                         .withName(R.string.nav_section_header_get_involved));
@@ -477,7 +477,7 @@ public class MainActivity extends SubstratumActivity implements
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_troubleshooting)
                         .withIcon(R.drawable.nav_troubleshooting)
-                        .withIdentifier(12));
+                        .withIdentifier(12L));
         drawerBuilder.addDrawerItems(
                 new SectionDrawerItem()
                         .withName(R.string.nav_section_header_more));
@@ -485,17 +485,17 @@ public class MainActivity extends SubstratumActivity implements
                 new SecondaryDrawerItem()
                         .withName(R.string.nav_team_contributors)
                         .withIcon(R.drawable.nav_drawer_team)
-                        .withIdentifier(13));
+                        .withIdentifier(13L));
         drawerBuilder.addDrawerItems(
                 new SecondaryDrawerItem()
                         .withName(this.getString(R.string.nav_opensource))
                         .withIcon(R.drawable.nav_drawer_licenses)
-                        .withIdentifier(14));
+                        .withIdentifier(14L));
         drawerBuilder.addDrawerItems(
                 new SecondaryDrawerItem()
                         .withName(R.string.nav_settings)
                         .withIcon(R.drawable.nav_drawer_settings)
-                        .withIdentifier(15));
+                        .withIdentifier(15L));
         drawerBuilder.withOnDrawerItemClickListener((view, position, drawerItem) -> {
             if (drawerItem != null) {
                 switch ((int) drawerItem.getIdentifier()) {
@@ -612,9 +612,9 @@ public class MainActivity extends SubstratumActivity implements
         if ((this.getIntent() != null) && this.getIntent().getBooleanExtra("launch_manager_fragment", false)) {
             this.switchFragment(this.getString(R.string.nav_overlay_manager),
                     ManagerFragment.class.getCanonicalName());
-            this.drawer.setSelection(8);
+            this.drawer.setSelection(8L);
         } else {
-            this.drawer.setSelection(selectedDrawer, true);
+            this.drawer.setSelection((long) selectedDrawer, true);
         }
 
         new RootRequester(this).execute();
@@ -622,13 +622,13 @@ public class MainActivity extends SubstratumActivity implements
 
     private void cleanLogCharReportsIfNecessary() {
         final Date currentDate = new Date(System.currentTimeMillis());
-        if (this.prefs.getLong("previous_logchar_cleanup", 0) == 0) {
+        if (this.prefs.getLong("previous_logchar_cleanup", 0L) == 0L) {
             this.prefs.edit().putLong("previous_logchar_cleanup", currentDate.getTime()).apply();
             return;
         }
-        final long lastCleanupDate = this.prefs.getLong("previous_logchar_cleanup", 0);
+        final long lastCleanupDate = this.prefs.getLong("previous_logchar_cleanup", 0L);
         final long diff = currentDate.getTime() - lastCleanupDate;
-        if (TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) >= 15) {
+        if (TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) >= 15L) {
             this.prefs.edit().putLong("previous_logchar_cleanup", currentDate.getTime()).apply();
             new ClearLogs(this).execute();
             Log.d(SUBSTRATUM_LOG, "LogChar reports were wiped from the storage");
@@ -904,7 +904,7 @@ public class MainActivity extends SubstratumActivity implements
             if (this.getIntent().getBooleanExtra("launch_manager_fragment", false)) {
                 this.switchFragment(this.getString(R.string.nav_overlay_manager),
                         ManagerFragment.class.getCanonicalName());
-                this.drawer.setSelection(8);
+                this.drawer.setSelection(8L);
             }
         }
     }

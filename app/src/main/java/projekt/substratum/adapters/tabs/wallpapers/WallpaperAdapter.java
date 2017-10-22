@@ -162,7 +162,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                     wallpaperAdapter.mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
                             this.getClass().getName());
                 }
-                wallpaperAdapter.mWakeLock.acquire(10 * 60 * 1000L /*10 minutes*/);
+                wallpaperAdapter.mWakeLock.acquire(10L * 60L * 1000L /*10 minutes*/);
                 wallpaperAdapter.mProgressDialog.setOnCancelListener(
                         dialogInterface -> wallpaperAdapter.current_download.cancel(true));
                 wallpaperAdapter.mProgressDialog.show();
@@ -196,7 +196,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                                 "/" + this.directory_output)))
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .setFixAspectRatio(false)
-                        .setInitialCropWindowPaddingRatio(0)
+                        .setInitialCropWindowPaddingRatio((float) 0)
                         .setActivityTitle(this.wallpaperName)
                         .setOutputUri(Uri.fromFile(new File(
                                 wallpaperAdapter.mContext.getCacheDir().getAbsolutePath() +

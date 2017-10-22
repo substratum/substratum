@@ -65,7 +65,7 @@ public class ScheduledProfileReceiver extends BroadcastReceiver {
                 final ComponentName serviceComponent = new ComponentName(context,
                         ScheduledProfileService.class);
                 final JobInfo jobInfo = new JobInfo.Builder(NOTIFICATION_ID, serviceComponent)
-                        .setMinimumLatency(5000)
+                        .setMinimumLatency(5000L)
                         .setExtras(bundle)
                         .build();
 

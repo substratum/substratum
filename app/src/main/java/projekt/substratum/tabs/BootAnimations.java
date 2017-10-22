@@ -398,7 +398,7 @@ public class BootAnimations extends Fragment {
                                 bootAnimations.previewIndex = 0;
                         });
                         bootAnimations.previewHandler.postDelayed(
-                                bootAnimations.previewRunnable, ANIMATION_FRAME_DURATION);
+                                bootAnimations.previewRunnable, (long) ANIMATION_FRAME_DURATION);
                     } catch (final Exception e) {
                         // Suppress warning
                     }
@@ -517,7 +517,7 @@ public class BootAnimations extends Fragment {
 
         private int previewDeterminator(final String file_location) {
             final File checkFile = new File(file_location);
-            final int file_size = Integer.parseInt(String.valueOf(checkFile.length() / 1024 / 1024));
+            final int file_size = Integer.parseInt(String.valueOf(checkFile.length() / 1024L / 1024L));
             Log.d(TAG, "Managing bootanimation with size: " + file_size + "MB");
 
             if (file_size <= 5) {

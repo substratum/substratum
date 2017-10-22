@@ -387,7 +387,7 @@ public enum ThemeManager {
                         int counter = 0;
                         while (!overlays.exists() && (counter <= 20)) {
                             try {
-                                Thread.sleep(100);
+                                Thread.sleep(100L);
                                 counter++;
                                 Log.d("ThemeManager",
                                         "Substratum is still waiting for a response " +

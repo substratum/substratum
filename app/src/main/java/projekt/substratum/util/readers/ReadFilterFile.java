@@ -49,7 +49,7 @@ public enum ReadFilterFile {
             final List<ValidatorFilter> list = new ArrayList<>();
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 final Node nNode = nList.item(temp);
-                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                if ((int) nNode.getNodeType() == (int) Node.ELEMENT_NODE) {
                     final Element eElement = (Element) nNode;
                     final ValidatorFilter current = new ValidatorFilter(eElement.getAttribute("name"));
                     final List<String> filtered = new ArrayList<>();

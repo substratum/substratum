@@ -1013,11 +1013,11 @@ public class ProfileFragment extends Fragment {
                 } else {
                     Log.d(ContinueRestore.this.TAG, "Encryption key still null...");
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(500L);
                     } catch (final InterruptedException e) {
                         e.printStackTrace();
                     }
-                    ContinueRestore.this.handler.postDelayed(this, 100);
+                    ContinueRestore.this.handler.postDelayed(this, 100L);
                 }
             }
         };
@@ -1131,11 +1131,11 @@ public class ProfileFragment extends Fragment {
                                     profileFragment.mContext);
                             this.localBroadcastManager.registerReceiver(this.keyRetrieval, if1);
 
-                            this.handler.postDelayed(this.runnable, 100);
+                            this.handler.postDelayed(this.runnable, 100L);
                             int counter = 0;
                             while ((this.securityIntent == null) && (counter < 5)) {
                                 try {
-                                    Thread.sleep(500);
+                                    Thread.sleep(500L);
                                 } catch (final InterruptedException e) {
                                     e.printStackTrace();
                                 }
@@ -1272,7 +1272,7 @@ public class ProfileFragment extends Fragment {
                             profileFragment.isWaiting = true;
                             do {
                                 try {
-                                    Thread.sleep(THREAD_WAIT_DURATION);
+                                    Thread.sleep((long) THREAD_WAIT_DURATION);
                                 } catch (final InterruptedException e) {
                                     Thread.currentThread().interrupt();
                                 }

@@ -77,7 +77,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
         List<UsageStats> stats = null;
         if (mUsageStatsManager != null) {
             stats = mUsageStatsManager.queryUsageStats(
-                    UsageStatsManager.INTERVAL_DAILY, time - (1000 * 1000), time);
+                    UsageStatsManager.INTERVAL_DAILY, time - (long) (1000 * 1000), time);
         }
         String foregroundApp = "";
         if ((stats != null) && !stats.isEmpty()) {
@@ -91,7 +91,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
         }
         UsageEvents usageEvents = null;
         if (mUsageStatsManager != null) {
-            usageEvents = mUsageStatsManager.queryEvents(time - (1000 * 1000), time);
+            usageEvents = mUsageStatsManager.queryEvents(time - (long) (1000 * 1000), time);
         }
         final UsageEvents.Event event = new UsageEvents.Event();
         // Get the last event in the doubly linked list
@@ -171,7 +171,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 title.setPadding(20, 40, 20, 40);
                 title.setGravity(Gravity.CENTER);
                 title.setTextColor(this.getColor(R.color.floatui_dialog_title_color));
-                title.setTextSize(20);
+                title.setTextSize(20.0F);
                 title.setAllCaps(true);
 
                 // Initialize the AlertDialog Builder
@@ -233,9 +233,9 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                                         new Intent(
                                                 this.getApplicationContext(),
                                                 SubstratumFloatInterface.class));
-                            }, 300);
+                            }, 300L);
                         }
-                    }, 100);
+                    }, 100L);
                 });
                 builder.setNegativeButton(android.R.string.cancel,
                         (dialog, which) -> dialog.cancel());
@@ -266,7 +266,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
         this.mFloatingViewManager.setFixedTrashIconImage(R.drawable.floating_trash_cross);
         this.mFloatingViewManager.setActionTrashIconImage(R.drawable.floating_trash_base);
         final FloatingViewManager.Options options = new FloatingViewManager.Options();
-        options.overMargin = (int) (16 * metrics.density);
+        options.overMargin = (int) (16.0F * metrics.density);
         this.mFloatingViewManager.addViewToWindow(iconView, options);
 
         this.startForeground(NOTIFICATION_ID, this.createNotification());

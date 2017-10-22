@@ -329,8 +329,8 @@ public class BootAnimationUtils {
                                 crc32.update(line.getBytes());
                             }
                             entry.setCrc(crc32.getValue());
-                            entry.setSize(size);
-                            entry.setCompressedSize(size);
+                            entry.setSize((long) size);
+                            entry.setCompressedSize((long) size);
 
                             zos.putNextEntry(entry);
                             zos.write(buffer.array(), 0, size);

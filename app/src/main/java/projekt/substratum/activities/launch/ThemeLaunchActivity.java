@@ -82,7 +82,7 @@ public class ThemeLaunchActivity extends Activity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final int intent_id = (int) ThreadLocalRandom.current().nextLong(0, 9999);
+        final int intent_id = (int) ThreadLocalRandom.current().nextLong(0L, 9999L);
 
         final Intent activityExtras = this.getIntent();
         this.package_name = activityExtras.getStringExtra("package_name");

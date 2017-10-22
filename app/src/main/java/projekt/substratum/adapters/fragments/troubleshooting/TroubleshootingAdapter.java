@@ -52,7 +52,7 @@ public class TroubleshootingAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(final int i) {
-        return i;
+        return (long) i;
     }
 
     @Override

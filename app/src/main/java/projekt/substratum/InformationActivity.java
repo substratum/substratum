@@ -246,9 +246,9 @@ public class InformationActivity extends SubstratumActivity {
 
     private boolean checkColorDarkness(final int color) {
         final double darkness =
-                1 - (((0.299 * Color.red(color)) +
-                        (0.587 * Color.green(color)) +
-                        (0.114 * Color.blue(color))) / 255);
+                1.0 - (((0.299 * (double) Color.red(color)) +
+                        (0.587 * (double) Color.green(color)) +
+                        (0.114 * (double) Color.blue(color))) / 255.0);
         return darkness < 0.5;
     }
 
@@ -487,7 +487,7 @@ public class InformationActivity extends SubstratumActivity {
                     if (isWallpaperOnly && (wallpaperUrl != null) && !wallpaperUrl.isEmpty()) {
                         final Handler handler = new Handler();
                         handler.postDelayed(() ->
-                                this.runOnUiThread(floatingActionButton::hide), 500);
+                                this.runOnUiThread(floatingActionButton::hide), 500L);
                     }
                 } catch (final Exception e) {
                     Log.e(References.SUBSTRATUM_LOG, "Could not refresh list of asset folders.");
@@ -638,7 +638,7 @@ public class InformationActivity extends SubstratumActivity {
                                 localBroadcastManager.sendBroadcast(intent);
                                 break;
                         }
-                    }, isLunchbarOpen ? LUNCHBAR_DISMISS_FAB_CLICK_DELAY : 0);
+                    }, (long) (isLunchbarOpen ? LUNCHBAR_DISMISS_FAB_CLICK_DELAY : 0));
                 } catch (final NullPointerException npe) {
                     // Suppress warning
                 }
@@ -1341,7 +1341,7 @@ public class InformationActivity extends SubstratumActivity {
                     InformationActivity.this.finish();
                     final Handler handler = new Handler();
                     handler.postDelayed(() ->
-                            Theming.launchTheme(InformationActivity.this.mContext, InformationActivity.this.theme_pid, InformationActivity.this.theme_mode), 500);
+                            Theming.launchTheme(InformationActivity.this.mContext, InformationActivity.this.theme_pid, InformationActivity.this.theme_mode), 500L);
                 }
             } else if (compilingProcess) {
                 Log.d(SUBSTRATUM_LOG,

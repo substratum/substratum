@@ -175,7 +175,7 @@ public enum FileOperations {
                 int retryCount = 0;
                 final File file = new File(destination);
                 while (!file.exists() && (retryCount < 5)) {
-                    Thread.sleep(1000);
+                    Thread.sleep(1000L);
                     retryCount++;
                 }
                 if (retryCount == 5) Log.d(COPY_LOG, "Operation timed out!");
@@ -260,7 +260,7 @@ public enum FileOperations {
                 final File file = new File(directory);
                 final boolean notDone = deleteParent ? file.exists() : file.list().length == 0;
                 while (notDone && (retryCount < 5)) {
-                    Thread.sleep(1000);
+                    Thread.sleep(1000L);
                     retryCount++;
                 }
                 if (retryCount == 5) Log.d(DELETE_LOG, "Operation timed out!");
@@ -323,7 +323,7 @@ public enum FileOperations {
                 int retryCount = 0;
                 final File file = new File(destination);
                 while (!file.exists() && (retryCount < 5)) {
-                    Thread.sleep(1000);
+                    Thread.sleep(1000L);
                     retryCount++;
                 }
                 if (retryCount == 5) Log.d(MOVE_LOG, "Operation timed out");
@@ -356,7 +356,7 @@ public enum FileOperations {
     }
 
     public static long getFileSize(final File source) {
-        long size = 0;
+        long size = 0L;
         if (source.isDirectory()) {
             for (final File file : source.listFiles()) {
                 size += getFileSize(file);

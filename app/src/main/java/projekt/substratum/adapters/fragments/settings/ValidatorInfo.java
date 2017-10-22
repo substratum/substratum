@@ -70,6 +70,6 @@ public class ValidatorInfo {
     }
 
     public void setPercentage(final int one, final int two) {
-        final int mPercentage = (int) (((double) one / (double) two) * 100);
+        final int mPercentage = (int) (((double) one / (double) two) * 100.0);
     }
 }

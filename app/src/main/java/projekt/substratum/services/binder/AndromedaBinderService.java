@@ -67,7 +67,7 @@ public class AndromedaBinderService extends Service implements ServiceConnection
         new Thread(() -> {
             while (!this.mBound) {
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(100L);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -76,7 +76,7 @@ public class AndromedaBinderService extends Service implements ServiceConnection
                 boolean failed = false;
                 while (!failed) {
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(1000L);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

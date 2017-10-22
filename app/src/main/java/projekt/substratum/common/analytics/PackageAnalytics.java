@@ -37,7 +37,7 @@ public enum PackageAnalytics {
 
     public static boolean isLowEnd() {
         final Float maximum_memory = PackageAnalytics.logRuntimeMemoryLimits()[0];
-        return maximum_memory <= 130;
+        return maximum_memory <= 130.0F;
     }
 
     private static Float[] logRuntimeMemoryLimits() {
@@ -61,10 +61,10 @@ public enum PackageAnalytics {
     @SuppressLint("DefaultLocale")
     private static String humanReadableByteCount(final long bytes, final boolean si) {
         final int unit = si ? 1000 : 1024;
-        if (bytes < unit) return bytes + " B";
-        final int exp = (int) (Math.log(bytes) / Math.log(unit));
+        if (bytes < (long) unit) return bytes + " B";
+        final int exp = (int) (Math.log((double) bytes) / Math.log((double) unit));
         final String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp - 1) + (si ? "" : "i");
-        return String.format("%.1f %sB", bytes / Math.pow(unit, exp), pre);
+        return String.format("%.1f %sB", (double) bytes / Math.pow((double) unit, (double) exp), pre);
     }
 
     public static void logPackageInfo(final Context context, final String packageName) {

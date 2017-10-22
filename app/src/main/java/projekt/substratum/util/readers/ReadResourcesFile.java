@@ -47,7 +47,7 @@ public enum ReadResourcesFile {
             final List<String> list = new ArrayList<>();
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 final Node nNode = nList.item(temp);
-                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                if ((int) nNode.getNodeType() == (int) Node.ELEMENT_NODE) {
                     final Element eElement = (Element) nNode;
                     list.add(eElement.getAttribute("name"));
                 }

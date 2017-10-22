@@ -85,7 +85,7 @@ public class SubstratumCrash extends Activity {
                         }
                         SubstratumCrash.this.shouldPulsate = !SubstratumCrash.this.shouldPulsate;
                     }
-                }, 0, 400);
+                }, 0L, 400L);
             }
         } else if (isSubstratumOverlayFault) {
             rescueMeButton.setVisibility(View.GONE);

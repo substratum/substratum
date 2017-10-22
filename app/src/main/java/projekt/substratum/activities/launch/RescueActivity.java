@@ -50,7 +50,7 @@ public class RescueActivity extends SubstratumActivity {
                 final ArrayList<String> to_be_disabled = new ArrayList<>(android);
                 to_be_disabled.addAll(substratum);
                 ThemeManager.disableOverlay(this.getApplicationContext(), to_be_disabled);
-            }, 500);
+            }, 500L);
         }
         this.finish();
     }

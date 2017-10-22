@@ -305,7 +305,7 @@ public class ThemeFragment extends Fragment {
                         themeFragment.getActivity(),
                         themeFragment.home_type);
                 try {
-                    Thread.sleep(themeFragment.first_boot ? THEME_FRAGMENT_INITIAL_DELAY : 0);
+                    Thread.sleep((long) (themeFragment.first_boot ? THEME_FRAGMENT_INITIAL_DELAY : 0));
                 } catch (final InterruptedException ie) {
                     // Suppress warning
                 }

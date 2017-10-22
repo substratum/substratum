@@ -375,7 +375,7 @@ public enum ProfileManager {
                 final NodeList childNodes = items.getChildNodes();
                 final int listLength = childNodes.getLength();
                 for (int i = 0; i < listLength; i++) {
-                    if (childNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
+                    if ((int) childNodes.item(i).getNodeType() == (int) Node.ELEMENT_NODE) {
                         final Element e = (Element) childNodes.item(i);
                         final ProfileItem item =
                                 new ProfileItem(e.getAttribute(METADATA_PROFILE_PACKAGE_NAME));
@@ -415,7 +415,7 @@ public enum ProfileManager {
                 final NodeList childNodes = items.getChildNodes();
                 final int listLength = childNodes.getLength();
                 for (int i = 0; i < listLength; i++) {
-                    if (childNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
+                    if ((int) childNodes.item(i).getNodeType() == (int) Node.ELEMENT_NODE) {
                         final Element element = (Element) childNodes.item(i);
                         list.add(element.getAttribute(METADATA_PROFILE_PACKAGE_NAME));
                     }
@@ -446,7 +446,7 @@ public enum ProfileManager {
                 final NodeList childNodes = items.getChildNodes();
                 final int listLength = childNodes.getLength();
                 for (int i = 0; i < listLength; i++) {
-                    if (childNodes.item(i).getNodeType() == Node.ELEMENT_NODE) {
+                    if ((int) childNodes.item(i).getNodeType() == (int) Node.ELEMENT_NODE) {
                         final Element element = (Element) childNodes.item(i);
                         final List<String> overlay = new ArrayList<>();
                         overlay.add(element.getAttribute(METADATA_PROFILE_PACKAGE_NAME));

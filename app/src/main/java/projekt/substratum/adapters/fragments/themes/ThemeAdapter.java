@@ -140,7 +140,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
             if (Packages.isUserApp(this.mContext, themeItem.getThemePackage())) {
                 final Vibrator v = (Vibrator) this.mContext.getSystemService(Context.VIBRATOR_SERVICE);
                 if (v != null) {
-                    v.vibrate(30);
+                    v.vibrate(30L);
                 }
 
                 // About the theme

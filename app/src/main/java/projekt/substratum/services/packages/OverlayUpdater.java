@@ -153,11 +153,11 @@ public class OverlayUpdater extends BroadcastReceiver {
                 } else {
                     Log.d(TAG, "Encryption key still null...");
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(500L);
                     } catch (final InterruptedException e) {
                         e.printStackTrace();
                     }
-                    OverlayUpdate.this.handler.postDelayed(this, 100);
+                    OverlayUpdate.this.handler.postDelayed(this, 100L);
                 }
             }
         };
@@ -272,7 +272,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                     Log.d(TAG, "Current overlay found in stash: " + this.installed_overlays.get(i));
 
                     this.mBuilder.setProgress(100, (int) (((double) (i + 1) /
-                            this.installed_overlays.size()) * 100), false);
+                            (double) this.installed_overlays.size()) * 100.0), false);
 
                     switch (this.upgrade_mode) {
                         case APP_UPGRADE:
@@ -322,11 +322,11 @@ public class OverlayUpdater extends BroadcastReceiver {
                                 new IntentFilter(KEY_RETRIEVAL));
 
 
-                        this.handler.postDelayed(this.runnable, 100);
+                        this.handler.postDelayed(this.runnable, 100L);
                         int counter = 0;
                         while ((this.securityIntent == null) && (counter < 5)) {
                             try {
-                                Thread.sleep(500);
+                                Thread.sleep(500L);
                             } catch (final InterruptedException e) {
                                 e.printStackTrace();
                             }

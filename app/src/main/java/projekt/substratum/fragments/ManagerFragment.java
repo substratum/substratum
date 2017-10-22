@@ -547,7 +547,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     }
 
                     try {
-                        Thread.sleep(fragment.first_boot ? MANAGER_FRAGMENT_INITIAL_DELAY : 0);
+                        Thread.sleep((long) (fragment.first_boot ? MANAGER_FRAGMENT_INITIAL_DELAY : 0));
                     } catch (final InterruptedException ie) {
                         // Suppress warning
                     }
@@ -706,7 +706,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                             } catch (final Exception e) {
                                 // Consume window refresh
                             }
-                        }, REFRESH_WINDOW_DELAY);
+                        }, (long) REFRESH_WINDOW_DELAY);
                     }
                 } else {
                     return "unauthorized";
@@ -779,7 +779,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                                 } catch (final Exception e) {
                                     // Consume window refresh
                                 }
-                            }, REFRESH_WINDOW_DELAY);
+                            }, (long) REFRESH_WINDOW_DELAY);
                         }
                     } else {
                         final Handler handler = new Handler(Looper.getMainLooper());
@@ -1006,7 +1006,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                             } catch (final Exception e) {
                                 // Consume window refresh
                             }
-                        }, REFRESH_WINDOW_DELAY);
+                        }, (long) REFRESH_WINDOW_DELAY);
                     }
                 } else {
                     return "unauthorized";
@@ -1075,7 +1075,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                             } catch (final Exception e) {
                                 // Consume window refresh
                             }
-                        }, REFRESH_WINDOW_DELAY);
+                        }, (long) REFRESH_WINDOW_DELAY);
                     }
                 } else {
                     final Handler handler = new Handler(Looper.getMainLooper());

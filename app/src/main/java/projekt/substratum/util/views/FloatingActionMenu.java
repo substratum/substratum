@@ -49,7 +49,7 @@ public class FloatingActionMenu extends FloatingActionButton implements Animated
 
     @Override
     public void show() {
-        this.show(0, 0);
+        this.show((float) 0, (float) 0);
     }
 
     @Override
@@ -66,15 +66,15 @@ public class FloatingActionMenu extends FloatingActionButton implements Animated
             final ScaleAnimation anim;
             // If pivots are 0, that means the FAB hasn't been drawn yet so just use the
             // center of the FAB
-            if ((pivotX == 0) || (pivotY == 0)) {
-                anim = new ScaleAnimation(0, 1, 0, 1, Animation.RELATIVE_TO_SELF, 0.5f,
+            if ((pivotX == (float) 0) || (pivotY == (float) 0)) {
+                anim = new ScaleAnimation((float) 0, 1.0F, (float) 0, 1.0F, Animation.RELATIVE_TO_SELF, 0.5f,
                         Animation.RELATIVE_TO_SELF, 0.5f);
             } else {
-                anim = new ScaleAnimation(0, 1, 0, 1, pivotX, pivotY);
+                anim = new ScaleAnimation((float) 0, 1.0F, (float) 0, 1.0F, pivotX, pivotY);
             }
 
             // Animate FAB expanding
-            anim.setDuration(FAB_ANIM_DURATION);
+            anim.setDuration((long) FAB_ANIM_DURATION);
             anim.setInterpolator(this.getInterpolator());
             this.startAnimation(anim);
         }
@@ -90,8 +90,8 @@ public class FloatingActionMenu extends FloatingActionButton implements Animated
             final float pivotY = this.getPivotY() + this.getTranslationY();
 
             // Animate FAB shrinking
-            final ScaleAnimation anim = new ScaleAnimation(1, 0, 1, 0, pivotX, pivotY);
-            anim.setDuration(FAB_ANIM_DURATION);
+            final ScaleAnimation anim = new ScaleAnimation(1.0F, (float) 0, 1.0F, (float) 0, pivotX, pivotY);
+            anim.setDuration((long) FAB_ANIM_DURATION);
             anim.setInterpolator(this.getInterpolator());
             this.startAnimation(anim);
         }
@@ -99,7 +99,7 @@ public class FloatingActionMenu extends FloatingActionButton implements Animated
     }
 
     private void setTranslation(final float translationX, final float translationY) {
-        this.animate().setInterpolator(this.getInterpolator()).setDuration(FAB_ANIM_DURATION)
+        this.animate().setInterpolator(this.getInterpolator()).setDuration((long) FAB_ANIM_DURATION)
                 .translationX(translationX).translationY(translationY);
     }
 

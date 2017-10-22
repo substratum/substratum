@@ -804,14 +804,14 @@ enum OverlayFunctions {
                                         overlays.late_install.add(overlays.sb.no_install);
                                     } else if (needToWait) {
                                         // Thread wait
-                                        Substratum.getInstance().startWaitingInstall();
+                                        Substratum.startWaitingInstall();
                                         do {
                                             try {
                                                 Thread.sleep((long) Overlays.THREAD_WAIT_DURATION);
                                             } catch (final InterruptedException e) {
                                                 Thread.currentThread().interrupt();
                                             }
-                                        } while (Substratum.getInstance().isWaitingInstall());
+                                        } while (Substratum.isWaitingInstall());
                                     }
                                 }
                             } else {
@@ -860,14 +860,14 @@ enum OverlayFunctions {
                                         overlays.late_install.add(overlays.sb.no_install);
                                     } else if (needToWait) {
                                         // Thread wait
-                                        Substratum.getInstance().startWaitingInstall();
+                                        Substratum.startWaitingInstall();
                                         do {
                                             try {
                                                 Thread.sleep((long) Overlays.THREAD_WAIT_DURATION);
                                             } catch (final InterruptedException e) {
                                                 Thread.currentThread().interrupt();
                                             }
-                                        } while (Substratum.getInstance().isWaitingInstall());
+                                        } while (Substratum.isWaitingInstall());
                                     }
                                 }
                             }
@@ -1340,14 +1340,14 @@ enum OverlayFunctions {
                                     Systems.checkAndromeda(context)) {
                                 // Wait until the overlays to fully install so on compile enable
                                 // mode it can be enabled after.
-                                Substratum.getInstance().startWaitingInstall();
+                                Substratum.startWaitingInstall();
                                 do {
                                     try {
                                         Thread.sleep((long) Overlays.THREAD_WAIT_DURATION);
                                     } catch (final InterruptedException e) {
                                         // Still waiting
                                     }
-                                } while (Substratum.getInstance().isWaitingInstall());
+                                } while (Substratum.isWaitingInstall());
                             }
                         }
                         if (overlays.compile_enable_mode) {

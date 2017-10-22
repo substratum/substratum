@@ -671,7 +671,7 @@ public enum Packages {
         try (InputStream clone1 = new ByteArrayInputStream(byteArray);
              InputStream clone2 = new ByteArrayInputStream(byteArray)) {
             // Find the name of the top most color in the file first.
-            final String resource_name = new ReadVariantPrioritizedColor(clone1).run();
+            final String resource_name = ReadVariantPrioritizedColor.run();
 
             if (resource_name != null) {
                 try (BufferedReader br = new BufferedReader(new InputStreamReader(clone2))) {

@@ -69,7 +69,7 @@ public class ValidatorInfo {
         return this.mVerified;
     }
 
-    public void setPercentage(final int one, final int two) {
+    public static void setPercentage(final int one, final int two) {
         final int mPercentage = (int) (((double) one / (double) two) * 100.0);
     }
 }

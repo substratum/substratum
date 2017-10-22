@@ -70,8 +70,8 @@ public class AppCrashReceiver extends BroadcastReceiver {
                             "%s", overlay, packageName));
                 }
 
-                this.postNotificationAndDisableOverlays(context,
-                        this.getApplicationLabel(context, packageName),
+                AppCrashReceiver.postNotificationAndDisableOverlays(context,
+                        AppCrashReceiver.getApplicationLabel(context, packageName),
                         overlays);
 
             }
@@ -91,8 +91,8 @@ public class AppCrashReceiver extends BroadcastReceiver {
                 case 2:
                     Log.d("AppCrashReceiver", "Disabling all SystemUI overlays now.");
                     sharedPreferences.edit().remove("sysui_crash_count").apply();
-                    this.postNotificationAndDisableOverlays(context,
-                            this.getApplicationLabel(context, packageName),
+                    AppCrashReceiver.postNotificationAndDisableOverlays(context,
+                            AppCrashReceiver.getApplicationLabel(context, packageName),
                             ThemeManager.listEnabledOverlaysForTarget(context, "com.android" +
                                     ".systemui"));
                     break;
@@ -105,8 +105,8 @@ public class AppCrashReceiver extends BroadcastReceiver {
         }
     }
 
-    private void postNotificationAndDisableOverlays(final Context context, final String packageName,
-                                                    final List<String> overlays) {
+    private static void postNotificationAndDisableOverlays(final Context context, final String packageName,
+                                                           final List<String> overlays) {
         final String app_crash_title =
                 String.format(context.getString(R.string.app_crash_title), packageName);
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(context,
@@ -126,7 +126,7 @@ public class AppCrashReceiver extends BroadcastReceiver {
         ThemeManager.disableOverlay(context, new ArrayList<>(overlays));
     }
 
-    private String getApplicationLabel(final Context context, String packageName) {
+    private static String getApplicationLabel(final Context context, String packageName) {
         try {
             final ApplicationInfo applicationInfo = context.getPackageManager()
                     .getApplicationInfo(packageName, 0);

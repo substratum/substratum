@@ -37,7 +37,7 @@ public class ReadVariantPrioritizedColor {
         fileName = _fileName;
     }
 
-    public String run() {
+    public static String run() {
         try {
             final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             final DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();

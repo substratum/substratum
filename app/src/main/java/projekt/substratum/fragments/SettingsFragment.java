@@ -1033,7 +1033,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             validated,
                             result.get(i).endsWith(".common"));
 
-                    validatorInfo.setPercentage(
+                    ValidatorInfo.setPercentage(
                             settingsFragment.packageCounters.get(i) -
                                     settingsFragment.packageCountersErrored.get(i),
                             settingsFragment.packageCounters.get(i));

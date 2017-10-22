@@ -44,7 +44,7 @@ public class BootCompletedDetector extends BroadcastReceiver {
     private static final String TAG = "SubstratumBoot";
     private Context context;
 
-    private void clearSubstratumCompileFolder(final Context context) {
+    private static void clearSubstratumCompileFolder(final Context context) {
         final File deleted = new File(
                 EXTERNAL_STORAGE_CACHE);
         FileOperations.delete(context, deleted.getAbsolutePath());
@@ -62,7 +62,7 @@ public class BootCompletedDetector extends BroadcastReceiver {
             if (prefs.getBoolean(SCHEDULED_PROFILE_ENABLED, false)) {
                 ProfileManager.updateScheduledProfile(context);
             }
-            this.clearSubstratumCompileFolder(context);
+            BootCompletedDetector.clearSubstratumCompileFolder(context);
             new GlideClear().execute();
             new References.Markdown(context, prefs);
         }

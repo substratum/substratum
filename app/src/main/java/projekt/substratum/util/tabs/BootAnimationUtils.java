@@ -69,13 +69,13 @@ public class BootAnimationUtils {
     private static final String SYSTEM_MEDIA = "/system/media/";
     private static final String BACKUP_SCRIPT = "81-subsboot.sh";
 
-    public void execute(final View view,
-                        final String arguments,
-                        final Context context,
-                        final String theme_pid,
-                        final Boolean encrypted,
-                        final Boolean shutdownAnimation,
-                        final Cipher cipher) {
+    public static void execute(final View view,
+                               final String arguments,
+                               final Context context,
+                               final String theme_pid,
+                               final Boolean encrypted,
+                               final Boolean shutdownAnimation,
+                               final Cipher cipher) {
         new BootAnimationHandlerAsync(
                 view, context, theme_pid, encrypted, shutdownAnimation, cipher).execute(arguments);
     }
@@ -200,7 +200,7 @@ public class BootAnimationUtils {
                                      this.mContext.getCacheDir().getAbsolutePath() +
                                              "/BootAnimationCache/AnimationCreator/" +
                                              bootanimation + ".zip")) {
-                            this.CopyStream(inputStream, outputStream);
+                            BootAnimationHandlerAsync.CopyStream(inputStream, outputStream);
                         }
                     } catch (final Exception e) {
                         this.has_failed = true;
@@ -507,7 +507,7 @@ public class BootAnimationUtils {
             return null;
         }
 
-        private void CopyStream(final InputStream Input, final OutputStream Output) throws IOException {
+        private static void CopyStream(final InputStream Input, final OutputStream Output) throws IOException {
             final byte[] buffer = new byte[5120];
             int length = Input.read(buffer);
             while (length > 0) {

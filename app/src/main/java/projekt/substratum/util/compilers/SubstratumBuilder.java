@@ -283,7 +283,7 @@ public class SubstratumBuilder {
         // 6. Compile the new theme apk based on new manifest, framework-res.apk and extracted asset
         if (!this.has_errored_out) {
             final String targetPkg = Packages.getInstalledDirectory(context, targetPackage);
-            final String commands = this.processAOPTCommands(
+            final String commands = SubstratumBuilder.processAOPTCommands(
                     work_area,
                     targetPkg,
                     parse2_themeName,
@@ -496,15 +496,15 @@ public class SubstratumBuilder {
         return !this.has_errored_out;
     }
 
-    private String processAOPTCommands(final String work_area,
-                                       final String targetPkg,
-                                       final String theme_name,
-                                       final String overlay_package,
-                                       final CharSequence additional_variant,
-                                       final CharSequence asset_replacement,
-                                       final boolean legacySwitch,
-                                       final Context context,
-                                       final String no_cache_dir) {
+    private static String processAOPTCommands(final String work_area,
+                                              final String targetPkg,
+                                              final String theme_name,
+                                              final String overlay_package,
+                                              final CharSequence additional_variant,
+                                              final CharSequence asset_replacement,
+                                              final boolean legacySwitch,
+                                              final Context context,
+                                              final String no_cache_dir) {
         return CompilerCommands.createAOPTShellCommands(
                 work_area,
                 targetPkg,
@@ -544,7 +544,7 @@ public class SubstratumBuilder {
                             Log.e(References.SUBSTRATUM_BUILDER,
                                     "This overlay was designed using a legacy theming " +
                                             "style, now falling back to legacy compiler...");
-                            final String new_commands = this.processAOPTCommands(work_area, targetPkg,
+                            final String new_commands = SubstratumBuilder.processAOPTCommands(work_area, targetPkg,
                                     theme_name, overlay_package, additional_variant,
                                     asset_replacement, true, context, no_cache_dir);
                             return this.runAOPTShellCommands(

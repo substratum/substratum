@@ -278,7 +278,7 @@ public class BootAnimations extends Fragment {
                 if (this.bootAnimationSelector.getSelectedItemPosition() == 1) {
                     new BootAnimationClearer(this).execute("");
                 } else {
-                    new BootAnimationUtils().execute(this.nsv,
+                    BootAnimationUtils.execute(this.nsv,
                             this.bootAnimationSelector.getSelectedItem().toString(),
                             this.mContext, this.theme_pid, this.encrypted, this.shutdownBootAnimation, this.cipher);
                 }
@@ -292,7 +292,7 @@ public class BootAnimations extends Fragment {
                                 if (this.bootAnimationSelector.getSelectedItemPosition() == 1) {
                                     new BootAnimationClearer(this).execute("");
                                 } else {
-                                    new BootAnimationUtils().execute(this.nsv,
+                                    BootAnimationUtils.execute(this.nsv,
                                             this.bootAnimationSelector.getSelectedItem().toString(),
                                             this.mContext, this.theme_pid, this.encrypted,
                                             this.shutdownBootAnimation, this.cipher);
@@ -467,7 +467,7 @@ public class BootAnimations extends Fragment {
                                      new FileOutputStream(bootAnimations.mContext.getCacheDir()
                                              .getAbsolutePath() +
                                              "/BootAnimationCache/" + source)) {
-                            this.CopyStream(inputStream, outputStream);
+                            BootAnimationPreview.CopyStream(inputStream, outputStream);
                         } catch (final Exception e) {
                             Log.e(TAG,
                                     "There is no bootanimation.zip found within the assets of " +
@@ -476,13 +476,13 @@ public class BootAnimations extends Fragment {
                     }
 
                     // Unzip the boot animation to get it prepared for the preview
-                    this.unzip(bootAnimations.mContext.getCacheDir().getAbsolutePath() +
+                    BootAnimationPreview.unzip(bootAnimations.mContext.getCacheDir().getAbsolutePath() +
                                     "/BootAnimationCache/" + source,
                             bootAnimations.mContext.getCacheDir().getAbsolutePath() +
                                     "/BootAnimationCache/animation_preview/");
 
                     bootAnimations.options.inPreferredConfig = Bitmap.Config.RGB_565;
-                    bootAnimations.options.inSampleSize = this.previewDeterminator(
+                    bootAnimations.options.inSampleSize = BootAnimationPreview.previewDeterminator(
                             bootAnimations.mContext.getCacheDir().getAbsolutePath() +
                                     "/BootAnimationCache/" + source);
 
@@ -515,7 +515,7 @@ public class BootAnimations extends Fragment {
             return null;
         }
 
-        private int previewDeterminator(final String file_location) {
+        private static int previewDeterminator(final String file_location) {
             final File checkFile = new File(file_location);
             final int file_size = Integer.parseInt(String.valueOf(checkFile.length() / 1024L / 1024L));
             Log.d(TAG, "Managing bootanimation with size: " + file_size + "MB");
@@ -534,7 +534,7 @@ public class BootAnimations extends Fragment {
             return 1;
         }
 
-        private void unzip(final String source, final String destination) {
+        private static void unzip(final String source, final String destination) {
             try (ZipInputStream inputStream = new ZipInputStream(
                     new BufferedInputStream(new FileInputStream(source)))) {
                 ZipEntry zipEntry;
@@ -559,7 +559,7 @@ public class BootAnimations extends Fragment {
             }
         }
 
-        private void CopyStream(final InputStream Input, final OutputStream Output) throws IOException {
+        private static void CopyStream(final InputStream Input, final OutputStream Output) throws IOException {
             final byte[] buffer = new byte[5120];
             int length = Input.read(buffer);
             while (length > 0) {

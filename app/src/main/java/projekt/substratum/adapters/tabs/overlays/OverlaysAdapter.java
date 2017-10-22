@@ -100,7 +100,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 }
 
                 if (pos == 0) {
-                    OverlaysAdapter.this.zeroIndex(context, current_object, viewHolder);
+                    OverlaysAdapter.zeroIndex(context, current_object, viewHolder);
                 }
 
                 if (pos >= 1) {
@@ -155,7 +155,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                                         .getSelectedItem().toString().replaceAll("\\s+", "")
                                         .replaceAll("[^a-zA-Z0-9]+", "");
                     }
-                    OverlaysAdapter.this.commitChanges(context, current_object, viewHolder, packageName);
+                    OverlaysAdapter.commitChanges(context, current_object, viewHolder, packageName);
                 }
             }
 
@@ -167,7 +167,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
 
     // Magical easy reset checking for the adapter
     // Function that runs when a user picks a spinner dropdown item that is index 0
-    private void zeroIndex(final Context context, final OverlaysItem current_object, final ViewHolder viewHolder) {
+    private static void zeroIndex(final Context context, final OverlaysItem current_object, final ViewHolder viewHolder) {
         if (isPackageInstalled(context, current_object.getFullOverlayParameters())) {
             viewHolder.overlayState.setVisibility(View.VISIBLE);
             // Check whether currently installed overlay is up to date with
@@ -204,8 +204,8 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
     }
 
     // Function that runs when a user picks a spinner dropdown item that is index >= 1
-    private void commitChanges(final Context context, final OverlaysItem current_object,
-                               final ViewHolder viewHolder, final String packageName) {
+    private static void commitChanges(final Context context, final OverlaysItem current_object,
+                                      final ViewHolder viewHolder, final String packageName) {
         if (isPackageInstalled(context,
                 current_object.getPackageName() + "." + current_object.getThemeName() +
                         "." + packageName +

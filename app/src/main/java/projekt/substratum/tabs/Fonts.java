@@ -443,7 +443,7 @@ public class Fonts extends Fragment {
                                      new FileOutputStream(
                                              fonts.mContext.getCacheDir().getAbsolutePath() +
                                                      "/FontCache/" + source)) {
-                            this.CopyStream(inputStream, outputStream);
+                            FontPreview.CopyStream(inputStream, outputStream);
                         } catch (final Exception e) {
                             Log.e(TAG,
                                     "There is no fonts.zip found within the assets of this theme!");
@@ -451,7 +451,7 @@ public class Fonts extends Fragment {
                     }
 
                     // Unzip the fonts to get it prepared for the preview
-                    this.unzip(fonts.mContext.getCacheDir().getAbsolutePath() + "/FontCache/" + source,
+                    FontPreview.unzip(fonts.mContext.getCacheDir().getAbsolutePath() + "/FontCache/" + source,
                             fonts.mContext.getCacheDir().getAbsolutePath() +
                                     "/FontCache/font_preview/");
                 } catch (final Exception e) {
@@ -461,7 +461,7 @@ public class Fonts extends Fragment {
             return null;
         }
 
-        private void unzip(final String source, final String destination) {
+        private static void unzip(final String source, final String destination) {
             try (ZipInputStream inputStream = new ZipInputStream(
                     new BufferedInputStream(new FileInputStream(source)))) {
                 ZipEntry zipEntry;
@@ -487,7 +487,7 @@ public class Fonts extends Fragment {
             }
         }
 
-        private void CopyStream(final InputStream Input, final OutputStream Output) throws IOException {
+        private static void CopyStream(final InputStream Input, final OutputStream Output) throws IOException {
             final byte[] buffer = new byte[5120];
             int length = Input.read(buffer);
             while (length > 0) {

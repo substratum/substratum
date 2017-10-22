@@ -184,7 +184,7 @@ public class InformationActivity extends SubstratumActivity {
     }
 
     private void autoSetToolbarIcons(final boolean dynamicActionBarColors) {
-        if ((this.collapsingToolbarLayout != null) && this.checkColorDarkness(this.dominantColor) &&
+        if ((this.collapsingToolbarLayout != null) && InformationActivity.checkColorDarkness(this.dominantColor) &&
                 dynamicActionBarColors) {
             this.setDarkToolbarIcons();
         } else if (this.collapsingToolbarLayout != null) {
@@ -230,7 +230,7 @@ public class InformationActivity extends SubstratumActivity {
         setOverflowButtonColor(this, false);
     }
 
-    private boolean closeAllLunchBars() {
+    private static boolean closeAllLunchBars() {
         if (currentShownLunchBar != null) {
             currentShownLunchBar.dismiss();
             currentShownLunchBar = null;
@@ -244,7 +244,7 @@ public class InformationActivity extends SubstratumActivity {
         return ((ViewGroup) this.findViewById(android.R.id.content)).getChildAt(0);
     }
 
-    private boolean checkColorDarkness(final int color) {
+    private static boolean checkColorDarkness(final int color) {
         final double darkness =
                 1.0 - (((0.299 * (double) Color.red(color)) +
                         (0.587 * (double) Color.green(color)) +
@@ -407,7 +407,7 @@ public class InformationActivity extends SubstratumActivity {
 
         if (dynamicNavBarColors) {
             this.getWindow().setNavigationBarColor(this.dominantColor);
-            if (this.checkColorDarkness(this.dominantColor)) {
+            if (InformationActivity.checkColorDarkness(this.dominantColor)) {
                 this.getWindow().setNavigationBarColor(this.getColor(R.color.theme_information_background));
             }
         }
@@ -614,7 +614,7 @@ public class InformationActivity extends SubstratumActivity {
                     LocalBroadcastManager.getInstance(this.mContext);
             floatingActionButton.setOnClickListener(v -> {
                 try {
-                    final boolean isLunchbarOpen = this.closeAllLunchBars();
+                    final boolean isLunchbarOpen = InformationActivity.closeAllLunchBars();
                     final Handler handler = new Handler();
                     handler.postDelayed(() -> {
                         final Intent intent;
@@ -781,7 +781,7 @@ public class InformationActivity extends SubstratumActivity {
         // Start formalizing a check for dark icons
         final boolean dynamicActionBarColors = this.getResources().getBoolean(R.bool.dynamicActionBarColors);
         this.shouldDarken = (this.collapsingToolbarLayout != null) &&
-                this.checkColorDarkness(this.dominantColor) &&
+                InformationActivity.checkColorDarkness(this.dominantColor) &&
                 dynamicActionBarColors;
 
         // Start dynamically showing menu items

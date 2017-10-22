@@ -71,7 +71,7 @@ public class SoundUtils {
         new SoundsHandlerAsync(this).execute(arguments);
     }
 
-    public void SoundsClearer(final Context context) {
+    public static void SoundsClearer(final Context context) {
         SoundManager.clearSounds(context);
     }
 

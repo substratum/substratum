@@ -610,7 +610,7 @@ public class RecoveryFragment extends Fragment {
         protected Void doInBackground(final Void... sUrl) {
             final RecoveryFragment fragment = this.ref.get();
             if (fragment != null) {
-                new SoundUtils().SoundsClearer(fragment.getActivity());
+                SoundUtils.SoundsClearer(fragment.getActivity());
             }
             return null;
         }

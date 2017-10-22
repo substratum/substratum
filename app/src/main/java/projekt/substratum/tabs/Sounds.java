@@ -316,7 +316,7 @@ public class Sounds extends Fragment {
         protected String doInBackground(final String... sUrl) {
             final Sounds sounds = this.ref.get();
             if (sounds != null) {
-                new SoundUtils().SoundsClearer(sounds.mContext);
+                SoundUtils.SoundsClearer(sounds.mContext);
             }
             return null;
         }
@@ -408,7 +408,7 @@ public class Sounds extends Fragment {
                                      new FileOutputStream(
                                              sounds.mContext.getCacheDir().getAbsolutePath() +
                                                      "/SoundsCache/" + source)) {
-                            this.CopyStream(inputStream, outputStream);
+                            SoundsPreview.CopyStream(inputStream, outputStream);
                         } catch (final Exception e) {
                             e.printStackTrace();
                             Log.e(TAG, "There is no sounds.zip found within the assets " +
@@ -418,7 +418,7 @@ public class Sounds extends Fragment {
                     }
 
                     // Unzip the sounds archive to get it prepared for the preview
-                    this.unzip(sounds.mContext.getCacheDir().
+                    SoundsPreview.unzip(sounds.mContext.getCacheDir().
                                     getAbsolutePath() + "/SoundsCache/" + source,
                             sounds.mContext.getCacheDir().getAbsolutePath() +
                                     "/SoundsCache/sounds_preview/");
@@ -454,7 +454,7 @@ public class Sounds extends Fragment {
             }
         }
 
-        private void unzip(final String source, final String destination) {
+        private static void unzip(final String source, final String destination) {
             try (ZipInputStream inputStream =
                          new ZipInputStream(new BufferedInputStream(new FileInputStream(source)))) {
                 ZipEntry zipEntry;
@@ -480,7 +480,7 @@ public class Sounds extends Fragment {
             }
         }
 
-        private void CopyStream(final InputStream Input, final OutputStream Output) throws IOException {
+        private static void CopyStream(final InputStream Input, final OutputStream Output) throws IOException {
             final byte[] buffer = new byte[5120];
             int length = Input.read(buffer);
             while (length > 0) {

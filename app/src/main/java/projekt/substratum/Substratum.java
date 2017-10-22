@@ -171,11 +171,11 @@ public class Substratum extends Application {
         return false;
     }
 
-    public void startWaitingInstall() {
+    public static void startWaitingInstall() {
         isWaiting = true;
     }
 
-    public boolean isWaitingInstall() {
+    public static boolean isWaitingInstall() {
         return isWaiting;
     }
 

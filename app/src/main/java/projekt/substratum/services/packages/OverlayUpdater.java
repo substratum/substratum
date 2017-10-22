@@ -556,13 +556,13 @@ public class OverlayUpdater extends BroadcastReceiver {
             if (intent.getAction() != null) {
                 if ("Updater.LOGS".equals(intent.getAction())) {
                     if (intent.getStringExtra("error_logs") != null)
-                        this.invokeLogCharDialog(context, intent.getStringExtra("error_logs"));
+                        UpdaterLogs.invokeLogCharDialog(context, intent.getStringExtra("error_logs"));
                 }
             }
             LocalBroadcastManager.getInstance(context).unregisterReceiver(this);
         }
 
-        public void invokeLogCharDialog(final Context context, final String error_logs) {
+        public static void invokeLogCharDialog(final Context context, final String error_logs) {
             final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context)
                     .setTitle(R.string.logcat_dialog_title)
                     .setMessage("\n" + error_logs)

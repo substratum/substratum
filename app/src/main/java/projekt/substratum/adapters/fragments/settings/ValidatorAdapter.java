@@ -60,8 +60,8 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
         viewHolder.packName.setText(
                 String.format("%s%s",
                         Packages.getPackageName(context, packageName),
-                        (validatorInfo.getCommons()) ? " " +
-                                context.getString(R.string.resource_checker_commons) : ""));
+                        (validatorInfo.getCommons()) ? (" " +
+                                context.getString(R.string.resource_checker_commons)) : ""));
 
         viewHolder.packIcon.setImageDrawable(
                 Packages.getAppIcon(context, packageName));

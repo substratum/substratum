@@ -43,7 +43,7 @@ public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListen
     @Override
     public boolean onInterceptTouchEvent(final RecyclerView view, final MotionEvent e) {
         final View childView = view.findChildViewUnder(e.getX(), e.getY());
-        if (childView != null && this.mListener != null && this.mGestureDetector.onTouchEvent(e)) {
+        if ((childView != null) && (this.mListener != null) && this.mGestureDetector.onTouchEvent(e)) {
             this.mListener.onItemClick(childView, view.getChildAdapterPosition(childView));
             return true;
         }

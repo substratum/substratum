@@ -185,7 +185,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         protected void onPostExecute(final String result) {
             super.onPostExecute(result);
             final WallpaperAdapter wallpaperAdapter = this.ref.get();
-            if (wallpaperAdapter != null && this.activity != null) {
+            if ((wallpaperAdapter != null) && (this.activity != null)) {
                 wallpaperAdapter.mWakeLock.release();
                 wallpaperAdapter.mProgressDialog.dismiss();
 

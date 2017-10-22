@@ -99,8 +99,8 @@ public enum Packages {
         if (isPackageInstalled(context, packageName)) {
             try {
                 final int enabled = pm.getApplicationEnabledSetting(packageName);
-                return enabled != PackageManager.COMPONENT_ENABLED_STATE_DISABLED &&
-                        enabled != PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER;
+                return (enabled != PackageManager.COMPONENT_ENABLED_STATE_DISABLED) &&
+                        (enabled != PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER);
             } catch (final Exception e) {
                 return false;
             }
@@ -140,8 +140,8 @@ public enum Packages {
         Bitmap bitmap = null;
         if (drawable instanceof VectorDrawable) {
             bitmap = getBitmapFromVector(drawable);
-        } else if (drawable instanceof BitmapDrawable
-                | drawable instanceof ShapeDrawable) {
+        } else if ((drawable instanceof BitmapDrawable)
+                | (drawable instanceof ShapeDrawable)) {
             //noinspection ConstantConditions
             bitmap = ((BitmapDrawable) drawable).getBitmap();
         } else if (drawable instanceof AdaptiveIconDrawable) {
@@ -193,7 +193,7 @@ public enum Packages {
         } catch (final Exception e) {
             // Suppress warning
         }
-        if (package_name != null &&
+        if ((package_name != null) &&
                 package_name.equals(INTERFACER_PACKAGE) &&
                 !checkOMS(context)) {
             return context.getDrawable(R.mipmap.main_launcher);
@@ -222,8 +222,8 @@ public enum Packages {
         try {
             final ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null &&
-                    appInfo.metaData.getString(metadataOverlayParent) != null) {
+            if ((appInfo.metaData != null) &&
+                    (appInfo.metaData.getString(metadataOverlayParent) != null)) {
                 return getAppIcon(context, appInfo.metaData.getString(metadataOverlayParent));
             }
         } catch (final Exception e) {
@@ -369,7 +369,7 @@ public enum Packages {
         try {
             final ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
-            if (appInfo.metaData != null && appInfo.metaData.getString(metadata) != null) {
+            if ((appInfo.metaData != null) && (appInfo.metaData.getString(metadata) != null)) {
                 return appInfo.metaData.getString(metadata);
             }
         } catch (final Exception e) {
@@ -455,9 +455,9 @@ public enum Packages {
         try {
             res = mContext.getPackageManager().getResourcesForApplication(package_name);
             int resourceId;
-            if (PreferenceManager.
+            if ((PreferenceManager.
                     getDefaultSharedPreferences(mContext).
-                    getInt("grid_style_cards_count", 1) != 1 && isThemesView) {
+                    getInt("grid_style_cards_count", 1) != 1) && isThemesView) {
                 resourceId = res.getIdentifier(
                         package_name + ":drawable/" + heroImageGridResourceName, null, null);
                 if (resourceId == 0) resourceId = res.getIdentifier(
@@ -502,7 +502,7 @@ public enum Packages {
         } catch (final Exception e) {
             ai = null;
         }
-        return (String) (ai != null ? pm.getApplicationLabel(ai) : null);
+        return (String) ((ai != null) ? pm.getApplicationLabel(ai) : null);
     }
 
     // Get Theme Ready Metadata
@@ -586,13 +586,13 @@ public enum Packages {
                 // By default, we will have to enforce continuation to false, if a poorly adapted
                 // theme did not implement the proper meta data.
                 Boolean can_continue = false;
-                if (appInfo.metaData.getString(metadataName) != null &&
-                        appInfo.metaData.getString(metadataAuthor) != null &&
-                        appInfo.metaData.getString(metadataVersion) != null) {
+                if ((appInfo.metaData.getString(metadataName) != null) &&
+                        (appInfo.metaData.getString(metadataAuthor) != null) &&
+                        (appInfo.metaData.getString(metadataVersion) != null)) {
                     // The theme app contains the proper metadata
                     can_continue = true;
                     // If the user is searching using the search bar
-                    if (search_filter != null && !search_filter.isEmpty()) {
+                    if ((search_filter != null) && !search_filter.isEmpty()) {
                         @SuppressWarnings("StringBufferReplaceableByString") final StringBuilder filtered = new StringBuilder();
                         filtered.append(appInfo.metaData.getString(metadataName));
                         filtered.append(appInfo.metaData.getString(metadataAuthor));
@@ -614,7 +614,7 @@ public enum Packages {
                     // Check if it is wallpaper mode, if it is, bail out early
                     if (home_type.equals(wallpaperFragment)) {
                         final String wallpaperCheck = appInfo.metaData.getString(metadataWallpapers);
-                        if (wallpaperCheck != null && !wallpaperCheck.isEmpty()) {
+                        if ((wallpaperCheck != null) && !wallpaperCheck.isEmpty()) {
                             returnMap.put(appInfo.metaData.getString(metadataName), data);
                         }
                     } else {
@@ -723,7 +723,7 @@ public enum Packages {
                     context.getPackageManager().queryBroadcastReceivers(intent, 0);
             for (final ResolveInfo resolveInfo : activities) {
                 final ActivityInfo activityInfo = resolveInfo.activityInfo;
-                if (activityInfo != null && activityInfo.name.startsWith(trigger)) {
+                if ((activityInfo != null) && activityInfo.name.startsWith(trigger)) {
                     return true;
                 }
             }

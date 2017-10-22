@@ -71,7 +71,7 @@ public class ManagerAdapter extends
 
         final String title = this.overlayList.get(position_fixed).getLabelName();
 
-        if (title != null && !title.isEmpty()) {
+        if ((title != null) && !title.isEmpty()) {
             viewHolder.tvName.setText(title);
         } else {
             viewHolder.tvName.setText(R.string.reboot_awaiting_manager_title);
@@ -85,7 +85,7 @@ public class ManagerAdapter extends
                     packageName,
                     References.metadataOverlayType1a);
 
-            if (metadata != null && !metadata.isEmpty()) {
+            if ((metadata != null) && !metadata.isEmpty()) {
                 metadata = metadata.replace("_", " ");
                 final String textView = "<b>" + context.getString(R.string.manager_type1a) +
                         "</b> " + metadata;
@@ -106,7 +106,7 @@ public class ManagerAdapter extends
                     context,
                     packageName,
                     References.metadataOverlayType1b);
-            if (metadata != null && !metadata.isEmpty()) {
+            if ((metadata != null) && !metadata.isEmpty()) {
                 metadata = metadata.replace("_", " ");
                 final String textView = "<b>" + context.getString(R.string.manager_type1b) +
                         "</b> " + metadata;
@@ -127,7 +127,7 @@ public class ManagerAdapter extends
                     context,
                     packageName,
                     References.metadataOverlayType1c);
-            if (metadata != null && !metadata.isEmpty()) {
+            if ((metadata != null) && !metadata.isEmpty()) {
                 metadata = metadata.replace("_", " ");
                 final String textView = "<b>" + context.getString(R.string.manager_type1c) +
                         "</b> " + metadata;
@@ -148,7 +148,7 @@ public class ManagerAdapter extends
                     context,
                     packageName,
                     References.metadataOverlayType2);
-            if (metadata != null && !metadata.isEmpty()) {
+            if ((metadata != null) && !metadata.isEmpty()) {
                 metadata = metadata.replace("_", " ");
                 final String textView = "<b>" + context.getString(R.string.manager_type2) +
                         "</b> " + metadata;
@@ -169,7 +169,7 @@ public class ManagerAdapter extends
                     context,
                     packageName,
                     References.metadataOverlayType3);
-            if (metadata != null && !metadata.isEmpty()) {
+            if ((metadata != null) && !metadata.isEmpty()) {
                 metadata = metadata.replace("_", " ");
                 final String textView = "<b>" + context.getString(R.string.manager_type3) +
                         "</b> " + metadata;
@@ -190,7 +190,7 @@ public class ManagerAdapter extends
                     context,
                     packageName,
                     References.metadataOverlayType4);
-            if (metadata != null && !metadata.isEmpty()) {
+            if ((metadata != null) && !metadata.isEmpty()) {
                 metadata = metadata.replace("_", " ");
                 final String textView = "<b>" + context.getString(R.string.manager_type4) +
                         "</b> " + metadata;

@@ -174,7 +174,7 @@ public class ShowcaseTab extends Fragment {
                             "/ShowcaseCache/" + sUrl[1]));
                     final String new_file = MD5.calculateMD5(new File(showcaseTab.mContext.getCacheDir() +
                             "/ShowcaseCache/" + inputFileName));
-                    if (existing != null && !existing.equals(new_file)) {
+                    if ((existing != null) && !existing.equals(new_file)) {
                         Log.e("ShowcaseActivity", "Tab " + showcaseTab.current_tab_position +
                                 " has been updated from the cloud!");
                         final File renameMe = new File(showcaseTab.mContext.getCacheDir() +

@@ -205,8 +205,8 @@ public class Overlays extends Fragment {
             }
             if (!this.checkedOverlays.isEmpty()) {
                 final getThemeCache phase2 = new getThemeCache(this);
-                if (this.base_spinner.getSelectedItemPosition() != 0 &&
-                        this.base_spinner.getVisibility() == View.VISIBLE) {
+                if ((this.base_spinner.getSelectedItemPosition() != 0) &&
+                        (this.base_spinner.getVisibility() == View.VISIBLE)) {
                     phase2.execute(this.base_spinner.getSelectedItem().toString());
                 } else {
                     phase2.execute("");
@@ -245,8 +245,8 @@ public class Overlays extends Fragment {
 
             if (!this.checkedOverlays.isEmpty()) {
                 final getThemeCache phase2 = new getThemeCache(this);
-                if (this.base_spinner.getSelectedItemPosition() != 0 &&
-                        this.base_spinner.getVisibility() == View.VISIBLE) {
+                if ((this.base_spinner.getSelectedItemPosition() != 0) &&
+                        (this.base_spinner.getVisibility() == View.VISIBLE)) {
                     phase2.execute(this.base_spinner.getSelectedItem().toString());
                 } else {
                     phase2.execute("");
@@ -292,8 +292,8 @@ public class Overlays extends Fragment {
                 }
                 if (!this.checkedOverlays.isEmpty()) {
                     final getThemeCache phase2 = new getThemeCache(this);
-                    if (this.base_spinner.getSelectedItemPosition() != 0 &&
-                            this.base_spinner.getVisibility() == View.VISIBLE) {
+                    if ((this.base_spinner.getSelectedItemPosition() != 0) &&
+                            (this.base_spinner.getVisibility() == View.VISIBLE)) {
                         phase2.execute(this.base_spinner.getSelectedItem().toString());
                     } else {
                         phase2.execute("");
@@ -427,8 +427,8 @@ public class Overlays extends Fragment {
             }
             if (!this.checkedOverlays.isEmpty()) {
                 final getThemeCache phase2 = new getThemeCache(this);
-                if (this.base_spinner.getSelectedItemPosition() != 0 &&
-                        this.base_spinner.getVisibility() == View.VISIBLE) {
+                if ((this.base_spinner.getSelectedItemPosition() != 0) &&
+                        (this.base_spinner.getVisibility() == View.VISIBLE)) {
                     phase2.execute(this.base_spinner.getSelectedItem().toString());
 
                 } else {
@@ -473,8 +473,8 @@ public class Overlays extends Fragment {
             }
             if (!this.checkedOverlays.isEmpty()) {
                 final getThemeCache phase2 = new getThemeCache(this);
-                if (this.base_spinner.getSelectedItemPosition() != 0 &&
-                        this.base_spinner.getVisibility() == View.VISIBLE) {
+                if ((this.base_spinner.getSelectedItemPosition() != 0) &&
+                        (this.base_spinner.getVisibility() == View.VISIBLE)) {
                     phase2.execute(this.base_spinner.getSelectedItem().toString());
 
                 } else {
@@ -524,7 +524,7 @@ public class Overlays extends Fragment {
         final String encrypt_check =
                 Packages.getOverlayMetadata(this.getContext(), this.theme_pid, metadataEncryption);
 
-        if (encrypt_check != null && encrypt_check.equals(metadataEncryptionValue)) {
+        if ((encrypt_check != null) && encrypt_check.equals(metadataEncryptionValue)) {
             final byte[] encryption_key = this.getArguments().getByteArray("encryption_key");
             final byte[] iv_encrypt_key = this.getArguments().getByteArray("iv_encrypt_key");
             try {
@@ -676,7 +676,7 @@ public class Overlays extends Fragment {
                     final String current = stringArray.get(i);
                     if (!"res".equals(current) &&
                             !current.contains(".") &&
-                            current.length() >= 6 &&
+                            (current.length() >= 6) &&
                             "type3_".equals(current.substring(0, 6))) {
                         type3.add(new VariantItem(current.substring(6), null));
                     }
@@ -722,7 +722,7 @@ public class Overlays extends Fragment {
 
         // Enable the instance to be retained for LogChar invoke after configuration change
         this.setRetainInstance(true);
-        if (this.error_logs != null && this.error_logs.length() > 0) {
+        if ((this.error_logs != null) && (this.error_logs.length() > 0)) {
             this.invokeLogCharLunchBar(this.getContext());
         }
         return root;
@@ -838,7 +838,7 @@ public class Overlays extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (this.phase3_mainFunction != null && this.mNotifyManager != null) {
+        if ((this.phase3_mainFunction != null) && (this.mNotifyManager != null)) {
             if (this.phase3_mainFunction.getStatus() == AsyncTask.Status.RUNNING) {
                 this.mNotifyManager.cancel(References.notification_id_compiler);
             }
@@ -897,7 +897,7 @@ public class Overlays extends Fragment {
         } catch (final NullPointerException npe) {
             // Suppress warning
         }
-        final String suffix = ((!parsedVariant.isEmpty()) ? "/type3_" + parsedVariant : "/res");
+        final String suffix = ((!parsedVariant.isEmpty()) ? ("/type3_" + parsedVariant) : "/res");
 
         // Type1 Spinner Text Adjustments
         assert inputStream != null;
@@ -1015,7 +1015,7 @@ public class Overlays extends Fragment {
             case 2486:
                 FileOperations.delete(this.getContext(),
                         new File(this.late_install.get(0)).getAbsolutePath());
-                if (this.late_install != null && !this.late_install.isEmpty()) this.late_install.remove(0);
+                if ((this.late_install != null) && !this.late_install.isEmpty()) this.late_install.remove(0);
                 if (!this.late_install.isEmpty()) {
                     this.installMultipleAPKs();
                 }
@@ -1045,7 +1045,7 @@ public class Overlays extends Fragment {
         this.currentPosition = ((LinearLayoutManager) this.mRecyclerView.getLayoutManager())
                 .findFirstCompletelyVisibleItemPosition();
         this.toggle_all.setChecked(false);
-        if (this.base_spinner != null && this.base_spinner.getSelectedItemPosition() > 0) {
+        if ((this.base_spinner != null) && (this.base_spinner.getSelectedItemPosition() > 0)) {
             final String[] commands = {
                     this.base_spinner.getSelectedItem().toString()
             };
@@ -1095,7 +1095,7 @@ public class Overlays extends Fragment {
         @Override
         protected void onPreExecute() {
             final Context context = this.ref.get();
-            if (context != null && !this.autosaveInstance) {
+            if ((context != null) && !this.autosaveInstance) {
                 this.progressDialog = new ProgressDialog(context);
                 this.progressDialog.setIndeterminate(true);
                 this.progressDialog.setCancelable(false);
@@ -1154,7 +1154,7 @@ public class Overlays extends Fragment {
         protected void onPostExecute(final File result) {
             final Context context = this.ref.get();
             if (context != null) {
-                if (!this.autosaveInstance && result != null) {
+                if (!this.autosaveInstance && (result != null)) {
                     if (this.progressDialog != null) this.progressDialog.dismiss();
 
                     final Intent i = new Intent(Intent.ACTION_SEND);
@@ -1464,7 +1464,7 @@ public class Overlays extends Fragment {
                                                                     current, package_identifier));
                                                     break;
                                             }
-                                        } else if (!current.contains(".") && current.length() > 5) {
+                                        } else if (!current.contains(".") && (current.length() > 5)) {
                                             if ("type2_".equals(current.substring(0, 6))) {
                                                 type2.add(
                                                         new VariantItem(

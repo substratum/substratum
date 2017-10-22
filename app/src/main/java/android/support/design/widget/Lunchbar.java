@@ -160,7 +160,7 @@ public final class Lunchbar extends BaseTransientBottomBar {
             if (view != null) {
                 // Else, we will loop and crawl up the view hierarchy and try to find a parent
                 final ViewParent parent = view.getParent();
-                view = parent instanceof View ? (View) parent : null;
+                view = (parent instanceof View) ? (View) parent : null;
             }
         } while (view != null);
 
@@ -202,7 +202,7 @@ public final class Lunchbar extends BaseTransientBottomBar {
         final SnackbarContentLayout contentLayout = (SnackbarContentLayout) this.mView.getChildAt(0);
         @SuppressLint("RestrictedApi") final TextView tv = contentLayout.getActionView();
 
-        if (TextUtils.isEmpty(text) || listener == null) {
+        if (TextUtils.isEmpty(text) || (listener == null)) {
             tv.setVisibility(View.GONE);
             tv.setOnClickListener(null);
         } else {

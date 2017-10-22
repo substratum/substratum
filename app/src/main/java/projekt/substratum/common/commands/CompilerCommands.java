@@ -180,7 +180,7 @@ public enum CompilerCommands {
     }
 
     private static boolean isNotNullOrEmpty(final CharSequence string) {
-        return string != null && string.length() != 0;
+        return (string != null) && (string.length() != 0);
     }
 
     @SuppressWarnings("StringConcatenationInsideStringBufferAppend")
@@ -200,16 +200,16 @@ public enum CompilerCommands {
         sb.append("-M " + work_area + "/AndroidManifest.xml ");
         // If the user picked a variant (type2), compile multiple directories
         sb.append(((isNotNullOrEmpty(additional_variant)) ?
-                "-S " + work_area + "/" + "type2_" + additional_variant + "/ " : ""));
+                ("-S " + work_area + "/" + "type2_" + additional_variant + "/ ") : ""));
         // If the user picked an asset variant (type4), compile multiple directories
         sb.append(((isNotNullOrEmpty(asset_replacement)) ?
-                "-A " + work_area + "/assets/ " : ""));
+                ("-A " + work_area + "/assets/ ") : ""));
         // We will compile a volatile directory where we make temporary changes to
         sb.append("-S " + work_area + dir + "/ ");
         // Build upon the system's Android framework
         sb.append("-I " + "/system/framework/framework-res.apk ");
         // If running on the AppCompat commits (first run), it will build upon the app too
-        sb.append((legacySwitch) ? "" : "-I " + targetPkg + " ");
+        sb.append((legacySwitch) ? "" : ("-I " + targetPkg + " "));
 
         // Specify the file output directory
         sb.append("-F " + work_area + "/" + overlay_package + "." +

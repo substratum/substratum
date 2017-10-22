@@ -228,7 +228,7 @@ public class ShowcaseActivity extends AppCompatActivity {
                 final ViewPager viewPager = activity.findViewById(R.id.viewpager);
                 final SwipeRefreshLayout swipeRefreshLayout = activity.swipeRefreshLayout;
 
-                if (tabLayout == null || viewPager == null || swipeRefreshLayout == null) {
+                if ((tabLayout == null) || (viewPager == null) || (swipeRefreshLayout == null)) {
                     return;
                 }
 
@@ -241,7 +241,7 @@ public class ShowcaseActivity extends AppCompatActivity {
                             "/ShowcaseCache/" + "showcase_tabs.xml"));
                     final String new_file = MD5.calculateMD5(new File(activity.getCacheDir() +
                             "/ShowcaseCache/" + "showcase_tabs-temp.xml"));
-                    if (existing != null && !existing.equals(new_file)) {
+                    if ((existing != null) && !existing.equals(new_file)) {
                         // MD5s don't match
                         final File renameMe = new File(activity.getCacheDir() +
                                 "/ShowcaseCache/" + "showcase_tabs-temp.xml");

@@ -66,7 +66,7 @@ public class FloatingActionMenu extends FloatingActionButton implements Animated
             final ScaleAnimation anim;
             // If pivots are 0, that means the FAB hasn't been drawn yet so just use the
             // center of the FAB
-            if (pivotX == 0 || pivotY == 0) {
+            if ((pivotX == 0) || (pivotY == 0)) {
                 anim = new ScaleAnimation(0, 1, 0, 1, Animation.RELATIVE_TO_SELF, 0.5f,
                         Animation.RELATIVE_TO_SELF, 0.5f);
             } else {

@@ -107,7 +107,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
         final SharedPreferences pref =
                 PreferenceManager.getDefaultSharedPreferences(themeItem.getContext());
-        if (pref.getBoolean("grid_layout", true) || themeItem.getThemeReadyVariable() == null) {
+        if (pref.getBoolean("grid_layout", true) || (themeItem.getThemeReadyVariable() == null)) {
             viewHolder.divider.setVisibility(View.GONE);
             viewHolder.tbo.setVisibility(View.GONE);
             viewHolder.two.setVisibility(View.GONE);
@@ -251,7 +251,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 final LinearLayout rate = sheetView.findViewById(R.id.rate);
                 final String installer =
                         Packages.getInstallerId(this.mContext, themeItem.getThemePackage());
-                if (installer != null && installer.equals(PLAY_STORE_PACKAGE_NAME)) {
+                if ((installer != null) && installer.equals(PLAY_STORE_PACKAGE_NAME)) {
                     rate.setVisibility(View.VISIBLE);
                 } else {
                     rate.setVisibility(View.GONE);

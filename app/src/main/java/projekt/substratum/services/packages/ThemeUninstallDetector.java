@@ -74,7 +74,7 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
             final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (prefs.contains("installed_themes")) {
                 final Set installed_themes = prefs.getStringSet("installed_themes", null);
-                if (installed_themes != null && installed_themes.contains(package_name)) {
+                if ((installed_themes != null) && installed_themes.contains(package_name)) {
                     Broadcasts.sendRefreshMessage(context);
                     // Get all installed overlays for this package
                     final List<String> stateAll = ThemeManager.listAllOverlays(context);
@@ -86,11 +86,11 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                             final ApplicationInfo appInfo =
                                     context.getPackageManager().getApplicationInfo(
                                             current, PackageManager.GET_META_DATA);
-                            if (appInfo.metaData != null &&
-                                    appInfo.metaData.getString(metadataOverlayParent) != null) {
+                            if ((appInfo.metaData != null) &&
+                                    (appInfo.metaData.getString(metadataOverlayParent) != null)) {
                                 final String parent =
                                         appInfo.metaData.getString(metadataOverlayParent);
-                                if (parent != null && parent.equals(package_name)) {
+                                if ((parent != null) && parent.equals(package_name)) {
                                     all_overlays.add(current);
                                 }
                             }

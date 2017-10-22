@@ -276,8 +276,8 @@ public enum References {
             final Icon app_icon;
             final Drawable app_icon_drawable = Packages.getAppIcon(context, theme_pid);
             //If we are on Oreo and the Theme uses an adaptiveIcon, we have to treat it properly
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O &&
-                    app_icon_drawable instanceof AdaptiveIconDrawable) {
+            if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) &&
+                    (app_icon_drawable instanceof AdaptiveIconDrawable)) {
                 app_icon = Icon.createWithAdaptiveBitmap(Packages.getBitmapFromDrawable
                         (app_icon_drawable));
             } else {
@@ -441,7 +441,7 @@ public enum References {
                 = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         assert connectivityManager != null;
         final NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+        return (activeNetworkInfo != null) && activeNetworkInfo.isConnected();
     }
 
     // Check if a service is running from our app
@@ -552,8 +552,8 @@ public enum References {
         if (android.text.format.DateFormat.is24HourFormat(context)) {
             parse = String.format(locale, "%02d:%02d", hour, minute);
         } else {
-            final String AM_PM = hour <= 12 ? "AM" : "PM";
-            hour = hour <= 12 ? hour : hour - 12;
+            final String AM_PM = (hour <= 12) ? "AM" : "PM";
+            hour = (hour <= 12) ? hour : (hour - 12);
             parse = String.format(locale, "%d:%02d " + AM_PM, hour, minute);
         }
         return parse;
@@ -619,7 +619,7 @@ public enum References {
         @Override
         protected Void doInBackground(final Void... sUrl) {
             this.prefs.edit().putBoolean("complexion",
-                    !spreadYourWingsAndFly(this.context) && hashPassthrough(this.context) != 0).apply();
+                    !spreadYourWingsAndFly(this.context) && (hashPassthrough(this.context) != 0)).apply();
             return null;
         }
     }

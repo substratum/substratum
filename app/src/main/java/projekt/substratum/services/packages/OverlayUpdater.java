@@ -86,10 +86,10 @@ public class OverlayUpdater extends BroadcastReceiver {
             final String package_name = intent.getData().toString().substring(8);
 
             if (ThemeManager.isOverlay(context, intent.getData().toString().substring(8)) ||
-                    Packages.getOverlayMetadata(
+                    (Packages.getOverlayMetadata(
                             context,
                             intent.getData().toString().substring(8),
-                            metadataOverlayDevice) != null) {
+                            metadataOverlayDevice) != null)) {
                 return;
             }
 
@@ -180,7 +180,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                     this.installed_overlays = ThemeManager.listOverlaysByTheme(this.context, this.package_name);
                     break;
             }
-            if (this.upgrade_mode != null && !"".equals(this.upgrade_mode) && !this.installed_overlays.isEmpty()) {
+            if ((this.upgrade_mode != null) && !"".equals(this.upgrade_mode) && !this.installed_overlays.isEmpty()) {
                 this.errored_packages = new ArrayList<>();
                 this.mNotifyManager = (NotificationManager) this.context.getSystemService(
                         Context.NOTIFICATION_SERVICE);
@@ -309,7 +309,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                     final String encrypt_check =
                             Packages.getOverlayMetadata(this.context, theme, metadataEncryption);
 
-                    if (encrypt_check != null && encrypt_check.equals(metadataEncryptionValue)) {
+                    if ((encrypt_check != null) && encrypt_check.equals(metadataEncryptionValue)) {
                         Log.d(TAG, "This overlay for " +
                                 Packages.getPackageName(this.context, theme) +
                                 " is encrypted, passing handshake to the theme package...");
@@ -324,7 +324,7 @@ public class OverlayUpdater extends BroadcastReceiver {
 
                         int counter = 0;
                         this.handler.postDelayed(this.runnable, 100);
-                        while (this.securityIntent == null && counter < 5) {
+                        while ((this.securityIntent == null) && (counter < 5)) {
                             try {
                                 Thread.sleep(500);
                             } catch (final InterruptedException e) {
@@ -384,11 +384,11 @@ public class OverlayUpdater extends BroadcastReceiver {
                     final String type4 = Packages.getOverlayMetadata(
                             this.context, this.installed_overlays.get(i), metadataOverlayType4);
 
-                    if (type1a != null && type1a.contains("overlays/")) return null;
-                    if (type1b != null && type1b.contains("overlays/")) return null;
-                    if (type1c != null && type1c.contains("overlays/")) return null;
-                    if (type2 != null && type2.contains("overlays/")) return null;
-                    if (type3 != null && type3.contains("overlays/")) return null;
+                    if ((type1a != null) && type1a.contains("overlays/")) return null;
+                    if ((type1b != null) && type1b.contains("overlays/")) return null;
+                    if ((type1c != null) && type1c.contains("overlays/")) return null;
+                    if ((type2 != null) && type2.contains("overlays/")) return null;
+                    if ((type3 != null) && type3.contains("overlays/")) return null;
 
                     final String type1aDir = "overlays/" + target + "/type1a_" + type1a +
                             (encrypted ? ".xml.enc" : ".xml");
@@ -400,14 +400,14 @@ public class OverlayUpdater extends BroadcastReceiver {
                     final String type3Dir = "overlays/" + target + "/type3_" + type3;
                     final String type4Dir = "overlays/" + target + "/type4_" + type4;
 
-                    final String additional_variant = ((type2 != null && !type2.isEmpty()) ?
+                    final String additional_variant = (((type2 != null) && !type2.isEmpty()) ?
                             type2Dir.split("/")[2].substring(6) : null);
-                    final String base_variant = ((type3Dir != null && !type3Dir.isEmpty()) ?
+                    final String base_variant = (((type3Dir != null) && !type3Dir.isEmpty()) ?
                             type3Dir.split("/")[2].substring(6) : null);
 
                     // Prenotions
-                    final String suffix = ((type3 != null && !type3.isEmpty()) ?
-                            "/" + type3Dir : "/res");
+                    final String suffix = (((type3 != null) && !type3.isEmpty()) ?
+                            ("/" + type3Dir) : "/res");
                     final String workingDirectory = this.context.getCacheDir().getAbsolutePath() +
                             SUBSTRATUM_BUILDER_CACHE.substring(0,
                                     SUBSTRATUM_BUILDER_CACHE.length() - 1);
@@ -431,7 +431,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                             workingDirectory + suffix,
                             listDir,
                             (encrypted ? this.cipher : null));
-                    if (type2 != null && !type2.isEmpty()) {
+                    if ((type2 != null) && !type2.isEmpty()) {
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
                                 listDir,
@@ -441,7 +441,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                     }
 
                     // Handle the types
-                    if (type1a != null && !type1a.isEmpty()) {
+                    if ((type1a != null) && !type1a.isEmpty()) {
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
                                 type1aDir,
@@ -449,7 +449,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                                 type1aDir,
                                 (encrypted ? this.cipher : null));
                     }
-                    if (type1b != null && !type1b.isEmpty()) {
+                    if ((type1b != null) && !type1b.isEmpty()) {
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
                                 type1bDir,
@@ -457,7 +457,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                                 type1bDir,
                                 (encrypted ? this.cipher : null));
                     }
-                    if (type1c != null && !type1c.isEmpty()) {
+                    if ((type1c != null) && !type1c.isEmpty()) {
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
                                 type1cDir,
@@ -466,7 +466,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                                 (encrypted ? this.cipher : null));
                     }
 
-                    if (type4 != null && !type4.isEmpty()) {
+                    if ((type4 != null) && !type4.isEmpty()) {
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
                                 type4Dir,

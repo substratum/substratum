@@ -36,7 +36,7 @@ public enum BootAnimationManager {
         final String fileName = (shutdownAnimation ? "shutdownanimation" : "bootanimation");
         final String location = EXTERNAL_STORAGE_CACHE + fileName + ".zip";
         // Check to see if device is decrypted with theme interface
-        if ((getDeviceEncryptionStatus(context) <= 1 || shutdownAnimation) &&
+        if (((getDeviceEncryptionStatus(context) <= 1) || shutdownAnimation) &&
                 checkThemeInterfacer(context)) {
             Log.d("BootAnimationUtils",
                     "No-root option has been enabled with the inclusion of theme interfacer...");

@@ -84,7 +84,7 @@ public enum Systems {
         if (context != null) {
             final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (!firstLaunch &&
-                    prefs.getInt("CURRENT_THEME_MODE", NO_THEME_ENGINE) != NO_THEME_ENGINE) {
+                    (prefs.getInt("CURRENT_THEME_MODE", NO_THEME_ENGINE) != NO_THEME_ENGINE)) {
                 return prefs.getInt("CURRENT_THEME_MODE", NO_THEME_ENGINE);
             }
 
@@ -149,8 +149,8 @@ public enum Systems {
     }
 
     private static Boolean checkNougat() {
-        return Build.VERSION.SDK_INT == Build.VERSION_CODES.N ||
-                Build.VERSION.SDK_INT == Build.VERSION_CODES.N_MR1;
+        return (Build.VERSION.SDK_INT == Build.VERSION_CODES.N) ||
+                (Build.VERSION.SDK_INT == Build.VERSION_CODES.N_MR1);
     }
 
     public static void setAndCheckOMS(final Context context) {
@@ -242,7 +242,7 @@ public enum Systems {
     public static boolean isBinderInterfacer(final Context context) {
         final boolean isEnabled = Packages.isAvailablePackage(context, References.INTERFACER_PACKAGE);
         final PackageInfo packageInfo = getThemeInterfacerPackage(context);
-        return packageInfo != null && packageInfo.versionCode >= 60 && isEnabled;
+        return (packageInfo != null) && (packageInfo.versionCode >= 60) && isEnabled;
     }
 
     // Check if the system is of the Samsung variant
@@ -260,7 +260,7 @@ public enum Systems {
                 "sungstratum_exp_fp_" + Packages.getAppVersionCode(context, SST_ADDON_PACKAGE),
                 "o");
         final String liveInstaller = PackageAnalytics.getPackageInstaller(context, SST_ADDON_PACKAGE);
-        final boolean liveInstallerValidity = liveInstaller != null &&
+        final boolean liveInstallerValidity = (liveInstaller != null) &&
                 liveInstaller.equals(PLAY_STORE_PACKAGE_NAME);
 
         boolean sungstratumPresent = !debuggingValue;
@@ -329,7 +329,7 @@ public enum Systems {
         }
         final String prop = getProp("ro.build.date.utc");
         return prefs.getInt("build_date", 0) ==
-                ((prop != null && !prop.isEmpty()) ? Integer.parseInt(prop) : 0);
+                (((prop != null) && !prop.isEmpty()) ? Integer.parseInt(prop) : 0);
     }
 
     public static void setROMVersion(final Context context, final boolean force) {
@@ -337,7 +337,7 @@ public enum Systems {
         if (!prefs.contains("build_date") || force) {
             final String prop = getProp("ro.build.date.utc");
             prefs.edit().putInt("build_date",
-                    (prop != null && !prop.isEmpty()) ? Integer.parseInt(prop) : 0)
+                    ((prop != null) && !prop.isEmpty()) ? Integer.parseInt(prop) : 0)
                     .apply();
         }
     }
@@ -424,8 +424,8 @@ public enum Systems {
                 try (BufferedReader reader = new BufferedReader(
                         new InputStreamReader(process.getInputStream()))) {
                     final String line = reader.readLine();
-                    if (line != null && !line.isEmpty()) {
-                        if (value == null || value.isEmpty()) {
+                    if ((line != null) && !line.isEmpty()) {
+                        if ((value == null) || value.isEmpty()) {
                             String current = key;
                             if (current.contains(".")) {
                                 current = current.split("\\.")[1];
@@ -461,7 +461,7 @@ public enum Systems {
                             if (line.toLowerCase(Locale.US)
                                     .contains(key.toLowerCase(
                                             Locale.US))) {
-                                if (value == null || value.isEmpty()) {
+                                if ((value == null) || value.isEmpty()) {
                                     String current = key;
                                     if (current.contains(".")) {
                                         current = current.split("\\.")[1];

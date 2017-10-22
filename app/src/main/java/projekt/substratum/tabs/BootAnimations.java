@@ -200,7 +200,7 @@ public class BootAnimations extends Fragment {
                             switch (pos) {
                                 case 0:
                                     if (BootAnimations.this.current != null) BootAnimations.this.current.cancel(true);
-                                    if (BootAnimations.this.previewHandler != null && BootAnimations.this.previewRunnable != null) {
+                                    if ((BootAnimations.this.previewHandler != null) && (BootAnimations.this.previewRunnable != null)) {
                                         BootAnimations.this.previewHandler.removeCallbacks(BootAnimations.this.previewRunnable);
                                     }
                                     BootAnimations.this.bootanimation_placeholder.setVisibility(View.VISIBLE);
@@ -212,7 +212,7 @@ public class BootAnimations extends Fragment {
                                     break;
                                 case 1:
                                     if (BootAnimations.this.current != null) BootAnimations.this.current.cancel(true);
-                                    if (BootAnimations.this.previewHandler != null && BootAnimations.this.previewRunnable != null) {
+                                    if ((BootAnimations.this.previewHandler != null) && (BootAnimations.this.previewRunnable != null)) {
                                         BootAnimations.this.previewHandler.removeCallbacks(BootAnimations.this.previewRunnable);
                                     }
                                     BootAnimations.this.defaults.setVisibility(View.VISIBLE);
@@ -229,7 +229,7 @@ public class BootAnimations extends Fragment {
                                     BootAnimations.this.defaults.setVisibility(View.GONE);
                                     BootAnimations.this.bootanimation_placeholder.setVisibility(View.GONE);
                                     final String[] commands = {arg0.getSelectedItem().toString()};
-                                    if (BootAnimations.this.previewHandler != null && BootAnimations.this.previewRunnable != null) {
+                                    if ((BootAnimations.this.previewHandler != null) && (BootAnimations.this.previewRunnable != null)) {
                                         BootAnimations.this.previewHandler.removeCallbacks(BootAnimations.this.previewRunnable);
                                     }
                                     BootAnimations.this.current = new BootAnimationPreview(BootAnimations.this.getInstance())
@@ -272,7 +272,7 @@ public class BootAnimations extends Fragment {
 
     public void startApply() {
         if (!this.paused) {
-            if ((Systems.getDeviceEncryptionStatus(this.mContext) <= 1 ||
+            if (((Systems.getDeviceEncryptionStatus(this.mContext) <= 1) ||
                     this.shutdownBootAnimation) ||
                     !Systems.checkOMS(this.mContext)) {
                 if (this.bootAnimationSelector.getSelectedItemPosition() == 1) {

@@ -89,7 +89,7 @@ public class FontUtils {
 
         @Override
         protected void onPostExecute(final String result) {
-            if (result == null || !result.equals(INTERFACER_PACKAGE)) {
+            if ((result == null) || !result.equals(INTERFACER_PACKAGE)) {
                 final FontUtils fragment = this.ref.get();
                 if (fragment != null) {
                     final Context context = fragment.mContext;

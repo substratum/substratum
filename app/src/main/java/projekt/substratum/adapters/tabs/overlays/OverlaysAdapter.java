@@ -108,8 +108,8 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                     if (spinnerNumber == 1) {
                         packageName = this.setPackageName(packageName, arg0);
                     } else {
-                        if (viewHolder.optionsSpinner != null && viewHolder
-                                .optionsSpinner.getVisibility() == View.VISIBLE)
+                        if ((viewHolder.optionsSpinner != null) && (viewHolder
+                                .optionsSpinner.getVisibility() == View.VISIBLE))
                             if (viewHolder.optionsSpinner.getSelectedItemPosition() != 0)
                                 packageName += viewHolder.optionsSpinner
                                         .getSelectedItem().toString()
@@ -118,8 +118,8 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                     if (spinnerNumber == 2) {
                         packageName = this.setPackageName(packageName, arg0);
                     } else {
-                        if (viewHolder.optionsSpinner2 != null && viewHolder
-                                .optionsSpinner2.getVisibility() == View.VISIBLE)
+                        if ((viewHolder.optionsSpinner2 != null) && (viewHolder
+                                .optionsSpinner2.getVisibility() == View.VISIBLE))
                             if (viewHolder.optionsSpinner2.getSelectedItemPosition() != 0)
                                 packageName += viewHolder.optionsSpinner2
                                         .getSelectedItem().toString()
@@ -128,8 +128,8 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                     if (spinnerNumber == 3) {
                         packageName = this.setPackageName(packageName, arg0);
                     } else {
-                        if (viewHolder.optionsSpinner3 != null && viewHolder
-                                .optionsSpinner3.getVisibility() == View.VISIBLE)
+                        if ((viewHolder.optionsSpinner3 != null) && (viewHolder
+                                .optionsSpinner3.getVisibility() == View.VISIBLE))
                             if (viewHolder.optionsSpinner3.getSelectedItemPosition() != 0)
                                 packageName += viewHolder.optionsSpinner3
                                         .getSelectedItem().toString().replaceAll("\\s+", "")
@@ -138,8 +138,8 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                     if (spinnerNumber == 4) {
                         packageName = this.setPackageName(packageName, arg0);
                     } else {
-                        if (viewHolder.optionsSpinner4 != null && viewHolder
-                                .optionsSpinner4.getVisibility() == View.VISIBLE)
+                        if ((viewHolder.optionsSpinner4 != null) && (viewHolder
+                                .optionsSpinner4.getVisibility() == View.VISIBLE))
                             if (viewHolder.optionsSpinner4.getSelectedItemPosition() != 0)
                                 packageName += viewHolder.optionsSpinner4
                                         .getSelectedItem().toString().replaceAll("\\s+", "")
@@ -148,8 +148,8 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                     if (spinnerNumber == 5) {
                         packageName = this.setPackageName(packageName, arg0);
                     } else {
-                        if (viewHolder.optionsSpinner5 != null && viewHolder
-                                .optionsSpinner5.getVisibility() == View.VISIBLE)
+                        if ((viewHolder.optionsSpinner5 != null) && (viewHolder
+                                .optionsSpinner5.getVisibility() == View.VISIBLE))
                             if (viewHolder.optionsSpinner5.getSelectedItemPosition() != 0)
                                 packageName += viewHolder.optionsSpinner5
                                         .getSelectedItem().toString().replaceAll("\\s+", "")

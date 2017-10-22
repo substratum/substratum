@@ -367,7 +367,7 @@ public enum ProfileManager {
             doc.getDocumentElement().normalize();
 
             final Node items = doc.getElementsByTagName(
-                    overlayState == STATE_ENABLED ?
+                    (overlayState == STATE_ENABLED) ?
                             METADATA_PROFILE_ENABLED : METADATA_PROFILE_DISABLED)
                     .item(0);
 
@@ -408,7 +408,7 @@ public enum ProfileManager {
             doc.getDocumentElement().normalize();
 
             final Node items = doc.getElementsByTagName(
-                    overlayState == STATE_ENABLED ?
+                    (overlayState == STATE_ENABLED) ?
                             METADATA_PROFILE_ENABLED : METADATA_PROFILE_DISABLED).item(0);
 
             if (items != null) {
@@ -439,7 +439,7 @@ public enum ProfileManager {
             doc.getDocumentElement().normalize();
 
             final Node items = doc.getElementsByTagName(
-                    overlayState == STATE_ENABLED ?
+                    (overlayState == STATE_ENABLED) ?
                             METADATA_PROFILE_ENABLED : METADATA_PROFILE_DISABLED).item(0);
 
             if (items != null) {

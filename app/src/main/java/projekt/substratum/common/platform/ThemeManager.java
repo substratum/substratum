@@ -81,9 +81,9 @@ public enum ThemeManager {
      */
     public static final String disableOverlay = "cmd overlay disable";
     // State values of OverlayInfo
-    public static final int STATE_MISSING_TARGET = SDK_INT >= O ? 0 : 1;
-    public static final int STATE_DISABLED = SDK_INT >= O ? 2 : 4;
-    public static final int STATE_ENABLED = SDK_INT >= O ? 3 : 5;
+    public static final int STATE_MISSING_TARGET = (SDK_INT >= O) ? 0 : 1;
+    public static final int STATE_DISABLED = (SDK_INT >= O) ? 2 : 4;
+    public static final int STATE_ENABLED = (SDK_INT >= O) ? 3 : 5;
     private static final String enableOverlay = "cmd overlay enable";
     private static final String listAllOverlays = "cmd overlay list";
     private static final String setPriority = "cmd overlay set-priority";
@@ -124,7 +124,7 @@ public enum ThemeManager {
             for (final String overlay : overlays) {
                 // Disable other overlays for target if preference enabled
                 final String overlayTarget = getOverlayTarget(context, overlay);
-                if (overlayTarget != null && !overlayTarget.isEmpty()) {
+                if ((overlayTarget != null) && !overlayTarget.isEmpty()) {
                     final ArrayList<String> enabledOverlaysForTarget = new ArrayList<>(
                             listEnabledOverlaysForTarget(context,
                                     overlayTarget));
@@ -229,7 +229,7 @@ public enum ThemeManager {
             }
         } else {
             final StringBuilder commands = new StringBuilder();
-            for (int i = 0; i < overlays.size() - 1; i++) {
+            for (int i = 0; i < (overlays.size() - 1); i++) {
                 final String packageName = overlays.get(i);
                 final String parentName = overlays.get(i + 1);
                 commands.append((commands.length() == 0) ? "" : " && ").append(setPriority)
@@ -323,15 +323,15 @@ public enum ThemeManager {
                             for (final OverlayInfo oi : targetOverlays) {
                                 if (oi.isEnabled()) count++;
                             }
-                            if (targetOverlaysSize > 1 && count > 1) list.add(targetPackageName);
+                            if ((targetOverlaysSize > 1) && (count > 1)) list.add(targetPackageName);
                         }
                         break;
                     case EXPORT_RETURN_DEFAULT:
                         for (final String targetPackageName : set) {
                             for (final OverlayInfo oi : allOverlays.get(targetPackageName)) {
-                                if (state == STATE_ENABLED && oi.isEnabled()) {
+                                if ((state == STATE_ENABLED) && oi.isEnabled()) {
                                     list.add(oi.packageName);
-                                } else if (state == STATE_DISABLED && !oi.isEnabled()) {
+                                } else if ((state == STATE_DISABLED) && !oi.isEnabled()) {
                                     list.add(oi.packageName);
                                 } else if (state == STATE_MISSING_TARGET) {
                                     if (oi.state == STATE_MISSING_TARGET) {
@@ -385,7 +385,7 @@ public enum ThemeManager {
 
                         // Now we wait till the file is made quickly!
                         int counter = 0;
-                        while (!overlays.exists() && counter <= 20) {
+                        while (!overlays.exists() && (counter <= 20)) {
                             try {
                                 Thread.sleep(100);
                                 counter++;
@@ -430,7 +430,7 @@ public enum ThemeManager {
                         if (arrList != null) {
                             for (final String line : arrList) {
                                 if (line.startsWith(prefix)) {
-                                    if (getOverlayParent(context, line.substring(4)) != null &&
+                                    if ((getOverlayParent(context, line.substring(4)) != null) &&
                                             isPackageInstalled(context, line.substring(4))) {
                                         counter++;
                                     }
@@ -466,7 +466,7 @@ public enum ThemeManager {
                                 }
                                 if (checker) {
                                     final String packageName = line.substring(4);
-                                    if (getOverlayParent(context, line.substring(4)) != null &&
+                                    if ((getOverlayParent(context, line.substring(4)) != null) &&
                                             isPackageInstalled(context, line.substring(4))) {
                                         try {
                                             final String sourceDir = context.getPackageManager()
@@ -491,7 +491,7 @@ public enum ThemeManager {
                 }
             } else {
                 // We now know this is not OMS, so fallback for Samsung and Legacy
-                if (state == STATE_LIST_ALL_OVERLAYS || state == STATE_ENABLED) {
+                if ((state == STATE_LIST_ALL_OVERLAYS) || (state == STATE_ENABLED)) {
                     if (Systems.isSamsung(context)) {
                         final PackageManager pm = context.getPackageManager();
                         final List<ApplicationInfo> packages =

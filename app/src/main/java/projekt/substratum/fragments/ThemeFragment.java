@@ -123,7 +123,7 @@ public class ThemeFragment extends Fragment {
 
         if (substratum_packages != null) {
             if (substratum_packages.isEmpty()) {
-                if (((MainActivity) activity).searchView != null &&
+                if ((((MainActivity) activity).searchView != null) &&
                         !((MainActivity) activity).searchView.isIconified()) {
                     if (!MainActivity.userInput.isEmpty()) {
                         final String parse = String.format(
@@ -152,9 +152,9 @@ public class ThemeFragment extends Fragment {
             // Now let's place the proper amount of theme count into the context text
             final String parse;
             final WeakReference<MainActivity> ref = new WeakReference<>((MainActivity) activity);
-            if (substratum_packages.isEmpty() && ref.get() != null) {
+            if (substratum_packages.isEmpty() && (ref.get() != null)) {
                 ref.get().switchToStockToolbar(toolbarTitle);
-            } else if (substratum_packages.size() == 1 && ref.get() != null) {
+            } else if ((substratum_packages.size() == 1) && (ref.get() != null)) {
                 parse = String.format(mContext.getString(R.string.actionbar_theme_count_singular),
                         String.valueOf(substratum_packages.size()));
                 ref.get().switchToCustomToolbar(toolbarTitle, parse);
@@ -175,7 +175,7 @@ public class ThemeFragment extends Fragment {
                 if (!prefs.getBoolean("nougat_style_cards", false)) {
                     recyclerView.setPadding(10, 0, 10, 0);
                 } else if (prefs.getBoolean("nougat_style_cards", false) &&
-                        prefs.getInt("grid_style_cards_count", 1) == 1) {
+                        (prefs.getInt("grid_style_cards_count", 1) == 1)) {
                     recyclerView.setPadding(0, 0, 0, 0);
                 } else {
                     recyclerView.setPadding(0, 0, 0, 0);

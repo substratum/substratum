@@ -68,7 +68,7 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(final int position) {
-        if (this.theme_mode != null && !this.theme_mode.isEmpty()) {
+        if ((this.theme_mode != null) && !this.theme_mode.isEmpty()) {
             switch (this.theme_mode) {
                 case overlaysFragment:
                     final Overlays overlays = new Overlays();

@@ -223,7 +223,7 @@ public class Sounds extends Fragment {
                 new RecyclerItemClickListener(this.mContext, (view, position) -> {
                     this.wordList.get(position);
                     try {
-                        if (!this.mp.isPlaying() || position != this.previous_position) {
+                        if (!this.mp.isPlaying() || (position != this.previous_position)) {
                             this.stopPlayer();
                             ((ImageButton)
                                     view.findViewById(R.id.play)).setImageResource(

@@ -231,7 +231,7 @@ public class ProfileFragment extends Fragment {
                         .setMultiChoiceItems(items, null, (dialog1, which, isChecked) -> {
                             if (isChecked) {
                                 if (items[which].equals(this.getString(R.string.profile_boot_animation))
-                                        && Systems.getDeviceEncryptionStatus(this.mContext) > 1
+                                        && (Systems.getDeviceEncryptionStatus(this.mContext) > 1)
                                         && Systems.checkThemeInterfacer(this.mContext)) {
                                     AlertDialog dialog2 = new AlertDialog.Builder(this.mContext)
                                             .setTitle(R.string.root_required_title)
@@ -417,12 +417,12 @@ public class ProfileFragment extends Fragment {
                     R.id.apply_schedule_button);
             applyScheduledProfileButton.setOnClickListener(view -> {
                 if (this.dayNightEnabled) {
-                    if (this.dayProfile.getSelectedItemPosition() > 0 &&
-                            this.nightProfile.getSelectedItemPosition() > 0) {
+                    if ((this.dayProfile.getSelectedItemPosition() > 0) &&
+                            (this.nightProfile.getSelectedItemPosition() > 0)) {
                         if (!startTime.getText().equals(this.getResources()
                                 .getString(R.string.start_time)) && !endTime.getText()
                                 .equals(this.getResources().getString(R.string.end_time))) {
-                            if (dayHour != nightHour || dayMinute != nightMinute) {
+                            if ((dayHour != nightHour) || (dayMinute != nightMinute)) {
                                 ProfileManager.enableScheduledProfile(this.getActivity(),
                                         this.dayProfile.getSelectedItem().toString(), dayHour, dayMinute,
                                         this.nightProfile.getSelectedItem().toString(), nightHour,
@@ -626,7 +626,7 @@ public class ProfileFragment extends Fragment {
                     }
 
                     // Backup system bootanimation if encrypted
-                    if (Systems.getDeviceEncryptionStatus(profileFragment.mContext) > 1 &&
+                    if ((Systems.getDeviceEncryptionStatus(profileFragment.mContext) > 1) &&
                             profileFragment.selectedBackup.contains(
                                     profileFragment.getString(R.string.profile_boot_animation))) {
                         FileOperations.copy(profileFragment.mContext,
@@ -1114,7 +1114,7 @@ public class ProfileFragment extends Fragment {
                                 Packages.getOverlayMetadata(
                                         profileFragment.mContext, theme, metadataEncryption);
 
-                        if (encrypt_check != null && encrypt_check.equals
+                        if ((encrypt_check != null) && encrypt_check.equals
                                 (metadataEncryptionValue) &&
                                 !theme.equals(prevTheme)) {
                             prevTheme = theme;
@@ -1133,7 +1133,7 @@ public class ProfileFragment extends Fragment {
 
                             int counter = 0;
                             this.handler.postDelayed(this.runnable, 100);
-                            while (this.securityIntent == null && counter < 5) {
+                            while ((this.securityIntent == null) && (counter < 5)) {
                                 try {
                                     Thread.sleep(500);
                                 } catch (final InterruptedException e) {
@@ -1197,7 +1197,7 @@ public class ProfileFragment extends Fragment {
 
                         // Prenotions
                         final String suffix = (!type3.isEmpty() ?
-                                "/type3_" + type3 : "/res");
+                                ("/type3_" + type3) : "/res");
                         final String workingDirectory =
                                 profileFragment.mContext.getCacheDir().getAbsolutePath() +
                                         SUBSTRATUM_BUILDER_CACHE.substring(0,
@@ -1286,7 +1286,7 @@ public class ProfileFragment extends Fragment {
                 }
 
                 this.publishProgress(profileFragment.getString(R.string.profile_compile_processing));
-                if (this.profileName != null && this.toBeRun != null) this.continueProcess();
+                if ((this.profileName != null) && (this.toBeRun != null)) this.continueProcess();
                 this.continueProcessWallpaper();
             }
             return null;
@@ -1316,7 +1316,7 @@ public class ProfileFragment extends Fragment {
                 // Encrypted devices boot Animation
                 final File bootanimation = new File(theme, "bootanimation.zip");
                 if (bootanimation.exists() &&
-                        Systems.getDeviceEncryptionStatus(profileFragment.mContext) > 1) {
+                        (Systems.getDeviceEncryptionStatus(profileFragment.mContext) > 1)) {
                     FileOperations.mountRW();
                     FileOperations.move(profileFragment.mContext, "/system/media/bootanimation.zip",
                             "/system/madia/bootanimation-backup.zip");

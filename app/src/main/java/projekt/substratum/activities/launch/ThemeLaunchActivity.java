@@ -120,7 +120,7 @@ public class ThemeLaunchActivity extends Activity {
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         // Check which request we're responding to
-        if (data != null && requestCode != 10000) {
+        if ((data != null) && (requestCode != 10000)) {
             final Bundle intent = data.getExtras();
             if (intent != null) {
                 final String theme_name = intent.getString("theme_name");
@@ -152,7 +152,7 @@ public class ThemeLaunchActivity extends Activity {
                                 Systems.checkOMS(this.getApplicationContext())
                         ));
             }
-        } else if (this.legacyTheme && requestCode != 10000) {
+        } else if (this.legacyTheme && (requestCode != 10000)) {
             this.startActivity(
                     launchThemeActivity(
                             this.getApplicationContext(),

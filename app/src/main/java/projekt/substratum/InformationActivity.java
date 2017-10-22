@@ -184,7 +184,7 @@ public class InformationActivity extends SubstratumActivity {
     }
 
     private void autoSetToolbarIcons(final boolean dynamicActionBarColors) {
-        if (this.collapsingToolbarLayout != null && this.checkColorDarkness(this.dominantColor) &&
+        if ((this.collapsingToolbarLayout != null) && this.checkColorDarkness(this.dominantColor) &&
                 dynamicActionBarColors) {
             this.setDarkToolbarIcons();
         } else if (this.collapsingToolbarLayout != null) {
@@ -246,9 +246,9 @@ public class InformationActivity extends SubstratumActivity {
 
     private boolean checkColorDarkness(final int color) {
         final double darkness =
-                1 - (0.299 * Color.red(color) +
-                        0.587 * Color.green(color) +
-                        0.114 * Color.blue(color)) / 255;
+                1 - (((0.299 * Color.red(color)) +
+                        (0.587 * Color.green(color)) +
+                        (0.114 * Color.blue(color))) / 255);
         return darkness < 0.5;
     }
 
@@ -400,7 +400,7 @@ public class InformationActivity extends SubstratumActivity {
         this.appBarLayout = this.findViewById(R.id.appbar);
         if (this.appBarLayout != null) this.appBarLayout.setBackgroundColor(this.dominantColor);
 
-        if (this.collapsingToolbarLayout != null &&
+        if ((this.collapsingToolbarLayout != null) &&
                 dynamicActionBarColors) {
             this.collapsingToolbarLayout.setStatusBarScrimColor(this.dominantColor);
             this.collapsingToolbarLayout.setContentScrimColor(this.dominantColor);
@@ -422,7 +422,7 @@ public class InformationActivity extends SubstratumActivity {
         floatingActionButton.show();
 
         // Create material sheet FAB
-        if (sheetView != null && overlay != null) {
+        if ((sheetView != null) && (overlay != null)) {
             this.materialSheetFab = new MaterialSheetFab<>(
                     floatingActionButton,
                     sheetView,
@@ -481,11 +481,11 @@ public class InformationActivity extends SubstratumActivity {
                         this.tabLayout.addTab(this.tabLayout.newTab().setText(this.getString(R.string
                                 .theme_information_tab_four)));
                     }
-                    if (wallpaperUrl != null && !wallpaperUrl.isEmpty()) {
+                    if ((wallpaperUrl != null) && !wallpaperUrl.isEmpty()) {
                         this.tabLayout.addTab(this.tabLayout.newTab().setText(this.getString(R.string
                                 .theme_information_tab_five)));
                     }
-                    if (isWallpaperOnly && wallpaperUrl != null && !wallpaperUrl.isEmpty()) {
+                    if (isWallpaperOnly && (wallpaperUrl != null) && !wallpaperUrl.isEmpty()) {
                         final Handler handler = new Handler();
                         handler.postDelayed(() ->
                                 this.runOnUiThread(floatingActionButton::hide), 500);
@@ -781,7 +781,7 @@ public class InformationActivity extends SubstratumActivity {
 
         // Start formalizing a check for dark icons
         final boolean dynamicActionBarColors = this.getResources().getBoolean(R.bool.dynamicActionBarColors);
-        this.shouldDarken = this.collapsingToolbarLayout != null &&
+        this.shouldDarken = (this.collapsingToolbarLayout != null) &&
                 this.checkColorDarkness(this.dominantColor) &&
                 dynamicActionBarColors;
 
@@ -894,12 +894,12 @@ public class InformationActivity extends SubstratumActivity {
                                     ApplicationInfo appInfo = this.mContext
                                             .getPackageManager().getApplicationInfo(
                                                     current, PackageManager.GET_META_DATA);
-                                    if (appInfo.metaData != null &&
-                                            appInfo.metaData.getString(
-                                                    metadataOverlayParent) != null) {
+                                    if ((appInfo.metaData != null) &&
+                                            (appInfo.metaData.getString(
+                                                    metadataOverlayParent) != null)) {
                                         String parent =
                                                 appInfo.metaData.getString(metadataOverlayParent);
-                                        if (parent != null && parent.equals(this.theme_pid)) {
+                                        if ((parent != null) && parent.equals(this.theme_pid)) {
                                             all_overlays.add(current);
                                         }
                                     }
@@ -940,12 +940,12 @@ public class InformationActivity extends SubstratumActivity {
                                     ApplicationInfo appInfo = this.mContext
                                             .getPackageManager().getApplicationInfo(
                                                     current, PackageManager.GET_META_DATA);
-                                    if (appInfo.metaData != null &&
-                                            appInfo.metaData.getString(
-                                                    metadataOverlayParent) != null) {
+                                    if ((appInfo.metaData != null) &&
+                                            (appInfo.metaData.getString(
+                                                    metadataOverlayParent) != null)) {
                                         String parent =
                                                 appInfo.metaData.getString(metadataOverlayParent);
-                                        if (parent != null && parent.equals(this.theme_pid)) {
+                                        if ((parent != null) && parent.equals(this.theme_pid)) {
                                             all_overlays.add(current);
                                         }
                                     }
@@ -986,12 +986,12 @@ public class InformationActivity extends SubstratumActivity {
                                     ApplicationInfo appInfo = this.mContext
                                             .getPackageManager().getApplicationInfo(
                                                     current, PackageManager.GET_META_DATA);
-                                    if (appInfo.metaData != null &&
-                                            appInfo.metaData.getString(
-                                                    metadataOverlayParent) != null) {
+                                    if ((appInfo.metaData != null) &&
+                                            (appInfo.metaData.getString(
+                                                    metadataOverlayParent) != null)) {
                                         String parent =
                                                 appInfo.metaData.getString(metadataOverlayParent);
-                                        if (parent != null && parent.equals(this.theme_pid)) {
+                                        if ((parent != null) && parent.equals(this.theme_pid)) {
                                             all_overlays.add(current);
                                         }
                                     }
@@ -1331,9 +1331,9 @@ public class InformationActivity extends SubstratumActivity {
 
         @Override
         public void onReceive(final Context context, final Intent intent) {
-            if (intent != null && !compilingProcess) {
+            if ((intent != null) && !compilingProcess) {
                 final String package_name = intent.getStringExtra("theme_pid");
-                if (package_name != null && package_name.equals(InformationActivity.this.theme_pid)) {
+                if ((package_name != null) && package_name.equals(InformationActivity.this.theme_pid)) {
                     final String to_format = String.format(InformationActivity.this.getString(R.string.toast_activity_finished),
                             InformationActivity.this.theme_name);
                     Log.d(SUBSTRATUM_LOG,

@@ -109,7 +109,7 @@ public class AndromedaBinderService extends Service implements ServiceConnection
         iAndromedaInterface = IAndromedaInterface.Stub.asInterface(service);
         this.mBound = true;
         Log.d(TAG, "Substratum has successfully binded with the Andromeda module.");
-        if (iAndromedaInterface != null && AndromedaService.checkServerActivity()) {
+        if ((iAndromedaInterface != null) && AndromedaService.checkServerActivity()) {
             final NotificationCompat.Builder builder = new NotificationCompat.Builder(
                     this.getApplicationContext(), References.ANDROMEDA_NOTIFICATION_CHANNEL_ID);
             builder.setContentTitle(this.getString(R.string.andromeda_notification_title))
@@ -143,7 +143,7 @@ public class AndromedaBinderService extends Service implements ServiceConnection
                 }
             }
         }
-        if (mNotifyMgr != null && !isBadNotificationShowing) {
+        if ((mNotifyMgr != null) && !isBadNotificationShowing) {
             final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder
                     (this.getApplicationContext(), References.ANDROMEDA_NOTIFICATION_CHANNEL_ID);
             mBuilder.setContentTitle(

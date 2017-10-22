@@ -154,7 +154,7 @@ public class MainActivity extends SubstratumActivity implements
             final int current_version = Packages.getOverlaySubstratumVersion(
                     context,
                     overlays.get(i));
-            if (current_version <= OVERLAY_UPDATE_RANGE && current_version != 0) {
+            if ((current_version <= OVERLAY_UPDATE_RANGE) && (current_version != 0)) {
                 Log.d("OverlayOutdatedCheck",
                         "An overlay is returning " + current_version +
                                 " as Substratum's version, " +
@@ -188,7 +188,7 @@ public class MainActivity extends SubstratumActivity implements
     }
 
     private void switchFragment(final String title, final String fragment) {
-        if (this.searchView != null && !this.searchView.isIconified()) {
+        if ((this.searchView != null) && !this.searchView.isIconified()) {
             this.searchView.setIconified(true);
         }
         this.switchToStockToolbar(title);
@@ -204,7 +204,7 @@ public class MainActivity extends SubstratumActivity implements
     }
 
     private void switchThemeFragment(final String title, final String home_type) {
-        if (this.searchView != null && !this.searchView.isIconified()) {
+        if ((this.searchView != null) && !this.searchView.isIconified()) {
             this.searchView.setIconified(true);
         }
         final Fragment fragment = new ThemeFragment();
@@ -224,7 +224,7 @@ public class MainActivity extends SubstratumActivity implements
     }
 
     private void switchFragmentToLicenses(final CharSequence title, final LibsSupportFragment fragment) {
-        if (this.searchView != null && !this.searchView.isIconified()) {
+        if ((this.searchView != null) && !this.searchView.isIconified()) {
             this.searchView.setIconified(true);
         }
         this.switchToStockToolbar(title);
@@ -608,7 +608,7 @@ public class MainActivity extends SubstratumActivity implements
             return false;
         });
         this.drawer = drawerBuilder.build();
-        if (this.getIntent() != null && this.getIntent().getBooleanExtra("launch_manager_fragment", false)) {
+        if ((this.getIntent() != null) && this.getIntent().getBooleanExtra("launch_manager_fragment", false)) {
             this.switchFragment(this.getString(R.string.nav_overlay_manager),
                     ManagerFragment.class.getCanonicalName());
             this.drawer.setSelection(8);
@@ -805,7 +805,7 @@ public class MainActivity extends SubstratumActivity implements
     public void onBackPressed() {
         if (!this.searchView.isIconified()) {
             this.searchView.setIconified(true);
-        } else if (this.drawer != null && this.drawer.isDrawerOpen()) {
+        } else if ((this.drawer != null) && this.drawer.isDrawerOpen()) {
             this.drawer.closeDrawer();
         } else {
             final Fragment f = this.getSupportFragmentManager().findFragmentById(R.id.main);
@@ -817,9 +817,9 @@ public class MainActivity extends SubstratumActivity implements
                         android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 transaction.replace(R.id.main, fragment);
                 transaction.commit();
-            } else if (this.drawer != null && this.drawer.getCurrentSelectedPosition() > 1) {
+            } else if ((this.drawer != null) && (this.drawer.getCurrentSelectedPosition() > 1)) {
                 this.drawer.setSelectionAtPosition(1);
-            } else if (this.drawer != null && this.drawer.getCurrentSelectedPosition() == 1) {
+            } else if ((this.drawer != null) && (this.drawer.getCurrentSelectedPosition() == 1)) {
                 this.finish();
             }
         }
@@ -885,7 +885,7 @@ public class MainActivity extends SubstratumActivity implements
                 }
                 break;
             case UNINSTALL_REQUEST_CODE:
-                if (queuedUninstall != null && !queuedUninstall.isEmpty()) {
+                if ((queuedUninstall != null) && !queuedUninstall.isEmpty()) {
                     queuedUninstall.remove(0);
                     uninstallMultipleAPKS(this);
                 }
@@ -913,8 +913,8 @@ public class MainActivity extends SubstratumActivity implements
                                            @NonNull final int[] grantResults) {
         switch (requestCode) {
             case PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
-                if (grantResults.length > 0 &&
-                        grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if ((grantResults.length > 0) &&
+                        (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     // permission already granted, allow the program to continue running
                     final File directory = new File(EXTERNAL_STORAGE_CACHE);
                     if (directory.exists()) {
@@ -1233,8 +1233,8 @@ public class MainActivity extends SubstratumActivity implements
                 // Check for OMS
                 final boolean omsCheck = Systems.checkOMS(context);
                 if (omsCheck) {
-                    return themeSystemModule != OVERLAY_MANAGER_SERVICE_O_UNROOTED &&
-                            themeSystemModule != OVERLAY_MANAGER_SERVICE_N_UNROOTED &&
+                    return (themeSystemModule != OVERLAY_MANAGER_SERVICE_O_UNROOTED) &&
+                            (themeSystemModule != OVERLAY_MANAGER_SERVICE_N_UNROOTED) &&
                             !Root.requestRootAccess();
                 }
             }
@@ -1268,7 +1268,7 @@ public class MainActivity extends SubstratumActivity implements
 
                 final List<String> stateAll = ThemeManager.listAllOverlays(context);
                 // We need the null check because listOverlays never returns null, but empty
-                if (!state1.isEmpty() && state1.get(0) != null) {
+                if (!state1.isEmpty() && (state1.get(0) != null)) {
                     for (int i = 0; i < state1.size(); i++) {
                         Log.e("OverlayCleaner",
                                 "Target APK not found for \"" + state1.get(i) +

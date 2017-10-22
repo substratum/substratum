@@ -96,7 +96,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                     title = Packages.getPackageName(this.mContext, targetPackage);
                 }
 
-                if (title != null && !title.isEmpty()) {
+                if ((title != null) && !title.isEmpty()) {
                     priorityObjectAdapter.mCardText.setText(title);
                 } else {
                     priorityObjectAdapter.mCardText.setText(R.string.reboot_awaiting_manager_title);
@@ -108,14 +108,14 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                 this.mContext,
                                 packageTitle,
                                 References.metadataOverlayVersion);
-                        final Boolean newUpdate = (version != 0) && version <= BuildConfig.VERSION_CODE;
+                        final Boolean newUpdate = (version != 0) && (version <= BuildConfig.VERSION_CODE);
 
                         if (prioritiesItem.getType1a() == null) {
                             String metadata = Packages.getOverlayMetadata(
                                     this.mContext,
                                     packageTitle,
                                     References.metadataOverlayType1a);
-                            if (metadata != null && !metadata.isEmpty()) {
+                            if ((metadata != null) && !metadata.isEmpty()) {
                                 metadata = metadata.replace("_", " ");
                                 final String textView =
                                         "<b>" + this.mContext.getString(R.string.manager_type1a) +
@@ -139,7 +139,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                     this.mContext,
                                     packageTitle,
                                     References.metadataOverlayType1b);
-                            if (metadata != null && !metadata.isEmpty()) {
+                            if ((metadata != null) && !metadata.isEmpty()) {
                                 metadata = metadata.replace("_", " ");
                                 final String textView =
                                         "<b>" + this.mContext.getString(R.string.manager_type1b) +
@@ -163,7 +163,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                     this.mContext,
                                     packageTitle,
                                     References.metadataOverlayType1c);
-                            if (metadata != null && !metadata.isEmpty()) {
+                            if ((metadata != null) && !metadata.isEmpty()) {
                                 metadata = metadata.replace("_", " ");
                                 final String textView =
                                         "<b>" + this.mContext.getString(R.string.manager_type1c) +
@@ -186,7 +186,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                     this.mContext,
                                     packageTitle,
                                     References.metadataOverlayType2);
-                            if (metadata != null && !metadata.isEmpty()) {
+                            if ((metadata != null) && !metadata.isEmpty()) {
                                 metadata = metadata.replace("_", " ");
                                 final String textView =
                                         "<b>" + this.mContext.getString(R.string.manager_type2) +
@@ -209,7 +209,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                     this.mContext,
                                     packageTitle,
                                     References.metadataOverlayType3);
-                            if (metadata != null && !metadata.isEmpty()) {
+                            if ((metadata != null) && !metadata.isEmpty()) {
                                 metadata = metadata.replace("_", " ");
                                 final String textView =
                                         "<b>" + this.mContext.getString(R.string.manager_type3) +
@@ -233,7 +233,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                     this.mContext,
                                     packageTitle,
                                     References.metadataOverlayParent);
-                            if (metadata != null && !metadata.isEmpty() && newUpdate) {
+                            if ((metadata != null) && !metadata.isEmpty() && newUpdate) {
                                 final String pName = "<b>" +
                                         this.mContext.getString(R.string.manager_theme_name) + "</b> " +
                                         Packages.getPackageName(this.mContext, metadata);

@@ -78,10 +78,10 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
         List<UsageStats> stats = null;
         if (mUsageStatsManager != null) {
             stats = mUsageStatsManager.queryUsageStats(
-                    UsageStatsManager.INTERVAL_DAILY, time - 1000 * 1000, time);
+                    UsageStatsManager.INTERVAL_DAILY, time - (1000 * 1000), time);
         }
         String foregroundApp = "";
-        if (stats != null && !stats.isEmpty()) {
+        if ((stats != null) && !stats.isEmpty()) {
             final SortedMap<Long, UsageStats> mySortedMap = new TreeMap<>();
             for (final UsageStats usageStats : stats) {
                 mySortedMap.put(usageStats.getLastTimeUsed(), usageStats);
@@ -92,7 +92,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
         }
         UsageEvents usageEvents = null;
         if (mUsageStatsManager != null) {
-            usageEvents = mUsageStatsManager.queryEvents(time - 1000 * 1000, time);
+            usageEvents = mUsageStatsManager.queryEvents(time - (1000 * 1000), time);
         }
         final UsageEvents.Event event = new UsageEvents.Event();
         // Get the last event in the doubly linked list
@@ -102,7 +102,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
             }
         }
         if (foregroundApp.equals(event.getPackageName()) &&
-                event.getEventType() == UsageEvents.Event.MOVE_TO_FOREGROUND) {
+                (event.getEventType() == UsageEvents.Event.MOVE_TO_FOREGROUND)) {
             return foregroundApp;
         }
         return foregroundApp;

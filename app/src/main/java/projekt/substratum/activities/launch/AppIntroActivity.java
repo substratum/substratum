@@ -60,8 +60,8 @@ public class AppIntroActivity extends SubstratumActivity {
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == WelcomeHelper.DEFAULT_WELCOME_SCREEN_REQUEST &&
-                resultCode == RESULT_OK) {
+        if ((requestCode == WelcomeHelper.DEFAULT_WELCOME_SCREEN_REQUEST) &&
+                (resultCode == RESULT_OK)) {
             this.prefs.edit().putBoolean("first_run", false).apply();
             References.loadDefaultConfig(this.getApplicationContext());
             this.startActivity(new Intent(this, MainActivity.class));

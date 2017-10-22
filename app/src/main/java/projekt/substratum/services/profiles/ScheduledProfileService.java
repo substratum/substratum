@@ -88,7 +88,7 @@ public class ScheduledProfileService extends JobService {
                 .DEFAULT_NOTIFICATION_CHANNEL_ID);
         this.extra = params.getExtras().getString(SCHEDULED_PROFILE_TYPE_EXTRA);
 
-        if (this.extra != null && !this.extra.isEmpty()) {
+        if ((this.extra != null) && !this.extra.isEmpty()) {
             new ApplyProfile(this).execute();
             return true;
         } else {
@@ -219,7 +219,7 @@ public class ScheduledProfileService extends JobService {
                     // Encrypted devices boot Animation
                     final File bootanimation = new File(theme, "bootanimation.zip");
                     if (bootanimation.exists() &&
-                            Systems.getDeviceEncryptionStatus(context) > 1) {
+                            (Systems.getDeviceEncryptionStatus(context) > 1)) {
                         FileOperations.mountRW();
                         FileOperations.move(context, "/system/media/bootanimation.zip",
                                 "/system/madia/bootanimation-backup.zip");

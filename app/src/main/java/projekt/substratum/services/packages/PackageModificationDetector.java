@@ -91,7 +91,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                         appInfo.metaData.getString(References.metadataOverlayParent);
                 final String check_overlay_target =
                         appInfo.metaData.getString(References.metadataOverlayTarget);
-                if (check_overlay_parent != null && check_overlay_target != null) {
+                if ((check_overlay_parent != null) && (check_overlay_target != null)) {
                     Broadcasts.sendOverlayRefreshMessage(this.mContext);
                     Broadcasts.sendRefreshManagerMessage(this.mContext);
                     return;
@@ -102,7 +102,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                         appInfo.metaData.getString(References.metadataName);
                 final String check_theme_author =
                         appInfo.metaData.getString(References.metadataAuthor);
-                if (check_theme_name == null && check_theme_author == null) return;
+                if ((check_theme_name == null) && (check_theme_author == null)) return;
             } else {
                 return;
             }

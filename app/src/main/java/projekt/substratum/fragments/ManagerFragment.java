@@ -174,7 +174,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         this.swipeRefreshLayout = this.root.findViewById(R.id.swipeRefreshLayout);
         this.swipeRefreshLayout.setOnRefreshListener(() -> {
             if (this.searchView.isIconified()) {
-                if (this.first_run != null && this.mRecyclerView.isShown() && !this.first_run) {
+                if ((this.first_run != null) && this.mRecyclerView.isShown() && !this.first_run) {
                     new LayoutReloader(ManagerFragment.this, this.userInput).execute();
                 } else {
                     this.swipeRefreshLayout.setRefreshing(false);
@@ -325,7 +325,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     @Override
     public void onPrepareOptionsMenu(final Menu menu) {
         final Boolean alphabetize = this.updateMenuButtonState(menu);
-        if ((this.overlayList != null && !this.overlayList.isEmpty())) {
+        if (((this.overlayList != null) && !this.overlayList.isEmpty())) {
             if (!alphabetize) this.refreshThemeName();
             new LayoutReloader(ManagerFragment.this, this.userInput).execute();
         }
@@ -352,14 +352,14 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     }
 
     public void refreshThemeName() {
-        if (this.overlayList != null && !this.overlayList.isEmpty()) {
+        if ((this.overlayList != null) && !this.overlayList.isEmpty()) {
             for (int i = 0; i < this.overlayList.size(); i++) {
                 final Context context = this.overlayList.get(i).getContext();
                 final String packageName = this.overlayList.get(i).getName();
                 if (this.overlayList.get(i).getThemeName() == null) {
                     final String metadata = getOverlayMetadata(
                             context, packageName, References.metadataOverlayParent);
-                    if (metadata != null && !metadata.isEmpty()) {
+                    if ((metadata != null) && !metadata.isEmpty()) {
                         final String pName = "<b>" + context.getString(R.string.manager_theme_name) +
                                 "</b> " +
                                 getPackageName(context, metadata);
@@ -436,7 +436,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 fragment.toggle_all.setChecked(false);
                 fragment.toggle_all.setEnabled(false);
                 fragment.mRecyclerView.setEnabled(false);
-                if (this.userInput.get() != null && !this.userInput.get().isEmpty()) {
+                if ((this.userInput.get() != null) && !this.userInput.get().isEmpty()) {
                     fragment.resetRecyclerView();
                 }
             }
@@ -472,7 +472,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                         // Then let's convert all the package names to their app names
                         for (int i = 0; i < all_overlays.size(); i++) {
                             boolean can_continue = true;
-                            if (this.userInput.get() != null && !this.userInput.get().isEmpty()) {
+                            if ((this.userInput.get() != null) && !this.userInput.get().isEmpty()) {
                                 final StringBuilder combined = new StringBuilder();
                                 //TODO
                                 //Do we really want to check for theme name too?
@@ -483,7 +483,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                                         context,
                                         all_overlays.get(i),
                                         References.metadataOverlayParent);
-                                if (metadata != null && !metadata.isEmpty()) {
+                                if ((metadata != null) && !metadata.isEmpty()) {
                                     combined.append(Packages.getPackageName(context, metadata));
                                 } else {
                                     combined.append("");
@@ -607,7 +607,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     final TextView textView = fragment.root.findViewById(R.id.no_themes_description);
                     textView.setText(fragment.getString(R.string.manager_no_overlays_text));
 
-                    if (this.userInput.get() != null && !fragment.searchView.isIconified() &&
+                    if ((this.userInput.get() != null) && !fragment.searchView.isIconified() &&
                             !this.userInput.get().isEmpty()) {
                         titleView.setText(fragment.getString(R.string.no_overlays_title));
                         final String formatter = String.format(fragment.getString(
@@ -653,7 +653,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             final ManagerFragment fragment = this.ref.get();
             if (fragment != null) {
                 final Context context = fragment.context;
-                if (result != null && "unauthorized".equals(result)) {
+                if ((result != null) && "unauthorized".equals(result)) {
                     Toast.makeText(context,
                             fragment.getString(R.string.manage_system_not_permitted),
                             Toast.LENGTH_LONG).show();
@@ -949,7 +949,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             final ManagerFragment fragment = this.ref.get();
             if (fragment != null) {
                 final Context context = fragment.context;
-                if (result != null && "unauthorized".equals(result)) {
+                if ((result != null) && "unauthorized".equals(result)) {
                     Toast.makeText(context,
                             fragment.getString(R.string.manage_system_not_permitted),
                             Toast.LENGTH_LONG).show();

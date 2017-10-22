@@ -512,15 +512,15 @@ public enum SoundManager {
         switch (type) {
             case RingtoneManager.TYPE_ALARM:
                 name = getProp("ro.config.alarm_alert");
-                path = name != null ? SYSTEM_ALARMS_PATH + File.separator + name : null;
+                path = (name != null) ? (SYSTEM_ALARMS_PATH + File.separator + name) : null;
                 break;
             case RingtoneManager.TYPE_NOTIFICATION:
                 name = getProp("ro.config.notification_sound");
-                path = name != null ? SYSTEM_NOTIFICATIONS_PATH + File.separator + name : null;
+                path = (name != null) ? (SYSTEM_NOTIFICATIONS_PATH + File.separator + name) : null;
                 break;
             case RingtoneManager.TYPE_RINGTONE:
                 name = getProp("ro.config.ringtone");
-                path = name != null ? SYSTEM_RINGTONES_PATH + File.separator + name : null;
+                path = (name != null) ? (SYSTEM_RINGTONES_PATH + File.separator + name) : null;
                 break;
             default:
                 path = null;
@@ -561,7 +561,7 @@ public enum SoundManager {
                 new String[]{MediaStore.MediaColumns._ID},
                 MediaStore.MediaColumns.DATA + "='" + path + "'",
                 null, null);
-        if (c != null && c.getCount() > 0) {
+        if ((c != null) && (c.getCount() > 0)) {
             c.moveToFirst();
             final long id = c.getLong(0);
             c.close();
@@ -601,7 +601,7 @@ public enum SoundManager {
                 new String[]{MediaStore.MediaColumns._ID},
                 MediaStore.MediaColumns.DATA + "='" + path_clone + "'",
                 null, null);
-        if (c != null && c.getCount() > 0) {
+        if ((c != null) && (c.getCount() > 0)) {
             c.moveToFirst();
             final long id = c.getLong(0);
             Log.e("ContentResolver", id + "");
@@ -632,7 +632,7 @@ public enum SoundManager {
                     new String[]{MediaStore.MediaColumns._ID},
                     MediaStore.MediaColumns.DATA + "='" + audiblePath + "'",
                     null, null);
-            if (c != null && c.getCount() > 0) {
+            if ((c != null) && (c.getCount() > 0)) {
                 c.moveToFirst();
                 final long id = c.getLong(0);
                 c.close();

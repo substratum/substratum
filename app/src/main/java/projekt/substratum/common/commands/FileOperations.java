@@ -174,7 +174,7 @@ public enum FileOperations {
             final File file = new File(destination);
             try {
                 int retryCount = 0;
-                while (!file.exists() && retryCount < 5) {
+                while (!file.exists() && (retryCount < 5)) {
                     Thread.sleep(1000);
                     retryCount++;
                 }
@@ -259,8 +259,8 @@ public enum FileOperations {
             try {
                 int retryCount = 0;
                 final boolean notDone = (deleteParent && file.exists()) ||
-                        (!deleteParent && file.list().length == 0);
-                while (notDone && retryCount < 5) {
+                        (!deleteParent && (file.list().length == 0));
+                while (notDone && (retryCount < 5)) {
                     Thread.sleep(1000);
                     retryCount++;
                 }
@@ -323,7 +323,7 @@ public enum FileOperations {
             final File file = new File(destination);
             try {
                 int retryCount = 0;
-                while (!file.exists() && retryCount < 5) {
+                while (!file.exists() && (retryCount < 5)) {
                     Thread.sleep(1000);
                     retryCount++;
                 }
@@ -380,7 +380,7 @@ public enum FileOperations {
             @NonNull final String filePath,
             @Nullable final Cipher cipherKey) throws IOException {
         final InputStream inputStream = assetManager.open(filePath);
-        if (cipherKey != null && filePath.endsWith(ENCRYPTION_EXTENSION)) {
+        if ((cipherKey != null) && filePath.endsWith(ENCRYPTION_EXTENSION)) {
             return new CipherInputStream(inputStream, cipherKey);
         }
         return inputStream;
@@ -441,15 +441,15 @@ public enum FileOperations {
         OutputStream outputStream = null;
         try {
             inputStream = assetManager.open(filename);
-            if (cipher != null && filename.endsWith(".enc")) {
+            if ((cipher != null) && filename.endsWith(".enc")) {
                 inputStream = new CipherInputStream(inputStream, cipher);
-            } else if (cipher == null && filename.endsWith(".enc")) {
+            } else if ((cipher == null) && filename.endsWith(".enc")) {
                 return false;
             }
             final String destinationFile = destination + filename.replaceAll("\\s+", "")
                     .substring(remember.replaceAll("\\s+", "").length());
             outputStream = new FileOutputStream(
-                    (cipher != null ?
+                    ((cipher != null) ?
                             destinationFile.substring(0, destinationFile.length() - 4) :
                             destinationFile));
 

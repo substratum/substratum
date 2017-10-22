@@ -299,7 +299,7 @@ enum OverlayFunctions {
                     new Phase4_finishEnableDisableFunction(overlays).execute();
                 }
                 if (Systems.isSamsung(context) &&
-                        overlays.late_install != null &&
+                        (overlays.late_install != null) &&
                         !overlays.late_install.isEmpty()) {
                     if (Root.checkRootAccess() && Root.requestRootAccess()) {
                         overlays.progressBar.setVisibility(View.VISIBLE);
@@ -322,7 +322,7 @@ enum OverlayFunctions {
                         overlays.startActivityForResult(intent, 2486);
                     }
                 } else if (!Systems.checkOMS(context) &&
-                        overlays.final_runner.size() == overlays.fail_count) {
+                        (overlays.final_runner.size() == overlays.fail_count)) {
                     final AlertDialog.Builder alertDialogBuilder =
                             new AlertDialog.Builder(context);
                     alertDialogBuilder
@@ -375,9 +375,9 @@ enum OverlayFunctions {
                 // Enable finish install listener
                 // system on root, old interfacer and andromeda need this
                 final int system = Systems.checkThemeSystemModule(context);
-                final boolean needToWait = system == OVERLAY_MANAGER_SERVICE_O_ANDROMEDA ||
-                        system == OVERLAY_MANAGER_SERVICE_O_ROOTED ||
-                        system == RUNTIME_RESOURCE_OVERLAY_N_ROOTED;
+                final boolean needToWait = (system == OVERLAY_MANAGER_SERVICE_O_ANDROMEDA) ||
+                        (system == OVERLAY_MANAGER_SERVICE_O_ROOTED) ||
+                        (system == RUNTIME_RESOURCE_OVERLAY_N_ROOTED);
                 if (needToWait) {
                     Substratum.getInstance().registerFinishReceiver();
                 }
@@ -498,7 +498,7 @@ enum OverlayFunctions {
                             }
 
                             final String parsedSuffix = ((!sUrl[0].isEmpty()) ?
-                                    "/type3_" + parsedVariant : "/res");
+                                    ("/type3_" + parsedVariant) : "/res");
                             overlays.type3 = parsedVariant;
 
                             final String workingDirectory = context.getCacheDir().getAbsolutePath() +
@@ -945,7 +945,7 @@ enum OverlayFunctions {
         protected void onPostExecute(final Void result) {
             final Overlays overlays = this.ref.get();
             final Context context = this.refContext.get();
-            if (overlays != null && context != null) {
+            if ((overlays != null) && (context != null)) {
                 if (!overlays.final_runner.isEmpty()) {
                     overlays.progressBar.setVisibility(View.GONE);
                     if (overlays.needsRecreate(context)) {
@@ -1023,7 +1023,7 @@ enum OverlayFunctions {
         protected void onPostExecute(final Void result) {
             final Overlays overlays = this.ref.get();
             final Context context = this.refContext.get();
-            if (overlays != null && context != null) {
+            if ((overlays != null) && (context != null)) {
                 final Activity activity = overlays.getActivity();
                 overlays.progressBar.setVisibility(View.GONE);
                 if (!overlays.final_runner.isEmpty()) {
@@ -1123,7 +1123,7 @@ enum OverlayFunctions {
         protected void onPostExecute(final Void result) {
             final Overlays overlays = this.ref.get();
             final Context context = this.refContext.get();
-            if (overlays != null && context != null) {
+            if ((overlays != null) && (context != null)) {
                 final Activity activity = overlays.getActivity();
                 overlays.progressBar.setVisibility(View.GONE);
                 if (!overlays.final_runner.isEmpty()) {
@@ -1180,7 +1180,7 @@ enum OverlayFunctions {
         protected void onPreExecute() {
             final Overlays overlays = this.ref.get();
             final Context context = this.refContext.get();
-            if (context != null && overlays != null) {
+            if ((context != null) && (overlays != null)) {
                 if (overlays.mCompileDialog != null) overlays.mCompileDialog.dismiss();
 
                 // Add dummy intent to be able to close the notification on click
@@ -1248,7 +1248,7 @@ enum OverlayFunctions {
                 final Activity activity = overlays.getActivity();
                 final Context context = this.refContext.get();
 
-                if (!overlays.has_failed || overlays.final_runner.size() > overlays.fail_count) {
+                if (!overlays.has_failed || (overlays.final_runner.size() > overlays.fail_count)) {
                     new StringBuilder();
                     final StringBuilder final_commands;
                     if (overlays.compile_enable_mode && overlays.mixAndMatchMode) {

@@ -215,7 +215,7 @@ public class SubstratumBuilder {
                                         type2,
                                         type3,
                                         type4,
-                                        (override_package != null &&
+                                        ((override_package != null) &&
                                                 !override_package.isEmpty()) ?
                                                 override_package : "");
                         pw.write(manifest);
@@ -240,7 +240,7 @@ public class SubstratumBuilder {
                                             type2,
                                             type3,
                                             type4,
-                                            (override_package != null &&
+                                            ((override_package != null) &&
                                                     !override_package.isEmpty()) ?
                                                     override_package : "");
                             pw.write(manifest);
@@ -264,7 +264,7 @@ public class SubstratumBuilder {
                                             type2,
                                             type3,
                                             type4,
-                                            (override_package != null &&
+                                            ((override_package != null) &&
                                                     !override_package.isEmpty()) ?
                                                     override_package : "");
                             pw.write(manifest);
@@ -348,9 +348,9 @@ public class SubstratumBuilder {
         }
 
         // 8. Sign the apk
-        final String overlayName = variant == null ?
-                overlay_package + "." + parse2_themeName :
-                overlay_package + "." + parse2_themeName + parse2_variantName + parse2_baseName;
+        final String overlayName = (variant == null) ?
+                (overlay_package + "." + parse2_themeName) :
+                (overlay_package + "." + parse2_themeName + parse2_variantName + parse2_baseName);
         if (!this.has_errored_out) {
             try {
                 // Delete the previous APK if it exists in the dashboard folder
@@ -410,7 +410,7 @@ public class SubstratumBuilder {
                 if ("android".equals(overlay_package) ||
                         "projekt.substratum".equals(overlay_package)) {
                     this.special_snowflake = ThemeManager.isOverlayEnabled(context, overlayName) ||
-                            Systems.checkOreo() && !overlay_updater;
+                            (Systems.checkOreo() && !overlay_updater);
                 }
 
                 if (!this.special_snowflake) {

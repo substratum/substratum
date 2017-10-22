@@ -214,7 +214,7 @@ public class PriorityListFragment extends Fragment {
                     }
                 }, (Systems.checkAndromeda(this.getContext()) ?
                         REFRESH_WINDOW_DELAY :
-                        REFRESH_WINDOW_DELAY * 2));
+                        (REFRESH_WINDOW_DELAY * 2)));
             }
         });
         return root;

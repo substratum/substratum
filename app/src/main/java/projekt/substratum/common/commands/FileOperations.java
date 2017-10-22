@@ -258,8 +258,7 @@ public enum FileOperations {
             final File file = new File(directory);
             try {
                 int retryCount = 0;
-                final boolean notDone = (deleteParent && file.exists()) ||
-                        (!deleteParent && (file.list().length == 0));
+                final boolean notDone = deleteParent ? file.exists() : file.list().length == 0;
                 while (notDone && (retryCount < 5)) {
                     Thread.sleep(1000);
                     retryCount++;

@@ -866,7 +866,7 @@ public class InformationActivity extends SubstratumActivity {
                 final StringBuilder to_show = new StringBuilder();
                 if (changelog_parsing != null) {
                     for (final String aChangelog_parsing : changelog_parsing) {
-                        to_show.append("\u2022 ").append(aChangelog_parsing).append("\n");
+                        to_show.append("\u2022 ").append(aChangelog_parsing).append('\n');
                     }
                 }
                 text.setText(to_show.toString());

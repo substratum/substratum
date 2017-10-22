@@ -430,14 +430,14 @@ public class Fonts extends Fragment {
                     if (fonts.encrypted) {
                         FileOperations.copyFileOrDir(
                                 fonts.themeAssetManager,
-                                fontsDir + "/" + source + ".enc",
+                                fontsDir + '/' + source + ".enc",
                                 fonts.mContext.getCacheDir().getAbsolutePath() +
                                         "/FontCache/" + source,
-                                fontsDir + "/" + source + ".enc",
+                                fontsDir + '/' + source + ".enc",
                                 fonts.cipher);
                     } else {
                         try (InputStream inputStream =
-                                     fonts.themeAssetManager.open(fontsDir + "/" + source);
+                                     fonts.themeAssetManager.open(fontsDir + '/' + source);
 
                              OutputStream outputStream =
                                      new FileOutputStream(

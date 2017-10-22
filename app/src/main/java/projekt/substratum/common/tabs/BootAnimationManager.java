@@ -52,8 +52,8 @@ public enum BootAnimationManager {
             FileOperations.mountRW();
             FileOperations.mountRWData();
             FileOperations.setPermissions(755, themeDirectory);
-            FileOperations.move(context, location, themeDirectory + "/" + fileName + ".zip");
-            FileOperations.setPermissions(644, themeDirectory + "/" + fileName + ".zip");
+            FileOperations.move(context, location, themeDirectory + '/' + fileName + ".zip");
+            FileOperations.setPermissions(644, themeDirectory + '/' + fileName + ".zip");
             FileOperations.setContext(themeDirectory);
             FileOperations.mountROData();
             FileOperations.mountRO();

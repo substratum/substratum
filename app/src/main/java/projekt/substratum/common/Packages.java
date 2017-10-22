@@ -273,7 +273,7 @@ public enum Packages {
     public static String getThemeVersion(final Context mContext, final String package_name) {
         try {
             final PackageInfo pInfo = mContext.getPackageManager().getPackageInfo(package_name, 0);
-            return pInfo.versionName + " (" + pInfo.versionCode + ")";
+            return pInfo.versionName + " (" + pInfo.versionCode + ')';
         } catch (final PackageManager.NameNotFoundException e) {
             // Suppress warning
         }
@@ -420,7 +420,7 @@ public enum Packages {
             final android.content.res.Resources res =
                     mContext.getPackageManager().getResourcesForApplication(package_name);
             return res.getIdentifier(
-                    package_name + ":" + type + "/" + resourceName,
+                    package_name + ':' + type + '/' + resourceName,
                     type,
                     package_name);
         } catch (final Exception e) {
@@ -620,7 +620,7 @@ public enum Packages {
                         // Well, it's not wallpaper mode, so let's keep going!
                         if (home_type.length() == 0) {
                             returnMap.put(appInfo.metaData.getString(metadataName), data);
-                            Log.d(PACKAGE_TAG, "Loaded Substratum Theme: [" + packageName + "]");
+                            Log.d(PACKAGE_TAG, "Loaded Substratum Theme: [" + packageName + ']');
                             if (ENABLE_PACKAGE_LOGGING)
                                 PackageAnalytics.logPackageInfo(context, packageName);
                         } else {
@@ -630,7 +630,7 @@ public enum Packages {
                                      e.hasMoreElements(); ) {
                                     final ZipEntry ze = e.nextElement();
                                     final String name = ze.getName();
-                                    if (name.startsWith("assets/" + home_type + "/")) {
+                                    if (name.startsWith("assets/" + home_type + '/')) {
                                         returnMap.put(
                                                 appInfo.metaData.getString(metadataName),
                                                 data);
@@ -677,7 +677,7 @@ public enum Packages {
                 try (BufferedReader br = new BufferedReader(new InputStreamReader(clone2))) {
                     String line;
                     while ((line = br.readLine()) != null) {
-                        if (line.contains("\"" + resource_name + "\"")) {
+                        if (line.contains('"' + resource_name + '"')) {
                             final String[] split = line.substring(line.lastIndexOf("\">") + 2).split("<");
                             hex = split[0];
                             if (hex.startsWith("?")) hex = "#00000000";

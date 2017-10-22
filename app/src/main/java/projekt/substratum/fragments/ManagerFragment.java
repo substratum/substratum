@@ -826,18 +826,18 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                                                 .replace("/", "@") + ".apk@idmap";
                                 Log.d(this.getClass().getSimpleName(),
                                         "Removing idmap resource pointer '" +
-                                                legacy_resource_idmap + "'");
+                                                legacy_resource_idmap + '\'');
 
                                 FileOperations.bruteforceDelete(DATA_RESOURCE_DIR +
                                         legacy_resource_idmap);
                                 Log.d(this.getClass().getSimpleName(),
                                         "Removing idmap resource pointer '" +
-                                                pixel_resource_idmap + "'");
+                                                pixel_resource_idmap + '\'');
                                 FileOperations.bruteforceDelete(DATA_RESOURCE_DIR +
                                         pixel_resource_idmap);
                                 Log.d(this.getClass().getSimpleName(),
                                         "Removing idmap resource pointer '" +
-                                                vendor_resource_idmap + "'");
+                                                vendor_resource_idmap + '\'');
                                 FileOperations.bruteforceDelete(DATA_RESOURCE_DIR +
                                         vendor_resource_idmap);
                                 FileOperations.mountROVendor();

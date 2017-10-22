@@ -60,7 +60,7 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
         viewHolder.packName.setText(
                 String.format("%s%s",
                         Packages.getPackageName(context, packageName),
-                        (validatorInfo.getCommons()) ? (" " +
+                        (validatorInfo.getCommons()) ? (' ' +
                                 context.getString(R.string.resource_checker_commons)) : ""));
 
         viewHolder.packIcon.setImageDrawable(
@@ -82,22 +82,22 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
                 final StringBuilder error_logs = new StringBuilder();
                 if (!boolErrors.isEmpty()) {
                     for (int i = 0; i < boolErrors.size(); i++) {
-                        error_logs.append(boolErrors.get(i)).append("\n");
+                        error_logs.append(boolErrors.get(i)).append('\n');
                     }
                 }
                 if (!colorErrors.isEmpty()) {
                     for (int i = 0; i < colorErrors.size(); i++) {
-                        error_logs.append(colorErrors.get(i)).append("\n");
+                        error_logs.append(colorErrors.get(i)).append('\n');
                     }
                 }
                 if (!dimenErrors.isEmpty()) {
                     for (int i = 0; i < dimenErrors.size(); i++) {
-                        error_logs.append(dimenErrors.get(i)).append("\n");
+                        error_logs.append(dimenErrors.get(i)).append('\n');
                     }
                 }
                 if (!styleErrors.isEmpty()) {
                     for (int i = 0; i < styleErrors.size(); i++) {
-                        error_logs.append(styleErrors.get(i)).append("\n");
+                        error_logs.append(styleErrors.get(i)).append('\n');
                     }
                 }
 

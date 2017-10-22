@@ -229,12 +229,12 @@ public enum References {
             myIntent.setComponent(
                     ComponentName.unflattenFromString(
                             context.getPackageName() +
-                                    "/" + AppShortcutLaunch.class.getName()));
+                                    '/' + AppShortcutLaunch.class.getName()));
         } else {
             myIntent.putExtra("launch_manager_fragment", true);
             myIntent.setComponent(ComponentName.unflattenFromString(
                     context.getPackageName() +
-                            "/" + MainActivity.class.getName()));
+                            '/' + MainActivity.class.getName()));
         }
         myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
@@ -290,7 +290,7 @@ public enum References {
                 myIntent.setComponent(
                         ComponentName.unflattenFromString(
                                 context.getPackageName() +
-                                        "/" + AppShortcutLaunch.class.getName()));
+                                        '/' + AppShortcutLaunch.class.getName()));
                 myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
                 final ShortcutInfo shortcut =
@@ -335,7 +335,7 @@ public enum References {
                 Log.e("XposedChecker", "Unable to parse BufferedReader from 'xposed.prop'");
             }
             xposed_version = ", " + R.string.logcat_email_xposed_check + " (" +
-                    xposed_version + ")";
+                    xposed_version + ')';
         }
         return xposed_version;
     }
@@ -469,7 +469,7 @@ public enum References {
             final StringBuilder returnString = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
-                returnString.append(line).append("\n");
+                returnString.append(line).append('\n');
             }
             return returnString;
         } catch (final Exception e) {
@@ -574,7 +574,7 @@ public enum References {
 
             final BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(
                     new File(logcharFolder.getAbsolutePath() + File.separator +
-                            packageName + "_" + formattedDate + ".txt")));
+                            packageName + '_' + formattedDate + ".txt")));
             bufferedWriter.write(data);
             bufferedWriter.close();
         } catch (final IOException e) {

@@ -514,7 +514,7 @@ public class ProfileFragment extends Fragment {
                 } else {
                     final String directory_parse = String.format(
                             profileFragment.getString(R.string.toast_backup_success),
-                            profileFragment.backup_getText + "/");
+                            profileFragment.backup_getText + '/');
                     if (profileFragment.getView() != null) {
                         Lunchbar.make(profileFragment.getView(),
                                 directory_parse,
@@ -547,7 +547,7 @@ public class ProfileFragment extends Fragment {
                 if (Systems.checkOMS(profileFragment.mContext)) {
                     final File profileDir = new File(Environment
                             .getExternalStorageDirectory().getAbsolutePath() +
-                            "/substratum/profiles/" + profileFragment.backup_getText + "/");
+                            "/substratum/profiles/" + profileFragment.backup_getText + '/');
                     if (profileDir.exists()) {
                         FileOperations.delete(profileFragment.mContext,
                                 Environment.getExternalStorageDirectory().getAbsolutePath() +
@@ -562,7 +562,7 @@ public class ProfileFragment extends Fragment {
                     final File profileFile = new File(Environment.getExternalStorageDirectory()
                             .getAbsolutePath() +
                             "/substratum/profiles/" + profileFragment.backup_getText +
-                            "/" + "overlays.xml");
+                            '/' + "overlays.xml");
                     if (profileFile.exists()) {
                         FileOperations.delete(
                                 profileFragment.mContext,
@@ -802,7 +802,7 @@ public class ProfileFragment extends Fragment {
 
                         final File profile_apk_files = new File(Environment.getExternalStorageDirectory()
                                 .getAbsolutePath() + "/substratum/profiles/" +
-                                profileFragment.profile_selector.getSelectedItem() + "/");
+                                profileFragment.profile_selector.getSelectedItem() + '/');
                         final String[] located_files = profile_apk_files.list();
                         for (final String found : located_files) {
                             if (!"audio".equals(found)) {
@@ -811,14 +811,14 @@ public class ProfileFragment extends Fragment {
                                         .getAbsolutePath() +
                                         "/substratum/profiles/" +
                                         profileFragment.profile_selector.getSelectedItem() +
-                                        "/" + found, current_directory);
+                                        '/' + found, current_directory);
                             } else {
                                 FileOperations.copyDir(profileFragment.mContext, Environment
                                         .getExternalStorageDirectory()
                                         .getAbsolutePath() +
                                         "/substratum/profiles/" +
                                         profileFragment.profile_selector.getSelectedItem() +
-                                        "/" + found + "/", "/data/system/theme/audio/");
+                                        '/' + found + '/', "/data/system/theme/audio/");
                                 FileOperations.setPermissionsRecursively(644,
                                         "/data/system/theme/audio/");
                                 FileOperations.setPermissions(755, "/data/system/theme/audio/");
@@ -856,7 +856,7 @@ public class ProfileFragment extends Fragment {
 
                         final File profile_apk_files = new File(Environment.getExternalStorageDirectory()
                                 .getAbsolutePath() + "/substratum/profiles/" +
-                                profileFragment.profile_selector.getSelectedItem() + "/");
+                                profileFragment.profile_selector.getSelectedItem() + '/');
                         final String[] located_files = profile_apk_files.list();
                         for (final String found : located_files) {
                             if (!"audio".equals(found)) {
@@ -865,7 +865,7 @@ public class ProfileFragment extends Fragment {
                                         .getAbsolutePath() +
                                         "/substratum/profiles/" +
                                         profileFragment.profile_selector.getSelectedItem() +
-                                        "/" + found, current_directory);
+                                        '/' + found, current_directory);
                             } else {
                                 FileOperations.setPermissions(755, "/data/system/theme/");
                                 FileOperations.copyDir(profileFragment.mContext, Environment
@@ -873,7 +873,7 @@ public class ProfileFragment extends Fragment {
                                         .getAbsolutePath() +
                                         "/substratum/profiles/" +
                                         profileFragment.profile_selector.getSelectedItem() +
-                                        "/" + found + "/", "/data/system/theme/audio/");
+                                        '/' + found + '/', "/data/system/theme/audio/");
                                 FileOperations.setPermissionsRecursively(644,
                                         "/data/system/theme/audio/");
                                 FileOperations.setPermissions(755, "/data/system/theme/audio/");
@@ -946,7 +946,7 @@ public class ProfileFragment extends Fragment {
                             final String packageName = profileFragment.cannot_run_overlays.get(i).get(0);
                             final String targetPackage =
                                     profileFragment.cannot_run_overlays.get(i).get(1);
-                            final String packageDetail = packageName.replace(targetPackage + ".", "");
+                            final String packageDetail = packageName.replace(targetPackage + '.', "");
                             final String detailSplit = Arrays.toString(packageDetail.split("\\."))
                                     .replace("[", "")
                                     .replace("]", "")
@@ -958,15 +958,15 @@ public class ProfileFragment extends Fragment {
                                         .append(targetPackage)
                                         .append(" (")
                                         .append(detailSplit)
-                                        .append(")");
+                                        .append(')');
                             } else {
                                 profileFragment.dialog_message
-                                        .append("\n")
+                                        .append('\n')
                                         .append("\u2022 ")
                                         .append(targetPackage)
                                         .append(" (")
                                         .append(detailSplit)
-                                        .append(")");
+                                        .append(')');
                             }
                         }
                     }

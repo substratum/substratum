@@ -193,7 +193,7 @@ public class ScheduledProfileService extends JobService {
                     for (int i = 0; i < cannot_run_overlays.size(); i++) {
                         final String packageName = cannot_run_overlays.get(i).get(0);
                         final String targetPackage = cannot_run_overlays.get(i).get(1);
-                        final String packageDetail = packageName.replace(targetPackage + ".", "");
+                        final String packageDetail = packageName.replace(targetPackage + '.', "");
                         final String detailSplit = Arrays.toString(packageDetail.split("\\."))
                                 .replace("[", "")
                                 .replace("]", "")
@@ -202,11 +202,11 @@ public class ScheduledProfileService extends JobService {
                         if (dialog_message.length() == 0) {
                             dialog_message.append("\u2022 ")
                                     .append(targetPackage).append(" (")
-                                    .append(detailSplit).append(")");
+                                    .append(detailSplit).append(')');
                         } else {
-                            dialog_message.append("\n" + "\u2022 ")
+                            dialog_message.append('\n' + "\u2022 ")
                                     .append(targetPackage).append(" (")
-                                    .append(detailSplit).append(")");
+                                    .append(detailSplit).append(')');
                         }
                     }
                 }

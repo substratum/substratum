@@ -60,7 +60,7 @@ public class AppCrashReceiver extends BroadcastReceiver {
                 intent.getBooleanExtra(CRASH_REPEATING, false);
 
         if (repeating) {
-            Log.e(TAG, "\'" + packageName + "\' is repeatedly stopping...");
+            Log.e(TAG, '\'' + packageName + "\' is repeatedly stopping...");
             Log.e(TAG, "Now disabling all overlays for \'" + packageName + "\'...");
 
             final List<String> overlays = ThemeManager.listEnabledOverlaysForTarget(context, packageName);

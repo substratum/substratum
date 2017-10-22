@@ -140,14 +140,14 @@ public class SubstratumBuilder {
             final String parse1_variantName = variant.replaceAll("\\s+", "");
             parse2_variantName = parse1_variantName.replaceAll("[^a-zA-Z0-9]+", "");
         }
-        if (!parse2_variantName.isEmpty()) parse2_variantName = "." + parse2_variantName;
+        if (!parse2_variantName.isEmpty()) parse2_variantName = '.' + parse2_variantName;
 
         String parse2_baseName = "";
         if (base_variant != null) {
             final String parse1_baseName = base_variant.replaceAll("\\s+", "");
             parse2_baseName = parse1_baseName.replaceAll("[^a-zA-Z0-9]+", "");
         }
-        if (!parse2_baseName.isEmpty()) parse2_baseName = "." + parse2_baseName;
+        if (!parse2_baseName.isEmpty()) parse2_baseName = '.' + parse2_baseName;
 
         final String parse1_themeName = theme_name.replaceAll("\\s+", "");
         String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
@@ -309,9 +309,9 @@ public class SubstratumBuilder {
 
         // 7. Zipalign the apk
         if (!this.has_errored_out) {
-            final String source = work_area + "/" + overlay_package + "." + parse2_themeName +
+            final String source = work_area + '/' + overlay_package + '.' + parse2_themeName +
                     "-unsigned.apk";
-            final String destination = work_area + "/" + overlay_package + "." + parse2_themeName +
+            final String destination = work_area + '/' + overlay_package + '.' + parse2_themeName +
                     "-unsigned-aligned.apk";
             final String commands = CompilerCommands.createZipAlignShellCommands(context, source,
                     destination);
@@ -349,8 +349,8 @@ public class SubstratumBuilder {
 
         // 8. Sign the apk
         final String overlayName = (variant == null) ?
-                (overlay_package + "." + parse2_themeName) :
-                (overlay_package + "." + parse2_themeName + parse2_variantName + parse2_baseName);
+                (overlay_package + '.' + parse2_themeName) :
+                (overlay_package + '.' + parse2_themeName + parse2_variantName + parse2_baseName);
         if (!this.has_errored_out) {
             try {
                 // Delete the previous APK if it exists in the dashboard folder
@@ -358,7 +358,7 @@ public class SubstratumBuilder {
                         EXTERNAL_STORAGE_CACHE + overlayName + "-signed.apk");
 
                 // Sign with the built-in test key/certificate.
-                final String source = work_area + "/" + overlay_package + "." + parse2_themeName +
+                final String source = work_area + '/' + overlay_package + '.' + parse2_themeName +
                         "-unsigned-aligned.apk";
 
                 final File key = new File(context.getDataDir() + "/key");
@@ -420,7 +420,7 @@ public class SubstratumBuilder {
                     } catch (final Exception e) {
                         this.dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
                                 "Overlay APK has failed to install! \" (Exception) " +
-                                        "[Error: " + e.getMessage() + "]");
+                                        "[Error: " + e.getMessage() + ']');
                         this.has_errored_out = true;
                         this.dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
                                 "Installation of \"" + overlay_package + "\" has failed.");
@@ -565,7 +565,7 @@ public class SubstratumBuilder {
                     // We need this Process to be waited for before moving on to the next function.
                     Log.d(References.SUBSTRATUM_BUILDER, "Overlay APK creation is running now...");
                     nativeApp.waitFor();
-                    final File unsignedAPK = new File(work_area + "/" + overlay_package + "." +
+                    final File unsignedAPK = new File(work_area + '/' + overlay_package + '.' +
                             theme_name + "-unsigned.apk");
                     if (unsignedAPK.isFile()) {
                         Log.d(References.SUBSTRATUM_BUILDER, "Overlay APK creation has completed!");
@@ -609,7 +609,7 @@ public class SubstratumBuilder {
             if (this.error_logs.isEmpty()) {
                 this.error_logs = "» [" + overlay + "]: " + message;
             } else {
-                this.error_logs += "\n" + "» [" + overlay + "]: " + message;
+                this.error_logs += '\n' + "» [" + overlay + "]: " + message;
             }
         }
     }

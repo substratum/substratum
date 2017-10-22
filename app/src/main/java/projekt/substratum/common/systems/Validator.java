@@ -33,7 +33,7 @@ public enum Validator {
         try {
             final Resources res = context.getPackageManager().getResourcesForApplication(package_name);
             final int object = res.getIdentifier(
-                    package_name + ":" + type + "/" + object_name, type, package_name);
+                    package_name + ':' + type + '/' + object_name, type, package_name);
             return object != 0;
         } catch (final Exception e) {
             // Suppress warning

@@ -396,14 +396,14 @@ public class Sounds extends Fragment {
                     if (sounds.encrypted) {
                         FileOperations.copyFileOrDir(
                                 sounds.themeAssetManager,
-                                soundsDir + "/" + source + ".enc",
+                                soundsDir + '/' + source + ".enc",
                                 sounds.mContext.getCacheDir().getAbsolutePath() +
                                         "/SoundsCache/" + source,
-                                soundsDir + "/" + source + ".enc",
+                                soundsDir + '/' + source + ".enc",
                                 sounds.cipher);
                     } else {
                         try (InputStream inputStream = sounds.themeAssetManager.open(
-                                soundsDir + "/" + source);
+                                soundsDir + '/' + source);
                              OutputStream outputStream =
                                      new FileOutputStream(
                                              sounds.mContext.getCacheDir().getAbsolutePath() +

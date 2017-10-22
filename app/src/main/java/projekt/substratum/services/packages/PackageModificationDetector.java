@@ -172,13 +172,13 @@ public class PackageModificationDetector extends BroadcastReceiver {
 
         if (replacing) {
             // We need to check if this is a new install or not
-            Log.d(TAG, "'" + package_name + "' has been updated.");
+            Log.d(TAG, '\'' + package_name + "' has been updated.");
             final Bitmap bitmap = Packages.getBitmapFromDrawable(
                     Packages.getAppIcon(this.mContext, package_name));
 
             new NotificationCreator(
                     this.mContext,
-                    Packages.getPackageName(this.mContext, package_name) + " " + this.mContext.getString(
+                    Packages.getPackageName(this.mContext, package_name) + ' ' + this.mContext.getString(
                             R.string.notification_theme_updated),
                     this.mContext.getString(R.string.notification_theme_updated_content),
                     true,
@@ -190,7 +190,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
         } else {
             new NotificationCreator(
                     this.mContext,
-                    Packages.getPackageName(this.mContext, package_name) + " " + this.mContext.getString(
+                    Packages.getPackageName(this.mContext, package_name) + ' ' + this.mContext.getString(
                             R.string.notification_theme_installed),
                     this.mContext.getString(R.string.notification_theme_installed_content),
                     true,

@@ -305,15 +305,15 @@ public class OverlaysItem implements Serializable {
 
     boolean compareInstalledVariantOverlay(final String varianted) {
         String variant = varianted;
-        if (!".".equals(variant.substring(0, 1))) variant = "." + variant;
+        if (!".".equals(variant.substring(0, 1))) variant = '.' + variant;
         String base = this.baseResources;
         if (!this.baseResources.isEmpty() && !".".equals(this.baseResources.substring(0, 1))) {
-            base = "." + base;
+            base = '.' + base;
         }
         try {
             final PackageInfo pinfo =
                     this.context.getPackageManager().getPackageInfo(
-                            this.package_name + "." + this.theme_name + variant + base, 0);
+                            this.package_name + '.' + this.theme_name + variant + base, 0);
             return pinfo.versionName.equals(this.versionName);
         } catch (final Exception e) {
             // Suppress warning
@@ -322,7 +322,7 @@ public class OverlaysItem implements Serializable {
     }
 
     public String getFullOverlayParameters() {
-        return this.package_name + "." + this.theme_name +
+        return this.package_name + '.' + this.theme_name +
                 (((this.spinnerSelection == 0 &&
                         this.spinnerSelection2 == 0 &&
                         this.spinnerSelection3 == 0 &&
@@ -334,7 +334,7 @@ public class OverlaysItem implements Serializable {
                         ((this.spinnerSelection4 == 0) ? "" : this.getSelectedVariantName4()) +
                         ((this.spinnerSelection5 == 0) ? "" : this.getSelectedVariantName5()))
                         .replaceAll("\\s", "").replaceAll("[^a-zA-Z0-9]+", "") +
-                ((this.baseResources.isEmpty()) ? "" : "." + this.baseResources);
+                ((this.baseResources.isEmpty()) ? "" : '.' + this.baseResources);
     }
 
     public boolean isOverlayEnabled() {

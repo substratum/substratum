@@ -398,7 +398,7 @@ enum OverlayFunctions {
 
                     final String current_overlay = overlays.checkedOverlays.get(i).getPackageName();
                     overlays.current_dialog_overlay =
-                            "'" + Packages.getPackageName(context, current_overlay) + "'";
+                            '\'' + Packages.getPackageName(context, current_overlay) + '\'';
                     this.currentPackageName = current_overlay;
 
                     if (!overlays.enable_mode && !overlays.disable_mode
@@ -472,11 +472,11 @@ enum OverlayFunctions {
                                 overlays.mBuilder.setProgress(100, (int) (((double) (i + 1) /
                                         (double) overlays.checkedOverlays.size()) * 100.0), false);
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                    overlays.mBuilder.setContentText("\"" + packageTitle + "\"");
+                                    overlays.mBuilder.setContentText('"' + packageTitle + '"');
                                 } else {
                                     overlays.mBuilder.setContentText(
                                             context.getString(R.string.notification_processing) +
-                                                    "\"" + packageTitle + "\"");
+                                                    '"' + packageTitle + '"');
                                 }
                                 overlays.mNotifyManager.notify(References.notification_id_compiler,
                                         overlays.mBuilder.build());
@@ -486,7 +486,7 @@ enum OverlayFunctions {
                             boolean useType3CommonDir = false;
                             if (!sUrl[0].isEmpty()) {
                                 useType3CommonDir = overlays.themeAssetManager
-                                        .list(Overlays.overlaysDir + "/" + current_overlay +
+                                        .list(Overlays.overlaysDir + '/' + current_overlay +
                                                 "/type3-common").length > 0;
                                 if (useType3CommonDir) {
                                     unparsedSuffix = "/type3-common";
@@ -511,7 +511,7 @@ enum OverlayFunctions {
                             }
                             FileOperations.createNewFolder(context, created
                                     .getAbsolutePath());
-                            final String listDir = Overlays.overlaysDir + "/" + current_overlay +
+                            final String listDir = Overlays.overlaysDir + '/' + current_overlay +
                                     unparsedSuffix;
 
                             FileOperations.copyFileOrDir(
@@ -523,7 +523,7 @@ enum OverlayFunctions {
                             );
 
                             if (useType3CommonDir) {
-                                final String type3Dir = Overlays.overlaysDir + "/" + current_overlay +
+                                final String type3Dir = Overlays.overlaysDir + '/' + current_overlay +
                                         "/type3_" + unparsedVariant;
                                 FileOperations.copyFileOrDir(
                                         overlays.themeAssetManager,
@@ -543,12 +543,12 @@ enum OverlayFunctions {
                                                     .getSelectedVariantName();
                                     Log.d(Overlays.TAG, "You have selected variant file \"" +
                                             overlays.checkedOverlays.get(i)
-                                                    .getSelectedVariantName() + "\"");
+                                                    .getSelectedVariantName() + '"');
                                     Log.d(Overlays.TAG, "Moving variant file to: " +
                                             workingDirectory + parsedSuffix + "/values/type1a.xml");
 
                                     final String to_copy =
-                                            Overlays.overlaysDir + "/" + current_overlay +
+                                            Overlays.overlaysDir + '/' + current_overlay +
                                                     "/type1a_" +
                                                     overlays.checkedOverlays.get(i)
                                                             .getSelectedVariantName() +
@@ -572,12 +572,12 @@ enum OverlayFunctions {
                                                     .getSelectedVariantName2();
                                     Log.d(Overlays.TAG, "You have selected variant file \"" +
                                             overlays.checkedOverlays.get(i)
-                                                    .getSelectedVariantName2() + "\"");
+                                                    .getSelectedVariantName2() + '"');
                                     Log.d(Overlays.TAG, "Moving variant file to: " +
                                             workingDirectory + parsedSuffix + "/values/type1b.xml");
 
                                     final String to_copy =
-                                            Overlays.overlaysDir + "/" + current_overlay +
+                                            Overlays.overlaysDir + '/' + current_overlay +
                                                     "/type1b_" +
                                                     overlays.checkedOverlays.get(i)
                                                             .getSelectedVariantName2() +
@@ -600,12 +600,12 @@ enum OverlayFunctions {
                                                     .getSelectedVariantName3();
                                     Log.d(Overlays.TAG, "You have selected variant file \"" +
                                             overlays.checkedOverlays.get(i)
-                                                    .getSelectedVariantName3() + "\"");
+                                                    .getSelectedVariantName3() + '"');
                                     Log.d(Overlays.TAG, "Moving variant file to: " +
                                             workingDirectory + parsedSuffix + "/values/type1c.xml");
 
                                     final String to_copy =
-                                            Overlays.overlaysDir + "/" + current_overlay +
+                                            Overlays.overlaysDir + '/' + current_overlay +
                                                     "/type1c_" +
                                                     overlays.checkedOverlays.get(i)
                                                             .getSelectedVariantName3() +
@@ -647,7 +647,7 @@ enum OverlayFunctions {
                                             .getSelectedVariantName5();
                                     final String type4folder = "/type4_" + overlays.type4;
                                     final String type4folderOutput = "/assets";
-                                    final String to_copy2 = Overlays.overlaysDir + "/" + current_overlay +
+                                    final String to_copy2 = Overlays.overlaysDir + '/' + current_overlay +
                                             type4folder;
                                     FileOperations.copyFileOrDir(
                                             overlays.themeAssetManager,
@@ -666,7 +666,7 @@ enum OverlayFunctions {
                                     overlays.type2 = overlays.checkedOverlays.get(i)
                                             .getSelectedVariantName4();
                                     final String type2folder = "/type2_" + overlays.type2;
-                                    final String to_copy = Overlays.overlaysDir + "/" + current_overlay +
+                                    final String to_copy = Overlays.overlaysDir + '/' + current_overlay +
                                             type2folder;
                                     FileOperations.copyFileOrDir(
                                             overlays.themeAssetManager,
@@ -785,7 +785,7 @@ enum OverlayFunctions {
                                         if (overlays.error_logs.length() == 0) {
                                             overlays.error_logs.append(overlays.sb.getErrorLogs());
                                         } else {
-                                            overlays.error_logs.append("\n")
+                                            overlays.error_logs.append('\n')
                                                     .append(overlays.sb.getErrorLogs());
                                         }
                                         overlays.failed_packages.append(current_overlay);
@@ -816,7 +816,7 @@ enum OverlayFunctions {
                                 }
                             } else {
                                 Log.d(Overlays.TAG, "Currently processing package" +
-                                        " \"" + current_overlay + "." + theme_name_parsed +
+                                        " \"" + current_overlay + '.' + theme_name_parsed +
                                         "\"...");
                                 overlays.sb = new SubstratumBuilder();
                                 overlays.sb.beginAction(
@@ -845,7 +845,7 @@ enum OverlayFunctions {
                                     if (overlays.error_logs.length() == 0) {
                                         overlays.error_logs.append(overlays.sb.getErrorLogs());
                                     } else {
-                                        overlays.error_logs.append("\n")
+                                        overlays.error_logs.append('\n')
                                                 .append(overlays.sb.getErrorLogs());
                                     }
                                     overlays.failed_packages.append(current_overlay);
@@ -1273,8 +1273,8 @@ enum OverlayFunctions {
                         } else {
                             final StringBuilder final_commands = new StringBuilder(ThemeManager.disableOverlay);
                             for (int i = 0; i < disableBeforeEnabling.size(); i++) {
-                                final_commands.append(" ").append(disableBeforeEnabling.get(i))
-                                        .append(" ");
+                                final_commands.append(' ').append(disableBeforeEnabling.get(i))
+                                        .append(' ');
                             }
                             Log.d(TAG, final_commands.toString());
                         }

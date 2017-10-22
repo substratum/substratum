@@ -193,14 +193,14 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                 // InformationActivity
                 CropImage.activity(Uri.fromFile(new File(
                         wallpaperAdapter.mContext.getCacheDir().getAbsolutePath() +
-                                "/" + this.directory_output)))
+                                '/' + this.directory_output)))
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .setFixAspectRatio(false)
                         .setInitialCropWindowPaddingRatio((float) 0)
                         .setActivityTitle(this.wallpaperName)
                         .setOutputUri(Uri.fromFile(new File(
                                 wallpaperAdapter.mContext.getCacheDir().getAbsolutePath() +
-                                        "/" + this.directory_output)))
+                                        '/' + this.directory_output)))
                         .start(this.activity.get());
             }
         }

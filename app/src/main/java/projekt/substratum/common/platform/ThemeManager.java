@@ -154,9 +154,9 @@ public enum ThemeManager {
                 );
             }
         } else {
-            final StringBuilder commands = new StringBuilder(enableOverlay + " " + overlays.get(0));
+            final StringBuilder commands = new StringBuilder(enableOverlay + ' ' + overlays.get(0));
             for (int i = 1; i < overlays.size(); i++) {
-                commands.append(";" + enableOverlay + " ").append(overlays.get(i));
+                commands.append(';' + enableOverlay + ' ').append(overlays.get(i));
             }
             ElevatedCommands.runThreadedCommand(commands.toString());
             try {
@@ -193,9 +193,9 @@ public enum ThemeManager {
                 );
             }
         } else {
-            final StringBuilder commands = new StringBuilder(disableOverlay + " " + overlays.get(0));
+            final StringBuilder commands = new StringBuilder(disableOverlay + ' ' + overlays.get(0));
             for (int i = 1; i < overlays.size(); i++) {
-                commands.append(";" + disableOverlay + " ").append(overlays.get(i));
+                commands.append(';' + disableOverlay + ' ').append(overlays.get(i));
             }
             ElevatedCommands.runThreadedCommand(commands.toString());
             try {
@@ -233,7 +233,7 @@ public enum ThemeManager {
                 final String packageName = overlays.get(i);
                 final String parentName = overlays.get(i + 1);
                 commands.append((commands.length() == 0) ? "" : " && ").append(setPriority)
-                        .append(" ").append(packageName).append(" ").append(parentName);
+                        .append(' ').append(packageName).append(' ').append(parentName);
             }
             ElevatedCommands.runThreadedCommand(commands.toString());
             if (shouldRestartUI(context, overlays)) {

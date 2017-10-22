@@ -406,7 +406,7 @@ public enum Systems {
             if (isNetworkAvailable(context)) {
                 FileDownloader.init(context, url, "", fileName);
             } else {
-                final File check = new File(context.getCacheDir().getAbsolutePath() + "/" + fileName);
+                final File check = new File(context.getCacheDir().getAbsolutePath() + '/' + fileName);
                 if (!check.exists()) return "";
             }
 

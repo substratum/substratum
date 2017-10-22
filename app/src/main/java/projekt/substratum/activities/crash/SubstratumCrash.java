@@ -131,19 +131,19 @@ public class SubstratumCrash extends Activity {
         final String versionName = Packages.getAppVersion(this, this.getPackageName());
         String details = "";
 
-        details += "Build version: " + versionName + "\n";
-        details += "Device: " + Build.MODEL + " (" + Build.DEVICE + ") " + "[" + Build.FINGERPRINT +
-                "]";
+        details += "Build version: " + versionName + '\n';
+        details += "Device: " + Build.MODEL + " (" + Build.DEVICE + ") " + '[' + Build.FINGERPRINT +
+                ']';
 
         final String xposed = References.checkXposedVersion();
-        if (!xposed.isEmpty()) details += " {" + xposed + "}";
+        if (!xposed.isEmpty()) details += " {" + xposed + '}';
         details += "\n";
 
         final String rom = Systems.checkFirmwareSupport(this, this.getString(R.string.supported_roms_url),
                 "supported_roms.xml");
         final String romVersion = Build.VERSION.RELEASE + " - " +
                 (!rom.isEmpty() ? rom : "Unknown");
-        details += "ROM: " + romVersion + "\n";
+        details += "ROM: " + romVersion + '\n';
         details += "Theme system: ";
         switch (Systems.checkThemeSystemModule(this)) {
             case NO_THEME_ENGINE:

@@ -52,7 +52,7 @@ public enum FileDownloader {
         try {
 
             // First create the cache folder
-            final File directory = new File(context.getCacheDir().getAbsolutePath() + "/" +
+            final File directory = new File(context.getCacheDir().getAbsolutePath() + '/' +
                     destinationFileOrFolder);
             if (!destinationFileOrFolder.endsWith(".png") &&
                     !destinationFileOrFolder.endsWith(".jpg") &&
@@ -90,9 +90,9 @@ public enum FileDownloader {
                 // Download the file
                 input = connection.getInputStream();
 
-                final String outputDir = context.getCacheDir().getAbsolutePath() + "/" +
+                final String outputDir = context.getCacheDir().getAbsolutePath() + '/' +
                         destinationFileOrFolder +
-                        (outputFile != null && !outputFile.isEmpty() ? "/" + outputFile : "");
+                        (outputFile != null && !outputFile.isEmpty() ? '/' + outputFile : "");
 
                 Log.d(References.SUBSTRATUM_LOG, "Placing file in: " + outputDir);
 

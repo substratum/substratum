@@ -80,7 +80,7 @@ public enum Root {
             try {
                 final StringBuilder sb = new StringBuilder();
                 final String callback = "/shellCallback/";
-                this.bufferedWriter.write(command + "\necho " + callback + "\n");
+                this.bufferedWriter.write(command + "\necho " + callback + '\n');
                 this.bufferedWriter.flush();
 
                 final char[] buffer = new char[256];

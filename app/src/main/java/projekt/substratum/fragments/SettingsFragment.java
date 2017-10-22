@@ -118,7 +118,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         final Preference aboutSubstratum = this.getPreferenceManager().findPreference
                 ("about_substratum");
-        sb.append(BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ")");
+        sb.append(BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ')');
         if (BuildConfig.DEBUG) {
             sb.append(" - " + BuildConfig.GIT_HASH);
         }
@@ -190,7 +190,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         this.getString(R.string.settings_system_status_andromeda) :
                         this.getString(R.string.settings_system_status_rooted)))
                 + " (" + (certified ? this.getString(R.string.settings_system_status_certified) :
-                this.getString(R.string.settings_system_status_uncertified)) + ")"
+                this.getString(R.string.settings_system_status_uncertified)) + ')'
         );
         systemStatus.setIcon(certified ?
                 this.mContext.getDrawable(R.drawable.system_status_certified)
@@ -223,7 +223,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         .getPackageInfo(SST_ADDON_PACKAGE, 0);
                 final String versionName = info.versionName;
                 final int versionCode = info.versionCode;
-                aboutSamsung.setSummary(versionName + " (" + versionCode + ")");
+                aboutSamsung.setSummary(versionName + " (" + versionCode + ')');
             } catch (final Exception e) {
                 // Suppress exception
             }
@@ -650,7 +650,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             .getPackageInfo(ANDROMEDA_PACKAGE, 0);
                     final String versionName = info.versionName;
                     final int versionCode = info.versionCode;
-                    aboutAndromeda.setSummary(versionName + " (" + versionCode + ")");
+                    aboutAndromeda.setSummary(versionName + " (" + versionCode + ')');
                 } catch (final Exception e) {
                     // Suppress exception
                 }
@@ -689,7 +689,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 assert pInfo != null;
                 final String versionName = pInfo.versionName;
                 final int versionCode = pInfo.versionCode;
-                aboutInterfacer.setSummary(versionName + " (" + versionCode + ")");
+                aboutInterfacer.setSummary(versionName + " (" + versionCode + ')');
             } catch (final Exception e) {
                 // Suppress exception
             }
@@ -945,9 +945,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 }
 
                 if (!References.isNetworkAvailable(settingsFragment.mContext)) {
-                    settingsFragment.platformSummary.append("\n")
+                    settingsFragment.platformSummary.append('\n')
                             .append(settingsFragment.getString(R.string.rom_status))
-                            .append(" ")
+                            .append(' ')
                             .append(settingsFragment.getString(R.string.rom_status_network));
                     settingsFragment.systemPlatform.setSummary(
                             settingsFragment.platformSummary.toString());
@@ -957,9 +957,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 if (!result.isEmpty()) {
                     final String supportedRom = String.format(
                             settingsFragment.getString(R.string.rom_status_supported), result);
-                    settingsFragment.platformSummary.append("\n")
+                    settingsFragment.platformSummary.append('\n')
                             .append(settingsFragment.getString(R.string.rom_status))
-                            .append(" ")
+                            .append(' ')
                             .append(supportedRom);
                     settingsFragment.systemPlatform.setSummary(
                             settingsFragment.platformSummary.toString());
@@ -967,9 +967,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 }
 
                 if ("".equals(result)) {
-                    settingsFragment.platformSummary.append("\n")
+                    settingsFragment.platformSummary.append('\n')
                             .append(settingsFragment.getString(R.string.rom_status))
-                            .append(" ")
+                            .append(' ')
                             .append(settingsFragment.getString(R.string.rom_status_unsupported));
                     settingsFragment.systemPlatform.setSummary(
                             settingsFragment.platformSummary.toString());
@@ -1153,7 +1153,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                                     "Resource does not exist: " + bools.get(j));
                                         has_errored = true;
                                         validatorError.addBoolError(
-                                                "{" + settingsFragment.getString(
+                                                '{' + settingsFragment.getString(
                                                         R.string.resource_boolean) + "} " +
                                                         bools.get(j));
                                         resource_counter_errored++;
@@ -1203,7 +1203,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                                     "Resource does not exist: " + colors.get(j));
                                         has_errored = true;
                                         validatorError.addBoolError(
-                                                "{" + settingsFragment.getString(
+                                                '{' + settingsFragment.getString(
                                                         R.string.resource_color) + "} " +
                                                         colors.get(j));
                                         resource_counter_errored++;
@@ -1252,9 +1252,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                                     "Resource does not exist: " + dimens.get(j));
                                         has_errored = true;
                                         validatorError.addBoolError(
-                                                "{" + settingsFragment.getString(
-                                                        R.string.resource_dimension) + "}" +
-                                                        " " +
+                                                '{' + settingsFragment.getString(
+                                                        R.string.resource_dimension) + '}' +
+                                                        ' ' +
                                                         dimens.get(j));
                                         resource_counter_errored++;
                                     }
@@ -1303,7 +1303,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                                     "Resource does not exist: " + styles.get(j));
                                         has_errored = true;
                                         validatorError.addBoolError(
-                                                "{" + settingsFragment.getString(
+                                                '{' + settingsFragment.getString(
                                                         R.string.resource_style) + "} " +
                                                         styles.get(j));
                                         resource_counter_errored++;

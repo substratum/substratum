@@ -68,9 +68,9 @@ public enum CompilerCommands {
 
         String packageName;
         if (baseVariantNull) {
-            packageName = overlayPackage + "." + parse2_themeName;
+            packageName = overlayPackage + '.' + parse2_themeName;
         } else {
-            packageName = overlayPackage + "." + parse2_themeName +
+            packageName = overlayPackage + '.' + parse2_themeName +
                     parse2_variantName + parse2_baseName;
         }
         if (isNotNullOrEmpty(packageNameOverride)) {
@@ -200,7 +200,7 @@ public enum CompilerCommands {
         sb.append("-M " + work_area + "/AndroidManifest.xml ");
         // If the user picked a variant (type2), compile multiple directories
         sb.append(((isNotNullOrEmpty(additional_variant)) ?
-                ("-S " + work_area + "/" + "type2_" + additional_variant + "/ ") : ""));
+                ("-S " + work_area + '/' + "type2_" + additional_variant + "/ ") : ""));
         // If the user picked an asset variant (type4), compile multiple directories
         sb.append(((isNotNullOrEmpty(asset_replacement)) ?
                 ("-A " + work_area + "/assets/ ") : ""));
@@ -209,10 +209,10 @@ public enum CompilerCommands {
         // Build upon the system's Android framework
         sb.append("-I " + "/system/framework/framework-res.apk ");
         // If running on the AppCompat commits (first run), it will build upon the app too
-        sb.append((legacySwitch) ? "" : ("-I " + targetPkg + " "));
+        sb.append((legacySwitch) ? "" : ("-I " + targetPkg + ' '));
 
         // Specify the file output directory
-        sb.append("-F " + work_area + "/" + overlay_package + "." +
+        sb.append("-F " + work_area + '/' + overlay_package + '.' +
                 theme_name + "-unsigned.apk ");
         // Final arguments to conclude the AOPT build
         if (ENABLE_AOPT_OUTPUT) {
@@ -223,7 +223,7 @@ public enum CompilerCommands {
         sb.append("--auto-add-overlay ");
         // Overwrite all the files in the internal storage
         sb.append("-f ");
-        sb.append("\n");
+        sb.append('\n');
 
         return sb.toString();
     }
@@ -236,7 +236,7 @@ public enum CompilerCommands {
         // Initialize the ZipAlign command
         String ret = context.getFilesDir().getAbsolutePath() + "/zipalign 4 ";
         // Supply the source
-        ret += source + " ";
+        ret += source + ' ';
         // Supply the destination
         ret += destination;
 

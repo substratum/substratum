@@ -192,7 +192,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                                 final String package_name = this.final_check.get(i).getName();
                                 to_enable.add(package_name);
                                 if (package_name.startsWith("android.") ||
-                                        package_name.startsWith(this.getPackageName() + ".") ||
+                                        package_name.startsWith(this.getPackageName() + '.') ||
                                         package_name.startsWith("com.android.systemui"))
                                     this.trigger_service_restart = true;
                             }
@@ -202,7 +202,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                             final String package_name = this.final_check.get(i).getName();
                             to_disable.add(package_name);
                             if (package_name.startsWith("android.") ||
-                                    package_name.startsWith(this.getPackageName() + ".") ||
+                                    package_name.startsWith(this.getPackageName() + '.') ||
                                     package_name.startsWith("com.android.systemui"))
                                 this.trigger_service_restart = true;
                         }

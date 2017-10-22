@@ -877,11 +877,11 @@ public class Overlays extends Fragment {
             if (this.encrypted) {
                 inputStream = FileOperations.getInputStream(
                         this.themeAssetManager,
-                        overlaysDir + "/" + package_identifier + "/type1" + type + ".enc",
+                        overlaysDir + '/' + package_identifier + "/type1" + type + ".enc",
                         this.cipher);
             } else {
                 inputStream = this.themeAssetManager.open(
-                        overlaysDir + "/" + package_identifier + "/type1" + type);
+                        overlaysDir + '/' + package_identifier + "/type1" + type);
             }
         } catch (final IOException ioe) {
             // Suppress warning
@@ -912,7 +912,7 @@ public class Overlays extends Fragment {
             if (this.encrypted) {
                 try (InputStream name = FileOperations.getInputStream(
                         this.themeAssetManager,
-                        overlaysDir + "/" + package_identifier + suffix +
+                        overlaysDir + '/' + package_identifier + suffix +
                                 "/values/type1" + type + ".xml.enc",
                         this.cipher)) {
                     hex = Packages.getOverlayResource(name);
@@ -921,7 +921,7 @@ public class Overlays extends Fragment {
                 }
             } else {
                 try (InputStream name = this.themeAssetManager.open(
-                        overlaysDir + "/" + package_identifier + suffix +
+                        overlaysDir + '/' + package_identifier + suffix +
                                 "/values/type1" + type + ".xml")) {
                     hex = Packages.getOverlayResource(name);
                 } catch (final IOException e) {
@@ -936,7 +936,7 @@ public class Overlays extends Fragment {
             if (this.encrypted) {
                 try (InputStream input = FileOperations.getInputStream(
                         this.themeAssetManager,
-                        overlaysDir + "/" + package_identifier +
+                        overlaysDir + '/' + package_identifier +
                                 suffix + "/values/type1" + type + ".xml.enc",
                         this.cipher)) {
                     hex = Packages.getOverlayResource(input);
@@ -945,7 +945,7 @@ public class Overlays extends Fragment {
                 }
             } else {
                 try (InputStream input = this.themeAssetManager.open(overlaysDir +
-                        "/" + package_identifier + suffix + "/values/type1" + type + ".xml")) {
+                        '/' + package_identifier + suffix + "/values/type1" + type + ".xml")) {
                     hex = Packages.getOverlayResource(input);
                 } catch (final IOException ioe) {
                     // Suppress warning
@@ -986,7 +986,7 @@ public class Overlays extends Fragment {
     private VariantItem setTypeOneHexAndSpinner(final String current, final String package_identifier) {
         if (this.encrypted) {
             try (InputStream inputStream = FileOperations.getInputStream(this.themeAssetManager,
-                    "overlays/" + package_identifier + "/" + current, this.cipher)) {
+                    "overlays/" + package_identifier + '/' + current, this.cipher)) {
                 final String hex = Packages.getOverlayResource(inputStream);
 
                 return new VariantItem(
@@ -996,7 +996,7 @@ public class Overlays extends Fragment {
             }
         } else {
             try (InputStream inputStream = this.themeAssetManager.open(
-                    "overlays/" + package_identifier + "/" + current)) {
+                    "overlays/" + package_identifier + '/' + current)) {
                 final String hex = Packages.getOverlayResource(inputStream);
 
                 return new VariantItem(
@@ -1116,9 +1116,9 @@ public class Overlays extends Fragment {
                         (!rom.isEmpty() ? rom : "Unknown");
 
                 String device = Build.MODEL + " (" + Build.DEVICE + ") " +
-                        "[" + Build.FINGERPRINT + "]";
+                        '[' + Build.FINGERPRINT + ']';
                 final String xposed = References.checkXposedVersion();
-                if (!xposed.isEmpty()) device += " {" + xposed + "}";
+                if (!xposed.isEmpty()) device += " {" + xposed + '}';
 
                 final String attachment = String.format(
                         context.getString(R.string.logcat_attachment_body),
@@ -1348,7 +1348,7 @@ public class Overlays extends Fragment {
                             final List<String> typeArray = new ArrayList<>();
 
                             final Object typeArrayRaw = fragment.themeAssetManager.list(
-                                    Overlays.overlaysDir + "/" + package_identifier);
+                                    Overlays.overlaysDir + '/' + package_identifier);
 
                             // Sort the typeArray so that the types are asciibetical
                             Collections.addAll(typeArray, (String[]) typeArrayRaw);
@@ -1393,7 +1393,7 @@ public class Overlays extends Fragment {
                                             new InputStreamReader(
                                                     FileOperations.getInputStream(
                                                             fragment.themeAssetManager,
-                                                            Overlays.overlaysDir + "/" +
+                                                            Overlays.overlaysDir + '/' +
                                                                     package_identifier +
                                                                     (fragment.encrypted ?
                                                                             "/type2.enc" :
@@ -1425,7 +1425,7 @@ public class Overlays extends Fragment {
                                             new InputStreamReader(
                                                     FileOperations.getInputStream(
                                                             fragment.themeAssetManager,
-                                                            Overlays.overlaysDir + "/" +
+                                                            Overlays.overlaysDir + '/' +
                                                                     package_identifier +
                                                                     (fragment.encrypted ?
                                                                             "/type4.enc" :

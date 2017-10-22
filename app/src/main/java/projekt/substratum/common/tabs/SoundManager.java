@@ -558,7 +558,7 @@ public enum SoundManager {
         Uri newUri = null;
         final Cursor c = context.getContentResolver().query(uri,
                 new String[]{MediaStore.MediaColumns._ID},
-                MediaStore.MediaColumns.DATA + "='" + path + "'",
+                MediaStore.MediaColumns.DATA + "='" + path + '\'',
                 null, null);
         if ((c != null) && (c.getCount() > 0)) {
             c.moveToFirst();
@@ -566,7 +566,7 @@ public enum SoundManager {
             c.close();
             newUri = Uri.withAppendedPath(Uri.parse(MEDIA_CONTENT_URI), String.valueOf(id));
             context.getContentResolver().update(uri, values,
-                    MediaStore.MediaColumns._ID + "=" + id, null);
+                    MediaStore.MediaColumns._ID + '=' + id, null);
         }
         if (newUri == null)
             newUri = context.getContentResolver().insert(uri, values);
@@ -597,7 +597,7 @@ public enum SoundManager {
         final String path_clone = "/system/media/audio/ui/" + name + ".ogg";
         final Cursor c = context.getContentResolver().query(uri,
                 new String[]{MediaStore.MediaColumns._ID},
-                MediaStore.MediaColumns.DATA + "='" + path_clone + "'",
+                MediaStore.MediaColumns.DATA + "='" + path_clone + '\'',
                 null, null);
         if ((c != null) && (c.getCount() > 0)) {
             c.moveToFirst();
@@ -607,7 +607,7 @@ public enum SoundManager {
             newUri = Uri.withAppendedPath(Uri.parse(MEDIA_CONTENT_URI), String.valueOf(id));
             try {
                 context.getContentResolver().update(uri, values,
-                        MediaStore.MediaColumns._ID + "=" + id, null);
+                        MediaStore.MediaColumns._ID + '=' + id, null);
             } catch (final Exception e) {
                 Log.d("SoundUtils", "The content provider does not need to be updated. " +
                         e.getMessage());
@@ -628,7 +628,7 @@ public enum SoundManager {
             Uri uri = MediaStore.Audio.Media.getContentUriForPath(audiblePath);
             final Cursor c = context.getContentResolver().query(uri,
                     new String[]{MediaStore.MediaColumns._ID},
-                    MediaStore.MediaColumns.DATA + "='" + audiblePath + "'",
+                    MediaStore.MediaColumns.DATA + "='" + audiblePath + '\'',
                     null, null);
             if ((c != null) && (c.getCount() > 0)) {
                 c.moveToFirst();
@@ -649,7 +649,7 @@ public enum SoundManager {
             for (final String s : files) {
                 final String filePath = audiblePath + File.separator + s;
                 final Uri uri = MediaStore.Audio.Media.getContentUriForPath(filePath);
-                resolver.delete(uri, MediaStore.MediaColumns.DATA + "=\"" + filePath + "\"", null);
+                resolver.delete(uri, MediaStore.MediaColumns.DATA + "=\"" + filePath + '"', null);
                 final boolean deleted = (new File(filePath)).delete();
                 if (deleted) Log.e("SoundUtils", "Database cleared");
             }

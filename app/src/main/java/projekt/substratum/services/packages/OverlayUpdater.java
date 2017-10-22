@@ -227,7 +227,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                     for (int i = 0; i < this.errored_packages.size(); i++) {
                         stringBuilder.append(this.errored_packages.get(i));
                         if ((this.errored_packages.size() - 1) > i) {
-                            stringBuilder.append("\n");
+                            stringBuilder.append('\n');
                         }
                     }
                     final String format2 = String.format(
@@ -266,7 +266,7 @@ public class OverlayUpdater extends BroadcastReceiver {
         @Override
         protected String doInBackground(final String... sUrl) {
             if (!this.installed_overlays.isEmpty()) {
-                Log.d(TAG, "'" + this.package_name +
+                Log.d(TAG, '\'' + this.package_name +
                         "' was just updated with overlays present, updating...");
                 for (int i = 0; i < this.installed_overlays.size(); i++) {
                     Log.d(TAG, "Current overlay found in stash: " + this.installed_overlays.get(i));
@@ -283,7 +283,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                                                     Packages.getOverlayParent(
                                                             this.context,
                                                             this.installed_overlays.get(i))
-                                            ) + ")");
+                                            ) + ')');
                             break;
                         case THEME_UPGRADE:
                             this.mBuilder.setContentText(
@@ -405,7 +405,7 @@ public class OverlayUpdater extends BroadcastReceiver {
 
                     // Prenotions
                     final String suffix = (((type3 != null) && !type3.isEmpty()) ?
-                            ("/" + type3Dir) : "/res");
+                            ('/' + type3Dir) : "/res");
                     final String workingDirectory = this.context.getCacheDir().getAbsolutePath() +
                             SUBSTRATUM_BUILDER_CACHE.substring(0,
                                     SUBSTRATUM_BUILDER_CACHE.length() - 1);
@@ -418,7 +418,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                     }
 
                     // Handle the resource folder
-                    final String listDir = overlaysDir + "/" +
+                    final String listDir = overlaysDir + '/' +
                             (this.upgrade_mode.equals(APP_UPGRADE) ?
                                     this.package_name :
                                     Packages.getOverlayTarget(this.context, this.installed_overlays.get(i))
@@ -525,7 +525,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                             if (this.error_logs.length() == 0)
                                 this.error_logs.append(sb.getErrorLogs());
                             else
-                                this.error_logs.append("\n").append(sb.getErrorLogs());
+                                this.error_logs.append('\n').append(sb.getErrorLogs());
                         }
                     }
 
@@ -565,7 +565,7 @@ public class OverlayUpdater extends BroadcastReceiver {
         public static void invokeLogCharDialog(final Context context, final String error_logs) {
             final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context)
                     .setTitle(R.string.logcat_dialog_title)
-                    .setMessage("\n" + error_logs)
+                    .setMessage('\n' + error_logs)
                     .setNeutralButton(R.string
                             .customactivityoncrash_error_activity_error_details_close, null)
                     .setNegativeButton(R.string

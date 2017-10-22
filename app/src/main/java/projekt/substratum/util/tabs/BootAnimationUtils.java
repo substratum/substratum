@@ -179,12 +179,12 @@ public class BootAnimationUtils {
                         final AssetManager themeAssetManager = otherContext.getAssets();
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
-                                directory + "/" + bootanimation +
+                                directory + '/' + bootanimation +
                                         (this.encrypted ? ".zip.enc" : ".zip"),
                                 this.mContext.getCacheDir().getAbsolutePath() +
                                         "/BootAnimationCache/AnimationCreator/" +
                                         bootanimation + ".zip",
-                                directory + "/" + bootanimation +
+                                directory + '/' + bootanimation +
                                         (this.encrypted ? ".zip.enc" : ".zip"),
                                 this.cipher);
                     } catch (final PackageManager.NameNotFoundException e) {
@@ -195,7 +195,7 @@ public class BootAnimationUtils {
                         final Context otherContext = this.mContext.createPackageContext(this.theme_pid, 0);
                         final AssetManager am = otherContext.getAssets();
                         try (InputStream inputStream = am.open(
-                                directory + "/" + bootanimation + ".zip");
+                                directory + '/' + bootanimation + ".zip");
                              OutputStream outputStream = new FileOutputStream(
                                      this.mContext.getCacheDir().getAbsolutePath() +
                                              "/BootAnimationCache/AnimationCreator/" +
@@ -424,7 +424,7 @@ public class BootAnimationUtils {
                         if (!backupScript.exists()) {
                             final AssetManager assetManager = this.mContext.getAssets();
                             final String backupScriptPath =
-                                    this.mContext.getFilesDir().getAbsolutePath() + "/" + BACKUP_SCRIPT;
+                                    this.mContext.getFilesDir().getAbsolutePath() + '/' + BACKUP_SCRIPT;
                             OutputStream out = null;
                             InputStream in = null;
                             try {
@@ -454,7 +454,7 @@ public class BootAnimationUtils {
                                 }
                             }
                             FileOperations.copy(this.mContext, this.mContext.getFilesDir().getAbsolutePath() +
-                                    "/" + BACKUP_SCRIPT, backupScript.getAbsolutePath());
+                                    '/' + BACKUP_SCRIPT, backupScript.getAbsolutePath());
                             FileOperations.setPermissions(755, backupScript.getAbsolutePath());
                         }
                     }

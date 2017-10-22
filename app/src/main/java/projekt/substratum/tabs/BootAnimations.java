@@ -455,14 +455,14 @@ public class BootAnimations extends Fragment {
                     if (bootAnimations.encrypted) {
                         FileOperations.copyFileOrDir(
                                 bootAnimations.themeAssetManager,
-                                bootanimationsDir + "/" + source + ".enc",
+                                bootanimationsDir + '/' + source + ".enc",
                                 bootAnimations.mContext.getCacheDir().getAbsolutePath() +
                                         "/BootAnimationCache/" + source,
-                                bootanimationsDir + "/" + source + ".enc",
+                                bootanimationsDir + '/' + source + ".enc",
                                 bootAnimations.cipher);
                     } else {
                         try (InputStream inputStream = bootAnimations.themeAssetManager.open(
-                                bootanimationsDir + "/" + source);
+                                bootanimationsDir + '/' + source);
                              OutputStream outputStream =
                                      new FileOutputStream(bootAnimations.mContext.getCacheDir()
                                              .getAbsolutePath() +

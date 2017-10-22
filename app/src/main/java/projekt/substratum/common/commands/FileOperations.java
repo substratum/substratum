@@ -58,7 +58,7 @@ public enum FileOperations {
 
     public static void adjustContentProvider(final String uri,
                                              final String topic, final String fileName) {
-        Root.runCommand("content insert --uri " + uri + " " +
+        Root.runCommand("content insert --uri " + uri + ' ' +
                 "--bind name:s:" + topic + " --bind value:s:" + fileName);
     }
 
@@ -67,20 +67,20 @@ public enum FileOperations {
     }
 
     public static void setPermissions(final int permission, final String foldername) {
-        Root.runCommand("chmod " + permission + " " + foldername);
+        Root.runCommand("chmod " + permission + ' ' + foldername);
     }
 
     public static void setPermissionsRecursively(final int permission, final String foldername) {
-        Root.runCommand("chmod -R " + permission + " " + foldername);
+        Root.runCommand("chmod -R " + permission + ' ' + foldername);
     }
 
     @SuppressWarnings("SameParameterValue")
     public static void setProp(final String propName, final String propValue) {
-        Root.runCommand("setprop " + propName + " " + propValue);
+        Root.runCommand("setprop " + propName + ' ' + propValue);
     }
 
     public static void symlink(final String source, final String destination) {
-        Root.runCommand("ln -s " + source + " " + destination);
+        Root.runCommand("ln -s " + source + ' ' + destination);
     }
 
     private static String checkBox(final String mountType) {
@@ -201,7 +201,7 @@ public enum FileOperations {
         if (!out.exists()) {
             Log.d(COPY_LOG,
                     "Rootless operation failed, falling back to rooted mode...");
-            Root.runCommand("cp -f " + source + " " + destination);
+            Root.runCommand("cp -f " + source + ' ' + destination);
         }
         Log.d(COPY_LOG, "Operation " + (out.exists() ? "succeeded" : "failed"));
     }
@@ -232,7 +232,7 @@ public enum FileOperations {
         if (!out.exists()) {
             Log.d(COPY_LOG,
                     "Rootless operation failed, falling back to rooted mode...");
-            Root.runCommand("cp -rf " + source + " " + destination);
+            Root.runCommand("cp -rf " + source + ' ' + destination);
         }
         Log.d(COPYDIR_LOG, "Operation " + (out.exists() ? "succeeded" : "failed"));
     }
@@ -296,7 +296,7 @@ public enum FileOperations {
                 final StringBuilder command = new StringBuilder("rm -rf ");
                 if (dir.isDirectory()) {
                     for (final File child : dir.listFiles()) {
-                        command.append(child.getAbsolutePath()).append(" ");
+                        command.append(child.getAbsolutePath()).append(' ');
                     }
                     Root.runCommand(command.toString());
                 } else {
@@ -350,7 +350,7 @@ public enum FileOperations {
         } catch (final Exception e) {
             Log.d(MOVE_LOG,
                     "Rootless operation failed, falling back to rooted mode...");
-            Root.runCommand("mv -f " + source + " " + destination);
+            Root.runCommand("mv -f " + source + ' ' + destination);
         }
         Log.d(MOVE_LOG, "Operation " + (out.exists() ? "succeeded" : "failed"));
     }
@@ -412,16 +412,16 @@ public enum FileOperations {
                         ((copied) ? "Success!" : "Failed"));
             } else {
                 // This will be a folder if the size is greater than 0
-                final String fullPath = (destination + "/" + listDir.substring(remember.length()))
+                final String fullPath = (destination + '/' + listDir.substring(remember.length()))
                         .replaceAll("\\s+", "");
                 final File dir = new File(fullPath);
                 if (!dir.exists()) {
-                    Log.d(DA_LOG, "Attempting to copy: " + dir.getAbsolutePath() + "/");
+                    Log.d(DA_LOG, "Attempting to copy: " + dir.getAbsolutePath() + '/');
                     Log.d(DA_LOG, "File operation status: " +
                             ((dir.mkdir()) ? "Success!" : "Failed"));
                 }
                 for (final String asset : assets) {
-                    copyFileOrDir(assetManager, listDir + "/" + asset, destination, remember,
+                    copyFileOrDir(assetManager, listDir + '/' + asset, destination, remember,
                             cipher);
                 }
             }

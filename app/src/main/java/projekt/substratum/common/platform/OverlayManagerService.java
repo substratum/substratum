@@ -85,7 +85,7 @@ public enum OverlayManagerService {
         try {
             final boolean success = OM.get().setEnabled(packageName, true, CURRENT_USER, shouldWait);
             if (success) {
-                Log.e(SUBSTRATUM_LOG, "Enabled overlay -> " + packageName + "!");
+                Log.e(SUBSTRATUM_LOG, "Enabled overlay -> " + packageName + '!');
                 return true;
             }
         } catch (final RemoteException re) {
@@ -98,7 +98,7 @@ public enum OverlayManagerService {
         try {
             final boolean success = OM.get().setEnabled(packageName, false, CURRENT_USER, shouldWait);
             if (success) {
-                Log.e(SUBSTRATUM_LOG, "Disabled overlay -> " + packageName + "!");
+                Log.e(SUBSTRATUM_LOG, "Disabled overlay -> " + packageName + '!');
                 return true;
             }
         } catch (final RemoteException re) {

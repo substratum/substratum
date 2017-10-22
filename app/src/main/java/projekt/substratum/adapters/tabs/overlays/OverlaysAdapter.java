@@ -207,10 +207,10 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
     private static void commitChanges(final Context context, final OverlaysItem current_object,
                                       final ViewHolder viewHolder, final String packageName) {
         if (isPackageInstalled(context,
-                current_object.getPackageName() + "." + current_object.getThemeName() +
-                        "." + packageName +
+                current_object.getPackageName() + '.' + current_object.getThemeName() +
+                        '.' + packageName +
                         ((!current_object.getBaseResources().isEmpty()) ?
-                                "." + current_object.getBaseResources() : ""))) {
+                                '.' + current_object.getBaseResources() : ""))) {
             viewHolder.overlayState.setVisibility(View.VISIBLE);
             // Check whether currently installed overlay is up to date with
             // theme_pid's versionName
@@ -273,9 +273,9 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
         viewHolder.overlayTargetPackage.setText(current_object.getPackageName());
 
         if (isPackageInstalled(context,
-                current_object.getPackageName() + "." + current_object.getThemeName() +
+                current_object.getPackageName() + '.' + current_object.getThemeName() +
                         ((!current_object.getBaseResources().isEmpty()) ?
-                                "." + current_object.getBaseResources() : ""))) {
+                                '.' + current_object.getBaseResources() : ""))) {
             viewHolder.overlayState.setVisibility(View.VISIBLE);
             // Check whether currently installed overlay is up to date with theme_pid's versionName
             if (!current_object.compareInstalledOverlay()) {
@@ -439,12 +439,12 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                     final File file2 = new File(LEGACY_NEXUS_DIR);
                     if (file.exists() || file2.exists()) {
                         final File filer1 = new File(
-                                file.getAbsolutePath() + "/" +
-                                        current_object.getPackageName() + "." +
+                                file.getAbsolutePath() + '/' +
+                                        current_object.getPackageName() + '.' +
                                         current_object.getThemeName() + ".apk");
                         final File filer2 = new File(
-                                file2.getAbsolutePath() + "/" +
-                                        current_object.getPackageName() + "." +
+                                file2.getAbsolutePath() + '/' +
+                                        current_object.getPackageName() + '.' +
                                         current_object.getThemeName() + ".apk");
                         if (filer1.exists() || filer2.exists()) {
                             viewHolder.overlayTargetPackageName.setTextColor(

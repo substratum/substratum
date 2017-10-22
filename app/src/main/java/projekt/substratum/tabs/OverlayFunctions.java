@@ -1333,7 +1333,7 @@ enum OverlayFunctions {
                         for (final String o : overlays.late_install) {
                             ThemeManager.installOverlay(context, o);
                             final String packageName =
-                                    o.substring(o.lastIndexOf("/") + 1, o.lastIndexOf("-"));
+                                    o.substring(o.lastIndexOf('/') + 1, o.lastIndexOf('-'));
                             packages.add(packageName);
                             if ((Systems.checkThemeInterfacer(context) &&
                                     !Systems.isBinderInterfacer(context)) ||

@@ -550,7 +550,7 @@ public class OverlayUpdater extends BroadcastReceiver {
         }
     }
 
-    class UpdaterLogs extends BroadcastReceiver {
+    static class UpdaterLogs extends BroadcastReceiver {
         @Override
         public void onReceive(final Context context, final Intent intent) {
             if (intent.getAction() != null) {

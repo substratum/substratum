@@ -77,7 +77,7 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHold
         return this.soundsList.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    static class MyViewHolder extends RecyclerView.ViewHolder {
         public final TextView title;
 
         MyViewHolder(final View view) {

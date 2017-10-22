@@ -128,7 +128,7 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
         return this.information.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         final CardView cardView;
         final TextView packName;
         final TextView verificationText;

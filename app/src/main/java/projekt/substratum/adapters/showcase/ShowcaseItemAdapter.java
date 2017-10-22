@@ -137,7 +137,7 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
         return this.information.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
         final CardView cardView;
         final TextView themeName;
         final TextView themeAuthor;

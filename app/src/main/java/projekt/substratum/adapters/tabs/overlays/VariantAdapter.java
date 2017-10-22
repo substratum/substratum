@@ -158,7 +158,7 @@ public class VariantAdapter extends ArrayAdapter<VariantItem> {
         return convertView;
     }
 
-    private class ViewHolder {
+    private static class ViewHolder {
         TextView variantName;
         ImageView variantHex;
     }

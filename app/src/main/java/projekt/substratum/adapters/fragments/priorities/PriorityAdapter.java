@@ -278,7 +278,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
         return this.getData().get(position).getType().ordinal();
     }
 
-    private class PrioritiesHeader implements PrioritiesInterface {
+    private static class PrioritiesHeader implements PrioritiesInterface {
 
         private final String mName;
 
@@ -297,7 +297,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
         }
     }
 
-    private class PriorityObjectAdapter extends GestureViewHolder {
+    private static class PriorityObjectAdapter extends GestureViewHolder {
 
         final TextView mCardText;
         final ImageView mAppIcon;
@@ -341,7 +341,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
         }
     }
 
-    private class HeaderViewAdapter extends GestureViewHolder {
+    private static class HeaderViewAdapter extends GestureViewHolder {
 
         final TextView mHeaderText;
 

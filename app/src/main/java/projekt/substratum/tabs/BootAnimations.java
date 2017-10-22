@@ -98,7 +98,7 @@ public class BootAnimations extends Fragment {
     private boolean paused;
     private JobReceiver jobReceiver;
     private LocalBroadcastManager localBroadcastManager;
-    private final Boolean encrypted = false;
+    private static final Boolean encrypted = false;
     private Cipher cipher;
     private Boolean shutdownBootAnimation;
     private Context mContext;

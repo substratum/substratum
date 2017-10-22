@@ -990,7 +990,7 @@ public class ProfileFragment extends Fragment {
     }
 
     private static class ContinueRestore extends AsyncTask<Void, String, Void> {
-        private final String TAG = "ContinueRestore";
+        private static final String TAG = "ContinueRestore";
         private String profileName;
         private List<List<String>> toBeCompiled;
         private ArrayList<String> toBeRun;

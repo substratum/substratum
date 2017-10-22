@@ -94,7 +94,7 @@ public class Fonts extends Fragment {
     private JobReceiver jobReceiver;
     private LocalBroadcastManager localBroadcastManager;
     private Context mContext;
-    private final Boolean encrypted = false;
+    private static final Boolean encrypted = false;
     private Cipher cipher;
 
     private Fonts getInstance() {

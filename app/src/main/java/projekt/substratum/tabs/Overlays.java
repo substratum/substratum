@@ -1253,8 +1253,7 @@ public class Overlays extends Fragment {
                     final Boolean showDangerous = !prefs.getBoolean("show_dangerous_samsung_overlays",
                             false);
 
-                    final List<String> values = new ArrayList<>();
-                    values.addAll(overlaysFolder.stream().filter(package_name -> (Packages
+                    final List<String> values = new ArrayList<>(overlaysFolder.stream().filter(package_name -> (Packages
                             .isPackageInstalled(context, package_name) ||
                             projekt.substratum.common.Resources.allowedSystemUIOverlay
                                     (package_name) ||

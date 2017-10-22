@@ -78,8 +78,7 @@ public enum FirebaseAnalytics {
                         listOfPackages.add(entry);
                     }
 
-                    final Set set = new HashSet();
-                    set.addAll(listOfPackages);
+                    final Set set = new HashSet(listOfPackages);
                     final SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
                     editor.putStringSet(dateFormat.format(new Date()), set);
                     editor.apply();

@@ -81,7 +81,8 @@ public enum CompilerCommands {
                 Systems.isSamsung(context) && References.toggleShowSamsungOverlayInSettings;
         try {
 
-            final DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            final DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
+                    .newInstance();
             final DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
 
             // root elements

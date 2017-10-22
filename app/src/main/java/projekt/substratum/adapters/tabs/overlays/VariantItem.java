@@ -22,8 +22,8 @@ import java.io.Serializable;
 
 public class VariantItem implements Serializable {
     private final String variant_name;
-    private String variant_hex;
     private final boolean forceHidden;
+    private String variant_hex;
     private int color;
 
     public VariantItem(final String variant_name, final String variant_hex) {

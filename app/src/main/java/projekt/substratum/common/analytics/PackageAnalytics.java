@@ -64,7 +64,8 @@ public enum PackageAnalytics {
         if (bytes < (long) unit) return bytes + " B";
         final int exp = (int) (StrictMath.log((double) bytes) / StrictMath.log((double) unit));
         final String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp - 1) + (si ? "" : "i");
-        return String.format("%.1f %sB", (double) bytes / StrictMath.pow((double) unit, (double) exp), pre);
+        return String.format("%.1f %sB", (double) bytes / StrictMath.pow((double) unit, (double)
+                exp), pre);
     }
 
     public static void logPackageInfo(final Context context, final String packageName) {

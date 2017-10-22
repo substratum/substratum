@@ -30,8 +30,6 @@ import projekt.substratum.adapters.fragments.troubleshooting.TroubleshootingAdap
 
 public class TroubleshootingFragment extends Fragment {
 
-    private ListView troubleshootListView;
-
     private final int[] troubleshootQuestions = {
             R.string.question_one,
             R.string.question_five,
@@ -54,11 +52,11 @@ public class TroubleshootingFragment extends Fragment {
         super.onCreate(savedInstanceState);
         final View root = inflater.inflate(R.layout.troubleshooting_fragment, container, false);
 
-        this.troubleshootListView = root.findViewById(R.id.troubleshoot_list_view);
+        ListView troubleshootListView = root.findViewById(R.id.troubleshoot_list_view);
 
         // Make sure troubleshootQuestions & troubleshootAnswers are of same
         // length and then assign adapter to listView
-        this.troubleshootListView.setAdapter(
+        troubleshootListView.setAdapter(
                 new TroubleshootingAdapter(
                         this.troubleshootQuestions,
                         this.troubleshootAnswers,
@@ -68,9 +66,9 @@ public class TroubleshootingFragment extends Fragment {
         // This avoids from having a janky look with the last card getting cut off
         final View footer = LayoutInflater.from(
                 this.getActivity()).inflate(
-                R.layout.troubleshooting_list_footer, this.troubleshootListView, false);
-        this.troubleshootListView.addFooterView(footer);
-        this.troubleshootListView.setFooterDividersEnabled(false);
+                R.layout.troubleshooting_list_footer, troubleshootListView, false);
+        troubleshootListView.addFooterView(footer);
+        troubleshootListView.setFooterDividersEnabled(false);
         footer.setOnClickListener(null);
         return root;
     }

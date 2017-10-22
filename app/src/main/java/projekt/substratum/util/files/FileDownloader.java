@@ -47,7 +47,8 @@ public enum FileDownloader {
     public static void init(final Context context,
                             final String fileUrl,
                             final String outputFile,
-                            final String destinationFileOrFolder) throws NetworkOnMainThreadException {
+                            final String destinationFileOrFolder) throws
+            NetworkOnMainThreadException {
 
         try {
 

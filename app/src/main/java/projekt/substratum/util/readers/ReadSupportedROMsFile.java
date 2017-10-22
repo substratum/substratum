@@ -59,8 +59,7 @@ public enum ReadSupportedROMsFile {
             return hashMap;
         } catch (final Exception e) {
             e.printStackTrace();
-            final Map<String, String> emptyMap = new HashMap<>();
-            return emptyMap;
+            return new HashMap<>();
         }
     }
 }

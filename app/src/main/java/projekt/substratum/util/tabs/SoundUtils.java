@@ -57,6 +57,10 @@ public class SoundUtils {
     private View view;
     private Cipher cipher;
 
+    public static void SoundsClearer(final Context context) {
+        SoundManager.clearSounds(context);
+    }
+
     public void execute(final View view,
                         final String arguments,
                         final Context context,
@@ -69,10 +73,6 @@ public class SoundUtils {
 
         this.prefs = PreferenceManager.getDefaultSharedPreferences(context);
         new SoundsHandlerAsync(this).execute(arguments);
-    }
-
-    public static void SoundsClearer(final Context context) {
-        SoundManager.clearSounds(context);
     }
 
     private void finishFunction() {
@@ -99,7 +99,8 @@ public class SoundUtils {
                     !Settings.System.canWrite(this.mContext)) {
                 new AlertDialog.Builder(this.mContext)
                         .setTitle(this.mContext.getString(R.string.sounds_dialog_permissions_title))
-                        .setMessage(this.mContext.getString(R.string.sounds_dialog_permissions_text))
+                        .setMessage(this.mContext.getString(R.string
+                                .sounds_dialog_permissions_text))
                         .setPositiveButton(R.string.sounds_dialog_permissions_grant,
                                 (dialog, which) -> {
                                     if (!Settings.System.canWrite(this.mContext)) {

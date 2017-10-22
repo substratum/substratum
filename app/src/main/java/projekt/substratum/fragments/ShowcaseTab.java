@@ -170,9 +170,11 @@ public class ShowcaseTab extends Fragment {
                 FileDownloader.init(showcaseTab.mContext, sUrl[0], inputFileName, "ShowcaseCache");
 
                 if (inputFileName.endsWith("-temp.xml")) {
-                    final String existing = MD5.calculateMD5(new File(showcaseTab.mContext.getCacheDir() +
+                    final String existing = MD5.calculateMD5(new File(showcaseTab.mContext
+                            .getCacheDir() +
                             "/ShowcaseCache/" + sUrl[1]));
-                    final String new_file = MD5.calculateMD5(new File(showcaseTab.mContext.getCacheDir() +
+                    final String new_file = MD5.calculateMD5(new File(showcaseTab.mContext
+                            .getCacheDir() +
                             "/ShowcaseCache/" + inputFileName));
                     if ((existing != null) && !existing.equals(new_file)) {
                         Log.e("ShowcaseActivity", "Tab " + showcaseTab.current_tab_position +
@@ -205,28 +207,29 @@ public class ShowcaseTab extends Fragment {
                 ShowcaseItem newEntry = new ShowcaseItem();
 
                 for (final Map.Entry<String, String> stringStringEntry : newArray.entrySet()) {
-                    if (!((String) stringStringEntry.getKey()).toLowerCase(Locale.US).contains("-".toLowerCase(Locale
-                            .getDefault()))) {
+                    if (!stringStringEntry.getKey().toLowerCase(Locale.US)
+                            .contains("-".toLowerCase(Locale.getDefault()))) {
                         newEntry.setContext(showcaseTab.mContext);
-                        newEntry.setThemeName((String) stringStringEntry.getKey());
+                        newEntry.setThemeName(stringStringEntry.getKey());
                         newEntry.setThemeLink(stringStringEntry.getValue());
                     } else {
-                        if (((String) stringStringEntry.getKey()).toLowerCase(Locale.US).contains("-author".toLowerCase
-                                (Locale.US))) {
+                        if (stringStringEntry.getKey().toLowerCase(Locale.US)
+                                .contains("-author".toLowerCase(Locale.US))) {
                             newEntry.setThemeAuthor(stringStringEntry.getValue());
-                        } else if (((String) stringStringEntry.getKey()).toLowerCase(Locale.US).contains("-pricing"
-                                .toLowerCase(Locale.US))) {
+                        } else if (stringStringEntry.getKey().toLowerCase(Locale.US)
+                                .contains("-pricing".toLowerCase(Locale.US))) {
                             newEntry.setThemePricing(stringStringEntry.getValue());
-                        } else if (((String) stringStringEntry.getKey()).toLowerCase(Locale.US).contains("-image-override" +
-                                "")) {
+                        } else if (stringStringEntry.getKey().toLowerCase(Locale.US)
+                                .contains("-image-override")) {
                             newEntry.setThemeIcon(stringStringEntry.getValue());
-                        } else if (((String) stringStringEntry.getKey()).toLowerCase(Locale.US).contains
-                                ("-feature-image")) {
+                        } else if (stringStringEntry.getKey().toLowerCase(Locale.US)
+                                .contains("-feature-image")) {
                             newEntry.setThemeBackgroundImage(stringStringEntry.getValue());
-                        } else if (((String) stringStringEntry.getKey()).toLowerCase(Locale.US).contains("-package-name")) {
+                        } else if (stringStringEntry.getKey().toLowerCase(Locale.US)
+                                .contains("-package-name")) {
                             newEntry.setThemePackage(stringStringEntry.getValue());
-                        } else if (((String) stringStringEntry.getKey()).toLowerCase(Locale.US).contains("-support"
-                                .toLowerCase(Locale.US))) {
+                        } else if (stringStringEntry.getKey().toLowerCase(Locale.US)
+                                .contains("-support".toLowerCase(Locale.US))) {
                             newEntry.setThemeSupport(stringStringEntry.getValue());
                             wallpapers.add(newEntry);
                             newEntry = new ShowcaseItem();
@@ -236,7 +239,8 @@ public class ShowcaseTab extends Fragment {
                 }
                 // Shuffle the deck - every time it will change the order of themes!
                 final long seed = System.nanoTime();
-                final boolean alphabetize = showcaseTab.prefs.getBoolean("alphabetize_showcase", false);
+                final boolean alphabetize = showcaseTab.prefs.getBoolean("alphabetize_showcase",
+                        false);
                 if (!alphabetize) {
                     for (int i = 0; i <= SHOWCASE_SHUFFLE_COUNT; i++)
                         Collections.shuffle(wallpapers, new Random(seed));

@@ -206,7 +206,8 @@ public enum FileOperations {
         Log.d(COPY_LOG, "Operation " + (out.exists() ? "succeeded" : "failed"));
     }
 
-    public static void copyDir(final Context context, final String source, final String destination) {
+    public static void copyDir(final Context context, final String source, final String
+            destination) {
         final String dataDir = context.getDataDir().getAbsolutePath();
         final String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
         final boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir) &&
@@ -245,10 +246,12 @@ public enum FileOperations {
         delete(context, directory, true);
     }
 
-    public static void delete(final Context context, final String directory, final boolean deleteParent) {
+    public static void delete(final Context context, final String directory, final boolean
+            deleteParent) {
         final String dataDir = context.getDataDir().getAbsolutePath();
         final String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-        final boolean needRoot = (!directory.startsWith(dataDir) && !directory.startsWith(externalDir) &&
+        final boolean needRoot = (!directory.startsWith(dataDir) && !directory.startsWith
+                (externalDir) &&
                 !directory.startsWith("/system"));
         if (checkThemeInterfacer(context) && needRoot) {
             Log.d(DELETE_LOG, "Using theme interfacer operation to delete " + directory);
@@ -397,7 +400,8 @@ public enum FileOperations {
      *                     structure.
      */
     public static boolean copyFileOrDir(final AssetManager assetManager, final String listDir,
-                                        final String destination, final String remember, final Cipher cipher) {
+                                        final String destination, final String remember, final
+                                        Cipher cipher) {
         if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, "Source: " + listDir);
         if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, "Destination: " + destination);
         try {
@@ -407,7 +411,8 @@ public enum FileOperations {
                 if (ENABLE_DIRECT_ASSETS_LOGGING)
                     Log.d(DA_LOG, "This is a file object, directly copying...");
                 if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, listDir);
-                final boolean copied = copyFile(assetManager, listDir, destination, remember, cipher);
+                final boolean copied = copyFile(assetManager, listDir, destination, remember,
+                        cipher);
                 if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, "File operation status: " +
                         ((copied) ? "Success!" : "Failed"));
             } else {
@@ -434,7 +439,8 @@ public enum FileOperations {
     }
 
     private static boolean copyFile(final AssetManager assetManager, final String filename,
-                                    final String destination, final String remember, final Cipher cipher) {
+                                    final String destination, final String remember, final Cipher
+                                            cipher) {
         InputStream inputStream = null;
         OutputStream outputStream = null;
         try {
@@ -479,7 +485,8 @@ public enum FileOperations {
         return false;
     }
 
-    public static void copyFromAsset(final Context ctx, final String fileName, final String targetPath) {
+    public static void copyFromAsset(final Context ctx, final String fileName, final String
+            targetPath) {
         InputStream in = null;
         OutputStream out = null;
         try {

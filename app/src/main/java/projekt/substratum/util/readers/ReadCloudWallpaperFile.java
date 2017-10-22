@@ -54,9 +54,11 @@ public enum ReadCloudWallpaperFile {
                     // "-", we have to put this first.
                     final String addon_download_name = eElement.getAttribute("id")
                             .replaceAll("\\s+", "~");
-                    final String addon_download_link = eElement.getElementsByTagName("link").item(0).
+                    final String addon_download_link = eElement.getElementsByTagName("link").item
+                            (0).
                             getTextContent();
-                    final String addon_preview_link = eElement.getElementsByTagName("preview").item(0).
+                    final String addon_preview_link = eElement.getElementsByTagName("preview")
+                            .item(0).
                             getTextContent();
 
                     final String[] finalArray = {addon_download_name, addon_download_link,
@@ -68,8 +70,7 @@ public enum ReadCloudWallpaperFile {
             }
             return map;
         } catch (final Exception e) {
-            final Map<String, String> emptyMap = new TreeMap<>();
-            return emptyMap;
+            return new TreeMap<String, String>();
         }
     }
 }

@@ -57,6 +57,14 @@ public class Substratum extends Application {
         return substratum;
     }
 
+    public static void startWaitingInstall() {
+        isWaiting = true;
+    }
+
+    public static boolean isWaitingInstall() {
+        return isWaiting;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -73,10 +81,12 @@ public class Substratum extends Application {
         // Dynamically check which theme engine is running at the moment
         if (isAndromedaDevice(this.getApplicationContext())) {
             Log.d(BINDER_TAG, "Successful to start the Andromeda binder service: " +
-                    (this.startBinderService(AndromedaBinderService.class) ? "Success!" : "Failed"));
+                    (this.startBinderService(AndromedaBinderService.class) ? "Success!" :
+                            "Failed"));
         } else if (isBinderInterfacer(this.getApplicationContext())) {
             Log.d(BINDER_TAG, "Successful to start the Interfacer binder service: " +
-                    (this.startBinderService(InterfacerBinderService.class) ? "Success!" : "Failed"));
+                    (this.startBinderService(InterfacerBinderService.class) ? "Success!" :
+                            "Failed"));
         }
 
         // Implicit broadcasts must be declared
@@ -141,14 +151,16 @@ public class Substratum extends Application {
                 } else {
                     Log.d(BINDER_TAG,
                             "Substratum is now connecting to the Andromeda Binder service...");
-                    this.startService(new Intent(this.getApplicationContext(), AndromedaBinderService.class));
+                    this.startService(new Intent(this.getApplicationContext(),
+                            AndromedaBinderService.class));
                 }
             } else if (className.equals(InterfacerBinderService.class)) {
                 if (this.checkServiceActivation(InterfacerBinderService.class)) {
                     Log.d(BINDER_TAG, "This session will utilize the connected Binder service!");
                 } else {
                     Log.d(BINDER_TAG, "Substratum is now connecting to the Binder service...");
-                    final Intent i = new Intent(this.getApplicationContext(), InterfacerBinderService.class);
+                    final Intent i = new Intent(this.getApplicationContext(),
+                            InterfacerBinderService.class);
                     this.startService(i);
                 }
             }
@@ -160,7 +172,8 @@ public class Substratum extends Application {
     }
 
     private boolean checkServiceActivation(final Class<?> serviceClass) {
-        final ActivityManager manager = (ActivityManager) this.getSystemService(Context.ACTIVITY_SERVICE);
+        final ActivityManager manager = (ActivityManager) this.getSystemService(Context
+                .ACTIVITY_SERVICE);
         assert manager != null;
         for (final ActivityManager.RunningServiceInfo service :
                 manager.getRunningServices(Integer.MAX_VALUE)) {
@@ -169,14 +182,6 @@ public class Substratum extends Application {
             }
         }
         return false;
-    }
-
-    public static void startWaitingInstall() {
-        isWaiting = true;
-    }
-
-    public static boolean isWaitingInstall() {
-        return isWaiting;
     }
 
     public void registerFinishReceiver() {

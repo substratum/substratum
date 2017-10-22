@@ -72,7 +72,8 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
     private ManagerAdapter mAdapter;
 
     private String foregroundedApp() {
-        final UsageStatsManager mUsageStatsManager = (UsageStatsManager) this.getSystemService("usagestats");
+        @SuppressLint("WrongConstant") final UsageStatsManager mUsageStatsManager =
+                (UsageStatsManager) this.getSystemService("usagestats");
         final long time = System.currentTimeMillis();
         List<UsageStats> stats = null;
         if (mUsageStatsManager != null) {
@@ -152,7 +153,8 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
             } else {
                 this.final_check = new ArrayList<>();
                 for (int j = 0; j < to_be_shown.size(); j++) {
-                    final Boolean is_enabled = enabledOverlaysForForegroundPackage.contains(to_be_shown
+                    final Boolean is_enabled = enabledOverlaysForForegroundPackage.contains
+                            (to_be_shown
                             .get(j));
                     final ManagerItem managerItem = new ManagerItem(
                             this.getApplicationContext(), to_be_shown.get(j), is_enabled);
@@ -175,7 +177,8 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 title.setAllCaps(true);
 
                 // Initialize the AlertDialog Builder
-                final AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FloatUiDialog);
+                final AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style
+                        .FloatUiDialog);
                 builder.setCustomTitle(title);
                 builder.setPositiveButton(R.string.per_app_apply, (dialog, which) -> {
                     this.trigger_service_restart = false;
@@ -241,14 +244,16 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                         (dialog, which) -> dialog.cancel());
 
                 final LayoutInflater inflate = LayoutInflater.from(this.getApplicationContext());
-                @SuppressLint("InflateParams") final View content = inflate.inflate(R.layout.floatui_dialog, null);
+                @SuppressLint("InflateParams") final View content = inflate.inflate(R.layout
+                        .floatui_dialog, null);
                 builder.setView(content);
 
                 final RecyclerView mRecyclerView = content.findViewById(R.id.recycler_view);
                 mRecyclerView.setAdapter(this.mAdapter);
 
                 mRecyclerView.setHasFixedSize(true);
-                mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getApplicationContext()));
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getApplicationContext
+                        ()));
 
                 final AlertDialog alertDialog = builder.create();
                 //noinspection ConstantConditions
@@ -303,7 +308,8 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
 
     private Notification createNotification() {
         // Create an Intent for the BroadcastReceiver
-        final Intent buttonIntent = new Intent(this.getApplicationContext(), FloatUiButtonReceiver.class);
+        final Intent buttonIntent = new Intent(this.getApplicationContext(),
+                FloatUiButtonReceiver.class);
 
         // Create the PendingIntent
         final PendingIntent btPendingIntent = PendingIntent.getBroadcast(

@@ -129,11 +129,12 @@ public class Wallpapers extends Fragment {
                     WallpaperEntries newEntry = new WallpaperEntries();
 
                     for (final Map.Entry<String, String> stringStringEntry : newArray.entrySet()) {
-                        if (!((String) stringStringEntry.getKey()).toLowerCase(Locale.US)
+                        if (!stringStringEntry.getKey().toLowerCase(Locale.US)
                                 .endsWith("-preview".toLowerCase(Locale.US))) {
                             newEntry.setCallingActivity(wallpapers.getActivity());
                             newEntry.setContext(wallpapers.mContext);
-                            newEntry.setWallpaperName(((String) stringStringEntry.getKey()).replaceAll("~", " "));
+                            newEntry.setWallpaperName(stringStringEntry.getKey()
+                                    .replaceAll("~", " "));
                             newEntry.setWallpaperLink(stringStringEntry.getValue());
                         } else {
                             // This is a preview image to be displayed on the card

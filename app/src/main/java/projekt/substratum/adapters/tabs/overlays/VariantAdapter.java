@@ -41,13 +41,15 @@ public class VariantAdapter extends ArrayAdapter<VariantItem> {
     }
 
     @Override
-    public View getDropDownView(final int position, final View convertView, @NonNull final ViewGroup parent) {
+    public View getDropDownView(final int position, final View convertView, @NonNull final
+    ViewGroup parent) {
         return this.getCustomView(position, convertView, parent);
     }
 
     @NonNull
     @Override
-    public View getView(final int position, final View convertView, @NonNull final ViewGroup parent) {
+    public View getView(final int position, final View convertView, @NonNull final ViewGroup
+            parent) {
         return this.getCustomView(position, convertView, parent);
     }
 

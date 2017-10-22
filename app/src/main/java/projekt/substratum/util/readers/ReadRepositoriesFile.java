@@ -91,8 +91,7 @@ public enum ReadRepositoriesFile {
             return list;
         } catch (final Exception e) {
             e.printStackTrace();
-            final List<Repository> emptyList = new ArrayList<>();
-            return emptyList;
+            return new ArrayList<>();
         }
     }
 }

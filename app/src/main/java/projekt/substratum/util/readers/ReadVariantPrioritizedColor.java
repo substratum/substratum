@@ -19,7 +19,6 @@
 package projekt.substratum.util.readers;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -45,7 +44,7 @@ public class ReadVariantPrioritizedColor {
             doc.getDocumentElement().normalize();
             final NodeList nList = doc.getElementsByTagName("color");
             final Node nNode = nList.item(0);
-            final Node eElement = (Element) nNode;
+            final Node eElement = nNode;
             return eElement.getAttributes().item(0).getNodeValue();
         } catch (final Exception e) {
             // At this point, the file does not exist!

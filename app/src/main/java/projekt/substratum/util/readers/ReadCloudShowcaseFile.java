@@ -51,7 +51,8 @@ public enum ReadCloudShowcaseFile {
                     final Element eElement = (Element) nNode;
 
                     final String addon_download_name = eElement.getAttribute("id");
-                    final String addon_download_link = eElement.getElementsByTagName("link").item(0).
+                    final String addon_download_link = eElement.getElementsByTagName("link").item
+                            (0).
                             getTextContent();
                     final String addon_author = eElement.getElementsByTagName("author").item(0).
                             getTextContent();
@@ -111,8 +112,7 @@ public enum ReadCloudShowcaseFile {
             }
             return map;
         } catch (final Exception e) {
-            final Map<String, String> emptyMap = new TreeMap<>();
-            return emptyMap;
+            return new TreeMap<String, String>();
         }
     }
 }

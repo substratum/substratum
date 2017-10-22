@@ -21,8 +21,8 @@ package projekt.substratum.adapters.fragments.settings;
 import java.util.List;
 
 public class ValidatorFilter {
-    private List<String> filter;
     private final String packageName;
+    private List<String> filter;
 
     public ValidatorFilter(final String packageName) {
         super();

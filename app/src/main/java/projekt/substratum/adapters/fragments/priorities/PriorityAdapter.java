@@ -232,10 +232,12 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                     this.mContext,
                                     packageTitle,
                                     References.metadataOverlayParent);
-                            final Boolean newUpdate = (version != 0) && (version <= BuildConfig.VERSION_CODE);
+                            final Boolean newUpdate = (version != 0) && (version <= BuildConfig
+                                    .VERSION_CODE);
                             if ((metadata != null) && !metadata.isEmpty() && newUpdate) {
                                 final String pName = "<b>" +
-                                        this.mContext.getString(R.string.manager_theme_name) + "</b> " +
+                                        this.mContext.getString(R.string.manager_theme_name) +
+                                        "</b> " +
                                         Packages.getPackageName(this.mContext, metadata);
                                 priorityObjectAdapter.tvDesc.setVisibility(View.VISIBLE);
                                 prioritiesItem.setThemeName(pName);

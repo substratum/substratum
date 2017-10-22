@@ -55,8 +55,7 @@ public enum ReadResourcesFile {
             return list;
         } catch (final Exception e) {
             e.printStackTrace();
-            final List<String> emptyList = new ArrayList<>();
-            return emptyList;
+            return new ArrayList<>();
         }
     }
 }

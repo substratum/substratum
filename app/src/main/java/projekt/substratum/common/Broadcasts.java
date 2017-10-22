@@ -69,7 +69,8 @@ public enum Broadcasts {
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
-    public static void sendActivityFinisherMessage(final Context context, final String package_name) {
+    public static void sendActivityFinisherMessage(final Context context, final String
+            package_name) {
         Log.d("ThemeInstaller",
                 "A theme has been installed, sending update signal to app for further processing!");
         final Intent intent = new Intent(ACTIVITY_FINISHER);

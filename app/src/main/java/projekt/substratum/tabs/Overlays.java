@@ -113,7 +113,6 @@ import static projekt.substratum.common.References.SUBSTRATUM_BUILDER;
 import static projekt.substratum.common.References.metadataEmail;
 import static projekt.substratum.common.References.metadataEncryption;
 import static projekt.substratum.common.References.metadataEncryptionValue;
-import static projekt.substratum.tabs.OverlayFunctions.Phase3_mainFunction;
 import static projekt.substratum.tabs.OverlayFunctions.getThemeCache;
 
 public class Overlays extends Fragment {
@@ -135,15 +134,12 @@ public class Overlays extends Fragment {
     public boolean has_failed;
     public int fail_count;
     public StringBuilder failed_packages;
-    private ArrayList<OverlaysItem> values2;
-    private RecyclerView mRecyclerView;
     public Spinner base_spinner;
     public SharedPreferences prefs;
     public List<String> final_runner, late_install;
     public boolean mixAndMatchMode, enable_mode, disable_mode, compile_enable_mode,
             enable_disable_mode;
     public Switch toggle_all;
-    private SwipeRefreshLayout swipeRefreshLayout;
     public ProgressBar progressBar;
     public Boolean is_overlay_active = false;
     public StringBuilder error_logs;
@@ -153,10 +149,7 @@ public class Overlays extends Fragment {
     public ProgressBar dialogProgress;
     public ArrayList<String> final_command;
     public AssetManager themeAssetManager;
-    private Phase3_mainFunction phase3_mainFunction;
     public Boolean missingType3 = false;
-    private JobReceiver jobReceiver;
-    private LocalBroadcastManager localBroadcastManager;
     public String type1a = "";
     public String type1b = "";
     public String type1c = "";
@@ -165,10 +158,15 @@ public class Overlays extends Fragment {
     public String type4 = "";
     public Boolean encrypted = false;
     public Cipher cipher;
+    public int overlaysWaiting;
+    private ArrayList<OverlaysItem> values2;
+    private RecyclerView mRecyclerView;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private JobReceiver jobReceiver;
+    private LocalBroadcastManager localBroadcastManager;
     private RefreshReceiver refreshReceiver;
     private ActivityManager am;
     private boolean decryptedAssetsExceptionReached;
-    public int overlaysWaiting;
     private int currentPosition;
 
     void logTypes() {
@@ -358,7 +356,8 @@ public class Overlays extends Fragment {
                         for (int i = 0; i < this.checkedOverlays.size(); i++) {
                             FileOperations.mountRW();
                             FileOperations.delete(this.getContext(), current_directory +
-                                    this.checkedOverlays.get(i).getFullOverlayParameters() + ".apk");
+                                    this.checkedOverlays.get(i).getFullOverlayParameters() + "" +
+                                    ".apk");
                             this.mAdapter.notifyDataSetChanged();
                         }
                         // Untick all options in the adapter after compiling
@@ -508,7 +507,8 @@ public class Overlays extends Fragment {
             final LayoutInflater inflater,
             final ViewGroup container,
             final Bundle savedInstanceState) {
-        final ViewGroup root = (ViewGroup) inflater.inflate(R.layout.tab_overlays, container, false);
+        final ViewGroup root = (ViewGroup) inflater.inflate(R.layout.tab_overlays, container,
+                false);
         this.prefs = PreferenceManager.getDefaultSharedPreferences(this.getContext());
 
         this.am = (ActivityManager) this.getContext().getSystemService(ACTIVITY_SERVICE);
@@ -550,7 +550,8 @@ public class Overlays extends Fragment {
                     this.getActivityView(),
                     R.string.error_loading_theme_close_text,
                     Lunchbar.LENGTH_INDEFINITE);
-            currentShownLunchBar.setAction(this.getString(R.string.error_loading_theme_close), view -> {
+            currentShownLunchBar.setAction(this.getString(R.string.error_loading_theme_close),
+                    view -> {
                 currentShownLunchBar.dismiss();
                 this.getActivity().finish();
             });
@@ -623,7 +624,8 @@ public class Overlays extends Fragment {
         this.base_spinner.post(() -> this.base_spinner.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
                     @Override
-                    public void onItemSelected(final AdapterView<?> arg0, final View arg1, final int pos, final long id) {
+                    public void onItemSelected(final AdapterView<?> arg0, final View arg1, final
+                    int pos, final long id) {
                         prefs2.edit().putInt(Overlays.this.theme_pid, pos).apply();
                         Overlays.this.refreshList();
                     }
@@ -659,7 +661,8 @@ public class Overlays extends Fragment {
                 try (BufferedReader reader = new BufferedReader(
                         new InputStreamReader(inputStream))) {
                     final String formatter = String.format(
-                            this.getString(R.string.overlays_variant_substitute), reader.readLine());
+                            this.getString(R.string.overlays_variant_substitute), reader.readLine
+                                    ());
                     type3.add(new VariantItem(formatter, null));
                 } catch (final IOException e) {
                     Log.e(TAG, "There was an error parsing asset file!");
@@ -668,7 +671,8 @@ public class Overlays extends Fragment {
                 }
                 inputStream.close();
             } else {
-                type3.add(new VariantItem(this.getString(R.string.overlays_variant_default_3), null));
+                type3.add(new VariantItem(this.getString(R.string.overlays_variant_default_3),
+                        null));
             }
 
             if (stringArray.size() > 1) {
@@ -688,7 +692,8 @@ public class Overlays extends Fragment {
                     this.base_spinner.setAdapter(adapter1);
                     try {
                         Log.d(TAG,
-                                "Assigning the spinner position: " + prefs2.getInt(this.theme_pid, 0));
+                                "Assigning the spinner position: " + prefs2.getInt(this
+                                        .theme_pid, 0));
                         this.base_spinner.setSelection(prefs2.getInt(this.theme_pid, 0));
                     } catch (final Exception e) {
                         // Should be OutOfBounds, but let's catch everything
@@ -736,7 +741,8 @@ public class Overlays extends Fragment {
     }
 
     boolean checkActiveNotifications() {
-        final StatusBarNotification[] activeNotifications = this.mNotifyManager.getActiveNotifications();
+        final StatusBarNotification[] activeNotifications = this.mNotifyManager
+                .getActiveNotifications();
         for (final StatusBarNotification statusBarNotification : activeNotifications) {
             if (statusBarNotification.getPackageName().equals(this.getContext().getPackageName())) {
                 return true;
@@ -837,11 +843,6 @@ public class Overlays extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if ((this.phase3_mainFunction != null) && (this.mNotifyManager != null)) {
-            if (this.phase3_mainFunction.getStatus() == AsyncTask.Status.RUNNING) {
-                this.mNotifyManager.cancel(References.notification_id_compiler);
-            }
-        }
         try {
             this.localBroadcastManager.unregisterReceiver(this.refreshReceiver);
         } catch (final IllegalArgumentException e) {
@@ -891,7 +892,8 @@ public class Overlays extends Fragment {
         String parsedVariant = "";
         try {
             if (this.base_spinner.getSelectedItemPosition() != 0) {
-                parsedVariant = this.base_spinner.getSelectedItem().toString().replaceAll("\\s+", "");
+                parsedVariant = this.base_spinner.getSelectedItem().toString().replaceAll("\\s+",
+                        "");
             }
         } catch (final NullPointerException npe) {
             // Suppress warning
@@ -967,7 +969,8 @@ public class Overlays extends Fragment {
         }
     }
 
-    private VariantItem setTypeTwoFourSpinners(final InputStreamReader inputStreamReader, final Integer type) {
+    private VariantItem setTypeTwoFourSpinners(final InputStreamReader inputStreamReader, final
+    Integer type) {
         try (BufferedReader reader = new BufferedReader(inputStreamReader)) {
             return new VariantItem(String.format(
                     this.getString(R.string.overlays_variant_substitute), reader.readLine()), null);
@@ -975,15 +978,18 @@ public class Overlays extends Fragment {
             Log.d(TAG, "Falling back to default base variant text...");
             switch (type) {
                 case 2:
-                    return new VariantItem(this.getString(R.string.overlays_variant_default_2), null);
+                    return new VariantItem(this.getString(R.string.overlays_variant_default_2),
+                            null);
                 case 4:
-                    return new VariantItem(this.getString(R.string.overlays_variant_default_4), null);
+                    return new VariantItem(this.getString(R.string.overlays_variant_default_4),
+                            null);
             }
         }
         return null;
     }
 
-    private VariantItem setTypeOneHexAndSpinner(final String current, final String package_identifier) {
+    private VariantItem setTypeOneHexAndSpinner(final String current, final String
+            package_identifier) {
         if (this.encrypted) {
             try (InputStream inputStream = FileOperations.getInputStream(this.themeAssetManager,
                     "overlays/" + package_identifier + '/' + current, this.cipher)) {
@@ -1014,7 +1020,8 @@ public class Overlays extends Fragment {
             case 2486:
                 FileOperations.delete(this.getContext(),
                         new File(this.late_install.get(0)).getAbsolutePath());
-                if ((this.late_install != null) && !this.late_install.isEmpty()) this.late_install.remove(0);
+                if ((this.late_install != null) && !this.late_install.isEmpty())
+                    this.late_install.remove(0);
                 if (!this.late_install.isEmpty()) {
                     this.installMultipleAPKs();
                 }
@@ -1064,8 +1071,8 @@ public class Overlays extends Fragment {
         private final String emailSubject;
         private final String emailBody;
         private final String failedPackages;
-        private ProgressDialog progressDialog;
         private final Boolean autosaveInstance;
+        private ProgressDialog progressDialog;
 
         SendErrorReport(final Context context,
                         final String themePid,
@@ -1088,7 +1095,8 @@ public class Overlays extends Fragment {
             this.emailSubject = String.format(
                     context.getString(R.string.logcat_email_subject), this.themeName);
             this.emailBody = String.format(
-                    context.getString(R.string.logcat_email_body), this.themeAuthor, this.themeName);
+                    context.getString(R.string.logcat_email_body), this.themeAuthor, this
+                            .themeName);
         }
 
         @Override
@@ -1134,7 +1142,8 @@ public class Overlays extends Fragment {
                 if (this.autosaveInstance) {
                     References.writeLogCharFile(this.themePid, attachment);
                 } else {
-                    final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd-HH:mm", Locale.US);
+                    final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd-HH:mm",
+                            Locale.US);
                     log = new File(EXTERNAL_STORAGE_CACHE +
                             "/theme_error-" + dateFormat.format(new Date()) + ".txt");
                     try (FileWriter fw = new FileWriter(log, false);
@@ -1250,10 +1259,12 @@ public class Overlays extends Fragment {
                     final SharedPreferences prefs =
                             PreferenceManager.getDefaultSharedPreferences(context);
 
-                    final Boolean showDangerous = !prefs.getBoolean("show_dangerous_samsung_overlays",
+                    final Boolean showDangerous = !prefs.getBoolean
+                            ("show_dangerous_samsung_overlays",
                             false);
 
-                    final List<String> values = new ArrayList<>(overlaysFolder.stream().filter(package_name -> (Packages
+                    final List<String> values = new ArrayList<>(overlaysFolder.stream().filter
+                            (package_name -> (Packages
                             .isPackageInstalled(context, package_name) ||
                             projekt.substratum.common.Resources.allowedSystemUIOverlay
                                     (package_name) ||
@@ -1334,12 +1345,14 @@ public class Overlays extends Fragment {
                     }
 
                     // Sort the values list
-                    final List<Pair<String, String>> sortedMap = MapUtils.sortMapByValues(unsortedMap);
+                    final List<Pair<String, String>> sortedMap = MapUtils.sortMapByValues
+                            (unsortedMap);
 
                     // Now let's add the new information so that the adapter can recognize custom
                     // method
                     // calls
-                    final String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
+                    final String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+",
+                            "");
                     for (final Pair<String, String> entry : sortedMap) {
                         final String package_name = entry.second;
                         final String package_identifier = entry.first;
@@ -1461,7 +1474,8 @@ public class Overlays extends Fragment {
                                                                     current, package_identifier));
                                                     break;
                                             }
-                                        } else if (!current.contains(".") && (current.length() > 5)) {
+                                        } else if (!current.contains(".") && (current.length() >
+                                                5)) {
                                             if ("type2_".equals(current.substring(0, 6))) {
                                                 type2.add(
                                                         new VariantItem(

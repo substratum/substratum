@@ -53,8 +53,107 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
         this.overlayList = overlayInfo;
     }
 
+    // Magical easy reset checking for the adapter
+    // Function that runs when a user picks a spinner dropdown item that is index 0
+    private static void zeroIndex(final Context context, final OverlaysItem current_object, final
+    ViewHolder viewHolder) {
+        if (isPackageInstalled(context, current_object.getFullOverlayParameters())) {
+            viewHolder.overlayState.setVisibility(View.VISIBLE);
+            // Check whether currently installed overlay is up to date with
+            // theme_pid's versionName
+            if (!current_object.compareInstalledOverlay()) {
+                final String format = String.format(context.getString(R.string
+                                .overlays_update_available),
+                        current_object.versionName);
+                viewHolder.overlayState.setText(format);
+                viewHolder.overlayState.setTextColor(
+                        context.getColor(R.color.overlay_update_available));
+            } else {
+                viewHolder.overlayState.setText(context.getString(R.string.overlays_up_to_date));
+                viewHolder.overlayState.setTextColor(
+                        context.getColor(R.color.overlay_update_not_needed));
+            }
+        } else if (viewHolder.overlayState.getVisibility() == View.VISIBLE) {
+            viewHolder.overlayState.setText(
+                    context.getString(R.string.overlays_overlay_not_installed));
+            viewHolder.overlayState.setTextColor(
+                    context.getColor(R.color.overlay_not_approved_list_entry));
+        } else {
+            viewHolder.overlayState.setVisibility(View.GONE);
+        }
+        if (current_object.isOverlayEnabled()) {
+            viewHolder.overlayTargetPackageName.setTextColor(
+                    context.getColor(R.color.overlay_installed_list_entry));
+        } else if (isPackageInstalled(context, current_object.getFullOverlayParameters())) {
+            viewHolder.overlayTargetPackageName.setTextColor(
+                    context.getColor(R.color.overlay_not_enabled_list_entry));
+        } else {
+            viewHolder.overlayTargetPackageName.setTextColor(
+                    context.getColor(R.color.overlay_not_installed_list_entry));
+        }
+    }
+
+    // Function that runs when a user picks a spinner dropdown item that is index >= 1
+    private static void commitChanges(final Context context, final OverlaysItem current_object,
+                                      final ViewHolder viewHolder, final String packageName) {
+        if (isPackageInstalled(context,
+                current_object.getPackageName() + '.' + current_object.getThemeName() +
+                        '.' + packageName +
+                        ((!current_object.getBaseResources().isEmpty()) ?
+                                '.' + current_object.getBaseResources() : ""))) {
+            viewHolder.overlayState.setVisibility(View.VISIBLE);
+            // Check whether currently installed overlay is up to date with
+            // theme_pid's versionName
+            if (!current_object.compareInstalledVariantOverlay(
+                    packageName)) {
+                final String format = String.format(context.getString(R.string
+                                .overlays_update_available),
+                        current_object.versionName);
+
+                viewHolder.overlayState.setText(format);
+                viewHolder.overlayState.setTextColor(
+                        context.getColor(R.color.overlay_update_available));
+            } else {
+                viewHolder.overlayState.setText(
+                        context.getString(R.string.overlays_up_to_date));
+                viewHolder.overlayState.setTextColor(
+                        context.getColor(R.color.overlay_update_not_needed));
+            }
+            if (current_object.isOverlayEnabled()) {
+                viewHolder.overlayTargetPackageName.setTextColor(
+                        context.getColor(R.color.overlay_installed_list_entry));
+            } else if (isPackageInstalled(context,
+                    current_object.getFullOverlayParameters())) {
+                viewHolder.overlayTargetPackageName.setTextColor(
+                        context.getColor(R.color.overlay_not_enabled_list_entry));
+            } else {
+                viewHolder.overlayTargetPackageName.setTextColor(
+                        context.getColor(R.color.overlay_not_installed_list_entry));
+            }
+        } else if (viewHolder.overlayState.getVisibility() == View.VISIBLE) {
+            viewHolder.overlayState.setText(
+                    context.getString(R.string.overlays_overlay_not_installed));
+            viewHolder.overlayState.setTextColor(
+                    context.getColor(R.color.overlay_not_approved_list_entry));
+            if (current_object.isOverlayEnabled()) {
+                viewHolder.overlayTargetPackageName.setTextColor(
+                        context.getColor(R.color.overlay_installed_list_entry));
+            } else if (isPackageInstalled(context,
+                    current_object.getFullOverlayParameters())) {
+                viewHolder.overlayTargetPackageName.setTextColor(
+                        context.getColor(R.color.overlay_not_enabled_list_entry));
+            } else {
+                viewHolder.overlayTargetPackageName.setTextColor(
+                        context.getColor(R.color.overlay_not_installed_list_entry));
+            }
+        } else {
+            viewHolder.overlayState.setVisibility(View.GONE);
+        }
+    }
+
     @Override
-    public OverlaysAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+    public OverlaysAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, final int
+            viewType) {
         final View itemLayoutView = LayoutInflater.from(
                 parent.getContext()).inflate(R.layout.overlays_list_row, parent, false);
         return new ViewHolder(itemLayoutView);
@@ -163,101 +262,6 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
             public void onNothingSelected(final AdapterView<?> arg0) {
             }
         };
-    }
-
-    // Magical easy reset checking for the adapter
-    // Function that runs when a user picks a spinner dropdown item that is index 0
-    private static void zeroIndex(final Context context, final OverlaysItem current_object, final ViewHolder viewHolder) {
-        if (isPackageInstalled(context, current_object.getFullOverlayParameters())) {
-            viewHolder.overlayState.setVisibility(View.VISIBLE);
-            // Check whether currently installed overlay is up to date with
-            // theme_pid's versionName
-            if (!current_object.compareInstalledOverlay()) {
-                final String format = String.format(context.getString(R.string.overlays_update_available),
-                        current_object.versionName);
-                viewHolder.overlayState.setText(format);
-                viewHolder.overlayState.setTextColor(
-                        context.getColor(R.color.overlay_update_available));
-            } else {
-                viewHolder.overlayState.setText(context.getString(R.string.overlays_up_to_date));
-                viewHolder.overlayState.setTextColor(
-                        context.getColor(R.color.overlay_update_not_needed));
-            }
-        } else if (viewHolder.overlayState.getVisibility() == View.VISIBLE) {
-            viewHolder.overlayState.setText(
-                    context.getString(R.string.overlays_overlay_not_installed));
-            viewHolder.overlayState.setTextColor(
-                    context.getColor(R.color.overlay_not_approved_list_entry));
-        } else {
-            viewHolder.overlayState.setVisibility(View.GONE);
-        }
-        if (current_object.isOverlayEnabled()) {
-            viewHolder.overlayTargetPackageName.setTextColor(
-                    context.getColor(R.color.overlay_installed_list_entry));
-        } else if (isPackageInstalled(context, current_object.getFullOverlayParameters())) {
-            viewHolder.overlayTargetPackageName.setTextColor(
-                    context.getColor(R.color.overlay_not_enabled_list_entry));
-        } else {
-            viewHolder.overlayTargetPackageName.setTextColor(
-                    context.getColor(R.color.overlay_not_installed_list_entry));
-        }
-    }
-
-    // Function that runs when a user picks a spinner dropdown item that is index >= 1
-    private static void commitChanges(final Context context, final OverlaysItem current_object,
-                                      final ViewHolder viewHolder, final String packageName) {
-        if (isPackageInstalled(context,
-                current_object.getPackageName() + '.' + current_object.getThemeName() +
-                        '.' + packageName +
-                        ((!current_object.getBaseResources().isEmpty()) ?
-                                '.' + current_object.getBaseResources() : ""))) {
-            viewHolder.overlayState.setVisibility(View.VISIBLE);
-            // Check whether currently installed overlay is up to date with
-            // theme_pid's versionName
-            if (!current_object.compareInstalledVariantOverlay(
-                    packageName)) {
-                final String format = String.format(context.getString(R.string.overlays_update_available),
-                        current_object.versionName);
-
-                viewHolder.overlayState.setText(format);
-                viewHolder.overlayState.setTextColor(
-                        context.getColor(R.color.overlay_update_available));
-            } else {
-                viewHolder.overlayState.setText(
-                        context.getString(R.string.overlays_up_to_date));
-                viewHolder.overlayState.setTextColor(
-                        context.getColor(R.color.overlay_update_not_needed));
-            }
-            if (current_object.isOverlayEnabled()) {
-                viewHolder.overlayTargetPackageName.setTextColor(
-                        context.getColor(R.color.overlay_installed_list_entry));
-            } else if (isPackageInstalled(context,
-                    current_object.getFullOverlayParameters())) {
-                viewHolder.overlayTargetPackageName.setTextColor(
-                        context.getColor(R.color.overlay_not_enabled_list_entry));
-            } else {
-                viewHolder.overlayTargetPackageName.setTextColor(
-                        context.getColor(R.color.overlay_not_installed_list_entry));
-            }
-        } else if (viewHolder.overlayState.getVisibility() == View.VISIBLE) {
-            viewHolder.overlayState.setText(
-                    context.getString(R.string.overlays_overlay_not_installed));
-            viewHolder.overlayState.setTextColor(
-                    context.getColor(R.color.overlay_not_approved_list_entry));
-            if (current_object.isOverlayEnabled()) {
-                viewHolder.overlayTargetPackageName.setTextColor(
-                        context.getColor(R.color.overlay_installed_list_entry));
-            } else if (isPackageInstalled(context,
-                    current_object.getFullOverlayParameters())) {
-                viewHolder.overlayTargetPackageName.setTextColor(
-                        context.getColor(R.color.overlay_not_enabled_list_entry));
-            } else {
-                viewHolder.overlayTargetPackageName.setTextColor(
-                        context.getColor(R.color.overlay_not_installed_list_entry));
-            }
-        } else {
-            viewHolder.overlayState.setVisibility(View.GONE);
-        }
     }
 
     @Override
@@ -511,7 +515,8 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
             this.optionsSpinner3 = itemLayoutView.findViewById(R.id.optionsSpinner3);
             this.optionsSpinner4 = itemLayoutView.findViewById(R.id.optionsSpinner4);
             this.optionsSpinner5 = itemLayoutView.findViewById(R.id.optionsSpinner5);
-            this.overlayTargetPackageName = itemLayoutView.findViewById(R.id.overlayTargetPackageName);
+            this.overlayTargetPackageName = itemLayoutView.findViewById(R.id
+                    .overlayTargetPackageName);
             this.overlayTargetPackage = itemLayoutView.findViewById(R.id.overlayTargetPackage);
         }
     }

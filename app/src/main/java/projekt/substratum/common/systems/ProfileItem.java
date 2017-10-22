@@ -42,7 +42,7 @@ public class ProfileItem {
         return this.targetPackage;
     }
 
-    public void setTargetPackage(final String targetPackage) {
+    void setTargetPackage(final String targetPackage) {
         this.targetPackage = targetPackage;
     }
 

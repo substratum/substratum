@@ -93,7 +93,8 @@ public enum ProfileManager {
 
     public static void updateScheduledProfile(final Context context) {
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        final AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        final AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context
+                .ALARM_SERVICE);
         final Intent intent = new Intent(context, ScheduledProfileReceiver.class);
         intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, NIGHT);
         final PendingIntent nightIntent = PendingIntent.getBroadcast(context, 0, intent,
@@ -148,11 +149,13 @@ public enum ProfileManager {
     }
 
     public static void enableScheduledProfile(final Context context, final String dayProfile,
-                                              final int dayHour, final int dayMinute, final String nightProfile,
+                                              final int dayHour, final int dayMinute, final
+                                              String nightProfile,
                                               final int nightHour, final int nightMinute) {
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         final SharedPreferences.Editor editor = prefs.edit();
-        final AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        final AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context
+                .ALARM_SERVICE);
         final Intent intent = new Intent(context, ScheduledProfileReceiver.class);
         intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, NIGHT);
         final PendingIntent nightIntent = PendingIntent.getBroadcast(context, 0, intent,
@@ -217,7 +220,8 @@ public enum ProfileManager {
     public static void disableScheduledProfile(final Context context) {
         final SharedPreferences.Editor editor =
                 PreferenceManager.getDefaultSharedPreferences(context).edit();
-        final AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        final AlarmManager alarmMgr = (AlarmManager) context.getSystemService(Context
+                .ALARM_SERVICE);
         final Intent intent = new Intent(context, ScheduledProfileReceiver.class);
         intent.putExtra(SCHEDULED_PROFILE_TYPE_EXTRA, NIGHT);
         final PendingIntent nightIntent =
@@ -397,7 +401,8 @@ public enum ProfileManager {
         return map;
     }
 
-    public static List<String> readProfileStatePackage(final String profileName, final int overlayState) {
+    public static List<String> readProfileStatePackage(final String profileName, final int
+            overlayState) {
         final List<String> list = new ArrayList<>();
         try (InputStream input = new FileInputStream(Environment.getExternalStorageDirectory()
                 .getAbsolutePath() + "/substratum/profiles/" + profileName + "/overlay_state" +
@@ -427,8 +432,10 @@ public enum ProfileManager {
         return list;
     }
 
-    public static List<List<String>> readProfileStatePackageWithTargetPackage(final String profileName,
-                                                                              final int overlayState) {
+    public static List<List<String>> readProfileStatePackageWithTargetPackage(final String
+                                                                                      profileName,
+                                                                              final int
+                                                                                      overlayState) {
         final List<List<String>> list = new ArrayList<>();
         try (InputStream input = new FileInputStream(Environment.getExternalStorageDirectory()
                 .getAbsolutePath() + "/substratum/profiles/" + profileName + "/overlay_state" +

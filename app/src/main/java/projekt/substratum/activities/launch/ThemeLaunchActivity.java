@@ -118,7 +118,8 @@ public class ThemeLaunchActivity extends Activity {
     }
 
     @Override
-    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent
+            data) {
         // Check which request we're responding to
         if ((data != null) && (requestCode != 10000)) {
             final Bundle intent = data.getExtras();
@@ -156,7 +157,8 @@ public class ThemeLaunchActivity extends Activity {
             this.startActivity(
                     launchThemeActivity(
                             this.getApplicationContext(),
-                            Packages.getPackageName(this.getApplicationContext(), this.package_name),
+                            Packages.getPackageName(this.getApplicationContext(), this
+                                    .package_name),
                             null,
                             this.package_name,
                             this.theme_mode,

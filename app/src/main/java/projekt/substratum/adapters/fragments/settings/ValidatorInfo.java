@@ -24,12 +24,13 @@ import android.graphics.drawable.Drawable;
 public class ValidatorInfo {
     private final String package_name;
     private final Context mContext;
-    private Drawable mDrawable;
     private final Boolean mVerified;
     private final Boolean mCommons;
+    private Drawable mDrawable;
     private ValidatorError mValidatorError;
 
-    public ValidatorInfo(final Context mContext, final String package_name, final Boolean verified, final Boolean commons) {
+    public ValidatorInfo(final Context mContext, final String package_name, final Boolean
+            verified, final Boolean commons) {
         super();
         this.mContext = mContext;
         this.package_name = package_name;
@@ -67,9 +68,5 @@ public class ValidatorInfo {
 
     Boolean getVerification() {
         return this.mVerified;
-    }
-
-    public static void setPercentage(final int one, final int two) {
-        final int mPercentage = (int) (((double) one / (double) two) * 100.0);
     }
 }

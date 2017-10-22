@@ -81,13 +81,14 @@ public class Sounds extends Fragment {
 
     private static final String soundsDir = "audio";
     private static final String TAG = "SoundUtils";
+    private static final Boolean encrypted = false;
+    private final MediaPlayer mp = new MediaPlayer();
     private String theme_pid;
     private ViewGroup root;
     private ProgressBar progressBar;
     private Spinner soundsSelector;
     private ArrayList<SoundsInfo> wordList;
     private RecyclerView recyclerView;
-    private final MediaPlayer mp = new MediaPlayer();
     private int previous_position;
     private RelativeLayout relativeLayout, error;
     private RelativeLayout defaults;
@@ -98,7 +99,6 @@ public class Sounds extends Fragment {
     private boolean paused;
     private JobReceiver jobReceiver;
     private LocalBroadcastManager localBroadcastManager;
-    private static final Boolean encrypted = false;
     private Cipher cipher;
     private Context mContext;
 
@@ -118,7 +118,7 @@ public class Sounds extends Fragment {
 
         // encrypted = encryption_key != null && iv_encrypt_key != null;
 
-        if (this.encrypted) {
+        if (encrypted) {
             try {
                 this.cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
                 this.cipher.init(
@@ -169,7 +169,7 @@ public class Sounds extends Fragment {
             unarchivedSounds.add(this.getString(R.string.sounds_spinner_set_defaults));
             for (int i = 0; i < archivedSounds.size(); i++) {
                 unarchivedSounds.add(archivedSounds.get(i).substring(0,
-                        archivedSounds.get(i).length() - (this.encrypted ? 8 : 4)));
+                        archivedSounds.get(i).length() - (encrypted ? 8 : 4)));
             }
 
             final SpinnerAdapter adapter1 = new ArrayAdapter<>(this.getActivity(),
@@ -178,7 +178,8 @@ public class Sounds extends Fragment {
             this.soundsSelector.setAdapter(adapter1);
             this.soundsSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
-                public void onItemSelected(final AdapterView<?> arg0, final View arg1, final int pos, final long id) {
+                public void onItemSelected(final AdapterView<?> arg0, final View arg1, final int
+                        pos, final long id) {
                     switch (pos) {
                         case 0:
                             if (Sounds.this.current != null) Sounds.this.current.cancel(true);
@@ -205,7 +206,8 @@ public class Sounds extends Fragment {
                             sounds_preview.setVisibility(View.GONE);
                             Sounds.this.relativeLayout.setVisibility(View.VISIBLE);
                             final String[] commands = {arg0.getSelectedItem().toString()};
-                            Sounds.this.current = new SoundsPreview(Sounds.this.getInstance()).execute(commands);
+                            Sounds.this.current = new SoundsPreview(Sounds.this.getInstance())
+                                    .execute(commands);
                     }
                 }
 
@@ -218,7 +220,6 @@ public class Sounds extends Fragment {
             Log.e(TAG, "There is no sounds.zip found within the assets of this theme!");
         }
 
-        final RecyclerView recyclerView = this.root.findViewById(R.id.recycler_view);
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(this.mContext, (view, position) -> {
                     this.wordList.get(position);
@@ -236,7 +237,8 @@ public class Sounds extends Fragment {
                         }
                         this.previous_position = position;
                     } catch (final IOException ioe) {
-                        Log.e(TAG, "Playback has failed for " + this.wordList.get(position).getTitle());
+                        Log.e(TAG, "Playback has failed for " + this.wordList.get(position)
+                                .getTitle());
                     }
                 })
         );
@@ -245,7 +247,8 @@ public class Sounds extends Fragment {
         // Enable job listener
         this.jobReceiver = new JobReceiver();
         this.localBroadcastManager = LocalBroadcastManager.getInstance(this.mContext);
-        this.localBroadcastManager.registerReceiver(this.jobReceiver, new IntentFilter("Sounds.START_JOB"));
+        this.localBroadcastManager.registerReceiver(this.jobReceiver, new IntentFilter("Sounds" +
+                ".START_JOB"));
 
         return this.root;
     }
@@ -330,6 +333,42 @@ public class Sounds extends Fragment {
             this.ref = new WeakReference<>(sounds);
         }
 
+        private static void unzip(final String source, final String destination) {
+            try (ZipInputStream inputStream =
+                         new ZipInputStream(new BufferedInputStream(new FileInputStream(source)))) {
+                ZipEntry zipEntry;
+                final byte[] buffer = new byte[8192];
+                while ((zipEntry = inputStream.getNextEntry()) != null) {
+                    final File file = new File(destination, zipEntry.getName());
+                    final File dir = zipEntry.isDirectory() ? file : file.getParentFile();
+                    if (!dir.isDirectory() && !dir.mkdirs())
+                        throw new FileNotFoundException("Failed to ensure directory: " +
+                                dir.getAbsolutePath());
+                    if (zipEntry.isDirectory())
+                        continue;
+                    try (FileOutputStream outputStream = new FileOutputStream(file)) {
+                        int count;
+                        while ((count = inputStream.read(buffer)) != -1) {
+                            outputStream.write(buffer, 0, count);
+                        }
+                    }
+                }
+            } catch (final Exception e) {
+                e.printStackTrace();
+                Log.e(TAG, "An issue has occurred while attempting to decompress this archive.");
+            }
+        }
+
+        private static void CopyStream(final InputStream Input, final OutputStream Output) throws
+                IOException {
+            final byte[] buffer = new byte[5120];
+            int length = Input.read(buffer);
+            while (length > 0) {
+                Output.write(buffer, 0, length);
+                length = Input.read(buffer);
+            }
+        }
+
         @Override
         protected void onPreExecute() {
             final Sounds sounds = this.ref.get();
@@ -374,11 +413,13 @@ public class Sounds extends Fragment {
             final Sounds sounds = this.ref.get();
             if (sounds != null) {
                 try {
-                    final File cacheDirectory = new File(sounds.mContext.getCacheDir(), "/SoundsCache/");
+                    final File cacheDirectory = new File(sounds.mContext.getCacheDir(),
+                            "/SoundsCache/");
                     if (!cacheDirectory.exists() && cacheDirectory.mkdirs()) {
                         Log.d(TAG, "Sounds folder created");
                     }
-                    final File cacheDirectory2 = new File(sounds.mContext.getCacheDir(), "/SoundCache/" +
+                    final File cacheDirectory2 = new File(sounds.mContext.getCacheDir(),
+                            "/SoundCache/" +
                             "sounds_preview/");
                     if (!cacheDirectory2.exists() && cacheDirectory2.mkdirs()) {
                         Log.d(TAG, "Sounds work folder created");
@@ -393,7 +434,7 @@ public class Sounds extends Fragment {
                     // Copy the sounds.zip from assets/sounds of the theme's assets
 
                     final String source = sUrl[0] + ".zip";
-                    if (sounds.encrypted) {
+                    if (encrypted) {
                         FileOperations.copyFileOrDir(
                                 sounds.themeAssetManager,
                                 soundsDir + '/' + source + ".enc",
@@ -451,41 +492,6 @@ public class Sounds extends Fragment {
                         }
                     }
                 }
-            }
-        }
-
-        private static void unzip(final String source, final String destination) {
-            try (ZipInputStream inputStream =
-                         new ZipInputStream(new BufferedInputStream(new FileInputStream(source)))) {
-                ZipEntry zipEntry;
-                final byte[] buffer = new byte[8192];
-                while ((zipEntry = inputStream.getNextEntry()) != null) {
-                    final File file = new File(destination, zipEntry.getName());
-                    final File dir = zipEntry.isDirectory() ? file : file.getParentFile();
-                    if (!dir.isDirectory() && !dir.mkdirs())
-                        throw new FileNotFoundException("Failed to ensure directory: " +
-                                dir.getAbsolutePath());
-                    if (zipEntry.isDirectory())
-                        continue;
-                    try (FileOutputStream outputStream = new FileOutputStream(file)) {
-                        int count;
-                        while ((count = inputStream.read(buffer)) != -1) {
-                            outputStream.write(buffer, 0, count);
-                        }
-                    }
-                }
-            } catch (final Exception e) {
-                e.printStackTrace();
-                Log.e(TAG, "An issue has occurred while attempting to decompress this archive.");
-            }
-        }
-
-        private static void CopyStream(final InputStream Input, final OutputStream Output) throws IOException {
-            final byte[] buffer = new byte[5120];
-            int length = Input.read(buffer);
-            while (length > 0) {
-                Output.write(buffer, 0, length);
-                length = Input.read(buffer);
             }
         }
     }

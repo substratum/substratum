@@ -68,7 +68,8 @@ public enum Root {
                 this.process = Runtime.getRuntime().exec("su");
                 this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(this.process
                         .getOutputStream()));
-                this.bufferedReader = new BufferedReader(new InputStreamReader(this.process.getInputStream
+                this.bufferedReader = new BufferedReader(new InputStreamReader(this.process
+                        .getInputStream
                         ()));
             } catch (final IOException e) {
                 this.denied = true;

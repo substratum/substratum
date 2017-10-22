@@ -49,7 +49,10 @@ public class FontUtils {
     private SharedPreferences prefs;
     private Cipher cipher;
 
-    public void execute(final String arguments, final Context context, final String theme_pid, final Cipher cipher) {
+    public void execute(final String arguments,
+                        final Context context,
+                        final String theme_pid,
+                        final Cipher cipher) {
         this.prefs = PreferenceManager.getDefaultSharedPreferences(context);
         this.mContext = context;
         this.theme_pid = theme_pid;

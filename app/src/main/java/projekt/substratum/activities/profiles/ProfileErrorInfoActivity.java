@@ -22,11 +22,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 
 import projekt.substratum.R;
-import projekt.substratum.activities.base.SubstratumActivity;
 
-public class ProfileErrorInfoActivity extends SubstratumActivity {
+public class ProfileErrorInfoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {

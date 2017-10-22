@@ -79,6 +79,7 @@ public class Fonts extends Fragment {
 
     private static final String fontsDir = "fonts";
     private static final String TAG = "FontUtils";
+    private static final Boolean encrypted = false;
     private String theme_pid;
     private ViewGroup root;
     private ProgressBar progressBar;
@@ -94,7 +95,6 @@ public class Fonts extends Fragment {
     private JobReceiver jobReceiver;
     private LocalBroadcastManager localBroadcastManager;
     private Context mContext;
-    private static final Boolean encrypted = false;
     private Cipher cipher;
 
     private Fonts getInstance() {
@@ -113,7 +113,7 @@ public class Fonts extends Fragment {
 
         // encrypted = encryption_key != null && iv_encrypt_key != null;
 
-        if (this.encrypted) {
+        if (encrypted) {
             try {
                 this.cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
                 this.cipher.init(
@@ -135,7 +135,8 @@ public class Fonts extends Fragment {
 
         try {
             // Parses the list of items in the fonts folder
-            final Resources themeResources = this.mContext.getPackageManager().getResourcesForApplication
+            final Resources themeResources = this.mContext.getPackageManager()
+                    .getResourcesForApplication
                     (this.theme_pid);
             this.themeAssetManager = themeResources.getAssets();
             final String[] fileArray = this.themeAssetManager.list(fontsDir);
@@ -148,7 +149,7 @@ public class Fonts extends Fragment {
             fonts.add(this.getString(R.string.font_spinner_set_defaults));
             for (int i = 0; i < unparsedFonts.size(); i++) {
                 fonts.add(unparsedFonts.get(i).substring(0,
-                        unparsedFonts.get(i).length() - (this.encrypted ? 8 : 4)));
+                        unparsedFonts.get(i).length() - (encrypted ? 8 : 4)));
             }
 
             final SpinnerAdapter adapter1 = new ArrayAdapter<>(this.getActivity(),
@@ -187,7 +188,8 @@ public class Fonts extends Fragment {
                             Fonts.this.defaults.setVisibility(View.GONE);
                             Fonts.this.font_placeholder.setVisibility(View.GONE);
                             final String[] commands = {arg0.getSelectedItem().toString()};
-                            Fonts.this.current = new FontPreview(Fonts.this.getInstance()).execute(commands);
+                            Fonts.this.current = new FontPreview(Fonts.this.getInstance())
+                                    .execute(commands);
                     }
                 }
 
@@ -203,7 +205,8 @@ public class Fonts extends Fragment {
         // Enable job listener
         this.jobReceiver = new JobReceiver();
         this.localBroadcastManager = LocalBroadcastManager.getInstance(this.mContext);
-        this.localBroadcastManager.registerReceiver(this.jobReceiver, new IntentFilter("Fonts.START_JOB"));
+        this.localBroadcastManager.registerReceiver(this.jobReceiver, new IntentFilter("Fonts" +
+                ".START_JOB"));
 
         return this.root;
     }
@@ -326,6 +329,42 @@ public class Fonts extends Fragment {
             this.ref = new WeakReference<>(fonts);
         }
 
+        private static void unzip(final String source, final String destination) {
+            try (ZipInputStream inputStream = new ZipInputStream(
+                    new BufferedInputStream(new FileInputStream(source)))) {
+                ZipEntry zipEntry;
+                final byte[] buffer = new byte[8192];
+                while ((zipEntry = inputStream.getNextEntry()) != null) {
+                    final File file = new File(destination, zipEntry.getName());
+                    final File dir = zipEntry.isDirectory() ? file : file.getParentFile();
+                    if (!dir.isDirectory() && !dir.mkdirs())
+                        throw new FileNotFoundException("Failed to ensure directory: " +
+                                dir.getAbsolutePath());
+                    if (zipEntry.isDirectory())
+                        continue;
+                    try (FileOutputStream outputStream = new FileOutputStream(file)) {
+                        int count;
+                        while ((count = inputStream.read(buffer)) != -1)
+                            outputStream.write(buffer, 0, count);
+                    }
+                }
+            } catch (final Exception e) {
+                e.printStackTrace();
+                Log.e(TAG,
+                        "An issue has occurred while attempting to decompress this archive.");
+            }
+        }
+
+        private static void CopyStream(final InputStream Input, final OutputStream Output) throws
+                IOException {
+            final byte[] buffer = new byte[5120];
+            int length = Input.read(buffer);
+            while (length > 0) {
+                Output.write(buffer, 0, length);
+                length = Input.read(buffer);
+            }
+        }
+
         @Override
         protected void onPreExecute() {
             final Fonts fonts = this.ref.get();
@@ -407,7 +446,8 @@ public class Fonts extends Fragment {
             final Fonts fonts = this.ref.get();
             if (fonts != null) {
                 try {
-                    final File cacheDirectory = new File(fonts.mContext.getCacheDir(), "/FontCache/");
+                    final File cacheDirectory = new File(fonts.mContext.getCacheDir(),
+                            "/FontCache/");
                     if (!cacheDirectory.exists()) {
                         if (cacheDirectory.mkdirs()) Log.d(TAG, "FontCache folder created");
                     }
@@ -427,7 +467,7 @@ public class Fonts extends Fragment {
                     // Copy the font.zip from assets/fonts of the theme's assets
                     final String source = sUrl[0] + ".zip";
 
-                    if (fonts.encrypted) {
+                    if (encrypted) {
                         FileOperations.copyFileOrDir(
                                 fonts.themeAssetManager,
                                 fontsDir + '/' + source + ".enc",
@@ -451,7 +491,8 @@ public class Fonts extends Fragment {
                     }
 
                     // Unzip the fonts to get it prepared for the preview
-                    FontPreview.unzip(fonts.mContext.getCacheDir().getAbsolutePath() + "/FontCache/" + source,
+                    FontPreview.unzip(fonts.mContext.getCacheDir().getAbsolutePath() +
+                                    "/FontCache/" + source,
                             fonts.mContext.getCacheDir().getAbsolutePath() +
                                     "/FontCache/font_preview/");
                 } catch (final Exception e) {
@@ -459,41 +500,6 @@ public class Fonts extends Fragment {
                 }
             }
             return null;
-        }
-
-        private static void unzip(final String source, final String destination) {
-            try (ZipInputStream inputStream = new ZipInputStream(
-                    new BufferedInputStream(new FileInputStream(source)))) {
-                ZipEntry zipEntry;
-                final byte[] buffer = new byte[8192];
-                while ((zipEntry = inputStream.getNextEntry()) != null) {
-                    final File file = new File(destination, zipEntry.getName());
-                    final File dir = zipEntry.isDirectory() ? file : file.getParentFile();
-                    if (!dir.isDirectory() && !dir.mkdirs())
-                        throw new FileNotFoundException("Failed to ensure directory: " +
-                                dir.getAbsolutePath());
-                    if (zipEntry.isDirectory())
-                        continue;
-                    try (FileOutputStream outputStream = new FileOutputStream(file)) {
-                        int count;
-                        while ((count = inputStream.read(buffer)) != -1)
-                            outputStream.write(buffer, 0, count);
-                    }
-                }
-            } catch (final Exception e) {
-                e.printStackTrace();
-                Log.e(TAG,
-                        "An issue has occurred while attempting to decompress this archive.");
-            }
-        }
-
-        private static void CopyStream(final InputStream Input, final OutputStream Output) throws IOException {
-            final byte[] buffer = new byte[5120];
-            int length = Input.read(buffer);
-            while (length > 0) {
-                Output.write(buffer, 0, length);
-                length = Input.read(buffer);
-            }
         }
     }
 

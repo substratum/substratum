@@ -75,12 +75,14 @@ public class SubstratumCrash extends Activity {
                         if (SubstratumCrash.this.shouldPulsate) {
                             SubstratumCrash.this.runOnUiThread(() ->
                                     rescueMeButton.getBackground().setColorFilter(
-                                            SubstratumCrash.this.getColor(R.color.do_not_theme_this_color_button_pulse),
+                                            SubstratumCrash.this.getColor(R.color
+                                                    .do_not_theme_this_color_button_pulse),
                                             PorterDuff.Mode.SRC_ATOP));
                         } else {
                             SubstratumCrash.this.runOnUiThread(() ->
                                     rescueMeButton.getBackground().setColorFilter(
-                                            SubstratumCrash.this.getColor(R.color.do_not_theme_this_color_buttons),
+                                            SubstratumCrash.this.getColor(R.color
+                                                    .do_not_theme_this_color_buttons),
                                             PorterDuff.Mode.SRC_ATOP));
                         }
                         SubstratumCrash.this.shouldPulsate = !SubstratumCrash.this.shouldPulsate;
@@ -139,7 +141,8 @@ public class SubstratumCrash extends Activity {
         if (!xposed.isEmpty()) details += " {" + xposed + '}';
         details += "\n";
 
-        final String rom = Systems.checkFirmwareSupport(this, this.getString(R.string.supported_roms_url),
+        final String rom = Systems.checkFirmwareSupport(this, this.getString(R.string
+                        .supported_roms_url),
                 "supported_roms.xml");
         final String romVersion = Build.VERSION.RELEASE + " - " +
                 (!rom.isEmpty() ? rom : "Unknown");

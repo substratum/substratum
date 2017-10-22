@@ -31,7 +31,8 @@ public class ShowcaseTabsAdapter extends FragmentPagerAdapter {
     private final List fragment_links;
     private final Integer mNumOfTabs;
 
-    public ShowcaseTabsAdapter(final FragmentManager fm, final int mNumOfTabs, final List fragment_links) {
+    public ShowcaseTabsAdapter(final FragmentManager fm, final int mNumOfTabs, final List
+            fragment_links) {
         super(fm);
         this.mNumOfTabs = mNumOfTabs;
         this.fragment_links = fragment_links;

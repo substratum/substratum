@@ -25,17 +25,17 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.service.quicksettings.Tile;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import projekt.substratum.R;
-import projekt.substratum.activities.base.SubstratumActivity;
 import projekt.substratum.common.References;
 import projekt.substratum.services.floatui.SubstratumFloatInterface;
 import projekt.substratum.services.tiles.FloatUiTile;
 
 import static projekt.substratum.common.Systems.checkUsagePermissions;
 
-public class FloatUILaunchActivity extends SubstratumActivity {
+public class FloatUILaunchActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -49,8 +49,8 @@ public class FloatUILaunchActivity extends SubstratumActivity {
                 this.triggerFloatingHead(false);
             }
         } else {
-            this.createToast(this.getString(R.string.per_app_manual_grant),
-                    Toast.LENGTH_LONG);
+            Toast.makeText(this, this.getString(R.string.per_app_manual_grant),
+                    Toast.LENGTH_LONG).show();
         }
         this.finish();
     }

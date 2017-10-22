@@ -246,12 +246,14 @@ public class ThemeFragment extends Fragment {
         final RecyclerView recyclerView = this.root.findViewById(R.id.theme_list);
         this.resetRecyclerView(recyclerView);
 
-        final SwipeRefreshLayout swipeRefreshLayout = this.root.findViewById(R.id.swipeRefreshLayout);
+        final SwipeRefreshLayout swipeRefreshLayout = this.root.findViewById(R.id
+                .swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(() -> new LayoutLoader(this).execute());
         swipeRefreshLayout.setRefreshing(true);
 
         ((MainActivity)
-                this.getActivity()).actionbar_content.setText(R.string.actionbar_theme_count_loading);
+                this.getActivity()).actionbar_content.setText(R.string
+                .actionbar_theme_count_loading);
 
         final View cardView = this.root.findViewById(R.id.no_entry_card_view);
         cardView.setOnClickListener(v ->
@@ -305,7 +307,8 @@ public class ThemeFragment extends Fragment {
                         themeFragment.getActivity(),
                         themeFragment.home_type);
                 try {
-                    Thread.sleep((long) (themeFragment.first_boot ? THEME_FRAGMENT_INITIAL_DELAY : 0));
+                    Thread.sleep((long) (themeFragment.first_boot ? THEME_FRAGMENT_INITIAL_DELAY
+                            : 0));
                 } catch (final InterruptedException ie) {
                     // Suppress warning
                 }

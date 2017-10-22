@@ -62,8 +62,7 @@ public enum ReadShowcaseTabsFile {
             return map;
         } catch (final Exception e) {
             e.printStackTrace();
-            final Map<String, String> emptyMap = new TreeMap<>();
-            return emptyMap;
+            return new TreeMap<>();
         }
     }
 }

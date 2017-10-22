@@ -178,23 +178,6 @@ public enum References {
     public static final int RUNTIME_RESOURCE_OVERLAY_N_ROOTED = 8282713;
     public static final int SAMSUNG_THEME_ENGINE_N = 2389284;
     public static final int NO_THEME_ENGINE = 0;
-    static final String SUBSTRATUM_THEME = "projekt.substratum.THEME";
-    // Metadata used in theme templates to denote specific parts of a theme
-    static final String metadataVersion = "Substratum_Plugin";
-    static final String metadataThemeReady = "Substratum_ThemeReady";
-    static final String metadataSamsungSupport = "Substratum_Samsung";
-    static final String resourceChangelog = "ThemeChangelog";
-    // This string controls the hero image name
-    static final String heroImageResourceName = "heroimage";
-    static final String heroImageGridResourceName = "heroimage_grid";
-    static final String heroImageKenBurnsResourceName = "heroimage_banner";
-    // Specific intents Substratum should be listening to
-    static final String APP_CRASHED = "projekt.substratum.APP_CRASHED";
-    @SuppressWarnings("WeakerAccess")
-    static final String TEMPLATE_RECEIVE_KEYS = "projekt.substratum.RECEIVE_KEYS";
-    static final String SUBSTRATUM_LAUNCHER_CLASS = ".SubstratumLauncher";
-    static final String SUBSTRATUM_LAUNCHER_CLASS_PATH =
-            "substratum.theme.template.SubstratumLauncher";
     // This int controls the notification identifier
     public static final int firebase_notification_id = 24862486;
     public static final int notification_id = 2486;
@@ -212,6 +195,23 @@ public enum References {
     // These strings control package names for system apps
     public static final String settingsPackageName = "com.android.settings";
     public static final String settingsSubstratumDrawableName = "ic_settings_substratum";
+    static final String SUBSTRATUM_THEME = "projekt.substratum.THEME";
+    // Metadata used in theme templates to denote specific parts of a theme
+    static final String metadataVersion = "Substratum_Plugin";
+    static final String metadataThemeReady = "Substratum_ThemeReady";
+    static final String metadataSamsungSupport = "Substratum_Samsung";
+    static final String resourceChangelog = "ThemeChangelog";
+    // This string controls the hero image name
+    static final String heroImageResourceName = "heroimage";
+    static final String heroImageGridResourceName = "heroimage_grid";
+    static final String heroImageKenBurnsResourceName = "heroimage_banner";
+    // Specific intents Substratum should be listening to
+    static final String APP_CRASHED = "projekt.substratum.APP_CRASHED";
+    @SuppressWarnings("WeakerAccess")
+    static final String TEMPLATE_RECEIVE_KEYS = "projekt.substratum.RECEIVE_KEYS";
+    static final String SUBSTRATUM_LAUNCHER_CLASS = ".SubstratumLauncher";
+    static final String SUBSTRATUM_LAUNCHER_CLASS_PATH =
+            "substratum.theme.template.SubstratumLauncher";
     // Localized variables shared amongst common resources
     static ScheduledProfileReceiver scheduledProfileReceiver;
     // These values control the dynamic certification of substratum
@@ -240,7 +240,8 @@ public enum References {
 
         if (launchManagerFragment) return myIntent;
 
-        final Bitmap app_icon = Packages.getBitmapFromDrawable(Packages.getAppIcon(context, theme_pid));
+        final Bitmap app_icon = Packages.getBitmapFromDrawable(Packages.getAppIcon(context,
+                theme_pid));
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             final Intent addIntent = new Intent();
@@ -266,18 +267,22 @@ public enum References {
         return myIntent;
     }
 
-    public static void createLauncherIcon(final Context context, final String theme_pid, final String theme_name) {
+    public static void createLauncherIcon(final Context context,
+                                          final String theme_pid,
+                                          final String theme_name) {
         createLauncherIcon(context, theme_pid, theme_name, false);
     }
 
-    public static void createShortcut(final Context context, final String theme_pid, final String theme_name) {
+    public static void createShortcut(final Context context,
+                                      final String theme_pid,
+                                      final String theme_name) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
             final ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
             final Icon app_icon;
             final Drawable app_icon_drawable = Packages.getAppIcon(context, theme_pid);
             //If we are on Oreo and the Theme uses an adaptiveIcon, we have to treat it properly
-            if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) &&
-                    (app_icon_drawable instanceof AdaptiveIconDrawable)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O &&
+                    app_icon_drawable instanceof AdaptiveIconDrawable) {
                 app_icon = Icon.createWithAdaptiveBitmap(Packages.getBitmapFromDrawable
                         (app_icon_drawable));
             } else {
@@ -342,7 +347,8 @@ public enum References {
 
     // This method is used to place the Substratum Rescue archives if they are not present
     public static void injectRescueArchives(final Context context) {
-        final File storageDirectory = new File(Environment.getExternalStorageDirectory(), "/substratum/");
+        final File storageDirectory = new File(Environment.getExternalStorageDirectory(),
+                "/substratum/");
         if (!storageDirectory.exists() && !storageDirectory.mkdirs()) {
             Log.e(SUBSTRATUM_LOG, "Unable to create storage directory");
         }
@@ -370,7 +376,8 @@ public enum References {
                         File.separator + "SubstratumRescue.zip");
     }
 
-    private static void copyRescueFile(final Context context, final String sourceFileName, final String
+    private static void copyRescueFile(final Context context, final String sourceFileName, final
+    String
             destFileName) {
         final AssetManager assetManager = context.getAssets();
 
@@ -483,7 +490,8 @@ public enum References {
             return hashValue;
         }
         try {
-            @SuppressLint("PackageManagerGetSignatures") final Signature[] sigs = context.getPackageManager().getPackageInfo(
+            @SuppressLint("PackageManagerGetSignatures") final Signature[] sigs = context
+                    .getPackageManager().getPackageInfo(
                     context.getPackageName(),
                     PackageManager.GET_SIGNATURES).signatures;
             for (final Signature sig : sigs) {
@@ -563,7 +571,8 @@ public enum References {
     public static void writeLogCharFile(final String packageName, final String data) {
         try {
             final Calendar c = Calendar.getInstance();
-            @SuppressLint("SimpleDateFormat") final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+            @SuppressLint("SimpleDateFormat") final SimpleDateFormat df = new SimpleDateFormat
+                    ("yyyy-MM-dd_HH-mm-ss");
             final String formattedDate = df.format(c.getTime());
 
             final File logcharFolder = new File(Environment.getExternalStorageDirectory() +
@@ -583,7 +592,8 @@ public enum References {
     }
 
     // Copy an object to the system's clipboard
-    public static void copyToClipboard(final Context context, final CharSequence id, final CharSequence content) {
+    public static void copyToClipboard(final Context context, final CharSequence id, final
+    CharSequence content) {
         final ClipboardManager clipboard =
                 (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
         final ClipData clip = ClipData.newPlainText(id, content);
@@ -619,7 +629,8 @@ public enum References {
         @Override
         protected Void doInBackground(final Void... sUrl) {
             this.prefs.edit().putBoolean("complexion",
-                    !spreadYourWingsAndFly(this.context) && (hashPassthrough(this.context) != 0)).apply();
+                    !spreadYourWingsAndFly(this.context) && (hashPassthrough(this.context) != 0))
+                    .apply();
             return null;
         }
     }

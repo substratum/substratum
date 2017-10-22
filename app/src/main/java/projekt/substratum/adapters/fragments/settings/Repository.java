@@ -19,11 +19,11 @@
 package projekt.substratum.adapters.fragments.settings;
 
 public class Repository {
+    private final String packageName;
     private String bools;
     private String colors;
     private String dimens;
     private String styles;
-    private final String packageName;
 
     public Repository(final String packageName) {
         super();

@@ -116,7 +116,6 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     private SearchView searchView;
     private String userInput = "";
     private Boolean first_boot = true;
-    private final Handler handler = new Handler();
 
     private void resetRecyclerView() {
         // Initialize the recycler view with an empty adapter first
@@ -139,7 +138,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         // Register the theme install receiver to auto refresh the fragment
         this.refreshReceiver = new RefreshReceiver();
         this.localBroadcastManager = LocalBroadcastManager.getInstance(this.getContext());
-        this.localBroadcastManager.registerReceiver(this.refreshReceiver, new IntentFilter(MANAGER_REFRESH));
+        this.localBroadcastManager.registerReceiver(this.refreshReceiver, new IntentFilter
+                (MANAGER_REFRESH));
 
         this.context = this.getContext();
         this.prefs = PreferenceManager.getDefaultSharedPreferences(this.context);
@@ -225,10 +225,12 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             @Override
             public void onClick(final View view) {
                 try {
-                    ManagerFragment.this.overlayList = ManagerFragment.this.mAdapter.getOverlayManagerList();
+                    ManagerFragment.this.overlayList = ManagerFragment.this.mAdapter
+                            .getOverlayManagerList();
                     if (ManagerFragment.this.toggle_all.isChecked()) {
                         for (int i = 0; i < ManagerFragment.this.overlayList.size(); i++) {
-                            final ManagerItem currentOverlay = ManagerFragment.this.overlayList.get(i);
+                            final ManagerItem currentOverlay = ManagerFragment.this.overlayList
+                                    .get(i);
                             if (!currentOverlay.isSelected()) {
                                 currentOverlay.setSelected(true);
                             }
@@ -236,14 +238,16 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                         }
                     } else {
                         for (int i = 0; i < ManagerFragment.this.overlayList.size(); i++) {
-                            final ManagerItem currentOverlay = ManagerFragment.this.overlayList.get(i);
+                            final ManagerItem currentOverlay = ManagerFragment.this.overlayList
+                                    .get(i);
                             if (currentOverlay.isSelected()) {
                                 currentOverlay.setSelected(false);
                             }
                         }
                         ManagerFragment.this.mAdapter.notifyDataSetChanged();
                     }
-                    ManagerFragment.this.toggle_all.setChecked(!ManagerFragment.this.toggle_all.isChecked());
+                    ManagerFragment.this.toggle_all.setChecked(!ManagerFragment.this.toggle_all
+                            .isChecked());
                 } catch (final Exception e) {
                     Log.e(this.getClass().getSimpleName(),
                             "Window has lost connection with the host.");
@@ -251,7 +255,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             }
         });
 
-        final TextView enable_disable_selected = this.root.findViewById(R.id.enable_disable_selected);
+        final TextView enable_disable_selected = this.root.findViewById(R.id
+                .enable_disable_selected);
         if (enable_disable_selected != null) {
             enable_disable_selected.setOnClickListener(v ->
                     new RunEnableDisable(ManagerFragment.this).execute());
@@ -360,7 +365,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     final String metadata = getOverlayMetadata(
                             context, packageName, References.metadataOverlayParent);
                     if ((metadata != null) && !metadata.isEmpty()) {
-                        final String pName = "<b>" + context.getString(R.string.manager_theme_name) +
+                        final String pName = "<b>" + context.getString(R.string
+                                .manager_theme_name) +
                                 "</b> " +
                                 getPackageName(context, metadata);
                         this.overlayList.get(i).setThemeName(pName);
@@ -430,7 +436,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         protected void onPreExecute() {
             final ManagerFragment fragment = this.ref.get();
             if (fragment != null) {
-                this.currentPosition = ((LinearLayoutManager) fragment.mRecyclerView.getLayoutManager())
+                this.currentPosition = ((LinearLayoutManager) fragment.mRecyclerView
+                        .getLayoutManager())
                         .findFirstCompletelyVisibleItemPosition();
                 fragment.swipeRefreshLayout.setRefreshing(true);
                 fragment.toggle_all.setChecked(false);
@@ -460,7 +467,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                                 ThemeManager.listOverlays(fragment.context,
                                         STATE_DISABLED));
 
-                        final List<String> all_overlays = new ArrayList<>(fragment.activated_overlays);
+                        final List<String> all_overlays = new ArrayList<>(fragment
+                                .activated_overlays);
                         all_overlays.addAll(disabled_overlays);
                         Collections.sort(all_overlays);
 
@@ -495,7 +503,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                             }
                             if (can_continue) {
                                 try {
-                                    final ApplicationInfo applicationInfo = context.getPackageManager()
+                                    final ApplicationInfo applicationInfo = context
+                                            .getPackageManager()
                                             .getApplicationInfo(all_overlays.get(i), 0);
                                     final String packageTitle = context.getPackageManager()
                                             .getApplicationLabel(applicationInfo).toString();
@@ -516,14 +525,17 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
 
                         if (!unsortedMap.isEmpty()) {
                             // Sort the values list
-                            final List<Pair<String, String>> sortedMap = sortMapByValues(unsortedMap);
+                            final List<Pair<String, String>> sortedMap = sortMapByValues
+                                    (unsortedMap);
 
                             for (final Pair<String, String> entry : sortedMap) {
                                 if (disabled_overlays.contains(entry.first)) {
-                                    final ManagerItem st = new ManagerItem(context, entry.first, false);
+                                    final ManagerItem st = new ManagerItem(context, entry.first,
+                                            false);
                                     fragment.overlaysList.add(st);
                                 } else if (fragment.activated_overlays.contains(entry.first)) {
-                                    final ManagerItem st = new ManagerItem(context, entry.first, true);
+                                    final ManagerItem st = new ManagerItem(context, entry.first,
+                                            true);
                                     fragment.overlaysList.add(st);
                                 }
                             }
@@ -547,7 +559,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     }
 
                     try {
-                        Thread.sleep((long) (fragment.first_boot ? MANAGER_FRAGMENT_INITIAL_DELAY : 0));
+                        Thread.sleep((long) (fragment.first_boot ? MANAGER_FRAGMENT_INITIAL_DELAY
+                                : 0));
                     } catch (final InterruptedException ie) {
                         // Suppress warning
                     }
@@ -602,7 +615,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
 
                     final TextView titleView = fragment.root.findViewById(R.id.no_themes_title);
                     titleView.setText(fragment.getString(R.string.manager_no_overlays_title));
-                    final TextView textView = fragment.root.findViewById(R.id.no_themes_description);
+                    final TextView textView = fragment.root.findViewById(R.id
+                            .no_themes_description);
                     textView.setText(fragment.getString(R.string.manager_no_overlays_text));
 
                     if ((this.userInput.get() != null) && !fragment.searchView.isIconified() &&
@@ -769,7 +783,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                                 try {
                                     final List<String> updated = fragment.updateEnabledOverlays();
                                     for (int i = 0; i < fragment.overlayList.size(); i++) {
-                                        final ManagerItem currentOverlay = fragment.overlayList.get(i);
+                                        final ManagerItem currentOverlay = fragment.overlayList
+                                                .get(i);
                                         currentOverlay.setSelected(false);
                                         currentOverlay.updateEnabledOverlays(updated.contains(
                                                 currentOverlay.getName()));

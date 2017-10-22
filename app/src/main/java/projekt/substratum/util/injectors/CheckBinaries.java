@@ -59,7 +59,8 @@ public enum CheckBinaries {
         }
     }
 
-    private static void inject(final Context mContext, final SharedPreferences prefs, final String aoptPath) {
+    private static void inject(final Context mContext, final SharedPreferences prefs, final
+    String aoptPath) {
         if (!Arrays.toString(Build.SUPPORTED_ABIS).contains("86")) {
             // Developers: AOPT-ARM (32bit) is using the legacy AAPT binary, while AAPT-ARM64
             //             (64bit) is using the brand new AOPT binary.

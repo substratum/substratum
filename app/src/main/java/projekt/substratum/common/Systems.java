@@ -240,7 +240,8 @@ public enum Systems {
 
     // Begin check if device is running on the latest theme interface
     public static boolean isBinderInterfacer(final Context context) {
-        final boolean isEnabled = Packages.isAvailablePackage(context, References.INTERFACER_PACKAGE);
+        final boolean isEnabled = Packages.isAvailablePackage(context, References
+                .INTERFACER_PACKAGE);
         final PackageInfo packageInfo = getThemeInterfacerPackage(context);
         return (packageInfo != null) && (packageInfo.versionCode >= 60) && isEnabled;
     }
@@ -259,7 +260,8 @@ public enum Systems {
         final String expFingerprint = prefs.getString(
                 "sungstratum_exp_fp_" + Packages.getAppVersionCode(context, SST_ADDON_PACKAGE),
                 "o");
-        final String liveInstaller = PackageAnalytics.getPackageInstaller(context, SST_ADDON_PACKAGE);
+        final String liveInstaller = PackageAnalytics.getPackageInstaller(context,
+                SST_ADDON_PACKAGE);
 
         boolean sungstratumPresent = !debuggingValue;
         sungstratumPresent &= installer;
@@ -400,13 +402,15 @@ public enum Systems {
         return blacklistedPackageFound;
     }
 
-    public static String checkFirmwareSupport(final Context context, final String url, final String fileName) {
+    public static String checkFirmwareSupport(final Context context, final String url, final
+    String fileName) {
         String supported_rom = "";
         try {
             if (isNetworkAvailable(context)) {
                 FileDownloader.init(context, url, "", fileName);
             } else {
-                final File check = new File(context.getCacheDir().getAbsolutePath() + '/' + fileName);
+                final File check = new File(context.getCacheDir().getAbsolutePath() + '/' +
+                        fileName);
                 if (!check.exists()) return "";
             }
 

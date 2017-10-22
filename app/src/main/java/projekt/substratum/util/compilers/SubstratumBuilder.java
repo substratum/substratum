@@ -67,6 +67,27 @@ public class SubstratumBuilder {
     private String error_logs = "";
     private boolean debug;
 
+    private static String processAOPTCommands(final String work_area,
+                                              final String targetPkg,
+                                              final String theme_name,
+                                              final String overlay_package,
+                                              final CharSequence additional_variant,
+                                              final CharSequence asset_replacement,
+                                              final boolean legacySwitch,
+                                              final Context context,
+                                              final String no_cache_dir) {
+        return CompilerCommands.createAOPTShellCommands(
+                work_area,
+                targetPkg,
+                overlay_package,
+                theme_name,
+                legacySwitch,
+                additional_variant,
+                asset_replacement,
+                context,
+                no_cache_dir);
+    }
+
     public String getErrorLogs() {
         return this.error_logs;
     }
@@ -99,7 +120,7 @@ public class SubstratumBuilder {
      * @param override_package   String package to tell whether we should change the package name
      * @param overlay_updater    Boolean flag to tell whether special_snowflake should be skipped
      */
-    @SuppressWarnings({"UnusedReturnValue"})
+    @SuppressWarnings({"UnusedReturnValue", "ConstantConditions"})
     public boolean beginAction(final Context context,
                                final String overlay_package,
                                final String theme_name,
@@ -496,27 +517,6 @@ public class SubstratumBuilder {
         return !this.has_errored_out;
     }
 
-    private static String processAOPTCommands(final String work_area,
-                                              final String targetPkg,
-                                              final String theme_name,
-                                              final String overlay_package,
-                                              final CharSequence additional_variant,
-                                              final CharSequence asset_replacement,
-                                              final boolean legacySwitch,
-                                              final Context context,
-                                              final String no_cache_dir) {
-        return CompilerCommands.createAOPTShellCommands(
-                work_area,
-                targetPkg,
-                overlay_package,
-                theme_name,
-                legacySwitch,
-                additional_variant,
-                asset_replacement,
-                context,
-                no_cache_dir);
-    }
-
     private boolean runAOPTShellCommands(final String commands,
                                          final String work_area,
                                          final String targetPkg,
@@ -544,7 +544,8 @@ public class SubstratumBuilder {
                             Log.e(References.SUBSTRATUM_BUILDER,
                                     "This overlay was designed using a legacy theming " +
                                             "style, now falling back to legacy compiler...");
-                            final String new_commands = SubstratumBuilder.processAOPTCommands(work_area, targetPkg,
+                            final String new_commands = SubstratumBuilder.processAOPTCommands
+                                    (work_area, targetPkg,
                                     theme_name, overlay_package, additional_variant,
                                     asset_replacement, true, context, no_cache_dir);
                             return this.runAOPTShellCommands(
@@ -552,7 +553,8 @@ public class SubstratumBuilder {
                                     overlay_package, additional_variant, asset_replacement,
                                     true, context, no_cache_dir);
                         } else {
-                            this.dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package, line);
+                            this.dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                                    line);
                             errored = true;
                         }
                     }

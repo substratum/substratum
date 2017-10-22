@@ -22,11 +22,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 
-import projekt.substratum.activities.base.SubstratumActivity;
 import projekt.substratum.activities.launch.SplashScreenActivity;
 
-public class LauncherActivity extends SubstratumActivity {
+public class LauncherActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {

@@ -130,7 +130,8 @@ public enum ThemeInterfacerService {
         }
     }
 
-    static void enableOverlays(final Context context, final ArrayList<String> overlays, final boolean restartUi) {
+    static void enableOverlays(final Context context, final ArrayList<String> overlays, final
+    boolean restartUi) {
         if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
@@ -147,7 +148,8 @@ public enum ThemeInterfacerService {
         }
     }
 
-    static void disableOverlays(final Context context, final ArrayList<String> overlays, final boolean restartUi) {
+    static void disableOverlays(final Context context, final ArrayList<String> overlays, final
+    boolean restartUi) {
         if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
@@ -185,7 +187,8 @@ public enum ThemeInterfacerService {
         context.startService(intent);
     }
 
-    public static void setBootAnimation(final Context context, final String bootanimation_location) {
+    public static void setBootAnimation(final Context context, final String
+            bootanimation_location) {
         if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
@@ -280,7 +283,8 @@ public enum ThemeInterfacerService {
         }
     }
 
-    static void setPriority(final Context context, final ArrayList<String> overlays, final boolean restartUi) {
+    static void setPriority(final Context context, final ArrayList<String> overlays, final
+    boolean restartUi) {
         if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
@@ -331,7 +335,8 @@ public enum ThemeInterfacerService {
         }
     }
 
-    public static void delete(final Context context, final String directory, final boolean deleteParent) {
+    public static void delete(final Context context, final String directory, final boolean
+            deleteParent) {
         if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()
@@ -348,7 +353,8 @@ public enum ThemeInterfacerService {
         }
     }
 
-    public static void applyProfile(final Context context, final String name, final ArrayList<String> toBeDisabled,
+    public static void applyProfile(final Context context, final String name, final
+    ArrayList<String> toBeDisabled,
                                     final ArrayList<String> toBeEnabled, final boolean restartUi) {
         if (Systems.isBinderInterfacer(context)) {
             try {
@@ -398,7 +404,8 @@ public enum ThemeInterfacerService {
         return null;
     }
 
-    public static void setShutdownAnimation(final Context context, final String shutdownAnimationLocation) {
+    public static void setShutdownAnimation(final Context context, final String
+            shutdownAnimationLocation) {
         if (Systems.isBinderInterfacer(context)) {
             try {
                 InterfacerBinderService.getInstance().getInterfacerInterface()

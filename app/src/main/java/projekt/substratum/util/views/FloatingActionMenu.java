@@ -43,7 +43,8 @@ public class FloatingActionMenu extends FloatingActionButton implements Animated
         super(context, attrs);
     }
 
-    public FloatingActionMenu(final Context context, final AttributeSet attrs, final int defStyleAttr) {
+    public FloatingActionMenu(final Context context, final AttributeSet attrs, final int
+            defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -67,7 +68,8 @@ public class FloatingActionMenu extends FloatingActionButton implements Animated
             // If pivots are 0, that means the FAB hasn't been drawn yet so just use the
             // center of the FAB
             if ((pivotX == (float) 0) || (pivotY == (float) 0)) {
-                anim = new ScaleAnimation((float) 0, 1.0F, (float) 0, 1.0F, Animation.RELATIVE_TO_SELF, 0.5f,
+                anim = new ScaleAnimation((float) 0, 1.0F, (float) 0, 1.0F, Animation
+                        .RELATIVE_TO_SELF, 0.5f,
                         Animation.RELATIVE_TO_SELF, 0.5f);
             } else {
                 anim = new ScaleAnimation((float) 0, 1.0F, (float) 0, 1.0F, pivotX, pivotY);
@@ -90,7 +92,8 @@ public class FloatingActionMenu extends FloatingActionButton implements Animated
             final float pivotY = this.getPivotY() + this.getTranslationY();
 
             // Animate FAB shrinking
-            final ScaleAnimation anim = new ScaleAnimation(1.0F, (float) 0, 1.0F, (float) 0, pivotX, pivotY);
+            final ScaleAnimation anim = new ScaleAnimation(1.0F, (float) 0, 1.0F, (float) 0,
+                    pivotX, pivotY);
             anim.setDuration((long) FAB_ANIM_DURATION);
             anim.setInterpolator(this.getInterpolator());
             this.startAnimation(anim);

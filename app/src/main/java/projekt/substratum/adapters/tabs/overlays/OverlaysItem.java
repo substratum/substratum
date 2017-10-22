@@ -35,22 +35,26 @@ import projekt.substratum.common.platform.ThemeManager;
 
 public class OverlaysItem implements Serializable {
 
-    public boolean is_variant_chosen;
-    public boolean is_variant_chosen1;
-    public boolean is_variant_chosen2;
-    public boolean is_variant_chosen3;
-    public boolean is_variant_chosen4;
-    public boolean is_variant_chosen5;
     public final String versionName;
     final boolean variant_mode;
     private final String theme_name;
-    private String name;
     private final String package_name;
     private final VariantAdapter array;
     private final VariantAdapter array2;
     private final VariantAdapter array3;
     private final VariantAdapter array4;
     private final VariantAdapter array5;
+    private final Context context;
+    private final Drawable app_icon;
+    private final Boolean theme_oms;
+    private final View activityView;
+    public boolean is_variant_chosen;
+    public boolean is_variant_chosen1;
+    public boolean is_variant_chosen2;
+    public boolean is_variant_chosen3;
+    public boolean is_variant_chosen4;
+    public boolean is_variant_chosen5;
+    private String name;
     private boolean isSelected;
     private int spinnerSelection;
     private int spinnerSelection2;
@@ -63,11 +67,7 @@ public class OverlaysItem implements Serializable {
     private String variantSelected4 = "";
     private String variantSelected5 = "";
     private String baseResources = "";
-    private final Context context;
     private List<Object> enabledOverlays;
-    private final Drawable app_icon;
-    private final Boolean theme_oms;
-    private final View activityView;
 
     public OverlaysItem(final String theme_name,
                         final String name,
@@ -295,7 +295,8 @@ public class OverlaysItem implements Serializable {
     boolean compareInstalledOverlay() {
         try {
             final PackageInfo pinfo =
-                    this.context.getPackageManager().getPackageInfo(this.getFullOverlayParameters(), 0);
+                    this.context.getPackageManager().getPackageInfo(this.getFullOverlayParameters
+                            (), 0);
             return pinfo.versionName.equals(this.versionName);
         } catch (final Exception e) {
             // Suppress warning
@@ -338,7 +339,8 @@ public class OverlaysItem implements Serializable {
     }
 
     public boolean isOverlayEnabled() {
-        final boolean installed = Packages.isPackageInstalled(this.context, this.getFullOverlayParameters());
+        final boolean installed = Packages.isPackageInstalled(this.context, this
+                .getFullOverlayParameters());
         if (Systems.isSamsungDevice(this.context)) {
             return installed;
         } else {

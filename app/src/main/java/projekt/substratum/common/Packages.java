@@ -83,7 +83,8 @@ public enum Packages {
             final String package_name,
             final boolean enabled) {
         try {
-            final ApplicationInfo ai = context.getPackageManager().getApplicationInfo(package_name, 0);
+            final ApplicationInfo ai = context.getPackageManager().getApplicationInfo
+                    (package_name, 0);
             final PackageManager pm = context.getPackageManager();
             pm.getPackageInfo(package_name, PackageManager.GET_ACTIVITIES);
             if (enabled) return ai.enabled;
@@ -147,8 +148,10 @@ public enum Packages {
         } else if (drawable instanceof AdaptiveIconDrawable) {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                 // First we must get the top and bottom layers of the drawable
-                final Drawable backgroundDrawable = ((AdaptiveIconDrawable) drawable).getBackground();
-                final Drawable foregroundDrawable = ((AdaptiveIconDrawable) drawable).getForeground();
+                final Drawable backgroundDrawable = ((AdaptiveIconDrawable) drawable)
+                        .getBackground();
+                final Drawable foregroundDrawable = ((AdaptiveIconDrawable) drawable)
+                        .getForeground();
 
                 // Then we have to set up the drawable array to format these as an instantiation
                 final Drawable[] drawableArray = new Drawable[2];
@@ -203,7 +206,8 @@ public enum Packages {
     }
 
     // This method obtains the overlay's compiler version
-    public static int getOverlaySubstratumVersion(final Context context, final String package_name) {
+    public static int getOverlaySubstratumVersion(final Context context, final String
+            package_name) {
         try {
             final ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
@@ -378,6 +382,7 @@ public enum Packages {
         return null;
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static Boolean getOverlayMetadata(
             final Context mContext,
             final String package_name,
@@ -430,7 +435,8 @@ public enum Packages {
     }
 
     // Get Color Resource
-    public static int getColorResource(final Context mContext, final String package_name, final String colorName) {
+    public static int getColorResource(final Context mContext, final String package_name, final
+    String colorName) {
         return getResource(mContext, package_name, colorName, "color");
     }
 
@@ -439,7 +445,8 @@ public enum Packages {
         try {
             final android.content.res.Resources res =
                     mContext.getPackageManager().getResourcesForApplication(package_name);
-            final int array_position = getResource(mContext, package_name, resourceChangelog, "array");
+            final int array_position = getResource(mContext, package_name, resourceChangelog,
+                    "array");
             return res.getStringArray(array_position);
         } catch (final Exception e) {
             // Suppress warning
@@ -452,7 +459,8 @@ public enum Packages {
                                                final boolean isThemesView) {
         Drawable hero = mContext.getDrawable(android.R.color.transparent); // Initialize to be clear
         try {
-            final android.content.res.Resources res = mContext.getPackageManager().getResourcesForApplication(package_name);
+            final android.content.res.Resources res = mContext.getPackageManager()
+                    .getResourcesForApplication(package_name);
             int resourceId;
             if ((PreferenceManager.
                     getDefaultSharedPreferences(mContext).
@@ -505,12 +513,14 @@ public enum Packages {
     }
 
     // Get Theme Ready Metadata
-    public static String getThemeReadyVisibility(final Context mContext, final String package_name) {
+    public static String getThemeReadyVisibility(final Context mContext, final String
+            package_name) {
         return getOverlayMetadata(mContext, package_name, metadataThemeReady);
     }
 
     // Get Theme Plugin Metadata
-    public static String getPackageTemplateVersion(final Context mContext, final String package_name) {
+    public static String getPackageTemplateVersion(final Context mContext, final String
+            package_name) {
         final String template_version = getOverlayMetadata(mContext, package_name, metadataVersion);
         if (template_version != null) {
             return mContext.getString(R.string.plugin_template) + ": " + template_version;
@@ -592,7 +602,8 @@ public enum Packages {
                     can_continue = true;
                     // If the user is searching using the search bar
                     if ((search_filter != null) && !search_filter.isEmpty()) {
-                        @SuppressWarnings("StringBufferReplaceableByString") final StringBuilder filtered = new StringBuilder();
+                        @SuppressWarnings("StringBufferReplaceableByString") final StringBuilder
+                                filtered = new StringBuilder();
                         filtered.append(appInfo.metaData.getString(metadataName));
                         filtered.append(appInfo.metaData.getString(metadataAuthor));
                         can_continue =
@@ -612,7 +623,8 @@ public enum Packages {
                     final Context other = context.createPackageContext(packageName, 0);
                     // Check if it is wallpaper mode, if it is, bail out early
                     if (home_type.equals(wallpaperFragment)) {
-                        final String wallpaperCheck = appInfo.metaData.getString(metadataWallpapers);
+                        final String wallpaperCheck = appInfo.metaData.getString
+                                (metadataWallpapers);
                         if ((wallpaperCheck != null) && !wallpaperCheck.isEmpty()) {
                             returnMap.put(appInfo.metaData.getString(metadataName), data);
                         }
@@ -668,17 +680,17 @@ public enum Packages {
         }
 
         String hex = null;
-        try (InputStream clone1 = new ByteArrayInputStream(byteArray);
-             InputStream clone2 = new ByteArrayInputStream(byteArray)) {
+        try (InputStream in = new ByteArrayInputStream(byteArray)) {
             // Find the name of the top most color in the file first.
             final String resource_name = ReadVariantPrioritizedColor.run();
 
             if (resource_name != null) {
-                try (BufferedReader br = new BufferedReader(new InputStreamReader(clone2))) {
+                try (BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
                     String line;
                     while ((line = br.readLine()) != null) {
                         if (line.contains('"' + resource_name + '"')) {
-                            final String[] split = line.substring(line.lastIndexOf("\">") + 2).split("<");
+                            final String[] split =
+                                    line.substring(line.lastIndexOf("\">") + 2).split("<");
                             hex = split[0];
                             if (hex.startsWith("?")) hex = "#00000000";
                         }

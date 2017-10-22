@@ -22,17 +22,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import projekt.substratum.R;
-import projekt.substratum.activities.base.SubstratumActivity;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.platform.ThemeManager;
 
-public class RescueActivity extends SubstratumActivity {
+public class RescueActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class RescueActivity extends SubstratumActivity {
         if (Systems.isSamsungDevice(this.getApplicationContext())) {
             this.startActivity(new Intent(Settings.ACTION_MANAGE_ALL_APPLICATIONS_SETTINGS));
         } else {
-            this.createToast(this.getString(R.string.rescue_toast), Toast.LENGTH_LONG);
+            Toast.makeText(this, this.getString(R.string.rescue_toast), Toast.LENGTH_LONG).show();
             final Handler handler = new Handler();
             handler.postDelayed(() -> {
                 final List<String> android = ThemeManager.listEnabledOverlaysForTarget(

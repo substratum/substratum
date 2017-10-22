@@ -67,7 +67,8 @@ public class OverlayFound extends BroadcastReceiver {
                 return;
             }
 
-            if (this.package_name.equals(SST_ADDON_PACKAGE) || this.package_name.equals(ANDROMEDA_PACKAGE)) {
+            if (this.package_name.equals(SST_ADDON_PACKAGE) ||
+                    this.package_name.equals(ANDROMEDA_PACKAGE)) {
                 final SharedPreferences prefs =
                         context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
                 prefs.edit().clear().apply();

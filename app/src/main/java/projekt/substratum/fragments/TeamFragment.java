@@ -36,10 +36,12 @@ import projekt.substratum.R;
 public class TeamFragment extends Fragment {
 
     @Override
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle
-            savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater,
+                             final ViewGroup container,
+                             final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final ViewGroup root = (ViewGroup) inflater.inflate(R.layout.team_fragment, container, false);
+        final ViewGroup root =
+                (ViewGroup) inflater.inflate(R.layout.team_fragment, container, false);
 
         final CardView nicholas_card = root.findViewById(R.id.nicholas_card);
         nicholas_card.setOnClickListener(v -> {
@@ -212,7 +214,8 @@ public class TeamFragment extends Fragment {
             builder.setItems(this.getResources().getStringArray(R.array.translations),
                     (dialog, item) -> {
                         dialog.cancel();
-                        final AlertDialog.Builder builder2 = new AlertDialog.Builder(this.getActivity());
+                        final AlertDialog.Builder builder2 = new AlertDialog.Builder(this
+                                .getActivity());
                         switch (item) {
                             case 0:
                                 builder2.setItems(
@@ -223,25 +226,29 @@ public class TeamFragment extends Fragment {
                                 break;
                             case 1:
                                 builder2.setItems(
-                                        this.getResources().getStringArray(R.array.czech_translators),
+                                        this.getResources().getStringArray(R.array
+                                                .czech_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 2:
                                 builder2.setItems(
-                                        this.getResources().getStringArray(R.array.chinese_translators),
+                                        this.getResources().getStringArray(R.array
+                                                .chinese_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 3:
                                 builder2.setItems(
-                                        this.getResources().getStringArray(R.array.french_translators),
+                                        this.getResources().getStringArray(R.array
+                                                .french_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 4:
                                 builder2.setItems(
-                                        this.getResources().getStringArray(R.array.german_translators),
+                                        this.getResources().getStringArray(R.array
+                                                .german_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
@@ -254,7 +261,8 @@ public class TeamFragment extends Fragment {
                                 break;
                             case 6:
                                 builder2.setItems(
-                                        this.getResources().getStringArray(R.array.italian_translators),
+                                        this.getResources().getStringArray(R.array
+                                                .italian_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
@@ -267,13 +275,15 @@ public class TeamFragment extends Fragment {
                                 break;
                             case 8:
                                 builder2.setItems(
-                                        this.getResources().getStringArray(R.array.dutch_translators),
+                                        this.getResources().getStringArray(R.array
+                                                .dutch_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 9:
                                 builder2.setItems(
-                                        this.getResources().getStringArray(R.array.polish_translators),
+                                        this.getResources().getStringArray(R.array
+                                                .polish_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
@@ -293,25 +303,29 @@ public class TeamFragment extends Fragment {
                                 break;
                             case 12:
                                 builder2.setItems(
-                                        this.getResources().getStringArray(R.array.russian_translators),
+                                        this.getResources().getStringArray(R.array
+                                                .russian_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 13:
                                 builder2.setItems(
-                                        this.getResources().getStringArray(R.array.slovak_translators),
+                                        this.getResources().getStringArray(R.array
+                                                .slovak_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 14:
                                 builder2.setItems(
-                                        this.getResources().getStringArray(R.array.spanish_translators),
+                                        this.getResources().getStringArray(R.array
+                                                .spanish_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 15:
                                 builder2.setItems(
-                                        this.getResources().getStringArray(R.array.turkish_translators),
+                                        this.getResources().getStringArray(R.array
+                                                .turkish_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;

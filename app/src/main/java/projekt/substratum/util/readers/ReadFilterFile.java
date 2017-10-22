@@ -51,13 +51,15 @@ public enum ReadFilterFile {
                 final Node nNode = nList.item(temp);
                 if ((int) nNode.getNodeType() == (int) Node.ELEMENT_NODE) {
                     final Element eElement = (Element) nNode;
-                    final ValidatorFilter current = new ValidatorFilter(eElement.getAttribute("name"));
+                    final ValidatorFilter current = new ValidatorFilter(eElement.getAttribute
+                            ("name"));
                     final List<String> filtered = new ArrayList<>();
                     boolean unknown = false;
                     int counter = 1;
                     while (!unknown) {
                         try {
-                            final String filterObject = eElement.getElementsByTagName("filter" + counter)
+                            final String filterObject = eElement.getElementsByTagName("filter" +
+                                    counter)
                                     .item(0).getTextContent();
                             filtered.add(filterObject);
                             counter++;
@@ -72,8 +74,7 @@ public enum ReadFilterFile {
             return list;
         } catch (final Exception e) {
             e.printStackTrace();
-            final List<ValidatorFilter> emptyList = new ArrayList<>();
-            return emptyList;
+            return new ArrayList<>();
         }
     }
 }

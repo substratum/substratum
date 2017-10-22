@@ -43,6 +43,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -74,7 +75,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import projekt.substratum.activities.base.SubstratumActivity;
 import projekt.substratum.activities.showcase.ShowcaseActivity;
 import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
@@ -124,7 +124,7 @@ import static projekt.substratum.common.Systems.checkUsagePermissions;
 import static projekt.substratum.common.Systems.isSamsung;
 import static projekt.substratum.common.commands.FileOperations.delete;
 
-public class MainActivity extends SubstratumActivity implements
+public class MainActivity extends AppCompatActivity implements
         ActivityCompat.OnRequestPermissionsResultCallback, SearchView.OnQueryTextListener {
 
     private static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
@@ -133,12 +133,11 @@ public class MainActivity extends SubstratumActivity implements
     private static final int UNINSTALL_REQUEST_CODE = 12675;
     private static final String SELECTED_DRAWER_ITEM = "selected_drawer_item";
     public static String userInput = "";
-    private static MenuItem searchItem;
     public static ArrayList<String> queuedUninstall;
     private static ActionBar supportActionBar;
-    private TextView actionbar_title;
     public TextView actionbar_content;
     public SearchView searchView;
+    private TextView actionbar_title;
     private Drawer drawer;
     private int permissionCheck = PackageManager.PERMISSION_DENIED;
     private Dialog mProgressDialog;
@@ -224,7 +223,8 @@ public class MainActivity extends SubstratumActivity implements
         this.supportInvalidateOptionsMenu();
     }
 
-    private void switchFragmentToLicenses(final CharSequence title, final LibsSupportFragment fragment) {
+    private void switchFragmentToLicenses(final CharSequence title, final LibsSupportFragment
+            fragment) {
         if ((this.searchView != null) && !this.searchView.isIconified()) {
             this.searchView.setIconified(true);
         }
@@ -278,7 +278,8 @@ public class MainActivity extends SubstratumActivity implements
         // Register the main app receiver to auto kill the activity
         this.killReceiver = new KillReceiver();
         this.localBroadcastManager = LocalBroadcastManager.getInstance(this.mContext);
-        this.localBroadcastManager.registerReceiver(this.killReceiver, new IntentFilter("MainActivity.KILL"));
+        this.localBroadcastManager.registerReceiver(this.killReceiver, new IntentFilter
+                ("MainActivity.KILL"));
 
         if (Systems.isAndromedaDevice(this.mContext)) {
             this.andromedaReceiver = new AndromedaReceiver();
@@ -609,7 +610,8 @@ public class MainActivity extends SubstratumActivity implements
             return false;
         });
         this.drawer = drawerBuilder.build();
-        if ((this.getIntent() != null) && this.getIntent().getBooleanExtra("launch_manager_fragment", false)) {
+        if ((this.getIntent() != null) && this.getIntent().getBooleanExtra
+                ("launch_manager_fragment", false)) {
             this.switchFragment(this.getString(R.string.nav_overlay_manager),
                     ManagerFragment.class.getCanonicalName());
             this.drawer.setSelection(8L);
@@ -656,7 +658,7 @@ public class MainActivity extends SubstratumActivity implements
         }
         if (!isOMS) menu.findItem(R.id.per_app).setVisible(false);
 
-        searchItem = menu.findItem(R.id.action_search);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
         this.searchView = (SearchView) searchItem.getActionView();
         this.searchView.setOnQueryTextListener(this);
         searchItem.setVisible(!this.hideBundle);
@@ -688,7 +690,8 @@ public class MainActivity extends SubstratumActivity implements
                             checkUsagePermissions(this.mContext)) {
                         this.showFloatingHead();
                     } else if (!Settings.canDrawOverlays(this.mContext)) {
-                        final DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                        final DialogInterface.OnClickListener dialogClickListener = (dialog,
+                                                                                     which) -> {
                             switch (which) {
                                 case DialogInterface.BUTTON_POSITIVE:
                                     final Intent draw_over_apps = new Intent(
@@ -710,7 +713,8 @@ public class MainActivity extends SubstratumActivity implements
                                 .setNegativeButton(R.string.dialog_cancel, dialogClickListener)
                                 .show();
                     } else if (!checkUsagePermissions(this.mContext)) {
-                        final DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                        final DialogInterface.OnClickListener dialogClickListener = (dialog,
+                                                                                     which) -> {
                             switch (which) {
                                 case DialogInterface.BUTTON_POSITIVE:
                                     final Intent usage = new Intent(Settings
@@ -910,7 +914,8 @@ public class MainActivity extends SubstratumActivity implements
     }
 
     @Override
-    public void onRequestPermissionsResult(final int requestCode, @NonNull final String[] permissions,
+    public void onRequestPermissionsResult(final int requestCode, @NonNull final String[]
+            permissions,
                                            @NonNull final int[] grantResults) {
         switch (requestCode) {
             case PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
@@ -1002,8 +1007,8 @@ public class MainActivity extends SubstratumActivity implements
     }
 
     private static final class RootRequester extends AsyncTask<Void, Void, Boolean> {
-        boolean isRunning = true;
         private final WeakReference<MainActivity> ref;
+        boolean isRunning = true;
 
         private RootRequester(final MainActivity activity) {
             super();

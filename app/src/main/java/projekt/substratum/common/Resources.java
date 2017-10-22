@@ -205,7 +205,8 @@ public enum Resources {
     // This method checks whether custom shutdown animation is supported by the system
     public static boolean isShutdownAnimationSupported() {
         try {
-            @SuppressLint("PrivateApi") final Class<?> cls = new DexClassLoader("/system/framework/services.jar",
+            @SuppressLint("PrivateApi") final Class<?> cls = new DexClassLoader
+                    ("/system/framework/services.jar",
                     "/data/tmp/", "/data/tmp/", ClassLoader.getSystemClassLoader())
                     .loadClass("com.android.server.power.ShutdownThread");
             cls.getDeclaredMethod("themeShutdownAnimationExists");

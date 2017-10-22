@@ -19,11 +19,11 @@
 package projekt.substratum.activities.launch;
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-import projekt.substratum.activities.base.SubstratumActivity;
 import projekt.substratum.common.Theming;
 
-public class AppShortcutLaunch extends SubstratumActivity {
+public class AppShortcutLaunch extends AppCompatActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {

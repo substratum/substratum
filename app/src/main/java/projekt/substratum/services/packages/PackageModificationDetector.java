@@ -114,7 +114,8 @@ public class PackageModificationDetector extends BroadcastReceiver {
         final Boolean replacing = intent.getBooleanExtra(Intent.EXTRA_REPLACING, false);
 
         // Let's add it to the list of installed themes on shared prefs
-        final SharedPreferences mainPrefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
+        final SharedPreferences mainPrefs = PreferenceManager.getDefaultSharedPreferences(this
+                .mContext);
         final Set<String> installed_themes =
                 mainPrefs.getStringSet("installed_themes", new HashSet<>());
         final Set<String> installed_sorted = new TreeSet<>();
@@ -131,7 +132,8 @@ public class PackageModificationDetector extends BroadcastReceiver {
         // Legacy check to see if an OMS theme is guarded from being installed on legacy
         if (!Systems.checkOMS(this.mContext)) {
             try {
-                final ApplicationInfo appInfo = this.mContext.getPackageManager().getApplicationInfo(
+                final ApplicationInfo appInfo = this.mContext.getPackageManager()
+                        .getApplicationInfo(
                         package_name, PackageManager.GET_META_DATA);
                 if (appInfo.metaData != null) {
                     final Boolean check_legacy =
@@ -178,7 +180,8 @@ public class PackageModificationDetector extends BroadcastReceiver {
 
             new NotificationCreator(
                     this.mContext,
-                    Packages.getPackageName(this.mContext, package_name) + ' ' + this.mContext.getString(
+                    Packages.getPackageName(this.mContext, package_name) + ' ' + this.mContext
+                            .getString(
                             R.string.notification_theme_updated),
                     this.mContext.getString(R.string.notification_theme_updated_content),
                     true,
@@ -190,7 +193,8 @@ public class PackageModificationDetector extends BroadcastReceiver {
         } else {
             new NotificationCreator(
                     this.mContext,
-                    Packages.getPackageName(this.mContext, package_name) + ' ' + this.mContext.getString(
+                    Packages.getPackageName(this.mContext, package_name) + ' ' + this.mContext
+                            .getString(
                             R.string.notification_theme_installed),
                     this.mContext.getString(R.string.notification_theme_installed_content),
                     true,
@@ -208,6 +212,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
     private PendingIntent getPendingIntent(final String package_name) {
         final Intent myIntent = new Intent(this.mContext, AppShortcutLaunch.class);
         myIntent.putExtra("theme_pid", package_name);
-        return PendingIntent.getActivity(this.mContext, 0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        return PendingIntent.getActivity(this.mContext, 0, myIntent, PendingIntent
+                .FLAG_CANCEL_CURRENT);
     }
 }

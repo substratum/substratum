@@ -93,9 +93,11 @@ public class PriorityLoaderFragment extends Fragment {
                         final Fragment fragment = new PriorityListFragment();
 
                         final Bundle bundle = new Bundle();
-                        bundle.putString("package_name", PriorityLoaderFragment.this.app_list.get(position));
+                        bundle.putString("package_name", PriorityLoaderFragment.this.app_list.get
+                                (position));
                         fragment.setArguments(bundle);
-                        final FragmentManager fm = PriorityLoaderFragment.this.getActivity().getSupportFragmentManager();
+                        final FragmentManager fm = PriorityLoaderFragment.this.getActivity()
+                                .getSupportFragmentManager();
                         final FragmentTransaction transaction = fm.beginTransaction();
                         transaction.setCustomAnimations(
                                 android.R.anim.fade_in, android.R.anim.fade_out);

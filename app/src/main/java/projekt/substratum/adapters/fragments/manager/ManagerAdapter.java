@@ -41,8 +41,8 @@ import static android.text.Html.FROM_HTML_MODE_LEGACY;
 public class ManagerAdapter extends
         RecyclerView.Adapter<ManagerAdapter.ViewHolder> {
 
-    private List<ManagerItem> overlayList;
     private final Boolean floatui;
+    private List<ManagerItem> overlayList;
 
     public ManagerAdapter(final List<ManagerItem> overlays, final Boolean floatui) {
         super();
@@ -51,7 +51,8 @@ public class ManagerAdapter extends
     }
 
     @Override
-    public ManagerAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+    public ManagerAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, final int
+            viewType) {
         final View itemLayoutView;
         if (this.floatui) {
             itemLayoutView = LayoutInflater.from(parent.getContext()).inflate(
@@ -272,10 +273,6 @@ public class ManagerAdapter extends
 
     public List<ManagerItem> getOverlayManagerList() {
         return this.overlayList;
-    }
-
-    public void setOverlayManagerList(final List<ManagerItem> overlayList) {
-        this.overlayList = overlayList;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

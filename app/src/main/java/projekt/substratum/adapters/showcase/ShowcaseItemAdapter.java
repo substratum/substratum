@@ -52,7 +52,8 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
     }
 
     @Override
-    public ShowcaseItemAdapter.ViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int i) {
+    public ShowcaseItemAdapter.ViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int
+            i) {
         final View view = LayoutInflater.from(
                 viewGroup.getContext()).inflate(R.layout.showcase_entry_card, viewGroup, false);
         return new ViewHolder(view);

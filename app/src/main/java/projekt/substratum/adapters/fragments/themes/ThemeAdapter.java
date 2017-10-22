@@ -138,7 +138,8 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         viewHolder.cardView.setOnLongClickListener(view -> {
             // Vibrate the device alerting the user they are about to do something dangerous!
             if (Packages.isUserApp(this.mContext, themeItem.getThemePackage())) {
-                final Vibrator v = (Vibrator) this.mContext.getSystemService(Context.VIBRATOR_SERVICE);
+                final Vibrator v = (Vibrator) this.mContext.getSystemService(Context
+                        .VIBRATOR_SERVICE);
                 if (v != null) {
                     v.vibrate(30L);
                 }
@@ -159,7 +160,8 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                                 themeItem.getThemePackage())));
 
                 final ImageView icon = sheetView.findViewById(R.id.icon);
-                icon.setImageDrawable(Packages.getAppIcon(this.mContext, themeItem.getThemePackage()));
+                icon.setImageDrawable(Packages.getAppIcon(this.mContext, themeItem
+                        .getThemePackage()));
 
                 final ImageView two = sheetView.findViewById(R.id.theme_unready_indicator);
                 final ImageView tbo = sheetView.findViewById(R.id.theme_ready_indicator);
@@ -193,9 +195,11 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 // Favorite
                 final LinearLayout favorite = sheetView.findViewById(R.id.favorite);
 
-                final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
+                final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences
+                        (this.mContext);
                 final Drawable favoriteImg = this.mContext.getDrawable(R.drawable.toolbar_favorite);
-                final Drawable notFavoriteImg = this.mContext.getDrawable(R.drawable.toolbar_not_favorite);
+                final Drawable notFavoriteImg = this.mContext.getDrawable(R.drawable
+                        .toolbar_not_favorite);
                 final TextView favoriteText = sheetView.findViewById(R.id.favorite_text);
                 if (prefs.getString("app_shortcut_theme", "").equals(themeItem.getThemePackage())) {
                     assert favoriteImg != null;
@@ -289,7 +293,8 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 // Uninstalling
                 final LinearLayout uninstall = sheetView.findViewById(R.id.uninstall);
                 uninstall.setOnClickListener(view2 -> {
-                    if (!Systems.isSamsung(this.mContext) && !Systems.checkAndromeda(this.mContext)) {
+                    if (!Systems.isSamsung(this.mContext) && !Systems.checkAndromeda(this
+                            .mContext)) {
                         this.toBeUninstalled = themeItem;
                         new uninstallTheme(this).execute();
                     } else {

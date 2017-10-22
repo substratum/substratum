@@ -96,7 +96,8 @@ public enum SoundManager {
                 final boolean created = cacheDirectory.mkdirs();
                 if (created) Log.d("SoundUtils", "Sounds folder created");
             }
-            final File cacheDirectory2 = new File(context.getCacheDir(), "/SoundsCache/SoundsInjector/");
+            final File cacheDirectory2 = new File(context.getCacheDir(),
+                    "/SoundsCache/SoundsInjector/");
             if (!cacheDirectory2.exists() && cacheDirectory2.mkdirs()) {
                 Log.d("SoundUtils", "Sounds work folder created");
             } else {
@@ -539,7 +540,8 @@ public enum SoundManager {
                 "/system/media/audio/ui/" + sound_file);
     }
 
-    private static void setAudible(final Context context, final File ringtone, final File ringtoneCache, final int type,
+    private static void setAudible(final Context context, final File ringtone, final File
+            ringtoneCache, final int type,
                                    final String name) {
         final String path = ringtone.getAbsolutePath();
         final String mimeType = name.endsWith(".ogg") ? "application/ogg" : "application/mp3";

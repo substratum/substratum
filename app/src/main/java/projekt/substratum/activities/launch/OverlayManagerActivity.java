@@ -19,12 +19,12 @@
 package projekt.substratum.activities.launch;
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import projekt.substratum.R;
-import projekt.substratum.activities.base.SubstratumActivity;
 import projekt.substratum.common.References;
 
-public class OverlayManagerActivity extends SubstratumActivity {
+public class OverlayManagerActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {

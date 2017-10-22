@@ -84,8 +84,6 @@ public class BootAnimationUtils {
 
         @SuppressLint("StaticFieldLeak")
         private final Context mContext;
-        private ProgressDialog progress;
-        private Boolean has_failed;
         @SuppressLint("StaticFieldLeak")
         private final View view;
         private final String theme_pid;
@@ -93,6 +91,8 @@ public class BootAnimationUtils {
         private final Boolean encrypted;
         private final Cipher cipher;
         private final Boolean shutdownAnimation;
+        private ProgressDialog progress;
+        private Boolean has_failed;
 
         BootAnimationHandlerAsync(final View view,
                                   final Context context,
@@ -108,6 +108,16 @@ public class BootAnimationUtils {
             this.encrypted = encrypted;
             this.cipher = cipher;
             this.shutdownAnimation = shutdownAnimation;
+        }
+
+        private static void CopyStream(final InputStream Input, final OutputStream Output) throws
+                IOException {
+            final byte[] buffer = new byte[5120];
+            int length = Input.read(buffer);
+            while (length > 0) {
+                Output.write(buffer, 0, length);
+                length = Input.read(buffer);
+            }
         }
 
         @Override
@@ -151,7 +161,8 @@ public class BootAnimationUtils {
             // Move the file from assets folder to a new working area
             Log.d(TAG, "Copying over the selected boot animation to working directory...");
 
-            final File cacheDirectory = new File(this.mContext.getCacheDir(), "/BootAnimationCache/");
+            final File cacheDirectory = new File(this.mContext.getCacheDir(),
+                    "/BootAnimationCache/");
             if (!cacheDirectory.exists() && cacheDirectory.mkdirs())
                 Log.d(TAG, "Bootanimation folder created");
 
@@ -168,14 +179,16 @@ public class BootAnimationUtils {
 
             String bootanimation = sUrl[0];
 
-            final String directory = (this.shutdownAnimation ? "shutdownanimation" : "bootanimation");
+            final String directory = (this.shutdownAnimation ? "shutdownanimation" :
+                    "bootanimation");
 
             // Now let's take out desc.txt from the theme's assets (bootanimation.zip) and parse it
             if (!this.has_failed) {
                 Log.d(TAG, "Analyzing integrity of boot animation descriptor file...");
                 if (this.cipher != null) {
                     try {
-                        final Context otherContext = this.mContext.createPackageContext(this.theme_pid, 0);
+                        final Context otherContext = this.mContext.createPackageContext(this
+                                .theme_pid, 0);
                         final AssetManager themeAssetManager = otherContext.getAssets();
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
@@ -192,7 +205,8 @@ public class BootAnimationUtils {
                     }
                 } else {
                     try {
-                        final Context otherContext = this.mContext.createPackageContext(this.theme_pid, 0);
+                        final Context otherContext = this.mContext.createPackageContext(this
+                                .theme_pid, 0);
                         final AssetManager am = otherContext.getAssets();
                         try (InputStream inputStream = am.open(
                                 directory + '/' + bootanimation + ".zip");
@@ -305,6 +319,7 @@ public class BootAnimationUtils {
                             final int height = Integer.parseInt(info[1]);
 
                             if (width == height) {
+                                //noinspection SuspiciousNameCombination
                                 scaledHeight = scaledWidth;
                             } else {
                                 // adjust scaledHeight to retain original aspect ratio
@@ -424,7 +439,8 @@ public class BootAnimationUtils {
                         if (!backupScript.exists()) {
                             final AssetManager assetManager = this.mContext.getAssets();
                             final String backupScriptPath =
-                                    this.mContext.getFilesDir().getAbsolutePath() + '/' + BACKUP_SCRIPT;
+                                    this.mContext.getFilesDir().getAbsolutePath() + '/' +
+                                            BACKUP_SCRIPT;
                             OutputStream out = null;
                             InputStream in = null;
                             try {
@@ -453,7 +469,8 @@ public class BootAnimationUtils {
                                     }
                                 }
                             }
-                            FileOperations.copy(this.mContext, this.mContext.getFilesDir().getAbsolutePath() +
+                            FileOperations.copy(this.mContext, this.mContext.getFilesDir()
+                                    .getAbsolutePath() +
                                     '/' + BACKUP_SCRIPT, backupScript.getAbsolutePath());
                             FileOperations.setPermissions(755, backupScript.getAbsolutePath());
                         }
@@ -505,15 +522,6 @@ public class BootAnimationUtils {
                         "/BootAnimationCache/AnimationCreator/");
             }
             return null;
-        }
-
-        private static void CopyStream(final InputStream Input, final OutputStream Output) throws IOException {
-            final byte[] buffer = new byte[5120];
-            int length = Input.read(buffer);
-            while (length > 0) {
-                Output.write(buffer, 0, length);
-                length = Input.read(buffer);
-            }
         }
     }
 }

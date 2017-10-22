@@ -156,11 +156,13 @@ public class ProfileFragment extends Fragment {
             final ViewGroup container,
             final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final ViewGroup root = (ViewGroup) inflater.inflate(R.layout.profile_fragment, container, false);
+        final ViewGroup root = (ViewGroup) inflater.inflate(R.layout.profile_fragment, container,
+                false);
 
         this.mContext = this.getContext();
 
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this
+                .mContext);
 
         this.headerProgress = root.findViewById(R.id.header_loading_bar);
         this.headerProgress.setVisibility(View.GONE);
@@ -230,7 +232,8 @@ public class ProfileFragment extends Fragment {
                         .setTitle(R.string.profile_dialog_title)
                         .setMultiChoiceItems(items, null, (dialog1, which, isChecked) -> {
                             if (isChecked) {
-                                if (items[which].equals(this.getString(R.string.profile_boot_animation))
+                                if (items[which].equals(this.getString(R.string
+                                        .profile_boot_animation))
                                         && (Systems.getDeviceEncryptionStatus(this.mContext) > 1)
                                         && Systems.checkThemeInterfacer(this.mContext)) {
                                     AlertDialog dialog2 = new AlertDialog.Builder(this.mContext)
@@ -286,7 +289,8 @@ public class ProfileFragment extends Fragment {
         this.profile_selector = root.findViewById(R.id.restore_spinner);
 
         this.list = new ArrayList<>();
-        this.adapter = new ArrayAdapter<>(this.mContext, android.R.layout.simple_spinner_item, this.list);
+        this.adapter = new ArrayAdapter<>(this.mContext, android.R.layout.simple_spinner_item,
+                this.list);
         this.RefreshSpinner();
 
         // Specify the layout to use when the list of choices appears
@@ -305,7 +309,8 @@ public class ProfileFragment extends Fragment {
                         .setPositiveButton(this.getString(R.string.delete_dialog_okay),
                                 (dialog, which) -> {
                                     File f1 = new File(Environment
-                                            .getExternalStorageDirectory().getAbsolutePath() + "/substratum/profiles/" + this.profile_selector
+                                            .getExternalStorageDirectory().getAbsolutePath() +
+                                            "/substratum/profiles/" + this.profile_selector
                                             .getSelectedItem() + ".substratum");
                                     boolean deleted = f1.delete();
                                     if (!deleted)
@@ -366,7 +371,8 @@ public class ProfileFragment extends Fragment {
             final Button startTime = root.findViewById(R.id.night_start_time);
             startTime.setOnClickListener(view -> {
                 final DialogFragment timePickerFragment = new TimePickerFragment();
-                if (startTime.getText().equals(this.getResources().getString(R.string.start_time))) {
+                if (startTime.getText().equals(this.getResources().getString(R.string.start_time)
+                )) {
                     TimePickerFragment.setFlag(TimePickerFragment.FLAG_START_TIME);
                 } else {
                     TimePickerFragment.setFlag(
@@ -422,7 +428,8 @@ public class ProfileFragment extends Fragment {
                                 .equals(this.getResources().getString(R.string.end_time))) {
                             if ((dayHour != nightHour) || (dayMinute != nightMinute)) {
                                 ProfileManager.enableScheduledProfile(this.getActivity(),
-                                        this.dayProfile.getSelectedItem().toString(), dayHour, dayMinute,
+                                        this.dayProfile.getSelectedItem().toString(), dayHour,
+                                        dayMinute,
                                         this.nightProfile.getSelectedItem().toString(), nightHour,
                                         nightMinute);
                                 if (this.getView() != null) {
@@ -658,9 +665,11 @@ public class ProfileFragment extends Fragment {
                             FileOperations.copyDir(profileFragment.mContext, current_directory,
                                     Environment.getExternalStorageDirectory().getAbsolutePath() +
                                             "/substratum/profiles/");
-                            final File oldFolder = new File(Environment.getExternalStorageDirectory()
+                            final File oldFolder = new File(Environment
+                                    .getExternalStorageDirectory()
                                     .getAbsolutePath() + "/substratum/profiles/overlay");
-                            final File newFolder = new File(Environment.getExternalStorageDirectory()
+                            final File newFolder = new File(Environment
+                                    .getExternalStorageDirectory()
                                     .getAbsolutePath() + "/substratum/profiles/" +
                                     profileFragment.backup_getText);
                             final boolean success = oldFolder.renameTo(newFolder);
@@ -683,7 +692,8 @@ public class ProfileFragment extends Fragment {
                         // Don't forget the wallpaper if wanted
                         if (profileFragment.selectedBackup.contains(
                                 profileFragment.getString(R.string.profile_wallpaper))) {
-                            final File homeWall = new File("/data/system/users/" + uid + "/wallpaper");
+                            final File homeWall = new File("/data/system/users/" + uid +
+                                    "/wallpaper");
                             if (homeWall.exists()) {
                                 FileOperations.copy(profileFragment.mContext, homeWall
                                                 .getAbsolutePath(),
@@ -728,11 +738,10 @@ public class ProfileFragment extends Fragment {
     }
 
     private static class RestoreFunction extends AsyncTask<String, Integer, String> {
-        List<String> system = new ArrayList<>(); // All installed overlays
         final ArrayList<String> to_be_run = new ArrayList<>(); // Overlays going to be enabled
-        String profile_name;
-
         private final WeakReference<ProfileFragment> ref;
+        List<String> system = new ArrayList<>(); // All installed overlays
+        String profile_name;
 
         RestoreFunction(final ProfileFragment profileFragment) {
             super();
@@ -780,7 +789,8 @@ public class ProfileFragment extends Fragment {
                                 .create().show();
                     } else {
                         // Continue restore process (enable)
-                        new ContinueRestore(profileFragment, this.profile_name, this.to_be_run).execute();
+                        new ContinueRestore(profileFragment, this.profile_name, this.to_be_run)
+                                .execute();
                     }
                 } else {
                     final String current_directory;
@@ -800,7 +810,8 @@ public class ProfileFragment extends Fragment {
                                 "/data/system/theme/");
                         FileOperations.setPermissions(755, "/data/system/theme/");
 
-                        final File profile_apk_files = new File(Environment.getExternalStorageDirectory()
+                        final File profile_apk_files = new File(Environment
+                                .getExternalStorageDirectory()
                                 .getAbsolutePath() + "/substratum/profiles/" +
                                 profileFragment.profile_selector.getSelectedItem() + '/');
                         final String[] located_files = profile_apk_files.list();
@@ -854,7 +865,8 @@ public class ProfileFragment extends Fragment {
                         FileOperations.createNewFolder(profileFragment.mContext,
                                 "/data/system/theme/");
 
-                        final File profile_apk_files = new File(Environment.getExternalStorageDirectory()
+                        final File profile_apk_files = new File(Environment
+                                .getExternalStorageDirectory()
                                 .getAbsolutePath() + "/substratum/profiles/" +
                                 profileFragment.profile_selector.getSelectedItem() + '/');
                         final String[] located_files = profile_apk_files.list();
@@ -918,7 +930,8 @@ public class ProfileFragment extends Fragment {
 
                     final File overlays = new File(
                             Environment.getExternalStorageDirectory().getAbsolutePath()
-                                    + "/substratum/profiles/" + this.profile_name + "/overlay_state" +
+                                    + "/substratum/profiles/" + this.profile_name +
+                                    "/overlay_state" +
                                     ".xml");
 
                     if (overlays.exists()) {
@@ -943,10 +956,12 @@ public class ProfileFragment extends Fragment {
 
                         // Parse non-exist profile overlay packages
                         for (int i = 0; i < profileFragment.cannot_run_overlays.size(); i++) {
-                            final String packageName = profileFragment.cannot_run_overlays.get(i).get(0);
+                            final String packageName = profileFragment.cannot_run_overlays.get(i)
+                                    .get(0);
                             final String targetPackage =
                                     profileFragment.cannot_run_overlays.get(i).get(1);
-                            final String packageDetail = packageName.replace(targetPackage + '.', "");
+                            final String packageDetail = packageName.replace(targetPackage + '.',
+                                    "");
                             final String detailSplit = Arrays.toString(packageDetail.split("\\."))
                                     .replace("[", "")
                                     .replace("]", "")
@@ -991,6 +1006,8 @@ public class ProfileFragment extends Fragment {
 
     private static class ContinueRestore extends AsyncTask<Void, String, Void> {
         private static final String TAG = "ContinueRestore";
+        private final Handler handler = new Handler();
+        private final WeakReference<ProfileFragment> ref;
         private String profileName;
         private List<List<String>> toBeCompiled;
         private ArrayList<String> toBeRun;
@@ -998,18 +1015,15 @@ public class ProfileFragment extends Fragment {
         private LocalBroadcastManager localBroadcastManager;
         private KeyRetrieval keyRetrieval;
         private Intent securityIntent;
-        private Cipher cipher;
-        private final Handler handler = new Handler();
-        private final WeakReference<ProfileFragment> ref;
         private final Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                Log.d(ContinueRestore.this.TAG, "Waiting for encryption key handshake approval...");
+                Log.d(TAG, "Waiting for encryption key handshake approval...");
                 if (ContinueRestore.this.securityIntent != null) {
-                    Log.d(ContinueRestore.this.TAG, "Encryption key handshake approved!");
+                    Log.d(TAG, "Encryption key handshake approved!");
                     ContinueRestore.this.handler.removeCallbacks(ContinueRestore.this.runnable);
                 } else {
-                    Log.d(ContinueRestore.this.TAG, "Encryption key still null...");
+                    Log.d(TAG, "Encryption key still null...");
                     try {
                         Thread.sleep(500L);
                     } catch (final InterruptedException e) {
@@ -1019,6 +1033,7 @@ public class ProfileFragment extends Fragment {
                 }
             }
         };
+        private Cipher cipher;
 
         ContinueRestore(final ProfileFragment profileFragment) {
             super();
@@ -1055,8 +1070,9 @@ public class ProfileFragment extends Fragment {
                 this.progressDialog.setMessage(
                         profileFragment.getString(R.string.profile_restoration_message));
                 this.progressDialog.show();
-                if (this.progressDialog.getWindow() != null) this.progressDialog.getWindow().addFlags(
-                        WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                if (this.progressDialog.getWindow() != null)
+                    this.progressDialog.getWindow().addFlags(
+                            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                 final File directory = new File(EXTERNAL_STORAGE_CACHE);
                 if (!directory.exists()) {
                     FileOperations.createNewFolder(EXTERNAL_STORAGE_CACHE);
@@ -1116,7 +1132,7 @@ public class ProfileFragment extends Fragment {
                                 (metadataEncryptionValue) &&
                                 !theme.equals(prevTheme)) {
                             prevTheme = theme;
-                            Log.d(this.TAG, "This overlay for " +
+                            Log.d(TAG, "This overlay for " +
                                     Packages.getPackageName(profileFragment.mContext, theme) +
                                     " is encrypted, passing handshake to the theme package...");
                             encrypted = true;
@@ -1140,7 +1156,7 @@ public class ProfileFragment extends Fragment {
                                 counter++;
                             }
                             if (counter > 5) {
-                                Log.e(this.TAG, "Could not receive handshake in time...");
+                                Log.e(TAG, "Could not receive handshake in time...");
                                 return null;
                             }
 
@@ -1282,7 +1298,8 @@ public class ProfileFragment extends Fragment {
                     }
                 }
 
-                this.publishProgress(profileFragment.getString(R.string.profile_compile_processing));
+                this.publishProgress(profileFragment.getString(R.string
+                        .profile_compile_processing));
                 if ((this.profileName != null) && (this.toBeRun != null)) this.continueProcess();
                 this.continueProcessWallpaper();
             }
@@ -1307,7 +1324,8 @@ public class ProfileFragment extends Fragment {
             final ProfileFragment profileFragment = this.ref.get();
             if (profileFragment != null) {
 
-                final File theme = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
+                final File theme = new File(Environment.getExternalStorageDirectory()
+                        .getAbsolutePath() +
                         "/substratum/profiles/" + this.profileName + "/theme");
 
                 // Encrypted devices boot Animation
@@ -1365,9 +1383,11 @@ public class ProfileFragment extends Fragment {
         void continueProcessWallpaper() {
             final ProfileFragment profileFragment = this.ref.get();
             if (profileFragment != null) {
-                final String homeWallPath = Environment.getExternalStorageDirectory().getAbsolutePath() +
+                final String homeWallPath = Environment.getExternalStorageDirectory()
+                        .getAbsolutePath() +
                         "/substratum/profiles/" + this.profileName + "/wallpaper.png";
-                final String lockWallPath = Environment.getExternalStorageDirectory().getAbsolutePath() +
+                final String lockWallPath = Environment.getExternalStorageDirectory()
+                        .getAbsolutePath() +
                         "/substratum/profiles/" + this.profileName + "/wallpaper_lock.png";
                 final File homeWall = new File(homeWallPath);
                 final File lockWall = new File(lockWallPath);

@@ -128,21 +128,19 @@ public class OverlayUpdater extends BroadcastReceiver {
     private static class OverlayUpdate extends AsyncTask<String, Integer, String> {
 
         final int notification_priority = Notification.PRIORITY_MAX;
-        private NotificationManager mNotifyManager;
-        private NotificationCompat.Builder mBuilder;
-        private List<String> installed_overlays;
-        private List<String> errored_packages;
         @SuppressLint("StaticFieldLeak")
         private final Context context;
-        private LocalBroadcastManager localBroadcastManager;
-        private KeyRetrieval keyRetrieval;
-        private Intent securityIntent;
-        private Cipher cipher;
-        private String upgrade_mode = "";
         private final String package_name;
         private final StringBuilder error_logs = new StringBuilder();
         private final int id;
         private final Handler handler = new Handler();
+        private NotificationManager mNotifyManager;
+        private NotificationCompat.Builder mBuilder;
+        private List<String> installed_overlays;
+        private List<String> errored_packages;
+        private LocalBroadcastManager localBroadcastManager;
+        private KeyRetrieval keyRetrieval;
+        private Intent securityIntent;
         private final Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -161,8 +159,11 @@ public class OverlayUpdater extends BroadcastReceiver {
                 }
             }
         };
+        private Cipher cipher;
+        private String upgrade_mode = "";
 
-        OverlayUpdate(final Context context, final String package_name, final String mode, final int id) {
+        OverlayUpdate(final Context context, final String package_name, final String mode, final
+        int id) {
             super();
             this.context = context;
             this.package_name = package_name;
@@ -174,17 +175,21 @@ public class OverlayUpdater extends BroadcastReceiver {
         protected void onPreExecute() {
             switch (this.upgrade_mode) {
                 case APP_UPGRADE:
-                    this.installed_overlays = ThemeManager.listOverlaysForTarget(this.context, this.package_name);
+                    this.installed_overlays = ThemeManager.listOverlaysForTarget(this.context,
+                            this.package_name);
                     break;
                 case THEME_UPGRADE:
-                    this.installed_overlays = ThemeManager.listOverlaysByTheme(this.context, this.package_name);
+                    this.installed_overlays = ThemeManager.listOverlaysByTheme(this.context, this
+                            .package_name);
                     break;
             }
-            if ((this.upgrade_mode != null) && this.upgrade_mode != null && !this.upgrade_mode.isEmpty() && !this.installed_overlays.isEmpty()) {
+            if ((this.upgrade_mode != null) && this.upgrade_mode != null && !this.upgrade_mode
+                    .isEmpty() && !this.installed_overlays.isEmpty()) {
                 this.errored_packages = new ArrayList<>();
                 this.mNotifyManager = (NotificationManager) this.context.getSystemService(
                         Context.NOTIFICATION_SERVICE);
-                this.mBuilder = new NotificationCompat.Builder(this.context, DEFAULT_NOTIFICATION_CHANNEL_ID);
+                this.mBuilder = new NotificationCompat.Builder(this.context,
+                        DEFAULT_NOTIFICATION_CHANNEL_ID);
                 final String format = String.format(
                         this.context.getString(R.string.notification_initial_title_upgrade_intent),
                         Packages.getPackageName(this.context, this.package_name));
@@ -219,7 +224,8 @@ public class OverlayUpdater extends BroadcastReceiver {
                 if (!this.errored_packages.isEmpty()) {
                     this.mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
                     final String format = String.format(
-                            this.context.getString(R.string.notification_done_upgrade_title_warning),
+                            this.context.getString(R.string
+                                    .notification_done_upgrade_title_warning),
                             Packages.getPackageName(this.context, this.package_name));
                     this.mBuilder.setContentTitle(format);
 
@@ -252,7 +258,8 @@ public class OverlayUpdater extends BroadcastReceiver {
                             break;
                         case THEME_UPGRADE:
                             this.mBuilder.setContentText(
-                                    this.context.getString(R.string.notification_done_upgrade_text));
+                                    this.context.getString(R.string
+                                            .notification_done_upgrade_text));
                             break;
                     }
                 }
@@ -277,7 +284,8 @@ public class OverlayUpdater extends BroadcastReceiver {
                     switch (this.upgrade_mode) {
                         case APP_UPGRADE:
                             this.mBuilder.setContentText(
-                                    Packages.getPackageName(this.context, this.package_name) + " (" +
+                                    Packages.getPackageName(this.context, this.package_name) + " " +
+                                            "(" +
                                             Packages.getPackageName(
                                                     this.context,
                                                     Packages.getOverlayParent(
@@ -421,7 +429,8 @@ public class OverlayUpdater extends BroadcastReceiver {
                     final String listDir = overlaysDir + '/' +
                             (this.upgrade_mode.equals(APP_UPGRADE) ?
                                     this.package_name :
-                                    Packages.getOverlayTarget(this.context, this.installed_overlays.get(i))
+                                    Packages.getOverlayTarget(this.context, this
+                                            .installed_overlays.get(i))
                             ) + suffix;
                     FileOperations.copyFileOrDir(
                             themeAssetManager,
@@ -506,7 +515,8 @@ public class OverlayUpdater extends BroadcastReceiver {
                             additional_variant,
                             base_variant,
                             Packages.getAppVersion(this.context,
-                                    Packages.getOverlayParent(this.context, this.installed_overlays.get(i))),
+                                    Packages.getOverlayParent(this.context, this
+                                            .installed_overlays.get(i))),
                             Systems.checkOMS(this.context),
                             theme,
                             suffix,
@@ -551,19 +561,9 @@ public class OverlayUpdater extends BroadcastReceiver {
     }
 
     static class UpdaterLogs extends BroadcastReceiver {
-        @Override
-        public void onReceive(final Context context, final Intent intent) {
-            if (intent.getAction() != null) {
-                if ("Updater.LOGS".equals(intent.getAction())) {
-                    if (intent.getStringExtra("error_logs") != null)
-                        UpdaterLogs.invokeLogCharDialog(context, intent.getStringExtra("error_logs"));
-                }
-            }
-            LocalBroadcastManager.getInstance(context).unregisterReceiver(this);
-        }
-
         public static void invokeLogCharDialog(final Context context, final String error_logs) {
-            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context)
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder
+                    (context)
                     .setTitle(R.string.logcat_dialog_title)
                     .setMessage('\n' + error_logs)
                     .setNeutralButton(R.string
@@ -574,6 +574,18 @@ public class OverlayUpdater extends BroadcastReceiver {
                                     "substratum_log",
                                     error_logs));
             builder.show();
+        }
+
+        @Override
+        public void onReceive(final Context context, final Intent intent) {
+            if (intent.getAction() != null) {
+                if ("Updater.LOGS".equals(intent.getAction())) {
+                    if (intent.getStringExtra("error_logs") != null)
+                        UpdaterLogs.invokeLogCharDialog(context, intent.getStringExtra
+                                ("error_logs"));
+                }
+            }
+            LocalBroadcastManager.getInstance(context).unregisterReceiver(this);
         }
     }
 }

@@ -92,7 +92,8 @@ public class RecoveryFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         this.mContext = this.getContext();
-        final ViewGroup root = (ViewGroup) inflater.inflate(R.layout.restore_fragment, container, false);
+        final ViewGroup root = (ViewGroup) inflater.inflate(R.layout.restore_fragment, container,
+                false);
 
         this.prefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
 
@@ -129,7 +130,8 @@ public class RecoveryFragment extends Fragment {
         // Wallpaper Dialog
         wallpaperButton.setOnClickListener(v -> {
             this.sheetDialog = new SheetDialog(this.mContext);
-            final View sheetView = View.inflate(this.mContext, R.layout.restore_wallpapers_sheet_dialog,
+            final View sheetView = View.inflate(this.mContext, R.layout
+                            .restore_wallpapers_sheet_dialog,
                     null);
             final LinearLayout home = sheetView.findViewById(R.id.home);
             final LinearLayout lock = sheetView.findViewById(R.id.lock);
@@ -394,8 +396,8 @@ public class RecoveryFragment extends Fragment {
     }
 
     private static final class RestoreFunction extends AsyncTask<Boolean, Void, Void> {
-        private boolean withUninstall;
         private final WeakReference<RecoveryFragment> ref;
+        private boolean withUninstall;
 
         private RestoreFunction(final RecoveryFragment fragment) {
             super();

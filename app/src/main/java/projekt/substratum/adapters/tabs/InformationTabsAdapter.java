@@ -42,16 +42,20 @@ import static projekt.substratum.common.References.wallpaperFragment;
 
 public class InformationTabsAdapter extends FragmentStatePagerAdapter {
 
-    private List package_checker;
     private final Integer mNumOfTabs;
     private final String theme_mode;
     private final String wallpaperUrl;
     private final Bundle bundle;
     private final HashMap<String, Boolean> extras;
+    private List package_checker;
 
     @SuppressWarnings("unchecked")
-    public InformationTabsAdapter(final FragmentManager fm, final int NumOfTabs, final String theme_mode,
-                                  final List package_checker, final String wallpaperUrl, final HashMap<String, Boolean> extras,
+    public InformationTabsAdapter(final FragmentManager fm,
+                                  final int NumOfTabs,
+                                  final String theme_mode,
+                                  final List package_checker,
+                                  final String wallpaperUrl,
+                                  final HashMap<String, Boolean> extras,
                                   final Bundle bundle) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;

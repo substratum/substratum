@@ -52,7 +52,8 @@ public class ScheduledProfileReceiver extends BroadcastReceiver {
             extra = prefs.getString(SCHEDULED_PROFILE_TYPE_EXTRA, null);
         }
 
-        final PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        final PowerManager powerManager = (PowerManager) context.getSystemService(Context
+                .POWER_SERVICE);
         if (powerManager != null) {
             if (!powerManager.isInteractive()) {
                 Log.d(TAG, extra + " profile will be applied.");
@@ -79,7 +80,8 @@ public class ScheduledProfileReceiver extends BroadcastReceiver {
                 final NotificationManager mNotifyManager =
                         (NotificationManager) context.getSystemService(Context
                                 .NOTIFICATION_SERVICE);
-                @SuppressWarnings("deprecation") final NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
+                @SuppressWarnings("deprecation") final NotificationCompat.Builder mBuilder = new
+                        NotificationCompat.Builder(context);
                 mBuilder.setContentTitle(
                         String.format(context.getString(R.string.profile_notification_title),
                                 extra))

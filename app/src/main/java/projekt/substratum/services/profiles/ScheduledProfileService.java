@@ -164,7 +164,8 @@ public class ScheduledProfileService extends JobService {
                 }
 
                 final String processed = prefs.getString(type, "");
-                final File overlays = new File(Environment.getExternalStorageDirectory().getAbsolutePath()
+                final File overlays = new File(Environment.getExternalStorageDirectory()
+                        .getAbsolutePath()
                         + "/substratum/profiles/" + processed + "/overlay_state.xml");
                 final ArrayList<String> to_be_run = new ArrayList<>();
                 final List<List<String>> cannot_run_overlays = new ArrayList<>();
@@ -230,7 +231,8 @@ public class ScheduledProfileService extends JobService {
                     }
 
                     final Iterable<String> toBeDisabled = new ArrayList<>(system);
-                    final boolean shouldRestartUi = ThemeManager.shouldRestartUI(context, toBeDisabled)
+                    final boolean shouldRestartUi = ThemeManager.shouldRestartUI(context,
+                            toBeDisabled)
                             || ThemeManager.shouldRestartUI(context, to_be_run);
                     ThemeInterfacerService.applyProfile(
                             context,

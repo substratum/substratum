@@ -21,9 +21,9 @@ package projekt.substratum.adapters.tabs.sounds;
 import android.content.Context;
 
 public class SoundsInfo {
-    private String title;
     private final String absolute_path;
     private final Context mContext;
+    private String title;
 
     public SoundsInfo(final Context mContext, final String title, final String absolute_path) {
         super();

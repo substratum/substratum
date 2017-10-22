@@ -158,7 +158,8 @@ public class ShowcaseActivity extends AppCompatActivity {
 
         if (Systems.isAndromedaDevice(this.getApplicationContext())) {
             this.andromedaReceiver = new ShowcaseActivity.AndromedaReceiver();
-            this.localBroadcastManager = LocalBroadcastManager.getInstance(this.getApplicationContext());
+            this.localBroadcastManager = LocalBroadcastManager.getInstance(this
+                    .getApplicationContext());
             this.localBroadcastManager.registerReceiver(this.andromedaReceiver,
                     new IntentFilter("AndromedaReceiver.KILL"));
         }
@@ -285,7 +286,8 @@ public class ShowcaseActivity extends AppCompatActivity {
                 viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener
                         (tabLayout));
 
-                //Fix for SwipeToRefresh in ViewPager (without it horizontal scrolling is impossible)
+                // Fix for SwipeToRefresh in ViewPager
+                // (without it horizontal scrolling is impossible)
                 viewPager.setOnTouchListener((v, event) -> {
                     swipeRefreshLayout.setEnabled(false);
                     switch (event.getAction()) {
@@ -323,7 +325,8 @@ public class ShowcaseActivity extends AppCompatActivity {
                 final File current_wallpapers = new File(
                         activity.getCacheDir() + "/ShowcaseCache/" + inputFileName);
                 if (current_wallpapers.exists()) {
-                    // We create a temporary file to check whether we should be replacing the current
+                    // We create a temporary file to check whether we should be replacing the
+                    // current
                     inputFileName = inputFileName.substring(0, inputFileName.length() - 4) +
                             "-temp.xml";
                 }

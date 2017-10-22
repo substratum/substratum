@@ -28,8 +28,10 @@ import java.util.stream.Collectors;
 public enum MapUtils {
     ;
 
-    public static <S, T extends Comparable<T>> List<Pair<S, T>> sortMapByValues(final Map<S, T> map) {
-        final List<Pair<S, T>> list = map.entrySet().stream().map(entry -> new Pair<>(entry.getKey(),
+    public static <S, T extends Comparable<T>> List<Pair<S, T>> sortMapByValues(final Map<S, T>
+                                                                                        map) {
+        final List<Pair<S, T>> list = map.entrySet().stream().map(entry -> new Pair<>(entry
+                .getKey(),
                 entry.getValue())).collect(Collectors.toList());
 
         list.sort(Comparator.comparing(pair -> pair.second));

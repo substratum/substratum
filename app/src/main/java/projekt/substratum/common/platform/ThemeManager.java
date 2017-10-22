@@ -42,7 +42,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import projekt.substratum.R;
@@ -118,7 +117,8 @@ public enum ThemeManager {
         overlays.removeAll(listOverlays(context, STATE_ENABLED));
         if (overlays.isEmpty()) return;
 
-        final SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        final SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences
+                (context);
 
         if (sharedPrefs.getBoolean("auto_disable_target_overlays", false)) {
             for (final String overlay : overlays) {
@@ -193,7 +193,8 @@ public enum ThemeManager {
                 );
             }
         } else {
-            final StringBuilder commands = new StringBuilder(disableOverlay + ' ' + overlays.get(0));
+            final StringBuilder commands = new StringBuilder(disableOverlay + ' ' + overlays.get
+                    (0));
             for (int i = 1; i < overlays.size(); i++) {
                 commands.append(';' + disableOverlay + ' ').append(overlays.get(i));
             }
@@ -287,7 +288,8 @@ public enum ThemeManager {
                 EXPORT_RETURN_MULTIPLE_TARGETS_ENABLED);
     }
 
-    private static List<String> listOverlays(final Context context, final int state, final int state2) {
+    private static List<String> listOverlays(final Context context, final int state, final int
+            state2) {
         final List<String> list = new ArrayList<>();
         try {
             // Throw certain exceptions intentionally when unsupported device found
@@ -300,14 +302,14 @@ public enum ThemeManager {
             if (checkThemeSystemModule(context) == OVERLAY_MANAGER_SERVICE_O_UNROOTED) {
                 allOverlays = ThemeInterfacerService.getAllOverlays(context);
             } else {
-                // noinspection deprecation
+                //noinspection unchecked,deprecation
                 allOverlays = OverlayManagerService.getAllOverlays();
             }
             if (allOverlays != null) {
-                final Set<String> set = allOverlays.keySet();
                 switch (state2) {
                     case EXPORT_RETURN_ALL_OVERLAYS:
-                        for (final Map.Entry<String, List<OverlayInfo>> stringListEntry : allOverlays.entrySet()) {
+                        for (final Map.Entry<String, List<OverlayInfo>> stringListEntry :
+                                allOverlays.entrySet()) {
                             for (final OverlayInfo oi : stringListEntry.getValue()) {
                                 if (oi.isApproved()) {
                                     list.add(oi.packageName);
@@ -316,18 +318,21 @@ public enum ThemeManager {
                         }
                         break;
                     case EXPORT_RETURN_MULTIPLE_TARGETS_ENABLED:
-                        for (final Map.Entry<String, List<OverlayInfo>> stringListEntry : allOverlays.entrySet()) {
+                        for (final Map.Entry<String, List<OverlayInfo>>
+                                stringListEntry : allOverlays.entrySet()) {
                             final List<OverlayInfo> targetOverlays = stringListEntry.getValue();
                             final int targetOverlaysSize = targetOverlays.size();
                             int count = 0;
                             for (final OverlayInfo oi : targetOverlays) {
                                 if (oi.isEnabled()) count++;
                             }
-                            if ((targetOverlaysSize > 1) && (count > 1)) list.add((String) stringListEntry.getKey());
+                            if ((targetOverlaysSize > 1) && (count > 1))
+                                list.add(stringListEntry.getKey());
                         }
                         break;
                     case EXPORT_RETURN_DEFAULT:
-                        for (final Map.Entry<String, List<OverlayInfo>> stringListEntry : allOverlays.entrySet()) {
+                        for (final Map.Entry<String, List<OverlayInfo>>
+                                stringListEntry : allOverlays.entrySet()) {
                             for (final OverlayInfo oi : stringListEntry.getValue()) {
                                 if ((state == STATE_ENABLED) && oi.isEnabled()) {
                                     list.add(oi.packageName);
@@ -554,7 +559,8 @@ public enum ThemeManager {
         return list;
     }
 
-    public static List<String> listEnabledOverlaysForTarget(final Context context, final String target) {
+    public static List<String> listEnabledOverlaysForTarget(final Context context, final String
+            target) {
         final List<String> list = new ArrayList<>();
         final List<String> overlays = listOverlays(context, STATE_ENABLED);
         list.addAll(overlays.stream().filter(o -> o.startsWith(target))
@@ -562,7 +568,8 @@ public enum ThemeManager {
         return list;
     }
 
-    public static List<String> listDisabledOverlaysForTarget(final Context context, final String target) {
+    public static List<String> listDisabledOverlaysForTarget(final Context context, final String
+            target) {
         final List<String> list = new ArrayList<>();
         final List<String> overlays = listOverlays(context, STATE_DISABLED);
         list.addAll(overlays.stream().filter(o -> o.startsWith(target))

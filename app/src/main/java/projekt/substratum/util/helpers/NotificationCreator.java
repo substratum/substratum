@@ -38,9 +38,12 @@ public class NotificationCreator {
     private final int notification_priority;
     private final int invoke_id;
 
-    public NotificationCreator(final Context context, final String content_title, final String content_text,
-                               final Boolean auto_cancel, final PendingIntent intent, final int small_icon,
-                               final Bitmap big_icon, final int notification_priority, final int invoke_id) {
+    public NotificationCreator(final Context context, final String content_title, final String
+            content_text,
+                               final Boolean auto_cancel, final PendingIntent intent, final int
+                                       small_icon,
+                               final Bitmap big_icon, final int notification_priority, final int
+                                       invoke_id) {
         super();
         this.mContext = context;
         this.content_title = content_title;
@@ -56,7 +59,8 @@ public class NotificationCreator {
     @SuppressWarnings("UnusedReturnValue")
     public boolean createNotification() {
         try {
-            final NotificationManager mNotifyManager = (NotificationManager) this.mContext.getSystemService(
+            final NotificationManager mNotifyManager = (NotificationManager) this.mContext
+                    .getSystemService(
                     Context.NOTIFICATION_SERVICE);
             final NotificationCompat.Builder mBuilder = new
                     NotificationCompat.Builder(this.mContext, References

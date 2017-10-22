@@ -1,12 +1,8 @@
 package projekt.substratum.common;
 
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -17,12 +13,9 @@ import java.util.TreeSet;
 
 import projekt.substratum.activities.launch.ThemeLaunchActivity;
 
-import static projekt.substratum.common.References.SUBSTRATUM_LAUNCHER_CLASS;
-import static projekt.substratum.common.References.SUBSTRATUM_LAUNCHER_CLASS_PATH;
 import static projekt.substratum.common.References.TEMPLATE_GET_KEYS;
 import static projekt.substratum.common.References.TEMPLATE_THEME_MODE;
 import static projekt.substratum.common.References.hashPassthrough;
-import static projekt.substratum.common.References.spreadYourWingsAndFly;
 
 public enum Theming {
     ;
@@ -39,49 +32,6 @@ public enum Theming {
         }
         editor.putStringSet("installed_themes", installed_themes);
         editor.apply();
-    }
-
-    // Locate the proper launch intent for the themes
-    @SuppressWarnings("SameParameterValue")
-    public static Intent sendLaunchIntent(final Context mContext, final String currentTheme,
-                                          final boolean theme_legacy, final String theme_mode,
-                                          final Boolean notification) {
-        final Intent originalIntent = new Intent(TEMPLATE_THEME_MODE);
-        if (theme_legacy)
-            originalIntent.putExtra("theme_legacy", true);
-        if (theme_mode != null) {
-            originalIntent.putExtra("theme_mode", theme_mode);
-        }
-        if (notification) {
-            originalIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                    Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        }
-        originalIntent.putExtra("hash_passthrough", hashPassthrough(mContext));
-        originalIntent.putExtra("certified", !spreadYourWingsAndFly(mContext));
-        try {
-            final PackageManager pm = mContext.getPackageManager();
-            final PackageInfo info = pm.getPackageInfo(currentTheme, PackageManager.GET_ACTIVITIES);
-            final ActivityInfo[] list = info.activities;
-            for (final ActivityInfo aList : list) {
-                // We need to look for what the themer assigned the class to be! This is a dynamic
-                // function that only launches the correct SubstratumLauncher class. Having it
-                // hardcoded is bad.
-                if (aList.name.equals(currentTheme + SUBSTRATUM_LAUNCHER_CLASS)) {
-                    originalIntent.setComponent(
-                            new ComponentName(
-                                    currentTheme, currentTheme + SUBSTRATUM_LAUNCHER_CLASS));
-                    return originalIntent;
-                } else if (aList.name.equals(SUBSTRATUM_LAUNCHER_CLASS_PATH)) {
-                    originalIntent.setComponent(
-                            new ComponentName(
-                                    currentTheme, SUBSTRATUM_LAUNCHER_CLASS_PATH));
-                    return originalIntent;
-                }
-            }
-        } catch (final Exception e) {
-            // Suppress warning
-        }
-        return null;
     }
 
     // Launch intent for a theme

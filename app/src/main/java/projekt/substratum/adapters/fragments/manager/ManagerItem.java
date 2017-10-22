@@ -30,6 +30,7 @@ import projekt.substratum.common.References;
 
 public class ManagerItem implements Serializable {
 
+    private final Context mContext;
     private String name;
     private String type1a;
     private String type1b;
@@ -41,7 +42,6 @@ public class ManagerItem implements Serializable {
     private String labelName;
     private boolean isSelected;
     private int activationValue;
-    private final Context mContext;
     private Drawable mDrawable;
     private Drawable mTargetDrawable;
 

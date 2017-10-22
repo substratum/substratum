@@ -239,7 +239,8 @@ enum OverlayFunctions {
                 }
                 overlays.loader_image.setImageBitmap(
                         Packages.getBitmapFromDrawable(
-                                Packages.getAppIcon(overlays.getContext(), this.currentPackageName)));
+                                Packages.getAppIcon(overlays.getContext(), this
+                                        .currentPackageName)));
                 final double progress = (overlays.current_amount / overlays.total_amount) * 100.0;
                 overlays.dialogProgress.setProgress((int) progress, true);
             }
@@ -501,7 +502,8 @@ enum OverlayFunctions {
                                     ("/type3_" + parsedVariant) : "/res");
                             overlays.type3 = parsedVariant;
 
-                            final String workingDirectory = context.getCacheDir().getAbsolutePath() +
+                            final String workingDirectory = context.getCacheDir().getAbsolutePath
+                                    () +
                                     References.SUBSTRATUM_BUILDER_CACHE.substring(0,
                                             References.SUBSTRATUM_BUILDER_CACHE.length() - 1);
 
@@ -523,7 +525,8 @@ enum OverlayFunctions {
                             );
 
                             if (useType3CommonDir) {
-                                final String type3Dir = Overlays.overlaysDir + '/' + current_overlay +
+                                final String type3Dir = Overlays.overlaysDir + '/' +
+                                        current_overlay +
                                         "/type3_" + unparsedVariant;
                                 FileOperations.copyFileOrDir(
                                         overlays.themeAssetManager,
@@ -647,7 +650,8 @@ enum OverlayFunctions {
                                             .getSelectedVariantName5();
                                     final String type4folder = "/type4_" + overlays.type4;
                                     final String type4folderOutput = "/assets";
-                                    final String to_copy2 = Overlays.overlaysDir + '/' + current_overlay +
+                                    final String to_copy2 = Overlays.overlaysDir + '/' +
+                                            current_overlay +
                                             type4folder;
                                     FileOperations.copyFileOrDir(
                                             overlays.themeAssetManager,
@@ -666,7 +670,8 @@ enum OverlayFunctions {
                                     overlays.type2 = overlays.checkedOverlays.get(i)
                                             .getSelectedVariantName4();
                                     final String type2folder = "/type2_" + overlays.type2;
-                                    final String to_copy = Overlays.overlaysDir + '/' + current_overlay +
+                                    final String to_copy = Overlays.overlaysDir + '/' +
+                                            current_overlay +
                                             type2folder;
                                     FileOperations.copyFileOrDir(
                                             overlays.themeAssetManager,
@@ -924,7 +929,8 @@ enum OverlayFunctions {
                     if (overlays.mixAndMatchMode) {
                         // Buffer the disableBeforeEnabling String
                         final ArrayList<String> disableBeforeEnabling = new ArrayList<>();
-                        final List<String> all_installed_overlays = ThemeManager.listAllOverlays(context);
+                        final List<String> all_installed_overlays = ThemeManager.listAllOverlays
+                                (context);
                         for (int i = 0; i < all_installed_overlays.size(); i++) {
                             if (!Packages.getOverlayParent(context, all_installed_overlays.get(i))
                                     .equals(overlays.theme_pid)) {
@@ -957,7 +963,8 @@ enum OverlayFunctions {
                                 overlays.overlaysLists = ((OverlaysAdapter) overlays.mAdapter)
                                         .getOverlayList();
                                 for (int i = 0; i < overlays.overlaysLists.size(); i++) {
-                                    final OverlaysItem currentOverlay = overlays.overlaysLists.get(i);
+                                    final OverlaysItem currentOverlay = overlays.overlaysLists
+                                            .get(i);
                                     currentOverlay.setSelected(false);
                                     currentOverlay.updateEnabledOverlays(
                                             overlays.updateEnabledOverlays());
@@ -1036,7 +1043,8 @@ enum OverlayFunctions {
                                 overlays.overlaysLists = ((OverlaysAdapter) overlays.mAdapter)
                                         .getOverlayList();
                                 for (int i = 0; i < overlays.overlaysLists.size(); i++) {
-                                    final OverlaysItem currentOverlay = overlays.overlaysLists.get(i);
+                                    final OverlaysItem currentOverlay = overlays.overlaysLists
+                                            .get(i);
                                     currentOverlay.setSelected(false);
                                     currentOverlay.updateEnabledOverlays(
                                             overlays.updateEnabledOverlays());
@@ -1104,7 +1112,8 @@ enum OverlayFunctions {
                     if (overlays.mixAndMatchMode) {
                         // Buffer the disableBeforeEnabling String
                         final ArrayList<String> disableBeforeEnabling = new ArrayList<>();
-                        final List<String> all_installed_overlays = ThemeManager.listAllOverlays(context);
+                        final List<String> all_installed_overlays = ThemeManager.listAllOverlays
+                                (context);
                         for (int i = 0; i < all_installed_overlays.size(); i++) {
                             if (!Packages.getOverlayParent(context, all_installed_overlays.get(i))
                                     .equals(overlays.theme_pid)) {
@@ -1136,7 +1145,8 @@ enum OverlayFunctions {
                                 overlays.overlaysLists = ((OverlaysAdapter) overlays.mAdapter)
                                         .getOverlayList();
                                 for (int i = 0; i < overlays.overlaysLists.size(); i++) {
-                                    final OverlaysItem currentOverlay = overlays.overlaysLists.get(i);
+                                    final OverlaysItem currentOverlay = overlays.overlaysLists
+                                            .get(i);
                                     currentOverlay.setSelected(false);
                                     currentOverlay.updateEnabledOverlays(
                                             overlays.updateEnabledOverlays());
@@ -1253,7 +1263,8 @@ enum OverlayFunctions {
                     if (overlays.compile_enable_mode && overlays.mixAndMatchMode) {
                         // Buffer the disableBeforeEnabling String
                         final ArrayList<String> disableBeforeEnabling = new ArrayList<>();
-                        final List<String> all_installed_overlays = ThemeManager.listAllOverlays(context);
+                        final List<String> all_installed_overlays = ThemeManager.listAllOverlays
+                                (context);
                         for (final String p : all_installed_overlays) {
                             if (!overlays.theme_pid.equals(Packages.
                                     getOverlayParent(context, p))) {
@@ -1271,7 +1282,8 @@ enum OverlayFunctions {
                         if (checkThemeInterfacer(context)) {
                             ThemeManager.disableOverlay(context, disableBeforeEnabling);
                         } else {
-                            final StringBuilder final_commands = new StringBuilder(ThemeManager.disableOverlay);
+                            final StringBuilder final_commands = new StringBuilder(ThemeManager
+                                    .disableOverlay);
                             for (int i = 0; i < disableBeforeEnabling.size(); i++) {
                                 final_commands.append(' ').append(disableBeforeEnabling.get(i))
                                         .append(' ');
@@ -1308,7 +1320,8 @@ enum OverlayFunctions {
                                 overlays.overlaysLists =
                                         ((OverlaysAdapter) overlays.mAdapter).getOverlayList();
                                 for (int i = 0; i < overlays.overlaysLists.size(); i++) {
-                                    final OverlaysItem currentOverlay = overlays.overlaysLists.get(i);
+                                    final OverlaysItem currentOverlay = overlays.overlaysLists
+                                            .get(i);
                                     currentOverlay.setSelected(false);
                                     currentOverlay.updateEnabledOverlays(
                                             overlays.updateEnabledOverlays());

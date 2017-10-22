@@ -83,7 +83,11 @@ public class BootAnimations extends Fragment {
 
     private static final int ANIMATION_FRAME_DURATION = 40;
     private static final String TAG = "BootAnimationUtils";
+    private static final Boolean encrypted = false;
     private static String bootanimationsDir = "bootanimation";
+    private final HandlerThread previewHandlerThread =
+            new HandlerThread("BootAnimationPreviewThread");
+    private final BitmapFactory.Options options = new BitmapFactory.Options();
     private String theme_pid;
     private ImageView bootAnimationPreview;
     private ProgressBar progressBar;
@@ -98,16 +102,13 @@ public class BootAnimations extends Fragment {
     private boolean paused;
     private JobReceiver jobReceiver;
     private LocalBroadcastManager localBroadcastManager;
-    private static final Boolean encrypted = false;
     private Cipher cipher;
     private Boolean shutdownBootAnimation;
     private Context mContext;
-    private final HandlerThread previewHandlerThread = new HandlerThread("BootAnimationPreviewThread");
     private Handler previewHandler;
     private Runnable previewRunnable;
     private List<String> previewImages;
     private int previewIndex;
-    private final BitmapFactory.Options options = new BitmapFactory.Options();
 
     private BootAnimations getInstance() {
         return this;
@@ -132,7 +133,7 @@ public class BootAnimations extends Fragment {
 
         // encrypted = encryption_key != null && iv_encrypt_key != null;
 
-        if (this.encrypted) {
+        if (encrypted) {
             try {
                 this.cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
                 this.cipher.init(
@@ -185,7 +186,7 @@ public class BootAnimations extends Fragment {
                     R.string.bootanimation_spinner_set_defaults));
             for (int i = 0; i < unparsedBootAnimations.size(); i++) {
                 parsedBootAnimations.add(unparsedBootAnimations.get(i).substring(0,
-                        unparsedBootAnimations.get(i).length() - (this.encrypted ? 8 : 4)));
+                        unparsedBootAnimations.get(i).length() - (encrypted ? 8 : 4)));
             }
 
             final SpinnerAdapter adapter1 = new ArrayAdapter<>(this.getActivity(),
@@ -199,40 +200,56 @@ public class BootAnimations extends Fragment {
                                                    final int pos, final long id) {
                             switch (pos) {
                                 case 0:
-                                    if (BootAnimations.this.current != null) BootAnimations.this.current.cancel(true);
-                                    if ((BootAnimations.this.previewHandler != null) && (BootAnimations.this.previewRunnable != null)) {
-                                        BootAnimations.this.previewHandler.removeCallbacks(BootAnimations.this.previewRunnable);
+                                    if (BootAnimations.this.current != null)
+                                        BootAnimations.this.current.cancel(true);
+                                    if ((BootAnimations.this.previewHandler != null) &&
+                                            (BootAnimations.this.previewRunnable != null)) {
+                                        BootAnimations.this.previewHandler.removeCallbacks
+                                                (BootAnimations.this.previewRunnable);
                                     }
-                                    BootAnimations.this.bootanimation_placeholder.setVisibility(View.VISIBLE);
+                                    BootAnimations.this.bootanimation_placeholder.setVisibility
+                                            (View.VISIBLE);
                                     BootAnimations.this.defaults.setVisibility(View.GONE);
                                     BootAnimations.this.bootAnimationPreview.setImageDrawable(null);
-                                    BootAnimations.this.bootAnimationPreview.setVisibility(View.GONE);
+                                    BootAnimations.this.bootAnimationPreview.setVisibility(View
+                                            .GONE);
                                     BootAnimations.this.progressBar.setVisibility(View.GONE);
                                     BootAnimations.this.paused = true;
                                     break;
                                 case 1:
-                                    if (BootAnimations.this.current != null) BootAnimations.this.current.cancel(true);
-                                    if ((BootAnimations.this.previewHandler != null) && (BootAnimations.this.previewRunnable != null)) {
-                                        BootAnimations.this.previewHandler.removeCallbacks(BootAnimations.this.previewRunnable);
+                                    if (BootAnimations.this.current != null)
+                                        BootAnimations.this.current.cancel(true);
+                                    if ((BootAnimations.this.previewHandler != null) &&
+                                            (BootAnimations.this.previewRunnable != null)) {
+                                        BootAnimations.this.previewHandler.removeCallbacks
+                                                (BootAnimations.this.previewRunnable);
                                     }
                                     BootAnimations.this.defaults.setVisibility(View.VISIBLE);
-                                    BootAnimations.this.bootanimation_placeholder.setVisibility(View.GONE);
+                                    BootAnimations.this.bootanimation_placeholder.setVisibility
+                                            (View.GONE);
                                     BootAnimations.this.progressBar.setVisibility(View.GONE);
                                     BootAnimations.this.bootAnimationPreview.setImageDrawable(null);
-                                    BootAnimations.this.bootAnimationPreview.setVisibility(View.GONE);
+                                    BootAnimations.this.bootAnimationPreview.setVisibility(View
+                                            .GONE);
                                     BootAnimations.this.progressBar.setVisibility(View.GONE);
                                     BootAnimations.this.paused = false;
                                     break;
                                 default:
-                                    if (BootAnimations.this.current != null) BootAnimations.this.current.cancel(true);
-                                    BootAnimations.this.bootAnimationPreview.setVisibility(View.VISIBLE);
+                                    if (BootAnimations.this.current != null)
+                                        BootAnimations.this.current.cancel(true);
+                                    BootAnimations.this.bootAnimationPreview.setVisibility(View
+                                            .VISIBLE);
                                     BootAnimations.this.defaults.setVisibility(View.GONE);
-                                    BootAnimations.this.bootanimation_placeholder.setVisibility(View.GONE);
+                                    BootAnimations.this.bootanimation_placeholder.setVisibility
+                                            (View.GONE);
                                     final String[] commands = {arg0.getSelectedItem().toString()};
-                                    if ((BootAnimations.this.previewHandler != null) && (BootAnimations.this.previewRunnable != null)) {
-                                        BootAnimations.this.previewHandler.removeCallbacks(BootAnimations.this.previewRunnable);
+                                    if ((BootAnimations.this.previewHandler != null) &&
+                                            (BootAnimations.this.previewRunnable != null)) {
+                                        BootAnimations.this.previewHandler.removeCallbacks
+                                                (BootAnimations.this.previewRunnable);
                                     }
-                                    BootAnimations.this.current = new BootAnimationPreview(BootAnimations.this.getInstance())
+                                    BootAnimations.this.current = new BootAnimationPreview
+                                            (BootAnimations.this.getInstance())
                                             .execute(commands);
                             }
                         }
@@ -249,7 +266,8 @@ public class BootAnimations extends Fragment {
         // Enable job listener
         this.jobReceiver = new JobReceiver();
         final IntentFilter intentFilter = new IntentFilter(
-                (this.shutdownBootAnimation ? "ShutdownAnimations" : "BootAnimations") + ".START_JOB");
+                (this.shutdownBootAnimation ? "ShutdownAnimations" : "BootAnimations") + "" +
+                        ".START_JOB");
         this.localBroadcastManager = LocalBroadcastManager.getInstance(this.mContext);
         this.localBroadcastManager.registerReceiver(this.jobReceiver, intentFilter);
 
@@ -280,7 +298,8 @@ public class BootAnimations extends Fragment {
                 } else {
                     BootAnimationUtils.execute(this.nsv,
                             this.bootAnimationSelector.getSelectedItem().toString(),
-                            this.mContext, this.theme_pid, this.encrypted, this.shutdownBootAnimation, this.cipher);
+                            this.mContext, this.theme_pid, encrypted, this.shutdownBootAnimation,
+                            this.cipher);
                 }
             } else {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(this.mContext);
@@ -294,7 +313,7 @@ public class BootAnimations extends Fragment {
                                 } else {
                                     BootAnimationUtils.execute(this.nsv,
                                             this.bootAnimationSelector.getSelectedItem().toString(),
-                                            this.mContext, this.theme_pid, this.encrypted,
+                                            this.mContext, this.theme_pid, encrypted,
                                             this.shutdownBootAnimation, this.cipher);
                                 }
                             }
@@ -368,6 +387,61 @@ public class BootAnimations extends Fragment {
         BootAnimationPreview(final BootAnimations bootAnimations) {
             super();
             this.ref = new WeakReference<>(bootAnimations);
+        }
+
+        private static int previewDeterminator(final String file_location) {
+            final File checkFile = new File(file_location);
+            final int file_size = Integer.parseInt(String.valueOf(checkFile.length() / 1024L /
+                    1024L));
+            Log.d(TAG, "Managing bootanimation with size: " + file_size + "MB");
+
+            if (file_size <= 5) {
+                return 1;
+            } else {
+                if (file_size > 5) {
+                    if (file_size >= 10) {
+                        return 4;
+                    } else {
+                        return 3;
+                    }
+                }
+            }
+            return 1;
+        }
+
+        private static void unzip(final String source, final String destination) {
+            try (ZipInputStream inputStream = new ZipInputStream(
+                    new BufferedInputStream(new FileInputStream(source)))) {
+                ZipEntry zipEntry;
+                final byte[] buffer = new byte[8192];
+                while ((zipEntry = inputStream.getNextEntry()) != null) {
+                    final File file = new File(destination, zipEntry.getName());
+                    final File dir = zipEntry.isDirectory() ? file : file.getParentFile();
+                    if (!dir.isDirectory() && !dir.mkdirs())
+                        throw new FileNotFoundException(
+                                "Failed to ensure directory: " + dir.getAbsolutePath());
+                    if (zipEntry.isDirectory())
+                        continue;
+                    try (FileOutputStream outputStream = new FileOutputStream(file)) {
+                        int count;
+                        while ((count = inputStream.read(buffer)) != -1)
+                            outputStream.write(buffer, 0, count);
+                    }
+                }
+            } catch (final Exception e) {
+                e.printStackTrace();
+                Log.e(TAG, "An issue has occurred while attempting to decompress this archive.");
+            }
+        }
+
+        private static void CopyStream(final InputStream Input, final OutputStream Output) throws
+                IOException {
+            final byte[] buffer = new byte[5120];
+            int length = Input.read(buffer);
+            while (length > 0) {
+                Output.write(buffer, 0, length);
+                length = Input.read(buffer);
+            }
         }
 
         @Override
@@ -452,7 +526,7 @@ public class BootAnimations extends Fragment {
                     // Copy the bootanimation.zip from assets/bootanimation of the theme's assets
                     final String source = sUrl[0] + ".zip";
 
-                    if (bootAnimations.encrypted) {
+                    if (encrypted) {
                         FileOperations.copyFileOrDir(
                                 bootAnimations.themeAssetManager,
                                 bootanimationsDir + '/' + source + ".enc",
@@ -476,7 +550,8 @@ public class BootAnimations extends Fragment {
                     }
 
                     // Unzip the boot animation to get it prepared for the preview
-                    BootAnimationPreview.unzip(bootAnimations.mContext.getCacheDir().getAbsolutePath() +
+                    BootAnimationPreview.unzip(bootAnimations.mContext.getCacheDir()
+                                    .getAbsolutePath() +
                                     "/BootAnimationCache/" + source,
                             bootAnimations.mContext.getCacheDir().getAbsolutePath() +
                                     "/BootAnimationCache/animation_preview/");
@@ -513,59 +588,6 @@ public class BootAnimations extends Fragment {
                 }
             }
             return null;
-        }
-
-        private static int previewDeterminator(final String file_location) {
-            final File checkFile = new File(file_location);
-            final int file_size = Integer.parseInt(String.valueOf(checkFile.length() / 1024L / 1024L));
-            Log.d(TAG, "Managing bootanimation with size: " + file_size + "MB");
-
-            if (file_size <= 5) {
-                return 1;
-            } else {
-                if (file_size > 5) {
-                    if (file_size >= 10) {
-                        return 4;
-                    } else {
-                        return 3;
-                    }
-                }
-            }
-            return 1;
-        }
-
-        private static void unzip(final String source, final String destination) {
-            try (ZipInputStream inputStream = new ZipInputStream(
-                    new BufferedInputStream(new FileInputStream(source)))) {
-                ZipEntry zipEntry;
-                final byte[] buffer = new byte[8192];
-                while ((zipEntry = inputStream.getNextEntry()) != null) {
-                    final File file = new File(destination, zipEntry.getName());
-                    final File dir = zipEntry.isDirectory() ? file : file.getParentFile();
-                    if (!dir.isDirectory() && !dir.mkdirs())
-                        throw new FileNotFoundException(
-                                "Failed to ensure directory: " + dir.getAbsolutePath());
-                    if (zipEntry.isDirectory())
-                        continue;
-                    try (FileOutputStream outputStream = new FileOutputStream(file)) {
-                        int count;
-                        while ((count = inputStream.read(buffer)) != -1)
-                            outputStream.write(buffer, 0, count);
-                    }
-                }
-            } catch (final Exception e) {
-                e.printStackTrace();
-                Log.e(TAG, "An issue has occurred while attempting to decompress this archive.");
-            }
-        }
-
-        private static void CopyStream(final InputStream Input, final OutputStream Output) throws IOException {
-            final byte[] buffer = new byte[5120];
-            int length = Input.read(buffer);
-            while (length > 0) {
-                Output.write(buffer, 0, length);
-                length = Input.read(buffer);
-            }
         }
     }
 

@@ -104,11 +104,11 @@ public class SplashScreenActivity extends Activity {
 
     static class CheckSamsung extends AsyncTask<Void, Void, Void> {
         private final WeakReference<SplashScreenActivity> ref;
+        private final Handler handler = new Handler();
         private SharedPreferences prefs;
         private SharedPreferences.Editor editor;
         private KeyRetrieval keyRetrieval;
         private Intent securityIntent;
-        private final Handler handler = new Handler();
         private final Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -143,7 +143,8 @@ public class SplashScreenActivity extends Activity {
                 this.prefs = context.getSharedPreferences(PACKAGES_PREFS, Context.MODE_PRIVATE);
                 final SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
                 int timeoutCount = 0;
-                while (!this.prefs.contains(dateFormat.format(new Date())) && (timeoutCount < 100)) {
+                while (!this.prefs.contains(dateFormat.format(new Date())) && (timeoutCount <
+                        100)) {
                     try {
                         Thread.sleep(100L);
                     } catch (final InterruptedException e) {
@@ -246,8 +247,10 @@ public class SplashScreenActivity extends Activity {
                 CheckSamsung.this.securityIntent = intent;
                 context.getApplicationContext().unregisterReceiver(CheckSamsung.this.keyRetrieval);
                 if (CheckSamsung.this.securityIntent != null) {
-                    final boolean debug = CheckSamsung.this.securityIntent.getBooleanExtra("app_debug", true);
-                    final String installer = CheckSamsung.this.securityIntent.getStringExtra("app_installer");
+                    final boolean debug = CheckSamsung.this.securityIntent.getBooleanExtra
+                            ("app_debug", true);
+                    final String installer = CheckSamsung.this.securityIntent.getStringExtra
+                            ("app_installer");
 
                     CheckSamsung.this.editor.putBoolean("sungstratum_debug", debug).apply();
 

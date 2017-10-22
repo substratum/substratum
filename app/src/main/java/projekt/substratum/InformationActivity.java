@@ -50,6 +50,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
@@ -80,7 +81,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import projekt.substratum.activities.base.SubstratumActivity;
 import projekt.substratum.adapters.tabs.InformationTabsAdapter;
 import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
@@ -115,7 +115,7 @@ import static projekt.substratum.common.References.soundsFragment;
 import static projekt.substratum.common.References.wallpaperFragment;
 import static projekt.substratum.common.Systems.isSamsung;
 
-public class InformationActivity extends SubstratumActivity {
+public class InformationActivity extends AppCompatActivity {
 
     private static final int LUNCHBAR_DISMISS_FAB_CLICK_DELAY = 200;
     public static Lunchbar currentShownLunchBar;
@@ -125,8 +125,6 @@ public class InformationActivity extends SubstratumActivity {
     private String theme_name;
     private String theme_pid;
     private String theme_mode;
-    private byte[] encryption_key;
-    private byte[] iv_encrypt_key;
     private Boolean uninstalled = false;
     private KenBurnsView kenBurnsView;
     private byte[] byteArray;
@@ -183,8 +181,27 @@ public class InformationActivity extends SubstratumActivity {
         });
     }
 
+    private static boolean closeAllLunchBars() {
+        if (currentShownLunchBar != null) {
+            currentShownLunchBar.dismiss();
+            currentShownLunchBar = null;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private static boolean checkColorDarkness(final int color) {
+        final double darkness =
+                1.0 - (((0.299 * (double) Color.red(color)) +
+                        (0.587 * (double) Color.green(color)) +
+                        (0.114 * (double) Color.blue(color))) / 255.0);
+        return darkness < 0.5;
+    }
+
     private void autoSetToolbarIcons(final boolean dynamicActionBarColors) {
-        if ((this.collapsingToolbarLayout != null) && InformationActivity.checkColorDarkness(this.dominantColor) &&
+        if ((this.collapsingToolbarLayout != null) && InformationActivity.checkColorDarkness(this
+                .dominantColor) &&
                 dynamicActionBarColors) {
             this.setDarkToolbarIcons();
         } else if (this.collapsingToolbarLayout != null) {
@@ -230,26 +247,8 @@ public class InformationActivity extends SubstratumActivity {
         setOverflowButtonColor(this, false);
     }
 
-    private static boolean closeAllLunchBars() {
-        if (currentShownLunchBar != null) {
-            currentShownLunchBar.dismiss();
-            currentShownLunchBar = null;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     private View getView() {
         return ((ViewGroup) this.findViewById(android.R.id.content)).getChildAt(0);
-    }
-
-    private static boolean checkColorDarkness(final int color) {
-        final double darkness =
-                1.0 - (((0.299 * (double) Color.red(color)) +
-                        (0.587 * (double) Color.green(color)) +
-                        (0.114 * (double) Color.blue(color))) / 255.0);
-        return darkness < 0.5;
     }
 
     @Override
@@ -349,16 +348,18 @@ public class InformationActivity extends SubstratumActivity {
                     new IntentFilter("AndromedaReceiver.KILL"));
         }
 
-        final boolean dynamicActionBarColors = this.getResources().getBoolean(R.bool.dynamicActionBarColors);
-        final boolean dynamicNavBarColors = this.getResources().getBoolean(R.bool.dynamicNavigationBarColors);
+        final boolean dynamicActionBarColors = this.getResources().getBoolean(R.bool
+                .dynamicActionBarColors);
+        final boolean dynamicNavBarColors = this.getResources().getBoolean(R.bool
+                .dynamicNavigationBarColors);
 
         final Intent currentIntent = this.getIntent();
         this.theme_name = currentIntent.getStringExtra("theme_name");
 
         this.theme_pid = currentIntent.getStringExtra("theme_pid");
         this.theme_mode = currentIntent.getStringExtra("theme_mode");
-        this.encryption_key = currentIntent.getByteArrayExtra("encryption_key");
-        this.iv_encrypt_key = currentIntent.getByteArrayExtra("iv_encrypt_key");
+        byte[] encryption_key = currentIntent.getByteArrayExtra("encryption_key");
+        byte[] iv_encrypt_key = currentIntent.getByteArrayExtra("iv_encrypt_key");
         final String wallpaperUrl = getOverlayMetadata(this.mContext, this.theme_pid,
                 metadataWallpapers);
 
@@ -366,8 +367,8 @@ public class InformationActivity extends SubstratumActivity {
         bundle.putString("theme_name", this.theme_name);
         bundle.putString("theme_pid", this.theme_pid);
         bundle.putString("theme_mode", this.theme_mode);
-        bundle.putByteArray("encryption_key", this.encryption_key);
-        bundle.putByteArray("iv_encrypt_key", this.iv_encrypt_key);
+        bundle.putByteArray("encryption_key", encryption_key);
+        bundle.putByteArray("iv_encrypt_key", iv_encrypt_key);
         bundle.putString("wallpaperUrl", wallpaperUrl);
 
         if (this.theme_mode == null) this.theme_mode = "";
@@ -377,7 +378,8 @@ public class InformationActivity extends SubstratumActivity {
 
         this.gradientView = this.findViewById(R.id.gradientView);
         this.collapsingToolbarLayout = this.findViewById(R.id.collapsing_toolbar_tabbed_layout);
-        if (this.collapsingToolbarLayout != null) this.collapsingToolbarLayout.setTitle(this.theme_name);
+        if (this.collapsingToolbarLayout != null)
+            this.collapsingToolbarLayout.setTitle(this.theme_name);
 
         final ViewPager viewPager = this.findViewById(R.id.viewpager);
 
@@ -388,7 +390,8 @@ public class InformationActivity extends SubstratumActivity {
         }
         if (toolbar != null) toolbar.setNavigationOnClickListener(v -> this.onBackPressed());
 
-        final Drawable heroImage = getPackageHeroImage(this.getApplicationContext(), this.theme_pid, false);
+        final Drawable heroImage = getPackageHeroImage(this.getApplicationContext(), this
+                .theme_pid, false);
         if (heroImage != null) this.heroImageBitmap = ((BitmapDrawable) heroImage).getBitmap();
         if (this.heroImageBitmap == null) {
             this.dominantColor = Color.TRANSPARENT;
@@ -408,7 +411,8 @@ public class InformationActivity extends SubstratumActivity {
         if (dynamicNavBarColors) {
             this.getWindow().setNavigationBarColor(this.dominantColor);
             if (InformationActivity.checkColorDarkness(this.dominantColor)) {
-                this.getWindow().setNavigationBarColor(this.getColor(R.color.theme_information_background));
+                this.getWindow().setNavigationBarColor(this.getColor(R.color
+                        .theme_information_background));
             }
         }
 
@@ -454,34 +458,40 @@ public class InformationActivity extends SubstratumActivity {
                     boolean isWallpaperOnly = true;
                     if (tab_checker.contains(overlaysFragment)) {
                         isWallpaperOnly = false;
-                        this.tabLayout.addTab(this.tabLayout.newTab().setText(this.getString(R.string
+                        this.tabLayout.addTab(this.tabLayout.newTab().setText(this.getString(R
+                                .string
                                 .theme_information_tab_one)));
                     }
                     if (tab_checker.contains(bootAnimationsFragment) &&
                             Resources.isBootAnimationSupported(this.mContext)) {
                         isWallpaperOnly = false;
-                        this.tabLayout.addTab(this.tabLayout.newTab().setText(this.getString(R.string
+                        this.tabLayout.addTab(this.tabLayout.newTab().setText(this.getString(R
+                                .string
                                 .theme_information_tab_two)));
                     }
                     if (tab_checker.contains(shutdownAnimationsFragment) &&
                             Resources.isShutdownAnimationSupported()) {
                         isWallpaperOnly = false;
-                        this.tabLayout.addTab(this.tabLayout.newTab().setText(this.getString(R.string
+                        this.tabLayout.addTab(this.tabLayout.newTab().setText(this.getString(R
+                                .string
                                 .theme_information_tab_six)));
                     }
                     if (tab_checker.contains(fontsFragment) && Resources.isFontsSupported()) {
                         isWallpaperOnly = false;
-                        this.tabLayout.addTab(this.tabLayout.newTab().setText(this.getString(R.string
+                        this.tabLayout.addTab(this.tabLayout.newTab().setText(this.getString(R
+                                .string
                                 .theme_information_tab_three)));
                     }
                     if (tab_checker.contains(soundsFragment) &&
                             Resources.isSoundsSupported(this.mContext)) {
                         isWallpaperOnly = false;
-                        this.tabLayout.addTab(this.tabLayout.newTab().setText(this.getString(R.string
+                        this.tabLayout.addTab(this.tabLayout.newTab().setText(this.getString(R
+                                .string
                                 .theme_information_tab_four)));
                     }
                     if ((wallpaperUrl != null) && !wallpaperUrl.isEmpty()) {
-                        this.tabLayout.addTab(this.tabLayout.newTab().setText(this.getString(R.string
+                        this.tabLayout.addTab(this.tabLayout.newTab().setText(this.getString(R
+                                .string
                                 .theme_information_tab_five)));
                     }
                     if (isWallpaperOnly && (wallpaperUrl != null) && !wallpaperUrl.isEmpty()) {
@@ -561,18 +571,22 @@ public class InformationActivity extends SubstratumActivity {
         extra_hidden_tabs.put(soundsFragment, Systems.isBinderInterfacer(this.mContext));
 
         final InformationTabsAdapter adapter = new InformationTabsAdapter
-                (this.getSupportFragmentManager(), (this.tabLayout != null) ? this.tabLayout.getTabCount() : 0,
+                (this.getSupportFragmentManager(), (this.tabLayout != null) ? this.tabLayout
+                        .getTabCount() : 0,
                         this.theme_mode, tab_checker, wallpaperUrl, extra_hidden_tabs, bundle);
 
         if (viewPager != null) {
-            viewPager.setOffscreenPageLimit((this.tabLayout != null) ? this.tabLayout.getTabCount() : 0);
+            viewPager.setOffscreenPageLimit((this.tabLayout != null) ? this.tabLayout.getTabCount
+                    () : 0);
             viewPager.setAdapter(adapter);
             viewPager.addOnPageChangeListener(
-                    new TabLayout.TabLayoutOnPageChangeListener(InformationActivity.this.tabLayout) {
+                    new TabLayout.TabLayoutOnPageChangeListener(InformationActivity.this
+                            .tabLayout) {
                         @Override
                         public void onPageSelected(final int position) {
                             InformationActivity.this.tabPosition = position;
-                            switch (viewPager.getAdapter().instantiateItem(viewPager, InformationActivity.this.tabPosition)
+                            switch (viewPager.getAdapter().instantiateItem(viewPager,
+                                    InformationActivity.this.tabPosition)
                                     .getClass().getSimpleName()) {
                                 case "Overlays":
                                     floatingActionButton.show();
@@ -624,7 +638,8 @@ public class InformationActivity extends SubstratumActivity {
                                 this.materialSheetFab.showSheet();
                                 break;
                             case "BootAnimations":
-                                final boolean isShutdownTab = ((BootAnimations) obj).isShutdownTab();
+                                final boolean isShutdownTab = ((BootAnimations) obj)
+                                        .isShutdownTab();
                                 intent = new Intent((isShutdownTab ? "ShutdownAnimations" :
                                         "BootAnimations") + ".START_JOB");
                                 localBroadcastManager.sendBroadcast(intent);
@@ -668,7 +683,8 @@ public class InformationActivity extends SubstratumActivity {
                 });
             }
 
-            final TextView compile_enable_selected = this.findViewById(R.id.compile_enable_selected);
+            final TextView compile_enable_selected = this.findViewById(R.id
+                    .compile_enable_selected);
             if (!Systems.checkOMS(this)) compile_enable_selected.setVisibility(View.GONE);
             if (compile_enable_selected != null) {
                 compile_enable_selected.setOnClickListener(v -> {
@@ -685,7 +701,8 @@ public class InformationActivity extends SubstratumActivity {
                 });
             }
 
-            final TextView compile_update_selected = this.findViewById(R.id.compile_update_selected);
+            final TextView compile_update_selected = this.findViewById(R.id
+                    .compile_update_selected);
             if (!Systems.checkOMS(this)) {
                 compile_update_selected.setText(this.getString(R.string.fab_menu_compile_install));
             }
@@ -779,7 +796,8 @@ public class InformationActivity extends SubstratumActivity {
         this.getMenuInflater().inflate(R.menu.theme_information_menu, menu);
 
         // Start formalizing a check for dark icons
-        final boolean dynamicActionBarColors = this.getResources().getBoolean(R.bool.dynamicActionBarColors);
+        final boolean dynamicActionBarColors = this.getResources().getBoolean(R.bool
+                .dynamicActionBarColors);
         this.shouldDarken = (this.collapsingToolbarLayout != null) &&
                 InformationActivity.checkColorDarkness(this.dominantColor) &&
                 dynamicActionBarColors;
@@ -851,11 +869,13 @@ public class InformationActivity extends SubstratumActivity {
                 return true;
             case R.id.changelog:
                 final SheetDialog sheetDialog = new SheetDialog(this);
-                @SuppressLint("InflateParams") final View sheetView = this.getLayoutInflater().inflate(R.layout.changelog_sheet_dialog, null);
+                @SuppressLint("InflateParams") final View sheetView = this.getLayoutInflater()
+                        .inflate(R.layout.changelog_sheet_dialog, null);
 
                 final LinearLayout titleBox = sheetView.findViewById(R.id.title_box);
                 final TextView title = titleBox.findViewById(R.id.title);
-                final String format_me = String.format(this.getString(R.string.changelog_title), this.theme_name);
+                final String format_me = String.format(this.getString(R.string.changelog_title),
+                        this.theme_name);
                 title.setText(format_me);
 
                 final LinearLayout textBox = sheetView.findViewById(R.id.text_box);
@@ -875,7 +895,8 @@ public class InformationActivity extends SubstratumActivity {
                 sheetDialog.show();
                 return true;
             case R.id.clean:
-                final AlertDialog.Builder builder1 = new AlertDialog.Builder(InformationActivity.this);
+                final AlertDialog.Builder builder1 = new AlertDialog.Builder(InformationActivity
+                        .this);
                 builder1.setTitle(this.theme_name);
                 builder1.setIcon(Packages.getAppIcon(this.mContext, this.theme_pid));
                 builder1.setMessage(R.string.clean_dialog_body)
@@ -921,7 +942,8 @@ public class InformationActivity extends SubstratumActivity {
                 builder1.show();
                 return true;
             case R.id.disable:
-                final AlertDialog.Builder builder3 = new AlertDialog.Builder(InformationActivity.this);
+                final AlertDialog.Builder builder3 = new AlertDialog.Builder(InformationActivity
+                        .this);
                 builder3.setTitle(this.theme_name);
                 builder3.setIcon(Packages.getAppIcon(this.mContext, this.theme_pid));
                 builder3.setMessage(R.string.disable_dialog_body)
@@ -967,7 +989,8 @@ public class InformationActivity extends SubstratumActivity {
                 builder3.show();
                 return true;
             case R.id.enable:
-                final AlertDialog.Builder builder4 = new AlertDialog.Builder(InformationActivity.this);
+                final AlertDialog.Builder builder4 = new AlertDialog.Builder(InformationActivity
+                        .this);
                 builder4.setTitle(this.theme_name);
                 builder4.setIcon(Packages.getAppIcon(this.mContext, this.theme_pid));
                 builder4.setMessage(R.string.enable_dialog_body)
@@ -1014,7 +1037,8 @@ public class InformationActivity extends SubstratumActivity {
                 builder4.show();
                 return true;
             case R.id.uninstall:
-                final AlertDialog.Builder builder5 = new AlertDialog.Builder(InformationActivity.this);
+                final AlertDialog.Builder builder5 = new AlertDialog.Builder(InformationActivity
+                        .this);
                 builder5.setTitle(this.theme_name);
                 builder5.setIcon(Packages.getAppIcon(this.mContext, this.theme_pid));
                 builder5.setMessage(R.string.uninstall_dialog_text)
@@ -1332,16 +1356,21 @@ public class InformationActivity extends SubstratumActivity {
         public void onReceive(final Context context, final Intent intent) {
             if ((intent != null) && !compilingProcess) {
                 final String package_name = intent.getStringExtra("theme_pid");
-                if ((package_name != null) && package_name.equals(InformationActivity.this.theme_pid)) {
-                    final String to_format = String.format(InformationActivity.this.getString(R.string.toast_activity_finished),
+                if ((package_name != null) &&
+                        package_name.equals(InformationActivity.this.theme_pid)) {
+                    final String to_format = String.format(
+                            InformationActivity.this.getString(R.string.toast_activity_finished),
                             InformationActivity.this.theme_name);
                     Log.d(SUBSTRATUM_LOG,
-                            InformationActivity.this.theme_name + " was just updated, now closing InformationActivity...");
-                    InformationActivity.this.createToast(to_format, Toast.LENGTH_LONG);
+                            InformationActivity.this.theme_name +
+                                    " was just updated, now closing InformationActivity...");
+                    Toast.makeText(context, to_format, Toast.LENGTH_LONG).show();
                     InformationActivity.this.finish();
                     final Handler handler = new Handler();
                     handler.postDelayed(() ->
-                            Theming.launchTheme(InformationActivity.this.mContext, InformationActivity.this.theme_pid, InformationActivity.this.theme_mode), 500L);
+                            Theming.launchTheme(InformationActivity.this.mContext,
+                                    InformationActivity.this.theme_pid,
+                                    InformationActivity.this.theme_mode), 500L);
                 }
             } else if (compilingProcess) {
                 Log.d(SUBSTRATUM_LOG,

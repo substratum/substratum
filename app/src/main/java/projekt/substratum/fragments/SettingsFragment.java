@@ -112,7 +112,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             this.addPreferencesFromResource(R.xml.legacy_preference_fragment);
         }
 
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this
+                .mContext);
 
         final StringBuilder sb = new StringBuilder();
 
@@ -533,7 +534,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         manageSpace.setOnPreferenceClickListener(
                 preference -> {
                     try {
-                        this.startActivity(new Intent(this.getActivity(), ManageSpaceActivity.class));
+                        this.startActivity(new Intent(this.getActivity(), ManageSpaceActivity
+                                .class));
                     } catch (final ActivityNotFoundException activityNotFoundException) {
                         // Suppress warning
                     }
@@ -629,7 +631,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                     "legacy_overlay_priority", new_priority).apply();
                             priority_switcher.setSummary(
                                     String.format(
-                                            this.getString(R.string.legacy_preference_priority_text),
+                                            this.getString(R.string
+                                                    .legacy_preference_priority_text),
                                             References.DEFAULT_PRIORITY,
                                             new_priority));
                         });
@@ -642,7 +645,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         // Finally, these functions will only work on OMS ROMs
         if (isOMS) {
-            final Preference aboutAndromeda = this.getPreferenceManager().findPreference("about_andromeda");
+            final Preference aboutAndromeda = this.getPreferenceManager().findPreference
+                    ("about_andromeda");
             if (Systems.isAndromedaDevice(this.mContext)) {
                 aboutAndromeda.setIcon(Packages.getAppIcon(this.mContext, ANDROMEDA_PACKAGE));
                 try {
@@ -662,7 +666,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 aboutAndromeda.setVisible(false);
             }
 
-            final Preference aboutInterfacer = this.getPreferenceManager().findPreference("about_interfacer");
+            final Preference aboutInterfacer = this.getPreferenceManager().findPreference
+                    ("about_interfacer");
             aboutInterfacer.setIcon(Packages.getAppIcon(this.mContext, INTERFACER_PACKAGE));
             aboutInterfacer.setOnPreferenceClickListener(
                     preference -> {
@@ -913,7 +918,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 return false;
             });
             try {
-                final Context interfacerContext = this.mContext.createPackageContext(INTERFACER_PACKAGE,
+                final Context interfacerContext = this.mContext.createPackageContext
+                        (INTERFACER_PACKAGE,
                         Context.CONTEXT_IGNORE_SECURITY | Context.CONTEXT_INCLUDE_CODE);
                 final ClassLoader interfacerClassLoader = interfacerContext.getClassLoader();
                 final Class<?> cls = Class.forName(INTERFACER_SERVICE, true, interfacerClassLoader);
@@ -1033,11 +1039,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             validated,
                             result.get(i).endsWith(".common"));
 
-                    ValidatorInfo.setPercentage(
-                            settingsFragment.packageCounters.get(i) -
-                                    settingsFragment.packageCountersErrored.get(i),
-                            settingsFragment.packageCounters.get(i));
-
                     for (int x = 0; x < settingsFragment.errors.size(); x++) {
                         if (result.get(i).equals(settingsFragment.errors.get(x).getPackageName())) {
                             validatorInfo.setPackageError(settingsFragment.errors.get(x));
@@ -1133,7 +1134,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 } else {
                                     boolean bypassed = false;
                                     for (int x = 0; x < whitelist.size(); x++) {
-                                        final String currentPackage = whitelist.get(x).getPackageName();
+                                        final String currentPackage = whitelist.get(x)
+                                                .getPackageName();
                                         final List<String> currentWhitelist = whitelist.get(x)
                                                 .getFilter();
                                         if (currentPackage.equals(packageName)) {
@@ -1183,7 +1185,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 } else {
                                     boolean bypassed = false;
                                     for (int x = 0; x < whitelist.size(); x++) {
-                                        final String currentPackage = whitelist.get(x).getPackageName();
+                                        final String currentPackage = whitelist.get(x)
+                                                .getPackageName();
                                         final List<String> currentWhitelist = whitelist.get(x)
                                                 .getFilter();
                                         if (currentPackage.equals(packageName)) {
@@ -1232,7 +1235,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 } else {
                                     boolean bypassed = false;
                                     for (int x = 0; x < whitelist.size(); x++) {
-                                        final String currentPackage = whitelist.get(x).getPackageName();
+                                        final String currentPackage = whitelist.get(x)
+                                                .getPackageName();
                                         final List<String> currentWhitelist = whitelist.get(x)
                                                 .getFilter();
                                         if (currentPackage.equals(packageName)) {
@@ -1283,7 +1287,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 } else {
                                     boolean bypassed = false;
                                     for (int x = 0; x < whitelist.size(); x++) {
-                                        final String currentPackage = whitelist.get(x).getPackageName();
+                                        final String currentPackage = whitelist.get(x)
+                                                .getPackageName();
                                         final List<String> currentWhitelist = whitelist.get(x)
                                                 .getFilter();
                                         if (currentPackage.equals(packageName)) {

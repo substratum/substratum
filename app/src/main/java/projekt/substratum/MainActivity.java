@@ -639,12 +639,10 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        if (this.permissionCheck == PackageManager.PERMISSION_GRANTED) {
-            //add the values which need to be saved from the drawer to the bundle
-            outState = this.drawer.saveInstanceState(outState);
-            outState.putInt(SELECTED_DRAWER_ITEM, (int) this.drawer.getCurrentSelection());
-            super.onSaveInstanceState(outState);
-        }
+        //add the values which need to be saved from the drawer to the bundle
+        outState = this.drawer.saveInstanceState(outState);
+        outState.putInt(SELECTED_DRAWER_ITEM, (int) this.drawer.getCurrentSelection());
+        super.onSaveInstanceState(outState);
     }
 
     @Override

@@ -50,7 +50,7 @@ import static projekt.substratum.common.References.PACKAGE_FULLY_REMOVED;
 
 public class PackageModificationDetector extends BroadcastReceiver {
 
-    private final static String TAG = "SubstratumDetector";
+    private static final String TAG = "SubstratumDetector";
     private Context mContext;
 
     @Override

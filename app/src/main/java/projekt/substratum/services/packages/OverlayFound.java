@@ -52,7 +52,7 @@ import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 
 public class OverlayFound extends BroadcastReceiver {
 
-    private final static String TAG = "OverlayFound";
+    private static final String TAG = "OverlayFound";
     private String package_name;
     private Context context;
 

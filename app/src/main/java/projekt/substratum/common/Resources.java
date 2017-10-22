@@ -207,7 +207,7 @@ public enum Resources {
         try {
             @SuppressLint("PrivateApi") final Class<?> cls = new DexClassLoader
                     ("/system/framework/services.jar",
-                    "/data/tmp/", "/data/tmp/", ClassLoader.getSystemClassLoader())
+                            "/data/tmp/", "/data/tmp/", ClassLoader.getSystemClassLoader())
                     .loadClass("com.android.server.power.ShutdownThread");
             cls.getDeclaredMethod("themeShutdownAnimationExists");
             cls.getDeclaredMethod("startShutdownAnimation");

@@ -136,8 +136,7 @@ public class Fonts extends Fragment {
         try {
             // Parses the list of items in the fonts folder
             final Resources themeResources = this.mContext.getPackageManager()
-                    .getResourcesForApplication
-                    (this.theme_pid);
+                    .getResourcesForApplication(this.theme_pid);
             this.themeAssetManager = themeResources.getAssets();
             final String[] fileArray = this.themeAssetManager.list(fontsDir);
             final List<String> unparsedFonts = new ArrayList<>();

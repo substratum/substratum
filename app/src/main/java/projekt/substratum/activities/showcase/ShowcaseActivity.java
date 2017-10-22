@@ -18,6 +18,7 @@
 
 package projekt.substratum.activities.showcase;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
@@ -213,6 +214,7 @@ public class ShowcaseActivity extends AppCompatActivity {
             super.onPreExecute();
         }
 
+        @SuppressLint("ClickableViewAccessibility")
         @Override
         protected void onPostExecute(final String result) {
             super.onPostExecute(result);

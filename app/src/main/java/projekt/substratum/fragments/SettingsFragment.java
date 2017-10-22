@@ -920,7 +920,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             try {
                 final Context interfacerContext = this.mContext.createPackageContext
                         (INTERFACER_PACKAGE,
-                        Context.CONTEXT_IGNORE_SECURITY | Context.CONTEXT_INCLUDE_CODE);
+                                Context.CONTEXT_IGNORE_SECURITY | Context.CONTEXT_INCLUDE_CODE);
                 final ClassLoader interfacerClassLoader = interfacerContext.getClassLoader();
                 final Class<?> cls = Class.forName(INTERFACER_SERVICE, true, interfacerClassLoader);
                 cls.getDeclaredMethod("forceStopService");

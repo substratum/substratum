@@ -419,8 +419,7 @@ public class Sounds extends Fragment {
                         Log.d(TAG, "Sounds folder created");
                     }
                     final File cacheDirectory2 = new File(sounds.mContext.getCacheDir(),
-                            "/SoundCache/" +
-                            "sounds_preview/");
+                            "/SoundCache/" + "sounds_preview/");
                     if (!cacheDirectory2.exists() && cacheDirectory2.mkdirs()) {
                         Log.d(TAG, "Sounds work folder created");
                     } else {

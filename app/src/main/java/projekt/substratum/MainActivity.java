@@ -223,8 +223,8 @@ public class MainActivity extends AppCompatActivity implements
         this.supportInvalidateOptionsMenu();
     }
 
-    private void switchFragmentToLicenses(final CharSequence title, final LibsSupportFragment
-            fragment) {
+    private void switchFragmentToLicenses(final CharSequence title,
+                                          final LibsSupportFragment fragment) {
         if ((this.searchView != null) && !this.searchView.isIconified()) {
             this.searchView.setIconified(true);
         }

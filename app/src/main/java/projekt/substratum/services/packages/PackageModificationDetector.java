@@ -134,7 +134,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
             try {
                 final ApplicationInfo appInfo = this.mContext.getPackageManager()
                         .getApplicationInfo(
-                        package_name, PackageManager.GET_META_DATA);
+                                package_name, PackageManager.GET_META_DATA);
                 if (appInfo.metaData != null) {
                     final Boolean check_legacy =
                             appInfo.metaData.getBoolean(References.metadataLegacy);
@@ -182,7 +182,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                     this.mContext,
                     Packages.getPackageName(this.mContext, package_name) + ' ' + this.mContext
                             .getString(
-                            R.string.notification_theme_updated),
+                                    R.string.notification_theme_updated),
                     this.mContext.getString(R.string.notification_theme_updated_content),
                     true,
                     this.getPendingIntent(package_name),
@@ -195,7 +195,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                     this.mContext,
                     Packages.getPackageName(this.mContext, package_name) + ' ' + this.mContext
                             .getString(
-                            R.string.notification_theme_installed),
+                                    R.string.notification_theme_installed),
                     this.mContext.getString(R.string.notification_theme_installed_content),
                     true,
                     this.getPendingIntent(package_name),

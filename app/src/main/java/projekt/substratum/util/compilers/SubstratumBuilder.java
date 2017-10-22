@@ -546,8 +546,8 @@ public class SubstratumBuilder {
                                             "style, now falling back to legacy compiler...");
                             final String new_commands = SubstratumBuilder.processAOPTCommands
                                     (work_area, targetPkg,
-                                    theme_name, overlay_package, additional_variant,
-                                    asset_replacement, true, context, no_cache_dir);
+                                            theme_name, overlay_package, additional_variant,
+                                            asset_replacement, true, context, no_cache_dir);
                             return this.runAOPTShellCommands(
                                     new_commands, work_area, targetPkg, theme_name,
                                     overlay_package, additional_variant, asset_replacement,

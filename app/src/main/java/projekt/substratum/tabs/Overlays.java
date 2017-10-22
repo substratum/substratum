@@ -552,9 +552,9 @@ public class Overlays extends Fragment {
                     Lunchbar.LENGTH_INDEFINITE);
             currentShownLunchBar.setAction(this.getString(R.string.error_loading_theme_close),
                     view -> {
-                currentShownLunchBar.dismiss();
-                this.getActivity().finish();
-            });
+                        currentShownLunchBar.dismiss();
+                        this.getActivity().finish();
+                    });
             currentShownLunchBar.show();
         }
 
@@ -1260,23 +1260,22 @@ public class Overlays extends Fragment {
                             PreferenceManager.getDefaultSharedPreferences(context);
 
                     final Boolean showDangerous = !prefs.getBoolean
-                            ("show_dangerous_samsung_overlays",
-                            false);
+                            ("show_dangerous_samsung_overlays", false);
 
                     final List<String> values = new ArrayList<>(overlaysFolder.stream().filter
                             (package_name -> (Packages
-                            .isPackageInstalled(context, package_name) ||
-                            projekt.substratum.common.Resources.allowedSystemUIOverlay
-                                    (package_name) ||
-                            projekt.substratum.common.Resources.allowedSettingsOverlay
-                                    (package_name) ||
-                            projekt.substratum.common.Resources.allowedFrameworkOverlay
-                                    (package_name)) &&
-                            (!showDangerous || !ThemeManager.blacklisted(
-                                    package_name,
-                                    Systems.isSamsung(context) &&
-                                            !Packages.isSamsungTheme(
-                                                    context, fragment.theme_pid))))
+                                    .isPackageInstalled(context, package_name) ||
+                                    projekt.substratum.common.Resources.allowedSystemUIOverlay
+                                            (package_name) ||
+                                    projekt.substratum.common.Resources.allowedSettingsOverlay
+                                            (package_name) ||
+                                    projekt.substratum.common.Resources.allowedFrameworkOverlay
+                                            (package_name)) &&
+                                    (!showDangerous || !ThemeManager.blacklisted(
+                                            package_name,
+                                            Systems.isSamsung(context) &&
+                                                    !Packages.isSamsungTheme(
+                                                            context, fragment.theme_pid))))
                             .collect(Collectors.toList()));
 
                     // Create the map for {package name: package identifier}

@@ -58,8 +58,7 @@ public enum ReadCloudWallpaperFile {
                             (0).
                             getTextContent();
                     final String addon_preview_link = eElement.getElementsByTagName("preview")
-                            .item(0).
-                            getTextContent();
+                            .item(0).getTextContent();
 
                     final String[] finalArray = {addon_download_name, addon_download_link,
                             addon_preview_link};

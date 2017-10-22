@@ -492,8 +492,8 @@ public enum References {
         try {
             @SuppressLint("PackageManagerGetSignatures") final Signature[] sigs = context
                     .getPackageManager().getPackageInfo(
-                    context.getPackageName(),
-                    PackageManager.GET_SIGNATURES).signatures;
+                            context.getPackageName(),
+                            PackageManager.GET_SIGNATURES).signatures;
             for (final Signature sig : sigs) {
                 if (sig != null) {
                     hashValue = sig.hashCode();

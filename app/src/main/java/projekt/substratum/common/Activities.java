@@ -24,9 +24,9 @@ public enum Activities {
         }
     }
 
-    public static void launchExternalActivity(final Context context, final String packageName,
-                                              final String
-            className) {
+    public static void launchExternalActivity(final Context context,
+                                              final String packageName,
+                                              final String className) {
         final Intent intent = new Intent();
         intent.setComponent(new ComponentName(packageName, packageName + '.' + className));
         context.startActivity(intent);
@@ -36,5 +36,4 @@ public enum Activities {
         final Intent intent = new Intent(context, target);
         context.startActivity(intent);
     }
-
 }

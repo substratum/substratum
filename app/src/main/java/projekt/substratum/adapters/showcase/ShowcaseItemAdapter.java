@@ -93,29 +93,29 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
         final String[] supported = showcaseItem.getThemeSupport().split("\\|");
         final List supported_array = Arrays.asList(supported);
         if (supported_array.contains(References.showcaseWallpapers)) {
-            viewHolder.wallpaper.setAlpha((float) 1.0);
+            viewHolder.wallpaper.setAlpha(1.0f);
         } else {
-            viewHolder.wallpaper.setAlpha((float) 0.2);
+            viewHolder.wallpaper.setAlpha(0.2f);
         }
         if (supported_array.contains(References.showcaseSounds)) {
-            viewHolder.sounds.setAlpha((float) 1.0);
+            viewHolder.sounds.setAlpha(1.0f);
         } else {
-            viewHolder.sounds.setAlpha((float) 0.2);
+            viewHolder.sounds.setAlpha(0.2f);
         }
         if (supported_array.contains(References.showcaseFonts)) {
-            viewHolder.fonts.setAlpha((float) 1.0);
+            viewHolder.fonts.setAlpha(1.0f);
         } else {
-            viewHolder.fonts.setAlpha((float) 0.2);
+            viewHolder.fonts.setAlpha(0.2f);
         }
         if (supported_array.contains(References.showcaseBootanimations)) {
-            viewHolder.bootanimations.setAlpha((float) 1.0);
+            viewHolder.bootanimations.setAlpha(1.0f);
         } else {
-            viewHolder.bootanimations.setAlpha((float) 0.2);
+            viewHolder.bootanimations.setAlpha(0.2f);
         }
         if (supported_array.contains(References.showcaseOverlays)) {
-            viewHolder.overlays.setAlpha((float) 1.0);
+            viewHolder.overlays.setAlpha(1.0f);
         } else {
-            viewHolder.overlays.setAlpha((float) 0.2);
+            viewHolder.overlays.setAlpha(0.2f);
         }
 
         viewHolder.cardView.setOnClickListener(view -> {

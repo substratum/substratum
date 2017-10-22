@@ -62,9 +62,9 @@ public enum PackageAnalytics {
     private static String humanReadableByteCount(final long bytes, final boolean si) {
         final int unit = si ? 1000 : 1024;
         if (bytes < (long) unit) return bytes + " B";
-        final int exp = (int) (Math.log((double) bytes) / Math.log((double) unit));
+        final int exp = (int) (StrictMath.log((double) bytes) / StrictMath.log((double) unit));
         final String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp - 1) + (si ? "" : "i");
-        return String.format("%.1f %sB", (double) bytes / Math.pow((double) unit, (double) exp), pre);
+        return String.format("%.1f %sB", (double) bytes / StrictMath.pow((double) unit, (double) exp), pre);
     }
 
     public static void logPackageInfo(final Context context, final String packageName) {

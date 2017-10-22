@@ -40,18 +40,18 @@ public class ThemeLaunchActivity extends Activity {
     private String theme_mode;
     private Boolean legacyTheme = false;
 
-    public static Intent launchThemeActivity(final Context context,
-                                             final String theme_name,
-                                             final String theme_author,
-                                             final String theme_pid,
-                                             final String theme_mode,
-                                             final Serializable theme_hash,
-                                             final Serializable theme_launch_type,
-                                             final Serializable theme_debug,
-                                             final Serializable theme_piracy_check,
-                                             final byte[] encryption_key,
-                                             final byte[] iv_encrypt_key,
-                                             final Serializable theme_legacy) {
+    private static Intent launchThemeActivity(final Context context,
+                                              final String theme_name,
+                                              final String theme_author,
+                                              final String theme_pid,
+                                              final String theme_mode,
+                                              final Serializable theme_hash,
+                                              final Serializable theme_launch_type,
+                                              final Serializable theme_debug,
+                                              final Serializable theme_piracy_check,
+                                              final byte[] encryption_key,
+                                              final byte[] iv_encrypt_key,
+                                              final Serializable theme_legacy) {
 
         final Intent intent = new Intent(context, InformationActivity.class);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);

@@ -30,9 +30,9 @@ import projekt.substratum.adapters.fragments.troubleshooting.TroubleshootingAdap
 
 public class TroubleshootingFragment extends Fragment {
 
-    ListView troubleshootListView;
+    private ListView troubleshootListView;
 
-    int[] troubleshootQuestions = {
+    private int[] troubleshootQuestions = {
             R.string.question_one,
             R.string.question_five,
             R.string.question_eight,
@@ -40,7 +40,7 @@ public class TroubleshootingFragment extends Fragment {
             R.string.question_twelve
     };
 
-    int[] troubleshootAnswers = {
+    private int[] troubleshootAnswers = {
             R.string.answer_one,
             R.string.answer_five,
             R.string.answer_eight,

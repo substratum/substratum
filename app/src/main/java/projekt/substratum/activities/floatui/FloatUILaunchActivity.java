@@ -55,7 +55,7 @@ public class FloatUILaunchActivity extends SubstratumActivity {
         this.finish();
     }
 
-    public void triggerFloatingHead(final Boolean show) {
+    private void triggerFloatingHead(final Boolean show) {
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
                 this.getApplicationContext());
         final int active = (show) ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE;

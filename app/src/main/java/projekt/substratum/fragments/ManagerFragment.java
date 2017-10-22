@@ -311,7 +311,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    public boolean updateMenuButtonState(final Menu menu) {
+    private boolean updateMenuButtonState(final Menu menu) {
         final MenuItem alphabetizeMenu = menu.findItem(R.id.alphabetize);
         final boolean alphabetize = this.prefs.getBoolean("alphabetize_overlays", true);
         if (alphabetize) {
@@ -351,7 +351,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         return super.onOptionsItemSelected(item);
     }
 
-    public void refreshThemeName() {
+    private void refreshThemeName() {
         if ((this.overlayList != null) && !this.overlayList.isEmpty()) {
             for (int i = 0; i < this.overlayList.size(); i++) {
                 final Context context = this.overlayList.get(i).getContext();

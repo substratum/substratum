@@ -50,7 +50,7 @@ public class AndromedaBinderService extends Service implements ServiceConnection
         return iAndromedaInterface;
     }
 
-    public void bindAndromeda() {
+    private void bindAndromeda() {
         if (Systems.checkAndromeda(this) && !this.mBound) {
             final Intent intent = new Intent(ANDROMEDA_BINDED);
             intent.setPackage(ANDROMEDA_PACKAGE);
@@ -128,7 +128,7 @@ public class AndromedaBinderService extends Service implements ServiceConnection
         Log.d(TAG, "Substratum has successfully unbinded with the Andromeda module.");
     }
 
-    public void sendBadNotification(final Context context) {
+    private void sendBadNotification(final Context context) {
         final NotificationManager mNotifyMgr =
                 (NotificationManager)
                         this.getApplicationContext().getSystemService(NOTIFICATION_SERVICE);

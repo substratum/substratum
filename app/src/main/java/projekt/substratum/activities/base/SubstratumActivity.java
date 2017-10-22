@@ -27,9 +27,9 @@ import java.io.File;
 @SuppressLint("Registered")
 public class SubstratumActivity extends AppCompatActivity {
 
-    public static final String CACHE_BUILD_DIR = "SubstratumBuilder";
+    private static final String CACHE_BUILD_DIR = "SubstratumBuilder";
 
-    public File getBuildDir() {
+    private File getBuildDir() {
         return new File(this.getCacheDir() + "/" + CACHE_BUILD_DIR);
     }
 

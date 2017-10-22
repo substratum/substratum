@@ -100,7 +100,7 @@ public class Substratum extends Application {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void createNotificationChannel() {
+    private void createNotificationChannel() {
         final NotificationManager notificationManager =
                 (NotificationManager) this.getSystemService(NOTIFICATION_SERVICE);
         final NotificationChannel mainChannel = new NotificationChannel(

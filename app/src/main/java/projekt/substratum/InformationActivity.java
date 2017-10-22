@@ -122,11 +122,11 @@ public class InformationActivity extends SubstratumActivity {
     public static Boolean compilingProcess;
     public static Boolean shouldRestartActivity = false;
     private static List<String> tab_checker;
-    public String theme_name;
-    public String theme_pid;
-    public String theme_mode;
-    public byte[] encryption_key;
-    public byte[] iv_encrypt_key;
+    private String theme_name;
+    private String theme_pid;
+    private String theme_mode;
+    private byte[] encryption_key;
+    private byte[] iv_encrypt_key;
     private Boolean uninstalled = false;
     private KenBurnsView kenBurnsView;
     private byte[] byteArray;

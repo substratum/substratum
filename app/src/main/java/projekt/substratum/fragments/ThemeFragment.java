@@ -107,13 +107,13 @@ public class ThemeFragment extends Fragment {
         return themes;
     }
 
-    public static void refreshLayout(final SharedPreferences prefs,
-                                     final ViewGroup root,
-                                     final Context mContext,
-                                     final Activity activity,
-                                     final CharSequence toolbarTitle,
-                                     final Map<String, String[]> substratum_packages,
-                                     final ArrayList<ThemeItem> themeItems) {
+    private static void refreshLayout(final SharedPreferences prefs,
+                                      final ViewGroup root,
+                                      final Context mContext,
+                                      final Activity activity,
+                                      final CharSequence toolbarTitle,
+                                      final Map<String, String[]> substratum_packages,
+                                      final ArrayList<ThemeItem> themeItems) {
 
         final RecyclerView recyclerView = root.findViewById(R.id.theme_list);
         final SwipeRefreshLayout swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);

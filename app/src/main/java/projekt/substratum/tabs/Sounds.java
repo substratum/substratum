@@ -102,7 +102,7 @@ public class Sounds extends Fragment {
     private Cipher cipher;
     private Context mContext;
 
-    public Sounds getInstance() {
+    private Sounds getInstance() {
         return this;
     }
 
@@ -250,7 +250,7 @@ public class Sounds extends Fragment {
         return this.root;
     }
 
-    public void startApply() {
+    private void startApply() {
         if (!this.paused) {
             if (this.soundsSelector.getSelectedItemPosition() == 1) {
                 new SoundsClearer(this).execute("");

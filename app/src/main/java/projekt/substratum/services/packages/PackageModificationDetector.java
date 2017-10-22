@@ -205,7 +205,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
         Broadcasts.sendActivityFinisherMessage(this.mContext, package_name);
     }
 
-    public PendingIntent getPendingIntent(final String package_name) {
+    private PendingIntent getPendingIntent(final String package_name) {
         final Intent myIntent = new Intent(this.mContext, AppShortcutLaunch.class);
         myIntent.putExtra("theme_pid", package_name);
         return PendingIntent.getActivity(this.mContext, 0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);

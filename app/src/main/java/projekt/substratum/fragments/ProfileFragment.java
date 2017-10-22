@@ -131,7 +131,7 @@ public class ProfileFragment extends Fragment {
         dayMinute = minute;
     }
 
-    public void RefreshSpinner() {
+    private void RefreshSpinner() {
         this.list.clear();
         this.list.add(this.getResources().getString(R.string.spinner_default_item));
 

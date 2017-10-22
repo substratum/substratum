@@ -52,7 +52,7 @@ public class InterfacerBinderService extends Service implements ServiceConnectio
         return this.interfacerInterface;
     }
 
-    public void bindInterfacer() {
+    private void bindInterfacer() {
         if (Systems.isBinderInterfacer(this) && !this.mBound) {
             final Intent intent = new Intent(INTERFACER_BINDED);
             intent.setPackage(INTERFACER_PACKAGE);

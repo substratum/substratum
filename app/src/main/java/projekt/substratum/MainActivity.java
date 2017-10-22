@@ -133,10 +133,11 @@ public class MainActivity extends SubstratumActivity implements
     private static final int UNINSTALL_REQUEST_CODE = 12675;
     private static final String SELECTED_DRAWER_ITEM = "selected_drawer_item";
     public static String userInput = "";
-    public static MenuItem searchItem;
+    private static MenuItem searchItem;
     public static ArrayList<String> queuedUninstall;
     private static ActionBar supportActionBar;
-    public TextView actionbar_title, actionbar_content;
+    private TextView actionbar_title;
+    public TextView actionbar_content;
     public SearchView searchView;
     private Drawer drawer;
     private int permissionCheck = PackageManager.PERMISSION_DENIED;
@@ -837,7 +838,7 @@ public class MainActivity extends SubstratumActivity implements
         super.attachBaseContext(newBase);
     }
 
-    public void showFloatingHead() {
+    private void showFloatingHead() {
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
                 this.mContext);
         prefs.edit().putInt("float_tile", Tile.STATE_ACTIVE).apply();

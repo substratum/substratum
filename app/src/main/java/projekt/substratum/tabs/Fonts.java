@@ -97,7 +97,7 @@ public class Fonts extends Fragment {
     private final Boolean encrypted = false;
     private Cipher cipher;
 
-    public Fonts getInstance() {
+    private Fonts getInstance() {
         return this;
     }
 
@@ -219,7 +219,7 @@ public class Fonts extends Fragment {
     }
 
 
-    public void startApply() {
+    private void startApply() {
         if (!this.paused) {
             if (Systems.checkThemeInterfacer(this.mContext) ||
                     Settings.System.canWrite(this.mContext)) {

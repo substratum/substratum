@@ -287,7 +287,7 @@ public enum ThemeManager {
                 EXPORT_RETURN_MULTIPLE_TARGETS_ENABLED);
     }
 
-    public static List<String> listOverlays(final Context context, final int state, final int state2) {
+    private static List<String> listOverlays(final Context context, final int state, final int state2) {
         final List<String> list = new ArrayList<>();
         try {
             // Throw certain exceptions intentionally when unsupported device found

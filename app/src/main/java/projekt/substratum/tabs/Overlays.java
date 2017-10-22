@@ -135,15 +135,15 @@ public class Overlays extends Fragment {
     public boolean has_failed;
     public int fail_count;
     public StringBuilder failed_packages;
-    public ArrayList<OverlaysItem> values2;
-    public RecyclerView mRecyclerView;
+    private ArrayList<OverlaysItem> values2;
+    private RecyclerView mRecyclerView;
     public Spinner base_spinner;
     public SharedPreferences prefs;
     public List<String> final_runner, late_install;
     public boolean mixAndMatchMode, enable_mode, disable_mode, compile_enable_mode,
             enable_disable_mode;
     public Switch toggle_all;
-    public SwipeRefreshLayout swipeRefreshLayout;
+    private SwipeRefreshLayout swipeRefreshLayout;
     public ProgressBar progressBar;
     public Boolean is_overlay_active = false;
     public StringBuilder error_logs;
@@ -153,10 +153,10 @@ public class Overlays extends Fragment {
     public ProgressBar dialogProgress;
     public ArrayList<String> final_command;
     public AssetManager themeAssetManager;
-    public Phase3_mainFunction phase3_mainFunction;
+    private Phase3_mainFunction phase3_mainFunction;
     public Boolean missingType3 = false;
-    public JobReceiver jobReceiver;
-    public LocalBroadcastManager localBroadcastManager;
+    private JobReceiver jobReceiver;
+    private LocalBroadcastManager localBroadcastManager;
     public String type1a = "";
     public String type1b = "";
     public String type1c = "";
@@ -165,13 +165,13 @@ public class Overlays extends Fragment {
     public String type4 = "";
     public Boolean encrypted = false;
     public Cipher cipher;
-    public RefreshReceiver refreshReceiver;
-    public ActivityManager am;
-    public boolean decryptedAssetsExceptionReached;
+    private RefreshReceiver refreshReceiver;
+    private ActivityManager am;
+    private boolean decryptedAssetsExceptionReached;
     public int overlaysWaiting;
     private int currentPosition;
 
-    protected void logTypes() {
+    void logTypes() {
         if (ENABLE_PACKAGE_LOGGING) {
             Log.d("Theme Type1a Resource", this.type1a);
             Log.d("Theme Type1b Resource", this.type1b);
@@ -186,7 +186,7 @@ public class Overlays extends Fragment {
         return ((ViewGroup) this.getActivity().findViewById(android.R.id.content)).getChildAt(0);
     }
 
-    public void startCompileEnableMode() {
+    private void startCompileEnableMode() {
         if (!this.is_overlay_active) {
             this.is_overlay_active = true;
             this.compile_enable_mode = true;
@@ -228,7 +228,7 @@ public class Overlays extends Fragment {
         }
     }
 
-    public void startCompileUpdateMode() {
+    private void startCompileUpdateMode() {
         if (!this.is_overlay_active) {
             this.is_overlay_active = true;
             this.compile_enable_mode = false;
@@ -268,7 +268,7 @@ public class Overlays extends Fragment {
         }
     }
 
-    public void startDisable() {
+    private void startDisable() {
         if (!this.is_overlay_active) {
             this.is_overlay_active = true;
 
@@ -405,7 +405,7 @@ public class Overlays extends Fragment {
         }
     }
 
-    public void startEnable() {
+    private void startEnable() {
         if (!this.is_overlay_active) {
             this.is_overlay_active = true;
             this.compile_enable_mode = false;
@@ -451,7 +451,7 @@ public class Overlays extends Fragment {
         }
     }
 
-    public void startEnableDisable() {
+    private void startEnableDisable() {
         if (!this.is_overlay_active) {
             this.is_overlay_active = true;
             this.compile_enable_mode = false;
@@ -497,7 +497,7 @@ public class Overlays extends Fragment {
         }
     }
 
-    public void setMixAndMatchMode(final boolean newValue) {
+    private void setMixAndMatchMode(final boolean newValue) {
         this.mixAndMatchMode = newValue;
         this.prefs.edit().putBoolean("enable_swapping_overlays", this.mixAndMatchMode).apply();
         this.updateEnabledOverlays();
@@ -728,14 +728,14 @@ public class Overlays extends Fragment {
         return root;
     }
 
-    protected List<String> updateEnabledOverlays() {
+    List<String> updateEnabledOverlays() {
         return new ArrayList<>(ThemeManager.listOverlays(
                 this.getContext(),
                 ThemeManager.STATE_ENABLED
         ));
     }
 
-    protected boolean checkActiveNotifications() {
+    boolean checkActiveNotifications() {
         final StatusBarNotification[] activeNotifications = this.mNotifyManager.getActiveNotifications();
         for (final StatusBarNotification statusBarNotification : activeNotifications) {
             if (statusBarNotification.getPackageName().equals(this.getContext().getPackageName())) {
@@ -745,7 +745,7 @@ public class Overlays extends Fragment {
         return false;
     }
 
-    protected void failedFunction(final Context context) {
+    void failedFunction(final Context context) {
         // Add dummy intent to be able to close the notification on click
         final Intent notificationIntent = new Intent(context, this.getClass());
         notificationIntent.putExtra("theme_name", this.theme_name);
@@ -790,7 +790,7 @@ public class Overlays extends Fragment {
     }
 
     @SuppressWarnings("unchecked")
-    public void invokeLogCharLunchBar(final Context context) {
+    private void invokeLogCharLunchBar(final Context context) {
         final CharSequence errorLogCopy = new StringBuilder(this.error_logs);
         this.error_logs = new StringBuilder();
         currentShownLunchBar = Lunchbar.make(
@@ -804,7 +804,7 @@ public class Overlays extends Fragment {
         currentShownLunchBar.show();
     }
 
-    public void invokeLogCharDialog(final Context context, final CharSequence logs) {
+    private void invokeLogCharDialog(final Context context, final CharSequence logs) {
         final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context)
                 .setTitle(R.string.logcat_dialog_title)
                 .setMessage("\n" + logs)
@@ -855,7 +855,7 @@ public class Overlays extends Fragment {
         }
     }
 
-    protected boolean needsRecreate(final Context context) {
+    boolean needsRecreate(final Context context) {
         for (final OverlaysItem oi : this.checkedOverlays) {
             final String packageName = oi.getPackageName();
             if ("android".equals(packageName) || "projekt.substratum".equals(packageName)) {
@@ -871,8 +871,8 @@ public class Overlays extends Fragment {
         return Systems.checkOMS(this.getContext()) && !this.has_failed;
     }
 
-    public VariantItem setTypeOneSpinners(final String package_identifier,
-                                          final String type) {
+    private VariantItem setTypeOneSpinners(final String package_identifier,
+                                           final String type) {
         InputStream inputStream = null;
         try {
             if (this.encrypted) {
@@ -968,7 +968,7 @@ public class Overlays extends Fragment {
         }
     }
 
-    public VariantItem setTypeTwoFourSpinners(final InputStreamReader inputStreamReader, final Integer type) {
+    private VariantItem setTypeTwoFourSpinners(final InputStreamReader inputStreamReader, final Integer type) {
         try (BufferedReader reader = new BufferedReader(inputStreamReader)) {
             return new VariantItem(String.format(
                     this.getString(R.string.overlays_variant_substitute), reader.readLine()), null);
@@ -984,7 +984,7 @@ public class Overlays extends Fragment {
         return null;
     }
 
-    public VariantItem setTypeOneHexAndSpinner(final String current, final String package_identifier) {
+    private VariantItem setTypeOneHexAndSpinner(final String current, final String package_identifier) {
         if (this.encrypted) {
             try (InputStream inputStream = FileOperations.getInputStream(this.themeAssetManager,
                     "overlays/" + package_identifier + "/" + current, this.cipher)) {

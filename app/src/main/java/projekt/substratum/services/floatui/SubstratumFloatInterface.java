@@ -72,7 +72,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
     private ManagerAdapter mAdapter;
 
     @SuppressWarnings("WrongConstant")
-    public String foregroundedApp() {
+    private String foregroundedApp() {
         final UsageStatsManager mUsageStatsManager = (UsageStatsManager) this.getSystemService("usagestats");
         final long time = System.currentTimeMillis();
         List<UsageStats> stats = null;

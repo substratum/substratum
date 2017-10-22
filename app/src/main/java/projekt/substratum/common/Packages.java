@@ -378,7 +378,7 @@ public enum Packages {
         return null;
     }
 
-    public static Boolean getOverlayMetadata(
+    private static Boolean getOverlayMetadata(
             final Context mContext,
             final String package_name,
             final String metadata,

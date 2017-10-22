@@ -43,8 +43,8 @@ import static projekt.substratum.common.References.CRASH_REPEATING;
 
 public class AppCrashReceiver extends BroadcastReceiver {
 
-    public static final String TAG = "AppCrashReceiver";
-    public static final int NOTIFICATION_ID = 2476;
+    private static final String TAG = "AppCrashReceiver";
+    private static final int NOTIFICATION_ID = 2476;
 
     @Override
     public void onReceive(final Context context, final Intent intent) {

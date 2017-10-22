@@ -109,7 +109,7 @@ public class BootAnimations extends Fragment {
     private int previewIndex;
     private final BitmapFactory.Options options = new BitmapFactory.Options();
 
-    public BootAnimations getInstance() {
+    private BootAnimations getInstance() {
         return this;
     }
 
@@ -270,7 +270,7 @@ public class BootAnimations extends Fragment {
         return this.shutdownBootAnimation;
     }
 
-    public void startApply() {
+    private void startApply() {
         if (!this.paused) {
             if (((Systems.getDeviceEncryptionStatus(this.mContext) <= 1) ||
                     this.shutdownBootAnimation) ||

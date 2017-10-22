@@ -27,7 +27,7 @@ import java.util.Locale;
 
 public class ContextWrapper extends android.content.ContextWrapper {
 
-    public ContextWrapper(final Context base) {
+    private ContextWrapper(final Context base) {
         super(base);
     }
 

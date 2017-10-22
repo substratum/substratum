@@ -1218,7 +1218,6 @@ public class MainActivity extends SubstratumActivity implements
                 final boolean andromeda_check =
                         themeSystemModule == OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
                 if (andromeda_check) {
-                    Log.d("lmao", "here1");
                     // Throw the dialog when checkServerActivity() isn't working
                     return !AndromedaService.checkServerActivity();
                 }

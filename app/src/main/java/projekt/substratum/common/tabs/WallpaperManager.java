@@ -28,7 +28,7 @@ import java.io.InputStream;
 public enum WallpaperManager {
     ;
 
-    public static void setWallpaper(final Context context, final String path, final String which) throws IOException {
+    public static void setWallpaper(final Context context, final String path, final String which) throws IOException, java.io.FileNotFoundException {
         final android.app.WallpaperManager wallpaperManager =
                 android.app.WallpaperManager.getInstance(context);
         switch (which) {

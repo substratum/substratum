@@ -300,7 +300,7 @@ public enum ThemeManager {
             if (checkThemeSystemModule(context) == OVERLAY_MANAGER_SERVICE_O_UNROOTED) {
                 allOverlays = ThemeInterfacerService.getAllOverlays(context);
             } else {
-                //noinspection deprecation, unchecked
+                // noinspection deprecation
                 allOverlays = OverlayManagerService.getAllOverlays();
             }
             if (allOverlays != null) {

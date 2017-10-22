@@ -241,7 +241,6 @@ public class SplashScreenActivity extends Activity {
 
         @SuppressWarnings("ConstantConditions")
         class KeyRetrieval extends BroadcastReceiver {
-            @SuppressWarnings("UnusedAssignment")
             @Override
             public void onReceive(final Context context, final Intent intent) {
                 CheckSamsung.this.securityIntent = intent;

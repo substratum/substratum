@@ -934,7 +934,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             this.ref = new WeakReference<>(settingsFragment);
         }
 
-        @SuppressWarnings("ConstantConditions")
         @Override
         protected void onPostExecute(final String result) {
             super.onPostExecute(result);

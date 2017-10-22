@@ -789,7 +789,6 @@ public class Overlays extends Fragment {
         this.invokeLogCharLunchBar(context);
     }
 
-    @SuppressWarnings("unchecked")
     private void invokeLogCharLunchBar(final Context context) {
         final CharSequence errorLogCopy = new StringBuilder(this.error_logs);
         this.error_logs = new StringBuilder();
@@ -1218,7 +1217,6 @@ public class Overlays extends Fragment {
             }
         }
 
-        @SuppressWarnings("ConstantConditions")
         @Override
         protected String doInBackground(final String... sUrl) {
             final Overlays fragment = this.ref.get();

@@ -325,7 +325,6 @@ public class InformationActivity extends SubstratumActivity {
         }
     }
 
-    @SuppressWarnings("ConstantConditions")
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

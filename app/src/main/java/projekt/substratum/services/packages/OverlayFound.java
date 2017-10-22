@@ -151,7 +151,6 @@ public class OverlayFound extends BroadcastReceiver {
             }
         }
 
-        @SuppressWarnings("ConstantConditions")
         @Override
         protected String doInBackground(final String... sUrl) {
             final OverlayFound overlayFound = this.ref.get();

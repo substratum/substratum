@@ -41,7 +41,6 @@ import java.util.Set;
 
 import projekt.substratum.common.References;
 
-@SuppressWarnings("AccessStaticViaInstance")
 public enum FirebaseAnalytics {
     ;
 

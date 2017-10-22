@@ -279,19 +279,19 @@ public class ManagerAdapter extends
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvName;
-        TextView tvDesc;
-        CheckBox chkSelected;
-        CardView card;
-        ImageView appIcon;
-        ImageView appIconTarget;
-        TextView type1a;
-        TextView type1b;
-        TextView type1c;
-        TextView type2;
-        TextView type3;
-        TextView type4;
-        TextView version;
+        final TextView tvName;
+        final TextView tvDesc;
+        final CheckBox chkSelected;
+        final CardView card;
+        final ImageView appIcon;
+        final ImageView appIconTarget;
+        final TextView type1a;
+        final TextView type1b;
+        final TextView type1c;
+        final TextView type2;
+        final TextView type3;
+        final TextView type4;
+        final TextView version;
 
         ViewHolder(final View itemLayoutView) {
             super(itemLayoutView);

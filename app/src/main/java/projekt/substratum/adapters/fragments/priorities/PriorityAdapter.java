@@ -299,15 +299,15 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
 
     private class PriorityObjectAdapter extends GestureViewHolder {
 
-        TextView mCardText;
-        ImageView mAppIcon;
-        TextView tvDesc;
-        TextView type1a;
-        TextView type1b;
-        TextView type1c;
-        TextView type2;
-        TextView type3;
-        View view;
+        final TextView mCardText;
+        final ImageView mAppIcon;
+        final TextView tvDesc;
+        final TextView type1a;
+        final TextView type1b;
+        final TextView type1c;
+        final TextView type2;
+        final TextView type3;
+        final View view;
         private final ImageView mItemDrag;
 
         PriorityObjectAdapter(final View view) {
@@ -343,7 +343,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
 
     private class HeaderViewAdapter extends GestureViewHolder {
 
-        TextView mHeaderText;
+        final TextView mHeaderText;
 
         HeaderViewAdapter(final View view) {
             super(view);

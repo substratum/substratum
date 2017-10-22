@@ -488,17 +488,17 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        CardView card;
-        TextView overlayTargetPackageName;
-        TextView overlayTargetPackage;
-        TextView overlayState;
-        CheckBox checkBox;
-        Spinner optionsSpinner;
-        Spinner optionsSpinner2;
-        Spinner optionsSpinner3;
-        Spinner optionsSpinner4;
-        Spinner optionsSpinner5;
-        ImageView app_icon;
+        final CardView card;
+        final TextView overlayTargetPackageName;
+        final TextView overlayTargetPackage;
+        final TextView overlayState;
+        final CheckBox checkBox;
+        final Spinner optionsSpinner;
+        final Spinner optionsSpinner2;
+        final Spinner optionsSpinner3;
+        final Spinner optionsSpinner4;
+        final Spinner optionsSpinner5;
+        final ImageView app_icon;
 
         ViewHolder(final View itemLayoutView) {
             super(itemLayoutView);

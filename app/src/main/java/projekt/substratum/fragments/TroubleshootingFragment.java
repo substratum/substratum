@@ -32,7 +32,7 @@ public class TroubleshootingFragment extends Fragment {
 
     private ListView troubleshootListView;
 
-    private int[] troubleshootQuestions = {
+    private final int[] troubleshootQuestions = {
             R.string.question_one,
             R.string.question_five,
             R.string.question_eight,
@@ -40,7 +40,7 @@ public class TroubleshootingFragment extends Fragment {
             R.string.question_twelve
     };
 
-    private int[] troubleshootAnswers = {
+    private final int[] troubleshootAnswers = {
             R.string.answer_one,
             R.string.answer_five,
             R.string.answer_eight,

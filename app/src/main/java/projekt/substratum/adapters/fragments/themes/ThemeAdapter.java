@@ -434,16 +434,16 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        CardView cardView;
-        TextView theme_name;
-        TextView theme_author;
-        TextView theme_apis;
-        TextView theme_version;
-        TextView plugin_version;
-        ImageView imageView;
-        View divider;
-        ImageView tbo;
-        ImageView two;
+        final CardView cardView;
+        final TextView theme_name;
+        final TextView theme_author;
+        final TextView theme_apis;
+        final TextView theme_version;
+        final TextView plugin_version;
+        final ImageView imageView;
+        final View divider;
+        final ImageView tbo;
+        final ImageView two;
 
         ViewHolder(final View view) {
             super(view);

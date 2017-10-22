@@ -196,22 +196,22 @@ public enum References {
     static final String SUBSTRATUM_LAUNCHER_CLASS_PATH =
             "substratum.theme.template.SubstratumLauncher";
     // This int controls the notification identifier
-    public static int firebase_notification_id = 24862486;
-    public static int notification_id = 2486;
-    public static int notification_id_compiler = 17589715;
+    public static final int firebase_notification_id = 24862486;
+    public static final int notification_id = 2486;
+    public static final int notification_id_compiler = 17589715;
     // This int controls the delay for window refreshes to occur
-    public static int REFRESH_WINDOW_DELAY = 500;
+    public static final int REFRESH_WINDOW_DELAY = 500;
     // This int controls the default grid count for the theme adapter
-    public static int MIN_GRID_COUNT = 1;
-    public static int DEFAULT_GRID_COUNT = 2;
-    public static int MAX_GRID_COUNT = 4;
+    public static final int MIN_GRID_COUNT = 1;
+    public static final int DEFAULT_GRID_COUNT = 2;
+    public static final int MAX_GRID_COUNT = 4;
     // This int controls the default priority level for legacy overlays
-    public static int DEFAULT_PRIORITY = 999;
-    public static int MIN_PRIORITY = 1;
-    public static int MAX_PRIORITY = 9999;
+    public static final int DEFAULT_PRIORITY = 999;
+    public static final int MIN_PRIORITY = 1;
+    public static final int MAX_PRIORITY = 9999;
     // These strings control package names for system apps
-    public static String settingsPackageName = "com.android.settings";
-    public static String settingsSubstratumDrawableName = "ic_settings_substratum";
+    public static final String settingsPackageName = "com.android.settings";
+    public static final String settingsSubstratumDrawableName = "ic_settings_substratum";
     // Localized variables shared amongst common resources
     static ScheduledProfileReceiver scheduledProfileReceiver;
     // These values control the dynamic certification of substratum

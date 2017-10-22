@@ -78,7 +78,7 @@ enum OverlayFunctions {
     private static final String TAG = "Substratum OverlayFunctions";
 
     static class getThemeCache extends AsyncTask<String, Integer, String> {
-        WeakReference<Overlays> ref;
+        final WeakReference<Overlays> ref;
 
         getThemeCache(final Overlays overlays) {
             super();
@@ -894,8 +894,8 @@ enum OverlayFunctions {
     }
 
     static class Phase4_finishEnableFunction extends AsyncTask<Void, Void, Void> {
-        WeakReference<Overlays> ref;
-        WeakReference<Context> refContext;
+        final WeakReference<Overlays> ref;
+        final WeakReference<Context> refContext;
 
         Phase4_finishEnableFunction(final Overlays overlays) {
             super();
@@ -983,8 +983,8 @@ enum OverlayFunctions {
 
 
     static class Phase4_finishDisableFunction extends AsyncTask<Void, Void, Void> {
-        WeakReference<Overlays> ref;
-        WeakReference<Context> refContext;
+        final WeakReference<Overlays> ref;
+        final WeakReference<Context> refContext;
 
         Phase4_finishDisableFunction(final Overlays overlays) {
             super();
@@ -1061,8 +1061,8 @@ enum OverlayFunctions {
     }
 
     static class Phase4_finishEnableDisableFunction extends AsyncTask<Void, Void, Void> {
-        WeakReference<Overlays> ref;
-        WeakReference<Context> refContext;
+        final WeakReference<Overlays> ref;
+        final WeakReference<Context> refContext;
 
         Phase4_finishEnableDisableFunction(final Overlays overlays) {
             super();
@@ -1167,8 +1167,8 @@ enum OverlayFunctions {
     }
 
     static class Phase4_finishUpdateFunction extends AsyncTask<Void, Void, Void> {
-        WeakReference<Overlays> ref;
-        WeakReference<Context> refContext;
+        final WeakReference<Overlays> ref;
+        final WeakReference<Context> refContext;
 
         Phase4_finishUpdateFunction(final Overlays overlays) {
             super();

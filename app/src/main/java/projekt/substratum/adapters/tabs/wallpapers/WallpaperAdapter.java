@@ -229,9 +229,9 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        CardView cardView;
-        TextView wallpaperName;
-        ImageView imageView;
+        final CardView cardView;
+        final TextView wallpaperName;
+        final ImageView imageView;
 
         ViewHolder(final View view) {
             super(view);

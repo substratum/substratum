@@ -127,7 +127,7 @@ public class OverlayUpdater extends BroadcastReceiver {
 
     private static class OverlayUpdate extends AsyncTask<String, Integer, String> {
 
-        int notification_priority = Notification.PRIORITY_MAX;
+        final int notification_priority = Notification.PRIORITY_MAX;
         private NotificationManager mNotifyManager;
         private NotificationCompat.Builder mBuilder;
         private List<String> installed_overlays;

@@ -41,8 +41,8 @@ public class OverlaysItem implements Serializable {
     public boolean is_variant_chosen3;
     public boolean is_variant_chosen4;
     public boolean is_variant_chosen5;
-    public String versionName;
-    boolean variant_mode;
+    public final String versionName;
+    final boolean variant_mode;
     private final String theme_name;
     private String name;
     private final String package_name;

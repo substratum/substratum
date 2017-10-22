@@ -138,13 +138,18 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        CardView cardView;
-        TextView themeName;
-        TextView themeAuthor;
-        TextView installedOrNot;
-        ImageView themePricing;
-        ImageView imageView, backgroundImageView, wallpaper, sounds, fonts, bootanimations,
-                overlays;
+        final CardView cardView;
+        final TextView themeName;
+        final TextView themeAuthor;
+        final TextView installedOrNot;
+        final ImageView themePricing;
+        final ImageView imageView;
+        final ImageView backgroundImageView;
+        final ImageView wallpaper;
+        final ImageView sounds;
+        final ImageView fonts;
+        final ImageView bootanimations;
+        final ImageView overlays;
 
         ViewHolder(final View view) {
             super(view);

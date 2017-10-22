@@ -129,11 +129,11 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        CardView cardView;
-        TextView packName;
-        TextView verificationText;
-        ImageView packIcon;
-        ImageView verificationIcon;
+        final CardView cardView;
+        final TextView packName;
+        final TextView verificationText;
+        final ImageView packIcon;
+        final ImageView verificationIcon;
 
         ViewHolder(final View view) {
             super(view);

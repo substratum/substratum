@@ -78,7 +78,7 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHold
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title;
+        public final TextView title;
 
         MyViewHolder(final View view) {
             super(view);

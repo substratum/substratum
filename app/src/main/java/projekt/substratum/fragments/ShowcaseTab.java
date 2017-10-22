@@ -204,30 +204,30 @@ public class ShowcaseTab extends Fragment {
                         ReadCloudShowcaseFile.main(checkerCommands);
                 ShowcaseItem newEntry = new ShowcaseItem();
 
-                for (final String key : newArray.keySet()) {
-                    if (!key.toLowerCase(Locale.US).contains("-".toLowerCase(Locale
+                for (final Map.Entry<String, String> stringStringEntry : newArray.entrySet()) {
+                    if (!((String) stringStringEntry.getKey()).toLowerCase(Locale.US).contains("-".toLowerCase(Locale
                             .getDefault()))) {
                         newEntry.setContext(showcaseTab.mContext);
-                        newEntry.setThemeName(key);
-                        newEntry.setThemeLink(newArray.get(key));
+                        newEntry.setThemeName((String) stringStringEntry.getKey());
+                        newEntry.setThemeLink(stringStringEntry.getValue());
                     } else {
-                        if (key.toLowerCase(Locale.US).contains("-author".toLowerCase
+                        if (((String) stringStringEntry.getKey()).toLowerCase(Locale.US).contains("-author".toLowerCase
                                 (Locale.US))) {
-                            newEntry.setThemeAuthor(newArray.get(key));
-                        } else if (key.toLowerCase(Locale.US).contains("-pricing"
+                            newEntry.setThemeAuthor(stringStringEntry.getValue());
+                        } else if (((String) stringStringEntry.getKey()).toLowerCase(Locale.US).contains("-pricing"
                                 .toLowerCase(Locale.US))) {
-                            newEntry.setThemePricing(newArray.get(key));
-                        } else if (key.toLowerCase(Locale.US).contains("-image-override" +
+                            newEntry.setThemePricing(stringStringEntry.getValue());
+                        } else if (((String) stringStringEntry.getKey()).toLowerCase(Locale.US).contains("-image-override" +
                                 "")) {
-                            newEntry.setThemeIcon(newArray.get(key));
-                        } else if (key.toLowerCase(Locale.US).contains
+                            newEntry.setThemeIcon(stringStringEntry.getValue());
+                        } else if (((String) stringStringEntry.getKey()).toLowerCase(Locale.US).contains
                                 ("-feature-image")) {
-                            newEntry.setThemeBackgroundImage(newArray.get(key));
-                        } else if (key.toLowerCase(Locale.US).contains("-package-name")) {
-                            newEntry.setThemePackage(newArray.get(key));
-                        } else if (key.toLowerCase(Locale.US).contains("-support"
+                            newEntry.setThemeBackgroundImage(stringStringEntry.getValue());
+                        } else if (((String) stringStringEntry.getKey()).toLowerCase(Locale.US).contains("-package-name")) {
+                            newEntry.setThemePackage(stringStringEntry.getValue());
+                        } else if (((String) stringStringEntry.getKey()).toLowerCase(Locale.US).contains("-support"
                                 .toLowerCase(Locale.US))) {
-                            newEntry.setThemeSupport(newArray.get(key));
+                            newEntry.setThemeSupport(stringStringEntry.getValue());
                             wallpapers.add(newEntry);
                             newEntry = new ShowcaseItem();
                             newEntry.setContext(showcaseTab.mContext);

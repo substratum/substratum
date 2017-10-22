@@ -307,8 +307,8 @@ public enum ThemeManager {
                 final Set<String> set = allOverlays.keySet();
                 switch (state2) {
                     case EXPORT_RETURN_ALL_OVERLAYS:
-                        for (final String targetPackageName : set) {
-                            for (final OverlayInfo oi : allOverlays.get(targetPackageName)) {
+                        for (final Map.Entry<String, List<OverlayInfo>> stringListEntry : allOverlays.entrySet()) {
+                            for (final OverlayInfo oi : stringListEntry.getValue()) {
                                 if (oi.isApproved()) {
                                     list.add(oi.packageName);
                                 }
@@ -316,19 +316,19 @@ public enum ThemeManager {
                         }
                         break;
                     case EXPORT_RETURN_MULTIPLE_TARGETS_ENABLED:
-                        for (final String targetPackageName : set) {
-                            final List<OverlayInfo> targetOverlays = allOverlays.get(targetPackageName);
+                        for (final Map.Entry<String, List<OverlayInfo>> stringListEntry : allOverlays.entrySet()) {
+                            final List<OverlayInfo> targetOverlays = stringListEntry.getValue();
                             final int targetOverlaysSize = targetOverlays.size();
                             int count = 0;
                             for (final OverlayInfo oi : targetOverlays) {
                                 if (oi.isEnabled()) count++;
                             }
-                            if ((targetOverlaysSize > 1) && (count > 1)) list.add(targetPackageName);
+                            if ((targetOverlaysSize > 1) && (count > 1)) list.add((String) stringListEntry.getKey());
                         }
                         break;
                     case EXPORT_RETURN_DEFAULT:
-                        for (final String targetPackageName : set) {
-                            for (final OverlayInfo oi : allOverlays.get(targetPackageName)) {
+                        for (final Map.Entry<String, List<OverlayInfo>> stringListEntry : allOverlays.entrySet()) {
+                            for (final OverlayInfo oi : stringListEntry.getValue()) {
                                 if ((state == STATE_ENABLED) && oi.isEnabled()) {
                                     list.add(oi.packageName);
                                 } else if ((state == STATE_DISABLED) && !oi.isEnabled()) {

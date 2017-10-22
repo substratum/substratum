@@ -128,16 +128,16 @@ public class Wallpapers extends Fragment {
                     final ArrayList<WallpaperEntries> wallpaperEntries = new ArrayList<>();
                     WallpaperEntries newEntry = new WallpaperEntries();
 
-                    for (final String key : newArray.keySet()) {
-                        if (!key.toLowerCase(Locale.US)
+                    for (final Map.Entry<String, String> stringStringEntry : newArray.entrySet()) {
+                        if (!((String) stringStringEntry.getKey()).toLowerCase(Locale.US)
                                 .endsWith("-preview".toLowerCase(Locale.US))) {
                             newEntry.setCallingActivity(wallpapers.getActivity());
                             newEntry.setContext(wallpapers.mContext);
-                            newEntry.setWallpaperName(key.replaceAll("~", " "));
-                            newEntry.setWallpaperLink(newArray.get(key));
+                            newEntry.setWallpaperName(((String) stringStringEntry.getKey()).replaceAll("~", " "));
+                            newEntry.setWallpaperLink(stringStringEntry.getValue());
                         } else {
                             // This is a preview image to be displayed on the card
-                            newEntry.setWallpaperPreview(newArray.get(key));
+                            newEntry.setWallpaperPreview(stringStringEntry.getValue());
                             wallpaperEntries.add(newEntry);
                             newEntry = new WallpaperEntries();
                         }

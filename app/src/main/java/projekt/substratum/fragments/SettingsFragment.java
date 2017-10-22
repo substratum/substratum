@@ -966,7 +966,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     return;
                 }
 
-                if (result != null && result.isEmpty()) {
+                if (result.isEmpty()) {
                     settingsFragment.platformSummary.append('\n')
                             .append(settingsFragment.getString(R.string.rom_status))
                             .append(' ')

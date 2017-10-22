@@ -425,9 +425,9 @@ public enum ThemeManager {
                 }
                 switch (state2) {
                     case EXPORT_RETURN_MULTIPLE_TARGETS_ENABLED:
-                        int counter = 0;
-                        String currentApp = "";
                         if (arrList != null) {
+                            String currentApp = "";
+                            int counter = 0;
                             for (final String line : arrList) {
                                 if (line.startsWith(prefix)) {
                                     if ((getOverlayParent(context, line.substring(4)) != null) &&
@@ -465,10 +465,10 @@ public enum ThemeManager {
                                         checker = line.startsWith(prefix);
                                 }
                                 if (checker) {
-                                    final String packageName = line.substring(4);
                                     if ((getOverlayParent(context, line.substring(4)) != null) &&
                                             isPackageInstalled(context, line.substring(4))) {
                                         try {
+                                            final String packageName = line.substring(4);
                                             final String sourceDir = context.getPackageManager()
                                                     .getApplicationInfo(packageName, 0).sourceDir;
                                             if (!sourceDir.startsWith("/vendor/overlay/")) {

@@ -171,9 +171,9 @@ public enum FileOperations {
             ThemeInterfacerService.copy(context, source, destination);
 
             // Wait until copy succeeds
-            final File file = new File(destination);
             try {
                 int retryCount = 0;
+                final File file = new File(destination);
                 while (!file.exists() && (retryCount < 5)) {
                     Thread.sleep(1000);
                     retryCount++;
@@ -191,9 +191,9 @@ public enum FileOperations {
     private static void copy(final String source, final String destination) {
         Log.d(COPY_LOG,
                 "Using rootless operation to copy " + source + " to " + destination);
-        final File in = new File(source);
         final File out = new File(destination);
         try {
+            final File in = new File(source);
             FileUtils.copyFile(in, out);
         } catch (final IOException e) {
             // Suppress warning
@@ -222,9 +222,9 @@ public enum FileOperations {
     private static void copyDir(final String source, final String destination) {
         Log.d(COPYDIR_LOG,
                 "Using rootless operation to copy " + source + " to " + destination);
-        final File in = new File(source);
         final File out = new File(destination);
         try {
+            final File in = new File(source);
             FileUtils.copyDirectory(in, out);
         } catch (final IOException e) {
             // Suppress warning
@@ -255,9 +255,9 @@ public enum FileOperations {
             ThemeInterfacerService.delete(context, directory, deleteParent);
 
             // Wait until delete success
-            final File file = new File(directory);
             try {
                 int retryCount = 0;
+                final File file = new File(directory);
                 final boolean notDone = deleteParent ? file.exists() : file.list().length == 0;
                 while (notDone && (retryCount < 5)) {
                     Thread.sleep(1000);
@@ -319,9 +319,9 @@ public enum FileOperations {
             ThemeInterfacerService.move(context, source, destination);
 
             // Wait until move success
-            final File file = new File(destination);
             try {
                 int retryCount = 0;
+                final File file = new File(destination);
                 while (!file.exists() && (retryCount < 5)) {
                     Thread.sleep(1000);
                     retryCount++;
@@ -339,9 +339,9 @@ public enum FileOperations {
     private static void move(final String source, final String destination) {
         Log.d(MOVE_LOG, "Using rootless operation to move " + source + " to " +
                 destination);
-        final File in = new File(source);
         final File out = new File(destination);
         try {
+            final File in = new File(source);
             if (in.isFile()) {
                 FileUtils.moveFile(in, out);
             } else if (in.isDirectory()) {
@@ -398,11 +398,10 @@ public enum FileOperations {
      */
     public static boolean copyFileOrDir(final AssetManager assetManager, final String listDir,
                                         final String destination, final String remember, final Cipher cipher) {
-        final String[] assets;
         if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, "Source: " + listDir);
         if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, "Destination: " + destination);
         try {
-            assets = assetManager.list(listDir);
+            final String[] assets = assetManager.list(listDir);
             if (assets.length == 0) {
                 // When asset[] is empty, it is not iterable, hence it is a file
                 if (ENABLE_DIRECT_ASSETS_LOGGING)

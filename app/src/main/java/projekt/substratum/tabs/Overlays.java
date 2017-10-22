@@ -639,12 +639,12 @@ public class Overlays extends Fragment {
                     .getResourcesForApplication(this.theme_pid);
             this.themeAssetManager = themeResources.getAssets();
 
-            final ArrayList<VariantItem> type3 = new ArrayList<>();
             final List<String> stringArray = new ArrayList<>();
 
             final String[] listArray = this.themeAssetManager.list("overlays/android");
             Collections.addAll(stringArray, listArray);
 
+            final ArrayList<VariantItem> type3 = new ArrayList<>();
             if (stringArray.contains("type3") || stringArray.contains("type3.enc")) {
                 final InputStream inputStream;
                 if (this.encrypted) {
@@ -1234,9 +1234,7 @@ public class Overlays extends Fragment {
                     fragment.versionName = Packages.getAppVersion(context, fragment.theme_pid);
                     final List<String> state5overlays = fragment.updateEnabledOverlays();
                     final String parse1_themeName = fragment.theme_name.replaceAll("\\s+", "");
-                    final String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
 
-                    final List<String> values = new ArrayList<>();
                     fragment.values2 = new ArrayList<>();
 
                     // Buffer the initial values list so that we get the list of packages
@@ -1257,6 +1255,7 @@ public class Overlays extends Fragment {
                     final Boolean showDangerous = !prefs.getBoolean("show_dangerous_samsung_overlays",
                             false);
 
+                    final List<String> values = new ArrayList<>();
                     values.addAll(overlaysFolder.stream().filter(package_name -> (Packages
                             .isPackageInstalled(context, package_name) ||
                             projekt.substratum.common.Resources.allowedSystemUIOverlay
@@ -1343,16 +1342,12 @@ public class Overlays extends Fragment {
                     // Now let's add the new information so that the adapter can recognize custom
                     // method
                     // calls
+                    final String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
                     for (final Pair<String, String> entry : sortedMap) {
                         final String package_name = entry.second;
                         final String package_identifier = entry.first;
 
                         try {
-                            final ArrayList<VariantItem> type1a = new ArrayList<>();
-                            final ArrayList<VariantItem> type1b = new ArrayList<>();
-                            final ArrayList<VariantItem> type1c = new ArrayList<>();
-                            final ArrayList<VariantItem> type2 = new ArrayList<>();
-                            final ArrayList<VariantItem> type4 = new ArrayList<>();
                             final List<String> typeArray = new ArrayList<>();
 
                             final Object typeArrayRaw = fragment.themeAssetManager.list(
@@ -1366,16 +1361,19 @@ public class Overlays extends Fragment {
                             Collections.sort(typeArray);
 
                             // Let's start adding the type xmls to be parsed into the spinners
+                            final ArrayList<VariantItem> type1a = new ArrayList<>();
                             if (typeArray.contains("type1a") || typeArray.contains("type1a.enc")) {
                                 type1a.add(fragment.setTypeOneSpinners(
                                         package_identifier, "a"));
                             }
 
+                            final ArrayList<VariantItem> type1b = new ArrayList<>();
                             if (typeArray.contains("type1b") || typeArray.contains("type1b.enc")) {
                                 type1b.add(fragment.setTypeOneSpinners(
                                         package_identifier, "b"));
                             }
 
+                            final ArrayList<VariantItem> type1c = new ArrayList<>();
                             if (typeArray.contains("type1c") || typeArray.contains("type1c.enc")) {
                                 type1c.add(fragment.setTypeOneSpinners(
                                         package_identifier, "c"));
@@ -1388,6 +1386,7 @@ public class Overlays extends Fragment {
                                     break;
                                 }
                             }
+                            final ArrayList<VariantItem> type2 = new ArrayList<>();
                             if (typeArray.contains("type2") ||
                                     typeArray.contains("type2.enc") ||
                                     type2checker) {
@@ -1419,6 +1418,7 @@ public class Overlays extends Fragment {
                                     break;
                                 }
                             }
+                            final ArrayList<VariantItem> type4 = new ArrayList<>();
                             if (typeArray.contains("type4") ||
                                     typeArray.contains("type4.enc") ||
                                     type4checker) {

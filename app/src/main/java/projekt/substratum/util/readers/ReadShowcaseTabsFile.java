@@ -35,9 +35,6 @@ public enum ReadShowcaseTabsFile {
 
     public static Map<String, String> main(final String[] argv) {
 
-        final Map<String, String> map = new TreeMap<>();
-        final Map<String, String> emptyMap = new TreeMap<>();
-
         try {
             final File fXmlFile = new File(argv[0]);
 
@@ -47,6 +44,7 @@ public enum ReadShowcaseTabsFile {
             doc.getDocumentElement().normalize();
             final NodeList nList = doc.getElementsByTagName("tab");
 
+            final Map<String, String> map = new TreeMap<>();
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 final Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -64,6 +62,7 @@ public enum ReadShowcaseTabsFile {
             return map;
         } catch (final Exception e) {
             e.printStackTrace();
+            final Map<String, String> emptyMap = new TreeMap<>();
             return emptyMap;
         }
     }

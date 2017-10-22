@@ -108,7 +108,6 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                 this.mContext,
                                 packageTitle,
                                 References.metadataOverlayVersion);
-                        final Boolean newUpdate = (version != 0) && (version <= BuildConfig.VERSION_CODE);
 
                         if (prioritiesItem.getType1a() == null) {
                             String metadata = Packages.getOverlayMetadata(
@@ -233,6 +232,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                     this.mContext,
                                     packageTitle,
                                     References.metadataOverlayParent);
+                            final Boolean newUpdate = (version != 0) && (version <= BuildConfig.VERSION_CODE);
                             if ((metadata != null) && !metadata.isEmpty() && newUpdate) {
                                 final String pName = "<b>" +
                                         this.mContext.getString(R.string.manager_theme_name) + "</b> " +

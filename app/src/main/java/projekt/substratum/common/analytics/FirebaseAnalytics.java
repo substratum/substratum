@@ -69,11 +69,11 @@ public enum FirebaseAnalytics {
                 final SharedPreferences.Editor editor = context
                         .getSharedPreferences(PACKAGES_PREFS, Context.MODE_PRIVATE).edit();
                 editor.clear();
-                final Collection<String> listOfPackages = new ArrayList<>();
                 final Object dataValue = dataSnapshot.getValue();
                 if (dataValue != null) {
                     final String data = dataValue.toString();
                     final String[] dataArr = data.substring(1, data.length() - 1).split(",");
+                    final Collection<String> listOfPackages = new ArrayList<>();
                     for (final String aDataArr : dataArr) {
                         final String entry = aDataArr.split("=")[1];
                         listOfPackages.add(entry);
@@ -96,7 +96,6 @@ public enum FirebaseAnalytics {
     public static void withdrawAndromedaFingerprint(final Context context, final int version) {
         final SharedPreferences prefs = context
                 .getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
-        final String prefKey = "andromeda_exp_fp_" + version;
         if (!prefs.contains("andromeda_exp_fp_" + version)) {
             final SharedPreferences.Editor editor = prefs.edit();
             for (final Map.Entry<String, ?> entry : prefs.getAll().entrySet()) {
@@ -105,6 +104,7 @@ public enum FirebaseAnalytics {
                 }
             }
             final DatabaseReference database = getDatabaseReference();
+            final String prefKey = "andromeda_exp_fp_" + version;
             database.child("andromeda-fp")
                     .addValueEventListener(new ValueEventListener() {
                         @Override
@@ -127,7 +127,6 @@ public enum FirebaseAnalytics {
     public static void withdrawSungstratumFingerprint(final Context context, final int version) {
         final SharedPreferences prefs = context
                 .getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
-        final String prefKey = "sungstratum_exp_fp_" + version;
         if (!prefs.contains("sungstratum_exp_fp_" + version)) {
             final SharedPreferences.Editor editor = prefs.edit();
             for (final Map.Entry<String, ?> entry : prefs.getAll().entrySet()) {
@@ -136,6 +135,7 @@ public enum FirebaseAnalytics {
                 }
             }
             final DatabaseReference database = getDatabaseReference();
+            final String prefKey = "sungstratum_exp_fp_" + version;
             database.child("sungstratum-fp")
                     .addValueEventListener(new ValueEventListener() {
                         @Override

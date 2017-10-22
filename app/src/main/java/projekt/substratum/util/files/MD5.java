@@ -50,9 +50,9 @@ public enum MD5 {
             return null;
         }
 
-        final byte[] buffer = new byte[8192];
-        int read;
         try {
+            int read;
+            final byte[] buffer = new byte[8192];
             while ((read = is.read(buffer)) > 0) {
                 digest.update(buffer, 0, read);
             }

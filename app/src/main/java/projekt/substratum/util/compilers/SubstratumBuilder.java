@@ -132,11 +132,8 @@ public class SubstratumBuilder {
         final String work_area = context.getCacheDir().getAbsolutePath() + SUBSTRATUM_BUILDER_CACHE;
 
         // 3. Create a modified Android Manifest for use with aopt
-        final File root = new File(work_area + "/AndroidManifest.xml");
 
         // 4. Parse the theme's name before adding it into the new manifest to prevent any issues
-        final String parse1_themeName = theme_name.replaceAll("\\s+", "");
-        String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
 
         String parse2_variantName = "";
         if (variant != null) {
@@ -152,6 +149,8 @@ public class SubstratumBuilder {
         }
         if (!parse2_baseName.isEmpty()) parse2_baseName = "." + parse2_baseName;
 
+        final String parse1_themeName = theme_name.replaceAll("\\s+", "");
+        String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
         if ("".equals(parse2_themeName)) {
             parse2_themeName = "no_name";
         }
@@ -190,6 +189,7 @@ public class SubstratumBuilder {
         }
 
         if (!this.has_errored_out) {
+            final File root = new File(work_area + "/AndroidManifest.xml");
             try (FileWriter fw = new FileWriter(root);
                  BufferedWriter bw = new BufferedWriter(fw);
                  PrintWriter pw = new PrintWriter(bw)) {
@@ -360,8 +360,6 @@ public class SubstratumBuilder {
                 // Sign with the built-in test key/certificate.
                 final String source = work_area + "/" + overlay_package + "." + parse2_themeName +
                         "-unsigned-aligned.apk";
-                final String destination =
-                        EXTERNAL_STORAGE_CACHE + overlayName + "-signed.apk";
 
                 final File key = new File(context.getDataDir() + "/key");
                 final char[] keyPass = "overlay".toCharArray();
@@ -382,6 +380,7 @@ public class SubstratumBuilder {
                 final List<ApkSigner.SignerConfig> signerConfigs = new ArrayList<>();
                 signerConfigs.add(signerConfig);
                 final ApkSigner.Builder apkSigner = new ApkSigner.Builder(signerConfigs);
+                final String destination = EXTERNAL_STORAGE_CACHE + overlayName + "-signed.apk";
                 apkSigner
                         .setV1SigningEnabled(false)
                         .setV2SigningEnabled(true)
@@ -443,13 +442,11 @@ public class SubstratumBuilder {
                 } else {
                     // At this point, it is detected to be legacy mode and Substratum will push to
                     // vendor/overlays directly.
-                    final String vendor_location = LEGACY_NEXUS_DIR;
-                    final String vendor_partition = VENDOR_DIR;
-                    final String vendor_symlink = PIXEL_NEXUS_DIR;
 
                     FileOperations.mountRW();
                     // For Non-Nexus devices
                     if (!Resources.inNexusFilter()) {
+                        final String vendor_location = LEGACY_NEXUS_DIR;
                         FileOperations.createNewFolder(vendor_location);
                         FileOperations.move(context, EXTERNAL_STORAGE_CACHE + overlayName +
                                 "-signed.apk", vendor_location + overlayName + ".apk");
@@ -459,7 +456,9 @@ public class SubstratumBuilder {
                     } else {
                         // For Nexus devices
                         FileOperations.mountRWVendor();
+                        final String vendor_symlink = PIXEL_NEXUS_DIR;
                         FileOperations.createNewFolder(vendor_symlink);
+                        final String vendor_partition = VENDOR_DIR;
                         FileOperations.createNewFolder(vendor_partition);
                         // On nexus devices, put framework overlay to /vendor/overlay/
                         if ("android".equals(overlay_package)) {
@@ -530,7 +529,6 @@ public class SubstratumBuilder {
                                          final String no_cache_dir) {
         Process nativeApp = null;
         try {
-            String line;
             nativeApp = Runtime.getRuntime().exec(commands);
 
             try (OutputStream stdin = nativeApp.getOutputStream();
@@ -540,6 +538,7 @@ public class SubstratumBuilder {
 
                 Boolean errored = false;
                 try (BufferedReader br = new BufferedReader(new InputStreamReader(stderr))) {
+                    String line;
                     while ((line = br.readLine()) != null) {
                         if (line.contains("types not allowed") && !legacySwitch && !this.debug) {
                             Log.e(References.SUBSTRATUM_BUILDER,

@@ -35,9 +35,6 @@ public enum ReadSupportedROMsFile {
 
     public static Map<String, String> main(final String file) {
 
-        final Map<String, String> hashMap = new HashMap<>();
-        final Map<String, String> emptyMap = new HashMap<>();
-
         try {
             final File fXmlFile = new File(file);
 
@@ -47,6 +44,7 @@ public enum ReadSupportedROMsFile {
             doc.getDocumentElement().normalize();
             final NodeList nList = doc.getElementsByTagName("rom");
 
+            final Map<String, String> hashMap = new HashMap<>();
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 final Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -61,6 +59,7 @@ public enum ReadSupportedROMsFile {
             return hashMap;
         } catch (final Exception e) {
             e.printStackTrace();
+            final Map<String, String> emptyMap = new HashMap<>();
             return emptyMap;
         }
     }

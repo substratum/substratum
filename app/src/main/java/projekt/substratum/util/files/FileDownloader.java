@@ -50,9 +50,6 @@ public enum FileDownloader {
                             final String destinationFileOrFolder) throws NetworkOnMainThreadException {
 
         try {
-            InputStream input = null;
-            OutputStream output = null;
-            HttpURLConnection connection = null;
 
             // First create the cache folder
             final File directory = new File(context.getCacheDir().getAbsolutePath() + "/" +
@@ -75,6 +72,9 @@ public enum FileDownloader {
             }
 
             // Once the cache folder is created, start downloading the file
+            HttpURLConnection connection = null;
+            OutputStream output = null;
+            InputStream input = null;
             try {
                 final URL url = new URL(fileUrl);
                 connection = (HttpURLConnection) url.openConnection();

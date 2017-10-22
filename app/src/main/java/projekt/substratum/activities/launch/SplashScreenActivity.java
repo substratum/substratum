@@ -216,8 +216,8 @@ public class SplashScreenActivity extends Activity {
                         e.printStackTrace();
                     }
 
-                    int counter = 0;
                     this.handler.postDelayed(this.runnable, 100);
+                    int counter = 0;
                     while ((this.securityIntent == null) && (counter < 5)) {
                         try {
                             Thread.sleep(500);

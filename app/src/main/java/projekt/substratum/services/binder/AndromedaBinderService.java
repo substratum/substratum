@@ -135,8 +135,7 @@ public class AndromedaBinderService extends Service implements ServiceConnection
         boolean isBadNotificationShowing = false;
         final int badNotificationId = 2017;
         if (mNotifyMgr != null) {
-            final StatusBarNotification[] notifications;
-            notifications = mNotifyMgr.getActiveNotifications();
+            final StatusBarNotification[] notifications = mNotifyMgr.getActiveNotifications();
             for (final StatusBarNotification notification : notifications) {
                 if (notification.getId() == badNotificationId) {
                     isBadNotificationShowing = true;

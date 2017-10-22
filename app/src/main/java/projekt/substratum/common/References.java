@@ -324,8 +324,8 @@ public enum References {
         String xposed_version = "";
         final File f = new File("/system/framework/XposedBridge.jar");
         if (f.isFile()) {
-            final File file = new File("/system/", "xposed.prop");
             try {
+                final File file = new File("/system/", "xposed.prop");
                 final BufferedReader br = new BufferedReader(new FileReader(file));
                 final String unparsed_br = br.readLine();
                 xposed_version = unparsed_br.substring(8, 10);
@@ -541,7 +541,6 @@ public enum References {
     @SuppressWarnings("deprecation")
     public static CharSequence parseTime(final Context context, int hour, final int minute) {
         final Locale locale;
-        final String parse;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             locale = context.getResources().getConfiguration().getLocales().get(0);
@@ -549,6 +548,7 @@ public enum References {
             locale = context.getResources().getConfiguration().locale;
         }
 
+        final String parse;
         if (android.text.format.DateFormat.is24HourFormat(context)) {
             parse = String.format(locale, "%02d:%02d", hour, minute);
         } else {

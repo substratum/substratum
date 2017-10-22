@@ -450,10 +450,9 @@ public enum Packages {
     // Get Theme Hero Image
     public static Drawable getPackageHeroImage(final Context mContext, final String package_name,
                                                final boolean isThemesView) {
-        final android.content.res.Resources res;
         Drawable hero = mContext.getDrawable(android.R.color.transparent); // Initialize to be clear
         try {
-            res = mContext.getPackageManager().getResourcesForApplication(package_name);
+            final android.content.res.Resources res = mContext.getPackageManager().getResourcesForApplication(package_name);
             int resourceId;
             if ((PreferenceManager.
                     getDefaultSharedPreferences(mContext).
@@ -657,7 +656,6 @@ public enum Packages {
 
     // This method parses a specific overlay resource file (.xml) and returns the specified value
     public static String getOverlayResource(final InputStream overlay) {
-        String hex = null;
 
         // We need to clone the InputStream so that we can ensure that the name and color are
         // mutually exclusive
@@ -669,6 +667,7 @@ public enum Packages {
             return null;
         }
 
+        String hex = null;
         try (InputStream clone1 = new ByteArrayInputStream(byteArray);
              InputStream clone2 = new ByteArrayInputStream(byteArray)) {
             // Find the name of the top most color in the file first.

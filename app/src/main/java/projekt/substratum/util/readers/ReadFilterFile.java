@@ -37,9 +37,6 @@ public enum ReadFilterFile {
 
     public static List<ValidatorFilter> main(final String file) {
 
-        final List<ValidatorFilter> list = new ArrayList<>();
-        final List<ValidatorFilter> emptyList = new ArrayList<>();
-
         try {
             final File fXmlFile = new File(file);
 
@@ -49,6 +46,7 @@ public enum ReadFilterFile {
             doc.getDocumentElement().normalize();
             final NodeList nList = doc.getElementsByTagName("repo");
 
+            final List<ValidatorFilter> list = new ArrayList<>();
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 final Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -74,6 +72,7 @@ public enum ReadFilterFile {
             return list;
         } catch (final Exception e) {
             e.printStackTrace();
+            final List<ValidatorFilter> emptyList = new ArrayList<>();
             return emptyList;
         }
     }

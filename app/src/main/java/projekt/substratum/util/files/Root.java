@@ -83,10 +83,10 @@ public enum Root {
                 this.bufferedWriter.write(command + "\necho " + callback + "\n");
                 this.bufferedWriter.flush();
 
-                int i;
                 final char[] buffer = new char[256];
                 while (true) {
                     sb.append(buffer, 0, this.bufferedReader.read(buffer));
+                    int i;
                     if ((i = sb.indexOf(callback)) > -1) {
                         sb.delete(i, i + callback.length());
                         break;

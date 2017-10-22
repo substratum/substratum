@@ -40,9 +40,6 @@ public enum ReadRepositoriesFile {
 
     public static List<Repository> main(final String file) {
 
-        final List<Repository> list = new ArrayList<>();
-        final List<Repository> emptyList = new ArrayList<>();
-
         try {
             final File fXmlFile = new File(file);
 
@@ -52,6 +49,7 @@ public enum ReadRepositoriesFile {
             doc.getDocumentElement().normalize();
             final NodeList nList = doc.getElementsByTagName("repo");
 
+            final List<Repository> list = new ArrayList<>();
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 final Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -93,6 +91,7 @@ public enum ReadRepositoriesFile {
             return list;
         } catch (final Exception e) {
             e.printStackTrace();
+            final List<Repository> emptyList = new ArrayList<>();
             return emptyList;
         }
     }

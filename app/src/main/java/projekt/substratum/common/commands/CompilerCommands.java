@@ -232,10 +232,9 @@ public enum CompilerCommands {
                                                      final String source,
                                                      final String destination) {
         // Compiler will automatically optimize this with StringBuilder
-        String ret;
 
         // Initialize the ZipAlign command
-        ret = context.getFilesDir().getAbsolutePath() + "/zipalign 4 ";
+        String ret = context.getFilesDir().getAbsolutePath() + "/zipalign 4 ";
         // Supply the source
         ret += source + " ";
         // Supply the destination

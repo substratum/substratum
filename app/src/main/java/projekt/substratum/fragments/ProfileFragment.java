@@ -686,8 +686,6 @@ public class ProfileFragment extends Fragment {
                         if (profileFragment.selectedBackup.contains(
                                 profileFragment.getString(R.string.profile_wallpaper))) {
                             final File homeWall = new File("/data/system/users/" + uid + "/wallpaper");
-                            final File lockWall = new File("/data/system/users/" + uid +
-                                    "/wallpaper_lock");
                             if (homeWall.exists()) {
                                 FileOperations.copy(profileFragment.mContext, homeWall
                                                 .getAbsolutePath(),
@@ -696,6 +694,8 @@ public class ProfileFragment extends Fragment {
                                                 profileFragment.backup_getText +
                                                 "/wallpaper.png");
                             }
+                            final File lockWall = new File("/data/system/users/" + uid +
+                                    "/wallpaper_lock");
                             if (lockWall.exists()) {
                                 FileOperations.copy(profileFragment.mContext,
                                         lockWall.getAbsolutePath(),
@@ -833,7 +833,6 @@ public class ProfileFragment extends Fragment {
                     } else {
                         final String vendor_location = LEGACY_NEXUS_DIR;
                         final String vendor_partition = VENDOR_DIR;
-                        final String vendor_symlink = PIXEL_NEXUS_DIR;
                         final String current_vendor =
                                 ((projekt.substratum.common.Resources.inNexusFilter()) ?
                                         vendor_partition :
@@ -845,6 +844,7 @@ public class ProfileFragment extends Fragment {
                                 FileOperations.createNewFolder(current_vendor);
                             } else {
                                 FileOperations.mountRWVendor();
+                                final String vendor_symlink = PIXEL_NEXUS_DIR;
                                 FileOperations.createNewFolder(vendor_symlink);
                                 FileOperations.symlink(vendor_symlink, "/vendor");
                                 FileOperations.setPermissions(755, vendor_partition);
@@ -1131,8 +1131,8 @@ public class ProfileFragment extends Fragment {
                                     profileFragment.mContext);
                             this.localBroadcastManager.registerReceiver(this.keyRetrieval, if1);
 
-                            int counter = 0;
                             this.handler.postDelayed(this.runnable, 100);
+                            int counter = 0;
                             while ((this.securityIntent == null) && (counter < 5)) {
                                 try {
                                     Thread.sleep(500);
@@ -1166,7 +1166,6 @@ public class ProfileFragment extends Fragment {
                             }
                         }
 
-                        final AssetManager themeAssetManager;
                         Resources themeResources = null;
                         try {
                             themeResources = profileFragment.mContext.getPackageManager()
@@ -1175,7 +1174,7 @@ public class ProfileFragment extends Fragment {
                             e.printStackTrace();
                         }
                         assert themeResources != null;
-                        themeAssetManager = themeResources.getAssets();
+                        final AssetManager themeAssetManager = themeResources.getAssets();
 
                         final String target = currentItem.getTargetPackage();
                         final String type1a = currentItem.getType1a();

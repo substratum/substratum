@@ -259,11 +259,10 @@ public class BootAnimationUtils {
                              this.mContext.getCacheDir().getAbsolutePath() +
                                      "/BootAnimationCache/AnimationCreator/" +
                                      bootanimation + ".zip")))) {
-                    ZipEntry ze;
 
                     zos.setMethod(ZipOutputStream.STORED);
                     final byte[] bytes = new byte[4096];
-                    int len;
+                    ZipEntry ze;
                     while ((ze = bootAni.getNextEntry()) != null) {
                         final ZipEntry entry = new ZipEntry(ze.getName());
                         entry.setMethod(ZipEntry.STORED);
@@ -273,17 +272,15 @@ public class BootAnimationUtils {
                         if (!"desc.txt".equals(ze.getName())) {
                             // just copy this entry straight over into the output zip
                             zos.putNextEntry(entry);
+                            int len;
                             while ((len = bootAni.read(bytes)) > 0) {
                                 zos.write(bytes, 0, len);
                             }
                         } else {
-                            String line;
                             reader = new BufferedReader(new InputStreamReader
                                     (bootAni));
                             final String[] info = reader.readLine().split(" ");
 
-                            final int scaledWidth;
-                            int scaledHeight;
                             final WindowManager wm = (WindowManager) this.mContext.getSystemService
                                     (Context.WINDOW_SERVICE);
                             final DisplayMetrics dm = new DisplayMetrics();
@@ -294,6 +291,8 @@ public class BootAnimationUtils {
                             // swap the values since most (if not all) animations are portrait
                             final int prevent_lint_w = dm.widthPixels;
                             final int prevent_lint_h = dm.heightPixels;
+                            int scaledHeight;
+                            final int scaledWidth;
                             if (dm.widthPixels > dm.heightPixels) {
                                 scaledWidth = prevent_lint_h;
                                 scaledHeight = prevent_lint_w;
@@ -316,11 +315,11 @@ public class BootAnimationUtils {
                             }
 
                             final CRC32 crc32 = new CRC32();
-                            int size = 0;
                             final ByteBuffer buffer = ByteBuffer.wrap(bytes);
-                            line = String.format(Locale.US,
+                            String line = String.format(Locale.US,
                                     "%d %d %s\n", scaledWidth, scaledHeight, info[2]);
                             buffer.put(line.getBytes());
+                            int size = 0;
                             size += line.getBytes().length;
                             crc32.update(line.getBytes());
                             while ((line = reader.readLine()) != null) {

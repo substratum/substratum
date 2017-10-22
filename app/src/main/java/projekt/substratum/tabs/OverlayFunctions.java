@@ -97,13 +97,13 @@ enum OverlayFunctions {
                 if (!overlays.enable_mode &&
                         !overlays.disable_mode &&
                         !overlays.enable_disable_mode) {
-                    final int notification_priority = Notification.PRIORITY_MAX;
 
                     // This is the time when the notification should be shown on the user's screen
                     overlays.mNotifyManager =
                             (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
                     overlays.mBuilder = new NotificationCompat.Builder(context,
                             References.DEFAULT_NOTIFICATION_CHANNEL_ID);
+                    final int notification_priority = Notification.PRIORITY_MAX;
                     overlays.mBuilder.setContentTitle(
                             context.getString(R.string.notification_initial_title))
                             .setProgress(100, 0, true)
@@ -1250,7 +1250,6 @@ enum OverlayFunctions {
 
                 if (!overlays.has_failed || (overlays.final_runner.size() > overlays.fail_count)) {
                     new StringBuilder();
-                    final StringBuilder final_commands;
                     if (overlays.compile_enable_mode && overlays.mixAndMatchMode) {
                         // Buffer the disableBeforeEnabling String
                         final ArrayList<String> disableBeforeEnabling = new ArrayList<>();
@@ -1272,7 +1271,7 @@ enum OverlayFunctions {
                         if (checkThemeInterfacer(context)) {
                             ThemeManager.disableOverlay(context, disableBeforeEnabling);
                         } else {
-                            final_commands = new StringBuilder(ThemeManager.disableOverlay);
+                            final StringBuilder final_commands = new StringBuilder(ThemeManager.disableOverlay);
                             for (int i = 0; i < disableBeforeEnabling.size(); i++) {
                                 final_commands.append(" ").append(disableBeforeEnabling.get(i))
                                         .append(" ");

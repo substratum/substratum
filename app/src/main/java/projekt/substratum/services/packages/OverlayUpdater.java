@@ -322,8 +322,8 @@ public class OverlayUpdater extends BroadcastReceiver {
                                 new IntentFilter(KEY_RETRIEVAL));
 
 
-                        int counter = 0;
                         this.handler.postDelayed(this.runnable, 100);
+                        int counter = 0;
                         while ((this.securityIntent == null) && (counter < 5)) {
                             try {
                                 Thread.sleep(500);
@@ -357,7 +357,6 @@ public class OverlayUpdater extends BroadcastReceiver {
                         }
                     }
 
-                    final AssetManager themeAssetManager;
                     Resources themeResources = null;
                     try {
                         themeResources = this.context.getPackageManager()
@@ -366,7 +365,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                         e.printStackTrace();
                     }
                     assert themeResources != null;
-                    themeAssetManager = themeResources.getAssets();
+                    final AssetManager themeAssetManager = themeResources.getAssets();
 
                     final String target = Packages.getOverlayMetadata(
                             this.context, this.installed_overlays.get(i), metadataOverlayTarget);
@@ -398,7 +397,6 @@ public class OverlayUpdater extends BroadcastReceiver {
                             (encrypted ? ".xml.enc" : ".xml");
                     final String type2Dir = "overlays/" + target + "/type2_" + type2;
                     final String type3Dir = "overlays/" + target + "/type3_" + type3;
-                    final String type4Dir = "overlays/" + target + "/type4_" + type4;
 
                     final String additional_variant = (((type2 != null) && !type2.isEmpty()) ?
                             type2Dir.split("/")[2].substring(6) : null);
@@ -467,6 +465,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                     }
 
                     if ((type4 != null) && !type4.isEmpty()) {
+                        final String type4Dir = "overlays/" + target + "/type4_" + type4;
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
                                 type4Dir,

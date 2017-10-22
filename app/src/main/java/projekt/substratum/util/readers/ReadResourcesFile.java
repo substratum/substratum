@@ -35,9 +35,6 @@ public enum ReadResourcesFile {
 
     public static List<String> main(final String file, final String tag) {
 
-        final List<String> list = new ArrayList<>();
-        final List<String> emptyList = new ArrayList<>();
-
         try {
             final File fXmlFile = new File(file);
 
@@ -47,6 +44,7 @@ public enum ReadResourcesFile {
             doc.getDocumentElement().normalize();
             final NodeList nList = doc.getElementsByTagName(tag);
 
+            final List<String> list = new ArrayList<>();
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 final Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -57,6 +55,7 @@ public enum ReadResourcesFile {
             return list;
         } catch (final Exception e) {
             e.printStackTrace();
+            final List<String> emptyList = new ArrayList<>();
             return emptyList;
         }
     }

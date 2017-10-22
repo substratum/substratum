@@ -260,14 +260,14 @@ public enum Systems {
                 "sungstratum_exp_fp_" + Packages.getAppVersionCode(context, SST_ADDON_PACKAGE),
                 "o");
         final String liveInstaller = PackageAnalytics.getPackageInstaller(context, SST_ADDON_PACKAGE);
-        final boolean liveInstallerValidity = (liveInstaller != null) &&
-                liveInstaller.equals(PLAY_STORE_PACKAGE_NAME);
 
         boolean sungstratumPresent = !debuggingValue;
         sungstratumPresent &= installer;
         sungstratumPresent &= fingerprint.toUpperCase(
                 Locale.US).equals(
                 expFingerprint.toUpperCase(Locale.US));
+        final boolean liveInstallerValidity = (liveInstaller != null) &&
+                liveInstaller.equals(PLAY_STORE_PACKAGE_NAME);
         sungstratumPresent &= liveInstallerValidity;
         return sungstratumPresent;
     }

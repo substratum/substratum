@@ -163,7 +163,6 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                     this.final_check.add(managerItem);
                 }
 
-                final RecyclerView mRecyclerView;
                 this.mAdapter = new ManagerAdapter(this.final_check, true);
 
                 // Set a custom title
@@ -246,7 +245,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 @SuppressLint("InflateParams") final View content = inflate.inflate(R.layout.floatui_dialog, null);
                 builder.setView(content);
 
-                mRecyclerView = content.findViewById(R.id.recycler_view);
+                final RecyclerView mRecyclerView = content.findViewById(R.id.recycler_view);
                 mRecyclerView.setAdapter(this.mAdapter);
 
                 mRecyclerView.setHasFixedSize(true);

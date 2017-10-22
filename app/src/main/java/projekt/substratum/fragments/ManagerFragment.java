@@ -450,19 +450,17 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     final Context context = fragment.context;
                     fragment.overlaysList = new ArrayList<>();
                     fragment.activated_overlays = new ArrayList<>();
-                    final List<String> disabled_overlays;
-                    final List<String> all_overlays;
 
                     if (Systems.checkOMS(fragment.context)) {
                         fragment.activated_overlays = new ArrayList<>(
                                 ThemeManager.listOverlays(fragment.context,
                                         STATE_ENABLED));
 
-                        disabled_overlays = new ArrayList<>(
+                        final List<String> disabled_overlays = new ArrayList<>(
                                 ThemeManager.listOverlays(fragment.context,
                                         STATE_DISABLED));
 
-                        all_overlays = new ArrayList<>(fragment.activated_overlays);
+                        final List<String> all_overlays = new ArrayList<>(fragment.activated_overlays);
                         all_overlays.addAll(disabled_overlays);
                         Collections.sort(all_overlays);
 
@@ -667,10 +665,10 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             final ManagerFragment fragment = this.ref.get();
             if (fragment != null) {
                 final Context context = fragment.context;
-                final ArrayList<String> data = new ArrayList<>();
                 fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
                 boolean has_failed = false;
                 final int len = fragment.overlayList.size();
+                final ArrayList<String> data = new ArrayList<>();
                 for (int i = 0; i < len; i++) {
                     final ManagerItem managerItem = fragment.overlayList.get(i);
                     if (managerItem.isSelected()) {
@@ -743,9 +741,9 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 final Context context = fragment.context;
 
                 if (Systems.checkOMS(context) && !Systems.isSamsung(context)) {
-                    final ArrayList<String> data = new ArrayList<>();
                     fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
                     final int len = fragment.overlayList.size();
+                    final ArrayList<String> data = new ArrayList<>();
                     for (int i = 0; i < len; i++) {
                         final ManagerItem managerItem = fragment.overlayList.get(i);
                         if (managerItem.isSelected() &&
@@ -963,11 +961,11 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             final ManagerFragment fragment = this.ref.get();
             if (fragment != null) {
                 final Context context = fragment.context;
-                final ArrayList<String> data = new ArrayList<>();     //enabled list
-                final ArrayList<String> data2 = new ArrayList<>();    //disabled list
                 fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
                 boolean has_failed = false;
                 final int len = fragment.overlayList.size();
+                final ArrayList<String> data2 = new ArrayList<>();    //disabled list
+                final ArrayList<String> data = new ArrayList<>();     //enabled list
                 for (int i = 0; i < len; i++) {
                     final ManagerItem managerItem = fragment.overlayList.get(i);
                     if (managerItem.isSelected()) {
@@ -1042,9 +1040,9 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             if (fragment != null) {
                 final Context context = fragment.context;
 
-                final ArrayList<String> data = new ArrayList<>();
                 fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
                 final int len = fragment.overlayList.size();
+                final ArrayList<String> data = new ArrayList<>();
                 for (int i = 0; i < len; i++) {
                     final ManagerItem overlay1 = fragment.overlayList.get(i);
                     if (overlay1.isSelected()) data.add(overlay1.getName());

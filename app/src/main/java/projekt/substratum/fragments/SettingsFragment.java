@@ -1102,9 +1102,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     final ValidatorError validatorError = new ValidatorError(packageName);
                     Boolean has_errored = false;
 
-                    int resource_counter = 0;
-                    int resource_counter_errored = 0;
-
                     final String tempPackageName = (packageName.endsWith(".common") ?
                             packageName.substring(0, packageName.length() - 7) :
                             packageName);
@@ -1113,6 +1110,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         packages.add(packageName);
 
                         // Check if there's a bools commit check
+                        int resource_counter_errored = 0;
+                        int resource_counter = 0;
                         if (repository.getBools() != null) {
                             FileDownloader.init(settingsFragment.mContext, repository.getBools(),
                                     tempPackageName + ".bools.xml", "ValidatorCache");

@@ -538,7 +538,6 @@ public class BootAnimations extends Fragment {
             try (ZipInputStream inputStream = new ZipInputStream(
                     new BufferedInputStream(new FileInputStream(source)))) {
                 ZipEntry zipEntry;
-                int count;
                 final byte[] buffer = new byte[8192];
                 while ((zipEntry = inputStream.getNextEntry()) != null) {
                     final File file = new File(destination, zipEntry.getName());
@@ -549,6 +548,7 @@ public class BootAnimations extends Fragment {
                     if (zipEntry.isDirectory())
                         continue;
                     try (FileOutputStream outputStream = new FileOutputStream(file)) {
+                        int count;
                         while ((count = inputStream.read(buffer)) != -1)
                             outputStream.write(buffer, 0, count);
                     }

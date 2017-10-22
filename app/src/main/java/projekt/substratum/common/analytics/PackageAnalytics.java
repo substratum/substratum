@@ -86,7 +86,7 @@ public enum PackageAnalytics {
             Log.d(PACKAGE_TAG, "Package Information for: " + packageName);
             Log.d(PACKAGE_TAG, "Installation date: " + text);
             Log.d(PACKAGE_TAG, "Installation time: " + text2);
-            Log.d(PACKAGE_TAG, "Installation location: " + installer + "");
+            Log.d(PACKAGE_TAG, "Installation location: " + installer);
         } catch (final Exception e) {
             // Suppress warning
         }

@@ -100,7 +100,7 @@ public class ShowcaseTab extends Fragment {
         if (References.isNetworkAvailable(this.mContext)) {
             final downloadResources downloadTask = new downloadResources(this);
             downloadTask.execute(this.current_tab_address,
-                    "showcase_tab_" + this.current_tab_position + "" + ".xml");
+                    "showcase_tab_" + this.current_tab_position + ".xml");
         } else {
             this.mRecyclerView.setVisibility(View.GONE);
             this.materialProgressBar.setVisibility(View.GONE);

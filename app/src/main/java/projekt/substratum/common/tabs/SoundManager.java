@@ -564,7 +564,7 @@ public enum SoundManager {
             c.moveToFirst();
             final long id = c.getLong(0);
             c.close();
-            newUri = Uri.withAppendedPath(Uri.parse(MEDIA_CONTENT_URI), "" + id);
+            newUri = Uri.withAppendedPath(Uri.parse(MEDIA_CONTENT_URI), String.valueOf(id));
             context.getContentResolver().update(uri, values,
                     MediaStore.MediaColumns._ID + "=" + id, null);
         }
@@ -602,9 +602,9 @@ public enum SoundManager {
         if ((c != null) && (c.getCount() > 0)) {
             c.moveToFirst();
             final long id = c.getLong(0);
-            Log.e("ContentResolver", id + "");
+            Log.e("ContentResolver", String.valueOf(id));
             c.close();
-            newUri = Uri.withAppendedPath(Uri.parse(MEDIA_CONTENT_URI), "" + id);
+            newUri = Uri.withAppendedPath(Uri.parse(MEDIA_CONTENT_URI), String.valueOf(id));
             try {
                 context.getContentResolver().update(uri, values,
                         MediaStore.MediaColumns._ID + "=" + id, null);
@@ -634,7 +634,7 @@ public enum SoundManager {
                 c.moveToFirst();
                 final long id = c.getLong(0);
                 c.close();
-                uri = Uri.withAppendedPath(Uri.parse(MEDIA_CONTENT_URI), "" + id);
+                uri = Uri.withAppendedPath(Uri.parse(MEDIA_CONTENT_URI), String.valueOf(id));
             }
             if (uri != null)
                 RingtoneManager.setActualDefaultRingtoneUri(context, type, uri);

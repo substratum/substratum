@@ -305,10 +305,8 @@ public class ProfileFragment extends Fragment {
                         .setPositiveButton(this.getString(R.string.delete_dialog_okay),
                                 (dialog, which) -> {
                                     File f1 = new File(Environment
-                                            .getExternalStorageDirectory().getAbsolutePath()
-                                            + "/substratum/profiles/" + this.profile_selector
-                                            .getSelectedItem() + "" +
-                                            ".substratum");
+                                            .getExternalStorageDirectory().getAbsolutePath() + "/substratum/profiles/" + this.profile_selector
+                                            .getSelectedItem() + ".substratum");
                                     boolean deleted = f1.delete();
                                     if (!deleted)
                                         Log.e(References.SUBSTRATUM_LOG,

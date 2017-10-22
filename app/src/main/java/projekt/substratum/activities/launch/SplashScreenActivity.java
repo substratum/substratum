@@ -66,7 +66,7 @@ public class SplashScreenActivity extends Activity {
 
         Intent currentIntent = getIntent();
         Boolean first_run = currentIntent.getBooleanExtra("first_run", false);
-        intent = new Intent(SplashScreenActivity.this, MainActivity.class);
+        this.intent = new Intent(SplashScreenActivity.this, MainActivity.class);
         int intent_launch_delay = DELAY_LAUNCH_MAIN_ACTIVITY;
 
         if (first_run && !isLowEnd()) {
@@ -85,7 +85,7 @@ public class SplashScreenActivity extends Activity {
                 frameAnimation.run();
 
                 // Finally set the proper launch activity and delay
-                intent = new Intent(SplashScreenActivity.this, AppIntroActivity.class);
+                this.intent = new Intent(SplashScreenActivity.this, AppIntroActivity.class);
                 intent_launch_delay = DELAY_LAUNCH_APP_INTRO;
             } catch (OutOfMemoryError oome) {
                 Log.e(References.SUBSTRATUM_LOG, "The VM has blown up and the rendering of " +
@@ -98,7 +98,7 @@ public class SplashScreenActivity extends Activity {
     }
 
     private void launch() {
-        startActivity(intent);
+        startActivity(this.intent);
         finish();
     }
 
@@ -112,38 +112,38 @@ public class SplashScreenActivity extends Activity {
         private final Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                if (securityIntent != null) {
-                    handler.removeCallbacks(runnable);
+                if (CheckSamsung.this.securityIntent != null) {
+                    CheckSamsung.this.handler.removeCallbacks(CheckSamsung.this.runnable);
                 } else {
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    handler.postDelayed(this, 100);
+                    CheckSamsung.this.handler.postDelayed(this, 100);
                 }
             }
         };
 
         CheckSamsung(SplashScreenActivity activity) {
             super();
-            ref = new WeakReference<>(activity);
+            this.ref = new WeakReference<>(activity);
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            SplashScreenActivity activity = ref.get();
+            SplashScreenActivity activity = this.ref.get();
             if (activity != null) {
-                Context context = ref.get().getApplicationContext();
-                prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
-                editor = prefs.edit();
-                editor.clear().apply();
+                Context context = this.ref.get().getApplicationContext();
+                this.prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
+                this.editor = this.prefs.edit();
+                this.editor.clear().apply();
 
                 FirebaseAnalytics.withdrawBlacklistedPackages(context);
-                prefs = context.getSharedPreferences(PACKAGES_PREFS, Context.MODE_PRIVATE);
+                this.prefs = context.getSharedPreferences(PACKAGES_PREFS, Context.MODE_PRIVATE);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
                 int timeoutCount = 0;
-                while (!prefs.contains(dateFormat.format(new Date())) && timeoutCount < 100) {
+                while (!this.prefs.contains(dateFormat.format(new Date())) && timeoutCount < 100) {
                     try {
                         Thread.sleep(100);
                     } catch (InterruptedException e) {
@@ -151,7 +151,7 @@ public class SplashScreenActivity extends Activity {
                     }
                     timeoutCount++;
                 }
-                if (!prefs.contains(dateFormat.format(new Date()))) {
+                if (!this.prefs.contains(dateFormat.format(new Date()))) {
                     Log.d(SUBSTRATUM_LOG, "Failed to withdraw blacklisted packages.");
                 }
 
@@ -204,9 +204,9 @@ public class SplashScreenActivity extends Activity {
                         Log.d(SUBSTRATUM_LOG, "Failed to withdraw sungstratum fingerprint.");
                     }
 
-                    keyRetrieval = new KeyRetrieval();
+                    this.keyRetrieval = new KeyRetrieval();
                     IntentFilter filter = new IntentFilter("projekt.substratum.PASS");
-                    context.getApplicationContext().registerReceiver(keyRetrieval, filter);
+                    context.getApplicationContext().registerReceiver(this.keyRetrieval, filter);
 
                     Intent intent = new Intent("projekt.substratum.AUTHENTICATE");
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -217,8 +217,8 @@ public class SplashScreenActivity extends Activity {
                     }
 
                     int counter = 0;
-                    handler.postDelayed(runnable, 100);
-                    while (securityIntent == null && counter < 5) {
+                    this.handler.postDelayed(this.runnable, 100);
+                    while (this.securityIntent == null && counter < 5) {
                         try {
                             Thread.sleep(500);
                         } catch (InterruptedException e) {
@@ -233,7 +233,7 @@ public class SplashScreenActivity extends Activity {
 
         @Override
         protected void onPostExecute(Void voids) {
-            SplashScreenActivity activity = ref.get();
+            SplashScreenActivity activity = this.ref.get();
             if (activity != null) {
                 activity.launch();
             }
@@ -244,21 +244,21 @@ public class SplashScreenActivity extends Activity {
             @SuppressWarnings("UnusedAssignment")
             @Override
             public void onReceive(Context context, Intent intent) {
-                securityIntent = intent;
-                context.getApplicationContext().unregisterReceiver(keyRetrieval);
-                if (securityIntent != null) {
-                    boolean debug = securityIntent.getBooleanExtra("app_debug", true);
-                    String installer = securityIntent.getStringExtra("app_installer");
+                CheckSamsung.this.securityIntent = intent;
+                context.getApplicationContext().unregisterReceiver(CheckSamsung.this.keyRetrieval);
+                if (CheckSamsung.this.securityIntent != null) {
+                    boolean debug = CheckSamsung.this.securityIntent.getBooleanExtra("app_debug", true);
+                    String installer = CheckSamsung.this.securityIntent.getStringExtra("app_installer");
 
-                    editor.putBoolean("sungstratum_debug", debug).apply();
+                    CheckSamsung.this.editor.putBoolean("sungstratum_debug", debug).apply();
 
-                    editor.putBoolean("sungstratum_installer",
+                    CheckSamsung.this.editor.putBoolean("sungstratum_installer",
                             installer.equals(PLAY_STORE_PACKAGE_NAME)).apply();
 
-                    editor.putString("sungstratum_fp", MD5.calculateMD5(new File(
+                    CheckSamsung.this.editor.putString("sungstratum_fp", MD5.calculateMD5(new File(
                             Packages.getInstalledDirectory(context, SST_ADDON_PACKAGE))));
 
-                    editor.apply();
+                    CheckSamsung.this.editor.apply();
                 }
             }
         }

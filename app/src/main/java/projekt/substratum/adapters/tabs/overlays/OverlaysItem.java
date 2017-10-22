@@ -101,7 +101,7 @@ public class OverlaysItem implements Serializable {
         if (baseResources != null)
             this.baseResources =
                     baseResources.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
-        variant_mode = true;
+        this.variant_mode = true;
         this.enabledOverlays = new ArrayList<>();
         this.enabledOverlays.addAll(enabledOverlays);
         this.app_icon = Packages.getAppIcon(context, packageName);
@@ -113,15 +113,15 @@ public class OverlaysItem implements Serializable {
     }
 
     boolean isDeviceOMS() {
-        return theme_oms;
+        return this.theme_oms;
     }
 
     public String getThemeName() {
-        return theme_name;
+        return this.theme_name;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -129,19 +129,19 @@ public class OverlaysItem implements Serializable {
     }
 
     Drawable getAppIcon() {
-        return app_icon;
+        return this.app_icon;
     }
 
     public String getPackageName() {
-        return package_name;
+        return this.package_name;
     }
 
     String getBaseResources() {
-        return baseResources;
+        return this.baseResources;
     }
 
     public boolean isSelected() {
-        return isSelected;
+        return this.isSelected;
     }
 
     public void setSelected(boolean isSelected) {
@@ -149,38 +149,38 @@ public class OverlaysItem implements Serializable {
     }
 
     SpinnerAdapter getSpinnerArray() {
-        return array;
+        return this.array;
     }
 
     SpinnerAdapter getSpinnerArray2() {
-        return array2;
+        return this.array2;
     }
 
     SpinnerAdapter getSpinnerArray3() {
-        return array3;
+        return this.array3;
     }
 
     SpinnerAdapter getSpinnerArray4() {
-        return array4;
+        return this.array4;
     }
 
     SpinnerAdapter getSpinnerArray5() {
-        return array5;
+        return this.array5;
     }
 
     int getSelectedVariant() {
-        return spinnerSelection;
+        return this.spinnerSelection;
     }
 
     void setSelectedVariant(int position) {
         if (position != 0) {
-            is_variant_chosen = true;
-            is_variant_chosen1 = true;
+            this.is_variant_chosen = true;
+            this.is_variant_chosen1 = true;
         } else {
-            is_variant_chosen = false;
-            is_variant_chosen1 = false;
+            this.is_variant_chosen = false;
+            this.is_variant_chosen1 = false;
         }
-        spinnerSelection = position;
+        this.spinnerSelection = position;
     }
 
     public void updateEnabledOverlays(Collection<String> enabledOverlays) {
@@ -189,67 +189,67 @@ public class OverlaysItem implements Serializable {
     }
 
     int getSelectedVariant2() {
-        return spinnerSelection2;
+        return this.spinnerSelection2;
     }
 
     void setSelectedVariant2(int position) {
         if (position != 0) {
-            is_variant_chosen = true;
-            is_variant_chosen2 = true;
+            this.is_variant_chosen = true;
+            this.is_variant_chosen2 = true;
         } else {
-            is_variant_chosen = false;
-            is_variant_chosen2 = false;
+            this.is_variant_chosen = false;
+            this.is_variant_chosen2 = false;
         }
-        spinnerSelection2 = position;
+        this.spinnerSelection2 = position;
     }
 
     int getSelectedVariant3() {
-        return spinnerSelection3;
+        return this.spinnerSelection3;
     }
 
     void setSelectedVariant3(int position) {
         if (position != 0) {
-            is_variant_chosen = true;
-            is_variant_chosen3 = true;
+            this.is_variant_chosen = true;
+            this.is_variant_chosen3 = true;
         } else {
-            is_variant_chosen = false;
-            is_variant_chosen3 = false;
+            this.is_variant_chosen = false;
+            this.is_variant_chosen3 = false;
         }
-        spinnerSelection3 = position;
+        this.spinnerSelection3 = position;
     }
 
     int getSelectedVariant4() {
-        return spinnerSelection4;
+        return this.spinnerSelection4;
     }
 
     void setSelectedVariant4(int position) {
         if (position != 0) {
-            is_variant_chosen = true;
-            is_variant_chosen4 = true;
+            this.is_variant_chosen = true;
+            this.is_variant_chosen4 = true;
         } else {
-            is_variant_chosen = false;
-            is_variant_chosen4 = false;
+            this.is_variant_chosen = false;
+            this.is_variant_chosen4 = false;
         }
-        spinnerSelection4 = position;
+        this.spinnerSelection4 = position;
     }
 
     int getSelectedVariant5() {
-        return spinnerSelection5;
+        return this.spinnerSelection5;
     }
 
     void setSelectedVariant5(int position) {
         if (position != 0) {
-            is_variant_chosen = true;
-            is_variant_chosen5 = true;
+            this.is_variant_chosen = true;
+            this.is_variant_chosen5 = true;
         } else {
-            is_variant_chosen = false;
-            is_variant_chosen5 = false;
+            this.is_variant_chosen = false;
+            this.is_variant_chosen5 = false;
         }
-        spinnerSelection5 = position;
+        this.spinnerSelection5 = position;
     }
 
     public String getSelectedVariantName() {
-        return variantSelected.replaceAll("\\s+", "");
+        return this.variantSelected.replaceAll("\\s+", "");
     }
 
     void setSelectedVariantName(String variantName) {
@@ -257,7 +257,7 @@ public class OverlaysItem implements Serializable {
     }
 
     public String getSelectedVariantName2() {
-        return variantSelected2.replaceAll("\\s+", "");
+        return this.variantSelected2.replaceAll("\\s+", "");
     }
 
     void setSelectedVariantName2(String variantName) {
@@ -265,7 +265,7 @@ public class OverlaysItem implements Serializable {
     }
 
     public String getSelectedVariantName3() {
-        return variantSelected3.replaceAll("\\s+", "");
+        return this.variantSelected3.replaceAll("\\s+", "");
     }
 
     void setSelectedVariantName3(String variantName) {
@@ -273,7 +273,7 @@ public class OverlaysItem implements Serializable {
     }
 
     public String getSelectedVariantName4() {
-        return variantSelected4.replaceAll("\\s+", "");
+        return this.variantSelected4.replaceAll("\\s+", "");
     }
 
     void setSelectedVariantName4(String variantName) {
@@ -281,7 +281,7 @@ public class OverlaysItem implements Serializable {
     }
 
     public String getSelectedVariantName5() {
-        return variantSelected5.replaceAll("\\s+", "");
+        return this.variantSelected5.replaceAll("\\s+", "");
     }
 
     void setSelectedVariantName5(String variantName) {
@@ -289,14 +289,14 @@ public class OverlaysItem implements Serializable {
     }
 
     Context getInheritedContext() {
-        return context;
+        return this.context;
     }
 
     boolean compareInstalledOverlay() {
         try {
             PackageInfo pinfo =
-                    context.getPackageManager().getPackageInfo(getFullOverlayParameters(), 0);
-            return pinfo.versionName.equals(versionName);
+                    this.context.getPackageManager().getPackageInfo(getFullOverlayParameters(), 0);
+            return pinfo.versionName.equals(this.versionName);
         } catch (Exception e) {
             // Suppress warning
         }
@@ -306,15 +306,15 @@ public class OverlaysItem implements Serializable {
     boolean compareInstalledVariantOverlay(String varianted) {
         String variant = varianted;
         if (!".".equals(variant.substring(0, 1))) variant = "." + variant;
-        String base = baseResources;
-        if (baseResources.length() > 0 && !".".equals(baseResources.substring(0, 1))) {
+        String base = this.baseResources;
+        if (this.baseResources.length() > 0 && !".".equals(this.baseResources.substring(0, 1))) {
             base = "." + base;
         }
         try {
             PackageInfo pinfo =
-                    context.getPackageManager().getPackageInfo(
-                            getPackageName() + "." + theme_name + variant + base, 0);
-            return pinfo.versionName.equals(versionName);
+                    this.context.getPackageManager().getPackageInfo(
+                            getPackageName() + "." + this.theme_name + variant + base, 0);
+            return pinfo.versionName.equals(this.versionName);
         } catch (Exception e) {
             // Suppress warning
         }
@@ -334,17 +334,17 @@ public class OverlaysItem implements Serializable {
                         ((getSelectedVariant4() == 0) ? "" : getSelectedVariantName4()) +
                         ((getSelectedVariant5() == 0) ? "" : getSelectedVariantName5()))
                         .replaceAll("\\s", "").replaceAll("[^a-zA-Z0-9]+", "") +
-                ((baseResources.length() == 0) ? "" : "." + baseResources);
+                ((this.baseResources.length() == 0) ? "" : "." + this.baseResources);
     }
 
     public boolean isOverlayEnabled() {
-        boolean installed = Packages.isPackageInstalled(context, getFullOverlayParameters());
-        if (Systems.isSamsungDevice(context)) {
+        boolean installed = Packages.isPackageInstalled(this.context, getFullOverlayParameters());
+        if (Systems.isSamsungDevice(this.context)) {
             return installed;
         } else {
             return installed && (
-                    ThemeManager.isOverlayEnabled(context, getFullOverlayParameters()) ||
-                            enabledOverlays.contains(getFullOverlayParameters())
+                    ThemeManager.isOverlayEnabled(this.context, getFullOverlayParameters()) ||
+                            this.enabledOverlays.contains(getFullOverlayParameters())
             );
         }
     }

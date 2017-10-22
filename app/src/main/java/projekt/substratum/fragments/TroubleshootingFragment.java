@@ -54,23 +54,23 @@ public class TroubleshootingFragment extends Fragment {
         super.onCreate(savedInstanceState);
         View root = inflater.inflate(R.layout.troubleshooting_fragment, container, false);
 
-        troubleshootListView = root.findViewById(R.id.troubleshoot_list_view);
+        this.troubleshootListView = root.findViewById(R.id.troubleshoot_list_view);
 
         // Make sure troubleshootQuestions & troubleshootAnswers are of same
         // length and then assign adapter to listView
-        troubleshootListView.setAdapter(
+        this.troubleshootListView.setAdapter(
                 new TroubleshootingAdapter(
-                        troubleshootQuestions,
-                        troubleshootAnswers,
+                        this.troubleshootQuestions,
+                        this.troubleshootAnswers,
                         getActivity().getApplicationContext()
                 ));
 
         // This avoids from having a janky look with the last card getting cut off
         View footer = LayoutInflater.from(
                 getActivity()).inflate(
-                R.layout.troubleshooting_list_footer, troubleshootListView, false);
-        troubleshootListView.addFooterView(footer);
-        troubleshootListView.setFooterDividersEnabled(false);
+                R.layout.troubleshooting_list_footer, this.troubleshootListView, false);
+        this.troubleshootListView.addFooterView(footer);
+        this.troubleshootListView.setFooterDividersEnabled(false);
         footer.setOnClickListener(null);
         return root;
     }

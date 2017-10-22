@@ -74,12 +74,12 @@ public class BootCompletedDetector extends BroadcastReceiver {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            Glide.get(context).clearMemory();
+            Glide.get(BootCompletedDetector.this.context).clearMemory();
         }
 
         @Override
         protected Void doInBackground(Void... sUrl) {
-            Glide.get(context).clearDiskCache();
+            Glide.get(BootCompletedDetector.this.context).clearDiskCache();
             return null;
         }
     }

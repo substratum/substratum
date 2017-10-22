@@ -106,17 +106,17 @@ public class Fonts extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
-        mContext = getContext();
-        theme_pid = getArguments().getString("theme_pid");
+        this.mContext = getContext();
+        this.theme_pid = getArguments().getString("theme_pid");
         byte[] encryption_key = getArguments().getByteArray("encryption_key");
         byte[] iv_encrypt_key = getArguments().getByteArray("iv_encrypt_key");
 
         // encrypted = encryption_key != null && iv_encrypt_key != null;
 
-        if (encrypted) {
+        if (this.encrypted) {
             try {
-                cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-                cipher.init(
+                this.cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+                this.cipher.init(
                         Cipher.DECRYPT_MODE,
                         new SecretKeySpec(encryption_key, "AES"),
                         new IvParameterSpec(iv_encrypt_key)
@@ -126,19 +126,19 @@ public class Fonts extends Fragment {
             }
         }
 
-        root = (ViewGroup) inflater.inflate(R.layout.tab_fonts, container, false);
-        progressBar = root.findViewById(R.id.progress_bar_loader);
-        defaults = root.findViewById(R.id.restore_to_default);
-        font_holder = root.findViewById(R.id.font_holder);
-        font_placeholder = root.findViewById(R.id.font_placeholder);
-        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        this.root = (ViewGroup) inflater.inflate(R.layout.tab_fonts, container, false);
+        this.progressBar = this.root.findViewById(R.id.progress_bar_loader);
+        this.defaults = this.root.findViewById(R.id.restore_to_default);
+        this.font_holder = this.root.findViewById(R.id.font_holder);
+        this.font_placeholder = this.root.findViewById(R.id.font_placeholder);
+        this.prefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
 
         try {
             // Parses the list of items in the fonts folder
-            Resources themeResources = mContext.getPackageManager().getResourcesForApplication
-                    (theme_pid);
-            themeAssetManager = themeResources.getAssets();
-            String[] fileArray = themeAssetManager.list(fontsDir);
+            Resources themeResources = this.mContext.getPackageManager().getResourcesForApplication
+                    (this.theme_pid);
+            this.themeAssetManager = themeResources.getAssets();
+            String[] fileArray = this.themeAssetManager.list(fontsDir);
             List<String> unparsedFonts = new ArrayList<>();
             Collections.addAll(unparsedFonts, fileArray);
 
@@ -148,46 +148,46 @@ public class Fonts extends Fragment {
             fonts.add(getString(R.string.font_spinner_set_defaults));
             for (int i = 0; i < unparsedFonts.size(); i++) {
                 fonts.add(unparsedFonts.get(i).substring(0,
-                        unparsedFonts.get(i).length() - (encrypted ? 8 : 4)));
+                        unparsedFonts.get(i).length() - (this.encrypted ? 8 : 4)));
             }
 
             SpinnerAdapter adapter1 = new ArrayAdapter<>(getActivity(),
                     android.R.layout.simple_spinner_dropdown_item, fonts);
-            fontSelector = root.findViewById(R.id.fontSelection);
-            fontSelector.setAdapter(adapter1);
-            fontSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            this.fontSelector = this.root.findViewById(R.id.fontSelection);
+            this.fontSelector.setAdapter(adapter1);
+            this.fontSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
                 @Override
                 public void onItemSelected(AdapterView<?> arg0, View arg1,
                                            int pos, long id) {
                     switch (pos) {
                         case 0:
-                            if (current != null)
-                                current.cancel(true);
-                            font_placeholder.setVisibility(View.VISIBLE);
-                            defaults.setVisibility(View.GONE);
-                            font_holder.setVisibility(View.GONE);
-                            progressBar.setVisibility(View.GONE);
-                            paused = true;
+                            if (Fonts.this.current != null)
+                                Fonts.this.current.cancel(true);
+                            Fonts.this.font_placeholder.setVisibility(View.VISIBLE);
+                            Fonts.this.defaults.setVisibility(View.GONE);
+                            Fonts.this.font_holder.setVisibility(View.GONE);
+                            Fonts.this.progressBar.setVisibility(View.GONE);
+                            Fonts.this.paused = true;
                             break;
 
                         case 1:
-                            if (current != null)
-                                current.cancel(true);
-                            defaults.setVisibility(View.VISIBLE);
-                            font_placeholder.setVisibility(View.GONE);
-                            font_holder.setVisibility(View.GONE);
-                            progressBar.setVisibility(View.GONE);
-                            paused = false;
+                            if (Fonts.this.current != null)
+                                Fonts.this.current.cancel(true);
+                            Fonts.this.defaults.setVisibility(View.VISIBLE);
+                            Fonts.this.font_placeholder.setVisibility(View.GONE);
+                            Fonts.this.font_holder.setVisibility(View.GONE);
+                            Fonts.this.progressBar.setVisibility(View.GONE);
+                            Fonts.this.paused = false;
                             break;
 
                         default:
-                            if (current != null)
-                                current.cancel(true);
-                            defaults.setVisibility(View.GONE);
-                            font_placeholder.setVisibility(View.GONE);
+                            if (Fonts.this.current != null)
+                                Fonts.this.current.cancel(true);
+                            Fonts.this.defaults.setVisibility(View.GONE);
+                            Fonts.this.font_placeholder.setVisibility(View.GONE);
                             String[] commands = {arg0.getSelectedItem().toString()};
-                            current = new FontPreview(getInstance()).execute(commands);
+                            Fonts.this.current = new FontPreview(getInstance()).execute(commands);
                     }
                 }
 
@@ -201,18 +201,18 @@ public class Fonts extends Fragment {
         }
 
         // Enable job listener
-        jobReceiver = new JobReceiver();
-        localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
-        localBroadcastManager.registerReceiver(jobReceiver, new IntentFilter("Fonts.START_JOB"));
+        this.jobReceiver = new JobReceiver();
+        this.localBroadcastManager = LocalBroadcastManager.getInstance(this.mContext);
+        this.localBroadcastManager.registerReceiver(this.jobReceiver, new IntentFilter("Fonts.START_JOB"));
 
-        return root;
+        return this.root;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         try {
-            localBroadcastManager.unregisterReceiver(jobReceiver);
+            this.localBroadcastManager.unregisterReceiver(this.jobReceiver);
         } catch (IllegalArgumentException e) {
             // unregistered already
         }
@@ -220,21 +220,21 @@ public class Fonts extends Fragment {
 
 
     public void startApply() {
-        if (!paused) {
-            if (Systems.checkThemeInterfacer(mContext) ||
-                    Settings.System.canWrite(mContext)) {
-                if (fontSelector.getSelectedItemPosition() == 1) {
+        if (!this.paused) {
+            if (Systems.checkThemeInterfacer(this.mContext) ||
+                    Settings.System.canWrite(this.mContext)) {
+                if (this.fontSelector.getSelectedItemPosition() == 1) {
                     new FontsClearer(this).execute("");
                 } else {
-                    new FontUtils().execute(fontSelector.getSelectedItem().toString(),
-                            mContext, theme_pid, cipher);
+                    new FontUtils().execute(this.fontSelector.getSelectedItem().toString(),
+                            this.mContext, this.theme_pid, this.cipher);
                 }
             } else {
                 Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
                 intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-                Toast toast = Toast.makeText(mContext,
+                Toast toast = Toast.makeText(this.mContext,
                         getString(R.string.fonts_dialog_permissions_grant_toast2),
                         Toast.LENGTH_LONG);
                 toast.show();
@@ -248,12 +248,12 @@ public class Fonts extends Fragment {
 
         private FontsClearer(Fonts fragment) {
             super();
-            ref = new WeakReference<>(fragment);
+            this.ref = new WeakReference<>(fragment);
         }
 
         @Override
         protected void onPreExecute() {
-            Fonts fragment = ref.get();
+            Fonts fragment = this.ref.get();
             if (fragment != null) {
                 Context context = fragment.mContext;
                 if (References.ENABLE_EXTRAS_DIALOG) {
@@ -269,7 +269,7 @@ public class Fonts extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            Fonts fragment = ref.get();
+            Fonts fragment = this.ref.get();
             if (fragment != null) {
                 Context context = fragment.mContext;
                 if (References.ENABLE_EXTRAS_DIALOG) {
@@ -308,7 +308,7 @@ public class Fonts extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            Fonts fragment = ref.get();
+            Fonts fragment = this.ref.get();
             if (fragment != null) {
                 Context context = fragment.mContext;
                 FontManager.clearFonts(context);
@@ -323,12 +323,12 @@ public class Fonts extends Fragment {
 
         FontPreview(Fonts fonts) {
             super();
-            ref = new WeakReference<>(fonts);
+            this.ref = new WeakReference<>(fonts);
         }
 
         @Override
         protected void onPreExecute() {
-            Fonts fonts = ref.get();
+            Fonts fonts = this.ref.get();
             if (fonts != null) {
                 fonts.paused = true;
                 fonts.font_holder.setVisibility(View.INVISIBLE);
@@ -338,7 +338,7 @@ public class Fonts extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            Fonts fonts = ref.get();
+            Fonts fonts = this.ref.get();
             if (fonts != null) {
                 try {
                     Log.d(TAG, "Fonts have been loaded on the drawing panel.");
@@ -404,7 +404,7 @@ public class Fonts extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            Fonts fonts = ref.get();
+            Fonts fonts = this.ref.get();
             if (fonts != null) {
                 try {
                     File cacheDirectory = new File(fonts.mContext.getCacheDir(), "/FontCache/");

@@ -71,11 +71,11 @@ public class ManagerItem implements Serializable {
     }
 
     int getActivationValue() {
-        return activationValue;
+        return this.activationValue;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -83,7 +83,7 @@ public class ManagerItem implements Serializable {
     }
 
     public boolean isSelected() {
-        return isSelected;
+        return this.isSelected;
     }
 
     public void setSelected(boolean isSelected) {
@@ -91,17 +91,17 @@ public class ManagerItem implements Serializable {
     }
 
     public Context getContext() {
-        return mContext;
+        return this.mContext;
     }
 
     public void updateEnabledOverlays(boolean isActivated) {
         this.activationValue =
-                ((isActivated) ? mContext.getColor(R.color.overlay_installed_list_entry) :
-                        mContext.getColor(R.color.overlay_not_enabled_list_entry));
+                ((isActivated) ? this.mContext.getColor(R.color.overlay_installed_list_entry) :
+                        this.mContext.getColor(R.color.overlay_not_enabled_list_entry));
     }
 
     public String getType1a() {
-        return type1a;
+        return this.type1a;
     }
 
     public void setType1a(String name) {
@@ -109,7 +109,7 @@ public class ManagerItem implements Serializable {
     }
 
     public String getType1b() {
-        return type1b;
+        return this.type1b;
     }
 
     public void setType1b(String name) {
@@ -117,7 +117,7 @@ public class ManagerItem implements Serializable {
     }
 
     public String getType1c() {
-        return type1c;
+        return this.type1c;
     }
 
     public void setType1c(String name) {
@@ -125,7 +125,7 @@ public class ManagerItem implements Serializable {
     }
 
     public String getType2() {
-        return type2;
+        return this.type2;
     }
 
     public void setType2(String name) {
@@ -133,7 +133,7 @@ public class ManagerItem implements Serializable {
     }
 
     public String getType3() {
-        return type3;
+        return this.type3;
     }
 
     public void setType3(String name) {
@@ -141,7 +141,7 @@ public class ManagerItem implements Serializable {
     }
 
     public String getType4() {
-        return type4;
+        return this.type4;
     }
 
     public void setType4(String name) {
@@ -149,10 +149,10 @@ public class ManagerItem implements Serializable {
     }
 
     public String getThemeName() {
-        if (themeName == null) {
-            themeName = getContext().getString(R.string.reboot_awaiting_manager_title);
+        if (this.themeName == null) {
+            this.themeName = getContext().getString(R.string.reboot_awaiting_manager_title);
         }
-        return themeName;
+        return this.themeName;
     }
 
     public void setThemeName(String name) {
@@ -160,32 +160,32 @@ public class ManagerItem implements Serializable {
     }
 
     public String getLabelName() {
-        if (labelName == null) {
-            labelName = getContext().getString(R.string.reboot_awaiting_manager_title);
+        if (this.labelName == null) {
+            this.labelName = getContext().getString(R.string.reboot_awaiting_manager_title);
         }
-        return labelName;
+        return this.labelName;
     }
 
     private void setLabelName(Context context) {
         String packageName = getName();
         String targetPackage = Packages.getOverlayTarget(context, packageName);
         if (packageName.startsWith("com.android.systemui.headers")) {
-            labelName = context.getString(R.string.systemui_headers);
+            this.labelName = context.getString(R.string.systemui_headers);
         } else if (packageName.startsWith("com.android.systemui.navbars")) {
-            labelName = context.getString(R.string.systemui_navigation);
+            this.labelName = context.getString(R.string.systemui_navigation);
         } else if (packageName.startsWith("com.android.systemui.statusbars")) {
-            labelName = context.getString(R.string.systemui_statusbar);
+            this.labelName = context.getString(R.string.systemui_statusbar);
         } else if (packageName.startsWith("com.android.systemui.tiles")) {
-            labelName = context.getString(R.string.systemui_qs_tiles);
+            this.labelName = context.getString(R.string.systemui_qs_tiles);
         } else if (packageName.startsWith("com.android.settings.icons")) {
-            labelName = context.getString(R.string.settings_icons);
+            this.labelName = context.getString(R.string.settings_icons);
         } else {
-            labelName = Packages.getPackageName(context, targetPackage);
+            this.labelName = Packages.getPackageName(context, targetPackage);
         }
     }
 
     public Drawable getDrawable() {
-        return mDrawable;
+        return this.mDrawable;
     }
 
     public void setDrawable(Drawable drawable) {
@@ -193,7 +193,7 @@ public class ManagerItem implements Serializable {
     }
 
     Drawable getTargetDrawable() {
-        return mTargetDrawable;
+        return this.mTargetDrawable;
     }
 
     void setTargetDrawable(Drawable drawable) {

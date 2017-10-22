@@ -47,7 +47,7 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        SoundsInfo sounds = soundsList.get(position);
+        SoundsInfo sounds = this.soundsList.get(position);
         Context context = sounds.getContext();
         String current_sound = sounds.getTitle().substring(0, sounds.getTitle().length() - 4);
         switch (current_sound) {
@@ -74,7 +74,7 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHold
 
     @Override
     public int getItemCount() {
-        return soundsList.size();
+        return this.soundsList.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
@@ -82,7 +82,7 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHold
 
         MyViewHolder(View view) {
             super(view);
-            title = view.findViewById(R.id.title);
+            this.title = view.findViewById(R.id.title);
         }
     }
 }

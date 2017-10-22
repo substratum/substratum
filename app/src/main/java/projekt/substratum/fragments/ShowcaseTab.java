@@ -68,44 +68,44 @@ public class ShowcaseTab extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
-        mContext = getContext();
-        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        this.mContext = getContext();
+        this.prefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            current_tab_position = bundle.getInt("tab_count", 0);
-            current_tab_address = bundle.getString("tabbed_address");
+            this.current_tab_position = bundle.getInt("tab_count", 0);
+            this.current_tab_address = bundle.getString("tabbed_address");
         }
 
-        root = (ViewGroup) inflater.inflate(R.layout.showcase_tab, container, false);
-        materialProgressBar = root.findViewById(R.id.progress_bar_loader);
-        no_network = root.findViewById(R.id.no_network);
-        no_wallpapers = root.findViewById(R.id.none_found);
+        this.root = (ViewGroup) inflater.inflate(R.layout.showcase_tab, container, false);
+        this.materialProgressBar = this.root.findViewById(R.id.progress_bar_loader);
+        this.no_network = this.root.findViewById(R.id.no_network);
+        this.no_wallpapers = this.root.findViewById(R.id.none_found);
 
         refreshLayout();
-        return root;
+        return this.root;
     }
 
     private void refreshLayout() {
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
-        mRecyclerView = root.findViewById(R.id.wallpaperRecyclerView);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        this.mRecyclerView = this.root.findViewById(R.id.wallpaperRecyclerView);
+        this.mRecyclerView.setHasFixedSize(true);
+        this.mRecyclerView.setLayoutManager(new LinearLayoutManager(this.mContext));
         ArrayList<WallpaperEntries> empty_array = new ArrayList<>();
         RecyclerView.Adapter empty_adapter = new WallpaperAdapter(empty_array);
-        mRecyclerView.setAdapter(empty_adapter);
-        no_wallpapers.setVisibility(View.GONE);
-        no_network.setVisibility(View.GONE);
+        this.mRecyclerView.setAdapter(empty_adapter);
+        this.no_wallpapers.setVisibility(View.GONE);
+        this.no_network.setVisibility(View.GONE);
 
-        if (References.isNetworkAvailable(mContext)) {
+        if (References.isNetworkAvailable(this.mContext)) {
             downloadResources downloadTask = new downloadResources(this);
-            downloadTask.execute(current_tab_address,
-                    "showcase_tab_" + current_tab_position + "" + ".xml");
+            downloadTask.execute(this.current_tab_address,
+                    "showcase_tab_" + this.current_tab_position + "" + ".xml");
         } else {
-            mRecyclerView.setVisibility(View.GONE);
-            materialProgressBar.setVisibility(View.GONE);
-            no_wallpapers.setVisibility(View.GONE);
-            no_network.setVisibility(View.VISIBLE);
+            this.mRecyclerView.setVisibility(View.GONE);
+            this.materialProgressBar.setVisibility(View.GONE);
+            this.no_wallpapers.setVisibility(View.GONE);
+            this.no_network.setVisibility(View.VISIBLE);
         }
 
     }
@@ -115,13 +115,13 @@ public class ShowcaseTab extends Fragment {
 
         downloadResources(ShowcaseTab showcaseTab) {
             super();
-            ref = new WeakReference<>(showcaseTab);
+            this.ref = new WeakReference<>(showcaseTab);
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            ShowcaseTab showcaseTab = ref.get();
+            ShowcaseTab showcaseTab = this.ref.get();
             if (showcaseTab != null) {
                 showcaseTab.mRecyclerView.setVisibility(View.GONE);
                 showcaseTab.materialProgressBar.setVisibility(View.VISIBLE);
@@ -132,7 +132,7 @@ public class ShowcaseTab extends Fragment {
         @SuppressWarnings("unchecked")
         protected void onPostExecute(ArrayList result) {
             super.onPostExecute(result);
-            ShowcaseTab showcaseTab = ref.get();
+            ShowcaseTab showcaseTab = this.ref.get();
             if (showcaseTab != null) {
                 ShowcaseItemAdapter mAdapter = new ShowcaseItemAdapter(result);
                 showcaseTab.mRecyclerView.setAdapter(mAdapter);
@@ -146,7 +146,7 @@ public class ShowcaseTab extends Fragment {
 
         @Override
         protected ArrayList doInBackground(String... sUrl) {
-            ShowcaseTab showcaseTab = ref.get();
+            ShowcaseTab showcaseTab = this.ref.get();
             ArrayList<ShowcaseItem> wallpapers = new ArrayList<>();
             if (showcaseTab != null) {
                 String inputFileName = sUrl[1];

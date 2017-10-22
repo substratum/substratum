@@ -68,22 +68,22 @@ public class PackageModificationDetector extends BroadcastReceiver {
         if (intent.getAction() != null) {
             switch (intent.getAction()) {
                 case PACKAGE_ADDED:
-                    Broadcasts.sendOverlayRefreshMessage(mContext);
+                    Broadcasts.sendOverlayRefreshMessage(this.mContext);
                     if (Systems.isSamsungDevice(context)) {
-                        Broadcasts.sendRefreshManagerMessage(mContext);
+                        Broadcasts.sendRefreshManagerMessage(this.mContext);
                     }
                     break;
                 case PACKAGE_FULLY_REMOVED:
-                    Broadcasts.sendRefreshManagerMessage(mContext);
+                    Broadcasts.sendRefreshManagerMessage(this.mContext);
                     if (Systems.isSamsungDevice(context)) {
-                        Broadcasts.sendOverlayRefreshMessage(mContext);
+                        Broadcasts.sendOverlayRefreshMessage(this.mContext);
                     }
                     return;
             }
         }
 
         try {
-            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
+            ApplicationInfo appInfo = this.mContext.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
                 // First, check if the app installed is actually a substratum overlay
@@ -92,8 +92,8 @@ public class PackageModificationDetector extends BroadcastReceiver {
                 String check_overlay_target =
                         appInfo.metaData.getString(References.metadataOverlayTarget);
                 if (check_overlay_parent != null && check_overlay_target != null) {
-                    Broadcasts.sendOverlayRefreshMessage(mContext);
-                    Broadcasts.sendRefreshManagerMessage(mContext);
+                    Broadcasts.sendOverlayRefreshMessage(this.mContext);
+                    Broadcasts.sendRefreshManagerMessage(this.mContext);
                     return;
                 }
 
@@ -114,7 +114,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
         Boolean replacing = intent.getBooleanExtra(Intent.EXTRA_REPLACING, false);
 
         // Let's add it to the list of installed themes on shared prefs
-        SharedPreferences mainPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        SharedPreferences mainPrefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
         Set<String> installed_themes =
                 mainPrefs.getStringSet("installed_themes", new HashSet<>());
         Set<String> installed_sorted = new TreeSet<>();
@@ -129,9 +129,9 @@ public class PackageModificationDetector extends BroadcastReceiver {
         }
 
         // Legacy check to see if an OMS theme is guarded from being installed on legacy
-        if (!Systems.checkOMS(mContext)) {
+        if (!Systems.checkOMS(this.mContext)) {
             try {
-                ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
+                ApplicationInfo appInfo = this.mContext.getPackageManager().getApplicationInfo(
                         package_name, PackageManager.GET_META_DATA);
                 if (appInfo.metaData != null) {
                     Boolean check_legacy =
@@ -140,18 +140,18 @@ public class PackageModificationDetector extends BroadcastReceiver {
                         Log.e(TAG, "Device is non-OMS, while an " +
                                 "OMS theme is installed, aborting operation!");
 
-                        String parse = String.format(mContext.getString(
+                        String parse = String.format(this.mContext.getString(
                                 R.string.failed_to_install_text_notification),
                                 appInfo.metaData.getString(
                                         References.metadataName));
 
                         Intent showIntent = new Intent();
                         PendingIntent contentIntent = PendingIntent.getActivity(
-                                mContext, 0, showIntent, 0);
+                                this.mContext, 0, showIntent, 0);
 
                         new NotificationCreator(
-                                mContext,
-                                mContext.getString(
+                                this.mContext,
+                                this.mContext.getString(
                                         R.string.failed_to_install_title_notification),
                                 parse,
                                 true,
@@ -161,7 +161,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                                 Notification.PRIORITY_MAX,
                                 References.notification_id).createNotification();
 
-                        Packages.uninstallPackage(mContext, package_name);
+                        Packages.uninstallPackage(this.mContext, package_name);
                         return;
                     }
                 }
@@ -174,13 +174,13 @@ public class PackageModificationDetector extends BroadcastReceiver {
             // We need to check if this is a new install or not
             Log.d(TAG, "'" + package_name + "' has been updated.");
             Bitmap bitmap = Packages.getBitmapFromDrawable(
-                    Packages.getAppIcon(mContext, package_name));
+                    Packages.getAppIcon(this.mContext, package_name));
 
             new NotificationCreator(
-                    mContext,
-                    Packages.getPackageName(mContext, package_name) + " " + mContext.getString(
+                    this.mContext,
+                    Packages.getPackageName(this.mContext, package_name) + " " + this.mContext.getString(
                             R.string.notification_theme_updated),
-                    mContext.getString(R.string.notification_theme_updated_content),
+                    this.mContext.getString(R.string.notification_theme_updated_content),
                     true,
                     getPendingIntent(package_name),
                     R.drawable.notification_updated,
@@ -189,25 +189,25 @@ public class PackageModificationDetector extends BroadcastReceiver {
                     ThreadLocalRandom.current().nextInt(0, 1000)).createNotification();
         } else {
             new NotificationCreator(
-                    mContext,
-                    Packages.getPackageName(mContext, package_name) + " " + mContext.getString(
+                    this.mContext,
+                    Packages.getPackageName(this.mContext, package_name) + " " + this.mContext.getString(
                             R.string.notification_theme_installed),
-                    mContext.getString(R.string.notification_theme_installed_content),
+                    this.mContext.getString(R.string.notification_theme_installed_content),
                     true,
                     getPendingIntent(package_name),
                     R.drawable.notification_icon,
                     BitmapFactory.decodeResource(
-                            mContext.getResources(), R.mipmap.main_launcher),
+                            this.mContext.getResources(), R.mipmap.main_launcher),
                     Notification.PRIORITY_MAX,
                     ThreadLocalRandom.current().nextInt(0, 1000)).createNotification();
         }
-        Broadcasts.sendRefreshMessage(mContext);
-        Broadcasts.sendActivityFinisherMessage(mContext, package_name);
+        Broadcasts.sendRefreshMessage(this.mContext);
+        Broadcasts.sendActivityFinisherMessage(this.mContext, package_name);
     }
 
     public PendingIntent getPendingIntent(String package_name) {
-        Intent myIntent = new Intent(mContext, AppShortcutLaunch.class);
+        Intent myIntent = new Intent(this.mContext, AppShortcutLaunch.class);
         myIntent.putExtra("theme_pid", package_name);
-        return PendingIntent.getActivity(mContext, 0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        return PendingIntent.getActivity(this.mContext, 0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
     }
 }

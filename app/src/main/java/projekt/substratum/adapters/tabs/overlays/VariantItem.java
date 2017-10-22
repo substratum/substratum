@@ -30,19 +30,19 @@ public class VariantItem implements Serializable {
         super();
         this.variant_name = variant_name;
         if (variant_hex == null) {
-            forceHidden = true;
+            this.forceHidden = true;
         } else {
-            forceHidden = false;
+            this.forceHidden = false;
             this.variant_hex = variant_hex;
         }
     }
 
     String getVariantName() {
-        return variant_name;
+        return this.variant_name;
     }
 
     String getVariantHex() {
-        return variant_hex;
+        return this.variant_hex;
     }
 
     @Override

@@ -71,10 +71,10 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int pos) {
-        WallpaperEntries wallpaperEntry = information.get(pos);
-        mContext = wallpaperEntry.getContext();
+        WallpaperEntries wallpaperEntry = this.information.get(pos);
+        this.mContext = wallpaperEntry.getContext();
 
-        Glide.with(mContext)
+        Glide.with(this.mContext)
                 .load(wallpaperEntry.getWallpaperPreview())
                 .apply(centerCropTransform())
                 .transition(withCrossFade())
@@ -84,13 +84,13 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
 
         viewHolder.cardView.setOnClickListener(view -> {
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this.mContext);
             final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                    mContext, R.layout.wallpaper_dialog_listview);
-            arrayAdapter.add(mContext.getString(R.string.wallpaper_dialog_wallpaper));
+                    this.mContext, R.layout.wallpaper_dialog_listview);
+            arrayAdapter.add(this.mContext.getString(R.string.wallpaper_dialog_wallpaper));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                arrayAdapter.add(mContext.getString(R.string.wallpaper_dialog_lockscreen));
-                arrayAdapter.add(mContext.getString(R.string.wallpaper_dialog_wallpaper_both));
+                arrayAdapter.add(this.mContext.getString(R.string.wallpaper_dialog_lockscreen));
+                arrayAdapter.add(this.mContext.getString(R.string.wallpaper_dialog_wallpaper_both));
             }
             builder.setCancelable(false);
             builder.setNegativeButton(
@@ -107,7 +107,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                         dialog.cancel();
 
                         // Download the image
-                        current_download = new downloadWallpaper(
+                        this.current_download = new downloadWallpaper(
                                 this,
                                 wallpaperEntry.getCallingActivity()
                         ).execute(
@@ -119,12 +119,12 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
             });
             builder.show();
         });
-        References.setRecyclerViewAnimation(mContext, viewHolder.itemView, android.R.anim.fade_in);
+        References.setRecyclerViewAnimation(this.mContext, viewHolder.itemView, android.R.anim.fade_in);
     }
 
     @Override
     public int getItemCount() {
-        return information.size();
+        return this.information.size();
     }
 
     private static class downloadWallpaper extends AsyncTask<String, Integer, String> {
@@ -138,14 +138,14 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
 
         downloadWallpaper(WallpaperAdapter wallpaperAdapter, Activity callingActivity) {
             super();
-            ref = new WeakReference<>(wallpaperAdapter);
-            activity = new WeakReference<>(callingActivity);
+            this.ref = new WeakReference<>(wallpaperAdapter);
+            this.activity = new WeakReference<>(callingActivity);
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            WallpaperAdapter wallpaperAdapter = ref.get();
+            WallpaperAdapter wallpaperAdapter = this.ref.get();
             if (wallpaperAdapter != null) {
                 // Instantiate Progress Dialog
                 wallpaperAdapter.mProgressDialog = new ProgressDialog(wallpaperAdapter.mContext);
@@ -173,7 +173,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         protected void onProgressUpdate(Integer... progress) {
             super.onProgressUpdate(progress);
             // if we get here, length is known, now set indeterminate to false
-            WallpaperAdapter wallpaperAdapter = ref.get();
+            WallpaperAdapter wallpaperAdapter = this.ref.get();
             if (wallpaperAdapter != null) {
                 wallpaperAdapter.mProgressDialog.setIndeterminate(false);
                 wallpaperAdapter.mProgressDialog.setMax(100);
@@ -184,8 +184,8 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            WallpaperAdapter wallpaperAdapter = ref.get();
-            if (wallpaperAdapter != null && activity != null) {
+            WallpaperAdapter wallpaperAdapter = this.ref.get();
+            if (wallpaperAdapter != null && this.activity != null) {
                 wallpaperAdapter.mWakeLock.release();
                 wallpaperAdapter.mProgressDialog.dismiss();
 
@@ -193,35 +193,35 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                 // InformationActivity
                 CropImage.activity(Uri.fromFile(new File(
                         wallpaperAdapter.mContext.getCacheDir().getAbsolutePath() +
-                                "/" + directory_output)))
+                                "/" + this.directory_output)))
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .setFixAspectRatio(false)
                         .setInitialCropWindowPaddingRatio(0)
-                        .setActivityTitle(wallpaperName)
+                        .setActivityTitle(this.wallpaperName)
                         .setOutputUri(Uri.fromFile(new File(
                                 wallpaperAdapter.mContext.getCacheDir().getAbsolutePath() +
-                                        "/" + directory_output)))
-                        .start(activity.get());
+                                        "/" + this.directory_output)))
+                        .start(this.activity.get());
             }
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
-            WallpaperAdapter wallpaperAdapter = ref.get();
+            WallpaperAdapter wallpaperAdapter = this.ref.get();
             if (wallpaperAdapter != null) {
-                wallpaperLink = sUrl[0];
-                if (wallpaperLink.endsWith(".png")) {
-                    extension = ".png";
+                this.wallpaperLink = sUrl[0];
+                if (this.wallpaperLink.endsWith(".png")) {
+                    this.extension = ".png";
                 } else {
-                    extension = ".jpg";
+                    this.extension = ".jpg";
                 }
-                directory_output = sUrl[1] + extension;
-                wallpaperName = sUrl[2];
+                this.directory_output = sUrl[1] + this.extension;
+                this.wallpaperName = sUrl[2];
 
                 FileDownloader.init(wallpaperAdapter.mContext,
-                        wallpaperLink,
+                        this.wallpaperLink,
                         "",
-                        directory_output
+                        this.directory_output
                 );
             }
             return null;
@@ -235,9 +235,9 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
 
         ViewHolder(View view) {
             super(view);
-            cardView = view.findViewById(R.id.wallpaperCard);
-            imageView = view.findViewById(R.id.wallpaperImage);
-            wallpaperName = view.findViewById(R.id.wallpaperName);
+            this.cardView = view.findViewById(R.id.wallpaperCard);
+            this.imageView = view.findViewById(R.id.wallpaperImage);
+            this.wallpaperName = view.findViewById(R.id.wallpaperName);
         }
     }
 }

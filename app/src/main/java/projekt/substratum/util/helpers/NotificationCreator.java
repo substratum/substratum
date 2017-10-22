@@ -56,22 +56,22 @@ public class NotificationCreator {
     @SuppressWarnings("UnusedReturnValue")
     public boolean createNotification() {
         try {
-            NotificationManager mNotifyManager = (NotificationManager) mContext.getSystemService(
+            NotificationManager mNotifyManager = (NotificationManager) this.mContext.getSystemService(
                     Context.NOTIFICATION_SERVICE);
             NotificationCompat.Builder mBuilder = new
-                    NotificationCompat.Builder(mContext, References
+                    NotificationCompat.Builder(this.mContext, References
                     .DEFAULT_NOTIFICATION_CHANNEL_ID);
 
-            if (content_title != null) mBuilder.setContentTitle(content_title);
-            if (content_text != null) mBuilder.setContentText(content_text);
-            if (auto_cancel != null) mBuilder.setAutoCancel(auto_cancel);
-            if (intent != null) mBuilder.setContentIntent(intent);
-            if (small_icon != 0) mBuilder.setSmallIcon(small_icon);
-            if (big_icon != null) mBuilder.setLargeIcon(big_icon);
+            if (this.content_title != null) mBuilder.setContentTitle(this.content_title);
+            if (this.content_text != null) mBuilder.setContentText(this.content_text);
+            if (this.auto_cancel != null) mBuilder.setAutoCancel(this.auto_cancel);
+            if (this.intent != null) mBuilder.setContentIntent(this.intent);
+            if (this.small_icon != 0) mBuilder.setSmallIcon(this.small_icon);
+            if (this.big_icon != null) mBuilder.setLargeIcon(this.big_icon);
 
-            mBuilder.setPriority(notification_priority);
+            mBuilder.setPriority(this.notification_priority);
             if (mNotifyManager != null) {
-                mNotifyManager.notify(invoke_id, mBuilder.build());
+                mNotifyManager.notify(this.invoke_id, mBuilder.build());
             }
             return true;
         } catch (Exception e) {

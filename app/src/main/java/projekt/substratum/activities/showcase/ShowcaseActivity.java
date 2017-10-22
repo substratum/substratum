@@ -70,7 +70,7 @@ public class ShowcaseActivity extends AppCompatActivity {
         super.onDestroy();
         if (Systems.isAndromedaDevice(getApplicationContext())) {
             try {
-                localBroadcastManager.unregisterReceiver(andromedaReceiver);
+                this.localBroadcastManager.unregisterReceiver(this.andromedaReceiver);
             } catch (Exception e) {
                 // Unregistered already
             }
@@ -82,7 +82,7 @@ public class ShowcaseActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.showcase_menu, menu);
 
         MenuItem alphabetizeMenu = menu.findItem(R.id.alphabetize);
-        boolean alphabetize = prefs.getBoolean("alphabetize_showcase", false);
+        boolean alphabetize = this.prefs.getBoolean("alphabetize_showcase", false);
         if (alphabetize) {
             alphabetizeMenu.setIcon(R.drawable.actionbar_alphabetize);
         } else {
@@ -121,11 +121,11 @@ public class ShowcaseActivity extends AppCompatActivity {
                 launchShowcaseInfo();
                 return true;
             case R.id.alphabetize:
-                boolean alphabetize = prefs.getBoolean("alphabetize_showcase", false);
+                boolean alphabetize = this.prefs.getBoolean("alphabetize_showcase", false);
                 if (!alphabetize) {
-                    prefs.edit().putBoolean("alphabetize_showcase", true).apply();
+                    this.prefs.edit().putBoolean("alphabetize_showcase", true).apply();
                 } else {
-                    prefs.edit().putBoolean("alphabetize_showcase", false).apply();
+                    this.prefs.edit().putBoolean("alphabetize_showcase", false).apply();
                 }
                 this.recreate();
                 return true;
@@ -134,17 +134,17 @@ public class ShowcaseActivity extends AppCompatActivity {
     }
 
     private void swipeRefresh() {
-        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setOnRefreshListener(this::recreate);
+        this.swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        this.swipeRefreshLayout.setOnRefreshListener(this::recreate);
     }
 
     private void refreshLayout() {
         if (References.isNetworkAvailable(getApplicationContext())) {
-            no_network.setVisibility(View.GONE);
+            this.no_network.setVisibility(View.GONE);
             DownloadTabs downloadTabs = new DownloadTabs(this);
             downloadTabs.execute(getString(R.string.showcase_tabs), "showcase_tabs.xml");
         } else {
-            no_network.setVisibility(View.VISIBLE);
+            this.no_network.setVisibility(View.VISIBLE);
         }
     }
 
@@ -153,13 +153,13 @@ public class ShowcaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.showcase_activity);
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(
+        this.prefs = PreferenceManager.getDefaultSharedPreferences(
                 getApplicationContext());
 
         if (Systems.isAndromedaDevice(getApplicationContext())) {
-            andromedaReceiver = new ShowcaseActivity.AndromedaReceiver();
-            localBroadcastManager = LocalBroadcastManager.getInstance(getApplicationContext());
-            localBroadcastManager.registerReceiver(andromedaReceiver,
+            this.andromedaReceiver = new ShowcaseActivity.AndromedaReceiver();
+            this.localBroadcastManager = LocalBroadcastManager.getInstance(getApplicationContext());
+            this.localBroadcastManager.registerReceiver(this.andromedaReceiver,
                     new IntentFilter("AndromedaReceiver.KILL"));
         }
 
@@ -187,7 +187,7 @@ public class ShowcaseActivity extends AppCompatActivity {
                 getColor(R.color.showcase_activity_text),
                 getColor(R.color.showcase_activity_text));
         tabLayout.setVisibility(View.GONE);
-        no_network = findViewById(R.id.no_network);
+        this.no_network = findViewById(R.id.no_network);
         refreshLayout();
         swipeRefresh();
     }
@@ -204,7 +204,7 @@ public class ShowcaseActivity extends AppCompatActivity {
 
         DownloadTabs(ShowcaseActivity activity) {
             super();
-            showcaseActivityWR = new WeakReference<>(activity);
+            this.showcaseActivityWR = new WeakReference<>(activity);
         }
 
         @Override
@@ -220,7 +220,7 @@ public class ShowcaseActivity extends AppCompatActivity {
                 return;
             }
 
-            ShowcaseActivity activity = showcaseActivityWR.get();
+            ShowcaseActivity activity = this.showcaseActivityWR.get();
 
             if (activity != null) {
 
@@ -316,7 +316,7 @@ public class ShowcaseActivity extends AppCompatActivity {
         protected String doInBackground(String... sUrl) {
             String inputFileName = sUrl[1];
 
-            Activity activity = showcaseActivityWR.get();
+            Activity activity = this.showcaseActivityWR.get();
 
             if (activity != null) {
 

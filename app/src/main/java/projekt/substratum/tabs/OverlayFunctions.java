@@ -82,13 +82,13 @@ enum OverlayFunctions {
 
         getThemeCache(Overlays overlays) {
             super();
-            ref = new WeakReference<>(overlays);
+            this.ref = new WeakReference<>(overlays);
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Overlays overlays = ref.get();
+            Overlays overlays = this.ref.get();
             if (overlays != null) {
                 Context context = overlays.getActivity();
                 overlays.final_runner = new ArrayList<>();
@@ -144,7 +144,7 @@ enum OverlayFunctions {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            Overlays overlays = ref.get();
+            Overlays overlays = this.ref.get();
             if (overlays != null) {
                 Phase3_mainFunction phase3_mainFunction = new Phase3_mainFunction(overlays);
                 if (result != null) {
@@ -157,7 +157,7 @@ enum OverlayFunctions {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            Overlays overlays = ref.get();
+            Overlays overlays = this.ref.get();
             if (overlays != null) {
                 Context context = overlays.getActivity();
                 if (!overlays.enable_mode &&
@@ -182,7 +182,7 @@ enum OverlayFunctions {
         }
 
         public void clear() {
-            if (ref != null) ref.clear();
+            if (this.ref != null) this.ref.clear();
         }
     }
 
@@ -192,7 +192,7 @@ enum OverlayFunctions {
 
         Phase3_mainFunction(Overlays overlays) {
             super();
-            ref = new WeakReference<>(overlays);
+            this.ref = new WeakReference<>(overlays);
         }
 
         @Override
@@ -200,7 +200,7 @@ enum OverlayFunctions {
             super.onPreExecute();
             Log.d(Overlays.TAG,
                     "Substratum is proceeding with your actions and is now actively running...");
-            Overlays overlays = ref.get();
+            Overlays overlays = this.ref.get();
             if (overlays != null) {
                 Context context = overlays.getActivity();
 
@@ -231,7 +231,7 @@ enum OverlayFunctions {
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
-            Overlays overlays = ref.get();
+            Overlays overlays = this.ref.get();
             if (overlays != null) {
                 TextView textView = overlays.mCompileDialog.findViewById(R.id.current_object);
                 if (textView != null) {
@@ -239,7 +239,7 @@ enum OverlayFunctions {
                 }
                 overlays.loader_image.setImageBitmap(
                         Packages.getBitmapFromDrawable(
-                                Packages.getAppIcon(overlays.getContext(), currentPackageName)));
+                                Packages.getAppIcon(overlays.getContext(), this.currentPackageName)));
                 double progress = (overlays.current_amount / overlays.total_amount) * 100;
                 overlays.dialogProgress.setProgress((int) progress, true);
             }
@@ -250,7 +250,7 @@ enum OverlayFunctions {
         protected void onPostExecute(String result) {
             // TODO: onPostExecute runs on UI thread, so move the hard job to doInBackground
             super.onPostExecute(result);
-            Overlays overlays = ref.get();
+            Overlays overlays = this.ref.get();
             if (overlays != null) {
                 Context context = overlays.getActivity();
                 overlays.final_command = new ArrayList<>();
@@ -352,7 +352,7 @@ enum OverlayFunctions {
         @SuppressWarnings("ConstantConditions")
         @Override
         protected String doInBackground(String... sUrl) {
-            Overlays overlays = ref.get();
+            Overlays overlays = this.ref.get();
             if (overlays != null) {
                 Context context = overlays.getActivity();
                 String parsedVariant = sUrl[0].replaceAll("\\s+", "");
@@ -399,7 +399,7 @@ enum OverlayFunctions {
                     String current_overlay = overlays.checkedOverlays.get(i).getPackageName();
                     overlays.current_dialog_overlay =
                             "'" + Packages.getPackageName(context, current_overlay) + "'";
-                    currentPackageName = current_overlay;
+                    this.currentPackageName = current_overlay;
 
                     if (!overlays.enable_mode && !overlays.disable_mode
                             && !overlays.enable_disable_mode) {
@@ -899,13 +899,13 @@ enum OverlayFunctions {
 
         Phase4_finishEnableFunction(Overlays overlays) {
             super();
-            ref = new WeakReference<>(overlays);
-            refContext = new WeakReference<>(overlays.getContext());
+            this.ref = new WeakReference<>(overlays);
+            this.refContext = new WeakReference<>(overlays.getContext());
         }
 
         @Override
         protected void onPreExecute() {
-            Overlays overlays = ref.get();
+            Overlays overlays = this.ref.get();
             if (overlays != null) {
                 overlays.progressBar.setVisibility(View.VISIBLE);
                 if (overlays.toggle_all.isChecked()) overlays.toggle_all.setChecked(false);
@@ -914,7 +914,7 @@ enum OverlayFunctions {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            Overlays overlays = ref.get();
+            Overlays overlays = this.ref.get();
             if (overlays != null) {
                 Context context = overlays.getActivity();
 
@@ -943,8 +943,8 @@ enum OverlayFunctions {
 
         @Override
         protected void onPostExecute(Void result) {
-            Overlays overlays = ref.get();
-            Context context = refContext.get();
+            Overlays overlays = this.ref.get();
+            Context context = this.refContext.get();
             if (overlays != null && context != null) {
                 if (overlays.final_runner.size() > 0) {
                     overlays.progressBar.setVisibility(View.GONE);
@@ -988,13 +988,13 @@ enum OverlayFunctions {
 
         Phase4_finishDisableFunction(Overlays overlays) {
             super();
-            ref = new WeakReference<>(overlays);
-            refContext = new WeakReference<>(overlays.getContext());
+            this.ref = new WeakReference<>(overlays);
+            this.refContext = new WeakReference<>(overlays.getContext());
         }
 
         @Override
         protected void onPreExecute() {
-            Overlays overlays = ref.get();
+            Overlays overlays = this.ref.get();
             if (overlays != null) {
                 Activity activity = overlays.getActivity();
                 if (overlays.final_runner.size() > 0) {
@@ -1007,7 +1007,7 @@ enum OverlayFunctions {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            Overlays overlays = ref.get();
+            Overlays overlays = this.ref.get();
             if (overlays != null) {
                 Context context = overlays.getActivity();
 
@@ -1021,8 +1021,8 @@ enum OverlayFunctions {
 
         @Override
         protected void onPostExecute(Void result) {
-            Overlays overlays = ref.get();
-            Context context = refContext.get();
+            Overlays overlays = this.ref.get();
+            Context context = this.refContext.get();
             if (overlays != null && context != null) {
                 Activity activity = overlays.getActivity();
                 overlays.progressBar.setVisibility(View.GONE);
@@ -1066,13 +1066,13 @@ enum OverlayFunctions {
 
         Phase4_finishEnableDisableFunction(Overlays overlays) {
             super();
-            ref = new WeakReference<>(overlays);
-            refContext = new WeakReference<>(overlays.getContext());
+            this.ref = new WeakReference<>(overlays);
+            this.refContext = new WeakReference<>(overlays.getContext());
         }
 
         @Override
         protected void onPreExecute() {
-            Overlays overlays = ref.get();
+            Overlays overlays = this.ref.get();
             if (overlays != null) {
                 Activity activity = overlays.getActivity();
                 if (overlays.final_runner.size() > 0) {
@@ -1085,7 +1085,7 @@ enum OverlayFunctions {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            Overlays overlays = ref.get();
+            Overlays overlays = this.ref.get();
             if (overlays != null) {
                 Context context = overlays.getActivity();
 
@@ -1121,8 +1121,8 @@ enum OverlayFunctions {
 
         @Override
         protected void onPostExecute(Void result) {
-            Overlays overlays = ref.get();
-            Context context = refContext.get();
+            Overlays overlays = this.ref.get();
+            Context context = this.refContext.get();
             if (overlays != null && context != null) {
                 Activity activity = overlays.getActivity();
                 overlays.progressBar.setVisibility(View.GONE);
@@ -1172,14 +1172,14 @@ enum OverlayFunctions {
 
         Phase4_finishUpdateFunction(Overlays overlays) {
             super();
-            ref = new WeakReference<>(overlays);
-            refContext = new WeakReference<>(overlays.getContext());
+            this.ref = new WeakReference<>(overlays);
+            this.refContext = new WeakReference<>(overlays.getContext());
         }
 
         @Override
         protected void onPreExecute() {
-            Overlays overlays = ref.get();
-            Context context = refContext.get();
+            Overlays overlays = this.ref.get();
+            Context context = this.refContext.get();
             if (context != null && overlays != null) {
                 if (overlays.mCompileDialog != null) overlays.mCompileDialog.dismiss();
 
@@ -1243,10 +1243,10 @@ enum OverlayFunctions {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            Overlays overlays = ref.get();
+            Overlays overlays = this.ref.get();
             if (overlays != null) {
                 Activity activity = overlays.getActivity();
-                Context context = refContext.get();
+                Context context = this.refContext.get();
 
                 if (!overlays.has_failed || overlays.final_runner.size() > overlays.fail_count) {
                     new StringBuilder();

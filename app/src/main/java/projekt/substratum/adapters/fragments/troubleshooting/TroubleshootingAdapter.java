@@ -42,12 +42,12 @@ public class TroubleshootingAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return tQues.length;
+        return this.tQues.length;
     }
 
     @Override
     public Object getItem(int i) {
-        return tQues[i];
+        return this.tQues[i];
     }
 
     @Override
@@ -57,7 +57,7 @@ public class TroubleshootingAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService
+        LayoutInflater inflater = (LayoutInflater) this.context.getSystemService
                 (Context.LAYOUT_INFLATER_SERVICE);
         View v = null;
         if (inflater != null) {
@@ -66,8 +66,8 @@ public class TroubleshootingAdapter extends BaseAdapter {
             TextView questionsTextView = v.findViewById(R.id.trouble_ques);
             TextView answersTextView = v.findViewById(R.id.trouble_ans);
 
-            String question = getStringFromResource(tQues[i]);
-            String answer = getStringFromResource(tAns[i]);
+            String question = getStringFromResource(this.tQues[i]);
+            String answer = getStringFromResource(this.tAns[i]);
 
             questionsTextView.setText(question);
             answersTextView.setText(answer);
@@ -76,6 +76,6 @@ public class TroubleshootingAdapter extends BaseAdapter {
     }
 
     private String getStringFromResource(int stringId) {
-        return context.getResources().getString(stringId);
+        return this.context.getResources().getString(stringId);
     }
 }

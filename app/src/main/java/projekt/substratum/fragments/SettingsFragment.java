@@ -99,12 +99,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
     @Override
     public void onCreatePreferences(Bundle bundle, String s) {
-        mContext = getContext();
+        this.mContext = getContext();
 
-        final boolean isSamsung = Systems.isSamsung(mContext);
-        final boolean isOMS = Systems.checkOMS(mContext);
-        final boolean hasThemeInterfacer = Systems.checkThemeInterfacer(mContext);
-        final boolean hasAndromeda = Systems.checkAndromeda(mContext);
+        final boolean isSamsung = Systems.isSamsung(this.mContext);
+        final boolean isOMS = Systems.checkOMS(this.mContext);
+        final boolean hasThemeInterfacer = Systems.checkThemeInterfacer(this.mContext);
+        final boolean hasAndromeda = Systems.checkAndromeda(this.mContext);
 
         if (isOMS) {
             addPreferencesFromResource(R.xml.preference_fragment);
@@ -112,7 +112,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             addPreferencesFromResource(R.xml.legacy_preference_fragment);
         }
 
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
 
         StringBuilder sb = new StringBuilder();
 
@@ -123,7 +123,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             sb.append(" - " + BuildConfig.GIT_HASH);
         }
         aboutSubstratum.setSummary(sb.toString());
-        aboutSubstratum.setIcon(mContext.getDrawable(R.mipmap.main_launcher));
+        aboutSubstratum.setIcon(this.mContext.getDrawable(R.mipmap.main_launcher));
         aboutSubstratum.setOnPreferenceClickListener(
                 preference -> {
                     try {
@@ -145,7 +145,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     return false;
                 });
 
-        systemPlatform = getPreferenceManager().findPreference("system_platform");
+        this.systemPlatform = getPreferenceManager().findPreference("system_platform");
 
         if (isOMS) {
             new checkROMSupportList(this).execute(
@@ -153,23 +153,23 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     "supported_roms.xml");
         }
 
-        platformSummary = new StringBuilder();
-        platformSummary.append(String.format("%s %s (%s)\n", getString(R.string.android),
+        this.platformSummary = new StringBuilder();
+        this.platformSummary.append(String.format("%s %s (%s)\n", getString(R.string.android),
                 Systems.getProp("ro.build.version.release"), Build.ID));
-        platformSummary.append(String.format("%s %s (%s)\n",
+        this.platformSummary.append(String.format("%s %s (%s)\n",
                 getString(R.string.device), Build.MODEL, Build.DEVICE));
-        platformSummary.append(String.format("%s ", getString(R.string
+        this.platformSummary.append(String.format("%s ", getString(R.string
                 .settings_about_oms_rro_version)));
-        platformSummary.append((isOMS ?
+        this.platformSummary.append((isOMS ?
                 (Systems.checkOreo() ? getString(R.string.settings_about_oms_version_do) :
                         getString(R.string.settings_about_oms_version_7)) :
                 getString(R.string.settings_about_rro_version_2)));
-        systemPlatform.setSummary(platformSummary);
-        systemPlatform.setIcon(Packages.getAppIcon(mContext, "com.android.systemui"));
+        this.systemPlatform.setSummary(this.platformSummary);
+        this.systemPlatform.setIcon(Packages.getAppIcon(this.mContext, "com.android.systemui"));
 
         Preference systemStatus = getPreferenceManager().findPreference("system_status");
         boolean full_oms = isOMS &&
-                Systems.checkSubstratumFeature(mContext);
+                Systems.checkSubstratumFeature(this.mContext);
         boolean interfacer = hasThemeInterfacer &&
                 !isSamsung;
         boolean verified = prefs.getBoolean("complexion", true);
@@ -193,13 +193,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 getString(R.string.settings_system_status_uncertified)) + ")"
         );
         systemStatus.setIcon(certified ?
-                mContext.getDrawable(R.drawable.system_status_certified)
-                : mContext.getDrawable(R.drawable.system_status_uncertified));
+                this.mContext.getDrawable(R.drawable.system_status_certified)
+                : this.mContext.getDrawable(R.drawable.system_status_uncertified));
         if (BuildConfig.DEBUG &&
                 isOMS &&
                 !hasAndromeda) {
             systemStatus.setOnPreferenceClickListener(preference -> {
-                if (References.isNetworkAvailable(mContext)) {
+                if (References.isNetworkAvailable(this.mContext)) {
                     new downloadRepositoryList(this).execute("");
                 } else if (getView() != null) {
                     Lunchbar.make(getView(),
@@ -217,9 +217,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         if (isSamsung) {
             aboutSamsung.setVisible(true);
-            aboutSamsung.setIcon(Packages.getAppIcon(mContext, SST_ADDON_PACKAGE));
+            aboutSamsung.setIcon(Packages.getAppIcon(this.mContext, SST_ADDON_PACKAGE));
             try {
-                PackageInfo info = mContext.getPackageManager()
+                PackageInfo info = this.mContext.getPackageManager()
                         .getPackageInfo(SST_ADDON_PACKAGE, 0);
                 String versionName = info.versionName;
                 int versionCode = info.versionCode;
@@ -240,7 +240,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         boolean isChecked = (Boolean) newValue;
                         if (isChecked) {
                             final AlertDialog.Builder builder =
-                                    new AlertDialog.Builder(mContext);
+                                    new AlertDialog.Builder(this.mContext);
                             builder.setTitle(
                                     R.string.settings_samsung_show_dangerous_overlays_warning_title);
                             builder.setMessage(
@@ -280,14 +280,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     boolean isChecked = (Boolean) newValue;
                     if (isChecked) {
                         forceEnglish.setChecked(true);
-                        Toast.makeText(mContext,
+                        Toast.makeText(this.mContext,
                                 getString(R.string.settings_force_english_toast_success),
                                 Toast.LENGTH_SHORT).show();
                         prefs.edit().putBoolean("force_english", true).apply();
                         getActivity().recreate();
                     } else {
                         forceEnglish.setChecked(false);
-                        Toast.makeText(mContext,
+                        Toast.makeText(this.mContext,
                                 getString(R.string.settings_force_english_toast_reverted),
                                 Toast.LENGTH_SHORT).show();
                         prefs.edit().putBoolean("force_english", false).apply();
@@ -309,14 +309,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     if (isChecked) {
                         prefs.edit().putBoolean("alternate_drawer_design", true).apply();
                         alternate_drawer_design.setChecked(true);
-                        Toast.makeText(mContext,
+                        Toast.makeText(this.mContext,
                                 getString(R.string.substratum_restart_toast),
                                 Toast.LENGTH_SHORT).show();
                         getActivity().recreate();
                     } else {
                         prefs.edit().putBoolean("alternate_drawer_design", false).apply();
                         alternate_drawer_design.setChecked(false);
-                        Toast.makeText(mContext,
+                        Toast.makeText(this.mContext,
                                 getString(R.string.substratum_restart_toast),
                                 Toast.LENGTH_SHORT).show();
                         getActivity().recreate();
@@ -352,7 +352,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             vibrate_on_compiled.setVisible(false);
             manage_notifications.setOnPreferenceClickListener(preference -> {
                 Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
-                intent.putExtra(Settings.EXTRA_APP_PACKAGE, mContext.getPackageName());
+                intent.putExtra(Settings.EXTRA_APP_PACKAGE, this.mContext.getPackageName());
                 startActivity(intent);
                 return false;
             });
@@ -409,10 +409,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         grid_style_cards_count.setSummary(toFormat);
         grid_style_cards_count.setOnPreferenceClickListener(
                 preference -> {
-                    AlertDialog.Builder d = new AlertDialog.Builder(mContext);
+                    AlertDialog.Builder d = new AlertDialog.Builder(this.mContext);
                     d.setTitle(getString(R.string.grid_size_title));
 
-                    NumberPicker numberPicker = new NumberPicker(mContext);
+                    NumberPicker numberPicker = new NumberPicker(this.mContext);
                     // Maximum overlay priority count
                     numberPicker.setMaxValue(References.MAX_GRID_COUNT);
                     // Minimum overlay priority count
@@ -466,8 +466,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             aoptSwitcher.setOnPreferenceClickListener(
                     preference -> {
                         SheetDialog sheetDialog =
-                                new SheetDialog(mContext);
-                        View sheetView = View.inflate(mContext,
+                                new SheetDialog(this.mContext);
+                        View sheetView = View.inflate(this.mContext,
                                 R.layout.aopt_sheet_dialog, null);
 
                         LinearLayout aapt = sheetView.findViewById(R.id.aapt);
@@ -477,7 +477,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             prefs.edit().putString("compiler", "aapt").apply();
                             prefs.edit().putBoolean("aopt_debug", false).apply();
                             aoptSwitcher.setSummary(R.string.settings_aapt);
-                            CheckBinaries.install(mContext, true);
+                            CheckBinaries.install(this.mContext, true);
                             sheetDialog.hide();
                         });
                         aopt.setOnClickListener(v -> {
@@ -485,7 +485,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             prefs.edit().putString("compiler", "aopt").apply();
                             prefs.edit().putBoolean("aopt_debug", true).apply();
                             aoptSwitcher.setSummary(R.string.settings_aopt);
-                            CheckBinaries.install(mContext, true);
+                            CheckBinaries.install(this.mContext, true);
                             sheetDialog.hide();
                         });
                         sheetDialog.setContentView(sheetView);
@@ -499,7 +499,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     boolean isChecked = (Boolean) newValue;
                     if (!isChecked) {
                         final AlertDialog.Builder builder =
-                                new AlertDialog.Builder(mContext);
+                                new AlertDialog.Builder(this.mContext);
                         builder.setTitle(R.string.theme_safety_dialog_title);
                         builder.setMessage(R.string.theme_safety_dialog_content);
                         builder.setNegativeButton(R.string.dialog_cancel,
@@ -517,7 +517,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     }
                     return false;
                 });
-                if (!Systems.checkSubstratumFeature(mContext)) {
+                if (!Systems.checkSubstratumFeature(this.mContext)) {
                     crashReceiver.setVisible(false);
                 }
             }
@@ -556,7 +556,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         autosave_logchar.setChecked(true);
                     } else {
                         final AlertDialog.Builder builder = new AlertDialog.Builder
-                                (mContext);
+                                (this.mContext);
                         builder.setTitle(R.string.logchar_dialog_title_delete_title);
                         builder.setMessage(R.string.logchar_dialog_title_delete_content);
                         builder.setNegativeButton(R.string.dialog_cancel,
@@ -564,7 +564,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         builder.setPositiveButton(R.string.break_compilation_dialog_continue,
                                 (dialog, id) -> {
                                     prefs.edit().putBoolean("autosave_logchar", false).apply();
-                                    delete(mContext,
+                                    delete(this.mContext,
                                             new File(Environment.getExternalStorageDirectory() +
                                                     File.separator + "substratum" + File.separator +
                                                     "LogCharReports").getAbsolutePath());
@@ -608,10 +608,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             priority_switcher.setSummary(formatted);
             priority_switcher.setOnPreferenceClickListener(
                     preference -> {
-                        AlertDialog.Builder d = new AlertDialog.Builder(mContext);
+                        AlertDialog.Builder d = new AlertDialog.Builder(this.mContext);
                         d.setTitle(getString(R.string.legacy_preference_priority_title));
 
-                        NumberPicker numberPicker = new NumberPicker(mContext);
+                        NumberPicker numberPicker = new NumberPicker(this.mContext);
                         // Maximum overlay priority count
                         numberPicker.setMaxValue(MAX_PRIORITY);
                         // Minimum overlay priority count
@@ -643,10 +643,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         // Finally, these functions will only work on OMS ROMs
         if (isOMS) {
             Preference aboutAndromeda = getPreferenceManager().findPreference("about_andromeda");
-            if (Systems.isAndromedaDevice(mContext)) {
-                aboutAndromeda.setIcon(Packages.getAppIcon(mContext, ANDROMEDA_PACKAGE));
+            if (Systems.isAndromedaDevice(this.mContext)) {
+                aboutAndromeda.setIcon(Packages.getAppIcon(this.mContext, ANDROMEDA_PACKAGE));
                 try {
-                    PackageInfo info = mContext.getPackageManager()
+                    PackageInfo info = this.mContext.getPackageManager()
                             .getPackageInfo(ANDROMEDA_PACKAGE, 0);
                     String versionName = info.versionName;
                     int versionCode = info.versionCode;
@@ -663,7 +663,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
 
             Preference aboutInterfacer = getPreferenceManager().findPreference("about_interfacer");
-            aboutInterfacer.setIcon(Packages.getAppIcon(mContext, INTERFACER_PACKAGE));
+            aboutInterfacer.setIcon(Packages.getAppIcon(this.mContext, INTERFACER_PACKAGE));
             aboutInterfacer.setOnPreferenceClickListener(
                     preference -> {
                         try {
@@ -685,7 +685,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         return false;
                     });
             try {
-                PackageInfo pInfo = Systems.getThemeInterfacerPackage(mContext);
+                PackageInfo pInfo = Systems.getThemeInterfacerPackage(this.mContext);
                 assert pInfo != null;
                 String versionName = pInfo.versionName;
                 int versionCode = pInfo.versionCode;
@@ -694,7 +694,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 // Suppress exception
             }
 
-            if (!Systems.checkSubstratumFeature(mContext)) {
+            if (!Systems.checkSubstratumFeature(this.mContext)) {
                 aboutInterfacer.setVisible(false);
             }
 
@@ -706,7 +706,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             } else {
                 hide_app_checkbox.setChecked(false);
             }
-            if (validateResource(mContext,
+            if (validateResource(this.mContext,
                     References.settingsPackageName,
                     References.settingsSubstratumDrawableName,
                     "drawable")) {
@@ -718,8 +718,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         boolean isChecked = (Boolean) newValue;
                         if (isChecked) {
                             prefs.edit().putBoolean("show_app_icon", true).apply();
-                            PackageManager p = mContext.getPackageManager();
-                            ComponentName componentName = new ComponentName(mContext,
+                            PackageManager p = this.mContext.getPackageManager();
+                            ComponentName componentName = new ComponentName(this.mContext,
                                     LauncherActivity.class);
                             p.setComponentEnabledSetting(
                                     componentName,
@@ -734,8 +734,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             hide_app_checkbox.setChecked(true);
                         } else {
                             prefs.edit().putBoolean("show_app_icon", false).apply();
-                            PackageManager p = mContext.getPackageManager();
-                            ComponentName componentName = new ComponentName(mContext,
+                            PackageManager p = this.mContext.getPackageManager();
+                            ComponentName componentName = new ComponentName(this.mContext,
                                     LauncherActivity.class);
                             p.setComponentEnabledSetting(componentName,
                                     PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
@@ -792,7 +792,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             } else {
                 restartSystemUI.setChecked(false);
             }
-            if (Systems.isAndromedaDevice(mContext)) {
+            if (Systems.isAndromedaDevice(this.mContext)) {
                 restartSystemUI.setVisible(false);
             }
             restartSystemUI.setOnPreferenceChangeListener(
@@ -803,7 +803,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             restartSystemUI.setChecked(true);
                         } else {
                             final AlertDialog.Builder builder = new AlertDialog.Builder
-                                    (mContext);
+                                    (this.mContext);
                             builder.setTitle(R.string.auto_reload_sysui_dialog_title);
                             builder.setMessage(R.string.auto_reload_sysui_dialog_text);
                             builder.setNegativeButton(R.string.dialog_cancel,
@@ -854,7 +854,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         boolean isChecked = (Boolean) newValue;
                         if (isChecked) {
                             final AlertDialog.Builder builder = new AlertDialog.Builder
-                                    (mContext);
+                                    (this.mContext);
                             builder.setTitle(R.string.settings_theme_auto_updater_dialog_title);
                             builder.setMessage(R.string.settings_theme_auto_updater_dialog_text);
                             builder.setNegativeButton(R.string.dialog_cancel,
@@ -881,7 +881,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         boolean isChecked = (Boolean) newValue;
                         if (isChecked) {
                             final AlertDialog.Builder builder = new AlertDialog.Builder
-                                    (mContext);
+                                    (this.mContext);
                             builder.setTitle(R.string.break_compilation_dialog_title);
                             builder.setMessage(R.string.break_compilation_dialog_content);
                             builder.setNegativeButton(R.string.dialog_cancel,
@@ -903,7 +903,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             final Preference restartInterfacer = getPreferenceManager()
                     .findPreference("force_stop_interfacer");
             restartInterfacer.setOnPreferenceClickListener(preference -> {
-                ThemeManager.forceStopService(mContext);
+                ThemeManager.forceStopService(this.mContext);
                 if (getView() != null) {
                     Lunchbar.make(getView(),
                             R.string.settings_force_stop_interfacer_snackbar,
@@ -913,7 +913,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 return false;
             });
             try {
-                Context interfacerContext = mContext.createPackageContext(INTERFACER_PACKAGE,
+                Context interfacerContext = this.mContext.createPackageContext(INTERFACER_PACKAGE,
                         Context.CONTEXT_IGNORE_SECURITY | Context.CONTEXT_INCLUDE_CODE);
                 ClassLoader interfacerClassLoader = interfacerContext.getClassLoader();
                 Class<?> cls = Class.forName(INTERFACER_SERVICE, true, interfacerClassLoader);
@@ -931,14 +931,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         checkROMSupportList(SettingsFragment settingsFragment) {
             super();
-            ref = new WeakReference<>(settingsFragment);
+            this.ref = new WeakReference<>(settingsFragment);
         }
 
         @SuppressWarnings("ConstantConditions")
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            SettingsFragment settingsFragment = ref.get();
+            SettingsFragment settingsFragment = this.ref.get();
             if (settingsFragment == null) return;
             try {
                 if (!Systems.checkThemeInterfacer(settingsFragment.mContext)) {
@@ -980,7 +980,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            SettingsFragment settingsFragment = ref.get();
+            SettingsFragment settingsFragment = this.ref.get();
             if (settingsFragment != null) {
                 return Systems.checkFirmwareSupport(settingsFragment.mContext, sUrl[0], sUrl[1]);
             }
@@ -995,13 +995,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
         downloadRepositoryList(SettingsFragment settingsFragment) {
             super();
-            ref = new WeakReference<>(settingsFragment);
+            this.ref = new WeakReference<>(settingsFragment);
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            SettingsFragment settingsFragment = ref.get();
+            SettingsFragment settingsFragment = this.ref.get();
             if (settingsFragment != null) {
                 settingsFragment.dialog = new Dialog(settingsFragment.getActivity());
                 settingsFragment.dialog.setContentView(R.layout.validator_dialog);
@@ -1013,7 +1013,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         @Override
         protected void onPostExecute(ArrayList<String> result) {
             super.onPostExecute(result);
-            SettingsFragment settingsFragment = ref.get();
+            SettingsFragment settingsFragment = this.ref.get();
             if (settingsFragment != null) {
                 Collection<String> erroredPackages = new ArrayList<>();
                 for (int x = 0; x < settingsFragment.errors.size(); x++) {
@@ -1069,7 +1069,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         @Override
         protected ArrayList<String> doInBackground(String... sUrl) {
             // First, we have to download the repository list into the cache
-            SettingsFragment settingsFragment = ref.get();
+            SettingsFragment settingsFragment = this.ref.get();
             ArrayList<String> packages = new ArrayList<>();
             if (settingsFragment != null) {
                 FileDownloader.init(

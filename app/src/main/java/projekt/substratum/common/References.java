@@ -620,8 +620,8 @@ public enum References {
 
         @Override
         protected Void doInBackground(Void... sUrl) {
-            prefs.edit().putBoolean("complexion",
-                    !spreadYourWingsAndFly(context) && hashPassthrough(context) != 0).apply();
+            this.prefs.edit().putBoolean("complexion",
+                    !spreadYourWingsAndFly(this.context) && hashPassthrough(this.context) != 0).apply();
             return null;
         }
     }

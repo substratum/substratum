@@ -79,24 +79,24 @@ public class ScheduledProfileService extends JobService {
 
     @Override
     public boolean onStartJob(JobParameters params) {
-        context = this;
-        jobParameters = params;
-        prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        mNotifyManager =
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        mBuilder = new NotificationCompat.Builder(context, References
+        this.context = this;
+        this.jobParameters = params;
+        this.prefs = PreferenceManager.getDefaultSharedPreferences(this.context);
+        this.mNotifyManager =
+                (NotificationManager) this.context.getSystemService(Context.NOTIFICATION_SERVICE);
+        this.mBuilder = new NotificationCompat.Builder(this.context, References
                 .DEFAULT_NOTIFICATION_CHANNEL_ID);
-        extra = params.getExtras().getString(SCHEDULED_PROFILE_TYPE_EXTRA);
+        this.extra = params.getExtras().getString(SCHEDULED_PROFILE_TYPE_EXTRA);
 
-        if (extra != null && !extra.isEmpty()) {
+        if (this.extra != null && !this.extra.isEmpty()) {
             new ApplyProfile(this).execute();
             return true;
         } else {
-            mBuilder.setContentTitle(getString(R.string.scheduled_night_profile))
+            this.mBuilder.setContentTitle(getString(R.string.scheduled_night_profile))
                     .setSmallIcon(R.drawable.ic_substratum)
                     .setPriority(Notification.PRIORITY_DEFAULT)
                     .setContentText(getString(R.string.profile_failed_notification));
-            mNotifyManager.notify(NOTIFICATION_ID, mBuilder.build());
+            this.mNotifyManager.notify(NOTIFICATION_ID, this.mBuilder.build());
             return false;
         }
     }
@@ -111,12 +111,12 @@ public class ScheduledProfileService extends JobService {
 
         ApplyProfile(ScheduledProfileService service) {
             super();
-            ref = new WeakReference<>(service);
+            this.ref = new WeakReference<>(service);
         }
 
         @Override
         protected void onPreExecute() {
-            ScheduledProfileService service = ref.get();
+            ScheduledProfileService service = this.ref.get();
 
             if (service != null) {
                 // Make sure binder service is alive
@@ -151,7 +151,7 @@ public class ScheduledProfileService extends JobService {
 
         @Override
         protected Void doInBackground(Void... params) {
-            ScheduledProfileService service = ref.get();
+            ScheduledProfileService service = this.ref.get();
             if (service != null) {
                 Context context = service.context;
                 SharedPreferences prefs = service.prefs;
@@ -275,7 +275,7 @@ public class ScheduledProfileService extends JobService {
 
         @Override
         protected void onPostExecute(Void params) {
-            ScheduledProfileService service = ref.get();
+            ScheduledProfileService service = this.ref.get();
             if (service != null) {
                 Context context = service.context;
                 SharedPreferences prefs = service.prefs;

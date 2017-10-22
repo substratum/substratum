@@ -147,9 +147,9 @@ public class OverlayUpdater extends BroadcastReceiver {
             @Override
             public void run() {
                 Log.d(TAG, "Waiting for encryption key handshake approval...");
-                if (securityIntent != null) {
+                if (OverlayUpdate.this.securityIntent != null) {
                     Log.d(TAG, "Encryption key handshake approved!");
-                    handler.removeCallbacks(runnable);
+                    OverlayUpdate.this.handler.removeCallbacks(OverlayUpdate.this.runnable);
                 } else {
                     Log.d(TAG, "Encryption key still null...");
                     try {
@@ -157,7 +157,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    handler.postDelayed(this, 100);
+                    OverlayUpdate.this.handler.postDelayed(this, 100);
                 }
             }
         };
@@ -172,159 +172,159 @@ public class OverlayUpdater extends BroadcastReceiver {
 
         @Override
         protected void onPreExecute() {
-            switch (upgrade_mode) {
+            switch (this.upgrade_mode) {
                 case APP_UPGRADE:
-                    installed_overlays = ThemeManager.listOverlaysForTarget(context, package_name);
+                    this.installed_overlays = ThemeManager.listOverlaysForTarget(this.context, this.package_name);
                     break;
                 case THEME_UPGRADE:
-                    installed_overlays = ThemeManager.listOverlaysByTheme(context, package_name);
+                    this.installed_overlays = ThemeManager.listOverlaysByTheme(this.context, this.package_name);
                     break;
             }
-            if (upgrade_mode != null && !"".equals(upgrade_mode) && installed_overlays.size() > 0) {
-                errored_packages = new ArrayList<>();
-                mNotifyManager = (NotificationManager) context.getSystemService(
+            if (this.upgrade_mode != null && !"".equals(this.upgrade_mode) && this.installed_overlays.size() > 0) {
+                this.errored_packages = new ArrayList<>();
+                this.mNotifyManager = (NotificationManager) this.context.getSystemService(
                         Context.NOTIFICATION_SERVICE);
-                mBuilder = new NotificationCompat.Builder(context, DEFAULT_NOTIFICATION_CHANNEL_ID);
+                this.mBuilder = new NotificationCompat.Builder(this.context, DEFAULT_NOTIFICATION_CHANNEL_ID);
                 String format = String.format(
-                        context.getString(R.string.notification_initial_title_upgrade_intent),
-                        Packages.getPackageName(context, package_name));
-                mBuilder.setContentTitle(format)
+                        this.context.getString(R.string.notification_initial_title_upgrade_intent),
+                        Packages.getPackageName(this.context, this.package_name));
+                this.mBuilder.setContentTitle(format)
                         .setProgress(100, 0, true)
                         .setLargeIcon(Packages.getBitmapFromVector(
                                 Packages.getAppIcon(
-                                        context,
-                                        package_name)))
+                                        this.context,
+                                        this.package_name)))
                         .setSmallIcon(android.R.drawable.ic_popup_sync)
-                        .setPriority(notification_priority)
+                        .setPriority(this.notification_priority)
                         .setOngoing(true);
-                mNotifyManager.notify(id, mBuilder.build());
+                this.mNotifyManager.notify(this.id, this.mBuilder.build());
 
-                localBroadcastManager = LocalBroadcastManager.getInstance(context);
+                this.localBroadcastManager = LocalBroadcastManager.getInstance(this.context);
 
             }
         }
 
         @Override
         protected void onPostExecute(String result) {
-            if (installed_overlays.size() > 0) {
-                mNotifyManager.cancel(id);
-                mBuilder.setAutoCancel(true);
-                mBuilder.setProgress(0, 0, false);
-                mBuilder.setOngoing(false);
-                mBuilder.setLargeIcon(Packages.getBitmapFromVector(
+            if (this.installed_overlays.size() > 0) {
+                this.mNotifyManager.cancel(this.id);
+                this.mBuilder.setAutoCancel(true);
+                this.mBuilder.setProgress(0, 0, false);
+                this.mBuilder.setOngoing(false);
+                this.mBuilder.setLargeIcon(Packages.getBitmapFromVector(
                         Packages.getAppIcon(
-                                context,
-                                package_name)));
+                                this.context,
+                                this.package_name)));
 
-                if (errored_packages.size() > 0) {
-                    mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
+                if (this.errored_packages.size() > 0) {
+                    this.mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
                     String format = String.format(
-                            context.getString(R.string.notification_done_upgrade_title_warning),
-                            Packages.getPackageName(context, package_name));
-                    mBuilder.setContentTitle(format);
+                            this.context.getString(R.string.notification_done_upgrade_title_warning),
+                            Packages.getPackageName(this.context, this.package_name));
+                    this.mBuilder.setContentTitle(format);
 
                     StringBuilder stringBuilder = new StringBuilder();
-                    for (int i = 0; i < errored_packages.size(); i++) {
-                        stringBuilder.append(errored_packages.get(i));
-                        if ((errored_packages.size() - 1) > i) {
+                    for (int i = 0; i < this.errored_packages.size(); i++) {
+                        stringBuilder.append(this.errored_packages.get(i));
+                        if ((this.errored_packages.size() - 1) > i) {
                             stringBuilder.append("\n");
                         }
                     }
                     String format2 = String.format(
-                            context.getString(R.string.notification_done_upgrade_title_failed),
+                            this.context.getString(R.string.notification_done_upgrade_title_failed),
                             stringBuilder.toString());
-                    mBuilder.setContentText(format2);
+                    this.mBuilder.setContentText(format2);
                     Intent intent = new Intent("Updater.LOGS");
-                    intent.putExtra("error_logs", error_logs.toString());
-                    PendingIntent pintent = PendingIntent.getActivity(context, 0,
+                    intent.putExtra("error_logs", this.error_logs.toString());
+                    PendingIntent pintent = PendingIntent.getActivity(this.context, 0,
                             intent, PendingIntent.FLAG_ONE_SHOT);
-                    mBuilder.setContentIntent(pintent);
+                    this.mBuilder.setContentIntent(pintent);
                 } else {
-                    mBuilder.setSmallIcon(R.drawable.notification_success_icon);
+                    this.mBuilder.setSmallIcon(R.drawable.notification_success_icon);
                     String format = String.format(
-                            context.getString(R.string.notification_done_upgrade_title),
-                            Packages.getPackageName(context, package_name));
-                    mBuilder.setContentTitle(format);
-                    switch (upgrade_mode) {
+                            this.context.getString(R.string.notification_done_upgrade_title),
+                            Packages.getPackageName(this.context, this.package_name));
+                    this.mBuilder.setContentTitle(format);
+                    switch (this.upgrade_mode) {
                         case APP_UPGRADE:
-                            mBuilder.setContentText(
-                                    context.getString(R.string.notification_done_update_text));
+                            this.mBuilder.setContentText(
+                                    this.context.getString(R.string.notification_done_update_text));
                             break;
                         case THEME_UPGRADE:
-                            mBuilder.setContentText(
-                                    context.getString(R.string.notification_done_upgrade_text));
+                            this.mBuilder.setContentText(
+                                    this.context.getString(R.string.notification_done_upgrade_text));
                             break;
                     }
                 }
-                errored_packages = new ArrayList<>();
-                upgrade_mode = "";
-                mNotifyManager.notify(id, mBuilder.build());
+                this.errored_packages = new ArrayList<>();
+                this.upgrade_mode = "";
+                this.mNotifyManager.notify(this.id, this.mBuilder.build());
             }
         }
 
         @SuppressWarnings("ConstantConditions")
         @Override
         protected String doInBackground(String... sUrl) {
-            if (installed_overlays.size() > 0) {
-                Log.d(TAG, "'" + package_name +
+            if (this.installed_overlays.size() > 0) {
+                Log.d(TAG, "'" + this.package_name +
                         "' was just updated with overlays present, updating...");
-                for (int i = 0; i < installed_overlays.size(); i++) {
-                    Log.d(TAG, "Current overlay found in stash: " + installed_overlays.get(i));
+                for (int i = 0; i < this.installed_overlays.size(); i++) {
+                    Log.d(TAG, "Current overlay found in stash: " + this.installed_overlays.get(i));
 
-                    mBuilder.setProgress(100, (int) (((double) (i + 1) /
-                            installed_overlays.size()) * 100), false);
+                    this.mBuilder.setProgress(100, (int) (((double) (i + 1) /
+                            this.installed_overlays.size()) * 100), false);
 
-                    switch (upgrade_mode) {
+                    switch (this.upgrade_mode) {
                         case APP_UPGRADE:
-                            mBuilder.setContentText(
-                                    Packages.getPackageName(context, package_name) + " (" +
+                            this.mBuilder.setContentText(
+                                    Packages.getPackageName(this.context, this.package_name) + " (" +
                                             Packages.getPackageName(
-                                                    context,
+                                                    this.context,
                                                     Packages.getOverlayParent(
-                                                            context,
-                                                            installed_overlays.get(i))
+                                                            this.context,
+                                                            this.installed_overlays.get(i))
                                             ) + ")");
                             break;
                         case THEME_UPGRADE:
-                            mBuilder.setContentText(
-                                    Packages.getPackageName(context,
+                            this.mBuilder.setContentText(
+                                    Packages.getPackageName(this.context,
                                             Packages.getOverlayTarget(
-                                                    context,
-                                                    installed_overlays.get(i))));
-                            mBuilder.setLargeIcon(
+                                                    this.context,
+                                                    this.installed_overlays.get(i))));
+                            this.mBuilder.setLargeIcon(
                                     Packages.getBitmapFromVector(
                                             Packages.getAppIcon(
-                                                    context,
+                                                    this.context,
                                                     Packages.getOverlayTarget(
-                                                            context,
-                                                            installed_overlays.get(i)))));
+                                                            this.context,
+                                                            this.installed_overlays.get(i)))));
                             break;
                     }
-                    mNotifyManager.notify(id, mBuilder.build());
+                    this.mNotifyManager.notify(this.id, this.mBuilder.build());
 
-                    String theme = Packages.getOverlayMetadata(context,
-                            installed_overlays.get(i), metadataOverlayParent);
+                    String theme = Packages.getOverlayMetadata(this.context,
+                            this.installed_overlays.get(i), metadataOverlayParent);
 
                     Boolean encrypted = false;
                     String encrypt_check =
-                            Packages.getOverlayMetadata(context, theme, metadataEncryption);
+                            Packages.getOverlayMetadata(this.context, theme, metadataEncryption);
 
                     if (encrypt_check != null && encrypt_check.equals(metadataEncryptionValue)) {
                         Log.d(TAG, "This overlay for " +
-                                Packages.getPackageName(context, theme) +
+                                Packages.getPackageName(this.context, theme) +
                                 " is encrypted, passing handshake to the theme package...");
                         encrypted = true;
 
-                        Theming.getThemeKeys(context, theme);
+                        Theming.getThemeKeys(this.context, theme);
 
-                        keyRetrieval = new KeyRetrieval();
-                        localBroadcastManager.registerReceiver(keyRetrieval,
+                        this.keyRetrieval = new KeyRetrieval();
+                        this.localBroadcastManager.registerReceiver(this.keyRetrieval,
                                 new IntentFilter(KEY_RETRIEVAL));
 
 
                         int counter = 0;
-                        handler.postDelayed(runnable, 100);
-                        while (securityIntent == null && counter < 5) {
+                        this.handler.postDelayed(this.runnable, 100);
+                        while (this.securityIntent == null && counter < 5) {
                             try {
                                 Thread.sleep(500);
                             } catch (InterruptedException e) {
@@ -337,15 +337,15 @@ public class OverlayUpdater extends BroadcastReceiver {
                             return null;
                         }
 
-                        if (securityIntent != null) {
+                        if (this.securityIntent != null) {
                             try {
                                 byte[] encryption_key =
-                                        securityIntent.getByteArrayExtra("encryption_key");
+                                        this.securityIntent.getByteArrayExtra("encryption_key");
                                 byte[] iv_encrypt_key =
-                                        securityIntent.getByteArrayExtra("iv_encrypt_key");
+                                        this.securityIntent.getByteArrayExtra("iv_encrypt_key");
 
-                                cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-                                cipher.init(
+                                this.cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+                                this.cipher.init(
                                         Cipher.DECRYPT_MODE,
                                         new SecretKeySpec(encryption_key, "AES"),
                                         new IvParameterSpec(iv_encrypt_key)
@@ -360,7 +360,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                     AssetManager themeAssetManager;
                     Resources themeResources = null;
                     try {
-                        themeResources = context.getPackageManager()
+                        themeResources = this.context.getPackageManager()
                                 .getResourcesForApplication(theme);
                     } catch (PackageManager.NameNotFoundException e) {
                         e.printStackTrace();
@@ -369,20 +369,20 @@ public class OverlayUpdater extends BroadcastReceiver {
                     themeAssetManager = themeResources.getAssets();
 
                     String target = Packages.getOverlayMetadata(
-                            context, installed_overlays.get(i), metadataOverlayTarget);
+                            this.context, this.installed_overlays.get(i), metadataOverlayTarget);
 
                     String type1a = Packages.getOverlayMetadata(
-                            context, installed_overlays.get(i), metadataOverlayType1a);
+                            this.context, this.installed_overlays.get(i), metadataOverlayType1a);
                     String type1b = Packages.getOverlayMetadata(
-                            context, installed_overlays.get(i), metadataOverlayType1b);
+                            this.context, this.installed_overlays.get(i), metadataOverlayType1b);
                     String type1c = Packages.getOverlayMetadata(
-                            context, installed_overlays.get(i), metadataOverlayType1c);
+                            this.context, this.installed_overlays.get(i), metadataOverlayType1c);
                     String type2 = Packages.getOverlayMetadata(
-                            context, installed_overlays.get(i), metadataOverlayType2);
+                            this.context, this.installed_overlays.get(i), metadataOverlayType2);
                     String type3 = Packages.getOverlayMetadata(
-                            context, installed_overlays.get(i), metadataOverlayType3);
+                            this.context, this.installed_overlays.get(i), metadataOverlayType3);
                     String type4 = Packages.getOverlayMetadata(
-                            context, installed_overlays.get(i), metadataOverlayType4);
+                            this.context, this.installed_overlays.get(i), metadataOverlayType4);
 
                     if (type1a != null && type1a.contains("overlays/")) return null;
                     if (type1b != null && type1b.contains("overlays/")) return null;
@@ -408,36 +408,36 @@ public class OverlayUpdater extends BroadcastReceiver {
                     // Prenotions
                     String suffix = ((type3 != null && type3.length() != 0) ?
                             "/" + type3Dir : "/res");
-                    String workingDirectory = context.getCacheDir().getAbsolutePath() +
+                    String workingDirectory = this.context.getCacheDir().getAbsolutePath() +
                             SUBSTRATUM_BUILDER_CACHE.substring(0,
                                     SUBSTRATUM_BUILDER_CACHE.length() - 1);
                     File created = new File(workingDirectory);
                     if (created.exists()) {
-                        FileOperations.delete(context, created.getAbsolutePath());
-                        FileOperations.createNewFolder(context, created.getAbsolutePath());
+                        FileOperations.delete(this.context, created.getAbsolutePath());
+                        FileOperations.createNewFolder(this.context, created.getAbsolutePath());
                     } else {
-                        FileOperations.createNewFolder(context, created.getAbsolutePath());
+                        FileOperations.createNewFolder(this.context, created.getAbsolutePath());
                     }
 
                     // Handle the resource folder
                     String listDir = overlaysDir + "/" +
-                            (upgrade_mode.equals(APP_UPGRADE) ?
-                                    package_name :
-                                    Packages.getOverlayTarget(context, installed_overlays.get(i))
+                            (this.upgrade_mode.equals(APP_UPGRADE) ?
+                                    this.package_name :
+                                    Packages.getOverlayTarget(this.context, this.installed_overlays.get(i))
                             ) + suffix;
                     FileOperations.copyFileOrDir(
                             themeAssetManager,
                             listDir,
                             workingDirectory + suffix,
                             listDir,
-                            (encrypted ? cipher : null));
+                            (encrypted ? this.cipher : null));
                     if (type2 != null && type2.length() > 0) {
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
                                 listDir,
                                 workingDirectory + "/type2_" + type2,
                                 listDir,
-                                (encrypted ? cipher : null));
+                                (encrypted ? this.cipher : null));
                     }
 
                     // Handle the types
@@ -447,7 +447,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                                 type1aDir,
                                 workingDirectory + suffix + "/values/type1a.xml",
                                 type1aDir,
-                                (encrypted ? cipher : null));
+                                (encrypted ? this.cipher : null));
                     }
                     if (type1b != null && type1b.length() > 0) {
                         FileOperations.copyFileOrDir(
@@ -455,7 +455,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                                 type1bDir,
                                 workingDirectory + suffix + "/values/type1b.xml",
                                 type1bDir,
-                                (encrypted ? cipher : null));
+                                (encrypted ? this.cipher : null));
                     }
                     if (type1c != null && type1c.length() > 0) {
                         FileOperations.copyFileOrDir(
@@ -463,7 +463,7 @@ public class OverlayUpdater extends BroadcastReceiver {
                                 type1cDir,
                                 workingDirectory + suffix + "/values/type1c.xml",
                                 type1cDir,
-                                (encrypted ? cipher : null));
+                                (encrypted ? this.cipher : null));
                     }
 
                     if (type4 != null && type4.length() > 0) {
@@ -472,10 +472,10 @@ public class OverlayUpdater extends BroadcastReceiver {
                                 type4Dir,
                                 workingDirectory + "/assets",
                                 type1cDir,
-                                (encrypted ? cipher : null));
+                                (encrypted ? this.cipher : null));
                     }
 
-                    File workDir = new File(context.getCacheDir().getAbsolutePath() +
+                    File workDir = new File(this.context.getCacheDir().getAbsolutePath() +
                             SUBSTRATUM_BUILDER_CACHE);
                     if (!workDir.exists() && !workDir.mkdirs())
                         Log.e(TAG, "Could not make cache directory...");
@@ -496,19 +496,19 @@ public class OverlayUpdater extends BroadcastReceiver {
 
                     SubstratumBuilder sb = new SubstratumBuilder();
                     sb.beginAction(
-                            context,
-                            (upgrade_mode.equals(APP_UPGRADE) ?
-                                    package_name :
+                            this.context,
+                            (this.upgrade_mode.equals(APP_UPGRADE) ?
+                                    this.package_name :
                                     Packages.getOverlayTarget(
-                                            context,
-                                            installed_overlays.get(i))),
-                            Packages.getPackageName(context, theme),
+                                            this.context,
+                                            this.installed_overlays.get(i))),
+                            Packages.getPackageName(this.context, theme),
                             packageName,
                             additional_variant,
                             base_variant,
-                            Packages.getAppVersion(context,
-                                    Packages.getOverlayParent(context, installed_overlays.get(i))),
-                            Systems.checkOMS(context),
+                            Packages.getAppVersion(this.context,
+                                    Packages.getOverlayParent(this.context, this.installed_overlays.get(i))),
+                            Systems.checkOMS(this.context),
                             theme,
                             suffix,
                             type1a,
@@ -517,22 +517,22 @@ public class OverlayUpdater extends BroadcastReceiver {
                             type2,
                             type3,
                             type4,
-                            installed_overlays.get(i),
+                            this.installed_overlays.get(i),
                             true
                     );
                     if (sb.has_errored_out) {
-                        errored_packages.add(installed_overlays.get(i));
+                        this.errored_packages.add(this.installed_overlays.get(i));
                         if (sb.getErrorLogs() != null) {
-                            if (error_logs.length() == 0)
-                                error_logs.append(sb.getErrorLogs());
+                            if (this.error_logs.length() == 0)
+                                this.error_logs.append(sb.getErrorLogs());
                             else
-                                error_logs.append("\n").append(sb.getErrorLogs());
+                                this.error_logs.append("\n").append(sb.getErrorLogs());
                         }
                     }
 
                     if (encrypted) {
                         try {
-                            localBroadcastManager.unregisterReceiver(keyRetrieval);
+                            this.localBroadcastManager.unregisterReceiver(this.keyRetrieval);
                         } catch (IllegalArgumentException e) {
                             // Unregistered already
                         }
@@ -546,7 +546,7 @@ public class OverlayUpdater extends BroadcastReceiver {
 
             @Override
             public void onReceive(Context context, Intent intent) {
-                securityIntent = intent;
+                OverlayUpdate.this.securityIntent = intent;
             }
         }
     }

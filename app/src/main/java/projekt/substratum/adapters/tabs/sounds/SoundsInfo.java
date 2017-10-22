@@ -33,15 +33,15 @@ public class SoundsInfo {
     }
 
     public String getAbsolutePath() {
-        return absolute_path;
+        return this.absolute_path;
     }
 
     public Context getContext() {
-        return mContext;
+        return this.mContext;
     }
 
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     public void setTitle(String name) {

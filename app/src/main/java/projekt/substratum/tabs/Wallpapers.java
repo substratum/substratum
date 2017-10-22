@@ -57,41 +57,41 @@ public class Wallpapers extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
-        mContext = getContext();
-        wallpaperUrl = getArguments().getString("wallpaperUrl");
-        root = (ViewGroup) inflater.inflate(R.layout.tab_wallpapers, container, false);
-        materialProgressBar = root.findViewById(R.id.progress_bar_loader);
-        no_network = root.findViewById(R.id.no_network);
-        no_wallpapers = root.findViewById(R.id.none_found);
+        this.mContext = getContext();
+        this.wallpaperUrl = getArguments().getString("wallpaperUrl");
+        this.root = (ViewGroup) inflater.inflate(R.layout.tab_wallpapers, container, false);
+        this.materialProgressBar = this.root.findViewById(R.id.progress_bar_loader);
+        this.no_network = this.root.findViewById(R.id.no_network);
+        this.no_wallpapers = this.root.findViewById(R.id.none_found);
 
-        swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setOnRefreshListener(() -> {
+        this.swipeRefreshLayout = this.root.findViewById(R.id.swipeRefreshLayout);
+        this.swipeRefreshLayout.setOnRefreshListener(() -> {
             refreshLayout();
-            swipeRefreshLayout.setRefreshing(false);
+            this.swipeRefreshLayout.setRefreshing(false);
         });
         refreshLayout();
-        return root;
+        return this.root;
     }
 
     private void refreshLayout() {
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
-        mRecyclerView = root.findViewById(R.id.wallpaperRecyclerView);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        this.mRecyclerView = this.root.findViewById(R.id.wallpaperRecyclerView);
+        this.mRecyclerView.setHasFixedSize(true);
+        this.mRecyclerView.setLayoutManager(new LinearLayoutManager(this.mContext));
         ArrayList<WallpaperEntries> empty_array = new ArrayList<>();
         RecyclerView.Adapter empty_adapter = new WallpaperAdapter(empty_array);
-        mRecyclerView.setAdapter(empty_adapter);
-        no_wallpapers.setVisibility(View.GONE);
-        no_network.setVisibility(View.GONE);
+        this.mRecyclerView.setAdapter(empty_adapter);
+        this.no_wallpapers.setVisibility(View.GONE);
+        this.no_network.setVisibility(View.GONE);
 
-        if (References.isNetworkAvailable(mContext)) {
+        if (References.isNetworkAvailable(this.mContext)) {
             downloadResources downloadTask = new downloadResources(this);
-            downloadTask.execute(wallpaperUrl, "current_wallpapers.xml");
+            downloadTask.execute(this.wallpaperUrl, "current_wallpapers.xml");
         } else {
-            mRecyclerView.setVisibility(View.GONE);
-            materialProgressBar.setVisibility(View.GONE);
-            no_wallpapers.setVisibility(View.GONE);
-            no_network.setVisibility(View.VISIBLE);
+            this.mRecyclerView.setVisibility(View.GONE);
+            this.materialProgressBar.setVisibility(View.GONE);
+            this.no_wallpapers.setVisibility(View.GONE);
+            this.no_network.setVisibility(View.VISIBLE);
         }
 
     }
@@ -101,13 +101,13 @@ public class Wallpapers extends Fragment {
 
         downloadResources(Wallpapers wallpapers) {
             super();
-            ref = new WeakReference<>(wallpapers);
+            this.ref = new WeakReference<>(wallpapers);
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            Wallpapers wallpapers = ref.get();
+            Wallpapers wallpapers = this.ref.get();
             if (wallpapers != null) {
                 wallpapers.mRecyclerView.setVisibility(View.GONE);
                 wallpapers.materialProgressBar.setVisibility(View.VISIBLE);
@@ -117,7 +117,7 @@ public class Wallpapers extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            Wallpapers wallpapers = ref.get();
+            Wallpapers wallpapers = this.ref.get();
             if (wallpapers != null) {
                 try {
                     String[] checkerCommands = {
@@ -158,7 +158,7 @@ public class Wallpapers extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            Wallpapers wallpapers = ref.get();
+            Wallpapers wallpapers = this.ref.get();
             if (wallpapers != null) {
                 FileDownloader.init(wallpapers.mContext, sUrl[0], "", sUrl[1]);
             }

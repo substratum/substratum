@@ -33,7 +33,7 @@ public class ShowcaseItem {
     private String themeSupport;
 
     public Context getContext() {
-        return mContext;
+        return this.mContext;
     }
 
     public void setContext(Context mContext) {
@@ -41,7 +41,7 @@ public class ShowcaseItem {
     }
 
     CharSequence getThemeAuthor() {
-        return themeAuthor;
+        return this.themeAuthor;
     }
 
     public void setThemeAuthor(String themeAuthor) {
@@ -49,7 +49,7 @@ public class ShowcaseItem {
     }
 
     String getThemePricing() {
-        return themePricing;
+        return this.themePricing;
     }
 
     public void setThemePricing(String themePricing) {
@@ -57,7 +57,7 @@ public class ShowcaseItem {
     }
 
     public CharSequence getThemeName() {
-        return themeName;
+        return this.themeName;
     }
 
     public void setThemeName(String themeName) {
@@ -65,7 +65,7 @@ public class ShowcaseItem {
     }
 
     String getThemePackage() {
-        return themePackage;
+        return this.themePackage;
     }
 
     public void setThemePackage(String themePackage) {
@@ -73,7 +73,7 @@ public class ShowcaseItem {
     }
 
     String getThemeLink() {
-        return themeLink;
+        return this.themeLink;
     }
 
     public void setThemeLink(String themeLink) {
@@ -81,7 +81,7 @@ public class ShowcaseItem {
     }
 
     String getThemeIcon() {
-        return themeIcon;
+        return this.themeIcon;
     }
 
     public void setThemeIcon(String themeIcon) {
@@ -89,7 +89,7 @@ public class ShowcaseItem {
     }
 
     String getThemeBackgroundImage() {
-        return themeBackgroundImage;
+        return this.themeBackgroundImage;
     }
 
     public void setThemeBackgroundImage(String themeBackgroundImage) {
@@ -97,7 +97,7 @@ public class ShowcaseItem {
     }
 
     String getThemeSupport() {
-        return themeSupport;
+        return this.themeSupport;
     }
 
     public void setThemeSupport(String themeSupport) {

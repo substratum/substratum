@@ -85,9 +85,9 @@ public class ThemeLaunchActivity extends Activity {
         int intent_id = (int) ThreadLocalRandom.current().nextLong(0, 9999);
 
         Intent activityExtras = getIntent();
-        package_name = activityExtras.getStringExtra("package_name");
+        this.package_name = activityExtras.getStringExtra("package_name");
         Boolean omsCheck = activityExtras.getBooleanExtra("oms_check", false);
-        theme_mode = activityExtras.getStringExtra("theme_mode");
+        this.theme_mode = activityExtras.getStringExtra("theme_mode");
         Integer hash_passthrough = activityExtras.getIntExtra("hash_passthrough", 0);
         Boolean certified = activityExtras.getBooleanExtra("certified", true);
         String action = activityExtras.getAction();
@@ -97,10 +97,10 @@ public class ThemeLaunchActivity extends Activity {
         myIntent.putExtra("certified", certified);
         myIntent.putExtra("hash_passthrough", hash_passthrough);
         myIntent.putExtra("theme_legacy", omsCheck);
-        myIntent.putExtra("theme_mode", theme_mode);
+        myIntent.putExtra("theme_mode", this.theme_mode);
         myIntent.setAction(action);
         myIntent.setPackage(packageName);
-        myIntent.setClassName(package_name, package_name + ".SubstratumLauncher");
+        myIntent.setClassName(this.package_name, this.package_name + ".SubstratumLauncher");
 
         try {
             assert action != null;
@@ -108,7 +108,7 @@ public class ThemeLaunchActivity extends Activity {
                     (action.equals(References.TEMPLATE_GET_KEYS) ? 10000 : intent_id));
         } catch (Exception e) {
             try {
-                legacyTheme = true;
+                this.legacyTheme = true;
                 startActivityForResult(myIntent,
                         (action.equals(References.TEMPLATE_GET_KEYS) ? 10000 : intent_id));
             } catch (Exception e2) {
@@ -152,14 +152,14 @@ public class ThemeLaunchActivity extends Activity {
                                 Systems.checkOMS(getApplicationContext())
                         ));
             }
-        } else if (legacyTheme && requestCode != 10000) {
+        } else if (this.legacyTheme && requestCode != 10000) {
             startActivity(
                     launchThemeActivity(
                             getApplicationContext(),
-                            Packages.getPackageName(getApplicationContext(), package_name),
+                            Packages.getPackageName(getApplicationContext(), this.package_name),
                             null,
-                            package_name,
-                            theme_mode,
+                            this.package_name,
+                            this.theme_mode,
                             null,
                             null,
                             null,
@@ -169,7 +169,7 @@ public class ThemeLaunchActivity extends Activity {
                             Systems.checkOMS(getApplicationContext())
                     ));
         }
-        legacyTheme = false;
+        this.legacyTheme = false;
         finish();
     }
 }

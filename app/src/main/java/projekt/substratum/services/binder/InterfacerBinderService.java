@@ -49,11 +49,11 @@ public class InterfacerBinderService extends Service implements ServiceConnectio
     }
 
     public IInterfacerInterface getInterfacerInterface() {
-        return interfacerInterface;
+        return this.interfacerInterface;
     }
 
     public void bindInterfacer() {
-        if (Systems.isBinderInterfacer(this) && !mBound) {
+        if (Systems.isBinderInterfacer(this) && !this.mBound) {
             Intent intent = new Intent(INTERFACER_BINDED);
             intent.setPackage(INTERFACER_PACKAGE);
             bindService(intent, this, Context.BIND_AUTO_CREATE);
@@ -79,7 +79,7 @@ public class InterfacerBinderService extends Service implements ServiceConnectio
 
     @Override
     public void onDestroy() {
-        interfacerInterface = null;
+        this.interfacerInterface = null;
     }
 
     @Nullable
@@ -90,15 +90,15 @@ public class InterfacerBinderService extends Service implements ServiceConnectio
 
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
-        interfacerInterface = IInterfacerInterface.Stub.asInterface(service);
-        mBound = true;
+        this.interfacerInterface = IInterfacerInterface.Stub.asInterface(service);
+        this.mBound = true;
         Log.d(TAG, "Substratum has successfully binded with the Interfacer module.");
     }
 
     @Override
     public void onServiceDisconnected(ComponentName name) {
-        interfacerInterface = null;
-        mBound = false;
+        this.interfacerInterface = null;
+        this.mBound = false;
         Log.d(TAG, "Substratum has successfully unbinded with the Interfacer module.");
     }
 }

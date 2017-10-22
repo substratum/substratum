@@ -72,7 +72,7 @@ public class SubstratumCrash extends Activity {
                 new Timer().scheduleAtFixedRate(new TimerTask() {
                     @Override
                     public void run() {
-                        if (shouldPulsate) {
+                        if (SubstratumCrash.this.shouldPulsate) {
                             runOnUiThread(() ->
                                     rescueMeButton.getBackground().setColorFilter(
                                             getColor(R.color.do_not_theme_this_color_button_pulse),
@@ -83,7 +83,7 @@ public class SubstratumCrash extends Activity {
                                             getColor(R.color.do_not_theme_this_color_buttons),
                                             PorterDuff.Mode.SRC_ATOP));
                         }
-                        shouldPulsate = !shouldPulsate;
+                        SubstratumCrash.this.shouldPulsate = !SubstratumCrash.this.shouldPulsate;
                     }
                 }, 0, 400);
             }

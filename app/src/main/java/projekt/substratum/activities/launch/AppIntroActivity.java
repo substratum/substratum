@@ -41,12 +41,12 @@ public class AppIntroActivity extends SubstratumActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        if (prefs.getBoolean("first_run", true) && !isLowEnd()) {
-            welcomeScreen = new WelcomeHelper(this, AppIntro.class);
-            welcomeScreen.show(savedInstanceState);
-        } else if (prefs.getBoolean("first_run", true) && isLowEnd()) {
-            prefs.edit().putBoolean("first_run", false).apply();
+        this.prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if (this.prefs.getBoolean("first_run", true) && !isLowEnd()) {
+            this.welcomeScreen = new WelcomeHelper(this, AppIntro.class);
+            this.welcomeScreen.show(savedInstanceState);
+        } else if (this.prefs.getBoolean("first_run", true) && isLowEnd()) {
+            this.prefs.edit().putBoolean("first_run", false).apply();
             References.loadDefaultConfig(getApplicationContext());
             startActivity(new Intent(this, MainActivity.class));
             finish();
@@ -62,7 +62,7 @@ public class AppIntroActivity extends SubstratumActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == WelcomeHelper.DEFAULT_WELCOME_SCREEN_REQUEST &&
                 resultCode == RESULT_OK) {
-            prefs.edit().putBoolean("first_run", false).apply();
+            this.prefs.edit().putBoolean("first_run", false).apply();
             References.loadDefaultConfig(getApplicationContext());
             startActivity(new Intent(this, MainActivity.class));
             finish();
@@ -72,6 +72,6 @@ public class AppIntroActivity extends SubstratumActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        welcomeScreen.onSaveInstanceState(outState);
+        this.welcomeScreen.onSaveInstanceState(outState);
     }
 }

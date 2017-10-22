@@ -49,7 +49,7 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int pos) {
-        ValidatorInfo validatorInfo = information.get(pos);
+        ValidatorInfo validatorInfo = this.information.get(pos);
         Context context = validatorInfo.getContext();
         String packageName = validatorInfo.getPackageName();
 
@@ -125,7 +125,7 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
 
     @Override
     public int getItemCount() {
-        return information.size();
+        return this.information.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -137,11 +137,11 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
 
         ViewHolder(View view) {
             super(view);
-            cardView = view.findViewById(R.id.pack_card);
-            packIcon = view.findViewById(R.id.pack_icon);
-            verificationIcon = view.findViewById(R.id.verification);
-            packName = view.findViewById(R.id.pack_name);
-            verificationText = view.findViewById(R.id.verification_text);
+            this.cardView = view.findViewById(R.id.pack_card);
+            this.packIcon = view.findViewById(R.id.pack_icon);
+            this.verificationIcon = view.findViewById(R.id.verification);
+            this.packName = view.findViewById(R.id.pack_name);
+            this.verificationText = view.findViewById(R.id.verification_text);
         }
     }
 }

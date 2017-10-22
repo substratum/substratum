@@ -132,8 +132,8 @@ public class ProfileFragment extends Fragment {
     }
 
     public void RefreshSpinner() {
-        list.clear();
-        list.add(getResources().getString(R.string.spinner_default_item));
+        this.list.clear();
+        this.list.add(getResources().getString(R.string.spinner_default_item));
 
         // Now lets add all the located profiles
         File f = new File(
@@ -143,11 +143,11 @@ public class ProfileFragment extends Fragment {
         if (files != null) {
             for (File inFile : files) {
                 if (inFile.isDirectory()) {
-                    list.add(inFile.getName());
+                    this.list.add(inFile.getName());
                 }
             }
         }
-        adapter.notifyDataSetChanged();
+        this.adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -160,10 +160,10 @@ public class ProfileFragment extends Fragment {
 
         this.mContext = getContext();
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
 
-        headerProgress = root.findViewById(R.id.header_loading_bar);
-        headerProgress.setVisibility(View.GONE);
+        this.headerProgress = root.findViewById(R.id.header_loading_bar);
+        this.headerProgress.setVisibility(View.GONE);
 
         // Create a user viewable directory for profiles
         File directory = new File(
@@ -178,13 +178,13 @@ public class ProfileFragment extends Fragment {
         }
 
         // Handle Backups
-        backup_name = root.findViewById(R.id.edittext);
+        this.backup_name = root.findViewById(R.id.edittext);
 
         // Restrict whitespace for profile name
         InputFilter filter = (source, start, end, dest, dstart, dend) -> {
             for (int i = start; i < end; i++) {
                 if (Character.isWhitespace(source.charAt(i))) {
-                    Toast.makeText(mContext,
+                    Toast.makeText(this.mContext,
                             R.string.profile_edittext_whitespace_warning_toast,
                             Toast.LENGTH_LONG)
                             .show();
@@ -193,13 +193,13 @@ public class ProfileFragment extends Fragment {
             }
             return null;
         };
-        backup_name.setFilters(new InputFilter[]{filter});
-        backup_name.setOnFocusChangeListener((v, hasFocus) -> {
+        this.backup_name.setFilters(new InputFilter[]{filter});
+        this.backup_name.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
                 InputMethodManager imm = (InputMethodManager)
                         getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 if (imm != null) {
-                    imm.hideSoftInputFromWindow(backup_name.getWindowToken(),
+                    imm.hideSoftInputFromWindow(this.backup_name.getWindowToken(),
                             InputMethodManager.RESULT_UNCHANGED_SHOWN);
                 }
             }
@@ -207,10 +207,10 @@ public class ProfileFragment extends Fragment {
 
         final Button backupButton = root.findViewById(R.id.backupButton);
         backupButton.setOnClickListener(v -> {
-            if (backup_name.getText().length() > 0) {
-                selectedBackup = new ArrayList<>();
+            if (this.backup_name.getText().length() > 0) {
+                this.selectedBackup = new ArrayList<>();
                 CharSequence[] items;
-                if (Systems.checkOMS(mContext) ||
+                if (Systems.checkOMS(this.mContext) ||
                         projekt.substratum.common.Resources.isFontsSupported()) {
                     items = new CharSequence[]{
                             getString(R.string.profile_boot_animation),
@@ -226,14 +226,14 @@ public class ProfileFragment extends Fragment {
                             getString(R.string.profile_wallpaper)};
                 }
 
-                AlertDialog dialog = new AlertDialog.Builder(mContext)
+                AlertDialog dialog = new AlertDialog.Builder(this.mContext)
                         .setTitle(R.string.profile_dialog_title)
                         .setMultiChoiceItems(items, null, (dialog1, which, isChecked) -> {
                             if (isChecked) {
                                 if (items[which].equals(getString(R.string.profile_boot_animation))
-                                        && Systems.getDeviceEncryptionStatus(mContext) > 1
-                                        && Systems.checkThemeInterfacer(mContext)) {
-                                    AlertDialog dialog2 = new AlertDialog.Builder(mContext)
+                                        && Systems.getDeviceEncryptionStatus(this.mContext) > 1
+                                        && Systems.checkThemeInterfacer(this.mContext)) {
+                                    AlertDialog dialog2 = new AlertDialog.Builder(this.mContext)
                                             .setTitle(R.string.root_required_title)
                                             .setMessage(R.string
                                                     .root_required_boot_animation_profile)
@@ -241,9 +241,9 @@ public class ProfileFragment extends Fragment {
                                             .create();
                                     dialog2.show();
                                 }
-                                selectedBackup.add(items[which]);
-                            } else if (selectedBackup.contains(items[which])) {
-                                selectedBackup.remove(items[which]);
+                                this.selectedBackup.add(items[which]);
+                            } else if (this.selectedBackup.contains(items[which])) {
+                                this.selectedBackup.remove(items[which]);
                             }
                         })
                         .setPositiveButton(R.string.profile_dialog_ok, null)
@@ -252,15 +252,15 @@ public class ProfileFragment extends Fragment {
 
                 dialog.show();
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v1 -> {
-                    if (!selectedBackup.isEmpty()) {
-                        backup_getText = backup_name.getText().toString();
+                    if (!this.selectedBackup.isEmpty()) {
+                        this.backup_getText = this.backup_name.getText().toString();
                         BackupFunction backupFunction = new BackupFunction(this);
                         backupFunction.execute();
-                        Log.d(References.SUBSTRATUM_LOG, selectedBackup.toString());
+                        Log.d(References.SUBSTRATUM_LOG, this.selectedBackup.toString());
                         dialog.dismiss();
-                        backup_name.getText().clear();
+                        this.backup_name.getText().clear();
                     } else {
-                        Toast.makeText(mContext, R.string.profile_no_selection_warning,
+                        Toast.makeText(this.mContext, R.string.profile_no_selection_warning,
                                 Toast.LENGTH_LONG).show();
                     }
                 });
@@ -283,22 +283,22 @@ public class ProfileFragment extends Fragment {
 
         // Handle Restores
 
-        profile_selector = root.findViewById(R.id.restore_spinner);
+        this.profile_selector = root.findViewById(R.id.restore_spinner);
 
-        list = new ArrayList<>();
-        adapter = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, list);
+        this.list = new ArrayList<>();
+        this.adapter = new ArrayAdapter<>(this.mContext, android.R.layout.simple_spinner_item, this.list);
         RefreshSpinner();
 
         // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        profile_selector.setAdapter(adapter);
+        this.adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        this.profile_selector.setAdapter(this.adapter);
 
         ImageButton imageButton = root.findViewById(R.id.remove_profile);
         imageButton.setOnClickListener(v -> {
-            if (profile_selector.getSelectedItemPosition() > 0) {
+            if (this.profile_selector.getSelectedItemPosition() > 0) {
                 String formatted = String.format(getString(R.string.delete_dialog_text),
-                        profile_selector.getSelectedItem());
-                new AlertDialog.Builder(mContext)
+                        this.profile_selector.getSelectedItem());
+                new AlertDialog.Builder(this.mContext)
                         .setTitle(getString(R.string.delete_dialog_title))
                         .setMessage(formatted)
                         .setCancelable(false)
@@ -306,18 +306,18 @@ public class ProfileFragment extends Fragment {
                                 (dialog, which) -> {
                                     File f1 = new File(Environment
                                             .getExternalStorageDirectory().getAbsolutePath()
-                                            + "/substratum/profiles/" + profile_selector
+                                            + "/substratum/profiles/" + this.profile_selector
                                             .getSelectedItem() + "" +
                                             ".substratum");
                                     boolean deleted = f1.delete();
                                     if (!deleted)
                                         Log.e(References.SUBSTRATUM_LOG,
                                                 "Could not delete profile directory.");
-                                    FileOperations.delete(mContext,
+                                    FileOperations.delete(this.mContext,
                                             Environment.getExternalStorageDirectory()
                                                     .getAbsolutePath() +
                                                     "/substratum/profiles/" +
-                                                    profile_selector.getSelectedItem());
+                                                    this.profile_selector.getSelectedItem());
                                     RefreshSpinner();
                                 })
                         .setNegativeButton(getString(R.string.dialog_cancel),
@@ -336,9 +336,9 @@ public class ProfileFragment extends Fragment {
 
         final Button restoreButton = root.findViewById(R.id.restoreButton);
         restoreButton.setOnClickListener(v -> {
-            if (profile_selector.getSelectedItemPosition() > 0) {
+            if (this.profile_selector.getSelectedItemPosition() > 0) {
                 RestoreFunction restoreFunction = new RestoreFunction(this);
-                restoreFunction.execute(profile_selector.getSelectedItem().toString());
+                restoreFunction.execute(this.profile_selector.getSelectedItem().toString());
             } else {
                 if (getView() != null) {
                     Lunchbar.make(getView(),
@@ -350,7 +350,7 @@ public class ProfileFragment extends Fragment {
         });
 
         final CardView scheduledProfileCard = root.findViewById(R.id.cardListView3);
-        if (Systems.checkOMS(mContext) && Systems.checkThemeInterfacer(getContext
+        if (Systems.checkOMS(this.mContext) && Systems.checkThemeInterfacer(getContext
                 ())) {
             final ExpandableLayout scheduledProfileLayout = root.findViewById(
                     R.id.scheduled_profile_card_content_container);
@@ -361,7 +361,7 @@ public class ProfileFragment extends Fragment {
                 } else {
                     scheduledProfileLayout.collapse();
                 }
-                dayNightEnabled = b;
+                this.dayNightEnabled = b;
             });
 
             final FragmentManager fm = getActivity().getSupportFragmentManager();
@@ -389,10 +389,10 @@ public class ProfileFragment extends Fragment {
                 timePickerFragment.show(fm, "TimePicker");
             });
 
-            dayProfile = root.findViewById(R.id.day_spinner);
-            dayProfile.setAdapter(adapter);
-            nightProfile = root.findViewById(R.id.night_spinner);
-            nightProfile.setAdapter(adapter);
+            this.dayProfile = root.findViewById(R.id.day_spinner);
+            this.dayProfile.setAdapter(this.adapter);
+            this.nightProfile = root.findViewById(R.id.night_spinner);
+            this.nightProfile.setAdapter(this.adapter);
 
             if (prefs.getBoolean(SCHEDULED_PROFILE_ENABLED, false)) {
                 String day = prefs.getString(DAY_PROFILE, getResources()
@@ -403,29 +403,29 @@ public class ProfileFragment extends Fragment {
                 dayMinute = prefs.getInt(DAY_PROFILE_MINUTE, 0);
                 nightHour = prefs.getInt(NIGHT_PROFILE_HOUR, 0);
                 nightMinute = prefs.getInt(NIGHT_PROFILE_MINUTE, 0);
-                dayNightEnabled = true;
+                this.dayNightEnabled = true;
 
                 scheduledProfileLayout.expand(false);
                 dayNightSwitch.setChecked(true);
                 startTime.setText(References.parseTime(getActivity(), nightHour, nightMinute));
                 endTime.setText(References.parseTime(getActivity(), dayHour, dayMinute));
-                dayProfile.setSelection(adapter.getPosition(day));
-                nightProfile.setSelection(adapter.getPosition(night));
+                this.dayProfile.setSelection(this.adapter.getPosition(day));
+                this.nightProfile.setSelection(this.adapter.getPosition(night));
             }
 
             final Button applyScheduledProfileButton = root.findViewById(
                     R.id.apply_schedule_button);
             applyScheduledProfileButton.setOnClickListener(view -> {
-                if (dayNightEnabled) {
-                    if (dayProfile.getSelectedItemPosition() > 0 &&
-                            nightProfile.getSelectedItemPosition() > 0) {
+                if (this.dayNightEnabled) {
+                    if (this.dayProfile.getSelectedItemPosition() > 0 &&
+                            this.nightProfile.getSelectedItemPosition() > 0) {
                         if (!startTime.getText().equals(getResources()
                                 .getString(R.string.start_time)) && !endTime.getText()
                                 .equals(getResources().getString(R.string.end_time))) {
                             if (dayHour != nightHour || dayMinute != nightMinute) {
                                 ProfileManager.enableScheduledProfile(getActivity(),
-                                        dayProfile.getSelectedItem().toString(), dayHour, dayMinute,
-                                        nightProfile.getSelectedItem().toString(), nightHour,
+                                        this.dayProfile.getSelectedItem().toString(), dayHour, dayMinute,
+                                        this.nightProfile.getSelectedItem().toString(), nightHour,
                                         nightMinute);
                                 if (getView() != null) {
                                     Lunchbar.make(getView(),
@@ -474,7 +474,7 @@ public class ProfileFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         try {
-            mContext.getApplicationContext().unregisterReceiver(finishReceiver);
+            this.mContext.getApplicationContext().unregisterReceiver(this.finishReceiver);
         } catch (IllegalArgumentException e) {
             // Unregistered already
         }
@@ -486,12 +486,12 @@ public class ProfileFragment extends Fragment {
 
         BackupFunction(ProfileFragment profileFragment) {
             super();
-            ref = new WeakReference<>(profileFragment);
+            this.ref = new WeakReference<>(profileFragment);
         }
 
         @Override
         protected void onPreExecute() {
-            ProfileFragment profileFragment = ref.get();
+            ProfileFragment profileFragment = this.ref.get();
             if (profileFragment != null) {
                 profileFragment.headerProgress.setVisibility(View.VISIBLE);
             }
@@ -500,7 +500,7 @@ public class ProfileFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            ProfileFragment profileFragment = ref.get();
+            ProfileFragment profileFragment = this.ref.get();
             if (profileFragment != null) {
                 profileFragment.headerProgress.setVisibility(View.GONE);
                 if (Systems.checkOMS(profileFragment.mContext)) {
@@ -530,7 +530,7 @@ public class ProfileFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            ProfileFragment profileFragment = ref.get();
+            ProfileFragment profileFragment = this.ref.get();
             if (profileFragment != null) {
                 String uid =
                         Environment.getExternalStorageDirectory().getAbsolutePath().split("/")[3];
@@ -738,12 +738,12 @@ public class ProfileFragment extends Fragment {
 
         RestoreFunction(ProfileFragment profileFragment) {
             super();
-            ref = new WeakReference<>(profileFragment);
+            this.ref = new WeakReference<>(profileFragment);
         }
 
         @Override
         protected void onPreExecute() {
-            ProfileFragment profileFragment = ref.get();
+            ProfileFragment profileFragment = this.ref.get();
             if (profileFragment != null) {
                 profileFragment.headerProgress.setVisibility(View.VISIBLE);
             }
@@ -752,7 +752,7 @@ public class ProfileFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            ProfileFragment profileFragment = ref.get();
+            ProfileFragment profileFragment = this.ref.get();
             if (profileFragment != null) {
                 if (Systems.checkOMS(profileFragment.mContext)) {
                     if (profileFragment.cannot_run_overlays.size() > 0) {
@@ -769,9 +769,9 @@ public class ProfileFragment extends Fragment {
                                             // enable)
                                             new ContinueRestore(
                                                     profileFragment,
-                                                    profile_name,
+                                                    this.profile_name,
                                                     profileFragment.cannot_run_overlays,
-                                                    to_be_run)
+                                                    this.to_be_run)
                                                     .execute();
                                         })
                                 .setNegativeButton(
@@ -782,7 +782,7 @@ public class ProfileFragment extends Fragment {
                                 .create().show();
                     } else {
                         // Continue restore process (enable)
-                        new ContinueRestore(profileFragment, profile_name, to_be_run).execute();
+                        new ContinueRestore(profileFragment, this.profile_name, this.to_be_run).execute();
                     }
                 } else {
                     String current_directory;
@@ -910,24 +910,24 @@ public class ProfileFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            ProfileFragment profileFragment = ref.get();
+            ProfileFragment profileFragment = this.ref.get();
             if (profileFragment != null) {
                 if (Systems.checkOMS(profileFragment.mContext)) {  // RRO doesn't need this
-                    profile_name = sUrl[0];
+                    this.profile_name = sUrl[0];
                     profileFragment.cannot_run_overlays = new ArrayList<>();
                     profileFragment.dialog_message = new StringBuilder();
                     profileFragment.to_be_run_commands = "";
 
                     File overlays = new File(
                             Environment.getExternalStorageDirectory().getAbsolutePath()
-                                    + "/substratum/profiles/" + profile_name + "/overlay_state" +
+                                    + "/substratum/profiles/" + this.profile_name + "/overlay_state" +
                                     ".xml");
 
                     if (overlays.exists()) {
                         List<List<String>> profile =
                                 ProfileManager.readProfileStatePackageWithTargetPackage(
-                                        profile_name, STATE_ENABLED);
-                        system = ThemeManager.listAllOverlays(profileFragment.mContext);
+                                        this.profile_name, STATE_ENABLED);
+                        this.system = ThemeManager.listAllOverlays(profileFragment.mContext);
 
                         // Now process the overlays to be enabled
                         for (int i = 0, size = profile.size(); i < size; i++) {
@@ -935,8 +935,8 @@ public class ProfileFragment extends Fragment {
                             String targetPackage = profile.get(i).get(1);
                             if (Packages.isPackageInstalled(profileFragment.mContext,
                                     targetPackage)) {
-                                if (system.contains(packageName)) {
-                                    to_be_run.add(packageName);
+                                if (this.system.contains(packageName)) {
+                                    this.to_be_run.add(packageName);
                                 } else {
                                     profileFragment.cannot_run_overlays.add(profile.get(i));
                                 }
@@ -1006,18 +1006,18 @@ public class ProfileFragment extends Fragment {
         private final Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG, "Waiting for encryption key handshake approval...");
-                if (securityIntent != null) {
-                    Log.d(TAG, "Encryption key handshake approved!");
-                    handler.removeCallbacks(runnable);
+                Log.d(ContinueRestore.this.TAG, "Waiting for encryption key handshake approval...");
+                if (ContinueRestore.this.securityIntent != null) {
+                    Log.d(ContinueRestore.this.TAG, "Encryption key handshake approved!");
+                    ContinueRestore.this.handler.removeCallbacks(ContinueRestore.this.runnable);
                 } else {
-                    Log.d(TAG, "Encryption key still null...");
+                    Log.d(ContinueRestore.this.TAG, "Encryption key still null...");
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    handler.postDelayed(this, 100);
+                    ContinueRestore.this.handler.postDelayed(this, 100);
                 }
             }
         };
@@ -1049,21 +1049,21 @@ public class ProfileFragment extends Fragment {
 
         @Override
         protected void onPreExecute() {
-            ProfileFragment profileFragment = ref.get();
+            ProfileFragment profileFragment = this.ref.get();
             if (profileFragment != null) {
-                progressDialog = new ProgressDialog(profileFragment.mContext);
-                progressDialog.setIndeterminate(true);
-                progressDialog.setCancelable(false);
-                progressDialog.setMessage(
+                this.progressDialog = new ProgressDialog(profileFragment.mContext);
+                this.progressDialog.setIndeterminate(true);
+                this.progressDialog.setCancelable(false);
+                this.progressDialog.setMessage(
                         profileFragment.getString(R.string.profile_restoration_message));
-                progressDialog.show();
-                if (progressDialog.getWindow() != null) progressDialog.getWindow().addFlags(
+                this.progressDialog.show();
+                if (this.progressDialog.getWindow() != null) this.progressDialog.getWindow().addFlags(
                         WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                 File directory = new File(EXTERNAL_STORAGE_CACHE);
                 if (!directory.exists()) {
                     FileOperations.createNewFolder(EXTERNAL_STORAGE_CACHE);
                 }
-                if (toBeCompiled != null) {
+                if (this.toBeCompiled != null) {
                     if (Systems.checkThemeInterfacer(profileFragment.mContext) &&
                             !Systems.isBinderInterfacer(profileFragment.mContext)) {
                         if (profileFragment.finishReceiver == null)
@@ -1078,20 +1078,20 @@ public class ProfileFragment extends Fragment {
 
         @Override
         protected void onProgressUpdate(String... progress) {
-            progressDialog.setMessage(progress[0]);
+            this.progressDialog.setMessage(progress[0]);
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            ProfileFragment profileFragment = ref.get();
+            ProfileFragment profileFragment = this.ref.get();
             if (profileFragment != null) {
-                if (toBeCompiled != null) {
+                if (this.toBeCompiled != null) {
                     Map<String, ProfileItem> items =
-                            ProfileManager.readProfileState(profileName, STATE_ENABLED);
+                            ProfileManager.readProfileState(this.profileName, STATE_ENABLED);
 
                     String prevTheme = "";
-                    for (int i = 0; i < toBeCompiled.size(); i++) {
-                        String compilePackage = toBeCompiled.get(i).get(0);
+                    for (int i = 0; i < this.toBeCompiled.size(); i++) {
+                        String compilePackage = this.toBeCompiled.get(i).get(0);
                         ProfileItem currentItem = items.get(compilePackage);
 
                         @SuppressLint("StringFormatMatches")
@@ -1103,7 +1103,7 @@ public class ProfileFragment extends Fragment {
                                 String format = String.format(
                                 profileFragment.getString(R.string.profile_compile_progress),
                                 i + 1,
-                                toBeCompiled.size(),
+                                this.toBeCompiled.size(),
                                 compilePackage);
                         publishProgress(format);
 
@@ -1118,22 +1118,22 @@ public class ProfileFragment extends Fragment {
                                 (metadataEncryptionValue) &&
                                 !theme.equals(prevTheme)) {
                             prevTheme = theme;
-                            Log.d(TAG, "This overlay for " +
+                            Log.d(this.TAG, "This overlay for " +
                                     Packages.getPackageName(profileFragment.mContext, theme) +
                                     " is encrypted, passing handshake to the theme package...");
                             encrypted = true;
 
                             Theming.getThemeKeys(profileFragment.mContext, theme);
 
-                            keyRetrieval = new KeyRetrieval();
+                            this.keyRetrieval = new KeyRetrieval();
                             IntentFilter if1 = new IntentFilter(KEY_RETRIEVAL);
-                            localBroadcastManager = LocalBroadcastManager.getInstance(
+                            this.localBroadcastManager = LocalBroadcastManager.getInstance(
                                     profileFragment.mContext);
-                            localBroadcastManager.registerReceiver(keyRetrieval, if1);
+                            this.localBroadcastManager.registerReceiver(this.keyRetrieval, if1);
 
                             int counter = 0;
-                            handler.postDelayed(runnable, 100);
-                            while (securityIntent == null && counter < 5) {
+                            this.handler.postDelayed(this.runnable, 100);
+                            while (this.securityIntent == null && counter < 5) {
                                 try {
                                     Thread.sleep(500);
                                 } catch (InterruptedException e) {
@@ -1142,19 +1142,19 @@ public class ProfileFragment extends Fragment {
                                 counter++;
                             }
                             if (counter > 5) {
-                                Log.e(TAG, "Could not receive handshake in time...");
+                                Log.e(this.TAG, "Could not receive handshake in time...");
                                 return null;
                             }
 
-                            if (securityIntent != null) {
+                            if (this.securityIntent != null) {
                                 try {
                                     byte[] encryption_key =
-                                            securityIntent.getByteArrayExtra("encryption_key");
+                                            this.securityIntent.getByteArrayExtra("encryption_key");
                                     byte[] iv_encrypt_key =
-                                            securityIntent.getByteArrayExtra("iv_encrypt_key");
+                                            this.securityIntent.getByteArrayExtra("iv_encrypt_key");
 
-                                    cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-                                    cipher.init(
+                                    this.cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+                                    this.cipher.init(
                                             Cipher.DECRYPT_MODE,
                                             new SecretKeySpec(encryption_key, "AES"),
                                             new IvParameterSpec(iv_encrypt_key)
@@ -1217,7 +1217,7 @@ public class ProfileFragment extends Fragment {
                                 listDir,
                                 workingDirectory + suffix,
                                 listDir,
-                                (encrypted ? cipher : null));
+                                (encrypted ? this.cipher : null));
 
                         // Handle the type1s
                         if (type1a.length() > 0) {
@@ -1226,7 +1226,7 @@ public class ProfileFragment extends Fragment {
                                     type1aDir,
                                     workingDirectory + suffix + "/values/type1a.xml",
                                     type1aDir,
-                                    (encrypted ? cipher : null));
+                                    (encrypted ? this.cipher : null));
                         }
                         if (type1b.length() > 0) {
                             FileOperations.copyFileOrDir(
@@ -1234,7 +1234,7 @@ public class ProfileFragment extends Fragment {
                                     type1bDir,
                                     workingDirectory + suffix + "/values/type1b.xml",
                                     type1bDir,
-                                    (encrypted ? cipher : null));
+                                    (encrypted ? this.cipher : null));
                         }
                         if (type1c.length() > 0) {
                             FileOperations.copyFileOrDir(
@@ -1242,7 +1242,7 @@ public class ProfileFragment extends Fragment {
                                     type1cDir,
                                     workingDirectory + suffix + "/values/type1c.xml",
                                     type1cDir,
-                                    (encrypted ? cipher : null));
+                                    (encrypted ? this.cipher : null));
                         }
 
                         SubstratumBuilder sb = new SubstratumBuilder();
@@ -1281,12 +1281,12 @@ public class ProfileFragment extends Fragment {
                         }
 
                         // Add current package to enable queue
-                        toBeRun.add(compilePackage);
+                        this.toBeRun.add(compilePackage);
                     }
                 }
 
                 publishProgress(profileFragment.getString(R.string.profile_compile_processing));
-                if (profileName != null && toBeRun != null) continueProcess();
+                if (this.profileName != null && this.toBeRun != null) continueProcess();
                 continueProcessWallpaper();
             }
             return null;
@@ -1294,10 +1294,10 @@ public class ProfileFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Void result) {
-            ProfileFragment profileFragment = ref.get();
+            ProfileFragment profileFragment = this.ref.get();
             if (profileFragment != null) {
                 try {
-                    progressDialog.dismiss();
+                    this.progressDialog.dismiss();
                     profileFragment.mContext.getApplicationContext().unregisterReceiver(
                             profileFragment.finishReceiver);
                 } catch (IllegalArgumentException e) {
@@ -1307,11 +1307,11 @@ public class ProfileFragment extends Fragment {
         }
 
         void continueProcess() {
-            ProfileFragment profileFragment = ref.get();
+            ProfileFragment profileFragment = this.ref.get();
             if (profileFragment != null) {
 
                 File theme = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +
-                        "/substratum/profiles/" + profileName + "/theme");
+                        "/substratum/profiles/" + this.profileName + "/theme");
 
                 // Encrypted devices boot Animation
                 File bootanimation = new File(theme, "bootanimation.zip");
@@ -1332,12 +1332,12 @@ public class ProfileFragment extends Fragment {
                                     profileFragment.mContext, STATE_ENABLED));
                     boolean shouldRestartUi = ThemeManager.shouldRestartUI(
                             profileFragment.mContext, toBeDisabled)
-                            || ThemeManager.shouldRestartUI(profileFragment.mContext, toBeRun);
+                            || ThemeManager.shouldRestartUI(profileFragment.mContext, this.toBeRun);
                     ThemeInterfacerService.applyProfile(
                             profileFragment.mContext,
-                            profileName,
+                            this.profileName,
                             toBeDisabled,
-                            toBeRun,
+                            this.toBeRun,
                             shouldRestartUi);
                 } else {
                     // Restore the whole backed up profile back to /data/system/theme/
@@ -1360,18 +1360,18 @@ public class ProfileFragment extends Fragment {
                     }
 
                     ThemeManager.disableAllThemeOverlays(profileFragment.mContext);
-                    ThemeManager.enableOverlay(profileFragment.mContext, toBeRun);
+                    ThemeManager.enableOverlay(profileFragment.mContext, this.toBeRun);
                 }
             }
         }
 
         void continueProcessWallpaper() {
-            ProfileFragment profileFragment = ref.get();
+            ProfileFragment profileFragment = this.ref.get();
             if (profileFragment != null) {
                 String homeWallPath = Environment.getExternalStorageDirectory().getAbsolutePath() +
-                        "/substratum/profiles/" + profileName + "/wallpaper.png";
+                        "/substratum/profiles/" + this.profileName + "/wallpaper.png";
                 String lockWallPath = Environment.getExternalStorageDirectory().getAbsolutePath() +
-                        "/substratum/profiles/" + profileName + "/wallpaper_lock.png";
+                        "/substratum/profiles/" + this.profileName + "/wallpaper_lock.png";
                 File homeWall = new File(homeWallPath);
                 File lockWall = new File(lockWallPath);
                 if (homeWall.exists() || lockWall.exists()) {
@@ -1390,7 +1390,7 @@ public class ProfileFragment extends Fragment {
         class KeyRetrieval extends BroadcastReceiver {
             @Override
             public void onReceive(Context context, Intent intent) {
-                securityIntent = intent;
+                ContinueRestore.this.securityIntent = intent;
             }
         }
     }
@@ -1401,7 +1401,7 @@ public class ProfileFragment extends Fragment {
 
         FinishReceiver(ProfileFragment profileFragment) {
             super();
-            ref = new WeakReference<>(profileFragment);
+            this.ref = new WeakReference<>(profileFragment);
         }
 
         @Override
@@ -1411,7 +1411,7 @@ public class ProfileFragment extends Fragment {
             String command = intent.getStringExtra(PRIMARY_COMMAND_KEY);
 
             if (command.equals(COMMAND_VALUE_JOB_COMPLETE)) {
-                ProfileFragment profileFragment = ref.get();
+                ProfileFragment profileFragment = this.ref.get();
                 if (profileFragment != null) {
                     profileFragment.isWaiting = false;
                 }

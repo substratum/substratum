@@ -173,12 +173,12 @@ public class Overlays extends Fragment {
 
     protected void logTypes() {
         if (ENABLE_PACKAGE_LOGGING) {
-            Log.d("Theme Type1a Resource", type1a);
-            Log.d("Theme Type1b Resource", type1b);
-            Log.d("Theme Type1c Resource", type1c);
-            Log.d("Theme Type2  Resource", type2);
-            Log.d("Theme Type3  Resource", type3);
-            Log.d("Theme Type4  Resource", type4);
+            Log.d("Theme Type1a Resource", this.type1a);
+            Log.d("Theme Type1b Resource", this.type1b);
+            Log.d("Theme Type1c Resource", this.type1c);
+            Log.d("Theme Type2  Resource", this.type2);
+            Log.d("Theme Type3  Resource", this.type3);
+            Log.d("Theme Type4  Resource", this.type4);
         }
     }
 
@@ -187,38 +187,38 @@ public class Overlays extends Fragment {
     }
 
     public void startCompileEnableMode() {
-        if (!is_overlay_active) {
-            is_overlay_active = true;
-            compile_enable_mode = true;
-            enable_mode = false;
-            disable_mode = false;
-            enable_disable_mode = false;
+        if (!this.is_overlay_active) {
+            this.is_overlay_active = true;
+            this.compile_enable_mode = true;
+            this.enable_mode = false;
+            this.disable_mode = false;
+            this.enable_disable_mode = false;
 
-            overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
-            checkedOverlays = new ArrayList<>();
+            this.overlaysLists = ((OverlaysAdapter) this.mAdapter).getOverlayList();
+            this.checkedOverlays = new ArrayList<>();
 
-            for (int i = 0; i < overlaysLists.size(); i++) {
-                OverlaysItem currentOverlay = overlaysLists.get(i);
+            for (int i = 0; i < this.overlaysLists.size(); i++) {
+                OverlaysItem currentOverlay = this.overlaysLists.get(i);
                 if (currentOverlay.isSelected()) {
-                    checkedOverlays.add(currentOverlay);
+                    this.checkedOverlays.add(currentOverlay);
                 }
             }
-            if (!checkedOverlays.isEmpty()) {
+            if (!this.checkedOverlays.isEmpty()) {
                 getThemeCache phase2 = new getThemeCache(this);
-                if (base_spinner.getSelectedItemPosition() != 0 &&
-                        base_spinner.getVisibility() == View.VISIBLE) {
-                    phase2.execute(base_spinner.getSelectedItem().toString());
+                if (this.base_spinner.getSelectedItemPosition() != 0 &&
+                        this.base_spinner.getVisibility() == View.VISIBLE) {
+                    phase2.execute(this.base_spinner.getSelectedItem().toString());
                 } else {
                     phase2.execute("");
                 }
-                for (OverlaysItem overlay : checkedOverlays) {
+                for (OverlaysItem overlay : this.checkedOverlays) {
                     Log.d("OverlayTargetPackageKiller", "Killing package : " + overlay
                             .getPackageName());
-                    am.killBackgroundProcesses(overlay.getPackageName());
+                    this.am.killBackgroundProcesses(overlay.getPackageName());
                 }
             } else {
-                if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                is_overlay_active = false;
+                if (this.toggle_all.isChecked()) this.toggle_all.setChecked(false);
+                this.is_overlay_active = false;
                 currentShownLunchBar = Lunchbar.make(
                         getActivityView(),
                         R.string.toast_disabled5,
@@ -229,36 +229,36 @@ public class Overlays extends Fragment {
     }
 
     public void startCompileUpdateMode() {
-        if (!is_overlay_active) {
-            is_overlay_active = true;
-            compile_enable_mode = false;
+        if (!this.is_overlay_active) {
+            this.is_overlay_active = true;
+            this.compile_enable_mode = false;
 
-            overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
-            checkedOverlays = new ArrayList<>();
+            this.overlaysLists = ((OverlaysAdapter) this.mAdapter).getOverlayList();
+            this.checkedOverlays = new ArrayList<>();
 
-            for (int i = 0; i < overlaysLists.size(); i++) {
-                OverlaysItem currentOverlay = overlaysLists.get(i);
+            for (int i = 0; i < this.overlaysLists.size(); i++) {
+                OverlaysItem currentOverlay = this.overlaysLists.get(i);
                 if (currentOverlay.isSelected()) {
-                    checkedOverlays.add(currentOverlay);
+                    this.checkedOverlays.add(currentOverlay);
                 }
             }
 
-            if (!checkedOverlays.isEmpty()) {
+            if (!this.checkedOverlays.isEmpty()) {
                 getThemeCache phase2 = new getThemeCache(this);
-                if (base_spinner.getSelectedItemPosition() != 0 &&
-                        base_spinner.getVisibility() == View.VISIBLE) {
-                    phase2.execute(base_spinner.getSelectedItem().toString());
+                if (this.base_spinner.getSelectedItemPosition() != 0 &&
+                        this.base_spinner.getVisibility() == View.VISIBLE) {
+                    phase2.execute(this.base_spinner.getSelectedItem().toString());
                 } else {
                     phase2.execute("");
                 }
-                for (OverlaysItem overlay : checkedOverlays) {
+                for (OverlaysItem overlay : this.checkedOverlays) {
                     Log.d("OverlayTargetPackageKiller", "Killing package : " + overlay
                             .getPackageName());
-                    am.killBackgroundProcesses(overlay.getPackageName());
+                    this.am.killBackgroundProcesses(overlay.getPackageName());
                 }
             } else {
-                if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                is_overlay_active = false;
+                if (this.toggle_all.isChecked()) this.toggle_all.setChecked(false);
+                this.is_overlay_active = false;
                 currentShownLunchBar = Lunchbar.make(
                         getActivityView(),
                         R.string.toast_disabled5,
@@ -269,43 +269,43 @@ public class Overlays extends Fragment {
     }
 
     public void startDisable() {
-        if (!is_overlay_active) {
-            is_overlay_active = true;
+        if (!this.is_overlay_active) {
+            this.is_overlay_active = true;
 
-            overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
-            checkedOverlays = new ArrayList<>();
+            this.overlaysLists = ((OverlaysAdapter) this.mAdapter).getOverlayList();
+            this.checkedOverlays = new ArrayList<>();
 
             if (Systems.checkOMS(getContext())) {
-                compile_enable_mode = false;
-                enable_mode = false;
-                disable_mode = true;
-                enable_disable_mode = false;
+                this.compile_enable_mode = false;
+                this.enable_mode = false;
+                this.disable_mode = true;
+                this.enable_disable_mode = false;
 
-                for (int i = 0; i < overlaysLists.size(); i++) {
-                    OverlaysItem currentOverlay = overlaysLists.get(i);
+                for (int i = 0; i < this.overlaysLists.size(); i++) {
+                    OverlaysItem currentOverlay = this.overlaysLists.get(i);
                     if (currentOverlay.isSelected() && currentOverlay.isOverlayEnabled()) {
-                        checkedOverlays.add(currentOverlay);
+                        this.checkedOverlays.add(currentOverlay);
                     } else {
                         currentOverlay.setSelected(false);
-                        mAdapter.notifyDataSetChanged();
+                        this.mAdapter.notifyDataSetChanged();
                     }
                 }
-                if (!checkedOverlays.isEmpty()) {
+                if (!this.checkedOverlays.isEmpty()) {
                     getThemeCache phase2 = new getThemeCache(this);
-                    if (base_spinner.getSelectedItemPosition() != 0 &&
-                            base_spinner.getVisibility() == View.VISIBLE) {
-                        phase2.execute(base_spinner.getSelectedItem().toString());
+                    if (this.base_spinner.getSelectedItemPosition() != 0 &&
+                            this.base_spinner.getVisibility() == View.VISIBLE) {
+                        phase2.execute(this.base_spinner.getSelectedItem().toString());
                     } else {
                         phase2.execute("");
                     }
-                    for (OverlaysItem overlay : checkedOverlays) {
+                    for (OverlaysItem overlay : this.checkedOverlays) {
                         Log.d("OverlayTargetPackageKiller", "Killing package : " + overlay
                                 .getPackageName());
-                        am.killBackgroundProcesses(overlay.getPackageName());
+                        this.am.killBackgroundProcesses(overlay.getPackageName());
                     }
                 } else {
-                    if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                    is_overlay_active = false;
+                    if (this.toggle_all.isChecked()) this.toggle_all.setChecked(false);
+                    this.is_overlay_active = false;
                     currentShownLunchBar = Lunchbar.make(
                             getActivityView(),
                             R.string.toast_disabled5,
@@ -313,18 +313,18 @@ public class Overlays extends Fragment {
                     currentShownLunchBar.show();
                 }
             } else {
-                compile_enable_mode = false;
-                enable_mode = false;
-                disable_mode = true;
-                enable_disable_mode = false;
+                this.compile_enable_mode = false;
+                this.enable_mode = false;
+                this.disable_mode = true;
+                this.enable_disable_mode = false;
 
-                for (int i = 0; i < overlaysLists.size(); i++) {
-                    OverlaysItem currentOverlay = overlaysLists.get(i);
+                for (int i = 0; i < this.overlaysLists.size(); i++) {
+                    OverlaysItem currentOverlay = this.overlaysLists.get(i);
                     if (currentOverlay.isSelected()) {
-                        checkedOverlays.add(currentOverlay);
+                        this.checkedOverlays.add(currentOverlay);
                     } else {
                         currentOverlay.setSelected(false);
-                        mAdapter.notifyDataSetChanged();
+                        this.mAdapter.notifyDataSetChanged();
                     }
                 }
 
@@ -335,19 +335,19 @@ public class Overlays extends Fragment {
                     current_directory = LEGACY_NEXUS_DIR;
                 }
 
-                if (!checkedOverlays.isEmpty()) {
+                if (!this.checkedOverlays.isEmpty()) {
                     if (Systems.isSamsung(getContext())) {
                         if (Root.checkRootAccess() && Root.requestRootAccess()) {
                             ArrayList<String> checked_overlays = new ArrayList<>();
-                            for (int i = 0; i < checkedOverlays.size(); i++) {
+                            for (int i = 0; i < this.checkedOverlays.size(); i++) {
                                 checked_overlays.add(
-                                        checkedOverlays.get(i).getFullOverlayParameters());
+                                        this.checkedOverlays.get(i).getFullOverlayParameters());
                             }
                             ThemeManager.uninstallOverlay(getContext(), checked_overlays);
                         } else {
-                            for (int i = 0; i < checkedOverlays.size(); i++) {
+                            for (int i = 0; i < this.checkedOverlays.size(); i++) {
                                 Uri packageURI = Uri.parse("package:" +
-                                        checkedOverlays.get(i).getFullOverlayParameters());
+                                        this.checkedOverlays.get(i).getFullOverlayParameters());
                                 Intent uninstallIntent =
                                         new Intent(Intent.ACTION_DELETE, packageURI);
 
@@ -355,17 +355,17 @@ public class Overlays extends Fragment {
                             }
                         }
                     } else {
-                        for (int i = 0; i < checkedOverlays.size(); i++) {
+                        for (int i = 0; i < this.checkedOverlays.size(); i++) {
                             FileOperations.mountRW();
                             FileOperations.delete(getContext(), current_directory +
-                                    checkedOverlays.get(i).getFullOverlayParameters() + ".apk");
-                            mAdapter.notifyDataSetChanged();
+                                    this.checkedOverlays.get(i).getFullOverlayParameters() + ".apk");
+                            this.mAdapter.notifyDataSetChanged();
                         }
                         // Untick all options in the adapter after compiling
-                        toggle_all.setChecked(false);
-                        overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
-                        for (int i = 0; i < overlaysLists.size(); i++) {
-                            OverlaysItem currentOverlay = overlaysLists.get(i);
+                        this.toggle_all.setChecked(false);
+                        this.overlaysLists = ((OverlaysAdapter) this.mAdapter).getOverlayList();
+                        for (int i = 0; i < this.overlaysLists.size(); i++) {
+                            OverlaysItem currentOverlay = this.overlaysLists.get(i);
                             if (currentOverlay.isSelected()) {
                                 currentOverlay.setSelected(false);
                             }
@@ -384,64 +384,64 @@ public class Overlays extends Fragment {
                                 (dialog, id12) -> ElevatedCommands.reboot());
                         alertDialogBuilder.setNegativeButton(
                                 R.string.remove_dialog_later, (dialog, id1) -> {
-                                    progressBar.setVisibility(View.GONE);
+                                    this.progressBar.setVisibility(View.GONE);
                                     dialog.dismiss();
                                 });
                         AlertDialog alertDialog = alertDialogBuilder.create();
                         alertDialog.show();
                     }
                 } else {
-                    if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                    is_overlay_active = false;
+                    if (this.toggle_all.isChecked()) this.toggle_all.setChecked(false);
+                    this.is_overlay_active = false;
                     currentShownLunchBar = Lunchbar.make(
                             getActivityView(),
                             R.string.toast_disabled5,
                             Lunchbar.LENGTH_LONG);
                     currentShownLunchBar.show();
                 }
-                is_overlay_active = false;
-                disable_mode = false;
+                this.is_overlay_active = false;
+                this.disable_mode = false;
             }
         }
     }
 
     public void startEnable() {
-        if (!is_overlay_active) {
-            is_overlay_active = true;
-            compile_enable_mode = false;
-            enable_mode = true;
-            disable_mode = false;
-            enable_disable_mode = false;
+        if (!this.is_overlay_active) {
+            this.is_overlay_active = true;
+            this.compile_enable_mode = false;
+            this.enable_mode = true;
+            this.disable_mode = false;
+            this.enable_disable_mode = false;
 
-            overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
-            checkedOverlays = new ArrayList<>();
+            this.overlaysLists = ((OverlaysAdapter) this.mAdapter).getOverlayList();
+            this.checkedOverlays = new ArrayList<>();
 
-            for (int i = 0; i < overlaysLists.size(); i++) {
-                OverlaysItem currentOverlay = overlaysLists.get(i);
+            for (int i = 0; i < this.overlaysLists.size(); i++) {
+                OverlaysItem currentOverlay = this.overlaysLists.get(i);
                 if (currentOverlay.isSelected() && !currentOverlay.isOverlayEnabled()) {
-                    checkedOverlays.add(currentOverlay);
+                    this.checkedOverlays.add(currentOverlay);
                 } else {
                     currentOverlay.setSelected(false);
-                    mAdapter.notifyDataSetChanged();
+                    this.mAdapter.notifyDataSetChanged();
                 }
             }
-            if (!checkedOverlays.isEmpty()) {
+            if (!this.checkedOverlays.isEmpty()) {
                 getThemeCache phase2 = new getThemeCache(this);
-                if (base_spinner.getSelectedItemPosition() != 0 &&
-                        base_spinner.getVisibility() == View.VISIBLE) {
-                    phase2.execute(base_spinner.getSelectedItem().toString());
+                if (this.base_spinner.getSelectedItemPosition() != 0 &&
+                        this.base_spinner.getVisibility() == View.VISIBLE) {
+                    phase2.execute(this.base_spinner.getSelectedItem().toString());
 
                 } else {
                     phase2.execute("");
                 }
-                for (OverlaysItem overlay : checkedOverlays) {
+                for (OverlaysItem overlay : this.checkedOverlays) {
                     Log.d("OverlayTargetPackageKiller", "Killing package : " + overlay
                             .getPackageName());
-                    am.killBackgroundProcesses(overlay.getPackageName());
+                    this.am.killBackgroundProcesses(overlay.getPackageName());
                 }
             } else {
-                if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                is_overlay_active = false;
+                if (this.toggle_all.isChecked()) this.toggle_all.setChecked(false);
+                this.is_overlay_active = false;
                 currentShownLunchBar = Lunchbar.make(
                         getActivityView(),
                         R.string.toast_disabled5,
@@ -452,42 +452,42 @@ public class Overlays extends Fragment {
     }
 
     public void startEnableDisable() {
-        if (!is_overlay_active) {
-            is_overlay_active = true;
-            compile_enable_mode = false;
-            enable_mode = false;
-            disable_mode = false;
-            enable_disable_mode = true;
+        if (!this.is_overlay_active) {
+            this.is_overlay_active = true;
+            this.compile_enable_mode = false;
+            this.enable_mode = false;
+            this.disable_mode = false;
+            this.enable_disable_mode = true;
 
-            overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
-            checkedOverlays = new ArrayList<>();
+            this.overlaysLists = ((OverlaysAdapter) this.mAdapter).getOverlayList();
+            this.checkedOverlays = new ArrayList<>();
 
 
-            for (int i = 0; i < overlaysLists.size(); i++) {
-                OverlaysItem currentOverlay = overlaysLists.get(i);
-                if (currentOverlay.isSelected()) checkedOverlays.add(currentOverlay);
+            for (int i = 0; i < this.overlaysLists.size(); i++) {
+                OverlaysItem currentOverlay = this.overlaysLists.get(i);
+                if (currentOverlay.isSelected()) this.checkedOverlays.add(currentOverlay);
                 else {
                     currentOverlay.setSelected(false);
-                    mAdapter.notifyDataSetChanged();
+                    this.mAdapter.notifyDataSetChanged();
                 }
             }
-            if (!checkedOverlays.isEmpty()) {
+            if (!this.checkedOverlays.isEmpty()) {
                 getThemeCache phase2 = new getThemeCache(this);
-                if (base_spinner.getSelectedItemPosition() != 0 &&
-                        base_spinner.getVisibility() == View.VISIBLE) {
-                    phase2.execute(base_spinner.getSelectedItem().toString());
+                if (this.base_spinner.getSelectedItemPosition() != 0 &&
+                        this.base_spinner.getVisibility() == View.VISIBLE) {
+                    phase2.execute(this.base_spinner.getSelectedItem().toString());
 
                 } else {
                     phase2.execute("");
                 }
-                for (OverlaysItem overlay : checkedOverlays) {
+                for (OverlaysItem overlay : this.checkedOverlays) {
                     Log.d("OverlayTargetPackageKiller", "Killing package : " + overlay
                             .getPackageName());
-                    am.killBackgroundProcesses(overlay.getPackageName());
+                    this.am.killBackgroundProcesses(overlay.getPackageName());
                 }
             } else {
-                if (toggle_all.isChecked()) toggle_all.setChecked(false);
-                is_overlay_active = false;
+                if (this.toggle_all.isChecked()) this.toggle_all.setChecked(false);
+                this.is_overlay_active = false;
                 currentShownLunchBar = Lunchbar.make(
                         getActivityView(),
                         R.string.toast_disabled5,
@@ -498,8 +498,8 @@ public class Overlays extends Fragment {
     }
 
     public void setMixAndMatchMode(boolean newValue) {
-        mixAndMatchMode = newValue;
-        prefs.edit().putBoolean("enable_swapping_overlays", mixAndMatchMode).apply();
+        this.mixAndMatchMode = newValue;
+        this.prefs.edit().putBoolean("enable_swapping_overlays", this.mixAndMatchMode).apply();
         updateEnabledOverlays();
     }
 
@@ -509,43 +509,43 @@ public class Overlays extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.tab_overlays, container, false);
-        prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        this.prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
-        am = (ActivityManager) getContext().getSystemService(ACTIVITY_SERVICE);
+        this.am = (ActivityManager) getContext().getSystemService(ACTIVITY_SERVICE);
 
         // Register the theme install receiver to auto refresh the fragment
-        refreshReceiver = new RefreshReceiver();
-        localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
-        localBroadcastManager.registerReceiver(refreshReceiver,
+        this.refreshReceiver = new RefreshReceiver();
+        this.localBroadcastManager = LocalBroadcastManager.getInstance(getContext());
+        this.localBroadcastManager.registerReceiver(this.refreshReceiver,
                 new IntentFilter("Overlay.REFRESH"));
 
-        theme_name = getArguments().getString("theme_name");
-        theme_pid = getArguments().getString("theme_pid");
+        this.theme_name = getArguments().getString("theme_name");
+        this.theme_pid = getArguments().getString("theme_pid");
         String encrypt_check =
-                Packages.getOverlayMetadata(getContext(), theme_pid, metadataEncryption);
+                Packages.getOverlayMetadata(getContext(), this.theme_pid, metadataEncryption);
 
         if (encrypt_check != null && encrypt_check.equals(metadataEncryptionValue)) {
             byte[] encryption_key = getArguments().getByteArray("encryption_key");
             byte[] iv_encrypt_key = getArguments().getByteArray("iv_encrypt_key");
             try {
-                cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-                cipher.init(
+                this.cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+                this.cipher.init(
                         Cipher.DECRYPT_MODE,
                         new SecretKeySpec(encryption_key, "AES"),
                         new IvParameterSpec(iv_encrypt_key)
                 );
                 Log.d(TAG, "Loading substratum theme in encrypted assets mode.");
-                encrypted = true;
+                this.encrypted = true;
             } catch (Exception e) {
                 Log.d(TAG,
                         "Loading substratum theme in decrypted assets mode due to an exception.");
-                decryptedAssetsExceptionReached = true;
+                this.decryptedAssetsExceptionReached = true;
             }
         } else {
             Log.d(TAG, "Loading substratum theme in decrypted assets mode.");
         }
 
-        if (decryptedAssetsExceptionReached) {
+        if (this.decryptedAssetsExceptionReached) {
             currentShownLunchBar = Lunchbar.make(
                     getActivityView(),
                     R.string.error_loading_theme_close_text,
@@ -557,18 +557,18 @@ public class Overlays extends Fragment {
             currentShownLunchBar.show();
         }
 
-        mixAndMatchMode = prefs.getBoolean("enable_swapping_overlays", false);
+        this.mixAndMatchMode = this.prefs.getBoolean("enable_swapping_overlays", false);
 
-        progressBar = root.findViewById(R.id.header_loading_bar);
-        progressBar.setVisibility(View.GONE);
+        this.progressBar = root.findViewById(R.id.header_loading_bar);
+        this.progressBar.setVisibility(View.GONE);
 
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
-        mRecyclerView = root.findViewById(R.id.overlayRecyclerView);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        this.mRecyclerView = root.findViewById(R.id.overlayRecyclerView);
+        this.mRecyclerView.setHasFixedSize(true);
+        this.mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         ArrayList<OverlaysItem> empty_array = new ArrayList<>();
         RecyclerView.Adapter empty_adapter = new OverlaysAdapter(empty_array);
-        mRecyclerView.setAdapter(empty_adapter);
+        this.mRecyclerView.setAdapter(empty_adapter);
 
         TextView toggle_all_overlays_text = root.findViewById(R.id.toggle_all_overlays_text);
         toggle_all_overlays_text.setVisibility(View.VISIBLE);
@@ -579,15 +579,15 @@ public class Overlays extends Fragment {
         }
 
         // Adjust the behaviour of the mix and match toggle in the sheet
-        toggle_all = root.findViewById(R.id.toggle_all_overlays);
-        toggle_all.setOnCheckedChangeListener(
+        this.toggle_all = root.findViewById(R.id.toggle_all_overlays);
+        this.toggle_all.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> {
                     try {
-                        overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
-                        for (int i = 0; i < overlaysLists.size(); i++) {
-                            OverlaysItem currentOverlay = overlaysLists.get(i);
+                        this.overlaysLists = ((OverlaysAdapter) this.mAdapter).getOverlayList();
+                        for (int i = 0; i < this.overlaysLists.size(); i++) {
+                            OverlaysItem currentOverlay = this.overlaysLists.get(i);
                             currentOverlay.setSelected(isChecked);
-                            mAdapter.notifyDataSetChanged();
+                            this.mAdapter.notifyDataSetChanged();
                         }
                     } catch (Exception e) {
                         Log.e(TAG, "Window has lost connection with the host.");
@@ -598,12 +598,12 @@ public class Overlays extends Fragment {
         RelativeLayout toggleZone = root.findViewById(R.id.toggle_zone);
         toggleZone.setOnClickListener(v -> {
             try {
-                toggle_all.setChecked(!toggle_all.isChecked());
-                overlaysLists = ((OverlaysAdapter) mAdapter).getOverlayList();
-                for (int i = 0; i < overlaysLists.size(); i++) {
-                    OverlaysItem currentOverlay = overlaysLists.get(i);
-                    currentOverlay.setSelected(toggle_all.isChecked());
-                    mAdapter.notifyDataSetChanged();
+                this.toggle_all.setChecked(!this.toggle_all.isChecked());
+                this.overlaysLists = ((OverlaysAdapter) this.mAdapter).getOverlayList();
+                for (int i = 0; i < this.overlaysLists.size(); i++) {
+                    OverlaysItem currentOverlay = this.overlaysLists.get(i);
+                    currentOverlay.setSelected(this.toggle_all.isChecked());
+                    this.mAdapter.notifyDataSetChanged();
                 }
             } catch (Exception e) {
                 Log.e(TAG, "Window has lost connection with the host.");
@@ -611,20 +611,20 @@ public class Overlays extends Fragment {
         });
 
         // Allow the user to swipe down to refresh the overlay list
-        swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setOnRefreshListener(this::refreshList);
+        this.swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
+        this.swipeRefreshLayout.setOnRefreshListener(this::refreshList);
 
         /*
           PLUGIN TYPE 3: Parse each overlay folder to see if they have folder options
          */
         SharedPreferences prefs2 =
                 getContext().getSharedPreferences("base_variant", Context.MODE_PRIVATE);
-        base_spinner = root.findViewById(R.id.type3_spinner);
-        base_spinner.post(() -> base_spinner.setOnItemSelectedListener(
+        this.base_spinner = root.findViewById(R.id.type3_spinner);
+        this.base_spinner.post(() -> this.base_spinner.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long id) {
-                        prefs2.edit().putInt(theme_pid, pos).apply();
+                        prefs2.edit().putInt(Overlays.this.theme_pid, pos).apply();
                         refreshList();
                     }
 
@@ -632,28 +632,28 @@ public class Overlays extends Fragment {
                     public void onNothingSelected(AdapterView<?> arg0) {
                     }
                 }));
-        base_spinner.setEnabled(false);
+        this.base_spinner.setEnabled(false);
 
         try {
             Resources themeResources = getContext().getPackageManager()
-                    .getResourcesForApplication(theme_pid);
-            themeAssetManager = themeResources.getAssets();
+                    .getResourcesForApplication(this.theme_pid);
+            this.themeAssetManager = themeResources.getAssets();
 
             ArrayList<VariantItem> type3 = new ArrayList<>();
             List<String> stringArray = new ArrayList<>();
 
-            String[] listArray = themeAssetManager.list("overlays/android");
+            String[] listArray = this.themeAssetManager.list("overlays/android");
             Collections.addAll(stringArray, listArray);
 
             if (stringArray.contains("type3") || stringArray.contains("type3.enc")) {
                 InputStream inputStream;
-                if (encrypted) {
+                if (this.encrypted) {
                     inputStream = FileOperations.getInputStream(
-                            themeAssetManager,
+                            this.themeAssetManager,
                             "overlays/android/type3.enc",
-                            cipher);
+                            this.cipher);
                 } else {
-                    inputStream = themeAssetManager.open("overlays/android/type3");
+                    inputStream = this.themeAssetManager.open("overlays/android/type3");
                 }
 
                 try (BufferedReader reader = new BufferedReader(
@@ -684,45 +684,45 @@ public class Overlays extends Fragment {
                 SpinnerAdapter adapter1 = new VariantAdapter(getActivity(), type3);
                 if (type3.size() > 1) {
                     toggle_all_overlays_text.setVisibility(View.GONE);
-                    base_spinner.setVisibility(View.VISIBLE);
-                    base_spinner.setAdapter(adapter1);
+                    this.base_spinner.setVisibility(View.VISIBLE);
+                    this.base_spinner.setAdapter(adapter1);
                     try {
                         Log.d(TAG,
-                                "Assigning the spinner position: " + prefs2.getInt(theme_pid, 0));
-                        base_spinner.setSelection(prefs2.getInt(theme_pid, 0));
+                                "Assigning the spinner position: " + prefs2.getInt(this.theme_pid, 0));
+                        this.base_spinner.setSelection(prefs2.getInt(this.theme_pid, 0));
                     } catch (Exception e) {
                         // Should be OutOfBounds, but let's catch everything
                         Log.d(TAG, "Falling back to default spinner position due to an error...");
-                        prefs2.edit().putInt(theme_pid, 0).apply();
-                        base_spinner.setSelection(0);
+                        prefs2.edit().putInt(this.theme_pid, 0).apply();
+                        this.base_spinner.setSelection(0);
                     }
                 } else {
                     toggle_all_overlays_text.setVisibility(View.VISIBLE);
-                    base_spinner.setVisibility(View.INVISIBLE);
+                    this.base_spinner.setVisibility(View.INVISIBLE);
                     refreshList();
                 }
             } else {
                 toggle_all_overlays_text.setVisibility(View.VISIBLE);
-                base_spinner.setVisibility(View.INVISIBLE);
+                this.base_spinner.setVisibility(View.INVISIBLE);
                 refreshList();
             }
         } catch (Exception e) {
-            if (base_spinner.getVisibility() == View.VISIBLE) {
+            if (this.base_spinner.getVisibility() == View.VISIBLE) {
                 toggle_all_overlays_text.setVisibility(View.VISIBLE);
-                base_spinner.setVisibility(View.INVISIBLE);
+                this.base_spinner.setVisibility(View.INVISIBLE);
             }
             e.printStackTrace();
             Log.e(TAG, "Could not parse list of base options for this theme!");
         }
 
         // Enable job listener
-        jobReceiver = new JobReceiver();
+        this.jobReceiver = new JobReceiver();
         IntentFilter intentFilter = new IntentFilter("Overlays.START_JOB");
-        localBroadcastManager.registerReceiver(jobReceiver, intentFilter);
+        this.localBroadcastManager.registerReceiver(this.jobReceiver, intentFilter);
 
         // Enable the instance to be retained for LogChar invoke after configuration change
         setRetainInstance(true);
-        if (error_logs != null && error_logs.length() > 0) {
+        if (this.error_logs != null && this.error_logs.length() > 0) {
             invokeLogCharLunchBar(getContext());
         }
         return root;
@@ -736,7 +736,7 @@ public class Overlays extends Fragment {
     }
 
     protected boolean checkActiveNotifications() {
-        StatusBarNotification[] activeNotifications = mNotifyManager.getActiveNotifications();
+        StatusBarNotification[] activeNotifications = this.mNotifyManager.getActiveNotifications();
         for (StatusBarNotification statusBarNotification : activeNotifications) {
             if (statusBarNotification.getPackageName().equals(getContext().getPackageName())) {
                 return true;
@@ -748,8 +748,8 @@ public class Overlays extends Fragment {
     protected void failedFunction(Context context) {
         // Add dummy intent to be able to close the notification on click
         Intent notificationIntent = new Intent(context, this.getClass());
-        notificationIntent.putExtra("theme_name", theme_name);
-        notificationIntent.putExtra("theme_pid", theme_pid);
+        notificationIntent.putExtra("theme_name", this.theme_name);
+        notificationIntent.putExtra("theme_pid", this.theme_pid);
         notificationIntent.setFlags(
                 Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent intent =
@@ -757,31 +757,31 @@ public class Overlays extends Fragment {
                         PendingIntent.FLAG_CANCEL_CURRENT);
 
         // Closing off the persistent notification
-        mNotifyManager.cancel(References.notification_id_compiler);
-        mBuilder = new NotificationCompat.Builder(context, DEFAULT_NOTIFICATION_CHANNEL_ID);
-        mBuilder.setAutoCancel(true);
-        mBuilder.setProgress(0, 0, false);
-        mBuilder.setOngoing(false);
-        mBuilder.setContentIntent(intent);
-        mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
-        mBuilder.setContentTitle(context.getString(R.string.notification_done_title));
-        mBuilder.setContentText(context.getString(R.string.notification_some_errors_found));
-        if (prefs.getBoolean("vibrate_on_compiled", false)) {
-            mBuilder.setVibrate(new long[]{200, 400, 200, 1000});
+        this.mNotifyManager.cancel(References.notification_id_compiler);
+        this.mBuilder = new NotificationCompat.Builder(context, DEFAULT_NOTIFICATION_CHANNEL_ID);
+        this.mBuilder.setAutoCancel(true);
+        this.mBuilder.setProgress(0, 0, false);
+        this.mBuilder.setOngoing(false);
+        this.mBuilder.setContentIntent(intent);
+        this.mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
+        this.mBuilder.setContentTitle(context.getString(R.string.notification_done_title));
+        this.mBuilder.setContentText(context.getString(R.string.notification_some_errors_found));
+        if (this.prefs.getBoolean("vibrate_on_compiled", false)) {
+            this.mBuilder.setVibrate(new long[]{200, 400, 200, 1000});
         }
-        mNotifyManager.notify(References.notification_id_compiler, mBuilder.build());
+        this.mNotifyManager.notify(References.notification_id_compiler, this.mBuilder.build());
 
         Toast.makeText(
                 context,
                 context.getString(R.string.toast_compiled_updated_with_errors),
                 Toast.LENGTH_LONG).show();
 
-        if (prefs.getBoolean("autosave_logchar", true)) {
+        if (this.prefs.getBoolean("autosave_logchar", true)) {
             new SendErrorReport(
                     context,
-                    theme_pid,
-                    error_logs.toString(),
-                    failed_packages.toString(),
+                    this.theme_pid,
+                    this.error_logs.toString(),
+                    this.failed_packages.toString(),
                     true
             ).execute();
         }
@@ -791,8 +791,8 @@ public class Overlays extends Fragment {
 
     @SuppressWarnings("unchecked")
     public void invokeLogCharLunchBar(Context context) {
-        CharSequence errorLogCopy = new StringBuilder(error_logs);
-        error_logs = new StringBuilder();
+        CharSequence errorLogCopy = new StringBuilder(this.error_logs);
+        this.error_logs = new StringBuilder();
         currentShownLunchBar = Lunchbar.make(
                 getActivityView(),
                 R.string.logcat_snackbar_text,
@@ -822,13 +822,13 @@ public class Overlays extends Fragment {
                             currentShownLunchBar.show();
                         });
 
-        if (Packages.getOverlayMetadata(context, theme_pid, metadataEmail) != null) {
+        if (Packages.getOverlayMetadata(context, this.theme_pid, metadataEmail) != null) {
             builder.setPositiveButton(getString(R.string.logcat_send), (dialogInterface, i) ->
                     new SendErrorReport(
                             context,
-                            theme_pid,
+                            this.theme_pid,
                             logs.toString(),
-                            failed_packages.toString(),
+                            this.failed_packages.toString(),
                             false
                     ).execute());
         }
@@ -838,50 +838,50 @@ public class Overlays extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (phase3_mainFunction != null && mNotifyManager != null) {
-            if (phase3_mainFunction.getStatus() == AsyncTask.Status.RUNNING) {
-                mNotifyManager.cancel(References.notification_id_compiler);
+        if (this.phase3_mainFunction != null && this.mNotifyManager != null) {
+            if (this.phase3_mainFunction.getStatus() == AsyncTask.Status.RUNNING) {
+                this.mNotifyManager.cancel(References.notification_id_compiler);
             }
         }
         try {
-            localBroadcastManager.unregisterReceiver(refreshReceiver);
+            this.localBroadcastManager.unregisterReceiver(this.refreshReceiver);
         } catch (IllegalArgumentException e) {
             // Unregistered already
         }
         try {
-            localBroadcastManager.unregisterReceiver(jobReceiver);
+            this.localBroadcastManager.unregisterReceiver(this.jobReceiver);
         } catch (IllegalArgumentException e) {
             // Unregistered already
         }
     }
 
     protected boolean needsRecreate(Context context) {
-        for (OverlaysItem oi : checkedOverlays) {
+        for (OverlaysItem oi : this.checkedOverlays) {
             String packageName = oi.getPackageName();
             if ("android".equals(packageName) || "projekt.substratum".equals(packageName)) {
-                if (!enable_mode && !disable_mode && !enable_disable_mode &&
+                if (!this.enable_mode && !this.disable_mode && !this.enable_disable_mode &&
                         ThemeManager.isOverlayEnabled(context, oi.getFullOverlayParameters())) {
                     return false;
-                } else if (enable_mode || disable_mode || compile_enable_mode
-                        || enable_disable_mode) {
+                } else if (this.enable_mode || this.disable_mode || this.compile_enable_mode
+                        || this.enable_disable_mode) {
                     return false;
                 }
             }
         }
-        return Systems.checkOMS(getContext()) && !has_failed;
+        return Systems.checkOMS(getContext()) && !this.has_failed;
     }
 
     public VariantItem setTypeOneSpinners(String package_identifier,
                                           String type) {
         InputStream inputStream = null;
         try {
-            if (encrypted) {
+            if (this.encrypted) {
                 inputStream = FileOperations.getInputStream(
-                        themeAssetManager,
+                        this.themeAssetManager,
                         overlaysDir + "/" + package_identifier + "/type1" + type + ".enc",
-                        cipher);
+                        this.cipher);
             } else {
-                inputStream = themeAssetManager.open(
+                inputStream = this.themeAssetManager.open(
                         overlaysDir + "/" + package_identifier + "/type1" + type);
             }
         } catch (IOException ioe) {
@@ -891,8 +891,8 @@ public class Overlays extends Fragment {
         // Parse current default types on type3 base resource folders
         String parsedVariant = "";
         try {
-            if (base_spinner.getSelectedItemPosition() != 0) {
-                parsedVariant = base_spinner.getSelectedItem().toString().replaceAll("\\s+", "");
+            if (this.base_spinner.getSelectedItemPosition() != 0) {
+                parsedVariant = this.base_spinner.getSelectedItem().toString().replaceAll("\\s+", "");
             }
         } catch (NullPointerException npe) {
             // Suppress warning
@@ -910,18 +910,18 @@ public class Overlays extends Fragment {
             // This is the default type1 xml hex, if present
             String hex = null;
 
-            if (encrypted) {
+            if (this.encrypted) {
                 try (InputStream name = FileOperations.getInputStream(
-                        themeAssetManager,
+                        this.themeAssetManager,
                         overlaysDir + "/" + package_identifier + suffix +
                                 "/values/type1" + type + ".xml.enc",
-                        cipher)) {
+                        this.cipher)) {
                     hex = Packages.getOverlayResource(name);
                 } catch (IOException e) {
                     // Suppress warning
                 }
             } else {
-                try (InputStream name = themeAssetManager.open(
+                try (InputStream name = this.themeAssetManager.open(
                         overlaysDir + "/" + package_identifier + suffix +
                                 "/values/type1" + type + ".xml")) {
                     hex = Packages.getOverlayResource(name);
@@ -934,18 +934,18 @@ public class Overlays extends Fragment {
             // When erroring out, put the default spinner text
             Log.d(TAG, "Falling back to default base variant text...");
             String hex = null;
-            if (encrypted) {
+            if (this.encrypted) {
                 try (InputStream input = FileOperations.getInputStream(
-                        themeAssetManager,
+                        this.themeAssetManager,
                         overlaysDir + "/" + package_identifier +
                                 suffix + "/values/type1" + type + ".xml.enc",
-                        cipher)) {
+                        this.cipher)) {
                     hex = Packages.getOverlayResource(input);
                 } catch (IOException ioe) {
                     // Suppress warning
                 }
             } else {
-                try (InputStream input = themeAssetManager.open(overlaysDir +
+                try (InputStream input = this.themeAssetManager.open(overlaysDir +
                         "/" + package_identifier + suffix + "/values/type1" + type + ".xml")) {
                     hex = Packages.getOverlayResource(input);
                 } catch (IOException ioe) {
@@ -985,9 +985,9 @@ public class Overlays extends Fragment {
     }
 
     public VariantItem setTypeOneHexAndSpinner(String current, String package_identifier) {
-        if (encrypted) {
-            try (InputStream inputStream = FileOperations.getInputStream(themeAssetManager,
-                    "overlays/" + package_identifier + "/" + current, cipher)) {
+        if (this.encrypted) {
+            try (InputStream inputStream = FileOperations.getInputStream(this.themeAssetManager,
+                    "overlays/" + package_identifier + "/" + current, this.cipher)) {
                 String hex = Packages.getOverlayResource(inputStream);
 
                 return new VariantItem(
@@ -996,7 +996,7 @@ public class Overlays extends Fragment {
                 e.printStackTrace();
             }
         } else {
-            try (InputStream inputStream = themeAssetManager.open(
+            try (InputStream inputStream = this.themeAssetManager.open(
                     "overlays/" + package_identifier + "/" + current)) {
                 String hex = Packages.getOverlayResource(inputStream);
 
@@ -1014,9 +1014,9 @@ public class Overlays extends Fragment {
         switch (requestCode) {
             case 2486:
                 FileOperations.delete(getContext(),
-                        new File(late_install.get(0)).getAbsolutePath());
-                if (late_install != null && late_install.size() > 0) late_install.remove(0);
-                if (late_install.size() > 0) {
+                        new File(this.late_install.get(0)).getAbsolutePath());
+                if (this.late_install != null && this.late_install.size() > 0) this.late_install.remove(0);
+                if (this.late_install.size() > 0) {
                     installMultipleAPKs();
                 }
         }
@@ -1027,7 +1027,7 @@ public class Overlays extends Fragment {
         Uri uri = FileProvider.getUriForFile(
                 getContext(),
                 getContext().getApplicationContext().getPackageName() + ".provider",
-                new File(late_install.get(0)));
+                new File(this.late_install.get(0)));
         intent.setDataAndType(
                 uri,
                 "application/vnd.android.package-archive");
@@ -1038,16 +1038,16 @@ public class Overlays extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (!toggle_all.isChecked()) refreshList();
+        if (!this.toggle_all.isChecked()) refreshList();
     }
 
     private void refreshList() {
-        currentPosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager())
+        this.currentPosition = ((LinearLayoutManager) this.mRecyclerView.getLayoutManager())
                 .findFirstCompletelyVisibleItemPosition();
-        toggle_all.setChecked(false);
-        if (base_spinner != null && base_spinner.getSelectedItemPosition() > 0) {
+        this.toggle_all.setChecked(false);
+        if (this.base_spinner != null && this.base_spinner.getSelectedItemPosition() > 0) {
             String[] commands = {
-                    base_spinner.getSelectedItem().toString()
+                    this.base_spinner.getSelectedItem().toString()
             };
             new LoadOverlays(this).execute(commands);
         } else {
@@ -1074,45 +1074,45 @@ public class Overlays extends Fragment {
                         String failedPackages,
                         Boolean autosaveInstance) {
             super();
-            ref = new WeakReference<>(context);
+            this.ref = new WeakReference<>(context);
             this.themePid = themePid;
             this.errorLog = errorLog;
             this.failedPackages = failedPackages;
             this.autosaveInstance = autosaveInstance;
 
-            themeName = Packages.getPackageName(context, themePid);
-            themeAuthor = Packages.getOverlayMetadata(context, themePid, References
+            this.themeName = Packages.getPackageName(context, themePid);
+            this.themeAuthor = Packages.getOverlayMetadata(context, themePid, References
                     .metadataAuthor);
-            themeEmail = Packages.getOverlayMetadata(context, themePid, References
+            this.themeEmail = Packages.getOverlayMetadata(context, themePid, References
                     .metadataEmail);
 
-            emailSubject = String.format(
-                    context.getString(R.string.logcat_email_subject), themeName);
-            emailBody = String.format(
-                    context.getString(R.string.logcat_email_body), themeAuthor, themeName);
+            this.emailSubject = String.format(
+                    context.getString(R.string.logcat_email_subject), this.themeName);
+            this.emailBody = String.format(
+                    context.getString(R.string.logcat_email_body), this.themeAuthor, this.themeName);
         }
 
         @Override
         protected void onPreExecute() {
-            Context context = ref.get();
-            if (context != null && !autosaveInstance) {
-                progressDialog = new ProgressDialog(context);
-                progressDialog.setIndeterminate(true);
-                progressDialog.setCancelable(false);
-                progressDialog.setMessage(
+            Context context = this.ref.get();
+            if (context != null && !this.autosaveInstance) {
+                this.progressDialog = new ProgressDialog(context);
+                this.progressDialog.setIndeterminate(true);
+                this.progressDialog.setCancelable(false);
+                this.progressDialog.setMessage(
                         context.getString(R.string.logcat_processing_dialog));
-                progressDialog.show();
+                this.progressDialog.show();
             }
         }
 
         @Override
         protected File doInBackground(Void... sUrl) {
-            Context context = ref.get();
+            Context context = this.ref.get();
             if (context != null) {
                 String rom = Systems.checkFirmwareSupport(context,
                         context.getString(R.string.supported_roms_url),
                         "supported_roms.xml");
-                String theme_version = Packages.getAppVersion(context, themePid);
+                String theme_version = Packages.getAppVersion(context, this.themePid);
                 String rom_version = Build.VERSION.RELEASE + " - " +
                         (!rom.isEmpty() ? rom : "Unknown");
 
@@ -1123,17 +1123,17 @@ public class Overlays extends Fragment {
 
                 String attachment = String.format(
                         context.getString(R.string.logcat_attachment_body),
-                        themeName,
+                        this.themeName,
                         device,
                         rom_version,
                         String.valueOf(BuildConfig.VERSION_CODE),
                         theme_version,
-                        failedPackages,
-                        errorLog);
+                        this.failedPackages,
+                        this.errorLog);
 
                 File log = null;
-                if (autosaveInstance) {
-                    References.writeLogCharFile(themePid, attachment);
+                if (this.autosaveInstance) {
+                    References.writeLogCharFile(this.themePid, attachment);
                 } else {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd-HH:mm", Locale.US);
                     log = new File(EXTERNAL_STORAGE_CACHE +
@@ -1152,19 +1152,19 @@ public class Overlays extends Fragment {
 
         @Override
         protected void onPostExecute(File result) {
-            Context context = ref.get();
+            Context context = this.ref.get();
             if (context != null) {
-                if (!autosaveInstance && result != null) {
-                    if (progressDialog != null) progressDialog.dismiss();
+                if (!this.autosaveInstance && result != null) {
+                    if (this.progressDialog != null) this.progressDialog.dismiss();
 
                     Intent i = new Intent(Intent.ACTION_SEND);
                     i.setType("message/rfc822");
-                    i.putExtra(Intent.EXTRA_EMAIL, new String[]{themeEmail});
-                    i.putExtra(Intent.EXTRA_SUBJECT, emailSubject);
-                    i.putExtra(Intent.EXTRA_TEXT, emailBody);
+                    i.putExtra(Intent.EXTRA_EMAIL, new String[]{this.themeEmail});
+                    i.putExtra(Intent.EXTRA_SUBJECT, this.emailSubject);
+                    i.putExtra(Intent.EXTRA_TEXT, this.emailBody);
                     i.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(
-                            ref.get(),
-                            ref.get().getPackageName() + ".provider",
+                            this.ref.get(),
+                            this.ref.get().getPackageName() + ".provider",
                             result));
                     try {
                         context.startActivity(Intent.createChooser(i,
@@ -1185,12 +1185,12 @@ public class Overlays extends Fragment {
 
         LoadOverlays(Overlays fragment) {
             super();
-            ref = new WeakReference<>(fragment);
+            this.ref = new WeakReference<>(fragment);
         }
 
         @Override
         protected void onPreExecute() {
-            Overlays fragment = ref.get();
+            Overlays fragment = this.ref.get();
             if (fragment != null) {
                 fragment.swipeRefreshLayout.setRefreshing(true);
                 fragment.mRecyclerView.setEnabled(false);
@@ -1203,7 +1203,7 @@ public class Overlays extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            Overlays fragment = ref.get();
+            Overlays fragment = this.ref.get();
             if (fragment != null) {
                 fragment.swipeRefreshLayout.setRefreshing(false);
                 fragment.mRecyclerView.setEnabled(true);
@@ -1221,7 +1221,7 @@ public class Overlays extends Fragment {
         @SuppressWarnings("ConstantConditions")
         @Override
         protected String doInBackground(String... sUrl) {
-            Overlays fragment = ref.get();
+            Overlays fragment = this.ref.get();
             if (fragment != null) {
                 Context context = fragment.getActivity();
                 // Refresh asset manager
@@ -1549,22 +1549,22 @@ public class Overlays extends Fragment {
             String command = intent.getStringExtra("command");
             switch (command) {
                 case "CompileEnable":
-                    if (mAdapter != null) startCompileEnableMode();
+                    if (Overlays.this.mAdapter != null) startCompileEnableMode();
                     break;
                 case "CompileUpdate":
-                    if (mAdapter != null) startCompileUpdateMode();
+                    if (Overlays.this.mAdapter != null) startCompileUpdateMode();
                     break;
                 case "Disable":
-                    if (mAdapter != null) startDisable();
+                    if (Overlays.this.mAdapter != null) startDisable();
                     break;
                 case "Enable":
-                    if (mAdapter != null) startEnable();
+                    if (Overlays.this.mAdapter != null) startEnable();
                     break;
                 case "EnableDisable":
-                    if (mAdapter != null) startEnableDisable();
+                    if (Overlays.this.mAdapter != null) startEnableDisable();
                     break;
                 case "MixAndMatchMode":
-                    if (mAdapter != null) {
+                    if (Overlays.this.mAdapter != null) {
                         boolean newValue = intent.getBooleanExtra("newValue", false);
                         setMixAndMatchMode(newValue);
                     }
@@ -1578,10 +1578,10 @@ public class Overlays extends Fragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (Systems.isSamsung(context) && Root.checkRootAccess()) {
-                if (overlaysWaiting > 0) {
-                    --overlaysWaiting;
+                if (Overlays.this.overlaysWaiting > 0) {
+                    --Overlays.this.overlaysWaiting;
                 } else {
-                    progressBar.setVisibility(View.GONE);
+                    Overlays.this.progressBar.setVisibility(View.GONE);
                 }
             }
             refreshList();

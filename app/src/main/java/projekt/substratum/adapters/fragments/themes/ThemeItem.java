@@ -37,7 +37,7 @@ public class ThemeItem {
     private Activity activity;
 
     public String getThemeName() {
-        return themeName;
+        return this.themeName;
     }
 
     public void setThemeName(String themeName) {
@@ -45,7 +45,7 @@ public class ThemeItem {
     }
 
     CharSequence getThemeAuthor() {
-        return themeAuthor;
+        return this.themeAuthor;
     }
 
     public void setThemeAuthor(String themeAuthor) {
@@ -53,7 +53,7 @@ public class ThemeItem {
     }
 
     String getThemePackage() {
-        return themePackage;
+        return this.themePackage;
     }
 
     public void setThemePackage(String themePackage) {
@@ -61,7 +61,7 @@ public class ThemeItem {
     }
 
     CharSequence getPluginVersion() {
-        return pluginVersion;
+        return this.pluginVersion;
     }
 
     public void setPluginVersion(String pluginVersion) {
@@ -77,7 +77,7 @@ public class ThemeItem {
     }
 
     public Activity getActivity() {
-        return activity;
+        return this.activity;
     }
 
     public void setActivity(Activity activity) {
@@ -85,7 +85,7 @@ public class ThemeItem {
     }
 
     public Context getContext() {
-        return themeContext;
+        return this.themeContext;
     }
 
     public void setContext(Context context) {
@@ -93,7 +93,7 @@ public class ThemeItem {
     }
 
     CharSequence getSDKLevels() {
-        return sdkLevels;
+        return this.sdkLevels;
     }
 
     public void setSDKLevels(String sdkLevels) {
@@ -101,7 +101,7 @@ public class ThemeItem {
     }
 
     CharSequence getThemeVersion() {
-        return themeVersion;
+        return this.themeVersion;
     }
 
     public void setThemeVersion(String themeVersion) {
@@ -109,7 +109,7 @@ public class ThemeItem {
     }
 
     String getThemeReadyVariable() {
-        return themeReady;
+        return this.themeReady;
     }
 
     public void setThemeReadyVariable(String themeVisibility) {
@@ -117,7 +117,7 @@ public class ThemeItem {
     }
 
     String getThemeMode() {
-        return themeMode;
+        return this.themeMode;
     }
 
     public void setThemeMode(String themeMode) {

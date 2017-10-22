@@ -50,7 +50,7 @@ public class FontUtils {
     private Cipher cipher;
 
     public void execute(String arguments, Context context, String theme_pid, Cipher cipher) {
-        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        this.prefs = PreferenceManager.getDefaultSharedPreferences(context);
         this.mContext = context;
         this.theme_pid = theme_pid;
         this.cipher = cipher;
@@ -63,12 +63,12 @@ public class FontUtils {
 
         private FontHandlerAsync(FontUtils fragment) {
             super();
-            ref = new WeakReference<>(fragment);
+            this.ref = new WeakReference<>(fragment);
         }
 
         @Override
         protected void onPreExecute() {
-            FontUtils fragment = ref.get();
+            FontUtils fragment = this.ref.get();
             if (fragment != null) {
                 Context context = fragment.mContext;
                 if (References.ENABLE_EXTRAS_DIALOG) {
@@ -90,7 +90,7 @@ public class FontUtils {
         @Override
         protected void onPostExecute(String result) {
             if (result == null || !result.equals(INTERFACER_PACKAGE)) {
-                FontUtils fragment = ref.get();
+                FontUtils fragment = this.ref.get();
                 if (fragment != null) {
                     Context context = fragment.mContext;
                     if (References.ENABLE_EXTRAS_DIALOG) {
@@ -134,7 +134,7 @@ public class FontUtils {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            FontUtils fragment = ref.get();
+            FontUtils fragment = this.ref.get();
             if (fragment != null) {
                 Context context = fragment.mContext;
                 try {

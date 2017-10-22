@@ -30,7 +30,7 @@ public class WallpaperEntries {
     private Activity mActivity;
 
     Activity getCallingActivity() {
-        return mActivity;
+        return this.mActivity;
     }
 
     public void setCallingActivity(Activity mActivity) {
@@ -38,7 +38,7 @@ public class WallpaperEntries {
     }
 
     public Context getContext() {
-        return mContext;
+        return this.mContext;
     }
 
     public void setContext(Context mContext) {
@@ -46,7 +46,7 @@ public class WallpaperEntries {
     }
 
     String getWallpaperName() {
-        return wallpaperName;
+        return this.wallpaperName;
     }
 
     public void setWallpaperName(String wallpaperName) {
@@ -54,7 +54,7 @@ public class WallpaperEntries {
     }
 
     String getWallpaperLink() {
-        return wallpaperLink;
+        return this.wallpaperLink;
     }
 
     public void setWallpaperLink(String wallpaperLink) {
@@ -62,7 +62,7 @@ public class WallpaperEntries {
     }
 
     String getWallpaperPreview() {
-        return wallpaperPreview;
+        return this.wallpaperPreview;
     }
 
     public void setWallpaperPreview(String wallpaperPreview) {

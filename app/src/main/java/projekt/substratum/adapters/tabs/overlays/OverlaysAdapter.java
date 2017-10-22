@@ -263,7 +263,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int position) {
 
-        OverlaysItem current_object = overlayList.get(position);
+        OverlaysItem current_object = this.overlayList.get(position);
         Context context = current_object.getInheritedContext();
 
         viewHolder.app_icon.setImageDrawable(current_object.getAppIcon());
@@ -479,11 +479,11 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return overlayList.size();
+        return this.overlayList.size();
     }
 
     public List<OverlaysItem> getOverlayList() {
-        return overlayList;
+        return this.overlayList;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -502,17 +502,17 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
 
         ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
-            app_icon = itemLayoutView.findViewById(R.id.app_icon);
-            card = itemLayoutView.findViewById(R.id.card);
-            checkBox = itemLayoutView.findViewById(R.id.checkBox);
-            overlayState = itemLayoutView.findViewById(R.id.installedState);
-            optionsSpinner = itemLayoutView.findViewById(R.id.optionsSpinner);
-            optionsSpinner2 = itemLayoutView.findViewById(R.id.optionsSpinner2);
-            optionsSpinner3 = itemLayoutView.findViewById(R.id.optionsSpinner3);
-            optionsSpinner4 = itemLayoutView.findViewById(R.id.optionsSpinner4);
-            optionsSpinner5 = itemLayoutView.findViewById(R.id.optionsSpinner5);
-            overlayTargetPackageName = itemLayoutView.findViewById(R.id.overlayTargetPackageName);
-            overlayTargetPackage = itemLayoutView.findViewById(R.id.overlayTargetPackage);
+            this.app_icon = itemLayoutView.findViewById(R.id.app_icon);
+            this.card = itemLayoutView.findViewById(R.id.card);
+            this.checkBox = itemLayoutView.findViewById(R.id.checkBox);
+            this.overlayState = itemLayoutView.findViewById(R.id.installedState);
+            this.optionsSpinner = itemLayoutView.findViewById(R.id.optionsSpinner);
+            this.optionsSpinner2 = itemLayoutView.findViewById(R.id.optionsSpinner2);
+            this.optionsSpinner3 = itemLayoutView.findViewById(R.id.optionsSpinner3);
+            this.optionsSpinner4 = itemLayoutView.findViewById(R.id.optionsSpinner4);
+            this.optionsSpinner5 = itemLayoutView.findViewById(R.id.optionsSpinner5);
+            this.overlayTargetPackageName = itemLayoutView.findViewById(R.id.overlayTargetPackageName);
+            this.overlayTargetPackage = itemLayoutView.findViewById(R.id.overlayTargetPackage);
         }
     }
 }

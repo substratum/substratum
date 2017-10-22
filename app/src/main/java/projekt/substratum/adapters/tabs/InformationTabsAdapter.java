@@ -68,33 +68,33 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if (theme_mode != null && theme_mode.length() > 0) {
-            switch (theme_mode) {
+        if (this.theme_mode != null && this.theme_mode.length() > 0) {
+            switch (this.theme_mode) {
                 case overlaysFragment:
                     Overlays overlays = new Overlays();
-                    overlays.setArguments(bundle);
+                    overlays.setArguments(this.bundle);
                     return overlays;
                 case bootAnimationsFragment:
                     BootAnimations bootAnimations = new BootAnimations();
-                    bootAnimations.setArguments(bundle);
+                    bootAnimations.setArguments(this.bundle);
                     return bootAnimations;
                 case shutdownAnimationsFragment:
                     BootAnimations shutdownanimations = new BootAnimations();
-                    Bundle b = new Bundle(bundle);
+                    Bundle b = new Bundle(this.bundle);
                     b.putBoolean("shutdownanimation", true);
                     shutdownanimations.setArguments(b);
                     return shutdownanimations;
                 case fontsFragment:
                     Fonts fonts = new Fonts();
-                    fonts.setArguments(bundle);
+                    fonts.setArguments(this.bundle);
                     return fonts;
                 case soundsFragment:
                     Sounds sounds = new Sounds();
-                    sounds.setArguments(bundle);
+                    sounds.setArguments(this.bundle);
                     return sounds;
                 case wallpaperFragment:
                     Wallpapers wallpapers = new Wallpapers();
-                    wallpapers.setArguments(bundle);
+                    wallpapers.setArguments(this.bundle);
                     return wallpapers;
             }
         }
@@ -103,44 +103,44 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return mNumOfTabs;
+        return this.mNumOfTabs;
     }
 
     private Fragment getFragment() {
-        if (package_checker.contains(overlaysFragment)) {
-            package_checker.remove(overlaysFragment);
+        if (this.package_checker.contains(overlaysFragment)) {
+            this.package_checker.remove(overlaysFragment);
             Overlays overlays = new Overlays();
-            overlays.setArguments(bundle);
+            overlays.setArguments(this.bundle);
             return overlays;
-        } else if (package_checker.contains(bootAnimationsFragment) &&
-                extras.get(bootAnimationsFragment)) {
-            package_checker.remove(bootAnimationsFragment);
+        } else if (this.package_checker.contains(bootAnimationsFragment) &&
+                this.extras.get(bootAnimationsFragment)) {
+            this.package_checker.remove(bootAnimationsFragment);
             BootAnimations bootAnimations = new BootAnimations();
-            bootAnimations.setArguments(bundle);
+            bootAnimations.setArguments(this.bundle);
             return bootAnimations;
-        } else if (package_checker.contains(shutdownAnimationsFragment) &&
-                extras.get(shutdownAnimationsFragment)) {
-            package_checker.remove(shutdownAnimationsFragment);
+        } else if (this.package_checker.contains(shutdownAnimationsFragment) &&
+                this.extras.get(shutdownAnimationsFragment)) {
+            this.package_checker.remove(shutdownAnimationsFragment);
             BootAnimations shutdownAnimations = new BootAnimations();
-            Bundle b = new Bundle(bundle);
+            Bundle b = new Bundle(this.bundle);
             b.putBoolean(shutdownAnimationsFragment, true);
             shutdownAnimations.setArguments(b);
             return shutdownAnimations;
-        } else if (package_checker.contains(fontsFragment) &&
-                extras.get(fontsFragment)) {
-            package_checker.remove(fontsFragment);
+        } else if (this.package_checker.contains(fontsFragment) &&
+                this.extras.get(fontsFragment)) {
+            this.package_checker.remove(fontsFragment);
             Fonts fonts = new Fonts();
-            fonts.setArguments(bundle);
+            fonts.setArguments(this.bundle);
             return fonts;
-        } else if (package_checker.contains(soundsFragment) &&
-                extras.get(soundsFragment)) {
-            package_checker.remove(soundsFragment);
+        } else if (this.package_checker.contains(soundsFragment) &&
+                this.extras.get(soundsFragment)) {
+            this.package_checker.remove(soundsFragment);
             Sounds sounds = new Sounds();
-            sounds.setArguments(bundle);
+            sounds.setArguments(this.bundle);
             return sounds;
-        } else if (wallpaperUrl != null) {
+        } else if (this.wallpaperUrl != null) {
             Wallpapers wallpapers = new Wallpapers();
-            wallpapers.setArguments(bundle);
+            wallpapers.setArguments(this.bundle);
             return wallpapers;
         }
         return null;

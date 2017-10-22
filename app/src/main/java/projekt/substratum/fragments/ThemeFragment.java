@@ -203,7 +203,7 @@ public class ThemeFragment extends Fragment {
         ArrayList<ThemeItem> empty_array = new ArrayList<>();
         ThemeAdapter empty_adapter = new ThemeAdapter(empty_array);
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this.mContext));
         mRecyclerView.setAdapter(empty_adapter);
     }
 
@@ -215,7 +215,7 @@ public class ThemeFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         try {
-            localBroadcastManager.unregisterReceiver(refreshReceiver);
+            this.localBroadcastManager.unregisterReceiver(this.refreshReceiver);
         } catch (IllegalArgumentException e) {
             // Unregistered already
         }
@@ -227,41 +227,41 @@ public class ThemeFragment extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = getContext();
-        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-        root = (ViewGroup) inflater.inflate(R.layout.home_fragment, container, false);
+        this.mContext = getContext();
+        this.prefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
+        this.root = (ViewGroup) inflater.inflate(R.layout.home_fragment, container, false);
 
         // Register the theme install receiver to auto refresh the fragment
-        refreshReceiver = new ThemeInstallReceiver();
+        this.refreshReceiver = new ThemeInstallReceiver();
         IntentFilter intentFilter = new IntentFilter("ThemeFragment.REFRESH");
-        localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
-        localBroadcastManager.registerReceiver(refreshReceiver, intentFilter);
+        this.localBroadcastManager = LocalBroadcastManager.getInstance(this.mContext);
+        this.localBroadcastManager.registerReceiver(this.refreshReceiver, intentFilter);
 
         Bundle bundle = this.getArguments();
         if (bundle != null) {
-            home_type = bundle.getString("home_type");
-            toolbar_title = bundle.getString("title");
+            this.home_type = bundle.getString("home_type");
+            this.toolbar_title = bundle.getString("title");
         }
 
-        RecyclerView recyclerView = root.findViewById(R.id.theme_list);
+        RecyclerView recyclerView = this.root.findViewById(R.id.theme_list);
         resetRecyclerView(recyclerView);
 
-        SwipeRefreshLayout swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
+        SwipeRefreshLayout swipeRefreshLayout = this.root.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(() -> new LayoutLoader(this).execute());
         swipeRefreshLayout.setRefreshing(true);
 
         ((MainActivity)
                 getActivity()).actionbar_content.setText(R.string.actionbar_theme_count_loading);
 
-        View cardView = root.findViewById(R.id.no_entry_card_view);
+        View cardView = this.root.findViewById(R.id.no_entry_card_view);
         cardView.setOnClickListener(v ->
-                Activities.launchInternalActivity(mContext, ShowcaseActivity.class));
+                Activities.launchInternalActivity(this.mContext, ShowcaseActivity.class));
         cardView.setVisibility(View.GONE);
 
         // Let's start loading everything
         new LayoutLoader(this).execute();
 
-        return root;
+        return this.root;
     }
 
     private static class LayoutLoader extends AsyncTask<String, Integer, String> {
@@ -277,7 +277,7 @@ public class ThemeFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            ThemeFragment themeFragment = fragment.get();
+            ThemeFragment themeFragment = this.fragment.get();
             if (themeFragment != null) {
                 refreshLayout(
                         themeFragment.prefs,
@@ -285,14 +285,14 @@ public class ThemeFragment extends Fragment {
                         themeFragment.mContext,
                         themeFragment.getActivity(),
                         themeFragment.toolbar_title,
-                        substratum_packages,
-                        themeItems);
+                        this.substratum_packages,
+                        this.themeItems);
             }
         }
 
         @Override
         protected String doInBackground(String... sUrl) {
-            ThemeFragment themeFragment = fragment.get();
+            ThemeFragment themeFragment = this.fragment.get();
             if (themeFragment != null) {
                 this.substratum_packages = Packages.getSubstratumPackages(
                         themeFragment.mContext,

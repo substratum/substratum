@@ -62,27 +62,27 @@ public class ManageSpaceActivity extends AppCompatActivity {
 
         CardView clearCacheButton = findViewById(R.id.clear_cache_button);
         CardView resetAppButton = findViewById(R.id.reset_app_button);
-        cacheCounter = findViewById(R.id.cache_counter);
-        cacheCounter.setText(getString(R.string.clear_cache_button_loading));
-        cacheCounter.setText(Formatter.formatFileSize(this, getFileSize(getCacheDir())));
+        this.cacheCounter = findViewById(R.id.cache_counter);
+        this.cacheCounter.setText(getString(R.string.clear_cache_button_loading));
+        this.cacheCounter.setText(Formatter.formatFileSize(this, getFileSize(getCacheDir())));
 
         clearCacheButton.setOnClickListener(v -> {
-            cacheCounter.setText(getString(R.string.clear_cache_button_loading));
+            this.cacheCounter.setText(getString(R.string.clear_cache_button_loading));
             new ClearCache(this).execute();
         });
 
         CardView clearLogsButton = findViewById(R.id.clear_logs_button);
-        logsCounter = findViewById(R.id.log_counter);
-        logsCounter.setText(getString(R.string.clear_cache_button_loading));
+        this.logsCounter = findViewById(R.id.log_counter);
+        this.logsCounter.setText(getString(R.string.clear_cache_button_loading));
         File filer = new File(LOGCHAR_DIR);
         if (filer.isDirectory()) {
-            logsCounter.setText(String.valueOf(filer.list().length));
+            this.logsCounter.setText(String.valueOf(filer.list().length));
         } else {
-            logsCounter.setText(String.valueOf(0));
+            this.logsCounter.setText(String.valueOf(0));
         }
 
         clearLogsButton.setOnClickListener(v -> {
-            logsCounter.setText(getString(R.string.clear_cache_button_loading));
+            this.logsCounter.setText(getString(R.string.clear_cache_button_loading));
             new ClearLogs(this).execute();
         });
 
@@ -98,20 +98,20 @@ public class ManageSpaceActivity extends AppCompatActivity {
                     .create();
             dialog.show();
         });
-        callingPackage = getCallingPackage();
+        this.callingPackage = getCallingPackage();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        cacheCounter.setText(getString(R.string.clear_cache_button_loading));
-        cacheCounter.setText(Formatter.formatFileSize(this, getFileSize(getCacheDir())));
+        this.cacheCounter.setText(getString(R.string.clear_cache_button_loading));
+        this.cacheCounter.setText(Formatter.formatFileSize(this, getFileSize(getCacheDir())));
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (callingPackage != null) {
+        if (this.callingPackage != null) {
             Process.killProcess(Process.myPid());
         }
     }
@@ -121,12 +121,12 @@ public class ManageSpaceActivity extends AppCompatActivity {
 
         ClearCache(ManageSpaceActivity activity) {
             super();
-            ref = new WeakReference<>(activity);
+            this.ref = new WeakReference<>(activity);
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            ManageSpaceActivity activity = ref.get();
+            ManageSpaceActivity activity = this.ref.get();
             if (activity != null) {
                 Context context = activity.getApplicationContext();
                 delete(context, context.getCacheDir().getAbsolutePath());
@@ -136,7 +136,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-            ManageSpaceActivity activity = ref.get();
+            ManageSpaceActivity activity = this.ref.get();
             if (activity != null) {
                 Context context = activity.getApplicationContext();
                 activity.cacheCounter.setText(
@@ -150,14 +150,14 @@ public class ManageSpaceActivity extends AppCompatActivity {
 
         ClearLogs(ManageSpaceActivity activity) {
             super();
-            ref = new WeakReference<>(activity);
+            this.ref = new WeakReference<>(activity);
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            ManageSpaceActivity activity = ref.get();
+            ManageSpaceActivity activity = this.ref.get();
             if (activity != null) {
-                Context context = ref.get().getApplicationContext();
+                Context context = this.ref.get().getApplicationContext();
                 delete(context, new File(LOGCHAR_DIR).getAbsolutePath());
             }
             return null;
@@ -165,7 +165,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-            ManageSpaceActivity activity = ref.get();
+            ManageSpaceActivity activity = this.ref.get();
             if (activity != null) {
                 File filer = new File(LOGCHAR_DIR);
                 if (filer.isDirectory()) {
@@ -182,12 +182,12 @@ public class ManageSpaceActivity extends AppCompatActivity {
 
         ResetApp(ManageSpaceActivity activity) {
             super();
-            ref = new WeakReference<>(activity);
+            this.ref = new WeakReference<>(activity);
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            ManageSpaceActivity activity = ref.get();
+            ManageSpaceActivity activity = this.ref.get();
             if (activity != null) {
                 Context context = activity.getApplicationContext();
                 for (File f : context.getDataDir().listFiles()) {
@@ -211,7 +211,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
-            ManageSpaceActivity activity = ref.get();
+            ManageSpaceActivity activity = this.ref.get();
             if (activity != null) {
                 Context context = activity.getApplicationContext();
                 activity.cacheCounter.setText(

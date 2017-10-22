@@ -50,15 +50,15 @@ public class ValidatorInfo {
     }
 
     public String getPackageName() {
-        return package_name;
+        return this.package_name;
     }
 
     public Context getContext() {
-        return mContext;
+        return this.mContext;
     }
 
     public Drawable getDrawable() {
-        return mDrawable;
+        return this.mDrawable;
     }
 
     public void setDrawable(Drawable drawable) {

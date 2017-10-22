@@ -111,17 +111,17 @@ public class Sounds extends Fragment {
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
-        mContext = getContext();
-        theme_pid = getArguments().getString("theme_pid");
+        this.mContext = getContext();
+        this.theme_pid = getArguments().getString("theme_pid");
         byte[] encryption_key = getArguments().getByteArray("encryption_key");
         byte[] iv_encrypt_key = getArguments().getByteArray("iv_encrypt_key");
 
         // encrypted = encryption_key != null && iv_encrypt_key != null;
 
-        if (encrypted) {
+        if (this.encrypted) {
             try {
-                cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-                cipher.init(
+                this.cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+                this.cipher.init(
                         Cipher.DECRYPT_MODE,
                         new SecretKeySpec(encryption_key, "AES"),
                         new IvParameterSpec(iv_encrypt_key)
@@ -131,35 +131,35 @@ public class Sounds extends Fragment {
             }
         }
 
-        root = (ViewGroup) inflater.inflate(R.layout.tab_sounds, container, false);
-        nsv = root.findViewById(R.id.nestedScrollView);
+        this.root = (ViewGroup) inflater.inflate(R.layout.tab_sounds, container, false);
+        this.nsv = this.root.findViewById(R.id.nestedScrollView);
 
-        progressBar = root.findViewById(R.id.progress_bar_loader);
-        progressBar.setVisibility(View.GONE);
+        this.progressBar = this.root.findViewById(R.id.progress_bar_loader);
+        this.progressBar.setVisibility(View.GONE);
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        this.prefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
 
-        defaults = root.findViewById(R.id.restore_to_default);
+        this.defaults = this.root.findViewById(R.id.restore_to_default);
 
-        final RelativeLayout sounds_preview = root.findViewById(R.id.sounds_placeholder);
-        relativeLayout = root.findViewById(R.id.relativeLayout);
-        error = root.findViewById(R.id.error_loading_pack);
-        error.setVisibility(View.GONE);
+        final RelativeLayout sounds_preview = this.root.findViewById(R.id.sounds_placeholder);
+        this.relativeLayout = this.root.findViewById(R.id.relativeLayout);
+        this.error = this.root.findViewById(R.id.error_loading_pack);
+        this.error.setVisibility(View.GONE);
 
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
-        recyclerView = root.findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        this.recyclerView = this.root.findViewById(R.id.recycler_view);
+        this.recyclerView.setHasFixedSize(true);
+        this.recyclerView.setLayoutManager(new LinearLayoutManager(this.mContext));
         ArrayList<SoundsInfo> empty_array = new ArrayList<>();
         RecyclerView.Adapter empty_adapter = new SoundsAdapter(empty_array);
-        recyclerView.setAdapter(empty_adapter);
+        this.recyclerView.setAdapter(empty_adapter);
 
         try {
             // Parses the list of items in the sounds folder
             Resources themeResources =
-                    mContext.getPackageManager().getResourcesForApplication(theme_pid);
-            themeAssetManager = themeResources.getAssets();
-            String[] fileArray = themeAssetManager.list(soundsDir);
+                    this.mContext.getPackageManager().getResourcesForApplication(this.theme_pid);
+            this.themeAssetManager = themeResources.getAssets();
+            String[] fileArray = this.themeAssetManager.list(soundsDir);
             List<String> archivedSounds = new ArrayList<>();
             Collections.addAll(archivedSounds, fileArray);
 
@@ -169,43 +169,43 @@ public class Sounds extends Fragment {
             unarchivedSounds.add(getString(R.string.sounds_spinner_set_defaults));
             for (int i = 0; i < archivedSounds.size(); i++) {
                 unarchivedSounds.add(archivedSounds.get(i).substring(0,
-                        archivedSounds.get(i).length() - (encrypted ? 8 : 4)));
+                        archivedSounds.get(i).length() - (this.encrypted ? 8 : 4)));
             }
 
             SpinnerAdapter adapter1 = new ArrayAdapter<>(getActivity(),
                     android.R.layout.simple_spinner_dropdown_item, unarchivedSounds);
-            soundsSelector = root.findViewById(R.id.soundsSelection);
-            soundsSelector.setAdapter(adapter1);
-            soundsSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            this.soundsSelector = this.root.findViewById(R.id.soundsSelection);
+            this.soundsSelector.setAdapter(adapter1);
+            this.soundsSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> arg0, View arg1, int pos, long id) {
                     switch (pos) {
                         case 0:
-                            if (current != null) current.cancel(true);
-                            defaults.setVisibility(View.GONE);
-                            error.setVisibility(View.GONE);
-                            relativeLayout.setVisibility(View.GONE);
+                            if (Sounds.this.current != null) Sounds.this.current.cancel(true);
+                            Sounds.this.defaults.setVisibility(View.GONE);
+                            Sounds.this.error.setVisibility(View.GONE);
+                            Sounds.this.relativeLayout.setVisibility(View.GONE);
                             sounds_preview.setVisibility(View.VISIBLE);
-                            paused = true;
+                            Sounds.this.paused = true;
                             break;
 
                         case 1:
-                            if (current != null) current.cancel(true);
-                            defaults.setVisibility(View.VISIBLE);
-                            error.setVisibility(View.GONE);
-                            relativeLayout.setVisibility(View.GONE);
+                            if (Sounds.this.current != null) Sounds.this.current.cancel(true);
+                            Sounds.this.defaults.setVisibility(View.VISIBLE);
+                            Sounds.this.error.setVisibility(View.GONE);
+                            Sounds.this.relativeLayout.setVisibility(View.GONE);
                             sounds_preview.setVisibility(View.GONE);
-                            paused = false;
+                            Sounds.this.paused = false;
                             break;
 
                         default:
-                            if (current != null) current.cancel(true);
-                            defaults.setVisibility(View.GONE);
-                            error.setVisibility(View.GONE);
+                            if (Sounds.this.current != null) Sounds.this.current.cancel(true);
+                            Sounds.this.defaults.setVisibility(View.GONE);
+                            Sounds.this.error.setVisibility(View.GONE);
                             sounds_preview.setVisibility(View.GONE);
-                            relativeLayout.setVisibility(View.VISIBLE);
+                            Sounds.this.relativeLayout.setVisibility(View.VISIBLE);
                             String[] commands = {arg0.getSelectedItem().toString()};
-                            current = new SoundsPreview(getInstance()).execute(commands);
+                            Sounds.this.current = new SoundsPreview(getInstance()).execute(commands);
                     }
                 }
 
@@ -218,49 +218,49 @@ public class Sounds extends Fragment {
             Log.e(TAG, "There is no sounds.zip found within the assets of this theme!");
         }
 
-        RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = this.root.findViewById(R.id.recycler_view);
         recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(mContext, (view, position) -> {
-                    wordList.get(position);
+                new RecyclerItemClickListener(this.mContext, (view, position) -> {
+                    this.wordList.get(position);
                     try {
-                        if (!mp.isPlaying() || position != previous_position) {
+                        if (!this.mp.isPlaying() || position != this.previous_position) {
                             stopPlayer();
                             ((ImageButton)
                                     view.findViewById(R.id.play)).setImageResource(
                                     R.drawable.sounds_preview_stop);
-                            mp.setDataSource(wordList.get(position).getAbsolutePath());
-                            mp.prepare();
-                            mp.start();
+                            this.mp.setDataSource(this.wordList.get(position).getAbsolutePath());
+                            this.mp.prepare();
+                            this.mp.start();
                         } else {
                             stopPlayer();
                         }
-                        previous_position = position;
+                        this.previous_position = position;
                     } catch (IOException ioe) {
-                        Log.e(TAG, "Playback has failed for " + wordList.get(position).getTitle());
+                        Log.e(TAG, "Playback has failed for " + this.wordList.get(position).getTitle());
                     }
                 })
         );
-        mp.setOnCompletionListener(mediaPlayer -> stopPlayer());
+        this.mp.setOnCompletionListener(mediaPlayer -> stopPlayer());
 
         // Enable job listener
-        jobReceiver = new JobReceiver();
-        localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
-        localBroadcastManager.registerReceiver(jobReceiver, new IntentFilter("Sounds.START_JOB"));
+        this.jobReceiver = new JobReceiver();
+        this.localBroadcastManager = LocalBroadcastManager.getInstance(this.mContext);
+        this.localBroadcastManager.registerReceiver(this.jobReceiver, new IntentFilter("Sounds.START_JOB"));
 
-        return root;
+        return this.root;
     }
 
     public void startApply() {
-        if (!paused) {
-            if (soundsSelector.getSelectedItemPosition() == 1) {
+        if (!this.paused) {
+            if (this.soundsSelector.getSelectedItemPosition() == 1) {
                 new SoundsClearer(this).execute("");
             } else {
                 new SoundUtils().execute(
-                        nsv,
-                        soundsSelector.getSelectedItem().toString(),
-                        mContext,
-                        theme_pid,
-                        cipher);
+                        this.nsv,
+                        this.soundsSelector.getSelectedItem().toString(),
+                        this.mContext,
+                        this.theme_pid,
+                        this.cipher);
             }
         }
     }
@@ -268,26 +268,26 @@ public class Sounds extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mp.release();
+        this.mp.release();
 
         // Unregister finish receiver
         try {
             if (finishReceiver != null) {
-                mContext.getApplicationContext().unregisterReceiver(finishReceiver);
+                this.mContext.getApplicationContext().unregisterReceiver(finishReceiver);
             }
-            localBroadcastManager.unregisterReceiver(jobReceiver);
+            this.localBroadcastManager.unregisterReceiver(this.jobReceiver);
         } catch (IllegalArgumentException e) {
             // Unregistered already
         }
     }
 
     private void stopPlayer() {
-        final int childCount = recyclerView.getChildCount();
+        final int childCount = this.recyclerView.getChildCount();
         for (int i = 0; i < childCount; i++) {
-            ((ImageButton) recyclerView.getChildAt(i).findViewById(R.id.play))
+            ((ImageButton) this.recyclerView.getChildAt(i).findViewById(R.id.play))
                     .setImageResource(R.drawable.sounds_preview_play);
         }
-        mp.reset();
+        this.mp.reset();
     }
 
     private static class SoundsClearer extends AsyncTask<String, Integer, String> {
@@ -295,12 +295,12 @@ public class Sounds extends Fragment {
 
         SoundsClearer(Sounds sounds) {
             super();
-            ref = new WeakReference<>(sounds);
+            this.ref = new WeakReference<>(sounds);
         }
 
         @Override
         protected void onPostExecute(String result) {
-            Sounds sounds = ref.get();
+            Sounds sounds = this.ref.get();
             if (sounds != null) {
                 SharedPreferences.Editor editor = sounds.prefs.edit();
                 editor.remove("sounds_applied");
@@ -314,7 +314,7 @@ public class Sounds extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            Sounds sounds = ref.get();
+            Sounds sounds = this.ref.get();
             if (sounds != null) {
                 new SoundUtils().SoundsClearer(sounds.mContext);
             }
@@ -327,12 +327,12 @@ public class Sounds extends Fragment {
 
         SoundsPreview(Sounds sounds) {
             super();
-            ref = new WeakReference<>(sounds);
+            this.ref = new WeakReference<>(sounds);
         }
 
         @Override
         protected void onPreExecute() {
-            Sounds sounds = ref.get();
+            Sounds sounds = this.ref.get();
             if (sounds != null) {
                 sounds.paused = true;
                 sounds.progressBar.setVisibility(View.VISIBLE);
@@ -342,7 +342,7 @@ public class Sounds extends Fragment {
 
         @Override
         protected void onPostExecute(String result) {
-            Sounds sounds = ref.get();
+            Sounds sounds = this.ref.get();
             if (sounds != null) {
                 try {
                     List<SoundsInfo> adapter1 = new ArrayList<>(sounds.wordList);
@@ -371,7 +371,7 @@ public class Sounds extends Fragment {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            Sounds sounds = ref.get();
+            Sounds sounds = this.ref.get();
             if (sounds != null) {
                 try {
                     File cacheDirectory = new File(sounds.mContext.getCacheDir(), "/SoundsCache/");
@@ -437,7 +437,7 @@ public class Sounds extends Fragment {
         }
 
         void listFilesForFolder(final File folder) {
-            Sounds sounds = ref.get();
+            Sounds sounds = this.ref.get();
             if (sounds != null) {
                 for (final File fileEntry : folder.listFiles()) {
                     if (fileEntry.isDirectory()) {

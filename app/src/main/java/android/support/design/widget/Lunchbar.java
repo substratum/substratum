@@ -175,7 +175,7 @@ public final class Lunchbar extends BaseTransientBottomBar {
      */
     @NonNull
     public Lunchbar setText(@NonNull CharSequence message) {
-        final SnackbarContentLayout contentLayout = (SnackbarContentLayout) mView.getChildAt(0);
+        final SnackbarContentLayout contentLayout = (SnackbarContentLayout) this.mView.getChildAt(0);
         @SuppressLint("RestrictedApi") final TextView tv = contentLayout.getMessageView();
         tv.setText(message);
         return this;
@@ -199,7 +199,7 @@ public final class Lunchbar extends BaseTransientBottomBar {
      */
     @NonNull
     public Lunchbar setAction(CharSequence text, final View.OnClickListener listener) {
-        final SnackbarContentLayout contentLayout = (SnackbarContentLayout) mView.getChildAt(0);
+        final SnackbarContentLayout contentLayout = (SnackbarContentLayout) this.mView.getChildAt(0);
         @SuppressLint("RestrictedApi") final TextView tv = contentLayout.getActionView();
 
         if (TextUtils.isEmpty(text) || listener == null) {
@@ -235,15 +235,15 @@ public final class Lunchbar extends BaseTransientBottomBar {
     public Lunchbar setCallback(Callback callback) {
         // The logic in this method emulates what we had before support for multiple
         // registered callbacks.
-        if (mCallback != null) {
-            removeCallback(mCallback);
+        if (this.mCallback != null) {
+            removeCallback(this.mCallback);
         }
         if (callback != null) {
             addCallback(callback);
         }
         // Update the deprecated field so that we can remove the passed callback the next
         // time we're called
-        mCallback = callback;
+        this.mCallback = callback;
         return this;
     }
 

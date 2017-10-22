@@ -41,7 +41,7 @@ public class ShowcaseTabsAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         Bundle bundle = new Bundle();
         bundle.putInt("tab_count", position);
-        bundle.putString("tabbed_address", fragment_links.get(position).toString());
+        bundle.putString("tabbed_address", this.fragment_links.get(position).toString());
         Fragment fragment = new ShowcaseTab();
         fragment.setArguments(bundle);
         return fragment;
@@ -49,6 +49,6 @@ public class ShowcaseTabsAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return mNumOfTabs;
+        return this.mNumOfTabs;
     }
 }

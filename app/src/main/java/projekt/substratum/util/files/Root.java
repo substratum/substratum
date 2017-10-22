@@ -64,15 +64,15 @@ public enum Root {
         SU() {
             super();
             try {
-                firstTry = true;
-                process = Runtime.getRuntime().exec("su");
-                bufferedWriter = new BufferedWriter(new OutputStreamWriter(process
+                this.firstTry = true;
+                this.process = Runtime.getRuntime().exec("su");
+                this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(this.process
                         .getOutputStream()));
-                bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream
+                this.bufferedReader = new BufferedReader(new InputStreamReader(this.process.getInputStream
                         ()));
             } catch (IOException e) {
-                denied = true;
-                closed = true;
+                this.denied = true;
+                this.closed = true;
             }
         }
 
@@ -80,47 +80,47 @@ public enum Root {
             try {
                 StringBuilder sb = new StringBuilder();
                 String callback = "/shellCallback/";
-                bufferedWriter.write(command + "\necho " + callback + "\n");
-                bufferedWriter.flush();
+                this.bufferedWriter.write(command + "\necho " + callback + "\n");
+                this.bufferedWriter.flush();
 
                 int i;
                 char[] buffer = new char[256];
                 while (true) {
-                    sb.append(buffer, 0, bufferedReader.read(buffer));
+                    sb.append(buffer, 0, this.bufferedReader.read(buffer));
                     if ((i = sb.indexOf(callback)) > -1) {
                         sb.delete(i, i + callback.length());
                         break;
                     }
                 }
-                firstTry = false;
+                this.firstTry = false;
                 return sb.toString().trim();
             } catch (IOException e) {
-                closed = true;
-                if (firstTry) denied = true;
+                this.closed = true;
+                if (this.firstTry) this.denied = true;
             } catch (Exception e) {
-                denied = true;
+                this.denied = true;
             }
             return null;
         }
 
         public void close() {
             try {
-                if (bufferedWriter != null) {
-                    bufferedWriter.write("exit\n");
-                    bufferedWriter.flush();
+                if (this.bufferedWriter != null) {
+                    this.bufferedWriter.write("exit\n");
+                    this.bufferedWriter.flush();
 
-                    bufferedWriter.close();
+                    this.bufferedWriter.close();
                 }
 
-                if (bufferedReader != null)
-                    bufferedReader.close();
+                if (this.bufferedReader != null)
+                    this.bufferedReader.close();
 
-                if (process != null) {
-                    process.waitFor();
-                    process.destroy();
+                if (this.process != null) {
+                    this.process.waitFor();
+                    this.process.destroy();
                 }
 
-                closed = true;
+                this.closed = true;
             } catch (Exception e) {
                 e.printStackTrace();
             }

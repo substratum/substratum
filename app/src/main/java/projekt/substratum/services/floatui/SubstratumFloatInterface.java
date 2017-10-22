@@ -110,7 +110,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (mFloatingViewManager != null) {
+        if (this.mFloatingViewManager != null) {
             return START_STICKY;
         }
         final DisplayMetrics metrics = new DisplayMetrics();
@@ -134,7 +134,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                     ThemeManager.listDisabledOverlaysForTarget(getApplicationContext(),
                             foregroundedApp()));
 
-            if (prefs.getBoolean("floatui_show_android_system_overlays", true)) {
+            if (this.prefs.getBoolean("floatui_show_android_system_overlays", true)) {
                 enabledOverlaysForForegroundPackage.addAll(ThemeManager
                         .listEnabledOverlaysForTarget(getApplicationContext(), "android"));
                 disabledOverlaysForForegroundPackage.addAll(ThemeManager
@@ -151,7 +151,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                         getString(R.string.per_app_toast_no_overlays), packageName);
                 Toast.makeText(getApplicationContext(), format, Toast.LENGTH_SHORT).show();
             } else {
-                final_check = new ArrayList<>();
+                this.final_check = new ArrayList<>();
                 for (int j = 0; j < to_be_shown.size(); j++) {
                     Boolean is_enabled = enabledOverlaysForForegroundPackage.contains(to_be_shown
                             .get(j));
@@ -160,11 +160,11 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                     if (is_enabled) {
                         managerItem.setSelected(true);
                     }
-                    final_check.add(managerItem);
+                    this.final_check.add(managerItem);
                 }
 
                 RecyclerView mRecyclerView;
-                mAdapter = new ManagerAdapter(final_check, true);
+                this.mAdapter = new ManagerAdapter(this.final_check, true);
 
                 // Set a custom title
                 TextView title = new TextView(this);
@@ -180,33 +180,33 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FloatUiDialog);
                 builder.setCustomTitle(title);
                 builder.setPositiveButton(R.string.per_app_apply, (dialog, which) -> {
-                    trigger_service_restart = false;
-                    trigger_systemui_restart = false;
+                    this.trigger_service_restart = false;
+                    this.trigger_systemui_restart = false;
                     ArrayList<String> to_enable = new ArrayList<>();
                     ArrayList<String> to_disable = new ArrayList<>();
 
-                    for (int i = 0; i < final_check.size(); i++) {
-                        if (mAdapter.getOverlayManagerList().get(i).isSelected()) {
+                    for (int i = 0; i < this.final_check.size(); i++) {
+                        if (this.mAdapter.getOverlayManagerList().get(i).isSelected()) {
                             // Check if enabled
                             if (!enabledOverlaysForForegroundPackage
-                                    .contains(final_check.get(i).getName())) {
+                                    .contains(this.final_check.get(i).getName())) {
                                 // It is not enabled, append it to the list
-                                String package_name = final_check.get(i).getName();
+                                String package_name = this.final_check.get(i).getName();
                                 to_enable.add(package_name);
                                 if (package_name.startsWith("android.") ||
                                         package_name.startsWith(getPackageName() + ".") ||
                                         package_name.startsWith("com.android.systemui"))
-                                    trigger_service_restart = true;
+                                    this.trigger_service_restart = true;
                             }
                         } else if (!disabledOverlaysForForegroundPackage
-                                .contains(final_check.get(i).getName())) {
+                                .contains(this.final_check.get(i).getName())) {
                             // It is disabled, append it to the list
-                            String package_name = final_check.get(i).getName();
+                            String package_name = this.final_check.get(i).getName();
                             to_disable.add(package_name);
                             if (package_name.startsWith("android.") ||
                                     package_name.startsWith(getPackageName() + ".") ||
                                     package_name.startsWith("com.android.systemui"))
-                                trigger_service_restart = true;
+                                this.trigger_service_restart = true;
                         }
                     }
                     // Dismiss the dialog so that we don't have issues with configuration changes
@@ -221,10 +221,10 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                         if (to_disable.size() > 0)
                             ThemeManager.disableOverlay(getApplicationContext(), to_disable);
 
-                        if (trigger_systemui_restart) {
+                        if (this.trigger_systemui_restart) {
                             ThemeManager.restartSystemUI(getApplicationContext());
                         }
-                        if (trigger_service_restart) {
+                        if (this.trigger_service_restart) {
                             final Handler handler2 = new Handler();
                             handler2.postDelayed(() -> {
                                 getApplicationContext().stopService(
@@ -248,7 +248,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 builder.setView(content);
 
                 mRecyclerView = content.findViewById(R.id.recycler_view);
-                mRecyclerView.setAdapter(mAdapter);
+                mRecyclerView.setAdapter(this.mAdapter);
 
                 mRecyclerView.setHasFixedSize(true);
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -265,12 +265,12 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 alertDialog.show();
             }
         });
-        mFloatingViewManager = new FloatingViewManager(this, this);
-        mFloatingViewManager.setFixedTrashIconImage(R.drawable.floating_trash_cross);
-        mFloatingViewManager.setActionTrashIconImage(R.drawable.floating_trash_base);
+        this.mFloatingViewManager = new FloatingViewManager(this, this);
+        this.mFloatingViewManager.setFixedTrashIconImage(R.drawable.floating_trash_cross);
+        this.mFloatingViewManager.setActionTrashIconImage(R.drawable.floating_trash_base);
         final FloatingViewManager.Options options = new FloatingViewManager.Options();
         options.overMargin = (int) (16 * metrics.density);
-        mFloatingViewManager.addViewToWindow(iconView, options);
+        this.mFloatingViewManager.addViewToWindow(iconView, options);
 
         startForeground(NOTIFICATION_ID, createNotification());
 
@@ -298,9 +298,9 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
     }
 
     private void destroy() {
-        if (mFloatingViewManager != null) {
-            mFloatingViewManager.removeAllViewToWindow();
-            mFloatingViewManager = null;
+        if (this.mFloatingViewManager != null) {
+            this.mFloatingViewManager.removeAllViewToWindow();
+            this.mFloatingViewManager = null;
         }
     }
 
@@ -315,9 +315,9 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(this,
                 References.ONGOING_NOTIFICATION_CHANNEL_ID);
         builder.setWhen(System.currentTimeMillis());
-        prefs = PreferenceManager.getDefaultSharedPreferences(
+        this.prefs = PreferenceManager.getDefaultSharedPreferences(
                 getApplicationContext());
-        if (prefs.getBoolean("floatui_show_android_system_overlays", true)) {
+        if (this.prefs.getBoolean("floatui_show_android_system_overlays", true)) {
             builder.addAction(android.R.color.transparent, getString(R.string
                     .per_app_notification_framework_hide), btPendingIntent);
         } else {

@@ -60,7 +60,7 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int pos) {
-        ShowcaseItem showcaseItem = information.get(pos);
+        ShowcaseItem showcaseItem = this.information.get(pos);
         Context context = showcaseItem.getContext();
 
         Glide.with(context)
@@ -134,7 +134,7 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
 
     @Override
     public int getItemCount() {
-        return information.size();
+        return this.information.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -148,18 +148,18 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
 
         ViewHolder(View view) {
             super(view);
-            cardView = view.findViewById(R.id.theme_card);
-            themeName = view.findViewById(R.id.theme_name);
-            themeAuthor = view.findViewById(R.id.theme_author);
-            themePricing = view.findViewById(R.id.theme_pricing);
-            imageView = view.findViewById(R.id.theme_icon);
-            backgroundImageView = view.findViewById(R.id.background_image);
-            wallpaper = view.findViewById(R.id.theme_wallpapers);
-            sounds = view.findViewById(R.id.theme_sounds);
-            fonts = view.findViewById(R.id.theme_fonts);
-            bootanimations = view.findViewById(R.id.theme_bootanimations);
-            overlays = view.findViewById(R.id.theme_overlays);
-            installedOrNot = view.findViewById(R.id.themeinstalled);
+            this.cardView = view.findViewById(R.id.theme_card);
+            this.themeName = view.findViewById(R.id.theme_name);
+            this.themeAuthor = view.findViewById(R.id.theme_author);
+            this.themePricing = view.findViewById(R.id.theme_pricing);
+            this.imageView = view.findViewById(R.id.theme_icon);
+            this.backgroundImageView = view.findViewById(R.id.background_image);
+            this.wallpaper = view.findViewById(R.id.theme_wallpapers);
+            this.sounds = view.findViewById(R.id.theme_sounds);
+            this.fonts = view.findViewById(R.id.theme_fonts);
+            this.bootanimations = view.findViewById(R.id.theme_bootanimations);
+            this.overlays = view.findViewById(R.id.theme_overlays);
+            this.installedOrNot = view.findViewById(R.id.themeinstalled);
         }
     }
 }

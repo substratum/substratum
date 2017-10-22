@@ -51,7 +51,7 @@ public class AndromedaBinderService extends Service implements ServiceConnection
     }
 
     public void bindAndromeda() {
-        if (Systems.checkAndromeda(this) && !mBound) {
+        if (Systems.checkAndromeda(this) && !this.mBound) {
             Intent intent = new Intent(ANDROMEDA_BINDED);
             intent.setPackage(ANDROMEDA_PACKAGE);
             if (!bindService(intent, this, Context.BIND_AUTO_CREATE)) {
@@ -65,7 +65,7 @@ public class AndromedaBinderService extends Service implements ServiceConnection
         bindAndromeda();
 
         new Thread(() -> {
-            while (!mBound) {
+            while (!this.mBound) {
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
@@ -107,7 +107,7 @@ public class AndromedaBinderService extends Service implements ServiceConnection
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
         iAndromedaInterface = IAndromedaInterface.Stub.asInterface(service);
-        mBound = true;
+        this.mBound = true;
         Log.d(TAG, "Substratum has successfully binded with the Andromeda module.");
         if (iAndromedaInterface != null && AndromedaService.checkServerActivity()) {
             NotificationCompat.Builder builder = new NotificationCompat.Builder(
@@ -124,7 +124,7 @@ public class AndromedaBinderService extends Service implements ServiceConnection
     @Override
     public void onServiceDisconnected(ComponentName name) {
         iAndromedaInterface = null;
-        mBound = false;
+        this.mBound = false;
         Log.d(TAG, "Substratum has successfully unbinded with the Andromeda module.");
     }
 

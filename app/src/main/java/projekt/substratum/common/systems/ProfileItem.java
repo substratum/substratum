@@ -35,11 +35,11 @@ public class ProfileItem {
     }
 
     public String getPackageName() {
-        return packageName;
+        return this.packageName;
     }
 
     public String getTargetPackage() {
-        return targetPackage;
+        return this.targetPackage;
     }
 
     public void setTargetPackage(String targetPackage) {
@@ -47,7 +47,7 @@ public class ProfileItem {
     }
 
     public String getParentTheme() {
-        return parentTheme;
+        return this.parentTheme;
     }
 
     void setParentTheme(String parentTheme) {
@@ -55,7 +55,7 @@ public class ProfileItem {
     }
 
     public String getType1a() {
-        return type1a;
+        return this.type1a;
     }
 
     public void setType1a(String type1a) {
@@ -63,7 +63,7 @@ public class ProfileItem {
     }
 
     public String getType1b() {
-        return type1b;
+        return this.type1b;
     }
 
     public void setType1b(String type1b) {
@@ -71,7 +71,7 @@ public class ProfileItem {
     }
 
     public String getType1c() {
-        return type1c;
+        return this.type1c;
     }
 
     public void setType1c(String type1c) {
@@ -79,7 +79,7 @@ public class ProfileItem {
     }
 
     public String getType2() {
-        return type2;
+        return this.type2;
     }
 
     public void setType2(String type2) {
@@ -87,7 +87,7 @@ public class ProfileItem {
     }
 
     public String getType3() {
-        return type3;
+        return this.type3;
     }
 
     public void setType3(String type3) {
@@ -95,7 +95,7 @@ public class ProfileItem {
     }
 
     public String getType4() {
-        return type4;
+        return this.type4;
     }
 
     public void setType4(String type4) {

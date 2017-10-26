@@ -29,14 +29,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 public class ReadVariantPrioritizedColor {
 
-    private static InputStream fileName;
-
-    public ReadVariantPrioritizedColor(final InputStream _fileName) {
-        super();
-        fileName = _fileName;
-    }
-
-    public static String run() {
+    public static String run(InputStream fileName) {
         try {
             final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             final DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();

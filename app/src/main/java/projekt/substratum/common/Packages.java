@@ -669,8 +669,6 @@ public enum Packages {
     // This method parses a specific overlay resource file (.xml) and returns the specified value
     public static String getOverlayResource(final InputStream overlay) {
 
-        // We need to clone the InputStream so that we can ensure that the name and color are
-        // mutually exclusive
         final byte[] byteArray;
         try {
             byteArray = IOUtils.toByteArray(overlay);
@@ -680,12 +678,15 @@ public enum Packages {
         }
 
         String hex = null;
-        try (InputStream in = new ByteArrayInputStream(byteArray)) {
+        // We need to clone the InputStream so that we can ensure that the name and color are
+        // mutually exclusive
+        try (InputStream clone1 = new ByteArrayInputStream(byteArray);
+             InputStream clone2 = new ByteArrayInputStream(byteArray)) {
             // Find the name of the top most color in the file first.
-            final String resource_name = ReadVariantPrioritizedColor.run();
+            final String resource_name = ReadVariantPrioritizedColor.run(clone1);
 
             if (resource_name != null) {
-                try (BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
+                try (BufferedReader br = new BufferedReader(new InputStreamReader(clone2))) {
                     String line;
                     while ((line = br.readLine()) != null) {
                         if (line.contains('"' + resource_name + '"')) {

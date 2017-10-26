@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright (c) 2016-2017 Projekt Substratum
+  ~ Copyright (c) 2017 Projekt Substratum
   ~ This file is part of Substratum.
   ~
   ~ Substratum is free software: you can redistribute it and/or modify
@@ -17,11 +17,12 @@
   -->
 
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-        android:width="24dp"
-        android:height="24dp"
-        android:viewportHeight="24"
-        android:viewportWidth="24">
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
     <path
         android:fillColor="@color/fab_menu_icon_color"
-        android:pathData="M12,6V9L16,5L12,1V4A8,8 0 0,0 4,12C4,13.57 4.46,15.03 5.24,16.26L6.7,14.8C6.25,13.97 6,13 6,12A6,6 0 0,1 12,6M18.76,7.74L17.3,9.2C17.74,10.04 18,11 18,12A6,6 0 0,1 12,18V15L8,19L12,23V20A8,8 0 0,0 20,12C20,10.43 19.54,8.97 18.76,7.74Z"/>
+        android:pathData="M12,1 C18.071,1,23,5.929,23,12 C23,18.071,18.071,23,12,23 C5.929,23,1,18.071,1,12 C1,5.929,5.929,1,12,1 Z M17.531,8.515 L16.336,9.709 C16.696,10.396,16.909,11.174,16.909,12 C16.909,14.708,14.708,16.909,12,16.909 L12,14.455 L8.727,17.727 L12,21 L12,18.545 C15.616,18.545,18.545,15.616,18.545,12 C18.545,10.715,18.169,9.521,17.531,8.515 Z M12,7.091 L12,9.545 L15.273,6.273 L12,3 L12,5.455 C8.384,5.455,5.455,8.384,5.455,12 C5.455,13.285,5.831,14.479,6.469,15.485 L7.664,14.291 C7.295,13.612,7.091,12.826,7.091,12 C7.091,9.292,9.292,7.091,12,7.091 Z" />
 </vector>

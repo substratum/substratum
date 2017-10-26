@@ -112,8 +112,8 @@ public enum Resources {
             "marlin", // Pixel
             "sailfish", // Pixel XL
             "walleye", // Pixel 2
-            "muskie", // Pixel XL 2
-            "taimen", // Pixel ?
+            "muskie", // The hidden HTC Pixel 2
+            "taimen", // Pixel 2 XL
     };
 
     // Filter to adjust UI sounds

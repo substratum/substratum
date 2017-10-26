@@ -145,7 +145,7 @@ public enum Systems {
     }
 
     public static Boolean checkOreo() {
-        return Build.VERSION.SDK_INT == Build.VERSION_CODES.O;
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O;
     }
 
     private static Boolean checkNougat() {

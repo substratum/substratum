@@ -30,6 +30,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -54,6 +55,7 @@ import projekt.substratum.adapters.fragments.themes.ThemeAdapter;
 import projekt.substratum.adapters.fragments.themes.ThemeItem;
 import projekt.substratum.common.Activities;
 import projekt.substratum.common.Packages;
+import projekt.substratum.util.helpers.ThemeCallback;
 
 import static projekt.substratum.common.References.DEFAULT_GRID_COUNT;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
@@ -69,6 +71,7 @@ public class ThemeFragment extends Fragment {
     private String home_type;
     private String toolbar_title;
     private Boolean first_boot = true;
+    private ThemeAdapter mAdapter;
 
     private static ArrayList<ThemeItem> prepareData(final Map<String, String[]> map,
                                                     final Context context,
@@ -107,7 +110,22 @@ public class ThemeFragment extends Fragment {
         return themes;
     }
 
-    private static void refreshLayout(final SharedPreferences prefs,
+    private static void refreshLayout(final ThemeFragment themeFragment,
+                                      final ViewGroup root,
+                                      final ArrayList<ThemeItem> themeItems) {
+        final SwipeRefreshLayout swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
+        ThemeAdapter adapter = themeFragment.mAdapter;
+        DiffUtil.DiffResult diffResult =
+                DiffUtil.calculateDiff(
+                        new ThemeCallback(adapter.getList(), themeItems));
+        adapter.setList(themeItems);
+        diffResult.dispatchUpdatesTo(adapter);
+        // Conclude
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    private static void refreshLayout(final ThemeFragment themeFragment,
+                                      final SharedPreferences prefs,
                                       final ViewGroup root,
                                       final Context mContext,
                                       final Activity activity,
@@ -164,11 +182,13 @@ public class ThemeFragment extends Fragment {
                 ref.get().switchToCustomToolbar(toolbarTitle, parse);
             }
 
-            // Now we need to sort the buffered installed themes
-            final ThemeAdapter adapter = new ThemeAdapter(themeItems);
+            if (themeFragment != null) {
+                // Now we need to sort the buffered installed themes
+                themeFragment.mAdapter = new ThemeAdapter(themeItems);
 
-            // Assign adapter to RecyclerView
-            recyclerView.setAdapter(adapter);
+                // Assign adapter to RecyclerView
+                recyclerView.setAdapter(themeFragment.mAdapter);
+            }
 
             // Begin to set the formatting of the layouts
             if (prefs.getInt("grid_style_cards_count", DEFAULT_GRID_COUNT) > 1) {
@@ -246,8 +266,8 @@ public class ThemeFragment extends Fragment {
         final RecyclerView recyclerView = this.root.findViewById(R.id.theme_list);
         this.resetRecyclerView(recyclerView);
 
-        final SwipeRefreshLayout swipeRefreshLayout = this.root.findViewById(R.id
-                .swipeRefreshLayout);
+        final SwipeRefreshLayout swipeRefreshLayout =
+                this.root.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(() -> new LayoutLoader(this).execute());
         swipeRefreshLayout.setRefreshing(true);
 
@@ -281,14 +301,22 @@ public class ThemeFragment extends Fragment {
             super.onPostExecute(result);
             final ThemeFragment themeFragment = this.fragment.get();
             if (themeFragment != null) {
-                refreshLayout(
-                        themeFragment.prefs,
-                        themeFragment.root,
-                        themeFragment.mContext,
-                        themeFragment.getActivity(),
-                        themeFragment.toolbar_title,
-                        this.substratum_packages,
-                        this.themeItems);
+                if (themeFragment.mAdapter != null) {
+                    refreshLayout(
+                            themeFragment,
+                            themeFragment.root,
+                            this.themeItems);
+                } else {
+                    refreshLayout(
+                            themeFragment,
+                            themeFragment.prefs,
+                            themeFragment.root,
+                            themeFragment.mContext,
+                            themeFragment.getActivity(),
+                            themeFragment.toolbar_title,
+                            this.substratum_packages,
+                            this.themeItems);
+                }
             }
         }
 

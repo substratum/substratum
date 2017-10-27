@@ -57,7 +57,7 @@ import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
 
 
 public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> {
-    private final List<ThemeItem> information;
+    private List<ThemeItem> information;
     private Context mContext;
     private ProgressDialog mProgressDialog;
     private ThemeItem toBeUninstalled;
@@ -65,6 +65,14 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
     public ThemeAdapter(final List<ThemeItem> information) {
         super();
         this.information = information;
+    }
+
+    public List<ThemeItem> getList() {
+        return this.information;
+    }
+
+    public void setList(List<ThemeItem> list) {
+        this.information = list;
     }
 
     @Override

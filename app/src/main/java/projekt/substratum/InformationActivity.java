@@ -1356,7 +1356,7 @@ public class InformationActivity extends AppCompatActivity {
         public void onReceive(final Context context, final Intent intent) {
             if ((intent != null) && !compilingProcess) {
                 final String package_name = intent.getStringExtra("theme_pid");
-                if ((package_name != null) &&
+                if (package_name != null &&
                         package_name.equals(InformationActivity.this.theme_pid)) {
                     final String to_format = String.format(
                             InformationActivity.this.getString(R.string.toast_activity_finished),

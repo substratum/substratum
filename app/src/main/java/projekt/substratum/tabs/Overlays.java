@@ -45,7 +45,6 @@ import android.support.v4.content.FileProvider;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -94,7 +93,6 @@ import projekt.substratum.adapters.tabs.overlays.VariantItem;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
-import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
@@ -107,13 +105,13 @@ import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.References.DEFAULT_NOTIFICATION_CHANNEL_ID;
 import static projekt.substratum.common.References.ENABLE_PACKAGE_LOGGING;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
-import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
-import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER;
 import static projekt.substratum.common.References.metadataEmail;
 import static projekt.substratum.common.References.metadataEncryption;
 import static projekt.substratum.common.References.metadataEncryptionValue;
-import static projekt.substratum.tabs.OverlayFunctions.getThemeCache;
+import static projekt.substratum.tabs.OverlayFunctions.legacyDisable;
+import static projekt.substratum.tabs.OverlayFunctions.selectCompileMode;
+import static projekt.substratum.tabs.OverlayFunctions.selectEnabledDisabled;
 
 public class Overlays extends Fragment {
 
@@ -124,21 +122,26 @@ public class Overlays extends Fragment {
     public TextView loader_string;
     public SheetDialog mCompileDialog;
     public SubstratumBuilder sb;
-    public List<OverlaysItem> overlaysLists, checkedOverlays;
+    public List<OverlaysItem> overlaysLists;
+    public List<OverlaysItem> checkedOverlays;
     public RecyclerView.Adapter mAdapter;
     public String theme_name;
     public String theme_pid;
     public String versionName;
     public NotificationManager mNotifyManager;
     public NotificationCompat.Builder mBuilder;
-    public boolean has_failed;
+    public boolean has_failed = false;
     public int fail_count;
     public StringBuilder failed_packages;
     public Spinner base_spinner;
     public SharedPreferences prefs;
-    public List<String> final_runner, late_install;
-    public boolean mixAndMatchMode, enable_mode, disable_mode, compile_enable_mode,
-            enable_disable_mode;
+    public List<String> final_runner;
+    public List<String> late_install;
+    public boolean mixAndMatchMode = false;
+    public boolean enable_mode = false;
+    public boolean disable_mode = false;
+    public boolean compile_enable_mode = false;
+    public boolean enable_disable_mode = false;
     public Switch toggle_all;
     public ProgressBar progressBar;
     public Boolean is_overlay_active = false;
@@ -159,16 +162,19 @@ public class Overlays extends Fragment {
     public Boolean encrypted = false;
     public Cipher cipher;
     public int overlaysWaiting;
+    public ActivityManager am;
     private ArrayList<OverlaysItem> values2;
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private JobReceiver jobReceiver;
     private LocalBroadcastManager localBroadcastManager;
     private RefreshReceiver refreshReceiver;
-    private ActivityManager am;
     private boolean decryptedAssetsExceptionReached;
     private int currentPosition;
 
+    /**
+     * Display all of the type resources if this is called
+     */
     void logTypes() {
         if (ENABLE_PACKAGE_LOGGING) {
             Log.d("Theme Type1a Resource", this.type1a);
@@ -180,322 +186,80 @@ public class Overlays extends Fragment {
         }
     }
 
+    /**
+     * We use flags to unify a whole function in OverlayFunctions, call this to reset it all!
+     * By resetting all, it means that you have finished ALL functions to-be-served for the user
+     */
+    void resetCompileFlags() {
+        this.is_overlay_active = false;
+        this.compile_enable_mode = false;
+        this.enable_mode = false;
+        this.disable_mode = false;
+        this.enable_disable_mode = false;
+    }
+
     public View getActivityView() {
         return ((ViewGroup) this.getActivity().findViewById(android.R.id.content)).getChildAt(0);
     }
 
+    /**
+     * Utilize the shared compile + * mode, but enable the overlays selected afterwards
+     */
     private void startCompileEnableMode() {
         if (!this.is_overlay_active) {
+            resetCompileFlags();
             this.is_overlay_active = true;
             this.compile_enable_mode = true;
-            this.enable_mode = false;
-            this.disable_mode = false;
-            this.enable_disable_mode = false;
-
-            this.overlaysLists = ((OverlaysAdapter) this.mAdapter).getOverlayList();
-            this.checkedOverlays = new ArrayList<>();
-
-            for (int i = 0; i < this.overlaysLists.size(); i++) {
-                final OverlaysItem currentOverlay = this.overlaysLists.get(i);
-                if (currentOverlay.isSelected()) {
-                    this.checkedOverlays.add(currentOverlay);
-                }
-            }
-            if (!this.checkedOverlays.isEmpty()) {
-                final getThemeCache phase2 = new getThemeCache(this);
-                if ((this.base_spinner.getSelectedItemPosition() != 0) &&
-                        (this.base_spinner.getVisibility() == View.VISIBLE)) {
-                    phase2.execute(this.base_spinner.getSelectedItem().toString());
-                } else {
-                    phase2.execute("");
-                }
-                for (final OverlaysItem overlay : this.checkedOverlays) {
-                    Log.d("OverlayTargetPackageKiller", "Killing package : " + overlay
-                            .getPackageName());
-                    this.am.killBackgroundProcesses(overlay.getPackageName());
-                }
-            } else {
-                if (this.toggle_all.isChecked()) this.toggle_all.setChecked(false);
-                this.is_overlay_active = false;
-                currentShownLunchBar = Lunchbar.make(
-                        this.getActivityView(),
-                        R.string.toast_disabled5,
-                        Lunchbar.LENGTH_LONG);
-                currentShownLunchBar.show();
-            }
+            selectCompileMode(this);
         }
     }
 
+    /**
+     * Utilize the shared compile + * mode and do not enable the overlays selected afterwards
+     */
     private void startCompileUpdateMode() {
         if (!this.is_overlay_active) {
+            resetCompileFlags();
             this.is_overlay_active = true;
-            this.compile_enable_mode = false;
-
-            this.overlaysLists = ((OverlaysAdapter) this.mAdapter).getOverlayList();
-            this.checkedOverlays = new ArrayList<>();
-
-            for (int i = 0; i < this.overlaysLists.size(); i++) {
-                final OverlaysItem currentOverlay = this.overlaysLists.get(i);
-                if (currentOverlay.isSelected()) {
-                    this.checkedOverlays.add(currentOverlay);
-                }
-            }
-
-            if (!this.checkedOverlays.isEmpty()) {
-                final getThemeCache phase2 = new getThemeCache(this);
-                if ((this.base_spinner.getSelectedItemPosition() != 0) &&
-                        (this.base_spinner.getVisibility() == View.VISIBLE)) {
-                    phase2.execute(this.base_spinner.getSelectedItem().toString());
-                } else {
-                    phase2.execute("");
-                }
-                for (final OverlaysItem overlay : this.checkedOverlays) {
-                    Log.d("OverlayTargetPackageKiller", "Killing package : " + overlay
-                            .getPackageName());
-                    this.am.killBackgroundProcesses(overlay.getPackageName());
-                }
-            } else {
-                if (this.toggle_all.isChecked()) this.toggle_all.setChecked(false);
-                this.is_overlay_active = false;
-                currentShownLunchBar = Lunchbar.make(
-                        this.getActivityView(),
-                        R.string.toast_disabled5,
-                        Lunchbar.LENGTH_LONG);
-                currentShownLunchBar.show();
-            }
+            selectCompileMode(this);
         }
     }
 
+    /**
+     * Disable the selected overlays
+     */
     private void startDisable() {
         if (!this.is_overlay_active) {
-            this.is_overlay_active = true;
-
-            this.overlaysLists = ((OverlaysAdapter) this.mAdapter).getOverlayList();
-            this.checkedOverlays = new ArrayList<>();
-
-            if (Systems.checkOMS(this.getContext())) {
-                this.compile_enable_mode = false;
-                this.enable_mode = false;
-                this.disable_mode = true;
-                this.enable_disable_mode = false;
-
-                for (int i = 0; i < this.overlaysLists.size(); i++) {
-                    final OverlaysItem currentOverlay = this.overlaysLists.get(i);
-                    if (currentOverlay.isSelected() && currentOverlay.isOverlayEnabled()) {
-                        this.checkedOverlays.add(currentOverlay);
-                    } else {
-                        currentOverlay.setSelected(false);
-                        this.mAdapter.notifyDataSetChanged();
-                    }
-                }
-                if (!this.checkedOverlays.isEmpty()) {
-                    final getThemeCache phase2 = new getThemeCache(this);
-                    if ((this.base_spinner.getSelectedItemPosition() != 0) &&
-                            (this.base_spinner.getVisibility() == View.VISIBLE)) {
-                        phase2.execute(this.base_spinner.getSelectedItem().toString());
-                    } else {
-                        phase2.execute("");
-                    }
-                    for (final OverlaysItem overlay : this.checkedOverlays) {
-                        Log.d("OverlayTargetPackageKiller", "Killing package : " + overlay
-                                .getPackageName());
-                        this.am.killBackgroundProcesses(overlay.getPackageName());
-                    }
-                } else {
-                    if (this.toggle_all.isChecked()) this.toggle_all.setChecked(false);
-                    this.is_overlay_active = false;
-                    currentShownLunchBar = Lunchbar.make(
-                            this.getActivityView(),
-                            R.string.toast_disabled5,
-                            Lunchbar.LENGTH_LONG);
-                    currentShownLunchBar.show();
-                }
-            } else {
-                this.compile_enable_mode = false;
-                this.enable_mode = false;
-                this.disable_mode = true;
-                this.enable_disable_mode = false;
-
-                for (int i = 0; i < this.overlaysLists.size(); i++) {
-                    final OverlaysItem currentOverlay = this.overlaysLists.get(i);
-                    if (currentOverlay.isSelected()) {
-                        this.checkedOverlays.add(currentOverlay);
-                    } else {
-                        currentOverlay.setSelected(false);
-                        this.mAdapter.notifyDataSetChanged();
-                    }
-                }
-
-                final String current_directory;
-                if (projekt.substratum.common.Resources.inNexusFilter()) {
-                    current_directory = PIXEL_NEXUS_DIR;
-                } else {
-                    current_directory = LEGACY_NEXUS_DIR;
-                }
-
-                if (!this.checkedOverlays.isEmpty()) {
-                    if (Systems.isSamsung(this.getContext())) {
-                        if (Root.checkRootAccess() && Root.requestRootAccess()) {
-                            final ArrayList<String> checked_overlays = new ArrayList<>();
-                            for (int i = 0; i < this.checkedOverlays.size(); i++) {
-                                checked_overlays.add(
-                                        this.checkedOverlays.get(i).getFullOverlayParameters());
-                            }
-                            ThemeManager.uninstallOverlay(this.getContext(), checked_overlays);
-                        } else {
-                            for (int i = 0; i < this.checkedOverlays.size(); i++) {
-                                final Uri packageURI = Uri.parse("package:" +
-                                        this.checkedOverlays.get(i).getFullOverlayParameters());
-                                final Intent uninstallIntent =
-                                        new Intent(Intent.ACTION_DELETE, packageURI);
-
-                                this.startActivity(uninstallIntent);
-                            }
-                        }
-                    } else {
-                        for (int i = 0; i < this.checkedOverlays.size(); i++) {
-                            FileOperations.mountRW();
-                            FileOperations.delete(this.getContext(), current_directory +
-                                    this.checkedOverlays.get(i).getFullOverlayParameters() + "" +
-                                    ".apk");
-                            this.mAdapter.notifyDataSetChanged();
-                        }
-                        // Untick all options in the adapter after compiling
-                        this.toggle_all.setChecked(false);
-                        this.overlaysLists = ((OverlaysAdapter) this.mAdapter).getOverlayList();
-                        for (int i = 0; i < this.overlaysLists.size(); i++) {
-                            final OverlaysItem currentOverlay = this.overlaysLists.get(i);
-                            if (currentOverlay.isSelected()) {
-                                currentOverlay.setSelected(false);
-                            }
-                        }
-                        Toast.makeText(this.getContext(),
-                                this.getString(R.string.toast_disabled6),
-                                Toast.LENGTH_SHORT).show();
-                        final AlertDialog.Builder alertDialogBuilder =
-                                new AlertDialog.Builder(this.getContext());
-                        alertDialogBuilder.setTitle(
-                                this.getString(R.string.legacy_dialog_soft_reboot_title));
-                        alertDialogBuilder.setMessage(
-                                this.getString(R.string.legacy_dialog_soft_reboot_text));
-                        alertDialogBuilder.setPositiveButton(
-                                android.R.string.ok,
-                                (dialog, id12) -> ElevatedCommands.reboot());
-                        alertDialogBuilder.setNegativeButton(
-                                R.string.remove_dialog_later, (dialog, id1) -> {
-                                    this.progressBar.setVisibility(View.GONE);
-                                    dialog.dismiss();
-                                });
-                        final AlertDialog alertDialog = alertDialogBuilder.create();
-                        alertDialog.show();
-                    }
-                } else {
-                    if (this.toggle_all.isChecked()) this.toggle_all.setChecked(false);
-                    this.is_overlay_active = false;
-                    currentShownLunchBar = Lunchbar.make(
-                            this.getActivityView(),
-                            R.string.toast_disabled5,
-                            Lunchbar.LENGTH_LONG);
-                    currentShownLunchBar.show();
-                }
-                this.is_overlay_active = false;
-                this.disable_mode = false;
+            selectEnabledDisabled(this, "DISABLE");
+            if (!Systems.checkOMS(this.getContext())) {
+                legacyDisable(this);
             }
         }
     }
 
+    /**
+     * Enable the selected overlays
+     */
     private void startEnable() {
         if (!this.is_overlay_active) {
-            this.is_overlay_active = true;
-            this.compile_enable_mode = false;
-            this.enable_mode = true;
-            this.disable_mode = false;
-            this.enable_disable_mode = false;
-
-            this.overlaysLists = ((OverlaysAdapter) this.mAdapter).getOverlayList();
-            this.checkedOverlays = new ArrayList<>();
-
-            for (int i = 0; i < this.overlaysLists.size(); i++) {
-                final OverlaysItem currentOverlay = this.overlaysLists.get(i);
-                if (currentOverlay.isSelected() && !currentOverlay.isOverlayEnabled()) {
-                    this.checkedOverlays.add(currentOverlay);
-                } else {
-                    currentOverlay.setSelected(false);
-                    this.mAdapter.notifyDataSetChanged();
-                }
-            }
-            if (!this.checkedOverlays.isEmpty()) {
-                final getThemeCache phase2 = new getThemeCache(this);
-                if ((this.base_spinner.getSelectedItemPosition() != 0) &&
-                        (this.base_spinner.getVisibility() == View.VISIBLE)) {
-                    phase2.execute(this.base_spinner.getSelectedItem().toString());
-
-                } else {
-                    phase2.execute("");
-                }
-                for (final OverlaysItem overlay : this.checkedOverlays) {
-                    Log.d("OverlayTargetPackageKiller", "Killing package : " + overlay
-                            .getPackageName());
-                    this.am.killBackgroundProcesses(overlay.getPackageName());
-                }
-            } else {
-                if (this.toggle_all.isChecked()) this.toggle_all.setChecked(false);
-                this.is_overlay_active = false;
-                currentShownLunchBar = Lunchbar.make(
-                        this.getActivityView(),
-                        R.string.toast_disabled5,
-                        Lunchbar.LENGTH_LONG);
-                currentShownLunchBar.show();
-            }
+            selectEnabledDisabled(this, "ENABLE");
         }
     }
 
+    /**
+     * Swap state mode
+     */
     private void startEnableDisable() {
         if (!this.is_overlay_active) {
-            this.is_overlay_active = true;
-            this.compile_enable_mode = false;
-            this.enable_mode = false;
-            this.disable_mode = false;
-            this.enable_disable_mode = true;
-
-            this.overlaysLists = ((OverlaysAdapter) this.mAdapter).getOverlayList();
-            this.checkedOverlays = new ArrayList<>();
-
-
-            for (int i = 0; i < this.overlaysLists.size(); i++) {
-                final OverlaysItem currentOverlay = this.overlaysLists.get(i);
-                if (currentOverlay.isSelected()) this.checkedOverlays.add(currentOverlay);
-                else {
-                    currentOverlay.setSelected(false);
-                    this.mAdapter.notifyDataSetChanged();
-                }
-            }
-            if (!this.checkedOverlays.isEmpty()) {
-                final getThemeCache phase2 = new getThemeCache(this);
-                if ((this.base_spinner.getSelectedItemPosition() != 0) &&
-                        (this.base_spinner.getVisibility() == View.VISIBLE)) {
-                    phase2.execute(this.base_spinner.getSelectedItem().toString());
-
-                } else {
-                    phase2.execute("");
-                }
-                for (final OverlaysItem overlay : this.checkedOverlays) {
-                    Log.d("OverlayTargetPackageKiller", "Killing package : " + overlay
-                            .getPackageName());
-                    this.am.killBackgroundProcesses(overlay.getPackageName());
-                }
-            } else {
-                if (this.toggle_all.isChecked()) this.toggle_all.setChecked(false);
-                this.is_overlay_active = false;
-                currentShownLunchBar = Lunchbar.make(
-                        this.getActivityView(),
-                        R.string.toast_disabled5,
-                        Lunchbar.LENGTH_LONG);
-                currentShownLunchBar.show();
-            }
+            selectEnabledDisabled(this, "SWAP");
         }
     }
 
+    /**
+     * Allow InformationActivity to easily set the mix and match mode through the fab menu
+     *
+     * @param newValue Sets whether to enable mix and match mode (the toggle)
+     */
     private void setMixAndMatchMode(final boolean newValue) {
         this.mixAndMatchMode = newValue;
         this.prefs.edit().putBoolean("enable_swapping_overlays", this.mixAndMatchMode).apply();
@@ -858,12 +622,17 @@ public class Overlays extends Fragment {
     boolean needsRecreate(final Context context) {
         for (final OverlaysItem oi : this.checkedOverlays) {
             final String packageName = oi.getPackageName();
-            if ("android".equals(packageName) || "projekt.substratum".equals(packageName)) {
-                if (!this.enable_mode && !this.disable_mode && !this.enable_disable_mode &&
+            if ("android".equals(packageName) ||
+                    "projekt.substratum".equals(packageName)) {
+                if (!this.enable_mode &&
+                        !this.disable_mode &&
+                        !this.enable_disable_mode &&
                         ThemeManager.isOverlayEnabled(context, oi.getFullOverlayParameters())) {
                     return false;
-                } else if (this.enable_mode || this.disable_mode || this.compile_enable_mode
-                        || this.enable_disable_mode) {
+                } else if (this.enable_mode ||
+                        this.disable_mode ||
+                        this.compile_enable_mode ||
+                        this.enable_disable_mode) {
                     return false;
                 }
             }

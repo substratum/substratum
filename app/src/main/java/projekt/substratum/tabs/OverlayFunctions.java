@@ -41,6 +41,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -66,8 +67,10 @@ import projekt.substratum.util.views.SheetDialog;
 import static android.content.Context.NOTIFICATION_SERVICE;
 import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.References.DEFAULT_NOTIFICATION_CHANNEL_ID;
+import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ROOTED;
+import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
 import static projekt.substratum.common.References.RUNTIME_RESOURCE_OVERLAY_N_ROOTED;
 import static projekt.substratum.common.Systems.checkOMS;
@@ -75,12 +78,196 @@ import static projekt.substratum.common.Systems.checkThemeInterfacer;
 
 enum OverlayFunctions {
     ;
-    private static final String TAG = "Substratum OverlayFunctions";
+    private static final String TAG = "OverlayFunctions";
 
-    static class getThemeCache extends AsyncTask<String, Integer, String> {
-        final WeakReference<Overlays> ref;
+    static void selectCompileMode(Overlays overlays) {
+        overlays.overlaysLists = ((OverlaysAdapter) overlays.mAdapter).getOverlayList();
+        overlays.checkedOverlays = new ArrayList<>();
 
-        getThemeCache(final Overlays overlays) {
+        for (int i = 0; i < overlays.overlaysLists.size(); i++) {
+            final OverlaysItem currentOverlay = overlays.overlaysLists.get(i);
+            if (currentOverlay.isSelected()) {
+                overlays.checkedOverlays.add(currentOverlay);
+            }
+        }
+
+        if (!overlays.checkedOverlays.isEmpty()) {
+            final compileFunction phase2 = new compileFunction(overlays);
+            if ((overlays.base_spinner.getSelectedItemPosition() != 0) &&
+                    (overlays.base_spinner.getVisibility() == View.VISIBLE)) {
+                phase2.execute(overlays.base_spinner.getSelectedItem().toString());
+            } else {
+                phase2.execute("");
+            }
+            for (final OverlaysItem overlay : overlays.checkedOverlays) {
+                Log.d("OverlayTargetPackageKiller", "Killing package : " + overlay
+                        .getPackageName());
+                overlays.am.killBackgroundProcesses(overlay.getPackageName());
+            }
+        } else {
+            if (overlays.toggle_all.isChecked()) overlays.toggle_all.setChecked(false);
+            overlays.resetCompileFlags();
+            currentShownLunchBar = Lunchbar.make(
+                    overlays.getActivityView(),
+                    R.string.toast_disabled5,
+                    Lunchbar.LENGTH_LONG);
+            currentShownLunchBar.show();
+        }
+    }
+
+    static void selectEnabledDisabled(Overlays overlays, String mode) {
+        if (mode == null) {
+            Log.e(TAG, "selectEnabledDisabled must use a valid mode, or else it will not work!");
+            return;
+        }
+        overlays.resetCompileFlags();
+        overlays.is_overlay_active = true;
+        switch (mode) {
+            case "ENABLE":
+                overlays.enable_mode = true;
+                break;
+            case "DISABLE":
+                overlays.disable_mode = true;
+                break;
+            case "SWAP":
+                overlays.enable_disable_mode = true;
+                break;
+        }
+        overlays.overlaysLists = ((OverlaysAdapter) overlays.mAdapter).getOverlayList();
+        overlays.checkedOverlays = new ArrayList<>();
+
+        for (int i = 0; i < overlays.overlaysLists.size(); i++) {
+            final OverlaysItem currentOverlay = overlays.overlaysLists.get(i);
+            if (currentOverlay.isSelected() &&
+                    Systems.checkOMS(overlays.getContext()) &&
+                    !overlays.enable_disable_mode) {
+                // This is an OMS device, so we can check enabled status
+                if (overlays.enable_mode && !currentOverlay.isOverlayEnabled()) {
+                    overlays.checkedOverlays.add(currentOverlay);
+                } else if (!overlays.enable_mode && currentOverlay.isOverlayEnabled()) {
+                    overlays.checkedOverlays.add(currentOverlay);
+                }
+            } else if (currentOverlay.isSelected() && overlays.enable_disable_mode) {
+                // Swap mode
+                overlays.checkedOverlays.add(currentOverlay);
+            } else if (currentOverlay.isSelected() && !Systems.checkOMS(overlays.getContext())) {
+                // If this is legacy, then all files inside are enabled
+                overlays.checkedOverlays.add(currentOverlay);
+            } else {
+                currentOverlay.setSelected(false);
+                overlays.mAdapter.notifyDataSetChanged();
+            }
+        }
+
+        if (Systems.checkOMS(overlays.getContext())) {
+            if (!overlays.checkedOverlays.isEmpty()) {
+                final compileFunction compile = new compileFunction(overlays);
+                if ((overlays.base_spinner.getSelectedItemPosition() != 0) &&
+                        (overlays.base_spinner.getVisibility() == View.VISIBLE)) {
+                    compile.execute(overlays.base_spinner.getSelectedItem().toString());
+                } else {
+                    compile.execute("");
+                }
+                for (final OverlaysItem overlay : overlays.checkedOverlays) {
+                    Log.d("OverlayTargetPackageKiller", "Killing package: " + overlay
+                            .getPackageName());
+                    overlays.am.killBackgroundProcesses(overlay.getPackageName());
+                }
+            } else {
+                if (overlays.toggle_all.isChecked()) overlays.toggle_all.setChecked(false);
+                overlays.resetCompileFlags();
+                currentShownLunchBar = Lunchbar.make(
+                        overlays.getActivityView(),
+                        R.string.toast_disabled5,
+                        Lunchbar.LENGTH_LONG);
+                currentShownLunchBar.show();
+            }
+        }
+    }
+
+    static void legacyDisable(Overlays overlays) {
+        final String current_directory;
+        if (projekt.substratum.common.Resources.inNexusFilter()) {
+            current_directory = PIXEL_NEXUS_DIR;
+        } else {
+            current_directory = LEGACY_NEXUS_DIR;
+        }
+
+        if (!overlays.checkedOverlays.isEmpty()) {
+            if (Systems.isSamsung(overlays.getContext())) {
+                if (Root.checkRootAccess() && Root.requestRootAccess()) {
+                    final ArrayList<String> checked_overlays = new ArrayList<>();
+                    for (int i = 0; i < overlays.checkedOverlays.size(); i++) {
+                        checked_overlays.add(
+                                overlays.checkedOverlays.get(i).getFullOverlayParameters());
+                    }
+                    ThemeManager.uninstallOverlay(overlays.getContext(), checked_overlays);
+                } else {
+                    for (int i = 0; i < overlays.checkedOverlays.size(); i++) {
+                        final Uri packageURI = Uri.parse("package:" +
+                                overlays.checkedOverlays.get(i).getFullOverlayParameters());
+                        final Intent uninstallIntent =
+                                new Intent(Intent.ACTION_DELETE, packageURI);
+
+                        overlays.startActivity(uninstallIntent);
+                    }
+                }
+            } else {
+                for (int i = 0; i < overlays.checkedOverlays.size(); i++) {
+                    FileOperations.mountRW();
+                    FileOperations.delete(overlays.getContext(), current_directory +
+                            overlays.checkedOverlays.get(i).getFullOverlayParameters() + ".apk");
+                    overlays.mAdapter.notifyDataSetChanged();
+                }
+                // Untick all options in the adapter after compiling
+                overlays.toggle_all.setChecked(false);
+                overlays.overlaysLists = ((OverlaysAdapter) overlays.mAdapter).getOverlayList();
+                for (int i = 0; i < overlays.overlaysLists.size(); i++) {
+                    final OverlaysItem currentOverlay = overlays.overlaysLists.get(i);
+                    if (currentOverlay.isSelected()) {
+                        currentOverlay.setSelected(false);
+                    }
+                }
+                Toast.makeText(overlays.getContext(),
+                        overlays.getString(R.string.toast_disabled6),
+                        Toast.LENGTH_SHORT).show();
+                final AlertDialog.Builder alertDialogBuilder =
+                        new AlertDialog.Builder(overlays.getContext());
+                alertDialogBuilder.setTitle(
+                        overlays.getString(R.string.legacy_dialog_soft_reboot_title));
+                alertDialogBuilder.setMessage(
+                        overlays.getString(R.string.legacy_dialog_soft_reboot_text));
+                alertDialogBuilder.setPositiveButton(
+                        android.R.string.ok,
+                        (dialog, id12) -> ElevatedCommands.reboot());
+                alertDialogBuilder.setNegativeButton(
+                        R.string.remove_dialog_later, (dialog, id1) -> {
+                            overlays.progressBar.setVisibility(View.GONE);
+                            dialog.dismiss();
+                        });
+                final AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
+        } else {
+            if (overlays.toggle_all.isChecked()) overlays.toggle_all.setChecked(false);
+            overlays.resetCompileFlags();
+            currentShownLunchBar = Lunchbar.make(
+                    overlays.getActivityView(),
+                    R.string.toast_disabled5,
+                    Lunchbar.LENGTH_LONG);
+            currentShownLunchBar.show();
+        }
+        overlays.resetCompileFlags();
+    }
+
+    static class compileFunction extends AsyncTask<String, Integer, String> {
+
+        private final WeakReference<Overlays> ref;
+
+        private String currentPackageName = "";
+        private String executionScript = "";
+
+        compileFunction(final Overlays overlays) {
             super();
             this.ref = new WeakReference<>(overlays);
         }
@@ -89,15 +276,20 @@ enum OverlayFunctions {
         protected void onPreExecute() {
             super.onPreExecute();
             final Overlays overlays = this.ref.get();
+            Log.d(Overlays.TAG,
+                    "Substratum is proceeding with your actions and is now actively running...");
             if (overlays != null) {
                 final Context context = overlays.getActivity();
+
                 overlays.final_runner = new ArrayList<>();
                 overlays.late_install = new ArrayList<>();
+                overlays.missingType3 = false;
+                overlays.has_failed = false;
+                overlays.fail_count = 0;
 
                 if (!overlays.enable_mode &&
                         !overlays.disable_mode &&
                         !overlays.enable_disable_mode) {
-
                     // This is the time when the notification should be shown on the user's screen
                     overlays.mNotifyManager =
                             (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
@@ -137,79 +329,15 @@ enum OverlayFunctions {
                     overlays.loader_string = overlays.mCompileDialog.findViewById(R.id.title);
                     overlays.loader_string.setText(context.getResources().getString(
                             R.string.sb_phase_1_loader));
-                }
-            }
-        }
 
-        @Override
-        protected void onPostExecute(final String result) {
-            super.onPostExecute(result);
-            final Overlays overlays = this.ref.get();
-            if (overlays != null) {
-                final Phase3_mainFunction phase3_mainFunction = new Phase3_mainFunction(overlays);
-                if (result != null) {
-                    phase3_mainFunction.execute(result);
-                } else {
-                    phase3_mainFunction.execute("");
-                }
-            }
-        }
-
-        @Override
-        protected String doInBackground(final String... sUrl) {
-            final Overlays overlays = this.ref.get();
-            if (overlays != null) {
-                final Context context = overlays.getActivity();
-                if (!overlays.enable_mode &&
-                        !overlays.disable_mode &&
-                        !overlays.enable_disable_mode) {
                     try {
                         final Resources themeResources = context.getPackageManager()
                                 .getResourcesForApplication(overlays.theme_pid);
                         overlays.themeAssetManager = themeResources.getAssets();
-                        Log.d(Overlays.TAG, "Work area is ready to be compiled!");
                     } catch (final PackageManager.NameNotFoundException e) {
                         // Suppress exception
                     }
-                    if (!sUrl[0].isEmpty()) {
-                        return sUrl[0];
-                    } else {
-                        return null;
-                    }
-                }
-            }
-            return null;
-        }
 
-        public void clear() {
-            if (this.ref != null) this.ref.clear();
-        }
-    }
-
-    static class Phase3_mainFunction extends AsyncTask<String, Integer, String> {
-        private final WeakReference<Overlays> ref;
-        private String currentPackageName = "";
-
-        Phase3_mainFunction(final Overlays overlays) {
-            super();
-            this.ref = new WeakReference<>(overlays);
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            Log.d(Overlays.TAG,
-                    "Substratum is proceeding with your actions and is now actively running...");
-            final Overlays overlays = this.ref.get();
-            if (overlays != null) {
-                final Context context = overlays.getActivity();
-
-                overlays.missingType3 = false;
-                overlays.has_failed = false;
-                overlays.fail_count = 0;
-
-                if (!overlays.enable_mode && !overlays.disable_mode && !overlays
-                        .enable_disable_mode) {
                     overlays.error_logs = new StringBuilder();
                     // Change title in preparation for loop to change subtext
                     if (overlays.checkActiveNotifications()) {
@@ -264,9 +392,9 @@ enum OverlayFunctions {
                     // "pm install"'s from the final_commands
                     overlays.final_command.addAll(overlays.final_runner);
                 }
-
-                if (!overlays.enable_mode && !overlays.disable_mode && !overlays
-                        .enable_disable_mode) {
+                if (!overlays.enable_mode &&
+                        !overlays.disable_mode &&
+                        !overlays.enable_disable_mode) {
                     new Phase4_finishUpdateFunction(overlays).execute();
                     if (overlays.has_failed) {
                         overlays.failedFunction(context);
@@ -352,12 +480,12 @@ enum OverlayFunctions {
 
         @SuppressWarnings("ConstantConditions")
         @Override
-        protected String doInBackground(final String... sUrl) {
+        protected String doInBackground(final String... sUrl2) {
             final Overlays overlays = this.ref.get();
             if (overlays != null) {
                 final Context context = overlays.getActivity();
-                final String parsedVariant = sUrl[0].replaceAll("\\s+", "");
-                final String unparsedVariant = sUrl[0];
+                final String parsedVariant = executionScript.replaceAll("\\s+", "");
+                final String unparsedVariant = executionScript;
                 overlays.failed_packages = new StringBuilder();
                 if (overlays.mixAndMatchMode && !Systems.checkOMS(context)) {
                     final String current_directory;
@@ -402,8 +530,9 @@ enum OverlayFunctions {
                             '\'' + Packages.getPackageName(context, current_overlay) + '\'';
                     this.currentPackageName = current_overlay;
 
-                    if (!overlays.enable_mode && !overlays.disable_mode
-                            && !overlays.enable_disable_mode) {
+                    if (!overlays.enable_mode &&
+                            !overlays.disable_mode &&
+                            !overlays.enable_disable_mode) {
                         this.publishProgress((int) overlays.current_amount);
                         if (overlays.compile_enable_mode) {
                             if (overlays.final_runner == null) {
@@ -485,7 +614,7 @@ enum OverlayFunctions {
 
                             final String unparsedSuffix;
                             boolean useType3CommonDir = false;
-                            if (!sUrl[0].isEmpty()) {
+                            if (!executionScript.isEmpty()) {
                                 useType3CommonDir = overlays.themeAssetManager
                                         .list(Overlays.overlaysDir + '/' + current_overlay +
                                                 "/type3-common").length > 0;
@@ -498,7 +627,7 @@ enum OverlayFunctions {
                                 unparsedSuffix = "/res";
                             }
 
-                            final String parsedSuffix = ((!sUrl[0].isEmpty()) ?
+                            final String parsedSuffix = ((!executionScript.isEmpty()) ?
                                     ("/type3_" + parsedVariant) : "/res");
                             overlays.type3 = parsedVariant;
 
@@ -538,7 +667,7 @@ enum OverlayFunctions {
                             }
 
                             if (overlays.checkedOverlays.get(i).is_variant_chosen ||
-                                    !sUrl[0].isEmpty()) {
+                                    !executionScript.isEmpty()) {
                                 // Type 1a
                                 if (overlays.checkedOverlays.get(i).is_variant_chosen1) {
                                     overlays.type1a =
@@ -684,7 +813,7 @@ enum OverlayFunctions {
                                     Log.d(Overlays.TAG, "Currently processing package" +
                                             " \"" + overlays.checkedOverlays.get(i)
                                             .getFullOverlayParameters() + "\"...");
-                                    if (!sUrl[0].isEmpty()) {
+                                    if (!executionScript.isEmpty()) {
                                         overlays.sb = new SubstratumBuilder();
                                         overlays.sb.beginAction(
                                                 context,
@@ -693,7 +822,7 @@ enum OverlayFunctions {
                                                 packageName,
                                                 overlays.checkedOverlays.get(i)
                                                         .getSelectedVariantName4(),
-                                                sUrl[0],
+                                                executionScript,
                                                 overlays.versionName,
                                                 Systems.checkOMS(context),
                                                 overlays.theme_pid,
@@ -736,7 +865,7 @@ enum OverlayFunctions {
                                             " \"" + overlays.checkedOverlays.get(i)
                                             .getFullOverlayParameters() + "\"...");
 
-                                    if (!sUrl[0].isEmpty()) {
+                                    if (!executionScript.isEmpty()) {
                                         overlays.sb = new SubstratumBuilder();
                                         overlays.sb.beginAction(
                                                 context,
@@ -744,7 +873,7 @@ enum OverlayFunctions {
                                                 overlays.theme_name,
                                                 packageName,
                                                 null,
-                                                sUrl[0],
+                                                executionScript,
                                                 overlays.versionName,
                                                 Systems.checkOMS(context),
                                                 overlays.theme_pid,
@@ -883,8 +1012,10 @@ enum OverlayFunctions {
                     } else {
                         if (overlays.final_runner == null)
                             overlays.final_runner = new ArrayList<>();
-                        if (overlays.enable_mode || overlays.compile_enable_mode ||
-                                overlays.disable_mode || overlays.enable_disable_mode) {
+                        if (overlays.enable_mode ||
+                                overlays.compile_enable_mode ||
+                                overlays.disable_mode ||
+                                overlays.enable_disable_mode) {
                             final String package_name =
                                     overlays.checkedOverlays.get(i).getFullOverlayParameters();
                             if (Packages.isPackageInstalled(context, package_name)) {
@@ -988,7 +1119,6 @@ enum OverlayFunctions {
         }
     }
 
-
     static class Phase4_finishDisableFunction extends AsyncTask<Void, Void, Void> {
         final WeakReference<Overlays> ref;
         final WeakReference<Context> refContext;
@@ -1074,6 +1204,7 @@ enum OverlayFunctions {
 
         Phase4_finishEnableDisableFunction(final Overlays overlays) {
             super();
+            Log.e("SJKSJKSJKS", "Running");
             this.ref = new WeakReference<>(overlays);
             this.refContext = new WeakReference<>(overlays.getContext());
         }
@@ -1096,17 +1227,18 @@ enum OverlayFunctions {
             final Overlays overlays = this.ref.get();
             if (overlays != null) {
                 final Context context = overlays.getActivity();
-
+                Log.e("SJKSJKSJKSJKS", "" + overlays.final_runner.isEmpty());
                 if (!overlays.final_runner.isEmpty()) {
                     overlays.enable_disable_mode = false;
 
                     final ArrayList<String> enableOverlays = new ArrayList<>();
                     final ArrayList<String> disableOverlays = new ArrayList<>();
                     for (int i = 0; i < overlays.final_command.size(); i++) {
-                        if (!overlays.checkedOverlays.get(i).isOverlayEnabled())
+                        if (!overlays.checkedOverlays.get(i).isOverlayEnabled()) {
                             enableOverlays.add(overlays.final_command.get(i));
-                        else
+                        } else {
                             disableOverlays.add(overlays.final_command.get(i));
+                        }
                     }
                     ThemeManager.disableOverlay(context, disableOverlays);
                     if (overlays.mixAndMatchMode) {

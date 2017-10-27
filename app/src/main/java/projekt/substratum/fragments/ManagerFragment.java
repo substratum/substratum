@@ -601,6 +601,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 ((LinearLayoutManager)
                         fragment.mRecyclerView.getLayoutManager()).
                         scrollToPositionWithOffset(this.currentPosition, 20);
+                fragment.mAdapter.notifyDataSetChanged();
 
                 new MainActivity.DoCleanUp(context).execute();
 

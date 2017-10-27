@@ -1204,7 +1204,6 @@ enum OverlayFunctions {
 
         Phase4_finishEnableDisableFunction(final Overlays overlays) {
             super();
-            Log.e("SJKSJKSJKS", "Running");
             this.ref = new WeakReference<>(overlays);
             this.refContext = new WeakReference<>(overlays.getContext());
         }
@@ -1227,7 +1226,6 @@ enum OverlayFunctions {
             final Overlays overlays = this.ref.get();
             if (overlays != null) {
                 final Context context = overlays.getActivity();
-                Log.e("SJKSJKSJKSJKS", "" + overlays.final_runner.isEmpty());
                 if (!overlays.final_runner.isEmpty()) {
                     overlays.enable_disable_mode = false;
 

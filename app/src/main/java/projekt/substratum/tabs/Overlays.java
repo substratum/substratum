@@ -45,6 +45,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -98,6 +99,7 @@ import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
 import projekt.substratum.util.files.MapUtils;
 import projekt.substratum.util.files.Root;
+import projekt.substratum.util.helpers.RecyclerViewCallback;
 import projekt.substratum.util.views.SheetDialog;
 
 import static android.content.Context.ACTIVITY_SERVICE;
@@ -124,7 +126,7 @@ public class Overlays extends Fragment {
     public SubstratumBuilder sb;
     public List<OverlaysItem> overlaysLists;
     public List<OverlaysItem> checkedOverlays;
-    public RecyclerView.Adapter mAdapter;
+    public OverlaysAdapter mAdapter;
     public String theme_name;
     public String theme_pid;
     public String versionName;
@@ -171,6 +173,7 @@ public class Overlays extends Fragment {
     private RefreshReceiver refreshReceiver;
     private boolean decryptedAssetsExceptionReached;
     private int currentPosition;
+    private boolean firstBoot = false;
 
     /**
      * Display all of the type resources if this is called
@@ -348,7 +351,7 @@ public class Overlays extends Fragment {
         this.toggle_all.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> {
                     try {
-                        this.overlaysLists = ((OverlaysAdapter) this.mAdapter).getOverlayList();
+                        this.overlaysLists = this.mAdapter.getOverlayList();
                         for (int i = 0; i < this.overlaysLists.size(); i++) {
                             final OverlaysItem currentOverlay = this.overlaysLists.get(i);
                             currentOverlay.setSelected(isChecked);
@@ -364,7 +367,7 @@ public class Overlays extends Fragment {
         toggleZone.setOnClickListener(v -> {
             try {
                 this.toggle_all.setChecked(!this.toggle_all.isChecked());
-                this.overlaysLists = ((OverlaysAdapter) this.mAdapter).getOverlayList();
+                this.overlaysLists = this.mAdapter.getOverlayList();
                 for (int i = 0; i < this.overlaysLists.size(); i++) {
                     final OverlaysItem currentOverlay = this.overlaysLists.get(i);
                     currentOverlay.setSelected(this.toggle_all.isChecked());
@@ -813,18 +816,18 @@ public class Overlays extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (!this.toggle_all.isChecked()) this.refreshList();
+        if (!firstBoot && !this.toggle_all.isChecked()) {
+            firstBoot = true;
+            this.refreshList();
+        }
     }
 
     private void refreshList() {
-        this.currentPosition = ((LinearLayoutManager) this.mRecyclerView.getLayoutManager())
-                .findFirstCompletelyVisibleItemPosition();
+        this.currentPosition = ((LinearLayoutManager)
+                this.mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
         this.toggle_all.setChecked(false);
         if ((this.base_spinner != null) && (this.base_spinner.getSelectedItemPosition() > 0)) {
-            final String[] commands = {
-                    this.base_spinner.getSelectedItem().toString()
-            };
-            new LoadOverlays(this).execute(commands);
+            new LoadOverlays(this).execute(this.base_spinner.getSelectedItem().toString());
         } else {
             new LoadOverlays(this).execute("");
         }
@@ -986,12 +989,24 @@ public class Overlays extends Fragment {
                 fragment.mRecyclerView.setEnabled(true);
                 fragment.toggle_all.setEnabled(true);
                 fragment.base_spinner.setEnabled(true);
-                fragment.mAdapter = new OverlaysAdapter(fragment.values2);
-                fragment.mRecyclerView.setAdapter(fragment.mAdapter);
-                fragment.mRecyclerView.getLayoutManager()
-                        .scrollToPosition(fragment.currentPosition);
-                fragment.mAdapter.notifyDataSetChanged();
-                fragment.mRecyclerView.setVisibility(View.VISIBLE);
+                // On the first start, when adapter is null, use the old style of refreshing RV
+                if (fragment.mAdapter == null) {
+                    fragment.mAdapter = new OverlaysAdapter(fragment.values2);
+                    fragment.mRecyclerView.setAdapter(fragment.mAdapter);
+                    fragment.mAdapter.notifyDataSetChanged();
+                    fragment.mRecyclerView.setVisibility(View.VISIBLE);
+                }
+                // If the adapter isn't null, reload using DiffUtil
+                DiffUtil.DiffResult diffResult =
+                        DiffUtil.calculateDiff(
+                                new RecyclerViewCallback(
+                                        fragment.mAdapter.getList(), fragment.values2));
+                fragment.mAdapter.setList(fragment.values2);
+                diffResult.dispatchUpdatesTo(fragment.mAdapter);
+                // Scroll to the proper position where the user was
+                ((LinearLayoutManager)
+                        fragment.mRecyclerView.getLayoutManager()).
+                        scrollToPositionWithOffset(fragment.currentPosition, 20);
             }
         }
 

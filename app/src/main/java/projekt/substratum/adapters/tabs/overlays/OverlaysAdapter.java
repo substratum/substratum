@@ -46,7 +46,7 @@ import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 
 public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHolder> {
 
-    private final List<OverlaysItem> overlayList;
+    private List<OverlaysItem> overlayList;
 
     public OverlaysAdapter(final List<OverlaysItem> overlayInfo) {
         super();
@@ -149,6 +149,14 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
         } else {
             viewHolder.overlayState.setVisibility(View.GONE);
         }
+    }
+
+    public List<OverlaysItem> getList() {
+        return this.overlayList;
+    }
+
+    public void setList(List<OverlaysItem> list) {
+        this.overlayList = list;
     }
 
     @Override

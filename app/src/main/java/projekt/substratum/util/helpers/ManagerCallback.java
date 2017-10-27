@@ -5,14 +5,14 @@ import android.support.v7.util.DiffUtil;
 
 import java.util.List;
 
-import projekt.substratum.adapters.tabs.overlays.OverlaysItem;
+import projekt.substratum.adapters.fragments.manager.ManagerItem;
 
-public class RecyclerViewCallback extends DiffUtil.Callback {
+public class ManagerCallback extends DiffUtil.Callback {
 
-    private List<OverlaysItem> newOverlays;
-    private List<OverlaysItem> oldOverlays;
+    private List<ManagerItem> newOverlays;
+    private List<ManagerItem> oldOverlays;
 
-    public RecyclerViewCallback(List<OverlaysItem> newOverlays, List<OverlaysItem> oldOverlays) {
+    public ManagerCallback(List<ManagerItem> newOverlays, List<ManagerItem> oldOverlays) {
         this.newOverlays = newOverlays;
         this.oldOverlays = oldOverlays;
     }
@@ -40,7 +40,6 @@ public class RecyclerViewCallback extends DiffUtil.Callback {
     @Nullable
     @Override
     public Object getChangePayload(int oldItemPosition, int newItemPosition) {
-        //you can return particular field for changed item.
         return super.getChangePayload(oldItemPosition, newItemPosition);
     }
 }

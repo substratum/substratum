@@ -35,6 +35,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -72,6 +73,7 @@ import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
+import projekt.substratum.util.helpers.ManagerCallback;
 import projekt.substratum.util.views.FloatingActionMenu;
 
 import static projekt.substratum.common.Packages.getOverlayMetadata;
@@ -581,11 +583,24 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 fragment.swipeRefreshLayout.setRefreshing(false);
                 fragment.toggle_all.setEnabled(true);
                 fragment.loadingBar.setVisibility(View.GONE);
-                fragment.mAdapter = new ManagerAdapter(fragment.overlaysList, false);
-                fragment.mRecyclerView.setAdapter(fragment.mAdapter);
-                fragment.mRecyclerView.getLayoutManager().scrollToPosition(this.currentPosition);
-                fragment.mRecyclerView.setEnabled(true);
+                // On the first start, when adapter is null, use the old style of refreshing RV
+                if (fragment.mAdapter == null) {
+                    fragment.mAdapter = new ManagerAdapter(fragment.overlaysList, false);
+                    fragment.mRecyclerView.setAdapter(fragment.mAdapter);
+                    fragment.mRecyclerView.setEnabled(true);
+                }
                 fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
+                // If the adapter isn't null, reload using DiffUtil
+                DiffUtil.DiffResult diffResult =
+                        DiffUtil.calculateDiff(
+                                new ManagerCallback(
+                                        fragment.mAdapter.getList(), fragment.overlaysList));
+                fragment.mAdapter.setList(fragment.overlaysList);
+                diffResult.dispatchUpdatesTo(fragment.mAdapter);
+                // Scroll to the proper position where the user was
+                ((LinearLayoutManager)
+                        fragment.mRecyclerView.getLayoutManager()).
+                        scrollToPositionWithOffset(this.currentPosition, 20);
 
                 new MainActivity.DoCleanUp(context).execute();
 

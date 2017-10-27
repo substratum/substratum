@@ -99,7 +99,7 @@ import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
 import projekt.substratum.util.files.MapUtils;
 import projekt.substratum.util.files.Root;
-import projekt.substratum.util.helpers.RecyclerViewCallback;
+import projekt.substratum.util.helpers.OverlaysCallback;
 import projekt.substratum.util.views.SheetDialog;
 
 import static android.content.Context.ACTIVITY_SERVICE;
@@ -999,7 +999,7 @@ public class Overlays extends Fragment {
                 // If the adapter isn't null, reload using DiffUtil
                 DiffUtil.DiffResult diffResult =
                         DiffUtil.calculateDiff(
-                                new RecyclerViewCallback(
+                                new OverlaysCallback(
                                         fragment.mAdapter.getList(), fragment.values2));
                 fragment.mAdapter.setList(fragment.values2);
                 diffResult.dispatchUpdatesTo(fragment.mAdapter);

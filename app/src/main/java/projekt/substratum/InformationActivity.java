@@ -92,6 +92,7 @@ import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.tabs.WallpaperManager;
+import projekt.substratum.services.system.SamsungPackageService;
 import projekt.substratum.tabs.BootAnimations;
 import projekt.substratum.util.files.Root;
 import projekt.substratum.util.helpers.ContextWrapper;

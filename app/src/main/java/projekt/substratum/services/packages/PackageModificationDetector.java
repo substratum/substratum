@@ -65,6 +65,23 @@ public class PackageModificationDetector extends BroadcastReceiver {
             return;
         }
 
+        if (intent.getAction() != null) {
+            switch (intent.getAction()) {
+                case PACKAGE_ADDED:
+                    Broadcasts.sendOverlayRefreshMessage(this.mContext);
+                    if (Systems.isSamsungDevice(context)) {
+                        Broadcasts.sendRefreshManagerMessage(this.mContext);
+                    }
+                    break;
+                case PACKAGE_FULLY_REMOVED:
+                    Broadcasts.sendRefreshManagerMessage(this.mContext);
+                    if (Systems.isSamsungDevice(context)) {
+                        Broadcasts.sendOverlayRefreshMessage(this.mContext);
+                    }
+                    return;
+            }
+        }
+
         try {
             final ApplicationInfo appInfo = this.mContext.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
@@ -75,22 +92,8 @@ public class PackageModificationDetector extends BroadcastReceiver {
                 final String check_overlay_target =
                         appInfo.metaData.getString(References.metadataOverlayTarget);
                 if ((check_overlay_parent != null) && (check_overlay_target != null)) {
-                    if (intent.getAction() != null) {
-                        switch (intent.getAction()) {
-                            case PACKAGE_ADDED:
-                                Broadcasts.sendOverlayRefreshMessage(this.mContext);
-                                if (Systems.isSamsungDevice(context)) {
-                                    Broadcasts.sendRefreshManagerMessage(this.mContext);
-                                }
-                                break;
-                            case PACKAGE_FULLY_REMOVED:
-                                Broadcasts.sendRefreshManagerMessage(this.mContext);
-                                if (Systems.isSamsungDevice(context)) {
-                                    Broadcasts.sendOverlayRefreshMessage(this.mContext);
-                                }
-                                return;
-                        }
-                    }
+                    Broadcasts.sendOverlayRefreshMessage(this.mContext);
+                    Broadcasts.sendRefreshManagerMessage(this.mContext);
                     return;
                 }
 

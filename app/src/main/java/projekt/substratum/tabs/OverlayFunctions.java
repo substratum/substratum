@@ -51,7 +51,6 @@ import java.util.List;
 import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
-import projekt.substratum.adapters.tabs.overlays.OverlaysAdapter;
 import projekt.substratum.adapters.tabs.overlays.OverlaysItem;
 import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
@@ -81,7 +80,7 @@ enum OverlayFunctions {
     private static final String TAG = "OverlayFunctions";
 
     static void selectCompileMode(Overlays overlays) {
-        overlays.overlaysLists = ((OverlaysAdapter) overlays.mAdapter).getOverlayList();
+        overlays.overlaysLists = overlays.mAdapter.getOverlayList();
         overlays.checkedOverlays = new ArrayList<>();
 
         for (int i = 0; i < overlays.overlaysLists.size(); i++) {
@@ -133,7 +132,7 @@ enum OverlayFunctions {
                 overlays.enable_disable_mode = true;
                 break;
         }
-        overlays.overlaysLists = ((OverlaysAdapter) overlays.mAdapter).getOverlayList();
+        overlays.overlaysLists = overlays.mAdapter.getOverlayList();
         overlays.checkedOverlays = new ArrayList<>();
 
         for (int i = 0; i < overlays.overlaysLists.size(); i++) {
@@ -221,7 +220,7 @@ enum OverlayFunctions {
                 }
                 // Untick all options in the adapter after compiling
                 overlays.toggle_all.setChecked(false);
-                overlays.overlaysLists = ((OverlaysAdapter) overlays.mAdapter).getOverlayList();
+                overlays.overlaysLists = overlays.mAdapter.getOverlayList();
                 for (int i = 0; i < overlays.overlaysLists.size(); i++) {
                     final OverlaysItem currentOverlay = overlays.overlaysLists.get(i);
                     if (currentOverlay.isSelected()) {
@@ -265,7 +264,6 @@ enum OverlayFunctions {
         private final WeakReference<Overlays> ref;
 
         private String currentPackageName = "";
-        private String executionScript = "";
 
         compileFunction(final Overlays overlays) {
             super();
@@ -480,12 +478,12 @@ enum OverlayFunctions {
 
         @SuppressWarnings("ConstantConditions")
         @Override
-        protected String doInBackground(final String... sUrl2) {
+        protected String doInBackground(final String... sUrl) {
             final Overlays overlays = this.ref.get();
             if (overlays != null) {
                 final Context context = overlays.getActivity();
-                final String parsedVariant = executionScript.replaceAll("\\s+", "");
-                final String unparsedVariant = executionScript;
+                final String parsedVariant = sUrl[0].replaceAll("\\s+", "");
+                final String unparsedVariant = sUrl[0];
                 overlays.failed_packages = new StringBuilder();
                 if (overlays.mixAndMatchMode && !Systems.checkOMS(context)) {
                     final String current_directory;
@@ -614,7 +612,7 @@ enum OverlayFunctions {
 
                             final String unparsedSuffix;
                             boolean useType3CommonDir = false;
-                            if (!executionScript.isEmpty()) {
+                            if (!sUrl[0].isEmpty()) {
                                 useType3CommonDir = overlays.themeAssetManager
                                         .list(Overlays.overlaysDir + '/' + current_overlay +
                                                 "/type3-common").length > 0;
@@ -627,7 +625,7 @@ enum OverlayFunctions {
                                 unparsedSuffix = "/res";
                             }
 
-                            final String parsedSuffix = ((!executionScript.isEmpty()) ?
+                            final String parsedSuffix = ((!sUrl[0].isEmpty()) ?
                                     ("/type3_" + parsedVariant) : "/res");
                             overlays.type3 = parsedVariant;
 
@@ -667,7 +665,7 @@ enum OverlayFunctions {
                             }
 
                             if (overlays.checkedOverlays.get(i).is_variant_chosen ||
-                                    !executionScript.isEmpty()) {
+                                    !sUrl[0].isEmpty()) {
                                 // Type 1a
                                 if (overlays.checkedOverlays.get(i).is_variant_chosen1) {
                                     overlays.type1a =
@@ -813,7 +811,7 @@ enum OverlayFunctions {
                                     Log.d(Overlays.TAG, "Currently processing package" +
                                             " \"" + overlays.checkedOverlays.get(i)
                                             .getFullOverlayParameters() + "\"...");
-                                    if (!executionScript.isEmpty()) {
+                                    if (!sUrl[0].isEmpty()) {
                                         overlays.sb = new SubstratumBuilder();
                                         overlays.sb.beginAction(
                                                 context,
@@ -822,7 +820,7 @@ enum OverlayFunctions {
                                                 packageName,
                                                 overlays.checkedOverlays.get(i)
                                                         .getSelectedVariantName4(),
-                                                executionScript,
+                                                sUrl[0],
                                                 overlays.versionName,
                                                 Systems.checkOMS(context),
                                                 overlays.theme_pid,
@@ -865,7 +863,7 @@ enum OverlayFunctions {
                                             " \"" + overlays.checkedOverlays.get(i)
                                             .getFullOverlayParameters() + "\"...");
 
-                                    if (!executionScript.isEmpty()) {
+                                    if (!sUrl[0].isEmpty()) {
                                         overlays.sb = new SubstratumBuilder();
                                         overlays.sb.beginAction(
                                                 context,
@@ -873,7 +871,7 @@ enum OverlayFunctions {
                                                 overlays.theme_name,
                                                 packageName,
                                                 null,
-                                                executionScript,
+                                                sUrl[0],
                                                 overlays.versionName,
                                                 Systems.checkOMS(context),
                                                 overlays.theme_pid,
@@ -1091,7 +1089,7 @@ enum OverlayFunctions {
                             // OMS may not have written all the changes so quickly just yet
                             // so we may need to have a small delay
                             try {
-                                overlays.overlaysLists = ((OverlaysAdapter) overlays.mAdapter)
+                                overlays.overlaysLists = overlays.mAdapter
                                         .getOverlayList();
                                 for (int i = 0; i < overlays.overlaysLists.size(); i++) {
                                     final OverlaysItem currentOverlay = overlays.overlaysLists
@@ -1170,7 +1168,7 @@ enum OverlayFunctions {
                             // OMS may not have written all the changes so quickly just yet
                             // so we may need to have a small delay
                             try {
-                                overlays.overlaysLists = ((OverlaysAdapter) overlays.mAdapter)
+                                overlays.overlaysLists = overlays.mAdapter
                                         .getOverlayList();
                                 for (int i = 0; i < overlays.overlaysLists.size(); i++) {
                                     final OverlaysItem currentOverlay = overlays.overlaysLists
@@ -1272,7 +1270,7 @@ enum OverlayFunctions {
                             // OMS may not have written all the changes so quickly just yet
                             // so we may need to have a small delay
                             try {
-                                overlays.overlaysLists = ((OverlaysAdapter) overlays.mAdapter)
+                                overlays.overlaysLists = overlays.mAdapter
                                         .getOverlayList();
                                 for (int i = 0; i < overlays.overlaysLists.size(); i++) {
                                     final OverlaysItem currentOverlay = overlays.overlaysLists
@@ -1448,7 +1446,7 @@ enum OverlayFunctions {
                             // so we may need to have a small delay
                             try {
                                 overlays.overlaysLists =
-                                        ((OverlaysAdapter) overlays.mAdapter).getOverlayList();
+                                        overlays.mAdapter.getOverlayList();
                                 for (int i = 0; i < overlays.overlaysLists.size(); i++) {
                                     final OverlaysItem currentOverlay = overlays.overlaysLists
                                             .get(i);

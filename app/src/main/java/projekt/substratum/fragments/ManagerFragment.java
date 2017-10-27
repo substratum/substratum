@@ -1075,9 +1075,11 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 final ArrayList<String> data = new ArrayList<>();
                 for (int i = 0; i < len; i++) {
                     final ManagerItem overlay1 = fragment.overlayList.get(i);
-                    if (overlay1.isSelected()) data.add(overlay1.getName());
-                    if (Systems.isSamsungDevice(context))
-                        MainActivity.queuedUninstall.add(overlay1.getName());
+                    if (overlay1.isSelected()) {
+                        data.add(overlay1.getName());
+                        if (Systems.isSamsungDevice(context))
+                            MainActivity.queuedUninstall.add(overlay1.getName());
+                    }
                 }
 
                 // The magic goes here

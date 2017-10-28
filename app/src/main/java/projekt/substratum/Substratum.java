@@ -39,10 +39,14 @@ import projekt.substratum.activities.crash.SubstratumCrash;
 import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
 import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.services.binder.InterfacerBinderService;
 
 import static projekt.substratum.BuildConfig.DEBUG;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ROOTED;
+import static projekt.substratum.common.References.RUNTIME_RESOURCE_OVERLAY_N_ROOTED;
 import static projekt.substratum.common.Systems.isAndromedaDevice;
 import static projekt.substratum.common.Systems.isBinderInterfacer;
 
@@ -65,6 +69,13 @@ public class Substratum extends Application {
         return isWaiting;
     }
 
+    public static boolean isNeedToWaitInstall() {
+        int system = Systems.checkThemeSystemModule(getInstance());
+        // system on root, old interfacer and andromeda need this
+        return (system == OVERLAY_MANAGER_SERVICE_O_ANDROMEDA) ||
+                (system == OVERLAY_MANAGER_SERVICE_O_ROOTED) ||
+                (system == RUNTIME_RESOURCE_OVERLAY_N_ROOTED);
+    }
     @Override
     public void onCreate() {
         super.onCreate();

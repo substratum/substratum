@@ -67,11 +67,8 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.References.DEFAULT_NOTIFICATION_CHANNEL_ID;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
-import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
-import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ROOTED;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
-import static projekt.substratum.common.References.RUNTIME_RESOURCE_OVERLAY_N_ROOTED;
 import static projekt.substratum.common.Systems.checkOMS;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 
@@ -500,11 +497,7 @@ enum OverlayFunctions {
                 }
 
                 // Enable finish install listener
-                // system on root, old interfacer and andromeda need this
-                final int system = Systems.checkThemeSystemModule(context);
-                final boolean needToWait = (system == OVERLAY_MANAGER_SERVICE_O_ANDROMEDA) ||
-                        (system == OVERLAY_MANAGER_SERVICE_O_ROOTED) ||
-                        (system == RUNTIME_RESOURCE_OVERLAY_N_ROOTED);
+                boolean needToWait = Substratum.isNeedToWaitInstall();
                 if (needToWait) {
                     Substratum.getInstance().registerFinishReceiver();
                 }

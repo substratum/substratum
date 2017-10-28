@@ -119,6 +119,10 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     private String userInput = "";
     private Boolean first_boot = true;
 
+    public MaterialSheetFab getFAB() {
+        return materialSheetFab;
+    }
+
     private void resetRecyclerView() {
         // Initialize the recycler view with an empty adapter first
         final ArrayList<ManagerItem> empty_array = new ArrayList<>();
@@ -606,16 +610,16 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 new MainActivity.DoCleanUp(context).execute();
 
                 final boolean alphabetize = fragment.prefs.getBoolean("alphabetize_overlays", true);
-                if (!fragment.overlayList.isEmpty()) {
+                if (!fragment.overlaysList.isEmpty()) {
                     if (alphabetize) {
-                        fragment.overlayList.sort(
+                        fragment.overlaysList.sort(
                                 Comparator.comparing(ManagerItem::getLabelName,
                                         String.CASE_INSENSITIVE_ORDER)
                                         .thenComparing(ManagerItem::getThemeName,
                                                 String.CASE_INSENSITIVE_ORDER)
                         );
                     } else {
-                        fragment.overlayList.sort(
+                        fragment.overlaysList.sort(
                                 Comparator.comparing(ManagerItem::getThemeName,
                                         String.CASE_INSENSITIVE_ORDER)
                                         .thenComparing(ManagerItem::getLabelName,

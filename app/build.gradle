@@ -32,8 +32,8 @@ final def gitHash = { ->
 final def keystorePropertiesFile = rootProject.file("keystore.properties")
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.0'
 
     lintOptions {
         checkReleaseBuilds false
@@ -49,7 +49,7 @@ android {
     defaultConfig {
         applicationId "projekt.substratum"
         minSdkVersion 24
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 856
         versionName "eight hundred fifty six"
         buildConfigField "java.util.Date", "buildTime", "new java.util.Date(" + System.currentTimeMillis() + "L)"
@@ -107,7 +107,7 @@ android {
 
 ext {
     leakCanaryVersion = '1.5.4'
-    supportLibsVersion = '26.1.0'
+    supportLibsVersion = '27.0.0'
     firebaseVersion = '11.4.2'
     glideVersion = '4.1.1'
 }
@@ -134,7 +134,7 @@ dependencies {
     // Commons IO
     implementation 'commons-io:commons-io:2.5'
     // APK Signer
-    implementation 'com.android.tools.build:apksig:2.5.0-alpha-preview-02'
+    implementation 'com.android.tools.build:apksig:3.0.0'
     // App Intro
     implementation 'com.stephentuso:welcome:1.4.1'
     // Floating Action Buttons

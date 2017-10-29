@@ -406,25 +406,16 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
 
     @Override
     public boolean onQueryTextSubmit(final String query) {
-        if (!this.userInput.equals(query)) {
-            this.userInput = query;
-        }
-        new LayoutReloader(ManagerFragment.this, this.userInput).execute();
-
-        return true;
+        return false;
     }
 
     @Override
     public boolean onQueryTextChange(final String newText) {
-        //if (!userInput.equals(newText)) {
-        //    userInput = newText;
-        //}
-        //new LayoutReloader(ManagerFragment.this, userInput).execute();
-        //handler.removeCallbacks(null);
-        //Runnable task = () -> new LayoutReloader(ManagerFragment.this,
-        //        userInput).execute();
-        //handler.postDelayed(task, 600);
-        return false;
+        if (!userInput.equals(newText)) {
+            userInput = newText;
+            new LayoutReloader(ManagerFragment.this, userInput).execute();
+        }
+        return true;
     }
 
     private static final class LayoutReloader extends AsyncTask<Void, Void, Void> {
@@ -531,16 +522,20 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
 
                         if (!unsortedMap.isEmpty()) {
                             // Sort the values list
-                            final List<Pair<String, String>> sortedMap = sortMapByValues
-                                    (unsortedMap);
+                            final List<Pair<String, String>> sortedMap =
+                                    sortMapByValues(unsortedMap);
 
                             for (final Pair<String, String> entry : sortedMap) {
                                 if (disabled_overlays.contains(entry.first)) {
-                                    final ManagerItem st = new ManagerItem(context, entry.first,
+                                    final ManagerItem st = new ManagerItem(
+                                            context,
+                                            entry.first,
                                             false);
                                     fragment.overlaysList.add(st);
                                 } else if (fragment.activated_overlays.contains(entry.first)) {
-                                    final ManagerItem st = new ManagerItem(context, entry.first,
+                                    final ManagerItem st = new ManagerItem(
+                                            context,
+                                            entry.first,
                                             true);
                                     fragment.overlaysList.add(st);
                                 }
@@ -565,8 +560,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     }
 
                     try {
-                        Thread.sleep((long) (fragment.first_boot ? MANAGER_FRAGMENT_INITIAL_DELAY
-                                : 0));
+                        Thread.sleep((long) (fragment.first_boot ?
+                                MANAGER_FRAGMENT_INITIAL_DELAY : 0));
                     } catch (final InterruptedException ie) {
                         // Suppress warning
                     }
@@ -588,7 +583,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 fragment.toggle_all.setEnabled(true);
                 fragment.loadingBar.setVisibility(View.GONE);
                 // On the first start, when adapter is null, use the old style of refreshing RV
-                if (fragment.mAdapter == null) {
+                if (fragment.mAdapter == null || fragment.userInput.length() > 0) {
                     fragment.mAdapter = new ManagerAdapter(fragment.overlaysList, false);
                     fragment.mRecyclerView.setAdapter(fragment.mAdapter);
                     fragment.mRecyclerView.setEnabled(true);

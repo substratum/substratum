@@ -29,14 +29,14 @@ import projekt.substratum.services.floatui.SubstratumFloatInterface;
 public class FloatUiButtonReceiver extends BroadcastReceiver {
 
     @Override
-    public void onReceive(final Context context, final Intent intent) {
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+    public void onReceive(Context context, Intent intent) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         if (prefs.getBoolean("floatui_show_android_system_overlays", true)) {
             prefs.edit().putBoolean("floatui_show_android_system_overlays", false).apply();
         } else {
             prefs.edit().putBoolean("floatui_show_android_system_overlays", true).apply();
         }
-        final Intent closeDialog = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+        Intent closeDialog = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
         context.getApplicationContext().sendBroadcast(closeDialog);
         context.stopService(new Intent(context, SubstratumFloatInterface.class));
         context.startService(new Intent(context, SubstratumFloatInterface.class));

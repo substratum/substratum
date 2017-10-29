@@ -35,36 +35,36 @@ public class FloatingActionMenu extends FloatingActionButton implements Animated
 
     private static final int FAB_ANIM_DURATION = 200;
 
-    public FloatingActionMenu(final Context context) {
+    public FloatingActionMenu(Context context) {
         super(context);
     }
 
-    public FloatingActionMenu(final Context context, final AttributeSet attrs) {
+    public FloatingActionMenu(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public FloatingActionMenu(final Context context, final AttributeSet attrs, final int
+    public FloatingActionMenu(Context context, AttributeSet attrs, int
             defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
     @Override
     public void show() {
-        this.show((float) 0, (float) 0);
+        show((float) 0, (float) 0);
     }
 
     @Override
-    public void show(final float translationX, final float translationY) {
+    public void show(float translationX, float translationY) {
         // Set FAB's translation
-        this.setTranslation(translationX, translationY);
+        setTranslation(translationX, translationY);
 
         // Only use scale animation if FAB is hidden
-        if (this.getVisibility() != View.VISIBLE) {
+        if (getVisibility() != View.VISIBLE) {
             // Pivots indicate where the animation begins from
-            final float pivotX = this.getPivotX() + translationX;
-            final float pivotY = this.getPivotY() + translationY;
+            float pivotX = getPivotX() + translationX;
+            float pivotY = getPivotY() + translationY;
 
-            final ScaleAnimation anim;
+            ScaleAnimation anim;
             // If pivots are 0, that means the FAB hasn't been drawn yet so just use the
             // center of the FAB
             if ((pivotX == (float) 0) || (pivotY == (float) 0)) {
@@ -77,36 +77,36 @@ public class FloatingActionMenu extends FloatingActionButton implements Animated
 
             // Animate FAB expanding
             anim.setDuration((long) FAB_ANIM_DURATION);
-            anim.setInterpolator(this.getInterpolator());
-            this.startAnimation(anim);
+            anim.setInterpolator(getInterpolator());
+            startAnimation(anim);
         }
-        this.setVisibility(View.VISIBLE);
+        setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hide() {
         // Only use scale animation if FAB is visible
-        if (this.getVisibility() == View.VISIBLE) {
+        if (getVisibility() == View.VISIBLE) {
             // Pivots indicate where the animation begins from
-            final float pivotX = this.getPivotX() + this.getTranslationX();
-            final float pivotY = this.getPivotY() + this.getTranslationY();
+            float pivotX = getPivotX() + getTranslationX();
+            float pivotY = getPivotY() + getTranslationY();
 
             // Animate FAB shrinking
-            final ScaleAnimation anim = new ScaleAnimation(1.0F, (float) 0, 1.0F, (float) 0,
+            ScaleAnimation anim = new ScaleAnimation(1.0F, (float) 0, 1.0F, (float) 0,
                     pivotX, pivotY);
             anim.setDuration((long) FAB_ANIM_DURATION);
-            anim.setInterpolator(this.getInterpolator());
-            this.startAnimation(anim);
+            anim.setInterpolator(getInterpolator());
+            startAnimation(anim);
         }
-        this.setVisibility(View.INVISIBLE);
+        setVisibility(View.INVISIBLE);
     }
 
-    private void setTranslation(final float translationX, final float translationY) {
-        this.animate().setInterpolator(this.getInterpolator()).setDuration((long) FAB_ANIM_DURATION)
+    private void setTranslation(float translationX, float translationY) {
+        animate().setInterpolator(getInterpolator()).setDuration((long) FAB_ANIM_DURATION)
                 .translationX(translationX).translationY(translationY);
     }
 
     private Interpolator getInterpolator() {
-        return AnimationUtils.loadInterpolator(this.getContext(), R.interpolator.msf_interpolator);
+        return AnimationUtils.loadInterpolator(getContext(), R.interpolator.msf_interpolator);
     }
 }

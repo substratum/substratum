@@ -16,19 +16,24 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.activities.launch;
+package projekt.substratum.activities.shortcuts;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import projekt.substratum.Substratum;
 import projekt.substratum.common.Theming;
 
 public class AppShortcutLaunch extends AppCompatActivity {
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Theming.launchTheme(this, this.getIntent().getStringExtra("theme_pid"), null);
-        this.finish();
+        Theming.launchTheme(
+                Substratum.getInstance(),
+                getIntent().getStringExtra("theme_pid"),
+                null
+        );
+        finish();
     }
 }

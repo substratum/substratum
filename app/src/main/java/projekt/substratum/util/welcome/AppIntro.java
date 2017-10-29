@@ -28,37 +28,43 @@ public class AppIntro extends WelcomeActivity {
 
     @Override
     protected WelcomeConfiguration configuration() {
-        final WelcomeConfiguration.Builder welcomeBuilder = new WelcomeConfiguration.Builder(this);
+        WelcomeConfiguration.Builder welcomeBuilder = new WelcomeConfiguration.Builder(this);
         welcomeBuilder.page(
                 new BasicPage(
                         R.drawable.appintro_slide_1,
-                        this.getString(R.string.slide_1_title),
-                        this.getString(R.string.slide_1_text)).background(R.color.slide_1));
+                        getString(R.string.slide_1_title),
+                        getString(R.string.slide_1_text)
+                ).background(R.color.slide_1));
         welcomeBuilder.page(
                 new BasicPage(
                         R.drawable.appintro_slide_2,
-                        this.getString(R.string.slide_2_title),
-                        this.getString(R.string.slide_2_text)).background(R.color.slide_2));
+                        getString(R.string.slide_2_title),
+                        getString(R.string.slide_2_text)
+                ).background(R.color.slide_2));
         welcomeBuilder.page(
                 new BasicPage(
                         R.drawable.appintro_slide_3,
-                        this.getString(R.string.slide_3_title),
-                        this.getString(R.string.slide_3_text)).background(R.color.slide_3));
+                        getString(R.string.slide_3_title),
+                        getString(R.string.slide_3_text)
+                ).background(R.color.slide_3));
         welcomeBuilder.page(
                 new BasicPage(
                         R.drawable.appintro_slide_4,
-                        this.getString(R.string.slide_4_title),
-                        this.getString(R.string.slide_4_text)).background(R.color.slide_4));
+                        getString(R.string.slide_4_title),
+                        getString(R.string.slide_4_text)
+                ).background(R.color.slide_4));
         welcomeBuilder.page(
                 new BasicPage(
                         R.drawable.appintro_slide_5,
-                        this.getString(R.string.slide_5_title),
-                        this.getString(R.string.slide_5_text)).background(R.color.slide_5));
+                        getString(R.string.slide_5_title),
+                        getString(R.string.slide_5_text)
+                ).background(R.color.slide_5));
         welcomeBuilder.page(
                 new BasicPage(
                         R.drawable.appintro_slide_6,
-                        this.getString(R.string.slide_6_title),
-                        this.getString(R.string.slide_6_text)).background(R.color.slide_6));
+                        getString(R.string.slide_6_title),
+                        getString(R.string.slide_6_text)
+                ).background(R.color.slide_6));
         welcomeBuilder.swipeToDismiss(true);
         welcomeBuilder.exitAnimation(android.R.anim.fade_out);
         return welcomeBuilder.build();

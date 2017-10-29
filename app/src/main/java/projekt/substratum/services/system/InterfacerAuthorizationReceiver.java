@@ -28,7 +28,7 @@ import projekt.substratum.R;
 public class InterfacerAuthorizationReceiver extends BroadcastReceiver {
 
     @Override
-    public void onReceive(final Context context, final Intent intent) {
+    public void onReceive(Context context, Intent intent) {
         if (!intent.getBooleanExtra("isCallerAuthorized", false)) {
             Toast.makeText(context,
                     context.getString(R.string.interfacer_not_authorized_toast),

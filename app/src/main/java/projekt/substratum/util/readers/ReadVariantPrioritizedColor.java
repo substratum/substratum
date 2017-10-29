@@ -29,17 +29,22 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 public class ReadVariantPrioritizedColor {
 
-    public static String run(InputStream fileName) {
+    /**
+     * Function to read the variant's prioritized (themer's FIRST in file) color
+     *
+     * @param fileName File name
+     * @return Returns the first line of the XML file for the color
+     */
+    public static String read(InputStream fileName) {
         try {
-            final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            final DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            final Document doc = dBuilder.parse(fileName);
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(fileName);
             doc.getDocumentElement().normalize();
-            final NodeList nList = doc.getElementsByTagName("color");
-            final Node nNode = nList.item(0);
-            final Node eElement = nNode;
+            NodeList nList = doc.getElementsByTagName("color");
+            Node eElement = nList.item(0);
             return eElement.getAttributes().item(0).getNodeValue();
-        } catch (final Exception e) {
+        } catch (Exception e) {
             // At this point, the file does not exist!
         }
         return null;

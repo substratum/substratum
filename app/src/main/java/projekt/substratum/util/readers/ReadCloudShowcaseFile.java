@@ -33,35 +33,39 @@ import javax.xml.parsers.DocumentBuilderFactory;
 public enum ReadCloudShowcaseFile {
     ;
 
-    public static Map main(final String[] argv) {
-
+    /**
+     * Function to read the cloud showcase file
+     *
+     * @param location File location
+     * @return Return a map for the showcase entries
+     */
+    public static Map read(String location) {
         try {
-            final File fXmlFile = new File(argv[0]);
+            File fXmlFile = new File(location);
 
-            final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            final DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            final Document doc = dBuilder.parse(fXmlFile);
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(fXmlFile);
             doc.getDocumentElement().normalize();
-            final NodeList nList = doc.getElementsByTagName("theme");
+            NodeList nList = doc.getElementsByTagName("theme");
 
-            final Map<String, String> map = new TreeMap<>();
+            Map<String, String> map = new TreeMap<>();
             for (int temp = 0; temp < nList.getLength(); temp++) {
-                final Node nNode = nList.item(temp);
+                Node nNode = nList.item(temp);
                 if ((int) nNode.getNodeType() == (int) Node.ELEMENT_NODE) {
-                    final Element eElement = (Element) nNode;
+                    Element eElement = (Element) nNode;
 
-                    final String addon_download_name = eElement.getAttribute("id");
-                    final String addon_download_link = eElement.getElementsByTagName("link").item
-                            (0).
-                            getTextContent();
-                    final String addon_author = eElement.getElementsByTagName("author").item(0).
+                    String addon_download_name = eElement.getAttribute("id");
+                    String addon_download_link =
+                            eElement.getElementsByTagName("link").item(0).getTextContent();
+                    String addon_author = eElement.getElementsByTagName("author").item(0).
                             getTextContent();
                     String addon_image = "";
                     try {
                         // Try to see if the entry has an image override tag <image>
                         addon_image = eElement.getElementsByTagName("image")
                                 .item(0).getTextContent();
-                    } catch (final Exception e) {
+                    } catch (Exception e) {
                         // There is no image override tag
                     }
 
@@ -70,7 +74,7 @@ public enum ReadCloudShowcaseFile {
                         // Try to see if the entry has an image override tag <backgroundimage>
                         addon_backgroundimage = eElement.getElementsByTagName("backgroundimage")
                                 .item(0).getTextContent();
-                    } catch (final Exception e) {
+                    } catch (Exception e) {
                         // There is no image override tag
                     }
 
@@ -79,17 +83,17 @@ public enum ReadCloudShowcaseFile {
                         // Try to see if the entry has an image override tag <backgroundimage>
                         addon_package_name = eElement.getElementsByTagName("package")
                                 .item(0).getTextContent();
-                    } catch (final Exception e) {
+                    } catch (Exception e) {
                         // There is no image override tag
                     }
 
-                    final String addon_pricing = eElement.getElementsByTagName("pricing").item(0).
+                    String addon_pricing = eElement.getElementsByTagName("pricing").item(0).
                             getTextContent();
-                    final String addon_support = eElement.getElementsByTagName("support").item(0).
+                    String addon_support = eElement.getElementsByTagName("support").item(0).
                             getTextContent();
 
                     if (addon_image.isEmpty() && addon_backgroundimage.isEmpty()) {
-                        final String[] finalArray = {addon_download_name, addon_download_link,
+                        String[] finalArray = {addon_download_name, addon_download_link,
                                 addon_author, addon_pricing, addon_package_name, addon_support};
                         map.put(finalArray[0], finalArray[1]);
                         map.put(finalArray[0] + "-author", finalArray[2]);
@@ -97,7 +101,7 @@ public enum ReadCloudShowcaseFile {
                         map.put(finalArray[0] + "-package-name", finalArray[4]);
                         map.put(finalArray[0] + "-support", finalArray[5]);
                     } else {
-                        final String[] finalArray = {addon_download_name, addon_download_link,
+                        String[] finalArray = {addon_download_name, addon_download_link,
                                 addon_author, addon_pricing, addon_image, addon_backgroundimage,
                                 addon_package_name, addon_support};
                         map.put(finalArray[0], finalArray[1]);
@@ -111,7 +115,7 @@ public enum ReadCloudShowcaseFile {
                 }
             }
             return map;
-        } catch (final Exception e) {
+        } catch (Exception e) {
             return new TreeMap<String, String>();
         }
     }

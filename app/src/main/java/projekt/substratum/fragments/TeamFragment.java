@@ -18,11 +18,8 @@
 
 package projekt.substratum.fragments;
 
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.Lunchbar;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
@@ -31,311 +28,287 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import projekt.substratum.R;
+import projekt.substratum.common.References;
+
+import static projekt.substratum.common.Activities.launchActivityUrl;
 
 public class TeamFragment extends Fragment {
 
+    @BindView(R.id.nicholas_card)
+    CardView nicholas_card;
+    @BindView(R.id.syko_card)
+    CardView syko_card;
+    @BindView(R.id.ivan_card)
+    CardView ivan_card;
+    @BindView(R.id.surge_card)
+    CardView surge_card;
+    @BindView(R.id.george_card)
+    CardView george_card;
+    @BindView(R.id.nathan_card)
+    CardView nathan_card;
+    @BindView(R.id.char_card)
+    CardView char_card;
+    @BindView(R.id.harsh_card)
+    CardView harsh_card;
+    @BindView(R.id.list_button_contributors)
+    Button development_contributors;
+    @BindView(R.id.list_button_translators_contribute)
+    Button contribute;
+    @BindView(R.id.list_button_layers)
+    Button layers;
+    @BindView(R.id.list_button_translators)
+    Button translators;
+
     @Override
-    public View onCreateView(final LayoutInflater inflater,
-                             final ViewGroup container,
-                             final Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container,
+                             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final ViewGroup root =
-                (ViewGroup) inflater.inflate(R.layout.team_fragment, container, false);
+        View view = inflater.inflate(R.layout.team_fragment, container, false);
+        ButterKnife.bind(this, view);
 
-        final CardView nicholas_card = root.findViewById(R.id.nicholas_card);
+        // Nicholas
         nicholas_card.setOnClickListener(v -> {
-            try {
-                final String playURL = this.getString(R.string.team_nicholas_link);
-                final Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                this.startActivity(i);
-            } catch (final ActivityNotFoundException activityNotFoundException) {
-                if (this.getActivity() != null)
-                    Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
-                            this.getString(R.string.activity_missing_toast),
-                            Lunchbar.LENGTH_LONG)
-                            .show();
+            if (getActivity() != null) {
+                launchActivityUrl(
+                        getContext(),
+                        References.getView(getActivity()),
+                        R.string.team_nicholas_link);
             }
         });
 
-        final CardView syko_card = root.findViewById(R.id.syko_card);
+        // Mike
         syko_card.setOnClickListener(v -> {
-            try {
-                final String playURL = this.getString(R.string.team_syko_link);
-                final Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                this.startActivity(i);
-            } catch (final ActivityNotFoundException activityNotFoundException) {
-                if (this.getActivity() != null)
-                    Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
-                            this.getString(R.string.activity_missing_toast),
-                            Lunchbar.LENGTH_LONG)
-                            .show();
+            if (getActivity() != null) {
+                launchActivityUrl(
+                        getContext(),
+                        References.getView(getActivity()),
+                        R.string.team_syko_link);
             }
         });
 
-        final CardView ivan_card = root.findViewById(R.id.ivan_card);
+        // Ivan
         ivan_card.setOnClickListener(v -> {
-            try {
-                final String playURL = this.getString(R.string.team_ivan_link);
-                final Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                this.startActivity(i);
-            } catch (final ActivityNotFoundException activityNotFoundException) {
-                if (this.getActivity() != null)
-                    Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
-                            this.getString(R.string.activity_missing_toast),
-                            Lunchbar.LENGTH_LONG)
-                            .show();
+            if (getActivity() != null) {
+                launchActivityUrl(
+                        getContext(),
+                        References.getView(getActivity()),
+                        R.string.team_ivan_link);
             }
         });
 
-        final CardView surge_card = root.findViewById(R.id.surge_card);
+        // Surge
         surge_card.setOnClickListener(v -> {
-            try {
-                final String playURL = this.getString(R.string.team_surge_link);
-                final Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                this.startActivity(i);
-            } catch (final ActivityNotFoundException activityNotFoundException) {
-                if (this.getActivity() != null)
-                    Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
-                            this.getString(R.string.activity_missing_toast),
-                            Lunchbar.LENGTH_LONG)
-                            .show();
+            if (getActivity() != null) {
+                launchActivityUrl(
+                        getContext(),
+                        References.getView(getActivity()),
+                        R.string.team_surge_link);
             }
         });
 
-        final CardView george_card = root.findViewById(R.id.george_card);
+        // George
         george_card.setOnClickListener(v -> {
-            try {
-                final String playURL = this.getString(R.string.team_george_link);
-                final Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                this.startActivity(i);
-            } catch (final ActivityNotFoundException activityNotFoundException) {
-                if (this.getActivity() != null)
-                    Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
-                            this.getString(R.string.activity_missing_toast),
-                            Lunchbar.LENGTH_LONG)
-                            .show();
+            if (getActivity() != null) {
+                launchActivityUrl(
+                        getContext(),
+                        References.getView(getActivity()),
+                        R.string.team_george);
             }
         });
 
-        final CardView nathan_card = root.findViewById(R.id.nathan_card);
+        // Nathan
         nathan_card.setOnClickListener(v -> {
-            try {
-                final String playURL = this.getString(R.string.team_nathan_link);
-                final Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                this.startActivity(i);
-            } catch (final ActivityNotFoundException activityNotFoundException) {
-                if (this.getActivity() != null)
-                    Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
-                            this.getString(R.string.activity_missing_toast),
-                            Lunchbar.LENGTH_LONG)
-                            .show();
+            if (getActivity() != null) {
+                launchActivityUrl(
+                        getContext(),
+                        References.getView(getActivity()),
+                        R.string.team_nathan_link);
             }
         });
 
-        final CardView char_card = root.findViewById(R.id.char_card);
+        // Char
         char_card.setOnClickListener(v -> {
-            try {
-                final String playURL = this.getString(R.string.team_char_link);
-                final Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                this.startActivity(i);
-            } catch (final ActivityNotFoundException activityNotFoundException) {
-                if (this.getActivity() != null)
-                    Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
-                            this.getString(R.string.activity_missing_toast),
-                            Lunchbar.LENGTH_LONG)
-                            .show();
+            if (getActivity() != null) {
+                launchActivityUrl(
+                        getContext(),
+                        References.getView(getActivity()),
+                        R.string.team_char_link);
             }
         });
 
-        final CardView harsh_card = root.findViewById(R.id.harsh_card);
+        // Harsh
         harsh_card.setOnClickListener(v -> {
-            try {
-                final String playURL = this.getString(R.string.team_harsh_link);
-                final Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                this.startActivity(i);
-            } catch (final ActivityNotFoundException activityNotFoundException) {
-                if (this.getActivity() != null)
-                    Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
-                            this.getString(R.string.activity_missing_toast),
-                            Lunchbar.LENGTH_LONG)
-                            .show();
+            if (getActivity() != null) {
+                launchActivityUrl(
+                        getContext(),
+                        References.getView(getActivity()),
+                        R.string.team_harsh_link);
             }
         });
 
-
-        final Button development_contributors = root.findViewById(R.id.list_button_contributors);
+        // Development contributors
         development_contributors.setOnClickListener(v -> {
-            final AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
-            builder.setItems(this.getResources().getStringArray(R.array.substratum_contributors),
+            assert getActivity() != null;
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setItems(getResources().getStringArray(R.array.substratum_contributors),
                     (dialog, item) -> {
                     });
-            final AlertDialog alert = builder.create();
+            AlertDialog alert = builder.create();
             alert.show();
         });
 
-        final Button contribute = root.findViewById(R.id.list_button_translators_contribute);
+        // Translators
         contribute.setOnClickListener(v -> {
-            try {
-                final String playURL = this.getString(R.string.crowdin_url);
-                final Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(playURL));
-                this.startActivity(i);
-            } catch (final ActivityNotFoundException activityNotFoundException) {
-                if (this.getActivity() != null)
-                    Lunchbar.make(this.getActivity().findViewById(android.R.id.content),
-                            this.getString(R.string.activity_missing_toast),
-                            Lunchbar.LENGTH_LONG)
-                            .show();
+            if (getActivity() != null) {
+                launchActivityUrl(
+                        getContext(),
+                        References.getView(getActivity()),
+                        R.string.crowdin_url);
             }
         });
 
-        final Button layers = root.findViewById(R.id.list_button_layers);
+        // Layers contributors
         layers.setOnClickListener(v -> {
-            final AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
-            builder.setItems(this.getResources().getStringArray(R.array.layers_contributors),
+            assert getActivity() != null;
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setItems(getResources().getStringArray(R.array.layers_contributors),
                     (dialog, item) -> {
                     });
-            final AlertDialog alert = builder.create();
+            AlertDialog alert = builder.create();
             alert.show();
         });
 
-        final Button translators = root.findViewById(R.id.list_button_translators);
         translators.setOnClickListener(v -> {
-            final AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
-            builder.setItems(this.getResources().getStringArray(R.array.translations),
+            assert getActivity() != null;
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setItems(getResources().getStringArray(R.array.translations),
                     (dialog, item) -> {
                         dialog.cancel();
-                        final AlertDialog.Builder builder2 = new AlertDialog.Builder(this
-                                .getActivity());
+                        AlertDialog.Builder builder2 = new AlertDialog.Builder(getActivity());
                         switch (item) {
                             case 0:
                                 builder2.setItems(
-                                        this.getResources().getStringArray(R.array
-                                                .belarusian_translators),
+                                        getResources().getStringArray(
+                                                R.array.belarusian_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 1:
                                 builder2.setItems(
-                                        this.getResources().getStringArray(R.array
-                                                .czech_translators),
+                                        getResources().getStringArray(
+                                                R.array.czech_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 2:
                                 builder2.setItems(
-                                        this.getResources().getStringArray(R.array
-                                                .chinese_translators),
+                                        getResources().getStringArray(
+                                                R.array.chinese_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 3:
                                 builder2.setItems(
-                                        this.getResources().getStringArray(R.array
-                                                .french_translators),
+                                        getResources().getStringArray(
+                                                R.array.french_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 4:
                                 builder2.setItems(
-                                        this.getResources().getStringArray(R.array
-                                                .german_translators),
+                                        getResources().getStringArray(
+                                                R.array.german_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 5:
                                 builder2.setItems(
-                                        this.getResources().getStringArray(R.array
-                                                .hungarian_translators),
+                                        getResources().getStringArray(
+                                                R.array.hungarian_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 6:
                                 builder2.setItems(
-                                        this.getResources().getStringArray(R.array
-                                                .italian_translators),
+                                        getResources().getStringArray(
+                                                R.array.italian_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 7:
                                 builder2.setItems(
-                                        this.getResources().getStringArray(R.array
-                                                .lithuanian_translators),
+                                        getResources().getStringArray(
+                                                R.array.lithuanian_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 8:
                                 builder2.setItems(
-                                        this.getResources().getStringArray(R.array
-                                                .dutch_translators),
+                                        getResources().getStringArray(
+                                                R.array.dutch_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 9:
                                 builder2.setItems(
-                                        this.getResources().getStringArray(R.array
-                                                .polish_translators),
+                                        getResources().getStringArray(
+                                                R.array.polish_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 10:
                                 builder2.setItems(
-                                        this.getResources().getStringArray(R.array
-                                                .portuguese_brazillian_translators),
+                                        getResources().getStringArray(
+                                                R.array.portuguese_brazillian_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 11:
                                 builder2.setItems(
-                                        this.getResources().getStringArray(R.array
-                                                .portuguese_translators),
+                                        getResources().getStringArray(
+                                                R.array.portuguese_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 12:
                                 builder2.setItems(
-                                        this.getResources().getStringArray(R.array
-                                                .russian_translators),
+                                        getResources().getStringArray(
+                                                R.array.russian_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 13:
                                 builder2.setItems(
-                                        this.getResources().getStringArray(R.array
-                                                .slovak_translators),
+                                        getResources().getStringArray(
+                                                R.array.slovak_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 14:
                                 builder2.setItems(
-                                        this.getResources().getStringArray(R.array
-                                                .spanish_translators),
+                                        getResources().getStringArray(
+                                                R.array.spanish_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                             case 15:
                                 builder2.setItems(
-                                        this.getResources().getStringArray(R.array
-                                                .turkish_translators),
+                                        getResources().getStringArray(
+                                                R.array.turkish_translators),
                                         (dialog2, item2) -> {
                                         });
                                 break;
                         }
-                        final AlertDialog alert2 = builder2.create();
+                        AlertDialog alert2 = builder2.create();
                         alert2.show();
                     });
-            final AlertDialog alert = builder.create();
+            AlertDialog alert = builder.create();
             alert.show();
         });
-        return root;
+        return view;
     }
 }

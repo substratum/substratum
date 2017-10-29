@@ -23,6 +23,7 @@ import android.content.res.AssetManager;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RestrictTo;
 import android.util.Log;
 
 import org.apache.commons.io.FileUtils;
@@ -42,6 +43,8 @@ import javax.crypto.CipherInputStream;
 import projekt.substratum.common.platform.ThemeInterfacerService;
 import projekt.substratum.util.files.Root;
 
+import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;
+import static projekt.substratum.common.Internal.ENCRYPTED_FILE_EXTENSION;
 import static projekt.substratum.common.References.ENABLE_DIRECT_ASSETS_LOGGING;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 
@@ -54,35 +57,82 @@ public enum FileOperations {
     private static final String DELETE_LOG = "SubstratumDelete";
     private static final String MOVE_LOG = "SubstratumMove";
     private static final String DA_LOG = "DirectAssets";
-    private static final String ENCRYPTION_EXTENSION = ".enc";
 
+    /**
+     * Adjust the content provider settings
+     *
+     * @param uri      Uri
+     * @param topic    Topic
+     * @param fileName File name
+     */
     public static void adjustContentProvider(final String uri,
-                                             final String topic, final String fileName) {
+                                             final String topic,
+                                             final String fileName) {
         Root.runCommand("content insert --uri " + uri + ' ' +
                 "--bind name:s:" + topic + " --bind value:s:" + fileName);
     }
 
+    /**
+     * Set SEContext for a folder
+     *
+     * @param foldername Folder name
+     */
     public static void setContext(final String foldername) {
         Root.runCommand("chcon -R u:object_r:system_file:s0 " + foldername);
     }
 
-    public static void setPermissions(final int permission, final String foldername) {
+    /**
+     * Set permissions for a given folder
+     *
+     * @param permission Permission
+     * @param foldername Folder name
+     */
+    public static void setPermissions(final int permission,
+                                      final String foldername) {
         Root.runCommand("chmod " + permission + ' ' + foldername);
     }
 
-    public static void setPermissionsRecursively(final int permission, final String foldername) {
+    /**
+     * Set permissions recursively
+     *
+     * @param permission Permission
+     * @param foldername Folder name
+     */
+    public static void setPermissionsRecursively(final int permission,
+                                                 final String foldername) {
         Root.runCommand("chmod -R " + permission + ' ' + foldername);
     }
 
+    /**
+     * Set build.prop prop
+     *
+     * @param propName  Prop name
+     * @param propValue Prop value
+     */
     @SuppressWarnings("SameParameterValue")
-    public static void setProp(final String propName, final String propValue) {
+    public static void setProp(final String propName,
+                               final String propValue) {
         Root.runCommand("setprop " + propName + ' ' + propValue);
     }
 
-    public static void symlink(final String source, final String destination) {
+    /**
+     * Generate a symlink between two objects
+     *
+     * @param source      Source
+     * @param destination Destination
+     */
+    public static void symlink(final String source,
+                               final String destination) {
         Root.runCommand("ln -s " + source + ' ' + destination);
     }
 
+    /**
+     * Check whether system is using toybox or busybox
+     *
+     * @param mountType Specified mount type
+     * @return Return string of commands to mount
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     private static String checkBox(final String mountType) {
         Process process = null;
         // default style is "toybox" style, because aosp has toybox not toolbox
@@ -107,31 +157,56 @@ public enum FileOperations {
         return result;
     }
 
+    /**
+     * Mount system RW
+     */
     public static void mountRW() {
         Root.runCommand("mount -o " + checkBox("rw") + " /system");
     }
 
+    /**
+     * Mount data RW
+     */
     public static void mountRWData() {
         Root.runCommand("mount -o " + checkBox("rw") + " /data");
     }
 
+    /**
+     * Mount vendor RW
+     */
     public static void mountRWVendor() {
         Root.runCommand("mount -o " + checkBox("rw") + " /vendor");
     }
 
+    /**
+     * Mount system RO
+     */
     public static void mountRO() {
         Root.runCommand("mount -o " + checkBox("ro") + " /system");
     }
 
+    /**
+     * Mount data RO
+     */
     public static void mountROData() {
         Root.runCommand("mount -o " + checkBox("ro") + " /data");
     }
 
+    /**
+     * Mount vendor RO
+     */
     public static void mountROVendor() {
         Root.runCommand("mount -o " + checkBox("ro") + " /vendor");
     }
 
-    public static void createNewFolder(final Context context, final String destination) {
+    /**
+     * Create a new folder
+     *
+     * @param context     Context
+     * @param destination Destination
+     */
+    public static void createNewFolder(final Context context,
+                                       final String destination) {
         final String dataDir = context.getDataDir().getAbsolutePath();
         final String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
         final boolean needRoot = (
@@ -145,6 +220,11 @@ public enum FileOperations {
         }
     }
 
+    /**
+     * Create a new folder
+     *
+     * @param foldername Folder name
+     */
     public static void createNewFolder(final String foldername) {
         Log.d(CREATE_LOG, "Using rootless operation to create " + foldername);
         final File folder = new File(foldername);
@@ -159,7 +239,16 @@ public enum FileOperations {
         }
     }
 
-    public static void copy(final Context context, final String source, final String destination) {
+    /**
+     * Copy a file
+     *
+     * @param context     Context
+     * @param source      Source
+     * @param destination Destination
+     */
+    public static void copy(final Context context,
+                            final String source,
+                            final String destination) {
         final String dataDir = context.getDataDir().getAbsolutePath();
         final String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
         final boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir) &&
@@ -188,6 +277,13 @@ public enum FileOperations {
         }
     }
 
+    /**
+     * Copy a file
+     *
+     * @param source      Source
+     * @param destination Destination
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     private static void copy(final String source, final String destination) {
         Log.d(COPY_LOG,
                 "Using rootless operation to copy " + source + " to " + destination);
@@ -206,8 +302,16 @@ public enum FileOperations {
         Log.d(COPY_LOG, "Operation " + (out.exists() ? "succeeded" : "failed"));
     }
 
-    public static void copyDir(final Context context, final String source, final String
-            destination) {
+    /**
+     * Copy a directory
+     *
+     * @param context     Context
+     * @param source      Source
+     * @param destination Destination
+     */
+    public static void copyDir(final Context context,
+                               final String source,
+                               final String destination) {
         final String dataDir = context.getDataDir().getAbsolutePath();
         final String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
         final boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir) &&
@@ -220,7 +324,15 @@ public enum FileOperations {
         }
     }
 
-    private static void copyDir(final String source, final String destination) {
+    /**
+     * Meat of {@link #copyDir(Context, String, String)}
+     *
+     * @param source      Source
+     * @param destination Destination
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    private static void copyDir(final String source,
+                                String destination) {
         Log.d(COPYDIR_LOG,
                 "Using rootless operation to copy " + source + " to " + destination);
         final File out = new File(destination);
@@ -238,16 +350,35 @@ public enum FileOperations {
         Log.d(COPYDIR_LOG, "Operation " + (out.exists() ? "succeeded" : "failed"));
     }
 
+    /**
+     * Bruteforce delete using Linux commands and root
+     *
+     * @param directory Directory or File name
+     */
     public static void bruteforceDelete(final String directory) {
         Root.runCommand("rm -rf " + directory);
     }
 
+    /**
+     * Delete a file or directory
+     *
+     * @param context   Context
+     * @param directory Directory
+     */
     public static void delete(final Context context, final String directory) {
         delete(context, directory, true);
     }
 
-    public static void delete(final Context context, final String directory, final boolean
-            deleteParent) {
+    /**
+     * The meat of {@link #delete(Context, String)}
+     *
+     * @param context      Context
+     * @param directory    Directory
+     * @param deleteParent Flag to delete the parent folder as well
+     */
+    public static void delete(final Context context,
+                              final String directory,
+                              final Boolean deleteParent) {
         final String dataDir = context.getDataDir().getAbsolutePath();
         final String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
         final boolean needRoot = (!directory.startsWith(dataDir) && !directory.startsWith
@@ -276,7 +407,15 @@ public enum FileOperations {
         }
     }
 
-    private static void delete(final String directory, final boolean deleteParent) {
+    /**
+     * The meat of {@link #delete(Context, String, Boolean)}
+     *
+     * @param directory    Directory
+     * @param deleteParent Flag to delete the parent folder as well
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    private static void delete(final String directory,
+                               final boolean deleteParent) {
         Log.d(DELETE_LOG, "Using rootless operation to delete " + directory);
         final File dir = new File(directory);
         try {
@@ -310,7 +449,16 @@ public enum FileOperations {
         Log.d(DELETE_LOG, "Operation " + (!dir.exists() ? "succeeded" : "failed"));
     }
 
-    public static void move(final Context context, final String source, final String destination) {
+    /**
+     * Move a file or directory
+     *
+     * @param context     Context
+     * @param source      Source
+     * @param destination Destination
+     */
+    public static void move(final Context context,
+                            final String source,
+                            final String destination) {
         final String dataDir = context.getDataDir().getAbsolutePath();
         final String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
         final boolean needRoot = (!source.startsWith(dataDir) && !source.startsWith(externalDir) &&
@@ -339,6 +487,13 @@ public enum FileOperations {
         }
     }
 
+    /**
+     * Move a file or directory
+     *
+     * @param source      Source
+     * @param destination Destination
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
     private static void move(final String source, final String destination) {
         Log.d(MOVE_LOG, "Using rootless operation to move " + source + " to " +
                 destination);
@@ -358,6 +513,12 @@ public enum FileOperations {
         Log.d(MOVE_LOG, "Operation " + (out.exists() ? "succeeded" : "failed"));
     }
 
+    /**
+     * Obtain a file's size
+     *
+     * @param source Source
+     * @return Returns the specified file's size
+     */
     public static long getFileSize(final File source) {
         long size = 0L;
         if (source.isDirectory()) {
@@ -373,16 +534,16 @@ public enum FileOperations {
     /**
      * EncryptedAssets InputStream
      *
-     * @param assetManager take the asset manager context from the theme package
-     * @param filePath     the expected list directory inside the assets folder
-     * @param cipherKey    the decryption key for the Cipher object
+     * @param assetManager Take the asset manager context from the theme package
+     * @param filePath     The expected list directory inside the assets folder
+     * @param cipherKey    The decryption key for the Cipher object
      */
     public static InputStream getInputStream(
             @NonNull final AssetManager assetManager,
             @NonNull final String filePath,
             @Nullable final Cipher cipherKey) throws IOException {
         final InputStream inputStream = assetManager.open(filePath);
-        if ((cipherKey != null) && filePath.endsWith(ENCRYPTION_EXTENSION)) {
+        if ((cipherKey != null) && filePath.endsWith(ENCRYPTED_FILE_EXTENSION)) {
             return new CipherInputStream(inputStream, cipherKey);
         }
         return inputStream;
@@ -391,17 +552,18 @@ public enum FileOperations {
     /**
      * DirectAssets Mode Functions
      *
-     * @param assetManager take the asset manager context from the theme package
-     * @param listDir      the expected list directory inside the assets folder
-     * @param destination  output directory on where we should be caching
-     * @param remember     should be the same as listDir, so we strip out the unnecessary prefix
-     *                     so it
-     *                     only extracts to a specified folder without the asset manager's list
-     *                     structure.
+     * @param assetManager Take the asset manager context from the theme package
+     * @param listDir      The expected list directory inside the assets folder
+     * @param destination  Output directory on where we should be caching
+     * @param remember     Should be the same as listDir, so we strip out the unnecessary prefix
+     *                     so it only extracts to a specified folder without the asset manager's
+     *                     list structure.
      */
-    public static boolean copyFileOrDir(final AssetManager assetManager, final String listDir,
-                                        final String destination, final String remember, final
-                                        Cipher cipher) {
+    public static boolean copyFileOrDir(final AssetManager assetManager,
+                                        final String listDir,
+                                        final String destination,
+                                        final String remember,
+                                        final Cipher cipher) {
         if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, "Source: " + listDir);
         if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, "Destination: " + destination);
         try {
@@ -438,16 +600,30 @@ public enum FileOperations {
         return false;
     }
 
-    private static boolean copyFile(final AssetManager assetManager, final String filename,
-                                    final String destination, final String remember, final Cipher
-                                            cipher) {
+    /**
+     * Copy a file, meat of {@link #copyFileOrDir(AssetManager, String, String, String, Cipher)}
+     *
+     * @param assetManager Take the asset manager context from the theme package
+     * @param filename     File's name
+     * @param destination  Output directory on where we should be caching
+     * @param destination  Destination
+     * @param remember     Remember the folder structure
+     * @param cipher       Encryption key
+     * @return Returns a boolean informing whether the file has been successfully copied
+     */
+    @RestrictTo(RestrictTo.Scope.LIBRARY)
+    private static boolean copyFile(final AssetManager assetManager,
+                                    final String filename,
+                                    final String destination,
+                                    final String remember,
+                                    final Cipher cipher) {
         InputStream inputStream = null;
         OutputStream outputStream = null;
         try {
             inputStream = assetManager.open(filename);
-            if ((cipher != null) && filename.endsWith(".enc")) {
+            if ((cipher != null) && filename.endsWith(ENCRYPTED_FILE_EXTENSION)) {
                 inputStream = new CipherInputStream(inputStream, cipher);
-            } else if ((cipher == null) && filename.endsWith(".enc")) {
+            } else if ((cipher == null) && filename.endsWith(ENCRYPTED_FILE_EXTENSION)) {
                 return false;
             }
             final String destinationFile = destination + filename.replaceAll("\\s+", "")
@@ -457,7 +633,7 @@ public enum FileOperations {
                             destinationFile.substring(0, destinationFile.length() - 4) :
                             destinationFile));
 
-            final byte[] buffer = new byte[8192];
+            final byte[] buffer = new byte[BYTE_ACCESS_RATE];
             int read;
             while ((read = inputStream.read(buffer)) != -1) {
                 outputStream.write(buffer, 0, read);
@@ -485,16 +661,24 @@ public enum FileOperations {
         return false;
     }
 
-    public static void copyFromAsset(final Context ctx, final String fileName, final String
-            targetPath) {
+    /**
+     * Copy file from the assets (directly) of a package
+     *
+     * @param context    Context
+     * @param fileName   File name
+     * @param targetPath Target path
+     */
+    public static void copyFromAsset(final Context context,
+                                     final String fileName,
+                                     final String targetPath) {
         InputStream in = null;
         OutputStream out = null;
         try {
-            in = ctx.getAssets().open(fileName);
+            in = context.getAssets().open(fileName);
 
             out = new FileOutputStream(targetPath);
 
-            final byte[] buffer = new byte[1024];
+            final byte[] buffer = new byte[BYTE_ACCESS_RATE];
             int read;
             while ((read = in.read(buffer)) != -1) {
                 out.write(buffer, 0, read);

@@ -73,12 +73,6 @@
         <Preference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:key="force_stop_interfacer"
-            android:title="@string/settings_force_stop_interfacer_title"/>
-
-        <Preference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:key="aopt_switcher"
             android:summary="@string/settings_aapt"
             android:title="@string/settings_aopt_switcher_title"/>

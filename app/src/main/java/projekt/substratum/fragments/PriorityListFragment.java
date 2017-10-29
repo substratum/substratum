@@ -18,8 +18,10 @@
 
 package projekt.substratum.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Lunchbar;
 import android.support.v4.app.Fragment;
@@ -44,6 +46,8 @@ import com.thesurix.gesturerecycler.GestureManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import projekt.substratum.R;
 import projekt.substratum.adapters.fragments.priorities.PrioritiesInterface;
 import projekt.substratum.adapters.fragments.priorities.PrioritiesItem;
@@ -53,29 +57,52 @@ import projekt.substratum.common.Systems;
 import projekt.substratum.common.platform.ThemeManager;
 
 import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
+import static projekt.substratum.common.platform.ThemeManager.listEnabledOverlaysForTarget;
 
 public class PriorityListFragment extends Fragment {
 
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
+    @BindView(R.id.profile_apply_fab)
+    FloatingActionButton applyFab;
+    @BindView(R.id.priority_header_loading_bar)
+    ProgressBar headerProgress;
+    @BindView(R.id.action_bar_toolbar)
+    Toolbar toolbar;
+    private Context mContext;
+
+    /**
+     * Creating the options menu (3dot overflow menu)
+     *
+     * @param menu     Menu object
+     * @param inflater The inflated menu object
+     */
     @Override
-    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.restore_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    /**
+     * Assign actions to every option when they are selected
+     *
+     * @param item Object of menu item
+     * @return True, if something has changed.
+     */
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        final int id = item.getItemId();
-
-        if (id == R.id.restore_info) {
-            this.showPriorityInstructions();
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.restore_info) {
+            showPriorityInstructions();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Show dialog with instructions on adjusting priorities
+     */
     private void showPriorityInstructions() {
-        new AlertDialog.Builder(this.getContext())
+        new AlertDialog.Builder(mContext)
                 .setTitle(R.string.priority_instructions_title)
                 .setMessage(R.string.priority_instructions_content)
                 .setPositiveButton(android.R.string.ok, (dialogInterface, i) ->
@@ -85,31 +112,26 @@ public class PriorityListFragment extends Fragment {
 
     @Override
     public View onCreateView(
-            final LayoutInflater inflater,
-            final ViewGroup container,
-            final Bundle savedInstanceState) {
+            @NonNull LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final ViewGroup root = (ViewGroup)
-                inflater.inflate(R.layout.priority_list_fragment, container, false);
+        mContext = getContext();
+        View view = inflater.inflate(R.layout.priority_list_fragment, container, false);
+        ButterKnife.bind(this, view);
 
-        this.setHasOptionsMenu(true);
-
-        final RecyclerView recyclerView = root.findViewById(R.id.recycler_view);
-        final FloatingActionButton applyFab = root.findViewById(R.id.profile_apply_fab);
-        final LinearLayoutManager manager = new LinearLayoutManager(this.getContext());
-        final ProgressBar headerProgress = root.findViewById(R.id.priority_header_loading_bar);
+        setHasOptionsMenu(true);
+        LinearLayoutManager manager = new LinearLayoutManager(mContext);
         headerProgress.setVisibility(View.GONE);
-
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(manager);
-
-        final Toolbar toolbar = root.findViewById(R.id.action_bar_toolbar);
-        toolbar.setTitle(this.getString(R.string.priority_back_title));
-        toolbar.setNavigationIcon(this.getContext().getDrawable(R.drawable.priorities_back_button));
+        toolbar.setTitle(getString(R.string.priority_back_title));
+        toolbar.setNavigationIcon(mContext.getDrawable(R.drawable.priorities_back_button));
         toolbar.setNavigationOnClickListener(v -> {
-            final Fragment fragment = new PriorityLoaderFragment();
-            final FragmentManager fm = this.getActivity().getSupportFragmentManager();
-            final FragmentTransaction transaction = fm.beginTransaction();
+            Fragment fragment = new PriorityLoaderFragment();
+            assert getActivity() != null;
+            FragmentManager fm = getActivity().getSupportFragmentManager();
+            FragmentTransaction transaction = fm.beginTransaction();
             transaction.setCustomAnimations(
                     android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             transaction.replace(R.id.main, fragment);
@@ -118,71 +140,61 @@ public class PriorityListFragment extends Fragment {
 
         // Begin loading up list
         String obtained_key = "";
-        final Bundle bundle = this.getArguments();
+        Bundle bundle = getArguments();
         if (bundle != null) {
             obtained_key = bundle.getString("package_name", null);
         }
 
-        final List<PrioritiesInterface> prioritiesList = new ArrayList<>();
-        final ArrayList<String> workable_list = new ArrayList<>();
-        final List<String> overlays =
-                ThemeManager.listEnabledOverlaysForTarget(this.getContext(), obtained_key);
-        for (final String o : overlays) {
+        List<PrioritiesInterface> prioritiesList = new ArrayList<>();
+        ArrayList<String> workable_list = new ArrayList<>();
+        List<String> overlays = listEnabledOverlaysForTarget(mContext, obtained_key);
+        for (String o : overlays) {
             prioritiesList.add(new PrioritiesItem(o,
-                    Packages.getOverlayParentIcon(this.getContext(), o)));
+                    Packages.getOverlayParentIcon(mContext, o)));
             workable_list.add(o);
         }
 
-        final PriorityAdapter adapter = new PriorityAdapter(
-                this.getContext(), R.layout.priority_overlay_item);
+        PriorityAdapter adapter = new PriorityAdapter(
+                mContext,
+                R.layout.priority_overlay_item);
         adapter.setData(prioritiesList);
-
         recyclerView.setAdapter(adapter);
 
         new GestureManager.Builder(recyclerView)
                 .setManualDragEnabled(true)
                 .setGestureFlags(
-                        ItemTouchHelper.LEFT |
-                                ItemTouchHelper.RIGHT,
-                        ItemTouchHelper.UP |
-                                ItemTouchHelper.DOWN)
+                        ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT,
+                        ItemTouchHelper.UP | ItemTouchHelper.DOWN)
                 .build();
 
+        /*
+         ==========================================================================
+         A detailed explanation of the OMS "om set-priority PACKAGE PARENT" command
+         ==========================================================================
+
+         1. The command accepts two variables, PACKAGE and PARENT.
+
+         2. PARENT can also be "highest" or "lowest" to ensure it is on top of the
+         list
+
+         3. When you specify a PACKAGE (e.g. com.android.systemui.Beltz), you want to
+         shift it HIGHER than the parent.
+
+         4. The PARENT will always be a specified value that will be an index below
+         the result of PACKAGE, for example
+         (om set-priority com.android.systemui.Beltz com.android.systemui.Domination)
+
+         5. com.android.systemui.Beltz will be HIGHER than com.android.systemui.Domination
+         */
         adapter.setDataChangeListener(
                 new GestureAdapter.OnDataChangeListener<PrioritiesInterface>() {
                     @Override
-                    public void onItemRemoved(final PrioritiesInterface item, final int position) {
-                    }
-
-                    @Override
                     public void onItemReorder(
-                            final PrioritiesInterface item,
-                            final int fromPos,
-                            final int toPos) {
-                        /*
-                        ==========================================================================
-                        A detailed explanation of the OMS "om set-priority PACKAGE PARENT" command
-                        ==========================================================================
-
-                        1. The command accepts two variables, PACKAGE and PARENT.
-
-                        2. PARENT can also be "highest" or "lowest" to ensure it is on top of the
-                        list
-
-                        3. When you specify a PACKAGE (e.g. com.android.systemui.Beltz), you want to
-                        shift it HIGHER than the parent.
-
-                        4. The PARENT will always be a specified value that will be an index below
-                        the final result of PACKAGE, for example
-                        (om set-priority com.android.systemui.Beltz com.android.systemui.Domination)
-
-                        5. com.android.systemui.Beltz will be a HIGHER priority than
-                        com.android.systemui.Domination
-
-                        */
-
+                            PrioritiesInterface item,
+                            int fromPos,
+                            int toPos) {
                         if (fromPos != toPos) {
-                            final String move_package = workable_list.get(fromPos);
+                            String move_package = workable_list.get(fromPos);
                             // As workable list is a simulation of the priority list without object
                             // values, we have to simulate the events such as adding above parents
                             workable_list.remove(fromPos);
@@ -190,33 +202,39 @@ public class PriorityListFragment extends Fragment {
                             applyFab.show();
                         }
                     }
+
+                    @Override
+                    public void onItemRemoved(PrioritiesInterface item, int position) {
+                    }
                 });
 
         applyFab.setOnClickListener(v -> {
             applyFab.hide();
-            if (this.getView() != null) {
-                Lunchbar.make(this.getView(),
-                        this.getString(R.string.priority_success_toast),
+            if (getView() != null) {
+                Lunchbar.make(getView(),
+                        getString(R.string.priority_success_toast),
                         Lunchbar.LENGTH_INDEFINITE)
                         .show();
             }
             headerProgress.setVisibility(View.VISIBLE);
-            ThemeManager.setPriority(this.getContext(), workable_list);
-            if (Packages.needsRecreate(this.getContext(), workable_list)) {
-                final Handler handler = new Handler();
+            ThemeManager.setPriority(mContext, workable_list);
+            if (Packages.needsRecreate(mContext, workable_list)) {
+                Handler handler = new Handler();
                 handler.postDelayed(() -> {
                     // OMS may not have written all the changes so
                     // quickly just yet so we may need to have a small delay
                     try {
-                        this.getActivity().recreate();
-                    } catch (final Exception e) {
+                        if (getActivity() != null) {
+                            getActivity().recreate();
+                        }
+                    } catch (Exception e) {
                         // Consume window refresh
                     }
-                }, (long) (Systems.checkAndromeda(this.getContext()) ?
+                }, (long) (Systems.checkAndromeda(mContext) ?
                         REFRESH_WINDOW_DELAY :
                         (REFRESH_WINDOW_DELAY << 1)));
             }
         });
-        return root;
+        return view;
     }
 }

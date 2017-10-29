@@ -22,18 +22,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ValidatorError {
-    private final List<String> bools = new ArrayList<>();
-    private final List<String> colors = new ArrayList<>();
-    private final List<String> dimens = new ArrayList<>();
-    private final List<String> styles = new ArrayList<>();
-    private final String packageName;
+    private List<String> bools = new ArrayList<>();
+    private List<String> colors = new ArrayList<>();
+    private List<String> dimens = new ArrayList<>();
+    private List<String> styles = new ArrayList<>();
+    private String packageName;
 
-    public ValidatorError(final String packageName) {
+    public ValidatorError(String packageName) {
         super();
         this.packageName = packageName;
     }
 
-    public void addBoolError(final String bools) {
+    public void addBoolError(String bools) {
         this.bools.add(bools);
     }
 

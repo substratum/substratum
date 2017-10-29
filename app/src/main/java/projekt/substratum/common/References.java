@@ -19,6 +19,7 @@
 package projekt.substratum.common;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -43,6 +44,7 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
@@ -68,12 +70,13 @@ import java.util.Set;
 
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
-import projekt.substratum.activities.launch.AppShortcutLaunch;
+import projekt.substratum.activities.shortcuts.AppShortcutLaunch;
 import projekt.substratum.common.analytics.FirebaseAnalytics;
 import projekt.substratum.services.profiles.ScheduledProfileReceiver;
-import projekt.substratum.util.injectors.CheckBinaries;
+import projekt.substratum.util.injectors.BinaryInstaller;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
+import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;
 
 public enum References {
     ;
@@ -95,6 +98,7 @@ public enum References {
     public static final String ANDROMEDA_PACKAGE = "projekt.andromeda";
     public static final String INTERFACER_PACKAGE = "projekt.interfacer";
     public static final String INTERFACER_SERVICE = INTERFACER_PACKAGE + ".services.JobService";
+    public static final String SUBSTRATUM_PACKAGE = "projekt.substratum";
     // Samsung package names
     public static final String SST_ADDON_PACKAGE = "projekt.sungstratum";
     public static final String PLAY_STORE_PACKAGE_NAME = "com.android.vending";
@@ -195,9 +199,12 @@ public enum References {
     // These strings control package names for system apps
     public static final String settingsPackageName = "com.android.settings";
     public static final String settingsSubstratumDrawableName = "ic_settings_substratum";
-    static final String SUBSTRATUM_THEME = "projekt.substratum.THEME";
+    public static final String SUBSTRATUM_LAUNCHER_CLASS = ".SubstratumLauncher";
     // Metadata used in theme templates to denote specific parts of a theme
-    static final String metadataVersion = "Substratum_Plugin";
+    public static final String metadataVersion = "Substratum_Plugin";
+    // Validate with logs
+    public static final Boolean VALIDATE_WITH_LOGS = false;
+    static final String SUBSTRATUM_THEME = "projekt.substratum.THEME";
     static final String metadataThemeReady = "Substratum_ThemeReady";
     static final String metadataSamsungSupport = "Substratum_Samsung";
     static final String resourceChangelog = "ThemeChangelog";
@@ -209,7 +216,6 @@ public enum References {
     static final String APP_CRASHED = "projekt.substratum.APP_CRASHED";
     @SuppressWarnings("WeakerAccess")
     static final String TEMPLATE_RECEIVE_KEYS = "projekt.substratum.RECEIVE_KEYS";
-    static final String SUBSTRATUM_LAUNCHER_CLASS = ".SubstratumLauncher";
     static final String SUBSTRATUM_LAUNCHER_CLASS_PATH =
             "substratum.theme.template.SubstratumLauncher";
     // Localized variables shared amongst common resources
@@ -218,12 +224,35 @@ public enum References {
     private static Boolean uncertified;
     private static int hashValue;
 
+    /**
+     * Create a launcher icon/launchable intent
+     *
+     * @param context    Self explanatory, bro.
+     * @param theme_pid  Theme's package name (launcher intent process)
+     * @param theme_name Theme's name (launcher icon name)
+     */
+    public static void createLauncherIcon(Context context,
+                                          String theme_pid,
+                                          String theme_name) {
+        createLauncherIcon(context, theme_pid, theme_name, false);
+    }
+
+    /**
+     * Create a launcher icon/launchable intent
+     *
+     * @param context               Self explanatory, bro.
+     * @param theme_pid             Theme's package name (launcher intent process)
+     * @param theme_name            Theme's name (launcher icon name)
+     * @param launchManagerFragment Boolean flag that creates an intent to launch
+     *                              {@link projekt.substratum.fragments.ManagerFragment}
+     * @return Returns an intent with the corresponding action
+     */
     public static Intent createLauncherIcon(
-            final Context context,
-            final String theme_pid,
-            final String theme_name,
-            final boolean launchManagerFragment) {
-        final Intent myIntent = new Intent(Intent.ACTION_MAIN);
+            Context context,
+            String theme_pid,
+            String theme_name,
+            boolean launchManagerFragment) {
+        Intent myIntent = new Intent(Intent.ACTION_MAIN);
         if (!launchManagerFragment) {
             myIntent.putExtra("theme_pid", theme_pid);
             myIntent.setComponent(
@@ -240,11 +269,11 @@ public enum References {
 
         if (launchManagerFragment) return myIntent;
 
-        final Bitmap app_icon = Packages.getBitmapFromDrawable(Packages.getAppIcon(context,
+        Bitmap app_icon = Packages.getBitmapFromDrawable(Packages.getAppIcon(context,
                 theme_pid));
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            final Intent addIntent = new Intent();
+            Intent addIntent = new Intent();
             addIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, myIntent);
             addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, theme_name);
             addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON, app_icon);
@@ -252,8 +281,8 @@ public enum References {
             addIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
             context.sendBroadcast(addIntent);
         } else {
-            final ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
-            final ShortcutInfo shortcut =
+            ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
+            ShortcutInfo shortcut =
                     new ShortcutInfo.Builder(context, theme_name)
                             .setShortLabel(theme_name)
                             .setLongLabel(theme_name)
@@ -267,19 +296,20 @@ public enum References {
         return myIntent;
     }
 
-    public static void createLauncherIcon(final Context context,
-                                          final String theme_pid,
-                                          final String theme_name) {
-        createLauncherIcon(context, theme_pid, theme_name, false);
-    }
-
-    public static void createShortcut(final Context context,
-                                      final String theme_pid,
-                                      final String theme_name) {
+    /**
+     * Create a launcher shortcut
+     *
+     * @param context    Context
+     * @param theme_pid  Package name
+     * @param theme_name Theme name
+     */
+    public static void createShortcut(Context context,
+                                      String theme_pid,
+                                      String theme_name) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-            final ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
-            final Icon app_icon;
-            final Drawable app_icon_drawable = Packages.getAppIcon(context, theme_pid);
+            ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
+            Icon app_icon;
+            Drawable app_icon_drawable = Packages.getAppIcon(context, theme_pid);
             //If we are on Oreo and the Theme uses an adaptiveIcon, we have to treat it properly
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O &&
                     app_icon_drawable instanceof AdaptiveIconDrawable) {
@@ -289,7 +319,7 @@ public enum References {
                 app_icon = Icon.createWithBitmap(Packages.getBitmapFromDrawable(app_icon_drawable));
             }
             try {
-                final Intent myIntent = new Intent(Intent.ACTION_MAIN);
+                Intent myIntent = new Intent(Intent.ACTION_MAIN);
                 myIntent.putExtra("theme_name", theme_name);
                 myIntent.putExtra("theme_pid", theme_pid);
                 myIntent.setComponent(
@@ -298,7 +328,7 @@ public enum References {
                                         '/' + AppShortcutLaunch.class.getName()));
                 myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-                final ShortcutInfo shortcut =
+                ShortcutInfo shortcut =
                         new ShortcutInfo.Builder(context, "favorite")
                                 .setShortLabel(theme_name)
                                 .setLongLabel(theme_name)
@@ -309,15 +339,20 @@ public enum References {
                     shortcutManager.setDynamicShortcuts(Collections.singletonList(shortcut));
                 }
                 Log.d(SUBSTRATUM_LOG, "Successfully added dynamic app shortcut!");
-            } catch (final Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public static void clearShortcut(final Context context) {
+    /**
+     * Remove added app shortcuts on the launcher icon
+     *
+     * @param context Context
+     */
+    public static void clearShortcut(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-            final ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
+            ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
             if (shortcutManager != null) {
                 shortcutManager.removeAllDynamicShortcuts();
             }
@@ -325,18 +360,23 @@ public enum References {
         }
     }
 
+    /**
+     * Check the Xposed version on the device
+     *
+     * @return Returns the Xposed version
+     */
     public static String checkXposedVersion() {
         String xposed_version = "";
-        final File f = new File("/system/framework/XposedBridge.jar");
+        File f = new File("/system/framework/XposedBridge.jar");
         if (f.isFile()) {
             try {
-                final File file = new File("/system/", "xposed.prop");
-                final BufferedReader br = new BufferedReader(new FileReader(file));
-                final String unparsed_br = br.readLine();
+                File file = new File("/system/", "xposed.prop");
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                String unparsed_br = br.readLine();
                 xposed_version = unparsed_br.substring(8, 10);
-            } catch (final FileNotFoundException e) {
+            } catch (FileNotFoundException e) {
                 Log.e("XposedChecker", "'xposed.prop' could not be found!");
-            } catch (final IOException e) {
+            } catch (IOException e) {
                 Log.e("XposedChecker", "Unable to parse BufferedReader from 'xposed.prop'");
             }
             xposed_version = ", " + R.string.logcat_email_xposed_check + " (" +
@@ -345,18 +385,22 @@ public enum References {
         return xposed_version;
     }
 
-    // This method is used to place the Substratum Rescue archives if they are not present
-    public static void injectRescueArchives(final Context context) {
-        final File storageDirectory = new File(Environment.getExternalStorageDirectory(),
+    /**
+     * Inject the Substratum Rescue System archives
+     *
+     * @param context Context
+     */
+    public static void injectRescueArchives(Context context) {
+        File storageDirectory = new File(Environment.getExternalStorageDirectory(),
                 "/substratum/");
         if (!storageDirectory.exists() && !storageDirectory.mkdirs()) {
             Log.e(SUBSTRATUM_LOG, "Unable to create storage directory");
         }
-        final File rescueFile = new File(
+        File rescueFile = new File(
                 Environment.getExternalStorageDirectory().getAbsolutePath() +
                         File.separator + "substratum" +
                         File.separator + "SubstratumRescue.zip");
-        final File rescueFileLegacy = new File(
+        File rescueFileLegacy = new File(
                 Environment.getExternalStorageDirectory().getAbsolutePath() +
                         File.separator + "substratum" +
                         File.separator + "SubstratumRescue_Legacy.zip");
@@ -376,13 +420,20 @@ public enum References {
                         File.separator + "SubstratumRescue.zip");
     }
 
-    private static void copyRescueFile(final Context context, final String sourceFileName, final
-    String
-            destFileName) {
-        final AssetManager assetManager = context.getAssets();
+    /**
+     * Copy the rescue file over
+     *
+     * @param context        Context
+     * @param sourceFileName Input file name
+     * @param destFileName   Destination file name
+     */
+    private static void copyRescueFile(Context context,
+                                       String sourceFileName,
+                                       String destFileName) {
+        AssetManager assetManager = context.getAssets();
 
-        final File destFile = new File(destFileName);
-        final File destParentDir = destFile.getParentFile();
+        File destFile = new File(destFileName);
+        File destParentDir = destFile.getParentFile();
         if (!destParentDir.exists() && !destParentDir.mkdir()) {
             Log.e(SUBSTRATUM_LOG,
                     "Unable to create directories for rescue archive dumps.");
@@ -392,22 +443,26 @@ public enum References {
                 InputStream in = assetManager.open(sourceFileName);
                 OutputStream out = new FileOutputStream(destFile)
         ) {
-            final byte[] buffer = new byte[8192];
+            byte[] buffer = new byte[BYTE_ACCESS_RATE];
             int read;
             while ((read = in.read(buffer)) != -1) {
                 out.write(buffer, 0, read);
             }
 
-        } catch (final Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    // Load SharedPreference defaults
-    public static void loadDefaultConfig(final Context context) {
-        final SharedPreferences.Editor editor =
+    /**
+     * Load the app's default preferences
+     *
+     * @param context Context
+     */
+    public static void loadDefaultConfig(Context context) {
+        SharedPreferences.Editor editor =
                 PreferenceManager.getDefaultSharedPreferences(context).edit();
-        final SharedPreferences.Editor editor2 =
+        SharedPreferences.Editor editor2 =
                 context.getSharedPreferences("base_variant", Context.MODE_PRIVATE).edit();
         editor.putBoolean("show_app_icon", true);
         editor.putBoolean("substratum_oms", Systems.checkOMS(context));
@@ -439,24 +494,36 @@ public enum References {
         Theming.refreshInstalledThemesPref(context);
         editor.apply();
         editor2.apply();
-        CheckBinaries.install(context, true);
+        BinaryInstaller.install(context, true);
     }
 
-    // This method checks whether there is any network available for Wallpapers
-    public static boolean isNetworkAvailable(final Context mContext) {
-        final ConnectivityManager connectivityManager
+    /**
+     * Check if there is a network connection available to be used
+     *
+     * @param mContext Context
+     * @return True, if connected to the internet
+     */
+    public static boolean isNetworkAvailable(Context mContext) {
+        ConnectivityManager connectivityManager
                 = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         assert connectivityManager != null;
-        final NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return (activeNetworkInfo != null) && activeNetworkInfo.isConnected();
     }
 
-    // Check if a service is running from our app
-    public static boolean isServiceRunning(final Class<?> serviceClass, final Context context) {
-        final ActivityManager manager = (ActivityManager)
+    /**
+     * Check if a service is funning on the device
+     *
+     * @param serviceClass Specified service to be checked
+     * @param context      Context
+     * @return True, if service running
+     */
+    public static boolean isServiceRunning(Class<?> serviceClass,
+                                           Context context) {
+        ActivityManager manager = (ActivityManager)
                 context.getSystemService(Context.ACTIVITY_SERVICE);
         assert manager != null;
-        for (final ActivityManager.RunningServiceInfo service :
+        for (ActivityManager.RunningServiceInfo service :
                 manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
                 return true;
@@ -465,66 +532,84 @@ public enum References {
         return false;
     }
 
-    // Run shell command and return a StringBuilder of the output
+    /**
+     * Run a shell command on the linux terminal (no root)
+     *
+     * @param input Input text/command
+     * @return Returns any outstanding output from the executed command
+     */
     @SuppressWarnings("SameParameterValue")
-    public static StringBuilder runShellCommand(final String input) {
+    public static StringBuilder runShellCommand(String input) {
         try {
-            final Process shell = Runtime.getRuntime().exec(input);
-            final BufferedReader reader =
+            Process shell = Runtime.getRuntime().exec(input);
+            BufferedReader reader =
                     new BufferedReader(new InputStreamReader(shell.getInputStream()));
 
-            final StringBuilder returnString = new StringBuilder();
+            StringBuilder returnString = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
                 returnString.append(line).append('\n');
             }
             return returnString;
-        } catch (final Exception e) {
+        } catch (Exception e) {
             // Suppress warning
         }
         return null;
     }
 
-    static int hashPassthrough(final Context context) {
+    /**
+     * Checks whether signatures match up
+     *
+     * @param context Context
+     * @return Returns the signature as an int
+     */
+    static int hashPassthrough(Context context) {
         if (hashValue != 0) {
             return hashValue;
         }
         try {
-            @SuppressLint("PackageManagerGetSignatures") final Signature[] sigs = context
+            @SuppressLint("PackageManagerGetSignatures") Signature[] sigs = context
                     .getPackageManager().getPackageInfo(
                             context.getPackageName(),
                             PackageManager.GET_SIGNATURES).signatures;
-            for (final Signature sig : sigs) {
+            for (Signature sig : sigs) {
                 if (sig != null) {
                     hashValue = sig.hashCode();
                     return hashValue;
                 }
             }
-        } catch (final PackageManager.NameNotFoundException nnfe) {
+        } catch (PackageManager.NameNotFoundException nnfe) {
             nnfe.printStackTrace();
         }
         return 0;
     }
 
-    static Boolean spreadYourWingsAndFly(final Context context) {
+    /**
+     * A beautiful sunshine on a gloomy night, you must escape the grasps of death as it brings you
+     * to the destruction of life.
+     *
+     * @param context What's the point of parameters?
+     * @return Is it true that there is an afterlife?
+     */
+    static Boolean spreadYourWingsAndFly(Context context) {
         if (uncertified != null) {
             return uncertified;
         }
-        final SharedPreferences prefs = context
+        SharedPreferences prefs = context
                 .getSharedPreferences(FirebaseAnalytics.PACKAGES_PREFS, Context.MODE_PRIVATE);
-        final SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
-        final String date = dateFormat.format(new Date());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
+        String date = dateFormat.format(new Date());
 
         if (prefs.contains(date)) {
-            final Set<String> pref = prefs.getStringSet(date, new HashSet<>());
-            for (final String check : pref) {
+            Set<String> pref = prefs.getStringSet(date, new HashSet<>());
+            for (String check : pref) {
                 if (Packages.isPackageInstalled(context, check, false)) {
                     Log.d("PatcherDatabase",
                             "The database has triggered a primary level blacklist package.");
                     uncertified = true;
                     return true;
-                } else if (Packages.getMetaData(context, check) || Packages.getProviders(context,
-                        check) ||
+                } else if (Packages.getMetadata(context, check) ||
+                        Packages.getProviders(context, check) ||
                         Packages.getIntents(context, check)) {
                     Log.d("PatcherDatabase",
                             "The database has triggered a secondary level blacklist package.");
@@ -541,14 +626,31 @@ public enum References {
         return false;
     }
 
-    // Comparing lists
-    public static boolean stringContainsItemFromList(final String inputStr, final String[] items) {
+    /**
+     * Check if list contains item
+     *
+     * @param inputStr Item
+     * @param items    The list
+     * @return True, if containing item
+     */
+    public static boolean stringContainsItemFromList(String inputStr,
+                                                     String[] items) {
         return Arrays.stream(items).parallel().anyMatch(inputStr::contains);
     }
 
+    /**
+     * Convert a time from computer-readable to human-readable
+     *
+     * @param context Context
+     * @param hour    Hour
+     * @param minute  Minute
+     * @return Returns the proper time
+     */
     @SuppressWarnings("deprecation")
-    public static CharSequence parseTime(final Context context, int hour, final int minute) {
-        final Locale locale;
+    public static CharSequence parseTime(Context context,
+                                         int hour,
+                                         int minute) {
+        Locale locale;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             locale = context.getResources().getConfiguration().getLocales().get(0);
@@ -556,81 +658,116 @@ public enum References {
             locale = context.getResources().getConfiguration().locale;
         }
 
-        final String parse;
+        String parse;
         if (android.text.format.DateFormat.is24HourFormat(context)) {
             parse = String.format(locale, "%02d:%02d", hour, minute);
         } else {
-            final String AM_PM = (hour <= 12) ? "AM" : "PM";
+            String AM_PM = (hour <= 12) ? "AM" : "PM";
             hour = (hour <= 12) ? hour : (hour - 12);
             parse = String.format(locale, "%d:%02d " + AM_PM, hour, minute);
         }
         return parse;
     }
 
-    // Save a text file from LogChar
-    public static void writeLogCharFile(final String packageName, final String data) {
+    /**
+     * Write LogChar file
+     *
+     * @param packageName Package name to write my lengthy essay on
+     * @param data        The content that makes my novel interesting
+     */
+    public static void writeLogCharFile(String packageName,
+                                        String data) {
         try {
-            final Calendar c = Calendar.getInstance();
-            @SuppressLint("SimpleDateFormat") final SimpleDateFormat df = new SimpleDateFormat
+            Calendar c = Calendar.getInstance();
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat df = new SimpleDateFormat
                     ("yyyy-MM-dd_HH-mm-ss");
-            final String formattedDate = df.format(c.getTime());
+            String formattedDate = df.format(c.getTime());
 
-            final File logcharFolder = new File(Environment.getExternalStorageDirectory() +
+            File logcharFolder = new File(Environment.getExternalStorageDirectory() +
                     File.separator + "substratum" + File.separator + "LogCharReports");
             if (!logcharFolder.exists() && logcharFolder.mkdirs()) {
                 Log.d("LogChar Utility", "Created LogChar directory!");
             }
 
-            final BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(
                     new File(logcharFolder.getAbsolutePath() + File.separator +
                             packageName + '_' + formattedDate + ".txt")));
             bufferedWriter.write(data);
             bufferedWriter.close();
-        } catch (final IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // Copy an object to the system's clipboard
-    public static void copyToClipboard(final Context context, final CharSequence id, final
-    CharSequence content) {
-        final ClipboardManager clipboard =
+    /**
+     * Copy text to clipboard
+     *
+     * @param context Context
+     * @param id      Identifier for clipboard data (overridable, as it is not user-visible)
+     * @param content Text
+     */
+    public static void copyToClipboard(Context context,
+                                       CharSequence id,
+                                       CharSequence content) {
+        ClipboardManager clipboard =
                 (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
-        final ClipData clip = ClipData.newPlainText(id, content);
+        ClipData clip = ClipData.newPlainText(id, content);
         if (clipboard != null) {
             clipboard.setPrimaryClip(clip);
         }
     }
 
-    // Set recycler view animations
-    public static void setRecyclerViewAnimation(final Context context,
-                                                final View view,
-                                                final int animation_resource) {
-        final Animation animation = AnimationUtils.loadAnimation(context, animation_resource);
+    /**
+     * Adjust animations for the recyclerView
+     *
+     * @param context            Context
+     * @param view               View
+     * @param animation_resource Specified animation resource
+     */
+    public static void setRecyclerViewAnimation(Context context,
+                                                View view,
+                                                int animation_resource) {
+        Animation animation = AnimationUtils.loadAnimation(context, animation_resource);
         view.startAnimation(animation);
     }
 
+    /**
+     * Grab the master view of the activity
+     * <p>
+     * ATTENTION: Developers, we should not use the ButterKnife library to address the specific
+     * master view of android.R.id.content, or else we will lose the LunchBar animation to slide
+     * the floating action button up.
+     *
+     * @return The master view of the activity
+     */
+    public static View getView(Activity activity) {
+        return ((ViewGroup) activity.findViewById(android.R.id.content)).getChildAt(0);
+    }
+
+    /**
+     * Marking down what's important!
+     */
     public static class Markdown extends AsyncTask<Void, Void, Void> {
         @SuppressLint("StaticFieldLeak")
-        private final Context context;
-        private final SharedPreferences prefs;
+        private Context context;
+        private SharedPreferences prefs;
 
-        public Markdown(final Context context, final SharedPreferences prefs) {
+        public Markdown(Context context, SharedPreferences prefs) {
             super();
             this.context = context;
             this.prefs = prefs;
         }
 
         @Override
-        protected void onPostExecute(final Void result) {
+        protected void onPostExecute(Void result) {
             super.onPostExecute(result);
         }
 
         @Override
-        protected Void doInBackground(final Void... sUrl) {
+        protected Void doInBackground(Void... sUrl) {
             this.prefs.edit().putBoolean("complexion",
-                    !spreadYourWingsAndFly(this.context) && (hashPassthrough(this.context) != 0))
-                    .apply();
+                    !spreadYourWingsAndFly(this.context) &&
+                            (hashPassthrough(this.context) != 0)).apply();
             return null;
         }
     }

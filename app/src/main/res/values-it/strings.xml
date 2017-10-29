@@ -451,8 +451,6 @@
     <string name="settings_samsung_show_dangerous_overlays_warning">Abbiamo nascosto gli overlay pericolosi per una ragione, ma se sei sicuro di volerli abilitati, segui le istruzioni nel nostro thread su XDA!</string>
     <string name="settings_crash_receiver_title">Theme safety crash receiver</string>
     <string name="settings_crash_receiver_text">Disattiva automaticamente un overlay quando vengono rilevati crash ripetuti sull\'app sovrapposta.</string>
-    <string name="settings_force_stop_interfacer_title">Ferma forzatamente il Servizio Interfacer</string>
-    <string name="settings_force_stop_interfacer_snackbar">Forzo l\'arresto del Servizio Interfacer&#8230;</string>
     <string name="overlays_outdated">Overlay obsoleto</string>
     <string name="overlays_outdated_message">A partire dalla versione 816 e successive, la nostra firma per formare gli overlay è cambiata per evitare possibili inconvenienti di firma lungo la strada.\n\nQuesto significa che gli overlay installati devono essere puliti per installare nuovi aggiornamenti del tema o continuerà a dire che il tuo l\'overlay richiede un aggiornamento per sempre!\n\nQuesto messaggio non verrà mostrato quando tutti gli overlay vengono compilati utilizzando il nuovo Substratum.</string>
     <string name="root_required_title">Root necessario</string>

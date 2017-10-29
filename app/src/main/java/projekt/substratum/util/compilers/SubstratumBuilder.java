@@ -58,24 +58,40 @@ import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.VENDOR_DIR;
+import static projekt.substratum.common.Resources.SETTINGS;
+import static projekt.substratum.common.Resources.SYSTEMUI;
 
 public class SubstratumBuilder {
 
     public Boolean has_errored_out = false;
-    public boolean special_snowflake;
+    public Boolean special_snowflake = false;
     public String no_install = "";
+    private Boolean debug = false;
     private String error_logs = "";
-    private boolean debug;
 
-    private static String processAOPTCommands(final String work_area,
-                                              final String targetPkg,
-                                              final String theme_name,
-                                              final String overlay_package,
-                                              final CharSequence additional_variant,
-                                              final CharSequence asset_replacement,
-                                              final boolean legacySwitch,
-                                              final Context context,
-                                              final String no_cache_dir) {
+    /**
+     * Process the AAPT/AOPT commands to be used with the compilation binary
+     *
+     * @param work_area          Directory for the work area
+     * @param targetPkg          Target package name
+     * @param theme_name         Theme's name
+     * @param overlay_package    Overlay package to be compiled
+     * @param additional_variant Additional variant (type2)
+     * @param asset_replacement  Asset replacement (type4)
+     * @param legacySwitch       Relates to the switch in Settings to fallback if referencing fails
+     * @param context            Self explanatory, bud.
+     * @param no_cache_dir       Direct Assets directory
+     * @return Returns a command that will be used with AAPT/AOPT
+     */
+    private static String processAOPTCommands(String work_area,
+                                              String targetPkg,
+                                              String theme_name,
+                                              String overlay_package,
+                                              CharSequence additional_variant,
+                                              CharSequence asset_replacement,
+                                              Boolean legacySwitch,
+                                              Context context,
+                                              String no_cache_dir) {
         return CompilerCommands.createAOPTShellCommands(
                 work_area,
                 targetPkg,
@@ -86,10 +102,6 @@ public class SubstratumBuilder {
                 asset_replacement,
                 context,
                 no_cache_dir);
-    }
-
-    public String getErrorLogs() {
-        return this.error_logs;
     }
 
     /**
@@ -121,36 +133,36 @@ public class SubstratumBuilder {
      * @param overlay_updater    Boolean flag to tell whether special_snowflake should be skipped
      */
     @SuppressWarnings({"UnusedReturnValue", "ConstantConditions"})
-    public boolean beginAction(final Context context,
-                               final String overlay_package,
-                               final String theme_name,
-                               final String variant,
-                               final String additional_variant,
-                               final String base_variant,
-                               final String versionName,
-                               final Boolean theme_oms,
-                               final String theme_parent,
-                               final String no_cache_dir,
-                               final String type1a,
-                               final String type1b,
-                               final String type1c,
-                               final String type2,
-                               final String type3,
-                               final String type4,
-                               final String override_package,
-                               final Boolean overlay_updater) {
+    public boolean beginAction(Context context,
+                               String overlay_package,
+                               String theme_name,
+                               String variant,
+                               String additional_variant,
+                               String base_variant,
+                               String versionName,
+                               Boolean theme_oms,
+                               String theme_parent,
+                               String no_cache_dir,
+                               String type1a,
+                               String type1b,
+                               String type1c,
+                               String type2,
+                               String type3,
+                               String type4,
+                               String override_package,
+                               Boolean overlay_updater) {
 
         // 1. Initialize the setup
-        final File checkCompileFolder = new File(EXTERNAL_STORAGE_CACHE);
+        File checkCompileFolder = new File(EXTERNAL_STORAGE_CACHE);
         if (!checkCompileFolder.exists() && !checkCompileFolder.mkdirs()) {
             Log.e(SUBSTRATUM_BUILDER, "Could not create compilation folder on external storage...");
         }
-        this.has_errored_out = false;
-        this.debug = PreferenceManager.getDefaultSharedPreferences(context)
+        has_errored_out = false;
+        debug = PreferenceManager.getDefaultSharedPreferences(context)
                 .getBoolean("theme_debug", false);
 
         // 2. Set work area to asset chosen based on the parameter passed into this class
-        final String work_area = context.getCacheDir().getAbsolutePath() + SUBSTRATUM_BUILDER_CACHE;
+        String work_area = context.getCacheDir().getAbsolutePath() + SUBSTRATUM_BUILDER_CACHE;
 
         // 3. Create a modified Android Manifest for use with aopt
 
@@ -158,19 +170,19 @@ public class SubstratumBuilder {
 
         String parse2_variantName = "";
         if (variant != null) {
-            final String parse1_variantName = variant.replaceAll("\\s+", "");
+            String parse1_variantName = variant.replaceAll("\\s+", "");
             parse2_variantName = parse1_variantName.replaceAll("[^a-zA-Z0-9]+", "");
         }
         if (!parse2_variantName.isEmpty()) parse2_variantName = '.' + parse2_variantName;
 
         String parse2_baseName = "";
         if (base_variant != null) {
-            final String parse1_baseName = base_variant.replaceAll("\\s+", "");
+            String parse1_baseName = base_variant.replaceAll("\\s+", "");
             parse2_baseName = parse1_baseName.replaceAll("[^a-zA-Z0-9]+", "");
         }
         if (!parse2_baseName.isEmpty()) parse2_baseName = '.' + parse2_baseName;
 
-        final String parse1_themeName = theme_name.replaceAll("\\s+", "");
+        String parse1_themeName = theme_name.replaceAll("\\s+", "");
         String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+", "");
         if (parse2_themeName != null && parse2_themeName.isEmpty()) {
             parse2_themeName = "no_name";
@@ -179,16 +191,16 @@ public class SubstratumBuilder {
         // 5. Create the manifest file based on the new parsed names
         String targetPackage = overlay_package;
         if (Resources.allowedSettingsOverlay(overlay_package)) {
-            targetPackage = "com.android.settings";
+            targetPackage = SETTINGS;
         }
         if (Resources.allowedSystemUIOverlay(overlay_package)) {
-            targetPackage = "com.android.systemui";
+            targetPackage = SYSTEMUI;
         }
 
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         int legacy_priority = prefs.getInt("legacy_overlay_priority", References.DEFAULT_PRIORITY);
         if (!Systems.checkOMS(context)) {
-            final File work_area_array = new File(work_area);
+            File work_area_array = new File(work_area);
 
             if (Arrays.asList(work_area_array.list()).contains("priority")) {
                 Log.d(References.SUBSTRATUM_BUILDER,
@@ -198,8 +210,8 @@ public class SubstratumBuilder {
                                 new File(work_area_array.getAbsolutePath() + "/priority")
                         )))) {
                     legacy_priority = Integer.parseInt(reader.readLine());
-                } catch (final IOException e) {
-                    this.dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                } catch (IOException e) {
+                    dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
                             "There was an error parsing priority file!");
                     legacy_priority =
                             prefs.getInt("legacy_overlay_priority", References.DEFAULT_PRIORITY);
@@ -209,15 +221,15 @@ public class SubstratumBuilder {
                     "The priority for this overlay is " + legacy_priority);
         }
 
-        if (!this.has_errored_out) {
-            final File root = new File(work_area + "/AndroidManifest.xml");
+        if (!has_errored_out) {
+            File root = new File(work_area + "/AndroidManifest.xml");
             try (FileWriter fw = new FileWriter(root);
                  BufferedWriter bw = new BufferedWriter(fw);
                  PrintWriter pw = new PrintWriter(bw)) {
-                final Boolean created = root.createNewFile();
+                Boolean created = root.createNewFile();
                 if (!created)
                     if (variant != null) {
-                        final String manifest =
+                        String manifest =
                                 CompilerCommands.createOverlayManifest(
                                         context,
                                         overlay_package,
@@ -242,7 +254,7 @@ public class SubstratumBuilder {
                         pw.write(manifest);
                     } else {
                         if (base_variant != null) {
-                            final String manifest =
+                            String manifest =
                                     CompilerCommands.createOverlayManifest(
                                             context,
                                             overlay_package,
@@ -266,7 +278,7 @@ public class SubstratumBuilder {
                                                     override_package : "");
                             pw.write(manifest);
                         } else {
-                            final String manifest =
+                            String manifest =
                                     CompilerCommands.createOverlayManifest(
                                             context,
                                             overlay_package,
@@ -291,20 +303,20 @@ public class SubstratumBuilder {
                             pw.write(manifest);
                         }
                     }
-            } catch (final Exception e) {
-                this.dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package, e.getMessage());
-                this.dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+            } catch (Exception e) {
+                dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package, e.getMessage());
+                dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
                         "There was an exception creating a new Manifest file!");
-                this.has_errored_out = true;
-                this.dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                has_errored_out = true;
+                dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
                         "Installation of \"" + overlay_package + "\" has failed.");
             }
         }
 
         // 6. Compile the new theme apk based on new manifest, framework-res.apk and extracted asset
-        if (!this.has_errored_out) {
-            final String targetPkg = Packages.getInstalledDirectory(context, targetPackage);
-            final String commands = SubstratumBuilder.processAOPTCommands(
+        if (!has_errored_out) {
+            String targetPkg = Packages.getInstalledDirectory(context, targetPackage);
+            String commands = SubstratumBuilder.processAOPTCommands(
                     work_area,
                     targetPkg,
                     parse2_themeName,
@@ -315,7 +327,7 @@ public class SubstratumBuilder {
                     context,
                     no_cache_dir);
 
-            this.has_errored_out = !this.runAOPTShellCommands(
+            has_errored_out = !runAOPTShellCommands(
                     commands,
                     work_area,
                     targetPkg,
@@ -329,12 +341,12 @@ public class SubstratumBuilder {
         }
 
         // 7. Zipalign the apk
-        if (!this.has_errored_out) {
-            final String source = work_area + '/' + overlay_package + '.' + parse2_themeName +
+        if (!has_errored_out) {
+            String source = work_area + '/' + overlay_package + '.' + parse2_themeName +
                     "-unsigned.apk";
-            final String destination = work_area + '/' + overlay_package + '.' + parse2_themeName +
+            String destination = work_area + '/' + overlay_package + '.' + parse2_themeName +
                     "-unsigned-aligned.apk";
-            final String commands = CompilerCommands.createZipAlignShellCommands(context, source,
+            String commands = CompilerCommands.createZipAlignShellCommands(context, source,
                     destination);
 
             Process nativeApp = null;
@@ -344,22 +356,22 @@ public class SubstratumBuilder {
                 // We need this Process to be waited for before moving on to the next function.
                 Log.d(References.SUBSTRATUM_BUILDER, "Aligning APK now...");
                 nativeApp.waitFor();
-                final File alignedAPK = new File(destination);
+                File alignedAPK = new File(destination);
                 if (alignedAPK.isFile()) {
                     Log.d(References.SUBSTRATUM_BUILDER, "Zipalign successful!");
                 } else {
-                    this.dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                    dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
                             "Zipalign has failed!");
-                    this.has_errored_out = true;
-                    this.dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                    has_errored_out = true;
+                    dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
                             "Zipalign of \"" + overlay_package + "\" has failed.");
                 }
-            } catch (final Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
-                this.dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
                         "Unfortunately, there was an exception trying to zipalign a new APK");
-                this.has_errored_out = true;
-                this.dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                has_errored_out = true;
+                dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
                         "Installation of \"" + overlay_package + "\" has failed.");
             } finally {
                 if (nativeApp != null) {
@@ -369,39 +381,39 @@ public class SubstratumBuilder {
         }
 
         // 8. Sign the apk
-        final String overlayName = (variant == null) ?
+        String overlayName = (variant == null) ?
                 (overlay_package + '.' + parse2_themeName) :
                 (overlay_package + '.' + parse2_themeName + parse2_variantName + parse2_baseName);
-        if (!this.has_errored_out) {
+        if (!has_errored_out) {
             try {
                 // Delete the previous APK if it exists in the dashboard folder
                 FileOperations.delete(context,
                         EXTERNAL_STORAGE_CACHE + overlayName + "-signed.apk");
 
                 // Sign with the built-in test key/certificate.
-                final String source = work_area + '/' + overlay_package + '.' + parse2_themeName +
+                String source = work_area + '/' + overlay_package + '.' + parse2_themeName +
                         "-unsigned-aligned.apk";
 
-                final File key = new File(context.getDataDir() + "/key");
-                final char[] keyPass = "overlay".toCharArray();
+                File key = new File(context.getDataDir() + "/key");
+                char[] keyPass = "overlay".toCharArray();
 
                 if (!key.exists()) {
                     Log.d(SUBSTRATUM_BUILDER, "Loading keystore...");
                     FileOperations.copyFromAsset(context, "key", key.getAbsolutePath());
                 }
 
-                final KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
+                KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
                 keyStore.load(new FileInputStream(key), keyPass);
-                final PrivateKey privateKey = (PrivateKey) keyStore.getKey("key", keyPass);
-                final List<X509Certificate> certs = new ArrayList<>();
+                PrivateKey privateKey = (PrivateKey) keyStore.getKey("key", keyPass);
+                List<X509Certificate> certs = new ArrayList<>();
                 certs.add((X509Certificate) keyStore.getCertificateChain("key")[0]);
 
-                final ApkSigner.SignerConfig signerConfig =
+                ApkSigner.SignerConfig signerConfig =
                         new ApkSigner.SignerConfig.Builder("overlay", privateKey, certs).build();
-                final List<ApkSigner.SignerConfig> signerConfigs = new ArrayList<>();
+                List<ApkSigner.SignerConfig> signerConfigs = new ArrayList<>();
                 signerConfigs.add(signerConfig);
-                final ApkSigner.Builder apkSigner = new ApkSigner.Builder(signerConfigs);
-                final String destination = EXTERNAL_STORAGE_CACHE + overlayName + "-signed.apk";
+                ApkSigner.Builder apkSigner = new ApkSigner.Builder(signerConfigs);
+                String destination = EXTERNAL_STORAGE_CACHE + overlayName + "-signed.apk";
                 apkSigner
                         .setV1SigningEnabled(false)
                         .setV2SigningEnabled(true)
@@ -412,54 +424,54 @@ public class SubstratumBuilder {
                         .sign();
 
                 Log.d(References.SUBSTRATUM_BUILDER, "APK successfully signed!");
-            } catch (final Throwable t) {
+            } catch (Throwable t) {
                 t.printStackTrace();
-                this.dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
                         "APK could not be signed. " + t.toString());
-                this.has_errored_out = true;
-                this.dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                has_errored_out = true;
+                dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
                         "Installation of \"" + overlay_package + "\" has failed.");
             }
         }
 
         // 9. Install the APK silently
         // Superuser needed as this requires elevated privileges to run these commands
-        if (!this.has_errored_out) {
+        if (!has_errored_out) {
             if (theme_oms) {
-                this.special_snowflake = false;
+                special_snowflake = false;
                 if ("android".equals(overlay_package) ||
                         "projekt.substratum".equals(overlay_package)) {
-                    this.special_snowflake = ThemeManager.isOverlayEnabled(context, overlayName) ||
+                    special_snowflake = ThemeManager.isOverlayEnabled(context, overlayName) ||
                             (Systems.checkOreo() && !overlay_updater);
                 }
 
-                if (!this.special_snowflake) {
+                if (!special_snowflake) {
                     try {
                         ThemeManager.installOverlay(context, EXTERNAL_STORAGE_CACHE +
                                 overlayName + "-signed.apk");
                         Log.d(References.SUBSTRATUM_BUILDER, "Silently installing APK...");
-                    } catch (final Exception e) {
-                        this.dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                    } catch (Exception e) {
+                        dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
                                 "Overlay APK has failed to install! \" (Exception) " +
                                         "[Error: " + e.getMessage() + ']');
-                        this.has_errored_out = true;
-                        this.dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                        has_errored_out = true;
+                        dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
                                 "Installation of \"" + overlay_package + "\" has failed.");
                     }
                 } else {
                     Log.d(References.SUBSTRATUM_BUILDER,
                             "Returning compiled APK path for later installation...");
-                    this.no_install =
+                    no_install =
                             EXTERNAL_STORAGE_CACHE + overlayName + "-signed.apk";
                 }
             } else {
-                final Boolean isSamsung = Systems.isSamsung(context);
+                Boolean isSamsung = Systems.isSamsung(context);
                 if (isSamsung) {
                     // Take account for Samsung's package manager installation mode
                     Log.d(References.SUBSTRATUM_BUILDER,
                             "Requesting PackageManager to launch signed overlay APK for " +
                                     "Samsung environment...");
-                    this.no_install = EXTERNAL_STORAGE_CACHE + overlayName + "-signed.apk";
+                    no_install = EXTERNAL_STORAGE_CACHE + overlayName + "-signed.apk";
                 } else {
                     // At this point, it is detected to be legacy mode and Substratum will push to
                     // vendor/overlays directly.
@@ -467,7 +479,7 @@ public class SubstratumBuilder {
                     FileOperations.mountRW();
                     // For Non-Nexus devices
                     if (!Resources.inNexusFilter()) {
-                        final String vendor_location = LEGACY_NEXUS_DIR;
+                        String vendor_location = LEGACY_NEXUS_DIR;
                         FileOperations.createNewFolder(vendor_location);
                         FileOperations.move(context, EXTERNAL_STORAGE_CACHE + overlayName +
                                 "-signed.apk", vendor_location + overlayName + ".apk");
@@ -477,17 +489,17 @@ public class SubstratumBuilder {
                     } else {
                         // For Nexus devices
                         FileOperations.mountRWVendor();
-                        final String vendor_symlink = PIXEL_NEXUS_DIR;
+                        String vendor_symlink = PIXEL_NEXUS_DIR;
                         FileOperations.createNewFolder(vendor_symlink);
-                        final String vendor_partition = VENDOR_DIR;
+                        String vendor_partition = VENDOR_DIR;
                         FileOperations.createNewFolder(vendor_partition);
                         // On nexus devices, put framework overlay to /vendor/overlay/
                         if ("android".equals(overlay_package)) {
-                            final String android_overlay = vendor_partition + overlayName + ".apk";
+                            String android_overlay = vendor_partition + overlayName + ".apk";
                             FileOperations.move(context, EXTERNAL_STORAGE_CACHE + overlayName +
                                     "-signed.apk", android_overlay);
                         } else {
-                            final String overlay = vendor_symlink + overlayName + ".apk";
+                            String overlay = vendor_symlink + overlayName + ".apk";
                             FileOperations.move(context, EXTERNAL_STORAGE_CACHE + overlayName +
                                     "-signed.apk", overlay);
                             FileOperations.symlink(overlay, vendor_partition);
@@ -507,26 +519,35 @@ public class SubstratumBuilder {
 
         // Finally, clean this compilation code's cache
         if (!BYPASS_SUBSTRATUM_BUILDER_DELETION) {
-            final String workingDirectory =
+            String workingDirectory =
                     context.getCacheDir().getAbsolutePath() + SUBSTRATUM_BUILDER_CACHE;
-            final File deleted = new File(workingDirectory);
+            File deleted = new File(workingDirectory);
             FileOperations.delete(context, deleted.getAbsolutePath());
             if (!deleted.exists()) Log.d(References.SUBSTRATUM_BUILDER,
                     "Successfully cleared compilation cache!");
         }
-        return !this.has_errored_out;
+        return !has_errored_out;
     }
 
-    private boolean runAOPTShellCommands(final String commands,
-                                         final String work_area,
-                                         final String targetPkg,
-                                         final String theme_name,
-                                         final String overlay_package,
-                                         final String additional_variant,
-                                         final String asset_replacement,
-                                         final boolean legacySwitch,
-                                         final Context context,
-                                         final String no_cache_dir) {
+    /**
+     * Returns a string of error logs during compilation
+     *
+     * @return Returns a string of error logs during compilation
+     */
+    public String getErrorLogs() {
+        return error_logs;
+    }
+
+    private boolean runAOPTShellCommands(String commands,
+                                         String work_area,
+                                         String targetPkg,
+                                         String theme_name,
+                                         String overlay_package,
+                                         String additional_variant,
+                                         String asset_replacement,
+                                         boolean legacySwitch,
+                                         Context context,
+                                         String no_cache_dir) {
         Process nativeApp = null;
         try {
             nativeApp = Runtime.getRuntime().exec(commands);
@@ -540,62 +561,62 @@ public class SubstratumBuilder {
                 try (BufferedReader br = new BufferedReader(new InputStreamReader(stderr))) {
                     String line;
                     while ((line = br.readLine()) != null) {
-                        if (line.contains("types not allowed") && !legacySwitch && !this.debug) {
+                        if (line.contains("types not allowed") && !legacySwitch && !debug) {
                             Log.e(References.SUBSTRATUM_BUILDER,
                                     "This overlay was designed using a legacy theming " +
                                             "style, now falling back to legacy compiler...");
-                            final String new_commands = SubstratumBuilder.processAOPTCommands
+                            String new_commands = SubstratumBuilder.processAOPTCommands
                                     (work_area, targetPkg,
                                             theme_name, overlay_package, additional_variant,
                                             asset_replacement, true, context, no_cache_dir);
-                            return this.runAOPTShellCommands(
+                            return runAOPTShellCommands(
                                     new_commands, work_area, targetPkg, theme_name,
                                     overlay_package, additional_variant, asset_replacement,
                                     true, context, no_cache_dir);
                         } else {
-                            this.dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                            dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
                                     line);
                             errored = true;
                         }
                     }
                 }
                 if (errored) {
-                    this.has_errored_out = true;
-                    this.dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                    has_errored_out = true;
+                    dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
                             "Installation of \"" + overlay_package + "\" has failed.");
                 } else {
                     // We need this Process to be waited for before moving on to the next function.
                     Log.d(References.SUBSTRATUM_BUILDER, "Overlay APK creation is running now...");
                     nativeApp.waitFor();
-                    final File unsignedAPK = new File(work_area + '/' + overlay_package + '.' +
+                    File unsignedAPK = new File(work_area + '/' + overlay_package + '.' +
                             theme_name + "-unsigned.apk");
                     if (unsignedAPK.isFile()) {
                         Log.d(References.SUBSTRATUM_BUILDER, "Overlay APK creation has completed!");
                         return true;
                     } else {
-                        this.dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                        dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
                                 "Overlay APK creation has failed!");
-                        this.has_errored_out = true;
-                        this.dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+                        has_errored_out = true;
+                        dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
                                 "Installation of \"" + overlay_package + "\" has failed.");
                     }
                 }
             }
-        } catch (final IOException ioe) {
+        } catch (IOException ioe) {
             if (Systems.checkOMS(context)) {
                 Log.d(SUBSTRATUM_BUILDER, "An Android Oreo specific error message has been " +
                         "detected and has been whitelisted to continue moving forward " +
                         "with overlay compilation.");
-                return !this.has_errored_out;
+                return !has_errored_out;
             } else {
                 ioe.printStackTrace();
             }
-        } catch (final Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            this.dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+            dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
                     "Unfortunately, there was an exception trying to create a new APK");
-            this.has_errored_out = true;
-            this.dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
+            has_errored_out = true;
+            dumpErrorLogs(References.SUBSTRATUM_BUILDER, overlay_package,
                     "Installation of \"" + overlay_package + "\" has failed.");
         } finally {
             if (nativeApp != null) {
@@ -605,13 +626,20 @@ public class SubstratumBuilder {
         return false;
     }
 
-    private void dumpErrorLogs(final String tag, final String overlay, final String message) {
+    /**
+     * Save a series of error logs to be callable
+     *
+     * @param tag     Internal logcat tag
+     * @param overlay Overlay that has failed to compile
+     * @param message Failure message
+     */
+    private void dumpErrorLogs(String tag, String overlay, String message) {
         if (!message.isEmpty()) {
             Log.e(tag, message);
-            if (this.error_logs.isEmpty()) {
-                this.error_logs = "» [" + overlay + "]: " + message;
+            if (error_logs.isEmpty()) {
+                error_logs = "» [" + overlay + "]: " + message;
             } else {
-                this.error_logs += '\n' + "» [" + overlay + "]: " + message;
+                error_logs += '\n' + "» [" + overlay + "]: " + message;
             }
         }
     }

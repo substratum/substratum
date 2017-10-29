@@ -23,17 +23,26 @@ import projekt.substratum.util.files.Root;
 public enum ElevatedCommands {
     ;
 
-    // Reboot the device
+    /**
+     * Reboot the device
+     */
     public static void reboot() {
         Root.runCommand("reboot");
     }
 
-    // Kill zygote to force a soft reboot
+    /**
+     * Kill zygote to force a soft reboot
+     */
     public static void softReboot() {
         Root.runCommand("pkill -f zygote");
     }
 
-    public static void runThreadedCommand(final String command) {
+    /**
+     * Run a command to be executed and held in another thread
+     *
+     * @param command Command to be run
+     */
+    public static void runThreadedCommand(String command) {
         new Thread(() -> {
             try {
                 Root.runCommand(command);

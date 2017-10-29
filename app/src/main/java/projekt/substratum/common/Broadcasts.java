@@ -14,6 +14,12 @@ import projekt.substratum.services.packages.PackageModificationDetector;
 import projekt.substratum.services.profiles.ScheduledProfileReceiver;
 import projekt.substratum.services.system.InterfacerAuthorizationReceiver;
 
+import static projekt.substratum.common.Internal.ANDROMEDA_RECEIVER;
+import static projekt.substratum.common.Internal.ENCRYPTION_KEY_EXTRA;
+import static projekt.substratum.common.Internal.IV_ENCRYPTION_KEY_EXTRA;
+import static projekt.substratum.common.Internal.MAIN_ACTIVITY_RECEIVER;
+import static projekt.substratum.common.Internal.OVERLAY_REFRESH;
+import static projekt.substratum.common.Internal.THEME_FRAGMENT_REFRESH;
 import static projekt.substratum.common.References.ACTIVITY_FINISHER;
 import static projekt.substratum.common.References.APP_CRASHED;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
@@ -28,70 +34,113 @@ import static projekt.substratum.common.References.scheduledProfileReceiver;
 public enum Broadcasts {
     ;
 
-    static void sendLocalizedKeyMessage(final Context context,
-                                        final byte[] encryption_key,
-                                        final byte[] iv_encrypt_key) {
+    /**
+     * Send a localized key message for encryption to take place
+     *
+     * @param context        Context
+     * @param encryption_key Encryption key
+     * @param iv_encrypt_key IV encryption key
+     */
+    static void sendLocalizedKeyMessage(Context context,
+                                        byte[] encryption_key,
+                                        byte[] iv_encrypt_key) {
         Log.d("KeyRetrieval",
                 "The system has completed the handshake for keys retrieval " +
                         "and is now passing it to the activity...");
-        final Intent intent = new Intent(KEY_RETRIEVAL);
-        intent.putExtra("encryption_key", encryption_key);
-        intent.putExtra("iv_encrypt_key", iv_encrypt_key);
+        Intent intent = new Intent(KEY_RETRIEVAL);
+        intent.putExtra(ENCRYPTION_KEY_EXTRA, encryption_key);
+        intent.putExtra(IV_ENCRYPTION_KEY_EXTRA, iv_encrypt_key);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
-    public static void sendKillMessage(final Context context) {
+    /**
+     * Close Substratum as a whole
+     *
+     * @param context Context
+     */
+    public static void sendKillMessage(Context context) {
         Log.d("SubstratumKiller",
-                "A crucial action has been conducted by the user and Substratum is now shutting " +
-                        "down!");
-        final Intent intent = new Intent("MainActivity.KILL");
+                "A crucial action has been conducted by the user and " +
+                        "Substratum is now shutting down!");
+        Intent intent = new Intent(MAIN_ACTIVITY_RECEIVER);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
-    public static void sendAndromedaRefreshMessage(final Context context) {
+    /**
+     * Andromeda may have been disconnected, kill all open activities except MainActivity
+     *
+     * @param context Context
+     */
+    public static void sendAndromedaRefreshMessage(Context context) {
         Log.d("AndromedaReceiver",
                 "Andromeda has been killed, notifying the MainActivity now!");
-        final Intent intent = new Intent("AndromedaReceiver.KILL");
+        Intent intent = new Intent(ANDROMEDA_RECEIVER);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
-    public static void sendRefreshMessage(final Context context) {
+    /**
+     * A package was installed, refresh the ThemeFragment
+     *
+     * @param context Context
+     */
+    public static void sendRefreshMessage(Context context) {
         Log.d("ThemeFragmentRefresher",
                 "A theme has been modified, sending update signal to refresh the list!");
-        final Intent intent = new Intent("ThemeFragment.REFRESH");
+        Intent intent = new Intent(THEME_FRAGMENT_REFRESH);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
-    public static void sendOverlayRefreshMessage(final Context context) {
+    /**
+     * A package was installed, refresh the Overlays tab
+     *
+     * @param context Context
+     */
+    public static void sendOverlayRefreshMessage(Context context) {
         Log.d("OverlayRefresher",
                 "A theme has been modified, sending update signal to refresh the list!");
-        final Intent intent = new Intent("Overlay.REFRESH");
+        Intent intent = new Intent(OVERLAY_REFRESH);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
-    public static void sendActivityFinisherMessage(final Context context, final String
-            package_name) {
+    /**
+     * Activity finisher when a theme was updated
+     *
+     * @param context      Context
+     * @param package_name Package of theme to close
+     */
+    public static void sendActivityFinisherMessage(Context context,
+                                                   String package_name) {
         Log.d("ThemeInstaller",
                 "A theme has been installed, sending update signal to app for further processing!");
-        final Intent intent = new Intent(ACTIVITY_FINISHER);
+        Intent intent = new Intent(ACTIVITY_FINISHER);
         intent.putExtra("theme_pid", package_name);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
-    public static void sendRefreshManagerMessage(final Context context) {
-        final Intent intent = new Intent(MANAGER_REFRESH);
+    /**
+     * A package was installed, refresh the ManagerFragment
+     *
+     * @param context Context
+     */
+    public static void sendRefreshManagerMessage(Context context) {
+        Intent intent = new Intent(MANAGER_REFRESH);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 
-    public static void registerBroadcastReceivers(final Context context) {
+    /**
+     * Register the implicit intent broadcast receivers
+     *
+     * @param context Context
+     */
+    public static void registerBroadcastReceivers(Context context) {
         try {
-            final IntentFilter intentPackageAdded = new IntentFilter(PACKAGE_ADDED);
+            IntentFilter intentPackageAdded = new IntentFilter(PACKAGE_ADDED);
             intentPackageAdded.addDataScheme("package");
-            final IntentFilter intentPackageFullyRemoved = new IntentFilter(PACKAGE_FULLY_REMOVED);
+            IntentFilter intentPackageFullyRemoved = new IntentFilter(PACKAGE_FULLY_REMOVED);
             intentPackageFullyRemoved.addDataScheme("package");
 
             if (Systems.checkOMS(context)) {
-                final IntentFilter intentAppCrashed = new IntentFilter(APP_CRASHED);
+                IntentFilter intentAppCrashed = new IntentFilter(APP_CRASHED);
                 context.getApplicationContext().registerReceiver(
                         new AppCrashReceiver(), intentAppCrashed);
                 context.getApplicationContext().registerReceiver(
@@ -101,7 +150,7 @@ public enum Broadcasts {
             }
 
             if (Systems.checkThemeInterfacer(context)) {
-                final IntentFilter interfacerAuthorize = new IntentFilter(
+                IntentFilter interfacerAuthorize = new IntentFilter(
                         INTERFACER_PACKAGE + ".CALLER_AUTHORIZED");
                 context.getApplicationContext().registerReceiver(
                         new InterfacerAuthorizationReceiver(), interfacerAuthorize);
@@ -114,46 +163,65 @@ public enum Broadcasts {
 
             Log.d(SUBSTRATUM_LOG,
                     "Successfully registered broadcast receivers for Substratum functionality!");
-        } catch (final Exception e) {
+        } catch (Exception e) {
             Log.e(SUBSTRATUM_LOG,
                     "Failed to register broadcast receivers for Substratum functionality...");
         }
     }
 
-    public static void registerProfileScreenOffReceiver(final Context context) {
+    /**
+     * Register the profile screen off receiver
+     *
+     * @param context Context
+     */
+    public static void registerProfileScreenOffReceiver(Context context) {
         scheduledProfileReceiver = new ScheduledProfileReceiver();
         context.registerReceiver(scheduledProfileReceiver,
                 new IntentFilter(Intent.ACTION_SCREEN_OFF));
     }
 
-    public static void unregisterProfileScreenOffReceiver(final Context context) {
+    /**
+     * Unload the profile screen off receiver
+     *
+     * @param context Context
+     */
+    public static void unregisterProfileScreenOffReceiver(Context context) {
         try {
             context.unregisterReceiver(scheduledProfileReceiver);
-        } catch (final Exception e) {
+        } catch (Exception e) {
             // Suppress warning
         }
     }
 
-    public static void startKeyRetrievalReceiver(final Context context) {
+    /**
+     * Start the key retrieval receiver to obtain the key from the theme
+     *
+     * @param context Context
+     */
+    public static void startKeyRetrievalReceiver(Context context) {
         try {
-            final IntentFilter intentGetKeys = new IntentFilter(TEMPLATE_RECEIVE_KEYS);
+            IntentFilter intentGetKeys = new IntentFilter(TEMPLATE_RECEIVE_KEYS);
             context.getApplicationContext().registerReceiver(
                     new KeyRetriever(), intentGetKeys);
 
             Log.d(SUBSTRATUM_LOG, "Successfully registered key retrieval receiver!");
-        } catch (final Exception e) {
+        } catch (Exception e) {
             Log.e(SUBSTRATUM_LOG, "Failed to register key retrieval receiver...");
         }
     }
 
+    /**
+     * Key Retriever Receiver
+     */
     public static class KeyRetriever extends BroadcastReceiver {
 
         @Override
-        public void onReceive(final Context context, final Intent intent) {
+        public void onReceive(Context context,
+                              Intent intent) {
             sendLocalizedKeyMessage(
                     context,
-                    intent.getByteArrayExtra("encryption_key"),
-                    intent.getByteArrayExtra("iv_encrypt_key"));
+                    intent.getByteArrayExtra(ENCRYPTION_KEY_EXTRA),
+                    intent.getByteArrayExtra(IV_ENCRYPTION_KEY_EXTRA));
         }
     }
 }

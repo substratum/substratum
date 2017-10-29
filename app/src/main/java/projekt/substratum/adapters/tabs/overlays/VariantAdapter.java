@@ -36,25 +36,30 @@ import projekt.substratum.common.Packages;
 
 public class VariantAdapter extends ArrayAdapter<VariantItem> {
 
-    public VariantAdapter(final Context context, final List<VariantItem> variantItemArrayList) {
+    public VariantAdapter(Context context,
+                          List<VariantItem> variantItemArrayList) {
         super(context, R.layout.preview_spinner, R.id.variant_name, variantItemArrayList);
     }
 
     @Override
-    public View getDropDownView(final int position, final View convertView, @NonNull final
-    ViewGroup parent) {
+    public View getDropDownView(int position,
+                                View convertView,
+                                @NonNull ViewGroup parent) {
         return this.getCustomView(position, convertView, parent);
     }
 
     @NonNull
     @Override
-    public View getView(final int position, final View convertView, @NonNull final ViewGroup
-            parent) {
+    public View getView(int position,
+                        View convertView,
+                        @NonNull ViewGroup parent) {
         return this.getCustomView(position, convertView, parent);
     }
 
-    private View getCustomView(final int position, View convertView, final ViewGroup parent) {
-        final ViewHolder holder;
+    private View getCustomView(int position,
+                               View convertView,
+                               ViewGroup parent) {
+        ViewHolder holder;
 
         if (convertView == null) {
             convertView = LayoutInflater.from(
@@ -69,7 +74,7 @@ public class VariantAdapter extends ArrayAdapter<VariantItem> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        final VariantItem item = this.getItem(position);
+        VariantItem item = this.getItem(position);
         if (item != null) {
             try {
                 // First check if our model contains a saved color value
@@ -91,13 +96,13 @@ public class VariantAdapter extends ArrayAdapter<VariantItem> {
                                 working_value = working_value.substring(1);
                             }
                             // Now check the package name
-                            final String working_package = working_value.split(":")[0];
-                            final String working_color = working_value.split("/")[1];
-                            final int color = Packages.getColorResource(
+                            String working_package = working_value.split(":")[0];
+                            String working_color = working_value.split("/")[1];
+                            int color = Packages.getColorResource(
                                     this.getContext(), working_package, working_color);
                             if (color != 0) {
                                 item.setColor(color);
-                                final ColorStateList csl = new ColorStateList(
+                                ColorStateList csl = new ColorStateList(
                                         new int[][]{
                                                 new int[]{android.R.attr.state_checked},
                                                 new int[]{}
@@ -114,9 +119,9 @@ public class VariantAdapter extends ArrayAdapter<VariantItem> {
                                 holder.variantHex.setVisibility(View.GONE);
                             }
                         } else {
-                            final int color = Color.parseColor(item.getVariantHex());
+                            int color = Color.parseColor(item.getVariantHex());
                             item.setColor(color);
-                            final ColorStateList csl = new ColorStateList(
+                            ColorStateList csl = new ColorStateList(
                                     new int[][]{
                                             new int[]{android.R.attr.state_checked},
                                             new int[]{}
@@ -137,8 +142,8 @@ public class VariantAdapter extends ArrayAdapter<VariantItem> {
                         holder.variantName.setText(item.getVariantName().replace("_", " "));
                     }
                     // We now know that the color is not 0 which is the hardcoded null set for int
-                    final int color = item.getColor();
-                    final ColorStateList csl = new ColorStateList(
+                    int color = item.getColor();
+                    ColorStateList csl = new ColorStateList(
                             new int[][]{
                                     new int[]{android.R.attr.state_checked},
                                     new int[]{}
@@ -151,7 +156,7 @@ public class VariantAdapter extends ArrayAdapter<VariantItem> {
                     holder.variantHex.setImageTintList(csl);
                     holder.variantHex.setVisibility(View.VISIBLE);
                 }
-            } catch (final IllegalArgumentException iae) {
+            } catch (IllegalArgumentException iae) {
                 holder.variantHex.setVisibility(View.INVISIBLE);
             }
         } else {

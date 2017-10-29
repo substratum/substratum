@@ -33,42 +33,49 @@ import javax.xml.parsers.DocumentBuilderFactory;
 public enum ReadCloudWallpaperFile {
     ;
 
-    public static Map main(final String[] argv) {
-
+    /**
+     * Function to read the cloud wallpaper file
+     *
+     * @param location File location
+     * @return Return a map for the wallpaper entries
+     */
+    public static Map read(String location) {
         try {
-            final File fXmlFile = new File(argv[0]);
+            File fXmlFile = new File(location);
 
-            final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            final DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            final Document doc = dBuilder.parse(fXmlFile);
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(fXmlFile);
             doc.getDocumentElement().normalize();
-            final NodeList nList = doc.getElementsByTagName("wallpaper");
+            NodeList nList = doc.getElementsByTagName("wallpaper");
 
-            final Map<String, String> map = new TreeMap<>();
+            Map<String, String> map = new TreeMap<>();
             for (int temp = 0; temp < nList.getLength(); temp++) {
-                final Node nNode = nList.item(temp);
+                Node nNode = nList.item(temp);
                 if ((int) nNode.getNodeType() == (int) Node.ELEMENT_NODE) {
-                    final Element eElement = (Element) nNode;
+                    Element eElement = (Element) nNode;
 
                     // Replace all spaces with a tilde first, as tilde "~" is lower priority than
                     // "-", we have to put this first.
-                    final String addon_download_name = eElement.getAttribute("id")
+                    String addon_download_name = eElement.getAttribute("id")
                             .replaceAll("\\s+", "~");
-                    final String addon_download_link = eElement.getElementsByTagName("link").item
-                            (0).
-                            getTextContent();
-                    final String addon_preview_link = eElement.getElementsByTagName("preview")
-                            .item(0).getTextContent();
+                    String addon_download_link =
+                            eElement.getElementsByTagName("link").item(0).getTextContent();
+                    String addon_preview_link =
+                            eElement.getElementsByTagName("preview").item(0).getTextContent();
 
-                    final String[] finalArray = {addon_download_name, addon_download_link,
-                            addon_preview_link};
+                    String[] finalArray = {
+                            addon_download_name,
+                            addon_download_link,
+                            addon_preview_link
+                    };
 
                     map.put(finalArray[0], finalArray[1]);
                     map.put(finalArray[0] + "-preview", finalArray[2]);
                 }
             }
             return map;
-        } catch (final Exception e) {
+        } catch (Exception e) {
             return new TreeMap<String, String>();
         }
     }

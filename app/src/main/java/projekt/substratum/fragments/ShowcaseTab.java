@@ -23,6 +23,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,7 +41,10 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import projekt.substratum.R;
+import projekt.substratum.Substratum;
 import projekt.substratum.adapters.showcase.ShowcaseItem;
 import projekt.substratum.adapters.showcase.ShowcaseItemAdapter;
 import projekt.substratum.adapters.tabs.wallpapers.WallpaperAdapter;
@@ -54,10 +58,14 @@ import static projekt.substratum.common.References.SHOWCASE_SHUFFLE_COUNT;
 
 public class ShowcaseTab extends Fragment {
 
-    private ViewGroup root;
-    private RecyclerView mRecyclerView;
-    private ProgressBar materialProgressBar;
-    private View no_network, no_wallpapers;
+    @BindView(R.id.progress_bar_loader)
+    ProgressBar materialProgressBar;
+    @BindView(R.id.no_network)
+    View no_network;
+    @BindView(R.id.none_found)
+    View no_wallpapers;
+    @BindView(R.id.wallpaperRecyclerView)
+    RecyclerView mRecyclerView;
     private int current_tab_position;
     private String current_tab_address;
     private SharedPreferences prefs;
@@ -65,63 +73,66 @@ public class ShowcaseTab extends Fragment {
 
     @Override
     public View onCreateView(
-            final LayoutInflater inflater,
-            final ViewGroup container,
-            final Bundle savedInstanceState) {
-        this.mContext = this.getContext();
-        this.prefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
-
-        final Bundle bundle = this.getArguments();
+            @NonNull LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {
+        mContext = Substratum.getInstance();
+        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        View view = inflater.inflate(R.layout.showcase_tab, container, false);
+        ButterKnife.bind(this, view);
+        Bundle bundle = getArguments();
         if (bundle != null) {
-            this.current_tab_position = bundle.getInt("tab_count", 0);
-            this.current_tab_address = bundle.getString("tabbed_address");
+            current_tab_position = bundle.getInt("tab_count", 0);
+            current_tab_address = bundle.getString("tabbed_address");
+        } else {
+            return null;
         }
-
-        this.root = (ViewGroup) inflater.inflate(R.layout.showcase_tab, container, false);
-        this.materialProgressBar = this.root.findViewById(R.id.progress_bar_loader);
-        this.no_network = this.root.findViewById(R.id.no_network);
-        this.no_wallpapers = this.root.findViewById(R.id.none_found);
-
-        this.refreshLayout();
-        return this.root;
+        refreshLayout();
+        return view;
     }
 
+    /**
+     * Refresh the layout of the showcase tab entries
+     */
     private void refreshLayout() {
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
-        this.mRecyclerView = this.root.findViewById(R.id.wallpaperRecyclerView);
-        this.mRecyclerView.setHasFixedSize(true);
-        this.mRecyclerView.setLayoutManager(new LinearLayoutManager(this.mContext));
-        final ArrayList<WallpaperEntries> empty_array = new ArrayList<>();
-        final RecyclerView.Adapter empty_adapter = new WallpaperAdapter(empty_array);
-        this.mRecyclerView.setAdapter(empty_adapter);
-        this.no_wallpapers.setVisibility(View.GONE);
-        this.no_network.setVisibility(View.GONE);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        ArrayList<WallpaperEntries> empty_array = new ArrayList<>();
+        RecyclerView.Adapter empty_adapter = new WallpaperAdapter(empty_array);
+        mRecyclerView.setAdapter(empty_adapter);
+        no_wallpapers.setVisibility(View.GONE);
+        no_network.setVisibility(View.GONE);
 
-        if (References.isNetworkAvailable(this.mContext)) {
-            final downloadResources downloadTask = new downloadResources(this);
-            downloadTask.execute(this.current_tab_address,
-                    "showcase_tab_" + this.current_tab_position + ".xml");
+        if (References.isNetworkAvailable(mContext)) {
+            downloadResources downloadTask = new downloadResources(this);
+            downloadTask.execute(current_tab_address,
+                    "showcase_tab_" + current_tab_position + ".xml");
         } else {
-            this.mRecyclerView.setVisibility(View.GONE);
-            this.materialProgressBar.setVisibility(View.GONE);
-            this.no_wallpapers.setVisibility(View.GONE);
-            this.no_network.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.GONE);
+            materialProgressBar.setVisibility(View.GONE);
+            no_wallpapers.setVisibility(View.GONE);
+            no_network.setVisibility(View.VISIBLE);
         }
 
     }
 
+    /**
+     * Download the showcase entry list on our GitHub repository at:
+     * https://github.com/substratum/database
+     */
     private static class downloadResources extends AsyncTask<String, Integer, ArrayList> {
-        private final WeakReference<ShowcaseTab> ref;
+        private WeakReference<ShowcaseTab> ref;
 
-        downloadResources(final ShowcaseTab showcaseTab) {
+        downloadResources(ShowcaseTab showcaseTab) {
             super();
-            this.ref = new WeakReference<>(showcaseTab);
+            ref = new WeakReference<>(showcaseTab);
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            final ShowcaseTab showcaseTab = this.ref.get();
+            ShowcaseTab showcaseTab = ref.get();
             if (showcaseTab != null) {
                 showcaseTab.mRecyclerView.setVisibility(View.GONE);
                 showcaseTab.materialProgressBar.setVisibility(View.VISIBLE);
@@ -130,11 +141,11 @@ public class ShowcaseTab extends Fragment {
 
         @Override
         @SuppressWarnings("unchecked")
-        protected void onPostExecute(final ArrayList result) {
+        protected void onPostExecute(ArrayList result) {
             super.onPostExecute(result);
-            final ShowcaseTab showcaseTab = this.ref.get();
+            ShowcaseTab showcaseTab = ref.get();
             if (showcaseTab != null) {
-                final ShowcaseItemAdapter mAdapter = new ShowcaseItemAdapter(result);
+                ShowcaseItemAdapter mAdapter = new ShowcaseItemAdapter(result);
                 showcaseTab.mRecyclerView.setAdapter(mAdapter);
 
                 if (result.isEmpty()) showcaseTab.no_wallpapers.setVisibility(View.VISIBLE);
@@ -145,21 +156,21 @@ public class ShowcaseTab extends Fragment {
         }
 
         @Override
-        protected ArrayList doInBackground(final String... sUrl) {
-            final ShowcaseTab showcaseTab = this.ref.get();
-            final ArrayList<ShowcaseItem> wallpapers = new ArrayList<>();
+        protected ArrayList doInBackground(String... sUrl) {
+            ShowcaseTab showcaseTab = ref.get();
+            ArrayList<ShowcaseItem> wallpapers = new ArrayList<>();
             if (showcaseTab != null) {
                 String inputFileName = sUrl[1];
 
-                final File showcase_directory = new File(
+                File showcase_directory = new File(
                         showcaseTab.mContext.getCacheDir() + "/ShowcaseCache/");
                 if (!showcase_directory.exists()) {
-                    final Boolean made = showcase_directory.mkdir();
+                    Boolean made = showcase_directory.mkdir();
                     if (!made)
                         Log.e(References.SUBSTRATUM_LOG, "Could not make showcase directory...");
                 }
 
-                final File current_wallpapers = new File(showcaseTab.mContext.getCacheDir() +
+                File current_wallpapers = new File(showcaseTab.mContext.getCacheDir() +
                         "/ShowcaseCache/" + inputFileName);
                 if (current_wallpapers.exists()) {
                     // We create a temporary file to check whether we should be replacing the
@@ -170,27 +181,27 @@ public class ShowcaseTab extends Fragment {
                 FileDownloader.init(showcaseTab.mContext, sUrl[0], inputFileName, "ShowcaseCache");
 
                 if (inputFileName.endsWith("-temp.xml")) {
-                    final String existing = MD5.calculateMD5(new File(showcaseTab.mContext
+                    String existing = MD5.calculateMD5(new File(showcaseTab.mContext
                             .getCacheDir() +
                             "/ShowcaseCache/" + sUrl[1]));
-                    final String new_file = MD5.calculateMD5(new File(showcaseTab.mContext
+                    String new_file = MD5.calculateMD5(new File(showcaseTab.mContext
                             .getCacheDir() +
                             "/ShowcaseCache/" + inputFileName));
                     if ((existing != null) && !existing.equals(new_file)) {
                         Log.e("ShowcaseActivity", "Tab " + showcaseTab.current_tab_position +
                                 " has been updated from the cloud!");
-                        final File renameMe = new File(showcaseTab.mContext.getCacheDir() +
+                        File renameMe = new File(showcaseTab.mContext.getCacheDir() +
                                 "/ShowcaseCache/" +
                                 sUrl[1].substring(0, sUrl[1].length() - 4) + "-temp.xml");
-                        final Boolean renamed = renameMe.renameTo(new File(
+                        Boolean renamed = renameMe.renameTo(new File(
                                 showcaseTab.mContext.getCacheDir() +
                                         "/ShowcaseCache/" + sUrl[1]));
                         if (!renamed) Log.e(References.SUBSTRATUM_LOG,
                                 "Could not replace the old tab file with the new tab file...");
                     } else {
-                        final File deleteMe = new File(showcaseTab.mContext.getCacheDir() +
+                        File deleteMe = new File(showcaseTab.mContext.getCacheDir() +
                                 "/" + inputFileName);
-                        final Boolean deleted = deleteMe.delete();
+                        Boolean deleted = deleteMe.delete();
                         if (!deleted) Log.e(References.SUBSTRATUM_LOG,
                                 "Could not delete temporary tab file...");
                     }
@@ -198,15 +209,13 @@ public class ShowcaseTab extends Fragment {
 
                 inputFileName = sUrl[1];
 
-                final String[] checkerCommands = {
-                        showcaseTab.mContext.getCacheDir() + "/ShowcaseCache/" + inputFileName};
-
-
-                @SuppressWarnings("unchecked") final Map<String, String> newArray =
-                        ReadCloudShowcaseFile.main(checkerCommands);
+                @SuppressWarnings("unchecked") Map<String, String> newArray =
+                        ReadCloudShowcaseFile.read(
+                                showcaseTab.mContext.getCacheDir() +
+                                        "/ShowcaseCache/" + inputFileName);
                 ShowcaseItem newEntry = new ShowcaseItem();
 
-                for (final Map.Entry<String, String> stringStringEntry : newArray.entrySet()) {
+                for (Map.Entry<String, String> stringStringEntry : newArray.entrySet()) {
                     if (!stringStringEntry.getKey().toLowerCase(Locale.US)
                             .contains("-".toLowerCase(Locale.getDefault()))) {
                         newEntry.setContext(showcaseTab.mContext);
@@ -238,8 +247,8 @@ public class ShowcaseTab extends Fragment {
                     }
                 }
                 // Shuffle the deck - every time it will change the order of themes!
-                final long seed = System.nanoTime();
-                final boolean alphabetize = showcaseTab.prefs.getBoolean("alphabetize_showcase",
+                long seed = System.nanoTime();
+                boolean alphabetize = showcaseTab.prefs.getBoolean("alphabetize_showcase",
                         false);
                 if (!alphabetize) {
                     for (int i = 0; i <= SHOWCASE_SHUFFLE_COUNT; i++)

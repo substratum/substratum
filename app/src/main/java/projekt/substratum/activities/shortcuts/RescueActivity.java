@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.activities.launch;
+package projekt.substratum.activities.shortcuts;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,29 +29,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 import projekt.substratum.R;
+import projekt.substratum.Substratum;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.platform.ThemeManager;
+
+import static projekt.substratum.common.References.SUBSTRATUM_PACKAGE;
+import static projekt.substratum.common.Resources.FRAMEWORK;
 
 public class RescueActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Systems.isSamsungDevice(this.getApplicationContext())) {
-            this.startActivity(new Intent(Settings.ACTION_MANAGE_ALL_APPLICATIONS_SETTINGS));
+        if (Systems.isSamsungDevice(Substratum.getInstance())) {
+            startActivity(new Intent(Settings.ACTION_MANAGE_ALL_APPLICATIONS_SETTINGS));
         } else {
-            Toast.makeText(this, this.getString(R.string.rescue_toast), Toast.LENGTH_LONG).show();
-            final Handler handler = new Handler();
+            Toast.makeText(this, getString(R.string.rescue_toast), Toast.LENGTH_LONG).show();
+            Handler handler = new Handler();
             handler.postDelayed(() -> {
-                final List<String> android = ThemeManager.listEnabledOverlaysForTarget(
-                        this.getApplicationContext(), "android");
-                final List<String> substratum = ThemeManager.listEnabledOverlaysForTarget(
-                        this.getApplicationContext(), "projekt.substratum");
-                final ArrayList<String> to_be_disabled = new ArrayList<>(android);
+                List<String> android = ThemeManager.listEnabledOverlaysForTarget(
+                        Substratum.getInstance(),
+                        FRAMEWORK);
+                List<String> substratum = ThemeManager.listEnabledOverlaysForTarget(
+                        Substratum.getInstance(),
+                        SUBSTRATUM_PACKAGE);
+
+                ArrayList<String> to_be_disabled = new ArrayList<>(android);
                 to_be_disabled.addAll(substratum);
-                ThemeManager.disableOverlay(this.getApplicationContext(), to_be_disabled);
+                ThemeManager.disableOverlay(
+                        Substratum.getInstance(),
+                        to_be_disabled);
             }, 500L);
         }
-        this.finish();
+        finish();
     }
 }

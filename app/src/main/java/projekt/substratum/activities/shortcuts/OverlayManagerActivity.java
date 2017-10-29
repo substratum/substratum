@@ -16,24 +16,25 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.activities.launch;
+package projekt.substratum.activities.shortcuts;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import projekt.substratum.R;
+import projekt.substratum.Substratum;
 import projekt.substratum.common.References;
 
 public class OverlayManagerActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.getApplicationContext().startActivity(
-                References.createLauncherIcon(this.getApplicationContext(),
+        startActivity(
+                References.createLauncherIcon(Substratum.getInstance(),
                         null,
-                        this.getString(R.string.app_name),
+                        getString(R.string.app_name),
                         true));
-        this.finish();
+        finish();
     }
 }

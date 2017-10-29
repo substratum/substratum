@@ -40,18 +40,19 @@ import projekt.substratum.common.platform.ThemeManager;
 import static android.content.Context.NOTIFICATION_SERVICE;
 import static projekt.substratum.common.References.CRASH_PACKAGE_NAME;
 import static projekt.substratum.common.References.CRASH_REPEATING;
+import static projekt.substratum.common.Resources.SYSTEMUI;
 
 public class AppCrashReceiver extends BroadcastReceiver {
 
     private static final String TAG = "AppCrashReceiver";
     private static final int NOTIFICATION_ID = 2476;
 
-    private static void postNotificationAndDisableOverlays(final Context context, final String
+    private static void postNotificationAndDisableOverlays(Context context, String
             packageName,
-                                                           final List<String> overlays) {
-        final String app_crash_title =
+                                                           List<String> overlays) {
+        String app_crash_title =
                 String.format(context.getString(R.string.app_crash_title), packageName);
-        final NotificationCompat.Builder builder = new NotificationCompat.Builder(context,
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context,
                 References.DEFAULT_NOTIFICATION_CHANNEL_ID);
         builder.setSmallIcon(R.drawable.notification_overlay_corruption);
         builder.setContentTitle(app_crash_title);
@@ -59,48 +60,42 @@ public class AppCrashReceiver extends BroadcastReceiver {
         builder.setOngoing(false);
         builder.setPriority(NotificationCompat.PRIORITY_MAX);
         builder.setCategory(NotificationCompat.CATEGORY_SERVICE);
-        final NotificationManager mNotifyMgr =
+        NotificationManager mNotifyMgr =
                 (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
-        if (mNotifyMgr != null) {
-            mNotifyMgr.notify(NOTIFICATION_ID, builder.build());
-        }
+        if (mNotifyMgr != null) mNotifyMgr.notify(NOTIFICATION_ID, builder.build());
 
         ThemeManager.disableOverlay(context, new ArrayList<>(overlays));
     }
 
-    private static String getApplicationLabel(final Context context, String packageName) {
+    private static String getApplicationLabel(Context context, String packageName) {
         try {
-            final ApplicationInfo applicationInfo = context.getPackageManager()
+            ApplicationInfo applicationInfo = context.getPackageManager()
                     .getApplicationInfo(packageName, 0);
             packageName = context.getPackageManager()
                     .getApplicationLabel(applicationInfo).toString();
-        } catch (final PackageManager.NameNotFoundException e) {
+        } catch (PackageManager.NameNotFoundException e) {
             // Suppress warning
         }
         return packageName;
     }
 
     @Override
-    public void onReceive(final Context context, final Intent intent) {
-        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences
+    public void onReceive(Context context, Intent intent) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences
                 (context);
-        final boolean enabled = sharedPreferences.getBoolean("crash_receiver", true);
+        boolean enabled = sharedPreferences.getBoolean("crash_receiver", true);
         if (!enabled) return;
 
-
-        final String packageName =
-                intent.getStringExtra(CRASH_PACKAGE_NAME);
-        final boolean repeating =
-                intent.getBooleanExtra(CRASH_REPEATING, false);
-
+        String packageName = intent.getStringExtra(CRASH_PACKAGE_NAME);
+        boolean repeating = intent.getBooleanExtra(CRASH_REPEATING, false);
         if (repeating) {
             Log.e(TAG, '\'' + packageName + "\' is repeatedly stopping...");
             Log.e(TAG, "Now disabling all overlays for \'" + packageName + "\'...");
 
-            final List<String> overlays = ThemeManager.listEnabledOverlaysForTarget(context,
+            List<String> overlays = ThemeManager.listEnabledOverlaysForTarget(context,
                     packageName);
             if (!overlays.isEmpty()) {
-                for (final String overlay : overlays) {
+                for (String overlay : overlays) {
                     Log.d("AppCrashReciever", String.format("Disabling overlay %s for package " +
                             "%s", overlay, packageName));
                 }
@@ -110,9 +105,8 @@ public class AppCrashReceiver extends BroadcastReceiver {
                         overlays);
 
             }
-        } else if (Objects.equals(packageName, "com.android.systemui")) {
-            if (ThemeManager.listEnabledOverlaysForTarget(context,
-                    "com.android.systemui").isEmpty()) return;
+        } else if (Objects.equals(packageName, SYSTEMUI)) {
+            if (ThemeManager.listEnabledOverlaysForTarget(context, SYSTEMUI).isEmpty()) return;
             switch (sharedPreferences.getInt("sysui_crash_count", 0)) {
                 case 0:
                 case 1:
@@ -128,8 +122,7 @@ public class AppCrashReceiver extends BroadcastReceiver {
                     sharedPreferences.edit().remove("sysui_crash_count").apply();
                     AppCrashReceiver.postNotificationAndDisableOverlays(context,
                             AppCrashReceiver.getApplicationLabel(context, packageName),
-                            ThemeManager.listEnabledOverlaysForTarget(context, "com.android" +
-                                    ".systemui"));
+                            ThemeManager.listEnabledOverlaysForTarget(context, SYSTEMUI));
                     break;
                 default:
                     sharedPreferences.edit().remove("sysui_crash_count").apply();

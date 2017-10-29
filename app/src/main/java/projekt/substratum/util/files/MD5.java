@@ -29,45 +29,47 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;
+
 public enum MD5 {
     ;
     private static final String TAG = "MD5";
 
-    public static String calculateMD5(final File updateFile) {
-        final MessageDigest digest;
+    public static String calculateMD5(File updateFile) {
+        MessageDigest digest;
         try {
             digest = MessageDigest.getInstance("MD5");
-        } catch (final NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException e) {
             Log.e(TAG, "Exception while getting digest", e);
             return null;
         }
 
-        final InputStream is;
+        InputStream is;
         try {
             is = new FileInputStream(updateFile);
-        } catch (final FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             Log.e(TAG, "Exception while getting FileInputStream", e);
             return null;
         }
 
         try {
             int read;
-            final byte[] buffer = new byte[8192];
+            byte[] buffer = new byte[BYTE_ACCESS_RATE];
             while ((read = is.read(buffer)) > 0) {
                 digest.update(buffer, 0, read);
             }
-            final byte[] md5sum = digest.digest();
-            final BigInteger bigInt = new BigInteger(1, md5sum);
+            byte[] md5sum = digest.digest();
+            BigInteger bigInt = new BigInteger(1, md5sum);
             String output = bigInt.toString(16);
             // Fill to 32 chars
             output = String.format("%32s", output).replace(' ', '0');
             return output;
-        } catch (final IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException("Unable to process file for MD5", e);
         } finally {
             try {
                 is.close();
-            } catch (final IOException e) {
+            } catch (IOException e) {
                 Log.e(TAG, "Exception on closing MD5 input stream", e);
             }
         }

@@ -27,15 +27,15 @@ import java.util.Locale;
 
 public class ContextWrapper extends android.content.ContextWrapper {
 
-    private ContextWrapper(final Context base) {
+    private ContextWrapper(Context base) {
         super(base);
     }
 
-    public static ContextWrapper wrapNewLocale(Context context, final Locale newLocale) {
-        final Resources res = context.getResources();
-        final Configuration configuration = res.getConfiguration();
+    public static ContextWrapper wrapNewLocale(Context context, Locale newLocale) {
+        Resources res = context.getResources();
+        Configuration configuration = res.getConfiguration();
         configuration.setLocale(newLocale);
-        final LocaleList localeList = new LocaleList(newLocale);
+        LocaleList localeList = new LocaleList(newLocale);
         LocaleList.setDefault(localeList);
         configuration.setLocales(localeList);
         context = context.createConfigurationContext(configuration);

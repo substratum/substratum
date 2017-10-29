@@ -30,10 +30,16 @@ public class SheetDialog extends BottomSheetDialog {
         super(context);
     }
 
+    /**
+     * Overriden onCreate to ensure that the default BottomSheetDialog will not contain a black
+     * status bar
+     *
+     * @param savedInstanceState Saved state
+     */
     @SuppressWarnings("ConstantConditions")
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
     }
 }

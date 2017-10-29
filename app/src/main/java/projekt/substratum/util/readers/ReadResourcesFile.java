@@ -33,27 +33,33 @@ import javax.xml.parsers.DocumentBuilderFactory;
 public enum ReadResourcesFile {
     ;
 
-    public static List<String> main(final String file, final String tag) {
-
+    /**
+     * Function to read the cloud validator filter file
+     *
+     * @param location File location
+     * @param tag      Sort by tag
+     * @return Return a map for the wallpaper entries
+     */
+    public static List<String> read(String location, String tag) {
         try {
-            final File fXmlFile = new File(file);
+            File fXmlFile = new File(location);
 
-            final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            final DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            final Document doc = dBuilder.parse(fXmlFile);
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(fXmlFile);
             doc.getDocumentElement().normalize();
-            final NodeList nList = doc.getElementsByTagName(tag);
+            NodeList nList = doc.getElementsByTagName(tag);
 
-            final List<String> list = new ArrayList<>();
+            List<String> list = new ArrayList<>();
             for (int temp = 0; temp < nList.getLength(); temp++) {
-                final Node nNode = nList.item(temp);
+                Node nNode = nList.item(temp);
                 if ((int) nNode.getNodeType() == (int) Node.ELEMENT_NODE) {
-                    final Element eElement = (Element) nNode;
+                    Element eElement = (Element) nNode;
                     list.add(eElement.getAttribute("name"));
                 }
             }
             return list;
-        } catch (final Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return new ArrayList<>();
         }

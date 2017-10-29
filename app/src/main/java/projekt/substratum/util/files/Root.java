@@ -31,29 +31,51 @@ public enum Root {
 
     private static SU su;
 
+    /**
+     * Checks whether there is root access on the device
+     *
+     * @return True, if troot is present
+     */
     public static boolean checkRootAccess() {
-        final StringBuilder check = References.runShellCommand("which su");
+        StringBuilder check = References.runShellCommand("which su");
         return (check != null) && !check.toString().isEmpty();
     }
 
+    /**
+     * Request root access
+     *
+     * @return True, if su is granted
+     */
     public static boolean requestRootAccess() {
-        final SU su = getSU();
+        SU su = getSU();
         su.runCommand("echo /testRoot/");
         return !su.denied;
     }
 
-    public static String runCommand(final String command) {
+    /**
+     * Run a series of commands as su
+     *
+     * @return String output
+     */
+    public static String runCommand(String command) {
         return getSU().runCommand(command);
     }
 
+    /**
+     * Obtain a process of SU
+     *
+     * @return Instance of SU
+     */
     private static SU getSU() {
         if ((su == null) || su.closed || su.denied)
             su = new SU();
         return su;
     }
 
+    /**
+     * Class that is the beef of obtaining superuser access and permissions
+     */
     private static class SU {
-
         private Process process;
         private BufferedWriter bufferedWriter;
         private BufferedReader bufferedReader;
@@ -64,64 +86,64 @@ public enum Root {
         SU() {
             super();
             try {
-                this.firstTry = true;
-                this.process = Runtime.getRuntime().exec("su");
-                this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(
-                        this.process.getOutputStream()));
-                this.bufferedReader = new BufferedReader(new InputStreamReader(
-                        this.process.getInputStream()));
-            } catch (final IOException e) {
-                this.denied = true;
-                this.closed = true;
+                firstTry = true;
+                process = Runtime.getRuntime().exec("su");
+                bufferedWriter = new BufferedWriter(new OutputStreamWriter(
+                        process.getOutputStream()));
+                bufferedReader = new BufferedReader(new InputStreamReader(
+                        process.getInputStream()));
+            } catch (IOException e) {
+                denied = true;
+                closed = true;
             }
         }
 
-        synchronized String runCommand(final String command) {
+        synchronized String runCommand(String command) {
             try {
-                final StringBuilder sb = new StringBuilder();
-                final String callback = "/shellCallback/";
-                this.bufferedWriter.write(command + "\necho " + callback + '\n');
-                this.bufferedWriter.flush();
+                StringBuilder sb = new StringBuilder();
+                String callback = "/shellCallback/";
+                bufferedWriter.write(command + "\necho " + callback + '\n');
+                bufferedWriter.flush();
 
-                final char[] buffer = new char[256];
+                char[] buffer = new char[256];
                 while (true) {
-                    sb.append(buffer, 0, this.bufferedReader.read(buffer));
+                    sb.append(buffer, 0, bufferedReader.read(buffer));
                     int i;
                     if ((i = sb.indexOf(callback)) > -1) {
                         sb.delete(i, i + callback.length());
                         break;
                     }
                 }
-                this.firstTry = false;
+                firstTry = false;
                 return sb.toString().trim();
-            } catch (final IOException e) {
-                this.closed = true;
-                if (this.firstTry) this.denied = true;
-            } catch (final Exception e) {
-                this.denied = true;
+            } catch (IOException e) {
+                closed = true;
+                if (firstTry) denied = true;
+            } catch (Exception e) {
+                denied = true;
             }
             return null;
         }
 
         public void close() {
             try {
-                if (this.bufferedWriter != null) {
-                    this.bufferedWriter.write("exit\n");
-                    this.bufferedWriter.flush();
+                if (bufferedWriter != null) {
+                    bufferedWriter.write("exit\n");
+                    bufferedWriter.flush();
 
-                    this.bufferedWriter.close();
+                    bufferedWriter.close();
                 }
 
-                if (this.bufferedReader != null)
-                    this.bufferedReader.close();
+                if (bufferedReader != null)
+                    bufferedReader.close();
 
-                if (this.process != null) {
-                    this.process.waitFor();
-                    this.process.destroy();
+                if (process != null) {
+                    process.waitFor();
+                    process.destroy();
                 }
 
-                this.closed = true;
-            } catch (final Exception e) {
+                closed = true;
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

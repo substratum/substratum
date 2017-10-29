@@ -38,58 +38,63 @@ import projekt.substratum.common.References;
 public enum ReadRepositoriesFile {
     ;
 
-    public static List<Repository> main(final String file) {
-
+    /**
+     * Function to read the cloud repository file
+     *
+     * @param location File location
+     * @return Return a map for the repository entries
+     */
+    public static List<Repository> read(String location) {
         try {
-            final File fXmlFile = new File(file);
+            File fXmlFile = new File(location);
 
-            final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            final DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            final Document doc = dBuilder.parse(fXmlFile);
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(fXmlFile);
             doc.getDocumentElement().normalize();
-            final NodeList nList = doc.getElementsByTagName("repo");
+            NodeList nList = doc.getElementsByTagName("repo");
 
-            final List<Repository> list = new ArrayList<>();
+            List<Repository> list = new ArrayList<>();
             for (int temp = 0; temp < nList.getLength(); temp++) {
-                final Node nNode = nList.item(temp);
+                Node nNode = nList.item(temp);
                 if ((int) nNode.getNodeType() == (int) Node.ELEMENT_NODE) {
-                    final Element eElement = (Element) nNode;
-                    final Repository current = new Repository(eElement.getAttribute("name"));
+                    Element eElement = (Element) nNode;
+                    Repository current = new Repository(eElement.getAttribute("name"));
                     Log.d(References.SUBSTRATUM_VALIDATOR,
                             "Pulling live resources from '" + current.getPackageName() + "'!");
                     try {
-                        final String bools = eElement.getElementsByTagName("bools")
-                                .item(0).getTextContent();
+                        String bools =
+                                eElement.getElementsByTagName("bools").item(0).getTextContent();
                         current.setBools(bools);
-                    } catch (final Exception e) {
+                    } catch (Exception e) {
                         // Suppress warning
                     }
                     try {
-                        final String colors = eElement.getElementsByTagName("colors")
-                                .item(0).getTextContent();
+                        String colors =
+                                eElement.getElementsByTagName("colors").item(0).getTextContent();
                         current.setColors(colors);
-                    } catch (final Exception e) {
+                    } catch (Exception e) {
                         // Suppress warning
                     }
                     try {
-                        final String dimens = eElement.getElementsByTagName("dimens")
-                                .item(0).getTextContent();
+                        String dimens =
+                                eElement.getElementsByTagName("dimens").item(0).getTextContent();
                         current.setDimens(dimens);
-                    } catch (final Exception e) {
+                    } catch (Exception e) {
                         // Suppress warning
                     }
                     try {
-                        final String styles = eElement.getElementsByTagName("styles")
-                                .item(0).getTextContent();
+                        String styles =
+                                eElement.getElementsByTagName("styles").item(0).getTextContent();
                         current.setStyles(styles);
-                    } catch (final Exception e) {
+                    } catch (Exception e) {
                         // Suppress warning
                     }
                     list.add(current);
                 }
             }
             return list;
-        } catch (final Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return new ArrayList<>();
         }

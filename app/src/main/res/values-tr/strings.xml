@@ -533,8 +533,6 @@ bu sorunu
     <string name="settings_samsung_show_dangerous_overlays_warning">Tehlikeli temaları bir nedenden dolayı gizledik, ancak bu özelliğin etkin olmasını istediğinizden eminseniz, lütfen XDA konumuzdan devre dışı bırakmak için gerekli talimatları uygulayın!</string>
     <string name="settings_crash_receiver_title">Tema güvenliği çökme algılayıcı</string>
     <string name="settings_crash_receiver_text">Tema uygulanan bir uygulamada tekrar eden çökmeler tespit edildiğinde temayı otomatik olarak devre dışı bırak.</string>
-    <string name="settings_force_stop_interfacer_title">Arayüz Hizmetini Durdurmaya Zorla</string>
-    <string name="settings_force_stop_interfacer_snackbar">Arayüz hizmeti durdurmaya zorlanıyor&#8230;</string>
     <string name="overlays_outdated">Eski temalar</string>
     <string name="overlays_outdated_message">816 ve sonraki sürümleri itibarıyla temaların imzalanması için imzanız, olası imza uyuşmazlıklarını önlemek için değişti.\n\nBu, yüklenen temalarınızın yeni tema güncellemelerini yüklemek için temizlenmesi gerektiği anlamına gelir veya temanızın sürekli olarak bir güncelleme gerektirdiğini söyleyecektir!\n\nBu mesaj, tüm temaların en yeni Substratum sürümü kullanılarak düzenlendiğinde gösterilmez.</string>
     <string name="root_required_title">Kök erişimi gereklidir</string>

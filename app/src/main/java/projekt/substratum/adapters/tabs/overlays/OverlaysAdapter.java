@@ -48,21 +48,22 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
 
     private List<OverlaysItem> overlayList;
 
-    public OverlaysAdapter(final List<OverlaysItem> overlayInfo) {
+    public OverlaysAdapter(List<OverlaysItem> overlayInfo) {
         super();
-        this.overlayList = overlayInfo;
+        overlayList = overlayInfo;
     }
 
     // Magical easy reset checking for the adapter
     // Function that runs when a user picks a spinner dropdown item that is index 0
-    private static void zeroIndex(final Context context, final OverlaysItem current_object, final
-    ViewHolder viewHolder) {
+    private static void zeroIndex(Context context,
+                                  OverlaysItem current_object,
+                                  ViewHolder viewHolder) {
         if (isPackageInstalled(context, current_object.getFullOverlayParameters())) {
             viewHolder.overlayState.setVisibility(View.VISIBLE);
             // Check whether currently installed overlay is up to date with
             // theme_pid's versionName
             if (!current_object.compareInstalledOverlay()) {
-                final String format = String.format(context.getString(R.string
+                String format = String.format(context.getString(R.string
                                 .overlays_update_available),
                         current_object.versionName);
                 viewHolder.overlayState.setText(format);
@@ -94,8 +95,10 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
     }
 
     // Function that runs when a user picks a spinner dropdown item that is index >= 1
-    private static void commitChanges(final Context context, final OverlaysItem current_object,
-                                      final ViewHolder viewHolder, final String packageName) {
+    private static void commitChanges(Context context,
+                                      OverlaysItem current_object,
+                                      ViewHolder viewHolder,
+                                      String packageName) {
         if (isPackageInstalled(context,
                 current_object.getPackageName() + '.' + current_object.getThemeName() +
                         '.' + packageName +
@@ -106,7 +109,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
             // theme_pid's versionName
             if (!current_object.compareInstalledVariantOverlay(
                     packageName)) {
-                final String format = String.format(context.getString(R.string
+                String format = String.format(context.getString(R.string
                                 .overlays_update_available),
                         current_object.versionName);
 
@@ -152,37 +155,37 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
     }
 
     public List<OverlaysItem> getList() {
-        return this.overlayList;
+        return overlayList;
     }
 
     public void setList(List<OverlaysItem> list) {
-        this.overlayList = list;
+        overlayList = list;
     }
 
     @Override
-    public OverlaysAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, final int
-            viewType) {
-        final View itemLayoutView = LayoutInflater.from(
+    public OverlaysAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                         int viewType) {
+        View itemLayoutView = LayoutInflater.from(
                 parent.getContext()).inflate(R.layout.overlays_list_row, parent, false);
         return new ViewHolder(itemLayoutView);
     }
 
-    private AdapterView.OnItemSelectedListener adapterViewOISL(final Context context,
-                                                               final OverlaysItem current_object,
-                                                               final ViewHolder viewHolder,
-                                                               final int spinnerNumber) {
+    private AdapterView.OnItemSelectedListener adapterViewOISL(Context context,
+                                                               OverlaysItem current_object,
+                                                               ViewHolder viewHolder,
+                                                               int spinnerNumber) {
         return new AdapterView.OnItemSelectedListener() {
 
-            String setPackageName(final String packageName, final AdapterView<?> arg0) {
+            String setPackageName(String packageName, AdapterView<?> arg0) {
                 return packageName + arg0.getSelectedItem().toString()
                         .replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
             }
 
             @Override
-            public void onItemSelected(final AdapterView<?> arg0,
-                                       final View arg1,
-                                       final int pos,
-                                       final long id) {
+            public void onItemSelected(AdapterView<?> arg0,
+                                       View arg1,
+                                       int pos,
+                                       long id) {
                 switch (spinnerNumber) {
                     case 1:
                         current_object.setSelectedVariant(pos);
@@ -213,7 +216,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 if (pos >= 1) {
                     String packageName = "";
                     if (spinnerNumber == 1) {
-                        packageName = this.setPackageName(packageName, arg0);
+                        packageName = setPackageName(packageName, arg0);
                     } else {
                         if ((viewHolder.optionsSpinner != null) && (viewHolder
                                 .optionsSpinner.getVisibility() == View.VISIBLE))
@@ -223,7 +226,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                                         .replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
                     }
                     if (spinnerNumber == 2) {
-                        packageName = this.setPackageName(packageName, arg0);
+                        packageName = setPackageName(packageName, arg0);
                     } else {
                         if ((viewHolder.optionsSpinner2 != null) && (viewHolder
                                 .optionsSpinner2.getVisibility() == View.VISIBLE))
@@ -233,7 +236,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                                         .replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
                     }
                     if (spinnerNumber == 3) {
-                        packageName = this.setPackageName(packageName, arg0);
+                        packageName = setPackageName(packageName, arg0);
                     } else {
                         if ((viewHolder.optionsSpinner3 != null) && (viewHolder
                                 .optionsSpinner3.getVisibility() == View.VISIBLE))
@@ -243,7 +246,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                                         .replaceAll("[^a-zA-Z0-9]+", "");
                     }
                     if (spinnerNumber == 4) {
-                        packageName = this.setPackageName(packageName, arg0);
+                        packageName = setPackageName(packageName, arg0);
                     } else {
                         if ((viewHolder.optionsSpinner4 != null) && (viewHolder
                                 .optionsSpinner4.getVisibility() == View.VISIBLE))
@@ -253,7 +256,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                                         .replaceAll("[^a-zA-Z0-9]+", "");
                     }
                     if (spinnerNumber == 5) {
-                        packageName = this.setPackageName(packageName, arg0);
+                        packageName = setPackageName(packageName, arg0);
                     } else {
                         if ((viewHolder.optionsSpinner5 != null) && (viewHolder
                                 .optionsSpinner5.getVisibility() == View.VISIBLE))
@@ -267,16 +270,17 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
             }
 
             @Override
-            public void onNothingSelected(final AdapterView<?> arg0) {
+            public void onNothingSelected(AdapterView<?> arg0) {
             }
         };
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(ViewHolder viewHolder,
+                                 int position) {
 
-        final OverlaysItem current_object = this.overlayList.get(position);
-        final Context context = current_object.getInheritedContext();
+        OverlaysItem current_object = overlayList.get(position);
+        Context context = current_object.getInheritedContext();
 
         viewHolder.app_icon.setImageDrawable(current_object.getAppIcon());
 
@@ -291,7 +295,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
             viewHolder.overlayState.setVisibility(View.VISIBLE);
             // Check whether currently installed overlay is up to date with theme_pid's versionName
             if (!current_object.compareInstalledOverlay()) {
-                final String format = String.format(
+                String format = String.format(
                         context.getString(R.string.overlays_update_available),
                         current_object.versionName);
                 viewHolder.overlayState.setText(format);
@@ -311,8 +315,8 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
         viewHolder.checkBox.setTag(current_object);
 
         viewHolder.checkBox.setOnClickListener(v -> {
-            final CheckBox cb = (CheckBox) v;
-            final OverlaysItem contact = (OverlaysItem) cb.getTag();
+            CheckBox cb = (CheckBox) v;
+            OverlaysItem contact = (OverlaysItem) cb.getTag();
 
             contact.setSelected(cb.isChecked());
             current_object.setSelected(cb.isChecked());
@@ -321,16 +325,16 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
         viewHolder.card.setOnClickListener(v -> {
             viewHolder.checkBox.setChecked(!viewHolder.checkBox.isChecked());
 
-            final CheckBox cb = viewHolder.checkBox;
-            final OverlaysItem contact = (OverlaysItem) cb.getTag();
+            CheckBox cb = viewHolder.checkBox;
+            OverlaysItem contact = (OverlaysItem) cb.getTag();
 
             contact.setSelected(cb.isChecked());
             current_object.setSelected(cb.isChecked());
         });
 
         viewHolder.card.setOnLongClickListener(view -> {
-            final String packageName = current_object.getPackageName();
-            final String packageVersion;
+            String packageName = current_object.getPackageName();
+            String packageVersion;
             switch (packageName) {
                 case "com.android.systemui.headers":
                 case "com.android.systemui.navbars":
@@ -348,7 +352,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                             context, packageName);
             }
             if (packageVersion != null) {
-                final String version = String.format(
+                String version = String.format(
                         context.getString(R.string.overlays_tab_package_ver_message),
                         current_object.getName(),
                         packageVersion);
@@ -382,7 +386,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 viewHolder.optionsSpinner.setVisibility(View.VISIBLE);
                 viewHolder.optionsSpinner.setAdapter(current_object.getSpinnerArray());
                 viewHolder.optionsSpinner.setOnItemSelectedListener(
-                        this.adapterViewOISL(context, current_object, viewHolder, 1));
+                        adapterViewOISL(context, current_object, viewHolder, 1));
                 viewHolder.optionsSpinner.setSelection(current_object.getSelectedVariant());
             } else {
                 viewHolder.optionsSpinner.setVisibility(View.GONE);
@@ -391,7 +395,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 viewHolder.optionsSpinner2.setVisibility(View.VISIBLE);
                 viewHolder.optionsSpinner2.setAdapter(current_object.getSpinnerArray2());
                 viewHolder.optionsSpinner2.setOnItemSelectedListener(
-                        this.adapterViewOISL(context, current_object, viewHolder, 2));
+                        adapterViewOISL(context, current_object, viewHolder, 2));
                 viewHolder.optionsSpinner2.setSelection(current_object.getSelectedVariant2());
             } else {
                 viewHolder.optionsSpinner2.setVisibility(View.GONE);
@@ -400,7 +404,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 viewHolder.optionsSpinner3.setVisibility(View.VISIBLE);
                 viewHolder.optionsSpinner3.setAdapter(current_object.getSpinnerArray3());
                 viewHolder.optionsSpinner3.setOnItemSelectedListener(
-                        this.adapterViewOISL(context, current_object, viewHolder, 3));
+                        adapterViewOISL(context, current_object, viewHolder, 3));
                 viewHolder.optionsSpinner3.setSelection(current_object.getSelectedVariant3());
             } else {
                 viewHolder.optionsSpinner3.setVisibility(View.GONE);
@@ -409,7 +413,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 viewHolder.optionsSpinner4.setVisibility(View.VISIBLE);
                 viewHolder.optionsSpinner4.setAdapter(current_object.getSpinnerArray4());
                 viewHolder.optionsSpinner4.setOnItemSelectedListener(
-                        this.adapterViewOISL(context, current_object, viewHolder, 4));
+                        adapterViewOISL(context, current_object, viewHolder, 4));
                 viewHolder.optionsSpinner4.setSelection(current_object.getSelectedVariant4());
             } else {
                 viewHolder.optionsSpinner4.setVisibility(View.GONE);
@@ -418,7 +422,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 viewHolder.optionsSpinner5.setVisibility(View.VISIBLE);
                 viewHolder.optionsSpinner5.setAdapter(current_object.getSpinnerArray5());
                 viewHolder.optionsSpinner5.setOnItemSelectedListener(
-                        this.adapterViewOISL(context, current_object, viewHolder, 5));
+                        adapterViewOISL(context, current_object, viewHolder, 5));
                 viewHolder.optionsSpinner5.setSelection(current_object.getSelectedVariant5());
             } else {
                 viewHolder.optionsSpinner5.setVisibility(View.GONE);
@@ -447,14 +451,14 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                     }
                 } else {
                     // At this point, the object is an RRO formatted check
-                    final File file = new File(PIXEL_NEXUS_DIR);
-                    final File file2 = new File(LEGACY_NEXUS_DIR);
+                    File file = new File(PIXEL_NEXUS_DIR);
+                    File file2 = new File(LEGACY_NEXUS_DIR);
                     if (file.exists() || file2.exists()) {
-                        final File filer1 = new File(
+                        File filer1 = new File(
                                 file.getAbsolutePath() + '/' +
                                         current_object.getPackageName() + '.' +
                                         current_object.getThemeName() + ".apk");
-                        final File filer2 = new File(
+                        File filer2 = new File(
                                 file2.getAbsolutePath() + '/' +
                                         current_object.getPackageName() + '.' +
                                         current_object.getThemeName() + ".apk");
@@ -491,41 +495,41 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return this.overlayList.size();
+        return overlayList.size();
     }
 
     public List<OverlaysItem> getOverlayList() {
-        return this.overlayList;
+        return overlayList;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        final CardView card;
-        final TextView overlayTargetPackageName;
-        final TextView overlayTargetPackage;
-        final TextView overlayState;
-        final CheckBox checkBox;
-        final Spinner optionsSpinner;
-        final Spinner optionsSpinner2;
-        final Spinner optionsSpinner3;
-        final Spinner optionsSpinner4;
-        final Spinner optionsSpinner5;
-        final ImageView app_icon;
+        CardView card;
+        TextView overlayTargetPackageName;
+        TextView overlayTargetPackage;
+        TextView overlayState;
+        CheckBox checkBox;
+        Spinner optionsSpinner;
+        Spinner optionsSpinner2;
+        Spinner optionsSpinner3;
+        Spinner optionsSpinner4;
+        Spinner optionsSpinner5;
+        ImageView app_icon;
 
-        ViewHolder(final View itemLayoutView) {
+        ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
-            this.app_icon = itemLayoutView.findViewById(R.id.app_icon);
-            this.card = itemLayoutView.findViewById(R.id.card);
-            this.checkBox = itemLayoutView.findViewById(R.id.checkBox);
-            this.overlayState = itemLayoutView.findViewById(R.id.installedState);
-            this.optionsSpinner = itemLayoutView.findViewById(R.id.optionsSpinner);
-            this.optionsSpinner2 = itemLayoutView.findViewById(R.id.optionsSpinner2);
-            this.optionsSpinner3 = itemLayoutView.findViewById(R.id.optionsSpinner3);
-            this.optionsSpinner4 = itemLayoutView.findViewById(R.id.optionsSpinner4);
-            this.optionsSpinner5 = itemLayoutView.findViewById(R.id.optionsSpinner5);
-            this.overlayTargetPackageName = itemLayoutView.findViewById(R.id
+            app_icon = itemLayoutView.findViewById(R.id.app_icon);
+            card = itemLayoutView.findViewById(R.id.card);
+            checkBox = itemLayoutView.findViewById(R.id.checkBox);
+            overlayState = itemLayoutView.findViewById(R.id.installedState);
+            optionsSpinner = itemLayoutView.findViewById(R.id.optionsSpinner);
+            optionsSpinner2 = itemLayoutView.findViewById(R.id.optionsSpinner2);
+            optionsSpinner3 = itemLayoutView.findViewById(R.id.optionsSpinner3);
+            optionsSpinner4 = itemLayoutView.findViewById(R.id.optionsSpinner4);
+            optionsSpinner5 = itemLayoutView.findViewById(R.id.optionsSpinner5);
+            overlayTargetPackageName = itemLayoutView.findViewById(R.id
                     .overlayTargetPackageName);
-            this.overlayTargetPackage = itemLayoutView.findViewById(R.id.overlayTargetPackage);
+            overlayTargetPackage = itemLayoutView.findViewById(R.id.overlayTargetPackage);
         }
     }
 }

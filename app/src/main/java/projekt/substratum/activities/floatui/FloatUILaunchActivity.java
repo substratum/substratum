@@ -38,35 +38,40 @@ import static projekt.substratum.common.Systems.checkUsagePermissions;
 public class FloatUILaunchActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Settings.canDrawOverlays(this.getApplicationContext()) &&
-                checkUsagePermissions(this.getApplicationContext())) {
+        if (Settings.canDrawOverlays(getApplicationContext()) &&
+                checkUsagePermissions(getApplicationContext())) {
             if (!References.isServiceRunning(SubstratumFloatInterface.class,
-                    this.getApplicationContext())) {
-                this.triggerFloatingHead(true);
+                    getApplicationContext())) {
+                triggerFloatingHead(true);
             } else {
-                this.triggerFloatingHead(false);
+                triggerFloatingHead(false);
             }
         } else {
-            Toast.makeText(this, this.getString(R.string.per_app_manual_grant),
+            Toast.makeText(this, getString(R.string.per_app_manual_grant),
                     Toast.LENGTH_LONG).show();
         }
-        this.finish();
+        finish();
     }
 
-    private void triggerFloatingHead(final Boolean show) {
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
-                this.getApplicationContext());
-        final int active = (show) ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE;
+    /**
+     * Trigger the floating head to show on the screen
+     *
+     * @param show True to show, false to hide
+     */
+    private void triggerFloatingHead(Boolean show) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+                getApplicationContext());
+        int active = (show) ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE;
         prefs.edit().putInt("float_tile", active).apply();
-        FloatUiTile.requestListeningState(this.getApplicationContext(),
-                new ComponentName(this.getApplicationContext(), FloatUiTile.class));
+        FloatUiTile.requestListeningState(getApplicationContext(),
+                new ComponentName(getApplicationContext(), FloatUiTile.class));
         if (show) {
-            this.getApplicationContext().startService(new Intent(this.getApplicationContext(),
+            getApplicationContext().startService(new Intent(getApplicationContext(),
                     SubstratumFloatInterface.class));
         } else {
-            this.stopService(new Intent(this.getApplicationContext(),
+            stopService(new Intent(getApplicationContext(),
                     SubstratumFloatInterface.class));
         }
     }

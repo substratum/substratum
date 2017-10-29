@@ -526,8 +526,6 @@
     <string name="settings_samsung_show_dangerous_overlays_warning">Okkal rejtettük el a veszélyes fedvényeket, de ha biztos benne, hogy engedélyezni kívánja, kövesse az XDA témában lévő utasításokat a kikapcsoláshoz!</string>
     <string name="settings_crash_receiver_title">Alkalmazás összeomlások biztonságos kezelése</string>
     <string name="settings_crash_receiver_text">Automatikusan letiltja a fedvényt, ha a fedvénnyel rendelkező alkalmazás folyamatosan összeomlik.</string>
-    <string name="settings_force_stop_interfacer_title">Interfacer szolgáltatás kényszerített leállítása</string>
-    <string name="settings_force_stop_interfacer_snackbar">Interfacer kényszerített leállítása&#8230;</string>
     <string name="overlays_outdated">A fedvények elavultak</string>
     <string name="overlays_outdated_message">A 816 verziótól és felette, a fedvényekhez tartozó aláírásunk megváltozott annak megakadályozására, hogy az aláírások eltérőek legyenek.\n\nEz azt jelenti, hogy a telepített fedvényeit tisztítania kell az új témafrissítések telepítéséhez, ellenkező esetben azt fogja mondani, hogy a fedvények folyamatos frissítést igényelnek!\n\nEz üzenet nem jelenik meg, ha az összes fedvény a legújabb Substratum segítségével került összeállításra.</string>
     <string name="root_required_title">Root szükséges</string>

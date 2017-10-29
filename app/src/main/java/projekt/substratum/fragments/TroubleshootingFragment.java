@@ -19,18 +19,21 @@
 package projekt.substratum.fragments;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import projekt.substratum.R;
 import projekt.substratum.adapters.fragments.troubleshooting.TroubleshootingAdapter;
 
 public class TroubleshootingFragment extends Fragment {
 
-    private final int[] troubleshootQuestions = {
+    private static final int[] troubleshootQuestions = {
             R.string.question_one,
             R.string.question_five,
             R.string.question_eight,
@@ -38,7 +41,7 @@ public class TroubleshootingFragment extends Fragment {
             R.string.question_twelve
     };
 
-    private final int[] troubleshootAnswers = {
+    private static final int[] troubleshootAnswers = {
             R.string.answer_one,
             R.string.answer_five,
             R.string.answer_eight,
@@ -46,26 +49,31 @@ public class TroubleshootingFragment extends Fragment {
             R.string.answer_twelve
     };
 
-    @Override
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
-                             final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        final View root = inflater.inflate(R.layout.troubleshooting_fragment, container, false);
+    @BindView(R.id.troubleshoot_list_view)
+    ListView troubleshootListView;
 
-        ListView troubleshootListView = root.findViewById(R.id.troubleshoot_list_view);
+    @Override
+    public View onCreateView(
+            @NonNull LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        View root = inflater.inflate(R.layout.troubleshooting_fragment, container, false);
+        ButterKnife.bind(this, root);
 
         // Make sure troubleshootQuestions & troubleshootAnswers are of same
         // length and then assign adapter to listView
-        troubleshootListView.setAdapter(
-                new TroubleshootingAdapter(
-                        this.troubleshootQuestions,
-                        this.troubleshootAnswers,
-                        this.getActivity().getApplicationContext()
-                ));
+        if (getActivity() != null) {
+            troubleshootListView.setAdapter(
+                    new TroubleshootingAdapter(
+                            troubleshootQuestions,
+                            troubleshootAnswers,
+                            getActivity().getApplicationContext()
+                    ));
+        }
 
         // This avoids from having a janky look with the last card getting cut off
-        final View footer = LayoutInflater.from(
-                this.getActivity()).inflate(
+        View footer = LayoutInflater.from(getActivity()).inflate(
                 R.layout.troubleshooting_list_footer, troubleshootListView, false);
         troubleshootListView.addFooterView(footer);
         troubleshootListView.setFooterDividersEnabled(false);

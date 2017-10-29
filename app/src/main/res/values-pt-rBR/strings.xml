@@ -446,8 +446,6 @@ corretamente&#8230;</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">AVISO</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Nós escondemos camadas perigosas por algum motivo, mas se você tiver certeza de que deseja ativa-las, siga as instruções para desativar isto no nosso tópico de discussão no XDA!</string>
     <string name="settings_crash_receiver_text">Desabilitar uma camada automaticamente quando detectadas falhas repetidas no aplicativo com camada.</string>
-    <string name="settings_force_stop_interfacer_title">Forçar parada do Serviço do Interfacer</string>
-    <string name="settings_force_stop_interfacer_snackbar">Força o Interfacer a parar agora&#8230;</string>
     <string name="overlays_outdated">Camadas desatualizadas</string>
     <string name="overlays_outdated_message">A partir da versão 816 ou posteriores, nossa assinatura para camadas assinadas mudou para evitar possíveis diferenças de assinatura ao longo do caminho.\n\nIsso significa que suas camadas instaladas devem ser limpas para instalar novas atualizações de temas, ou então você terá uma mensagem permanente indicando que suas camadas precisam ser atualizadas.\n\nEsta mensagem não será exibida quando todas as camadas forem compiladas usando o Substratum recente.</string>
     <string name="root_required_title">Root requerido</string>

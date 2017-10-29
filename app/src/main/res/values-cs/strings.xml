@@ -473,8 +473,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="settings_samsung_show_dangerous_overlays_warning">Skryli jsme nebezpečné potahy z nějakého důvodu, ale pokud jste si jisti, že chcete, aby byly povoleny, postupujte podle pokynů v našem vlákně XDA a vypněte jejich skrytí!</string>
     <string name="settings_crash_receiver_title">Ošetření pádů při aplikaci motivu</string>
     <string name="settings_crash_receiver_text">Automaticky vypnout potahy při opakovaném selhání překrytí aplikace.</string>
-    <string name="settings_force_stop_interfacer_title">Vynucené ukončení služby Interfacer</string>
-    <string name="settings_force_stop_interfacer_snackbar">Interfacer se vynuceně ukončuje&#8230;</string>
     <string name="overlays_outdated">Potahy jsou zastaralé</string>
     <string name="overlays_outdated_message">Od verze 816 a pozdějších se změnil náš podpis na podepisování překryvných souborů, aby se zabránilo možnému nesouladu s podpisy na cestě.\n\nTo znamená, že vaše nainstalované potahy musí být vyčištěny tak, aby se mohli instalovat nové aktualizace motivů nebo se stane, že vaše potahy vyžadují aktualizaci navždy!\n\nTato zpráva se nezobrazí, když jsou všechny potahy zkompilovány pomocí nejnovějšího Substratum.</string>
     <string name="root_required_title">Vyžaduje root</string>

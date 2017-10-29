@@ -13,6 +13,7 @@ import java.util.TreeSet;
 
 import projekt.substratum.activities.launch.ThemeLaunchActivity;
 
+import static projekt.substratum.common.References.SUBSTRATUM_PACKAGE;
 import static projekt.substratum.common.References.TEMPLATE_GET_KEYS;
 import static projekt.substratum.common.References.TEMPLATE_THEME_MODE;
 import static projekt.substratum.common.References.hashPassthrough;
@@ -20,13 +21,18 @@ import static projekt.substratum.common.References.hashPassthrough;
 public enum Theming {
     ;
 
-    public static void refreshInstalledThemesPref(final Context context) {
-        final SharedPreferences.Editor editor =
+    /**
+     * Refresh installed themes shared preferences
+     *
+     * @param context Self explanatory, bud.
+     */
+    public static void refreshInstalledThemesPref(Context context) {
+        SharedPreferences.Editor editor =
                 PreferenceManager.getDefaultSharedPreferences(context).edit();
 
         // Initial parse of what is installed on the device
-        final Set<String> installed_themes = new TreeSet<>();
-        final List<ResolveInfo> all_themes = Packages.getThemes(context);
+        Set<String> installed_themes = new TreeSet<>();
+        List<ResolveInfo> all_themes = Packages.getThemes(context);
         for (int i = 0; i < all_themes.size(); i++) {
             installed_themes.add(all_themes.get(i).activityInfo.packageName);
         }
@@ -34,60 +40,89 @@ public enum Theming {
         editor.apply();
     }
 
-    // Launch intent for a theme
-    public static void launchTheme(final Context mContext,
-                                   final String package_name,
-                                   final String theme_mode) {
-        final Intent theme_intent = themeIntent(
-                mContext,
-                package_name,
-                theme_mode,
-                TEMPLATE_THEME_MODE);
-        mContext.startActivity(theme_intent);
-    }
-
-    // Key return of a theme
-    public static void getThemeKeys(final Context mContext, final String package_name) {
-        final Intent theme_intent = themeIntent(
-                mContext,
-                package_name,
-                null,
-                TEMPLATE_GET_KEYS);
-        try {
+    /**
+     * Launch a specific theme
+     *
+     * @param mContext     Self explanatory, bud.
+     * @param package_name Theme to be launched
+     * @param theme_mode   Filter mode
+     */
+    public static void launchTheme(Context mContext,
+                                   String package_name,
+                                   String theme_mode) {
+        if (mContext.getPackageName().equals(SUBSTRATUM_PACKAGE)) {
+            Intent theme_intent = themeIntent(
+                    mContext,
+                    package_name,
+                    theme_mode,
+                    TEMPLATE_THEME_MODE);
             mContext.startActivity(theme_intent);
-        } catch (final Exception e) {
-            e.printStackTrace();
         }
     }
 
-    public static Intent themeIntent(final Context mContext,
-                                     final String package_name,
-                                     final String theme_mode,
-                                     final String actionIntent) {
-        final boolean should_debug = projekt.substratum.BuildConfig.DEBUG;
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-        if (should_debug) Log.d("ThemeLauncher", "Creating new intent...");
-        final Intent intentActivity;
-        if (actionIntent.equals(TEMPLATE_GET_KEYS)) {
-            intentActivity = new Intent();
-        } else {
-            intentActivity = new Intent(mContext, ThemeLaunchActivity.class);
+    /**
+     * Grab the theme's keys
+     *
+     * @param mContext     Self explanatory, bud.
+     * @param package_name Theme to obtain keys for
+     */
+    public static void getThemeKeys(Context mContext,
+                                    String package_name) {
+        if (mContext.getPackageName().equals(SUBSTRATUM_PACKAGE)) {
+            Intent theme_intent = themeIntent(
+                    mContext,
+                    package_name,
+                    null,
+                    TEMPLATE_GET_KEYS);
+            try {
+                mContext.startActivity(theme_intent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        intentActivity.putExtra("package_name", package_name);
-        if (should_debug) Log.d("ThemeLauncher", "Assigning action to intent...");
-        intentActivity.setAction(actionIntent);
-        if (should_debug) Log.d("ThemeLauncher", "Assigning package name to intent...");
-        intentActivity.setPackage(package_name);
-        intentActivity.putExtra("calling_package_name", mContext.getPackageName());
-        if (should_debug) Log.d("ThemeLauncher", "Checking for theme system type...");
-        intentActivity.putExtra("oms_check", !Systems.checkOMS(mContext));
-        intentActivity.putExtra("theme_mode", theme_mode);
-        intentActivity.putExtra("notification", false);
-        if (should_debug) Log.d("ThemeLauncher", "Obtaining APK signature hash...");
-        intentActivity.putExtra("hash_passthrough", hashPassthrough(mContext));
-        if (should_debug) Log.d("ThemeLauncher", "Checking for certification...");
-        intentActivity.putExtra("certified", prefs.getBoolean("complexion", true));
-        if (should_debug) Log.d("ThemeLauncher", "Starting Activity...");
-        return intentActivity;
+    }
+
+    /**
+     * Grab the theme's intent
+     *
+     * @param mContext     Self explanatory, bud.
+     * @param package_name Theme to receive intent for
+     * @param theme_mode   Filter mode
+     * @param actionIntent Intent to be verified with a series of data
+     * @return Returns an intent to launch the theme
+     */
+    public static Intent themeIntent(Context mContext,
+                                     String package_name,
+                                     String theme_mode,
+                                     String actionIntent) {
+        if (mContext.getPackageName().equals(SUBSTRATUM_PACKAGE)) {
+            boolean should_debug = projekt.substratum.BuildConfig.DEBUG;
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+            if (should_debug) Log.d("ThemeLauncher", "Creating new intent...");
+            Intent intentActivity;
+            if (actionIntent.equals(TEMPLATE_GET_KEYS)) {
+                intentActivity = new Intent();
+            } else {
+                intentActivity = new Intent(mContext, ThemeLaunchActivity.class);
+            }
+            intentActivity.putExtra("package_name", package_name);
+            if (should_debug) Log.d("ThemeLauncher", "Assigning action to intent...");
+            intentActivity.setAction(actionIntent);
+            if (should_debug) Log.d("ThemeLauncher", "Assigning package name to intent...");
+            intentActivity.setPackage(package_name);
+            intentActivity.putExtra("calling_package_name", mContext.getPackageName());
+            if (should_debug) Log.d("ThemeLauncher", "Checking for theme system type...");
+            intentActivity.putExtra("oms_check", !Systems.checkOMS(mContext));
+            intentActivity.putExtra("theme_mode", theme_mode);
+            intentActivity.putExtra("notification", false);
+            if (should_debug) Log.d("ThemeLauncher", "Obtaining APK signature hash...");
+            intentActivity.putExtra("hash_passthrough", hashPassthrough(mContext));
+            if (should_debug) Log.d("ThemeLauncher", "Checking for certification...");
+            intentActivity.putExtra("certified", prefs.getBoolean("complexion", true));
+            if (should_debug) Log.d("ThemeLauncher", "Starting Activity...");
+            return intentActivity;
+        } else {
+            return null;
+        }
     }
 }

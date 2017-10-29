@@ -410,8 +410,6 @@
     <string name="settings_samsung_show_dangerous_overlays_warning_title">УВАГА</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Рызыкоўныя напластаванні схаваны не проста так, але калі Вы аддасце перавагу такія пакінуць - вывучыце інструкцыю па іх адключэннб ў тэме на XDA!</string>
     <string name="settings_crash_receiver_text">Аўтаматычна адключаць напластаванні для праграм з выяўленымі паўтаральнымі аварыямі.</string>
-    <string name="settings_force_stop_interfacer_title">Прымусовае спыненне службы інтэрфейсу</string>
-    <string name="settings_force_stop_interfacer_snackbar">Інтэрфейс прымусова спыняецца&#8230;</string>
     <string name="overlays_outdated">Напластасаванні састарэлыя</string>
     <string name="overlays_outdated_message">Пачынаючы з версіі 816 і надалей, подпіс для напластаванняў быў зменены дзеля прадухілення магчымых канфліктаў подпісаў у далейшым.\n\nГэта азначае, што ўсе ўсталяваныя Вамі напластаванні павінны быць пераусталяваны перад ужываннем абнаўленняў тэм, інакш Вы будзеце бачыць патрабаванне абнавіць іх увесь час!\n\nГэта паведамленне перастане з\'яўляцца, як толькі ўсе напластаванні будуць перасабраны новай версіяй Substratum.</string>
     <string name="root_required_title">Патрабуюцца Root-правы</string>

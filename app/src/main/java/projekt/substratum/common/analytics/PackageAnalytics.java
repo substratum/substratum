@@ -36,16 +36,16 @@ public enum PackageAnalytics {
     private static final String RUNTIME_TAG = "RuntimeMemory";
 
     public static boolean isLowEnd() {
-        final Float maximum_memory = PackageAnalytics.logRuntimeMemoryLimits()[0];
+        Float maximum_memory = PackageAnalytics.logRuntimeMemoryLimits()[0];
         return maximum_memory <= 130.0F;
     }
 
     private static Float[] logRuntimeMemoryLimits() {
-        final String max = humanReadableByteCount(Runtime.getRuntime().maxMemory(), false)
+        String max = humanReadableByteCount(Runtime.getRuntime().maxMemory(), false)
                 .replaceAll(",", ".");
-        final String total = humanReadableByteCount(Runtime.getRuntime().totalMemory(), false)
+        String total = humanReadableByteCount(Runtime.getRuntime().totalMemory(), false)
                 .replaceAll(",", ".");
-        final String free = humanReadableByteCount(Runtime.getRuntime().freeMemory(), false)
+        String free = humanReadableByteCount(Runtime.getRuntime().freeMemory(), false)
                 .replaceAll(",", ".");
         Log.d(RUNTIME_TAG, "Max Memory: " + max);
         Log.d(RUNTIME_TAG, "Total Memory: " + total);
@@ -59,47 +59,39 @@ public enum PackageAnalytics {
 
     @SuppressWarnings("SameParameterValue")
     @SuppressLint("DefaultLocale")
-    private static String humanReadableByteCount(final long bytes, final boolean si) {
-        final int unit = si ? 1000 : 1024;
+    private static String humanReadableByteCount(long bytes,
+                                                 boolean si) {
+        int unit = si ? 1000 : 1024;
         if (bytes < (long) unit) return bytes + " B";
-        final int exp = (int) (StrictMath.log((double) bytes) / StrictMath.log((double) unit));
-        final String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp - 1) + (si ? "" : "i");
-        return String.format("%.1f %sB", (double) bytes / StrictMath.pow((double) unit, (double)
-                exp), pre);
+        int exp = (int) (StrictMath.log((double) bytes) / StrictMath.log((double) unit));
+        String pre = (si ? "kMGTPE" : "KMGTPE").charAt(exp - 1) + (si ? "" : "i");
+        return String.format("%.1f %sB",
+                (double) bytes / StrictMath.pow((double) unit, (double) exp), pre);
     }
 
-    public static void logPackageInfo(final Context context, final String packageName) {
+    public static void logPackageInfo(Context context,
+                                      String packageName) {
         try {
-            final PackageManager packageManager = context.getPackageManager();
-            final String installer = packageManager.getInstallerPackageName(packageName);
-            final ApplicationInfo appInfo = packageManager.getApplicationInfo(packageName, 0);
+            PackageManager packageManager = context.getPackageManager();
+            String installer = packageManager.getInstallerPackageName(packageName);
+            ApplicationInfo appInfo = packageManager.getApplicationInfo(packageName, 0);
 
-            final long installed = new File(appInfo.sourceDir).lastModified();
-            final Date date = new Date(installed);
-            final SimpleDateFormat format =
+            long installed = new File(appInfo.sourceDir).lastModified();
+            Date date = new Date(installed);
+            SimpleDateFormat format =
                     new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-            final SimpleDateFormat format2 =
+            SimpleDateFormat format2 =
                     new SimpleDateFormat("HH:mm:ss.SSS", Locale.US);
 
-            final String text = format.format(date);
-            final String text2 = format2.format(date);
+            String text = format.format(date);
+            String text2 = format2.format(date);
 
             Log.d(PACKAGE_TAG, "Package Information for: " + packageName);
             Log.d(PACKAGE_TAG, "Installation date: " + text);
             Log.d(PACKAGE_TAG, "Installation time: " + text2);
             Log.d(PACKAGE_TAG, "Installation location: " + installer);
-        } catch (final Exception e) {
+        } catch (Exception e) {
             // Suppress warning
         }
-    }
-
-    public static String getPackageInstaller(final Context context, final String packageName) {
-        try {
-            final PackageManager packageManager = context.getPackageManager();
-            return packageManager.getInstallerPackageName(packageName);
-        } catch (final Exception e) {
-            // Suppress warning
-        }
-        return null;
     }
 }

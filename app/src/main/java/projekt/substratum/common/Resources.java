@@ -26,7 +26,6 @@ import android.util.Log;
 import java.util.Arrays;
 
 import dalvik.system.DexClassLoader;
-import projekt.substratum.common.tabs.SoundManager;
 
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
@@ -37,9 +36,20 @@ import static projekt.substratum.common.Systems.isSamsung;
 public enum Resources {
     ;
 
+    public static final String FRAMEWORK = "android";
+    public static final String SETTINGS = "com.android.settings";
+    public static final String SYSTEMUI = "com.android.systemui";
+    public static final String SYSTEMUI_HEADERS = "com.android.systemui.headers";
+    public static final String SYSTEMUI_NAVBARS = "com.android.systemui.navbars";
+    public static final String SYSTEMUI_STATUSBARS = "com.android.systemui.statusbars";
+    public static final String SYSTEMUI_QSTILES = "com.android.systemui.tiles";
+    public static final String SETTINGS_ICONS = "com.android.settings.icons";
+    public static final String SAMSUNG_FRAMEWORK = "fwk";
+    public static final String LG_FRAMEWORK = "common";
+
     // Filter to adjust Settings elements
     public static final String[] ALLOWED_SETTINGS_ELEMENTS = {
-            "com.android.settings.icons",
+            SETTINGS_ICONS,
     };
     // Default core packages
     @SuppressWarnings("unused")
@@ -90,19 +100,32 @@ public enum Resources {
             "InflateException",
             "UnsupportedOperationException"
     };
+    public static final String[] ALLOWED_SOUNDS = {
+            "alarm.mp3",
+            "alarm.ogg",
+            "notification.mp3",
+            "notification.ogg",
+            "ringtone.mp3",
+            "ringtone.ogg",
+            "Effect_Tick.mp3",
+            "Effect_Tick.ogg",
+            "Lock.mp3",
+            "Lock.ogg",
+            "Unlock.mp3",
+            "Unlock.ogg",
+    };
     // Filter to adjust framework elements
     private static final String[] ALLOWED_FRAMEWORK_ELEMENTS = {
-            "fwk",
-            "common"
+            SAMSUNG_FRAMEWORK,
+            LG_FRAMEWORK
     };
     // Filter to adjust SystemUI elements
     private static final String[] ALLOWED_SYSTEMUI_ELEMENTS = {
-            "com.android.systemui.headers",
-            "com.android.systemui.navbars",
-            "com.android.systemui.statusbars",
-            "com.android.systemui.tiles"
+            SYSTEMUI_HEADERS,
+            SYSTEMUI_NAVBARS,
+            SYSTEMUI_NAVBARS,
+            SYSTEMUI_QSTILES
     };
-
     // Predetermined list of new Nexus/Pixel Devices
     private static final String[] NEXUS_FILTER = {
             "angler", // Nexus 6P
@@ -115,21 +138,18 @@ public enum Resources {
             "muskie", // The hidden HTC Pixel 2
             "taimen", // Pixel 2 XL
     };
-
     // Filter to adjust UI sounds
     private static final String[] ALLOWED_UI_THEMABLE_SOUNDS = {
             "lock_sound",
             "unlock_sound",
             "low_battery_sound"
     };
-
     // Legacy Asset Folder Check
     private static final String[] ALLOWED_LEGACY_ASSETS = {
             "overlays",
             "bootanimation",
             "sounds"
     };
-
     // Do not theme these packages
     private static final String[] BLACKLIST_THEME_TARGET_APPS = {
             "com.android.cts.verifier",
@@ -143,7 +163,7 @@ public enum Resources {
 
     // This string array contains all the SystemUI acceptable overlay packs
     public static Boolean allowedSounds(final String current) {
-        return Arrays.asList(SoundManager.ALLOWED_SOUNDS).contains(current);
+        return Arrays.asList(ALLOWED_SOUNDS).contains(current);
     }
 
     // This string array contains all the SystemUI acceptable overlay packs

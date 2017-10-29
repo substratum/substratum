@@ -29,44 +29,52 @@ import java.util.List;
 
 import projekt.substratum.R;
 
-public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHolder> {
+import static projekt.substratum.common.Internal.ALARM;
+import static projekt.substratum.common.Internal.EFFECT_TICK;
+import static projekt.substratum.common.Internal.LOCK;
+import static projekt.substratum.common.Internal.NOTIFICATION;
+import static projekt.substratum.common.Internal.RINGTONE;
+import static projekt.substratum.common.Internal.UNLOCK;
 
-    private final List<SoundsInfo> soundsList;
+public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.ViewHolder> {
 
-    public SoundsAdapter(final List<SoundsInfo> soundsList) {
+    private List<SoundsInfo> soundsList;
+
+    public SoundsAdapter(List<SoundsInfo> soundsList) {
         super();
         this.soundsList = soundsList;
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
-        final View itemView = LayoutInflater.from(
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(
                 parent.getContext()).inflate(R.layout.sounds_list_row, parent, false);
-        return new MyViewHolder(itemView);
+        return new ViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, final int position) {
-        final SoundsInfo sounds = this.soundsList.get(position);
-        final Context context = sounds.getContext();
-        final String current_sound = sounds.getTitle().substring(0, sounds.getTitle().length() - 4);
+    public void onBindViewHolder(ViewHolder holder,
+                                 int position) {
+        SoundsInfo sounds = this.soundsList.get(position);
+        Context context = sounds.getContext();
+        String current_sound = sounds.getTitle().substring(0, sounds.getTitle().length() - 4);
         switch (current_sound) {
-            case "alarm":
+            case ALARM:
                 holder.title.setText(context.getString(R.string.sounds_alarm));
                 break;
-            case "notification":
+            case NOTIFICATION:
                 holder.title.setText(context.getString(R.string.sounds_notification));
                 break;
-            case "ringtone":
+            case RINGTONE:
                 holder.title.setText(context.getString(R.string.sounds_ringtone));
                 break;
-            case "Effect_Tick":
+            case EFFECT_TICK:
                 holder.title.setText(context.getString(R.string.sounds_effect_tick));
                 break;
-            case "Lock":
+            case LOCK:
                 holder.title.setText(context.getString(R.string.sounds_lock_sound));
                 break;
-            case "Unlock":
+            case UNLOCK:
                 holder.title.setText(context.getString(R.string.sounds_unlock_sound));
                 break;
         }
@@ -77,10 +85,10 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.MyViewHold
         return this.soundsList.size();
     }
 
-    static class MyViewHolder extends RecyclerView.ViewHolder {
-        public final TextView title;
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView title;
 
-        MyViewHolder(final View view) {
+        ViewHolder(View view) {
             super(view);
             this.title = view.findViewById(R.id.title);
         }

@@ -42,7 +42,7 @@ public class SamsungPackageService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(this.getClass().getSimpleName(),
+        Log.d(getClass().getSimpleName(),
                 "The overlay package refresher for Samsung devices has been fully loaded.");
         PackageManager pm = getPackageManager();
         List<ApplicationInfo> currentApps = pm.getInstalledApplications(0);
@@ -63,7 +63,7 @@ public class SamsungPackageService extends Service {
 
     @Override
     public void onDestroy() {
-        Log.d(this.getClass().getSimpleName(),
+        Log.d(getClass().getSimpleName(),
                 "The overlay package refresher for Samsung devices has been fully unloaded.");
         super.onDestroy();
     }

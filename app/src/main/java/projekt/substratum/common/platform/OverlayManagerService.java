@@ -35,7 +35,7 @@ public enum OverlayManagerService {
     /**
      * Api for obtaining information about overlay packages.
      */
-    private static final int CURRENT_USER = Process.myUid() / 100000;
+    private static int CURRENT_USER = Process.myUid() / 100000;
 
     /**
      * Returns information about all installed overlay packages for the
@@ -52,7 +52,7 @@ public enum OverlayManagerService {
     static Map getAllOverlays() {
         try {
             return OM.get().getAllOverlays(CURRENT_USER);
-        } catch (final RemoteException re) {
+        } catch (RemoteException re) {
             Log.e(SUBSTRATUM_LOG,
                     "Unable to obtain the map of current overlays on the device.");
         }
@@ -82,29 +82,31 @@ public enum OverlayManagerService {
      * @return true if the system successfully registered the request, false
      * otherwise.
      */
-    public static boolean enable(final String packageName, final Boolean shouldWait) {
+    public static boolean enable(String packageName,
+                                 Boolean shouldWait) {
         try {
-            final boolean success = OM.get().setEnabled(packageName, true, CURRENT_USER,
+            boolean success = OM.get().setEnabled(packageName, true, CURRENT_USER,
                     shouldWait);
             if (success) {
                 Log.e(SUBSTRATUM_LOG, "Enabled overlay -> " + packageName + '!');
                 return true;
             }
-        } catch (final RemoteException re) {
+        } catch (RemoteException re) {
             Log.e(SUBSTRATUM_LOG, "Unable to enable overlay -> " + packageName);
         }
         return false;
     }
 
-    public static boolean disable(final String packageName, final Boolean shouldWait) {
+    public static boolean disable(String packageName,
+                                  Boolean shouldWait) {
         try {
-            final boolean success = OM.get().setEnabled(packageName, false, CURRENT_USER,
+            boolean success = OM.get().setEnabled(packageName, false, CURRENT_USER,
                     shouldWait);
             if (success) {
                 Log.e(SUBSTRATUM_LOG, "Disabled overlay -> " + packageName + '!');
                 return true;
             }
-        } catch (final RemoteException re) {
+        } catch (RemoteException re) {
             Log.e(SUBSTRATUM_LOG, "Unable to disable overlay -> " + packageName);
         }
         return false;
@@ -120,11 +122,11 @@ public enum OverlayManagerService {
      * @param newParentPackage    The name of the overlay package the newly
      *                            adjusted overlay package should just outrank.
      */
-    public static boolean setPriority(final String currentBoundPackage, final String
-            newParentPackage) {
+    public static boolean setPriority(String currentBoundPackage,
+                                      String newParentPackage) {
         try {
             return OM.get().setPriority(currentBoundPackage, newParentPackage, CURRENT_USER);
-        } catch (final RemoteException re) {
+        } catch (RemoteException re) {
             Log.e(SUBSTRATUM_LOG,
                     "Unable to set priority for \"" +
                             currentBoundPackage + "\" with parent \"" + newParentPackage + "\".");

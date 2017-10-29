@@ -468,8 +468,6 @@
     <string name="settings_samsung_show_dangerous_overlays_warning">Mes paslėpėme perdangas dėl priežasties, bet jei jūs esate tikras jūs galite tai įjungti. Prašome vadovautis pateiktais nurodymais, kaip tai išjungti mūsų \"XDA\" temoje!</string>
     <string name="settings_crash_receiver_title">Temos saugumo klaidos gavėjas</string>
     <string name="settings_crash_receiver_text">Automatiškai išjungti perdangą, kai aptinkamas pasikartojantis gedimas programos perdangai.</string>
-    <string name="settings_force_stop_interfacer_title">Priverstinai sustabdyti Sąsajos Tarnybą</string>
-    <string name="settings_force_stop_interfacer_snackbar">Dabar sąsaja priverstinai sustabdoma&#8230;</string>
     <string name="overlays_outdated">Pasenusios perdangos</string>
     <string name="overlays_outdated_message">Nuo versijos 816 ir po jos, mūsų perdangų pasirašymas pasikeitė, kad išvengti galimo parašo neatitikimo.\n\nTai reiškia, kad jūsų įdiegtos perdangos turi būti išvalytos, jog įdiegti naujus temos atnaujinimus arba jums visada rodys, kad jum reikia atnaujinimo!\n\nŠio pranešimo neberodys, kai visos perdangos bus sukompiliuotos su naujausiu \"Substratum\".</string>
     <string name="root_required_title">Reikalingas \"root\"</string>

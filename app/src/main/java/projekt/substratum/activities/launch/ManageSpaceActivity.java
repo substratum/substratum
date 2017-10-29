@@ -32,7 +32,10 @@ import android.widget.TextView;
 import java.io.File;
 import java.lang.ref.WeakReference;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import projekt.substratum.R;
+import projekt.substratum.Substratum;
 import projekt.substratum.common.References;
 
 import static projekt.substratum.common.References.LOGCHAR_DIR;
@@ -43,51 +46,55 @@ import static projekt.substratum.common.commands.FileOperations.getFileSize;
 
 public class ManageSpaceActivity extends AppCompatActivity {
 
-    private TextView cacheCounter;
-    private TextView logsCounter;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.clear_cache_button)
+    CardView clearCacheButton;
+    @BindView(R.id.reset_app_button)
+    CardView resetAppButton;
+    @BindView(R.id.clear_logs_button)
+    CardView clearLogsButton;
+    @BindView(R.id.cache_counter)
+    TextView cacheCounter;
+    @BindView(R.id.log_counter)
+    TextView logsCounter;
     private String callingPackage;
 
-
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.activity_manage_space);
-        final Toolbar toolbar = this.findViewById(R.id.toolbar);
-        this.setSupportActionBar(toolbar);
-        if (this.getSupportActionBar() != null) {
-            this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            this.getSupportActionBar().setDisplayShowHomeEnabled(true);
+        setContentView(R.layout.activity_manage_space);
+        ButterKnife.bind(this);
+
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-        if (toolbar != null) toolbar.setNavigationOnClickListener(v -> this.onBackPressed());
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
-        final CardView clearCacheButton = this.findViewById(R.id.clear_cache_button);
-        final CardView resetAppButton = this.findViewById(R.id.reset_app_button);
-        this.cacheCounter = this.findViewById(R.id.cache_counter);
-        this.cacheCounter.setText(this.getString(R.string.clear_cache_button_loading));
-        this.cacheCounter.setText(Formatter.formatFileSize(this, getFileSize(this.getCacheDir())));
-
+        cacheCounter.setText(getString(R.string.clear_cache_button_loading));
+        cacheCounter.setText(Formatter.formatFileSize(this, getFileSize(getCacheDir())));
         clearCacheButton.setOnClickListener(v -> {
-            this.cacheCounter.setText(this.getString(R.string.clear_cache_button_loading));
+            cacheCounter.setText(getString(R.string.clear_cache_button_loading));
             new ClearCache(this).execute();
         });
 
-        final CardView clearLogsButton = this.findViewById(R.id.clear_logs_button);
-        this.logsCounter = this.findViewById(R.id.log_counter);
-        this.logsCounter.setText(this.getString(R.string.clear_cache_button_loading));
-        final File filer = new File(LOGCHAR_DIR);
+        logsCounter.setText(getString(R.string.clear_cache_button_loading));
+        File filer = new File(LOGCHAR_DIR);
         if (filer.isDirectory()) {
-            this.logsCounter.setText(String.valueOf(filer.list().length));
+            logsCounter.setText(String.valueOf(filer.list().length));
         } else {
-            this.logsCounter.setText(String.valueOf(0));
+            logsCounter.setText(String.valueOf(0));
         }
 
         clearLogsButton.setOnClickListener(v -> {
-            this.logsCounter.setText(this.getString(R.string.clear_cache_button_loading));
+            logsCounter.setText(getString(R.string.clear_cache_button_loading));
             new ClearLogs(this).execute();
         });
 
         resetAppButton.setOnClickListener(v -> {
-            final AlertDialog dialog = new AlertDialog.Builder(this)
+            AlertDialog dialog = new AlertDialog.Builder(this)
                     .setTitle(R.string.manage_space_reset_dialog_title)
                     .setMessage(R.string.manage_space_reset_dialog_content)
                     .setNegativeButton(android.R.string.no, (dialog1, which) -> dialog1.dismiss())
@@ -98,76 +105,79 @@ public class ManageSpaceActivity extends AppCompatActivity {
                     .create();
             dialog.show();
         });
-        this.callingPackage = this.getCallingPackage();
+        callingPackage = getCallingPackage();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        this.cacheCounter.setText(this.getString(R.string.clear_cache_button_loading));
-        this.cacheCounter.setText(Formatter.formatFileSize(this, getFileSize(this.getCacheDir())));
+        cacheCounter.setText(getString(R.string.clear_cache_button_loading));
+        cacheCounter.setText(Formatter.formatFileSize(this, getFileSize(getCacheDir())));
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (this.callingPackage != null) {
+        if (callingPackage != null) {
             Process.killProcess(Process.myPid());
         }
     }
 
+    /**
+     * Clear the cache of the application
+     */
     private static class ClearCache extends AsyncTask<Void, Void, Void> {
-        private final WeakReference<ManageSpaceActivity> ref;
+        private WeakReference<ManageSpaceActivity> ref;
 
-        ClearCache(final ManageSpaceActivity activity) {
+        ClearCache(ManageSpaceActivity activity) {
             super();
-            this.ref = new WeakReference<>(activity);
+            ref = new WeakReference<>(activity);
         }
 
         @Override
-        protected Void doInBackground(final Void... params) {
-            final ManageSpaceActivity activity = this.ref.get();
-            if (activity != null) {
-                final Context context = activity.getApplicationContext();
-                delete(context, context.getCacheDir().getAbsolutePath());
-            }
+        protected Void doInBackground(Void... params) {
+            Context context = Substratum.getInstance();
+            delete(context, context.getCacheDir().getAbsolutePath());
             return null;
         }
 
         @Override
-        protected void onPostExecute(final Void result) {
-            final ManageSpaceActivity activity = this.ref.get();
+        protected void onPostExecute(Void result) {
+            ManageSpaceActivity activity = ref.get();
             if (activity != null) {
-                final Context context = activity.getApplicationContext();
+                Context context = Substratum.getInstance();
                 activity.cacheCounter.setText(
                         Formatter.formatFileSize(context, getFileSize(context.getCacheDir())));
             }
         }
     }
 
+    /**
+     * Clear the saved LogChars
+     */
     private static class ClearLogs extends AsyncTask<Void, Void, Void> {
-        private final WeakReference<ManageSpaceActivity> ref;
+        private WeakReference<ManageSpaceActivity> ref;
 
-        ClearLogs(final ManageSpaceActivity activity) {
+        ClearLogs(ManageSpaceActivity activity) {
             super();
-            this.ref = new WeakReference<>(activity);
+            ref = new WeakReference<>(activity);
         }
 
         @Override
-        protected Void doInBackground(final Void... params) {
-            final ManageSpaceActivity activity = this.ref.get();
+        protected Void doInBackground(Void... params) {
+            ManageSpaceActivity activity = ref.get();
             if (activity != null) {
-                final Context context = this.ref.get().getApplicationContext();
+                Context context = Substratum.getInstance();
                 delete(context, new File(LOGCHAR_DIR).getAbsolutePath());
             }
             return null;
         }
 
         @Override
-        protected void onPostExecute(final Void result) {
-            final ManageSpaceActivity activity = this.ref.get();
+        protected void onPostExecute(Void result) {
+            ManageSpaceActivity activity = ref.get();
             if (activity != null) {
-                final File filer = new File(LOGCHAR_DIR);
+                File filer = new File(LOGCHAR_DIR);
                 if (filer.isDirectory()) {
                     activity.logsCounter.setText(String.valueOf(filer.list().length));
                 } else {
@@ -177,43 +187,43 @@ public class ManageSpaceActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Reset the application to the near-out-of-box experience
+     */
     private static class ResetApp extends AsyncTask<Void, Void, Void> {
-        private final WeakReference<ManageSpaceActivity> ref;
+        private WeakReference<ManageSpaceActivity> ref;
 
-        ResetApp(final ManageSpaceActivity activity) {
+        ResetApp(ManageSpaceActivity activity) {
             super();
-            this.ref = new WeakReference<>(activity);
+            ref = new WeakReference<>(activity);
         }
 
         @Override
-        protected Void doInBackground(final Void... params) {
-            final ManageSpaceActivity activity = this.ref.get();
-            if (activity != null) {
-                final Context context = activity.getApplicationContext();
-                for (final File f : context.getDataDir().listFiles()) {
-                    if (!"shared_prefs".equals(f.getName())) {
-                        delete(context, f.getAbsolutePath());
-                    } else {
-                        for (final File prefs : f.listFiles()) {
-                            final String fileName = prefs.getName();
-                            if (!fileName.equals(NAMES_PREFS + ".xml") &&
-                                    !fileName.equals(PACKAGES_PREFS + ".xml")) {
-                                delete(context, prefs.getAbsolutePath());
-                            }
+        protected Void doInBackground(Void... params) {
+            Context context = Substratum.getInstance();
+            for (File f : context.getDataDir().listFiles()) {
+                if (!"shared_prefs".equals(f.getName())) {
+                    delete(context, f.getAbsolutePath());
+                } else {
+                    for (File prefs : f.listFiles()) {
+                        String fileName = prefs.getName();
+                        if (!fileName.equals(NAMES_PREFS + ".xml") &&
+                                !fileName.equals(PACKAGES_PREFS + ".xml")) {
+                            delete(context, prefs.getAbsolutePath());
                         }
                     }
                 }
-                References.loadDefaultConfig(context);
             }
+            References.loadDefaultConfig(context);
             return null;
         }
 
 
         @Override
-        protected void onPostExecute(final Void result) {
-            final ManageSpaceActivity activity = this.ref.get();
+        protected void onPostExecute(Void result) {
+            ManageSpaceActivity activity = ref.get();
             if (activity != null) {
-                final Context context = activity.getApplicationContext();
+                Context context = Substratum.getInstance();
                 activity.cacheCounter.setText(
                         Formatter.formatFileSize(context, getFileSize(context.getCacheDir())));
                 activity.finishAffinity();

@@ -36,7 +36,7 @@ public class ShowcaseItem {
         return this.mContext;
     }
 
-    public void setContext(final Context mContext) {
+    public void setContext(Context mContext) {
         this.mContext = mContext;
     }
 
@@ -44,7 +44,7 @@ public class ShowcaseItem {
         return this.themeAuthor;
     }
 
-    public void setThemeAuthor(final String themeAuthor) {
+    public void setThemeAuthor(String themeAuthor) {
         this.themeAuthor = themeAuthor;
     }
 
@@ -52,7 +52,7 @@ public class ShowcaseItem {
         return this.themePricing;
     }
 
-    public void setThemePricing(final String themePricing) {
+    public void setThemePricing(String themePricing) {
         this.themePricing = themePricing;
     }
 
@@ -60,7 +60,7 @@ public class ShowcaseItem {
         return this.themeName;
     }
 
-    public void setThemeName(final String themeName) {
+    public void setThemeName(String themeName) {
         this.themeName = themeName;
     }
 
@@ -68,7 +68,7 @@ public class ShowcaseItem {
         return this.themePackage;
     }
 
-    public void setThemePackage(final String themePackage) {
+    public void setThemePackage(String themePackage) {
         this.themePackage = themePackage;
     }
 
@@ -76,7 +76,7 @@ public class ShowcaseItem {
         return this.themeLink;
     }
 
-    public void setThemeLink(final String themeLink) {
+    public void setThemeLink(String themeLink) {
         this.themeLink = themeLink;
     }
 
@@ -84,7 +84,7 @@ public class ShowcaseItem {
         return this.themeIcon;
     }
 
-    public void setThemeIcon(final String themeIcon) {
+    public void setThemeIcon(String themeIcon) {
         this.themeIcon = themeIcon;
     }
 
@@ -92,7 +92,7 @@ public class ShowcaseItem {
         return this.themeBackgroundImage;
     }
 
-    public void setThemeBackgroundImage(final String themeBackgroundImage) {
+    public void setThemeBackgroundImage(String themeBackgroundImage) {
         this.themeBackgroundImage = themeBackgroundImage;
     }
 
@@ -100,7 +100,7 @@ public class ShowcaseItem {
         return this.themeSupport;
     }
 
-    public void setThemeSupport(final String themeSupport) {
+    public void setThemeSupport(String themeSupport) {
         this.themeSupport = themeSupport;
     }
 }

@@ -391,8 +391,6 @@
     <string name="settings_samsung_show_dangerous_overlays_warning_title">AVERTISSEMENT</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Nous masquons les surcouches dangereuses pour une raison, mais si vous êtes sûr•e de vouloir l\'activer, veuillez suivre les instructions de désactivation sur notre sujet XDA !</string>
     <string name="settings_crash_receiver_text">Désactiver automatiquement une surcouche lors de la détection d\'erreurs répétitives de l\'application</string>
-    <string name="settings_force_stop_interfacer_title">Forcer la fermeture du service de l\'Interface de thème</string>
-    <string name="settings_force_stop_interfacer_snackbar">Fermeture forcée de l\'Interface de thème en cours&#8230;</string>
     <string name="overlays_outdated">Superpositions obsolètes</string>
     <string name="overlays_outdated_message">Depuis la version 816 et au-delà, notre signature pour signer des couches a changé pour éviter les incompatibilités de signature.\n\nCela signifie que vos couches installées doivent être désactivées pour installer les nouvelles mises à jour de thème ou il va dire que vos couches nécessitent une éternelle mise à jour ! \n\nCe message ne s’affichera pas lorsque toutes les couches seront compilées en utilisant le nouveau substratum.</string>
     <string name="root_required_title">Droits Root</string>

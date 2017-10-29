@@ -44,15 +44,15 @@ public class ScheduledProfileReceiver extends BroadcastReceiver {
     private static final String TAG = "ScheduledProfile";
 
     @Override
-    public void onReceive(final Context context, final Intent intent) {
-        final SharedPreferences prefs =
+    public void onReceive(Context context, Intent intent) {
+        SharedPreferences prefs =
                 context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
         String extra = intent.getStringExtra(SCHEDULED_PROFILE_TYPE_EXTRA);
         if (extra == null) {
             extra = prefs.getString(SCHEDULED_PROFILE_TYPE_EXTRA, null);
         }
 
-        final PowerManager powerManager = (PowerManager) context.getSystemService(Context
+        PowerManager powerManager = (PowerManager) context.getSystemService(Context
                 .POWER_SERVICE);
         if (powerManager != null) {
             if (!powerManager.isInteractive()) {
@@ -60,27 +60,27 @@ public class ScheduledProfileReceiver extends BroadcastReceiver {
                 prefs.edit().remove(SCHEDULED_PROFILE_TYPE_EXTRA).apply();
                 Broadcasts.unregisterProfileScreenOffReceiver(context.getApplicationContext());
 
-                final PersistableBundle bundle = new PersistableBundle();
+                PersistableBundle bundle = new PersistableBundle();
                 bundle.putString(SCHEDULED_PROFILE_TYPE_EXTRA, extra);
 
-                final ComponentName serviceComponent = new ComponentName(context,
+                ComponentName serviceComponent = new ComponentName(context,
                         ScheduledProfileService.class);
-                final JobInfo jobInfo = new JobInfo.Builder(NOTIFICATION_ID, serviceComponent)
+                JobInfo jobInfo = new JobInfo.Builder(NOTIFICATION_ID, serviceComponent)
                         .setMinimumLatency(5000L)
                         .setExtras(bundle)
                         .build();
 
-                final JobScheduler jobScheduler = (JobScheduler) context.getSystemService(
+                JobScheduler jobScheduler = (JobScheduler) context.getSystemService(
                         Context.JOB_SCHEDULER_SERVICE);
                 if (jobScheduler != null) {
                     jobScheduler.schedule(jobInfo);
                 }
             } else {
                 Log.d(TAG, extra + " profile will be applied after screen off...");
-                final NotificationManager mNotifyManager =
+                NotificationManager mNotifyManager =
                         (NotificationManager) context.getSystemService(Context
                                 .NOTIFICATION_SERVICE);
-                @SuppressWarnings("deprecation") final NotificationCompat.Builder mBuilder = new
+                @SuppressWarnings("deprecation") NotificationCompat.Builder mBuilder = new
                         NotificationCompat.Builder(context);
                 mBuilder.setContentTitle(
                         String.format(context.getString(R.string.profile_notification_title),

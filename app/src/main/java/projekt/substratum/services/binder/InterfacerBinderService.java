@@ -49,14 +49,14 @@ public class InterfacerBinderService extends Service implements ServiceConnectio
     }
 
     public IInterfacerInterface getInterfacerInterface() {
-        return this.interfacerInterface;
+        return interfacerInterface;
     }
 
     private void bindInterfacer() {
-        if (Systems.isBinderInterfacer(this) && !this.mBound) {
-            final Intent intent = new Intent(INTERFACER_BINDED);
+        if (Systems.isBinderInterfacer(this) && !mBound) {
+            Intent intent = new Intent(INTERFACER_BINDED);
             intent.setPackage(INTERFACER_PACKAGE);
-            this.bindService(intent, this, Context.BIND_AUTO_CREATE);
+            bindService(intent, this, Context.BIND_AUTO_CREATE);
         }
     }
 
@@ -65,40 +65,40 @@ public class InterfacerBinderService extends Service implements ServiceConnectio
         super.onCreate();
         binderService = this;
         if (checkOreo()) {
-            final NotificationCompat.Builder builder = new NotificationCompat.Builder(
-                    this.getApplicationContext(), References.ANDROMEDA_NOTIFICATION_CHANNEL_ID);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(
+                    getApplicationContext(), References.ANDROMEDA_NOTIFICATION_CHANNEL_ID);
 
-            builder.setContentTitle(this.getString(R.string.interfacer_notification_title))
-                    .setContentText(this.getString(R.string.interfacer_notification_text))
+            builder.setContentTitle(getString(R.string.interfacer_notification_title))
+                    .setContentText(getString(R.string.interfacer_notification_text))
                     .setSmallIcon(R.drawable.notification_icon);
 
-            this.startForeground(2018, builder.build());
+            startForeground(2018, builder.build());
         }
-        this.bindInterfacer();
+        bindInterfacer();
     }
 
     @Override
     public void onDestroy() {
-        this.interfacerInterface = null;
+        interfacerInterface = null;
     }
 
     @Nullable
     @Override
-    public IBinder onBind(final Intent intent) {
+    public IBinder onBind(Intent intent) {
         return null;
     }
 
     @Override
-    public void onServiceConnected(final ComponentName name, final IBinder service) {
-        this.interfacerInterface = IInterfacerInterface.Stub.asInterface(service);
-        this.mBound = true;
+    public void onServiceConnected(ComponentName name, IBinder service) {
+        interfacerInterface = IInterfacerInterface.Stub.asInterface(service);
+        mBound = true;
         Log.d(TAG, "Substratum has successfully binded with the Interfacer module.");
     }
 
     @Override
-    public void onServiceDisconnected(final ComponentName name) {
-        this.interfacerInterface = null;
-        this.mBound = false;
+    public void onServiceDisconnected(ComponentName name) {
+        interfacerInterface = null;
+        mBound = false;
         Log.d(TAG, "Substratum has successfully unbinded with the Interfacer module.");
     }
 }

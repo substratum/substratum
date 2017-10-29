@@ -22,15 +22,17 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 
 public class ValidatorInfo {
-    private final String package_name;
-    private final Context mContext;
-    private final Boolean mVerified;
-    private final Boolean mCommons;
+    private String package_name;
+    private Context mContext;
+    private Boolean mVerified;
+    private Boolean mCommons;
     private Drawable mDrawable;
     private ValidatorError mValidatorError;
 
-    public ValidatorInfo(final Context mContext, final String package_name, final Boolean
-            verified, final Boolean commons) {
+    public ValidatorInfo(Context mContext,
+                         String package_name,
+                         Boolean verified,
+                         Boolean commons) {
         super();
         this.mContext = mContext;
         this.package_name = package_name;
@@ -46,7 +48,7 @@ public class ValidatorInfo {
         return this.mValidatorError;
     }
 
-    public void setPackageError(final ValidatorError validatorError) {
+    public void setPackageError(ValidatorError validatorError) {
         this.mValidatorError = validatorError;
     }
 
@@ -62,7 +64,7 @@ public class ValidatorInfo {
         return this.mDrawable;
     }
 
-    public void setDrawable(final Drawable drawable) {
+    public void setDrawable(Drawable drawable) {
         this.mDrawable = drawable;
     }
 

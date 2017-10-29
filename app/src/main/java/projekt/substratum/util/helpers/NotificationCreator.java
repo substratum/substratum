@@ -28,25 +28,25 @@ import projekt.substratum.common.References;
 
 public class NotificationCreator {
 
-    private final Context mContext;
-    private final String content_title;
-    private final String content_text;
-    private final Boolean auto_cancel;
-    private final PendingIntent intent;
-    private final int small_icon;
-    private final Bitmap big_icon;
-    private final int notification_priority;
-    private final int invoke_id;
+    private Context mContext;
+    private String content_title;
+    private String content_text;
+    private Boolean auto_cancel;
+    private PendingIntent intent;
+    private int small_icon;
+    private Bitmap big_icon;
+    private int notification_priority;
+    private int invoke_id;
 
-    public NotificationCreator(final Context context,
-                               final String content_title,
-                               final String content_text,
-                               final Boolean auto_cancel,
-                               final PendingIntent intent,
-                               final int small_icon,
-                               final Bitmap big_icon,
-                               final int notification_priority,
-                               final int invoke_id) {
+    public NotificationCreator(Context context,
+                               String content_title,
+                               String content_text,
+                               Boolean auto_cancel,
+                               PendingIntent intent,
+                               int small_icon,
+                               Bitmap big_icon,
+                               int notification_priority,
+                               int invoke_id) {
         super();
         this.mContext = context;
         this.content_title = content_title;
@@ -62,25 +62,25 @@ public class NotificationCreator {
     @SuppressWarnings("UnusedReturnValue")
     public boolean createNotification() {
         try {
-            final NotificationManager mNotifyManager = (NotificationManager) this.mContext
+            NotificationManager mNotifyManager = (NotificationManager) mContext
                     .getSystemService(Context.NOTIFICATION_SERVICE);
-            final NotificationCompat.Builder mBuilder = new
-                    NotificationCompat.Builder(this.mContext, References
-                    .DEFAULT_NOTIFICATION_CHANNEL_ID);
+            NotificationCompat.Builder mBuilder = new
+                    NotificationCompat.Builder(mContext,
+                    References.DEFAULT_NOTIFICATION_CHANNEL_ID);
 
-            if (this.content_title != null) mBuilder.setContentTitle(this.content_title);
-            if (this.content_text != null) mBuilder.setContentText(this.content_text);
-            if (this.auto_cancel != null) mBuilder.setAutoCancel(this.auto_cancel);
-            if (this.intent != null) mBuilder.setContentIntent(this.intent);
-            if (this.small_icon != 0) mBuilder.setSmallIcon(this.small_icon);
-            if (this.big_icon != null) mBuilder.setLargeIcon(this.big_icon);
+            if (content_title != null) mBuilder.setContentTitle(content_title);
+            if (content_text != null) mBuilder.setContentText(content_text);
+            if (auto_cancel != null) mBuilder.setAutoCancel(auto_cancel);
+            if (intent != null) mBuilder.setContentIntent(intent);
+            if (small_icon != 0) mBuilder.setSmallIcon(small_icon);
+            if (big_icon != null) mBuilder.setLargeIcon(big_icon);
 
-            mBuilder.setPriority(this.notification_priority);
+            mBuilder.setPriority(notification_priority);
             if (mNotifyManager != null) {
-                mNotifyManager.notify(this.invoke_id, mBuilder.build());
+                mNotifyManager.notify(invoke_id, mBuilder.build());
             }
             return true;
-        } catch (final Exception e) {
+        } catch (Exception e) {
             // Suppress warning
         }
         return false;

@@ -26,68 +26,113 @@ import projekt.substratum.services.binder.AndromedaBinderService;
 public enum AndromedaService {
     ;
 
+    /**
+     * Obtain the current binded Andromeda interface
+     *
+     * @return The interface
+     */
     private static IAndromedaInterface getAndromedaInterface() {
         return AndromedaBinderService.getAndromedaInterface();
     }
 
+    /**
+     * Check whether the Andromeda server is running
+     *
+     * @return True, if yes
+     */
     public static boolean checkServerActivity() {
         try {
             return getAndromedaInterface().checkServerActivity();
-        } catch (final Exception e) {
+        } catch (Exception e) {
             // Suppressed exception
         }
         return false;
     }
 
-    static boolean enableOverlays(final List<String> overlays) {
+    /**
+     * Enable a list of overlays
+     *
+     * @param overlays List of overlays
+     * @return True, if succeeded.
+     */
+    static boolean enableOverlays(List<String> overlays) {
         try {
             return getAndromedaInterface().enableOverlay(overlays);
-        } catch (final Exception e) {
+        } catch (Exception e) {
             // Suppressed exception
         }
         return false;
     }
 
-    static boolean disableOverlays(final List<String> overlays) {
+    /**
+     * Disable a list of overlays
+     *
+     * @param overlays List of overlays
+     * @return True, if succeeded.
+     */
+    static boolean disableOverlays(List<String> overlays) {
         try {
             return getAndromedaInterface().disableOverlay(overlays);
-        } catch (final Exception e) {
+        } catch (Exception e) {
             // Suppressed exception
         }
         return false;
     }
 
+    /**
+     * List all overlays
+     *
+     * @return True, if succeeded.
+     */
     public static boolean listOverlays() {
         try {
             return getAndromedaInterface().listOverlays();
-        } catch (final Exception e) {
+        } catch (Exception e) {
             // Suppressed exception
         }
         return false;
     }
 
-    static boolean installOverlays(final List<String> overlays) {
+    /**
+     * Install a list of overlays
+     *
+     * @param overlays List of overlays
+     * @return True, if succeeded.
+     */
+    static boolean installOverlays(List<String> overlays) {
         try {
             return getAndromedaInterface().installPackage(overlays);
-        } catch (final Exception e) {
+        } catch (Exception e) {
             // Suppressed exception
         }
         return false;
     }
 
-    static boolean uninstallOverlays(final List<String> overlays) {
+    /**
+     * Uninstall a list of overlays
+     *
+     * @param overlays List of overlays
+     * @return True, if succeeded.
+     */
+    static boolean uninstallOverlays(List<String> overlays) {
         try {
             return getAndromedaInterface().uninstallPackage(overlays);
-        } catch (final Exception e) {
+        } catch (Exception e) {
             // Suppressed exception
         }
         return false;
     }
 
-    static boolean setPriority(final List<String> overlays) {
+    /**
+     * Change priority of the overlays
+     *
+     * @param overlays List of overlays
+     * @return True, if succeeded.
+     */
+    static boolean setPriority(List<String> overlays) {
         try {
             return getAndromedaInterface().changePriority(overlays);
-        } catch (final Exception e) {
+        } catch (Exception e) {
             // Suppressed exception
         }
         return false;

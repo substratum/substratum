@@ -58,117 +58,117 @@ public class OverlayFound extends BroadcastReceiver {
 
     @SuppressWarnings("ConstantConditions")
     @Override
-    public void onReceive(final Context context, final Intent intent) {
+    public void onReceive(Context context, Intent intent) {
         if (PACKAGE_ADDED.equals(intent.getAction())) {
-            this.package_name = intent.getData().toString().substring(8);
+            package_name = intent.getData().toString().substring(8);
             this.context = context;
 
-            if (ThemeManager.isOverlay(context, this.package_name)) {
+            if (ThemeManager.isOverlay(context, package_name)) {
                 return;
             }
 
-            if (this.package_name.equals(SST_ADDON_PACKAGE) ||
-                    this.package_name.equals(ANDROMEDA_PACKAGE)) {
-                final SharedPreferences prefs =
+            if (package_name.equals(SST_ADDON_PACKAGE) ||
+                    package_name.equals(ANDROMEDA_PACKAGE)) {
+                SharedPreferences prefs =
                         context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
                 prefs.edit().clear().apply();
                 Broadcasts.sendKillMessage(context);
             }
 
-            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            final Boolean to_update = prefs.getBoolean("overlay_alert", false);
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            Boolean to_update = prefs.getBoolean("overlay_alert", false);
             if (!to_update) return;
 
             // When the package is being updated, continue.
-            final Boolean replacing = intent.getBooleanExtra(Intent.EXTRA_REPLACING, false);
+            Boolean replacing = intent.getBooleanExtra(Intent.EXTRA_REPLACING, false);
             if (!replacing) new OverlayUpdate(this).execute("");
         }
     }
 
     private static class OverlayUpdate extends AsyncTask<String, Integer, String> {
 
-        private final WeakReference<OverlayFound> ref;
+        private WeakReference<OverlayFound> ref;
         private NotificationManager mNotifyManager;
         private NotificationCompat.Builder mBuilder;
         private List<ResolveInfo> installed_themes;
         private List<String> matching_criteria;
 
-        OverlayUpdate(final OverlayFound overlayFound) {
+        OverlayUpdate(OverlayFound overlayFound) {
             super();
-            this.ref = new WeakReference<>(overlayFound);
+            ref = new WeakReference<>(overlayFound);
         }
 
         @Override
         protected void onPreExecute() {
-            final OverlayFound overlayFound = this.ref.get();
+            OverlayFound overlayFound = ref.get();
             if (overlayFound != null) {
-                this.mNotifyManager = (NotificationManager) overlayFound.context.getSystemService(
+                mNotifyManager = (NotificationManager) overlayFound.context.getSystemService(
                         Context.NOTIFICATION_SERVICE);
-                this.installed_themes = Packages.getThemes(overlayFound.context);
+                installed_themes = Packages.getThemes(overlayFound.context);
             }
         }
 
         @Override
-        protected void onPostExecute(final String result) {
-            if (!this.matching_criteria.isEmpty()) {
-                for (int i = 0; i < this.matching_criteria.size(); i++) {
-                    this.bundleNotifications(this.matching_criteria.get(i));
+        protected void onPostExecute(String result) {
+            if (!matching_criteria.isEmpty()) {
+                for (int i = 0; i < matching_criteria.size(); i++) {
+                    bundleNotifications(matching_criteria.get(i));
                 }
             }
         }
 
         @SuppressWarnings("deprecation")
-        void bundleNotifications(final String theme_package) {
-            final OverlayFound overlayFound = this.ref.get();
+        void bundleNotifications(String theme_package) {
+            OverlayFound overlayFound = ref.get();
             if (overlayFound != null) {
-                this.mBuilder = new NotificationCompat.Builder(overlayFound.context);
-                this.mBuilder.setAutoCancel(true);
-                this.mBuilder.setOngoing(false);
-                this.mBuilder.setSmallIcon(R.drawable.notification_overlay_found);
-                this.mBuilder.setLargeIcon(((BitmapDrawable)
+                mBuilder = new NotificationCompat.Builder(overlayFound.context);
+                mBuilder.setAutoCancel(true);
+                mBuilder.setOngoing(false);
+                mBuilder.setSmallIcon(R.drawable.notification_overlay_found);
+                mBuilder.setLargeIcon(((BitmapDrawable)
                         Packages.getAppIcon(overlayFound.context, theme_package)).getBitmap());
 
-                final Intent notificationIntent = Theming.themeIntent(
+                Intent notificationIntent = Theming.themeIntent(
                         overlayFound.context, theme_package, null,
                         References.TEMPLATE_THEME_MODE);
-                final PendingIntent contentIntent = PendingIntent.getActivity(
+                PendingIntent contentIntent = PendingIntent.getActivity(
                         overlayFound.context,
                         (int) System.currentTimeMillis(),
                         notificationIntent,
                         PendingIntent.FLAG_UPDATE_CURRENT);
-                this.mBuilder.setContentIntent(contentIntent);
+                mBuilder.setContentIntent(contentIntent);
 
-                final String format = String.format(
+                String format = String.format(
                         overlayFound.context.getString(
                                 R.string.notification_overlay_found_specific),
                         Packages.getPackageName(overlayFound.context, overlayFound.package_name),
                         Packages.getPackageName(overlayFound.context, theme_package));
-                this.mBuilder.setContentTitle(format);
-                this.mBuilder.setContentText(
+                mBuilder.setContentTitle(format);
+                mBuilder.setContentText(
                         overlayFound.context.getString(
                                 R.string.notification_overlay_found_description));
-                this.mNotifyManager.notify(
-                        ThreadLocalRandom.current().nextInt(0, 100 + 1), this.mBuilder.build());
+                mNotifyManager.notify(
+                        ThreadLocalRandom.current().nextInt(0, 100 + 1), mBuilder.build());
             }
         }
 
         @Override
-        protected String doInBackground(final String... sUrl) {
-            final OverlayFound overlayFound = this.ref.get();
+        protected String doInBackground(String... sUrl) {
+            OverlayFound overlayFound = ref.get();
             if (overlayFound != null) {
-                this.matching_criteria = new ArrayList<>();
-                for (int i = 0; i < this.installed_themes.size(); i++) {
-                    final String theme_pid = this.installed_themes.get(i).activityInfo.packageName;
+                matching_criteria = new ArrayList<>();
+                for (int i = 0; i < installed_themes.size(); i++) {
+                    String theme_pid = installed_themes.get(i).activityInfo.packageName;
                     Log.d(TAG, "Searching theme for themable overlay: " + theme_pid);
                     try {
-                        final Resources themeResources = overlayFound.context.getPackageManager()
+                        Resources themeResources = overlayFound.context.getPackageManager()
                                 .getResourcesForApplication(theme_pid);
-                        final AssetManager themeAssetManager = themeResources.getAssets();
-                        final String[] listArray = themeAssetManager.list("overlays");
-                        final List<String> list = Arrays.asList(listArray);
+                        AssetManager themeAssetManager = themeResources.getAssets();
+                        String[] listArray = themeAssetManager.list("overlays");
+                        List<String> list = Arrays.asList(listArray);
                         if (list.contains(overlayFound.package_name))
-                            this.matching_criteria.add(theme_pid);
-                    } catch (final Exception e) {
+                            matching_criteria.add(theme_pid);
+                    } catch (Exception e) {
                         // Suppress exception
                     }
                 }

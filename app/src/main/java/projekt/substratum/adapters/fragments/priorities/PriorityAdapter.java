@@ -39,61 +39,76 @@ import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 
 import static android.text.Html.FROM_HTML_MODE_LEGACY;
+import static projekt.substratum.common.References.metadataOverlayDevice;
+import static projekt.substratum.common.Resources.LG_FRAMEWORK;
+import static projekt.substratum.common.Resources.SAMSUNG_FRAMEWORK;
+import static projekt.substratum.common.Resources.SETTINGS_ICONS;
+import static projekt.substratum.common.Resources.SYSTEMUI_HEADERS;
+import static projekt.substratum.common.Resources.SYSTEMUI_NAVBARS;
+import static projekt.substratum.common.Resources.SYSTEMUI_QSTILES;
+import static projekt.substratum.common.Resources.SYSTEMUI_STATUSBARS;
 
 public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, GestureViewHolder> {
 
-    private final Context mContext;
-    private final int mItemResId;
+    private Context mContext;
+    private int mItemResId;
 
-    public PriorityAdapter(final Context context, @LayoutRes final int itemResId) {
+    public PriorityAdapter(Context context,
+                           @LayoutRes int itemResId) {
         super();
-        this.mContext = context;
-        this.mItemResId = itemResId;
+        mContext = context;
+        mItemResId = itemResId;
     }
 
     @Override
-    public GestureViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+    public GestureViewHolder onCreateViewHolder(ViewGroup parent,
+                                                int viewType) {
         if (viewType == PrioritiesInterface.PrioritiesItemType.CONTENT.ordinal()) {
-            final View itemView = LayoutInflater.from(
-                    parent.getContext()).inflate(this.mItemResId, parent, false);
+            View itemView = LayoutInflater.from(
+                    parent.getContext()).inflate(mItemResId, parent, false);
             return new PriorityObjectAdapter(itemView);
         } else {
-            final View itemView = LayoutInflater.from(
+            View itemView = LayoutInflater.from(
                     parent.getContext()).inflate(R.layout.priority_item, parent, false);
             return new HeaderViewAdapter(itemView);
         }
     }
 
     @Override
-    public void onBindViewHolder(final GestureViewHolder holder, final int position) {
+    public void onBindViewHolder(GestureViewHolder holder,
+                                 int position) {
         super.onBindViewHolder(holder, position);
-        final PrioritiesInterface prioritiesInterface = this.getData().get(position);
+        PrioritiesInterface prioritiesInterface = getData().get(position);
 
         if (prioritiesInterface.getType() == PrioritiesInterface.PrioritiesItemType.CONTENT) {
-            final PriorityObjectAdapter priorityObjectAdapter = (PriorityObjectAdapter) holder;
-            final PrioritiesItem prioritiesItem = (PrioritiesItem) prioritiesInterface;
+            PriorityObjectAdapter priorityObjectAdapter = (PriorityObjectAdapter) holder;
+            PrioritiesItem prioritiesItem = (PrioritiesItem) prioritiesInterface;
 
             try {
                 // Keep this value but do not display it to the user, instead, parse it
-                final ApplicationInfo applicationInfo = this.mContext.getPackageManager()
+                ApplicationInfo applicationInfo = mContext.getPackageManager()
                         .getApplicationInfo(prioritiesItem.getName(), PackageManager.GET_META_DATA);
-                final String packageTitle = this.mContext.getPackageManager()
+                String packageTitle = mContext.getPackageManager()
                         .getApplicationLabel(applicationInfo).toString();
-                final String targetPackage = Packages.getOverlayTarget(
-                        this.mContext, prioritiesItem.getName());
-                final String title;
-                if (packageTitle.startsWith("com.android.systemui.headers")) {
-                    title = this.mContext.getString(R.string.systemui_headers);
-                } else if (packageTitle.startsWith("com.android.systemui.navbars")) {
-                    title = this.mContext.getString(R.string.systemui_navigation);
-                } else if (packageTitle.startsWith("com.android.systemui.statusbars")) {
-                    title = this.mContext.getString(R.string.systemui_statusbar);
-                } else if (packageTitle.startsWith("com.android.systemui.tiles")) {
-                    title = this.mContext.getString(R.string.systemui_qs_tiles);
-                } else if (packageTitle.startsWith("com.android.settings.icons")) {
-                    title = this.mContext.getString(R.string.settings_icons);
+                String targetPackage = Packages.getOverlayTarget(
+                        mContext, prioritiesItem.getName());
+                String title;
+                if (packageTitle.startsWith(SYSTEMUI_HEADERS)) {
+                    title = mContext.getString(R.string.systemui_headers);
+                } else if (packageTitle.startsWith(SYSTEMUI_NAVBARS)) {
+                    title = mContext.getString(R.string.systemui_navigation);
+                } else if (packageTitle.startsWith(SYSTEMUI_STATUSBARS)) {
+                    title = mContext.getString(R.string.systemui_statusbar);
+                } else if (packageTitle.startsWith(SYSTEMUI_QSTILES)) {
+                    title = mContext.getString(R.string.systemui_qs_tiles);
+                } else if (packageTitle.startsWith(SETTINGS_ICONS)) {
+                    title = mContext.getString(R.string.settings_icons);
+                } else if (packageTitle.startsWith(SAMSUNG_FRAMEWORK)) {
+                    title = mContext.getString(R.string.samsung_framework);
+                } else if (packageTitle.startsWith(LG_FRAMEWORK)) {
+                    title = mContext.getString(R.string.lg_framework);
                 } else {
-                    title = Packages.getPackageName(this.mContext, targetPackage);
+                    title = Packages.getPackageName(mContext, targetPackage);
                 }
 
                 if ((title != null) && !title.isEmpty()) {
@@ -103,21 +118,20 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                 }
 
                 if (applicationInfo.metaData != null) {
-                    if (applicationInfo.metaData.getString("Substratum_Device") != null) {
-                        final int version = Packages.getOverlaySubstratumVersion(
-                                this.mContext,
-                                packageTitle,
-                                References.metadataOverlayVersion);
+                    if (applicationInfo.metaData.getString(metadataOverlayDevice) != null) {
+                        int version = Packages.getOverlaySubstratumVersion(
+                                mContext,
+                                packageTitle);
 
                         if (prioritiesItem.getType1a() == null) {
                             String metadata = Packages.getOverlayMetadata(
-                                    this.mContext,
+                                    mContext,
                                     packageTitle,
                                     References.metadataOverlayType1a);
                             if ((metadata != null) && !metadata.isEmpty()) {
                                 metadata = metadata.replace("_", " ");
-                                final String textView =
-                                        "<b>" + this.mContext.getString(R.string.manager_type1a) +
+                                String textView =
+                                        "<b>" + mContext.getString(R.string.manager_type1a) +
                                                 "</b> " + metadata;
                                 priorityObjectAdapter.type1a.setVisibility(View.VISIBLE);
                                 prioritiesItem.setType1a(textView);
@@ -135,13 +149,13 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
 
                         if (prioritiesItem.getType1b() == null) {
                             String metadata = Packages.getOverlayMetadata(
-                                    this.mContext,
+                                    mContext,
                                     packageTitle,
                                     References.metadataOverlayType1b);
                             if ((metadata != null) && !metadata.isEmpty()) {
                                 metadata = metadata.replace("_", " ");
-                                final String textView =
-                                        "<b>" + this.mContext.getString(R.string.manager_type1b) +
+                                String textView =
+                                        "<b>" + mContext.getString(R.string.manager_type1b) +
                                                 "</b> " + metadata;
                                 priorityObjectAdapter.type1b.setVisibility(View.VISIBLE);
                                 prioritiesItem.setType1b(textView);
@@ -159,13 +173,13 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
 
                         if (prioritiesItem.getType1c() == null) {
                             String metadata = Packages.getOverlayMetadata(
-                                    this.mContext,
+                                    mContext,
                                     packageTitle,
                                     References.metadataOverlayType1c);
                             if ((metadata != null) && !metadata.isEmpty()) {
                                 metadata = metadata.replace("_", " ");
-                                final String textView =
-                                        "<b>" + this.mContext.getString(R.string.manager_type1c) +
+                                String textView =
+                                        "<b>" + mContext.getString(R.string.manager_type1c) +
                                                 "</b> " + metadata;
                                 priorityObjectAdapter.type1c.setVisibility(View.VISIBLE);
                                 prioritiesItem.setType1c(textView);
@@ -182,13 +196,13 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
 
                         if (prioritiesItem.getType2() == null) {
                             String metadata = Packages.getOverlayMetadata(
-                                    this.mContext,
+                                    mContext,
                                     packageTitle,
                                     References.metadataOverlayType2);
                             if ((metadata != null) && !metadata.isEmpty()) {
                                 metadata = metadata.replace("_", " ");
-                                final String textView =
-                                        "<b>" + this.mContext.getString(R.string.manager_type2) +
+                                String textView =
+                                        "<b>" + mContext.getString(R.string.manager_type2) +
                                                 "</b> " + metadata;
                                 priorityObjectAdapter.type2.setVisibility(View.VISIBLE);
                                 prioritiesItem.setType2(textView);
@@ -205,13 +219,13 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
 
                         if (prioritiesItem.getType3() == null) {
                             String metadata = Packages.getOverlayMetadata(
-                                    this.mContext,
+                                    mContext,
                                     packageTitle,
                                     References.metadataOverlayType3);
                             if ((metadata != null) && !metadata.isEmpty()) {
                                 metadata = metadata.replace("_", " ");
-                                final String textView =
-                                        "<b>" + this.mContext.getString(R.string.manager_type3) +
+                                String textView =
+                                        "<b>" + mContext.getString(R.string.manager_type3) +
                                                 "</b> " + metadata;
                                 priorityObjectAdapter.type3.setVisibility(View.VISIBLE);
                                 prioritiesItem.setType3(textView);
@@ -228,17 +242,17 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                         }
 
                         if (prioritiesItem.getThemeName() == null) {
-                            final String metadata = Packages.getOverlayMetadata(
-                                    this.mContext,
+                            String metadata = Packages.getOverlayMetadata(
+                                    mContext,
                                     packageTitle,
                                     References.metadataOverlayParent);
-                            final Boolean newUpdate = (version != 0) && (version <= BuildConfig
+                            Boolean newUpdate = (version != 0) && (version <= BuildConfig
                                     .VERSION_CODE);
                             if ((metadata != null) && !metadata.isEmpty() && newUpdate) {
-                                final String pName = "<b>" +
-                                        this.mContext.getString(R.string.manager_theme_name) +
+                                String pName = "<b>" +
+                                        mContext.getString(R.string.manager_theme_name) +
                                         "</b> " +
-                                        Packages.getPackageName(this.mContext, metadata);
+                                        Packages.getPackageName(mContext, metadata);
                                 priorityObjectAdapter.tvDesc.setVisibility(View.VISIBLE);
                                 prioritiesItem.setThemeName(pName);
                                 priorityObjectAdapter.tvDesc.setText(Html.fromHtml(pName,
@@ -264,33 +278,33 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                 }
 
                 priorityObjectAdapter.mAppIcon.setImageDrawable(prioritiesItem.getDrawableId());
-            } catch (final Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 // Suppress warning
             }
         } else {
-            final HeaderViewAdapter headerViewAdapter = (HeaderViewAdapter) holder;
-            final PrioritiesHeader prioritiesHeader = (PrioritiesHeader) prioritiesInterface;
+            HeaderViewAdapter headerViewAdapter = (HeaderViewAdapter) holder;
+            PrioritiesHeader prioritiesHeader = (PrioritiesHeader) prioritiesInterface;
             headerViewAdapter.mHeaderText.setText(prioritiesHeader.getName());
         }
     }
 
     @Override
-    public int getItemViewType(final int position) {
-        return this.getData().get(position).getType().ordinal();
+    public int getItemViewType(int position) {
+        return getData().get(position).getType().ordinal();
     }
 
     private static class PrioritiesHeader implements PrioritiesInterface {
 
-        private final String mName;
+        private String mName;
 
-        public PrioritiesHeader(final String name) {
+        public PrioritiesHeader(String name) {
             super();
-            this.mName = name;
+            mName = name;
         }
 
         public CharSequence getName() {
-            return this.mName;
+            return mName;
         }
 
         @Override
@@ -301,18 +315,18 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
 
     private static class PriorityObjectAdapter extends GestureViewHolder {
 
-        final TextView mCardText;
-        final ImageView mAppIcon;
-        final TextView tvDesc;
-        final TextView type1a;
-        final TextView type1b;
-        final TextView type1c;
-        final TextView type2;
-        final TextView type3;
-        final View view;
-        private final ImageView mItemDrag;
+        TextView mCardText;
+        ImageView mAppIcon;
+        TextView tvDesc;
+        TextView type1a;
+        TextView type1b;
+        TextView type1c;
+        TextView type2;
+        TextView type3;
+        View view;
+        private ImageView mItemDrag;
 
-        PriorityObjectAdapter(final View view) {
+        PriorityObjectAdapter(View view) {
             super(view);
             this.view = view;
             this.mCardText = view.findViewById(R.id.card_text);
@@ -329,7 +343,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
         @Nullable
         @Override
         public View getDraggableView() {
-            return this.mItemDrag;
+            return mItemDrag;
         }
 
         @Override
@@ -345,11 +359,11 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
 
     private static class HeaderViewAdapter extends GestureViewHolder {
 
-        final TextView mHeaderText;
+        TextView mHeaderText;
 
-        HeaderViewAdapter(final View view) {
+        HeaderViewAdapter(View view) {
             super(view);
-            this.mHeaderText = view.findViewById(R.id.header_text);
+            mHeaderText = view.findViewById(R.id.header_text);
         }
 
         @Override

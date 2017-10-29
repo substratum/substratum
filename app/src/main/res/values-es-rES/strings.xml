@@ -406,8 +406,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">ADVERTENCIA</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Nos escondimos superposiciones peligroso por una razón, pero si estás seguro de que desea esta habilitado, por favor siga las instrucciones para desactivar en nuestro hilo XDA!</string>
     <string name="settings_crash_receiver_text">Desactivar automáticamente una capa al detectar cierres repetitivos en la aplicación superpuesta.</string>
-    <string name="settings_force_stop_interfacer_title">Forzar la detención del servicio de Interfacer</string>
-    <string name="settings_force_stop_interfacer_snackbar">Forzar la detención de Interfacer&#8230;</string>
     <string name="overlays_outdated">Capas desactualizadas</string>
     <string name="overlays_outdated_message">De la versión 816 en adelante, nuestra firma para signar las capas cambió para prevenir posibles diferencias en la firma a lo largo del camino.\n\nEsto significa que las capas instaladas deben ser limpiadas para instalar nuevas actualizaciones a su tema o de lo contrario tendrá un mensaje permanente indicando que sus capas requieren actualización.\n\nEste mensaje no aparecerá cuando las capas sean compiladas utilizando el nuevo Substratum.</string>
     <string name="root_required_title">Se requiere root</string>

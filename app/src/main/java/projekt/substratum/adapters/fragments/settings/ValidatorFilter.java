@@ -21,10 +21,10 @@ package projekt.substratum.adapters.fragments.settings;
 import java.util.List;
 
 public class ValidatorFilter {
-    private final String packageName;
+    private String packageName;
     private List<String> filter;
 
-    public ValidatorFilter(final String packageName) {
+    public ValidatorFilter(String packageName) {
         super();
         this.packageName = packageName;
     }
@@ -33,7 +33,7 @@ public class ValidatorFilter {
         return this.filter;
     }
 
-    public void setFilter(final List<String> filter) {
+    public void setFilter(List<String> filter) {
         this.filter = filter;
     }
 

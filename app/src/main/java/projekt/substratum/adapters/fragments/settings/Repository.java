@@ -19,13 +19,13 @@
 package projekt.substratum.adapters.fragments.settings;
 
 public class Repository {
-    private final String packageName;
+    private String packageName;
     private String bools;
     private String colors;
     private String dimens;
     private String styles;
 
-    public Repository(final String packageName) {
+    public Repository(String packageName) {
         super();
         this.packageName = packageName;
     }
@@ -38,7 +38,7 @@ public class Repository {
         return this.bools;
     }
 
-    public void setBools(final String bools) {
+    public void setBools(String bools) {
         this.bools = bools;
     }
 
@@ -46,7 +46,7 @@ public class Repository {
         return this.colors;
     }
 
-    public void setColors(final String colors) {
+    public void setColors(String colors) {
         this.colors = colors;
     }
 
@@ -54,7 +54,7 @@ public class Repository {
         return this.dimens;
     }
 
-    public void setDimens(final String dimens) {
+    public void setDimens(String dimens) {
         this.dimens = dimens;
     }
 
@@ -62,7 +62,7 @@ public class Repository {
         return this.styles;
     }
 
-    public void setStyles(final String styles) {
+    public void setStyles(String styles) {
         this.styles = styles;
     }
 }

@@ -28,9 +28,17 @@ import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 
+import static projekt.substratum.common.Resources.LG_FRAMEWORK;
+import static projekt.substratum.common.Resources.SAMSUNG_FRAMEWORK;
+import static projekt.substratum.common.Resources.SETTINGS_ICONS;
+import static projekt.substratum.common.Resources.SYSTEMUI_HEADERS;
+import static projekt.substratum.common.Resources.SYSTEMUI_NAVBARS;
+import static projekt.substratum.common.Resources.SYSTEMUI_QSTILES;
+import static projekt.substratum.common.Resources.SYSTEMUI_STATUSBARS;
+
 public class ManagerItem implements Serializable {
 
-    private final Context mContext;
+    private Context mContext;
     private String name;
     private String type1a;
     private String type1b;
@@ -45,18 +53,19 @@ public class ManagerItem implements Serializable {
     private Drawable mDrawable;
     private Drawable mTargetDrawable;
 
-    public ManagerItem(final Context context, final String name, final boolean isActivated) {
+    public ManagerItem(Context context,
+                       String name,
+                       Boolean isActivated) {
         super();
         this.mContext = context;
         this.name = name;
         this.isSelected = false;
 
-        final int version = Packages.getOverlaySubstratumVersion(
+        int version = Packages.getOverlaySubstratumVersion(
                 context,
-                this.name,
-                References.metadataOverlayVersion);
-        final Boolean newUpdate = (version != 0) && (version <= BuildConfig.VERSION_CODE);
-        final String metadata = Packages.getOverlayMetadata(
+                this.name);
+        Boolean newUpdate = (version != 0) && (version <= BuildConfig.VERSION_CODE);
+        String metadata = Packages.getOverlayMetadata(
                 context,
                 this.name,
                 References.metadataOverlayParent);
@@ -78,7 +87,7 @@ public class ManagerItem implements Serializable {
         return this.name;
     }
 
-    public void setName(final String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -86,7 +95,7 @@ public class ManagerItem implements Serializable {
         return this.isSelected;
     }
 
-    public void setSelected(final boolean isSelected) {
+    public void setSelected(boolean isSelected) {
         this.isSelected = isSelected;
     }
 
@@ -94,7 +103,7 @@ public class ManagerItem implements Serializable {
         return this.mContext;
     }
 
-    public void updateEnabledOverlays(final boolean isActivated) {
+    public void updateEnabledOverlays(boolean isActivated) {
         this.activationValue =
                 ((isActivated) ? this.mContext.getColor(R.color.overlay_installed_list_entry) :
                         this.mContext.getColor(R.color.overlay_not_enabled_list_entry));
@@ -104,7 +113,7 @@ public class ManagerItem implements Serializable {
         return this.type1a;
     }
 
-    public void setType1a(final String name) {
+    public void setType1a(String name) {
         this.type1a = name;
     }
 
@@ -112,7 +121,7 @@ public class ManagerItem implements Serializable {
         return this.type1b;
     }
 
-    public void setType1b(final String name) {
+    public void setType1b(String name) {
         this.type1b = name;
     }
 
@@ -120,7 +129,7 @@ public class ManagerItem implements Serializable {
         return this.type1c;
     }
 
-    public void setType1c(final String name) {
+    public void setType1c(String name) {
         this.type1c = name;
     }
 
@@ -128,7 +137,7 @@ public class ManagerItem implements Serializable {
         return this.type2;
     }
 
-    public void setType2(final String name) {
+    public void setType2(String name) {
         this.type2 = name;
     }
 
@@ -136,7 +145,7 @@ public class ManagerItem implements Serializable {
         return this.type3;
     }
 
-    public void setType3(final String name) {
+    public void setType3(String name) {
         this.type3 = name;
     }
 
@@ -144,7 +153,7 @@ public class ManagerItem implements Serializable {
         return this.type4;
     }
 
-    public void setType4(final String name) {
+    public void setType4(String name) {
         this.type4 = name;
     }
 
@@ -155,7 +164,7 @@ public class ManagerItem implements Serializable {
         return this.themeName;
     }
 
-    public void setThemeName(final String name) {
+    public void setThemeName(String name) {
         this.themeName = name;
     }
 
@@ -166,19 +175,23 @@ public class ManagerItem implements Serializable {
         return this.labelName;
     }
 
-    private void setLabelName(final Context context) {
-        final String packageName = this.name;
-        final String targetPackage = Packages.getOverlayTarget(context, packageName);
-        if (packageName.startsWith("com.android.systemui.headers")) {
+    private void setLabelName(Context context) {
+        String packageName = this.name;
+        String targetPackage = Packages.getOverlayTarget(context, packageName);
+        if (packageName.startsWith(SYSTEMUI_HEADERS)) {
             this.labelName = context.getString(R.string.systemui_headers);
-        } else if (packageName.startsWith("com.android.systemui.navbars")) {
+        } else if (packageName.startsWith(SYSTEMUI_NAVBARS)) {
             this.labelName = context.getString(R.string.systemui_navigation);
-        } else if (packageName.startsWith("com.android.systemui.statusbars")) {
+        } else if (packageName.startsWith(SYSTEMUI_STATUSBARS)) {
             this.labelName = context.getString(R.string.systemui_statusbar);
-        } else if (packageName.startsWith("com.android.systemui.tiles")) {
+        } else if (packageName.startsWith(SYSTEMUI_QSTILES)) {
             this.labelName = context.getString(R.string.systemui_qs_tiles);
-        } else if (packageName.startsWith("com.android.settings.icons")) {
+        } else if (packageName.startsWith(SETTINGS_ICONS)) {
             this.labelName = context.getString(R.string.settings_icons);
+        } else if (packageName.startsWith(SAMSUNG_FRAMEWORK)) {
+            this.labelName = context.getString(R.string.samsung_framework);
+        } else if (packageName.startsWith(LG_FRAMEWORK)) {
+            this.labelName = context.getString(R.string.lg_framework);
         } else {
             this.labelName = Packages.getPackageName(context, targetPackage);
         }
@@ -188,7 +201,7 @@ public class ManagerItem implements Serializable {
         return this.mDrawable;
     }
 
-    public void setDrawable(final Drawable drawable) {
+    public void setDrawable(Drawable drawable) {
         this.mDrawable = drawable;
     }
 
@@ -196,7 +209,7 @@ public class ManagerItem implements Serializable {
         return this.mTargetDrawable;
     }
 
-    void setTargetDrawable(final Drawable drawable) {
+    void setTargetDrawable(Drawable drawable) {
         this.mTargetDrawable = drawable;
     }
 }

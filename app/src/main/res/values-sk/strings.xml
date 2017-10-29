@@ -454,8 +454,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="settings_samsung_show_dangerous_overlays_warning">Skryli sme nebezpečné prekrytia z nejakého dôvodu, ale ak ste si istí, že chcete, aby to boli povolené, postupujte podľa pokynov v našom vlákne XDA a vypnite ich skrytie!</string>
     <string name="settings_crash_receiver_title">Ošetrenie pádov pri aplikovaní témy</string>
     <string name="settings_crash_receiver_text">Automaticky vypnúť prekrytie pri opakovanom zlyhaní pokusu o prekrytie aplikácie.</string>
-    <string name="settings_force_stop_interfacer_title">Vynútené zastavenie služby Interfacer</string>
-    <string name="settings_force_stop_interfacer_snackbar">Interfacer sa vynútene zastavuje&#8230;</string>
     <string name="overlays_outdated">Prekrytia sú zastarané</string>
     <string name="overlays_outdated_message">Od verzie 816 a neskorších sa zmenil náš podpis na podpisovanie prekryvných súborov, aby sa zabránilo možnému
  nesúladu s podpismi na ceste.\n\nTo znamená, že vaše nainštalované prekrytia musia byť upratané tak, aby sa mohli inštalovať nové aktualizácie tém alebo sa povedie, že vaše prekrytie vyžaduje aktualizáciu navždy!\n\nTáto správa sa nezobrazí, keď sú všetky prekrytia skompilované pomocou najnovšieho Substratum.</string>

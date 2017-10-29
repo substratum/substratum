@@ -32,6 +32,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
@@ -63,30 +64,51 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import javax.crypto.Cipher;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import projekt.substratum.R;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
-import projekt.substratum.common.tabs.FontManager;
 import projekt.substratum.util.tabs.FontUtils;
+
+import static projekt.substratum.common.Internal.BOLD_FONT;
+import static projekt.substratum.common.Internal.BOLD_ITALICS_FONT;
+import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;
+import static projekt.substratum.common.Internal.ENCRYPTED_FILE_EXTENSION;
+import static projekt.substratum.common.Internal.FONTS_APPLIED;
+import static projekt.substratum.common.Internal.FONT_CACHE;
+import static projekt.substratum.common.Internal.FONT_PREVIEW_CACHE;
+import static projekt.substratum.common.Internal.ITALICS_FONT;
+import static projekt.substratum.common.Internal.NORMAL_FONT;
+import static projekt.substratum.common.Internal.START_JOB_ACTION;
+import static projekt.substratum.common.Internal.THEME_PID;
 
 public class Fonts extends Fragment {
 
     private static final String fontsDir = "fonts";
     private static final String TAG = "FontUtils";
     private static final Boolean encrypted = false;
+    @BindView(R.id.text_normal)
+    TextView normal;
+    @BindView(R.id.text_bold)
+    TextView normal_bold;
+    @BindView(R.id.text_normal_italics)
+    TextView italics;
+    @BindView(R.id.text_normal_bold_italics)
+    TextView italics_bold;
+    @BindView(R.id.progress_bar_loader)
+    ProgressBar progressBar;
+    @BindView(R.id.restore_to_default)
+    RelativeLayout defaults;
+    @BindView(R.id.font_holder)
+    RelativeLayout font_holder;
+    @BindView(R.id.font_placeholder)
+    RelativeLayout font_placeholder;
+    @BindView(R.id.fontSelection)
+    Spinner fontSelector;
     private String theme_pid;
-    private ViewGroup root;
-    private ProgressBar progressBar;
-    private Spinner fontSelector;
-    private RelativeLayout font_holder;
-    private RelativeLayout font_placeholder;
-    private RelativeLayout defaults;
     private ProgressDialog mProgressDialog;
     private SharedPreferences prefs;
     private AsyncTask current;
@@ -95,7 +117,6 @@ public class Fonts extends Fragment {
     private JobReceiver jobReceiver;
     private LocalBroadcastManager localBroadcastManager;
     private Context mContext;
-    private Cipher cipher;
 
     private Fonts getInstance() {
         return this;
@@ -103,91 +124,77 @@ public class Fonts extends Fragment {
 
     @Override
     public View onCreateView(
-            final LayoutInflater inflater,
+            @NonNull final LayoutInflater inflater,
             final ViewGroup container,
             final Bundle savedInstanceState) {
-        this.mContext = this.getContext();
-        this.theme_pid = this.getArguments().getString("theme_pid");
-        final byte[] encryption_key = this.getArguments().getByteArray("encryption_key");
-        final byte[] iv_encrypt_key = this.getArguments().getByteArray("iv_encrypt_key");
+        mContext = getContext();
+        View view = inflater.inflate(R.layout.tab_fonts, container, false);
+        ButterKnife.bind(this, view);
 
-        // encrypted = encryption_key != null && iv_encrypt_key != null;
-
-        if (encrypted) {
-            try {
-                this.cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-                this.cipher.init(
-                        Cipher.DECRYPT_MODE,
-                        new SecretKeySpec(encryption_key, "AES"),
-                        new IvParameterSpec(iv_encrypt_key)
-                );
-            } catch (final Exception e) {
-                e.printStackTrace();
-            }
+        if (getArguments() != null) {
+            theme_pid = getArguments().getString(THEME_PID);
+        } else {
+            // At this point, the tab has been incorrectly loaded
+            return null;
         }
 
-        this.root = (ViewGroup) inflater.inflate(R.layout.tab_fonts, container, false);
-        this.progressBar = this.root.findViewById(R.id.progress_bar_loader);
-        this.defaults = this.root.findViewById(R.id.restore_to_default);
-        this.font_holder = this.root.findViewById(R.id.font_holder);
-        this.font_placeholder = this.root.findViewById(R.id.font_placeholder);
-        this.prefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
+        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 
         try {
             // Parses the list of items in the fonts folder
-            final Resources themeResources = this.mContext.getPackageManager()
-                    .getResourcesForApplication(this.theme_pid);
-            this.themeAssetManager = themeResources.getAssets();
-            final String[] fileArray = this.themeAssetManager.list(fontsDir);
+            final Resources themeResources = mContext.getPackageManager()
+                    .getResourcesForApplication(theme_pid);
+            themeAssetManager = themeResources.getAssets();
+            final String[] fileArray = themeAssetManager.list(fontsDir);
             final List<String> unparsedFonts = new ArrayList<>();
             Collections.addAll(unparsedFonts, fileArray);
 
             // Creates the list of dropdown items
             final ArrayList<String> fonts = new ArrayList<>();
-            fonts.add(this.getString(R.string.font_default_spinner));
-            fonts.add(this.getString(R.string.font_spinner_set_defaults));
+            fonts.add(getString(R.string.font_default_spinner));
+            fonts.add(getString(R.string.font_spinner_set_defaults));
             for (int i = 0; i < unparsedFonts.size(); i++) {
                 fonts.add(unparsedFonts.get(i).substring(0,
                         unparsedFonts.get(i).length() - (encrypted ? 8 : 4)));
             }
 
-            final SpinnerAdapter adapter1 = new ArrayAdapter<>(this.getActivity(),
+            assert getActivity() != null;
+            final SpinnerAdapter adapter1 = new ArrayAdapter<>(getActivity(),
                     android.R.layout.simple_spinner_dropdown_item, fonts);
-            this.fontSelector = this.root.findViewById(R.id.fontSelection);
-            this.fontSelector.setAdapter(adapter1);
-            this.fontSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            fontSelector.setAdapter(adapter1);
+            fontSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
                 @Override
                 public void onItemSelected(final AdapterView<?> arg0, final View arg1,
                                            final int pos, final long id) {
                     switch (pos) {
                         case 0:
-                            if (Fonts.this.current != null)
-                                Fonts.this.current.cancel(true);
-                            Fonts.this.font_placeholder.setVisibility(View.VISIBLE);
-                            Fonts.this.defaults.setVisibility(View.GONE);
-                            Fonts.this.font_holder.setVisibility(View.GONE);
-                            Fonts.this.progressBar.setVisibility(View.GONE);
-                            Fonts.this.paused = true;
+                            if (current != null)
+                                current.cancel(true);
+                            font_placeholder.setVisibility(View.VISIBLE);
+                            defaults.setVisibility(View.GONE);
+                            font_holder.setVisibility(View.GONE);
+                            progressBar.setVisibility(View.GONE);
+                            paused = true;
                             break;
 
                         case 1:
-                            if (Fonts.this.current != null)
-                                Fonts.this.current.cancel(true);
-                            Fonts.this.defaults.setVisibility(View.VISIBLE);
-                            Fonts.this.font_placeholder.setVisibility(View.GONE);
-                            Fonts.this.font_holder.setVisibility(View.GONE);
-                            Fonts.this.progressBar.setVisibility(View.GONE);
-                            Fonts.this.paused = false;
+                            if (current != null)
+                                current.cancel(true);
+                            defaults.setVisibility(View.VISIBLE);
+                            font_placeholder.setVisibility(View.GONE);
+                            font_holder.setVisibility(View.GONE);
+                            progressBar.setVisibility(View.GONE);
+                            paused = false;
                             break;
 
                         default:
-                            if (Fonts.this.current != null)
-                                Fonts.this.current.cancel(true);
-                            Fonts.this.defaults.setVisibility(View.GONE);
-                            Fonts.this.font_placeholder.setVisibility(View.GONE);
+                            if (current != null)
+                                current.cancel(true);
+                            defaults.setVisibility(View.GONE);
+                            font_placeholder.setVisibility(View.GONE);
                             final String[] commands = {arg0.getSelectedItem().toString()};
-                            Fonts.this.current = new FontPreview(Fonts.this.getInstance())
+                            current = new FontPreview(getInstance())
                                     .execute(commands);
                     }
                 }
@@ -202,60 +209,68 @@ public class Fonts extends Fragment {
         }
 
         // Enable job listener
-        this.jobReceiver = new JobReceiver();
-        this.localBroadcastManager = LocalBroadcastManager.getInstance(this.mContext);
-        this.localBroadcastManager.registerReceiver(this.jobReceiver, new IntentFilter("Fonts" +
-                ".START_JOB"));
+        jobReceiver = new JobReceiver();
+        localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
+        localBroadcastManager.registerReceiver(jobReceiver,
+                new IntentFilter(getClass().getSimpleName() + START_JOB_ACTION));
 
-        return this.root;
+        return view;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         try {
-            this.localBroadcastManager.unregisterReceiver(this.jobReceiver);
+            localBroadcastManager.unregisterReceiver(jobReceiver);
         } catch (final IllegalArgumentException e) {
             // unregistered already
         }
     }
 
-
+    /**
+     * Apply the fonts
+     */
     private void startApply() {
-        if (!this.paused) {
-            if (Systems.checkThemeInterfacer(this.mContext) ||
-                    Settings.System.canWrite(this.mContext)) {
-                if (this.fontSelector.getSelectedItemPosition() == 1) {
+        if (!paused) {
+            if (Systems.checkThemeInterfacer(mContext) ||
+                    Settings.System.canWrite(mContext)) {
+                if (fontSelector.getSelectedItemPosition() == 1) {
                     new FontsClearer(this).execute("");
                 } else {
-                    new FontUtils().execute(this.fontSelector.getSelectedItem().toString(),
-                            this.mContext, this.theme_pid, this.cipher);
+                    new FontUtils().execute(
+                            fontSelector.getSelectedItem().toString(),
+                            mContext,
+                            theme_pid);
                 }
             } else {
                 final Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
-                intent.setData(Uri.parse("package:" + this.getActivity().getPackageName()));
+                assert getActivity() != null;
+                intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                this.startActivity(intent);
-                final Toast toast = Toast.makeText(this.mContext,
-                        this.getString(R.string.fonts_dialog_permissions_grant_toast2),
+                startActivity(intent);
+                final Toast toast = Toast.makeText(mContext,
+                        getString(R.string.fonts_dialog_permissions_grant_toast2),
                         Toast.LENGTH_LONG);
                 toast.show();
             }
         }
     }
 
+    /**
+     * Clears the currently applied fonts
+     */
     private static final class FontsClearer extends AsyncTask<String, Integer, String> {
 
         private final WeakReference<Fonts> ref;
 
         private FontsClearer(final Fonts fragment) {
             super();
-            this.ref = new WeakReference<>(fragment);
+            ref = new WeakReference<>(fragment);
         }
 
         @Override
         protected void onPreExecute() {
-            final Fonts fragment = this.ref.get();
+            final Fonts fragment = ref.get();
             if (fragment != null) {
                 final Context context = fragment.mContext;
                 if (References.ENABLE_EXTRAS_DIALOG) {
@@ -271,14 +286,14 @@ public class Fonts extends Fragment {
 
         @Override
         protected void onPostExecute(final String result) {
-            final Fonts fragment = this.ref.get();
+            final Fonts fragment = ref.get();
             if (fragment != null) {
                 final Context context = fragment.mContext;
                 if (References.ENABLE_EXTRAS_DIALOG) {
                     fragment.mProgressDialog.dismiss();
                 }
                 final SharedPreferences.Editor editor = fragment.prefs.edit();
-                editor.remove("fonts_applied");
+                editor.remove(FONTS_APPLIED);
                 editor.apply();
 
                 if (Systems.checkOMS(context)) {
@@ -310,29 +325,32 @@ public class Fonts extends Fragment {
 
         @Override
         protected String doInBackground(final String... sUrl) {
-            final Fonts fragment = this.ref.get();
+            final Fonts fragment = ref.get();
             if (fragment != null) {
                 final Context context = fragment.mContext;
-                FontManager.clearFonts(context);
+                FontsManager.clearFonts(context);
             }
             return null;
         }
     }
 
+    /**
+     * Load up the preview for the fonts
+     */
     private static class FontPreview extends AsyncTask<String, Integer, String> {
 
         private final WeakReference<Fonts> ref;
 
         FontPreview(final Fonts fonts) {
             super();
-            this.ref = new WeakReference<>(fonts);
+            ref = new WeakReference<>(fonts);
         }
 
         private static void unzip(final String source, final String destination) {
             try (ZipInputStream inputStream = new ZipInputStream(
                     new BufferedInputStream(new FileInputStream(source)))) {
                 ZipEntry zipEntry;
-                final byte[] buffer = new byte[8192];
+                final byte[] buffer = new byte[BYTE_ACCESS_RATE];
                 while ((zipEntry = inputStream.getNextEntry()) != null) {
                     final File file = new File(destination, zipEntry.getName());
                     final File dir = zipEntry.isDirectory() ? file : file.getParentFile();
@@ -356,7 +374,7 @@ public class Fonts extends Fragment {
 
         private static void CopyStream(final InputStream Input, final OutputStream Output) throws
                 IOException {
-            final byte[] buffer = new byte[5120];
+            final byte[] buffer = new byte[BYTE_ACCESS_RATE];
             int length = Input.read(buffer);
             while (length > 0) {
                 Output.write(buffer, 0, length);
@@ -366,7 +384,7 @@ public class Fonts extends Fragment {
 
         @Override
         protected void onPreExecute() {
-            final Fonts fonts = this.ref.get();
+            final Fonts fonts = ref.get();
             if (fonts != null) {
                 fonts.paused = true;
                 fonts.font_holder.setVisibility(View.INVISIBLE);
@@ -376,60 +394,52 @@ public class Fonts extends Fragment {
 
         @Override
         protected void onPostExecute(final String result) {
-            final Fonts fonts = this.ref.get();
+            final Fonts fonts = ref.get();
             if (fonts != null) {
                 try {
                     Log.d(TAG, "Fonts have been loaded on the drawing panel.");
 
-                    final String work_directory = fonts.mContext.getCacheDir().getAbsolutePath() +
-                            "/FontCache/font_preview/";
+                    final String work_directory =
+                            fonts.mContext.getCacheDir().getAbsolutePath() + FONT_PREVIEW_CACHE;
 
                     try {
-                        final Typeface normal_tf = Typeface.createFromFile(work_directory +
-                                "Roboto-Regular.ttf");
-                        final TextView normal = fonts.root.findViewById(R.id.text_normal);
-                        normal.setTypeface(normal_tf);
+                        final Typeface normal_tf = Typeface.createFromFile(
+                                work_directory + NORMAL_FONT);
+                        fonts.normal.setTypeface(normal_tf);
                     } catch (final Exception e) {
                         Log.e(TAG, "Could not load font from directory for normal template." +
                                 " Maybe it wasn't themed?");
                     }
 
                     try {
-                        final Typeface bold_tf = Typeface.createFromFile(work_directory +
-                                "Roboto-Black.ttf");
-
-                        final TextView normal_bold = fonts.root.findViewById(R.id.text_bold);
-                        normal_bold.setTypeface(bold_tf);
+                        final Typeface bold_tf = Typeface.createFromFile(
+                                work_directory + BOLD_FONT);
+                        fonts.normal_bold.setTypeface(bold_tf);
                     } catch (final Exception e) {
                         Log.e(TAG, "Could not load font from directory for normal-bold " +
                                 "template. Maybe it wasn't themed?");
                     }
 
                     try {
-                        final Typeface italics_tf = Typeface.createFromFile(work_directory +
-                                "Roboto-Italic" +
-                                ".ttf");
-                        final TextView italics = fonts.root.findViewById(R.id.text_normal_italics);
-                        italics.setTypeface(italics_tf);
+                        final Typeface italics_tf = Typeface.createFromFile(
+                                work_directory + ITALICS_FONT);
+                        fonts.italics.setTypeface(italics_tf);
                     } catch (final Exception e) {
                         Log.e(TAG, "Could not load font from directory for italic template." +
                                 " Maybe it wasn't themed?");
                     }
 
                     try {
-                        final Typeface italics_bold_tf = Typeface.createFromFile(work_directory +
-                                "Roboto-BoldItalic.ttf");
-                        final TextView italics_bold = fonts.root.findViewById(
-                                R.id.text_normal_bold_italics);
-                        italics_bold.setTypeface(italics_bold_tf);
+                        final Typeface italics_bold_tf = Typeface.createFromFile(
+                                work_directory + BOLD_ITALICS_FONT);
+                        fonts.italics_bold.setTypeface(italics_bold_tf);
                     } catch (final Exception e) {
                         Log.e(TAG, "Could not load font from directory for italic-bold " +
                                 "template. Maybe it wasn't themed?");
                     }
 
                     FileOperations.delete(fonts.mContext,
-                            fonts.mContext.getCacheDir().getAbsolutePath() +
-                                    "/FontCache/font_preview/");
+                            fonts.mContext.getCacheDir().getAbsolutePath() + FONT_PREVIEW_CACHE);
                     fonts.font_holder.setVisibility(View.VISIBLE);
                     fonts.progressBar.setVisibility(View.GONE);
                     fonts.paused = false;
@@ -442,16 +452,15 @@ public class Fonts extends Fragment {
 
         @Override
         protected String doInBackground(final String... sUrl) {
-            final Fonts fonts = this.ref.get();
+            final Fonts fonts = ref.get();
             if (fonts != null) {
                 try {
-                    final File cacheDirectory = new File(fonts.mContext.getCacheDir(),
-                            "/FontCache/");
+                    final File cacheDirectory = new File(fonts.mContext.getCacheDir(), FONT_CACHE);
                     if (!cacheDirectory.exists()) {
                         if (cacheDirectory.mkdirs()) Log.d(TAG, "FontCache folder created");
                     }
-                    final File cacheDirectory2 = new File(fonts.mContext.getCacheDir(),
-                            "/FontCache/font_preview/");
+                    final File cacheDirectory2 =
+                            new File(fonts.mContext.getCacheDir(), FONT_PREVIEW_CACHE);
 
                     if (!cacheDirectory2.exists()) {
                         if (cacheDirectory2.mkdirs()) Log.d(TAG,
@@ -459,7 +468,7 @@ public class Fonts extends Fragment {
                     } else {
                         FileOperations.delete(fonts.mContext,
                                 fonts.mContext.getCacheDir().getAbsolutePath() +
-                                        "/FontCache/font_preview/");
+                                        FONT_PREVIEW_CACHE);
                         if (cacheDirectory2.mkdirs()) Log.d(TAG, "FontCache folder recreated");
                     }
 
@@ -469,11 +478,11 @@ public class Fonts extends Fragment {
                     if (encrypted) {
                         FileOperations.copyFileOrDir(
                                 fonts.themeAssetManager,
-                                fontsDir + '/' + source + ".enc",
+                                fontsDir + '/' + source + ENCRYPTED_FILE_EXTENSION,
                                 fonts.mContext.getCacheDir().getAbsolutePath() +
-                                        "/FontCache/" + source,
-                                fontsDir + '/' + source + ".enc",
-                                fonts.cipher);
+                                        FONT_CACHE + source,
+                                fontsDir + '/' + source + ENCRYPTED_FILE_EXTENSION,
+                                null);
                     } else {
                         try (InputStream inputStream =
                                      fonts.themeAssetManager.open(fontsDir + '/' + source);
@@ -481,7 +490,7 @@ public class Fonts extends Fragment {
                              OutputStream outputStream =
                                      new FileOutputStream(
                                              fonts.mContext.getCacheDir().getAbsolutePath() +
-                                                     "/FontCache/" + source)) {
+                                                     FONT_CACHE + source)) {
                             FontPreview.CopyStream(inputStream, outputStream);
                         } catch (final Exception e) {
                             Log.e(TAG,
@@ -491,9 +500,9 @@ public class Fonts extends Fragment {
 
                     // Unzip the fonts to get it prepared for the preview
                     FontPreview.unzip(fonts.mContext.getCacheDir().getAbsolutePath() +
-                                    "/FontCache/" + source,
+                                    FONT_CACHE + source,
                             fonts.mContext.getCacheDir().getAbsolutePath() +
-                                    "/FontCache/font_preview/");
+                                    FONT_PREVIEW_CACHE);
                 } catch (final Exception e) {
                     Log.e(TAG, "Unexpectedly lost connection to the application host");
                 }
@@ -502,11 +511,14 @@ public class Fonts extends Fragment {
         }
     }
 
+    /**
+     * Receiver to pick data up from InformationActivity to start the process
+     */
     class JobReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(final Context context, final Intent intent) {
-            if (!Fonts.this.isAdded()) return;
-            Fonts.this.startApply();
+            if (!isAdded()) return;
+            startApply();
         }
     }
 }

@@ -57,19 +57,37 @@ public class Substratum extends Application {
     private static Substratum substratum;
     private static boolean isWaiting;
 
+    /**
+     * Get the current instance of the substratum application
+     *
+     * @return Returns the instance
+     */
     public static Substratum getInstance() {
         return substratum;
     }
 
+    /**
+     * Alerts the application that we are waiting for overlays to be installed
+     */
     public static void startWaitingInstall() {
         isWaiting = true;
     }
 
+    /**
+     * Asks the application whether we are waiting for overlays to be installed
+     *
+     * @return True, if the application is waiting
+     */
     public static boolean isWaitingInstall() {
         return isWaiting;
     }
 
-    public static boolean isNeedToWaitInstall() {
+    /**
+     * Asks whether the current system needs to wait for install
+     *
+     * @return True, if the application needs to wait
+     */
+    public static boolean needToWaitInstall() {
         int system = Systems.checkThemeSystemModule(getInstance());
         // system on root, old interfacer and andromeda need this
         return (system == OVERLAY_MANAGER_SERVICE_O_ANDROMEDA) ||
@@ -82,11 +100,11 @@ public class Substratum extends Application {
         super.onCreate();
         substratum = this;
 
-        // Firebase debug checks
+        // Firebase
         try {
             FirebaseApp.initializeApp(this.getApplicationContext());
             FirebaseCrash.setCrashCollectionEnabled(!DEBUG);
-        } catch (final IllegalStateException ise) {
+        } catch (IllegalStateException ise) {
             // Suppress warning
         }
 
@@ -121,11 +139,15 @@ public class Substratum extends Application {
                 .apply();
     }
 
+    /**
+     * For Android Oreo and above, we need to ensure our notification channels are properly
+     * configured so that we do not get killed off with the new background service limiter.
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void createNotificationChannel() {
-        final NotificationManager notificationManager =
+        NotificationManager notificationManager =
                 (NotificationManager) this.getSystemService(NOTIFICATION_SERVICE);
-        final NotificationChannel mainChannel = new NotificationChannel(
+        NotificationChannel mainChannel = new NotificationChannel(
                 References.DEFAULT_NOTIFICATION_CHANNEL_ID,
                 this.getString(R.string.notification_channel_default),
                 NotificationManager.IMPORTANCE_DEFAULT);
@@ -137,7 +159,7 @@ public class Substratum extends Application {
         assert notificationManager != null;
         notificationManager.createNotificationChannel(mainChannel);
 
-        final NotificationChannel compileChannel = new NotificationChannel(
+        NotificationChannel compileChannel = new NotificationChannel(
                 References.ONGOING_NOTIFICATION_CHANNEL_ID,
                 this.getString(R.string.notification_channel_ongoing),
                 NotificationManager.IMPORTANCE_LOW);
@@ -145,7 +167,7 @@ public class Substratum extends Application {
                 this.getString(R.string.notification_channel_ongoing_description));
         notificationManager.createNotificationChannel(compileChannel);
 
-        final NotificationChannel andromedaChannel = new NotificationChannel(
+        NotificationChannel andromedaChannel = new NotificationChannel(
                 References.ANDROMEDA_NOTIFICATION_CHANNEL_ID,
                 this.getString(R.string.notification_channel_andromeda),
                 NotificationManager.IMPORTANCE_NONE);
@@ -154,7 +176,13 @@ public class Substratum extends Application {
         notificationManager.createNotificationChannel(andromedaChannel);
     }
 
-    public boolean startBinderService(final Class className) {
+    /**
+     * A consolidated function that launches a specific binder class
+     *
+     * @param className Binder service to be started
+     * @return Returns true if the service has been started
+     */
+    public boolean startBinderService(Class className) {
         try {
             if (className.equals(AndromedaBinderService.class)) {
                 if (this.checkServiceActivation(AndromedaBinderService.class)) {
@@ -171,23 +199,29 @@ public class Substratum extends Application {
                     Log.d(BINDER_TAG, "This session will utilize the connected Binder service!");
                 } else {
                     Log.d(BINDER_TAG, "Substratum is now connecting to the Binder service...");
-                    final Intent i = new Intent(this.getApplicationContext(),
+                    Intent i = new Intent(this.getApplicationContext(),
                             InterfacerBinderService.class);
                     this.startService(i);
                 }
             }
             return true;
-        } catch (final Exception e) {
+        } catch (Exception e) {
             // Suppress warnings
         }
         return false;
     }
 
-    private boolean checkServiceActivation(final Class<?> serviceClass) {
-        final ActivityManager manager = (ActivityManager) this.getSystemService(Context
+    /**
+     * Check whether the {@link #startBinderService(Class)} has been loaded before
+     *
+     * @param serviceClass Specific class to check whether activated
+     * @return True, the specified class is active
+     */
+    private boolean checkServiceActivation(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) this.getSystemService(Context
                 .ACTIVITY_SERVICE);
         assert manager != null;
-        for (final ActivityManager.RunningServiceInfo service :
+        for (ActivityManager.RunningServiceInfo service :
                 manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
                 return true;
@@ -196,27 +230,36 @@ public class Substratum extends Application {
         return false;
     }
 
+    /**
+     * Registers the finish receiver for PACKAGE_ADDED
+     */
     public void registerFinishReceiver() {
-        final IntentFilter filter = new IntentFilter(Intent.ACTION_PACKAGE_ADDED);
+        IntentFilter filter = new IntentFilter(Intent.ACTION_PACKAGE_ADDED);
         filter.addDataScheme("package");
         this.registerReceiver(finishReceiver, filter);
     }
 
+    /**
+     * Unregisters the finish receiver for PACKAGE_ADDED
+     */
     public void unregisterFinishReceiver() {
         try {
             this.unregisterReceiver(finishReceiver);
-        } catch (final IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             // Already unregistered
         }
     }
 
+    /**
+     * A persistent receiver that detects whether an application is installed by Substratum
+     */
     private static class FinishReceiver extends BroadcastReceiver {
         @Override
-        public void onReceive(final Context context, final Intent intent) {
+        public void onReceive(Context context, Intent intent) {
             if (intent.getData() != null) {
-                final String packageName = intent.getData().getEncodedSchemeSpecificPart();
+                String packageName = intent.getData().getEncodedSchemeSpecificPart();
                 // Check whether the installed package is made by substratum
-                final String check = Packages.getOverlayParent(context, packageName);
+                String check = Packages.getOverlayParent(context, packageName);
                 if (check != null) {
                     isWaiting = false;
                     Log.d("Substratum", "PACKAGE_ADDED: " + packageName);

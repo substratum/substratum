@@ -27,11 +27,11 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.util.DiffUtil;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -48,6 +48,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.activities.showcase.ShowcaseActivity;
@@ -57,36 +59,53 @@ import projekt.substratum.common.Activities;
 import projekt.substratum.common.Packages;
 import projekt.substratum.util.helpers.ThemeCallback;
 
+import static projekt.substratum.common.Internal.HOME_TITLE;
+import static projekt.substratum.common.Internal.HOME_TYPE;
+import static projekt.substratum.common.Internal.THEME_FRAGMENT_REFRESH;
 import static projekt.substratum.common.References.DEFAULT_GRID_COUNT;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 
 public class ThemeFragment extends Fragment {
 
     private static final int THEME_FRAGMENT_INITIAL_DELAY = 300;
+    @BindView(R.id.theme_list)
+    RecyclerView recyclerView;
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.no_entry_card_view)
+    View cardView;
     private Context mContext;
     private LocalBroadcastManager localBroadcastManager;
     private BroadcastReceiver refreshReceiver;
     private SharedPreferences prefs;
-    private ViewGroup root;
     private String home_type;
     private String toolbar_title;
     private Boolean first_boot = true;
     private ThemeAdapter mAdapter;
 
-    private static ArrayList<ThemeItem> prepareData(final Map<String, String[]> map,
-                                                    final Context context,
-                                                    final Activity activity,
-                                                    final String home_type) {
-        final ArrayList<ThemeItem> themes = new ArrayList<>();
+    /**
+     * Prepares the data to be used by the cards
+     *
+     * @param map       Map of packages that have been processed
+     * @param context   Self explantory, bud
+     * @param activity  Activity of the calling function
+     * @param home_type Home type such as Theme packs, Overlays, Boot Animations, Sounds, Fonts
+     * @return Returns an ArrayList to be used to parse further data
+     */
+    private static ArrayList<ThemeItem> prepareData(Map<String, String[]> map,
+                                                    Context context,
+                                                    Activity activity,
+                                                    String home_type) {
+        ArrayList<ThemeItem> themes = new ArrayList<>();
         for (int i = 0; i < map.size(); i++) {
-            final ThemeItem themeItem = new ThemeItem();
+            ThemeItem themeItem = new ThemeItem();
             themeItem.setThemeName(map.keySet().toArray()[i].toString());
             themeItem.setThemeAuthor(map.get(map.keySet().toArray()[i].toString())[0]);
             themeItem.setThemePackage(map.get(map.keySet().toArray()[i].toString())[1]);
             themeItem.setThemeDrawable(
                     Packages.getPackageHeroImage(
                             context, map.get(map.keySet().toArray()[i].toString())[1], true));
-            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             themeItem.setThemeReadyVariable(Packages.getThemeReadyVisibility(context,
                     map.get(map.keySet().toArray()[i].toString())[1]));
             if (prefs.getBoolean("show_template_version", false) &&
@@ -110,41 +129,48 @@ public class ThemeFragment extends Fragment {
         return themes;
     }
 
-    private static void refreshLayout(final ThemeFragment themeFragment,
-                                      final ViewGroup root,
-                                      final ArrayList<ThemeItem> themeItems) {
-        final SwipeRefreshLayout swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
+    /**
+     * Lightly refresh the themes
+     *
+     * @param themeFragment Theme Fragment
+     * @param themeItems    List of collected themes
+     */
+    private static void refreshLayout(ThemeFragment themeFragment,
+                                      ArrayList<ThemeItem> themeItems) {
         ThemeAdapter adapter = themeFragment.mAdapter;
         DiffUtil.DiffResult diffResult =
-                DiffUtil.calculateDiff(
-                        new ThemeCallback(adapter.getList(), themeItems));
+                DiffUtil.calculateDiff(new ThemeCallback(adapter.getList(), themeItems));
         adapter.setList(themeItems);
         diffResult.dispatchUpdatesTo(adapter);
-        // Conclude
-        swipeRefreshLayout.setRefreshing(false);
+        themeFragment.swipeRefreshLayout.setRefreshing(false);
     }
 
-    private static void refreshLayout(final ThemeFragment themeFragment,
-                                      final SharedPreferences prefs,
-                                      final ViewGroup root,
-                                      final Context mContext,
-                                      final Activity activity,
-                                      final CharSequence toolbarTitle,
-                                      final Map<String, String[]> substratum_packages,
-                                      final ArrayList<ThemeItem> themeItems) {
-
-        final RecyclerView recyclerView = root.findViewById(R.id.theme_list);
-        final SwipeRefreshLayout swipeRefreshLayout = root.findViewById(R.id.swipeRefreshLayout);
-        final CardView cardView = root.findViewById(R.id.no_entry_card_view);
-        final TextView cardViewText = cardView.findViewById(R.id.no_themes_description);
-        final ImageView cardViewImage = cardView.findViewById(R.id.no_themes_installed);
-
+    /**
+     * Deeply refresh the themes
+     *
+     * @param themeFragment       Theme Fragment
+     * @param prefs               Shared Preferences instance
+     * @param mContext            Self explanatory, bud
+     * @param activity            Activity of calling function
+     * @param toolbarTitle        Requested toolbar title
+     * @param substratum_packages List of collected substratum packages
+     * @param themeItems          List of collected themes
+     */
+    private static void refreshLayout(ThemeFragment themeFragment,
+                                      SharedPreferences prefs,
+                                      Context mContext,
+                                      Activity activity,
+                                      CharSequence toolbarTitle,
+                                      Map<String, String[]> substratum_packages,
+                                      ArrayList<ThemeItem> themeItems) {
+        TextView cardViewText = themeFragment.cardView.findViewById(R.id.no_themes_description);
+        ImageView cardViewImage = themeFragment.cardView.findViewById(R.id.no_themes_installed);
         if (substratum_packages != null) {
             if (substratum_packages.isEmpty()) {
                 if ((((MainActivity) activity).searchView != null) &&
                         !((MainActivity) activity).searchView.isIconified()) {
                     if (!MainActivity.userInput.isEmpty()) {
-                        final String parse = String.format(
+                        String parse = String.format(
                                 mContext.getString(R.string.no_themes_description_search),
                                 MainActivity.userInput);
                         cardViewText.setText(parse);
@@ -160,16 +186,16 @@ public class ThemeFragment extends Fragment {
                     cardViewImage.setImageDrawable(
                             mContext.getDrawable(R.drawable.no_themes_installed));
                 }
-                cardView.setVisibility(View.VISIBLE);
-                recyclerView.setVisibility(View.GONE);
+                themeFragment.cardView.setVisibility(View.VISIBLE);
+                themeFragment.recyclerView.setVisibility(View.GONE);
             } else {
-                cardView.setVisibility(View.GONE);
-                recyclerView.setVisibility(View.VISIBLE);
+                themeFragment.cardView.setVisibility(View.GONE);
+                themeFragment.recyclerView.setVisibility(View.VISIBLE);
             }
 
             // Now let's place the proper amount of theme count into the context text
-            final String parse;
-            final WeakReference<MainActivity> ref = new WeakReference<>((MainActivity) activity);
+            String parse;
+            WeakReference<MainActivity> ref = new WeakReference<>((MainActivity) activity);
             if (substratum_packages.isEmpty() && (ref.get() != null)) {
                 ref.get().switchToStockToolbar(toolbarTitle);
             } else if ((substratum_packages.size() == 1) && (ref.get() != null)) {
@@ -182,51 +208,59 @@ public class ThemeFragment extends Fragment {
                 ref.get().switchToCustomToolbar(toolbarTitle, parse);
             }
 
-            if (themeFragment != null) {
-                // Now we need to sort the buffered installed themes
-                themeFragment.mAdapter = new ThemeAdapter(themeItems);
+            // Now we need to sort the buffered installed themes
+            themeFragment.mAdapter = new ThemeAdapter(themeItems);
 
-                // Assign adapter to RecyclerView
-                recyclerView.setAdapter(themeFragment.mAdapter);
-            }
+            // Assign adapter to RecyclerView
+            themeFragment.recyclerView.setAdapter(themeFragment.mAdapter);
 
             // Begin to set the formatting of the layouts
             if (prefs.getInt("grid_style_cards_count", DEFAULT_GRID_COUNT) > 1) {
                 if (!prefs.getBoolean("nougat_style_cards", false)) {
-                    recyclerView.setPadding(10, 0, 10, 0);
+                    themeFragment.recyclerView.setPadding(10, 0, 10, 0);
                 } else if (prefs.getBoolean("nougat_style_cards", false) &&
                         (prefs.getInt("grid_style_cards_count", 1) == 1)) {
-                    recyclerView.setPadding(0, 0, 0, 0);
+                    themeFragment.recyclerView.setPadding(0, 0, 0, 0);
                 } else {
-                    recyclerView.setPadding(0, 0, 0, 0);
+                    themeFragment.recyclerView.setPadding(0, 0, 0, 0);
                 }
             } else if (prefs.getBoolean("nougat_style_cards", false)) {
-                recyclerView.setPadding(0, 0, 0, 0);
+                themeFragment.recyclerView.setPadding(0, 0, 0, 0);
             }
             if (prefs.getBoolean("grid_layout", true)) {
-                recyclerView.setLayoutManager(new GridLayoutManager(mContext,
+                themeFragment.recyclerView.setLayoutManager(new GridLayoutManager(mContext,
                         prefs.getInt("grid_style_cards_count", DEFAULT_GRID_COUNT)));
             } else {
-                final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
-                recyclerView.setLayoutManager(layoutManager);
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
+                themeFragment.recyclerView.setLayoutManager(layoutManager);
             }
         } else {
             Log.e(SUBSTRATUM_LOG, "Queuing of the installed themes have resulted in a null list.");
         }
 
         // Conclude
-        swipeRefreshLayout.setRefreshing(false);
+        themeFragment.swipeRefreshLayout.setRefreshing(false);
     }
 
-    private void resetRecyclerView(final RecyclerView mRecyclerView) {
+    /**
+     * Reset all parameters of the recycler view
+     *
+     * @param mRecyclerView Specify the recycler view to reset
+     */
+    private void resetRecyclerView(RecyclerView mRecyclerView) {
         // Initialize the recycler view with an empty adapter first
-        final ArrayList<ThemeItem> empty_array = new ArrayList<>();
-        final ThemeAdapter empty_adapter = new ThemeAdapter(empty_array);
+        ArrayList<ThemeItem> empty_array = new ArrayList<>();
+        ThemeAdapter empty_adapter = new ThemeAdapter(empty_array);
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this.mContext));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setAdapter(empty_adapter);
     }
 
+    /**
+     * Obtain an instance of this fragment
+     *
+     * @return Returns an instance of Theme Fragment
+     */
     private ThemeFragment getInstance() {
         return this;
     }
@@ -235,109 +269,111 @@ public class ThemeFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         try {
-            this.localBroadcastManager.unregisterReceiver(this.refreshReceiver);
-        } catch (final IllegalArgumentException e) {
+            localBroadcastManager.unregisterReceiver(refreshReceiver);
+        } catch (IllegalArgumentException e) {
             // Unregistered already
         }
     }
 
     @Override
     public View onCreateView(
-            final LayoutInflater inflater,
-            final ViewGroup container,
-            final Bundle savedInstanceState) {
+            @NonNull LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.mContext = this.getContext();
-        this.prefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
-        this.root = (ViewGroup) inflater.inflate(R.layout.home_fragment, container, false);
+        mContext = getContext();
+        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        View view = inflater.inflate(R.layout.home_fragment, container, false);
+        ButterKnife.bind(this, view);
 
         // Register the theme install receiver to auto refresh the fragment
-        this.refreshReceiver = new ThemeInstallReceiver();
-        final IntentFilter intentFilter = new IntentFilter("ThemeFragment.REFRESH");
-        this.localBroadcastManager = LocalBroadcastManager.getInstance(this.mContext);
-        this.localBroadcastManager.registerReceiver(this.refreshReceiver, intentFilter);
+        refreshReceiver = new ThemeInstallReceiver();
+        IntentFilter intentFilter = new IntentFilter(THEME_FRAGMENT_REFRESH);
+        localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
+        localBroadcastManager.registerReceiver(refreshReceiver, intentFilter);
 
-        final Bundle bundle = this.getArguments();
+        Bundle bundle = getArguments();
         if (bundle != null) {
-            this.home_type = bundle.getString("home_type");
-            this.toolbar_title = bundle.getString("title");
+            home_type = bundle.getString(HOME_TYPE);
+            toolbar_title = bundle.getString(HOME_TITLE);
         }
 
-        final RecyclerView recyclerView = this.root.findViewById(R.id.theme_list);
-        this.resetRecyclerView(recyclerView);
-
-        final SwipeRefreshLayout swipeRefreshLayout =
-                this.root.findViewById(R.id.swipeRefreshLayout);
+        resetRecyclerView(recyclerView);
         swipeRefreshLayout.setOnRefreshListener(() -> new LayoutLoader(this).execute());
         swipeRefreshLayout.setRefreshing(true);
 
-        ((MainActivity)
-                this.getActivity()).actionbar_content.setText(R.string
-                .actionbar_theme_count_loading);
+        if (getActivity() != null) {
+            ((MainActivity) getActivity()).actionbar_content.setText(R.string
+                    .actionbar_theme_count_loading);
+        }
 
-        final View cardView = this.root.findViewById(R.id.no_entry_card_view);
         cardView.setOnClickListener(v ->
-                Activities.launchInternalActivity(this.mContext, ShowcaseActivity.class));
+                Activities.launchInternalActivity(mContext, ShowcaseActivity.class));
         cardView.setVisibility(View.GONE);
 
         // Let's start loading everything
         new LayoutLoader(this).execute();
 
-        return this.root;
+        return view;
     }
 
+    /**
+     * The core structure to reload the layout asynchronously
+     */
     private static class LayoutLoader extends AsyncTask<String, Integer, String> {
-        private final WeakReference<ThemeFragment> fragment;
+        private WeakReference<ThemeFragment> fragment;
         private HashMap<String, String[]> substratum_packages;
         private ArrayList<ThemeItem> themeItems;
 
-        LayoutLoader(final ThemeFragment themeFragment) {
+        LayoutLoader(ThemeFragment themeFragment) {
             super();
-            this.fragment = new WeakReference<>(themeFragment);
+            fragment = new WeakReference<>(themeFragment);
         }
 
         @Override
-        protected void onPostExecute(final String result) {
+        protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            final ThemeFragment themeFragment = this.fragment.get();
+            ThemeFragment themeFragment = fragment.get();
             if (themeFragment != null) {
-                if (themeFragment.mAdapter != null) {
-                    refreshLayout(
-                            themeFragment,
-                            themeFragment.root,
-                            this.themeItems);
-                } else {
-                    refreshLayout(
-                            themeFragment,
-                            themeFragment.prefs,
-                            themeFragment.root,
-                            themeFragment.mContext,
-                            themeFragment.getActivity(),
-                            themeFragment.toolbar_title,
-                            this.substratum_packages,
-                            this.themeItems);
+                if (themeFragment.getActivity() != null) {
+                    boolean iconified =
+                            ((MainActivity) themeFragment.getActivity()).searchView.isIconified();
+                    if (themeFragment.mAdapter != null && iconified) {
+                        refreshLayout(
+                                themeFragment,
+                                themeItems);
+                    } else {
+                        refreshLayout(
+                                themeFragment,
+                                themeFragment.prefs,
+                                themeFragment.mContext,
+                                themeFragment.getActivity(),
+                                themeFragment.toolbar_title,
+                                substratum_packages,
+                                themeItems);
+                    }
                 }
             }
         }
 
         @Override
-        protected String doInBackground(final String... sUrl) {
-            final ThemeFragment themeFragment = this.fragment.get();
+        protected String doInBackground(String... sUrl) {
+            ThemeFragment themeFragment = fragment.get();
             if (themeFragment != null) {
-                this.substratum_packages = Packages.getSubstratumPackages(
+                substratum_packages = Packages.getSubstratumPackages(
                         themeFragment.mContext,
                         themeFragment.home_type,
                         MainActivity.userInput);
-                final Map<String, String[]> map = new TreeMap<>(this.substratum_packages);
-                this.themeItems = prepareData(
+                Map<String, String[]> map = new TreeMap<>(substratum_packages);
+                themeItems = prepareData(
                         map,
                         themeFragment.mContext,
                         themeFragment.getActivity(),
                         themeFragment.home_type);
                 try {
-                    Thread.sleep((long) (themeFragment.first_boot ? THEME_FRAGMENT_INITIAL_DELAY
-                            : 0));
-                } catch (final InterruptedException ie) {
+                    Thread.sleep((long)
+                            (themeFragment.first_boot ? THEME_FRAGMENT_INITIAL_DELAY : 0));
+                } catch (InterruptedException ie) {
                     // Suppress warning
                 }
                 if (themeFragment.first_boot) themeFragment.first_boot = false;
@@ -346,10 +382,13 @@ public class ThemeFragment extends Fragment {
         }
     }
 
+    /**
+     * Receiver to reload the list when a new theme is installed
+     */
     class ThemeInstallReceiver extends BroadcastReceiver {
 
         @Override
-        public void onReceive(final Context context, final Intent intent) {
+        public void onReceive(Context context, Intent intent) {
             new LayoutLoader(ThemeFragment.this.getInstance()).execute();
         }
     }

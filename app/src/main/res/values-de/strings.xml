@@ -396,8 +396,6 @@ eingerichtet&#8230;</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">WARNUNG</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Wir haben unsere Gründe gefährliche Overlays zu verstecken, aber wenn du sicher bist, dass du dies eingeschaltet haben willst, folge bitte den Anweisungen in unserem XDA Thread um dies auszuschalten!</string>
     <string name="settings_crash_receiver_text">Deaktiviert automatisch ein Overlay, wenn wiederholt Abstürze von der überlagerten App erkannt werden.</string>
-    <string name="settings_force_stop_interfacer_title">Erzwingt Stop des Interfacer-Dienstes</string>
-    <string name="settings_force_stop_interfacer_snackbar">Interfacer wird jetzt erzwungen gestoppt&#8230;</string>
     <string name="overlays_outdated">Overlays veraltet</string>
     <string name="overlays_outdated_message">Beginnend mit Version 816 hat sich unsere Signatur für Overlays geändert, um nicht übereinstimmende Signaturen in Zukunft zu verhindern.\n\nDas heißt deine installierten Overlays müssen gelöscht werden, um neue Theme-Updates installieren zu können, sonst wird ein ewiges Update für dein Overlays verlangt werden!\n\nDiese Nachricht wird nicht angezeigt wenn alle Overlays mit dem neuesten Substratum kompiliert wurden.</string>
     <string name="root_required_title">Root-Zugriff erforderlich</string>

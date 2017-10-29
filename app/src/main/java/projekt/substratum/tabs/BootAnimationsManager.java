@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.common.tabs;
+package projekt.substratum.tabs;
 
 import android.content.Context;
 import android.util.Log;
@@ -24,22 +24,41 @@ import android.util.Log;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeInterfacerService;
 
+import static projekt.substratum.common.Internal.BOOTANIMATION;
+import static projekt.substratum.common.Internal.BOOTANIMATION_BU_LOCATION;
+import static projekt.substratum.common.Internal.BOOTANIMATION_LOCATION;
+import static projekt.substratum.common.Internal.BOOT_ANIMATION;
+import static projekt.substratum.common.Internal.SHUTDOWNANIMATION;
+import static projekt.substratum.common.Internal.SHUTDOWN_ANIMATION;
+import static projekt.substratum.common.Internal.SUBSBOOT_ADDON;
+import static projekt.substratum.common.Internal.THEME_644;
+import static projekt.substratum.common.Internal.THEME_755;
+import static projekt.substratum.common.Internal.THEME_DIRECTORY;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 import static projekt.substratum.common.Systems.getDeviceEncryptionStatus;
 
-public enum BootAnimationManager {
+public enum BootAnimationsManager {
     ;
 
-    public static void setBootAnimation(final Context context, final String themeDirectory,
-                                        final Boolean shutdownAnimation) {
-        final String fileName = (shutdownAnimation ? "shutdownanimation" : "bootanimation");
-        final String location = EXTERNAL_STORAGE_CACHE + fileName + ".zip";
+    private static final String TAG = "BootAnimationsManager";
+
+    /**
+     * Set a boot animation
+     *
+     * @param context           Context
+     * @param themeDirectory    Theme directory
+     * @param shutdownAnimation Whether to apply it as a shutdown animation or not
+     */
+    public static void setBootAnimation(Context context,
+                                        String themeDirectory,
+                                        Boolean shutdownAnimation) {
+        String fileName = (shutdownAnimation ? SHUTDOWN_ANIMATION : BOOT_ANIMATION);
+        String location = EXTERNAL_STORAGE_CACHE + fileName + ".zip";
         // Check to see if device is decrypted with theme interface
         if (((getDeviceEncryptionStatus(context) <= 1) || shutdownAnimation) &&
                 checkThemeInterfacer(context)) {
-            Log.d("BootAnimationUtils",
-                    "No-root option has been enabled with the inclusion of theme interfacer...");
+            Log.d(TAG, "No-root option has been enabled with the inclusion of theme interfacer...");
             if (shutdownAnimation) {
                 ThemeInterfacerService.setShutdownAnimation(context, location);
             } else {
@@ -48,19 +67,26 @@ public enum BootAnimationManager {
         } else {
             // We will mount system, make our directory, copy the bootanimation
             // zip into place, set proper permissions, then unmount
-            Log.d("BootAnimationUtils", "Root option has been enabled");
+            Log.d(TAG, "Root option has been enabled");
             FileOperations.mountRW();
             FileOperations.mountRWData();
-            FileOperations.setPermissions(755, themeDirectory);
+            FileOperations.setPermissions(THEME_755, themeDirectory);
             FileOperations.move(context, location, themeDirectory + '/' + fileName + ".zip");
-            FileOperations.setPermissions(644, themeDirectory + '/' + fileName + ".zip");
+            FileOperations.setPermissions(THEME_644, themeDirectory + '/' + fileName + ".zip");
             FileOperations.setContext(themeDirectory);
             FileOperations.mountROData();
             FileOperations.mountRO();
         }
     }
 
-    public static void clearBootAnimation(final Context context, final Boolean shutdownAnimation) {
+    /**
+     * Clear an applied boot animation
+     *
+     * @param context           Context
+     * @param shutdownAnimation Whether to clear the shutdown animation or not
+     */
+    public static void clearBootAnimation(Context context,
+                                          Boolean shutdownAnimation) {
         if (getDeviceEncryptionStatus(context) <= 1) {
             // OMS with theme interface
             if (checkThemeInterfacer(context)) {
@@ -71,9 +97,9 @@ public enum BootAnimationManager {
                 }
             } else {
                 if (shutdownAnimation) {
-                    FileOperations.delete(context, "/data/system/theme/shutdownanimation.zip");
+                    FileOperations.delete(context, THEME_DIRECTORY + SHUTDOWNANIMATION);
                 } else {
-                    FileOperations.delete(context, "/data/system/theme/bootanimation.zip");
+                    FileOperations.delete(context, THEME_DIRECTORY + BOOTANIMATION);
                 }
             }
         } else {
@@ -81,13 +107,14 @@ public enum BootAnimationManager {
             if (!shutdownAnimation) {
                 FileOperations.mountRW();
                 FileOperations.move(context,
-                        "/system/media/bootanimation-backup.zip",
-                        "/system/media/bootanimation.zip");
-                FileOperations.delete(context, "/system/addon.d/81-subsboot.sh");
+                        BOOTANIMATION_BU_LOCATION,
+                        BOOTANIMATION_LOCATION);
+                FileOperations.delete(context, SUBSBOOT_ADDON);
                 FileOperations.mountRO();
             } else {
                 FileOperations.mountRWData();
-                FileOperations.delete(context, "/data/system/theme/shutdownanimation.zip");
+                FileOperations.delete(context, THEME_DIRECTORY + SHUTDOWNANIMATION);
+                FileOperations.delete(context, THEME_DIRECTORY + BOOTANIMATION);
                 FileOperations.mountROData();
             }
         }

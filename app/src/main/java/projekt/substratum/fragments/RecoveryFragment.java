@@ -27,6 +27,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Lunchbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -47,6 +48,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
@@ -55,13 +58,19 @@ import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
-import projekt.substratum.common.tabs.BootAnimationManager;
-import projekt.substratum.common.tabs.FontManager;
-import projekt.substratum.common.tabs.WallpaperManager;
+import projekt.substratum.tabs.BootAnimationsManager;
+import projekt.substratum.tabs.FontsManager;
+import projekt.substratum.tabs.WallpapersManager;
 import projekt.substratum.util.files.Root;
 import projekt.substratum.util.tabs.SoundUtils;
 import projekt.substratum.util.views.SheetDialog;
 
+import static projekt.substratum.common.Internal.ALL_WALLPAPER;
+import static projekt.substratum.common.Internal.BOOT_ANIMATION_APPLIED;
+import static projekt.substratum.common.Internal.FONTS_APPLIED;
+import static projekt.substratum.common.Internal.HOME_WALLPAPER;
+import static projekt.substratum.common.Internal.LOCK_WALLPAPER;
+import static projekt.substratum.common.Internal.SOUNDS_APPLIED;
 import static projekt.substratum.common.References.DATA_RESOURCE_DIR;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
@@ -71,6 +80,24 @@ import static projekt.substratum.common.Systems.checkAndromeda;
 
 public class RecoveryFragment extends Fragment {
 
+    @BindView(R.id.overlaysButton)
+    Button overlaysButton;
+    @BindView(R.id.wallpaperButton)
+    Button wallpaperButton;
+    @BindView(R.id.bootanimationButton)
+    Button bootanimationButton;
+    @BindView(R.id.fontsButton)
+    Button fontsButton;
+    @BindView(R.id.soundsButton)
+    Button soundsButton;
+    @BindView(R.id.restore_overlay_card)
+    View overlayCard;
+    @BindView(R.id.restore_bootanimation_card)
+    View bootanimationCard;
+    @BindView(R.id.restore_fonts_card)
+    View fontsCard;
+    @BindView(R.id.restore_sounds_card)
+    View soundCard;
     private ProgressDialog mProgressDialog;
     private ArrayList<String> final_commands_array;
     private SharedPreferences prefs;
@@ -80,260 +107,259 @@ public class RecoveryFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (this.sheetDialog != null) this.sheetDialog.dismiss();
-        if (this.mProgressDialog != null) this.mProgressDialog.dismiss();
+        if (sheetDialog != null) sheetDialog.dismiss();
+        if (mProgressDialog != null) mProgressDialog.dismiss();
     }
 
     @Override
     public View onCreateView(
-            final LayoutInflater inflater,
-            final ViewGroup container,
-            final Bundle savedInstanceState) {
+            @NonNull LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = getContext();
+        View view = inflater.inflate(R.layout.restore_fragment, container, false);
+        ButterKnife.bind(this, view);
 
-        this.mContext = this.getContext();
-        final ViewGroup root = (ViewGroup) inflater.inflate(R.layout.restore_fragment, container,
-                false);
-
-        this.prefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
-
-        this.setHasOptionsMenu(true);
-
-        final Button overlaysButton = root.findViewById(R.id.overlaysButton);
-        final Button wallpaperButton = root.findViewById(R.id.wallpaperButton);
-        final Button bootanimationButton = root.findViewById(R.id.bootanimationButton);
-        final Button fontsButton = root.findViewById(R.id.fontsButton);
-        final Button soundsButton = root.findViewById(R.id.soundsButton);
+        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        setHasOptionsMenu(true);
 
         // Overlays Dialog
         overlaysButton.setOnClickListener(v -> {
-            this.sheetDialog = new SheetDialog(this.mContext);
-            final View sheetView = View.inflate(
-                    this.mContext,
-                    R.layout.restore_overlays_sheet_dialog,
-                    null);
-            final LinearLayout disable_all = sheetView.findViewById(R.id.disable_all);
-            final LinearLayout uninstall_all = sheetView.findViewById(R.id.uninstall_all);
-            if (!Systems.checkOMS(this.mContext)) disable_all.setVisibility(View.GONE);
-            disable_all.setOnClickListener(view -> {
+            sheetDialog = new SheetDialog(mContext);
+            View sheetView = View.inflate(mContext, R.layout.restore_overlays_sheet_dialog, null);
+            LinearLayout disable_all = sheetView.findViewById(R.id.disable_all);
+            LinearLayout uninstall_all = sheetView.findViewById(R.id.uninstall_all);
+            if (!Systems.checkOMS(mContext)) disable_all.setVisibility(View.GONE);
+            disable_all.setOnClickListener(vi -> {
                 new RestoreFunction(this).execute(false);
-                this.sheetDialog.hide();
+                sheetDialog.hide();
             });
-            uninstall_all.setOnClickListener(view -> {
+            uninstall_all.setOnClickListener(vi -> {
                 new RestoreFunction(this).execute(true);
-                this.sheetDialog.hide();
+                sheetDialog.hide();
             });
-            this.sheetDialog.setContentView(sheetView);
-            this.sheetDialog.show();
+            sheetDialog.setContentView(sheetView);
+            sheetDialog.show();
         });
 
         // Wallpaper Dialog
         wallpaperButton.setOnClickListener(v -> {
-            this.sheetDialog = new SheetDialog(this.mContext);
-            final View sheetView = View.inflate(this.mContext, R.layout
+            sheetDialog = new SheetDialog(mContext);
+            View sheetView = View.inflate(mContext, R.layout
                             .restore_wallpapers_sheet_dialog,
                     null);
-            final LinearLayout home = sheetView.findViewById(R.id.home);
-            final LinearLayout lock = sheetView.findViewById(R.id.lock);
-            final LinearLayout both = sheetView.findViewById(R.id.both);
+            LinearLayout home = sheetView.findViewById(R.id.home);
+            LinearLayout lock = sheetView.findViewById(R.id.lock);
+            LinearLayout both = sheetView.findViewById(R.id.both);
             home.setOnClickListener(view2 -> {
                 try {
-                    WallpaperManager.clearWallpaper(this.mContext, "home");
-                    if (this.getView() != null) {
-                        Lunchbar.make(this.getView(),
-                                this.getString(R.string.manage_wallpaper_home_toast),
+                    WallpapersManager.clearWallpaper(mContext, HOME_WALLPAPER);
+                    if (getView() != null) {
+                        Lunchbar.make(getView(),
+                                getString(R.string.manage_wallpaper_home_toast),
                                 Lunchbar.LENGTH_LONG)
                                 .show();
                     }
-                } catch (final IOException e) {
+                } catch (IOException e) {
                     Log.e(References.SUBSTRATUM_LOG,
                             "Failed to restore home screen wallpaper! " + e.getMessage());
-                } catch (final NullPointerException e) {
+                } catch (NullPointerException e) {
                     Log.e(References.SUBSTRATUM_LOG,
                             "Cannot retrieve lock screen wallpaper! " + e.getMessage());
                 }
-                this.sheetDialog.hide();
+                sheetDialog.hide();
             });
             lock.setOnClickListener(view2 -> {
                 try {
-                    WallpaperManager.clearWallpaper(this.mContext, "lock");
-                    if (this.getView() != null) {
-                        Lunchbar.make(this.getView(),
-                                this.getString(R.string.manage_wallpaper_lock_toast),
+                    WallpapersManager.clearWallpaper(mContext, LOCK_WALLPAPER);
+                    if (getView() != null) {
+                        Lunchbar.make(getView(),
+                                getString(R.string.manage_wallpaper_lock_toast),
                                 Lunchbar.LENGTH_LONG)
                                 .show();
                     }
-                } catch (final IOException e) {
+                } catch (IOException e) {
                     Log.e(References.SUBSTRATUM_LOG,
                             "Failed to restore lock screen wallpaper!" + e.getMessage());
                 }
-                this.sheetDialog.hide();
+                sheetDialog.hide();
             });
             both.setOnClickListener(view2 -> {
                 try {
-                    WallpaperManager.clearWallpaper(this.mContext, "all");
-                    if (this.getView() != null) {
-                        Lunchbar.make(this.getView(),
-                                this.getString(R.string.manage_wallpaper_all_toast),
+                    WallpapersManager.clearWallpaper(mContext, ALL_WALLPAPER);
+                    if (getView() != null) {
+                        Lunchbar.make(getView(),
+                                getString(R.string.manage_wallpaper_all_toast),
                                 Lunchbar.LENGTH_LONG)
                                 .show();
                     }
-                } catch (final IOException e) {
+                } catch (IOException e) {
                     Log.e(References.SUBSTRATUM_LOG,
                             "Failed to restore wallpapers! " + e.getMessage());
                 }
-                this.sheetDialog.hide();
+                sheetDialog.hide();
             });
 
             home.setVisibility(View.VISIBLE);
             lock.setVisibility(View.VISIBLE);
-            this.sheetDialog.setContentView(sheetView);
-            this.sheetDialog.show();
+            sheetDialog.setContentView(sheetView);
+            sheetDialog.show();
         });
 
         // Boot Animation Dialog
         bootanimationButton.setOnClickListener(v -> {
-            this.sheetDialog = new SheetDialog(this.mContext);
-            final View sheetView = View.inflate(this.mContext,
+            sheetDialog = new SheetDialog(mContext);
+            View sheetView = View.inflate(mContext,
                     R.layout.restore_bootanimations_sheet_dialog, null);
-            final LinearLayout restore = sheetView.findViewById(R.id.restore);
+            LinearLayout restore = sheetView.findViewById(R.id.restore);
             restore.setOnClickListener(view2 -> {
                 new BootAnimationClearer(this).execute();
-                this.sheetDialog.hide();
+                sheetDialog.hide();
             });
-            this.sheetDialog.setContentView(sheetView);
-            this.sheetDialog.show();
+            sheetDialog.setContentView(sheetView);
+            sheetDialog.show();
         });
 
         // Font Dialog
         fontsButton.setOnClickListener(v -> {
-            this.sheetDialog = new SheetDialog(this.mContext);
-            final View sheetView = View.inflate(this.mContext,
-                    R.layout.restore_fonts_sheet_dialog, null);
-            final LinearLayout restore = sheetView.findViewById(R.id.restore);
+            sheetDialog = new SheetDialog(mContext);
+            View sheetView = View.inflate(mContext, R.layout.restore_fonts_sheet_dialog, null);
+            LinearLayout restore = sheetView.findViewById(R.id.restore);
             restore.setOnClickListener(view2 -> {
-                if (Systems.checkThemeInterfacer(this.mContext) ||
-                        Settings.System.canWrite(this.mContext)) {
+                if (Systems.checkThemeInterfacer(mContext) ||
+                        Settings.System.canWrite(mContext)) {
                     new FontsClearer(this).execute("");
                 } else {
-                    final Intent intent = new Intent(
-                            Settings.ACTION_MANAGE_WRITE_SETTINGS);
-                    intent.setData(Uri.parse("package:" + this.getActivity().getPackageName()));
+                    Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                    assert getActivity() != null;
+                    intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    this.startActivity(intent);
-                    if (this.getView() != null) {
-                        Lunchbar.make(this.getView(),
-                                this.getString(R.string.fonts_dialog_permissions_grant_toast),
+                    startActivity(intent);
+                    if (getView() != null) {
+                        Lunchbar.make(getView(),
+                                getString(R.string.fonts_dialog_permissions_grant_toast),
                                 Lunchbar.LENGTH_LONG).show();
                     }
                 }
-                this.sheetDialog.hide();
+                sheetDialog.hide();
             });
-            this.sheetDialog.setContentView(sheetView);
-            this.sheetDialog.show();
+            sheetDialog.setContentView(sheetView);
+            sheetDialog.show();
         });
 
         // Sounds Dialog
         soundsButton.setOnClickListener(v -> {
-            this.sheetDialog = new SheetDialog(this.mContext);
-            final View sheetView = View.inflate(this.mContext,
-                    R.layout.restore_sounds_sheet_dialog, null);
-            final LinearLayout restore = sheetView.findViewById(R.id.restore);
+            sheetDialog = new SheetDialog(mContext);
+            View sheetView = View.inflate(mContext, R.layout.restore_sounds_sheet_dialog, null);
+            LinearLayout restore = sheetView.findViewById(R.id.restore);
             restore.setOnClickListener(view2 -> {
-                if (Systems.checkThemeInterfacer(this.mContext) ||
-                        Settings.System.canWrite(this.mContext)) {
+                if (Systems.checkThemeInterfacer(mContext) ||
+                        Settings.System.canWrite(mContext)) {
                     new SoundsClearer(this).execute();
                 } else {
-                    final Intent intent = new Intent(
-                            Settings.ACTION_MANAGE_WRITE_SETTINGS);
-                    intent.setData(Uri.parse("package:" + this.getActivity().getPackageName()));
+                    Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                    assert getActivity() != null;
+                    intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    this.startActivity(intent);
-                    if (this.getView() != null) {
-                        Lunchbar.make(this.getView(),
-                                this.getString(R.string.sounds_dialog_permissions_grant_toast),
+                    startActivity(intent);
+                    if (getView() != null) {
+                        Lunchbar.make(getView(),
+                                getString(R.string.sounds_dialog_permissions_grant_toast),
                                 Lunchbar.LENGTH_LONG).show();
                     }
                 }
-                this.sheetDialog.hide();
+                sheetDialog.hide();
             });
-            this.sheetDialog.setContentView(sheetView);
-            this.sheetDialog.show();
+            sheetDialog.setContentView(sheetView);
+            sheetDialog.show();
         });
 
-        final View overlayCard = root.findViewById(R.id.restore_overlay_card);
-        if (Systems.isSamsung(this.getContext())) {
+        if (Systems.isSamsung(mContext)) {
             overlayCard.setVisibility(View.GONE);
         }
 
-        final View bootanimationCard = root.findViewById(R.id.restore_bootanimation_card);
-        if (Systems.isSamsung(this.getContext()) ||
-                (checkAndromeda(this.getContext()) && !Root.checkRootAccess())) {
+        if (Systems.isSamsung(mContext) ||
+                (checkAndromeda(mContext) &&
+                        !Root.checkRootAccess())) {
             bootanimationCard.setVisibility(View.GONE);
         }
 
-        final View fontsCard = root.findViewById(R.id.restore_fonts_card);
         if (!Resources.isFontsSupported()) {
             fontsCard.setVisibility(View.GONE);
         }
 
-        final View soundCard = root.findViewById(R.id.restore_sounds_card);
-        if (Systems.isSamsung(this.getContext()) ||
-                (checkAndromeda(this.getContext()) && !Root.checkRootAccess())) {
+        if (Systems.isSamsung(mContext) ||
+                (checkAndromeda(mContext) &&
+                        !Root.checkRootAccess())) {
             soundCard.setVisibility(View.GONE);
         }
 
-        if (!this.prefs.getBoolean("seen_restore_warning", false) &&
-                !Systems.isSamsung(this.getContext())) {
-            this.showRecoveryWarning();
+        if (!prefs.getBoolean("seen_restore_warning", false) &&
+                !Systems.isSamsung(mContext)) {
+            showRecoveryWarning();
         }
-        return root;
+        return view;
     }
 
+    /**
+     * Show the dialog to warn the user that restoring would take some time
+     */
     private void showRecoveryWarning() {
-        new AlertDialog.Builder(this.mContext)
+        new AlertDialog.Builder(mContext)
                 .setTitle(R.string.restore_info_dialog_title)
                 .setMessage(R.string.restore_info_dialog_message)
                 .setPositiveButton(R.string.dialog_ok, (dialog, which) -> {
-                    if (!this.prefs.getBoolean("seen_restore_warning", false))
-                        this.prefs.edit().putBoolean("seen_restore_warning", true).apply();
+                    if (!prefs.getBoolean("seen_restore_warning", false))
+                        prefs.edit().putBoolean("seen_restore_warning", true).apply();
                     dialog.dismiss();
                 })
                 .show();
     }
 
+    /**
+     * Creating the options menu (3dot overflow menu)
+     *
+     * @param menu Menu object
+     */
     @Override
-    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.restore_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    /**
+     * Assign actions to every option when they are selected
+     *
+     * @param item Object of menu item
+     * @return True, if something has changed.
+     */
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        final int id = item.getItemId();
-
-        if (id == R.id.restore_info) {
-            this.showRecoveryWarning();
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.restore_info) {
+            showRecoveryWarning();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
-    private static final class FontsClearer extends AsyncTask<String, Integer, String> {
+    /**
+     * Clear the applied fonts
+     */
+    private static class FontsClearer extends AsyncTask<String, Integer, String> {
 
-        private final WeakReference<RecoveryFragment> ref;
+        private WeakReference<RecoveryFragment> ref;
 
-        private FontsClearer(final RecoveryFragment fragment) {
+        private FontsClearer(RecoveryFragment fragment) {
             super();
-            this.ref = new WeakReference<>(fragment);
+            ref = new WeakReference<>(fragment);
         }
 
         @Override
         protected void onPreExecute() {
-            final RecoveryFragment fragment = this.ref.get();
+            RecoveryFragment fragment = ref.get();
             if (fragment != null) {
-                final Context context = fragment.mContext;
+                Context context = fragment.mContext;
                 if (References.ENABLE_EXTRAS_DIALOG) {
                     fragment.mProgressDialog = new ProgressDialog(context, R.style.RestoreDialog);
                     fragment.mProgressDialog.setMessage(
@@ -346,30 +372,30 @@ public class RecoveryFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(final String result) {
-            final RecoveryFragment fragment = this.ref.get();
+        protected void onPostExecute(String result) {
+            RecoveryFragment fragment = ref.get();
             if (fragment != null) {
-                final Context context = fragment.mContext;
+                Context context = fragment.mContext;
                 if (References.ENABLE_EXTRAS_DIALOG) {
                     fragment.mProgressDialog.dismiss();
                 }
-                final SharedPreferences.Editor editor = fragment.prefs.edit();
-                editor.remove("fonts_applied");
+                SharedPreferences.Editor editor = fragment.prefs.edit();
+                editor.remove(FONTS_APPLIED);
                 editor.apply();
 
                 if (Systems.checkOMS(context)) {
-                    final Toast toast = Toast.makeText(
+                    Toast toast = Toast.makeText(
                             context,
                             R.string.manage_fonts_toast,
                             Toast.LENGTH_SHORT);
                     toast.show();
                 } else {
-                    final Toast toast = Toast.makeText(
+                    Toast toast = Toast.makeText(
                             context,
                             R.string.manage_fonts_toast,
                             Toast.LENGTH_SHORT);
                     toast.show();
-                    final AlertDialog.Builder alertDialogBuilder =
+                    AlertDialog.Builder alertDialogBuilder =
                             new AlertDialog.Builder(context);
                     alertDialogBuilder.setTitle(R.string.legacy_dialog_soft_reboot_title);
                     alertDialogBuilder.setMessage(R.string.legacy_dialog_soft_reboot_text);
@@ -378,35 +404,38 @@ public class RecoveryFragment extends Fragment {
                     alertDialogBuilder.setNegativeButton(R.string.remove_dialog_later,
                             (dialog, id) -> dialog.dismiss());
                     alertDialogBuilder.setCancelable(false);
-                    final AlertDialog alertDialog = alertDialogBuilder.create();
+                    AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
                 }
             }
         }
 
         @Override
-        protected String doInBackground(final String... sUrl) {
-            final RecoveryFragment fragment = this.ref.get();
+        protected String doInBackground(String... sUrl) {
+            RecoveryFragment fragment = ref.get();
             if (fragment != null) {
-                final Context context = fragment.mContext;
-                FontManager.clearFonts(context);
+                Context context = fragment.mContext;
+                FontsManager.clearFonts(context);
             }
             return null;
         }
     }
 
-    private static final class RestoreFunction extends AsyncTask<Boolean, Void, Void> {
-        private final WeakReference<RecoveryFragment> ref;
+    /**
+     * Uninstall overlays
+     */
+    private static class RestoreFunction extends AsyncTask<Boolean, Void, Void> {
+        private WeakReference<RecoveryFragment> ref;
         private boolean withUninstall;
 
-        private RestoreFunction(final RecoveryFragment fragment) {
+        private RestoreFunction(RecoveryFragment fragment) {
             super();
-            this.ref = new WeakReference<>(fragment);
+            ref = new WeakReference<>(fragment);
         }
 
         @Override
         protected void onPreExecute() {
-            final RecoveryFragment fragment = this.ref.get();
+            RecoveryFragment fragment = ref.get();
             if (fragment != null) {
                 fragment.mProgressDialog = new ProgressDialog(
                         fragment.getActivity(), R.style.RestoreDialog);
@@ -419,15 +448,15 @@ public class RecoveryFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(final Void result) {
+        protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            final RecoveryFragment fragment = this.ref.get();
+            RecoveryFragment fragment = ref.get();
             if (fragment != null) {
-                final Context context = fragment.getContext();
-                final View view = fragment.getView();
+                Context context = fragment.mContext;
+                View view = fragment.getView();
 
                 fragment.mProgressDialog.dismiss();
-                if (this.withUninstall) {
+                if (withUninstall) {
                     if (Systems.checkOMS(context)) {
                         try {
                             if (view != null) {
@@ -442,7 +471,7 @@ public class RecoveryFragment extends Fragment {
                                 ThemeManager.uninstallOverlay(
                                         context, fragment.final_commands_array);
                             }
-                        } catch (final Exception e) {
+                        } catch (Exception e) {
                             // At this point the window is refreshed too many times detaching the
                             // activity
                             Log.e(References.SUBSTRATUM_LOG, "Profile window refreshed too " +
@@ -456,7 +485,7 @@ public class RecoveryFragment extends Fragment {
                                     Lunchbar.LENGTH_LONG)
                                     .show();
                         }
-                        final AlertDialog.Builder alertDialogBuilder =
+                        AlertDialog.Builder alertDialogBuilder =
                                 new AlertDialog.Builder(context);
                         alertDialogBuilder
                                 .setTitle(context.getString(R.string
@@ -469,7 +498,7 @@ public class RecoveryFragment extends Fragment {
                                 .setPositiveButton(android.R.string.ok,
                                         (dialog, id) -> ElevatedCommands.reboot());
                         alertDialogBuilder.setCancelable(false);
-                        final AlertDialog alertDialog = alertDialogBuilder.create();
+                        AlertDialog alertDialog = alertDialogBuilder.create();
                         alertDialog.show();
                     }
                 } else {
@@ -484,15 +513,14 @@ public class RecoveryFragment extends Fragment {
         }
 
         @Override
-        protected Void doInBackground(final Boolean... sUrl) {
-            final RecoveryFragment fragment = this.ref.get();
+        protected Void doInBackground(Boolean... sUrl) {
+            RecoveryFragment fragment = ref.get();
             if (fragment != null) {
-                final Context context = fragment.getActivity();
-                this.withUninstall = sUrl[0];
-
-                if (this.withUninstall) {
+                Context context = fragment.getActivity();
+                withUninstall = sUrl[0];
+                if (context != null && withUninstall) {
                     if (Systems.checkOMS(context)) {
-                        final List<String> overlays = ThemeManager.listAllOverlays(context);
+                        List<String> overlays = ThemeManager.listAllOverlays(context);
 
                         fragment.final_commands_array = new ArrayList<>();
                         fragment.final_commands_array.addAll(overlays.stream()
@@ -518,17 +546,20 @@ public class RecoveryFragment extends Fragment {
         }
     }
 
-    private static final class BootAnimationClearer extends AsyncTask<Void, Void, Void> {
-        private final WeakReference<RecoveryFragment> ref;
+    /**
+     * Clear applied boot animation
+     */
+    private static class BootAnimationClearer extends AsyncTask<Void, Void, Void> {
+        private WeakReference<RecoveryFragment> ref;
 
-        private BootAnimationClearer(final RecoveryFragment fragment) {
+        private BootAnimationClearer(RecoveryFragment fragment) {
             super();
-            this.ref = new WeakReference<>(fragment);
+            ref = new WeakReference<>(fragment);
         }
 
         @Override
         protected void onPreExecute() {
-            final RecoveryFragment fragment = this.ref.get();
+            RecoveryFragment fragment = ref.get();
             if (fragment != null) {
                 fragment.mProgressDialog = new ProgressDialog(
                         fragment.getActivity(), R.style.RestoreDialog);
@@ -541,13 +572,13 @@ public class RecoveryFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(final Void result) {
-            final RecoveryFragment fragment = this.ref.get();
+        protected void onPostExecute(Void result) {
+            RecoveryFragment fragment = ref.get();
             if (fragment != null) {
                 fragment.mProgressDialog.dismiss();
 
-                final SharedPreferences.Editor editor = fragment.prefs.edit();
-                editor.remove("bootanimation_applied").apply();
+                SharedPreferences.Editor editor = fragment.prefs.edit();
+                editor.remove(BOOT_ANIMATION_APPLIED).apply();
 
                 if (fragment.getView() != null) {
                     Lunchbar.make(fragment.getView(),
@@ -559,26 +590,29 @@ public class RecoveryFragment extends Fragment {
         }
 
         @Override
-        protected Void doInBackground(final Void... sUrl) {
-            final RecoveryFragment fragment = this.ref.get();
+        protected Void doInBackground(Void... sUrl) {
+            RecoveryFragment fragment = ref.get();
             if (fragment != null) {
-                BootAnimationManager.clearBootAnimation(fragment.getActivity(), false);
+                BootAnimationsManager.clearBootAnimation(fragment.getActivity(), false);
             }
             return null;
         }
     }
 
-    private static final class SoundsClearer extends AsyncTask<Void, Void, Void> {
-        private final WeakReference<RecoveryFragment> ref;
+    /**
+     * Clear all applied sounds
+     */
+    private static class SoundsClearer extends AsyncTask<Void, Void, Void> {
+        private WeakReference<RecoveryFragment> ref;
 
-        private SoundsClearer(final RecoveryFragment fragment) {
+        private SoundsClearer(RecoveryFragment fragment) {
             super();
-            this.ref = new WeakReference<>(fragment);
+            ref = new WeakReference<>(fragment);
         }
 
         @Override
         protected void onPreExecute() {
-            final RecoveryFragment fragment = this.ref.get();
+            RecoveryFragment fragment = ref.get();
             if (fragment != null) {
                 fragment.mProgressDialog = new ProgressDialog(
                         fragment.getActivity(), R.style.RestoreDialog);
@@ -591,13 +625,13 @@ public class RecoveryFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(final Void result) {
-            final RecoveryFragment fragment = this.ref.get();
+        protected void onPostExecute(Void result) {
+            RecoveryFragment fragment = ref.get();
             if (fragment != null) {
                 fragment.mProgressDialog.dismiss();
 
-                final SharedPreferences.Editor editor = fragment.prefs.edit();
-                editor.remove("sounds_applied").apply();
+                SharedPreferences.Editor editor = fragment.prefs.edit();
+                editor.remove(SOUNDS_APPLIED).apply();
 
                 if (fragment.getView() != null) {
                     Lunchbar.make(fragment.getView(),
@@ -609,8 +643,8 @@ public class RecoveryFragment extends Fragment {
         }
 
         @Override
-        protected Void doInBackground(final Void... sUrl) {
-            final RecoveryFragment fragment = this.ref.get();
+        protected Void doInBackground(Void... sUrl) {
+            RecoveryFragment fragment = ref.get();
             if (fragment != null) {
                 SoundUtils.SoundsClearer(fragment.getActivity());
             }

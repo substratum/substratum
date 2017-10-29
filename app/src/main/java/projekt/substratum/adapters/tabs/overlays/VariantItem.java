@@ -21,12 +21,13 @@ package projekt.substratum.adapters.tabs.overlays;
 import java.io.Serializable;
 
 public class VariantItem implements Serializable {
-    private final String variant_name;
-    private final boolean forceHidden;
+    private String variant_name;
+    private boolean forceHidden;
     private String variant_hex;
     private int color;
 
-    public VariantItem(final String variant_name, final String variant_hex) {
+    public VariantItem(String variant_name,
+                       String variant_hex) {
         super();
         this.variant_name = variant_name;
         if (variant_hex == null) {
@@ -54,7 +55,7 @@ public class VariantItem implements Serializable {
         return this.color;
     }
 
-    public void setColor(final int color) {
+    public void setColor(int color) {
         this.color = color;
     }
 

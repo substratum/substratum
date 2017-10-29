@@ -21,11 +21,13 @@ package projekt.substratum.adapters.tabs.sounds;
 import android.content.Context;
 
 public class SoundsInfo {
-    private final String absolute_path;
-    private final Context mContext;
+    private String absolute_path;
+    private Context mContext;
     private String title;
 
-    public SoundsInfo(final Context mContext, final String title, final String absolute_path) {
+    public SoundsInfo(Context mContext,
+                      String title,
+                      String absolute_path) {
         super();
         this.mContext = mContext;
         this.title = title;
@@ -44,7 +46,7 @@ public class SoundsInfo {
         return this.title;
     }
 
-    public void setTitle(final String name) {
+    public void setTitle(String name) {
         this.title = name;
     }
 }

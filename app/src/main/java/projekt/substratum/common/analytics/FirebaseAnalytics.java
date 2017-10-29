@@ -53,101 +53,103 @@ public enum FirebaseAnalytics {
         if (mDatabase == null) {
             mDatabase = FirebaseDatabase.getInstance();
             mDatabase.setPersistenceEnabled(true);
-            final String token = FirebaseInstanceId.getInstance().getToken();
+            String token = FirebaseInstanceId.getInstance().getToken();
             Log.d(References.SUBSTRATUM_LOG, "Firebase Registration Token: " + token);
         }
         return mDatabase.getReference();
     }
 
     @SuppressWarnings("unchecked")
-    public static void withdrawBlacklistedPackages(final Context context) {
-        final DatabaseReference database = getDatabaseReference();
+    public static void withdrawBlacklistedPackages(Context context) {
+        DatabaseReference database = getDatabaseReference();
         database.child("patchers").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(final DataSnapshot dataSnapshot) {
-                final SharedPreferences.Editor editor = context
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                SharedPreferences.Editor editor = context
                         .getSharedPreferences(PACKAGES_PREFS, Context.MODE_PRIVATE).edit();
                 editor.clear();
-                final Object dataValue = dataSnapshot.getValue();
+                Object dataValue = dataSnapshot.getValue();
                 if (dataValue != null) {
-                    final String data = dataValue.toString();
-                    final String[] dataArr = data.substring(1, data.length() - 1).split(",");
-                    final Collection<String> listOfPackages = new ArrayList<>();
-                    for (final String aDataArr : dataArr) {
-                        final String entry = aDataArr.split("=")[1];
+                    String data = dataValue.toString();
+                    String[] dataArr = data.substring(1, data.length() - 1).split(",");
+                    Collection<String> listOfPackages = new ArrayList<>();
+                    for (String aDataArr : dataArr) {
+                        String entry = aDataArr.split("=")[1];
                         listOfPackages.add(entry);
                     }
 
-                    final Set set = new HashSet(listOfPackages);
-                    final SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
+                    Set set = new HashSet(listOfPackages);
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
                     editor.putStringSet(dateFormat.format(new Date()), set);
                     editor.apply();
                 }
             }
 
             @Override
-            public void onCancelled(final DatabaseError databaseError) {
+            public void onCancelled(DatabaseError databaseError) {
             }
         });
     }
 
-    public static void withdrawAndromedaFingerprint(final Context context, final int version) {
-        final SharedPreferences prefs = context
+    public static void withdrawAndromedaFingerprint(Context context,
+                                                    int version) {
+        SharedPreferences prefs = context
                 .getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
         if (!prefs.contains("andromeda_exp_fp_" + version)) {
-            final SharedPreferences.Editor editor = prefs.edit();
-            for (final Map.Entry<String, ?> entry : prefs.getAll().entrySet()) {
+            SharedPreferences.Editor editor = prefs.edit();
+            for (Map.Entry<String, ?> entry : prefs.getAll().entrySet()) {
                 if (entry.getKey().startsWith("andromeda_fp_")) {
                     editor.remove(entry.getKey());
                 }
             }
-            final DatabaseReference database = getDatabaseReference();
-            final String prefKey = "andromeda_exp_fp_" + version;
+            DatabaseReference database = getDatabaseReference();
+            String prefKey = "andromeda_exp_fp_" + version;
             database.child("andromeda-fp")
                     .addValueEventListener(new ValueEventListener() {
                         @Override
-                        public void onDataChange(final DataSnapshot dataSnapshot) {
-                            final Object dataValue = dataSnapshot.child(String.valueOf(version))
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Object dataValue = dataSnapshot.child(String.valueOf(version))
                                     .getValue();
                             if (dataValue != null) {
-                                final String hash = dataValue.toString();
+                                String hash = dataValue.toString();
                                 editor.putString(prefKey, hash).apply();
                             }
                         }
 
                         @Override
-                        public void onCancelled(final DatabaseError databaseError) {
+                        public void onCancelled(DatabaseError databaseError) {
                         }
                     });
         }
     }
 
-    public static void withdrawSungstratumFingerprint(final Context context, final int version) {
-        final SharedPreferences prefs = context
+    public static void withdrawSungstratumFingerprint(Context context,
+                                                      int version) {
+        SharedPreferences prefs = context
                 .getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
         if (!prefs.contains("sungstratum_exp_fp_" + version)) {
-            final SharedPreferences.Editor editor = prefs.edit();
-            for (final Map.Entry<String, ?> entry : prefs.getAll().entrySet()) {
+            SharedPreferences.Editor editor = prefs.edit();
+            for (Map.Entry<String, ?> entry : prefs.getAll().entrySet()) {
                 if (entry.getKey().startsWith("sungstratum_exp_fp_")) {
                     editor.remove(entry.getKey());
                 }
             }
-            final DatabaseReference database = getDatabaseReference();
-            final String prefKey = "sungstratum_exp_fp_" + version;
+            DatabaseReference database = getDatabaseReference();
+            String prefKey = "sungstratum_exp_fp_" + version;
             database.child("sungstratum-fp")
                     .addValueEventListener(new ValueEventListener() {
                         @Override
-                        public void onDataChange(final DataSnapshot dataSnapshot) {
-                            final Object dataValue = dataSnapshot.child(String.valueOf(version))
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Object dataValue = dataSnapshot.child(String.valueOf(version))
                                     .getValue();
                             if (dataValue != null) {
-                                final String hash = dataValue.toString();
+                                String hash = dataValue.toString();
                                 editor.putString(prefKey, hash).apply();
                             }
                         }
 
                         @Override
-                        public void onCancelled(final DatabaseError databaseError) {
+                        public void onCancelled(DatabaseError databaseError) {
                         }
                     });
         }

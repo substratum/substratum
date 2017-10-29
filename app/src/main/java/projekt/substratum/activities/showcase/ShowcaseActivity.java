@@ -43,6 +43,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import java.io.File;
@@ -50,6 +51,8 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import projekt.substratum.R;
 import projekt.substratum.adapters.showcase.ShowcaseTabsAdapter;
 import projekt.substratum.common.References;
@@ -58,10 +61,24 @@ import projekt.substratum.util.files.FileDownloader;
 import projekt.substratum.util.files.MD5;
 import projekt.substratum.util.readers.ReadShowcaseTabsFile;
 
+import static projekt.substratum.common.Internal.ANDROMEDA_RECEIVER;
+import static projekt.substratum.common.Internal.SHOWCASE_CACHE;
+
 public class ShowcaseActivity extends AppCompatActivity {
 
-    private RelativeLayout no_network;
-    private SwipeRefreshLayout swipeRefreshLayout;
+    private static final String TAG = "ShowcaseActivity";
+    @BindView(R.id.no_network)
+    RelativeLayout no_network;
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.tabs)
+    TabLayout tabLayout;
+    @BindView(R.id.viewpager)
+    ViewPager viewPager;
+    @BindView(android.R.id.content)
+    ViewGroup masterView;
     private SharedPreferences prefs;
     private LocalBroadcastManager localBroadcastManager;
     private AndromedaReceiver andromedaReceiver;
@@ -69,21 +86,21 @@ public class ShowcaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (Systems.isAndromedaDevice(this.getApplicationContext())) {
+        if (Systems.isAndromedaDevice(getApplicationContext())) {
             try {
-                this.localBroadcastManager.unregisterReceiver(this.andromedaReceiver);
-            } catch (final Exception e) {
+                localBroadcastManager.unregisterReceiver(andromedaReceiver);
+            } catch (Exception e) {
                 // Unregistered already
             }
         }
     }
 
     @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
-        this.getMenuInflater().inflate(R.menu.showcase_menu, menu);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.showcase_menu, menu);
 
-        final MenuItem alphabetizeMenu = menu.findItem(R.id.alphabetize);
-        final boolean alphabetize = this.prefs.getBoolean("alphabetize_showcase", false);
+        MenuItem alphabetizeMenu = menu.findItem(R.id.alphabetize);
+        boolean alphabetize = prefs.getBoolean("alphabetize_showcase", false);
         if (alphabetize) {
             alphabetizeMenu.setIcon(R.drawable.actionbar_alphabetize);
         } else {
@@ -93,120 +110,120 @@ public class ShowcaseActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                this.onBackPressed();
+                onBackPressed();
                 return true;
             case R.id.search:
                 try {
-                    final String playURL;
-                    if (Systems.checkOMS(this.getApplicationContext())) {
-                        playURL = this.getString(R.string.search_play_store_url);
-                    } else if (Systems.isSamsung(this.getApplicationContext())) {
-                        playURL = this.getString(R.string.search_play_store_url_samsung);
+                    String playURL;
+                    if (Systems.checkOMS(getApplicationContext())) {
+                        playURL = getString(R.string.search_play_store_url);
+                    } else if (Systems.isSamsung(getApplicationContext())) {
+                        playURL = getString(R.string.search_play_store_url_samsung);
                     } else {
-                        playURL = this.getString(R.string.search_play_store_url_legacy);
+                        playURL = getString(R.string.search_play_store_url_legacy);
                     }
-                    final Intent i = new Intent(Intent.ACTION_VIEW);
+                    Intent i = new Intent(Intent.ACTION_VIEW);
                     i.setData(Uri.parse(playURL));
-                    this.startActivity(i);
-                } catch (final ActivityNotFoundException activityNotFoundException) {
-                    Lunchbar.make(this.findViewById(android.R.id.content),
-                            this.getString(R.string.activity_missing_toast),
+                    startActivity(i);
+                } catch (ActivityNotFoundException activityNotFoundException) {
+                    Lunchbar.make(masterView,
+                            getString(R.string.activity_missing_toast),
                             Lunchbar.LENGTH_LONG)
                             .show();
                 }
                 return true;
             case R.id.info:
-                this.launchShowcaseInfo();
+                launchShowcaseInfo();
                 return true;
             case R.id.alphabetize:
-                final boolean alphabetize = this.prefs.getBoolean("alphabetize_showcase", false);
+                boolean alphabetize = prefs.getBoolean("alphabetize_showcase", false);
                 if (!alphabetize) {
-                    this.prefs.edit().putBoolean("alphabetize_showcase", true).apply();
+                    prefs.edit().putBoolean("alphabetize_showcase", true).apply();
                 } else {
-                    this.prefs.edit().putBoolean("alphabetize_showcase", false).apply();
+                    prefs.edit().putBoolean("alphabetize_showcase", false).apply();
                 }
-                this.recreate();
+                recreate();
                 return true;
         }
         return false;
     }
 
-    private void swipeRefresh() {
-        this.swipeRefreshLayout = this.findViewById(R.id.swipeRefreshLayout);
-        this.swipeRefreshLayout.setOnRefreshListener(this::recreate);
-    }
-
+    /**
+     * Refresh the showcase layout by redownloading the tabs
+     */
     private void refreshLayout() {
-        if (References.isNetworkAvailable(this.getApplicationContext())) {
-            this.no_network.setVisibility(View.GONE);
-            final DownloadTabs downloadTabs = new DownloadTabs(this);
-            downloadTabs.execute(this.getString(R.string.showcase_tabs), "showcase_tabs.xml");
+        if (References.isNetworkAvailable(getApplicationContext())) {
+            no_network.setVisibility(View.GONE);
+            DownloadTabs downloadTabs = new DownloadTabs(this);
+            downloadTabs.execute(getString(R.string.showcase_tabs), "showcase_tabs.xml");
         } else {
-            this.no_network.setVisibility(View.VISIBLE);
+            no_network.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.showcase_activity);
+        setContentView(R.layout.showcase_activity);
+        ButterKnife.bind(this);
 
-        this.prefs = PreferenceManager.getDefaultSharedPreferences(
-                this.getApplicationContext());
+        prefs = PreferenceManager.getDefaultSharedPreferences(
+                getApplicationContext());
+        swipeRefreshLayout.setOnRefreshListener(this::recreate);
 
-        if (Systems.isAndromedaDevice(this.getApplicationContext())) {
-            this.andromedaReceiver = new ShowcaseActivity.AndromedaReceiver();
-            this.localBroadcastManager = LocalBroadcastManager.getInstance(this
+        if (Systems.isAndromedaDevice(getApplicationContext())) {
+            andromedaReceiver = new ShowcaseActivity.AndromedaReceiver();
+            localBroadcastManager = LocalBroadcastManager.getInstance(this
                     .getApplicationContext());
-            this.localBroadcastManager.registerReceiver(this.andromedaReceiver,
-                    new IntentFilter("AndromedaReceiver.KILL"));
+            localBroadcastManager.registerReceiver(andromedaReceiver,
+                    new IntentFilter(ANDROMEDA_RECEIVER));
         }
 
-        final Toolbar toolbar = this.findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            this.setSupportActionBar(toolbar);
-            if (this.getSupportActionBar() != null) {
-                this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                this.getSupportActionBar().setHomeButtonEnabled(false);
-                this.getSupportActionBar().setTitle(R.string.showcase);
-            }
-            toolbar.setNavigationOnClickListener((view) -> this.onBackPressed());
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(false);
+            getSupportActionBar().setTitle(R.string.showcase);
         }
+        toolbar.setNavigationOnClickListener((view) -> onBackPressed());
 
-        final File showcase_directory =
-                new File(this.getApplicationContext().getCacheDir() + "/ShowcaseCache/");
+        File showcase_directory =
+                new File(getApplicationContext().getCacheDir() + SHOWCASE_CACHE);
         if (!showcase_directory.exists()) {
-            final Boolean made = showcase_directory.mkdir();
+            Boolean made = showcase_directory.mkdir();
             if (!made)
-                Log.e(References.SUBSTRATUM_LOG, "Could not make showcase directory...");
+                Log.e(TAG, "Could not make showcase directory...");
         }
 
-        final TabLayout tabLayout = this.findViewById(R.id.tabs);
         tabLayout.setTabTextColors(
-                this.getColor(R.color.showcase_activity_text),
-                this.getColor(R.color.showcase_activity_text));
+                getColor(R.color.showcase_activity_text),
+                getColor(R.color.showcase_activity_text));
         tabLayout.setVisibility(View.GONE);
-        this.no_network = this.findViewById(R.id.no_network);
-        this.refreshLayout();
-        this.swipeRefresh();
+        refreshLayout();
     }
 
+    /**
+     * Launch information on what the small icons mean
+     */
     private void launchShowcaseInfo() {
-        final Dialog dialog = new Dialog(this, R.style.ShowcaseDialog);
+        Dialog dialog = new Dialog(this, R.style.ShowcaseDialog);
         dialog.setContentView(R.layout.showcase_info);
         dialog.show();
     }
 
+    /**
+     * Class to download the tabs from the GitHub organization
+     */
     private static class DownloadTabs extends AsyncTask<String, Integer, String> {
 
-        private final WeakReference<ShowcaseActivity> showcaseActivityWR;
+        private WeakReference<ShowcaseActivity> showcaseActivityWR;
 
-        DownloadTabs(final ShowcaseActivity activity) {
+        DownloadTabs(ShowcaseActivity activity) {
             super();
-            this.showcaseActivityWR = new WeakReference<>(activity);
+            showcaseActivityWR = new WeakReference<>(activity);
         }
 
         @Override
@@ -216,116 +233,101 @@ public class ShowcaseActivity extends AppCompatActivity {
 
         @SuppressLint("ClickableViewAccessibility")
         @Override
-        protected void onPostExecute(final String result) {
+        protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
             if (result == null) {
                 return;
             }
 
-            final ShowcaseActivity activity = this.showcaseActivityWR.get();
+            ShowcaseActivity activity = showcaseActivityWR.get();
 
             if (activity != null) {
-
-                final TabLayout tabLayout = activity.findViewById(R.id.tabs);
-                final ViewPager viewPager = activity.findViewById(R.id.viewpager);
-                final SwipeRefreshLayout swipeRefreshLayout = activity.swipeRefreshLayout;
-
-                if ((tabLayout == null) || (viewPager == null) || (swipeRefreshLayout == null)) {
-                    return;
-                }
-
-                tabLayout.setVisibility(View.VISIBLE);
-
+                activity.tabLayout.setVisibility(View.VISIBLE);
                 String resultant = result;
-
                 if (resultant.endsWith("-temp.xml")) {
-                    final String existing = MD5.calculateMD5(new File(activity.getCacheDir() +
-                            "/ShowcaseCache/" + "showcase_tabs.xml"));
-                    final String new_file = MD5.calculateMD5(new File(activity.getCacheDir() +
-                            "/ShowcaseCache/" + "showcase_tabs-temp.xml"));
+                    String existing = MD5.calculateMD5(new File(activity.getCacheDir() +
+                            SHOWCASE_CACHE + "showcase_tabs.xml"));
+                    String new_file = MD5.calculateMD5(new File(activity.getCacheDir() +
+                            SHOWCASE_CACHE + "showcase_tabs-temp.xml"));
                     if ((existing != null) && !existing.equals(new_file)) {
                         // MD5s don't match
-                        final File renameMe = new File(activity.getCacheDir() +
-                                "/ShowcaseCache/" + "showcase_tabs-temp.xml");
-                        final boolean move = renameMe.renameTo(
+                        File renameMe = new File(activity.getCacheDir() +
+                                SHOWCASE_CACHE + "showcase_tabs-temp.xml");
+                        boolean move = renameMe.renameTo(
                                 new File(activity.getCacheDir() +
-                                        "/ShowcaseCache/" + "showcase_tabs.xml"));
-                        if (move) Log.e("SubstratumShowcase",
-                                "Successfully updated the showcase tabs database");
+                                        SHOWCASE_CACHE + "showcase_tabs.xml"));
+                        if (move) Log.e(TAG, "Successfully updated the showcase tabs database");
                     } else {
-                        final File deleteMe = new File(activity.getCacheDir() +
-                                "/ShowcaseCache/" + "showcase_tabs-temp.xml");
-                        final boolean deleted = deleteMe.delete();
-                        if (!deleted) Log.e("SubstratumShowcase",
-                                "Unable to delete temporary tab file.");
+                        File deleteMe = new File(activity.getCacheDir() +
+                                SHOWCASE_CACHE + "showcase_tabs-temp.xml");
+                        boolean deleted = deleteMe.delete();
+                        if (!deleted) Log.e(TAG, "Unable to delete temporary tab file.");
                     }
                 }
 
                 resultant = "showcase_tabs.xml";
 
-                final String[] checkerCommands = {activity.getCacheDir() +
-                        "/ShowcaseCache/" + resultant};
+                Map<String, String> newArray =
+                        ReadShowcaseTabsFile.read(activity.getCacheDir() +
+                                SHOWCASE_CACHE + resultant);
 
-                final Map<String, String> newArray =
-                        ReadShowcaseTabsFile.main(checkerCommands);
-
-                final ArrayList<String> links = new ArrayList<>();
+                ArrayList<String> links = new ArrayList<>();
 
                 newArray.keySet()
                         .forEach(key -> {
                             links.add(newArray.get(key));
-                            tabLayout.addTab(tabLayout.newTab().setText(key));
+                            activity.tabLayout.addTab(activity.tabLayout.newTab().setText(key));
                         });
 
-                final ShowcaseTabsAdapter adapter = new ShowcaseTabsAdapter(
+                ShowcaseTabsAdapter adapter = new ShowcaseTabsAdapter(
                         activity.getSupportFragmentManager(),
-                        tabLayout.getTabCount(),
+                        activity.tabLayout.getTabCount(),
                         links);
 
-                viewPager.setOffscreenPageLimit(tabLayout.getTabCount());
-                viewPager.setAdapter(adapter);
-                viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener
-                        (tabLayout));
+                activity.viewPager.setOffscreenPageLimit(activity.tabLayout.getTabCount());
+                activity.viewPager.setAdapter(adapter);
+                activity.viewPager.addOnPageChangeListener(
+                        new TabLayout.TabLayoutOnPageChangeListener(activity.tabLayout));
 
                 // Fix for SwipeToRefresh in ViewPager
                 // (without it horizontal scrolling is impossible)
-                viewPager.setOnTouchListener((v, event) -> {
-                    swipeRefreshLayout.setEnabled(false);
+                activity.viewPager.setOnTouchListener((v, event) -> {
+                    activity.swipeRefreshLayout.setEnabled(false);
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_UP:
-                            swipeRefreshLayout.setEnabled(true);
+                            activity.swipeRefreshLayout.setEnabled(true);
                             break;
                     }
                     return false;
                 });
-                tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                activity.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                     @Override
-                    public void onTabSelected(final TabLayout.Tab tab) {
-                        viewPager.setCurrentItem(tab.getPosition());
+                    public void onTabSelected(TabLayout.Tab tab) {
+                        activity.viewPager.setCurrentItem(tab.getPosition());
                     }
 
                     @Override
-                    public void onTabUnselected(final TabLayout.Tab tab) {
+                    public void onTabUnselected(TabLayout.Tab tab) {
                     }
 
                     @Override
-                    public void onTabReselected(final TabLayout.Tab tab) {
+                    public void onTabReselected(TabLayout.Tab tab) {
                     }
                 });
             }
         }
 
         @Override
-        protected String doInBackground(final String... sUrl) {
+        protected String doInBackground(String... sUrl) {
             String inputFileName = sUrl[1];
 
-            final Activity activity = this.showcaseActivityWR.get();
+            Activity activity = showcaseActivityWR.get();
 
             if (activity != null) {
 
-                final File current_wallpapers = new File(
-                        activity.getCacheDir() + "/ShowcaseCache/" + inputFileName);
+                File current_wallpapers = new File(
+                        activity.getCacheDir() + SHOWCASE_CACHE + inputFileName);
                 if (current_wallpapers.exists()) {
                     // We create a temporary file to check whether we should be replacing the
                     // current
@@ -341,11 +343,14 @@ public class ShowcaseActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Receiver to pick up when Andromeda is no longer connected
+     */
     class AndromedaReceiver extends BroadcastReceiver {
 
         @Override
-        public void onReceive(final Context context, final Intent intent) {
-            ShowcaseActivity.this.finish();
+        public void onReceive(Context context, Intent intent) {
+            finish();
         }
     }
 }

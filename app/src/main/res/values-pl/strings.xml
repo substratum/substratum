@@ -448,8 +448,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="settings_samsung_show_dangerous_overlays_warning">Schowaliśmy niebezpieczne nakładki z pewnego powodu, ale jeżeli jesteś pewien aby były włączone, proszę postępuj zgodnie z instrukcjami zawartymi w naszym wątku na XDA jak je wyłączyć!</string>
     <string name="settings_crash_receiver_title">Odbiornik bezpieczeństwa awarii motywu</string>
     <string name="settings_crash_receiver_text">Automatycznie wyłącz nakładkę, gdy będą wykryte powtarzające się awarie aplikacji.</string>
-    <string name="settings_force_stop_interfacer_title">Wymuś zatrzymanie usługi Interfacer</string>
-    <string name="settings_force_stop_interfacer_snackbar">Zatrzymywanie usługi interfacer&#8230;</string>
     <string name="overlays_outdated">Nakładki nieaktualne</string>
     <string name="overlays_outdated_message">Od wersji 816 i wyższej, nasz podpis do podpisywania nakładek został zmieniony, aby zapobiec niedopasowaniu podpisu.\n\nTo oznacza, że zainstalowane nakładki muszą zostać wyczyszczone, aby zainstalować nowe aktualizacje motywów. Inaczej wciąż będzie wyświetlane, że Twoja nakładka wymaga aktualizacji!\n\nTen komunikat nie zostanie wyświetlony, gdy wszystkie nakładki zostaną skompilowane przy użyciu najnowszego Substratum.</string>
     <string name="root_required_title">Wymagany root</string>

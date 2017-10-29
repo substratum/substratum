@@ -44,25 +44,26 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 import static com.bumptech.glide.request.RequestOptions.centerCropTransform;
 
 public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapter.ViewHolder> {
-    private final List<ShowcaseItem> information;
+    private List<ShowcaseItem> information;
 
-    public ShowcaseItemAdapter(final List<ShowcaseItem> information) {
+    public ShowcaseItemAdapter(List<ShowcaseItem> information) {
         super();
         this.information = information;
     }
 
     @Override
-    public ShowcaseItemAdapter.ViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int
-            i) {
-        final View view = LayoutInflater.from(
+    public ShowcaseItemAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup,
+                                                             int i) {
+        View view = LayoutInflater.from(
                 viewGroup.getContext()).inflate(R.layout.showcase_entry_card, viewGroup, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, final int pos) {
-        final ShowcaseItem showcaseItem = this.information.get(pos);
-        final Context context = showcaseItem.getContext();
+    public void onBindViewHolder(ViewHolder viewHolder,
+                                 int pos) {
+        ShowcaseItem showcaseItem = this.information.get(pos);
+        Context context = showcaseItem.getContext();
 
         Glide.with(context)
                 .load(showcaseItem.getThemeIcon())
@@ -91,8 +92,8 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
             viewHolder.installedOrNot.setVisibility(View.GONE);
         }
 
-        final String[] supported = showcaseItem.getThemeSupport().split("\\|");
-        final List supported_array = Arrays.asList(supported);
+        String[] supported = showcaseItem.getThemeSupport().split("\\|");
+        List supported_array = Arrays.asList(supported);
         if (supported_array.contains(References.showcaseWallpapers)) {
             viewHolder.wallpaper.setAlpha(1.0f);
         } else {
@@ -121,10 +122,10 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
 
         viewHolder.cardView.setOnClickListener(view -> {
             try {
-                final Intent intent = new Intent(Intent.ACTION_VIEW);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(showcaseItem.getThemeLink()));
                 context.startActivity(intent);
-            } catch (final Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 Lunchbar.make(view,
                         context.getString(R.string.activity_missing_toast),
@@ -139,20 +140,20 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        final CardView cardView;
-        final TextView themeName;
-        final TextView themeAuthor;
-        final TextView installedOrNot;
-        final ImageView themePricing;
-        final ImageView imageView;
-        final ImageView backgroundImageView;
-        final ImageView wallpaper;
-        final ImageView sounds;
-        final ImageView fonts;
-        final ImageView bootanimations;
-        final ImageView overlays;
+        CardView cardView;
+        TextView themeName;
+        TextView themeAuthor;
+        TextView installedOrNot;
+        ImageView themePricing;
+        ImageView imageView;
+        ImageView backgroundImageView;
+        ImageView wallpaper;
+        ImageView sounds;
+        ImageView fonts;
+        ImageView bootanimations;
+        ImageView overlays;
 
-        ViewHolder(final View view) {
+        ViewHolder(View view) {
             super(view);
             this.cardView = view.findViewById(R.id.theme_card);
             this.themeName = view.findViewById(R.id.theme_name);

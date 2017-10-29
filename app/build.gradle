@@ -50,8 +50,8 @@ android {
         applicationId "projekt.substratum"
         minSdkVersion 24
         targetSdkVersion 27
-        versionCode 856
-        versionName "eight hundred fifty six"
+        versionCode 857
+        versionName "eight hundred fifty seven"
         buildConfigField "java.util.Date", "buildTime", "new java.util.Date(" + System.currentTimeMillis() + "L)"
         buildConfigField "String", "GIT_HASH", "\"${gitHash()}\""
     }
@@ -164,5 +164,8 @@ dependencies {
     implementation 'com.github.recruit-lifestyle:FloatingView:2.2.3-beta1'
     // Crash Activity
     implementation 'cat.ereza:customactivityoncrash:2.1.0'
+    // Dependency Injection
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }
 apply plugin: 'com.google.gms.google-services'

@@ -32,25 +32,32 @@ import java.util.List;
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 
-public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.ViewHolder> {
-    private final List<ValidatorInfo> information;
+import static projekt.substratum.common.Internal.CONTACTS;
+import static projekt.substratum.common.Internal.CONTACTS_COMMON_FRAMEWORK;
+import static projekt.substratum.common.Internal.PHONE;
+import static projekt.substratum.common.Internal.PHONE_COMMON_FRAMEWORK;
 
-    public ValidatorAdapter(final List<ValidatorInfo> information) {
+public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.ViewHolder> {
+    private List<ValidatorInfo> information;
+
+    public ValidatorAdapter(List<ValidatorInfo> information) {
         super();
         this.information = information;
     }
 
     @Override
-    public ValidatorAdapter.ViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int i) {
-        final View view = LayoutInflater.from(viewGroup.getContext()).inflate(
+    public ValidatorAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup,
+                                                          int i) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(
                 R.layout.validator_dialog_entry, viewGroup, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, final int pos) {
-        final ValidatorInfo validatorInfo = this.information.get(pos);
-        final Context context = validatorInfo.getContext();
+    public void onBindViewHolder(ViewHolder viewHolder,
+                                 int pos) {
+        ValidatorInfo validatorInfo = this.information.get(pos);
+        Context context = validatorInfo.getContext();
         String packageName = validatorInfo.getPackageName();
 
         if (packageName.endsWith(".common")) {
@@ -73,13 +80,13 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
                     context.getString(R.string.resource_validated));
         } else {
             viewHolder.cardView.setOnClickListener(v -> {
-                final ValidatorError error = validatorInfo.getPackageError();
-                final List<String> boolErrors = error.getBoolErrors();
-                final List<String> colorErrors = error.getColorErrors();
-                final List<String> dimenErrors = error.getDimenErrors();
-                final List<String> styleErrors = error.getStyleErrors();
+                ValidatorError error = validatorInfo.getPackageError();
+                List<String> boolErrors = error.getBoolErrors();
+                List<String> colorErrors = error.getColorErrors();
+                List<String> dimenErrors = error.getDimenErrors();
+                List<String> styleErrors = error.getStyleErrors();
 
-                final StringBuilder error_logs = new StringBuilder();
+                StringBuilder error_logs = new StringBuilder();
                 if (!boolErrors.isEmpty()) {
                     for (int i = 0; i < boolErrors.size(); i++) {
                         error_logs.append(boolErrors.get(i)).append('\n');
@@ -103,14 +110,14 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
 
                 String pkg = validatorInfo.getPackageName();
                 switch (validatorInfo.getPackageName()) {
-                    case "com.android.contacts.common":
-                        pkg = "com.android.contacts";
+                    case CONTACTS_COMMON_FRAMEWORK:
+                        pkg = CONTACTS;
                         break;
-                    case "com.android.phone.common":
-                        pkg = "com.android.phone";
+                    case PHONE_COMMON_FRAMEWORK:
+                        pkg = PHONE;
                         break;
                 }
-                final String format = String.format(
+                String format = String.format(
                         context.getString(R.string.resource_commit_dialog_title),
                         Packages.getPackageName(context, pkg));
                 new android.app.AlertDialog.Builder(context)
@@ -129,13 +136,13 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        final CardView cardView;
-        final TextView packName;
-        final TextView verificationText;
-        final ImageView packIcon;
-        final ImageView verificationIcon;
+        CardView cardView;
+        TextView packName;
+        TextView verificationText;
+        ImageView packIcon;
+        ImageView verificationIcon;
 
-        ViewHolder(final View view) {
+        ViewHolder(View view) {
             super(view);
             this.cardView = view.findViewById(R.id.pack_card);
             this.packIcon = view.findViewById(R.id.pack_icon);

@@ -42,14 +42,14 @@ public class TimePickerFragment extends DialogFragment implements
 
     private static int flag;
 
-    public static void setFlag(final int f) {
+    public static void setFlag(int f) {
         flag = f;
     }
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(final Bundle savedInstanceState) {
-        final Calendar c = Calendar.getInstance();
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
 
@@ -64,21 +64,26 @@ public class TimePickerFragment extends DialogFragment implements
         }
 
         return new TimePickerDialog(
-                this.getActivity(),
+                getActivity(),
                 this,
                 hour,
                 minute,
-                DateFormat.is24HourFormat(this.getActivity()));
+                DateFormat.is24HourFormat(getActivity()));
     }
 
-    public void onTimeSet(final TimePicker view, final int hourOfDay, final int minute) {
+    public void onTimeSet(
+            TimePicker view,
+            int hourOfDay,
+            int minute) {
         if ((flag & FLAG_START_TIME) != 0) {
-            final Button startTime = this.getActivity().findViewById(R.id.night_start_time);
-            startTime.setText(References.parseTime(this.getActivity(), hourOfDay, minute));
+            assert getActivity() != null;
+            Button startTime = getActivity().findViewById(R.id.night_start_time);
+            startTime.setText(References.parseTime(getActivity(), hourOfDay, minute));
             ProfileFragment.setNightProfileStart(hourOfDay, minute);
         } else if ((flag & FLAG_END_TIME) != 0) {
-            final Button endTime = this.getActivity().findViewById((R.id.night_end_time));
-            endTime.setText(References.parseTime(this.getActivity(), hourOfDay, minute));
+            assert getActivity() != null;
+            Button endTime = getActivity().findViewById((R.id.night_end_time));
+            endTime.setText(References.parseTime(getActivity(), hourOfDay, minute));
             ProfileFragment.setDayProfileStart(hourOfDay, minute);
         }
     }

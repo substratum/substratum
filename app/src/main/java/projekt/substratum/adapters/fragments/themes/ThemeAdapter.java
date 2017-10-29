@@ -53,6 +53,10 @@ import projekt.substratum.common.Systems;
 import projekt.substratum.common.Theming;
 import projekt.substratum.util.views.SheetDialog;
 
+import static projekt.substratum.common.Internal.PLAY_URL_PREFIX;
+import static projekt.substratum.common.Internal.THEME_READY_ALL;
+import static projekt.substratum.common.Internal.THEME_READY_READY;
+import static projekt.substratum.common.Internal.THEME_READY_STOCK;
 import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
 
 
@@ -62,7 +66,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
     private ProgressDialog mProgressDialog;
     private ThemeItem toBeUninstalled;
 
-    public ThemeAdapter(final List<ThemeItem> information) {
+    public ThemeAdapter(List<ThemeItem> information) {
         super();
         this.information = information;
     }
@@ -76,10 +80,11 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
     }
 
     @Override
-    public ThemeAdapter.ViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int i) {
-        final SharedPreferences prefs =
+    public ThemeAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup,
+                                                      int i) {
+        SharedPreferences prefs =
                 PreferenceManager.getDefaultSharedPreferences(viewGroup.getContext());
-        final View view;
+        View view;
         if (prefs.getBoolean("nougat_style_cards", false)) {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.theme_entry_card_n,
                     viewGroup, false);
@@ -91,8 +96,9 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, final int pos) {
-        final ThemeItem themeItem = this.information.get(pos);
+    public void onBindViewHolder(ViewHolder viewHolder,
+                                 int pos) {
+        ThemeItem themeItem = this.information.get(pos);
         this.mContext = themeItem.getContext();
 
         viewHolder.theme_name.setText(themeItem.getThemeName());
@@ -113,21 +119,21 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
             viewHolder.theme_version.setVisibility(View.INVISIBLE);
         }
 
-        final SharedPreferences pref =
+        SharedPreferences pref =
                 PreferenceManager.getDefaultSharedPreferences(themeItem.getContext());
         if (pref.getBoolean("grid_layout", true) || (themeItem.getThemeReadyVariable() == null)) {
             viewHolder.divider.setVisibility(View.GONE);
             viewHolder.tbo.setVisibility(View.GONE);
             viewHolder.two.setVisibility(View.GONE);
-        } else if ("all".equals(themeItem.getThemeReadyVariable())) {
+        } else if (THEME_READY_ALL.equals(themeItem.getThemeReadyVariable())) {
             viewHolder.divider.setVisibility(View.VISIBLE);
             viewHolder.tbo.setVisibility(View.VISIBLE);
             viewHolder.two.setVisibility(View.VISIBLE);
-        } else if ("ready".equals(themeItem.getThemeReadyVariable())) {
+        } else if (THEME_READY_READY.equals(themeItem.getThemeReadyVariable())) {
             viewHolder.divider.setVisibility(View.VISIBLE);
             viewHolder.tbo.setVisibility(View.VISIBLE);
             viewHolder.two.setVisibility(View.GONE);
-        } else if ("stock".equals(themeItem.getThemeReadyVariable())) {
+        } else if (THEME_READY_STOCK.equals(themeItem.getThemeReadyVariable())) {
             viewHolder.divider.setVisibility(View.VISIBLE);
             viewHolder.tbo.setVisibility(View.GONE);
             viewHolder.two.setVisibility(View.VISIBLE);
@@ -146,20 +152,20 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         viewHolder.cardView.setOnLongClickListener(view -> {
             // Vibrate the device alerting the user they are about to do something dangerous!
             if (Packages.isUserApp(this.mContext, themeItem.getThemePackage())) {
-                final Vibrator v = (Vibrator) this.mContext.getSystemService(Context
+                Vibrator v = (Vibrator) this.mContext.getSystemService(Context
                         .VIBRATOR_SERVICE);
                 if (v != null) {
                     v.vibrate(30L);
                 }
 
                 // About the theme
-                final SheetDialog sheetDialog = new SheetDialog(this.mContext);
-                final View sheetView =
+                SheetDialog sheetDialog = new SheetDialog(this.mContext);
+                View sheetView =
                         View.inflate(this.mContext, R.layout.theme_long_press_sheet_dialog, null);
 
-                final TextView aboutText = sheetView.findViewById(R.id.about_text);
-                final TextView moreText = sheetView.findViewById(R.id.more_text);
-                final String boldedThemeName = "<b>" + themeItem.getThemeName() + "</b>";
+                TextView aboutText = sheetView.findViewById(R.id.about_text);
+                TextView moreText = sheetView.findViewById(R.id.more_text);
+                String boldedThemeName = "<b>" + themeItem.getThemeName() + "</b>";
                 aboutText.setText(Html.fromHtml(boldedThemeName, Html.FROM_HTML_MODE_LEGACY));
                 moreText.setText(String.format("%s (%s)\n%s",
                         Packages.getAppVersion(this.mContext, themeItem.getThemePackage()),
@@ -167,26 +173,26 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                         Packages.getPackageTemplateVersion(this.mContext,
                                 themeItem.getThemePackage())));
 
-                final ImageView icon = sheetView.findViewById(R.id.icon);
+                ImageView icon = sheetView.findViewById(R.id.icon);
                 icon.setImageDrawable(Packages.getAppIcon(this.mContext, themeItem
                         .getThemePackage()));
 
-                final ImageView two = sheetView.findViewById(R.id.theme_unready_indicator);
-                final ImageView tbo = sheetView.findViewById(R.id.theme_ready_indicator);
+                ImageView two = sheetView.findViewById(R.id.theme_unready_indicator);
+                ImageView tbo = sheetView.findViewById(R.id.theme_ready_indicator);
                 tbo.setOnClickListener(v2 -> this.explainTBO());
                 two.setOnClickListener(v2 -> this.explainTWO());
 
                 try {
                     switch (themeItem.getThemeReadyVariable()) {
-                        case "all":
+                        case THEME_READY_ALL:
                             tbo.setVisibility(View.VISIBLE);
                             two.setVisibility(View.VISIBLE);
                             break;
-                        case "ready":
+                        case THEME_READY_READY:
                             tbo.setVisibility(View.VISIBLE);
                             two.setVisibility(View.GONE);
                             break;
-                        case "stock":
+                        case THEME_READY_STOCK:
                             tbo.setVisibility(View.GONE);
                             two.setVisibility(View.VISIBLE);
                             break;
@@ -195,20 +201,20 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                             two.setVisibility(View.GONE);
                             break;
                     }
-                } catch (final Exception ignored) {
+                } catch (Exception ignored) {
                     tbo.setVisibility(View.GONE);
                     two.setVisibility(View.GONE);
                 }
 
                 // Favorite
-                final LinearLayout favorite = sheetView.findViewById(R.id.favorite);
+                LinearLayout favorite = sheetView.findViewById(R.id.favorite);
 
-                final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences
                         (this.mContext);
-                final Drawable favoriteImg = this.mContext.getDrawable(R.drawable.toolbar_favorite);
-                final Drawable notFavoriteImg = this.mContext.getDrawable(R.drawable
+                Drawable favoriteImg = this.mContext.getDrawable(R.drawable.toolbar_favorite);
+                Drawable notFavoriteImg = this.mContext.getDrawable(R.drawable
                         .toolbar_not_favorite);
-                final TextView favoriteText = sheetView.findViewById(R.id.favorite_text);
+                TextView favoriteText = sheetView.findViewById(R.id.favorite_text);
                 if (prefs.getString("app_shortcut_theme", "").equals(themeItem.getThemePackage())) {
                     assert favoriteImg != null;
                     favoriteImg.setBounds(0, 0, 60, 60);
@@ -260,8 +266,8 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 });
 
                 // Rate Theme
-                final LinearLayout rate = sheetView.findViewById(R.id.rate);
-                final String installer =
+                LinearLayout rate = sheetView.findViewById(R.id.rate);
+                String installer =
                         Packages.getInstallerId(this.mContext, themeItem.getThemePackage());
                 if ((installer != null) && installer.equals(PLAY_STORE_PACKAGE_NAME)) {
                     rate.setVisibility(View.VISIBLE);
@@ -270,12 +276,11 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 }
                 rate.setOnClickListener(view12 -> {
                     try {
-                        final String playURL = "https://play.google.com/store/apps/details?id=" +
-                                themeItem.getThemePackage();
-                        final Intent i = new Intent(Intent.ACTION_VIEW);
+                        String playURL = PLAY_URL_PREFIX + themeItem.getThemePackage();
+                        Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri.parse(playURL));
                         this.mContext.startActivity(i);
-                    } catch (final ActivityNotFoundException activityNotFoundException) {
+                    } catch (ActivityNotFoundException activityNotFoundException) {
                         Toast.makeText(
                                 this.mContext,
                                 this.mContext.getString(R.string.activity_missing_toast),
@@ -285,7 +290,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 });
 
                 // Shortcut
-                final LinearLayout shortcut = sheetView.findViewById(R.id.shortcut);
+                LinearLayout shortcut = sheetView.findViewById(R.id.shortcut);
                 shortcut.setOnClickListener(view12 -> {
                     References.createLauncherIcon(this.mContext,
                             themeItem.getThemePackage(), themeItem.getThemeName());
@@ -299,15 +304,15 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 });
 
                 // Uninstalling
-                final LinearLayout uninstall = sheetView.findViewById(R.id.uninstall);
+                LinearLayout uninstall = sheetView.findViewById(R.id.uninstall);
                 uninstall.setOnClickListener(view2 -> {
                     if (!Systems.isSamsung(this.mContext) && !Systems.checkAndromeda(this
                             .mContext)) {
                         this.toBeUninstalled = themeItem;
                         new uninstallTheme(this).execute();
                     } else {
-                        final Uri packageURI = Uri.parse("package:" + themeItem.getThemePackage());
-                        final Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
+                        Uri packageURI = Uri.parse("package:" + themeItem.getThemePackage());
+                        Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
                         this.mContext.startActivity(uninstallIntent);
                     }
                     sheetDialog.dismiss();
@@ -325,10 +330,15 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         viewHolder.theme_author.setText(themeItem.getThemeAuthor());
         viewHolder.imageView.setImageDrawable(themeItem.getThemeDrawable());
 
-        References.setRecyclerViewAnimation(this.mContext, viewHolder.itemView, R.anim
-                .recyclerview_anim);
+        References.setRecyclerViewAnimation(
+                this.mContext,
+                viewHolder.itemView,
+                R.anim.recyclerview_anim);
     }
 
+    /**
+     * Show a dialog to explain what Theme Ready Gapps are
+     */
     private void explainTBO() {
         new AlertDialog.Builder(this.mContext)
                 .setMessage(R.string.tbo_description)
@@ -350,6 +360,9 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 .show();
     }
 
+    /**
+     * Show a dialog to explain what stock theming is
+     */
     private void explainTWO() {
         new AlertDialog.Builder(this.mContext)
                 .setMessage(R.string.two_description)
@@ -389,19 +402,19 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
     }
 
     private static class uninstallTheme extends AsyncTask<String, Integer, String> {
-        private final WeakReference<ThemeAdapter> ref;
+        private WeakReference<ThemeAdapter> ref;
 
-        uninstallTheme(final ThemeAdapter themeAdapter) {
+        uninstallTheme(ThemeAdapter themeAdapter) {
             super();
             this.ref = new WeakReference<>(themeAdapter);
         }
 
         @Override
         protected void onPreExecute() {
-            final ThemeAdapter themeAdapter = this.ref.get();
+            ThemeAdapter themeAdapter = this.ref.get();
             if (themeAdapter != null) {
                 if (themeAdapter.toBeUninstalled != null) {
-                    final String parseMe = String.format(
+                    String parseMe = String.format(
                             themeAdapter.mContext.getString(R.string.adapter_uninstalling),
                             themeAdapter.toBeUninstalled.getThemeName());
                     themeAdapter.mProgressDialog = new ProgressDialog(themeAdapter.mContext);
@@ -410,7 +423,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                     themeAdapter.mProgressDialog.setCancelable(false);
                     themeAdapter.mProgressDialog.show();
                     // Clear the notification of building theme if shown
-                    final NotificationManager manager = (NotificationManager)
+                    NotificationManager manager = (NotificationManager)
                             themeAdapter.mContext.getSystemService(Context.NOTIFICATION_SERVICE);
                     if (manager != null) {
                         manager.cancel(References.notification_id_compiler);
@@ -420,8 +433,8 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         }
 
         @Override
-        protected void onPostExecute(final String result) {
-            final ThemeAdapter themeAdapter = this.ref.get();
+        protected void onPostExecute(String result) {
+            ThemeAdapter themeAdapter = this.ref.get();
             if (themeAdapter != null) {
                 if (themeAdapter.toBeUninstalled != null) {
                     themeAdapter.toBeUninstalled = null;
@@ -432,8 +445,8 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         }
 
         @Override
-        protected String doInBackground(final String... sUrl) {
-            final ThemeAdapter themeAdapter = this.ref.get();
+        protected String doInBackground(String... sUrl) {
+            ThemeAdapter themeAdapter = this.ref.get();
             if (themeAdapter != null) {
                 if (themeAdapter.toBeUninstalled != null) {
                     // Uninstall theme
@@ -447,18 +460,18 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        final CardView cardView;
-        final TextView theme_name;
-        final TextView theme_author;
-        final TextView theme_apis;
-        final TextView theme_version;
-        final TextView plugin_version;
-        final ImageView imageView;
-        final View divider;
-        final ImageView tbo;
-        final ImageView two;
+        CardView cardView;
+        TextView theme_name;
+        TextView theme_author;
+        TextView theme_apis;
+        TextView theme_version;
+        TextView plugin_version;
+        ImageView imageView;
+        View divider;
+        ImageView tbo;
+        ImageView two;
 
-        ViewHolder(final View view) {
+        ViewHolder(View view) {
             super(view);
             this.cardView = view.findViewById(R.id.theme_card);
             this.theme_name = view.findViewById(R.id.theme_name);

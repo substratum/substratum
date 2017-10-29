@@ -35,25 +35,25 @@ import projekt.substratum.common.platform.ThemeManager;
 
 public class OverlaysItem implements Serializable {
 
-    public final String versionName;
-    final boolean variant_mode;
-    private final String theme_name;
-    private final String package_name;
-    private final VariantAdapter array;
-    private final VariantAdapter array2;
-    private final VariantAdapter array3;
-    private final VariantAdapter array4;
-    private final VariantAdapter array5;
-    private final Context context;
-    private final Drawable app_icon;
-    private final Boolean theme_oms;
-    private final View activityView;
+    public String versionName;
     public boolean is_variant_chosen;
     public boolean is_variant_chosen1;
     public boolean is_variant_chosen2;
     public boolean is_variant_chosen3;
     public boolean is_variant_chosen4;
     public boolean is_variant_chosen5;
+    boolean variant_mode;
+    private String theme_name;
+    private String package_name;
+    private VariantAdapter array;
+    private VariantAdapter array2;
+    private VariantAdapter array3;
+    private VariantAdapter array4;
+    private VariantAdapter array5;
+    private Context context;
+    private Drawable app_icon;
+    private Boolean theme_oms;
+    private View activityView;
     private String name;
     private boolean isSelected;
     private int spinnerSelection;
@@ -69,23 +69,22 @@ public class OverlaysItem implements Serializable {
     private String baseResources = "";
     private List<Object> enabledOverlays;
 
-    public OverlaysItem(final String theme_name,
-                        final String name,
-                        final String packageName,
-                        final boolean isSelected,
-                        final VariantAdapter adapter,
-                        final VariantAdapter adapter2,
-                        final VariantAdapter adapter3,
-                        final VariantAdapter adapter4,
-                        final VariantAdapter adapter5,
-                        final Context context,
-                        final String versionName,
-                        final String baseResources,
-                        final Collection enabledOverlays,
-                        final Boolean theme_oms,
-                        final View activityView) {
+    public OverlaysItem(String theme_name,
+                        String name,
+                        String packageName,
+                        Boolean isSelected,
+                        VariantAdapter adapter,
+                        VariantAdapter adapter2,
+                        VariantAdapter adapter3,
+                        VariantAdapter adapter4,
+                        VariantAdapter adapter5,
+                        Context context,
+                        String versionName,
+                        String baseResources,
+                        Collection enabledOverlays,
+                        Boolean theme_oms,
+                        View activityView) {
         super();
-
         this.theme_name = theme_name;
         this.name = name;
         this.package_name = packageName;
@@ -98,7 +97,7 @@ public class OverlaysItem implements Serializable {
         this.context = context;
         this.versionName = versionName;
         this.theme_oms = theme_oms;
-        if (baseResources != null)
+        if (this.baseResources != null)
             this.baseResources =
                     baseResources.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
         this.variant_mode = true;
@@ -109,244 +108,243 @@ public class OverlaysItem implements Serializable {
     }
 
     View getActivityView() {
-        return this.activityView;
+        return activityView;
     }
 
     boolean isDeviceOMS() {
-        return this.theme_oms;
+        return theme_oms;
     }
 
     public String getThemeName() {
-        return this.theme_name;
+        return theme_name;
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
-    public void setName(final String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
     Drawable getAppIcon() {
-        return this.app_icon;
+        return app_icon;
     }
 
     public String getPackageName() {
-        return this.package_name;
+        return package_name;
     }
 
     String getBaseResources() {
-        return this.baseResources;
+        return baseResources;
     }
 
     public boolean isSelected() {
-        return this.isSelected;
+        return isSelected;
     }
 
-    public void setSelected(final boolean isSelected) {
+    public void setSelected(boolean isSelected) {
         this.isSelected = isSelected;
     }
 
     SpinnerAdapter getSpinnerArray() {
-        return this.array;
+        return array;
     }
 
     SpinnerAdapter getSpinnerArray2() {
-        return this.array2;
+        return array2;
     }
 
     SpinnerAdapter getSpinnerArray3() {
-        return this.array3;
+        return array3;
     }
 
     SpinnerAdapter getSpinnerArray4() {
-        return this.array4;
+        return array4;
     }
 
     SpinnerAdapter getSpinnerArray5() {
-        return this.array5;
+        return array5;
     }
 
     int getSelectedVariant() {
-        return this.spinnerSelection;
+        return spinnerSelection;
     }
 
-    void setSelectedVariant(final int position) {
+    void setSelectedVariant(int position) {
         if (position != 0) {
-            this.is_variant_chosen = true;
-            this.is_variant_chosen1 = true;
+            is_variant_chosen = true;
+            is_variant_chosen1 = true;
         } else {
-            this.is_variant_chosen = false;
-            this.is_variant_chosen1 = false;
+            is_variant_chosen = false;
+            is_variant_chosen1 = false;
         }
-        this.spinnerSelection = position;
+        spinnerSelection = position;
     }
 
-    public void updateEnabledOverlays(final Collection<String> enabledOverlays) {
+    public void updateEnabledOverlays(Collection<String> enabledOverlays) {
         this.enabledOverlays = new ArrayList<>();
         this.enabledOverlays.addAll(enabledOverlays);
     }
 
     int getSelectedVariant2() {
-        return this.spinnerSelection2;
+        return spinnerSelection2;
     }
 
-    void setSelectedVariant2(final int position) {
+    void setSelectedVariant2(int position) {
         if (position != 0) {
-            this.is_variant_chosen = true;
-            this.is_variant_chosen2 = true;
+            is_variant_chosen = true;
+            is_variant_chosen2 = true;
         } else {
-            this.is_variant_chosen = false;
-            this.is_variant_chosen2 = false;
+            is_variant_chosen = false;
+            is_variant_chosen2 = false;
         }
-        this.spinnerSelection2 = position;
+        spinnerSelection2 = position;
     }
 
     int getSelectedVariant3() {
-        return this.spinnerSelection3;
+        return spinnerSelection3;
     }
 
-    void setSelectedVariant3(final int position) {
+    void setSelectedVariant3(int position) {
         if (position != 0) {
-            this.is_variant_chosen = true;
-            this.is_variant_chosen3 = true;
+            is_variant_chosen = true;
+            is_variant_chosen3 = true;
         } else {
-            this.is_variant_chosen = false;
-            this.is_variant_chosen3 = false;
+            is_variant_chosen = false;
+            is_variant_chosen3 = false;
         }
-        this.spinnerSelection3 = position;
+        spinnerSelection3 = position;
     }
 
     int getSelectedVariant4() {
-        return this.spinnerSelection4;
+        return spinnerSelection4;
     }
 
-    void setSelectedVariant4(final int position) {
+    void setSelectedVariant4(int position) {
         if (position != 0) {
-            this.is_variant_chosen = true;
-            this.is_variant_chosen4 = true;
+            is_variant_chosen = true;
+            is_variant_chosen4 = true;
         } else {
-            this.is_variant_chosen = false;
-            this.is_variant_chosen4 = false;
+            is_variant_chosen = false;
+            is_variant_chosen4 = false;
         }
-        this.spinnerSelection4 = position;
+        spinnerSelection4 = position;
     }
 
     int getSelectedVariant5() {
-        return this.spinnerSelection5;
+        return spinnerSelection5;
     }
 
-    void setSelectedVariant5(final int position) {
+    void setSelectedVariant5(int position) {
         if (position != 0) {
-            this.is_variant_chosen = true;
-            this.is_variant_chosen5 = true;
+            is_variant_chosen = true;
+            is_variant_chosen5 = true;
         } else {
-            this.is_variant_chosen = false;
-            this.is_variant_chosen5 = false;
+            is_variant_chosen = false;
+            is_variant_chosen5 = false;
         }
-        this.spinnerSelection5 = position;
+        spinnerSelection5 = position;
     }
 
     public String getSelectedVariantName() {
-        return this.variantSelected.replaceAll("\\s+", "");
+        return variantSelected.replaceAll("\\s+", "");
     }
 
-    void setSelectedVariantName(final String variantName) {
-        this.variantSelected = variantName;
+    void setSelectedVariantName(String variantName) {
+        variantSelected = variantName;
     }
 
     public String getSelectedVariantName2() {
-        return this.variantSelected2.replaceAll("\\s+", "");
+        return variantSelected2.replaceAll("\\s+", "");
     }
 
-    void setSelectedVariantName2(final String variantName) {
-        this.variantSelected2 = variantName;
+    void setSelectedVariantName2(String variantName) {
+        variantSelected2 = variantName;
     }
 
     public String getSelectedVariantName3() {
-        return this.variantSelected3.replaceAll("\\s+", "");
+        return variantSelected3.replaceAll("\\s+", "");
     }
 
-    void setSelectedVariantName3(final String variantName) {
-        this.variantSelected3 = variantName;
+    void setSelectedVariantName3(String variantName) {
+        variantSelected3 = variantName;
     }
 
     public String getSelectedVariantName4() {
-        return this.variantSelected4.replaceAll("\\s+", "");
+        return variantSelected4.replaceAll("\\s+", "");
     }
 
-    void setSelectedVariantName4(final String variantName) {
-        this.variantSelected4 = variantName;
+    void setSelectedVariantName4(String variantName) {
+        variantSelected4 = variantName;
     }
 
     public String getSelectedVariantName5() {
-        return this.variantSelected5.replaceAll("\\s+", "");
+        return variantSelected5.replaceAll("\\s+", "");
     }
 
-    void setSelectedVariantName5(final String variantName) {
-        this.variantSelected5 = variantName;
+    void setSelectedVariantName5(String variantName) {
+        variantSelected5 = variantName;
     }
 
     Context getInheritedContext() {
-        return this.context;
+        return context;
     }
 
     boolean compareInstalledOverlay() {
         try {
-            final PackageInfo pinfo =
-                    this.context.getPackageManager().getPackageInfo(this.getFullOverlayParameters
+            PackageInfo pinfo =
+                    context.getPackageManager().getPackageInfo(getFullOverlayParameters
                             (), 0);
-            return pinfo.versionName.equals(this.versionName);
-        } catch (final Exception e) {
+            return pinfo.versionName.equals(versionName);
+        } catch (Exception e) {
             // Suppress warning
         }
         return false;
     }
 
-    boolean compareInstalledVariantOverlay(final String varianted) {
+    boolean compareInstalledVariantOverlay(String varianted) {
         String variant = varianted;
         if (!".".equals(variant.substring(0, 1))) variant = '.' + variant;
-        String base = this.baseResources;
-        if (!this.baseResources.isEmpty() && !".".equals(this.baseResources.substring(0, 1))) {
+        String base = baseResources;
+        if (!baseResources.isEmpty() && !".".equals(baseResources.substring(0, 1))) {
             base = '.' + base;
         }
         try {
-            final PackageInfo pinfo =
-                    this.context.getPackageManager().getPackageInfo(
-                            this.package_name + '.' + this.theme_name + variant + base, 0);
-            return pinfo.versionName.equals(this.versionName);
-        } catch (final Exception e) {
+            PackageInfo pinfo =
+                    context.getPackageManager().getPackageInfo(
+                            package_name + '.' + theme_name + variant + base, 0);
+            return pinfo.versionName.equals(versionName);
+        } catch (Exception e) {
             // Suppress warning
         }
         return false;
     }
 
     public String getFullOverlayParameters() {
-        return this.package_name + '.' + this.theme_name +
-                (((this.spinnerSelection == 0 &&
-                        this.spinnerSelection2 == 0 &&
-                        this.spinnerSelection3 == 0 &&
-                        this.spinnerSelection4 == 0) &&
-                        this.spinnerSelection5 == 0) ? "" : ".") +
-                (((this.spinnerSelection == 0) ? "" : this.getSelectedVariantName()) +
-                        ((this.spinnerSelection2 == 0) ? "" : this.getSelectedVariantName2()) +
-                        ((this.spinnerSelection3 == 0) ? "" : this.getSelectedVariantName3()) +
-                        ((this.spinnerSelection4 == 0) ? "" : this.getSelectedVariantName4()) +
-                        ((this.spinnerSelection5 == 0) ? "" : this.getSelectedVariantName5()))
+        return package_name + '.' + theme_name +
+                (((spinnerSelection == 0 &&
+                        spinnerSelection2 == 0 &&
+                        spinnerSelection3 == 0 &&
+                        spinnerSelection4 == 0) &&
+                        spinnerSelection5 == 0) ? "" : ".") +
+                (((spinnerSelection == 0) ? "" : getSelectedVariantName()) +
+                        ((spinnerSelection2 == 0) ? "" : getSelectedVariantName2()) +
+                        ((spinnerSelection3 == 0) ? "" : getSelectedVariantName3()) +
+                        ((spinnerSelection4 == 0) ? "" : getSelectedVariantName4()) +
+                        ((spinnerSelection5 == 0) ? "" : getSelectedVariantName5()))
                         .replaceAll("\\s", "").replaceAll("[^a-zA-Z0-9]+", "") +
-                ((this.baseResources.isEmpty()) ? "" : '.' + this.baseResources);
+                ((baseResources.isEmpty()) ? "" : '.' + baseResources);
     }
 
     public boolean isOverlayEnabled() {
-        final boolean installed = Packages.isPackageInstalled(this.context, this
-                .getFullOverlayParameters());
-        if (Systems.isSamsungDevice(this.context)) {
+        boolean installed = Packages.isPackageInstalled(context, getFullOverlayParameters());
+        if (Systems.isSamsungDevice(context)) {
             return installed;
         } else {
             return installed && (
-                    ThemeManager.isOverlayEnabled(this.context, this.getFullOverlayParameters()) ||
-                            this.enabledOverlays.contains(this.getFullOverlayParameters())
+                    ThemeManager.isOverlayEnabled(context, getFullOverlayParameters()) ||
+                            enabledOverlays.contains(getFullOverlayParameters())
             );
         }
     }

@@ -29,12 +29,20 @@ public class OverlaysCallback extends DiffUtil.Callback {
 
     @Override
     public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-        return oldOverlays.get(oldItemPosition).equals(newOverlays.get(newItemPosition));
+        try {
+            return oldOverlays.get(oldItemPosition).equals(newOverlays.get(newItemPosition));
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
     public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-        return oldOverlays.get(oldItemPosition).equals(newOverlays.get(newItemPosition));
+        try {
+            return oldOverlays.get(oldItemPosition).equals(newOverlays.get(newItemPosition));
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Nullable

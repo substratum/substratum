@@ -44,8 +44,8 @@ public class BootCompletedDetector extends BroadcastReceiver {
     private static final String TAG = "SubstratumBoot";
     private Context context;
 
-    private static void clearSubstratumCompileFolder(final Context context) {
-        final File deleted = new File(
+    private static void clearSubstratumCompileFolder(Context context) {
+        File deleted = new File(
                 EXTERNAL_STORAGE_CACHE);
         FileOperations.delete(context, deleted.getAbsolutePath());
         if (!deleted.exists())
@@ -55,10 +55,10 @@ public class BootCompletedDetector extends BroadcastReceiver {
     }
 
     @Override
-    public void onReceive(final Context context, final Intent intent) {
+    public void onReceive(Context context, Intent intent) {
         if (BOOT_COMPLETED.equals(intent.getAction())) {
             this.context = context;
-            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (prefs.getBoolean(SCHEDULED_PROFILE_ENABLED, false)) {
                 ProfileManager.updateScheduledProfile(context);
             }
@@ -72,14 +72,14 @@ public class BootCompletedDetector extends BroadcastReceiver {
     public class GlideClear extends AsyncTask<Void, Void, Void> {
 
         @Override
-        protected void onPostExecute(final Void result) {
+        protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            Glide.get(BootCompletedDetector.this.context).clearMemory();
+            Glide.get(context).clearMemory();
         }
 
         @Override
-        protected Void doInBackground(final Void... sUrl) {
-            Glide.get(BootCompletedDetector.this.context).clearDiskCache();
+        protected Void doInBackground(Void... sUrl) {
+            Glide.get(context).clearDiskCache();
             return null;
         }
     }

@@ -40,11 +40,14 @@ import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.platform.ThemeManager;
-import projekt.substratum.common.tabs.BootAnimationManager;
-import projekt.substratum.common.tabs.FontManager;
-import projekt.substratum.common.tabs.SoundManager;
-import projekt.substratum.common.tabs.WallpaperManager;
+import projekt.substratum.tabs.BootAnimationsManager;
+import projekt.substratum.tabs.FontsManager;
+import projekt.substratum.tabs.SoundsManager;
+import projekt.substratum.tabs.WallpapersManager;
 
+import static projekt.substratum.common.Internal.BOOT_ANIMATION_APPLIED;
+import static projekt.substratum.common.Internal.SHUTDOWN_ANIMATION_APPLIED;
+import static projekt.substratum.common.Internal.SOUNDS_APPLIED;
 import static projekt.substratum.common.References.PACKAGE_FULLY_REMOVED;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.metadataOverlayParent;
@@ -54,10 +57,10 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
     private static final String TAG = "ThemeUninstallDetector";
 
     @Override
-    public void onReceive(final Context context, final Intent intent) {
+    public void onReceive(Context context, Intent intent) {
         if (PACKAGE_FULLY_REMOVED.equals(intent.getAction())) {
-            final Uri packageName = intent.getData();
-            final String package_name;
+            Uri packageName = intent.getData();
+            String package_name;
             if (packageName != null) {
                 package_name = packageName.toString().substring(8);
             } else {
@@ -65,36 +68,36 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
             }
 
             if (package_name.equals(SST_ADDON_PACKAGE)) {
-                final SharedPreferences prefs =
+                SharedPreferences prefs =
                         context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
                 prefs.edit().clear().apply();
                 Broadcasts.sendKillMessage(context);
             }
 
-            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (prefs.contains("installed_themes")) {
-                final Set installed_themes = prefs.getStringSet("installed_themes", null);
+                Set installed_themes = prefs.getStringSet("installed_themes", null);
                 if ((installed_themes != null) && installed_themes.contains(package_name)) {
                     Broadcasts.sendRefreshMessage(context);
                     // Get all installed overlays for this package
-                    final List<String> stateAll = ThemeManager.listAllOverlays(context);
+                    List<String> stateAll = ThemeManager.listAllOverlays(context);
 
-                    final ArrayList<String> all_overlays = new ArrayList<>();
+                    ArrayList<String> all_overlays = new ArrayList<>();
                     for (int j = 0; j < stateAll.size(); j++) {
                         try {
-                            final String current = stateAll.get(j);
-                            final ApplicationInfo appInfo =
+                            String current = stateAll.get(j);
+                            ApplicationInfo appInfo =
                                     context.getPackageManager().getApplicationInfo(
                                             current, PackageManager.GET_META_DATA);
                             if ((appInfo.metaData != null) &&
                                     (appInfo.metaData.getString(metadataOverlayParent) != null)) {
-                                final String parent =
+                                String parent =
                                         appInfo.metaData.getString(metadataOverlayParent);
                                 if ((parent != null) && parent.equals(package_name)) {
                                     all_overlays.add(current);
                                 }
                             }
-                        } catch (final Exception e) {
+                        } catch (Exception e) {
                             // NameNotFound
                         }
                     }
@@ -102,36 +105,36 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                     // Uninstall all overlays for this package
                     ThemeManager.uninstallOverlay(context, all_overlays);
 
-                    final SharedPreferences.Editor editor = prefs.edit();
-                    if (prefs.getString("sounds_applied", "").equals(package_name)) {
-                        SoundManager.clearSounds(context);
-                        editor.remove("sounds_applied");
+                    SharedPreferences.Editor editor = prefs.edit();
+                    if (prefs.getString(SOUNDS_APPLIED, "").equals(package_name)) {
+                        SoundsManager.clearSounds(context);
+                        editor.remove(SOUNDS_APPLIED);
                     }
                     if (prefs.getString("fonts_applied", "").equals(package_name)) {
-                        FontManager.clearFonts(context);
+                        FontsManager.clearFonts(context);
                         editor.remove("fonts_applied");
                     }
-                    if (prefs.getString("bootanimation_applied", "").equals(package_name)) {
-                        BootAnimationManager.clearBootAnimation(context, false);
-                        editor.remove("bootanimation_applied");
+                    if (prefs.getString(BOOT_ANIMATION_APPLIED, "").equals(package_name)) {
+                        BootAnimationsManager.clearBootAnimation(context, false);
+                        editor.remove(BOOT_ANIMATION_APPLIED);
                     }
-                    if (prefs.getString("shutdownanimation_applied", "").equals(package_name)) {
-                        BootAnimationManager.clearBootAnimation(context, true);
-                        editor.remove("shutdownanimation_applied");
+                    if (prefs.getString(SHUTDOWN_ANIMATION_APPLIED, "").equals(package_name)) {
+                        BootAnimationsManager.clearBootAnimation(context, true);
+                        editor.remove(SHUTDOWN_ANIMATION_APPLIED);
                     }
                     if (prefs.getString("home_wallpaper_applied", "").equals(package_name)) {
                         try {
-                            WallpaperManager.clearWallpaper(context, "home");
+                            WallpapersManager.clearWallpaper(context, "home");
                             editor.remove("home_wallpaper_applied");
-                        } catch (final IOException e) {
+                        } catch (IOException e) {
                             Log.e(TAG, "Failed to restore home screen wallpaper!");
                         }
                     }
                     if (prefs.getString("lock_wallpaper_applied", "").equals(package_name)) {
                         try {
-                            WallpaperManager.clearWallpaper(context, "lock");
+                            WallpapersManager.clearWallpaper(context, "lock");
                             editor.remove("lock_wallpaper_applied");
-                        } catch (final IOException e) {
+                        } catch (IOException e) {
                             Log.e(TAG, "Failed to restore lock screen wallpaper!");
                         }
                     }
@@ -141,8 +144,8 @@ public class ThemeUninstallDetector extends BroadcastReceiver {
                     }
 
                     // Clear off the old preserved list of themes with the new batch
-                    final Set<String> installed = new TreeSet<>();
-                    final List<ResolveInfo> all_themes = Packages.getThemes(context);
+                    Set<String> installed = new TreeSet<>();
+                    List<ResolveInfo> all_themes = Packages.getThemes(context);
                     for (int i = 0; i < all_themes.size(); i++) {
                         installed.add(all_themes.get(i).activityInfo.packageName);
                     }

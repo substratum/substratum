@@ -72,9 +72,9 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
     private ManagerAdapter mAdapter;
 
     private String foregroundedApp() {
-        @SuppressLint("WrongConstant") final UsageStatsManager mUsageStatsManager =
-                (UsageStatsManager) this.getSystemService("usagestats");
-        final long time = System.currentTimeMillis();
+        @SuppressLint("WrongConstant") UsageStatsManager mUsageStatsManager =
+                (UsageStatsManager) getSystemService("usagestats");
+        long time = System.currentTimeMillis();
         List<UsageStats> stats = null;
         if (mUsageStatsManager != null) {
             stats = mUsageStatsManager.queryUsageStats(
@@ -82,8 +82,8 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
         }
         String foregroundApp = "";
         if ((stats != null) && !stats.isEmpty()) {
-            final SortedMap<Long, UsageStats> mySortedMap = new TreeMap<>();
-            for (final UsageStats usageStats : stats) {
+            SortedMap<Long, UsageStats> mySortedMap = new TreeMap<>();
+            for (UsageStats usageStats : stats) {
                 mySortedMap.put(usageStats.getLastTimeUsed(), usageStats);
             }
             if (!mySortedMap.isEmpty()) {
@@ -94,7 +94,7 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
         if (mUsageStatsManager != null) {
             usageEvents = mUsageStatsManager.queryEvents(time - (long) (1000 * 1000), time);
         }
-        final UsageEvents.Event event = new UsageEvents.Event();
+        UsageEvents.Event event = new UsageEvents.Event();
         // Get the last event in the doubly linked list
         if (usageEvents != null) {
             while (usageEvents.hasNextEvent()) {
@@ -109,104 +109,104 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
     }
 
     @Override
-    public int onStartCommand(final Intent intent, final int flags, final int startId) {
-        if (this.mFloatingViewManager != null) {
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        if (mFloatingViewManager != null) {
             return START_STICKY;
         }
-        final DisplayMetrics metrics = new DisplayMetrics();
-        final WindowManager windowManager = (WindowManager) this.getSystemService(WINDOW_SERVICE);
+        DisplayMetrics metrics = new DisplayMetrics();
+        WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         if (windowManager != null) {
             windowManager.getDefaultDisplay().getMetrics(metrics);
         }
-        final LayoutInflater inflater = LayoutInflater.from(this);
-        @SuppressLint("InflateParams") final ImageView iconView = (ImageView)
+        LayoutInflater inflater = LayoutInflater.from(this);
+        @SuppressLint("InflateParams") ImageView iconView = (ImageView)
                 inflater.inflate(R.layout.floatui_head, null, false);
         iconView.setOnClickListener(v -> {
-            final String packageName =
-                    Packages.getPackageName(this.getApplicationContext(), this.foregroundedApp());
-            final String dialogTitle = String.format(this.getString(R.string.per_app_dialog_title),
+            String packageName =
+                    Packages.getPackageName(getApplicationContext(), foregroundedApp());
+            String dialogTitle = String.format(getString(R.string.per_app_dialog_title),
                     packageName);
 
-            final ArrayList<String> enabledOverlaysForForegroundPackage = new ArrayList<>(
-                    ThemeManager.listEnabledOverlaysForTarget(this.getApplicationContext(),
-                            this.foregroundedApp()));
-            final Collection<String> disabledOverlaysForForegroundPackage = new ArrayList<>(
-                    ThemeManager.listDisabledOverlaysForTarget(this.getApplicationContext(),
-                            this.foregroundedApp()));
+            ArrayList<String> enabledOverlaysForForegroundPackage = new ArrayList<>(
+                    ThemeManager.listEnabledOverlaysForTarget(getApplicationContext(),
+                            foregroundedApp()));
+            Collection<String> disabledOverlaysForForegroundPackage = new ArrayList<>(
+                    ThemeManager.listDisabledOverlaysForTarget(getApplicationContext(),
+                            foregroundedApp()));
 
-            if (this.prefs.getBoolean("floatui_show_android_system_overlays", true)) {
+            if (prefs.getBoolean("floatui_show_android_system_overlays", true)) {
                 enabledOverlaysForForegroundPackage.addAll(ThemeManager
-                        .listEnabledOverlaysForTarget(this.getApplicationContext(), "android"));
+                        .listEnabledOverlaysForTarget(getApplicationContext(), "android"));
                 disabledOverlaysForForegroundPackage.addAll(ThemeManager
-                        .listDisabledOverlaysForTarget(this.getApplicationContext(), "android"));
+                        .listDisabledOverlaysForTarget(getApplicationContext(), "android"));
             }
 
-            final List<String> to_be_shown = new ArrayList<>();
+            List<String> to_be_shown = new ArrayList<>();
             to_be_shown.addAll(enabledOverlaysForForegroundPackage);
             to_be_shown.addAll(disabledOverlaysForForegroundPackage);
             Collections.sort(to_be_shown);
 
             if (to_be_shown.isEmpty()) {
-                final String format = String.format(
-                        this.getString(R.string.per_app_toast_no_overlays), packageName);
-                Toast.makeText(this.getApplicationContext(), format, Toast.LENGTH_SHORT).show();
+                String format = String.format(
+                        getString(R.string.per_app_toast_no_overlays), packageName);
+                Toast.makeText(getApplicationContext(), format, Toast.LENGTH_SHORT).show();
             } else {
-                this.final_check = new ArrayList<>();
+                final_check = new ArrayList<>();
                 for (int j = 0; j < to_be_shown.size(); j++) {
-                    final Boolean is_enabled = enabledOverlaysForForegroundPackage
+                    Boolean is_enabled = enabledOverlaysForForegroundPackage
                             .contains(to_be_shown.get(j));
-                    final ManagerItem managerItem = new ManagerItem(
-                            this.getApplicationContext(), to_be_shown.get(j), is_enabled);
+                    ManagerItem managerItem = new ManagerItem(
+                            getApplicationContext(), to_be_shown.get(j), is_enabled);
                     if (is_enabled) {
                         managerItem.setSelected(true);
                     }
-                    this.final_check.add(managerItem);
+                    final_check.add(managerItem);
                 }
 
-                this.mAdapter = new ManagerAdapter(this.final_check, true);
+                mAdapter = new ManagerAdapter(final_check, true);
 
                 // Set a custom title
-                final TextView title = new TextView(this);
+                TextView title = new TextView(this);
                 title.setText(dialogTitle);
-                title.setBackgroundColor(this.getColor(R.color.floatui_dialog_header_background));
+                title.setBackgroundColor(getColor(R.color.floatui_dialog_header_background));
                 title.setPadding(20, 40, 20, 40);
                 title.setGravity(Gravity.CENTER);
-                title.setTextColor(this.getColor(R.color.floatui_dialog_title_color));
+                title.setTextColor(getColor(R.color.floatui_dialog_title_color));
                 title.setTextSize(20.0F);
                 title.setAllCaps(true);
 
                 // Initialize the AlertDialog Builder
-                final AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style
+                AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style
                         .FloatUiDialog);
                 builder.setCustomTitle(title);
                 builder.setPositiveButton(R.string.per_app_apply, (dialog, which) -> {
-                    this.trigger_service_restart = false;
-                    this.trigger_systemui_restart = false;
-                    final ArrayList<String> to_enable = new ArrayList<>();
-                    final ArrayList<String> to_disable = new ArrayList<>();
+                    trigger_service_restart = false;
+                    trigger_systemui_restart = false;
+                    ArrayList<String> to_enable = new ArrayList<>();
+                    ArrayList<String> to_disable = new ArrayList<>();
 
-                    for (int i = 0; i < this.final_check.size(); i++) {
-                        if (this.mAdapter.getOverlayManagerList().get(i).isSelected()) {
+                    for (int i = 0; i < final_check.size(); i++) {
+                        if (mAdapter.getOverlayManagerList().get(i).isSelected()) {
                             // Check if enabled
                             if (!enabledOverlaysForForegroundPackage
-                                    .contains(this.final_check.get(i).getName())) {
+                                    .contains(final_check.get(i).getName())) {
                                 // It is not enabled, append it to the list
-                                final String package_name = this.final_check.get(i).getName();
+                                String package_name = final_check.get(i).getName();
                                 to_enable.add(package_name);
                                 if (package_name.startsWith("android.") ||
-                                        package_name.startsWith(this.getPackageName() + '.') ||
+                                        package_name.startsWith(getPackageName() + '.') ||
                                         package_name.startsWith("com.android.systemui"))
-                                    this.trigger_service_restart = true;
+                                    trigger_service_restart = true;
                             }
                         } else if (!disabledOverlaysForForegroundPackage
-                                .contains(this.final_check.get(i).getName())) {
+                                .contains(final_check.get(i).getName())) {
                             // It is disabled, append it to the list
-                            final String package_name = this.final_check.get(i).getName();
+                            String package_name = final_check.get(i).getName();
                             to_disable.add(package_name);
                             if (package_name.startsWith("android.") ||
-                                    package_name.startsWith(this.getPackageName() + '.') ||
+                                    package_name.startsWith(getPackageName() + '.') ||
                                     package_name.startsWith("com.android.systemui"))
-                                this.trigger_service_restart = true;
+                                trigger_service_restart = true;
                         }
                     }
                     // Dismiss the dialog so that we don't have issues with configuration changes
@@ -214,26 +214,26 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                     dialog.dismiss();
 
                     // Run the overlay management after a 0.1 second delay
-                    final Handler handler = new Handler();
+                    Handler handler = new Handler();
                     handler.postDelayed(() -> {
                         if (!to_enable.isEmpty())
-                            ThemeManager.enableOverlay(this.getApplicationContext(), to_enable);
+                            ThemeManager.enableOverlay(getApplicationContext(), to_enable);
                         if (!to_disable.isEmpty())
-                            ThemeManager.disableOverlay(this.getApplicationContext(), to_disable);
+                            ThemeManager.disableOverlay(getApplicationContext(), to_disable);
 
-                        if (this.trigger_systemui_restart) {
-                            ThemeManager.restartSystemUI(this.getApplicationContext());
+                        if (trigger_systemui_restart) {
+                            ThemeManager.restartSystemUI(getApplicationContext());
                         }
-                        if (this.trigger_service_restart) {
-                            final Handler handler2 = new Handler();
+                        if (trigger_service_restart) {
+                            Handler handler2 = new Handler();
                             handler2.postDelayed(() -> {
-                                this.getApplicationContext().stopService(
+                                getApplicationContext().stopService(
                                         new Intent(
-                                                this.getApplicationContext(),
+                                                getApplicationContext(),
                                                 SubstratumFloatInterface.class));
-                                this.getApplicationContext().startService(
+                                getApplicationContext().startService(
                                         new Intent(
-                                                this.getApplicationContext(),
+                                                getApplicationContext(),
                                                 SubstratumFloatInterface.class));
                             }, 300L);
                         }
@@ -242,22 +242,22 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 builder.setNegativeButton(android.R.string.cancel,
                         (dialog, which) -> dialog.cancel());
 
-                final LayoutInflater inflate = LayoutInflater.from(this.getApplicationContext());
-                @SuppressLint("InflateParams") final View content = inflate.inflate(R.layout
+                LayoutInflater inflate = LayoutInflater.from(getApplicationContext());
+                @SuppressLint("InflateParams") View content = inflate.inflate(R.layout
                         .floatui_dialog, null);
                 builder.setView(content);
 
-                final RecyclerView mRecyclerView = content.findViewById(R.id.recycler_view);
-                mRecyclerView.setAdapter(this.mAdapter);
+                RecyclerView mRecyclerView = content.findViewById(R.id.recycler_view);
+                mRecyclerView.setAdapter(mAdapter);
 
                 mRecyclerView.setHasFixedSize(true);
-                mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getApplicationContext
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext
                         ()));
 
-                final AlertDialog alertDialog = builder.create();
+                AlertDialog alertDialog = builder.create();
                 //noinspection ConstantConditions
                 alertDialog.getWindow().setBackgroundDrawable(
-                        this.getDrawable(R.drawable.dialog_background));
+                        getDrawable(R.drawable.dialog_background));
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     alertDialog.getWindow().setType(LayoutParams.TYPE_APPLICATION_OVERLAY);
                 } else {
@@ -266,69 +266,69 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 alertDialog.show();
             }
         });
-        this.mFloatingViewManager = new FloatingViewManager(this, this);
-        this.mFloatingViewManager.setFixedTrashIconImage(R.drawable.floating_trash_cross);
-        this.mFloatingViewManager.setActionTrashIconImage(R.drawable.floating_trash_base);
-        final FloatingViewManager.Options options = new FloatingViewManager.Options();
+        mFloatingViewManager = new FloatingViewManager(this, this);
+        mFloatingViewManager.setFixedTrashIconImage(R.drawable.floating_trash_cross);
+        mFloatingViewManager.setActionTrashIconImage(R.drawable.floating_trash_base);
+        FloatingViewManager.Options options = new FloatingViewManager.Options();
         options.overMargin = (int) (16.0F * metrics.density);
-        this.mFloatingViewManager.addViewToWindow(iconView, options);
+        mFloatingViewManager.addViewToWindow(iconView, options);
 
-        this.startForeground(NOTIFICATION_ID, this.createNotification());
+        startForeground(NOTIFICATION_ID, createNotification());
 
         return START_REDELIVER_INTENT;
     }
 
     @Override
     public void onDestroy() {
-        this.destroy();
+        destroy();
         super.onDestroy();
     }
 
     @Override
-    public IBinder onBind(final Intent intent) {
+    public IBinder onBind(Intent intent) {
         return null;
     }
 
     @Override
     public void onFinishFloatingView() {
-        this.stopSelf();
+        stopSelf();
     }
 
     @Override
-    public void onTouchFinished(final boolean isFinishing, final int x, final int y) {
+    public void onTouchFinished(boolean isFinishing, int x, int y) {
     }
 
     private void destroy() {
-        if (this.mFloatingViewManager != null) {
-            this.mFloatingViewManager.removeAllViewToWindow();
-            this.mFloatingViewManager = null;
+        if (mFloatingViewManager != null) {
+            mFloatingViewManager.removeAllViewToWindow();
+            mFloatingViewManager = null;
         }
     }
 
     private Notification createNotification() {
         // Create an Intent for the BroadcastReceiver
-        final Intent buttonIntent = new Intent(this.getApplicationContext(),
+        Intent buttonIntent = new Intent(getApplicationContext(),
                 FloatUiButtonReceiver.class);
 
         // Create the PendingIntent
-        final PendingIntent btPendingIntent = PendingIntent.getBroadcast(
-                this.getApplicationContext(), 0, buttonIntent, 0);
+        PendingIntent btPendingIntent = PendingIntent.getBroadcast(
+                getApplicationContext(), 0, buttonIntent, 0);
 
-        final NotificationCompat.Builder builder = new NotificationCompat.Builder(this,
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,
                 References.ONGOING_NOTIFICATION_CHANNEL_ID);
         builder.setWhen(System.currentTimeMillis());
-        this.prefs = PreferenceManager.getDefaultSharedPreferences(
-                this.getApplicationContext());
-        if (this.prefs.getBoolean("floatui_show_android_system_overlays", true)) {
-            builder.addAction(android.R.color.transparent, this.getString(R.string
+        prefs = PreferenceManager.getDefaultSharedPreferences(
+                getApplicationContext());
+        if (prefs.getBoolean("floatui_show_android_system_overlays", true)) {
+            builder.addAction(android.R.color.transparent, getString(R.string
                     .per_app_notification_framework_hide), btPendingIntent);
         } else {
-            builder.addAction(android.R.color.transparent, this.getString(R.string
+            builder.addAction(android.R.color.transparent, getString(R.string
                     .per_app_notification_framework_show), btPendingIntent);
         }
         builder.setSmallIcon(R.drawable.notification_floatui);
-        builder.setContentTitle(this.getString(R.string.app_name));
-        builder.setContentText(this.getString(R.string.per_app_notification_summary));
+        builder.setContentTitle(getString(R.string.app_name));
+        builder.setContentText(getString(R.string.per_app_notification_summary));
         builder.setOngoing(true);
         builder.setPriority(NotificationCompat.PRIORITY_MAX);
         builder.setCategory(NotificationCompat.CATEGORY_SERVICE);

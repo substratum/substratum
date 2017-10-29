@@ -33,31 +33,36 @@ import javax.xml.parsers.DocumentBuilderFactory;
 public enum ReadSupportedROMsFile {
     ;
 
-    public static Map<String, String> main(final String file) {
-
+    /**
+     * Function to read the cloud supported ROMs file
+     *
+     * @param location File location
+     * @return Return a map for the supported ROMs list
+     */
+    public static Map<String, String> read(String location) {
         try {
-            final File fXmlFile = new File(file);
+            File fXmlFile = new File(location);
 
-            final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            final DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            final Document doc = dBuilder.parse(fXmlFile);
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(fXmlFile);
             doc.getDocumentElement().normalize();
-            final NodeList nList = doc.getElementsByTagName("rom");
+            NodeList nList = doc.getElementsByTagName("rom");
 
-            final Map<String, String> hashMap = new HashMap<>();
+            Map<String, String> hashMap = new HashMap<>();
             for (int temp = 0; temp < nList.getLength(); temp++) {
-                final Node nNode = nList.item(temp);
+                Node nNode = nList.item(temp);
                 if ((int) nNode.getNodeType() == (int) Node.ELEMENT_NODE) {
-                    final Element eElement = (Element) nNode;
+                    Element eElement = (Element) nNode;
 
-                    final String name = eElement.getAttribute("name");
-                    final String id = eElement.getAttribute("id");
+                    String name = eElement.getAttribute("name");
+                    String id = eElement.getAttribute("id");
 
                     hashMap.put(id, name);
                 }
             }
             return hashMap;
-        } catch (final Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return new HashMap<>();
         }

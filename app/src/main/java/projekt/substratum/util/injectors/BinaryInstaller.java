@@ -30,20 +30,32 @@ import java.util.Arrays;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.FileOperations;
 
-public enum CheckBinaries {
+public enum BinaryInstaller {
     ;
 
-    public static void install(final Context context, final Boolean forced) {
+    /**
+     * Install the AAPT/AOPT and ZipAlign binaries to the working files of Substratum
+     *
+     * @param context Self explanatory, bud.
+     * @param forced  Ignore the dynamic check and just install no matter what
+     */
+    public static void install(Context context, Boolean forced) {
         injectAOPT(context, forced);
         injectZipAlign(context, forced);
     }
 
-    private static void injectAOPT(final Context context, final Boolean forced) {
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        final String aoptPath = context.getFilesDir().getAbsolutePath() + "/aopt";
+    /**
+     * Inject AAPT/AOPT binaries into the device
+     *
+     * @param context Self explanatory, bud.
+     * @param forced  Ignore the dynamic check and just install no matter what
+     */
+    private static void injectAOPT(Context context, Boolean forced) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String aoptPath = context.getFilesDir().getAbsolutePath() + "/aopt";
 
         // Check if AOPT is installed on the device
-        final File aopt = new File(aoptPath);
+        File aopt = new File(aoptPath);
 
         if (!aopt.isFile() || forced) {
             inject(context, prefs, aoptPath);
@@ -59,60 +71,72 @@ public enum CheckBinaries {
         }
     }
 
-    private static void inject(final Context mContext, final SharedPreferences prefs, final
-    String aoptPath) {
+    /**
+     * Inject a file into the device
+     *
+     * @param context  Self explanatory, bud.
+     * @param prefs    Shared preferences to jot down which binary is installed
+     * @param aoptPath Location of AOPT
+     */
+    private static void inject(Context context, SharedPreferences prefs, String aoptPath) {
         if (!Arrays.toString(Build.SUPPORTED_ABIS).contains("86")) {
             // Developers: AOPT-ARM (32bit) is using the legacy AAPT binary, while AAPT-ARM64
             //             (64bit) is using the brand new AOPT binary.
-            final String architecture =
+            String architecture =
                     !Arrays.asList(Build.SUPPORTED_64_BIT_ABIS).isEmpty() ? "ARM64" : "ARM";
-            final String integrityCheck = prefs.getString("compiler", "aapt");
+            String integrityCheck = prefs.getString("compiler", "aapt");
             try {
                 if ("aopt".equals(integrityCheck)) {
-                    FileOperations.copyFromAsset(mContext, "aopt" + ("ARM64".equals(architecture)
-                            ? "64" :
-                            ""), aoptPath);
+                    FileOperations.copyFromAsset(context, "aopt" + ("ARM64".equals(architecture)
+                            ? "64" : ""), aoptPath);
                     Log.d(References.SUBSTRATUM_LOG,
                             "Android Overlay Packaging Tool (" + architecture + ") " +
                                     "has been added into the compiler directory.");
                 } else {
-                    FileOperations.copyFromAsset(mContext, "aapt", aoptPath);
+                    FileOperations.copyFromAsset(context, "aapt", aoptPath);
                     Log.d(References.SUBSTRATUM_LOG,
                             "Android Asset Packaging Tool (" + architecture + ") " +
                                     "has been added into the compiler directory.");
                 }
-            } catch (final Exception e) {
+            } catch (Exception e) {
                 // Suppress warning
             }
         } else {
             // Take account for x86 devices
             try {
-                FileOperations.copyFromAsset(mContext, "aapt86", aoptPath);
+                FileOperations.copyFromAsset(context, "aapt86", aoptPath);
                 Log.d(References.SUBSTRATUM_LOG,
                         "Android Asset Packaging Tool (x86) " +
                                 "has been added into the compiler directory.");
-            } catch (final Exception e) {
+            } catch (Exception e) {
                 // Suppress warning
             }
         }
-        final File f = new File(aoptPath);
+        File f = new File(aoptPath);
         if (f.isFile()) {
-            if (!f.setExecutable(true, true)) Log.e("CheckBinaries", "Could not set executable...");
+            if (!f.setExecutable(true, true))
+                Log.e("BinaryInstaller", "Could not set executable...");
         }
     }
 
-    private static void injectZipAlign(final Context mContext, final Boolean forced) {
-        final String zipalignPath = mContext.getFilesDir().getAbsolutePath() + "/zipalign";
-        final File f = new File(zipalignPath);
+    /**
+     * Inject ZipAlign binaries into the device
+     *
+     * @param context Self explanatory, bud.
+     * @param forced  Ignore the dynamic check and just install no matter what
+     */
+    private static void injectZipAlign(Context context, Boolean forced) {
+        String zipalignPath = context.getFilesDir().getAbsolutePath() + "/zipalign";
+        File f = new File(zipalignPath);
 
         // Check if ZipAlign is already installed
         if (f.exists() && !forced)
             return;
 
         if (!Arrays.toString(Build.SUPPORTED_ABIS).contains("86")) {
-            final String architecture =
+            String architecture =
                     !Arrays.asList(Build.SUPPORTED_64_BIT_ABIS).isEmpty() ? "ARM64" : "ARM";
-            FileOperations.copyFromAsset(mContext, "zipalign" + ("ARM64".equals(architecture) ?
+            FileOperations.copyFromAsset(context, "zipalign" + ("ARM64".equals(architecture) ?
                     "64" :
                     ""), zipalignPath);
             Log.d(References.SUBSTRATUM_LOG,
@@ -121,17 +145,18 @@ public enum CheckBinaries {
         } else {
             // Take account for x86 devices
             try {
-                FileOperations.copyFromAsset(mContext, "zipalign86", zipalignPath);
+                FileOperations.copyFromAsset(context, "zipalign86", zipalignPath);
                 Log.d(References.SUBSTRATUM_LOG,
                         "ZipAlign (x86) " +
                                 "has been added into the compiler directory.");
-            } catch (final Exception e) {
+            } catch (Exception e) {
                 // Suppress warning
             }
         }
 
         if (f.isFile()) {
-            if (!f.setExecutable(true, true)) Log.e("CheckBinaries", "Could not set executable...");
+            if (!f.setExecutable(true, true))
+                Log.e("BinaryInstaller", "Could not set executable...");
         }
     }
 }

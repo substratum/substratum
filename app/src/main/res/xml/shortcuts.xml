@@ -42,7 +42,7 @@
         tools:targetApi="n_mr1">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetClass="projekt.substratum.activities.launch.RescueActivity"
+            android:targetClass="projekt.substratum.activities.shortcuts.RescueActivity"
             android:targetPackage="projekt.substratum"/>
     </shortcut>
     <shortcut
@@ -55,7 +55,7 @@
         tools:targetApi="n_mr1">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetClass="projekt.substratum.activities.launch.OverlayManagerActivity"
+            android:targetClass="projekt.substratum.activities.shortcuts.OverlayManagerActivity"
             android:targetPackage="projekt.substratum"/>
     </shortcut>
 </shortcuts>

@@ -26,25 +26,27 @@ import android.support.v7.app.AppCompatActivity;
 
 import projekt.substratum.R;
 
+import static projekt.substratum.common.References.SUBSTRATUM_PACKAGE;
+
 public class ProfileErrorInfoActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         new AlertDialog.Builder(this)
-                .setTitle(this.getString(R.string.restore_dialog_title))
-                .setMessage(this.getIntent().getStringExtra("dialog_message"))
+                .setTitle(getString(R.string.restore_dialog_title))
+                .setMessage(getIntent().getStringExtra("dialog_message"))
                 .setCancelable(false)
-                .setPositiveButton(this.getString(R.string.dialog_ok), (dialogInterface, i) -> {
-                    PackageManager manager = this.getPackageManager();
-                    Intent intent = manager.getLaunchIntentForPackage("projekt.substratum");
+                .setPositiveButton(getString(R.string.dialog_ok), (dialogInterface, i) -> {
+                    PackageManager manager = getPackageManager();
+                    Intent intent = manager.getLaunchIntentForPackage(SUBSTRATUM_PACKAGE);
                     if (intent != null) {
                         intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                        this.startActivity(intent);
+                        startActivity(intent);
                     }
-                    this.finish();
+                    finish();
                 })
-                .setOnCancelListener(dialogInterface -> this.finish())
+                .setOnCancelListener(dialogInterface -> finish())
                 .setCancelable(true)
                 .create()
                 .show();

@@ -41,9 +41,13 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
-import projekt.substratum.common.tabs.SoundManager;
+import projekt.substratum.tabs.SoundsManager;
 
+import static projekt.substratum.common.Internal.JOB_COMPLETE;
+import static projekt.substratum.common.Internal.SOUNDS_APPLIED;
+import static projekt.substratum.common.Internal.SOUNDS_CREATION_CACHE;
 import static projekt.substratum.common.References.STATUS_CHANGED;
+import static projekt.substratum.common.platform.ThemeInterfacerService.PRIMARY_COMMAND_KEY;
 
 public class SoundUtils {
 
@@ -57,59 +61,72 @@ public class SoundUtils {
     private View view;
     private Cipher cipher;
 
-    public static void SoundsClearer(final Context context) {
-        SoundManager.clearSounds(context);
+    /**
+     * Clear the applied sound pack
+     *
+     * @param context Self explanatory, bud.
+     */
+    public static void SoundsClearer(Context context) {
+        SoundsManager.clearSounds(context);
     }
 
-    public void execute(final View view,
-                        final String arguments,
-                        final Context context,
-                        final String theme_pid,
-                        final Cipher cipher) {
+    /**
+     * Apply the sound pack
+     *
+     * @param view      The view of the caller
+     * @param arguments Arguments to pass
+     * @param context   Self explanatory, bud
+     * @param theme_pid Theme's package name
+     * @param cipher    Encryption handshake
+     */
+    public void execute(View view,
+                        String arguments,
+                        Context context,
+                        String theme_pid,
+                        Cipher cipher) {
         this.mContext = context;
         this.theme_pid = theme_pid;
         this.view = view;
         this.cipher = cipher;
-
         this.prefs = PreferenceManager.getDefaultSharedPreferences(context);
         new SoundsHandlerAsync(this).execute(arguments);
     }
 
     private void finishFunction() {
-        if (!this.has_failed) {
-            Lunchbar.make(this.view,
-                    this.mContext.getString(R.string.sounds_dialog_apply_success),
+        if (!has_failed) {
+            Lunchbar.make(view,
+                    mContext.getString(R.string.sounds_dialog_apply_success),
                     Lunchbar.LENGTH_LONG)
                     .show();
         } else {
-            Lunchbar.make(this.view,
-                    this.mContext.getString(R.string.sounds_dialog_apply_failed),
+            Lunchbar.make(view,
+                    mContext.getString(R.string.sounds_dialog_apply_failed),
                     Lunchbar.LENGTH_LONG)
                     .show();
         }
 
-        if (!Systems.checkThemeInterfacer(this.mContext)) {
+        if (!Systems.checkThemeInterfacer(mContext)) {
             FileOperations.mountROData();
             FileOperations.mountRO();
         }
 
-        if (this.ringtone) {
-            this.ringtone = false;
-            if (!Systems.checkThemeInterfacer(this.mContext) &&
-                    !Settings.System.canWrite(this.mContext)) {
-                new AlertDialog.Builder(this.mContext)
-                        .setTitle(this.mContext.getString(R.string.sounds_dialog_permissions_title))
-                        .setMessage(this.mContext.getString(R.string
+        if (ringtone) {
+            ringtone = false;
+            if (!Systems.checkThemeInterfacer(mContext) &&
+                    !Settings.System.canWrite(mContext)) {
+                new AlertDialog.Builder(mContext)
+                        .setTitle(mContext.getString(R.string.sounds_dialog_permissions_title))
+                        .setMessage(mContext.getString(R.string
                                 .sounds_dialog_permissions_text))
                         .setPositiveButton(R.string.sounds_dialog_permissions_grant,
                                 (dialog, which) -> {
-                                    if (!Settings.System.canWrite(this.mContext)) {
+                                    if (!Settings.System.canWrite(mContext)) {
                                         Intent intent = new Intent(
                                                 Settings.ACTION_MANAGE_WRITE_SETTINGS);
                                         intent.setData(Uri.parse("package:" +
-                                                this.mContext.getPackageName()));
+                                                mContext.getPackageName()));
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        this.mContext.startActivity(intent);
+                                        mContext.startActivity(intent);
                                     } else {
                                         Log.d(References.SUBSTRATUM_LOG,
                                                 "Substratum was granted " +
@@ -120,31 +137,31 @@ public class SoundUtils {
                                 })
                         .setNegativeButton(R.string.sounds_dialog_permissions_deny,
                                 (dialog, which) -> dialog.dismiss())
-                        .setIcon(this.mContext.getDrawable(R.drawable.sounds_dialog_alert))
+                        .setIcon(mContext.getDrawable(R.drawable.sounds_dialog_alert))
                         .show();
             }
         }
     }
 
-    private static final class SoundsHandlerAsync extends AsyncTask<String, Integer, String> {
-        private final WeakReference<SoundUtils> ref;
+    private static class SoundsHandlerAsync extends AsyncTask<String, Integer, String> {
+        private WeakReference<SoundUtils> ref;
 
-        private SoundsHandlerAsync(final SoundUtils soundUtils) {
+        private SoundsHandlerAsync(SoundUtils soundUtils) {
             super();
-            this.ref = new WeakReference<>(soundUtils);
+            ref = new WeakReference<>(soundUtils);
         }
 
         @Override
-        protected void onPostExecute(final String result) {
-            final SoundUtils soundUtils = this.ref.get();
+        protected void onPostExecute(String result) {
+            SoundUtils soundUtils = ref.get();
             if (soundUtils != null) {
-                final Context context = soundUtils.mContext;
+                Context context = soundUtils.mContext;
                 if (Systems.checkThemeInterfacer(context) &&
                         !Systems.isBinderInterfacer(context)) {
                     if (finishReceiver == null) {
                         finishReceiver = new FinishReceiver(soundUtils);
                     }
-                    final IntentFilter intentFilter = new IntentFilter(STATUS_CHANGED);
+                    IntentFilter intentFilter = new IntentFilter(STATUS_CHANGED);
                     context.getApplicationContext().registerReceiver(finishReceiver, intentFilter);
                 } else {
                     soundUtils.finishFunction();
@@ -154,52 +171,51 @@ public class SoundUtils {
         }
 
         @Override
-        protected String doInBackground(final String... sUrl) {
-            final SoundUtils soundUtils = this.ref.get();
+        protected String doInBackground(String... sUrl) {
+            SoundUtils soundUtils = ref.get();
             if (soundUtils != null) {
-                final Context context = soundUtils.mContext;
-                final boolean[] results = SoundManager.setSounds(
+                Context context = soundUtils.mContext;
+                boolean[] results = SoundsManager.setSounds(
                         context,
                         soundUtils.theme_pid,
-                        sUrl[0],
-                        soundUtils.cipher);
+                        sUrl[0]);
                 soundUtils.has_failed = results[0];
                 soundUtils.ringtone = results[1];
 
                 if (!soundUtils.has_failed) {
-                    final SharedPreferences.Editor editor = soundUtils.prefs.edit();
-                    editor.putString("sounds_applied", soundUtils.theme_pid);
+                    SharedPreferences.Editor editor = soundUtils.prefs.edit();
+                    editor.putString(SOUNDS_APPLIED, soundUtils.theme_pid);
                     editor.apply();
                     Log.d("SoundUtils", "Sound pack installed!");
                     FileOperations.delete(context, context.getCacheDir().getAbsolutePath() +
-                            "/SoundsCache/SoundsInjector/");
+                            SOUNDS_CREATION_CACHE);
                 } else {
                     Log.e("SoundUtils", "Sound installation aborted!");
                     FileOperations.delete(context, context.getCacheDir().getAbsolutePath() +
-                            "/SoundsCache/SoundsInjector/");
+                            SOUNDS_CREATION_CACHE);
                 }
             }
             return null;
         }
     }
 
-    static final class FinishReceiver extends BroadcastReceiver {
-        private final WeakReference<SoundUtils> soundRef;
+    /**
+     * Receiver to wait for the process to be complete
+     */
+    static class FinishReceiver extends BroadcastReceiver {
+        private WeakReference<SoundUtils> soundRef;
 
-        private FinishReceiver(final SoundUtils soundUtils) {
+        private FinishReceiver(SoundUtils soundUtils) {
             super();
-            this.soundRef = new WeakReference<>(soundUtils);
+            soundRef = new WeakReference<>(soundUtils);
         }
 
         @Override
-        public void onReceive(final Context context, final Intent intent) {
-            final SoundUtils soundUtils = this.soundRef.get();
+        public void onReceive(Context context, Intent intent) {
+            SoundUtils soundUtils = soundRef.get();
             if (soundUtils != null) {
-                final String PRIMARY_COMMAND_KEY = "primary_command_key";
-                final String COMMAND_VALUE_JOB_COMPLETE = "job_complete";
-                final String command = intent.getStringExtra(PRIMARY_COMMAND_KEY);
-
-                if (command.equals(COMMAND_VALUE_JOB_COMPLETE)) {
+                String command = intent.getStringExtra(PRIMARY_COMMAND_KEY);
+                if (command != null && command.equals(JOB_COMPLETE)) {
                     context.getApplicationContext().unregisterReceiver(finishReceiver);
                     soundUtils.finishFunction();
                 }

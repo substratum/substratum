@@ -16,11 +16,13 @@ import android.widget.Toast;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
 import cat.ereza.customactivityoncrash.config.CaocConfig;
 import projekt.substratum.R;
-import projekt.substratum.activities.launch.RescueActivity;
 import projekt.substratum.activities.launch.SplashScreenActivity;
+import projekt.substratum.activities.shortcuts.RescueActivity;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
@@ -36,34 +38,40 @@ import static projekt.substratum.common.Resources.SUBSTRATUM_OVERLAY_FAULT_EXCEP
 
 public class SubstratumCrash extends Activity {
 
+    @BindView(R.id.restart)
+    Button restartButton;
+    @BindView(R.id.rescue_me)
+    Button rescueMeButton;
+    @BindView(R.id.logcat)
+    Button stacktraceButton;
     private boolean shouldPulsate;
 
     @Override
-    protected void onCreate(@Nullable final Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.crash_activity);
+        ButterKnife.bind(this);
 
-        final String stacktrace = this.createErrorReport(this.getIntent());
-        final CaocConfig caocConfig = CustomActivityOnCrash.getConfigFromIntent(this.getIntent());
+        String stacktrace = this.createErrorReport(this.getIntent());
+        CaocConfig caocConfig = CustomActivityOnCrash.getConfigFromIntent(this.getIntent());
 
-        final Button restartButton = this.findViewById(R.id.restart);
         restartButton.setOnClickListener(view -> {
-            final Intent intent = new Intent(SubstratumCrash.this, SplashScreenActivity.class);
+            Intent intent = new Intent(SubstratumCrash.this, SplashScreenActivity.class);
             CustomActivityOnCrash.restartApplicationWithIntent(
                     SubstratumCrash.this,
                     intent,
                     caocConfig);
         });
 
-        final Button rescueMeButton = this.findViewById(R.id.rescue_me);
         rescueMeButton.setOnClickListener(view -> {
-            final Intent intent = new Intent(SubstratumCrash.this, RescueActivity.class);
+            Intent intent = new Intent(SubstratumCrash.this, RescueActivity.class);
             this.startActivity(intent);
             this.finish();
         });
 
 
-        final Boolean isSubstratumOverlayFault = References.stringContainsItemFromList(stacktrace,
+        Boolean isSubstratumOverlayFault = References.stringContainsItemFromList(
+                stacktrace,
                 SUBSTRATUM_OVERLAY_FAULT_EXCEPTIONS);
 
         if (!Systems.isSamsungDevice(this.getApplicationContext())) {
@@ -102,9 +110,8 @@ public class SubstratumCrash extends Activity {
                     .show();
         }
 
-        final Button stacktraceButton = this.findViewById(R.id.logcat);
         stacktraceButton.setOnClickListener(view -> {
-            final TextView showText = new TextView(this);
+            TextView showText = new TextView(this);
             showText.setPadding(70, 30, 70, 30);
             showText.setText(stacktrace);
             showText.setTextIsSelectable(true);
@@ -129,22 +136,28 @@ public class SubstratumCrash extends Activity {
         });
     }
 
-    private String createErrorReport(final Intent intent) {
-        final String versionName = Packages.getAppVersion(this, this.getPackageName());
+    /**
+     * Create an error report
+     *
+     * @param intent Intent
+     * @return Return string of error report
+     */
+    private String createErrorReport(Intent intent) {
+        String versionName = Packages.getAppVersion(this, this.getPackageName());
         String details = "";
 
         details += "Build version: " + versionName + '\n';
         details += "Device: " + Build.MODEL + " (" + Build.DEVICE + ") " + '[' + Build.FINGERPRINT +
                 ']';
 
-        final String xposed = References.checkXposedVersion();
+        String xposed = References.checkXposedVersion();
         if (!xposed.isEmpty()) details += " {" + xposed + '}';
         details += "\n";
 
-        final String rom = Systems.checkFirmwareSupport(this, this.getString(R.string
+        String rom = Systems.checkFirmwareSupport(this, this.getString(R.string
                         .supported_roms_url),
                 "supported_roms.xml");
-        final String romVersion = Build.VERSION.RELEASE + " - " +
+        String romVersion = Build.VERSION.RELEASE + " - " +
                 (!rom.isEmpty() ? rom : "Unknown");
         details += "ROM: " + romVersion + '\n';
         details += "Theme system: ";
@@ -174,7 +187,7 @@ public class SubstratumCrash extends Activity {
         details += "Stack trace:\n";
         details += CustomActivityOnCrash.getStackTraceFromIntent(intent);
 
-        final String activityLog = CustomActivityOnCrash.getActivityLogFromIntent(intent);
+        String activityLog = CustomActivityOnCrash.getActivityLogFromIntent(intent);
         if (activityLog != null) {
             details += "\n\nUser actions:\n";
             details += activityLog;

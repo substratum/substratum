@@ -76,6 +76,7 @@ public class Substratum extends Application {
                 (system == OVERLAY_MANAGER_SERVICE_O_ROOTED) ||
                 (system == RUNTIME_RESOURCE_OVERLAY_N_ROOTED);
     }
+
     @Override
     public void onCreate() {
         super.onCreate();

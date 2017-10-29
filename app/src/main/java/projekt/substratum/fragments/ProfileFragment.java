@@ -1101,12 +1101,12 @@ public class ProfileFragment extends Fragment {
 
                         @SuppressLint("StringFormatMatches")
                         // Seems like there's a bug with lint according to
-                        // https://stackoverflow.com/questions/23960019/
-                        // lint-gives-wrong-format-type-when-using-long-values-in-strings
-                        // -xml
+                                // https://stackoverflow.com/questions/23960019/
+                                // lint-gives-wrong-format-type-when-using-long-values-in-strings
+                                // -xml
 
-                        String format = String.format(
-                        profileFragment.getString(R.string.profile_compile_progress),
+                                String format = String.format(
+                                profileFragment.getString(R.string.profile_compile_progress),
                                 i + 1,
                                 toBeCompiled.size(),
                                 compilePackage);
@@ -1237,7 +1237,7 @@ public class ProfileFragment extends Fragment {
                                 workingDirectory + suffix,
                                 listDir,
                                 cipher);
-                        
+
                         if (useType3CommonDir) {
                             String type3Dir = "overlays/" + target + "/type3_" + type3;
                             FileOperations.copyFileOrDir(
@@ -1248,7 +1248,7 @@ public class ProfileFragment extends Fragment {
                                     cipher
                             );
                         }
-                        
+
                         // Handle the type1s
                         if (!type1a.isEmpty()) {
                             FileOperations.copyFileOrDir(

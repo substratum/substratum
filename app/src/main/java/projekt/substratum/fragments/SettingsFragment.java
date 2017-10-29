@@ -102,7 +102,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     public void onCreatePreferences(
             Bundle bundle,
             String s) {
-        mContext = Substratum.getInstance();
+        mContext = getContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 
         boolean isSamsung = Systems.isSamsung(mContext);

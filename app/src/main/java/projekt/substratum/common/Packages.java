@@ -506,7 +506,13 @@ public enum Packages {
             ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if ((appInfo.metaData != null) && (appInfo.metaData.getString(metadata) != null)) {
-                return appInfo.metaData.getString(metadata);
+                String returnMetadata = appInfo.metaData.getString(metadata);
+                if (returnMetadata != null) {
+                    return returnMetadata;
+                } else {
+                    returnMetadata = String.valueOf(appInfo.metaData.getBoolean(metadata));
+                }
+                return returnMetadata;
             }
         } catch (Exception e) {
             // Suppress warning

@@ -820,17 +820,16 @@ public class MainActivity extends AppCompatActivity implements
                         android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 transaction.replace(R.id.main, fragment);
                 transaction.commit();
-            }
-            else if(f instanceof ManagerFragment) {
-                if (((ManagerFragment) f).getFAB().isSheetVisible())
+            } else if (f instanceof ManagerFragment) {
+                if (((ManagerFragment) f).getFAB().isSheetVisible()) {
                     ((ManagerFragment) f).getFAB().hideSheet();
-                else{
+                } else {
                     switchThemeFragment((Systems.checkOMS(
                             this.mContext) ?
-                            this.getString(R.string.app_name) :
-                            (Systems.isSamsung(this.mContext) ?
-                                    this.getString(R.string.samsung_app_name) :
-                                    this.getString(R.string.legacy_app_name))),
+                                    this.getString(R.string.app_name) :
+                                    (Systems.isSamsung(this.mContext) ?
+                                            this.getString(R.string.samsung_app_name) :
+                                            this.getString(R.string.legacy_app_name))),
                             References.homeFragment);
                 }
             } else if ((this.drawer != null) && (this.drawer.getCurrentSelectedPosition() > 1)) {

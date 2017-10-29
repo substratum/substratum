@@ -24,7 +24,7 @@ public class ManagerCallback extends DiffUtil.Callback {
 
     @Override
     public int getNewListSize() {
-        return oldOverlays.size();
+        return newOverlays.size();
     }
 
     @Override

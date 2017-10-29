@@ -24,7 +24,7 @@ public class ThemeCallback extends DiffUtil.Callback {
 
     @Override
     public int getNewListSize() {
-        return oldOverlays.size();
+        return newOverlays.size();
     }
 
     @Override

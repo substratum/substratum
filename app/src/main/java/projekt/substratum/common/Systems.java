@@ -1,7 +1,6 @@
 package projekt.substratum.common;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.app.AppOpsManager;
 import android.app.admin.DevicePolicyManager;
@@ -279,6 +278,7 @@ public enum Systems {
 
     /**
      * Determine whether the device supports the new Substratum service
+     *
      * @return True, if Substratum service
      */
     public static boolean checkSubstratumService(Context context) {

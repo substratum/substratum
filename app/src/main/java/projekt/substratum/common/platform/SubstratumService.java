@@ -27,7 +27,7 @@ import projekt.substratum.platform.SubstratumServiceBridge;
 
 public enum SubstratumService {
     ;
-    
+
     static void installOverlay(List<String> paths) {
         try {
             SubstratumServiceBridge.get().installOverlay(paths);
@@ -36,7 +36,7 @@ public enum SubstratumService {
         }
     }
 
-    static void uninstallOverlay(List<String> packages, boolean restartUi) {
+    public static void uninstallOverlay(List<String> packages, boolean restartUi) {
         try {
             SubstratumServiceBridge.get().uninstallOverlay(packages, restartUi);
         } catch (RemoteException e) {

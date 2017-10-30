@@ -37,6 +37,7 @@ import java.util.zip.ZipFile;
 import projekt.substratum.R;
 import projekt.substratum.common.analytics.PackageAnalytics;
 import projekt.substratum.common.commands.ElevatedCommands;
+import projekt.substratum.common.platform.SubstratumService;
 import projekt.substratum.common.platform.ThemeInterfacerService;
 import projekt.substratum.util.readers.ReadVariantPrioritizedColor;
 
@@ -73,6 +74,7 @@ import static projekt.substratum.common.Resources.allowedFrameworkOverlay;
 import static projekt.substratum.common.Resources.allowedSettingsOverlay;
 import static projekt.substratum.common.Resources.allowedSystemUIOverlay;
 import static projekt.substratum.common.Systems.checkOMS;
+import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 import static projekt.substratum.common.analytics.PackageAnalytics.PACKAGE_TAG;
 
@@ -770,9 +772,11 @@ public enum Packages {
      */
     public static void uninstallPackage(Context context,
                                         String packageName) {
-        if (checkThemeInterfacer(context)) {
-            ArrayList<String> list = new ArrayList<>();
-            list.add(packageName);
+        ArrayList<String> list = new ArrayList<>();
+        list.add(packageName);
+        if (checkSubstratumService(context)) {
+            SubstratumService.uninstallOverlay(list, false);
+        } else if (checkThemeInterfacer(context)) {
             ThemeInterfacerService.uninstallOverlays(context, list, false);
         } else {
             ElevatedCommands.runThreadedCommand("pm uninstall " + packageName);

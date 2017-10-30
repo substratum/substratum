@@ -124,7 +124,8 @@ public enum Resources {
             SYSTEMUI_HEADERS,
             SYSTEMUI_NAVBARS,
             SYSTEMUI_NAVBARS,
-            SYSTEMUI_QSTILES
+            SYSTEMUI_QSTILES,
+            SYSTEMUI_STATUSBARS
     };
     // Predetermined list of new Nexus/Pixel Devices
     private static final String[] NEXUS_FILTER = {

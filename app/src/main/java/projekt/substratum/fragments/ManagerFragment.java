@@ -771,7 +771,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     // The magic goes here
                     if (!data.isEmpty()) ThemeManager.enableOverlay(context, data);
 
-                    if (!Systems.checkThemeInterfacer(context) &&
+                    if (Systems.checkSubstratumService(context) &&
+                            !Systems.checkThemeInterfacer(context) &&
                             Packages.needsRecreate(context, data)) {
                         Handler handler = new Handler(Looper.getMainLooper());
                         handler.postDelayed(() -> {
@@ -846,7 +847,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                         // The magic goes here
                         ThemeManager.disableOverlay(context, data);
 
-                        if (!Systems.checkThemeInterfacer(context) &&
+                        if (Systems.checkSubstratumService(context) &&
+                                !Systems.checkThemeInterfacer(context) &&
                                 Packages.needsRecreate(context, data)) {
                             Handler handler = new Handler(Looper.getMainLooper());
                             handler.postDelayed(() -> {
@@ -1150,7 +1152,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     if (!Systems.isSamsungDevice(context)) {
                         ThemeManager.uninstallOverlay(context, data);
                     }
-                    if (!Systems.checkThemeInterfacer(context) &&
+                    if (Systems.checkSubstratumService(context) &&
+                            !Systems.checkThemeInterfacer(context) &&
                             Packages.needsRecreate(context, data) &&
                             !Systems.isSamsungDevice(context)) {
                         Handler handler = new Handler(Looper.getMainLooper());

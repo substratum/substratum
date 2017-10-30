@@ -1,6 +1,7 @@
 package projekt.substratum.common;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.app.AppOpsManager;
 import android.app.admin.DevicePolicyManager;
@@ -141,6 +142,13 @@ public enum Systems {
                             OVERLAY_MANAGER_SERVICE_O_UNROOTED
                     ).apply();
                     return OVERLAY_MANAGER_SERVICE_O_UNROOTED;
+                } else if (checkSubstratumService(context)) {
+                    // SS mode
+                    prefs.edit().putInt(
+                            "CURRENT_THEME_MODE",
+                            OVERLAY_MANAGER_SERVICE_O_UNROOTED
+                    ).apply();
+                    return OVERLAY_MANAGER_SERVICE_O_UNROOTED;
                 }
             } else if (checkNougat()) {
                 if (isBinderInterfacer(context)) {
@@ -201,7 +209,7 @@ public enum Systems {
         try {
             boolean foundOms = false;
             if (!isSamsungDevice(context)) {
-                if (checkThemeInterfacer(context)) {
+                if (checkThemeInterfacer(context) || checkSubstratumService(context)) {
                     foundOms = true;
                 } else {
                     Boolean isOMSRunning = isOMSRunning(context.getApplicationContext(),
@@ -252,6 +260,34 @@ public enum Systems {
             return false;
         }
         return getThemeInterfacerPackage(context) != null;
+    }
+
+    /**
+     * Set a retained property to refer to rather than constantly calling the SS state
+     *
+     * @param context If you haven't gotten this by now, better start reading Android docs
+     */
+    public static void setAndCheckSubstratumService(Context context) {
+        StringBuilder check = References.runShellCommand("cmd -l");
+        Boolean present = check != null && check.toString().contains("substratum");
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        prefs.edit().putBoolean("substratum_service_present", false).apply();
+        if (present) {
+            prefs.edit().putBoolean("substratum_service_present", true).apply();
+        }
+    }
+
+    /**
+     * Determine whether the device supports the new Substratum service
+     * @return True, if Substratum service
+     */
+    public static boolean checkSubstratumService(Context context) {
+        if (context == null) return true; // Safe to assume that window refreshes only on OMS
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        if (!prefs.contains("substratum_service_present")) {
+            setAndCheckSubstratumService(context);
+        }
+        return prefs.getBoolean("substratum_service_present", false);
     }
 
     /**

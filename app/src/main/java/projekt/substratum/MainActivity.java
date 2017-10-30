@@ -343,6 +343,7 @@ public class MainActivity extends AppCompatActivity implements
 
         Systems.setROMVersion(mContext, false);
         Systems.setAndCheckOMS(mContext);
+        Systems.setAndCheckSubstratumService(mContext);
 
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -1179,6 +1180,7 @@ public class MainActivity extends AppCompatActivity implements
                                     activity.prefs.edit().remove("oms_version").apply();
                                     Systems.setROMVersion(context, true);
                                     Systems.setAndCheckOMS(context);
+                                    Systems.setAndCheckSubstratumService(context);
                                     activity.recreate();
                                 }
 
@@ -1214,6 +1216,7 @@ public class MainActivity extends AppCompatActivity implements
                         activity.prefs.edit().remove("oms_state").apply();
                         activity.prefs.edit().remove("oms_version").apply();
                         Systems.setAndCheckOMS(context);
+                        Systems.setAndCheckSubstratumService(context);
                         activity.recreate();
                     }
 
@@ -1352,6 +1355,12 @@ public class MainActivity extends AppCompatActivity implements
                 if (legacyCheck) {
                     // Throw the dialog, after checking for root
                     return !Root.requestRootAccess();
+                }
+
+                // Check for Substratum Service
+                boolean ssCheck = Systems.checkSubstratumService(context);
+                if (ssCheck) {
+                    return (themeSystemModule != OVERLAY_MANAGER_SERVICE_O_UNROOTED);
                 }
 
                 // Check for OMS

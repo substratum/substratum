@@ -73,6 +73,7 @@ import static projekt.substratum.common.Resources.SYSTEMUI_QSTILES;
 import static projekt.substratum.common.Resources.SYSTEMUI_STATUSBARS;
 import static projekt.substratum.common.Systems.checkAndromeda;
 import static projekt.substratum.common.Systems.checkOMS;
+import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 import static projekt.substratum.common.Systems.checkThemeSystemModule;
 
@@ -140,8 +141,7 @@ public enum ThemeManager {
         overlays.removeAll(listOverlays(context, STATE_ENABLED));
         if (overlays.isEmpty()) return;
 
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences
-                (context);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
 
         if (sharedPrefs.getBoolean("auto_disable_target_overlays", false)) {
             for (String overlay : overlays) {
@@ -160,10 +160,13 @@ public enum ThemeManager {
             }
         }
 
+        boolean hasSS = checkSubstratumService(context);
         boolean hasThemeInterfacer = checkThemeInterfacer(context);
         boolean hasAndromeda = checkAndromeda(context);
 
-        if (hasThemeInterfacer) {
+        if (hasSS) {
+            SubstratumService.switchOverlay(overlays, true, shouldRestartUI(context, overlays));
+        } else if (hasThemeInterfacer) {
             ThemeInterfacerService.enableOverlays(
                     context, overlays, shouldRestartUI(context, overlays));
         } else if (hasAndromeda) {
@@ -209,7 +212,9 @@ public enum ThemeManager {
         overlays.removeAll(listOverlays(context, STATE_DISABLED));
         if (overlays.isEmpty()) return;
 
-        if (checkThemeInterfacer(context)) {
+        if (checkSubstratumService(context)) {
+            SubstratumService.switchOverlay(overlays, false, shouldRestartUI(context, overlays));
+        } else if (checkThemeInterfacer(context)) {
             ThemeInterfacerService.disableOverlays(
                     context, overlays, shouldRestartUI(context, overlays));
         } else if (checkAndromeda(context)) {
@@ -251,7 +256,9 @@ public enum ThemeManager {
      * @param overlays List of overlays
      */
     public static void setPriority(Context context, ArrayList<String> overlays) {
-        if (checkThemeInterfacer(context)) {
+        if (checkSubstratumService(context)) {
+            SubstratumService.changePriority(overlays, shouldRestartUI(context, overlays));
+        } else if (checkThemeInterfacer(context)) {
             ThemeInterfacerService.setPriority(
                     context, overlays, shouldRestartUI(context, overlays));
         } else if (checkAndromeda(context)) {
@@ -724,7 +731,11 @@ public enum ThemeManager {
      */
     public static void installOverlay(Context context,
                                       String overlay) {
-        if (checkThemeInterfacer(context)) {
+        if (checkSubstratumService(context)) {
+            ArrayList<String> list = new ArrayList<>();
+            list.add(overlay);
+            SubstratumService.installOverlay(list);
+        } else if (checkThemeInterfacer(context)) {
             ArrayList<String> list = new ArrayList<>();
             list.add(overlay);
             ThemeInterfacerService.installOverlays(context, list);
@@ -754,14 +765,18 @@ public enum ThemeManager {
     public static void uninstallOverlay(Context context,
                                         ArrayList<String> overlays) {
 
-        if (Systems.checkOMS(context)) {
+        boolean shouldRestartUi = false;
+        if (Systems.checkOMS(context) || checkSubstratumService(context)) {
             ArrayList<String> temp = new ArrayList<>(overlays);
             temp.removeAll(listOverlays(context, STATE_DISABLED));
             disableOverlay(context, temp);
+            shouldRestartUi = shouldRestartUI(context, temp);
         }
 
         // if enabled list is not contains any overlays
-        if (checkThemeInterfacer(context) && !Systems.isSamsung(context)) {
+        if (checkSubstratumService(context)) {
+            SubstratumService.uninstallOverlay(overlays, shouldRestartUi);
+        } else if (checkThemeInterfacer(context) && !Systems.isSamsung(context)) {
             ThemeInterfacerService.uninstallOverlays(
                     context,
                     overlays,

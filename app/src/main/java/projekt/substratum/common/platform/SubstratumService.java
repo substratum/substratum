@@ -20,13 +20,14 @@ package projekt.substratum.common.platform;
 
 import android.os.RemoteException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import projekt.substratum.platform.SubstratumServiceBridge;
 
-enum SubstratumService {
+public enum SubstratumService {
     ;
-
+    
     static void installOverlay(List<String> paths) {
         try {
             SubstratumServiceBridge.get().installOverlay(paths);
@@ -51,9 +52,106 @@ enum SubstratumService {
         }
     }
 
-    static void changePriority(List<String> packages, boolean restartUi) {
+    static void setPriority(List<String> packages, boolean restartUi) {
         try {
-            SubstratumServiceBridge.get().changePriority(packages, restartUi);
+            SubstratumServiceBridge.get().setPriority(packages, restartUi);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    static void restartSystemUi() {
+        try {
+            SubstratumServiceBridge.get().restartSystemUI();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void copy(String source, String destination) {
+        try {
+            SubstratumServiceBridge.get().copy(source, destination);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void move(String source, String destination) {
+        try {
+            SubstratumServiceBridge.get().move(source, destination);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createNewFolder(String destination) {
+        try {
+            SubstratumServiceBridge.get().mkdir(destination);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void delete(String destination, boolean deleteParent) {
+        try {
+            SubstratumServiceBridge.get().deleteDirectory(destination, deleteParent);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void setBootAnimation(String location) {
+        try {
+            SubstratumServiceBridge.get().applyBootanimation(location);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void clearBootAnimation() {
+        try {
+            SubstratumServiceBridge.get().applyBootanimation(null);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void setFonts(String pid, String name) {
+        try {
+            SubstratumServiceBridge.get().applyFonts(pid, name);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void clearFonts() {
+        try {
+            SubstratumServiceBridge.get().applyFonts(null, null);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void setSounds(String pid, String name) {
+        try {
+            SubstratumServiceBridge.get().applySounds(pid, name);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void clearSounds() {
+        try {
+            SubstratumServiceBridge.get().applySounds(null, null);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void applyProfile(String name, ArrayList<String> toBeDisabled,
+                                    ArrayList<String> toBeEnabled, boolean restartUi) {
+        try {
+            SubstratumServiceBridge.get().applyProfile(toBeEnabled, toBeDisabled, name, restartUi);
         } catch (RemoteException e) {
             e.printStackTrace();
         }

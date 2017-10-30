@@ -38,6 +38,7 @@ import projekt.substratum.tabs.FontsManager;
 import static projekt.substratum.common.Internal.FONTS_APPLIED;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.Systems.checkOMS;
+import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 
 public class FontUtils {
@@ -88,8 +89,9 @@ public class FontUtils {
                     fragment.progress.setCancelable(false);
                     fragment.progress.show();
                 }
-                Boolean isInterfacer = checkOMS(context) && checkThemeInterfacer(context);
-                if (isInterfacer)
+                Boolean isRootless = checkOMS(context) &&
+                        (checkThemeInterfacer(context) || checkSubstratumService(context));
+                if (isRootless)
                     Toast.makeText(context,
                             context.getString(R.string.font_dialog_apply_success), Toast
                                     .LENGTH_LONG).show();
@@ -119,7 +121,8 @@ public class FontUtils {
                                         .LENGTH_LONG);
                         toast.show();
                     }
-                    if (!Systems.checkThemeInterfacer(context) &&
+                    if (!Systems.checkSubstratumService(context) &&
+                            !Systems.checkThemeInterfacer(context) &&
                             Systems.checkOMS(context)) {
                         ThemeManager.restartSystemUI(context);
                     } else if (!Systems.checkOMS(context)) {
@@ -147,9 +150,11 @@ public class FontUtils {
             if (fragment != null) {
                 Context context = fragment.mContext;
                 try {
-                    Boolean isInterfacer = checkOMS(context) && checkThemeInterfacer(context);
+                    Boolean isRootless = checkOMS(context) &&
+                            (checkThemeInterfacer(context) &&
+                                    checkSubstratumService(context));
 
-                    if (isInterfacer) {
+                    if (isRootless) {
                         SharedPreferences.Editor editor = fragment.prefs.edit();
                         editor.putString(FONTS_APPLIED, fragment.theme_pid);
                         editor.apply();
@@ -161,7 +166,7 @@ public class FontUtils {
                             fragment.theme_pid,
                             sUrl[0]);
 
-                    if (isInterfacer)
+                    if (isRootless)
                         return INTERFACER_PACKAGE;
                 } catch (Exception e) {
                     e.printStackTrace();

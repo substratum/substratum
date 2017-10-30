@@ -43,6 +43,7 @@ import projekt.substratum.R;
 import projekt.substratum.common.Internal;
 import projekt.substratum.common.Resources;
 import projekt.substratum.common.commands.FileOperations;
+import projekt.substratum.common.platform.SubstratumService;
 import projekt.substratum.common.platform.ThemeInterfacerService;
 import projekt.substratum.common.platform.ThemeManager;
 
@@ -58,6 +59,7 @@ import static projekt.substratum.common.Internal.THEME_755;
 import static projekt.substratum.common.Internal.THEME_DIRECTORY;
 import static projekt.substratum.common.Internal.UI_THEME_DIRECTORY;
 import static projekt.substratum.common.Systems.checkOMS;
+import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 import static projekt.substratum.common.Systems.getProp;
 
@@ -87,7 +89,9 @@ public enum SoundsManager {
         boolean has_failed = false;
         boolean ringtone = false;
 
-        if (checkOMS(context) && checkThemeInterfacer(context)) {
+        if (checkOMS(context) && checkSubstratumService(context)) {
+            SubstratumService.setSounds(theme_pid, name);
+        } else if (checkOMS(context) && checkThemeInterfacer(context)) {
             ThemeInterfacerService.setThemedSounds(context, theme_pid, name);
             ringtone = true; // Always assume that the process is succeeded;
         } else {
@@ -210,7 +214,9 @@ public enum SoundsManager {
         // are cleared on the next reboot. The way the ContentResolver SQL database works is that it
         // checks the file integrity of _data (file path), and if the file is missing, the database
         // entry is removed.
-        if (checkOMS(context) && checkThemeInterfacer(context)) {
+        if (checkOMS(context) && checkSubstratumService(context)) {
+            SubstratumService.clearSounds();
+        } else if (checkOMS(context) && checkThemeInterfacer(context)) {
             ThemeInterfacerService.clearThemedSounds(context);
         } else {
             FileOperations.delete(context, AUDIO_THEME_DIRECTORY);

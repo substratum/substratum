@@ -34,6 +34,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import projekt.substratum.common.commands.FileOperations;
+import projekt.substratum.common.platform.SubstratumService;
 import projekt.substratum.common.platform.ThemeInterfacerService;
 import projekt.substratum.common.platform.ThemeManager;
 
@@ -49,6 +50,7 @@ import static projekt.substratum.common.Internal.THEME_755;
 import static projekt.substratum.common.Internal.THEME_775;
 import static projekt.substratum.common.Internal.THEME_DIRECTORY;
 import static projekt.substratum.common.Systems.checkOMS;
+import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 
 public enum FontsManager {
@@ -67,7 +69,9 @@ public enum FontsManager {
             Context context,
             String theme_pid,
             String name) {
-        if (checkOMS(context) && checkThemeInterfacer(context)) {
+        if (checkOMS(context) && checkSubstratumService(context)) {
+            SubstratumService.setFonts(theme_pid, name);
+        } else if (checkOMS(context) && checkThemeInterfacer(context)) {
             ThemeInterfacerService.setFonts(context, theme_pid, name);
         } else {
             // oms no theme interfacer or legacy
@@ -206,7 +210,9 @@ public enum FontsManager {
      * @param context Context
      */
     public static void clearFonts(Context context) {
-        if (checkOMS(context) && checkThemeInterfacer(context)) {
+        if (checkOMS(context) && checkSubstratumService(context)) {
+            SubstratumService.clearFonts();
+        } else if (checkOMS(context) && checkThemeInterfacer(context)) {
             ThemeInterfacerService.clearFonts(context);
         } else {
             // oms with no theme interfacer and legacy

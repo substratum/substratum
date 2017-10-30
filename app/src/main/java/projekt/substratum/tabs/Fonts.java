@@ -232,7 +232,8 @@ public class Fonts extends Fragment {
      */
     private void startApply() {
         if (!paused) {
-            if (Systems.checkThemeInterfacer(mContext) ||
+            if (Systems.checkSubstratumService(mContext) ||
+                    Systems.checkThemeInterfacer(mContext) ||
                     Settings.System.canWrite(mContext)) {
                 if (fontSelector.getSelectedItemPosition() == 1) {
                     new FontsClearer(this).execute("");

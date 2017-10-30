@@ -82,6 +82,7 @@ import projekt.substratum.common.Systems;
 import projekt.substratum.common.Theming;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
+import projekt.substratum.common.platform.SubstratumService;
 import projekt.substratum.common.platform.ThemeInterfacerService;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.systems.ProfileItem;
@@ -90,6 +91,7 @@ import projekt.substratum.tabs.Overlays;
 import projekt.substratum.tabs.WallpapersManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
 
+import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static projekt.substratum.common.Internal.ALARM_THEME_DIRECTORY;
 import static projekt.substratum.common.Internal.AUDIO_THEME_DIRECTORY;
 import static projekt.substratum.common.Internal.BOOTANIMATION;
@@ -1445,13 +1447,19 @@ public class ProfileFragment extends Fragment {
                 }
 
                 Substratum.getInstance().unregisterFinishReceiver();
-                if (Systems.checkThemeInterfacer(profileFragment.mContext)) {
-                    ArrayList<String> toBeDisabled =
-                            new ArrayList<>(ThemeManager.listOverlays(
-                                    profileFragment.mContext, STATE_ENABLED));
-                    boolean shouldRestartUi = ThemeManager.shouldRestartUI(
-                            profileFragment.mContext, toBeDisabled)
-                            || ThemeManager.shouldRestartUI(profileFragment.mContext, toBeRun);
+                ArrayList<String> toBeDisabled =
+                        new ArrayList<>(ThemeManager.listOverlays(
+                                profileFragment.mContext, STATE_APPROVED_ENABLED));
+                boolean shouldRestartUi =
+                        ThemeManager.shouldRestartUI(profileFragment.mContext, toBeDisabled)
+                                || ThemeManager.shouldRestartUI(profileFragment.mContext, toBeRun);
+                if (Systems.checkSubstratumService(profileFragment.mContext)) {
+                    SubstratumService.applyProfile(
+                            profileName,
+                            toBeDisabled,
+                            toBeRun,
+                            shouldRestartUi);
+                } else if (Systems.checkThemeInterfacer(profileFragment.mContext)) {
                     ThemeInterfacerService.applyProfile(
                             profileFragment.mContext,
                             profileName,

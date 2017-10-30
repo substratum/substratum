@@ -22,6 +22,7 @@ import android.content.Context;
 import android.util.Log;
 
 import projekt.substratum.common.commands.FileOperations;
+import projekt.substratum.common.platform.SubstratumService;
 import projekt.substratum.common.platform.ThemeInterfacerService;
 
 import static projekt.substratum.common.Internal.BOOTANIMATION;
@@ -35,6 +36,7 @@ import static projekt.substratum.common.Internal.THEME_644;
 import static projekt.substratum.common.Internal.THEME_755;
 import static projekt.substratum.common.Internal.THEME_DIRECTORY;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
+import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 import static projekt.substratum.common.Systems.getDeviceEncryptionStatus;
 
@@ -56,8 +58,11 @@ public enum BootAnimationsManager {
         String fileName = (shutdownAnimation ? SHUTDOWN_ANIMATION : BOOT_ANIMATION);
         String location = EXTERNAL_STORAGE_CACHE + fileName + ".zip";
         // Check to see if device is decrypted with theme interface
-        if (((getDeviceEncryptionStatus(context) <= 1) || shutdownAnimation) &&
-                checkThemeInterfacer(context)) {
+        if (getDeviceEncryptionStatus(context) <= 1 && checkSubstratumService(context)) {
+            Log.d("BootAnimationUtils",
+                    "No-root option has been enabled with the inclusion of substratum service...");
+            SubstratumService.setBootAnimation(location);
+        } else if (getDeviceEncryptionStatus(context) <= 1 && checkThemeInterfacer(context)) {
             Log.d(TAG, "No-root option has been enabled with the inclusion of theme interfacer...");
             if (shutdownAnimation) {
                 ThemeInterfacerService.setShutdownAnimation(context, location);
@@ -89,7 +94,10 @@ public enum BootAnimationsManager {
                                           Boolean shutdownAnimation) {
         if (getDeviceEncryptionStatus(context) <= 1) {
             // OMS with theme interface
-            if (checkThemeInterfacer(context)) {
+            if (checkSubstratumService(context)) {
+                //TODO: Add shutdown animation support
+                SubstratumService.clearBootAnimation();
+            } else if (checkThemeInterfacer(context)) {
                 if (shutdownAnimation) {
                     ThemeInterfacerService.clearShutdownAnimation(context);
                 } else {

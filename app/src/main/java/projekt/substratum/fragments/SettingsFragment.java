@@ -57,7 +57,6 @@ import java.util.List;
 import projekt.substratum.BuildConfig;
 import projekt.substratum.LauncherActivity;
 import projekt.substratum.R;
-import projekt.substratum.Substratum;
 import projekt.substratum.activities.launch.ManageSpaceActivity;
 import projekt.substratum.adapters.fragments.settings.Repository;
 import projekt.substratum.adapters.fragments.settings.ValidatorAdapter;
@@ -169,10 +168,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         Preference systemStatus = getPreferenceManager().findPreference("system_status");
         boolean full_oms = isOMS && Systems.checkSubstratumFeature(mContext);
         boolean interfacer = hasThemeInterfacer && !isSamsung;
+        boolean system_service = Systems.checkSubstratumService(getContext()) && !isSamsung;
         boolean verified = prefs.getBoolean("complexion", true);
         boolean certified = verified;
         if (isOMS) {
-            if (interfacer) {
+            if (interfacer || system_service) {
                 certified = verified && full_oms;
             } else {
                 certified = verified;
@@ -180,11 +180,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         }
         systemStatus.setSummary((interfacer
                 ? getString(R.string.settings_system_status_rootless)
-                : (isSamsung ?
-                getString(R.string.settings_system_status_samsung) :
-                hasAndromeda ?
-                        getString(R.string.settings_system_status_andromeda) :
-                        getString(R.string.settings_system_status_rooted)))
+                : (system_service ?
+                getString(R.string.settings_system_status_ss) :
+                (isSamsung ?
+                        getString(R.string.settings_system_status_samsung) :
+                        hasAndromeda ?
+                                getString(R.string.settings_system_status_andromeda) :
+                                getString(R.string.settings_system_status_rooted))))
                 + " (" + (certified ? getString(R.string.settings_system_status_certified) :
                 getString(R.string.settings_system_status_uncertified)) + ')'
         );
@@ -945,7 +947,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             SettingsFragment settingsFragment = ref.get();
             if (settingsFragment == null) return;
             try {
-                if (!Systems.checkThemeInterfacer(settingsFragment.mContext)) {
+                if (!Systems.checkThemeInterfacer(settingsFragment.mContext) &&
+                        !Systems.checkSubstratumService(settingsFragment.mContext)) {
                     return;
                 }
 

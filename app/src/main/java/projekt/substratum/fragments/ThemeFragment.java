@@ -31,7 +31,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -57,7 +56,6 @@ import projekt.substratum.adapters.fragments.themes.ThemeAdapter;
 import projekt.substratum.adapters.fragments.themes.ThemeItem;
 import projekt.substratum.common.Activities;
 import projekt.substratum.common.Packages;
-import projekt.substratum.util.helpers.ThemeCallback;
 
 import static projekt.substratum.common.Internal.HOME_TITLE;
 import static projekt.substratum.common.Internal.HOME_TYPE;
@@ -130,28 +128,11 @@ public class ThemeFragment extends Fragment {
     }
 
     /**
-     * Lightly refresh the themes
-     *
-     * @param themeFragment Theme Fragment
-     * @param themeItems    List of collected themes
-     */
-    private static void refreshLayout(ThemeFragment themeFragment,
-                                      ArrayList<ThemeItem> themeItems) {
-        ThemeAdapter adapter = themeFragment.mAdapter;
-        DiffUtil.DiffResult diffResult =
-                DiffUtil.calculateDiff(new ThemeCallback(adapter.getList(), themeItems));
-        adapter.setList(themeItems);
-        diffResult.dispatchUpdatesTo(adapter);
-        adapter.notifyDataSetChanged();
-        themeFragment.swipeRefreshLayout.setRefreshing(false);
-    }
-
-    /**
      * Deeply refresh the themes
      *
      * @param themeFragment       Theme Fragment
-     * @param prefs               Shared Preferences instance
      * @param mContext            Self explanatory, bud
+     * @param prefs               Shared Preferences instance
      * @param activity            Activity of calling function
      * @param toolbarTitle        Requested toolbar title
      * @param substratum_packages List of collected substratum packages
@@ -164,8 +145,10 @@ public class ThemeFragment extends Fragment {
                                       CharSequence toolbarTitle,
                                       Map<String, String[]> substratum_packages,
                                       ArrayList<ThemeItem> themeItems) {
+
         TextView cardViewText = themeFragment.cardView.findViewById(R.id.no_themes_description);
         ImageView cardViewImage = themeFragment.cardView.findViewById(R.id.no_themes_installed);
+
         if (substratum_packages != null) {
             if (substratum_packages.isEmpty()) {
                 if ((((MainActivity) activity).searchView != null) &&
@@ -336,24 +319,14 @@ public class ThemeFragment extends Fragment {
             super.onPostExecute(result);
             ThemeFragment themeFragment = fragment.get();
             if (themeFragment != null) {
-                if (themeFragment.getActivity() != null) {
-                    boolean iconified =
-                            ((MainActivity) themeFragment.getActivity()).searchView.isIconified();
-                    if (themeFragment.mAdapter != null && iconified) {
-                        refreshLayout(
-                                themeFragment,
-                                themeItems);
-                    } else {
-                        refreshLayout(
-                                themeFragment,
-                                themeFragment.prefs,
-                                themeFragment.mContext,
-                                themeFragment.getActivity(),
-                                themeFragment.toolbar_title,
-                                substratum_packages,
-                                themeItems);
-                    }
-                }
+                refreshLayout(
+                        themeFragment,
+                        themeFragment.prefs,
+                        themeFragment.mContext,
+                        themeFragment.getActivity(),
+                        themeFragment.toolbar_title,
+                        this.substratum_packages,
+                        this.themeItems);
             }
         }
 

@@ -36,7 +36,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -77,7 +76,6 @@ import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
-import projekt.substratum.util.helpers.ManagerCallback;
 import projekt.substratum.util.views.FloatingActionMenu;
 
 import static projekt.substratum.common.Packages.getOverlayMetadata;
@@ -188,10 +186,6 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 new IntentFilter(MANAGER_REFRESH));
 
         loadingBar.setVisibility(View.GONE);
-
-        // Configuration changes for overlays are uncaught, so to ensure a graceful reload, add
-        // crucial resets here
-        mAdapter = null;
 
         // Don't even display the "enable_disable_selected" button to non-oms users.
         if (!checkOMS(context))
@@ -519,16 +513,6 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             userInput = new WeakReference<>(input);
         }
 
-        private static void refreshLayout(ManagerFragment fragment) {
-            fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
-            DiffUtil.DiffResult diffResult =
-                    DiffUtil.calculateDiff(
-                            new ManagerCallback(
-                                    fragment.mAdapter.getList(), fragment.overlaysList));
-            fragment.mAdapter.setList(fragment.overlaysList);
-            diffResult.dispatchUpdatesTo(fragment.mAdapter);
-        }
-
         @Override
         protected void onPreExecute() {
             ManagerFragment fragment = ref.get();
@@ -673,23 +657,11 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 fragment.swipeRefreshLayout.setRefreshing(false);
                 fragment.toggle_all.setEnabled(true);
                 fragment.loadingBar.setVisibility(View.GONE);
-                // On the first start, when adapter is null, use the old style of refreshing RV
-                if (fragment.getActivity() != null) {
-                    boolean iconified =
-                            ((MainActivity) fragment.getActivity()).searchView.isIconified();
-                    if (fragment.mAdapter != null && iconified) {
-                        refreshLayout(fragment);
-                    } else {
-                        fragment.mAdapter = new ManagerAdapter(fragment.overlaysList, false);
-                        fragment.mRecyclerView.setAdapter(fragment.mAdapter);
-                        fragment.mRecyclerView.setEnabled(true);
-                    }
-                }
-                // Scroll to the proper position where the user was
-                ((LinearLayoutManager)
-                        fragment.mRecyclerView.getLayoutManager()).
-                        scrollToPositionWithOffset(currentPosition, 20);
-                if (fragment.mAdapter != null) fragment.mAdapter.notifyDataSetChanged();
+                fragment.mAdapter = new ManagerAdapter(fragment.overlaysList, false);
+                fragment.mRecyclerView.setAdapter(fragment.mAdapter);
+                fragment.mRecyclerView.getLayoutManager().scrollToPosition(this.currentPosition);
+                fragment.mRecyclerView.setEnabled(true);
+                fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
 
                 new MainActivity.DoCleanUp(context).execute();
 

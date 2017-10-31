@@ -154,14 +154,6 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
         }
     }
 
-    public List<OverlaysItem> getList() {
-        return overlayList;
-    }
-
-    public void setList(List<OverlaysItem> list) {
-        overlayList = list;
-    }
-
     @Override
     public OverlaysAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                          int viewType) {

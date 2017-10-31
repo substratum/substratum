@@ -51,14 +51,6 @@ public class ManagerAdapter extends
         this.overlayList = overlays;
     }
 
-    public List<ManagerItem> getList() {
-        return overlayList;
-    }
-
-    public void setList(List<ManagerItem> list) {
-        overlayList = list;
-    }
-
     @Override
     public ManagerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                         int viewType) {

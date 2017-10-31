@@ -49,7 +49,6 @@ import projekt.substratum.R;
 import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
-import projekt.substratum.common.Systems;
 import projekt.substratum.common.Theming;
 import projekt.substratum.util.views.SheetDialog;
 
@@ -69,14 +68,6 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
     public ThemeAdapter(List<ThemeItem> information) {
         super();
         this.information = information;
-    }
-
-    public List<ThemeItem> getList() {
-        return this.information;
-    }
-
-    public void setList(List<ThemeItem> list) {
-        this.information = list;
     }
 
     @Override

@@ -47,7 +47,6 @@ import android.support.v4.content.FileProvider;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -104,7 +103,6 @@ import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
 import projekt.substratum.util.files.MapUtils;
 import projekt.substratum.util.files.Root;
-import projekt.substratum.util.helpers.OverlaysCallback;
 import projekt.substratum.util.views.SheetDialog;
 
 import static android.content.Context.ACTIVITY_SERVICE;
@@ -342,10 +340,6 @@ public class Overlays extends Fragment {
         localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
         localBroadcastManager.registerReceiver(refreshReceiver,
                 new IntentFilter(OVERLAY_REFRESH));
-
-        // Configuration changes for overlays are uncaught, so to ensure a graceful reload, add
-        // crucial resets here
-        mAdapter = null;
 
         if (getArguments() != null) {
             theme_name = getArguments().getString(THEME_NAME);
@@ -1133,28 +1127,16 @@ public class Overlays extends Fragment {
                 fragment.mRecyclerView.setEnabled(true);
                 fragment.toggle_all.setEnabled(true);
                 fragment.base_spinner.setEnabled(true);
-                // On the first start, when adapter is null, use the old style of refreshing RV
-                if (fragment.mAdapter == null) {
-                    fragment.mAdapter = new OverlaysAdapter(fragment.values2);
-                    fragment.mRecyclerView.setAdapter(fragment.mAdapter);
-                    fragment.mAdapter.notifyDataSetChanged();
-                    fragment.mRecyclerView.setVisibility(View.VISIBLE);
-                }
-                // If the adapter isn't null, reload using DiffUtil
-                DiffUtil.DiffResult diffResult =
-                        DiffUtil.calculateDiff(
-                                new OverlaysCallback(
-                                        fragment.mAdapter.getList(), fragment.values2));
-                fragment.mAdapter.setList(fragment.values2);
-                diffResult.dispatchUpdatesTo(fragment.mAdapter);
-                // Scroll to the proper position where the user was
-                ((LinearLayoutManager)
-                        fragment.mRecyclerView.getLayoutManager()).
-                        scrollToPositionWithOffset(fragment.currentPosition, 20);
-                if (fragment.mAdapter != null) fragment.mAdapter.notifyDataSetChanged();
+                fragment.mAdapter = new OverlaysAdapter(fragment.values2);
+                fragment.mRecyclerView.setAdapter(fragment.mAdapter);
+                fragment.mRecyclerView.getLayoutManager()
+                        .scrollToPosition(fragment.currentPosition);
+                fragment.mAdapter.notifyDataSetChanged();
+                fragment.mRecyclerView.setVisibility(View.VISIBLE);
             }
         }
 
+        @SuppressWarnings("ConstantConditions")
         @Override
         protected String doInBackground(String... sUrl) {
             Overlays fragment = ref.get();

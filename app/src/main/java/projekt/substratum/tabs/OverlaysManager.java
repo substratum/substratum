@@ -103,21 +103,21 @@ enum OverlaysManager {
         overlays.checkedOverlays = new ArrayList<>();
 
         for (int i = 0; i < overlays.overlaysLists.size(); i++) {
-            final OverlaysItem currentOverlay = overlays.overlaysLists.get(i);
+            OverlaysItem currentOverlay = overlays.overlaysLists.get(i);
             if (currentOverlay.isSelected()) {
                 overlays.checkedOverlays.add(currentOverlay);
             }
         }
 
         if (!overlays.checkedOverlays.isEmpty()) {
-            final compileFunction phase2 = new compileFunction(overlays);
+            compileFunction phase2 = new compileFunction(overlays);
             if ((overlays.base_spinner.getSelectedItemPosition() != 0) &&
                     (overlays.base_spinner.getVisibility() == View.VISIBLE)) {
                 phase2.execute(overlays.base_spinner.getSelectedItem().toString());
             } else {
                 phase2.execute("");
             }
-            for (final OverlaysItem overlay : overlays.checkedOverlays) {
+            for (OverlaysItem overlay : overlays.checkedOverlays) {
                 Log.d("OverlayTargetPackageKiller", "Killing package : " + overlay
                         .getPackageName());
                 overlays.am.killBackgroundProcesses(overlay.getPackageName());
@@ -161,7 +161,7 @@ enum OverlaysManager {
         overlays.checkedOverlays = new ArrayList<>();
 
         for (int i = 0; i < overlays.overlaysLists.size(); i++) {
-            final OverlaysItem currentOverlay = overlays.overlaysLists.get(i);
+            OverlaysItem currentOverlay = overlays.overlaysLists.get(i);
             if (overlays.mContext != null &&
                     currentOverlay.isSelected() &&
                     Systems.checkOMS(overlays.mContext) &&
@@ -186,14 +186,14 @@ enum OverlaysManager {
 
         if (overlays.mContext != null && Systems.checkOMS(overlays.mContext)) {
             if (!overlays.checkedOverlays.isEmpty()) {
-                final compileFunction compile = new compileFunction(overlays);
+                compileFunction compile = new compileFunction(overlays);
                 if ((overlays.base_spinner.getSelectedItemPosition() != 0) &&
                         (overlays.base_spinner.getVisibility() == View.VISIBLE)) {
                     compile.execute(overlays.base_spinner.getSelectedItem().toString());
                 } else {
                     compile.execute("");
                 }
-                for (final OverlaysItem overlay : overlays.checkedOverlays) {
+                for (OverlaysItem overlay : overlays.checkedOverlays) {
                     Log.d("OverlayTargetPackageKiller", "Killing package: " +
                             overlay.getPackageName());
                     overlays.am.killBackgroundProcesses(overlay.getPackageName());
@@ -216,7 +216,7 @@ enum OverlaysManager {
      * @param overlays Overlays fragment
      */
     static void legacyDisable(Overlays overlays) {
-        final String current_directory;
+        String current_directory;
         if (projekt.substratum.common.Resources.inNexusFilter()) {
             current_directory = PIXEL_NEXUS_DIR;
         } else {
@@ -226,7 +226,7 @@ enum OverlaysManager {
         if (!overlays.checkedOverlays.isEmpty()) {
             if (Systems.isSamsung(overlays.mContext)) {
                 if (Root.checkRootAccess() && Root.requestRootAccess()) {
-                    final ArrayList<String> checked_overlays = new ArrayList<>();
+                    ArrayList<String> checked_overlays = new ArrayList<>();
                     for (int i = 0; i < overlays.checkedOverlays.size(); i++) {
                         checked_overlays.add(
                                 overlays.checkedOverlays.get(i).getFullOverlayParameters());
@@ -234,9 +234,9 @@ enum OverlaysManager {
                     ThemeManager.uninstallOverlay(overlays.mContext, checked_overlays);
                 } else {
                     for (int i = 0; i < overlays.checkedOverlays.size(); i++) {
-                        final Uri packageURI = Uri.parse("package:" +
+                        Uri packageURI = Uri.parse("package:" +
                                 overlays.checkedOverlays.get(i).getFullOverlayParameters());
-                        final Intent uninstallIntent =
+                        Intent uninstallIntent =
                                 new Intent(Intent.ACTION_DELETE, packageURI);
                         overlays.startActivity(uninstallIntent);
                     }
@@ -252,7 +252,7 @@ enum OverlaysManager {
                 overlays.toggle_all.setChecked(false);
                 overlays.overlaysLists = overlays.mAdapter.getOverlayList();
                 for (int i = 0; i < overlays.overlaysLists.size(); i++) {
-                    final OverlaysItem currentOverlay = overlays.overlaysLists.get(i);
+                    OverlaysItem currentOverlay = overlays.overlaysLists.get(i);
                     if (currentOverlay.isSelected()) {
                         currentOverlay.setSelected(false);
                     }
@@ -261,7 +261,7 @@ enum OverlaysManager {
                         overlays.getString(R.string.toast_disabled6),
                         Toast.LENGTH_SHORT).show();
                 assert overlays.mContext != null;
-                final AlertDialog.Builder alertDialogBuilder =
+                AlertDialog.Builder alertDialogBuilder =
                         new AlertDialog.Builder(overlays.mContext);
                 alertDialogBuilder.setTitle(
                         overlays.getString(R.string.legacy_dialog_soft_reboot_title));
@@ -275,7 +275,7 @@ enum OverlaysManager {
                             overlays.progressBar.setVisibility(View.GONE);
                             dialog.dismiss();
                         });
-                final AlertDialog alertDialog = alertDialogBuilder.create();
+                AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
             }
         } else {
@@ -295,10 +295,10 @@ enum OverlaysManager {
      */
     static class compileFunction extends AsyncTask<String, Integer, String> {
 
-        private final WeakReference<Overlays> ref;
+        private WeakReference<Overlays> ref;
         private String currentPackageName = "";
 
-        compileFunction(final Overlays overlays) {
+        compileFunction(Overlays overlays) {
             super();
             ref = new WeakReference<>(overlays);
         }
@@ -306,11 +306,11 @@ enum OverlaysManager {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            final Overlays overlays = ref.get();
+            Overlays overlays = ref.get();
             Log.d(Overlays.TAG,
                     "Substratum is proceeding with your actions and is now actively running...");
             if (overlays != null) {
-                final Context context = overlays.getActivity();
+                Context context = overlays.getActivity();
                 overlays.final_runner = new ArrayList<>();
                 overlays.late_install = new ArrayList<>();
                 overlays.missingType3 = false;
@@ -326,7 +326,7 @@ enum OverlaysManager {
                             (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
                     overlays.mBuilder = new NotificationCompat.Builder(context,
                             References.DEFAULT_NOTIFICATION_CHANNEL_ID);
-                    final int notification_priority = Notification.PRIORITY_MAX;
+                    int notification_priority = Notification.PRIORITY_MAX;
                     overlays.mBuilder.setContentTitle(
                             context.getString(R.string.notification_initial_title))
                             .setProgress(100, 0, true)
@@ -338,7 +338,7 @@ enum OverlaysManager {
 
                     overlays.mCompileDialog = new SheetDialog(context);
                     overlays.mCompileDialog.setCancelable(false);
-                    final View sheetView = View.inflate(context,
+                    View sheetView = View.inflate(context,
                             R.layout.compile_sheet_dialog, null);
                     overlays.mCompileDialog.setContentView(sheetView);
                     overlays.mCompileDialog.show();
@@ -362,10 +362,10 @@ enum OverlaysManager {
                             R.string.sb_phase_1_loader));
 
                     try {
-                        final Resources themeResources = context.getPackageManager()
+                        Resources themeResources = context.getPackageManager()
                                 .getResourcesForApplication(overlays.theme_pid);
                         overlays.themeAssetManager = themeResources.getAssets();
-                    } catch (final PackageManager.NameNotFoundException e) {
+                    } catch (PackageManager.NameNotFoundException e) {
                         // Suppress exception
                     }
 
@@ -388,29 +388,29 @@ enum OverlaysManager {
         }
 
         @Override
-        protected void onProgressUpdate(final Integer... values) {
+        protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
-            final Overlays overlays = ref.get();
+            Overlays overlays = ref.get();
             if (overlays != null) {
-                final TextView textView = overlays.mCompileDialog.findViewById(R.id.current_object);
+                TextView textView = overlays.mCompileDialog.findViewById(R.id.current_object);
                 if (textView != null) textView.setText(overlays.current_dialog_overlay);
                 overlays.loader_image.setImageBitmap(
                         Packages.getBitmapFromDrawable(
                                 Packages.getAppIcon(overlays.mContext, this
                                         .currentPackageName)));
-                final double progress = (overlays.current_amount / overlays.total_amount) * 100.0;
+                double progress = (overlays.current_amount / overlays.total_amount) * 100.0;
                 overlays.dialogProgress.setProgress((int) progress, true);
             }
         }
 
         @SuppressWarnings("ConstantConditions")
         @Override
-        protected void onPostExecute(final String result) {
+        protected void onPostExecute(String result) {
             // TODO: onPostExecute runs on UI thread, so move the hard job to doInBackground
             super.onPostExecute(result);
-            final Overlays overlays = ref.get();
+            Overlays overlays = ref.get();
             if (overlays != null) {
-                final Context context = overlays.getActivity();
+                Context context = overlays.getActivity();
                 overlays.final_command = new ArrayList<>();
 
                 // Check if not compile_enable_mode
@@ -431,10 +431,10 @@ enum OverlaysManager {
                         // Restart SystemUI if an enabled SystemUI overlay is updated
                         if (checkOMS(context)) {
                             for (int i = 0; i < overlays.checkedOverlays.size(); i++) {
-                                final String targetOverlay =
+                                String targetOverlay =
                                         overlays.checkedOverlays.get(i).getPackageName();
                                 if (targetOverlay.equals(SYSTEMUI)) {
-                                    final String packageName =
+                                    String packageName =
                                             overlays.checkedOverlays.get(i)
                                                     .getFullOverlayParameters();
                                     if (ThemeManager.isOverlayEnabled(context, packageName)) {
@@ -468,8 +468,8 @@ enum OverlaysManager {
                                     overlays.late_install.get(i));
                         }
                     } else {
-                        final Intent intent = new Intent(Intent.ACTION_VIEW);
-                        final Uri uri = FileProvider.getUriForFile(
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        Uri uri = FileProvider.getUriForFile(
                                 context,
                                 context.getApplicationContext().getPackageName() + ".provider",
                                 new File(overlays.late_install.get(0)));
@@ -479,7 +479,7 @@ enum OverlaysManager {
                     }
                 } else if (!Systems.checkOMS(context) &&
                         (overlays.final_runner.size() == overlays.fail_count)) {
-                    final AlertDialog.Builder alertDialogBuilder =
+                    AlertDialog.Builder alertDialogBuilder =
                             new AlertDialog.Builder(context);
                     alertDialogBuilder
                             .setTitle(context.getString(R.string.legacy_dialog_soft_reboot_title));
@@ -495,7 +495,7 @@ enum OverlaysManager {
                                         dialog.dismiss();
                                     });
                     alertDialogBuilder.setCancelable(false);
-                    final AlertDialog alertDialog = alertDialogBuilder.create();
+                    AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
                 }
                 overlays.is_overlay_active = false;
@@ -507,21 +507,21 @@ enum OverlaysManager {
 
         @SuppressWarnings("ConstantConditions")
         @Override
-        protected String doInBackground(final String... sUrl) {
-            final Overlays overlays = ref.get();
+        protected String doInBackground(String... sUrl) {
+            Overlays overlays = ref.get();
             if (overlays != null) {
-                final Context context = overlays.getActivity();
-                final String parsedVariant = sUrl[0].replaceAll("\\s+", "");
-                final String unparsedVariant = sUrl[0];
+                Context context = overlays.getActivity();
+                String parsedVariant = sUrl[0].replaceAll("\\s+", "");
+                String unparsedVariant = sUrl[0];
                 overlays.failed_packages = new StringBuilder();
                 if (overlays.mixAndMatchMode && !Systems.checkOMS(context)) {
-                    final String current_directory;
+                    String current_directory;
                     if (projekt.substratum.common.Resources.inNexusFilter()) {
                         current_directory = References.PIXEL_NEXUS_DIR;
                     } else {
                         current_directory = References.LEGACY_NEXUS_DIR;
                     }
-                    final File file = new File(current_directory);
+                    File file = new File(current_directory);
                     if (file.exists()) {
                         FileOperations.mountRW();
                         FileOperations.delete(context, current_directory);
@@ -544,11 +544,11 @@ enum OverlaysManager {
                     overlays.type4 = "";
 
                     overlays.current_amount = (double) (i + 1);
-                    final String theme_name_parsed =
+                    String theme_name_parsed =
                             overlays.theme_name.replaceAll("\\s+", "")
                                     .replaceAll("[^a-zA-Z0-9]+", "");
 
-                    final String current_overlay = overlays.checkedOverlays.get(i).getPackageName();
+                    String current_overlay = overlays.checkedOverlays.get(i).getPackageName();
                     overlays.current_dialog_overlay =
                             '\'' + Packages.getPackageName(context, current_overlay) + '\'';
                     currentPackageName = current_overlay;
@@ -561,7 +561,7 @@ enum OverlaysManager {
                             if (overlays.final_runner == null) {
                                 overlays.final_runner = new ArrayList<>();
                             }
-                            final String package_name = overlays.checkedOverlays.get(i)
+                            String package_name = overlays.checkedOverlays.get(i)
                                     .getFullOverlayParameters();
                             if (Packages.isPackageInstalled(context, package_name) ||
                                     overlays.compile_enable_mode) {
@@ -612,7 +612,7 @@ enum OverlaysManager {
                                 try {
                                     applicationInfo = context.getPackageManager()
                                             .getApplicationInfo(current_overlay, 0);
-                                } catch (final PackageManager.NameNotFoundException e) {
+                                } catch (PackageManager.NameNotFoundException e) {
                                     e.printStackTrace();
                                 }
                                 packageTitle = context.getPackageManager()
@@ -634,7 +634,7 @@ enum OverlaysManager {
                                         overlays.mBuilder.build());
                             }
 
-                            final String unparsedSuffix;
+                            String unparsedSuffix;
                             boolean useType3CommonDir = false;
                             if (!sUrl[0].isEmpty()) {
                                 useType3CommonDir = overlays.themeAssetManager
@@ -649,22 +649,22 @@ enum OverlaysManager {
                                 unparsedSuffix = "/res";
                             }
 
-                            final String parsedSuffix = ((!sUrl[0].isEmpty()) ?
+                            String parsedSuffix = ((!sUrl[0].isEmpty()) ?
                                     ("/type3_" + parsedVariant) : "/res");
                             overlays.type3 = parsedVariant;
 
-                            final String workingDirectory = context.getCacheDir().getAbsolutePath
+                            String workingDirectory = context.getCacheDir().getAbsolutePath
                                     () +
                                     References.SUBSTRATUM_BUILDER_CACHE.substring(0,
                                             References.SUBSTRATUM_BUILDER_CACHE.length() - 1);
 
-                            final File created = new File(workingDirectory);
+                            File created = new File(workingDirectory);
                             if (created.exists()) {
                                 FileOperations.delete(context, created.getAbsolutePath());
                             }
                             FileOperations.createNewFolder(context, created
                                     .getAbsolutePath());
-                            final String listDir = OVERLAYS_DIR + '/' + current_overlay +
+                            String listDir = OVERLAYS_DIR + '/' + current_overlay +
                                     unparsedSuffix;
 
                             FileOperations.copyFileOrDir(
@@ -676,7 +676,7 @@ enum OverlaysManager {
                             );
 
                             if (useType3CommonDir) {
-                                final String type3Dir = OVERLAYS_DIR + '/' +
+                                String type3Dir = OVERLAYS_DIR + '/' +
                                         current_overlay +
                                         "/type3_" + unparsedVariant;
                                 FileOperations.copyFileOrDir(
@@ -701,7 +701,7 @@ enum OverlaysManager {
                                     Log.d(Overlays.TAG, "Moving variant file to: " +
                                             workingDirectory + parsedSuffix + "/values/type1a.xml");
 
-                                    final String to_copy =
+                                    String to_copy =
                                             OVERLAYS_DIR + '/' + current_overlay +
                                                     "/type1a_" +
                                                     overlays.checkedOverlays.get(i)
@@ -732,7 +732,7 @@ enum OverlaysManager {
                                     Log.d(Overlays.TAG, "Moving variant file to: " +
                                             workingDirectory + parsedSuffix + "/values/type1b.xml");
 
-                                    final String to_copy =
+                                    String to_copy =
                                             OVERLAYS_DIR + '/' + current_overlay +
                                                     "/type1b_" +
                                                     overlays.checkedOverlays.get(i)
@@ -762,7 +762,7 @@ enum OverlaysManager {
                                     Log.d(Overlays.TAG, "Moving variant file to: " +
                                             workingDirectory + parsedSuffix + "/values/type1c.xml");
 
-                                    final String to_copy =
+                                    String to_copy =
                                             OVERLAYS_DIR + '/' + current_overlay +
                                                     "/type1c_" +
                                                     overlays.checkedOverlays.get(i)
@@ -805,9 +805,9 @@ enum OverlaysManager {
                                     // Copy over the type4 assets
                                     overlays.type4 = overlays.checkedOverlays.get(i)
                                             .getSelectedVariantName5();
-                                    final String type4folder = "/type4_" + overlays.type4;
-                                    final String type4folderOutput = "/assets";
-                                    final String to_copy2 = OVERLAYS_DIR + '/' +
+                                    String type4folder = "/type4_" + overlays.type4;
+                                    String type4folderOutput = "/assets";
+                                    String to_copy2 = OVERLAYS_DIR + '/' +
                                             current_overlay +
                                             type4folder;
                                     FileOperations.copyFileOrDir(
@@ -826,8 +826,8 @@ enum OverlaysManager {
                                     // Copy over the type2 assets
                                     overlays.type2 = overlays.checkedOverlays.get(i)
                                             .getSelectedVariantName4();
-                                    final String type2folder = "/type2_" + overlays.type2;
-                                    final String to_copy = OVERLAYS_DIR + '/' +
+                                    String type2folder = "/type2_" + overlays.type2;
+                                    String to_copy = OVERLAYS_DIR + '/' +
                                             current_overlay +
                                             type2folder;
                                     FileOperations.copyFileOrDir(
@@ -970,7 +970,7 @@ enum OverlaysManager {
                                         do {
                                             try {
                                                 Thread.sleep((long) Overlays.THREAD_WAIT_DURATION);
-                                            } catch (final InterruptedException e) {
+                                            } catch (InterruptedException e) {
                                                 Thread.currentThread().interrupt();
                                             }
                                         } while (Substratum.isWaitingInstall());
@@ -1026,14 +1026,14 @@ enum OverlaysManager {
                                         do {
                                             try {
                                                 Thread.sleep((long) Overlays.THREAD_WAIT_DURATION);
-                                            } catch (final InterruptedException e) {
+                                            } catch (InterruptedException e) {
                                                 Thread.currentThread().interrupt();
                                             }
                                         } while (Substratum.isWaitingInstall());
                                     }
                                 }
                             }
-                        } catch (final Exception e) {
+                        } catch (Exception e) {
                             e.printStackTrace();
                             Log.e(Overlays.TAG, "Main function has unexpectedly stopped!");
                         }
@@ -1044,7 +1044,7 @@ enum OverlaysManager {
                                 overlays.compile_enable_mode ||
                                 overlays.disable_mode ||
                                 overlays.enable_disable_mode) {
-                            final String package_name =
+                            String package_name =
                                     overlays.checkedOverlays.get(i).getFullOverlayParameters();
                             if (Packages.isPackageInstalled(context, package_name)) {
                                 overlays.final_runner.add(package_name);
@@ -1061,10 +1061,10 @@ enum OverlaysManager {
      * Concluding function to end the enabling process gracefully
      */
     static class finishEnableFunction extends AsyncTask<Void, Void, Void> {
-        final WeakReference<Overlays> ref;
-        final WeakReference<Context> refContext;
+        WeakReference<Overlays> ref;
+        WeakReference<Context> refContext;
 
-        finishEnableFunction(final Overlays overlays) {
+        finishEnableFunction(Overlays overlays) {
             super();
             ref = new WeakReference<>(overlays);
             refContext = new WeakReference<>(overlays.mContext);
@@ -1072,7 +1072,7 @@ enum OverlaysManager {
 
         @Override
         protected void onPreExecute() {
-            final Overlays overlays = ref.get();
+            Overlays overlays = ref.get();
             if (overlays != null) {
                 overlays.progressBar.setVisibility(View.VISIBLE);
                 if (overlays.toggle_all.isChecked()) overlays.toggle_all.setChecked(false);
@@ -1080,18 +1080,18 @@ enum OverlaysManager {
         }
 
         @Override
-        protected Void doInBackground(final Void... voids) {
-            final Overlays overlays = ref.get();
+        protected Void doInBackground(Void... voids) {
+            Overlays overlays = ref.get();
             if (overlays != null) {
-                final Context context = overlays.getActivity();
+                Context context = overlays.getActivity();
 
                 if (!overlays.final_runner.isEmpty()) {
                     overlays.enable_mode = false;
 
                     if (overlays.mixAndMatchMode) {
                         // Buffer the disableBeforeEnabling String
-                        final ArrayList<String> disableBeforeEnabling = new ArrayList<>();
-                        final List<String> all_installed_overlays = ThemeManager.listAllOverlays
+                        ArrayList<String> disableBeforeEnabling = new ArrayList<>();
+                        List<String> all_installed_overlays = ThemeManager.listAllOverlays
                                 (context);
                         for (int i = 0; i < all_installed_overlays.size(); i++) {
                             if (!Packages.getOverlayParent(context, all_installed_overlays.get(i))
@@ -1110,13 +1110,13 @@ enum OverlaysManager {
         }
 
         @Override
-        protected void onPostExecute(final Void result) {
-            final Overlays overlays = ref.get();
-            final Context context = refContext.get();
+        protected void onPostExecute(Void result) {
+            Overlays overlays = ref.get();
+            Context context = refContext.get();
             if ((overlays != null) && (context != null)) {
                 if (!overlays.final_runner.isEmpty()) {
                     if (overlays.needsRecreate(context)) {
-                        final Handler handler = new Handler();
+                        Handler handler = new Handler();
                         handler.postDelayed(() -> {
                             // OMS may not have written all the changes so quickly just yet
                             // so we may need to have a small delay
@@ -1124,14 +1124,14 @@ enum OverlaysManager {
                                 overlays.overlaysLists = overlays.mAdapter
                                         .getOverlayList();
                                 for (int i = 0; i < overlays.overlaysLists.size(); i++) {
-                                    final OverlaysItem currentOverlay = overlays.overlaysLists
+                                    OverlaysItem currentOverlay = overlays.overlaysLists
                                             .get(i);
                                     currentOverlay.setSelected(false);
                                     currentOverlay.updateEnabledOverlays(
                                             overlays.updateEnabledOverlays());
                                     overlays.mAdapter.notifyDataSetChanged();
                                 }
-                            } catch (final Exception e) {
+                            } catch (Exception e) {
                                 // Consume window refresh
                             }
                         }, (long) References.REFRESH_WINDOW_DELAY);
@@ -1154,10 +1154,10 @@ enum OverlaysManager {
      * Concluding function to end the disabling process gracefully
      */
     static class finishDisableFunction extends AsyncTask<Void, Void, Void> {
-        final WeakReference<Overlays> ref;
-        final WeakReference<Context> refContext;
+        WeakReference<Overlays> ref;
+        WeakReference<Context> refContext;
 
-        finishDisableFunction(final Overlays overlays) {
+        finishDisableFunction(Overlays overlays) {
             super();
             ref = new WeakReference<>(overlays);
             refContext = new WeakReference<>(overlays.mContext);
@@ -1165,9 +1165,9 @@ enum OverlaysManager {
 
         @Override
         protected void onPreExecute() {
-            final Overlays overlays = ref.get();
+            Overlays overlays = ref.get();
             if (overlays != null) {
-                final Activity activity = overlays.getActivity();
+                Activity activity = overlays.getActivity();
                 if (!overlays.final_runner.isEmpty()) {
                     overlays.progressBar.setVisibility(View.VISIBLE);
                     if (overlays.toggle_all.isChecked())
@@ -1178,10 +1178,10 @@ enum OverlaysManager {
         }
 
         @Override
-        protected Void doInBackground(final Void... voids) {
-            final Overlays overlays = ref.get();
+        protected Void doInBackground(Void... voids) {
+            Overlays overlays = ref.get();
             if (overlays != null) {
-                final Context context = overlays.getActivity();
+                Context context = overlays.getActivity();
 
                 if (!overlays.final_runner.isEmpty()) {
                     overlays.disable_mode = false;
@@ -1192,15 +1192,15 @@ enum OverlaysManager {
         }
 
         @Override
-        protected void onPostExecute(final Void result) {
-            final Overlays overlays = ref.get();
-            final Context context = refContext.get();
+        protected void onPostExecute(Void result) {
+            Overlays overlays = ref.get();
+            Context context = refContext.get();
             if ((overlays != null) && (context != null)) {
-                final Activity activity = overlays.getActivity();
+                Activity activity = overlays.getActivity();
                 overlays.progressBar.setVisibility(View.GONE);
                 if (!overlays.final_runner.isEmpty()) {
                     if (overlays.needsRecreate(context)) {
-                        final Handler handler = new Handler();
+                        Handler handler = new Handler();
                         handler.postDelayed(() -> {
                             // OMS may not have written all the changes so quickly just yet
                             // so we may need to have a small delay
@@ -1208,7 +1208,7 @@ enum OverlaysManager {
                                 overlays.overlaysLists = overlays.mAdapter
                                         .getOverlayList();
                                 for (int i = 0; i < overlays.overlaysLists.size(); i++) {
-                                    final OverlaysItem currentOverlay =
+                                    OverlaysItem currentOverlay =
                                             overlays.overlaysLists.get(i);
                                     currentOverlay.setSelected(false);
                                     currentOverlay.updateEnabledOverlays(
@@ -1218,7 +1218,7 @@ enum OverlaysManager {
                                                 overlays.mAdapter.notifyDataSetChanged());
                                     }
                                 }
-                            } catch (final Exception e) {
+                            } catch (Exception e) {
                                 // Consume window refresh
                             }
                         }, (long) References.REFRESH_WINDOW_DELAY);
@@ -1239,10 +1239,10 @@ enum OverlaysManager {
      * Concluding function to end the swapping process gracefully
      */
     static class finishEnableDisableFunction extends AsyncTask<Void, Void, Void> {
-        final WeakReference<Overlays> ref;
-        final WeakReference<Context> refContext;
+        WeakReference<Overlays> ref;
+        WeakReference<Context> refContext;
 
-        finishEnableDisableFunction(final Overlays overlays) {
+        finishEnableDisableFunction(Overlays overlays) {
             super();
             ref = new WeakReference<>(overlays);
             refContext = new WeakReference<>(overlays.mContext);
@@ -1250,9 +1250,9 @@ enum OverlaysManager {
 
         @Override
         protected void onPreExecute() {
-            final Overlays overlays = ref.get();
+            Overlays overlays = ref.get();
             if (overlays != null) {
-                final Activity activity = overlays.getActivity();
+                Activity activity = overlays.getActivity();
                 if (!overlays.final_runner.isEmpty()) {
                     overlays.progressBar.setVisibility(View.VISIBLE);
                     if (overlays.toggle_all.isChecked()) {
@@ -1265,15 +1265,15 @@ enum OverlaysManager {
         }
 
         @Override
-        protected Void doInBackground(final Void... voids) {
-            final Overlays overlays = ref.get();
+        protected Void doInBackground(Void... voids) {
+            Overlays overlays = ref.get();
             if (overlays != null) {
-                final Context context = overlays.getActivity();
+                Context context = overlays.getActivity();
                 if (!overlays.final_runner.isEmpty()) {
                     overlays.enable_disable_mode = false;
 
-                    final ArrayList<String> enableOverlays = new ArrayList<>();
-                    final ArrayList<String> disableOverlays = new ArrayList<>();
+                    ArrayList<String> enableOverlays = new ArrayList<>();
+                    ArrayList<String> disableOverlays = new ArrayList<>();
                     for (int i = 0; i < overlays.final_command.size(); i++) {
                         if (!overlays.checkedOverlays.get(i).isOverlayEnabled()) {
                             enableOverlays.add(overlays.final_command.get(i));
@@ -1284,8 +1284,8 @@ enum OverlaysManager {
                     ThemeManager.disableOverlay(context, disableOverlays);
                     if (overlays.mixAndMatchMode) {
                         // Buffer the disableBeforeEnabling String
-                        final ArrayList<String> disableBeforeEnabling = new ArrayList<>();
-                        final List<String> all_installed_overlays = ThemeManager.listAllOverlays
+                        ArrayList<String> disableBeforeEnabling = new ArrayList<>();
+                        List<String> all_installed_overlays = ThemeManager.listAllOverlays
                                 (context);
                         for (int i = 0; i < all_installed_overlays.size(); i++) {
                             if (!Packages.getOverlayParent(context,
@@ -1302,15 +1302,15 @@ enum OverlaysManager {
         }
 
         @Override
-        protected void onPostExecute(final Void result) {
-            final Overlays overlays = ref.get();
-            final Context context = refContext.get();
+        protected void onPostExecute(Void result) {
+            Overlays overlays = ref.get();
+            Context context = refContext.get();
             if ((overlays != null) && (context != null)) {
-                final Activity activity = overlays.getActivity();
+                Activity activity = overlays.getActivity();
                 overlays.progressBar.setVisibility(View.GONE);
                 if (!overlays.final_runner.isEmpty()) {
                     if (overlays.needsRecreate(context)) {
-                        final Handler handler = new Handler();
+                        Handler handler = new Handler();
                         handler.postDelayed(() -> {
                             // OMS may not have written all the changes so quickly just yet
                             // so we may need to have a small delay
@@ -1318,7 +1318,7 @@ enum OverlaysManager {
                                 overlays.overlaysLists = overlays.mAdapter
                                         .getOverlayList();
                                 for (int i = 0; i < overlays.overlaysLists.size(); i++) {
-                                    final OverlaysItem currentOverlay =
+                                    OverlaysItem currentOverlay =
                                             overlays.overlaysLists.get(i);
                                     currentOverlay.setSelected(false);
                                     currentOverlay.updateEnabledOverlays(
@@ -1328,7 +1328,7 @@ enum OverlaysManager {
                                                 overlays.mAdapter.notifyDataSetChanged());
                                     }
                                 }
-                            } catch (final Exception e) {
+                            } catch (Exception e) {
                                 // Consume window refresh
                             }
                         }, (long) References.REFRESH_WINDOW_DELAY);
@@ -1349,10 +1349,10 @@ enum OverlaysManager {
      * Concluding function to end the update process gracefully
      */
     static class finishUpdateFunction extends AsyncTask<Void, Void, Void> {
-        final WeakReference<Overlays> ref;
-        final WeakReference<Context> refContext;
+        WeakReference<Overlays> ref;
+        WeakReference<Context> refContext;
 
-        finishUpdateFunction(final Overlays overlays) {
+        finishUpdateFunction(Overlays overlays) {
             super();
             ref = new WeakReference<>(overlays);
             refContext = new WeakReference<>(overlays.mContext);
@@ -1360,18 +1360,18 @@ enum OverlaysManager {
 
         @Override
         protected void onPreExecute() {
-            final Overlays overlays = ref.get();
-            final Context context = refContext.get();
+            Overlays overlays = ref.get();
+            Context context = refContext.get();
             if ((context != null) && (overlays != null)) {
                 if (overlays.mCompileDialog != null) overlays.mCompileDialog.dismiss();
 
                 // Add dummy intent to be able to close the notification on click
-                final Intent notificationIntent = new Intent(context, InformationActivity.class);
+                Intent notificationIntent = new Intent(context, InformationActivity.class);
                 notificationIntent.putExtra(THEME_NAME, overlays.theme_name);
                 notificationIntent.putExtra(THEME_PID, overlays.theme_pid);
                 notificationIntent.setFlags(
                         Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                final PendingIntent intent =
+                PendingIntent intent =
                         PendingIntent.getActivity(context, 0, notificationIntent,
                                 PendingIntent.FLAG_CANCEL_CURRENT);
 
@@ -1424,26 +1424,26 @@ enum OverlaysManager {
         }
 
         @Override
-        protected Void doInBackground(final Void... voids) {
-            final Overlays overlays = ref.get();
+        protected Void doInBackground(Void... voids) {
+            Overlays overlays = ref.get();
             if (overlays != null) {
-                final Activity activity = overlays.getActivity();
-                final Context context = refContext.get();
+                Activity activity = overlays.getActivity();
+                Context context = refContext.get();
 
                 if (!overlays.has_failed || (overlays.final_runner.size() > overlays.fail_count)) {
                     new StringBuilder();
                     if (overlays.compile_enable_mode && overlays.mixAndMatchMode) {
                         // Buffer the disableBeforeEnabling String
-                        final ArrayList<String> disableBeforeEnabling = new ArrayList<>();
-                        final List<String> all_installed_overlays = ThemeManager.listAllOverlays
+                        ArrayList<String> disableBeforeEnabling = new ArrayList<>();
+                        List<String> all_installed_overlays = ThemeManager.listAllOverlays
                                 (context);
-                        for (final String p : all_installed_overlays) {
+                        for (String p : all_installed_overlays) {
                             if (!overlays.theme_pid.equals(Packages.
                                     getOverlayParent(context, p))) {
                                 disableBeforeEnabling.add(p);
                             } else {
-                                for (final OverlaysItem oi : overlays.checkedOverlays) {
-                                    final String targetOverlay = oi.getPackageName();
+                                for (OverlaysItem oi : overlays.checkedOverlays) {
+                                    String targetOverlay = oi.getPackageName();
                                     if (targetOverlay.equals(
                                             Packages.getOverlayTarget(context, p))) {
                                         disableBeforeEnabling.add(p);
@@ -1454,7 +1454,7 @@ enum OverlaysManager {
                         if (checkThemeInterfacer(context)) {
                             ThemeManager.disableOverlay(context, disableBeforeEnabling);
                         } else {
-                            final StringBuilder final_commands = new StringBuilder(ThemeManager
+                            StringBuilder final_commands = new StringBuilder(ThemeManager
                                     .disableOverlay);
                             for (int i = 0; i < disableBeforeEnabling.size(); i++) {
                                 final_commands
@@ -1490,7 +1490,7 @@ enum OverlaysManager {
                     }
 
                     if (overlays.needsRecreate(context)) {
-                        final Handler handler = new Handler(Looper.getMainLooper());
+                        Handler handler = new Handler(Looper.getMainLooper());
                         handler.postDelayed(() -> {
                             // OMS may not have written all the changes so quickly just yet
                             // so we may need to have a small delay
@@ -1498,7 +1498,7 @@ enum OverlaysManager {
                                 overlays.overlaysLists =
                                         overlays.mAdapter.getOverlayList();
                                 for (int i = 0; i < overlays.overlaysLists.size(); i++) {
-                                    final OverlaysItem currentOverlay = overlays.overlaysLists
+                                    OverlaysItem currentOverlay = overlays.overlaysLists
                                             .get(i);
                                     currentOverlay.setSelected(false);
                                     currentOverlay.updateEnabledOverlays(
@@ -1508,7 +1508,7 @@ enum OverlaysManager {
                                                 overlays.mAdapter.notifyDataSetChanged());
                                     }
                                 }
-                            } catch (final Exception e) {
+                            } catch (Exception e) {
                                 // Consume window refresh
                             }
                         }, (long) REFRESH_WINDOW_DELAY);
@@ -1517,15 +1517,15 @@ enum OverlaysManager {
 
                 if (!overlays.late_install.isEmpty() && !Systems.isSamsung(context)) {
                     // Install remaining overlays
-                    final HandlerThread thread = new HandlerThread("LateInstallThread",
+                    HandlerThread thread = new HandlerThread("LateInstallThread",
                             Thread.MAX_PRIORITY);
                     thread.start();
-                    final Handler handler = new Handler(thread.getLooper());
-                    final Runnable r = () -> {
-                        final ArrayList<String> packages = new ArrayList<>();
-                        for (final String o : overlays.late_install) {
+                    Handler handler = new Handler(thread.getLooper());
+                    Runnable r = () -> {
+                        ArrayList<String> packages = new ArrayList<>();
+                        for (String o : overlays.late_install) {
                             ThemeManager.installOverlay(context, o);
-                            final String packageName =
+                            String packageName =
                                     o.substring(o.lastIndexOf('/') + 1, o.lastIndexOf('-'));
                             packages.add(packageName);
                             if ((Systems.checkThemeInterfacer(context) &&
@@ -1537,7 +1537,7 @@ enum OverlaysManager {
                                 do {
                                     try {
                                         Thread.sleep((long) Overlays.THREAD_WAIT_DURATION);
-                                    } catch (final InterruptedException e) {
+                                    } catch (InterruptedException e) {
                                         // Still waiting
                                     }
                                 } while (Substratum.isWaitingInstall());
@@ -1556,7 +1556,7 @@ enum OverlaysManager {
         }
 
         @Override
-        protected void onPostExecute(final Void result) {
+        protected void onPostExecute(Void result) {
         }
     }
 }

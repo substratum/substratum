@@ -507,7 +507,7 @@ public enum Packages {
         try {
             ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
-            if ((appInfo.metaData != null) && (appInfo.metaData.getString(metadata) != null)) {
+            if (appInfo.metaData != null) {
                 String returnMetadata = appInfo.metaData.getString(metadata);
                 if (returnMetadata != null) {
                     return returnMetadata;

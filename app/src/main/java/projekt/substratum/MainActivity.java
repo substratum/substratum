@@ -922,6 +922,7 @@ public class MainActivity extends AppCompatActivity implements
                                             getString(R.string.samsung_app_name) :
                                             getString(R.string.legacy_app_name))),
                             References.homeFragment);
+                    drawer.setSelectionAtPosition(1);
                 }
             } else if ((drawer != null) && (drawer.getCurrentSelectedPosition() > 1)) {
                 drawer.setSelectionAtPosition(1);

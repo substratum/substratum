@@ -375,6 +375,7 @@ public enum ThemeManager {
      * @return Returns a list of overlays
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
+    @SuppressWarnings("unchecked")
     private static List<String> listOverlays(Context context,
                                              int overlayState,
                                              int secondaryState) {
@@ -385,12 +386,17 @@ public enum ThemeManager {
             if (!Systems.checkOMS(context)) throw new Exception();
 
             // Now let's assume everything that gets through will now be only in OMS ROMs
-            Map<String, List<OverlayInfo>> allOverlays;
+            Map<String, List<OverlayInfo>> allOverlays = null;
             // On Oreo, use interfacer to get installed overlays
             if (checkThemeSystemModule(context) == OVERLAY_MANAGER_SERVICE_O_UNROOTED) {
-                allOverlays = ThemeInterfacerService.getAllOverlays(context);
+                if (checkSubstratumService(context)) {
+                    // For direct calls with the Substratum service
+                    allOverlays = OverlayManagerService.getAllOverlays();
+                } else if (checkThemeInterfacer(context)) {
+                    // For Theme Interfacer calls
+                    allOverlays = ThemeInterfacerService.getAllOverlays(context);
+                }
             } else {
-                //noinspection unchecked,deprecation
                 allOverlays = OverlayManagerService.getAllOverlays();
             }
             if (allOverlays != null) {

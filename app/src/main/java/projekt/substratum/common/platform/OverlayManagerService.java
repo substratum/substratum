@@ -27,8 +27,7 @@ import java.util.Map;
 
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 
-@SuppressWarnings("DeprecatedIsStillUsed")
-@Deprecated
+
 public enum OverlayManagerService {
     ;
 

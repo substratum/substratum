@@ -172,6 +172,11 @@ public class SubstratumCrash extends Activity {
                 details += "OMS (andromeda)";
                 break;
             case OVERLAY_MANAGER_SERVICE_O_UNROOTED:
+                if (Systems.checkSubstratumService(getApplicationContext())) {
+                    details += "OMS (system service)";
+                } else if (Systems.checkThemeInterfacer(getApplicationContext())) {
+                    details += "OMS (interfacer)";
+                }
             case OVERLAY_MANAGER_SERVICE_N_UNROOTED:
                 details += "OMS (interfacer)";
                 break;

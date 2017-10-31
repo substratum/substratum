@@ -742,7 +742,8 @@ public enum Packages {
      */
     public static boolean isSamsungTheme(Context context,
                                          String package_name) {
-        return getOverlayMetadata(context, package_name, metadataSamsungSupport) != null;
+        String obtainedValue = getOverlayMetadata(context, package_name, metadataSamsungSupport);
+        return obtainedValue != null && obtainedValue.toLowerCase().equals("true");
     }
 
     /**

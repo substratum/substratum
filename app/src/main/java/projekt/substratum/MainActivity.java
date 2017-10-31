@@ -129,6 +129,7 @@ import static projekt.substratum.common.Systems.checkThemeSystemModule;
 import static projekt.substratum.common.Systems.checkUsagePermissions;
 import static projekt.substratum.common.Systems.isSamsung;
 import static projekt.substratum.common.commands.FileOperations.delete;
+import static projekt.substratum.common.platform.ThemeManager.uninstallOverlay;
 
 public class MainActivity extends AppCompatActivity implements
         ActivityCompat.OnRequestPermissionsResultCallback,
@@ -191,7 +192,9 @@ public class MainActivity extends AppCompatActivity implements
      * @param activity Activity used to specify the caller
      */
     public static void uninstallMultipleAPKS(Activity activity) {
-        if (!MainActivity.queuedUninstall.isEmpty()) {
+        if (Systems.isSamsung(activity.getApplicationContext()) && Root.checkRootAccess()) {
+            uninstallOverlay(activity.getApplicationContext(), MainActivity.queuedUninstall);
+        } else if (!MainActivity.queuedUninstall.isEmpty()) {
             Uri packageURI = Uri.parse("package:" + MainActivity.queuedUninstall.get(0));
             Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
             activity.startActivityForResult(uninstallIntent, UNINSTALL_REQUEST_CODE);
@@ -1452,7 +1455,7 @@ public class MainActivity extends AppCompatActivity implements
                 }
 
                 if (!removeList.isEmpty())
-                    ThemeManager.uninstallOverlay(context, removeList);
+                    uninstallOverlay(context, removeList);
             }
             return null;
         }

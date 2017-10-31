@@ -188,6 +188,10 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
 
         loadingBar.setVisibility(View.GONE);
 
+        // Configuration changes for overlays are uncaught, so to ensure a graceful reload, add
+        // crucial resets here
+        mAdapter = null;
+
         // Don't even display the "enable_disable_selected" button to non-oms users.
         if (!checkOMS(context))
             sheetView.findViewById(R.id.enable_disable_selected).setVisibility(View.GONE);

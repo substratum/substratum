@@ -361,7 +361,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 return false;
             });
         } else {
-            manage_notifications.setVisible(false);
+            if (manage_notifications != null) manage_notifications.setVisible(false);
             if (prefs.getBoolean("vibrate_on_compiled", true)) {
                 vibrate_on_compiled.setChecked(true);
             } else {

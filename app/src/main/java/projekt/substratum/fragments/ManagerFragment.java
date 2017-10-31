@@ -144,6 +144,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     private SearchView searchView;
     private String userInput = "";
     private Boolean first_boot = true;
+    private LayoutReloader layoutReloader;
 
     /**
      * Returns the MaterialSheetFab object within this fragment
@@ -210,12 +211,20 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         swipeRefreshLayout.setOnRefreshListener(() -> {
             if (searchView.isIconified()) {
                 if ((first_run != null) && mRecyclerView.isShown() && !first_run) {
-                    new LayoutReloader(ManagerFragment.this, userInput).execute();
+                    if (layoutReloader != null && !layoutReloader.isCancelled()) {
+                        layoutReloader.cancel(true);
+                        layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
+                        layoutReloader.execute();
+                    }
                 } else {
                     swipeRefreshLayout.setRefreshing(false);
                 }
             } else {
-                new LayoutReloader(ManagerFragment.this, userInput).execute();
+                if (layoutReloader != null && !layoutReloader.isCancelled()) {
+                    layoutReloader.cancel(true);
+                    layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
+                    layoutReloader.execute();
+                }
             }
         });
 
@@ -248,7 +257,14 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 });
 
         resetRecyclerView();
-        new LayoutReloader(ManagerFragment.this, userInput).execute();
+        if (layoutReloader != null && !layoutReloader.isCancelled()) {
+            layoutReloader.cancel(true);
+            layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
+            layoutReloader.execute();
+        } else {
+            layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
+            layoutReloader.execute();
+        }
 
         if (Systems.checkThemeInterfacer(context)) {
             finishReceiver = new FinishReceiver(ManagerFragment.this);
@@ -372,7 +388,14 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         Boolean alphabetize = updateMenuButtonState(menu);
         if (((overlayList != null) && !overlayList.isEmpty())) {
             if (!alphabetize) refreshThemeName();
-            new LayoutReloader(ManagerFragment.this, userInput).execute();
+            if (layoutReloader != null && !layoutReloader.isCancelled()) {
+                layoutReloader.cancel(true);
+                layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
+                layoutReloader.execute();
+            } else {
+                layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
+                layoutReloader.execute();
+            }
         }
     }
 
@@ -473,7 +496,11 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     public boolean onQueryTextChange(String newText) {
         if (!userInput.equals(newText)) {
             userInput = newText;
-            new LayoutReloader(ManagerFragment.this, userInput).execute();
+            if (layoutReloader != null && !layoutReloader.isCancelled()) {
+                layoutReloader.cancel(true);
+                layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
+                layoutReloader.execute();
+            }
         }
         return true;
     }
@@ -744,7 +771,11 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                             fragment.getString(R.string.manage_system_not_permitted),
                             Toast.LENGTH_LONG).show();
                 }
-                new LayoutReloader(fragment, fragment.userInput).execute();
+                if (fragment.layoutReloader != null && !fragment.layoutReloader.isCancelled()) {
+                    fragment.layoutReloader.cancel(true);
+                    fragment.layoutReloader = new LayoutReloader(fragment, fragment.userInput);
+                    fragment.layoutReloader.execute();
+                }
             }
         }
 
@@ -987,7 +1018,11 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             ManagerFragment fragment = ref.get();
             if (fragment != null) {
                 Context context = fragment.context;
-                new LayoutReloader(fragment, fragment.userInput).execute();
+                if (fragment.layoutReloader != null && !fragment.layoutReloader.isCancelled()) {
+                    fragment.layoutReloader.cancel(true);
+                    fragment.layoutReloader = new LayoutReloader(fragment, fragment.userInput);
+                    fragment.layoutReloader.execute();
+                }
 
                 if (!Systems.checkOMS(context) && !Systems.isSamsung(context)) {
                     Toast.makeText(
@@ -1048,7 +1083,11 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                             fragment.getString(R.string.manage_system_not_permitted),
                             Toast.LENGTH_LONG).show();
                 }
-                new LayoutReloader(fragment, fragment.userInput).execute();
+                if (fragment.layoutReloader != null && !fragment.layoutReloader.isCancelled()) {
+                    fragment.layoutReloader.cancel(true);
+                    fragment.layoutReloader = new LayoutReloader(fragment, fragment.userInput);
+                    fragment.layoutReloader.execute();
+                }
             }
         }
 
@@ -1196,7 +1235,11 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         protected void onPostExecute(Void result) {
             ManagerFragment fragment = ref.get();
             if (fragment != null) {
-                new LayoutReloader(fragment, fragment.userInput).execute();
+                if (fragment.layoutReloader != null && !fragment.layoutReloader.isCancelled()) {
+                    fragment.layoutReloader.cancel(true);
+                    fragment.layoutReloader = new LayoutReloader(fragment, fragment.userInput);
+                    fragment.layoutReloader.execute();
+                }
                 if (Systems.isSamsungDevice(fragment.context)) {
                     MainActivity.uninstallMultipleAPKS(fragment.getActivity());
                 }
@@ -1219,7 +1262,11 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         public void onReceive(Context context, Intent intent) {
             ManagerFragment fragment = ref.get();
             if (fragment != null) {
-                new LayoutReloader(fragment, fragment.userInput);
+                if (fragment.layoutReloader != null && !fragment.layoutReloader.isCancelled()) {
+                    fragment.layoutReloader.cancel(true);
+                    fragment.layoutReloader = new LayoutReloader(fragment, fragment.userInput);
+                    fragment.layoutReloader.execute();
+                }
                 fragment.loadingBar.setVisibility(View.GONE);
             }
         }
@@ -1232,7 +1279,11 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.d("ManagerRefresher", "A package has been modified, now refreshing the list...");
-            new LayoutReloader(ManagerFragment.this, userInput).execute();
+            if (layoutReloader != null && !layoutReloader.isCancelled()) {
+                layoutReloader.cancel(true);
+                layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
+                layoutReloader.execute();
+            }
         }
     }
 }

@@ -48,6 +48,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -870,6 +871,16 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    @Override
+    public boolean onKeyDown(int code, KeyEvent e) {
+        if (code == KeyEvent.KEYCODE_BACK) {
+            onBackPressed();
+            return true;
+        } else {
+            return super.onKeyDown(code, e);
+        }
+    }
+
     /**
      * Always end the activity gracefully.
      */
@@ -877,6 +888,9 @@ public class MainActivity extends AppCompatActivity implements
     public void onBackPressed() {
         if (!searchView.isIconified()) {
             searchView.setIconified(true);
+            if (userInput.length() > 0) {
+                onQueryTextChange("");
+            }
         } else if ((drawer != null) && drawer.isDrawerOpen()) {
             drawer.closeDrawer();
         } else {

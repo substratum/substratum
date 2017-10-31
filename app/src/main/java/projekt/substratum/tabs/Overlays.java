@@ -1151,7 +1151,7 @@ public class Overlays extends Fragment {
                 ((LinearLayoutManager)
                         fragment.mRecyclerView.getLayoutManager()).
                         scrollToPositionWithOffset(fragment.currentPosition, 20);
-                fragment.mAdapter.notifyDataSetChanged();
+                if (fragment.mAdapter != null) fragment.mAdapter.notifyDataSetChanged();
             }
         }
 

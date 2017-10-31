@@ -511,7 +511,7 @@ public enum Packages {
                 String returnMetadata = appInfo.metaData.getString(metadata);
                 if (returnMetadata != null) {
                     return returnMetadata;
-                } else {
+                } else if (metadata.equals(metadataSamsungSupport)){
                     returnMetadata = String.valueOf(appInfo.metaData.getBoolean(metadata));
                 }
                 return returnMetadata;

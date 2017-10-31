@@ -871,13 +871,21 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    /**
+     * Certain devices do not pass the same button, so we must enforce it
+     *
+     * @param code Code of action
+     * @param e    Event
+     * @return True, if it reacted the way we wanted it to
+     */
     @Override
     public boolean onKeyDown(int code, KeyEvent e) {
-        if (code == KeyEvent.KEYCODE_BACK) {
-            onBackPressed();
-            return true;
-        } else {
-            return super.onKeyDown(code, e);
+        switch (code) {
+            case KeyEvent.KEYCODE_BACK:
+                onBackPressed();
+                return true;
+            default:
+                return super.onKeyDown(code, e);
         }
     }
 

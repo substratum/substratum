@@ -49,11 +49,11 @@ public class SubstratumCrash extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.crash_activity);
+        setContentView(R.layout.crash_activity);
         ButterKnife.bind(this);
 
-        String stacktrace = this.createErrorReport(this.getIntent());
-        CaocConfig caocConfig = CustomActivityOnCrash.getConfigFromIntent(this.getIntent());
+        String stacktrace = createErrorReport(getIntent());
+        CaocConfig caocConfig = CustomActivityOnCrash.getConfigFromIntent(getIntent());
 
         restartButton.setOnClickListener(view -> {
             Intent intent = new Intent(SubstratumCrash.this, SplashScreenActivity.class);
@@ -65,8 +65,8 @@ public class SubstratumCrash extends Activity {
 
         rescueMeButton.setOnClickListener(view -> {
             Intent intent = new Intent(SubstratumCrash.this, RescueActivity.class);
-            this.startActivity(intent);
-            this.finish();
+            startActivity(intent);
+            finish();
         });
 
 
@@ -74,26 +74,24 @@ public class SubstratumCrash extends Activity {
                 stacktrace,
                 SUBSTRATUM_OVERLAY_FAULT_EXCEPTIONS);
 
-        if (!Systems.isSamsungDevice(this.getApplicationContext())) {
+        if (!Systems.isSamsungDevice(getApplicationContext())) {
             if (isSubstratumOverlayFault) {
                 // Pulsate the Rescue Me button
                 new Timer().scheduleAtFixedRate(new TimerTask() {
                     @Override
                     public void run() {
-                        if (SubstratumCrash.this.shouldPulsate) {
-                            SubstratumCrash.this.runOnUiThread(() ->
+                        if (shouldPulsate) {
+                            runOnUiThread(() ->
                                     rescueMeButton.getBackground().setColorFilter(
-                                            SubstratumCrash.this.getColor(R.color
-                                                    .do_not_theme_this_color_button_pulse),
+                                            getColor(R.color.do_not_theme_this_color_button_pulse),
                                             PorterDuff.Mode.SRC_ATOP));
                         } else {
-                            SubstratumCrash.this.runOnUiThread(() ->
+                            runOnUiThread(() ->
                                     rescueMeButton.getBackground().setColorFilter(
-                                            SubstratumCrash.this.getColor(R.color
-                                                    .do_not_theme_this_color_buttons),
+                                            getColor(R.color.do_not_theme_this_color_buttons),
                                             PorterDuff.Mode.SRC_ATOP));
                         }
-                        SubstratumCrash.this.shouldPulsate = !SubstratumCrash.this.shouldPulsate;
+                        shouldPulsate = !shouldPulsate;
                     }
                 }, 0L, 400L);
             }
@@ -105,7 +103,7 @@ public class SubstratumCrash extends Activity {
                     .setPositiveButton(android.R.string.ok, (dialogInterface, i) -> {
                         Intent intent = new Intent(
                                 Settings.ACTION_MANAGE_ALL_APPLICATIONS_SETTINGS);
-                        this.startActivity(intent);
+                        startActivity(intent);
                     })
                     .show();
         }
@@ -124,8 +122,8 @@ public class SubstratumCrash extends Activity {
                     .setNeutralButton(R.string
                                     .customactivityoncrash_error_activity_error_details_copy,
                             (dialog1, which) -> {
-                                References.copyToClipboard(this.getApplicationContext(),
-                                        this.getString(R.string
+                                References.copyToClipboard(getApplicationContext(),
+                                        getString(R.string
                                                 .customactivityoncrash_error_activity_error_details_clipboard_label),
                                         stacktrace);
                                 Toast.makeText(this,
@@ -143,7 +141,7 @@ public class SubstratumCrash extends Activity {
      * @return Return string of error report
      */
     private String createErrorReport(Intent intent) {
-        String versionName = Packages.getAppVersion(this, this.getPackageName());
+        String versionName = Packages.getAppVersion(this, getPackageName());
         String details = "";
 
         details += "Build version: " + versionName + '\n';
@@ -154,8 +152,8 @@ public class SubstratumCrash extends Activity {
         if (!xposed.isEmpty()) details += " {" + xposed + '}';
         details += "\n";
 
-        String rom = Systems.checkFirmwareSupport(this, this.getString(R.string
-                        .supported_roms_url),
+        String rom = Systems.checkFirmwareSupport(this,
+                getString(R.string.supported_roms_url),
                 "supported_roms.xml");
         String romVersion = Build.VERSION.RELEASE + " - " +
                 (!rom.isEmpty() ? rom : "Unknown");
@@ -177,6 +175,7 @@ public class SubstratumCrash extends Activity {
                 } else if (Systems.checkThemeInterfacer(getApplicationContext())) {
                     details += "OMS (interfacer)";
                 }
+                break;
             case OVERLAY_MANAGER_SERVICE_N_UNROOTED:
                 details += "OMS (interfacer)";
                 break;

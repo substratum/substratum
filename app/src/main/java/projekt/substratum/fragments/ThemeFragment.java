@@ -142,6 +142,7 @@ public class ThemeFragment extends Fragment {
                 DiffUtil.calculateDiff(new ThemeCallback(adapter.getList(), themeItems));
         adapter.setList(themeItems);
         diffResult.dispatchUpdatesTo(adapter);
+        adapter.notifyDataSetChanged();
         themeFragment.swipeRefreshLayout.setRefreshing(false);
     }
 

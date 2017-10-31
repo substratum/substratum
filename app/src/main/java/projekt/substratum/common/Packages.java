@@ -508,13 +508,24 @@ public enum Packages {
             ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
-                String returnMetadata = appInfo.metaData.getString(metadata);
-                if (returnMetadata != null) {
-                    return returnMetadata;
-                } else if (metadata.equals(metadataSamsungSupport)){
-                    returnMetadata = String.valueOf(appInfo.metaData.getBoolean(metadata));
-                }
-                return returnMetadata;
+            	try {
+            		if (metadata.equals(metadataSamsungSupport)) throw new Exception();
+            		// First, check if it is a String
+            		String returnMetadata = appInfo.metaData.getString(metadata);
+            		if (returnMetadata != null) {
+            			return returnMetadata;
+            		} else {
+            			throw new Exception();
+            		}
+            	} catch (Exception e2) {
+            		// Then, check if it is a boolean
+            		String returnMetadata = String.valueOf(appInfo.metaData.getBoolean(metadata));
+            		if (returnMetadata != null) {
+            			return returnMetadata;
+            		} else {
+            			throw new Exception();
+            		}
+            	}
             }
         } catch (Exception e) {
             // Suppress warning

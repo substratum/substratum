@@ -116,6 +116,7 @@ import static projekt.substratum.common.Internal.IV_ENCRYPTION_KEY_EXTRA;
 import static projekt.substratum.common.Internal.MIX_AND_MATCH;
 import static projekt.substratum.common.Internal.MIX_AND_MATCH_IA_TO_OVERLAYS;
 import static projekt.substratum.common.Internal.SHEET_COMMAND;
+import static projekt.substratum.common.Internal.START_JOB_ACTION;
 import static projekt.substratum.common.Internal.THEME_MODE;
 import static projekt.substratum.common.Internal.THEME_NAME;
 import static projekt.substratum.common.Internal.THEME_PID;
@@ -730,15 +731,15 @@ public class InformationActivity extends AppCompatActivity {
                                 boolean isShutdownTab = ((BootAnimations) obj)
                                         .isShutdownTab();
                                 intent = new Intent((isShutdownTab ? "ShutdownAnimations" :
-                                        "BootAnimations") + ".START_JOB");
+                                        "BootAnimations") + START_JOB_ACTION);
                                 localBroadcastManager.sendBroadcast(intent);
                                 break;
                             case "Fonts":
-                                intent = new Intent("Fonts.START_JOB");
+                                intent = new Intent("Fonts" + START_JOB_ACTION);
                                 localBroadcastManager.sendBroadcast(intent);
                                 break;
                             case "Sounds":
-                                intent = new Intent("Sounds.START_JOB");
+                                intent = new Intent("Sounds" + START_JOB_ACTION);
                                 localBroadcastManager.sendBroadcast(intent);
                                 break;
                         }

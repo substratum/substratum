@@ -23,7 +23,7 @@
         android:id="@+id/alphabetize"
         android:icon="@drawable/actionbar_alphabetize"
         android:menuCategory="secondary"
-        android:orderInCategory="1"
+        android:orderInCategory="4"
         android:title="@string/menu_alphabetize"
         app:showAsAction="always" />
 </menu>

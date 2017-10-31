@@ -33,6 +33,7 @@ import projekt.substratum.tabs.Overlays;
 import projekt.substratum.tabs.Sounds;
 import projekt.substratum.tabs.Wallpapers;
 
+import static projekt.substratum.common.Internal.SHUTDOWNANIMATION_INTENT;
 import static projekt.substratum.common.Internal.SHUTDOWN_ANIMATION;
 import static projekt.substratum.common.References.bootAnimationsFragment;
 import static projekt.substratum.common.References.fontsFragment;
@@ -128,7 +129,7 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
             this.package_checker.remove(shutdownAnimationsFragment);
             BootAnimations shutdownAnimations = new BootAnimations();
             Bundle b = new Bundle(this.bundle);
-            b.putBoolean(shutdownAnimationsFragment, true);
+            b.putBoolean(SHUTDOWNANIMATION_INTENT, true);
             shutdownAnimations.setArguments(b);
             return shutdownAnimations;
         } else if (this.package_checker.contains(fontsFragment) &&

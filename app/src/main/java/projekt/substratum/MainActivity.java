@@ -466,13 +466,13 @@ public class MainActivity extends AppCompatActivity implements
                             .withName(R.string.nav_bootanim)
                             .withIcon(R.drawable.nav_bootanim)
                             .withIdentifier(3L));
-        if (Resources.isShutdownAnimationSupported())
+        if (Resources.isShutdownAnimationSupported(mContext))
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_shutdownanim)
                             .withIcon(R.drawable.nav_shutdownanim)
                             .withIdentifier(4L));
-        if (Resources.isFontsSupported())
+        if (Resources.isFontsSupported(mContext))
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_fonts)

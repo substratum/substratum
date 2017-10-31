@@ -285,7 +285,7 @@ public class RecoveryFragment extends Fragment {
             bootanimationCard.setVisibility(View.GONE);
         }
 
-        if (!Resources.isFontsSupported()) {
+        if (!Resources.isFontsSupported(mContext)) {
             fontsCard.setVisibility(View.GONE);
         }
 

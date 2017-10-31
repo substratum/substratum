@@ -287,7 +287,7 @@ public class ProfileFragment extends Fragment {
                 selectedBackup = new ArrayList<>();
                 CharSequence[] items;
                 if (Systems.checkOMS(mContext) ||
-                        projekt.substratum.common.Resources.isFontsSupported()) {
+                        projekt.substratum.common.Resources.isFontsSupported(mContext)) {
                     items = new CharSequence[]{
                             getString(R.string.profile_boot_animation),
                             getString(R.string.profile_font),

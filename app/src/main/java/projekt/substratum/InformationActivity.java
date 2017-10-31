@@ -143,7 +143,7 @@ public class InformationActivity extends AppCompatActivity {
 
     private static final int LUNCHBAR_DISMISS_FAB_CLICK_DELAY = 200;
     public static Lunchbar currentShownLunchBar;
-    public static Boolean compilingProcess;
+    public static Boolean compilingProcess = false;
     public static Boolean shouldRestartActivity = false;
     private static List<String> tab_checker;
     @BindView(R.id.toolbar)
@@ -557,13 +557,13 @@ public class InformationActivity extends AppCompatActivity {
                             .theme_information_tab_two)));
                 }
                 if (tab_checker.contains(shutdownAnimationsFragment) &&
-                        Resources.isShutdownAnimationSupported()) {
+                        Resources.isShutdownAnimationSupported(mContext)) {
                     isWallpaperOnly = false;
                     tabLayout.addTab(tabLayout.newTab().setText(getString(R
                             .string
                             .theme_information_tab_six)));
                 }
-                if (tab_checker.contains(fontsFragment) && Resources.isFontsSupported()) {
+                if (tab_checker.contains(fontsFragment) && Resources.isFontsSupported(mContext)) {
                     isWallpaperOnly = false;
                     tabLayout.addTab(tabLayout.newTab().setText(getString(R
                             .string
@@ -647,15 +647,14 @@ public class InformationActivity extends AppCompatActivity {
 
         HashMap<String, Boolean> extra_hidden_tabs = new HashMap<>();
         // Boot animation visibility
-        extra_hidden_tabs.put(bootAnimationsFragment, !Systems.checkAndromeda(mContext) &&
-                !Systems.isSamsungDevice(mContext));
+        extra_hidden_tabs.put(bootAnimationsFragment, Resources.isBootAnimationSupported(mContext));
         // Shutdown animation visibility
-        extra_hidden_tabs.put(shutdownAnimationsFragment, Systems.checkOreo() &&
-                Systems.isBinderInterfacer(mContext));
+        extra_hidden_tabs.put(shutdownAnimationsFragment,
+                Resources.isShutdownAnimationSupported(mContext));
         // Fonts visibility
-        extra_hidden_tabs.put(fontsFragment, Resources.isFontsSupported());
+        extra_hidden_tabs.put(fontsFragment, Resources.isFontsSupported(mContext));
         // Sounds visibility
-        extra_hidden_tabs.put(soundsFragment, Systems.isBinderInterfacer(mContext));
+        extra_hidden_tabs.put(soundsFragment, Resources.isSoundsSupported(mContext));
 
         // Set up the tabs
         InformationTabsAdapter adapter = new InformationTabsAdapter(
@@ -751,7 +750,7 @@ public class InformationActivity extends AppCompatActivity {
         });
 
         // This is for the Floating Action Menu actions
-        Intent intent = new Intent("Overlays.START_JOB");
+        Intent intent = new Intent("Overlays" + START_JOB_ACTION);
         if (!Systems.checkOMS(this) && !Systems.isSamsung(mContext)) {
             enable_swap.setText(getString(R.string.fab_menu_swap_toggle_legacy));
         } else if (Systems.isSamsung(mContext)) {

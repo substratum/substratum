@@ -30,6 +30,7 @@ import dalvik.system.DexClassLoader;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.Systems.checkAndromeda;
+import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 import static projekt.substratum.common.Systems.isSamsung;
 
@@ -198,7 +199,11 @@ public enum Resources {
     }
 
     // This method checks whether custom fonts is supported by the system
-    public static boolean isFontsSupported() {
+    public static boolean isFontsSupported(Context context) {
+        if (checkSubstratumService(context)) {
+            Log.d(SUBSTRATUM_LOG, "This system fully supports font hotswapping.");
+            return true;
+        }
         try {
             final Class<?> cls = Class.forName("android.graphics.Typeface");
             cls.getDeclaredMethod("getSystemFontDirLocation");
@@ -215,7 +220,7 @@ public enum Resources {
     // This method checks whether custom sounds is supported by the system
     public static boolean isSoundsSupported(final Context context) {
         return !checkAndromeda(context) && !isSamsung(context) &&
-                checkThemeInterfacer(context);
+                (checkThemeInterfacer(context) || checkSubstratumService(context));
     }
 
     // This method checks whether custom boot animation is supported by the system
@@ -224,7 +229,11 @@ public enum Resources {
     }
 
     // This method checks whether custom shutdown animation is supported by the system
-    public static boolean isShutdownAnimationSupported() {
+    public static boolean isShutdownAnimationSupported(Context context) {
+        if (checkSubstratumService(context)) {
+            Log.d(SUBSTRATUM_LOG, "This system fully supports theme shutdown animation.");
+            return true;
+        }
         try {
             @SuppressLint("PrivateApi") final Class<?> cls = new DexClassLoader
                     ("/system/framework/services.jar",

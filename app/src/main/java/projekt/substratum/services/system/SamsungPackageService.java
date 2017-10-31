@@ -51,7 +51,7 @@ public class SamsungPackageService extends Service {
             @Override
             public void run() {
                 List<ApplicationInfo> currentApps = pm.getInstalledApplications(0);
-                if (initialPackageCount < currentApps.size()) {
+                if (initialPackageCount != currentApps.size()) {
                     initialPackageCount = currentApps.size();
                     Broadcasts.sendOverlayRefreshMessage(getApplicationContext());
                 }

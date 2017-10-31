@@ -306,15 +306,9 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 // Uninstalling
                 LinearLayout uninstall = sheetView.findViewById(R.id.uninstall);
                 uninstall.setOnClickListener(view2 -> {
-                    if (!Systems.isSamsung(this.mContext) && !Systems.checkAndromeda(this
-                            .mContext)) {
-                        this.toBeUninstalled = themeItem;
-                        new uninstallTheme(this).execute();
-                    } else {
-                        Uri packageURI = Uri.parse("package:" + themeItem.getThemePackage());
-                        Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
-                        this.mContext.startActivity(uninstallIntent);
-                    }
+                    Uri packageURI = Uri.parse("package:" + themeItem.getThemePackage());
+                    Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
+                    this.mContext.startActivity(uninstallIntent);
                     sheetDialog.dismiss();
                 });
 

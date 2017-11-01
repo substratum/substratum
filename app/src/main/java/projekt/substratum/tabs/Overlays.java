@@ -218,7 +218,6 @@ public class Overlays extends Fragment {
     private RefreshReceiver refreshReceiver;
     private boolean decryptedAssetsExceptionReached;
     private int currentPosition;
-    private boolean firstBoot = false;
 
     /**
      * Display all of the type resources if this is called
@@ -942,8 +941,7 @@ public class Overlays extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (!firstBoot && !toggle_all.isChecked()) {
-            firstBoot = true;
+        if (!toggle_all.isChecked()) {
             refreshList();
         }
     }

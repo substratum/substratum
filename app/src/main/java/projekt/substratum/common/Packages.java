@@ -86,11 +86,18 @@ public enum Packages {
      *
      * @param context      Context
      * @param package_name Package ID to be analyzed
-     * @return Returns string of installer ID, if null, it was installed through ADB
+     * @return Returns string of installer ID, if null, can't obtain package or installed through ADB
      */
     public static String getInstallerId(Context context,
                                         String package_name) {
-        return context.getPackageManager().getInstallerPackageName(package_name);
+        try {
+            PackageManager pm = context.getPackageManager();
+            String installer = pm.getInstallerPackageName(package_name);
+            return installer;
+        } catch (Exception e) {
+            // Suppress warning
+        }
+        return null;
     }
 
     /**

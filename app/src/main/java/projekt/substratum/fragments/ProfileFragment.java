@@ -118,6 +118,7 @@ import static projekt.substratum.common.Internal.PROFILE_DIRECTORY;
 import static projekt.substratum.common.Internal.PROFILE_FONTS;
 import static projekt.substratum.common.Internal.RINGTONE_THEME_DIRECTORY;
 import static projekt.substratum.common.Internal.SECRET_KEY_SPEC;
+import static projekt.substratum.common.Internal.SPECIAL_SNOWFLAKE_DELAY;
 import static projekt.substratum.common.Internal.SYSTEM_OVERLAY;
 import static projekt.substratum.common.Internal.SYSTEM_VENDOR_OVERLAY;
 import static projekt.substratum.common.Internal.THEME_644;
@@ -1370,7 +1371,7 @@ public class ProfileFragment extends Fragment {
                                     Substratum.startWaitingInstall();
                                     do {
                                         try {
-                                            Thread.sleep(Overlays.THREAD_WAIT_DURATION);
+                                            Thread.sleep(SPECIAL_SNOWFLAKE_DELAY);
                                         } catch (InterruptedException e) {
                                             Thread.currentThread().interrupt();
                                         }
@@ -1438,7 +1439,7 @@ public class ProfileFragment extends Fragment {
                         Substratum.startWaitingInstall();
                         do {
                             try {
-                                Thread.sleep(Overlays.THREAD_WAIT_DURATION);
+                                Thread.sleep(SPECIAL_SNOWFLAKE_DELAY);
                             } catch (InterruptedException e) {
                                 // Still waiting
                             }

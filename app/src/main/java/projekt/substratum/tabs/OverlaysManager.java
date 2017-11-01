@@ -40,6 +40,7 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,6 +71,7 @@ import static projekt.substratum.common.Internal.ENABLE_MODE;
 import static projekt.substratum.common.Internal.ENCRYPTED_FILE_EXTENSION;
 import static projekt.substratum.common.Internal.OVERLAYS_DIR;
 import static projekt.substratum.common.Internal.PACKAGE_INSTALL_URI;
+import static projekt.substratum.common.Internal.SPECIAL_SNOWFLAKE_DELAY;
 import static projekt.substratum.common.Internal.SWAP_MODE;
 import static projekt.substratum.common.Internal.THEME_NAME;
 import static projekt.substratum.common.Internal.THEME_PID;
@@ -77,6 +79,7 @@ import static projekt.substratum.common.References.DEFAULT_NOTIFICATION_CHANNEL_
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.REFRESH_WINDOW_DELAY;
+import static projekt.substratum.common.References.SUBSTRATUM_BUILDER;
 import static projekt.substratum.common.Resources.LG_FRAMEWORK;
 import static projekt.substratum.common.Resources.SAMSUNG_FRAMEWORK;
 import static projekt.substratum.common.Resources.SETTINGS_ICONS;
@@ -85,6 +88,7 @@ import static projekt.substratum.common.Resources.SYSTEMUI_HEADERS;
 import static projekt.substratum.common.Resources.SYSTEMUI_NAVBARS;
 import static projekt.substratum.common.Resources.SYSTEMUI_QSTILES;
 import static projekt.substratum.common.Resources.SYSTEMUI_STATUSBARS;
+import static projekt.substratum.common.Resources.inNexusFilter;
 import static projekt.substratum.common.Systems.checkOMS;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 
@@ -99,17 +103,17 @@ enum OverlaysManager {
      * @param overlays Overlays fragment
      */
     static void selectCompileMode(Overlays overlays) {
-        overlays.overlaysLists = overlays.mAdapter.getOverlayList();
-        overlays.checkedOverlays = new ArrayList<>();
+        overlays.overlayItemList = overlays.mAdapter.getOverlayList();
+        overlays.currentInstance.reset();
 
-        for (int i = 0; i < overlays.overlaysLists.size(); i++) {
-            OverlaysItem currentOverlay = overlays.overlaysLists.get(i);
+        for (int i = 0; i < overlays.overlayItemList.size(); i++) {
+            OverlaysItem currentOverlay = overlays.overlayItemList.get(i);
             if (currentOverlay.isSelected()) {
-                overlays.checkedOverlays.add(currentOverlay);
+                overlays.currentInstance.checkedOverlays.add(currentOverlay);
             }
         }
 
-        if (!overlays.checkedOverlays.isEmpty()) {
+        if (!overlays.currentInstance.checkedOverlays.isEmpty()) {
             compileFunction phase2 = new compileFunction(overlays);
             if ((overlays.base_spinner.getSelectedItemPosition() != 0) &&
                     (overlays.base_spinner.getVisibility() == View.VISIBLE)) {
@@ -117,7 +121,7 @@ enum OverlaysManager {
             } else {
                 phase2.execute("");
             }
-            for (OverlaysItem overlay : overlays.checkedOverlays) {
+            for (OverlaysItem overlay : overlays.currentInstance.checkedOverlays) {
                 Log.d("OverlayTargetPackageKiller", "Killing package : " + overlay
                         .getPackageName());
                 overlays.am.killBackgroundProcesses(overlay.getPackageName());
@@ -145,7 +149,7 @@ enum OverlaysManager {
             return;
         }
         overlays.resetCompileFlags();
-        overlays.is_overlay_active = true;
+        overlays.currentInstance.reset();
         switch (mode) {
             case ENABLE_MODE:
                 overlays.enable_mode = true;
@@ -157,27 +161,26 @@ enum OverlaysManager {
                 overlays.enable_disable_mode = true;
                 break;
         }
-        overlays.overlaysLists = overlays.mAdapter.getOverlayList();
-        overlays.checkedOverlays = new ArrayList<>();
+        overlays.overlayItemList = overlays.mAdapter.getOverlayList();
 
-        for (int i = 0; i < overlays.overlaysLists.size(); i++) {
-            OverlaysItem currentOverlay = overlays.overlaysLists.get(i);
+        for (int i = 0; i < overlays.overlayItemList.size(); i++) {
+            OverlaysItem currentOverlay = overlays.overlayItemList.get(i);
             if (overlays.mContext != null &&
                     currentOverlay.isSelected() &&
                     Systems.checkOMS(overlays.mContext) &&
                     !overlays.enable_disable_mode) {
                 // This is an OMS device, so we can check enabled status
                 if (overlays.enable_mode && !currentOverlay.isOverlayEnabled()) {
-                    overlays.checkedOverlays.add(currentOverlay);
+                    overlays.currentInstance.checkedOverlays.add(currentOverlay);
                 } else if (!overlays.enable_mode && currentOverlay.isOverlayEnabled()) {
-                    overlays.checkedOverlays.add(currentOverlay);
+                    overlays.currentInstance.checkedOverlays.add(currentOverlay);
                 }
             } else if (currentOverlay.isSelected() && overlays.enable_disable_mode) {
                 // Swap mode
-                overlays.checkedOverlays.add(currentOverlay);
+                overlays.currentInstance.checkedOverlays.add(currentOverlay);
             } else if (currentOverlay.isSelected() && !Systems.checkOMS(overlays.mContext)) {
                 // If this is legacy, then all files inside are enabled
-                overlays.checkedOverlays.add(currentOverlay);
+                overlays.currentInstance.checkedOverlays.add(currentOverlay);
             } else {
                 currentOverlay.setSelected(false);
                 overlays.mAdapter.notifyDataSetChanged();
@@ -185,7 +188,7 @@ enum OverlaysManager {
         }
 
         if (overlays.mContext != null && Systems.checkOMS(overlays.mContext)) {
-            if (!overlays.checkedOverlays.isEmpty()) {
+            if (!overlays.currentInstance.checkedOverlays.isEmpty()) {
                 compileFunction compile = new compileFunction(overlays);
                 if ((overlays.base_spinner.getSelectedItemPosition() != 0) &&
                         (overlays.base_spinner.getVisibility() == View.VISIBLE)) {
@@ -193,7 +196,7 @@ enum OverlaysManager {
                 } else {
                     compile.execute("");
                 }
-                for (OverlaysItem overlay : overlays.checkedOverlays) {
+                for (OverlaysItem overlay : overlays.currentInstance.checkedOverlays) {
                     Log.d("OverlayTargetPackageKiller", "Killing package: " +
                             overlay.getPackageName());
                     overlays.am.killBackgroundProcesses(overlay.getPackageName());
@@ -217,42 +220,45 @@ enum OverlaysManager {
      */
     static void legacyDisable(Overlays overlays) {
         String current_directory;
-        if (projekt.substratum.common.Resources.inNexusFilter()) {
+        if (inNexusFilter()) {
             current_directory = PIXEL_NEXUS_DIR;
         } else {
             current_directory = LEGACY_NEXUS_DIR;
         }
 
-        if (!overlays.checkedOverlays.isEmpty()) {
+        if (!overlays.currentInstance.checkedOverlays.isEmpty()) {
             if (Systems.isSamsung(overlays.mContext)) {
                 if (Root.checkRootAccess() && Root.requestRootAccess()) {
                     ArrayList<String> checked_overlays = new ArrayList<>();
-                    for (int i = 0; i < overlays.checkedOverlays.size(); i++) {
+                    for (int i = 0; i < overlays.currentInstance.checkedOverlays.size(); i++) {
                         checked_overlays.add(
-                                overlays.checkedOverlays.get(i).getFullOverlayParameters());
+                                overlays.currentInstance.checkedOverlays.get(i)
+                                        .getFullOverlayParameters());
                     }
                     ThemeManager.uninstallOverlay(overlays.mContext, checked_overlays);
                 } else {
-                    for (int i = 0; i < overlays.checkedOverlays.size(); i++) {
+                    for (int i = 0; i < overlays.currentInstance.checkedOverlays.size(); i++) {
                         Uri packageURI = Uri.parse("package:" +
-                                overlays.checkedOverlays.get(i).getFullOverlayParameters());
+                                overlays.currentInstance.checkedOverlays.get(i)
+                                        .getFullOverlayParameters());
                         Intent uninstallIntent =
                                 new Intent(Intent.ACTION_DELETE, packageURI);
                         overlays.startActivity(uninstallIntent);
                     }
                 }
             } else {
-                for (int i = 0; i < overlays.checkedOverlays.size(); i++) {
+                for (int i = 0; i < overlays.currentInstance.checkedOverlays.size(); i++) {
                     FileOperations.mountRW();
                     FileOperations.delete(overlays.mContext, current_directory +
-                            overlays.checkedOverlays.get(i).getFullOverlayParameters() + ".apk");
+                            overlays.currentInstance.checkedOverlays.get(i)
+                                    .getFullOverlayParameters() + ".apk");
                     overlays.mAdapter.notifyDataSetChanged();
                 }
                 // Untick all options in the adapter after compiling
                 overlays.toggle_all.setChecked(false);
-                overlays.overlaysLists = overlays.mAdapter.getOverlayList();
-                for (int i = 0; i < overlays.overlaysLists.size(); i++) {
-                    OverlaysItem currentOverlay = overlays.overlaysLists.get(i);
+                overlays.overlayItemList = overlays.mAdapter.getOverlayList();
+                for (int i = 0; i < overlays.overlayItemList.size(); i++) {
+                    OverlaysItem currentOverlay = overlays.overlayItemList.get(i);
                     if (currentOverlay.isSelected()) {
                         currentOverlay.setSelected(false);
                     }
@@ -290,6 +296,42 @@ enum OverlaysManager {
         overlays.resetCompileFlags();
     }
 
+    static void endingEnableDisable(Overlays overlays, Context context) {
+        if ((overlays != null) && (context != null)) {
+            if (!overlays.currentInstance.final_runner.isEmpty()) {
+                if (overlays.needsRecreate(context)) {
+                    Handler handler = new Handler();
+                    handler.postDelayed(() -> {
+                        // OMS may not have written all the changes so quickly just yet
+                        // so we may need to have a small delay
+                        try {
+                            overlays.overlayItemList = overlays.mAdapter
+                                    .getOverlayList();
+                            for (int i = 0; i < overlays.overlayItemList.size(); i++) {
+                                OverlaysItem currentOverlay = overlays.overlayItemList
+                                        .get(i);
+                                currentOverlay.setSelected(false);
+                                currentOverlay.updateEnabledOverlays(
+                                        overlays.getCurrentOverlays());
+                                overlays.mAdapter.notifyDataSetChanged();
+                            }
+                        } catch (Exception e) {
+                            // Consume window refresh
+                        }
+                    }, (long) References.REFRESH_WINDOW_DELAY);
+                }
+            } else {
+                overlays.resetCompileFlags();
+                currentShownLunchBar = Lunchbar.make(
+                        overlays.getActivityView(),
+                        R.string.toast_disabled3,
+                        Lunchbar.LENGTH_LONG);
+                currentShownLunchBar.show();
+            }
+            overlays.progressBar.setVisibility(View.GONE);
+        }
+    }
+
     /**
      * Main beef of the compilation process
      */
@@ -297,6 +339,9 @@ enum OverlaysManager {
 
         private WeakReference<Overlays> ref;
         private String currentPackageName = "";
+        private String current_dialog_overlay;
+        private WeakReference<ImageView> loader_image;
+        private WeakReference<TextView> loader_string;
 
         compileFunction(Overlays overlays) {
             super();
@@ -307,16 +352,10 @@ enum OverlaysManager {
         protected void onPreExecute() {
             super.onPreExecute();
             Overlays overlays = ref.get();
-            Log.d(Overlays.TAG,
+            Log.d(SUBSTRATUM_BUILDER,
                     "Substratum is proceeding with your actions and is now actively running...");
             if (overlays != null) {
                 Context context = overlays.getActivity();
-                overlays.final_runner = new ArrayList<>();
-                overlays.late_install = new ArrayList<>();
-                overlays.missingType3 = false;
-                overlays.has_failed = false;
-                overlays.fail_count = 0;
-
                 if (!overlays.enable_mode &&
                         !overlays.disable_mode &&
                         !overlays.enable_disable_mode) {
@@ -356,10 +395,13 @@ enum OverlaysManager {
                     if (overlays.dialogProgress != null) {
                         overlays.dialogProgress.setIndeterminate(false);
                     }
-                    overlays.loader_image = overlays.mCompileDialog.findViewById(R.id.icon);
-                    overlays.loader_string = overlays.mCompileDialog.findViewById(R.id.title);
-                    overlays.loader_string.setText(context.getResources().getString(
-                            R.string.sb_phase_1_loader));
+                    loader_image =
+                            new WeakReference<>(overlays.mCompileDialog.findViewById(R.id.icon));
+                    loader_string =
+                            new WeakReference<>(overlays.mCompileDialog.findViewById(R.id.title));
+                    if (loader_string.get() != null)
+                        loader_string.get().setText(context.getResources().getString(
+                                R.string.sb_phase_1_loader));
 
                     try {
                         Resources themeResources = context.getPackageManager()
@@ -369,7 +411,6 @@ enum OverlaysManager {
                         // Suppress exception
                     }
 
-                    overlays.error_logs = new StringBuilder();
                     // Change title in preparation for loop to change subtext
                     if (overlays.checkActiveNotifications()) {
                         overlays.mBuilder
@@ -379,8 +420,9 @@ enum OverlaysManager {
                         overlays.mNotifyManager.notify(
                                 References.notification_id_compiler, overlays.mBuilder.build());
                     }
-                    overlays.loader_string.setText(context.getResources().getString(
-                            R.string.sb_phase_2_loader));
+                    if (loader_string.get() != null)
+                        loader_string.get().setText(context.getResources().getString(
+                                R.string.sb_phase_2_loader));
                 } else {
                     overlays.progressBar.setVisibility(View.VISIBLE);
                 }
@@ -393,12 +435,15 @@ enum OverlaysManager {
             Overlays overlays = ref.get();
             if (overlays != null) {
                 TextView textView = overlays.mCompileDialog.findViewById(R.id.current_object);
-                if (textView != null) textView.setText(overlays.current_dialog_overlay);
-                overlays.loader_image.setImageBitmap(
-                        Packages.getBitmapFromDrawable(
-                                Packages.getAppIcon(overlays.mContext, this
-                                        .currentPackageName)));
-                double progress = (overlays.current_amount / overlays.total_amount) * 100.0;
+                if (textView != null) textView.setText(current_dialog_overlay);
+                if (loader_image.get() != null) {
+                    loader_image.get().setImageBitmap(
+                            Packages.getBitmapFromDrawable(
+                                    Packages.getAppIcon(overlays.mContext, this
+                                            .currentPackageName)));
+                }
+                double progress = (overlays.currentInstance.current_amount /
+                        overlays.currentInstance.total_amount) * 100.0;
                 overlays.dialogProgress.setProgress((int) progress, true);
             }
         }
@@ -406,36 +451,38 @@ enum OverlaysManager {
         @SuppressWarnings("ConstantConditions")
         @Override
         protected void onPostExecute(String result) {
-            // TODO: onPostExecute runs on UI thread, so move the hard job to doInBackground
             super.onPostExecute(result);
             Overlays overlays = ref.get();
             if (overlays != null) {
                 Context context = overlays.getActivity();
-                overlays.final_command = new ArrayList<>();
 
                 // Check if not compile_enable_mode
                 if (!overlays.compile_enable_mode) {
-                    overlays.final_command.addAll(overlays.final_runner);
+                    overlays.currentInstance.final_command
+                            .addAll(overlays.currentInstance.final_runner);
                 } else {
                     // It's compile and enable mode, we have to first sort out all the
                     // "pm install"'s from the final_commands
-                    overlays.final_command.addAll(overlays.final_runner);
+                    overlays.currentInstance.final_command
+                            .addAll(overlays.currentInstance.final_runner);
                 }
                 if (!overlays.enable_mode &&
                         !overlays.disable_mode &&
                         !overlays.enable_disable_mode) {
                     new finishUpdateFunction(overlays).execute();
-                    if (overlays.has_failed) {
+                    if (overlays.currentInstance.has_failed) {
                         overlays.failedFunction(context);
                     } else {
                         // Restart SystemUI if an enabled SystemUI overlay is updated
                         if (checkOMS(context)) {
-                            for (int i = 0; i < overlays.checkedOverlays.size(); i++) {
+                            for (int i = 0; i <
+                                    overlays.currentInstance.checkedOverlays.size(); i++) {
                                 String targetOverlay =
-                                        overlays.checkedOverlays.get(i).getPackageName();
+                                        overlays.currentInstance.checkedOverlays.get(i)
+                                                .getPackageName();
                                 if (targetOverlay.equals(SYSTEMUI)) {
                                     String packageName =
-                                            overlays.checkedOverlays.get(i)
+                                            overlays.currentInstance.checkedOverlays.get(i)
                                                     .getFullOverlayParameters();
                                     if (ThemeManager.isOverlayEnabled(context, packageName)) {
                                         if (ThemeManager.shouldRestartUI(context, packageName))
@@ -446,7 +493,7 @@ enum OverlaysManager {
                             }
                         }
                     }
-                    if (overlays.late_install.isEmpty()) {
+                    if (overlays.currentInstance.late_install.isEmpty()) {
                         Substratum.getInstance().unregisterFinishReceiver();
                     }
                 } else if (overlays.enable_mode) {
@@ -457,28 +504,30 @@ enum OverlaysManager {
                     new finishEnableDisableFunction(overlays).execute();
                 }
                 if (Systems.isSamsung(context) &&
-                        (overlays.late_install != null) &&
-                        !overlays.late_install.isEmpty()) {
+                        (overlays.currentInstance.late_install != null) &&
+                        !overlays.currentInstance.late_install.isEmpty()) {
                     if (Root.checkRootAccess() && Root.requestRootAccess()) {
                         overlays.progressBar.setVisibility(View.VISIBLE);
-                        overlays.overlaysWaiting = overlays.late_install.size();
-                        for (int i = 0; i < overlays.late_install.size(); i++) {
+                        overlays.currentInstance.overlaysWaiting =
+                                overlays.currentInstance.late_install.size();
+                        for (int i = 0; i < overlays.currentInstance.late_install.size(); i++) {
                             ThemeManager.installOverlay(
                                     overlays.getActivity(),
-                                    overlays.late_install.get(i));
+                                    overlays.currentInstance.late_install.get(i));
                         }
                     } else {
                         Intent intent = new Intent(Intent.ACTION_VIEW);
                         Uri uri = FileProvider.getUriForFile(
                                 context,
                                 context.getApplicationContext().getPackageName() + ".provider",
-                                new File(overlays.late_install.get(0)));
+                                new File(overlays.currentInstance.late_install.get(0)));
                         intent.setDataAndType(uri, PACKAGE_INSTALL_URI);
                         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                         overlays.startActivityForResult(intent, 2486);
                     }
                 } else if (!Systems.checkOMS(context) &&
-                        (overlays.final_runner.size() == overlays.fail_count)) {
+                        (overlays.currentInstance.final_runner.size() ==
+                                overlays.currentInstance.fail_count)) {
                     AlertDialog.Builder alertDialogBuilder =
                             new AlertDialog.Builder(context);
                     alertDialogBuilder
@@ -498,7 +547,6 @@ enum OverlaysManager {
                     AlertDialog alertDialog = alertDialogBuilder.create();
                     alertDialog.show();
                 }
-                overlays.is_overlay_active = false;
                 overlays.mAdapter.notifyDataSetChanged();
                 if (overlays.toggle_all.isChecked()) overlays.toggle_all.setChecked(false);
             }
@@ -513,10 +561,9 @@ enum OverlaysManager {
                 Context context = overlays.getActivity();
                 String parsedVariant = sUrl[0].replaceAll("\\s+", "");
                 String unparsedVariant = sUrl[0];
-                overlays.failed_packages = new StringBuilder();
                 if (overlays.mixAndMatchMode && !Systems.checkOMS(context)) {
                     String current_directory;
-                    if (projekt.substratum.common.Resources.inNexusFilter()) {
+                    if (inNexusFilter()) {
                         current_directory = References.PIXEL_NEXUS_DIR;
                     } else {
                         current_directory = References.LEGACY_NEXUS_DIR;
@@ -534,38 +581,40 @@ enum OverlaysManager {
                     Substratum.getInstance().registerFinishReceiver();
                 }
 
-                overlays.total_amount = (double) overlays.checkedOverlays.size();
-                for (int i = 0; i < overlays.checkedOverlays.size(); i++) {
-                    overlays.type1a = "";
-                    overlays.type1b = "";
-                    overlays.type1c = "";
-                    overlays.type2 = "";
-                    overlays.type3 = "";
-                    overlays.type4 = "";
+                overlays.currentInstance.total_amount =
+                        (double) overlays.currentInstance.checkedOverlays.size();
+                for (int i = 0; i < overlays.currentInstance.checkedOverlays.size(); i++) {
+                    String type1a = "";
+                    String type1b = "";
+                    String type1c = "";
+                    String type2 = "";
+                    String type3;
+                    String type4 = "";
 
-                    overlays.current_amount = (double) (i + 1);
+                    overlays.currentInstance.current_amount = (double) (i + 1);
                     String theme_name_parsed =
                             overlays.theme_name.replaceAll("\\s+", "")
                                     .replaceAll("[^a-zA-Z0-9]+", "");
 
-                    String current_overlay = overlays.checkedOverlays.get(i).getPackageName();
-                    overlays.current_dialog_overlay =
+                    String current_overlay =
+                            overlays.currentInstance.checkedOverlays.get(i).getPackageName();
+                    current_dialog_overlay =
                             '\'' + Packages.getPackageName(context, current_overlay) + '\'';
                     currentPackageName = current_overlay;
 
                     if (!overlays.enable_mode &&
                             !overlays.disable_mode &&
                             !overlays.enable_disable_mode) {
-                        publishProgress((int) overlays.current_amount);
+                        publishProgress((int) overlays.currentInstance.current_amount);
                         if (overlays.compile_enable_mode) {
-                            if (overlays.final_runner == null) {
-                                overlays.final_runner = new ArrayList<>();
+                            if (overlays.currentInstance.final_runner == null) {
+                                overlays.currentInstance.final_runner = new ArrayList<>();
                             }
-                            String package_name = overlays.checkedOverlays.get(i)
+                            String package_name = overlays.currentInstance.checkedOverlays.get(i)
                                     .getFullOverlayParameters();
                             if (Packages.isPackageInstalled(context, package_name) ||
                                     overlays.compile_enable_mode) {
-                                overlays.final_runner.add(package_name);
+                                overlays.currentInstance.final_runner.add(package_name);
                             }
                         }
                         try {
@@ -622,7 +671,8 @@ enum OverlaysManager {
                             // Initialize working notification
                             if (overlays.checkActiveNotifications()) {
                                 overlays.mBuilder.setProgress(100, (int) (((double) (i + 1) /
-                                        (double) overlays.checkedOverlays.size()) * 100.0), false);
+                                        (double) overlays.currentInstance.checkedOverlays.size())
+                                        * 100.0), false);
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                                     overlays.mBuilder.setContentText('"' + packageTitle + '"');
                                 } else {
@@ -651,7 +701,7 @@ enum OverlaysManager {
 
                             String parsedSuffix = ((!sUrl[0].isEmpty()) ?
                                     ("/type3_" + parsedVariant) : "/res");
-                            overlays.type3 = parsedVariant;
+                            type3 = parsedVariant;
 
                             String workingDirectory = context.getCacheDir().getAbsolutePath
                                     () +
@@ -688,23 +738,23 @@ enum OverlaysManager {
                                 );
                             }
 
-                            if (overlays.checkedOverlays.get(i).is_variant_chosen ||
+                            if (overlays.currentInstance.checkedOverlays.get(i).is_variant_chosen ||
                                     !sUrl[0].isEmpty()) {
                                 // Type 1a
-                                if (overlays.checkedOverlays.get(i).is_variant_chosen1) {
-                                    overlays.type1a =
-                                            overlays.checkedOverlays.get(i)
-                                                    .getSelectedVariantName();
-                                    Log.d(Overlays.TAG, "You have selected variant file \"" +
-                                            overlays.checkedOverlays.get(i)
+                                if (overlays.currentInstance.checkedOverlays.get(i)
+                                        .is_variant_chosen1) {
+                                    type1a = overlays.currentInstance.checkedOverlays.get(i)
+                                            .getSelectedVariantName();
+                                    Log.d(SUBSTRATUM_BUILDER, "You have selected variant file \"" +
+                                            overlays.currentInstance.checkedOverlays.get(i)
                                                     .getSelectedVariantName() + '"');
-                                    Log.d(Overlays.TAG, "Moving variant file to: " +
+                                    Log.d(SUBSTRATUM_BUILDER, "Moving variant file to: " +
                                             workingDirectory + parsedSuffix + "/values/type1a.xml");
 
                                     String to_copy =
                                             OVERLAYS_DIR + '/' + current_overlay +
                                                     "/type1a_" +
-                                                    overlays.checkedOverlays.get(i)
+                                                    overlays.currentInstance.checkedOverlays.get(i)
                                                             .getSelectedVariantName() +
                                                     (overlays.encrypted ? ".xml" +
                                                             ENCRYPTED_FILE_EXTENSION : ".xml");
@@ -722,20 +772,20 @@ enum OverlaysManager {
                                 }
 
                                 // Type 1b
-                                if (overlays.checkedOverlays.get(i).is_variant_chosen2) {
-                                    overlays.type1b =
-                                            overlays.checkedOverlays.get(i)
-                                                    .getSelectedVariantName2();
-                                    Log.d(Overlays.TAG, "You have selected variant file \"" +
-                                            overlays.checkedOverlays.get(i)
+                                if (overlays.currentInstance.checkedOverlays.get(i)
+                                        .is_variant_chosen2) {
+                                    type1b = overlays.currentInstance.checkedOverlays.get(i)
+                                            .getSelectedVariantName2();
+                                    Log.d(SUBSTRATUM_BUILDER, "You have selected variant file \"" +
+                                            overlays.currentInstance.checkedOverlays.get(i)
                                                     .getSelectedVariantName2() + '"');
-                                    Log.d(Overlays.TAG, "Moving variant file to: " +
+                                    Log.d(SUBSTRATUM_BUILDER, "Moving variant file to: " +
                                             workingDirectory + parsedSuffix + "/values/type1b.xml");
 
                                     String to_copy =
                                             OVERLAYS_DIR + '/' + current_overlay +
                                                     "/type1b_" +
-                                                    overlays.checkedOverlays.get(i)
+                                                    overlays.currentInstance.checkedOverlays.get(i)
                                                             .getSelectedVariantName2() +
                                                     (overlays.encrypted ? ".xml" +
                                                             ENCRYPTED_FILE_EXTENSION : ".xml");
@@ -752,20 +802,20 @@ enum OverlaysManager {
                                             overlays.cipher);
                                 }
                                 // Type 1c
-                                if (overlays.checkedOverlays.get(i).is_variant_chosen3) {
-                                    overlays.type1c =
-                                            overlays.checkedOverlays.get(i)
-                                                    .getSelectedVariantName3();
-                                    Log.d(Overlays.TAG, "You have selected variant file \"" +
-                                            overlays.checkedOverlays.get(i)
+                                if (overlays.currentInstance.checkedOverlays.get(i)
+                                        .is_variant_chosen3) {
+                                    type1c = overlays.currentInstance.checkedOverlays.get(i)
+                                            .getSelectedVariantName3();
+                                    Log.d(SUBSTRATUM_BUILDER, "You have selected variant file \"" +
+                                            overlays.currentInstance.checkedOverlays.get(i)
                                                     .getSelectedVariantName3() + '"');
-                                    Log.d(Overlays.TAG, "Moving variant file to: " +
+                                    Log.d(SUBSTRATUM_BUILDER, "Moving variant file to: " +
                                             workingDirectory + parsedSuffix + "/values/type1c.xml");
 
                                     String to_copy =
                                             OVERLAYS_DIR + '/' + current_overlay +
                                                     "/type1c_" +
-                                                    overlays.checkedOverlays.get(i)
+                                                    overlays.currentInstance.checkedOverlays.get(i)
                                                             .getSelectedVariantName3() +
                                                     (overlays.encrypted ? ".xml" +
                                                             ENCRYPTED_FILE_EXTENSION : ".xml");
@@ -783,29 +833,34 @@ enum OverlaysManager {
                                 }
 
                                 String packageName =
-                                        (overlays.checkedOverlays.get(i).is_variant_chosen1 ?
-                                                overlays.checkedOverlays.get(i)
+                                        (overlays.currentInstance.checkedOverlays.get(i)
+                                                .is_variant_chosen1 ?
+                                                overlays.currentInstance.checkedOverlays.get(i)
                                                         .getSelectedVariantName() : "") +
-                                                (overlays.checkedOverlays
+                                                (overlays.currentInstance.checkedOverlays
                                                         .get(i).is_variant_chosen2 ?
-                                                        overlays.checkedOverlays.get(i)
+                                                        overlays.currentInstance.checkedOverlays
+                                                                .get(i)
                                                                 .getSelectedVariantName2() : "") +
-                                                (overlays.checkedOverlays
+                                                (overlays.currentInstance.checkedOverlays
                                                         .get(i).is_variant_chosen3 ?
-                                                        overlays.checkedOverlays.get(i)
+                                                        overlays.currentInstance.checkedOverlays
+                                                                .get(i)
                                                                 .getSelectedVariantName3() : "") +
-                                                (overlays.checkedOverlays
+                                                (overlays.currentInstance.checkedOverlays
                                                         .get(i).is_variant_chosen5 ?
-                                                        overlays.checkedOverlays.get(i)
+                                                        overlays.currentInstance.checkedOverlays
+                                                                .get(i)
                                                                 .getSelectedVariantName5() : "")
                                                         .replaceAll("\\s+", "").replaceAll
                                                         ("[^a-zA-Z0-9]+", "");
 
-                                if (overlays.checkedOverlays.get(i).is_variant_chosen5) {
+                                if (overlays.currentInstance.checkedOverlays.get(i)
+                                        .is_variant_chosen5) {
                                     // Copy over the type4 assets
-                                    overlays.type4 = overlays.checkedOverlays.get(i)
+                                    type4 = overlays.currentInstance.checkedOverlays.get(i)
                                             .getSelectedVariantName5();
-                                    String type4folder = "/type4_" + overlays.type4;
+                                    String type4folder = "/type4_" + type4;
                                     String type4folderOutput = "/assets";
                                     String to_copy2 = OVERLAYS_DIR + '/' +
                                             current_overlay +
@@ -818,15 +873,17 @@ enum OverlaysManager {
                                             overlays.cipher);
                                 }
 
-                                if (overlays.checkedOverlays.get(i).is_variant_chosen4) {
-                                    packageName = (packageName + overlays.checkedOverlays.get(i)
+                                if (overlays.currentInstance.checkedOverlays.get(i)
+                                        .is_variant_chosen4) {
+                                    packageName = (packageName + overlays.currentInstance
+                                            .checkedOverlays.get(i)
                                             .getSelectedVariantName4()).replaceAll("\\s+", "")
                                             .replaceAll("[^a-zA-Z0-9]+", "");
 
                                     // Copy over the type2 assets
-                                    overlays.type2 = overlays.checkedOverlays.get(i)
+                                    type2 = overlays.currentInstance.checkedOverlays.get(i)
                                             .getSelectedVariantName4();
-                                    String type2folder = "/type2_" + overlays.type2;
+                                    String type2folder = "/type2_" + type2;
                                     String to_copy = OVERLAYS_DIR + '/' +
                                             current_overlay +
                                             type2folder;
@@ -838,64 +895,64 @@ enum OverlaysManager {
                                             overlays.cipher);
 
                                     // Let's get started
-                                    Log.d(Overlays.TAG, "Currently processing package" +
-                                            " \"" + overlays.checkedOverlays.get(i)
+                                    Log.d(SUBSTRATUM_BUILDER, "Currently processing package" +
+                                            " \"" + overlays.currentInstance.checkedOverlays.get(i)
                                             .getFullOverlayParameters() + "\"...");
                                     if (!sUrl[0].isEmpty()) {
-                                        overlays.sb = new SubstratumBuilder();
-                                        overlays.sb.beginAction(
+                                        overlays.compileInstance = new SubstratumBuilder();
+                                        overlays.compileInstance.beginAction(
                                                 context,
                                                 current_overlay,
                                                 overlays.theme_name,
                                                 packageName,
-                                                overlays.checkedOverlays.get(i)
+                                                overlays.currentInstance.checkedOverlays.get(i)
                                                         .getSelectedVariantName4(),
                                                 sUrl[0],
                                                 overlays.versionName,
                                                 Systems.checkOMS(context),
                                                 overlays.theme_pid,
                                                 parsedSuffix,
-                                                overlays.type1a,
-                                                overlays.type1b,
-                                                overlays.type1c,
-                                                overlays.type2,
-                                                overlays.type3,
-                                                overlays.type4,
+                                                type1a,
+                                                type1b,
+                                                type1c,
+                                                type2,
+                                                type3,
+                                                type4,
                                                 null,
-                                                false);
-                                        overlays.logTypes();
+                                                false
+                                        );
                                     } else {
-                                        overlays.sb = new SubstratumBuilder();
-                                        overlays.sb.beginAction(
+                                        overlays.compileInstance = new SubstratumBuilder();
+                                        overlays.compileInstance.beginAction(
                                                 context,
                                                 current_overlay,
                                                 overlays.theme_name,
                                                 packageName,
-                                                overlays.checkedOverlays.get(i)
+                                                overlays.currentInstance.checkedOverlays.get(i)
                                                         .getSelectedVariantName4(),
                                                 null,
                                                 overlays.versionName,
                                                 Systems.checkOMS(context),
                                                 overlays.theme_pid,
                                                 parsedSuffix,
-                                                overlays.type1a,
-                                                overlays.type1b,
-                                                overlays.type1c,
-                                                overlays.type2,
-                                                overlays.type3,
-                                                overlays.type4,
+                                                type1a,
+                                                type1b,
+                                                type1c,
+                                                type2,
+                                                type3,
+                                                type4,
                                                 null,
-                                                false);
-                                        overlays.logTypes();
+                                                false
+                                        );
                                     }
                                 } else {
-                                    Log.d(Overlays.TAG, "Currently processing package" +
-                                            " \"" + overlays.checkedOverlays.get(i)
+                                    Log.d(SUBSTRATUM_BUILDER, "Currently processing package" +
+                                            " \"" + overlays.currentInstance.checkedOverlays.get(i)
                                             .getFullOverlayParameters() + "\"...");
 
                                     if (!sUrl[0].isEmpty()) {
-                                        overlays.sb = new SubstratumBuilder();
-                                        overlays.sb.beginAction(
+                                        overlays.compileInstance = new SubstratumBuilder();
+                                        overlays.compileInstance.beginAction(
                                                 context,
                                                 current_overlay,
                                                 overlays.theme_name,
@@ -906,18 +963,18 @@ enum OverlaysManager {
                                                 Systems.checkOMS(context),
                                                 overlays.theme_pid,
                                                 parsedSuffix,
-                                                overlays.type1a,
-                                                overlays.type1b,
-                                                overlays.type1c,
-                                                overlays.type2,
-                                                overlays.type3,
-                                                overlays.type4,
+                                                type1a,
+                                                type1b,
+                                                type1c,
+                                                type2,
+                                                type3,
+                                                type4,
                                                 null,
-                                                false);
-                                        overlays.logTypes();
+                                                false
+                                        );
                                     } else {
-                                        overlays.sb = new SubstratumBuilder();
-                                        overlays.sb.beginAction(
+                                        overlays.compileInstance = new SubstratumBuilder();
+                                        overlays.compileInstance.beginAction(
                                                 context,
                                                 current_overlay,
                                                 overlays.theme_name,
@@ -928,48 +985,53 @@ enum OverlaysManager {
                                                 Systems.checkOMS(context),
                                                 overlays.theme_pid,
                                                 parsedSuffix,
-                                                overlays.type1a,
-                                                overlays.type1b,
-                                                overlays.type1c,
-                                                overlays.type2,
-                                                overlays.type3,
-                                                overlays.type4,
+                                                type1a,
+                                                type1b,
+                                                type1c,
+                                                type2,
+                                                type3,
+                                                type4,
                                                 null,
-                                                false);
-                                        overlays.logTypes();
+                                                false
+                                        );
                                     }
                                 }
-                                if (overlays.sb.has_errored_out) {
-                                    if (!overlays.sb.getErrorLogs().contains("type3") ||
-                                            !overlays.sb.getErrorLogs().contains(
+                                if (overlays.compileInstance.has_errored_out) {
+                                    if (!overlays.compileInstance.getErrorLogs()
+                                            .contains("type3") ||
+                                            !overlays.compileInstance.getErrorLogs().contains(
                                                     "does not exist")) {
-                                        overlays.fail_count += 1;
-                                        if (overlays.error_logs.length() == 0) {
-                                            overlays.error_logs.append(overlays.sb.getErrorLogs());
+                                        overlays.currentInstance.fail_count += 1;
+                                        if (overlays.currentInstance.error_logs.length() == 0) {
+                                            overlays.currentInstance.error_logs.append(
+                                                    overlays.compileInstance.getErrorLogs());
                                         } else {
-                                            overlays.error_logs.append('\n')
-                                                    .append(overlays.sb.getErrorLogs());
+                                            overlays.currentInstance.error_logs.append('\n')
+                                                    .append(overlays.compileInstance
+                                                            .getErrorLogs());
                                         }
-                                        overlays.failed_packages.append(current_overlay);
-                                        overlays.failed_packages.append(" (");
-                                        overlays.failed_packages.append(
+                                        overlays.currentInstance.failed_packages
+                                                .append(current_overlay);
+                                        overlays.currentInstance.failed_packages.append(" (");
+                                        overlays.currentInstance.failed_packages.append(
                                                 Packages.getAppVersion(context,
                                                         current_overlay));
-                                        overlays.failed_packages.append(")\n");
-                                        overlays.has_failed = true;
+                                        overlays.currentInstance.failed_packages.append(")\n");
+                                        overlays.currentInstance.has_failed = true;
                                     } else {
-                                        overlays.missingType3 = true;
+                                        overlays.currentInstance.missingType3 = true;
                                     }
                                 } else {
-                                    if (overlays.sb.special_snowflake ||
-                                            !overlays.sb.no_install.isEmpty()) {
-                                        overlays.late_install.add(overlays.sb.no_install);
+                                    if (overlays.compileInstance.special_snowflake ||
+                                            !overlays.compileInstance.no_install.isEmpty()) {
+                                        overlays.currentInstance.late_install.add(
+                                                overlays.compileInstance.no_install);
                                     } else if (needToWait) {
                                         // Thread wait
                                         Substratum.startWaitingInstall();
                                         do {
                                             try {
-                                                Thread.sleep((long) Overlays.THREAD_WAIT_DURATION);
+                                                Thread.sleep((long) SPECIAL_SNOWFLAKE_DELAY);
                                             } catch (InterruptedException e) {
                                                 Thread.currentThread().interrupt();
                                             }
@@ -977,11 +1039,11 @@ enum OverlaysManager {
                                     }
                                 }
                             } else {
-                                Log.d(Overlays.TAG, "Currently processing package" +
+                                Log.d(SUBSTRATUM_BUILDER, "Currently processing package" +
                                         " \"" + current_overlay + '.' + theme_name_parsed +
                                         "\"...");
-                                overlays.sb = new SubstratumBuilder();
-                                overlays.sb.beginAction(
+                                overlays.compileInstance = new SubstratumBuilder();
+                                overlays.compileInstance.beginAction(
                                         context,
                                         current_overlay,
                                         overlays.theme_name,
@@ -992,40 +1054,43 @@ enum OverlaysManager {
                                         Systems.checkOMS(context),
                                         overlays.theme_pid,
                                         parsedSuffix,
-                                        overlays.type1a,
-                                        overlays.type1b,
-                                        overlays.type1c,
-                                        overlays.type2,
-                                        overlays.type3,
-                                        overlays.type4,
+                                        type1a,
+                                        type1b,
+                                        type1c,
+                                        type2,
+                                        type3,
+                                        type4,
                                         null,
-                                        false);
-                                overlays.logTypes();
+                                        false
+                                );
 
-                                if (overlays.sb.has_errored_out) {
-                                    overlays.fail_count += 1;
-                                    if (overlays.error_logs.length() == 0) {
-                                        overlays.error_logs.append(overlays.sb.getErrorLogs());
+                                if (overlays.compileInstance.has_errored_out) {
+                                    overlays.currentInstance.fail_count += 1;
+                                    if (overlays.currentInstance.error_logs.length() == 0) {
+                                        overlays.currentInstance.error_logs.append(
+                                                overlays.compileInstance.getErrorLogs());
                                     } else {
-                                        overlays.error_logs.append('\n')
-                                                .append(overlays.sb.getErrorLogs());
+                                        overlays.currentInstance.error_logs.append('\n')
+                                                .append(overlays.compileInstance.getErrorLogs());
                                     }
-                                    overlays.failed_packages.append(current_overlay);
-                                    overlays.failed_packages.append(" (");
-                                    overlays.failed_packages.append(
+                                    overlays.currentInstance.failed_packages
+                                            .append(current_overlay);
+                                    overlays.currentInstance.failed_packages.append(" (");
+                                    overlays.currentInstance.failed_packages.append(
                                             Packages.getAppVersion(context, current_overlay));
-                                    overlays.failed_packages.append(")\n");
-                                    overlays.has_failed = true;
+                                    overlays.currentInstance.failed_packages.append(")\n");
+                                    overlays.currentInstance.has_failed = true;
                                 } else {
-                                    if (overlays.sb.special_snowflake ||
-                                            !overlays.sb.no_install.isEmpty()) {
-                                        overlays.late_install.add(overlays.sb.no_install);
+                                    if (overlays.compileInstance.special_snowflake ||
+                                            !overlays.compileInstance.no_install.isEmpty()) {
+                                        overlays.currentInstance.late_install
+                                                .add(overlays.compileInstance.no_install);
                                     } else if (needToWait) {
                                         // Thread wait
                                         Substratum.startWaitingInstall();
                                         do {
                                             try {
-                                                Thread.sleep((long) Overlays.THREAD_WAIT_DURATION);
+                                                Thread.sleep((long) SPECIAL_SNOWFLAKE_DELAY);
                                             } catch (InterruptedException e) {
                                                 Thread.currentThread().interrupt();
                                             }
@@ -1035,19 +1100,20 @@ enum OverlaysManager {
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            Log.e(Overlays.TAG, "Main function has unexpectedly stopped!");
+                            Log.e(SUBSTRATUM_BUILDER, "Main function has unexpectedly stopped!");
                         }
                     } else {
-                        if (overlays.final_runner == null)
-                            overlays.final_runner = new ArrayList<>();
+                        if (overlays.currentInstance.final_runner == null)
+                            overlays.currentInstance.final_runner = new ArrayList<>();
                         if (overlays.enable_mode ||
                                 overlays.compile_enable_mode ||
                                 overlays.disable_mode ||
                                 overlays.enable_disable_mode) {
                             String package_name =
-                                    overlays.checkedOverlays.get(i).getFullOverlayParameters();
+                                    overlays.currentInstance.checkedOverlays.get(i)
+                                            .getFullOverlayParameters();
                             if (Packages.isPackageInstalled(context, package_name)) {
-                                overlays.final_runner.add(package_name);
+                                overlays.currentInstance.final_runner.add(package_name);
                             }
                         }
                     }
@@ -1084,10 +1150,7 @@ enum OverlaysManager {
             Overlays overlays = ref.get();
             if (overlays != null) {
                 Context context = overlays.getActivity();
-
-                if (!overlays.final_runner.isEmpty()) {
-                    overlays.enable_mode = false;
-
+                if (!overlays.currentInstance.final_runner.isEmpty()) {
                     if (overlays.mixAndMatchMode) {
                         // Buffer the disableBeforeEnabling String
                         ArrayList<String> disableBeforeEnabling = new ArrayList<>();
@@ -1100,11 +1163,12 @@ enum OverlaysManager {
                             }
                         }
                         ThemeManager.disableOverlay(context, disableBeforeEnabling);
-                        ThemeManager.enableOverlay(context, overlays.final_command);
+                        ThemeManager.enableOverlay(context, overlays.currentInstance.final_command);
                     } else {
-                        ThemeManager.enableOverlay(context, overlays.final_command);
+                        ThemeManager.enableOverlay(context, overlays.currentInstance.final_command);
                     }
                 }
+                overlays.resetCompileFlags();
             }
             return null;
         }
@@ -1113,40 +1177,7 @@ enum OverlaysManager {
         protected void onPostExecute(Void result) {
             Overlays overlays = ref.get();
             Context context = refContext.get();
-            if ((overlays != null) && (context != null)) {
-                if (!overlays.final_runner.isEmpty()) {
-                    if (overlays.needsRecreate(context)) {
-                        Handler handler = new Handler();
-                        handler.postDelayed(() -> {
-                            // OMS may not have written all the changes so quickly just yet
-                            // so we may need to have a small delay
-                            try {
-                                overlays.overlaysLists = overlays.mAdapter
-                                        .getOverlayList();
-                                for (int i = 0; i < overlays.overlaysLists.size(); i++) {
-                                    OverlaysItem currentOverlay = overlays.overlaysLists
-                                            .get(i);
-                                    currentOverlay.setSelected(false);
-                                    currentOverlay.updateEnabledOverlays(
-                                            overlays.updateEnabledOverlays());
-                                    overlays.mAdapter.notifyDataSetChanged();
-                                }
-                            } catch (Exception e) {
-                                // Consume window refresh
-                            }
-                        }, (long) References.REFRESH_WINDOW_DELAY);
-                    }
-                } else {
-                    overlays.compile_enable_mode = false;
-                    overlays.enable_mode = false;
-                    currentShownLunchBar = Lunchbar.make(
-                            overlays.getActivityView(),
-                            R.string.toast_disabled3,
-                            Lunchbar.LENGTH_LONG);
-                    currentShownLunchBar.show();
-                }
-                overlays.progressBar.setVisibility(View.GONE);
-            }
+            endingEnableDisable(overlays, context);
         }
     }
 
@@ -1168,7 +1199,7 @@ enum OverlaysManager {
             Overlays overlays = ref.get();
             if (overlays != null) {
                 Activity activity = overlays.getActivity();
-                if (!overlays.final_runner.isEmpty()) {
+                if (!overlays.currentInstance.final_runner.isEmpty()) {
                     overlays.progressBar.setVisibility(View.VISIBLE);
                     if (overlays.toggle_all.isChecked())
                         if (activity != null)
@@ -1182,11 +1213,10 @@ enum OverlaysManager {
             Overlays overlays = ref.get();
             if (overlays != null) {
                 Context context = overlays.getActivity();
-
-                if (!overlays.final_runner.isEmpty()) {
-                    overlays.disable_mode = false;
-                    ThemeManager.disableOverlay(context, overlays.final_command);
+                if (!overlays.currentInstance.final_runner.isEmpty()) {
+                    ThemeManager.disableOverlay(context, overlays.currentInstance.final_command);
                 }
+                overlays.resetCompileFlags();
             }
             return null;
         }
@@ -1195,43 +1225,7 @@ enum OverlaysManager {
         protected void onPostExecute(Void result) {
             Overlays overlays = ref.get();
             Context context = refContext.get();
-            if ((overlays != null) && (context != null)) {
-                Activity activity = overlays.getActivity();
-                overlays.progressBar.setVisibility(View.GONE);
-                if (!overlays.final_runner.isEmpty()) {
-                    if (overlays.needsRecreate(context)) {
-                        Handler handler = new Handler();
-                        handler.postDelayed(() -> {
-                            // OMS may not have written all the changes so quickly just yet
-                            // so we may need to have a small delay
-                            try {
-                                overlays.overlaysLists = overlays.mAdapter
-                                        .getOverlayList();
-                                for (int i = 0; i < overlays.overlaysLists.size(); i++) {
-                                    OverlaysItem currentOverlay =
-                                            overlays.overlaysLists.get(i);
-                                    currentOverlay.setSelected(false);
-                                    currentOverlay.updateEnabledOverlays(
-                                            overlays.updateEnabledOverlays());
-                                    if (activity != null) {
-                                        activity.runOnUiThread(() ->
-                                                overlays.mAdapter.notifyDataSetChanged());
-                                    }
-                                }
-                            } catch (Exception e) {
-                                // Consume window refresh
-                            }
-                        }, (long) References.REFRESH_WINDOW_DELAY);
-                    }
-                } else {
-                    overlays.disable_mode = false;
-                    currentShownLunchBar = Lunchbar.make(
-                            overlays.getActivityView(),
-                            R.string.toast_disabled4,
-                            Lunchbar.LENGTH_LONG);
-                    currentShownLunchBar.show();
-                }
-            }
+            endingEnableDisable(overlays, context);
         }
     }
 
@@ -1253,7 +1247,7 @@ enum OverlaysManager {
             Overlays overlays = ref.get();
             if (overlays != null) {
                 Activity activity = overlays.getActivity();
-                if (!overlays.final_runner.isEmpty()) {
+                if (!overlays.currentInstance.final_runner.isEmpty()) {
                     overlays.progressBar.setVisibility(View.VISIBLE);
                     if (overlays.toggle_all.isChecked()) {
                         if (activity != null) {
@@ -1269,16 +1263,14 @@ enum OverlaysManager {
             Overlays overlays = ref.get();
             if (overlays != null) {
                 Context context = overlays.getActivity();
-                if (!overlays.final_runner.isEmpty()) {
-                    overlays.enable_disable_mode = false;
-
+                if (!overlays.currentInstance.final_runner.isEmpty()) {
                     ArrayList<String> enableOverlays = new ArrayList<>();
                     ArrayList<String> disableOverlays = new ArrayList<>();
-                    for (int i = 0; i < overlays.final_command.size(); i++) {
-                        if (!overlays.checkedOverlays.get(i).isOverlayEnabled()) {
-                            enableOverlays.add(overlays.final_command.get(i));
+                    for (int i = 0; i < overlays.currentInstance.final_command.size(); i++) {
+                        if (!overlays.currentInstance.checkedOverlays.get(i).isOverlayEnabled()) {
+                            enableOverlays.add(overlays.currentInstance.final_command.get(i));
                         } else {
-                            disableOverlays.add(overlays.final_command.get(i));
+                            disableOverlays.add(overlays.currentInstance.final_command.get(i));
                         }
                     }
                     ThemeManager.disableOverlay(context, disableOverlays);
@@ -1297,6 +1289,7 @@ enum OverlaysManager {
                     }
                     ThemeManager.enableOverlay(context, enableOverlays);
                 }
+                overlays.resetCompileFlags();
             }
             return null;
         }
@@ -1305,43 +1298,7 @@ enum OverlaysManager {
         protected void onPostExecute(Void result) {
             Overlays overlays = ref.get();
             Context context = refContext.get();
-            if ((overlays != null) && (context != null)) {
-                Activity activity = overlays.getActivity();
-                overlays.progressBar.setVisibility(View.GONE);
-                if (!overlays.final_runner.isEmpty()) {
-                    if (overlays.needsRecreate(context)) {
-                        Handler handler = new Handler();
-                        handler.postDelayed(() -> {
-                            // OMS may not have written all the changes so quickly just yet
-                            // so we may need to have a small delay
-                            try {
-                                overlays.overlaysLists = overlays.mAdapter
-                                        .getOverlayList();
-                                for (int i = 0; i < overlays.overlaysLists.size(); i++) {
-                                    OverlaysItem currentOverlay =
-                                            overlays.overlaysLists.get(i);
-                                    currentOverlay.setSelected(false);
-                                    currentOverlay.updateEnabledOverlays(
-                                            overlays.updateEnabledOverlays());
-                                    if (activity != null) {
-                                        activity.runOnUiThread(() ->
-                                                overlays.mAdapter.notifyDataSetChanged());
-                                    }
-                                }
-                            } catch (Exception e) {
-                                // Consume window refresh
-                            }
-                        }, (long) References.REFRESH_WINDOW_DELAY);
-                    }
-                } else {
-                    overlays.enable_disable_mode = false;
-                    currentShownLunchBar = Lunchbar.make(
-                            overlays.getActivityView(),
-                            R.string.toast_disabled3,
-                            Lunchbar.LENGTH_LONG);
-                    currentShownLunchBar.show();
-                }
-            }
+            endingEnableDisable(overlays, context);
         }
     }
 
@@ -1376,7 +1333,7 @@ enum OverlaysManager {
                                 PendingIntent.FLAG_CANCEL_CURRENT);
 
                 overlays.mNotifyManager.cancel(References.notification_id_compiler);
-                if (!overlays.has_failed) {
+                if (!overlays.currentInstance.has_failed) {
                     // Closing off the persistent notification
                     if (overlays.checkActiveNotifications()) {
                         overlays.mBuilder = new NotificationCompat.Builder(
@@ -1397,7 +1354,7 @@ enum OverlaysManager {
                                 References.notification_id_compiler, overlays.mBuilder.build());
                     }
 
-                    if (overlays.missingType3) {
+                    if (overlays.currentInstance.missingType3) {
                         currentShownLunchBar = Lunchbar.make(
                                 overlays.getActivityView(),
                                 R.string.toast_compiled_missing,
@@ -1414,7 +1371,7 @@ enum OverlaysManager {
 
                 if (InformationActivity.compilingProcess &&
                         InformationActivity.shouldRestartActivity) {
-                    // Gracefully finish
+                    // Gracefully finish, so that we won't close the activity when theme is upgraded
                     InformationActivity.shouldRestartActivity = false;
                     InformationActivity.compilingProcess = false;
                     Broadcasts.sendActivityFinisherMessage(
@@ -1430,7 +1387,9 @@ enum OverlaysManager {
                 Activity activity = overlays.getActivity();
                 Context context = refContext.get();
 
-                if (!overlays.has_failed || (overlays.final_runner.size() > overlays.fail_count)) {
+                if (!overlays.currentInstance.has_failed ||
+                        (overlays.currentInstance.final_runner.size() >
+                                overlays.currentInstance.fail_count)) {
                     new StringBuilder();
                     if (overlays.compile_enable_mode && overlays.mixAndMatchMode) {
                         // Buffer the disableBeforeEnabling String
@@ -1442,7 +1401,7 @@ enum OverlaysManager {
                                     getOverlayParent(context, p))) {
                                 disableBeforeEnabling.add(p);
                             } else {
-                                for (OverlaysItem oi : overlays.checkedOverlays) {
+                                for (OverlaysItem oi : overlays.currentInstance.checkedOverlays) {
                                     String targetOverlay = oi.getPackageName();
                                     if (targetOverlay.equals(
                                             Packages.getOverlayTarget(context, p))) {
@@ -1454,8 +1413,8 @@ enum OverlaysManager {
                         if (checkThemeInterfacer(context)) {
                             ThemeManager.disableOverlay(context, disableBeforeEnabling);
                         } else {
-                            StringBuilder final_commands = new StringBuilder(ThemeManager
-                                    .disableOverlay);
+                            StringBuilder final_commands = new StringBuilder(
+                                    ThemeManager.disableOverlay);
                             for (int i = 0; i < disableBeforeEnabling.size(); i++) {
                                 final_commands
                                         .append(' ')
@@ -1467,11 +1426,11 @@ enum OverlaysManager {
                     }
 
                     if (overlays.compile_enable_mode) {
-                        ThemeManager.enableOverlay(context, overlays.final_command);
+                        ThemeManager.enableOverlay(context, overlays.currentInstance.final_command);
                     }
 
                     if (activity != null) {
-                        if (overlays.final_runner.isEmpty()) {
+                        if (overlays.currentInstance.final_runner.isEmpty()) {
                             if (overlays.base_spinner.getSelectedItemPosition() == 0) {
                                 activity.runOnUiThread(() ->
                                         overlays.mAdapter.notifyDataSetChanged());
@@ -1495,14 +1454,14 @@ enum OverlaysManager {
                             // OMS may not have written all the changes so quickly just yet
                             // so we may need to have a small delay
                             try {
-                                overlays.overlaysLists =
+                                overlays.overlayItemList =
                                         overlays.mAdapter.getOverlayList();
-                                for (int i = 0; i < overlays.overlaysLists.size(); i++) {
-                                    OverlaysItem currentOverlay = overlays.overlaysLists
+                                for (int i = 0; i < overlays.overlayItemList.size(); i++) {
+                                    OverlaysItem currentOverlay = overlays.overlayItemList
                                             .get(i);
                                     currentOverlay.setSelected(false);
                                     currentOverlay.updateEnabledOverlays(
-                                            overlays.updateEnabledOverlays());
+                                            overlays.getCurrentOverlays());
                                     if (activity != null) {
                                         activity.runOnUiThread(() ->
                                                 overlays.mAdapter.notifyDataSetChanged());
@@ -1515,7 +1474,8 @@ enum OverlaysManager {
                     }
                 }
 
-                if (!overlays.late_install.isEmpty() && !Systems.isSamsung(context)) {
+                if (!overlays.currentInstance.late_install.isEmpty() &&
+                        !Systems.isSamsung(context)) {
                     // Install remaining overlays
                     HandlerThread thread = new HandlerThread("LateInstallThread",
                             Thread.MAX_PRIORITY);
@@ -1523,7 +1483,7 @@ enum OverlaysManager {
                     Handler handler = new Handler(thread.getLooper());
                     Runnable r = () -> {
                         ArrayList<String> packages = new ArrayList<>();
-                        for (String o : overlays.late_install) {
+                        for (String o : overlays.currentInstance.late_install) {
                             ThemeManager.installOverlay(context, o);
                             String packageName =
                                     o.substring(o.lastIndexOf('/') + 1, o.lastIndexOf('-'));
@@ -1536,7 +1496,7 @@ enum OverlaysManager {
                                 Substratum.startWaitingInstall();
                                 do {
                                     try {
-                                        Thread.sleep((long) Overlays.THREAD_WAIT_DURATION);
+                                        Thread.sleep((long) SPECIAL_SNOWFLAKE_DELAY);
                                     } catch (InterruptedException e) {
                                         // Still waiting
                                     }
@@ -1553,10 +1513,6 @@ enum OverlaysManager {
                 }
             }
             return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
         }
     }
 }

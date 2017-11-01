@@ -29,7 +29,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.net.Uri;
@@ -54,7 +53,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -80,7 +78,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -101,7 +98,6 @@ import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
-import projekt.substratum.util.files.MapUtils;
 import projekt.substratum.util.files.Root;
 import projekt.substratum.util.views.SheetDialog;
 
@@ -131,8 +127,14 @@ import static projekt.substratum.common.Internal.SUPPORTED_ROMS_FILE;
 import static projekt.substratum.common.Internal.SWAP_MODE;
 import static projekt.substratum.common.Internal.THEME_NAME;
 import static projekt.substratum.common.Internal.THEME_PID;
+import static projekt.substratum.common.Internal.TYPE1A_PREFIX;
+import static projekt.substratum.common.Internal.TYPE1B_PREFIX;
+import static projekt.substratum.common.Internal.TYPE1C_PREFIX;
+import static projekt.substratum.common.Internal.TYPE2_PREFIX;
+import static projekt.substratum.common.Internal.TYPE4_PREFIX;
+import static projekt.substratum.common.Internal.XML_EXTENSION;
+import static projekt.substratum.common.Packages.isPackageInstalled;
 import static projekt.substratum.common.References.DEFAULT_NOTIFICATION_CHANNEL_ID;
-import static projekt.substratum.common.References.ENABLE_PACKAGE_LOGGING;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER;
 import static projekt.substratum.common.References.SUBSTRATUM_PACKAGE;
@@ -147,55 +149,30 @@ import static projekt.substratum.common.Resources.SYSTEMUI_HEADERS;
 import static projekt.substratum.common.Resources.SYSTEMUI_NAVBARS;
 import static projekt.substratum.common.Resources.SYSTEMUI_QSTILES;
 import static projekt.substratum.common.Resources.SYSTEMUI_STATUSBARS;
+import static projekt.substratum.common.Resources.allowedAppOverlay;
+import static projekt.substratum.common.Resources.allowedFrameworkOverlay;
+import static projekt.substratum.common.Resources.allowedSettingsOverlay;
+import static projekt.substratum.common.Resources.allowedSystemUIOverlay;
 import static projekt.substratum.tabs.OverlaysManager.legacyDisable;
 import static projekt.substratum.tabs.OverlaysManager.selectCompileMode;
 import static projekt.substratum.tabs.OverlaysManager.selectEnabledDisabled;
+import static projekt.substratum.util.files.MapUtils.sortMapByValues;
 
 public class Overlays extends Fragment {
 
-    public static final String TAG = SUBSTRATUM_BUILDER;
-    public static final int THREAD_WAIT_DURATION = 500;
-    public ImageView loader_image;
-    public TextView loader_string;
-    public SheetDialog mCompileDialog;
-    public SubstratumBuilder sb;
-    public List<OverlaysItem> overlaysLists;
-    public List<OverlaysItem> checkedOverlays;
-    public OverlaysAdapter mAdapter;
     public String theme_name;
     public String theme_pid;
     public String versionName;
+    public SheetDialog mCompileDialog;
+    public SubstratumBuilder compileInstance;
+    public SharedPreferences prefs;
+    public OverlaysAdapter mAdapter;
     public NotificationManager mNotifyManager;
     public NotificationCompat.Builder mBuilder;
-    public boolean has_failed = false;
-    public int fail_count;
-    public StringBuilder failed_packages;
-    public SharedPreferences prefs;
-    public List<String> final_runner;
-    public List<String> late_install;
-    public boolean mixAndMatchMode = false;
-    public boolean enable_mode = false;
-    public boolean disable_mode = false;
-    public boolean compile_enable_mode = false;
-    public boolean enable_disable_mode = false;
-    public Boolean is_overlay_active = false;
-    public StringBuilder error_logs;
-    public double current_amount;
-    public double total_amount;
-    public String current_dialog_overlay;
     public ProgressBar dialogProgress;
-    public ArrayList<String> final_command;
     public AssetManager themeAssetManager;
-    public Boolean missingType3 = false;
-    public String type1a = "";
-    public String type1b = "";
-    public String type1c = "";
-    public String type2 = "";
-    public String type3 = "";
-    public String type4 = "";
     public Boolean encrypted = false;
     public Cipher cipher;
-    public int overlaysWaiting;
     public ActivityManager am;
     @BindView(R.id.header_loading_bar)
     public ProgressBar progressBar;
@@ -203,6 +180,13 @@ public class Overlays extends Fragment {
     public Switch toggle_all;
     @BindView(R.id.type3_spinner)
     public Spinner base_spinner;
+    public List<OverlaysItem> overlayItemList;
+    public boolean mixAndMatchMode = false;
+    public boolean enable_mode = false;
+    public boolean disable_mode = false;
+    public boolean compile_enable_mode = false;
+    public boolean enable_disable_mode = false;
+    OverlaysInstance currentInstance = OverlaysInstance.getInstance();
     Context mContext;
     @BindView(R.id.overlayRecyclerView)
     RecyclerView mRecyclerView;
@@ -212,33 +196,19 @@ public class Overlays extends Fragment {
     RelativeLayout toggleZone;
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
-    private ArrayList<OverlaysItem> values2;
+    private ArrayList<OverlaysItem> adapterList;
     private JobReceiver jobReceiver;
     private LocalBroadcastManager localBroadcastManager;
     private RefreshReceiver refreshReceiver;
-    private boolean decryptedAssetsExceptionReached;
-    private int currentPosition;
-
-    /**
-     * Display all of the type resources if this is called
-     */
-    void logTypes() {
-        if (ENABLE_PACKAGE_LOGGING) {
-            Log.d("Theme Type1a Resource", type1a);
-            Log.d("Theme Type1b Resource", type1b);
-            Log.d("Theme Type1c Resource", type1c);
-            Log.d("Theme Type2  Resource", type2);
-            Log.d("Theme Type3  Resource", type3);
-            Log.d("Theme Type4  Resource", type4);
-        }
-    }
+    private String parsed_theme_name;
+    private Integer recyclerViewPosition;
+    private List<String> current_overlays;
 
     /**
      * We use flags to unify a whole function in OverlaysManager, call this to reset it all!
      * By resetting all, it means that you have finished ALL functions to-be-served for the user
      */
     void resetCompileFlags() {
-        is_overlay_active = false;
         compile_enable_mode = false;
         enable_mode = false;
         disable_mode = false;
@@ -262,34 +232,26 @@ public class Overlays extends Fragment {
      * Utilize the shared compile + * mode, but enable the overlays selected afterwards
      */
     private void startCompileEnableMode() {
-        if (!is_overlay_active) {
-            resetCompileFlags();
-            is_overlay_active = true;
-            compile_enable_mode = true;
-            selectCompileMode(this);
-        }
+        resetCompileFlags();
+        compile_enable_mode = true;
+        selectCompileMode(this);
     }
 
     /**
      * Utilize the shared compile + * mode and do not enable the overlays selected afterwards
      */
     private void startCompileUpdateMode() {
-        if (!is_overlay_active) {
-            resetCompileFlags();
-            is_overlay_active = true;
-            selectCompileMode(this);
-        }
+        resetCompileFlags();
+        selectCompileMode(this);
     }
 
     /**
      * Disable the selected overlays
      */
     private void startDisable() {
-        if (!is_overlay_active) {
-            selectEnabledDisabled(this, DISABLE_MODE);
-            if (!Systems.checkOMS(mContext)) {
-                legacyDisable(this);
-            }
+        selectEnabledDisabled(this, DISABLE_MODE);
+        if (!Systems.checkOMS(mContext)) {
+            legacyDisable(this);
         }
     }
 
@@ -297,18 +259,14 @@ public class Overlays extends Fragment {
      * Enable the selected overlays
      */
     private void startEnable() {
-        if (!is_overlay_active) {
-            selectEnabledDisabled(this, ENABLE_MODE);
-        }
+        selectEnabledDisabled(this, ENABLE_MODE);
     }
 
     /**
      * Swap state mode
      */
     private void startEnableDisable() {
-        if (!is_overlay_active) {
-            selectEnabledDisabled(this, SWAP_MODE);
-        }
+        selectEnabledDisabled(this, SWAP_MODE);
     }
 
     /**
@@ -319,7 +277,7 @@ public class Overlays extends Fragment {
     private void setMixAndMatchMode(boolean newValue) {
         mixAndMatchMode = newValue;
         prefs.edit().putBoolean("enable_swapping_overlays", mixAndMatchMode).apply();
-        updateEnabledOverlays();
+        getCurrentOverlays();
     }
 
     @Override
@@ -346,6 +304,7 @@ public class Overlays extends Fragment {
             String encrypt_check =
                     Packages.getOverlayMetadata(mContext, theme_pid, metadataEncryption);
 
+            Boolean decryptedAssetsExceptionReached = false;
             if ((encrypt_check != null) && encrypt_check.equals(metadataEncryptionValue)) {
                 byte[] encryption_key = getArguments().getByteArray(ENCRYPTION_KEY_EXTRA);
                 byte[] iv_encrypt_key = getArguments().getByteArray(IV_ENCRYPTION_KEY_EXTRA);
@@ -356,15 +315,15 @@ public class Overlays extends Fragment {
                             new SecretKeySpec(encryption_key, SECRET_KEY_SPEC),
                             new IvParameterSpec(iv_encrypt_key)
                     );
-                    Log.d(TAG, "Loading substratum theme in encrypted assets mode.");
+                    Log.d(SUBSTRATUM_BUILDER, "Loading substratum theme in encrypted assets mode.");
                     encrypted = true;
                 } catch (Exception e) {
-                    Log.d(TAG,
+                    Log.d(SUBSTRATUM_BUILDER,
                             "Loading substratum theme in decrypted assets mode due to an exception.");
                     decryptedAssetsExceptionReached = true;
                 }
             } else {
-                Log.d(TAG, "Loading substratum theme in decrypted assets mode.");
+                Log.d(SUBSTRATUM_BUILDER, "Loading substratum theme in decrypted assets mode.");
             }
 
             if (decryptedAssetsExceptionReached) {
@@ -395,21 +354,22 @@ public class Overlays extends Fragment {
 
         File work_area = new File(EXTERNAL_STORAGE_CACHE);
         if (!work_area.exists() && work_area.mkdir()) {
-            Log.d(TAG, "Updating the internal storage with proper file directories...");
+            Log.d(SUBSTRATUM_BUILDER,
+                    "Updating the internal storage with proper file directories...");
         }
 
         // Adjust the behaviour of the mix and match toggle in the sheet
         toggle_all.setOnCheckedChangeListener(
                 (buttonView, isChecked) -> {
                     try {
-                        overlaysLists = mAdapter.getOverlayList();
-                        for (int i = 0; i < overlaysLists.size(); i++) {
-                            OverlaysItem currentOverlay = overlaysLists.get(i);
+                        overlayItemList = mAdapter.getOverlayList();
+                        for (int i = 0; i < overlayItemList.size(); i++) {
+                            OverlaysItem currentOverlay = overlayItemList.get(i);
                             currentOverlay.setSelected(isChecked);
                             mAdapter.notifyDataSetChanged();
                         }
                     } catch (Exception e) {
-                        Log.e(TAG, "Window has lost connection with the host.");
+                        Log.e(SUBSTRATUM_BUILDER, "Window has lost connection with the host.");
                     }
                 });
 
@@ -417,14 +377,14 @@ public class Overlays extends Fragment {
         toggleZone.setOnClickListener(v -> {
             try {
                 toggle_all.setChecked(!toggle_all.isChecked());
-                overlaysLists = mAdapter.getOverlayList();
-                for (int i = 0; i < overlaysLists.size(); i++) {
-                    OverlaysItem currentOverlay = overlaysLists.get(i);
+                overlayItemList = mAdapter.getOverlayList();
+                for (int i = 0; i < overlayItemList.size(); i++) {
+                    OverlaysItem currentOverlay = overlayItemList.get(i);
                     currentOverlay.setSelected(toggle_all.isChecked());
                     mAdapter.notifyDataSetChanged();
                 }
             } catch (Exception e) {
-                Log.e(TAG, "Window has lost connection with the host.");
+                Log.e(SUBSTRATUM_BUILDER, "Window has lost connection with the host.");
             }
         });
 
@@ -483,7 +443,7 @@ public class Overlays extends Fragment {
                                     ());
                     type3.add(new VariantItem(formatter, null));
                 } catch (IOException e) {
-                    Log.e(TAG, "There was an error parsing asset file!");
+                    Log.e(SUBSTRATUM_BUILDER, "There was an error parsing asset file!");
                     type3.add(new VariantItem(getString(R.string
                             .overlays_variant_default_3), null));
                 }
@@ -509,12 +469,12 @@ public class Overlays extends Fragment {
                     base_spinner.setVisibility(View.VISIBLE);
                     base_spinner.setAdapter(adapter1);
                     try {
-                        Log.d(TAG,
+                        Log.d(SUBSTRATUM_BUILDER,
                                 "Assigning the spinner position: " + prefs2.getInt(theme_pid, 0));
                         base_spinner.setSelection(prefs2.getInt(theme_pid, 0));
                     } catch (Exception e) {
                         // Should be OutOfBounds, but let's catch everything
-                        Log.d(TAG, "Falling back to default spinner position due to an error...");
+                        Log.d(SUBSTRATUM_BUILDER, "Falling back to default spinner position due to an error...");
                         prefs2.edit().putInt(theme_pid, 0).apply();
                         base_spinner.setSelection(0);
                     }
@@ -534,7 +494,7 @@ public class Overlays extends Fragment {
                 base_spinner.setVisibility(View.INVISIBLE);
             }
             e.printStackTrace();
-            Log.e(TAG, "Could not parse list of base options for this theme!");
+            Log.e(SUBSTRATUM_BUILDER, "Could not parse list of base options for this theme!");
         }
 
         // Enable job listener
@@ -545,7 +505,9 @@ public class Overlays extends Fragment {
 
         // Enable the instance to be retained for LogChar invoke after configuration change
         setRetainInstance(true);
-        if ((error_logs != null) && (error_logs.length() > 0)) {
+        if (currentInstance != null &&
+                currentInstance.error_logs != null &&
+                currentInstance.error_logs.length() > 0) {
             invokeLogCharLunchBar(mContext);
         }
         return view;
@@ -556,7 +518,7 @@ public class Overlays extends Fragment {
      *
      * @return new list of enabled overlays
      */
-    List<String> updateEnabledOverlays() {
+    List<String> getCurrentOverlays() {
         return new ArrayList<>(ThemeManager.listOverlays(
                 mContext,
                 ThemeManager.STATE_ENABLED
@@ -618,8 +580,8 @@ public class Overlays extends Fragment {
             new SendErrorReport(
                     context,
                     theme_pid,
-                    error_logs.toString(),
-                    failed_packages.toString(),
+                    currentInstance.error_logs.toString(),
+                    currentInstance.failed_packages.toString(),
                     true
             ).execute();
         }
@@ -633,8 +595,8 @@ public class Overlays extends Fragment {
      * @param context Self explanatory, bud.
      */
     private void invokeLogCharLunchBar(Context context) {
-        CharSequence errorLogCopy = new StringBuilder(error_logs);
-        error_logs = new StringBuilder();
+        CharSequence errorLogCopy = new StringBuilder(currentInstance.error_logs);
+        currentInstance.error_logs = new StringBuilder();
         currentShownLunchBar = Lunchbar.make(
                 getActivityView(),
                 R.string.logcat_snackbar_text,
@@ -676,7 +638,7 @@ public class Overlays extends Fragment {
                             context,
                             theme_pid,
                             logs.toString(),
-                            failed_packages.toString(),
+                            currentInstance.failed_packages.toString(),
                             false
                     ).execute());
         }
@@ -706,7 +668,7 @@ public class Overlays extends Fragment {
      * @return If true, the system will automatically recreate
      */
     boolean needsRecreate(Context context) {
-        for (OverlaysItem oi : checkedOverlays) {
+        for (OverlaysItem oi : currentInstance.checkedOverlays) {
             String packageName = oi.getPackageName();
             if (packageName.equals(FRAMEWORK) ||
                     packageName.equals(SUBSTRATUM_PACKAGE)) {
@@ -723,7 +685,7 @@ public class Overlays extends Fragment {
                 }
             }
         }
-        return Systems.checkOMS(mContext) && !has_failed;
+        return Systems.checkOMS(mContext) && !currentInstance.has_failed;
     }
 
     /**
@@ -797,7 +759,7 @@ public class Overlays extends Fragment {
             return new VariantItem(formatter, hex);
         } catch (Exception e) {
             // When erroring out, put the default spinner text
-            Log.d(TAG, "Falling back to default base variant text...");
+            Log.d(SUBSTRATUM_BUILDER, "Falling back to default base variant text...");
             String hex = null;
             if (encrypted) {
                 try (InputStream input = FileOperations.getInputStream(
@@ -850,7 +812,7 @@ public class Overlays extends Fragment {
             return new VariantItem(String.format(
                     getString(R.string.overlays_variant_substitute), reader.readLine()), null);
         } catch (Exception e) {
-            Log.d(TAG, "Falling back to default base variant text...");
+            Log.d(SUBSTRATUM_BUILDER, "Falling back to default base variant text...");
             switch (typeValue) {
                 case 2:
                     return new VariantItem(
@@ -912,10 +874,11 @@ public class Overlays extends Fragment {
         switch (requestCode) {
             case 2486:
                 FileOperations.delete(mContext,
-                        new File(late_install.get(0)).getAbsolutePath());
-                if ((late_install != null) && !late_install.isEmpty())
-                    late_install.remove(0);
-                if (!late_install.isEmpty()) {
+                        new File(currentInstance.late_install.get(0)).getAbsolutePath());
+                if ((currentInstance.late_install != null) &&
+                        !currentInstance.late_install.isEmpty())
+                    currentInstance.late_install.remove(0);
+                if (!currentInstance.late_install.isEmpty()) {
                     installMultipleAPKs();
                 }
         }
@@ -930,7 +893,7 @@ public class Overlays extends Fragment {
         Uri uri = FileProvider.getUriForFile(
                 mContext,
                 mContext.getApplicationContext().getPackageName() + ".provider",
-                new File(late_install.get(0)));
+                new File(currentInstance.late_install.get(0)));
         intent.setDataAndType(
                 uri,
                 PACKAGE_INSTALL_URI);
@@ -952,7 +915,7 @@ public class Overlays extends Fragment {
      * subsequent calls
      */
     private void refreshList() {
-        currentPosition = ((LinearLayoutManager)
+        recyclerViewPosition = ((LinearLayoutManager)
                 mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
         toggle_all.setChecked(false);
         if (base_spinner.getSelectedItemPosition() > 0) {
@@ -1104,16 +1067,392 @@ public class Overlays extends Fragment {
             ref = new WeakReference<>(fragment);
         }
 
+        static void setViews(Overlays fragment, Boolean state) {
+            fragment.swipeRefreshLayout.setRefreshing(!state);
+            fragment.mRecyclerView.setEnabled(state);
+            fragment.toggle_all.setEnabled(state);
+            if (!state) fragment.toggle_all.setChecked(state);
+            fragment.base_spinner.setEnabled(state);
+        }
+
+        /**
+         * Step 1
+         * Assign global variables and do all the prenotions
+         *
+         * @param overlays Overlays
+         * @return True, if successful
+         */
+        private static boolean assignVariables(Overlays overlays) {
+            try {
+                overlays.adapterList = new ArrayList<>();
+                Resources themeResources = overlays.mContext.getPackageManager()
+                        .getResourcesForApplication(overlays.theme_pid);
+                overlays.themeAssetManager = themeResources.getAssets();
+                overlays.versionName = Packages.getAppVersion(
+                        overlays.mContext, overlays.theme_pid);
+                String initial_parse = overlays.theme_name.replaceAll("\\s+", "");
+                overlays.parsed_theme_name = initial_parse.replaceAll("[^a-zA-Z0-9]+", "");
+                overlays.current_overlays = overlays.getCurrentOverlays();
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+        /**
+         * Step 2
+         * Create a buffered list of strings that provide the function with overlays that are
+         * parsable by {@link #obtainUnsortedMap(Overlays, List)}
+         *
+         * @param overlays Overlays
+         * @return Returns a list of strings to be mapped
+         */
+        private static List<String> buffer(Overlays overlays) {
+            Context context = overlays.mContext;
+            Collection<String> overlaysFolder = new ArrayList<>();
+
+            try {
+                // First, we list the overlays available in the theme, then add them all to workList
+                String[] overlayList = overlays.themeAssetManager.list(OVERLAYS_DIR);
+                Collections.addAll(
+                        overlaysFolder,
+                        overlayList
+                );
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+                return null;
+            }
+
+            // This is for Samsung internal use only!
+            Boolean showDangerous =
+                    !overlays.prefs.getBoolean("show_dangerous_samsung_overlays", false);
+
+            // Now, we have to sort what packages are going to be seen by the user
+            List<String> list = new ArrayList<>();
+            for (String package_name : overlaysFolder) {
+                if ((isPackageInstalled(context, package_name) ||
+                        allowedSystemUIOverlay(package_name) ||
+                        allowedSettingsOverlay(package_name) ||
+                        allowedFrameworkOverlay(package_name)
+                ) && (!showDangerous ||
+                        !ThemeManager.blacklisted(
+                                package_name,
+                                Systems.isSamsung(context) &&
+                                        !Packages.isSamsungTheme(
+                                                context,
+                                                overlays.theme_pid
+                                        )
+                        )
+                )) {
+                    list.add(package_name);
+                }
+            }
+            if (list.size() > 0) {
+                return new ArrayList<>(list);
+            } else {
+                return null;
+            }
+        }
+
+        /**
+         * Step 3
+         * Obtain a map in the format of {package_name,package_identifier} for the asset overlays
+         *
+         * @param overlays Overlays
+         * @param values   {@link #buffer(Overlays)}
+         * @return Returns a Map, for sorting
+         */
+        private static Map<String, String> obtainUnsortedMap(Overlays overlays,
+                                                             List<String> values) {
+            // Create the map for {package name: package identifier}
+            Map<String, String> unsortedMap = new HashMap<>();
+
+            // Then let's convert all the package names to their app names
+            for (int i = 0; i < values.size(); i++) {
+                try {
+                    String target = values.get(i);
+                    String package_name = "";
+                    Boolean succeeded = false;
+
+                    if (allowedSystemUIOverlay(target)) {
+                        // Check if the overlay matches one of the custom packages from SystemUI
+                        switch (target) {
+                            case SYSTEMUI_HEADERS:
+                                package_name = overlays.getString(R.string.systemui_headers);
+                                succeeded = true;
+                                break;
+                            case SYSTEMUI_NAVBARS:
+                                package_name = overlays.getString(R.string.systemui_navigation);
+                                succeeded = true;
+                                break;
+                            case SYSTEMUI_STATUSBARS:
+                                package_name = overlays.getString(R.string.systemui_statusbar);
+                                succeeded = true;
+                                break;
+                            case SYSTEMUI_QSTILES:
+                                package_name = overlays.getString(R.string.systemui_qs_tiles);
+                                succeeded = true;
+                                break;
+                        }
+                    } else if (allowedSettingsOverlay(target)) {
+                        // If not SystemUI, check if it is part of the Settings
+                        switch (target) {
+                            case SETTINGS_ICONS:
+                                package_name = overlays.getString(R.string.settings_icons);
+                                succeeded = true;
+                                break;
+                        }
+                    } else if (allowedFrameworkOverlay(target)) {
+                        // Finally, if not Settings, check if it is part of the Android Framework
+                        switch (target) {
+                            case SAMSUNG_FRAMEWORK:
+                                package_name = overlays.getString(R.string.samsung_framework);
+                                succeeded = true;
+                                break;
+                            case LG_FRAMEWORK:
+                                package_name = overlays.getString(R.string.lg_framework);
+                                succeeded = true;
+                                break;
+                        }
+                    } else if (allowedAppOverlay(target)) {
+                        // The filter passes, just toss in the app into the list
+                        package_name = Packages.getPackageName(overlays.mContext, target);
+                        succeeded = true;
+                    }
+                    if (succeeded) unsortedMap.put(target, package_name);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+            return unsortedMap;
+        }
+
+        /**
+         * Step 4
+         * Completely iron out everything as there is no way we need to fail at this point
+         *
+         * @param overlays  Overlays
+         * @param sortedMap Sorted map
+         * @param argument  Argument fed into the AsynchronousTask
+         */
+        private static void parseDirectoryStructure(Overlays overlays,
+                                                    List<Pair<String, String>> sortedMap,
+                                                    String argument) {
+            for (Pair<String, String> entry : sortedMap) {
+                String package_name = entry.second;
+                String package_identifier = entry.first;
+
+                try {
+                    List<String> typeArray = new ArrayList<>();
+                    Object typeArrayRaw = overlays.themeAssetManager.list(
+                            OVERLAYS_DIR + '/' + package_identifier);
+
+                    // Sort the typeArray so that the types are asciibetical
+                    Collections.addAll(typeArray, (String[]) typeArrayRaw);
+                    Collections.sort(typeArray);
+
+                    // Sort the typeArray so that the types are asciibetical
+                    Collections.sort(typeArray);
+
+                    // Let's start adding the type xmls to be parsed into the spinners
+                    ArrayList<VariantItem> type1a = new ArrayList<>();
+                    ArrayList<VariantItem> type1b = new ArrayList<>();
+                    ArrayList<VariantItem> type1c = new ArrayList<>();
+                    ArrayList<VariantItem> type2 = new ArrayList<>();
+                    ArrayList<VariantItem> type4 = new ArrayList<>();
+
+                    // Load up type1a's
+                    if (typeArray.contains("type1a") ||
+                            typeArray.contains("type1a" + ENCRYPTED_FILE_EXTENSION)) {
+                        type1a.add(overlays.setTypeOneSpinners(package_identifier, "a"));
+                    }
+
+                    // Load up type1b's
+                    if (typeArray.contains("type1b") ||
+                            typeArray.contains("type1b" + ENCRYPTED_FILE_EXTENSION)) {
+                        type1b.add(overlays.setTypeOneSpinners(package_identifier, "b"));
+                    }
+
+                    // Load up type1c's
+                    if (typeArray.contains("type1c") ||
+                            typeArray.contains("type1c" + ENCRYPTED_FILE_EXTENSION)) {
+                        type1c.add(overlays.setTypeOneSpinners(package_identifier, "c"));
+                    }
+
+                    // Are there any type2's in the overlay folder?
+                    boolean type2checker = false;
+                    for (int i = 0; i < typeArray.size(); i++) {
+                        if (typeArray.get(i).startsWith("type2_")) {
+                            type2checker = true;
+                            break;
+                        }
+                    }
+
+                    // Type2's are present, let's parse the name of the type2 spinner if present
+                    if (type2checker) {
+                        InputStreamReader inputStreamReader = null;
+                        try {
+                            inputStreamReader = new InputStreamReader(
+                                    FileOperations.getInputStream(
+                                            overlays.themeAssetManager,
+                                            OVERLAYS_DIR + '/' + package_identifier +
+                                                    (overlays.encrypted ?
+                                                            "/type2" + ENCRYPTED_FILE_EXTENSION :
+                                                            "/type2"
+                                                    ),
+                                            (overlays.encrypted ? overlays.cipher : null)));
+                        } catch (Exception e) {
+                            // Suppress warning
+                        }
+                        type2.add(overlays.setTypeTwoFourSpinners(inputStreamReader, 2));
+                    }
+
+                    // Are there any type4's in the overlay folder?
+                    boolean type4checker = false;
+                    for (int i = 0; i < typeArray.size(); i++) {
+                        if (typeArray.get(i).startsWith("type4_")) {
+                            type4checker = true;
+                            break;
+                        }
+                    }
+
+                    // Type4's are present, let's parse the name of the type2 spinner if present
+                    if (type4checker) {
+                        InputStreamReader inputStreamReader = null;
+                        try {
+                            inputStreamReader = new InputStreamReader(
+                                    FileOperations.getInputStream(
+                                            overlays.themeAssetManager,
+                                            OVERLAYS_DIR + '/' + package_identifier +
+                                                    (overlays.encrypted ?
+                                                            "/type4" + ENCRYPTED_FILE_EXTENSION :
+                                                            "/type4"
+                                                    ),
+                                            (overlays.encrypted ? overlays.cipher : null)));
+                        } catch (Exception e) {
+                            // Suppress warning
+                        }
+                        type4.add(overlays.setTypeTwoFourSpinners(inputStreamReader, 4));
+                    }
+
+                    // Finally, check if the assets/overlays folder actually has anything inside
+                    if (typeArray.size() > 1) {
+                        for (int i = 0; i < typeArray.size(); i++) {
+                            String current = typeArray.get(i);
+
+                            // Filter out the assets/overlays/overlay_name/res
+                            if (current.contains(XML_EXTENSION)) {
+                                // We need to find out whether the themer decided to add
+                                // injection-based type1 variants, and if so, add to the
+                                // variants
+                                switch (current.substring(0, 7)) {
+                                    case TYPE1A_PREFIX:
+                                        type1a.add(overlays.setTypeOneHexAndSpinner(
+                                                current, package_identifier));
+                                        break;
+                                    case TYPE1B_PREFIX:
+                                        type1b.add(overlays.setTypeOneHexAndSpinner(
+                                                current, package_identifier));
+                                        break;
+                                    case TYPE1C_PREFIX:
+                                        type1c.add(overlays.setTypeOneHexAndSpinner(
+                                                current, package_identifier));
+                                        break;
+                                }
+                            } else if (current.length() >= 6) {
+                                // Now we filter out directories that we specifically whitelisted
+                                String starting = current.substring(0, 6);
+                                switch (starting) {
+                                    case TYPE2_PREFIX:
+                                        type2.add(new VariantItem(starting, null));
+                                        break;
+                                    case TYPE4_PREFIX:
+                                        type4.add(new VariantItem(starting, null));
+                                        break;
+                                }
+                            }
+                        }
+
+                        VariantAdapter[] adapters = new VariantAdapter[]{
+                                new VariantAdapter(overlays.mContext, type1a),
+                                new VariantAdapter(overlays.mContext, type1b),
+                                new VariantAdapter(overlays.mContext, type1c),
+                                new VariantAdapter(overlays.mContext, type2),
+                                new VariantAdapter(overlays.mContext, type4)
+                        };
+                        Boolean[] checker = new Boolean[]{
+                                type1a.isEmpty(),
+                                type1b.isEmpty(),
+                                type1c.isEmpty(),
+                                type2.isEmpty(),
+                                type4.isEmpty()
+                        };
+                        createOverlaysItem(
+                                overlays,
+                                package_name,
+                                package_identifier,
+                                checker,
+                                adapters,
+                                argument);
+                    } else {
+                        // At this point, there is no spinner adapter, so it should be null
+                        createOverlaysItem(
+                                overlays,
+                                package_name,
+                                package_identifier,
+                                null,
+                                null,
+                                argument);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        /**
+         * Step 4.5
+         * Create each individual overlay item
+         *
+         * @param overlays           Overlays
+         * @param package_name       Name of of overlay
+         * @param package_identifier Package name
+         * @param checker            Array of booleans denoting whether each type is available
+         * @param adapters           Array of VariantAdapters denoting the data
+         * @param argument           Argument of the AsynchronousTask
+         */
+        private static void createOverlaysItem(Overlays overlays,
+                                               String package_name,
+                                               String package_identifier,
+                                               Boolean[] checker,
+                                               VariantAdapter[] adapters,
+                                               String argument) {
+            OverlaysItem overlaysItem =
+                    new OverlaysItem(
+                            overlays.parsed_theme_name,
+                            package_name,
+                            package_identifier,
+                            false,
+                            (checker != null && checker[0] ? null : adapters[0]),
+                            (checker != null && checker[1] ? null : adapters[1]),
+                            (checker != null && checker[2] ? null : adapters[2]),
+                            (checker != null && checker[3] ? null : adapters[3]),
+                            (checker != null && checker[4] ? null : adapters[4]),
+                            overlays.mContext,
+                            overlays.versionName,
+                            argument,
+                            overlays.current_overlays,
+                            Systems.checkOMS(overlays.mContext),
+                            overlays.getActivityView());
+            overlays.adapterList.add(overlaysItem);
+        }
+
         @Override
         protected void onPreExecute() {
             Overlays fragment = ref.get();
-            if (fragment != null) {
-                fragment.swipeRefreshLayout.setRefreshing(true);
-                fragment.mRecyclerView.setEnabled(false);
-                fragment.toggle_all.setEnabled(false);
-                fragment.toggle_all.setChecked(false);
-                fragment.base_spinner.setEnabled(false);
-            }
+            if (fragment != null) setViews(fragment, false);
         }
 
         @Override
@@ -1121,340 +1460,34 @@ public class Overlays extends Fragment {
             super.onPostExecute(result);
             Overlays fragment = ref.get();
             if (fragment != null) {
-                fragment.swipeRefreshLayout.setRefreshing(false);
-                fragment.mRecyclerView.setEnabled(true);
-                fragment.toggle_all.setEnabled(true);
-                fragment.base_spinner.setEnabled(true);
-                fragment.mAdapter = new OverlaysAdapter(fragment.values2);
+                setViews(fragment, true);
+                fragment.mAdapter = new OverlaysAdapter(fragment.adapterList);
                 fragment.mRecyclerView.setAdapter(fragment.mAdapter);
-                fragment.mRecyclerView.getLayoutManager()
-                        .scrollToPosition(fragment.currentPosition);
+                fragment.mRecyclerView.getLayoutManager().scrollToPosition(
+                        fragment.recyclerViewPosition);
                 fragment.mAdapter.notifyDataSetChanged();
-                fragment.mRecyclerView.setVisibility(View.VISIBLE);
+                if (!fragment.mRecyclerView.isShown())
+                    fragment.mRecyclerView.setVisibility(View.VISIBLE);
             }
         }
 
-        @SuppressWarnings("ConstantConditions")
         @Override
         protected String doInBackground(String... sUrl) {
             Overlays fragment = ref.get();
             if (fragment != null) {
-                Context context = fragment.getActivity();
-                // Refresh asset manager
-                try {
-                    assert context != null;
-                    Resources themeResources = context.getPackageManager()
-                            .getResourcesForApplication(fragment.theme_pid);
-                    fragment.themeAssetManager = themeResources.getAssets();
-
-                    // Get the current theme_pid's versionName so that we can version our overlays
-                    fragment.versionName = Packages.getAppVersion(context, fragment.theme_pid);
-                    List<String> state5overlays = fragment.updateEnabledOverlays();
-                    String parse1_themeName = fragment.theme_name.replaceAll("\\s+", "");
-                    fragment.values2 = new ArrayList<>();
-
-                    // Buffer the initial values list so that we get the list of packages
-                    // inside this theme
-                    Collection<String> overlaysFolder = new ArrayList<>();
-                    try {
-                        String[] overlayList =
-                                fragment.themeAssetManager.list(OVERLAYS_DIR);
-                        Collections.addAll(overlaysFolder, overlayList);
-                    } catch (IOException ioe) {
-                        ioe.printStackTrace();
-                    }
-
-                    Boolean showDangerous =
-                            !fragment.prefs.getBoolean("show_dangerous_samsung_overlays", false);
-
-                    List<String> values = new ArrayList<>(overlaysFolder.stream().filter
-                            (package_name -> (Packages
-                                    .isPackageInstalled(context, package_name) ||
-                                    projekt.substratum.common.Resources.allowedSystemUIOverlay
-                                            (package_name) ||
-                                    projekt.substratum.common.Resources.allowedSettingsOverlay
-                                            (package_name) ||
-                                    projekt.substratum.common.Resources.allowedFrameworkOverlay
-                                            (package_name)) &&
-                                    (!showDangerous || !ThemeManager.blacklisted(
-                                            package_name,
-                                            Systems.isSamsung(context) &&
-                                                    !Packages.isSamsungTheme(
-                                                            context, fragment.theme_pid))))
-                            .collect(Collectors.toList()));
-
-                    // Create the map for {package name: package identifier}
-                    Map<String, String> unsortedMap = new HashMap<>();
-
-                    // Then let's convert all the package names to their app names
-                    for (int i = 0; i < values.size(); i++) {
-                        try {
-                            if (projekt.substratum.common.Resources.allowedSystemUIOverlay(values
-                                    .get(i))) {
-                                String package_name = "";
-                                switch (values.get(i)) {
-                                    case SYSTEMUI_HEADERS:
-                                        package_name = context.getString(R.string.systemui_headers);
-                                        break;
-                                    case SYSTEMUI_NAVBARS:
-                                        package_name = context.getString(R.string
-                                                .systemui_navigation);
-                                        break;
-                                    case SYSTEMUI_STATUSBARS:
-                                        package_name = context.getString(R.string
-                                                .systemui_statusbar);
-                                        break;
-                                    case SYSTEMUI_QSTILES:
-                                        package_name = context.getString(R.string
-                                                .systemui_qs_tiles);
-                                        break;
-                                }
-                                unsortedMap.put(values.get(i), package_name);
-                            } else if (projekt.substratum.common.Resources.allowedSettingsOverlay
-                                    (values.get(i))) {
-                                String package_name = "";
-                                switch (values.get(i)) {
-                                    case SETTINGS_ICONS:
-                                        package_name = context.getString(R.string.settings_icons);
-                                        break;
-                                }
-                                unsortedMap.put(values.get(i), package_name);
-                            } else if (projekt.substratum.common.Resources.allowedFrameworkOverlay
-                                    (values.get(i))) {
-                                String package_name = "";
-                                switch (values.get(i)) {
-                                    case SAMSUNG_FRAMEWORK:
-                                        package_name = context.getString(
-                                                R.string.samsung_framework);
-                                        break;
-                                    case LG_FRAMEWORK:
-                                        package_name = context.getString(
-                                                R.string.lg_framework);
-                                        break;
-                                }
-                                unsortedMap.put(values.get(i), package_name);
-                            } else if (projekt.substratum.common.Resources.allowedAppOverlay
-                                    (values.get(i))) {
-                                ApplicationInfo applicationInfo = context.getPackageManager()
-                                        .getApplicationInfo
-                                                (values.get(i), 0);
-                                String packageTitle = context.getPackageManager()
-                                        .getApplicationLabel
-                                                (applicationInfo).toString();
-                                unsortedMap.put(values.get(i), packageTitle);
+                // Modularizing the compile process to make it easier to track errors
+                Boolean assigned = assignVariables(fragment);
+                if (assigned) {
+                    List<String> values = buffer(fragment);
+                    if (values != null) {
+                        Map<String, String> unsortedMap = obtainUnsortedMap(fragment, values);
+                        if (unsortedMap != null) {
+                            List<Pair<String, String>> sortedMap = sortMapByValues(unsortedMap);
+                            if (sortedMap != null) {
+                                parseDirectoryStructure(fragment, sortedMap, sUrl[0]);
                             }
-                        } catch (Exception e) {
-                            // Exception
                         }
                     }
-
-                    // Sort the values list
-                    List<Pair<String, String>> sortedMap =
-                            MapUtils.sortMapByValues(unsortedMap);
-
-                    // Now let's add the new information so that the adapter can recognize custom
-                    // method
-                    // calls
-                    String parse2_themeName = parse1_themeName.replaceAll("[^a-zA-Z0-9]+",
-                            "");
-                    for (Pair<String, String> entry : sortedMap) {
-                        String package_name = entry.second;
-                        String package_identifier = entry.first;
-
-                        try {
-                            List<String> typeArray = new ArrayList<>();
-
-                            Object typeArrayRaw = fragment.themeAssetManager.list(
-                                    OVERLAYS_DIR + '/' + package_identifier);
-
-                            // Sort the typeArray so that the types are asciibetical
-                            Collections.addAll(typeArray, (String[]) typeArrayRaw);
-                            Collections.sort(typeArray);
-
-                            // Sort the typeArray so that the types are asciibetical
-                            Collections.sort(typeArray);
-
-                            // Let's start adding the type xmls to be parsed into the spinners
-                            ArrayList<VariantItem> type1a = new ArrayList<>();
-                            if (typeArray.contains("type1a") ||
-                                    typeArray.contains("type1a" + ENCRYPTED_FILE_EXTENSION)) {
-                                type1a.add(fragment.setTypeOneSpinners(
-                                        package_identifier, "a"));
-                            }
-
-                            ArrayList<VariantItem> type1b = new ArrayList<>();
-                            if (typeArray.contains("type1b") ||
-                                    typeArray.contains("type1b" + ENCRYPTED_FILE_EXTENSION)) {
-                                type1b.add(fragment.setTypeOneSpinners(
-                                        package_identifier, "b"));
-                            }
-
-                            ArrayList<VariantItem> type1c = new ArrayList<>();
-                            if (typeArray.contains("type1c") ||
-                                    typeArray.contains("type1c" + ENCRYPTED_FILE_EXTENSION)) {
-                                type1c.add(fragment.setTypeOneSpinners(
-                                        package_identifier, "c"));
-                            }
-
-                            boolean type2checker = false;
-                            for (int i = 0; i < typeArray.size(); i++) {
-                                if (typeArray.get(i).startsWith("type2_")) {
-                                    type2checker = true;
-                                    break;
-                                }
-                            }
-                            ArrayList<VariantItem> type2 = new ArrayList<>();
-                            if (typeArray.contains("type2") ||
-                                    typeArray.contains("type2" + ENCRYPTED_FILE_EXTENSION) ||
-                                    type2checker) {
-                                InputStreamReader inputStreamReader = null;
-                                try {
-                                    inputStreamReader =
-                                            new InputStreamReader(
-                                                    FileOperations.getInputStream(
-                                                            fragment.themeAssetManager,
-                                                            OVERLAYS_DIR + '/' +
-                                                                    package_identifier +
-                                                                    (fragment.encrypted ?
-                                                                            "/type2" +
-                                                                                    ENCRYPTED_FILE_EXTENSION :
-                                                                            "/type2"),
-                                                            (fragment.encrypted ?
-                                                                    fragment.cipher :
-                                                                    null)));
-                                } catch (Exception e) {
-                                    // Suppress warning
-                                }
-                                type2.add(fragment.setTypeTwoFourSpinners(inputStreamReader, 2));
-                            }
-
-                            // Begin Type4 initialization
-                            boolean type4checker = false;
-                            for (int i = 0; i < typeArray.size(); i++) {
-                                if (typeArray.get(i).startsWith("type4_")) {
-                                    type4checker = true;
-                                    break;
-                                }
-                            }
-                            ArrayList<VariantItem> type4 = new ArrayList<>();
-                            if (typeArray.contains("type4") ||
-                                    typeArray.contains("type4" + ENCRYPTED_FILE_EXTENSION) ||
-                                    type4checker) {
-                                InputStreamReader inputStreamReader = null;
-                                try {
-                                    inputStreamReader =
-                                            new InputStreamReader(
-                                                    FileOperations.getInputStream(
-                                                            fragment.themeAssetManager,
-                                                            OVERLAYS_DIR + '/' +
-                                                                    package_identifier +
-                                                                    (fragment.encrypted ?
-                                                                            "/type4" +
-                                                                                    ENCRYPTED_FILE_EXTENSION :
-                                                                            "/type4"),
-                                                            (fragment.encrypted ?
-                                                                    fragment.cipher :
-                                                                    null)));
-                                } catch (Exception e) {
-                                    // Suppress warning
-                                }
-                                type4.add(fragment.setTypeTwoFourSpinners(inputStreamReader, 4));
-                            }
-
-                            if (typeArray.size() > 1) {
-                                for (int i = 0; i < typeArray.size(); i++) {
-                                    String current = typeArray.get(i);
-                                    if (!"res".equals(current)) {
-                                        if (current.contains(".xml")) {
-                                            switch (current.substring(0, 7)) {
-                                                case "type1a_":
-                                                    type1a.add(
-                                                            fragment.setTypeOneHexAndSpinner(
-                                                                    current, package_identifier));
-                                                    break;
-                                                case "type1b_":
-                                                    type1b.add(
-                                                            fragment.setTypeOneHexAndSpinner(
-                                                                    current, package_identifier));
-                                                    break;
-                                                case "type1c_":
-                                                    type1c.add(
-                                                            fragment.setTypeOneHexAndSpinner(
-                                                                    current, package_identifier));
-                                                    break;
-                                            }
-                                        } else if (!current.contains(".") &&
-                                                (current.length() > 5)) {
-                                            if ("type2_".equals(current.substring(0, 6))) {
-                                                type2.add(
-                                                        new VariantItem(
-                                                                current.substring(6), null));
-                                            } else if ("type4_".equals(current.substring(0, 6))) {
-                                                type4.add(
-                                                        new VariantItem(
-                                                                current.substring(6), null));
-                                            }
-                                        }
-                                    }
-                                }
-
-                                VariantAdapter adapter1 = new VariantAdapter(context, type1a);
-                                VariantAdapter adapter2 = new VariantAdapter(context, type1b);
-                                VariantAdapter adapter3 = new VariantAdapter(context, type1c);
-                                VariantAdapter adapter4 = new VariantAdapter(context, type2);
-                                VariantAdapter adapter5 = new VariantAdapter(context, type4);
-
-                                boolean adapterOneChecker = type1a.isEmpty();
-                                boolean adapterTwoChecker = type1b.isEmpty();
-                                boolean adapterThreeChecker = type1c.isEmpty();
-                                boolean adapterFourChecker = type2.isEmpty();
-                                boolean adapterFiveChecker = type4.isEmpty();
-
-                                OverlaysItem overlaysItem =
-                                        new OverlaysItem(
-                                                parse2_themeName,
-                                                package_name,
-                                                package_identifier,
-                                                false,
-                                                (adapterOneChecker ? null : adapter1),
-                                                (adapterTwoChecker ? null : adapter2),
-                                                (adapterThreeChecker ? null : adapter3),
-                                                (adapterFourChecker ? null : adapter4),
-                                                (adapterFiveChecker ? null : adapter5),
-                                                context,
-                                                fragment.versionName,
-                                                sUrl[0],
-                                                state5overlays,
-                                                Systems.checkOMS(context),
-                                                fragment.getActivityView());
-                                fragment.values2.add(overlaysItem);
-                            } else {
-                                // At this point, there is no spinner adapter, so it should be null
-                                OverlaysItem overlaysItem =
-                                        new OverlaysItem(
-                                                parse2_themeName,
-                                                package_name,
-                                                package_identifier,
-                                                false,
-                                                null,
-                                                null,
-                                                null,
-                                                null,
-                                                null,
-                                                context,
-                                                fragment.versionName,
-                                                sUrl[0],
-                                                state5overlays,
-                                                Systems.checkOMS(context),
-                                                fragment.getActivityView());
-                                fragment.values2.add(overlaysItem);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                } catch (Exception e) {
-                    // Consume window disconnection
                 }
             }
             return null;
@@ -1506,8 +1539,8 @@ public class Overlays extends Fragment {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (Systems.isSamsung(context) && Root.checkRootAccess()) {
-                if (overlaysWaiting > 0) {
-                    --overlaysWaiting;
+                if (currentInstance.overlaysWaiting > 0) {
+                    --currentInstance.overlaysWaiting;
                 } else {
                     progressBar.setVisibility(View.GONE);
                 }

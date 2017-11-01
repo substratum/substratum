@@ -153,4 +153,12 @@ public enum Internal {
             "http://xmlpull.org/v1/doc/features.html#indent-output";
     public static final String XML_UTF = "UTF-8";
     public static final String SYSTEM_MEDIA_PATH = "/system/media/audio";
+    // Overlays.java
+    public static final Integer SPECIAL_SNOWFLAKE_DELAY = 500;
+    public static final String XML_EXTENSION = ".xml";
+    public static final String TYPE1A_PREFIX = "type1a_";
+    public static final String TYPE1B_PREFIX = "type1b_";
+    public static final String TYPE1C_PREFIX = "type1c_";
+    public static final String TYPE2_PREFIX = "type2_";
+    public static final String TYPE4_PREFIX = "type4_";
 }

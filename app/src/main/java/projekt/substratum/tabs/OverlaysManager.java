@@ -888,7 +888,7 @@ enum OverlaysManager {
                                             current_overlay,
                                             overlays.theme_name,
                                             packageName,
-                                            checked.getSelectedVariantName4(),
+                                            null,
                                             !sUrl[0].isEmpty() ? sUrl[0] : null,
                                             overlays.theme_version,
                                             Systems.checkOMS(context),

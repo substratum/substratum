@@ -249,7 +249,6 @@
     <string name="toast_compiled_missing">Une ou plusieurs surcouches ne peuvent pas être compilée(s), en raison de paramètres manquants dans cette sélection&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Surcouche(s) sélectionnée(s) mise(s) à jour avec quelques erreurs !</string>
     <string name="toast_disabled3">Compilez cette surcouche avant de l\'appliquer !</string>
-    <string name="toast_disabled4">Vous ne pouvez pas désactiver une surcouche que vous n\'avez pas compilé !</string>
     <string name="toast_disabled5">Sélectionnez une surcouche valide avant d\'effectuer cette action</string>
     <string name="toast_disabled6">Surcouche(s) sélectionnée(s) supprimée(s) !</string>
     <string name="no_themes_title">Aucun thème trouvé&#8230;</string>

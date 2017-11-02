@@ -285,7 +285,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="toast_compiled_missing">Jedno alebo viac prekrytí nie je možné vytvoriť (skompilovať) kvôli chýbajúcej konfigurácii v rámci tohto nastavenia&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Vybrané prekrytia sa aktualizovali s nejakými chybami!</string>
     <string name="toast_disabled3">Prosím, skompilujte toto prekrytie pred aplikovaním!</string>
-    <string name="toast_disabled4">Nemôžete zakázať prekrytie, ktoré nemáte skompilované!</string>
     <string name="toast_disabled5">Prosím, pred vykonaním tejto akcie, vyberte platné prekrytie.</string>
     <string name="toast_disabled6">Vybrané prekrytia boli odstránené!</string>
     <string name="no_themes_title">nenašli sa žiadne témy&#8230;</string>

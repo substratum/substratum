@@ -265,7 +265,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="toast_compiled_missing">Una o más capas no se pueden compilar debido a las configuraciones que faltan en esta elección&#8230;</string>
     <string name="toast_compiled_updated_with_errors">¡Las capas seleccionadas se actualizaron con algunos errores!</string>
     <string name="toast_disabled3">Compile esta capa antes de aplicar!</string>
-    <string name="toast_disabled4">No puede desactivar una capa que no haya compilado!</string>
     <string name="toast_disabled5">Seleccione una capa válida antes de realizar esta acción.</string>
     <string name="toast_disabled6">Capas seleccionadas eliminadas!</string>
     <string name="no_themes_title">No se encontraron temas&#8230;</string>

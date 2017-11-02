@@ -268,7 +268,6 @@
     <string name="toast_compiled_missing">Вы не можаце сабраць адно або некалькі напластаванняў з-за адсутнасць канфігурацыі ў гэтым наборы&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Выбранныя напластаванні абнаўляюцца з некаторымі памылкамі!</string>
     <string name="toast_disabled3">Сабырыце напластаванне перад ужываннем!</string>
-    <string name="toast_disabled4">Нельга адключыць несабранае напластаванне!</string>
     <string name="toast_disabled5">Перад выкананнем гэтай аперацыі неабходна выбраць правільнае напластаванне.</string>
     <string name="toast_disabled6">Выбраныя пласты выдалены!</string>
     <string name="no_themes_title">не знойдзена тэм&#8230;</string>

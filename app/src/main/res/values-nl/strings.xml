@@ -273,7 +273,6 @@
     <string name="toast_compiled_missing">Eén of meer overlays kunnen niet compileren door ontbrekende configuraties onder deze opstelling&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Geselecteerde overlay(s) bijgewerkt met fouten!</string>
     <string name="toast_disabled3">Gelieve deze overlay te compileren alvorens het toepassen!</string>
-    <string name="toast_disabled4">Je kunt een niet gecompileerde overlay niet uitschakelen!</string>
     <string name="toast_disabled5">Gelieve een geldige overlay te kiezen vóór het uitvoeren van deze actie.</string>
     <string name="toast_disabled6">Geselecteerde overlay(s) verwijderd!</string>
     <string name="no_themes_title">geen thema\'s gevonden&#8230;</string>

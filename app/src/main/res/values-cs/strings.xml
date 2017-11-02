@@ -296,7 +296,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="toast_compiled_updated_with_errors">Vybrané potahy jsou aktualizovány s pár
  chybami!</string>
     <string name="toast_disabled3">Prosím, zkompilujte tento potah před použitím!</string>
-    <string name="toast_disabled4">Nemůžete zakázat potah, který nemáte zkompilovaný!</string>
     <string name="toast_disabled5">Prosím, vyberte správný potah před provedením této akce.</string>
     <string name="toast_disabled6">Vybrané potahy jsou odstraněny!</string>
     <string name="no_themes_title">nenalezeny žádné motivy&#8230;</string>

@@ -254,7 +254,6 @@ eingerichtet&#8230;</string>
     <string name="toast_compiled_missing">Eine oder mehrere Overlays können aufgrund von fehlenden Konfigurationen in dieser Konstellation nicht kompiliert werden&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Ausgewählte(s) Overlay(s) mit einigen Fehlern aktualisiert!</string>
     <string name="toast_disabled3">Bitte Overlay vor dem Anwenden erst kompilieren!</string>
-    <string name="toast_disabled4">Du kannst keinen Overlay deaktivieren, der nicht kompiliert wurde!</string>
     <string name="toast_disabled5">Bitte wähle ein gültiges Overlay aus, bevor du mit dieser Aktion fortfährst.</string>
     <string name="toast_disabled6">Ausgewählte(s) Overlay(s) entfernt!</string>
     <string name="no_themes_title">Keine Themes gefunden&#8230;</string>

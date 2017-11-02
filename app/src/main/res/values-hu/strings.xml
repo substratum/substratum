@@ -356,7 +356,6 @@
     <string name="toast_compiled_missing">Egy vagy több fedvény nem állítható össze a beállításban hiányzó konfigurációk miatt&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Kiválasztott fedvény(ek) bizonyos hibákkal frissítve!</string>
     <string name="toast_disabled3">Kérjük az alkalmazás előtt állítsa össze ezt a fedvényt!</string>
-    <string name="toast_disabled4">Nem tiltható le az a fedvény, amit nem állított össze!</string>
     <string name="toast_disabled5">Kérjük, válasszon egy érvényes fedvényt, mielőtt ezt a műveletet végrehajtaná.</string>
     <string name="toast_disabled6">Kijelölt fedvény(ek) eltávolítva!</string>
     <string name="no_themes_title">nincsenek témák&#8230;</string>

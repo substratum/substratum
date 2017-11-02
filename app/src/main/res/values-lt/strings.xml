@@ -299,7 +299,6 @@
     <string name="toast_compiled_missing">Vienos ar daugiau perdangų negalima sukompiliuoti dėl trūkstamų konfigūracijų&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Pasirinktos perdangos atnaujintos su klaidomis!</string>
     <string name="toast_disabled3">Prašome sukompiliuoti šią perdangą prieš pritaikant!</string>
-    <string name="toast_disabled4">Jūs negalite išjungti perdangos, nes nesate sukompiliavę!</string>
     <string name="toast_disabled5">Prašome pasirinkti tinkamą perdangą prieš atliekant šį veiksmą.</string>
     <string name="toast_disabled6">Pasirinktos perdangos pašalintos!</string>
     <string name="no_themes_title">nerasta jokių temų&#8230;</string>

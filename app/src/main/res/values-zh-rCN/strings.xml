@@ -239,7 +239,6 @@
     <string name="toast_compiled_missing">在当前设置下，由于缺少某些配置，有一个或多个叠加层不能正常编译。</string>
     <string name="toast_compiled_updated_with_errors">叠加层更新时出现问题</string>
     <string name="toast_disabled3">应用前请先编译此叠加层</string>
-    <string name="toast_disabled4">无法禁用未编译的叠加层</string>
     <string name="toast_disabled5">执行此操作前，请先选择一个有效的叠加层。</string>
     <string name="toast_disabled6">叠加层已删除</string>
     <string name="no_themes_title">没有找到主题</string>

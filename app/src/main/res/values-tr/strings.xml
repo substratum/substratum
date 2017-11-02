@@ -364,7 +364,6 @@ bu sorunu
     <string name="toast_compiled_missing">Bu kurulumda eksik yapılandırmalar nedeniyle bir veya daha fazla tema derleyemez&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Seçili temalar bazı hatalarla güncellendi!</string>
     <string name="toast_disabled3">Lütfen uygulamadan önce temayı düzenleyin!</string>
-    <string name="toast_disabled4">Düzenlenmemiş temaları devre dışı bırakamazsınız!</string>
     <string name="toast_disabled5">Bu işlemi gerçekleştirmeden önce lütfen geçerli bir tema seçin.</string>
     <string name="toast_disabled6">Seçilen temalar kaldırıldı!</string>
     <string name="no_themes_title">tema bulunamadı&#8230;</string>

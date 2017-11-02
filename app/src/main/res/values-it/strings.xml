@@ -282,7 +282,6 @@
     <string name="toast_compiled_missing">Uno o più overlay non possono essere compilati a causa di configurazioni mancanti sotto questo setup&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Overlay selezionato(i) aggiornato(i) con errori!</string>
     <string name="toast_disabled3">Per favore compila questo overlay prima di applicarlo!</string>
-    <string name="toast_disabled4">Non puoi disabilitare un overlay se non lo hai prima compilato!</string>
     <string name="toast_disabled5">Per favore seleziona un overlay valido prima di effettuare quest\'azione.</string>
     <string name="toast_disabled6">Overlay selezionato(i) rimosso(i)!</string>
     <string name="no_themes_title">nessun tema trovato&#8230;</string>

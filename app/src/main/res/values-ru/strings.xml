@@ -283,7 +283,6 @@
     <string name="toast_compiled_missing">Одно или несколько наслоений не могут быть собраны из-за отсутствующих настроек&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Выбранные слои обновлены с неполадками!</string>
     <string name="toast_disabled3">Соберите наслоение перед применением!</string>
-    <string name="toast_disabled4">Нельзя отключить несобранное наслоение!</string>
     <string name="toast_disabled5">Выберите допустимое наслоение до выполнения этого действия.</string>
     <string name="toast_disabled6">Выбранные слои удалены!</string>
     <string name="no_themes_title">не найдено тем&#8230;</string>

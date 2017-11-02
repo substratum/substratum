@@ -297,7 +297,6 @@ corretamente&#8230;</string>
     <string name="toast_compiled_missing">Uma ou mais camadas não puderam ser compiladas devido falta de configurações&#8230;</string>
     <string name="toast_compiled_updated_with_errors">A camada (as) selecionada foi atualizada com erros!</string>
     <string name="toast_disabled3">Favor compilar esta camada antes de aplicar!</string>
-    <string name="toast_disabled4">Não pode desabilitar uma camada que não tenha compilado!</string>
     <string name="toast_disabled5">Por favor selecione uma camada valida antes de realizar essa ação.</string>
     <string name="toast_disabled6">Camada(s) selecionada(s) removida(s)!</string>
     <string name="no_themes_title">nenhum tema encontrado&#8230;</string>

@@ -116,7 +116,7 @@ public class TeamFragment extends Fragment {
                 launchActivityUrl(
                         getContext(),
                         References.getView(getActivity()),
-                        R.string.team_george);
+                        R.string.team_george_link);
             }
         });
 

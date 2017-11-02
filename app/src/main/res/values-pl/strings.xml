@@ -279,7 +279,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="toast_compiled_missing">Nie można skompilować jednej lub wielu nakładek z powodu braku konfiguracji w tym zestawie&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Wybrane nakładki zaktualizowane z pewnymi błędami!</string>
     <string name="toast_disabled3">Najpierw skompiluj tę nakładkę przed zastosowaniem!</string>
-    <string name="toast_disabled4">Nie można wyłączyć nakładki, której nie skompilowałeś!</string>
     <string name="toast_disabled5">Przed wykonaniem tej akcji zaznacz ważną nakładkę.</string>
     <string name="toast_disabled6">Wybrane nakładki zostały usunięte!</string>
     <string name="no_themes_title">nie znaleziono motywów&#8230;</string>

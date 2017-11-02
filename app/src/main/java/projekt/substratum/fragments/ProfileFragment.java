@@ -87,7 +87,6 @@ import projekt.substratum.common.platform.ThemeInterfacerService;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.common.systems.ProfileItem;
 import projekt.substratum.common.systems.ProfileManager;
-import projekt.substratum.tabs.Overlays;
 import projekt.substratum.tabs.WallpapersManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
 

@@ -93,7 +93,6 @@
                 android:clipToPadding="false"
                 android:paddingBottom="90dp"
                 android:scrollbars="none"
-                android:visibility="gone"
                 app:fastScrollEnabled="true"
                 app:fastScrollHorizontalThumbDrawable="@drawable/thumb_drawable"
                 app:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"

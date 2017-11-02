@@ -10,7 +10,6 @@ public enum Internal {
     public static final String ENABLE = "Enable";
     public static final String ENABLE_MODE = "ENABLE";
     public static final String DISABLE_MODE = "DISABLE";
-    public static final String SWAP_MODE = "SWAP";
     public static final String ENABLE_DISABLE = "EnableDisable";
     public static final String MIX_AND_MATCH = "MixAndMatchMode";
     // Encrypted theme asset algorithm parameters

@@ -61,7 +61,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
         if (isPackageInstalled(context, current_object.getFullOverlayParameters())) {
             viewHolder.overlayState.setVisibility(View.VISIBLE);
             // Check whether currently installed overlay is up to date with
-            // theme_pid's versionName
+            // theme_pid's theme_version
             if (!current_object.compareInstalledOverlay()) {
                 String format = String.format(context.getString(R.string
                                 .overlays_update_available),
@@ -106,7 +106,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                                 '.' + current_object.getBaseResources() : ""))) {
             viewHolder.overlayState.setVisibility(View.VISIBLE);
             // Check whether currently installed overlay is up to date with
-            // theme_pid's versionName
+            // theme_pid's theme_version
             if (!current_object.compareInstalledVariantOverlay(
                     packageName)) {
                 String format = String.format(context.getString(R.string
@@ -285,7 +285,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                         ((!current_object.getBaseResources().isEmpty()) ?
                                 '.' + current_object.getBaseResources() : ""))) {
             viewHolder.overlayState.setVisibility(View.VISIBLE);
-            // Check whether currently installed overlay is up to date with theme_pid's versionName
+            // Check whether currently installed overlay is up to date with theme_pid's theme_version
             if (!current_object.compareInstalledOverlay()) {
                 String format = String.format(
                         context.getString(R.string.overlays_update_available),

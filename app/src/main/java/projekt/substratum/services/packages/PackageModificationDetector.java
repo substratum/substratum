@@ -45,9 +45,6 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.util.helpers.NotificationCreator;
 
-import static projekt.substratum.common.References.PACKAGE_ADDED;
-import static projekt.substratum.common.References.PACKAGE_FULLY_REMOVED;
-
 public class PackageModificationDetector extends BroadcastReceiver {
 
     private static final String TAG = "SubstratumDetector";
@@ -65,21 +62,9 @@ public class PackageModificationDetector extends BroadcastReceiver {
             return;
         }
 
-        if (intent.getAction() != null) {
-            switch (intent.getAction()) {
-                case PACKAGE_ADDED:
-                    Broadcasts.sendOverlayRefreshMessage(mContext);
-                    if (Systems.isSamsungDevice(context)) {
-                        Broadcasts.sendRefreshManagerMessage(mContext);
-                    }
-                    break;
-                case PACKAGE_FULLY_REMOVED:
-                    Broadcasts.sendRefreshManagerMessage(mContext);
-                    if (Systems.isSamsungDevice(context)) {
-                        Broadcasts.sendOverlayRefreshMessage(mContext);
-                    }
-                    return;
-            }
+        if (Systems.isSamsungDevice(context)) {
+            Broadcasts.sendOverlayRefreshMessage(mContext);
+            Broadcasts.sendRefreshManagerMessage(mContext);
         }
 
         try {
@@ -212,7 +197,6 @@ public class PackageModificationDetector extends BroadcastReceiver {
     private PendingIntent getPendingIntent(String package_name) {
         Intent myIntent = new Intent(mContext, AppShortcutLaunch.class);
         myIntent.putExtra("theme_pid", package_name);
-        return PendingIntent.getActivity(mContext, 0, myIntent, PendingIntent
-                .FLAG_CANCEL_CURRENT);
+        return PendingIntent.getActivity(mContext, 0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
     }
 }

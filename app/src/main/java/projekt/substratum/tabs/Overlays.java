@@ -102,6 +102,7 @@ import projekt.substratum.util.files.Root;
 import projekt.substratum.util.views.SheetDialog;
 
 import static android.content.Context.ACTIVITY_SERVICE;
+import static android.content.Context.NOTIFICATION_SERVICE;
 import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.Internal.CIPHER_ALGORITHM;
 import static projekt.substratum.common.Internal.COMPILE_ENABLE;
@@ -124,7 +125,6 @@ import static projekt.substratum.common.Internal.SECRET_KEY_SPEC;
 import static projekt.substratum.common.Internal.SHEET_COMMAND;
 import static projekt.substratum.common.Internal.START_JOB_ACTION;
 import static projekt.substratum.common.Internal.SUPPORTED_ROMS_FILE;
-import static projekt.substratum.common.Internal.SWAP_MODE;
 import static projekt.substratum.common.Internal.THEME_NAME;
 import static projekt.substratum.common.Internal.THEME_PID;
 import static projekt.substratum.common.Internal.TYPE1A_PREFIX;
@@ -137,11 +137,9 @@ import static projekt.substratum.common.Packages.isPackageInstalled;
 import static projekt.substratum.common.References.DEFAULT_NOTIFICATION_CHANNEL_ID;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER;
-import static projekt.substratum.common.References.SUBSTRATUM_PACKAGE;
 import static projekt.substratum.common.References.metadataEmail;
 import static projekt.substratum.common.References.metadataEncryption;
 import static projekt.substratum.common.References.metadataEncryptionValue;
-import static projekt.substratum.common.Resources.FRAMEWORK;
 import static projekt.substratum.common.Resources.LG_FRAMEWORK;
 import static projekt.substratum.common.Resources.SAMSUNG_FRAMEWORK;
 import static projekt.substratum.common.Resources.SETTINGS_ICONS;
@@ -154,39 +152,38 @@ import static projekt.substratum.common.Resources.allowedFrameworkOverlay;
 import static projekt.substratum.common.Resources.allowedSettingsOverlay;
 import static projekt.substratum.common.Resources.allowedSystemUIOverlay;
 import static projekt.substratum.tabs.OverlaysManager.legacyDisable;
-import static projekt.substratum.tabs.OverlaysManager.selectCompileMode;
 import static projekt.substratum.tabs.OverlaysManager.selectEnabledDisabled;
+import static projekt.substratum.tabs.OverlaysManager.selectStateMode;
 import static projekt.substratum.util.files.MapUtils.sortMapByValues;
 
 public class Overlays extends Fragment {
 
+    // Theme instance based variables, used globally amongst all Overlays* files
     public String theme_name;
     public String theme_pid;
-    public String versionName;
-    public SheetDialog mCompileDialog;
+    public String theme_version;
+    public Cipher theme_cipher;
+    public Boolean encrypted = false;
+    public Boolean mixAndMatchMode = false;
+    public OverlaysInstance currentInstance = OverlaysInstance.getInstance();
     public SubstratumBuilder compileInstance;
+    public List<OverlaysItem> overlayItemList;
+    // Begin functional variables with no theme-related information
+    public SheetDialog mCompileDialog;
     public SharedPreferences prefs;
     public OverlaysAdapter mAdapter;
     public NotificationManager mNotifyManager;
     public NotificationCompat.Builder mBuilder;
     public ProgressBar dialogProgress;
     public AssetManager themeAssetManager;
-    public Boolean encrypted = false;
-    public Cipher cipher;
-    public ActivityManager am;
+    public ActivityManager activityManager;
+    // Binded views
     @BindView(R.id.header_loading_bar)
     public ProgressBar progressBar;
     @BindView(R.id.toggle_all_overlays)
     public Switch toggle_all;
     @BindView(R.id.type3_spinner)
     public Spinner base_spinner;
-    public List<OverlaysItem> overlayItemList;
-    public boolean mixAndMatchMode = false;
-    public boolean enable_mode = false;
-    public boolean disable_mode = false;
-    public boolean compile_enable_mode = false;
-    public boolean enable_disable_mode = false;
-    OverlaysInstance currentInstance = OverlaysInstance.getInstance();
     Context mContext;
     @BindView(R.id.overlayRecyclerView)
     RecyclerView mRecyclerView;
@@ -196,24 +193,12 @@ public class Overlays extends Fragment {
     RelativeLayout toggleZone;
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
-    private ArrayList<OverlaysItem> adapterList;
+    // RecyclerView temporaries
+    private Integer recyclerViewPosition;
+    // Broadcast receivers
     private JobReceiver jobReceiver;
     private LocalBroadcastManager localBroadcastManager;
     private RefreshReceiver refreshReceiver;
-    private String parsed_theme_name;
-    private Integer recyclerViewPosition;
-    private List<String> current_overlays;
-
-    /**
-     * We use flags to unify a whole function in OverlaysManager, call this to reset it all!
-     * By resetting all, it means that you have finished ALL functions to-be-served for the user
-     */
-    void resetCompileFlags() {
-        compile_enable_mode = false;
-        enable_mode = false;
-        disable_mode = false;
-        enable_disable_mode = false;
-    }
 
     /**
      * Get the activity's view through a fragment for LunchBar invokes
@@ -232,17 +217,14 @@ public class Overlays extends Fragment {
      * Utilize the shared compile + * mode, but enable the overlays selected afterwards
      */
     private void startCompileEnableMode() {
-        resetCompileFlags();
-        compile_enable_mode = true;
-        selectCompileMode(this);
+        selectStateMode(this, COMPILE_ENABLE);
     }
 
     /**
      * Utilize the shared compile + * mode and do not enable the overlays selected afterwards
      */
     private void startCompileUpdateMode() {
-        resetCompileFlags();
-        selectCompileMode(this);
+        selectStateMode(this, COMPILE_UPDATE);
     }
 
     /**
@@ -266,7 +248,7 @@ public class Overlays extends Fragment {
      * Swap state mode
      */
     private void startEnableDisable() {
-        selectEnabledDisabled(this, SWAP_MODE);
+        selectEnabledDisabled(this, ENABLE_DISABLE);
     }
 
     /**
@@ -290,13 +272,19 @@ public class Overlays extends Fragment {
 
         mContext = getContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-        am = (ActivityManager) mContext.getSystemService(ACTIVITY_SERVICE);
+        activityManager = (ActivityManager) mContext.getSystemService(ACTIVITY_SERVICE);
+        mNotifyManager = (NotificationManager) mContext.getSystemService(NOTIFICATION_SERVICE);
+        mCompileDialog = new SheetDialog(mContext);
 
         // Register the theme install receiver to auto refresh the fragment
         refreshReceiver = new RefreshReceiver();
         localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
-        localBroadcastManager.registerReceiver(refreshReceiver,
-                new IntentFilter(OVERLAY_REFRESH));
+        try {
+            localBroadcastManager.unregisterReceiver(refreshReceiver);
+        } catch (IllegalArgumentException e) {
+            // Unregistered already
+        }
+        localBroadcastManager.registerReceiver(refreshReceiver, new IntentFilter(OVERLAY_REFRESH));
 
         if (getArguments() != null) {
             theme_name = getArguments().getString(THEME_NAME);
@@ -309,8 +297,8 @@ public class Overlays extends Fragment {
                 byte[] encryption_key = getArguments().getByteArray(ENCRYPTION_KEY_EXTRA);
                 byte[] iv_encrypt_key = getArguments().getByteArray(IV_ENCRYPTION_KEY_EXTRA);
                 try {
-                    cipher = Cipher.getInstance(CIPHER_ALGORITHM);
-                    cipher.init(
+                    theme_cipher = Cipher.getInstance(CIPHER_ALGORITHM);
+                    theme_cipher.init(
                             Cipher.DECRYPT_MODE,
                             new SecretKeySpec(encryption_key, SECRET_KEY_SPEC),
                             new IvParameterSpec(iv_encrypt_key)
@@ -431,7 +419,7 @@ public class Overlays extends Fragment {
                     inputStream = FileOperations.getInputStream(
                             themeAssetManager,
                             "overlays/android/type3" + ENCRYPTED_FILE_EXTENSION,
-                            cipher);
+                            theme_cipher);
                 } else {
                     inputStream = themeAssetManager.open("overlays/android/type3");
                 }
@@ -449,8 +437,7 @@ public class Overlays extends Fragment {
                 }
                 inputStream.close();
             } else {
-                type3.add(new VariantItem(getString(R.string.overlays_variant_default_3),
-                        null));
+                type3.add(new VariantItem(getString(R.string.overlays_variant_default_3), null));
             }
 
             if (stringArray.size() > 1) {
@@ -661,34 +648,6 @@ public class Overlays extends Fragment {
     }
 
     /**
-     * Analyze whether the series of compiled overlays needs to throw out the current session
-     * This is dependent on the framework and self-package names.
-     *
-     * @param context Self explanatory, bud.
-     * @return If true, the system will automatically recreate
-     */
-    boolean needsRecreate(Context context) {
-        for (OverlaysItem oi : currentInstance.checkedOverlays) {
-            String packageName = oi.getPackageName();
-            if (packageName.equals(FRAMEWORK) ||
-                    packageName.equals(SUBSTRATUM_PACKAGE)) {
-                if (!enable_mode &&
-                        !disable_mode &&
-                        !enable_disable_mode &&
-                        ThemeManager.isOverlayEnabled(context, oi.getFullOverlayParameters())) {
-                    return false;
-                } else if (enable_mode ||
-                        disable_mode ||
-                        compile_enable_mode ||
-                        enable_disable_mode) {
-                    return false;
-                }
-            }
-        }
-        return Systems.checkOMS(mContext) && !currentInstance.has_failed;
-    }
-
-    /**
      * Type1s are the variants that reside at the root of the overlay target folder. These are
      * hotswappable files to the res/values folders
      *
@@ -705,7 +664,7 @@ public class Overlays extends Fragment {
                         themeAssetManager,
                         OVERLAYS_DIR + '/' + packageName + "/type1" + variantName +
                                 ENCRYPTED_FILE_EXTENSION,
-                        cipher);
+                        theme_cipher);
             } else {
                 inputStream = themeAssetManager.open(
                         OVERLAYS_DIR + '/' + packageName + "/type1" + variantName);
@@ -742,7 +701,7 @@ public class Overlays extends Fragment {
                         OVERLAYS_DIR + '/' + packageName + suffix +
                                 "/values/type1" + variantName + ".xml" +
                                 ENCRYPTED_FILE_EXTENSION,
-                        cipher)) {
+                        theme_cipher)) {
                     hex = Packages.getOverlayResource(name);
                 } catch (IOException e) {
                     // Suppress warning
@@ -767,7 +726,7 @@ public class Overlays extends Fragment {
                         OVERLAYS_DIR + '/' + packageName +
                                 suffix + "/values/type1" + variantName + ".xml" +
                                 ENCRYPTED_FILE_EXTENSION,
-                        cipher)) {
+                        theme_cipher)) {
                     hex = Packages.getOverlayResource(input);
                 } catch (IOException ioe) {
                     // Suppress warning
@@ -840,7 +799,7 @@ public class Overlays extends Fragment {
             String packageName) {
         if (encrypted) {
             try (InputStream inputStream = FileOperations.getInputStream(themeAssetManager,
-                    OVERLAYS_DIR + "/" + packageName + '/' + currentTypeOneObject, cipher)) {
+                    OVERLAYS_DIR + "/" + packageName + '/' + currentTypeOneObject, theme_cipher)) {
                 String hex = Packages.getOverlayResource(inputStream);
 
                 return new VariantItem(
@@ -1061,6 +1020,9 @@ public class Overlays extends Fragment {
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     private static class LoadOverlays extends AsyncTask<String, Integer, String> {
         private WeakReference<Overlays> ref;
+        private String parsed_theme_name;
+        private ArrayList<OverlaysItem> adapterList;
+        private List<String> current_overlays;
 
         LoadOverlays(Overlays fragment) {
             super();
@@ -1082,17 +1044,17 @@ public class Overlays extends Fragment {
          * @param overlays Overlays
          * @return True, if successful
          */
-        private static boolean assignVariables(Overlays overlays) {
+        private static boolean assignVariables(Overlays overlays, LoadOverlays loadOverlays) {
             try {
-                overlays.adapterList = new ArrayList<>();
+                loadOverlays.adapterList = new ArrayList<>();
                 Resources themeResources = overlays.mContext.getPackageManager()
                         .getResourcesForApplication(overlays.theme_pid);
                 overlays.themeAssetManager = themeResources.getAssets();
-                overlays.versionName = Packages.getAppVersion(
+                overlays.theme_version = Packages.getAppVersion(
                         overlays.mContext, overlays.theme_pid);
                 String initial_parse = overlays.theme_name.replaceAll("\\s+", "");
-                overlays.parsed_theme_name = initial_parse.replaceAll("[^a-zA-Z0-9]+", "");
-                overlays.current_overlays = overlays.getCurrentOverlays();
+                loadOverlays.parsed_theme_name = initial_parse.replaceAll("[^a-zA-Z0-9]+", "");
+                loadOverlays.current_overlays = overlays.getCurrentOverlays();
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -1233,11 +1195,13 @@ public class Overlays extends Fragment {
          * Step 4
          * Completely iron out everything as there is no way we need to fail at this point
          *
-         * @param overlays  Overlays
-         * @param sortedMap Sorted map
-         * @param argument  Argument fed into the AsynchronousTask
+         * @param overlays     Overlays
+         * @param loadOverlays LoadOverlays
+         * @param sortedMap    Sorted map
+         * @param argument     Argument fed into the AsynchronousTask
          */
         private static void parseDirectoryStructure(Overlays overlays,
+                                                    LoadOverlays loadOverlays,
                                                     List<Pair<String, String>> sortedMap,
                                                     String argument) {
             for (Pair<String, String> entry : sortedMap) {
@@ -1302,7 +1266,7 @@ public class Overlays extends Fragment {
                                                             "/type2" + ENCRYPTED_FILE_EXTENSION :
                                                             "/type2"
                                                     ),
-                                            (overlays.encrypted ? overlays.cipher : null)));
+                                            (overlays.encrypted ? overlays.theme_cipher : null)));
                         } catch (Exception e) {
                             // Suppress warning
                         }
@@ -1330,7 +1294,7 @@ public class Overlays extends Fragment {
                                                             "/type4" + ENCRYPTED_FILE_EXTENSION :
                                                             "/type4"
                                                     ),
-                                            (overlays.encrypted ? overlays.cipher : null)));
+                                            (overlays.encrypted ? overlays.theme_cipher : null)));
                         } catch (Exception e) {
                             // Suppress warning
                         }
@@ -1366,10 +1330,10 @@ public class Overlays extends Fragment {
                                 String starting = current.substring(0, 6);
                                 switch (starting) {
                                     case TYPE2_PREFIX:
-                                        type2.add(new VariantItem(starting, null));
+                                        type2.add(new VariantItem(current.substring(6), null));
                                         break;
                                     case TYPE4_PREFIX:
-                                        type4.add(new VariantItem(starting, null));
+                                        type4.add(new VariantItem(current.substring(6), null));
                                         break;
                                 }
                             }
@@ -1391,6 +1355,7 @@ public class Overlays extends Fragment {
                         };
                         createOverlaysItem(
                                 overlays,
+                                loadOverlays,
                                 package_name,
                                 package_identifier,
                                 checker,
@@ -1400,6 +1365,7 @@ public class Overlays extends Fragment {
                         // At this point, there is no spinner adapter, so it should be null
                         createOverlaysItem(
                                 overlays,
+                                loadOverlays,
                                 package_name,
                                 package_identifier,
                                 null,
@@ -1417,6 +1383,7 @@ public class Overlays extends Fragment {
          * Create each individual overlay item
          *
          * @param overlays           Overlays
+         * @param loadOverlays       LoadOverlays
          * @param package_name       Name of of overlay
          * @param package_identifier Package name
          * @param checker            Array of booleans denoting whether each type is available
@@ -1424,29 +1391,34 @@ public class Overlays extends Fragment {
          * @param argument           Argument of the AsynchronousTask
          */
         private static void createOverlaysItem(Overlays overlays,
+                                               LoadOverlays loadOverlays,
                                                String package_name,
                                                String package_identifier,
                                                Boolean[] checker,
                                                VariantAdapter[] adapters,
                                                String argument) {
-            OverlaysItem overlaysItem =
-                    new OverlaysItem(
-                            overlays.parsed_theme_name,
-                            package_name,
-                            package_identifier,
-                            false,
-                            (checker != null && checker[0] ? null : adapters[0]),
-                            (checker != null && checker[1] ? null : adapters[1]),
-                            (checker != null && checker[2] ? null : adapters[2]),
-                            (checker != null && checker[3] ? null : adapters[3]),
-                            (checker != null && checker[4] ? null : adapters[4]),
-                            overlays.mContext,
-                            overlays.versionName,
-                            argument,
-                            overlays.current_overlays,
-                            Systems.checkOMS(overlays.mContext),
-                            overlays.getActivityView());
-            overlays.adapterList.add(overlaysItem);
+            try {
+                OverlaysItem overlaysItem =
+                        new OverlaysItem(
+                                loadOverlays.parsed_theme_name,
+                                package_name,
+                                package_identifier,
+                                false,
+                                (checker != null && checker[0] ? null : adapters[0]),
+                                (checker != null && checker[1] ? null : adapters[1]),
+                                (checker != null && checker[2] ? null : adapters[2]),
+                                (checker != null && checker[3] ? null : adapters[3]),
+                                (checker != null && checker[4] ? null : adapters[4]),
+                                overlays.mContext,
+                                overlays.theme_version,
+                                argument,
+                                loadOverlays.current_overlays,
+                                Systems.checkOMS(overlays.mContext),
+                                overlays.getActivityView());
+                loadOverlays.adapterList.add(overlaysItem);
+            } catch (Exception e) {
+                // If anything comes out from here, then it's an OMS issue most definitely
+            }
         }
 
         @Override
@@ -1461,7 +1433,7 @@ public class Overlays extends Fragment {
             Overlays fragment = ref.get();
             if (fragment != null) {
                 setViews(fragment, true);
-                fragment.mAdapter = new OverlaysAdapter(fragment.adapterList);
+                fragment.mAdapter = new OverlaysAdapter(adapterList);
                 fragment.mRecyclerView.setAdapter(fragment.mAdapter);
                 fragment.mRecyclerView.getLayoutManager().scrollToPosition(
                         fragment.recyclerViewPosition);
@@ -1476,7 +1448,7 @@ public class Overlays extends Fragment {
             Overlays fragment = ref.get();
             if (fragment != null) {
                 // Modularizing the compile process to make it easier to track errors
-                Boolean assigned = assignVariables(fragment);
+                Boolean assigned = assignVariables(fragment, this);
                 if (assigned) {
                     List<String> values = buffer(fragment);
                     if (values != null) {
@@ -1484,7 +1456,7 @@ public class Overlays extends Fragment {
                         if (unsortedMap != null) {
                             List<Pair<String, String>> sortedMap = sortMapByValues(unsortedMap);
                             if (sortedMap != null) {
-                                parseDirectoryStructure(fragment, sortedMap, sUrl[0]);
+                                parseDirectoryStructure(fragment, this, sortedMap, sUrl[0]);
                             }
                         }
                     }
@@ -1506,19 +1478,24 @@ public class Overlays extends Fragment {
             String command = intent.getStringExtra(SHEET_COMMAND);
             switch (command) {
                 case COMPILE_ENABLE:
-                    if (mAdapter != null) startCompileEnableMode();
+                    if (mAdapter != null && !currentInstance.isRunning)
+                        startCompileEnableMode();
                     break;
                 case COMPILE_UPDATE:
-                    if (mAdapter != null) startCompileUpdateMode();
+                    if (mAdapter != null && !currentInstance.isRunning)
+                        startCompileUpdateMode();
                     break;
                 case DISABLE:
-                    if (mAdapter != null) startDisable();
+                    if (mAdapter != null && !currentInstance.isRunning)
+                        startDisable();
                     break;
                 case ENABLE:
-                    if (mAdapter != null) startEnable();
+                    if (mAdapter != null && !currentInstance.isRunning)
+                        startEnable();
                     break;
                 case ENABLE_DISABLE:
-                    if (mAdapter != null) startEnableDisable();
+                    if (mAdapter != null && !currentInstance.isRunning)
+                        startEnableDisable();
                     break;
                 case MIX_AND_MATCH:
                     if (mAdapter != null) {

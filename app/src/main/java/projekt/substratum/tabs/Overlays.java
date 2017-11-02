@@ -137,6 +137,7 @@ import static projekt.substratum.common.Packages.isPackageInstalled;
 import static projekt.substratum.common.References.DEFAULT_NOTIFICATION_CHANNEL_ID;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
 import static projekt.substratum.common.References.SUBSTRATUM_BUILDER;
+import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.References.metadataEmail;
 import static projekt.substratum.common.References.metadataEncryption;
 import static projekt.substratum.common.References.metadataEncryptionValue;
@@ -874,13 +875,18 @@ public class Overlays extends Fragment {
      * subsequent calls
      */
     private void refreshList() {
-        recyclerViewPosition = ((LinearLayoutManager)
-                mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-        toggle_all.setChecked(false);
-        if (base_spinner.getSelectedItemPosition() > 0) {
-            new LoadOverlays(this).execute(base_spinner.getSelectedItem().toString());
+        if (!currentInstance.isRunning) {
+            recyclerViewPosition = ((LinearLayoutManager)
+                    mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+            toggle_all.setChecked(false);
+            if (base_spinner.getSelectedItemPosition() > 0) {
+                new LoadOverlays(this).execute(base_spinner.getSelectedItem().toString());
+            } else {
+                new LoadOverlays(this).execute("");
+            }
         } else {
-            new LoadOverlays(this).execute("");
+            Log.d(SUBSTRATUM_LOG,
+                    "Overlay compilation in progress, will skip refreshing layout until the end.");
         }
     }
 

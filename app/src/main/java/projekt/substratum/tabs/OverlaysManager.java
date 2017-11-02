@@ -133,6 +133,7 @@ enum OverlaysManager {
                     Lunchbar.LENGTH_LONG);
             currentShownLunchBar.show();
         }
+        overlays.currentInstance.stop();
     }
 
     /**
@@ -192,6 +193,7 @@ enum OverlaysManager {
                         Lunchbar.LENGTH_LONG);
                 currentShownLunchBar.show();
             }
+            overlays.currentInstance.stop();
         }
     }
 

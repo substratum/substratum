@@ -69,6 +69,7 @@ import java.util.Locale;
 import java.util.Set;
 
 import projekt.substratum.MainActivity;
+import projekt.substratum.LauncherActivity;
 import projekt.substratum.R;
 import projekt.substratum.activities.shortcuts.AppShortcutLaunch;
 import projekt.substratum.common.analytics.FirebaseAnalytics;
@@ -469,6 +470,7 @@ public enum References {
         editor.putBoolean("show_template_version", false);
         editor.putBoolean("vibrate_on_compiled", false);
         editor.putBoolean("nougat_style_cards", false);
+        editor.putBoolean("alternate_drawer_design", false);
         editor.putBoolean("aopt_debug", false);
         editor.putBoolean("theme_debug", false);
         editor.putBoolean("force_english", false);
@@ -476,7 +478,6 @@ public enum References {
         editor.putBoolean("alphabetize_showcase", false);
         editor.putBoolean("alphabetize_overlays", false);
         editor.putBoolean("complexion", true);
-        editor.putString("compiler", "aapt");
         editor.putBoolean("crash_receiver", true);
         editor.putBoolean("enable_swapping_overlays", false);
         editor.putBoolean("overlay_alert", false);
@@ -485,6 +486,11 @@ public enum References {
         editor.putBoolean("show_dangerous_samsung_overlays", false);
         editor.putBoolean("autosave_logchar", true);
         editor.putBoolean("grid_style_cards", true);
+        editor.putBoolean("force_english_locale", false);
+        editor.putBoolean("systemui_recreate", true);
+        editor.putBoolean("hide_app_checkbox", false);
+        editor.putString("compiler", "aapt");
+        editor.putBoolean("auto_disable_target_overlays", false);
         editor.putInt("grid_style_cards_count", DEFAULT_GRID_COUNT);
         editor.putInt("legacy_overlay_priority", DEFAULT_PRIORITY);
         editor.remove("seen_restore_warning");
@@ -495,6 +501,13 @@ public enum References {
         editor.apply();
         editor2.apply();
         BinaryInstaller.install(context, true);
+        PackageManager p = context.getPackageManager();
+        ComponentName componentName = new ComponentName(context,
+                LauncherActivity.class);
+        p.setComponentEnabledSetting(
+                componentName,
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+                PackageManager.DONT_KILL_APP);
     }
 
     /**

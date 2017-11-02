@@ -673,37 +673,42 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
             // About Interfacer
             Preference aboutInterfacer = getPreferenceManager().findPreference("about_interfacer");
-            aboutInterfacer.setIcon(Packages.getAppIcon(mContext, INTERFACER_PACKAGE));
-            aboutInterfacer.setOnPreferenceClickListener(
-                    preference -> {
-                        try {
-                            String sourceURL;
-                            if (BuildConfig.DEBUG) {
-                                sourceURL = getString(R.string.interfacer_github_commits);
-                            } else {
-                                sourceURL = getString(R.string.interfacer_github);
+            if (hasThemeInterfacer) {
+                aboutInterfacer.setIcon(Packages.getAppIcon(mContext, INTERFACER_PACKAGE));
+                aboutInterfacer.setOnPreferenceClickListener(
+                        preference -> {
+                            try {
+                                String sourceURL;
+                                if (BuildConfig.DEBUG) {
+                                    sourceURL = getString(R.string.interfacer_github_commits);
+                                } else {
+                                    sourceURL = getString(R.string.interfacer_github);
+                                }
+                                Intent i = new Intent(Intent.ACTION_VIEW);
+                                i.setData(Uri.parse(sourceURL));
+                                startActivity(i);
+                            } catch (ActivityNotFoundException activityNotFoundException) {
+                                if (getActivity() != null) {
+                                    Lunchbar.make(References.getView(getActivity()),
+                                            getString(R.string.activity_missing_toast),
+                                            Lunchbar.LENGTH_LONG)
+                                            .show();
+                                }
                             }
-                            Intent i = new Intent(Intent.ACTION_VIEW);
-                            i.setData(Uri.parse(sourceURL));
-                            startActivity(i);
-                        } catch (ActivityNotFoundException activityNotFoundException) {
-                            if (getActivity() != null) {
-                                Lunchbar.make(References.getView(getActivity()),
-                                        getString(R.string.activity_missing_toast),
-                                        Lunchbar.LENGTH_LONG)
-                                        .show();
-                            }
-                        }
-                        return false;
-                    });
-            try {
-                PackageInfo pInfo = Systems.getThemeInterfacerPackage(mContext);
-                assert pInfo != null;
-                String versionName = pInfo.versionName;
-                int versionCode = pInfo.versionCode;
-                aboutInterfacer.setSummary(versionName + " (" + versionCode + ')');
-            } catch (Exception e) {
-                // Suppress exception
+                            return false;
+                        });
+                try {
+                    PackageInfo pInfo = Systems.getThemeInterfacerPackage(mContext);
+                    assert pInfo != null;
+                    String versionName = pInfo.versionName;
+                    int versionCode = pInfo.versionCode;
+                    aboutInterfacer.setSummary(versionName + " (" + versionCode + ')');
+                } catch (Exception e) {
+                    // Suppress exception
+                }
+
+            } else {
+                aboutInterfacer.setVisible(false);
             }
 
             // Check if the system actually supports the latest Interfacer and the permission

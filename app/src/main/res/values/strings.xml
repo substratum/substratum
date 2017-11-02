@@ -757,7 +757,7 @@
     <string name="nav_wallpapers">Wallpapers</string>
     <!-- Utilities -->
     <string name="nav_section_header_utilities">Utilities</string>
-    <string name="nav_overlay_manager">Overlay list</string>
+    <string name="nav_overlay_manager">Manager</string>
     <string name="nav_priorities">Priorities</string>
     <string name="nav_backup_restore">Profiles</string>
     <string name="nav_manage">Recovery</string>

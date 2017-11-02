@@ -122,4 +122,17 @@
 
     <color name="app_shortcut_icon_color">#ffffffff</color>
     <color name="app_shortcut_icon_background_color">@color/colorPrimary</color>
+
+    <color name="substratum_orange">#fa9403</color>
+    <color name="substratum_yellow">#fdc406</color>
+    <color name="substratum_blue">#3271f6</color>
+    <color name="substratum_light_blue">#2196f3</color>
+
+    <integer-array name="substratum_glyph_colors">
+        <item>@android:color/white</item>
+        <item>@color/substratum_orange</item>
+        <item>@color/substratum_yellow</item>
+        <item>@color/substratum_blue</item>
+        <item>@color/substratum_light_blue</item>
+    </integer-array>
 </resources>

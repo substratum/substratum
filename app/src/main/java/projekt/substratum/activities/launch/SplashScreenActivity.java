@@ -31,6 +31,8 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.jaredrummler.android.widget.AnimatedSvgView;
+
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
@@ -62,8 +64,6 @@ public class SplashScreenActivity extends Activity {
 
     private static final int DELAY_LAUNCH_MAIN_ACTIVITY = 600;
     private static final int DELAY_LAUNCH_APP_INTRO = 2300;
-    @BindView(R.id.splashscreen_image)
-    ImageView splashScreenImage;
     private Intent intent;
 
     @Override
@@ -82,15 +82,9 @@ public class SplashScreenActivity extends Activity {
             // set its background to our AnimationDrawable XML resource.
 
             try {
-                splashScreenImage.setImageDrawable(getDrawable(R.drawable.splashscreen_intro));
 
-                // Get the background, which has been compiled to an AnimationDrawable object.
-                AnimationDrawable frameAnimation =
-                        (AnimationDrawable) splashScreenImage.getDrawable();
-
-                // Start the animation
-                frameAnimation.setOneShot(true);
-                frameAnimation.run();
+                AnimatedSvgView svgView = findViewById(R.id.animated_svg_view);
+                svgView.start();
 
                 // Finally set the proper launch activity and delay
                 intent = new Intent(SplashScreenActivity.this, AppIntroActivity.class);

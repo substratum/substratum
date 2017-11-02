@@ -16,22 +16,27 @@
   ~ You should have received a copy of the GNU General Public License
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_gravity="center"
+              android:background="@color/splashscreen_background"
+              android:gravity="center"
+              android:orientation="vertical">
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_gravity="center"
-    android:background="@color/splashscreen_background"
-    android:gravity="center"
-    android:orientation="vertical">
-
-    <ImageView
-        android:id="@+id/splashscreen_image"
-        android:layout_width="@dimen/app_splash_icon_width"
-        android:layout_height="@dimen/app_splash_icon_height"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/substratum_icon"/>
+    <com.jaredrummler.android.widget.AnimatedSvgView
+        android:id="@+id/animated_svg_view"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="40dp"
+        app:animatedSvgFillColors="@array/substratum_glyph_colors"
+        app:animatedSvgFillStart="1200"
+        app:animatedSvgFillTime="1000"
+        app:animatedSvgGlyphStrings="@array/substratum_glyph_strings"
+        app:animatedSvgTraceTime="2000"
+        app:animatedSvgTraceTimePerGlyph="1000"/>
 
     <ProgressBar
         android:id="@+id/progress_bar_loader"

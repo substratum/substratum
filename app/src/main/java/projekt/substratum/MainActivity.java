@@ -510,7 +510,8 @@ public class MainActivity extends AppCompatActivity implements
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_priorities)
                             .withIcon(R.drawable.nav_drawer_priorities)
-                            .withIdentifier(9L));
+                            .withIdentifier(9L)
+                            .withBadge(Systems.checkOreo() ? getString(R.string.beta_tag) : ""));
         if (Resources.isProfilesSupported(mContext))
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()

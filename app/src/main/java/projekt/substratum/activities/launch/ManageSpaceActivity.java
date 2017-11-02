@@ -19,9 +19,11 @@
 package projekt.substratum.activities.launch;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Process;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -31,6 +33,7 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,6 +46,7 @@ import static projekt.substratum.common.analytics.FirebaseAnalytics.NAMES_PREFS;
 import static projekt.substratum.common.analytics.FirebaseAnalytics.PACKAGES_PREFS;
 import static projekt.substratum.common.commands.FileOperations.delete;
 import static projekt.substratum.common.commands.FileOperations.getFileSize;
+import projekt.substratum.util.helpers.ContextWrapper;
 
 public class ManageSpaceActivity extends AppCompatActivity {
 
@@ -229,5 +233,22 @@ public class ManageSpaceActivity extends AppCompatActivity {
                 activity.finishAffinity();
             }
         }
+    }
+
+    /**
+     * Attach the base context for locale changes
+     *
+     * @param context Self explanatory, bud.
+     */
+    @Override
+    protected void attachBaseContext(Context context) {
+        Context newBase = context;
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        boolean languageCheck = prefs.getBoolean("force_english", false);
+        if (languageCheck) {
+            Locale newLocale = new Locale(Locale.ENGLISH.getLanguage());
+            newBase = ContextWrapper.wrapNewLocale(context, newLocale);
+        }
+        super.attachBaseContext(newBase);
     }
 }

@@ -68,8 +68,8 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
-import projekt.substratum.MainActivity;
 import projekt.substratum.LauncherActivity;
+import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.activities.shortcuts.AppShortcutLaunch;
 import projekt.substratum.common.analytics.FirebaseAnalytics;
@@ -205,9 +205,9 @@ public enum References {
     public static final String metadataVersion = "Substratum_Plugin";
     // Validate with logs
     public static final Boolean VALIDATE_WITH_LOGS = false;
+    public static final String metadataSamsungSupport = "Substratum_Samsung";
     static final String SUBSTRATUM_THEME = "projekt.substratum.THEME";
     static final String metadataThemeReady = "Substratum_ThemeReady";
-    static final String metadataSamsungSupport = "Substratum_Samsung";
     static final String resourceChangelog = "ThemeChangelog";
     // This string controls the hero image name
     static final String heroImageResourceName = "heroimage";

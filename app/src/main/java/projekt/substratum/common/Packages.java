@@ -822,19 +822,34 @@ public enum Packages {
                 if ((appInfo.metaData.getString(metadataName) != null) &&
                         (appInfo.metaData.getString(metadataAuthor) != null) &&
                         (appInfo.metaData.getString(metadataVersion) != null)) {
-                    // The theme app contains the proper metadata
-                    can_continue = true;
-                    // If the user is searching using the search bar
-                    if ((search_filter != null) && !search_filter.isEmpty()) {
-                        @SuppressWarnings("StringBufferReplaceableByString") StringBuilder
-                                filtered = new StringBuilder();
-                        filtered.append(appInfo.metaData.getString(metadataName));
-                        filtered.append(appInfo.metaData.getString(metadataAuthor));
-                        can_continue =
-                                filtered
-                                        .toString()
-                                        .toLowerCase()
-                                        .contains(search_filter.toLowerCase());
+                    // Check if Samsung, and block the showing of the theme if the theme does not
+                    // support samsung intentionally!
+                    Boolean samsung_support = null;
+                    try {
+                        samsung_support = appInfo.metaData.getBoolean(metadataSamsungSupport);
+                    } catch (Exception e) {
+                        // At this point, the themer did not specify a boolean value
+                    }
+                    if (samsung_support != null &&
+                            !samsung_support &&
+                            (Systems.isSamsungDevice(context) ||
+                                    Systems.isNewSamsungDevice(context))) {
+                        can_continue = false;
+                    } else {
+                        // The theme app contains the proper metadata
+                        can_continue = true;
+                        // If the user is searching using the search bar
+                        if ((search_filter != null) && !search_filter.isEmpty()) {
+                            @SuppressWarnings("StringBufferReplaceableByString") StringBuilder
+                                    filtered = new StringBuilder();
+                            filtered.append(appInfo.metaData.getString(metadataName));
+                            filtered.append(appInfo.metaData.getString(metadataAuthor));
+                            can_continue =
+                                    filtered
+                                            .toString()
+                                            .toLowerCase()
+                                            .contains(search_filter.toLowerCase());
+                        }
                     }
                 }
                 if (can_continue) {

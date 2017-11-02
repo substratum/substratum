@@ -46,6 +46,7 @@ import projekt.substratum.common.Systems;
 import projekt.substratum.util.helpers.NotificationCreator;
 
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
+import static projekt.substratum.common.References.metadataSamsungSupport;
 
 public class PackageModificationDetector extends BroadcastReceiver {
 
@@ -106,8 +107,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
         Boolean replacing = intent.getBooleanExtra(Intent.EXTRA_REPLACING, false);
 
         // Let's add it to the list of installed themes on shared prefs
-        SharedPreferences mainPrefs = PreferenceManager.getDefaultSharedPreferences(this
-                .mContext);
+        SharedPreferences mainPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         Set<String> installed_themes =
                 mainPrefs.getStringSet("installed_themes", new HashSet<>());
         Set<String> installed_sorted = new TreeSet<>();
@@ -121,47 +121,82 @@ public class PackageModificationDetector extends BroadcastReceiver {
             mainPrefs.edit().putStringSet("installed_themes", installed_sorted).apply();
         }
 
-        // Legacy check to see if an OMS theme is guarded from being installed on legacy
-        if (!Systems.checkOMS(mContext)) {
-            try {
-                ApplicationInfo appInfo = mContext.getPackageManager()
-                        .getApplicationInfo(
-                                package_name, PackageManager.GET_META_DATA);
-                if (appInfo.metaData != null) {
-                    Boolean check_legacy =
-                            appInfo.metaData.getBoolean(References.metadataLegacy);
-                    if (!check_legacy) {
-                        Log.e(TAG, "Device is non-OMS, while an " +
-                                "OMS theme is installed, aborting operation!");
+        try {
+            ApplicationInfo appInfo = mContext.getPackageManager()
+                    .getApplicationInfo(package_name, PackageManager.GET_META_DATA);
+            if (appInfo.metaData != null) {
+                // Legacy check to see if an OMS theme is guarded from being installed on legacy
+                Boolean check_legacy = appInfo.metaData.getBoolean(References.metadataLegacy);
+                if (!Systems.checkOMS(context) && !check_legacy) {
+                    Log.e(TAG, "Device is non-OMS, while an " +
+                            "OMS theme is installed, aborting operation!");
 
-                        String parse = String.format(mContext.getString(
-                                R.string.failed_to_install_text_notification),
-                                appInfo.metaData.getString(
-                                        References.metadataName));
+                    String parse = String.format(mContext.getString(
+                            R.string.failed_to_install_text_notification),
+                            appInfo.metaData.getString(
+                                    References.metadataName));
 
-                        Intent showIntent = new Intent();
-                        PendingIntent contentIntent = PendingIntent.getActivity(
-                                mContext, 0, showIntent, 0);
+                    Intent showIntent = new Intent();
+                    PendingIntent contentIntent = PendingIntent.getActivity(
+                            mContext, 0, showIntent, 0);
 
-                        new NotificationCreator(
-                                mContext,
-                                mContext.getString(
-                                        R.string.failed_to_install_title_notification),
-                                parse,
-                                true,
-                                contentIntent,
-                                R.drawable.notification_warning_icon,
-                                null,
-                                Notification.PRIORITY_MAX,
-                                References.notification_id).createNotification();
+                    new NotificationCreator(
+                            mContext,
+                            mContext.getString(
+                                    R.string.failed_to_install_title_notification),
+                            parse,
+                            true,
+                            contentIntent,
+                            R.drawable.notification_warning_icon,
+                            null,
+                            Notification.PRIORITY_MAX,
+                            References.notification_id).createNotification();
 
-                        Packages.uninstallPackage(mContext, package_name);
-                        return;
-                    }
+                    Packages.uninstallPackage(mContext, package_name);
+                    return;
                 }
-            } catch (Exception e) {
-                // Suppress warning
+
+                // Samsung check to see if an intentionally disable substratum theme was installed
+                // on a Samsung device
+                Boolean samsung_support = null;
+                try {
+                    samsung_support = appInfo.metaData.getBoolean(metadataSamsungSupport);
+                } catch (Exception e) {
+                    // At this point, the themer did not specify a boolean value
+                }
+                if (samsung_support != null &&
+                        !samsung_support &&
+                        (Systems.isSamsungDevice(context) ||
+                                Systems.isNewSamsungDevice(context))) {
+                    Log.e(TAG, "Theme does not support Samsung, yet the theme was installed, " +
+                            "aborting operation!");
+
+                    String parse = String.format(mContext.getString(
+                            R.string.refused_to_install_text_notification),
+                            appInfo.metaData.getString(
+                                    References.metadataName));
+
+                    Intent showIntent = new Intent();
+                    PendingIntent contentIntent = PendingIntent.getActivity(
+                            mContext, 0, showIntent, 0);
+
+                    new NotificationCreator(
+                            mContext,
+                            mContext.getString(
+                                    R.string.refused_to_install_title_notification),
+                            parse,
+                            true,
+                            contentIntent,
+                            R.drawable.notification_warning_icon,
+                            null,
+                            Notification.PRIORITY_MAX,
+                            References.notification_id).createNotification();
+
+                    Packages.uninstallPackage(mContext, package_name);
+                }
             }
+        } catch (Exception e) {
+            // Suppress warning
         }
 
         if (replacing) {

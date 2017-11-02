@@ -394,6 +394,22 @@ public enum Systems {
     }
 
     /**
+     * Checks if it passes all cases of new Samsung Oreo checks
+     *
+     * @param context CONTEXT!
+     * @return True, if it passes all Samsung tests
+     */
+    public static boolean isNewSamsungDevice(Context context) {
+        if (context != null) {
+            List<String> listOfFeatures =
+                    Arrays.asList(context.getPackageManager().getSystemSharedLibraryNames());
+            return listOfFeatures.contains("timakeystore");
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Obtains the Andromeda Package
      *
      * @param context Context...

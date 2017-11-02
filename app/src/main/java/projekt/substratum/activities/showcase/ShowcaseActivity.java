@@ -49,8 +49,8 @@ import android.widget.RelativeLayout;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,11 +60,11 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.util.files.FileDownloader;
 import projekt.substratum.util.files.MD5;
+import projekt.substratum.util.helpers.ContextWrapper;
 import projekt.substratum.util.readers.ReadShowcaseTabsFile;
 
 import static projekt.substratum.common.Internal.ANDROMEDA_RECEIVER;
 import static projekt.substratum.common.Internal.SHOWCASE_CACHE;
-import projekt.substratum.util.helpers.ContextWrapper;
 
 public class ShowcaseActivity extends AppCompatActivity {
 
@@ -217,6 +217,23 @@ public class ShowcaseActivity extends AppCompatActivity {
     }
 
     /**
+     * Attach the base context for locale changes
+     *
+     * @param context Self explanatory, bud.
+     */
+    @Override
+    protected void attachBaseContext(Context context) {
+        Context newBase = context;
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        boolean languageCheck = prefs.getBoolean("force_english", false);
+        if (languageCheck) {
+            Locale newLocale = new Locale(Locale.ENGLISH.getLanguage());
+            newBase = ContextWrapper.wrapNewLocale(context, newLocale);
+        }
+        super.attachBaseContext(newBase);
+    }
+
+    /**
      * Class to download the tabs from the GitHub organization
      */
     private static class DownloadTabs extends AsyncTask<String, Integer, String> {
@@ -354,22 +371,5 @@ public class ShowcaseActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             finish();
         }
-    }
-
-    /**
-     * Attach the base context for locale changes
-     *
-     * @param context Self explanatory, bud.
-     */
-    @Override
-    protected void attachBaseContext(Context context) {
-        Context newBase = context;
-        prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        boolean languageCheck = prefs.getBoolean("force_english", false);
-        if (languageCheck) {
-            Locale newLocale = new Locale(Locale.ENGLISH.getLanguage());
-            newBase = ContextWrapper.wrapNewLocale(context, newLocale);
-        }
-        super.attachBaseContext(newBase);
     }
 }

@@ -259,7 +259,7 @@
     <string name="settings_aapt" translatable="false">Android Asset Packaging Tool (Stable)</string>
     <string name="settings_aopt" translatable="false">Android Overlay Packaging Tool (Cutting Edge)</string>
 
-    <string name="theme_information_tab_one">Overlay Manager</string>
+    <string name="theme_information_tab_one">Overlays</string>
     <string name="theme_information_tab_two">Boot animations</string>
     <string name="theme_information_tab_three">Font Packs</string>
     <string name="theme_information_tab_four">Sound Packs</string>

@@ -468,19 +468,25 @@ public class MainActivity extends AppCompatActivity implements
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_bootanim)
                             .withIcon(R.drawable.nav_bootanim)
-                            .withIdentifier(3L));
+                            .withIdentifier(3L)
+                            .withBadge(Systems.checkSubstratumService(mContext) ?
+                                    getString(R.string.beta_tag) : ""));
         if (Resources.isShutdownAnimationSupported(mContext))
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_shutdownanim)
                             .withIcon(R.drawable.nav_shutdownanim)
-                            .withIdentifier(4L));
+                            .withIdentifier(4L)
+                            .withBadge(Systems.checkSubstratumService(mContext) ?
+                                    getString(R.string.beta_tag) : ""));
         if (Resources.isFontsSupported(mContext))
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_fonts)
                             .withIcon(R.drawable.nav_fonts)
-                            .withIdentifier(5L));
+                            .withIdentifier(5L)
+                            .withBadge(Systems.checkSubstratumService(mContext) ?
+                                    getString(R.string.beta_tag) : ""));
         if (Resources.isSoundsSupported(mContext))
             drawerBuilder.addDrawerItems(
                     new PrimaryDrawerItem()
@@ -511,8 +517,7 @@ public class MainActivity extends AppCompatActivity implements
                     new PrimaryDrawerItem()
                             .withName(R.string.nav_backup_restore)
                             .withIcon(R.drawable.nav_drawer_profiles)
-                            .withIdentifier(10L)
-                            .withBadge(getString(R.string.beta_tag)));
+                            .withIdentifier(10L));
         drawerBuilder.addDrawerItems(
                 new PrimaryDrawerItem()
                         .withName(R.string.nav_manage)

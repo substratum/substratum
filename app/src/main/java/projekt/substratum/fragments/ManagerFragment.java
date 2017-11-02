@@ -321,15 +321,17 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         if (!Systems.isSamsung(context)
                 && !Systems.checkOMS(context)
                 && !prefs.getBoolean("seen_legacy_warning", false))
-            new AlertDialog.Builder(context)
-                    .setNeutralButton(R.string.dialog_ok, (dialogInterface, i) -> {
-                        prefs.edit().putBoolean("seen_legacy_warning", true).apply();
-                        dialogInterface.dismiss();
-                    })
-                    .setTitle(R.string.warning_title)
-                    .setCancelable(false)
-                    .setMessage(R.string.legacy_overlay_uninstall_warning_text)
-                    .show();
+            if (getActivity() != null) {
+                new AlertDialog.Builder(getActivity(), R.style.Theme_AppCompat_Dialog_Alert)
+                        .setNeutralButton(R.string.dialog_ok, (dialogInterface, i) -> {
+                            prefs.edit().putBoolean("seen_legacy_warning", true).apply();
+                            dialogInterface.dismiss();
+                        })
+                        .setTitle(R.string.warning_title)
+                        .setCancelable(false)
+                        .setMessage(R.string.legacy_overlay_uninstall_warning_text)
+                        .show();
+            }
         return view;
     }
 

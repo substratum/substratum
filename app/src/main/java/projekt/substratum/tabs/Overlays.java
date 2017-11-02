@@ -1217,9 +1217,6 @@ public class Overlays extends Fragment {
                     Collections.addAll(typeArray, (String[]) typeArrayRaw);
                     Collections.sort(typeArray);
 
-                    // Sort the typeArray so that the types are asciibetical
-                    Collections.sort(typeArray);
-
                     // Let's start adding the type xmls to be parsed into the spinners
                     ArrayList<VariantItem> type1a = new ArrayList<>();
                     ArrayList<VariantItem> type1b = new ArrayList<>();
@@ -1338,7 +1335,6 @@ public class Overlays extends Fragment {
                                 }
                             }
                         }
-
                         VariantAdapter[] adapters = new VariantAdapter[]{
                                 new VariantAdapter(overlays.mContext, type1a),
                                 new VariantAdapter(overlays.mContext, type1b),
@@ -1347,11 +1343,11 @@ public class Overlays extends Fragment {
                                 new VariantAdapter(overlays.mContext, type4)
                         };
                         Boolean[] checker = new Boolean[]{
-                                type1a.isEmpty(),
-                                type1b.isEmpty(),
-                                type1c.isEmpty(),
-                                type2.isEmpty(),
-                                type4.isEmpty()
+                                !type1a.isEmpty(),
+                                !type1b.isEmpty(),
+                                !type1c.isEmpty(),
+                                !type2.isEmpty(),
+                                !type4.isEmpty()
                         };
                         createOverlaysItem(
                                 overlays,
@@ -1404,11 +1400,11 @@ public class Overlays extends Fragment {
                                 package_name,
                                 package_identifier,
                                 false,
-                                (checker != null && checker[0] ? null : adapters[0]),
-                                (checker != null && checker[1] ? null : adapters[1]),
-                                (checker != null && checker[2] ? null : adapters[2]),
-                                (checker != null && checker[3] ? null : adapters[3]),
-                                (checker != null && checker[4] ? null : adapters[4]),
+                                (checker != null ? (checker[0] ? adapters[0] : null) : null),
+                                (checker != null ? (checker[1] ? adapters[1] : null) : null),
+                                (checker != null ? (checker[2] ? adapters[2] : null) : null),
+                                (checker != null ? (checker[3] ? adapters[3] : null) : null),
+                                (checker != null ? (checker[4] ? adapters[4] : null) : null),
                                 overlays.mContext,
                                 overlays.theme_version,
                                 argument,
@@ -1417,7 +1413,7 @@ public class Overlays extends Fragment {
                                 overlays.getActivityView());
                 loadOverlays.adapterList.add(overlaysItem);
             } catch (Exception e) {
-                // If anything comes out from here, then it's an OMS issue most definitely
+                e.printStackTrace();
             }
         }
 

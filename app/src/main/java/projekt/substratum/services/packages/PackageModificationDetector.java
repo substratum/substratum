@@ -45,6 +45,8 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.util.helpers.NotificationCreator;
 
+import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
+
 public class PackageModificationDetector extends BroadcastReceiver {
 
     private static final String TAG = "SubstratumDetector";
@@ -59,6 +61,11 @@ public class PackageModificationDetector extends BroadcastReceiver {
         if (packageName != null) {
             package_name = packageName.toString().substring(8);
         } else {
+            return;
+        }
+
+        if (package_name.equals(SST_ADDON_PACKAGE)) {
+            Broadcasts.sendKillMessage(context);
             return;
         }
 

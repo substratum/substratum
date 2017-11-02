@@ -29,6 +29,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.jaredrummler.android.widget.AnimatedSvgView;
@@ -64,6 +65,10 @@ public class SplashScreenActivity extends Activity {
 
     private static final int DELAY_LAUNCH_MAIN_ACTIVITY = 600;
     private static final int DELAY_LAUNCH_APP_INTRO = 2300;
+    @BindView(R.id.animated_svg_view)
+    AnimatedSvgView svgView;
+    @BindView(R.id.splashscreen_image)
+    ImageView splashScreenImage;
     private Intent intent;
 
     @Override
@@ -83,16 +88,18 @@ public class SplashScreenActivity extends Activity {
 
             try {
 
-                AnimatedSvgView svgView = findViewById(R.id.animated_svg_view);
+                splashScreenImage.setVisibility(View.GONE);
                 svgView.start();
 
                 // Finally set the proper launch activity and delay
                 intent = new Intent(SplashScreenActivity.this, AppIntroActivity.class);
                 intent_launch_delay = DELAY_LAUNCH_APP_INTRO;
-            } catch (OutOfMemoryError oome) {
+            } catch (OutOfMemoryError ignored) {
                 Log.e(References.SUBSTRATUM_LOG, "The VM has blown up and the rendering of " +
                         "the splash screen animated icon has been cancelled.");
             }
+        } else {
+            svgView.setVisibility(View.GONE);
         }
 
         Handler handler = new Handler();

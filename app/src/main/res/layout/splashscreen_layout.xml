@@ -25,6 +25,13 @@
               android:gravity="center"
               android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/splashscreen_image"
+        android:layout_width="@dimen/app_splash_icon_width"
+        android:layout_height="@dimen/app_splash_icon_height"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/substratum_icon"/>
+
     <com.jaredrummler.android.widget.AnimatedSvgView
         android:id="@+id/animated_svg_view"
         android:layout_width="128dp"

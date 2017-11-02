@@ -1232,25 +1232,22 @@ enum OverlaysManager {
 
                 overlays.mNotifyManager.cancel(References.notification_id_compiler);
                 if (!overlays.currentInstance.has_failed) {
-                    // Closing off the persistent notification
-                    if (overlays.checkActiveNotifications()) {
-                        overlays.mBuilder = new NotificationCompat.Builder(
-                                context, DEFAULT_NOTIFICATION_CHANNEL_ID);
-                        overlays.mBuilder.setAutoCancel(true);
-                        overlays.mBuilder.setProgress(0, 0, false);
-                        overlays.mBuilder.setOngoing(false);
-                        overlays.mBuilder.setContentIntent(intent);
-                        overlays.mBuilder.setSmallIcon(R.drawable.notification_success_icon);
-                        overlays.mBuilder.setContentTitle(
-                                context.getString(R.string.notification_done_title));
-                        overlays.mBuilder.setContentText(
-                                context.getString(R.string.notification_no_errors_found));
-                        if (overlays.prefs.getBoolean("vibrate_on_compiled", false)) {
-                            overlays.mBuilder.setVibrate(new long[]{100L, 200L, 100L, 500L});
-                        }
-                        overlays.mNotifyManager.notify(
-                                References.notification_id_compiler, overlays.mBuilder.build());
+                    overlays.mBuilder = new NotificationCompat.Builder(
+                            context, DEFAULT_NOTIFICATION_CHANNEL_ID);
+                    overlays.mBuilder.setAutoCancel(true);
+                    overlays.mBuilder.setProgress(0, 0, false);
+                    overlays.mBuilder.setOngoing(false);
+                    overlays.mBuilder.setContentIntent(intent);
+                    overlays.mBuilder.setSmallIcon(R.drawable.notification_success_icon);
+                    overlays.mBuilder.setContentTitle(
+                            context.getString(R.string.notification_done_title));
+                    overlays.mBuilder.setContentText(
+                            context.getString(R.string.notification_no_errors_found));
+                    if (overlays.prefs.getBoolean("vibrate_on_compiled", false)) {
+                        overlays.mBuilder.setVibrate(new long[]{100L, 200L, 100L, 500L});
                     }
+                    overlays.mNotifyManager.notify(
+                            References.notification_id_compiler, overlays.mBuilder.build());
 
                     if (overlays.currentInstance.missingType3) {
                         currentShownLunchBar = Lunchbar.make(

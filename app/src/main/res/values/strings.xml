@@ -488,7 +488,7 @@
     <string name="notification_done_upgrade_title_failed">Missing or unbuildable configuration:\n\n%s</string>
     <string name="notification_done_update_text">All overlays for this app have been updated.</string>
     <string name="notification_done_upgrade_text">All overlays for this theme have been updated.</string>
-    <string name="notification_no_errors_found">No errors while installing any overlays</string>
+    <string name="notification_no_errors_found">No errors while installing selected overlays</string>
     <string name="notification_some_errors_found">An error has occurred during overlay installation</string>
     <string name="notification_processing">Processing overlay for</string>
     <string name="notification_processing_n">Preparing theme overlay&#8230;</string>

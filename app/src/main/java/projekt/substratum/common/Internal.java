@@ -143,8 +143,6 @@ public enum Internal {
     public static final String BOOTANIMATION_BU_LOCATION = "/system/media/bootanimation-backup.zip";
     public static final String VALIDATOR_CACHE = "ValidatorCache";
     public static final String VALIDATOR_CACHE_DIR = "/ValidatorCache/";
-    public static final String RECREATE_PROP = "ro.substratum.recreate";
-    public static final String REFRESH_PROP = "sys.refresh_theme";
     public static final int REFRESH_PROP_ACTIVATED = 1;
     public static final String SYSTEM_ADDON_DIR = "/system/addon.d/";
     public static final String SUBSBOOT_ADDON = "/system/addon.d/81-subsboot.sh";
@@ -152,6 +150,10 @@ public enum Internal {
             "http://xmlpull.org/v1/doc/features.html#indent-output";
     public static final String XML_UTF = "UTF-8";
     public static final String SYSTEM_MEDIA_PATH = "/system/media/audio";
+    // Props
+    public static final String AOPT_PROP = "ro.substratum.aopt";
+    public static final String RECREATE_PROP = "ro.substratum.recreate";
+    public static final String REFRESH_PROP = "sys.refresh_theme";
     // Overlays.java
     public static final Integer SPECIAL_SNOWFLAKE_DELAY = 500;
     public static final String XML_EXTENSION = ".xml";

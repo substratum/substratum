@@ -30,6 +30,9 @@ import java.util.Arrays;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.FileOperations;
 
+import static projekt.substratum.common.Internal.AOPT_PROP;
+import static projekt.substratum.common.Systems.getProp;
+
 public enum BinaryInstaller {
     ;
 
@@ -85,8 +88,17 @@ public enum BinaryInstaller {
             String architecture =
                     !Arrays.asList(Build.SUPPORTED_64_BIT_ABIS).isEmpty() ? "ARM64" : "ARM";
             String integrityCheck = prefs.getString("compiler", "aapt");
+
+            // For ROMs that want to force AOPT
+            String aoptBypassProp = getProp(AOPT_PROP);
+            if (aoptBypassProp != null && aoptBypassProp.length() > 0) {
+                if (integrityCheck.equals("aopt")) {
+                    prefs.edit().putString("compiler", "aopt").apply();
+                }
+                integrityCheck = "aopt";
+            }
             try {
-                if ("aopt".equals(integrityCheck)) {
+                if (integrityCheck.equals("aopt")) {
                     FileOperations.copyFromAsset(context, "aopt" + ("ARM64".equals(architecture)
                             ? "64" : ""), aoptPath);
                     Log.d(References.SUBSTRATUM_LOG,

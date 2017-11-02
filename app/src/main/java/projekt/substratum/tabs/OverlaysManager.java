@@ -561,7 +561,7 @@ enum OverlaysManager {
                 }
 
                 // Enable finish install listener
-                boolean needToWait = Substratum.needToWaitInstall();
+                boolean needToWait = Substratum.needToWaitInstall() && Systems.checkOMS(context);
                 if (needToWait) {
                     Substratum.getInstance().registerFinishReceiver();
                 }

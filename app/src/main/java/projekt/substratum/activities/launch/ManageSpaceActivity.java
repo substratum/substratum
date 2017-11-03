@@ -87,7 +87,7 @@ public class ManageSpaceActivity extends AppCompatActivity {
         logsCounter.setText(getString(R.string.clear_cache_button_loading));
         File filer = new File(LOGCHAR_DIR);
         if (filer.isDirectory()) {
-            logsCounter.setText(String.valueOf(filer.list().length));
+            logsCounter.setText(String.valueOf((filer.list() != null ? filer.list().length : 0)));
         } else {
             logsCounter.setText(String.valueOf(0));
         }

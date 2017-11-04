@@ -484,7 +484,13 @@ public class InformationActivity extends AppCompatActivity {
                 getApplicationContext(),
                 theme_pid,
                 false);
-        if (heroImage != null) heroImageBitmap = ((BitmapDrawable) heroImage).getBitmap();
+        if (heroImage != null) {
+            try {
+                heroImageBitmap = ((BitmapDrawable) heroImage).getBitmap();
+            } catch (Exception e) {
+                // Suppress warning
+            }
+        }
         dominantColor = heroImageBitmap == null ?
                 Color.TRANSPARENT : getDominantColor(heroImageBitmap);
 

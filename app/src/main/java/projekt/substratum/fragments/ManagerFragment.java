@@ -1221,10 +1221,11 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         protected void onPostExecute(Void result) {
             ManagerFragment fragment = ref.get();
             if (fragment != null) {
-                if (fragment.layoutReloader != null && !fragment.layoutReloader.isCancelled()) {
-                    fragment.layoutReloader.cancel(true);
-                    fragment.layoutReloader = new LayoutReloader(fragment, fragment.userInput);
-                    fragment.layoutReloader.execute();
+                if (Systems.isAndromedaDevice(fragment.context)) {
+                    new Handler().postDelayed(fragment::setSwipeRefreshLayoutRefreshing,
+                            MANAGER_FRAGMENT_INITIAL_DELAY);
+                } else {
+                    fragment.setSwipeRefreshLayoutRefreshing();
                 }
                 if (Systems.isSamsungDevice(fragment.context)) {
                     MainActivity.uninstallMultipleAPKS(fragment.getActivity());

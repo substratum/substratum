@@ -1284,7 +1284,8 @@ public class MainActivity extends AppCompatActivity implements
                     }
 
                     if (Systems.checkOreo() &&
-                            (!Systems.isAndromedaDevice(context) ||
+                            ((!Systems.checkSubstratumService(context) &&
+                                    !Systems.isAndromedaDevice(context)) ||
                                     Systems.checkThemeSystemModule(context) ==
                                             OVERLAY_MANAGER_SERVICE_O_ROOTED) &&
                             !activity.prefs.contains("rooted_oms_dismissal")) {

@@ -1005,23 +1005,26 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                             Toast.LENGTH_SHORT
                     ).show();
 
-                    AlertDialog.Builder alertDialogBuilder =
-                            new AlertDialog.Builder(context);
-                    alertDialogBuilder
-                            .setTitle(fragment.getString(R.string
-                                    .legacy_dialog_soft_reboot_title));
-                    alertDialogBuilder
-                            .setMessage(
-                                    fragment.getString(R.string
-                                            .legacy_dialog_soft_reboot_text));
-                    alertDialogBuilder
-                            .setPositiveButton(android.R.string.ok,
-                                    (dialog, id) -> ElevatedCommands.reboot());
-                    alertDialogBuilder.setNegativeButton(
-                            R.string.remove_dialog_later, (dialog, id1) -> dialog.dismiss());
-                    alertDialogBuilder.setCancelable(false);
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();
+                    if (fragment.getActivity() != null) {
+                        AlertDialog.Builder alertDialogBuilder =
+                                new AlertDialog.Builder(fragment.getActivity(),
+                                        R.style.Theme_AppCompat_Dialog_Alert);
+                        alertDialogBuilder
+                                .setTitle(fragment.getString(R.string
+                                        .legacy_dialog_soft_reboot_title));
+                        alertDialogBuilder
+                                .setMessage(
+                                        fragment.getString(R.string
+                                                .legacy_dialog_soft_reboot_text));
+                        alertDialogBuilder
+                                .setPositiveButton(android.R.string.ok,
+                                        (dialog, id) -> ElevatedCommands.reboot());
+                        alertDialogBuilder.setNegativeButton(
+                                R.string.remove_dialog_later, (dialog, id1) -> dialog.dismiss());
+                        alertDialogBuilder.setCancelable(false);
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+                    }
                 }
             }
         }

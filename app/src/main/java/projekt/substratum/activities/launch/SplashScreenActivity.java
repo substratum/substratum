@@ -181,14 +181,16 @@ public class SplashScreenActivity extends Activity {
                     if (!prefs2.contains("andromeda_exp_fp_" + andromedaVer)) {
                         Log.d(SUBSTRATUM_LOG, "Failed to withdraw andromeda fingerprint.");
                     } else {
-                        //noinspection ConstantConditions
-                        prefs2.edit()
-                                .putString("andromeda_fp", MD5.calculateMD5(new File(
-                                        Packages.getInstalledDirectory(context,
-                                                ANDROMEDA_PACKAGE))))
-                                .putString("andromeda_installer", context.getPackageManager()
-                                        .getInstallerPackageName(ANDROMEDA_PACKAGE))
-                                .apply();
+                        String installed_directory =
+                                Packages.getInstalledDirectory(context, ANDROMEDA_PACKAGE);
+                        if (installed_directory != null) {
+                            prefs2.edit()
+                                    .putString("andromeda_fp",
+                                            MD5.calculateMD5(new File(installed_directory)))
+                                    .putString("andromeda_installer", context.getPackageManager()
+                                            .getInstallerPackageName(ANDROMEDA_PACKAGE))
+                                    .apply();
+                        }
                     }
                 }
 

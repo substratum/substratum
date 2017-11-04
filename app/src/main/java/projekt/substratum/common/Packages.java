@@ -1026,14 +1026,12 @@ public enum Packages {
      */
     public static String getInstalledDirectory(Context context,
                                                String package_name) {
-        PackageManager pm = context.getPackageManager();
-        for (ApplicationInfo app : pm.getInstalledApplications(0)) {
-            if (app.packageName.equals(package_name)) {
-                // The way this works is that Android will traverse within the SYMLINK and not the
-                // actual directory. e.g.:
-                // rm -r /vendor/overlay/com.android.systemui.navbars.Mono.apk (ON NEXUS FILTER)
-                return app.sourceDir;
-            }
+        try {
+            PackageManager pm = context.getPackageManager();
+            ApplicationInfo ai = pm.getApplicationInfo(package_name, 0);
+            return ai.sourceDir;
+        } catch (Exception e) {
+            // Suppress warning
         }
         return null;
     }

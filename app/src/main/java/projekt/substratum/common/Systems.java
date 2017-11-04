@@ -120,20 +120,20 @@ public enum Systems {
 
             Boolean rooted = Root.checkRootAccess();
             if (checkOreo()) {
-                if (rooted) {
-                    // Rooted mode
-                    prefs.edit().putInt(
-                            "CURRENT_THEME_MODE",
-                            OVERLAY_MANAGER_SERVICE_O_ROOTED
-                    ).apply();
-                    return OVERLAY_MANAGER_SERVICE_O_ROOTED;
-                } else if (isAndromedaDevice(context) && !isBinderInterfacer(context)) {
+                if (isAndromedaDevice(context) && !isBinderInterfacer(context)) {
                     // Andromeda mode
                     prefs.edit().putInt(
                             "CURRENT_THEME_MODE",
                             OVERLAY_MANAGER_SERVICE_O_ANDROMEDA
                     ).apply();
                     return OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
+                } else if (rooted) {
+                    // Rooted mode
+                    prefs.edit().putInt(
+                            "CURRENT_THEME_MODE",
+                            OVERLAY_MANAGER_SERVICE_O_ROOTED
+                    ).apply();
+                    return OVERLAY_MANAGER_SERVICE_O_ROOTED;
                 } else if (isBinderInterfacer(context)) {
                     // Interfacer mode
                     prefs.edit().putInt(

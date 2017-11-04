@@ -119,6 +119,7 @@ import static projekt.substratum.common.References.LOGCHAR_DIR;
 import static projekt.substratum.common.References.NO_THEME_ENGINE;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_N_UNROOTED;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
+import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ROOTED;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_UNROOTED;
 import static projekt.substratum.common.References.OVERLAY_UPDATE_RANGE;
 import static projekt.substratum.common.References.SAMSUNG_THEME_ENGINE_N;
@@ -1226,6 +1227,25 @@ public class MainActivity extends AppCompatActivity implements
                                             });
                                     alert.show();
                                 }
+
+                                if (Systems.checkOreo() &&
+                                        (!Systems.isAndromedaDevice(context) ||
+                                                Systems.checkThemeSystemModule(context) ==
+                                                        OVERLAY_MANAGER_SERVICE_O_ROOTED) &&
+                                        !activity.prefs.contains("rooted_oms_dismissal")) {
+                                    AlertDialog.Builder alert = new AlertDialog.Builder(activity);
+                                    alert.setTitle(R.string.rooted_oms_dialog_warning_title);
+                                    alert.setMessage(R.string.rooted_oms_dialog_warning_text);
+                                    alert.setPositiveButton(R.string.dialog_ok,
+                                            (dialog2, i2) -> dialog2.cancel());
+                                    alert.setNeutralButton(R.string.dialog_do_not_show_again,
+                                            (dialog3, i3) -> {
+                                                activity.prefs.edit().putBoolean(
+                                                        "rooted_oms_dismissal", true).apply();
+                                                dialog3.cancel();
+                                            });
+                                    alert.show();
+                                }
                             })
                             .setNegativeButton(R.string.deny,
                                     (dialog, i) -> {
@@ -1258,6 +1278,25 @@ public class MainActivity extends AppCompatActivity implements
                                 (dialog3, i3) -> {
                                     activity.prefs.edit().putBoolean(
                                             "legacy_dismissal", true).apply();
+                                    dialog3.cancel();
+                                });
+                        alert.show();
+                    }
+
+                    if (Systems.checkOreo() &&
+                            (!Systems.isAndromedaDevice(context) ||
+                                    Systems.checkThemeSystemModule(context) ==
+                                            OVERLAY_MANAGER_SERVICE_O_ROOTED) &&
+                            !activity.prefs.contains("rooted_oms_dismissal")) {
+                        AlertDialog.Builder alert = new AlertDialog.Builder(activity);
+                        alert.setTitle(R.string.rooted_oms_dialog_warning_title);
+                        alert.setMessage(R.string.rooted_oms_dialog_warning_text);
+                        alert.setPositiveButton(R.string.dialog_ok,
+                                (dialog2, i2) -> dialog2.cancel());
+                        alert.setNeutralButton(R.string.dialog_do_not_show_again,
+                                (dialog3, i3) -> {
+                                    activity.prefs.edit().putBoolean(
+                                            "rooted_oms_dismissal", true).apply();
                                     dialog3.cancel();
                                 });
                         alert.show();

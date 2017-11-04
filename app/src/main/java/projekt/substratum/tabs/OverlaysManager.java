@@ -32,6 +32,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.Lunchbar;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
@@ -359,9 +360,13 @@ enum OverlaysManager {
                     overlays.mNotifyManager.notify(
                             References.notification_id_compiler, overlays.mBuilder.build());
                     overlays.mCompileDialog.setCancelable(false);
-                    View sheetView = View.inflate(context,
-                            R.layout.compile_sheet_dialog, null);
+                    View sheetView = View.inflate(context, R.layout.compile_sheet_dialog, null);
                     overlays.mCompileDialog.setContentView(sheetView);
+                    BottomSheetBehavior mBehavior =
+                            BottomSheetBehavior.from((View) sheetView.getParent());
+                    overlays.mCompileDialog.setOnShowListener(dialogInterface -> {
+                        mBehavior.setPeekHeight(sheetView.getHeight());
+                    });
                     overlays.mCompileDialog.show();
                     InformationActivity.compilingProcess = true;
 

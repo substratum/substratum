@@ -98,6 +98,7 @@ import projekt.substratum.fragments.RecoveryFragment;
 import projekt.substratum.fragments.SettingsFragment;
 import projekt.substratum.fragments.TeamFragment;
 import projekt.substratum.fragments.ThemeFragment;
+import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.services.floatui.SubstratumFloatInterface;
 import projekt.substratum.services.tiles.FloatUiTile;
 import projekt.substratum.util.files.Root;
@@ -1364,16 +1365,26 @@ public class MainActivity extends AppCompatActivity implements
                 }
 
                 // Check if the system is Andromeda mode
-                boolean andromeda_check =
-                        themeSystemModule == OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
+                boolean andromeda_check = themeSystemModule == OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
                 if (andromeda_check) {
                     // Throw the dialog when checkServerActivity() isn't working
+                    if (!AndromedaService.checkServerActivity()) {
+                        Log.e(SUBSTRATUM_LOG,
+                                "AndromedaService binder lookup failed, " +
+                                        "scheduling immediate restart...");
+                        context.stopService(new Intent(context, AndromedaBinderService.class));
+                        Substratum.getInstance().startBinderService(AndromedaBinderService.class);
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     return !AndromedaService.checkServerActivity();
                 }
 
                 // Check if the system is legacy
-                boolean legacyCheck =
-                        themeSystemModule == NO_THEME_ENGINE;
+                boolean legacyCheck = themeSystemModule == NO_THEME_ENGINE;
                 if (legacyCheck) {
                     // Throw the dialog, after checking for root
                     return !Root.requestRootAccess();
@@ -1513,8 +1524,10 @@ public class MainActivity extends AppCompatActivity implements
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            RootRequester rootRequester = new RootRequester(MainActivity.this);
-            rootRequester.execute();
+            if (!mProgressDialog.isShowing()) {
+                RootRequester rootRequester = new RootRequester(MainActivity.this);
+                rootRequester.execute();
+            }
         }
     }
 }

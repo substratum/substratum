@@ -165,6 +165,29 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         mRecyclerView.setAdapter(empty_adapter);
     }
 
+    /**
+     * Callable function to simulate the swipe refresh layout to be refreshing the whole list
+     */
+    public void setSwipeRefreshLayoutRefreshing() {
+        if (searchView.isIconified()) {
+            if ((first_run != null) && mRecyclerView.isShown() && !first_run) {
+                if (layoutReloader != null && !layoutReloader.isCancelled()) {
+                    layoutReloader.cancel(true);
+                    layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
+                    layoutReloader.execute();
+                }
+            } else {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        } else {
+            if (layoutReloader != null && !layoutReloader.isCancelled()) {
+                layoutReloader.cancel(true);
+                layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
+                layoutReloader.execute();
+            }
+        }
+    }
+
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater,
@@ -202,25 +225,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 fabColor);
 
         // Swipe Refresh
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            if (searchView.isIconified()) {
-                if ((first_run != null) && mRecyclerView.isShown() && !first_run) {
-                    if (layoutReloader != null && !layoutReloader.isCancelled()) {
-                        layoutReloader.cancel(true);
-                        layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
-                        layoutReloader.execute();
-                    }
-                } else {
-                    swipeRefreshLayout.setRefreshing(false);
-                }
-            } else {
-                if (layoutReloader != null && !layoutReloader.isCancelled()) {
-                    layoutReloader.cancel(true);
-                    layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
-                    layoutReloader.execute();
-                }
-            }
-        });
+        swipeRefreshLayout.setOnRefreshListener(this::setSwipeRefreshLayoutRefreshing);
 
         // Adjust toggle all switch
         toggle_all.setOnCheckedChangeListener(
@@ -745,10 +750,12 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                             fragment.getString(R.string.manage_system_not_permitted),
                             Toast.LENGTH_LONG).show();
                 }
-                if (fragment.layoutReloader != null && !fragment.layoutReloader.isCancelled()) {
-                    fragment.layoutReloader.cancel(true);
-                    fragment.layoutReloader = new LayoutReloader(fragment, fragment.userInput);
-                    fragment.layoutReloader.execute();
+
+                if (Systems.isAndromedaDevice(context)) {
+                    new Handler().postDelayed(fragment::setSwipeRefreshLayoutRefreshing,
+                            MANAGER_FRAGMENT_INITIAL_DELAY);
+                } else {
+                    fragment.setSwipeRefreshLayoutRefreshing();
                 }
             }
         }
@@ -992,10 +999,11 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             ManagerFragment fragment = ref.get();
             if (fragment != null) {
                 Context context = fragment.context;
-                if (fragment.layoutReloader != null && !fragment.layoutReloader.isCancelled()) {
-                    fragment.layoutReloader.cancel(true);
-                    fragment.layoutReloader = new LayoutReloader(fragment, fragment.userInput);
-                    fragment.layoutReloader.execute();
+                if (Systems.isAndromedaDevice(context)) {
+                    new Handler().postDelayed(fragment::setSwipeRefreshLayoutRefreshing,
+                            MANAGER_FRAGMENT_INITIAL_DELAY);
+                } else {
+                    fragment.setSwipeRefreshLayoutRefreshing();
                 }
 
                 if (!Systems.checkOMS(context) && !Systems.isSamsung(context)) {
@@ -1060,10 +1068,11 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                             fragment.getString(R.string.manage_system_not_permitted),
                             Toast.LENGTH_LONG).show();
                 }
-                if (fragment.layoutReloader != null && !fragment.layoutReloader.isCancelled()) {
-                    fragment.layoutReloader.cancel(true);
-                    fragment.layoutReloader = new LayoutReloader(fragment, fragment.userInput);
-                    fragment.layoutReloader.execute();
+                if (Systems.isAndromedaDevice(context)) {
+                    new Handler().postDelayed(fragment::setSwipeRefreshLayoutRefreshing,
+                            MANAGER_FRAGMENT_INITIAL_DELAY);
+                } else {
+                    fragment.setSwipeRefreshLayoutRefreshing();
                 }
             }
         }

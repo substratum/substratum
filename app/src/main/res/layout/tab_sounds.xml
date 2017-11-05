@@ -16,8 +16,7 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<android.support.v4.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/nestedScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -37,7 +36,7 @@
                 android:id="@+id/soundsSelection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"/>
+                android:layout_marginStart="15dp" />
 
         </RelativeLayout>
 
@@ -52,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="32dp"
-                android:src="@drawable/tab_restore_default"/>
+                android:src="@drawable/tab_restore_default" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -63,7 +62,7 @@
                 android:text="@string/sounds_spinner_defaults_text"
                 android:textColor="@color/font_text"
                 android:textSize="20sp"
-                android:textStyle="italic"/>
+                android:textStyle="italic" />
 
         </RelativeLayout>
 
@@ -77,7 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="30dp"
-                android:src="@drawable/sounds_placeholder"/>
+                android:src="@drawable/sounds_placeholder" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -88,7 +87,7 @@
                 android:text="@string/sounds_placeholder_text"
                 android:textColor="@color/sounds_text"
                 android:textSize="20sp"
-                android:textStyle="italic"/>
+                android:textStyle="italic" />
 
         </RelativeLayout>
 
@@ -102,7 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="30dp"
-                android:src="@drawable/no_themes_installed"/>
+                android:src="@drawable/no_themes_installed" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -113,7 +112,7 @@
                 android:text="@string/error_loading_pack"
                 android:textColor="@color/sounds_text"
                 android:textSize="20sp"
-                android:textStyle="italic"/>
+                android:textStyle="italic" />
 
         </RelativeLayout>
 
@@ -132,14 +131,14 @@
                 android:layout_centerInParent="true"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_marginTop="50dp"
-                android:indeterminate="true"/>
+                android:indeterminate="true" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"/>
+                android:layout_marginStart="10dp" />
 
         </RelativeLayout>
     </LinearLayout>

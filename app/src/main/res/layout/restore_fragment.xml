@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
@@ -18,8 +17,8 @@
   -->
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,21 +27,21 @@
 
         <include
             android:id="@+id/restore_overlay_card"
-            layout="@layout/restore_overlay"/>
+            layout="@layout/restore_overlay" />
 
         <include
             android:id="@+id/restore_bootanimation_card"
-            layout="@layout/restore_bootanimation"/>
+            layout="@layout/restore_bootanimation" />
 
         <include
             android:id="@+id/restore_fonts_card"
-            layout="@layout/restore_fonts"/>
+            layout="@layout/restore_fonts" />
 
         <include
             android:id="@+id/restore_sounds_card"
-            layout="@layout/restore_sounds"/>
+            layout="@layout/restore_sounds" />
 
-        <include layout="@layout/restore_wallpaper"/>
+        <include layout="@layout/restore_wallpaper" />
 
     </LinearLayout>
 </ScrollView>

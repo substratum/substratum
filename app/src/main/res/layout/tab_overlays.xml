@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
@@ -18,13 +17,13 @@
   -->
 
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 xmlns:tools="http://schemas.android.com/tools"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent"
-                                                 android:background="@color/theme_information_background"
-                                                 android:fitsSystemWindows="true"
-                                                 tools:context=".MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/theme_information_background"
+    android:fitsSystemWindows="true"
+    tools:context=".MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -36,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="-3dp"
-            android:indeterminate="true"/>
+            android:indeterminate="true" />
 
         <RelativeLayout
             android:id="@+id/toggle_zone"
@@ -56,7 +55,7 @@
                 android:paddingTop="8dp"
                 android:text="@string/select_to_toggle_all_overlays"
                 android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp"/>
+                android:textSize="15sp" />
 
             <Spinner
                 android:id="@+id/type3_spinner"
@@ -65,14 +64,14 @@
                 android:layout_marginBottom="-12dp"
                 android:layout_marginStart="-7dp"
                 android:layout_marginTop="-10dp"
-                android:layout_toStartOf="@+id/toggle_all_overlays"/>
+                android:layout_toStartOf="@+id/toggle_all_overlays" />
 
             <Switch
                 android:id="@+id/toggle_all_overlays"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="6dp"/>
+                android:layout_marginTop="6dp" />
 
         </RelativeLayout>
 
@@ -97,7 +96,7 @@
                 app:fastScrollHorizontalThumbDrawable="@drawable/thumb_drawable"
                 app:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"
                 app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"
-                app:fastScrollVerticalTrackDrawable="@drawable/line_drawable"/>
+                app:fastScrollVerticalTrackDrawable="@drawable/line_drawable" />
 
         </android.support.v4.widget.SwipeRefreshLayout>
 

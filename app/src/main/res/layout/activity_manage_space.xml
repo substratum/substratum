@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
@@ -18,13 +17,13 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:fitsSystemWindows="true"
-              android:orientation="vertical"
-              tools:context="projekt.substratum.activities.launch.ManageSpaceActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context="projekt.substratum.activities.launch.ManageSpaceActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -36,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay"/>
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -64,7 +63,7 @@
                 android:text="@string/manage_space_cache_text_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/main_screen_card_theme_title"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/cache_counter"
@@ -73,7 +72,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_toEndOf="@+id/erase_cache_title"
                 android:gravity="end"
-                android:text="@string/cache_placeholder_text"/>
+                android:text="@string/cache_placeholder_text" />
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>
@@ -102,7 +101,7 @@
                 android:text="@string/manage_space_logs_text_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/main_screen_card_theme_title"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/log_counter"
@@ -111,7 +110,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_toEndOf="@+id/erase_logs_title"
                 android:gravity="end"
-                android:text="@string/logs_placeholder"/>
+                android:text="@string/logs_placeholder" />
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>
@@ -120,7 +119,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:text="@string/manage_space_cache_counter_title"/>
+        android:text="@string/manage_space_cache_counter_title" />
 
     <android.support.v7.widget.CardView
         android:id="@+id/reset_app_button"
@@ -145,7 +144,7 @@
                 android:text="@string/manage_space_reset_text_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/main_screen_card_theme_title"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>
@@ -154,6 +153,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
-        android:text="@string/manage_space_reset_text_desc"/>
+        android:text="@string/manage_space_reset_text_desc" />
 
 </LinearLayout>

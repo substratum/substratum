@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
@@ -18,21 +17,21 @@
   -->
 
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                                    xmlns:tools="http://schemas.android.com/tools"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="5dp"
-                                    android:layout_marginTop="5dp"
-                                    android:clickable="true"
-                                    android:focusable="true"
-                                    android:foreground="?android:selectableItemBackground"
-                                    app:cardPreventCornerOverlap="false"
-                                    app:cardUseCompatPadding="true"
-                                    card_view:cardBackgroundColor="@color/main_screen_card_background"
-                                    card_view:cardCornerRadius="@dimen/card_corner_radius"
-                                    card_view:cardElevation="@dimen/card_elevation">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:layout_marginTop="5dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:selectableItemBackground"
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="true"
+    card_view:cardBackgroundColor="@color/main_screen_card_background"
+    card_view:cardCornerRadius="@dimen/card_corner_radius"
+    card_view:cardElevation="@dimen/card_elevation">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -52,7 +51,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="@dimen/drag_view_margin"
                 android:layout_marginStart="15dp"
-                android:src="@drawable/default_overlay_icon"/>
+                android:src="@drawable/default_overlay_icon" />
         </LinearLayout>
 
         <LinearLayout
@@ -75,7 +74,7 @@
                 android:text="@string/priority_overlay_name_placeholder"
                 android:textColor="@color/main_screen_card_theme_title"
                 android:textSize="14sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/desc"
@@ -84,7 +83,7 @@
                 android:layout_margin="5dp"
                 android:text="@string/theme_name_placeholder"
                 android:textColor="@color/main_screen_card_theme_title"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/type1a"
@@ -93,7 +92,7 @@
                 android:layout_margin="5dp"
                 android:text="@string/type1a_name_placeholder"
                 android:textColor="@color/main_screen_card_theme_title"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/type1b"
@@ -102,7 +101,7 @@
                 android:layout_margin="5dp"
                 android:text="@string/type1b_name_placeholder"
                 android:textColor="@color/main_screen_card_theme_title"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/type1c"
@@ -111,7 +110,7 @@
                 android:layout_margin="5dp"
                 android:text="@string/type1c_name_placeholder"
                 android:textColor="@color/main_screen_card_theme_title"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/type2"
@@ -120,7 +119,7 @@
                 android:layout_margin="5dp"
                 android:text="@string/type2_name_placeholder"
                 android:textColor="@color/main_screen_card_theme_title"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/type3"
@@ -129,7 +128,7 @@
                 android:layout_margin="5dp"
                 android:text="@string/type3_name_placeholder"
                 android:textColor="@color/main_screen_card_theme_title"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -144,7 +143,7 @@
                 android:layout_width="@dimen/drag_view_size"
                 android:layout_height="match_parent"
                 android:layout_margin="15dp"
-                android:src="@drawable/priorities_card_move_icon"/>
+                android:src="@drawable/priorities_card_move_icon" />
         </LinearLayout>
     </RelativeLayout>
 </android.support.v7.widget.CardView>

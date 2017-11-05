@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
@@ -18,16 +17,16 @@
   -->
 
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                                    android:id="@+id/overlayCard"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:clickable="true"
-                                    android:focusable="true"
-                                    android:foreground="?android:selectableItemBackground"
-                                    android:orientation="horizontal"
-                                    card_view:cardCornerRadius="0dp"
-                                    card_view:cardElevation="0dp">
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/overlayCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:selectableItemBackground"
+    android:orientation="horizontal"
+    card_view:cardCornerRadius="0dp"
+    card_view:cardElevation="0dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -49,7 +48,7 @@
                 android:layout_height="60dp"
                 android:layout_marginEnd="10dp"
                 android:importantForAccessibility="no"
-                android:src="@drawable/default_overlay_icon"/>
+                android:src="@drawable/default_overlay_icon" />
 
             <ImageView
                 android:id="@+id/app_icon_sub"
@@ -60,7 +59,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="20dp"
                 android:importantForAccessibility="no"
-                android:src="@drawable/default_overlay_icon"/>
+                android:src="@drawable/default_overlay_icon" />
 
         </RelativeLayout>
 
@@ -80,7 +79,7 @@
                 android:text="@string/reboot_awaiting_manager_title"
                 android:textColor="@color/main_screen_card_theme_title"
                 android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/desc"
@@ -88,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/theme_name_placeholder"
                 android:textColor="@color/main_screen_card_theme_title"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/type1a"
@@ -96,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/type1a_name_placeholder"
                 android:textColor="@color/main_screen_card_theme_title"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/type1b"
@@ -104,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/type1b_name_placeholder"
                 android:textColor="@color/main_screen_card_theme_title"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/type1c"
@@ -112,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/type1c_name_placeholder"
                 android:textColor="@color/main_screen_card_theme_title"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/type2"
@@ -120,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/type2_name_placeholder"
                 android:textColor="@color/main_screen_card_theme_title"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/type3"
@@ -128,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/type3_name_placeholder"
                 android:textColor="@color/main_screen_card_theme_title"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/type4"
@@ -136,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/type4_name_placeholder"
                 android:textColor="@color/main_screen_card_theme_title"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/version"
@@ -144,7 +143,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/version_name_placeholder"
                 android:textColor="@color/main_screen_card_theme_title"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -153,6 +152,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>

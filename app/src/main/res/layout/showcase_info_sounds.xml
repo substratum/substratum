@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
@@ -18,11 +17,11 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_marginStart="10dp"
-              android:layout_marginTop="10dp"
-              android:orientation="horizontal">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="10dp"
+    android:layout_marginTop="10dp"
+    android:orientation="horizontal">
 
     <TextView
         android:layout_width="wrap_content"
@@ -30,6 +29,6 @@
         android:drawablePadding="28dp"
         android:drawableStart="@drawable/nav_sounds"
         android:gravity="center"
-        android:text="@string/community_info_sounds"/>
+        android:text="@string/community_info_sounds" />
 
 </LinearLayout>

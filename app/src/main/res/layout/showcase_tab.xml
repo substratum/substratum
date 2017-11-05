@@ -17,11 +17,11 @@
   -->
 
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:tools="http://schemas.android.com/tools"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent"
-                                                 android:fitsSystemWindows="true"
-                                                 tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".MainActivity">
 
     <RelativeLayout
         android:id="@+id/none_found"
@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/no_wallpapers_found_showcase"/>
+            android:src="@drawable/no_wallpapers_found_showcase" />
 
         <TextView
             android:layout_width="match_parent"
@@ -45,7 +45,7 @@
             android:text="@string/showcase_no_themes"
             android:textColor="@color/main_screen_card_theme_title"
             android:textSize="20sp"
-            android:textStyle="italic"/>
+            android:textStyle="italic" />
 
     </RelativeLayout>
 
@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginTop="20dp"
-            android:src="@drawable/no_network"/>
+            android:src="@drawable/no_network" />
 
         <TextView
             android:layout_width="match_parent"
@@ -71,7 +71,7 @@
             android:text="@string/wallpaper_no_connection"
             android:textColor="@color/font_text"
             android:textSize="20sp"
-            android:textStyle="italic"/>
+            android:textStyle="italic" />
 
     </RelativeLayout>
 
@@ -83,7 +83,7 @@
         android:layout_centerInParent="true"
         android:layout_gravity="top|center_horizontal"
         android:indeterminate="true"
-        android:paddingTop="50dp"/>
+        android:paddingTop="50dp" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/wallpaperRecyclerView"
@@ -92,6 +92,6 @@
         android:layout_alignParentTop="true"
         android:clipToPadding="false"
         android:paddingBottom="90dp"
-        android:scrollbars="vertical"/>
+        android:scrollbars="vertical" />
 
 </android.support.design.widget.CoordinatorLayout>

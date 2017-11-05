@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
@@ -18,10 +17,10 @@
   -->
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,7 +37,7 @@
             android:layout_marginTop="10dp"
             android:text="@string/team_title_one"
             android:textColor="@color/settings_title_color"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
@@ -46,7 +45,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/team_text_one"/>
+            android:text="@string/team_text_one" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -76,7 +75,7 @@
                         android:layout_height="120dp"
                         android:contentDescription="@string/team_nicholas"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/team_nicholas"/>
+                        android:src="@drawable/team_nicholas" />
 
                     <TextView
                         android:id="@+id/nicholas_text"
@@ -89,7 +88,7 @@
                         android:text="@string/team_nicholas"
                         android:textColor="@color/main_screen_card_theme_title"
                         android:textSize="18sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -101,7 +100,7 @@
                         android:gravity="center"
                         android:text="@string/team_nicholas_description"
                         android:textColor="@color/main_screen_card_theme_title"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
 
                 </RelativeLayout>
 
@@ -129,7 +128,7 @@
                         android:layout_height="120dp"
                         android:contentDescription="@string/team_syko"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/team_syko"/>
+                        android:src="@drawable/team_syko" />
 
                     <TextView
                         android:id="@+id/syko_text"
@@ -142,7 +141,7 @@
                         android:text="@string/team_syko"
                         android:textColor="@color/main_screen_card_theme_title"
                         android:textSize="18sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -154,7 +153,7 @@
                         android:gravity="center"
                         android:text="@string/team_syko_description"
                         android:textColor="@color/main_screen_card_theme_title"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
 
                 </RelativeLayout>
 
@@ -190,7 +189,7 @@
                         android:layout_height="120dp"
                         android:contentDescription="@string/team_ivan"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/team_ivan"/>
+                        android:src="@drawable/team_ivan" />
 
                     <TextView
                         android:id="@+id/ivan_text"
@@ -203,7 +202,7 @@
                         android:text="@string/team_ivan"
                         android:textColor="@color/main_screen_card_theme_title"
                         android:textSize="18sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -215,7 +214,7 @@
                         android:gravity="center"
                         android:text="@string/team_ivan_description"
                         android:textColor="@color/main_screen_card_theme_title"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
 
                 </RelativeLayout>
 
@@ -243,7 +242,7 @@
                         android:layout_height="120dp"
                         android:contentDescription="@string/team_surge"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/team_surge"/>
+                        android:src="@drawable/team_surge" />
 
                     <TextView
                         android:id="@+id/surge_text"
@@ -256,7 +255,7 @@
                         android:text="@string/team_surge"
                         android:textColor="@color/main_screen_card_theme_title"
                         android:textSize="18sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -268,7 +267,7 @@
                         android:gravity="center"
                         android:text="@string/team_surge_description"
                         android:textColor="@color/main_screen_card_theme_title"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
 
                 </RelativeLayout>
 
@@ -304,7 +303,7 @@
                         android:layout_height="120dp"
                         android:contentDescription="@string/team_george"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/team_george"/>
+                        android:src="@drawable/team_george" />
 
                     <TextView
                         android:id="@+id/george_text"
@@ -317,7 +316,7 @@
                         android:text="@string/team_george"
                         android:textColor="@color/main_screen_card_theme_title"
                         android:textSize="18sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -329,7 +328,7 @@
                         android:gravity="center"
                         android:text="@string/team_george_description"
                         android:textColor="@color/main_screen_card_theme_title"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
 
                 </RelativeLayout>
 
@@ -357,7 +356,7 @@
                         android:layout_height="120dp"
                         android:contentDescription="@string/team_nathan"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/team_nathan"/>
+                        android:src="@drawable/team_nathan" />
 
                     <TextView
                         android:id="@+id/nathan_text"
@@ -370,7 +369,7 @@
                         android:text="@string/team_nathan"
                         android:textColor="@color/main_screen_card_theme_title"
                         android:textSize="18sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -382,7 +381,7 @@
                         android:gravity="center"
                         android:text="@string/team_nathan_description"
                         android:textColor="@color/main_screen_card_theme_title"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
 
                 </RelativeLayout>
 
@@ -418,7 +417,7 @@
                         android:layout_height="120dp"
                         android:contentDescription="@string/team_nathan"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/team_char"/>
+                        android:src="@drawable/team_char" />
 
                     <TextView
                         android:id="@+id/char_text"
@@ -431,7 +430,7 @@
                         android:text="@string/team_char"
                         android:textColor="@color/main_screen_card_theme_title"
                         android:textSize="18sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -441,7 +440,7 @@
                         android:gravity="center"
                         android:text="@string/team_char_description"
                         android:textColor="@color/main_screen_card_theme_title"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
 
                 </RelativeLayout>
 
@@ -469,7 +468,7 @@
                         android:layout_height="120dp"
                         android:contentDescription="@string/team_nathan"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/team_harsh"/>
+                        android:src="@drawable/team_harsh" />
 
                     <TextView
                         android:id="@+id/harsh_text"
@@ -482,7 +481,7 @@
                         android:text="@string/team_harsh"
                         android:textColor="@color/main_screen_card_theme_title"
                         android:textSize="18sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -492,7 +491,7 @@
                         android:gravity="center"
                         android:text="@string/team_harsh_description"
                         android:textColor="@color/main_screen_card_theme_title"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
 
                 </RelativeLayout>
 
@@ -501,7 +500,7 @@
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
-                    tools:ignore="UselessLeaf"/>
+                    tools:ignore="UselessLeaf" />
 
             </android.support.v7.widget.CardView>
         </LinearLayout>
@@ -514,7 +513,7 @@
             android:layout_marginTop="10dp"
             android:text="@string/team_title_three"
             android:textColor="@color/settings_title_color"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
@@ -522,7 +521,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/team_text_three"/>
+            android:text="@string/team_text_three" />
 
         <Button
             android:id="@+id/list_button_contributors"
@@ -534,7 +533,7 @@
             android:focusable="true"
             android:foreground="?android:selectableItemBackground"
             android:text="@string/team_button_three"
-            android:textColor="@color/restore_button_text_color"/>
+            android:textColor="@color/restore_button_text_color" />
 
         <TextView
             android:layout_width="match_parent"
@@ -544,7 +543,7 @@
             android:layout_marginTop="10dp"
             android:text="@string/team_title_two"
             android:textColor="@color/settings_title_color"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
@@ -552,7 +551,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/team_text_two"/>
+            android:text="@string/team_text_two" />
 
         <Button
             android:id="@+id/list_button_translators_contribute"
@@ -566,7 +565,7 @@
             android:focusable="true"
             android:foreground="?android:selectableItemBackground"
             android:text="@string/team_button_two_contribute"
-            android:textColor="@color/restore_button_text_color"/>
+            android:textColor="@color/restore_button_text_color" />
 
         <Button
             android:id="@+id/list_button_translators"
@@ -578,7 +577,7 @@
             android:focusable="true"
             android:foreground="?android:selectableItemBackground"
             android:text="@string/team_button_two"
-            android:textColor="@color/restore_button_text_color"/>
+            android:textColor="@color/restore_button_text_color" />
 
         <TextView
             android:layout_width="match_parent"
@@ -588,7 +587,7 @@
             android:layout_marginTop="10dp"
             android:text="@string/team_title_four"
             android:textColor="@color/settings_title_color"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
@@ -596,7 +595,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
-            android:text="@string/team_text_four"/>
+            android:text="@string/team_text_four" />
 
         <Button
             android:id="@+id/list_button_layers"
@@ -608,7 +607,7 @@
             android:focusable="true"
             android:foreground="?android:selectableItemBackground"
             android:text="@string/team_button_four"
-            android:textColor="@color/restore_button_text_color"/>
+            android:textColor="@color/restore_button_text_color" />
 
     </LinearLayout>
 </ScrollView>

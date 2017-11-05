@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
@@ -18,20 +17,20 @@
   -->
 
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-                                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                                    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="5dp"
-                                    android:layout_marginTop="5dp"
-                                    android:clickable="true"
-                                    android:focusable="true"
-                                    android:foreground="?android:selectableItemBackground"
-                                    app:cardPreventCornerOverlap="false"
-                                    app:cardUseCompatPadding="true"
-                                    card_view:cardBackgroundColor="@color/main_screen_card_background"
-                                    card_view:cardCornerRadius="@dimen/card_corner_radius"
-                                    card_view:cardElevation="@dimen/card_elevation">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:layout_marginTop="5dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:selectableItemBackground"
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="true"
+    card_view:cardBackgroundColor="@color/main_screen_card_background"
+    card_view:cardCornerRadius="@dimen/card_corner_radius"
+    card_view:cardElevation="@dimen/card_elevation">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -51,7 +50,7 @@
                 android:layout_marginEnd="@dimen/drag_view_margin"
                 android:layout_marginStart="15dp"
                 android:importantForAccessibility="no"
-                android:src="@drawable/default_overlay_icon"/>
+                android:src="@drawable/default_overlay_icon" />
         </LinearLayout>
 
         <android.support.v7.widget.AppCompatTextView
@@ -69,7 +68,7 @@
             app:autoSizeMaxTextSize="15sp"
             app:autoSizeMinTextSize="5sp"
             app:autoSizeStepGranularity="2sp"
-            app:autoSizeTextType="uniform"/>
+            app:autoSizeTextType="uniform" />
 
         <ImageView
             android:id="@+id/card_drag"
@@ -79,6 +78,6 @@
             android:layout_gravity="center_vertical"
             android:layout_margin="15dp"
             android:importantForAccessibility="no"
-            android:src="@drawable/priorities_card_move_icon"/>
+            android:src="@drawable/priorities_card_move_icon" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>

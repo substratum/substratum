@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
@@ -18,10 +17,10 @@
   -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:ignore="NamespaceTypo">
+    xmlns:app="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:ignore="NamespaceTypo">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/action_bar_toolbar"
@@ -30,7 +29,7 @@
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <ProgressBar
         android:id="@+id/priority_header_loading_bar"
@@ -38,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="-7dp"
-        android:indeterminate="true"/>
+        android:indeterminate="true" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -47,10 +46,9 @@
         android:layout_below="@+id/action_bar_toolbar"
         android:paddingEnd="15dp"
         android:paddingStart="15dp"
-        android:paddingTop="10dp"/>
+        android:paddingTop="10dp" />
 
-    <android.support.design.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -65,7 +63,7 @@
             android:visibility="invisible"
             app:backgroundTint="@color/fab_background_color"
             app:layout_windowInsets="bottom"
-            app:layout_windowInsetsUseMargin="true"/>
+            app:layout_windowInsetsUseMargin="true" />
 
     </android.support.design.widget.CoordinatorLayout>
 

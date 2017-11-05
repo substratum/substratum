@@ -134,7 +134,6 @@ enum OverlaysManager {
                     Lunchbar.LENGTH_LONG);
             currentShownLunchBar.show();
         }
-        overlays.currentInstance.stop();
     }
 
     /**
@@ -194,7 +193,6 @@ enum OverlaysManager {
                         Lunchbar.LENGTH_LONG);
                 currentShownLunchBar.show();
             }
-            overlays.currentInstance.stop();
         }
     }
 
@@ -277,7 +275,6 @@ enum OverlaysManager {
                     Lunchbar.LENGTH_LONG);
             currentShownLunchBar.show();
         }
-        overlays.currentInstance.stop();
     }
 
     static void endingEnableDisable(Overlays overlays, Context context) {
@@ -316,7 +313,6 @@ enum OverlaysManager {
                 currentShownLunchBar.show();
             }
             overlays.progressBar.setVisibility(View.GONE);
-            overlays.currentInstance.stop();
         }
     }
 
@@ -363,9 +359,8 @@ enum OverlaysManager {
                     overlays.mCompileDialog.setContentView(sheetView);
                     BottomSheetBehavior mBehavior =
                             BottomSheetBehavior.from((View) sheetView.getParent());
-                    overlays.mCompileDialog.setOnShowListener(dialogInterface -> {
-                        mBehavior.setPeekHeight(sheetView.getHeight());
-                    });
+                    overlays.mCompileDialog.setOnShowListener(dialogInterface ->
+                            mBehavior.setPeekHeight(sheetView.getHeight()));
                     overlays.mCompileDialog.show();
                     InformationActivity.compilingProcess = true;
 
@@ -1278,8 +1273,6 @@ enum OverlaysManager {
                     Broadcasts.sendActivityFinisherMessage(
                             overlays.mContext, overlays.theme_pid);
                 }
-
-                overlays.currentInstance.stop();
             }
         }
 

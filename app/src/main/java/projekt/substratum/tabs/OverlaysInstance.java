@@ -8,7 +8,6 @@ import projekt.substratum.adapters.tabs.overlays.OverlaysItem;
 class OverlaysInstance {
 
     private static volatile OverlaysInstance ourInstance = new OverlaysInstance();
-    Boolean isRunning;
     Boolean has_failed;
     Integer fail_count;
     StringBuilder failed_packages;
@@ -29,7 +28,6 @@ class OverlaysInstance {
      */
     static OverlaysInstance getInstance() {
         ourInstance.reset();
-        ourInstance.isRunning = false;
         return ourInstance;
     }
 
@@ -37,7 +35,6 @@ class OverlaysInstance {
      * Resets the singleton instance and its values
      */
     void reset() {
-        isRunning = true;
         has_failed = false;
         fail_count = 0;
         failed_packages = new StringBuilder();
@@ -49,9 +46,5 @@ class OverlaysInstance {
         checkedOverlays = new ArrayList<>();
         current_amount = 0;
         overlaysWaiting = 0;
-    }
-
-    void stop() {
-        isRunning = false;
     }
 }

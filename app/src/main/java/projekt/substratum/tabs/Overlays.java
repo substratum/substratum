@@ -871,7 +871,7 @@ public class Overlays extends Fragment {
      * subsequent calls
      */
     private void refreshList() {
-        if (!currentInstance.isRunning) {
+        if (!mCompileDialog.isShowing()) {
             recyclerViewPosition = ((LinearLayoutManager)
                     mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
             toggle_all.setChecked(false);
@@ -1477,23 +1477,23 @@ public class Overlays extends Fragment {
             String command = intent.getStringExtra(SHEET_COMMAND);
             switch (command) {
                 case COMPILE_ENABLE:
-                    if (mAdapter != null && !currentInstance.isRunning)
+                    if (mAdapter != null && !mCompileDialog.isShowing())
                         startCompileEnableMode();
                     break;
                 case COMPILE_UPDATE:
-                    if (mAdapter != null && !currentInstance.isRunning)
+                    if (mAdapter != null && !mCompileDialog.isShowing())
                         startCompileUpdateMode();
                     break;
                 case DISABLE:
-                    if (mAdapter != null && !currentInstance.isRunning)
+                    if (mAdapter != null && !mCompileDialog.isShowing())
                         startDisable();
                     break;
                 case ENABLE:
-                    if (mAdapter != null && !currentInstance.isRunning)
+                    if (mAdapter != null && !mCompileDialog.isShowing())
                         startEnable();
                     break;
                 case ENABLE_DISABLE:
-                    if (mAdapter != null && !currentInstance.isRunning)
+                    if (mAdapter != null && !mCompileDialog.isShowing())
                         startEnableDisable();
                     break;
                 case MIX_AND_MATCH:
@@ -1521,7 +1521,12 @@ public class Overlays extends Fragment {
                     progressBar.setVisibility(View.GONE);
                 }
             }
-            refreshList();
+            if (!mCompileDialog.isShowing()) {
+                refreshList();
+            } else {
+                Log.d(SUBSTRATUM_BUILDER,
+                        "Refresh overlays has been cancelled during compilation phase...");
+            }
         }
     }
 }

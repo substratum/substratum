@@ -35,6 +35,7 @@
     <string name="showcase_no_connection">a vitrine de temas requer uma conexão com a internet para funcionar!</string>
     <string name="showcase_no_themes">parece que ocorreu um erro de cache do banco de dados do mostruário
 para esta aba&#8230;    </string>
+    <string name="refused_to_install_title_notification">O Tema rejeita ser instalado no Samsung</string>
     <string name="refused_to_install_text_notification">%s falhou ao instalar</string>
     <string name="failed_to_install_title_notification">Falha ao instalar um tema OMS</string>
     <string name="failed_to_install_text_notification">%s falhou ao instalar</string>
@@ -82,7 +83,7 @@ corrigir coisas que não estão sendo aplicadas nos temas em modo de compatibili
     <string name="manager_type4">Type4 :</string>
     <string name="manager_version">Versão :</string>
     <string name="legacy_preference_priority_title">Ajuste de prioridade de camadas</string>
-    <string name="legacy_preference_priority_text">Prioridade definida como: %d (padrão %d)</string>
+    <string name="legacy_preference_priority_text">Prioridade definida como (padrão %d): %d</string>
     <string name="grid_size_title">Ajuste do esquema de colunas de temas</string>
     <string name="grid_size_text">Número de colunas está em (padrão 2): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
@@ -228,12 +229,12 @@ corretamente&#8230;</string>
     <string name="menu_alphabetize">Alterar Modo De Classificação</string>
     <string name="menu_search">Temas na Play Store</string>
     <string name="menu_showcase">Mostruário</string>
-    <string name="menu_uninstall">Desinstalar</string>
+    <string name="menu_uninstall">Desinstalar Tema</string>
     <string name="menu_restore_info">Restaurar informações</string>
     <string name="menu_showcase_info">Informação do mostruário</string>
     <string name="menu_favorite_snackbar">%s foi colocado como atalho com sucesso!</string>
     <string name="menu_favorite_snackbar_cleared">Atalho do aplicativo %s removido.</string>
-    <string name="launcher_shortcut">Atalho na gaveta de aplicações</string>
+    <string name="launcher_shortcut">Atalho no Launcher</string>
     <string name="launcher_shortcut_toast">Atalho criado com sucesso!</string>
     <string name="changelog_title">Mudanças do tema %s tema</string>
     <string name="dialog_restart_systemui_title">Reiniciar SystemUI</string>
@@ -293,9 +294,9 @@ corretamente&#8230;</string>
     <string name="clean_dialog_body">Deseja limpar todas as camadas deste tema?</string>
     <string name="disable_dialog_body">Deseja desabilitar todas as camadas deste tema?</string>
     <string name="enable_dialog_body">Deseja habilitar todas as camadas instaladas deste tema?</string>
-    <string name="uninstall_dialog_body">Desinstalar</string>
+    <string name="uninstall_dialog_body">Desinstalar Tema</string>
     <string name="sb_phase_1_loader">extraindo ativos deste tema</string>
-    <string name="sb_phase_2_loader">a construir e instalar a camada</string>
+    <string name="sb_phase_2_loader">compilando e instalando camadas</string>
     <string name="root_rejected_title">não foi possível reverter ao modo root</string>
     <string name="root_rejected_text">não existem outros motores de temas disponíveis no seu dispositivo no momento&#8230;</string>
     <string name="toast_activity_finished">%s foi atualizado. Reabrir para aplicar as alterações!</string>
@@ -369,10 +370,10 @@ corretamente&#8230;</string>
     <string name="alternate_drawer_design_subtext">Um esquema alternativo para a gaveta de navegação.</string>
     <string name="logchar_autosave_title">Manter relatórios LogChar</string>
     <string name="logchar_autosave_subtext">Todos os relatórios de LogChar serão armazenados em /storage/emulated/0/substratum/LogCharReports/.</string>
-    <string name="auto_disable_target_overlays">Auto-desativar outras camadas para o alvo</string>
-    <string name="auto_disable_target_overlays_on">Outras camadas alvo serão desativadas quando instalar/ativar uma nova camada</string>
-    <string name="auto_disable_target_overlays_off">Outras camadas alvo irão permanecer inalteradas quando instalar/ativar uma nova camada</string>
-    <string name="fab_menu_compile_enable">Compilar e Habilitar</string>
+    <string name="auto_disable_target_overlays">Desativar automaticamente outras camadas para o alvo</string>
+    <string name="auto_disable_target_overlays_on">Outras camadas alvo serão desativadas quando instalar ou ativar uma nova camada</string>
+    <string name="auto_disable_target_overlays_off">Outras camadas alvo irão permanecer inalteradas quando instalar ou ativar uma nova camada</string>
+    <string name="fab_menu_compile_enable">Compilar e Ativar</string>
     <string name="fab_menu_compile_update">Compilar e Atualizar</string>
     <string name="fab_menu_compile_install">Instalar selecionado</string>
     <string name="fab_menu_uninstall">Desinstalar selecionado</string>
@@ -550,7 +551,7 @@ corretamente&#8230;</string>
     <string name="nav_wallpapers">Papéis de Parede</string>
     <!-- Utilities -->
     <string name="nav_section_header_utilities">Utilidades</string>
-    <string name="nav_overlay_manager">Gestor</string>
+    <string name="nav_overlay_manager">Gerenciador</string>
     <string name="nav_priorities">Prioridades</string>
     <string name="nav_backup_restore">Perfis</string>
     <string name="nav_manage">Recuperação</string>

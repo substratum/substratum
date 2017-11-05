@@ -34,6 +34,7 @@
     <string name="resource_commit_dialog_title">Chybějící zdroje v %s</string>
     <string name="showcase_no_connection">ukázky motivů potřebují internetové připojení!    </string>
     <string name="showcase_no_themes">zdá se, že nastala chyba ve vyrovnávací paměti databáze pro ukázku této záložky&#8230;    </string>
+    <string name="refused_to_install_title_notification">Themer zamítl motiv nainstalovaný na Samsung</string>
     <string name="refused_to_install_text_notification">Nepodařilo se nainstalovat %s</string>
     <string name="failed_to_install_title_notification">Nepodařilo se instalovat OMS motiv</string>
     <string name="failed_to_install_text_notification">Nepodařilo se nainstalovat %s</string>

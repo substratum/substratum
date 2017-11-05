@@ -38,6 +38,7 @@
     <string name="showcase_no_themes">vitrin veritabanı bu sekme için önbelleğe alınırken bir hata oluştu
         gibi görünüyor&#8230;
     </string>
+    <string name="refused_to_install_title_notification">Tema geliştiricisi Samsung\'a yüklenen temayı reddetti</string>
     <string name="refused_to_install_text_notification">%s yüklemesi başarısız oldu</string>
     <string name="failed_to_install_title_notification">OMS teması yüklenemedi</string>
     <string name="failed_to_install_text_notification">%s yüklemesi başarısız oldu</string>
@@ -397,6 +398,7 @@ bu sorunu
     <string name="notification_done_upgrade_title_failed">Eksik veya bozuk yapılandırma:\n\n%s</string>
     <string name="notification_done_update_text">Bu uygulama için tüm temalar güncellendi.</string>
     <string name="notification_done_upgrade_text">Bu tema için tüm temalar güncellendi.</string>
+    <string name="notification_no_errors_found">Temalar yüklenirken hata oluşmadı</string>
     <string name="notification_some_errors_found">Tema kurulumu sırasında bir hata oluştu</string>
     <string name="notification_processing">için tema işleniyor</string>
     <string name="notification_processing_n">Tema hazırlanıyor&#8230;</string>
@@ -613,6 +615,7 @@ bu sorunu
     <string name="nav_wallpapers">Duvar Kağıtları</string>
     <!-- Utilities -->
     <string name="nav_section_header_utilities">Araçlar</string>
+    <string name="nav_overlay_manager">Yönet</string>
     <string name="nav_priorities">Öncelikler</string>
     <string name="nav_backup_restore">Profiller</string>
     <string name="nav_manage">Kurtarma</string>
@@ -630,7 +633,7 @@ bu sorunu
     <!-- Resources -->
     <string name="nav_drawer_resources">Kaynaklar</string>
     <string name="nav_drawer_homepage">Resmi web sitesi</string>
-    <string name="nav_drawer_template">Tema Şablonu (Tema Geliştiriciler)</string>
+    <string name="nav_drawer_template">Tema Şablonu (Tema Geliştiricileri)</string>
     <string name="nav_drawer_gerrit">Platform &amp; Gerrit içeriği</string>
     <string name="nav_drawer_github">Platform GitHub deposu</string>
     <string name="nav_drawer_jira">JIRA hata raporlama sistemi</string>

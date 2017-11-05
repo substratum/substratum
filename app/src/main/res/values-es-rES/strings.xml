@@ -17,8 +17,8 @@
   -->
 <resources>
     <string name="showcase">Mostrador de Temas</string>
-    <string name="android">Version de Android:</string>
-    <string name="device">Modelo del móvil:</string>
+    <string name="android">Versión de Android:</string>
+    <string name="device">Modelo del dispositivo:</string>
     <string name="resource_checker">Validador de Commits</string>
     <string name="resource_checker_commons">Framework</string>
     <string name="resource_checker_dialog_quit">Salir</string>
@@ -35,6 +35,7 @@
     <string name="showcase_no_connection">¡El mostrador de temas requiere una conexión a internet para funcionar!     </string>
     <string name="showcase_no_themes">Parece que hubo un error de caché del mostrador de temas
         Para esta sección&#8230;    </string>
+    <string name="refused_to_install_title_notification">Se rechazó el tema instalado en Samsung</string>
     <string name="refused_to_install_text_notification">Error al instalar %s</string>
     <string name="failed_to_install_title_notification">Falló la instalación del tema</string>
     <string name="failed_to_install_text_notification">Error al instalar %s</string>
@@ -235,7 +236,7 @@ correctamente&#8230;</string>
     <string name="error_loading_theme_close">Cerrar</string>
     <string name="error_loading_theme_close_text">El nombre del paquete de este tema debe coincidir con el manifiesto y los directorios del código para intercambiar las llaves apropiadamente.</string>
     <string name="logcat_snackbar_button">LogChar</string>
-    <string name="logcat_snackbar_text">Aplicación de interés/capa desactualizada o configuración incorrecta seleccionada&#8230;</string>
+    <string name="logcat_snackbar_text">Aplicación/capa de destino desactualizada o configuración incorrecta seleccionada&#8230;</string>
     <string name="logcat_dialog_title">Informe de depuración LogChar</string>
     <string name="logcat_dialog_copy_success">Registro de errores copiado completamente al portapapeles!</string>
     <string name="logcat_send">Enviar</string>
@@ -326,6 +327,7 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="notification_done_upgrade_title_failed">Configuración faltante o no compilable: \n\n%s</string>
     <string name="notification_done_update_text">Se actualizaron todas las capas para esta aplicación.</string>
     <string name="notification_done_upgrade_text">Se actualizaron todas las capas para este tema.</string>
+    <string name="notification_no_errors_found">No hubo errores durante la instalación de las capas</string>
     <string name="notification_some_errors_found">Ha ocurrido un error durante la instalación de las capas</string>
     <string name="notification_processing">Procesando capa</string>
     <string name="notification_processing_n">Preparando las capas del tema&#8230;</string>
@@ -361,9 +363,9 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="alternate_drawer_design_subtext">Un diseño alternativo del cajón de navegación.</string>
     <string name="logchar_autosave_title">Conservar informes LogChar</string>
     <string name="logchar_autosave_subtext">Todos los informes LogChar se guardarán en /storage/emulated/0/substratum/LogCharReports/.</string>
-    <string name="auto_disable_target_overlays">Desactivar automáticamente otras capas de destino.</string>
-    <string name="auto_disable_target_overlays_on">Otras capas de destino se desactivarán al instalar / activar una nueva capa</string>
-    <string name="auto_disable_target_overlays_off">Otras capas de destino permanecerán sin cambios al instalar / activar una nueva capa</string>
+    <string name="auto_disable_target_overlays">Desactivar automáticamente otras capas de destino</string>
+    <string name="auto_disable_target_overlays_on">Otras capas se desactivarán al instalar/activar una nueva capa con el mismo destino (nombre).</string>
+    <string name="auto_disable_target_overlays_off">Otras capas permanecerán sin cambios al instalar/activar una nueva capa con el mismo destino (nombre).</string>
     <string name="fab_menu_compile_enable">Compilar &amp; Activar</string>
     <string name="fab_menu_compile_update">Compilar &amp; Actualizar</string>
     <string name="fab_menu_compile_install">Instalar Seleccionados</string>
@@ -442,19 +444,19 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="profile_sound">Sonidos</string>
     <string name="profile_wallpaper">Fondos de Pantalla</string>
     <string name="profile_dialog_ok">Ok</string>
-    <string name="settings_system_status">Certificación del sistema</string>
+    <string name="settings_system_status">Certificación del Sistema</string>
     <string name="settings_system_status_andromeda">Modo Andromeda</string>
     <string name="settings_system_status_rooted">Modo Root</string>
     <string name="settings_system_status_rootless">Modo Interfacer</string>
     <string name="settings_system_status_ss">Modo de servicio de Substratum</string>
     <string name="settings_system_status_samsung">Modo Samsung</string>
     <string name="settings_system_status_certified">Certificado</string>
-    <string name="settings_system_status_uncertified">Sin certificar</string>
+    <string name="settings_system_status_uncertified">Sin Certificar</string>
     <string name="settings_title_automation">Automatización</string>
-    <string name="settings_auto_updater_title">Actualizador de capas de las apps</string>
+    <string name="settings_auto_updater_title">Actualizador de capas por apps</string>
     <string name="settings_auto_updater_text">Compilar e instalar automáticamente una versión actualizada de todas las capas de la aplicación tematizada que recién se actualizó.</string>
     <string name="beta_tag">★ BETA</string>
-    <string name="settings_theme_auto_updater_title">Actualizador de capas de los temas</string>
+    <string name="settings_theme_auto_updater_title">Actualizador de capas por temas</string>
     <string name="settings_theme_auto_updater_dialog_title">ADVERTENCIA</string>
     <string name="settings_theme_auto_updater_text">Compilar e instalar automáticamente una versión actualizada de todas las capas del tema que recién se actualizó.</string>
     <string name="settings_theme_auto_updater_dialog_text">¡Por favor no tengas abierto PackageInstaller (paquete de instalación) en primer plano mientras que la notificación esté activa, las capas del framework tienden a reiniciar PackageInstaller causando cantidades indefinidas de volver a compilar!</string>
@@ -482,7 +484,7 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="per_app_dialog_title">Configurador de Capa %s\n</string>
     <string name="per_app_apply">Aplicar</string>
     <string name="per_app_request_title">Permisos de FloatUI</string>
-    <string name="per_app_draw_over_other_apps_request">Por favor conceda a Substratum los permisos \"Superponer sobre otras aplicaciones\" para la interfaz de usuario flotante y \"Estadísticas de uso\" para acceder a la aplicación de primer plano para coincidir con objetivos de tema.</string>
+    <string name="per_app_draw_over_other_apps_request">Por favor conceda a Substratum los permisos \"Superponer sobre otras aplicaciones\" para la interfaz de usuario flotante y \"Estadísticas de uso\" para acceder a la aplicación de primer plano para coincidir con los objetivos de tema.</string>
     <string name="per_app_usage_stats_request">Por favor conceda a Substratum el permiso de \"acceso de uso\" para acceder a la aplicación de primer plano para los objetivos de tema coincidentes.</string>
     <string name="per_app_manual_grant">Por favor conceder manualmente a Substratum los permisos de \"acceso de uso\" y \"superponer sobre otras aplicaciones\" en la configuración de la aplicación para usar FloatUI!</string>
     <string name="notification_overlay_found_specific">¡Una capa para %s se encuentra en %s!</string>
@@ -542,13 +544,14 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="nav_wallpapers">Fondos de Pantalla</string>
     <!-- Utilities -->
     <string name="nav_section_header_utilities">Utilidades</string>
+    <string name="nav_overlay_manager">Gestor Avanzado</string>
     <string name="nav_priorities">Prioridades</string>
     <string name="nav_backup_restore">Perfiles</string>
     <string name="nav_manage">Gestor de Restauración</string>
     <!-- Community -->
     <string name="nav_section_header_get_involved">Comunidad</string>
-    <string name="nav_drawer_community">Grupos &amp; comunidades</string>
-    <string name="nav_drawer_googleplus">Comunidad de Google +</string>
+    <string name="nav_drawer_community">Grupos &amp; Comunidades</string>
+    <string name="nav_drawer_googleplus">Comunidad en Google+</string>
     <string name="nav_drawer_telegram">Chat del Grupo en Telegram</string>
     <string name="nav_drawer_xda">Subforo dedicado en XDA</string>
     <string name="nav_drawer_rawad">Guías para tematizar de Rawad</string>

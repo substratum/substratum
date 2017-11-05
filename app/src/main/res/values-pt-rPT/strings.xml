@@ -36,6 +36,7 @@
         funcionar!
     </string>
     <string name="showcase_no_themes">parece ter havido um erro ao guardar a base de dados do expositor deste separador         na cache&#8230;    </string>
+    <string name="refused_to_install_title_notification">O Themer rejeitou o tema instalado neste Samsung</string>
     <string name="refused_to_install_text_notification">Falha ao instalar %s</string>
     <string name="failed_to_install_title_notification">Falha ao instalar o tema OMS</string>
     <string name="failed_to_install_text_notification">Falha ao instalar %s</string>

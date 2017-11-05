@@ -34,6 +34,7 @@
     <string name="resource_commit_dialog_title">Trūksta išteklių %s</string>
     <string name="showcase_no_connection">kad veiktu, temos vitrina reikalauja interneto ryšio!</string>
     <string name="showcase_no_themes">atrodo, jog šiame skirtuke įvyko klaida išsaugojant vitrinos duomenų bazę&#8230;    </string>
+    <string name="refused_to_install_title_notification">Apipavidolintojas atmetė temą, kuri įdiegta \"Samsung\" įrengynije</string>
     <string name="refused_to_install_text_notification">%s nepavyko įdiegti</string>
     <string name="failed_to_install_title_notification">Klaida įdiegiant \"OMS\" temą</string>
     <string name="failed_to_install_text_notification">%s nepavyko įdiegti</string>

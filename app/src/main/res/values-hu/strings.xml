@@ -38,6 +38,7 @@
     <string name="showcase_no_themes">úgy tűnik, hiba történt a bemutatóterem ezen fülének gyórsítótárazása
         közben&#8230;
     </string>
+    <string name="refused_to_install_title_notification">A téma készítője letiltotta a Samsungon való telepítést</string>
     <string name="refused_to_install_text_notification">%s telepítése sikertelen</string>
     <string name="failed_to_install_title_notification">OMS téma telepítése sikertelen</string>
     <string name="failed_to_install_text_notification">%s telepítése sikertelen</string>
@@ -389,6 +390,7 @@
     <string name="notification_done_upgrade_title_failed">Hiányzó vagy nem építhető konfiguráció:\n\n%s</string>
     <string name="notification_done_update_text">Az alkalmazás összes fedvénye frissítésre került.</string>
     <string name="notification_done_upgrade_text">A téma összes fedvénye frissítésre került.</string>
+    <string name="notification_no_errors_found">A kijelölt fedvények telepítése során nem lépett fel hiba</string>
     <string name="notification_some_errors_found">Hiba történt a fedvények telepítése közben</string>
     <string name="notification_processing">Fedvény feldolgozása:</string>
     <string name="notification_processing_n">Téma fedvény előkészítése&#8230;</string>
@@ -606,6 +608,7 @@
     <string name="nav_wallpapers">Háttérképek</string>
     <!-- Utilities -->
     <string name="nav_section_header_utilities">Segédprogramok</string>
+    <string name="nav_overlay_manager">Kezelő</string>
     <string name="nav_priorities">Prioritások</string>
     <string name="nav_backup_restore">Profilok</string>
     <string name="nav_manage">Visszaállítás</string>

@@ -134,13 +134,17 @@ eingerichtet&#8230;</string>
     <string name="settings_about_samsung">Sungstratum-Version</string>
     <string name="settings_about_oms_rro_version">Theme-Plattform:</string>
     <string name="settings_about_oms_version_do">Dynamische Overlays (OMS)</string>
+    <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">System-Plattform</string>
+    <string name="settings_aopt_switcher_title">System-Overlay-Kompilierer</string>
     <string name="theme_information_tab_one">Overlays</string>
     <string name="theme_information_tab_two">Boot-Animationen</string>
     <string name="theme_information_tab_three">Schriftarten</string>
     <string name="theme_information_tab_four">Soundpakete</string>
     <string name="theme_information_tab_five">Hintergrundbilder</string>
+    <string name="nougat_style_cards_title">Karten-Layout im Nougat-Stil</string>
+    <string name="nougat_style_cards_subtext">Aktiviere Theme-Karten im Android Nougat Benachrichtigungsstil.</string>
     <string name="uninstall_dialog_text">Wollen Sie dieses Theme wirklich deinstallieren?</string>
     <string name="manage_dialog_performing">Auf Standard zurücksetzen&#8230;</string>
     <string name="manage_bootanimation_title">Wiederherstellen der Boot-Animation</string>
@@ -179,6 +183,7 @@ eingerichtet&#8230;</string>
     <string name="menu_disable">Installierte Overlays deaktivieren</string>
     <string name="menu_enable">Installierte Overlays aktivieren</string>
     <string name="menu_favorite">Favorit</string>
+    <string name="menu_unfavorite">Favorit entfernen</string>
     <string name="menu_rate">Theme bewerten</string>
     <string name="menu_soft_reboot">Schneller Neustart</string>
     <string name="menu_reboot_device">Gerät neustarten</string>
@@ -192,6 +197,7 @@ eingerichtet&#8230;</string>
     <string name="menu_showcase_info">Schaufenster-Info</string>
     <string name="menu_favorite_snackbar">%s wurde erfolgreich als App-Verknüpfung gesetzt!</string>
     <string name="menu_favorite_snackbar_cleared">%s als App-Verknüpfung entfernt.</string>
+    <string name="launcher_shortcut">Verknüpfung auf dem Startbildschirm</string>
     <string name="changelog_title">%s Theme-Änderungsprotokoll</string>
     <string name="dialog_restart_systemui_title">SystemUI neustarten</string>
     <string name="dialog_restart_systemui_content">Dies wird einen Neustart der System-Oberfläche ihres Gerätes durchführen.</string>
@@ -206,10 +212,12 @@ eingerichtet&#8230;</string>
     <string name="logcat_snackbar_text">Gewählte/s Applikation/Overlay veraltet oder unpassende Konfiguration gewählt&#8230;</string>
     <string name="logcat_dialog_title">LogChar Debug-Bericht</string>
     <string name="logcat_dialog_copy_success">Fehlermeldung erfolgreich in die Zwischenablage kopiert!</string>
+    <string name="logcat_send">Senden</string>
     <string name="logcat_email_activity">Bug-Report senden via&#8230;</string>
     <string name="logcat_email_activity_error">Es ist keine E-Mail-App installiert.</string>
     <string name="logcat_email_xposed_check">Xposed-Framework</string>
     <string name="logcat_processing_dialog">Fehlermeldung in Bearbeitung</string>
+    <string name="priority_instructions_title">Anleitung</string>
     <string name="priority_no_multiple_overlays_title">Keine Apps mit mehreren Overlays&#8230;</string>
     <string name="priority_no_multiple_overlays_text">Aktiviere 2 oder mehr Overlays um mich zu benutzen!</string>
     <string name="manager_no_overlays_title">Keine Overlays installiert&#8230;</string>
@@ -255,10 +263,13 @@ eingerichtet&#8230;</string>
     <string name="toast_disabled5">Bitte wähle ein gültiges Overlay aus, bevor du mit dieser Aktion fortfährst.</string>
     <string name="toast_disabled6">Ausgewählte(s) Overlay(s) entfernt!</string>
     <string name="no_themes_title">Keine Themes gefunden&#8230;</string>
+    <string name="no_overlays_title">keine Overlays gefunden&#8230;</string>
     <string name="no_themes_description">Bitte installiere ein kompatibles Theme!</string>
     <string name="no_themes_description_search">\"%s\" wurde nicht in der Liste von installierten Themes gefunden&#8230;</string>
+    <string name="no_overlays_description_search">\"%s\" wurde nicht in der Liste von installierten Overlays gefunden&#8230;</string>
     <string name="toast_could_not_uninstall">Keine gültigen Overlays ausgewählt.</string>
     <string name="toast_samsung_prototype_alert">Substratum hat automatisch nicht unterstützte System-Overlays für dein Gerät versteckt!</string>
+    <string name="andromeda_check_status">Überprüfe Status</string>
     <string name="andromeda_no_root_dialog_button">Jetzt herunterladen!</string>
     <string name="samsung_prototype_no_root_dialog">Es sieht so aus als wärst du auf einem unterstützten Samsung-Gerät, ein Addon wurde veröffentlicht um dies zu unterstützen!</string>
     <string name="samsung_prototype_no_root_dialog_button">Jetzt herunterladen!</string>
@@ -281,7 +292,9 @@ eingerichtet&#8230;</string>
     <string name="shortcut_overlay_manager">Overlay-Manager</string>
     <string name="shortcut_overlay_manager_disabled">Overlay-Manager</string>
     <string name="settings_title">Über</string>
+    <string name="settings_title_1">Benutzerpräferezen</string>
     <string name="settings_title_3">Theming</string>
+    <string name="settings_title_clickable">Systempräferenzen</string>
     <string name="substratum_restart_toast">Substratum wurde nach einer Änderung der Einstellungen automatisch neugestartet.</string>
     <string name="restart_systemui">SystemUI-Neuerstellung aktivieren </string>
     <string name="restart_systemui_subtext">SystemUI automatisch wiederaufbauen, nachdem ein SystemUI-Overlay aktiviert/deaktiviert wurde</string>
@@ -291,6 +304,7 @@ eingerichtet&#8230;</string>
     <string name="show_theme_template_version_description">Zeige die Ziel-SDK-Ebene und die Version des Themes sowie die Plugin-Version als Tag auf der Karte des jeweiligen Themes an.</string>
     <string name="vibrate_on_compiled">Nach Theme-Kompilierung benachrichtigen</string>
     <string name="vibrate_on_compiled_description">Weise den Nutzer durch Vibration darauf hin, dass die Kompilierung abgeschlossen wurde.</string>
+    <string name="manage_notification_channel">Benachrichtigungen verwalten</string>
     <string name="hide_app_icon">App-Symbol anzeigen</string>
     <string name="hide_app_icon_toast_enabled">Das Anwendungssymbol wurde aus deinem Launcher entfernt!</string>
     <string name="hide_app_icon_toast_disabled">Das Anwendungssymbol wurde deinem Launcher hinzugefügt!</string>
@@ -298,6 +312,8 @@ eingerichtet&#8230;</string>
     <string name="hide_app_icon_supported">Legt fest, ob das Anwendungssymbol im Launcher sichtbar ist oder nicht.</string>
     <string name="disable_completion">Alle Overlays dieses Themes werden deaktiviert&#8230;</string>
     <string name="enable_completion">Alle installierten Overlays dieses Themes werden aktiviert&#8230;</string>
+    <string name="alternate_drawer_design_title">Sekundäres Drawer-Design</string>
+    <string name="alternate_drawer_design_subtext">Ein alternatives Navigations-Drawer Design.</string>
     <string name="fab_menu_compile_enable">Kompilieren &amp; Aktivieren</string>
     <string name="fab_menu_compile_update">Kompilieren &amp; Aktualisieren</string>
     <string name="fab_menu_compile_install">Ausgewählte installieren</string>
@@ -378,6 +394,7 @@ eingerichtet&#8230;</string>
     <string name="settings_system_status">Systemzertifizierung</string>
     <string name="settings_system_status_andromeda">Andromeda-Modus</string>
     <string name="settings_system_status_rooted">Root-Modus</string>
+    <string name="settings_system_status_rootless">Interfacer-Modus</string>
     <string name="settings_system_status_samsung">Samsung-Modus</string>
     <string name="settings_system_status_certified">Zertizifiert</string>
     <string name="settings_system_status_uncertified">Unzertifiziert</string>
@@ -391,6 +408,7 @@ eingerichtet&#8230;</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Zeige all die Overlays an, die normalerweise riskant für Samsung-Geräte sind, falls das Theme es nicht unterstützt.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">WARNUNG</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Wir haben unsere Gründe gefährliche Overlays zu verstecken, aber wenn du sicher bist, dass du dies eingeschaltet haben willst, folge bitte den Anweisungen in unserem XDA Thread um dies auszuschalten!</string>
+    <string name="settings_crash_receiver_title">Theme-Sicherheit Absturz-Empfänger</string>
     <string name="settings_crash_receiver_text">Deaktiviert automatisch ein Overlay, wenn wiederholt Abstürze von der überlagerten App erkannt werden.</string>
     <string name="overlays_outdated">Overlays veraltet</string>
     <string name="overlays_outdated_message">Beginnend mit Version 816 hat sich unsere Signatur für Overlays geändert, um nicht übereinstimmende Signaturen in Zukunft zu verhindern.\n\nDas heißt deine installierten Overlays müssen gelöscht werden, um neue Theme-Updates installieren zu können, sonst wird ein ewiges Update für dein Overlays verlangt werden!\n\nDiese Nachricht wird nicht angezeigt wenn alle Overlays mit dem neuesten Substratum kompiliert wurden.</string>
@@ -461,6 +479,7 @@ eingerichtet&#8230;</string>
     <string name="nav_wallpapers">Hintergrundbilder</string>
     <!-- Utilities -->
     <string name="nav_section_header_utilities">Utensilien</string>
+    <string name="nav_overlay_manager">Manager</string>
     <string name="nav_priorities">Prioritäten</string>
     <string name="nav_backup_restore">Profile</string>
     <string name="nav_manage">Wiederherstellung</string>
@@ -469,6 +488,7 @@ eingerichtet&#8230;</string>
     <string name="nav_drawer_community">Gruppen &amp; Communities</string>
     <string name="nav_drawer_googleplus">Google+-Community</string>
     <string name="nav_drawer_telegram">Telegram-Gruppenchat</string>
+    <string name="nav_drawer_xda">XDA eigenes Unterforum</string>
     <string name="nav_drawer_rawad">Rawad\'s Theming Anleitungen</string>
     <string name="nav_drawer_reddit">Reddit-Gemeinschaft</string>
     <!-- Featured content -->
@@ -498,8 +518,12 @@ eingerichtet&#8230;</string>
     <string name="manage_space_reset_dialog_content">Die App wird sich schließen nachdem das Zurücksetzen abgeschlossen ist!</string>
     <string name="cleaned_logchar_reports">Gespeicherte LogChar-Berichte wurden bereinigt</string>
     <string name="legacy_overlay_uninstall_warning_text">Wenn Sie alle Overlays deinstallieren verwenden Sie bitte die Substratum Rettungs-ZIPs, um mögliche Bootloops zu verhindern.</string>
+    <string name="auto_reload_sysui_title">SystemUI dynamisch neu laden</string>
     <string name="auto_reload_sysui_summary_on">Substratum lädt automatisch die SystemUI neu, nachdem ein Overlay, das auf die SystemUI abzielt, (de)aktiviert wurde.</string>
     <string name="auto_reload_sysui_summary_off">Substratum lädt nicht automatisch die SystemUI neu, nachdem ein Overlay, das auf die SystemUI abzielt, (de)aktiviert wurde.</string>
     <string name="auto_reload_sysui_dialog_title">Warnung!</string>
-    <string name="auto_reload_sysui_dialog_text">In Android Oreo, Benachrichtigungen werden automatisch gelöscht, um einen Neustart der zwischengespeicherten Benachrichtigungskanäle zu simulieren.\n\nBitte gewährleisten Sie, dass Ihre Benachrichtigungen keine wichtigen Daten beim Kompilieren oder Aktivieren von SystemUI/Framework-Überlagerungen enthalten. Dies hat keinen Einfluss auf laufende Benachrichtigungen.</string>
+    <string name="auto_reload_sysui_dialog_text">In Android Oreo, Benachrichtigungen werden automatisch gelöscht, um einen Neustart der zwischengespeicherten Benachrichtigungskanäle zu simulieren.\n\nBitte gewährleisten Sie, dass Ihre Benachrichtigungen keine wichtigen Daten beim Kompilieren oder Aktivieren von SystemUI/Framework-Overlays enthalten. Dies hat keinen Einfluss auf laufende Benachrichtigungen.</string>
+    <string name="overlays_tab_package_ver_message">Installiert %s version: %s</string>
+    <string name="overlays_tab_package_ver_message_copied">Versions-Code erfolgreich in die Zwischenablage kopiert!</string>
+    <string name="overlays_tab_package_ver_failure">Fehler beim Erfassen der Paket-Version</string>
 </resources>

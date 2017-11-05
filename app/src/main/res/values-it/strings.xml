@@ -34,6 +34,7 @@
     <string name="resource_commit_dialog_title">Risorse mancanti in %s</string>
     <string name="showcase_no_connection">La vetrina dei temi richiede una connessione ad internet per funzionare!</string>
     <string name="showcase_no_themes">sembra che ci sia stato un errore nel memorizzare in cache il database della vetrina&#8230;    </string>
+    <string name="refused_to_install_title_notification">Il themer ha rifiutato il tema installato su Samsung</string>
     <string name="refused_to_install_text_notification">Installazione di %s fallita</string>
     <string name="failed_to_install_title_notification">Impossibile installare il tema OMS</string>
     <string name="failed_to_install_text_notification">Installazione di %s fallita</string>

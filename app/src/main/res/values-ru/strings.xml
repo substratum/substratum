@@ -34,6 +34,7 @@
     <string name="resource_commit_dialog_title">Отсутствуют ресурсы в %s</string>
     <string name="showcase_no_connection">каталог тем требует подключения к интернету!    </string>
     <string name="showcase_no_themes">похоже, кэширование базы данных каталога для этой вкладки прошло неудачно&#8230;    </string>
+    <string name="refused_to_install_title_notification">Автор темы запретил установку темы на Samsung</string>
     <string name="refused_to_install_text_notification">Установка %s не удалась</string>
     <string name="failed_to_install_title_notification">Не удалось установить OMS тему</string>
     <string name="failed_to_install_text_notification">Установка %s не удалась</string>
@@ -59,6 +60,7 @@
     <string name="activity_missing_toast">Не найдено приложения, способного выполнить задачу, извините!</string>
     <string name="abort_overlay_toast_success">Все слои удалены!</string>
     <string name="rescue_toast">Восстановление системы&#8230;</string>
+    <string name="reboot_awaiting_manager_title">ОШИБКА ПРИ ЧТЕНИИ НАСЛОЕНИЯ</string>
     <string name="manager_theme_name">Оформление:</string>
     <string name="manager_type1a">Type1a:</string>
     <string name="manager_type1b">Type1b:</string>
@@ -68,6 +70,7 @@
     <string name="manager_type4">Type4 :</string>
     <string name="manager_version">Версия :</string>
     <string name="legacy_preference_priority_title">Изменение приоритета наслоения</string>
+    <string name="legacy_preference_priority_text">Задан приоритет (по ум. %d): %d</string>
     <string name="grid_size_title">Регулировка расположения дисплея для темы</string>
     <string name="grid_size_text">Количество столбцов (2 по умолчанию): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
@@ -229,6 +232,7 @@
     <string name="logcat_snackbar_text">Целевое приложение/наслоение устарело или неправильно настроено&#8230;</string>
     <string name="logcat_dialog_title">Отчет об ошибке LogChar</string>
     <string name="logcat_dialog_copy_success">Журнал ошибок скопирован в буфер обмена!</string>
+    <string name="logcat_send">Отправить</string>
     <string name="logcat_email_activity">Отправить отчет об ошибке, используя&#8230;</string>
     <string name="logcat_email_activity_error">Нет установленных клиентов электронной почты.</string>
     <string name="logcat_email_xposed_check">Фреймворк Xposed</string>
@@ -275,8 +279,10 @@
     <string name="enable_dialog_body">Вы действительно хотите применить все установленные наслоения из этой темы?</string>
     <string name="uninstall_dialog_body">Удалить тему</string>
     <string name="sb_phase_1_loader">распаковка темы</string>
+    <string name="sb_phase_2_loader">сборка и установка наслоений</string>
     <string name="root_rejected_title">не возможно возвратиться в Root-режим</string>
     <string name="root_rejected_text">другие менеджеры тем не могут быть использованы на этом устройстве&#8230;</string>
+    <string name="toast_activity_finished">%s обновлен, перезапускаем для применения изменений!</string>
     <string name="toast_compiled_updated">Выбранные слои обновлены!</string>
     <string name="toast_compiled_missing">Одно или несколько наслоений не могут быть собраны из-за отсутствующих настроек&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Выбранные слои обновлены с неполадками!</string>
@@ -297,6 +303,8 @@
     <string name="andromeda_no_root_dialog_button">Загрузить!</string>
     <string name="samsung_prototype_no_root_dialog">Похоже, у Вас поддерживаемое устройство Samsung, для него выпущен пакет совместимости!</string>
     <string name="samsung_prototype_no_root_dialog_button">Загрузить!</string>
+    <string name="samsung_framework">Фреймворк Samsung</string>
+    <string name="lg_framework">Фреймворк LG</string>
     <string name="notification_theme_installed">установлена</string>
     <string name="notification_theme_updated">обновлена</string>
     <string name="notification_theme_installed_content">Тема успешно установлена.</string>
@@ -309,6 +317,7 @@
     <string name="notification_done_upgrade_title_failed">Отсутствующая или несобираемая конфигурация:\n\n%s</string>
     <string name="notification_done_update_text">Все наслоения для этого приложения были обновлены.</string>
     <string name="notification_done_upgrade_text">Все наслоения для этой темы были обновлены.</string>
+    <string name="notification_no_errors_found">Ошибок при установке наслоений не возникло</string>
     <string name="notification_some_errors_found">В процессе установки слоя произошла ошибка</string>
     <string name="notification_processing">Применение наслоений</string>
     <string name="notification_processing_n">Подготовка наслоения темы&#8230;</string>
@@ -344,6 +353,9 @@
     <string name="alternate_drawer_design_subtext">Альтернативный дизайн Navigation Drawer.</string>
     <string name="logchar_autosave_title">Сохранить LogChar отчеты</string>
     <string name="logchar_autosave_subtext">Все LogChar сообщения будут храниться в /storage/emulated/0/substratum/LogCharReports /.</string>
+    <string name="auto_disable_target_overlays">Автоотключение смежных наслоений</string>
+    <string name="auto_disable_target_overlays_on">Все прочие наслоения будут отключены, если для затрагиваемого приложения установлен/активирован новый слой</string>
+    <string name="auto_disable_target_overlays_off">Все прочие наслоения останутся нетронутыми, если для затрагиваемого приложения установлен/активирован новый слой</string>
     <string name="fab_menu_compile_enable">Собрать и применить</string>
     <string name="fab_menu_compile_update">Собрать и обновить</string>
     <string name="fab_menu_compile_install">Установить выбранное</string>
@@ -425,6 +437,8 @@
     <string name="settings_system_status">Пригодность системы</string>
     <string name="settings_system_status_andromeda">Режим Andromeda</string>
     <string name="settings_system_status_rooted">Применяется root</string>
+    <string name="settings_system_status_rootless">применяется Согласователь</string>
+    <string name="settings_system_status_ss">применяется сервис Substratum</string>
     <string name="settings_system_status_samsung">Режим совместимости с Samsung</string>
     <string name="settings_system_status_certified">Одобрена</string>
     <string name="settings_system_status_uncertified">Неодобрена</string>
@@ -520,6 +534,7 @@
     <string name="nav_wallpapers">Обои</string>
     <!-- Utilities -->
     <string name="nav_section_header_utilities">Утилиты</string>
+    <string name="nav_overlay_manager">Управление</string>
     <string name="nav_priorities">Приоритеты</string>
     <string name="nav_backup_restore">Профили</string>
     <string name="nav_manage">Откат</string>

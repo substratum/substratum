@@ -193,6 +193,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                             References.notification_id).createNotification();
 
                     Packages.uninstallPackage(mContext, package_name);
+                    return;
                 }
             }
         } catch (Exception e) {

@@ -1286,7 +1286,6 @@ enum OverlaysManager {
                 if (!overlays.currentInstance.has_failed ||
                         (overlays.currentInstance.final_runner.size() >
                                 overlays.currentInstance.fail_count)) {
-                    new StringBuilder();
                     if (state.equals(COMPILE_ENABLE) && overlays.mixAndMatchMode) {
                         // Buffer the disableBeforeEnabling String
                         ArrayList<String> disableBeforeEnabling = new ArrayList<>();

@@ -31,7 +31,6 @@ import java.util.List;
 
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.Systems;
-import projekt.substratum.common.platform.ThemeManager;
 
 public class OverlaysItem implements Serializable {
 

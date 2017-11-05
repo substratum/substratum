@@ -294,14 +294,13 @@ enum OverlaysManager {
                         // OMS may not have written all the changes so quickly just yet
                         // so we may need to have a small delay
                         try {
-                            overlays.overlayItemList = overlays.mAdapter
-                                    .getOverlayList();
+                            overlays.overlayItemList = overlays.mAdapter.getOverlayList();
+                            overlays.getCurrentOverlays();
                             for (int i = 0; i < overlays.overlayItemList.size(); i++) {
-                                OverlaysItem currentOverlay = overlays.overlayItemList
-                                        .get(i);
+                                OverlaysItem currentOverlay = overlays.overlayItemList.get(i);
                                 currentOverlay.setSelected(false);
                                 currentOverlay.updateEnabledOverlays(
-                                        overlays.getCurrentOverlays());
+                                        overlays.currentInstanceOverlays);
                                 overlays.mAdapter.notifyDataSetChanged();
                             }
                         } catch (Exception e) {
@@ -1363,14 +1362,13 @@ enum OverlaysManager {
                             // OMS may not have written all the changes so quickly just yet
                             // so we may need to have a small delay
                             try {
-                                overlays.overlayItemList =
-                                        overlays.mAdapter.getOverlayList();
+                                overlays.overlayItemList = overlays.mAdapter.getOverlayList();
+                                overlays.getCurrentOverlays();
                                 for (int i = 0; i < overlays.overlayItemList.size(); i++) {
-                                    OverlaysItem currentOverlay = overlays.overlayItemList
-                                            .get(i);
+                                    OverlaysItem currentOverlay = overlays.overlayItemList.get(i);
                                     currentOverlay.setSelected(false);
                                     currentOverlay.updateEnabledOverlays(
-                                            overlays.getCurrentOverlays());
+                                            overlays.currentInstanceOverlays);
                                     if (activity != null) {
                                         activity.runOnUiThread(() ->
                                                 overlays.mAdapter.notifyDataSetChanged());

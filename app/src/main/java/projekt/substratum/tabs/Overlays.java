@@ -169,6 +169,7 @@ public class Overlays extends Fragment {
     public OverlaysInstance currentInstance = OverlaysInstance.getInstance();
     public SubstratumBuilder compileInstance;
     public List<OverlaysItem> overlayItemList;
+    public List<String> currentInstanceOverlays;
     // Begin functional variables with no theme-related information
     public SheetDialog mCompileDialog;
     public SharedPreferences prefs;
@@ -260,7 +261,6 @@ public class Overlays extends Fragment {
     private void setMixAndMatchMode(boolean newValue) {
         mixAndMatchMode = newValue;
         prefs.edit().putBoolean("enable_swapping_overlays", mixAndMatchMode).apply();
-        getCurrentOverlays();
     }
 
     @Override
@@ -502,15 +502,11 @@ public class Overlays extends Fragment {
     }
 
     /**
-     * Return a new list of enabled overlays
-     *
-     * @return new list of enabled overlays
+     * Updates the current instance's list of enabled overlays
      */
-    List<String> getCurrentOverlays() {
-        return new ArrayList<>(ThemeManager.listOverlays(
-                mContext,
-                ThemeManager.STATE_ENABLED
-        ));
+    void getCurrentOverlays() {
+        currentInstanceOverlays =
+                new ArrayList<>(ThemeManager.listOverlays(mContext, ThemeManager.STATE_ENABLED));
     }
 
     /**
@@ -1060,7 +1056,8 @@ public class Overlays extends Fragment {
                         overlays.mContext, overlays.theme_pid);
                 String initial_parse = overlays.theme_name.replaceAll("\\s+", "");
                 loadOverlays.parsed_theme_name = initial_parse.replaceAll("[^a-zA-Z0-9]+", "");
-                loadOverlays.current_overlays = overlays.getCurrentOverlays();
+                overlays.getCurrentOverlays();
+                loadOverlays.current_overlays = overlays.currentInstanceOverlays;
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();

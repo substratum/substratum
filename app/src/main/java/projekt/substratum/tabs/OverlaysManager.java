@@ -1386,7 +1386,7 @@ enum OverlaysManager {
                             String packageName =
                                     o.substring(o.lastIndexOf('/') + 1, o.lastIndexOf('-'));
                             packages.add(packageName);
-                            if ((Systems.checkThemeInterfacer(context) &&
+                            if ((checkThemeInterfacer(context) &&
                                     !Systems.isBinderInterfacer(context)) ||
                                     Systems.checkAndromeda(context)) {
                                 // Wait until the overlays to fully install so on compile enable

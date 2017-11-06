@@ -1100,8 +1100,7 @@ enum OverlaysManager {
                 Activity activity = overlays.getActivity();
                 if (!overlays.currentInstance.final_runner.isEmpty()) {
                     overlays.progressBar.setVisibility(View.VISIBLE);
-                    if (overlays.toggle_all.isChecked())
-                        if (activity != null)
+                    if (overlays.toggle_all.isChecked() && activity != null)
                             activity.runOnUiThread(() -> overlays.toggle_all.setChecked(false));
                 }
             }

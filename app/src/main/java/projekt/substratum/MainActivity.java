@@ -1231,7 +1231,7 @@ public class MainActivity extends AppCompatActivity implements
                                 if (Systems.checkOreo() &&
                                         ((!Systems.checkSubstratumService(context) &&
                                                 !Systems.isAndromedaDevice(context)) ||
-                                                Systems.checkThemeSystemModule(context) ==
+                                                checkThemeSystemModule(context) ==
                                                         OVERLAY_MANAGER_SERVICE_O_ROOTED) &&
                                         !activity.prefs.contains("rooted_oms_dismissal")) {
                                     AlertDialog.Builder alert = new AlertDialog.Builder(activity);
@@ -1287,7 +1287,7 @@ public class MainActivity extends AppCompatActivity implements
                     if (Systems.checkOreo() &&
                             ((!Systems.checkSubstratumService(context) &&
                                     !Systems.isAndromedaDevice(context)) ||
-                                    Systems.checkThemeSystemModule(context) ==
+                                    checkThemeSystemModule(context) ==
                                             OVERLAY_MANAGER_SERVICE_O_ROOTED) &&
                             !activity.prefs.contains("rooted_oms_dismissal")) {
                         AlertDialog.Builder alert = new AlertDialog.Builder(activity);

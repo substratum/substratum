@@ -37,8 +37,10 @@
     <string name="interfacer_github_commits" translatable="false">https://github.com/substratum/interfacer/commits/n-rootless</string>
     <string name="showcase_tabs" translatable="false">https://raw.githubusercontent.com/substratum/substratum/dev/showcase.xml</string>
     <string name="crowdin_url" translatable="false">"http://translate.projektsubstratum.com/"</string>
-    <string name="validator_url" translatable="false">"https://raw.githubusercontent.com/substratum/database/master/commit_tracker.xml"</string>
-    <string name="validator_whitelist_url" translatable="false">"https://raw.githubusercontent.com/substratum/database/master/commit_whitelist.xml"</string>
+    <string name="validator_n_url" translatable="false">"https://raw.githubusercontent.com/substratum/database/master/commit_tracker_n.xml"</string>
+    <string name="validator_o_url" translatable="false">"https://raw.githubusercontent.com/substratum/database/master/commit_tracker_o.xml"</string>
+    <string name="validator_n_whitelist_url" translatable="false">"https://raw.githubusercontent.com/substratum/database/master/commit_whitelist_n.xml"</string>
+    <string name="validator_o_whitelist_url" translatable="false">"https://raw.githubusercontent.com/substratum/database/master/commit_whitelist_o.xml"</string>
     <string name="andromeda_url" translatable="false">https://play.google.com/store/apps/details?id=projekt.andromeda</string>
     <string name="sungstratum_url" translatable="false">https://play.google.com/store/apps/details?id=projekt.sungstratum</string>
     <string name="xda_sungstratum_link" translatable="false">https://forum.xda-developers.com/apps/substratum/7-0-substratum-sex-tw-beta-t3620796</string>

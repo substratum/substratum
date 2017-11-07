@@ -1087,12 +1087,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             if (settingsFragment != null) {
                 FileDownloader.init(
                         settingsFragment.mContext,
-                        settingsFragment.getString(R.string.validator_url),
+                        settingsFragment.getString(Systems.checkOreo() ? R.string.validator_o_url
+                                                               : R.string.validator_n_url),
                         "repository_names.xml", VALIDATOR_CACHE);
 
                 FileDownloader.init(
                         settingsFragment.mContext,
-                        settingsFragment.getString(R.string.validator_whitelist_url),
+                        settingsFragment.getString(Systems.checkOreo() ? R.string.validator_o_whitelist_url
+                                                               : R.string.validator_n_whitelist_url),
                         "resource_whitelist.xml", VALIDATOR_CACHE);
 
                 List<Repository> repositories =

@@ -92,8 +92,7 @@ public enum Packages {
                                         String package_name) {
         try {
             PackageManager pm = context.getPackageManager();
-            String installer = pm.getInstallerPackageName(package_name);
-            return installer;
+            return pm.getInstallerPackageName(package_name);
         } catch (Exception e) {
             // Suppress warning
         }
@@ -433,6 +432,8 @@ public enum Packages {
                             return mContext.getString(R.string.api_25);
                         } else if (target == 26) {
                             return mContext.getString(R.string.api_26);
+                        } else if (target == 27) {
+                            return mContext.getString(R.string.api_27);
                         }
                     } else {
                         String minSdk = "";
@@ -450,6 +451,8 @@ public enum Packages {
                                 minSdk = mContext.getString(R.string.api_25);
                             } else if (min == 26) {
                                 minSdk = mContext.getString(R.string.api_26);
+                            } else if (min == 27) {
+                                minSdk = mContext.getString(R.string.api_27);
                             }
                         } else {
                             // At this point, it is under API24 (API warning) thus we'll do an
@@ -472,6 +475,8 @@ public enum Packages {
                             targetSdk = mContext.getString(R.string.api_25);
                         } else if (target == 26) {
                             targetSdk = mContext.getString(R.string.api_26);
+                        } else if (target == 27) {
+                            targetSdk = mContext.getString(R.string.api_27);
                         }
                         return minSdk + " - " + targetSdk;
                     }

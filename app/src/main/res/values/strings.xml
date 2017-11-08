@@ -308,6 +308,7 @@
     <string name="api_24">Nougat</string>
     <string name="api_25">Pixel-N</string>
     <string name="api_26">Oreo</string>
+    <string name="api_27">Pixel-O</string>
 
     <string name="accept">Accept</string>
     <string name="deny">Deny</string>

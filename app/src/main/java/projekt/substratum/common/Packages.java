@@ -834,9 +834,9 @@ public enum Packages {
                         samsung_support = appInfo.metaData.getBoolean(metadataSamsungSupport);
                     } catch (Exception e) {
                         // At this point, the themer did not specify a boolean value
+                        samsung_support = true;
                     }
-                    if (samsung_support != null &&
-                            !samsung_support &&
+                    if (!samsung_support &&
                             (Systems.isSamsungDevice(context) ||
                                     Systems.isNewSamsungDevice(context))) {
                         can_continue = false;

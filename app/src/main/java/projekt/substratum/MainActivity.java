@@ -146,8 +146,7 @@ public class MainActivity extends AppCompatActivity implements
     private static ActionBar supportActionBar;
     public SearchView searchView;
     @BindView(R.id.theme_count)
-    public
-    TextView actionbar_content;
+    public TextView actionbar_content;
     @BindView(R.id.activity_title)
     TextView actionbar_title;
     @BindView(R.id.toolbar)

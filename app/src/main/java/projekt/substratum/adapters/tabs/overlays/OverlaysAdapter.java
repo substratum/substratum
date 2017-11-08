@@ -38,11 +38,19 @@ import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
+import projekt.substratum.util.views.SheetDialog;
 
 import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.Packages.isPackageInstalled;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
+import static projekt.substratum.common.Resources.SETTINGS;
+import static projekt.substratum.common.Resources.SETTINGS_ICONS;
+import static projekt.substratum.common.Resources.SYSTEMUI;
+import static projekt.substratum.common.Resources.SYSTEMUI_HEADERS;
+import static projekt.substratum.common.Resources.SYSTEMUI_NAVBARS;
+import static projekt.substratum.common.Resources.SYSTEMUI_QSTILES;
+import static projekt.substratum.common.Resources.SYSTEMUI_STATUSBARS;
 
 public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHolder> {
 
@@ -272,7 +280,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                                  int position) {
 
         OverlaysItem current_object = overlayList.get(position);
-        Context context = current_object.getInheritedContext();
+        Context context = current_object.getContext();
 
         viewHolder.app_icon.setImageDrawable(current_object.getAppIcon());
 
@@ -306,6 +314,21 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
 
         viewHolder.checkBox.setTag(current_object);
 
+        if (current_object.attention != null && current_object.attention.length() > 0) {
+            viewHolder.attentionIcon.setVisibility(View.VISIBLE);
+            viewHolder.attentionIcon.setOnClickListener(view -> {
+                SheetDialog sheetDialog = new SheetDialog(context);
+                View sheetView =
+                        View.inflate(context, R.layout.overlays_attention_sheet_dialog, null);
+                TextView attentionText = sheetView.findViewById(R.id.attention_text);
+                attentionText.setText(current_object.attention);
+                sheetDialog.setContentView(sheetView);
+                sheetDialog.show();
+            });
+        } else {
+            viewHolder.attentionIcon.setVisibility(View.GONE);
+        }
+
         viewHolder.checkBox.setOnClickListener(v -> {
             CheckBox cb = (CheckBox) v;
             OverlaysItem contact = (OverlaysItem) cb.getTag();
@@ -328,16 +351,16 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
             String packageName = current_object.getPackageName();
             String packageVersion;
             switch (packageName) {
-                case "com.android.systemui.headers":
-                case "com.android.systemui.navbars":
-                case "com.android.systemui.statusbars":
-                case "com.android.systemui.tiles":
+                case SYSTEMUI_HEADERS:
+                case SYSTEMUI_NAVBARS:
+                case SYSTEMUI_STATUSBARS:
+                case SYSTEMUI_QSTILES:
                     packageVersion = Packages.getAppVersion(
-                            context, "com.android.systemui");
+                            context, SYSTEMUI);
                     break;
-                case "com.android.settings.icons":
+                case SETTINGS_ICONS:
                     packageVersion = Packages.getAppVersion(
-                            context, "com.android.settings");
+                            context, SETTINGS);
                     break;
                 default:
                     packageVersion = Packages.getAppVersion(
@@ -507,10 +530,12 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
         Spinner optionsSpinner4;
         Spinner optionsSpinner5;
         ImageView app_icon;
+        ImageView attentionIcon;
 
         ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
             app_icon = itemLayoutView.findViewById(R.id.app_icon);
+            attentionIcon = itemLayoutView.findViewById(R.id.feature_icon);
             card = itemLayoutView.findViewById(R.id.card);
             checkBox = itemLayoutView.findViewById(R.id.checkBox);
             overlayState = itemLayoutView.findViewById(R.id.installedState);

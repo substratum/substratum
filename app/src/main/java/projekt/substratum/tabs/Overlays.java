@@ -1301,6 +1301,36 @@ public class Overlays extends Fragment {
                         type4.add(overlays.setTypeTwoFourSpinners(inputStreamReader, 4));
                     }
 
+                    // Are there any attention files in the overlay folder?
+                    boolean attentionPresent = false;
+                    for (int i = 0; i < typeArray.size(); i++) {
+                        if (typeArray.get(i).equals("attention")) {
+                            attentionPresent = true;
+                            break;
+                        }
+                    }
+                    // attention file present, let's parse the name of the type2 spinner if present
+                    StringBuilder attentionFile = new StringBuilder();
+                    if (attentionPresent) {
+                        InputStreamReader inputStreamReader;
+                        try {
+                            inputStreamReader = new InputStreamReader(
+                                    FileOperations.getInputStream(
+                                            overlays.themeAssetManager,
+                                            OVERLAYS_DIR + '/' + package_identifier +
+                                                    (overlays.encrypted ?
+                                                            "/attention" +
+                                                                    ENCRYPTED_FILE_EXTENSION :
+                                                            "/attention"
+                                                    ),
+                                            (overlays.encrypted ? overlays.theme_cipher : null)));
+                            BufferedReader reader = new BufferedReader(inputStreamReader);
+                            attentionFile.append(reader.readLine());
+                        } catch (Exception e) {
+                            // Suppress warning
+                        }
+                    }
+
                     // Finally, check if the assets/overlays folder actually has anything inside
                     if (typeArray.size() > 1) {
                         for (int i = 0; i < typeArray.size(); i++) {
@@ -1359,6 +1389,7 @@ public class Overlays extends Fragment {
                                 package_identifier,
                                 checker,
                                 adapters,
+                                attentionFile.toString(),
                                 argument);
                     } else {
                         // At this point, there is no spinner adapter, so it should be null
@@ -1369,6 +1400,7 @@ public class Overlays extends Fragment {
                                 package_identifier,
                                 null,
                                 null,
+                                attentionFile.toString(),
                                 argument);
                     }
                 } catch (Exception e) {
@@ -1395,6 +1427,7 @@ public class Overlays extends Fragment {
                                                String package_identifier,
                                                Boolean[] checker,
                                                VariantAdapter[] adapters,
+                                               String attention,
                                                String argument) {
             try {
                 OverlaysItem overlaysItem =
@@ -1413,6 +1446,7 @@ public class Overlays extends Fragment {
                                 argument,
                                 loadOverlays.current_overlays,
                                 Systems.checkOMS(overlays.mContext),
+                                attention,
                                 overlays.getActivityView());
                 loadOverlays.adapterList.add(overlaysItem);
             } catch (Exception e) {

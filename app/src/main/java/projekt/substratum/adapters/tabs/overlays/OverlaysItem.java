@@ -35,6 +35,7 @@ import projekt.substratum.common.Systems;
 public class OverlaysItem implements Serializable {
 
     public String versionName;
+    public String attention;
     public boolean is_variant_chosen;
     public boolean is_variant_chosen1;
     public boolean is_variant_chosen2;
@@ -82,6 +83,7 @@ public class OverlaysItem implements Serializable {
                         String baseResources,
                         Collection enabledOverlays,
                         Boolean theme_oms,
+                        String attention,
                         View activityView) {
         super();
         this.theme_name = theme_name;
@@ -103,7 +105,12 @@ public class OverlaysItem implements Serializable {
         this.enabledOverlays = new ArrayList<>();
         this.enabledOverlays.addAll(enabledOverlays);
         this.app_icon = Packages.getAppIcon(context, packageName);
+        this.attention = attention;
         this.activityView = activityView;
+    }
+
+    String getAttention() {
+        return attention;
     }
 
     View getActivityView() {
@@ -286,7 +293,7 @@ public class OverlaysItem implements Serializable {
         variantSelected5 = variantName;
     }
 
-    Context getInheritedContext() {
+    Context getContext() {
         return context;
     }
 

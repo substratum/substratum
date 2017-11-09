@@ -52,6 +52,7 @@ android {
         targetSdkVersion 27
         versionCode 914
         versionName "nine hundred fourteen"
+        resConfigs "be", "cs", "de", "es-rES", "en", "fr", "hu", "it", "lt", "nl", "pl", "pt-rBR", "pt-rPT", "ru", "sk", "tr", "zh-rCN"
         buildConfigField "java.util.Date", "buildTime", "new java.util.Date(" + System.currentTimeMillis() + "L)"
         buildConfigField "String", "GIT_HASH", "\"${gitHash()}\""
     }

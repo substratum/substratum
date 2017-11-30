@@ -33,7 +33,7 @@ final def keystorePropertiesFile = rootProject.file("keystore.properties")
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.0'
+    buildToolsVersion '27.0.1'
 
     lintOptions {
         checkReleaseBuilds false
@@ -107,8 +107,8 @@ android {
 
 ext {
     leakCanaryVersion = '1.5.4'
-    supportLibsVersion = '27.0.0'
-    firebaseVersion = '11.4.2'
+    supportLibsVersion = '27.0.2'
+    firebaseVersion = '11.6.2'
     glideVersion = '4.1.1'
 }
 dependencies {
@@ -134,7 +134,7 @@ dependencies {
     // Commons IO
     implementation 'commons-io:commons-io:2.5'
     // APK Signer
-    implementation 'com.android.tools.build:apksig:3.0.0'
+    implementation 'com.android.tools.build:apksig:3.0.1'
     // App Intro
     implementation 'com.stephentuso:welcome:1.4.1'
     // Floating Action Buttons

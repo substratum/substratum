@@ -696,14 +696,17 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     fragment.no_overlays_enabled.setVisibility(View.VISIBLE);
                     fragment.mRecyclerView.setVisibility(View.GONE);
                     fragment.textView.setText(
-                            fragment.getString(R.string.manager_no_overlays_text));
+                            context.getString(R.string.manager_no_overlays_text));
 
-                    if ((userInput.get() != null) && !fragment.searchView.isIconified() &&
-                            !userInput.get().isEmpty()) {
-                        fragment.titleView.setText(fragment.getString(R.string.no_overlays_title));
-                        String formatter = String.format(fragment.getString(
-                                R.string.no_overlays_description_search), userInput.get());
-                        fragment.textView.setText(formatter);
+                    if (fragment.searchView != null) {
+                        if ((userInput.get() != null) && !fragment.searchView.isIconified() &&
+                                !userInput.get().isEmpty()) {
+                            fragment.titleView.setText(
+                                    context.getString(R.string.no_overlays_title));
+                            String formatter = String.format(context.getString(
+                                    R.string.no_overlays_description_search), userInput.get());
+                            fragment.textView.setText(formatter);
+                        }
                     }
                 } else {
                     fragment.floatingActionButton.show();

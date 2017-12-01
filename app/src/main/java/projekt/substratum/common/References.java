@@ -117,8 +117,10 @@ public enum References {
     public static final String ACTIVITY_FINISHER = "projekt.substratum.ACTIVITY_FINISHER";
     public static final String MANAGER_REFRESH = "projekt.substratum.MANAGER_REFRESH";
     public static final String KEY_RETRIEVAL = "Substratum.KeyRetrieval";
-    public static final String TEMPLATE_THEME_MODE = "projekt.substratum.THEME";
+    public static final String SUBSTRATUM_THEME = "projekt.substratum.THEME";
+    public static final String TEMPLATE_THEME_MODE = SUBSTRATUM_THEME;
     public static final String TEMPLATE_GET_KEYS = "projekt.substratum.GET_KEYS";
+    public static final String TEMPLATE_RECEIVE_KEYS = "projekt.substratum.RECEIVE_KEYS";
     // Keep it simple, stupid!
     public static final int SHOWCASE_SHUFFLE_COUNT = 5;
     // These strings control the current filter for themes
@@ -140,6 +142,9 @@ public enum References {
     public static final String metadataOverlayType3 = "Substratum_Type3";
     public static final String metadataOverlayType4 = "Substratum_Type4";
     public static final String metadataOverlayVersion = "Substratum_Version";
+    public static final String metadataSamsungSupport = "Substratum_Samsung";
+    public static final String metadataThemeReady = "Substratum_ThemeReady";
+    public static final String resourceChangelog = "ThemeChangelog";
     // These are Samsung specific manifest values
     public static final Boolean toggleShowSamsungOverlayInSettings = false;
     public static final String permissionSamsungOverlay =
@@ -205,20 +210,12 @@ public enum References {
     public static final String metadataVersion = "Substratum_Plugin";
     // Validate with logs
     public static final Boolean VALIDATE_WITH_LOGS = false;
-    public static final String metadataSamsungSupport = "Substratum_Samsung";
-    static final String SUBSTRATUM_THEME = "projekt.substratum.THEME";
-    static final String metadataThemeReady = "Substratum_ThemeReady";
-    static final String resourceChangelog = "ThemeChangelog";
     // This string controls the hero image name
     static final String heroImageResourceName = "heroimage";
     static final String heroImageGridResourceName = "heroimage_grid";
     static final String heroImageKenBurnsResourceName = "heroimage_banner";
     // Specific intents Substratum should be listening to
     static final String APP_CRASHED = "projekt.substratum.APP_CRASHED";
-    @SuppressWarnings("WeakerAccess")
-    static final String TEMPLATE_RECEIVE_KEYS = "projekt.substratum.RECEIVE_KEYS";
-    static final String SUBSTRATUM_LAUNCHER_CLASS_PATH =
-            "substratum.theme.template.SubstratumLauncher";
     // Localized variables shared amongst common resources
     static ScheduledProfileReceiver scheduledProfileReceiver;
     // These values control the dynamic certification of substratum

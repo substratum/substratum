@@ -68,7 +68,7 @@
     <string name="manager_version">Версія :</string>
     <string name="legacy_preference_priority_title">Змена прыярытэту напластаванняў</string>
     <string name="grid_size_title">Рэгуляванне размяшчэння дысплея для тэмы</string>
-    <string name="grid_size_text">Колькасць слупкоў (2 па змаўчанні): %d</string>
+    <string name="grid_size_text">Колькасць слупкоў (%d па змаўчанні): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">варыянт type1a&#8230;</string>
     <string name="overlays_variant_default_1b">варыянт type1b&#8230;</string>

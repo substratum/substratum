@@ -94,7 +94,7 @@
     <string name="legacy_preference_priority_title">Fedvény prioritás beállítása</string>
     <string name="legacy_preference_priority_text">Prioritás beállított értéke (alapértelmezett: %d): %d</string>
     <string name="grid_size_title">Téma kijelző oszlopok beállítása</string>
-    <string name="grid_size_text">Oszlopok beállított száma (alapértelmezett 2): %d</string>
+    <string name="grid_size_text">Oszlopok beállított száma (alapértelmezett %d): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">type1a változat&#8230;</string>
     <string name="overlays_variant_default_1b">type1b változat&#8230;</string>

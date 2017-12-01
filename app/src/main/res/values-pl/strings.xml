@@ -71,7 +71,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="legacy_preference_priority_title">Korekta priorytetu nakładki</string>
     <string name="legacy_preference_priority_text">Priorytet jest ustawiony na (domyślnie %d): %d</string>
     <string name="grid_size_title">Dopasowanie kolumny wyświetlanego motywu</string>
-    <string name="grid_size_text">Liczba kolumn jest ustawiona na (domyślnie 2): %d</string>
+    <string name="grid_size_text">Liczba kolumn jest ustawiona na (domyślnie %d): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">wariant typ1a&#8230;</string>
     <string name="overlays_variant_default_1b">wariant typ1b&#8230;</string>

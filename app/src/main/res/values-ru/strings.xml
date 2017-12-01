@@ -71,7 +71,7 @@
     <string name="legacy_preference_priority_title">Изменение приоритета наслоения</string>
     <string name="legacy_preference_priority_text">Задан приоритет (по ум. %d): %d</string>
     <string name="grid_size_title">Регулировка расположения дисплея для темы</string>
-    <string name="grid_size_text">Количество столбцов (2 по умолчанию): %d</string>
+    <string name="grid_size_text">Количество столбцов (%d по умолчанию): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">Вариант type1a&#8230;</string>
     <string name="overlays_variant_default_1b">Вариант type1b&#8230;</string>

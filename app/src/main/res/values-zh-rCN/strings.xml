@@ -68,7 +68,7 @@
     <string name="manager_version">版本：</string>
     <string name="legacy_preference_priority_title">调整叠加层优先级</string>
     <string name="grid_size_title">主题显示列调整</string>
-    <string name="grid_size_text">列数设置为(默认为2)：%d</string>
+    <string name="grid_size_text">列数设置为(默认为%d)：%d</string>
     <string name="overlays_variant_substitute">%s&#8230;&#8230;</string>
     <string name="overlays_variant_default_1a">type1a 变量</string>
     <string name="overlays_variant_default_1b">type1b 变量</string>

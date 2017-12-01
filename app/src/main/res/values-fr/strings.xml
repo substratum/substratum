@@ -71,7 +71,7 @@
     <string name="manager_type3">Type 3 :</string>
     <string name="manager_type4">Type4 :</string>
     <string name="manager_version">Version :</string>
-    <string name="grid_size_text">Le nombre de colonnes est défini à (2 par défaut) : %d</string>
+    <string name="grid_size_text">Le nombre de colonnes est défini à (%d par défaut) : %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">Variante type1a&#8230;</string>
     <string name="overlays_variant_default_1b">Variante type1b&#8230;</string>

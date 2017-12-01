@@ -79,7 +79,7 @@
     <string name="legacy_preference_priority_title">Perdangos prioriteto koregavimas</string>
     <string name="legacy_preference_priority_text">Prioritetas nustatytas (numatytasis %d): %d</string>
     <string name="grid_size_title">Temos ekrano stulpelio koregavimas</string>
-    <string name="grid_size_text">Stulpelių skaičius nustatytas (numatytasis 2): %d</string>
+    <string name="grid_size_text">Stulpelių skaičius nustatytas (numatytasis %d): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">tipo1a variantas&#8230;</string>
     <string name="overlays_variant_default_1b">tipo1b variantas&#8230;</string>

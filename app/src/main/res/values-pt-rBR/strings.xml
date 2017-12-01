@@ -83,7 +83,7 @@ corrigir coisas que não estão sendo aplicadas nos temas em modo de compatibili
     <string name="legacy_preference_priority_title">Ajuste de prioridade de camadas</string>
     <string name="legacy_preference_priority_text">Prioridade definida como (padrão %d): %d</string>
     <string name="grid_size_title">Ajuste do esquema de colunas de temas</string>
-    <string name="grid_size_text">Número de colunas está em (padrão 2): %d</string>
+    <string name="grid_size_text">Número de colunas está em (padrão %d): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">variante de tipo1a&#8230;</string>
     <string name="overlays_variant_default_1b">variante de tipo1b&#8230;</string>

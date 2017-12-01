@@ -73,7 +73,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="legacy_preference_priority_title">Nastavenie priority prekrytia</string>
     <string name="legacy_preference_priority_text">Priorita je nastavená na (predvolene 255): %d</string>
     <string name="grid_size_title">Nastavenie počtu stĺpcov témy</string>
-    <string name="grid_size_text">Počet stĺpcov je nastavený na (predvolene 2): %d</string>
+    <string name="grid_size_text">Počet stĺpcov je nastavený na (predvolene %d): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">variant type1a&#8230;</string>
     <string name="overlays_variant_default_1b">variant type1b&#8230;</string>

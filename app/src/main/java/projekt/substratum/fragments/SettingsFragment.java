@@ -502,6 +502,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 getPreferenceManager().findPreference("grid_style_cards_count");
         String toFormat =
                 String.format(getString(R.string.grid_size_text),
+                        DEFAULT_GRID_COUNT,
                         prefs.getInt("grid_style_cards_count", DEFAULT_GRID_COUNT));
         grid_style_cards_count.setSummary(toFormat);
         grid_style_cards_count.setOnPreferenceClickListener(
@@ -530,16 +531,17 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         switch (new_count) {
                             case 1:
                                 prefs.edit().putBoolean("grid_layout", false).apply();
-                                show_template_version.setVisible(true);
+                                if (advanced) show_template_version.setVisible(true);
                                 break;
                             default:
                                 prefs.edit().putBoolean("grid_layout", true).apply();
-                                show_template_version.setVisible(false);
+                                if (advanced) show_template_version.setVisible(false);
                         }
 
                         grid_style_cards_count.setSummary(
                                 String.format(
                                         getString(R.string.grid_size_text),
+                                        DEFAULT_GRID_COUNT,
                                         new_count));
                     });
                     d.setNegativeButton(android.R.string.cancel, (dialogInterface, i) ->
@@ -547,11 +549,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     d.show();
                     return false;
                 });
-        if (advanced) {
-            grid_style_cards_count.setVisible(true);
-        } else {
-            grid_style_cards_count.setVisible(false);
-        }
 
         // These should run if the app is running in debug mode
         Preference aoptSwitcher =

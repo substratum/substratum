@@ -212,7 +212,7 @@ public class ThemeFragment extends Fragment {
             } else if (prefs.getBoolean("nougat_style_cards", false)) {
                 themeFragment.recyclerView.setPadding(0, 0, 0, 0);
             }
-            if (prefs.getBoolean("grid_layout", true) && prefs.getBoolean("advanced_ui", false)) {
+            if (prefs.getBoolean("grid_layout", true)) {
                 themeFragment.recyclerView.setLayoutManager(new GridLayoutManager(mContext,
                         prefs.getInt("grid_style_cards_count", DEFAULT_GRID_COUNT)));
             } else {

@@ -141,7 +141,7 @@
     <string name="legacy_preference_priority_text">Priority is set at (default %d): %d</string>
 
     <string name="grid_size_title">Theme display column adjustment</string>
-    <string name="grid_size_text">Column count is set to (default 2): %d</string>
+    <string name="grid_size_text">Column count is set to (default %d): %d</string>
 
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">type1a variant&#8230;</string>

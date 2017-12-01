@@ -77,7 +77,7 @@ arreglar las cosas que no se están tematizando en legado porque requieren cambi
     <string name="legacy_preference_priority_title">Ajuste de prioridad de las capas</string>
     <string name="legacy_preference_priority_text">La prioridad está establecida en (%d por defecto): %d</string>
     <string name="grid_size_title">Ajuste de columnas de temas en pantalla</string>
-    <string name="grid_size_text">Numero columnas establecido en (por defecto 2): %d</string>
+    <string name="grid_size_text">Numero columnas establecido en (por defecto %d): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">type1a variante&#8230;</string>
     <string name="overlays_variant_default_1b">type1b variante&#8230;</string>

@@ -78,7 +78,7 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="legacy_preference_priority_title">Nastavení priority potahů</string>
     <string name="legacy_preference_priority_text">Priorita je nastavena na (výchozí %d): %d</string>
     <string name="grid_size_title">Nastavení počtu sloupců motivu</string>
-    <string name="grid_size_text">Počet sloupců je nastaven na (výchozí 2): %d</string>
+    <string name="grid_size_text">Počet sloupců je nastaven na (výchozí %d): %d</string>
     <string name="overlays_variant_substitute">%s&#8230;</string>
     <string name="overlays_variant_default_1a">typ1a varianta&#8230;</string>
     <string name="overlays_variant_default_1b">typ1b varianta&#8230;</string>

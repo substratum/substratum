@@ -426,6 +426,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     }
                     return false;
                 });
+        if (advanced) {
+            nougat_style_cards.setVisible(true);
+        } else {
+            nougat_style_cards.setVisible(false);
+        }
 
         // Notify on Compiled
         CheckBoxPreference vibrate_on_compiled = (CheckBoxPreference)
@@ -486,6 +491,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             // Always hide the template version if in grid mode
             show_template_version.setVisible(false);
         }
+        if (advanced) {
+            show_template_version.setVisible(true);
+        } else {
+            show_template_version.setVisible(false);
+        }
 
         // Grid Style Cards Count
         Preference grid_style_cards_count =
@@ -537,6 +547,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     d.show();
                     return false;
                 });
+        if (advanced) {
+            grid_style_cards_count.setVisible(true);
+        } else {
+            grid_style_cards_count.setVisible(false);
+        }
 
         // These should run if the app is running in debug mode
         Preference aoptSwitcher =

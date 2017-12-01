@@ -86,6 +86,8 @@
     <color name="main_screen_card_background">#fffafafa</color>
     <color name="main_screen_card_theme_title">#ff000000</color>
     <color name="main_screen_card_theme_author">#d0000000</color>
+    <color name="main_screen_card_theme_title_special">#ffffffff</color>
+    <color name="main_screen_card_theme_author_special">#d0ffffff</color>
 
     <color name="tab_icon_text_color">#d0ffffff</color>
 

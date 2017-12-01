@@ -76,7 +76,10 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         SharedPreferences prefs =
                 PreferenceManager.getDefaultSharedPreferences(viewGroup.getContext());
         View view;
-        if (prefs.getBoolean("nougat_style_cards", false)) {
+        if (!prefs.getBoolean("advanced_ui", false)) {
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.kenburns_special_entry_card,
+                    viewGroup, false);
+        } else if (prefs.getBoolean("nougat_style_cards", false)) {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.theme_entry_card_n,
                     viewGroup, false);
         } else {
@@ -92,46 +95,51 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         ThemeItem themeItem = this.information.get(pos);
         this.mContext = themeItem.getContext();
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
         viewHolder.theme_name.setText(themeItem.getThemeName());
         viewHolder.theme_author.setText(themeItem.getThemeAuthor());
-        if (themeItem.getPluginVersion() != null) {
-            viewHolder.plugin_version.setText(themeItem.getPluginVersion());
-        } else {
-            viewHolder.plugin_version.setVisibility(View.INVISIBLE);
-        }
-        if (themeItem.getSDKLevels() != null) {
-            viewHolder.theme_apis.setText(themeItem.getSDKLevels());
-        } else {
-            viewHolder.theme_apis.setVisibility(View.INVISIBLE);
-        }
-        if (themeItem.getThemeVersion() != null) {
-            viewHolder.theme_version.setText(themeItem.getThemeVersion());
-        } else {
-            viewHolder.theme_version.setVisibility(View.INVISIBLE);
-        }
+        if (prefs.getBoolean("advanced_ui", false)) {
+            if (themeItem.getPluginVersion() != null) {
+                viewHolder.plugin_version.setText(themeItem.getPluginVersion());
+            } else {
+                viewHolder.plugin_version.setVisibility(View.INVISIBLE);
+            }
+            if (themeItem.getSDKLevels() != null) {
+                viewHolder.theme_apis.setText(themeItem.getSDKLevels());
+            } else {
+                viewHolder.theme_apis.setVisibility(View.INVISIBLE);
+            }
+            if (themeItem.getThemeVersion() != null) {
+                viewHolder.theme_version.setText(themeItem.getThemeVersion());
+            } else {
+                viewHolder.theme_version.setVisibility(View.INVISIBLE);
+            }
 
-        SharedPreferences pref =
-                PreferenceManager.getDefaultSharedPreferences(themeItem.getContext());
-        if (pref.getBoolean("grid_layout", true) || (themeItem.getThemeReadyVariable() == null)) {
-            viewHolder.divider.setVisibility(View.GONE);
-            viewHolder.tbo.setVisibility(View.GONE);
-            viewHolder.two.setVisibility(View.GONE);
-        } else if (THEME_READY_ALL.equals(themeItem.getThemeReadyVariable())) {
-            viewHolder.divider.setVisibility(View.VISIBLE);
-            viewHolder.tbo.setVisibility(View.VISIBLE);
-            viewHolder.two.setVisibility(View.VISIBLE);
-        } else if (THEME_READY_READY.equals(themeItem.getThemeReadyVariable())) {
-            viewHolder.divider.setVisibility(View.VISIBLE);
-            viewHolder.tbo.setVisibility(View.VISIBLE);
-            viewHolder.two.setVisibility(View.GONE);
-        } else if (THEME_READY_STOCK.equals(themeItem.getThemeReadyVariable())) {
-            viewHolder.divider.setVisibility(View.VISIBLE);
-            viewHolder.tbo.setVisibility(View.GONE);
-            viewHolder.two.setVisibility(View.VISIBLE);
-        } else {
-            viewHolder.divider.setVisibility(View.GONE);
-            viewHolder.tbo.setVisibility(View.GONE);
-            viewHolder.two.setVisibility(View.GONE);
+            if (prefs.getBoolean("grid_layout", true) ||
+                    (themeItem.getThemeReadyVariable() == null)) {
+                viewHolder.divider.setVisibility(View.GONE);
+                viewHolder.tbo.setVisibility(View.GONE);
+                viewHolder.two.setVisibility(View.GONE);
+            } else if (THEME_READY_ALL.equals(themeItem.getThemeReadyVariable())) {
+                viewHolder.divider.setVisibility(View.VISIBLE);
+                viewHolder.tbo.setVisibility(View.VISIBLE);
+                viewHolder.two.setVisibility(View.VISIBLE);
+            } else if (THEME_READY_READY.equals(themeItem.getThemeReadyVariable())) {
+                viewHolder.divider.setVisibility(View.VISIBLE);
+                viewHolder.tbo.setVisibility(View.VISIBLE);
+                viewHolder.two.setVisibility(View.GONE);
+            } else if (THEME_READY_STOCK.equals(themeItem.getThemeReadyVariable())) {
+                viewHolder.divider.setVisibility(View.VISIBLE);
+                viewHolder.tbo.setVisibility(View.GONE);
+                viewHolder.two.setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.divider.setVisibility(View.GONE);
+                viewHolder.tbo.setVisibility(View.GONE);
+                viewHolder.two.setVisibility(View.GONE);
+            }
+
+            viewHolder.tbo.setOnClickListener(v -> this.explainTBO());
+            viewHolder.two.setOnClickListener(v -> this.explainTWO());
         }
 
         viewHolder.cardView.setOnClickListener(
@@ -200,11 +208,9 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 // Favorite
                 LinearLayout favorite = sheetView.findViewById(R.id.favorite);
 
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences
-                        (this.mContext);
                 Drawable favoriteImg = this.mContext.getDrawable(R.drawable.toolbar_favorite);
-                Drawable notFavoriteImg = this.mContext.getDrawable(R.drawable
-                        .toolbar_not_favorite);
+                Drawable notFavoriteImg =
+                        this.mContext.getDrawable(R.drawable.toolbar_not_favorite);
                 TextView favoriteText = sheetView.findViewById(R.id.favorite_text);
                 if (prefs.getString("app_shortcut_theme", "").equals(themeItem.getThemePackage())) {
                     assert favoriteImg != null;
@@ -309,16 +315,20 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
             return false;
         });
 
-        viewHolder.tbo.setOnClickListener(v -> this.explainTBO());
-        viewHolder.two.setOnClickListener(v -> this.explainTWO());
-
         viewHolder.theme_author.setText(themeItem.getThemeAuthor());
         viewHolder.imageView.setImageDrawable(themeItem.getThemeDrawable());
 
-        References.setRecyclerViewAnimation(
-                this.mContext,
-                viewHolder.itemView,
-                R.anim.recyclerview_anim);
+        if (prefs.getBoolean("advanced_ui", false)) {
+            References.setRecyclerViewAnimation(
+                    this.mContext,
+                    viewHolder.itemView,
+                    R.anim.recyclerview_anim);
+        } else {
+            References.setRecyclerViewAnimation(
+                    this.mContext,
+                    viewHolder.itemView,
+                    android.R.anim.fade_in);
+        }
     }
 
     /**

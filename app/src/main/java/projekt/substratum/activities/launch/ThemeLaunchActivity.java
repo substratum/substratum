@@ -37,6 +37,7 @@ import static android.content.pm.PackageManager.GET_META_DATA;
 import static projekt.substratum.common.Internal.ENCRYPTION_KEY_EXTRA;
 import static projekt.substratum.common.Internal.IV_ENCRYPTION_KEY_EXTRA;
 import static projekt.substratum.common.Internal.THEME_AUTHOR;
+import static projekt.substratum.common.Internal.THEME_CALLER;
 import static projekt.substratum.common.Internal.THEME_CERTIFIED;
 import static projekt.substratum.common.Internal.THEME_DEBUG;
 import static projekt.substratum.common.Internal.THEME_HASH;
@@ -127,11 +128,13 @@ public class ThemeLaunchActivity extends Activity {
         Boolean certified = activityExtras.getBooleanExtra(THEME_CERTIFIED, true);
         String action = activityExtras.getAction();
         String packageName = activityExtras.getPackage();
+        String themeCaller = activityExtras.getStringExtra(THEME_CALLER);
 
         Intent myIntent = new Intent();
         myIntent.putExtra(THEME_CERTIFIED, certified);
         myIntent.putExtra(THEME_HASHPASSTHROUGH, hash_passthrough);
         myIntent.putExtra(THEME_LEGACY, omsCheck);
+        myIntent.putExtra(THEME_CALLER, themeCaller);
         myIntent.putExtra(THEME_MODE, theme_mode);
         myIntent.setAction(action);
         myIntent.setPackage(packageName);

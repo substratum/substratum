@@ -70,6 +70,7 @@ public enum Internal {
     public static final String THEME_PIRACY_CHECK = "theme_piracy_check";
     public static final String THEME_LEGACY = "theme_legacy";
     public static final String THEME_WALLPAPER = "wallpaperUrl";
+    public static final String THEME_CALLER = "calling_package_name";
     public static final String HOME_TYPE = "home_type";
     public static final String HOME_TITLE = "title";
     // Prefs

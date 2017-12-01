@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements
     private static final String SELECTED_DRAWER_ITEM = "selected_drawer_item";
     public static String userInput = "";
     public static ArrayList<String> queuedUninstall;
+    public static View heroImageTransitionObject;
     private static ActionBar supportActionBar;
     public SearchView searchView;
     @BindView(R.id.theme_count)
@@ -166,7 +167,6 @@ public class MainActivity extends AppCompatActivity implements
     private AndromedaReceiver andromedaReceiver;
     private Context mContext;
     private boolean bottomBarUi;
-    public static View heroImageTransitionObject;
 
     /**
      * Checks whether the overlays installed are outdated or not, based on substratum version used

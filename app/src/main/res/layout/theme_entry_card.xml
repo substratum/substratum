@@ -114,7 +114,7 @@
             android:layout_alignParentTop="true"
             android:importantForAccessibility="no"
             android:scaleType="centerCrop"
-            android:src="@android:color/transparent"/>
+            android:src="@android:color/transparent" />
 
         <ImageView
             android:id="@+id/theme_preview_image_backup"

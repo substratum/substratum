@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
   ~
@@ -18,10 +17,10 @@
   -->
 
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-        android:width="48dp"
-        android:height="48dp"
-        android:viewportHeight="512.000000"
-        android:viewportWidth="512.000000">
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportHeight="512.000000"
+    android:viewportWidth="512.000000">
     <group
         android:scaleX="0.100000"
         android:scaleY="-0.100000"
@@ -34,7 +33,7 @@
 -373 -682 -734 -1344 l-656 -1202 2 -266 3 -266 201 368 c111 203 493 902 849 1554
 356 652 653 1201 660 1221 51 144 7 321 -105 422 -52 47 -998 569 -1085 599 -64 22
 -165 22 -237 -1z"
-            android:strokeWidth="1"/>
+            android:strokeWidth="1" />
         <path
             android:fillColor="#FFFFFFFF"
             android:pathData="M3672 3693 c-31 -4 -202 -87 -306 -149 -47 -28 -55 -40 -163 -238 -62 -115 -112
@@ -43,14 +42,14 @@ l273 -488 -4 -54 c-3 -47 -9 -59 -38 -85 -19 -17 -582 -337 -1251 -711 l-1217 -680
 -1 -149 c0 -115 3 -147 13 -143 6 3 590 329 1297 725 923 516 1300 733 1337 766 78
 70 116 154 121 266 3 65 0 101 -13 140 -9 28 -141 273 -292 543 -306 547 -323 571
 -444 627 -68 31 -151 43 -237 33z"
-            android:strokeWidth="1"/>
+            android:strokeWidth="1" />
         <path
             android:fillColor="#FFFFFFFF"
             android:pathData="M4108 1923 l-236 -128 322 -5 c356 -6 355 -5 396 -73 19 -31 20 -55 20 -597 0 -546
 -1 -566 -20 -598 -11 -18 -34 -41 -52 -52 -33 -20 -55 -20 -1960 -20 l-1928 0 0
 -130 0 -130 1958 2 1958 3 76 37 c91 45 147 103 191 196 l32 67 0 625 0 625 -32 67
 c-43 92 -100 151 -190 195 -70 35 -81 37 -186 40 l-112 3 -237 -127z"
-            android:strokeWidth="1"/>
+            android:strokeWidth="1" />
         <path
             android:fillColor="#FFFFFFFF"
             android:pathData="M446 4899 c-62 -15 -153 -68 -197 -116 -22 -24 -55 -74 -72 -111 l-32 -67 0 -2061
@@ -60,6 +59,6 @@ c-345 1 -622 -3 -644 -8z m789 -3438 c81 -37 139 -96 178 -179 28 -59 32 -77 32
 -152 0 -75 -4 -93 -32 -152 -39 -84 -97 -142 -181 -181 -59 -28 -77 -32 -152 -32
 -75 0 -93 4 -152 32 -84 39 -142 97 -181 181 -28 59 -32 77 -32 152 0 75 4 93 32
 152 49 105 140 180 250 208 66 16 168 4 238 -29z"
-            android:strokeWidth="1"/>
+            android:strokeWidth="1" />
     </group>
 </vector>

@@ -59,8 +59,8 @@
         <FrameLayout
             android:id="@+id/drawer_container"
             android:layout_width="match_parent"
-            android:layout_above="@id/bottomBar"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_above="@id/bottomBar">
 
             <FrameLayout
                 android:id="@+id/main"
@@ -69,16 +69,16 @@
 
         </FrameLayout>
 
-    <com.roughike.bottombar.BottomBar
-        android:id="@+id/bottomBar"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        app:bb_badgeBackgroundColor="@color/colorAccent"
-        app:bb_activeTabColor="@color/bottombar_icon_text_selected"
-        app:bb_tabXmlResource="@xml/bottombar_tabs"
-        app:bb_titleTextAppearance="@style/AppTheme.SpecialUI"
-        app:bb_badgesHideWhenActive="false"/>
+        <com.roughike.bottombar.BottomBar
+            android:id="@+id/bottomBar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            app:bb_activeTabColor="@color/bottombar_icon_text_selected"
+            app:bb_badgeBackgroundColor="@color/colorAccent"
+            app:bb_badgesHideWhenActive="false"
+            app:bb_tabXmlResource="@xml/bottombar_tabs"
+            app:bb_titleTextAppearance="@style/AppTheme.SpecialUI" />
 
     </RelativeLayout>
 

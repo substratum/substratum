@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2016-2017 Projekt Substratum
   ~ This file is part of Substratum.
   ~
@@ -18,8 +17,8 @@
   -->
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <PreferenceCategory
         android:layout_width="match_parent"
@@ -29,22 +28,22 @@
         <Preference
             android:key="about_substratum"
             android:summary="SUBSTRATUM_VERSION"
-            android:title="@string/settings_about_substratum"/>
+            android:title="@string/settings_about_substratum" />
 
         <Preference
             android:key="about_samsung"
             android:summary="@string/settings_about_interfacer_not_installed"
-            android:title="@string/settings_about_samsung"/>
+            android:title="@string/settings_about_samsung" />
 
         <Preference
             android:key="system_status"
             android:summary="@string/settings_system_status_rooted"
-            android:title="@string/settings_system_status"/>
+            android:title="@string/settings_system_status" />
 
         <Preference
             android:key="system_platform"
             android:summary="@string/settings_about_system_content"
-            android:title="@string/settings_about_system_version"/>
+            android:title="@string/settings_about_system_version" />
 
     </PreferenceCategory>
 
@@ -57,28 +56,28 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:key="manage_space"
-            android:title="@string/settings_manage_space_title"/>
+            android:title="@string/settings_manage_space_title" />
 
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:key="show_dangerous_samsung_overlays"
             android:summary="@string/settings_samsung_show_dangerous_overlays_text"
-            android:title="@string/settings_samsung_show_dangerous_overlays"/>
+            android:title="@string/settings_samsung_show_dangerous_overlays" />
 
         <Preference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:key="legacy_priority_switcher"
             android:summary="@string/legacy_preference_priority_text"
-            android:title="@string/legacy_preference_priority_title"/>
+            android:title="@string/legacy_preference_priority_title" />
 
         <Preference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:key="aopt_switcher"
             android:summary="@string/settings_aapt"
-            android:title="@string/settings_aopt_switcher_title"/>
+            android:title="@string/settings_aopt_switcher_title" />
 
     </PreferenceCategory>
 
@@ -92,14 +91,14 @@
             android:layout_height="match_parent"
             android:key="autosave_logchar"
             android:summary="@string/logchar_autosave_subtext"
-            android:title="@string/logchar_autosave_title"/>
+            android:title="@string/logchar_autosave_title" />
 
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:key="overlay_alert"
             android:summary="@string/settings_auto_alert_text"
-            android:title="@string/settings_auto_alert_title"/>
+            android:title="@string/settings_auto_alert_title" />
 
     </PreferenceCategory>
 
@@ -113,21 +112,21 @@
             android:layout_height="match_parent"
             android:key="force_english_locale"
             android:summary="@string/settings_force_english_text"
-            android:title="@string/settings_force_english_title"/>
+            android:title="@string/settings_force_english_title" />
 
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:key="vibrate_on_compiled"
             android:summary="@string/vibrate_on_compiled_description"
-            android:title="@string/vibrate_on_compiled"/>
+            android:title="@string/vibrate_on_compiled" />
 
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:key="show_template_version"
             android:summary="@string/show_theme_template_version_description"
-            android:title="@string/show_theme_template_version"/>
+            android:title="@string/show_theme_template_version" />
 
     </PreferenceCategory>
 
@@ -141,28 +140,28 @@
             android:layout_height="match_parent"
             android:key="advanced_ui"
             android:summary="@string/advanced_ui_text"
-            android:title="@string/advanced_ui_title"/>
+            android:title="@string/advanced_ui_title" />
 
         <Preference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:key="grid_style_cards_count"
             android:summary="@string/grid_size_text"
-            android:title="@string/grid_size_title"/>
+            android:title="@string/grid_size_title" />
 
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:key="nougat_style_cards"
             android:summary="@string/nougat_style_cards_subtext"
-            android:title="@string/nougat_style_cards_title"/>
+            android:title="@string/nougat_style_cards_title" />
 
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:key="alternate_drawer_design"
             android:summary="@string/alternate_drawer_design_subtext"
-            android:title="@string/alternate_drawer_design_title"/>
+            android:title="@string/alternate_drawer_design_title" />
 
     </PreferenceCategory>
 </PreferenceScreen>

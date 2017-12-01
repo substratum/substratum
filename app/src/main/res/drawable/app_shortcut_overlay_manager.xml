@@ -17,13 +17,13 @@
   -->
 
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-        android:width="24dp"
-        android:height="24dp"
-        android:viewportHeight="24.0"
-        android:viewportWidth="24.0">
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportHeight="24.0"
+    android:viewportWidth="24.0">
     <path
         android:fillColor="@color/app_shortcut_icon_background_color"
-        android:pathData="M12,12m-11.893,0a11.893,11.893 0,1 1,23.786 0a11.893,11.893 0,1 1,-23.786 0"/>
+        android:pathData="M12,12m-11.893,0a11.893,11.893 0,1 1,23.786 0a11.893,11.893 0,1 1,-23.786 0" />
     <group
         android:scaleX="0.7"
         android:scaleY="0.7"
@@ -31,6 +31,6 @@
         android:translateY="3.6">
         <path
             android:fillColor="@color/app_shortcut_icon_color"
-            android:pathData="M3,13h8L11,3L3,3v10zM3,21h8v-6L3,15v6zM13,21h8L21,11h-8v10zM13,3v6h8L21,3h-8z"/>
+            android:pathData="M3,13h8L11,3L3,3v10zM3,21h8v-6L3,15v6zM13,21h8L21,11h-8v10zM13,3v6h8L21,3h-8z" />
     </group>
 </vector>

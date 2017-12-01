@@ -30,6 +30,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -41,6 +42,7 @@ import butterknife.ButterKnife;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.adapters.showcase.ShowcaseTabsAdapter;
+import projekt.substratum.common.References;
 import projekt.substratum.util.files.FileDownloader;
 import projekt.substratum.util.readers.ReadShowcaseTabsFile;
 
@@ -53,14 +55,26 @@ public class ShowcaseFragment extends Fragment {
     TabLayout tabLayout;
     @BindView(R.id.viewpager)
     ViewPager viewPager;
+    @BindView(R.id.no_network)
+    RelativeLayout no_network;
     private Context mContext;
 
     /**
      * Refresh the showcase layout by redownloading the tabs
      */
     private void refreshLayout() {
-        DownloadTabs downloadTabs = new DownloadTabs(this);
-        downloadTabs.execute(getString(R.string.showcase_tabs), "showcase_tabs.xml");
+        if (References.isNetworkAvailable(mContext)) {
+            no_network.setVisibility(View.GONE);
+            tabLayout.setVisibility(View.VISIBLE);
+            viewPager.setVisibility(View.VISIBLE);
+
+            DownloadTabs downloadTabs = new DownloadTabs(this);
+            downloadTabs.execute(getString(R.string.showcase_tabs), "showcase_tabs.xml");
+        } else {
+            no_network.setVisibility(View.VISIBLE);
+            tabLayout.setVisibility(View.GONE);
+            viewPager.setVisibility(View.GONE);
+        }
     }
 
     @Override

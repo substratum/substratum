@@ -44,9 +44,10 @@
             android:layout_margin="15dp"
             android:gravity="center"
             android:text="@string/wallpaper_no_wallpapers"
+            android:textAllCaps="true"
             android:textColor="@color/font_text"
-            android:textSize="20sp"
-            android:textStyle="italic" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
@@ -70,9 +71,10 @@
             android:layout_margin="15dp"
             android:gravity="center"
             android:text="@string/wallpaper_no_connection"
+            android:textAllCaps="true"
             android:textColor="@color/font_text"
-            android:textSize="20sp"
-            android:textStyle="italic" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

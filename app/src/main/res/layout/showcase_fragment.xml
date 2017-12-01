@@ -33,6 +33,34 @@
         app:tabSelectedTextColor="?android:attr/textColorPrimary"
         app:tabTextColor="?android:attr/textColorSecondary" />
 
+    <RelativeLayout
+        android:id="@+id/no_network"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="57dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/image_placeholder2"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/no_network_showcase" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/image_placeholder2"
+            android:layout_margin="15dp"
+            android:gravity="center"
+            android:text="@string/showcase_no_connection"
+            android:textAllCaps="true"
+            android:textColor="@color/main_screen_card_theme_title"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"

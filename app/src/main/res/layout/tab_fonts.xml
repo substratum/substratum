@@ -78,9 +78,10 @@
                     android:layout_margin="15dp"
                     android:gravity="center"
                     android:text="@string/font_placeholder_text"
+                    android:textAllCaps="true"
                     android:textColor="@color/font_text"
-                    android:textSize="20sp"
-                    android:textStyle="italic" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
@@ -105,9 +106,10 @@
                     android:layout_margin="15dp"
                     android:gravity="center"
                     android:text="@string/fonts_defaults_text"
+                    android:textAllCaps="true"
                     android:textColor="@color/font_text"
-                    android:textSize="20sp"
-                    android:textStyle="italic" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 

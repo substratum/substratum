@@ -60,9 +60,10 @@
                 android:layout_margin="15dp"
                 android:gravity="center"
                 android:text="@string/sounds_spinner_defaults_text"
+                android:textAllCaps="true"
                 android:textColor="@color/font_text"
-                android:textSize="20sp"
-                android:textStyle="italic" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
@@ -85,9 +86,10 @@
                 android:layout_margin="15dp"
                 android:gravity="center"
                 android:text="@string/sounds_placeholder_text"
+                android:textAllCaps="true"
                 android:textColor="@color/sounds_text"
-                android:textSize="20sp"
-                android:textStyle="italic" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
@@ -110,9 +112,10 @@
                 android:layout_margin="15dp"
                 android:gravity="center"
                 android:text="@string/error_loading_pack"
+                android:textAllCaps="true"
                 android:textColor="@color/sounds_text"
-                android:textSize="20sp"
-                android:textStyle="italic" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 

@@ -4,22 +4,27 @@
     and NO MORE than 5 targets for the bottom navigation:
     https://material.io/guidelines/components/bottom-navigation.html#bottom-navigation-usage -->
     <tab
+        barColorWhenSelected="@color/bottombar_bar_background"
         icon="@drawable/nav_theme_packs"
         id="@+id/tab_themes"
         title="@string/nav_home" />
     <tab
+        barColorWhenSelected="@color/bottombar_bar_background"
         icon="@drawable/nav_overlay_manager"
         id="@+id/tab_overlay_manager"
         title="@string/nav_overlay_manager" />
     <tab
+        barColorWhenSelected="@color/bottombar_bar_background"
         icon="@drawable/toolbar_showcase"
         id="@+id/tab_showcase"
         title="@string/showcase" />
     <tab
+        barColorWhenSelected="@color/bottombar_bar_background"
         icon="@drawable/nav_manage"
         id="@+id/tab_rescue"
         title="@string/nav_manage" />
     <tab
+        barColorWhenSelected="@color/bottombar_bar_background"
         icon="@drawable/nav_drawer_settings"
         id="@+id/tab_settings"
         title="@string/nav_settings" />

@@ -23,6 +23,7 @@
     <color name="navigationBarColor">@android:color/black</color>
     <color name="statusBarColor">@color/colorPrimaryDark</color>
 
+    <color name="bottombar_bar_background">@android:color/white</color>
     <color name="bottombar_icon_text_selected">@android:color/black</color>
 
     <!-- Hardcode the colors so it doesn't change every time an Android System overlay changes -->

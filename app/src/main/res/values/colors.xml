@@ -127,7 +127,7 @@
     <color name="fab_background_color">@color/colorAccent</color>
 
     <color name="app_shortcut_icon_color">#ffffffff</color>
-    <color name="app_shortcut_icon_background_color">@color/colorPrimary</color>
+    <color name="app_shortcut_icon_background_color">@color/substratum_blue</color>
 
     <color name="substratum_orange">#fa9403</color>
     <color name="substratum_yellow">#fdc406</color>

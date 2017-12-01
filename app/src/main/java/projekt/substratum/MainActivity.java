@@ -18,6 +18,7 @@
 
 package projekt.substratum;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -146,6 +147,7 @@ public class MainActivity extends AppCompatActivity implements
     private static final String SELECTED_DRAWER_ITEM = "selected_drawer_item";
     public static String userInput = "";
     public static ArrayList<String> queuedUninstall;
+    @SuppressLint("StaticFieldLeak")
     public static View heroImageTransitionObject;
     private static ActionBar supportActionBar;
     public SearchView searchView;
@@ -400,6 +402,43 @@ public class MainActivity extends AppCompatActivity implements
             getSupportActionBar().setHomeButtonEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             getSupportActionBar().setDisplayShowHomeEnabled(false);
+
+            BottomBar bottomBar = findViewById(R.id.bottomBar);
+            bottomBar.setOnTabSelectListener(tabId -> {
+                switch (tabId) {
+                    case R.id.tab_themes:
+                        switchThemeFragment(((Systems.checkOMS(
+                                mContext) ?
+                                        getString(R.string.app_name) :
+                                        (Systems.isSamsung(mContext) ?
+                                                getString(R.string.samsung_app_name) :
+                                                getString(R.string.legacy_app_name)))
+                                ),
+                                References.homeFragment);
+                        break;
+                    case R.id.tab_overlay_manager:
+                        switchFragment(getString(R.string.nav_overlay_manager),
+                                ManagerFragment.class.getCanonicalName());
+                        break;
+                    case R.id.tab_rescue:
+                        switchFragment(getString(R.string.nav_manage),
+                                RecoveryFragment.class.getCanonicalName());
+                        break;
+                    case R.id.tab_showcase:
+                        switchFragment(getString(R.string.showcase),
+                                ShowcaseFragment.class.getCanonicalName());
+                        break;
+                    case R.id.tab_settings:
+                        switchFragment(getString(R.string.nav_settings),
+                                SettingsFragment.class.getCanonicalName());
+                        break;
+                }
+            });
+
+            if ((getIntent() != null) && getIntent().getBooleanExtra
+                    ("launch_manager_fragment", false)) {
+                bottomBar.selectTabAtPosition(1, true);
+            }
         } else {
             bottomBar.setVisibility(View.GONE);
             int selectedDrawer = 1;
@@ -716,39 +755,6 @@ public class MainActivity extends AppCompatActivity implements
             }
         }
 
-        BottomBar bottomBar = findViewById(R.id.bottomBar);
-        bottomBar.setOnTabSelectListener(tabId -> {
-            switch (tabId) {
-                case R.id.tab_themes:
-                    switchThemeFragment(((Systems.checkOMS(
-                            mContext) ?
-                                    getString(R.string.app_name) :
-                                    (Systems.isSamsung(mContext) ?
-                                            getString(R.string.samsung_app_name) :
-                                            getString(R.string.legacy_app_name)))
-                            ),
-                            References.homeFragment);
-                    break;
-                case R.id.tab_overlay_manager:
-                    switchFragment(getString(R.string.nav_overlay_manager),
-                            ManagerFragment.class.getCanonicalName());
-                    break;
-                case R.id.tab_rescue:
-                    switchFragment(getString(R.string.nav_manage),
-                            RecoveryFragment.class.getCanonicalName());
-                    break;
-                case R.id.tab_showcase:
-                    switchFragment(getString(R.string.showcase),
-                            ShowcaseFragment.class.getCanonicalName());
-                    break;
-                case R.id.tab_settings:
-                    switchFragment(getString(R.string.nav_settings),
-                            SettingsFragment.class.getCanonicalName());
-                    break;
-            }
-        });
-
-
         new RootRequester(this).execute();
     }
 
@@ -987,7 +993,7 @@ public class MainActivity extends AppCompatActivity implements
             Fragment f = getSupportFragmentManager().findFragmentById(R.id.main);
             if (bottomBarUi) {
                 if (bottomBar.getCurrentTabPosition() != 0) {
-                    bottomBar.selectTabAtPosition(0);
+                    bottomBar.selectTabAtPosition(0, true);
                 } else {
                     finish();
                 }

@@ -181,8 +181,8 @@ public class InformationActivity extends AppCompatActivity {
     TextView enable_selected;
     @BindView(R.id.enable_disable_selected)
     TextView enable_disable_selected;
-    @BindView(R.id.kenburnsView)
-    ImageView kenBurnsView;
+    @BindView(R.id.heroImage)
+    ImageView heroImage;
     private String theme_name;
     private String theme_pid;
     private String theme_mode;
@@ -1243,7 +1243,7 @@ public class InformationActivity extends AppCompatActivity {
             super();
             ref = new WeakReference<>(informationActivity);
             ViewCompat.setTransitionName(
-                    informationActivity.kenBurnsView,
+                    informationActivity.heroImage,
                     informationActivity.theme_pid);
         }
 
@@ -1254,7 +1254,7 @@ public class InformationActivity extends AppCompatActivity {
             if (informationActivity != null) {
                 if (!informationActivity.prefs.getBoolean("complexion", false)) {
                     informationActivity.gradientView.setVisibility(View.GONE);
-                    informationActivity.kenBurnsView.
+                    informationActivity.heroImage.
                             setBackgroundColor(Color.parseColor("#ffff00"));
                     informationActivity.collapsingToolbar.
                             setStatusBarScrimColor(Color.parseColor("#ffff00"));
@@ -1269,7 +1269,7 @@ public class InformationActivity extends AppCompatActivity {
                 } else {
                     Bitmap bitmap = BitmapFactory.decodeByteArray(
                             informationActivity.byteArray, 0, informationActivity.byteArray.length);
-                    informationActivity.kenBurnsView.setImageBitmap(bitmap);
+                    informationActivity.heroImage.setImageBitmap(bitmap);
                 }
             }
         }

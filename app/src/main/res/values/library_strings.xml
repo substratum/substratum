@@ -73,35 +73,6 @@
     <!-- License section -->
     <string name="library_gesturerecycler_licenseId" translatable="false" tools:keep="@string/library_gesturerecycler_licenseId">apache_2_0</string>
 
-    <!-- KenBurnsView -->
-    <string name="define_kenburnsview" tools:keep="@string/define_kenburnsview" />
-    <!-- Author section -->
-    <string name="library_kenburnsview_author" tools:keep="@string/library_kenburnsview_author">Flávio Faria</string>
-    <string name="library_kenburnsview_authorWebsite" tools:keep="@string/library_kenburnsview_authorWebsite">
-        https://plus.google.com/+Fl%C3%A1vioFaria1/posts
-    </string>
-    <!-- Library section -->
-    <string name="library_kenburnsview_libraryName" translatable="false" tools:keep="@string/library_kenburnsview_libraryName">KenBurnsView</string>
-    <string name="library_kenburnsview_libraryDescription" tools:keep="@string/library_kenburnsview_libraryDescription">Android library that provides an
-        extension to ImageView that creates an immersive experience by animating its drawable using
-        the Ken Burns Effect.
-    </string>
-    <string name="library_kenburnsview_libraryWebsite" translatable="false" tools:keep="@string/library_kenburnsview_libraryWebsite">
-        https://github.com/flavioarfaria/KenBurnsView
-    </string>
-    <string name="library_kenburnsview_libraryVersion" translatable="false" tools:keep="@string/library_kenburnsview_libraryVersion">1.0.7</string>
-    <!-- OpenSource section -->
-    <string name="library_kenburnsview_isOpenSource" translatable="false" tools:keep="@string/library_kenburnsview_isOpenSource">true</string>
-    <string name="library_kenburnsview_repositoryLink" translatable="false" tools:keep="@string/library_kenburnsview_repositoryLink">
-        https://github.com/flavioarfaria/KenBurnsView
-    </string>
-    <!-- ClassPath for autoDetect section -->
-    <string name="library_kenburnsview_classPath" translatable="false" tools:keep="@string/library_kenburnsview_classPath">
-        com.flaviofaria:kenburnsview
-    </string>
-    <!-- License section -->
-    <string name="library_kenburnsview_licenseId" translatable="false" tools:keep="@string/library_kenburnsview_licenseId">apache_2_0</string>
-
     <!-- Material Sheet Fab -->
     <string name="define_materialsheetfab" tools:keep="@string/define_materialsheetfab" />
     <!-- Author section -->

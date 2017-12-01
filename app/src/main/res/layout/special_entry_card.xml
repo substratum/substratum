@@ -53,7 +53,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:src="@drawable/kenburnsview_gradient" />
+            android:src="@drawable/special_ui_gradient" />
 
         <RelativeLayout
             android:layout_width="match_parent"

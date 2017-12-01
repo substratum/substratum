@@ -59,6 +59,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.InetAddress;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -517,7 +518,15 @@ public enum References {
                 = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         assert connectivityManager != null;
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return (activeNetworkInfo != null) && activeNetworkInfo.isConnected();
+        try {
+            InetAddress checkSiteAvailability = InetAddress.getByName("google.com");
+            return activeNetworkInfo != null &&
+                    activeNetworkInfo.isConnected() &&
+                    !checkSiteAvailability.equals("");
+        } catch (Exception e) {
+            // Suppress warning
+        }
+        return false;
     }
 
     /**

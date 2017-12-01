@@ -104,9 +104,10 @@
                     android:layout_margin="15dp"
                     android:gravity="center"
                     android:text="@string/bootanimation_placeholder_text"
+                    android:textAllCaps="true"
                     android:textColor="@color/font_text"
-                    android:textSize="20sp"
-                    android:textStyle="italic" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 

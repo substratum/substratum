@@ -521,7 +521,10 @@ public enum Packages {
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
                 if (metadata.equals(metadataSamsungSupport)) {
-                    if (appInfo.metaData.getBoolean(metadata)) {
+                    try {
+                        boolean samsungSupport = appInfo.metaData.getBoolean(metadata);
+                        return String.valueOf(samsungSupport);
+                    } catch (Exception e) {
                         return String.valueOf(true);
                     }
                 } else {
@@ -829,7 +832,7 @@ public enum Packages {
                         (appInfo.metaData.getString(metadataVersion) != null)) {
                     // Check if Samsung, and block the showing of the theme if the theme does not
                     // support samsung intentionally!
-                    Boolean samsung_support = null;
+                    Boolean samsung_support;
                     try {
                         samsung_support = appInfo.metaData.getBoolean(metadataSamsungSupport);
                     } catch (Exception e) {

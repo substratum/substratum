@@ -63,6 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/sounds_summary"
                 android:layout_marginTop="5dp"
+                android:background="@color/backup_button"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="?android:selectableItemBackground"

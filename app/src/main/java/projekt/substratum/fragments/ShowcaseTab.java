@@ -51,7 +51,6 @@ import projekt.substratum.adapters.tabs.wallpapers.WallpaperAdapter;
 import projekt.substratum.adapters.tabs.wallpapers.WallpaperEntries;
 import projekt.substratum.common.References;
 import projekt.substratum.util.files.FileDownloader;
-import projekt.substratum.util.files.MD5;
 import projekt.substratum.util.readers.ReadCloudShowcaseFile;
 
 import static projekt.substratum.common.References.SHOWCASE_SHUFFLE_COUNT;
@@ -60,10 +59,6 @@ public class ShowcaseTab extends Fragment {
 
     @BindView(R.id.progress_bar_loader)
     ProgressBar materialProgressBar;
-    @BindView(R.id.no_network)
-    View no_network;
-    @BindView(R.id.none_found)
-    View no_wallpapers;
     @BindView(R.id.wallpaperRecyclerView)
     RecyclerView mRecyclerView;
     private int current_tab_position;
@@ -101,20 +96,15 @@ public class ShowcaseTab extends Fragment {
         ArrayList<WallpaperEntries> empty_array = new ArrayList<>();
         RecyclerView.Adapter empty_adapter = new WallpaperAdapter(empty_array);
         mRecyclerView.setAdapter(empty_adapter);
-        no_wallpapers.setVisibility(View.GONE);
-        no_network.setVisibility(View.GONE);
-
         if (References.isNetworkAvailable(mContext)) {
             downloadResources downloadTask = new downloadResources(this);
-            downloadTask.execute(current_tab_address,
+            downloadTask.execute(
+                    current_tab_address,
                     "showcase_tab_" + current_tab_position + ".xml");
         } else {
             mRecyclerView.setVisibility(View.GONE);
             materialProgressBar.setVisibility(View.GONE);
-            no_wallpapers.setVisibility(View.GONE);
-            no_network.setVisibility(View.VISIBLE);
         }
-
     }
 
     /**
@@ -147,9 +137,6 @@ public class ShowcaseTab extends Fragment {
             if (showcaseTab != null) {
                 ShowcaseItemAdapter mAdapter = new ShowcaseItemAdapter(result);
                 showcaseTab.mRecyclerView.setAdapter(mAdapter);
-
-                if (result.isEmpty()) showcaseTab.no_wallpapers.setVisibility(View.VISIBLE);
-
                 showcaseTab.mRecyclerView.setVisibility(View.VISIBLE);
                 showcaseTab.materialProgressBar.setVisibility(View.GONE);
             }
@@ -161,7 +148,6 @@ public class ShowcaseTab extends Fragment {
             ArrayList<ShowcaseItem> wallpapers = new ArrayList<>();
             if (showcaseTab != null) {
                 String inputFileName = sUrl[1];
-
                 File showcase_directory = new File(
                         showcaseTab.mContext.getCacheDir() + "/ShowcaseCache/");
                 if (!showcase_directory.exists()) {
@@ -173,40 +159,10 @@ public class ShowcaseTab extends Fragment {
                 File current_wallpapers = new File(showcaseTab.mContext.getCacheDir() +
                         "/ShowcaseCache/" + inputFileName);
                 if (current_wallpapers.exists()) {
-                    // We create a temporary file to check whether we should be replacing the
-                    // current
                     inputFileName = inputFileName.substring(0, inputFileName.length() - 4) + ".xml";
                 }
 
                 FileDownloader.init(showcaseTab.mContext, sUrl[0], inputFileName, "ShowcaseCache");
-
-                if (inputFileName.endsWith("-temp.xml")) {
-                    String existing = MD5.calculateMD5(new File(showcaseTab.mContext
-                            .getCacheDir() +
-                            "/ShowcaseCache/" + sUrl[1]));
-                    String new_file = MD5.calculateMD5(new File(showcaseTab.mContext
-                            .getCacheDir() +
-                            "/ShowcaseCache/" + inputFileName));
-                    if ((existing != null) && !existing.equals(new_file)) {
-                        Log.e("ShowcaseActivity", "Tab " + showcaseTab.current_tab_position +
-                                " has been updated from the cloud!");
-                        File renameMe = new File(showcaseTab.mContext.getCacheDir() +
-                                "/ShowcaseCache/" +
-                                sUrl[1].substring(0, sUrl[1].length() - 4) + "-temp.xml");
-                        Boolean renamed = renameMe.renameTo(new File(
-                                showcaseTab.mContext.getCacheDir() +
-                                        "/ShowcaseCache/" + sUrl[1]));
-                        if (!renamed) Log.e(References.SUBSTRATUM_LOG,
-                                "Could not replace the old tab file with the new tab file...");
-                    } else {
-                        File deleteMe = new File(showcaseTab.mContext.getCacheDir() +
-                                "/" + inputFileName);
-                        Boolean deleted = deleteMe.delete();
-                        if (!deleted) Log.e(References.SUBSTRATUM_LOG,
-                                "Could not delete temporary tab file...");
-                    }
-                }
-
                 inputFileName = sUrl[1];
 
                 @SuppressWarnings("unchecked") Map<String, String> newArray =
@@ -222,23 +178,18 @@ public class ShowcaseTab extends Fragment {
                         newEntry.setThemeName(stringStringEntry.getKey());
                         newEntry.setThemeLink(stringStringEntry.getValue());
                     } else {
-                        if (stringStringEntry.getKey().toLowerCase(Locale.US)
-                                .contains("-author".toLowerCase(Locale.US))) {
+                        String entry = stringStringEntry.getKey().toLowerCase(Locale.US);
+                        if (entry.contains("-author".toLowerCase(Locale.US))) {
                             newEntry.setThemeAuthor(stringStringEntry.getValue());
-                        } else if (stringStringEntry.getKey().toLowerCase(Locale.US)
-                                .contains("-pricing".toLowerCase(Locale.US))) {
+                        } else if (entry.contains("-pricing".toLowerCase(Locale.US))) {
                             newEntry.setThemePricing(stringStringEntry.getValue());
-                        } else if (stringStringEntry.getKey().toLowerCase(Locale.US)
-                                .contains("-image-override")) {
+                        } else if (entry.contains("-image-override".toLowerCase(Locale.US))) {
                             newEntry.setThemeIcon(stringStringEntry.getValue());
-                        } else if (stringStringEntry.getKey().toLowerCase(Locale.US)
-                                .contains("-feature-image")) {
+                        } else if (entry.contains("-feature-image".toLowerCase(Locale.US))) {
                             newEntry.setThemeBackgroundImage(stringStringEntry.getValue());
-                        } else if (stringStringEntry.getKey().toLowerCase(Locale.US)
-                                .contains("-package-name")) {
+                        } else if (entry.contains("-package-name".toLowerCase(Locale.US))) {
                             newEntry.setThemePackage(stringStringEntry.getValue());
-                        } else if (stringStringEntry.getKey().toLowerCase(Locale.US)
-                                .contains("-support".toLowerCase(Locale.US))) {
+                        } else if (entry.contains("-support".toLowerCase(Locale.US))) {
                             newEntry.setThemeSupport(stringStringEntry.getValue());
                             wallpapers.add(newEntry);
                             newEntry = new ShowcaseItem();
@@ -248,12 +199,8 @@ public class ShowcaseTab extends Fragment {
                 }
                 // Shuffle the deck - every time it will change the order of themes!
                 long seed = System.nanoTime();
-                boolean alphabetize = showcaseTab.prefs.getBoolean("alphabetize_showcase",
-                        false);
-                if (!alphabetize) {
-                    for (int i = 0; i <= SHOWCASE_SHUFFLE_COUNT; i++)
-                        Collections.shuffle(wallpapers, new Random(seed));
-                }
+                for (int i = 0; i <= SHOWCASE_SHUFFLE_COUNT; i++)
+                    Collections.shuffle(wallpapers, new Random(seed));
             }
             return wallpapers;
         }

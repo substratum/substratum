@@ -24,15 +24,24 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:navigationBarColor">@color/navigationBarColor</item>
         <item name="android:statusBarColor">@color/statusBarColor</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:toolbarStyle">@style/ToolbarTheme</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+    </style>
+
+    <style name="AppTheme.SpecialUI" parent="AppTheme">
+        <item name="fontFamily">@font/global_app_font</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowLightStatusBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="ToolbarTheme" parent="Theme.AppCompat.Light" />
 
     <style name="AppTheme.DialogAlert" parent="@android:style/Theme.DeviceDefault.Light.Dialog.Alert" />
 

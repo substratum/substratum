@@ -349,7 +349,6 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.overlays_list_menu, menu);
-        menu.findItem(R.id.search).setVisible(false);
         menu.findItem(R.id.restart_systemui).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         menu.findItem(R.id.per_app).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         menu.findItem(R.id.action_search).setVisible(true);
@@ -371,9 +370,9 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         MenuItem alphabetizeMenu = menu.findItem(R.id.alphabetize);
         boolean alphabetize = prefs.getBoolean("alphabetize_overlays", true);
         if (alphabetize) {
-            alphabetizeMenu.setIcon(R.drawable.actionbar_alphabetize);
+            alphabetizeMenu.setIcon(R.drawable.toolbar_alphabetize);
         } else {
-            alphabetizeMenu.setIcon(R.drawable.actionbar_randomize);
+            alphabetizeMenu.setIcon(R.drawable.toolbar_randomize);
         }
         return alphabetize;
     }

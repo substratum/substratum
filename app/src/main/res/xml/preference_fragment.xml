@@ -193,6 +193,13 @@
         android:layout_height="match_parent"
         android:title="@string/settings_title_3">
 
+        <CheckBoxPreference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:key="advanced_ui"
+            android:summary="@string/advanced_ui_text"
+            android:title="@string/advanced_ui_title"/>
+
         <Preference
             android:layout_width="match_parent"
             android:layout_height="match_parent"

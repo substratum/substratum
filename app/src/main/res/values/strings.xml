@@ -20,7 +20,7 @@
     <string name="app_name" translatable="false">substratum</string>
     <string name="legacy_app_name" translatable="false">substratum legacy</string>
     <string name="samsung_app_name" translatable="false">sungstratum</string>
-    <string name="showcase">showcase</string>
+    <string name="showcase">Showcase</string>
     <string name="drawer_name" translatable="false">projekt substratum</string>
 
     <string name="android">Android version:</string>
@@ -756,7 +756,8 @@
     <string name="notification_channel_andromeda">Theme system status</string>
     <string name="notification_channel_andromeda_description">Theme system connection status notification</string>
     <!-- Nav drawer -->
-    <string name="nav_home">Theme packs</string>
+    <string name="nav_main">substratum theme engine</string>
+    <string name="nav_home">Themes</string>
     <string name="nav_overlays">Overlays</string>
     <string name="nav_bootanim">Boot animations</string>
     <string name="nav_shutdownanim">Shutdown animations</string>
@@ -802,7 +803,7 @@
 
     <!-- More -->
     <string name="nav_section_header_more">More</string>
-    <string name="nav_team_contributors">Team &amp; Contributors</string>
+    <string name="nav_team_contributors">About</string>
     <string name="nav_opensource">Licenses</string>
     <string name="nav_settings">Settings</string>
 
@@ -822,6 +823,8 @@
     <string name="auto_reload_sysui_summary_off">Substratum will not automatically reload the SystemUI after an overlay targeting SystemUI is enabled/disabled.</string>
     <string name="auto_reload_sysui_dialog_title">Warning!</string>
     <string name="auto_reload_sysui_dialog_text">On Android Oreo, notifications will be automatically cleared to simulate a restart of the cached notification channels.\n\nPlease ensure your notifications do not contain any important data when compiling or enabling SystemUI or framework overlays. This does not affect ongoing notifications.</string>
+    <string name="advanced_ui_title">Enable advanced user interface</string>
+    <string name="advanced_ui_text">This reverts back to the legacy app UI found in old versions of substratum, enabling priorities, profiles, filtered theming modes and much more if the system allows.</string>
 
     <string name="priority_overlay_name_placeholder" translatable="false">OVERLAY NAME</string>
     <string name="theme_name_placeholder" translatable="false">THEME NAME</string>

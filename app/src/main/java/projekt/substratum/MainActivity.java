@@ -29,6 +29,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -43,6 +44,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -68,6 +70,8 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.BottomBarTab;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -79,7 +83,6 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import projekt.substratum.activities.showcase.ShowcaseActivity;
 import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
@@ -96,6 +99,7 @@ import projekt.substratum.fragments.PriorityLoaderFragment;
 import projekt.substratum.fragments.ProfileFragment;
 import projekt.substratum.fragments.RecoveryFragment;
 import projekt.substratum.fragments.SettingsFragment;
+import projekt.substratum.fragments.ShowcaseFragment;
 import projekt.substratum.fragments.TeamFragment;
 import projekt.substratum.fragments.ThemeFragment;
 import projekt.substratum.services.binder.AndromedaBinderService;
@@ -108,7 +112,6 @@ import projekt.substratum.util.injectors.BinaryInstaller;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static projekt.substratum.common.Activities.launchActivityUrl;
 import static projekt.substratum.common.Activities.launchExternalActivity;
-import static projekt.substratum.common.Activities.launchInternalActivity;
 import static projekt.substratum.common.Internal.ANDROMEDA_RECEIVER;
 import static projekt.substratum.common.Internal.MAIN_ACTIVITY_RECEIVER;
 import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
@@ -151,6 +154,8 @@ public class MainActivity extends AppCompatActivity implements
     TextView actionbar_title;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.bottomBar)
+    BottomBar bottomBar;
     private Drawer drawer;
     private int permissionCheck = PackageManager.PERMISSION_DENIED;
     private Dialog mProgressDialog;
@@ -160,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements
     private KillReceiver killReceiver;
     private AndromedaReceiver andromedaReceiver;
     private Context mContext;
+    private boolean bottomBarUi;
 
     /**
      * Checks whether the overlays installed are outdated or not, based on substratum version used
@@ -208,11 +214,24 @@ public class MainActivity extends AppCompatActivity implements
      * @param content Theme counter
      */
     public void switchToCustomToolbar(CharSequence title, CharSequence content) {
+        if (bottomBarUi) return;
         if (supportActionBar != null) supportActionBar.setTitle("");
         actionbar_content.setVisibility(View.VISIBLE);
         actionbar_title.setVisibility(View.VISIBLE);
         actionbar_title.setText(title);
         actionbar_content.setText(content);
+    }
+
+    /**
+     * Assign the value of themes found on the bottom bar tab
+     *
+     * @param theme_count How many themes are found
+     */
+    public void assignBottomBarBadgeCount(int theme_count) {
+        BottomBarTab theme_packs = bottomBar.getTabWithId(R.id.tab_themes);
+        if (theme_packs != null) {
+            theme_packs.setBadgeCount(theme_count);
+        }
     }
 
     /**
@@ -236,7 +255,10 @@ public class MainActivity extends AppCompatActivity implements
         if ((searchView != null) && !searchView.isIconified()) {
             searchView.setIconified(true);
         }
-        switchToStockToolbar(title);
+        if (bottomBarUi) {
+            switchToStockToolbar(getString(R.string.nav_main));
+        }
+
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, Fragment.instantiate(this, fragment));
@@ -262,7 +284,11 @@ public class MainActivity extends AppCompatActivity implements
         bundle.putString("title", title);
         fragment.setArguments(bundle);
 
-        switchToStockToolbar(title);
+        if (bottomBarUi) {
+            switchToStockToolbar(getString(R.string.nav_main));
+        } else {
+            switchToStockToolbar(title);
+        }
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, fragment);
@@ -283,7 +309,11 @@ public class MainActivity extends AppCompatActivity implements
         if ((searchView != null) && !searchView.isIconified()) {
             searchView.setIconified(true);
         }
-        switchToStockToolbar(title);
+        if (bottomBarUi) {
+            switchToStockToolbar(getString(R.string.nav_main));
+        } else {
+            switchToStockToolbar(title);
+        }
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         tx.replace(R.id.main, fragment);
@@ -326,11 +356,6 @@ public class MainActivity extends AppCompatActivity implements
         cleanLogCharReportsIfNecessary();
         Theming.refreshInstalledThemesPref(mContext);
 
-        int selectedDrawer = 1;
-        if (savedInstanceState != null) {
-            selectedDrawer = savedInstanceState.getInt(SELECTED_DRAWER_ITEM);
-        }
-
         // Register the main app receiver to auto kill the activity
         killReceiver = new KillReceiver();
         localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
@@ -355,316 +380,373 @@ public class MainActivity extends AppCompatActivity implements
             getSupportActionBar().setHomeButtonEnabled(false);
             getSupportActionBar().setTitle("");
         }
+
         supportActionBar = getSupportActionBar();
-        switchToStockToolbar(getString(R.string.app_name));
-
-        String versionName = BuildConfig.VERSION_NAME;
-        if (BuildConfig.DEBUG) {
-            versionName = versionName + " - " + BuildConfig.GIT_HASH;
-        }
-
-        AccountHeader header = new AccountHeaderBuilder()
-                .withActivity(this)
-                .withHeaderBackground(R.drawable.material_drawer_header_background)
-                .withProfileImagesVisible(false)
-                .withSelectionListEnabledForSingleProfile(false)
-                .addProfiles(
-                        new ProfileDrawerItem()
-                                .withName(getString(R.string.drawer_name))
-                                .withEmail(versionName))
-                .withCurrentProfileHiddenInList(true)
-                .build();
-
-        LibsSupportFragment fragment = new LibsBuilder().supportFragment();
-
-        DrawerBuilder drawerBuilder = new DrawerBuilder();
-        drawerBuilder.withActivity(this);
-
-        drawerBuilder.withToolbar(toolbar);
-        drawerBuilder.withSavedInstance(savedInstanceState);
-        drawerBuilder.withActionBarDrawerToggleAnimated(true);
-        if (prefs.getBoolean("alternate_drawer_design", false)) {
-            drawerBuilder.withRootView(R.id.drawer_container);
-            drawerBuilder.withHeaderHeight(DimenHolder.fromDp(0));
-        }
-        drawerBuilder.withAccountHeader(header);
-
-
-        // Split the community chats out for easy adapting
-        ExpandableDrawerItem social = new ExpandableDrawerItem()
-                .withName(R.string.nav_drawer_community)
-                .withIcon(R.drawable.nav_drawer_community)
-                .withSelectable(false).withSubItems(
-                        new SecondaryDrawerItem().withName(R.string.nav_drawer_googleplus)
-                                .withLevel(2).withIcon(R.drawable.nav_drawer_googleplus)
-                                .withSelectable(false)
-                                .withIdentifier(100L),
-                        new SecondaryDrawerItem().withName(R.string.nav_drawer_reddit)
-                                .withLevel(2).withIcon(R.drawable.nav_reddit)
-                                .withSelectable(false)
-                                .withIdentifier(101L),
-                        new SecondaryDrawerItem().withName(R.string.nav_drawer_telegram)
-                                .withLevel(2).withIcon(R.drawable.nav_drawer_telegram)
-                                .withSelectable(false)
-                                .withIdentifier(102L),
-                        new SecondaryDrawerItem().withName(R.string.nav_drawer_xda)
-                                .withLevel(2).withIcon(R.drawable.nav_drawer_xda)
-                                .withSelectable(false)
-                                .withIdentifier(103L));
-
-        // Split the featured content out for easy adapting
-        ExpandableDrawerItem featured = new ExpandableDrawerItem()
-                .withName(R.string.nav_drawer_featured)
-                .withIcon(R.drawable.nav_drawer_featured)
-                .withSelectable(false).withSubItems(
-                        new SecondaryDrawerItem().withName(R.string.nav_drawer_rawad)
-                                .withLevel(2).withIcon(R.drawable.nav_drawer_youtube)
-                                .withSelectable(false)
-                                .withIdentifier(104L),
-                        new SecondaryDrawerItem().withName(R.string.nav_drawer_xda_portal)
-                                .withLevel(2).withIcon(R.drawable.nav_drawer_xda_portal)
-                                .withSelectable(false)
-                                .withIdentifier(105L));
-
-        // Split the resources out for easy adapting
-        ExpandableDrawerItem resources = new ExpandableDrawerItem()
-                .withName(R.string.nav_drawer_resources)
-                .withIcon(R.drawable.nav_drawer_resources)
-                .withSelectable(false).withSubItems(
-                        new SecondaryDrawerItem().withName(R.string.nav_drawer_homepage)
-                                .withLevel(2).withIcon(R.drawable.nav_drawer_homepage)
-                                .withSelectable(false)
-                                .withIdentifier(106L),
-                        new SecondaryDrawerItem().withName(R.string.nav_drawer_template)
-                                .withLevel(2).withIcon(R.drawable.nav_drawer_template)
-                                .withSelectable(false)
-                                .withIdentifier(107L),
-                        new SecondaryDrawerItem().withName(R.string.nav_drawer_gerrit)
-                                .withLevel(2).withIcon(R.drawable.nav_drawer_gerrit)
-                                .withSelectable(false)
-                                .withIdentifier(108L),
-                        new SecondaryDrawerItem().withName(R.string.nav_drawer_github)
-                                .withLevel(2).withIcon(R.drawable.nav_drawer_github)
-                                .withSelectable(false)
-                                .withIdentifier(109L),
-                        new SecondaryDrawerItem().withName(R.string.nav_drawer_jira)
-                                .withLevel(2).withIcon(R.drawable.nav_drawer_jira)
-                                .withSelectable(false)
-                                .withIdentifier(110L));
-
-        // Begin initializing the navigation drawer
-        drawerBuilder.addDrawerItems(
-                new PrimaryDrawerItem()
-                        .withName(R.string.nav_home)
-                        .withIcon(R.drawable.nav_theme_packs)
-                        .withIdentifier(1L));
-        drawerBuilder.addDrawerItems(
-                new PrimaryDrawerItem()
-                        .withName(R.string.nav_overlays)
-                        .withIcon(R.drawable.nav_overlays)
-                        .withIdentifier(2L));
-        if (Resources.isBootAnimationSupported(mContext))
-            drawerBuilder.addDrawerItems(
-                    new PrimaryDrawerItem()
-                            .withName(R.string.nav_bootanim)
-                            .withIcon(R.drawable.nav_bootanim)
-                            .withIdentifier(3L)
-                            .withBadge(Systems.checkSubstratumService(mContext) ?
-                                    getString(R.string.beta_tag) : ""));
-        if (Resources.isShutdownAnimationSupported(mContext))
-            drawerBuilder.addDrawerItems(
-                    new PrimaryDrawerItem()
-                            .withName(R.string.nav_shutdownanim)
-                            .withIcon(R.drawable.nav_shutdownanim)
-                            .withIdentifier(4L)
-                            .withBadge(Systems.checkSubstratumService(mContext) ?
-                                    getString(R.string.beta_tag) : ""));
-        if (Resources.isFontsSupported(mContext))
-            drawerBuilder.addDrawerItems(
-                    new PrimaryDrawerItem()
-                            .withName(R.string.nav_fonts)
-                            .withIcon(R.drawable.nav_fonts)
-                            .withIdentifier(5L)
-                            .withBadge(Systems.checkSubstratumService(mContext) ?
-                                    getString(R.string.beta_tag) : ""));
-        if (Resources.isSoundsSupported(mContext))
-            drawerBuilder.addDrawerItems(
-                    new PrimaryDrawerItem()
-                            .withName(R.string.nav_sounds)
-                            .withIcon(R.drawable.nav_sounds)
-                            .withIdentifier(6L));
-        drawerBuilder.addDrawerItems(
-                new PrimaryDrawerItem()
-                        .withName(R.string.nav_wallpapers)
-                        .withIcon(R.drawable.nav_wallpapers)
-                        .withIdentifier(7L));
-        drawerBuilder.addDrawerItems(
-                new SectionDrawerItem()
-                        .withName(R.string.nav_section_header_utilities));
-        drawerBuilder.addDrawerItems(
-                new PrimaryDrawerItem()
-                        .withName(R.string.nav_overlay_manager)
-                        .withIcon(R.drawable.nav_overlay_manager)
-                        .withIdentifier(8L));
-        if (Systems.checkOMS(mContext) && !isSamsung(mContext))
-            drawerBuilder.addDrawerItems(
-                    new PrimaryDrawerItem()
-                            .withName(R.string.nav_priorities)
-                            .withIcon(R.drawable.nav_drawer_priorities)
-                            .withIdentifier(9L)
-                            .withBadge(Systems.checkOreo() ? getString(R.string.beta_tag) : ""));
-        if (Resources.isProfilesSupported(mContext))
-            drawerBuilder.addDrawerItems(
-                    new PrimaryDrawerItem()
-                            .withName(R.string.nav_backup_restore)
-                            .withIcon(R.drawable.nav_drawer_profiles)
-                            .withIdentifier(10L));
-        drawerBuilder.addDrawerItems(
-                new PrimaryDrawerItem()
-                        .withName(R.string.nav_manage)
-                        .withIcon(R.drawable.nav_manage)
-                        .withIdentifier(11L));
-        drawerBuilder.addDrawerItems(
-                new SectionDrawerItem()
-                        .withName(R.string.nav_section_header_get_involved));
-        drawerBuilder.addDrawerItems(social);
-        drawerBuilder.addDrawerItems(featured);
-        drawerBuilder.addDrawerItems(resources);
-        drawerBuilder.addDrawerItems(
-                new SectionDrawerItem()
-                        .withName(R.string.nav_section_header_more));
-        drawerBuilder.addDrawerItems(
-                new SecondaryDrawerItem()
-                        .withName(R.string.nav_team_contributors)
-                        .withIcon(R.drawable.nav_drawer_team)
-                        .withIdentifier(12L));
-        drawerBuilder.addDrawerItems(
-                new SecondaryDrawerItem()
-                        .withName(getString(R.string.nav_opensource))
-                        .withIcon(R.drawable.nav_drawer_licenses)
-                        .withIdentifier(13L));
-        drawerBuilder.addDrawerItems(
-                new SecondaryDrawerItem()
-                        .withName(R.string.nav_settings)
-                        .withIcon(R.drawable.nav_drawer_settings)
-                        .withIdentifier(14L));
-        drawerBuilder.withOnDrawerItemClickListener((view, position, drawerItem) -> {
-            if (drawerItem != null) {
-                switch ((int) drawerItem.getIdentifier()) {
-                    case 1:
-                        switchThemeFragment(((Systems.checkOMS(
-                                mContext) ?
-                                        getString(R.string.app_name) :
-                                        (Systems.isSamsung(mContext) ?
-                                                getString(R.string.samsung_app_name) :
-                                                getString(R.string.legacy_app_name)))
-                                ),
-                                References.homeFragment);
-                        break;
-                    case 2:
-                        switchThemeFragment(getString(R.string.nav_overlays),
-                                References.overlaysFragment);
-                        break;
-                    case 3:
-                        switchThemeFragment(getString(R.string.nav_bootanim),
-                                References.bootAnimationsFragment);
-                        break;
-                    case 4:
-                        switchThemeFragment(getString(R.string.nav_shutdownanim),
-                                References.shutdownAnimationsFragment);
-                        break;
-                    case 5:
-                        switchThemeFragment(getString(R.string.nav_fonts),
-                                References.fontsFragment);
-                        break;
-                    case 6:
-                        switchThemeFragment(getString(R.string.nav_sounds),
-                                References.soundsFragment);
-                        break;
-                    case 7:
-                        switchThemeFragment(getString(R.string.nav_wallpapers),
-                                References.wallpaperFragment);
-                        break;
-                    case 8:
-                        switchFragment(getString(R.string.nav_overlay_manager),
-                                ManagerFragment.class.getCanonicalName());
-                        break;
-                    case 9:
-                        switchFragment(getString(R.string.nav_priorities),
-                                PriorityLoaderFragment.class.getCanonicalName());
-                        break;
-                    case 10:
-                        switchFragment(getString(R.string.nav_backup_restore),
-                                ProfileFragment.class.getCanonicalName());
-                        break;
-                    case 11:
-                        switchFragment(getString(R.string.nav_manage),
-                                RecoveryFragment.class.getCanonicalName());
-                        break;
-                    case 12:
-                        switchFragment(getString(R.string.nav_team_contributors),
-                                TeamFragment.class.getCanonicalName());
-                        break;
-                    case 13:
-                        switchFragmentToLicenses(getString(R.string.nav_opensource),
-                                fragment);
-                        break;
-                    case 14:
-                        switchFragment(getString(R.string.nav_settings),
-                                SettingsFragment.class.getCanonicalName());
-                        break;
-                    case 100:
-                        launchActivityUrl(mContext, R.string.googleplus_link);
-                        break;
-                    case 101:
-                        launchActivityUrl(mContext, R.string.reddit_link);
-                        break;
-                    case 102:
-                        launchActivityUrl(mContext, R.string.telegram_link);
-                        break;
-                    case 103:
-                        int sourceURL;
-                        if (Systems.isSamsung(this)) {
-                            sourceURL = R.string.xda_sungstratum_link;
-                        } else {
-                            sourceURL = R.string.xda_link;
-                        }
-                        launchActivityUrl(mContext, sourceURL);
-                        break;
-                    case 104:
-                        launchActivityUrl(mContext, R.string.rawad_youtube_url);
-                        break;
-                    case 105:
-                        launchActivityUrl(mContext, R.string.xda_portal_link);
-                        break;
-                    case 106:
-                        launchActivityUrl(mContext, R.string.homepage_link);
-                        break;
-                    case 107:
-                        launchActivityUrl(mContext, R.string.template_link);
-                        break;
-                    case 108:
-                        launchActivityUrl(mContext, R.string.gerrit_link);
-                        break;
-                    case 109:
-                        launchActivityUrl(mContext, R.string.github_link);
-                        break;
-                    case 110:
-                        launchActivityUrl(mContext, R.string.jira_link);
-                        break;
+        switchToStockToolbar(getString(R.string.nav_main));
+        bottomBarUi = !prefs.getBoolean("advanced_ui", false);
+        if (bottomBarUi) {
+            setTheme(R.style.AppTheme_SpecialUI);
+            // Change the toolbar font
+            for (int i = 0; i < toolbar.getChildCount(); i++) {
+                View child = toolbar.getChildAt(i);
+                if (child instanceof TextView) {
+                    Typeface typeface = ResourcesCompat.getFont(this, R.font.toolbar_new_ui);
+                    ((TextView) child).setTypeface(typeface);
+                    break;
                 }
             }
-            return false;
-        });
-        drawer = drawerBuilder.build();
-        if ((getIntent() != null) && getIntent().getBooleanExtra
-                ("launch_manager_fragment", false)) {
-            switchFragment(getString(R.string.nav_overlay_manager),
-                    ManagerFragment.class.getCanonicalName());
-            drawer.setSelection(8L);
+            bottomBar.setVisibility(View.VISIBLE);
+            getSupportActionBar().setHomeButtonEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            getSupportActionBar().setDisplayShowHomeEnabled(false);
         } else {
-            drawer.setSelection((long) selectedDrawer, true);
+            bottomBar.setVisibility(View.GONE);
+            int selectedDrawer = 1;
+            if (savedInstanceState != null) {
+                selectedDrawer = savedInstanceState.getInt(SELECTED_DRAWER_ITEM);
+            }
+            String versionName = BuildConfig.VERSION_NAME;
+            if (BuildConfig.DEBUG) {
+                versionName = versionName + " - " + BuildConfig.GIT_HASH;
+            }
+
+            AccountHeader header = new AccountHeaderBuilder()
+                    .withActivity(this)
+                    .withHeaderBackground(R.drawable.material_drawer_header_background)
+                    .withProfileImagesVisible(false)
+                    .withSelectionListEnabledForSingleProfile(false)
+                    .addProfiles(
+                            new ProfileDrawerItem()
+                                    .withName(getString(R.string.drawer_name))
+                                    .withEmail(versionName))
+                    .withCurrentProfileHiddenInList(true)
+                    .build();
+
+            LibsSupportFragment fragment = new LibsBuilder().supportFragment();
+
+            DrawerBuilder drawerBuilder = new DrawerBuilder();
+            drawerBuilder.withActivity(this);
+
+
+            drawerBuilder.withToolbar(toolbar);
+            drawerBuilder.withSavedInstance(savedInstanceState);
+            drawerBuilder.withActionBarDrawerToggleAnimated(true);
+            if (prefs.getBoolean("alternate_drawer_design", false)) {
+                drawerBuilder.withRootView(R.id.drawer_container);
+                drawerBuilder.withHeaderHeight(DimenHolder.fromDp(0));
+            }
+            drawerBuilder.withAccountHeader(header);
+
+
+            // Split the community chats out for easy adapting
+            ExpandableDrawerItem social = new ExpandableDrawerItem()
+                    .withName(R.string.nav_drawer_community)
+                    .withIcon(R.drawable.nav_drawer_community)
+                    .withSelectable(false).withSubItems(
+                            new SecondaryDrawerItem().withName(R.string.nav_drawer_googleplus)
+                                    .withLevel(2).withIcon(R.drawable.nav_drawer_googleplus)
+                                    .withSelectable(false)
+                                    .withIdentifier(100L),
+                            new SecondaryDrawerItem().withName(R.string.nav_drawer_reddit)
+                                    .withLevel(2).withIcon(R.drawable.nav_reddit)
+                                    .withSelectable(false)
+                                    .withIdentifier(101L),
+                            new SecondaryDrawerItem().withName(R.string.nav_drawer_telegram)
+                                    .withLevel(2).withIcon(R.drawable.nav_drawer_telegram)
+                                    .withSelectable(false)
+                                    .withIdentifier(102L),
+                            new SecondaryDrawerItem().withName(R.string.nav_drawer_xda)
+                                    .withLevel(2).withIcon(R.drawable.nav_drawer_xda)
+                                    .withSelectable(false)
+                                    .withIdentifier(103L));
+
+            // Split the featured content out for easy adapting
+            ExpandableDrawerItem featured = new ExpandableDrawerItem()
+                    .withName(R.string.nav_drawer_featured)
+                    .withIcon(R.drawable.nav_drawer_featured)
+                    .withSelectable(false).withSubItems(
+                            new SecondaryDrawerItem().withName(R.string.nav_drawer_rawad)
+                                    .withLevel(2).withIcon(R.drawable.nav_drawer_youtube)
+                                    .withSelectable(false)
+                                    .withIdentifier(104L),
+                            new SecondaryDrawerItem().withName(R.string.nav_drawer_xda_portal)
+                                    .withLevel(2).withIcon(R.drawable.nav_drawer_xda_portal)
+                                    .withSelectable(false)
+                                    .withIdentifier(105L));
+
+            // Split the resources out for easy adapting
+            ExpandableDrawerItem resources = new ExpandableDrawerItem()
+                    .withName(R.string.nav_drawer_resources)
+                    .withIcon(R.drawable.nav_drawer_resources)
+                    .withSelectable(false).withSubItems(
+                            new SecondaryDrawerItem().withName(R.string.nav_drawer_homepage)
+                                    .withLevel(2).withIcon(R.drawable.nav_drawer_homepage)
+                                    .withSelectable(false)
+                                    .withIdentifier(106L),
+                            new SecondaryDrawerItem().withName(R.string.nav_drawer_template)
+                                    .withLevel(2).withIcon(R.drawable.nav_drawer_template)
+                                    .withSelectable(false)
+                                    .withIdentifier(107L),
+                            new SecondaryDrawerItem().withName(R.string.nav_drawer_gerrit)
+                                    .withLevel(2).withIcon(R.drawable.nav_drawer_gerrit)
+                                    .withSelectable(false)
+                                    .withIdentifier(108L),
+                            new SecondaryDrawerItem().withName(R.string.nav_drawer_github)
+                                    .withLevel(2).withIcon(R.drawable.nav_drawer_github)
+                                    .withSelectable(false)
+                                    .withIdentifier(109L),
+                            new SecondaryDrawerItem().withName(R.string.nav_drawer_jira)
+                                    .withLevel(2).withIcon(R.drawable.nav_drawer_jira)
+                                    .withSelectable(false)
+                                    .withIdentifier(110L));
+
+            // Begin initializing the navigation drawer
+            drawerBuilder.addDrawerItems(
+                    new PrimaryDrawerItem()
+                            .withName(R.string.nav_home)
+                            .withIcon(R.drawable.nav_theme_packs)
+                            .withIdentifier(1L));
+            drawerBuilder.addDrawerItems(
+                    new PrimaryDrawerItem()
+                            .withName(R.string.nav_overlays)
+                            .withIcon(R.drawable.nav_overlays)
+                            .withIdentifier(2L));
+            if (Resources.isBootAnimationSupported(mContext))
+                drawerBuilder.addDrawerItems(
+                        new PrimaryDrawerItem()
+                                .withName(R.string.nav_bootanim)
+                                .withIcon(R.drawable.nav_bootanim)
+                                .withIdentifier(3L)
+                                .withBadge(Systems.checkSubstratumService(mContext) ?
+                                        getString(R.string.beta_tag) : ""));
+            if (Resources.isShutdownAnimationSupported(mContext))
+                drawerBuilder.addDrawerItems(
+                        new PrimaryDrawerItem()
+                                .withName(R.string.nav_shutdownanim)
+                                .withIcon(R.drawable.nav_shutdownanim)
+                                .withIdentifier(4L)
+                                .withBadge(Systems.checkSubstratumService(mContext) ?
+                                        getString(R.string.beta_tag) : ""));
+            if (Resources.isFontsSupported(mContext))
+                drawerBuilder.addDrawerItems(
+                        new PrimaryDrawerItem()
+                                .withName(R.string.nav_fonts)
+                                .withIcon(R.drawable.nav_fonts)
+                                .withIdentifier(5L)
+                                .withBadge(Systems.checkSubstratumService(mContext) ?
+                                        getString(R.string.beta_tag) : ""));
+            if (Resources.isSoundsSupported(mContext))
+                drawerBuilder.addDrawerItems(
+                        new PrimaryDrawerItem()
+                                .withName(R.string.nav_sounds)
+                                .withIcon(R.drawable.nav_sounds)
+                                .withIdentifier(6L));
+            drawerBuilder.addDrawerItems(
+                    new PrimaryDrawerItem()
+                            .withName(R.string.nav_wallpapers)
+                            .withIcon(R.drawable.nav_wallpapers)
+                            .withIdentifier(7L));
+            drawerBuilder.addDrawerItems(
+                    new SectionDrawerItem()
+                            .withName(R.string.nav_section_header_utilities));
+            drawerBuilder.addDrawerItems(
+                    new PrimaryDrawerItem()
+                            .withName(R.string.nav_overlay_manager)
+                            .withIcon(R.drawable.nav_overlay_manager)
+                            .withIdentifier(8L));
+            if (Systems.checkOMS(mContext) && !isSamsung(mContext))
+                drawerBuilder.addDrawerItems(
+                        new PrimaryDrawerItem()
+                                .withName(R.string.nav_priorities)
+                                .withIcon(R.drawable.nav_drawer_priorities)
+                                .withIdentifier(9L)
+                                .withBadge(Systems.checkOreo() ? getString(R.string.beta_tag) : ""));
+            if (Resources.isProfilesSupported(mContext))
+                drawerBuilder.addDrawerItems(
+                        new PrimaryDrawerItem()
+                                .withName(R.string.nav_backup_restore)
+                                .withIcon(R.drawable.nav_drawer_profiles)
+                                .withIdentifier(10L));
+            drawerBuilder.addDrawerItems(
+                    new PrimaryDrawerItem()
+                            .withName(R.string.nav_manage)
+                            .withIcon(R.drawable.nav_manage)
+                            .withIdentifier(11L));
+            drawerBuilder.addDrawerItems(
+                    new SectionDrawerItem()
+                            .withName(R.string.nav_section_header_get_involved));
+            drawerBuilder.addDrawerItems(social);
+            drawerBuilder.addDrawerItems(featured);
+            drawerBuilder.addDrawerItems(resources);
+            drawerBuilder.addDrawerItems(
+                    new SectionDrawerItem()
+                            .withName(R.string.nav_section_header_more));
+            drawerBuilder.addDrawerItems(
+                    new SecondaryDrawerItem()
+                            .withName(R.string.nav_team_contributors)
+                            .withIcon(R.drawable.nav_drawer_team)
+                            .withIdentifier(12L));
+            drawerBuilder.addDrawerItems(
+                    new SecondaryDrawerItem()
+                            .withName(getString(R.string.nav_opensource))
+                            .withIcon(R.drawable.nav_drawer_licenses)
+                            .withIdentifier(13L));
+            drawerBuilder.addDrawerItems(
+                    new SecondaryDrawerItem()
+                            .withName(R.string.nav_settings)
+                            .withIcon(R.drawable.nav_drawer_settings)
+                            .withIdentifier(14L));
+            drawerBuilder.withOnDrawerItemClickListener((view, position, drawerItem) -> {
+                if (drawerItem != null) {
+                    switch ((int) drawerItem.getIdentifier()) {
+                        case 1:
+                            switchThemeFragment(((Systems.checkOMS(
+                                    mContext) ?
+                                            getString(R.string.app_name) :
+                                            (Systems.isSamsung(mContext) ?
+                                                    getString(R.string.samsung_app_name) :
+                                                    getString(R.string.legacy_app_name)))
+                                    ),
+                                    References.homeFragment);
+                            break;
+                        case 2:
+                            switchThemeFragment(getString(R.string.nav_overlays),
+                                    References.overlaysFragment);
+                            break;
+                        case 3:
+                            switchThemeFragment(getString(R.string.nav_bootanim),
+                                    References.bootAnimationsFragment);
+                            break;
+                        case 4:
+                            switchThemeFragment(getString(R.string.nav_shutdownanim),
+                                    References.shutdownAnimationsFragment);
+                            break;
+                        case 5:
+                            switchThemeFragment(getString(R.string.nav_fonts),
+                                    References.fontsFragment);
+                            break;
+                        case 6:
+                            switchThemeFragment(getString(R.string.nav_sounds),
+                                    References.soundsFragment);
+                            break;
+                        case 7:
+                            switchThemeFragment(getString(R.string.nav_wallpapers),
+                                    References.wallpaperFragment);
+                            break;
+                        case 8:
+                            switchFragment(getString(R.string.nav_overlay_manager),
+                                    ManagerFragment.class.getCanonicalName());
+                            break;
+                        case 9:
+                            switchFragment(getString(R.string.nav_priorities),
+                                    PriorityLoaderFragment.class.getCanonicalName());
+                            break;
+                        case 10:
+                            switchFragment(getString(R.string.nav_backup_restore),
+                                    ProfileFragment.class.getCanonicalName());
+                            break;
+                        case 11:
+                            switchFragment(getString(R.string.nav_manage),
+                                    RecoveryFragment.class.getCanonicalName());
+                            break;
+                        case 12:
+                            switchFragment(getString(R.string.nav_team_contributors),
+                                    TeamFragment.class.getCanonicalName());
+                            break;
+                        case 13:
+                            switchFragmentToLicenses(getString(R.string.nav_opensource),
+                                    fragment);
+                            break;
+                        case 14:
+                            switchFragment(getString(R.string.nav_settings),
+                                    SettingsFragment.class.getCanonicalName());
+                            break;
+                        case 100:
+                            launchActivityUrl(mContext, R.string.googleplus_link);
+                            break;
+                        case 101:
+                            launchActivityUrl(mContext, R.string.reddit_link);
+                            break;
+                        case 102:
+                            launchActivityUrl(mContext, R.string.telegram_link);
+                            break;
+                        case 103:
+                            int sourceURL;
+                            if (Systems.isSamsung(this)) {
+                                sourceURL = R.string.xda_sungstratum_link;
+                            } else {
+                                sourceURL = R.string.xda_link;
+                            }
+                            launchActivityUrl(mContext, sourceURL);
+                            break;
+                        case 104:
+                            launchActivityUrl(mContext, R.string.rawad_youtube_url);
+                            break;
+                        case 105:
+                            launchActivityUrl(mContext, R.string.xda_portal_link);
+                            break;
+                        case 106:
+                            launchActivityUrl(mContext, R.string.homepage_link);
+                            break;
+                        case 107:
+                            launchActivityUrl(mContext, R.string.template_link);
+                            break;
+                        case 108:
+                            launchActivityUrl(mContext, R.string.gerrit_link);
+                            break;
+                        case 109:
+                            launchActivityUrl(mContext, R.string.github_link);
+                            break;
+                        case 110:
+                            launchActivityUrl(mContext, R.string.jira_link);
+                            break;
+                    }
+                }
+                return false;
+            });
+            drawer = drawerBuilder.build();
+            if ((getIntent() != null) && getIntent().getBooleanExtra
+                    ("launch_manager_fragment", false)) {
+                switchFragment(getString(R.string.nav_overlay_manager),
+                        ManagerFragment.class.getCanonicalName());
+                drawer.setSelection(8L);
+            } else {
+                drawer.setSelection((long) selectedDrawer, true);
+            }
         }
+
+        BottomBar bottomBar = findViewById(R.id.bottomBar);
+        bottomBar.setOnTabSelectListener(tabId -> {
+            switch (tabId) {
+                case R.id.tab_themes:
+                    switchThemeFragment(((Systems.checkOMS(
+                            mContext) ?
+                                    getString(R.string.app_name) :
+                                    (Systems.isSamsung(mContext) ?
+                                            getString(R.string.samsung_app_name) :
+                                            getString(R.string.legacy_app_name)))
+                            ),
+                            References.homeFragment);
+                    break;
+                case R.id.tab_overlay_manager:
+                    switchFragment(getString(R.string.nav_overlay_manager),
+                            ManagerFragment.class.getCanonicalName());
+                    break;
+                case R.id.tab_rescue:
+                    switchFragment(getString(R.string.nav_manage),
+                            RecoveryFragment.class.getCanonicalName());
+                    break;
+                case R.id.tab_showcase:
+                    switchFragment(getString(R.string.showcase),
+                            ShowcaseFragment.class.getCanonicalName());
+                    break;
+                case R.id.tab_settings:
+                    switchFragment(getString(R.string.nav_settings),
+                            SettingsFragment.class.getCanonicalName());
+                    break;
+            }
+        });
+
 
         new RootRequester(this).execute();
     }
@@ -695,8 +777,10 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void onSaveInstanceState(Bundle bundle) {
         //add the values which need to be saved from the drawer to the bundle
-        bundle = drawer.saveInstanceState(bundle);
-        bundle.putInt(SELECTED_DRAWER_ITEM, (int) drawer.getCurrentSelection());
+        if (!bottomBarUi) {
+            bundle = drawer.saveInstanceState(bundle);
+            bundle.putInt(SELECTED_DRAWER_ITEM, (int) drawer.getCurrentSelection());
+        }
         super.onSaveInstanceState(bundle);
     }
 
@@ -742,9 +826,6 @@ public class MainActivity extends AppCompatActivity implements
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
-                return true;
-            case R.id.search:
-                launchInternalActivity(this, ShowcaseActivity.class);
                 return true;
 
             // Begin OMS based options
@@ -903,7 +984,13 @@ public class MainActivity extends AppCompatActivity implements
             drawer.closeDrawer();
         } else {
             Fragment f = getSupportFragmentManager().findFragmentById(R.id.main);
-            if (f instanceof PriorityListFragment) {
+            if (bottomBarUi) {
+                if (bottomBar.getCurrentTabPosition() != 0) {
+                    bottomBar.selectTabAtPosition(0);
+                } else {
+                    finish();
+                }
+            } else if (f instanceof PriorityListFragment) {
                 Fragment fragment = new PriorityLoaderFragment();
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction transaction = fm.beginTransaction();
@@ -1124,10 +1211,14 @@ public class MainActivity extends AppCompatActivity implements
             Fragment f = getSupportFragmentManager().findFragmentById(R.id.main);
             getSupportFragmentManager()
                     .beginTransaction()
+                    .setCustomAnimations
+                            (android.R.anim.fade_in, android.R.anim.fade_out)
                     .detach(f)
                     .commitNowAllowingStateLoss();
             getSupportFragmentManager()
                     .beginTransaction()
+                    .setCustomAnimations
+                            (android.R.anim.fade_in, android.R.anim.fade_out)
                     .attach(f)
                     .commitAllowingStateLoss();
         }

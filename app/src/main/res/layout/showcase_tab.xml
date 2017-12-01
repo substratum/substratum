@@ -16,64 +16,12 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context=".MainActivity">
-
-    <RelativeLayout
-        android:id="@+id/none_found"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="57dp">
-
-        <ImageView
-            android:id="@+id/image_placeholder"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/no_wallpapers_found_showcase" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/image_placeholder"
-            android:layout_margin="15dp"
-            android:gravity="center"
-            android:text="@string/showcase_no_themes"
-            android:textColor="@color/main_screen_card_theme_title"
-            android:textSize="20sp"
-            android:textStyle="italic" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/no_network"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="57dp">
-
-        <ImageView
-            android:id="@+id/image_placeholder2"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/no_network" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/image_placeholder2"
-            android:layout_margin="15dp"
-            android:gravity="center"
-            android:text="@string/wallpaper_no_connection"
-            android:textColor="@color/font_text"
-            android:textSize="20sp"
-            android:textStyle="italic" />
-
-    </RelativeLayout>
 
     <ProgressBar
         android:id="@+id/progress_bar_loader"

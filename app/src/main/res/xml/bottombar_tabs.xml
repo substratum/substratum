@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <!-- According to the Google Material design homepage, there should be NO LESS than 3 targets,
+    and NO MORE than 5 targets for the bottom navigation:
+    https://material.io/guidelines/components/bottom-navigation.html#bottom-navigation-usage -->
+    <tab
+        icon="@drawable/nav_theme_packs"
+        id="@+id/tab_themes"
+        title="@string/nav_home" />
+    <tab
+        icon="@drawable/nav_overlay_manager"
+        id="@+id/tab_overlay_manager"
+        title="@string/nav_overlay_manager" />
+    <tab
+        icon="@drawable/toolbar_showcase"
+        id="@+id/tab_showcase"
+        title="@string/showcase" />
+    <tab
+        icon="@drawable/nav_manage"
+        id="@+id/tab_rescue"
+        title="@string/nav_manage" />
+    <tab
+        icon="@drawable/nav_drawer_settings"
+        id="@+id/tab_settings"
+        title="@string/nav_settings" />
+</tabs>

@@ -32,6 +32,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.design.widget.Lunchbar;
@@ -297,6 +298,58 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     return false;
                 });
 
+        // Advanced UI
+        CheckBoxPreference advancedUi = (CheckBoxPreference)
+                getPreferenceManager().findPreference("advanced_ui");
+        boolean advanced = prefs.getBoolean("advanced_ui", false);
+        if (advanced) {
+            advancedUi.setChecked(true);
+        } else {
+            advancedUi.setChecked(false);
+        }
+        advancedUi.setOnPreferenceChangeListener(
+                (preference, newValue) -> {
+                    boolean isChecked = (Boolean) newValue;
+                    if (isChecked) {
+                        advancedUi.setChecked(true);
+                        prefs.edit().putBoolean("advanced_ui", true).apply();
+                        Toast.makeText(mContext,
+                                getString(R.string.substratum_restart_toast),
+                                Toast.LENGTH_SHORT).show();
+                        if (getActivity() != null) {
+                            getActivity().finish();
+                            Handler handler = new Handler();
+                            handler.postDelayed(() -> {
+                                Intent intent = mContext.getPackageManager()
+                                        .getLaunchIntentForPackage(mContext.getPackageName());
+                                if (intent != null) {
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                }
+                            }, 300);
+                        }
+                    } else {
+                        advancedUi.setChecked(false);
+                        prefs.edit().putBoolean("advanced_ui", false).apply();
+                        Toast.makeText(mContext,
+                                getString(R.string.substratum_restart_toast),
+                                Toast.LENGTH_SHORT).show();
+                        if (getActivity() != null) {
+                            getActivity().finish();
+                            Handler handler = new Handler();
+                            handler.postDelayed(() -> {
+                                Intent intent = mContext.getPackageManager()
+                                        .getLaunchIntentForPackage(mContext.getPackageName());
+                                if (intent != null) {
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                }
+                            }, 300);
+                        }
+                    }
+                    return false;
+                });
+
         // Alternative Drawer Design
         CheckBoxPreference alternate_drawer_design = (CheckBoxPreference)
                 getPreferenceManager().findPreference("alternate_drawer_design");
@@ -314,17 +367,44 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         Toast.makeText(mContext,
                                 getString(R.string.substratum_restart_toast),
                                 Toast.LENGTH_SHORT).show();
-                        if (getActivity() != null) getActivity().recreate();
+                        if (getActivity() != null) {
+                            getActivity().finish();
+                            Handler handler = new Handler();
+                            handler.postDelayed(() -> {
+                                Intent intent = mContext.getPackageManager()
+                                        .getLaunchIntentForPackage(mContext.getPackageName());
+                                if (intent != null) {
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                }
+                            }, 300);
+                        }
                     } else {
                         prefs.edit().putBoolean("alternate_drawer_design", false).apply();
                         alternate_drawer_design.setChecked(false);
                         Toast.makeText(mContext,
                                 getString(R.string.substratum_restart_toast),
                                 Toast.LENGTH_SHORT).show();
-                        if (getActivity() != null) getActivity().recreate();
+                        if (getActivity() != null) {
+                            getActivity().finish();
+                            Handler handler = new Handler();
+                            handler.postDelayed(() -> {
+                                Intent intent = mContext.getPackageManager()
+                                        .getLaunchIntentForPackage(mContext.getPackageName());
+                                if (intent != null) {
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                }
+                            }, 300);
+                        }
                     }
                     return false;
                 });
+        if (advanced) {
+            alternate_drawer_design.setVisible(true);
+        } else {
+            alternate_drawer_design.setVisible(false);
+        }
 
         // Nougat Style Cards
         CheckBoxPreference nougat_style_cards = (CheckBoxPreference)

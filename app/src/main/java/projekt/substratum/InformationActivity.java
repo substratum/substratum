@@ -442,10 +442,14 @@ public class InformationActivity extends AppCompatActivity {
         }
 
         // Themer's booleans to adjust actionbar and navbar colors
-        boolean dynamicActionBarColors = getResources().getBoolean(R.bool
-                .dynamicActionBarColors);
-        boolean dynamicNavBarColors = getResources().getBoolean(R.bool
-                .dynamicNavigationBarColors);
+        boolean dynamicActionBarColors = getResources().getBoolean(R.bool.dynamicActionBarColors);
+        boolean dynamicNavBarColors = getResources().getBoolean(R.bool.dynamicNavigationBarColors);
+
+        // Check if we should apply the new cute font from Google
+        boolean bottomBarUi = !prefs.getBoolean("advanced_ui", false);
+        if (bottomBarUi) {
+            setTheme(R.style.AppTheme_SpecialUI);
+        }
 
         // Obtain the current intent to receive the intent data out of it
         Intent currentIntent = getIntent();

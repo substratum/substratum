@@ -472,7 +472,6 @@ public enum References {
         editor.putBoolean("theme_debug", false);
         editor.putBoolean("force_english", false);
         editor.putBoolean("floatui_show_android_system_overlays", false);
-        editor.putBoolean("alphabetize_showcase", false);
         editor.putBoolean("alphabetize_overlays", false);
         editor.putBoolean("complexion", true);
         editor.putBoolean("crash_receiver", true);

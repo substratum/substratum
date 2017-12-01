@@ -51,10 +51,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
-import projekt.substratum.activities.showcase.ShowcaseActivity;
 import projekt.substratum.adapters.fragments.themes.ThemeAdapter;
 import projekt.substratum.adapters.fragments.themes.ThemeItem;
-import projekt.substratum.common.Activities;
 import projekt.substratum.common.Packages;
 
 import static projekt.substratum.common.Internal.HOME_TITLE;
@@ -182,14 +180,17 @@ public class ThemeFragment extends Fragment {
             WeakReference<MainActivity> ref = new WeakReference<>((MainActivity) activity);
             if (substratum_packages.isEmpty() && (ref.get() != null)) {
                 ref.get().switchToStockToolbar(toolbarTitle);
+                ref.get().assignBottomBarBadgeCount(substratum_packages.size());
             } else if ((substratum_packages.size() == 1) && (ref.get() != null)) {
                 parse = String.format(mContext.getString(R.string.actionbar_theme_count_singular),
                         String.valueOf(substratum_packages.size()));
                 ref.get().switchToCustomToolbar(toolbarTitle, parse);
+                ref.get().assignBottomBarBadgeCount(substratum_packages.size());
             } else if (ref.get() != null) {
                 parse = String.format(mContext.getString(R.string.actionbar_theme_count_plural),
                         String.valueOf(substratum_packages.size()));
                 ref.get().switchToCustomToolbar(toolbarTitle, parse);
+                ref.get().assignBottomBarBadgeCount(substratum_packages.size());
             }
 
             // Now we need to sort the buffered installed themes
@@ -224,6 +225,7 @@ public class ThemeFragment extends Fragment {
 
         // Conclude
         themeFragment.swipeRefreshLayout.setRefreshing(false);
+        themeFragment.swipeRefreshLayout.setEnabled(false);
     }
 
     /**
@@ -290,9 +292,6 @@ public class ThemeFragment extends Fragment {
             ((MainActivity) getActivity()).actionbar_content.setText(R.string
                     .actionbar_theme_count_loading);
         }
-
-        cardView.setOnClickListener(v ->
-                Activities.launchInternalActivity(mContext, ShowcaseActivity.class));
         cardView.setVisibility(View.GONE);
 
         // Let's start loading everything

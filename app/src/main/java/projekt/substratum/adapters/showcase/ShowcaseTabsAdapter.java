@@ -21,13 +21,13 @@ package projekt.substratum.adapters.showcase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
 import projekt.substratum.fragments.ShowcaseTab;
 
-public class ShowcaseTabsAdapter extends FragmentPagerAdapter {
+public class ShowcaseTabsAdapter extends FragmentStatePagerAdapter {
     private List fragment_links;
     private Integer mNumOfTabs;
 
@@ -44,9 +44,9 @@ public class ShowcaseTabsAdapter extends FragmentPagerAdapter {
         Bundle bundle = new Bundle();
         bundle.putInt("tab_count", position);
         bundle.putString("tabbed_address", this.fragment_links.get(position).toString());
-        Fragment fragment = new ShowcaseTab();
-        fragment.setArguments(bundle);
-        return fragment;
+        ShowcaseTab showcaseTab = new ShowcaseTab();
+        showcaseTab.setArguments(bundle);
+        return showcaseTab;
     }
 
     @Override

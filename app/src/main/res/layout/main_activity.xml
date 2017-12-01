@@ -29,8 +29,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:elevation="@dimen/action_bar_elevation"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:title=""
+        android:theme="@style/ToolbarTheme"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
         <LinearLayout
@@ -53,16 +52,34 @@
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 
-    <FrameLayout
-        android:id="@+id/drawer_container"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <FrameLayout
-            android:id="@+id/main"
+            android:id="@+id/drawer_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_above="@id/bottomBar"
+            android:layout_height="match_parent">
 
-    </FrameLayout>
+            <FrameLayout
+                android:id="@+id/main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </FrameLayout>
+
+    <com.roughike.bottombar.BottomBar
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        app:bb_badgeBackgroundColor="@color/colorAccent"
+        app:bb_activeTabColor="@color/bottombar_icon_text_selected"
+        app:bb_tabXmlResource="@xml/bottombar_tabs"
+        app:bb_titleTextAppearance="@style/AppTheme.SpecialUI"
+        app:bb_badgesHideWhenActive="false"/>
+
+    </RelativeLayout>
 
 </LinearLayout>

@@ -23,11 +23,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.view.View;
 
 import java.io.Serializable;
 import java.util.concurrent.ThreadLocalRandom;
 
 import projekt.substratum.InformationActivity;
+import projekt.substratum.MainActivity;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
@@ -58,6 +61,7 @@ public class ThemeLaunchActivity extends Activity {
     private String package_name;
     private String theme_mode;
     private Boolean legacyTheme = false;
+    private View heroImageTransitionObject;
 
     /**
      * Launch the theme
@@ -156,8 +160,9 @@ public class ThemeLaunchActivity extends Activity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent
-            data) {
+    protected void onActivityResult(int requestCode,
+                                    int resultCode,
+                                    Intent data) {
         // Check which request we're responding to
         if ((data != null) && (requestCode != 10000)) {
             Bundle intent = data.getExtras();
@@ -173,6 +178,9 @@ public class ThemeLaunchActivity extends Activity {
                 byte[] encryption_key = intent.getByteArray(ENCRYPTION_KEY_EXTRA);
                 byte[] iv_encrypt_key = intent.getByteArray(IV_ENCRYPTION_KEY_EXTRA);
 
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation(this,
+                                MainActivity.heroImageTransitionObject, theme_pid);
                 startActivity(
                         launchThemeActivity(
                                 Substratum.getInstance(),
@@ -187,7 +195,7 @@ public class ThemeLaunchActivity extends Activity {
                                 encryption_key,
                                 iv_encrypt_key,
                                 Systems.checkOMS(Substratum.getInstance())
-                        ));
+                        ), options.toBundle());
             }
         } else if (legacyTheme && (requestCode != 10000)) {
             startActivity(

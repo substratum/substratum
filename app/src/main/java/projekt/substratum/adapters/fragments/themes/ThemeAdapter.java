@@ -19,21 +19,20 @@
 package projekt.substratum.adapters.fragments.themes;
 
 import android.app.AlertDialog;
-import android.app.NotificationManager;
-import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,11 +41,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.ref.WeakReference;
 import java.util.List;
 
+import projekt.substratum.MainActivity;
 import projekt.substratum.R;
-import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Theming;
@@ -62,8 +60,6 @@ import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
 public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> {
     private List<ThemeItem> information;
     private Context mContext;
-    private ProgressDialog mProgressDialog;
-    private ThemeItem toBeUninstalled;
 
     public ThemeAdapter(List<ThemeItem> information) {
         super();
@@ -77,7 +73,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 PreferenceManager.getDefaultSharedPreferences(viewGroup.getContext());
         View view;
         if (!prefs.getBoolean("advanced_ui", false)) {
-            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.kenburns_special_entry_card,
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.special_entry_card,
                     viewGroup, false);
         } else if (prefs.getBoolean("nougat_style_cards", false)) {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.theme_entry_card_n,
@@ -94,6 +90,8 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                                  int pos) {
         ThemeItem themeItem = this.information.get(pos);
         this.mContext = themeItem.getContext();
+
+        ViewCompat.setTransitionName(viewHolder.imageView, themeItem.getThemePackage());
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
         viewHolder.theme_name.setText(themeItem.getThemeName());
@@ -143,10 +141,13 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         }
 
         viewHolder.cardView.setOnClickListener(
-                v -> Theming.launchTheme(this.mContext,
-                        themeItem.getThemePackage(),
-                        themeItem.getThemeMode()
-                ));
+                v -> {
+                    MainActivity.heroImageTransitionObject = viewHolder.imageView;
+                    Theming.launchTheme(this.mContext,
+                            themeItem.getThemePackage(),
+                            themeItem.getThemeMode()
+                    );
+                });
 
         viewHolder.cardView.setOnLongClickListener(view -> {
             // Vibrate the device alerting the user they are about to do something dangerous!
@@ -317,6 +318,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
         viewHolder.theme_author.setText(themeItem.getThemeAuthor());
         viewHolder.imageView.setImageDrawable(themeItem.getThemeDrawable());
+        viewHolder.imageView2.setImageDrawable(themeItem.getThemeDrawable());
 
         if (prefs.getBoolean("advanced_ui", false)) {
             References.setRecyclerViewAnimation(
@@ -396,64 +398,6 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         return this.information.size();
     }
 
-    private static class uninstallTheme extends AsyncTask<String, Integer, String> {
-        private WeakReference<ThemeAdapter> ref;
-
-        uninstallTheme(ThemeAdapter themeAdapter) {
-            super();
-            this.ref = new WeakReference<>(themeAdapter);
-        }
-
-        @Override
-        protected void onPreExecute() {
-            ThemeAdapter themeAdapter = this.ref.get();
-            if (themeAdapter != null) {
-                if (themeAdapter.toBeUninstalled != null) {
-                    String parseMe = String.format(
-                            themeAdapter.mContext.getString(R.string.adapter_uninstalling),
-                            themeAdapter.toBeUninstalled.getThemeName());
-                    themeAdapter.mProgressDialog = new ProgressDialog(themeAdapter.mContext);
-                    themeAdapter.mProgressDialog.setMessage(parseMe);
-                    themeAdapter.mProgressDialog.setIndeterminate(true);
-                    themeAdapter.mProgressDialog.setCancelable(false);
-                    themeAdapter.mProgressDialog.show();
-                    // Clear the notification of building theme if shown
-                    NotificationManager manager = (NotificationManager)
-                            themeAdapter.mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-                    if (manager != null) {
-                        manager.cancel(References.notification_id_compiler);
-                    }
-                }
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            ThemeAdapter themeAdapter = this.ref.get();
-            if (themeAdapter != null) {
-                if (themeAdapter.toBeUninstalled != null) {
-                    themeAdapter.toBeUninstalled = null;
-                    Broadcasts.sendRefreshMessage(themeAdapter.mContext);
-                    themeAdapter.mProgressDialog.cancel();
-                }
-            }
-        }
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-            ThemeAdapter themeAdapter = this.ref.get();
-            if (themeAdapter != null) {
-                if (themeAdapter.toBeUninstalled != null) {
-                    // Uninstall theme
-                    Packages.uninstallPackage(
-                            themeAdapter.mContext,
-                            themeAdapter.toBeUninstalled.getThemePackage());
-                }
-            }
-            return null;
-        }
-    }
-
     static class ViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView theme_name;
@@ -462,6 +406,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         TextView theme_version;
         TextView plugin_version;
         ImageView imageView;
+        ImageView imageView2;
         View divider;
         ImageView tbo;
         ImageView two;
@@ -475,6 +420,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
             this.theme_version = view.findViewById(R.id.theme_version);
             this.plugin_version = view.findViewById(R.id.plugin_version);
             this.imageView = view.findViewById(R.id.theme_preview_image);
+            this.imageView2 = view.findViewById(R.id.theme_preview_image_backup);
             this.divider = view.findViewById(R.id.theme_ready_divider);
             this.tbo = view.findViewById(R.id.theme_ready_indicator);
             this.two = view.findViewById(R.id.theme_unready_indicator);

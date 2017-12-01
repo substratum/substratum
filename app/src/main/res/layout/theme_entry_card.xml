@@ -114,7 +114,14 @@
             android:layout_alignParentTop="true"
             android:importantForAccessibility="no"
             android:scaleType="centerCrop"
-            android:src="@android:color/white" />
+            android:src="@android:color/transparent"/>
+
+        <ImageView
+            android:id="@+id/theme_preview_image_backup"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:fitsSystemWindows="true"
+            android:scaleType="centerCrop" />
 
         <RelativeLayout
             android:layout_width="match_parent"

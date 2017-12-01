@@ -166,6 +166,7 @@ public class MainActivity extends AppCompatActivity implements
     private AndromedaReceiver andromedaReceiver;
     private Context mContext;
     private boolean bottomBarUi;
+    public static View heroImageTransitionObject;
 
     /**
      * Checks whether the overlays installed are outdated or not, based on substratum version used

@@ -49,6 +49,7 @@ import android.support.design.widget.Lunchbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -62,12 +63,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.gordonwong.materialsheetfab.DimOverlayFrameLayout;
 import com.gordonwong.materialsheetfab.MaterialSheetFab;
 import com.gordonwong.materialsheetfab.MaterialSheetFabEventListener;
@@ -181,7 +182,7 @@ public class InformationActivity extends AppCompatActivity {
     @BindView(R.id.enable_disable_selected)
     TextView enable_disable_selected;
     @BindView(R.id.kenburnsView)
-    KenBurnsView kenBurnsView;
+    ImageView kenBurnsView;
     private String theme_name;
     private String theme_pid;
     private String theme_mode;
@@ -1169,7 +1170,7 @@ public class InformationActivity extends AppCompatActivity {
         } else {
             if (uninstalled)
                 Broadcasts.sendRefreshMessage(mContext);
-            finish();
+            supportFinishAfterTransition();
         }
     }
 
@@ -1241,6 +1242,9 @@ public class InformationActivity extends AppCompatActivity {
         LayoutLoader(InformationActivity informationActivity) {
             super();
             ref = new WeakReference<>(informationActivity);
+            ViewCompat.setTransitionName(
+                    informationActivity.kenBurnsView,
+                    informationActivity.theme_pid);
         }
 
         @Override
@@ -1442,7 +1446,7 @@ public class InformationActivity extends AppCompatActivity {
                 Log.d("ThemeUninstaller",
                         "The theme was uninstalled, so the activity is now closing!");
                 Broadcasts.sendRefreshMessage(context);
-                finish();
+                supportFinishAfterTransition();
             }
         }
     }
@@ -1454,7 +1458,7 @@ public class InformationActivity extends AppCompatActivity {
     class AndromedaReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            finish();
+            supportFinishAfterTransition();
         }
     }
 
@@ -1473,7 +1477,7 @@ public class InformationActivity extends AppCompatActivity {
                     Log.d(SUBSTRATUM_LOG,
                             theme_name + " was just updated, now closing InformationActivity...");
                     Toast.makeText(context, to_format, Toast.LENGTH_LONG).show();
-                    finish();
+                    supportFinishAfterTransition();
                     Handler handler = new Handler();
                     handler.postDelayed(() ->
                             Theming.launchTheme(mContext, theme_pid, theme_mode), 500L);

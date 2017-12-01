@@ -33,7 +33,6 @@
     <string name="andromeda_notification_text_negation">Il servizio di Andromeda non è in esecuzione, si prega di rieseguire la suite desktop!</string>
     <string name="resource_commit_dialog_title">Risorse mancanti in %s</string>
     <string name="showcase_no_connection">La vetrina dei temi richiede una connessione ad internet per funzionare!</string>
-    <string name="showcase_no_themes">sembra che ci sia stato un errore nel memorizzare in cache il database della vetrina&#8230;    </string>
     <string name="refused_to_install_title_notification">Il themer ha rifiutato il tema installato su Samsung</string>
     <string name="refused_to_install_text_notification">Installazione di %s fallita</string>
     <string name="failed_to_install_title_notification">Impossibile installare il tema OMS</string>
@@ -216,11 +215,8 @@
     <string name="menu_per_app">FloatUI</string>
     <string name="menu_restart_systemui">Riavvia SystemUI</string>
     <string name="menu_alphabetize">Modifica modalità di selezione</string>
-    <string name="menu_search">Temi del Play Store</string>
-    <string name="menu_showcase">Vetrina</string>
     <string name="menu_uninstall">Disinstalla tema</string>
     <string name="menu_restore_info">Ripristina informazioni</string>
-    <string name="menu_showcase_info">Info vetrina</string>
     <string name="menu_favorite_snackbar">Impostato correttamente %s come un collegamento app!</string>
     <string name="menu_favorite_snackbar_cleared">%s è stata rimossa come scorciatoia app.</string>
     <string name="launcher_shortcut">Scorciatoia nel Launcher</string>
@@ -330,8 +326,6 @@
     <string name="shortcut_floatui">FloatUI</string>
     <string name="shortcut_rescue">Salvami!</string>
     <string name="shortcut_rescue_disabled">Salvami!</string>
-    <string name="shortcut_store">Vetrina del tema</string>
-    <string name="shortcut_store_disabled">Vetrina del tema</string>
     <string name="shortcut_overlay_manager">Gestore sovrapposizioni</string>
     <string name="shortcut_overlay_manager_disabled">Gestore sovrapposizioni</string>
     <string name="settings_title">Informazioni</string>
@@ -493,12 +487,6 @@
     <string name="error_activity_log_dialog_title">Arresto anomalo di Stacktrace</string>
     <string name="error_dialog_samsung">Problema sovrapposizione di Substratum</string>
     <string name="error_dialog_samsung_text">Purtroppo, sembra che ci sia un problema con una sovrapposizione installata targata Substratum e dovrà essere disinstallata manualmente tramite le Impostazioni.</string>
-    <string name="community_info_overlays">Sovrapposizioni</string>
-    <string name="community_info_bootanimation">Animazione d\'avvio</string>
-    <string name="community_info_fonts">Caratteri</string>
-    <string name="community_info_sounds">Suoni</string>
-    <string name="community_info_wallpapers">Sfondi</string>
-    <string name="community_info_paid">A pagamento</string>
     <string name="restore_info_dialog_title">Attenzione</string>
     <string name="restore_info_dialog_message">Ripristinare le sovrapposizioni, pacchetti dei caratteri, suoni o sfondi può richiedere molto tempo quindi per favore sii paziente.</string>
     <string name="restore_bootanimation_text">Animazioni di avvio</string>
@@ -562,7 +550,6 @@
     <string name="nav_drawer_gerrit">Piattaforma &amp; esposizioni Gerrit</string>
     <string name="nav_drawer_github">Deposito della piattaforma GitHub</string>
     <string name="nav_drawer_jira">Sistema di segnalazione bug JIRA</string>
-    <string name="nav_troubleshooting">Domande frequenti</string>
     <!-- More -->
     <string name="nav_section_header_more">Altro</string>
     <string name="nav_team_contributors">Team &amp; collaboratori</string>

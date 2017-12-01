@@ -33,7 +33,6 @@
     <string name="andromeda_notification_text_negation">Andromeda-Dienst wird nicht ausgeführt, starten Sie bitte erneut die Desktop-Suite!</string>
     <string name="resource_commit_dialog_title">Fehlende Ressourcen in %s</string>
     <string name="showcase_no_connection">Für Themes-Showcase ist eine Internetverbindung erforderlich!</string>
-    <string name="showcase_no_themes">Scheint so, als hätte es einen Fehler beim zwischenspeichern der Vorzeige-Datenbank gegeben    </string>
     <string name="refused_to_install_text_notification">Installation von %s fehlgeschlagen</string>
     <string name="failed_to_install_title_notification">Installation des OMS-Themes fehlgeschlagen</string>
     <string name="failed_to_install_text_notification">Installation von %s fehlgeschlagen</string>
@@ -190,11 +189,8 @@ eingerichtet&#8230;</string>
     <string name="menu_per_app">FloatUI</string>
     <string name="menu_restart_systemui">SystemUI neustarten</string>
     <string name="menu_alphabetize">Ändere Sortiermethode</string>
-    <string name="menu_search">Themes im Play Store</string>
-    <string name="menu_showcase">Showcase</string>
     <string name="menu_uninstall">Deinstallieren</string>
     <string name="menu_restore_info">Wiederherstellungsinfo</string>
-    <string name="menu_showcase_info">Schaufenster-Info</string>
     <string name="menu_favorite_snackbar">%s wurde erfolgreich als App-Verknüpfung gesetzt!</string>
     <string name="menu_favorite_snackbar_cleared">%s als App-Verknüpfung entfernt.</string>
     <string name="launcher_shortcut">Verknüpfung auf dem Startbildschirm</string>
@@ -287,8 +283,6 @@ eingerichtet&#8230;</string>
     <string name="shortcut_floatui">FloatUI</string>
     <string name="shortcut_rescue">Rette mich!</string>
     <string name="shortcut_rescue_disabled">Rette mich!</string>
-    <string name="shortcut_store">Theme-Showcase</string>
-    <string name="shortcut_store_disabled">Theme-Showcase</string>
     <string name="shortcut_overlay_manager">Overlay-Manager</string>
     <string name="shortcut_overlay_manager_disabled">Overlay-Manager</string>
     <string name="settings_title">Über</string>
@@ -435,12 +429,6 @@ eingerichtet&#8230;</string>
     <string name="error_activity_log_dialog_title">Absturz Stacktrace</string>
     <string name="error_dialog_samsung">Substratum Overlay-Problem</string>
     <string name="error_dialog_samsung_text">Leider scheint ein Problem mit einem installierten Overlay zu bestehen, das auf Substratum abzielt und in den Einstellungen manuell deinstalliert werden muss.</string>
-    <string name="community_info_overlays">Overlays</string>
-    <string name="community_info_bootanimation">Boot-Animationen</string>
-    <string name="community_info_fonts">Schriftarten</string>
-    <string name="community_info_sounds">Töne</string>
-    <string name="community_info_wallpapers">Hintergrundbilder</string>
-    <string name="community_info_paid">Bezahlt</string>
     <string name="restore_info_dialog_title">Achtung</string>
     <string name="restore_info_dialog_message">Das Wiederherstellen von Overlays, Schriftarten-Paketen, Tönen oder Hintergrundbildern kann einige Zeit in Anspruch nehmen, seien sie also bitte geduldig.</string>
     <string name="restore_bootanimation_text">Boot-Animation</string>
@@ -501,7 +489,6 @@ eingerichtet&#8230;</string>
     <string name="nav_drawer_gerrit">Plattform &amp; enthüllt Gerrit</string>
     <string name="nav_drawer_github">Platform GitHub Repository</string>
     <string name="nav_drawer_jira">JIRA Bugreport-System</string>
-    <string name="nav_troubleshooting">FAQ</string>
     <!-- More -->
     <string name="nav_section_header_more">Mehr</string>
     <string name="nav_team_contributors">Team &amp; Mitwirkende</string>

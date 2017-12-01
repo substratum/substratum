@@ -33,7 +33,6 @@
     <string name="andromeda_notification_text_negation">Сэрвіс Andromeda ня запушчаны, калі ласка перазапусціце праграму на кампутары!</string>
     <string name="resource_commit_dialog_title">Адсутнічаюць рэсурсы ў %s</string>
     <string name="showcase_no_connection">каталог тэм патрабуе падлучэння да інтэрнэту!    </string>
-    <string name="showcase_no_themes">здаецца што кэшаванне базы дадзеных каталога для гэтай укладкі прайшло няўдала&#8230;    </string>
     <string name="refused_to_install_text_notification">Усталёўка %s не ўдалася</string>
     <string name="failed_to_install_title_notification">Не атрымалася ўсталяваць OMS тэму</string>
     <string name="failed_to_install_text_notification">Усталёўка %s не ўдалася</string>
@@ -206,11 +205,8 @@
     <string name="menu_per_app">Плаваючае акно</string>
     <string name="menu_restart_systemui">Перазапусціць SystemUI</string>
     <string name="menu_alphabetize">Змена рэжыму сартавання</string>
-    <string name="menu_search">Тэмы з Play Маркет</string>
-    <string name="menu_showcase">Каталог</string>
     <string name="menu_uninstall">Выдаліць тэму</string>
     <string name="menu_restore_info">Аднаўленне інфармацыі</string>
-    <string name="menu_showcase_info">Звесткі аб каталогу</string>
     <string name="menu_favorite_snackbar">Цэтлік для %s усталяваны!</string>
     <string name="menu_favorite_snackbar_cleared">%s больш не з\'яўляецца цэтлікам праграмы.</string>
     <string name="launcher_shortcut">Цэтлік у лаунчэры</string>
@@ -316,8 +312,6 @@
     <string name="shortcut_floatui">Плаваючае акно</string>
     <string name="shortcut_rescue">Выратуй мяне!</string>
     <string name="shortcut_rescue_disabled">Выратуй мяне!</string>
-    <string name="shortcut_store">Каталаг тэм</string>
-    <string name="shortcut_store_disabled">Каталаг тэм</string>
     <string name="shortcut_overlay_manager">Кіраванне пластамі</string>
     <string name="shortcut_overlay_manager_disabled">Кіраванне пластамі</string>
     <string name="settings_title">Аб сістэме</string>
@@ -474,12 +468,6 @@
     <string name="error_activity_log_dialog_title">Справаздача пра вылет</string>
     <string name="error_dialog_samsung">Праблема з напластаваннем Substratum</string>
     <string name="error_dialog_samsung_text">Падобна на тое, што з напластаваннем закранаючым Substratum паўстала непаладка, варта выдаліць яго ўручную ў Наладах.</string>
-    <string name="community_info_overlays">Напластаванні</string>
-    <string name="community_info_bootanimation">Анімацыі загрузкі</string>
-    <string name="community_info_fonts">Шрыфты</string>
-    <string name="community_info_sounds">Гукі</string>
-    <string name="community_info_wallpapers">Шпалеры</string>
-    <string name="community_info_paid">Платная</string>
     <string name="restore_info_dialog_title">Увага</string>
     <string name="restore_info_dialog_message">Аднаўленне пластоў, пакетаў шрыфтоў, гукаў або шпалер можа заняць некаторы час, таму набярыцеся цярпення.</string>
     <string name="restore_bootanimation_text">Анімацыя загрузкі</string>
@@ -542,7 +530,6 @@
     <string name="nav_drawer_gerrit">Платформа і маніторынг на Gerrit</string>
     <string name="nav_drawer_github">Рэпазітар платформы на GitHub</string>
     <string name="nav_drawer_jira">Сістэма адсочвання непаладак JIRA</string>
-    <string name="nav_troubleshooting">FAQs</string>
     <!-- More -->
     <string name="nav_section_header_more">Яшчэ</string>
     <string name="nav_team_contributors">Каманда і саўдзельнікі</string>

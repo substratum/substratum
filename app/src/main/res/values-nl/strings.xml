@@ -33,7 +33,6 @@
     <string name="andromeda_notification_text_negation">Andromeda\'s service wordt niet uitgevoerd. Gelieve de desktopsuite opnieuw uitvoeren!</string>
     <string name="resource_commit_dialog_title">Ontbrekende middelen in %s</string>
     <string name="showcase_no_connection">uitgelichte thema\'s vergt internetverbinding om te functioneren!</string>
-    <string name="showcase_no_themes">het lijkt erop dat er een fout was bij het cachen van de uitgelicht database voor dit tabblad&#8230;</string>
     <string name="refused_to_install_title_notification">Themer geweigerd thema geïnstalleerd op Samsung</string>
     <string name="refused_to_install_text_notification">%s installeren mislukt</string>
     <string name="failed_to_install_title_notification">Installatie van OMS thema mislukt</string>
@@ -202,11 +201,8 @@
     <string name="menu_per_app">Zweef-UI</string>
     <string name="menu_restart_systemui">Herstart Systeem-UI</string>
     <string name="menu_alphabetize">Wijzig sortering</string>
-    <string name="menu_search">Play Store thema\'s</string>
-    <string name="menu_showcase">Uitgelicht</string>
     <string name="menu_uninstall">Thema deïnstalleren</string>
     <string name="menu_restore_info">Herstel info</string>
-    <string name="menu_showcase_info">Showcase info</string>
     <string name="menu_favorite_snackbar">%s succesvol ingesteld als app-snelkoppeling!</string>
     <string name="menu_favorite_snackbar_cleared">%s verwijderd als app-snelkoppeling.</string>
     <string name="launcher_shortcut">Snelkoppeling in Launcher</string>
@@ -314,8 +310,6 @@
     <string name="shortcut_floatui">Zweef-UI</string>
     <string name="shortcut_rescue">Help mij!</string>
     <string name="shortcut_rescue_disabled">Help mij!</string>
-    <string name="shortcut_store">Uitgelichte thema\'s</string>
-    <string name="shortcut_store_disabled">Uitgelichte thema\'s</string>
     <string name="shortcut_overlay_manager">Overlay beheer</string>
     <string name="shortcut_overlay_manager_disabled">Overlay beheer</string>
     <string name="settings_title">Over</string>
@@ -477,12 +471,6 @@
     <string name="error_activity_log_dialog_title">Crash Stacktrace</string>
     <string name="error_dialog_samsung">Substratum overlay probleem</string>
     <string name="error_dialog_samsung_text">Helaas lijkt er een probleem te zijn het een geïnstalleerde overlay voor Substratum en zal deze handmatig gedeïnstalleerd moeten worden via Instellingen.</string>
-    <string name="community_info_overlays">Overlays</string>
-    <string name="community_info_bootanimation">Opstartanimaties</string>
-    <string name="community_info_fonts">Lettertypen</string>
-    <string name="community_info_sounds">Geluiden</string>
-    <string name="community_info_wallpapers">Achtergronden</string>
-    <string name="community_info_paid">Betaald</string>
     <string name="restore_info_dialog_title">Let op</string>
     <string name="restore_info_dialog_message">Overlays, lettertypepakketten, geluiden, of achtergronden herstellen, dit kan even duren. Even geduld aub.</string>
     <string name="restore_bootanimation_text">Opstartanimatie</string>
@@ -546,7 +534,6 @@
     <string name="nav_drawer_gerrit">Platform &amp; blootstellingen Gerrit</string>
     <string name="nav_drawer_github">Platform GitHub opslagplaats</string>
     <string name="nav_drawer_jira">JIRA-systeem voor foutrapportage</string>
-    <string name="nav_troubleshooting">Veelgestelde vragen</string>
     <!-- More -->
     <string name="nav_section_header_more">Meer</string>
     <string name="nav_team_contributors">Team &amp; bijdragers</string>

@@ -26,9 +26,6 @@
     <string name="android">Android version:</string>
     <string name="device">Device model:</string>
 
-    <string name="search_play_store_url" translatable="false">https://play.google.com/store/search?q=Substratum%20Theme&amp;c=apps</string>
-    <string name="search_play_store_url_legacy" translatable="false">https://play.google.com/store/search?q=Substratum%20Legacy%20Theme&amp;c=apps</string>
-    <string name="search_play_store_url_samsung" translatable="false">https://play.google.com/store/search?q=Substratum%20Samsung%20Theme&amp;c=apps</string>
     <string name="supported_roms_url" translatable="false">https://raw.githubusercontent.com/substratum/database/master/supported_roms.xml</string>
     <string name="tbo_theme_ready_url" translatable="false">http://forum.xda-developers.com/android/apps-games/apps-themeable-hangouts-layers-cmte-t3113192</string>
     <string name="substratum_github" translatable="false">https://github.com/substratum/substratum</string>
@@ -70,9 +67,6 @@
 
     <string name="showcase_no_connection">the theme showcase requires an internet connection to
         function!
-    </string>
-    <string name="showcase_no_themes">seems like there was an error caching the showcase database
-        for this tab&#8230;
     </string>
 
     <string name="refused_to_install_title_notification">Themer rejected theme installed on Samsung</string>
@@ -335,11 +329,8 @@
     <string name="menu_per_app">FloatUI</string>
     <string name="menu_restart_systemui">Restart SystemUI</string>
     <string name="menu_alphabetize">Change Sorting Mode</string>
-    <string name="menu_search">Play Store Themes</string>
-    <string name="menu_showcase">Showcase</string>
     <string name="menu_uninstall">Uninstall Theme</string>
     <string name="menu_restore_info">Restore info</string>
-    <string name="menu_showcase_info">Showcase Info</string>
 
     <string name="menu_favorite_snackbar">Successfully set %s as an app shortcut!</string>
     <string name="menu_favorite_snackbar_cleared">Removed %s from being an app shortcut.</string>
@@ -503,8 +494,6 @@
     <string name="shortcut_floatui">FloatUI</string>
     <string name="shortcut_rescue">Rescue Me!</string>
     <string name="shortcut_rescue_disabled">Rescue Me!</string>
-    <string name="shortcut_store">Theme Showcase</string>
-    <string name="shortcut_store_disabled">Theme Showcase</string>
     <string name="shortcut_overlay_manager">Overlay Manager</string>
     <string name="shortcut_overlay_manager_disabled">Overlay Manager</string>
 
@@ -713,13 +702,6 @@
     <string name="error_dialog_samsung">Substratum Overlay Problem</string>
     <string name="error_dialog_samsung_text">Unfortunately, there seems to be a problem with an overlay installed targeting Substratum and will have to be manually uninstalled using Settings.</string>
 
-    <string name="community_info_overlays">Overlays</string>
-    <string name="community_info_bootanimation">Boot Animations</string>
-    <string name="community_info_fonts">Fonts</string>
-    <string name="community_info_sounds">Sounds</string>
-    <string name="community_info_wallpapers">Wallpapers</string>
-    <string name="community_info_paid">Paid</string>
-
     <string name="restore_info_dialog_title">Attention</string>
     <string name="restore_info_dialog_message">Restoring overlays, font packs, sounds or wallpapers may take some time so please be patient.</string>
     <string name="restore_bootanimation_text">Boot animation</string>
@@ -799,7 +781,6 @@
     <string name="jira_link" translatable="false">https://substratum.atlassian.net/servicedesk</string>
     <string name="nav_drawer_jira">JIRA bug reporting system</string>
     <string name="github_link" translatable="false">https://www.github.com/SubstratumResources</string>
-    <string name="nav_troubleshooting">FAQs</string>
 
     <!-- More -->
     <string name="nav_section_header_more">More</string>

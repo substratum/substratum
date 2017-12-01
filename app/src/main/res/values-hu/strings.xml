@@ -35,9 +35,6 @@
     <string name="showcase_no_connection">a téma-bemutatóhoz internetkapcsolat szükséges, hogy
         működjön!
     </string>
-    <string name="showcase_no_themes">úgy tűnik, hiba történt a bemutatóterem ezen fülének gyórsítótárazása
-        közben&#8230;
-    </string>
     <string name="refused_to_install_title_notification">A téma készítője letiltotta a Samsungon való telepítést</string>
     <string name="refused_to_install_text_notification">%s telepítése sikertelen</string>
     <string name="failed_to_install_title_notification">OMS téma telepítése sikertelen</string>
@@ -260,11 +257,8 @@
     <string name="menu_per_app">FloatUI</string>
     <string name="menu_restart_systemui">SystemUI újraindítása</string>
     <string name="menu_alphabetize">Rendezési mód módosítása</string>
-    <string name="menu_search">Play Áruház témák</string>
-    <string name="menu_showcase">Bemutató</string>
     <string name="menu_uninstall">Téma eltávolítása</string>
     <string name="menu_restore_info">Visszaállítási info</string>
-    <string name="menu_showcase_info">Bemutatóterem info</string>
     <string name="menu_favorite_snackbar">%s sikeresen beállítva parancsikonként!</string>
     <string name="menu_favorite_snackbar_cleared">%s eltávolítva, hogy egy alkalmazás parancsikon legyen.</string>
     <string name="launcher_shortcut">Parancsikon az indítóban</string>
@@ -397,8 +391,6 @@
     <string name="shortcut_floatui">FloatUI</string>
     <string name="shortcut_rescue">Ments meg!</string>
     <string name="shortcut_rescue_disabled">Ments meg!</string>
-    <string name="shortcut_store">Téma-bemutató</string>
-    <string name="shortcut_store_disabled">Téma-bemutató</string>
     <string name="shortcut_overlay_manager">Fedvény kezelő</string>
     <string name="shortcut_overlay_manager_disabled">Fedvény kezelő</string>
     <string name="settings_title">Névjegy</string>
@@ -561,12 +553,6 @@
     <string name="error_activity_log_dialog_title">Összeomlás hibakövetés</string>
     <string name="error_dialog_samsung">Substratum fedvény probléma</string>
     <string name="error_dialog_samsung_text">Sajnos, úgy tűnik, hogy probléma van egy Substratum-ot célzó telepített fedvénnyel, így annak kézi eltávolítása szükséges a Beállítások segítségével.</string>
-    <string name="community_info_overlays">Fedvények</string>
-    <string name="community_info_bootanimation">Rendszerindítási animációk</string>
-    <string name="community_info_fonts">Betűtípusok</string>
-    <string name="community_info_sounds">Hangok</string>
-    <string name="community_info_wallpapers">Háttérképek</string>
-    <string name="community_info_paid">Fizetős</string>
     <string name="restore_info_dialog_title">Figyelem</string>
     <string name="restore_info_dialog_message">Fedvények, betűkészlet csomagok, hangok vagy háttérképek visszaállítása hosszabb ideig is eltarthat, így kérjük, legyen türelemmel.</string>
     <string name="restore_bootanimation_text">Rendszerindítási animáció</string>
@@ -630,7 +616,6 @@
     <string name="nav_drawer_gerrit">Platform és Gerrit előkészítések</string>
     <string name="nav_drawer_github">Platform GitHub adattár</string>
     <string name="nav_drawer_jira">JIRA hibajelentési rendszer</string>
-    <string name="nav_troubleshooting">GYIK</string>
     <!-- More -->
     <string name="nav_section_header_more">Továbbiak</string>
     <string name="nav_team_contributors">Csapat és Közreműködők</string>

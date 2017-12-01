@@ -33,7 +33,6 @@
     <string name="andromeda_notification_text_negation">Сервис Andromeda не запущен, пожалуйста перезапустите приложение на компьютере!</string>
     <string name="resource_commit_dialog_title">Отсутствуют ресурсы в %s</string>
     <string name="showcase_no_connection">каталог тем требует подключения к интернету!    </string>
-    <string name="showcase_no_themes">похоже, кэширование базы данных каталога для этой вкладки прошло неудачно&#8230;    </string>
     <string name="refused_to_install_title_notification">Автор темы запретил установку темы на Samsung</string>
     <string name="refused_to_install_text_notification">Установка %s не удалась</string>
     <string name="failed_to_install_title_notification">Не удалось установить OMS тему</string>
@@ -209,11 +208,8 @@
     <string name="menu_per_app">FloatUI</string>
     <string name="menu_restart_systemui">Перезапустить SystemUI</string>
     <string name="menu_alphabetize">Порядок сортировки</string>
-    <string name="menu_search">Искать темы в Play Маркет</string>
-    <string name="menu_showcase">Каталог</string>
     <string name="menu_uninstall">Удалить тему</string>
     <string name="menu_restore_info">Сведения о восстановлении</string>
-    <string name="menu_showcase_info">Сведения о каталоге</string>
     <string name="menu_favorite_snackbar">Ярлык для %s установлен! </string>
     <string name="menu_favorite_snackbar_cleared">%s более не является ярлыком приложения</string>
     <string name="launcher_shortcut">Ярлык в лаунчере</string>
@@ -324,8 +320,6 @@
     <string name="shortcut_floatui">FloatUI</string>
     <string name="shortcut_rescue">На помощь!</string>
     <string name="shortcut_rescue_disabled">На помощь!</string>
-    <string name="shortcut_store">Каталог тем</string>
-    <string name="shortcut_store_disabled">Каталог тем</string>
     <string name="shortcut_overlay_manager">Управление слоями</string>
     <string name="shortcut_overlay_manager_disabled">Управление слоями</string>
     <string name="settings_title">О системе</string>
@@ -487,12 +481,6 @@
     <string name="error_activity_log_dialog_title">Отчет о вылете</string>
     <string name="error_dialog_samsung">Проблема с наслоением Substratum</string>
     <string name="error_dialog_samsung_text">Похоже, с наслоением затрагивающим Substratum возникла неполадка, следует удалить его вручную в Настройках</string>
-    <string name="community_info_overlays">Наслоения</string>
-    <string name="community_info_bootanimation">Анимации загрузки</string>
-    <string name="community_info_fonts">Шрифты</string>
-    <string name="community_info_sounds">Звуки</string>
-    <string name="community_info_wallpapers">Обои</string>
-    <string name="community_info_paid">Платная</string>
     <string name="restore_info_dialog_title">Внимание</string>
     <string name="restore_info_dialog_message">Восстановление слоёв, пакетов шрифтов, звуков или обоев может занять некоторое время, так что будьте терпеливы.</string>
     <string name="restore_bootanimation_text">Анимация загрузки</string>
@@ -556,7 +544,6 @@
     <string name="nav_drawer_gerrit">Мониторинг платформы на Gerrit</string>
     <string name="nav_drawer_github">GitHub-репозиторий</string>
     <string name="nav_drawer_jira">Система отсл. неполадок JIRA</string>
-    <string name="nav_troubleshooting">Часто задаваемые вопросы</string>
     <!-- More -->
     <string name="nav_section_header_more">Еще</string>
     <string name="nav_team_contributors">Команда и соучастники</string>

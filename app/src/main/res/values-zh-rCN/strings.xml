@@ -33,7 +33,6 @@
     <string name="andromeda_notification_text_negation">Andromeda服务未运行，请重启桌面套组！</string>
     <string name="resource_commit_dialog_title">在 %s 中缺少资源</string>
     <string name="showcase_no_connection">主题展示需要网络连接才能正常工作</string>
-    <string name="showcase_no_themes">缓存此选项卡的展示数据库时出错</string>
     <string name="refused_to_install_text_notification">%s 安装失败</string>
     <string name="failed_to_install_title_notification">未能安装 OMS 主题</string>
     <string name="failed_to_install_text_notification">%s 安装失败</string>
@@ -200,11 +199,8 @@
     <string name="menu_per_app">悬浮控件</string>
     <string name="menu_restart_systemui">重启系统界面</string>
     <string name="menu_alphabetize">改变排序模式</string>
-    <string name="menu_search">Play Store 主题</string>
-    <string name="menu_showcase">展示</string>
     <string name="menu_uninstall">卸载主题</string>
     <string name="menu_restore_info">还原信息</string>
-    <string name="menu_showcase_info">展示信息</string>
     <string name="menu_favorite_snackbar">成功将 %s 设置为快捷方式</string>
     <string name="menu_favorite_snackbar_cleared">从应用程序快捷方式中删除 %s。</string>
     <string name="launcher_shortcut">启动器上的快捷方式</string>
@@ -305,8 +301,6 @@
     <string name="shortcut_floatui">悬浮控件</string>
     <string name="shortcut_rescue">禁用所有叠加层</string>
     <string name="shortcut_rescue_disabled">禁用所有叠加层</string>
-    <string name="shortcut_store">主题展示</string>
-    <string name="shortcut_store_disabled">主题展示</string>
     <string name="shortcut_overlay_manager">叠加层</string>
     <string name="shortcut_overlay_manager_disabled">叠加层</string>
     <string name="settings_title">关于</string>
@@ -457,12 +451,6 @@
     <string name="error_activity_log_dialog_title">堆栈跟踪崩溃</string>
     <string name="error_dialog_samsung">叠加层问题</string>
     <string name="error_dialog_samsung_text">通过 Substratum 安装的叠加层似乎存在问题，必须使用设置手动卸载。</string>
-    <string name="community_info_overlays">叠加层</string>
-    <string name="community_info_bootanimation">开机动画</string>
-    <string name="community_info_fonts">字体</string>
-    <string name="community_info_sounds">音效</string>
-    <string name="community_info_wallpapers">壁纸</string>
-    <string name="community_info_paid">已付款</string>
     <string name="restore_info_dialog_title">注意</string>
     <string name="restore_info_dialog_message">正在还原叠加层，字体，音效和壁纸。这可能需要一些时间，请您耐心等待。</string>
     <string name="restore_bootanimation_text">开机动画</string>
@@ -525,7 +513,6 @@
     <string name="nav_drawer_gerrit">Gerrit 代码审查</string>
     <string name="nav_drawer_github">GitHub 存储库</string>
     <string name="nav_drawer_jira">JIRA bug 报告系统</string>
-    <string name="nav_troubleshooting">常见问题</string>
     <!-- More -->
     <string name="nav_section_header_more">更多</string>
     <string name="nav_team_contributors">团队和贡献者</string>

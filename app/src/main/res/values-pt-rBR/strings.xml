@@ -33,8 +33,6 @@
     <string name="andromeda_notification_text_negation">O serviço Andromeda não está funcionando, por favor reabra o programa do Desktop!</string>
     <string name="resource_commit_dialog_title">Faltam recursos em %s</string>
     <string name="showcase_no_connection">a vitrine de temas requer uma conexão com a internet para funcionar!</string>
-    <string name="showcase_no_themes">parece que ocorreu um erro de cache do banco de dados do mostruário
-para esta aba&#8230;    </string>
     <string name="refused_to_install_title_notification">O Tema rejeita ser instalado no Samsung</string>
     <string name="refused_to_install_text_notification">%s falhou ao instalar</string>
     <string name="failed_to_install_title_notification">Falha ao instalar um tema OMS</string>
@@ -227,11 +225,8 @@ corretamente&#8230;</string>
     <string name="menu_per_app">Interface flutuante</string>
     <string name="menu_restart_systemui">Reiniciar SystemUI</string>
     <string name="menu_alphabetize">Alterar Modo De Classificação</string>
-    <string name="menu_search">Temas na Play Store</string>
-    <string name="menu_showcase">Mostruário</string>
     <string name="menu_uninstall">Desinstalar Tema</string>
     <string name="menu_restore_info">Restaurar informações</string>
-    <string name="menu_showcase_info">Informação do mostruário</string>
     <string name="menu_favorite_snackbar">%s foi colocado como atalho com sucesso!</string>
     <string name="menu_favorite_snackbar_cleared">Atalho do aplicativo %s removido.</string>
     <string name="launcher_shortcut">Atalho no Launcher</string>
@@ -341,8 +336,6 @@ corretamente&#8230;</string>
     <string name="shortcut_floatui">Interface flutuante</string>
     <string name="shortcut_rescue">Restaure-me!</string>
     <string name="shortcut_rescue_disabled">Restaure-me!</string>
-    <string name="shortcut_store">Amostra de Temas</string>
-    <string name="shortcut_store_disabled">Amostra de Temas</string>
     <string name="shortcut_overlay_manager">Gerente de Camadas</string>
     <string name="shortcut_overlay_manager_disabled">Gerente de Camadas</string>
     <string name="settings_title">Sobre</string>
@@ -504,12 +497,6 @@ corretamente&#8230;</string>
     <string name="error_activity_log_dialog_title">Crash Stacktrace</string>
     <string name="error_dialog_samsung">Problema com as Camadas do Substratum</string>
     <string name="error_dialog_samsung_text">Infelizmente, parece haver um problema com uma camada instalada para o Substratum, e você terá que desinstalá-la manualmente usando as Configurações.</string>
-    <string name="community_info_overlays">Camadas</string>
-    <string name="community_info_bootanimation">Animações de Inicialização</string>
-    <string name="community_info_fonts">Fontes</string>
-    <string name="community_info_sounds">Sons</string>
-    <string name="community_info_wallpapers">Papéis de Parede</string>
-    <string name="community_info_paid">Pago</string>
     <string name="restore_info_dialog_title">Atenção</string>
     <string name="restore_info_dialog_message">Restaurar as sobreposições, pacotes de fonte, sons ou papéis de parede pode levar algum tempo, então por favor seja paciente.</string>
     <string name="restore_bootanimation_text">Animação de Boot</string>
@@ -573,7 +560,6 @@ corretamente&#8230;</string>
     <string name="nav_drawer_gerrit">Plataforma &amp; exposições Gerrit</string>
     <string name="nav_drawer_github">Repositório GitHub</string>
     <string name="nav_drawer_jira">Sistema de relatório de erros JIRA</string>
-    <string name="nav_troubleshooting">Perguntas Frequentes</string>
     <!-- More -->
     <string name="nav_section_header_more">Mais</string>
     <string name="nav_team_contributors">Equipe &amp; Colaboradores</string>

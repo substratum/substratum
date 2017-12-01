@@ -35,9 +35,6 @@
     <string name="showcase_no_connection">tema vitrininin çalışması için internet bağlantısı
         gereklidir!
     </string>
-    <string name="showcase_no_themes">vitrin veritabanı bu sekme için önbelleğe alınırken bir hata oluştu
-        gibi görünüyor&#8230;
-    </string>
     <string name="refused_to_install_title_notification">Tema geliştiricisi Samsung\'a yüklenen temayı reddetti</string>
     <string name="refused_to_install_text_notification">%s yüklemesi başarısız oldu</string>
     <string name="failed_to_install_title_notification">OMS teması yüklenemedi</string>
@@ -265,11 +262,8 @@ bu sorunu
     <string name="menu_per_app">Yüzen Kullanıcı Arayüzü</string>
     <string name="menu_restart_systemui">Sistem Arayüzünü Yeniden Başlat</string>
     <string name="menu_alphabetize">Sıralama Modunu Değiştir</string>
-    <string name="menu_search">Play Store Temaları</string>
-    <string name="menu_showcase">Vitrin</string>
     <string name="menu_uninstall">Temayı Kaldır</string>
     <string name="menu_restore_info">Geri yükleme bilgisi</string>
-    <string name="menu_showcase_info">Vitrin bilgisi</string>
     <string name="menu_favorite_snackbar">%s bir uygulama kısayolu olarak başarıyla ayarlandı!</string>
     <string name="menu_favorite_snackbar_cleared">%s uygulama kısayolu kaldırıldı.</string>
     <string name="launcher_shortcut">Başlatıcı Kısayolu</string>
@@ -405,8 +399,6 @@ bu sorunu
     <string name="shortcut_floatui">Yüzen Kullanıcı Arayüzü</string>
     <string name="shortcut_rescue">Kurtar Beni!</string>
     <string name="shortcut_rescue_disabled">Kurtar Beni!</string>
-    <string name="shortcut_store">Tema Vitrini</string>
-    <string name="shortcut_store_disabled">Tema Vitrini</string>
     <string name="shortcut_overlay_manager">Tema Yöneticisi</string>
     <string name="shortcut_overlay_manager_disabled">Tema Yöneticisi</string>
     <string name="settings_title">Hakkında</string>
@@ -568,12 +560,6 @@ bu sorunu
     <string name="error_activity_log_dialog_title">Hata Etkinliği Günlüğü</string>
     <string name="error_dialog_samsung">Substratum Tema Sorunu</string>
     <string name="error_dialog_samsung_text">Maalesef, Substratum\'u hedefleyen bir temayla ilgili bir sorun var gibi görünüyor ve Ayarlar\'ı kullanarak el ile kaldırılması gerekecek.</string>
-    <string name="community_info_overlays">Temalar</string>
-    <string name="community_info_bootanimation">Önyükleme Animasyonları</string>
-    <string name="community_info_fonts">Yazı Tipleri</string>
-    <string name="community_info_sounds">Sesler</string>
-    <string name="community_info_wallpapers">Duvar Kağıtları</string>
-    <string name="community_info_paid">Ücretli</string>
     <string name="restore_info_dialog_title">Dikkat</string>
     <string name="restore_info_dialog_message">Temaları, yazı tipi paketlerini, sesleri veya duvar kağıtlarını geri yüklemek biraz zaman alabilir, lütfen sabırlı olun.</string>
     <string name="restore_bootanimation_text">Önyükleme animasyonu</string>
@@ -637,7 +623,6 @@ bu sorunu
     <string name="nav_drawer_gerrit">Platform &amp; Gerrit içeriği</string>
     <string name="nav_drawer_github">Platform GitHub deposu</string>
     <string name="nav_drawer_jira">JIRA hata raporlama sistemi</string>
-    <string name="nav_troubleshooting">SSS</string>
     <!-- More -->
     <string name="nav_section_header_more">Daha fazla</string>
     <string name="nav_team_contributors">Takım &amp; Katkıda Bulunanlar</string>

@@ -33,8 +33,6 @@
     <string name="andromeda_notification_text_negation">¡El servicio Andromeda no se está ejecutando, por favor vuelva a correr el paquete de escritorio!</string>
     <string name="resource_commit_dialog_title">Faltan recursos en %s</string>
     <string name="showcase_no_connection">¡El mostrador de temas requiere una conexión a internet para funcionar!     </string>
-    <string name="showcase_no_themes">Parece que hubo un error de caché del mostrador de temas
-        Para esta sección&#8230;    </string>
     <string name="refused_to_install_title_notification">Se rechazó el tema instalado en Samsung</string>
     <string name="refused_to_install_text_notification">Error al instalar %s</string>
     <string name="failed_to_install_title_notification">Falló la instalación del tema</string>
@@ -216,11 +214,8 @@ correctamente&#8230;</string>
     <string name="menu_per_app">FloatUI</string>
     <string name="menu_restart_systemui">Reiniciar System UI</string>
     <string name="menu_alphabetize">Cambiar Modo de Clasificación</string>
-    <string name="menu_search">Temas en Play Store</string>
-    <string name="menu_showcase">Mostrador</string>
     <string name="menu_uninstall">Desinstalar tema</string>
     <string name="menu_restore_info">Restaurar información</string>
-    <string name="menu_showcase_info">Información del Mostrador</string>
     <string name="menu_favorite_snackbar">¡%s fijado con éxito como acceso directo a la aplicación!</string>
     <string name="menu_favorite_snackbar_cleared">Se eliminó %s del acceso directo de la aplicación.</string>
     <string name="launcher_shortcut">Acceso directo en el launcher</string>
@@ -334,8 +329,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="shortcut_floatui">FloatUI</string>
     <string name="shortcut_rescue">¡Rescátenme!</string>
     <string name="shortcut_rescue_disabled">¡Rescátenme!</string>
-    <string name="shortcut_store">Mostrador de Temas</string>
-    <string name="shortcut_store_disabled">Mostrador de Temas</string>
     <string name="shortcut_overlay_manager">Gestor de Capas</string>
     <string name="shortcut_overlay_manager_disabled">Gestor de Capas</string>
     <string name="settings_title">Acerca de</string>
@@ -497,12 +490,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="error_activity_log_dialog_title">Error Logcat</string>
     <string name="error_dialog_samsung">Problema de capas de Substratum</string>
     <string name="error_dialog_samsung_text">Desafortunadamente, parece haber un problema con una capa instalada para Substratum y tendrá que desinstalarla manualmente utilizando Ajustes.</string>
-    <string name="community_info_overlays">Capas</string>
-    <string name="community_info_bootanimation">Animaciones de Inicio</string>
-    <string name="community_info_fonts">Fuentes</string>
-    <string name="community_info_sounds">Sonidos</string>
-    <string name="community_info_wallpapers">Fondos de Pantalla</string>
-    <string name="community_info_paid">Pagado</string>
     <string name="restore_info_dialog_title">Atención</string>
     <string name="restore_info_dialog_message">Restaurar capas, packs de fuentes, sonidos o fondos de pantalla, puede tomar algún tiempo así que tenga paciencia.</string>
     <string name="restore_bootanimation_text">Animación de Inicio</string>
@@ -566,7 +553,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="nav_drawer_gerrit">Plataforma &amp; Exposiciones Gerrit</string>
     <string name="nav_drawer_github">Repositorio GitHub</string>
     <string name="nav_drawer_jira">Sistema de informes de error JIRA</string>
-    <string name="nav_troubleshooting">FAQs</string>
     <!-- More -->
     <string name="nav_section_header_more">Más</string>
     <string name="nav_team_contributors">Equipo &amp; Contribuyentes</string>

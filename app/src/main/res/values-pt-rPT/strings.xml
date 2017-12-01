@@ -35,7 +35,6 @@
     <string name="showcase_no_connection">o expositor de temas requer uma conexão com a internet para
         funcionar!
     </string>
-    <string name="showcase_no_themes">parece ter havido um erro ao guardar a base de dados do expositor deste separador         na cache&#8230;    </string>
     <string name="refused_to_install_title_notification">O Themer rejeitou o tema instalado neste Samsung</string>
     <string name="refused_to_install_text_notification">Falha ao instalar %s</string>
     <string name="failed_to_install_title_notification">Falha ao instalar o tema OMS</string>
@@ -229,11 +228,8 @@ corretamente&#8230;</string>
     <string name="menu_per_app">Interface Flutuante</string>
     <string name="menu_restart_systemui">Reiniciar IU do sist.</string>
     <string name="menu_alphabetize">Alterar o modo de classificação</string>
-    <string name="menu_search">Temas na Play Store</string>
-    <string name="menu_showcase">Expositor</string>
     <string name="menu_uninstall">Desinstalar</string>
     <string name="menu_restore_info">Repor informação</string>
-    <string name="menu_showcase_info">Legenda do expositor</string>
     <string name="menu_favorite_snackbar">%s foi definido como favorito com sucesso!</string>
     <string name="menu_favorite_snackbar_cleared">%s foi removido dos favoritos.</string>
     <string name="launcher_shortcut">Atalho na gaveta de aplicações</string>
@@ -353,8 +349,6 @@ corretamente&#8230;</string>
     <string name="shortcut_floatui">Interface Flutuante</string>
     <string name="shortcut_rescue">Salvem-me!</string>
     <string name="shortcut_rescue_disabled">Salvem-me!</string>
-    <string name="shortcut_store">Expositor de Temas</string>
-    <string name="shortcut_store_disabled">Expositor de Temas</string>
     <string name="shortcut_overlay_manager">Aplicação Rápida</string>
     <string name="shortcut_overlay_manager_disabled">Aplicação Rápida</string>
     <string name="settings_title">Sobre</string>
@@ -516,12 +510,6 @@ corretamente&#8230;</string>
     <string name="error_activity_log_dialog_title">Stacktrace de Falhas</string>
     <string name="error_dialog_samsung">Problema com Camadas do Substratum</string>
     <string name="error_dialog_samsung_text">Infelizmente, parece haver um problema com uma camada instalada visando o Substratum que terá de ser manualmente desinstalada através das Definições.</string>
-    <string name="community_info_overlays">Camadas</string>
-    <string name="community_info_bootanimation">Animações de Arranque</string>
-    <string name="community_info_fonts">Tipos de Letra</string>
-    <string name="community_info_sounds">Sons</string>
-    <string name="community_info_wallpapers">Imagens de Fundo</string>
-    <string name="community_info_paid">Pago</string>
     <string name="restore_info_dialog_title">Atenção</string>
     <string name="restore_info_dialog_message">A reposição de camadas, pacotes de tipos de letra, sons ou imagens de fundo pode demorar algum tempo. Por isso, seja paciente.</string>
     <string name="restore_bootanimation_text">Animação de arranque</string>
@@ -585,7 +573,6 @@ corretamente&#8230;</string>
     <string name="nav_drawer_gerrit">Plataforma e exposições Gerrit</string>
     <string name="nav_drawer_github">Repositório GitHub</string>
     <string name="nav_drawer_jira">Reportar erros - JIRA</string>
-    <string name="nav_troubleshooting">Perguntas frequentes</string>
     <!-- More -->
     <string name="nav_section_header_more">Mais</string>
     <string name="nav_team_contributors">Equipa e Contribuidores</string>

@@ -33,7 +33,6 @@
     <string name="andromeda_notification_text_negation">Les services d\'Andromeda ne sont pas en cours d\'exécution, veuillez relancer l\'application depuis votre ordinateur !</string>
     <string name="resource_commit_dialog_title">Ressources manquantes pour %s</string>
     <string name="showcase_no_connection">La galerie de thème nécessite une connexion Internet pour fonctionner !</string>
-    <string name="showcase_no_themes">Une erreur est survenue lors de la mise en cache de la base de données de la galerie de thème pour cet onglet...</string>
     <string name="refused_to_install_text_notification">Échec de l\'installation de %s</string>
     <string name="failed_to_install_title_notification">Échec de l\'installation du thème</string>
     <string name="failed_to_install_text_notification">Échec de l\'installation de %s</string>
@@ -193,8 +192,6 @@
     <string name="menu_per_app">FloatUI</string>
     <string name="menu_restart_systemui">Redémarrage de l\'interface</string>
     <string name="menu_alphabetize">Changer l\'ordre de tri</string>
-    <string name="menu_search">Thèmes sur le Play Store</string>
-    <string name="menu_showcase">Galerie de thème</string>
     <string name="menu_uninstall">Désinstaller</string>
     <string name="menu_restore_info">Restaurer informations</string>
     <string name="menu_favorite_snackbar">%s défini comme raccourci d\'application !</string>
@@ -295,8 +292,6 @@
     <string name="shortcut_floatui">FloatUI</string>
     <string name="shortcut_rescue">Sauvez-moi !</string>
     <string name="shortcut_rescue_disabled">Sauvez-moi !</string>
-    <string name="shortcut_store">Galerie de thème</string>
-    <string name="shortcut_store_disabled">Galerie de thème</string>
     <string name="shortcut_overlay_manager">Gestionnaire de surcouche</string>
     <string name="shortcut_overlay_manager_disabled">Gestionnaire de surcouche</string>
     <string name="settings_title">À propos</string>
@@ -438,12 +433,6 @@
     <string name="error_activity_button_disable_overlays">Sauvez-moi !</string>
     <string name="error_dialog_samsung">Problème de surcouche Substratum</string>
     <string name="error_dialog_samsung_text">Oops, on dirait qu\'il y a un problème avec une surcouche installée qui vise Substratum et doit être desinstallée manuellement via Paramètres.</string>
-    <string name="community_info_overlays">Surcouches</string>
-    <string name="community_info_bootanimation">Animations de démarrage</string>
-    <string name="community_info_fonts">Polices</string>
-    <string name="community_info_sounds">Sons</string>
-    <string name="community_info_wallpapers">Fonds d\'écran</string>
-    <string name="community_info_paid">Acheté</string>
     <string name="restore_info_dialog_title">Avertissement</string>
     <string name="restore_info_dialog_message">Restaurer des surcouches, des paquets de police, des sons ou des fonds d\'écran peut durer un petit moment, soyez patient</string>
     <string name="restore_bootanimation_text">Animation de démarrage</string>
@@ -502,7 +491,6 @@
     <string name="nav_drawer_gerrit">Gerrit de la Plate-forme et galerie</string>
     <string name="nav_drawer_github">GitHub de la Plate-forme</string>
     <string name="nav_drawer_jira">Système de signalement de bug JIRA</string>
-    <string name="nav_troubleshooting">FAQ</string>
     <!-- More -->
     <string name="nav_section_header_more">Plus</string>
     <string name="nav_team_contributors">Équipe et collaborateurs</string>

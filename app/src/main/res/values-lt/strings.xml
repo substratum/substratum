@@ -33,7 +33,6 @@
     <string name="andromeda_notification_text_negation">\"Andromeda\" paslauga neveikia. Prašome pakartoti darbalaukio rinkinį!</string>
     <string name="resource_commit_dialog_title">Trūksta išteklių %s</string>
     <string name="showcase_no_connection">kad veiktu, temos vitrina reikalauja interneto ryšio!</string>
-    <string name="showcase_no_themes">atrodo, jog šiame skirtuke įvyko klaida išsaugojant vitrinos duomenų bazę&#8230;    </string>
     <string name="refused_to_install_title_notification">Apipavidolintojas atmetė temą, kuri įdiegta \"Samsung\" įrengynije</string>
     <string name="refused_to_install_text_notification">%s nepavyko įdiegti</string>
     <string name="failed_to_install_title_notification">Klaida įdiegiant \"OMS\" temą</string>
@@ -223,11 +222,8 @@
     <string name="menu_per_app">Plaukiojanti NS</string>
     <string name="menu_restart_systemui">Paleisti iš naujo SistemosNS</string>
     <string name="menu_alphabetize">Keisti Rūšiavimo Režimą</string>
-    <string name="menu_search">\"Play\" Parduotuvės Temos</string>
-    <string name="menu_showcase">Vitrina</string>
     <string name="menu_uninstall">Išdiegti Temą</string>
     <string name="menu_restore_info">Atkurti informaciją</string>
-    <string name="menu_showcase_info">Vitrinos Info</string>
     <string name="menu_favorite_snackbar">%s sėkmingai nustatyta, kaip programėlės piktograma!</string>
     <string name="menu_favorite_snackbar_cleared">Pašalinta %s būnant programos piktograma.</string>
     <string name="launcher_shortcut">Nuoroda paleidimo priemonėje</string>
@@ -340,8 +336,6 @@
     <string name="shortcut_floatui">Plaukiojanti NS</string>
     <string name="shortcut_rescue">Išgelbėti mane!</string>
     <string name="shortcut_rescue_disabled">Išgelbėti mane!</string>
-    <string name="shortcut_store">Temų Vitrina</string>
-    <string name="shortcut_store_disabled">Temų Vitrina</string>
     <string name="shortcut_overlay_manager">Greitas Pritaikymas</string>
     <string name="shortcut_overlay_manager_disabled">Greitas Pritaikymas</string>
     <string name="settings_title">Apie</string>
@@ -503,12 +497,6 @@
     <string name="error_activity_log_dialog_title">Gedimo Atsekimas</string>
     <string name="error_dialog_samsung">\"Substratum\" Perdangos Problema</string>
     <string name="error_dialog_samsung_text">Deja, atrodo, kad yra problema su \"Substratum\" įdiegta perdangą ir turi būti išdiegta rankiniu būdu Nustatymuose.</string>
-    <string name="community_info_overlays">Perdangos</string>
-    <string name="community_info_bootanimation">Paleidimo Animacijos</string>
-    <string name="community_info_fonts">Šriftai</string>
-    <string name="community_info_sounds">Garsai</string>
-    <string name="community_info_wallpapers">Ekrano fonai</string>
-    <string name="community_info_paid">Mokamas</string>
     <string name="restore_info_dialog_title">Dėmesio</string>
     <string name="restore_info_dialog_message">Atkurti perdangas, šriftų paketus, garsus ar fonus gali šiek tiek užtrukti, todėl būkite kantrūs.</string>
     <string name="restore_bootanimation_text">Paleidimo animacija</string>
@@ -572,7 +560,6 @@
     <string name="nav_drawer_gerrit">Platformos ir ekspozicijos kodas</string>
     <string name="nav_drawer_github">Platformos \"GitHub\" saugykla</string>
     <string name="nav_drawer_jira">\"JIRA\" klaidų ataskaitos sistema</string>
-    <string name="nav_troubleshooting">DUK</string>
     <!-- More -->
     <string name="nav_section_header_more">Daugiau</string>
     <string name="nav_team_contributors">Komanda ir Bendraautoriai</string>

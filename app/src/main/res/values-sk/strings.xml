@@ -33,7 +33,6 @@
     <string name="andromeda_notification_text_negation">Služba Andromeda nie je spustená, reštartujte aplikáciu v počítači!</string>
     <string name="resource_commit_dialog_title">Chýbajúce zdroje v %s</string>
     <string name="showcase_no_connection">Ukážky tém vyžadujú pripojenie k internetu!</string>
-    <string name="showcase_no_themes">Zdá sa, že nastala chyba vo vyrovnávacej pamäti databázy pre ukážku tejto záložky&#8230;    </string>
     <string name="refused_to_install_text_notification">Nepodarilo sa nainštalovať %s</string>
     <string name="failed_to_install_title_notification">Nepodarilo sa nainštalovať OMS tému</string>
     <string name="failed_to_install_text_notification">Nepodarilo sa nainštalovať %s</string>
@@ -212,11 +211,8 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="menu_per_app">Plávajúce okno</string>
     <string name="menu_restart_systemui">Reštartovať systémové rozhranie</string>
     <string name="menu_alphabetize">Zmeniť spôsob triedenia</string>
-    <string name="menu_search">Témy v Obchode Play</string>
-    <string name="menu_showcase">Ukážky</string>
     <string name="menu_uninstall">Odinštalovať tému</string>
     <string name="menu_restore_info">Informácie o obnovení</string>
-    <string name="menu_showcase_info">Informácie o zobrazení</string>
     <string name="menu_favorite_snackbar">Úspešne nastavené %s ako zástupca aplikácie!</string>
     <string name="menu_favorite_snackbar_cleared">Odstránený zástupca aplikácie %s.</string>
     <string name="launcher_shortcut">Odkaz na spúšťač</string>
@@ -324,8 +320,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="shortcut_floatui">Plávajúce okno</string>
     <string name="shortcut_rescue">Zachráňte ma!</string>
     <string name="shortcut_rescue_disabled">Zachráňte ma!</string>
-    <string name="shortcut_store">Ukážka tém</string>
-    <string name="shortcut_store_disabled">Ukážka tém</string>
     <string name="shortcut_overlay_manager">Správca prekrytí</string>
     <string name="shortcut_overlay_manager_disabled">Správca prekrytí</string>
     <string name="settings_title">O aplikácii</string>
@@ -488,12 +482,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="error_activity_log_dialog_title">Denník havárií</string>
     <string name="error_dialog_samsung">Problém so Substratum prekrytím</string>
     <string name="error_dialog_samsung_text">Bohužiaľ sa zdá, že sa vyskytol problém s nainštalovaným Substratum prekrytím, ktoré bude musieť byť manuálne odinštalované pomocou menu Nastavenia.</string>
-    <string name="community_info_overlays">Prekrytia</string>
-    <string name="community_info_bootanimation">Spúšťacie animácie</string>
-    <string name="community_info_fonts">Písma</string>
-    <string name="community_info_sounds">Zvuky</string>
-    <string name="community_info_wallpapers">Tapety na plochu</string>
-    <string name="community_info_paid">Zaplatené</string>
     <string name="restore_info_dialog_title">Upozornenie</string>
     <string name="restore_info_dialog_message">Obnovenie prekrytí, balíčkov písiem, zvukov alebo tapiet by mohlo chvíľu trvať, buďte trpezlivý.</string>
     <string name="restore_bootanimation_text">Spúšťacia animácia</string>
@@ -556,7 +544,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="nav_drawer_gerrit">Platforma zdrojových kódov Gerrit</string>
     <string name="nav_drawer_github">Platforma úložiska GitHub</string>
     <string name="nav_drawer_jira">Systém hlásenia chýb JIRA</string>
-    <string name="nav_troubleshooting">Často kladené otázky</string>
     <!-- More -->
     <string name="nav_section_header_more">Viac</string>
     <string name="nav_team_contributors">Tím &amp; prispievatelia</string>

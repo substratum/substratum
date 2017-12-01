@@ -33,7 +33,6 @@
     <string name="andromeda_notification_text_negation">Andromeda neběží, restartujte aplikaci na svém počítači!</string>
     <string name="resource_commit_dialog_title">Chybějící zdroje v %s</string>
     <string name="showcase_no_connection">ukázky motivů potřebují internetové připojení!    </string>
-    <string name="showcase_no_themes">zdá se, že nastala chyba ve vyrovnávací paměti databáze pro ukázku této záložky&#8230;    </string>
     <string name="refused_to_install_title_notification">Themer zamítl motiv nainstalovaný na Samsung</string>
     <string name="refused_to_install_text_notification">Nepodařilo se nainstalovat %s</string>
     <string name="failed_to_install_title_notification">Nepodařilo se instalovat OMS motiv</string>
@@ -219,11 +218,8 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="menu_per_app">FloatUI</string>
     <string name="menu_restart_systemui">Restartovat SystemUI</string>
     <string name="menu_alphabetize">Změnit režim řazení</string>
-    <string name="menu_search">Motivy v Obchodu Play</string>
-    <string name="menu_showcase">Ukázky</string>
     <string name="menu_uninstall">Odinstalovat motiv</string>
     <string name="menu_restore_info">Obnovit informace</string>
-    <string name="menu_showcase_info">Informace o prezentaci</string>
     <string name="menu_favorite_snackbar">Úspěšně nastaveno %s jako zástupce na aplikaci!</string>
     <string name="menu_favorite_snackbar_cleared">Odstraněn zástupce aplikace pro %s.</string>
     <string name="launcher_shortcut">Odkaz na spouštěč</string>
@@ -337,8 +333,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="shortcut_floatui">FloatUI</string>
     <string name="shortcut_rescue">Zachraňte mě!</string>
     <string name="shortcut_rescue_disabled">Zachraňte mě!</string>
-    <string name="shortcut_store">Ukázka motivů</string>
-    <string name="shortcut_store_disabled">Ukázka motivů</string>
     <string name="shortcut_overlay_manager">Správce potahů</string>
     <string name="shortcut_overlay_manager_disabled">Správce potahů</string>
     <string name="settings_title">O aplikaci</string>
@@ -508,12 +502,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="error_activity_log_dialog_title">Krach trasování zásobníku</string>
     <string name="error_dialog_samsung">Problém s potahy Substratum</string>
     <string name="error_dialog_samsung_text">Bohužel se zdá, že existuje problém s cílovou instalací potahu Substratum a musí být ručně odinstalován v nastavení.</string>
-    <string name="community_info_overlays">Potahy</string>
-    <string name="community_info_bootanimation">Spouštěcí animace</string>
-    <string name="community_info_fonts">Písma</string>
-    <string name="community_info_sounds">Zvuky</string>
-    <string name="community_info_wallpapers">Tapety</string>
-    <string name="community_info_paid">Zaplaceno</string>
     <string name="restore_info_dialog_title">Upozornění</string>
     <string name="restore_info_dialog_message">Obnovení potahů, balíčků písem, zvuků nebo tapet může chvíli trvat, tak buďte prosím trpěliví.</string>
     <string name="restore_bootanimation_text">Spouštěcí animace</string>
@@ -577,7 +565,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="nav_drawer_gerrit">Platforma zdrojových kódů Gerrit</string>
     <string name="nav_drawer_github">Repozitář GitHub</string>
     <string name="nav_drawer_jira">Systém hlášení chyb JIRA</string>
-    <string name="nav_troubleshooting">FAQ</string>
     <!-- More -->
     <string name="nav_section_header_more">Více</string>
     <string name="nav_team_contributors">Tým &amp; přispěvatelé</string>

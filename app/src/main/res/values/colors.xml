@@ -88,8 +88,6 @@
     <color name="main_screen_card_theme_title_special">#ffffffff</color>
     <color name="main_screen_card_theme_author_special">#d0ffffff</color>
 
-    <color name="tab_icon_text_color">#d0ffffff</color>
-
     <color name="wallpaper_bg_background">@android:color/black</color>
 
     <color name="theme_information_background">#ffeeeeee</color>

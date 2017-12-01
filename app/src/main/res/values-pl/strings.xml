@@ -33,7 +33,6 @@
     <string name="andromeda_notification_text_negation">Usługa Andromedy nie działa, należy ponownie uruchomić pakiet na komputerze!</string>
     <string name="resource_commit_dialog_title">Brakujące zasoby w %s</string>
     <string name="showcase_no_connection">prezentacja motywu do funkcjonowania wymaga połączenia z internetem!    </string>
-    <string name="showcase_no_themes">wygląda na to że wystąpił błąd buforowania bazy danych prezentacji       dla tej karty&#8230;    </string>
     <string name="refused_to_install_text_notification">%s nie udało się zainstalować</string>
     <string name="failed_to_install_title_notification">Błąd instalacji motywu OMS</string>
     <string name="failed_to_install_text_notification">%s nie udało się zainstalować</string>
@@ -203,11 +202,8 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="menu_per_app">FloatUI</string>
     <string name="menu_restart_systemui">Restart Interfejsu</string>
     <string name="menu_alphabetize">Zmiana Trybu Sortowania</string>
-    <string name="menu_search">Motywy w Google Play</string>
-    <string name="menu_showcase">Prezentacje motywów</string>
     <string name="menu_uninstall">Odinstaluj Motyw</string>
     <string name="menu_restore_info">Przywróć informacje</string>
-    <string name="menu_showcase_info">Informacje o prezentacji</string>
     <string name="menu_favorite_snackbar">Pomyślnie ustawiono %s jako skrót aplikacji!</string>
     <string name="menu_favorite_snackbar_cleared">Usuń %s ze skrótu aplikacji.</string>
     <string name="launcher_shortcut">Skrót w programie rozruchowym</string>
@@ -319,8 +315,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="shortcut_floatui">FloatUI</string>
     <string name="shortcut_rescue">Ratuj mnie!</string>
     <string name="shortcut_rescue_disabled">Ratuj mnie!</string>
-    <string name="shortcut_store">Prezentacja Motywu</string>
-    <string name="shortcut_store_disabled">Prezentacja Motywu</string>
     <string name="shortcut_overlay_manager">Menedżer nakładek</string>
     <string name="shortcut_overlay_manager_disabled">Menedżer nakładek</string>
     <string name="settings_title">O</string>
@@ -482,12 +476,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="error_activity_log_dialog_title">Crash Stacktrace</string>
     <string name="error_dialog_samsung">Problem nakładki substratum</string>
     <string name="error_dialog_samsung_text">Niestety, wydaje się że wystąpił problem z docelowym zainstalowaniem nakładki Substratum I musi ona zostać odinstalowana ręcznie przez ustawienia.</string>
-    <string name="community_info_overlays">Nakładki</string>
-    <string name="community_info_bootanimation">Animacje rozruchu</string>
-    <string name="community_info_fonts">Czcionki</string>
-    <string name="community_info_sounds">Dźwięki</string>
-    <string name="community_info_wallpapers">Tapety</string>
-    <string name="community_info_paid">Płatny</string>
     <string name="restore_info_dialog_title">Uwaga</string>
     <string name="restore_info_dialog_message">Przywrócenie nakładek, zestawów czcionek, dźwięków czy tapet może zająć trochę czasu, więc proszę o cierpliwość.</string>
     <string name="restore_bootanimation_text">Animacja rozruchowa</string>
@@ -551,7 +539,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="nav_drawer_gerrit">Platforma i ekspozycje Gerrita</string>
     <string name="nav_drawer_github">Repozytorium platformy GitHub</string>
     <string name="nav_drawer_jira">System raportowania błędów JIRA</string>
-    <string name="nav_troubleshooting">Najczęściej zadawane pytania</string>
     <!-- More -->
     <string name="nav_section_header_more">Więcej</string>
     <string name="nav_team_contributors">Zespół &amp; Współpracownicy</string>

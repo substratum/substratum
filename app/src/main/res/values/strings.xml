@@ -787,7 +787,7 @@
 
     <!-- More -->
     <string name="nav_section_header_more">More</string>
-    <string name="nav_team_contributors">About</string>
+    <string name="nav_team_contributors">Team &amp; Contributors</string>
     <string name="nav_opensource">Licenses</string>
     <string name="nav_settings">Settings</string>
 

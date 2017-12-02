@@ -63,7 +63,6 @@ public class ShowcaseTab extends Fragment {
     RecyclerView mRecyclerView;
     private int current_tab_position;
     private String current_tab_address;
-    private SharedPreferences prefs;
     private Context mContext;
 
     @Override
@@ -72,7 +71,6 @@ public class ShowcaseTab extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         mContext = Substratum.getInstance();
-        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         View view = inflater.inflate(R.layout.showcase_tab, container, false);
         ButterKnife.bind(this, view);
         Bundle bundle = getArguments();

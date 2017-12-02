@@ -20,6 +20,7 @@ package projekt.substratum.common.commands;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.os.Build;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -579,8 +580,35 @@ public enum FileOperations {
                                         final String destination,
                                         final String remember,
                                         final Cipher cipher) {
-        if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, "Source: " + listDir);
-        if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, "Destination: " + destination);
+        if (ENABLE_DIRECT_ASSETS_LOGGING) {
+            Log.d(DA_LOG, "DirectAssets copy function is now running...");
+            Log.d(DA_LOG, "Source: " + listDir);
+            Log.d(DA_LOG, "Destination: " + destination);
+        }
+        // Create a filter that is meant to detect build states of the folder
+        String ending = listDir.substring(listDir.length() - 4);
+        if (ending.contains("-v") && ending.startsWith("-v")) {
+            // At this point, we can be safe to assume that it is going to be "-vXX" format
+            // rather than the sheer amount of possibilities of having API 9 and below
+            String parsedVersion =
+                    Character.toString(ending.charAt(2)) + Character.toString(ending.charAt(3));
+            if (ENABLE_DIRECT_ASSETS_LOGGING)
+                Log.d(DA_LOG, "Folder with versioning found: " + parsedVersion);
+            Integer parsedVer = Integer.parseInt(parsedVersion);
+            if (Build.VERSION.SDK_INT < parsedVer) {
+                if (ENABLE_DIRECT_ASSETS_LOGGING)
+                    Log.d(DA_LOG,
+                            "Folder does not need to be copied on non-matching system version: " +
+                                    Build.VERSION.SDK_INT + " is smaller than " + parsedVer + ".");
+                return false;
+            } else {
+                if (ENABLE_DIRECT_ASSETS_LOGGING)
+                    Log.d(DA_LOG,
+                            "Folder will be copied on matching system version: " +
+                                    Build.VERSION.SDK_INT + " (current) is greater or equals to " +
+                                    parsedVer + ".");
+            }
+        }
         try {
             final String[] assets = assetManager.list(listDir);
             if (assets.length == 0) {

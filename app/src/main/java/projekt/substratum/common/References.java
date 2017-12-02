@@ -88,7 +88,7 @@ public enum References {
     public static final Boolean ENABLE_EXTRAS_DIALOG = false; // Show a dialog when applying extras
     public static final Boolean ENABLE_AOPT_OUTPUT = false; // WARNING, DEVELOPERS - BREAKS COMPILE
     public static final Boolean ENABLE_PACKAGE_LOGGING = false; // Show time/date/place of install
-    public static final Boolean ENABLE_DIRECT_ASSETS_LOGGING = false; // Self explanatory
+    public static final Boolean ENABLE_DIRECT_ASSETS_LOGGING = true; // Self explanatory
     public static final Boolean BYPASS_ALL_VERSION_CHECKS = false; // For developer previews only!
     public static final Boolean BYPASS_SUBSTRATUM_BUILDER_DELETION = false; // Do not delete cache?
     @SuppressWarnings("WeakerAccess")

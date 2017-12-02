@@ -516,6 +516,7 @@ public enum References {
      */
     public static boolean isNetworkAvailable(Context mContext) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
         StrictMode.setThreadPolicy(policy);
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -523,7 +524,6 @@ public enum References {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         try {
             InetAddress checkSiteAvailability = InetAddress.getByName("google.com");
-            //noinspection EqualsBetweenInconvertibleTypes
             return activeNetworkInfo != null &&
                     activeNetworkInfo.isConnected() &&
                     !checkSiteAvailability.equals("");

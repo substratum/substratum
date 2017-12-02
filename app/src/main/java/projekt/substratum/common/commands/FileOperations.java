@@ -59,7 +59,7 @@ public enum FileOperations {
     private static final String CREATE_LOG = "SubstratumCreate";
     private static final String DELETE_LOG = "SubstratumDelete";
     private static final String MOVE_LOG = "SubstratumMove";
-    private static final String DA_LOG = "DirectAssets";
+    public static final String DA_LOG = "DirectAssets";
 
     /**
      * Adjust the content provider settings

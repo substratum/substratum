@@ -248,7 +248,9 @@ public enum CompilerCommands {
         // Build upon the system's Android framework
         sb.append("-I " + "/system/framework/framework-res.apk ");
         // If running on the AppCompat commits (first run), it will build upon the app too
-        sb.append((legacySwitch) ? "" : ("-I " + targetPkg + ' '));
+        if (targetPkg != null && !targetPkg.equals("null")) {
+            sb.append((legacySwitch) ? "" : ("-I " + targetPkg + ' '));
+        }
 
         // Specify the file output directory
         sb.append("-F " + work_area + '/' + overlay_package + '.' +

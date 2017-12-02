@@ -52,6 +52,7 @@ import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 
 import static projekt.substratum.common.References.BYPASS_SUBSTRATUM_BUILDER_DELETION;
+import static projekt.substratum.common.References.ENABLE_DIRECT_ASSETS_LOGGING;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
@@ -60,6 +61,7 @@ import static projekt.substratum.common.References.SUBSTRATUM_BUILDER_CACHE;
 import static projekt.substratum.common.References.VENDOR_DIR;
 import static projekt.substratum.common.Resources.SETTINGS;
 import static projekt.substratum.common.Resources.SYSTEMUI;
+import static projekt.substratum.common.commands.FileOperations.DA_LOG;
 
 public class SubstratumBuilder {
 
@@ -326,6 +328,8 @@ public class SubstratumBuilder {
                     false,
                     context,
                     no_cache_dir);
+
+            if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, "Running commands: " + commands);
 
             has_errored_out = !runAOPTShellCommands(
                     commands,

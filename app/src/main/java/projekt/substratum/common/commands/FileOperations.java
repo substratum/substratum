@@ -54,12 +54,12 @@ import static projekt.substratum.common.Systems.checkThemeInterfacer;
 public enum FileOperations {
     ;
 
+    public static final String DA_LOG = "DirectAssets";
     private static final String COPY_LOG = "SubstratumCopy";
     private static final String COPYDIR_LOG = "SubstratumCopyDir";
     private static final String CREATE_LOG = "SubstratumCreate";
     private static final String DELETE_LOG = "SubstratumDelete";
     private static final String MOVE_LOG = "SubstratumMove";
-    public static final String DA_LOG = "DirectAssets";
 
     /**
      * Adjust the content provider settings

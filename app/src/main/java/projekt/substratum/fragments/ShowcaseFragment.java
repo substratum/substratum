@@ -142,24 +142,30 @@ public class ShowcaseFragment extends Fragment {
 
                 showcaseFragment.viewPager.setOffscreenPageLimit(
                         showcaseFragment.tabLayout.getTabCount());
-                showcaseFragment.viewPager.setAdapter(adapter);
-                showcaseFragment.viewPager.addOnPageChangeListener(
-                        new TabLayout.TabLayoutOnPageChangeListener(showcaseFragment.tabLayout));
-                showcaseFragment.tabLayout.addOnTabSelectedListener(
-                        new TabLayout.OnTabSelectedListener() {
-                            @Override
-                            public void onTabSelected(TabLayout.Tab tab) {
-                                showcaseFragment.viewPager.setCurrentItem(tab.getPosition());
-                            }
+                try {
+                    showcaseFragment.viewPager.setAdapter(adapter);
+                    showcaseFragment.viewPager.addOnPageChangeListener(
+                            new TabLayout.TabLayoutOnPageChangeListener(showcaseFragment.tabLayout));
+                    showcaseFragment.tabLayout.addOnTabSelectedListener(
+                            new TabLayout.OnTabSelectedListener() {
+                                @Override
+                                public void onTabSelected(TabLayout.Tab tab) {
+                                    showcaseFragment.viewPager.setCurrentItem(tab.getPosition());
+                                }
 
-                            @Override
-                            public void onTabUnselected(TabLayout.Tab tab) {
-                            }
+                                @Override
+                                public void onTabUnselected(TabLayout.Tab tab) {
+                                }
 
-                            @Override
-                            public void onTabReselected(TabLayout.Tab tab) {
-                            }
-                        });
+                                @Override
+                                public void onTabReselected(TabLayout.Tab tab) {
+                                }
+                            });
+                } catch (Exception e) {
+                    if (showcaseFragment.getActivity() != null) {
+                        showcaseFragment.getActivity().recreate();
+                    }
+                }
             }
         }
 

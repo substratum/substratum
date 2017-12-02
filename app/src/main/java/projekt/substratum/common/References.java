@@ -41,6 +41,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
@@ -514,16 +515,20 @@ public enum References {
      * @return True, if connected to the internet
      */
     public static boolean isNetworkAvailable(Context mContext) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         assert connectivityManager != null;
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         try {
             InetAddress checkSiteAvailability = InetAddress.getByName("google.com");
+            //noinspection EqualsBetweenInconvertibleTypes
             return activeNetworkInfo != null &&
                     activeNetworkInfo.isConnected() &&
                     !checkSiteAvailability.equals("");
         } catch (Exception e) {
+            e.printStackTrace();
             // Suppress warning
         }
         return false;

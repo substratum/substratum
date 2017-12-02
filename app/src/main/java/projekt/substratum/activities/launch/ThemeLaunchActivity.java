@@ -178,24 +178,29 @@ public class ThemeLaunchActivity extends Activity {
                 byte[] encryption_key = intent.getByteArray(ENCRYPTION_KEY_EXTRA);
                 byte[] iv_encrypt_key = intent.getByteArray(IV_ENCRYPTION_KEY_EXTRA);
 
-                ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation(this,
-                                MainActivity.heroImageTransitionObject, theme_pid);
-                startActivity(
-                        launchThemeActivity(
-                                Substratum.getInstance(),
-                                theme_name,
-                                theme_author,
-                                theme_pid,
-                                theme_mode,
-                                theme_hash,
-                                theme_launch_type,
-                                theme_debug,
-                                theme_piracy_check,
-                                encryption_key,
-                                iv_encrypt_key,
-                                Systems.checkOMS(Substratum.getInstance())
-                        ), options.toBundle());
+                ActivityOptionsCompat options = null;
+                if (theme_pid != null) {
+                    options = ActivityOptionsCompat.
+                            makeSceneTransitionAnimation(this,
+                                    MainActivity.heroImageTransitionObject, theme_pid);
+                }
+                if (options != null) {
+                    startActivity(
+                            launchThemeActivity(
+                                    Substratum.getInstance(),
+                                    theme_name,
+                                    theme_author,
+                                    theme_pid,
+                                    theme_mode,
+                                    theme_hash,
+                                    theme_launch_type,
+                                    theme_debug,
+                                    theme_piracy_check,
+                                    encryption_key,
+                                    iv_encrypt_key,
+                                    Systems.checkOMS(Substratum.getInstance())
+                            ), options.toBundle());
+                }
             }
         } else if (legacyTheme && (requestCode != 10000)) {
             startActivity(

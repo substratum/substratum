@@ -63,6 +63,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
@@ -418,6 +419,13 @@ public class InformationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Postpone the shared element enter transition.
+        postponeEnterTransition();
+
+        requestWindowFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        requestWindowFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
+
         setContentView(R.layout.information_activity);
         ButterKnife.bind(this);
 
@@ -1270,6 +1278,7 @@ public class InformationActivity extends AppCompatActivity {
                     Bitmap bitmap = BitmapFactory.decodeByteArray(
                             informationActivity.byteArray, 0, informationActivity.byteArray.length);
                     informationActivity.heroImage.setImageBitmap(bitmap);
+                    informationActivity.startPostponedEnterTransition();
                 }
             }
         }

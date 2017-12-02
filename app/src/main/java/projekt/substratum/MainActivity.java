@@ -401,7 +401,7 @@ public class MainActivity extends AppCompatActivity implements
                     Typeface typeface = ResourcesCompat.getFont(this, R.font.toolbar_new_ui);
                     TextView textView = ((TextView) child);
                     textView.setTypeface(typeface);
-                    textView.setTextSize(20);
+                    textView.setTextSize(22);
                     break;
                 }
             }

@@ -1042,8 +1042,7 @@ public class InformationActivity extends AppCompatActivity {
                 return true;
             case R.id.disable:
                 // This disables all the installed overlays for this theme
-                AlertDialog.Builder builder3 = new AlertDialog.Builder(InformationActivity
-                        .this);
+                AlertDialog.Builder builder3 = new AlertDialog.Builder(InformationActivity.this);
                 builder3.setTitle(theme_name);
                 builder3.setIcon(Packages.getAppIcon(mContext, theme_pid));
                 builder3.setMessage(R.string.disable_dialog_body)

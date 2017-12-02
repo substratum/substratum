@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import projekt.substratum.BuildConfig;
 import projekt.substratum.util.files.FileDownloader;
 import projekt.substratum.util.files.Root;
 import projekt.substratum.util.readers.ReadSupportedROMsFile;
@@ -90,6 +91,29 @@ public enum Systems {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Checks the backend system (SysServ or Interfacer) whether it is authorized to be used
+     *
+     * @param context Context!
+     * @return True, if the current theming system is authorized
+     */
+    public static Boolean authorizedToUseBackend(Context context) {
+        return !BuildConfig.DEBUG || getForceAuthorizationSetting(context).equals("1");
+    }
+
+    /**
+     * Obtain the system setting's authorization setting for Interfacer/SysServ
+     *
+     * @param context Context!
+     * @return A string object of the obtained setting
+     */
+    public static String getForceAuthorizationSetting(Context context) {
+        return Settings.Secure.getString(
+                context.getContentResolver(),
+                "force_authorize_substratum_packages"
+        );
     }
 
     /**

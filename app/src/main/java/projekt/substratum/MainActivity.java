@@ -112,6 +112,7 @@ import projekt.substratum.util.helpers.ContextWrapper;
 import projekt.substratum.util.injectors.BinaryInstaller;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS;
 import static projekt.substratum.common.Activities.launchActivityUrl;
 import static projekt.substratum.common.Activities.launchExternalActivity;
 import static projekt.substratum.common.Internal.ANDROMEDA_RECEIVER;
@@ -759,6 +760,24 @@ public class MainActivity extends AppCompatActivity implements
                 drawer.setSelection(8L);
             } else {
                 drawer.setSelection((long) selectedDrawer, true);
+            }
+        }
+
+        if (Systems.checkSubstratumService(getApplicationContext()) ||
+                Systems.checkThemeInterfacer(getApplicationContext())) {
+            if (!Systems.authorizedToUseBackend(getApplicationContext())) {
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.backend_not_authorized_title)
+                        .setMessage(R.string.backend_not_authorized_text)
+                        .setPositiveButton(R.string.dialog_ok, (dialogInterface, i) -> {
+                            startActivity(
+                                    new Intent(ACTION_APPLICATION_DEVELOPMENT_SETTINGS));
+                            finishAffinity();
+                        })
+                        .setNegativeButton(R.string.dialog_cancel, (dialogInterface, i) ->
+                                finishAffinity())
+                        .setCancelable(false)
+                        .show();
             }
         }
 

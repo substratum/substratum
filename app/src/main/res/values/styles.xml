@@ -28,7 +28,7 @@
         <item name="android:toolbarStyle">@style/ToolbarTheme</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
         <item name="android:windowContentTransitions">true</item>
-        <item name="colorControlHighlight">#73ffffff</item>
+        <item name="colorControlHighlight">@color/colorRipple</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

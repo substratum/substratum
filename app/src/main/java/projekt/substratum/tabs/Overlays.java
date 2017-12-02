@@ -1304,7 +1304,8 @@ public class Overlays extends Fragment {
                     // Are there any attention files in the overlay folder?
                     boolean attentionPresent = false;
                     for (int i = 0; i < typeArray.size(); i++) {
-                        if (typeArray.get(i).equals("attention")) {
+                        if (typeArray.get(i).equals("attention") ||
+                                typeArray.get(i).equals("attention" + ENCRYPTED_FILE_EXTENSION)) {
                             attentionPresent = true;
                             break;
                         }

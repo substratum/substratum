@@ -30,6 +30,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -207,6 +208,9 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
     private ActivityFinisher activityFinisher;
     private int dominantColor;
     private Context mContext;
+
+    private int mInitialOrientation;
+    private int mOrientation;
 
     @Override
     public void onPullComplete() {
@@ -450,6 +454,9 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
 
         setContentView(R.layout.information_activity);
         ButterKnife.bind(this);
+
+        mInitialOrientation = getResources().getConfiguration().orientation;
+        mOrientation = mInitialOrientation;
 
         mContext = getApplicationContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
@@ -906,6 +913,12 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
         puller.setCallback(this);
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mOrientation = newConfig.orientation;
+    }
+
     /**
      * Creating the options menu (3dot overflow menu)
      *
@@ -1202,9 +1215,19 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
         if (materialSheetFab.isSheetVisible()) {
             materialSheetFab.hideSheet();
         } else {
-            if (uninstalled)
+            if (uninstalled) {
                 Broadcasts.sendRefreshMessage(mContext);
+            }
             supportFinishAfterTransition();
+        }
+    }
+
+    @Override
+    public void supportFinishAfterTransition() {
+        if (mInitialOrientation != mOrientation) {
+            finish();
+        } else {
+            super.supportFinishAfterTransition();
         }
     }
 

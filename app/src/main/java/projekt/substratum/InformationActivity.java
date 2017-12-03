@@ -35,6 +35,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -527,6 +528,9 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
         }
         dominantColor = heroImageBitmap == null ?
                 Color.TRANSPARENT : getDominantColor(heroImageBitmap);
+
+        // Set the background of the pulldown
+        getWindow().setBackgroundDrawable(new ColorDrawable(dominantColor));
 
         // Set the AppBarLayout to have the background color of the dominant color in hero
         appBarLayout.setBackgroundColor(dominantColor);

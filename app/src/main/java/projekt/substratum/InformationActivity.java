@@ -88,6 +88,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ooo.oxo.library.widget.PullBackLayout;
 import projekt.substratum.adapters.tabs.InformationTabsAdapter;
 import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
@@ -141,7 +142,7 @@ import static projekt.substratum.common.References.soundsFragment;
 import static projekt.substratum.common.References.wallpaperFragment;
 import static projekt.substratum.common.Systems.isSamsung;
 
-public class InformationActivity extends AppCompatActivity {
+public class InformationActivity extends AppCompatActivity implements PullBackLayout.Callback{
 
     private static final int LUNCHBAR_DISMISS_FAB_CLICK_DELAY = 200;
     public static Lunchbar currentShownLunchBar;
@@ -184,6 +185,9 @@ public class InformationActivity extends AppCompatActivity {
     TextView enable_disable_selected;
     @BindView(R.id.heroImage)
     ImageView heroImage;
+    @BindView(R.id.puller)
+    PullBackLayout puller;
+
     private String theme_name;
     private String theme_pid;
     private String theme_mode;
@@ -202,6 +206,23 @@ public class InformationActivity extends AppCompatActivity {
     private ActivityFinisher activityFinisher;
     private int dominantColor;
     private Context mContext;
+
+    @Override
+    public void onPullComplete() {
+        supportFinishAfterTransition();
+    }
+
+    @Override
+    public void onPullStart() {
+    }
+
+    @Override
+    public void onPullCancel() {
+    }
+
+    @Override
+    public void onPull(float progress) {
+    }
 
     /**
      * Function to get the dominant color out of a specific image
@@ -877,6 +898,8 @@ public class InformationActivity extends AppCompatActivity {
         if (Systems.isSamsung(mContext)) {
             startService(new Intent(getBaseContext(), SamsungPackageService.class));
         }
+
+        puller.setCallback(this);
     }
 
     /**

@@ -136,7 +136,7 @@ public class PullBackLayout extends FrameLayout {
 
         @Override
         public void onViewReleased(@NonNull View releasedChild, float xvel, float yvel) {
-            int slop = getHeight() / 8;
+            int slop = getHeight() / 12;
             if (releasedChild.getTop() > slop) {
                 if (callback != null) {
                     callback.onPullComplete();

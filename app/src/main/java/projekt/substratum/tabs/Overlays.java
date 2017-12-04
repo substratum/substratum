@@ -1250,7 +1250,8 @@ public class Overlays extends Fragment {
                     // Are there any type2's in the overlay folder?
                     boolean type2checker = false;
                     for (int i = 0; i < typeArray.size(); i++) {
-                        if (typeArray.get(i).startsWith("type2_")) {
+                        String type = typeArray.get(i);
+                        if (type != null && type.startsWith("type2_")) {
                             type2checker = true;
                             break;
                         }
@@ -1278,7 +1279,8 @@ public class Overlays extends Fragment {
                     // Are there any type4's in the overlay folder?
                     boolean type4checker = false;
                     for (int i = 0; i < typeArray.size(); i++) {
-                        if (typeArray.get(i).startsWith("type4_")) {
+                        String type = typeArray.get(i);
+                        if (type != null && type.startsWith("type4_")) {
                             type4checker = true;
                             break;
                         }
@@ -1306,8 +1308,9 @@ public class Overlays extends Fragment {
                     // Are there any attention files in the overlay folder?
                     boolean attentionPresent = false;
                     for (int i = 0; i < typeArray.size(); i++) {
-                        if (typeArray.get(i).equals("attention") ||
-                                typeArray.get(i).equals("attention" + ENCRYPTED_FILE_EXTENSION)) {
+                        String type = typeArray.get(i);
+                        if (type != null && (type.equals("attention") ||
+                                type.equals("attention" + ENCRYPTED_FILE_EXTENSION))) {
                             attentionPresent = true;
                             break;
                         }

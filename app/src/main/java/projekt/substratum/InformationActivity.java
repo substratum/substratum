@@ -1330,6 +1330,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                 }
                 if (!tab_checker.contains(overlaysFragment)) {
                     informationActivity.startPostponedEnterTransition();
+                    MainActivity.themeCardProgressBar.setVisibility(View.GONE);
                 }
             }
         }

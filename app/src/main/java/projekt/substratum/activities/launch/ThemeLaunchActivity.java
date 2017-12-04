@@ -25,7 +25,6 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 import android.util.Pair;
-import android.view.View;
 
 import java.io.Serializable;
 import java.util.concurrent.ThreadLocalRandom;
@@ -62,7 +61,6 @@ public class ThemeLaunchActivity extends Activity {
     private String package_name;
     private String theme_mode;
     private Boolean legacyTheme = false;
-    private View heroImageTransitionObject;
 
     /**
      * Launch the theme

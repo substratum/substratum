@@ -57,6 +57,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -149,6 +150,8 @@ public class MainActivity extends AppCompatActivity implements
     private static final String SELECTED_DRAWER_ITEM = "selected_drawer_item";
     public static String userInput = "";
     public static ArrayList<String> queuedUninstall;
+    @SuppressLint("StaticFieldLeak")
+    public static RelativeLayout themeCardProgressBar;
     @SuppressLint("StaticFieldLeak")
     public static View heroImageTransitionObject;
     private static ActionBar supportActionBar;
@@ -1151,6 +1154,12 @@ public class MainActivity extends AppCompatActivity implements
                 drawer.setSelection(8L);
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (themeCardProgressBar != null) themeCardProgressBar.setVisibility(View.GONE);
     }
 
     /**

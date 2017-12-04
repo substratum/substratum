@@ -87,6 +87,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import projekt.substratum.BuildConfig;
 import projekt.substratum.InformationActivity;
+import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.tabs.overlays.OverlaysAdapter;
 import projekt.substratum.adapters.tabs.overlays.OverlaysItem;
@@ -1476,6 +1477,7 @@ public class Overlays extends Fragment {
                     fragment.mRecyclerView.setVisibility(View.VISIBLE);
                 if (fragment.getActivity() != null) {
                     fragment.getActivity().startPostponedEnterTransition();
+                    MainActivity.themeCardProgressBar.setVisibility(View.GONE);
                 }
             }
         }

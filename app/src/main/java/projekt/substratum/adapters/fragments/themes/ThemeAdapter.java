@@ -37,6 +37,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -142,6 +143,8 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         viewHolder.cardView.setOnClickListener(
                 v -> {
                     MainActivity.heroImageTransitionObject = viewHolder.imageView;
+                    MainActivity.themeCardProgressBar = viewHolder.progressBar;
+                    MainActivity.themeCardProgressBar.setVisibility(View.VISIBLE);
                     Theming.launchTheme(this.mContext,
                             themeItem.getThemePackage(),
                             themeItem.getThemeMode()
@@ -406,6 +409,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         TextView plugin_version;
         ImageView imageView;
         ImageView imageView2;
+        RelativeLayout progressBar;
         View divider;
         ImageView tbo;
         ImageView two;
@@ -420,6 +424,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
             this.plugin_version = view.findViewById(R.id.plugin_version);
             this.imageView = view.findViewById(R.id.theme_preview_image);
             this.imageView2 = view.findViewById(R.id.theme_preview_image_backup);
+            this.progressBar = view.findViewById(R.id.loading_theme);
             this.divider = view.findViewById(R.id.theme_ready_divider);
             this.tbo = view.findViewById(R.id.theme_ready_indicator);
             this.two = view.findViewById(R.id.theme_unready_indicator);

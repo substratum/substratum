@@ -32,7 +32,6 @@ import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.widget.FrameLayout;
 
 public class PullBackLayout extends FrameLayout {
@@ -130,7 +129,7 @@ public class PullBackLayout extends FrameLayout {
                                           int dx,
                                           int dy) {
             if (callback != null) {
-                callback.onPull((float) top / (float) getHeight());
+                callback.onPull((float) (top / getHeight()));
             }
         }
 

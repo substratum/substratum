@@ -1327,6 +1327,8 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                     Bitmap bitmap = BitmapFactory.decodeByteArray(
                             informationActivity.byteArray, 0, informationActivity.byteArray.length);
                     informationActivity.heroImage.setImageBitmap(bitmap);
+                }
+                if (!tab_checker.contains(overlaysFragment)) {
                     informationActivity.startPostponedEnterTransition();
                 }
             }

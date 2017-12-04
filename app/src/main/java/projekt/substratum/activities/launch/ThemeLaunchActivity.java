@@ -19,11 +19,12 @@
 package projekt.substratum.activities.launch;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
-import android.support.v4.app.ActivityOptionsCompat;
+import android.util.Pair;
 import android.view.View;
 
 import java.io.Serializable;
@@ -178,11 +179,12 @@ public class ThemeLaunchActivity extends Activity {
                 byte[] encryption_key = intent.getByteArray(ENCRYPTION_KEY_EXTRA);
                 byte[] iv_encrypt_key = intent.getByteArray(IV_ENCRYPTION_KEY_EXTRA);
 
-                ActivityOptionsCompat options = null;
+                ActivityOptions options = null;
                 if (theme_pid != null) {
-                    options = ActivityOptionsCompat.
-                            makeSceneTransitionAnimation(this,
-                                    MainActivity.heroImageTransitionObject, theme_pid);
+                    options = ActivityOptions.makeSceneTransitionAnimation(
+                            this,
+                            Pair.create(MainActivity.heroImageTransitionObject, theme_pid)
+                    );
                 }
                 if (options != null) {
                     startActivity(

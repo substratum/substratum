@@ -1474,6 +1474,9 @@ public class Overlays extends Fragment {
                 fragment.mAdapter.notifyDataSetChanged();
                 if (!fragment.mRecyclerView.isShown())
                     fragment.mRecyclerView.setVisibility(View.VISIBLE);
+                if (fragment.getActivity() != null) {
+                    fragment.getActivity().startPostponedEnterTransition();
+                }
             }
         }
 

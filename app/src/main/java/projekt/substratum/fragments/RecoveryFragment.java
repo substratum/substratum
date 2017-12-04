@@ -31,6 +31,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Lunchbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -81,15 +82,15 @@ import static projekt.substratum.common.Systems.checkAndromeda;
 public class RecoveryFragment extends Fragment {
 
     @BindView(R.id.overlaysButton)
-    Button overlaysButton;
+    CardView overlaysButton;
     @BindView(R.id.wallpaperButton)
-    Button wallpaperButton;
+    CardView wallpaperButton;
     @BindView(R.id.bootanimationButton)
-    Button bootanimationButton;
+    CardView bootanimationButton;
     @BindView(R.id.fontsButton)
-    Button fontsButton;
+    CardView fontsButton;
     @BindView(R.id.soundsButton)
-    Button soundsButton;
+    CardView soundsButton;
     @BindView(R.id.restore_overlay_card)
     View overlayCard;
     @BindView(R.id.restore_bootanimation_card)

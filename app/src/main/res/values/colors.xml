@@ -20,7 +20,7 @@
     <color name="colorPrimary">#FFF</color>
     <color name="colorPrimaryDark">#f4f4f4</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorRipple">#73ffffff</color>
+    <color name="colorRipple">#73777777</color>
     <color name="navigationBarColor">@android:color/black</color>
     <color name="statusBarColor">@color/colorPrimaryDark</color>
 

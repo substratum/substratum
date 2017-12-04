@@ -23,12 +23,16 @@
     android:layout_gravity="center_horizontal">
 
     <android.support.v7.widget.CardView
+        android:id="@+id/wallpaperButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginEnd="15dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:selectableItemBackground"
         card_view:cardBackgroundColor="@color/main_screen_card_background"
         card_view:cardCornerRadius="@dimen/main_screen_card_corner_radius"
         card_view:cardElevation="@dimen/main_screen_card_corner_elevation">
@@ -49,7 +53,6 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/wallpaper_summary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/wallpaper_text"
@@ -57,19 +60,6 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="5dp"
                 android:text="@string/restore_wallpaper_summary" />
-
-            <Button
-                android:id="@+id/wallpaperButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/wallpaper_summary"
-                android:layout_marginTop="5dp"
-                android:background="@color/backup_button"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:selectableItemBackground"
-                android:text="@string/restore_wallpaper_button"
-                android:textColor="@color/backup_button_text_color" />
 
         </RelativeLayout>
 

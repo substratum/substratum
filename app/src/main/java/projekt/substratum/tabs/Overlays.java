@@ -380,6 +380,7 @@ public class Overlays extends Fragment {
 
         // Allow the user to swipe down to refresh the overlay list
         swipeRefreshLayout.setOnRefreshListener(this::refreshList);
+        swipeRefreshLayout.setEnabled(false);
 
         /*
           PLUGIN TYPE 3: Parse each overlay folder to see if they have folder options

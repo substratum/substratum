@@ -174,6 +174,9 @@ public class MainActivity extends AppCompatActivity implements
     private AndromedaReceiver andromedaReceiver;
     private Context mContext;
     private boolean bottomBarUi;
+    private final float SHOWCASE_ACTIONBAR_ELEVATION = 0f;
+    private float DEFAULT_ACTIONBAR_ELEVATION; // if you read this and knows a better way to pull
+                                               // the dimen value pls halp thx.
 
     /**
      * Checks whether the overlays installed are outdated or not, based on substratum version used
@@ -360,6 +363,8 @@ public class MainActivity extends AppCompatActivity implements
         mProgressDialog = new Dialog(this, R.style.SubstratumBuilder_ActivityTheme);
         mProgressDialog.setCancelable(false);
 
+        DEFAULT_ACTIONBAR_ELEVATION = getResources().getDimension(R.dimen.action_bar_elevation);
+
         if (BuildConfig.DEBUG && !Systems.isSamsung(mContext)) {
             Log.d(SUBSTRATUM_LOG, "Substratum launched with debug mode signatures.");
         }
@@ -418,6 +423,7 @@ public class MainActivity extends AppCompatActivity implements
             bottomBar.setOnTabSelectListener(tabId -> {
                 switch (tabId) {
                     case R.id.tab_themes:
+                        toolbar.setElevation(DEFAULT_ACTIONBAR_ELEVATION);
                         switchThemeFragment(((Systems.checkOMS(
                                 mContext) ?
                                         getString(R.string.app_name) :
@@ -428,18 +434,22 @@ public class MainActivity extends AppCompatActivity implements
                                 References.homeFragment);
                         break;
                     case R.id.tab_overlay_manager:
+                        toolbar.setElevation(DEFAULT_ACTIONBAR_ELEVATION);
                         switchFragment(getString(R.string.nav_overlay_manager),
                                 ManagerFragment.class.getCanonicalName());
                         break;
                     case R.id.tab_rescue:
+                        toolbar.setElevation(DEFAULT_ACTIONBAR_ELEVATION);
                         switchFragment(getString(R.string.nav_manage),
                                 RecoveryFragment.class.getCanonicalName());
                         break;
                     case R.id.tab_showcase:
+                        toolbar.setElevation(SHOWCASE_ACTIONBAR_ELEVATION);
                         switchFragment(getString(R.string.showcase),
                                 ShowcaseFragment.class.getCanonicalName());
                         break;
                     case R.id.tab_settings:
+                        toolbar.setElevation(DEFAULT_ACTIONBAR_ELEVATION);
                         switchFragment(getString(R.string.nav_settings),
                                 SettingsFragment.class.getCanonicalName());
                         break;

@@ -58,6 +58,7 @@ public class ShowcaseFragment extends Fragment {
     @BindView(R.id.no_network)
     RelativeLayout no_network;
     private Context mContext;
+    private DownloadTabs downloadTabs;
 
     /**
      * Refresh the showcase layout by redownloading the tabs
@@ -68,7 +69,7 @@ public class ShowcaseFragment extends Fragment {
             tabLayout.setVisibility(View.VISIBLE);
             viewPager.setVisibility(View.VISIBLE);
 
-            DownloadTabs downloadTabs = new DownloadTabs(this);
+            downloadTabs = new DownloadTabs(this);
             downloadTabs.execute(getString(R.string.showcase_tabs), "showcase_tabs.xml");
         } else {
             no_network.setVisibility(View.VISIBLE);
@@ -99,6 +100,14 @@ public class ShowcaseFragment extends Fragment {
         tabLayout.setVisibility(View.GONE);
         refreshLayout();
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        if (downloadTabs != null) {
+            downloadTabs.cancel(true);
+        }
+        super.onDestroy();
     }
 
     /**

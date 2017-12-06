@@ -47,7 +47,8 @@ public class SamsungPackageService extends Service {
         PackageManager pm = getPackageManager();
         List<ApplicationInfo> currentApps = pm.getInstalledApplications(0);
         initialPackageCount = currentApps.size();
-        new Timer().scheduleAtFixedRate(new TimerTask() {
+
+        new Thread(() -> new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 List<ApplicationInfo> currentApps = pm.getInstalledApplications(0);
@@ -56,7 +57,7 @@ public class SamsungPackageService extends Service {
                     Broadcasts.sendOverlayRefreshMessage(getApplicationContext());
                 }
             }
-        }, 0, 1000);
+        }, 0, 1000)).start();
 
         return START_STICKY;
     }

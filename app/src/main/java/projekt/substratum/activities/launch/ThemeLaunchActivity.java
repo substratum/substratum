@@ -24,7 +24,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
-import android.util.Pair;
 
 import java.io.Serializable;
 import java.util.concurrent.ThreadLocalRandom;
@@ -176,31 +175,34 @@ public class ThemeLaunchActivity extends Activity {
                 Boolean theme_piracy_check = intent.getBoolean(THEME_PIRACY_CHECK);
                 byte[] encryption_key = intent.getByteArray(ENCRYPTION_KEY_EXTRA);
                 byte[] iv_encrypt_key = intent.getByteArray(IV_ENCRYPTION_KEY_EXTRA);
+                boolean isUsingDefaultTheme = isThemeUsingDefaultTheme(theme_pid);
 
                 ActivityOptions options = null;
-                if (theme_pid != null) {
-                    options = ActivityOptions.makeSceneTransitionAnimation(
-                            this,
-                            Pair.create(MainActivity.heroImageTransitionObject, theme_pid)
-                    );
+                if (isUsingDefaultTheme) {
+                    if (theme_pid != null) {
+                        options = ActivityOptions.makeSceneTransitionAnimation(
+                                this,
+                                MainActivity.heroImageTransitionObject, theme_pid
+                        );
+                    }
                 }
-                if (options != null) {
-                    startActivity(
-                            launchThemeActivity(
-                                    Substratum.getInstance(),
-                                    theme_name,
-                                    theme_author,
-                                    theme_pid,
-                                    theme_mode,
-                                    theme_hash,
-                                    theme_launch_type,
-                                    theme_debug,
-                                    theme_piracy_check,
-                                    encryption_key,
-                                    iv_encrypt_key,
-                                    Systems.checkOMS(Substratum.getInstance())
-                            ), options.toBundle());
-                }
+                startActivity(
+                        launchThemeActivity(
+                                Substratum.getInstance(),
+                                theme_name,
+                                theme_author,
+                                theme_pid,
+                                theme_mode,
+                                theme_hash,
+                                theme_launch_type,
+                                theme_debug,
+                                theme_piracy_check,
+                                encryption_key,
+                                iv_encrypt_key,
+                                Systems.checkOMS(Substratum.getInstance())
+                        ), (isUsingDefaultTheme ?
+                                options != null ?
+                                        options.toBundle() : null : null));
             }
         } else if (legacyTheme && (requestCode != 10000)) {
             startActivity(
@@ -221,5 +223,24 @@ public class ThemeLaunchActivity extends Activity {
         }
         legacyTheme = false;
         finish();
+    }
+
+    /**
+     * Check if the theme is using the default manifest theme stated in the template
+     *
+     * @param packageName Package name
+     * @return True, if the theme was not changed from the default
+     */
+    private boolean isThemeUsingDefaultTheme(String packageName) {
+        try {
+            Context themeContext = Substratum.getInstance().createPackageContext(packageName, 0);
+            int themeTheme = themeContext.getApplicationInfo().theme;
+            String themeThemeName = themeContext.getResources().getResourceName(themeTheme);
+            themeThemeName = themeThemeName.split(":style/")[1];
+            return themeThemeName.equals("DialogStyle");
+        } catch (Exception e) {
+            // Suppress exception
+        }
+        return false;
     }
 }

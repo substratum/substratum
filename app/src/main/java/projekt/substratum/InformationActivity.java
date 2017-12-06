@@ -86,7 +86,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -105,7 +104,6 @@ import projekt.substratum.services.system.SamsungPackageService;
 import projekt.substratum.tabs.BootAnimations;
 import projekt.substratum.tabs.WallpapersManager;
 import projekt.substratum.util.files.Root;
-import projekt.substratum.util.helpers.ContextWrapper;
 import projekt.substratum.util.views.FloatingActionMenu;
 import projekt.substratum.util.views.SheetDialog;
 
@@ -144,7 +142,7 @@ import static projekt.substratum.common.References.soundsFragment;
 import static projekt.substratum.common.References.wallpaperFragment;
 import static projekt.substratum.common.Systems.isSamsung;
 
-public class InformationActivity extends AppCompatActivity implements PullBackLayout.Callback{
+public class InformationActivity extends AppCompatActivity implements PullBackLayout.Callback {
 
     private static final int LUNCHBAR_DISMISS_FAB_CLICK_DELAY = 200;
     public static Lunchbar currentShownLunchBar;
@@ -211,23 +209,6 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
 
     private int mInitialOrientation;
     private int mOrientation;
-
-    @Override
-    public void onPullComplete() {
-        supportFinishAfterTransition();
-    }
-
-    @Override
-    public void onPullStart() {
-    }
-
-    @Override
-    public void onPullCancel() {
-    }
-
-    @Override
-    public void onPull(float progress) {
-    }
 
     /**
      * Function to get the dominant color out of a specific image
@@ -303,6 +284,23 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                         (0.587 * (double) Color.green(color)) +
                         (0.114 * (double) Color.blue(color))) / 255.0);
         return darkness < 0.5;
+    }
+
+    @Override
+    public void onPullComplete() {
+        supportFinishAfterTransition();
+    }
+
+    @Override
+    public void onPullStart() {
+    }
+
+    @Override
+    public void onPullCancel() {
+    }
+
+    @Override
+    public void onPull(float progress) {
     }
 
     /**
@@ -1270,23 +1268,6 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
             if (!deleted.exists()) Log.d(References.SUBSTRATUM_BUILDER,
                     "Successfully cleared Substratum cache!");
         }
-    }
-
-    /**
-     * Attach the base context for locale changes
-     *
-     * @param context Self explanatory, bud.
-     */
-    @Override
-    protected void attachBaseContext(Context context) {
-        Context newBase = context;
-        prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        boolean languageCheck = prefs.getBoolean("force_english", false);
-        if (languageCheck) {
-            Locale newLocale = new Locale(Locale.ENGLISH.getLanguage());
-            newBase = ContextWrapper.wrapNewLocale(context, newLocale);
-        }
-        super.attachBaseContext(newBase);
     }
 
     /**

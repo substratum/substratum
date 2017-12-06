@@ -58,6 +58,7 @@ import java.util.List;
 import projekt.substratum.BuildConfig;
 import projekt.substratum.LauncherActivity;
 import projekt.substratum.R;
+import projekt.substratum.Substratum;
 import projekt.substratum.activities.launch.ManageSpaceActivity;
 import projekt.substratum.adapters.fragments.settings.Repository;
 import projekt.substratum.adapters.fragments.settings.ValidatorAdapter;
@@ -286,14 +287,28 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 getString(R.string.settings_force_english_toast_success),
                                 Toast.LENGTH_SHORT).show();
                         prefs.edit().putBoolean("force_english", true).apply();
-                        if (getActivity() != null) getActivity().recreate();
+                        Toast.makeText(mContext,
+                                getString(R.string.substratum_restart_toast),
+                                Toast.LENGTH_LONG).show();
+                        if (getActivity() != null) {
+                            getActivity().finish();
+                            Handler handler = new Handler();
+                            handler.postDelayed(() -> System.exit(0), 500);
+                        }
                     } else {
                         forceEnglish.setChecked(false);
                         Toast.makeText(mContext,
                                 getString(R.string.settings_force_english_toast_reverted),
                                 Toast.LENGTH_SHORT).show();
                         prefs.edit().putBoolean("force_english", false).apply();
-                        if (getActivity() != null) getActivity().recreate();
+                        Toast.makeText(mContext,
+                                getString(R.string.substratum_restart_toast),
+                                Toast.LENGTH_LONG).show();
+                        if (getActivity() != null) {
+                            getActivity().finish();
+                            Handler handler = new Handler();
+                            handler.postDelayed(() -> System.exit(0), 500);
+                        }
                     }
                     return false;
                 });

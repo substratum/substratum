@@ -27,14 +27,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.media.AudioAttributes;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.crash.FirebaseCrash;
+
+import java.util.Locale;
 
 import cat.ereza.customactivityoncrash.config.CaocConfig;
 import projekt.substratum.activities.crash.SubstratumCrash;
@@ -95,6 +99,23 @@ public class Substratum extends Application {
         return (system == OVERLAY_MANAGER_SERVICE_O_ANDROMEDA) ||
                 (system == OVERLAY_MANAGER_SERVICE_O_ROOTED) ||
                 (system == RUNTIME_RESOURCE_OVERLAY_N_ROOTED);
+    }
+
+    /**
+     * Set the locale of the whole app
+     *
+     * @param forceEnglish Force english?
+     */
+    public static void setLocale(boolean forceEnglish) {
+        Resources resources = Substratum.getInstance().getResources();
+        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+        android.content.res.Configuration conf = resources.getConfiguration();
+        if (forceEnglish) {
+            conf.setLocale(Locale.US);
+        } else {
+            conf.setLocale(Locale.getDefault());
+        }
+        resources.updateConfiguration(conf, displayMetrics);
     }
 
     @Override

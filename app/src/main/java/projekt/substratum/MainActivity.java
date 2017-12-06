@@ -81,7 +81,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -109,7 +108,6 @@ import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.services.floatui.SubstratumFloatInterface;
 import projekt.substratum.services.tiles.FloatUiTile;
 import projekt.substratum.util.files.Root;
-import projekt.substratum.util.helpers.ContextWrapper;
 import projekt.substratum.util.injectors.BinaryInstaller;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
@@ -155,6 +153,7 @@ public class MainActivity extends AppCompatActivity implements
     @SuppressLint("StaticFieldLeak")
     public static View heroImageTransitionObject;
     private static ActionBar supportActionBar;
+    private final float SHOWCASE_ACTIONBAR_ELEVATION = 0f;
     public SearchView searchView;
     @BindView(R.id.theme_count)
     public TextView actionbar_content;
@@ -174,9 +173,8 @@ public class MainActivity extends AppCompatActivity implements
     private AndromedaReceiver andromedaReceiver;
     private Context mContext;
     private boolean bottomBarUi;
-    private final float SHOWCASE_ACTIONBAR_ELEVATION = 0f;
     private float DEFAULT_ACTIONBAR_ELEVATION; // if you read this and knows a better way to pull
-                                               // the dimen value pls halp thx.
+    // the dimen value pls halp thx.
 
     /**
      * Checks whether the overlays installed are outdated or not, based on substratum version used
@@ -360,6 +358,9 @@ public class MainActivity extends AppCompatActivity implements
         requestWindowFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
 
         mContext = getApplicationContext();
+        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        Substratum.setLocale(prefs.getBoolean("force_english", false));
+
         mProgressDialog = new Dialog(this, R.style.SubstratumBuilder_ActivityTheme);
         mProgressDialog.setCancelable(false);
 
@@ -1063,23 +1064,6 @@ public class MainActivity extends AppCompatActivity implements
                 finish();
             }
         }
-    }
-
-    /**
-     * Attach the base context for locale changes
-     *
-     * @param context Self explanatory, bud.
-     */
-    @Override
-    protected void attachBaseContext(Context context) {
-        Context newBase = context;
-        prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        boolean languageCheck = prefs.getBoolean("force_english", false);
-        if (languageCheck) {
-            Locale newLocale = new Locale(Locale.ENGLISH.getLanguage());
-            newBase = ContextWrapper.wrapNewLocale(context, newLocale);
-        }
-        super.attachBaseContext(newBase);
     }
 
     /**

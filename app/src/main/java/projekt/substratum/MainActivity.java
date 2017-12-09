@@ -265,7 +265,13 @@ public class MainActivity extends AppCompatActivity implements
             searchView.setIconified(true);
         }
         if (bottomBarUi) {
-            switchToStockToolbar(getString(R.string.nav_main));
+            if (Systems.isSamsung(mContext)) {
+                switchToStockToolbar(getString(R.string.samsung_app_name));
+            } else if (!Systems.checkOMS(mContext)) {
+                switchToStockToolbar(getString(R.string.legacy_app_name));
+            } else {
+                switchToStockToolbar(getString(R.string.nav_main));
+            }
         }
 
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();

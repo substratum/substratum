@@ -18,6 +18,7 @@
 
 package projekt.substratum.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
@@ -91,6 +92,7 @@ import static projekt.substratum.common.commands.FileOperations.delete;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
+    private final static Boolean shouldShowAOPTSwitcher = true; // BuildConfig.DEBUG
     private StringBuilder platformSummary;
     private Preference systemPlatform;
     private List<ValidatorError> errors;
@@ -98,6 +100,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private Context mContext;
     private SharedPreferences prefs;
 
+    @SuppressLint("StringFormatMatches")
     @Override
     public void onCreatePreferences(
             Bundle bundle,
@@ -569,7 +572,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 getPreferenceManager().findPreference("aopt_switcher");
         CheckBoxPreference crashReceiver = (CheckBoxPreference)
                 getPreferenceManager().findPreference("crash_receiver");
-        if (BuildConfig.DEBUG) {
+        if (shouldShowAOPTSwitcher) {
             if ("aapt".equals(prefs.getString("compiler", "aapt"))) {
                 aoptSwitcher.setSummary(R.string.settings_aapt);
             } else {
@@ -714,7 +717,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         if (!isOMS) {
             Preference priority_switcher =
                     getPreferenceManager().findPreference("legacy_priority_switcher");
-            String formatted =
+            @SuppressLint("StringFormatMatches") String formatted =
                     String.format(getString(R.string.legacy_preference_priority_text),
                             References.DEFAULT_PRIORITY,
                             prefs.getInt("legacy_overlay_priority", References.DEFAULT_PRIORITY));

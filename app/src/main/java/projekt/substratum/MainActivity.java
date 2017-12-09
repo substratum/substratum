@@ -296,7 +296,13 @@ public class MainActivity extends AppCompatActivity implements
         fragment.setArguments(bundle);
 
         if (bottomBarUi) {
-            switchToStockToolbar(getString(R.string.nav_main));
+            if (Systems.isSamsung(mContext)) {
+                switchToStockToolbar(getString(R.string.samsung_app_name));
+            } else if (!Systems.checkOMS(mContext)) {
+                switchToStockToolbar(getString(R.string.legacy_app_name));
+            } else {
+                switchToStockToolbar(getString(R.string.nav_main));
+            }
         } else {
             switchToStockToolbar(title);
         }
@@ -321,7 +327,13 @@ public class MainActivity extends AppCompatActivity implements
             searchView.setIconified(true);
         }
         if (bottomBarUi) {
-            switchToStockToolbar(getString(R.string.nav_main));
+            if (Systems.isSamsung(mContext)) {
+                switchToStockToolbar(getString(R.string.samsung_app_name));
+            } else if (!Systems.checkOMS(mContext)) {
+                switchToStockToolbar(getString(R.string.legacy_app_name));
+            } else {
+                switchToStockToolbar(getString(R.string.nav_main));
+            }
         } else {
             switchToStockToolbar(title);
         }
@@ -400,7 +412,13 @@ public class MainActivity extends AppCompatActivity implements
         }
 
         supportActionBar = getSupportActionBar();
-        switchToStockToolbar(getString(R.string.nav_main));
+        if (Systems.isSamsung(mContext)) {
+            switchToStockToolbar(getString(R.string.samsung_app_name));
+        } else if (!Systems.checkOMS(mContext)) {
+            switchToStockToolbar(getString(R.string.legacy_app_name));
+        } else {
+            switchToStockToolbar(getString(R.string.nav_main));
+        }
         bottomBarUi = !prefs.getBoolean("advanced_ui", false);
         if (bottomBarUi) {
             setTheme(R.style.AppTheme_SpecialUI);

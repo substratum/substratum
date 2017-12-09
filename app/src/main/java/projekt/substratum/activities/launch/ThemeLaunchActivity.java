@@ -38,6 +38,7 @@ import projekt.substratum.common.Systems;
 import static android.content.pm.PackageManager.GET_META_DATA;
 import static projekt.substratum.common.Internal.ENCRYPTION_KEY_EXTRA;
 import static projekt.substratum.common.Internal.IV_ENCRYPTION_KEY_EXTRA;
+import static projekt.substratum.common.Internal.NOTIFICATION_LAUNCH;
 import static projekt.substratum.common.Internal.THEME_AUTHOR;
 import static projekt.substratum.common.Internal.THEME_CALLER;
 import static projekt.substratum.common.Internal.THEME_CERTIFIED;
@@ -60,6 +61,7 @@ public class ThemeLaunchActivity extends Activity {
     private String package_name;
     private String theme_mode;
     private Boolean legacyTheme = false;
+    private Boolean notification_launch = false;
 
     /**
      * Launch the theme
@@ -131,6 +133,7 @@ public class ThemeLaunchActivity extends Activity {
         String action = activityExtras.getAction();
         String packageName = activityExtras.getPackage();
         String themeCaller = activityExtras.getStringExtra(THEME_CALLER);
+        notification_launch = activityExtras.getBooleanExtra(NOTIFICATION_LAUNCH, false);
 
         Intent myIntent = new Intent();
         myIntent.putExtra(THEME_CERTIFIED, certified);
@@ -178,7 +181,7 @@ public class ThemeLaunchActivity extends Activity {
                 boolean isUsingDefaultTheme = isThemeUsingDefaultTheme(theme_pid);
 
                 ActivityOptions options = null;
-                if (isUsingDefaultTheme) {
+                if (isUsingDefaultTheme && !notification_launch) {
                     if (theme_pid != null) {
                         options = ActivityOptions.makeSceneTransitionAnimation(
                                 this,

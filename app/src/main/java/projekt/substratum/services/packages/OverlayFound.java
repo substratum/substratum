@@ -129,8 +129,12 @@ public class OverlayFound extends BroadcastReceiver {
                         Packages.getAppIcon(overlayFound.context, theme_package)).getBitmap());
 
                 Intent notificationIntent = Theming.themeIntent(
-                        overlayFound.context, theme_package, null,
-                        References.TEMPLATE_THEME_MODE);
+                        overlayFound.context,
+                        theme_package,
+                        null,
+                        References.TEMPLATE_THEME_MODE,
+                        true
+                );
                 PendingIntent contentIntent = PendingIntent.getActivity(
                         overlayFound.context,
                         (int) System.currentTimeMillis(),

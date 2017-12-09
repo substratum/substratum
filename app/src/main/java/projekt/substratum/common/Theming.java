@@ -13,6 +13,7 @@ import java.util.TreeSet;
 
 import projekt.substratum.activities.launch.ThemeLaunchActivity;
 
+import static projekt.substratum.common.Internal.NOTIFICATION_LAUNCH;
 import static projekt.substratum.common.References.SUBSTRATUM_PACKAGE;
 import static projekt.substratum.common.References.TEMPLATE_GET_KEYS;
 import static projekt.substratum.common.References.TEMPLATE_THEME_MODE;
@@ -49,13 +50,15 @@ public enum Theming {
      */
     public static void launchTheme(Context mContext,
                                    String package_name,
-                                   String theme_mode) {
+                                   String theme_mode,
+                                   Boolean notification) {
         if (mContext.getPackageName().equals(SUBSTRATUM_PACKAGE)) {
             Intent theme_intent = themeIntent(
                     mContext,
                     package_name,
                     theme_mode,
-                    TEMPLATE_THEME_MODE);
+                    TEMPLATE_THEME_MODE,
+                    notification);
             mContext.startActivity(theme_intent);
         }
     }
@@ -73,7 +76,8 @@ public enum Theming {
                     mContext,
                     package_name,
                     null,
-                    TEMPLATE_GET_KEYS);
+                    TEMPLATE_GET_KEYS,
+                    false);
             try {
                 mContext.startActivity(theme_intent);
             } catch (Exception e) {
@@ -94,7 +98,8 @@ public enum Theming {
     public static Intent themeIntent(Context mContext,
                                      String package_name,
                                      String theme_mode,
-                                     String actionIntent) {
+                                     String actionIntent,
+                                     Boolean notification) {
         if (mContext.getPackageName().equals(SUBSTRATUM_PACKAGE)) {
             boolean should_debug = projekt.substratum.BuildConfig.DEBUG;
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
@@ -120,6 +125,8 @@ public enum Theming {
             intentActivity.putExtra("hash_passthrough", hashPassthrough(mContext));
             if (should_debug) Log.d("ThemeLauncher", "Checking for certification...");
             intentActivity.putExtra("certified", prefs.getBoolean("complexion", true));
+            if (notification) Log.d("ThemeLauncher", "Launching theme in notification mode...");
+            intentActivity.putExtra(NOTIFICATION_LAUNCH, notification);
             if (should_debug) Log.d("ThemeLauncher", "Starting Activity...");
             return intentActivity;
         } else {

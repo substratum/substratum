@@ -45,6 +45,8 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.util.helpers.NotificationCreator;
 
+import static projekt.substratum.common.Internal.NOTIFICATION_LAUNCH;
+import static projekt.substratum.common.Internal.THEME_PID;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.metadataSamsungSupport;
 
@@ -238,7 +240,8 @@ public class PackageModificationDetector extends BroadcastReceiver {
 
     private PendingIntent getPendingIntent(String package_name) {
         Intent myIntent = new Intent(mContext, AppShortcutLaunch.class);
-        myIntent.putExtra("theme_pid", package_name);
+        myIntent.putExtra(NOTIFICATION_LAUNCH, true);
+        myIntent.putExtra(THEME_PID, package_name);
         return PendingIntent.getActivity(mContext, 0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
     }
 }

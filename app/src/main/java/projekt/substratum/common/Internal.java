@@ -73,6 +73,7 @@ public enum Internal {
     public static final String THEME_CALLER = "calling_package_name";
     public static final String HOME_TYPE = "home_type";
     public static final String HOME_TITLE = "title";
+    public static final String NOTIFICATION_LAUNCH = "notification_launch";
     // Prefs
     public static final String SOUNDS_APPLIED = "sounds_applied";
     public static final String BOOT_ANIMATION = "bootanimation";

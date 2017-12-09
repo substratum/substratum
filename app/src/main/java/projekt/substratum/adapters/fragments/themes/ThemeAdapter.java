@@ -147,7 +147,8 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                     MainActivity.themeCardProgressBar.setVisibility(View.VISIBLE);
                     Theming.launchTheme(this.mContext,
                             themeItem.getThemePackage(),
-                            themeItem.getThemeMode()
+                            themeItem.getThemeMode(),
+                            false
                     );
                 });
 

@@ -58,7 +58,6 @@ import java.util.List;
 import projekt.substratum.BuildConfig;
 import projekt.substratum.LauncherActivity;
 import projekt.substratum.R;
-import projekt.substratum.Substratum;
 import projekt.substratum.activities.launch.ManageSpaceActivity;
 import projekt.substratum.adapters.fragments.settings.Repository;
 import projekt.substratum.adapters.fragments.settings.ValidatorAdapter;

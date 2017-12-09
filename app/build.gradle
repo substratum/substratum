@@ -33,7 +33,7 @@ final def keystorePropertiesFile = rootProject.file("keystore.properties")
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.1'
+    buildToolsVersion '27.0.2'
 
     lintOptions {
         checkReleaseBuilds false

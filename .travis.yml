@@ -4,7 +4,7 @@ jdk:
 android:
   components:
   - tools
-  - build-tools-27.0.1
+  - build-tools-27.0.2
   - android-27
   - extra-google-m2repository
   - extra-android-m2repository
@@ -23,3 +23,5 @@ cache:
   - "$HOME/.m2"
   - "$HOME/.gradle"
   - "$ANDROID_HOME"
+before_install:
+  - yes | sdkmanager "platforms;android-27"

@@ -98,6 +98,7 @@ import static projekt.substratum.util.files.MapUtils.sortMapByValues;
 public class ManagerFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private static final int MANAGER_FRAGMENT_INITIAL_DELAY = 500;
+    public static MaterialSheetFab materialSheetFab;
     @BindView(R.id.toggle_zone)
     RelativeLayout toggle_zone;
     @BindView(R.id.no_overlays_enabled)
@@ -130,7 +131,6 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     TextView textView;
     private ArrayList<String> activated_overlays;
     private ManagerAdapter mAdapter;
-    private MaterialSheetFab materialSheetFab;
     private SharedPreferences prefs;
     private List<ManagerItem> overlaysList;
     private Boolean first_run;
@@ -737,7 +737,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         protected void onPreExecute() {
             ManagerFragment fragment = ref.get();
             if (fragment != null) {
-                fragment.materialSheetFab.hideSheet();
+                materialSheetFab.hideSheet();
                 fragment.loadingBar.setVisibility(View.VISIBLE);
             }
         }
@@ -834,7 +834,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         protected void onPreExecute() {
             ManagerFragment fragment = ref.get();
             if (fragment != null) {
-                fragment.materialSheetFab.hideSheet();
+                materialSheetFab.hideSheet();
                 fragment.loadingBar.setVisibility(View.VISIBLE);
             }
         }
@@ -1055,7 +1055,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         protected void onPreExecute() {
             ManagerFragment fragment = ref.get();
             if (fragment != null) {
-                fragment.materialSheetFab.hideSheet();
+                materialSheetFab.hideSheet();
                 fragment.loadingBar.setVisibility(View.VISIBLE);
             }
         }
@@ -1155,7 +1155,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             ManagerFragment fragment = ref.get();
             if (fragment != null) {
                 MainActivity.queuedUninstall = new ArrayList<>();
-                fragment.materialSheetFab.hideSheet();
+                materialSheetFab.hideSheet();
                 fragment.loadingBar.setVisibility(View.VISIBLE);
             }
         }

@@ -17,11 +17,6 @@
         title="@string/nav_priorities" />
     <tab
         barColorWhenSelected="@color/bottombar_bar_background"
-        icon="@drawable/toolbar_showcase"
-        id="@+id/tab_showcase"
-        title="@string/showcase" />
-    <tab
-        barColorWhenSelected="@color/bottombar_bar_background"
         icon="@drawable/nav_manage"
         id="@+id/tab_rescue"
         title="@string/nav_manage" />

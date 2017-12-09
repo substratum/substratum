@@ -27,6 +27,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.media.AudioAttributes;
 import android.os.Build;
@@ -38,7 +40,10 @@ import android.util.Log;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.crash.FirebaseCrash;
 
+import java.util.List;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import cat.ereza.customactivityoncrash.config.CaocConfig;
 import projekt.substratum.activities.crash.SubstratumCrash;
@@ -60,8 +65,11 @@ public class Substratum extends Application {
 
     private static final String BINDER_TAG = "BinderService";
     private static final FinishReceiver finishReceiver = new FinishReceiver();
+    public static int initialPackageCount = 0;
+    public static Thread currentThread;
     private static Substratum substratum;
     private static boolean isWaiting;
+    private static Boolean shouldStopThread = false;
 
     /**
      * Get the current instance of the substratum application
@@ -116,6 +124,51 @@ public class Substratum extends Application {
             conf.setLocale(Locale.getDefault());
         }
         resources.updateConfiguration(conf, displayMetrics);
+    }
+
+    /**
+     * Stop the ongoing package detection on Samsung
+     */
+    public static void stopSamsungPackageMonitor() {
+        Log.d("Substratum",
+                "The overlay package refresher for Samsung devices is now stopping!");
+        shouldStopThread = true;
+    }
+
+    /**
+     * Start the ongoing package detection on Samsung
+     *
+     * @param context Context!
+     */
+    public static void startSamsungPackageMonitor(Context context) {
+        Log.d("Substratum",
+                "The overlay package refresher for Samsung devices has been fully loaded.");
+        PackageManager pm = context.getPackageManager();
+        List<ApplicationInfo> currentApps = pm.getInstalledApplications(0);
+        initialPackageCount = currentApps.size();
+        Timer timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                if (shouldStopThread || Substratum.getInstance() == null) {
+                    cancel();
+                    try {
+                        currentThread.stop();
+                    } catch (Exception e) {
+                        // This is an outdated API, but if possible, just terminate it brutally!
+                    }
+                    currentThread = null;
+                }
+                List<ApplicationInfo> currentApps = pm.getInstalledApplications(0);
+                if (initialPackageCount != currentApps.size()) {
+                    initialPackageCount = currentApps.size();
+                    Broadcasts.sendOverlayRefreshMessage(context);
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(timerTask, 0, 1000);
+        currentThread = new Thread(timerTask);
+        currentThread.start();
     }
 
     @Override

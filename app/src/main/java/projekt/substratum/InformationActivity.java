@@ -100,7 +100,6 @@ import projekt.substratum.common.Theming;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
-import projekt.substratum.services.system.SamsungPackageService;
 import projekt.substratum.tabs.BootAnimations;
 import projekt.substratum.tabs.WallpapersManager;
 import projekt.substratum.util.files.Root;
@@ -904,8 +903,9 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                     Lunchbar.LENGTH_SHORT);
             currentShownLunchBar.show();
         }
-        if (Systems.isSamsung(mContext)) {
-            startService(new Intent(getBaseContext(), SamsungPackageService.class));
+        Thread currentThread = Substratum.currentThread;
+        if ((currentThread == null || !currentThread.isAlive()) && Systems.isSamsung(mContext)) {
+            Substratum.startSamsungPackageMonitor(mContext);
         }
 
         puller.setCallback(this);
@@ -1232,6 +1232,12 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
     @Override
     public void onDestroy() {
         super.onDestroy();
+
+        // Close the active Samsung package monitor if applicable
+        Thread currentThread = Substratum.currentThread;
+        if (currentThread != null) {
+            Substratum.stopSamsungPackageMonitor();
+        }
 
         // Close the active compiling notification if the app was closed from recents
         NotificationManager manager =

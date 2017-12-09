@@ -110,10 +110,9 @@ public enum Systems {
      * @return A string object of the obtained setting
      */
     public static String getForceAuthorizationSetting(Context context) {
-        return Settings.Secure.getString(
-                context.getContentResolver(),
-                "force_authorize_substratum_packages"
-        );
+        String forceAuthorize = Settings.Secure.getString(context.getContentResolver(),
+                "force_authorize_substratum_packages");
+        return forceAuthorize == null ? "0" : forceAuthorize;
     }
 
     /**

@@ -106,7 +106,7 @@ import projekt.substratum.util.files.Root;
 import projekt.substratum.util.views.FloatingActionMenu;
 import projekt.substratum.util.views.SheetDialog;
 
-import static android.graphics.Bitmap.CompressFormat.JPEG;
+import static android.graphics.Bitmap.CompressFormat.PNG;
 import static projekt.substratum.common.Internal.ANDROMEDA_RECEIVER;
 import static projekt.substratum.common.Internal.COMPILE_ENABLE;
 import static projekt.substratum.common.Internal.COMPILE_UPDATE;
@@ -218,11 +218,11 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
     private static int getDominantColor(Bitmap bitmap) {
         try {
             Palette palette = Palette.from(bitmap).generate();
-            return palette.getDominantColor(Color.TRANSPARENT);
+            return palette.getDominantColor(Color.BLACK);
         } catch (IllegalArgumentException ignored) {
             // Suppress warning
         }
-        return Color.TRANSPARENT;
+        return Color.BLACK;
     }
 
     /**
@@ -1327,7 +1327,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
             InformationActivity informationActivity = ref.get();
             if (informationActivity != null && informationActivity.heroImageBitmap != null) {
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                informationActivity.heroImageBitmap.compress(JPEG, 100, stream);
+                informationActivity.heroImageBitmap.compress(PNG, 100, stream);
                 informationActivity.byteArray = stream.toByteArray();
             }
             return null;

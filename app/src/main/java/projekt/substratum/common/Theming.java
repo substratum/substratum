@@ -105,6 +105,7 @@ public enum Theming {
             } else {
                 intentActivity = new Intent(mContext, ThemeLaunchActivity.class);
             }
+            intentActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intentActivity.putExtra("package_name", package_name);
             if (should_debug) Log.d("ThemeLauncher", "Assigning action to intent...");
             intentActivity.setAction(actionIntent);

@@ -421,6 +421,12 @@ public class MainActivity extends AppCompatActivity implements
             getSupportActionBar().setDisplayShowHomeEnabled(false);
 
             BottomBar bottomBar = findViewById(R.id.bottomBar);
+            BottomBarTab priorityTab = bottomBar.getTabWithId(R.id.tab_priorities);
+            if (Systems.checkOMS(mContext) && !isSamsung(mContext)) {
+                priorityTab.setVisibility(View.VISIBLE);
+            } else {
+                priorityTab.setVisibility(View.GONE);
+            }
             bottomBar.setOnTabSelectListener(tabId -> {
                 switch (tabId) {
                     case R.id.tab_themes:

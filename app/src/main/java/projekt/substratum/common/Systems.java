@@ -142,7 +142,6 @@ public enum Systems {
                 return prefs.getInt("CURRENT_THEME_MODE", NO_THEME_ENGINE);
             }
 
-            Boolean rooted = Root.checkRootAccess();
             if (checkOreo()) {
                 if (isAndromedaDevice(context) && !isBinderInterfacer(context)) {
                     // Andromeda mode
@@ -158,7 +157,7 @@ public enum Systems {
                             OVERLAY_MANAGER_SERVICE_O_UNROOTED
                     ).apply();
                     return OVERLAY_MANAGER_SERVICE_O_UNROOTED;
-                } else if (rooted) {
+                } else if (Root.checkRootAccess()) {
                     // Rooted mode
                     prefs.edit().putInt(
                             "CURRENT_THEME_MODE",
@@ -188,7 +187,7 @@ public enum Systems {
                             SAMSUNG_THEME_ENGINE_N
                     ).apply();
                     return SAMSUNG_THEME_ENGINE_N;
-                } else if (rooted) {
+                } else if (Root.requestRootAccess()) {
                     // Rooted mode
                     prefs.edit().putInt(
                             "CURRENT_THEME_MODE",

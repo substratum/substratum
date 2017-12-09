@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tabs>
-    <!-- According to the Google Material design homepage, there should be NO LESS than 3 targets,
-    and NO MORE than 5 targets for the bottom navigation:
-    https://material.io/guidelines/components/bottom-navigation.html#bottom-navigation-usage -->
     <tab
         barColorWhenSelected="@color/bottombar_bar_background"
         icon="@drawable/nav_theme_packs"
@@ -13,6 +10,11 @@
         icon="@drawable/nav_overlay_manager"
         id="@+id/tab_overlay_manager"
         title="@string/nav_overlay_manager" />
+    <tab
+        barColorWhenSelected="@color/bottombar_bar_background"
+        icon="@drawable/nav_drawer_priorities"
+        id="@+id/tab_priorities"
+        title="@string/nav_priorities" />
     <tab
         barColorWhenSelected="@color/bottombar_bar_background"
         icon="@drawable/toolbar_showcase"

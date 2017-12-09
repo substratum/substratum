@@ -444,6 +444,11 @@ public class MainActivity extends AppCompatActivity implements
                         switchFragment(getString(R.string.nav_manage),
                                 RecoveryFragment.class.getCanonicalName());
                         break;
+                    case R.id.tab_priorities:
+                        toolbar.setElevation(DEFAULT_ACTIONBAR_ELEVATION);
+                        switchFragment(getString(R.string.nav_priorities),
+                                PriorityLoaderFragment.class.getCanonicalName());
+                        break;
                     case R.id.tab_showcase:
                         toolbar.setElevation(SHOWCASE_ACTIONBAR_ELEVATION);
                         switchFragment(getString(R.string.showcase),

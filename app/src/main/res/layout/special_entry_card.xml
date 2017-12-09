@@ -21,9 +21,9 @@
     android:id="@+id/theme_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="8dp"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="15dp"
+    android:layout_marginEnd="4dp"
+    android:layout_marginStart="4dp"
+    android:layout_marginTop="8dp"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:selectableItemBackground"
@@ -33,26 +33,26 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="96dp"
         android:layout_alignParentStart="true">
 
         <ImageView
             android:id="@+id/theme_preview_image"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             android:scaleType="centerCrop" />
 
         <ImageView
             android:id="@+id/theme_preview_image_backup"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             android:scaleType="centerCrop" />
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="match_parent"
             android:src="@drawable/special_ui_gradient" />
 
         <RelativeLayout
@@ -66,10 +66,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_gravity="center"
+                android:layout_gravity="end"
                 android:layout_marginEnd="15dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
+                android:gravity="end"
                 android:ellipsize="none"
                 android:text="@string/theme_name_placeholder_text"
                 android:textColor="@color/main_screen_card_theme_title_special"
@@ -83,6 +84,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_below="@+id/theme_name"
                 android:layout_gravity="end"
+                android:gravity="end"
                 android:layout_marginBottom="10dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginStart="15dp"
@@ -94,7 +96,7 @@
         <RelativeLayout
             android:id="@+id/loading_theme"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="96dp"
             android:animateLayoutChanges="true"
             android:visibility="gone">
 

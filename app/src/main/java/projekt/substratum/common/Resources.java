@@ -140,6 +140,12 @@ public enum Resources {
             "muskie", // The hidden HTC Pixel 2
             "taimen", // Pixel 2 XL
     };
+    // List of stock overlay packages on Pixel devices
+    // We don't want to run any operations on them.
+    public static final String[] PIXEL_OVERLAY_PACKAGES = {
+            "com.google.android.theme.pixel",
+            "com.android.systemui.theme.dark",
+    };
     // Filter to adjust UI sounds
     private static final String[] ALLOWED_UI_THEMABLE_SOUNDS = {
             "lock_sound",

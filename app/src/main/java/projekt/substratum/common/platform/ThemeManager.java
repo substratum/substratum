@@ -64,6 +64,7 @@ import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ROOTED;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_UNROOTED;
 import static projekt.substratum.common.Resources.FRAMEWORK;
+import static projekt.substratum.common.Resources.PIXEL_OVERLAY_PACKAGES;
 import static projekt.substratum.common.Resources.SETTINGS;
 import static projekt.substratum.common.Resources.SETTINGS_ICONS;
 import static projekt.substratum.common.Resources.SYSTEMUI;
@@ -140,6 +141,7 @@ public enum ThemeManager {
         if (overlays.isEmpty()) return;
         overlays.removeAll(listOverlays(context, STATE_ENABLED));
         if (overlays.isEmpty()) return;
+        overlays.removeAll(Arrays.asList(PIXEL_OVERLAY_PACKAGES));
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
 
@@ -211,6 +213,7 @@ public enum ThemeManager {
         if (overlays.isEmpty()) return;
         overlays.removeAll(listOverlays(context, STATE_DISABLED));
         if (overlays.isEmpty()) return;
+        overlays.removeAll(Arrays.asList(PIXEL_OVERLAY_PACKAGES));
 
         if (checkSubstratumService(context)) {
             SubstratumService.switchOverlay(overlays, false, shouldRestartUI(context, overlays));
@@ -299,6 +302,7 @@ public enum ThemeManager {
         List<String> list = ThemeManager.listOverlays(context, STATE_ENABLED).stream()
                 .filter(o -> getOverlayParent(context, o) != null)
                 .collect(Collectors.toList());
+        list.removeAll(Arrays.asList(PIXEL_OVERLAY_PACKAGES));
         ThemeManager.disableOverlay(context, new ArrayList<>(list));
     }
 

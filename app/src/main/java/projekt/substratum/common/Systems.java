@@ -150,7 +150,7 @@ public enum Systems {
                     ).apply();
                     return OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
                 } else if (checkSubstratumService(context)) {
-                    // Interfacer mode
+                    // SS mode
                     prefs.edit().putInt(
                             "CURRENT_THEME_MODE",
                             OVERLAY_MANAGER_SERVICE_O_UNROOTED
@@ -163,13 +163,6 @@ public enum Systems {
                             OVERLAY_MANAGER_SERVICE_O_ROOTED
                     ).apply();
                     return OVERLAY_MANAGER_SERVICE_O_ROOTED;
-                } else if (checkSubstratumService(context)) {
-                    // SS mode
-                    prefs.edit().putInt(
-                            "CURRENT_THEME_MODE",
-                            OVERLAY_MANAGER_SERVICE_O_UNROOTED
-                    ).apply();
-                    return OVERLAY_MANAGER_SERVICE_O_UNROOTED;
                 }
             } else if (checkNougat()) {
                 if (isBinderInterfacer(context)) {

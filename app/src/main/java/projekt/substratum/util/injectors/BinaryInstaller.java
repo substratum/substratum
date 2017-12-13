@@ -81,9 +81,10 @@ public enum BinaryInstaller {
     private static void inject(Context context, SharedPreferences prefs, String aaptPath) {
         if (!Arrays.toString(Build.SUPPORTED_ABIS).contains("86")) {
             String architecture =
-                    Arrays.asList(Build.SUPPORTED_ABIS).size() > 0 ? "ARM64" : "ARM";
-            FileOperations.copyFromAsset(context, "aapt" + (architecture.equals("ARM64") ?
-                    "64" : ""), aaptPath);
+                    !Arrays.asList(Build.SUPPORTED_64_BIT_ABIS).isEmpty() ? "ARM64" : "ARM";
+            FileOperations.copyFromAsset(context, "aapt" + ("ARM64".equals(architecture) ?
+                    "64" :
+                    ""), aaptPath);
             Log.d(References.SUBSTRATUM_LOG,
                     "Android Asset Packaging Tool (" + architecture + ") " +
                             "has been added into the compiler directory.");

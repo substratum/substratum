@@ -144,7 +144,7 @@
     <string name="settings_about_oms_version_do">动态叠加 (OMS)</string>
     <string name="settings_about_rro_version_2">RRO2（旧版）</string>
     <string name="settings_about_system_version">系统平台</string>
-    <string name="settings_aopt_switcher_title">系统叠加层编译器</string>
+    <string name="settings_aapt_switcher_title">系统叠加层编译器</string>
     <string name="theme_information_tab_one">叠加层</string>
     <string name="theme_information_tab_two">开机动画</string>
     <string name="theme_information_tab_three">字体包</string>

@@ -160,7 +160,7 @@ correctamente&#8230;</string>
     <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Plataforma del Sistema</string>
-    <string name="settings_aopt_switcher_title">Compilador de Capas del Sistema</string>
+    <string name="settings_aapt_switcher_title">Compilador de Capas del Sistema</string>
     <string name="theme_information_tab_one">Capas</string>
     <string name="theme_information_tab_two">Animaciones de Inicio</string>
     <string name="theme_information_tab_three">Packs de Fuentes</string>

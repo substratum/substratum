@@ -157,7 +157,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Systémová platforma</string>
-    <string name="settings_aopt_switcher_title">Kompilátor systémových prekrytí</string>
+    <string name="settings_aapt_switcher_title">Kompilátor systémových prekrytí</string>
     <string name="theme_information_tab_one">Prekrytia</string>
     <string name="theme_information_tab_two">Spúšťacie animácie</string>
     <string name="theme_information_tab_three">Balíčky písiem</string>

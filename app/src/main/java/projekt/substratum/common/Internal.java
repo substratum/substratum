@@ -153,7 +153,7 @@ public enum Internal {
     public static final String XML_UTF = "UTF-8";
     public static final String SYSTEM_MEDIA_PATH = "/system/media/audio";
     // Props
-    public static final String AOPT_PROP = "ro.substratum.aopt";
+    public static final String AAPT_PROP = "ro.substratum.aapt";
     public static final String RECREATE_PROP = "ro.substratum.recreate";
     public static final String REFRESH_PROP = "sys.refresh_theme";
     // Overlays.java

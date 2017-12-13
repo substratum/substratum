@@ -69,13 +69,6 @@
             android:key="manage_space"
             android:title="@string/settings_manage_space_title" />
 
-        <Preference
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:key="aopt_switcher"
-            android:summary="@string/settings_aapt"
-            android:title="@string/settings_aopt_switcher_title" />
-
         <CheckBoxPreference
             android:layout_width="match_parent"
             android:layout_height="match_parent"

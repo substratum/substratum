@@ -40,7 +40,7 @@ import projekt.substratum.BuildConfig;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 
-import static projekt.substratum.common.References.ENABLE_AOPT_OUTPUT;
+import static projekt.substratum.common.References.ENABLE_AAPT_OUTPUT;
 import static projekt.substratum.common.References.permissionSamsungOverlay;
 import static projekt.substratum.common.Systems.getDeviceID;
 
@@ -209,7 +209,7 @@ public enum CompilerCommands {
     }
 
     /**
-     * Create the AOPT working shell commands
+     * Create the AAPT working shell commands
      *
      * @param work_area          Working area
      * @param targetPkg          Target package to build against
@@ -223,7 +223,7 @@ public enum CompilerCommands {
      * @return Returns a string to allow the app to execute
      */
     @SuppressWarnings("StringConcatenationInsideStringBufferAppend")
-    public static String createAOPTShellCommands(String work_area,
+    public static String createAAPTShellCommands(String work_area,
                                                  String targetPkg,
                                                  String overlay_package,
                                                  String theme_name,
@@ -233,8 +233,8 @@ public enum CompilerCommands {
                                                  Context context,
                                                  String dir) {
         StringBuilder sb = new StringBuilder();
-        // Initialize the AOPT command
-        sb.append(context.getFilesDir().getAbsolutePath() + "/aopt p ");
+        // Initialize the AAPT command
+        sb.append(context.getFilesDir().getAbsolutePath() + "/aapt p ");
         // Compile with specified manifest
         sb.append("-M " + work_area + "/AndroidManifest.xml ");
         // If the user picked a variant (type2), compile multiple directories
@@ -255,8 +255,8 @@ public enum CompilerCommands {
         // Specify the file output directory
         sb.append("-F " + work_area + '/' + overlay_package + '.' +
                 theme_name + "-unsigned.apk ");
-        // arguments to conclude the AOPT build
-        if (ENABLE_AOPT_OUTPUT) {
+        // arguments to conclude the AAPT build
+        if (ENABLE_AAPT_OUTPUT) {
             sb.append("-v ");
         }
         // Allow themers to append new resources

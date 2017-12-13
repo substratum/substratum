@@ -162,7 +162,7 @@
     <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Sistemos platforma</string>
-    <string name="settings_aopt_switcher_title">Sistemos perdangų kompiliatorius</string>
+    <string name="settings_aapt_switcher_title">Sistemos perdangų kompiliatorius</string>
     <string name="theme_information_tab_one">Perdangos</string>
     <string name="theme_information_tab_two">Paleidimo animacijos</string>
     <string name="theme_information_tab_three">Šriftų Paketai</string>

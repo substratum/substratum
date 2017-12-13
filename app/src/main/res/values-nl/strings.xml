@@ -147,7 +147,7 @@
     <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Systeemplatform:</string>
-    <string name="settings_aopt_switcher_title">Systeem overlay compilator</string>
+    <string name="settings_aapt_switcher_title">Systeem overlay compilator</string>
     <string name="theme_information_tab_one">Overlays</string>
     <string name="theme_information_tab_two">Opstartanimaties</string>
     <string name="theme_information_tab_three">Lettertypepakketten</string>

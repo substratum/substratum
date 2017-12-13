@@ -72,7 +72,7 @@ public class SubstratumBuilder {
     private String error_logs = "";
 
     /**
-     * Process the AAPT/AOPT commands to be used with the compilation binary
+     * Process the AAPT/AAPT commands to be used with the compilation binary
      *
      * @param work_area          Directory for the work area
      * @param targetPkg          Target package name
@@ -83,9 +83,9 @@ public class SubstratumBuilder {
      * @param legacySwitch       Relates to the switch in Settings to fallback if referencing fails
      * @param context            Self explanatory, bud.
      * @param no_cache_dir       Direct Assets directory
-     * @return Returns a command that will be used with AAPT/AOPT
+     * @return Returns a command that will be used with AAPT/AAPT
      */
-    private static String processAOPTCommands(String work_area,
+    private static String processAAPTCommands(String work_area,
                                               String targetPkg,
                                               String theme_name,
                                               String overlay_package,
@@ -94,7 +94,7 @@ public class SubstratumBuilder {
                                               Boolean legacySwitch,
                                               Context context,
                                               String no_cache_dir) {
-        return CompilerCommands.createAOPTShellCommands(
+        return CompilerCommands.createAAPTShellCommands(
                 work_area,
                 targetPkg,
                 overlay_package,
@@ -117,7 +117,7 @@ public class SubstratumBuilder {
      * @param variant            a String flag to tell the compiler to build variant mode. This
      *                           could be the name of the variant spinner, or a package name for
      *                           OverlayUpdater (used in conjunction with override_package).
-     * @param additional_variant the additional variant (type2) that gets appended during aopt
+     * @param additional_variant the additional variant (type2) that gets appended during aapt
      *                           compilation phase to the main /res folder.
      * @param base_variant       this is linked to variable base_spinner in Overlays.java, for
      *                           type3 base /res replacements.
@@ -166,7 +166,7 @@ public class SubstratumBuilder {
         // 2. Set work area to asset chosen based on the parameter passed into this class
         String work_area = context.getCacheDir().getAbsolutePath() + SUBSTRATUM_BUILDER_CACHE;
 
-        // 3. Create a modified Android Manifest for use with aopt
+        // 3. Create a modified Android Manifest for use with aapt
 
         // 4. Parse the theme's name before adding it into the new manifest to prevent any issues
 
@@ -318,7 +318,7 @@ public class SubstratumBuilder {
         // 6. Compile the new theme apk based on new manifest, framework-res.apk and extracted asset
         if (!has_errored_out) {
             String targetPkg = Packages.getInstalledDirectory(context, targetPackage);
-            String commands = SubstratumBuilder.processAOPTCommands(
+            String commands = SubstratumBuilder.processAAPTCommands(
                     work_area,
                     targetPkg,
                     parse2_themeName,
@@ -331,7 +331,7 @@ public class SubstratumBuilder {
 
             if (ENABLE_DIRECT_ASSETS_LOGGING) Log.d(DA_LOG, "Running commands: " + commands);
 
-            has_errored_out = !runAOPTShellCommands(
+            has_errored_out = !runAAPTShellCommands(
                     commands,
                     work_area,
                     targetPkg,
@@ -542,7 +542,7 @@ public class SubstratumBuilder {
         return error_logs;
     }
 
-    private boolean runAOPTShellCommands(String commands,
+    private boolean runAAPTShellCommands(String commands,
                                          String work_area,
                                          String targetPkg,
                                          String theme_name,
@@ -569,11 +569,11 @@ public class SubstratumBuilder {
                             Log.e(References.SUBSTRATUM_BUILDER,
                                     "This overlay was designed using a legacy theming " +
                                             "style, now falling back to legacy compiler...");
-                            String new_commands = SubstratumBuilder.processAOPTCommands
+                            String new_commands = SubstratumBuilder.processAAPTCommands
                                     (work_area, targetPkg,
                                             theme_name, overlay_package, additional_variant,
                                             asset_replacement, true, context, no_cache_dir);
-                            return runAOPTShellCommands(
+                            return runAAPTShellCommands(
                                     new_commands, work_area, targetPkg, theme_name,
                                     overlay_package, additional_variant, asset_replacement,
                                     true, context, no_cache_dir);

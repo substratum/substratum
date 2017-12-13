@@ -30,39 +30,36 @@ import java.util.Arrays;
 import projekt.substratum.common.References;
 import projekt.substratum.common.commands.FileOperations;
 
-import static projekt.substratum.common.Internal.AOPT_PROP;
-import static projekt.substratum.common.Systems.getProp;
-
 public enum BinaryInstaller {
     ;
 
     /**
-     * Install the AAPT/AOPT and ZipAlign binaries to the working files of Substratum
+     * Install the AAPT/AAPT and ZipAlign binaries to the working files of Substratum
      *
      * @param context Self explanatory, bud.
      * @param forced  Ignore the dynamic check and just install no matter what
      */
     public static void install(Context context, Boolean forced) {
-        injectAOPT(context, forced);
+        injectAAPT(context, forced);
         injectZipAlign(context, forced);
     }
 
     /**
-     * Inject AAPT/AOPT binaries into the device
+     * Inject AAPT/AAPT binaries into the device
      *
      * @param context Self explanatory, bud.
      * @param forced  Ignore the dynamic check and just install no matter what
      */
-    private static void injectAOPT(Context context, Boolean forced) {
+    private static void injectAAPT(Context context, Boolean forced) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        String aoptPath = context.getFilesDir().getAbsolutePath() + "/aopt";
+        String aaptPath = context.getFilesDir().getAbsolutePath() + "/aapt";
 
-        // Check if AOPT is installed on the device
-        File aopt = new File(aoptPath);
+        // Check if AAPT is installed on the device
+        File aapt = new File(aaptPath);
 
-        if (!aopt.isFile() || forced) {
-            inject(context, prefs, aoptPath);
-        } else if (aopt.exists()) {
+        if (!aapt.isFile() || forced) {
+            inject(context, prefs, aaptPath);
+        } else if (aapt.exists()) {
             Log.d(References.SUBSTRATUM_LOG,
                     "The system partition already contains an existing compiler " +
                             "and Substratum is locked and loaded!");
@@ -70,7 +67,7 @@ public enum BinaryInstaller {
             Log.e(References.SUBSTRATUM_LOG,
                     "The system partition already contains an existing compiler, " +
                             "however it does not match Substratum integrity.");
-            inject(context, prefs, aoptPath);
+            inject(context, prefs, aaptPath);
         }
     }
 
@@ -79,44 +76,21 @@ public enum BinaryInstaller {
      *
      * @param context  Self explanatory, bud.
      * @param prefs    Shared preferences to jot down which binary is installed
-     * @param aoptPath Location of AOPT
+     * @param aaptPath Location of AAPT
      */
-    private static void inject(Context context, SharedPreferences prefs, String aoptPath) {
+    private static void inject(Context context, SharedPreferences prefs, String aaptPath) {
         if (!Arrays.toString(Build.SUPPORTED_ABIS).contains("86")) {
-            // Developers: AOPT-ARM (32bit) is using the legacy AAPT binary, while AAPT-ARM64
-            //             (64bit) is using the brand new AOPT binary.
             String architecture =
-                    !Arrays.asList(Build.SUPPORTED_64_BIT_ABIS).isEmpty() ? "ARM64" : "ARM";
-            String integrityCheck = prefs.getString("compiler", "aapt");
-
-            // For ROMs that want to force AOPT
-            String aoptBypassProp = getProp(AOPT_PROP);
-            if (aoptBypassProp != null && aoptBypassProp.length() > 0) {
-                if (integrityCheck.equals("aopt")) {
-                    prefs.edit().putString("compiler", "aopt").apply();
-                }
-                integrityCheck = "aopt";
-            }
-            try {
-                if (integrityCheck.equals("aopt")) {
-                    FileOperations.copyFromAsset(context, "aopt" + ("ARM64".equals(architecture)
-                            ? "64" : ""), aoptPath);
-                    Log.d(References.SUBSTRATUM_LOG,
-                            "Android Overlay Packaging Tool (" + architecture + ") " +
-                                    "has been added into the compiler directory.");
-                } else {
-                    FileOperations.copyFromAsset(context, "aapt", aoptPath);
-                    Log.d(References.SUBSTRATUM_LOG,
-                            "Android Asset Packaging Tool (" + architecture + ") " +
-                                    "has been added into the compiler directory.");
-                }
-            } catch (Exception e) {
-                // Suppress warning
-            }
+                    Arrays.asList(Build.SUPPORTED_ABIS).size() > 0 ? "ARM64" : "ARM";
+            FileOperations.copyFromAsset(context, "aapt" + (architecture.equals("ARM64") ?
+                    "64" : ""), aaptPath);
+            Log.d(References.SUBSTRATUM_LOG,
+                    "Android Asset Packaging Tool (" + architecture + ") " +
+                            "has been added into the compiler directory.");
         } else {
             // Take account for x86 devices
             try {
-                FileOperations.copyFromAsset(context, "aapt86", aoptPath);
+                FileOperations.copyFromAsset(context, "aaptx86", aaptPath);
                 Log.d(References.SUBSTRATUM_LOG,
                         "Android Asset Packaging Tool (x86) " +
                                 "has been added into the compiler directory.");
@@ -124,7 +98,7 @@ public enum BinaryInstaller {
                 // Suppress warning
             }
         }
-        File f = new File(aoptPath);
+        File f = new File(aaptPath);
         if (f.isFile()) {
             if (!f.setExecutable(true, true))
                 Log.e("BinaryInstaller", "Could not set executable...");

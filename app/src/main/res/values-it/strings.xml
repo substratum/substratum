@@ -155,7 +155,7 @@
     <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Piattaforma di sistema</string>
-    <string name="settings_aopt_switcher_title">Compilatore della sovrapposizione di sistema</string>
+    <string name="settings_aapt_switcher_title">Compilatore della sovrapposizione di sistema</string>
     <string name="theme_information_tab_one">Sovrapposizioni</string>
     <string name="theme_information_tab_two">Animazioni d’avvio</string>
     <string name="theme_information_tab_three">Pacchetti dei caratteri</string>

@@ -148,7 +148,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (starsza wersja)</string>
     <string name="settings_about_system_version">Platforma systemowa</string>
-    <string name="settings_aopt_switcher_title">Kompilator nakładek</string>
+    <string name="settings_aapt_switcher_title">Kompilator nakładek</string>
     <string name="theme_information_tab_one">Nakładki</string>
     <string name="theme_information_tab_two">Animacje rozruchu</string>
     <string name="theme_information_tab_three">Pakiety czcionek</string>

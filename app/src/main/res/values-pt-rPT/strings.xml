@@ -168,7 +168,7 @@ corretamente&#8230;</string>
     <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Compatibilidade)</string>
     <string name="settings_about_system_version">Plataforma do sistema</string>
-    <string name="settings_aopt_switcher_title">Compilador de camadas do sistema</string>
+    <string name="settings_aapt_switcher_title">Compilador de camadas do sistema</string>
     <string name="theme_information_tab_one">Camadas</string>
     <string name="theme_information_tab_two">Animações de arranque</string>
     <string name="theme_information_tab_three">Pacotes de tipos de letra</string>

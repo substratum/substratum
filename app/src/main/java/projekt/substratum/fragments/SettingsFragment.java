@@ -92,7 +92,6 @@ import static projekt.substratum.common.commands.FileOperations.delete;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
-    private final static Boolean shouldShowAOPTSwitcher = true; // BuildConfig.DEBUG
     private StringBuilder platformSummary;
     private Preference systemPlatform;
     private List<ValidatorError> errors;
@@ -568,45 +567,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 });
 
         // These should run if the app is running in debug mode
-        Preference aoptSwitcher =
-                getPreferenceManager().findPreference("aopt_switcher");
         CheckBoxPreference crashReceiver = (CheckBoxPreference)
                 getPreferenceManager().findPreference("crash_receiver");
-        if (shouldShowAOPTSwitcher) {
-            if ("aapt".equals(prefs.getString("compiler", "aapt"))) {
-                aoptSwitcher.setSummary(R.string.settings_aapt);
-            } else {
-                aoptSwitcher.setSummary(R.string.settings_aopt);
-            }
-            aoptSwitcher.setOnPreferenceClickListener(
-                    preference -> {
-                        SheetDialog sheetDialog =
-                                new SheetDialog(mContext);
-                        View sheetView = View.inflate(mContext,
-                                R.layout.aopt_sheet_dialog, null);
 
-                        LinearLayout aapt = sheetView.findViewById(R.id.aapt);
-                        LinearLayout aopt = sheetView.findViewById(R.id.aopt);
-                        aapt.setOnClickListener(v -> {
-                            prefs.edit().remove("compiler").apply();
-                            prefs.edit().putString("compiler", "aapt").apply();
-                            prefs.edit().putBoolean("aopt_debug", false).apply();
-                            aoptSwitcher.setSummary(R.string.settings_aapt);
-                            BinaryInstaller.install(mContext, true);
-                            sheetDialog.hide();
-                        });
-                        aopt.setOnClickListener(v -> {
-                            prefs.edit().remove("compiler").apply();
-                            prefs.edit().putString("compiler", "aopt").apply();
-                            prefs.edit().putBoolean("aopt_debug", true).apply();
-                            aoptSwitcher.setSummary(R.string.settings_aopt);
-                            BinaryInstaller.install(mContext, true);
-                            sheetDialog.hide();
-                        });
-                        sheetDialog.setContentView(sheetView);
-                        sheetDialog.show();
-                        return false;
-                    });
 
             if (isOMS) {
                 crashReceiver.setChecked(prefs.getBoolean("crash_receiver", true));
@@ -635,10 +598,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 if (!Systems.checkSubstratumFeature(mContext)) {
                     crashReceiver.setVisible(false);
                 }
-            }
         } else {
             if (isOMS) crashReceiver.setVisible(false);
-            aoptSwitcher.setVisible(false);
         }
 
         // Manage Space Activity

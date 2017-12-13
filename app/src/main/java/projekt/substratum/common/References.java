@@ -86,7 +86,7 @@ public enum References {
 
     public static final Boolean ENABLE_ROOT_CHECK = true; // Force the app to run without root
     public static final Boolean ENABLE_EXTRAS_DIALOG = false; // Show a dialog when applying extras
-    public static final Boolean ENABLE_AOPT_OUTPUT = false; // WARNING, DEVELOPERS - BREAKS COMPILE
+    public static final Boolean ENABLE_AAPT_OUTPUT = false; // WARNING, DEVELOPERS - BREAKS COMPILE
     public static final Boolean ENABLE_PACKAGE_LOGGING = false; // Show time/date/place of install
     public static final Boolean ENABLE_DIRECT_ASSETS_LOGGING = true; // Self explanatory
     public static final Boolean BYPASS_ALL_VERSION_CHECKS = false; // For developer previews only!
@@ -470,7 +470,7 @@ public enum References {
         editor.putBoolean("vibrate_on_compiled", false);
         editor.putBoolean("nougat_style_cards", false);
         editor.putBoolean("alternate_drawer_design", false);
-        editor.putBoolean("aopt_debug", false);
+        editor.putBoolean("aapt_debug", false);
         editor.putBoolean("theme_debug", false);
         editor.putBoolean("force_english", false);
         editor.putBoolean("floatui_show_android_system_overlays", false);

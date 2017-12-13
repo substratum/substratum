@@ -201,7 +201,7 @@ public enum References {
     public static final int DEFAULT_GRID_COUNT = 1;
     public static final int MAX_GRID_COUNT = 4;
     // This int controls the default priority level for legacy overlays
-    public static final int DEFAULT_PRIORITY = 999;
+    public static final int DEFAULT_PRIORITY = 1004;
     public static final int MIN_PRIORITY = 1;
     public static final int MAX_PRIORITY = 9999;
     // These strings control package names for system apps

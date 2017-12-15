@@ -90,7 +90,6 @@ import projekt.substratum.common.systems.ProfileManager;
 import projekt.substratum.tabs.WallpapersManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
 
-import static android.content.om.OverlayInfo.STATE_APPROVED_ENABLED;
 import static projekt.substratum.common.Internal.ALARM_THEME_DIRECTORY;
 import static projekt.substratum.common.Internal.AUDIO_THEME_DIRECTORY;
 import static projekt.substratum.common.Internal.BOOTANIMATION;
@@ -1449,7 +1448,7 @@ public class ProfileFragment extends Fragment {
                 Substratum.getInstance().unregisterFinishReceiver();
                 ArrayList<String> toBeDisabled =
                         new ArrayList<>(ThemeManager.listOverlays(
-                                profileFragment.mContext, STATE_APPROVED_ENABLED));
+                                profileFragment.mContext, ThemeManager.STATE_ENABLED));
                 boolean shouldRestartUi =
                         ThemeManager.shouldRestartUI(profileFragment.mContext, toBeDisabled)
                                 || ThemeManager.shouldRestartUI(profileFragment.mContext, toBeRun);

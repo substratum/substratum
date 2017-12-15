@@ -77,15 +77,12 @@ public enum OverlayManagerService {
      * window mode.
      *
      * @param packageName The name of the overlay package.
-     * @param shouldWait  true to wait to reload resources until refresh is called
      * @return true if the system successfully registered the request, false
      * otherwise.
      */
-    public static boolean enable(String packageName,
-                                 Boolean shouldWait) {
+    public static boolean enable(String packageName) {
         try {
-            boolean success = OM.get().setEnabled(packageName, true, CURRENT_USER,
-                    shouldWait);
+            boolean success = OM.get().setEnabled(packageName, true, CURRENT_USER);
             if (success) {
                 Log.e(SUBSTRATUM_LOG, "Enabled overlay -> " + packageName + '!');
                 return true;
@@ -96,11 +93,9 @@ public enum OverlayManagerService {
         return false;
     }
 
-    public static boolean disable(String packageName,
-                                  Boolean shouldWait) {
+    public static boolean disable(String packageName) {
         try {
-            boolean success = OM.get().setEnabled(packageName, false, CURRENT_USER,
-                    shouldWait);
+            boolean success = OM.get().setEnabled(packageName, false, CURRENT_USER);
             if (success) {
                 Log.e(SUBSTRATUM_LOG, "Disabled overlay -> " + packageName + '!');
                 return true;

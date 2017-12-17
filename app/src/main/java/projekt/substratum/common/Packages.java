@@ -832,13 +832,8 @@ public enum Packages {
                         (appInfo.metaData.getString(metadataVersion) != null)) {
                     // Check if Samsung, and block the showing of the theme if the theme does not
                     // support samsung intentionally!
-                    Boolean samsung_support;
-                    try {
-                        samsung_support = appInfo.metaData.getBoolean(metadataSamsungSupport);
-                    } catch (Exception e) {
-                        // At this point, the themer did not specify a boolean value
-                        samsung_support = true;
-                    }
+                    Boolean samsung_support =
+                            appInfo.metaData.getBoolean(metadataSamsungSupport, true);
                     if (!samsung_support &&
                             (Systems.isSamsungDevice(context) ||
                                     Systems.isNewSamsungDevice(context))) {

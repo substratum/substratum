@@ -160,13 +160,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
 
                 // Samsung check to see if an intentionally disable substratum theme was installed
                 // on a Samsung device
-                Boolean samsung_support;
-                try {
-                    samsung_support = appInfo.metaData.getBoolean(metadataSamsungSupport);
-                } catch (Exception e) {
-                    // At this point, the themer did not specify a boolean value
-                    samsung_support = true;
-                }
+                Boolean samsung_support = appInfo.metaData.getBoolean(metadataSamsungSupport, true);
                 if (!samsung_support &&
                         (Systems.isSamsungDevice(context) || Systems.isNewSamsungDevice(context))) {
                     Log.e(TAG, "Theme does not support Samsung, yet the theme was installed, " +

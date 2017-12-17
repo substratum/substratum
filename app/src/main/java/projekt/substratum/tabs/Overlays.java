@@ -202,6 +202,7 @@ public class Overlays extends Fragment {
     private JobReceiver jobReceiver;
     private LocalBroadcastManager localBroadcastManager;
     private RefreshReceiver refreshReceiver;
+    private Boolean first_start = true;
 
     /**
      * Get the activity's view through a fragment for LunchBar invokes
@@ -862,7 +863,11 @@ public class Overlays extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (!toggle_all.isChecked()) {
+        if (!Systems.checkOMS(mContext) && first_start) {
+            first_start = false;
+            refreshList();
+        }
+        if (Systems.checkOMS(mContext) && !toggle_all.isChecked()) {
             refreshList();
         }
     }

@@ -416,6 +416,7 @@ public enum Systems {
      */
     public static boolean isNewSamsungDevice(Context context) {
         if (context != null) {
+            if (isSamsungDevice(context)) return false;
             List<String> listOfFeatures =
                     Arrays.asList(context.getPackageManager().getSystemSharedLibraryNames());
             return listOfFeatures.contains("timakeystore");

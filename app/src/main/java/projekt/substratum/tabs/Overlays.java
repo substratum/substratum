@@ -1566,9 +1566,9 @@ public class Overlays extends Fragment {
                     --currentInstance.overlaysWaiting;
                 } else {
                     progressBar.setVisibility(View.GONE);
+                    refreshList();
                 }
-            }
-            if (!mCompileDialog.isShowing()) {
+            } else if (!mCompileDialog.isShowing()) {
                 refreshList();
             } else {
                 Log.d(SUBSTRATUM_BUILDER,

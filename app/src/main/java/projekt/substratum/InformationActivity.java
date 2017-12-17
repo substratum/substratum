@@ -480,7 +480,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
         boolean dynamicActionBarColors = getResources().getBoolean(R.bool.dynamicActionBarColors);
         boolean dynamicNavBarColors = getResources().getBoolean(R.bool.dynamicNavigationBarColors);
 
-        // Check if we should apply the new cute font from Google
+        // Check if we should activate the custom font
         boolean bottomBarUi = !prefs.getBoolean("advanced_ui", false);
         if (bottomBarUi) {
             setTheme(R.style.AppTheme_SpecialUI);

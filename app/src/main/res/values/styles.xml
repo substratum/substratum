@@ -154,4 +154,11 @@
         <item name="android:drawablePadding">@dimen/sheet_item_image_spacing</item>
     </style>
 
+    <style name="ShowcaseDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
 </resources>

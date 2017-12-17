@@ -85,6 +85,7 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import projekt.substratum.activities.launch.ShowcaseActivity;
 import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
@@ -114,6 +115,7 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS;
 import static projekt.substratum.common.Activities.launchActivityUrl;
 import static projekt.substratum.common.Activities.launchExternalActivity;
+import static projekt.substratum.common.Activities.launchInternalActivity;
 import static projekt.substratum.common.Internal.ANDROMEDA_RECEIVER;
 import static projekt.substratum.common.Internal.MAIN_ACTIVITY_RECEIVER;
 import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
@@ -894,6 +896,9 @@ public class MainActivity extends AppCompatActivity implements
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
+                return true;
+            case R.id.search:
+                launchInternalActivity(this, ShowcaseActivity.class);
                 return true;
 
             // Begin OMS based options

@@ -32,7 +32,6 @@ import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.Systems.checkAndromeda;
 import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
-import static projekt.substratum.common.Systems.isSamsung;
 import static projekt.substratum.common.Systems.isSamsungDevice;
 
 public enum Resources {
@@ -116,6 +115,12 @@ public enum Resources {
             "Unlock.mp3",
             "Unlock.ogg",
     };
+    // List of stock overlay packages on Pixel devices
+    // We don't want to run any operations on them.
+    public static final String[] PIXEL_OVERLAY_PACKAGES = {
+            "com.google.android.theme.pixel",
+            "com.android.systemui.theme.dark",
+    };
     // Filter to adjust framework elements
     private static final String[] ALLOWED_FRAMEWORK_ELEMENTS = {
             SAMSUNG_FRAMEWORK,
@@ -140,12 +145,6 @@ public enum Resources {
             "walleye", // Pixel 2
             "muskie", // The hidden HTC Pixel 2
             "taimen", // Pixel 2 XL
-    };
-    // List of stock overlay packages on Pixel devices
-    // We don't want to run any operations on them.
-    public static final String[] PIXEL_OVERLAY_PACKAGES = {
-            "com.google.android.theme.pixel",
-            "com.android.systemui.theme.dark",
     };
     // Filter to adjust UI sounds
     private static final String[] ALLOWED_UI_THEMABLE_SOUNDS = {

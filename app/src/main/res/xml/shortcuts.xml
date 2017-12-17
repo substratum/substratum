@@ -20,6 +20,19 @@
     xmlns:tools="http://schemas.android.com/tools">
     <shortcut
         android:enabled="true"
+        android:icon="@drawable/app_shortcut_showcase"
+        android:shortcutDisabledMessage="@string/shortcut_store_disabled"
+        android:shortcutId="store"
+        android:shortcutLongLabel="@string/shortcut_store"
+        android:shortcutShortLabel="@string/shortcut_store"
+        tools:targetApi="n_mr1">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="projekt.substratum.activities.launch.ShowcaseActivity"
+            android:targetPackage="projekt.substratum"/>
+    </shortcut>
+    <shortcut
+        android:enabled="true"
         android:icon="@drawable/app_shortcut_rescue"
         android:shortcutDisabledMessage="@string/shortcut_rescue_disabled"
         android:shortcutId="rescue"

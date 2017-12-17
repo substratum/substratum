@@ -20,12 +20,15 @@
     <string name="app_name" translatable="false">substratum</string>
     <string name="legacy_app_name" translatable="false">substratum legacy</string>
     <string name="samsung_app_name" translatable="false">sungstratum</string>
-    <string name="showcase">Showcase</string>
+    <string name="showcase">showcase</string>
     <string name="drawer_name" translatable="false">projekt substratum</string>
 
     <string name="android">Android version:</string>
     <string name="device">Device model:</string>
 
+    <string name="search_play_store_url" translatable="false">https://play.google.com/store/search?q=Substratum%20Theme&amp;c=apps</string>
+    <string name="search_play_store_url_legacy" translatable="false">https://play.google.com/store/search?q=Substratum%20Legacy%20Theme&amp;c=apps</string>
+    <string name="search_play_store_url_samsung" translatable="false">https://play.google.com/store/search?q=Substratum%20Samsung%20Theme&amp;c=apps</string>
     <string name="supported_roms_url" translatable="false">https://raw.githubusercontent.com/substratum/database/master/supported_roms.xml</string>
     <string name="tbo_theme_ready_url" translatable="false">http://forum.xda-developers.com/android/apps-games/apps-themeable-hangouts-layers-cmte-t3113192</string>
     <string name="substratum_github" translatable="false">https://github.com/substratum/substratum</string>
@@ -328,8 +331,11 @@
     <string name="menu_per_app">FloatUI</string>
     <string name="menu_restart_systemui">Restart SystemUI</string>
     <string name="menu_alphabetize">Change Sorting Mode</string>
+    <string name="menu_search">Play Store Themes</string>
+    <string name="menu_showcase">Showcase</string>
     <string name="menu_uninstall">Uninstall Theme</string>
     <string name="menu_restore_info">Restore info</string>
+    <string name="menu_showcase_info">Showcase info</string>
 
     <string name="menu_favorite_snackbar">Successfully set %s as an app shortcut!</string>
     <string name="menu_favorite_snackbar_cleared">Removed %s from being an app shortcut.</string>
@@ -495,6 +501,8 @@
     <string name="shortcut_floatui">FloatUI</string>
     <string name="shortcut_rescue">Rescue Me!</string>
     <string name="shortcut_rescue_disabled">Rescue Me!</string>
+    <string name="shortcut_store">Theme Showcase</string>
+    <string name="shortcut_store_disabled">Theme Showcase</string>
     <string name="shortcut_overlay_manager">Overlay Manager</string>
     <string name="shortcut_overlay_manager_disabled">Overlay Manager</string>
 
@@ -703,6 +711,13 @@
     <string name="error_dialog_samsung">Substratum Overlay Problem</string>
     <string name="error_dialog_samsung_text">Unfortunately, there seems to be a problem with an overlay installed targeting Substratum and will have to be manually uninstalled using Settings.</string>
 
+    <string name="community_info_overlays">Overlays</string>
+    <string name="community_info_bootanimation">Boot Animations</string>
+    <string name="community_info_fonts">Fonts</string>
+    <string name="community_info_sounds">Sounds</string>
+    <string name="community_info_wallpapers">Wallpapers</string>
+    <string name="community_info_paid">Paid</string>
+
     <string name="restore_info_dialog_title">Attention</string>
     <string name="restore_info_dialog_message">Restoring overlays, font packs, sounds or wallpapers may take some time so please be patient.</string>
     <string name="restore_bootanimation_text">Boot animation</string>
@@ -734,7 +749,7 @@
     <string name="notification_channel_andromeda">Theme system status</string>
     <string name="notification_channel_andromeda_description">Theme system connection status notification</string>
     <!-- Nav drawer -->
-    <string name="nav_main">substratum theme engine</string>
+    <string name="nav_main">substratum</string>
     <string name="nav_home">Themes</string>
     <string name="nav_overlays">Overlays</string>
     <string name="nav_bootanim">Boot animations</string>

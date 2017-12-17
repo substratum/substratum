@@ -43,10 +43,8 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
@@ -69,11 +67,9 @@ import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.util.files.FileDownloader;
-import projekt.substratum.util.injectors.BinaryInstaller;
 import projekt.substratum.util.readers.ReadFilterFile;
 import projekt.substratum.util.readers.ReadRepositoriesFile;
 import projekt.substratum.util.readers.ReadResourcesFile;
-import projekt.substratum.util.views.SheetDialog;
 
 import static projekt.substratum.common.Activities.launchExternalActivity;
 import static projekt.substratum.common.Internal.RECREATE_PROP;
@@ -571,33 +567,33 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 getPreferenceManager().findPreference("crash_receiver");
 
 
-            if (isOMS) {
-                crashReceiver.setChecked(prefs.getBoolean("crash_receiver", true));
-                crashReceiver.setOnPreferenceChangeListener((preference, newValue) -> {
-                    boolean isChecked = (Boolean) newValue;
-                    if (!isChecked) {
-                        AlertDialog.Builder builder =
-                                new AlertDialog.Builder(mContext);
-                        builder.setTitle(R.string.theme_safety_dialog_title);
-                        builder.setMessage(R.string.theme_safety_dialog_content);
-                        builder.setNegativeButton(R.string.dialog_cancel,
-                                (dialog, id) -> dialog.dismiss());
-                        builder.setPositiveButton(
-                                R.string.break_compilation_dialog_continue,
-                                (dialog, id) -> {
-                                    crashReceiver.setChecked(false);
-                                    prefs.edit().putBoolean("crash_receiver", false).apply();
-                                });
-                        builder.show();
-                    } else {
-                        crashReceiver.setChecked(true);
-                        prefs.edit().putBoolean("crash_receiver", true).apply();
-                    }
-                    return false;
-                });
-                if (!Systems.checkSubstratumFeature(mContext)) {
-                    crashReceiver.setVisible(false);
+        if (isOMS) {
+            crashReceiver.setChecked(prefs.getBoolean("crash_receiver", true));
+            crashReceiver.setOnPreferenceChangeListener((preference, newValue) -> {
+                boolean isChecked = (Boolean) newValue;
+                if (!isChecked) {
+                    AlertDialog.Builder builder =
+                            new AlertDialog.Builder(mContext);
+                    builder.setTitle(R.string.theme_safety_dialog_title);
+                    builder.setMessage(R.string.theme_safety_dialog_content);
+                    builder.setNegativeButton(R.string.dialog_cancel,
+                            (dialog, id) -> dialog.dismiss());
+                    builder.setPositiveButton(
+                            R.string.break_compilation_dialog_continue,
+                            (dialog, id) -> {
+                                crashReceiver.setChecked(false);
+                                prefs.edit().putBoolean("crash_receiver", false).apply();
+                            });
+                    builder.show();
+                } else {
+                    crashReceiver.setChecked(true);
+                    prefs.edit().putBoolean("crash_receiver", true).apply();
                 }
+                return false;
+            });
+            if (!Systems.checkSubstratumFeature(mContext)) {
+                crashReceiver.setVisible(false);
+            }
         } else {
             if (isOMS) crashReceiver.setVisible(false);
         }

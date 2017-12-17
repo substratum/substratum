@@ -33,6 +33,13 @@
         android:title="@string/menu_restart_systemui"
         app:showAsAction="always" />
     <item
+        android:id="@+id/search"
+        android:icon="@drawable/toolbar_showcase"
+        android:menuCategory="secondary"
+        android:orderInCategory="2"
+        android:title="@string/menu_showcase"
+        app:showAsAction="ifRoom|collapseActionView"/>
+    <item
         android:id="@+id/per_app"
         android:icon="@drawable/toolbar_per_app"
         android:menuCategory="secondary"

@@ -43,7 +43,8 @@
         <item name="android:navigationBarColor">@color/splashscreen_background</item>
         <item name="android:statusBarColor">@color/splashscreen_background</item>
         <item name="android:windowLightStatusBar">@bool/SplashscreenWindowLightStatusBar</item>
-        <item name="android:windowLightNavigationBar">@bool/SplashscreenWindowLightNavigationBar</item>
+        <item name="android:windowLightNavigationBar">@bool/SplashscreenWindowLightNavigationBar
+        </item>
     </style>
 
 </resources>

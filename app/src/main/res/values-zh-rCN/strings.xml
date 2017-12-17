@@ -76,7 +76,7 @@
     <string name="overlays_variant_default_2">type2 变量</string>
     <string name="overlays_variant_default_3">默认基础变量</string>
     <string name="overlays_variant_default_4">type4 变量</string>
-    <string name="overlays_up_to_date">最新</string>
+    <string name="overlays_up_to_date">最新 (%s)</string>
     <string name="overlays_update_available">有可用更新！\n（%s）</string>
     <string name="overlays_overlay_not_installed">变量未安装</string>
     <string name="shutdownanimation_placeholder_text">请从下拉列表中选择一个开机动画</string>

@@ -79,7 +79,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="overlays_variant_default_2">wariant typ2&#8230;</string>
     <string name="overlays_variant_default_3">Podstawowy wariant domyślny&#8230;</string>
     <string name="overlays_variant_default_4">wariant typ4&#8230;</string>
-    <string name="overlays_up_to_date">AKTUALNE</string>
+    <string name="overlays_up_to_date">AKTUALNE (%s)</string>
     <string name="overlays_update_available">Aktualizacja dostępna!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Wariantu nie zainstalowano</string>
     <string name="shutdownanimation_placeholder_text">Proszę wybrać z listy animację wyłączenia&#8230;</string>

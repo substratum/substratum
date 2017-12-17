@@ -102,7 +102,7 @@
     <string name="overlays_variant_default_2">type2 változat&#8230;</string>
     <string name="overlays_variant_default_3">alapértelmezett alap változat&#8230;</string>
     <string name="overlays_variant_default_4">type4 változat&#8230;</string>
-    <string name="overlays_up_to_date">NAPRAKÉSZ</string>
+    <string name="overlays_up_to_date">NAPRAKÉSZ (%s)</string>
     <string name="overlays_update_available">Frissítés érhető el!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Változat nincs telepítve</string>
     <string name="shutdownanimation_placeholder_text">Kérjük válasszon ki egy rendszerindítási animációt a

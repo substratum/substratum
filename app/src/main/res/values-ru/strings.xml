@@ -79,7 +79,7 @@
     <string name="overlays_variant_default_2">Вариант type2&#8230;</string>
     <string name="overlays_variant_default_3">Вариант по умолчанию&#8230;</string>
     <string name="overlays_variant_default_4">Вариант type4&#8230;</string>
-    <string name="overlays_up_to_date">АКТУАЛЬНО</string>
+    <string name="overlays_up_to_date">АКТУАЛЬНО (%s)</string>
     <string name="overlays_update_available">Доступно обновление!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Вариация не установлена</string>
     <string name="shutdownanimation_placeholder_text">Пожалуйста выберите анимацию выключения из выпадающего списка&#8230;</string>

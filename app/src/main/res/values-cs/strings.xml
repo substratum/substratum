@@ -86,7 +86,7 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="overlays_variant_default_2">typ2 varianta&#8230;</string>
     <string name="overlays_variant_default_3">výchozí varianta&#8230;</string>
     <string name="overlays_variant_default_4">typ4 varianta&#8230;</string>
-    <string name="overlays_up_to_date">AKTUÁLNÍ</string>
+    <string name="overlays_up_to_date">AKTUÁLNÍ (%s)</string>
     <string name="overlays_update_available">Dostupná aktualizace!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Varianta není nainstalována</string>
     <string name="shutdownanimation_placeholder_text">Prosím, vyberte animaci při vypnutí ze seznamu&#8230;</string>

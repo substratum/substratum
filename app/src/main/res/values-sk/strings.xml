@@ -81,7 +81,7 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="overlays_variant_default_2">variant type2&#8230;</string>
     <string name="overlays_variant_default_3">predvolený variant&#8230;</string>
     <string name="overlays_variant_default_4">variant typ4&#8230;</string>
-    <string name="overlays_up_to_date">AKTUÁLNE</string>
+    <string name="overlays_up_to_date">AKTUÁLNE (%s)</string>
     <string name="overlays_update_available">Je dostupná aktualizácia!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variant nie je nainštalovaný</string>
     <string name="shutdownanimation_placeholder_text">Prosím, vyberte z rozbaľovacieho zoznamu animáciu pri vypnutí&#8230;</string>

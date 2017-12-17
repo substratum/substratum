@@ -87,7 +87,7 @@
     <string name="overlays_variant_default_2">tipo2 variantas&#8230;</string>
     <string name="overlays_variant_default_3">numatytosios bazės variantas&#8230;</string>
     <string name="overlays_variant_default_4">tipo4 variantas&#8230;</string>
-    <string name="overlays_up_to_date">Šiuometinis</string>
+    <string name="overlays_up_to_date">Šiuometinis (%s)</string>
     <string name="overlays_update_available">Galimas atnaujinimas!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variantas neįdiegtas</string>
     <string name="shutdownanimation_placeholder_text">Prašome pasirinkti išjungimo animaciją išskleidžiamajame sąraše&#8230;</string>

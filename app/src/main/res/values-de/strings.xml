@@ -74,7 +74,7 @@ bei dir funktioniert. Bitte stelle sicher, dass du eine Custom-Recovery verwende
     <string name="overlays_variant_default_2">typ2 Variante&#8230;</string>
     <string name="overlays_variant_default_3">standard Basis Variante&#8230;</string>
     <string name="overlays_variant_default_4">Typ 4 Variante&#8230;</string>
-    <string name="overlays_up_to_date">AKTUELL</string>
+    <string name="overlays_up_to_date">AKTUELL (%s)</string>
     <string name="overlays_update_available">Aktualisierung verfügbar!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variante nicht installiert</string>
     <string name="bootanimation_dialog_apply_text">Boot-Animation wird angewendet&#8230;</string>

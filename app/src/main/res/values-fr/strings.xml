@@ -79,7 +79,7 @@
     <string name="overlays_variant_default_2">Variante type2&#8230;</string>
     <string name="overlays_variant_default_3">Variante de base par défaut&#8230;</string>
     <string name="overlays_variant_default_4">variante type4&#8230;</string>
-    <string name="overlays_up_to_date">À JOUR</string>
+    <string name="overlays_up_to_date">À JOUR (%s)</string>
     <string name="overlays_update_available">Mise à jour disponible !\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variante non installée</string>
     <string name="bootanimation_placeholder_text">Sélectionnez une animation de démarrage à partir de la liste déroulante&#8230;</string>

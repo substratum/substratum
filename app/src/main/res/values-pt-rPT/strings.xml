@@ -89,7 +89,7 @@ corrigir coisas que não estão a receber temas em modo de compatibilidade, uma 
     <string name="overlays_variant_default_2">variante de tipo2&#8230;</string>
     <string name="overlays_variant_default_3">variável da base padrão&#8230;</string>
     <string name="overlays_variant_default_4">variante de tipo 4&#8230;</string>
-    <string name="overlays_up_to_date">ATUALIZADO</string>
+    <string name="overlays_up_to_date">ATUALIZADO (%s)</string>
     <string name="overlays_update_available">Atualização disponível!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variável não instalada</string>
     <string name="shutdownanimation_placeholder_text">Por favor, selecione uma animação de encerramento através da lista suspensa&#8230;</string>

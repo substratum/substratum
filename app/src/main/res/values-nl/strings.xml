@@ -78,7 +78,7 @@
     <string name="overlays_variant_default_2">type2 variant&#8230;</string>
     <string name="overlays_variant_default_3">standaard basisvariant&#8230;</string>
     <string name="overlays_variant_default_4">type4 variant&#8230;</string>
-    <string name="overlays_up_to_date">UP-TO-DATE</string>
+    <string name="overlays_up_to_date">UP-TO-DATE (%s)</string>
     <string name="overlays_update_available">Update beschikbaar!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variant niet geïnstalleerd</string>
     <string name="shutdownanimation_placeholder_text">Gelieve een afsluitanimatie te kiezen uit de keuzelijst&#8230;</string>

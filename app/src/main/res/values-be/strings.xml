@@ -76,7 +76,7 @@
     <string name="overlays_variant_default_2">варыянт type2&#8230;</string>
     <string name="overlays_variant_default_3">варыянт па змаўчанні&#8230;</string>
     <string name="overlays_variant_default_4">варыянт type4&#8230;</string>
-    <string name="overlays_up_to_date">АКТУАЛЬНА</string>
+    <string name="overlays_up_to_date">АКТУАЛЬНА (%s)</string>
     <string name="overlays_update_available">Даступна абнаўленне!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Варыянт не ўсталяваны</string>
     <string name="shutdownanimation_placeholder_text">Калі ласка выберыце анімацыю выключэння з выпадальнага спісу&#8230;</string>

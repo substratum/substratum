@@ -78,7 +78,9 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 viewHolder.overlayState.setTextColor(
                         context.getColor(R.color.overlay_update_available));
             } else {
-                viewHolder.overlayState.setText(context.getString(R.string.overlays_up_to_date));
+                String format = String.format(context.getString(R.string.overlays_up_to_date),
+                        current_object.versionName);
+                viewHolder.overlayState.setText(format);
                 viewHolder.overlayState.setTextColor(
                         context.getColor(R.color.overlay_update_not_needed));
             }
@@ -125,8 +127,9 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 viewHolder.overlayState.setTextColor(
                         context.getColor(R.color.overlay_update_available));
             } else {
-                viewHolder.overlayState.setText(
-                        context.getString(R.string.overlays_up_to_date));
+                String format = String.format(context.getString(R.string.overlays_up_to_date),
+                        current_object.versionName);
+                viewHolder.overlayState.setText(format);
                 viewHolder.overlayState.setTextColor(
                         context.getColor(R.color.overlay_update_not_needed));
             }
@@ -283,10 +286,28 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
         Context context = current_object.getContext();
 
         viewHolder.app_icon.setImageDrawable(current_object.getAppIcon());
-
         viewHolder.overlayTargetPackageName.setText(current_object.getName());
 
-        viewHolder.overlayTargetPackage.setText(current_object.getPackageName());
+        int targetVersion;
+        switch (current_object.getPackageName()) {
+            case SYSTEMUI_HEADERS:
+            case SYSTEMUI_NAVBARS:
+            case SYSTEMUI_STATUSBARS:
+            case SYSTEMUI_QSTILES:
+                targetVersion = Packages.getAppVersionCode(
+                        context, SYSTEMUI);
+                break;
+            case SETTINGS_ICONS:
+                targetVersion = Packages.getAppVersionCode(
+                        context, SETTINGS);
+                break;
+            default:
+                targetVersion = Packages.getAppVersionCode(
+                        context, current_object.getPackageName());
+        }
+        String packageTargetWithVersion =
+                current_object.getPackageName() + " [" + targetVersion + "]";
+        viewHolder.overlayTargetPackage.setText(packageTargetWithVersion);
 
         if (isPackageInstalled(context,
                 current_object.getPackageName() + '.' + current_object.getThemeName() +
@@ -302,7 +323,9 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 viewHolder.overlayState.setTextColor(
                         context.getColor(R.color.overlay_update_available));
             } else {
-                viewHolder.overlayState.setText(context.getString(R.string.overlays_up_to_date));
+                String format = String.format(context.getString(R.string.overlays_up_to_date),
+                        current_object.versionName);
+                viewHolder.overlayState.setText(format);
                 viewHolder.overlayState.setTextColor(
                         context.getColor(R.color.overlay_update_not_needed));
             }

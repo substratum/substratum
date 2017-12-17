@@ -85,7 +85,7 @@
     <string name="overlays_variant_default_2">variante tipo2&#8230;</string>
     <string name="overlays_variant_default_3">Variante di default&#8230;</string>
     <string name="overlays_variant_default_4">tipo4 variante&#8230;</string>
-    <string name="overlays_up_to_date">Aggiornato</string>
+    <string name="overlays_up_to_date">Aggiornato (%s)</string>
     <string name="overlays_update_available">Aggiornamento disponibile!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variante non installata</string>
     <string name="shutdownanimation_placeholder_text">Per favore seleziona un\'animazione di spegnimento dalla seguente

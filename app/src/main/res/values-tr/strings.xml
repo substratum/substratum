@@ -105,7 +105,7 @@ lütfen
     <string name="overlays_variant_default_2">seçenek2 varyantı&#8230;</string>
     <string name="overlays_variant_default_3">varsayılan taban varyantı&#8230;</string>
     <string name="overlays_variant_default_4">seçenek4 varyantı&#8230;</string>
-    <string name="overlays_up_to_date">GÜNCEL</string>
+    <string name="overlays_up_to_date">GÜNCEL (%s)</string>
     <string name="overlays_update_available">Güncelleme mevcut!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Varyant yüklü değil</string>
     <string name="shutdownanimation_placeholder_text">Lütfen açılan listeden bir önyükleme animasyonu

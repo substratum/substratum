@@ -33,7 +33,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="96dp"
+        android:layout_height="@dimen/special_ui_card_height"
         android:layout_alignParentStart="true">
 
         <ImageView
@@ -96,7 +96,7 @@
         <RelativeLayout
             android:id="@+id/loading_theme"
             android:layout_width="match_parent"
-            android:layout_height="96dp"
+            android:layout_height="match_parent"
             android:animateLayoutChanges="true"
             android:visibility="gone">
 

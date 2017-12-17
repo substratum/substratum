@@ -1105,7 +1105,7 @@ public class Overlays extends Fragment {
                 ) && (!showDangerous ||
                         !ThemeManager.blacklisted(
                                 package_name,
-                                Systems.isSamsung(context) &&
+                                Systems.isSamsungDevice(context) &&
                                         !Packages.isSamsungTheme(
                                                 context,
                                                 overlays.theme_pid
@@ -1561,7 +1561,7 @@ public class Overlays extends Fragment {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (Systems.isSamsung(context) && Root.checkRootAccess()) {
+            if (Systems.isSamsungDevice(context) && Root.checkRootAccess()) {
                 if (currentInstance.overlaysWaiting > 0) {
                     --currentInstance.overlaysWaiting;
                 } else {

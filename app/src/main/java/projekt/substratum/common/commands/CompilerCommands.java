@@ -100,7 +100,7 @@ public enum CompilerCommands {
         }
 
         boolean showOverlayInSamsungSettings =
-                Systems.isSamsung(context) && References.toggleShowSamsungOverlayInSettings;
+                Systems.isSamsungDevice(context) && References.toggleShowSamsungOverlayInSettings;
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
                     .newInstance();

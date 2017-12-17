@@ -469,7 +469,7 @@ public class SubstratumBuilder {
                             EXTERNAL_STORAGE_CACHE + overlayName + "-signed.apk";
                 }
             } else {
-                Boolean isSamsung = Systems.isSamsung(context);
+                Boolean isSamsung = Systems.isSamsungDevice(context);
                 if (isSamsung) {
                     // Take account for Samsung's package manager installation mode
                     Log.d(References.SUBSTRATUM_BUILDER,

@@ -468,6 +468,8 @@
     <string name="andromeda_no_root_dialog_button">Download now!</string>
     <string name="samsung_prototype_no_root_dialog">It seems that you are on a supported Samsung device, an addon was released to support this!</string>
     <string name="samsung_prototype_no_root_dialog_button">Download now!</string>
+    <string name="samsung_prototype_no_firebase_dialog">It seems that you are on a supported Samsung device, but Firebase could not be verified. Please try running through a VPN and reinstall the substratum app as your country may have blocked it!</string>
+    <string name="samsung_prototype_reinstall_dialog">It seems that you are on a supported Samsung device, with the Samsung addon installed. However, verification has failed. Please try reinstalling the addon from Play Store!</string>
 
     <string name="samsung_framework">Samsung Common Framework</string>
     <string name="lg_framework">LG Common Framework</string>

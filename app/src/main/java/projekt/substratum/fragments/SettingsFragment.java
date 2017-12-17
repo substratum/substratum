@@ -107,7 +107,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         mContext = getContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 
-        boolean isSamsung = Systems.isSamsung(mContext);
+        boolean isSamsung = Systems.isSamsungDevice(mContext);
         boolean isOMS = Systems.checkOMS(mContext);
         boolean hasThemeInterfacer = Systems.checkThemeInterfacer(mContext);
         boolean hasAndromeda = Systems.checkAndromeda(mContext);

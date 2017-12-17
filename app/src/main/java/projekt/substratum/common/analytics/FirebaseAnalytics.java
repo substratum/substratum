@@ -21,6 +21,7 @@ package projekt.substratum.common.analytics;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.StrictMode;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -30,6 +31,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -47,6 +50,20 @@ public enum FirebaseAnalytics {
     public static final String NAMES_PREFS = "names";
     public static final String PACKAGES_PREFS = "prefs";
     private static FirebaseDatabase mDatabase;
+
+    public static boolean checkFirebaseAuthorized() {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        try {
+            HttpURLConnection connection = (HttpURLConnection) new URL(
+                    "https://console.firebase.google.com/").openConnection();
+            connection.setRequestMethod("HEAD");
+            return connection.getResponseCode() == HttpURLConnection.HTTP_OK;
+        } catch (Exception e) {
+            // Suppress warning
+        }
+        return false;
+    }
 
     @SuppressLint("MissingFirebaseInstanceTokenRefresh")
     private static DatabaseReference getDatabaseReference() {

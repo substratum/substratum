@@ -210,7 +210,7 @@ enum OverlaysManager {
         }
 
         if (!overlays.currentInstance.checkedOverlays.isEmpty()) {
-            if (Systems.isSamsung(overlays.mContext)) {
+            if (Systems.isSamsungDevice(overlays.mContext)) {
                 if (Root.checkRootAccess() && Root.requestRootAccess()) {
                     ArrayList<String> checked_overlays = new ArrayList<>();
                     for (int i = 0; i < overlays.currentInstance.checkedOverlays.size(); i++) {
@@ -487,7 +487,7 @@ enum OverlaysManager {
                         }
                         break;
                 }
-                if (Systems.isSamsung(context) &&
+                if (Systems.isSamsungDevice(context) &&
                         (overlays.currentInstance.late_install != null) &&
                         !overlays.currentInstance.late_install.isEmpty()) {
                     if (Root.checkRootAccess() && Root.requestRootAccess()) {
@@ -1373,7 +1373,7 @@ enum OverlaysManager {
                 }
 
                 if (!overlays.currentInstance.late_install.isEmpty() &&
-                        !Systems.isSamsung(context)) {
+                        !Systems.isSamsungDevice(context)) {
                     // Install remaining overlays
                     HandlerThread thread = new HandlerThread("LateInstallThread",
                             Thread.MAX_PRIORITY);

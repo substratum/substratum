@@ -275,11 +275,11 @@ public class RecoveryFragment extends Fragment {
             sheetDialog.show();
         });
 
-        if (Systems.isSamsung(mContext)) {
+        if (Systems.isSamsungDevice(mContext)) {
             overlayCard.setVisibility(View.GONE);
         }
 
-        if (Systems.isSamsung(mContext) ||
+        if (Systems.isSamsungDevice(mContext) ||
                 (checkAndromeda(mContext) &&
                         !Root.checkRootAccess())) {
             bootanimationCard.setVisibility(View.GONE);
@@ -289,14 +289,14 @@ public class RecoveryFragment extends Fragment {
             fontsCard.setVisibility(View.GONE);
         }
 
-        if (Systems.isSamsung(mContext) ||
+        if (Systems.isSamsungDevice(mContext) ||
                 (checkAndromeda(mContext) &&
                         !Root.checkRootAccess())) {
             soundCard.setVisibility(View.GONE);
         }
 
         if (!prefs.getBoolean("seen_restore_warning", false) &&
-                !Systems.isSamsung(mContext)) {
+                !Systems.isSamsungDevice(mContext)) {
             showRecoveryWarning();
         }
         return view;

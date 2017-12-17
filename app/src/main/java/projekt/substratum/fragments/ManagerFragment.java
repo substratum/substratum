@@ -323,7 +323,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         uninstall_selected.setOnClickListener(v ->
                 new RunUninstall(ManagerFragment.this).execute());
 
-        if (!Systems.isSamsung(context)
+        if (!Systems.isSamsungDevice(context)
                 && !Systems.checkOMS(context)
                 && !prefs.getBoolean("seen_legacy_warning", false))
             if (getActivity() != null) {
@@ -845,7 +845,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             if (fragment != null) {
                 Context context = fragment.context;
 
-                if (Systems.checkOMS(context) && !Systems.isSamsung(context)) {
+                if (Systems.checkOMS(context) && !Systems.isSamsungDevice(context)) {
                     fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
                     int len = fragment.overlayList.size();
                     ArrayList<String> data = new ArrayList<>();
@@ -900,7 +900,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 } else {
                     for (int i = 0; i < fragment.overlaysList.size(); i++) {
                         if (fragment.overlaysList.get(i).isSelected()) {
-                            if (Systems.isSamsung(context)) {
+                            if (Systems.isSamsungDevice(context)) {
                                 ArrayList<String> overlay = new ArrayList<>();
                                 overlay.add(fragment.overlaysList.get(i).getName());
                                 ThemeManager.uninstallOverlay(context, overlay);
@@ -960,7 +960,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     fragment.activated_overlays.clear();
                     fragment.overlaysList.clear();
 
-                    if (Systems.isSamsung(context)) {
+                    if (Systems.isSamsungDevice(context)) {
                         PackageManager pm = context.getPackageManager();
                         List<ApplicationInfo> packages =
                                 pm.getInstalledApplications(PackageManager.GET_META_DATA);
@@ -1008,7 +1008,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     fragment.setSwipeRefreshLayoutRefreshing();
                 }
 
-                if (!Systems.checkOMS(context) && !Systems.isSamsung(context)) {
+                if (!Systems.checkOMS(context) && !Systems.isSamsungDevice(context)) {
                     Toast.makeText(
                             context,
                             fragment.getString(R.string.toast_disabled6),

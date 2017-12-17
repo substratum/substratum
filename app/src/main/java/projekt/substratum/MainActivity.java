@@ -91,6 +91,7 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.Resources;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.Theming;
+import projekt.substratum.common.analytics.FirebaseAnalytics;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.AndromedaService;
@@ -133,6 +134,7 @@ import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.Systems.checkThemeSystemModule;
 import static projekt.substratum.common.Systems.checkUsagePermissions;
 import static projekt.substratum.common.Systems.isSamsung;
+import static projekt.substratum.common.Systems.isSamsungDevice;
 import static projekt.substratum.common.commands.FileOperations.delete;
 import static projekt.substratum.common.platform.ThemeManager.uninstallOverlay;
 
@@ -203,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements
      * @param activity Activity used to specify the caller
      */
     public static void uninstallMultipleAPKS(Activity activity) {
-        if (Systems.isSamsung(activity.getApplicationContext()) && Root.checkRootAccess()) {
+        if (isSamsungDevice(activity.getApplicationContext()) && Root.checkRootAccess()) {
             uninstallOverlay(activity.getApplicationContext(), MainActivity.queuedUninstall);
         } else if (!MainActivity.queuedUninstall.isEmpty()) {
             Uri packageURI = Uri.parse("package:" + MainActivity.queuedUninstall.get(0));
@@ -378,7 +380,7 @@ public class MainActivity extends AppCompatActivity implements
         mProgressDialog = new Dialog(this, R.style.SubstratumBuilder_ActivityTheme);
         mProgressDialog.setCancelable(false);
 
-        if (BuildConfig.DEBUG && !Systems.isSamsung(mContext)) {
+        if (BuildConfig.DEBUG && !isSamsungDevice(mContext)) {
             Log.d(SUBSTRATUM_LOG, "Substratum launched with debug mode signatures.");
         }
         setContentView(R.layout.main_activity);
@@ -753,7 +755,7 @@ public class MainActivity extends AppCompatActivity implements
                             break;
                         case 103:
                             int sourceURL;
-                            if (Systems.isSamsung(this)) {
+                            if (isSamsungDevice(this)) {
                                 sourceURL = R.string.xda_sungstratum_link;
                             } else {
                                 sourceURL = R.string.xda_link;
@@ -861,7 +863,7 @@ public class MainActivity extends AppCompatActivity implements
         getMenuInflater().inflate(R.menu.activity_menu, menu);
 
         boolean isOMS = Systems.checkOMS(mContext);
-        if (isOMS || isSamsung(mContext)) {
+        if (isOMS || isSamsungDevice(mContext)) {
             menu.findItem(R.id.reboot_device).setVisible(false);
             menu.findItem(R.id.soft_reboot).setVisible(false);
         }
@@ -1360,7 +1362,7 @@ public class MainActivity extends AppCompatActivity implements
                                         !activity.prefs.contains("legacy_dismissal")) {
                                     AlertDialog.Builder alert = new AlertDialog.Builder(activity);
                                     alert.setTitle(R.string.warning_title);
-                                    if (Systems.isSamsung(context)) {
+                                    if (isSamsungDevice(context)) {
                                         alert.setMessage(R.string.samsung_warning_content);
                                     } else {
                                         alert.setMessage(R.string.legacy_warning_content);
@@ -1416,7 +1418,7 @@ public class MainActivity extends AppCompatActivity implements
                             !activity.prefs.contains("legacy_dismissal")) {
                         AlertDialog.Builder alert = new AlertDialog.Builder(activity);
                         alert.setTitle(R.string.warning_title);
-                        if (Systems.isSamsung(context)) {
+                        if (isSamsungDevice(context)) {
                             alert.setMessage(R.string.samsung_warning_content);
                         } else {
                             alert.setMessage(R.string.legacy_warning_content);
@@ -1494,15 +1496,25 @@ public class MainActivity extends AppCompatActivity implements
                     TextView titleView = activity.mProgressDialog.findViewById(R.id.title);
                     TextView textView =
                             activity.mProgressDialog.findViewById(R.id.root_rejected_text);
-                    if (Systems.isSamsungDevice(context)) {
+                    if (isSamsungDevice(context)) {
                         TextView samsungTitle = activity.mProgressDialog.findViewById(
                                 R.id.sungstratum_title);
-                        samsungTitle.setVisibility(View.VISIBLE);
                         Button samsungButton = activity.mProgressDialog.findViewById(
                                 R.id.sungstratum_button);
-                        samsungButton.setVisibility(View.VISIBLE);
                         samsungButton.setOnClickListener(view ->
                                 launchActivityUrl(context, R.string.sungstratum_url));
+                        if (!FirebaseAnalytics.checkFirebaseAuthorized()) {
+                            samsungTitle.setText(activity.getString(
+                                    R.string.samsung_prototype_no_firebase_dialog));
+                        } else if (Packages.isPackageInstalled(context, SST_ADDON_PACKAGE)) {
+                            samsungTitle.setText(
+                                    activity.getString(
+                                            R.string.samsung_prototype_reinstall_dialog));
+                            samsungButton.setVisibility(View.VISIBLE);
+                        } else {
+                            samsungButton.setVisibility(View.VISIBLE);
+                        }
+                        samsungTitle.setVisibility(View.VISIBLE);
                         textView.setVisibility(View.GONE);
                         titleView.setVisibility(View.GONE);
                     } else if (Systems.isAndromedaDevice(context) &&
@@ -1550,7 +1562,8 @@ public class MainActivity extends AppCompatActivity implements
                 boolean samsungCheck = themeSystemModule == SAMSUNG_THEME_ENGINE_N;
                 if (samsungCheck) {
                     // Throw the dialog when sungstratum addon is not installed
-                    return !Packages.isPackageInstalled(context, SST_ADDON_PACKAGE);
+                    return !Packages.isPackageInstalled(context, SST_ADDON_PACKAGE) ||
+                            !isSamsung(context);
                 }
 
                 // Check if the system is Andromeda mode

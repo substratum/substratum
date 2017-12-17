@@ -386,7 +386,7 @@ public enum ThemeManager {
         List<String> list = new ArrayList<>();
         try {
             // Throw certain exceptions intentionally when unsupported device found
-            if (Systems.isSamsung(context)) throw new Exception();
+            if (Systems.isSamsungDevice(context)) throw new Exception();
             if (!Systems.checkOMS(context)) throw new Exception();
 
             // Now let's assume everything that gets through will now be only in OMS ROMs
@@ -595,7 +595,7 @@ public enum ThemeManager {
             } else {
                 // We now know this is not OMS, so fallback for Samsung and Legacy
                 if ((overlayState == STATE_LIST_ALL_OVERLAYS) || (overlayState == STATE_ENABLED)) {
-                    if (Systems.isSamsung(context)) {
+                    if (Systems.isSamsungDevice(context)) {
                         PackageManager pm = context.getPackageManager();
                         List<ApplicationInfo> packages =
                                 pm.getInstalledApplications(PackageManager.GET_META_DATA);
@@ -788,12 +788,12 @@ public enum ThemeManager {
         // if enabled list is not contains any overlays
         if (checkSubstratumService(context)) {
             SubstratumService.uninstallOverlay(overlays, shouldRestartUi);
-        } else if (checkThemeInterfacer(context) && !Systems.isSamsung(context)) {
+        } else if (checkThemeInterfacer(context) && !Systems.isSamsungDevice(context)) {
             ThemeInterfacerService.uninstallOverlays(
                     context,
                     overlays,
                     false);
-        } else if (checkAndromeda(context) && !Systems.isSamsung(context)) {
+        } else if (checkAndromeda(context) && !Systems.isSamsungDevice(context)) {
             if (!AndromedaService.uninstallOverlays(overlays)) {
                 Handler handler = new Handler(Looper.getMainLooper());
                 handler.post(() ->
@@ -803,7 +803,7 @@ public enum ThemeManager {
                                 Toast.LENGTH_LONG).show()
                 );
             }
-        } else if (Systems.isSamsung(context) &&
+        } else if (Systems.isSamsungDevice(context) &&
                 !Root.checkRootAccess() &&
                 !Root.requestRootAccess()) {
             for (int i = 0; i < overlays.size(); i++) {

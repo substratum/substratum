@@ -799,7 +799,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
 
         // This is for the Floating Action Menu actions
         Intent intent = new Intent("Overlays" + START_JOB_ACTION);
-        if (!Systems.checkOMS(this) && !Systems.isSamsung(mContext)) {
+        if (!Systems.checkOMS(this) && !Systems.isSamsungDevice(mContext)) {
             enable_swap.setText(getString(R.string.fab_menu_swap_toggle_legacy));
         } else if (Systems.isSamsung(mContext)) {
             fab_menu_divider.setVisibility(View.GONE);

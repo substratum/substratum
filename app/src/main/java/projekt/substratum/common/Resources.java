@@ -33,6 +33,7 @@ import static projekt.substratum.common.Systems.checkAndromeda;
 import static projekt.substratum.common.Systems.checkSubstratumService;
 import static projekt.substratum.common.Systems.checkThemeInterfacer;
 import static projekt.substratum.common.Systems.isSamsung;
+import static projekt.substratum.common.Systems.isSamsungDevice;
 
 public enum Resources {
     ;
@@ -225,13 +226,13 @@ public enum Resources {
 
     // This method checks whether custom sounds is supported by the system
     public static boolean isSoundsSupported(final Context context) {
-        return !checkAndromeda(context) && !isSamsung(context) &&
+        return !checkAndromeda(context) && !isSamsungDevice(context) &&
                 (checkThemeInterfacer(context) || checkSubstratumService(context));
     }
 
     // This method checks whether custom boot animation is supported by the system
     public static boolean isBootAnimationSupported(final Context context) {
-        return !checkAndromeda(context) && !isSamsung(context);
+        return !checkAndromeda(context) && !isSamsungDevice(context);
     }
 
     // This method checks whether custom shutdown animation is supported by the system
@@ -257,6 +258,6 @@ public enum Resources {
 
     // This method checks whether user profiles is supported by the system
     public static boolean isProfilesSupported(final Context context) {
-        return !checkAndromeda(context) && !isSamsung(context);
+        return !checkAndromeda(context) && !isSamsungDevice(context);
     }
 }

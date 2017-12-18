@@ -416,10 +416,9 @@ enum OverlaysManager {
                 if (textView != null) textView.setText(current_dialog_overlay);
                 ImageView loader_image = overlays.mCompileDialog.findViewById(R.id.icon);
                 if (loader_image != null) {
-                    loader_image.setImageBitmap(
-                            Packages.getBitmapFromDrawable(
+                    loader_image.setImageDrawable(
                                     Packages.getAppIcon(overlays.mContext, this
-                                            .currentPackageName)));
+                                            .currentPackageName));
                 }
                 double progress = (overlays.currentInstance.current_amount /
                         overlays.currentInstance.total_amount) * 100.0;

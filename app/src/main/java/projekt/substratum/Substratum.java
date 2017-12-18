@@ -153,9 +153,8 @@ public class Substratum extends Application {
                 if (shouldStopThread || Substratum.getInstance() == null) {
                     cancel();
                     try {
-                        currentThread.stop();
-                    } catch (Exception e) {
-                        // This is an outdated API, but if possible, just terminate it brutally!
+                        currentThread.interrupt();
+                    } catch (Exception ignored) {
                     }
                     currentThread = null;
                 }

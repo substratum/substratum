@@ -52,18 +52,17 @@ import android.widget.TextView;
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import projekt.substratum.R;
+import projekt.substratum.Substratum;
 import projekt.substratum.adapters.showcase.ShowcaseTabsAdapter;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.util.files.FileDownloader;
 import projekt.substratum.util.files.MD5;
-import projekt.substratum.util.helpers.ContextWrapper;
 import projekt.substratum.util.readers.ReadShowcaseTabsFile;
 
 import static projekt.substratum.common.Internal.ANDROMEDA_RECEIVER;
@@ -177,6 +176,7 @@ public class ShowcaseActivity extends AppCompatActivity {
 
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
+        Substratum.setLocale(prefs.getBoolean("force_english", false));
         // Check if we should activate the custom font
         boolean bottomBarUi = !prefs.getBoolean("advanced_ui", false);
         if (bottomBarUi) {
@@ -234,23 +234,6 @@ public class ShowcaseActivity extends AppCompatActivity {
         Dialog dialog = new Dialog(this, R.style.ShowcaseDialog);
         dialog.setContentView(R.layout.showcase_info);
         dialog.show();
-    }
-
-    /**
-     * Attach the base context for locale changes
-     *
-     * @param context Self explanatory, bud.
-     */
-    @Override
-    protected void attachBaseContext(Context context) {
-        Context newBase = context;
-        prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        boolean languageCheck = prefs.getBoolean("force_english", false);
-        if (languageCheck) {
-            Locale newLocale = new Locale(Locale.ENGLISH.getLanguage());
-            newBase = ContextWrapper.wrapNewLocale(context, newLocale);
-        }
-        super.attachBaseContext(newBase);
     }
 
     /**

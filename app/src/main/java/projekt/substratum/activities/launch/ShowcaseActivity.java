@@ -177,6 +177,15 @@ public class ShowcaseActivity extends AppCompatActivity {
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         Substratum.setLocale(prefs.getBoolean("force_english", false));
+
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(false);
+            getSupportActionBar().setTitle(R.string.showcase);
+        }
+        toolbar.setNavigationOnClickListener((view) -> onBackPressed());
+
         // Check if we should activate the custom font
         boolean bottomBarUi = !prefs.getBoolean("advanced_ui", false);
         if (bottomBarUi) {
@@ -193,14 +202,6 @@ public class ShowcaseActivity extends AppCompatActivity {
                 }
             }
         }
-
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setHomeButtonEnabled(false);
-            getSupportActionBar().setTitle(R.string.showcase);
-        }
-        toolbar.setNavigationOnClickListener((view) -> onBackPressed());
 
         swipeRefreshLayout.setOnRefreshListener(this::recreate);
 

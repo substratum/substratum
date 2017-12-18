@@ -290,7 +290,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         if (getActivity() != null) {
                             getActivity().finish();
                             Handler handler = new Handler();
-                            handler.postDelayed(() -> System.exit(0), 500);
+                            handler.postDelayed(() -> {
+                                Intent intent = mContext.getPackageManager()
+                                        .getLaunchIntentForPackage(mContext.getPackageName());
+                                if (intent != null) {
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                }
+                            }, 300);
                         }
                     } else {
                         forceEnglish.setChecked(false);
@@ -304,7 +311,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         if (getActivity() != null) {
                             getActivity().finish();
                             Handler handler = new Handler();
-                            handler.postDelayed(() -> System.exit(0), 500);
+                            handler.postDelayed(() -> {
+                                Intent intent = mContext.getPackageManager()
+                                        .getLaunchIntentForPackage(mContext.getPackageName());
+                                if (intent != null) {
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                }
+                            }, 300);
                         }
                     }
                     return false;

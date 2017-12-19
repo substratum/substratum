@@ -21,6 +21,8 @@ package projekt.substratum.fragments;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -61,6 +63,7 @@ public class ShowcaseTab extends Fragment {
     RecyclerView mRecyclerView;
     private int current_tab_position;
     private String current_tab_address;
+    private SharedPreferences prefs;
     private Context mContext;
 
     @Override
@@ -69,6 +72,7 @@ public class ShowcaseTab extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         mContext = Substratum.getInstance();
+        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         View view = inflater.inflate(R.layout.showcase_tab, container, false);
         ButterKnife.bind(this, view);
         Bundle bundle = getArguments();
@@ -195,8 +199,12 @@ public class ShowcaseTab extends Fragment {
                 }
                 // Shuffle the deck - every time it will change the order of themes!
                 long seed = System.nanoTime();
-                for (int i = 0; i <= SHOWCASE_SHUFFLE_COUNT; i++)
-                    Collections.shuffle(wallpapers, new Random(seed));
+                boolean alphabetize = showcaseTab.prefs.getBoolean("alphabetize_showcase",
+                        false);
+                if (!alphabetize) {
+                    for (int i = 0; i <= SHOWCASE_SHUFFLE_COUNT; i++)
+                        Collections.shuffle(wallpapers, new Random(seed));
+                }
             }
             return wallpapers;
         }

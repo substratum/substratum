@@ -212,7 +212,12 @@ public class Overlays extends Fragment {
     public View getActivityView() {
         InformationActivity informationActivity = ((InformationActivity) getActivity());
         if (informationActivity != null) {
-            return References.getView(informationActivity);
+            View coordinatorLayout = References.getCoordinatorLayoutView(informationActivity);
+            if (coordinatorLayout != null) {
+                return coordinatorLayout;
+            } else {
+                References.getView(informationActivity);
+            }
         }
         return null;
     }

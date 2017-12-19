@@ -30,7 +30,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -370,13 +369,16 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mContext = getApplicationContext();
+        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        bottomBarUi = !prefs.getBoolean("advanced_ui", false);
+        if (bottomBarUi) setTheme(R.style.AppTheme_SpecialUI);
+
         super.onCreate(savedInstanceState);
 
         requestWindowFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         requestWindowFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
 
-        mContext = getApplicationContext();
-        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         Substratum.setLocale(prefs.getBoolean("force_english", false));
 
         mProgressDialog = new Dialog(this, R.style.SubstratumBuilder_ActivityTheme);
@@ -402,8 +404,6 @@ public class MainActivity extends AppCompatActivity implements
                     new IntentFilter(ANDROMEDA_RECEIVER));
         }
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-
         Systems.setROMVersion(mContext, false);
         Systems.setAndCheckOMS(mContext);
         Systems.setAndCheckSubstratumService(mContext);
@@ -423,16 +423,12 @@ public class MainActivity extends AppCompatActivity implements
         } else {
             switchToStockToolbar(getString(R.string.nav_main));
         }
-        bottomBarUi = !prefs.getBoolean("advanced_ui", false);
         if (bottomBarUi) {
-            setTheme(R.style.AppTheme_SpecialUI);
-            // Change the toolbar font
+            // Change the toolbar title size
             for (int i = 0; i < toolbar.getChildCount(); i++) {
                 View child = toolbar.getChildAt(i);
                 if (child instanceof TextView) {
-                    Typeface typeface = ResourcesCompat.getFont(this, R.font.toolbar_new_ui);
                     TextView textView = ((TextView) child);
-                    textView.setTypeface(typeface);
                     textView.setTextSize(22);
                     break;
                 }

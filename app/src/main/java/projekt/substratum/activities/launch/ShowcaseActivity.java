@@ -27,7 +27,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -170,7 +169,12 @@ public class ShowcaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        boolean bottomBarUi = !prefs.getBoolean("advanced_ui", false);
+        if (bottomBarUi) setTheme(R.style.AppTheme_SpecialUI);
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.showcase_activity);
         ButterKnife.bind(this);
 
@@ -186,17 +190,12 @@ public class ShowcaseActivity extends AppCompatActivity {
         }
         toolbar.setNavigationOnClickListener((view) -> onBackPressed());
 
-        // Check if we should activate the custom font
-        boolean bottomBarUi = !prefs.getBoolean("advanced_ui", false);
         if (bottomBarUi) {
-            setTheme(R.style.AppTheme_SpecialUI);
-            // Change the toolbar font
+            // Change the toolbar title size
             for (int i = 0; i < toolbar.getChildCount(); i++) {
                 View child = toolbar.getChildAt(i);
                 if (child instanceof TextView) {
-                    Typeface typeface = ResourcesCompat.getFont(this, R.font.toolbar_new_ui);
                     TextView textView = ((TextView) child);
-                    textView.setTypeface(typeface);
                     textView.setTextSize(22);
                     break;
                 }

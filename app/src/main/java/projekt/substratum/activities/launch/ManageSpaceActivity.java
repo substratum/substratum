@@ -20,7 +20,6 @@ package projekt.substratum.activities.launch;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Process;
@@ -67,6 +66,11 @@ public class ManageSpaceActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        // Check if we should activate the custom font
+        boolean bottomBarUi = !prefs.getBoolean("advanced_ui", false);
+        if (bottomBarUi) setTheme(R.style.AppTheme_SpecialUI);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_space);
         ButterKnife.bind(this);
@@ -78,18 +82,12 @@ public class ManageSpaceActivity extends AppCompatActivity {
         }
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        // Check if we should activate the custom font
-        boolean bottomBarUi = !prefs.getBoolean("advanced_ui", false);
         if (bottomBarUi) {
-            setTheme(R.style.AppTheme_SpecialUI);
-            // Change the toolbar font
+            // Change the toolbar title size
             for (int i = 0; i < toolbar.getChildCount(); i++) {
                 View child = toolbar.getChildAt(i);
                 if (child instanceof TextView) {
-                    Typeface typeface = ResourcesCompat.getFont(this, R.font.toolbar_new_ui);
                     TextView textView = ((TextView) child);
-                    textView.setTypeface(typeface);
                     textView.setTextSize(22);
                     break;
                 }

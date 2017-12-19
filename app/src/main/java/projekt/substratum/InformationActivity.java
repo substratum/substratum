@@ -441,6 +441,12 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mContext = getApplicationContext();
+        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        // Check if we should activate the custom font
+        boolean bottomBarUi = !prefs.getBoolean("advanced_ui", false);
+        if (bottomBarUi) setTheme(R.style.AppTheme_SpecialUI);
+
         super.onCreate(savedInstanceState);
 
         // Postpone the shared element enter transition.
@@ -455,8 +461,6 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
         mInitialOrientation = getResources().getConfiguration().orientation;
         mOrientation = mInitialOrientation;
 
-        mContext = getApplicationContext();
-        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
 
         // Register the theme install receiver to auto refresh the fragment
@@ -479,12 +483,6 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
         // Themer's booleans to adjust actionbar and navbar colors
         boolean dynamicActionBarColors = getResources().getBoolean(R.bool.dynamicActionBarColors);
         boolean dynamicNavBarColors = getResources().getBoolean(R.bool.dynamicNavigationBarColors);
-
-        // Check if we should activate the custom font
-        boolean bottomBarUi = !prefs.getBoolean("advanced_ui", false);
-        if (bottomBarUi) {
-            setTheme(R.style.AppTheme_SpecialUI);
-        }
 
         // Obtain the current intent to receive the intent data out of it
         Intent currentIntent = getIntent();

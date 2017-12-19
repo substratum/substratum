@@ -34,6 +34,7 @@ import android.widget.TextView;
 import java.io.File;
 import java.util.List;
 
+import projekt.substratum.InformationActivity;
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
@@ -396,14 +397,14 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                         packageVersion);
 
                 currentShownLunchBar = Lunchbar.make(
-                        current_object.getActivityView(),
+                        getLunchbarView(current_object),
                         version,
                         Lunchbar.LENGTH_LONG);
                 currentShownLunchBar.setAction(context.getString(android.R.string.copy),
                         view1 -> {
                             References.copyToClipboard(context, "version", version);
                             currentShownLunchBar = Lunchbar.make(
-                                    current_object.getActivityView(),
+                                    getLunchbarView(current_object),
                                     R.string.overlays_tab_package_ver_message_copied,
                                     Lunchbar.LENGTH_SHORT);
                             currentShownLunchBar.show();
@@ -411,7 +412,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 currentShownLunchBar.show();
             } else {
                 currentShownLunchBar = Lunchbar.make(
-                        current_object.getActivityView(),
+                        getLunchbarView(current_object),
                         R.string.overlays_tab_package_ver_failure,
                         Lunchbar.LENGTH_LONG);
                 currentShownLunchBar.show();
@@ -529,6 +530,14 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 }
             }
         }
+    }
+
+    private View getLunchbarView(OverlaysItem item) {
+        Context context = item.getContext();
+        if (context instanceof InformationActivity) {
+            return References.getCoordinatorLayoutView((InformationActivity) context);
+        }
+        return item.getActivityView();
     }
 
     @Override

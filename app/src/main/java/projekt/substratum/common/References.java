@@ -43,6 +43,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,6 +71,7 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
+import projekt.substratum.InformationActivity;
 import projekt.substratum.LauncherActivity;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
@@ -765,6 +767,20 @@ public enum References {
      */
     public static View getView(Activity activity) {
         return ((ViewGroup) activity.findViewById(android.R.id.content)).getChildAt(0);
+    }
+
+    /**
+     * Returns the Coordinator layout in {@link projekt.substratum.InformationActivity}
+     *
+     * @param Activity the activity instance to be checked.
+     * @return a View object which is an instance of CoordinatorLayout
+     */
+    @Nullable
+    public static View getCoordinatorLayoutView(Activity activity) {
+        if (activity instanceof InformationActivity) {
+            return getView(activity).findViewById(R.id.coordinator_layout);
+        }
+        return null;
     }
 
     /**

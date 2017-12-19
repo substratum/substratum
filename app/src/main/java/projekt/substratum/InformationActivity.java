@@ -131,7 +131,6 @@ import static projekt.substratum.common.References.MANAGER_REFRESH;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.References.bootAnimationsFragment;
 import static projekt.substratum.common.References.fontsFragment;
-import static projekt.substratum.common.References.getView;
 import static projekt.substratum.common.References.metadataHeroOverride;
 import static projekt.substratum.common.References.metadataOverlayParent;
 import static projekt.substratum.common.References.metadataWallpapers;
@@ -359,6 +358,14 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
         setOverflowButtonColor(this, false);
     }
 
+    private static View getLunchbarView(InformationActivity activity) {
+        View coordinatorLayout = References.getCoordinatorLayoutView(activity);
+        if (coordinatorLayout != null) {
+            return coordinatorLayout;
+        }
+        return References.getView(activity);
+    }
+
     /**
      * Handle all the startActivityWithResult calls
      *
@@ -382,12 +389,12 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                                 resultUri.toString().substring(7),
                                 "home");
                         editor.putString("home_wallpaper_applied", theme_pid);
-                        currentShownLunchBar = Lunchbar.make(getView(this),
+                        currentShownLunchBar = Lunchbar.make(getLunchbarView(this),
                                 getString(R.string.wallpaper_homescreen_success),
                                 Lunchbar.LENGTH_LONG);
                         currentShownLunchBar.show();
                     } catch (IOException e) {
-                        currentShownLunchBar = Lunchbar.make(getView(this),
+                        currentShownLunchBar = Lunchbar.make(getLunchbarView(this),
                                 getString(R.string.wallpaper_homescreen_error),
                                 Lunchbar.LENGTH_LONG);
                         currentShownLunchBar.show();
@@ -400,12 +407,12 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                                 resultUri.toString().substring(7),
                                 "lock");
                         editor.putString("lock_wallpaper_applied", theme_pid);
-                        currentShownLunchBar = Lunchbar.make(getView(this),
+                        currentShownLunchBar = Lunchbar.make(getLunchbarView(this),
                                 getString(R.string.wallpaper_lockscreen_success),
                                 Lunchbar.LENGTH_LONG);
                         currentShownLunchBar.show();
                     } catch (IOException e) {
-                        currentShownLunchBar = Lunchbar.make(getView(this),
+                        currentShownLunchBar = Lunchbar.make(getLunchbarView(this),
                                 getString(R.string.wallpaper_lockscreen_error),
                                 Lunchbar.LENGTH_LONG);
                         currentShownLunchBar.show();
@@ -419,12 +426,12 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                                 "all");
                         editor.putString("home_wallpaper_applied", theme_pid);
                         editor.putString("lock_wallpaper_applied", theme_pid);
-                        currentShownLunchBar = Lunchbar.make(getView(this),
+                        currentShownLunchBar = Lunchbar.make(getLunchbarView(this),
                                 getString(R.string.wallpaper_allscreen_success),
                                 Lunchbar.LENGTH_LONG);
                         currentShownLunchBar.show();
                     } catch (IOException e) {
-                        currentShownLunchBar = Lunchbar.make(getView(this),
+                        currentShownLunchBar = Lunchbar.make(getLunchbarView(this),
                                 getString(R.string.wallpaper_allscreen_error),
                                 Lunchbar.LENGTH_LONG);
                         currentShownLunchBar.show();
@@ -896,7 +903,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                 !Packages.isSamsungTheme(mContext, theme_pid) &&
                 shouldShowSamsungWarning) {
             currentShownLunchBar = Lunchbar.make(
-                    getView(this),
+                    getLunchbarView(this),
                     R.string.toast_samsung_prototype_alert,
                     Lunchbar.LENGTH_SHORT);
             currentShownLunchBar.show();
@@ -1109,7 +1116,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                                     // NameNotFound
                                 }
                             }
-                            currentShownLunchBar = Lunchbar.make(getView(this),
+                            currentShownLunchBar = Lunchbar.make(getLunchbarView(this),
                                     getString(R.string.disable_completion),
                                     Lunchbar.LENGTH_LONG);
                             currentShownLunchBar.show();
@@ -1157,7 +1164,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                                     // NameNotFound
                                 }
                             }
-                            currentShownLunchBar = Lunchbar.make(getView(this),
+                            currentShownLunchBar = Lunchbar.make(getLunchbarView(this),
                                     getString(R.string.enable_completion),
                                     Lunchbar.LENGTH_LONG);
                             currentShownLunchBar.show();
@@ -1359,7 +1366,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                 String format = String.format(
                         informationActivity.getString(R.string.menu_favorite_snackbar), result);
                 currentShownLunchBar = Lunchbar.make(
-                        References.getView(informationActivity),
+                        getLunchbarView(informationActivity),
                         format,
                         Lunchbar.LENGTH_LONG);
                 currentShownLunchBar.show();
@@ -1407,7 +1414,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                         informationActivity.getString(R.string.menu_favorite_snackbar_cleared),
                         result);
                 currentShownLunchBar = Lunchbar.make(
-                        References.getView(informationActivity),
+                        getLunchbarView(informationActivity),
                         format,
                         Lunchbar.LENGTH_LONG);
                 currentShownLunchBar.show();

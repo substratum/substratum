@@ -57,6 +57,7 @@ import java.util.List;
 import projekt.substratum.BuildConfig;
 import projekt.substratum.LauncherActivity;
 import projekt.substratum.R;
+import projekt.substratum.Substratum;
 import projekt.substratum.activities.launch.ManageSpaceActivity;
 import projekt.substratum.adapters.fragments.settings.Repository;
 import projekt.substratum.adapters.fragments.settings.ValidatorAdapter;
@@ -290,14 +291,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         if (getActivity() != null) {
                             getActivity().finish();
                             Handler handler = new Handler();
-                            handler.postDelayed(() -> {
-                                Intent intent = mContext.getPackageManager()
-                                        .getLaunchIntentForPackage(mContext.getPackageName());
-                                if (intent != null) {
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    startActivity(intent);
-                                }
-                            }, 300);
+                            handler.postDelayed(() -> Substratum.restartSubstratum(mContext), 100);
                         }
                     } else {
                         forceEnglish.setChecked(false);
@@ -311,14 +305,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         if (getActivity() != null) {
                             getActivity().finish();
                             Handler handler = new Handler();
-                            handler.postDelayed(() -> {
-                                Intent intent = mContext.getPackageManager()
-                                        .getLaunchIntentForPackage(mContext.getPackageName());
-                                if (intent != null) {
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    startActivity(intent);
-                                }
-                            }, 300);
+                            handler.postDelayed(() -> Substratum.restartSubstratum(mContext), 100);
                         }
                     }
                     return false;
@@ -345,14 +332,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         if (getActivity() != null) {
                             getActivity().finish();
                             Handler handler = new Handler();
-                            handler.postDelayed(() -> {
-                                Intent intent = mContext.getPackageManager()
-                                        .getLaunchIntentForPackage(mContext.getPackageName());
-                                if (intent != null) {
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    startActivity(intent);
-                                }
-                            }, 300);
+                            handler.postDelayed(() -> Substratum.restartSubstratum(mContext), 100);
                         }
                     } else {
                         advancedUi.setChecked(false);
@@ -363,14 +343,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         if (getActivity() != null) {
                             getActivity().finish();
                             Handler handler = new Handler();
-                            handler.postDelayed(() -> {
-                                Intent intent = mContext.getPackageManager()
-                                        .getLaunchIntentForPackage(mContext.getPackageName());
-                                if (intent != null) {
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    startActivity(intent);
-                                }
-                            }, 300);
+                            handler.postDelayed(() -> Substratum.restartSubstratum(mContext), 100);
                         }
                     }
                     return false;
@@ -394,16 +367,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 getString(R.string.substratum_restart_toast),
                                 Toast.LENGTH_SHORT).show();
                         if (getActivity() != null) {
-                            getActivity().finish();
-                            Handler handler = new Handler();
-                            handler.postDelayed(() -> {
-                                Intent intent = mContext.getPackageManager()
-                                        .getLaunchIntentForPackage(mContext.getPackageName());
-                                if (intent != null) {
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    startActivity(intent);
-                                }
-                            }, 300);
+                            getActivity().recreate();
+                            //Handler handler = new Handler();
+                            //handler.postDelayed(() -> Substratum.restartSubstratum(mContext), 100);
                         }
                     } else {
                         prefs.edit().putBoolean("alternate_drawer_design", false).apply();
@@ -412,16 +378,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 getString(R.string.substratum_restart_toast),
                                 Toast.LENGTH_SHORT).show();
                         if (getActivity() != null) {
-                            getActivity().finish();
-                            Handler handler = new Handler();
-                            handler.postDelayed(() -> {
-                                Intent intent = mContext.getPackageManager()
-                                        .getLaunchIntentForPackage(mContext.getPackageName());
-                                if (intent != null) {
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    startActivity(intent);
-                                }
-                            }, 300);
+                            getActivity().recreate();
+                            //Handler handler = new Handler();
+                            //handler.postDelayed(() -> Substratum.restartSubstratum(mContext), 100);
                         }
                     }
                     return false;

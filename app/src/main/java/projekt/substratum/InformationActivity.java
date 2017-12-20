@@ -35,6 +35,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -50,6 +51,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Lunchbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
@@ -514,8 +516,11 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
         if (theme_mode == null) theme_mode = "";
 
         // Configure the views
+        Typeface t = ResourcesCompat.getFont(getApplicationContext(), R.font.toolbar_new_ui);
         toolbar.setTitle(theme_name);
         collapsingToolbar.setTitle(theme_name);
+        collapsingToolbar.setCollapsedTitleTypeface(t);
+        collapsingToolbar.setExpandedTitleTypeface(t);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

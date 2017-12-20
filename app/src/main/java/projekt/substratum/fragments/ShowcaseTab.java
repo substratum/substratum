@@ -204,6 +204,8 @@ public class ShowcaseTab extends Fragment {
                 if (!alphabetize) {
                     for (int i = 0; i <= SHOWCASE_SHUFFLE_COUNT; i++)
                         Collections.shuffle(wallpapers, new Random(seed));
+                } else {
+                    Collections.sort(wallpapers);
                 }
             }
             return wallpapers;

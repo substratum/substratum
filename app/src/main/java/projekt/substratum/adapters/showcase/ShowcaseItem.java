@@ -19,8 +19,9 @@
 package projekt.substratum.adapters.showcase;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
-public class ShowcaseItem {
+public class ShowcaseItem implements Comparable<ShowcaseItem> {
 
     private Context mContext;
     private String themeName;
@@ -102,5 +103,14 @@ public class ShowcaseItem {
 
     public void setThemeSupport(String themeSupport) {
         this.themeSupport = themeSupport;
+    }
+
+    @Override
+    public int compareTo(@NonNull ShowcaseItem showcaseItem) {
+        try {
+            return themeName.compareToIgnoreCase(showcaseItem.themeName);
+        } catch (NullPointerException e) {
+            return 0;
+        }
     }
 }

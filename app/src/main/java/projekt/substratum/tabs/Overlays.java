@@ -216,7 +216,7 @@ public class Overlays extends Fragment {
             if (coordinatorLayout != null) {
                 return coordinatorLayout;
             } else {
-                References.getView(informationActivity);
+                return References.getView(informationActivity);
             }
         }
         return null;

@@ -53,7 +53,9 @@
         <item name="fontFamily">@font/global_app_font</item>
     </style>
 
-    <style name="ToolbarTheme" parent="Theme.AppCompat.Light" />
+    <style name="ToolbarTheme" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 
     <style name="CustomWelcomeScreenTheme" parent="WelcomeScreenTheme">
         <item name="welcomeIndicatorStyle">@style/WelcomeScreenPageIndicator.Custom</item>

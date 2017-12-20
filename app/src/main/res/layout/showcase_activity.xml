@@ -39,6 +39,7 @@
         android:layout_gravity="bottom"
         android:background="?attr/colorPrimary"
         android:elevation="@dimen/action_bar_elevation"
+        android:theme="@style/ToolbarTheme"
         app:layout_anchor="@+id/appbar"
         app:layout_anchorGravity="bottom"
         app:tabGravity="fill"

@@ -52,6 +52,7 @@ import android.support.design.widget.Lunchbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.graphics.ColorUtils;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
@@ -328,6 +329,17 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                 getColor(R.color.information_activity_dark_text_mode),
                 getColor(R.color.information_activity_dark_text_mode));
 
+        View v = getWindow().getDecorView();
+        int flags = v.getSystemUiVisibility();
+        flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            flags |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+        } else {
+            // we can't make the nav icons dark, so we'll just make the background darker for a bit
+            getWindow().setNavigationBarColor(ColorUtils.blendARGB(dominantColor, 0x000, 0.8f));
+        }
+        v.setSystemUiVisibility(flags);
+
         Drawable upArrow = getDrawable(R.drawable.information_activity_back_dark);
         if (upArrow != null)
             upArrow.setColorFilter(getColor(R.color.information_activity_dark_icon_mode),
@@ -454,7 +466,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
         prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         // Check if we should activate the custom font
         boolean bottomBarUi = !prefs.getBoolean("advanced_ui", false);
-        if (bottomBarUi) setTheme(R.style.AppTheme_SpecialUI);
+        if (bottomBarUi) setTheme(R.style.AppTheme_SpecialUI_InformationActivity);
 
         super.onCreate(savedInstanceState);
 
@@ -558,10 +570,6 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
         // Set the navbar colors to dominant color
         if (dynamicNavBarColors) {
             getWindow().setNavigationBarColor(dominantColor);
-            if (InformationActivity.checkColorDarkness(dominantColor)) {
-                getWindow().setNavigationBarColor(
-                        getColor(R.color.theme_information_background));
-            }
         }
 
         // Show the FAB

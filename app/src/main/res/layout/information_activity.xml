@@ -61,6 +61,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/main_screen_card_background"
+                    android:fitsSystemWindows="true"
                     app:contentScrim="?attr/colorPrimary"
                     app:expandedTitleTextAppearance="@style/TextAppearance.ExpandedTitle"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"

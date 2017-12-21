@@ -27,6 +27,8 @@
     <color name="bottombar_bar_background">@android:color/white</color>
     <color name="bottombar_icon_text_selected">@android:color/black</color>
 
+    <color name="statusbar_transparent">#00000000</color>
+
     <!-- Hardcode the colors so it doesn't change every time an Android System overlay changes -->
     <color name="floatui_dialog_background">#ca000000</color>
     <color name="floatui_dialog_header_background">#66777777</color>

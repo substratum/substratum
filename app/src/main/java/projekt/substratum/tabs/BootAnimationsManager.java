@@ -58,16 +58,22 @@ public enum BootAnimationsManager {
         String fileName = (shutdownAnimation ? SHUTDOWN_ANIMATION : BOOT_ANIMATION);
         String location = EXTERNAL_STORAGE_CACHE + fileName + ".zip";
         // Check to see if device is decrypted with theme interface
-        if (getDeviceEncryptionStatus(context) <= 1 && checkSubstratumService(context)) {
-            Log.d("BootAnimationUtils",
-                    "No-root option has been enabled with the inclusion of substratum service...");
-            SubstratumService.setBootAnimation(location);
-        } else if (getDeviceEncryptionStatus(context) <= 1 && checkThemeInterfacer(context)) {
-            Log.d(TAG, "No-root option has been enabled with the inclusion of theme interfacer...");
-            if (shutdownAnimation) {
-                ThemeInterfacerService.setShutdownAnimation(context, location);
-            } else {
-                ThemeInterfacerService.setBootAnimation(context, location);
+        if (getDeviceEncryptionStatus(context) <= 1) {
+            if (checkSubstratumService(context)) {
+                Log.d("BootAnimationUtils",
+                        "No-root option has been enabled with the inclusion of substratum service...");
+                if (shutdownAnimation) {
+                    SubstratumService.setShutdownAnimation(location);
+                } else {
+                    SubstratumService.setBootAnimation(location);
+                }
+            } else if (checkThemeInterfacer(context)) {
+                Log.d(TAG, "No-root option has been enabled with the inclusion of theme interfacer...");
+                if (shutdownAnimation) {
+                    ThemeInterfacerService.setShutdownAnimation(context, location);
+                } else {
+                    ThemeInterfacerService.setBootAnimation(context, location);
+                }
             }
         } else {
             // We will mount system, make our directory, copy the bootanimation
@@ -92,11 +98,15 @@ public enum BootAnimationsManager {
      */
     public static void clearBootAnimation(Context context,
                                           Boolean shutdownAnimation) {
-        if (getDeviceEncryptionStatus(context) <= 1) {
+        // Shutdown animation is working on encrypted devices
+        if (shutdownAnimation || getDeviceEncryptionStatus(context) <= 1) {
             // OMS with theme interface
             if (checkSubstratumService(context)) {
-                //TODO: Add shutdown animation support
-                SubstratumService.clearBootAnimation();
+                if (shutdownAnimation) {
+                    SubstratumService.clearShutdownAnimation();
+                } else {
+                    SubstratumService.clearBootAnimation();
+                }
             } else if (checkThemeInterfacer(context)) {
                 if (shutdownAnimation) {
                     ThemeInterfacerService.clearShutdownAnimation(context);
@@ -112,19 +122,12 @@ public enum BootAnimationsManager {
             }
         } else {
             // Encrypted OMS and legacy
-            if (!shutdownAnimation) {
-                FileOperations.mountRW();
-                FileOperations.move(context,
-                        BOOTANIMATION_BU_LOCATION,
-                        BOOTANIMATION_LOCATION);
-                FileOperations.delete(context, SUBSBOOT_ADDON);
-                FileOperations.mountRO();
-            } else {
-                FileOperations.mountRWData();
-                FileOperations.delete(context, THEME_DIRECTORY + SHUTDOWNANIMATION);
-                FileOperations.delete(context, THEME_DIRECTORY + BOOTANIMATION);
-                FileOperations.mountROData();
-            }
+            FileOperations.mountRW();
+            FileOperations.move(context,
+                    BOOTANIMATION_BU_LOCATION,
+                    BOOTANIMATION_LOCATION);
+            FileOperations.delete(context, SUBSBOOT_ADDON);
+            FileOperations.mountRO();
         }
     }
 }

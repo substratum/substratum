@@ -116,6 +116,22 @@ public enum SubstratumService {
         }
     }
 
+    public static void setShutdownAnimation(String location) {
+        try {
+            SubstratumServiceBridge.get().applyShutdownAnimation(location);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void clearShutdownAnimation() {
+        try {
+            SubstratumServiceBridge.get().applyShutdownAnimation(null);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void setFonts(String pid, String name) {
         try {
             SubstratumServiceBridge.get().applyFonts(pid, name);

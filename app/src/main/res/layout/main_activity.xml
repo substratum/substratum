@@ -75,7 +75,7 @@
             android:layout_height="60dp"
             android:layout_alignParentBottom="true"
             app:bb_activeTabColor="@color/bottombar_icon_text_selected"
-            app:bb_badgeBackgroundColor="@color/colorAccent"
+            app:bb_badgeBackgroundColor="@color/badgeBackgroundColor"
             app:bb_badgesHideWhenActive="false"
             app:bb_tabXmlResource="@xml/bottombar_tabs"
             app:bb_titleTextAppearance="@style/AppTheme.SpecialUI" />

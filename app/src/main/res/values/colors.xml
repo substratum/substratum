@@ -146,4 +146,5 @@
         <item>@color/substratum_blue</item>
         <item>@color/substratum_light_blue</item>
     </integer-array>
+    <color name="badgeBackgroundColor">@color/colorAccent</color>
 </resources>

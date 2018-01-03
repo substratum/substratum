@@ -33,7 +33,7 @@ final def keystorePropertiesFile = rootProject.file("keystore.properties")
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.2'
+    buildToolsVersion '27.0.3'
 
     lintOptions {
         checkReleaseBuilds false
@@ -50,8 +50,8 @@ android {
         applicationId "projekt.substratum"
         minSdkVersion 24
         targetSdkVersion 27
-        versionCode 927
-        versionName "nine hundred twenty seven"
+        versionCode 930
+        versionName "nine hundred thirty"
         buildConfigField "java.util.Date", "buildTime", "new java.util.Date(" + System.currentTimeMillis() + "L)"
         buildConfigField "String", "GIT_HASH", "\"${gitHash()}\""
     }

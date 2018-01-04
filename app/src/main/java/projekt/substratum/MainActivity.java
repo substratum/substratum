@@ -44,7 +44,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -271,6 +270,8 @@ public class MainActivity extends AppCompatActivity implements
             } else {
                 switchToStockToolbar(getString(R.string.nav_main));
             }
+        } else {
+            switchToStockToolbar(title);
         }
 
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();

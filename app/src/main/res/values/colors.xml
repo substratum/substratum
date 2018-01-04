@@ -146,5 +146,8 @@
         <item>@color/substratum_blue</item>
         <item>@color/substratum_light_blue</item>
     </integer-array>
+
     <color name="badgeBackgroundColor">@color/colorAccent</color>
+
+    <color name="navigation_bar_divider">#ffe0e0e0</color>
 </resources>

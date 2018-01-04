@@ -23,18 +23,25 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:navigationBarColor">@color/colorPrimary</item>
+        <item name="android:navigationBarDividerColor">@color/navigation_bar_divider</item>
         <item name="android:statusBarColor">@color/statusBarColor</item>
         <item name="android:windowLightStatusBar">@bool/windowLightStatusBar</item>
         <item name="android:windowLightNavigationBar">@bool/windowLightNavigationBar</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
 
-    <style name="AppTheme.InformationActivity">
+    <style name="AppTheme.SpecialUI" parent="AppTheme">
+        <item name="android:navigationBarDividerColor">@android:color/transparent</item>
+        <item name="fontFamily">@font/global_app_font</item>
+    </style>
+
+    <style name="AppTheme.InformationActivity" parent="AppTheme">
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowLightNavigationBar">false</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:statusBarColor">@color/statusbar_transparent</item>
+        <item name="android:navigationBarDividerColor">@android:color/transparent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>

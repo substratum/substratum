@@ -33,7 +33,6 @@ final def keystorePropertiesFile = rootProject.file("keystore.properties")
 
 android {
     compileSdkVersion 27
-    buildToolsVersion '27.0.3'
 
     lintOptions {
         checkReleaseBuilds false
@@ -108,7 +107,7 @@ android {
 ext {
     leakCanaryVersion = '1.5.4'
     supportLibsVersion = '27.0.2'
-    firebaseVersion = '11.6.2'
+    firebaseVersion = '11.8.0'
     glideVersion = '4.1.1'
 }
 dependencies {

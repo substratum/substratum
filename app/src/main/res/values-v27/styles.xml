@@ -39,8 +39,7 @@
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowLightNavigationBar">false</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:statusBarColor">@color/statusbar_transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
         <item name="android:navigationBarDividerColor">@android:color/transparent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -50,8 +49,7 @@
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowLightNavigationBar">false</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:statusBarColor">@color/statusbar_transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>

@@ -38,6 +38,9 @@ import android.provider.Settings;
 import android.service.quicksettings.Tile;
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -50,6 +53,7 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -71,11 +75,10 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.SectionDrawerItem;
-import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.BottomBarTab;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -162,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.bottomBar)
-    BottomBar bottomBar;
+    BottomNavigationView bottomBar;
     private Drawer drawer;
     private int permissionCheck = PackageManager.PERMISSION_DENIED;
     private Dialog mProgressDialog;
@@ -235,9 +238,20 @@ public class MainActivity extends AppCompatActivity implements
      * @param theme_count How many themes are found
      */
     public void assignBottomBarBadgeCount(int theme_count) {
-        BottomBarTab theme_packs = bottomBar.getTabWithId(R.id.tab_themes);
-        if (theme_packs != null) {
-            theme_packs.setBadgeCount(theme_count);
+        boolean showBadge = mContext.getResources().getBoolean(R.bool.showThemeBadge);
+        if (showBadge) {
+            BottomNavigationMenuView bottomNavigationMenuView =
+                    (BottomNavigationMenuView) bottomBar.getChildAt(0);
+            View v = bottomNavigationMenuView.getChildAt(0);
+            BottomNavigationItemView itemView = (BottomNavigationItemView) v;
+            View badge = LayoutInflater.from(this).inflate(
+                    R.layout.notification_badge,
+                    bottomNavigationMenuView,
+                    false
+            );
+            TextView badge_text = badge.findViewById(R.id.theme_badge);
+            badge_text.setText(String.valueOf(theme_count));
+            itemView.addView(badge);
         }
     }
 
@@ -368,6 +382,7 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mContext = getApplicationContext();
@@ -439,15 +454,35 @@ public class MainActivity extends AppCompatActivity implements
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             getSupportActionBar().setDisplayShowHomeEnabled(false);
 
-            BottomBar bottomBar = findViewById(R.id.bottomBar);
-            BottomBarTab priorityTab = bottomBar.getTabWithId(R.id.tab_priorities);
-            if (Systems.checkOMS(mContext) && !isSamsung(mContext)) {
-                priorityTab.setVisibility(View.VISIBLE);
-            } else {
-                priorityTab.setVisibility(View.GONE);
+            BottomNavigationView bottomBar = findViewById(R.id.bottomBar);
+            BottomNavigationMenuView menuView = (BottomNavigationMenuView)
+                    bottomBar.getChildAt(0);
+
+            try {
+                Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
+                shiftingMode.setAccessible(true);
+                shiftingMode.setBoolean(menuView, false);
+                shiftingMode.setAccessible(false);
+                for (int i = 0; i < menuView.getChildCount(); i++) {
+                    BottomNavigationItemView item =
+                            (BottomNavigationItemView) menuView.getChildAt(i);
+                    //noinspection RestrictedApi
+                    item.setShiftingMode(false);
+                    // set once again checked value, so view will be updated
+                    //noinspection RestrictedApi
+                    item.setChecked(item.getItemData().isChecked());
+                }
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                // suppress exception
             }
-            bottomBar.setOnTabSelectListener(tabId -> {
-                switch (tabId) {
+
+            if (Systems.checkOMS(mContext) && !isSamsung(mContext)) {
+                menuView.findViewById(R.id.tab_priorities).setVisibility(View.VISIBLE);
+            } else {
+                menuView.findViewById(R.id.tab_priorities).setVisibility(View.GONE);
+            }
+            bottomBar.setOnNavigationItemSelectedListener(item -> {
+                switch (item.getItemId()) {
                     case R.id.tab_themes:
                         switchThemeFragment(((Systems.checkOMS(
                                 mContext) ?
@@ -475,11 +510,14 @@ public class MainActivity extends AppCompatActivity implements
                                 SettingsFragment.class.getCanonicalName());
                         break;
                 }
+                return true;
             });
 
             if ((getIntent() != null) && getIntent().getBooleanExtra
                     ("launch_manager_fragment", false)) {
-                bottomBar.selectTabAtPosition(1, true);
+                bottomBar.setSelectedItemId(R.id.tab_overlay_manager);
+            } else {
+                bottomBar.setSelectedItemId(R.id.tab_themes);
             }
         } else {
             bottomBar.setVisibility(View.GONE);
@@ -1058,8 +1096,8 @@ public class MainActivity extends AppCompatActivity implements
         } else {
             Fragment f = getSupportFragmentManager().findFragmentById(R.id.main);
             if (bottomBarUi) {
-                if (bottomBar.getCurrentTabPosition() != 0) {
-                    bottomBar.selectTabAtPosition(0, true);
+                if (bottomBar.getSelectedItemId() != R.id.tab_themes) {
+                    bottomBar.setSelectedItemId(R.id.tab_themes);
                 } else {
                     finish();
                 }

@@ -164,7 +164,5 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     // Splash screen svg animation
     implementation 'com.jaredrummler:animated-svg-view:1.0.5'
-    // Bottom bar
-    implementation 'com.roughike:bottom-bar:2.3.1'
 }
 apply plugin: 'com.google.gms.google-services'

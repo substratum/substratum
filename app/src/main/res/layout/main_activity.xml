@@ -69,16 +69,17 @@
 
         </FrameLayout>
 
-        <com.roughike.bottombar.BottomBar
+        <android.support.design.widget.BottomNavigationView
             android:id="@+id/bottomBar"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            app:bb_activeTabColor="@color/bottombar_icon_text_selected"
-            app:bb_badgeBackgroundColor="@color/badgeBackgroundColor"
-            app:bb_badgesHideWhenActive="false"
-            app:bb_tabXmlResource="@xml/bottombar_tabs"
-            app:bb_titleTextAppearance="@style/AppTheme.SpecialUI" />
+            android:background="@color/bottombar_bar_background"
+            android:elevation="@dimen/action_bar_elevation"
+            app:elevation="@dimen/action_bar_elevation"
+            app:itemIconTint="@color/bottombar_icon_text_selected"
+            app:itemTextColor="@color/bottombar_icon_text_selected"
+            app:menu="@menu/bottombar_tabs" />
 
     </RelativeLayout>
 

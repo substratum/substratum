@@ -25,7 +25,8 @@
     <color name="statusBarColor">@color/colorPrimaryDark</color>
 
     <color name="bottombar_bar_background">@android:color/white</color>
-    <color name="bottombar_icon_text_selected">@android:color/black</color>
+    <color name="bottombar_badge_background">@color/colorAccent</color>
+    <color name="bottombar_badge_text">@android:color/white</color>
 
     <color name="statusbar_transparent">#00000000</color>
 

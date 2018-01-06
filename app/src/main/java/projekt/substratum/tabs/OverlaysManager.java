@@ -1266,11 +1266,11 @@ enum OverlaysManager {
                 if (InformationActivity.compilingProcess &&
                         InformationActivity.shouldRestartActivity) {
                     // Gracefully finish, so that we won't close the activity when theme is upgraded
-                    InformationActivity.shouldRestartActivity = false;
-                    InformationActivity.compilingProcess = false;
                     Broadcasts.sendActivityFinisherMessage(
                             overlays.mContext, overlays.theme_pid);
                 }
+                InformationActivity.shouldRestartActivity = false;
+                InformationActivity.compilingProcess = false;
             }
         }
 

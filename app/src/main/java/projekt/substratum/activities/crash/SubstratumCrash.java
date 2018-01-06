@@ -58,8 +58,15 @@ public class SubstratumCrash extends Activity {
         Boolean isSystemFault = References.stringContainsItemFromList(
                 stacktrace,
                 SYSTEM_FAULT_EXCEPTIONS);
+        Boolean isRomBuilderFault = References.stringContainsItemFromList(
+                stacktrace,
+                new String[]{
+                    "Attempt to invoke interface method " +
+                            "'boolean android.content.om.IOverlayManager."
+                }
+        );
 
-        if (isSystemFault) {
+        if (isSystemFault && !isRomBuilderFault) {
             Activities.launchInternalActivity(getApplicationContext(), SystemCrash.class);
             finishAffinity();
         }

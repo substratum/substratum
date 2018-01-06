@@ -37,7 +37,6 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -287,6 +286,14 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
         return darkness < 0.5;
     }
 
+    private static View getLunchbarView(InformationActivity activity) {
+        View coordinatorLayout = References.getCoordinatorLayoutView(activity);
+        if (coordinatorLayout != null) {
+            return coordinatorLayout;
+        }
+        return References.getView(activity);
+    }
+
     @Override
     public void onPullComplete() {
         supportFinishAfterTransition();
@@ -370,14 +377,6 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
             getSupportActionBar().setHomeAsUpIndicator(upArrow);
         }
         setOverflowButtonColor(this, false);
-    }
-
-    private static View getLunchbarView(InformationActivity activity) {
-        View coordinatorLayout = References.getCoordinatorLayoutView(activity);
-        if (coordinatorLayout != null) {
-            return coordinatorLayout;
-        }
-        return References.getView(activity);
     }
 
     /**

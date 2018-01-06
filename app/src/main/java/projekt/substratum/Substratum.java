@@ -172,6 +172,27 @@ public class Substratum extends Application {
         currentThread.start();
     }
 
+    /**
+     * Restart the application after a change that requires a full exit.
+     *
+     * @param context Duh
+     */
+    public static void restartSubstratum(Context context) {
+        PackageManager pm = context.getPackageManager();
+        Intent startActivity = pm.getLaunchIntentForPackage(context.getPackageName());
+
+        if (startActivity != null) startActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        // Create a pending intent so the application is restarted after System.exit(0) was called.
+        // We use an AlarmManager to call this intent in 10ms
+        PendingIntent mPendingIntent = PendingIntent.getActivity(context, 0, startActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+        AlarmManager mgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        if (mgr != null) mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 10, mPendingIntent);
+
+        // Kill the application
+        System.exit(0);
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -334,26 +355,6 @@ public class Substratum extends Application {
         } catch (IllegalArgumentException e) {
             // Already unregistered
         }
-    }
-
-    /**
-     * Restart the application after a change that requires a full exit.
-     * @param context Duh
-     */
-    public static void restartSubstratum(Context context) {
-        PackageManager pm = context.getPackageManager();
-        Intent startActivity = pm.getLaunchIntentForPackage(context.getPackageName());
-
-        if (startActivity != null) startActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-        // Create a pending intent so the application is restarted after System.exit(0) was called.
-        // We use an AlarmManager to call this intent in 10ms
-        PendingIntent mPendingIntent = PendingIntent.getActivity(context, 0, startActivity, PendingIntent.FLAG_CANCEL_CURRENT);
-        AlarmManager mgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        if (mgr != null) mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 10, mPendingIntent);
-
-        // Kill the application
-        System.exit(0);
     }
 
     /**

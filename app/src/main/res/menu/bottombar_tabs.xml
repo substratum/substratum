@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:icon="@drawable/nav_theme_packs"
         android:id="@+id/tab_themes"
+        android:icon="@drawable/nav_theme_packs"
         android:title="@string/nav_home" />
     <item
-        android:icon="@drawable/nav_overlay_manager"
         android:id="@+id/tab_overlay_manager"
+        android:icon="@drawable/nav_overlay_manager"
         android:title="@string/nav_overlay_manager" />
     <item
-        android:icon="@drawable/nav_drawer_priorities"
         android:id="@+id/tab_priorities"
+        android:icon="@drawable/nav_drawer_priorities"
         android:title="@string/nav_priorities" />
     <item
-        android:icon="@drawable/nav_manage"
         android:id="@+id/tab_rescue"
+        android:icon="@drawable/nav_manage"
         android:title="@string/nav_manage" />
     <item
-        android:icon="@drawable/nav_drawer_settings"
         android:id="@+id/tab_settings"
+        android:icon="@drawable/nav_drawer_settings"
         android:title="@string/nav_settings" />
 </menu>

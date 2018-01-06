@@ -219,10 +219,4 @@
     <!-- License section -->
     <string name="library_expandablelayout_licenseId" translatable="false" tools:keep="@string/library_expandablelayout_licenseId">apache_2_0</string>
 
-    <!-- NumberProgressBar -->
-    <!-- Author section -->
-    <!-- Library section -->
-    <!-- OpenSource section -->
-    <!-- ClassPath for autoDetect section -->
-    <!-- License section -->
 </resources>

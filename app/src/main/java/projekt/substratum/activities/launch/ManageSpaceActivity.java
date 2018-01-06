@@ -24,7 +24,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Process;
 import android.preference.PreferenceManager;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;

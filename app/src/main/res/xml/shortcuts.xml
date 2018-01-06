@@ -29,7 +29,7 @@
         <intent
             android:action="android.intent.action.VIEW"
             android:targetClass="projekt.substratum.activities.launch.ShowcaseActivity"
-            android:targetPackage="projekt.substratum"/>
+            android:targetPackage="projekt.substratum" />
     </shortcut>
     <shortcut
         android:enabled="true"

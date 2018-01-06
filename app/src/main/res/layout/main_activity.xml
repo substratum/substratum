@@ -70,6 +70,7 @@
         </FrameLayout>
 
         <View
+            android:id="@+id/bottomBar_shadow"
             android:layout_width="match_parent"
             android:layout_height="5dp"
             android:layout_above="@id/bottomBar"

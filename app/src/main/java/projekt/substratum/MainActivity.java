@@ -166,6 +166,8 @@ public class MainActivity extends AppCompatActivity implements
     Toolbar toolbar;
     @BindView(R.id.bottomBar)
     BottomNavigationView bottomBar;
+    @BindView(R.id.bottomBar_shadow)
+    View bottomBarShadow;
     private Drawer drawer;
     private int permissionCheck = PackageManager.PERMISSION_DENIED;
     private Dialog mProgressDialog;
@@ -569,6 +571,7 @@ public class MainActivity extends AppCompatActivity implements
             }
         } else {
             bottomBar.setVisibility(View.GONE);
+            bottomBarShadow.setVisibility(View.GONE);
             int selectedDrawer = 1;
             if (savedInstanceState != null) {
                 selectedDrawer = savedInstanceState.getInt(SELECTED_DRAWER_ITEM);

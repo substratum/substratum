@@ -24,7 +24,6 @@ import android.support.v7.app.AppCompatActivity;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.Theming;
 
-import static projekt.substratum.common.Internal.NOTIFICATION_LAUNCH;
 import static projekt.substratum.common.Internal.THEME_PID;
 
 public class AppShortcutLaunch extends AppCompatActivity {
@@ -35,8 +34,7 @@ public class AppShortcutLaunch extends AppCompatActivity {
         Theming.launchTheme(
                 Substratum.getInstance(),
                 getIntent().getStringExtra(THEME_PID),
-                null,
-                getIntent().getBooleanExtra(NOTIFICATION_LAUNCH, false)
+                null
         );
         finish();
     }

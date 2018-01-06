@@ -40,6 +40,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import projekt.substratum.R;
+import projekt.substratum.activities.launch.ThemeLaunchActivity;
 import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
@@ -133,7 +134,7 @@ public class OverlayFound extends BroadcastReceiver {
                         theme_package,
                         null,
                         References.TEMPLATE_THEME_MODE,
-                        true
+                        ThemeLaunchActivity.class
                 );
                 PendingIntent contentIntent = PendingIntent.getActivity(
                         overlayFound.context,

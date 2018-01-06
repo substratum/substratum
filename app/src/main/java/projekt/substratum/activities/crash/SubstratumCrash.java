@@ -61,8 +61,8 @@ public class SubstratumCrash extends Activity {
         Boolean isRomBuilderFault = References.stringContainsItemFromList(
                 stacktrace,
                 new String[]{
-                    "Attempt to invoke interface method " +
-                            "'boolean android.content.om.IOverlayManager."
+                        "Attempt to invoke interface method " +
+                                "'boolean android.content.om.IOverlayManager."
                 }
         );
 

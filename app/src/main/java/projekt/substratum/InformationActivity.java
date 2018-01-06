@@ -1303,7 +1303,6 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
             ViewCompat.setTransitionName(
                     informationActivity.heroImage,
                     informationActivity.theme_pid);
-            Log.d("lmao", ViewCompat.getTransitionName(informationActivity.heroImage));
         }
 
         @Override
@@ -1542,7 +1541,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                     supportFinishAfterTransition();
                     Handler handler = new Handler();
                     handler.postDelayed(() ->
-                            Theming.launchTheme(mContext, theme_pid, theme_mode, false), 500L);
+                            Theming.launchTheme(mContext, theme_pid, theme_mode), 500L);
                 }
             } else if (compilingProcess) {
                 Log.d(SUBSTRATUM_LOG,

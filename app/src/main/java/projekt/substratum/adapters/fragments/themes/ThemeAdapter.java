@@ -18,16 +18,20 @@
 
 package projekt.substratum.adapters.fragments.themes;
 
+import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -45,21 +49,34 @@ import java.util.List;
 
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
+import projekt.substratum.Substratum;
+import projekt.substratum.activities.launch.KeyExchangeActivity;
+import projekt.substratum.activities.launch.ThemeLaunchActivity;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
-import projekt.substratum.common.Theming;
+import projekt.substratum.common.Systems;
 import projekt.substratum.util.views.SheetDialog;
 
+import static projekt.substratum.activities.launch.ThemeLaunchActivity.launchThemeActivity;
+import static projekt.substratum.common.Internal.KEY_ACCEPTED_RECEIVER;
 import static projekt.substratum.common.Internal.PLAY_URL_PREFIX;
 import static projekt.substratum.common.Internal.THEME_READY_ALL;
 import static projekt.substratum.common.Internal.THEME_READY_READY;
 import static projekt.substratum.common.Internal.THEME_READY_STOCK;
 import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
+import static projekt.substratum.common.References.TEMPLATE_THEME_MODE;
+import static projekt.substratum.common.Theming.isThemeUsingDefaultTheme;
+import static projekt.substratum.common.Theming.themeIntent;
 
 
 public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> {
     private List<ThemeItem> information;
     private Context mContext;
+    private LocalBroadcastManager localBroadcastManager;
+    private LaunchThemeReceiver launchThemeReceiver;
+    private ThemeItem themeItem;
+    private Boolean isUsingDefaultTheme;
+    private ActivityOptions options;
 
     public ThemeAdapter(List<ThemeItem> information) {
         super();
@@ -142,14 +159,39 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
         viewHolder.cardView.setOnClickListener(
                 v -> {
-                    MainActivity.heroImageTransitionObject = viewHolder.imageView;
                     MainActivity.themeCardProgressBar = viewHolder.progressBar;
                     MainActivity.themeCardProgressBar.setVisibility(View.VISIBLE);
-                    Theming.launchTheme(this.mContext,
-                            themeItem.getThemePackage(),
-                            themeItem.getThemeMode(),
-                            false
+
+                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
+                            MainActivity.mainActivity,
+                            viewHolder.imageView,
+                            themeItem.getThemePackage()
                     );
+
+                    // Okay you fuck, this fucking works, fucking know this shit or fuck off
+                    boolean isUsingDefaultTheme =
+                            isThemeUsingDefaultTheme(themeItem.getThemePackage());
+                    Intent theme_intent = themeIntent(
+                            mContext,
+                            themeItem.getThemePackage(),
+                            null,
+                            TEMPLATE_THEME_MODE,
+                            (isUsingDefaultTheme ? KeyExchangeActivity.class :
+                                    ThemeLaunchActivity.class));
+                    try {
+                        mContext.startActivity(theme_intent);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    launchThemeReceiver = new LaunchThemeReceiver();
+                    localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
+                    localBroadcastManager.registerReceiver(launchThemeReceiver,
+                            new IntentFilter(KEY_ACCEPTED_RECEIVER));
+
+                    this.themeItem = themeItem;
+                    this.isUsingDefaultTheme = isUsingDefaultTheme;
+                    this.options = options;
                 });
 
         viewHolder.cardView.setOnLongClickListener(view -> {
@@ -336,6 +378,31 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         }
     }
 
+    private void launchTheme(ThemeItem themeItem,
+                             Boolean isUsingDefaultTheme,
+                             ActivityOptions options) {
+        Boolean checkIfNull = Substratum.currentThemeSecurity == null &&
+                Substratum.currentThemeSecurity.getPackageName() != null;
+
+        MainActivity.mainActivity.startActivity(
+                launchThemeActivity(
+                        Substratum.getInstance(),
+                        themeItem.getThemeName(),
+                        themeItem.getThemeAuthor().toString(),
+                        themeItem.getThemePackage(),
+                        themeItem.getThemeMode(),
+                        !checkIfNull ? Substratum.currentThemeSecurity.getHash() : null,
+                        !checkIfNull ? Substratum.currentThemeSecurity.getLaunchType() : null,
+                        !checkIfNull ? Substratum.currentThemeSecurity.getDebug() : null,
+                        !checkIfNull ? Substratum.currentThemeSecurity.getPiracyCheck() : null,
+                        !checkIfNull ? Substratum.currentThemeSecurity.getEncryptionKey() : null,
+                        !checkIfNull ? Substratum.currentThemeSecurity.getIVEncryptKey() : null,
+                        Systems.checkOMS(Substratum.getInstance())
+                ), (isUsingDefaultTheme ?
+                        options != null ?
+                                options.toBundle() : null : null));
+    }
+
     /**
      * Show a dialog to explain what Theme Ready Gapps are
      */
@@ -429,6 +496,26 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
             this.divider = view.findViewById(R.id.theme_ready_divider);
             this.tbo = view.findViewById(R.id.theme_ready_indicator);
             this.two = view.findViewById(R.id.theme_unready_indicator);
+        }
+    }
+
+    /**
+     * Receiver to kill the activity
+     */
+    class LaunchThemeReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            launchTheme(themeItem, isUsingDefaultTheme, options);
+            themeItem = null;
+            isUsingDefaultTheme = null;
+            options = null;
+            Substratum.currentThemeSecurity = null;
+            try {
+                localBroadcastManager.unregisterReceiver(launchThemeReceiver);
+            } catch (Exception e) {
+                // Unregistered already
+            }
         }
     }
 }

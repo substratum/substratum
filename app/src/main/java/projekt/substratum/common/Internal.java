@@ -24,6 +24,7 @@ public enum Internal {
     public static final String AUTHENTICATE_RECEIVER = "projekt.substratum.AUTHENTICATE";
     public static final String AUTHENTICATED_RECEIVER = "projekt.substratum.PASS";
     public static final String ANDROMEDA_RECEIVER = "AndromedaReceiver.KILL";
+    public static final String KEY_ACCEPTED_RECEIVER = "projekt.substratum.KEY_AUTHENTICATED";
     public static final String MAIN_ACTIVITY_RECEIVER = "MainActivity.KILL";
     public static final String THEME_FRAGMENT_REFRESH = "ThemeFragment.REFRESH";
     public static final String START_JOB_ACTION = ".START_JOB";
@@ -73,7 +74,6 @@ public enum Internal {
     public static final String THEME_CALLER = "calling_package_name";
     public static final String HOME_TYPE = "home_type";
     public static final String HOME_TITLE = "title";
-    public static final String NOTIFICATION_LAUNCH = "notification_launch";
     // Prefs
     public static final String SOUNDS_APPLIED = "sounds_applied";
     public static final String BOOT_ANIMATION = "bootanimation";

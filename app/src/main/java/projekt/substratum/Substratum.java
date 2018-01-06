@@ -49,6 +49,7 @@ import java.util.TimerTask;
 
 import cat.ereza.customactivityoncrash.config.CaocConfig;
 import projekt.substratum.activities.crash.SubstratumCrash;
+import projekt.substratum.adapters.fragments.themes.SecurityItem;
 import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
@@ -69,6 +70,7 @@ public class Substratum extends Application {
     private static final FinishReceiver finishReceiver = new FinishReceiver();
     public static int initialPackageCount = 0;
     public static Thread currentThread;
+    public static SecurityItem currentThemeSecurity = null;
     private static Substratum substratum;
     private static boolean isWaiting;
     private static Boolean shouldStopThread = false;
@@ -185,7 +187,9 @@ public class Substratum extends Application {
 
         // Create a pending intent so the application is restarted after System.exit(0) was called.
         // We use an AlarmManager to call this intent in 10ms
-        PendingIntent mPendingIntent = PendingIntent.getActivity(context, 0, startActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent mPendingIntent =
+                PendingIntent.getActivity(context,
+                        0, startActivity, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager mgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (mgr != null) mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 10, mPendingIntent);
 

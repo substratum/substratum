@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements
     @SuppressLint("StaticFieldLeak")
     public static RelativeLayout themeCardProgressBar;
     @SuppressLint("StaticFieldLeak")
-    public static View heroImageTransitionObject;
+    public static MainActivity mainActivity;
     private static ActionBar supportActionBar;
     public SearchView searchView;
     @BindView(R.id.theme_count)
@@ -435,6 +435,7 @@ public class MainActivity extends AppCompatActivity implements
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mainActivity = this;
         mContext = getApplicationContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         bottomBarUi = !prefs.getBoolean("advanced_ui", false);

@@ -229,8 +229,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                     ThreadLocalRandom.current().nextInt(0, 1000)).createNotification();
         }
         Broadcasts.sendRefreshMessage(mContext);
-        // TODO: Todo, todo, todo todo todo todo todooooo no srsly find a better way to refresh IA
-        //Broadcasts.sendActivityFinisherMessage(mContext, package_name);
+        Broadcasts.sendActivityFinisherMessage(mContext, package_name);
     }
 
     private PendingIntent getPendingIntent(String package_name) {

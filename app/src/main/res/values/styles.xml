@@ -70,6 +70,14 @@
         <item name="welcomeTitleTextStyle">@style/WelcomeScreenText.Title.Centered</item>
     </style>
 
+    <style name="DoNotThemeThisStyleDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="DoNotThemeThisStyleInitial" parent="Theme.AppCompat.Translucent" />
+
     <style name="DoNotThemeThisStyle" parent="android:Theme.DeviceDefault.NoActionBar">
         <item name="android:navigationBarColor">@color/do_not_theme_this_color</item>
         <item name="android:statusBarColor">@color/do_not_theme_this_color</item>

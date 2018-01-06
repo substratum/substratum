@@ -23,6 +23,7 @@ import cat.ereza.customactivityoncrash.config.CaocConfig;
 import projekt.substratum.R;
 import projekt.substratum.activities.launch.SplashScreenActivity;
 import projekt.substratum.activities.shortcuts.RescueActivity;
+import projekt.substratum.common.Activities;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
@@ -35,6 +36,7 @@ import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_UNR
 import static projekt.substratum.common.References.RUNTIME_RESOURCE_OVERLAY_N_ROOTED;
 import static projekt.substratum.common.References.SAMSUNG_THEME_ENGINE_N;
 import static projekt.substratum.common.Resources.SUBSTRATUM_OVERLAY_FAULT_EXCEPTIONS;
+import static projekt.substratum.common.Resources.SYSTEM_FAULT_EXCEPTIONS;
 
 public class SubstratumCrash extends Activity {
 
@@ -49,11 +51,24 @@ public class SubstratumCrash extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.crash_activity);
-        ButterKnife.bind(this);
 
         String stacktrace = createErrorReport(getIntent());
         CaocConfig caocConfig = CustomActivityOnCrash.getConfigFromIntent(getIntent());
+
+        Boolean isSystemFault = References.stringContainsItemFromList(
+                stacktrace,
+                SYSTEM_FAULT_EXCEPTIONS);
+
+        if (isSystemFault) {
+            Activities.launchInternalActivity(getApplicationContext(), SystemCrash.class);
+            finishAffinity();
+        }
+
+        // We should have the theme dynamically change depending on the nature of the crash
+        setTheme(R.style.DoNotThemeThisStyle);
+
+        setContentView(R.layout.crash_activity);
+        ButterKnife.bind(this);
 
         restartButton.setOnClickListener(view -> {
             Intent intent = new Intent(SubstratumCrash.this, SplashScreenActivity.class);

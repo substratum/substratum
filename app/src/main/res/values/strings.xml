@@ -702,6 +702,9 @@
     <string name="notification_overlay_found_specific">An overlay for %s is in %s!</string>
     <string name="notification_overlay_found_description">You can open the theme by clicking on this notification!</string>
 
+    <string name="system_crash_text">Your system reloaded substratum\'s resources. The app will
+        restart in 3 seconds.</string>
+
     <string name="error_activity_title">I\'m so sorry for this crash!</string>
     <string name="error_activity_text">please forgive me&#8230;</string>
     <string name="error_activity_button_restart">Restart</string>

@@ -95,6 +95,12 @@ public enum Resources {
             // Organization Packages
             "projekt.substratum",
     };
+    public static final String[] SYSTEM_FAULT_EXCEPTIONS = {
+            "null object reference",
+            "null object",
+            "not attached to Activity",
+            "not attached"
+    };
     // List of errors to catch
     public static final String[] SUBSTRATUM_OVERLAY_FAULT_EXCEPTIONS = {
             "ResourceNotFoundException",

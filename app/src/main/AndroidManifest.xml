@@ -132,18 +132,13 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <service
-            android:name=".services.analytics.FirebaseMessagingService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
+        <activity
+            android:name=".activities.crash.SystemCrash"
+            android:theme="@style/DoNotThemeThisStyleDialog" />
         <activity
             android:name=".activities.crash.SubstratumCrash"
             android:process=":error_activity"
-            android:theme="@style/DoNotThemeThisStyle" />
+            android:theme="@style/DoNotThemeThisStyleInitial" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/PhotoCrop.ActivityTheme" />

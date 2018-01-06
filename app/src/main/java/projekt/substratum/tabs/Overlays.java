@@ -466,8 +466,13 @@ public class Overlays extends Fragment {
                     base_spinner.setAdapter(adapter1);
                     try {
                         Log.d(SUBSTRATUM_BUILDER,
-                                "Assigning the spinner position: " + prefs2.getInt(theme_pid, 0));
-                        base_spinner.setSelection(prefs2.getInt(theme_pid, 0));
+                                "Assigning the spinner position: " +
+                                        prefs2.getInt(theme_pid, 0));
+                        if (prefs2.getInt(theme_pid, 0) <= type3.size() - 1) {
+                            base_spinner.setSelection(prefs2.getInt(theme_pid, 0));
+                        } else {
+                            throw new Exception();
+                        }
                     } catch (Exception e) {
                         // Should be OutOfBounds, but let's catch everything
                         Log.d(SUBSTRATUM_BUILDER, "Falling back to default spinner position due to an error...");

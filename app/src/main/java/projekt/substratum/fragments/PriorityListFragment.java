@@ -30,7 +30,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -48,6 +47,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.fragments.priorities.PrioritiesInterface;
 import projekt.substratum.adapters.fragments.priorities.PrioritiesItem;
@@ -67,8 +67,6 @@ public class PriorityListFragment extends Fragment {
     FloatingActionButton applyFab;
     @BindView(R.id.priority_header_loading_bar)
     ProgressBar headerProgress;
-    @BindView(R.id.action_bar_toolbar)
-    Toolbar toolbar;
     private Context mContext;
 
     /**
@@ -79,6 +77,7 @@ public class PriorityListFragment extends Fragment {
      */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
         inflater.inflate(R.menu.restore_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -125,18 +124,21 @@ public class PriorityListFragment extends Fragment {
         headerProgress.setVisibility(View.GONE);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(manager);
-        toolbar.setTitle(getString(R.string.priority_back_title));
-        toolbar.setNavigationIcon(mContext.getDrawable(R.drawable.priorities_back_button));
-        toolbar.setNavigationOnClickListener(v -> {
-            Fragment fragment = new PriorityLoaderFragment();
-            assert getActivity() != null;
-            FragmentManager fm = getActivity().getSupportFragmentManager();
-            FragmentTransaction transaction = fm.beginTransaction();
-            transaction.setCustomAnimations(
-                    android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-            transaction.replace(R.id.main, fragment);
-            transaction.commit();
-        });
+
+        // Modify the toolbar
+        if ((getActivity()) != null) {
+            ((MainActivity) getActivity()).switchToPriorityListToolbar(v -> {
+                Fragment fragment = new PriorityLoaderFragment();
+                assert getActivity() != null;
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.setCustomAnimations(
+                        android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+                transaction.replace(R.id.main, fragment);
+                transaction.commit();
+                ((MainActivity) getActivity()).switchToPriorityLoaderToolbar();
+            });
+        }
 
         // Begin loading up list
         String obtained_key = "";

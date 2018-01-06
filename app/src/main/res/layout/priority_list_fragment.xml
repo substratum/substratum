@@ -22,15 +22,6 @@
     android:layout_height="match_parent"
     app:ignore="NamespaceTypo">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/action_bar_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
     <ProgressBar
         android:id="@+id/priority_header_loading_bar"
         style="?android:progressBarStyleHorizontal"
@@ -43,7 +34,6 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/action_bar_toolbar"
         android:paddingEnd="15dp"
         android:paddingStart="15dp"
         android:paddingTop="10dp" />

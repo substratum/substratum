@@ -224,6 +224,7 @@ public class MainActivity extends AppCompatActivity implements
      * @param content Theme counter
      */
     public void switchToCustomToolbar(CharSequence title, CharSequence content) {
+        showToolbarHamburger();
         if (bottomBarUi) return;
         if (supportActionBar != null) supportActionBar.setTitle("");
         actionbar_content.setVisibility(View.VISIBLE);
@@ -261,9 +262,56 @@ public class MainActivity extends AppCompatActivity implements
      * @param title Usually for fragment changes
      */
     public void switchToStockToolbar(CharSequence title) {
+        showToolbarHamburger();
         actionbar_content.setVisibility(View.GONE);
         actionbar_title.setVisibility(View.GONE);
         if (supportActionBar != null) supportActionBar.setTitle(title);
+    }
+
+    public void switchToPriorityLoaderToolbar() {
+        showToolbarHamburger();
+        if (bottomBarUi) {
+            if (Systems.isSamsung(mContext)) {
+                switchToStockToolbar(getString(R.string.samsung_app_name));
+            } else if (!Systems.checkOMS(mContext)) {
+                switchToStockToolbar(getString(R.string.legacy_app_name));
+            } else {
+                switchToStockToolbar(getString(R.string.nav_main));
+            }
+        } else {
+            switchToStockToolbar(getString(R.string.nav_priorities));
+        }
+    }
+
+    public void switchToPriorityListToolbar(View.OnClickListener listener) {
+        toolbar.setTitle(getString(R.string.priority_back_title));
+        showToolbarBack(listener);
+    }
+
+    private void showToolbarHamburger() {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }
+        if (drawer != null) {
+            drawer.getActionBarDrawerToggle().setDrawerIndicatorEnabled(true);
+        }
+        toolbar.setNavigationOnClickListener(view -> {
+            if (drawer.isDrawerOpen()) {
+                drawer.closeDrawer();
+            } else {
+                drawer.openDrawer();
+            }
+        });
+    }
+
+    private void showToolbarBack(View.OnClickListener listener) {
+        if (drawer != null) {
+            drawer.getActionBarDrawerToggle().setDrawerIndicatorEnabled(false);
+        }
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        toolbar.setNavigationOnClickListener(listener);
     }
 
     /**

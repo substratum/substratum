@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
+import android.view.View;
 
 import java.io.Serializable;
 import java.util.concurrent.ThreadLocalRandom;
@@ -182,10 +183,11 @@ public class ThemeLaunchActivity extends Activity {
 
                 ActivityOptions options = null;
                 if (isUsingDefaultTheme && !notification_launch) {
-                    if (theme_pid != null) {
+                    View transitionObject = MainActivity.heroImageTransitionObject;
+                    if (theme_pid != null && transitionObject != null) {
                         options = ActivityOptions.makeSceneTransitionAnimation(
                                 this,
-                                MainActivity.heroImageTransitionObject, theme_pid
+                                transitionObject, theme_pid
                         );
                     }
                 }

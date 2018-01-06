@@ -1331,7 +1331,8 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                     informationActivity.heroImage.setImageBitmap(bitmap);
                 }
                 informationActivity.startPostponedEnterTransition();
-                MainActivity.themeCardProgressBar.setVisibility(View.GONE);
+                if (MainActivity.themeCardProgressBar != null)
+                    MainActivity.themeCardProgressBar.setVisibility(View.GONE);
             }
         }
 

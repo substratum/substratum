@@ -44,13 +44,6 @@
             android:scaleType="centerCrop" />
 
         <ImageView
-            android:id="@+id/theme_preview_image_backup"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            android:scaleType="centerCrop" />
-
-        <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/special_ui_gradient" />

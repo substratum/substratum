@@ -113,13 +113,6 @@
             android:scaleType="centerCrop"
             android:src="@android:color/transparent" />
 
-        <ImageView
-            android:id="@+id/theme_preview_image_backup"
-            android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:fitsSystemWindows="true"
-            android:scaleType="centerCrop" />
-
         <RelativeLayout
             android:id="@+id/loading_theme"
             android:layout_width="match_parent"

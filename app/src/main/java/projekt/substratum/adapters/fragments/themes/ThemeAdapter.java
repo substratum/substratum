@@ -363,7 +363,6 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
         viewHolder.theme_author.setText(themeItem.getThemeAuthor());
         viewHolder.imageView.setImageDrawable(themeItem.getThemeDrawable());
-        viewHolder.imageView2.setImageDrawable(themeItem.getThemeDrawable());
 
         if (prefs.getBoolean("advanced_ui", false)) {
             References.setRecyclerViewAnimation(
@@ -381,8 +380,8 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
     private void launchTheme(ThemeItem themeItem,
                              Boolean isUsingDefaultTheme,
                              ActivityOptions options) {
-        Boolean checkIfNull = Substratum.currentThemeSecurity == null &&
-                Substratum.currentThemeSecurity.getPackageName() != null;
+        Boolean checkIfNull = Substratum.currentThemeSecurity == null ||
+                Substratum.currentThemeSecurity.getPackageName() == null;
 
         MainActivity.mainActivity.startActivity(
                 launchThemeActivity(
@@ -476,7 +475,6 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         TextView theme_version;
         TextView plugin_version;
         ImageView imageView;
-        ImageView imageView2;
         RelativeLayout progressBar;
         View divider;
         ImageView tbo;
@@ -491,7 +489,6 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
             this.theme_version = view.findViewById(R.id.theme_version);
             this.plugin_version = view.findViewById(R.id.plugin_version);
             this.imageView = view.findViewById(R.id.theme_preview_image);
-            this.imageView2 = view.findViewById(R.id.theme_preview_image_backup);
             this.progressBar = view.findViewById(R.id.loading_theme);
             this.divider = view.findViewById(R.id.theme_ready_divider);
             this.tbo = view.findViewById(R.id.theme_ready_indicator);

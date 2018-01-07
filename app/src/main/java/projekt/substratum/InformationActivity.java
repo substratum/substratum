@@ -210,6 +210,20 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
     private int mInitialOrientation;
     private int mOrientation;
 
+    @Override
+    public void onEnterAnimationComplete() {
+        super.onEnterAnimationComplete();
+        if (MainActivity.themeCardProgressBar != null) {
+            // Notification was fired
+            MainActivity.themeCardProgressBar.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void startPostponedEnterTransition() {
+        super.startPostponedEnterTransition();
+    }
+
     /**
      * Function to get the dominant color out of a specific image
      *
@@ -1310,29 +1324,9 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
             super.onPostExecute(result);
             InformationActivity informationActivity = ref.get();
             if (informationActivity != null) {
-                if (!informationActivity.prefs.getBoolean("complexion", false)) {
-                    informationActivity.gradientView.setVisibility(View.GONE);
-                    informationActivity.heroImage.
-                            setBackgroundColor(Color.parseColor("#ffff00"));
-                    informationActivity.collapsingToolbar.
-                            setStatusBarScrimColor(Color.parseColor("#ffff00"));
-                    informationActivity.collapsingToolbar.
-                            setContentScrimColor(Color.parseColor("#ffff00"));
-                    informationActivity.appBarLayout.
-                            setBackgroundColor(Color.parseColor("#ffff00"));
-                    informationActivity.tabLayout.
-                            setBackgroundColor(Color.parseColor("#ffff00"));
-                    informationActivity.getWindow().
-                            setNavigationBarColor(Color.parseColor("#ffff00"));
-                } else {
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(
-                            informationActivity.byteArray, 0, informationActivity.byteArray.length);
-                    informationActivity.heroImage.setImageBitmap(bitmap);
-                }
                 informationActivity.startPostponedEnterTransition();
-                if (MainActivity.themeCardProgressBar != null)
-                    MainActivity.themeCardProgressBar.setVisibility(View.GONE);
             }
+
         }
 
         @Override
@@ -1342,6 +1336,27 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 informationActivity.heroImageBitmap.compress(PNG, 100, stream);
                 informationActivity.byteArray = stream.toByteArray();
+                Bitmap bitmap = BitmapFactory.decodeByteArray(
+                        informationActivity.byteArray, 0, informationActivity.byteArray.length);
+                informationActivity.runOnUiThread(() -> {
+                    if (!informationActivity.prefs.getBoolean("complexion", false)) {
+                        informationActivity.gradientView.setVisibility(View.GONE);
+                        informationActivity.heroImage.
+                                setBackgroundColor(Color.parseColor("#ffff00"));
+                        informationActivity.collapsingToolbar.
+                                setStatusBarScrimColor(Color.parseColor("#ffff00"));
+                        informationActivity.collapsingToolbar.
+                                setContentScrimColor(Color.parseColor("#ffff00"));
+                        informationActivity.appBarLayout.
+                                setBackgroundColor(Color.parseColor("#ffff00"));
+                        informationActivity.tabLayout.
+                                setBackgroundColor(Color.parseColor("#ffff00"));
+                        informationActivity.getWindow().
+                                setNavigationBarColor(Color.parseColor("#ffff00"));
+                    } else {
+                        informationActivity.heroImage.setImageBitmap(bitmap);
+                    }
+                });
             }
             return null;
         }

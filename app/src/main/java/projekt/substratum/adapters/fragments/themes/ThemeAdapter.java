@@ -382,24 +382,25 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                              ActivityOptions options) {
         Boolean checkIfNull = Substratum.currentThemeSecurity == null ||
                 Substratum.currentThemeSecurity.getPackageName() == null;
-
-        MainActivity.mainActivity.startActivity(
-                launchThemeActivity(
-                        Substratum.getInstance(),
-                        themeItem.getThemeName(),
-                        themeItem.getThemeAuthor().toString(),
-                        themeItem.getThemePackage(),
-                        themeItem.getThemeMode(),
-                        !checkIfNull ? Substratum.currentThemeSecurity.getHash() : null,
-                        !checkIfNull ? Substratum.currentThemeSecurity.getLaunchType() : null,
-                        !checkIfNull ? Substratum.currentThemeSecurity.getDebug() : null,
-                        !checkIfNull ? Substratum.currentThemeSecurity.getPiracyCheck() : null,
-                        !checkIfNull ? Substratum.currentThemeSecurity.getEncryptionKey() : null,
-                        !checkIfNull ? Substratum.currentThemeSecurity.getIVEncryptKey() : null,
-                        Systems.checkOMS(Substratum.getInstance())
-                ), (isUsingDefaultTheme ?
-                        options != null ?
-                                options.toBundle() : null : null));
+        if (themeItem != null) {
+            MainActivity.mainActivity.startActivity(
+                    launchThemeActivity(
+                            Substratum.getInstance(),
+                            themeItem.getThemeName(),
+                            themeItem.getThemeAuthor().toString(),
+                            themeItem.getThemePackage(),
+                            themeItem.getThemeMode(),
+                            !checkIfNull ? Substratum.currentThemeSecurity.getHash() : null,
+                            !checkIfNull ? Substratum.currentThemeSecurity.getLaunchType() : null,
+                            !checkIfNull ? Substratum.currentThemeSecurity.getDebug() : null,
+                            !checkIfNull ? Substratum.currentThemeSecurity.getPiracyCheck() : null,
+                            !checkIfNull ? Substratum.currentThemeSecurity.getEncryptionKey() : null,
+                            !checkIfNull ? Substratum.currentThemeSecurity.getIVEncryptKey() : null,
+                            Systems.checkOMS(Substratum.getInstance())
+                    ), (isUsingDefaultTheme ?
+                            options != null ?
+                                    options.toBundle() : null : null));
+        }
     }
 
     /**

@@ -57,7 +57,6 @@
     <dimen name="linear_item_height">80dp</dimen>
     <dimen name="linear_text_padding">20dp</dimen>
 
-    <!-- Grid item -->
-
-    <dimen name="drag_dismiss_distance">100dp</dimen>
+    <!-- Pull back layout thresholds -->
+    <dimen name="drag_dismiss_distance">80dp</dimen>
 </resources>

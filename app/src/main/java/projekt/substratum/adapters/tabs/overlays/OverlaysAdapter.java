@@ -289,22 +289,19 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
         viewHolder.app_icon.setImageDrawable(current_object.getAppIcon());
         viewHolder.overlayTargetPackageName.setText(current_object.getName());
 
-        int targetVersion;
+        String targetVersion;
         switch (current_object.getPackageName()) {
             case SYSTEMUI_HEADERS:
             case SYSTEMUI_NAVBARS:
             case SYSTEMUI_STATUSBARS:
             case SYSTEMUI_QSTILES:
-                targetVersion = Packages.getAppVersionCode(
-                        context, SYSTEMUI);
+                targetVersion = Packages.getAppVersion(context, SYSTEMUI);
                 break;
             case SETTINGS_ICONS:
-                targetVersion = Packages.getAppVersionCode(
-                        context, SETTINGS);
+                targetVersion = Packages.getAppVersion(context, SETTINGS);
                 break;
             default:
-                targetVersion = Packages.getAppVersionCode(
-                        context, current_object.getPackageName());
+                targetVersion = Packages.getAppVersion(context, current_object.getPackageName());
         }
         String packageTargetWithVersion =
                 current_object.getPackageName() + " [" + targetVersion + "]";

@@ -149,6 +149,8 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
     public static Boolean compilingProcess = false;
     public static Boolean shouldRestartActivity = false;
     private static List<String> tab_checker;
+    private static int appendedTabs = 0;
+    private static int tabCount = 0;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tabs)
@@ -187,7 +189,6 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
     ImageView heroImage;
     @BindView(R.id.puller)
     PullBackLayout puller;
-
     private String theme_name;
     private String theme_pid;
     private String theme_mode;
@@ -210,18 +211,17 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
     private int mInitialOrientation;
     private int mOrientation;
 
-    @Override
-    public void onEnterAnimationComplete() {
-        super.onEnterAnimationComplete();
-        if (MainActivity.themeCardProgressBar != null) {
-            // Notification was fired
-            MainActivity.themeCardProgressBar.setVisibility(View.GONE);
+    public static void appendFragmentTabSuccess(Activity activity, Class className) {
+        appendedTabs++;
+        Log.d("AppendedFragment",
+                "Successfully concluded " + className + " (" + appendedTabs + "/" + tabCount + ")");
+        if (appendedTabs == tabCount) {
+            appendedTabs = 0;
+            tabCount = 0;
+            activity.startPostponedEnterTransition();
+            Log.d("AppendedFragment",
+                    "All tabs loaded, signalling for shared element transition to begin!");
         }
-    }
-
-    @Override
-    public void startPostponedEnterTransition() {
-        super.startPostponedEnterTransition();
     }
 
     /**
@@ -306,6 +306,15 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
             return coordinatorLayout;
         }
         return References.getView(activity);
+    }
+
+    @Override
+    public void onEnterAnimationComplete() {
+        super.onEnterAnimationComplete();
+        if (MainActivity.themeCardProgressBar != null) {
+            // Notification was fired
+            MainActivity.themeCardProgressBar.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -742,6 +751,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                 extra_hidden_tabs,
                 bundle);
         viewPager.setOffscreenPageLimit(tabLayout.getTabCount());
+        tabCount = tabLayout.getTabCount();
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(
                 new TabLayout.TabLayoutOnPageChangeListener(tabLayout) {
@@ -1322,11 +1332,6 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            InformationActivity informationActivity = ref.get();
-            if (informationActivity != null) {
-                informationActivity.startPostponedEnterTransition();
-            }
-
         }
 
         @Override

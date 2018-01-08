@@ -87,7 +87,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import projekt.substratum.BuildConfig;
 import projekt.substratum.InformationActivity;
-import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.tabs.overlays.OverlaysAdapter;
 import projekt.substratum.adapters.tabs.overlays.OverlaysItem;
@@ -104,6 +103,7 @@ import projekt.substratum.util.views.SheetDialog;
 
 import static android.content.Context.ACTIVITY_SERVICE;
 import static android.content.Context.NOTIFICATION_SERVICE;
+import static projekt.substratum.InformationActivity.appendFragmentTabSuccess;
 import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.Internal.CIPHER_ALGORITHM;
 import static projekt.substratum.common.Internal.COMPILE_ENABLE;
@@ -482,12 +482,10 @@ public class Overlays extends Fragment {
                 } else {
                     toggle_all_overlays_text.setVisibility(View.VISIBLE);
                     base_spinner.setVisibility(View.INVISIBLE);
-                    refreshList();
                 }
             } else {
                 toggle_all_overlays_text.setVisibility(View.VISIBLE);
                 base_spinner.setVisibility(View.INVISIBLE);
-                refreshList();
             }
         } catch (Exception e) {
             if (base_spinner.getVisibility() == View.VISIBLE) {
@@ -874,8 +872,8 @@ public class Overlays extends Fragment {
     public void onResume() {
         super.onResume();
         if (!Systems.checkOMS(mContext) && first_start) {
-            first_start = false;
             refreshList();
+            first_start = false;
         }
         if (Systems.checkOMS(mContext) && !toggle_all.isChecked()) {
             refreshList();
@@ -1494,6 +1492,10 @@ public class Overlays extends Fragment {
                 fragment.mAdapter.notifyDataSetChanged();
                 if (!fragment.mRecyclerView.isShown())
                     fragment.mRecyclerView.setVisibility(View.VISIBLE);
+                if (fragment.first_start) {
+                    fragment.first_start = false;
+                    appendFragmentTabSuccess(fragment.getActivity(), fragment.getClass());
+                }
             }
         }
 

@@ -30,6 +30,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Lunchbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
@@ -73,6 +74,7 @@ import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.util.tabs.SoundUtils;
 import projekt.substratum.util.views.RecyclerItemClickListener;
 
+import static projekt.substratum.InformationActivity.appendFragmentTabSuccess;
 import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;
 import static projekt.substratum.common.Internal.ENCRYPTED_FILE_EXTENSION;
@@ -118,6 +120,12 @@ public class Sounds extends Fragment {
 
     private Sounds getInstance() {
         return this;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        appendFragmentTabSuccess(getActivity(), this.getClass());
     }
 
     @Override

@@ -504,15 +504,17 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            launchTheme(themeItem, isUsingDefaultTheme, options);
-            themeItem = null;
-            isUsingDefaultTheme = null;
-            options = null;
-            Substratum.currentThemeSecurity = null;
-            try {
-                localBroadcastManager.unregisterReceiver(launchThemeReceiver);
-            } catch (Exception e) {
-                // Unregistered already
+            synchronized (this) {
+                launchTheme(themeItem, isUsingDefaultTheme, options);
+                themeItem = null;
+                isUsingDefaultTheme = null;
+                options = null;
+                Substratum.currentThemeSecurity = null;
+                try {
+                    localBroadcastManager.unregisterReceiver(launchThemeReceiver);
+                } catch (Exception e) {
+                    // Unregistered already
+                }
             }
         }
     }

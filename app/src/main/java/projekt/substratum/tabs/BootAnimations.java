@@ -34,6 +34,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Lunchbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
@@ -75,6 +76,7 @@ import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.util.files.Root;
 import projekt.substratum.util.tabs.BootAnimationUtils;
 
+import static projekt.substratum.InformationActivity.appendFragmentTabSuccess;
 import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.Internal.BOOTANIMATION_CACHE;
 import static projekt.substratum.common.Internal.BOOTANIMATION_PREVIEW_CACHE;
@@ -128,6 +130,12 @@ public class BootAnimations extends Fragment {
 
     private BootAnimations getInstance() {
         return this;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        appendFragmentTabSuccess(getActivity(), this.getClass());
     }
 
     @Override

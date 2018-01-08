@@ -59,4 +59,5 @@
 
     <!-- Grid item -->
 
+    <dimen name="drag_dismiss_distance">50dp</dimen>
 </resources>

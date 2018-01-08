@@ -34,9 +34,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import projekt.substratum.R;
+
 public class PullBackLayout extends FrameLayout {
 
-    private final ViewDragHelper dragger;
+    private ViewDragHelper dragger;
+
+    private float dragDismissDistance = Float.MAX_VALUE;
+    private float totalDrag;
 
     @Nullable
     private Callback callback;
@@ -51,7 +56,8 @@ public class PullBackLayout extends FrameLayout {
 
     public PullBackLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        dragger = ViewDragHelper.create(this, 1f / 8f, new ViewDragCallback());
+        dragger = ViewDragHelper.create(this, 1f / 12f, new ViewDragCallback());
+        dragDismissDistance = getResources().getDimension(R.dimen.drag_dismiss_distance);
     }
 
     public void setCallback(@Nullable Callback callback) {
@@ -74,6 +80,19 @@ public class PullBackLayout extends FrameLayout {
         if (dragger.continueSettling(true)) {
             ViewCompat.postInvalidateOnAnimation(this);
         }
+    }
+
+    public void scale(int scroll) {
+        if (scroll == 0) return;
+
+        totalDrag += scroll;
+        float dragFraction = (float) Math.log10(1 + (Math.abs(totalDrag) / dragDismissDistance));
+
+        setPivotY(getHeight());
+
+        float scale = 1 - ((1 - 0.8f) * dragFraction);
+        setScaleX(scale);
+        setScaleY(scale);
     }
 
     public interface Callback {
@@ -129,13 +148,14 @@ public class PullBackLayout extends FrameLayout {
                                           int dx,
                                           int dy) {
             if (callback != null) {
-                callback.onPull((float) (top / getHeight()));
+                scale(dy);
+                callback.onPull((float) top / getHeight());
             }
         }
 
         @Override
         public void onViewReleased(@NonNull View releasedChild, float xvel, float yvel) {
-            int slop = getHeight() / 12;
+            int slop = (int) dragDismissDistance;
             if (releasedChild.getTop() > slop) {
                 if (callback != null) {
                     callback.onPullComplete();

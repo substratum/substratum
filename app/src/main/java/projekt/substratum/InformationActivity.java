@@ -332,6 +332,11 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
 
     @Override
     public void onPull(float progress) {
+        progress = Math.min(1f, progress * 2f);
+        int alpha = (int) (0xff * (1f - progress));
+        int alphaColor = ColorUtils.setAlphaComponent(dominantColor, alpha);
+        getWindow().setStatusBarColor(alphaColor);
+        getWindow().setNavigationBarColor(alphaColor);
     }
 
     /**
@@ -391,6 +396,13 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
         tabLayout.setTabTextColors(
                 getColor(R.color.information_activity_light_text_mode),
                 getColor(R.color.information_activity_light_text_mode));
+
+        View v = getWindow().getDecorView();
+        int flags = v.getSystemUiVisibility();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            flags &= ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+        }
+        v.setSystemUiVisibility(flags);
 
         Drawable upArrow = getDrawable(R.drawable.information_activity_back_light);
         if (upArrow != null)
@@ -588,6 +600,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
 
         // Set the navbar colors to dominant color
         if (dynamicNavBarColors) {
+            getWindow().setStatusBarColor(dominantColor);
             getWindow().setNavigationBarColor(dominantColor);
         }
 

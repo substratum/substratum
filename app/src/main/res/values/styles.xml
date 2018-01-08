@@ -44,17 +44,14 @@
     <style name="AppTheme.InformationActivity" parent="AppTheme">
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAllowReturnTransitionOverlap">true</item>
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowBackground">@color/information_activity_background_shadow</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
     <style name="AppTheme.SpecialUI" parent="AppTheme">
@@ -64,17 +61,14 @@
     <style name="AppTheme.SpecialUI.InformationActivity" parent="AppTheme.SpecialUI">
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAllowReturnTransitionOverlap">true</item>
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowBackground">@color/information_activity_background_shadow</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
     <style name="ToolbarTheme" parent="Theme.AppCompat.Light">

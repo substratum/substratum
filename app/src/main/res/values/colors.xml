@@ -87,6 +87,7 @@
     <color name="information_activity_dark_text_mode">@android:color/black</color>
     <color name="information_activity_light_icon_mode">@android:color/white</color>
     <color name="information_activity_light_text_mode">@android:color/white</color>
+    <color name="information_activity_background_shadow">#46000000</color>
 
     <color name="showcase_activity_text">@android:color/black</color>
 

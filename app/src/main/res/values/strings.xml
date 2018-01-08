@@ -135,10 +135,10 @@
     <string name="manager_type1a">Type1a:</string>
     <string name="manager_type1b">Type1b:</string>
     <string name="manager_type1c">Type1c:</string>
-    <string name="manager_type2">Type2 :</string>
-    <string name="manager_type3">Type3 :</string>
-    <string name="manager_type4">Type4 :</string>
-    <string name="manager_version">Version :</string>
+    <string name="manager_type2">Type2:</string>
+    <string name="manager_type3">Type3:</string>
+    <string name="manager_type4">Type4:</string>
+    <string name="manager_version">Overlay Version:</string>
 
     <string name="backend_not_authorized_title">Substratum debug build not authorized!</string>
     <string name="backend_not_authorized_text">To use this build of substratum with your custom ROM, please enable \'Force authorize every theme app\' in Developer options.\n\nIf it is not there, please contact your ROM dev for missing commits!</string>

@@ -66,12 +66,6 @@ public class Wallpapers extends Fragment {
     private Context mContext;
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        appendFragmentTabSuccess(getActivity(), this.getClass());
-    }
-
-    @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater,
             ViewGroup container,
@@ -109,6 +103,7 @@ public class Wallpapers extends Fragment {
             downloadResources downloadTask = new downloadResources(this);
             downloadTask.execute(wallpaperUrl, CURRENT_WALLPAPERS);
         } else {
+            appendFragmentTabSuccess(getActivity(), this.getClass());
             mRecyclerView.setVisibility(View.GONE);
             materialProgressBar.setVisibility(View.GONE);
             no_wallpapers.setVisibility(View.GONE);
@@ -174,6 +169,7 @@ public class Wallpapers extends Fragment {
                 } catch (Exception e) {
                     // Suppress warning
                 }
+                appendFragmentTabSuccess(wallpapers.getActivity(), this.getClass());
             }
         }
 

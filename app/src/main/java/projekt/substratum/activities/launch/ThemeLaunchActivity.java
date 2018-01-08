@@ -21,7 +21,6 @@ package projekt.substratum.activities.launch;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 
 import java.io.Serializable;
@@ -31,7 +30,6 @@ import projekt.substratum.InformationActivity;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.Systems;
 
-import static android.content.pm.PackageManager.GET_META_DATA;
 import static projekt.substratum.activities.launch.KeyExchangeActivity.consolidatedIntentParser;
 import static projekt.substratum.common.Internal.ENCRYPTION_KEY_EXTRA;
 import static projekt.substratum.common.Internal.IV_ENCRYPTION_KEY_EXTRA;
@@ -49,7 +47,6 @@ import static projekt.substratum.common.Internal.THEME_OMS;
 import static projekt.substratum.common.Internal.THEME_PACKAGE;
 import static projekt.substratum.common.Internal.THEME_PID;
 import static projekt.substratum.common.Internal.THEME_PIRACY_CHECK;
-import static projekt.substratum.common.References.metadataVersion;
 
 public class ThemeLaunchActivity extends Activity {
 
@@ -98,14 +95,6 @@ public class ThemeLaunchActivity extends Activity {
         intent.putExtra(THEME_LEGACY, theme_legacy);
         intent.putExtra(ENCRYPTION_KEY_EXTRA, encryption_key);
         intent.putExtra(IV_ENCRYPTION_KEY_EXTRA, iv_encrypt_key);
-        try {
-            ApplicationInfo ai =
-                    context.getPackageManager().getApplicationInfo(theme_pid, GET_META_DATA);
-            String plugin = ai.metaData.getString(metadataVersion);
-            intent.putExtra("plugin_version", plugin);
-        } catch (Exception e) {
-            // Suppress warning
-        }
         return intent;
     }
 

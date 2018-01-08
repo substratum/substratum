@@ -158,6 +158,10 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
         viewHolder.cardView.setOnClickListener(
                 v -> {
+                    if (MainActivity.themeCardProgressBar != null &&
+                            MainActivity.themeCardProgressBar.getVisibility() == View.VISIBLE) {
+                        return;
+                    }
                     MainActivity.themeCardProgressBar = viewHolder.progressBar;
                     MainActivity.themeCardProgressBar.setVisibility(View.VISIBLE);
 

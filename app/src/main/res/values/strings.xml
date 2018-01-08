@@ -853,5 +853,8 @@
     <string name="overlays_tab_package_ver_message">Installed %s version: %s</string>
     <string name="overlays_tab_package_ver_message_copied">Successfully copied version code to clipboard!</string>
     <string name="overlays_tab_package_ver_failure">Failed to grab package version</string>
+    <string name="locale_restart_message">Restart app to switch language</string>
+    <string name="restart">Restart</string>
+    <string name="advanced_ui_restart_message">Restart app to switch UI</string>
 
 </resources>

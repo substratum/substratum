@@ -281,32 +281,26 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     boolean isChecked = (Boolean) newValue;
                     if (isChecked) {
                         forceEnglish.setChecked(true);
-                        Toast.makeText(mContext,
-                                getString(R.string.settings_force_english_toast_success),
-                                Toast.LENGTH_SHORT).show();
                         prefs.edit().putBoolean("force_english", true).apply();
-                        Toast.makeText(mContext,
-                                getString(R.string.substratum_restart_toast),
-                                Toast.LENGTH_LONG).show();
-                        if (getActivity() != null) {
-                            getActivity().finish();
+                        // TODO: Fix incorrect View being taken that causes Lunchbar to overlay bottom navigation
+                        Lunchbar lunchbar = Lunchbar.make(getView(),
+                                R.string.locale_restart_message, Lunchbar.LENGTH_INDEFINITE);
+                        lunchbar.setAction(getString(R.string.restart), v -> {
                             Handler handler = new Handler();
                             handler.postDelayed(() -> Substratum.restartSubstratum(mContext), 100);
-                        }
+                        });
+                        lunchbar.show();
                     } else {
                         forceEnglish.setChecked(false);
-                        Toast.makeText(mContext,
-                                getString(R.string.settings_force_english_toast_reverted),
-                                Toast.LENGTH_SHORT).show();
                         prefs.edit().putBoolean("force_english", false).apply();
-                        Toast.makeText(mContext,
-                                getString(R.string.substratum_restart_toast),
-                                Toast.LENGTH_LONG).show();
-                        if (getActivity() != null) {
-                            getActivity().finish();
+                        // TODO: Fix incorrect View being taken that causes Lunchbar to overlay bottom navigation
+                        Lunchbar lunchbar = Lunchbar.make(getView(),
+                                R.string.locale_restart_message, Lunchbar.LENGTH_INDEFINITE);
+                        lunchbar.setAction(getString(R.string.restart), v -> {
                             Handler handler = new Handler();
                             handler.postDelayed(() -> Substratum.restartSubstratum(mContext), 100);
-                        }
+                        });
+                        lunchbar.show();
                     }
                     return false;
                 });
@@ -326,25 +320,25 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     if (isChecked) {
                         advancedUi.setChecked(true);
                         prefs.edit().putBoolean("advanced_ui", true).apply();
-                        Toast.makeText(mContext,
-                                getString(R.string.substratum_restart_toast),
-                                Toast.LENGTH_SHORT).show();
-                        if (getActivity() != null) {
-                            getActivity().finish();
+                        // TODO: Fix incorrect View being taken that causes Lunchbar to overlay bottom navigation
+                        Lunchbar lunchbar = Lunchbar.make(getView(),
+                                R.string.advanced_ui_restart_message, Lunchbar.LENGTH_INDEFINITE);
+                        lunchbar.setAction(getString(R.string.restart), v -> {
                             Handler handler = new Handler();
                             handler.postDelayed(() -> Substratum.restartSubstratum(mContext), 100);
-                        }
+                        });
+                        lunchbar.show();
                     } else {
                         advancedUi.setChecked(false);
                         prefs.edit().putBoolean("advanced_ui", false).apply();
-                        Toast.makeText(mContext,
-                                getString(R.string.substratum_restart_toast),
-                                Toast.LENGTH_SHORT).show();
-                        if (getActivity() != null) {
-                            getActivity().finish();
+                        // TODO: Fix incorrect View being taken that causes Lunchbar to overlay bottom navigation
+                        Lunchbar lunchbar = Lunchbar.make(getView(),
+                                R.string.advanced_ui_restart_message, Lunchbar.LENGTH_INDEFINITE);
+                        lunchbar.setAction(getString(R.string.restart), v -> {
                             Handler handler = new Handler();
                             handler.postDelayed(() -> Substratum.restartSubstratum(mContext), 100);
-                        }
+                        });
+                        lunchbar.show();
                     }
                     return false;
                 });
@@ -368,8 +362,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 Toast.LENGTH_SHORT).show();
                         if (getActivity() != null) {
                             getActivity().recreate();
-                            //Handler handler = new Handler();
-                            //handler.postDelayed(() -> Substratum.restartSubstratum(mContext), 100);
                         }
                     } else {
                         prefs.edit().putBoolean("alternate_drawer_design", false).apply();
@@ -379,8 +371,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 Toast.LENGTH_SHORT).show();
                         if (getActivity() != null) {
                             getActivity().recreate();
-                            //Handler handler = new Handler();
-                            //handler.postDelayed(() -> Substratum.restartSubstratum(mContext), 100);
                         }
                     }
                     return false;

@@ -19,10 +19,13 @@
 package projekt.substratum.adapters.fragments.manager;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,8 +38,6 @@ import java.util.List;
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
-
-import static android.text.Html.FROM_HTML_MODE_LEGACY;
 
 public class ManagerAdapter extends
         RecyclerView.Adapter<ManagerAdapter.ViewHolder> {
@@ -89,18 +90,19 @@ public class ManagerAdapter extends
 
             if ((metadata != null) && !metadata.isEmpty()) {
                 metadata = metadata.replace("_", " ");
-                String textView = "<b>" + context.getString(R.string.manager_type1a) +
-                        "</b> " + metadata;
+                SpannableStringBuilder str = new SpannableStringBuilder(context.getString(
+                        R.string.manager_type1a) + " " + metadata);
+                str.setSpan(new StyleSpan(Typeface.BOLD), 0, context.getString(
+                        R.string.manager_type1a).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 viewHolder.type1a.setVisibility(View.VISIBLE);
-                overlayList.get(position).setType1a(textView);
-                viewHolder.type1a.setText(Html.fromHtml(textView, FROM_HTML_MODE_LEGACY));
+                overlayList.get(position).setType1a(str.toString());
+                viewHolder.type1a.setText(str);
             } else {
                 viewHolder.type1a.setVisibility(View.GONE);
             }
         } else {
             viewHolder.type1a.setVisibility(View.VISIBLE);
-            viewHolder.type1a.setText(Html.fromHtml(overlayList.get(position).getType1a(),
-                    FROM_HTML_MODE_LEGACY));
+            viewHolder.type1a.setText(overlayList.get(position).getType1a());
         }
 
         if (overlayList.get(position).getType1b() == null) {
@@ -110,18 +112,19 @@ public class ManagerAdapter extends
                     References.metadataOverlayType1b);
             if ((metadata != null) && !metadata.isEmpty()) {
                 metadata = metadata.replace("_", " ");
-                String textView = "<b>" + context.getString(R.string.manager_type1b) +
-                        "</b> " + metadata;
+                SpannableStringBuilder str = new SpannableStringBuilder(context.getString(
+                        R.string.manager_type1b) + " " + metadata);
+                str.setSpan(new StyleSpan(Typeface.BOLD), 0, context.getString(
+                        R.string.manager_type1b).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 viewHolder.type1b.setVisibility(View.VISIBLE);
-                overlayList.get(position).setType1b(textView);
-                viewHolder.type1b.setText(Html.fromHtml(textView, FROM_HTML_MODE_LEGACY));
+                overlayList.get(position).setType1b(str.toString());
+                viewHolder.type1b.setText(str);
             } else {
                 viewHolder.type1b.setVisibility(View.GONE);
             }
         } else {
             viewHolder.type1b.setVisibility(View.VISIBLE);
-            viewHolder.type1b.setText(Html.fromHtml(overlayList.get(position).getType1b(),
-                    FROM_HTML_MODE_LEGACY));
+            viewHolder.type1b.setText(overlayList.get(position).getType1b());
         }
 
         if (overlayList.get(position).getType1c() == null) {
@@ -131,18 +134,19 @@ public class ManagerAdapter extends
                     References.metadataOverlayType1c);
             if ((metadata != null) && !metadata.isEmpty()) {
                 metadata = metadata.replace("_", " ");
-                String textView = "<b>" + context.getString(R.string.manager_type1c) +
-                        "</b> " + metadata;
+                SpannableStringBuilder str = new SpannableStringBuilder(context.getString(
+                        R.string.manager_type1c) + " " + metadata);
+                str.setSpan(new StyleSpan(Typeface.BOLD), 0, context.getString(
+                        R.string.manager_type1c).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 viewHolder.type1c.setVisibility(View.VISIBLE);
-                overlayList.get(position).setType1c(textView);
-                viewHolder.type1c.setText(Html.fromHtml(textView, FROM_HTML_MODE_LEGACY));
+                overlayList.get(position).setType1c(str.toString());
+                viewHolder.type1c.setText(str);
             } else {
                 viewHolder.type1c.setVisibility(View.GONE);
             }
         } else {
             viewHolder.type1c.setVisibility(View.VISIBLE);
-            viewHolder.type1c.setText(Html.fromHtml(overlayList.get(position).getType1c(),
-                    FROM_HTML_MODE_LEGACY));
+            viewHolder.type1c.setText(overlayList.get(position).getType1c());
         }
 
         if (overlayList.get(position).getType2() == null) {
@@ -152,18 +156,19 @@ public class ManagerAdapter extends
                     References.metadataOverlayType2);
             if ((metadata != null) && !metadata.isEmpty()) {
                 metadata = metadata.replace("_", " ");
-                String textView = "<b>" + context.getString(R.string.manager_type2) +
-                        "</b> " + metadata;
+                SpannableStringBuilder str = new SpannableStringBuilder(context.getString(
+                        R.string.manager_type2) + " " + metadata);
+                str.setSpan(new StyleSpan(Typeface.BOLD), 0, context.getString(
+                        R.string.manager_type2).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 viewHolder.type2.setVisibility(View.VISIBLE);
-                overlayList.get(position).setType2(textView);
-                viewHolder.type2.setText(Html.fromHtml(textView, FROM_HTML_MODE_LEGACY));
+                overlayList.get(position).setType2(str.toString());
+                viewHolder.type2.setText(str);
             } else {
                 viewHolder.type2.setVisibility(View.GONE);
             }
         } else {
             viewHolder.type2.setVisibility(View.VISIBLE);
-            viewHolder.type2.setText(Html.fromHtml(overlayList.get(position).getType2(),
-                    FROM_HTML_MODE_LEGACY));
+            viewHolder.type2.setText(overlayList.get(position).getType2());
         }
 
         if (overlayList.get(position).getType3() == null) {
@@ -173,18 +178,19 @@ public class ManagerAdapter extends
                     References.metadataOverlayType3);
             if ((metadata != null) && !metadata.isEmpty()) {
                 metadata = metadata.replace("_", " ");
-                String textView = "<b>" + context.getString(R.string.manager_type3) +
-                        "</b> " + metadata;
+                SpannableStringBuilder str = new SpannableStringBuilder(context.getString(
+                        R.string.manager_type3) + " " + metadata);
+                str.setSpan(new StyleSpan(Typeface.BOLD), 0, context.getString(
+                        R.string.manager_type3).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 viewHolder.type3.setVisibility(View.VISIBLE);
-                overlayList.get(position).setType3(textView);
-                viewHolder.type3.setText(Html.fromHtml(textView, FROM_HTML_MODE_LEGACY));
+                overlayList.get(position).setType3(str.toString());
+                viewHolder.type3.setText(str);
             } else {
                 viewHolder.type3.setVisibility(View.GONE);
             }
         } else {
             viewHolder.type3.setVisibility(View.VISIBLE);
-            viewHolder.type3.setText(Html.fromHtml(overlayList.get(position).getType3(),
-                    FROM_HTML_MODE_LEGACY));
+            viewHolder.type3.setText(overlayList.get(position).getType3());
         }
 
         if (overlayList.get(position).getType4() == null) {
@@ -194,35 +200,35 @@ public class ManagerAdapter extends
                     References.metadataOverlayType4);
             if ((metadata != null) && !metadata.isEmpty()) {
                 metadata = metadata.replace("_", " ");
-                String textView = "<b>" + context.getString(R.string.manager_type4) +
-                        "</b> " + metadata;
+                SpannableStringBuilder str = new SpannableStringBuilder(context.getString(
+                        R.string.manager_type4) + " " + metadata);
+                str.setSpan(new StyleSpan(Typeface.BOLD), 0, context.getString(
+                        R.string.manager_type4).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                 viewHolder.type4.setVisibility(View.VISIBLE);
-                overlayList.get(position).setType4(textView);
-                viewHolder.type4.setText(Html.fromHtml(textView, FROM_HTML_MODE_LEGACY));
+                overlayList.get(position).setType4(str.toString());
+                viewHolder.type4.setText(str);
             } else {
                 viewHolder.type4.setVisibility(View.GONE);
             }
         } else {
             viewHolder.type4.setVisibility(View.VISIBLE);
-            viewHolder.type4.setText(Html.fromHtml(overlayList.get(position).getType4(),
-                    FROM_HTML_MODE_LEGACY));
+            viewHolder.type4.setText(overlayList.get(position).getType4());
         }
 
-        String textView = "<b>" + context.getString(R.string.manager_version) +
-                "</b> " +
-                String.valueOf(
-                        Packages.getOverlaySubstratumVersion(
-                                context,
-                                overlayList.get(position)
-                                        .getName()));
-        viewHolder.version.setText(Html.fromHtml(textView, FROM_HTML_MODE_LEGACY));
+        SpannableStringBuilder str = new SpannableStringBuilder(context.getString(
+                R.string.manager_version) + " " + String.valueOf(
+                Packages.getOverlaySubstratumVersion(
+                        context,
+                        overlayList.get(position)
+                                .getName())));
+        str.setSpan(new StyleSpan(Typeface.BOLD), 0, context.getString(
+                R.string.manager_version).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        viewHolder.version.setText(str);
 
         if (overlayList.get(position).getThemeName().isEmpty()) {
             viewHolder.tvDesc.setText(packageName);
         } else {
-            viewHolder.tvDesc.setText(
-                    Html.fromHtml(overlayList.get(position).getThemeName(),
-                            FROM_HTML_MODE_LEGACY));
+            viewHolder.tvDesc.setText(overlayList.get(position).getThemeName());
         }
 
         viewHolder.chkSelected.setChecked(overlayList.get(position).isSelected());

@@ -19,6 +19,7 @@
 package projekt.substratum.adapters.fragments.manager;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 
 import java.io.Serializable;
@@ -27,6 +28,7 @@ import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
+import projekt.substratum.util.StringUtils;
 
 import static projekt.substratum.common.Resources.LG_FRAMEWORK;
 import static projekt.substratum.common.Resources.SAMSUNG_FRAMEWORK;
@@ -70,8 +72,7 @@ public class ManagerItem implements Serializable {
                 this.name,
                 References.metadataOverlayParent);
         if ((metadata != null) && !metadata.isEmpty() && newUpdate) {
-            this.themeName = context.getString(R.string.manager_theme_name) + " " +
-                    Packages.getPackageName(context, metadata);
+            this.themeName = Packages.getPackageName(context, metadata);
         } else {
             this.themeName = "";
         }
@@ -161,7 +162,11 @@ public class ManagerItem implements Serializable {
         if (this.themeName == null) {
             this.themeName = this.mContext.getString(R.string.reboot_awaiting_manager_title);
         }
-        return this.themeName;
+        return StringUtils.format(
+                mContext.getString(R.string.manager_theme_name),
+                this.themeName,
+                Typeface.BOLD)
+                .toString();
     }
 
     public void setThemeName(String name) {

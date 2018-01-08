@@ -23,9 +23,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +36,7 @@ import java.util.List;
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
+import projekt.substratum.util.StringUtils;
 
 public class ManagerAdapter extends
         RecyclerView.Adapter<ManagerAdapter.ViewHolder> {
@@ -90,13 +89,11 @@ public class ManagerAdapter extends
 
             if ((metadata != null) && !metadata.isEmpty()) {
                 metadata = metadata.replace("_", " ");
-                SpannableStringBuilder str = new SpannableStringBuilder(context.getString(
-                        R.string.manager_type1a) + " " + metadata);
-                str.setSpan(new StyleSpan(Typeface.BOLD), 0, context.getString(
-                        R.string.manager_type1a).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                SpannableStringBuilder type1a = StringUtils.format(
+                        context.getString(R.string.manager_type1a), metadata, Typeface.BOLD);
                 viewHolder.type1a.setVisibility(View.VISIBLE);
-                overlayList.get(position).setType1a(str.toString());
-                viewHolder.type1a.setText(str);
+                overlayList.get(position).setType1a(type1a.toString());
+                viewHolder.type1a.setText(type1a);
             } else {
                 viewHolder.type1a.setVisibility(View.GONE);
             }
@@ -112,13 +109,11 @@ public class ManagerAdapter extends
                     References.metadataOverlayType1b);
             if ((metadata != null) && !metadata.isEmpty()) {
                 metadata = metadata.replace("_", " ");
-                SpannableStringBuilder str = new SpannableStringBuilder(context.getString(
-                        R.string.manager_type1b) + " " + metadata);
-                str.setSpan(new StyleSpan(Typeface.BOLD), 0, context.getString(
-                        R.string.manager_type1b).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                SpannableStringBuilder type1b = StringUtils.format(
+                        context.getString(R.string.manager_type1b), metadata, Typeface.BOLD);
                 viewHolder.type1b.setVisibility(View.VISIBLE);
-                overlayList.get(position).setType1b(str.toString());
-                viewHolder.type1b.setText(str);
+                overlayList.get(position).setType1b(type1b.toString());
+                viewHolder.type1b.setText(type1b);
             } else {
                 viewHolder.type1b.setVisibility(View.GONE);
             }
@@ -134,13 +129,11 @@ public class ManagerAdapter extends
                     References.metadataOverlayType1c);
             if ((metadata != null) && !metadata.isEmpty()) {
                 metadata = metadata.replace("_", " ");
-                SpannableStringBuilder str = new SpannableStringBuilder(context.getString(
-                        R.string.manager_type1c) + " " + metadata);
-                str.setSpan(new StyleSpan(Typeface.BOLD), 0, context.getString(
-                        R.string.manager_type1c).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                SpannableStringBuilder type1c = StringUtils.format(context.getString(
+                        R.string.manager_type1c), metadata, Typeface.BOLD);
                 viewHolder.type1c.setVisibility(View.VISIBLE);
-                overlayList.get(position).setType1c(str.toString());
-                viewHolder.type1c.setText(str);
+                overlayList.get(position).setType1c(type1c.toString());
+                viewHolder.type1c.setText(type1c);
             } else {
                 viewHolder.type1c.setVisibility(View.GONE);
             }
@@ -156,13 +149,11 @@ public class ManagerAdapter extends
                     References.metadataOverlayType2);
             if ((metadata != null) && !metadata.isEmpty()) {
                 metadata = metadata.replace("_", " ");
-                SpannableStringBuilder str = new SpannableStringBuilder(context.getString(
-                        R.string.manager_type2) + " " + metadata);
-                str.setSpan(new StyleSpan(Typeface.BOLD), 0, context.getString(
-                        R.string.manager_type2).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                SpannableStringBuilder type2 = StringUtils.format(context.getString(
+                        R.string.manager_type2), metadata, Typeface.BOLD);
                 viewHolder.type2.setVisibility(View.VISIBLE);
-                overlayList.get(position).setType2(str.toString());
-                viewHolder.type2.setText(str);
+                overlayList.get(position).setType2(type2.toString());
+                viewHolder.type2.setText(type2);
             } else {
                 viewHolder.type2.setVisibility(View.GONE);
             }
@@ -178,13 +169,11 @@ public class ManagerAdapter extends
                     References.metadataOverlayType3);
             if ((metadata != null) && !metadata.isEmpty()) {
                 metadata = metadata.replace("_", " ");
-                SpannableStringBuilder str = new SpannableStringBuilder(context.getString(
-                        R.string.manager_type3) + " " + metadata);
-                str.setSpan(new StyleSpan(Typeface.BOLD), 0, context.getString(
-                        R.string.manager_type3).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                SpannableStringBuilder type3 = StringUtils.format(context.getString(
+                        R.string.manager_type3), metadata, Typeface.BOLD);
                 viewHolder.type3.setVisibility(View.VISIBLE);
-                overlayList.get(position).setType3(str.toString());
-                viewHolder.type3.setText(str);
+                overlayList.get(position).setType3(type3.toString());
+                viewHolder.type3.setText(type3);
             } else {
                 viewHolder.type3.setVisibility(View.GONE);
             }
@@ -200,13 +189,11 @@ public class ManagerAdapter extends
                     References.metadataOverlayType4);
             if ((metadata != null) && !metadata.isEmpty()) {
                 metadata = metadata.replace("_", " ");
-                SpannableStringBuilder str = new SpannableStringBuilder(context.getString(
-                        R.string.manager_type4) + " " + metadata);
-                str.setSpan(new StyleSpan(Typeface.BOLD), 0, context.getString(
-                        R.string.manager_type4).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                SpannableStringBuilder type4 = StringUtils.format(context.getString(
+                        R.string.manager_type4), metadata, Typeface.BOLD);
                 viewHolder.type4.setVisibility(View.VISIBLE);
-                overlayList.get(position).setType4(str.toString());
-                viewHolder.type4.setText(str);
+                overlayList.get(position).setType4(type4.toString());
+                viewHolder.type4.setText(type4);
             } else {
                 viewHolder.type4.setVisibility(View.GONE);
             }
@@ -215,18 +202,20 @@ public class ManagerAdapter extends
             viewHolder.type4.setText(overlayList.get(position).getType4());
         }
 
-        SpannableStringBuilder str = new SpannableStringBuilder(context.getString(
-                R.string.manager_version) + " " + String.valueOf(
+        SpannableStringBuilder version = StringUtils.format(context.getString(
+                R.string.manager_version), String.valueOf(
                 Packages.getOverlaySubstratumVersion(
                         context,
                         overlayList.get(position)
-                                .getName())));
-        str.setSpan(new StyleSpan(Typeface.BOLD), 0, context.getString(
-                R.string.manager_version).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        viewHolder.version.setText(str);
+                                .getName())), Typeface.BOLD);
+        viewHolder.version.setText(version);
 
         if (overlayList.get(position).getThemeName().isEmpty()) {
-            viewHolder.tvDesc.setText(packageName);
+            SpannableStringBuilder themeName = StringUtils.format(
+                    context.getString(R.string.manager_theme_name),
+                    packageName,
+                    Typeface.BOLD);
+            viewHolder.tvDesc.setText(themeName);
         } else {
             viewHolder.tvDesc.setText(overlayList.get(position).getThemeName());
         }

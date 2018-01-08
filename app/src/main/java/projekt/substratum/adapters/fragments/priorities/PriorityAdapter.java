@@ -24,9 +24,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +38,7 @@ import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
+import projekt.substratum.util.StringUtils;
 
 import static projekt.substratum.common.References.metadataOverlayDevice;
 import static projekt.substratum.common.Resources.LG_FRAMEWORK;
@@ -132,13 +131,11 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                     References.metadataOverlayType1a);
                             if ((metadata != null) && !metadata.isEmpty()) {
                                 metadata = metadata.replace("_", " ");
-                                SpannableStringBuilder str = new SpannableStringBuilder(mContext.getString(
-                                        R.string.manager_type1a) + " " + metadata);
-                                str.setSpan(new StyleSpan(Typeface.BOLD), 0, mContext.getString(
-                                        R.string.manager_type1a).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                SpannableStringBuilder type1a = StringUtils.format(mContext.getString(
+                                        R.string.manager_type1a), metadata, Typeface.BOLD);
                                 priorityObjectAdapter.type1a.setVisibility(View.VISIBLE);
-                                prioritiesItem.setType1a(str.toString());
-                                priorityObjectAdapter.type1a.setText(str);
+                                prioritiesItem.setType1a(type1a.toString());
+                                priorityObjectAdapter.type1a.setText(type1a);
                             } else {
                                 priorityObjectAdapter.type1a.setVisibility(View.GONE);
                             }
@@ -154,13 +151,11 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                     References.metadataOverlayType1b);
                             if ((metadata != null) && !metadata.isEmpty()) {
                                 metadata = metadata.replace("_", " ");
-                                SpannableStringBuilder str = new SpannableStringBuilder(mContext.getString(
-                                        R.string.manager_type1b) + " " + metadata);
-                                str.setSpan(new StyleSpan(Typeface.BOLD), 0, mContext.getString(
-                                        R.string.manager_type1b).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                SpannableStringBuilder type1b = StringUtils.format(mContext.getString(
+                                        R.string.manager_type1b), metadata, Typeface.BOLD);
                                 priorityObjectAdapter.type1b.setVisibility(View.VISIBLE);
-                                prioritiesItem.setType1b(str.toString());
-                                priorityObjectAdapter.type1b.setText(str);
+                                prioritiesItem.setType1b(type1b.toString());
+                                priorityObjectAdapter.type1b.setText(type1b);
                             } else {
                                 priorityObjectAdapter.type1b.setVisibility(View.GONE);
                             }
@@ -176,13 +171,11 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                     References.metadataOverlayType1c);
                             if ((metadata != null) && !metadata.isEmpty()) {
                                 metadata = metadata.replace("_", " ");
-                                SpannableStringBuilder str = new SpannableStringBuilder(mContext.getString(
-                                        R.string.manager_type1c) + " " + metadata);
-                                str.setSpan(new StyleSpan(Typeface.BOLD), 0, mContext.getString(
-                                        R.string.manager_type1c).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                SpannableStringBuilder type1c = StringUtils.format(mContext.getString(
+                                        R.string.manager_type1c), metadata, Typeface.BOLD);
                                 priorityObjectAdapter.type1c.setVisibility(View.VISIBLE);
-                                prioritiesItem.setType1c(str.toString());
-                                priorityObjectAdapter.type1c.setText(str);
+                                prioritiesItem.setType1c(type1c.toString());
+                                priorityObjectAdapter.type1c.setText(type1c);
                             } else {
                                 priorityObjectAdapter.type1c.setVisibility(View.GONE);
                             }
@@ -198,13 +191,11 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                     References.metadataOverlayType2);
                             if ((metadata != null) && !metadata.isEmpty()) {
                                 metadata = metadata.replace("_", " ");
-                                SpannableStringBuilder str = new SpannableStringBuilder(mContext.getString(
-                                        R.string.manager_type2) + " " + metadata);
-                                str.setSpan(new StyleSpan(Typeface.BOLD), 0, mContext.getString(
-                                        R.string.manager_type2).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                SpannableStringBuilder type2 = StringUtils.format(mContext.getString(
+                                        R.string.manager_type2), metadata, Typeface.BOLD);
                                 priorityObjectAdapter.type2.setVisibility(View.VISIBLE);
-                                prioritiesItem.setType2(str.toString());
-                                priorityObjectAdapter.type2.setText(str);
+                                prioritiesItem.setType2(type2.toString());
+                                priorityObjectAdapter.type2.setText(type2);
                             } else {
                                 priorityObjectAdapter.type2.setVisibility(View.GONE);
                             }
@@ -220,13 +211,11 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                     References.metadataOverlayType3);
                             if ((metadata != null) && !metadata.isEmpty()) {
                                 metadata = metadata.replace("_", " ");
-                                SpannableStringBuilder str = new SpannableStringBuilder(mContext.getString(
-                                        R.string.manager_type3) + " " + metadata);
-                                str.setSpan(new StyleSpan(Typeface.BOLD), 0, mContext.getString(
-                                        R.string.manager_type3).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                SpannableStringBuilder type3 = StringUtils.format(mContext.getString(
+                                        R.string.manager_type3), metadata, Typeface.BOLD);
                                 priorityObjectAdapter.type3.setVisibility(View.VISIBLE);
-                                prioritiesItem.setType3(str.toString());
-                                priorityObjectAdapter.type3.setText(str);
+                                prioritiesItem.setType3(type3.toString());
+                                priorityObjectAdapter.type3.setText(type3);
                             } else {
                                 priorityObjectAdapter.type3.setVisibility(View.GONE);
                             }
@@ -243,13 +232,11 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                             Boolean newUpdate = (version != 0) && (version <= BuildConfig
                                     .VERSION_CODE);
                             if ((metadata != null) && !metadata.isEmpty() && newUpdate) {
-                                SpannableStringBuilder str = new SpannableStringBuilder(mContext.getString(
-                                        R.string.manager_theme_name) + " " + metadata);
-                                str.setSpan(new StyleSpan(Typeface.BOLD), 0, mContext.getString(
-                                        R.string.manager_theme_name).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                SpannableStringBuilder themeName = StringUtils.format(mContext.getString(
+                                        R.string.manager_theme_name), metadata, Typeface.BOLD);
                                 priorityObjectAdapter.tvDesc.setVisibility(View.VISIBLE);
-                                prioritiesItem.setThemeName(str.toString());
-                                priorityObjectAdapter.tvDesc.setText(str);
+                                prioritiesItem.setThemeName(themeName.toString());
+                                priorityObjectAdapter.tvDesc.setText(themeName);
                             } else {
                                 prioritiesItem.setThemeName("");
                                 priorityObjectAdapter.tvDesc.setText(packageTitle);

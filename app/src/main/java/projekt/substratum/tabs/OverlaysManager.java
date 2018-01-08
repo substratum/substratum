@@ -1303,19 +1303,7 @@ enum OverlaysManager {
                                 }
                             }
                         }
-                        if (checkThemeInterfacer(context)) {
-                            ThemeManager.disableOverlay(context, disableBeforeEnabling);
-                        } else {
-                            StringBuilder final_commands = new StringBuilder(
-                                    ThemeManager.disableOverlay);
-                            for (int i = 0; i < disableBeforeEnabling.size(); i++) {
-                                final_commands
-                                        .append(' ')
-                                        .append(disableBeforeEnabling.get(i))
-                                        .append(' ');
-                            }
-                            Log.d(TAG, final_commands.toString());
-                        }
+                        ThemeManager.disableOverlay(context, disableBeforeEnabling);
                     }
 
                     if (state.equals(COMPILE_ENABLE)) {

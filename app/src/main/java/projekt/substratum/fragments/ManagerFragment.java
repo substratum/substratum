@@ -356,46 +356,21 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         assert getActivity() != null;
         searchView = ((MainActivity) getActivity()).searchView;
         if (searchView != null) searchView.setOnQueryTextListener(this);
-        updateMenuButtonState(menu);
+        updateMenuButtonState(menu.findItem(R.id.alphabetize));
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     /**
      * Update the options menu icons
      *
-     * @param menu Object of menu
-     * @return True, if alphabetize is selected
+     * @param menuItem Object of menu item
      */
-    private boolean updateMenuButtonState(Menu menu) {
-        MenuItem alphabetizeMenu = menu.findItem(R.id.alphabetize);
+    private void updateMenuButtonState(MenuItem menuItem) {
         boolean alphabetize = prefs.getBoolean("alphabetize_overlays", true);
         if (alphabetize) {
-            alphabetizeMenu.setIcon(R.drawable.toolbar_alphabetize);
+            menuItem.setIcon(R.drawable.toolbar_alphabetize);
         } else {
-            alphabetizeMenu.setIcon(R.drawable.toolbar_randomize);
-        }
-        return alphabetize;
-    }
-
-    /**
-     * Functions to run as the options are loaded
-     *
-     * @param menu Object of menu
-     */
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        Boolean alphabetize = updateMenuButtonState(menu);
-        if (((overlayList != null) && !overlayList.isEmpty())) {
-            if (!alphabetize) refreshThemeName();
-            if (layoutReloader != null && !layoutReloader.isCancelled()) {
-                layoutReloader.cancel(true);
-                layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
-                layoutReloader.execute();
-            } else {
-                layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
-                layoutReloader.execute();
-            }
+            menuItem.setIcon(R.drawable.toolbar_randomize);
         }
     }
 
@@ -416,6 +391,16 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     prefs.edit().putBoolean("alphabetize_overlays", false).apply();
                 } else {
                     prefs.edit().putBoolean("alphabetize_overlays", true).apply();
+                }
+                updateMenuButtonState(item);
+                if (!alphabetize) refreshThemeName();
+                if (layoutReloader != null && !layoutReloader.isCancelled()) {
+                    layoutReloader.cancel(true);
+                    layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
+                    layoutReloader.execute();
+                } else {
+                    layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
+                    layoutReloader.execute();
                 }
                 assert getActivity() != null;
                 getActivity().invalidateOptionsMenu();

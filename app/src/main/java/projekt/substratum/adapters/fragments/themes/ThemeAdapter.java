@@ -26,6 +26,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
@@ -35,7 +36,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +49,6 @@ import java.util.List;
 
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
-import projekt.substratum.Substratum;
 import projekt.substratum.activities.launch.KeyExchangeActivity;
 import projekt.substratum.activities.launch.ThemeLaunchActivity;
 import projekt.substratum.common.Packages;
@@ -210,8 +209,8 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
                 TextView aboutText = sheetView.findViewById(R.id.about_text);
                 TextView moreText = sheetView.findViewById(R.id.more_text);
-                String boldedThemeName = "<b>" + themeItem.getThemeName() + "</b>";
-                aboutText.setText(Html.fromHtml(boldedThemeName, Html.FROM_HTML_MODE_LEGACY));
+                aboutText.setText(themeItem.getThemeName());
+                aboutText.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                 moreText.setText(String.format("%s (%s)\n%s",
                         Packages.getAppVersion(this.mContext, themeItem.getThemePackage()),
                         Packages.getAppVersionCode(this.mContext, themeItem.getThemePackage()),

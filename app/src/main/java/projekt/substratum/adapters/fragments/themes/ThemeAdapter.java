@@ -187,7 +187,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                         e.printStackTrace();
                     }
 
-                    launchThemeReceiver = new LaunchThemeReceiver();
+                    launchThemeReceiver = new LaunchThemeReceiver(themeItem.getThemePackage());
                     localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
                     localBroadcastManager.registerReceiver(launchThemeReceiver,
                             new IntentFilter(KEY_ACCEPTED_RECEIVER));
@@ -506,13 +506,21 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
      */
     class LaunchThemeReceiver extends BroadcastReceiver {
 
+        String packageName;
+
+        LaunchThemeReceiver(String packageName) {
+            this.packageName = packageName;
+        }
+
         @Override
         public void onReceive(Context context, Intent intent) {
             synchronized (this) {
-                launchTheme(themeItem, isUsingDefaultTheme, options, intent);
-                themeItem = null;
-                isUsingDefaultTheme = null;
-                options = null;
+                if (themeItem.getThemePackage().equals(packageName)) {
+                    launchTheme(themeItem, isUsingDefaultTheme, options, intent);
+                    themeItem = null;
+                    isUsingDefaultTheme = null;
+                    options = null;
+                }
                 try {
                     localBroadcastManager.unregisterReceiver(launchThemeReceiver);
                 } catch (Exception e) {

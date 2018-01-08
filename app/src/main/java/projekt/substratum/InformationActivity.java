@@ -233,8 +233,6 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
     private static int getDominantColor(Context context, Bitmap bitmap) {
         try {
             Palette palette = Palette.from(bitmap).generate();
-            Log.e("Palette", Integer.toHexString(palette.getDarkVibrantColor(
-                    context.getColor(R.color.main_screen_card_background))));
             return palette.getDominantColor(
                     context.getColor(R.color.main_screen_card_background));
         } catch (IllegalArgumentException ignored) {

@@ -563,6 +563,8 @@ public class MainActivity extends AppCompatActivity implements
                 }
                 return true;
             });
+            // On configuration change, the bar will be reset, just like the fragments
+            bottomBar.setSaveEnabled(false);
 
             if ((getIntent() != null) && getIntent().getBooleanExtra
                     ("launch_manager_fragment", false)) {

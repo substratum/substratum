@@ -24,7 +24,6 @@ import android.os.Bundle;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import projekt.substratum.Substratum;
 import projekt.substratum.adapters.fragments.themes.SecurityItem;
 import projekt.substratum.common.References;
 

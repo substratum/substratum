@@ -49,7 +49,6 @@ import java.util.TimerTask;
 
 import cat.ereza.customactivityoncrash.config.CaocConfig;
 import projekt.substratum.activities.crash.SubstratumCrash;
-import projekt.substratum.adapters.fragments.themes.SecurityItem;
 import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;

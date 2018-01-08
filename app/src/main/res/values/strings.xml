@@ -138,7 +138,8 @@
     <string name="manager_type2">Type2:</string>
     <string name="manager_type3">Type3:</string>
     <string name="manager_type4">Type4:</string>
-    <string name="manager_version">Overlay Version:</string>
+    <string name="manager_version">Version:</string>
+    <string name="manager_theme_version">Overlay version:</string>
 
     <string name="backend_not_authorized_title">Substratum debug build not authorized!</string>
     <string name="backend_not_authorized_text">To use this build of substratum with your custom ROM, please enable \'Force authorize every theme app\' in Developer options.\n\nIf it is not there, please contact your ROM dev for missing commits!</string>
@@ -830,6 +831,8 @@
     <string name="type3_name_placeholder" translatable="false">TYPE3 VARIABLE</string>
     <string name="type4_name_placeholder" translatable="false">TYPE4 VARIABLE</string>
     <string name="version_name_placeholder" translatable="false">VERSION VARIABLE</string>
+    <string name="theme_version_name_placeholder" translatable="false">THEME VERSION
+        VARIABLE</string>
     <string name="api_levels_placeholder_text" translatable="false">API_LEVELS</string>
     <string name="theme_version_placeholder_text" translatable="false">THEME_VERSION</string>
     <string name="plugin_version_placeholder_text" translatable="false">PLUGIN_VERSION</string>

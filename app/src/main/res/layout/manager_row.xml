@@ -90,6 +90,14 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/theme_version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/theme_version_name_placeholder"
+                android:textColor="@color/main_screen_card_theme_title"
+                android:textSize="14sp" />
+
+            <TextView
                 android:id="@+id/type1a"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

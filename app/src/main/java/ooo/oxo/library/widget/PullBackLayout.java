@@ -56,7 +56,7 @@ public class PullBackLayout extends FrameLayout {
 
     public PullBackLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        dragger = ViewDragHelper.create(this, 1f / 12f, new ViewDragCallback());
+        dragger = ViewDragHelper.create(this, 1f / 30f, new ViewDragCallback());
         dragDismissDistance = getResources().getDimension(R.dimen.drag_dismiss_distance);
     }
 
@@ -90,7 +90,7 @@ public class PullBackLayout extends FrameLayout {
 
         setPivotY(getHeight());
 
-        float scale = 1 - ((1 - 0.8f) * dragFraction);
+        float scale = 1 - ((1 - 0.9f) * dragFraction);
         setScaleX(scale);
         setScaleY(scale);
     }

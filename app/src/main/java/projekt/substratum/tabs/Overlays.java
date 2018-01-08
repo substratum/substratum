@@ -1493,7 +1493,8 @@ public class Overlays extends Fragment {
                     fragment.mRecyclerView.setVisibility(View.VISIBLE);
                 if (fragment.first_start) {
                     fragment.first_start = false;
-                    appendFragmentTabSuccess(fragment.getActivity(), fragment.getClass());
+                    if (fragment.isAdded())
+                        appendFragmentTabSuccess(fragment.getActivity(), fragment.getClass());
                 }
             }
         }

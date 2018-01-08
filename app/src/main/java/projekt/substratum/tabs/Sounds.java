@@ -125,7 +125,7 @@ public class Sounds extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        appendFragmentTabSuccess(getActivity(), this.getClass());
+        if (isAdded()) appendFragmentTabSuccess(getActivity(), this.getClass());
     }
 
     @Override

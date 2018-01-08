@@ -102,7 +102,7 @@ public class Wallpapers extends Fragment {
             downloadResources downloadTask = new downloadResources(this);
             downloadTask.execute(wallpaperUrl, CURRENT_WALLPAPERS);
         } else {
-            appendFragmentTabSuccess(getActivity(), this.getClass());
+            if (isAdded()) appendFragmentTabSuccess(getActivity(), this.getClass());
             mRecyclerView.setVisibility(View.GONE);
             materialProgressBar.setVisibility(View.GONE);
             no_wallpapers.setVisibility(View.GONE);
@@ -168,7 +168,8 @@ public class Wallpapers extends Fragment {
                 } catch (Exception e) {
                     // Suppress warning
                 }
-                appendFragmentTabSuccess(wallpapers.getActivity(), this.getClass());
+                if (wallpapers.isAdded())
+                    appendFragmentTabSuccess(wallpapers.getActivity(), this.getClass());
             }
         }
 

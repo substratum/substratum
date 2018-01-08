@@ -36,6 +36,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -172,8 +173,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                     );
 
                     // Okay you fuck, this fucking works, fucking know this shit or fuck off
-                    boolean isUsingDefaultTheme =
-                            isThemeUsingDefaultTheme(themeItem.getThemePackage());
+                    isUsingDefaultTheme = isThemeUsingDefaultTheme(themeItem.getThemePackage());
                     Intent theme_intent = themeIntent(
                             mContext,
                             themeItem.getThemePackage(),
@@ -187,14 +187,14 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                         e.printStackTrace();
                     }
 
-                    launchThemeReceiver = new LaunchThemeReceiver(themeItem.getThemePackage());
-                    localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
-                    localBroadcastManager.registerReceiver(launchThemeReceiver,
-                            new IntentFilter(KEY_ACCEPTED_RECEIVER));
-
-                    this.themeItem = themeItem;
-                    this.isUsingDefaultTheme = isUsingDefaultTheme;
-                    this.options = options;
+                    if (isUsingDefaultTheme) {
+                        launchThemeReceiver = new LaunchThemeReceiver(themeItem.getThemePackage());
+                        localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
+                        localBroadcastManager.registerReceiver(launchThemeReceiver,
+                                new IntentFilter(KEY_ACCEPTED_RECEIVER));
+                        this.themeItem = themeItem;
+                        this.options = options;
+                    }
                 });
 
         viewHolder.cardView.setOnLongClickListener(view -> {
@@ -502,7 +502,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
     }
 
     /**
-     * Receiver to kill the activity
+     * Receiver to launch the theme activity
      */
     class LaunchThemeReceiver extends BroadcastReceiver {
 
@@ -516,10 +516,14 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         public void onReceive(Context context, Intent intent) {
             synchronized (this) {
                 if (themeItem.getThemePackage().equals(packageName)) {
+                    Log.d("AppendedFragment", "Launching '" + packageName + "'...");
                     launchTheme(themeItem, isUsingDefaultTheme, options, intent);
                     themeItem = null;
                     isUsingDefaultTheme = null;
                     options = null;
+                } else {
+                    Log.e("AppendedFragment", "Wrong package name (" + packageName + "), " +
+                            "terminating the receiver due to security breach...");
                 }
                 try {
                     localBroadcastManager.unregisterReceiver(launchThemeReceiver);

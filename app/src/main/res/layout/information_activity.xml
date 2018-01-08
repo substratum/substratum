@@ -68,12 +68,6 @@
                         android:scaleType="centerCrop"
                         app:layout_collapseMode="parallax" />
 
-                    <View
-                        android:id="@+id/gradientView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/actionbar_gradient" />
-
                     <android.support.v7.widget.Toolbar
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"

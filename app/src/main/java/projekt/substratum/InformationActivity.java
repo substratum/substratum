@@ -155,8 +155,6 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
     Toolbar toolbar;
     @BindView(R.id.tabs)
     TabLayout tabLayout;
-    @BindView(R.id.gradientView)
-    View gradientView;
     @BindView(R.id.collapsing_toolbar_tabbed_layout)
     CollapsingToolbarLayout collapsingToolbar;
     @BindView(R.id.viewpager)
@@ -218,9 +216,11 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
         if (appendedTabs == tabCount) {
             appendedTabs = 0;
             tabCount = 0;
-            activity.startPostponedEnterTransition();
-            Log.d("AppendedFragment",
-                    "All tabs loaded, signalling for shared element transition to begin!");
+            if (activity != null && !activity.isFinishing() && !activity.isDestroyed()) {
+                activity.startPostponedEnterTransition();
+                Log.d("AppendedFragment",
+                        "All tabs loaded, signalling for shared element transition to begin!");
+            }
         }
     }
 
@@ -235,7 +235,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
             Palette palette = Palette.from(bitmap).generate();
             Log.e("Palette", Integer.toHexString(palette.getDarkVibrantColor(
                     context.getColor(R.color.main_screen_card_background))));
-            return palette.getDarkVibrantColor(
+            return palette.getDominantColor(
                     context.getColor(R.color.main_screen_card_background));
         } catch (IllegalArgumentException ignored) {
             // Suppress warning
@@ -1355,7 +1355,6 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                         informationActivity.byteArray, 0, informationActivity.byteArray.length);
                 informationActivity.runOnUiThread(() -> {
                     if (!informationActivity.prefs.getBoolean("complexion", false)) {
-                        informationActivity.gradientView.setVisibility(View.GONE);
                         informationActivity.heroImage.
                                 setBackgroundColor(Color.parseColor("#ffff00"));
                         informationActivity.collapsingToolbar.

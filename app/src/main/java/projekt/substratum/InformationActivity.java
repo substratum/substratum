@@ -230,14 +230,17 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
      * @param bitmap Bitmap to collect data from
      * @return Returns the color that is dominant
      */
-    private static int getDominantColor(Bitmap bitmap) {
+    private static int getDominantColor(Context context, Bitmap bitmap) {
         try {
             Palette palette = Palette.from(bitmap).generate();
-            return palette.getDominantColor(Color.BLACK);
+            Log.e("Palette", Integer.toHexString(palette.getDarkVibrantColor(
+                    context.getColor(R.color.main_screen_card_background))));
+            return palette.getDarkVibrantColor(
+                    context.getColor(R.color.main_screen_card_background));
         } catch (IllegalArgumentException ignored) {
             // Suppress warning
         }
-        return Color.BLACK;
+        return context.getColor(R.color.main_screen_card_background);
     }
 
     /**
@@ -341,13 +344,13 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
 
     /**
      * Automatically set the toolbar icons based on whether the hero image is dark or not
-     *
-     * @param dynamicActionBarColors True, if dynamic (based on hero), false if forced
      */
-    private void autoSetToolbarIcons(boolean dynamicActionBarColors) {
-        if (InformationActivity.checkColorDarkness(dominantColor) && dynamicActionBarColors) {
+    private void autoSetToolbarIcons() {
+        if (InformationActivity.checkColorDarkness(dominantColor)) {
+            shouldDarken = true;
             setDarkToolbarIcons();
         } else {
+            shouldDarken = false;
             setLightToolbarIcons();
         }
     }
@@ -587,7 +590,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
             }
         }
         dominantColor = heroImageBitmap == null ?
-                Color.TRANSPARENT : getDominantColor(heroImageBitmap);
+                Color.TRANSPARENT : getDominantColor(getApplicationContext(), heroImageBitmap);
 
         // Set the AppBarLayout to have the background color of the dominant color in hero
         appBarLayout.setBackgroundColor(dominantColor);
@@ -736,11 +739,11 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                     setLightToolbarIcons();
                     break;
                 default:
-                    autoSetToolbarIcons(dynamicActionBarColors);
+                    autoSetToolbarIcons();
                     break;
             }
         } else {
-            autoSetToolbarIcons(dynamicActionBarColors);
+            autoSetToolbarIcons();
         }
 
         HashMap<String, Boolean> extra_hidden_tabs = new HashMap<>();
@@ -977,12 +980,6 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.theme_information_menu, menu);
-
-        // Start formalizing a check for dark icons
-        boolean dynamicActionBarColors = getResources().getBoolean(R.bool
-                .dynamicActionBarColors);
-        shouldDarken = InformationActivity.checkColorDarkness(dominantColor) &&
-                dynamicActionBarColors;
 
         // Start dynamically showing menu items
         boolean isOMS = Systems.checkOMS(mContext);

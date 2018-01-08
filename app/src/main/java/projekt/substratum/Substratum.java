@@ -70,7 +70,6 @@ public class Substratum extends Application {
     private static final FinishReceiver finishReceiver = new FinishReceiver();
     public static int initialPackageCount = 0;
     public static Thread currentThread;
-    public static SecurityItem currentThemeSecurity = null;
     private static Substratum substratum;
     private static boolean isWaiting;
     private static Boolean shouldStopThread = false;

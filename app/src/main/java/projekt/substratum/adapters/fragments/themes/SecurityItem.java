@@ -18,7 +18,9 @@
 
 package projekt.substratum.adapters.fragments.themes;
 
-public class SecurityItem {
+import java.io.Serializable;
+
+public class SecurityItem implements Serializable {
 
     private String package_name;
     private Integer hash;

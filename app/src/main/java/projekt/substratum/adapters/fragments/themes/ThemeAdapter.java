@@ -36,6 +36,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -379,24 +380,25 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
     private void launchTheme(ThemeItem themeItem,
                              Boolean isUsingDefaultTheme,
-                             ActivityOptions options) {
-        Boolean checkIfNull = Substratum.currentThemeSecurity == null ||
-                Substratum.currentThemeSecurity.getPackageName() == null;
+                             ActivityOptions options,
+                             Intent keyBundle) {
+        SecurityItem securityItem = (SecurityItem) keyBundle.getSerializableExtra("key_object");
+        Boolean checkIfNull = securityItem == null || securityItem.getPackageName() == null;
         if (themeItem != null) {
             MainActivity.mainActivity.startActivity(
                     launchThemeActivity(
-                            Substratum.getInstance(),
+                            MainActivity.mainActivity.getApplicationContext(),
                             themeItem.getThemeName(),
                             themeItem.getThemeAuthor().toString(),
                             themeItem.getThemePackage(),
                             themeItem.getThemeMode(),
-                            !checkIfNull ? Substratum.currentThemeSecurity.getHash() : null,
-                            !checkIfNull ? Substratum.currentThemeSecurity.getLaunchType() : null,
-                            !checkIfNull ? Substratum.currentThemeSecurity.getDebug() : null,
-                            !checkIfNull ? Substratum.currentThemeSecurity.getPiracyCheck() : null,
-                            !checkIfNull ? Substratum.currentThemeSecurity.getEncryptionKey() : null,
-                            !checkIfNull ? Substratum.currentThemeSecurity.getIVEncryptKey() : null,
-                            Systems.checkOMS(Substratum.getInstance())
+                            !checkIfNull ? securityItem.getHash() : null,
+                            !checkIfNull ? securityItem.getLaunchType() : null,
+                            !checkIfNull ? securityItem.getDebug() : null,
+                            !checkIfNull ? securityItem.getPiracyCheck() : null,
+                            !checkIfNull ? securityItem.getEncryptionKey() : null,
+                            !checkIfNull ? securityItem.getIVEncryptKey() : null,
+                            Systems.checkOMS(MainActivity.mainActivity.getApplicationContext())
                     ), (isUsingDefaultTheme ?
                             options != null ?
                                     options.toBundle() : null : null));
@@ -505,11 +507,10 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         @Override
         public void onReceive(Context context, Intent intent) {
             synchronized (this) {
-                launchTheme(themeItem, isUsingDefaultTheme, options);
+                launchTheme(themeItem, isUsingDefaultTheme, options, intent);
                 themeItem = null;
                 isUsingDefaultTheme = null;
                 options = null;
-                Substratum.currentThemeSecurity = null;
                 try {
                     localBroadcastManager.unregisterReceiver(launchThemeReceiver);
                 } catch (Exception e) {

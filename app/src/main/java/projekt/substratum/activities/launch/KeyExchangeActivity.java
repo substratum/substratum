@@ -115,25 +115,25 @@ public class KeyExchangeActivity extends Activity {
     protected void onActivityResult(int requestCode,
                                     int resultCode,
                                     Intent data) {
+        SecurityItem securityItem = null;
         if (data != null && requestCode != 10000) {
             Bundle intent = data.getExtras();
             if (intent != null) {
                 String theme_pid = intent.getString(THEME_PID);
-                Substratum.currentThemeSecurity = new SecurityItem(theme_pid);
-                Substratum.currentThemeSecurity.setHash(intent.getInt(THEME_HASH));
-                Substratum.currentThemeSecurity.setLaunchType(intent.getBoolean(THEME_LAUNCH_TYPE));
-                Substratum.currentThemeSecurity.setDebug(intent.getBoolean(THEME_DEBUG));
-                Substratum.currentThemeSecurity.setPiracyCheck(
-                        intent.getBoolean(THEME_PIRACY_CHECK));
-                Substratum.currentThemeSecurity.setEncryptionKey(
-                        intent.getByteArray(ENCRYPTION_KEY_EXTRA));
-                Substratum.currentThemeSecurity.setIVEncryptKey(
-                        intent.getByteArray(IV_ENCRYPTION_KEY_EXTRA));
+                securityItem = new SecurityItem(theme_pid);
+                securityItem.setHash(intent.getInt(THEME_HASH));
+                securityItem.setLaunchType(intent.getBoolean(THEME_LAUNCH_TYPE));
+                securityItem.setDebug(intent.getBoolean(THEME_DEBUG));
+                securityItem.setPiracyCheck(intent.getBoolean(THEME_PIRACY_CHECK));
+                securityItem.setEncryptionKey(intent.getByteArray(ENCRYPTION_KEY_EXTRA));
+                securityItem.setIVEncryptKey(intent.getByteArray(IV_ENCRYPTION_KEY_EXTRA));
             }
         } else if (data == null && requestCode != 10000) {
-            Substratum.currentThemeSecurity = new SecurityItem(null);
+            securityItem = new SecurityItem(null);
         }
-        sendKeySentMessage(getApplicationContext());
+        Intent keyMessage = new Intent();
+        keyMessage.putExtra("key_object", securityItem);
+        sendKeySentMessage(getApplicationContext(), keyMessage);
         finish();
     }
 }

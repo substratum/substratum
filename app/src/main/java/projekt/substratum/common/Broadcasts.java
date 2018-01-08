@@ -59,10 +59,11 @@ public enum Broadcasts {
      *
      * @param context Context
      */
-    public static void sendKeySentMessage(Context context) {
+    public static void sendKeySentMessage(Context context, Intent keyBundle) {
         Log.d("KeyExchangeActivity",
                 "The KEA system has reported back positive, notifying the servant...");
         Intent intent = new Intent(KEY_ACCEPTED_RECEIVER);
+        intent.putExtra("key_object", keyBundle.getSerializableExtra("key_object"));
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 

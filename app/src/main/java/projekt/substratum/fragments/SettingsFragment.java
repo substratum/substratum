@@ -287,7 +287,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 R.string.locale_restart_message, Lunchbar.LENGTH_INDEFINITE);
                         lunchbar.setAction(getString(R.string.restart), v -> {
                             Handler handler = new Handler();
-                            handler.postDelayed(() -> Substratum.restartSubstratum(mContext), 100);
+                            handler.postDelayed(() -> Substratum.restartSubstratum(mContext), 0);
                         });
                         lunchbar.show();
                     } else {
@@ -298,7 +298,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 R.string.locale_restart_message, Lunchbar.LENGTH_INDEFINITE);
                         lunchbar.setAction(getString(R.string.restart), v -> {
                             Handler handler = new Handler();
-                            handler.postDelayed(() -> Substratum.restartSubstratum(mContext), 100);
+                            handler.postDelayed(() -> Substratum.restartSubstratum(mContext), 0);
                         });
                         lunchbar.show();
                     }
@@ -325,7 +325,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 R.string.advanced_ui_restart_message, Lunchbar.LENGTH_INDEFINITE);
                         lunchbar.setAction(getString(R.string.restart), v -> {
                             Handler handler = new Handler();
-                            handler.postDelayed(() -> Substratum.restartSubstratum(mContext), 100);
+                            handler.postDelayed(() -> Substratum.restartSubstratum(mContext), 0);
                         });
                         lunchbar.show();
                     } else {
@@ -336,7 +336,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 R.string.advanced_ui_restart_message, Lunchbar.LENGTH_INDEFINITE);
                         lunchbar.setAction(getString(R.string.restart), v -> {
                             Handler handler = new Handler();
-                            handler.postDelayed(() -> Substratum.restartSubstratum(mContext), 100);
+                            handler.postDelayed(() -> Substratum.restartSubstratum(mContext), 0);
                         });
                         lunchbar.show();
                     }

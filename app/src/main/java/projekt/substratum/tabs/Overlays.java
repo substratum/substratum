@@ -871,12 +871,10 @@ public class Overlays extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (!Systems.checkOMS(mContext) && first_start) {
-            refreshList();
-            first_start = false;
-        }
-        if (Systems.checkOMS(mContext) && !toggle_all.isChecked()) {
-            refreshList();
+        if (Systems.checkOMS(mContext)) {
+            if (!toggle_all.isChecked()) refreshList();
+        } else {
+            if (first_start) refreshList();
         }
     }
 

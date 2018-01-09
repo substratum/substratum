@@ -162,11 +162,7 @@ public class ManagerItem implements Serializable {
         if (this.themeName == null) {
             this.themeName = this.mContext.getString(R.string.reboot_awaiting_manager_title);
         }
-        return StringUtils.format(
-                mContext.getString(R.string.manager_theme_name),
-                this.themeName,
-                Typeface.BOLD)
-                .toString();
+        return this.themeName;
     }
 
     public void setThemeName(String name) {

@@ -23,6 +23,7 @@ public class SystemCrash extends Activity {
 
         Handler handler = new Handler();
         Runnable r = () -> {
+            dialog.dismiss();
             Activities.launchInternalActivity(getApplicationContext(), LaunchActivity.class);
             finishAffinity();
         };

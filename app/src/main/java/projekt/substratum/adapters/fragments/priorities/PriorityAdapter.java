@@ -57,7 +57,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
     public PriorityAdapter(Context context,
                            @LayoutRes int itemResId) {
         super();
-        context = context;
+        this.context = context;
         mItemResId = itemResId;
     }
 

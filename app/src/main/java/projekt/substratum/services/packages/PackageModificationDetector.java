@@ -56,7 +56,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        context = context;
+        this.context = context;
 
         Uri packageName = intent.getData();
         String package_name;

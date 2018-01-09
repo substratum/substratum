@@ -180,17 +180,14 @@ public class ThemeFragment extends Fragment {
             WeakReference<MainActivity> ref = new WeakReference<>((MainActivity) activity);
             if (substratum_packages.isEmpty() && (ref.get() != null)) {
                 ref.get().switchToStockToolbar(toolbarTitle);
-                ref.get().assignBottomBarBadgeCount(substratum_packages.size());
             } else if ((substratum_packages.size() == 1) && (ref.get() != null)) {
                 parse = String.format(context.getString(R.string.actionbar_theme_count_singular),
                         String.valueOf(substratum_packages.size()));
                 ref.get().switchToCustomToolbar(toolbarTitle, parse);
-                ref.get().assignBottomBarBadgeCount(substratum_packages.size());
             } else if (ref.get() != null) {
                 parse = String.format(context.getString(R.string.actionbar_theme_count_plural),
                         String.valueOf(substratum_packages.size()));
                 ref.get().switchToCustomToolbar(toolbarTitle, parse);
-                ref.get().assignBottomBarBadgeCount(substratum_packages.size());
             }
 
             // Now we need to sort the buffered installed themes

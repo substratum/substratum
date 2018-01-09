@@ -53,7 +53,6 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -233,29 +232,6 @@ public class MainActivity extends AppCompatActivity implements
         actionbar_title.setVisibility(View.VISIBLE);
         actionbar_title.setText(title);
         actionbar_content.setText(content);
-    }
-
-    /**
-     * Assign the value of themes found on the bottom bar tab
-     *
-     * @param theme_count How many themes are found
-     */
-    public void assignBottomBarBadgeCount(int theme_count) {
-        boolean showBadge = context.getResources().getBoolean(R.bool.showThemeBadge);
-        if (showBadge) {
-            BottomNavigationMenuView bottomNavigationMenuView =
-                    (BottomNavigationMenuView) bottomBar.getChildAt(0);
-            View v = bottomNavigationMenuView.getChildAt(0);
-            BottomNavigationItemView itemView = (BottomNavigationItemView) v;
-            View badge = LayoutInflater.from(this).inflate(
-                    R.layout.notification_badge,
-                    bottomNavigationMenuView,
-                    false
-            );
-            TextView badge_text = badge.findViewById(R.id.theme_badge);
-            badge_text.setText(String.valueOf(theme_count));
-            itemView.addView(badge);
-        }
     }
 
     /**

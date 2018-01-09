@@ -22,38 +22,30 @@
     package="projekt.substratum"
     android:installLocation="internalOnly">
 
+    <!-- Loading the showcase and theme wallpapers -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
-    <uses-permission
-        android:name="android.permission.CHANGE_CONFIGURATION"
-        tools:ignore="ProtectedPermissions" />
-    <uses-permission
-        android:name="android.permission.INSTALL_PACKAGES"
-        tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.MODIFY_OVERLAYS" />
+    <!-- Float UI use -->
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- Samsung use to kill other apps after compilation has completed -->
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <!-- To be able to see what the compilation created -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- To execute rescue archive checks when booting and clearing installation cache -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission
-        android:name="android.permission.SET_PROCESS_LIMIT"
-        tools:ignore="ProtectedPermissions" />
+    <!-- Set wallpapers -->
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
-    <uses-permission
-        android:name="android.permission.SET_WALLPAPER_COMPONENT"
-        tools:ignore="ProtectedPermissions" />
-    <uses-permission
-        android:name="android.permission.SYSTEM_ALERT_WINDOW"
-        tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+    <!-- Allow the app to vibrate the device to notify the user that compilation has finished -->
     <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- Access the phone storage for installation of APKs in .substratum folder -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- Keep the phone awake while compiling -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- App shortcut creation permission -->
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
-    <uses-permission android:name="com.samsung.android.permission.MODIFY_THEME" />
-    <uses-permission android:name="com.samsung.contacts.permission.THEME" />
+    <!-- Interfacer use only -->
     <uses-permission android:name="projekt.interfacer.permission.ACCESS_SERVICE" />
 
     <application

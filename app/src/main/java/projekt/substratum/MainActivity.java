@@ -246,18 +246,14 @@ public class MainActivity extends AppCompatActivity implements
         if (supportActionBar != null) supportActionBar.setTitle(title);
     }
 
-    public void switchToPriorityLoaderToolbar() {
+    public void switchToDefaultToolbarText() {
         showToolbarHamburger();
-        if (bottomBarUi) {
-            if (Systems.isSamsung(context)) {
-                switchToStockToolbar(getString(R.string.samsung_app_name));
-            } else if (!Systems.checkOMS(context)) {
-                switchToStockToolbar(getString(R.string.legacy_app_name));
-            } else {
-                switchToStockToolbar(getString(R.string.nav_main));
-            }
+        if (Systems.isSamsung(context)) {
+            switchToStockToolbar(getString(R.string.samsung_app_name));
+        } else if (!Systems.checkOMS(context)) {
+            switchToStockToolbar(getString(R.string.legacy_app_name));
         } else {
-            switchToStockToolbar(getString(R.string.nav_priorities));
+            switchToStockToolbar(getString(R.string.nav_main));
         }
     }
 
@@ -1125,13 +1121,7 @@ public class MainActivity extends AppCompatActivity implements
             drawer.closeDrawer();
         } else {
             Fragment f = getSupportFragmentManager().findFragmentById(R.id.main);
-            if (bottomBarUi) {
-                if (bottomBar.getSelectedItemId() != R.id.tab_themes) {
-                    bottomBar.setSelectedItemId(R.id.tab_themes);
-                } else {
-                    finish();
-                }
-            } else if (f instanceof PriorityListFragment) {
+            if (f instanceof PriorityListFragment) {
                 Fragment fragment = new PriorityLoaderFragment();
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction transaction = fm.beginTransaction();
@@ -1139,6 +1129,13 @@ public class MainActivity extends AppCompatActivity implements
                         android.R.anim.slide_in_left, android.R.anim.slide_out_right);
                 transaction.replace(R.id.main, fragment);
                 transaction.commit();
+                switchToDefaultToolbarText();
+            } else if (bottomBarUi) {
+                if (bottomBar.getSelectedItemId() != R.id.tab_themes) {
+                    bottomBar.setSelectedItemId(R.id.tab_themes);
+                } else {
+                    finish();
+                }
             } else if (f instanceof ManagerFragment) {
                 if (((ManagerFragment) f).getFab().isSheetVisible()) {
                     ((ManagerFragment) f).getFab().hideSheet();

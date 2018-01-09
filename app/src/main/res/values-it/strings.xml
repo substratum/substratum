@@ -203,7 +203,6 @@
         database centralizzato in tempo reale per migliorare i servizi di base e i miglioramenti per la sicurezza.
     </string>
     <string name="priority_back_title">Torna alle sovrapposizioni</string>
-    <string name="priority_success_toast">Le priorità sono state cambiate e le finestre si stanno aggiornando&#8230;</string>
     <string name="menu_clean">Pulisci le sovrapposizioni installate</string>
     <string name="menu_disable">Disabilita le sovrapposizioni installate</string>
     <string name="menu_enable">Abilita le sovrapposizioni installate</string>

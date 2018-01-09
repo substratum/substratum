@@ -127,6 +127,7 @@
     <color name="slide_5">#c187ff</color>
     <color name="slide_6">#f9da7c</color>
 
+    <color name="fab_icon_success">#00c853</color>
     <color name="fab_menu_background_card">#ffffffff</color>
     <color name="fab_menu_icon_color">#ff000000</color>
     <color name="fab_menu_text_color">#de000000</color>

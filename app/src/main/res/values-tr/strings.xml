@@ -250,7 +250,6 @@ bu sorunu
         geliştirmelerini iyileştirmek için merkezi gerçek zamanlı veri tabanımızdan önemli bilgileri indirmek için Google\'ın Firebase\'ini kullanıyor.
     </string>
     <string name="priority_back_title">Temalara geri dön</string>
-    <string name="priority_success_toast">Öncelikler değiştirildi ve pencereler yenileniyor&#8230;</string>
     <string name="menu_clean">Yüklü temaları temizle</string>
     <string name="menu_disable">Yüklü tüm temaları devre dışı bırak</string>
     <string name="menu_enable">Yüklü tüm temaları etkinleştir</string>

@@ -202,7 +202,6 @@ correctamente&#8230;</string>
     <string name="permission_explanation_title">Explicación de permisos</string>
     <string name="permission_explanation_text">Substratum puede no funcionar como se espera sin estos pocos permisos cruciales concedidos.\n\n<b> Almacenamiento: </b> Substratum necesita utilizar su Almacenamiento Interno para almacenar los archivos de recuperación del sistema, /storage/emulated/0/substratum/.\n\n<b>Firebase: </b> Substratum utiliza Firebase de Google para descargar información crucial de nuestra Base de Datos en tiempo real para mejorar los servicios básicos y las elementos de seguridad.    </string>
     <string name="priority_back_title">Volver a las capas</string>
-    <string name="priority_success_toast">Las prioridades se han cambiado y las ventanas se han actualizado&#8230;</string>
     <string name="menu_clean">Borrar capas instaladas</string>
     <string name="menu_disable">Desactivar capas instaladas</string>
     <string name="menu_enable">Activar capas instaladas</string>

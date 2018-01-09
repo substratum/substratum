@@ -180,7 +180,6 @@
     <string name="permission_explanation_title">Aperçu des autorisations</string>
     <string name="permission_explanation_text">Substratum peut ne pas fonctionner correctement si ces quelques autorisations ne lui sont pas accordées.\n\n<b>Stockage : </b> Substratum a besoin d\'utiliser votre espace de stockage interne pour stocker vos archives de récupération du système (/storage/emulated/0/substratum/).\n\n<b>Firebase: </b>Substratum utilise Google Firebase Analytics pour recueillir et analyser l\'expérience utilisateur afin d\'améliorer ses services et sa sécurité lors de futures mises à jour.</string>
     <string name="priority_back_title">Retour aux surcouches</string>
-    <string name="priority_success_toast">Les priorités ont été modifiées et les fenêtres sont en cours d\'actualisation&#8230;</string>
     <string name="menu_clean">Nettoyer les surcouches</string>
     <string name="menu_disable">Désactiver les surcouches installées</string>
     <string name="menu_enable">Activer les surcouches installées</string>

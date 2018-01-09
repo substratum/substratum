@@ -199,7 +199,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="permission_explanation_title">Prehľad oprávnení</string>
     <string name="permission_explanation_text">Substratum môže fungovať neočakávaným spôsobom, ak nemá udelené tieto kľúčové  oprávnenia.\n\n <b>Úložisko:</b> Substratum potrebuje používať interné úložisko na uloženie záložnej kópie vášho systému, nachádza sa v /storage/emulated/0/substratum/.\n\n <b>Firebase:</b> Substratum využíva Google Firebase na stiahnutie dôležitých informácií z našej centrálnej real-time databázy pre zlepšenie základných služieb a bezpečnostné vylepšenia.     </string>
     <string name="priority_back_title">Späť na prekrytia</string>
-    <string name="priority_success_toast">Priority boli zmenené a okná sa obnovujú&#8230;</string>
     <string name="menu_clean">Vyčistiť nainštalované prekrytia</string>
     <string name="menu_disable">Vypnúť nainštalované prekrytia</string>
     <string name="menu_enable">Zapnúť nainštalované prekrytia</string>

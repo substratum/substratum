@@ -177,7 +177,6 @@ eingerichtet&#8230;</string>
     <string name="permission_explanation_text">Substratum könnte nicht ordnungsgemäß funktionieren, wenn diese entscheidenden Berechtigungen nicht genehmigt sind.\n\n<b>Speicher
  </b> Substratum braucht deinen internen Speicher, um die System-Rettungs-Archive dort abzulegen. Diese werden unter /storage/emulated/0/substratum/ gespeichert.\n\n<b>Firebase: </b> Substratum nutzt Google\'s Firebase, um entscheidende Informationen von unserer zentralen Echt-Zeit-Datenbank zu downloaden, welche Kern-Dienste und die Sicherheit verbessern.    </string>
     <string name="priority_back_title">Zurück zu Overlays</string>
-    <string name="priority_success_toast">Prioritäten wurden geändert und Fenster werden aktualisiert&#8230;</string>
     <string name="menu_clean">Overlays entfernen</string>
     <string name="menu_disable">Installierte Overlays deaktivieren</string>
     <string name="menu_enable">Installierte Overlays aktivieren</string>

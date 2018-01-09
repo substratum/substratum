@@ -190,7 +190,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="permission_explanation_title">Przegląd uprawnień</string>
     <string name="permission_explanation_text">Substratum może nie działać zgodnie z oczekiwaniami bez dostępu do tych kilku kluczowych uprawnień.\n\n <b>Pamięć:</b> Substratum wykorzystuje pamięć wewnętrzną do przechowywania archiwów ratujących system, zlokalizowanych w /storage/emulated/0/substratum/.\n\n<b>Firebase: </b>Substratum wykorzystuje Google Firebase do pobrania kluczowych informacji z naszej scentralizowanej bazy danych, w celu usprawnienia podstawowych usług i ulepszeń zabezpieczeń.    </string>
     <string name="priority_back_title">Wróć do nakładek</string>
-    <string name="priority_success_toast">Priorytety zostały zmienione i okna są odświeżane&#8230;</string>
     <string name="menu_clean">Wyczyść zainstalowane nakładki</string>
     <string name="menu_disable">Wyłącz zainstalowane nakładki</string>
     <string name="menu_enable">Włącz zainstalowane nakładki</string>

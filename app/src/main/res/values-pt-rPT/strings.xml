@@ -216,7 +216,6 @@ corretamente&#8230;</string>
         da nossa base de dados centralizada para melhorar serviços base e obter atualizações de segurança.
     </string>
     <string name="priority_back_title">Voltar para camadas</string>
-    <string name="priority_success_toast">Prioridades foram mudadas e as janelas estão atualizando&#8230;</string>
     <string name="menu_clean">Limpar camadas</string>
     <string name="menu_disable">Desativar camadas instaladas</string>
     <string name="menu_enable">Ativar camadas instaladas</string>

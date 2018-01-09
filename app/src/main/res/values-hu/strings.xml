@@ -245,7 +245,6 @@
         valós-idejű adatbázisunkból az alapvető szolgáltatások és biztonsági funkciók javításához.
     </string>
     <string name="priority_back_title">Vissza a fedvényekhez</string>
-    <string name="priority_success_toast">Prioritások megváltoztak az ablakok pedig frissülnek&#8230;</string>
     <string name="menu_clean">Telepített fedvények tisztítása</string>
     <string name="menu_disable">Telepített fedvények letiltása</string>
     <string name="menu_enable">Telepített fedvények engedélyezése</string>

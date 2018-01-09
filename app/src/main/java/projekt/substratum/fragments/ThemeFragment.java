@@ -291,6 +291,8 @@ public class ThemeFragment extends Fragment {
         }
         cardView.setVisibility(View.GONE);
 
+        MainActivity.mainActivity.switchToDefaultToolbarText();
+
         // Let's start loading everything
         new LayoutLoader(this).execute();
 

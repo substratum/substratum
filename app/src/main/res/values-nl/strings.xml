@@ -189,7 +189,6 @@
     <string name="permission_explanation_title">Machtigingsoverzicht</string>
     <string name="permission_explanation_text">Substratum kan mogelijk niet functioneren zonder deze twee cruciale machtigingen.\n\n<b>Opslag: </b> Substratum moet de interne opslag kunnen gebruiken om systeem rescue archieven in op te slaan, bewaard in /storage/emulated/0/substratum/.\n\n<b>Firebase: </b>  Substratum maakt gebruik van Google\'s Firebase om cruciale informatie te downloaden van onze centrale real-time databank om services en beveiliging te kunnen verbeteren.</string>
     <string name="priority_back_title">Terug naar overlays</string>
-    <string name="priority_success_toast">Prioriteiten zijn gewijzigd en vensters verversen&#8230;</string>
     <string name="menu_clean">Geïnstalleerde overlays opruimen</string>
     <string name="menu_disable">Geïnstalleerde overlays uitschakelen</string>
     <string name="menu_enable">Geïnstalleerde overlays inschakelen</string>

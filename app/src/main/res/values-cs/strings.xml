@@ -206,7 +206,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="permission_explanation_title">Přehled oprávnění</string>
     <string name="permission_explanation_text">Substratum může fungovat neočekávaným způsobem bez udělení klíčových oprávnění.\n\n<b>Úložiště </b> Substratum potřebuje používat interní úložiště pro záložní kopie vašeho systému. Nachází se v /storage/emulated/0/substratum/.\n\n<b>Firebase: </b> Substratum využívá Google Firebase pro stažení důležitých informací z real-time databázy pro zlepšení služeb a bezpečnostní vylepšení.    </string>
     <string name="priority_back_title">Zpět k potahům</string>
-    <string name="priority_success_toast">Priority byly změněny a okna se obnovují&#8230;</string>
     <string name="menu_clean">Vyčistit nainstalované potahy</string>
     <string name="menu_disable">Zakázat nainstalované potahy</string>
     <string name="menu_enable">Povolit nainstalované potahy</string>

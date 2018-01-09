@@ -210,7 +210,6 @@
         centralizuotos realaus laiko duomenų bazės, kad pagerinti pagrindines paslaugas ir saugumo patobulinimus.    
     </string>
     <string name="priority_back_title">Sugrįžti į perdangas</string>
-    <string name="priority_success_toast">Prioritetai buvo pakeisti. Langai atnaujinami&#8230;</string>
     <string name="menu_clean">Išvalyti įdiegtas perdangas</string>
     <string name="menu_disable">Išjungti įdiegtas perdangas</string>
     <string name="menu_enable">Įjungti įdiegtas perdangas</string>

@@ -18,13 +18,16 @@
 
 package projekt.substratum.fragments;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.Animatable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Lunchbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -111,6 +114,21 @@ public class PriorityListFragment extends Fragment {
                 .show();
     }
 
+    /**
+     * Go back in the fragment stack of the priority system
+     */
+    private void onBackPressed() {
+        Fragment fragment = new PriorityLoaderFragment();
+        assert getActivity() != null;
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.setCustomAnimations(
+                android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        transaction.replace(R.id.main, fragment);
+        transaction.commit();
+        ((MainActivity) getActivity()).switchToDefaultToolbarText();
+    }
+
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater,
@@ -129,17 +147,7 @@ public class PriorityListFragment extends Fragment {
 
         // Modify the toolbar
         if ((getActivity()) != null) {
-            ((MainActivity) getActivity()).switchToPriorityListToolbar(v -> {
-                Fragment fragment = new PriorityLoaderFragment();
-                assert getActivity() != null;
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                FragmentTransaction transaction = fm.beginTransaction();
-                transaction.setCustomAnimations(
-                        android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-                transaction.replace(R.id.main, fragment);
-                transaction.commit();
-                ((MainActivity) getActivity()).switchToPriorityLoaderToolbar();
-            });
+            ((MainActivity) getActivity()).switchToPriorityListToolbar(v -> onBackPressed());
         }
 
         // Begin loading up list
@@ -218,13 +226,24 @@ public class PriorityListFragment extends Fragment {
                 });
 
         applyFab.setOnClickListener(v -> {
-            applyFab.hide();
-            if (getView() != null) {
-                Lunchbar.make(getView(),
-                        getString(R.string.priority_success_toast),
-                        Lunchbar.LENGTH_INDEFINITE)
-                        .show();
+            try {
+                applyFab.setImageDrawable(context.getDrawable(R.drawable.save_to_checkmark));
+                ((Animatable) applyFab.getDrawable()).start();
+            } catch (Exception e) {
+                // The themer broke the animation, skip!
             }
+
+            int colorFrom = context.getColor(R.color.colorAccent);
+            int colorTo = context.getColor(R.color.fab_icon_success);
+            ValueAnimator colorAnimation = ValueAnimator.ofObject(
+                    new ArgbEvaluator(), colorFrom, colorTo);
+            colorAnimation.setDuration(
+                    context.getResources().getInteger(R.integer.priority_fab_hide_delay));
+            colorAnimation.addUpdateListener(animator ->
+                    applyFab.setBackgroundTintList(
+                            ColorStateList.valueOf(((int) animator.getAnimatedValue()))));
+            colorAnimation.start();
+
             headerProgress.setVisibility(View.VISIBLE);
             ThemeManager.setPriority(context, workable_list);
             if (Packages.needsRecreate(context, workable_list)) {
@@ -233,15 +252,13 @@ public class PriorityListFragment extends Fragment {
                     // OMS may not have written all the changes so
                     // quickly just yet so we may need to have a small delay
                     try {
-                        if (getActivity() != null) {
-                            getActivity().recreate();
-                        }
+                        onBackPressed();
                     } catch (Exception e) {
                         // Consume window refresh
                     }
-                }, (long) (Systems.checkAndromeda(context) ?
-                        REFRESH_WINDOW_DELAY :
-                        (REFRESH_WINDOW_DELAY << 1)));
+                }, (long) (Systems.checkAndromeda(context) ||
+                        Systems.checkSubstratumService(context) ?
+                        REFRESH_WINDOW_DELAY : (REFRESH_WINDOW_DELAY << 1)));
             }
         });
         return view;

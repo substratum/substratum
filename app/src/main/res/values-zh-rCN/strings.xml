@@ -187,7 +187,6 @@
     <string name="permission_explanation_text">Substratum 如果缺少以下关键权限可能无法正常工作。\n\n<b>存储空间：</b>Substratum 需要获取存储空间权限以便于储存系统恢复文件，位置：/storage/emulated/0/substratum/
 \n\n<b>Firebase：</b>Substratum 利用谷歌的 Firebase 服务在我们的集群式数据中心实时下载关键信息，从而改善核心服务并增强安全性。</string>
     <string name="priority_back_title">回到叠加层</string>
-    <string name="priority_success_toast">优先级已经被更改，窗口正在刷新</string>
     <string name="menu_clean">清除已安装的叠加层</string>
     <string name="menu_disable">禁用已安装的叠加层</string>
     <string name="menu_enable">启用已安装的叠加层</string>

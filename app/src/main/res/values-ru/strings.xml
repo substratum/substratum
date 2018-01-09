@@ -196,7 +196,6 @@
         обновляемой централизованной базы данных, ради повышения качества основных функций и безопасности.
     </string>
     <string name="priority_back_title">Перейти к наслоениям</string>
-    <string name="priority_success_toast">Приоритеты были изменены, обновление окон&#8230;</string>
     <string name="menu_clean">Удалить установленное</string>
     <string name="menu_disable">Отключить активные наслоения</string>
     <string name="menu_enable">Применить установленное</string>

@@ -212,14 +212,15 @@ public class ManagerAdapter extends
                                 .getName())), Typeface.BOLD);
         viewHolder.version.setText(version);
 
-        SpannableStringBuilder str2 = new SpannableStringBuilder(context.getString(
-                R.string.manager_theme_version) + " " + String.valueOf(
-                Packages.getAppVersion(
-                        context,
-                        overlayList.get(position).getName())));
-        str2.setSpan(new StyleSpan(Typeface.BOLD), 0, context.getString(
-                R.string.manager_theme_version).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        viewHolder.theme_version.setText(str2);
+        if (!floatui) {
+            SpannableStringBuilder str2 = StringUtils.format(context.getString(
+                    R.string.manager_theme_version), String.valueOf(
+                    Packages.getAppVersion(
+                                context,
+                                overlayList.get(position).getName())),
+                    Typeface.BOLD);
+            viewHolder.theme_version.setText(str2);
+        }
 
         if (overlayList.get(position).getThemeName().isEmpty()) {
             SpannableStringBuilder themeName = StringUtils.format(

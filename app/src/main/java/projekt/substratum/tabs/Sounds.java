@@ -116,7 +116,7 @@ public class Sounds extends Fragment {
     private boolean paused;
     private JobReceiver jobReceiver;
     private LocalBroadcastManager localBroadcastManager;
-    private Context mContext;
+    private Context context;
 
     private Sounds getInstance() {
         return this;
@@ -133,7 +133,7 @@ public class Sounds extends Fragment {
             @NonNull final LayoutInflater inflater,
             final ViewGroup container,
             final Bundle savedInstanceState) {
-        mContext = getContext();
+        context = getContext();
         View view = inflater.inflate(R.layout.tab_sounds, container, false);
         ButterKnife.bind(this, view);
 
@@ -145,12 +145,12 @@ public class Sounds extends Fragment {
         }
 
         progressBar.setVisibility(View.GONE);
-        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
         error.setVisibility(View.GONE);
 
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
         final ArrayList<SoundsInfo> empty_array = new ArrayList<>();
         final RecyclerView.Adapter empty_adapter = new SoundsAdapter(empty_array);
         recyclerView.setAdapter(empty_adapter);
@@ -158,7 +158,7 @@ public class Sounds extends Fragment {
         try {
             // Parses the list of items in the sounds folder
             final Resources themeResources =
-                    mContext.getPackageManager().getResourcesForApplication(theme_pid);
+                    context.getPackageManager().getResourcesForApplication(theme_pid);
             themeAssetManager = themeResources.getAssets();
             final String[] fileArray = themeAssetManager.list(soundsDir);
             final List<String> archivedSounds = new ArrayList<>();
@@ -225,7 +225,7 @@ public class Sounds extends Fragment {
         }
 
         recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(mContext, (v, position) -> {
+                new RecyclerItemClickListener(context, (v, position) -> {
                     wordList.get(position);
                     try {
                         if (!mp.isPlaying() || (position != previous_position)) {
@@ -249,7 +249,7 @@ public class Sounds extends Fragment {
 
         // Enable job listener
         jobReceiver = new JobReceiver();
-        localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
+        localBroadcastManager = LocalBroadcastManager.getInstance(context);
         localBroadcastManager.registerReceiver(jobReceiver,
                 new IntentFilter(getClass().getSimpleName() + START_JOB_ACTION));
 
@@ -264,7 +264,7 @@ public class Sounds extends Fragment {
                 new SoundUtils().execute(
                         nsv,
                         soundsSelector.getSelectedItem().toString(),
-                        mContext,
+                        context,
                         theme_pid,
                         null);
             }
@@ -279,7 +279,7 @@ public class Sounds extends Fragment {
         // Unregister finish receiver
         try {
             if (finishReceiver != null) {
-                mContext.getApplicationContext().unregisterReceiver(finishReceiver);
+                context.getApplicationContext().unregisterReceiver(finishReceiver);
             }
             localBroadcastManager.unregisterReceiver(jobReceiver);
         } catch (final IllegalArgumentException e) {
@@ -328,7 +328,7 @@ public class Sounds extends Fragment {
         protected String doInBackground(final String... sUrl) {
             final Sounds sounds = ref.get();
             if (sounds != null) {
-                SoundUtils.SoundsClearer(sounds.mContext);
+                SoundUtils.SoundsClearer(sounds.context);
             }
             return null;
         }
@@ -400,7 +400,7 @@ public class Sounds extends Fragment {
                     if (!adapter1.isEmpty()) {
                         final SoundsAdapter mAdapter = new SoundsAdapter(adapter1);
                         final RecyclerView.LayoutManager mLayoutManager =
-                                new LinearLayoutManager(sounds.mContext);
+                                new LinearLayoutManager(sounds.context);
 
                         sounds.recyclerView.setLayoutManager(mLayoutManager);
                         sounds.recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -423,18 +423,18 @@ public class Sounds extends Fragment {
             final Sounds sounds = ref.get();
             if (sounds != null) {
                 try {
-                    final File cacheDirectory = new File(sounds.mContext.getCacheDir(),
+                    final File cacheDirectory = new File(sounds.context.getCacheDir(),
                             SOUNDS_CACHE);
                     if (!cacheDirectory.exists() && cacheDirectory.mkdirs()) {
                         Log.d(TAG, "Sounds folder created");
                     }
-                    final File cacheDirectory2 = new File(sounds.mContext.getCacheDir(),
+                    final File cacheDirectory2 = new File(sounds.context.getCacheDir(),
                             SOUNDS_PREVIEW_CACHE);
                     if (!cacheDirectory2.exists() && cacheDirectory2.mkdirs()) {
                         Log.d(TAG, "Sounds work folder created");
                     } else {
-                        FileOperations.delete(sounds.mContext,
-                                sounds.mContext.getCacheDir().getAbsolutePath() +
+                        FileOperations.delete(sounds.context,
+                                sounds.context.getCacheDir().getAbsolutePath() +
                                         SOUNDS_PREVIEW_CACHE);
                         final boolean created = cacheDirectory2.mkdirs();
                         if (created) Log.d(TAG, "Sounds folder recreated");
@@ -447,7 +447,7 @@ public class Sounds extends Fragment {
                         FileOperations.copyFileOrDir(
                                 sounds.themeAssetManager,
                                 soundsDir + '/' + source + ENCRYPTED_FILE_EXTENSION,
-                                sounds.mContext.getCacheDir().getAbsolutePath() +
+                                sounds.context.getCacheDir().getAbsolutePath() +
                                         SOUNDS_CACHE + source,
                                 soundsDir + '/' + source + ENCRYPTED_FILE_EXTENSION,
                                 null);
@@ -456,7 +456,7 @@ public class Sounds extends Fragment {
                                 soundsDir + '/' + source);
                              OutputStream outputStream =
                                      new FileOutputStream(
-                                             sounds.mContext.getCacheDir().getAbsolutePath() +
+                                             sounds.context.getCacheDir().getAbsolutePath() +
                                                      SOUNDS_CACHE + source)) {
                             SoundsPreview.CopyStream(inputStream, outputStream);
                         } catch (final Exception e) {
@@ -468,13 +468,13 @@ public class Sounds extends Fragment {
                     }
 
                     // Unzip the sounds archive to get it prepared for the preview
-                    SoundsPreview.unzip(sounds.mContext.getCacheDir().
+                    SoundsPreview.unzip(sounds.context.getCacheDir().
                                     getAbsolutePath() + SOUNDS_CACHE + source,
-                            sounds.mContext.getCacheDir().getAbsolutePath() + SOUNDS_PREVIEW_CACHE);
+                            sounds.context.getCacheDir().getAbsolutePath() + SOUNDS_PREVIEW_CACHE);
 
                     sounds.wordList = new ArrayList<>();
                     final File testDirectory =
-                            new File(sounds.mContext.getCacheDir().getAbsolutePath() +
+                            new File(sounds.context.getCacheDir().getAbsolutePath() +
                                     SOUNDS_PREVIEW_CACHE);
                     listFilesForFolder(testDirectory);
                 } catch (final Exception e) {
@@ -495,7 +495,7 @@ public class Sounds extends Fragment {
                         if (!".".equals(fileEntry.getName().substring(0, 1)) &&
                                 projekt.substratum.common.Resources.allowedSounds(
                                         fileEntry.getName())) {
-                            sounds.wordList.add(new SoundsInfo(sounds.mContext, fileEntry.getName(),
+                            sounds.wordList.add(new SoundsInfo(sounds.context, fileEntry.getName(),
                                     fileEntry.getAbsolutePath()));
                         }
                     }

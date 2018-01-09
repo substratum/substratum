@@ -118,7 +118,7 @@ public class Fonts extends Fragment {
     private boolean paused;
     private JobReceiver jobReceiver;
     private LocalBroadcastManager localBroadcastManager;
-    private Context mContext;
+    private Context context;
 
     private Fonts getInstance() {
         return this;
@@ -135,7 +135,7 @@ public class Fonts extends Fragment {
             @NonNull final LayoutInflater inflater,
             final ViewGroup container,
             final Bundle savedInstanceState) {
-        mContext = getContext();
+        context = getContext();
         View view = inflater.inflate(R.layout.tab_fonts, container, false);
         ButterKnife.bind(this, view);
 
@@ -146,11 +146,11 @@ public class Fonts extends Fragment {
             return null;
         }
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
         try {
             // Parses the list of items in the fonts folder
-            final Resources themeResources = mContext.getPackageManager()
+            final Resources themeResources = context.getPackageManager()
                     .getResourcesForApplication(theme_pid);
             themeAssetManager = themeResources.getAssets();
             final String[] fileArray = themeAssetManager.list(fontsDir);
@@ -218,7 +218,7 @@ public class Fonts extends Fragment {
 
         // Enable job listener
         jobReceiver = new JobReceiver();
-        localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
+        localBroadcastManager = LocalBroadcastManager.getInstance(context);
         localBroadcastManager.registerReceiver(jobReceiver,
                 new IntentFilter(getClass().getSimpleName() + START_JOB_ACTION));
 
@@ -240,15 +240,15 @@ public class Fonts extends Fragment {
      */
     private void startApply() {
         if (!paused) {
-            if (Systems.checkSubstratumService(mContext) ||
-                    Systems.checkThemeInterfacer(mContext) ||
-                    Settings.System.canWrite(mContext)) {
+            if (Systems.checkSubstratumService(context) ||
+                    Systems.checkThemeInterfacer(context) ||
+                    Settings.System.canWrite(context)) {
                 if (fontSelector.getSelectedItemPosition() == 1) {
                     new FontsClearer(this).execute("");
                 } else {
                     new FontUtils().execute(
                             fontSelector.getSelectedItem().toString(),
-                            mContext,
+                            context,
                             theme_pid);
                 }
             } else {
@@ -257,7 +257,7 @@ public class Fonts extends Fragment {
                 intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-                final Toast toast = Toast.makeText(mContext,
+                final Toast toast = Toast.makeText(context,
                         getString(R.string.fonts_dialog_permissions_grant_toast2),
                         Toast.LENGTH_LONG);
                 toast.show();
@@ -281,7 +281,7 @@ public class Fonts extends Fragment {
         protected void onPreExecute() {
             final Fonts fragment = ref.get();
             if (fragment != null) {
-                final Context context = fragment.mContext;
+                final Context context = fragment.context;
                 if (References.ENABLE_EXTRAS_DIALOG) {
                     fragment.mProgressDialog = new ProgressDialog(context, R.style.RestoreDialog);
                     fragment.mProgressDialog.setMessage(
@@ -297,7 +297,7 @@ public class Fonts extends Fragment {
         protected void onPostExecute(final String result) {
             final Fonts fragment = ref.get();
             if (fragment != null) {
-                final Context context = fragment.mContext;
+                final Context context = fragment.context;
                 if (References.ENABLE_EXTRAS_DIALOG) {
                     fragment.mProgressDialog.dismiss();
                 }
@@ -336,7 +336,7 @@ public class Fonts extends Fragment {
         protected String doInBackground(final String... sUrl) {
             final Fonts fragment = ref.get();
             if (fragment != null) {
-                final Context context = fragment.mContext;
+                final Context context = fragment.context;
                 FontsManager.clearFonts(context);
             }
             return null;
@@ -409,7 +409,7 @@ public class Fonts extends Fragment {
                     Log.d(TAG, "Fonts have been loaded on the drawing panel.");
 
                     final String work_directory =
-                            fonts.mContext.getCacheDir().getAbsolutePath() + FONT_PREVIEW_CACHE;
+                            fonts.context.getCacheDir().getAbsolutePath() + FONT_PREVIEW_CACHE;
 
                     try {
                         final Typeface normal_tf = Typeface.createFromFile(
@@ -447,8 +447,8 @@ public class Fonts extends Fragment {
                                 "template. Maybe it wasn't themed?");
                     }
 
-                    FileOperations.delete(fonts.mContext,
-                            fonts.mContext.getCacheDir().getAbsolutePath() + FONT_PREVIEW_CACHE);
+                    FileOperations.delete(fonts.context,
+                            fonts.context.getCacheDir().getAbsolutePath() + FONT_PREVIEW_CACHE);
                     fonts.font_holder.setVisibility(View.VISIBLE);
                     fonts.progressBar.setVisibility(View.GONE);
                     fonts.paused = false;
@@ -464,19 +464,19 @@ public class Fonts extends Fragment {
             final Fonts fonts = ref.get();
             if (fonts != null) {
                 try {
-                    final File cacheDirectory = new File(fonts.mContext.getCacheDir(), FONT_CACHE);
+                    final File cacheDirectory = new File(fonts.context.getCacheDir(), FONT_CACHE);
                     if (!cacheDirectory.exists()) {
                         if (cacheDirectory.mkdirs()) Log.d(TAG, "FontCache folder created");
                     }
                     final File cacheDirectory2 =
-                            new File(fonts.mContext.getCacheDir(), FONT_PREVIEW_CACHE);
+                            new File(fonts.context.getCacheDir(), FONT_PREVIEW_CACHE);
 
                     if (!cacheDirectory2.exists()) {
                         if (cacheDirectory2.mkdirs()) Log.d(TAG,
                                 "FontCache work folder created");
                     } else {
-                        FileOperations.delete(fonts.mContext,
-                                fonts.mContext.getCacheDir().getAbsolutePath() +
+                        FileOperations.delete(fonts.context,
+                                fonts.context.getCacheDir().getAbsolutePath() +
                                         FONT_PREVIEW_CACHE);
                         if (cacheDirectory2.mkdirs()) Log.d(TAG, "FontCache folder recreated");
                     }
@@ -488,7 +488,7 @@ public class Fonts extends Fragment {
                         FileOperations.copyFileOrDir(
                                 fonts.themeAssetManager,
                                 fontsDir + '/' + source + ENCRYPTED_FILE_EXTENSION,
-                                fonts.mContext.getCacheDir().getAbsolutePath() +
+                                fonts.context.getCacheDir().getAbsolutePath() +
                                         FONT_CACHE + source,
                                 fontsDir + '/' + source + ENCRYPTED_FILE_EXTENSION,
                                 null);
@@ -498,7 +498,7 @@ public class Fonts extends Fragment {
 
                              OutputStream outputStream =
                                      new FileOutputStream(
-                                             fonts.mContext.getCacheDir().getAbsolutePath() +
+                                             fonts.context.getCacheDir().getAbsolutePath() +
                                                      FONT_CACHE + source)) {
                             FontPreview.CopyStream(inputStream, outputStream);
                         } catch (final Exception e) {
@@ -508,9 +508,9 @@ public class Fonts extends Fragment {
                     }
 
                     // Unzip the fonts to get it prepared for the preview
-                    FontPreview.unzip(fonts.mContext.getCacheDir().getAbsolutePath() +
+                    FontPreview.unzip(fonts.context.getCacheDir().getAbsolutePath() +
                                     FONT_CACHE + source,
-                            fonts.mContext.getCacheDir().getAbsolutePath() +
+                            fonts.context.getCacheDir().getAbsolutePath() +
                                     FONT_PREVIEW_CACHE);
                 } catch (final Exception e) {
                     Log.e(TAG, "Unexpectedly lost connection to the application host");

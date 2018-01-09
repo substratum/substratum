@@ -62,14 +62,14 @@ public class Wallpapers extends Fragment {
     @BindView(R.id.wallpaperRecyclerView)
     RecyclerView mRecyclerView;
     private String wallpaperUrl;
-    private Context mContext;
+    private Context context;
 
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
-        mContext = getContext();
+        context = getContext();
         View view = inflater.inflate(R.layout.tab_wallpapers, container, false);
         ButterKnife.bind(this, view);
 
@@ -91,14 +91,14 @@ public class Wallpapers extends Fragment {
     private void refreshLayout() {
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         ArrayList<WallpaperEntries> empty_array = new ArrayList<>();
         RecyclerView.Adapter empty_adapter = new WallpaperAdapter(empty_array);
         mRecyclerView.setAdapter(empty_adapter);
         no_wallpapers.setVisibility(View.GONE);
         no_network.setVisibility(View.GONE);
 
-        if (References.isNetworkAvailable(mContext)) {
+        if (References.isNetworkAvailable(context)) {
             downloadResources downloadTask = new downloadResources(this);
             downloadTask.execute(wallpaperUrl, CURRENT_WALLPAPERS);
         } else {
@@ -138,7 +138,7 @@ public class Wallpapers extends Fragment {
                     @SuppressWarnings("unchecked")
                     Map<String, String> newArray =
                             ReadCloudWallpaperFile.read(
-                                    wallpapers.mContext.getCacheDir() + "/" + CURRENT_WALLPAPERS);
+                                    wallpapers.context.getCacheDir() + "/" + CURRENT_WALLPAPERS);
                     ArrayList<WallpaperEntries> wallpaperEntries = new ArrayList<>();
                     WallpaperEntries newEntry = new WallpaperEntries();
 
@@ -146,7 +146,7 @@ public class Wallpapers extends Fragment {
                         if (!stringStringEntry.getKey().toLowerCase(Locale.US)
                                 .endsWith("-preview".toLowerCase(Locale.US))) {
                             newEntry.setCallingActivity(wallpapers.getActivity());
-                            newEntry.setContext(wallpapers.mContext);
+                            newEntry.setContext(wallpapers.context);
                             newEntry.setWallpaperName(stringStringEntry.getKey()
                                     .replaceAll("~", " "));
                             newEntry.setWallpaperLink(stringStringEntry.getValue());
@@ -177,7 +177,7 @@ public class Wallpapers extends Fragment {
         protected String doInBackground(String... sUrl) {
             Wallpapers wallpapers = ref.get();
             if (wallpapers != null) {
-                FileDownloader.init(wallpapers.mContext, sUrl[0], "", sUrl[1]);
+                FileDownloader.init(wallpapers.context, sUrl[0], "", sUrl[1]);
             }
             return null;
         }

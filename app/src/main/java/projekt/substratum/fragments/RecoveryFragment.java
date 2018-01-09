@@ -99,7 +99,7 @@ public class RecoveryFragment extends Fragment {
     private ArrayList<String> final_commands_array;
     private SharedPreferences prefs;
     private SheetDialog sheetDialog;
-    private Context mContext;
+    private Context context;
 
     @Override
     public void onDestroy() {
@@ -114,20 +114,20 @@ public class RecoveryFragment extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = getContext();
+        context = getContext();
         View view = inflater.inflate(R.layout.restore_fragment, container, false);
         ButterKnife.bind(this, view);
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
         setHasOptionsMenu(true);
 
         // Overlays Dialog
         overlaysButton.setOnClickListener(v -> {
-            sheetDialog = new SheetDialog(mContext);
-            View sheetView = View.inflate(mContext, R.layout.restore_overlays_sheet_dialog, null);
+            sheetDialog = new SheetDialog(context);
+            View sheetView = View.inflate(context, R.layout.restore_overlays_sheet_dialog, null);
             LinearLayout disable_all = sheetView.findViewById(R.id.disable_all);
             LinearLayout uninstall_all = sheetView.findViewById(R.id.uninstall_all);
-            if (!Systems.checkOMS(mContext)) disable_all.setVisibility(View.GONE);
+            if (!Systems.checkOMS(context)) disable_all.setVisibility(View.GONE);
             disable_all.setOnClickListener(vi -> {
                 new RestoreFunction(this).execute(false);
                 sheetDialog.hide();
@@ -142,8 +142,8 @@ public class RecoveryFragment extends Fragment {
 
         // Wallpaper Dialog
         wallpaperButton.setOnClickListener(v -> {
-            sheetDialog = new SheetDialog(mContext);
-            View sheetView = View.inflate(mContext, R.layout
+            sheetDialog = new SheetDialog(context);
+            View sheetView = View.inflate(context, R.layout
                             .restore_wallpapers_sheet_dialog,
                     null);
             LinearLayout home = sheetView.findViewById(R.id.home);
@@ -151,7 +151,7 @@ public class RecoveryFragment extends Fragment {
             LinearLayout both = sheetView.findViewById(R.id.both);
             home.setOnClickListener(view2 -> {
                 try {
-                    WallpapersManager.clearWallpaper(mContext, HOME_WALLPAPER);
+                    WallpapersManager.clearWallpaper(context, HOME_WALLPAPER);
                     if (getView() != null) {
                         Lunchbar.make(getView(),
                                 getString(R.string.manage_wallpaper_home_toast),
@@ -169,7 +169,7 @@ public class RecoveryFragment extends Fragment {
             });
             lock.setOnClickListener(view2 -> {
                 try {
-                    WallpapersManager.clearWallpaper(mContext, LOCK_WALLPAPER);
+                    WallpapersManager.clearWallpaper(context, LOCK_WALLPAPER);
                     if (getView() != null) {
                         Lunchbar.make(getView(),
                                 getString(R.string.manage_wallpaper_lock_toast),
@@ -184,7 +184,7 @@ public class RecoveryFragment extends Fragment {
             });
             both.setOnClickListener(view2 -> {
                 try {
-                    WallpapersManager.clearWallpaper(mContext, ALL_WALLPAPER);
+                    WallpapersManager.clearWallpaper(context, ALL_WALLPAPER);
                     if (getView() != null) {
                         Lunchbar.make(getView(),
                                 getString(R.string.manage_wallpaper_all_toast),
@@ -206,8 +206,8 @@ public class RecoveryFragment extends Fragment {
 
         // Boot Animation Dialog
         bootanimationButton.setOnClickListener(v -> {
-            sheetDialog = new SheetDialog(mContext);
-            View sheetView = View.inflate(mContext,
+            sheetDialog = new SheetDialog(context);
+            View sheetView = View.inflate(context,
                     R.layout.restore_bootanimations_sheet_dialog, null);
             LinearLayout restore = sheetView.findViewById(R.id.restore);
             restore.setOnClickListener(view2 -> {
@@ -220,12 +220,12 @@ public class RecoveryFragment extends Fragment {
 
         // Font Dialog
         fontsButton.setOnClickListener(v -> {
-            sheetDialog = new SheetDialog(mContext);
-            View sheetView = View.inflate(mContext, R.layout.restore_fonts_sheet_dialog, null);
+            sheetDialog = new SheetDialog(context);
+            View sheetView = View.inflate(context, R.layout.restore_fonts_sheet_dialog, null);
             LinearLayout restore = sheetView.findViewById(R.id.restore);
             restore.setOnClickListener(view2 -> {
-                if (Systems.checkThemeInterfacer(mContext) ||
-                        Systems.checkSubstratumService(mContext)) {
+                if (Systems.checkThemeInterfacer(context) ||
+                        Systems.checkSubstratumService(context)) {
                     new FontsClearer(this).execute("");
                 }
                 sheetDialog.hide();
@@ -236,12 +236,12 @@ public class RecoveryFragment extends Fragment {
 
         // Sounds Dialog
         soundsButton.setOnClickListener(v -> {
-            sheetDialog = new SheetDialog(mContext);
-            View sheetView = View.inflate(mContext, R.layout.restore_sounds_sheet_dialog, null);
+            sheetDialog = new SheetDialog(context);
+            View sheetView = View.inflate(context, R.layout.restore_sounds_sheet_dialog, null);
             LinearLayout restore = sheetView.findViewById(R.id.restore);
             restore.setOnClickListener(view2 -> {
-                if (Systems.checkThemeInterfacer(mContext) ||
-                        Systems.checkSubstratumService(mContext)) {
+                if (Systems.checkThemeInterfacer(context) ||
+                        Systems.checkSubstratumService(context)) {
                     new SoundsClearer(this).execute();
                 }
                 sheetDialog.hide();
@@ -250,28 +250,28 @@ public class RecoveryFragment extends Fragment {
             sheetDialog.show();
         });
 
-        if (Systems.isSamsungDevice(mContext)) {
+        if (Systems.isSamsungDevice(context)) {
             overlayCard.setVisibility(View.GONE);
         }
 
-        if (Systems.isSamsungDevice(mContext) ||
-                (checkAndromeda(mContext) &&
+        if (Systems.isSamsungDevice(context) ||
+                (checkAndromeda(context) &&
                         !Root.checkRootAccess())) {
             bootanimationCard.setVisibility(View.GONE);
         }
 
-        if (!Resources.isFontsSupported(mContext)) {
+        if (!Resources.isFontsSupported(context)) {
             fontsCard.setVisibility(View.GONE);
         }
 
-        if (Systems.isSamsungDevice(mContext) ||
-            (!Systems.checkThemeInterfacer(mContext) &&
-                !Systems.checkSubstratumService(mContext))) {
+        if (Systems.isSamsungDevice(context) ||
+            (!Systems.checkThemeInterfacer(context) &&
+                !Systems.checkSubstratumService(context))) {
             soundCard.setVisibility(View.GONE);
         }
 
         if (!prefs.getBoolean("seen_restore_warning", false) &&
-                !Systems.isSamsungDevice(mContext)) {
+                !Systems.isSamsungDevice(context)) {
             showRecoveryWarning();
         }
         return view;
@@ -281,7 +281,7 @@ public class RecoveryFragment extends Fragment {
      * Show the dialog to warn the user that restoring would take some time
      */
     private void showRecoveryWarning() {
-        new AlertDialog.Builder(mContext)
+        new AlertDialog.Builder(context)
                 .setTitle(R.string.restore_info_dialog_title)
                 .setMessage(R.string.restore_info_dialog_message)
                 .setPositiveButton(R.string.dialog_ok, (dialog, which) -> {
@@ -334,7 +334,7 @@ public class RecoveryFragment extends Fragment {
         protected void onPreExecute() {
             RecoveryFragment fragment = ref.get();
             if (fragment != null) {
-                Context context = fragment.mContext;
+                Context context = fragment.context;
                 if (References.ENABLE_EXTRAS_DIALOG) {
                     fragment.mProgressDialog = new ProgressDialog(context, R.style.RestoreDialog);
                     fragment.mProgressDialog.setMessage(
@@ -350,7 +350,7 @@ public class RecoveryFragment extends Fragment {
         protected void onPostExecute(String result) {
             RecoveryFragment fragment = ref.get();
             if (fragment != null) {
-                Context context = fragment.mContext;
+                Context context = fragment.context;
                 if (References.ENABLE_EXTRAS_DIALOG) {
                     fragment.mProgressDialog.dismiss();
                 }
@@ -373,7 +373,7 @@ public class RecoveryFragment extends Fragment {
         protected String doInBackground(String... sUrl) {
             RecoveryFragment fragment = ref.get();
             if (fragment != null) {
-                Context context = fragment.mContext;
+                Context context = fragment.context;
                 FontsManager.clearFonts(context);
             }
             return null;
@@ -411,7 +411,7 @@ public class RecoveryFragment extends Fragment {
             super.onPostExecute(result);
             RecoveryFragment fragment = ref.get();
             if (fragment != null) {
-                Context context = fragment.mContext;
+                Context context = fragment.context;
                 View view = fragment.getView();
 
                 fragment.mProgressDialog.dismiss();

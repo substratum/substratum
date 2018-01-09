@@ -513,15 +513,15 @@ public enum References {
     /**
      * Check if there is a network connection available to be used
      *
-     * @param mContext Context
+     * @param context Context
      * @return True, if connected to the internet
      */
-    public static boolean isNetworkAvailable(Context mContext) {
+    public static boolean isNetworkAvailable(Context context) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 
         StrictMode.setThreadPolicy(policy);
         ConnectivityManager connectivityManager
-                = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         assert connectivityManager != null;
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         try {

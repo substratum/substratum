@@ -23,7 +23,7 @@ import android.support.annotation.NonNull;
 
 public class ShowcaseItem implements Comparable<ShowcaseItem> {
 
-    private Context mContext;
+    private Context context;
     private String themeName;
     private String themePackage;
     private String themeLink;
@@ -34,11 +34,11 @@ public class ShowcaseItem implements Comparable<ShowcaseItem> {
     private String themeSupport;
 
     public Context getContext() {
-        return this.mContext;
+        return this.context;
     }
 
-    public void setContext(Context mContext) {
-        this.mContext = mContext;
+    public void setContext(Context context) {
+        this.context = context;
     }
 
     CharSequence getThemeAuthor() {

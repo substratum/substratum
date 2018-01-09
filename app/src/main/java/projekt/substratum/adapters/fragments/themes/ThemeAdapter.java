@@ -71,7 +71,7 @@ import static projekt.substratum.common.Theming.themeIntent;
 
 public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> {
     private List<ThemeItem> information;
-    private Context mContext;
+    private Context context;
     private LocalBroadcastManager localBroadcastManager;
     private LaunchThemeReceiver launchThemeReceiver;
     private ThemeItem themeItem;
@@ -106,11 +106,11 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder viewHolder,
                                  int pos) {
         ThemeItem themeItem = this.information.get(pos);
-        this.mContext = themeItem.getContext();
+        this.context = themeItem.getContext();
 
         ViewCompat.setTransitionName(viewHolder.imageView, themeItem.getThemePackage());
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.mContext);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.context);
         viewHolder.theme_name.setText(themeItem.getThemeName());
         viewHolder.theme_author.setText(themeItem.getThemeAuthor());
         if (prefs.getBoolean("advanced_ui", false)) {
@@ -175,21 +175,21 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                     // Okay you fuck, this fucking works, fucking know this shit or fuck off
                     isUsingDefaultTheme = isThemeUsingDefaultTheme(themeItem.getThemePackage());
                     Intent theme_intent = themeIntent(
-                            mContext,
+                            context,
                             themeItem.getThemePackage(),
                             null,
                             TEMPLATE_THEME_MODE,
                             (isUsingDefaultTheme ? KeyExchangeActivity.class :
                                     ThemeLaunchActivity.class));
                     try {
-                        mContext.startActivity(theme_intent);
+                        context.startActivity(theme_intent);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
 
                     if (isUsingDefaultTheme) {
                         launchThemeReceiver = new LaunchThemeReceiver(themeItem.getThemePackage());
-                        localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
+                        localBroadcastManager = LocalBroadcastManager.getInstance(context);
                         localBroadcastManager.registerReceiver(launchThemeReceiver,
                                 new IntentFilter(KEY_ACCEPTED_RECEIVER));
                         this.themeItem = themeItem;
@@ -199,30 +199,30 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
         viewHolder.cardView.setOnLongClickListener(view -> {
             // Vibrate the device alerting the user they are about to do something dangerous!
-            if (Packages.isUserApp(this.mContext, themeItem.getThemePackage())) {
-                Vibrator v = (Vibrator) this.mContext.getSystemService(Context
+            if (Packages.isUserApp(this.context, themeItem.getThemePackage())) {
+                Vibrator v = (Vibrator) this.context.getSystemService(Context
                         .VIBRATOR_SERVICE);
                 if (v != null) {
                     v.vibrate(30L);
                 }
 
                 // About the theme
-                SheetDialog sheetDialog = new SheetDialog(this.mContext);
+                SheetDialog sheetDialog = new SheetDialog(this.context);
                 View sheetView =
-                        View.inflate(this.mContext, R.layout.theme_long_press_sheet_dialog, null);
+                        View.inflate(this.context, R.layout.theme_long_press_sheet_dialog, null);
 
                 TextView aboutText = sheetView.findViewById(R.id.about_text);
                 TextView moreText = sheetView.findViewById(R.id.more_text);
                 aboutText.setText(themeItem.getThemeName());
                 aboutText.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                 moreText.setText(String.format("%s (%s)\n%s",
-                        Packages.getAppVersion(this.mContext, themeItem.getThemePackage()),
-                        Packages.getAppVersionCode(this.mContext, themeItem.getThemePackage()),
-                        Packages.getPackageTemplateVersion(this.mContext,
+                        Packages.getAppVersion(this.context, themeItem.getThemePackage()),
+                        Packages.getAppVersionCode(this.context, themeItem.getThemePackage()),
+                        Packages.getPackageTemplateVersion(this.context,
                                 themeItem.getThemePackage())));
 
                 ImageView icon = sheetView.findViewById(R.id.icon);
-                icon.setImageDrawable(Packages.getAppIcon(this.mContext, themeItem
+                icon.setImageDrawable(Packages.getAppIcon(this.context, themeItem
                         .getThemePackage()));
 
                 ImageView two = sheetView.findViewById(R.id.theme_unready_indicator);
@@ -257,20 +257,20 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 // Favorite
                 LinearLayout favorite = sheetView.findViewById(R.id.favorite);
 
-                Drawable favoriteImg = this.mContext.getDrawable(R.drawable.toolbar_favorite);
+                Drawable favoriteImg = this.context.getDrawable(R.drawable.toolbar_favorite);
                 Drawable notFavoriteImg =
-                        this.mContext.getDrawable(R.drawable.toolbar_not_favorite);
+                        this.context.getDrawable(R.drawable.toolbar_not_favorite);
                 TextView favoriteText = sheetView.findViewById(R.id.favorite_text);
                 if (prefs.getString("app_shortcut_theme", "").equals(themeItem.getThemePackage())) {
                     assert favoriteImg != null;
                     favoriteImg.setBounds(0, 0, 60, 60);
                     favoriteText.setCompoundDrawables(favoriteImg, null, null, null);
-                    favoriteText.setText(this.mContext.getString(R.string.menu_unfavorite));
+                    favoriteText.setText(this.context.getString(R.string.menu_unfavorite));
                 } else {
                     assert notFavoriteImg != null;
                     notFavoriteImg.setBounds(0, 0, 60, 60);
                     favoriteText.setCompoundDrawables(notFavoriteImg, null, null, null);
-                    favoriteText.setText(this.mContext.getString(R.string.menu_favorite));
+                    favoriteText.setText(this.context.getString(R.string.menu_favorite));
                 }
 
                 favorite.setOnClickListener(view1 -> {
@@ -278,43 +278,43 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                         if (!prefs.getString("app_shortcut_theme", "").equals(
                                 themeItem.getThemePackage())) {
                             prefs.edit().remove("app_shortcut_theme").apply();
-                            References.clearShortcut(this.mContext);
+                            References.clearShortcut(this.context);
                             prefs.edit().putString("app_shortcut_theme",
                                     themeItem.getThemePackage()).apply();
                             References.createShortcut(
-                                    this.mContext,
+                                    this.context,
                                     themeItem.getThemePackage(),
                                     themeItem.getThemeName());
                             assert favoriteImg != null;
                             favoriteImg.setBounds(0, 0, 60, 60);
                             favoriteText.setCompoundDrawables(favoriteImg, null, null, null);
-                            favoriteText.setText(this.mContext.getString(R.string.menu_unfavorite));
+                            favoriteText.setText(this.context.getString(R.string.menu_unfavorite));
                         } else {
                             prefs.edit().remove("app_shortcut_theme").apply();
-                            References.clearShortcut(this.mContext);
+                            References.clearShortcut(this.context);
                             assert notFavoriteImg != null;
                             notFavoriteImg.setBounds(0, 0, 60, 60);
                             favoriteText.setCompoundDrawables(notFavoriteImg, null, null, null);
-                            favoriteText.setText(this.mContext.getString(R.string.menu_favorite));
+                            favoriteText.setText(this.context.getString(R.string.menu_favorite));
                         }
                     } else {
                         prefs.edit().putString("app_shortcut_theme",
                                 themeItem.getThemePackage()).apply();
                         References.createShortcut(
-                                this.mContext,
+                                this.context,
                                 themeItem.getThemePackage(),
                                 themeItem.getThemeName());
                         assert favoriteImg != null;
                         favoriteImg.setBounds(0, 0, 60, 60);
                         favoriteText.setCompoundDrawables(favoriteImg, null, null, null);
-                        favoriteText.setText(this.mContext.getString(R.string.menu_unfavorite));
+                        favoriteText.setText(this.context.getString(R.string.menu_unfavorite));
                     }
                 });
 
                 // Rate Theme
                 LinearLayout rate = sheetView.findViewById(R.id.rate);
                 String installer =
-                        Packages.getInstallerId(this.mContext, themeItem.getThemePackage());
+                        Packages.getInstallerId(this.context, themeItem.getThemePackage());
                 if ((installer != null) && installer.equals(PLAY_STORE_PACKAGE_NAME)) {
                     rate.setVisibility(View.VISIBLE);
                 } else {
@@ -325,11 +325,11 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                         String playURL = PLAY_URL_PREFIX + themeItem.getThemePackage();
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri.parse(playURL));
-                        this.mContext.startActivity(i);
+                        this.context.startActivity(i);
                     } catch (ActivityNotFoundException activityNotFoundException) {
                         Toast.makeText(
-                                this.mContext,
-                                this.mContext.getString(R.string.activity_missing_toast),
+                                this.context,
+                                this.context.getString(R.string.activity_missing_toast),
                                 Toast.LENGTH_SHORT).show();
                     }
                     sheetDialog.dismiss();
@@ -338,12 +338,12 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 // Shortcut
                 LinearLayout shortcut = sheetView.findViewById(R.id.shortcut);
                 shortcut.setOnClickListener(view12 -> {
-                    References.createLauncherIcon(this.mContext,
+                    References.createLauncherIcon(this.context,
                             themeItem.getThemePackage(), themeItem.getThemeName());
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
                         Toast.makeText(
-                                this.mContext,
-                                this.mContext.getString(R.string.launcher_shortcut_toast),
+                                this.context,
+                                this.context.getString(R.string.launcher_shortcut_toast),
                                 Toast.LENGTH_SHORT).show();
                     }
                     sheetDialog.dismiss();
@@ -354,7 +354,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 uninstall.setOnClickListener(view2 -> {
                     Uri packageURI = Uri.parse("package:" + themeItem.getThemePackage());
                     Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
-                    this.mContext.startActivity(uninstallIntent);
+                    this.context.startActivity(uninstallIntent);
                     sheetDialog.dismiss();
                 });
 
@@ -369,12 +369,12 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
         if (prefs.getBoolean("advanced_ui", false)) {
             References.setRecyclerViewAnimation(
-                    this.mContext,
+                    this.context,
                     viewHolder.itemView,
                     R.anim.recyclerview_anim);
         } else {
             References.setRecyclerViewAnimation(
-                    this.mContext,
+                    this.context,
                     viewHolder.itemView,
                     android.R.anim.fade_in);
         }
@@ -411,16 +411,16 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
      * Show a dialog to explain what Theme Ready Gapps are
      */
     private void explainTBO() {
-        new AlertDialog.Builder(this.mContext)
+        new AlertDialog.Builder(this.context)
                 .setMessage(R.string.tbo_description)
                 .setPositiveButton(R.string.tbo_dialog_proceed,
                         (dialog, which) -> {
                             try {
                                 String playURL =
-                                        this.mContext.getString(R.string.tbo_theme_ready_url);
+                                        this.context.getString(R.string.tbo_theme_ready_url);
                                 Intent intent = new Intent(Intent.ACTION_VIEW);
                                 intent.setData(Uri.parse(playURL));
-                                this.mContext.startActivity(intent);
+                                this.context.startActivity(intent);
                             } catch (ActivityNotFoundException anfe) {
                                 // Suppress warning
                             }
@@ -435,17 +435,17 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
      * Show a dialog to explain what stock theming is
      */
     private void explainTWO() {
-        new AlertDialog.Builder(this.mContext)
+        new AlertDialog.Builder(this.context)
                 .setMessage(R.string.two_description)
                 .setCancelable(true)
                 .setPositiveButton(R.string.dynamic_gapps_dialog,
                         (dialog, which) -> {
                             try {
                                 String playURL =
-                                        this.mContext.getString(R.string.dynamic_gapps_link);
+                                        this.context.getString(R.string.dynamic_gapps_link);
                                 Intent intent = new Intent(Intent.ACTION_VIEW);
                                 intent.setData(Uri.parse(playURL));
-                                this.mContext.startActivity(intent);
+                                this.context.startActivity(intent);
                             } catch (ActivityNotFoundException anfe) {
                                 // Suppress warning
                             }
@@ -454,10 +454,10 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                         (dialog, which) -> {
                             try {
                                 String playURL =
-                                        this.mContext.getString(R.string.open_gapps_link);
+                                        this.context.getString(R.string.open_gapps_link);
                                 Intent intent = new Intent(Intent.ACTION_VIEW);
                                 intent.setData(Uri.parse(playURL));
-                                this.mContext.startActivity(intent);
+                                this.context.startActivity(intent);
                             } catch (ActivityNotFoundException anfe) {
                                 // Suppress warning
                             }

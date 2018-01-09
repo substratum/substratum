@@ -28,7 +28,7 @@ import projekt.substratum.common.References;
 
 public class NotificationCreator {
 
-    private Context mContext;
+    private Context context;
     private String content_title;
     private String content_text;
     private Boolean auto_cancel;
@@ -48,7 +48,7 @@ public class NotificationCreator {
                                int notification_priority,
                                int invoke_id) {
         super();
-        this.mContext = context;
+        this.context = context;
         this.content_title = content_title;
         this.content_text = content_text;
         this.auto_cancel = auto_cancel;
@@ -62,10 +62,10 @@ public class NotificationCreator {
     @SuppressWarnings("UnusedReturnValue")
     public boolean createNotification() {
         try {
-            NotificationManager mNotifyManager = (NotificationManager) mContext
+            NotificationManager mNotifyManager = (NotificationManager) context
                     .getSystemService(Context.NOTIFICATION_SERVICE);
             NotificationCompat.Builder mBuilder = new
-                    NotificationCompat.Builder(mContext,
+                    NotificationCompat.Builder(context,
                     References.DEFAULT_NOTIFICATION_CHANNEL_ID);
 
             if (content_title != null) mBuilder.setContentTitle(content_title);

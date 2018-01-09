@@ -22,14 +22,14 @@ import android.content.Context;
 
 public class SoundsInfo {
     private String absolute_path;
-    private Context mContext;
+    private Context context;
     private String title;
 
-    public SoundsInfo(Context mContext,
+    public SoundsInfo(Context context,
                       String title,
                       String absolute_path) {
         super();
-        this.mContext = mContext;
+        this.context = context;
         this.title = title;
         this.absolute_path = absolute_path;
     }
@@ -39,7 +39,7 @@ public class SoundsInfo {
     }
 
     public Context getContext() {
-        return this.mContext;
+        return this.context;
     }
 
     public String getTitle() {

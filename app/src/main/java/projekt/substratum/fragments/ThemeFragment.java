@@ -70,7 +70,7 @@ public class ThemeFragment extends Fragment {
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.no_entry_card_view)
     View cardView;
-    private Context mContext;
+    private Context context;
     private LocalBroadcastManager localBroadcastManager;
     private BroadcastReceiver refreshReceiver;
     private SharedPreferences prefs;
@@ -129,7 +129,7 @@ public class ThemeFragment extends Fragment {
      * Deeply refresh the themes
      *
      * @param themeFragment       Theme Fragment
-     * @param mContext            Self explanatory, bud
+     * @param context            Self explanatory, bud
      * @param prefs               Shared Preferences instance
      * @param activity            Activity of calling function
      * @param toolbarTitle        Requested toolbar title
@@ -138,7 +138,7 @@ public class ThemeFragment extends Fragment {
      */
     private static void refreshLayout(ThemeFragment themeFragment,
                                       SharedPreferences prefs,
-                                      Context mContext,
+                                      Context context,
                                       Activity activity,
                                       CharSequence toolbarTitle,
                                       Map<String, String[]> substratum_packages,
@@ -153,20 +153,20 @@ public class ThemeFragment extends Fragment {
                         !((MainActivity) activity).searchView.isIconified()) {
                     if (!MainActivity.userInput.isEmpty()) {
                         String parse = String.format(
-                                mContext.getString(R.string.no_themes_description_search),
+                                context.getString(R.string.no_themes_description_search),
                                 MainActivity.userInput);
                         cardViewText.setText(parse);
                         cardViewImage.setImageDrawable(
-                                mContext.getDrawable(R.drawable.no_themes_found));
+                                context.getDrawable(R.drawable.no_themes_found));
                     } else {
-                        cardViewText.setText(mContext.getString(R.string.no_themes_description));
+                        cardViewText.setText(context.getString(R.string.no_themes_description));
                         cardViewImage.setImageDrawable(
-                                mContext.getDrawable(R.drawable.no_themes_installed));
+                                context.getDrawable(R.drawable.no_themes_installed));
                     }
                 } else {
-                    cardViewText.setText(mContext.getString(R.string.no_themes_description));
+                    cardViewText.setText(context.getString(R.string.no_themes_description));
                     cardViewImage.setImageDrawable(
-                            mContext.getDrawable(R.drawable.no_themes_installed));
+                            context.getDrawable(R.drawable.no_themes_installed));
                 }
                 themeFragment.cardView.setVisibility(View.VISIBLE);
                 themeFragment.recyclerView.setVisibility(View.GONE);
@@ -182,12 +182,12 @@ public class ThemeFragment extends Fragment {
                 ref.get().switchToStockToolbar(toolbarTitle);
                 ref.get().assignBottomBarBadgeCount(substratum_packages.size());
             } else if ((substratum_packages.size() == 1) && (ref.get() != null)) {
-                parse = String.format(mContext.getString(R.string.actionbar_theme_count_singular),
+                parse = String.format(context.getString(R.string.actionbar_theme_count_singular),
                         String.valueOf(substratum_packages.size()));
                 ref.get().switchToCustomToolbar(toolbarTitle, parse);
                 ref.get().assignBottomBarBadgeCount(substratum_packages.size());
             } else if (ref.get() != null) {
-                parse = String.format(mContext.getString(R.string.actionbar_theme_count_plural),
+                parse = String.format(context.getString(R.string.actionbar_theme_count_plural),
                         String.valueOf(substratum_packages.size()));
                 ref.get().switchToCustomToolbar(toolbarTitle, parse);
                 ref.get().assignBottomBarBadgeCount(substratum_packages.size());
@@ -213,10 +213,10 @@ public class ThemeFragment extends Fragment {
                 themeFragment.recyclerView.setPadding(0, 0, 0, 0);
             }
             if (prefs.getBoolean("grid_layout", true)) {
-                themeFragment.recyclerView.setLayoutManager(new GridLayoutManager(mContext,
+                themeFragment.recyclerView.setLayoutManager(new GridLayoutManager(context,
                         prefs.getInt("grid_style_cards_count", DEFAULT_GRID_COUNT)));
             } else {
-                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
                 themeFragment.recyclerView.setLayoutManager(layoutManager);
             }
         } else {
@@ -238,7 +238,7 @@ public class ThemeFragment extends Fragment {
         ArrayList<ThemeItem> empty_array = new ArrayList<>();
         ThemeAdapter empty_adapter = new ThemeAdapter(empty_array);
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.setAdapter(empty_adapter);
     }
 
@@ -267,15 +267,15 @@ public class ThemeFragment extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = getContext();
-        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        context = getContext();
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
         View view = inflater.inflate(R.layout.home_fragment, container, false);
         ButterKnife.bind(this, view);
 
         // Register the theme install receiver to auto refresh the fragment
         refreshReceiver = new ThemeInstallReceiver();
         IntentFilter intentFilter = new IntentFilter(THEME_FRAGMENT_REFRESH);
-        localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
+        localBroadcastManager = LocalBroadcastManager.getInstance(context);
         localBroadcastManager.registerReceiver(refreshReceiver, intentFilter);
 
         Bundle bundle = getArguments();
@@ -321,7 +321,7 @@ public class ThemeFragment extends Fragment {
                 refreshLayout(
                         themeFragment,
                         themeFragment.prefs,
-                        themeFragment.mContext,
+                        themeFragment.context,
                         themeFragment.getActivity(),
                         themeFragment.toolbar_title,
                         this.substratum_packages,
@@ -334,13 +334,13 @@ public class ThemeFragment extends Fragment {
             ThemeFragment themeFragment = fragment.get();
             if (themeFragment != null) {
                 substratum_packages = Packages.getSubstratumPackages(
-                        themeFragment.mContext,
+                        themeFragment.context,
                         themeFragment.home_type,
                         MainActivity.userInput);
                 Map<String, String[]> map = new TreeMap<>(substratum_packages);
                 themeItems = prepareData(
                         map,
-                        themeFragment.mContext,
+                        themeFragment.context,
                         themeFragment.getActivity(),
                         themeFragment.home_type);
                 try {

@@ -93,7 +93,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private Preference systemPlatform;
     private List<ValidatorError> errors;
     private Dialog dialog;
-    private Context mContext;
+    private Context context;
     private SharedPreferences prefs;
 
     @SuppressLint("StringFormatMatches")
@@ -101,13 +101,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     public void onCreatePreferences(
             Bundle bundle,
             String s) {
-        mContext = getContext();
-        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        context = getContext();
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
-        boolean isSamsung = Systems.isSamsungDevice(mContext);
-        boolean isOMS = Systems.checkOMS(mContext);
-        boolean hasThemeInterfacer = Systems.checkThemeInterfacer(mContext);
-        boolean hasAndromeda = Systems.checkAndromeda(mContext);
+        boolean isSamsung = Systems.isSamsungDevice(context);
+        boolean isOMS = Systems.checkOMS(context);
+        boolean hasThemeInterfacer = Systems.checkThemeInterfacer(context);
+        boolean hasAndromeda = Systems.checkAndromeda(context);
 
         // Initialize the XML file
         if (isOMS) addPreferencesFromResource(R.xml.preference_fragment);
@@ -119,7 +119,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         sb.append(BuildConfig.VERSION_NAME + " (" + BuildConfig.VERSION_CODE + ')');
         if (BuildConfig.DEBUG) sb.append(" - " + BuildConfig.GIT_HASH);
         aboutSubstratum.setSummary(sb.toString());
-        aboutSubstratum.setIcon(mContext.getDrawable(R.mipmap.main_launcher));
+        aboutSubstratum.setIcon(context.getDrawable(R.mipmap.main_launcher));
         aboutSubstratum.setOnPreferenceClickListener(
                 preference -> {
                     try {
@@ -162,11 +162,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         getString(R.string.settings_about_oms_version_7)) :
                 getString(R.string.settings_about_rro_version_2)));
         systemPlatform.setSummary(platformSummary);
-        systemPlatform.setIcon(Packages.getAppIcon(mContext, "com.android.systemui"));
+        systemPlatform.setIcon(Packages.getAppIcon(context, "com.android.systemui"));
 
         // System Status including Complexion Status
         Preference systemStatus = getPreferenceManager().findPreference("system_status");
-        boolean full_oms = isOMS && Systems.checkSubstratumFeature(mContext);
+        boolean full_oms = isOMS && Systems.checkSubstratumFeature(context);
         boolean interfacer = hasThemeInterfacer && !isSamsung;
         boolean system_service = Systems.checkSubstratumService(getContext()) && !isSamsung;
         boolean verified = prefs.getBoolean("complexion", true);
@@ -191,13 +191,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 getString(R.string.settings_system_status_uncertified)) + ')'
         );
         systemStatus.setIcon(certified ?
-                mContext.getDrawable(R.drawable.system_status_certified)
-                : mContext.getDrawable(R.drawable.system_status_uncertified));
+                context.getDrawable(R.drawable.system_status_certified)
+                : context.getDrawable(R.drawable.system_status_uncertified));
         if (BuildConfig.DEBUG &&
                 isOMS &&
                 !hasAndromeda) {
             systemStatus.setOnPreferenceClickListener(preference -> {
-                if (References.isNetworkAvailable(mContext)) {
+                if (References.isNetworkAvailable(context)) {
                     new downloadRepositoryList(this).execute("");
                 } else if (getView() != null) {
                     Lunchbar.make(getView(),
@@ -215,9 +215,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 getPreferenceManager().findPreference("show_dangerous_samsung_overlays");
         if (isSamsung) {
             aboutSamsung.setVisible(true);
-            aboutSamsung.setIcon(Packages.getAppIcon(mContext, SST_ADDON_PACKAGE));
+            aboutSamsung.setIcon(Packages.getAppIcon(context, SST_ADDON_PACKAGE));
             try {
-                PackageInfo info = mContext.getPackageManager()
+                PackageInfo info = context.getPackageManager()
                         .getPackageInfo(SST_ADDON_PACKAGE, 0);
                 String versionName = info.versionName;
                 int versionCode = info.versionCode;
@@ -238,7 +238,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         boolean isChecked = (Boolean) newValue;
                         if (isChecked) {
                             AlertDialog.Builder builder =
-                                    new AlertDialog.Builder(mContext);
+                                    new AlertDialog.Builder(context);
                             builder.setTitle(
                                     R.string.settings_samsung_show_dangerous_overlays_warning_title);
                             builder.setMessage(
@@ -287,7 +287,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 R.string.locale_restart_message, Lunchbar.LENGTH_INDEFINITE);
                         lunchbar.setAction(getString(R.string.restart), v -> {
                             Handler handler = new Handler();
-                            handler.postDelayed(() -> Substratum.restartSubstratum(mContext), 0);
+                            handler.postDelayed(() -> Substratum.restartSubstratum(context), 0);
                         });
                         lunchbar.show();
                     } else {
@@ -298,7 +298,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 R.string.locale_restart_message, Lunchbar.LENGTH_INDEFINITE);
                         lunchbar.setAction(getString(R.string.restart), v -> {
                             Handler handler = new Handler();
-                            handler.postDelayed(() -> Substratum.restartSubstratum(mContext), 0);
+                            handler.postDelayed(() -> Substratum.restartSubstratum(context), 0);
                         });
                         lunchbar.show();
                     }
@@ -325,7 +325,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 R.string.advanced_ui_restart_message, Lunchbar.LENGTH_INDEFINITE);
                         lunchbar.setAction(getString(R.string.restart), v -> {
                             Handler handler = new Handler();
-                            handler.postDelayed(() -> Substratum.restartSubstratum(mContext), 0);
+                            handler.postDelayed(() -> Substratum.restartSubstratum(context), 0);
                         });
                         lunchbar.show();
                     } else {
@@ -336,7 +336,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 R.string.advanced_ui_restart_message, Lunchbar.LENGTH_INDEFINITE);
                         lunchbar.setAction(getString(R.string.restart), v -> {
                             Handler handler = new Handler();
-                            handler.postDelayed(() -> Substratum.restartSubstratum(mContext), 0);
+                            handler.postDelayed(() -> Substratum.restartSubstratum(context), 0);
                         });
                         lunchbar.show();
                     }
@@ -357,7 +357,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     if (isChecked) {
                         prefs.edit().putBoolean("alternate_drawer_design", true).apply();
                         alternate_drawer_design.setChecked(true);
-                        Toast.makeText(mContext,
+                        Toast.makeText(context,
                                 getString(R.string.substratum_restart_toast),
                                 Toast.LENGTH_SHORT).show();
                         if (getActivity() != null) {
@@ -366,7 +366,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     } else {
                         prefs.edit().putBoolean("alternate_drawer_design", false).apply();
                         alternate_drawer_design.setChecked(false);
-                        Toast.makeText(mContext,
+                        Toast.makeText(context,
                                 getString(R.string.substratum_restart_toast),
                                 Toast.LENGTH_SHORT).show();
                         if (getActivity() != null) {
@@ -416,7 +416,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             vibrate_on_compiled.setVisible(false);
             manage_notifications.setOnPreferenceClickListener(preference -> {
                 Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
-                intent.putExtra(Settings.EXTRA_APP_PACKAGE, mContext.getPackageName());
+                intent.putExtra(Settings.EXTRA_APP_PACKAGE, context.getPackageName());
                 startActivity(intent);
                 return false;
             });
@@ -482,10 +482,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         grid_style_cards_count.setSummary(toFormat);
         grid_style_cards_count.setOnPreferenceClickListener(
                 preference -> {
-                    AlertDialog.Builder d = new AlertDialog.Builder(mContext);
+                    AlertDialog.Builder d = new AlertDialog.Builder(context);
                     d.setTitle(getString(R.string.grid_size_title));
 
-                    NumberPicker numberPicker = new NumberPicker(mContext);
+                    NumberPicker numberPicker = new NumberPicker(context);
                     // Maximum overlay priority count
                     numberPicker.setMaxValue(References.MAX_GRID_COUNT);
                     // Minimum overlay priority count
@@ -536,7 +536,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 boolean isChecked = (Boolean) newValue;
                 if (!isChecked) {
                     AlertDialog.Builder builder =
-                            new AlertDialog.Builder(mContext);
+                            new AlertDialog.Builder(context);
                     builder.setTitle(R.string.theme_safety_dialog_title);
                     builder.setMessage(R.string.theme_safety_dialog_content);
                     builder.setNegativeButton(R.string.dialog_cancel,
@@ -554,7 +554,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 }
                 return false;
             });
-            if (!Systems.checkSubstratumFeature(mContext)) {
+            if (!Systems.checkSubstratumFeature(context)) {
                 crashReceiver.setVisible(false);
             }
         } else {
@@ -591,7 +591,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         autosave_logchar.setChecked(true);
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder
-                                (mContext);
+                                (context);
                         builder.setTitle(R.string.logchar_dialog_title_delete_title);
                         builder.setMessage(R.string.logchar_dialog_title_delete_content);
                         builder.setNegativeButton(R.string.dialog_cancel,
@@ -599,7 +599,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         builder.setPositiveButton(R.string.break_compilation_dialog_continue,
                                 (dialog, id) -> {
                                     prefs.edit().putBoolean("autosave_logchar", false).apply();
-                                    delete(mContext,
+                                    delete(context,
                                             new File(Environment.getExternalStorageDirectory() +
                                                     File.separator + "substratum" + File.separator +
                                                     "LogCharReports").getAbsolutePath());
@@ -644,10 +644,10 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             priority_switcher.setSummary(formatted);
             priority_switcher.setOnPreferenceClickListener(
                     preference -> {
-                        AlertDialog.Builder d = new AlertDialog.Builder(mContext);
+                        AlertDialog.Builder d = new AlertDialog.Builder(context);
                         d.setTitle(getString(R.string.legacy_preference_priority_title));
 
-                        NumberPicker numberPicker = new NumberPicker(mContext);
+                        NumberPicker numberPicker = new NumberPicker(context);
                         // Maximum overlay priority count
                         numberPicker.setMaxValue(MAX_PRIORITY);
                         // Minimum overlay priority count
@@ -681,11 +681,11 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         if (isOMS) {
             // About Andromeda
             Preference aboutAndromeda = getPreferenceManager().findPreference("about_andromeda");
-            if (Systems.isAndromedaDevice(mContext)) {
-                aboutAndromeda.setIcon(Packages.getAppIcon(mContext, ANDROMEDA_PACKAGE));
+            if (Systems.isAndromedaDevice(context)) {
+                aboutAndromeda.setIcon(Packages.getAppIcon(context, ANDROMEDA_PACKAGE));
                 try {
                     PackageInfo info =
-                            mContext.getPackageManager().getPackageInfo(ANDROMEDA_PACKAGE, 0);
+                            context.getPackageManager().getPackageInfo(ANDROMEDA_PACKAGE, 0);
                     String versionName = info.versionName;
                     int versionCode = info.versionCode;
                     aboutAndromeda.setSummary(versionName + " (" + versionCode + ')');
@@ -693,7 +693,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     // Suppress exception
                 }
                 aboutAndromeda.setOnPreferenceClickListener(preference -> {
-                    launchExternalActivity(mContext, ANDROMEDA_PACKAGE, "InfoActivity");
+                    launchExternalActivity(context, ANDROMEDA_PACKAGE, "InfoActivity");
                     return false;
                 });
             } else {
@@ -703,7 +703,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             // About Interfacer
             Preference aboutInterfacer = getPreferenceManager().findPreference("about_interfacer");
             if (hasThemeInterfacer) {
-                aboutInterfacer.setIcon(Packages.getAppIcon(mContext, INTERFACER_PACKAGE));
+                aboutInterfacer.setIcon(Packages.getAppIcon(context, INTERFACER_PACKAGE));
                 aboutInterfacer.setOnPreferenceClickListener(
                         preference -> {
                             try {
@@ -727,7 +727,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             return false;
                         });
                 try {
-                    PackageInfo pInfo = Systems.getThemeInterfacerPackage(mContext);
+                    PackageInfo pInfo = Systems.getThemeInterfacerPackage(context);
                     assert pInfo != null;
                     String versionName = pInfo.versionName;
                     int versionCode = pInfo.versionCode;
@@ -743,7 +743,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             // Check if the system actually supports the latest Interfacer and the permission
             // found at:
             // https://github.com/substratum/interfacer/blob/n-rootless/projekt.substratum.theme.xml
-            if (!Systems.checkSubstratumFeature(mContext)) {
+            if (!Systems.checkSubstratumFeature(context)) {
                 aboutInterfacer.setVisible(false);
             }
 
@@ -756,7 +756,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             } else {
                 hide_app_checkbox.setChecked(false);
             }
-            if (validateResource(mContext,
+            if (validateResource(context,
                     References.settingsPackageName,
                     References.settingsSubstratumDrawableName,
                     "drawable")) {
@@ -768,8 +768,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         boolean isChecked = (Boolean) newValue;
                         if (isChecked) {
                             prefs.edit().putBoolean("show_app_icon", true).apply();
-                            PackageManager p = mContext.getPackageManager();
-                            ComponentName componentName = new ComponentName(mContext,
+                            PackageManager p = context.getPackageManager();
+                            ComponentName componentName = new ComponentName(context,
                                     LauncherActivity.class);
                             p.setComponentEnabledSetting(
                                     componentName,
@@ -784,8 +784,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             hide_app_checkbox.setChecked(true);
                         } else {
                             prefs.edit().putBoolean("show_app_icon", false).apply();
-                            PackageManager p = mContext.getPackageManager();
-                            ComponentName componentName = new ComponentName(mContext,
+                            PackageManager p = context.getPackageManager();
+                            ComponentName componentName = new ComponentName(context,
                                     LauncherActivity.class);
                             p.setComponentEnabledSetting(componentName,
                                     PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
@@ -851,7 +851,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             } else {
                 restartSystemUI.setChecked(false);
             }
-            if (Systems.isAndromedaDevice(mContext)) {
+            if (Systems.isAndromedaDevice(context)) {
                 restartSystemUI.setVisible(false);
             }
             restartSystemUI.setOnPreferenceChangeListener(
@@ -862,7 +862,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             restartSystemUI.setChecked(true);
                         } else {
                             AlertDialog.Builder builder = new AlertDialog.Builder
-                                    (mContext);
+                                    (context);
                             builder.setTitle(R.string.auto_reload_sysui_dialog_title);
                             builder.setMessage(R.string.auto_reload_sysui_dialog_text);
                             builder.setNegativeButton(R.string.dialog_cancel,
@@ -914,7 +914,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     (preference, newValue) -> {
                         boolean isChecked = (Boolean) newValue;
                         if (isChecked) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
                             builder.setTitle(R.string.settings_theme_auto_updater_dialog_title);
                             builder.setMessage(R.string.settings_theme_auto_updater_dialog_text);
                             builder.setNegativeButton(R.string.dialog_cancel,
@@ -941,7 +941,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     (preference, newValue) -> {
                         boolean isChecked = (Boolean) newValue;
                         if (isChecked) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(context);
                             builder.setTitle(R.string.break_compilation_dialog_title);
                             builder.setMessage(R.string.break_compilation_dialog_content);
                             builder.setNegativeButton(R.string.dialog_cancel,
@@ -981,12 +981,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             SettingsFragment settingsFragment = ref.get();
             if (settingsFragment == null) return;
             try {
-                if (!Systems.checkThemeInterfacer(settingsFragment.mContext) &&
-                        !Systems.checkSubstratumService(settingsFragment.mContext)) {
+                if (!Systems.checkThemeInterfacer(settingsFragment.context) &&
+                        !Systems.checkSubstratumService(settingsFragment.context)) {
                     return;
                 }
 
-                if (!References.isNetworkAvailable(settingsFragment.mContext)) {
+                if (!References.isNetworkAvailable(settingsFragment.context)) {
                     settingsFragment.platformSummary.append('\n')
                             .append(settingsFragment.getString(R.string.rom_status))
                             .append(' ')
@@ -1023,7 +1023,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         protected String doInBackground(String... sUrl) {
             SettingsFragment settingsFragment = ref.get();
             if (settingsFragment != null) {
-                return Systems.checkFirmwareSupport(settingsFragment.mContext, sUrl[0], sUrl[1]);
+                return Systems.checkFirmwareSupport(settingsFragment.context, sUrl[0], sUrl[1]);
             }
             return null;
         }
@@ -1069,14 +1069,14 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 }
 
                 settingsFragment.dialog.dismiss();
-                Dialog dialog2 = new Dialog(settingsFragment.mContext);
+                Dialog dialog2 = new Dialog(settingsFragment.context);
                 dialog2.setContentView(R.layout.validator_dialog_inner);
                 RecyclerView recyclerView = dialog2.findViewById(R.id.recycler_view);
                 ArrayList<ValidatorInfo> validatorInfos = new ArrayList<>();
                 for (int i = 0; i < result.size(); i++) {
                     boolean validated = !erroredPackages.contains(result.get(i));
                     ValidatorInfo validatorInfo = new ValidatorInfo(
-                            settingsFragment.mContext,
+                            settingsFragment.context,
                             result.get(i),
                             validated,
                             result.get(i).endsWith(".common"));
@@ -1092,7 +1092,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 ValidatorAdapter validatorAdapter = new ValidatorAdapter(validatorInfos);
                 recyclerView.setAdapter(validatorAdapter);
                 RecyclerView.LayoutManager layoutManager =
-                        new LinearLayoutManager(settingsFragment.mContext);
+                        new LinearLayoutManager(settingsFragment.context);
                 recyclerView.setLayoutManager(layoutManager);
 
                 Button button = dialog2.findViewById(R.id.button_done);
@@ -1115,13 +1115,13 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             ArrayList<String> packages = new ArrayList<>();
             if (settingsFragment != null) {
                 FileDownloader.init(
-                        settingsFragment.mContext,
+                        settingsFragment.context,
                         settingsFragment.getString(Systems.checkOreo() ?
                                 R.string.validator_o_url : R.string.validator_n_url),
                         "repository_names.xml", VALIDATOR_CACHE);
 
                 FileDownloader.init(
-                        settingsFragment.mContext,
+                        settingsFragment.context,
                         settingsFragment.getString(Systems.checkOreo() ?
                                 R.string.validator_o_whitelist_url :
                                 R.string.validator_n_whitelist_url),
@@ -1129,12 +1129,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
 
                 List<Repository> repositories =
                         ReadRepositoriesFile.read(
-                                settingsFragment.mContext.getCacheDir().getAbsolutePath() +
+                                settingsFragment.context.getCacheDir().getAbsolutePath() +
                                         VALIDATOR_CACHE_DIR + "repository_names.xml");
 
                 List<ValidatorFilter> whitelist =
                         ReadFilterFile.read(
-                                settingsFragment.mContext.getCacheDir().getAbsolutePath() +
+                                settingsFragment.context.getCacheDir().getAbsolutePath() +
                                         VALIDATOR_CACHE_DIR + "resource_whitelist.xml");
 
                 settingsFragment.errors = new ArrayList<>();
@@ -1149,23 +1149,23 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             packageName.substring(0, packageName.length() - 7) :
                             packageName);
 
-                    if (Packages.isPackageInstalled(settingsFragment.mContext, tempPackageName)) {
+                    if (Packages.isPackageInstalled(settingsFragment.context, tempPackageName)) {
                         packages.add(packageName);
 
                         // Check if there's a bools commit check
                         if (repository.getBools() != null) {
-                            FileDownloader.init(settingsFragment.mContext, repository.getBools(),
+                            FileDownloader.init(settingsFragment.context, repository.getBools(),
                                     tempPackageName + ".bools.xml", VALIDATOR_CACHE);
                             List<String> bools =
                                     ReadResourcesFile.read(
-                                            settingsFragment.mContext.
+                                            settingsFragment.context.
                                                     getCacheDir().getAbsolutePath() +
                                                     VALIDATOR_CACHE_DIR + tempPackageName +
                                                     ".bools.xml",
                                             "bool");
                             for (int j = 0; j < bools.size(); j++) {
                                 boolean validated = Packages.validateResource(
-                                        settingsFragment.mContext,
+                                        settingsFragment.context,
                                         tempPackageName,
                                         "bool",
                                         bools.get(j));
@@ -1205,16 +1205,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         }
                         // Then go through the entire list of colors
                         if (repository.getColors() != null) {
-                            FileDownloader.init(settingsFragment.mContext, repository.getColors(),
+                            FileDownloader.init(settingsFragment.context, repository.getColors(),
                                     tempPackageName + ".colors.xml", VALIDATOR_CACHE);
                             List<String> colors = ReadResourcesFile.read(
-                                    settingsFragment.mContext
+                                    settingsFragment.context
                                             .getCacheDir().getAbsolutePath() +
                                             VALIDATOR_CACHE_DIR + tempPackageName + ".colors.xml",
                                     "color");
                             for (int j = 0; j < colors.size(); j++) {
                                 boolean validated = Packages.validateResource(
-                                        settingsFragment.mContext,
+                                        settingsFragment.context,
                                         tempPackageName,
                                         "color",
                                         colors.get(j));
@@ -1254,15 +1254,15 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         }
                         // Next, dimensions may need to be exposed
                         if (repository.getDimens() != null) {
-                            FileDownloader.init(settingsFragment.mContext, repository.getDimens(),
+                            FileDownloader.init(settingsFragment.context, repository.getDimens(),
                                     tempPackageName + ".dimens.xml", VALIDATOR_CACHE);
                             List<String> dimens = ReadResourcesFile.read(
-                                    settingsFragment.mContext.getCacheDir().getAbsolutePath() +
+                                    settingsFragment.context.getCacheDir().getAbsolutePath() +
                                             VALIDATOR_CACHE_DIR + tempPackageName +
                                             ".dimens.xml", "dimen");
                             for (int j = 0; j < dimens.size(); j++) {
                                 boolean validated = Packages.validateResource(
-                                        settingsFragment.mContext,
+                                        settingsFragment.context,
                                         tempPackageName,
                                         "dimen",
                                         dimens.get(j));
@@ -1303,16 +1303,16 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         }
                         // Finally, check if styles are exposed
                         if (repository.getStyles() != null) {
-                            FileDownloader.init(settingsFragment.mContext, repository.getStyles(),
+                            FileDownloader.init(settingsFragment.context, repository.getStyles(),
                                     tempPackageName + ".styles.xml", VALIDATOR_CACHE);
                             List<String> styles = ReadResourcesFile.read(
-                                    settingsFragment.mContext
+                                    settingsFragment.context
                                             .getCacheDir().getAbsolutePath() +
                                             VALIDATOR_CACHE_DIR + tempPackageName + ".styles.xml",
                                     "style");
                             for (int j = 0; j < styles.size(); j++) {
                                 boolean validated = Packages.validateResource(
-                                        settingsFragment.mContext,
+                                        settingsFragment.context,
                                         tempPackageName,
                                         "style",
                                         styles.get(j));

@@ -49,7 +49,7 @@ public class SoundUtils {
 
     public static FinishReceiver finishReceiver;
 
-    private Context mContext;
+    private Context context;
     private String theme_pid;
     private boolean has_failed;
     private boolean ringtone;
@@ -79,7 +79,7 @@ public class SoundUtils {
                         Context context,
                         String theme_pid,
                         Cipher cipher) {
-        this.mContext = context;
+        this.context = context;
         this.theme_pid = theme_pid;
         this.view = view;
         Cipher cipher1 = cipher;
@@ -90,12 +90,12 @@ public class SoundUtils {
     private void finishFunction() {
         if (!has_failed) {
             Lunchbar.make(view,
-                    mContext.getString(R.string.sounds_dialog_apply_success),
+                    context.getString(R.string.sounds_dialog_apply_success),
                     Lunchbar.LENGTH_LONG)
                     .show();
         } else {
             Lunchbar.make(view,
-                    mContext.getString(R.string.sounds_dialog_apply_failed),
+                    context.getString(R.string.sounds_dialog_apply_failed),
                     Lunchbar.LENGTH_LONG)
                     .show();
         }
@@ -115,7 +115,7 @@ public class SoundUtils {
         protected void onPostExecute(String result) {
             SoundUtils soundUtils = ref.get();
             if (soundUtils != null) {
-                Context context = soundUtils.mContext;
+                Context context = soundUtils.context;
                 if (Systems.checkThemeInterfacer(context) &&
                         !Systems.isBinderInterfacer(context)) {
                     if (finishReceiver == null) {
@@ -134,7 +134,7 @@ public class SoundUtils {
         protected String doInBackground(String... sUrl) {
             SoundUtils soundUtils = ref.get();
             if (soundUtils != null) {
-                Context context = soundUtils.mContext;
+                Context context = soundUtils.context;
                 boolean[] results = SoundsManager.setSounds(
                         context,
                         soundUtils.theme_pid,

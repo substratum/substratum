@@ -53,7 +53,7 @@ import static com.bumptech.glide.request.RequestOptions.centerCropTransform;
 public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.ViewHolder> {
     private List<WallpaperEntries> information;
     private ProgressDialog mProgressDialog;
-    private Context mContext;
+    private Context context;
     private PowerManager.WakeLock mWakeLock;
     private AsyncTask current_download;
 
@@ -74,9 +74,9 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
     public void onBindViewHolder(ViewHolder viewHolder,
                                  int pos) {
         WallpaperEntries wallpaperEntry = this.information.get(pos);
-        this.mContext = wallpaperEntry.getContext();
+        this.context = wallpaperEntry.getContext();
 
-        Glide.with(this.mContext)
+        Glide.with(this.context)
                 .load(wallpaperEntry.getWallpaperPreview())
                 .apply(centerCropTransform())
                 .transition(withCrossFade())
@@ -84,13 +84,13 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
 
         viewHolder.wallpaperName.setText(wallpaperEntry.getWallpaperName());
         viewHolder.cardView.setOnClickListener(view -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this.mContext);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this.context);
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                    this.mContext, R.layout.wallpaper_dialog_listview);
-            arrayAdapter.add(this.mContext.getString(R.string.wallpaper_dialog_wallpaper));
+                    this.context, R.layout.wallpaper_dialog_listview);
+            arrayAdapter.add(this.context.getString(R.string.wallpaper_dialog_wallpaper));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                arrayAdapter.add(this.mContext.getString(R.string.wallpaper_dialog_lockscreen));
-                arrayAdapter.add(this.mContext.getString(R.string.wallpaper_dialog_wallpaper_both));
+                arrayAdapter.add(this.context.getString(R.string.wallpaper_dialog_lockscreen));
+                arrayAdapter.add(this.context.getString(R.string.wallpaper_dialog_wallpaper_both));
             }
             builder.setCancelable(false);
             builder.setNegativeButton(
@@ -120,7 +120,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
             builder.show();
         });
         References.setRecyclerViewAnimation(
-                this.mContext,
+                this.context,
                 viewHolder.itemView,
                 android.R.anim.fade_in);
     }
@@ -152,16 +152,16 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
             WallpaperAdapter wallpaperAdapter = this.ref.get();
             if (wallpaperAdapter != null) {
                 // Instantiate Progress Dialog
-                wallpaperAdapter.mProgressDialog = new ProgressDialog(wallpaperAdapter.mContext);
+                wallpaperAdapter.mProgressDialog = new ProgressDialog(wallpaperAdapter.context);
                 wallpaperAdapter.mProgressDialog.setMessage(
-                        wallpaperAdapter.mContext.getString(R.string.wallpaper_downloading));
+                        wallpaperAdapter.context.getString(R.string.wallpaper_downloading));
                 wallpaperAdapter.mProgressDialog.setIndeterminate(false);
                 wallpaperAdapter.mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 
                 // Take CPU lock to prevent CPU from going off if the user
                 // presses the power button during download
                 PowerManager pm = (PowerManager)
-                        wallpaperAdapter.mContext.getSystemService(Context.POWER_SERVICE);
+                        wallpaperAdapter.context.getSystemService(Context.POWER_SERVICE);
                 if (pm != null) {
                     wallpaperAdapter.mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
                             this.getClass().getName());
@@ -196,14 +196,14 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                 // Crop the image, and send the request back to
                 // InformationActivity
                 CropImage.activity(Uri.fromFile(new File(
-                        wallpaperAdapter.mContext.getCacheDir().getAbsolutePath() +
+                        wallpaperAdapter.context.getCacheDir().getAbsolutePath() +
                                 '/' + this.directory_output)))
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .setFixAspectRatio(false)
                         .setInitialCropWindowPaddingRatio((float) 0)
                         .setActivityTitle(this.wallpaperName)
                         .setOutputUri(Uri.fromFile(new File(
-                                wallpaperAdapter.mContext.getCacheDir().getAbsolutePath() +
+                                wallpaperAdapter.context.getCacheDir().getAbsolutePath() +
                                         '/' + this.directory_output)))
                         .start(this.activity.get());
             }
@@ -222,7 +222,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                 this.directory_output = sUrl[1] + this.extension;
                 this.wallpaperName = sUrl[2];
 
-                FileDownloader.init(wallpaperAdapter.mContext,
+                FileDownloader.init(wallpaperAdapter.context,
                         this.wallpaperLink,
                         "",
                         this.directory_output

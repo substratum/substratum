@@ -44,41 +44,41 @@ public enum Theming {
     /**
      * Launch a specific theme
      *
-     * @param mContext     Self explanatory, bud.
+     * @param context     Self explanatory, bud.
      * @param package_name Theme to be launched
      * @param theme_mode   Filter mode
      */
-    public static void launchTheme(Context mContext,
+    public static void launchTheme(Context context,
                                    String package_name,
                                    String theme_mode) {
-        if (mContext.getPackageName().equals(SUBSTRATUM_PACKAGE)) {
+        if (context.getPackageName().equals(SUBSTRATUM_PACKAGE)) {
             Intent theme_intent = themeIntent(
-                    mContext,
+                    context,
                     package_name,
                     theme_mode,
                     TEMPLATE_THEME_MODE,
                     ThemeLaunchActivity.class);
-            mContext.startActivity(theme_intent);
+            context.startActivity(theme_intent);
         }
     }
 
     /**
      * Grab the theme's keys
      *
-     * @param mContext     Self explanatory, bud.
+     * @param context     Self explanatory, bud.
      * @param package_name Theme to obtain keys for
      */
-    public static void getThemeKeys(Context mContext,
+    public static void getThemeKeys(Context context,
                                     String package_name) {
-        if (mContext.getPackageName().equals(SUBSTRATUM_PACKAGE)) {
+        if (context.getPackageName().equals(SUBSTRATUM_PACKAGE)) {
             Intent theme_intent = themeIntent(
-                    mContext,
+                    context,
                     package_name,
                     null,
                     TEMPLATE_GET_KEYS,
                     ThemeLaunchActivity.class);
             try {
-                mContext.startActivity(theme_intent);
+                context.startActivity(theme_intent);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -88,26 +88,26 @@ public enum Theming {
     /**
      * Grab the theme's intent
      *
-     * @param mContext     Self explanatory, bud.
+     * @param context     Self explanatory, bud.
      * @param package_name Theme to receive intent for
      * @param theme_mode   Filter mode
      * @param actionIntent Intent to be verified with a series of data
      * @return Returns an intent to launch the theme
      */
-    public static Intent themeIntent(Context mContext,
+    public static Intent themeIntent(Context context,
                                      String package_name,
                                      String theme_mode,
                                      String actionIntent,
                                      Class className) {
-        if (mContext.getPackageName().equals(SUBSTRATUM_PACKAGE)) {
+        if (context.getPackageName().equals(SUBSTRATUM_PACKAGE)) {
             boolean should_debug = projekt.substratum.BuildConfig.DEBUG;
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (should_debug) Log.d("ThemeLauncher", "Creating new intent (" + className + ")...");
             Intent intentActivity;
             if (actionIntent.equals(TEMPLATE_GET_KEYS)) {
                 intentActivity = new Intent();
             } else {
-                intentActivity = new Intent(mContext, className);
+                intentActivity = new Intent(context, className);
             }
             intentActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intentActivity.putExtra("package_name", package_name);
@@ -115,13 +115,13 @@ public enum Theming {
             intentActivity.setAction(actionIntent);
             if (should_debug) Log.d("ThemeLauncher", "Assigning package name to intent...");
             intentActivity.setPackage(package_name);
-            intentActivity.putExtra("calling_package_name", mContext.getPackageName());
+            intentActivity.putExtra("calling_package_name", context.getPackageName());
             if (should_debug) Log.d("ThemeLauncher", "Checking for theme system type...");
-            intentActivity.putExtra("oms_check", !Systems.checkOMS(mContext));
+            intentActivity.putExtra("oms_check", !Systems.checkOMS(context));
             intentActivity.putExtra("theme_mode", theme_mode);
             intentActivity.putExtra("notification", false);
             if (should_debug) Log.d("ThemeLauncher", "Obtaining APK signature hash...");
-            intentActivity.putExtra("hash_passthrough", hashPassthrough(mContext));
+            intentActivity.putExtra("hash_passthrough", hashPassthrough(context));
             if (should_debug) Log.d("ThemeLauncher", "Checking for certification...");
             intentActivity.putExtra("certified", prefs.getBoolean("complexion", true));
             if (should_debug) Log.d("ThemeLauncher", "Starting Activity...");

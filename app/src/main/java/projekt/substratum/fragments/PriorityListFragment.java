@@ -67,7 +67,7 @@ public class PriorityListFragment extends Fragment {
     FloatingActionButton applyFab;
     @BindView(R.id.priority_header_loading_bar)
     ProgressBar headerProgress;
-    private Context mContext;
+    private Context context;
 
     /**
      * Creating the options menu (3dot overflow menu)
@@ -101,7 +101,7 @@ public class PriorityListFragment extends Fragment {
      * Show dialog with instructions on adjusting priorities
      */
     private void showPriorityInstructions() {
-        new AlertDialog.Builder(mContext)
+        new AlertDialog.Builder(context)
                 .setTitle(R.string.priority_instructions_title)
                 .setMessage(R.string.priority_instructions_content)
                 .setPositiveButton(android.R.string.ok, (dialogInterface, i) ->
@@ -115,12 +115,12 @@ public class PriorityListFragment extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = getContext();
+        context = getContext();
         View view = inflater.inflate(R.layout.priority_list_fragment, container, false);
         ButterKnife.bind(this, view);
 
         setHasOptionsMenu(true);
-        LinearLayoutManager manager = new LinearLayoutManager(mContext);
+        LinearLayoutManager manager = new LinearLayoutManager(context);
         headerProgress.setVisibility(View.GONE);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(manager);
@@ -149,15 +149,15 @@ public class PriorityListFragment extends Fragment {
 
         List<PrioritiesInterface> prioritiesList = new ArrayList<>();
         ArrayList<String> workable_list = new ArrayList<>();
-        List<String> overlays = listEnabledOverlaysForTarget(mContext, obtained_key);
+        List<String> overlays = listEnabledOverlaysForTarget(context, obtained_key);
         for (String o : overlays) {
             prioritiesList.add(new PrioritiesItem(o,
-                    Packages.getOverlayParentIcon(mContext, o)));
+                    Packages.getOverlayParentIcon(context, o)));
             workable_list.add(o);
         }
 
         PriorityAdapter adapter = new PriorityAdapter(
-                mContext,
+                context,
                 R.layout.priority_overlay_item);
         adapter.setData(prioritiesList);
         recyclerView.setAdapter(adapter);
@@ -219,8 +219,8 @@ public class PriorityListFragment extends Fragment {
                         .show();
             }
             headerProgress.setVisibility(View.VISIBLE);
-            ThemeManager.setPriority(mContext, workable_list);
-            if (Packages.needsRecreate(mContext, workable_list)) {
+            ThemeManager.setPriority(context, workable_list);
+            if (Packages.needsRecreate(context, workable_list)) {
                 Handler handler = new Handler();
                 handler.postDelayed(() -> {
                     // OMS may not have written all the changes so
@@ -232,7 +232,7 @@ public class PriorityListFragment extends Fragment {
                     } catch (Exception e) {
                         // Consume window refresh
                     }
-                }, (long) (Systems.checkAndromeda(mContext) ?
+                }, (long) (Systems.checkAndromeda(context) ?
                         REFRESH_WINDOW_DELAY :
                         (REFRESH_WINDOW_DELAY << 1)));
             }

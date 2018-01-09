@@ -40,7 +40,7 @@ import static projekt.substratum.common.Resources.SYSTEMUI_STATUSBARS;
 
 public class ManagerItem implements Serializable {
 
-    private Context mContext;
+    private Context context;
     private String name;
     private String type1a;
     private String type1b;
@@ -59,7 +59,7 @@ public class ManagerItem implements Serializable {
                        String name,
                        Boolean isActivated) {
         super();
-        this.mContext = context;
+        this.context = context;
         this.name = name;
         this.isSelected = false;
 
@@ -101,13 +101,13 @@ public class ManagerItem implements Serializable {
     }
 
     public Context getContext() {
-        return this.mContext;
+        return this.context;
     }
 
     public void updateEnabledOverlays(boolean isActivated) {
         this.activationValue =
-                ((isActivated) ? this.mContext.getColor(R.color.overlay_installed_list_entry) :
-                        this.mContext.getColor(R.color.overlay_not_enabled_list_entry));
+                ((isActivated) ? this.context.getColor(R.color.overlay_installed_list_entry) :
+                        this.context.getColor(R.color.overlay_not_enabled_list_entry));
     }
 
     public String getType1a() {
@@ -160,7 +160,7 @@ public class ManagerItem implements Serializable {
 
     public String getThemeName() {
         if (this.themeName == null) {
-            this.themeName = this.mContext.getString(R.string.reboot_awaiting_manager_title);
+            this.themeName = this.context.getString(R.string.reboot_awaiting_manager_title);
         }
         return this.themeName;
     }
@@ -171,7 +171,7 @@ public class ManagerItem implements Serializable {
 
     public String getLabelName() {
         if (this.labelName == null) {
-            this.labelName = this.mContext.getString(R.string.reboot_awaiting_manager_title);
+            this.labelName = this.context.getString(R.string.reboot_awaiting_manager_title);
         }
         return this.labelName;
     }

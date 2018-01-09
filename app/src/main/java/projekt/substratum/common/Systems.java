@@ -704,16 +704,16 @@ public enum Systems {
     /**
      * Check whether usage permissions are granted to the app
      *
-     * @param mContext My god, this context thing is really annoying!
+     * @param context My god, this context thing is really annoying!
      * @return True, if granted.
      */
-    public static boolean checkUsagePermissions(Context mContext) {
+    public static boolean checkUsagePermissions(Context context) {
         try {
-            PackageManager packageManager = mContext.getPackageManager();
+            PackageManager packageManager = context.getPackageManager();
             ApplicationInfo applicationInfo =
-                    packageManager.getApplicationInfo(mContext.getPackageName(), 0);
+                    packageManager.getApplicationInfo(context.getPackageName(), 0);
             AppOpsManager appOpsManager = (AppOpsManager)
-                    mContext.getSystemService(Context.APP_OPS_SERVICE);
+                    context.getSystemService(Context.APP_OPS_SERVICE);
             assert appOpsManager != null;
             int mode = appOpsManager.checkOpNoThrow(
                     AppOpsManager.OPSTR_GET_USAGE_STATS,

@@ -187,7 +187,7 @@ public class Overlays extends Fragment {
     public Switch toggle_all;
     @BindView(R.id.type3_spinner)
     public Spinner base_spinner;
-    Context mContext;
+    Context context;
     @BindView(R.id.overlayRecyclerView)
     RecyclerView mRecyclerView;
     @BindView(R.id.toggle_all_overlays_text)
@@ -241,7 +241,7 @@ public class Overlays extends Fragment {
      */
     private void startDisable() {
         selectEnabledDisabled(this, DISABLE_MODE);
-        if (!Systems.checkOMS(mContext)) {
+        if (!Systems.checkOMS(context)) {
             legacyDisable(this);
         }
     }
@@ -278,15 +278,15 @@ public class Overlays extends Fragment {
         View view = inflater.inflate(R.layout.tab_overlays, container, false);
         ButterKnife.bind(this, view);
 
-        mContext = getContext();
-        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
-        activityManager = (ActivityManager) mContext.getSystemService(ACTIVITY_SERVICE);
-        mNotifyManager = (NotificationManager) mContext.getSystemService(NOTIFICATION_SERVICE);
-        mCompileDialog = new SheetDialog(mContext);
+        context = getContext();
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        activityManager = (ActivityManager) context.getSystemService(ACTIVITY_SERVICE);
+        mNotifyManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+        mCompileDialog = new SheetDialog(context);
 
         // Register the theme install receiver to auto refresh the fragment
         refreshReceiver = new RefreshReceiver();
-        localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
+        localBroadcastManager = LocalBroadcastManager.getInstance(context);
         try {
             localBroadcastManager.unregisterReceiver(refreshReceiver);
         } catch (IllegalArgumentException e) {
@@ -298,7 +298,7 @@ public class Overlays extends Fragment {
             theme_name = getArguments().getString(THEME_NAME);
             theme_pid = getArguments().getString(THEME_PID);
             String encrypt_check =
-                    Packages.getOverlayMetadata(mContext, theme_pid, metadataEncryption);
+                    Packages.getOverlayMetadata(context, theme_pid, metadataEncryption);
 
             Boolean decryptedAssetsExceptionReached = false;
             if ((encrypt_check != null) && encrypt_check.equals(metadataEncryptionValue)) {
@@ -343,7 +343,7 @@ public class Overlays extends Fragment {
 
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         ArrayList<OverlaysItem> empty_array = new ArrayList<>();
         RecyclerView.Adapter empty_adapter = new OverlaysAdapter(empty_array);
         mRecyclerView.setAdapter(empty_adapter);
@@ -393,7 +393,7 @@ public class Overlays extends Fragment {
           PLUGIN TYPE 3: Parse each overlay folder to see if they have folder options
          */
         SharedPreferences prefs2 =
-                mContext.getSharedPreferences("base_variant", Context.MODE_PRIVATE);
+                context.getSharedPreferences("base_variant", Context.MODE_PRIVATE);
         base_spinner.post(() -> base_spinner.setOnItemSelectedListener(
                 new AdapterView.OnItemSelectedListener() {
                     @Override
@@ -412,7 +412,7 @@ public class Overlays extends Fragment {
         base_spinner.setEnabled(false);
 
         try {
-            Resources themeResources = mContext.getPackageManager()
+            Resources themeResources = context.getPackageManager()
                     .getResourcesForApplication(theme_pid);
             themeAssetManager = themeResources.getAssets();
 
@@ -508,7 +508,7 @@ public class Overlays extends Fragment {
         if (currentInstance != null &&
                 currentInstance.error_logs != null &&
                 currentInstance.error_logs.length() > 0) {
-            invokeLogCharLunchBar(mContext);
+            invokeLogCharLunchBar(context);
         }
         return view;
     }
@@ -518,7 +518,7 @@ public class Overlays extends Fragment {
      */
     void getCurrentOverlays() {
         currentInstanceOverlays =
-                new ArrayList<>(ThemeManager.listOverlays(mContext, ThemeManager.STATE_ENABLED));
+                new ArrayList<>(ThemeManager.listOverlays(context, ThemeManager.STATE_ENABLED));
     }
 
     /**
@@ -529,7 +529,7 @@ public class Overlays extends Fragment {
     boolean checkActiveNotifications() {
         StatusBarNotification[] activeNotifications = mNotifyManager.getActiveNotifications();
         for (StatusBarNotification statusBarNotification : activeNotifications) {
-            if (statusBarNotification.getPackageName().equals(mContext.getPackageName())) {
+            if (statusBarNotification.getPackageName().equals(context.getPackageName())) {
                 return true;
             }
         }
@@ -841,7 +841,7 @@ public class Overlays extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case 2486:
-                FileOperations.delete(mContext,
+                FileOperations.delete(context,
                         new File(currentInstance.late_install.get(0)).getAbsolutePath());
                 if ((currentInstance.late_install != null) &&
                         !currentInstance.late_install.isEmpty())
@@ -859,8 +859,8 @@ public class Overlays extends Fragment {
     private void installMultipleAPKs() {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         Uri uri = FileProvider.getUriForFile(
-                mContext,
-                mContext.getApplicationContext().getPackageName() + ".provider",
+                context,
+                context.getApplicationContext().getPackageName() + ".provider",
                 new File(currentInstance.late_install.get(0)));
         intent.setDataAndType(
                 uri,
@@ -872,7 +872,7 @@ public class Overlays extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (Systems.checkOMS(mContext)) {
+        if (Systems.checkOMS(context)) {
             if (!toggle_all.isChecked()) refreshList();
         } else {
             if (first_start) refreshList();
@@ -1063,11 +1063,11 @@ public class Overlays extends Fragment {
         private static boolean assignVariables(Overlays overlays, LoadOverlays loadOverlays) {
             try {
                 loadOverlays.adapterList = new ArrayList<>();
-                Resources themeResources = overlays.mContext.getPackageManager()
+                Resources themeResources = overlays.context.getPackageManager()
                         .getResourcesForApplication(overlays.theme_pid);
                 overlays.themeAssetManager = themeResources.getAssets();
                 overlays.theme_version = Packages.getAppVersion(
-                        overlays.mContext, overlays.theme_pid);
+                        overlays.context, overlays.theme_pid);
                 String initial_parse = overlays.theme_name.replaceAll("\\s+", "");
                 loadOverlays.parsed_theme_name = initial_parse.replaceAll("[^a-zA-Z0-9]+", "");
                 overlays.getCurrentOverlays();
@@ -1088,7 +1088,7 @@ public class Overlays extends Fragment {
          * @return Returns a list of strings to be mapped
          */
         private static List<String> buffer(Overlays overlays) {
-            Context context = overlays.mContext;
+            Context context = overlays.context;
             Collection<String> overlaysFolder = new ArrayList<>();
 
             try {
@@ -1196,7 +1196,7 @@ public class Overlays extends Fragment {
                         }
                     } else if (allowedAppOverlay(target)) {
                         // The filter passes, just toss in the app into the list
-                        package_name = Packages.getPackageName(overlays.mContext, target);
+                        package_name = Packages.getPackageName(overlays.context, target);
                         succeeded = true;
                     }
                     if (succeeded) unsortedMap.put(target, package_name);
@@ -1387,11 +1387,11 @@ public class Overlays extends Fragment {
                             }
                         }
                         VariantAdapter[] adapters = new VariantAdapter[]{
-                                new VariantAdapter(overlays.mContext, type1a),
-                                new VariantAdapter(overlays.mContext, type1b),
-                                new VariantAdapter(overlays.mContext, type1c),
-                                new VariantAdapter(overlays.mContext, type2),
-                                new VariantAdapter(overlays.mContext, type4)
+                                new VariantAdapter(overlays.context, type1a),
+                                new VariantAdapter(overlays.context, type1b),
+                                new VariantAdapter(overlays.context, type1c),
+                                new VariantAdapter(overlays.context, type2),
+                                new VariantAdapter(overlays.context, type4)
                         };
                         Boolean[] checker = new Boolean[]{
                                 !type1a.isEmpty(),
@@ -1459,11 +1459,11 @@ public class Overlays extends Fragment {
                                 (checker != null ? (checker[2] ? adapters[2] : null) : null),
                                 (checker != null ? (checker[3] ? adapters[3] : null) : null),
                                 (checker != null ? (checker[4] ? adapters[4] : null) : null),
-                                overlays.mContext,
+                                overlays.context,
                                 overlays.theme_version,
                                 argument,
                                 loadOverlays.current_overlays,
-                                Systems.checkOMS(overlays.mContext),
+                                Systems.checkOMS(overlays.context),
                                 attention,
                                 overlays.getActivityView());
                 loadOverlays.adapterList.add(overlaysItem);

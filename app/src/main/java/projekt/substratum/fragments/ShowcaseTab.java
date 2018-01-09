@@ -64,15 +64,15 @@ public class ShowcaseTab extends Fragment {
     private int current_tab_position;
     private String current_tab_address;
     private SharedPreferences prefs;
-    private Context mContext;
+    private Context context;
 
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
-        mContext = Substratum.getInstance();
-        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        context = Substratum.getInstance();
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
         View view = inflater.inflate(R.layout.showcase_tab, container, false);
         ButterKnife.bind(this, view);
         Bundle bundle = getArguments();
@@ -92,11 +92,11 @@ public class ShowcaseTab extends Fragment {
     private void refreshLayout() {
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         ArrayList<WallpaperEntries> empty_array = new ArrayList<>();
         RecyclerView.Adapter empty_adapter = new WallpaperAdapter(empty_array);
         mRecyclerView.setAdapter(empty_adapter);
-        if (References.isNetworkAvailable(mContext)) {
+        if (References.isNetworkAvailable(context)) {
             downloadResources downloadTask = new downloadResources(this);
             downloadTask.execute(
                     current_tab_address,
@@ -149,32 +149,32 @@ public class ShowcaseTab extends Fragment {
             if (showcaseTab != null) {
                 String inputFileName = sUrl[1];
                 File showcase_directory = new File(
-                        showcaseTab.mContext.getCacheDir() + "/ShowcaseCache/");
+                        showcaseTab.context.getCacheDir() + "/ShowcaseCache/");
                 if (!showcase_directory.exists()) {
                     Boolean made = showcase_directory.mkdir();
                     if (!made)
                         Log.e(References.SUBSTRATUM_LOG, "Could not make showcase directory...");
                 }
 
-                File current_wallpapers = new File(showcaseTab.mContext.getCacheDir() +
+                File current_wallpapers = new File(showcaseTab.context.getCacheDir() +
                         "/ShowcaseCache/" + inputFileName);
                 if (current_wallpapers.exists()) {
                     inputFileName = inputFileName.substring(0, inputFileName.length() - 4) + ".xml";
                 }
 
-                FileDownloader.init(showcaseTab.mContext, sUrl[0], inputFileName, "ShowcaseCache");
+                FileDownloader.init(showcaseTab.context, sUrl[0], inputFileName, "ShowcaseCache");
                 inputFileName = sUrl[1];
 
                 @SuppressWarnings("unchecked") Map<String, String> newArray =
                         ReadCloudShowcaseFile.read(
-                                showcaseTab.mContext.getCacheDir() +
+                                showcaseTab.context.getCacheDir() +
                                         "/ShowcaseCache/" + inputFileName);
                 ShowcaseItem newEntry = new ShowcaseItem();
 
                 for (Map.Entry<String, String> stringStringEntry : newArray.entrySet()) {
                     if (!stringStringEntry.getKey().toLowerCase(Locale.US)
                             .contains("-".toLowerCase(Locale.getDefault()))) {
-                        newEntry.setContext(showcaseTab.mContext);
+                        newEntry.setContext(showcaseTab.context);
                         newEntry.setThemeName(stringStringEntry.getKey());
                         newEntry.setThemeLink(stringStringEntry.getValue());
                     } else {
@@ -193,7 +193,7 @@ public class ShowcaseTab extends Fragment {
                             newEntry.setThemeSupport(stringStringEntry.getValue());
                             wallpapers.add(newEntry);
                             newEntry = new ShowcaseItem();
-                            newEntry.setContext(showcaseTab.mContext);
+                            newEntry.setContext(showcaseTab.context);
                         }
                     }
                 }

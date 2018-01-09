@@ -162,19 +162,19 @@ public enum Packages {
     /**
      * Validate whether a resource is present in a given package name
      *
-     * @param mContext      Context
+     * @param context      Context
      * @param package_name  Package name of the desired app to be checked
      * @param resource_name Resource name of the object to be checked
      * @param resource_type Resource type of the object to be checked
      * @return True, if present
      */
-    public static Boolean validateResource(Context mContext,
+    public static Boolean validateResource(Context context,
                                            String package_name,
                                            String resource_name,
                                            String resource_type) {
         try {
-            Context context = mContext.createPackageContext(package_name, 0);
-            android.content.res.Resources resources = context.getResources();
+            Context ctx = context.createPackageContext(package_name, 0);
+            android.content.res.Resources resources = ctx.getResources();
             int drawablePointer = resources.getIdentifier(
                     resource_name, // Drawable name explicitly defined
                     resource_type, // Declared icon is a drawable, indeed.
@@ -357,14 +357,14 @@ public enum Packages {
     /**
      * Grabs a given package's app version
      *
-     * @param mContext     Context
+     * @param context     Context
      * @param package_name Package name of the desired app to be checked
      * @return Returns a string of the app's version
      */
-    public static String getAppVersion(Context mContext,
+    public static String getAppVersion(Context context,
                                        String package_name) {
         try {
-            PackageInfo pInfo = mContext.getPackageManager().getPackageInfo(package_name, 0);
+            PackageInfo pInfo = context.getPackageManager().getPackageInfo(package_name, 0);
             return pInfo.versionName;
         } catch (Exception e) {
             // Suppress warning
@@ -375,14 +375,14 @@ public enum Packages {
     /**
      * Return the package's app version code
      *
-     * @param mContext     Context
+     * @param context     Context
      * @param package_name Package name of the desired app to be checked
      * @return Returns an int of the app's version code
      */
-    public static int getAppVersionCode(Context mContext,
+    public static int getAppVersionCode(Context context,
                                         String package_name) {
         try {
-            PackageInfo pInfo = mContext.getPackageManager().getPackageInfo(package_name, 0);
+            PackageInfo pInfo = context.getPackageManager().getPackageInfo(package_name, 0);
             return pInfo.versionCode;
         } catch (Exception e) {
             // Suppress warning
@@ -393,14 +393,14 @@ public enum Packages {
     /**
      * Grabs a given theme's app version
      *
-     * @param mContext     Context
+     * @param context     Context
      * @param package_name Package name of the desired app to be checked
      * @return Returns a string of the app's version
      */
-    public static String getThemeVersion(Context mContext,
+    public static String getThemeVersion(Context context,
                                          String package_name) {
         try {
-            PackageInfo pInfo = mContext.getPackageManager().getPackageInfo(package_name, 0);
+            PackageInfo pInfo = context.getPackageManager().getPackageInfo(package_name, 0);
             return pInfo.versionName + " (" + pInfo.versionCode + ')';
         } catch (PackageManager.NameNotFoundException e) {
             // Suppress warning
@@ -411,90 +411,90 @@ public enum Packages {
     /**
      * Grab the available API levels for a given theme
      *
-     * @param mContext     Context
+     * @param context     Context
      * @param package_name Package name of the desired app to be checked
      * @return Returns a string of the theme's SDK APIs
      */
-    public static String getThemeAPIs(Context mContext,
+    public static String getThemeAPIs(Context context,
                                       String package_name) {
         try {
-            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
+            ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
                 try {
                     if (appInfo.minSdkVersion == appInfo.targetSdkVersion) {
                         int target = appInfo.targetSdkVersion;
                         if (target == 23) {
-                            return mContext.getString(R.string.api_23);
+                            return context.getString(R.string.api_23);
                         } else if (target == 24) {
-                            return mContext.getString(R.string.api_24);
+                            return context.getString(R.string.api_24);
                         } else if (target == 25) {
-                            return mContext.getString(R.string.api_25);
+                            return context.getString(R.string.api_25);
                         } else if (target == 26) {
-                            return mContext.getString(R.string.api_26);
+                            return context.getString(R.string.api_26);
                         } else if (target == 27) {
-                            return mContext.getString(R.string.api_27);
+                            return context.getString(R.string.api_27);
                         }
                     } else {
                         String minSdk = "";
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                             int min = appInfo.minSdkVersion;
                             if (min == 21) {
-                                minSdk = mContext.getString(R.string.api_21);
+                                minSdk = context.getString(R.string.api_21);
                             } else if (min == 22) {
-                                minSdk = mContext.getString(R.string.api_22);
+                                minSdk = context.getString(R.string.api_22);
                             } else if (min == 23) {
-                                minSdk = mContext.getString(R.string.api_23);
+                                minSdk = context.getString(R.string.api_23);
                             } else if (min == 24) {
-                                minSdk = mContext.getString(R.string.api_24);
+                                minSdk = context.getString(R.string.api_24);
                             } else if (min == 25) {
-                                minSdk = mContext.getString(R.string.api_25);
+                                minSdk = context.getString(R.string.api_25);
                             } else if (min == 26) {
-                                minSdk = mContext.getString(R.string.api_26);
+                                minSdk = context.getString(R.string.api_26);
                             } else if (min == 27) {
-                                minSdk = mContext.getString(R.string.api_27);
+                                minSdk = context.getString(R.string.api_27);
                             }
                         } else {
                             // At this point, it is under API24 (API warning) thus we'll do an
                             // educated guess here.
                             if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
-                                minSdk = mContext.getString(R.string.api_21);
+                                minSdk = context.getString(R.string.api_21);
                             } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP_MR1) {
-                                minSdk = mContext.getString(R.string.api_22);
+                                minSdk = context.getString(R.string.api_22);
                             } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
-                                minSdk = mContext.getString(R.string.api_23);
+                                minSdk = context.getString(R.string.api_23);
                             }
                         }
                         String targetSdk = "";
                         int target = appInfo.targetSdkVersion;
                         if (target == 23) {
-                            targetSdk = mContext.getString(R.string.api_23);
+                            targetSdk = context.getString(R.string.api_23);
                         } else if (target == 24) {
-                            targetSdk = mContext.getString(R.string.api_24);
+                            targetSdk = context.getString(R.string.api_24);
                         } else if (target == 25) {
-                            targetSdk = mContext.getString(R.string.api_25);
+                            targetSdk = context.getString(R.string.api_25);
                         } else if (target == 26) {
-                            targetSdk = mContext.getString(R.string.api_26);
+                            targetSdk = context.getString(R.string.api_26);
                         } else if (target == 27) {
-                            targetSdk = mContext.getString(R.string.api_27);
+                            targetSdk = context.getString(R.string.api_27);
                         }
                         return minSdk + " - " + targetSdk;
                     }
                 } catch (NoSuchFieldError noSuchFieldError) {
                     // The device is API 23 if it throws a NoSuchFieldError
                     if (appInfo.targetSdkVersion == 23) {
-                        return mContext.getString(R.string.api_23);
+                        return context.getString(R.string.api_23);
                     } else {
                         String targetAPI = "";
                         int target = appInfo.targetSdkVersion;
                         if (target == 24) {
-                            targetAPI = mContext.getString(R.string.api_24);
+                            targetAPI = context.getString(R.string.api_24);
                         } else if (target == 25) {
-                            targetAPI = mContext.getString(R.string.api_25);
+                            targetAPI = context.getString(R.string.api_25);
                         } else if (target == 26) {
-                            targetAPI = mContext.getString(R.string.api_26);
+                            targetAPI = context.getString(R.string.api_26);
                         }
-                        return mContext.getString(R.string.api_23) + " - " + targetAPI;
+                        return context.getString(R.string.api_23) + " - " + targetAPI;
                     }
                 }
             }
@@ -507,17 +507,17 @@ public enum Packages {
     /**
      * Grab a specified metadata from a theme
      *
-     * @param mContext     Context
+     * @param context     Context
      * @param package_name Package name of the desired app to be checked
      * @param metadata     Name of the metadata to be acquired
      * @return Returns a string of the metadata's output
      */
     public static String getOverlayMetadata(
-            Context mContext,
+            Context context,
             String package_name,
             String metadata) {
         try {
-            ApplicationInfo appInfo = mContext.getPackageManager().getApplicationInfo(
+            ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
                     package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
                 if (metadata.equals(metadataSamsungSupport)) {
@@ -545,20 +545,20 @@ public enum Packages {
     /**
      * Obtain a resource pointer from any package installed on the device
      *
-     * @param mContext     Context
+     * @param context     Context
      * @param package_name Package name of the desired app to be checked
      * @param resourceName Resource name from the desired app to be checked
      * @param type         Resource type of the desired object
      * @return Returns the exact resource pointer given a proper otherContext value.
      * 0 denotes failure.
      */
-    private static int getResource(Context mContext,
+    private static int getResource(Context context,
                                    String package_name,
                                    String resourceName,
                                    String type) {
         try {
             android.content.res.Resources res =
-                    mContext.getPackageManager().getResourcesForApplication(package_name);
+                    context.getPackageManager().getResourcesForApplication(package_name);
             return res.getIdentifier(
                     package_name + ':' + type + '/' + resourceName,
                     type,
@@ -572,31 +572,31 @@ public enum Packages {
     /**
      * Obtain a color resource
      *
-     * @param mContext     Context
+     * @param context     Context
      * @param package_name Package name of the desired app to be checked
      * @param colorName    Name of the color
      * @return Returns the exact resource pointer given a proper otherContext value.
      * 0 denotes failure.
      */
-    public static int getColorResource(Context mContext,
+    public static int getColorResource(Context context,
                                        String package_name,
                                        String colorName) {
-        return getResource(mContext, package_name, colorName, "color");
+        return getResource(context, package_name, colorName, "color");
     }
 
     /**
      * Grab the theme's changelog
      *
-     * @param mContext     Context
+     * @param context     Context
      * @param package_name Package name of the desired app to be checked
      * @return Returns a string array for the given theme's changelog
      */
-    public static String[] getThemeChangelog(Context mContext,
+    public static String[] getThemeChangelog(Context context,
                                              String package_name) {
         try {
             android.content.res.Resources res =
-                    mContext.getPackageManager().getResourcesForApplication(package_name);
-            int array_position = getResource(mContext, package_name, resourceChangelog,
+                    context.getPackageManager().getResourcesForApplication(package_name);
+            int array_position = getResource(context, package_name, resourceChangelog,
                     "array");
             return res.getStringArray(array_position);
         } catch (Exception e) {
@@ -608,20 +608,20 @@ public enum Packages {
     /**
      * Grab the theme's hero image
      *
-     * @param mContext     Context
+     * @param context     Context
      * @param package_name Package name of the desired app to be checked
      * @return Returns a drawable for the given theme's hero image
      */
-    public static Drawable getPackageHeroImage(Context mContext,
+    public static Drawable getPackageHeroImage(Context context,
                                                String package_name,
                                                boolean isThemesView) {
-        Drawable hero = mContext.getDrawable(android.R.color.transparent); // Initialize to be clear
+        Drawable hero = context.getDrawable(android.R.color.transparent); // Initialize to be clear
         try {
-            android.content.res.Resources res = mContext.getPackageManager()
+            android.content.res.Resources res = context.getPackageManager()
                     .getResourcesForApplication(package_name);
             int resourceId;
             if ((PreferenceManager.
-                    getDefaultSharedPreferences(mContext).
+                    getDefaultSharedPreferences(context).
                     getInt("grid_style_cards_count", 1) != 1) && isThemesView) {
                 resourceId = res.getIdentifier(
                         package_name + ":drawable/" + heroImageGridResourceName, null, null);
@@ -637,7 +637,7 @@ public enum Packages {
                         package_name + ":drawable/" + heroImageResourceName, null, null);
             }
             if (resourceId != 0) {
-                hero = mContext.getPackageManager().getDrawable(package_name, resourceId, null);
+                hero = context.getPackageManager().getDrawable(package_name, resourceId, null);
             }
             return hero;
         } catch (Exception e) {
@@ -649,30 +649,30 @@ public enum Packages {
     /**
      * Get a human readable target package name
      *
-     * @param mContext     Context
+     * @param context     Context
      * @param package_name Package name of the desired app to be checked
      * @return String of the target package name
      */
-    public static String getPackageName(Context mContext,
+    public static String getPackageName(Context context,
                                         String package_name) {
-        PackageManager pm = mContext.getPackageManager();
+        PackageManager pm = context.getPackageManager();
         ApplicationInfo ai;
         try {
             switch (package_name) {
                 case SYSTEMUI_NAVBARS:
-                    return mContext.getString(R.string.systemui_navigation);
+                    return context.getString(R.string.systemui_navigation);
                 case SYSTEMUI_HEADERS:
-                    return mContext.getString(R.string.systemui_headers);
+                    return context.getString(R.string.systemui_headers);
                 case SYSTEMUI_QSTILES:
-                    return mContext.getString(R.string.systemui_qs_tiles);
+                    return context.getString(R.string.systemui_qs_tiles);
                 case SYSTEMUI_STATUSBARS:
-                    return mContext.getString(R.string.systemui_statusbar);
+                    return context.getString(R.string.systemui_statusbar);
                 case SETTINGS_ICONS:
-                    return mContext.getString(R.string.settings_icons);
+                    return context.getString(R.string.settings_icons);
                 case SAMSUNG_FRAMEWORK:
-                    return mContext.getString(R.string.samsung_framework);
+                    return context.getString(R.string.samsung_framework);
                 case LG_FRAMEWORK:
-                    return mContext.getString(R.string.lg_framework);
+                    return context.getString(R.string.lg_framework);
             }
             ai = pm.getApplicationInfo(package_name, 0);
         } catch (Exception e) {
@@ -684,27 +684,27 @@ public enum Packages {
     /**
      * Get Theme Ready support
      *
-     * @param mContext     Context
+     * @param context     Context
      * @param package_name Package name of the desired app to be checked
      * @return String of whether the theme supports theme ready
      */
-    public static String getThemeReadyVisibility(Context mContext,
+    public static String getThemeReadyVisibility(Context context,
                                                  String package_name) {
-        return getOverlayMetadata(mContext, package_name, metadataThemeReady);
+        return getOverlayMetadata(context, package_name, metadataThemeReady);
     }
 
     /**
      * Get theme plugin version
      *
-     * @param mContext     Context
+     * @param context     Context
      * @param package_name Package name of the desired app to be checked
      * @return String of the theme's plugin version
      */
-    public static String getPackageTemplateVersion(Context mContext,
+    public static String getPackageTemplateVersion(Context context,
                                                    String package_name) {
-        String template_version = getOverlayMetadata(mContext, package_name, metadataVersion);
+        String template_version = getOverlayMetadata(context, package_name, metadataVersion);
         if (template_version != null) {
-            return mContext.getString(R.string.plugin_template) + ": " + template_version;
+            return context.getString(R.string.plugin_template) + ": " + template_version;
         }
         return null;
     }
@@ -712,25 +712,25 @@ public enum Packages {
     /**
      * Get theme parent from overlay
      *
-     * @param mContext     Context
+     * @param context     Context
      * @param package_name Package name of the desired app to be checked
      * @return String of the overlay's parent
      */
-    public static String getOverlayParent(Context mContext,
+    public static String getOverlayParent(Context context,
                                           String package_name) {
-        return getOverlayMetadata(mContext, package_name, metadataOverlayParent);
+        return getOverlayMetadata(context, package_name, metadataOverlayParent);
     }
 
     /**
      * Get theme target from overlay
      *
-     * @param mContext     Context
+     * @param context     Context
      * @param package_name Package name of the desired app to be checked
      * @return String of the overlay's target
      */
-    public static String getOverlayTarget(Context mContext,
+    public static String getOverlayTarget(Context context,
                                           String package_name) {
-        return getOverlayMetadata(mContext, package_name, metadataOverlayTarget);
+        return getOverlayMetadata(context, package_name, metadataOverlayTarget);
     }
 
     /**

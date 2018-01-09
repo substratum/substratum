@@ -63,7 +63,7 @@ public class PriorityLoaderFragment extends Fragment {
     private List<PrioritiesInterface> prioritiesList;
     private List<String> app_list;
     private PriorityAdapter adapter;
-    private Context mContext;
+    private Context context;
 
     @Override
     public View onCreateView(
@@ -71,15 +71,15 @@ public class PriorityLoaderFragment extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = getContext();
+        context = getContext();
         View view = inflater.inflate(R.layout.priority_loader_fragment, container, false);
         ButterKnife.bind(this, view);
 
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
         PriorityAdapter empty_adapter =
-                new PriorityAdapter(mContext, R.layout.priority_loader_item);
+                new PriorityAdapter(context, R.layout.priority_loader_item);
         recyclerView.setAdapter(empty_adapter);
-        LinearLayoutManager manager = new LinearLayoutManager(mContext);
+        LinearLayoutManager manager = new LinearLayoutManager(context);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(manager);
 
@@ -150,11 +150,11 @@ public class PriorityLoaderFragment extends Fragment {
             PriorityLoaderFragment fragment = ref.get();
             if (fragment != null) {
                 List<String> targets =
-                        listTargetWithMultipleOverlaysEnabled(fragment.mContext);
+                        listTargetWithMultipleOverlaysEnabled(fragment.context);
 
                 for (String t : targets) {
                     fragment.prioritiesList.add(new PrioritiesItem(t,
-                            Packages.getAppIcon(fragment.mContext, t)));
+                            Packages.getAppIcon(fragment.context, t)));
                     fragment.app_list.add(t);
                 }
             }

@@ -51,13 +51,13 @@ import static projekt.substratum.common.Resources.SYSTEMUI_STATUSBARS;
 
 public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, GestureViewHolder> {
 
-    private Context mContext;
+    private Context context;
     private int mItemResId;
 
     public PriorityAdapter(Context context,
                            @LayoutRes int itemResId) {
         super();
-        mContext = context;
+        context = context;
         mItemResId = itemResId;
     }
 
@@ -87,29 +87,29 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
 
             try {
                 // Keep this value but do not display it to the user, instead, parse it
-                ApplicationInfo applicationInfo = mContext.getPackageManager()
+                ApplicationInfo applicationInfo = context.getPackageManager()
                         .getApplicationInfo(prioritiesItem.getName(), PackageManager.GET_META_DATA);
-                String packageTitle = mContext.getPackageManager()
+                String packageTitle = context.getPackageManager()
                         .getApplicationLabel(applicationInfo).toString();
                 String targetPackage = Packages.getOverlayTarget(
-                        mContext, prioritiesItem.getName());
+                        context, prioritiesItem.getName());
                 String title;
                 if (packageTitle.startsWith(SYSTEMUI_HEADERS)) {
-                    title = mContext.getString(R.string.systemui_headers);
+                    title = context.getString(R.string.systemui_headers);
                 } else if (packageTitle.startsWith(SYSTEMUI_NAVBARS)) {
-                    title = mContext.getString(R.string.systemui_navigation);
+                    title = context.getString(R.string.systemui_navigation);
                 } else if (packageTitle.startsWith(SYSTEMUI_STATUSBARS)) {
-                    title = mContext.getString(R.string.systemui_statusbar);
+                    title = context.getString(R.string.systemui_statusbar);
                 } else if (packageTitle.startsWith(SYSTEMUI_QSTILES)) {
-                    title = mContext.getString(R.string.systemui_qs_tiles);
+                    title = context.getString(R.string.systemui_qs_tiles);
                 } else if (packageTitle.startsWith(SETTINGS_ICONS)) {
-                    title = mContext.getString(R.string.settings_icons);
+                    title = context.getString(R.string.settings_icons);
                 } else if (packageTitle.startsWith(SAMSUNG_FRAMEWORK)) {
-                    title = mContext.getString(R.string.samsung_framework);
+                    title = context.getString(R.string.samsung_framework);
                 } else if (packageTitle.startsWith(LG_FRAMEWORK)) {
-                    title = mContext.getString(R.string.lg_framework);
+                    title = context.getString(R.string.lg_framework);
                 } else {
-                    title = Packages.getPackageName(mContext, targetPackage);
+                    title = Packages.getPackageName(context, targetPackage);
                 }
 
                 if ((title != null) && !title.isEmpty()) {
@@ -121,17 +121,17 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                 if (applicationInfo.metaData != null) {
                     if (applicationInfo.metaData.getString(metadataOverlayDevice) != null) {
                         int version = Packages.getOverlaySubstratumVersion(
-                                mContext,
+                                context,
                                 packageTitle);
 
                         if (prioritiesItem.getType1a() == null) {
                             String metadata = Packages.getOverlayMetadata(
-                                    mContext,
+                                    context,
                                     packageTitle,
                                     References.metadataOverlayType1a);
                             if ((metadata != null) && !metadata.isEmpty()) {
                                 metadata = metadata.replace("_", " ");
-                                SpannableStringBuilder type1a = StringUtils.format(mContext.getString(
+                                SpannableStringBuilder type1a = StringUtils.format(context.getString(
                                         R.string.manager_type1a), metadata, Typeface.BOLD);
                                 priorityObjectAdapter.type1a.setVisibility(View.VISIBLE);
                                 prioritiesItem.setType1a(type1a.toString());
@@ -146,12 +146,12 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
 
                         if (prioritiesItem.getType1b() == null) {
                             String metadata = Packages.getOverlayMetadata(
-                                    mContext,
+                                    context,
                                     packageTitle,
                                     References.metadataOverlayType1b);
                             if ((metadata != null) && !metadata.isEmpty()) {
                                 metadata = metadata.replace("_", " ");
-                                SpannableStringBuilder type1b = StringUtils.format(mContext.getString(
+                                SpannableStringBuilder type1b = StringUtils.format(context.getString(
                                         R.string.manager_type1b), metadata, Typeface.BOLD);
                                 priorityObjectAdapter.type1b.setVisibility(View.VISIBLE);
                                 prioritiesItem.setType1b(type1b.toString());
@@ -166,12 +166,12 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
 
                         if (prioritiesItem.getType1c() == null) {
                             String metadata = Packages.getOverlayMetadata(
-                                    mContext,
+                                    context,
                                     packageTitle,
                                     References.metadataOverlayType1c);
                             if ((metadata != null) && !metadata.isEmpty()) {
                                 metadata = metadata.replace("_", " ");
-                                SpannableStringBuilder type1c = StringUtils.format(mContext.getString(
+                                SpannableStringBuilder type1c = StringUtils.format(context.getString(
                                         R.string.manager_type1c), metadata, Typeface.BOLD);
                                 priorityObjectAdapter.type1c.setVisibility(View.VISIBLE);
                                 prioritiesItem.setType1c(type1c.toString());
@@ -186,12 +186,12 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
 
                         if (prioritiesItem.getType2() == null) {
                             String metadata = Packages.getOverlayMetadata(
-                                    mContext,
+                                    context,
                                     packageTitle,
                                     References.metadataOverlayType2);
                             if ((metadata != null) && !metadata.isEmpty()) {
                                 metadata = metadata.replace("_", " ");
-                                SpannableStringBuilder type2 = StringUtils.format(mContext.getString(
+                                SpannableStringBuilder type2 = StringUtils.format(context.getString(
                                         R.string.manager_type2), metadata, Typeface.BOLD);
                                 priorityObjectAdapter.type2.setVisibility(View.VISIBLE);
                                 prioritiesItem.setType2(type2.toString());
@@ -206,12 +206,12 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
 
                         if (prioritiesItem.getType3() == null) {
                             String metadata = Packages.getOverlayMetadata(
-                                    mContext,
+                                    context,
                                     packageTitle,
                                     References.metadataOverlayType3);
                             if ((metadata != null) && !metadata.isEmpty()) {
                                 metadata = metadata.replace("_", " ");
-                                SpannableStringBuilder type3 = StringUtils.format(mContext.getString(
+                                SpannableStringBuilder type3 = StringUtils.format(context.getString(
                                         R.string.manager_type3), metadata, Typeface.BOLD);
                                 priorityObjectAdapter.type3.setVisibility(View.VISIBLE);
                                 prioritiesItem.setType3(type3.toString());
@@ -226,13 +226,13 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
 
                         if (prioritiesItem.getThemeName() == null) {
                             String metadata = Packages.getOverlayMetadata(
-                                    mContext,
+                                    context,
                                     packageTitle,
                                     References.metadataOverlayParent);
                             Boolean newUpdate = (version != 0) && (version <= BuildConfig
                                     .VERSION_CODE);
                             if ((metadata != null) && !metadata.isEmpty() && newUpdate) {
-                                SpannableStringBuilder themeName = StringUtils.format(mContext.getString(
+                                SpannableStringBuilder themeName = StringUtils.format(context.getString(
                                         R.string.manager_theme_name), metadata, Typeface.BOLD);
                                 priorityObjectAdapter.tvDesc.setVisibility(View.VISIBLE);
                                 prioritiesItem.setThemeName(themeName.toString());

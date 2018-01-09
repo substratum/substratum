@@ -152,8 +152,8 @@ enum OverlaysManager {
 
         for (int i = 0; i < overlays.overlayItemList.size(); i++) {
             OverlaysItem currentOverlay = overlays.overlayItemList.get(i);
-            if (overlays.mContext != null) {
-                if (Systems.checkOMS(overlays.mContext) &&
+            if (overlays.context != null) {
+                if (Systems.checkOMS(overlays.context) &&
                         currentOverlay.isSelected() &&
                         !mode.equals(ENABLE_DISABLE)) {
                     // This is an OMS device, so we can check enabled status
@@ -171,7 +171,7 @@ enum OverlaysManager {
             }
         }
 
-        if (overlays.mContext != null && Systems.checkOMS(overlays.mContext)) {
+        if (overlays.context != null && Systems.checkOMS(overlays.context)) {
             if (!overlays.currentInstance.checkedOverlays.isEmpty()) {
                 compileFunction compile = new compileFunction(overlays, mode);
                 if ((overlays.base_spinner.getSelectedItemPosition() != 0) &&
@@ -210,7 +210,7 @@ enum OverlaysManager {
         }
 
         if (!overlays.currentInstance.checkedOverlays.isEmpty()) {
-            if (Systems.isSamsungDevice(overlays.mContext)) {
+            if (Systems.isSamsungDevice(overlays.context)) {
                 if (Root.checkRootAccess() && Root.requestRootAccess()) {
                     ArrayList<String> checked_overlays = new ArrayList<>();
                     for (int i = 0; i < overlays.currentInstance.checkedOverlays.size(); i++) {
@@ -218,7 +218,7 @@ enum OverlaysManager {
                                 overlays.currentInstance.checkedOverlays.get(i)
                                         .getFullOverlayParameters());
                     }
-                    ThemeManager.uninstallOverlay(overlays.mContext, checked_overlays);
+                    ThemeManager.uninstallOverlay(overlays.context, checked_overlays);
                 } else {
                     for (int i = 0; i < overlays.currentInstance.checkedOverlays.size(); i++) {
                         Uri packageURI = Uri.parse("package:" +
@@ -232,7 +232,7 @@ enum OverlaysManager {
             } else {
                 for (int i = 0; i < overlays.currentInstance.checkedOverlays.size(); i++) {
                     FileOperations.mountRW();
-                    FileOperations.delete(overlays.mContext, current_directory +
+                    FileOperations.delete(overlays.context, current_directory +
                             overlays.currentInstance.checkedOverlays.get(i)
                                     .getFullOverlayParameters() + ".apk");
                     overlays.mAdapter.notifyDataSetChanged();
@@ -246,12 +246,12 @@ enum OverlaysManager {
                         currentOverlay.setSelected(false);
                     }
                 }
-                Toast.makeText(overlays.mContext,
+                Toast.makeText(overlays.context,
                         overlays.getString(R.string.toast_disabled6),
                         Toast.LENGTH_SHORT).show();
-                assert overlays.mContext != null;
+                assert overlays.context != null;
                 AlertDialog.Builder alertDialogBuilder =
-                        new AlertDialog.Builder(overlays.mContext);
+                        new AlertDialog.Builder(overlays.context);
                 alertDialogBuilder.setTitle(
                         overlays.getString(R.string.legacy_dialog_soft_reboot_title));
                 alertDialogBuilder.setMessage(
@@ -417,7 +417,7 @@ enum OverlaysManager {
                 ImageView loader_image = overlays.mCompileDialog.findViewById(R.id.icon);
                 if (loader_image != null) {
                     loader_image.setImageDrawable(
-                            Packages.getAppIcon(overlays.mContext, this
+                            Packages.getAppIcon(overlays.context, this
                                     .currentPackageName));
                 }
                 double progress = (overlays.currentInstance.current_amount /
@@ -1032,7 +1032,7 @@ enum OverlaysManager {
         finishEnableFunction(Overlays overlays) {
             super();
             ref = new WeakReference<>(overlays);
-            refContext = new WeakReference<>(overlays.mContext);
+            refContext = new WeakReference<>(overlays.context);
         }
 
         @Override
@@ -1089,7 +1089,7 @@ enum OverlaysManager {
         finishDisableFunction(Overlays overlays) {
             super();
             ref = new WeakReference<>(overlays);
-            refContext = new WeakReference<>(overlays.mContext);
+            refContext = new WeakReference<>(overlays.context);
         }
 
         @Override
@@ -1135,7 +1135,7 @@ enum OverlaysManager {
         finishEnableDisableFunction(Overlays overlays) {
             super();
             ref = new WeakReference<>(overlays);
-            refContext = new WeakReference<>(overlays.mContext);
+            refContext = new WeakReference<>(overlays.context);
         }
 
         @Override
@@ -1208,7 +1208,7 @@ enum OverlaysManager {
         finishUpdateFunction(Overlays overlays, String state) {
             super();
             ref = new WeakReference<>(overlays);
-            refContext = new WeakReference<>(overlays.mContext);
+            refContext = new WeakReference<>(overlays.context);
             this.state = state;
         }
 
@@ -1267,7 +1267,7 @@ enum OverlaysManager {
                         InformationActivity.shouldRestartActivity) {
                     // Gracefully finish, so that we won't close the activity when theme is upgraded
                     Broadcasts.sendActivityFinisherMessage(
-                            overlays.mContext, overlays.theme_pid);
+                            overlays.context, overlays.theme_pid);
                 }
                 InformationActivity.shouldRestartActivity = false;
                 InformationActivity.compilingProcess = false;

@@ -114,7 +114,7 @@ public class BootAnimationUtils {
     private static class BootAnimationHandlerAsync extends AsyncTask<String, Integer, String> {
 
         @SuppressLint("StaticFieldLeak")
-        private Context mContext;
+        private Context context;
         @SuppressLint("StaticFieldLeak")
         private View view;
         private String theme_pid;
@@ -132,10 +132,10 @@ public class BootAnimationUtils {
                                   Boolean shutdownAnimation,
                                   Cipher cipher) {
             super();
-            this.mContext = context;
+            this.context = context;
             this.view = view;
             this.theme_pid = theme_pid;
-            this.prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+            this.prefs = PreferenceManager.getDefaultSharedPreferences(context);
             this.encrypted = encrypted;
             this.cipher = cipher;
             this.shutdownAnimation = shutdownAnimation;
@@ -153,8 +153,8 @@ public class BootAnimationUtils {
 
         @Override
         protected void onPreExecute() {
-            progress = new ProgressDialog(mContext, R.style.AppTheme_DialogAlert);
-            progress.setMessage(mContext.getString(shutdownAnimation ?
+            progress = new ProgressDialog(context, R.style.AppTheme_DialogAlert);
+            progress.setMessage(context.getString(shutdownAnimation ?
                     R.string.shutdownanimation_dialog_apply_text :
                     R.string.bootanimation_dialog_apply_text));
             progress.setIndeterminate(false);
@@ -167,19 +167,19 @@ public class BootAnimationUtils {
             progress.dismiss();
 
             if (!has_failed) {
-                Lunchbar.make(view, mContext.getString(shutdownAnimation ?
+                Lunchbar.make(view, context.getString(shutdownAnimation ?
                                 R.string.shutdownanimation_dialog_apply_success :
                                 R.string.bootanimation_dialog_apply_success),
                         Lunchbar.LENGTH_LONG)
                         .show();
             } else {
-                Lunchbar.make(view, mContext.getString(shutdownAnimation ?
+                Lunchbar.make(view, context.getString(shutdownAnimation ?
                                 R.string.shutdownanimation_dialog_apply_failed :
                                 R.string.bootanimation_dialog_apply_failed),
                         Lunchbar.LENGTH_LONG)
                         .show();
             }
-            if (!Systems.checkThemeInterfacer(mContext)) {
+            if (!Systems.checkThemeInterfacer(context)) {
                 FileOperations.mountROData();
                 FileOperations.mountRO();
             }
@@ -192,18 +192,18 @@ public class BootAnimationUtils {
             // Move the file from assets folder to a new working area
             Log.d(TAG, "Copying over the selected boot animation to working directory...");
 
-            File cacheDirectory = new File(mContext.getCacheDir(), BOOTANIMATION_CACHE);
+            File cacheDirectory = new File(context.getCacheDir(), BOOTANIMATION_CACHE);
             if (!cacheDirectory.exists() && cacheDirectory.mkdirs())
                 Log.d(TAG, "Bootanimation folder created");
 
-            File cacheDirectory2 = new File(mContext.getCacheDir(),
+            File cacheDirectory2 = new File(context.getCacheDir(),
                     BOOTANIMATION_CREATION_CACHE);
             if (!cacheDirectory2.exists() && cacheDirectory2.mkdirs()) {
                 Log.d(TAG, "Bootanimation work folder created");
             } else {
                 FileOperations.delete(
-                        mContext,
-                        mContext.getCacheDir().getAbsolutePath() +
+                        context,
+                        context.getCacheDir().getAbsolutePath() +
                                 BOOTANIMATION_CREATION_CACHE);
                 boolean created = cacheDirectory2.mkdirs();
                 if (created) Log.d(TAG, "Bootanimation folder recreated");
@@ -220,7 +220,7 @@ public class BootAnimationUtils {
                 Log.d(TAG, "Analyzing integrity of boot animation descriptor file...");
                 if (cipher != null) {
                     try {
-                        Context otherContext = mContext.createPackageContext(this
+                        Context otherContext = context.createPackageContext(this
                                 .theme_pid, 0);
                         AssetManager themeAssetManager = otherContext.getAssets();
                         FileOperations.copyFileOrDir(
@@ -228,7 +228,7 @@ public class BootAnimationUtils {
                                 directory + '/' + bootanimation +
                                         (encrypted ?
                                                 ".zip" + ENCRYPTED_FILE_EXTENSION : ".zip"),
-                                mContext.getCacheDir().getAbsolutePath() +
+                                context.getCacheDir().getAbsolutePath() +
                                         BOOTANIMATION_CREATION_CACHE +
                                         bootanimation + ".zip",
                                 directory + '/' + bootanimation +
@@ -240,13 +240,13 @@ public class BootAnimationUtils {
                     }
                 } else {
                     try {
-                        Context otherContext = mContext.createPackageContext(this
+                        Context otherContext = context.createPackageContext(this
                                 .theme_pid, 0);
                         AssetManager am = otherContext.getAssets();
                         try (InputStream inputStream = am.open(
                                 directory + '/' + bootanimation + ".zip");
                              OutputStream outputStream = new FileOutputStream(
-                                     mContext.getCacheDir().getAbsolutePath() +
+                                     context.getCacheDir().getAbsolutePath() +
                                              BOOTANIMATION_CREATION_CACHE +
                                              bootanimation + ".zip")) {
                             BootAnimationHandlerAsync.CopyStream(inputStream, outputStream);
@@ -262,7 +262,7 @@ public class BootAnimationUtils {
 
                 // Rename the file
                 File workingDirectory = new File(
-                        mContext.getCacheDir().getAbsolutePath() +
+                        context.getCacheDir().getAbsolutePath() +
                                 BOOTANIMATION_CREATION_CACHE);
                 File from = new File(workingDirectory, bootanimation + ".zip");
                 bootanimation =
@@ -275,16 +275,16 @@ public class BootAnimationUtils {
 
             if (!has_failed) {
                 boolean exists = ZipUtil.containsEntry(
-                        new File(mContext.getCacheDir().getAbsolutePath() +
+                        new File(context.getCacheDir().getAbsolutePath() +
                                 BOOTANIMATION_CREATION_CACHE +
                                 bootanimation + ".zip"), BOOTANIMATION_DESCRIPTOR);
                 if (exists) {
                     ZipUtil.unpackEntry(
-                            new File(mContext.getCacheDir().getAbsolutePath() +
+                            new File(context.getCacheDir().getAbsolutePath() +
                                     BOOTANIMATION_CREATION_CACHE +
                                     bootanimation + ".zip"),
                             BOOTANIMATION_DESCRIPTOR,
-                            new File(mContext.getCacheDir().getAbsolutePath() +
+                            new File(context.getCacheDir().getAbsolutePath() +
                                     BOOTANIMATION_CREATION_CACHE + BOOTANIMATION_DESCRIPTOR));
                 } else {
                     Log.e(TAG,
@@ -299,12 +299,12 @@ public class BootAnimationUtils {
                         "and resizing the bootanimation...");
                 BufferedReader reader = null;
                 try (OutputStream os = new FileOutputStream(
-                        mContext.getCacheDir().getAbsolutePath() +
+                        context.getCacheDir().getAbsolutePath() +
                                 BOOTANIMATION_CREATION_CACHE + "scaled-" + bootanimation + ".zip");
                      ZipOutputStream zos = new ZipOutputStream(new BufferedOutputStream(os));
                      ZipInputStream bootAni = new ZipInputStream(new BufferedInputStream(new
                              FileInputStream(
-                             mContext.getCacheDir().getAbsolutePath() +
+                             context.getCacheDir().getAbsolutePath() +
                                      BOOTANIMATION_CREATION_CACHE + bootanimation + ".zip")))) {
 
                     zos.setMethod(ZipOutputStream.STORED);
@@ -328,7 +328,7 @@ public class BootAnimationUtils {
                                     (bootAni));
                             String[] info = reader.readLine().split(" ");
 
-                            WindowManager wm = (WindowManager) mContext.getSystemService
+                            WindowManager wm = (WindowManager) context.getSystemService
                                     (Context.WINDOW_SERVICE);
                             DisplayMetrics dm = new DisplayMetrics();
                             if (wm != null) {
@@ -408,11 +408,11 @@ public class BootAnimationUtils {
 
                 ZipEntrySource[] addedEntries = {
                         new FileSource(BOOTANIMATION_DESCRIPTOR, new File(
-                                mContext.getCacheDir().getAbsolutePath() +
+                                context.getCacheDir().getAbsolutePath() +
                                         BOOTANIMATION_CREATION_CACHE + BOOTANIMATION_DESCRIPTOR))
                 };
                 ZipUtil.addOrReplaceEntries(new File(
-                        mContext.getCacheDir().getAbsolutePath() +
+                        context.getCacheDir().getAbsolutePath() +
                                 BOOTANIMATION_CREATION_CACHE +
                                 bootanimation + ".zip"), addedEntries);
             }
@@ -420,19 +420,19 @@ public class BootAnimationUtils {
             if (!has_failed) {
                 Log.d(TAG, "Moving boot animation to theme directory " +
                         "and setting correct contextual parameters...");
-                boolean is_encrypted = Systems.getDeviceEncryptionStatus(mContext) > 1;
+                boolean is_encrypted = Systems.getDeviceEncryptionStatus(context) > 1;
                 File themeDirectory;
-                if (Systems.checkOMS(mContext)) {
+                if (Systems.checkOMS(context)) {
                     if ((!is_encrypted || shutdownAnimation) &&
-                            Systems.checkSubstratumFeature(mContext)) {
+                            Systems.checkSubstratumFeature(context)) {
                         Log.d(TAG, "Data partition on the current device is decrypted, using " +
                                 "dedicated theme bootanimation slot...");
                         themeDirectory = new File(DATA_SYSTEM);
                         if (!themeDirectory.exists()) {
-                            if (!Systems.checkThemeInterfacer(mContext)) {
+                            if (!Systems.checkThemeInterfacer(context)) {
                                 FileOperations.mountRWData();
                             }
-                            FileOperations.createNewFolder(mContext, DATA_SYSTEM);
+                            FileOperations.createNewFolder(context, DATA_SYSTEM);
                         }
                     } else {
                         Log.d(TAG, "Data partition on the current device is encrypted, using " +
@@ -446,7 +446,7 @@ public class BootAnimationUtils {
                     themeDirectory = new File(SYSTEM_MEDIA);
                 }
 
-                File scaledBootAnimCheck = new File(mContext.getCacheDir()
+                File scaledBootAnimCheck = new File(context.getCacheDir()
                         .getAbsolutePath() + BOOTANIMATION_CREATION_CACHE +
                         "scaled-" + bootanimation + ".zip");
                 if (scaledBootAnimCheck.exists()) {
@@ -457,23 +457,23 @@ public class BootAnimationUtils {
                 }
 
                 // Move created boot animation to working directory
-                FileOperations.move(mContext,
+                FileOperations.move(context,
                         scaledBootAnimCheck.getAbsolutePath(),
                         EXTERNAL_STORAGE_CACHE +
                                 (shutdownAnimation ?
                                         SHUTDOWNANIMATION : BOOTANIMATION));
 
                 // Inject backup script for encrypted legacy and encrypted OMS devices
-                if (!has_failed && (is_encrypted || !Systems.checkOMS(mContext)) &&
+                if (!has_failed && (is_encrypted || !Systems.checkOMS(context)) &&
                         !shutdownAnimation) {
                     FileOperations.mountRW();
                     File backupScript = new File(SYSTEM_ADDON_DIR + BACKUP_SCRIPT);
 
-                    if (Systems.checkSubstratumFeature(mContext)) {
+                    if (Systems.checkSubstratumFeature(context)) {
                         if (!backupScript.exists()) {
-                            AssetManager assetManager = mContext.getAssets();
+                            AssetManager assetManager = context.getAssets();
                             String backupScriptPath =
-                                    mContext.getFilesDir().getAbsolutePath() + '/' +
+                                    context.getFilesDir().getAbsolutePath() + '/' +
                                             BACKUP_SCRIPT;
                             OutputStream out = null;
                             InputStream in = null;
@@ -503,7 +503,7 @@ public class BootAnimationUtils {
                                     }
                                 }
                             }
-                            FileOperations.copy(mContext, mContext.getFilesDir()
+                            FileOperations.copy(context, context.getFilesDir()
                                     .getAbsolutePath() +
                                     '/' + BACKUP_SCRIPT, backupScript.getAbsolutePath());
                             FileOperations.setPermissions(755, backupScript.getAbsolutePath());
@@ -513,7 +513,7 @@ public class BootAnimationUtils {
                     File backupDirectory = new File(themeDirectory.getAbsolutePath() +
                             "/" + BOOTANIMATION_BU);
                     if (!backupDirectory.exists()) {
-                        FileOperations.move(mContext, themeDirectory.getAbsolutePath()
+                        FileOperations.move(context, themeDirectory.getAbsolutePath()
                                 + "/" + BOOTANIMATION, backupDirectory.getAbsolutePath());
                     }
 
@@ -534,7 +534,7 @@ public class BootAnimationUtils {
                 }
 
                 if (!has_failed) {
-                    BootAnimationsManager.setBootAnimation(mContext,
+                    BootAnimationsManager.setBootAnimation(context,
                             themeDirectory.getAbsolutePath(), shutdownAnimation);
                 }
             }
@@ -548,11 +548,11 @@ public class BootAnimationUtils {
                 }
                 editor.apply();
                 Log.d(TAG, "Boot animation installed!");
-                FileOperations.delete(mContext, mContext.getCacheDir().getAbsolutePath() +
+                FileOperations.delete(context, context.getCacheDir().getAbsolutePath() +
                         BOOTANIMATION_CREATION_CACHE);
             } else {
                 Log.e(TAG, "Boot animation installation aborted!");
-                FileOperations.delete(mContext, mContext.getCacheDir().getAbsolutePath() +
+                FileOperations.delete(context, context.getCacheDir().getAbsolutePath() +
                         BOOTANIMATION_CREATION_CACHE);
             }
             return null;

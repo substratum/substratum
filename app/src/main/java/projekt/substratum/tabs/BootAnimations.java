@@ -122,7 +122,7 @@ public class BootAnimations extends Fragment {
     private JobReceiver jobReceiver;
     private LocalBroadcastManager localBroadcastManager;
     private Boolean shutdownBootAnimation;
-    private Context mContext;
+    private Context context;
     private Handler previewHandler;
     private Runnable previewRunnable;
     private List<String> previewImages;
@@ -143,7 +143,7 @@ public class BootAnimations extends Fragment {
             @NonNull final LayoutInflater inflater,
             final ViewGroup container,
             final Bundle savedInstanceState) {
-        mContext = getContext();
+        context = getContext();
         View view = inflater.inflate(R.layout.tab_bootanimations, container, false);
         ButterKnife.bind(this, view);
 
@@ -163,7 +163,7 @@ public class BootAnimations extends Fragment {
         }
 
         previewHandlerThread.start();
-        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
         if (shutdownBootAnimation) {
             placeholderText.setText(R.string.shutdownanimation_placeholder_text);
@@ -173,7 +173,7 @@ public class BootAnimations extends Fragment {
         try {
             // Parses the list of items in the boot animation folder
             final Resources themeResources =
-                    mContext.getPackageManager().getResourcesForApplication(theme_pid);
+                    context.getPackageManager().getResourcesForApplication(theme_pid);
             themeAssetManager = themeResources.getAssets();
             final String[] fileArray = themeAssetManager.list(bootanimationsDir);
             final List<String> unparsedBootAnimations = new ArrayList<>();
@@ -257,7 +257,7 @@ public class BootAnimations extends Fragment {
         final IntentFilter intentFilter = new IntentFilter(
                 (shutdownBootAnimation ? "ShutdownAnimations" : "BootAnimations") +
                         START_JOB_ACTION);
-        localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
+        localBroadcastManager = LocalBroadcastManager.getInstance(context);
         localBroadcastManager.registerReceiver(jobReceiver, intentFilter);
 
         return view;
@@ -287,22 +287,22 @@ public class BootAnimations extends Fragment {
      */
     private void startApply() {
         if (!paused) {
-            if (((Systems.getDeviceEncryptionStatus(mContext) <= 1) ||
+            if (((Systems.getDeviceEncryptionStatus(context) <= 1) ||
                     shutdownBootAnimation) ||
-                    !Systems.checkOMS(mContext)) {
+                    !Systems.checkOMS(context)) {
                 if (bootAnimationSelector.getSelectedItemPosition() == 1) {
                     new BootAnimationClearer(this).execute("");
                 } else {
                     BootAnimationUtils.execute(nsv,
                             bootAnimationSelector.getSelectedItem().toString(),
-                            mContext,
+                            context,
                             theme_pid,
                             encrypted,
                             shutdownBootAnimation,
                             null);
                 }
             } else {
-                final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle(R.string.root_required_title)
                         .setMessage(R.string.root_required_boot_animation)
                         .setPositiveButton(android.R.string.ok, (dialog, which) -> {
@@ -313,7 +313,7 @@ public class BootAnimations extends Fragment {
                                 } else {
                                     BootAnimationUtils.execute(nsv,
                                             bootAnimationSelector.getSelectedItem().toString(),
-                                            mContext,
+                                            context,
                                             theme_pid,
                                             encrypted,
                                             shutdownBootAnimation,
@@ -380,7 +380,7 @@ public class BootAnimations extends Fragment {
         protected String doInBackground(final String... sUrl) {
             final BootAnimations bootAnimations = ref.get();
             if (bootAnimations != null) {
-                BootAnimationsManager.clearBootAnimation(bootAnimations.mContext,
+                BootAnimationsManager.clearBootAnimation(bootAnimations.context,
                         bootAnimations.shutdownBootAnimation);
             }
             return null;
@@ -458,8 +458,8 @@ public class BootAnimations extends Fragment {
             final BootAnimations bootAnimations = ref.get();
             if (bootAnimations != null) {
                 FileOperations.delete(
-                        bootAnimations.mContext,
-                        bootAnimations.mContext.getCacheDir().getAbsolutePath() +
+                        bootAnimations.context,
+                        bootAnimations.context.getCacheDir().getAbsolutePath() +
                                 BOOTANIMATION_PREVIEW_CACHE);
                 bootAnimations.paused = true;
                 bootAnimations.bootAnimationPreview.setImageDrawable(null);
@@ -516,18 +516,18 @@ public class BootAnimations extends Fragment {
             if (bootAnimations != null) {
                 try {
                     final File cacheDirectory = new File(
-                            bootAnimations.mContext.getCacheDir(), BOOTANIMATION_CACHE);
+                            bootAnimations.context.getCacheDir(), BOOTANIMATION_CACHE);
 
                     if (!cacheDirectory.exists() && cacheDirectory.mkdirs()) {
                         Log.d(TAG, "Bootanimation folder created");
                     }
-                    final File cacheDirectory2 = new File(bootAnimations.mContext.getCacheDir(),
+                    final File cacheDirectory2 = new File(bootAnimations.context.getCacheDir(),
                             BOOTANIMATION_PREVIEW_CACHE);
                     if (!cacheDirectory2.exists() && cacheDirectory2.mkdirs()) {
                         Log.d(TAG, "Bootanimation work folder created");
                     } else {
-                        FileOperations.delete(bootAnimations.mContext,
-                                bootAnimations.mContext.getCacheDir().getAbsolutePath() +
+                        FileOperations.delete(bootAnimations.context,
+                                bootAnimations.context.getCacheDir().getAbsolutePath() +
                                         BOOTANIMATION_PREVIEW_CACHE);
                         final boolean created = cacheDirectory2.mkdirs();
                         if (created) Log.d(TAG, "Bootanimation folder recreated");
@@ -540,7 +540,7 @@ public class BootAnimations extends Fragment {
                         FileOperations.copyFileOrDir(
                                 bootAnimations.themeAssetManager,
                                 bootanimationsDir + '/' + source + ENCRYPTED_FILE_EXTENSION,
-                                bootAnimations.mContext.getCacheDir().getAbsolutePath() +
+                                bootAnimations.context.getCacheDir().getAbsolutePath() +
                                         BOOTANIMATION_CACHE + source,
                                 bootanimationsDir + '/' + source + ENCRYPTED_FILE_EXTENSION,
                                 null);
@@ -548,7 +548,7 @@ public class BootAnimations extends Fragment {
                         try (InputStream inputStream = bootAnimations.themeAssetManager.open(
                                 bootanimationsDir + '/' + source);
                              OutputStream outputStream =
-                                     new FileOutputStream(bootAnimations.mContext.getCacheDir()
+                                     new FileOutputStream(bootAnimations.context.getCacheDir()
                                              .getAbsolutePath() +
                                              BOOTANIMATION_CACHE + source)) {
                             BootAnimationPreview.CopyStream(inputStream, outputStream);
@@ -560,19 +560,19 @@ public class BootAnimations extends Fragment {
                     }
 
                     // Unzip the boot animation to get it prepared for the preview
-                    BootAnimationPreview.unzip(bootAnimations.mContext.getCacheDir()
+                    BootAnimationPreview.unzip(bootAnimations.context.getCacheDir()
                                     .getAbsolutePath() +
                                     BOOTANIMATION_CACHE + source,
-                            bootAnimations.mContext.getCacheDir().getAbsolutePath() +
+                            bootAnimations.context.getCacheDir().getAbsolutePath() +
                                     BOOTANIMATION_PREVIEW_CACHE);
 
                     bootAnimations.options.inPreferredConfig = Bitmap.Config.RGB_565;
                     bootAnimations.options.inSampleSize = BootAnimationPreview.previewDeterminator(
-                            bootAnimations.mContext.getCacheDir().getAbsolutePath() +
+                            bootAnimations.context.getCacheDir().getAbsolutePath() +
                                     BOOTANIMATION_CACHE + source);
 
                     // List images files in directory
-                    final File previewDirectory = new File(bootAnimations.mContext.getCacheDir(),
+                    final File previewDirectory = new File(bootAnimations.context.getCacheDir(),
                             BOOTANIMATION_PREVIEW_CACHE);
                     final String[] dirs = previewDirectory.list();
                     final String[] supportedFile = {"jpg", "png", "jpeg"};

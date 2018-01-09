@@ -43,7 +43,7 @@ import static projekt.substratum.common.Systems.checkThemeInterfacer;
 
 public class FontUtils {
 
-    private Context mContext;
+    private Context context;
     private ProgressDialog progress;
     private String theme_pid;
     private SharedPreferences prefs;
@@ -59,7 +59,7 @@ public class FontUtils {
                         Context context,
                         String theme_pid) {
         this.prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        this.mContext = context;
+        this.context = context;
         this.theme_pid = theme_pid;
         new FontHandlerAsync(this).execute(arguments);
     }
@@ -80,7 +80,7 @@ public class FontUtils {
         protected void onPreExecute() {
             FontUtils fragment = ref.get();
             if (fragment != null) {
-                Context context = fragment.mContext;
+                Context context = fragment.context;
                 if (References.ENABLE_EXTRAS_DIALOG) {
                     fragment.progress = new ProgressDialog(context, R.style.AppTheme_DialogAlert);
                     fragment.progress.setMessage(context.getString(R.string
@@ -103,7 +103,7 @@ public class FontUtils {
             if ((result == null) || !result.equals(INTERFACER_PACKAGE)) {
                 FontUtils fragment = ref.get();
                 if (fragment != null) {
-                    Context context = fragment.mContext;
+                    Context context = fragment.context;
                     if (References.ENABLE_EXTRAS_DIALOG) {
                         fragment.progress.dismiss();
                     }
@@ -148,7 +148,7 @@ public class FontUtils {
         protected String doInBackground(String... sUrl) {
             FontUtils fragment = ref.get();
             if (fragment != null) {
-                Context context = fragment.mContext;
+                Context context = fragment.context;
                 try {
                     Boolean isRootless = checkOMS(context) &&
                             (checkThemeInterfacer(context) &&

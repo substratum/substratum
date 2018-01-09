@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements
     private LocalBroadcastManager localBroadcastManager;
     private KillReceiver killReceiver;
     private AndromedaReceiver andromedaReceiver;
-    private Context mContext;
+    private Context context;
     private boolean bottomBarUi;
 
     /**
@@ -241,7 +241,7 @@ public class MainActivity extends AppCompatActivity implements
      * @param theme_count How many themes are found
      */
     public void assignBottomBarBadgeCount(int theme_count) {
-        boolean showBadge = mContext.getResources().getBoolean(R.bool.showThemeBadge);
+        boolean showBadge = context.getResources().getBoolean(R.bool.showThemeBadge);
         if (showBadge) {
             BottomNavigationMenuView bottomNavigationMenuView =
                     (BottomNavigationMenuView) bottomBar.getChildAt(0);
@@ -273,9 +273,9 @@ public class MainActivity extends AppCompatActivity implements
     public void switchToPriorityLoaderToolbar() {
         showToolbarHamburger();
         if (bottomBarUi) {
-            if (Systems.isSamsung(mContext)) {
+            if (Systems.isSamsung(context)) {
                 switchToStockToolbar(getString(R.string.samsung_app_name));
-            } else if (!Systems.checkOMS(mContext)) {
+            } else if (!Systems.checkOMS(context)) {
                 switchToStockToolbar(getString(R.string.legacy_app_name));
             } else {
                 switchToStockToolbar(getString(R.string.nav_main));
@@ -327,9 +327,9 @@ public class MainActivity extends AppCompatActivity implements
             searchView.setIconified(true);
         }
         if (bottomBarUi) {
-            if (Systems.isSamsung(mContext)) {
+            if (Systems.isSamsung(context)) {
                 switchToStockToolbar(getString(R.string.samsung_app_name));
-            } else if (!Systems.checkOMS(mContext)) {
+            } else if (!Systems.checkOMS(context)) {
                 switchToStockToolbar(getString(R.string.legacy_app_name));
             } else {
                 switchToStockToolbar(getString(R.string.nav_main));
@@ -364,9 +364,9 @@ public class MainActivity extends AppCompatActivity implements
         fragment.setArguments(bundle);
 
         if (bottomBarUi) {
-            if (Systems.isSamsung(mContext)) {
+            if (Systems.isSamsung(context)) {
                 switchToStockToolbar(getString(R.string.samsung_app_name));
-            } else if (!Systems.checkOMS(mContext)) {
+            } else if (!Systems.checkOMS(context)) {
                 switchToStockToolbar(getString(R.string.legacy_app_name));
             } else {
                 switchToStockToolbar(getString(R.string.nav_main));
@@ -395,9 +395,9 @@ public class MainActivity extends AppCompatActivity implements
             searchView.setIconified(true);
         }
         if (bottomBarUi) {
-            if (Systems.isSamsung(mContext)) {
+            if (Systems.isSamsung(context)) {
                 switchToStockToolbar(getString(R.string.samsung_app_name));
-            } else if (!Systems.checkOMS(mContext)) {
+            } else if (!Systems.checkOMS(context)) {
                 switchToStockToolbar(getString(R.string.legacy_app_name));
             } else {
                 switchToStockToolbar(getString(R.string.nav_main));
@@ -423,7 +423,7 @@ public class MainActivity extends AppCompatActivity implements
             // Unregistered already
         }
 
-        if (Systems.isAndromedaDevice(mContext)) {
+        if (Systems.isAndromedaDevice(context)) {
             try {
                 localBroadcastManager.unregisterReceiver(andromedaReceiver);
             } catch (Exception e) {
@@ -436,8 +436,8 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mainActivity = this;
-        mContext = getApplicationContext();
-        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        context = getApplicationContext();
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
         bottomBarUi = !prefs.getBoolean("advanced_ui", false);
         if (bottomBarUi) setTheme(R.style.AppTheme_SpecialUI);
 
@@ -451,29 +451,29 @@ public class MainActivity extends AppCompatActivity implements
         mProgressDialog = new Dialog(this, R.style.SubstratumBuilder_ActivityTheme);
         mProgressDialog.setCancelable(false);
 
-        if (BuildConfig.DEBUG && !isSamsungDevice(mContext)) {
+        if (BuildConfig.DEBUG && !isSamsungDevice(context)) {
             Log.d(SUBSTRATUM_LOG, "Substratum launched with debug mode signatures.");
         }
         setContentView(R.layout.main_activity);
         ButterKnife.bind(this);
         cleanLogCharReportsIfNecessary();
-        Theming.refreshInstalledThemesPref(mContext);
+        Theming.refreshInstalledThemesPref(context);
 
         // Register the main app receiver to auto kill the activity
         killReceiver = new KillReceiver();
-        localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
+        localBroadcastManager = LocalBroadcastManager.getInstance(context);
         localBroadcastManager.registerReceiver(killReceiver,
                 new IntentFilter(MAIN_ACTIVITY_RECEIVER));
 
-        if (Systems.isAndromedaDevice(mContext)) {
+        if (Systems.isAndromedaDevice(context)) {
             andromedaReceiver = new AndromedaReceiver();
             localBroadcastManager.registerReceiver(andromedaReceiver,
                     new IntentFilter(ANDROMEDA_RECEIVER));
         }
 
-        Systems.setROMVersion(mContext, false);
-        Systems.setAndCheckOMS(mContext);
-        Systems.setAndCheckSubstratumService(mContext);
+        Systems.setROMVersion(context, false);
+        Systems.setAndCheckOMS(context);
+        Systems.setAndCheckSubstratumService(context);
 
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -483,9 +483,9 @@ public class MainActivity extends AppCompatActivity implements
         }
 
         supportActionBar = getSupportActionBar();
-        if (Systems.isSamsung(mContext)) {
+        if (Systems.isSamsung(context)) {
             switchToStockToolbar(getString(R.string.samsung_app_name));
-        } else if (!Systems.checkOMS(mContext)) {
+        } else if (!Systems.checkOMS(context)) {
             switchToStockToolbar(getString(R.string.legacy_app_name));
         } else {
             switchToStockToolbar(getString(R.string.nav_main));
@@ -527,7 +527,7 @@ public class MainActivity extends AppCompatActivity implements
                 // suppress exception
             }
 
-            if (Systems.checkOMS(mContext) && !isSamsung(mContext)) {
+            if (Systems.checkOMS(context) && !isSamsung(context)) {
                 menuView.findViewById(R.id.tab_priorities).setVisibility(View.VISIBLE);
             } else {
                 menuView.findViewById(R.id.tab_priorities).setVisibility(View.GONE);
@@ -536,9 +536,9 @@ public class MainActivity extends AppCompatActivity implements
                 switch (item.getItemId()) {
                     case R.id.tab_themes:
                         switchThemeFragment(((Systems.checkOMS(
-                                mContext) ?
+                                context) ?
                                         getString(R.string.app_name) :
-                                        (Systems.isSamsung(mContext) ?
+                                        (Systems.isSamsung(context) ?
                                                 getString(R.string.samsung_app_name) :
                                                 getString(R.string.legacy_app_name)))
                                 ),
@@ -685,31 +685,31 @@ public class MainActivity extends AppCompatActivity implements
                             .withName(R.string.nav_overlays)
                             .withIcon(R.drawable.nav_overlays)
                             .withIdentifier(2L));
-            if (Resources.isBootAnimationSupported(mContext))
+            if (Resources.isBootAnimationSupported(context))
                 drawerBuilder.addDrawerItems(
                         new PrimaryDrawerItem()
                                 .withName(R.string.nav_bootanim)
                                 .withIcon(R.drawable.nav_bootanim)
                                 .withIdentifier(3L)
-                                .withBadge(Systems.checkSubstratumService(mContext) ?
+                                .withBadge(Systems.checkSubstratumService(context) ?
                                         getString(R.string.beta_tag) : ""));
-            if (Resources.isShutdownAnimationSupported(mContext))
+            if (Resources.isShutdownAnimationSupported(context))
                 drawerBuilder.addDrawerItems(
                         new PrimaryDrawerItem()
                                 .withName(R.string.nav_shutdownanim)
                                 .withIcon(R.drawable.nav_shutdownanim)
                                 .withIdentifier(4L)
-                                .withBadge(Systems.checkSubstratumService(mContext) ?
+                                .withBadge(Systems.checkSubstratumService(context) ?
                                         getString(R.string.beta_tag) : ""));
-            if (Resources.isFontsSupported(mContext))
+            if (Resources.isFontsSupported(context))
                 drawerBuilder.addDrawerItems(
                         new PrimaryDrawerItem()
                                 .withName(R.string.nav_fonts)
                                 .withIcon(R.drawable.nav_fonts)
                                 .withIdentifier(5L)
-                                .withBadge(Systems.checkSubstratumService(mContext) ?
+                                .withBadge(Systems.checkSubstratumService(context) ?
                                         getString(R.string.beta_tag) : ""));
-            if (Resources.isSoundsSupported(mContext))
+            if (Resources.isSoundsSupported(context))
                 drawerBuilder.addDrawerItems(
                         new PrimaryDrawerItem()
                                 .withName(R.string.nav_sounds)
@@ -728,14 +728,14 @@ public class MainActivity extends AppCompatActivity implements
                             .withName(R.string.nav_overlay_manager)
                             .withIcon(R.drawable.nav_overlay_manager)
                             .withIdentifier(8L));
-            if (Systems.checkOMS(mContext) && !isSamsung(mContext))
+            if (Systems.checkOMS(context) && !isSamsung(context))
                 drawerBuilder.addDrawerItems(
                         new PrimaryDrawerItem()
                                 .withName(R.string.nav_priorities)
                                 .withIcon(R.drawable.nav_drawer_priorities)
                                 .withIdentifier(9L)
                                 .withBadge(Systems.checkOreo() ? getString(R.string.beta_tag) : ""));
-            if (Resources.isProfilesSupported(mContext))
+            if (Resources.isProfilesSupported(context))
                 drawerBuilder.addDrawerItems(
                         new PrimaryDrawerItem()
                                 .withName(R.string.nav_backup_restore)
@@ -775,9 +775,9 @@ public class MainActivity extends AppCompatActivity implements
                     switch ((int) drawerItem.getIdentifier()) {
                         case 1:
                             switchThemeFragment(((Systems.checkOMS(
-                                    mContext) ?
+                                    context) ?
                                             getString(R.string.app_name) :
-                                            (Systems.isSamsung(mContext) ?
+                                            (Systems.isSamsung(context) ?
                                                     getString(R.string.samsung_app_name) :
                                                     getString(R.string.legacy_app_name)))
                                     ),
@@ -836,13 +836,13 @@ public class MainActivity extends AppCompatActivity implements
                                     SettingsFragment.class.getCanonicalName());
                             break;
                         case 100:
-                            launchActivityUrl(mContext, R.string.googleplus_link);
+                            launchActivityUrl(context, R.string.googleplus_link);
                             break;
                         case 101:
-                            launchActivityUrl(mContext, R.string.reddit_link);
+                            launchActivityUrl(context, R.string.reddit_link);
                             break;
                         case 102:
-                            launchActivityUrl(mContext, R.string.telegram_link);
+                            launchActivityUrl(context, R.string.telegram_link);
                             break;
                         case 103:
                             int sourceURL;
@@ -851,28 +851,28 @@ public class MainActivity extends AppCompatActivity implements
                             } else {
                                 sourceURL = R.string.xda_link;
                             }
-                            launchActivityUrl(mContext, sourceURL);
+                            launchActivityUrl(context, sourceURL);
                             break;
                         case 104:
-                            launchActivityUrl(mContext, R.string.rawad_youtube_url);
+                            launchActivityUrl(context, R.string.rawad_youtube_url);
                             break;
                         case 105:
-                            launchActivityUrl(mContext, R.string.xda_portal_link);
+                            launchActivityUrl(context, R.string.xda_portal_link);
                             break;
                         case 106:
-                            launchActivityUrl(mContext, R.string.homepage_link);
+                            launchActivityUrl(context, R.string.homepage_link);
                             break;
                         case 107:
-                            launchActivityUrl(mContext, R.string.template_link);
+                            launchActivityUrl(context, R.string.template_link);
                             break;
                         case 108:
-                            launchActivityUrl(mContext, R.string.gerrit_link);
+                            launchActivityUrl(context, R.string.gerrit_link);
                             break;
                         case 109:
-                            launchActivityUrl(mContext, R.string.github_link);
+                            launchActivityUrl(context, R.string.github_link);
                             break;
                         case 110:
-                            launchActivityUrl(mContext, R.string.jira_link);
+                            launchActivityUrl(context, R.string.jira_link);
                             break;
                     }
                 }
@@ -953,8 +953,8 @@ public class MainActivity extends AppCompatActivity implements
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_menu, menu);
 
-        boolean isOMS = Systems.checkOMS(mContext);
-        if (isOMS || isSamsungDevice(mContext)) {
+        boolean isOMS = Systems.checkOMS(context);
+        if (isOMS || isSamsungDevice(context)) {
             menu.findItem(R.id.reboot_device).setVisible(false);
             menu.findItem(R.id.soft_reboot).setVisible(false);
         }
@@ -966,7 +966,7 @@ public class MainActivity extends AppCompatActivity implements
         searchItem.setVisible(!hideBundle);
         MenuItem restartUi = menu.findItem(R.id.restart_systemui);
         restartUi.setVisible(!hideRestartUi &&
-                !Systems.checkAndromeda(mContext) &&
+                !Systems.checkAndromeda(context) &&
                 (isOMS || Root.checkRootAccess()));
         return true;
     }
@@ -980,7 +980,7 @@ public class MainActivity extends AppCompatActivity implements
     @SuppressWarnings("LocalCanBeFinal")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        SharedPreferences prefs = mContext.getSharedPreferences(
+        SharedPreferences prefs = context.getSharedPreferences(
                 "substratum_state", Context.MODE_PRIVATE);
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -993,18 +993,18 @@ public class MainActivity extends AppCompatActivity implements
             // Begin OMS based options
             case R.id.per_app:
                 if (!References.isServiceRunning(SubstratumFloatInterface.class,
-                        mContext)) {
-                    if (Settings.canDrawOverlays(mContext) &&
-                            checkUsagePermissions(mContext)) {
+                        context)) {
+                    if (Settings.canDrawOverlays(context) &&
+                            checkUsagePermissions(context)) {
                         showFloatingHead();
-                    } else if (!Settings.canDrawOverlays(mContext)) {
+                    } else if (!Settings.canDrawOverlays(context)) {
                         DialogInterface.OnClickListener dialogClickListener = (dialog,
                                                                                which) -> {
                             switch (which) {
                                 case DialogInterface.BUTTON_POSITIVE:
                                     Intent draw_over_apps = new Intent(
                                             Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                                            Uri.parse("package:" + mContext
+                                            Uri.parse("package:" + context
                                                     .getPackageName()));
                                     startActivityForResult(draw_over_apps,
                                             PERMISSIONS_REQUEST_DRAW_OVER_OTHER_APPS);
@@ -1020,7 +1020,7 @@ public class MainActivity extends AppCompatActivity implements
                                 .setPositiveButton(R.string.dialog_ok, dialogClickListener)
                                 .setNegativeButton(R.string.dialog_cancel, dialogClickListener)
                                 .show();
-                    } else if (!checkUsagePermissions(mContext)) {
+                    } else if (!checkUsagePermissions(context)) {
                         DialogInterface.OnClickListener dialogClickListener = (dialog,
                                                                                which) -> {
                             switch (which) {
@@ -1051,7 +1051,7 @@ public class MainActivity extends AppCompatActivity implements
                 DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
                     switch (which) {
                         case DialogInterface.BUTTON_POSITIVE:
-                            ThemeManager.restartSystemUI(mContext);
+                            ThemeManager.restartSystemUI(context);
                             break;
                         case DialogInterface.BUTTON_NEGATIVE:
                             break;
@@ -1168,9 +1168,9 @@ public class MainActivity extends AppCompatActivity implements
                     ((ManagerFragment) f).getFab().hideSheet();
                 } else {
                     switchThemeFragment((Systems.checkOMS(
-                            mContext) ?
+                            context) ?
                                     getString(R.string.app_name) :
-                                    (Systems.isSamsung(mContext) ?
+                                    (Systems.isSamsung(context) ?
                                             getString(R.string.samsung_app_name) :
                                             getString(R.string.legacy_app_name))),
                             References.homeFragment);
@@ -1189,15 +1189,15 @@ public class MainActivity extends AppCompatActivity implements
      */
     private void showFloatingHead() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
-                mContext);
+                context);
         prefs.edit().putInt("float_tile", Tile.STATE_ACTIVE).apply();
-        FloatUiTile.requestListeningState(mContext,
-                new ComponentName(mContext, FloatUiTile.class));
-        mContext.startService(new Intent(mContext,
+        FloatUiTile.requestListeningState(context,
+                new ComponentName(context, FloatUiTile.class));
+        context.startService(new Intent(context,
                 SubstratumFloatInterface.class));
         PackageManager packageManager = getPackageManager();
         ComponentName componentName =
-                new ComponentName(mContext, FloatUiTile.class);
+                new ComponentName(context, FloatUiTile.class);
         packageManager.setComponentEnabledSetting(
                 componentName,
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
@@ -1210,11 +1210,11 @@ public class MainActivity extends AppCompatActivity implements
      */
     private void hideFloatingHead() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
-                mContext);
+                context);
         prefs.edit().putInt("float_tile", Tile.STATE_INACTIVE).apply();
-        FloatUiTile.requestListeningState(mContext,
-                new ComponentName(mContext, FloatUiTile.class));
-        stopService(new Intent(mContext,
+        FloatUiTile.requestListeningState(context,
+                new ComponentName(context, FloatUiTile.class));
+        stopService(new Intent(context,
                 SubstratumFloatInterface.class));
     }
 
@@ -1228,19 +1228,19 @@ public class MainActivity extends AppCompatActivity implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case PERMISSIONS_REQUEST_DRAW_OVER_OTHER_APPS:
-                if (!checkUsagePermissions(mContext)) {
+                if (!checkUsagePermissions(context)) {
                     Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);
                     startActivityForResult(intent, PERMISSIONS_REQUEST_USAGE_ACCESS_SETTINGS);
                 } else {
-                    if (Settings.canDrawOverlays(mContext) &&
-                            checkUsagePermissions(mContext)) {
+                    if (Settings.canDrawOverlays(context) &&
+                            checkUsagePermissions(context)) {
                         showFloatingHead();
                     }
                 }
                 break;
             case PERMISSIONS_REQUEST_USAGE_ACCESS_SETTINGS:
-                if (Settings.canDrawOverlays(mContext) &&
-                        checkUsagePermissions(mContext)) {
+                if (Settings.canDrawOverlays(context) &&
+                        checkUsagePermissions(context)) {
                     showFloatingHead();
                 }
                 break;
@@ -1303,7 +1303,7 @@ public class MainActivity extends AppCompatActivity implements
                         if (!made) Log.e(References.SUBSTRATUM_LOG,
                                 "Unable to create directory");
                     } else {
-                        References.injectRescueArchives(mContext);
+                        References.injectRescueArchives(context);
                         Log.d(References.SUBSTRATUM_LOG, "Successfully made dir: " + directory);
                     }
                     File cacheDirectory = new File(getCacheDir(),
@@ -1316,12 +1316,12 @@ public class MainActivity extends AppCompatActivity implements
                     File[] fileList = new File(getCacheDir().getAbsolutePath() +
                             SUBSTRATUM_BUILDER_CACHE).listFiles();
                     for (File file : fileList) {
-                        FileOperations.delete(mContext, getCacheDir()
+                        FileOperations.delete(context, getCacheDir()
                                 .getAbsolutePath() +
                                 SUBSTRATUM_BUILDER_CACHE + file.getName());
                     }
                     Log.d("SubstratumBuilder", "The cache has been flushed!");
-                    References.injectRescueArchives(mContext);
+                    References.injectRescueArchives(context);
                 } else {
                     // permission was not granted, show closing dialog
                     new AlertDialog.Builder(this)
@@ -1406,7 +1406,7 @@ public class MainActivity extends AppCompatActivity implements
         private void permissionCheck() {
             MainActivity activity = ref.get();
             if (activity != null) {
-                Context context = activity.mContext;
+                Context context = activity.context;
                 activity.permissionCheck = ContextCompat.checkSelfPermission(
                         context,
                         WRITE_EXTERNAL_STORAGE);
@@ -1564,7 +1564,7 @@ public class MainActivity extends AppCompatActivity implements
             super.onPostExecute(dialogReturnBool);
             MainActivity activity = ref.get();
             if (activity != null) {
-                Context context = activity.mContext;
+                Context context = activity.context;
                 showDialogOrNot(dialogReturnBool);
                 if (!dialogReturnBool) permissionCheck();
                 if (checkIfOverlaysOutdated(context)) {
@@ -1582,7 +1582,7 @@ public class MainActivity extends AppCompatActivity implements
             MainActivity activity = ref.get();
             isRunning = false;
             if (activity != null) {
-                Context context = activity.mContext;
+                Context context = activity.context;
                 if (passthrough) {
                     activity.mProgressDialog.show();
                     activity.mProgressDialog.setContentView(R.layout.root_rejected_loader);
@@ -1639,7 +1639,7 @@ public class MainActivity extends AppCompatActivity implements
                         titleView.setVisibility(View.GONE);
                     }
                 } else {
-                    BinaryInstaller.install(activity.mContext, false);
+                    BinaryInstaller.install(activity.context, false);
                     if (Systems.checkOMS(context)) new DoCleanUp(context).execute();
                 }
             }
@@ -1649,7 +1649,7 @@ public class MainActivity extends AppCompatActivity implements
         protected Boolean doInBackground(Void... sUrl) {
             MainActivity activity = ref.get();
             if (activity != null) {
-                Context context = activity.mContext;
+                Context context = activity.context;
                 int themeSystemModule = checkThemeSystemModule(context, true);
 
                 // Samsung mode, but what if package is not installed?
@@ -1780,7 +1780,7 @@ public class MainActivity extends AppCompatActivity implements
         protected Void doInBackground(Void... params) {
             MainActivity activity = ref.get();
             if (activity != null) {
-                Context context = activity.mContext;
+                Context context = activity.context;
                 delete(context, new File(LOGCHAR_DIR).getAbsolutePath());
             }
             return null;
@@ -1790,7 +1790,7 @@ public class MainActivity extends AppCompatActivity implements
         protected void onPostExecute(Void result) {
             MainActivity activity = ref.get();
             if (activity != null) {
-                Context context = activity.mContext;
+                Context context = activity.context;
                 Toast.makeText(context, context.getString(R.string.cleaned_logchar_reports),
                         Toast.LENGTH_SHORT).show();
                 Intent intent = activity.getIntent();

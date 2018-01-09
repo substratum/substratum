@@ -204,7 +204,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
     private AndromedaReceiver andromedaReceiver;
     private ActivityFinisher activityFinisher;
     private int dominantColor;
-    private Context mContext;
+    private Context context;
 
     private int mInitialOrientation;
     private int mOrientation;
@@ -434,7 +434,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                 if (resultUri.toString().contains("homescreen_wallpaper")) {
                     try {
                         WallpapersManager.setWallpaper(
-                                mContext,
+                                context,
                                 resultUri.toString().substring(7),
                                 "home");
                         editor.putString("home_wallpaper_applied", theme_pid);
@@ -452,7 +452,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                 } else if (resultUri.toString().contains("lockscreen_wallpaper")) {
                     try {
                         WallpapersManager.setWallpaper(
-                                mContext,
+                                context,
                                 resultUri.toString().substring(7),
                                 "lock");
                         editor.putString("lock_wallpaper_applied", theme_pid);
@@ -470,7 +470,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                 } else if (resultUri.toString().contains("all_wallpaper")) {
                     try {
                         WallpapersManager.setWallpaper(
-                                mContext,
+                                context,
                                 resultUri.toString().substring(7),
                                 "all");
                         editor.putString("home_wallpaper_applied", theme_pid);
@@ -497,8 +497,8 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mContext = getApplicationContext();
-        prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        context = getApplicationContext();
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
         // Check if we should activate the custom font
         boolean bottomBarUi = !prefs.getBoolean("advanced_ui", false);
         if (bottomBarUi) setTheme(R.style.AppTheme_SpecialUI_InformationActivity);
@@ -517,7 +517,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
         mInitialOrientation = getResources().getConfiguration().orientation;
         mOrientation = mInitialOrientation;
 
-        localBroadcastManager = LocalBroadcastManager.getInstance(mContext);
+        localBroadcastManager = LocalBroadcastManager.getInstance(context);
 
         // Register the theme install receiver to auto refresh the fragment
         refreshReceiver = new RefreshReceiver();
@@ -530,7 +530,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                 new IntentFilter(ACTIVITY_FINISHER));
 
         // If the device is Andromeda based, we must take account for the disconnection phase
-        if (Systems.isAndromedaDevice(mContext)) {
+        if (Systems.isAndromedaDevice(context)) {
             andromedaReceiver = new InformationActivity.AndromedaReceiver();
             localBroadcastManager.registerReceiver(andromedaReceiver,
                     new IntentFilter(ANDROMEDA_RECEIVER));
@@ -547,7 +547,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
         theme_mode = currentIntent.getStringExtra("theme_mode");
         byte[] encryption_key = currentIntent.getByteArrayExtra(ENCRYPTION_KEY_EXTRA);
         byte[] iv_encrypt_key = currentIntent.getByteArrayExtra(IV_ENCRYPTION_KEY_EXTRA);
-        String wallpaperUrl = getOverlayMetadata(mContext, theme_pid,
+        String wallpaperUrl = getOverlayMetadata(context, theme_pid,
                 metadataWallpapers);
 
         // Package the intent data into a new bundle
@@ -609,8 +609,8 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
         floatingActionButton.show();
 
         // The fab needs to have some special colors
-        int sheetColor = mContext.getColor(R.color.fab_menu_background_card);
-        int fabColor = mContext.getColor(R.color.fab_background_color);
+        int sheetColor = context.getColor(R.color.fab_menu_background_card);
+        int fabColor = context.getColor(R.color.fab_background_color);
 
         // Create material sheet FAB
         materialSheetFab = new MaterialSheetFab<>(
@@ -626,12 +626,12 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
         // First, take account for whether the theme was launched normally
         if (theme_mode != null && theme_mode.isEmpty()) {
             try {
-                Context otherContext = mContext.createPackageContext
+                Context otherContext = context.createPackageContext
                         (theme_pid, 0);
                 AssetManager am = otherContext.getAssets();
                 List found_folders = Arrays.asList(am.list(""));
                 tab_checker = new ArrayList<>();
-                if (!Systems.checkOMS(mContext)) {
+                if (!Systems.checkOMS(context)) {
                     for (int i = 0; i < found_folders.size(); i++) {
                         if (Resources.allowedForLegacy
                                 (found_folders.get(i).toString())) {
@@ -649,27 +649,27 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                             .theme_information_tab_one)));
                 }
                 if (tab_checker.contains(bootAnimationsFragment) &&
-                        Resources.isBootAnimationSupported(mContext)) {
+                        Resources.isBootAnimationSupported(context)) {
                     isWallpaperOnly = false;
                     tabLayout.addTab(tabLayout.newTab().setText(getString(R
                             .string
                             .theme_information_tab_two)));
                 }
                 if (tab_checker.contains(shutdownAnimationsFragment) &&
-                        Resources.isShutdownAnimationSupported(mContext)) {
+                        Resources.isShutdownAnimationSupported(context)) {
                     isWallpaperOnly = false;
                     tabLayout.addTab(tabLayout.newTab().setText(getString(R
                             .string
                             .theme_information_tab_six)));
                 }
-                if (tab_checker.contains(fontsFragment) && Resources.isFontsSupported(mContext)) {
+                if (tab_checker.contains(fontsFragment) && Resources.isFontsSupported(context)) {
                     isWallpaperOnly = false;
                     tabLayout.addTab(tabLayout.newTab().setText(getString(R
                             .string
                             .theme_information_tab_three)));
                 }
                 if (tab_checker.contains(soundsFragment) &&
-                        Resources.isSoundsSupported(mContext)) {
+                        Resources.isSoundsSupported(context)) {
                     isWallpaperOnly = false;
                     tabLayout.addTab(tabLayout.newTab().setText(getString(R
                             .string
@@ -746,14 +746,14 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
 
         HashMap<String, Boolean> extra_hidden_tabs = new HashMap<>();
         // Boot animation visibility
-        extra_hidden_tabs.put(bootAnimationsFragment, Resources.isBootAnimationSupported(mContext));
+        extra_hidden_tabs.put(bootAnimationsFragment, Resources.isBootAnimationSupported(context));
         // Shutdown animation visibility
         extra_hidden_tabs.put(shutdownAnimationsFragment,
-                Resources.isShutdownAnimationSupported(mContext));
+                Resources.isShutdownAnimationSupported(context));
         // Fonts visibility
-        extra_hidden_tabs.put(fontsFragment, Resources.isFontsSupported(mContext));
+        extra_hidden_tabs.put(fontsFragment, Resources.isFontsSupported(context));
         // Sounds visibility
-        extra_hidden_tabs.put(soundsFragment, Resources.isSoundsSupported(mContext));
+        extra_hidden_tabs.put(soundsFragment, Resources.isSoundsSupported(context));
 
         // Set up the tabs
         InformationTabsAdapter adapter = new InformationTabsAdapter(
@@ -813,7 +813,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
 
         PagerAdapter adapt = viewPager.getAdapter();
         LocalBroadcastManager localBroadcastManager =
-                LocalBroadcastManager.getInstance(mContext);
+                LocalBroadcastManager.getInstance(context);
         floatingActionButton.setOnClickListener(v -> {
             try {
                 boolean isLunchbarOpen = InformationActivity.closeAllLunchBars();
@@ -851,9 +851,9 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
 
         // This is for the Floating Action Menu actions
         Intent intent = new Intent("Overlays" + START_JOB_ACTION);
-        if (!Systems.checkOMS(this) && !Systems.isSamsungDevice(mContext)) {
+        if (!Systems.checkOMS(this) && !Systems.isSamsungDevice(context)) {
             enable_swap.setText(getString(R.string.fab_menu_swap_toggle_legacy));
-        } else if (Systems.isSamsung(mContext)) {
+        } else if (Systems.isSamsung(context)) {
             fab_menu_divider.setVisibility(View.GONE);
             enable_swap.setVisibility(View.GONE);
         }
@@ -946,8 +946,8 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
 
         Boolean shouldShowSamsungWarning =
                 !prefs.getBoolean("show_dangerous_samsung_overlays", false);
-        if (Systems.isSamsung(mContext) &&
-                !Packages.isSamsungTheme(mContext, theme_pid) &&
+        if (Systems.isSamsung(context) &&
+                !Packages.isSamsungTheme(context, theme_pid) &&
                 shouldShowSamsungWarning) {
             currentShownLunchBar = Lunchbar.make(
                     getLunchbarView(this),
@@ -956,8 +956,8 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
             currentShownLunchBar.show();
         }
         Thread currentThread = Substratum.currentThread;
-        if ((currentThread == null || !currentThread.isAlive()) && Systems.isSamsung(mContext)) {
-            Substratum.startSamsungPackageMonitor(mContext);
+        if ((currentThread == null || !currentThread.isAlive()) && Systems.isSamsung(context)) {
+            Substratum.startSamsungPackageMonitor(context);
         }
 
         puller.setCallback(this);
@@ -980,7 +980,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
         getMenuInflater().inflate(R.menu.theme_information_menu, menu);
 
         // Start dynamically showing menu items
-        boolean isOMS = Systems.checkOMS(mContext);
+        boolean isOMS = Systems.checkOMS(context);
         boolean isMR1orHigher = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1;
 
         if (!isMR1orHigher) menu.findItem(R.id.favorite).setVisible(false);
@@ -999,7 +999,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                     getColor(R.color.information_activity_dark_icon_mode),
                     PorterDuff.Mode.SRC_ATOP);
         }
-        if (Packages.getThemeChangelog(mContext, theme_pid) != null) {
+        if (Packages.getThemeChangelog(context, theme_pid) != null) {
             MenuItem changelog = menu.findItem(R.id.changelog);
             changelog.setVisible(true);
             if (shouldDarken) changelog.getIcon().setColorFilter(
@@ -1007,7 +1007,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                     PorterDuff.Mode.SRC_ATOP);
         }
 
-        if (Systems.checkAndromeda(mContext) ||
+        if (Systems.checkAndromeda(context) ||
                 (!isOMS && !Root.checkRootAccess())) {
             menu.findItem(R.id.restart_systemui).setVisible(false);
         }
@@ -1015,14 +1015,14 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
             menu.findItem(R.id.disable).setVisible(false);
             menu.findItem(R.id.enable).setVisible(false);
         }
-        if (isOMS || isSamsung(mContext)) {
-            if (isSamsung(mContext)) menu.findItem(R.id.clean).setVisible(false);
+        if (isOMS || isSamsung(context)) {
+            if (isSamsung(context)) menu.findItem(R.id.clean).setVisible(false);
             menu.findItem(R.id.reboot_device).setVisible(false);
             menu.findItem(R.id.soft_reboot).setVisible(false);
             menu.findItem(R.id.uninstall).setVisible(false);
         }
 
-        if (!Packages.isUserApp(mContext, theme_pid)) {
+        if (!Packages.isUserApp(context, theme_pid)) {
             menu.findItem(R.id.uninstall).setVisible(false);
         }
         return true;
@@ -1066,7 +1066,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                 TextView text = textBox.findViewById(R.id.text);
 
                 String[] changelog_parsing =
-                        Packages.getThemeChangelog(mContext, theme_pid);
+                        Packages.getThemeChangelog(context, theme_pid);
                 StringBuilder to_show = new StringBuilder();
                 if (changelog_parsing != null) {
                     for (String aChangelog_parsing : changelog_parsing) {
@@ -1082,19 +1082,19 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                 // This cleans all the installed overlays for this theme
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
                 builder1.setTitle(theme_name);
-                builder1.setIcon(Packages.getAppIcon(mContext, theme_pid));
+                builder1.setIcon(Packages.getAppIcon(context, theme_pid));
                 builder1.setMessage(R.string.clean_dialog_body)
                         .setPositiveButton(R.string.dialog_ok, (dialog, id18) -> {
                             // Dismiss the dialog
                             dialog.dismiss();
                             // Get all installed overlays
-                            List<String> stateAll = ThemeManager.listAllOverlays(mContext);
+                            List<String> stateAll = ThemeManager.listAllOverlays(context);
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {
                                 try {
                                     String current = stateAll.get(j);
-                                    ApplicationInfo appInfo = mContext
+                                    ApplicationInfo appInfo = context
                                             .getPackageManager().getApplicationInfo(
                                                     current, PackageManager.GET_META_DATA);
                                     if ((appInfo.metaData != null) &&
@@ -1113,7 +1113,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
 
                             // Begin uninstalling overlays for this package
                             ThemeManager.uninstallOverlay(
-                                    mContext,
+                                    context,
                                     all_overlays
                             );
                         })
@@ -1128,20 +1128,20 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                 // This disables all the installed overlays for this theme
                 AlertDialog.Builder builder3 = new AlertDialog.Builder(InformationActivity.this);
                 builder3.setTitle(theme_name);
-                builder3.setIcon(Packages.getAppIcon(mContext, theme_pid));
+                builder3.setIcon(Packages.getAppIcon(context, theme_pid));
                 builder3.setMessage(R.string.disable_dialog_body)
                         .setPositiveButton(R.string.dialog_ok, (dialog, id16) -> {
                             // Dismiss the dialog
                             dialog.dismiss();
                             // Get all enabled overlays
                             List<String> stateAll = ThemeManager.listOverlays(
-                                    mContext, ThemeManager.STATE_ENABLED);
+                                    context, ThemeManager.STATE_ENABLED);
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {
                                 try {
                                     String current = stateAll.get(j);
-                                    ApplicationInfo appInfo = mContext
+                                    ApplicationInfo appInfo = context
                                             .getPackageManager().getApplicationInfo(
                                                     current, PackageManager.GET_META_DATA);
                                     if ((appInfo.metaData != null) &&
@@ -1162,7 +1162,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                                     Lunchbar.LENGTH_LONG);
                             currentShownLunchBar.show();
                             // Begin disabling overlays
-                            ThemeManager.disableOverlay(mContext, all_overlays);
+                            ThemeManager.disableOverlay(context, all_overlays);
                         })
                         .setNegativeButton(R.string.dialog_cancel, (dialog, id15) -> {
                             // User cancelled the dialog
@@ -1176,20 +1176,20 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                 AlertDialog.Builder builder4 = new AlertDialog.Builder(InformationActivity
                         .this);
                 builder4.setTitle(theme_name);
-                builder4.setIcon(Packages.getAppIcon(mContext, theme_pid));
+                builder4.setIcon(Packages.getAppIcon(context, theme_pid));
                 builder4.setMessage(R.string.enable_dialog_body)
                         .setPositiveButton(R.string.dialog_ok, (dialog, id14) -> {
                             // Dismiss the dialog
                             dialog.dismiss();
                             // Get all disabled overlays
                             List<String> stateAll = ThemeManager.listOverlays(
-                                    mContext, ThemeManager.STATE_DISABLED);
+                                    context, ThemeManager.STATE_DISABLED);
 
                             ArrayList<String> all_overlays = new ArrayList<>();
                             for (int j = 0; j < stateAll.size(); j++) {
                                 try {
                                     String current = stateAll.get(j);
-                                    ApplicationInfo appInfo = mContext
+                                    ApplicationInfo appInfo = context
                                             .getPackageManager().getApplicationInfo(
                                                     current, PackageManager.GET_META_DATA);
                                     if ((appInfo.metaData != null) &&
@@ -1211,7 +1211,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                             currentShownLunchBar.show();
 
                             // Begin enabling overlays
-                            ThemeManager.enableOverlay(mContext, all_overlays);
+                            ThemeManager.enableOverlay(context, all_overlays);
                         })
                         .setNegativeButton(R.string.dialog_cancel, (dialog, id13) ->
                                 dialog
@@ -1224,7 +1224,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                 AlertDialog.Builder builder5 = new AlertDialog.Builder(InformationActivity
                         .this);
                 builder5.setTitle(theme_name);
-                builder5.setIcon(Packages.getAppIcon(mContext, theme_pid));
+                builder5.setIcon(Packages.getAppIcon(context, theme_pid));
                 builder5.setMessage(R.string.uninstall_dialog_text)
                         .setPositiveButton(R.string.dialog_ok, (dialog, id12) -> {
                             // Dismiss the dialog
@@ -1239,7 +1239,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                 builder5.show();
                 return true;
             case R.id.restart_systemui:
-                ThemeManager.restartSystemUI(mContext);
+                ThemeManager.restartSystemUI(context);
                 return true;
             case R.id.reboot_device:
                 ElevatedCommands.reboot();
@@ -1260,7 +1260,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
             materialSheetFab.hideSheet();
         } else {
             if (uninstalled) {
-                Broadcasts.sendRefreshMessage(mContext);
+                Broadcasts.sendRefreshMessage(context);
             }
             supportFinishAfterTransition();
         }
@@ -1304,7 +1304,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
             // Unregistered already
         }
 
-        if (Systems.isAndromedaDevice(mContext)) {
+        if (Systems.isAndromedaDevice(context)) {
             try {
                 localBroadcastManager.unregisterReceiver(andromedaReceiver);
             } catch (Exception e) {
@@ -1314,9 +1314,9 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
 
         if (!BYPASS_SUBSTRATUM_BUILDER_DELETION) {
             String workingDirectory =
-                    mContext.getCacheDir().getAbsolutePath();
+                    context.getCacheDir().getAbsolutePath();
             File deleted = new File(workingDirectory);
-            FileOperations.delete(mContext, deleted.getAbsolutePath());
+            FileOperations.delete(context, deleted.getAbsolutePath());
             if (!deleted.exists()) Log.d(References.SUBSTRATUM_BUILDER,
                     "Successfully cleared Substratum cache!");
         }
@@ -1413,7 +1413,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
             InformationActivity informationActivity = ref.get();
             if (informationActivity != null) {
                 References.createShortcut(
-                        informationActivity.mContext,
+                        informationActivity.context,
                         informationActivity.theme_pid,
                         informationActivity.theme_name);
                 return informationActivity.theme_name;
@@ -1460,7 +1460,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
         protected String doInBackground(String... sUrl) {
             InformationActivity informationActivity = ref.get();
             if (informationActivity != null) {
-                References.clearShortcut(informationActivity.mContext);
+                References.clearShortcut(informationActivity.context);
                 return informationActivity.theme_name;
             }
             return null;
@@ -1493,7 +1493,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                 informationActivity.mProgressDialog.show();
                 // Clear the notification of building theme if shown
                 NotificationManager manager = (NotificationManager)
-                        informationActivity.mContext
+                        informationActivity.context
                                 .getSystemService(Context.NOTIFICATION_SERVICE);
                 if (manager != null) {
                     manager.cancel(References.notification_id_compiler);
@@ -1516,7 +1516,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
             InformationActivity informationActivity = ref.get();
             if (informationActivity != null) {
                 Packages.uninstallPackage(
-                        informationActivity.mContext,
+                        informationActivity.context,
                         informationActivity.theme_pid);
             }
             return null;
@@ -1568,7 +1568,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                     supportFinishAfterTransition();
                     Handler handler = new Handler();
                     handler.postDelayed(() ->
-                            Theming.launchTheme(mContext, theme_pid, theme_mode), 500L);
+                            Theming.launchTheme(context, theme_pid, theme_mode), 500L);
                 }
             } else if (compilingProcess) {
                 Log.d(SUBSTRATUM_LOG,

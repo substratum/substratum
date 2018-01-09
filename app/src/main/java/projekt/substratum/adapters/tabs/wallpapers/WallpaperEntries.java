@@ -23,7 +23,7 @@ import android.content.Context;
 
 public class WallpaperEntries {
 
-    private Context mContext;
+    private Context context;
     private String wallpaperName;
     private String wallpaperLink;
     private String wallpaperPreview;
@@ -38,11 +38,11 @@ public class WallpaperEntries {
     }
 
     public Context getContext() {
-        return this.mContext;
+        return this.context;
     }
 
-    public void setContext(Context mContext) {
-        this.mContext = mContext;
+    public void setContext(Context context) {
+        this.context = context;
     }
 
     String getWallpaperName() {

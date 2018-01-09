@@ -204,6 +204,7 @@ public class ManagerAdapter extends
             viewHolder.type4.setText(overlayList.get(position).getType4());
         }
 
+        if (!floatui) {
         SpannableStringBuilder version = StringUtils.format(context.getString(
                 R.string.manager_version), String.valueOf(
                 Packages.getOverlaySubstratumVersion(
@@ -211,16 +212,15 @@ public class ManagerAdapter extends
                         overlayList.get(position)
                                 .getName())), Typeface.BOLD);
         viewHolder.version.setText(version);
-
-        if (!floatui) {
-            SpannableStringBuilder str2 = StringUtils.format(context.getString(
-                    R.string.manager_theme_version), String.valueOf(
-                    Packages.getAppVersion(
-                                context,
-                                overlayList.get(position).getName())),
-                    Typeface.BOLD);
-            viewHolder.theme_version.setText(str2);
         }
+
+        SpannableStringBuilder str2 = StringUtils.format(context.getString(
+                R.string.manager_theme_version), String.valueOf(
+                Packages.getAppVersion(
+                            context,
+                            overlayList.get(position).getName())),
+                Typeface.BOLD);
+        viewHolder.theme_version.setText(str2);
 
         if (overlayList.get(position).getThemeName().isEmpty()) {
             SpannableStringBuilder themeName = StringUtils.format(

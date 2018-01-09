@@ -140,7 +140,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/version"
+                android:id="@+id/theme_version"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/version_name_placeholder"

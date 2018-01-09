@@ -19,6 +19,7 @@
 package projekt.substratum.services.packages;
 
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -30,6 +31,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import java.util.HashSet;
@@ -43,7 +45,6 @@ import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
-import projekt.substratum.util.helpers.NotificationCreator;
 
 import static projekt.substratum.common.Internal.THEME_PID;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
@@ -141,17 +142,21 @@ public class PackageModificationDetector extends BroadcastReceiver {
                     PendingIntent contentIntent = PendingIntent.getActivity(
                             context, 0, showIntent, 0);
 
-                    new NotificationCreator(
-                            context,
-                            context.getString(
-                                    R.string.failed_to_install_title_notification),
-                            parse,
-                            true,
-                            contentIntent,
-                            R.drawable.notification_warning_icon,
-                            null,
-                            Notification.PRIORITY_MAX,
-                            References.notification_id).createNotification();
+                    NotificationManager mNotifyManager = (NotificationManager) context
+                            .getSystemService(Context.NOTIFICATION_SERVICE);
+                    NotificationCompat.Builder mBuilder = new
+                            NotificationCompat.Builder(context,
+                            References.DEFAULT_NOTIFICATION_CHANNEL_ID);
+                    mBuilder.setContentTitle(context.getString(
+                            R.string.failed_to_install_title_notification));
+                    mBuilder.setContentText(parse);
+                    mBuilder.setAutoCancel(true);
+                    mBuilder.setContentIntent(contentIntent);
+                    mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
+                    mBuilder.setPriority(Notification.PRIORITY_MAX);
+                    if (mNotifyManager != null) {
+                        mNotifyManager.notify(References.notification_id, mBuilder.build());
+                    }
 
                     Packages.uninstallPackage(context, package_name);
                     return;
@@ -174,17 +179,21 @@ public class PackageModificationDetector extends BroadcastReceiver {
                     PendingIntent contentIntent = PendingIntent.getActivity(
                             context, 0, showIntent, 0);
 
-                    new NotificationCreator(
-                            context,
-                            context.getString(
-                                    R.string.refused_to_install_title_notification),
-                            parse,
-                            true,
-                            contentIntent,
-                            R.drawable.notification_warning_icon,
-                            null,
-                            Notification.PRIORITY_MAX,
-                            References.notification_id).createNotification();
+                    NotificationManager mNotifyManager = (NotificationManager) context
+                            .getSystemService(Context.NOTIFICATION_SERVICE);
+                    NotificationCompat.Builder mBuilder = new
+                            NotificationCompat.Builder(context,
+                            References.DEFAULT_NOTIFICATION_CHANNEL_ID);
+                    mBuilder.setContentTitle(context.getString(
+                            R.string.refused_to_install_title_notification));
+                    mBuilder.setContentText(parse);
+                    mBuilder.setAutoCancel(true);
+                    mBuilder.setContentIntent(contentIntent);
+                    mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
+                    mBuilder.setPriority(Notification.PRIORITY_MAX);
+                    if (mNotifyManager != null) {
+                        mNotifyManager.notify(References.notification_id, mBuilder.build());
+                    }
 
                     Packages.uninstallPackage(context, package_name);
                     return;
@@ -197,35 +206,46 @@ public class PackageModificationDetector extends BroadcastReceiver {
         if (replacing) {
             // We need to check if this is a new install or not
             Log.d(TAG, '\'' + package_name + "' has been updated.");
-            Bitmap bitmap = Packages.getBitmapFromDrawable(
-                    Packages.getAppIcon(context, package_name));
-
-            new NotificationCreator(
-                    context,
-                    Packages.getPackageName(context, package_name) + ' ' + context
-                            .getString(
-                                    R.string.notification_theme_updated),
-                    context.getString(R.string.notification_theme_updated_content),
-                    true,
-                    getPendingIntent(package_name),
-                    R.drawable.notification_updated,
-                    bitmap,
-                    Notification.PRIORITY_MAX,
-                    ThreadLocalRandom.current().nextInt(0, 1000)).createNotification();
+            NotificationManager mNotifyManager = (NotificationManager) context
+                    .getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationCompat.Builder mBuilder = new
+                    NotificationCompat.Builder(context,
+                    References.DEFAULT_NOTIFICATION_CHANNEL_ID);
+            mBuilder.setContentTitle(
+                    Packages.getPackageName(context, package_name) + ' ' +
+                            context.getString(R.string.notification_theme_updated));
+            mBuilder.setContentText(context.getString(R.string.notification_theme_updated_content));
+            mBuilder.setAutoCancel(true);
+            mBuilder.setContentIntent(getPendingIntent(package_name));
+            mBuilder.setSmallIcon(R.drawable.notification_updated);
+            mBuilder.setLargeIcon(Packages.getBitmapFromDrawable(
+                    Packages.getAppIcon(context, package_name)));
+            mBuilder.setPriority(Notification.PRIORITY_MAX);
+            if (mNotifyManager != null) {
+                mNotifyManager.notify(
+                        ThreadLocalRandom.current().nextInt(0, 1000), mBuilder.build());
+            }
         } else {
-            new NotificationCreator(
-                    context,
-                    Packages.getPackageName(context, package_name) + ' ' + context
-                            .getString(
-                                    R.string.notification_theme_installed),
-                    context.getString(R.string.notification_theme_installed_content),
-                    true,
-                    getPendingIntent(package_name),
-                    R.drawable.notification_icon,
-                    BitmapFactory.decodeResource(
-                            context.getResources(), R.mipmap.main_launcher),
-                    Notification.PRIORITY_MAX,
-                    ThreadLocalRandom.current().nextInt(0, 1000)).createNotification();
+            NotificationManager mNotifyManager = (NotificationManager) context
+                    .getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationCompat.Builder mBuilder = new
+                    NotificationCompat.Builder(context,
+                    References.DEFAULT_NOTIFICATION_CHANNEL_ID);
+            mBuilder.setContentTitle(
+                    Packages.getPackageName(context, package_name) + ' ' +
+                            context.getString(R.string.notification_theme_installed));
+            mBuilder.setContentText(
+                    context.getString(R.string.notification_theme_installed_content));
+            mBuilder.setAutoCancel(true);
+            mBuilder.setContentIntent(getPendingIntent(package_name));
+            mBuilder.setSmallIcon(R.drawable.notification_icon);
+            mBuilder.setLargeIcon(BitmapFactory.decodeResource(
+                    context.getResources(), R.mipmap.main_launcher));
+            mBuilder.setPriority(Notification.PRIORITY_MAX);
+            if (mNotifyManager != null) {
+                mNotifyManager.notify(
+                        ThreadLocalRandom.current().nextInt(0, 1000), mBuilder.build());
+            }
         }
         Broadcasts.sendRefreshMessage(context);
         Broadcasts.sendActivityFinisherMessage(context, package_name);

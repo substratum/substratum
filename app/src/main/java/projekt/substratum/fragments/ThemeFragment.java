@@ -38,6 +38,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -54,6 +55,7 @@ import projekt.substratum.R;
 import projekt.substratum.adapters.fragments.themes.ThemeAdapter;
 import projekt.substratum.adapters.fragments.themes.ThemeItem;
 import projekt.substratum.common.Packages;
+import projekt.substratum.common.Systems;
 
 import static projekt.substratum.common.Internal.HOME_TITLE;
 import static projekt.substratum.common.Internal.HOME_TYPE;
@@ -195,6 +197,25 @@ public class ThemeFragment extends Fragment {
 
             // Assign adapter to RecyclerView
             themeFragment.recyclerView.setAdapter(themeFragment.mAdapter);
+            // Now let's animate the objects one by one!
+            themeFragment.recyclerView.getViewTreeObserver().addOnPreDrawListener(
+                    new ViewTreeObserver.OnPreDrawListener() {
+                        @Override
+                        public boolean onPreDraw() {
+                            themeFragment.recyclerView
+                                    .getViewTreeObserver().removeOnPreDrawListener(this);
+                            boolean slowDevice = Systems.isSamsungDevice(themeFragment.context);
+                            for (int i = 0; i < themeFragment.recyclerView.getChildCount(); i++) {
+                                View v = themeFragment.recyclerView.getChildAt(i);
+                                v.setAlpha(0.0f);
+                                v.animate().alpha(1.0f)
+                                        .setDuration(300)
+                                        .setStartDelay(slowDevice ? i * 50 : i * 30)
+                                        .start();
+                            }
+                            return true;
+                        }
+                    });
 
             // Begin to set the formatting of the layouts
             if (prefs.getInt("grid_style_cards_count", DEFAULT_GRID_COUNT) > 1) {

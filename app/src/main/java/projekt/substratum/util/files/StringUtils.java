@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.util;
+package projekt.substratum.util.files;
 
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
@@ -24,9 +24,17 @@ import android.text.style.StyleSpan;
 
 public class StringUtils {
 
-    public static SpannableStringBuilder format(String toBold, String trailingElement, int typefaceType) {
-        SpannableStringBuilder stringBuilder = new SpannableStringBuilder(toBold + " " + trailingElement);
-        stringBuilder.setSpan(new StyleSpan(typefaceType), 0, toBold.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    public static SpannableStringBuilder format(String toBold,
+                                                String trailingElement,
+                                                int typefaceType) {
+        SpannableStringBuilder stringBuilder =
+                new SpannableStringBuilder(toBold + " " + trailingElement);
+        stringBuilder.setSpan(
+                new StyleSpan(typefaceType),
+                0,
+                toBold.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        );
         return stringBuilder;
     }
 }

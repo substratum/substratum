@@ -36,7 +36,7 @@ import java.util.List;
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
-import projekt.substratum.util.StringUtils;
+import projekt.substratum.util.files.StringUtils;
 
 public class ManagerAdapter extends
         RecyclerView.Adapter<ManagerAdapter.ViewHolder> {

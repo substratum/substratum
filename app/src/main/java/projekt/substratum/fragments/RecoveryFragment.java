@@ -228,6 +228,7 @@ public class RecoveryFragment extends Fragment {
             LinearLayout restore = sheetView.findViewById(R.id.restore);
             restore.setOnClickListener(view2 -> {
                 if (Systems.checkThemeInterfacer(mContext) ||
+                        Systems.checkSubstratumService(mContext) ||
                         Settings.System.canWrite(mContext)) {
                     new FontsClearer(this).execute("");
                 } else {

@@ -48,6 +48,7 @@
     <!-- App shortcut creation permission -->
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <!-- Interfacer use only -->
+    <uses-permission android:name="android.permission.MODIFY_OVERLAYS" />
     <uses-permission android:name="projekt.interfacer.permission.ACCESS_SERVICE" />
 
     <application

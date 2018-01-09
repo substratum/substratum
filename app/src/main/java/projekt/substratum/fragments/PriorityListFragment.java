@@ -19,6 +19,7 @@
 package projekt.substratum.fragments;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -43,6 +44,7 @@ import com.thesurix.gesturerecycler.GestureAdapter;
 import com.thesurix.gesturerecycler.GestureManager;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -155,7 +157,12 @@ public class PriorityListFragment extends Fragment {
                     Packages.getOverlayParentIcon(context, o)));
             workable_list.add(o);
         }
-
+        // On Android Oreo and above, the list is properly reflected now, where the top holds to
+        // highest priority while the bottom holds the lowest, unlike M and N
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Collections.reverse(workable_list);
+            Collections.reverse(prioritiesList);
+        }
         PriorityAdapter adapter = new PriorityAdapter(
                 context,
                 R.layout.priority_overlay_item);

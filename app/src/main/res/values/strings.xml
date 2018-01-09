@@ -379,10 +379,14 @@
     <string name="logcat_processing_dialog">Processing error report</string>
 
     <string name="priority_instructions_title">Instructions</string>
-    <string name="priority_instructions_content">With the way the Overlay Manager Service works, all
-        overlay priorities are laid out in an inverted order where the bottom is the highest
-        priority (initial resource lookup) and the top is the lowest priority
-        (final resource lookup).
+    <string name="priority_instructions_content">With the dynamic priority system, you can adjust
+        the overlay priorities as layers in terms of levels. What this means is that when an
+        overlay has the highest priority, resources from the overlay will be pulled from the
+        highest overlay first, then the second highest.
+        \n
+        \nFor Oreo devices, the top overlay is the highest.
+        \n
+        \nFor Nougat devices, the bottom overlay is the highest (inverted).
     </string>
     <string name="priority_no_multiple_overlays_title">no apps with multiple
         overlays&#8230;</string>

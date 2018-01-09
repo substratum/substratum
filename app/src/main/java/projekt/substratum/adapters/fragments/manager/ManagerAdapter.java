@@ -23,9 +23,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -205,20 +203,20 @@ public class ManagerAdapter extends
         }
 
         if (!floatui) {
-        SpannableStringBuilder version = StringUtils.format(context.getString(
-                R.string.manager_version), String.valueOf(
-                Packages.getOverlaySubstratumVersion(
-                        context,
-                        overlayList.get(position)
-                                .getName())), Typeface.BOLD);
-        viewHolder.version.setText(version);
+            SpannableStringBuilder version = StringUtils.format(context.getString(
+                    R.string.manager_version), String.valueOf(
+                    Packages.getOverlaySubstratumVersion(
+                            context,
+                            overlayList.get(position)
+                                    .getName())), Typeface.BOLD);
+            viewHolder.version.setText(version);
         }
 
         SpannableStringBuilder str2 = StringUtils.format(context.getString(
                 R.string.manager_theme_version), String.valueOf(
                 Packages.getAppVersion(
-                            context,
-                            overlayList.get(position).getName())),
+                        context,
+                        overlayList.get(position).getName())),
                 Typeface.BOLD);
         viewHolder.theme_version.setText(str2);
 

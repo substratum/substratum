@@ -19,7 +19,6 @@
 package projekt.substratum.adapters.fragments.manager;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 
 import java.io.Serializable;
@@ -28,7 +27,6 @@ import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
-import projekt.substratum.util.StringUtils;
 
 import static projekt.substratum.common.Resources.LG_FRAMEWORK;
 import static projekt.substratum.common.Resources.SAMSUNG_FRAMEWORK;

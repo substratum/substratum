@@ -265,8 +265,8 @@ public class RecoveryFragment extends Fragment {
         }
 
         if (Systems.isSamsungDevice(context) ||
-            (!Systems.checkThemeInterfacer(context) &&
-                !Systems.checkSubstratumService(context))) {
+                (!Systems.checkThemeInterfacer(context) &&
+                        !Systems.checkSubstratumService(context))) {
             soundCard.setVisibility(View.GONE);
         }
 

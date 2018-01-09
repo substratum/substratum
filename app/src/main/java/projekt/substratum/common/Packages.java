@@ -162,7 +162,7 @@ public enum Packages {
     /**
      * Validate whether a resource is present in a given package name
      *
-     * @param context      Context
+     * @param context       Context
      * @param package_name  Package name of the desired app to be checked
      * @param resource_name Resource name of the object to be checked
      * @param resource_type Resource type of the object to be checked
@@ -357,7 +357,7 @@ public enum Packages {
     /**
      * Grabs a given package's app version
      *
-     * @param context     Context
+     * @param context      Context
      * @param package_name Package name of the desired app to be checked
      * @return Returns a string of the app's version
      */
@@ -375,7 +375,7 @@ public enum Packages {
     /**
      * Return the package's app version code
      *
-     * @param context     Context
+     * @param context      Context
      * @param package_name Package name of the desired app to be checked
      * @return Returns an int of the app's version code
      */
@@ -393,7 +393,7 @@ public enum Packages {
     /**
      * Grabs a given theme's app version
      *
-     * @param context     Context
+     * @param context      Context
      * @param package_name Package name of the desired app to be checked
      * @return Returns a string of the app's version
      */
@@ -411,7 +411,7 @@ public enum Packages {
     /**
      * Grab the available API levels for a given theme
      *
-     * @param context     Context
+     * @param context      Context
      * @param package_name Package name of the desired app to be checked
      * @return Returns a string of the theme's SDK APIs
      */
@@ -507,7 +507,7 @@ public enum Packages {
     /**
      * Grab a specified metadata from a theme
      *
-     * @param context     Context
+     * @param context      Context
      * @param package_name Package name of the desired app to be checked
      * @param metadata     Name of the metadata to be acquired
      * @return Returns a string of the metadata's output
@@ -545,7 +545,7 @@ public enum Packages {
     /**
      * Obtain a resource pointer from any package installed on the device
      *
-     * @param context     Context
+     * @param context      Context
      * @param package_name Package name of the desired app to be checked
      * @param resourceName Resource name from the desired app to be checked
      * @param type         Resource type of the desired object
@@ -572,7 +572,7 @@ public enum Packages {
     /**
      * Obtain a color resource
      *
-     * @param context     Context
+     * @param context      Context
      * @param package_name Package name of the desired app to be checked
      * @param colorName    Name of the color
      * @return Returns the exact resource pointer given a proper otherContext value.
@@ -587,7 +587,7 @@ public enum Packages {
     /**
      * Grab the theme's changelog
      *
-     * @param context     Context
+     * @param context      Context
      * @param package_name Package name of the desired app to be checked
      * @return Returns a string array for the given theme's changelog
      */
@@ -608,7 +608,7 @@ public enum Packages {
     /**
      * Grab the theme's hero image
      *
-     * @param context     Context
+     * @param context      Context
      * @param package_name Package name of the desired app to be checked
      * @return Returns a drawable for the given theme's hero image
      */
@@ -649,7 +649,7 @@ public enum Packages {
     /**
      * Get a human readable target package name
      *
-     * @param context     Context
+     * @param context      Context
      * @param package_name Package name of the desired app to be checked
      * @return String of the target package name
      */
@@ -684,7 +684,7 @@ public enum Packages {
     /**
      * Get Theme Ready support
      *
-     * @param context     Context
+     * @param context      Context
      * @param package_name Package name of the desired app to be checked
      * @return String of whether the theme supports theme ready
      */
@@ -696,7 +696,7 @@ public enum Packages {
     /**
      * Get theme plugin version
      *
-     * @param context     Context
+     * @param context      Context
      * @param package_name Package name of the desired app to be checked
      * @return String of the theme's plugin version
      */
@@ -712,7 +712,7 @@ public enum Packages {
     /**
      * Get theme parent from overlay
      *
-     * @param context     Context
+     * @param context      Context
      * @param package_name Package name of the desired app to be checked
      * @return String of the overlay's parent
      */
@@ -724,7 +724,7 @@ public enum Packages {
     /**
      * Get theme target from overlay
      *
-     * @param context     Context
+     * @param context      Context
      * @param package_name Package name of the desired app to be checked
      * @return String of the overlay's target
      */

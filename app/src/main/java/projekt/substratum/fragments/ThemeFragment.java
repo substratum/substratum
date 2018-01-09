@@ -129,7 +129,7 @@ public class ThemeFragment extends Fragment {
      * Deeply refresh the themes
      *
      * @param themeFragment       Theme Fragment
-     * @param context            Self explanatory, bud
+     * @param context             Self explanatory, bud
      * @param prefs               Shared Preferences instance
      * @param activity            Activity of calling function
      * @param toolbarTitle        Requested toolbar title

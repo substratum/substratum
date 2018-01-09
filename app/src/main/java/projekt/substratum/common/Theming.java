@@ -44,7 +44,7 @@ public enum Theming {
     /**
      * Launch a specific theme
      *
-     * @param context     Self explanatory, bud.
+     * @param context      Self explanatory, bud.
      * @param package_name Theme to be launched
      * @param theme_mode   Filter mode
      */
@@ -65,7 +65,7 @@ public enum Theming {
     /**
      * Grab the theme's keys
      *
-     * @param context     Self explanatory, bud.
+     * @param context      Self explanatory, bud.
      * @param package_name Theme to obtain keys for
      */
     public static void getThemeKeys(Context context,
@@ -88,7 +88,7 @@ public enum Theming {
     /**
      * Grab the theme's intent
      *
-     * @param context     Self explanatory, bud.
+     * @param context      Self explanatory, bud.
      * @param package_name Theme to receive intent for
      * @param theme_mode   Filter mode
      * @param actionIntent Intent to be verified with a series of data

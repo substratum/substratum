@@ -28,6 +28,7 @@ import static projekt.substratum.common.Systems.checkThemeInterfacer;
 
 public enum SoundsManager {
     ;
+
     /**
      * Set sound pack
      *

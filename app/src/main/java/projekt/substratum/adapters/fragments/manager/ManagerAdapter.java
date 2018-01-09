@@ -228,7 +228,7 @@ public class ManagerAdapter extends
                     Typeface.BOLD);
             viewHolder.tvDesc.setText(themeName);
         } else {
-             viewHolder.tvDesc.setText(StringUtils.format(
+            viewHolder.tvDesc.setText(StringUtils.format(
                     context.getString(R.string.manager_theme_name),
                     overlayList.get(position).getThemeName(),
                     Typeface.BOLD));

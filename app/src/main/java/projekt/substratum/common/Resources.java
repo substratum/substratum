@@ -162,7 +162,6 @@ public enum Resources {
     private static final String[] ALLOWED_LEGACY_ASSETS = {
             "overlays",
             "bootanimation",
-            "sounds"
     };
     // Do not theme these packages
     private static final String[] BLACKLIST_THEME_TARGET_APPS = {

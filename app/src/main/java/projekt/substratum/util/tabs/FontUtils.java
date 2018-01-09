@@ -89,7 +89,7 @@ public class FontUtils {
                     fragment.progress.setCancelable(false);
                     fragment.progress.show();
                 }
-                Boolean isRootless = checkOMS(context) &&
+                Boolean isRootless =
                         (checkThemeInterfacer(context) || checkSubstratumService(context));
                 if (isRootless)
                     Toast.makeText(context,

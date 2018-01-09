@@ -20,13 +20,10 @@ package projekt.substratum.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Lunchbar;
 import android.support.v4.app.Fragment;
@@ -228,20 +225,8 @@ public class RecoveryFragment extends Fragment {
             LinearLayout restore = sheetView.findViewById(R.id.restore);
             restore.setOnClickListener(view2 -> {
                 if (Systems.checkThemeInterfacer(mContext) ||
-                        Systems.checkSubstratumService(mContext) ||
-                        Settings.System.canWrite(mContext)) {
+                        Systems.checkSubstratumService(mContext)) {
                     new FontsClearer(this).execute("");
-                } else {
-                    Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
-                    assert getActivity() != null;
-                    intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    if (getView() != null) {
-                        Lunchbar.make(getView(),
-                                getString(R.string.fonts_dialog_permissions_grant_toast),
-                                Lunchbar.LENGTH_LONG).show();
-                    }
                 }
                 sheetDialog.hide();
             });
@@ -256,19 +241,8 @@ public class RecoveryFragment extends Fragment {
             LinearLayout restore = sheetView.findViewById(R.id.restore);
             restore.setOnClickListener(view2 -> {
                 if (Systems.checkThemeInterfacer(mContext) ||
-                        Settings.System.canWrite(mContext)) {
+                        Systems.checkSubstratumService(mContext)) {
                     new SoundsClearer(this).execute();
-                } else {
-                    Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
-                    assert getActivity() != null;
-                    intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                    if (getView() != null) {
-                        Lunchbar.make(getView(),
-                                getString(R.string.sounds_dialog_permissions_grant_toast),
-                                Lunchbar.LENGTH_LONG).show();
-                    }
                 }
                 sheetDialog.hide();
             });
@@ -290,9 +264,9 @@ public class RecoveryFragment extends Fragment {
             fontsCard.setVisibility(View.GONE);
         }
 
-        if (Systems.isSamsungDevice(mContext) ||
-                (checkAndromeda(mContext) &&
-                        !Root.checkRootAccess())) {
+        if (Systems.isSamsungDevice(mContext) &&
+            !Systems.checkThemeInterfacer(mContext) &&
+                !Systems.checkSubstratumService(mContext)) {
             soundCard.setVisibility(View.GONE);
         }
 
@@ -384,29 +358,13 @@ public class RecoveryFragment extends Fragment {
                 editor.remove(FONTS_APPLIED);
                 editor.apply();
 
-                if (Systems.checkOMS(context)) {
+                if (Systems.checkSubstratumService(context) ||
+                        Systems.checkThemeInterfacer(context)) {
                     Toast toast = Toast.makeText(
                             context,
                             R.string.manage_fonts_toast,
                             Toast.LENGTH_SHORT);
                     toast.show();
-                } else {
-                    Toast toast = Toast.makeText(
-                            context,
-                            R.string.manage_fonts_toast,
-                            Toast.LENGTH_SHORT);
-                    toast.show();
-                    AlertDialog.Builder alertDialogBuilder =
-                            new AlertDialog.Builder(context);
-                    alertDialogBuilder.setTitle(R.string.legacy_dialog_soft_reboot_title);
-                    alertDialogBuilder.setMessage(R.string.legacy_dialog_soft_reboot_text);
-                    alertDialogBuilder.setPositiveButton(android.R.string.ok,
-                            (dialog, id) -> ElevatedCommands.reboot());
-                    alertDialogBuilder.setNegativeButton(R.string.remove_dialog_later,
-                            (dialog, id) -> dialog.dismiss());
-                    alertDialogBuilder.setCancelable(false);
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    alertDialog.show();
                 }
             }
         }

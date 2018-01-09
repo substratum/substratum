@@ -23,11 +23,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.provider.Settings;
 import android.support.design.widget.Lunchbar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
@@ -37,7 +34,6 @@ import java.lang.ref.WeakReference;
 import javax.crypto.Cipher;
 
 import projekt.substratum.R;
-import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
@@ -59,7 +55,6 @@ public class SoundUtils {
     private boolean ringtone;
     private SharedPreferences prefs;
     private View view;
-    private Cipher cipher;
 
     /**
      * Clear the applied sound pack
@@ -87,7 +82,7 @@ public class SoundUtils {
         this.mContext = context;
         this.theme_pid = theme_pid;
         this.view = view;
-        this.cipher = cipher;
+        Cipher cipher1 = cipher;
         this.prefs = PreferenceManager.getDefaultSharedPreferences(context);
         new SoundsHandlerAsync(this).execute(arguments);
     }
@@ -105,42 +100,7 @@ public class SoundUtils {
                     .show();
         }
 
-        if (!Systems.checkThemeInterfacer(mContext)) {
-            FileOperations.mountROData();
-            FileOperations.mountRO();
-        }
-
-        if (ringtone) {
-            ringtone = false;
-            if (!Systems.checkThemeInterfacer(mContext) &&
-                    !Settings.System.canWrite(mContext)) {
-                new AlertDialog.Builder(mContext)
-                        .setTitle(mContext.getString(R.string.sounds_dialog_permissions_title))
-                        .setMessage(mContext.getString(R.string
-                                .sounds_dialog_permissions_text))
-                        .setPositiveButton(R.string.sounds_dialog_permissions_grant,
-                                (dialog, which) -> {
-                                    if (!Settings.System.canWrite(mContext)) {
-                                        Intent intent = new Intent(
-                                                Settings.ACTION_MANAGE_WRITE_SETTINGS);
-                                        intent.setData(Uri.parse("package:" +
-                                                mContext.getPackageName()));
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        mContext.startActivity(intent);
-                                    } else {
-                                        Log.d(References.SUBSTRATUM_LOG,
-                                                "Substratum was granted " +
-                                                        "'android.permission.WRITE_SETTINGS' " +
-                                                        "permissions for system runtime code " +
-                                                        "execution.");
-                                    }
-                                })
-                        .setNegativeButton(R.string.sounds_dialog_permissions_deny,
-                                (dialog, which) -> dialog.dismiss())
-                        .setIcon(mContext.getDrawable(R.drawable.sounds_dialog_alert))
-                        .show();
-            }
-        }
+        if (ringtone) ringtone = false;
     }
 
     private static class SoundsHandlerAsync extends AsyncTask<String, Integer, String> {

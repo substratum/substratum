@@ -676,7 +676,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
 
                 if (fragment.overlaysList.isEmpty()) {
                     fragment.floatingActionButton.hide();
-                    fragment.toggle_zone.setVisibility(View.GONE);
+                    fragment.toggle_zone.setVisibility(View.INVISIBLE);
                     fragment.no_overlays_enabled.setVisibility(View.VISIBLE);
                     fragment.mRecyclerView.setVisibility(View.GONE);
                     fragment.textView.setText(

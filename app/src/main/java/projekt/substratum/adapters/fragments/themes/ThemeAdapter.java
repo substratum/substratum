@@ -18,6 +18,7 @@
 
 package projekt.substratum.adapters.fragments.themes;
 
+import android.animation.ValueAnimator;
 import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
@@ -26,6 +27,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -196,6 +199,17 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                         this.options = options;
                     }
                 });
+
+        // Prettify the UI with fading desaturating colors!
+        ColorMatrix matrix = new ColorMatrix();
+        ValueAnimator animation = ValueAnimator.ofFloat(0f, 1f);
+        animation.setDuration(1000);
+        animation.addUpdateListener(animation1 -> {
+            matrix.setSaturation(animation1.getAnimatedFraction());
+            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+            viewHolder.imageView.setColorFilter(filter);
+        });
+        animation.start();
 
         viewHolder.cardView.setOnLongClickListener(view -> {
             // Vibrate the device alerting the user they are about to do something dangerous!

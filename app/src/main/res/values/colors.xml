@@ -19,7 +19,7 @@
 <resources>
     <color name="colorPrimary">#FFF</color>
     <color name="colorPrimaryDark">#f4f4f4</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#424242</color>
     <color name="colorRipple">#73777777</color>
     <color name="navigationBarColor">@android:color/black</color>
     <color name="statusBarColor">@color/colorPrimaryDark</color>
@@ -81,6 +81,7 @@
     <color name="restore_button_text_color">@android:color/black</color>
 
     <color name="splashscreen_background">#fffafafa</color>
+    <color name="splashscreen_progress">@color/colorAccent</color>
     <color name="dialog_text_color">#ffffffff</color>
 
     <color name="information_activity_dark_icon_mode">@android:color/black</color>

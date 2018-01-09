@@ -46,11 +46,12 @@
 
     <ProgressBar
         android:id="@+id/progress_bar_loader"
-        style="?android:attr/indeterminateProgressStyle"
-        android:layout_width="wrap_content"
+        style="?android:progressBarStyleHorizontal"
+        android:layout_width="@dimen/app_splash_icon_width"
         android:layout_height="wrap_content"
-        android:layout_marginTop="102dp"
+        android:layout_marginTop="100dp"
         android:indeterminate="true"
-        android:indeterminateTint="@color/colorAccent" />
+        android:indeterminateTint="@color/splashscreen_progress"
+        android:padding="15dp" />
 
 </LinearLayout>

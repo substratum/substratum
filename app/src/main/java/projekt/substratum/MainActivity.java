@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity implements
      * @param activity Activity used to specify the caller
      */
     public static void uninstallMultipleAPKS(Activity activity) {
-        if (isSamsungDevice(activity.getApplicationContext()) && Root.checkRootAccess()) {
+        if (Root.checkRootAccess()) {
             uninstallOverlay(activity.getApplicationContext(), MainActivity.queuedUninstall);
         } else if (!MainActivity.queuedUninstall.isEmpty()) {
             Uri packageURI = Uri.parse("package:" + MainActivity.queuedUninstall.get(0));

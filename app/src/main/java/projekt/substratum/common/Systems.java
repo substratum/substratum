@@ -51,10 +51,8 @@ public enum Systems {
     ;
 
     /**
-     * Checks if it passes all cases of Samsung checks
-     *
-     * @param context CONTEXT!
-     * @return True, if it passes all Samsung tests
+     * Cached boolean to find if system
+     * passes all cases of Samsung checks
      */
     public static Boolean isSamsungDevice = null;
 

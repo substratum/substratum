@@ -1445,10 +1445,7 @@ public class MainActivity extends AppCompatActivity implements
                                     alert.show();
                                 }
 
-                                if (Systems.checkOreo() &&
-                                        ((!Systems.checkSubstratumService(context) &&
-                                                !Systems.isAndromedaDevice(context)) ||
-                                                checkThemeSystemModule(context) ==
+                                if ((checkThemeSystemModule(context) ==
                                                         OVERLAY_MANAGER_SERVICE_O_ROOTED) &&
                                         !activity.prefs.contains("rooted_oms_dismissal")) {
                                     AlertDialog.Builder alert = new AlertDialog.Builder(activity);
@@ -1501,10 +1498,7 @@ public class MainActivity extends AppCompatActivity implements
                         alert.show();
                     }
 
-                    if (Systems.checkOreo() &&
-                            ((!Systems.checkSubstratumService(context) &&
-                                    !Systems.isAndromedaDevice(context)) ||
-                                    checkThemeSystemModule(context) ==
+                    if ((checkThemeSystemModule(context) ==
                                             OVERLAY_MANAGER_SERVICE_O_ROOTED) &&
                             !activity.prefs.contains("rooted_oms_dismissal")) {
                         AlertDialog.Builder alert = new AlertDialog.Builder(activity);

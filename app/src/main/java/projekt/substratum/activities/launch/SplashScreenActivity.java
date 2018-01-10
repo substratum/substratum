@@ -59,6 +59,7 @@ import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
 import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
+import static projekt.substratum.common.Systems.checkThemeSystemModule;
 import static projekt.substratum.common.Systems.isAndromedaDevice;
 import static projekt.substratum.common.analytics.FirebaseAnalytics.PACKAGES_PREFS;
 import static projekt.substratum.common.analytics.PackageAnalytics.isLowEnd;
@@ -81,6 +82,7 @@ public class SplashScreenActivity extends Activity {
 
         Intent currentIntent = getIntent();
         Boolean first_run = currentIntent.getBooleanExtra("first_run", false);
+        checkThemeSystemModule(this, first_run);
         intent = new Intent(SplashScreenActivity.this, MainActivity.class);
         int intent_launch_delay = DELAY_LAUNCH_MAIN_ACTIVITY;
 

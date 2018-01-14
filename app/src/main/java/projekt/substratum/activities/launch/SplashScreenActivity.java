@@ -18,15 +18,12 @@
 
 package projekt.substratum.activities.launch;
 
-import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -107,17 +104,6 @@ public class SplashScreenActivity extends Activity {
             }
         } else {
             svgView.setVisibility(View.GONE);
-
-            // Colorize the app icon
-            ColorMatrix matrix = new ColorMatrix();
-            ValueAnimator animation = ValueAnimator.ofFloat(0f, 1f);
-            animation.setDuration(700);
-            animation.addUpdateListener(animation1 -> {
-                matrix.setSaturation(animation1.getAnimatedFraction());
-                ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
-                splashScreenImage.setColorFilter(filter);
-            });
-            animation.start();
         }
 
         Handler handler = new Handler();

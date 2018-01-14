@@ -88,7 +88,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import ooo.oxo.library.widget.PullBackLayout;
 import projekt.substratum.adapters.tabs.InformationTabsAdapter;
 import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
@@ -139,7 +138,7 @@ import static projekt.substratum.common.References.soundsFragment;
 import static projekt.substratum.common.References.wallpaperFragment;
 import static projekt.substratum.common.Systems.isSamsung;
 
-public class InformationActivity extends AppCompatActivity implements PullBackLayout.Callback {
+public class InformationActivity extends AppCompatActivity {
 
     private static final int LUNCHBAR_DISMISS_FAB_CLICK_DELAY = 200;
     public static Lunchbar currentShownLunchBar;
@@ -180,8 +179,6 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
     TextView enable_disable_selected;
     @BindView(R.id.heroImage)
     ImageView heroImage;
-    @BindView(R.id.puller)
-    PullBackLayout puller;
 
     private String theme_name;
     private String theme_pid;
@@ -285,28 +282,6 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
             return coordinatorLayout;
         }
         return References.getView(activity);
-    }
-
-    @Override
-    public void onPullComplete() {
-        supportFinishAfterTransition();
-    }
-
-    @Override
-    public void onPullStart() {
-    }
-
-    @Override
-    public void onPullCancel() {
-    }
-
-    @Override
-    public void onPull(float progress) {
-        progress = Math.min(1f, progress * 2f);
-        int alpha = (int) (0xff * (1f - progress));
-        int alphaColor = ColorUtils.setAlphaComponent(dominantColor, alpha);
-        getWindow().setStatusBarColor(alphaColor);
-        getWindow().setNavigationBarColor(alphaColor);
     }
 
     /**
@@ -917,8 +892,6 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
         if ((currentThread == null || !currentThread.isAlive()) && Systems.isSamsung(context)) {
             Substratum.startSamsungPackageMonitor(context);
         }
-
-        puller.setCallback(this);
     }
 
     /**

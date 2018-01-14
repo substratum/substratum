@@ -193,30 +193,30 @@
     <string name="wallpaper_homescreen_error">Unable to set homescreen wallpaper</string>
     <string name="wallpaper_lockscreen_success">Lockscreen wallpaper configured!</string>
     <string name="wallpaper_lockscreen_error">Unable to set lockscreen wallpaper</string>
-    <string name="wallpaper_no_connection">to utilize theme wallpapers, an internet connection is
+    <string name="wallpaper_no_connection">To utilize theme wallpapers, an internet connection is
         required&#8230;</string>
-    <string name="wallpaper_no_wallpapers">seems like the loaded wallpaper database is
+    <string name="wallpaper_no_wallpapers">Seems like the loaded wallpaper database is
         empty&#8230;</string>
 
-    <string name="font_placeholder_text">please select a font pack from the dropdown
+    <string name="font_placeholder_text">Please select a font pack from the dropdown
         list&#8230;</string>
-    <string name="font_default_spinner">please select a font pack&#8230;</string>
-    <string name="font_spinner_set_defaults">restore to default fonts&#8230;</string>
-    <string name="fonts_defaults_text">this will clear out any custom fonts
+    <string name="font_default_spinner">Please select a font pack&#8230;</string>
+    <string name="font_spinner_set_defaults">Eestore to default fonts&#8230;</string>
+    <string name="fonts_defaults_text">This will clear out any custom fonts
         applied on your device</string>
     <string name="font_dialog_apply_text">Font pack is processing&#8230;</string>
     <string name="font_dialog_apply_success">Font pack has been applied!</string>
     <string name="font_dialog_apply_failed">Font pack has failed to apply&#8230;</string>
 
-    <string name="sounds_placeholder_text">please select a sound pack from the dropdown
+    <string name="sounds_placeholder_text">Please select a sound pack from the dropdown
         list&#8230;</string>
-    <string name="sounds_spinner_set_defaults">restore to default sounds&#8230;
+    <string name="sounds_spinner_set_defaults">Restore to default sounds&#8230;
     </string>
-    <string name="sounds_spinner_defaults_text">this will clear out any custom sounds
+    <string name="sounds_spinner_defaults_text">This will clear out any custom sounds
         applied on your device</string>
     <string name="sounds_dialog_apply_success">Sound pack applied!</string>
     <string name="sounds_dialog_apply_failed">Sound pack failed to apply&#8230;</string>
-    <string name="sounds_default_spinner">please select a sound pack&#8230;</string>
+    <string name="sounds_default_spinner">Please select a sound pack&#8230;</string>
     <string name="sounds_dialog_permissions_title">Ringtones Configuration Alert</string>
     <string name="sounds_dialog_permissions_text">Alarms/Notifications/Ringtones are now selectable
         from Settings manually!\n\nHowever, Substratum cannot grant itself
@@ -236,7 +236,7 @@
         fonts, you must enable \'Allow modify system settings\'.
     </string>
 
-    <string name="error_loading_pack">it seems like this pack was not set up
+    <string name="error_loading_pack">It seems like this pack was not set up
         correctly&#8230;</string>
 
     <string name="content_resolver_alarm_metadata">Substratum Theme Alarm</string>

@@ -62,6 +62,8 @@ public class Wallpapers extends Fragment {
     RecyclerView mRecyclerView;
     private String wallpaperUrl;
     private Context context;
+    public static AsyncTask<String, Integer, String> mainLoader = null;
+
 
     @Override
     public View onCreateView(
@@ -98,8 +100,8 @@ public class Wallpapers extends Fragment {
         no_network.setVisibility(View.GONE);
 
         if (References.isNetworkAvailable(context)) {
-            downloadResources downloadTask = new downloadResources(this);
-            downloadTask.execute(wallpaperUrl, CURRENT_WALLPAPERS);
+            mainLoader = new downloadResources(this);
+            mainLoader.execute(wallpaperUrl, CURRENT_WALLPAPERS);
         } else {
             mRecyclerView.setVisibility(View.GONE);
             materialProgressBar.setVisibility(View.GONE);

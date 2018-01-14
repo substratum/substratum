@@ -202,6 +202,8 @@ public class Overlays extends Fragment {
     private LocalBroadcastManager localBroadcastManager;
     private RefreshReceiver refreshReceiver;
     private Boolean first_start = true;
+    public static AsyncTask mainLoader = null;
+
 
     /**
      * Get the activity's view through a fragment for LunchBar invokes
@@ -891,9 +893,10 @@ public class Overlays extends Fragment {
                     mRecyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
             toggle_all.setChecked(false);
             if (base_spinner.getSelectedItemPosition() > 0) {
-                new LoadOverlays(this).execute(base_spinner.getSelectedItem().toString());
+                mainLoader =
+                        new LoadOverlays(this).execute(base_spinner.getSelectedItem().toString());
             } else {
-                new LoadOverlays(this).execute("");
+                mainLoader = new LoadOverlays(this).execute("");
             }
         } else {
             Log.d(SUBSTRATUM_LOG,

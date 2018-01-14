@@ -99,6 +99,8 @@ import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.tabs.BootAnimations;
+import projekt.substratum.tabs.Overlays;
+import projekt.substratum.tabs.Wallpapers;
 import projekt.substratum.tabs.WallpapersManager;
 import projekt.substratum.util.files.Root;
 import projekt.substratum.util.views.FloatingActionMenu;
@@ -1193,6 +1195,16 @@ public class InformationActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
+
+        // Destroy all asynchronous tasks if available, executed in each heavy fragment
+        if (Overlays.mainLoader != null) {
+            Overlays.mainLoader.cancel(true);
+            Overlays.mainLoader = null;
+        }
+        if (Wallpapers.mainLoader != null) {
+            Wallpapers.mainLoader.cancel(true);
+            Wallpapers.mainLoader = null;
+        }
 
         // Close the active Samsung package monitor if applicable
         Thread currentThread = Substratum.currentThread;

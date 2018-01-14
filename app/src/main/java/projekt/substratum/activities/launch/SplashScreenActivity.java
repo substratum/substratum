@@ -33,6 +33,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.jaredrummler.android.widget.AnimatedSvgView;
 
@@ -66,12 +67,15 @@ import static projekt.substratum.common.analytics.PackageAnalytics.isLowEnd;
 
 public class SplashScreenActivity extends Activity {
 
-    private static final int DELAY_LAUNCH_MAIN_ACTIVITY = 600;
-    private static final int DELAY_LAUNCH_APP_INTRO = 2300;
+    private static final long DELAY_LAUNCH_MAIN_ACTIVITY = 600;
+    private static final long DELAY_LAUNCH_APP_INTRO = 2300;
+    private static final long DELAY_SHOW_PROGRESS_BAR = 5000;
     @BindView(R.id.animated_svg_view)
     AnimatedSvgView svgView;
     @BindView(R.id.splashscreen_image)
     ImageView splashScreenImage;
+    @BindView(R.id.progress_bar_loader)
+    ProgressBar progressBar;
     private Intent intent;
 
     @Override
@@ -84,7 +88,7 @@ public class SplashScreenActivity extends Activity {
         Boolean first_run = currentIntent.getBooleanExtra("first_run", false);
         checkThemeSystemModule(this, first_run);
         intent = new Intent(SplashScreenActivity.this, MainActivity.class);
-        int intent_launch_delay = DELAY_LAUNCH_MAIN_ACTIVITY;
+        long intent_launch_delay = DELAY_LAUNCH_MAIN_ACTIVITY;
 
         if (first_run && !isLowEnd()) {
             // Load the ImageView that will host the animation and
@@ -117,7 +121,9 @@ public class SplashScreenActivity extends Activity {
         }
 
         Handler handler = new Handler();
-        handler.postDelayed(() -> new CheckSamsung(this).execute(), (long) intent_launch_delay);
+        handler.postDelayed(() -> new CheckSamsung(this).execute(), intent_launch_delay);
+        handler.postDelayed(() -> runOnUiThread(() -> progressBar.setVisibility(View.VISIBLE)),
+                DELAY_SHOW_PROGRESS_BAR + intent_launch_delay);
     }
 
     private void launch() {

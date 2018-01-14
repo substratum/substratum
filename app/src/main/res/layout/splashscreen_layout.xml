@@ -52,6 +52,7 @@
         android:layout_marginTop="100dp"
         android:indeterminate="true"
         android:indeterminateTint="@color/splashscreen_progress"
-        android:padding="15dp" />
+        android:padding="15dp"
+        android:visibility="invisible"/>
 
 </LinearLayout>

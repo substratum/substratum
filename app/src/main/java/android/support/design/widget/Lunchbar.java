@@ -100,7 +100,8 @@ public final class Lunchbar extends BaseTransientBottomBar {
      *                 #LENGTH_LONG}
      */
     @NonNull
-    public static Lunchbar make(@NonNull final View view, @NonNull final CharSequence text,
+    public static Lunchbar make(@NonNull final View view,
+                                @NonNull final CharSequence text,
                                 @Duration final int duration) {
         final ViewGroup parent = findSuitableParent(view);
         if (parent == null) {
@@ -115,6 +116,12 @@ public final class Lunchbar extends BaseTransientBottomBar {
         final Lunchbar snackbar = new Lunchbar(parent, content, content);
         snackbar.setText(text);
         snackbar.setDuration(duration);
+        snackbar.getView().setBackgroundColor(view.getContext().getColor(
+                projekt.substratum.R.color.lunchbar_background));
+        TextView textView = snackbar.getView().findViewById(R.id.snackbar_text);
+        textView.setTextColor(view.getContext().getColor(
+                projekt.substratum.R.color.lunchbar_text));
+
         return snackbar;
     }
 
@@ -136,7 +143,9 @@ public final class Lunchbar extends BaseTransientBottomBar {
      *                 #LENGTH_LONG}
      */
     @NonNull
-    public static Lunchbar make(@NonNull final View view, @StringRes final int resId, @Duration final int duration) {
+    public static Lunchbar make(@NonNull final View view,
+                                @StringRes final int resId,
+                                @Duration final int duration) {
         return make(view, view.getResources().getText(resId), duration);
     }
 

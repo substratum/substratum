@@ -19,10 +19,13 @@
 <resources>
     <color name="colorPrimary">#FFF</color>
     <color name="colorPrimaryDark">#f4f4f4</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#424242</color>
     <color name="colorRipple">#73777777</color>
     <color name="navigationBarColor">@android:color/black</color>
     <color name="statusBarColor">@color/colorPrimaryDark</color>
+
+    <color name="lunchbar_background">@android:color/white</color>
+    <color name="lunchbar_text">@android:color/black</color>
 
     <color name="bottombar_bar_background">@android:color/white</color>
     <color name="bottombar_badge_background">@color/colorAccent</color>

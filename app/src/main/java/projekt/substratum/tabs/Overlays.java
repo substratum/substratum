@@ -484,12 +484,10 @@ public class Overlays extends Fragment {
                 } else {
                     toggle_all_overlays_text.setVisibility(View.VISIBLE);
                     base_spinner.setVisibility(View.INVISIBLE);
-                    refreshList();
                 }
             } else {
                 toggle_all_overlays_text.setVisibility(View.VISIBLE);
                 base_spinner.setVisibility(View.INVISIBLE);
-                refreshList();
             }
         } catch (Exception e) {
             if (base_spinner.getVisibility() == View.VISIBLE) {

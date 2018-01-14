@@ -254,9 +254,7 @@ public class RecoveryFragment extends Fragment {
             overlayCard.setVisibility(View.GONE);
         }
 
-        if (Systems.isSamsungDevice(context) ||
-                (checkAndromeda(context) &&
-                        !Root.checkRootAccess())) {
+        if (!Resources.isBootAnimationSupported(context)) {
             bootanimationCard.setVisibility(View.GONE);
         }
 
@@ -264,9 +262,7 @@ public class RecoveryFragment extends Fragment {
             fontsCard.setVisibility(View.GONE);
         }
 
-        if (Systems.isSamsungDevice(context) ||
-                (!Systems.checkThemeInterfacer(context) &&
-                        !Systems.checkSubstratumService(context))) {
+        if (!Resources.isSoundsSupported(context)) {
             soundCard.setVisibility(View.GONE);
         }
 

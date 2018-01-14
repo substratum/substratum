@@ -401,8 +401,10 @@ public class Overlays extends Fragment {
                                                View arg1,
                                                int pos,
                                                long id) {
-                        prefs2.edit().putInt(theme_pid, pos).apply();
-                        refreshList();
+                        if (!first_start) {
+                            prefs2.edit().putInt(theme_pid, pos).apply();
+                            refreshList();
+                        }
                     }
 
                     @Override

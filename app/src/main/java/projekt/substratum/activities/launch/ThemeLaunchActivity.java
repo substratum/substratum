@@ -22,7 +22,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import java.io.Serializable;
 import java.util.concurrent.ThreadLocalRandom;
@@ -33,7 +32,6 @@ import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 
-import static android.content.pm.PackageManager.GET_META_DATA;
 import static projekt.substratum.common.Internal.ENCRYPTION_KEY_EXTRA;
 import static projekt.substratum.common.Internal.IV_ENCRYPTION_KEY_EXTRA;
 import static projekt.substratum.common.Internal.NOTIFICATION_LAUNCH;
@@ -52,7 +50,6 @@ import static projekt.substratum.common.Internal.THEME_PACKAGE;
 import static projekt.substratum.common.Internal.THEME_PID;
 import static projekt.substratum.common.Internal.THEME_PIRACY_CHECK;
 import static projekt.substratum.common.References.SUBSTRATUM_LAUNCHER_CLASS;
-import static projekt.substratum.common.References.metadataVersion;
 
 public class ThemeLaunchActivity extends Activity {
 

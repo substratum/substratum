@@ -50,6 +50,7 @@ import static projekt.substratum.common.Internal.THEME_WALLPAPER;
 
 public class Wallpapers extends Fragment {
 
+    public static AsyncTask<String, Integer, String> mainLoader = null;
     @BindView(R.id.progress_bar_loader)
     ProgressBar materialProgressBar;
     @BindView(R.id.no_network)
@@ -62,8 +63,6 @@ public class Wallpapers extends Fragment {
     RecyclerView mRecyclerView;
     private String wallpaperUrl;
     private Context context;
-    public static AsyncTask<String, Integer, String> mainLoader = null;
-
 
     @Override
     public View onCreateView(

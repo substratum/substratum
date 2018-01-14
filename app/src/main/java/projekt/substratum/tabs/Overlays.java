@@ -159,6 +159,7 @@ import static projekt.substratum.util.files.MapUtils.sortMapByValues;
 
 public class Overlays extends Fragment {
 
+    public static AsyncTask mainLoader = null;
     // Theme instance based variables, used globally amongst all Overlays* files
     public String theme_name;
     public String theme_pid;
@@ -202,8 +203,6 @@ public class Overlays extends Fragment {
     private LocalBroadcastManager localBroadcastManager;
     private RefreshReceiver refreshReceiver;
     private Boolean first_start = true;
-    public static AsyncTask mainLoader = null;
-
 
     /**
      * Get the activity's view through a fragment for LunchBar invokes

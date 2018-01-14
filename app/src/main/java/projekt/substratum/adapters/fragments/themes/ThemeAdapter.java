@@ -50,7 +50,6 @@ import java.util.List;
 
 import projekt.substratum.R;
 import projekt.substratum.common.Broadcasts;
-import projekt.substratum.activities.launch.ThemeLaunchActivity;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Theming;

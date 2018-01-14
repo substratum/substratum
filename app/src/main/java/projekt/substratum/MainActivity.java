@@ -1431,7 +1431,7 @@ public class MainActivity extends AppCompatActivity implements
                                 }
 
                                 if ((checkThemeSystemModule(context) ==
-                                                        OVERLAY_MANAGER_SERVICE_O_ROOTED) &&
+                                        OVERLAY_MANAGER_SERVICE_O_ROOTED) &&
                                         !activity.prefs.contains("rooted_oms_dismissal")) {
                                     AlertDialog.Builder alert = new AlertDialog.Builder(activity);
                                     alert.setTitle(R.string.rooted_oms_dialog_warning_title);
@@ -1484,7 +1484,7 @@ public class MainActivity extends AppCompatActivity implements
                     }
 
                     if ((checkThemeSystemModule(context) ==
-                                            OVERLAY_MANAGER_SERVICE_O_ROOTED) &&
+                            OVERLAY_MANAGER_SERVICE_O_ROOTED) &&
                             !activity.prefs.contains("rooted_oms_dismissal")) {
                         AlertDialog.Builder alert = new AlertDialog.Builder(activity);
                         alert.setTitle(R.string.rooted_oms_dialog_warning_title);

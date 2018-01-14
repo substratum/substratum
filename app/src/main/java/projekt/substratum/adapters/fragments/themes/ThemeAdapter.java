@@ -411,64 +411,6 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         return this.information.size();
     }
 
-    private static class uninstallTheme extends AsyncTask<String, Integer, String> {
-        private WeakReference<ThemeAdapter> ref;
-
-        uninstallTheme(ThemeAdapter themeAdapter) {
-            super();
-            this.ref = new WeakReference<>(themeAdapter);
-        }
-
-        @Override
-        protected void onPreExecute() {
-            ThemeAdapter themeAdapter = this.ref.get();
-            if (themeAdapter != null) {
-                if (themeAdapter.toBeUninstalled != null) {
-                    String parseMe = String.format(
-                            themeAdapter.context.getString(R.string.adapter_uninstalling),
-                            themeAdapter.toBeUninstalled.getThemeName());
-                    themeAdapter.mProgressDialog = new ProgressDialog(themeAdapter.context);
-                    themeAdapter.mProgressDialog.setMessage(parseMe);
-                    themeAdapter.mProgressDialog.setIndeterminate(true);
-                    themeAdapter.mProgressDialog.setCancelable(false);
-                    themeAdapter.mProgressDialog.show();
-                    // Clear the notification of building theme if shown
-                    NotificationManager manager = (NotificationManager)
-                            themeAdapter.context.getSystemService(Context.NOTIFICATION_SERVICE);
-                    if (manager != null) {
-                        manager.cancel(References.notification_id_compiler);
-                    }
-                }
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            ThemeAdapter themeAdapter = this.ref.get();
-            if (themeAdapter != null) {
-                if (themeAdapter.toBeUninstalled != null) {
-                    themeAdapter.toBeUninstalled = null;
-                    Broadcasts.sendRefreshMessage(themeAdapter.context);
-                    themeAdapter.mProgressDialog.cancel();
-                }
-            }
-        }
-
-        @Override
-        protected String doInBackground(String... sUrl) {
-            ThemeAdapter themeAdapter = this.ref.get();
-            if (themeAdapter != null) {
-                if (themeAdapter.toBeUninstalled != null) {
-                    // Uninstall theme
-                    Packages.uninstallPackage(
-                            themeAdapter.context,
-                            themeAdapter.toBeUninstalled.getThemePackage());
-                }
-            }
-            return null;
-        }
-    }
-
     static class ViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView theme_name;

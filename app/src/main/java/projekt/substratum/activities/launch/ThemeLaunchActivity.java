@@ -148,8 +148,9 @@ public class ThemeLaunchActivity extends Activity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent
-            data) {
+    protected void onActivityResult(int requestCode,
+                                    int resultCode,
+                                    Intent data) {
         // Check which request we're responding to
         if ((data != null) && (requestCode != 10000)) {
             Bundle intent = data.getExtras();

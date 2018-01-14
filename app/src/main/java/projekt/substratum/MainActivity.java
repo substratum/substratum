@@ -149,8 +149,6 @@ public class MainActivity extends AppCompatActivity implements
     private static final String SELECTED_DRAWER_ITEM = "selected_drawer_item";
     public static String userInput = "";
     public static ArrayList<String> queuedUninstall;
-    @SuppressLint("StaticFieldLeak")
-    public static View heroImageTransitionObject;
     private static ActionBar supportActionBar;
     public SearchView searchView;
     @BindView(R.id.theme_count)
@@ -205,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements
      * @param activity Activity used to specify the caller
      */
     public static void uninstallMultipleAPKS(Activity activity) {
-        if (isSamsungDevice(activity.getApplicationContext()) && Root.checkRootAccess()) {
+        if (Root.checkRootAccess()) {
             uninstallOverlay(activity.getApplicationContext(), MainActivity.queuedUninstall);
         } else if (!MainActivity.queuedUninstall.isEmpty()) {
             Uri packageURI = Uri.parse("package:" + MainActivity.queuedUninstall.get(0));

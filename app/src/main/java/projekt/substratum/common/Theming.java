@@ -103,7 +103,7 @@ public enum Theming {
         if (context.getPackageName().equals(SUBSTRATUM_PACKAGE)) {
             boolean should_debug = projekt.substratum.BuildConfig.DEBUG;
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            if (should_debug) Log.d("ThemeLauncher", "Creating new intent...");
+            if (should_debug) Log.d("ThemeLauncher", "Creating new intent");
             Intent intentActivity;
             if (actionIntent.equals(TEMPLATE_GET_KEYS)) {
                 intentActivity = new Intent();

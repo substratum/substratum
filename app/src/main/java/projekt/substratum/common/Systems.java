@@ -83,7 +83,7 @@ public enum Systems {
     /**
      * This method is used to determine whether there the system is initiated with OMS
      *
-     * @param context Self explantory, sir
+     * @param context Self explanatory, sir
      */
     public static Boolean checkOMS(@NonNull Context context) {
         //noinspection ConstantConditions
@@ -148,7 +148,7 @@ public enum Systems {
             }
 
             if (checkOreo()) {
-                if (isAndromedaDevice(context) && !isBinderInterfacer(context)) {
+                if (isAndromedaDevice(context)) {
                     // Andromeda mode
                     prefs.edit().putInt(
                             "CURRENT_THEME_MODE",

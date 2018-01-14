@@ -342,7 +342,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 View sheetView =
                         View.inflate(context, R.layout.overlays_attention_sheet_dialog, null);
                 TextView attentionText = sheetView.findViewById(R.id.attention_text);
-                attentionText.setText(current_object.attention);
+                attentionText.setText(current_object.attention.replace("\\n", "\n"));
                 sheetDialog.setContentView(sheetView);
                 sheetDialog.show();
             });

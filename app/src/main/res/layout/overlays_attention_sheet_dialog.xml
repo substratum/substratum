@@ -19,15 +19,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="180dp"
     android:background="@color/bottom_sheet_dialog_background"
     android:orientation="vertical"
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
     <LinearLayout
-        android:id="@+id/uninstall"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
@@ -41,6 +40,7 @@
             android:layout_gravity="center"
             android:drawablePadding="16dp"
             android:gravity="center"
+            android:maxLines="9999999"
             android:textColor="?android:attr/textColorPrimary" />
     </LinearLayout>
 </LinearLayout>

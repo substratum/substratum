@@ -30,7 +30,6 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -53,7 +52,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.ColorUtils;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -67,7 +65,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
@@ -149,8 +146,6 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
     public static Boolean compilingProcess = false;
     public static Boolean shouldRestartActivity = false;
     private static List<String> tab_checker;
-    private static int appendedTabs = 0;
-    private static int tabCount = 0;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tabs)
@@ -187,6 +182,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
     ImageView heroImage;
     @BindView(R.id.puller)
     PullBackLayout puller;
+
     private String theme_name;
     private String theme_pid;
     private String theme_mode;
@@ -205,24 +201,6 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
     private ActivityFinisher activityFinisher;
     private int dominantColor;
     private Context context;
-
-    private int mInitialOrientation;
-    private int mOrientation;
-
-    public static void appendFragmentTabSuccess(Activity activity, Class className) {
-        appendedTabs++;
-        Log.d("AppendedFragment",
-                "Successfully concluded " + className + " (" + appendedTabs + "/" + tabCount + ")");
-        if (appendedTabs == tabCount) {
-            appendedTabs = 0;
-            tabCount = 0;
-            if (activity != null && !activity.isFinishing() && !activity.isDestroyed()) {
-                activity.startPostponedEnterTransition();
-                Log.d("AppendedFragment",
-                        "All tabs loaded, signalling for shared element transition to begin!");
-            }
-        }
-    }
 
     /**
      * Function to get the dominant color out of a specific image
@@ -307,15 +285,6 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
             return coordinatorLayout;
         }
         return References.getView(activity);
-    }
-
-    @Override
-    public void onEnterAnimationComplete() {
-        super.onEnterAnimationComplete();
-        if (MainActivity.themeCardProgressBar != null) {
-            // Notification was fired
-            MainActivity.themeCardProgressBar.setVisibility(View.GONE);
-        }
     }
 
     @Override
@@ -504,18 +473,8 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
         if (bottomBarUi) setTheme(R.style.AppTheme_SpecialUI_InformationActivity);
 
         super.onCreate(savedInstanceState);
-
-        // Postpone the shared element enter transition.
-        postponeEnterTransition();
-
-        requestWindowFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-        requestWindowFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
-
         setContentView(R.layout.information_activity);
         ButterKnife.bind(this);
-
-        mInitialOrientation = getResources().getConfiguration().orientation;
-        mOrientation = mInitialOrientation;
 
         localBroadcastManager = LocalBroadcastManager.getInstance(context);
 
@@ -765,7 +724,6 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                 extra_hidden_tabs,
                 bundle);
         viewPager.setOffscreenPageLimit(tabLayout.getTabCount());
-        tabCount = tabLayout.getTabCount();
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(
                 new TabLayout.TabLayoutOnPageChangeListener(tabLayout) {
@@ -961,12 +919,6 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
         }
 
         puller.setCallback(this);
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mOrientation = newConfig.orientation;
     }
 
     /**
@@ -1259,19 +1211,9 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
         if (materialSheetFab.isSheetVisible()) {
             materialSheetFab.hideSheet();
         } else {
-            if (uninstalled) {
+            if (uninstalled)
                 Broadcasts.sendRefreshMessage(context);
-            }
-            supportFinishAfterTransition();
-        }
-    }
-
-    @Override
-    public void supportFinishAfterTransition() {
-        if (mInitialOrientation != mOrientation) {
             finish();
-        } else {
-            super.supportFinishAfterTransition();
         }
     }
 
@@ -1332,14 +1274,32 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
         LayoutLoader(InformationActivity informationActivity) {
             super();
             ref = new WeakReference<>(informationActivity);
-            ViewCompat.setTransitionName(
-                    informationActivity.heroImage,
-                    informationActivity.theme_pid);
         }
 
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+            InformationActivity informationActivity = ref.get();
+            if (informationActivity != null) {
+                if (!informationActivity.prefs.getBoolean("complexion", false)) {
+                    informationActivity.heroImage.
+                            setBackgroundColor(Color.parseColor("#ffff00"));
+                    informationActivity.collapsingToolbar.
+                            setStatusBarScrimColor(Color.parseColor("#ffff00"));
+                    informationActivity.collapsingToolbar.
+                            setContentScrimColor(Color.parseColor("#ffff00"));
+                    informationActivity.appBarLayout.
+                            setBackgroundColor(Color.parseColor("#ffff00"));
+                    informationActivity.tabLayout.
+                            setBackgroundColor(Color.parseColor("#ffff00"));
+                    informationActivity.getWindow().
+                            setNavigationBarColor(Color.parseColor("#ffff00"));
+                } else {
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(
+                            informationActivity.byteArray, 0, informationActivity.byteArray.length);
+                    informationActivity.heroImage.setImageBitmap(bitmap);
+                }
+            }
         }
 
         @Override
@@ -1349,26 +1309,6 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 informationActivity.heroImageBitmap.compress(PNG, 100, stream);
                 informationActivity.byteArray = stream.toByteArray();
-                Bitmap bitmap = BitmapFactory.decodeByteArray(
-                        informationActivity.byteArray, 0, informationActivity.byteArray.length);
-                informationActivity.runOnUiThread(() -> {
-                    if (!informationActivity.prefs.getBoolean("complexion", false)) {
-                        informationActivity.heroImage.
-                                setBackgroundColor(Color.parseColor("#ffff00"));
-                        informationActivity.collapsingToolbar.
-                                setStatusBarScrimColor(Color.parseColor("#ffff00"));
-                        informationActivity.collapsingToolbar.
-                                setContentScrimColor(Color.parseColor("#ffff00"));
-                        informationActivity.appBarLayout.
-                                setBackgroundColor(Color.parseColor("#ffff00"));
-                        informationActivity.tabLayout.
-                                setBackgroundColor(Color.parseColor("#ffff00"));
-                        informationActivity.getWindow().
-                                setNavigationBarColor(Color.parseColor("#ffff00"));
-                    } else {
-                        informationActivity.heroImage.setImageBitmap(bitmap);
-                    }
-                });
             }
             return null;
         }
@@ -1534,7 +1474,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                 Log.d("ThemeUninstaller",
                         "The theme was uninstalled, so the activity is now closing!");
                 Broadcasts.sendRefreshMessage(context);
-                supportFinishAfterTransition();
+                finish();
             }
         }
     }
@@ -1546,7 +1486,7 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
     class AndromedaReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            supportFinishAfterTransition();
+            finish();
         }
     }
 
@@ -1565,10 +1505,10 @@ public class InformationActivity extends AppCompatActivity implements PullBackLa
                     Log.d(SUBSTRATUM_LOG,
                             theme_name + " was just updated, now closing InformationActivity...");
                     Toast.makeText(context, to_format, Toast.LENGTH_LONG).show();
-                    supportFinishAfterTransition();
+                    finish();
                     Handler handler = new Handler();
                     handler.postDelayed(() ->
-                            Theming.launchTheme(context, theme_pid, theme_mode), 500L);
+                            Theming.launchTheme(context, theme_pid, theme_mode, false), 500L);
                 }
             } else if (compilingProcess) {
                 Log.d(SUBSTRATUM_LOG,

@@ -42,7 +42,6 @@
 
     <color name="error_icons">@android:color/white</color>
 
-    <color name="theme_card_progress_bar_tint">@android:color/white</color>
     <color name="theme_card_progress_background_dim">#99000000</color>
 
     <color name="do_not_theme_this_color">#212021</color>

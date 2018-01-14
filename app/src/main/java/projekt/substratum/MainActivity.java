@@ -56,9 +56,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -152,9 +150,7 @@ public class MainActivity extends AppCompatActivity implements
     public static String userInput = "";
     public static ArrayList<String> queuedUninstall;
     @SuppressLint("StaticFieldLeak")
-    public static RelativeLayout themeCardProgressBar;
-    @SuppressLint("StaticFieldLeak")
-    public static MainActivity mainActivity;
+    public static View heroImageTransitionObject;
     private static ActionBar supportActionBar;
     public SearchView searchView;
     @BindView(R.id.theme_count)
@@ -209,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements
      * @param activity Activity used to specify the caller
      */
     public static void uninstallMultipleAPKS(Activity activity) {
-        if (Root.checkRootAccess()) {
+        if (isSamsungDevice(activity.getApplicationContext()) && Root.checkRootAccess()) {
             uninstallOverlay(activity.getApplicationContext(), MainActivity.queuedUninstall);
         } else if (!MainActivity.queuedUninstall.isEmpty()) {
             Uri packageURI = Uri.parse("package:" + MainActivity.queuedUninstall.get(0));
@@ -407,17 +403,12 @@ public class MainActivity extends AppCompatActivity implements
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mainActivity = this;
         context = getApplicationContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
         bottomBarUi = !prefs.getBoolean("advanced_ui", false);
         if (bottomBarUi) setTheme(R.style.AppTheme_SpecialUI);
 
         super.onCreate(savedInstanceState);
-
-        requestWindowFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-        requestWindowFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
-
         Substratum.setLocale(prefs.getBoolean("force_english", false));
 
         mProgressDialog = new Dialog(this, R.style.SubstratumBuilder_ActivityTheme);
@@ -1239,12 +1230,6 @@ public class MainActivity extends AppCompatActivity implements
                 drawer.setSelection(8L);
             }
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (themeCardProgressBar != null) themeCardProgressBar.setVisibility(View.GONE);
     }
 
     /**

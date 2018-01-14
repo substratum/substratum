@@ -33,7 +33,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
@@ -74,7 +73,6 @@ import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.util.tabs.FontUtils;
 
-import static projekt.substratum.InformationActivity.appendFragmentTabSuccess;
 import static projekt.substratum.common.Internal.BOLD_FONT;
 import static projekt.substratum.common.Internal.BOLD_ITALICS_FONT;
 import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;
@@ -122,12 +120,6 @@ public class Fonts extends Fragment {
 
     private Fonts getInstance() {
         return this;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        if (isAdded()) appendFragmentTabSuccess(getActivity(), this.getClass());
     }
 
     @Override

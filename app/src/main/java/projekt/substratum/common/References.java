@@ -530,6 +530,7 @@ public enum References {
                     activeNetworkInfo.isConnected() &&
                     !checkSiteAvailability.equals("");
         } catch (Exception e) {
+            e.printStackTrace();
             // Suppress warning
         }
         return false;

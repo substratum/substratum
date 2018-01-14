@@ -22,17 +22,21 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import java.io.Serializable;
 import java.util.concurrent.ThreadLocalRandom;
 
 import projekt.substratum.InformationActivity;
 import projekt.substratum.Substratum;
+import projekt.substratum.common.Packages;
+import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 
-import static projekt.substratum.activities.launch.KeyExchangeActivity.consolidatedIntentParser;
+import static android.content.pm.PackageManager.GET_META_DATA;
 import static projekt.substratum.common.Internal.ENCRYPTION_KEY_EXTRA;
 import static projekt.substratum.common.Internal.IV_ENCRYPTION_KEY_EXTRA;
+import static projekt.substratum.common.Internal.NOTIFICATION_LAUNCH;
 import static projekt.substratum.common.Internal.THEME_AUTHOR;
 import static projekt.substratum.common.Internal.THEME_CALLER;
 import static projekt.substratum.common.Internal.THEME_CERTIFIED;
@@ -47,8 +51,15 @@ import static projekt.substratum.common.Internal.THEME_OMS;
 import static projekt.substratum.common.Internal.THEME_PACKAGE;
 import static projekt.substratum.common.Internal.THEME_PID;
 import static projekt.substratum.common.Internal.THEME_PIRACY_CHECK;
+import static projekt.substratum.common.References.SUBSTRATUM_LAUNCHER_CLASS;
+import static projekt.substratum.common.References.metadataVersion;
 
 public class ThemeLaunchActivity extends Activity {
+
+    private String package_name;
+    private String theme_mode;
+    private Boolean legacyTheme = false;
+    private Boolean notification_launch = false;
 
     /**
      * Launch the theme
@@ -67,18 +78,18 @@ public class ThemeLaunchActivity extends Activity {
      * @param theme_legacy       Legacy support
      * @return Returns an intent that allows for launching of the theme directly
      */
-    public static Intent launchThemeActivity(Context context,
-                                             String theme_name,
-                                             String theme_author,
-                                             String theme_pid,
-                                             String theme_mode,
-                                             Serializable theme_hash,
-                                             Serializable theme_launch_type,
-                                             Serializable theme_debug,
-                                             Serializable theme_piracy_check,
-                                             byte[] encryption_key,
-                                             byte[] iv_encrypt_key,
-                                             Serializable theme_legacy) {
+    private static Intent launchThemeActivity(Context context,
+                                              String theme_name,
+                                              String theme_author,
+                                              String theme_pid,
+                                              String theme_mode,
+                                              Serializable theme_hash,
+                                              Serializable theme_launch_type,
+                                              Serializable theme_debug,
+                                              Serializable theme_piracy_check,
+                                              byte[] encryption_key,
+                                              byte[] iv_encrypt_key,
+                                              Serializable theme_legacy) {
 
         Intent intent = new Intent(context, InformationActivity.class);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -101,29 +112,49 @@ public class ThemeLaunchActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         int intent_id = (int) ThreadLocalRandom.current().nextLong(0L, 9999L);
-        Intent activityExtras = getIntent();
 
-        consolidatedIntentParser(this,
-                activityExtras.getBooleanExtra(THEME_CERTIFIED, true),
-                activityExtras.getIntExtra(THEME_HASHPASSTHROUGH, 0),
-                activityExtras.getBooleanExtra(THEME_OMS, false),
-                activityExtras.getStringExtra(THEME_CALLER),
-                activityExtras.getStringExtra(THEME_MODE),
-                activityExtras.getAction(),
-                activityExtras.getPackage(),
-                activityExtras.getStringExtra(THEME_PACKAGE),
-                intent_id
-        );
+        Intent activityExtras = getIntent();
+        package_name = activityExtras.getStringExtra(THEME_PACKAGE);
+        Boolean omsCheck = activityExtras.getBooleanExtra(THEME_OMS, false);
+        theme_mode = activityExtras.getStringExtra(THEME_MODE);
+        Integer hash_passthrough = activityExtras.getIntExtra(THEME_HASHPASSTHROUGH, 0);
+        Boolean certified = activityExtras.getBooleanExtra(THEME_CERTIFIED, true);
+        String action = activityExtras.getAction();
+        String packageName = activityExtras.getPackage();
+        String themeCaller = activityExtras.getStringExtra(THEME_CALLER);
+        notification_launch = activityExtras.getBooleanExtra(NOTIFICATION_LAUNCH, false);
+
+        Intent myIntent = new Intent();
+        myIntent.putExtra(THEME_CERTIFIED, certified);
+        myIntent.putExtra(THEME_HASHPASSTHROUGH, hash_passthrough);
+        myIntent.putExtra(THEME_LEGACY, omsCheck);
+        myIntent.putExtra(THEME_CALLER, themeCaller);
+        myIntent.putExtra(THEME_MODE, theme_mode);
+        myIntent.setAction(action);
+        myIntent.setPackage(packageName);
+        myIntent.setClassName(package_name, package_name + SUBSTRATUM_LAUNCHER_CLASS);
+
+        try {
+            assert action != null;
+            startActivityForResult(myIntent,
+                    (action.equals(References.TEMPLATE_GET_KEYS) ? 10000 : intent_id));
+        } catch (Exception e) {
+            try {
+                legacyTheme = true;
+                startActivityForResult(myIntent,
+                        (action.equals(References.TEMPLATE_GET_KEYS) ? 10000 : intent_id));
+            } catch (Exception e2) {
+                // Suppress warning
+            }
+        }
     }
 
     @Override
-    protected void onActivityResult(int requestCode,
-                                    int resultCode,
-                                    Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent
+            data) {
         // Check which request we're responding to
-        if (data != null && requestCode != 10000) {
+        if ((data != null) && (requestCode != 10000)) {
             Bundle intent = data.getExtras();
             if (intent != null) {
                 String theme_name = intent.getString(THEME_NAME);
@@ -153,7 +184,24 @@ public class ThemeLaunchActivity extends Activity {
                                 Systems.checkOMS(Substratum.getInstance())
                         ));
             }
+        } else if (legacyTheme && (requestCode != 10000)) {
+            startActivity(
+                    launchThemeActivity(
+                            Substratum.getInstance(),
+                            Packages.getPackageName(Substratum.getInstance(), package_name),
+                            null,
+                            package_name,
+                            theme_mode,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            Systems.checkOMS(Substratum.getInstance())
+                    ));
         }
+        legacyTheme = false;
         finish();
     }
 }

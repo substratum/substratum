@@ -34,7 +34,7 @@ public enum Root {
     /**
      * Checks whether there is root access on the device
      *
-     * @return True, if root is present
+     * @return True, if troot is present
      */
     public static boolean checkRootAccess() {
         StringBuilder check = References.runShellCommand("which su");

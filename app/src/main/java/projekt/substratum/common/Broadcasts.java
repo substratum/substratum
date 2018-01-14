@@ -17,7 +17,6 @@ import projekt.substratum.services.system.InterfacerAuthorizationReceiver;
 import static projekt.substratum.common.Internal.ANDROMEDA_RECEIVER;
 import static projekt.substratum.common.Internal.ENCRYPTION_KEY_EXTRA;
 import static projekt.substratum.common.Internal.IV_ENCRYPTION_KEY_EXTRA;
-import static projekt.substratum.common.Internal.KEY_ACCEPTED_RECEIVER;
 import static projekt.substratum.common.Internal.MAIN_ACTIVITY_RECEIVER;
 import static projekt.substratum.common.Internal.OVERLAY_REFRESH;
 import static projekt.substratum.common.Internal.THEME_FRAGMENT_REFRESH;
@@ -51,19 +50,6 @@ public enum Broadcasts {
         Intent intent = new Intent(KEY_RETRIEVAL);
         intent.putExtra(ENCRYPTION_KEY_EXTRA, encryption_key);
         intent.putExtra(IV_ENCRYPTION_KEY_EXTRA, iv_encrypt_key);
-        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-    }
-
-    /**
-     * Send notify key send success
-     *
-     * @param context Context
-     */
-    public static void sendKeySentMessage(Context context, Intent keyBundle) {
-        Log.d("KeyExchangeActivity",
-                "The KEA system has reported back positive, notifying the servant...");
-        Intent intent = new Intent(KEY_ACCEPTED_RECEIVER);
-        intent.putExtra("key_object", keyBundle.getSerializableExtra("key_object"));
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
     }
 

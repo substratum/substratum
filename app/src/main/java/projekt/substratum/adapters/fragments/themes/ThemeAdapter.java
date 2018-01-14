@@ -18,65 +18,56 @@
 
 package projekt.substratum.adapters.fragments.themes;
 
-import android.app.ActivityOptions;
+import android.animation.ValueAnimator;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
-import projekt.substratum.MainActivity;
 import projekt.substratum.R;
-import projekt.substratum.activities.launch.KeyExchangeActivity;
+import projekt.substratum.common.Broadcasts;
 import projekt.substratum.activities.launch.ThemeLaunchActivity;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
-import projekt.substratum.common.Systems;
+import projekt.substratum.common.Theming;
 import projekt.substratum.util.views.SheetDialog;
 
-import static projekt.substratum.activities.launch.ThemeLaunchActivity.launchThemeActivity;
-import static projekt.substratum.common.Internal.KEY_ACCEPTED_RECEIVER;
 import static projekt.substratum.common.Internal.PLAY_URL_PREFIX;
 import static projekt.substratum.common.Internal.THEME_READY_ALL;
 import static projekt.substratum.common.Internal.THEME_READY_READY;
 import static projekt.substratum.common.Internal.THEME_READY_STOCK;
 import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
-import static projekt.substratum.common.References.TEMPLATE_THEME_MODE;
-import static projekt.substratum.common.Theming.isThemeUsingDefaultTheme;
-import static projekt.substratum.common.Theming.themeIntent;
 
 
 public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> {
     private List<ThemeItem> information;
     private Context context;
-    private LocalBroadcastManager localBroadcastManager;
-    private LaunchThemeReceiver launchThemeReceiver;
-    private ThemeItem themeItem;
-    private Boolean isUsingDefaultTheme;
-    private ActivityOptions options;
+    private ProgressDialog mProgressDialog;
+    private ThemeItem toBeUninstalled;
 
     public ThemeAdapter(List<ThemeItem> information) {
         super();
@@ -107,8 +98,6 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                                  int pos) {
         ThemeItem themeItem = this.information.get(pos);
         this.context = themeItem.getContext();
-
-        ViewCompat.setTransitionName(viewHolder.imageView, themeItem.getThemePackage());
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.context);
         viewHolder.theme_name.setText(themeItem.getThemeName());
@@ -158,44 +147,22 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         }
 
         viewHolder.cardView.setOnClickListener(
-                v -> {
-                    if (MainActivity.themeCardProgressBar != null &&
-                            MainActivity.themeCardProgressBar.getVisibility() == View.VISIBLE) {
-                        return;
-                    }
-                    MainActivity.themeCardProgressBar = viewHolder.progressBar;
-                    MainActivity.themeCardProgressBar.setVisibility(View.VISIBLE);
+                v -> Theming.launchTheme(this.context,
+                        themeItem.getThemePackage(),
+                        themeItem.getThemeMode(),
+                        false
+                ));
 
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
-                            MainActivity.mainActivity,
-                            viewHolder.imageView,
-                            themeItem.getThemePackage()
-                    );
-
-                    // Okay you fuck, this fucking works, fucking know this shit or fuck off
-                    isUsingDefaultTheme = isThemeUsingDefaultTheme(themeItem.getThemePackage());
-                    Intent theme_intent = themeIntent(
-                            context,
-                            themeItem.getThemePackage(),
-                            null,
-                            TEMPLATE_THEME_MODE,
-                            (isUsingDefaultTheme ? KeyExchangeActivity.class :
-                                    ThemeLaunchActivity.class));
-                    try {
-                        context.startActivity(theme_intent);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    if (isUsingDefaultTheme) {
-                        launchThemeReceiver = new LaunchThemeReceiver(themeItem.getThemePackage());
-                        localBroadcastManager = LocalBroadcastManager.getInstance(context);
-                        localBroadcastManager.registerReceiver(launchThemeReceiver,
-                                new IntentFilter(KEY_ACCEPTED_RECEIVER));
-                        this.themeItem = themeItem;
-                        this.options = options;
-                    }
-                });
+        // Prettify the UI with fading desaturating colors!
+        ColorMatrix matrix = new ColorMatrix();
+        ValueAnimator animation = ValueAnimator.ofFloat(0f, 1f);
+        animation.setDuration(1000);
+        animation.addUpdateListener(animation1 -> {
+            matrix.setSaturation(animation1.getAnimatedFraction());
+            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+            viewHolder.imageView.setColorFilter(filter);
+        });
+        animation.start();
 
         viewHolder.cardView.setOnLongClickListener(view -> {
             // Vibrate the device alerting the user they are about to do something dangerous!
@@ -380,33 +347,6 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         }
     }
 
-    private void launchTheme(ThemeItem themeItem,
-                             Boolean isUsingDefaultTheme,
-                             ActivityOptions options,
-                             Intent keyBundle) {
-        SecurityItem securityItem = (SecurityItem) keyBundle.getSerializableExtra("key_object");
-        Boolean checkIfNull = securityItem == null || securityItem.getPackageName() == null;
-        if (themeItem != null) {
-            MainActivity.mainActivity.startActivity(
-                    launchThemeActivity(
-                            MainActivity.mainActivity.getApplicationContext(),
-                            themeItem.getThemeName(),
-                            themeItem.getThemeAuthor().toString(),
-                            themeItem.getThemePackage(),
-                            themeItem.getThemeMode(),
-                            !checkIfNull ? securityItem.getHash() : null,
-                            !checkIfNull ? securityItem.getLaunchType() : null,
-                            !checkIfNull ? securityItem.getDebug() : null,
-                            !checkIfNull ? securityItem.getPiracyCheck() : null,
-                            !checkIfNull ? securityItem.getEncryptionKey() : null,
-                            !checkIfNull ? securityItem.getIVEncryptKey() : null,
-                            Systems.checkOMS(MainActivity.mainActivity.getApplicationContext())
-                    ), (isUsingDefaultTheme ?
-                            options != null ?
-                                    options.toBundle() : null : null));
-        }
-    }
-
     /**
      * Show a dialog to explain what Theme Ready Gapps are
      */
@@ -472,6 +412,64 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         return this.information.size();
     }
 
+    private static class uninstallTheme extends AsyncTask<String, Integer, String> {
+        private WeakReference<ThemeAdapter> ref;
+
+        uninstallTheme(ThemeAdapter themeAdapter) {
+            super();
+            this.ref = new WeakReference<>(themeAdapter);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            ThemeAdapter themeAdapter = this.ref.get();
+            if (themeAdapter != null) {
+                if (themeAdapter.toBeUninstalled != null) {
+                    String parseMe = String.format(
+                            themeAdapter.context.getString(R.string.adapter_uninstalling),
+                            themeAdapter.toBeUninstalled.getThemeName());
+                    themeAdapter.mProgressDialog = new ProgressDialog(themeAdapter.context);
+                    themeAdapter.mProgressDialog.setMessage(parseMe);
+                    themeAdapter.mProgressDialog.setIndeterminate(true);
+                    themeAdapter.mProgressDialog.setCancelable(false);
+                    themeAdapter.mProgressDialog.show();
+                    // Clear the notification of building theme if shown
+                    NotificationManager manager = (NotificationManager)
+                            themeAdapter.context.getSystemService(Context.NOTIFICATION_SERVICE);
+                    if (manager != null) {
+                        manager.cancel(References.notification_id_compiler);
+                    }
+                }
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            ThemeAdapter themeAdapter = this.ref.get();
+            if (themeAdapter != null) {
+                if (themeAdapter.toBeUninstalled != null) {
+                    themeAdapter.toBeUninstalled = null;
+                    Broadcasts.sendRefreshMessage(themeAdapter.context);
+                    themeAdapter.mProgressDialog.cancel();
+                }
+            }
+        }
+
+        @Override
+        protected String doInBackground(String... sUrl) {
+            ThemeAdapter themeAdapter = this.ref.get();
+            if (themeAdapter != null) {
+                if (themeAdapter.toBeUninstalled != null) {
+                    // Uninstall theme
+                    Packages.uninstallPackage(
+                            themeAdapter.context,
+                            themeAdapter.toBeUninstalled.getThemePackage());
+                }
+            }
+            return null;
+        }
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         TextView theme_name;
@@ -480,7 +478,6 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         TextView theme_version;
         TextView plugin_version;
         ImageView imageView;
-        RelativeLayout progressBar;
         View divider;
         ImageView tbo;
         ImageView two;
@@ -494,43 +491,9 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
             this.theme_version = view.findViewById(R.id.theme_version);
             this.plugin_version = view.findViewById(R.id.plugin_version);
             this.imageView = view.findViewById(R.id.theme_preview_image);
-            this.progressBar = view.findViewById(R.id.loading_theme);
             this.divider = view.findViewById(R.id.theme_ready_divider);
             this.tbo = view.findViewById(R.id.theme_ready_indicator);
             this.two = view.findViewById(R.id.theme_unready_indicator);
-        }
-    }
-
-    /**
-     * Receiver to launch the theme activity
-     */
-    class LaunchThemeReceiver extends BroadcastReceiver {
-
-        String packageName;
-
-        LaunchThemeReceiver(String packageName) {
-            this.packageName = packageName;
-        }
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            synchronized (this) {
-                if (themeItem.getThemePackage().equals(packageName)) {
-                    Log.d("AppendedFragment", "Launching '" + packageName + "'...");
-                    launchTheme(themeItem, isUsingDefaultTheme, options, intent);
-                    themeItem = null;
-                    isUsingDefaultTheme = null;
-                    options = null;
-                } else {
-                    Log.e("AppendedFragment", "Wrong package name (" + packageName + "), " +
-                            "terminating the receiver due to security breach...");
-                }
-                try {
-                    localBroadcastManager.unregisterReceiver(launchThemeReceiver);
-                } catch (Exception e) {
-                    // Unregistered already
-                }
-            }
         }
     }
 }

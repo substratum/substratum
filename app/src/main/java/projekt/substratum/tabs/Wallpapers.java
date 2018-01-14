@@ -45,7 +45,6 @@ import projekt.substratum.common.References;
 import projekt.substratum.util.files.FileDownloader;
 import projekt.substratum.util.readers.ReadCloudWallpaperFile;
 
-import static projekt.substratum.InformationActivity.appendFragmentTabSuccess;
 import static projekt.substratum.common.Internal.CURRENT_WALLPAPERS;
 import static projekt.substratum.common.Internal.THEME_WALLPAPER;
 
@@ -102,7 +101,6 @@ public class Wallpapers extends Fragment {
             downloadResources downloadTask = new downloadResources(this);
             downloadTask.execute(wallpaperUrl, CURRENT_WALLPAPERS);
         } else {
-            if (isAdded()) appendFragmentTabSuccess(getActivity(), this.getClass());
             mRecyclerView.setVisibility(View.GONE);
             materialProgressBar.setVisibility(View.GONE);
             no_wallpapers.setVisibility(View.GONE);
@@ -168,8 +166,6 @@ public class Wallpapers extends Fragment {
                 } catch (Exception e) {
                     // Suppress warning
                 }
-                if (wallpapers.isAdded())
-                    appendFragmentTabSuccess(wallpapers.getActivity(), this.getClass());
             }
         }
 

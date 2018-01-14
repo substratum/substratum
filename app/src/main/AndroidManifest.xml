@@ -236,13 +236,6 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activities.launch.KeyExchangeActivity"
-            android:theme="@style/Theme.AppCompat.Translucent">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

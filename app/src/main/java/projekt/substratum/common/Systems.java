@@ -83,7 +83,7 @@ public enum Systems {
     /**
      * This method is used to determine whether there the system is initiated with OMS
      *
-     * @param context Self explanatory, sir
+     * @param context Self explantory, sir
      */
     public static Boolean checkOMS(@NonNull Context context) {
         //noinspection ConstantConditions

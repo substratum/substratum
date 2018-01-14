@@ -35,6 +35,25 @@
         <item name="fontFamily">@font/global_app_font</item>
     </style>
 
+    <style name="AppTheme.InformationActivity" parent="AppTheme">
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarDividerColor">@android:color/transparent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.SpecialUI.InformationActivity" parent="AppTheme.SpecialUI">
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <style name="SplashScreen.ActivityTheme" parent="Theme.AppCompat">
         <item name="android:navigationBarColor">@color/splashscreen_background</item>
         <item name="android:statusBarColor">@color/splashscreen_background</item>

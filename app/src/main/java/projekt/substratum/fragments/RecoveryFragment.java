@@ -58,6 +58,7 @@ import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.tabs.BootAnimationsManager;
 import projekt.substratum.tabs.FontsManager;
 import projekt.substratum.tabs.WallpapersManager;
+import projekt.substratum.util.files.Root;
 import projekt.substratum.util.tabs.SoundUtils;
 import projekt.substratum.util.views.SheetDialog;
 
@@ -71,6 +72,7 @@ import static projekt.substratum.common.References.DATA_RESOURCE_DIR;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.PIXEL_NEXUS_DIR;
 import static projekt.substratum.common.References.VENDOR_DIR;
+import static projekt.substratum.common.Systems.checkAndromeda;
 
 
 public class RecoveryFragment extends Fragment {
@@ -252,7 +254,9 @@ public class RecoveryFragment extends Fragment {
             overlayCard.setVisibility(View.GONE);
         }
 
-        if (!Resources.isBootAnimationSupported(context)) {
+        if (Systems.isSamsungDevice(context) ||
+                (checkAndromeda(context) &&
+                        !Root.checkRootAccess())) {
             bootanimationCard.setVisibility(View.GONE);
         }
 
@@ -260,7 +264,9 @@ public class RecoveryFragment extends Fragment {
             fontsCard.setVisibility(View.GONE);
         }
 
-        if (!Resources.isSoundsSupported(context)) {
+        if (Systems.isSamsungDevice(context) ||
+                (!Systems.checkThemeInterfacer(context) &&
+                        !Systems.checkSubstratumService(context))) {
             soundCard.setVisibility(View.GONE);
         }
 

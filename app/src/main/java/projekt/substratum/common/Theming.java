@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import projekt.substratum.Substratum;
 import projekt.substratum.activities.launch.ThemeLaunchActivity;
 
+import static projekt.substratum.common.Internal.NOTIFICATION_LAUNCH;
 import static projekt.substratum.common.References.SUBSTRATUM_PACKAGE;
 import static projekt.substratum.common.References.TEMPLATE_GET_KEYS;
 import static projekt.substratum.common.References.TEMPLATE_THEME_MODE;
@@ -50,14 +50,15 @@ public enum Theming {
      */
     public static void launchTheme(Context context,
                                    String package_name,
-                                   String theme_mode) {
+                                   String theme_mode,
+                                   Boolean notification) {
         if (context.getPackageName().equals(SUBSTRATUM_PACKAGE)) {
             Intent theme_intent = themeIntent(
                     context,
                     package_name,
                     theme_mode,
                     TEMPLATE_THEME_MODE,
-                    ThemeLaunchActivity.class);
+                    notification);
             context.startActivity(theme_intent);
         }
     }
@@ -76,7 +77,7 @@ public enum Theming {
                     package_name,
                     null,
                     TEMPLATE_GET_KEYS,
-                    ThemeLaunchActivity.class);
+                    false);
             try {
                 context.startActivity(theme_intent);
             } catch (Exception e) {
@@ -98,16 +99,16 @@ public enum Theming {
                                      String package_name,
                                      String theme_mode,
                                      String actionIntent,
-                                     Class className) {
+                                     Boolean notification) {
         if (context.getPackageName().equals(SUBSTRATUM_PACKAGE)) {
             boolean should_debug = projekt.substratum.BuildConfig.DEBUG;
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            if (should_debug) Log.d("ThemeLauncher", "Creating new intent (" + className + ")...");
+            if (should_debug) Log.d("ThemeLauncher", "Creating new intent...");
             Intent intentActivity;
             if (actionIntent.equals(TEMPLATE_GET_KEYS)) {
                 intentActivity = new Intent();
             } else {
-                intentActivity = new Intent(context, className);
+                intentActivity = new Intent(context, ThemeLaunchActivity.class);
             }
             intentActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intentActivity.putExtra("package_name", package_name);
@@ -124,29 +125,12 @@ public enum Theming {
             intentActivity.putExtra("hash_passthrough", hashPassthrough(context));
             if (should_debug) Log.d("ThemeLauncher", "Checking for certification...");
             intentActivity.putExtra("certified", prefs.getBoolean("complexion", true));
+            if (notification) Log.d("ThemeLauncher", "Launching theme in notification mode...");
+            intentActivity.putExtra(NOTIFICATION_LAUNCH, notification);
             if (should_debug) Log.d("ThemeLauncher", "Starting Activity...");
             return intentActivity;
         } else {
             return null;
         }
-    }
-
-    /**
-     * Check if the theme is using the default manifest theme stated in the template
-     *
-     * @param packageName Package name
-     * @return True, if the theme was not changed from the default
-     */
-    public static boolean isThemeUsingDefaultTheme(String packageName) {
-        try {
-            Context themeContext = Substratum.getInstance().createPackageContext(packageName, 0);
-            int themeTheme = themeContext.getApplicationInfo().theme;
-            String themeThemeName = themeContext.getResources().getResourceName(themeTheme);
-            themeThemeName = themeThemeName.split(":style/")[1];
-            return themeThemeName.equals("DialogStyle");
-        } catch (Exception e) {
-            // Suppress exception
-        }
-        return false;
     }
 }

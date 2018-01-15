@@ -350,7 +350,10 @@ public enum Systems {
                     "activity has been destroyed, cannot check if andromeda is used");
             return false;
         }
-        return getAndromedaPackage(context) != null;
+        boolean isEnabled = Packages.isAvailablePackage(context, References
+                .ANDROMEDA_PACKAGE);
+        PackageInfo packageInfo = getAndromedaPackage(context);
+        return (packageInfo != null) && isEnabled;
     }
 
     /**

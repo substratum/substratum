@@ -195,6 +195,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 : context.getDrawable(R.drawable.system_status_uncertified));
         if (BuildConfig.DEBUG &&
                 isOMS &&
+                (interfacer || system_service) &&
                 !hasAndromeda) {
             systemStatus.setOnPreferenceClickListener(preference -> {
                 if (References.isNetworkAvailable(context)) {

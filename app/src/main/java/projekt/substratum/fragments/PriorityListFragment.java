@@ -165,8 +165,12 @@ public class PriorityListFragment extends Fragment {
                     Packages.getOverlayParentIcon(context, o)));
             workable_list.add(o);
         }
-        Collections.reverse(workable_list);
-        Collections.reverse(prioritiesList);
+        // On Android Oreo and above, the list is properly reflected now, where the top holds to
+        // highest priority while the bottom holds the lowest, unlike M and N
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Collections.reverse(workable_list);
+            Collections.reverse(prioritiesList);
+        }
         PriorityAdapter adapter = new PriorityAdapter(
                 context,
                 R.layout.priority_overlay_item);
@@ -241,9 +245,6 @@ public class PriorityListFragment extends Fragment {
             colorAnimation.start();
 
             headerProgress.setVisibility(View.VISIBLE);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                Collections.reverse(workable_list);
-            }
             ThemeManager.setPriority(context, workable_list);
             if (Packages.needsRecreate(context, workable_list)) {
                 Handler handler = new Handler();

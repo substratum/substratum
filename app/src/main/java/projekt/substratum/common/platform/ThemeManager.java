@@ -537,7 +537,7 @@ public enum ThemeManager {
                                             isPackageInstalled(context, line.substring(4))) {
                                         counter++;
                                     }
-                                } else if (!line.startsWith("[")) {
+                                } else if (!line.startsWith("[") && !line.startsWith("-")) {
                                     if (counter > 1) list.add(currentApp);
                                     counter = 0;
                                     currentApp = line;

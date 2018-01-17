@@ -427,15 +427,15 @@ public enum Packages {
                     if (appInfo.minSdkVersion == appInfo.targetSdkVersion) {
                         int target = appInfo.targetSdkVersion;
                         switch (target) {
-                            case 23:
+                            case Build.VERSION_CODES.M:
                                 return context.getString(R.string.api_23);
-                            case 24:
+                            case Build.VERSION_CODES.N:
                                 return context.getString(R.string.api_24);
-                            case 25:
+                            case Build.VERSION_CODES.N_MR1:
                                 return context.getString(R.string.api_25);
-                            case 26:
+                            case Build.VERSION_CODES.O:
                                 return context.getString(R.string.api_26);
-                            case 27:
+                            case Build.VERSION_CODES.O_MR1:
                                 return context.getString(R.string.api_27);
                         }
                     } else {
@@ -443,25 +443,25 @@ public enum Packages {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                             int min = appInfo.minSdkVersion;
                             switch (min) {
-                                case 21:
+                                case Build.VERSION_CODES.LOLLIPOP:
                                     minSdk = context.getString(R.string.api_21);
                                     break;
-                                case 22:
+                                case Build.VERSION_CODES.LOLLIPOP_MR1:
                                     minSdk = context.getString(R.string.api_22);
                                     break;
-                                case 23:
+                                case Build.VERSION_CODES.M:
                                     minSdk = context.getString(R.string.api_23);
                                     break;
-                                case 24:
+                                case Build.VERSION_CODES.N:
                                     minSdk = context.getString(R.string.api_24);
                                     break;
-                                case 25:
+                                case Build.VERSION_CODES.N_MR1:
                                     minSdk = context.getString(R.string.api_25);
                                     break;
-                                case 26:
+                                case Build.VERSION_CODES.O:
                                     minSdk = context.getString(R.string.api_26);
                                     break;
-                                case 27:
+                                case Build.VERSION_CODES.O_MR1:
                                     minSdk = context.getString(R.string.api_27);
                                     break;
                             }
@@ -483,19 +483,19 @@ public enum Packages {
                         String targetSdk = "";
                         int target = appInfo.targetSdkVersion;
                         switch (target) {
-                            case 23:
+                            case Build.VERSION_CODES.M:
                                 targetSdk = context.getString(R.string.api_23);
                                 break;
-                            case 24:
+                            case Build.VERSION_CODES.N:
                                 targetSdk = context.getString(R.string.api_24);
                                 break;
-                            case 25:
+                            case Build.VERSION_CODES.N_MR1:
                                 targetSdk = context.getString(R.string.api_25);
                                 break;
-                            case 26:
+                            case Build.VERSION_CODES.O:
                                 targetSdk = context.getString(R.string.api_26);
                                 break;
-                            case 27:
+                            case Build.VERSION_CODES.O_MR1:
                                 targetSdk = context.getString(R.string.api_27);
                                 break;
                         }
@@ -503,19 +503,19 @@ public enum Packages {
                     }
                 } catch (NoSuchFieldError noSuchFieldError) {
                     // The device is API 23 if it throws a NoSuchFieldError
-                    if (appInfo.targetSdkVersion == 23) {
+                    if (appInfo.targetSdkVersion == Build.VERSION_CODES.M) {
                         return context.getString(R.string.api_23);
                     } else {
                         String targetAPI = "";
                         int target = appInfo.targetSdkVersion;
                         switch (target) {
-                            case 24:
+                            case Build.VERSION_CODES.N:
                                 targetAPI = context.getString(R.string.api_24);
                                 break;
-                            case 25:
+                            case Build.VERSION_CODES.N_MR1:
                                 targetAPI = context.getString(R.string.api_25);
                                 break;
-                            case 26:
+                            case Build.VERSION_CODES.O:
                                 targetAPI = context.getString(R.string.api_26);
                                 break;
                         }
@@ -523,7 +523,7 @@ public enum Packages {
                     }
                 }
             }
-        } catch (Exception e) {
+        } catch (Exception unused) {
             // Suppress warning
         }
         return null;
@@ -561,7 +561,7 @@ public enum Packages {
                     }
                 }
             }
-        } catch (Exception e) {
+        } catch (Exception unused) {
             // Suppress warning
         }
         return null;

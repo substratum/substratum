@@ -38,7 +38,7 @@ import static projekt.substratum.common.Internal.PHONE;
 import static projekt.substratum.common.Internal.PHONE_COMMON_FRAMEWORK;
 
 public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.ViewHolder> {
-    private List<ValidatorInfo> information;
+    private final List<ValidatorInfo> information;
 
     public ValidatorAdapter(List<ValidatorInfo> information) {
         super();
@@ -136,11 +136,11 @@ public class ValidatorAdapter extends RecyclerView.Adapter<ValidatorAdapter.View
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        CardView cardView;
-        TextView packName;
-        TextView verificationText;
-        ImageView packIcon;
-        ImageView verificationIcon;
+        final CardView cardView;
+        final TextView packName;
+        final TextView verificationText;
+        final ImageView packIcon;
+        final ImageView verificationIcon;
 
         ViewHolder(View view) {
             super(view);

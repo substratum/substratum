@@ -1352,7 +1352,7 @@ public class MainActivity extends AppCompatActivity implements
      */
     private static class RootRequester extends AsyncTask<Void, Void, Boolean> {
         boolean isRunning = true;
-        private WeakReference<MainActivity> ref;
+        private final WeakReference<MainActivity> ref;
 
         private RootRequester(MainActivity activity) {
             super();
@@ -1661,7 +1661,7 @@ public class MainActivity extends AppCompatActivity implements
      * This will not work for Samsung or RRO Legacy as the intended purpose allows.
      */
     public static class DoCleanUp extends AsyncTask<Void, Void, Void> {
-        private WeakReference<Context> ref;
+        private final WeakReference<Context> ref;
 
         public DoCleanUp(Context context) {
             super();
@@ -1719,7 +1719,7 @@ public class MainActivity extends AppCompatActivity implements
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     public static class ClearLogs extends AsyncTask<Void, Void, Void> {
-        private WeakReference<MainActivity> ref;
+        private final WeakReference<MainActivity> ref;
 
         ClearLogs(MainActivity activity) {
             super();

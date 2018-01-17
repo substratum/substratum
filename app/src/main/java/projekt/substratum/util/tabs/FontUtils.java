@@ -69,7 +69,7 @@ public class FontUtils {
      */
     private static class FontHandlerAsync extends AsyncTask<String, Integer, String> {
 
-        private WeakReference<FontUtils> ref;
+        private final WeakReference<FontUtils> ref;
 
         private FontHandlerAsync(FontUtils fragment) {
             super();

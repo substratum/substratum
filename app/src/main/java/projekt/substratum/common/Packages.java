@@ -1,5 +1,6 @@
 package projekt.substratum.common;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -208,6 +209,7 @@ public enum Packages {
      * @param drawable Insert a Drawable casted as a Drawable
      * @return Returns the converted Bitmap
      */
+    @SuppressLint("NewApi")
     public static Bitmap getBitmapFromDrawable(Drawable drawable) {
         Bitmap bitmap = null;
         if (drawable instanceof VectorDrawable) {
@@ -424,59 +426,78 @@ public enum Packages {
                 try {
                     if (appInfo.minSdkVersion == appInfo.targetSdkVersion) {
                         int target = appInfo.targetSdkVersion;
-                        if (target == 23) {
-                            return context.getString(R.string.api_23);
-                        } else if (target == 24) {
-                            return context.getString(R.string.api_24);
-                        } else if (target == 25) {
-                            return context.getString(R.string.api_25);
-                        } else if (target == 26) {
-                            return context.getString(R.string.api_26);
-                        } else if (target == 27) {
-                            return context.getString(R.string.api_27);
+                        switch (target) {
+                            case 23:
+                                return context.getString(R.string.api_23);
+                            case 24:
+                                return context.getString(R.string.api_24);
+                            case 25:
+                                return context.getString(R.string.api_25);
+                            case 26:
+                                return context.getString(R.string.api_26);
+                            case 27:
+                                return context.getString(R.string.api_27);
                         }
                     } else {
                         String minSdk = "";
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                             int min = appInfo.minSdkVersion;
-                            if (min == 21) {
-                                minSdk = context.getString(R.string.api_21);
-                            } else if (min == 22) {
-                                minSdk = context.getString(R.string.api_22);
-                            } else if (min == 23) {
-                                minSdk = context.getString(R.string.api_23);
-                            } else if (min == 24) {
-                                minSdk = context.getString(R.string.api_24);
-                            } else if (min == 25) {
-                                minSdk = context.getString(R.string.api_25);
-                            } else if (min == 26) {
-                                minSdk = context.getString(R.string.api_26);
-                            } else if (min == 27) {
-                                minSdk = context.getString(R.string.api_27);
+                            switch (min) {
+                                case 21:
+                                    minSdk = context.getString(R.string.api_21);
+                                    break;
+                                case 22:
+                                    minSdk = context.getString(R.string.api_22);
+                                    break;
+                                case 23:
+                                    minSdk = context.getString(R.string.api_23);
+                                    break;
+                                case 24:
+                                    minSdk = context.getString(R.string.api_24);
+                                    break;
+                                case 25:
+                                    minSdk = context.getString(R.string.api_25);
+                                    break;
+                                case 26:
+                                    minSdk = context.getString(R.string.api_26);
+                                    break;
+                                case 27:
+                                    minSdk = context.getString(R.string.api_27);
+                                    break;
                             }
                         } else {
                             // At this point, it is under API24 (API warning) thus we'll do an
                             // educated guess here.
-                            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
-                                minSdk = context.getString(R.string.api_21);
-                            } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP_MR1) {
-                                minSdk = context.getString(R.string.api_22);
-                            } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
-                                minSdk = context.getString(R.string.api_23);
+                            switch (Build.VERSION.SDK_INT) {
+                                case Build.VERSION_CODES.LOLLIPOP:
+                                    minSdk = context.getString(R.string.api_21);
+                                    break;
+                                case Build.VERSION_CODES.LOLLIPOP_MR1:
+                                    minSdk = context.getString(R.string.api_22);
+                                    break;
+                                case Build.VERSION_CODES.M:
+                                    minSdk = context.getString(R.string.api_23);
+                                    break;
                             }
                         }
                         String targetSdk = "";
                         int target = appInfo.targetSdkVersion;
-                        if (target == 23) {
-                            targetSdk = context.getString(R.string.api_23);
-                        } else if (target == 24) {
-                            targetSdk = context.getString(R.string.api_24);
-                        } else if (target == 25) {
-                            targetSdk = context.getString(R.string.api_25);
-                        } else if (target == 26) {
-                            targetSdk = context.getString(R.string.api_26);
-                        } else if (target == 27) {
-                            targetSdk = context.getString(R.string.api_27);
+                        switch (target) {
+                            case 23:
+                                targetSdk = context.getString(R.string.api_23);
+                                break;
+                            case 24:
+                                targetSdk = context.getString(R.string.api_24);
+                                break;
+                            case 25:
+                                targetSdk = context.getString(R.string.api_25);
+                                break;
+                            case 26:
+                                targetSdk = context.getString(R.string.api_26);
+                                break;
+                            case 27:
+                                targetSdk = context.getString(R.string.api_27);
+                                break;
                         }
                         return minSdk + " - " + targetSdk;
                     }
@@ -487,12 +508,16 @@ public enum Packages {
                     } else {
                         String targetAPI = "";
                         int target = appInfo.targetSdkVersion;
-                        if (target == 24) {
-                            targetAPI = context.getString(R.string.api_24);
-                        } else if (target == 25) {
-                            targetAPI = context.getString(R.string.api_25);
-                        } else if (target == 26) {
-                            targetAPI = context.getString(R.string.api_26);
+                        switch (target) {
+                            case 24:
+                                targetAPI = context.getString(R.string.api_24);
+                                break;
+                            case 25:
+                                targetAPI = context.getString(R.string.api_25);
+                                break;
+                            case 26:
+                                targetAPI = context.getString(R.string.api_26);
+                                break;
                         }
                         return context.getString(R.string.api_23) + " - " + targetAPI;
                     }

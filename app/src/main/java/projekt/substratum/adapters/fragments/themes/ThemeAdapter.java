@@ -20,8 +20,6 @@ package projekt.substratum.adapters.fragments.themes;
 
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
-import android.app.NotificationManager;
-import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -31,7 +29,6 @@ import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
@@ -45,11 +42,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.ref.WeakReference;
 import java.util.List;
 
 import projekt.substratum.R;
-import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Theming;
@@ -63,10 +58,8 @@ import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
 
 
 public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> {
-    private List<ThemeItem> information;
+    private final List<ThemeItem> information;
     private Context context;
-    private ProgressDialog mProgressDialog;
-    private ThemeItem toBeUninstalled;
 
     public ThemeAdapter(List<ThemeItem> information) {
         super();
@@ -412,16 +405,16 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        CardView cardView;
-        TextView theme_name;
-        TextView theme_author;
-        TextView theme_apis;
-        TextView theme_version;
-        TextView plugin_version;
-        ImageView imageView;
-        View divider;
-        ImageView tbo;
-        ImageView two;
+        final CardView cardView;
+        final TextView theme_name;
+        final TextView theme_author;
+        final TextView theme_apis;
+        final TextView theme_version;
+        final TextView plugin_version;
+        final ImageView imageView;
+        final View divider;
+        final ImageView tbo;
+        final ImageView two;
 
         ViewHolder(View view) {
             super(view);

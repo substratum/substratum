@@ -114,7 +114,7 @@ public class PriorityLoaderFragment extends Fragment {
 
     private static class LoadPrioritizedOverlays extends AsyncTask<String, Integer, String> {
 
-        private WeakReference<PriorityLoaderFragment> ref;
+        private final WeakReference<PriorityLoaderFragment> ref;
 
         LoadPrioritizedOverlays(PriorityLoaderFragment priorityLoaderFragment) {
             super();

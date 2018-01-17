@@ -167,7 +167,7 @@ public class Overlays extends Fragment {
     public Cipher theme_cipher;
     public Boolean encrypted = false;
     public Boolean mixAndMatchMode = false;
-    public OverlaysInstance currentInstance = OverlaysInstance.getInstance();
+    public final OverlaysInstance currentInstance = OverlaysInstance.getInstance();
     public SubstratumBuilder compileInstance;
     public List<OverlaysItem> overlayItemList;
     public List<String> currentInstanceOverlays;
@@ -909,16 +909,16 @@ public class Overlays extends Fragment {
      * clients that support attaching files.
      */
     private static class SendErrorReport extends AsyncTask<Void, Void, File> {
-        private WeakReference<Context> ref;
-        private String themePid;
-        private String errorLog;
-        private String themeName;
-        private String themeAuthor;
-        private String themeEmail;
-        private String emailSubject;
-        private String emailBody;
-        private String failedPackages;
-        private Boolean autosaveInstance;
+        private final WeakReference<Context> ref;
+        private final String themePid;
+        private final String errorLog;
+        private final String themeName;
+        private final String themeAuthor;
+        private final String themeEmail;
+        private final String emailSubject;
+        private final String emailBody;
+        private final String failedPackages;
+        private final Boolean autosaveInstance;
         private ProgressDialog progressDialog;
 
         SendErrorReport(Context context,
@@ -1038,7 +1038,7 @@ public class Overlays extends Fragment {
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     private static class LoadOverlays extends AsyncTask<String, Integer, String> {
-        private WeakReference<Overlays> ref;
+        private final WeakReference<Overlays> ref;
         private String parsed_theme_name;
         private ArrayList<OverlaysItem> adapterList;
         private List<String> current_overlays;

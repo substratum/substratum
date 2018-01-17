@@ -38,7 +38,7 @@ import static projekt.substratum.common.Internal.UNLOCK;
 
 public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.ViewHolder> {
 
-    private List<SoundsInfo> soundsList;
+    private final List<SoundsInfo> soundsList;
 
     public SoundsAdapter(List<SoundsInfo> soundsList) {
         super();
@@ -86,7 +86,7 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.ViewHolder
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView title;
+        public final TextView title;
 
         ViewHolder(View view) {
             super(view);

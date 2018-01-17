@@ -317,7 +317,7 @@ public class RecoveryFragment extends Fragment {
      */
     private static class FontsClearer extends AsyncTask<String, Integer, String> {
 
-        private WeakReference<RecoveryFragment> ref;
+        private final WeakReference<RecoveryFragment> ref;
 
         private FontsClearer(RecoveryFragment fragment) {
             super();
@@ -378,7 +378,7 @@ public class RecoveryFragment extends Fragment {
      * Uninstall overlays
      */
     private static class RestoreFunction extends AsyncTask<Boolean, Void, Void> {
-        private WeakReference<RecoveryFragment> ref;
+        private final WeakReference<RecoveryFragment> ref;
         private boolean withUninstall;
 
         private RestoreFunction(RecoveryFragment fragment) {
@@ -503,7 +503,7 @@ public class RecoveryFragment extends Fragment {
      * Clear applied boot animation
      */
     private static class BootAnimationClearer extends AsyncTask<Void, Void, Void> {
-        private WeakReference<RecoveryFragment> ref;
+        private final WeakReference<RecoveryFragment> ref;
 
         private BootAnimationClearer(RecoveryFragment fragment) {
             super();
@@ -556,7 +556,7 @@ public class RecoveryFragment extends Fragment {
      * Clear all applied sounds
      */
     private static class SoundsClearer extends AsyncTask<Void, Void, Void> {
-        private WeakReference<RecoveryFragment> ref;
+        private final WeakReference<RecoveryFragment> ref;
 
         private SoundsClearer(RecoveryFragment fragment) {
             super();

@@ -51,7 +51,7 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 import static com.bumptech.glide.request.RequestOptions.centerCropTransform;
 
 public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.ViewHolder> {
-    private List<WallpaperEntries> information;
+    private final List<WallpaperEntries> information;
     private ProgressDialog mProgressDialog;
     private Context context;
     private PowerManager.WakeLock mWakeLock;
@@ -132,8 +132,8 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
 
     private static class downloadWallpaper extends AsyncTask<String, Integer, String> {
 
-        private WeakReference<WallpaperAdapter> ref;
-        private WeakReference<Activity> activity;
+        private final WeakReference<WallpaperAdapter> ref;
+        private final WeakReference<Activity> activity;
         private String wallpaperLink;
         private String extension;
         private String directory_output;
@@ -233,9 +233,9 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        CardView cardView;
-        TextView wallpaperName;
-        ImageView imageView;
+        final CardView cardView;
+        final TextView wallpaperName;
+        final ImageView imageView;
 
         ViewHolder(View view) {
             super(view);

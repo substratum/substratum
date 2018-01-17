@@ -22,11 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ValidatorError {
-    private List<String> bools = new ArrayList<>();
-    private List<String> colors = new ArrayList<>();
-    private List<String> dimens = new ArrayList<>();
-    private List<String> styles = new ArrayList<>();
-    private String packageName;
+    private final List<String> bools = new ArrayList<>();
+    private final List<String> colors = new ArrayList<>();
+    private final List<String> dimens = new ArrayList<>();
+    private final List<String> styles = new ArrayList<>();
+    private final String packageName;
 
     public ValidatorError(String packageName) {
         super();

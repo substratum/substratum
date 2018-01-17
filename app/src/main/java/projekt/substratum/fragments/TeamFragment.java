@@ -76,8 +76,7 @@ public class TeamFragment extends Fragment {
         final Activity activity = getActivity();
         // Nicholas
         nicholas_card.setOnClickListener(v -> {
-            if (activity != null &&
-                context != null) {
+            if (activity != null && context != null) {
                 launchActivityUrl(
                     context,
                     References.getView(activity),
@@ -87,8 +86,7 @@ public class TeamFragment extends Fragment {
 
         // Mike
         syko_card.setOnClickListener(v -> {
-            if (activity != null &&
-                context != null) {
+            if (activity != null && context != null) {
                 launchActivityUrl(
                         context,
                         References.getView(activity),
@@ -98,8 +96,7 @@ public class TeamFragment extends Fragment {
 
         // Ivan
         ivan_card.setOnClickListener(v -> {
-            if (activity != null &&
-                context != null) {
+            if (activity != null && context != null) {
                 launchActivityUrl(
                         context,
                         References.getView(activity),
@@ -109,8 +106,7 @@ public class TeamFragment extends Fragment {
 
         // Surge
         surge_card.setOnClickListener(v -> {
-            if (activity != null &&
-                context != null) {
+            if (activity != null && context != null) {
                 launchActivityUrl(
                         context,
                         References.getView(activity),
@@ -120,8 +116,7 @@ public class TeamFragment extends Fragment {
 
         // George
         george_card.setOnClickListener(v -> {
-            if (activity != null &&
-                context != null) {
+            if (activity != null && context != null) {
                 launchActivityUrl(
                         context,
                         References.getView(activity),
@@ -131,8 +126,7 @@ public class TeamFragment extends Fragment {
 
         // Nathan
         nathan_card.setOnClickListener(v -> {
-            if (activity != null &&
-                context != null) {
+            if (activity != null && context != null) {
                 launchActivityUrl(
                         context,
                         References.getView(activity),
@@ -142,8 +136,7 @@ public class TeamFragment extends Fragment {
 
         // Char
         char_card.setOnClickListener(v -> {
-            if (activity != null &&
-                context != null) {
+            if (activity != null && context != null) {
                 launchActivityUrl(
                         context,
                         References.getView(activity),
@@ -153,8 +146,7 @@ public class TeamFragment extends Fragment {
 
         // Harsh
         harsh_card.setOnClickListener(v -> {
-            if (activity != null &&
-                context != null) {
+            if (activity != null && context != null) {
                 launchActivityUrl(
                         context,
                         References.getView(activity),
@@ -175,8 +167,7 @@ public class TeamFragment extends Fragment {
 
         // Translators
         contribute.setOnClickListener(v -> {
-            if (activity != null &&
-                context != null) {
+            if (activity != null && context != null) {
                 launchActivityUrl(
                         context,
                         References.getView(activity),

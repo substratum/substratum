@@ -787,8 +787,8 @@ public enum References {
      */
     public static class Markdown extends AsyncTask<Void, Void, Void> {
         @SuppressLint("StaticFieldLeak")
-        private Context context;
-        private SharedPreferences prefs;
+        private final Context context;
+        private final SharedPreferences prefs;
 
         public Markdown(Context context, SharedPreferences prefs) {
             super();

@@ -20,8 +20,6 @@ package projekt.substratum.adapters.fragments.themes;
 
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
-import android.app.NotificationManager;
-import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -31,7 +29,6 @@ import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
@@ -45,11 +42,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.ref.WeakReference;
 import java.util.List;
 
 import projekt.substratum.R;
-import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Theming;
@@ -63,10 +58,8 @@ import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
 
 
 public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> {
-    private List<ThemeItem> information;
+    private final List<ThemeItem> information;
     private Context context;
-    private ProgressDialog mProgressDialog;
-    private ThemeItem toBeUninstalled;
 
     public ThemeAdapter(List<ThemeItem> information) {
         super();
@@ -96,9 +89,9 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder viewHolder,
                                  int pos) {
         ThemeItem themeItem = this.information.get(pos);
-        this.context = themeItem.getContext();
+        context = themeItem.getContext();
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.context);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         viewHolder.theme_name.setText(themeItem.getThemeName());
         viewHolder.theme_author.setText(themeItem.getThemeAuthor());
         if (prefs.getBoolean("advanced_ui", false)) {
@@ -146,7 +139,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         }
 
         viewHolder.cardView.setOnClickListener(
-                v -> Theming.launchTheme(this.context,
+                v -> Theming.launchTheme(context,
                         themeItem.getThemePackage(),
                         themeItem.getThemeMode(),
                         false
@@ -165,30 +158,30 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
         viewHolder.cardView.setOnLongClickListener(view -> {
             // Vibrate the device alerting the user they are about to do something dangerous!
-            if (Packages.isUserApp(this.context, themeItem.getThemePackage())) {
-                Vibrator v = (Vibrator) this.context.getSystemService(Context
+            if (Packages.isUserApp(context, themeItem.getThemePackage())) {
+                Vibrator v = (Vibrator) context.getSystemService(Context
                         .VIBRATOR_SERVICE);
                 if (v != null) {
                     v.vibrate(30L);
                 }
 
                 // About the theme
-                SheetDialog sheetDialog = new SheetDialog(this.context);
+                SheetDialog sheetDialog = new SheetDialog(context);
                 View sheetView =
-                        View.inflate(this.context, R.layout.theme_long_press_sheet_dialog, null);
+                        View.inflate(context, R.layout.theme_long_press_sheet_dialog, null);
 
                 TextView aboutText = sheetView.findViewById(R.id.about_text);
                 TextView moreText = sheetView.findViewById(R.id.more_text);
                 aboutText.setText(themeItem.getThemeName());
                 aboutText.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                 moreText.setText(String.format("%s (%s)\n%s",
-                        Packages.getAppVersion(this.context, themeItem.getThemePackage()),
-                        Packages.getAppVersionCode(this.context, themeItem.getThemePackage()),
-                        Packages.getPackageTemplateVersion(this.context,
+                        Packages.getAppVersion(context, themeItem.getThemePackage()),
+                        Packages.getAppVersionCode(context, themeItem.getThemePackage()),
+                        Packages.getPackageTemplateVersion(context,
                                 themeItem.getThemePackage())));
 
                 ImageView icon = sheetView.findViewById(R.id.icon);
-                icon.setImageDrawable(Packages.getAppIcon(this.context, themeItem
+                icon.setImageDrawable(Packages.getAppIcon(context, themeItem
                         .getThemePackage()));
 
                 ImageView two = sheetView.findViewById(R.id.theme_unready_indicator);
@@ -223,20 +216,20 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 // Favorite
                 LinearLayout favorite = sheetView.findViewById(R.id.favorite);
 
-                Drawable favoriteImg = this.context.getDrawable(R.drawable.toolbar_favorite);
+                Drawable favoriteImg = context.getDrawable(R.drawable.toolbar_favorite);
                 Drawable notFavoriteImg =
-                        this.context.getDrawable(R.drawable.toolbar_not_favorite);
+                        context.getDrawable(R.drawable.toolbar_not_favorite);
                 TextView favoriteText = sheetView.findViewById(R.id.favorite_text);
                 if (prefs.getString("app_shortcut_theme", "").equals(themeItem.getThemePackage())) {
                     assert favoriteImg != null;
                     favoriteImg.setBounds(0, 0, 60, 60);
                     favoriteText.setCompoundDrawables(favoriteImg, null, null, null);
-                    favoriteText.setText(this.context.getString(R.string.menu_unfavorite));
+                    favoriteText.setText(context.getString(R.string.menu_unfavorite));
                 } else {
                     assert notFavoriteImg != null;
                     notFavoriteImg.setBounds(0, 0, 60, 60);
                     favoriteText.setCompoundDrawables(notFavoriteImg, null, null, null);
-                    favoriteText.setText(this.context.getString(R.string.menu_favorite));
+                    favoriteText.setText(context.getString(R.string.menu_favorite));
                 }
 
                 favorite.setOnClickListener(view1 -> {
@@ -244,43 +237,43 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                         if (!prefs.getString("app_shortcut_theme", "").equals(
                                 themeItem.getThemePackage())) {
                             prefs.edit().remove("app_shortcut_theme").apply();
-                            References.clearShortcut(this.context);
+                            References.clearShortcut(context);
                             prefs.edit().putString("app_shortcut_theme",
                                     themeItem.getThemePackage()).apply();
                             References.createShortcut(
-                                    this.context,
+                                    context,
                                     themeItem.getThemePackage(),
                                     themeItem.getThemeName());
                             assert favoriteImg != null;
                             favoriteImg.setBounds(0, 0, 60, 60);
                             favoriteText.setCompoundDrawables(favoriteImg, null, null, null);
-                            favoriteText.setText(this.context.getString(R.string.menu_unfavorite));
+                            favoriteText.setText(context.getString(R.string.menu_unfavorite));
                         } else {
                             prefs.edit().remove("app_shortcut_theme").apply();
-                            References.clearShortcut(this.context);
+                            References.clearShortcut(context);
                             assert notFavoriteImg != null;
                             notFavoriteImg.setBounds(0, 0, 60, 60);
                             favoriteText.setCompoundDrawables(notFavoriteImg, null, null, null);
-                            favoriteText.setText(this.context.getString(R.string.menu_favorite));
+                            favoriteText.setText(context.getString(R.string.menu_favorite));
                         }
                     } else {
                         prefs.edit().putString("app_shortcut_theme",
                                 themeItem.getThemePackage()).apply();
                         References.createShortcut(
-                                this.context,
+                                context,
                                 themeItem.getThemePackage(),
                                 themeItem.getThemeName());
                         assert favoriteImg != null;
                         favoriteImg.setBounds(0, 0, 60, 60);
                         favoriteText.setCompoundDrawables(favoriteImg, null, null, null);
-                        favoriteText.setText(this.context.getString(R.string.menu_unfavorite));
+                        favoriteText.setText(context.getString(R.string.menu_unfavorite));
                     }
                 });
 
                 // Rate Theme
                 LinearLayout rate = sheetView.findViewById(R.id.rate);
                 String installer =
-                        Packages.getInstallerId(this.context, themeItem.getThemePackage());
+                        Packages.getInstallerId(context, themeItem.getThemePackage());
                 if ((installer != null) && installer.equals(PLAY_STORE_PACKAGE_NAME)) {
                     rate.setVisibility(View.VISIBLE);
                 } else {
@@ -291,11 +284,11 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                         String playURL = PLAY_URL_PREFIX + themeItem.getThemePackage();
                         Intent i = new Intent(Intent.ACTION_VIEW);
                         i.setData(Uri.parse(playURL));
-                        this.context.startActivity(i);
+                        context.startActivity(i);
                     } catch (ActivityNotFoundException activityNotFoundException) {
                         Toast.makeText(
-                                this.context,
-                                this.context.getString(R.string.activity_missing_toast),
+                                context,
+                                context.getString(R.string.activity_missing_toast),
                                 Toast.LENGTH_SHORT).show();
                     }
                     sheetDialog.dismiss();
@@ -304,12 +297,12 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 // Shortcut
                 LinearLayout shortcut = sheetView.findViewById(R.id.shortcut);
                 shortcut.setOnClickListener(view12 -> {
-                    References.createLauncherIcon(this.context,
+                    References.createLauncherIcon(context,
                             themeItem.getThemePackage(), themeItem.getThemeName());
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
                         Toast.makeText(
-                                this.context,
-                                this.context.getString(R.string.launcher_shortcut_toast),
+                                context,
+                                context.getString(R.string.launcher_shortcut_toast),
                                 Toast.LENGTH_SHORT).show();
                     }
                     sheetDialog.dismiss();
@@ -320,7 +313,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 uninstall.setOnClickListener(view2 -> {
                     Uri packageURI = Uri.parse("package:" + themeItem.getThemePackage());
                     Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
-                    this.context.startActivity(uninstallIntent);
+                    context.startActivity(uninstallIntent);
                     sheetDialog.dismiss();
                 });
 
@@ -335,12 +328,12 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
         if (prefs.getBoolean("advanced_ui", false)) {
             References.setRecyclerViewAnimation(
-                    this.context,
+                    context,
                     viewHolder.itemView,
                     R.anim.recyclerview_anim);
         } else {
             References.setRecyclerViewAnimation(
-                    this.context,
+                    context,
                     viewHolder.itemView,
                     android.R.anim.fade_in);
         }
@@ -350,16 +343,16 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
      * Show a dialog to explain what Theme Ready Gapps are
      */
     private void explainTBO() {
-        new AlertDialog.Builder(this.context)
+        new AlertDialog.Builder(context)
                 .setMessage(R.string.tbo_description)
                 .setPositiveButton(R.string.tbo_dialog_proceed,
                         (dialog, which) -> {
                             try {
                                 String playURL =
-                                        this.context.getString(R.string.tbo_theme_ready_url);
+                                        context.getString(R.string.tbo_theme_ready_url);
                                 Intent intent = new Intent(Intent.ACTION_VIEW);
                                 intent.setData(Uri.parse(playURL));
-                                this.context.startActivity(intent);
+                                context.startActivity(intent);
                             } catch (ActivityNotFoundException anfe) {
                                 // Suppress warning
                             }
@@ -374,17 +367,17 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
      * Show a dialog to explain what stock theming is
      */
     private void explainTWO() {
-        new AlertDialog.Builder(this.context)
+        new AlertDialog.Builder(context)
                 .setMessage(R.string.two_description)
                 .setCancelable(true)
                 .setPositiveButton(R.string.dynamic_gapps_dialog,
                         (dialog, which) -> {
                             try {
                                 String playURL =
-                                        this.context.getString(R.string.dynamic_gapps_link);
+                                        context.getString(R.string.dynamic_gapps_link);
                                 Intent intent = new Intent(Intent.ACTION_VIEW);
                                 intent.setData(Uri.parse(playURL));
-                                this.context.startActivity(intent);
+                                context.startActivity(intent);
                             } catch (ActivityNotFoundException anfe) {
                                 // Suppress warning
                             }
@@ -393,10 +386,10 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                         (dialog, which) -> {
                             try {
                                 String playURL =
-                                        this.context.getString(R.string.open_gapps_link);
+                                        context.getString(R.string.open_gapps_link);
                                 Intent intent = new Intent(Intent.ACTION_VIEW);
                                 intent.setData(Uri.parse(playURL));
-                                this.context.startActivity(intent);
+                                context.startActivity(intent);
                             } catch (ActivityNotFoundException anfe) {
                                 // Suppress warning
                             }
@@ -412,16 +405,16 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        CardView cardView;
-        TextView theme_name;
-        TextView theme_author;
-        TextView theme_apis;
-        TextView theme_version;
-        TextView plugin_version;
-        ImageView imageView;
-        View divider;
-        ImageView tbo;
-        ImageView two;
+        final CardView cardView;
+        final TextView theme_name;
+        final TextView theme_author;
+        final TextView theme_apis;
+        final TextView theme_version;
+        final TextView plugin_version;
+        final ImageView imageView;
+        final View divider;
+        final ImageView tbo;
+        final ImageView two;
 
         ViewHolder(View view) {
             super(view);

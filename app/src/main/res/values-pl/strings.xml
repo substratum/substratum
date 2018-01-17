@@ -177,7 +177,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="manage_wallpaper_home_toast">Tapeta ekranu głównego pomyślnie przywrócona!</string>
     <string name="manage_wallpaper_lock_toast">Tapeta ekranu blokady pomyślnie przywrócona!</string>
     <string name="manage_wallpaper_all_toast">Tapeta pomyślnie przywrócona!</string>
-    <string name="adapter_uninstalling">Usuwanie %s...</string>
+    <string name="adapter_uninstalling">Usuwanie %s…</string>
     <string name="plugin_template">Wtyczka</string>
     <string name="api_21">Lollipop</string>
     <string name="api_22">Lollipop MR1</string>
@@ -222,7 +222,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="logcat_dialog_title">Raport debugowania LogChar</string>
     <string name="logcat_dialog_copy_success">Pomyślnie skopiowano dziennik błędów do schowka!</string>
     <string name="logcat_send">Wyślij</string>
-    <string name="logcat_email_activity">Wyślij raport błędu za pomocą...</string>
+    <string name="logcat_email_activity">Wyślij raport błędu za pomocą…</string>
     <string name="logcat_email_activity_error">Brak zainstalowanych klientów poczty elektronicznej.</string>
     <string name="logcat_email_xposed_check">Xposed Framework</string>
     <string name="logcat_processing_dialog">Przetwarzanie raportu o błędzie</string>
@@ -257,7 +257,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
         \"/storage/emulated/0/substratum/profiles/%s\"
     </string>
     <string name="profile_restoration_message">Przetwarzanie przywracania profilu&#8230;</string>
-    <string name="spinner_default_item">wybierz profil...</string>
+    <string name="spinner_default_item">wybierz profil…</string>
     <string name="select_to_toggle_all_overlays">Wybierz, aby wybrać wszystkie nakładki</string>
     <string name="permission_not_granted_dialog_title">Uprawnienia nie zostały przyznane</string>
     <string name="permission_not_granted_dialog_message1">Proszę udzielić substratum uprawnień do pam. wewnętrznej, bo inaczej aplikacja nie będzie działać poprawnie!    </string>
@@ -300,7 +300,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="notification_theme_installed_content">Pomyślnie zainstalowano motyw.</string>
     <string name="notification_theme_updated_content">Zaktualizowano pomyślnie zasoby.</string>
     <string name="notification_initial_title">Substratum jest uruchomione</string>
-    <string name="notification_initial_title_upgrade_intent">Uaktualnianie nakładek %s...</string>
+    <string name="notification_initial_title_upgrade_intent">Uaktualnianie nakładek %s…</string>
     <string name="notification_done_title">Kompilacja motywu została zakończona</string>
     <string name="notification_done_upgrade_title">Uaktualnienie nakładki dla %s zakończone!</string>
     <string name="notification_done_upgrade_title_warning">Uaktualnienie nakładki częściowo zakończone dla %s!</string>

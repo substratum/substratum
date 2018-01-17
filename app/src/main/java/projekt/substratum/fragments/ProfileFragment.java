@@ -538,7 +538,7 @@ public class ProfileFragment extends Fragment {
      */
     private static class BackupFunction extends AsyncTask<String, Integer, String> {
 
-        private WeakReference<ProfileFragment> ref;
+        private final WeakReference<ProfileFragment> ref;
 
         BackupFunction(ProfileFragment profileFragment) {
             super();
@@ -789,10 +789,10 @@ public class ProfileFragment extends Fragment {
      * Restore function to restore a profile on the device
      */
     private static class RestoreFunction extends AsyncTask<String, Integer, String> {
-        ArrayList<String> to_be_run = new ArrayList<>(); // Overlays going to be enabled
+        final ArrayList<String> to_be_run = new ArrayList<>(); // Overlays going to be enabled
         List<String> system = new ArrayList<>(); // All installed overlays
         String profile_name;
-        private WeakReference<ProfileFragment> ref;
+        private final WeakReference<ProfileFragment> ref;
 
         RestoreFunction(ProfileFragment profileFragment) {
             super();
@@ -1053,9 +1053,9 @@ public class ProfileFragment extends Fragment {
      * Continue the restore when the profile pauses
      */
     private static class ContinueRestore extends AsyncTask<Void, String, Void> {
-        private static String TAG = "ContinueRestore";
-        private Handler handler = new Handler();
-        private WeakReference<ProfileFragment> ref;
+        private static final String TAG = "ContinueRestore";
+        private final Handler handler = new Handler();
+        private final WeakReference<ProfileFragment> ref;
         private String profileName;
         private List<List<String>> toBeCompiled;
         private ArrayList<String> toBeRun;
@@ -1063,7 +1063,7 @@ public class ProfileFragment extends Fragment {
         private LocalBroadcastManager localBroadcastManager;
         private KeyRetrieval keyRetrieval;
         private Intent securityIntent;
-        private Runnable runnable = new Runnable() {
+        private final Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 Log.d(TAG, "Waiting for encryption key handshake approval...");

@@ -1254,7 +1254,7 @@ public class InformationActivity extends AppCompatActivity {
      */
     @RestrictTo(RestrictTo.Scope.LIBRARY)
     private static class LayoutLoader extends AsyncTask<String, Integer, String> {
-        private WeakReference<InformationActivity> ref;
+        private final WeakReference<InformationActivity> ref;
 
         LayoutLoader(InformationActivity informationActivity) {
             super();
@@ -1303,7 +1303,7 @@ public class InformationActivity extends AppCompatActivity {
      * Class to create the app shortcut on the launcher
      */
     private static class AppShortcutCreator extends AsyncTask<String, Integer, String> {
-        private WeakReference<InformationActivity> ref;
+        private final WeakReference<InformationActivity> ref;
 
         AppShortcutCreator(InformationActivity informationActivity) {
             super();
@@ -1351,7 +1351,7 @@ public class InformationActivity extends AppCompatActivity {
      * Class to remove all app shortcuts on the launcher
      */
     private static class AppShortcutClearer extends AsyncTask<String, Integer, String> {
-        private WeakReference<InformationActivity> ref;
+        private final WeakReference<InformationActivity> ref;
 
         AppShortcutClearer(InformationActivity informationActivity) {
             super();
@@ -1396,7 +1396,7 @@ public class InformationActivity extends AppCompatActivity {
      * Class to uninstall the current theme, of which closes out the theme just to end gracefully
      */
     private static class uninstallTheme extends AsyncTask<String, Integer, String> {
-        private WeakReference<InformationActivity> ref;
+        private final WeakReference<InformationActivity> ref;
 
         uninstallTheme(InformationActivity informationActivity) {
             super();

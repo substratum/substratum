@@ -22,10 +22,10 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 
 public class ValidatorInfo {
-    private String package_name;
-    private Context context;
-    private Boolean mVerified;
-    private Boolean mCommons;
+    private final String package_name;
+    private final Context context;
+    private final Boolean mVerified;
+    private final Boolean mCommons;
     private Drawable mDrawable;
     private ValidatorError mValidatorError;
 

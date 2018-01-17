@@ -44,7 +44,7 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 import static com.bumptech.glide.request.RequestOptions.centerCropTransform;
 
 public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapter.ViewHolder> {
-    private List<ShowcaseItem> information;
+    private final List<ShowcaseItem> information;
 
     public ShowcaseItemAdapter(List<ShowcaseItem> information) {
         super();
@@ -140,18 +140,18 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        CardView cardView;
-        TextView themeName;
-        TextView themeAuthor;
-        TextView installedOrNot;
-        ImageView themePricing;
-        ImageView imageView;
-        ImageView backgroundImageView;
-        ImageView wallpaper;
-        ImageView sounds;
-        ImageView fonts;
-        ImageView bootanimations;
-        ImageView overlays;
+        final CardView cardView;
+        final TextView themeName;
+        final TextView themeAuthor;
+        final TextView installedOrNot;
+        final ImageView themePricing;
+        final ImageView imageView;
+        final ImageView backgroundImageView;
+        final ImageView wallpaper;
+        final ImageView sounds;
+        final ImageView fonts;
+        final ImageView bootanimations;
+        final ImageView overlays;
 
         ViewHolder(View view) {
             super(view);

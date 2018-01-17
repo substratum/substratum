@@ -18,6 +18,8 @@
 
 package projekt.substratum.fragments;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -70,90 +72,92 @@ public class TeamFragment extends Fragment {
         View view = inflater.inflate(R.layout.team_fragment, container, false);
         ButterKnife.bind(this, view);
 
+        final Context context = getContext();
+        final Activity activity = getActivity();
         // Nicholas
         nicholas_card.setOnClickListener(v -> {
-            if (getActivity() != null) {
+            if (activity != null && context != null) {
                 launchActivityUrl(
-                        getContext(),
-                        References.getView(getActivity()),
-                        R.string.team_nicholas_link);
+                    context,
+                    References.getView(activity),
+                    R.string.team_nicholas_link);
             }
         });
 
         // Mike
         syko_card.setOnClickListener(v -> {
-            if (getActivity() != null) {
+            if (activity != null && context != null) {
                 launchActivityUrl(
-                        getContext(),
-                        References.getView(getActivity()),
+                        context,
+                        References.getView(activity),
                         R.string.team_syko_link);
             }
         });
 
         // Ivan
         ivan_card.setOnClickListener(v -> {
-            if (getActivity() != null) {
+            if (activity != null && context != null) {
                 launchActivityUrl(
-                        getContext(),
-                        References.getView(getActivity()),
+                        context,
+                        References.getView(activity),
                         R.string.team_ivan_link);
             }
         });
 
         // Surge
         surge_card.setOnClickListener(v -> {
-            if (getActivity() != null) {
+            if (activity != null && context != null) {
                 launchActivityUrl(
-                        getContext(),
-                        References.getView(getActivity()),
+                        context,
+                        References.getView(activity),
                         R.string.team_surge_link);
             }
         });
 
         // George
         george_card.setOnClickListener(v -> {
-            if (getActivity() != null) {
+            if (activity != null && context != null) {
                 launchActivityUrl(
-                        getContext(),
-                        References.getView(getActivity()),
+                        context,
+                        References.getView(activity),
                         R.string.team_george_link);
             }
         });
 
         // Nathan
         nathan_card.setOnClickListener(v -> {
-            if (getActivity() != null) {
+            if (activity != null && context != null) {
                 launchActivityUrl(
-                        getContext(),
-                        References.getView(getActivity()),
+                        context,
+                        References.getView(activity),
                         R.string.team_nathan_link);
             }
         });
 
         // Char
         char_card.setOnClickListener(v -> {
-            if (getActivity() != null) {
+            if (activity != null && context != null) {
                 launchActivityUrl(
-                        getContext(),
-                        References.getView(getActivity()),
+                        context,
+                        References.getView(activity),
                         R.string.team_char_link);
             }
         });
 
         // Harsh
         harsh_card.setOnClickListener(v -> {
-            if (getActivity() != null) {
+            if (activity != null && context != null) {
                 launchActivityUrl(
-                        getContext(),
-                        References.getView(getActivity()),
+                        context,
+                        References.getView(activity),
                         R.string.team_harsh_link);
             }
         });
 
         // Development contributors
         development_contributors.setOnClickListener(v -> {
-            assert getActivity() != null;
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            assert activity != null;
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
             builder.setItems(getResources().getStringArray(R.array.substratum_contributors),
                     (dialog, item) -> {
                     });
@@ -163,18 +167,18 @@ public class TeamFragment extends Fragment {
 
         // Translators
         contribute.setOnClickListener(v -> {
-            if (getActivity() != null) {
+            if (activity != null && context != null) {
                 launchActivityUrl(
-                        getContext(),
-                        References.getView(getActivity()),
+                        context,
+                        References.getView(activity),
                         R.string.crowdin_url);
             }
         });
 
         // Layers contributors
         layers.setOnClickListener(v -> {
-            assert getActivity() != null;
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            assert activity != null;
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
             builder.setItems(getResources().getStringArray(R.array.layers_contributors),
                     (dialog, item) -> {
                     });
@@ -183,12 +187,12 @@ public class TeamFragment extends Fragment {
         });
 
         translators.setOnClickListener(v -> {
-            assert getActivity() != null;
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            assert activity != null;
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
             builder.setItems(getResources().getStringArray(R.array.translations),
                     (dialog, item) -> {
                         dialog.cancel();
-                        AlertDialog.Builder builder2 = new AlertDialog.Builder(getActivity());
+                        AlertDialog.Builder builder2 = new AlertDialog.Builder(activity);
                         switch (item) {
                             case 0:
                                 builder2.setItems(

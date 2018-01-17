@@ -38,7 +38,7 @@ import static projekt.substratum.common.Resources.SYSTEMUI_STATUSBARS;
 
 public class ManagerItem implements Serializable {
 
-    private Context context;
+    private final Context context;
     private String name;
     private String type1a;
     private String type1b;

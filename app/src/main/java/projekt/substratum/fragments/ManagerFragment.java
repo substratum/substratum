@@ -349,10 +349,10 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.overlays_list_menu, menu);
-        menu.findItem(R.id.restart_systemui).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        menu.findItem(R.id.per_app).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.findItem(R.id.restart_systemui).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        menu.findItem(R.id.per_app).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         menu.findItem(R.id.action_search).setVisible(true);
-        menu.findItem(R.id.action_search).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.findItem(R.id.action_search).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         assert getActivity() != null;
         searchView = ((MainActivity) getActivity()).searchView;
         if (searchView != null) searchView.setOnQueryTextListener(this);
@@ -494,8 +494,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
      * The beef of reloading the whole manager's list
      */
     private static class LayoutReloader extends AsyncTask<Void, Void, Void> {
-        private WeakReference<ManagerFragment> ref;
-        private WeakReference<String> userInput;
+        private final WeakReference<ManagerFragment> ref;
+        private final WeakReference<String> userInput;
         private int currentPosition;
 
         private LayoutReloader(ManagerFragment fragment, String input) {
@@ -711,7 +711,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
      * OMS Enable Function
      */
     private static class RunEnable extends AsyncTask<String, Integer, String> {
-        private WeakReference<ManagerFragment> ref;
+        private final WeakReference<ManagerFragment> ref;
 
         private RunEnable(ManagerFragment fragment) {
             super();
@@ -772,7 +772,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 }
                 if (!data.isEmpty() && !has_failed) {
                     // The magic goes here
-                    if (!data.isEmpty()) ThemeManager.enableOverlay(context, data);
+                    ThemeManager.enableOverlay(context, data);
 
                     if (Systems.checkSubstratumService(context) &&
                             !Systems.checkThemeInterfacer(context) &&
@@ -808,7 +808,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
      * RRO Disable Function
      */
     private static class RunDisable extends AsyncTask<Void, Void, String> {
-        private WeakReference<ManagerFragment> ref;
+        private final WeakReference<ManagerFragment> ref;
 
         private RunDisable(ManagerFragment fragment) {
             super();
@@ -1029,7 +1029,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
      * OMS Enable/Disable function
      */
     private static class RunEnableDisable extends AsyncTask<String, Integer, String> {
-        private WeakReference<ManagerFragment> ref;
+        private final WeakReference<ManagerFragment> ref;
 
         private RunEnableDisable(ManagerFragment fragment) {
             super();
@@ -1128,7 +1128,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
      * Uninstall function
      */
     private static class RunUninstall extends AsyncTask<Void, Void, Void> {
-        private WeakReference<ManagerFragment> ref;
+        private final WeakReference<ManagerFragment> ref;
 
         private RunUninstall(ManagerFragment fragment) {
             super();
@@ -1225,7 +1225,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
      * Concluding function to end the update process gracefully
      */
     private static class FinishReceiver extends BroadcastReceiver {
-        private WeakReference<ManagerFragment> ref;
+        private final WeakReference<ManagerFragment> ref;
 
         private FinishReceiver(ManagerFragment fragment) {
             super();

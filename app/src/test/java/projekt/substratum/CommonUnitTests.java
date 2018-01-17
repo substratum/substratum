@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 public class CommonUnitTests {
     @Test
-    public void addition_isCorrect() throws Exception {
+    public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
     }
 

@@ -41,8 +41,8 @@ import projekt.substratum.util.files.StringUtils;
 public class ManagerAdapter extends
         RecyclerView.Adapter<ManagerAdapter.ViewHolder> {
 
-    private Boolean floatui;
-    private List<ManagerItem> overlayList;
+    private final Boolean floatui;
+    private final List<ManagerItem> overlayList;
 
     public ManagerAdapter(List<ManagerItem> overlays,
                           Boolean floatui) {
@@ -286,20 +286,20 @@ public class ManagerAdapter extends
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvName;
-        TextView tvDesc;
-        CheckBox chkSelected;
-        CardView card;
-        ImageView appIcon;
-        ImageView appIconTarget;
-        TextView type1a;
-        TextView type1b;
-        TextView type1c;
-        TextView type2;
-        TextView type3;
-        TextView type4;
-        TextView version;
-        TextView theme_version;
+        final TextView tvName;
+        final TextView tvDesc;
+        final CheckBox chkSelected;
+        final CardView card;
+        final ImageView appIcon;
+        final ImageView appIconTarget;
+        final TextView type1a;
+        final TextView type1b;
+        final TextView type1c;
+        final TextView type2;
+        final TextView type3;
+        final TextView type4;
+        final TextView version;
+        final TextView theme_version;
 
         ViewHolder(View itemLayoutView) {
             super(itemLayoutView);

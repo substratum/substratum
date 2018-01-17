@@ -321,10 +321,10 @@ enum OverlaysManager {
      */
     static class compileFunction extends AsyncTask<String, Integer, String> {
 
-        private WeakReference<Overlays> ref;
+        private final WeakReference<Overlays> ref;
         private String currentPackageName = "";
         private String current_dialog_overlay;
-        private String state;
+        private final String state;
 
         compileFunction(Overlays overlays, String state) {
             super();
@@ -1026,8 +1026,8 @@ enum OverlaysManager {
      * Concluding function to end the enabling process gracefully
      */
     static class finishEnableFunction extends AsyncTask<Void, Void, Void> {
-        WeakReference<Overlays> ref;
-        WeakReference<Context> refContext;
+        final WeakReference<Overlays> ref;
+        final WeakReference<Context> refContext;
 
         finishEnableFunction(Overlays overlays) {
             super();
@@ -1083,8 +1083,8 @@ enum OverlaysManager {
      * Concluding function to end the disabling process gracefully
      */
     static class finishDisableFunction extends AsyncTask<Void, Void, Void> {
-        WeakReference<Overlays> ref;
-        WeakReference<Context> refContext;
+        final WeakReference<Overlays> ref;
+        final WeakReference<Context> refContext;
 
         finishDisableFunction(Overlays overlays) {
             super();
@@ -1129,8 +1129,8 @@ enum OverlaysManager {
      * Concluding function to end the swapping process gracefully
      */
     static class finishEnableDisableFunction extends AsyncTask<Void, Void, Void> {
-        WeakReference<Overlays> ref;
-        WeakReference<Context> refContext;
+        final WeakReference<Overlays> ref;
+        final WeakReference<Context> refContext;
 
         finishEnableDisableFunction(Overlays overlays) {
             super();
@@ -1201,9 +1201,9 @@ enum OverlaysManager {
      * Concluding function to end the update process gracefully
      */
     static class finishUpdateFunction extends AsyncTask<Void, Void, Void> {
-        WeakReference<Overlays> ref;
-        WeakReference<Context> refContext;
-        private String state;
+        final WeakReference<Overlays> ref;
+        final WeakReference<Context> refContext;
+        private final String state;
 
         finishUpdateFunction(Overlays overlays, String state) {
             super();

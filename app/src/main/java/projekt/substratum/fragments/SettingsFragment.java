@@ -558,8 +558,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             if (!Systems.checkSubstratumFeature(context)) {
                 crashReceiver.setVisible(false);
             }
-        } else {
-            if (isOMS) crashReceiver.setVisible(false);
         }
 
         // Manage Space Activity
@@ -969,7 +967,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
      */
     private static class checkROMSupportList extends AsyncTask<String, Integer, String> {
 
-        private WeakReference<SettingsFragment> ref;
+        private final WeakReference<SettingsFragment> ref;
 
         checkROMSupportList(SettingsFragment settingsFragment) {
             super();
@@ -1037,7 +1035,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
     private static class downloadRepositoryList extends AsyncTask<String, Integer,
             ArrayList<String>> {
 
-        private WeakReference<SettingsFragment> ref;
+        private final WeakReference<SettingsFragment> ref;
 
         downloadRepositoryList(SettingsFragment settingsFragment) {
             super();

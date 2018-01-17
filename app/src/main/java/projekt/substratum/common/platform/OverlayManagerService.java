@@ -34,7 +34,7 @@ public enum OverlayManagerService {
     /**
      * Api for obtaining information about overlay packages.
      */
-    private static int CURRENT_USER = Process.myUid() / 100000;
+    private static final int CURRENT_USER = Process.myUid() / 100000;
 
     /**
      * Returns information about all installed overlay packages for the

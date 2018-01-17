@@ -322,7 +322,7 @@ public class ThemeFragment extends Fragment {
      * The core structure to reload the layout asynchronously
      */
     private static class LayoutLoader extends AsyncTask<String, Integer, String> {
-        private WeakReference<ThemeFragment> fragment;
+        private final WeakReference<ThemeFragment> fragment;
         private HashMap<String, String[]> substratum_packages;
         private ArrayList<ThemeItem> themeItems;
 

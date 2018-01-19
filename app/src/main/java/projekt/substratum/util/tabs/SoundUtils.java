@@ -82,7 +82,6 @@ public class SoundUtils {
         this.context = context;
         this.theme_pid = theme_pid;
         this.view = view;
-        Cipher cipher1 = cipher;
         this.prefs = PreferenceManager.getDefaultSharedPreferences(context);
         new SoundsHandlerAsync(this).execute(arguments);
     }

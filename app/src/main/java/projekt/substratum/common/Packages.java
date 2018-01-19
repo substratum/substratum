@@ -426,77 +426,70 @@ public enum Packages {
                 try {
                     if (appInfo.minSdkVersion == appInfo.targetSdkVersion) {
                         int target = appInfo.targetSdkVersion;
-                        if (target == 23) {
-                            return context.getString(R.string.api_23);
-                        } else if (target == 24) {
-                            return context.getString(R.string.api_24);
-                        } else if (target == 25) {
-                            return context.getString(R.string.api_25);
-                        } else if (target == 26) {
-                            return context.getString(R.string.api_26);
-                        } else if (target == 27) {
-                            return context.getString(R.string.api_27);
+                        switch (target) {
+                            case Build.VERSION_CODES.N:
+                                return context.getString(R.string.api_24);
+                            case Build.VERSION_CODES.N_MR1:
+                                return context.getString(R.string.api_25);
+                            case Build.VERSION_CODES.O:
+                                return context.getString(R.string.api_26);
+                            case Build.VERSION_CODES.O_MR1:
+                                return context.getString(R.string.api_27);
                         }
                     } else {
                         String minSdk = "";
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                             int min = appInfo.minSdkVersion;
-                            if (min == 21) {
-                                minSdk = context.getString(R.string.api_21);
-                            } else if (min == 22) {
-                                minSdk = context.getString(R.string.api_22);
-                            } else if (min == 23) {
-                                minSdk = context.getString(R.string.api_23);
-                            } else if (min == 24) {
-                                minSdk = context.getString(R.string.api_24);
-                            } else if (min == 25) {
-                                minSdk = context.getString(R.string.api_25);
-                            } else if (min == 26) {
-                                minSdk = context.getString(R.string.api_26);
-                            } else if (min == 27) {
-                                minSdk = context.getString(R.string.api_27);
-                            }
-                        } else {
-                            // At this point, it is under API24 (API warning) thus we'll do an
-                            // educated guess here.
-                            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP) {
-                                minSdk = context.getString(R.string.api_21);
-                            } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP_MR1) {
-                                minSdk = context.getString(R.string.api_22);
-                            } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M) {
-                                minSdk = context.getString(R.string.api_23);
+                            switch (min) {
+                                case Build.VERSION_CODES.N:
+                                    minSdk = context.getString(R.string.api_24);
+                                    break;
+                                case Build.VERSION_CODES.N_MR1:
+                                    minSdk = context.getString(R.string.api_25);
+                                    break;
+                                case Build.VERSION_CODES.O:
+                                    minSdk = context.getString(R.string.api_26);
+                                    break;
+                                case Build.VERSION_CODES.O_MR1:
+                                    minSdk = context.getString(R.string.api_27);
+                                    break;
                             }
                         }
                         String targetSdk = "";
                         int target = appInfo.targetSdkVersion;
-                        if (target == 23) {
-                            targetSdk = context.getString(R.string.api_23);
-                        } else if (target == 24) {
-                            targetSdk = context.getString(R.string.api_24);
-                        } else if (target == 25) {
-                            targetSdk = context.getString(R.string.api_25);
-                        } else if (target == 26) {
-                            targetSdk = context.getString(R.string.api_26);
-                        } else if (target == 27) {
-                            targetSdk = context.getString(R.string.api_27);
+                        switch (target) {
+                            case Build.VERSION_CODES.N:
+                                targetSdk = context.getString(R.string.api_24);
+                                break;
+                            case Build.VERSION_CODES.N_MR1:
+                                targetSdk = context.getString(R.string.api_25);
+                                break;
+                            case Build.VERSION_CODES.O:
+                                targetSdk = context.getString(R.string.api_26);
+                                break;
+                            case Build.VERSION_CODES.O_MR1:
+                                targetSdk = context.getString(R.string.api_27);
+                                break;
                         }
                         return minSdk + " - " + targetSdk;
                     }
                 } catch (NoSuchFieldError noSuchFieldError) {
-                    // The device is API 23 if it throws a NoSuchFieldError
-                    if (appInfo.targetSdkVersion == 23) {
-                        return context.getString(R.string.api_23);
+                    int target = appInfo.targetSdkVersion;
+                    if (target == Build.VERSION_CODES.N) {
+                        return context.getString(R.string.api_24);
                     } else {
                         String targetAPI = "";
-                        int target = appInfo.targetSdkVersion;
-                        if (target == 24) {
-                            targetAPI = context.getString(R.string.api_24);
-                        } else if (target == 25) {
-                            targetAPI = context.getString(R.string.api_25);
-                        } else if (target == 26) {
-                            targetAPI = context.getString(R.string.api_26);
+                        switch (target) {
+                            case Build.VERSION_CODES.N_MR1:
+                                targetAPI = context.getString(R.string.api_25);
+                                break;
+                            case Build.VERSION_CODES.O:
+                                targetAPI = context.getString(R.string.api_26);
+                                break;
+                            case Build.VERSION_CODES.O_MR1:
+                                targetAPI = context.getString(R.string.api_27);
                         }
-                        return context.getString(R.string.api_23) + " - " + targetAPI;
+                        return context.getString(R.string.api_24) + " - " + targetAPI;
                     }
                 }
             }

@@ -188,9 +188,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="manage_wallpaper_all_toast">Tapeta bola úspešne obnovená!</string>
     <string name="adapter_uninstalling">Odstraňovanie %s&#8230;</string>
     <string name="plugin_template">Zásuvný modul</string>
-    <string name="api_21">Lollipop</string>
-    <string name="api_22">Lollipop MR1</string>
-    <string name="api_23">Marshmallow</string>
     <string name="api_24">Nougat</string>
     <string name="api_25">Pixel-N</string>
     <string name="api_26">Oreo</string>

@@ -1,5 +1,6 @@
 package projekt.substratum.common;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -208,6 +209,7 @@ public enum Packages {
      * @param drawable Insert a Drawable casted as a Drawable
      * @return Returns the converted Bitmap
      */
+    @SuppressLint("NewApi")
     public static Bitmap getBitmapFromDrawable(Drawable drawable) {
         Bitmap bitmap = null;
         if (drawable instanceof VectorDrawable) {

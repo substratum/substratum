@@ -674,11 +674,8 @@ public enum ThemeManager {
      */
     public static List<String> listOverlaysForTarget(Context context,
                                                      String target) {
-        List<String> list = new ArrayList<>();
         List<String> overlays = listAllOverlays(context);
-        list.addAll(overlays.stream().filter(o -> o.startsWith(target))
-                .collect(Collectors.toList()));
-        return list;
+        return overlays.stream().filter(o -> o.startsWith(target)).collect(Collectors.toList());
     }
 
     /**
@@ -690,11 +687,8 @@ public enum ThemeManager {
      */
     public static List<String> listEnabledOverlaysForTarget(Context context,
                                                             String target) {
-        List<String> list = new ArrayList<>();
         List<String> overlays = listOverlays(context, STATE_ENABLED);
-        list.addAll(overlays.stream().filter(o -> o.startsWith(target))
-                .collect(Collectors.toList()));
-        return list;
+        return overlays.stream().filter(o -> o.startsWith(target)).collect(Collectors.toList());
     }
 
     /**
@@ -706,11 +700,8 @@ public enum ThemeManager {
      */
     public static List<String> listDisabledOverlaysForTarget(Context context,
                                                              String target) {
-        List<String> list = new ArrayList<>();
         List<String> overlays = listOverlays(context, STATE_DISABLED);
-        list.addAll(overlays.stream().filter(o -> o.startsWith(target))
-                .collect(Collectors.toList()));
-        return list;
+        return overlays.stream().filter(o -> o.startsWith(target)).collect(Collectors.toList());
     }
 
     /**

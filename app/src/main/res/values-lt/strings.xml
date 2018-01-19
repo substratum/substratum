@@ -193,9 +193,6 @@
     <string name="manage_wallpaper_all_toast">Fonas atkurtas sėkmingai!</string>
     <string name="adapter_uninstalling">Dabar pašalinama %s&#8230;</string>
     <string name="plugin_template">Įskiepis</string>
-    <string name="api_21">\"Lollipop\"</string>
-    <string name="api_22">\"Lollipop MR1\"</string>
-    <string name="api_23">\"Marshmallow\"</string>
     <string name="api_24">Nougat</string>
     <string name="api_25">\"Pixel-N\"</string>
     <string name="api_26">\"Oreo\"</string>

@@ -179,9 +179,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="manage_wallpaper_all_toast">Tapeta pomyślnie przywrócona!</string>
     <string name="adapter_uninstalling">Usuwanie %s...</string>
     <string name="plugin_template">Wtyczka</string>
-    <string name="api_21">Lollipop</string>
-    <string name="api_22">Lollipop MR1</string>
-    <string name="api_23">Marshmallow</string>
     <string name="api_24">Nougat</string>
     <string name="api_25">Pixel-N</string>
     <string name="api_26">Oreo</string>

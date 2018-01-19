@@ -122,12 +122,12 @@ public enum Packages {
      * @return True, if it fits all criteria above
      */
     public static boolean isPackageInstalled(
-            Context context,
-            String package_name,
-            boolean enabled) {
+        Context context,
+        String package_name,
+        boolean enabled) {
         try {
             ApplicationInfo ai = context.getPackageManager().getApplicationInfo
-                    (package_name, 0);
+                (package_name, 0);
             PackageManager pm = context.getPackageManager();
             pm.getPackageInfo(package_name, PackageManager.GET_ACTIVITIES);
             if (enabled) return ai.enabled;
@@ -152,7 +152,7 @@ public enum Packages {
             try {
                 int enabled = pm.getApplicationEnabledSetting(package_name);
                 return (enabled != PackageManager.COMPONENT_ENABLED_STATE_DISABLED) &&
-                        (enabled != PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER);
+                    (enabled != PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER);
             } catch (Exception e) {
                 return false;
             }
@@ -177,9 +177,9 @@ public enum Packages {
             Context ctx = context.createPackageContext(package_name, 0);
             android.content.res.Resources resources = ctx.getResources();
             int drawablePointer = resources.getIdentifier(
-                    resource_name, // Drawable name explicitly defined
-                    resource_type, // Declared icon is a drawable, indeed.
-                    package_name); // Icon pack package name
+                resource_name, // Drawable name explicitly defined
+                resource_type, // Declared icon is a drawable, indeed.
+                package_name); // Icon pack package name
             return drawablePointer != 0;
         } catch (Exception e) {
             return false;
@@ -194,9 +194,9 @@ public enum Packages {
      */
     public static Bitmap getBitmapFromVector(Drawable drawable) {
         Bitmap bitmap = Bitmap.createBitmap(
-                drawable.getIntrinsicWidth(),
-                drawable.getIntrinsicHeight(),
-                Bitmap.Config.ARGB_8888);
+            drawable.getIntrinsicWidth(),
+            drawable.getIntrinsicHeight(),
+            Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);
@@ -215,16 +215,16 @@ public enum Packages {
         if (drawable instanceof VectorDrawable) {
             bitmap = getBitmapFromVector(drawable);
         } else if ((drawable instanceof BitmapDrawable)
-                | (drawable instanceof ShapeDrawable)) {
+            | (drawable instanceof ShapeDrawable)) {
             //noinspection ConstantConditions
             bitmap = ((BitmapDrawable) drawable).getBitmap();
         } else if (drawable instanceof AdaptiveIconDrawable) {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                 // First we must get the top and bottom layers of the drawable
                 Drawable backgroundDrawable = ((AdaptiveIconDrawable) drawable)
-                        .getBackground();
+                    .getBackground();
                 Drawable foregroundDrawable = ((AdaptiveIconDrawable) drawable)
-                        .getForeground();
+                    .getForeground();
 
                 // Then we have to set up the drawable array to format these as an instantiation
                 Drawable[] drawableArray = new Drawable[2];
@@ -277,8 +277,8 @@ public enum Packages {
             // Suppress warning
         }
         if ((package_name != null) &&
-                package_name.equals(INTERFACER_PACKAGE) &&
-                !checkOMS(context)) {
+            package_name.equals(INTERFACER_PACKAGE) &&
+            !checkOMS(context)) {
             return context.getDrawable(R.mipmap.main_launcher);
         } else {
             return context.getDrawable(R.drawable.default_overlay_icon);
@@ -296,7 +296,7 @@ public enum Packages {
                                                   String package_name) {
         try {
             ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
-                    package_name, PackageManager.GET_META_DATA);
+                package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
                 return appInfo.metaData.getInt(metadataOverlayVersion);
             }
@@ -317,9 +317,9 @@ public enum Packages {
                                                 String package_name) {
         try {
             ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
-                    package_name, PackageManager.GET_META_DATA);
+                package_name, PackageManager.GET_META_DATA);
             if ((appInfo.metaData != null) &&
-                    (appInfo.metaData.getString(metadataOverlayParent) != null)) {
+                (appInfo.metaData.getString(metadataOverlayParent) != null)) {
                 return getAppIcon(context, appInfo.metaData.getString(metadataOverlayParent));
             }
         } catch (Exception e) {
@@ -338,7 +338,7 @@ public enum Packages {
         // Scavenge through the packages on the device with specific substratum metadata
         PackageManager packageManager = context.getPackageManager();
         return packageManager.queryIntentActivities(new Intent(SUBSTRATUM_THEME),
-                PackageManager.GET_META_DATA);
+            PackageManager.GET_META_DATA);
     }
 
     /**
@@ -421,7 +421,7 @@ public enum Packages {
                                       String package_name) {
         try {
             ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
-                    package_name, PackageManager.GET_META_DATA);
+                package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
                 try {
                     if (appInfo.minSdkVersion == appInfo.targetSdkVersion) {
@@ -475,22 +475,22 @@ public enum Packages {
                     }
                 } catch (NoSuchFieldError noSuchFieldError) {
                     int target = appInfo.targetSdkVersion;
-                    if (target == Build.VERSION_CODES.N) {
-                        return context.getString(R.string.api_24);
-                    } else {
-                        String targetAPI = "";
-                        switch (target) {
-                            case Build.VERSION_CODES.N_MR1:
-                                targetAPI = context.getString(R.string.api_25);
-                                break;
-                            case Build.VERSION_CODES.O:
-                                targetAPI = context.getString(R.string.api_26);
-                                break;
-                            case Build.VERSION_CODES.O_MR1:
-                                targetAPI = context.getString(R.string.api_27);
-                        }
-                        return context.getString(R.string.api_24) + " - " + targetAPI;
+                    String targetAPI = "";
+                    switch (target) {
+                        case Build.VERSION_CODES.N:
+                            return context.getString(R.string.api_24);
+                        case Build.VERSION_CODES.N_MR1:
+                            targetAPI = context.getString(R.string.api_25);
+                            break;
+                        case Build.VERSION_CODES.O:
+                            targetAPI = context.getString(R.string.api_26);
+                            break;
+                        case Build.VERSION_CODES.O_MR1:
+                            targetAPI = context.getString(R.string.api_27);
+                            break;
                     }
+                    return context.getString(R.string.api_24) + " - " + targetAPI;
+
                 }
             }
         } catch (Exception e) {
@@ -508,12 +508,12 @@ public enum Packages {
      * @return Returns a string of the metadata's output
      */
     public static String getOverlayMetadata(
-            Context context,
-            String package_name,
-            String metadata) {
+        Context context,
+        String package_name,
+        String metadata) {
         try {
             ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
-                    package_name, PackageManager.GET_META_DATA);
+                package_name, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
                 if (metadata.equals(metadataSamsungSupport)) {
                     try {
@@ -553,11 +553,11 @@ public enum Packages {
                                    String type) {
         try {
             android.content.res.Resources res =
-                    context.getPackageManager().getResourcesForApplication(package_name);
+                context.getPackageManager().getResourcesForApplication(package_name);
             return res.getIdentifier(
-                    package_name + ':' + type + '/' + resourceName,
-                    type,
-                    package_name);
+                package_name + ':' + type + '/' + resourceName,
+                type,
+                package_name);
         } catch (Exception e) {
             // Suppress warning
         }
@@ -590,9 +590,9 @@ public enum Packages {
                                              String package_name) {
         try {
             android.content.res.Resources res =
-                    context.getPackageManager().getResourcesForApplication(package_name);
+                context.getPackageManager().getResourcesForApplication(package_name);
             int array_position = getResource(context, package_name, resourceChangelog,
-                    "array");
+                "array");
             return res.getStringArray(array_position);
         } catch (Exception e) {
             // Suppress warning
@@ -613,23 +613,23 @@ public enum Packages {
         Drawable hero = context.getDrawable(android.R.color.transparent); // Initialize to be clear
         try {
             android.content.res.Resources res = context.getPackageManager()
-                    .getResourcesForApplication(package_name);
+                .getResourcesForApplication(package_name);
             int resourceId;
             if ((PreferenceManager.
-                    getDefaultSharedPreferences(context).
-                    getInt("grid_style_cards_count", 1) != 1) && isThemesView) {
+                getDefaultSharedPreferences(context).
+                getInt("grid_style_cards_count", 1) != 1) && isThemesView) {
                 resourceId = res.getIdentifier(
-                        package_name + ":drawable/" + heroImageGridResourceName, null, null);
+                    package_name + ":drawable/" + heroImageGridResourceName, null, null);
                 if (resourceId == 0) resourceId = res.getIdentifier(
-                        package_name + ":drawable/" + heroImageResourceName, null, null);
+                    package_name + ":drawable/" + heroImageResourceName, null, null);
             } else if (!isThemesView) {
                 resourceId = res.getIdentifier(
-                        package_name + ":drawable/" + heroImageMainResourceName, null, null);
+                    package_name + ":drawable/" + heroImageMainResourceName, null, null);
                 if (resourceId == 0) resourceId = res.getIdentifier(
-                        package_name + ":drawable/" + heroImageResourceName, null, null);
+                    package_name + ":drawable/" + heroImageResourceName, null, null);
             } else {
                 resourceId = res.getIdentifier(
-                        package_name + ":drawable/" + heroImageResourceName, null, null);
+                    package_name + ":drawable/" + heroImageResourceName, null, null);
             }
             if (resourceId != 0) {
                 hero = context.getPackageManager().getDrawable(package_name, resourceId, null);
@@ -771,7 +771,7 @@ public enum Packages {
     static boolean getMetadata(Context context,
                                String trigger) {
         List<ApplicationInfo> list =
-                context.getPackageManager().getInstalledApplications(PackageManager.GET_META_DATA);
+            context.getPackageManager().getInstalledApplications(PackageManager.GET_META_DATA);
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).packageName.startsWith(trigger)) {
                 return true;
@@ -817,21 +817,21 @@ public enum Packages {
             for (ResolveInfo ri : listOfThemes) {
                 String packageName = ri.activityInfo.packageName;
                 ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
-                        packageName, PackageManager.GET_META_DATA);
+                    packageName, PackageManager.GET_META_DATA);
 
                 // By default, we will have to enforce continuation to false, if a poorly adapted
                 // theme did not implement the proper meta data.
                 Boolean can_continue = false;
                 if ((appInfo.metaData.getString(metadataName) != null) &&
-                        (appInfo.metaData.getString(metadataAuthor) != null) &&
-                        (appInfo.metaData.getString(metadataVersion) != null)) {
+                    (appInfo.metaData.getString(metadataAuthor) != null) &&
+                    (appInfo.metaData.getString(metadataVersion) != null)) {
                     // Check if Samsung, and block the showing of the theme if the theme does not
                     // support samsung intentionally!
                     Boolean samsung_support =
-                            appInfo.metaData.getBoolean(metadataSamsungSupport, true);
+                        appInfo.metaData.getBoolean(metadataSamsungSupport, true);
                     if (!samsung_support &&
-                            (Systems.isSamsungDevice(context) ||
-                                    Systems.isNewSamsungDevice(context))) {
+                        (Systems.isSamsungDevice(context) ||
+                            Systems.isNewSamsungDevice(context))) {
                         can_continue = false;
                     } else {
                         // The theme app contains the proper metadata
@@ -839,29 +839,29 @@ public enum Packages {
                         // If the user is searching using the search bar
                         if ((search_filter != null) && !search_filter.isEmpty()) {
                             @SuppressWarnings("StringBufferReplaceableByString") StringBuilder
-                                    filtered = new StringBuilder();
+                                filtered = new StringBuilder();
                             filtered.append(appInfo.metaData.getString(metadataName));
                             filtered.append(appInfo.metaData.getString(metadataAuthor));
                             can_continue =
-                                    filtered
-                                            .toString()
-                                            .toLowerCase()
-                                            .contains(search_filter.toLowerCase());
+                                filtered
+                                    .toString()
+                                    .toLowerCase()
+                                    .contains(search_filter.toLowerCase());
                         }
                     }
                 }
                 if (can_continue) {
                     // Let's prepare ourselves for appending into the hash map for this theme
                     String[] data = {
-                            appInfo.metaData.getString(metadataAuthor),
-                            packageName
+                        appInfo.metaData.getString(metadataAuthor),
+                        packageName
                     };
                     // Take the other package's context
                     Context other = context.createPackageContext(packageName, 0);
                     // Check if it is wallpaper mode, if it is, bail out early
                     if (home_type.equals(wallpaperFragment)) {
                         String wallpaperCheck = appInfo.metaData.getString
-                                (metadataWallpapers);
+                            (metadataWallpapers);
                         if ((wallpaperCheck != null) && !wallpaperCheck.isEmpty()) {
                             returnMap.put(appInfo.metaData.getString(metadataName), data);
                         }
@@ -881,8 +881,8 @@ public enum Packages {
                                     String name = ze.getName();
                                     if (name.startsWith("assets/" + home_type + '/')) {
                                         returnMap.put(
-                                                appInfo.metaData.getString(metadataName),
-                                                data);
+                                            appInfo.metaData.getString(metadataName),
+                                            data);
                                         break;
                                     }
                                 }
@@ -893,7 +893,7 @@ public enum Packages {
                     }
                 } else {
                     Log.e(PACKAGE_TAG, "Skipping package: '" + packageName +
-                            "' - due to incorrect metadata installation");
+                        "' - due to incorrect metadata installation");
                 }
             }
             return returnMap;
@@ -932,7 +932,7 @@ public enum Packages {
                     while ((line = br.readLine()) != null) {
                         if (line.contains('"' + resource_name + '"')) {
                             String[] split =
-                                    line.substring(line.lastIndexOf("\">") + 2).split("<");
+                                line.substring(line.lastIndexOf("\">") + 2).split("<");
                             hex = split[0];
                             if (hex.startsWith("?")) hex = "#00000000";
                         }
@@ -957,7 +957,7 @@ public enum Packages {
     static boolean getProviders(Context context,
                                 String trigger) {
         List<PackageInfo> list =
-                context.getPackageManager().getInstalledPackages(PackageManager.GET_PROVIDERS);
+            context.getPackageManager().getInstalledPackages(PackageManager.GET_PROVIDERS);
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).packageName.startsWith(trigger)) {
                 return true;
@@ -987,7 +987,7 @@ public enum Packages {
         intentArray.add(new Intent(Intent.ACTION_MEDIA_REMOVED));
         for (Intent intent : intentArray) {
             List<ResolveInfo> activities =
-                    context.getPackageManager().queryBroadcastReceivers(intent, 0);
+                context.getPackageManager().queryBroadcastReceivers(intent, 0);
             for (ResolveInfo resolveInfo : activities) {
                 ActivityInfo activityInfo = resolveInfo.activityInfo;
                 if ((activityInfo != null) && activityInfo.name.startsWith(trigger)) {

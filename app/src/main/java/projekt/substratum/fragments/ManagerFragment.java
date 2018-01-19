@@ -349,10 +349,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.overlays_list_menu, menu);
-        menu.findItem(R.id.restart_systemui).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        menu.findItem(R.id.per_app).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         menu.findItem(R.id.action_search).setVisible(true);
-        menu.findItem(R.id.action_search).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         assert getActivity() != null;
         searchView = ((MainActivity) getActivity()).searchView;
         if (searchView != null) searchView.setOnQueryTextListener(this);
@@ -515,7 +512,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 fragment.toggle_all.setChecked(false);
                 fragment.toggle_all.setEnabled(false);
                 fragment.mRecyclerView.setEnabled(false);
-                if ((userInput.get() != null) && !userInput.get().isEmpty()) {
+                final String userInputString = userInput.get();
+                if (userInputString != null && !userInputString.isEmpty()) {
                     fragment.resetRecyclerView();
                 }
             }
@@ -546,7 +544,8 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                         // Then let's convert all the package names to their app names
                         for (int i = 0; i < all_overlays.size(); i++) {
                             boolean can_continue = true;
-                            if ((userInput.get() != null) && !userInput.get().isEmpty()) {
+                            final String userInputString = userInput.get();
+                            if (userInputString != null && !userInputString.isEmpty()) {
                                 StringBuilder combined = new StringBuilder();
                                 String metadata = Packages.getOverlayMetadata(
                                         context,
@@ -560,7 +559,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                                 combined.append(getPackageName(context,
                                         getOverlayTarget(context, all_overlays.get(i))));
                                 if (!combined.toString().toLowerCase().contains(
-                                        userInput.get().toLowerCase())) {
+                                        userInputString.toLowerCase())) {
                                     can_continue = false;
                                 }
                             }
@@ -683,12 +682,13 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                             context.getString(R.string.manager_no_overlays_text));
 
                     if (fragment.searchView != null) {
-                        if ((userInput.get() != null) && !fragment.searchView.isIconified() &&
-                                !userInput.get().isEmpty()) {
+                        final String userInputString = userInput.get();
+                        if (userInputString != null && !fragment.searchView.isIconified() &&
+                                !userInputString.isEmpty()) {
                             fragment.titleView.setText(
                                     context.getString(R.string.no_overlays_title));
                             String formatter = String.format(context.getString(
-                                    R.string.no_overlays_description_search), userInput.get());
+                                    R.string.no_overlays_description_search), userInputString);
                             fragment.textView.setText(formatter);
                         }
                     }

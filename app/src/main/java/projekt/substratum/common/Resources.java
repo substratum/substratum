@@ -210,6 +210,7 @@ public enum Resources {
     }
 
     // This method checks whether custom fonts is supported by the system
+    @SuppressWarnings("JavaReflectionMemberAccess")
     public static boolean isFontsSupported(Context context) {
         if (checkSubstratumService(context)) {
             Log.d(SUBSTRATUM_LOG, "This system fully supports font hotswapping.");
@@ -222,10 +223,9 @@ public enum Resources {
             cls.getDeclaredMethod("getThemeFontDirLocation");
             Log.d(SUBSTRATUM_LOG, "This system fully supports font hotswapping.");
             return true;
-        } catch (final Exception ex) {
-            // Suppress Fonts
+        } catch (final Exception ignored) {
+            return false;
         }
-        return false;
     }
 
     // This method checks whether custom sounds is supported by the system
@@ -255,7 +255,7 @@ public enum Resources {
             cls.getDeclaredMethod("stopShutdownAnimation");
             Log.d(SUBSTRATUM_LOG, "This system fully supports theme shutdown animation.");
             return true;
-        } catch (final Exception ex) {
+        } catch (final Exception ignored) {
             return false;
         }
     }

@@ -218,14 +218,14 @@ public class Sounds extends Fragment {
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(context, (v, position) -> {
-                    wordList.get(position);
+                    final SoundsInfo info = wordList.get(position);
                     try {
                         if (!mp.isPlaying() || (position != previous_position)) {
                             stopPlayer();
                             ((ImageButton)
                                     v.findViewById(R.id.play)).setImageResource(
                                     R.drawable.sounds_preview_stop);
-                            mp.setDataSource(wordList.get(position).getAbsolutePath());
+                            mp.setDataSource(info.getAbsolutePath());
                             mp.prepare();
                             mp.start();
                         } else {
@@ -233,7 +233,7 @@ public class Sounds extends Fragment {
                         }
                         previous_position = position;
                     } catch (final IOException ioe) {
-                        Log.e(TAG, "Playback has failed for " + wordList.get(position).getTitle());
+                        Log.e(TAG, "Playback has failed for " + info.getTitle());
                     }
                 })
         );

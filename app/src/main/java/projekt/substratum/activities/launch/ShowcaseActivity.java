@@ -247,11 +247,6 @@ public class ShowcaseActivity extends AppCompatActivity {
             showcaseActivityWR = new WeakReference<>(activity);
         }
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
         @SuppressLint("ClickableViewAccessibility")
         @Override
         protected void onPostExecute(String result) {

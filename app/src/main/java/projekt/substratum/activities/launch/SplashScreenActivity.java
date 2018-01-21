@@ -65,9 +65,9 @@ import static projekt.substratum.common.analytics.PackageAnalytics.isLowEnd;
 
 public class SplashScreenActivity extends Activity {
 
-    private static final long DELAY_LAUNCH_MAIN_ACTIVITY = 600;
+    private static final long DELAY_LAUNCH_MAIN_ACTIVITY = 300;
     private static final long DELAY_LAUNCH_APP_INTRO = 2300;
-    private static final long DELAY_SHOW_PROGRESS_BAR = 5000;
+    private static final long DELAY_SHOW_PROGRESS_BAR = 2500;
     @BindView(R.id.animated_svg_view)
     AnimatedSvgView svgView;
     @BindView(R.id.splashscreen_image)

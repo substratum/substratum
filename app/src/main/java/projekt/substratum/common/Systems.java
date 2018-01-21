@@ -231,7 +231,7 @@ public enum Systems {
             if (!isSamsungDevice(context)) {
                 if (checkThemeInterfacer(context) || checkSubstratumService(context)) {
                     foundOms = true;
-                } else {
+                } else if (getProp("com.sonymobile.runtimeskinning.legacy") == null) {
                     Boolean isOMSRunning = isOMSRunning(context.getApplicationContext(),
                             IOverlayManager.class);
                     if (isOMSRunning || checkOreo()) {

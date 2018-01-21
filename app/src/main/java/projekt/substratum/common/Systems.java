@@ -229,7 +229,7 @@ public enum Systems {
         try {
             boolean foundOms = false;
             if (!isSamsungDevice(context)) {
-                String sonyCheck = getProp("com.sonymobile.runtimeskinning.legacy");
+                String sonyCheck = getProp("ro.sony.fota.encrypteddata");
                 if (checkThemeInterfacer(context) || checkSubstratumService(context)) {
                     foundOms = true;
                 } else if (sonyCheck == null || sonyCheck.length() == 0) {
@@ -246,6 +246,9 @@ public enum Systems {
                             foundOms = true;
                         }
                     }
+                } else {
+                    Log.d(SUBSTRATUM_LOG, "Sony Mobile Overlay Manager Service found, " +
+                            "falling back to RRO2 for vendor bypass...");
                 }
             }
 

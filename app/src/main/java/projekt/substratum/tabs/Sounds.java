@@ -258,8 +258,8 @@ public class Sounds extends Fragment {
                         nsv,
                         soundsSelector.getSelectedItem().toString(),
                         context,
-                        theme_pid,
-                        null);
+                        theme_pid
+                );
             }
         }
     }

@@ -106,8 +106,8 @@ import projekt.substratum.fragments.ThemeFragment;
 import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.services.floatui.SubstratumFloatInterface;
 import projekt.substratum.services.tiles.FloatUiTile;
-import projekt.substratum.util.files.Root;
-import projekt.substratum.util.injectors.BinaryInstaller;
+import projekt.substratum.util.helpers.Root;
+import projekt.substratum.util.helpers.BinaryInstaller;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS;
@@ -952,7 +952,7 @@ public class MainActivity extends AppCompatActivity implements
 
             // Begin OMS based options
             case R.id.per_app:
-                if (!References.isServiceRunning(SubstratumFloatInterface.class,
+                if (References.isServiceRunning(SubstratumFloatInterface.class,
                         context)) {
                     if (Settings.canDrawOverlays(context) &&
                             checkUsagePermissions(context)) {

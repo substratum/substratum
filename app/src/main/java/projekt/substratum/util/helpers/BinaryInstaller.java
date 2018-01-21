@@ -16,12 +16,10 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.util.injectors;
+package projekt.substratum.util.helpers;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Build;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import java.io.File;
@@ -51,14 +49,13 @@ public enum BinaryInstaller {
      * @param forced  Ignore the dynamic check and just install no matter what
      */
     private static void injectAAPT(Context context, Boolean forced) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         String aaptPath = context.getFilesDir().getAbsolutePath() + "/aapt";
 
         // Check if AAPT is installed on the device
         File aapt = new File(aaptPath);
 
         if (!aapt.isFile() || forced) {
-            inject(context, prefs, aaptPath);
+            inject(context, aaptPath);
         } else if (aapt.exists()) {
             Log.d(References.SUBSTRATUM_LOG,
                     "The system partition already contains an existing compiler " +
@@ -67,7 +64,7 @@ public enum BinaryInstaller {
             Log.e(References.SUBSTRATUM_LOG,
                     "The system partition already contains an existing compiler, " +
                             "however it does not match Substratum integrity.");
-            inject(context, prefs, aaptPath);
+            inject(context, aaptPath);
         }
     }
 
@@ -75,10 +72,9 @@ public enum BinaryInstaller {
      * Inject a file into the device
      *
      * @param context  Self explanatory, bud.
-     * @param prefs    Shared preferences to jot down which binary is installed
      * @param aaptPath Location of AAPT
      */
-    private static void inject(Context context, SharedPreferences prefs, String aaptPath) {
+    private static void inject(Context context, String aaptPath) {
         if (!Arrays.toString(Build.SUPPORTED_ABIS).contains("86")) {
             String architecture =
                     !Arrays.asList(Build.SUPPORTED_64_BIT_ABIS).isEmpty() ? "ARM64" : "ARM";

@@ -109,10 +109,6 @@ public class OverlaysItem implements Serializable {
         this.activityView = activityView;
     }
 
-    String getAttention() {
-        return attention;
-    }
-
     View getActivityView() {
         return activityView;
     }
@@ -300,13 +296,12 @@ public class OverlaysItem implements Serializable {
     boolean compareInstalledOverlay() {
         try {
             PackageInfo pinfo =
-                    context.getPackageManager().getPackageInfo(getFullOverlayParameters
-                            (), 0);
-            return pinfo.versionName.equals(versionName);
+                    context.getPackageManager().getPackageInfo(getFullOverlayParameters(), 0);
+            return !pinfo.versionName.equals(versionName);
         } catch (Exception e) {
             // Suppress warning
         }
-        return false;
+        return true;
     }
 
     boolean compareInstalledVariantOverlay(String varianted) {

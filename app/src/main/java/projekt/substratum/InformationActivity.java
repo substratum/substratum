@@ -103,7 +103,7 @@ import projekt.substratum.tabs.BootAnimations;
 import projekt.substratum.tabs.Overlays;
 import projekt.substratum.tabs.Wallpapers;
 import projekt.substratum.tabs.WallpapersManager;
-import projekt.substratum.util.files.Root;
+import projekt.substratum.util.helpers.Root;
 import projekt.substratum.util.views.FloatingActionMenu;
 import projekt.substratum.util.views.Lunchbar;
 import projekt.substratum.util.views.SheetDialog;
@@ -1518,7 +1518,7 @@ public class InformationActivity extends AppCompatActivity {
                     finish();
                     Handler handler = new Handler();
                     handler.postDelayed(() ->
-                            Theming.launchTheme(context, theme_pid, theme_mode, false), 500L);
+                            Theming.launchTheme(context, theme_pid, theme_mode), 500L);
                 }
             } else if (compilingProcess) {
                 Log.d(SUBSTRATUM_LOG,

@@ -59,8 +59,8 @@ import projekt.substratum.Substratum;
 import projekt.substratum.adapters.showcase.ShowcaseTabsAdapter;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
-import projekt.substratum.util.files.FileDownloader;
-import projekt.substratum.util.files.MD5;
+import projekt.substratum.util.helpers.FileDownloader;
+import projekt.substratum.util.helpers.MD5;
 import projekt.substratum.util.readers.ReadShowcaseTabsFile;
 import projekt.substratum.util.views.Lunchbar;
 

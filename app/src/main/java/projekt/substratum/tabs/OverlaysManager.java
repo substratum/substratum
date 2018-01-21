@@ -61,7 +61,7 @@ import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
-import projekt.substratum.util.files.Root;
+import projekt.substratum.util.helpers.Root;
 import projekt.substratum.util.views.Lunchbar;
 
 import static projekt.substratum.InformationActivity.currentShownLunchBar;

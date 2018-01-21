@@ -93,7 +93,7 @@ import static projekt.substratum.common.Systems.checkOMS;
 import static projekt.substratum.common.platform.ThemeManager.STATE_DISABLED;
 import static projekt.substratum.common.platform.ThemeManager.STATE_ENABLED;
 import static projekt.substratum.common.platform.ThemeManager.isOverlayEnabled;
-import static projekt.substratum.util.files.MapUtils.sortMapByValues;
+import static projekt.substratum.util.helpers.MapUtils.sortMapByValues;
 
 public class ManagerFragment extends Fragment implements SearchView.OnQueryTextListener {
 
@@ -775,7 +775,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 }
                 if (!data.isEmpty() && !has_failed) {
                     // The magic goes here
-                    if (!data.isEmpty()) ThemeManager.enableOverlay(context, data);
+                    ThemeManager.enableOverlay(context, data);
 
                     if (Systems.checkSubstratumService(context) &&
                             !Systems.checkThemeInterfacer(context) &&

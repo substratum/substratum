@@ -72,7 +72,7 @@ import butterknife.ButterKnife;
 import projekt.substratum.R;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.FileOperations;
-import projekt.substratum.util.files.Root;
+import projekt.substratum.util.helpers.Root;
 import projekt.substratum.util.tabs.BootAnimationUtils;
 import projekt.substratum.util.views.Lunchbar;
 
@@ -399,16 +399,11 @@ public class BootAnimations extends Fragment {
 
             if (file_size <= 5) {
                 return 1;
+            } else if (file_size >= 10) {
+                    return 4;
             } else {
-                if (file_size > 5) {
-                    if (file_size >= 10) {
-                        return 4;
-                    } else {
-                        return 3;
-                    }
-                }
+                return 3;
             }
-            return 1;
         }
 
         private static void unzip(final String source, final String destination) {

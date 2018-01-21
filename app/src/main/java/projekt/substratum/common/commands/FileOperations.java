@@ -43,7 +43,7 @@ import javax.crypto.CipherInputStream;
 
 import projekt.substratum.common.platform.SubstratumService;
 import projekt.substratum.common.platform.ThemeInterfacerService;
-import projekt.substratum.util.files.Root;
+import projekt.substratum.util.helpers.Root;
 
 import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;
 import static projekt.substratum.common.Internal.ENCRYPTED_FILE_EXTENSION;
@@ -60,20 +60,6 @@ public enum FileOperations {
     private static final String CREATE_LOG = "SubstratumCreate";
     private static final String DELETE_LOG = "SubstratumDelete";
     private static final String MOVE_LOG = "SubstratumMove";
-
-    /**
-     * Adjust the content provider settings
-     *
-     * @param uri      Uri
-     * @param topic    Topic
-     * @param fileName File name
-     */
-    public static void adjustContentProvider(final String uri,
-                                             final String topic,
-                                             final String fileName) {
-        Root.runCommand("content insert --uri " + uri + ' ' +
-                "--bind name:s:" + topic + " --bind value:s:" + fileName);
-    }
 
     /**
      * Set SEContext for a folder
@@ -104,18 +90,6 @@ public enum FileOperations {
     public static void setPermissionsRecursively(final int permission,
                                                  final String foldername) {
         Root.runCommand("chmod -R " + permission + ' ' + foldername);
-    }
-
-    /**
-     * Set build.prop prop
-     *
-     * @param propName  Prop name
-     * @param propValue Prop value
-     */
-    @SuppressWarnings("SameParameterValue")
-    public static void setProp(final String propName,
-                               final String propValue) {
-        Root.runCommand("setprop " + propName + ' ' + propValue);
     }
 
     /**

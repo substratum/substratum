@@ -31,8 +31,6 @@ import android.view.View;
 
 import java.lang.ref.WeakReference;
 
-import javax.crypto.Cipher;
-
 import projekt.substratum.R;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.FileOperations;
@@ -73,13 +71,11 @@ public class SoundUtils {
      * @param arguments Arguments to pass
      * @param context   Self explanatory, bud
      * @param theme_pid Theme's package name
-     * @param cipher    Encryption handshake
      */
     public void execute(View view,
                         String arguments,
                         Context context,
-                        String theme_pid,
-                        Cipher cipher) {
+                        String theme_pid) {
         this.context = context;
         this.theme_pid = theme_pid;
         this.view = view;

@@ -165,7 +165,7 @@ public class OverlayUpdater extends BroadcastReceiver {
             }
         };
         private Cipher cipher;
-        private String upgrade_mode = "";
+        private String upgrade_mode;
 
         OverlayUpdate(Context context, String package_name, String mode, final
         int id) {

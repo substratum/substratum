@@ -20,7 +20,6 @@ package projekt.substratum.adapters.fragments.themes;
 
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -61,8 +60,6 @@ import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
 public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> {
     private List<ThemeItem> information;
     private Context context;
-    private ProgressDialog mProgressDialog;
-    private ThemeItem toBeUninstalled;
 
     public ThemeAdapter(List<ThemeItem> information) {
         super();
@@ -144,8 +141,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         viewHolder.cardView.setOnClickListener(
                 v -> Theming.launchTheme(this.context,
                         themeItem.getThemePackage(),
-                        themeItem.getThemeMode(),
-                        false
+                        themeItem.getThemeMode()
                 ));
 
         // Prettify the UI with fading desaturating colors!

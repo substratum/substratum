@@ -29,7 +29,7 @@ import com.stephentuso.welcome.WelcomeHelper;
 import projekt.substratum.MainActivity;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.References;
-import projekt.substratum.util.welcome.AppIntro;
+import projekt.substratum.util.views.AppIntro;
 
 import static projekt.substratum.common.analytics.PackageAnalytics.isLowEnd;
 

@@ -51,8 +51,8 @@ import projekt.substratum.common.References;
 import projekt.substratum.common.Resources;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.ElevatedCommands;
-import projekt.substratum.util.files.MD5;
-import projekt.substratum.util.files.Root;
+import projekt.substratum.util.helpers.MD5;
+import projekt.substratum.util.helpers.Root;
 
 import static android.os.Build.VERSION.SDK_INT;
 import static android.os.Build.VERSION_CODES.O;

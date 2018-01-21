@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.util.welcome;
+package projekt.substratum.util.views;
 
 import com.stephentuso.welcome.BasicPage;
 import com.stephentuso.welcome.WelcomeActivity;

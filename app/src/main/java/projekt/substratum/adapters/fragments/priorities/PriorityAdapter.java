@@ -38,7 +38,7 @@ import projekt.substratum.BuildConfig;
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
-import projekt.substratum.util.files.StringUtils;
+import projekt.substratum.util.helpers.StringUtils;
 
 import static projekt.substratum.common.References.metadataOverlayDevice;
 import static projekt.substratum.common.Resources.LG_FRAMEWORK;

@@ -67,7 +67,7 @@ import projekt.substratum.adapters.fragments.settings.ValidatorInfo;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
-import projekt.substratum.util.files.FileDownloader;
+import projekt.substratum.util.helpers.FileDownloader;
 import projekt.substratum.util.readers.ReadFilterFile;
 import projekt.substratum.util.readers.ReadRepositoriesFile;
 import projekt.substratum.util.readers.ReadResourcesFile;
@@ -532,7 +532,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         CheckBoxPreference crashReceiver = (CheckBoxPreference)
                 getPreferenceManager().findPreference("crash_receiver");
 
-
         if (isOMS) {
             crashReceiver.setChecked(prefs.getBoolean("crash_receiver", true));
             crashReceiver.setOnPreferenceChangeListener((preference, newValue) -> {
@@ -560,8 +559,6 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             if (!Systems.checkSubstratumFeature(context)) {
                 crashReceiver.setVisible(false);
             }
-        } else {
-            if (isOMS) crashReceiver.setVisible(false);
         }
 
         // Manage Space Activity
@@ -1011,14 +1008,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     return;
                 }
 
-                if (result.isEmpty()) {
-                    settingsFragment.platformSummary.append('\n')
-                            .append(settingsFragment.getString(R.string.rom_status))
-                            .append(' ')
-                            .append(settingsFragment.getString(R.string.rom_status_unsupported));
-                    settingsFragment.systemPlatform.setSummary(
-                            settingsFragment.platformSummary.toString());
-                }
+                settingsFragment.platformSummary.append('\n')
+                        .append(settingsFragment.getString(R.string.rom_status))
+                        .append(' ')
+                        .append(settingsFragment.getString(R.string.rom_status_unsupported));
+                settingsFragment.systemPlatform.setSummary(
+                        settingsFragment.platformSummary.toString());
             } catch (IllegalStateException ignored) { /* Not much we can do about this */}
         }
 

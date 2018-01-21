@@ -213,7 +213,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".util.welcome.AppIntro"
+            android:name=".util.views.AppIntro"
             android:theme="@style/CustomWelcomeScreenTheme" />
         <activity
             android:name=".activities.profiles.ProfileErrorInfoActivity"

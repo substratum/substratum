@@ -18,6 +18,7 @@
 
 package projekt.substratum.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -69,246 +70,249 @@ public class TeamFragment extends Fragment {
         super.onCreate(savedInstanceState);
         View view = inflater.inflate(R.layout.team_fragment, container, false);
         ButterKnife.bind(this, view);
+        Context context = getContext();
 
-        // Nicholas
-        nicholas_card.setOnClickListener(v -> {
-            if (getActivity() != null) {
-                launchActivityUrl(
-                        getContext(),
-                        References.getView(getActivity()),
-                        R.string.team_nicholas_link);
-            }
-        });
+        if (context != null) {
+            // Nicholas
+            nicholas_card.setOnClickListener(v -> {
+                if (getActivity() != null) {
+                    launchActivityUrl(
+                            context,
+                            References.getView(getActivity()),
+                            R.string.team_nicholas_link);
+                }
+            });
 
-        // Mike
-        syko_card.setOnClickListener(v -> {
-            if (getActivity() != null) {
-                launchActivityUrl(
-                        getContext(),
-                        References.getView(getActivity()),
-                        R.string.team_syko_link);
-            }
-        });
+            // Mike
+            syko_card.setOnClickListener(v -> {
+                if (getActivity() != null) {
+                    launchActivityUrl(
+                            context,
+                            References.getView(getActivity()),
+                            R.string.team_syko_link);
+                }
+            });
 
-        // Ivan
-        ivan_card.setOnClickListener(v -> {
-            if (getActivity() != null) {
-                launchActivityUrl(
-                        getContext(),
-                        References.getView(getActivity()),
-                        R.string.team_ivan_link);
-            }
-        });
+            // Ivan
+            ivan_card.setOnClickListener(v -> {
+                if (getActivity() != null) {
+                    launchActivityUrl(
+                            context,
+                            References.getView(getActivity()),
+                            R.string.team_ivan_link);
+                }
+            });
 
-        // Surge
-        surge_card.setOnClickListener(v -> {
-            if (getActivity() != null) {
-                launchActivityUrl(
-                        getContext(),
-                        References.getView(getActivity()),
-                        R.string.team_surge_link);
-            }
-        });
+            // Surge
+            surge_card.setOnClickListener(v -> {
+                if (getActivity() != null) {
+                    launchActivityUrl(
+                            context,
+                            References.getView(getActivity()),
+                            R.string.team_surge_link);
+                }
+            });
 
-        // George
-        george_card.setOnClickListener(v -> {
-            if (getActivity() != null) {
-                launchActivityUrl(
-                        getContext(),
-                        References.getView(getActivity()),
-                        R.string.team_george_link);
-            }
-        });
+            // George
+            george_card.setOnClickListener(v -> {
+                if (getActivity() != null) {
+                    launchActivityUrl(
+                            context,
+                            References.getView(getActivity()),
+                            R.string.team_george_link);
+                }
+            });
 
-        // Nathan
-        nathan_card.setOnClickListener(v -> {
-            if (getActivity() != null) {
-                launchActivityUrl(
-                        getContext(),
-                        References.getView(getActivity()),
-                        R.string.team_nathan_link);
-            }
-        });
+            // Nathan
+            nathan_card.setOnClickListener(v -> {
+                if (getActivity() != null) {
+                    launchActivityUrl(
+                            context,
+                            References.getView(getActivity()),
+                            R.string.team_nathan_link);
+                }
+            });
 
-        // Char
-        char_card.setOnClickListener(v -> {
-            if (getActivity() != null) {
-                launchActivityUrl(
-                        getContext(),
-                        References.getView(getActivity()),
-                        R.string.team_char_link);
-            }
-        });
+            // Char
+            char_card.setOnClickListener(v -> {
+                if (getActivity() != null) {
+                    launchActivityUrl(
+                            context,
+                            References.getView(getActivity()),
+                            R.string.team_char_link);
+                }
+            });
 
-        // Harsh
-        harsh_card.setOnClickListener(v -> {
-            if (getActivity() != null) {
-                launchActivityUrl(
-                        getContext(),
-                        References.getView(getActivity()),
-                        R.string.team_harsh_link);
-            }
-        });
+            // Harsh
+            harsh_card.setOnClickListener(v -> {
+                if (getActivity() != null) {
+                    launchActivityUrl(
+                            context,
+                            References.getView(getActivity()),
+                            R.string.team_harsh_link);
+                }
+            });
 
-        // Development contributors
-        development_contributors.setOnClickListener(v -> {
-            assert getActivity() != null;
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setItems(getResources().getStringArray(R.array.substratum_contributors),
-                    (dialog, item) -> {
-                    });
-            AlertDialog alert = builder.create();
-            alert.show();
-        });
+            // Development contributors
+            development_contributors.setOnClickListener(v -> {
+                assert getActivity() != null;
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setItems(getResources().getStringArray(R.array.substratum_contributors),
+                        (dialog, item) -> {
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
+            });
 
-        // Translators
-        contribute.setOnClickListener(v -> {
-            if (getActivity() != null) {
-                launchActivityUrl(
-                        getContext(),
-                        References.getView(getActivity()),
-                        R.string.crowdin_url);
-            }
-        });
+            // Translators
+            contribute.setOnClickListener(v -> {
+                if (getActivity() != null) {
+                    launchActivityUrl(
+                            context,
+                            References.getView(getActivity()),
+                            R.string.crowdin_url);
+                }
+            });
 
-        // Layers contributors
-        layers.setOnClickListener(v -> {
-            assert getActivity() != null;
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setItems(getResources().getStringArray(R.array.layers_contributors),
-                    (dialog, item) -> {
-                    });
-            AlertDialog alert = builder.create();
-            alert.show();
-        });
+            // Layers contributors
+            layers.setOnClickListener(v -> {
+                assert getActivity() != null;
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setItems(getResources().getStringArray(R.array.layers_contributors),
+                        (dialog, item) -> {
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
+            });
 
-        translators.setOnClickListener(v -> {
-            assert getActivity() != null;
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setItems(getResources().getStringArray(R.array.translations),
-                    (dialog, item) -> {
-                        dialog.cancel();
-                        AlertDialog.Builder builder2 = new AlertDialog.Builder(getActivity());
-                        switch (item) {
-                            case 0:
-                                builder2.setItems(
-                                        getResources().getStringArray(
-                                                R.array.belarusian_translators),
-                                        (dialog2, item2) -> {
-                                        });
-                                break;
-                            case 1:
-                                builder2.setItems(
-                                        getResources().getStringArray(
-                                                R.array.czech_translators),
-                                        (dialog2, item2) -> {
-                                        });
-                                break;
-                            case 2:
-                                builder2.setItems(
-                                        getResources().getStringArray(
-                                                R.array.chinese_translators),
-                                        (dialog2, item2) -> {
-                                        });
-                                break;
-                            case 3:
-                                builder2.setItems(
-                                        getResources().getStringArray(
-                                                R.array.french_translators),
-                                        (dialog2, item2) -> {
-                                        });
-                                break;
-                            case 4:
-                                builder2.setItems(
-                                        getResources().getStringArray(
-                                                R.array.german_translators),
-                                        (dialog2, item2) -> {
-                                        });
-                                break;
-                            case 5:
-                                builder2.setItems(
-                                        getResources().getStringArray(
-                                                R.array.hungarian_translators),
-                                        (dialog2, item2) -> {
-                                        });
-                                break;
-                            case 6:
-                                builder2.setItems(
-                                        getResources().getStringArray(
-                                                R.array.italian_translators),
-                                        (dialog2, item2) -> {
-                                        });
-                                break;
-                            case 7:
-                                builder2.setItems(
-                                        getResources().getStringArray(
-                                                R.array.lithuanian_translators),
-                                        (dialog2, item2) -> {
-                                        });
-                                break;
-                            case 8:
-                                builder2.setItems(
-                                        getResources().getStringArray(
-                                                R.array.dutch_translators),
-                                        (dialog2, item2) -> {
-                                        });
-                                break;
-                            case 9:
-                                builder2.setItems(
-                                        getResources().getStringArray(
-                                                R.array.polish_translators),
-                                        (dialog2, item2) -> {
-                                        });
-                                break;
-                            case 10:
-                                builder2.setItems(
-                                        getResources().getStringArray(
-                                                R.array.portuguese_brazillian_translators),
-                                        (dialog2, item2) -> {
-                                        });
-                                break;
-                            case 11:
-                                builder2.setItems(
-                                        getResources().getStringArray(
-                                                R.array.portuguese_translators),
-                                        (dialog2, item2) -> {
-                                        });
-                                break;
-                            case 12:
-                                builder2.setItems(
-                                        getResources().getStringArray(
-                                                R.array.russian_translators),
-                                        (dialog2, item2) -> {
-                                        });
-                                break;
-                            case 13:
-                                builder2.setItems(
-                                        getResources().getStringArray(
-                                                R.array.slovak_translators),
-                                        (dialog2, item2) -> {
-                                        });
-                                break;
-                            case 14:
-                                builder2.setItems(
-                                        getResources().getStringArray(
-                                                R.array.spanish_translators),
-                                        (dialog2, item2) -> {
-                                        });
-                                break;
-                            case 15:
-                                builder2.setItems(
-                                        getResources().getStringArray(
-                                                R.array.turkish_translators),
-                                        (dialog2, item2) -> {
-                                        });
-                                break;
-                        }
-                        AlertDialog alert2 = builder2.create();
-                        alert2.show();
-                    });
-            AlertDialog alert = builder.create();
-            alert.show();
-        });
+            translators.setOnClickListener(v -> {
+                assert getActivity() != null;
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setItems(getResources().getStringArray(R.array.translations),
+                        (dialog, item) -> {
+                            dialog.cancel();
+                            AlertDialog.Builder builder2 = new AlertDialog.Builder(getActivity());
+                            switch (item) {
+                                case 0:
+                                    builder2.setItems(
+                                            getResources().getStringArray(
+                                                    R.array.belarusian_translators),
+                                            (dialog2, item2) -> {
+                                            });
+                                    break;
+                                case 1:
+                                    builder2.setItems(
+                                            getResources().getStringArray(
+                                                    R.array.czech_translators),
+                                            (dialog2, item2) -> {
+                                            });
+                                    break;
+                                case 2:
+                                    builder2.setItems(
+                                            getResources().getStringArray(
+                                                    R.array.chinese_translators),
+                                            (dialog2, item2) -> {
+                                            });
+                                    break;
+                                case 3:
+                                    builder2.setItems(
+                                            getResources().getStringArray(
+                                                    R.array.french_translators),
+                                            (dialog2, item2) -> {
+                                            });
+                                    break;
+                                case 4:
+                                    builder2.setItems(
+                                            getResources().getStringArray(
+                                                    R.array.german_translators),
+                                            (dialog2, item2) -> {
+                                            });
+                                    break;
+                                case 5:
+                                    builder2.setItems(
+                                            getResources().getStringArray(
+                                                    R.array.hungarian_translators),
+                                            (dialog2, item2) -> {
+                                            });
+                                    break;
+                                case 6:
+                                    builder2.setItems(
+                                            getResources().getStringArray(
+                                                    R.array.italian_translators),
+                                            (dialog2, item2) -> {
+                                            });
+                                    break;
+                                case 7:
+                                    builder2.setItems(
+                                            getResources().getStringArray(
+                                                    R.array.lithuanian_translators),
+                                            (dialog2, item2) -> {
+                                            });
+                                    break;
+                                case 8:
+                                    builder2.setItems(
+                                            getResources().getStringArray(
+                                                    R.array.dutch_translators),
+                                            (dialog2, item2) -> {
+                                            });
+                                    break;
+                                case 9:
+                                    builder2.setItems(
+                                            getResources().getStringArray(
+                                                    R.array.polish_translators),
+                                            (dialog2, item2) -> {
+                                            });
+                                    break;
+                                case 10:
+                                    builder2.setItems(
+                                            getResources().getStringArray(
+                                                    R.array.portuguese_brazillian_translators),
+                                            (dialog2, item2) -> {
+                                            });
+                                    break;
+                                case 11:
+                                    builder2.setItems(
+                                            getResources().getStringArray(
+                                                    R.array.portuguese_translators),
+                                            (dialog2, item2) -> {
+                                            });
+                                    break;
+                                case 12:
+                                    builder2.setItems(
+                                            getResources().getStringArray(
+                                                    R.array.russian_translators),
+                                            (dialog2, item2) -> {
+                                            });
+                                    break;
+                                case 13:
+                                    builder2.setItems(
+                                            getResources().getStringArray(
+                                                    R.array.slovak_translators),
+                                            (dialog2, item2) -> {
+                                            });
+                                    break;
+                                case 14:
+                                    builder2.setItems(
+                                            getResources().getStringArray(
+                                                    R.array.spanish_translators),
+                                            (dialog2, item2) -> {
+                                            });
+                                    break;
+                                case 15:
+                                    builder2.setItems(
+                                            getResources().getStringArray(
+                                                    R.array.turkish_translators),
+                                            (dialog2, item2) -> {
+                                            });
+                                    break;
+                            }
+                            AlertDialog alert2 = builder2.create();
+                            alert2.show();
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
+            });
+        }
         return view;
     }
 }

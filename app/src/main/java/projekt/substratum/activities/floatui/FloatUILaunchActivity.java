@@ -42,7 +42,7 @@ public class FloatUILaunchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         if (Settings.canDrawOverlays(getApplicationContext()) &&
                 checkUsagePermissions(getApplicationContext())) {
-            if (!References.isServiceRunning(SubstratumFloatInterface.class,
+            if (References.isServiceRunning(SubstratumFloatInterface.class,
                     getApplicationContext())) {
                 triggerFloatingHead(true);
             } else {

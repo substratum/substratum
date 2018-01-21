@@ -13,7 +13,6 @@ import java.util.TreeSet;
 
 import projekt.substratum.activities.launch.ThemeLaunchActivity;
 
-import static projekt.substratum.common.Internal.NOTIFICATION_LAUNCH;
 import static projekt.substratum.common.References.SUBSTRATUM_PACKAGE;
 import static projekt.substratum.common.References.TEMPLATE_GET_KEYS;
 import static projekt.substratum.common.References.TEMPLATE_THEME_MODE;
@@ -51,15 +50,13 @@ public enum Theming {
      */
     public static void launchTheme(Context context,
                                    String package_name,
-                                   String theme_mode,
-                                   Boolean notification) {
+                                   String theme_mode) {
         if (context.getPackageName().equals(SUBSTRATUM_PACKAGE)) {
             Intent theme_intent = themeIntent(
                     context,
                     package_name,
                     theme_mode,
-                    TEMPLATE_THEME_MODE,
-                    notification);
+                    TEMPLATE_THEME_MODE);
             context.startActivity(theme_intent);
         }
     }
@@ -77,8 +74,7 @@ public enum Theming {
                     context,
                     package_name,
                     null,
-                    TEMPLATE_GET_KEYS,
-                    false);
+                    TEMPLATE_GET_KEYS);
             try {
                 context.startActivity(theme_intent);
             } catch (Exception e) {
@@ -99,8 +95,7 @@ public enum Theming {
     public static Intent themeIntent(Context context,
                                      String package_name,
                                      String theme_mode,
-                                     String actionIntent,
-                                     Boolean notification) {
+                                     String actionIntent) {
         if (context.getPackageName().equals(SUBSTRATUM_PACKAGE)) {
             boolean should_debug = projekt.substratum.BuildConfig.DEBUG;
             if (should_debug) Log.d("ThemeLauncher", "Creating new intent");
@@ -125,8 +120,6 @@ public enum Theming {
             intentActivity.putExtra("hash_passthrough", hashPassthrough(context, false));
             if (should_debug) Log.d("ThemeLauncher", "Checking for certification...");
             intentActivity.putExtra("certified", checkPackageSupport(context, false));
-            if (notification) Log.d("ThemeLauncher", "Launching theme in notification mode...");
-            intentActivity.putExtra(NOTIFICATION_LAUNCH, notification);
             if (should_debug) Log.d("ThemeLauncher", "Starting Activity...");
             return intentActivity;
         } else {

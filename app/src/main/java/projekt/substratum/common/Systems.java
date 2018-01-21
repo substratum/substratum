@@ -28,8 +28,8 @@ import java.util.Locale;
 import java.util.Map;
 
 import projekt.substratum.BuildConfig;
-import projekt.substratum.util.files.FileDownloader;
-import projekt.substratum.util.files.Root;
+import projekt.substratum.util.helpers.FileDownloader;
+import projekt.substratum.util.helpers.Root;
 import projekt.substratum.util.readers.ReadSupportedROMsFile;
 
 import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;

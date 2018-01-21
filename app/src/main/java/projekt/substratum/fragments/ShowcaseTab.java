@@ -50,7 +50,7 @@ import projekt.substratum.adapters.showcase.ShowcaseItemAdapter;
 import projekt.substratum.adapters.tabs.wallpapers.WallpaperAdapter;
 import projekt.substratum.adapters.tabs.wallpapers.WallpaperEntries;
 import projekt.substratum.common.References;
-import projekt.substratum.util.files.FileDownloader;
+import projekt.substratum.util.helpers.FileDownloader;
 import projekt.substratum.util.readers.ReadCloudShowcaseFile;
 
 import static projekt.substratum.common.References.SHOWCASE_SHUFFLE_COUNT;

@@ -53,6 +53,6 @@
         android:indeterminate="true"
         android:indeterminateTint="@color/splashscreen_progress"
         android:padding="15dp"
-        android:visibility="invisible"/>
+        android:visibility="invisible" />
 
 </LinearLayout>

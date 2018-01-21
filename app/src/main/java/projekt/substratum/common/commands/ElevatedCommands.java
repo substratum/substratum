@@ -18,7 +18,7 @@
 
 package projekt.substratum.common.commands;
 
-import projekt.substratum.util.files.Root;
+import projekt.substratum.util.helpers.Root;
 
 public enum ElevatedCommands {
     ;

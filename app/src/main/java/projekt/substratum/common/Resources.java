@@ -152,12 +152,6 @@ public enum Resources {
             "muskie", // The hidden HTC Pixel 2
             "taimen", // Pixel 2 XL
     };
-    // Filter to adjust UI sounds
-    private static final String[] ALLOWED_UI_THEMABLE_SOUNDS = {
-            "lock_sound",
-            "unlock_sound",
-            "low_battery_sound"
-    };
     // Legacy Asset Folder Check
     private static final String[] ALLOWED_LEGACY_ASSETS = {
             "overlays",
@@ -192,11 +186,6 @@ public enum Resources {
     // This string array contains all the framework acceptable overlay packs
     public static Boolean allowedFrameworkOverlay(final String current) {
         return Arrays.asList(ALLOWED_FRAMEWORK_ELEMENTS).contains(current);
-    }
-
-    // This string array contains all the SystemUI acceptable sound files
-    public static Boolean allowedUISound(final String targetValue) {
-        return Arrays.asList(ALLOWED_UI_THEMABLE_SOUNDS).contains(targetValue);
     }
 
     // This string array contains all the legacy allowed folders

@@ -41,7 +41,6 @@ public enum Internal {
             "/BootAnimationCache/animation_preview/";
     // Fonts
     public static final String FONT_CACHE = "/FontCache/";
-    public static final String FONT_CREATION_CACHE = "/FontCache/FontCreator/";
     public static final String FONT_PREVIEW_CACHE = "/FontCache/font_preview/";
     public static final String NORMAL_FONT = "Roboto-Regular.ttf";
     public static final String BOLD_FONT = "Roboto-Black.ttf";
@@ -73,7 +72,6 @@ public enum Internal {
     public static final String THEME_CALLER = "calling_package_name";
     public static final String HOME_TYPE = "home_type";
     public static final String HOME_TITLE = "title";
-    public static final String NOTIFICATION_LAUNCH = "notification_launch";
     // Prefs
     public static final String SOUNDS_APPLIED = "sounds_applied";
     public static final String BOOT_ANIMATION = "bootanimation";
@@ -84,9 +82,7 @@ public enum Internal {
     public static final String FONTS_APPLIED = "fonts_applied";
     // Permissions
     public static final int THEME_644 = 644;
-    public static final int THEME_747 = 747;
     public static final int THEME_755 = 755;
-    public static final int THEME_775 = 775;
     // Sounds
     public static final String ALARM = "alarm";
     public static final String NOTIFICATION = "notification";
@@ -134,9 +130,7 @@ public enum Internal {
     public static final String ALARM_THEME_DIRECTORY = "/data/system/theme/audio/alarms/";
     public static final String NOTIF_THEME_DIRECTORY = "/data/system/theme/audio/notifications/";
     public static final String RINGTONE_THEME_DIRECTORY = "/data/system/theme/audio/ringtones/";
-    public static final String UI_THEME_DIRECTORY = "/data/system/theme/audio/ui/";
     public static final String FONTS_THEME_DIRECTORY = "/data/system/theme/fonts/";
-    public static final String FONTS_SYSTEM_DIRECTORY = "/system/fonts/";
     public static final String BOOTANIMATION_DESCRIPTOR = "desc.txt";
     public static final String BOOTANIMATION = "bootanimation.zip";
     public static final String SHUTDOWNANIMATION = "shutdownanimation.zip";
@@ -145,17 +139,13 @@ public enum Internal {
     public static final String BOOTANIMATION_BU_LOCATION = "/system/media/bootanimation-backup.zip";
     public static final String VALIDATOR_CACHE = "ValidatorCache";
     public static final String VALIDATOR_CACHE_DIR = "/ValidatorCache/";
-    public static final int REFRESH_PROP_ACTIVATED = 1;
     public static final String SYSTEM_ADDON_DIR = "/system/addon.d/";
     public static final String SUBSBOOT_ADDON = "/system/addon.d/81-subsboot.sh";
     public static final String XML_SERIALIZER =
             "http://xmlpull.org/v1/doc/features.html#indent-output";
     public static final String XML_UTF = "UTF-8";
-    public static final String SYSTEM_MEDIA_PATH = "/system/media/audio";
     // Props
-    public static final String AAPT_PROP = "ro.substratum.aapt";
     public static final String RECREATE_PROP = "ro.substratum.recreate";
-    public static final String REFRESH_PROP = "sys.refresh_theme";
     // Overlays.java
     public static final Integer SPECIAL_SNOWFLAKE_DELAY = 500;
     public static final String XML_EXTENSION = ".xml";

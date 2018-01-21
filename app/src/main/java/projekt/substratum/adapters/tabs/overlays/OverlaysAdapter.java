@@ -72,7 +72,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
             viewHolder.overlayState.setVisibility(View.VISIBLE);
             // Check whether currently installed overlay is up to date with
             // theme_pid's theme_version
-            if (!current_object.compareInstalledOverlay()) {
+            if (current_object.compareInstalledOverlay()) {
                 String format = String.format(context.getString(R.string
                                 .overlays_update_available),
                         current_object.versionName);
@@ -314,7 +314,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                                 '.' + current_object.getBaseResources() : ""))) {
             viewHolder.overlayState.setVisibility(View.VISIBLE);
             // Check whether currently installed overlay is up to date with theme_pid's theme_version
-            if (!current_object.compareInstalledOverlay()) {
+            if (current_object.compareInstalledOverlay()) {
                 String format = String.format(
                         context.getString(R.string.overlays_update_available),
                         current_object.versionName);

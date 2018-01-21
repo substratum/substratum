@@ -98,7 +98,7 @@ import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
-import projekt.substratum.util.files.Root;
+import projekt.substratum.util.helpers.Root;
 import projekt.substratum.util.views.Lunchbar;
 import projekt.substratum.util.views.SheetDialog;
 
@@ -156,7 +156,7 @@ import static projekt.substratum.common.Resources.allowedSystemUIOverlay;
 import static projekt.substratum.tabs.OverlaysManager.legacyDisable;
 import static projekt.substratum.tabs.OverlaysManager.selectEnabledDisabled;
 import static projekt.substratum.tabs.OverlaysManager.selectStateMode;
-import static projekt.substratum.util.files.MapUtils.sortMapByValues;
+import static projekt.substratum.util.helpers.MapUtils.sortMapByValues;
 
 public class Overlays extends Fragment {
 

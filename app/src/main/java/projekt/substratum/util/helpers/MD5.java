@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.util.files;
+package projekt.substratum.util.helpers;
 
 import android.util.Log;
 

@@ -78,7 +78,7 @@ import projekt.substratum.R;
 import projekt.substratum.activities.shortcuts.AppShortcutLaunch;
 import projekt.substratum.common.analytics.FirebaseAnalytics;
 import projekt.substratum.services.profiles.ScheduledProfileReceiver;
-import projekt.substratum.util.injectors.BinaryInstaller;
+import projekt.substratum.util.helpers.BinaryInstaller;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;
@@ -525,6 +525,7 @@ public enum References {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         try {
             InetAddress checkSiteAvailability = InetAddress.getByName("google.com");
+            //noinspection EqualsBetweenInconvertibleTypes
             return activeNetworkInfo != null &&
                     activeNetworkInfo.isConnected() &&
                     !checkSiteAvailability.equals("");
@@ -549,10 +550,10 @@ public enum References {
         for (ActivityManager.RunningServiceInfo service :
                 manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     /**

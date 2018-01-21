@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.util.files;
+package projekt.substratum.util.helpers;
 
 import android.support.v4.util.Pair;
 
@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
 public enum MapUtils {
     ;
 
+    @SuppressWarnings("FuseStreamOperations")
     public static <S, T extends Comparable<T>> List<Pair<S, T>> sortMapByValues(Map<S, T> map) {
         List<Pair<S, T>> list = map.entrySet().stream().map(entry ->
                 new Pair<>(entry.getKey(),

@@ -49,7 +49,7 @@ import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.analytics.FirebaseAnalytics;
-import projekt.substratum.util.files.MD5;
+import projekt.substratum.util.helpers.MD5;
 
 import static projekt.substratum.common.Internal.AUTHENTICATED_RECEIVER;
 import static projekt.substratum.common.Internal.AUTHENTICATE_RECEIVER;

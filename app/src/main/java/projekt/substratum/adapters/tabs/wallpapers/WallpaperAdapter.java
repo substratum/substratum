@@ -45,7 +45,7 @@ import java.util.List;
 
 import projekt.substratum.R;
 import projekt.substratum.common.References;
-import projekt.substratum.util.files.FileDownloader;
+import projekt.substratum.util.helpers.FileDownloader;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 import static com.bumptech.glide.request.RequestOptions.centerCropTransform;

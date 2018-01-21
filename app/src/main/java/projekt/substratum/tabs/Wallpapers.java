@@ -42,7 +42,7 @@ import projekt.substratum.R;
 import projekt.substratum.adapters.tabs.wallpapers.WallpaperAdapter;
 import projekt.substratum.adapters.tabs.wallpapers.WallpaperEntries;
 import projekt.substratum.common.References;
-import projekt.substratum.util.files.FileDownloader;
+import projekt.substratum.util.helpers.FileDownloader;
 import projekt.substratum.util.readers.ReadCloudWallpaperFile;
 
 import static projekt.substratum.common.Internal.CURRENT_WALLPAPERS;

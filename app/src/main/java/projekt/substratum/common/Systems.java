@@ -596,12 +596,22 @@ public enum Systems {
                 "zone.jasi2169.uretpatcher",
                 "zone.jasi2169."
         };
-        for (String packageName : blacklistedPackages) {
-            if (Packages.isPackageInstalled(context, packageName, false)) {
-                blacklistedPackageFound = true;
+
+        final PackageManager pm = context.getPackageManager();
+        List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
+        for (ApplicationInfo packageInfo : packages) {
+            for (String packageName : blacklistedPackages) {
+                if (packageInfo.packageName.startsWith(packageName)) {
+                    blacklistedPackageFound = true;
+                    break;
+                }
+            }
+            if (blacklistedPackageFound) {
                 break;
             }
         }
+
+
         return blacklistedPackageFound;
     }
 

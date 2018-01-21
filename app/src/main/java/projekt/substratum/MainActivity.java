@@ -867,7 +867,6 @@ public class MainActivity extends AppCompatActivity implements
                         .show();
             }
         }
-
         new RootRequester(this).execute();
     }
 
@@ -1499,10 +1498,6 @@ public class MainActivity extends AppCompatActivity implements
                     }
 
                     Broadcasts.startKeyRetrievalReceiver(context);
-                    if (!activity.prefs.contains("complexion")) {
-                        activity.prefs.edit().putBoolean("complexion", true).apply();
-                        new References.Markdown(context, activity.prefs);
-                    }
                 }
             }
         }

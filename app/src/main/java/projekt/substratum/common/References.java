@@ -82,6 +82,7 @@ import projekt.substratum.util.injectors.BinaryInstaller;
 
 import static android.content.Context.CLIPBOARD_SERVICE;
 import static projekt.substratum.common.Internal.BYTE_ACCESS_RATE;
+import static projekt.substratum.common.Systems.checkPackageRegex;
 
 public enum References {
     ;
@@ -477,7 +478,6 @@ public enum References {
         editor.putBoolean("force_english", false);
         editor.putBoolean("floatui_show_android_system_overlays", false);
         editor.putBoolean("alphabetize_overlays", false);
-        editor.putBoolean("complexion", true);
         editor.putBoolean("crash_receiver", true);
         editor.putBoolean("enable_swapping_overlays", false);
         editor.putBoolean("overlay_alert", false);
@@ -587,8 +587,8 @@ public enum References {
      * @param context Context
      * @return Returns the signature as an int
      */
-    static int hashPassthrough(Context context) {
-        if (hashValue != 0) {
+    static int hashPassthrough(Context context, Boolean override) {
+        if (hashValue != 0 && !override) {
             return hashValue;
         }
         try {
@@ -615,8 +615,8 @@ public enum References {
      * @param context What's the point of parameters?
      * @return Is it true that there is an afterlife?
      */
-    static Boolean spreadYourWingsAndFly(Context context) {
-        if (uncertified != null) {
+    static Boolean spreadYourWingsAndFly(Context context, Boolean override) {
+        if (uncertified != null && !override) {
             return uncertified;
         }
         SharedPreferences prefs = context
@@ -627,7 +627,7 @@ public enum References {
         if (prefs.contains(date)) {
             Set<String> pref = prefs.getStringSet(date, new HashSet<>());
             for (String check : pref) {
-                if (Packages.isPackageInstalled(context, check, false)) {
+                if (checkPackageRegex(context, pref.toArray(new String[pref.size()]))) {
                     Log.d("PatcherDatabase",
                             "The database has triggered a primary level blacklist package.");
                     uncertified = true;
@@ -641,10 +641,6 @@ public enum References {
                     return true;
                 }
             }
-        }
-        if (Systems.checkPackageSupport(context)) {
-            uncertified = true;
-            return true;
         }
         uncertified = false;
         return false;
@@ -771,7 +767,7 @@ public enum References {
     /**
      * Returns the Coordinator layout in {@link projekt.substratum.InformationActivity}
      *
-     * @param Activity the activity instance to be checked.
+     * @param activity the activity instance to be checked.
      * @return a View object which is an instance of CoordinatorLayout
      */
     @Nullable
@@ -788,12 +784,10 @@ public enum References {
     public static class Markdown extends AsyncTask<Void, Void, Void> {
         @SuppressLint("StaticFieldLeak")
         private Context context;
-        private SharedPreferences prefs;
 
-        public Markdown(Context context, SharedPreferences prefs) {
+        public Markdown(Context context) {
             super();
             this.context = context;
-            this.prefs = prefs;
         }
 
         @Override
@@ -803,9 +797,8 @@ public enum References {
 
         @Override
         protected Void doInBackground(Void... sUrl) {
-            this.prefs.edit().putBoolean("complexion",
-                    !spreadYourWingsAndFly(this.context) &&
-                            (hashPassthrough(this.context) != 0)).apply();
+            spreadYourWingsAndFly(this.context, false);
+            hashPassthrough(this.context, false);
             return null;
         }
     }

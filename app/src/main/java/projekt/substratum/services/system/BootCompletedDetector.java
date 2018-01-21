@@ -64,7 +64,7 @@ public class BootCompletedDetector extends BroadcastReceiver {
             }
             BootCompletedDetector.clearSubstratumCompileFolder(context);
             new GlideClear().execute();
-            new References.Markdown(context, prefs);
+            new References.Markdown(context);
         }
     }
 

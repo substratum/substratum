@@ -57,6 +57,7 @@ import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
 import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
+import static projekt.substratum.common.Systems.checkPackageSupport;
 import static projekt.substratum.common.Systems.checkThemeSystemModule;
 import static projekt.substratum.common.Systems.isAndromedaDevice;
 import static projekt.substratum.common.analytics.FirebaseAnalytics.PACKAGES_PREFS;
@@ -74,6 +75,7 @@ public class SplashScreenActivity extends Activity {
     @BindView(R.id.progress_bar_loader)
     ProgressBar progressBar;
     private Intent intent;
+    private Boolean first_run = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,7 +84,7 @@ public class SplashScreenActivity extends Activity {
         ButterKnife.bind(this);
 
         Intent currentIntent = getIntent();
-        Boolean first_run = currentIntent.getBooleanExtra("first_run", false);
+        first_run = currentIntent.getBooleanExtra("first_run", false);
         checkThemeSystemModule(this, first_run);
         intent = new Intent(SplashScreenActivity.this, MainActivity.class);
         long intent_launch_delay = DELAY_LAUNCH_MAIN_ACTIVITY;
@@ -155,7 +157,12 @@ public class SplashScreenActivity extends Activity {
                 editor = prefs.edit();
                 editor.clear().apply();
 
-                FirebaseAnalytics.withdrawBlacklistedPackages(context);
+                FirebaseAnalytics.withdrawBlacklistedPackages(
+                        activity.getApplicationContext(),
+                        activity.first_run
+                );
+                checkPackageSupport(activity.getApplicationContext(), false);
+
                 prefs = context.getSharedPreferences(PACKAGES_PREFS, Context.MODE_PRIVATE);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
                 int timeoutCount = 0;

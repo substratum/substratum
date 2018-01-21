@@ -86,6 +86,7 @@ import static projekt.substratum.common.References.MIN_PRIORITY;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_VALIDATOR;
 import static projekt.substratum.common.References.VALIDATE_WITH_LOGS;
+import static projekt.substratum.common.Systems.checkPackageSupport;
 import static projekt.substratum.common.commands.FileOperations.delete;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
@@ -165,12 +166,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         systemPlatform.setSummary(platformSummary);
         systemPlatform.setIcon(Packages.getAppIcon(context, "com.android.systemui"));
 
-        // System Status including Complexion Status
+        // System Status
         Preference systemStatus = getPreferenceManager().findPreference("system_status");
         boolean full_oms = isOMS && Systems.checkSubstratumFeature(context);
         boolean interfacer = hasThemeInterfacer && !isSamsung;
         boolean system_service = Systems.checkSubstratumService(getContext()) && !isSamsung;
-        boolean verified = prefs.getBoolean("complexion", true);
+        boolean verified = !checkPackageSupport(context, false);
         boolean certified = verified;
         if (isOMS) {
             if (interfacer || system_service) {

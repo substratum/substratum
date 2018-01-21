@@ -18,6 +18,7 @@ import static projekt.substratum.common.References.SUBSTRATUM_PACKAGE;
 import static projekt.substratum.common.References.TEMPLATE_GET_KEYS;
 import static projekt.substratum.common.References.TEMPLATE_THEME_MODE;
 import static projekt.substratum.common.References.hashPassthrough;
+import static projekt.substratum.common.Systems.checkPackageSupport;
 
 public enum Theming {
     ;
@@ -102,7 +103,6 @@ public enum Theming {
                                      Boolean notification) {
         if (context.getPackageName().equals(SUBSTRATUM_PACKAGE)) {
             boolean should_debug = projekt.substratum.BuildConfig.DEBUG;
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (should_debug) Log.d("ThemeLauncher", "Creating new intent");
             Intent intentActivity;
             if (actionIntent.equals(TEMPLATE_GET_KEYS)) {
@@ -122,9 +122,9 @@ public enum Theming {
             intentActivity.putExtra("theme_mode", theme_mode);
             intentActivity.putExtra("notification", false);
             if (should_debug) Log.d("ThemeLauncher", "Obtaining APK signature hash...");
-            intentActivity.putExtra("hash_passthrough", hashPassthrough(context));
+            intentActivity.putExtra("hash_passthrough", hashPassthrough(context, false));
             if (should_debug) Log.d("ThemeLauncher", "Checking for certification...");
-            intentActivity.putExtra("certified", prefs.getBoolean("complexion", true));
+            intentActivity.putExtra("certified", checkPackageSupport(context, false));
             if (notification) Log.d("ThemeLauncher", "Launching theme in notification mode...");
             intentActivity.putExtra(NOTIFICATION_LAUNCH, notification);
             if (should_debug) Log.d("ThemeLauncher", "Starting Activity...");

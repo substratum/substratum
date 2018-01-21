@@ -20,6 +20,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -45,7 +46,9 @@ import static projekt.substratum.common.References.SAMSUNG_THEME_ENGINE_N;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 import static projekt.substratum.common.References.SUBSTRATUM_THEME;
+import static projekt.substratum.common.References.hashPassthrough;
 import static projekt.substratum.common.References.isNetworkAvailable;
+import static projekt.substratum.common.References.spreadYourWingsAndFly;
 
 public enum Systems {
     ;
@@ -55,6 +58,7 @@ public enum Systems {
      * passes all cases of Samsung checks
      */
     public static Boolean isSamsungDevice = null;
+    static Boolean checkPackageSupported;
 
     /**
      * Check whether Overlay Manager Service is actually running on the device
@@ -581,32 +585,47 @@ public enum Systems {
      * @param context Self explanatory...what?
      * @return True if blacklisted packages found
      */
-    static boolean checkPackageSupport(Context context) {
-        boolean blacklistedPackageFound = false;
-        String[] blacklistedPackages = {
-                "com.android.vending.billing.InAppBillingService.",
-                "uret.jasi2169.",
-                "com.dimonvideo.luckypatcher",
-                "com.chelpus.",
-                "com.forpda.lp",
-                "zone.jasi2169."
-        };
+    public static boolean checkPackageSupport(Context context, Boolean override) {
+        if (checkPackageSupported == null || override) {
+            String[] blacklistedPackages = {
+                    "com.android.vending.billing.InAppBillingService.",
+                    "uret.jasi2169.",
+                    "com.dimonvideo.",
+                    "com.chelpus.",
+                    "com.forpda.",
+                    "zone.jasi2169."
+            };
+            //noinspection ConstantConditions
+            checkPackageSupported = blacklistedPackages.length != 0 && (
+                    checkPackageRegex(context, blacklistedPackages) ||
+                            spreadYourWingsAndFly(context, override) ||
+                            hashPassthrough(context, false) == 0);
+        }
+        return checkPackageSupported;
+    }
 
+    /**
+     * Helper function of checkPackageSupport {@link #checkPackageSupport(Context, Boolean)}
+     *
+     * @param context     Self explanatory...what?
+     * @param stringArray List of packages to check
+     * @return True if blacklisted packages found
+     */
+    public static Boolean checkPackageRegex(Context context,
+                                            String[] stringArray) {
+        if (stringArray.length == 0) return true;
         final PackageManager pm = context.getPackageManager();
         List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
+        List<String> listOfInstalled = new ArrayList<>();
         for (ApplicationInfo packageInfo : packages) {
-            for (String packageName : blacklistedPackages) {
-                if (packageInfo.packageName.startsWith(packageName)) {
-                    blacklistedPackageFound = true;
-                    break;
-                }
-            }
-            if (blacklistedPackageFound) {
-                break;
-            }
+            listOfInstalled.add(packageInfo.packageName);
         }
-        //noinspection ConstantConditions
-        return blacklistedPackages.length == 0 || blacklistedPackageFound;
+        String invocation = listOfInstalled.toString();
+        for (String packageName : stringArray) {
+            if (invocation.contains(packageName))
+                return true;
+        }
+        return false;
     }
 
     /**

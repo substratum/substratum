@@ -30,6 +30,7 @@ import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -139,6 +140,7 @@ import static projekt.substratum.common.References.overlaysFragment;
 import static projekt.substratum.common.References.shutdownAnimationsFragment;
 import static projekt.substratum.common.References.soundsFragment;
 import static projekt.substratum.common.References.wallpaperFragment;
+import static projekt.substratum.common.Systems.checkPackageSupport;
 import static projekt.substratum.common.Systems.isSamsung;
 
 public class InformationActivity extends AppCompatActivity {
@@ -1285,7 +1287,7 @@ public class InformationActivity extends AppCompatActivity {
             super.onPostExecute(result);
             InformationActivity informationActivity = ref.get();
             if (informationActivity != null) {
-                if (!informationActivity.prefs.getBoolean("complexion", false)) {
+                if (checkPackageSupport(informationActivity.getApplicationContext(), false)) {
                     informationActivity.heroImage.
                             setBackgroundColor(Color.parseColor("#ffff00"));
                     informationActivity.collapsingToolbar.
@@ -1298,6 +1300,10 @@ public class InformationActivity extends AppCompatActivity {
                             setBackgroundColor(Color.parseColor("#ffff00"));
                     informationActivity.getWindow().
                             setNavigationBarColor(Color.parseColor("#ffff00"));
+                    informationActivity.getWindow().
+                            setStatusBarColor(Color.parseColor("#ffff00"));
+                    informationActivity.floatingActionButton.setBackgroundTintList(
+                            ColorStateList.valueOf(Color.parseColor("#ffff00")));
                 } else {
                     Bitmap bitmap = BitmapFactory.decodeByteArray(
                             informationActivity.byteArray, 0, informationActivity.byteArray.length);

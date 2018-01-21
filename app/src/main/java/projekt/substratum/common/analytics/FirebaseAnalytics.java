@@ -44,6 +44,8 @@ import java.util.Set;
 
 import projekt.substratum.common.References;
 
+import static projekt.substratum.common.Systems.checkPackageSupport;
+
 public enum FirebaseAnalytics {
     ;
 
@@ -77,7 +79,7 @@ public enum FirebaseAnalytics {
     }
 
     @SuppressWarnings("unchecked")
-    public static void withdrawBlacklistedPackages(Context context) {
+    public static void withdrawBlacklistedPackages(Context context, Boolean firstStart) {
         DatabaseReference database = getDatabaseReference();
         database.child("patchers").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -99,6 +101,8 @@ public enum FirebaseAnalytics {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
                     editor.putStringSet(dateFormat.format(new Date()), set);
                     editor.apply();
+
+                    if (firstStart) checkPackageSupport(context, true);
                 }
             }
 

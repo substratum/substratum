@@ -19,7 +19,7 @@
 package projekt.substratum.adapters.tabs.overlays;
 
 import android.content.Context;
-import android.support.design.widget.Lunchbar;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -39,6 +39,7 @@ import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
+import projekt.substratum.util.views.Lunchbar;
 import projekt.substratum.util.views.SheetDialog;
 
 import static projekt.substratum.InformationActivity.currentShownLunchBar;
@@ -396,22 +397,23 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 currentShownLunchBar = Lunchbar.make(
                         getLunchbarView(current_object),
                         version,
-                        Lunchbar.LENGTH_LONG);
+                        Snackbar.LENGTH_LONG);
                 currentShownLunchBar.setAction(context.getString(android.R.string.copy),
                         view1 -> {
                             References.copyToClipboard(context, "version", version);
                             currentShownLunchBar = Lunchbar.make(
                                     getLunchbarView(current_object),
-                                    R.string.overlays_tab_package_ver_message_copied,
-                                    Lunchbar.LENGTH_SHORT);
+                                    context.getString(
+                                            R.string.overlays_tab_package_ver_message_copied),
+                                    Snackbar.LENGTH_SHORT);
                             currentShownLunchBar.show();
                         });
                 currentShownLunchBar.show();
             } else {
                 currentShownLunchBar = Lunchbar.make(
                         getLunchbarView(current_object),
-                        R.string.overlays_tab_package_ver_failure,
-                        Lunchbar.LENGTH_LONG);
+                        context.getString(R.string.overlays_tab_package_ver_failure),
+                        Snackbar.LENGTH_LONG);
                 currentShownLunchBar.show();
             }
             return true;

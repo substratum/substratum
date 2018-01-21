@@ -35,7 +35,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Lunchbar;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -89,6 +89,7 @@ import projekt.substratum.common.systems.ProfileItem;
 import projekt.substratum.common.systems.ProfileManager;
 import projekt.substratum.tabs.WallpapersManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
+import projekt.substratum.util.views.Lunchbar;
 
 import static projekt.substratum.common.Internal.ALARM_THEME_DIRECTORY;
 import static projekt.substratum.common.Internal.AUDIO_THEME_DIRECTORY;
@@ -352,7 +353,7 @@ public class ProfileFragment extends Fragment {
                 if (getView() != null) {
                     Lunchbar.make(getView(),
                             getString(R.string.profile_edittext_empty_toast),
-                            Lunchbar.LENGTH_LONG)
+                            Snackbar.LENGTH_LONG)
                             .show();
                 }
             }
@@ -400,7 +401,7 @@ public class ProfileFragment extends Fragment {
                 if (getView() != null) {
                     Lunchbar.make(getView(),
                             getString(R.string.profile_delete_button_none_selected_toast),
-                            Lunchbar.LENGTH_LONG)
+                            Snackbar.LENGTH_LONG)
                             .show();
                 }
             }
@@ -414,7 +415,7 @@ public class ProfileFragment extends Fragment {
                 if (getView() != null) {
                     Lunchbar.make(getView(),
                             getString(R.string.restore_button_none_selected_toast),
-                            Lunchbar.LENGTH_LONG)
+                            Snackbar.LENGTH_LONG)
                             .show();
                 }
             }
@@ -492,28 +493,28 @@ public class ProfileFragment extends Fragment {
                                         nightMinute);
                                 if (getView() != null) {
                                     Lunchbar.make(getView(),
-                                            R.string.scheduled_profile_apply_success,
-                                            Lunchbar.LENGTH_LONG)
+                                            getString(R.string.scheduled_profile_apply_success),
+                                            Snackbar.LENGTH_LONG)
                                             .show();
                                 }
                             } else {
                                 if (getView() != null) {
-                                    Lunchbar.make(getView(), R.string.time_equal_warning,
-                                            Lunchbar.LENGTH_LONG)
+                                    Lunchbar.make(getView(), getString(R.string.time_equal_warning),
+                                            Snackbar.LENGTH_LONG)
                                             .show();
                                 }
                             }
                         } else {
                             if (getView() != null) {
-                                Lunchbar.make(getView(), R.string.time_empty_warning,
-                                        Lunchbar.LENGTH_LONG)
+                                Lunchbar.make(getView(), getString(R.string.time_empty_warning),
+                                        Snackbar.LENGTH_LONG)
                                         .show();
                             }
                         }
                     } else {
                         if (getView() != null) {
-                            Lunchbar.make(getView(), R.string.profile_empty_warning,
-                                    Lunchbar.LENGTH_LONG)
+                            Lunchbar.make(getView(), getString(R.string.profile_empty_warning),
+                                    Snackbar.LENGTH_LONG)
                                     .show();
                         }
                     }
@@ -521,8 +522,8 @@ public class ProfileFragment extends Fragment {
                     ProfileManager.disableScheduledProfile(getActivity());
                     if (getView() != null) {
                         Lunchbar.make(getView(),
-                                R.string.scheduled_profile_disable_success,
-                                Lunchbar.LENGTH_LONG)
+                                getString(R.string.scheduled_profile_disable_success),
+                                Snackbar.LENGTH_LONG)
                                 .show();
                     }
                 }
@@ -566,7 +567,7 @@ public class ProfileFragment extends Fragment {
                     if (profileFragment.getView() != null) {
                         Lunchbar.make(profileFragment.getView(),
                                 directory_parse,
-                                Lunchbar.LENGTH_LONG)
+                                Snackbar.LENGTH_LONG)
                                 .show();
                     }
                 } else {
@@ -576,7 +577,7 @@ public class ProfileFragment extends Fragment {
                     if (profileFragment.getView() != null) {
                         Lunchbar.make(profileFragment.getView(),
                                 directory_parse,
-                                Lunchbar.LENGTH_LONG)
+                                Snackbar.LENGTH_LONG)
                                 .show();
                     }
                 }
@@ -775,7 +776,7 @@ public class ProfileFragment extends Fragment {
                         if (profileFragment.getView() != null) {
                             Lunchbar.make(profileFragment.getView(),
                                     profileFragment.getString(R.string.backup_no_overlays),
-                                    Lunchbar.LENGTH_LONG)
+                                    Snackbar.LENGTH_LONG)
                                     .show();
                         }
                     }

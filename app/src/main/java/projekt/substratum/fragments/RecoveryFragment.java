@@ -25,7 +25,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Lunchbar;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
@@ -59,6 +59,7 @@ import projekt.substratum.tabs.BootAnimationsManager;
 import projekt.substratum.tabs.FontsManager;
 import projekt.substratum.tabs.WallpapersManager;
 import projekt.substratum.util.tabs.SoundUtils;
+import projekt.substratum.util.views.Lunchbar;
 import projekt.substratum.util.views.SheetDialog;
 
 import static projekt.substratum.common.Internal.ALL_WALLPAPER;
@@ -153,7 +154,7 @@ public class RecoveryFragment extends Fragment {
                     if (getView() != null) {
                         Lunchbar.make(getView(),
                                 getString(R.string.manage_wallpaper_home_toast),
-                                Lunchbar.LENGTH_LONG)
+                                Snackbar.LENGTH_LONG)
                                 .show();
                     }
                 } catch (IOException e) {
@@ -171,7 +172,7 @@ public class RecoveryFragment extends Fragment {
                     if (getView() != null) {
                         Lunchbar.make(getView(),
                                 getString(R.string.manage_wallpaper_lock_toast),
-                                Lunchbar.LENGTH_LONG)
+                                Snackbar.LENGTH_LONG)
                                 .show();
                     }
                 } catch (IOException e) {
@@ -186,7 +187,7 @@ public class RecoveryFragment extends Fragment {
                     if (getView() != null) {
                         Lunchbar.make(getView(),
                                 getString(R.string.manage_wallpaper_all_toast),
-                                Lunchbar.LENGTH_LONG)
+                                Snackbar.LENGTH_LONG)
                                 .show();
                     }
                 } catch (IOException e) {
@@ -416,7 +417,7 @@ public class RecoveryFragment extends Fragment {
                                 Lunchbar.make(view,
                                         context.getString(R.string
                                                 .manage_system_overlay_uninstall_toast),
-                                        Lunchbar.LENGTH_LONG)
+                                        Snackbar.LENGTH_LONG)
                                         .show();
                             }
                             //noinspection ConstantConditions
@@ -435,7 +436,7 @@ public class RecoveryFragment extends Fragment {
                         if (view != null) {
                             Lunchbar.make(view,
                                     context.getString(R.string.abort_overlay_toast_success),
-                                    Lunchbar.LENGTH_LONG)
+                                    Snackbar.LENGTH_LONG)
                                     .show();
                         }
                         AlertDialog.Builder alertDialogBuilder =
@@ -458,7 +459,7 @@ public class RecoveryFragment extends Fragment {
                     if (view != null) {
                         Lunchbar.make(view,
                                 context.getString(R.string.manage_system_overlay_toast),
-                                Lunchbar.LENGTH_LONG)
+                                Snackbar.LENGTH_LONG)
                                 .show();
                     }
                 }
@@ -536,7 +537,7 @@ public class RecoveryFragment extends Fragment {
                 if (fragment.getView() != null) {
                     Lunchbar.make(fragment.getView(),
                             fragment.getString(R.string.manage_bootanimation_toast),
-                            Lunchbar.LENGTH_LONG)
+                            Snackbar.LENGTH_LONG)
                             .show();
                 }
             }
@@ -589,7 +590,7 @@ public class RecoveryFragment extends Fragment {
                 if (fragment.getView() != null) {
                     Lunchbar.make(fragment.getView(),
                             fragment.getString(R.string.manage_sounds_toast),
-                            Lunchbar.LENGTH_LONG)
+                            Snackbar.LENGTH_LONG)
                             .show();
                 }
             }

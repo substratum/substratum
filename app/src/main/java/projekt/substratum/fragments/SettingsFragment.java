@@ -36,7 +36,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.support.design.widget.Lunchbar;
+import android.support.design.widget.Snackbar;
 import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
@@ -71,6 +71,7 @@ import projekt.substratum.util.files.FileDownloader;
 import projekt.substratum.util.readers.ReadFilterFile;
 import projekt.substratum.util.readers.ReadRepositoriesFile;
 import projekt.substratum.util.readers.ReadResourcesFile;
+import projekt.substratum.util.views.Lunchbar;
 
 import static projekt.substratum.common.Activities.launchExternalActivity;
 import static projekt.substratum.common.Internal.RECREATE_PROP;
@@ -136,7 +137,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         if (getActivity() != null) {
                             Lunchbar.make(References.getView(getActivity()),
                                     getString(R.string.activity_missing_toast),
-                                    Lunchbar.LENGTH_LONG)
+                                    Snackbar.LENGTH_LONG)
                                     .show();
                         }
                     }
@@ -202,8 +203,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     new downloadRepositoryList(this).execute("");
                 } else if (getView() != null) {
                     Lunchbar.make(getView(),
-                            R.string.resource_needs_internet,
-                            Lunchbar.LENGTH_LONG)
+                            getString(R.string.resource_needs_internet),
+                            Snackbar.LENGTH_LONG)
                             .show();
                 }
                 return false;
@@ -283,9 +284,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     if (isChecked) {
                         forceEnglish.setChecked(true);
                         prefs.edit().putBoolean("force_english", true).apply();
-                        // TODO: Fix incorrect View being taken that causes Lunchbar to overlay bottom navigation
-                        Lunchbar lunchbar = Lunchbar.make(getView(),
-                                R.string.locale_restart_message, Lunchbar.LENGTH_INDEFINITE);
+                        Snackbar lunchbar = Lunchbar.make(getView(),
+                                getString(R.string.locale_restart_message),
+                                Snackbar.LENGTH_INDEFINITE);
                         lunchbar.setAction(getString(R.string.restart), v -> {
                             Handler handler = new Handler();
                             handler.postDelayed(() -> Substratum.restartSubstratum(context), 0);
@@ -294,9 +295,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     } else {
                         forceEnglish.setChecked(false);
                         prefs.edit().putBoolean("force_english", false).apply();
-                        // TODO: Fix incorrect View being taken that causes Lunchbar to overlay bottom navigation
-                        Lunchbar lunchbar = Lunchbar.make(getView(),
-                                R.string.locale_restart_message, Lunchbar.LENGTH_INDEFINITE);
+                        Snackbar lunchbar = Lunchbar.make(getView(),
+                                getString(R.string.locale_restart_message),
+                                Snackbar.LENGTH_INDEFINITE);
                         lunchbar.setAction(getString(R.string.restart), v -> {
                             Handler handler = new Handler();
                             handler.postDelayed(() -> Substratum.restartSubstratum(context), 0);
@@ -321,9 +322,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     if (isChecked) {
                         advancedUi.setChecked(true);
                         prefs.edit().putBoolean("advanced_ui", true).apply();
-                        // TODO: Fix incorrect View being taken that causes Lunchbar to overlay bottom navigation
-                        Lunchbar lunchbar = Lunchbar.make(getView(),
-                                R.string.advanced_ui_restart_message, Lunchbar.LENGTH_INDEFINITE);
+                        Snackbar lunchbar = Lunchbar.make(getView(),
+                                getString(R.string.advanced_ui_restart_message),
+                                Snackbar.LENGTH_INDEFINITE);
                         lunchbar.setAction(getString(R.string.restart), v -> {
                             Handler handler = new Handler();
                             handler.postDelayed(() -> Substratum.restartSubstratum(context), 0);
@@ -332,9 +333,9 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     } else {
                         advancedUi.setChecked(false);
                         prefs.edit().putBoolean("advanced_ui", false).apply();
-                        // TODO: Fix incorrect View being taken that causes Lunchbar to overlay bottom navigation
-                        Lunchbar lunchbar = Lunchbar.make(getView(),
-                                R.string.advanced_ui_restart_message, Lunchbar.LENGTH_INDEFINITE);
+                        Snackbar lunchbar = Lunchbar.make(getView(),
+                                getString(R.string.advanced_ui_restart_message),
+                                Snackbar.LENGTH_INDEFINITE);
                         lunchbar.setAction(getString(R.string.restart), v -> {
                             Handler handler = new Handler();
                             handler.postDelayed(() -> Substratum.restartSubstratum(context), 0);
@@ -721,7 +722,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 if (getActivity() != null) {
                                     Lunchbar.make(References.getView(getActivity()),
                                             getString(R.string.activity_missing_toast),
-                                            Lunchbar.LENGTH_LONG)
+                                            Snackbar.LENGTH_LONG)
                                             .show();
                                 }
                             }
@@ -779,7 +780,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             if (getView() != null) {
                                 Lunchbar.make(getView(),
                                         getString(R.string.hide_app_icon_toast_disabled),
-                                        Lunchbar.LENGTH_LONG)
+                                        Snackbar.LENGTH_LONG)
                                         .show();
                             }
                             hide_app_checkbox.setChecked(true);
@@ -794,7 +795,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                             if (getView() != null) {
                                 Lunchbar.make(getView(),
                                         getString(R.string.hide_app_icon_toast_enabled),
-                                        Lunchbar.LENGTH_LONG)
+                                        Snackbar.LENGTH_LONG)
                                         .show();
                             }
                             hide_app_checkbox.setChecked(false);
@@ -821,7 +822,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 if (getView() != null) {
                                     Lunchbar.make(getView(),
                                             getString(R.string.restart_systemui_toast_enabled),
-                                            Lunchbar.LENGTH_LONG)
+                                            Snackbar.LENGTH_LONG)
                                             .show();
                                 }
                                 systemUIRestart.setChecked(true);
@@ -830,7 +831,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                                 if (getView() != null) {
                                     Lunchbar.make(getView(),
                                             getString(R.string.restart_systemui_toast_disabled),
-                                            Lunchbar.LENGTH_LONG)
+                                            Snackbar.LENGTH_LONG)
                                             .show();
                                 }
                                 systemUIRestart.setChecked(false);

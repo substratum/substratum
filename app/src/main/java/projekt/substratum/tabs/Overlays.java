@@ -39,7 +39,7 @@ import android.preference.PreferenceManager;
 import android.service.notification.StatusBarNotification;
 import android.support.annotation.NonNull;
 import android.support.annotation.RestrictTo;
-import android.support.design.widget.Lunchbar;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
@@ -99,6 +99,7 @@ import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
 import projekt.substratum.util.files.Root;
+import projekt.substratum.util.views.Lunchbar;
 import projekt.substratum.util.views.SheetDialog;
 
 import static android.content.Context.ACTIVITY_SERVICE;
@@ -326,8 +327,8 @@ public class Overlays extends Fragment {
             if (decryptedAssetsExceptionReached) {
                 currentShownLunchBar = Lunchbar.make(
                         getActivityView(),
-                        R.string.error_loading_theme_close_text,
-                        Lunchbar.LENGTH_INDEFINITE);
+                        context.getString(R.string.error_loading_theme_close_text),
+                        Snackbar.LENGTH_INDEFINITE);
                 currentShownLunchBar.setAction(getString(R.string.error_loading_theme_close),
                         v -> {
                             currentShownLunchBar.dismiss();
@@ -597,8 +598,8 @@ public class Overlays extends Fragment {
         currentInstance.error_logs = new StringBuilder();
         currentShownLunchBar = Lunchbar.make(
                 getActivityView(),
-                R.string.logcat_snackbar_text,
-                Lunchbar.LENGTH_INDEFINITE);
+                context.getString(R.string.logcat_snackbar_text),
+                Snackbar.LENGTH_INDEFINITE);
         currentShownLunchBar.setAction(getString(R.string.logcat_snackbar_button), view -> {
             currentShownLunchBar.dismiss();
             invokeLogCharDialog(context, errorLogCopy);
@@ -625,8 +626,8 @@ public class Overlays extends Fragment {
                                     "substratum_log", logs.toString());
                             currentShownLunchBar = Lunchbar.make(
                                     getActivityView(),
-                                    R.string.logcat_dialog_copy_success,
-                                    Lunchbar.LENGTH_LONG);
+                                    context.getString(R.string.logcat_dialog_copy_success),
+                                    Snackbar.LENGTH_LONG);
                             currentShownLunchBar.show();
                         });
 

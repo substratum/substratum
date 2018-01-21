@@ -34,7 +34,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Lunchbar;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.NestedScrollView;
@@ -74,6 +74,7 @@ import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.util.files.Root;
 import projekt.substratum.util.tabs.BootAnimationUtils;
+import projekt.substratum.util.views.Lunchbar;
 
 import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.Internal.BOOTANIMATION_CACHE;
@@ -362,7 +363,7 @@ public class BootAnimations extends Fragment {
                             bootAnimations.getString(bootAnimations.shutdownBootAnimation ?
                                     R.string.manage_shutdownanimation_toast :
                                     R.string.manage_bootanimation_toast),
-                            Lunchbar.LENGTH_LONG);
+                            Snackbar.LENGTH_LONG);
                     currentShownLunchBar.show();
                 }
             }

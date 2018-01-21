@@ -30,7 +30,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Lunchbar;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.NestedScrollView;
@@ -71,6 +71,7 @@ import projekt.substratum.adapters.tabs.sounds.SoundsAdapter;
 import projekt.substratum.adapters.tabs.sounds.SoundsInfo;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.util.tabs.SoundUtils;
+import projekt.substratum.util.views.Lunchbar;
 import projekt.substratum.util.views.RecyclerItemClickListener;
 
 import static projekt.substratum.InformationActivity.currentShownLunchBar;
@@ -311,7 +312,7 @@ public class Sounds extends Fragment {
                 editor.apply();
                 currentShownLunchBar = Lunchbar.make(sounds.nsv,
                         sounds.getString(R.string.manage_sounds_toast),
-                        Lunchbar.LENGTH_LONG);
+                        Snackbar.LENGTH_LONG);
                 currentShownLunchBar.show();
             }
         }

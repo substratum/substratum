@@ -33,7 +33,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.Lunchbar;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
@@ -62,6 +62,7 @@ import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.util.compilers.SubstratumBuilder;
 import projekt.substratum.util.files.Root;
+import projekt.substratum.util.views.Lunchbar;
 
 import static projekt.substratum.InformationActivity.currentShownLunchBar;
 import static projekt.substratum.common.Internal.COMPILE_ENABLE;
@@ -130,8 +131,8 @@ enum OverlaysManager {
             if (overlays.toggle_all.isChecked()) overlays.toggle_all.setChecked(false);
             currentShownLunchBar = Lunchbar.make(
                     overlays.getActivityView(),
-                    R.string.toast_disabled5,
-                    Lunchbar.LENGTH_LONG);
+                    overlays.context.getString(R.string.toast_disabled5),
+                    Snackbar.LENGTH_LONG);
             currentShownLunchBar.show();
         }
     }
@@ -189,8 +190,8 @@ enum OverlaysManager {
                 if (overlays.toggle_all.isChecked()) overlays.toggle_all.setChecked(false);
                 currentShownLunchBar = Lunchbar.make(
                         overlays.getActivityView(),
-                        R.string.toast_disabled5,
-                        Lunchbar.LENGTH_LONG);
+                        overlays.context.getString(R.string.toast_disabled5),
+                        Snackbar.LENGTH_LONG);
                 currentShownLunchBar.show();
             }
         }
@@ -271,8 +272,8 @@ enum OverlaysManager {
             if (overlays.toggle_all.isChecked()) overlays.toggle_all.setChecked(false);
             currentShownLunchBar = Lunchbar.make(
                     overlays.getActivityView(),
-                    R.string.toast_disabled5,
-                    Lunchbar.LENGTH_LONG);
+                    overlays.context.getString(R.string.toast_disabled5),
+                    Snackbar.LENGTH_LONG);
             currentShownLunchBar.show();
         }
     }
@@ -308,8 +309,8 @@ enum OverlaysManager {
             } else {
                 currentShownLunchBar = Lunchbar.make(
                         overlays.getActivityView(),
-                        R.string.toast_disabled3,
-                        Lunchbar.LENGTH_LONG);
+                        overlays.context.getString(R.string.toast_disabled3),
+                        Snackbar.LENGTH_LONG);
                 currentShownLunchBar.show();
             }
             overlays.progressBar.setVisibility(View.GONE);
@@ -1251,14 +1252,14 @@ enum OverlaysManager {
                     if (overlays.currentInstance.missingType3) {
                         currentShownLunchBar = Lunchbar.make(
                                 overlays.getActivityView(),
-                                R.string.toast_compiled_missing,
-                                Lunchbar.LENGTH_LONG);
+                                overlays.context.getString(R.string.toast_compiled_missing),
+                                Snackbar.LENGTH_LONG);
                         currentShownLunchBar.show();
                     } else {
                         currentShownLunchBar = Lunchbar.make(
                                 overlays.getActivityView(),
-                                R.string.toast_compiled_updated,
-                                Lunchbar.LENGTH_LONG);
+                                overlays.context.getString(R.string.toast_compiled_updated),
+                                Snackbar.LENGTH_LONG);
                         currentShownLunchBar.show();
                     }
                 }

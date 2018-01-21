@@ -21,7 +21,7 @@ package projekt.substratum.adapters.showcase;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.design.widget.Lunchbar;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -39,6 +39,7 @@ import java.util.Locale;
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
+import projekt.substratum.util.views.Lunchbar;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 import static com.bumptech.glide.request.RequestOptions.centerCropTransform;
@@ -129,7 +130,7 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
                 e.printStackTrace();
                 Lunchbar.make(view,
                         context.getString(R.string.activity_missing_toast),
-                        Lunchbar.LENGTH_LONG).show();
+                        Snackbar.LENGTH_LONG).show();
             }
         });
     }

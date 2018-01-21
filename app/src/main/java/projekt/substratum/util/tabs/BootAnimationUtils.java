@@ -26,7 +26,7 @@ import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.support.design.widget.Lunchbar;
+import android.support.design.widget.Snackbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -59,6 +59,7 @@ import projekt.substratum.R;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.tabs.BootAnimationsManager;
+import projekt.substratum.util.views.Lunchbar;
 
 import static projekt.substratum.common.Internal.BOOTANIMATION;
 import static projekt.substratum.common.Internal.BOOTANIMATION_BU;
@@ -170,13 +171,13 @@ public class BootAnimationUtils {
                 Lunchbar.make(view, context.getString(shutdownAnimation ?
                                 R.string.shutdownanimation_dialog_apply_success :
                                 R.string.bootanimation_dialog_apply_success),
-                        Lunchbar.LENGTH_LONG)
+                        Snackbar.LENGTH_LONG)
                         .show();
             } else {
                 Lunchbar.make(view, context.getString(shutdownAnimation ?
                                 R.string.shutdownanimation_dialog_apply_failed :
                                 R.string.bootanimation_dialog_apply_failed),
-                        Lunchbar.LENGTH_LONG)
+                        Snackbar.LENGTH_LONG)
                         .show();
             }
             if (!Systems.checkThemeInterfacer(context)) {

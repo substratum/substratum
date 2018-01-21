@@ -31,7 +31,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.Lunchbar;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
@@ -62,6 +62,7 @@ import projekt.substratum.common.Systems;
 import projekt.substratum.util.files.FileDownloader;
 import projekt.substratum.util.files.MD5;
 import projekt.substratum.util.readers.ReadShowcaseTabsFile;
+import projekt.substratum.util.views.Lunchbar;
 
 import static projekt.substratum.common.Internal.ANDROMEDA_RECEIVER;
 import static projekt.substratum.common.Internal.SHOWCASE_CACHE;
@@ -133,7 +134,7 @@ public class ShowcaseActivity extends AppCompatActivity {
                 } catch (ActivityNotFoundException activityNotFoundException) {
                     Lunchbar.make(masterView,
                             getString(R.string.activity_missing_toast),
-                            Lunchbar.LENGTH_LONG)
+                            Snackbar.LENGTH_LONG)
                             .show();
                 }
                 return true;

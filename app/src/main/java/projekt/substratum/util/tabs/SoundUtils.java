@@ -24,7 +24,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.support.design.widget.Lunchbar;
+import android.support.design.widget.Snackbar;
 import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
@@ -38,6 +38,7 @@ import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
 import projekt.substratum.tabs.SoundsManager;
+import projekt.substratum.util.views.Lunchbar;
 
 import static projekt.substratum.common.Internal.JOB_COMPLETE;
 import static projekt.substratum.common.Internal.SOUNDS_APPLIED;
@@ -90,12 +91,12 @@ public class SoundUtils {
         if (!has_failed) {
             Lunchbar.make(view,
                     context.getString(R.string.sounds_dialog_apply_success),
-                    Lunchbar.LENGTH_LONG)
+                    Snackbar.LENGTH_LONG)
                     .show();
         } else {
             Lunchbar.make(view,
                     context.getString(R.string.sounds_dialog_apply_failed),
-                    Lunchbar.LENGTH_LONG)
+                    Snackbar.LENGTH_LONG)
                     .show();
         }
 

@@ -5,11 +5,12 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.design.widget.Lunchbar;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Toast;
 
 import projekt.substratum.R;
+import projekt.substratum.util.views.Lunchbar;
 
 public enum Activities {
     ;
@@ -50,7 +51,7 @@ public enum Activities {
         } catch (ActivityNotFoundException activityNotFoundException) {
             Lunchbar.make(view,
                     context.getString(R.string.activity_missing_toast),
-                    Lunchbar.LENGTH_LONG)
+                    Snackbar.LENGTH_LONG)
                     .show();
         }
     }

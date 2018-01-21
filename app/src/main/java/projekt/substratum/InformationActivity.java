@@ -691,6 +691,19 @@ public class InformationActivity extends AppCompatActivity {
         // Sounds visibility
         extra_hidden_tabs.put(soundsFragment, Resources.isSoundsSupported(context));
 
+        // If there are no tabs, then the theme is completely empty. Show toast and quit.
+        if (extra_hidden_tabs.size() == 0 || tabLayout.getTabCount() == 0) {
+            String format = String.format(
+                    getString(R.string.information_activity_theme_improperly_setup),
+                    theme_name);
+            Toast.makeText(
+                    this,
+                    format,
+                    Toast.LENGTH_SHORT
+            ).show();
+            finish();
+        }
+
         // Set up the tabs
         InformationTabsAdapter adapter = new InformationTabsAdapter(
                 getSupportFragmentManager(),

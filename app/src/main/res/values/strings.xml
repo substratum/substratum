@@ -144,6 +144,8 @@
     <string name="backend_not_authorized_title">Substratum debug build not authorized!</string>
     <string name="backend_not_authorized_text">To use this build of substratum with your custom ROM, please enable \'Force authorize every theme app\' in Developer options.\n\nIf it is not there, please contact your ROM dev for missing commits!</string>
 
+    <string name="information_activity_theme_improperly_setup" formatted="false">"%s" has no available resources for theming!</string>
+
     <string name="legacy_preference_priority_title">Overlay priority adjustment</string>
     <string name="legacy_preference_priority_text">Priority is set at (default %d): %d</string>
 

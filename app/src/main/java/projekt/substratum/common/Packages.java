@@ -3,7 +3,6 @@ package projekt.substratum.common;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -758,26 +757,7 @@ public enum Packages {
     public static boolean isSamsungTheme(Context context,
                                          String package_name) {
         String obtainedValue = getOverlayMetadata(context, package_name, metadataSamsungSupport);
-        return obtainedValue != null && obtainedValue.toLowerCase().equals("true");
-    }
-
-    /**
-     * Check whether a metadata is conflicting with the banned trigger
-     *
-     * @param context Context
-     * @param trigger Trigger word
-     * @return True, if triggered
-     */
-    static boolean getMetadata(Context context,
-                               String trigger) {
-        List<ApplicationInfo> list =
-                context.getPackageManager().getInstalledApplications(PackageManager.GET_META_DATA);
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).packageName.startsWith(trigger)) {
-                return true;
-            }
-        }
-        return false;
+        return obtainedValue == null || !obtainedValue.toLowerCase().equals("true");
     }
 
     /**
@@ -945,57 +925,6 @@ public enum Packages {
             e.printStackTrace();
         }
         return hex;
-    }
-
-    /**
-     * Check whether a content provider is conflicting with the banned trigger
-     *
-     * @param context Context
-     * @param trigger Trigger word
-     * @return True, if triggered
-     */
-    static boolean getProviders(Context context,
-                                String trigger) {
-        List<PackageInfo> list =
-                context.getPackageManager().getInstalledPackages(PackageManager.GET_PROVIDERS);
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).packageName.startsWith(trigger)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Check whether an intent is conflicting with the banned trigger
-     *
-     * @param context Context
-     * @param trigger Trigger word
-     * @return True, if triggered
-     */
-    static boolean getIntents(Context context,
-                              String trigger) {
-        Collection<Intent> intentArray = new ArrayList<>();
-        intentArray.add(new Intent(Intent.ACTION_BOOT_COMPLETED));
-        intentArray.add(new Intent(Intent.ACTION_PACKAGE_ADDED));
-        intentArray.add(new Intent(Intent.ACTION_PACKAGE_CHANGED));
-        intentArray.add(new Intent(Intent.ACTION_PACKAGE_REPLACED));
-        intentArray.add(new Intent(Intent.ACTION_PACKAGE_REMOVED));
-        intentArray.add(new Intent(Intent.ACTION_MEDIA_SCANNER_FINISHED));
-        intentArray.add(new Intent(Intent.ACTION_MEDIA_SCANNER_STARTED));
-        intentArray.add(new Intent(Intent.ACTION_MEDIA_MOUNTED));
-        intentArray.add(new Intent(Intent.ACTION_MEDIA_REMOVED));
-        for (Intent intent : intentArray) {
-            List<ResolveInfo> activities =
-                    context.getPackageManager().queryBroadcastReceivers(intent, 0);
-            for (ResolveInfo resolveInfo : activities) {
-                ActivityInfo activityInfo = resolveInfo.activityInfo;
-                if ((activityInfo != null) && activityInfo.name.startsWith(trigger)) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     /**

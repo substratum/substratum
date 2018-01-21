@@ -194,7 +194,6 @@ public enum References {
     public static final int SAMSUNG_THEME_ENGINE_N = 2389284;
     public static final int NO_THEME_ENGINE = 0;
     // This int controls the notification identifier
-    public static final int firebase_notification_id = 24862486;
     public static final int notification_id = 2486;
     public static final int notification_id_compiler = 17589715;
     // This int controls the delay for window refreshes to occur
@@ -623,23 +622,13 @@ public enum References {
                 .getSharedPreferences(FirebaseAnalytics.PACKAGES_PREFS, Context.MODE_PRIVATE);
         SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
         String date = dateFormat.format(new Date());
-
         if (prefs.contains(date)) {
             Set<String> pref = prefs.getStringSet(date, new HashSet<>());
-            for (String check : pref) {
-                if (checkPackageRegex(context, pref.toArray(new String[pref.size()]))) {
-                    Log.d("PatcherDatabase",
-                            "The database has triggered a primary level blacklist package.");
-                    uncertified = true;
-                    return true;
-                } else if (Packages.getMetadata(context, check) ||
-                        Packages.getProviders(context, check) ||
-                        Packages.getIntents(context, check)) {
-                    Log.d("PatcherDatabase",
-                            "The database has triggered a secondary level blacklist package.");
-                    uncertified = true;
-                    return true;
-                }
+            if (checkPackageRegex(context, pref.toArray(new String[pref.size()]))) {
+                Log.d("PatcherDatabase",
+                        "The database has triggered a primary level blacklist package.");
+                uncertified = true;
+                return true;
             }
         }
         uncertified = false;

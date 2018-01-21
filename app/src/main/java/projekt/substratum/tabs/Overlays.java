@@ -1122,7 +1122,7 @@ public class Overlays extends Fragment {
                         !ThemeManager.blacklisted(
                                 package_name,
                                 Systems.isSamsungDevice(context) &&
-                                        !Packages.isSamsungTheme(
+                                        Packages.isSamsungTheme(
                                                 context,
                                                 overlays.theme_pid
                                         )

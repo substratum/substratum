@@ -903,7 +903,7 @@ public class InformationActivity extends AppCompatActivity {
         Boolean shouldShowSamsungWarning =
                 !prefs.getBoolean("show_dangerous_samsung_overlays", false);
         if (Systems.isSamsung(context) &&
-                !Packages.isSamsungTheme(context, theme_pid) &&
+                Packages.isSamsungTheme(context, theme_pid) &&
                 shouldShowSamsungWarning) {
             currentShownLunchBar = Lunchbar.make(
                     getLunchbarView(this),

@@ -154,15 +154,11 @@ public class SplashScreenActivity extends Activity {
                 prefs = context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
                 editor = prefs.edit();
                 editor.clear().apply();
-
-                new Thread(() -> {
-                    FirebaseAnalytics.withdrawBlacklistedPackages(
-                            activity.getApplicationContext(),
-                            activity.first_run
-                    );
-                    checkPackageSupport(activity.getApplicationContext(), false);
-                }).start();
-
+                FirebaseAnalytics.withdrawBlacklistedPackages(
+                        activity.getApplicationContext(),
+                        activity.first_run
+                );
+                checkPackageSupport(activity.getApplicationContext(), false);
                 prefs = context.getSharedPreferences(PACKAGES_PREFS, Context.MODE_PRIVATE);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);
                 int timeoutCount = 0;

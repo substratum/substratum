@@ -1290,6 +1290,8 @@ enum OverlaysManager {
                         ArrayList<String> disableBeforeEnabling = new ArrayList<>();
                         List<String> all_installed_overlays = ThemeManager.listAllOverlays
                                 (context);
+                        List<String> all_enabled_overlays = ThemeManager.listOverlays(
+                                context, ThemeManager.STATE_ENABLED);
                         for (String p : all_installed_overlays) {
                             if (!overlays.theme_pid.equals(Packages.
                                     getOverlayParent(context, p))) {
@@ -1298,7 +1300,8 @@ enum OverlaysManager {
                                 for (OverlaysItem oi : overlays.currentInstance.checkedOverlays) {
                                     String targetOverlay = oi.getPackageName();
                                     if (targetOverlay.equals(
-                                            Packages.getOverlayTarget(context, p))) {
+                                            Packages.getOverlayTarget(context, p)) ||
+                                            all_enabled_overlays.contains(targetOverlay)) {
                                         disableBeforeEnabling.add(p);
                                     }
                                 }

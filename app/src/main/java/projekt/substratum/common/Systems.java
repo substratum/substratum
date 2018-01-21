@@ -605,9 +605,8 @@ public enum Systems {
                 break;
             }
         }
-
-
-        return blacklistedPackageFound;
+        //noinspection ConstantConditions
+        return blacklistedPackages.length == 0 || blacklistedPackageFound;
     }
 
     /**

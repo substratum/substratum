@@ -494,6 +494,17 @@ enum OverlaysManager {
                         overlays.progressBar.setVisibility(View.VISIBLE);
                         overlays.currentInstance.overlaysWaiting =
                                 overlays.currentInstance.late_install.size();
+                        if (Systems.checkOMS(context)) {
+                            List<String> all_enabled_overlays = ThemeManager
+                                    .listOverlays(context, ThemeManager.STATE_ENABLED);
+                            ArrayList<String> overlaysToDisable = new ArrayList<>();
+                            for (String pkg : overlays.currentInstance.late_install) {
+                                if (all_enabled_overlays.contains(pkg)) {
+                                    overlaysToDisable.add(pkg);
+                                }
+                            }
+                            ThemeManager.disableOverlay(context, overlaysToDisable);
+                        }
                         for (int i = 0; i < overlays.currentInstance.late_install.size(); i++) {
                             ThemeManager.installOverlay(
                                     overlays.getActivity(),
@@ -1290,8 +1301,6 @@ enum OverlaysManager {
                         ArrayList<String> disableBeforeEnabling = new ArrayList<>();
                         List<String> all_installed_overlays = ThemeManager.listAllOverlays
                                 (context);
-                        List<String> all_enabled_overlays = ThemeManager.listOverlays(
-                                context, ThemeManager.STATE_ENABLED);
                         for (String p : all_installed_overlays) {
                             if (!overlays.theme_pid.equals(Packages.
                                     getOverlayParent(context, p))) {
@@ -1300,8 +1309,7 @@ enum OverlaysManager {
                                 for (OverlaysItem oi : overlays.currentInstance.checkedOverlays) {
                                     String targetOverlay = oi.getPackageName();
                                     if (targetOverlay.equals(
-                                            Packages.getOverlayTarget(context, p)) ||
-                                            all_enabled_overlays.contains(targetOverlay)) {
+                                            Packages.getOverlayTarget(context, p))) {
                                         disableBeforeEnabling.add(p);
                                     }
                                 }

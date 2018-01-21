@@ -92,11 +92,9 @@ public class SplashScreenActivity extends Activity {
         if (first_run && !isLowEnd()) {
             // Load the ImageView that will host the animation and
             // set its background to our AnimationDrawable XML resource.
-
             try {
                 splashScreenImage.setVisibility(View.GONE);
                 svgView.start();
-
                 // Finally set the proper launch activity and delay
                 intent = new Intent(SplashScreenActivity.this, AppIntroActivity.class);
                 intent_launch_delay = DELAY_LAUNCH_APP_INTRO;
@@ -157,11 +155,13 @@ public class SplashScreenActivity extends Activity {
                 editor = prefs.edit();
                 editor.clear().apply();
 
-                FirebaseAnalytics.withdrawBlacklistedPackages(
-                        activity.getApplicationContext(),
-                        activity.first_run
-                );
-                checkPackageSupport(activity.getApplicationContext(), false);
+                new Thread(() -> {
+                    FirebaseAnalytics.withdrawBlacklistedPackages(
+                            activity.getApplicationContext(),
+                            activity.first_run
+                    );
+                    checkPackageSupport(activity.getApplicationContext(), false);
+                }).start();
 
                 prefs = context.getSharedPreferences(PACKAGES_PREFS, Context.MODE_PRIVATE);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyyyy", Locale.US);

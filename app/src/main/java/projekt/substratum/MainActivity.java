@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements
     private static final String SELECTED_DRAWER_ITEM = "selected_drawer_item";
     public static String userInput = "";
     public static ArrayList<String> queuedUninstall;
-    private static ActionBar supportActionBar;
+    private ActionBar supportActionBar;
     public SearchView searchView;
     @BindView(R.id.theme_count)
     public TextView actionbar_content;

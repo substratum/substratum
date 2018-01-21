@@ -210,9 +210,14 @@ public class InformationActivity extends AppCompatActivity {
      */
     private static int getDominantColor(Context context, Bitmap bitmap) {
         try {
-            Palette palette = Palette.from(bitmap).generate();
-            return palette.getDominantColor(
-                    context.getColor(R.color.main_screen_card_background));
+            int transparency = ((bitmap.getPixel(0, 0) & 0xff000000) >> 24);
+            if (transparency != 0) {
+                Palette palette = Palette.from(bitmap).generate();
+                return palette.getDominantColor(
+                        context.getColor(R.color.main_screen_card_background));
+            } else {
+                return context.getColor(R.color.colorPrimary);
+            }
         } catch (IllegalArgumentException ignored) {
             // Suppress warning
         }

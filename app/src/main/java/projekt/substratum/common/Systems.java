@@ -585,15 +585,10 @@ public enum Systems {
         boolean blacklistedPackageFound = false;
         String[] blacklistedPackages = {
                 "com.android.vending.billing.InAppBillingService.",
-                "com.android.vending.billing.InAppBillingService.LOCK",
-                "com.android.vending.billing.InAppBillingService.LACK",
                 "uret.jasi2169.",
-                "uret.jasi2169.patcher",
                 "com.dimonvideo.luckypatcher",
-                "com.chelpus.lackypatch",
+                "com.chelpus.",
                 "com.forpda.lp",
-                "com.android.vending.billing.InAppBillingService.LUCK",
-                "zone.jasi2169.uretpatcher",
                 "zone.jasi2169."
         };
 

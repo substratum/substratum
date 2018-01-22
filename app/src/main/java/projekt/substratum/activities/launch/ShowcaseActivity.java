@@ -172,7 +172,8 @@ public class ShowcaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences prefs =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         boolean bottomBarUi = !prefs.getBoolean("advanced_ui", false);
         if (bottomBarUi) setTheme(R.style.AppTheme_SpecialUI);
 
@@ -192,7 +193,13 @@ public class ShowcaseActivity extends AppCompatActivity {
             getSupportActionBar().setHomeButtonEnabled(false);
             getSupportActionBar().setTitle(R.string.showcase);
         }
-        toolbar.setNavigationOnClickListener((view) -> finish());
+        toolbar.setNavigationOnClickListener((view) -> {
+            if (drawer.isDrawerOpen()) {
+                drawer.closeDrawer();
+            } else {
+                finish();
+            }
+        });
 
         if (bottomBarUi) {
             // Change the toolbar title size

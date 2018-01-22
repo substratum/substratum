@@ -44,6 +44,7 @@ import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
+import projekt.substratum.services.notification.UnsupportedThemeReceiver;
 
 import static projekt.substratum.common.Internal.THEME_PID;
 import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
@@ -137,9 +138,13 @@ public class PackageModificationDetector extends BroadcastReceiver {
                             appInfo.metaData.getString(
                                     References.metadataName));
 
-                    Intent showIntent = new Intent();
-                    PendingIntent contentIntent = PendingIntent.getActivity(
-                            context, 0, showIntent, 0);
+                    // Create an Intent for the BroadcastReceiver
+                    Intent buttonIntent = new Intent(context, UnsupportedThemeReceiver.class);
+                    buttonIntent.putExtra("package_to_uninstall", package_name);
+
+                    // Create the PendingIntent
+                    PendingIntent btPendingIntent =
+                            PendingIntent.getBroadcast(context, 0, buttonIntent, 0);
 
                     NotificationManager mNotifyManager = (NotificationManager) context
                             .getSystemService(Context.NOTIFICATION_SERVICE);
@@ -150,7 +155,10 @@ public class PackageModificationDetector extends BroadcastReceiver {
                             R.string.failed_to_install_title_notification));
                     mBuilder.setContentText(parse);
                     mBuilder.setAutoCancel(true);
-                    mBuilder.setContentIntent(contentIntent);
+                    mBuilder.setContentIntent(btPendingIntent);
+                    mBuilder.addAction(android.R.color.transparent,
+                            context.getString(R.string.refused_to_install_notification_button),
+                            btPendingIntent);
                     mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
                     mBuilder.setPriority(Notification.PRIORITY_MAX);
                     if (mNotifyManager != null) {
@@ -174,9 +182,13 @@ public class PackageModificationDetector extends BroadcastReceiver {
                             appInfo.metaData.getString(
                                     References.metadataName));
 
-                    Intent showIntent = new Intent();
-                    PendingIntent contentIntent = PendingIntent.getActivity(
-                            context, 0, showIntent, 0);
+                    // Create an Intent for the BroadcastReceiver
+                    Intent buttonIntent = new Intent(context, UnsupportedThemeReceiver.class);
+                    buttonIntent.putExtra("package_to_uninstall", package_name);
+
+                    // Create the PendingIntent
+                    PendingIntent btPendingIntent =
+                            PendingIntent.getBroadcast(context, 0, buttonIntent, 0);
 
                     NotificationManager mNotifyManager = (NotificationManager) context
                             .getSystemService(Context.NOTIFICATION_SERVICE);
@@ -187,7 +199,10 @@ public class PackageModificationDetector extends BroadcastReceiver {
                             R.string.refused_to_install_title_notification));
                     mBuilder.setContentText(parse);
                     mBuilder.setAutoCancel(true);
-                    mBuilder.setContentIntent(contentIntent);
+                    mBuilder.setContentIntent(btPendingIntent);
+                    mBuilder.addAction(android.R.color.transparent,
+                            context.getString(R.string.refused_to_install_notification_button),
+                            btPendingIntent);
                     mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
                     mBuilder.setPriority(Notification.PRIORITY_MAX);
                     if (mNotifyManager != null) {

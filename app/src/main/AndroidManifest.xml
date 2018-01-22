@@ -76,6 +76,7 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".services.notification.UnsupportedThemeReceiver" />
         <receiver android:name=".services.notification.FloatUiButtonReceiver" />
         <receiver android:name=".services.packages.ThemeUninstallDetector">
             <intent-filter>

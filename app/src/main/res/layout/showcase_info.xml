@@ -26,16 +26,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <include layout="@layout/showcase_info_overlays" />
-
-        <include layout="@layout/showcase_info_bootanimations" />
-
-        <include layout="@layout/showcase_info_fonts" />
-
-        <include layout="@layout/showcase_info_sounds" />
-
-        <include layout="@layout/showcase_info_wallpapers" />
-
         <include layout="@layout/showcase_info_paid" />
 
     </LinearLayout>

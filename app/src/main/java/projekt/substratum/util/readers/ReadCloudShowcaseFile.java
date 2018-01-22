@@ -56,18 +56,12 @@ public enum ReadCloudShowcaseFile {
                     Element eElement = (Element) nNode;
 
                     String addon_download_name = eElement.getAttribute("id");
+
                     String addon_download_link =
                             eElement.getElementsByTagName("link").item(0).getTextContent();
+
                     String addon_author = eElement.getElementsByTagName("author").item(0).
                             getTextContent();
-                    String addon_image = "";
-                    try {
-                        // Try to see if the entry has an image override tag <image>
-                        addon_image = eElement.getElementsByTagName("image")
-                                .item(0).getTextContent();
-                    } catch (Exception e) {
-                        // There is no image override tag
-                    }
 
                     String addon_backgroundimage = "";
                     try {
@@ -87,30 +81,35 @@ public enum ReadCloudShowcaseFile {
                         // There is no image override tag
                     }
 
-                    String addon_pricing = eElement.getElementsByTagName("pricing").item(0).
-                            getTextContent();
-                    String addon_support = eElement.getElementsByTagName("support").item(0).
-                            getTextContent();
+                    String addon_pricing = eElement.getElementsByTagName("pricing").item(0)
+                            .getTextContent();
 
-                    if (addon_image.isEmpty() && addon_backgroundimage.isEmpty()) {
-                        String[] finalArray = {addon_download_name, addon_download_link,
-                                addon_author, addon_pricing, addon_package_name, addon_support};
+                    if (addon_backgroundimage.isEmpty()) {
+                        String[] finalArray = {
+                                addon_download_name,
+                                addon_download_link,
+                                addon_author,
+                                addon_pricing,
+                                addon_package_name
+                        };
                         map.put(finalArray[0], finalArray[1]);
                         map.put(finalArray[0] + "-author", finalArray[2]);
                         map.put(finalArray[0] + "-pricing", finalArray[3]);
                         map.put(finalArray[0] + "-package-name", finalArray[4]);
-                        map.put(finalArray[0] + "-support", finalArray[5]);
                     } else {
-                        String[] finalArray = {addon_download_name, addon_download_link,
-                                addon_author, addon_pricing, addon_image, addon_backgroundimage,
-                                addon_package_name, addon_support};
+                        String[] finalArray = {
+                                addon_download_name,
+                                addon_download_link,
+                                addon_author,
+                                addon_pricing,
+                                addon_backgroundimage,
+                                addon_package_name
+                        };
                         map.put(finalArray[0], finalArray[1]);
                         map.put(finalArray[0] + "-author", finalArray[2]);
                         map.put(finalArray[0] + "-pricing", finalArray[3]);
-                        map.put(finalArray[0] + "-image-override", finalArray[4]);
-                        map.put(finalArray[0] + "-feature-image", finalArray[5]);
-                        map.put(finalArray[0] + "-package-name", finalArray[6]);
-                        map.put(finalArray[0] + "-support", finalArray[7]);
+                        map.put(finalArray[0] + "-feature-image", finalArray[4]);
+                        map.put(finalArray[0] + "-package-name", finalArray[5]);
                     }
                 }
             }

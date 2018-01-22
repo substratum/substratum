@@ -19,19 +19,16 @@
 package projekt.substratum.adapters.showcase;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 
-public class ShowcaseItem implements Comparable<ShowcaseItem> {
+public class ShowcaseItem {
 
     private Context context;
     private String themeName;
     private String themePackage;
     private String themeLink;
-    private String themeIcon;
     private String themeBackgroundImage;
     private String themeAuthor;
     private String themePricing;
-    private String themeSupport;
 
     public Context getContext() {
         return this.context;
@@ -81,36 +78,11 @@ public class ShowcaseItem implements Comparable<ShowcaseItem> {
         this.themeLink = themeLink;
     }
 
-    String getThemeIcon() {
-        return this.themeIcon;
-    }
-
-    public void setThemeIcon(String themeIcon) {
-        this.themeIcon = themeIcon;
-    }
-
     String getThemeBackgroundImage() {
         return this.themeBackgroundImage;
     }
 
     public void setThemeBackgroundImage(String themeBackgroundImage) {
         this.themeBackgroundImage = themeBackgroundImage;
-    }
-
-    String getThemeSupport() {
-        return this.themeSupport;
-    }
-
-    public void setThemeSupport(String themeSupport) {
-        this.themeSupport = themeSupport;
-    }
-
-    @Override
-    public int compareTo(@NonNull ShowcaseItem showcaseItem) {
-        try {
-            return themeName.compareToIgnoreCase(showcaseItem.themeName);
-        } catch (NullPointerException e) {
-            return 0;
-        }
     }
 }

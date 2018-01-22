@@ -29,9 +29,8 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="4dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:layout_weight="1"
         android:clickable="true"
@@ -53,6 +52,57 @@
                 android:scaleType="centerCrop" />
 
             <ImageView
+                android:id="@+id/background_image_gradient"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/showcase_card_gradient" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_alignBottom="@+id/background_image">
+
+                <TextView
+                    android:id="@+id/theme_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/theme_author"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:textAllCaps="true"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/theme_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                    android:textAllCaps="true"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/themeinstalled"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/theme_author"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/notification_theme_installed"
+                    android:textAllCaps="true"
+                    android:textColor="@color/accent"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <ImageView
                 android:id="@+id/theme_pricing"
                 android:layout_width="40dp"
                 android:layout_height="25dp"
@@ -64,132 +114,6 @@
                 android:paddingStart="20dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/showcase_paid" />
-
-            <RelativeLayout
-                android:id="@+id/icon"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/background_image"
-                android:layout_marginTop="-50dp">
-
-                <ImageView
-                    android:id="@+id/theme_icon"
-                    android:layout_width="75sp"
-                    android:layout_height="75sp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginBottom="50dp"
-                    android:layout_marginEnd="21dp"
-                    android:importantForAccessibility="no" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/relativeLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/background_image"
-                android:layout_margin="10dp"
-                android:layout_toStartOf="@+id/theme_overlays">
-
-                <TextView
-                    android:id="@+id/theme_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="15dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/theme_author"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/theme_name"
-                    android:layout_below="@+id/theme_name"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginEnd="20dp"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/themeinstalled"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/theme_author"
-                    android:layout_below="@+id/theme_author"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginEnd="20dp"
-                    android:text="@string/notification_theme_installed"
-                    android:textAllCaps="true"
-                    android:textColor="@color/accent"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-
-            <ImageView
-                android:id="@+id/theme_wallpapers"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:importantForAccessibility="no"
-                android:paddingBottom="20dp"
-                android:paddingEnd="20dp"
-                android:paddingStart="2.5dp"
-                android:src="@drawable/nav_wallpapers" />
-
-            <ImageView
-                android:id="@+id/theme_sounds"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_toStartOf="@+id/theme_wallpapers"
-                android:importantForAccessibility="no"
-                android:paddingBottom="20dp"
-                android:paddingEnd="2.5dp"
-                android:paddingStart="2.5dp"
-                android:src="@drawable/nav_sounds" />
-
-            <ImageView
-                android:id="@+id/theme_fonts"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_toStartOf="@+id/theme_sounds"
-                android:importantForAccessibility="no"
-                android:paddingBottom="20dp"
-                android:paddingEnd="2.5dp"
-                android:paddingStart="2.5dp"
-                android:src="@drawable/nav_fonts" />
-
-            <ImageView
-                android:id="@+id/theme_bootanimations"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_toStartOf="@+id/theme_fonts"
-                android:importantForAccessibility="no"
-                android:paddingBottom="20dp"
-                android:paddingEnd="2.5dp"
-                android:paddingStart="2.5dp"
-                android:src="@drawable/nav_bootanim" />
-
-            <ImageView
-                android:id="@+id/theme_overlays"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_toStartOf="@+id/theme_bootanimations"
-                android:importantForAccessibility="no"
-                android:paddingBottom="20dp"
-                android:paddingEnd="2.5dp"
-                android:paddingStart="2.5dp"
-                android:src="@drawable/nav_overlays" />
 
         </RelativeLayout>
 

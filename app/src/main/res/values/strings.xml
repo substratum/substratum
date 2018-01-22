@@ -332,6 +332,7 @@
     <string name="menu_alphabetize">Change Sorting Mode</string>
     <string name="menu_search">Play Store Themes</string>
     <string name="menu_showcase">Showcase</string>
+    <string name="menu_filter">Filter</string>
     <string name="menu_uninstall">Uninstall Theme</string>
     <string name="menu_restore_info">Restore info</string>
     <string name="menu_showcase_info">Showcase info</string>

@@ -400,7 +400,7 @@ public class BootAnimations extends Fragment {
             if (file_size <= 5) {
                 return 1;
             } else if (file_size >= 10) {
-                    return 4;
+                return 4;
             } else {
                 return 3;
             }

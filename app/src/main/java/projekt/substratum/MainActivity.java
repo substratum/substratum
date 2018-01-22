@@ -106,8 +106,8 @@ import projekt.substratum.fragments.ThemeFragment;
 import projekt.substratum.services.binder.AndromedaBinderService;
 import projekt.substratum.services.floatui.SubstratumFloatInterface;
 import projekt.substratum.services.tiles.FloatUiTile;
-import projekt.substratum.util.helpers.Root;
 import projekt.substratum.util.helpers.BinaryInstaller;
+import projekt.substratum.util.helpers.Root;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS;
@@ -149,7 +149,6 @@ public class MainActivity extends AppCompatActivity implements
     private static final String SELECTED_DRAWER_ITEM = "selected_drawer_item";
     public static String userInput = "";
     public static ArrayList<String> queuedUninstall;
-    private ActionBar supportActionBar;
     public SearchView searchView;
     @BindView(R.id.theme_count)
     public TextView actionbar_content;
@@ -161,6 +160,7 @@ public class MainActivity extends AppCompatActivity implements
     BottomNavigationView bottomBar;
     @BindView(R.id.bottomBar_shadow)
     View bottomBarShadow;
+    private ActionBar supportActionBar;
     private Drawer drawer;
     private int permissionCheck = PackageManager.PERMISSION_DENIED;
     private Dialog mProgressDialog;

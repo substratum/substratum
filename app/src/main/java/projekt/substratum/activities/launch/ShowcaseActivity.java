@@ -32,33 +32,37 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+
 import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
-import projekt.substratum.adapters.showcase.ShowcaseTabsAdapter;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
+import projekt.substratum.fragments.ShowcaseTab;
 import projekt.substratum.util.helpers.FileDownloader;
 import projekt.substratum.util.helpers.MD5;
 import projekt.substratum.util.readers.ReadShowcaseTabsFile;
@@ -72,19 +76,14 @@ public class ShowcaseActivity extends AppCompatActivity {
     private static final String TAG = "ShowcaseActivity";
     @BindView(R.id.no_network)
     RelativeLayout no_network;
-    @BindView(R.id.swipeRefreshLayout)
-    SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.tabs)
-    TabLayout tabLayout;
-    @BindView(R.id.viewpager)
-    ViewPager viewPager;
     @BindView(android.R.id.content)
     ViewGroup masterView;
-    private SharedPreferences prefs;
     private LocalBroadcastManager localBroadcastManager;
     private AndromedaReceiver andromedaReceiver;
+    private Bundle savedInstanceState;
+    private Drawer drawer;
 
     @Override
     protected void onDestroy() {
@@ -99,17 +98,14 @@ public class ShowcaseActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.showcase_menu, menu);
-
-        MenuItem alphabetizeMenu = menu.findItem(R.id.alphabetize);
-        boolean alphabetize = prefs.getBoolean("alphabetize_showcase", false);
-        if (alphabetize) {
-            alphabetizeMenu.setIcon(R.drawable.actionbar_alphabetize);
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen()) {
+            drawer.closeDrawer();
+        } else if (drawer.getCurrentSelectedPosition() != 0) {
+            drawer.setSelectionAtPosition(0);
         } else {
-            alphabetizeMenu.setIcon(R.drawable.actionbar_randomize);
+            super.onBackPressed();
         }
-        return true;
     }
 
     @Override
@@ -141,17 +137,23 @@ public class ShowcaseActivity extends AppCompatActivity {
             case R.id.info:
                 launchShowcaseInfo();
                 return true;
-            case R.id.alphabetize:
-                boolean alphabetize = prefs.getBoolean("alphabetize_showcase", false);
-                if (!alphabetize) {
-                    prefs.edit().putBoolean("alphabetize_showcase", true).apply();
-                } else {
-                    prefs.edit().putBoolean("alphabetize_showcase", false).apply();
+            case R.id.filter:
+                if (drawer != null) {
+                    if (drawer.isDrawerOpen()) {
+                        drawer.closeDrawer();
+                    } else {
+                        drawer.openDrawer();
+                    }
                 }
-                recreate();
-                return true;
+
         }
         return false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.showcase_menu, menu);
+        return true;
     }
 
     /**
@@ -169,10 +171,11 @@ public class ShowcaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         boolean bottomBarUi = !prefs.getBoolean("advanced_ui", false);
         if (bottomBarUi) setTheme(R.style.AppTheme_SpecialUI);
 
+        this.savedInstanceState = savedInstanceState;
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.showcase_activity);
@@ -188,7 +191,7 @@ public class ShowcaseActivity extends AppCompatActivity {
             getSupportActionBar().setHomeButtonEnabled(false);
             getSupportActionBar().setTitle(R.string.showcase);
         }
-        toolbar.setNavigationOnClickListener((view) -> onBackPressed());
+        toolbar.setNavigationOnClickListener((view) -> finish());
 
         if (bottomBarUi) {
             // Change the toolbar title size
@@ -201,8 +204,6 @@ public class ShowcaseActivity extends AppCompatActivity {
                 }
             }
         }
-
-        swipeRefreshLayout.setOnRefreshListener(this::recreate);
 
         if (Systems.isAndromedaDevice(getApplicationContext())) {
             andromedaReceiver = new ShowcaseActivity.AndromedaReceiver();
@@ -219,11 +220,6 @@ public class ShowcaseActivity extends AppCompatActivity {
             if (!made)
                 Log.e(TAG, "Could not make showcase directory...");
         }
-
-        tabLayout.setTabTextColors(
-                getColor(R.color.showcase_activity_text),
-                getColor(R.color.showcase_activity_text));
-        tabLayout.setVisibility(View.GONE);
         refreshLayout();
     }
 
@@ -260,7 +256,6 @@ public class ShowcaseActivity extends AppCompatActivity {
             ShowcaseActivity activity = showcaseActivityWR.get();
 
             if (activity != null) {
-                activity.tabLayout.setVisibility(View.VISIBLE);
                 String resultant = result;
                 if (resultant.endsWith("-temp.xml")) {
                     String existing = MD5.calculateMD5(new File(activity.getCacheDir() +
@@ -274,12 +269,16 @@ public class ShowcaseActivity extends AppCompatActivity {
                         boolean move = renameMe.renameTo(
                                 new File(activity.getCacheDir() +
                                         SHOWCASE_CACHE + "showcase_tabs.xml"));
-                        if (move) Log.e(TAG, "Successfully updated the showcase tabs database");
+                        if (move) {
+                            Log.e(TAG, "Successfully updated the showcase tabs database.");
+                        }
                     } else {
                         File deleteMe = new File(activity.getCacheDir() +
                                 SHOWCASE_CACHE + "showcase_tabs-temp.xml");
                         boolean deleted = deleteMe.delete();
-                        if (!deleted) Log.e(TAG, "Unable to delete temporary tab file.");
+                        if (!deleted) {
+                            Log.e(TAG, "Unable to delete temporary tab file.");
+                        }
                     }
                 }
 
@@ -290,49 +289,53 @@ public class ShowcaseActivity extends AppCompatActivity {
                                 SHOWCASE_CACHE + resultant);
 
                 ArrayList<String> links = new ArrayList<>();
+                newArray.keySet().forEach(key -> links.add(newArray.get(key)));
 
+                DrawerBuilder drawerBuilder = new DrawerBuilder();
+                drawerBuilder.withActivity(activity);
+                drawerBuilder.withRootView(R.id.rootView);
+                drawerBuilder.withDisplayBelowStatusBar(false);
+                drawerBuilder.withTranslucentStatusBar(false);
+                drawerBuilder.withDrawerWidthDp(200);
+                drawerBuilder.withDrawerLayout(R.layout.material_drawer_fits_not);
+                drawerBuilder.withSavedInstance(activity.savedInstanceState);
+                List<String> listOfTitles = new ArrayList<>();
                 newArray.keySet()
                         .forEach(key -> {
-                            links.add(newArray.get(key));
-                            activity.tabLayout.addTab(activity.tabLayout.newTab().setText(key));
-                        });
+                                    drawerBuilder.addDrawerItems(
+                                            new PrimaryDrawerItem().withName(key));
+                                    listOfTitles.add(key);
+                                }
 
-                ShowcaseTabsAdapter adapter = new ShowcaseTabsAdapter(
-                        activity.getSupportFragmentManager(),
-                        activity.tabLayout.getTabCount(),
-                        links);
-
-                activity.viewPager.setOffscreenPageLimit(activity.tabLayout.getTabCount());
-                activity.viewPager.setAdapter(adapter);
-                activity.viewPager.addOnPageChangeListener(
-                        new TabLayout.TabLayoutOnPageChangeListener(activity.tabLayout));
-
-                // Fix for SwipeToRefresh in ViewPager
-                // (without it horizontal scrolling is impossible)
-                activity.viewPager.setOnTouchListener((v, event) -> {
-                    activity.swipeRefreshLayout.setEnabled(false);
-                    switch (event.getAction()) {
-                        case MotionEvent.ACTION_UP:
-                            activity.swipeRefreshLayout.setEnabled(true);
-                            break;
-                    }
+                        );
+                drawerBuilder.withOnDrawerItemClickListener((view, position, drawerItem) -> {
+                    switchFragment(
+                            activity,
+                            position,
+                            links.get(position),
+                            listOfTitles.get(position));
                     return false;
                 });
-                activity.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-                    @Override
-                    public void onTabSelected(TabLayout.Tab tab) {
-                        activity.viewPager.setCurrentItem(tab.getPosition());
-                    }
-
-                    @Override
-                    public void onTabUnselected(TabLayout.Tab tab) {
-                    }
-
-                    @Override
-                    public void onTabReselected(TabLayout.Tab tab) {
-                    }
-                });
+                drawerBuilder.withDrawerGravity(Gravity.END);
+                activity.drawer = drawerBuilder.build();
+                switchFragment(activity, 0, links.get(0), listOfTitles.get(0));
             }
+        }
+
+        private void switchFragment(ShowcaseActivity activity,
+                                    int position,
+                                    String link_address,
+                                    String title) {
+            FragmentTransaction tx = activity.getSupportFragmentManager().beginTransaction();
+            tx.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+            Bundle bundle = new Bundle();
+            bundle.putInt("tab_count", position);
+            bundle.putString("tabbed_address", link_address);
+            Fragment fragment = new ShowcaseTab();
+            fragment.setArguments(bundle);
+            tx.replace(R.id.main, fragment);
+            tx.commit();
+            activity.toolbar.setTitle(title);
         }
 
         @Override

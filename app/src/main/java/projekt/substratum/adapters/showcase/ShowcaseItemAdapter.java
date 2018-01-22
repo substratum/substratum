@@ -32,7 +32,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -67,12 +66,6 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
         Context context = showcaseItem.getContext();
 
         Glide.with(context)
-                .load(showcaseItem.getThemeIcon())
-                .apply(centerCropTransform())
-                .transition(withCrossFade())
-                .into(viewHolder.imageView);
-
-        Glide.with(context)
                 .load(showcaseItem.getThemeBackgroundImage())
                 .apply(centerCropTransform())
                 .transition(withCrossFade())
@@ -91,34 +84,6 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
             viewHolder.installedOrNot.setVisibility(View.VISIBLE);
         } else {
             viewHolder.installedOrNot.setVisibility(View.GONE);
-        }
-
-        String[] supported = showcaseItem.getThemeSupport().split("\\|");
-        List supported_array = Arrays.asList(supported);
-        if (supported_array.contains(References.showcaseWallpapers)) {
-            viewHolder.wallpaper.setAlpha(1.0f);
-        } else {
-            viewHolder.wallpaper.setAlpha(0.2f);
-        }
-        if (supported_array.contains(References.showcaseSounds)) {
-            viewHolder.sounds.setAlpha(1.0f);
-        } else {
-            viewHolder.sounds.setAlpha(0.2f);
-        }
-        if (supported_array.contains(References.showcaseFonts)) {
-            viewHolder.fonts.setAlpha(1.0f);
-        } else {
-            viewHolder.fonts.setAlpha(0.2f);
-        }
-        if (supported_array.contains(References.showcaseBootanimations)) {
-            viewHolder.bootanimations.setAlpha(1.0f);
-        } else {
-            viewHolder.bootanimations.setAlpha(0.2f);
-        }
-        if (supported_array.contains(References.showcaseOverlays)) {
-            viewHolder.overlays.setAlpha(1.0f);
-        } else {
-            viewHolder.overlays.setAlpha(0.2f);
         }
 
         viewHolder.cardView.setOnClickListener(view -> {
@@ -146,13 +111,7 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
         TextView themeAuthor;
         TextView installedOrNot;
         ImageView themePricing;
-        ImageView imageView;
         ImageView backgroundImageView;
-        ImageView wallpaper;
-        ImageView sounds;
-        ImageView fonts;
-        ImageView bootanimations;
-        ImageView overlays;
 
         ViewHolder(View view) {
             super(view);
@@ -160,13 +119,7 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
             this.themeName = view.findViewById(R.id.theme_name);
             this.themeAuthor = view.findViewById(R.id.theme_author);
             this.themePricing = view.findViewById(R.id.theme_pricing);
-            this.imageView = view.findViewById(R.id.theme_icon);
             this.backgroundImageView = view.findViewById(R.id.background_image);
-            this.wallpaper = view.findViewById(R.id.theme_wallpapers);
-            this.sounds = view.findViewById(R.id.theme_sounds);
-            this.fonts = view.findViewById(R.id.theme_fonts);
-            this.bootanimations = view.findViewById(R.id.theme_bootanimations);
-            this.overlays = view.findViewById(R.id.theme_overlays);
             this.installedOrNot = view.findViewById(R.id.themeinstalled);
         }
     }

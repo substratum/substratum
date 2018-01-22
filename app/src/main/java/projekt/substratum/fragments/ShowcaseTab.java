@@ -19,18 +19,17 @@
 package projekt.substratum.fragments;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ProgressBar;
 
 import java.io.File;
@@ -50,6 +49,7 @@ import projekt.substratum.adapters.showcase.ShowcaseItemAdapter;
 import projekt.substratum.adapters.tabs.wallpapers.WallpaperAdapter;
 import projekt.substratum.adapters.tabs.wallpapers.WallpaperEntries;
 import projekt.substratum.common.References;
+import projekt.substratum.common.Systems;
 import projekt.substratum.util.helpers.FileDownloader;
 import projekt.substratum.util.readers.ReadCloudShowcaseFile;
 
@@ -63,7 +63,6 @@ public class ShowcaseTab extends Fragment {
     RecyclerView mRecyclerView;
     private int current_tab_position;
     private String current_tab_address;
-    private SharedPreferences prefs;
     private Context context;
 
     @Override
@@ -72,7 +71,6 @@ public class ShowcaseTab extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         context = Substratum.getInstance();
-        prefs = PreferenceManager.getDefaultSharedPreferences(context);
         View view = inflater.inflate(R.layout.showcase_tab, container, false);
         ButterKnife.bind(this, view);
         Bundle bundle = getArguments();
@@ -92,10 +90,27 @@ public class ShowcaseTab extends Fragment {
     private void refreshLayout() {
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(context, 2));
         ArrayList<WallpaperEntries> empty_array = new ArrayList<>();
         RecyclerView.Adapter empty_adapter = new WallpaperAdapter(empty_array);
         mRecyclerView.setAdapter(empty_adapter);
+        mRecyclerView.getViewTreeObserver().addOnPreDrawListener(
+                new ViewTreeObserver.OnPreDrawListener() {
+                    @Override
+                    public boolean onPreDraw() {
+                        mRecyclerView.getViewTreeObserver().removeOnPreDrawListener(this);
+                        boolean slowDevice = Systems.isSamsungDevice(context);
+                        for (int i = 0; i < mRecyclerView.getChildCount(); i++) {
+                            View v = mRecyclerView.getChildAt(i);
+                            v.setAlpha(0.0f);
+                            v.animate().alpha(1.0f)
+                                    .setDuration(300)
+                                    .setStartDelay(slowDevice ? i * 50 : i * 30)
+                                    .start();
+                        }
+                        return true;
+                    }
+                });
         if (References.isNetworkAvailable(context)) {
             downloadResources downloadTask = new downloadResources(this);
             downloadTask.execute(
@@ -159,7 +174,8 @@ public class ShowcaseTab extends Fragment {
                 File current_wallpapers = new File(showcaseTab.context.getCacheDir() +
                         "/ShowcaseCache/" + inputFileName);
                 if (current_wallpapers.exists()) {
-                    inputFileName = inputFileName.substring(0, inputFileName.length() - 4) + ".xml";
+                    boolean deleted = current_wallpapers.delete();
+                    if (!deleted) Log.e("ShowcaseTab", "Could not delete the current tab file...");
                 }
 
                 FileDownloader.init(showcaseTab.context, sUrl[0], inputFileName, "ShowcaseCache");
@@ -169,44 +185,35 @@ public class ShowcaseTab extends Fragment {
                         ReadCloudShowcaseFile.read(
                                 showcaseTab.context.getCacheDir() +
                                         "/ShowcaseCache/" + inputFileName);
-                ShowcaseItem newEntry = new ShowcaseItem();
 
+                ShowcaseItem newEntry = new ShowcaseItem();
                 for (Map.Entry<String, String> stringStringEntry : newArray.entrySet()) {
                     if (!stringStringEntry.getKey().toLowerCase(Locale.US)
                             .contains("-".toLowerCase(Locale.getDefault()))) {
                         newEntry.setContext(showcaseTab.context);
-                        newEntry.setThemeName(stringStringEntry.getKey());
+                        newEntry.setThemeName(stringStringEntry.getKey().replaceAll("%", " "));
                         newEntry.setThemeLink(stringStringEntry.getValue());
                     } else {
                         String entry = stringStringEntry.getKey().toLowerCase(Locale.US);
                         if (entry.contains("-author".toLowerCase(Locale.US))) {
                             newEntry.setThemeAuthor(stringStringEntry.getValue());
-                        } else if (entry.contains("-pricing".toLowerCase(Locale.US))) {
-                            newEntry.setThemePricing(stringStringEntry.getValue());
-                        } else if (entry.contains("-image-override".toLowerCase(Locale.US))) {
-                            newEntry.setThemeIcon(stringStringEntry.getValue());
                         } else if (entry.contains("-feature-image".toLowerCase(Locale.US))) {
                             newEntry.setThemeBackgroundImage(stringStringEntry.getValue());
                         } else if (entry.contains("-package-name".toLowerCase(Locale.US))) {
                             newEntry.setThemePackage(stringStringEntry.getValue());
-                        } else if (entry.contains("-support".toLowerCase(Locale.US))) {
-                            newEntry.setThemeSupport(stringStringEntry.getValue());
+                        } else if (entry.contains("-pricing".toLowerCase(Locale.US))) {
+                            newEntry.setThemePricing(stringStringEntry.getValue());
                             wallpapers.add(newEntry);
                             newEntry = new ShowcaseItem();
                             newEntry.setContext(showcaseTab.context);
                         }
                     }
                 }
+
                 // Shuffle the deck - every time it will change the order of themes!
                 long seed = System.nanoTime();
-                boolean alphabetize = showcaseTab.prefs.getBoolean("alphabetize_showcase",
-                        false);
-                if (!alphabetize) {
-                    for (int i = 0; i <= SHOWCASE_SHUFFLE_COUNT; i++)
-                        Collections.shuffle(wallpapers, new Random(seed));
-                } else {
-                    Collections.sort(wallpapers);
-                }
+                for (int i = 0; i <= SHOWCASE_SHUFFLE_COUNT; i++)
+                    Collections.shuffle(wallpapers, new Random(seed));
             }
             return wallpapers;
         }

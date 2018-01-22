@@ -13,25 +13,25 @@
         <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_team_themes.xml</link>
     </tab>
     <tab id="Clear Themes">
-        <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_clearthemes.xml</link>
+        <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_clear_themes.xml</link>
     </tab>
     <tab id="Dark Themes">
-        <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_darkthemes.xml</link>
+        <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_dark_themes.xml</link>
     </tab>
     <tab id="Light Themes">
-        <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_lightthemes.xml</link>
+        <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_light_themes.xml</link>
     </tab>
-    <tab id="Plugins">
-        <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_plugins.xml</link>
+    <tab id="Google Apps">
+        <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_google_apps.xml</link>
     </tab>
     <tab id="Samsung">
         <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_samsung.xml</link>
     </tab>
-    <tab id="System Tweaks">
-        <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_system_tweaks.xml</link>
+    <tab id="SystemUI Tweaks">
+        <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_systemui_tweaks.xml</link>
     </tab>
-    <tab id="Google Apps">
-        <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_apps.xml</link>
+    <tab id="Other Tweaks">
+        <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_other_tweaks.xml</link>
     </tab>
 	<tab id="Wallpapers">
         <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_wallpapers.xml</link>

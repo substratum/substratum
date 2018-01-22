@@ -288,9 +288,6 @@ public class ShowcaseActivity extends AppCompatActivity {
                         ReadShowcaseTabsFile.read(activity.getCacheDir() +
                                 SHOWCASE_CACHE + resultant);
 
-                ArrayList<String> links = new ArrayList<>();
-                newArray.keySet().forEach(key -> links.add(newArray.get(key)));
-
                 DrawerBuilder drawerBuilder = new DrawerBuilder();
                 drawerBuilder.withActivity(activity);
                 drawerBuilder.withRootView(R.id.rootView);
@@ -300,25 +297,28 @@ public class ShowcaseActivity extends AppCompatActivity {
                 drawerBuilder.withDrawerLayout(R.layout.material_drawer_fits_not);
                 drawerBuilder.withSavedInstance(activity.savedInstanceState);
                 List<String> listOfTitles = new ArrayList<>();
-                newArray.keySet()
-                        .forEach(key -> {
-                                    drawerBuilder.addDrawerItems(
-                                            new PrimaryDrawerItem().withName(key));
-                                    listOfTitles.add(key);
-                                }
-
-                        );
+                List<String> listOfLinks = new ArrayList<>(newArray.values());
+                for (String tabName : newArray.keySet()) {
+                    drawerBuilder.addDrawerItems(
+                            new PrimaryDrawerItem().withName(tabName));
+                    listOfTitles.add(tabName);
+                }
                 drawerBuilder.withOnDrawerItemClickListener((view, position, drawerItem) -> {
                     switchFragment(
                             activity,
                             position,
-                            links.get(position),
+                            listOfLinks.get(position),
                             listOfTitles.get(position));
                     return false;
                 });
                 drawerBuilder.withDrawerGravity(Gravity.END);
                 activity.drawer = drawerBuilder.build();
-                switchFragment(activity, 0, links.get(0), listOfTitles.get(0));
+                switchFragment(
+                        activity,
+                        0,
+                        listOfLinks.get(0),
+                        listOfTitles.get(0)
+                );
             }
         }
 

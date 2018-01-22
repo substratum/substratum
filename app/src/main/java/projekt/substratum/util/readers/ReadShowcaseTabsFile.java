@@ -24,6 +24,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.io.File;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -49,7 +50,7 @@ public enum ReadShowcaseTabsFile {
             doc.getDocumentElement().normalize();
             NodeList nList = doc.getElementsByTagName("tab");
 
-            Map<String, String> map = new TreeMap<>();
+            Map<String, String> map = new LinkedHashMap<>();
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);
                 if ((int) nNode.getNodeType() == (int) Node.ELEMENT_NODE) {

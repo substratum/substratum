@@ -18,6 +18,7 @@
 
 package projekt.substratum.services.notification;
 
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -29,13 +30,27 @@ public class UnsupportedThemeReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        String data = intent.getStringExtra("package_to_uninstall");
-        if (data != null && data.length() > 0) {
-            if (Packages.isPackageInstalled(context, data)) {
+        String packageToUninstall = intent.getStringExtra("package_to_uninstall");
+        Integer notificationToKill = intent.getIntExtra("notification_to_close", 0);
+        if (packageToUninstall != null && packageToUninstall.length() > 0) {
+            if (Packages.isPackageInstalled(context, packageToUninstall)) {
                 // At this point, we can instantiate an uninstall on notification action click
-                Uri packageURI = Uri.parse("package:" + data);
+                Uri packageURI = Uri.parse("package:" + packageToUninstall);
+
+                // Cancel the notification
+                if (notificationToKill > 0) {
+                    NotificationManager mNotifyManager = (NotificationManager) context
+                            .getSystemService(Context.NOTIFICATION_SERVICE);
+                    if (mNotifyManager != null) {
+                        mNotifyManager.cancel(notificationToKill);
+                    }
+                }
+
+                // Close the notification panel
                 Intent closeSysUi = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
                 context.getApplicationContext().sendBroadcast(closeSysUi);
+
+                // Fire the uninstall intent
                 Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
                 context.startActivity(uninstallIntent);
             }

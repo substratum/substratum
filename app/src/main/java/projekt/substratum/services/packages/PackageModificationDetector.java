@@ -138,9 +138,13 @@ public class PackageModificationDetector extends BroadcastReceiver {
                             appInfo.metaData.getString(
                                     References.metadataName));
 
+                    // Jot the notification id
+                    int notification_id = ThreadLocalRandom.current().nextInt(0, 10000);
+
                     // Create an Intent for the BroadcastReceiver
                     Intent buttonIntent = new Intent(context, UnsupportedThemeReceiver.class);
                     buttonIntent.putExtra("package_to_uninstall", package_name);
+                    buttonIntent.putExtra("notification_to_close", notification_id);
 
                     // Create the PendingIntent
                     PendingIntent btPendingIntent =
@@ -162,10 +166,8 @@ public class PackageModificationDetector extends BroadcastReceiver {
                     mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
                     mBuilder.setPriority(Notification.PRIORITY_MAX);
                     if (mNotifyManager != null) {
-                        mNotifyManager.notify(References.notification_id, mBuilder.build());
+                        mNotifyManager.notify(notification_id, mBuilder.build());
                     }
-
-                    Packages.uninstallPackage(context, package_name);
                     return;
                 }
 
@@ -182,9 +184,13 @@ public class PackageModificationDetector extends BroadcastReceiver {
                             appInfo.metaData.getString(
                                     References.metadataName));
 
+                    // Jot the notification id
+                    int notification_id = ThreadLocalRandom.current().nextInt(0, 10000);
+
                     // Create an Intent for the BroadcastReceiver
                     Intent buttonIntent = new Intent(context, UnsupportedThemeReceiver.class);
                     buttonIntent.putExtra("package_to_uninstall", package_name);
+                    buttonIntent.putExtra("notification_to_close", notification_id);
 
                     // Create the PendingIntent
                     PendingIntent btPendingIntent =
@@ -206,10 +212,8 @@ public class PackageModificationDetector extends BroadcastReceiver {
                     mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
                     mBuilder.setPriority(Notification.PRIORITY_MAX);
                     if (mNotifyManager != null) {
-                        mNotifyManager.notify(References.notification_id, mBuilder.build());
+                        mNotifyManager.notify(notification_id, mBuilder.build());
                     }
-
-                    Packages.uninstallPackage(context, package_name);
                     return;
                 }
             }

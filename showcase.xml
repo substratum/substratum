@@ -1,13 +1,25 @@
 <?xml version="1.0"?>
 <substratum>
+    <tab id="Featured Themes">
+        <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_featured_themes.xml</link>
+    </tab>
+    <tab id="Featured Apps">
+        <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_featured_apps.xml</link>
+    </tab>
+    <tab id="Themers Collective">
+        <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_themers_collective.xml</link>
+    </tab>
+    <tab id="Team Themes">
+        <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_team_themes.xml</link>
+    </tab>
+    <tab id="Clear Themes">
+        <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_clearthemes.xml</link>
+    </tab>
     <tab id="Dark Themes">
         <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_darkthemes.xml</link>
     </tab>
     <tab id="Light Themes">
         <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_lightthemes.xml</link>
-    </tab>
-    <tab id="Clear Themes">
-        <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_clearthemes.xml</link>
     </tab>
     <tab id="Plugins">
         <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_plugins.xml</link>
@@ -15,7 +27,10 @@
     <tab id="Samsung">
         <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_samsung.xml</link>
     </tab>
-    <tab id="Utilities">
+    <tab id="System Tweaks">
+        <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_system_tweaks.xml</link>
+    </tab>
+    <tab id="Google Apps">
         <link>https://raw.githubusercontent.com/substratum/database/master/substratum_tab_apps.xml</link>
     </tab>
 	<tab id="Wallpapers">

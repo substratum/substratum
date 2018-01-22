@@ -34,6 +34,8 @@ public class UnsupportedThemeReceiver extends BroadcastReceiver {
             if (Packages.isPackageInstalled(context, data)) {
                 // At this point, we can instantiate an uninstall on notification action click
                 Uri packageURI = Uri.parse("package:" + data);
+                Intent closeSysUi = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+                context.getApplicationContext().sendBroadcast(closeSysUi);
                 Intent uninstallIntent = new Intent(Intent.ACTION_DELETE, packageURI);
                 context.startActivity(uninstallIntent);
             }

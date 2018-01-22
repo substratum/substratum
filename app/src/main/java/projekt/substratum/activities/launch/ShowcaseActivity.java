@@ -30,6 +30,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -319,6 +320,9 @@ public class ShowcaseActivity extends AppCompatActivity {
                         listOfLinks.get(0),
                         listOfTitles.get(0)
                 );
+
+                Handler handler = new Handler();
+                handler.postDelayed(() -> activity.drawer.openDrawer(), 500);
             }
         }
 

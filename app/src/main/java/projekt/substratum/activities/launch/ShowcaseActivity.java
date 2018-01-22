@@ -345,7 +345,7 @@ public class ShowcaseActivity extends AppCompatActivity {
             Fragment fragment = new ShowcaseTab();
             fragment.setArguments(bundle);
             tx.replace(R.id.main, fragment);
-            tx.commit();
+            tx.commitAllowingStateLoss();
             activity.toolbar.setTitle(title);
         }
 

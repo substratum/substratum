@@ -851,6 +851,8 @@ public class Overlays extends Fragment {
                     currentInstance.late_install.remove(0);
                 if (!currentInstance.late_install.isEmpty()) {
                     installMultipleAPKs();
+                } else {
+                    refreshList();
                 }
         }
     }
@@ -875,7 +877,7 @@ public class Overlays extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (!toggle_all.isChecked()) {
+        if (Systems.checkOMS(context) && !toggle_all.isChecked()) {
             refreshList();
         } else {
             if (first_start) refreshList();

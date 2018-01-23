@@ -120,17 +120,8 @@
     <string name="sounds_dialog_apply_success">Geluidspakket toegepast!</string>
     <string name="sounds_dialog_apply_failed">Geluidspakket toepassen mislukt&#8230;</string>
     <string name="sounds_default_spinner">kies een geluidspakket&#8230;</string>
-    <string name="sounds_dialog_permissions_title">Beltoon configuratiemelding</string>
-    <string name="sounds_dialog_permissions_text">Alarmen/Meldingen/Beltonen zijn nu handmatig te selecteren vanuit Instellingen!\n\nEchter kan Substratum zichzelf niet machtigen voor \"android.permission.WRITE_SETTINGS\", dus kan het ze niet automatisch instellen als je huidige geluiden.\n\nDoor toestaan te tikken, zal een nieuw venster openen met het \'Systeeminstellingen wijzigen toestaan\' machtigingsverzoek, zodat dit probleem zich in de toekomst niet voordoet.</string>
-    <string name="sounds_dialog_permissions_deny">Weigeren</string>
-    <string name="sounds_dialog_permissions_grant">Toestaan</string>
-    <string name="sounds_dialog_permissions_grant_toast">Om alle Substratum geluiden te resetten, moet je \'Systeeminstellingen wijzigen toestaan\' inschakelen.</string>
-    <string name="fonts_dialog_permissions_grant_toast">Om alle Substratum lettertypen te resetten, moet je \'Systeeminstellingen wijzigen toestaan\' inschakelen.</string>
     <string name="fonts_dialog_permissions_grant_toast2">Om Substratum je systeem lettertypen te laten beheren, moet je \'Systeeminstellingen wijzigen toestaan\' inschakelen.</string>
     <string name="error_loading_pack">het lijkt erop dat dit pakket niet correct is opgesteld&#8230;</string>
-    <string name="content_resolver_alarm_metadata">Substratum thema alarm</string>
-    <string name="content_resolver_notification_metadata">Substratum thema melding</string>
-    <string name="content_resolver_ringtone_metadata">Substratum thema beltoon</string>
     <string name="sounds_alarm">Alarm</string>
     <string name="sounds_notification">Melding</string>
     <string name="sounds_ringtone">Beltoon</string>
@@ -147,7 +138,6 @@
     <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Systeemplatform:</string>
-    <string name="settings_aapt_switcher_title">Systeem overlay compilator</string>
     <string name="theme_information_tab_one">Overlays</string>
     <string name="theme_information_tab_two">Opstartanimaties</string>
     <string name="theme_information_tab_three">Lettertypepakketten</string>
@@ -434,7 +424,6 @@
     <string name="settings_auto_alert_text">Een melding weergeven als er overlays beschikbaar zijn voor recent geïnstalleerde apps.</string>
     <string name="settings_force_english_title">Engelse taal afdwingen</string>
     <string name="settings_force_english_text">Hiermee dwing je de applicatie om de Engelse taal te gebruiken.</string>
-    <string name="settings_force_english_toast_reverted">Engelse taal afdwingen succesvol uitgeschakeld!</string>
     <string name="settings_manage_space_title">Opslaggebruik beheren</string>
     <string name="settings_samsung_show_dangerous_overlays">Gevaarlijke overlays toestaan</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Alle overlays weergeven die normaal gevaarlijk zijn voor Samsung apparaten als het thema dit niet ondersteund.</string>

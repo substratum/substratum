@@ -121,17 +121,8 @@
     <string name="sounds_dialog_apply_success">Набор звуков применен!</string>
     <string name="sounds_dialog_apply_failed">Не удалось применить набор звуков&#8230;</string>
     <string name="sounds_default_spinner">выберите набор звуков&#8230;</string>
-    <string name="sounds_dialog_permissions_title">Предупреждение о настройке рингтонов</string>
-    <string name="sounds_dialog_permissions_text">Сигналы, уведомления и рингтоны теперь можно выбрать вручную в настройках!\n\nТем не менее, Substratum не может предоставить себе «android.permission.WRITE_SETTINGS» и потому не имеет права автоматически установить их в качестве текущих звуков.\n\nПо нажатию кнопки Предоставить откроется новое окно с предложением «Разрешить изменение системных настроек», чтобы Вам не пришлось сталкиваться с этим в будущем.     </string>
-    <string name="sounds_dialog_permissions_deny">Отклонить</string>
-    <string name="sounds_dialog_permissions_grant">Предоставить</string>
-    <string name="sounds_dialog_permissions_grant_toast">Чтобы сбросить все звуки, установленные Substratum, предоставьте \"Разрешение на изменение системных настроек\"</string>
-    <string name="fonts_dialog_permissions_grant_toast">Чтобы сбросить все шрифты, установленные Substratum, предоставьте \"Разрешение на изменение системных настроек\"</string>
     <string name="fonts_dialog_permissions_grant_toast2">Чтобы позволить Substratum управление системными шрифтами, предоставьте \"Разрешение на изменение системных настроек\"</string>
     <string name="error_loading_pack">похоже, этот набор не был корректно настроен&#8230;</string>
-    <string name="content_resolver_alarm_metadata">Сигнал из темы Substratum</string>
-    <string name="content_resolver_notification_metadata">Уведомление из темы Substratum</string>
-    <string name="content_resolver_ringtone_metadata">Рингтон из темы Substratum</string>
     <string name="sounds_alarm">Сигнал</string>
     <string name="sounds_notification">Уведомления</string>
     <string name="sounds_ringtone">Рингтон</string>
@@ -148,7 +139,6 @@
     <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Системная платформа</string>
-    <string name="settings_aapt_switcher_title">Системный сборщик наслоений</string>
     <string name="theme_information_tab_one">Наслоения</string>
     <string name="theme_information_tab_two">Анимации загрузки</string>
     <string name="theme_information_tab_three">Наборы шрифтов</string>
@@ -444,7 +434,6 @@
     <string name="settings_auto_alert_text">Показать уведомление, когда недавно установленное приложение имеет доступ к оверлею в теме.</string>
     <string name="settings_force_english_title">Принудительный английский</string>
     <string name="settings_force_english_text">Приложение сменит язык на английский.</string>
-    <string name="settings_force_english_toast_reverted">Принудительный английский отключен!</string>
     <string name="settings_manage_space_title">Управление потреблением памяти</string>
     <string name="settings_samsung_show_dangerous_overlays">Разрешить нестабильные наслоения</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Показывать все рискованные для устройств от Samsung наслоения, даже если они не поддерживаются темой оформления.</string>

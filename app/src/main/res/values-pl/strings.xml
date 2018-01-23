@@ -121,17 +121,8 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="sounds_dialog_apply_success">Paczka dźwięków zastosowana!</string>
     <string name="sounds_dialog_apply_failed">Nie udało się zastosować pakietu dźwięków&#8230;</string>
     <string name="sounds_default_spinner">proszę wybrać pakiet dźwięków&#8230;</string>
-    <string name="sounds_dialog_permissions_title">Alarm konfiguracji dzwonków</string>
-    <string name="sounds_dialog_permissions_text">Alarmy/Powiadomienia/Dzwonki są teraz wybierane z ustawień ręcznie!\n\nJednakże, Substratum samo sobie nie da pozwoleń \"android.permission.WRITE_SETTINGS\",więc nie jest w stanie ustawić je automatycznie jako twoje aktualne dźwięki.\n\nPoprzez kliknięcie zezwolenia otworzy się nowe okno z prośbą o zatwierdzenie na modyfikowanie ustawień systemowych, abyś nie miał takich problemów w przyszłości.    </string>
-    <string name="sounds_dialog_permissions_deny">Odmów</string>
-    <string name="sounds_dialog_permissions_grant">Zezwól</string>
-    <string name="sounds_dialog_permissions_grant_toast">Aby zresetować wszystkie ustawione dźwięki przez Substratum, należy włączyć \'Zezwalaj na modyfikacje systemowych ustawień\'.    </string>
-    <string name="fonts_dialog_permissions_grant_toast">Aby zresetować wszystkie ustawione czcionki przez Substratum, należy włączyć \'Zezwalaj na modyfikacje systemowych ustawień\'.    </string>
     <string name="fonts_dialog_permissions_grant_toast2">Aby Substratum miało kontrolę nad twoimi czcionkami systemowymi, należy włączyć \'Zezwalaj na modyfikacje ustawień systemowych\'.    </string>
     <string name="error_loading_pack">wydaje się, że ten pakiet nie został skonfigurowany poprawnie&#8230;</string>
-    <string name="content_resolver_alarm_metadata">Alarm Motywu Substratum</string>
-    <string name="content_resolver_notification_metadata">Powiadomienie Motywu</string>
-    <string name="content_resolver_ringtone_metadata">Dzwonek Motywu</string>
     <string name="sounds_alarm">Alarm</string>
     <string name="sounds_notification">Powiadomienie</string>
     <string name="sounds_ringtone">Dzwonek</string>
@@ -148,7 +139,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (starsza wersja)</string>
     <string name="settings_about_system_version">Platforma systemowa</string>
-    <string name="settings_aapt_switcher_title">Kompilator nakładek</string>
     <string name="theme_information_tab_one">Nakładki</string>
     <string name="theme_information_tab_two">Animacje rozruchu</string>
     <string name="theme_information_tab_three">Pakiety czcionek</string>
@@ -439,7 +429,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="settings_auto_alert_text">Pokaż powiadomienie, gdy niedawno zainstalowana aplikacja ma dostępną nakładkę w motywie.</string>
     <string name="settings_force_english_title">Wymuś język angielski</string>
     <string name="settings_force_english_text">Włączenie tej opcji wymusi przełączenie interfejsu aplikacji na język angielski.</string>
-    <string name="settings_force_english_toast_reverted">Pomyślnie wyłączono wymuszenie języka angielskiego!</string>
     <string name="settings_manage_space_title">Zarządzaj zużyciem pamięci masowej</string>
     <string name="settings_samsung_show_dangerous_overlays">Zezwalaj na niebezpieczne nakładki</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Pokaż wszystkie nakładki zwykle niebezpieczne dla urządzeń Samsung, jeżeli motyw nie wspiera go.</string>

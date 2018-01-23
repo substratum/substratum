@@ -58,5 +58,4 @@
     <dimen name="linear_text_padding">20dp</dimen>
 
     <!-- Pull back layout thresholds -->
-    <dimen name="drag_dismiss_distance">80dp</dimen>
 </resources>

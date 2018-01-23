@@ -118,17 +118,8 @@
     <string name="sounds_dialog_apply_success">Набор гукаў ужыты!</string>
     <string name="sounds_dialog_apply_failed">Не атрымалася ўжыць набор гукаў&#8230;</string>
     <string name="sounds_default_spinner">выберыце набор гукаў&#8230;</string>
-    <string name="sounds_dialog_permissions_title">Папярэджанне аб наладзе рынгтонаў</string>
-    <string name="sounds_dialog_permissions_text">Сігналы, паведамлення і рынгтоны зараз можна абраць уручную ў наладах!\n\nТым не менш, Substratum не можа даць сабе «android.permission.WRITE_SETTINGS»і таму не мае права аўтаматычна ўсталёўваць іх у якасці бягучых гукаў.\n\nПа націску кнопкі Дазволіць адкрыецца новае акно з прапановай «Дазволіць змену сістэмных налад», каб Вам не прыйшлося сутыкацца з гэтым у будучыні.    </string>
-    <string name="sounds_dialog_permissions_deny">Адхіліць</string>
-    <string name="sounds_dialog_permissions_grant">Дазволіць</string>
-    <string name="sounds_dialog_permissions_grant_toast">Каб скінуць усе гукі, усталяваныя Substratum, дайце \"Дазвол на змену сістэмных налад\".    </string>
-    <string name="fonts_dialog_permissions_grant_toast">Каб скінуць усе шрыфты, усталяваныя Substratum, дайце \"Дазвол на змену сістэмных налад\".    </string>
     <string name="fonts_dialog_permissions_grant_toast2">Каб дазволіць Substratum кіраванне сістэмнымі шрыфтамі, дайце \"Дазвол на змену сістэмных налад\".    </string>
     <string name="error_loading_pack">падобна, гэты пакет не быў створаны правільна&#8230;</string>
-    <string name="content_resolver_alarm_metadata">Сігнал з тэмы Substratum</string>
-    <string name="content_resolver_notification_metadata">Апавяшчэнне з тэмы Substratum</string>
-    <string name="content_resolver_ringtone_metadata">Рынгтон з тэмы Substratum</string>
     <string name="sounds_alarm">Сігнал</string>
     <string name="sounds_notification">Апавяшчэння</string>
     <string name="sounds_ringtone">Рынгтон</string>
@@ -145,7 +136,6 @@
     <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Сістэмная платформа</string>
-    <string name="settings_aapt_switcher_title">Сістэмны зборшчык напластаванняў</string>
     <string name="theme_information_tab_one">Напластаванні</string>
     <string name="theme_information_tab_two">Анімацыі загрузкі</string>
     <string name="theme_information_tab_three">Наборы шрыфтоў</string>
@@ -431,7 +421,6 @@
     <string name="settings_auto_alert_text">Паказаць апавяшчэнне, калі нядаўна усталяваная праграма мае доступ да напластаванняў у тэме.</string>
     <string name="settings_force_english_title">Прымусова англійская</string>
     <string name="settings_force_english_text">Праграма зменіць мову на англійскую.</string>
-    <string name="settings_force_english_toast_reverted">Прымусова англійская адключана!</string>
     <string name="settings_manage_space_title">Кіраванне спажываннем памяці</string>
     <string name="settings_samsung_show_dangerous_overlays">Дазволіць нестабільныя напластаванні</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Паказваць усё рызыкоўныя для прылад ад Samsung напластаванні, нават калі яны не падтрымліваюцца тэмай афармлення.</string>

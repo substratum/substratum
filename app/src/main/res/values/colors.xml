@@ -28,10 +28,6 @@
     <color name="lunchbar_text">@android:color/black</color>
 
     <color name="bottombar_bar_background">@android:color/white</color>
-    <color name="bottombar_badge_background">@color/colorAccent</color>
-    <color name="bottombar_badge_text">@android:color/white</color>
-
-    <color name="statusbar_transparent">#00000000</color>
 
     <!-- Hardcode the colors so it doesn't change every time an Android System overlay changes -->
     <color name="floatui_dialog_background">#ca000000</color>
@@ -50,8 +46,6 @@
     <color name="do_not_theme_this_color">#212021</color>
     <color name="do_not_theme_this_color_buttons">#393839</color>
     <color name="do_not_theme_this_color_button_pulse">#9f9f9f</color>
-
-    <color name="troubleshooting_card_line_color">@android:color/darker_gray</color>
 
     <color name="priorities_drag_handle">@color/main_screen_card_theme_title</color>
 
@@ -153,5 +147,4 @@
         <item>@color/substratum_light_blue</item>
     </integer-array>
 
-    <color name="badgeBackgroundColor">@color/colorAccent</color>
 </resources>

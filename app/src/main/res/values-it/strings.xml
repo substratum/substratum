@@ -128,17 +128,8 @@
     <string name="sounds_dialog_apply_success">Il pacchetto dei suoni è stato applicato!</string>
     <string name="sounds_dialog_apply_failed">L\'applicazione del pacchetto dei suoni è fallita&#8230;</string>
     <string name="sounds_default_spinner">per favore seleziona un pacchetto di suoni&#8230;</string>
-    <string name="sounds_dialog_permissions_title">Avviso di configurazione della suoneria</string>
-    <string name="sounds_dialog_permissions_text">Allarmi/Notifiche/Suonerie sono ora selezionabili dalle impostazioni manualmente!\n\nComunque, Substratum non può concedersi \"android.permission.WRITE_SETTINGS\", quindi non è in grado di impostarli come suoni correnti automaticamente.\n\nCliccando su concedi, verrà avviata una nuova finestra per richiedere il permesso \"Consenti modifiche alle impostazioni di sistema”, in modo da non avere questo problema in futuro.    </string>
-    <string name="sounds_dialog_permissions_deny">Nega</string>
-    <string name="sounds_dialog_permissions_grant">Permetti</string>
-    <string name="sounds_dialog_permissions_grant_toast">Per reimpostare tutti i suoni impostati da substratum, è necessario attivare \'Consenti modifica impostazioni di sistema\'.    </string>
-    <string name="fonts_dialog_permissions_grant_toast">Per reimpostare tutti i font impostati da substratum, è necessario attivare \'Consenti modifica impostazioni di sistema\'.    </string>
     <string name="fonts_dialog_permissions_grant_toast2">Per consentire a Substratum di controllare i font di sistema, è necessario attivare \'Consenti modifica impostazioni di sistema\'.    </string>
     <string name="error_loading_pack">sembra che questo pacchetto non sia stato impostato correttamente&#8230;</string>
-    <string name="content_resolver_alarm_metadata">Substratum Theme Alarm</string>
-    <string name="content_resolver_notification_metadata">Substratum Theme Notification</string>
-    <string name="content_resolver_ringtone_metadata">Suoneria del tema Substratum</string>
     <string name="sounds_alarm">Allarme</string>
     <string name="sounds_notification">Notifica</string>
     <string name="sounds_ringtone">Suoneria</string>
@@ -155,7 +146,6 @@
     <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Piattaforma di sistema</string>
-    <string name="settings_aapt_switcher_title">Compilatore della sovrapposizione di sistema</string>
     <string name="theme_information_tab_one">Sovrapposizioni</string>
     <string name="theme_information_tab_two">Animazioni d’avvio</string>
     <string name="theme_information_tab_three">Pacchetti dei caratteri</string>
@@ -450,7 +440,6 @@
     <string name="settings_auto_alert_text">Mostra una notifica quando un app installata di recente dispone di una sovrapposizione disponibile in un tema.</string>
     <string name="settings_force_english_title">Forza lingua inglese</string>
     <string name="settings_force_english_text">Questo forzerà l\'applicazione ad usare la lingua inglese.</string>
-    <string name="settings_force_english_toast_reverted">Lingua inglese disattivata con successo!</string>
     <string name="settings_manage_space_title">Gestisci l\'utilizzo della memoria</string>
     <string name="settings_samsung_show_dangerous_overlays">Abilita le sovrapposizioni pericolose</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Mostra tutte le sovrapposizioni normalmente pericolose per i dispositivi Samsung se il tema non lo supporta.</string>

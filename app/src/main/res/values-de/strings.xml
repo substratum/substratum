@@ -105,21 +105,10 @@ bei dir funktioniert. Bitte stelle sicher, dass du eine Custom-Recovery verwende
     <string name="sounds_dialog_apply_success">Soundpaket wurde angewendet!</string>
     <string name="sounds_dialog_apply_failed">Anwenden des Soundpakets fehlgeschlagen&#8230;</string>
     <string name="sounds_default_spinner">Soundpaket wählen&#8230;</string>
-    <string name="sounds_dialog_permissions_title">Klingeltonkonfigurations-Alarm</string>
-    <string name="sounds_dialog_permissions_text">Alarm-, Benachrichtigungs- und Klingeltöne können in der Einstellungen-App nun manuell ausgewählt werden!\n\nSubstratum kann sich selbst allerdings keine \"android.permission.WRITE_SETTINGS\" (Schreibrechte) geben, weswegen es diese Töne nicht automatisch anwenden kann.</string>
-    <string name="sounds_dialog_permissions_deny">Ablehnen</string>
-    <string name="sounds_dialog_permissions_grant">Zulassen</string>
-    <string name="sounds_dialog_permissions_grant_toast">Um alle von Substratum festgelegten Töne zurückzusetzen,
-aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
-    <string name="fonts_dialog_permissions_grant_toast">Um alle von Substratum festgelegten Schriftarten zurückzusetzen,
-aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
     <string name="fonts_dialog_permissions_grant_toast2">Um Substratum deine System-Schriftarten ändern zu lassen,
 aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
     <string name="error_loading_pack">Anscheinend wurde dieses Paket nicht richtig
 eingerichtet&#8230;</string>
-    <string name="content_resolver_alarm_metadata">Substratum-Theme-Wecker</string>
-    <string name="content_resolver_notification_metadata">Substratum-Theme-Benachrichtigung</string>
-    <string name="content_resolver_ringtone_metadata">Substratum-Theme-Klingelton</string>
     <string name="sounds_alarm">Wecker</string>
     <string name="sounds_notification">Benachrichtigung</string>
     <string name="sounds_ringtone">Klingelton</string>
@@ -136,7 +125,6 @@ eingerichtet&#8230;</string>
     <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">System-Plattform</string>
-    <string name="settings_aapt_switcher_title">System-Overlay-Kompilierer</string>
     <string name="theme_information_tab_one">Overlays</string>
     <string name="theme_information_tab_two">Boot-Animationen</string>
     <string name="theme_information_tab_three">Schriftarten</string>
@@ -394,7 +382,6 @@ eingerichtet&#8230;</string>
     <string name="settings_theme_auto_updater_dialog_text">Bitte öffne NICHT den Packet-Installer im Vordergrund während die Benachrichtigung erscheint. Framework Overlays tendieren dazu den Packet-Installer neuzustarten, was eine unendliche Anzahl an Neukompilierungen zur Folge hat!</string>
     <string name="settings_auto_alert_title">Alarm wegen eines gefundenen neuen installierbaren Overlays</string>
     <string name="settings_force_english_text">Dies zwingt die Anwendung, die englische Sprache zu verwenden.</string>
-    <string name="settings_force_english_toast_reverted">Forcieren der englischen Sprache erfolgreich deaktiviert!</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Zeige all die Overlays an, die normalerweise riskant für Samsung-Geräte sind, falls das Theme es nicht unterstützt.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">WARNUNG</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Wir haben unsere Gründe gefährliche Overlays zu verstecken, aber wenn du sicher bist, dass du dies eingeschaltet haben willst, folge bitte den Anweisungen in unserem XDA Thread um dies auszuschalten!</string>

@@ -123,24 +123,9 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="sounds_dialog_apply_success">Balíček zvukov je aplikovaný!</string>
     <string name="sounds_dialog_apply_failed">Balíček zvukov sa nepodarilo aplikovať&#8230;</string>
     <string name="sounds_default_spinner">prosím, vyberte balíček zvukov&#8230;</string>
-    <string name="sounds_dialog_permissions_title">Nastavenia vyzváňania budíku</string>
-    <string name="sounds_dialog_permissions_text">Budíky/Upozornenia/Tóny vyzváňania je odteraz možné meniť
-        v Nastaveniach manuálne!\n\nAvšak, Substratum si sám nemôže prideliť právo
-        \"android.permission.WRITE_SETTINGS\", takže nemôže automaticky nastaviť tému pre aktuálne zvuky
-        \n\nKliknutím na Povoliť, sa otvorí nové okno s požiadavkou \"Povoliť úpravy nastavení systému\", takže by ste v budúcnosti už nemali mať tento problém.
-    </string>
-    <string name="sounds_dialog_permissions_deny">Odoprieť</string>
-    <string name="sounds_dialog_permissions_grant">Povoliť</string>
-    <string name="sounds_dialog_permissions_grant_toast">Pre resetovanie všetkých zvukov musíte zapnúť voľbu \"Povoliť modifikovať systémové nastavenia\".
-    </string>
-    <string name="fonts_dialog_permissions_grant_toast">Pre resetovanie všetkých písiem nastavených pomocou Substratum musíte zapnúť voľbu \"Povoliť úpravy nastavení systému\".
-    </string>
     <string name="fonts_dialog_permissions_grant_toast2">Pre povolenie ovládania systémových písiem pomocou Substratum, musíte udeliť oprávnenie  \"Povoliť úpravy nastavení systému\".
     </string>
     <string name="error_loading_pack">zdá sa, že tento balíček nie je nastavený správne&#8230;</string>
-    <string name="content_resolver_alarm_metadata">Substratum téma pre Budík</string>
-    <string name="content_resolver_notification_metadata">Upozornenie Substratum témy</string>
-    <string name="content_resolver_ringtone_metadata">Substratum téma pre Tón zvonenia</string>
     <string name="sounds_alarm">Budík</string>
     <string name="sounds_notification">Upozornenie</string>
     <string name="sounds_ringtone">Zvonenie</string>
@@ -157,7 +142,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Systémová platforma</string>
-    <string name="settings_aapt_switcher_title">Kompilátor systémových prekrytí</string>
     <string name="theme_information_tab_one">Prekrytia</string>
     <string name="theme_information_tab_two">Spúšťacie animácie</string>
     <string name="theme_information_tab_three">Balíčky písiem</string>
@@ -444,7 +428,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="settings_auto_alert_text">Zobraziť upozornenie, keď nedávno nainštalovaná aplikácia má k dispozícii prekrytie v téme.</string>
     <string name="settings_force_english_title">Vynútiť anglický jazyk</string>
     <string name="settings_force_english_text">Toto prinúti aplikáciu, aby používala anglický jazyk.</string>
-    <string name="settings_force_english_toast_reverted">Vynútenie angličtiny bolo úspešne zakázané!</string>
     <string name="settings_manage_space_title">Správa využitia úložiska</string>
     <string name="settings_samsung_show_dangerous_overlays">Povoliť nebezpečné prekrytia</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Zobraziť všetky prekrytia, ktoré sú za normálnych okolností nebezpečné pre zariadenia Samsung, aj keď ich téma nepodporuje.</string>

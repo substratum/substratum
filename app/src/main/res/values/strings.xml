@@ -222,31 +222,12 @@
     <string name="sounds_dialog_apply_success">Sound pack applied!</string>
     <string name="sounds_dialog_apply_failed">Sound pack failed to apply&#8230;</string>
     <string name="sounds_default_spinner">Please select a sound pack&#8230;</string>
-    <string name="sounds_dialog_permissions_title">Ringtones Configuration Alert</string>
-    <string name="sounds_dialog_permissions_text">Alarms/Notifications/Ringtones are now selectable
-        from Settings manually!\n\nHowever, Substratum cannot grant itself
-        "android.permission.WRITE_SETTINGS", so it is not able to set them as your current sounds
-        automatically.\n\nBy clicking grant, a new window will launch to request the \'Allow modify
-        system settings\' permission, so that you would not have this issue in the future.
-    </string>
-    <string name="sounds_dialog_permissions_deny">Deny</string>
-    <string name="sounds_dialog_permissions_grant">Grant</string>
-    <string name="sounds_dialog_permissions_grant_toast">To reset all sounds set by Substratum, you
-        must enable \'Allow modify system settings\'.
-    </string>
-    <string name="fonts_dialog_permissions_grant_toast">To reset all fonts set by Substratum, you
-        must enable \'Allow modify system settings\'.
-    </string>
     <string name="fonts_dialog_permissions_grant_toast2">To let Substratum control your system
         fonts, you must enable \'Allow modify system settings\'.
     </string>
 
     <string name="error_loading_pack">It seems like this pack was not set up
         correctly&#8230;</string>
-
-    <string name="content_resolver_alarm_metadata">Substratum Theme Alarm</string>
-    <string name="content_resolver_notification_metadata">Substratum Theme Notification</string>
-    <string name="content_resolver_ringtone_metadata">Substratum Theme Ringtone</string>
 
     <string name="sounds_alarm">Alarm</string>
     <string name="sounds_notification">Notification</string>
@@ -675,8 +656,6 @@
 
     <string name="settings_force_english_title">Force English language</string>
     <string name="settings_force_english_text">This will force the application to use the English language.</string>
-    <string name="settings_force_english_toast_success" translatable="false">Successfully switched to English!</string>
-    <string name="settings_force_english_toast_reverted">Successfully disabled force English!</string>
 
     <string name="settings_manage_space_title">Manage storage usage</string>
 
@@ -721,11 +700,6 @@
     <string name="error_dialog_samsung">Substratum Overlay Problem</string>
     <string name="error_dialog_samsung_text">Unfortunately, there seems to be a problem with an overlay installed targeting Substratum and will have to be manually uninstalled using Settings.</string>
 
-    <string name="community_info_overlays">Overlays</string>
-    <string name="community_info_bootanimation">Boot Animations</string>
-    <string name="community_info_fonts">Fonts</string>
-    <string name="community_info_sounds">Sounds</string>
-    <string name="community_info_wallpapers">Wallpapers</string>
     <string name="community_info_paid">Paid</string>
 
     <string name="restore_info_dialog_title">Attention</string>

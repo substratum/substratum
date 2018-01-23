@@ -133,21 +133,9 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="sounds_dialog_apply_success">Zvukový balíček byl použit!</string>
     <string name="sounds_dialog_apply_failed">Zvukový balíček se nepodařilo použít&#8230;</string>
     <string name="sounds_default_spinner">prosím, vyberte balíček zvuků&#8230;</string>
-    <string name="sounds_dialog_permissions_title">Nastavení vyzvánění budíku</string>
-    <string name="sounds_dialog_permissions_text">Budíky/Oznámení/Vyzvánění je teď možné měnit v Nastavení manuálně!\n\nAvšak Substratum nemůže přidělit právo \"android.permission.WRITE_SETTINGS\", takže nemůže automaticky nastavit motiv pro aktuální zvuky \n\nKliknutím na povolit se otevře nové okno s požadavkem \"Povolit změnu systémových nastavení\". V budoucnu by jste neměli mít tento problém.
-    </string>
-    <string name="sounds_dialog_permissions_deny">Odepřít</string>
-    <string name="sounds_dialog_permissions_grant">Povolit</string>
-    <string name="sounds_dialog_permissions_grant_toast">Pro restartování všech zvuků v Substratum musíte zapnout volbu \"Povolit modifikovat systémové nastavení\".
-    </string>
-    <string name="fonts_dialog_permissions_grant_toast">Pro restartování všech písem v Substratum musíte zapnout volbu \"Povolit úpravu systémového nastavení\".
-    </string>
     <string name="fonts_dialog_permissions_grant_toast2">Pro povolení ovládání systémových písem Substratum musíte zapnout volbu \"Povolit úpravu systémového nastavení\".
     </string>
     <string name="error_loading_pack">vypadá to, že tento balíček nebyl správně nastaven&#8230;</string>
-    <string name="content_resolver_alarm_metadata">Substratum motiv pro budíku</string>
-    <string name="content_resolver_notification_metadata">Substratum motiv pro upozornění</string>
-    <string name="content_resolver_ringtone_metadata">Substratum motiv pro vyzvánění</string>
     <string name="sounds_alarm">Budík</string>
     <string name="sounds_notification">Oznámení</string>
     <string name="sounds_ringtone">Vyzváněcí tón</string>
@@ -164,7 +152,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Systémová platforma</string>
-    <string name="settings_aapt_switcher_title">Kompilátor systémových potahů</string>
     <string name="theme_information_tab_one">Potahy</string>
     <string name="theme_information_tab_two">Spouštěcí animace</string>
     <string name="theme_information_tab_three">Balíčky písem</string>
@@ -465,7 +452,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="settings_auto_alert_text">Zobrazit oznámení, když nedávno nainstalována aplikace má k dispozici potahy v motivu.</string>
     <string name="settings_force_english_title">Vynutit anglický jazyk</string>
     <string name="settings_force_english_text">Toto přinutí aplikaci, aby používala anglický jazyk.</string>
-    <string name="settings_force_english_toast_reverted">Vynucená angličtina byla úspěšně zakázána!</string>
     <string name="settings_manage_space_title">Správa využití úložiště</string>
     <string name="settings_samsung_show_dangerous_overlays">Povolit nebezpečné potahy</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Zobrazit všechny potahy, které jsou za normálních okolností nebezpečné pro zařízení Samsung, i když je jejich motivy nepodporují.</string>

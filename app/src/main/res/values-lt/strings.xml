@@ -135,17 +135,8 @@
     <string name="sounds_dialog_apply_success">Garso paketas pritaikytas!</string>
     <string name="sounds_dialog_apply_failed">Garso paketo nepavyko pritaikyti&#8230;</string>
     <string name="sounds_default_spinner">prašome pasirinkti garso paketą&#8230;</string>
-    <string name="sounds_dialog_permissions_title">Melodijos Konfigūravimo Pranešimas</string>
-    <string name="sounds_dialog_permissions_text">Žadintuvai/Pranešimai/Melodijos pasirenkami Nustatymuose rankiniu būdu!\n\nTačiau, Substratum negali pats sau suteikti \"android.permission.WRITE_SETTINGS\", todėl nėra galimybės automatiškai nustatyti juos kaip dabartinį garsą.</string>
-    <string name="sounds_dialog_permissions_deny">Atmesti</string>
-    <string name="sounds_dialog_permissions_grant">Suteikti</string>
-    <string name="sounds_dialog_permissions_grant_toast">Kad leisti \"Substratum\" atstatyti garsų rinkinį, jūs turite įjungti \'Leisti keisti sistemos nustatymus\'.</string>
-    <string name="fonts_dialog_permissions_grant_toast">Kad leisti \"Substratum\" atstatyti šriftų rinkinį, jūs turite įjungti \'Leisti keisti sistemos nustatymus\'.</string>
     <string name="fonts_dialog_permissions_grant_toast2">Kad leisti \"Substratum\" valdyti sistemos šriftus, jūs turite įjungti \'Leisti keisti sistemos nustatymus\'.</string>
     <string name="error_loading_pack">Atrodo, kad šis paketas nebuvo sudarytas teisingai&#8230;</string>
-    <string name="content_resolver_alarm_metadata">\"Substratum\" Temos Aliarmas</string>
-    <string name="content_resolver_notification_metadata">\"Substratum\" Temos Pranešimai</string>
-    <string name="content_resolver_ringtone_metadata">\"Substratum\" Temos Melodija</string>
     <string name="sounds_alarm">Žadintuvas</string>
     <string name="sounds_notification">Pranešimas</string>
     <string name="sounds_ringtone">Melodija</string>
@@ -162,7 +153,6 @@
     <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Sistemos platforma</string>
-    <string name="settings_aapt_switcher_title">Sistemos perdangų kompiliatorius</string>
     <string name="theme_information_tab_one">Perdangos</string>
     <string name="theme_information_tab_two">Paleidimo animacijos</string>
     <string name="theme_information_tab_three">Šriftų Paketai</string>
@@ -460,7 +450,6 @@
     <string name="settings_auto_alert_text">Rodyti pranešimą, kai neseniai įdiegtos programėlės turi prieinamą sluoksnį temoje.</string>
     <string name="settings_force_english_title">Priverstinė anglų kalba</string>
     <string name="settings_force_english_text">Tai privers programėlei naudoti anglų kalba.</string>
-    <string name="settings_force_english_toast_reverted">Sėkmingai išjungta priverstinė anglų kalba!</string>
     <string name="settings_manage_space_title">Tvarkyti saugyklos naudojimą</string>
     <string name="settings_samsung_show_dangerous_overlays">Leisti pavojingas perdangas</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Rodyti visas pavojingas perdangas \"Samsung\" įrengianiams, jei tema to nepaliko.</string>

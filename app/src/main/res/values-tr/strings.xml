@@ -162,29 +162,11 @@ lütfen
     <string name="sounds_dialog_apply_success">Ses paketi uygulandı!</string>
     <string name="sounds_dialog_apply_failed">Ses paketi uygulanamadı&#8230;</string>
     <string name="sounds_default_spinner">lütfen bir ses paketi seçin&#8230;</string>
-    <string name="sounds_dialog_permissions_title">Zil Sesi Yapılandırma Uyarısı</string>
-    <string name="sounds_dialog_permissions_text">Alarmlar/Bildirimler/Zil Sesleri artık Ayarlar\'dan manuel olarak seçilebilir!\n\nBununla
-        birlikte, Substratum kendisine\"android.permission.WRITE_SETTINGS\" veremez,
-        bu nedenle mevcut sesleriniz otomatik olarak ayarlanamaz.\n\nİzin ver seçeneğine tıkladığınızda gelecekte
-bu sorunu
-        yaşamamanız için \'Sistem ayarlarını değiştirmeye izin ver\' iznini istemek için yeni bir pencere açılacaktır.
-    </string>
-    <string name="sounds_dialog_permissions_deny">Reddet</string>
-    <string name="sounds_dialog_permissions_grant">İzin ver</string>
-    <string name="sounds_dialog_permissions_grant_toast">Substratum tarafından ayarlanan tüm sesleri sıfırlamak için \'Sistem
-        ayarlarını değiştirmeye izin ver\' seçeneğini etkinleştirmeniz gerekir.
-    </string>
-    <string name="fonts_dialog_permissions_grant_toast">Substratum tarafından ayarlanan tüm yazı tiplerini sıfırlamak
-        için \'Sistem ayarlarını değiştirmeye izin ver\' seçeneğini etkinleştirmeniz gerekir.
-    </string>
     <string name="fonts_dialog_permissions_grant_toast2">Substratum\'un sistem yazı tiplerini kontrol etmesine izin vermek için
         \'Sistem ayarlarını değiştirmeye izin ver\' özelliğini etkinleştirmelisiniz.
     </string>
     <string name="error_loading_pack">bu paket doğru kurulmadı gibi
         görünüyor&#8230;</string>
-    <string name="content_resolver_alarm_metadata">Substratum Tema Alarm Sesleri</string>
-    <string name="content_resolver_notification_metadata">Substratum Tema Bildirim Sesleri</string>
-    <string name="content_resolver_ringtone_metadata">Substratum Tema Zil Sesleri</string>
     <string name="sounds_alarm">Alarm</string>
     <string name="sounds_notification">Bildirim</string>
     <string name="sounds_ringtone">Zil Sesi</string>
@@ -201,7 +183,6 @@ bu sorunu
     <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Sistem platformu</string>
-    <string name="settings_aapt_switcher_title">Sistem tema derleyici</string>
     <string name="theme_information_tab_one">Temalar</string>
     <string name="theme_information_tab_two">Önyükleme animasyonları</string>
     <string name="theme_information_tab_three">Yazı Tipi Paketleri</string>
@@ -523,7 +504,6 @@ bu sorunu
     <string name="settings_auto_alert_text">Yeni yüklenen bir uygulama için kullanılabilir bir tema olduğunda bir bildirim göster.</string>
     <string name="settings_force_english_title">İngilizceye zorla</string>
     <string name="settings_force_english_text">Uygulamayı İngilizce kullanmaya zorlar.</string>
-    <string name="settings_force_english_toast_reverted">İngilizceye zorlama başarıyla devre dışı bırakıldı!</string>
     <string name="settings_manage_space_title">Depolama alanını yönet</string>
     <string name="settings_samsung_show_dangerous_overlays">Tehlikeli temalara izin ver</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Tema desteklemiyorsa normal olarak Samsung cihazları için tehlikeli olan temeları göster.</string>

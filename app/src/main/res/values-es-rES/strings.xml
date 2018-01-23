@@ -129,21 +129,10 @@ arreglar las cosas que no se están tematizando en legado porque requieren cambi
     <string name="sounds_dialog_apply_success">Pack de sonido aplicado!</string>
     <string name="sounds_dialog_apply_failed">El pack de sonido no se aplicó&#8230;</string>
     <string name="sounds_default_spinner">Seleccione un pack de sonido&#8230;</string>
-    <string name="sounds_dialog_permissions_title">Alerta de configuración de tonos de llamada</string>
-    <string name="sounds_dialog_permissions_text">Alarmas/Notificaciones/Tonos de Llamada ahora son seleccionables de forma manual desde los Ajustes!\n\nDe todos modos, Substratum no puede concederse a si mismo el permiso  \"android.permission.WRITE_SETTINGS\", por lo que no es capaz de establecer automáticamente como suena su tono.    </string>
-    <string name="sounds_dialog_permissions_deny">Negar</string>
-    <string name="sounds_dialog_permissions_grant">Permitir</string>
-    <string name="sounds_dialog_permissions_grant_toast">Para restablecer todos los sonidos establecidos por Substratum,
-debe habilitar \'Permitir modificar la configuración del sistema\'.    </string>
-    <string name="fonts_dialog_permissions_grant_toast">Para restablecer todos las fuentes establecidas por Substratum,
-debe habilitar \'Permitir modificar la configuración del sistema\'.    </string>
     <string name="fonts_dialog_permissions_grant_toast2">Para permitir que Substratum tenga control sobre el sistema,
 debe habilitar \'Permitir modificar la configuración del sistema\'.    </string>
     <string name="error_loading_pack">Parece que este pack no se ha configurado
 correctamente&#8230;</string>
-    <string name="content_resolver_alarm_metadata">Substratum Alarma del Tema</string>
-    <string name="content_resolver_notification_metadata">Substratum Notificación del Tema</string>
-    <string name="content_resolver_ringtone_metadata">Substratum Tono de Llamada del Tema</string>
     <string name="sounds_alarm">Alarma</string>
     <string name="sounds_notification">Notificación</string>
     <string name="sounds_ringtone">Tono de llamada</string>
@@ -160,7 +149,6 @@ correctamente&#8230;</string>
     <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Plataforma del Sistema</string>
-    <string name="settings_aapt_switcher_title">Compilador de Capas del Sistema</string>
     <string name="theme_information_tab_one">Capas</string>
     <string name="theme_information_tab_two">Animaciones de Inicio</string>
     <string name="theme_information_tab_three">Packs de Fuentes</string>
@@ -453,7 +441,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="settings_auto_alert_text">Mostrar una notificación cuando una aplicación recientemente instalada tiene una capa disponible en un tema.</string>
     <string name="settings_force_english_title">Forzar idioma Inglés</string>
     <string name="settings_force_english_text">Esto forzará a la aplicación a utilizar el idioma Inglés.</string>
-    <string name="settings_force_english_toast_reverted">Forzar Inglés ha sido desactivado con éxito!</string>
     <string name="settings_manage_space_title">Administrar el uso del almacenamiento</string>
     <string name="settings_samsung_show_dangerous_overlays">Permitir capas peligrosas</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Mostrar todas las plantillas normalmente peligrosas para dispositivos Samsung si el tema no es compatible.</string>

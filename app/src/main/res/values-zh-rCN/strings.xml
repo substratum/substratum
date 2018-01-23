@@ -118,17 +118,8 @@
     <string name="sounds_dialog_apply_success">成功应用音效包</string>
     <string name="sounds_dialog_apply_failed">音效包应用失败</string>
     <string name="sounds_default_spinner">请选择一个音效包</string>
-    <string name="sounds_dialog_permissions_title">铃声配置警告</string>
-    <string name="sounds_dialog_permissions_text">现在可以在设置里手动选择闹钟铃声/通知铃声/来电铃声！\n\n然而，Substratum 无法被授予 android.permission.WRITE_SETTINGS 权限，所以无法自动设置为当前音效。\n\n点击授权后，会弹出一个新窗口请求允许修改系统设置的权限，这样就不会再出现这个问题了。</string>
-    <string name="sounds_dialog_permissions_deny">拒绝</string>
-    <string name="sounds_dialog_permissions_grant">授权</string>
-    <string name="sounds_dialog_permissions_grant_toast">要重置所有 Substratum 设置的声音，您必须启用“允许修改系统设置”。    </string>
-    <string name="fonts_dialog_permissions_grant_toast">要重置所有 Substratum 设置的字体，您必须启用“允许修改系统设置”。    </string>
     <string name="fonts_dialog_permissions_grant_toast2">要使 Substratum 控制您的系统字体，您必须启用“允许修改系统设置”。    </string>
     <string name="error_loading_pack">看来这个主题包并没有被正确设置</string>
-    <string name="content_resolver_alarm_metadata">Substratum 主题闹钟铃声</string>
-    <string name="content_resolver_notification_metadata">Substratum 主题通知</string>
-    <string name="content_resolver_ringtone_metadata">Substratum 主题铃声</string>
     <string name="sounds_alarm">闹钟铃声</string>
     <string name="sounds_notification">通知</string>
     <string name="sounds_ringtone">铃声</string>
@@ -144,7 +135,6 @@
     <string name="settings_about_oms_version_do">动态叠加 (OMS)</string>
     <string name="settings_about_rro_version_2">RRO2（旧版）</string>
     <string name="settings_about_system_version">系统平台</string>
-    <string name="settings_aapt_switcher_title">系统叠加层编译器</string>
     <string name="theme_information_tab_one">叠加层</string>
     <string name="theme_information_tab_two">开机动画</string>
     <string name="theme_information_tab_three">字体包</string>
@@ -414,7 +404,6 @@
     <string name="settings_auto_alert_title">显示通知</string>
     <string name="settings_force_english_title">使用英语环境</string>
     <string name="settings_force_english_text">开启此选项后应用语言会更改为英语</string>
-    <string name="settings_force_english_toast_reverted">英语环境已关闭</string>
     <string name="settings_manage_space_title">管理存储空间</string>
     <string name="settings_samsung_show_dangerous_overlays">允许使用高风险叠加层</string>
     <string name="settings_samsung_show_dangerous_overlays_text">即使主题不受支持，仍在三星设备上显示所有高风险叠加层。</string>

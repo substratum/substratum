@@ -114,17 +114,8 @@
     <string name="sounds_dialog_apply_success">Paquet de son installé !</string>
     <string name="sounds_dialog_apply_failed">Échec de l\'installation du paquet de son&#8230;</string>
     <string name="sounds_default_spinner">Sélectionnez un paquet de son&#8230;</string>
-    <string name="sounds_dialog_permissions_title">Configuration des sonneries</string>
-    <string name="sounds_dialog_permissions_text">Alarmes/Notifications/Sonneries sont maintenant sélectionnables manuellement à partir de Paramètres !\n\nSubstratum ne peut pas s\'accorder l\'autorisation \"android.permission.WRITE_SETTINGS\", il est donc impossible de définir les sonneries par défaut.</string>
-    <string name="sounds_dialog_permissions_deny">Refuser</string>
-    <string name="sounds_dialog_permissions_grant">Accorder</string>
-    <string name="sounds_dialog_permissions_grant_toast">Pour réinitialiser tous les sons mis en place par Substratum,\nvous devez activer \"Autoriser la modification des paramètres systèmes\".</string>
-    <string name="fonts_dialog_permissions_grant_toast">Pour réinitialiser toutes les polices d\'écriture mises en place par Substratum,\nvous devez activer \"Autoriser la modification des paramètres systèmes\".</string>
     <string name="fonts_dialog_permissions_grant_toast2">Pour permettre à Substratum de gérer vos polices d\'écriture système,\nvous devez activer \"Autoriser la modification des paramètres systèmes\".</string>
     <string name="error_loading_pack">Il semblerait que ce paquet n\'a pas été correctement configuré&#8230;</string>
-    <string name="content_resolver_alarm_metadata">Alarme du thème Substratum</string>
-    <string name="content_resolver_notification_metadata">Notification du thème Substratum</string>
-    <string name="content_resolver_ringtone_metadata">Sonnerie du thème Substratum</string>
     <string name="sounds_alarm">Alarme</string>
     <string name="sounds_notification">Notification</string>
     <string name="sounds_ringtone">Sonnerie</string>
@@ -140,7 +131,6 @@
     <string name="settings_about_oms_version_do">Surcouches Dynamiques (OMS)</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Plateforme système</string>
-    <string name="settings_aapt_switcher_title">Compilateur de surcouches systèmes</string>
     <string name="theme_information_tab_one">Surcouches</string>
     <string name="theme_information_tab_two">Animations de démarrage</string>
     <string name="theme_information_tab_three">Paquets de police</string>
@@ -401,7 +391,6 @@
     <string name="settings_theme_auto_updater_dialog_text">Assurez-vous que l\'installateur de paquet est bien fermé lorsque la notification est affichée. Les surcouches du \"framework\" ont tendance à redémarrer l\'installateur de paquet, provoquant des recompilations en boucle !</string>
     <string name="settings_auto_alert_title">Alerte de nouvelle surcouche</string>
     <string name="settings_force_english_text">Force l\'application à utiliser la langue anglaise</string>
-    <string name="settings_force_english_toast_reverted">Langue anglaise désactivée !</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Afficher toutes les surcouches normalement dangereuses pour les appareils Samsung si le thème ne le supporte pas.</string>
     <string name="settings_samsung_show_dangerous_overlays_warning_title">AVERTISSEMENT</string>
     <string name="settings_samsung_show_dangerous_overlays_warning">Nous masquons les surcouches dangereuses pour une raison, mais si vous êtes sûr•e de vouloir l\'activer, veuillez suivre les instructions de désactivation sur notre sujet XDA !</string>

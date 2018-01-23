@@ -135,23 +135,10 @@ corrigir coisas que não estão a receber temas em modo de compatibilidade, uma 
     <string name="sounds_dialog_apply_success">Pacote de sons aplicado!</string>
     <string name="sounds_dialog_apply_failed">Falha ao aplicar pacote de sons&#8230;</string>
     <string name="sounds_default_spinner">por favor, selecione um pacote de áudio&#8230;</string>
-    <string name="sounds_dialog_permissions_title">Configuração dos Toques de Alerta</string>
-    <string name="sounds_dialog_permissions_text">Alarmes/Notificações/Toques podem agora ser selecionados manualmente a partir das Definições!\n\Contudo, o Substratum não pode garantir a si mesmo a permissão \"android.permission.WRITE_SETTINGS\", portanto, não é possível defini-los automaticamente como os seus sons atuais.\n\nAo permitir, uma nova janela irá ser aberta a pedir para \"Permitir modificar definições do sistema\" para que não tenha este problema no futuro.</string>
-    <string name="sounds_dialog_permissions_deny">Negar</string>
-    <string name="sounds_dialog_permissions_grant">Conceder</string>
-    <string name="sounds_dialog_permissions_grant_toast">Para repor todos os sons definidos pelo Substratum,
-        deve ativar \"Permitir modificar definições do sistema\'.
-    </string>
-    <string name="fonts_dialog_permissions_grant_toast">Para repor todos os tipos de letra definidos pelo Substratum,
-        deve ativar \"Permitir modificar definições do sistema\".
-    </string>
     <string name="fonts_dialog_permissions_grant_toast2">Para permitir que o Substratum controle os tipos de letra do
         sistema, deve ativar \"Permitir modificar definições do sistema\".    </string>
     <string name="error_loading_pack">parece que este pacote não foi definido
 corretamente&#8230;</string>
-    <string name="content_resolver_alarm_metadata">Alarme de Temas do Substratum</string>
-    <string name="content_resolver_notification_metadata">Notificação de Temas do Substratum</string>
-    <string name="content_resolver_ringtone_metadata">Toque do Tema Substratum</string>
     <string name="sounds_alarm">Alarme</string>
     <string name="sounds_notification">Notificação</string>
     <string name="sounds_ringtone">Toques</string>
@@ -168,7 +155,6 @@ corretamente&#8230;</string>
     <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Compatibilidade)</string>
     <string name="settings_about_system_version">Plataforma do sistema</string>
-    <string name="settings_aapt_switcher_title">Compilador de camadas do sistema</string>
     <string name="theme_information_tab_one">Camadas</string>
     <string name="theme_information_tab_two">Animações de arranque</string>
     <string name="theme_information_tab_three">Pacotes de tipos de letra</string>
@@ -473,7 +459,6 @@ corretamente&#8230;</string>
     <string name="settings_auto_alert_text">Mostrar uma notificação quando uma aplicação recentemente instalada tiver uma camada disponível num tema.</string>
     <string name="settings_force_english_title">Forçar a língua inglesa</string>
     <string name="settings_force_english_text">Forçar a aplicação a usar a língua inglesa.</string>
-    <string name="settings_force_english_toast_reverted">Forçar inglês desativado com sucesso!</string>
     <string name="settings_manage_space_title">Gerir a utilização do armazenamento</string>
     <string name="settings_samsung_show_dangerous_overlays">Permitir superposições perigosas</string>
     <string name="settings_samsung_show_dangerous_overlays_text">Mostrar todas as camadas habitualmente perigosas para os dispositivos Samsung se o tema não as suportar.</string>

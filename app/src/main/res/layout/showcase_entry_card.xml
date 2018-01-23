@@ -52,7 +52,6 @@
                 android:scaleType="centerCrop" />
 
             <ImageView
-                android:id="@+id/background_image_gradient"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:importantForAccessibility="no"

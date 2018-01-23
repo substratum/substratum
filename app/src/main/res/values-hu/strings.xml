@@ -157,29 +157,11 @@
     <string name="sounds_dialog_apply_success">Hang csomag alkalmazva!</string>
     <string name="sounds_dialog_apply_failed">Hang csomag alkalmazása sikertelen&#8230;</string>
     <string name="sounds_default_spinner">kérjük, válasszon hang csomagot&#8230;</string>
-    <string name="sounds_dialog_permissions_title">Csengőhangok beállítási figyelmeztetés</string>
-    <string name="sounds_dialog_permissions_text">Riasztások/Értesítések/Csengőhangok már manuálisan
-        kiválaszthatóak a Beállításokban!\n\nAzonban a Substratum nem képes magának
-        \"android.permission.WRITE_SETTINGS\" engedélyt adni, így nem képes ezeket a hangokat
-        automatikusan beállítani.\n\nAz Engedélyezésre kattintva, egy új ablak nyílik meg \"Rendszerbeállítások
-        módosításának engedélyezése\" engedélykérelemmel, így ez a probléma nem okoz gondot a jövőben.
-    </string>
-    <string name="sounds_dialog_permissions_deny">Megtagadás</string>
-    <string name="sounds_dialog_permissions_grant">Engedélyezés</string>
-    <string name="sounds_dialog_permissions_grant_toast">A Substratum által beállított hangok visszaállításához
-        engedélyeznie kell: \"Rendszerbeállítások módosításának engedélyezése\".
-    </string>
-    <string name="fonts_dialog_permissions_grant_toast">A Substratum által beállított betűkészletek visszaállításához
-        engedélyeznie kell: \"Rendszerbeállítások módosításának engedélyezése\".
-    </string>
     <string name="fonts_dialog_permissions_grant_toast2">Hogy a Substratum vezérelhesse a rendszer betűtípusait,
         engedélyeznie kell: \"Rendszerbeállítások módosításának engedélyezése\".
     </string>
     <string name="error_loading_pack">úgy tűnik, ez a csomag nincs helyesen
         beállítva&#8230;</string>
-    <string name="content_resolver_alarm_metadata">Substratum Téma Riasztás</string>
-    <string name="content_resolver_notification_metadata">Substratum Téma Értesítés</string>
-    <string name="content_resolver_ringtone_metadata">Substratum Téma Csengőhang</string>
     <string name="sounds_alarm">Riasztás</string>
     <string name="sounds_notification">Értesítés</string>
     <string name="sounds_ringtone">Csengőhang</string>
@@ -196,7 +178,6 @@
     <string name="settings_about_oms_version_7">[projekt.] OMS</string>
     <string name="settings_about_rro_version_2">RRO2 (Legacy)</string>
     <string name="settings_about_system_version">Rendszer platform</string>
-    <string name="settings_aapt_switcher_title">Rendszerfedvény összeállító</string>
     <string name="theme_information_tab_one">Fedvények</string>
     <string name="theme_information_tab_two">Rendszerindítási animációk</string>
     <string name="theme_information_tab_three">Betűkészlet csomagok</string>
@@ -516,7 +497,6 @@
     <string name="settings_auto_alert_text">Értesítés megjelenítése, ha egy nemrég telepített alkalmazásnak elérhető fedvénye van a témában.</string>
     <string name="settings_force_english_title">Angol nyelv kényszerítése</string>
     <string name="settings_force_english_text">Ez arra kényszeríti az alkalmazást, hogy az angol nyelvet használja.</string>
-    <string name="settings_force_english_toast_reverted">Angol kényszerítése sikeresen kikapcsolva!</string>
     <string name="settings_manage_space_title">Tárhely használat kezelése</string>
     <string name="settings_samsung_show_dangerous_overlays">Veszélyes fedvények engedélyezése</string>
     <string name="settings_samsung_show_dangerous_overlays_text">A Samsung készülékek számára veszélyes összes fedvény megjelenítése, abban az esetben, ha a téma nem támogatja azt.</string>

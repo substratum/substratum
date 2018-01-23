@@ -99,7 +99,8 @@
                     android:textAllCaps="true"
                     android:textColor="@color/accent"
                     android:textSize="12sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone" />
             </RelativeLayout>
 
             <ImageView
@@ -113,7 +114,8 @@
                 android:paddingEnd="20dp"
                 android:paddingStart="20dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/showcase_paid" />
+                android:src="@drawable/showcase_paid"
+                android:visibility="gone" />
 
         </RelativeLayout>
 

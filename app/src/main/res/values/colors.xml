@@ -87,6 +87,7 @@
     <color name="information_activity_background_shadow">#46000000</color>
 
     <color name="showcase_card_text">@android:color/white</color>
+    <color name="showcase_card_installed_text">#d0ffffff</color>
 
     <color name="main_screen_card_background">#fffafafa</color>
     <color name="main_screen_card_theme_title">#ff000000</color>

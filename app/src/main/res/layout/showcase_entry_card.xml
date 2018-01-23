@@ -98,7 +98,7 @@
                     android:layout_marginEnd="20dp"
                     android:text="@string/notification_theme_installed"
                     android:textAllCaps="true"
-                    android:textColor="@color/accent"
+                    android:textColor="@color/showcase_card_installed_text"
                     android:textSize="12sp"
                     android:textStyle="bold"
                     android:visibility="gone" />

@@ -74,6 +74,7 @@
                     android:layout_marginStart="10dp"
                     android:textAllCaps="true"
                     android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/showcase_card_text"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -86,6 +87,7 @@
                     android:layout_marginStart="20dp"
                     android:textAllCaps="true"
                     android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/showcase_card_text"
                     android:textSize="14sp" />
 
                 <TextView

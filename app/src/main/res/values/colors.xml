@@ -92,7 +92,7 @@
     <color name="information_activity_light_text_mode">@android:color/white</color>
     <color name="information_activity_background_shadow">#46000000</color>
 
-    <color name="showcase_activity_text">@android:color/black</color>
+    <color name="showcase_card_text">@android:color/white</color>
 
     <color name="main_screen_card_background">#fffafafa</color>
     <color name="main_screen_card_theme_title">#ff000000</color>

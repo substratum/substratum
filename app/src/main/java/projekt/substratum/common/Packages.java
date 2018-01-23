@@ -1,6 +1,9 @@
 package projekt.substratum.common;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -17,6 +20,7 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.VectorDrawable;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import org.apache.commons.io.IOUtils;
@@ -31,6 +35,7 @@ import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -39,6 +44,7 @@ import projekt.substratum.common.analytics.PackageAnalytics;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.platform.SubstratumService;
 import projekt.substratum.common.platform.ThemeInterfacerService;
+import projekt.substratum.services.notification.UnsupportedThemeReceiver;
 import projekt.substratum.util.readers.ReadVariantPrioritizedColor;
 
 import static projekt.substratum.common.References.ENABLE_PACKAGE_LOGGING;
@@ -874,6 +880,46 @@ public enum Packages {
                 } else {
                     Log.e(PACKAGE_TAG, "Skipping package: '" + packageName +
                             "' - due to incorrect metadata installation");
+
+                    String parse = String.format(context.getString(
+                            R.string.redundant_theme_lingering_notification_text),
+                            getPackageName(context, packageName));
+
+                    // Jot the notification id
+                    int notification_id = ThreadLocalRandom.current().nextInt(0, 10000);
+
+                    // Create an Intent for the BroadcastReceiver
+                    Intent buttonIntent = new Intent(context, UnsupportedThemeReceiver.class);
+                    buttonIntent.putExtra("package_to_uninstall", packageName);
+                    buttonIntent.putExtra("notification_to_close", notification_id);
+
+                    // Create the PendingIntent
+                    PendingIntent btPendingIntent =
+                            PendingIntent.getBroadcast(
+                                    context,
+                                    notification_id,
+                                    buttonIntent,
+                                    PendingIntent.FLAG_CANCEL_CURRENT
+                            );
+
+                    NotificationManager mNotifyManager = (NotificationManager) context
+                            .getSystemService(Context.NOTIFICATION_SERVICE);
+                    NotificationCompat.Builder mBuilder = new
+                            NotificationCompat.Builder(context,
+                            References.DEFAULT_NOTIFICATION_CHANNEL_ID);
+                    mBuilder.setContentTitle(context.getString(
+                            R.string.redundant_theme_lingering_notification_title));
+                    mBuilder.setContentText(parse);
+                    mBuilder.setAutoCancel(true);
+                    mBuilder.setContentIntent(btPendingIntent);
+                    mBuilder.addAction(android.R.color.transparent,
+                            context.getString(R.string.refused_to_install_notification_button),
+                            btPendingIntent);
+                    mBuilder.setSmallIcon(R.drawable.notification_warning_icon);
+                    mBuilder.setPriority(Notification.PRIORITY_MAX);
+                    if (mNotifyManager != null) {
+                        mNotifyManager.notify(notification_id, mBuilder.build());
+                    }
                 }
             }
             return returnMap;

@@ -72,11 +72,13 @@
         function!
     </string>
 
+    <string name="redundant_theme_lingering_notification_title">Redundant theme found</string>
+    <string name="redundant_theme_lingering_notification_text">%s is not usable on this theme system.</string>
     <string name="refused_to_install_notification_button">Remove Theme</string>
-    <string name="refused_to_install_title_notification">Themer rejected theme installed on Samsung</string>
-    <string name="refused_to_install_text_notification">%s failed to install</string>
+    <string name="refused_to_install_title_notification">Themer rejected theme installed on Samsung.</string>
+    <string name="refused_to_install_text_notification">%s failed to install.</string>
     <string name="failed_to_install_title_notification">Failed to install OMS theme</string>
-    <string name="failed_to_install_text_notification">%s failed to install</string>
+    <string name="failed_to_install_text_notification">%s failed to install.</string>
 
     <string name="actionbar_theme_count_singular">%s theme</string>
     <string name="actionbar_theme_count_plural">%s themes</string>

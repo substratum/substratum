@@ -150,7 +150,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                     PendingIntent btPendingIntent =
                             PendingIntent.getBroadcast(
                                     context,
-                                    0,
+                                    notification_id,
                                     buttonIntent,
                                     PendingIntent.FLAG_CANCEL_CURRENT
                             );

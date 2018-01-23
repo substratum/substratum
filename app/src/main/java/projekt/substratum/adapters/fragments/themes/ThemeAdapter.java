@@ -54,6 +54,7 @@ import static projekt.substratum.common.Internal.PLAY_URL_PREFIX;
 import static projekt.substratum.common.Internal.THEME_READY_ALL;
 import static projekt.substratum.common.Internal.THEME_READY_READY;
 import static projekt.substratum.common.Internal.THEME_READY_STOCK;
+import static projekt.substratum.common.References.FADE_FROM_GRAYSCALE_TO_COLOR_DURATION;
 import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
 
 
@@ -143,17 +144,6 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                         themeItem.getThemePackage(),
                         themeItem.getThemeMode()
                 ));
-
-        // Prettify the UI with fading desaturating colors!
-        ColorMatrix matrix = new ColorMatrix();
-        ValueAnimator animation = ValueAnimator.ofFloat(0f, 1f);
-        animation.setDuration(1000);
-        animation.addUpdateListener(animation1 -> {
-            matrix.setSaturation(animation1.getAnimatedFraction());
-            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
-            viewHolder.imageView.setColorFilter(filter);
-        });
-        animation.start();
 
         viewHolder.cardView.setOnLongClickListener(view -> {
             // Vibrate the device alerting the user they are about to do something dangerous!
@@ -325,17 +315,16 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         viewHolder.theme_author.setText(themeItem.getThemeAuthor());
         viewHolder.imageView.setImageDrawable(themeItem.getThemeDrawable());
 
-        if (prefs.getBoolean("advanced_ui", false)) {
-            References.setRecyclerViewAnimation(
-                    this.context,
-                    viewHolder.itemView,
-                    R.anim.recyclerview_anim);
-        } else {
-            References.setRecyclerViewAnimation(
-                    this.context,
-                    viewHolder.itemView,
-                    android.R.anim.fade_in);
-        }
+        // Prettify the UI with fading desaturating colors!
+        ColorMatrix matrix = new ColorMatrix();
+        ValueAnimator animation = ValueAnimator.ofFloat(0f, 1f);
+        animation.setDuration(FADE_FROM_GRAYSCALE_TO_COLOR_DURATION);
+        animation.addUpdateListener(animation1 -> {
+            matrix.setSaturation(animation1.getAnimatedFraction());
+            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+            viewHolder.imageView.setColorFilter(filter);
+        });
+        animation.start();
     }
 
     /**

@@ -18,9 +18,12 @@
 
 package projekt.substratum.adapters.tabs.wallpapers;
 
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -44,11 +47,11 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 
 import projekt.substratum.R;
-import projekt.substratum.common.References;
 import projekt.substratum.util.helpers.FileDownloader;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 import static com.bumptech.glide.request.RequestOptions.centerCropTransform;
+import static projekt.substratum.common.References.FADE_FROM_GRAYSCALE_TO_COLOR_DURATION;
 
 public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.ViewHolder> {
     private List<WallpaperEntries> information;
@@ -119,10 +122,17 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
             });
             builder.show();
         });
-        References.setRecyclerViewAnimation(
-                this.context,
-                viewHolder.itemView,
-                android.R.anim.fade_in);
+
+        // Prettify the UI with fading desaturating colors!
+        ColorMatrix matrix = new ColorMatrix();
+        ValueAnimator animation = ValueAnimator.ofFloat(0f, 1f);
+        animation.setDuration(FADE_FROM_GRAYSCALE_TO_COLOR_DURATION);
+        animation.addUpdateListener(animation1 -> {
+            matrix.setSaturation(animation1.getAnimatedFraction());
+            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+            viewHolder.imageView.setColorFilter(filter);
+        });
+        animation.start();
     }
 
     @Override

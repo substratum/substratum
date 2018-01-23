@@ -21,20 +21,20 @@
     <item
         android:id="@+id/filter"
         android:icon="@drawable/actionbar_filter"
-        android:title="@string/menu_filter"
         android:menuCategory="secondary"
         android:orderInCategory="3"
+        android:title="@string/menu_filter"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/search"
         android:icon="@drawable/actionbar_playstore"
-        android:title="@string/menu_search"
         android:orderInCategory="2"
+        android:title="@string/menu_search"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/info"
         android:icon="@drawable/showcase_info"
-        android:title="@string/menu_showcase_info"
         android:orderInCategory="1"
+        android:title="@string/menu_showcase_info"
         app:showAsAction="ifRoom" />
 </menu>

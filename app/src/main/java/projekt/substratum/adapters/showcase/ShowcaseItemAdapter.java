@@ -18,8 +18,11 @@
 
 package projekt.substratum.adapters.showcase;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.net.Uri;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
@@ -42,6 +45,7 @@ import projekt.substratum.util.views.Lunchbar;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 import static com.bumptech.glide.request.RequestOptions.centerCropTransform;
+import static projekt.substratum.common.References.FADE_FROM_GRAYSCALE_TO_COLOR_DURATION;
 
 public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapter.ViewHolder> {
     private List<ShowcaseItem> information;
@@ -98,6 +102,17 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
                         Snackbar.LENGTH_LONG).show();
             }
         });
+
+        // Prettify the UI with fading desaturating colors!
+        ColorMatrix matrix = new ColorMatrix();
+        ValueAnimator animation = ValueAnimator.ofFloat(0f, 1f);
+        animation.setDuration(FADE_FROM_GRAYSCALE_TO_COLOR_DURATION);
+        animation.addUpdateListener(animation1 -> {
+            matrix.setSaturation(animation1.getAnimatedFraction());
+            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+            viewHolder.backgroundImageView.setColorFilter(filter);
+        });
+        animation.start();
     }
 
     @Override

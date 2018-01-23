@@ -47,8 +47,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -164,11 +162,6 @@ public enum References {
     public static final String wallpaperFragment = "wallpapers";
     // These strings control the showcase metadata parsing
     public static final String paidTheme = "paid";
-    public static final String showcaseFonts = "fonts";
-    public static final String showcaseWallpapers = "wallpapers";
-    public static final String showcaseBootanimations = "bootanimations";
-    public static final String showcaseOverlays = "overlays";
-    public static final String showcaseSounds = "sounds";
     // These strings control the directories that Substratum uses
     public static final String EXTERNAL_STORAGE_CACHE = Environment.getExternalStorageDirectory()
             .getAbsolutePath() + "/.substratum/";
@@ -194,7 +187,6 @@ public enum References {
     public static final int SAMSUNG_THEME_ENGINE_N = 2389284;
     public static final int NO_THEME_ENGINE = 0;
     // This int controls the notification identifier
-    public static final int notification_id = 2486;
     public static final int notification_id_compiler = 17589715;
     // This int controls the delay for window refreshes to occur
     public static final int REFRESH_WINDOW_DELAY = 500;
@@ -214,6 +206,8 @@ public enum References {
     public static final String metadataVersion = "Substratum_Plugin";
     // Validate with logs
     public static final Boolean VALIDATE_WITH_LOGS = false;
+    // Control the animation duration
+    public static final int FADE_FROM_GRAYSCALE_TO_COLOR_DURATION = 1250;
     // This string controls the hero image name
     static final String heroImageResourceName = "heroimage";
     static final String heroImageGridResourceName = "heroimage_grid";
@@ -725,20 +719,6 @@ public enum References {
         if (clipboard != null) {
             clipboard.setPrimaryClip(clip);
         }
-    }
-
-    /**
-     * Adjust animations for the recyclerView
-     *
-     * @param context            Context
-     * @param view               View
-     * @param animation_resource Specified animation resource
-     */
-    public static void setRecyclerViewAnimation(Context context,
-                                                View view,
-                                                int animation_resource) {
-        Animation animation = AnimationUtils.loadAnimation(context, animation_resource);
-        view.startAnimation(animation);
     }
 
     /**

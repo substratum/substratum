@@ -148,7 +148,12 @@ public class PackageModificationDetector extends BroadcastReceiver {
 
                     // Create the PendingIntent
                     PendingIntent btPendingIntent =
-                            PendingIntent.getBroadcast(context, 0, buttonIntent, 0);
+                            PendingIntent.getBroadcast(
+                                    context,
+                                    0,
+                                    buttonIntent,
+                                    PendingIntent.FLAG_CANCEL_CURRENT
+                            );
 
                     NotificationManager mNotifyManager = (NotificationManager) context
                             .getSystemService(Context.NOTIFICATION_SERVICE);

@@ -206,7 +206,7 @@
     <string name="font_placeholder_text">Please select a font pack from the dropdown
         list&#8230;</string>
     <string name="font_default_spinner">Please select a font pack&#8230;</string>
-    <string name="font_spinner_set_defaults">Eestore to default fonts&#8230;</string>
+    <string name="font_spinner_set_defaults">Restore to default fonts&#8230;</string>
     <string name="fonts_defaults_text">This will clear out any custom fonts
         applied on your device</string>
     <string name="font_dialog_apply_text">Font pack is processing&#8230;</string>

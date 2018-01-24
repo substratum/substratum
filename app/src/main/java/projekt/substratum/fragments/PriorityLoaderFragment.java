@@ -92,10 +92,10 @@ public class PriorityLoaderFragment extends Fragment {
         new LoadPrioritizedOverlays(this).execute("");
 
         assert getActivity() != null;
-        recyclerView.addOnItemTouchListener(new RecyclerItemTouchListener(getActivity(),
-                new DefaultItemClickListener() {
+        recyclerView.addOnItemTouchListener(new RecyclerItemTouchListener<>(
+                new DefaultItemClickListener<PrioritiesItem>() {
                     @Override
-                    public boolean onItemClick(View view, int position) {
+                    public boolean onItemClick(final PrioritiesItem item, final int position) {
                         Fragment fragment = new PriorityListFragment();
                         Bundle bundle = new Bundle();
                         bundle.putString("package_name", app_list.get(position));

@@ -102,7 +102,8 @@ ext {
     leakCanaryVersion = '1.5.4'
     supportLibsVersion = '27.0.2'
     firebaseVersion = '11.8.0'
-    glideVersion = '4.1.1'
+    glideVersion = '4.5.0'
+    butterKnifeVersion = '8.8.1'
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -128,7 +129,7 @@ dependencies {
     annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
 
     // Commons IO
-    implementation 'commons-io:commons-io:2.5'
+    implementation 'commons-io:commons-io:2.6'
 
     // APK Signer
     implementation 'com.android.tools.build:apksig:3.0.1'
@@ -140,17 +141,17 @@ dependencies {
     implementation 'com.gordonwong:material-sheet-fab:1.2.1'
 
     // Material Drawer
-    implementation('com.mikepenz:materialdrawer:5.9.5@aar') {
+    implementation('com.mikepenz:materialdrawer:6.0.2@aar') {
         transitive = true
     }
 
     // About Libraries
-    implementation('com.mikepenz:aboutlibraries:5.9.7@aar') {
+    implementation('com.mikepenz:aboutlibraries:6.0.2@aar') {
         transitive = true
     }
 
     // Gesture RecyclerView
-    implementation 'com.thesurix.gesturerecycler:gesture-recycler:1.3.1'
+    implementation 'com.thesurix.gesturerecycler:gesture-recycler:1.4.1'
 
     // ZT Zip
 
@@ -158,20 +159,20 @@ dependencies {
     implementation 'org.zeroturnaround:zt-zip:1.8'
 
     // Image Processing
-    implementation 'com.theartofdev.edmodo:android-image-cropper:2.4.7'
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.6.0'
 
     // Expandable Layout
-    implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.1'
+    implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
 
     // Floating App Head
-    implementation 'com.github.recruit-lifestyle:FloatingView:2.2.3-beta1'
+    implementation 'com.github.recruit-lifestyle:FloatingView:2.2.4'
 
     // Crash Activity
-    implementation 'cat.ereza:customactivityoncrash:2.1.0'
+    implementation 'cat.ereza:customactivityoncrash:2.2.0'
 
     // Dependency Injection
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation "com.jakewharton:butterknife:$butterKnifeVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
     // Splash screen svg animation
     implementation 'com.jaredrummler:animated-svg-view:1.0.5'

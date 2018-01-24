@@ -531,7 +531,11 @@ public class MainActivity extends AppCompatActivity implements
                     ("launch_manager_fragment", false)) {
                 bottomBar.setSelectedItemId(R.id.tab_overlay_manager);
             } else {
-                bottomBar.setSelectedItemId(R.id.tab_themes);
+                int selectedTabItem = R.id.tab_themes;
+                if (savedInstanceState != null) {
+                    selectedTabItem = savedInstanceState.getInt(SELECTED_DRAWER_ITEM);
+                }
+                bottomBar.setSelectedItemId(selectedTabItem);
             }
         } else {
             bottomBar.setVisibility(View.GONE);
@@ -899,6 +903,8 @@ public class MainActivity extends AppCompatActivity implements
         if (!bottomBarUi) {
             bundle = drawer.saveInstanceState(bundle);
             bundle.putInt(SELECTED_DRAWER_ITEM, (int) drawer.getCurrentSelection());
+        } else {
+            bundle.putInt(SELECTED_DRAWER_ITEM, bottomBar.getSelectedItemId());
         }
         super.onSaveInstanceState(bundle);
     }

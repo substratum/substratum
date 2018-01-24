@@ -1624,13 +1624,6 @@ public class MainActivity extends AppCompatActivity implements
                     return !AndromedaService.checkServerActivity();
                 }
 
-                // Check if the system is legacy
-                boolean legacyCheck = themeSystemModule == NO_THEME_ENGINE;
-                if (legacyCheck) {
-                    // Throw the dialog, after checking for root
-                    return !Root.requestRootAccess();
-                }
-
                 // Check for Substratum Service
                 boolean ssCheck = Systems.checkSubstratumService(context);
                 if (ssCheck) {
@@ -1643,6 +1636,13 @@ public class MainActivity extends AppCompatActivity implements
                     return (themeSystemModule != OVERLAY_MANAGER_SERVICE_O_UNROOTED) &&
                             (themeSystemModule != OVERLAY_MANAGER_SERVICE_N_UNROOTED) &&
                             !Root.requestRootAccess();
+                }
+
+                // Check if the system is legacy
+                boolean legacyCheck = themeSystemModule == NO_THEME_ENGINE;
+                if (legacyCheck) {
+                    // Throw the dialog, after checking for root
+                    return !Root.requestRootAccess();
                 }
             }
             return false;

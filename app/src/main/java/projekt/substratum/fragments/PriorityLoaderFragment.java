@@ -103,7 +103,7 @@ public class PriorityLoaderFragment extends Fragment {
                         FragmentManager fm = getActivity().getSupportFragmentManager();
                         FragmentTransaction transaction = fm.beginTransaction();
                         transaction.setCustomAnimations(
-                                android.R.anim.fade_in, android.R.anim.fade_out);
+                                R.anim.slide_in_right, R.anim.slide_out_left);
                         transaction.replace(R.id.main, fragment);
                         transaction.commit();
                         return false;

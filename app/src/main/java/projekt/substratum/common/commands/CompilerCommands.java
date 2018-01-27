@@ -37,9 +37,11 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import projekt.substratum.BuildConfig;
+import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 
+import static projekt.substratum.common.References.COMMON_PACKAGE;
 import static projekt.substratum.common.References.ENABLE_AAPT_OUTPUT;
 import static projekt.substratum.common.References.permissionSamsungOverlay;
 import static projekt.substratum.common.Systems.getDeviceID;
@@ -247,6 +249,10 @@ public enum CompilerCommands {
         sb.append("-S " + work_area + dir + "/ ");
         // Build upon the system's Android framework
         sb.append("-I " + "/system/framework/framework-res.apk ");
+        // Build upon the common Substratum framework
+        if (Packages.isPackageInstalled(context, COMMON_PACKAGE)) {
+            sb.append("-I " + Packages.getInstalledDirectory(context, COMMON_PACKAGE) + ' ');
+        }
         // If running on the AppCompat commits (first run), it will build upon the app too
         if (targetPkg != null && !targetPkg.equals("null")) {
             sb.append((legacySwitch) ? "" : ("-I " + targetPkg + ' '));

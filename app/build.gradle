@@ -129,7 +129,7 @@ dependencies {
     annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
 
     // Commons IO
-    implementation 'commons-io:commons-io:2.6'
+    implementation 'commons-io:commons-io:2.5'
 
     // APK Signer
     implementation 'com.android.tools.build:apksig:3.0.1'

@@ -100,8 +100,7 @@
                     android:textAllCaps="true"
                     android:textColor="@color/showcase_card_installed_text"
                     android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
+                    android:textStyle="bold" />
             </RelativeLayout>
 
             <ImageView
@@ -115,8 +114,7 @@
                 android:paddingEnd="20dp"
                 android:paddingStart="20dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/showcase_paid"
-                android:visibility="gone" />
+                android:src="@drawable/showcase_paid" />
 
         </RelativeLayout>
 

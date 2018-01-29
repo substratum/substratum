@@ -80,10 +80,14 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
 
         if (showcaseItem.getThemePricing().toLowerCase(Locale.US).equals(References.paidTheme)) {
             viewHolder.themePricing.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.themePricing.setVisibility(View.GONE);
         }
 
         if (Packages.isPackageInstalled(context, showcaseItem.getThemePackage())) {
             viewHolder.installedOrNot.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.installedOrNot.setVisibility(View.GONE);
         }
 
         viewHolder.cardView.setOnClickListener(view -> {

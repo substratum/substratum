@@ -31,6 +31,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
+import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -87,8 +88,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import projekt.substratum.adapters.tabs.InformationTabsAdapter;
 import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
@@ -99,6 +98,7 @@ import projekt.substratum.common.Theming;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
+import projekt.substratum.databinding.InformationActivityBinding;
 import projekt.substratum.tabs.BootAnimations;
 import projekt.substratum.tabs.Overlays;
 import projekt.substratum.tabs.Wallpapers;
@@ -150,39 +150,22 @@ public class InformationActivity extends AppCompatActivity {
     public static Boolean compilingProcess = false;
     public static Boolean shouldRestartActivity = false;
     private static List<String> tab_checker;
-    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.tabs)
     TabLayout tabLayout;
-    @BindView(R.id.collapsing_toolbar_tabbed_layout)
     CollapsingToolbarLayout collapsingToolbar;
-    @BindView(R.id.viewpager)
     ViewPager viewPager;
-    @BindView(R.id.appbar)
     AppBarLayout appBarLayout;
-    @BindView(R.id.fab_sheet)
     CardView sheetView;
-    @BindView(R.id.overlay)
     DimOverlayFrameLayout overlay;
-    @BindView(R.id.enable_swap)
-    Switch enable_swap;
-    @BindView(R.id.compile_enable_selected)
-    TextView compile_enable_selected;
-    @BindView(R.id.compile_update_selected)
-    TextView compile_update_selected;
-    @BindView(R.id.disable_selected)
-    TextView disable_selected;
-    @BindView(R.id.apply_fab)
+    Switch enableSwap;
+    TextView compileEnableSelected;
+    TextView compileUpdateSelected;
+    TextView disableSelected;
     FloatingActionMenu floatingActionButton;
-    @BindView(R.id.fab_menu_divider)
-    View fab_menu_divider;
-    @BindView(R.id.enable)
-    LinearLayout enable_zone;
-    @BindView(R.id.enable_selected)
-    TextView enable_selected;
-    @BindView(R.id.enable_disable_selected)
-    TextView enable_disable_selected;
-    @BindView(R.id.heroImage)
+    View fabMenuDivider;
+    LinearLayout enableZone;
+    TextView enableSelected;
+    TextView enableDisableSelected;
     ImageView heroImage;
 
     private String theme_name;
@@ -458,8 +441,26 @@ public class InformationActivity extends AppCompatActivity {
         if (bottomBarUi) setTheme(R.style.AppTheme_SpecialUI_InformationActivity);
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.information_activity);
-        ButterKnife.bind(this);
+        InformationActivityBinding binding =
+                DataBindingUtil.setContentView(this, R.layout.information_activity);
+
+        toolbar = binding.toolbar;
+        tabLayout = binding.tabs;
+        collapsingToolbar = binding.collapsingToolbarTabbedLayout;
+        viewPager = binding.viewpager;
+        appBarLayout = binding.appbar;
+        sheetView = binding.fabSheet;
+        overlay = binding.overlay;
+        enableSwap = binding.enableSwap;
+        compileEnableSelected = binding.compileEnableSelected;
+        compileUpdateSelected = binding.compileUpdateSelected;
+        disableSelected = binding.disableSelected;
+        floatingActionButton = binding.applyFab;
+        fabMenuDivider = binding.fabMenuDivider;
+        enableZone = binding.enable;
+        enableSelected = binding.enableSelected;
+        enableDisableSelected = binding.enableDisableSelected;
+        heroImage = binding.heroImage;
 
         localBroadcastManager = LocalBroadcastManager.getInstance(context);
 
@@ -808,25 +809,25 @@ public class InformationActivity extends AppCompatActivity {
         // This is for the Floating Action Menu actions
         Intent intent = new Intent("Overlays" + START_JOB_ACTION);
         if (!Systems.checkOMS(this) && !Systems.isSamsungDevice(context)) {
-            enable_swap.setText(getString(R.string.fab_menu_swap_toggle_legacy));
+            enableSwap.setText(getString(R.string.fab_menu_swap_toggle_legacy));
         } else if (Systems.isSamsung(context)) {
-            fab_menu_divider.setVisibility(View.GONE);
-            enable_swap.setVisibility(View.GONE);
+            fabMenuDivider.setVisibility(View.GONE);
+            enableSwap.setVisibility(View.GONE);
         }
         boolean enabled = prefs.getBoolean("enable_swapping_overlays", true);
         intent.putExtra(SHEET_COMMAND, MIX_AND_MATCH);
         intent.putExtra(MIX_AND_MATCH_IA_TO_OVERLAYS, enabled);
         localBroadcastManager.sendBroadcast(intent);
-        enable_swap.setChecked(enabled);
-        enable_swap.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        enableSwap.setChecked(enabled);
+        enableSwap.setOnCheckedChangeListener((buttonView, isChecked) -> {
             prefs.edit().putBoolean("enable_swapping_overlays", isChecked).apply();
             intent.putExtra(SHEET_COMMAND, MIX_AND_MATCH);
             intent.putExtra(MIX_AND_MATCH_IA_TO_OVERLAYS, isChecked);
             localBroadcastManager.sendBroadcast(intent);
         });
 
-        if (!Systems.checkOMS(this)) compile_enable_selected.setVisibility(View.GONE);
-        compile_enable_selected.setOnClickListener(v -> {
+        if (!Systems.checkOMS(this)) compileEnableSelected.setVisibility(View.GONE);
+        compileEnableSelected.setOnClickListener(v -> {
             materialSheetFab.setEventListener(new MaterialSheetFabEventListener() {
                 @Override
                 public void onSheetHidden() {
@@ -840,9 +841,9 @@ public class InformationActivity extends AppCompatActivity {
         });
 
         if (!Systems.checkOMS(this)) {
-            compile_update_selected.setText(getString(R.string.fab_menu_compile_install));
+            compileUpdateSelected.setText(getString(R.string.fab_menu_compile_install));
         }
-        compile_update_selected.setOnClickListener(v -> {
+        compileUpdateSelected.setOnClickListener(v -> {
             materialSheetFab.setEventListener(new MaterialSheetFabEventListener() {
                 @Override
                 public void onSheetHidden() {
@@ -856,9 +857,9 @@ public class InformationActivity extends AppCompatActivity {
         });
 
         if (!Systems.checkOMS(this)) {
-            disable_selected.setText(getString(R.string.fab_menu_uninstall));
+            disableSelected.setText(getString(R.string.fab_menu_uninstall));
         }
-        disable_selected.setOnClickListener(v -> {
+        disableSelected.setOnClickListener(v -> {
             materialSheetFab.setEventListener(new MaterialSheetFabEventListener() {
                 @Override
                 public void onSheetHidden() {
@@ -871,8 +872,8 @@ public class InformationActivity extends AppCompatActivity {
             materialSheetFab.hideSheet();
         });
 
-        if (!Systems.checkOMS(this)) enable_zone.setVisibility(View.GONE);
-        enable_selected.setOnClickListener(v -> {
+        if (!Systems.checkOMS(this)) enableZone.setVisibility(View.GONE);
+        enableSelected.setOnClickListener(v -> {
             materialSheetFab.setEventListener(new MaterialSheetFabEventListener() {
                 @Override
                 public void onSheetHidden() {
@@ -886,8 +887,8 @@ public class InformationActivity extends AppCompatActivity {
         });
 
         if (!Systems.checkOMS(this))
-            enable_disable_selected.setVisibility(View.GONE);
-        enable_disable_selected.setOnClickListener(v -> {
+            enableDisableSelected.setVisibility(View.GONE);
+        enableDisableSelected.setOnClickListener(v -> {
             materialSheetFab.setEventListener(new MaterialSheetFabEventListener() {
                 @Override
                 public void onSheetHidden() {

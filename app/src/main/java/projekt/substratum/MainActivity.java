@@ -30,6 +30,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -81,8 +82,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import projekt.substratum.activities.launch.ShowcaseActivity;
 import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
@@ -95,6 +94,7 @@ import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.AndromedaService;
 import projekt.substratum.common.platform.ThemeManager;
+import projekt.substratum.databinding.MainActivityBinding;
 import projekt.substratum.fragments.ManagerFragment;
 import projekt.substratum.fragments.PriorityListFragment;
 import projekt.substratum.fragments.PriorityLoaderFragment;
@@ -150,15 +150,10 @@ public class MainActivity extends AppCompatActivity implements
     public static String userInput = "";
     public static ArrayList<String> queuedUninstall;
     public SearchView searchView;
-    @BindView(R.id.theme_count)
     public TextView actionbar_content;
-    @BindView(R.id.activity_title)
     TextView actionbar_title;
-    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.bottomBar)
     BottomNavigationView bottomBar;
-    @BindView(R.id.bottomBar_shadow)
     View bottomBarShadow;
     private ActionBar supportActionBar;
     private Drawer drawer;
@@ -415,8 +410,13 @@ public class MainActivity extends AppCompatActivity implements
         if (BuildConfig.DEBUG && !isSamsungDevice(context)) {
             Log.d(SUBSTRATUM_LOG, "Substratum launched with debug mode signatures.");
         }
-        setContentView(R.layout.main_activity);
-        ButterKnife.bind(this);
+        MainActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
+        actionbar_content = binding.themeCount;
+        actionbar_title = binding.activityTitle;
+        toolbar = binding.toolbar;
+        bottomBarShadow = binding.bottomBarShadow;
+        bottomBar = binding.bottomBar;
+
         cleanLogCharReportsIfNecessary();
         Theming.refreshInstalledThemesPref(context);
 

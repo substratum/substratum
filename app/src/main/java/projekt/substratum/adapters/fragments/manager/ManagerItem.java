@@ -48,6 +48,8 @@ public class ManagerItem implements Serializable {
     private String type4;
     private String themeName;
     private String labelName;
+    private String version;
+    private String overlayVersion;
     private boolean isSelected;
     private int activationValue;
     private Drawable mDrawable;
@@ -72,8 +74,12 @@ public class ManagerItem implements Serializable {
         if ((metadata != null) && !metadata.isEmpty() && newUpdate) {
             this.themeName = Packages.getPackageName(context, metadata);
         } else {
-            this.themeName = "";
+            this.themeName = null;
         }
+        this.version = String.valueOf(
+                Packages.getOverlaySubstratumVersion(context, this.name));
+        this.overlayVersion = String.valueOf(
+                Packages.getAppVersion(context, this.name));
         this.updateEnabledOverlays(isActivated);
         this.setLabelName(context);
     }
@@ -157,9 +163,6 @@ public class ManagerItem implements Serializable {
     }
 
     public String getThemeName() {
-        if (this.themeName == null) {
-            this.themeName = this.context.getString(R.string.reboot_awaiting_manager_title);
-        }
         return this.themeName;
     }
 
@@ -168,9 +171,6 @@ public class ManagerItem implements Serializable {
     }
 
     public String getLabelName() {
-        if (this.labelName == null) {
-            this.labelName = this.context.getString(R.string.reboot_awaiting_manager_title);
-        }
         return this.labelName;
     }
 
@@ -210,5 +210,21 @@ public class ManagerItem implements Serializable {
 
     void setTargetDrawable(Drawable drawable) {
         this.mTargetDrawable = drawable;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public String getOverlayVersion() {
+        return overlayVersion;
+    }
+
+    public void setOverlayVersion(String overlayVersion) {
+        this.overlayVersion = overlayVersion;
     }
 }

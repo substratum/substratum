@@ -134,15 +134,15 @@
     <string name="rescue_toast">Rescuing your system&#8230;</string>
 
     <string name="reboot_awaiting_manager_title">ERROR READING OVERLAY</string>
-    <string name="manager_theme_name">Theme:</string>
-    <string name="manager_type1a">Type1a:</string>
-    <string name="manager_type1b">Type1b:</string>
-    <string name="manager_type1c">Type1c:</string>
-    <string name="manager_type2">Type2:</string>
-    <string name="manager_type3">Type3:</string>
-    <string name="manager_type4">Type4:</string>
-    <string name="manager_version">Version:</string>
-    <string name="manager_theme_version">Overlay version:</string>
+    <string name="manager_theme_name">Theme: %s</string>
+    <string name="manager_type1a">Type1a: %s</string>
+    <string name="manager_type1b">Type1b: %s</string>
+    <string name="manager_type1c">Type1c: %s</string>
+    <string name="manager_type2">Type2: %s</string>
+    <string name="manager_type3">Type3: %s</string>
+    <string name="manager_type4">Type4: %s</string>
+    <string name="manager_version">Version: %s</string>
+    <string name="manager_theme_version"><b>Overlay version: </b>%s</string>
 
     <string name="backend_not_authorized_title">Substratum debug build not authorized!</string>
     <string name="backend_not_authorized_text">To use this build of substratum with your custom ROM, please enable \'Force authorize every theme app\' in Developer options.\n\nIf it is not there, please contact your ROM dev for missing commits!</string>

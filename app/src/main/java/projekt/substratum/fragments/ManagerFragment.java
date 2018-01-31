@@ -25,6 +25,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,6 +40,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.text.SpannableStringBuilder;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -76,6 +78,7 @@ import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
+import projekt.substratum.util.helpers.StringUtils;
 import projekt.substratum.util.views.FloatingActionMenu;
 
 import static projekt.substratum.common.Packages.getOverlayMetadata;
@@ -422,11 +425,11 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     String metadata = getOverlayMetadata(
                             context, packageName, References.metadataOverlayParent);
                     if ((metadata != null) && !metadata.isEmpty()) {
-                        String pName = "<b>" +
-                                context.getString(R.string.manager_theme_name) +
-                                "</b> " +
-                                getPackageName(context, metadata);
-                        overlayList.get(i).setThemeName(pName);
+                        SpannableStringBuilder pName = StringUtils.format(
+                                context.getString(R.string.manager_theme_name),
+                                getPackageName(context, metadata),
+                                Typeface.BOLD);
+                        overlayList.get(i).setThemeName(pName.toString());
                     }
                 }
             }

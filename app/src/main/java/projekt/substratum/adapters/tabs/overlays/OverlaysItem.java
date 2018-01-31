@@ -32,6 +32,8 @@ import java.util.List;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.Systems;
 
+import static projekt.substratum.common.Packages.isPackageInstalled;
+
 public class OverlaysItem implements Serializable {
 
     public String versionName;
@@ -42,20 +44,22 @@ public class OverlaysItem implements Serializable {
     public boolean is_variant_chosen3;
     public boolean is_variant_chosen4;
     public boolean is_variant_chosen5;
-    boolean variant_mode;
-    private String theme_name;
-    private String package_name;
+    public boolean variantMode;
+    private String themeName;
+    private String packageName;
     private VariantAdapter array;
     private VariantAdapter array2;
     private VariantAdapter array3;
     private VariantAdapter array4;
     private VariantAdapter array5;
     private Context context;
-    private Drawable app_icon;
-    private Boolean theme_oms;
+    private Drawable appIcon;
+    private Boolean themeOms;
     private View activityView;
     private String name;
+    private String targetVersion;
     private boolean isSelected;
+    private boolean isVariantInstalled;
     private int spinnerSelection;
     private int spinnerSelection2;
     private int spinnerSelection3;
@@ -69,7 +73,7 @@ public class OverlaysItem implements Serializable {
     private String baseResources = "";
     private List<Object> enabledOverlays;
 
-    public OverlaysItem(String theme_name,
+    public OverlaysItem(String themeName,
                         String name,
                         String packageName,
                         Boolean isSelected,
@@ -82,13 +86,13 @@ public class OverlaysItem implements Serializable {
                         String versionName,
                         String baseResources,
                         Collection enabledOverlays,
-                        Boolean theme_oms,
+                        Boolean themeOms,
                         String attention,
                         View activityView) {
         super();
-        this.theme_name = theme_name;
+        this.themeName = themeName;
         this.name = name;
-        this.package_name = packageName;
+        this.packageName = packageName;
         this.isSelected = isSelected;
         this.array = adapter;
         this.array2 = adapter2;
@@ -97,16 +101,20 @@ public class OverlaysItem implements Serializable {
         this.array5 = adapter5;
         this.context = context;
         this.versionName = versionName;
-        this.theme_oms = theme_oms;
+        this.themeOms = themeOms;
         if (this.baseResources != null)
             this.baseResources =
                     baseResources.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
-        this.variant_mode = true;
+        this.variantMode = true;
         this.enabledOverlays = new ArrayList<>();
         this.enabledOverlays.addAll(enabledOverlays);
-        this.app_icon = Packages.getAppIcon(context, packageName);
+        this.appIcon = Packages.getAppIcon(context, packageName);
         this.attention = attention;
         this.activityView = activityView;
+        this.isVariantInstalled = isPackageInstalled(context,
+                this.getPackageName() + '.' + this.getThemeName() +
+                        ((!this.getBaseResources().isEmpty()) ?
+                                '.' + this.getBaseResources() : ""));
     }
 
     View getActivityView() {
@@ -114,11 +122,11 @@ public class OverlaysItem implements Serializable {
     }
 
     boolean isDeviceOMS() {
-        return theme_oms;
+        return themeOms;
     }
 
     public String getThemeName() {
-        return theme_name;
+        return themeName;
     }
 
     public String getName() {
@@ -130,11 +138,11 @@ public class OverlaysItem implements Serializable {
     }
 
     Drawable getAppIcon() {
-        return app_icon;
+        return appIcon;
     }
 
     public String getPackageName() {
-        return package_name;
+        return packageName;
     }
 
     String getBaseResources() {
@@ -149,23 +157,23 @@ public class OverlaysItem implements Serializable {
         this.isSelected = isSelected;
     }
 
-    SpinnerAdapter getSpinnerArray() {
+    public SpinnerAdapter getSpinnerArray() {
         return array;
     }
 
-    SpinnerAdapter getSpinnerArray2() {
+    public SpinnerAdapter getSpinnerArray2() {
         return array2;
     }
 
-    SpinnerAdapter getSpinnerArray3() {
+    public SpinnerAdapter getSpinnerArray3() {
         return array3;
     }
 
-    SpinnerAdapter getSpinnerArray4() {
+    public SpinnerAdapter getSpinnerArray4() {
         return array4;
     }
 
-    SpinnerAdapter getSpinnerArray5() {
+    public SpinnerAdapter getSpinnerArray5() {
         return array5;
     }
 
@@ -314,7 +322,7 @@ public class OverlaysItem implements Serializable {
         try {
             PackageInfo pinfo =
                     context.getPackageManager().getPackageInfo(
-                            package_name + '.' + theme_name + variant + base, 0);
+                            packageName + '.' + themeName + variant + base, 0);
             return pinfo.versionName.equals(versionName);
         } catch (Exception e) {
             // Suppress warning
@@ -323,7 +331,7 @@ public class OverlaysItem implements Serializable {
     }
 
     public String getFullOverlayParameters() {
-        return package_name + '.' + theme_name +
+        return packageName + '.' + themeName +
                 (((spinnerSelection == 0 &&
                         spinnerSelection2 == 0 &&
                         spinnerSelection3 == 0 &&
@@ -345,5 +353,17 @@ public class OverlaysItem implements Serializable {
         } else {
             return installed && (enabledOverlays.contains(getFullOverlayParameters()));
         }
+    }
+
+    void setTargetVersion(String targetVersion) {
+        this.targetVersion = targetVersion;
+    }
+
+    public boolean isVariantInstalled() {
+        return isVariantInstalled;
+    }
+
+    public String getTargetVersion() {
+        return targetVersion;
     }
 }

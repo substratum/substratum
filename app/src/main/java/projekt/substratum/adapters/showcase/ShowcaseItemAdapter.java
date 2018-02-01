@@ -21,17 +21,15 @@ package projekt.substratum.adapters.showcase;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.net.Uri;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
@@ -41,6 +39,7 @@ import java.util.Locale;
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
+import projekt.substratum.databinding.ShowcaseEntryCardBinding;
 import projekt.substratum.util.views.Lunchbar;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
@@ -68,29 +67,19 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
                                  int pos) {
         ShowcaseItem showcaseItem = this.information.get(pos);
         Context context = showcaseItem.getContext();
+        ShowcaseEntryCardBinding viewBinding = viewHolder.getBinding();
+        viewBinding.setShowcaseItem(showcaseItem);
 
         Glide.with(context)
                 .load(showcaseItem.getThemeBackgroundImage())
                 .apply(centerCropTransform())
                 .transition(withCrossFade())
-                .into(viewHolder.backgroundImageView);
+                .into(viewBinding.backgroundImage);
 
-        viewHolder.themeName.setText(showcaseItem.getThemeName());
-        viewHolder.themeAuthor.setText(showcaseItem.getThemeAuthor());
+        showcaseItem.setPaid(showcaseItem.getThemePricing().toLowerCase(Locale.US).equals(References.paidTheme));
+        showcaseItem.setInstalled(Packages.isPackageInstalled(context, showcaseItem.getThemePackage()));
 
-        if (showcaseItem.getThemePricing().toLowerCase(Locale.US).equals(References.paidTheme)) {
-            viewHolder.themePricing.setVisibility(View.VISIBLE);
-        } else {
-            viewHolder.themePricing.setVisibility(View.GONE);
-        }
-
-        if (Packages.isPackageInstalled(context, showcaseItem.getThemePackage())) {
-            viewHolder.installedOrNot.setVisibility(View.VISIBLE);
-        } else {
-            viewHolder.installedOrNot.setVisibility(View.GONE);
-        }
-
-        viewHolder.cardView.setOnClickListener(view -> {
+        viewBinding.themeCard.setOnClickListener(view -> {
             try {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse(showcaseItem.getThemeLink()));
@@ -110,7 +99,7 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
         animation.addUpdateListener(animation1 -> {
             matrix.setSaturation(animation1.getAnimatedFraction());
             ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
-            viewHolder.backgroundImageView.setColorFilter(filter);
+            viewBinding.backgroundImage.setColorFilter(filter);
         });
         animation.start();
     }
@@ -121,21 +110,14 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        CardView cardView;
-        TextView themeName;
-        TextView themeAuthor;
-        TextView installedOrNot;
-        ImageView themePricing;
-        ImageView backgroundImageView;
+        ShowcaseEntryCardBinding binding;
 
         ViewHolder(View view) {
             super(view);
-            this.cardView = view.findViewById(R.id.theme_card);
-            this.themeName = view.findViewById(R.id.theme_name);
-            this.themeAuthor = view.findViewById(R.id.theme_author);
-            this.themePricing = view.findViewById(R.id.theme_pricing);
-            this.backgroundImageView = view.findViewById(R.id.background_image);
-            this.installedOrNot = view.findViewById(R.id.themeinstalled);
+            binding = DataBindingUtil.bind(view);
+        }
+        ShowcaseEntryCardBinding getBinding() {
+            return binding;
         }
     }
 }

@@ -29,6 +29,8 @@ public class ShowcaseItem {
     private String themeBackgroundImage;
     private String themeAuthor;
     private String themePricing;
+    private boolean isInstalled;
+    private boolean isPaid;
 
     public Context getContext() {
         return this.context;
@@ -38,7 +40,7 @@ public class ShowcaseItem {
         this.context = context;
     }
 
-    CharSequence getThemeAuthor() {
+    public CharSequence getThemeAuthor() {
         return this.themeAuthor;
     }
 
@@ -84,5 +86,21 @@ public class ShowcaseItem {
 
     public void setThemeBackgroundImage(String themeBackgroundImage) {
         this.themeBackgroundImage = themeBackgroundImage;
+    }
+
+    public boolean isInstalled() {
+        return isInstalled;
+    }
+
+    public boolean isPaid() {
+        return isPaid;
+    }
+
+    public void setInstalled(boolean installed) {
+        this.isInstalled = installed;
+    }
+
+    void setPaid(boolean paid) {
+        this.isPaid = paid;
     }
 }

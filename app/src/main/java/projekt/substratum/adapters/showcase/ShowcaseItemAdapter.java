@@ -31,8 +31,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
-
 import java.util.List;
 import java.util.Locale;
 
@@ -42,8 +40,6 @@ import projekt.substratum.common.References;
 import projekt.substratum.databinding.ShowcaseEntryCardBinding;
 import projekt.substratum.util.views.Lunchbar;
 
-import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
-import static com.bumptech.glide.request.RequestOptions.centerCropTransform;
 import static projekt.substratum.common.References.FADE_FROM_GRAYSCALE_TO_COLOR_DURATION;
 
 public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapter.ViewHolder> {
@@ -69,12 +65,6 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
         Context context = showcaseItem.getContext();
         ShowcaseEntryCardBinding viewBinding = viewHolder.getBinding();
         viewBinding.setShowcaseItem(showcaseItem);
-
-        Glide.with(context)
-                .load(showcaseItem.getThemeBackgroundImage())
-                .apply(centerCropTransform())
-                .transition(withCrossFade())
-                .into(viewBinding.backgroundImage);
 
         showcaseItem.setPaid(showcaseItem.getThemePricing().toLowerCase(Locale.US).equals(References.paidTheme));
         showcaseItem.setInstalled(Packages.isPackageInstalled(context, showcaseItem.getThemePackage()));

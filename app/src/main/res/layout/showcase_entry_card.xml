@@ -56,7 +56,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:importantForAccessibility="no"
-                    android:scaleType="centerCrop" />
+                    app:imageUrl="@{showcaseItem.themeBackgroundImage}" />
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -128,8 +128,6 @@
                     android:src="@drawable/showcase_paid" />
 
             </RelativeLayout>
-
         </android.support.v7.widget.CardView>
-
     </LinearLayout>
 </layout>

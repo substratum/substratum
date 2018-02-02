@@ -80,7 +80,7 @@ public class ShowcaseItem {
         this.themeLink = themeLink;
     }
 
-    String getThemeBackgroundImage() {
+    public String getThemeBackgroundImage() {
         return this.themeBackgroundImage;
     }
 

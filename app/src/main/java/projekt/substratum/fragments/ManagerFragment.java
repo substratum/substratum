@@ -162,7 +162,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     private void resetRecyclerView() {
         // Initialize the recycler view with an empty adapter first
         ArrayList<ManagerItem> empty_array = new ArrayList<>();
-        RecyclerView.Adapter empty_adapter = new ManagerAdapter(empty_array, false);
+        RecyclerView.Adapter empty_adapter = new ManagerAdapter(empty_array);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mRecyclerView.setAdapter(empty_adapter);
@@ -653,7 +653,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                 fragment.swipeRefreshLayout.setRefreshing(false);
                 fragment.toggle_all.setEnabled(true);
                 fragment.loadingBar.setVisibility(View.GONE);
-                fragment.mAdapter = new ManagerAdapter(fragment.overlaysList, false);
+                fragment.mAdapter = new ManagerAdapter(fragment.overlaysList);
                 fragment.mRecyclerView.setAdapter(fragment.mAdapter);
                 fragment.mRecyclerView.getLayoutManager().scrollToPosition(this.currentPosition);
                 fragment.mRecyclerView.setEnabled(true);

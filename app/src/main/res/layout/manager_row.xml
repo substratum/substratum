@@ -100,7 +100,7 @@
                     android:id="@+id/theme_version"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:text="@{@string/manager_theme_version(overlay.version)}"
+                    app:text="@{@string/manager_version(overlay.version)}"
                     android:textColor="@color/main_screen_card_theme_title"
                     android:textSize="14sp" />
 
@@ -109,7 +109,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:text="@{overlay.type1a.concat(@string/manager_type1a)}"
-                    app:visibility="@{(overlay.type1a != null || overlay.type1a.isEmpty()) ? View.VISIBLE : View.GONE}"
+                    app:visibility="@{overlay.type1a.isEmpty() ? View.VISIBLE : View.GONE}"
                     android:textColor="@color/main_screen_card_theme_title"
                     android:textSize="14sp" />
 
@@ -118,7 +118,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:text="@{@string/manager_type1b(overlay.type1b)}"
-                    app:visibility="@{(overlay.type1b != null || overlay.type1b.isEmpty()) ? View.VISIBLE : View.GONE}"
+                    app:visibility="@{overlay.type1b.isEmpty() ? View.VISIBLE : View.GONE}"
                     android:textColor="@color/main_screen_card_theme_title"
                     android:textSize="14sp" />
 
@@ -127,7 +127,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:text="@{@string/manager_type1c(overlay.type1c)}"
-                    app:visibility="@{(overlay.type1c != null || overlay.type1c.isEmpty()) ? View.VISIBLE : View.GONE}"
+                    app:visibility="@{overlay.type1c.isEmpty() ? View.VISIBLE : View.GONE}"
                     android:textColor="@color/main_screen_card_theme_title"
                     android:textSize="14sp" />
 
@@ -136,7 +136,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:text="@{@string/manager_type2(overlay.type2)}"
-                    app:visibility="@{(overlay.type2 != null || overlay.type2.isEmpty()) ? View.VISIBLE : View.GONE}"
+                    app:visibility="@{overlay.type2.isEmpty() ? View.VISIBLE : View.GONE}"
                     android:textColor="@color/main_screen_card_theme_title"
                     android:textSize="14sp" />
 
@@ -145,7 +145,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:text="@{@string/manager_type3(overlay.type3)}"
-                    app:visibility="@{(overlay.type3 != null || overlay.type3.isEmpty()) ? View.VISIBLE : View.GONE}"
+                    app:visibility="@{overlay.type3.isEmpty() ? View.VISIBLE : View.GONE}"
                     android:textColor="@color/main_screen_card_theme_title"
                     android:textSize="14sp" />
 
@@ -154,7 +154,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:text="@{@string/manager_type4(overlay.type4)}"
-                    app:visibility="@{(overlay.type4 != null || overlay.type4.isEmpty()) ? View.VISIBLE : View.GONE}"
+                    app:visibility="@{overlay.type4.isEmpty() ? View.VISIBLE : View.GONE}"
                     android:textColor="@color/main_screen_card_theme_title"
                     android:textSize="14sp" />
 

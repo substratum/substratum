@@ -1,3 +1,4 @@
+package projekt.substratum.adapters.floatui;
 /*
  * Copyright (c) 2016-2017 Projekt Substratum
  * This file is part of Substratum.
@@ -16,8 +17,6 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.adapters.fragments.manager;
-
 import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
@@ -29,32 +28,32 @@ import android.widget.CheckBox;
 import java.util.List;
 
 import projekt.substratum.R;
+import projekt.substratum.adapters.fragments.manager.ManagerItem;
 import projekt.substratum.common.Packages;
-import projekt.substratum.databinding.ManagerRowBinding;
+import projekt.substratum.databinding.FloatuiRowBinding;
 
-public class ManagerAdapter extends
-        RecyclerView.Adapter<ManagerAdapter.ViewHolder> {
+public class FloatUiAdapter extends RecyclerView.Adapter<FloatUiAdapter.ViewHolder> {
 
-    private List<ManagerItem> overlayList;
+    private List<FloatUiItem> overlayList;
 
-    public ManagerAdapter(List<ManagerItem> overlays) {
+    public FloatUiAdapter(List<FloatUiItem> overlays) {
         super();
         this.overlayList = overlays;
     }
 
     @Override
-    public ManagerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+    public ViewHolder onCreateViewHolder(ViewGroup parent,
                                                         int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.manager_row, parent, false));
+                R.layout.floatui_row, parent, false));
     }
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder,
                                  int position) {
-        final ManagerItem managerItem = overlayList.get(position);
-        ManagerRowBinding viewBinding = viewHolder.getBinding();
-        viewBinding.setOverlay(managerItem);
+        final FloatUiItem floatUiItem = overlayList.get(position);
+        FloatuiRowBinding viewBinding = viewHolder.getBinding();
+        viewBinding.setOverlay(floatUiItem);
         viewBinding.executePendingBindings();
 
         viewBinding.tvName.setTextColor(overlayList.get(position).getActivationValue());
@@ -107,19 +106,19 @@ public class ManagerAdapter extends
         return overlayList.size();
     }
 
-    public List<ManagerItem> getOverlayManagerList() {
+    public List<FloatUiItem> getOverlayManagerList() {
         return overlayList;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        final ManagerRowBinding binding;
+        final FloatuiRowBinding binding;
 
         ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
             binding = DataBindingUtil.bind(itemLayoutView);
         }
 
-        public ManagerRowBinding getBinding() {
+        public FloatuiRowBinding getBinding() {
             return binding;
         }
     }

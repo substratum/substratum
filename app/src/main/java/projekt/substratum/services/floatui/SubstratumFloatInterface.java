@@ -55,8 +55,8 @@ import java.util.TreeMap;
 import jp.co.recruit_lifestyle.android.floatingview.FloatingViewListener;
 import jp.co.recruit_lifestyle.android.floatingview.FloatingViewManager;
 import projekt.substratum.R;
-import projekt.substratum.adapters.fragments.manager.ManagerAdapter;
-import projekt.substratum.adapters.fragments.manager.ManagerItem;
+import projekt.substratum.adapters.floatui.FloatUiAdapter;
+import projekt.substratum.adapters.floatui.FloatUiItem;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.platform.ThemeManager;
@@ -66,10 +66,10 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
 
     private static final int NOTIFICATION_ID = 92781162;
     private FloatingViewManager mFloatingViewManager;
-    private List<ManagerItem> final_check;
+    private List<FloatUiItem> final_check;
     private SharedPreferences prefs;
     private boolean trigger_service_restart, trigger_systemui_restart;
-    private ManagerAdapter mAdapter;
+    private FloatUiAdapter mAdapter;
 
     private String foregroundedApp() {
         @SuppressLint("WrongConstant") UsageStatsManager mUsageStatsManager =
@@ -155,15 +155,15 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 for (int j = 0; j < to_be_shown.size(); j++) {
                     Boolean is_enabled = enabledOverlaysForForegroundPackage
                             .contains(to_be_shown.get(j));
-                    ManagerItem managerItem = new ManagerItem(
+                    FloatUiItem floatUiItem = new FloatUiItem(
                             getApplicationContext(), to_be_shown.get(j), is_enabled);
                     if (is_enabled) {
-                        managerItem.setSelected(true);
+                        floatUiItem.setSelected(true);
                     }
-                    final_check.add(managerItem);
+                    final_check.add(floatUiItem);
                 }
 
-                mAdapter = new ManagerAdapter(final_check, true);
+                mAdapter = new FloatUiAdapter(final_check);
 
                 // Set a custom title
                 TextView title = new TextView(this);

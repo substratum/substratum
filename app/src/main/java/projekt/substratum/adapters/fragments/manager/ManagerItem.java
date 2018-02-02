@@ -82,6 +82,60 @@ public class ManagerItem implements Serializable {
                 Packages.getAppVersion(context, this.name));
         this.updateEnabledOverlays(isActivated);
         this.setLabelName(context);
+        if (this.getType1a() == null) {
+            String overlayMetadata = Packages.getOverlayMetadata(
+                    context,
+                    this.name,
+                    References.metadataOverlayType1a);
+
+            if ((overlayMetadata != null) && !overlayMetadata.isEmpty())
+                this.setType1a(overlayMetadata.replace("_", " "));
+        }
+
+        if (this.getType1b() == null) {
+            String overlayMetadata = Packages.getOverlayMetadata(
+                    context,
+                    this.name,
+                    References.metadataOverlayType1b);
+            if ((overlayMetadata != null) && !overlayMetadata.isEmpty())
+                this.setType1b(overlayMetadata.replace("_", " "));
+        }
+
+        if (this.getType1c() == null) {
+            String overlayMetadata = Packages.getOverlayMetadata(
+                    context,
+                    this.name,
+                    References.metadataOverlayType1c);
+            if ((overlayMetadata != null) && !overlayMetadata.isEmpty())
+                this.setType1c(overlayMetadata.replace("_", " "));
+        }
+
+        if (this.getType2() == null) {
+            String overlayMetadata = Packages.getOverlayMetadata(
+                    context,
+                    this.name,
+                    References.metadataOverlayType2);
+            if ((overlayMetadata != null) && !overlayMetadata.isEmpty())
+                this.setType2(overlayMetadata.replace("_", " "));
+        }
+
+        if (this.getType3() == null) {
+            String overlayMetadata = Packages.getOverlayMetadata(
+                    context,
+                    this.name,
+                    References.metadataOverlayType3);
+            if ((overlayMetadata != null) && !overlayMetadata.isEmpty())
+                this.setType3(overlayMetadata.replace("_", " "));
+        }
+
+        if (this.getType4() == null) {
+            String overlayMetadata = Packages.getOverlayMetadata(
+                    context,
+                    this.name,
+                    References.metadataOverlayType4);
+            if ((overlayMetadata != null) && !overlayMetadata.isEmpty())
+                this.setType4(overlayMetadata.replace("_", " "));
+        }
     }
 
     int getActivationValue() {

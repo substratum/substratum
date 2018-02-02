@@ -22,6 +22,7 @@ import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.net.Uri;
@@ -29,16 +30,12 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.PowerManager;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -47,10 +44,9 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 
 import projekt.substratum.R;
+import projekt.substratum.databinding.WallpaperEntryCardBinding;
 import projekt.substratum.util.helpers.FileDownloader;
 
-import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
-import static com.bumptech.glide.request.RequestOptions.centerCropTransform;
 import static projekt.substratum.common.References.FADE_FROM_GRAYSCALE_TO_COLOR_DURATION;
 
 public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.ViewHolder> {
@@ -76,20 +72,15 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder viewHolder,
                                  int pos) {
-        WallpaperEntries wallpaperEntry = this.information.get(pos);
-        this.context = wallpaperEntry.getContext();
+        WallpaperEntries wallpaperEntry = information.get(pos);
+        WallpaperEntryCardBinding viewHolderBinding = viewHolder.getBinding();
+        viewHolderBinding.setWallpaperItem(wallpaperEntry);
+        context = wallpaperEntry.getContext();
 
-        Glide.with(this.context)
-                .load(wallpaperEntry.getWallpaperPreview())
-                .apply(centerCropTransform())
-                .transition(withCrossFade())
-                .into(viewHolder.imageView);
-
-        viewHolder.wallpaperName.setText(wallpaperEntry.getWallpaperName());
-        viewHolder.cardView.setOnClickListener(view -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this.context);
+        viewHolderBinding.wallpaperCard.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                    this.context, R.layout.wallpaper_dialog_listview);
+                    context, R.layout.wallpaper_dialog_listview);
             arrayAdapter.add(this.context.getString(R.string.wallpaper_dialog_wallpaper));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 arrayAdapter.add(this.context.getString(R.string.wallpaper_dialog_lockscreen));
@@ -130,7 +121,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         animation.addUpdateListener(animation1 -> {
             matrix.setSaturation(animation1.getAnimatedFraction());
             ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
-            viewHolder.imageView.setColorFilter(filter);
+            viewHolderBinding.wallpaperImage.setColorFilter(filter);
         });
         animation.start();
     }
@@ -243,15 +234,15 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        CardView cardView;
-        TextView wallpaperName;
-        ImageView imageView;
+        WallpaperEntryCardBinding binding;
 
         ViewHolder(View view) {
             super(view);
-            this.cardView = view.findViewById(R.id.wallpaperCard);
-            this.imageView = view.findViewById(R.id.wallpaperImage);
-            this.wallpaperName = view.findViewById(R.id.wallpaperName);
+            binding = DataBindingUtil.bind(view);
+        }
+
+        WallpaperEntryCardBinding getBinding() {
+            return binding;
         }
     }
 }

@@ -45,7 +45,7 @@ public class WallpaperEntries {
         this.context = context;
     }
 
-    String getWallpaperName() {
+    public String getWallpaperName() {
         return this.wallpaperName;
     }
 
@@ -61,7 +61,7 @@ public class WallpaperEntries {
         this.wallpaperLink = wallpaperLink;
     }
 
-    String getWallpaperPreview() {
+    public String getWallpaperPreview() {
         return this.wallpaperPreview;
     }
 

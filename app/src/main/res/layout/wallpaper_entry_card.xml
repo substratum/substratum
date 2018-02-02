@@ -15,53 +15,60 @@
   ~ You should have received a copy of the GNU General Public License
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
-
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/wallpaperCard"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:clickable="true"
-    android:focusable="true"
-    android:foreground="?android:selectableItemBackground"
-    card_view:cardBackgroundColor="@color/wallpaper_bg_background"
-    card_view:cardCornerRadius="0dp"
-    card_view:cardElevation="0dp">
-
-    <RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="projekt.substratum.adapters.tabs.wallpapers.WallpaperEntries" />
+        <import type="android.view.View" />
+        <variable name="wallpaperItem" type="WallpaperEntries" />
+    </data>
+    <android.support.v7.widget.CardView
+        android:id="@+id/wallpaperCard"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:selectableItemBackground"
+        card_view:cardBackgroundColor="@color/wallpaper_bg_background"
+        card_view:cardCornerRadius="0dp"
+        card_view:cardElevation="0dp">
 
-        <ImageView
-            android:id="@+id/wallpaperImage"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:importantForAccessibility="no"
-            android:scaleType="centerCrop"
-            android:src="@android:color/transparent" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/wallpaperName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/wallpaperImage"
-            android:layout_gravity="end"
-            android:gravity="end"
-            android:paddingBottom="10dp"
-            android:paddingEnd="15dp"
-            android:paddingStart="0dp"
-            android:shadowColor="@color/wallpaper_card_text_shadow"
-            android:shadowDx="1"
-            android:shadowDy="1"
-            android:shadowRadius="5"
-            android:text="@string/wallpaper_name_placeholder"
-            android:textAllCaps="true"
-            android:textColor="@color/wallpaper_card_text"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/wallpaperImage"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:importantForAccessibility="no"
+                app:imageUrl="@{wallpaperItem.getWallpaperPreview()}"
+                android:src="@android:color/transparent" />
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/wallpaperName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/wallpaperImage"
+                android:layout_gravity="end"
+                android:gravity="end"
+                android:paddingBottom="10dp"
+                android:paddingEnd="15dp"
+                android:paddingStart="0dp"
+                android:shadowColor="@color/wallpaper_card_text_shadow"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="5"
+                app:text="@{wallpaperItem.getWallpaperName()}"
+                android:textAllCaps="true"
+                android:textColor="@color/wallpaper_card_text"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-</android.support.v7.widget.CardView>
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+</layout>

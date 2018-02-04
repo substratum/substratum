@@ -109,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/main_screen_card_theme_title"
                     android:textSize="14sp"
-                    app:text="@{@string/manager_theme_version(overlay.version)}" />
+                    app:text="@{@string/manager_theme_version(overlay.overlayVersion)}" />
 
                 <TextView
                     android:id="@+id/type1a"
@@ -165,13 +165,6 @@
                     app:text="@{@string/manager_type4(overlay.type4)}"
                     app:visibility="@{(overlay.type4 != null &amp;&amp; !overlay.type4.isEmpty()) ? View.VISIBLE : View.GONE}" />
 
-                <TextView
-                    android:id="@+id/version"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/main_screen_card_theme_title"
-                    android:textSize="14sp"
-                    app:text="@{@string/manager_theme_version(overlay.overlayVersion)}" />
 
             </LinearLayout>
 

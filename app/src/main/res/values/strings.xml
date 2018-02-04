@@ -144,6 +144,13 @@
     <string name="manager_version">Version: %s</string>
     <string name="manager_theme_version"><b>Overlay version: </b>%s</string>
 
+    <string name="priorities_theme_name">Theme:</string>
+    <string name="priorities_type1a">Type1a:</string>
+    <string name="priorities_type1b">Type1b:</string>
+    <string name="priorities_type1c">Type1c:</string>
+    <string name="priorities_type2">Type2:</string>
+    <string name="priorities_type3">Type3:</string>
+
     <string name="backend_not_authorized_title">Substratum debug build not authorized!</string>
     <string name="backend_not_authorized_text">To use this build of substratum with your custom ROM, please enable \'Force authorize every theme app\' in Developer options.\n\nIf it is not there, please contact your ROM dev for missing commits!</string>
 

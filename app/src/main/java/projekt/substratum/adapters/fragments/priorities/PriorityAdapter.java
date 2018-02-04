@@ -132,7 +132,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                             if ((metadata != null) && !metadata.isEmpty()) {
                                 metadata = metadata.replace("_", " ");
                                 SpannableStringBuilder type1a = StringUtils.format(context.getString(
-                                        R.string.manager_type1a), metadata, Typeface.BOLD);
+                                        R.string.priorities_type1a), metadata, Typeface.BOLD);
                                 priorityObjectAdapter.type1a.setVisibility(View.VISIBLE);
                                 prioritiesItem.setType1a(type1a.toString());
                                 priorityObjectAdapter.type1a.setText(type1a);
@@ -152,7 +152,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                             if ((metadata != null) && !metadata.isEmpty()) {
                                 metadata = metadata.replace("_", " ");
                                 SpannableStringBuilder type1b = StringUtils.format(context.getString(
-                                        R.string.manager_type1b), metadata, Typeface.BOLD);
+                                        R.string.priorities_type1b), metadata, Typeface.BOLD);
                                 priorityObjectAdapter.type1b.setVisibility(View.VISIBLE);
                                 prioritiesItem.setType1b(type1b.toString());
                                 priorityObjectAdapter.type1b.setText(type1b);
@@ -172,7 +172,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                             if ((metadata != null) && !metadata.isEmpty()) {
                                 metadata = metadata.replace("_", " ");
                                 SpannableStringBuilder type1c = StringUtils.format(context.getString(
-                                        R.string.manager_type1c), metadata, Typeface.BOLD);
+                                        R.string.priorities_type1c), metadata, Typeface.BOLD);
                                 priorityObjectAdapter.type1c.setVisibility(View.VISIBLE);
                                 prioritiesItem.setType1c(type1c.toString());
                                 priorityObjectAdapter.type1c.setText(type1c);
@@ -192,7 +192,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                             if ((metadata != null) && !metadata.isEmpty()) {
                                 metadata = metadata.replace("_", " ");
                                 SpannableStringBuilder type2 = StringUtils.format(context.getString(
-                                        R.string.manager_type2), metadata, Typeface.BOLD);
+                                        R.string.priorities_type2), metadata, Typeface.BOLD);
                                 priorityObjectAdapter.type2.setVisibility(View.VISIBLE);
                                 prioritiesItem.setType2(type2.toString());
                                 priorityObjectAdapter.type2.setText(type2);
@@ -212,7 +212,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                             if ((metadata != null) && !metadata.isEmpty()) {
                                 metadata = metadata.replace("_", " ");
                                 SpannableStringBuilder type3 = StringUtils.format(context.getString(
-                                        R.string.manager_type3), metadata, Typeface.BOLD);
+                                        R.string.priorities_type3), metadata, Typeface.BOLD);
                                 priorityObjectAdapter.type3.setVisibility(View.VISIBLE);
                                 prioritiesItem.setType3(type3.toString());
                                 priorityObjectAdapter.type3.setText(type3);
@@ -233,7 +233,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                     .VERSION_CODE);
                             if ((metadata != null) && !metadata.isEmpty() && newUpdate) {
                                 SpannableStringBuilder themeName = StringUtils.format(context.getString(
-                                        R.string.manager_theme_name), metadata, Typeface.BOLD);
+                                        R.string.priorities_theme_name), metadata, Typeface.BOLD);
                                 priorityObjectAdapter.tvDesc.setVisibility(View.VISIBLE);
                                 prioritiesItem.setThemeName(themeName.toString());
                                 priorityObjectAdapter.tvDesc.setText(themeName);

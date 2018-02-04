@@ -179,9 +179,8 @@ public class PriorityListFragment extends Fragment {
 
         new GestureManager.Builder(recyclerView)
                 .setManualDragEnabled(true)
-                .setGestureFlags(
-                        ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT,
-                        ItemTouchHelper.UP | ItemTouchHelper.DOWN)
+                .setSwipeFlags(ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT)
+                .setDragFlags(ItemTouchHelper.UP | ItemTouchHelper.DOWN)
                 .build();
 
         /*

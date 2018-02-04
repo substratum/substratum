@@ -18,8 +18,6 @@
 
 package projekt.substratum.common.platform;
 
-import android.os.RemoteException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +29,7 @@ public enum SubstratumService {
     static void installOverlay(List<String> paths) {
         try {
             SubstratumServiceBridge.get().installOverlay(paths);
-        } catch (RemoteException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -39,7 +37,7 @@ public enum SubstratumService {
     public static void uninstallOverlay(List<String> packages, boolean restartUi) {
         try {
             SubstratumServiceBridge.get().uninstallOverlay(packages, restartUi);
-        } catch (RemoteException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -47,7 +45,7 @@ public enum SubstratumService {
     static void switchOverlay(List<String> packages, boolean enable, boolean restartUi) {
         try {
             SubstratumServiceBridge.get().switchOverlay(packages, enable, restartUi);
-        } catch (RemoteException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -55,7 +53,7 @@ public enum SubstratumService {
     static void setPriority(List<String> packages, boolean restartUi) {
         try {
             SubstratumServiceBridge.get().setPriority(packages, restartUi);
-        } catch (RemoteException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -63,7 +61,7 @@ public enum SubstratumService {
     static void restartSystemUi() {
         try {
             SubstratumServiceBridge.get().restartSystemUI();
-        } catch (RemoteException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -71,7 +69,7 @@ public enum SubstratumService {
     public static void copy(String source, String destination) {
         try {
             SubstratumServiceBridge.get().copy(source, destination);
-        } catch (RemoteException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -79,7 +77,7 @@ public enum SubstratumService {
     public static void move(String source, String destination) {
         try {
             SubstratumServiceBridge.get().move(source, destination);
-        } catch (RemoteException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -87,7 +85,7 @@ public enum SubstratumService {
     public static void createNewFolder(String destination) {
         try {
             SubstratumServiceBridge.get().mkdir(destination);
-        } catch (RemoteException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -95,7 +93,7 @@ public enum SubstratumService {
     public static void delete(String destination, boolean deleteParent) {
         try {
             SubstratumServiceBridge.get().deleteDirectory(destination, deleteParent);
-        } catch (RemoteException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -103,7 +101,7 @@ public enum SubstratumService {
     public static void setBootAnimation(String location) {
         try {
             SubstratumServiceBridge.get().applyBootanimation(location);
-        } catch (RemoteException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -111,7 +109,7 @@ public enum SubstratumService {
     public static void clearBootAnimation() {
         try {
             SubstratumServiceBridge.get().applyBootanimation(null);
-        } catch (RemoteException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -119,7 +117,7 @@ public enum SubstratumService {
     public static void setShutdownAnimation(String location) {
         try {
             SubstratumServiceBridge.get().applyShutdownAnimation(location);
-        } catch (RemoteException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -127,7 +125,7 @@ public enum SubstratumService {
     public static void clearShutdownAnimation() {
         try {
             SubstratumServiceBridge.get().applyShutdownAnimation(null);
-        } catch (RemoteException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -135,7 +133,7 @@ public enum SubstratumService {
     public static void setFonts(String pid, String name) {
         try {
             SubstratumServiceBridge.get().applyFonts(pid, name);
-        } catch (RemoteException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -143,7 +141,7 @@ public enum SubstratumService {
     public static void clearFonts() {
         try {
             SubstratumServiceBridge.get().applyFonts(null, null);
-        } catch (RemoteException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -151,7 +149,7 @@ public enum SubstratumService {
     public static void setSounds(String pid, String name) {
         try {
             SubstratumServiceBridge.get().applySounds(pid, name);
-        } catch (RemoteException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -159,7 +157,7 @@ public enum SubstratumService {
     public static void clearSounds() {
         try {
             SubstratumServiceBridge.get().applySounds(null, null);
-        } catch (RemoteException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -168,7 +166,7 @@ public enum SubstratumService {
                                     ArrayList<String> toBeEnabled, boolean restartUi) {
         try {
             SubstratumServiceBridge.get().applyProfile(toBeEnabled, toBeDisabled, name, restartUi);
-        } catch (RemoteException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

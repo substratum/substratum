@@ -132,6 +132,7 @@ dependencies {
     annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
 
     // Commons IO
+    //noinspection GradleDependency
     implementation 'commons-io:commons-io:2.5'
 
     // APK Signer

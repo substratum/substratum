@@ -20,7 +20,6 @@ package projekt.substratum.common.platform;
 
 import android.content.om.OM;
 import android.os.Process;
-import android.os.RemoteException;
 import android.util.Log;
 
 import java.util.Map;
@@ -51,7 +50,8 @@ public enum OverlayManagerService {
     static Map getAllOverlays() {
         try {
             return OM.get().getAllOverlays(CURRENT_USER);
-        } catch (RemoteException re) {
+        } catch (Exception e) {
+            e.printStackTrace();
             Log.e(SUBSTRATUM_LOG,
                     "Unable to obtain the map of current overlays on the device.");
         }
@@ -87,7 +87,8 @@ public enum OverlayManagerService {
                 Log.e(SUBSTRATUM_LOG, "Enabled overlay -> " + packageName + '!');
                 return true;
             }
-        } catch (RemoteException re) {
+        } catch (Exception e) {
+            e.printStackTrace();
             Log.e(SUBSTRATUM_LOG, "Unable to enable overlay -> " + packageName);
         }
         return false;
@@ -100,7 +101,8 @@ public enum OverlayManagerService {
                 Log.e(SUBSTRATUM_LOG, "Disabled overlay -> " + packageName + '!');
                 return true;
             }
-        } catch (RemoteException re) {
+        } catch (Exception e) {
+            e.printStackTrace();
             Log.e(SUBSTRATUM_LOG, "Unable to disable overlay -> " + packageName);
         }
         return false;
@@ -120,7 +122,8 @@ public enum OverlayManagerService {
                                       String newParentPackage) {
         try {
             return OM.get().setPriority(currentBoundPackage, newParentPackage, CURRENT_USER);
-        } catch (RemoteException re) {
+        } catch (Exception e) {
+            e.printStackTrace();
             Log.e(SUBSTRATUM_LOG,
                     "Unable to set priority for \"" +
                             currentBoundPackage + "\" with parent \"" + newParentPackage + "\".");

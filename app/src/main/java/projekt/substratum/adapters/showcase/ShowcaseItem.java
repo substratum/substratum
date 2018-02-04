@@ -25,7 +25,6 @@ public class ShowcaseItem {
     private Context context;
     private String themeName;
     private String themePackage;
-    private String themeLink;
     private String themeBackgroundImage;
     private String themeAuthor;
     private String themePricing;
@@ -65,20 +64,12 @@ public class ShowcaseItem {
         this.themeName = themeName;
     }
 
-    String getThemePackage() {
+    public String getThemePackage() {
         return this.themePackage;
     }
 
     public void setThemePackage(String themePackage) {
         this.themePackage = themePackage;
-    }
-
-    public String getThemeLink() {
-        return this.themeLink;
-    }
-
-    public void setThemeLink(String themeLink) {
-        this.themeLink = themeLink;
     }
 
     @SuppressWarnings("unused")

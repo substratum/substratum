@@ -192,7 +192,6 @@ public class ShowcaseTab extends Fragment {
                             .contains("-".toLowerCase(Locale.getDefault()))) {
                         newEntry.setContext(showcaseTab.context);
                         newEntry.setThemeName(stringStringEntry.getKey().replaceAll("%", " "));
-                        newEntry.setThemeLink(stringStringEntry.getValue());
                     } else {
                         String entry = stringStringEntry.getKey().toLowerCase(Locale.US);
                         if (entry.contains("-author".toLowerCase(Locale.US))) {

@@ -57,9 +57,6 @@ public enum ReadCloudShowcaseFile {
 
                     String addon_download_name = eElement.getAttribute("id");
 
-                    String addon_download_link =
-                            eElement.getElementsByTagName("link").item(0).getTextContent();
-
                     String addon_author = eElement.getElementsByTagName("author").item(0).
                             getTextContent();
 
@@ -87,29 +84,27 @@ public enum ReadCloudShowcaseFile {
                     if (addon_backgroundimage.isEmpty()) {
                         String[] finalArray = {
                                 addon_download_name,
-                                addon_download_link,
                                 addon_author,
                                 addon_pricing,
                                 addon_package_name
                         };
                         map.put(finalArray[0], finalArray[1]);
-                        map.put(finalArray[0] + "-author", finalArray[2]);
-                        map.put(finalArray[0] + "-pricing", finalArray[3]);
-                        map.put(finalArray[0] + "-package-name", finalArray[4]);
+                        map.put(finalArray[0] + "-author", finalArray[1]);
+                        map.put(finalArray[0] + "-pricing", finalArray[2]);
+                        map.put(finalArray[0] + "-package-name", finalArray[3]);
                     } else {
                         String[] finalArray = {
                                 addon_download_name,
-                                addon_download_link,
                                 addon_author,
                                 addon_pricing,
                                 addon_backgroundimage,
                                 addon_package_name
                         };
                         map.put(finalArray[0], finalArray[1]);
-                        map.put(finalArray[0] + "-author", finalArray[2]);
-                        map.put(finalArray[0] + "-pricing", finalArray[3]);
-                        map.put(finalArray[0] + "-feature-image", finalArray[4]);
-                        map.put(finalArray[0] + "-package-name", finalArray[5]);
+                        map.put(finalArray[0] + "-author", finalArray[1]);
+                        map.put(finalArray[0] + "-pricing", finalArray[2]);
+                        map.put(finalArray[0] + "-feature-image", finalArray[3]);
+                        map.put(finalArray[0] + "-package-name", finalArray[4]);
                     }
                 }
             }

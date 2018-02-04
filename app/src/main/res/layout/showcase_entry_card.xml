@@ -52,7 +52,7 @@
             android:foreground="?android:selectableItemBackground"
             card_view:cardCornerRadius="2dp"
             card_view:cardElevation="1dp"
-            app:browserUrl="@{showcaseItem.getThemeLink()}">
+            app:playUrl="@{showcaseItem.getThemePackage()}">
 
             <RelativeLayout
                 android:layout_width="match_parent"

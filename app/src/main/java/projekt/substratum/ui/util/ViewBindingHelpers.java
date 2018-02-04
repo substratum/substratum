@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 
 import projekt.substratum.R;
+import projekt.substratum.common.Internal;
 import projekt.substratum.util.views.Lunchbar;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
@@ -46,13 +47,13 @@ public class ViewBindingHelpers {
                 .into(imageView);
     }
 
-    @BindingAdapter("browserUrl")
-    public static void browserUrl(View view, String url) {
+    @BindingAdapter("playUrl")
+    public static void playUrl(View view, String packageName) {
         Context context = view.getContext();
         view.setOnClickListener(v -> {
             try {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(url));
+                intent.setData(Uri.parse(Internal.PLAY_URL_PREFIX + packageName));
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             } catch (ActivityNotFoundException exc) {

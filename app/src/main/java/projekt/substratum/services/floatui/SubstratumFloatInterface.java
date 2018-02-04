@@ -55,8 +55,8 @@ import java.util.TreeMap;
 import jp.co.recruit_lifestyle.android.floatingview.FloatingViewListener;
 import jp.co.recruit_lifestyle.android.floatingview.FloatingViewManager;
 import projekt.substratum.R;
-import projekt.substratum.adapters.floatui.FloatUiAdapter;
-import projekt.substratum.adapters.floatui.FloatUiItem;
+import projekt.substratum.adapters.fragments.manager.ManagerAdapter;
+import projekt.substratum.adapters.fragments.manager.ManagerItem;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.platform.ThemeManager;
@@ -66,10 +66,10 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
 
     private static final int NOTIFICATION_ID = 92781162;
     private FloatingViewManager mFloatingViewManager;
-    private List<FloatUiItem> final_check;
+    private List<ManagerItem> final_check;
     private SharedPreferences prefs;
     private boolean trigger_service_restart, trigger_systemui_restart;
-    private FloatUiAdapter mAdapter;
+    private ManagerAdapter mAdapter;
 
     private String foregroundedApp() {
         @SuppressLint("WrongConstant") UsageStatsManager mUsageStatsManager =
@@ -152,15 +152,15 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 for (int j = 0; j < to_be_shown.size(); j++) {
                     Boolean is_enabled = enabledOverlaysForForegroundPackage
                             .contains(to_be_shown.get(j));
-                    FloatUiItem floatUiItem = new FloatUiItem(
+                    ManagerItem managerItem = new ManagerItem(
                             getApplicationContext(), to_be_shown.get(j), is_enabled);
                     if (is_enabled) {
-                        floatUiItem.setSelected(true);
+                        managerItem.setSelected(true);
                     }
-                    final_check.add(floatUiItem);
+                    final_check.add(managerItem);
                 }
 
-                mAdapter = new FloatUiAdapter(final_check);
+                mAdapter = new ManagerAdapter(final_check);
 
                 // Initialize the AlertDialog Builder
                 AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FloatUiDialog);

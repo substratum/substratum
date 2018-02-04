@@ -1,4 +1,3 @@
-package projekt.substratum.adapters.floatui;
 /*
  * Copyright (c) 2016-2017 Projekt Substratum
  * This file is part of Substratum.
@@ -16,6 +15,8 @@ package projekt.substratum.adapters.floatui;
  * You should have received a copy of the GNU General Public License
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+package projekt.substratum.adapters.floatui;
 
 import android.databinding.DataBindingUtil;
 import android.graphics.drawable.Drawable;

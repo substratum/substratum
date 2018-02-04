@@ -26,6 +26,7 @@ public class ShowcaseItem {
     private String themeName;
     private String themePackage;
     private String themeLink;
+    @SuppressWarnings({"FieldCanBeLocal", "unused"}) // Databinding use
     private String themeBackgroundImage;
     private String themeAuthor;
     private String themePricing;
@@ -40,6 +41,7 @@ public class ShowcaseItem {
         this.context = context;
     }
 
+    @SuppressWarnings("unused")
     public CharSequence getThemeAuthor() {
         return this.themeAuthor;
     }
@@ -80,10 +82,6 @@ public class ShowcaseItem {
         this.themeLink = themeLink;
     }
 
-    public String getThemeBackgroundImage() {
-        return this.themeBackgroundImage;
-    }
-
     public void setThemeBackgroundImage(String themeBackgroundImage) {
         this.themeBackgroundImage = themeBackgroundImage;
     }
@@ -96,6 +94,7 @@ public class ShowcaseItem {
         this.isInstalled = installed;
     }
 
+    @SuppressWarnings("unused")
     public boolean isPaid() {
         return isPaid;
     }

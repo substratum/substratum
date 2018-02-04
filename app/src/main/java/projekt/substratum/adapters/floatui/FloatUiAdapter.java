@@ -24,12 +24,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 
 import java.util.List;
 
 import projekt.substratum.R;
-import projekt.substratum.adapters.fragments.manager.ManagerItem;
 import projekt.substratum.common.Packages;
 import projekt.substratum.databinding.FloatuiRowBinding;
 
@@ -57,48 +55,36 @@ public class FloatUiAdapter extends RecyclerView.Adapter<FloatUiAdapter.ViewHold
         viewBinding.setOverlay(floatUiItem);
         viewBinding.executePendingBindings();
 
-        viewBinding.tvName.setTextColor(overlayList.get(position).getActivationValue());
-
-        viewBinding.chkSelected.setChecked(overlayList.get(position).isSelected());
-        viewBinding.chkSelected.setTag(overlayList.get(position));
-        viewBinding.chkSelected.setOnClickListener(view -> {
-            CheckBox checkBox = (CheckBox) view;
-            ManagerItem contact = (ManagerItem) checkBox.getTag();
-
-            contact.setSelected(checkBox.isChecked());
-            overlayList.get(position).setSelected(checkBox.isChecked());
-        });
+        viewBinding.tvName.setTextColor(floatUiItem.getActivationValue());
+        viewBinding.chkSelected.setChecked(floatUiItem.isSelected());
+        viewBinding.chkSelected.setTag(floatUiItem);
+        viewBinding.chkSelected.setOnClickListener(view ->
+                floatUiItem.setSelected(!floatUiItem.isSelected()));
         viewBinding.overlayCard.setOnClickListener(view -> {
             viewBinding.chkSelected.setChecked(!viewBinding.chkSelected.isChecked());
-
-            CheckBox cb = viewBinding.chkSelected;
-            ManagerItem contact = (ManagerItem) cb.getTag();
-
-            contact.setSelected(cb.isChecked());
-            contact.setSelected(cb.isChecked());
+            floatUiItem.setSelected(!floatUiItem.isSelected());
         });
-        if (overlayList.get(position).getDrawable() == null) {
+        if (floatUiItem.getDrawable() == null) {
             Drawable app_icon = Packages.getAppIcon(
-                    overlayList.get(position).getContext(),
+                    floatUiItem.getContext(),
                     Packages.getOverlayParent(
-                            overlayList.get(position).getContext(),
-                            overlayList.get(position).getName()));
-            overlayList.get(position).setDrawable(app_icon);
+                            floatUiItem.getContext(),
+                            floatUiItem.getName()));
+            floatUiItem.setDrawable(app_icon);
             viewBinding.appIcon.setImageDrawable(app_icon);
         } else {
-            viewBinding.appIcon.setImageDrawable(overlayList.get(position).getDrawable());
+            viewBinding.appIcon.setImageDrawable(floatUiItem.getDrawable());
         }
-        if (overlayList.get(position).getTargetDrawable() == null) {
+        if (floatUiItem.getTargetDrawable() == null) {
             Drawable app_icon = Packages.getAppIcon(
-                    overlayList.get(position).getContext(),
+                    floatUiItem.getContext(),
                     Packages.getOverlayTarget(
-                            overlayList.get(position).getContext(),
-                            overlayList.get(position).getName()));
-            overlayList.get(position).setTargetDrawable(app_icon);
+                            floatUiItem.getContext(),
+                            floatUiItem.getName()));
+            floatUiItem.setTargetDrawable(app_icon);
             viewBinding.appIconSub.setImageDrawable(app_icon);
         } else {
-            viewBinding.appIconSub.setImageDrawable(
-                    overlayList.get(position).getTargetDrawable());
+            viewBinding.appIconSub.setImageDrawable(floatUiItem.getTargetDrawable());
         }
     }
 

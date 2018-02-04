@@ -124,6 +124,7 @@ public enum Resources {
     // List of stock overlay packages on Pixel devices
     // We don't want to run any operations on them.
     public static final String[] PIXEL_OVERLAY_PACKAGES = {
+            "android.auto_generated_rro__",
             "com.google.android.theme.pixel",
             "com.android.systemui.theme.dark",
     };

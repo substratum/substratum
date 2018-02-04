@@ -92,12 +92,12 @@ public class ShowcaseItem {
         return isInstalled;
     }
 
-    public boolean isPaid() {
-        return isPaid;
-    }
-
     public void setInstalled(boolean installed) {
         this.isInstalled = installed;
+    }
+
+    public boolean isPaid() {
+        return isPaid;
     }
 
     void setPaid(boolean paid) {

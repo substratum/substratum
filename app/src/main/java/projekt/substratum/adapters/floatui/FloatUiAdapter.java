@@ -43,7 +43,7 @@ public class FloatUiAdapter extends RecyclerView.Adapter<FloatUiAdapter.ViewHold
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                        int viewType) {
+                                         int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(
                 R.layout.floatui_row, parent, false));
     }

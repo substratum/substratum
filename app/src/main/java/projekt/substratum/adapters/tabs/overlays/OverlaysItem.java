@@ -355,15 +355,15 @@ public class OverlaysItem implements Serializable {
         }
     }
 
-    void setTargetVersion(String targetVersion) {
-        this.targetVersion = targetVersion;
-    }
-
     public boolean isVariantInstalled() {
         return isVariantInstalled;
     }
 
     public String getTargetVersion() {
         return targetVersion;
+    }
+
+    void setTargetVersion(String targetVersion) {
+        this.targetVersion = targetVersion;
     }
 }

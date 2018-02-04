@@ -29,7 +29,7 @@ import static com.bumptech.glide.request.RequestOptions.centerCropTransform;
 public class GlideBindingAdapter {
 
     @BindingAdapter("imageUrl")
-    public static void imageUrl(ImageView imageView, String url){
+    public static void imageUrl(ImageView imageView, String url) {
         Glide.with(imageView.getContext())
                 .load(url)
                 .apply(centerCropTransform())

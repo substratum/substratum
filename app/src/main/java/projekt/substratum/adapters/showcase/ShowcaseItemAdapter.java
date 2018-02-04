@@ -106,6 +106,7 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
             super(view);
             binding = DataBindingUtil.bind(view);
         }
+
         ShowcaseEntryCardBinding getBinding() {
             return binding;
         }

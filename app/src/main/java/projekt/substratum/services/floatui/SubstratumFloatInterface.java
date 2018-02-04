@@ -39,10 +39,10 @@ import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -124,9 +124,6 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
         iconView.setOnClickListener(v -> {
             String packageName =
                     Packages.getPackageName(getApplicationContext(), foregroundedApp());
-            String dialogTitle = String.format(getString(R.string.per_app_dialog_title),
-                    packageName);
-
             ArrayList<String> enabledOverlaysForForegroundPackage = new ArrayList<>(
                     ThemeManager.listEnabledOverlaysForTarget(getApplicationContext(),
                             foregroundedApp()));
@@ -165,20 +162,8 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
 
                 mAdapter = new FloatUiAdapter(final_check);
 
-                // Set a custom title
-                TextView title = new TextView(this);
-                title.setText(dialogTitle);
-                title.setBackgroundColor(getColor(R.color.floatui_dialog_header_background));
-                title.setPadding(20, 40, 20, 40);
-                title.setGravity(Gravity.CENTER);
-                title.setTextColor(getColor(R.color.floatui_dialog_title_color));
-                title.setTextSize(20.0F);
-                title.setAllCaps(true);
-
                 // Initialize the AlertDialog Builder
-                AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style
-                        .FloatUiDialog);
-                builder.setCustomTitle(title);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FloatUiDialog);
                 builder.setPositiveButton(R.string.per_app_apply, (dialog, which) -> {
                     trigger_service_restart = false;
                     trigger_systemui_restart = false;
@@ -243,16 +228,15 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                         (dialog, which) -> dialog.cancel());
 
                 LayoutInflater inflate = LayoutInflater.from(getApplicationContext());
-                @SuppressLint("InflateParams") View content = inflate.inflate(R.layout
-                        .floatui_dialog, null);
+                @SuppressLint("InflateParams")
+                View content = inflate.inflate(R.layout.floatui_dialog, null);
                 builder.setView(content);
 
                 RecyclerView mRecyclerView = content.findViewById(R.id.recycler_view);
                 mRecyclerView.setAdapter(mAdapter);
 
                 mRecyclerView.setHasFixedSize(true);
-                mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext
-                        ()));
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
                 AlertDialog alertDialog = builder.create();
                 //noinspection ConstantConditions
@@ -263,6 +247,16 @@ public class SubstratumFloatInterface extends Service implements FloatingViewLis
                 } else {
                     alertDialog.getWindow().setType(LayoutParams.TYPE_SYSTEM_ALERT);
                 }
+
+                Window window = alertDialog.getWindow();
+                WindowManager.LayoutParams windowParams = window.getAttributes();
+                windowParams.copyFrom(window.getAttributes());
+                windowParams.width = LayoutParams.MATCH_PARENT;
+                windowParams.height = LayoutParams.WRAP_CONTENT;
+                windowParams.gravity = Gravity.BOTTOM;
+                windowParams.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+                window.setAttributes(windowParams);
+
                 alertDialog.show();
             }
         });

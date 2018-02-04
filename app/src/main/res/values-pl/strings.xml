@@ -437,7 +437,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="per_app_notification_framework_show">Pokaż nakładki Systemu Android</string>
     <string name="per_app_notification_framework_hide">Ukryj nakładki Systemu Android</string>
     <string name="per_app_toast_no_overlays">Nie ma konfigurowalnych nakładek dla %s!</string>
-    <string name="per_app_dialog_title">%s\n konfigurator nakładki</string>
     <string name="per_app_apply">Zastosuj</string>
     <string name="per_app_request_title">Uprawnienia dla FloatUI</string>
     <string name="per_app_draw_over_other_apps_request">Proszę pozwolić Substratum do używania uprawnień \"zezwól na wyświetlanie nad innymi aplikacjami\" dla obsługi pływającego interfejsu i \"zezwól na dostęp do użytkowania\" w celu umożliwienia dopasowania motywu do działających aplikacji.</string>

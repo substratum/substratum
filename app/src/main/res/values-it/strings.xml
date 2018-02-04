@@ -445,7 +445,6 @@
     <string name="per_app_notification_framework_show">Mostra le sovrapposizioni del sistema Android</string>
     <string name="per_app_notification_framework_hide">Nascondi le sovrapposizioni del sistema Android</string>
     <string name="per_app_toast_no_overlays">Non ci sono sovrapposizioni configurabili per %s!</string>
-    <string name="per_app_dialog_title">%s\n configuratore sovrapposizioni</string>
     <string name="per_app_apply">Applica</string>
     <string name="per_app_request_title">Permessi FloatUI</string>
     <string name="per_app_draw_over_other_apps_request">Si prega di concedere a Substratum le autorizzazioni di \"sposta su altre app\" per la UI fluttuante e di \"accesso ai dati di utilizzo\" per accedere alle applicazioni in primo piano e far corrispondere i target dei temi.</string>

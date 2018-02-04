@@ -452,7 +452,6 @@ sistema, você deve ativar \'Permitir modificar configurações do sistema\'.</s
     <string name="per_app_notification_framework_show">Mostrar sobreposições do sistema Android</string>
     <string name="per_app_notification_framework_hide">Esconder as sobreposições do sistema Android</string>
     <string name="per_app_toast_no_overlays">Não há sobreposições configuráveis para %s!</string>
-    <string name="per_app_dialog_title">Configurar a camada de %s\n</string>
     <string name="per_app_apply">Aplicar</string>
     <string name="per_app_request_title">Permissões de FloatUI</string>
     <string name="per_app_draw_over_other_apps_request">Algumas funções do Substratum necessitam de permissões extras. Conceda as seguintes permissões: \"Sobrepor outros aplicativos\" para a interface de usuário flutuante e \"Estatísticas de uso\" para aplicar o tema correspondente no aplicativo de primeiro plano.</string>

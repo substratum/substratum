@@ -458,7 +458,6 @@ corrigir coisas que não estão a receber temas em modo de compatibilidade, uma 
     <string name="per_app_notification_framework_show">Mostrar camadas do Sistema Android</string>
     <string name="per_app_notification_framework_hide">Esconder camadas do Sistema Android</string>
     <string name="per_app_toast_no_overlays">Não há camadas configuráveis para %s!</string>
-    <string name="per_app_dialog_title">%s\n configurador de camadas</string>
     <string name="per_app_apply">Aplicar</string>
     <string name="per_app_request_title">Permissões da Interface Flutuante</string>
     <string name="per_app_draw_over_other_apps_request">Por favor, conceda ao Substratum permissões de \"Desenhar sobre outras aplicações\" para a IU Flutuante e \"Acesso de utilização\" para aceder à aplicação em primeiro plano, de forma a corresponder os alvos do tema.</string>

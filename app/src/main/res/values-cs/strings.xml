@@ -457,7 +457,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="per_app_notification_framework_show">Zobrazit potahy systému Android</string>
     <string name="per_app_notification_framework_hide">Skrýt potahy systému Android</string>
     <string name="per_app_toast_no_overlays">Neexistují žádné potahy, které lze konfigurovat pro %s!</string>
-    <string name="per_app_dialog_title">%s\n konfigurátor potahů</string>
     <string name="per_app_apply">Použít</string>
     <string name="per_app_request_title">Oprávnění FloatUI</string>
     <string name="per_app_draw_over_other_apps_request">Prosím, udělte Substratum oprávnění \"vykreslovat přes jiné aplikace\" pro plovoucí okno a právo \"Statistiky využívání\" pro přístup aplikacím v popředí pro sjednocení cílů témat.</string>

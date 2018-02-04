@@ -438,7 +438,6 @@
     <string name="per_app_notification_framework_show">Показывать системные наслоения Android</string>
     <string name="per_app_notification_framework_hide">Скрывать системные наслоения Android</string>
     <string name="per_app_toast_no_overlays">Для %s нет настраиваемых наслоений!</string>
-    <string name="per_app_dialog_title">%s\n подбор наслоений</string>
     <string name="per_app_apply">Применить</string>
     <string name="per_app_request_title">Разрешения FloatUI</string>
     <string name="per_app_draw_over_other_apps_request">Предоставьте Substratum разрешения \"Показывать поверх других окон\" и \"Доступ к истории использования\" для соотнесения активных приложений с причастными к ним наслоениями</string>

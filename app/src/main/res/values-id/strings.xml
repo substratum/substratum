@@ -460,7 +460,6 @@ Terselesaikan:    </string>
     <string name="per_app_notification_framework_show">Tunjukan lapisan Sistem Android</string>
     <string name="per_app_notification_framework_hide">Sembunyikan lapisan Sistem Android</string>
     <string name="per_app_toast_no_overlays">Tidak ada overlay yang sesuai untuk %s!</string>
-    <string name="per_app_dialog_title">%s\n pengkonfigurasi lapisan</string>
     <string name="per_app_apply">Terapkan</string>
     <string name="per_app_request_title">Perizinan Ui Mengambang</string>
     <string name="per_app_draw_over_other_apps_request">Silahkan berikan Substratum izin \"draw over other apps\" untuk UI mengambang dan \"Usage stats\" perizinan untuk mengakses aplikasi latar depan untuk pencocokan tema target.</string>

@@ -433,7 +433,6 @@
     <string name="per_app_notification_framework_show">Паказваць сістэмныя напластаванні Android</string>
     <string name="per_app_notification_framework_hide">Хаваць сістэмныя напластаванні Android</string>
     <string name="per_app_toast_no_overlays">Там няма ніякіх напластаванняў, сканфігураваных для %s!</string>
-    <string name="per_app_dialog_title">%s\n наладчык напластаванняў</string>
     <string name="per_app_apply">Ужыць</string>
     <string name="per_app_request_title">FloatUI дазволы</string>
     <string name="per_app_draw_over_other_apps_request">Неабходна прадаставіць дазволу \"па-над іншых вокнаў\" і \"доступ да гісторыі выкарыстання\", каб дазволіць substratum працаваць у фонавым рэжыме для суаднясення мэтаў тэмы.</string>

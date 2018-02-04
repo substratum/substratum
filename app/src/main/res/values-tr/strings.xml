@@ -498,7 +498,6 @@ lütfen
     <string name="per_app_notification_framework_show">Android Sistem Temalarını göster</string>
     <string name="per_app_notification_framework_hide">Android Sistem Temalarını gizle</string>
     <string name="per_app_toast_no_overlays">%s için yapılandırılabilir bir tema yok!</string>
-    <string name="per_app_dialog_title">%s\n tema yapılandırıcı</string>
     <string name="per_app_apply">Uygula</string>
     <string name="per_app_request_title">Yüzen Kullanıcı Arayüzü İzinleri</string>
     <string name="per_app_draw_over_other_apps_request">Yüzen kullanıcı arayüzü için Substratum\'a \"diğer uygulamalar üzerinde görüntüleme\" ve Tema hedeflerini eşleştirmek için Substratum\'a ön plan uygulamasına erişebilmek adına \"kullanım erişimi\" izni verin.</string>

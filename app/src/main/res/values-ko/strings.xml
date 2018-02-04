@@ -233,7 +233,6 @@
     <string name="per_app_notification_framework_show">안드로이드 시스템 오버레이 표시</string>
     <string name="per_app_notification_framework_hide">안드로이드 시스템 오버레이 숨기기</string>
     <string name="per_app_toast_no_overlays">%s 앱에 대해 구성할 오버레이가 없습니다.</string>
-    <string name="per_app_dialog_title">%s\n 오버레이 설정</string>
     <string name="per_app_apply">적용</string>
     <string name="per_app_manual_grant">FloatUI를 사용하려면 특별 액세스의 \'다른 앱 위에 그리기\' 권한을 허용해야 합니다.</string>
     <string name="error_activity_button_disable_overlays">도와주세요!</string>

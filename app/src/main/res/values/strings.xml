@@ -678,7 +678,6 @@
     <string name="per_app_notification_framework_show">Show Android System overlays</string>
     <string name="per_app_notification_framework_hide">Hide Android System overlays</string>
     <string name="per_app_toast_no_overlays">There are no overlays configurable for %s!</string>
-    <string name="per_app_dialog_title">%s\n overlay configurator</string>
     <string name="per_app_apply">Apply</string>
     <string name="per_app_request_title">FloatUI Permissions</string>
     <string name="per_app_draw_over_other_apps_request">Please grant Substratum "draw over other apps" for the floating UI and "Usage stats" permissions to access the foreground app for matching theme targets.</string>

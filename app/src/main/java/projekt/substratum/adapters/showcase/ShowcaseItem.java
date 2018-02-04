@@ -26,7 +26,6 @@ public class ShowcaseItem {
     private String themeName;
     private String themePackage;
     private String themeLink;
-    @SuppressWarnings({"FieldCanBeLocal", "unused"}) // Databinding use
     private String themeBackgroundImage;
     private String themeAuthor;
     private String themePricing;
@@ -80,6 +79,11 @@ public class ShowcaseItem {
 
     public void setThemeLink(String themeLink) {
         this.themeLink = themeLink;
+    }
+
+    @SuppressWarnings("unused")
+    public String getThemeBackgroundImage() {
+        return this.themeBackgroundImage;
     }
 
     public void setThemeBackgroundImage(String themeBackgroundImage) {

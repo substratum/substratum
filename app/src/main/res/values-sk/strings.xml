@@ -437,7 +437,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="per_app_notification_framework_show">Zobrazit prekrytia systému Android</string>
     <string name="per_app_notification_framework_hide">Skryť prekrytia systému Android</string>
     <string name="per_app_toast_no_overlays">Neexistujú žiadne prekrytia, ktoré je možné konfigurovať pre %s!</string>
-    <string name="per_app_dialog_title">%s\n konfigurátor prekrytí</string>
     <string name="per_app_apply">Použiť</string>
     <string name="per_app_request_title">Oprávnenia FloatUI</string>
     <string name="per_app_draw_over_other_apps_request">Prosím, udeľte Substratum oprávnenie \"vykresľovať cez iné aplikácie\" pre plávajúce okno a právo \"Štatistiky používania\" pre prístup aplikáciám v popredí pre zjednotenie cieľov tém.</string>

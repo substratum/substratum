@@ -110,8 +110,8 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/floatui_dialog_row_color"
                     android:textSize="14sp"
-                    app:text="@{overlay.type1a.concat(@string/manager_type1a)}"
-                    app:visibility="@{(overlay.type1a != null &amp;&amp; overlay.type1a.isEmpty()) ? View.VISIBLE : View.GONE}" />
+                    app:text="@{@string/manager_type1b(overlay.type1b)}"
+                    app:visibility="@{(overlay.type1a != null &amp;&amp; !overlay.type1a.isEmpty()) ? View.VISIBLE : View.GONE}" />
 
                 <TextView
                     android:id="@+id/type1b"
@@ -120,7 +120,7 @@
                     android:textColor="@color/floatui_dialog_row_color"
                     android:textSize="14sp"
                     app:text="@{@string/manager_type1b(overlay.type1b)}"
-                    app:visibility="@{(overlay.type1b != null &amp;&amp; overlay.type1b.isEmpty()) ? View.VISIBLE : View.GONE}" />
+                    app:visibility="@{(overlay.type1b != null &amp;&amp; !overlay.type1b.isEmpty()) ? View.VISIBLE : View.GONE}" />
 
                 <TextView
                     android:id="@+id/type1c"
@@ -129,7 +129,7 @@
                     android:textColor="@color/floatui_dialog_row_color"
                     android:textSize="14sp"
                     app:text="@{@string/manager_type1c(overlay.type1c)}"
-                    app:visibility="@{(overlay.type1c != null &amp;&amp; overlay.type1c.isEmpty()) ? View.VISIBLE : View.GONE}" />
+                    app:visibility="@{(overlay.type1c != null &amp;&amp; !overlay.type1c.isEmpty()) ? View.VISIBLE : View.GONE}" />
 
                 <TextView
                     android:id="@+id/type2"
@@ -138,7 +138,7 @@
                     android:textColor="@color/floatui_dialog_row_color"
                     android:textSize="14sp"
                     app:text="@{@string/manager_type2(overlay.type2)}"
-                    app:visibility="@{(overlay.type2 != null &amp;&amp; overlay.type2.isEmpty()) ? View.VISIBLE : View.GONE}" />
+                    app:visibility="@{(overlay.type2 != null &amp;&amp; !overlay.type2.isEmpty()) ? View.VISIBLE : View.GONE}" />
 
                 <TextView
                     android:id="@+id/type3"
@@ -147,7 +147,7 @@
                     android:textColor="@color/floatui_dialog_row_color"
                     android:textSize="14sp"
                     app:text="@{@string/manager_type3(overlay.type3)}"
-                    app:visibility="@{(overlay.type3 != null &amp;&amp; overlay.type3.isEmpty()) ? View.VISIBLE : View.GONE}" />
+                    app:visibility="@{(overlay.type3 != null &amp;&amp; !overlay.type3.isEmpty()) ? View.VISIBLE : View.GONE}" />
 
                 <TextView
                     android:id="@+id/type4"
@@ -156,15 +156,7 @@
                     android:textColor="@color/floatui_dialog_row_color"
                     android:textSize="14sp"
                     app:text="@{@string/manager_type4(overlay.type4)}"
-                    app:visibility="@{(overlay.type4 != null &amp;&amp; overlay.type4.isEmpty()) ? View.VISIBLE : View.GONE}" />
-
-                <TextView
-                    android:id="@+id/theme_version"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/floatui_dialog_row_color"
-                    android:textSize="14sp"
-                    app:text="@{@string/manager_version(overlay.version)}" />
+                    app:visibility="@{(overlay.type4 != null &amp;&amp; !overlay.type4.isEmpty()) ? View.VISIBLE : View.GONE}" />
 
             </LinearLayout>
 

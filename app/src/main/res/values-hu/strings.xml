@@ -491,7 +491,6 @@
     <string name="per_app_notification_framework_show">Android rendszerfedvények megjelenítése</string>
     <string name="per_app_notification_framework_hide">Android rendszerfedvények elrejtése</string>
     <string name="per_app_toast_no_overlays">Jelenleg nincsen konfigurálható fedvény erre: %s!</string>
-    <string name="per_app_dialog_title">%s\n fedvény-konfigurátor</string>
     <string name="per_app_apply">Alkalmaz</string>
     <string name="per_app_request_title">FloatUI engedélyek</string>
     <string name="per_app_draw_over_other_apps_request">Kérjük adjon \"rajzolás más alkalmazások felett\" és \"használati statisztikák\" engedélyt a Substratum FloatUI részére az előtérben futó alkalmazáshoz illő témacélok eléréséhez.</string>

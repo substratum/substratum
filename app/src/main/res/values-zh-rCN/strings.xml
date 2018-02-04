@@ -419,7 +419,6 @@
     <string name="per_app_notification_framework_show">显示 Android 系统叠加层</string>
     <string name="per_app_notification_framework_hide">隐藏 Android 系统叠加层</string>
     <string name="per_app_toast_no_overlays">没有为 %s 配置的叠加层</string>
-    <string name="per_app_dialog_title">%s\n叠加层配置助手</string>
     <string name="per_app_apply">应用</string>
     <string name="per_app_request_title">FloatUI 许可</string>
     <string name="per_app_draw_over_other_apps_request">请授予 Substratum “出现在其他应用上”和“使用情况访问”权限以便于访问前台应用，从而进行主题匹配。</string>

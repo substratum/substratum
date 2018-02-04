@@ -625,6 +625,7 @@ public enum ThemeManager {
                 }
             }
         }
+        list.removeAll(Arrays.asList(PIXEL_OVERLAY_PACKAGES));
         return list;
     }
 

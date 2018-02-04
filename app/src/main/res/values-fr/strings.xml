@@ -384,7 +384,6 @@
     <string name="per_app_notification_framework_show">Afficher les surcouches système</string>
     <string name="per_app_notification_framework_hide">Masquer les surcouches système</string>
     <string name="per_app_toast_no_overlays">Aucune surcouches configurable pour %s !</string>
-    <string name="per_app_dialog_title">%s\n Gestionnaire de surcouches</string>
     <string name="per_app_apply">Appliquer</string>
     <string name="per_app_request_title">Permissions FloatUI</string>
     <string name="per_app_draw_over_other_apps_request">Veuillez accorder à Substratum les autorisations \"Se superposer aux autres applications\" et \"Accès aux statistiques d\'utilisation\" afin de pouvoir filtrer dynamiquement vos applications</string>

@@ -418,7 +418,6 @@
     <string name="per_app_notification_framework_show">Toon Android Systeem overlays</string>
     <string name="per_app_notification_framework_hide">Verberg Android Systeem overlays</string>
     <string name="per_app_toast_no_overlays">Er zijn geen configureerbare overlays voor %s!</string>
-    <string name="per_app_dialog_title">%s\n overlay configurator</string>
     <string name="per_app_apply">Toepassen</string>
     <string name="per_app_request_title">Zweef-UI machtigingen</string>
     <string name="per_app_draw_over_other_apps_request">Gelieve Substratum over \"over andere apps tekenen\" te machtigen voor de Zweef-UI, en over \"gebruikstoegang\" te machtigen om de voorgrond app te benaderen voor het paren van themadoelen.</string>

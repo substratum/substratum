@@ -442,7 +442,6 @@ o la aplicación no funcionará correctamente!    </string>
     <string name="per_app_notification_framework_show">Mostrar capas del Sistema Android</string>
     <string name="per_app_notification_framework_hide">Ocultar capas del Sistema Android</string>
     <string name="per_app_toast_no_overlays">No hay capas configurables para %s!</string>
-    <string name="per_app_dialog_title">Configurador de Capa %s\n</string>
     <string name="per_app_apply">Aplicar</string>
     <string name="per_app_request_title">Permisos de FloatUI</string>
     <string name="per_app_draw_over_other_apps_request">Por favor conceda a Substratum los permisos \"Superponer sobre otras aplicaciones\" para la interfaz de usuario flotante y \"Estadísticas de uso\" para acceder a la aplicación de primer plano para coincidir con los objetivos de tema.</string>

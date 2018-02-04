@@ -437,7 +437,6 @@
     <string name="per_app_notification_framework_show">Rodyti \"Android\" Sistemos perdangas</string>
     <string name="per_app_notification_framework_hide">Slėpti \"Android Sistemos perdangas</string>
     <string name="per_app_toast_no_overlays">Šiuo metu nėra konfigūruojamu perdangų %s!</string>
-    <string name="per_app_dialog_title">%s\n perdangos konfigūratorius</string>
     <string name="per_app_apply">Taikyti</string>
     <string name="per_app_request_title">Plaukiojančios NS Leidimai</string>
     <string name="per_app_draw_over_other_apps_request">Prašome suteikti \"Substratum\" \"rodyti virš kitų programų\" ir \"Naudojimo statistikos\" leidimą, kad pasiektų priekinio plano programas.</string>

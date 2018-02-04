@@ -430,7 +430,6 @@ aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
     <string name="per_app_notification_framework_show">Android System-Overlays anzeigen</string>
     <string name="per_app_notification_framework_hide">Android System-Overlays verbergen</string>
     <string name="per_app_toast_no_overlays">Es gibt keine konfigurierbaren Overlays für %s!</string>
-    <string name="per_app_dialog_title">%s\n Overlay-Konfigurator</string>
     <string name="per_app_apply">Anwenden</string>
     <string name="per_app_request_title">FloatUI-Berechtigungen</string>
     <string name="per_app_draw_over_other_apps_request">Bitte gewähre Substratum die Berechtigung \"über andere Apps zeichnen\" für die schwebende Oberfläche und die Berechtigung für \"Nutzungsdaten\", damit auf die App im Vordergrund zugegriffen werden kann und Ziele für Themes ausgemacht werden können.</string>

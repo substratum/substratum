@@ -30,12 +30,12 @@
     <color name="bottombar_bar_background">@android:color/white</color>
 
     <!-- Hardcode the colors so it doesn't change every time an Android System overlay changes -->
-    <color name="floatui_dialog_background">#ca000000</color>
-    <color name="floatui_dialog_header_background">#66777777</color>
-    <color name="floatui_dialog_title_color">@android:color/white</color>
-    <color name="floatui_dialog_row_color">@android:color/white</color>
-    <color name="floatui_dialog_checkmark_color">@android:color/white</color>
-    <color name="floatui_dialog_button_color">@android:color/white</color>
+    <color name="floatui_dialog_background">#ffffff</color>
+    <color name="floatui_dialog_header_background">@android:color/transparent</color>
+    <color name="floatui_dialog_title_color">@android:color/black</color>
+    <color name="floatui_dialog_row_color">@android:color/black</color>
+    <color name="floatui_dialog_checkmark_color">@color/colorAccent</color>
+    <color name="floatui_dialog_button_color">@color/colorAccent</color>
 
     <color name="bottom_sheet_dialog_background">@color/main_screen_card_background</color>
 

@@ -140,6 +140,9 @@
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@style/FloatUiAnimation</item>
+
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
     </style>
 
     <style name="FloatUiAnimation" parent="@android:style/Animation.Activity">

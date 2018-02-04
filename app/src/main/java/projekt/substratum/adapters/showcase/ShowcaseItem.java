@@ -73,7 +73,7 @@ public class ShowcaseItem {
         this.themePackage = themePackage;
     }
 
-    String getThemeLink() {
+    public String getThemeLink() {
         return this.themeLink;
     }
 

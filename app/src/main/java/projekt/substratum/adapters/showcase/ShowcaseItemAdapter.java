@@ -20,12 +20,9 @@ package projekt.substratum.adapters.showcase;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
-import android.net.Uri;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +35,6 @@ import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.databinding.ShowcaseEntryCardBinding;
-import projekt.substratum.util.views.Lunchbar;
 
 import static projekt.substratum.common.References.FADE_FROM_GRAYSCALE_TO_COLOR_DURATION;
 
@@ -68,20 +64,6 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
 
         showcaseItem.setPaid(showcaseItem.getThemePricing().toLowerCase(Locale.US).equals(References.paidTheme));
         showcaseItem.setInstalled(Packages.isPackageInstalled(context, showcaseItem.getThemePackage()));
-
-        viewBinding.themeCard.setOnClickListener(view -> {
-            try {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(showcaseItem.getThemeLink()));
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-            } catch (Exception e) {
-                e.printStackTrace();
-                Lunchbar.make(view,
-                        context.getString(R.string.activity_missing_toast),
-                        Snackbar.LENGTH_LONG).show();
-            }
-        });
 
         // Prettify the UI with fading desaturating colors!
         ColorMatrix matrix = new ColorMatrix();

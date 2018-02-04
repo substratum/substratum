@@ -18,15 +18,24 @@
 
 package projekt.substratum.ui.util;
 
+import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.Intent;
 import android.databinding.BindingAdapter;
+import android.net.Uri;
+import android.support.design.widget.Snackbar;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
+import projekt.substratum.R;
+import projekt.substratum.util.views.Lunchbar;
+
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 import static com.bumptech.glide.request.RequestOptions.centerCropTransform;
 
-public class GlideBindingAdapter {
+public class ViewBindingHelpers {
 
     @BindingAdapter("imageUrl")
     public static void imageUrl(ImageView imageView, String url) {
@@ -35,5 +44,23 @@ public class GlideBindingAdapter {
                 .apply(centerCropTransform())
                 .transition(withCrossFade())
                 .into(imageView);
+    }
+
+    @BindingAdapter("browserUrl")
+    public static void browserUrl(View view, String url) {
+        Context context = view.getContext();
+        view.setOnClickListener(v -> {
+            try {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            } catch (ActivityNotFoundException exc) {
+                Lunchbar.make(v,
+                        context.getString(R.string.activity_missing_toast),
+                        Snackbar.LENGTH_LONG).show();
+            }
+        });
+
     }
 }

@@ -119,7 +119,7 @@ public class ManagerAdapter extends
             binding = DataBindingUtil.bind(itemLayoutView);
         }
 
-        public ManagerRowBinding getBinding() {
+        ManagerRowBinding getBinding() {
             return binding;
         }
     }

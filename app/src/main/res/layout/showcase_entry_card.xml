@@ -16,14 +16,21 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<layout  xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <import type="projekt.substratum.adapters.showcase.ShowcaseItem" />
+
         <import type="android.view.View" />
-        <variable name="showcaseItem" type="ShowcaseItem" />
+
+        <variable
+            name="showcaseItem"
+            type="projekt.substratum.adapters.showcase.ShowcaseItem" />
     </data>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -79,11 +86,11 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginStart="10dp"
                         android:textAllCaps="true"
-                        app:text="@{showcaseItem.getThemeName()}"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@color/showcase_card_text"
                         android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        app:text="@{showcaseItem.getThemeName()}" />
 
                     <TextView
                         android:id="@+id/theme_author"
@@ -93,10 +100,10 @@
                         android:layout_marginEnd="20dp"
                         android:layout_marginStart="20dp"
                         android:textAllCaps="true"
-                        app:text="@{showcaseItem.getThemeAuthor()}"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="@color/showcase_card_text"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        app:text="@{showcaseItem.getThemeAuthor()}" />
 
                     <TextView
                         android:id="@+id/themeinstalled"
@@ -106,11 +113,11 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginEnd="20dp"
                         android:text="@string/notification_theme_installed"
-                        app:visibility="@{showcaseItem.isInstalled() ? View.VISIBLE : View.GONE}"
                         android:textAllCaps="true"
                         android:textColor="@color/showcase_card_installed_text"
                         android:textSize="12sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        app:visibility="@{showcaseItem.isInstalled() ? View.VISIBLE : View.GONE}" />
                 </RelativeLayout>
 
                 <ImageView
@@ -124,8 +131,8 @@
                     android:paddingEnd="20dp"
                     android:paddingStart="20dp"
                     android:scaleType="centerCrop"
-                    app:visibility="@{showcaseItem.isPaid() ? View.VISIBLE : View.GONE}"
-                    android:src="@drawable/showcase_paid" />
+                    android:src="@drawable/showcase_paid"
+                    app:visibility="@{showcaseItem.isPaid() ? View.VISIBLE : View.GONE}" />
 
             </RelativeLayout>
         </android.support.v7.widget.CardView>

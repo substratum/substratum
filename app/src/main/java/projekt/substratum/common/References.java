@@ -145,6 +145,14 @@ public enum References {
     public static final String metadataOverlayType2 = "Substratum_Type2";
     public static final String metadataOverlayType3 = "Substratum_Type3";
     public static final String metadataOverlayType4 = "Substratum_Type4";
+    public static final String[] metadataOverlayTypes = new String[]{
+            References.metadataOverlayType1a,
+            References.metadataOverlayType1b,
+            References.metadataOverlayType1c,
+            References.metadataOverlayType2,
+            References.metadataOverlayType3,
+            References.metadataOverlayType4
+    };
     public static final String metadataOverlayVersion = "Substratum_Version";
     public static final String metadataSamsungSupport = "Substratum_Samsung";
     public static final String metadataThemeReady = "Substratum_ThemeReady";

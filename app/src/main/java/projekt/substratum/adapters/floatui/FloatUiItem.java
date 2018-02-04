@@ -8,6 +8,7 @@ import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 
+import static projekt.substratum.common.References.metadataOverlayTypes;
 import static projekt.substratum.common.Resources.LG_FRAMEWORK;
 import static projekt.substratum.common.Resources.SAMSUNG_FRAMEWORK;
 import static projekt.substratum.common.Resources.SETTINGS_ICONS;
@@ -59,59 +60,35 @@ public class FloatUiItem {
                 Packages.getOverlaySubstratumVersion(context, this.name));
         this.updateEnabledOverlays(isActivated);
         this.setLabelName(context);
-        if (this.getType1a() == null) {
+        for (int i = 0; i < metadataOverlayTypes.length; i++) {
             String overlayMetadata = Packages.getOverlayMetadata(
                     context,
                     this.name,
-                    References.metadataOverlayType1a);
+                    metadataOverlayTypes[i]);
 
-            if ((overlayMetadata != null) && !overlayMetadata.isEmpty())
-                this.setType1a(overlayMetadata.replace("_", " "));
-        }
-
-        if (this.getType1b() == null) {
-            String overlayMetadata = Packages.getOverlayMetadata(
-                    context,
-                    this.name,
-                    References.metadataOverlayType1b);
-            if ((overlayMetadata != null) && !overlayMetadata.isEmpty())
-                this.setType1b(overlayMetadata.replace("_", " "));
-        }
-
-        if (this.getType1c() == null) {
-            String overlayMetadata = Packages.getOverlayMetadata(
-                    context,
-                    this.name,
-                    References.metadataOverlayType1c);
-            if ((overlayMetadata != null) && !overlayMetadata.isEmpty())
-                this.setType1c(overlayMetadata.replace("_", " "));
-        }
-
-        if (this.getType2() == null) {
-            String overlayMetadata = Packages.getOverlayMetadata(
-                    context,
-                    this.name,
-                    References.metadataOverlayType2);
-            if ((overlayMetadata != null) && !overlayMetadata.isEmpty())
-                this.setType2(overlayMetadata.replace("_", " "));
-        }
-
-        if (this.getType3() == null) {
-            String overlayMetadata = Packages.getOverlayMetadata(
-                    context,
-                    this.name,
-                    References.metadataOverlayType3);
-            if ((overlayMetadata != null) && !overlayMetadata.isEmpty())
-                this.setType3(overlayMetadata.replace("_", " "));
-        }
-
-        if (this.getType4() == null) {
-            String overlayMetadata = Packages.getOverlayMetadata(
-                    context,
-                    this.name,
-                    References.metadataOverlayType4);
-            if ((overlayMetadata != null) && !overlayMetadata.isEmpty())
-                this.setType4(overlayMetadata.replace("_", " "));
+            if ((overlayMetadata != null) && !overlayMetadata.isEmpty()) {
+                String typeEntry = overlayMetadata.replace("_", " ");
+                switch (i) {
+                    case 0:
+                        this.setType1a(typeEntry);
+                        break;
+                    case 1:
+                        this.setType1b(typeEntry);
+                        break;
+                    case 2:
+                        this.setType1c(typeEntry);
+                        break;
+                    case 3:
+                        this.setType2(typeEntry);
+                        break;
+                    case 4:
+                        this.setType3(typeEntry);
+                        break;
+                    case 5:
+                        this.setType4(typeEntry);
+                        break;
+                }
+            }
         }
     }
 
@@ -139,7 +116,7 @@ public class FloatUiItem {
         return this.context;
     }
 
-    public void updateEnabledOverlays(boolean isActivated) {
+    private void updateEnabledOverlays(boolean isActivated) {
         this.activationValue =
                 ((isActivated) ? this.context.getColor(R.color.overlay_installed_list_entry) :
                         this.context.getColor(R.color.overlay_not_enabled_list_entry));

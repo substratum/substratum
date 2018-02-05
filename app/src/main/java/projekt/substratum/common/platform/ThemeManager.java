@@ -394,7 +394,7 @@ public enum ThemeManager {
             Map<String, List<OverlayInfo>> allOverlays = null;
             if (checkSubstratumService(context)) {
                 // For direct calls with the Substratum service
-                allOverlays = OverlayManagerService.getAllOverlays();
+                allOverlays = SubstratumService.getAllOverlays();
             } else if (checkThemeInterfacer(context)) {
                 // For Theme Interfacer calls
                 allOverlays = ThemeInterfacerService.getAllOverlays(context);

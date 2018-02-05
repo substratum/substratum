@@ -18,8 +18,10 @@
 
 package projekt.substratum.common.platform;
 
+import android.content.substratum.ISubstratumService;
 import android.os.Process;
 import android.os.RemoteException;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,158 +31,161 @@ import projekt.substratum.platform.SubstratumServiceBridge;
 
 public enum SubstratumService {
     ;
+    private static final String TAG = "SubstratumService";
+    private static final int uid = Process.myUid() / 100000;
+    private static final ISubstratumService service = SubstratumServiceBridge.get();
 
     static void installOverlay(List<String> paths) {
         try {
-            SubstratumServiceBridge.get().installOverlay(paths);
+            service.installOverlay(paths);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "There is an exception when trying to install overlay", e);
         }
     }
 
     public static void uninstallOverlay(List<String> packages, boolean restartUi) {
         try {
-            SubstratumServiceBridge.get().uninstallOverlay(packages, restartUi);
+            service.uninstallOverlay(packages, restartUi);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "There is an exception when trying to uninstall overlay", e);
         }
     }
 
     public static Map getAllOverlays() {
         try {
-            return SubstratumServiceBridge.get().getAllOverlays(Process.myUid() / 100000);
+            return service.getAllOverlays(uid);
         } catch (RemoteException e) {
-            e.printStackTrace();
+            Log.e(TAG, "There is an exception when trying to get all overlay", e);
             return null;
         }
     }
 
     static void switchOverlay(List<String> packages, boolean enable, boolean restartUi) {
         try {
-            SubstratumServiceBridge.get().switchOverlay(packages, enable, restartUi);
+            service.switchOverlay(packages, enable, restartUi);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "There is an exception when trying to switch overlay", e);
         }
     }
 
     static void setPriority(List<String> packages, boolean restartUi) {
         try {
-            SubstratumServiceBridge.get().setPriority(packages, restartUi);
+            service.setPriority(packages, restartUi);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "There is an exception when trying to set overlay priority", e);
         }
     }
 
     static void restartSystemUi() {
         try {
-            SubstratumServiceBridge.get().restartSystemUI();
+            service.restartSystemUI();
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "There is an exception when trying to restart SystemUI", e);
         }
     }
 
     public static void copy(String source, String destination) {
         try {
-            SubstratumServiceBridge.get().copy(source, destination);
+            service.copy(source, destination);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "There is an exception when trying to copy", e);
         }
     }
 
     public static void move(String source, String destination) {
         try {
-            SubstratumServiceBridge.get().move(source, destination);
+            service.move(source, destination);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "There is an exception when trying to move", e);
         }
     }
 
     public static void createNewFolder(String destination) {
         try {
-            SubstratumServiceBridge.get().mkdir(destination);
+            service.mkdir(destination);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "There is an exception when trying to create new folder", e);
         }
     }
 
     public static void delete(String destination, boolean deleteParent) {
         try {
-            SubstratumServiceBridge.get().deleteDirectory(destination, deleteParent);
+            service.deleteDirectory(destination, deleteParent);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "There is an exception when trying to delete", e);
         }
     }
 
     public static void setBootAnimation(String location) {
         try {
-            SubstratumServiceBridge.get().applyBootanimation(location);
+            service.applyBootanimation(location);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "There is an exception when trying to set boot animation", e);
         }
     }
 
     public static void clearBootAnimation() {
         try {
-            SubstratumServiceBridge.get().applyBootanimation(null);
+            service.applyBootanimation(null);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "There is an exception when trying to clear boot animation", e);
         }
     }
 
     public static void setShutdownAnimation(String location) {
         try {
-            SubstratumServiceBridge.get().applyShutdownAnimation(location);
+            service.applyShutdownAnimation(location);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "There is an exception when trying to set shutdown animation", e);
         }
     }
 
     public static void clearShutdownAnimation() {
         try {
-            SubstratumServiceBridge.get().applyShutdownAnimation(null);
+            service.applyShutdownAnimation(null);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "There is an exception when trying to clear shutdown animation", e);
         }
     }
 
     public static void setFonts(String pid, String name) {
         try {
-            SubstratumServiceBridge.get().applyFonts(pid, name);
+            service.applyFonts(pid, name);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "There is an exception when trying to set fonts", e);
         }
     }
 
     public static void clearFonts() {
         try {
-            SubstratumServiceBridge.get().applyFonts(null, null);
+            service.applyFonts(null, null);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "There is an exception when trying to clear fonts", e);
         }
     }
 
     public static void setSounds(String pid, String name) {
         try {
-            SubstratumServiceBridge.get().applySounds(pid, name);
+            service.applySounds(pid, name);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "There is an exception when trying to set sounds", e);
         }
     }
 
     public static void clearSounds() {
         try {
-            SubstratumServiceBridge.get().applySounds(null, null);
+            service.applySounds(null, null);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "There is an exception when trying to clear sounds", e);
         }
     }
 
     public static void applyProfile(String name, ArrayList<String> toBeDisabled,
                                     ArrayList<String> toBeEnabled, boolean restartUi) {
         try {
-            SubstratumServiceBridge.get().applyProfile(toBeEnabled, toBeDisabled, name, restartUi);
+            service.applyProfile(toBeEnabled, toBeDisabled, name, restartUi);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(TAG, "There is an exception when trying to apply profile", e);
         }
     }
 }

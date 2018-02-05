@@ -18,8 +18,12 @@
 
 package projekt.substratum.common.platform;
 
+import android.os.Process;
+import android.os.RemoteException;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import projekt.substratum.platform.SubstratumServiceBridge;
 
@@ -39,6 +43,15 @@ public enum SubstratumService {
             SubstratumServiceBridge.get().uninstallOverlay(packages, restartUi);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public static Map getAllOverlays() {
+        try {
+            return SubstratumServiceBridge.get().getAllOverlays(Process.myUid() / 100000);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

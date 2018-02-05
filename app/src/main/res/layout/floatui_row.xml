@@ -110,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/floatui_dialog_row_color"
                     android:textSize="14sp"
-                    app:text="@{@string/manager_type1b(overlay.type1b)}"
+                    app:text="@{@string/manager_type1a(overlay.type1a)}"
                     app:visibility="@{(overlay.type1a != null &amp;&amp; !overlay.type1a.isEmpty()) ? View.VISIBLE : View.GONE}" />
 
                 <TextView

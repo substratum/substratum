@@ -72,7 +72,9 @@ public class ManagerItem implements Serializable {
                 this.name,
                 References.metadataOverlayParent);
         if ((metadata != null) && !metadata.isEmpty() && newUpdate) {
-            this.themeName = Packages.getPackageName(context, metadata);
+            this.themeName = String.format("%s (%s)",
+                    Packages.getPackageName(context, metadata),
+                    Packages.getAppVersion(context, metadata));
         } else {
             this.themeName = null;
         }

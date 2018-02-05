@@ -402,7 +402,7 @@ public class MainActivity extends AppCompatActivity implements
         if (bottomBarUi) setTheme(R.style.AppTheme_SpecialUI);
 
         super.onCreate(savedInstanceState);
-        Substratum.setLocale(prefs.getBoolean("force_english", false));
+        Substratum.setLocale(prefs.getBoolean("force_english_locale", false));
 
         mProgressDialog = new Dialog(this, R.style.SubstratumBuilder_ActivityTheme);
         mProgressDialog.setCancelable(false);
@@ -1406,7 +1406,6 @@ public class MainActivity extends AppCompatActivity implements
 
                                 if (!Systems.checkROMVersion(context)) {
                                     activity.prefs.edit().remove("oms_state").apply();
-                                    activity.prefs.edit().remove("oms_version").apply();
                                     Systems.setROMVersion(context, true);
                                     Systems.setAndCheckOMS(context);
                                     Systems.setAndCheckSubstratumService(context);
@@ -1460,7 +1459,6 @@ public class MainActivity extends AppCompatActivity implements
                     if (!Systems.checkROMVersion(context)) {
                         Systems.setROMVersion(context, true);
                         activity.prefs.edit().remove("oms_state").apply();
-                        activity.prefs.edit().remove("oms_version").apply();
                         Systems.setAndCheckOMS(context);
                         Systems.setAndCheckSubstratumService(context);
                         activity.recreate();

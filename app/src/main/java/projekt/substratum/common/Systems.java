@@ -165,29 +165,30 @@ public enum Systems {
         if (context != null) {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (!firstLaunch &&
-                    (prefs.getInt("CURRENT_THEME_MODE", NO_THEME_ENGINE) != NO_THEME_ENGINE)) {
-                return prefs.getInt("CURRENT_THEME_MODE", NO_THEME_ENGINE);
+                    prefs.contains("current_theme_mode") &&
+                    prefs.getInt("current_theme_mode", NO_THEME_ENGINE) != NO_THEME_ENGINE) {
+                return prefs.getInt("current_theme_mode", NO_THEME_ENGINE);
             }
 
             if (checkOreo()) {
                 if (isAndromedaDevice(context)) {
                     // Andromeda mode
                     prefs.edit().putInt(
-                            "CURRENT_THEME_MODE",
+                            "current_theme_mode",
                             OVERLAY_MANAGER_SERVICE_O_ANDROMEDA
                     ).apply();
                     return OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
                 } else if (checkSubstratumService(context)) {
                     // SS mode
                     prefs.edit().putInt(
-                            "CURRENT_THEME_MODE",
+                            "current_theme_mode",
                             OVERLAY_MANAGER_SERVICE_O_UNROOTED
                     ).apply();
                     return OVERLAY_MANAGER_SERVICE_O_UNROOTED;
                 } else if (Root.checkRootAccess()) {
                     // Rooted mode
                     prefs.edit().putInt(
-                            "CURRENT_THEME_MODE",
+                            "current_theme_mode",
                             OVERLAY_MANAGER_SERVICE_O_ROOTED
                     ).apply();
                     return OVERLAY_MANAGER_SERVICE_O_ROOTED;
@@ -196,21 +197,21 @@ public enum Systems {
                 if (isBinderInterfacer(context)) {
                     // Interfacer mode
                     prefs.edit().putInt(
-                            "CURRENT_THEME_MODE",
+                            "current_theme_mode",
                             OVERLAY_MANAGER_SERVICE_N_UNROOTED
                     ).apply();
                     return OVERLAY_MANAGER_SERVICE_N_UNROOTED;
                 } else if (isSamsungDevice(context)) {
                     // Sungstratum mode
                     prefs.edit().putInt(
-                            "CURRENT_THEME_MODE",
+                            "current_theme_mode",
                             SAMSUNG_THEME_ENGINE_N
                     ).apply();
                     return SAMSUNG_THEME_ENGINE_N;
                 } else if (Root.requestRootAccess()) {
                     // Rooted mode
                     prefs.edit().putInt(
-                            "CURRENT_THEME_MODE",
+                            "current_theme_mode",
                             RUNTIME_RESOURCE_OVERLAY_N_ROOTED
                     ).apply();
                     return RUNTIME_RESOURCE_OVERLAY_N_ROOTED;
@@ -258,13 +259,15 @@ public enum Systems {
                     Boolean isOMSRunning = isOMSRunning(context.getApplicationContext(),
                             IOverlayManager.class);
                     if (isOMSRunning || checkOreo()) {
-                        Log.d(SUBSTRATUM_LOG, "Found Overlay Manager Service...");
+                        Log.d(SUBSTRATUM_LOG,
+                                "This device fully supports the Overlay Manager Service...");
                         foundOms = true;
                     } else {
                         String out = Root.runCommand("cmd overlay").split("\n")[0];
                         if ("The overlay manager has already been initialized.".equals(out) ||
                                 "Overlay manager (overlay) commands:".equals(out)) {
-                            Log.d(SUBSTRATUM_LOG, "Found Overlay Manager Service...");
+                            Log.d(SUBSTRATUM_LOG,
+                                    "This device fully supports the Overlay Manager Service...");
                             foundOms = true;
                         }
                     }
@@ -276,20 +279,16 @@ public enum Systems {
 
             if (foundOms && !isSamsungDevice(context)) {
                 prefs.edit().putBoolean("oms_state", true).apply();
-                prefs.edit().putInt("oms_version", 7).apply();
-                Log.d(SUBSTRATUM_LOG, "Initializing Substratum with the seventh " +
-                        "iteration of the Overlay Manager Service...");
+                Log.d(SUBSTRATUM_LOG, "Initializing Substratum with Dynamic Overlay / " +
+                        "Overlay Manager Service support!");
             } else {
                 prefs.edit().putBoolean("oms_state", false).apply();
-                prefs.edit().putInt("oms_version", 0).apply();
-                Log.d(SUBSTRATUM_LOG, "Initializing Substratum with the second " +
-                        "iteration of the Resource Runtime Overlay system...");
+                Log.d(SUBSTRATUM_LOG,
+                        "Initializing Substratum with Runtime Resource Overlay support!");
             }
         } catch (Exception e) {
             prefs.edit().putBoolean("oms_state", false).apply();
-            prefs.edit().putInt("oms_version", 0).apply();
-            Log.d(SUBSTRATUM_LOG, "Initializing Substratum with the second " +
-                    "iteration of the Resource Runtime Overlay system...");
+            Log.d(SUBSTRATUM_LOG, "Initializing Substratum with Runtime Resource Overlay support!");
         }
     }
 
@@ -526,11 +525,11 @@ public enum Systems {
      */
     public static Boolean checkROMVersion(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        if (!prefs.contains("build_date")) {
+        if (!prefs.contains("rom_build_date")) {
             setROMVersion(context, false);
         }
         String prop = getProp("ro.build.date.utc");
-        return prefs.getInt("build_date", 0) ==
+        return prefs.getInt("rom_build_date", 0) ==
                 (((prop != null) && !prop.isEmpty()) ? Integer.parseInt(prop) : 0);
     }
 
@@ -543,9 +542,9 @@ public enum Systems {
     public static void setROMVersion(Context context,
                                      boolean force) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        if (!prefs.contains("build_date") || force) {
+        if (!prefs.contains("rom_build_date") || force) {
             String prop = getProp("ro.build.date.utc");
-            prefs.edit().putInt("build_date",
+            prefs.edit().putInt("rom_build_date",
                     ((prop != null) && !prop.isEmpty()) ? Integer.parseInt(prop) : 0)
                     .apply();
         }

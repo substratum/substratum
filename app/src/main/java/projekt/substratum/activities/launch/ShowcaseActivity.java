@@ -185,7 +185,7 @@ public class ShowcaseActivity extends AppCompatActivity {
 
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        Substratum.setLocale(prefs.getBoolean("force_english", false));
+        Substratum.setLocale(prefs.getBoolean("force_english_locale", false));
 
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {

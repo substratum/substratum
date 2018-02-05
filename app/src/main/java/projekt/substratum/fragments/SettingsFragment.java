@@ -273,7 +273,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         // Force English
         CheckBoxPreference forceEnglish = (CheckBoxPreference)
                 getPreferenceManager().findPreference("force_english_locale");
-        boolean force = prefs.getBoolean("force_english", false);
+        boolean force = prefs.getBoolean("force_english_locale", false);
         if (force) {
             forceEnglish.setChecked(true);
         } else {
@@ -284,7 +284,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     boolean isChecked = (Boolean) newValue;
                     if (isChecked) {
                         forceEnglish.setChecked(true);
-                        prefs.edit().putBoolean("force_english", true).apply();
+                        prefs.edit().putBoolean("force_english_locale", true).apply();
                         Snackbar lunchbar = Lunchbar.make(getView(),
                                 getString(R.string.locale_restart_message),
                                 Snackbar.LENGTH_INDEFINITE);
@@ -295,7 +295,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         lunchbar.show();
                     } else {
                         forceEnglish.setChecked(false);
-                        prefs.edit().putBoolean("force_english", false).apply();
+                        prefs.edit().putBoolean("force_english_locale", false).apply();
                         Snackbar lunchbar = Lunchbar.make(getView(),
                                 getString(R.string.locale_restart_message),
                                 Snackbar.LENGTH_INDEFINITE);

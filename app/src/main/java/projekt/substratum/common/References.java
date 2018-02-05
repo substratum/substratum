@@ -470,14 +470,13 @@ public enum References {
         SharedPreferences.Editor editor2 =
                 context.getSharedPreferences("base_variant", Context.MODE_PRIVATE).edit();
         editor.putBoolean("show_app_icon", true);
-        editor.putBoolean("substratum_oms", Systems.checkOMS(context));
+        editor.putBoolean("oms_state", Systems.checkOMS(context));
         editor.putBoolean("show_template_version", false);
         editor.putBoolean("vibrate_on_compiled", false);
         editor.putBoolean("nougat_style_cards", false);
         editor.putBoolean("alternate_drawer_design", false);
-        editor.putBoolean("aapt_debug", false);
         editor.putBoolean("theme_debug", false);
-        editor.putBoolean("force_english", false);
+        editor.putBoolean("force_english_locale", false);
         editor.putBoolean("floatui_show_android_system_overlays", false);
         editor.putBoolean("alphabetize_overlays", false);
         editor.putBoolean("crash_receiver", true);
@@ -491,7 +490,6 @@ public enum References {
         editor.putBoolean("force_english_locale", false);
         editor.putBoolean("systemui_recreate", true);
         editor.putBoolean("hide_app_checkbox", false);
-        editor.putString("compiler", "aapt");
         editor.putBoolean("auto_disable_target_overlays", false);
         editor.putInt("grid_style_cards_count", DEFAULT_GRID_COUNT);
         editor.putInt("legacy_overlay_priority", DEFAULT_PRIORITY);

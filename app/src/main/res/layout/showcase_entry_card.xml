@@ -50,9 +50,9 @@
             android:clickable="true"
             android:focusable="true"
             android:foreground="?android:selectableItemBackground"
+            app:playUrl="@{showcaseItem.getThemePackage()}"
             card_view:cardCornerRadius="2dp"
-            card_view:cardElevation="1dp"
-            app:playUrl="@{showcaseItem.getThemePackage()}">
+            card_view:cardElevation="1dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"

@@ -39,7 +39,7 @@ public enum SubstratumService {
         try {
             service.installOverlay(paths);
         } catch (Exception e) {
-            Log.e(TAG, "There is an exception when trying to install overlay", e);
+            Log.e(TAG, "There was an exception when trying to install overlay", e);
         }
     }
 
@@ -47,7 +47,7 @@ public enum SubstratumService {
         try {
             service.uninstallOverlay(packages, restartUi);
         } catch (Exception e) {
-            Log.e(TAG, "There is an exception when trying to uninstall overlay", e);
+            Log.e(TAG, "There was an exception when trying to uninstall overlay", e);
         }
     }
 
@@ -55,7 +55,7 @@ public enum SubstratumService {
         try {
             return service.getAllOverlays(uid);
         } catch (RemoteException e) {
-            Log.e(TAG, "There is an exception when trying to get all overlay", e);
+            Log.e(TAG, "There was an exception when trying to get all overlay", e);
             return null;
         }
     }
@@ -64,7 +64,7 @@ public enum SubstratumService {
         try {
             service.switchOverlay(packages, enable, restartUi);
         } catch (Exception e) {
-            Log.e(TAG, "There is an exception when trying to switch overlay", e);
+            Log.e(TAG, "There was an exception when trying to switch overlay", e);
         }
     }
 
@@ -72,7 +72,7 @@ public enum SubstratumService {
         try {
             service.setPriority(packages, restartUi);
         } catch (Exception e) {
-            Log.e(TAG, "There is an exception when trying to set overlay priority", e);
+            Log.e(TAG, "There was an exception when trying to set overlay priority", e);
         }
     }
 
@@ -80,7 +80,7 @@ public enum SubstratumService {
         try {
             service.restartSystemUI();
         } catch (Exception e) {
-            Log.e(TAG, "There is an exception when trying to restart SystemUI", e);
+            Log.e(TAG, "There was an exception when trying to restart SystemUI", e);
         }
     }
 
@@ -88,7 +88,7 @@ public enum SubstratumService {
         try {
             service.copy(source, destination);
         } catch (Exception e) {
-            Log.e(TAG, "There is an exception when trying to copy", e);
+            Log.e(TAG, "There was an exception when trying to copy", e);
         }
     }
 
@@ -96,7 +96,7 @@ public enum SubstratumService {
         try {
             service.move(source, destination);
         } catch (Exception e) {
-            Log.e(TAG, "There is an exception when trying to move", e);
+            Log.e(TAG, "There was an exception when trying to move", e);
         }
     }
 
@@ -104,7 +104,7 @@ public enum SubstratumService {
         try {
             service.mkdir(destination);
         } catch (Exception e) {
-            Log.e(TAG, "There is an exception when trying to create new folder", e);
+            Log.e(TAG, "There was an exception when trying to create new folder", e);
         }
     }
 
@@ -112,7 +112,7 @@ public enum SubstratumService {
         try {
             service.deleteDirectory(destination, deleteParent);
         } catch (Exception e) {
-            Log.e(TAG, "There is an exception when trying to delete", e);
+            Log.e(TAG, "There was an exception when trying to delete", e);
         }
     }
 
@@ -120,7 +120,7 @@ public enum SubstratumService {
         try {
             service.applyBootanimation(location);
         } catch (Exception e) {
-            Log.e(TAG, "There is an exception when trying to set boot animation", e);
+            Log.e(TAG, "There was an exception when trying to set boot animation", e);
         }
     }
 
@@ -128,7 +128,7 @@ public enum SubstratumService {
         try {
             service.applyBootanimation(null);
         } catch (Exception e) {
-            Log.e(TAG, "There is an exception when trying to clear boot animation", e);
+            Log.e(TAG, "There was an exception when trying to clear boot animation", e);
         }
     }
 
@@ -136,7 +136,7 @@ public enum SubstratumService {
         try {
             service.applyShutdownAnimation(location);
         } catch (Exception e) {
-            Log.e(TAG, "There is an exception when trying to set shutdown animation", e);
+            Log.e(TAG, "There was an exception when trying to set shutdown animation", e);
         }
     }
 
@@ -144,7 +144,7 @@ public enum SubstratumService {
         try {
             service.applyShutdownAnimation(null);
         } catch (Exception e) {
-            Log.e(TAG, "There is an exception when trying to clear shutdown animation", e);
+            Log.e(TAG, "There was an exception when trying to clear shutdown animation", e);
         }
     }
 
@@ -152,7 +152,7 @@ public enum SubstratumService {
         try {
             service.applyFonts(pid, name);
         } catch (Exception e) {
-            Log.e(TAG, "There is an exception when trying to set fonts", e);
+            Log.e(TAG, "There was an exception when trying to set fonts", e);
         }
     }
 
@@ -160,7 +160,7 @@ public enum SubstratumService {
         try {
             service.applyFonts(null, null);
         } catch (Exception e) {
-            Log.e(TAG, "There is an exception when trying to clear fonts", e);
+            Log.e(TAG, "There was an exception when trying to clear fonts", e);
         }
     }
 
@@ -168,7 +168,7 @@ public enum SubstratumService {
         try {
             service.applySounds(pid, name);
         } catch (Exception e) {
-            Log.e(TAG, "There is an exception when trying to set sounds", e);
+            Log.e(TAG, "There was an exception when trying to set sounds", e);
         }
     }
 
@@ -176,7 +176,7 @@ public enum SubstratumService {
         try {
             service.applySounds(null, null);
         } catch (Exception e) {
-            Log.e(TAG, "There is an exception when trying to clear sounds", e);
+            Log.e(TAG, "There was an exception when trying to clear sounds", e);
         }
     }
 
@@ -185,7 +185,7 @@ public enum SubstratumService {
         try {
             service.applyProfile(toBeEnabled, toBeDisabled, name, restartUi);
         } catch (Exception e) {
-            Log.e(TAG, "There is an exception when trying to apply profile", e);
+            Log.e(TAG, "There was an exception when trying to apply profile", e);
         }
     }
 }

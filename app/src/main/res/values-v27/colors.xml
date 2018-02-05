@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="navigationBarColor">@color/colorPrimary</color>
     <color name="navigation_bar_divider">#ffe0e0e0</color>
 </resources>

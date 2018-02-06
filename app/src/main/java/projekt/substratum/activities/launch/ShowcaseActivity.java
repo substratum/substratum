@@ -102,8 +102,6 @@ public class ShowcaseActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (drawer.isDrawerOpen()) {
             drawer.closeDrawer();
-        } else if (drawer.getCurrentSelectedPosition() != 0) {
-            drawer.setSelectionAtPosition(0);
         } else {
             super.onBackPressed();
         }

@@ -68,6 +68,7 @@ public enum Activities {
                                               String className) {
         Intent intent = new Intent();
         intent.setComponent(new ComponentName(packageName, packageName + '.' + className));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 

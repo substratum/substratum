@@ -62,7 +62,6 @@ import static projekt.substratum.common.Packages.isPackageInstalled;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.LEGACY_NEXUS_DIR;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_ROOTED;
-import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_O_UNROOTED;
 import static projekt.substratum.common.Resources.FRAMEWORK;
 import static projekt.substratum.common.Resources.PIXEL_OVERLAY_PACKAGES;
 import static projekt.substratum.common.Resources.SETTINGS;
@@ -386,22 +385,19 @@ public enum ThemeManager {
         List<String> list = new ArrayList<>();
         try {
             // Throw certain exceptions intentionally when unsupported device found
-            if (Systems.isSamsungDevice(context)) throw new Exception();
-            if (!Systems.checkOMS(context)) throw new Exception();
-
+            boolean substratumService = checkSubstratumService(context);
+            boolean themeInterfacer = checkThemeInterfacer(context);
+            if (!substratumService && !themeInterfacer) {
+                throw new Exception();
+            }
             // Now let's assume everything that gets through will now be only in OMS ROMs
             Map<String, List<OverlayInfo>> allOverlays = null;
-            // On Oreo, use interfacer to get installed overlays
-            if (checkThemeSystemModule(context) == OVERLAY_MANAGER_SERVICE_O_UNROOTED) {
-                if (checkSubstratumService(context)) {
-                    // For direct calls with the Substratum service
-                    allOverlays = OverlayManagerService.getAllOverlays();
-                } else if (checkThemeInterfacer(context)) {
-                    // For Theme Interfacer calls
-                    allOverlays = ThemeInterfacerService.getAllOverlays(context);
-                }
-            } else {
-                allOverlays = OverlayManagerService.getAllOverlays();
+            if (checkSubstratumService(context)) {
+                // For direct calls with the Substratum service
+                allOverlays = SubstratumService.getAllOverlays();
+            } else if (checkThemeInterfacer(context)) {
+                // For Theme Interfacer calls
+                allOverlays = ThemeInterfacerService.getAllOverlays(context);
             }
             if (allOverlays != null) {
                 switch (secondaryState) {
@@ -476,17 +472,7 @@ public enum ThemeManager {
                             PreferenceManager.getDefaultSharedPreferences(context);
                     if (!overlays.exists()) {
                         Log.d("ThemeManager", "Fetching new file from Andromeda, please wait!");
-                        if (!AndromedaService.listOverlays()) {
-                            Handler handler = new Handler(Looper.getMainLooper());
-                            handler.post(() ->
-                                    Toast.makeText(
-                                            context,
-                                            context.getString(R.string.toast_andromeda_timed_out),
-                                            Toast.LENGTH_LONG).show()
-                            );
-                        }
-
-                        // Now we wait till the file is made quickly!
+                        AndromedaService.listOverlays();
                         int counter = 0;
                         while (!overlays.exists() && (counter <= 20)) {
                             try {
@@ -520,10 +506,12 @@ public enum ThemeManager {
                         }
                     }
                 } else {
+                    // It's not Andromeda, so it needs to run as root
                     try {
-                        arrList = Root.runCommand(listAllOverlays)
-                                .split(System.getProperty("line.separator"));
-                    } catch (NullPointerException ignored) {
+                        arrList = Root.runCommand(listAllOverlays).split(
+                                System.getProperty("line.separator"));
+                    } catch (NullPointerException npe) {
+                        npe.printStackTrace();
                     }
                 }
                 switch (secondaryState) {
@@ -544,12 +532,6 @@ public enum ThemeManager {
                                 }
                             }
                             if (counter > 1) list.add(currentApp);
-                        } else if (checkAndromeda(context)) {
-                            if (Looper.myLooper() == Looper.getMainLooper()) {
-                                Toast.makeText(context,
-                                        context.getString(R.string.toast_andromeda_timed_out),
-                                        Toast.LENGTH_LONG).show();
-                            }
                         }
                         break;
                     case EXPORT_RETURN_ALL_OVERLAYS:
@@ -567,27 +549,20 @@ public enum ThemeManager {
                                     default:
                                         checker = line.startsWith(prefix);
                                 }
-                                if (checker) {
-                                    if ((getOverlayParent(context, line.substring(4)) != null) &&
-                                            isPackageInstalled(context, line.substring(4))) {
-                                        try {
-                                            String packageName = line.substring(4);
-                                            String sourceDir = context.getPackageManager()
-                                                    .getApplicationInfo(packageName, 0).sourceDir;
-                                            if (!sourceDir.startsWith("/vendor/overlay/")) {
-                                                list.add(packageName);
-                                            }
-                                        } catch (Exception e2) {
-                                            // Suppress warning
+                                if (checker &&
+                                        getOverlayParent(context, line.substring(4)) != null &&
+                                        isPackageInstalled(context, line.substring(4))) {
+                                    try {
+                                        String packageName = line.substring(4);
+                                        String sourceDir = context.getPackageManager()
+                                                .getApplicationInfo(packageName, 0).sourceDir;
+                                        if (!sourceDir.startsWith("/vendor/overlay/")) {
+                                            list.add(packageName);
                                         }
+                                    } catch (Exception e2) {
+                                        // Suppress warning
                                     }
                                 }
-                            }
-                        } else if (checkAndromeda(context)) {
-                            if (Looper.myLooper() == Looper.getMainLooper()) {
-                                Toast.makeText(context,
-                                        context.getString(R.string.toast_andromeda_timed_out),
-                                        Toast.LENGTH_LONG).show();
                             }
                         }
                         break;

@@ -100,7 +100,7 @@ public class ShowcaseActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (drawer.isDrawerOpen()) {
+        if (drawer != null && drawer.isDrawerOpen()) {
             drawer.closeDrawer();
         } else {
             super.onBackPressed();
@@ -191,13 +191,7 @@ public class ShowcaseActivity extends AppCompatActivity {
             getSupportActionBar().setHomeButtonEnabled(false);
             getSupportActionBar().setTitle(R.string.showcase);
         }
-        toolbar.setNavigationOnClickListener((view) -> {
-            if (drawer.isDrawerOpen()) {
-                drawer.closeDrawer();
-            } else {
-                finish();
-            }
-        });
+        toolbar.setNavigationOnClickListener((view) -> onBackPressed());
 
         if (bottomBarUi) {
             // Change the toolbar title size

@@ -1002,7 +1002,7 @@ public class InformationActivity extends AppCompatActivity {
                 // This opens the changelog bottom sheet dialog for themers
                 SheetDialog sheetDialog = new SheetDialog(this);
                 @SuppressLint("InflateParams") View sheetView = getLayoutInflater()
-                        .inflate(R.layout.changelog_sheet_dialog, null);
+                        .inflate(R.layout.information_activity_changelog_sheet_dialog, null);
 
                 LinearLayout titleBox = sheetView.findViewById(R.id.title_box);
                 TextView title = titleBox.findViewById(R.id.title);

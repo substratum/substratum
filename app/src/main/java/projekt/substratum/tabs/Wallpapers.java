@@ -19,6 +19,7 @@
 package projekt.substratum.tabs;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -37,13 +38,12 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Map;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import projekt.substratum.R;
 import projekt.substratum.adapters.tabs.wallpapers.WallpaperAdapter;
 import projekt.substratum.adapters.tabs.wallpapers.WallpaperItem;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
+import projekt.substratum.databinding.TabWallpapersBinding;
 import projekt.substratum.util.helpers.FileDownloader;
 import projekt.substratum.util.readers.ReadCloudWallpaperFile;
 
@@ -53,16 +53,11 @@ import static projekt.substratum.common.Internal.THEME_WALLPAPER;
 public class Wallpapers extends Fragment {
 
     public static AsyncTask<String, Integer, String> mainLoader = null;
-    @BindView(R.id.progress_bar_loader)
-    ProgressBar materialProgressBar;
-    @BindView(R.id.no_network)
-    View no_network;
-    @BindView(R.id.none_found)
-    View no_wallpapers;
-    @BindView(R.id.swipeRefreshLayout)
-    SwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.wallpaperRecyclerView)
-    RecyclerView mRecyclerView;
+    private ProgressBar materialProgressBar;
+    private View no_network;
+    private View no_wallpapers;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private RecyclerView mRecyclerView;
     private String wallpaperUrl;
     private Context context;
 
@@ -72,8 +67,17 @@ public class Wallpapers extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
         context = getContext();
-        View view = inflater.inflate(R.layout.tab_wallpapers, container, false);
-        ButterKnife.bind(this, view);
+
+        TabWallpapersBinding tabWallpapersBinding =
+                DataBindingUtil.inflate(inflater, R.layout.tab_wallpapers, container, false);
+
+        View view = tabWallpapersBinding.getRoot();
+
+        materialProgressBar = tabWallpapersBinding.progressBarLoader;
+        no_network = tabWallpapersBinding.noNetwork;
+        no_wallpapers = tabWallpapersBinding.noneFound;
+        swipeRefreshLayout = tabWallpapersBinding.swipeRefreshLayout;
+        mRecyclerView = tabWallpapersBinding.wallpaperRecyclerView;
 
         if (getArguments() != null) {
             wallpaperUrl = getArguments().getString(THEME_WALLPAPER);

@@ -1534,7 +1534,7 @@ public class MainActivity extends AppCompatActivity implements
                 Context context = activity.context;
                 if (passthrough) {
                     activity.mProgressDialog.show();
-                    activity.mProgressDialog.setContentView(R.layout.root_rejected_loader);
+                    activity.mProgressDialog.setContentView(R.layout.main_activity_attention_dialog);
 
                     TextView titleView = activity.mProgressDialog.findViewById(R.id.title);
                     TextView textView =

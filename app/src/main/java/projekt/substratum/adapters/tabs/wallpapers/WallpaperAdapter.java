@@ -41,7 +41,7 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 
 import projekt.substratum.R;
-import projekt.substratum.databinding.WallpaperEntryCardBinding;
+import projekt.substratum.databinding.TabWallpaperItemBinding;
 import projekt.substratum.util.helpers.FileDownloader;
 
 import static projekt.substratum.common.References.setRecyclerViewAnimations;
@@ -62,7 +62,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
     public WallpaperAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup,
                                                           int i) {
         View view = LayoutInflater.from(
-                viewGroup.getContext()).inflate(R.layout.wallpaper_entry_card, viewGroup, false);
+                viewGroup.getContext()).inflate(R.layout.tab_wallpaper_item, viewGroup, false);
         return new ViewHolder(view);
     }
 
@@ -70,14 +70,14 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
     public void onBindViewHolder(ViewHolder viewHolder,
                                  int pos) {
         WallpaperItem wallpaperItem = information.get(pos);
-        WallpaperEntryCardBinding viewHolderBinding = viewHolder.getBinding();
+        TabWallpaperItemBinding viewHolderBinding = viewHolder.getBinding();
         viewHolderBinding.setWallpaperItem(wallpaperItem);
         context = wallpaperItem.getContext();
 
         viewHolderBinding.wallpaperCard.setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                    context, R.layout.wallpaper_dialog_listview);
+                    context, R.layout.tab_wallpaper_dialog);
             arrayAdapter.add(this.context.getString(R.string.wallpaper_dialog_wallpaper));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 arrayAdapter.add(this.context.getString(R.string.wallpaper_dialog_lockscreen));
@@ -221,14 +221,14 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        WallpaperEntryCardBinding binding;
+        TabWallpaperItemBinding binding;
 
         ViewHolder(View view) {
             super(view);
             binding = DataBindingUtil.bind(view);
         }
 
-        WallpaperEntryCardBinding getBinding() {
+        TabWallpaperItemBinding getBinding() {
             return binding;
         }
     }

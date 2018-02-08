@@ -222,7 +222,7 @@ public class Sounds extends Fragment {
                         }
                         previousPosition = position;
                     } catch (final IOException ioe) {
-                        Log.e(TAG, "Playback has failed for " + info.getTitle());
+                        Log.e(TAG, "Playback has failed for " + info.getWorkingTitle());
                     }
                 })
         );

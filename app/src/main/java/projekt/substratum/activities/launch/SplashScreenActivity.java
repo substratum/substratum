@@ -48,7 +48,7 @@ import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.analytics.FirebaseAnalytics;
-import projekt.substratum.databinding.SplashscreenLayoutBinding;
+import projekt.substratum.databinding.SplashscreenActivityBinding;
 import projekt.substratum.util.helpers.MD5;
 
 import static projekt.substratum.common.Internal.AUTHENTICATED_RECEIVER;
@@ -76,8 +76,8 @@ public class SplashScreenActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SplashscreenLayoutBinding binding =
-                DataBindingUtil.setContentView(this, R.layout.splashscreen_layout);
+        SplashscreenActivityBinding binding =
+                DataBindingUtil.setContentView(this, R.layout.splashscreen_activity);
 
         AnimatedSvgView svgView = binding.animatedSvgView;
         ImageView splashScreenImage = binding.splashscreenImage;

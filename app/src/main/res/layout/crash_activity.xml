@@ -16,78 +16,81 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center">
-
-    <ImageView
-        android:id="@+id/blob"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:src="@drawable/ic_error_report" />
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/blob"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="20dp"
-        android:text="@string/error_activity_title"
-        android:textAllCaps="true"
-        android:textColor="?android:textColorPrimary"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
-        android:layout_centerInParent="true"
-        android:text="@string/error_activity_text" />
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/text"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@color/do_not_theme_this_color_buttons"
-        android:gravity="center">
+        android:layout_gravity="center">
 
-        <Button
-            android:id="@+id/restart"
+        <ImageView
+            android:id="@+id/blob"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:src="@drawable/ic_error_report" />
+
+        <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:drawableEnd="@drawable/ic_relaunch_activity"
-            android:drawablePadding="5dp"
-            android:text="@string/error_activity_button_restart"
-            android:textColor="?android:textColorPrimary" />
+            android:layout_below="@+id/blob"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/error_activity_title"
+            android:textAllCaps="true"
+            android:textColor="?android:textColorPrimary"
+            android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/rescue_me"
+        <TextView
+            android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/restart"
-            android:layout_centerHorizontal="true"
-            android:drawableEnd="@drawable/ic_rescue_me"
-            android:drawablePadding="5dp"
-            android:text="@string/error_activity_button_disable_overlays"
-            android:textColor="?android:textColorPrimary" />
+            android:layout_below="@+id/title"
+            android:layout_centerInParent="true"
+            android:text="@string/error_activity_text" />
 
-        <Button
-            android:id="@+id/logcat"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rescue_me"
+            android:layout_below="@+id/text"
             android:layout_centerHorizontal="true"
-            android:drawableEnd="@drawable/ic_log"
-            android:drawablePadding="5dp"
-            android:text="@string/error_activity_log"
-            android:textColor="?android:textColorPrimary" />
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/do_not_theme_this_color_buttons"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/restart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:drawableEnd="@drawable/ic_relaunch_activity"
+                android:drawablePadding="5dp"
+                android:text="@string/error_activity_button_restart"
+                android:textColor="?android:textColorPrimary" />
+
+            <Button
+                android:id="@+id/rescue_me"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/restart"
+                android:layout_centerHorizontal="true"
+                android:drawableEnd="@drawable/ic_rescue_me"
+                android:drawablePadding="5dp"
+                android:text="@string/error_activity_button_disable_overlays"
+                android:textColor="?android:textColorPrimary" />
+
+            <Button
+                android:id="@+id/logcat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rescue_me"
+                android:layout_centerHorizontal="true"
+                android:drawableEnd="@drawable/ic_log"
+                android:drawablePadding="5dp"
+                android:text="@string/error_activity_log"
+                android:textColor="?android:textColorPrimary" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
-
-</RelativeLayout>
+</layout>

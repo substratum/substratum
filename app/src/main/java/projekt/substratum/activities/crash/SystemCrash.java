@@ -35,7 +35,7 @@ public class SystemCrash extends Activity {
         super.onCreate(savedInstanceState);
 
         Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.system_crash_dialog);
+        dialog.setContentView(R.layout.crash_dialog);
         dialog.setCancelable(false);
         dialog.show();
 

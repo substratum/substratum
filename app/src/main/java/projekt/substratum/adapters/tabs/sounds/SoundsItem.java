@@ -20,6 +20,15 @@ package projekt.substratum.adapters.tabs.sounds;
 
 import android.content.Context;
 
+import projekt.substratum.R;
+
+import static projekt.substratum.common.Internal.ALARM;
+import static projekt.substratum.common.Internal.EFFECT_TICK;
+import static projekt.substratum.common.Internal.LOCK;
+import static projekt.substratum.common.Internal.NOTIFICATION;
+import static projekt.substratum.common.Internal.RINGTONE;
+import static projekt.substratum.common.Internal.UNLOCK;
+
 public class SoundsItem {
     private String absolute_path;
     private Context context;
@@ -38,15 +47,23 @@ public class SoundsItem {
         return this.absolute_path;
     }
 
-    public Context getContext() {
-        return this.context;
-    }
-
-    public String getTitle() {
-        return this.title;
-    }
-
-    public void setTitle(String name) {
-        this.title = name;
+    public String getWorkingTitle() {
+        String current_sound = title.substring(0, title.length() - 4);
+        switch (current_sound) {
+            case ALARM:
+                return context.getString(R.string.sounds_alarm);
+            case NOTIFICATION:
+                return context.getString(R.string.sounds_notification);
+            case RINGTONE:
+                return context.getString(R.string.sounds_ringtone);
+            case EFFECT_TICK:
+                return context.getString(R.string.sounds_effect_tick);
+            case LOCK:
+                return context.getString(R.string.sounds_lock_sound);
+            case UNLOCK:
+                return context.getString(R.string.sounds_unlock_sound);
+            default:
+                return current_sound;
+        }
     }
 }

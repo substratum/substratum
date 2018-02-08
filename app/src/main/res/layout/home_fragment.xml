@@ -34,7 +34,7 @@
 
             <include
                 android:id="@+id/no_entry_card_view"
-                layout="@layout/no_entry_card" />
+                layout="@layout/theme_entry_none_found" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/theme_list"

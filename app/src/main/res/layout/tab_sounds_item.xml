@@ -49,8 +49,8 @@
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
             android:layout_toStartOf="@+id/play"
+            android:text="@{sounds.getWorkingTitle()}"
             android:textColor="@color/sounds_text"
-            android:text="@{sounds.getTitle()}"
             android:textSize="16sp"
             android:textStyle="bold" />
 

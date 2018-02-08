@@ -30,7 +30,7 @@ import java.util.List;
 
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
-import projekt.substratum.databinding.ManagerRowBinding;
+import projekt.substratum.databinding.ManagerItemBinding;
 
 public class ManagerAdapter extends
         RecyclerView.Adapter<ManagerAdapter.ViewHolder> {
@@ -46,14 +46,14 @@ public class ManagerAdapter extends
     public ManagerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                         int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.manager_row, parent, false));
+                R.layout.manager_item, parent, false));
     }
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder,
                                  int position) {
         final ManagerItem managerItem = overlayList.get(position);
-        ManagerRowBinding viewBinding = viewHolder.getBinding();
+        ManagerItemBinding viewBinding = viewHolder.getBinding();
         viewBinding.setOverlay(managerItem);
         viewBinding.executePendingBindings();
 
@@ -112,14 +112,14 @@ public class ManagerAdapter extends
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        final ManagerRowBinding binding;
+        final ManagerItemBinding binding;
 
         ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
             binding = DataBindingUtil.bind(itemLayoutView);
         }
 
-        ManagerRowBinding getBinding() {
+        ManagerItemBinding getBinding() {
             return binding;
         }
     }

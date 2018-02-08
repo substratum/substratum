@@ -38,7 +38,7 @@ public class VariantAdapter extends ArrayAdapter<VariantItem> {
 
     public VariantAdapter(Context context,
                           List<VariantItem> variantItemArrayList) {
-        super(context, R.layout.preview_spinner, R.id.variant_name, variantItemArrayList);
+        super(context, R.layout.tab_overlays_preview_item, R.id.variant_name, variantItemArrayList);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class VariantAdapter extends ArrayAdapter<VariantItem> {
 
         if (convertView == null) {
             convertView = LayoutInflater.from(
-                    this.getContext()).inflate(R.layout.preview_spinner, parent, false);
+                    this.getContext()).inflate(R.layout.tab_overlays_preview_item, parent, false);
 
             holder = new ViewHolder();
             holder.variantName = convertView.findViewById(R.id.variant_name);

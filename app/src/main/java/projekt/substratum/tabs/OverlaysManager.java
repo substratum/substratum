@@ -356,7 +356,7 @@ enum OverlaysManager {
                     overlays.mNotifyManager.notify(
                             References.notification_id_compiler, overlays.mBuilder.build());
                     overlays.mCompileDialog.setCancelable(false);
-                    View sheetView = View.inflate(context, R.layout.compile_sheet_dialog, null);
+                    View sheetView = View.inflate(context, R.layout.tab_overlays_compile_sheet_dialog, null);
                     overlays.mCompileDialog.setContentView(sheetView);
                     BottomSheetBehavior mBehavior =
                             BottomSheetBehavior.from((View) sheetView.getParent());

@@ -27,6 +27,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -57,12 +58,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
+import projekt.substratum.databinding.ShowcaseActivityBinding;
 import projekt.substratum.fragments.ShowcaseTab;
 import projekt.substratum.util.helpers.FileDownloader;
 import projekt.substratum.util.helpers.MD5;
@@ -75,12 +75,9 @@ import static projekt.substratum.common.Internal.SHOWCASE_CACHE;
 public class ShowcaseActivity extends AppCompatActivity {
 
     private static final String TAG = "ShowcaseActivity";
-    @BindView(R.id.no_network)
-    RelativeLayout no_network;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(android.R.id.content)
-    ViewGroup masterView;
+    private RelativeLayout no_network;
+    private Toolbar toolbar;
+    private ViewGroup masterView;
     private LocalBroadcastManager localBroadcastManager;
     private AndromedaReceiver andromedaReceiver;
     private Bundle savedInstanceState;
@@ -178,8 +175,12 @@ public class ShowcaseActivity extends AppCompatActivity {
         this.savedInstanceState = savedInstanceState;
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.showcase_activity);
-        ButterKnife.bind(this);
+        ShowcaseActivityBinding binding =
+                DataBindingUtil.setContentView(this, R.layout.showcase_activity);
+
+        no_network = binding.noNetwork;
+        toolbar = binding.toolbar;
+        masterView = binding.rootView;
 
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 

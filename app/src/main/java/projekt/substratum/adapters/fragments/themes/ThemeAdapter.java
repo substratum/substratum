@@ -71,7 +71,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 PreferenceManager.getDefaultSharedPreferences(viewGroup.getContext());
         View view;
         if (!prefs.getBoolean("advanced_ui", false)) {
-            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.special_entry_card,
+            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.theme_entry_special_card,
                     viewGroup, false);
         } else if (prefs.getBoolean("nougat_style_cards", false)) {
             view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.theme_entry_card_n,
@@ -154,7 +154,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 // About the theme
                 SheetDialog sheetDialog = new SheetDialog(this.context);
                 View sheetView =
-                        View.inflate(this.context, R.layout.theme_long_press_sheet_dialog, null);
+                        View.inflate(this.context, R.layout.theme_entry_long_press_sheet_dialog, null);
 
                 TextView aboutText = sheetView.findViewById(R.id.about_text);
                 TextView moreText = sheetView.findViewById(R.id.more_text);

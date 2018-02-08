@@ -21,6 +21,7 @@ package projekt.substratum.activities.crash;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
@@ -34,8 +35,6 @@ import android.widget.Toast;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash;
 import cat.ereza.customactivityoncrash.config.CaocConfig;
 import projekt.substratum.R;
@@ -45,6 +44,7 @@ import projekt.substratum.common.Activities;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
+import projekt.substratum.databinding.CrashActivityBinding;
 
 import static projekt.substratum.common.References.NO_THEME_ENGINE;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_N_UNROOTED;
@@ -58,12 +58,7 @@ import static projekt.substratum.common.Resources.SYSTEM_FAULT_EXCEPTIONS;
 
 public class SubstratumCrash extends Activity {
 
-    @BindView(R.id.restart)
-    Button restartButton;
-    @BindView(R.id.rescue_me)
-    Button rescueMeButton;
-    @BindView(R.id.logcat)
-    Button stacktraceButton;
+    private Button rescueMeButton;
     private boolean shouldPulsate;
 
     @Override
@@ -92,15 +87,19 @@ public class SubstratumCrash extends Activity {
         // We should have the theme dynamically change depending on the nature of the crash
         setTheme(R.style.DoNotThemeThisStyle);
 
-        setContentView(R.layout.crash_activity);
-        ButterKnife.bind(this);
+        CrashActivityBinding binding =
+                DataBindingUtil.setContentView(this, R.layout.crash_activity);
+
+        Button restartButton = binding.restart;
+        rescueMeButton = binding.rescueMe;
+        Button stacktraceButton = binding.logcat;
 
         restartButton.setOnClickListener(view -> {
             Intent intent = new Intent(SubstratumCrash.this, SplashScreenActivity.class);
             CustomActivityOnCrash.restartApplicationWithIntent(
                     SubstratumCrash.this,
                     intent,
-                    caocConfig);
+                    (caocConfig == null ? new CaocConfig() : caocConfig));
         });
 
         rescueMeButton.setOnClickListener(view -> {

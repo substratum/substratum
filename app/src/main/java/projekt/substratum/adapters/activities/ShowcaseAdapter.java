@@ -31,7 +31,7 @@ import java.util.Locale;
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
-import projekt.substratum.databinding.ShowcaseEntryCardBinding;
+import projekt.substratum.databinding.ShowcaseItemBinding;
 
 import static projekt.substratum.common.References.setRecyclerViewAnimations;
 
@@ -47,7 +47,7 @@ public class ShowcaseAdapter extends RecyclerView.Adapter<ShowcaseAdapter.ViewHo
     public ShowcaseAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup,
                                                          int i) {
         View view = LayoutInflater.from(
-                viewGroup.getContext()).inflate(R.layout.showcase_entry_card, viewGroup, false);
+                viewGroup.getContext()).inflate(R.layout.showcase_item, viewGroup, false);
         return new ViewHolder(view);
     }
 
@@ -56,7 +56,7 @@ public class ShowcaseAdapter extends RecyclerView.Adapter<ShowcaseAdapter.ViewHo
                                  int pos) {
         ShowcaseItem showcaseItem = this.information.get(pos);
         Context context = showcaseItem.getContext();
-        ShowcaseEntryCardBinding viewBinding = viewHolder.getBinding();
+        ShowcaseItemBinding viewBinding = viewHolder.getBinding();
         viewBinding.setShowcaseItem(showcaseItem);
         showcaseItem.setPaid(
                 showcaseItem.getThemePricing().toLowerCase(Locale.US).equals(References.paidTheme));
@@ -71,14 +71,14 @@ public class ShowcaseAdapter extends RecyclerView.Adapter<ShowcaseAdapter.ViewHo
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        ShowcaseEntryCardBinding binding;
+        ShowcaseItemBinding binding;
 
         ViewHolder(View view) {
             super(view);
             binding = DataBindingUtil.bind(view);
         }
 
-        ShowcaseEntryCardBinding getBinding() {
+        ShowcaseItemBinding getBinding() {
             return binding;
         }
     }

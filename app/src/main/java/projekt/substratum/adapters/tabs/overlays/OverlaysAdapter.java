@@ -37,7 +37,7 @@ import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
-import projekt.substratum.databinding.OverlaysListRowBinding;
+import projekt.substratum.databinding.TabOverlaysItemBinding;
 import projekt.substratum.util.views.Lunchbar;
 import projekt.substratum.util.views.SheetDialog;
 
@@ -66,7 +66,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
     // Function that runs when a user picks a spinner dropdown item that is index 0
     private static void zeroIndex(Context context,
                                   OverlaysItem currentObject,
-                                  OverlaysListRowBinding viewBinding) {
+                                  TabOverlaysItemBinding viewBinding) {
         if (isPackageInstalled(context, currentObject.getFullOverlayParameters())) {
             viewBinding.overlayState.setVisibility(View.VISIBLE);
             // Check whether currently installed overlay is up to date with
@@ -108,7 +108,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
     // Function that runs when a user picks a spinner dropdown item that is index >= 1
     private static void commitChanges(Context context,
                                       OverlaysItem current_object,
-                                      OverlaysListRowBinding viewBinding,
+                                      TabOverlaysItemBinding viewBinding,
                                       String packageName) {
         if (isPackageInstalled(context,
                 current_object.getPackageName() + '.' + current_object.getThemeName() +
@@ -170,7 +170,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
     public OverlaysAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                          int viewType) {
         View itemLayoutView = LayoutInflater.from(
-                parent.getContext()).inflate(R.layout.overlays_list_row, parent, false);
+                parent.getContext()).inflate(R.layout.tab_overlays_item, parent, false);
         return new ViewHolder(itemLayoutView);
     }
 
@@ -180,7 +180,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                                                                int spinnerNumber) {
         return new AdapterView.OnItemSelectedListener() {
 
-            OverlaysListRowBinding viewBinding = viewHolder.getBinding();
+            TabOverlaysItemBinding viewBinding = viewHolder.getBinding();
 
             String setPackageName(String packageName, AdapterView<?> arg0) {
                 return packageName + arg0.getSelectedItem().toString()
@@ -286,7 +286,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                                  int position) {
 
         OverlaysItem overlaysItem = overlayList.get(position);
-        OverlaysListRowBinding viewBinding = viewHolder.getBinding();
+        TabOverlaysItemBinding viewBinding = viewHolder.getBinding();
         Context context = overlaysItem.getContext();
 
         viewBinding.appIcon.setImageDrawable(overlaysItem.getAppIcon());
@@ -331,7 +331,7 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
         viewBinding.attentionIcon.setOnClickListener(view -> {
             SheetDialog sheetDialog = new SheetDialog(context);
             View sheetView =
-                    View.inflate(context, R.layout.overlays_attention_sheet_dialog, null);
+                    View.inflate(context, R.layout.tab_overlays_attention_sheet_dialog, null);
             TextView attentionText = sheetView.findViewById(R.id.attention_text);
             attentionText.setText(overlaysItem.attention.replace("\\n", "\n"));
             sheetDialog.setContentView(sheetView);
@@ -505,14 +505,14 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        OverlaysListRowBinding binding;
+        TabOverlaysItemBinding binding;
 
         ViewHolder(View itemLayoutView) {
             super(itemLayoutView);
             binding = DataBindingUtil.bind(itemLayoutView);
         }
 
-        OverlaysListRowBinding getBinding() {
+        TabOverlaysItemBinding getBinding() {
             return binding;
         }
     }

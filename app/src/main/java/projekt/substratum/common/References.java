@@ -33,6 +33,7 @@ import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
 import android.content.pm.Signature;
 import android.content.res.AssetManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
@@ -50,7 +51,10 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -65,11 +69,13 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -232,6 +238,71 @@ public enum References {
     // These values control the dynamic certification of substratum
     private static Boolean uncertified;
     private static int hashValue;
+
+    /**
+     * Unified method to set theme extra lists
+     * @param context Context
+     * @param theme_pid Package name
+     * @param list_dir Folder to check
+     * @param default_spinner_text 0th index of the spinner
+     * @param spinner_set_defaults_text 1st index of the spinner
+     * @param encryption_level Encrypted or not
+     * @param activity Activity
+     * @param spinner Spinner object
+     * @return Mutated spinner object
+     */
+    public static Spinner setThemeExtraLists(Context context,
+                                             String theme_pid,
+                                             String list_dir,
+                                             String default_spinner_text,
+                                             String spinner_set_defaults_text,
+                                             Boolean encryption_level,
+                                             Activity activity,
+                                             Spinner spinner) {
+        AssetManager themeAssetManager = getThemeAssetManager(context, theme_pid);
+        if (themeAssetManager != null) {
+            try {
+                final String[] fileArray = themeAssetManager.list(list_dir);
+                final List<String> archivedSounds = new ArrayList<>();
+                Collections.addAll(archivedSounds, fileArray);
+
+                // Creates the list of dropdown items
+                final ArrayList<String> unarchivedExtra = new ArrayList<>();
+                unarchivedExtra.add(default_spinner_text);
+                unarchivedExtra.add(spinner_set_defaults_text);
+                for (int i = 0; i < archivedSounds.size(); i++) {
+                    unarchivedExtra.add(archivedSounds.get(i).substring(0,
+                            archivedSounds.get(i).length() - (encryption_level ? 8 : 4)));
+                }
+
+                assert activity != null;
+                final SpinnerAdapter adapter1 = new ArrayAdapter<>(activity,
+                        android.R.layout.simple_spinner_dropdown_item, unarchivedExtra);
+                spinner.setAdapter(adapter1);
+                return spinner;
+            } catch (Exception e) {
+                // Suppress warning
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Get the AssetManager of the theme package
+     * @param context Context
+     * @param package_name Package name to pull Asset Manager from
+     * @return AssetManager of the specified package name
+     */
+    public static AssetManager getThemeAssetManager(Context context, String package_name) {
+        try {
+            Resources themeResources =
+                    context.getPackageManager().getResourcesForApplication(package_name);
+            return themeResources.getAssets();
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     /**
      * Prettify the recycler view UI with fading desaturating colors!

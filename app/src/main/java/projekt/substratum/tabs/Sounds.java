@@ -23,8 +23,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -43,12 +41,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -60,8 +56,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -82,6 +78,8 @@ import static projekt.substratum.common.Internal.SOUNDS_CACHE;
 import static projekt.substratum.common.Internal.SOUNDS_PREVIEW_CACHE;
 import static projekt.substratum.common.Internal.START_JOB_ACTION;
 import static projekt.substratum.common.Internal.THEME_PID;
+import static projekt.substratum.common.References.getThemeAssetManager;
+import static projekt.substratum.common.References.setThemeExtraLists;
 import static projekt.substratum.util.tabs.SoundUtils.finishReceiver;
 
 public class Sounds extends Fragment {
@@ -103,7 +101,6 @@ public class Sounds extends Fragment {
     private int previousPosition;
     private SharedPreferences prefs;
     private AsyncTask current;
-    private AssetManager themeAssetManager;
     private boolean paused;
     private JobReceiver jobReceiver;
     private LocalBroadcastManager localBroadcastManager;
@@ -141,8 +138,8 @@ public class Sounds extends Fragment {
             return null;
         }
 
-        progressBar.setVisibility(View.GONE);
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        progressBar.setVisibility(View.GONE);
         errorLoadingPack.setVisibility(View.GONE);
 
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
@@ -153,34 +150,21 @@ public class Sounds extends Fragment {
         recyclerView.setAdapter(empty_adapter);
 
         try {
-            // Parses the list of items in the sounds folder
-            final Resources themeResources =
-                    context.getPackageManager().getResourcesForApplication(theme_pid);
-            themeAssetManager = themeResources.getAssets();
-            final String[] fileArray = themeAssetManager.list(soundsDir);
-            final List<String> archivedSounds = new ArrayList<>();
-            Collections.addAll(archivedSounds, fileArray);
-
-            // Creates the list of dropdown items
-            final ArrayList<String> unarchivedSounds = new ArrayList<>();
-            unarchivedSounds.add(getString(R.string.sounds_default_spinner));
-            unarchivedSounds.add(getString(R.string.sounds_spinner_set_defaults));
-            for (int i = 0; i < archivedSounds.size(); i++) {
-                unarchivedSounds.add(archivedSounds.get(i).substring(0,
-                        archivedSounds.get(i).length() - (encrypted ? 8 : 4)));
-            }
-
-            assert getActivity() != null;
-            final SpinnerAdapter adapter1 = new ArrayAdapter<>(getActivity(),
-                    android.R.layout.simple_spinner_dropdown_item, unarchivedSounds);
-            soundsSelector.setAdapter(adapter1);
+            soundsSelector = setThemeExtraLists(context,
+                    theme_pid,
+                    soundsDir,
+                    getString(R.string.sounds_default_spinner),
+                    getString(R.string.sounds_spinner_set_defaults),
+                    encrypted,
+                    getActivity(),
+                    soundsSelector);
+            if (soundsSelector == null) throw new Exception();
             soundsSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
-                public void onItemSelected(
-                        final AdapterView<?> arg0,
-                        final View arg1,
-                        final int pos,
-                        final long id) {
+                public void onItemSelected(final AdapterView<?> arg0,
+                                           final View arg1,
+                                           final int pos,
+                                           final long id) {
                     switch (pos) {
                         case 0:
                             if (current != null) current.cancel(true);
@@ -442,15 +426,19 @@ public class Sounds extends Fragment {
                     final String source = sUrl[0] + ".zip";
                     if (encrypted) {
                         FileOperations.copyFileOrDir(
-                                sounds.themeAssetManager,
+                                Objects.requireNonNull(
+                                        getThemeAssetManager(sounds.context, sounds.theme_pid)
+                                ),
                                 soundsDir + '/' + source + ENCRYPTED_FILE_EXTENSION,
                                 sounds.context.getCacheDir().getAbsolutePath() +
                                         SOUNDS_CACHE + source,
                                 soundsDir + '/' + source + ENCRYPTED_FILE_EXTENSION,
                                 null);
                     } else {
-                        try (InputStream inputStream = sounds.themeAssetManager.open(
-                                soundsDir + '/' + source);
+                        try (InputStream inputStream =
+                                     Objects.requireNonNull(
+                                             getThemeAssetManager(sounds.context, sounds.theme_pid)
+                                     ).open(soundsDir + '/' + source);
                              OutputStream outputStream =
                                      new FileOutputStream(
                                              sounds.context.getCacheDir().getAbsolutePath() +

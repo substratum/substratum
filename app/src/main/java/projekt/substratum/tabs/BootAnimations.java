@@ -24,8 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
+import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -44,12 +43,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import java.io.BufferedInputStream;
@@ -62,16 +59,15 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import projekt.substratum.R;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.FileOperations;
+import projekt.substratum.databinding.TabBootanimationsBinding;
 import projekt.substratum.util.helpers.Root;
 import projekt.substratum.util.tabs.BootAnimationUtils;
 import projekt.substratum.util.views.Lunchbar;
@@ -86,6 +82,8 @@ import static projekt.substratum.common.Internal.SHUTDOWNANIMATION_INTENT;
 import static projekt.substratum.common.Internal.SHUTDOWN_ANIMATION_APPLIED;
 import static projekt.substratum.common.Internal.START_JOB_ACTION;
 import static projekt.substratum.common.Internal.THEME_PID;
+import static projekt.substratum.common.References.getThemeAssetManager;
+import static projekt.substratum.common.References.setThemeExtraLists;
 
 public class BootAnimations extends Fragment {
 
@@ -96,27 +94,16 @@ public class BootAnimations extends Fragment {
     private final HandlerThread previewHandlerThread =
             new HandlerThread("BootAnimationPreviewThread");
     private final BitmapFactory.Options options = new BitmapFactory.Options();
-    @BindView(R.id.nestedScrollView)
-    NestedScrollView nsv;
-    @BindView(R.id.bootAnimationPreview)
-    ImageView bootAnimationPreview;
-    @BindView(R.id.progress_bar_loader)
-    ProgressBar progressBar;
-    @BindView(R.id.bootanimation_placeholder)
-    RelativeLayout bootanimation_placeholder;
-    @BindView(R.id.restore_to_default)
-    RelativeLayout defaults;
-    @BindView(R.id.bootanimation_placeholder_text)
-    TextView placeholderText;
-    @BindView(R.id.restore_to_default_text)
-    TextView restoreText;
-    @BindView(R.id.bootAnimationSelection)
-    Spinner bootAnimationSelector;
+    private NestedScrollView nestedScrollView;
+    private ImageView bootAnimationPreview;
+    private ProgressBar progressBar;
+    private RelativeLayout bootanimationPlaceholder;
+    private RelativeLayout defaults;
+    private Spinner bootAnimationSelector;
     private String theme_pid;
     private ProgressDialog mProgressDialog;
     private SharedPreferences prefs;
     private AsyncTask current;
-    private AssetManager themeAssetManager;
     private boolean paused;
     private JobReceiver jobReceiver;
     private LocalBroadcastManager localBroadcastManager;
@@ -137,8 +124,20 @@ public class BootAnimations extends Fragment {
             final ViewGroup container,
             final Bundle savedInstanceState) {
         context = getContext();
-        View view = inflater.inflate(R.layout.tab_bootanimations, container, false);
-        ButterKnife.bind(this, view);
+
+        TabBootanimationsBinding tabBootanimationsBinding =
+                DataBindingUtil.inflate(inflater, R.layout.tab_bootanimations, container, false);
+
+        View view = tabBootanimationsBinding.getRoot();
+
+        nestedScrollView = tabBootanimationsBinding.nestedScrollView;
+        bootAnimationPreview = tabBootanimationsBinding.bootAnimationPreview;
+        progressBar = tabBootanimationsBinding.progressBarLoader;
+        bootanimationPlaceholder = tabBootanimationsBinding.bootanimationPlaceholder;
+        defaults = tabBootanimationsBinding.restoreToDefault;
+        TextView placeholderText = tabBootanimationsBinding.bootanimationPlaceholderText;
+        TextView restoreText = tabBootanimationsBinding.restoreToDefaultText;
+        bootAnimationSelector = tabBootanimationsBinding.bootAnimationSelection;
 
         if (getArguments() != null) {
             theme_pid = getArguments().getString(THEME_PID);
@@ -164,31 +163,15 @@ public class BootAnimations extends Fragment {
         }
 
         try {
-            // Parses the list of items in the boot animation folder
-            final Resources themeResources =
-                    context.getPackageManager().getResourcesForApplication(theme_pid);
-            themeAssetManager = themeResources.getAssets();
-            final String[] fileArray = themeAssetManager.list(bootanimationsDir);
-            final List<String> unparsedBootAnimations = new ArrayList<>();
-            Collections.addAll(unparsedBootAnimations, fileArray);
-
-            // Creates the list of dropdown items
-            final ArrayList<String> parsedBootAnimations = new ArrayList<>();
-            parsedBootAnimations.add(getString(shutdownBootAnimation ?
-                    R.string.shutdownanimation_default_spinner :
-                    R.string.bootanimation_default_spinner));
-            parsedBootAnimations.add(getString(shutdownBootAnimation ?
-                    R.string.shutdownanimation_spinner_set_defaults :
-                    R.string.bootanimation_spinner_set_defaults));
-            for (int i = 0; i < unparsedBootAnimations.size(); i++) {
-                parsedBootAnimations.add(unparsedBootAnimations.get(i).substring(0,
-                        unparsedBootAnimations.get(i).length() - (encrypted ? 8 : 4)));
-            }
-
-            assert getActivity() != null;
-            final SpinnerAdapter adapter1 = new ArrayAdapter<>(getActivity(),
-                    android.R.layout.simple_spinner_dropdown_item, parsedBootAnimations);
-            bootAnimationSelector.setAdapter(adapter1);
+            bootAnimationSelector = setThemeExtraLists(context,
+                    theme_pid,
+                    bootanimationsDir,
+                    getString(R.string.bootanimation_default_spinner),
+                    getString(R.string.bootanimation_spinner_set_defaults),
+                    encrypted,
+                    getActivity(),
+                    bootAnimationSelector);
+            if (bootAnimationSelector == null) throw new Exception();
             bootAnimationSelector.setOnItemSelectedListener(
                     new AdapterView.OnItemSelectedListener() {
                         @Override
@@ -202,7 +185,7 @@ public class BootAnimations extends Fragment {
                                     if ((previewHandler != null) && (previewRunnable != null)) {
                                         previewHandler.removeCallbacks(previewRunnable);
                                     }
-                                    bootanimation_placeholder.setVisibility(View.VISIBLE);
+                                    bootanimationPlaceholder.setVisibility(View.VISIBLE);
                                     defaults.setVisibility(View.GONE);
                                     bootAnimationPreview.setImageDrawable(null);
                                     bootAnimationPreview.setVisibility(View.GONE);
@@ -215,7 +198,7 @@ public class BootAnimations extends Fragment {
                                         previewHandler.removeCallbacks(previewRunnable);
                                     }
                                     defaults.setVisibility(View.VISIBLE);
-                                    bootanimation_placeholder.setVisibility(View.GONE);
+                                    bootanimationPlaceholder.setVisibility(View.GONE);
                                     progressBar.setVisibility(View.GONE);
                                     bootAnimationPreview.setImageDrawable(null);
                                     bootAnimationPreview.setVisibility(View.GONE);
@@ -226,7 +209,7 @@ public class BootAnimations extends Fragment {
                                     if (current != null) current.cancel(true);
                                     bootAnimationPreview.setVisibility(View.VISIBLE);
                                     defaults.setVisibility(View.GONE);
-                                    bootanimation_placeholder.setVisibility(View.GONE);
+                                    bootanimationPlaceholder.setVisibility(View.GONE);
                                     final String[] commands = {arg0.getSelectedItem().toString()};
                                     if ((previewHandler != null) && (previewRunnable != null)) {
                                         previewHandler.removeCallbacks(previewRunnable);
@@ -286,7 +269,7 @@ public class BootAnimations extends Fragment {
                 if (bootAnimationSelector.getSelectedItemPosition() == 1) {
                     new BootAnimationClearer(this).execute("");
                 } else {
-                    BootAnimationUtils.execute(nsv,
+                    BootAnimationUtils.execute(nestedScrollView,
                             bootAnimationSelector.getSelectedItem().toString(),
                             context,
                             theme_pid,
@@ -304,7 +287,7 @@ public class BootAnimations extends Fragment {
                                 if (bootAnimationSelector.getSelectedItemPosition() == 1) {
                                     new BootAnimationClearer(this).execute("");
                                 } else {
-                                    BootAnimationUtils.execute(nsv,
+                                    BootAnimationUtils.execute(nestedScrollView,
                                             bootAnimationSelector.getSelectedItem().toString(),
                                             context,
                                             theme_pid,
@@ -526,15 +509,21 @@ public class BootAnimations extends Fragment {
 
                     if (encrypted) {
                         FileOperations.copyFileOrDir(
-                                bootAnimations.themeAssetManager,
+                                Objects.requireNonNull(
+                                        getThemeAssetManager(bootAnimations.context,
+                                                bootAnimations.theme_pid)
+                                ),
                                 bootanimationsDir + '/' + source + ENCRYPTED_FILE_EXTENSION,
                                 bootAnimations.context.getCacheDir().getAbsolutePath() +
                                         BOOTANIMATION_CACHE + source,
                                 bootanimationsDir + '/' + source + ENCRYPTED_FILE_EXTENSION,
                                 null);
                     } else {
-                        try (InputStream inputStream = bootAnimations.themeAssetManager.open(
-                                bootanimationsDir + '/' + source);
+                        try (InputStream inputStream =
+                                     Objects.requireNonNull(
+                                             getThemeAssetManager(bootAnimations.context,
+                                                     bootAnimations.theme_pid)
+                                     ).open(bootanimationsDir + '/' + source);
                              OutputStream outputStream =
                                      new FileOutputStream(bootAnimations.context.getCacheDir()
                                              .getAbsolutePath() +

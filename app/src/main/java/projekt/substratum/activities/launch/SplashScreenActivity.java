@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -40,8 +41,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
@@ -49,6 +48,7 @@ import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.common.analytics.FirebaseAnalytics;
+import projekt.substratum.databinding.SplashscreenLayoutBinding;
 import projekt.substratum.util.helpers.MD5;
 
 import static projekt.substratum.common.Internal.AUTHENTICATED_RECEIVER;
@@ -68,20 +68,20 @@ public class SplashScreenActivity extends Activity {
     private static final long DELAY_LAUNCH_MAIN_ACTIVITY = 300;
     private static final long DELAY_LAUNCH_APP_INTRO = 2300;
     private static final long DELAY_SHOW_PROGRESS_BAR = 2500;
-    @BindView(R.id.animated_svg_view)
-    AnimatedSvgView svgView;
-    @BindView(R.id.splashscreen_image)
-    ImageView splashScreenImage;
-    @BindView(R.id.progress_bar_loader)
-    ProgressBar progressBar;
+    private ProgressBar progressBar;
     private Intent intent;
     private Boolean first_run = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.splashscreen_layout);
-        ButterKnife.bind(this);
+
+        SplashscreenLayoutBinding binding =
+                DataBindingUtil.setContentView(this, R.layout.splashscreen_layout);
+
+        AnimatedSvgView svgView = binding.animatedSvgView;
+        ImageView splashScreenImage = binding.splashscreenImage;
+        progressBar = binding.progressBarLoader;
 
         Intent currentIntent = getIntent();
         first_run = currentIntent.getBooleanExtra("first_run", false);

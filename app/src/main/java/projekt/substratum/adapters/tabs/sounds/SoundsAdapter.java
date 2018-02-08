@@ -19,15 +19,16 @@
 package projekt.substratum.adapters.tabs.sounds;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.List;
 
 import projekt.substratum.R;
+import projekt.substratum.databinding.SoundsListRowBinding;
 
 import static projekt.substratum.common.Internal.ALARM;
 import static projekt.substratum.common.Internal.EFFECT_TICK;
@@ -38,9 +39,9 @@ import static projekt.substratum.common.Internal.UNLOCK;
 
 public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.ViewHolder> {
 
-    private List<SoundsInfo> soundsList;
+    private List<SoundsItem> soundsList;
 
-    public SoundsAdapter(List<SoundsInfo> soundsList) {
+    public SoundsAdapter(List<SoundsItem> soundsList) {
         super();
         this.soundsList = soundsList;
     }
@@ -55,27 +56,27 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder,
                                  int position) {
-        SoundsInfo sounds = this.soundsList.get(position);
+        SoundsItem sounds = this.soundsList.get(position);
         Context context = sounds.getContext();
         String current_sound = sounds.getTitle().substring(0, sounds.getTitle().length() - 4);
         switch (current_sound) {
             case ALARM:
-                holder.title.setText(context.getString(R.string.sounds_alarm));
+                sounds.setTitle(context.getString(R.string.sounds_alarm));
                 break;
             case NOTIFICATION:
-                holder.title.setText(context.getString(R.string.sounds_notification));
+                sounds.setTitle(context.getString(R.string.sounds_notification));
                 break;
             case RINGTONE:
-                holder.title.setText(context.getString(R.string.sounds_ringtone));
+                sounds.setTitle(context.getString(R.string.sounds_ringtone));
                 break;
             case EFFECT_TICK:
-                holder.title.setText(context.getString(R.string.sounds_effect_tick));
+                sounds.setTitle(context.getString(R.string.sounds_effect_tick));
                 break;
             case LOCK:
-                holder.title.setText(context.getString(R.string.sounds_lock_sound));
+                sounds.setTitle(context.getString(R.string.sounds_lock_sound));
                 break;
             case UNLOCK:
-                holder.title.setText(context.getString(R.string.sounds_unlock_sound));
+                sounds.setTitle(context.getString(R.string.sounds_unlock_sound));
                 break;
         }
     }
@@ -86,11 +87,15 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.ViewHolder
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView title;
+        final SoundsListRowBinding binding;
 
-        ViewHolder(View view) {
-            super(view);
-            this.title = view.findViewById(R.id.title);
+        ViewHolder(View itemLayoutView) {
+            super(itemLayoutView);
+            binding = DataBindingUtil.bind(itemLayoutView);
+        }
+
+        SoundsListRowBinding getBinding() {
+            return binding;
         }
     }
 }

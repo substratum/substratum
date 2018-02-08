@@ -28,7 +28,7 @@
 
         <variable
             name="overlay"
-            type="ManagerItem" />
+            type="projekt.substratum.adapters.fragments.manager.ManagerItem" />
     </data>
 
     <android.support.v7.widget.CardView

@@ -25,6 +25,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.databinding.DataBindingUtil;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -64,12 +65,11 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import projekt.substratum.R;
 import projekt.substratum.adapters.tabs.sounds.SoundsAdapter;
-import projekt.substratum.adapters.tabs.sounds.SoundsInfo;
+import projekt.substratum.adapters.tabs.sounds.SoundsItem;
 import projekt.substratum.common.commands.FileOperations;
+import projekt.substratum.databinding.TabSoundsBinding;
 import projekt.substratum.util.tabs.SoundUtils;
 import projekt.substratum.util.views.Lunchbar;
 import projekt.substratum.util.views.RecyclerItemClickListener;
@@ -90,25 +90,17 @@ public class Sounds extends Fragment {
     private static final String TAG = "SoundUtils";
     private static final Boolean encrypted = false;
     private final MediaPlayer mp = new MediaPlayer();
-    @BindView(R.id.nestedScrollView)
-    NestedScrollView nsv;
-    @BindView(R.id.progress_bar_loader)
-    ProgressBar progressBar;
-    @BindView(R.id.restore_to_default)
-    RelativeLayout defaults;
-    @BindView(R.id.sounds_placeholder)
-    RelativeLayout sounds_preview;
-    @BindView(R.id.error_loading_pack)
-    RelativeLayout error;
-    @BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
-    @BindView(R.id.soundsSelection)
-    Spinner soundsSelector;
-    @BindView(R.id.relativeLayout)
-    RelativeLayout relativeLayout;
+    private NestedScrollView nestedScrollView;
+    private ProgressBar progressBar;
+    private RelativeLayout restoreToDefault;
+    private RelativeLayout soundsPreview;
+    private RelativeLayout errorLoadingPack;
+    private RecyclerView recyclerView;
+    private Spinner soundsSelector;
+    private RelativeLayout relativeLayout;
     private String theme_pid;
-    private ArrayList<SoundsInfo> wordList;
-    private int previous_position;
+    private ArrayList<SoundsItem> wordList;
+    private int previousPosition;
     private SharedPreferences prefs;
     private AsyncTask current;
     private AssetManager themeAssetManager;
@@ -127,8 +119,20 @@ public class Sounds extends Fragment {
             final ViewGroup container,
             final Bundle savedInstanceState) {
         context = getContext();
-        View view = inflater.inflate(R.layout.tab_sounds, container, false);
-        ButterKnife.bind(this, view);
+
+        TabSoundsBinding tabSoundsBinding =
+                DataBindingUtil.inflate(inflater, R.layout.tab_sounds, container, false);
+
+        View view = tabSoundsBinding.getRoot();
+
+        nestedScrollView = tabSoundsBinding.nestedScrollView;
+        progressBar = tabSoundsBinding.progressBarLoader;
+        restoreToDefault = tabSoundsBinding.restoreToDefault;
+        soundsPreview = tabSoundsBinding.soundsPlaceholder;
+        errorLoadingPack = tabSoundsBinding.errorLoadingPack;
+        recyclerView = tabSoundsBinding.recyclerView;
+        soundsSelector = tabSoundsBinding.soundsSelection;
+        relativeLayout = tabSoundsBinding.relativeLayout;
 
         if (getArguments() != null) {
             theme_pid = getArguments().getString(THEME_PID);
@@ -139,12 +143,12 @@ public class Sounds extends Fragment {
 
         progressBar.setVisibility(View.GONE);
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        error.setVisibility(View.GONE);
+        errorLoadingPack.setVisibility(View.GONE);
 
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        final ArrayList<SoundsInfo> empty_array = new ArrayList<>();
+        final ArrayList<SoundsItem> empty_array = new ArrayList<>();
         final RecyclerView.Adapter empty_adapter = new SoundsAdapter(empty_array);
         recyclerView.setAdapter(empty_adapter);
 
@@ -180,27 +184,27 @@ public class Sounds extends Fragment {
                     switch (pos) {
                         case 0:
                             if (current != null) current.cancel(true);
-                            defaults.setVisibility(View.GONE);
-                            error.setVisibility(View.GONE);
+                            restoreToDefault.setVisibility(View.GONE);
+                            errorLoadingPack.setVisibility(View.GONE);
                             relativeLayout.setVisibility(View.GONE);
-                            sounds_preview.setVisibility(View.VISIBLE);
+                            soundsPreview.setVisibility(View.VISIBLE);
                             paused = true;
                             break;
 
                         case 1:
                             if (current != null) current.cancel(true);
-                            defaults.setVisibility(View.VISIBLE);
-                            error.setVisibility(View.GONE);
+                            restoreToDefault.setVisibility(View.VISIBLE);
+                            errorLoadingPack.setVisibility(View.GONE);
                             relativeLayout.setVisibility(View.GONE);
-                            sounds_preview.setVisibility(View.GONE);
+                            soundsPreview.setVisibility(View.GONE);
                             paused = false;
                             break;
 
                         default:
                             if (current != null) current.cancel(true);
-                            defaults.setVisibility(View.GONE);
-                            error.setVisibility(View.GONE);
-                            sounds_preview.setVisibility(View.GONE);
+                            restoreToDefault.setVisibility(View.GONE);
+                            errorLoadingPack.setVisibility(View.GONE);
+                            soundsPreview.setVisibility(View.GONE);
                             relativeLayout.setVisibility(View.VISIBLE);
                             final String[] commands = {arg0.getSelectedItem().toString()};
                             current = new SoundsPreview(getInstance())
@@ -219,9 +223,9 @@ public class Sounds extends Fragment {
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(context, (v, position) -> {
-                    final SoundsInfo info = wordList.get(position);
+                    final SoundsItem info = wordList.get(position);
                     try {
-                        if (!mp.isPlaying() || (position != previous_position)) {
+                        if (!mp.isPlaying() || (position != previousPosition)) {
                             stopPlayer();
                             ((ImageButton)
                                     v.findViewById(R.id.play)).setImageResource(
@@ -232,7 +236,7 @@ public class Sounds extends Fragment {
                         } else {
                             stopPlayer();
                         }
-                        previous_position = position;
+                        previousPosition = position;
                     } catch (final IOException ioe) {
                         Log.e(TAG, "Playback has failed for " + info.getTitle());
                     }
@@ -255,7 +259,7 @@ public class Sounds extends Fragment {
                 new SoundsClearer(this).execute("");
             } else {
                 new SoundUtils().execute(
-                        nsv,
+                        nestedScrollView,
                         soundsSelector.getSelectedItem().toString(),
                         context,
                         theme_pid
@@ -310,7 +314,7 @@ public class Sounds extends Fragment {
                 final SharedPreferences.Editor editor = sounds.prefs.edit();
                 editor.remove(SOUNDS_APPLIED);
                 editor.apply();
-                currentShownLunchBar = Lunchbar.make(sounds.nsv,
+                currentShownLunchBar = Lunchbar.make(sounds.nestedScrollView,
                         sounds.getString(R.string.manage_sounds_toast),
                         Snackbar.LENGTH_LONG);
                 currentShownLunchBar.show();
@@ -388,7 +392,7 @@ public class Sounds extends Fragment {
             final Sounds sounds = ref.get();
             if (sounds != null) {
                 try {
-                    final List<SoundsInfo> adapter1 = new ArrayList<>(sounds.wordList);
+                    final List<SoundsItem> adapter1 = new ArrayList<>(sounds.wordList);
 
                     if (!adapter1.isEmpty()) {
                         final SoundsAdapter mAdapter = new SoundsAdapter(adapter1);
@@ -402,7 +406,7 @@ public class Sounds extends Fragment {
                     } else {
                         sounds.recyclerView.setVisibility(View.GONE);
                         sounds.relativeLayout.setVisibility(View.GONE);
-                        sounds.error.setVisibility(View.VISIBLE);
+                        sounds.errorLoadingPack.setVisibility(View.VISIBLE);
                     }
                     sounds.progressBar.setVisibility(View.GONE);
                 } catch (final Exception e) {
@@ -488,7 +492,7 @@ public class Sounds extends Fragment {
                         if (!".".equals(fileEntry.getName().substring(0, 1)) &&
                                 projekt.substratum.common.Resources.allowedSounds(
                                         fileEntry.getName())) {
-                            sounds.wordList.add(new SoundsInfo(sounds.context, fileEntry.getName(),
+                            sounds.wordList.add(new SoundsItem(sounds.context, fileEntry.getName(),
                                     fileEntry.getAbsolutePath()));
                         }
                     }

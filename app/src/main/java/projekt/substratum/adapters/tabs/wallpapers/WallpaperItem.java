@@ -21,7 +21,7 @@ package projekt.substratum.adapters.tabs.wallpapers;
 import android.app.Activity;
 import android.content.Context;
 
-public class WallpaperEntries {
+public class WallpaperItem {
 
     private Context context;
     private String wallpaperName;

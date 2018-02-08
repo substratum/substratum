@@ -16,13 +16,10 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.adapters.showcase;
+package projekt.substratum.adapters.activities;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,19 +33,19 @@ import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.databinding.ShowcaseEntryCardBinding;
 
-import static projekt.substratum.common.References.FADE_FROM_GRAYSCALE_TO_COLOR_DURATION;
+import static projekt.substratum.common.References.setRecyclerViewAnimations;
 
-public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapter.ViewHolder> {
+public class ShowcaseAdapter extends RecyclerView.Adapter<ShowcaseAdapter.ViewHolder> {
     private List<ShowcaseItem> information;
 
-    public ShowcaseItemAdapter(List<ShowcaseItem> information) {
+    public ShowcaseAdapter(List<ShowcaseItem> information) {
         super();
         this.information = information;
     }
 
     @Override
-    public ShowcaseItemAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup,
-                                                             int i) {
+    public ShowcaseAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup,
+                                                         int i) {
         View view = LayoutInflater.from(
                 viewGroup.getContext()).inflate(R.layout.showcase_entry_card, viewGroup, false);
         return new ViewHolder(view);
@@ -61,20 +58,11 @@ public class ShowcaseItemAdapter extends RecyclerView.Adapter<ShowcaseItemAdapte
         Context context = showcaseItem.getContext();
         ShowcaseEntryCardBinding viewBinding = viewHolder.getBinding();
         viewBinding.setShowcaseItem(showcaseItem);
-
-        showcaseItem.setPaid(showcaseItem.getThemePricing().toLowerCase(Locale.US).equals(References.paidTheme));
-        showcaseItem.setInstalled(Packages.isPackageInstalled(context, showcaseItem.getThemePackage()));
-
-        // Prettify the UI with fading desaturating colors!
-        ColorMatrix matrix = new ColorMatrix();
-        ValueAnimator animation = ValueAnimator.ofFloat(0f, 1f);
-        animation.setDuration(FADE_FROM_GRAYSCALE_TO_COLOR_DURATION);
-        animation.addUpdateListener(animation1 -> {
-            matrix.setSaturation(animation1.getAnimatedFraction());
-            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
-            viewBinding.backgroundImage.setColorFilter(filter);
-        });
-        animation.start();
+        showcaseItem.setPaid(
+                showcaseItem.getThemePricing().toLowerCase(Locale.US).equals(References.paidTheme));
+        showcaseItem.setInstalled(
+                Packages.isPackageInstalled(context, showcaseItem.getThemePackage()));
+        setRecyclerViewAnimations(viewBinding.backgroundImage);
     }
 
     @Override

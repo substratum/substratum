@@ -18,6 +18,7 @@
 
 package projekt.substratum.common;
 
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -33,6 +34,8 @@ import android.content.pm.ShortcutManager;
 import android.content.pm.Signature;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.AdaptiveIconDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
@@ -47,6 +50,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -228,6 +232,22 @@ public enum References {
     // These values control the dynamic certification of substratum
     private static Boolean uncertified;
     private static int hashValue;
+
+    /**
+     * Prettify the recycler view UI with fading desaturating colors!
+     * @param imageView The view that will be animating
+     */
+    public static void setRecyclerViewAnimations(ImageView imageView) {
+        ColorMatrix matrix = new ColorMatrix();
+        ValueAnimator animation = ValueAnimator.ofFloat(0f, 1f);
+        animation.setDuration(FADE_FROM_GRAYSCALE_TO_COLOR_DURATION);
+        animation.addUpdateListener(animation1 -> {
+            matrix.setSaturation(animation1.getAnimatedFraction());
+            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+            imageView.setColorFilter(filter);
+        });
+        animation.start();
+    }
 
     /**
      * Create a launcher icon/launchable intent

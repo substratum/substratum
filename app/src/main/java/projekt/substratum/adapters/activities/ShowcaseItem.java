@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.adapters.showcase;
+package projekt.substratum.adapters.activities;
 
 import android.content.Context;
 

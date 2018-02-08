@@ -20,12 +20,12 @@ package projekt.substratum.adapters.tabs.sounds;
 
 import android.content.Context;
 
-public class SoundsInfo {
+public class SoundsItem {
     private String absolute_path;
     private Context context;
     private String title;
 
-    public SoundsInfo(Context context,
+    public SoundsItem(Context context,
                       String title,
                       String absolute_path) {
         super();

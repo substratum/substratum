@@ -18,14 +18,11 @@
 
 package projekt.substratum.adapters.fragments.themes;
 
-import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -54,8 +51,8 @@ import static projekt.substratum.common.Internal.PLAY_URL_PREFIX;
 import static projekt.substratum.common.Internal.THEME_READY_ALL;
 import static projekt.substratum.common.Internal.THEME_READY_READY;
 import static projekt.substratum.common.Internal.THEME_READY_STOCK;
-import static projekt.substratum.common.References.FADE_FROM_GRAYSCALE_TO_COLOR_DURATION;
 import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
+import static projekt.substratum.common.References.setRecyclerViewAnimations;
 
 
 public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> {
@@ -311,20 +308,9 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
             }
             return false;
         });
-
         viewHolder.theme_author.setText(themeItem.getThemeAuthor());
         viewHolder.imageView.setImageDrawable(themeItem.getThemeDrawable());
-
-        // Prettify the UI with fading desaturating colors!
-        ColorMatrix matrix = new ColorMatrix();
-        ValueAnimator animation = ValueAnimator.ofFloat(0f, 1f);
-        animation.setDuration(FADE_FROM_GRAYSCALE_TO_COLOR_DURATION);
-        animation.addUpdateListener(animation1 -> {
-            matrix.setSaturation(animation1.getAnimatedFraction());
-            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
-            viewHolder.imageView.setColorFilter(filter);
-        });
-        animation.start();
+        setRecyclerViewAnimations(viewHolder.imageView);
     }
 
     /**

@@ -44,10 +44,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import projekt.substratum.R;
 import projekt.substratum.Substratum;
-import projekt.substratum.adapters.showcase.ShowcaseItem;
-import projekt.substratum.adapters.showcase.ShowcaseItemAdapter;
+import projekt.substratum.adapters.activities.ShowcaseItem;
+import projekt.substratum.adapters.activities.ShowcaseAdapter;
 import projekt.substratum.adapters.tabs.wallpapers.WallpaperAdapter;
-import projekt.substratum.adapters.tabs.wallpapers.WallpaperEntries;
+import projekt.substratum.adapters.tabs.wallpapers.WallpaperItem;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.util.helpers.FileDownloader;
@@ -91,7 +91,7 @@ public class ShowcaseTab extends Fragment {
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new GridLayoutManager(context, 2));
-        ArrayList<WallpaperEntries> empty_array = new ArrayList<>();
+        ArrayList<WallpaperItem> empty_array = new ArrayList<>();
         RecyclerView.Adapter empty_adapter = new WallpaperAdapter(empty_array);
         mRecyclerView.setAdapter(empty_adapter);
         mRecyclerView.getViewTreeObserver().addOnPreDrawListener(
@@ -150,7 +150,7 @@ public class ShowcaseTab extends Fragment {
             super.onPostExecute(result);
             ShowcaseTab showcaseTab = ref.get();
             if (showcaseTab != null) {
-                ShowcaseItemAdapter mAdapter = new ShowcaseItemAdapter(result);
+                ShowcaseAdapter mAdapter = new ShowcaseAdapter(result);
                 showcaseTab.mRecyclerView.setAdapter(mAdapter);
                 showcaseTab.mRecyclerView.setVisibility(View.VISIBLE);
                 showcaseTab.materialProgressBar.setVisibility(View.GONE);

@@ -18,13 +18,10 @@
 
 package projekt.substratum.adapters.tabs.wallpapers;
 
-import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -47,16 +44,16 @@ import projekt.substratum.R;
 import projekt.substratum.databinding.WallpaperEntryCardBinding;
 import projekt.substratum.util.helpers.FileDownloader;
 
-import static projekt.substratum.common.References.FADE_FROM_GRAYSCALE_TO_COLOR_DURATION;
+import static projekt.substratum.common.References.setRecyclerViewAnimations;
 
 public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.ViewHolder> {
-    private List<WallpaperEntries> information;
+    private List<WallpaperItem> information;
     private ProgressDialog mProgressDialog;
     private Context context;
     private PowerManager.WakeLock mWakeLock;
     private AsyncTask current_download;
 
-    public WallpaperAdapter(List<WallpaperEntries> information) {
+    public WallpaperAdapter(List<WallpaperItem> information) {
         super();
         this.information = information;
     }
@@ -72,10 +69,10 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder viewHolder,
                                  int pos) {
-        WallpaperEntries wallpaperEntry = information.get(pos);
+        WallpaperItem wallpaperItem = information.get(pos);
         WallpaperEntryCardBinding viewHolderBinding = viewHolder.getBinding();
-        viewHolderBinding.setWallpaperItem(wallpaperEntry);
-        context = wallpaperEntry.getContext();
+        viewHolderBinding.setWallpaperItem(wallpaperItem);
+        context = wallpaperItem.getContext();
 
         viewHolderBinding.wallpaperCard.setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -103,27 +100,17 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
                         // Download the image
                         this.current_download = new downloadWallpaper(
                                 this,
-                                wallpaperEntry.getCallingActivity()
+                                wallpaperItem.getCallingActivity()
                         ).execute(
-                                wallpaperEntry.getWallpaperLink(),
+                                wallpaperItem.getWallpaperLink(),
                                 mode,
-                                wallpaperEntry.getWallpaperName());
+                                wallpaperItem.getWallpaperName());
                         break;
                 }
             });
             builder.show();
         });
-
-        // Prettify the UI with fading desaturating colors!
-        ColorMatrix matrix = new ColorMatrix();
-        ValueAnimator animation = ValueAnimator.ofFloat(0f, 1f);
-        animation.setDuration(FADE_FROM_GRAYSCALE_TO_COLOR_DURATION);
-        animation.addUpdateListener(animation1 -> {
-            matrix.setSaturation(animation1.getAnimatedFraction());
-            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
-            viewHolderBinding.wallpaperImage.setColorFilter(filter);
-        });
-        animation.start();
+        setRecyclerViewAnimations(viewHolderBinding.wallpaperImage);
     }
 
     @Override

@@ -22,13 +22,13 @@
 
     <data>
 
-        <import type="projekt.substratum.adapters.showcase.ShowcaseItem" />
+        <import type="projekt.substratum.adapters.activities.ShowcaseItem" />
 
         <import type="android.view.View" />
 
         <variable
             name="showcaseItem"
-            type="projekt.substratum.adapters.showcase.ShowcaseItem" />
+            type="projekt.substratum.adapters.activities.ShowcaseItem" />
     </data>
 
     <LinearLayout

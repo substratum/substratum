@@ -41,7 +41,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import projekt.substratum.R;
 import projekt.substratum.adapters.tabs.wallpapers.WallpaperAdapter;
-import projekt.substratum.adapters.tabs.wallpapers.WallpaperEntries;
+import projekt.substratum.adapters.tabs.wallpapers.WallpaperItem;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Systems;
 import projekt.substratum.util.helpers.FileDownloader;
@@ -94,7 +94,7 @@ public class Wallpapers extends Fragment {
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        ArrayList<WallpaperEntries> empty_array = new ArrayList<>();
+        ArrayList<WallpaperItem> empty_array = new ArrayList<>();
         RecyclerView.Adapter empty_adapter = new WallpaperAdapter(empty_array);
         mRecyclerView.setAdapter(empty_adapter);
         mRecyclerView.getViewTreeObserver().addOnPreDrawListener(
@@ -157,8 +157,8 @@ public class Wallpapers extends Fragment {
                     Map<String, String> newArray =
                             ReadCloudWallpaperFile.read(
                                     wallpapers.context.getCacheDir() + "/" + CURRENT_WALLPAPERS);
-                    ArrayList<WallpaperEntries> wallpaperEntries = new ArrayList<>();
-                    WallpaperEntries newEntry = new WallpaperEntries();
+                    ArrayList<WallpaperItem> wallpaperEntries = new ArrayList<>();
+                    WallpaperItem newEntry = new WallpaperItem();
 
                     for (Map.Entry<String, String> stringStringEntry : newArray.entrySet()) {
                         if (!stringStringEntry.getKey().toLowerCase(Locale.US)
@@ -172,7 +172,7 @@ public class Wallpapers extends Fragment {
                             // This is a preview image to be displayed on the card
                             newEntry.setWallpaperPreview(stringStringEntry.getValue());
                             wallpaperEntries.add(newEntry);
-                            newEntry = new WallpaperEntries();
+                            newEntry = new WallpaperItem();
                         }
                     }
                     RecyclerView.Adapter mAdapter = new WallpaperAdapter(wallpaperEntries);

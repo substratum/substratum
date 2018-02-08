@@ -16,7 +16,7 @@
  * along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package projekt.substratum.adapters.tabs;
+package projekt.substratum.adapters.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -42,7 +42,7 @@ import static projekt.substratum.common.References.shutdownAnimationsFragment;
 import static projekt.substratum.common.References.soundsFragment;
 import static projekt.substratum.common.References.wallpaperFragment;
 
-public class InformationTabsAdapter extends FragmentStatePagerAdapter {
+public class IATabsAdapter extends FragmentStatePagerAdapter {
 
     private Integer mNumOfTabs;
     private String theme_mode;
@@ -52,13 +52,13 @@ public class InformationTabsAdapter extends FragmentStatePagerAdapter {
     private List package_checker;
 
     @SuppressWarnings("unchecked")
-    public InformationTabsAdapter(FragmentManager fragmentManager,
-                                  Integer NumOfTabs,
-                                  String theme_mode,
-                                  List package_checker,
-                                  String wallpaperUrl,
-                                  HashMap<String, Boolean> extras,
-                                  Bundle bundle) {
+    public IATabsAdapter(FragmentManager fragmentManager,
+                         Integer NumOfTabs,
+                         String theme_mode,
+                         List package_checker,
+                         String wallpaperUrl,
+                         HashMap<String, Boolean> extras,
+                         Bundle bundle) {
         super(fragmentManager);
         this.mNumOfTabs = NumOfTabs;
         this.theme_mode = theme_mode;

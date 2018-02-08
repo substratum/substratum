@@ -88,7 +88,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import projekt.substratum.adapters.tabs.InformationTabsAdapter;
+import projekt.substratum.adapters.activities.IATabsAdapter;
 import projekt.substratum.common.Broadcasts;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
@@ -714,7 +714,7 @@ public class InformationActivity extends AppCompatActivity {
         }
 
         // Set up the tabs
-        InformationTabsAdapter adapter = new InformationTabsAdapter(
+        IATabsAdapter adapter = new IATabsAdapter(
                 getSupportFragmentManager(),
                 tabLayout.getTabCount(),
                 theme_mode,

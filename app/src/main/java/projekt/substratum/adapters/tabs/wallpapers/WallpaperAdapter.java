@@ -79,10 +79,8 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                     context, R.layout.tab_wallpaper_dialog);
             arrayAdapter.add(this.context.getString(R.string.wallpaper_dialog_wallpaper));
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                arrayAdapter.add(this.context.getString(R.string.wallpaper_dialog_lockscreen));
-                arrayAdapter.add(this.context.getString(R.string.wallpaper_dialog_wallpaper_both));
-            }
+            arrayAdapter.add(this.context.getString(R.string.wallpaper_dialog_lockscreen));
+            arrayAdapter.add(this.context.getString(R.string.wallpaper_dialog_wallpaper_both));
             builder.setCancelable(false);
             builder.setNegativeButton(
                     android.R.string.cancel,

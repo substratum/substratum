@@ -79,7 +79,7 @@
                     android:layout_below="@id/overlayTargetPackageName"
                     android:textColor="@color/theme_information_card_subtext"
                     android:textSize="16sp"
-                    app:text="@{overlay.packageName + ` [` + overlay.targetVersion + `]`}" />
+                    app:text="@{overlay.packageName + ` [` + overlay.getTargetVersion() + `]`}" />
 
                 <TextView
                     android:id="@+id/overlay_state"

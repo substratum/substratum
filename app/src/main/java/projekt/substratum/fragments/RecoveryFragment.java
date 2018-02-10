@@ -21,6 +21,7 @@ package projekt.substratum.fragments;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -28,7 +29,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -45,8 +45,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
@@ -55,6 +53,7 @@ import projekt.substratum.common.Systems;
 import projekt.substratum.common.commands.ElevatedCommands;
 import projekt.substratum.common.commands.FileOperations;
 import projekt.substratum.common.platform.ThemeManager;
+import projekt.substratum.databinding.RestoreFragmentBinding;
 import projekt.substratum.tabs.BootAnimationsManager;
 import projekt.substratum.tabs.FontsManager;
 import projekt.substratum.tabs.WallpapersManager;
@@ -76,24 +75,11 @@ import static projekt.substratum.common.References.VENDOR_DIR;
 
 public class RecoveryFragment extends Fragment {
 
-    @BindView(R.id.overlaysButton)
-    CardView overlaysButton;
-    @BindView(R.id.wallpaperButton)
-    CardView wallpaperButton;
-    @BindView(R.id.bootanimationButton)
-    CardView bootanimationButton;
-    @BindView(R.id.fontsButton)
-    CardView fontsButton;
-    @BindView(R.id.soundsButton)
-    CardView soundsButton;
-    @BindView(R.id.restore_overlay_card)
     View overlayCard;
-    @BindView(R.id.restore_bootanimation_card)
     View bootanimationCard;
-    @BindView(R.id.restore_fonts_card)
     View fontsCard;
-    @BindView(R.id.restore_sounds_card)
     View soundCard;
+    View wallpaperCard;
     private ProgressDialog mProgressDialog;
     private ArrayList<String> final_commands_array;
     private SharedPreferences prefs;
@@ -114,14 +100,20 @@ public class RecoveryFragment extends Fragment {
             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getContext();
-        View view = inflater.inflate(R.layout.restore_fragment, container, false);
-        ButterKnife.bind(this, view);
+        RestoreFragmentBinding viewBinding =
+                DataBindingUtil.inflate(inflater, R.layout.restore_fragment, container, false);
+        View view = viewBinding.getRoot();
+        overlayCard = viewBinding.restoreOverlayCard;
+        bootanimationCard = viewBinding.restoreBootanimationCard;
+        fontsCard = viewBinding.restoreFontsCard;
+        soundCard = viewBinding.restoreSoundsCard;
+        wallpaperCard = viewBinding.restoreWallpapersCard;
 
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
         setHasOptionsMenu(true);
 
         // Overlays Dialog
-        overlaysButton.setOnClickListener(v -> {
+        overlayCard.setOnClickListener(v -> {
             sheetDialog = new SheetDialog(context);
             View sheetView = View.inflate(context, R.layout.restore_overlays_sheet_dialog, null);
             LinearLayout disable_all = sheetView.findViewById(R.id.disable_all);
@@ -140,7 +132,7 @@ public class RecoveryFragment extends Fragment {
         });
 
         // Wallpaper Dialog
-        wallpaperButton.setOnClickListener(v -> {
+        wallpaperCard.setOnClickListener(v -> {
             sheetDialog = new SheetDialog(context);
             View sheetView = View.inflate(context, R.layout
                             .restore_wallpapers_sheet_dialog,
@@ -204,7 +196,7 @@ public class RecoveryFragment extends Fragment {
         });
 
         // Boot Animation Dialog
-        bootanimationButton.setOnClickListener(v -> {
+        bootanimationCard.setOnClickListener(v -> {
             sheetDialog = new SheetDialog(context);
             View sheetView = View.inflate(context,
                     R.layout.restore_bootanimations_sheet_dialog, null);
@@ -218,7 +210,7 @@ public class RecoveryFragment extends Fragment {
         });
 
         // Font Dialog
-        fontsButton.setOnClickListener(v -> {
+        fontsCard.setOnClickListener(v -> {
             sheetDialog = new SheetDialog(context);
             View sheetView = View.inflate(context, R.layout.restore_fonts_sheet_dialog, null);
             LinearLayout restore = sheetView.findViewById(R.id.restore);
@@ -234,7 +226,7 @@ public class RecoveryFragment extends Fragment {
         });
 
         // Sounds Dialog
-        soundsButton.setOnClickListener(v -> {
+        soundCard.setOnClickListener(v -> {
             sheetDialog = new SheetDialog(context);
             View sheetView = View.inflate(context, R.layout.restore_sounds_sheet_dialog, null);
             LinearLayout restore = sheetView.findViewById(R.id.restore);

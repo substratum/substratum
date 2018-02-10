@@ -15,37 +15,34 @@
   ~ You should have received a copy of the GNU General Public License
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-    <ScrollView
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="vertical">
+        <include
+            android:id="@+id/restore_overlay_card"
+            layout="@layout/restore_overlay" />
 
-            <include
-                android:id="@+id/restore_overlay_card"
-                layout="@layout/restore_overlay" />
+        <include
+            android:id="@+id/restore_bootanimation_card"
+            layout="@layout/restore_bootanimation" />
 
-            <include
-                android:id="@+id/restore_bootanimation_card"
-                layout="@layout/restore_bootanimation" />
+        <include
+            android:id="@+id/restore_fonts_card"
+            layout="@layout/restore_fonts" />
 
-            <include
-                android:id="@+id/restore_fonts_card"
-                layout="@layout/restore_fonts" />
+        <include
+            android:id="@+id/restore_sounds_card"
+            layout="@layout/restore_sounds" />
 
-            <include
-                android:id="@+id/restore_sounds_card"
-                layout="@layout/restore_sounds" />
+        <include layout="@layout/restore_wallpaper" />
 
-            <include
-                android:id="@+id/restore_wallpapers_card"
-                layout="@layout/restore_wallpaper" />
-
-        </LinearLayout>
-    </ScrollView>
-</layout>
+    </LinearLayout>
+</ScrollView>

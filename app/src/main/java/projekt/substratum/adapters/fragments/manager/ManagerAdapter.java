@@ -53,40 +53,40 @@ public class ManagerAdapter extends
     public void onBindViewHolder(ViewHolder viewHolder,
                                  int position) {
         final ManagerItem managerItem = overlayList.get(position);
-        ManagerItemBinding viewBinding = viewHolder.getBinding();
-        viewBinding.setOverlay(managerItem);
-        viewBinding.executePendingBindings();
+        ManagerItemBinding viewHolderBinding = viewHolder.getBinding();
+        viewHolderBinding.setOverlay(managerItem);
+        viewHolderBinding.executePendingBindings();
 
-        viewBinding.tvName.setTextColor(overlayList.get(position).getActivationValue());
+        viewHolderBinding.tvName.setTextColor(overlayList.get(position).getActivationValue());
 
-        viewBinding.chkSelected.setChecked(overlayList.get(position).isSelected());
-        viewBinding.chkSelected.setTag(overlayList.get(position));
-        viewBinding.chkSelected.setOnClickListener(view -> {
+        viewHolderBinding.chkSelected.setChecked(overlayList.get(position).isSelected());
+        viewHolderBinding.chkSelected.setTag(overlayList.get(position));
+        viewHolderBinding.chkSelected.setOnClickListener(view -> {
             CheckBox checkBox = (CheckBox) view;
             ManagerItem contact = (ManagerItem) checkBox.getTag();
 
             contact.setSelected(checkBox.isChecked());
             overlayList.get(position).setSelected(checkBox.isChecked());
         });
-        viewBinding.overlayCard.setOnClickListener(view -> {
-            viewBinding.chkSelected.setChecked(!viewBinding.chkSelected.isChecked());
+        viewHolderBinding.overlayCard.setOnClickListener(view -> {
+            viewHolderBinding.chkSelected.setChecked(!viewHolderBinding.chkSelected.isChecked());
 
-            CheckBox cb = viewBinding.chkSelected;
+            CheckBox cb = viewHolderBinding.chkSelected;
             ManagerItem contact = (ManagerItem) cb.getTag();
 
             contact.setSelected(cb.isChecked());
             contact.setSelected(cb.isChecked());
         });
         if (overlayList.get(position).getDrawable() == null) {
-            Drawable app_icon = Packages.getAppIcon(
+            Drawable appIcon = Packages.getAppIcon(
                     overlayList.get(position).getContext(),
                     Packages.getOverlayParent(
                             overlayList.get(position).getContext(),
                             overlayList.get(position).getName()));
-            overlayList.get(position).setDrawable(app_icon);
-            viewBinding.appIcon.setImageDrawable(app_icon);
+            overlayList.get(position).setDrawable(appIcon);
+            viewHolderBinding.appIcon.setImageDrawable(appIcon);
         } else {
-            viewBinding.appIcon.setImageDrawable(overlayList.get(position).getDrawable());
+            viewHolderBinding.appIcon.setImageDrawable(overlayList.get(position).getDrawable());
         }
         if (overlayList.get(position).getTargetDrawable() == null) {
             Drawable app_icon = Packages.getAppIcon(
@@ -95,9 +95,9 @@ public class ManagerAdapter extends
                             overlayList.get(position).getContext(),
                             overlayList.get(position).getName()));
             overlayList.get(position).setTargetDrawable(app_icon);
-            viewBinding.appIconSub.setImageDrawable(app_icon);
+            viewHolderBinding.appIconSub.setImageDrawable(app_icon);
         } else {
-            viewBinding.appIconSub.setImageDrawable(
+            viewHolderBinding.appIconSub.setImageDrawable(
                     overlayList.get(position).getTargetDrawable());
         }
     }

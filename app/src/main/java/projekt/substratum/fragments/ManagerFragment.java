@@ -116,7 +116,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     private ManagerAdapter mAdapter;
     private SharedPreferences prefs;
     private List<ManagerItem> overlaysList;
-    private Boolean first_run;
+    private Boolean firstRun;
     private List<ManagerItem> overlayList;
     private FinishReceiver finishReceiver;
     private Context context;
@@ -124,7 +124,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
     private BroadcastReceiver refreshReceiver;
     private SearchView searchView;
     private String userInput = "";
-    private Boolean first_boot = true;
+    private boolean firstBoot = true;
     private LayoutReloader layoutReloader;
 
     /**
@@ -141,11 +141,11 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
      */
     private void resetRecyclerView() {
         // Initialize the recycler view with an empty adapter first
-        ArrayList<ManagerItem> empty_array = new ArrayList<>();
-        RecyclerView.Adapter empty_adapter = new ManagerAdapter(empty_array);
+        ArrayList<ManagerItem> emptyArray = new ArrayList<>();
+        RecyclerView.Adapter emptyAdapter = new ManagerAdapter(emptyArray);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(empty_adapter);
+        recyclerView.setAdapter(emptyAdapter);
     }
 
     /**
@@ -153,7 +153,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
      */
     public void setSwipeRefreshLayoutRefreshing() {
         if (searchView.isIconified()) {
-            if ((first_run != null) && recyclerView.isShown() && !first_run) {
+            if ((firstRun != null) && recyclerView.isShown() && !firstRun) {
                 if (layoutReloader != null && !layoutReloader.isCancelled()) {
                     layoutReloader.cancel(true);
                     layoutReloader = new LayoutReloader(ManagerFragment.this, userInput);
@@ -629,12 +629,12 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                     }
 
                     try {
-                        Thread.sleep((long) (fragment.first_boot ?
+                        Thread.sleep((long) (fragment.firstBoot ?
                                 MANAGER_FRAGMENT_INITIAL_DELAY : 0));
                     } catch (InterruptedException ie) {
                         // Suppress warning
                     }
-                    if (fragment.first_boot) fragment.first_boot = false;
+                    if (fragment.firstBoot) fragment.firstBoot = false;
                 } catch (Exception e) {
                     // Consume window refresh
                 }
@@ -706,7 +706,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                         !Systems.checkOMS(fragment.context)) {
                     fragment.enableSelected.setVisibility(View.GONE);
                 }
-                if (fragment.first_run == null) fragment.first_run = false;
+                if (fragment.firstRun == null) fragment.firstRun = false;
             }
         }
     }
@@ -1074,7 +1074,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
             if (fragment != null) {
                 Context context = fragment.context;
                 fragment.overlayList = fragment.mAdapter.getOverlayManagerList();
-                boolean has_failed = false;
+                boolean hasFailed = false;
                 int len = fragment.overlayList.size();
                 ArrayList<String> disabled = new ArrayList<>();
                 ArrayList<String> enabled = new ArrayList<>();
@@ -1090,11 +1090,11 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
                                 disabled.add(managerItem.getName());
                             }
                         } else {
-                            has_failed = true;
+                            hasFailed = true;
                         }
                     }
                 }
-                if ((!enabled.isEmpty() || !disabled.isEmpty()) && !has_failed) {
+                if ((!enabled.isEmpty() || !disabled.isEmpty()) && !hasFailed) {
                     // The magic goes here
                     if (!enabled.isEmpty()) ThemeManager.enableOverlay(context, enabled);
                     if (!disabled.isEmpty()) ThemeManager.disableOverlay(context, disabled);

@@ -36,7 +36,7 @@ public enum PackageAnalytics {
     private static final String RUNTIME_TAG = "RuntimeMemory";
 
     public static boolean isLowEnd() {
-        Float maximum_memory = PackageAnalytics.logRuntimeMemoryLimits()[0];
+        Float maximum_memory = logRuntimeMemoryLimits()[0];
         return maximum_memory <= 130.0F;
     }
 

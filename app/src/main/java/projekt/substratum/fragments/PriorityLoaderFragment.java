@@ -19,6 +19,7 @@
 package projekt.substratum.fragments;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -42,26 +43,22 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import projekt.substratum.R;
 import projekt.substratum.adapters.fragments.priorities.PrioritiesInterface;
 import projekt.substratum.adapters.fragments.priorities.PrioritiesItem;
 import projekt.substratum.adapters.fragments.priorities.PriorityAdapter;
 import projekt.substratum.common.Packages;
+import projekt.substratum.databinding.PriorityLoaderFragmentBinding;
 
 import static projekt.substratum.common.platform.ThemeManager.listTargetWithMultipleOverlaysEnabled;
 
 public class PriorityLoaderFragment extends Fragment {
 
-    @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-    @BindView(R.id.loading_priorities)
     ProgressBar materialProgressBar;
-    @BindView(R.id.no_priorities_found)
     RelativeLayout emptyView;
     private List<PrioritiesInterface> prioritiesList;
-    private List<String> app_list;
+    private List<String> appList;
     private PriorityAdapter adapter;
     private Context context;
 
@@ -72,8 +69,12 @@ public class PriorityLoaderFragment extends Fragment {
             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getContext();
-        View view = inflater.inflate(R.layout.priority_loader_fragment, container, false);
-        ButterKnife.bind(this, view);
+        PriorityLoaderFragmentBinding viewBinding =
+                DataBindingUtil.inflate(inflater, R.layout.priority_loader_fragment, container, false);
+        View view = viewBinding.getRoot();
+        recyclerView = viewBinding.recyclerView;
+        materialProgressBar = viewBinding.loadingPriorities;
+        emptyView = viewBinding.noPrioritiesFound;
 
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
         PriorityAdapter empty_adapter =
@@ -85,7 +86,7 @@ public class PriorityLoaderFragment extends Fragment {
 
         // Begin loading up list
         prioritiesList = new ArrayList<>();
-        app_list = new ArrayList<>();
+        appList = new ArrayList<>();
         adapter = new PriorityAdapter(getContext(), R.layout.priority_loader_item);
 
         // Load prioritized overlays
@@ -98,7 +99,7 @@ public class PriorityLoaderFragment extends Fragment {
                     public boolean onItemClick(final PrioritiesItem item, final int position) {
                         Fragment fragment = new PriorityListFragment();
                         Bundle bundle = new Bundle();
-                        bundle.putString("package_name", app_list.get(position));
+                        bundle.putString("package_name", appList.get(position));
                         fragment.setArguments(bundle);
                         FragmentManager fm = getActivity().getSupportFragmentManager();
                         FragmentTransaction transaction = fm.beginTransaction();
@@ -138,9 +139,8 @@ public class PriorityLoaderFragment extends Fragment {
                 fragment.recyclerView.setAdapter(fragment.adapter);
 
                 new GestureManager.Builder(fragment.recyclerView)
-                        .setGestureFlags(
-                                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT,
-                                ItemTouchHelper.UP | ItemTouchHelper.DOWN)
+                        .setSwipeFlags(ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT)
+                        .setDragFlags(ItemTouchHelper.UP | ItemTouchHelper.DOWN)
                         .build();
             }
         }
@@ -155,7 +155,7 @@ public class PriorityLoaderFragment extends Fragment {
                 for (String t : targets) {
                     fragment.prioritiesList.add(new PrioritiesItem(t,
                             Packages.getAppIcon(fragment.context, t)));
-                    fragment.app_list.add(t);
+                    fragment.appList.add(t);
                 }
             }
             return null;

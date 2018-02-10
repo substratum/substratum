@@ -344,19 +344,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         new AlertDialog.Builder(this.context)
                 .setMessage(R.string.two_description)
                 .setCancelable(true)
-                .setPositiveButton(R.string.dynamic_gapps_dialog,
-                        (dialog, which) -> {
-                            try {
-                                String playURL =
-                                        this.context.getString(R.string.dynamic_gapps_link);
-                                Intent intent = new Intent(Intent.ACTION_VIEW);
-                                intent.setData(Uri.parse(playURL));
-                                this.context.startActivity(intent);
-                            } catch (ActivityNotFoundException anfe) {
-                                // Suppress warning
-                            }
-                        })
-                .setNegativeButton(R.string.open_gapps_dialog,
+                .setNeutralButton(R.string.open_gapps_dialog,
                         (dialog, which) -> {
                             try {
                                 String playURL =
@@ -368,7 +356,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                                 // Suppress warning
                             }
                         })
-                .setNeutralButton(android.R.string.cancel,
+                .setNegativeButton(android.R.string.cancel,
                         (dialog, which) -> dialog.cancel())
                 .show();
     }

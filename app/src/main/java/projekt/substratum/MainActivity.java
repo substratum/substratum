@@ -150,8 +150,8 @@ public class MainActivity extends AppCompatActivity implements
     public static String userInput = "";
     public static ArrayList<String> queuedUninstall;
     public SearchView searchView;
-    public TextView actionbar_content;
-    TextView actionbar_title;
+    public TextView actionbarContent;
+    TextView actionbarTitle;
     Toolbar toolbar;
     BottomNavigationView bottomBar;
     View bottomBarShadow;
@@ -217,10 +217,10 @@ public class MainActivity extends AppCompatActivity implements
         showToolbarHamburger();
         if (bottomBarUi) return;
         if (supportActionBar != null) supportActionBar.setTitle("");
-        actionbar_content.setVisibility(View.VISIBLE);
-        actionbar_title.setVisibility(View.VISIBLE);
-        actionbar_title.setText(title);
-        actionbar_content.setText(content);
+        actionbarContent.setVisibility(View.VISIBLE);
+        actionbarTitle.setVisibility(View.VISIBLE);
+        actionbarTitle.setText(title);
+        actionbarContent.setText(content);
     }
 
     /**
@@ -230,8 +230,8 @@ public class MainActivity extends AppCompatActivity implements
      */
     public void switchToStockToolbar(CharSequence title) {
         showToolbarHamburger();
-        actionbar_content.setVisibility(View.GONE);
-        actionbar_title.setVisibility(View.GONE);
+        actionbarContent.setVisibility(View.GONE);
+        actionbarTitle.setVisibility(View.GONE);
         if (supportActionBar != null) supportActionBar.setTitle(title);
     }
 
@@ -312,15 +312,15 @@ public class MainActivity extends AppCompatActivity implements
      * Transact a different theme fragment with a different set of filters
      *
      * @param title     Fragment's title
-     * @param home_type ThemeFragment's home type
+     * @param homeType  ThemeFragment's home type
      */
-    private void switchThemeFragment(String title, String home_type) {
+    private void switchThemeFragment(String title, String homeType) {
         if ((searchView != null) && !searchView.isIconified()) {
             searchView.setIconified(true);
         }
         Fragment fragment = new ThemeFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("home_type", home_type);
+        bundle.putString("home_type", homeType);
         bundle.putString("title", title);
         fragment.setArguments(bundle);
 
@@ -411,8 +411,8 @@ public class MainActivity extends AppCompatActivity implements
             Log.d(SUBSTRATUM_LOG, "Substratum launched with debug mode signatures.");
         }
         MainActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.main_activity);
-        actionbar_content = binding.themeCount;
-        actionbar_title = binding.activityTitle;
+        actionbarContent = binding.themeCount;
+        actionbarTitle = binding.activityTitle;
         toolbar = binding.toolbar;
         bottomBarShadow = binding.bottomBarShadow;
         bottomBar = binding.bottomBar;
@@ -1253,14 +1253,14 @@ public class MainActivity extends AppCompatActivity implements
                     // permission already granted, allow the program to continue running
                     File directory = new File(EXTERNAL_STORAGE_CACHE);
                     if (directory.exists()) {
-                        Boolean deleted = directory.delete();
+                        boolean deleted = directory.delete();
                         if (!deleted) Log.e(References.SUBSTRATUM_LOG,
                                 "Unable to delete directory");
                     } else {
                         Log.d(References.SUBSTRATUM_LOG, "Deleting old cache dir: " + directory);
                     }
                     if (!directory.exists()) {
-                        Boolean made = directory.mkdirs();
+                        boolean made = directory.mkdirs();
                         if (!made) Log.e(References.SUBSTRATUM_LOG,
                                 "Unable to create directory");
                     } else {
@@ -1270,7 +1270,7 @@ public class MainActivity extends AppCompatActivity implements
                     File cacheDirectory = new File(getCacheDir(),
                             SUBSTRATUM_BUILDER_CACHE);
                     if (!cacheDirectory.exists()) {
-                        Boolean made = cacheDirectory.mkdirs();
+                        boolean made = cacheDirectory.mkdirs();
                         if (!made) Log.e(References.SUBSTRATUM_LOG,
                                 "Unable to create cache directory");
                     }
@@ -1385,14 +1385,14 @@ public class MainActivity extends AppCompatActivity implements
                                     // allow the program to continue running
                                     File directory = new File(EXTERNAL_STORAGE_CACHE);
                                     if (!directory.exists()) {
-                                        Boolean made = directory.mkdirs();
+                                        boolean made = directory.mkdirs();
                                         if (!made) Log.e(References.SUBSTRATUM_LOG,
                                                 "Unable to create directory");
                                     }
                                     File cacheDirectory = new File(activity.getCacheDir(),
                                             SUBSTRATUM_BUILDER_CACHE);
                                     if (!cacheDirectory.exists()) {
-                                        Boolean made = cacheDirectory.mkdirs();
+                                        boolean made = cacheDirectory.mkdirs();
                                         if (!made) Log.e(References.SUBSTRATUM_LOG,
                                                 "Unable to create cache directory");
                                     }
@@ -1527,7 +1527,7 @@ public class MainActivity extends AppCompatActivity implements
             }
         }
 
-        private void showDialogOrNot(Boolean passthrough) {
+        private void showDialogOrNot(boolean passthrough) {
             MainActivity activity = ref.get();
             isRunning = false;
             if (activity != null) {

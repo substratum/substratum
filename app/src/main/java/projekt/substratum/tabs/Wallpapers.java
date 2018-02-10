@@ -54,8 +54,8 @@ public class Wallpapers extends Fragment {
 
     public static AsyncTask<String, Integer, String> mainLoader = null;
     private ProgressBar materialProgressBar;
-    private View no_network;
-    private View no_wallpapers;
+    private View noNetwork;
+    private View noWallpapers;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView mRecyclerView;
     private String wallpaperUrl;
@@ -74,8 +74,8 @@ public class Wallpapers extends Fragment {
         View view = tabWallpapersBinding.getRoot();
 
         materialProgressBar = tabWallpapersBinding.progressBarLoader;
-        no_network = tabWallpapersBinding.noNetwork;
-        no_wallpapers = tabWallpapersBinding.noneFound;
+        noNetwork = tabWallpapersBinding.noNetwork;
+        noWallpapers = tabWallpapersBinding.noneFound;
         swipeRefreshLayout = tabWallpapersBinding.swipeRefreshLayout;
         mRecyclerView = tabWallpapersBinding.wallpaperRecyclerView;
 
@@ -98,9 +98,9 @@ public class Wallpapers extends Fragment {
         // Pre-initialize the adapter first so that it won't complain for skipping layout on logs
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        ArrayList<WallpaperItem> empty_array = new ArrayList<>();
-        RecyclerView.Adapter empty_adapter = new WallpaperAdapter(empty_array);
-        mRecyclerView.setAdapter(empty_adapter);
+        ArrayList<WallpaperItem> emptyArray = new ArrayList<>();
+        RecyclerView.Adapter emptyAdapter = new WallpaperAdapter(emptyArray);
+        mRecyclerView.setAdapter(emptyAdapter);
         mRecyclerView.getViewTreeObserver().addOnPreDrawListener(
                 new ViewTreeObserver.OnPreDrawListener() {
                     @Override
@@ -118,8 +118,8 @@ public class Wallpapers extends Fragment {
                         return true;
                     }
                 });
-        no_wallpapers.setVisibility(View.GONE);
-        no_network.setVisibility(View.GONE);
+        noWallpapers.setVisibility(View.GONE);
+        noNetwork.setVisibility(View.GONE);
 
         if (References.isNetworkAvailable(context)) {
             mainLoader = new downloadResources(this);
@@ -127,8 +127,8 @@ public class Wallpapers extends Fragment {
         } else {
             mRecyclerView.setVisibility(View.GONE);
             materialProgressBar.setVisibility(View.GONE);
-            no_wallpapers.setVisibility(View.GONE);
-            no_network.setVisibility(View.VISIBLE);
+            noWallpapers.setVisibility(View.GONE);
+            noNetwork.setVisibility(View.VISIBLE);
         }
 
     }
@@ -183,7 +183,7 @@ public class Wallpapers extends Fragment {
                     wallpapers.mRecyclerView.setAdapter(mAdapter);
 
                     if (wallpaperEntries.isEmpty())
-                        wallpapers.no_wallpapers.setVisibility(View.VISIBLE);
+                        wallpapers.noWallpapers.setVisibility(View.VISIBLE);
 
                     wallpapers.mRecyclerView.setVisibility(View.VISIBLE);
                     wallpapers.materialProgressBar.setVisibility(View.GONE);

@@ -53,22 +53,22 @@ import static projekt.substratum.common.References.SST_ADDON_PACKAGE;
 public class OverlayFound extends BroadcastReceiver {
 
     private static final String TAG = "OverlayFound";
-    private String package_name;
+    private String packageName;
     private Context context;
 
     @SuppressWarnings("ConstantConditions")
     @Override
     public void onReceive(Context context, Intent intent) {
         if (PACKAGE_ADDED.equals(intent.getAction())) {
-            package_name = intent.getData().toString().substring(8);
+            packageName = intent.getData().toString().substring(8);
             this.context = context;
 
-            if (ThemeManager.isOverlay(context, package_name)) {
+            if (ThemeManager.isOverlay(context, packageName)) {
                 return;
             }
 
-            if (package_name.equals(SST_ADDON_PACKAGE) ||
-                    package_name.equals(ANDROMEDA_PACKAGE)) {
+            if (packageName.equals(SST_ADDON_PACKAGE) ||
+                    packageName.equals(ANDROMEDA_PACKAGE)) {
                 SharedPreferences prefs =
                         context.getSharedPreferences("substratum_state", Context.MODE_PRIVATE);
                 prefs.edit().clear().apply();
@@ -76,11 +76,11 @@ public class OverlayFound extends BroadcastReceiver {
             }
 
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            Boolean to_update = prefs.getBoolean("overlay_alert", false);
-            if (!to_update) return;
+            boolean toUpdate = prefs.getBoolean("overlay_alert", false);
+            if (!toUpdate) return;
 
             // When the package is being updated, continue.
-            Boolean replacing = intent.getBooleanExtra(Intent.EXTRA_REPLACING, false);
+            boolean replacing = intent.getBooleanExtra(Intent.EXTRA_REPLACING, false);
             if (!replacing) new OverlayUpdate(this).execute("");
         }
     }
@@ -90,8 +90,8 @@ public class OverlayFound extends BroadcastReceiver {
         private WeakReference<OverlayFound> ref;
         private NotificationManager mNotifyManager;
         private NotificationCompat.Builder mBuilder;
-        private List<ResolveInfo> installed_themes;
-        private List<String> matching_criteria;
+        private List<ResolveInfo> installedThemes;
+        private List<String> matchingCriteria;
 
         OverlayUpdate(OverlayFound overlayFound) {
             super();
@@ -104,15 +104,15 @@ public class OverlayFound extends BroadcastReceiver {
             if (overlayFound != null) {
                 mNotifyManager = (NotificationManager) overlayFound.context.getSystemService(
                         Context.NOTIFICATION_SERVICE);
-                installed_themes = Packages.getThemes(overlayFound.context);
+                installedThemes = Packages.getThemes(overlayFound.context);
             }
         }
 
         @Override
         protected void onPostExecute(String result) {
-            if (!matching_criteria.isEmpty()) {
-                for (int i = 0; i < matching_criteria.size(); i++) {
-                    bundleNotifications(matching_criteria.get(i));
+            if (!matchingCriteria.isEmpty()) {
+                for (int i = 0; i < matchingCriteria.size(); i++) {
+                    bundleNotifications(matchingCriteria.get(i));
                 }
             }
         }
@@ -141,12 +141,11 @@ public class OverlayFound extends BroadcastReceiver {
                         PendingIntent.FLAG_UPDATE_CURRENT);
                 mBuilder.setContentIntent(contentIntent);
 
-                String format = String.format(
+                mBuilder.setContentTitle(String.format(
                         overlayFound.context.getString(
                                 R.string.notification_overlay_found_specific),
-                        Packages.getPackageName(overlayFound.context, overlayFound.package_name),
-                        Packages.getPackageName(overlayFound.context, theme_package));
-                mBuilder.setContentTitle(format);
+                        Packages.getPackageName(overlayFound.context, overlayFound.packageName),
+                        Packages.getPackageName(overlayFound.context, theme_package)));
                 mBuilder.setContentText(
                         overlayFound.context.getString(
                                 R.string.notification_overlay_found_description));
@@ -159,9 +158,9 @@ public class OverlayFound extends BroadcastReceiver {
         protected String doInBackground(String... sUrl) {
             OverlayFound overlayFound = ref.get();
             if (overlayFound != null) {
-                matching_criteria = new ArrayList<>();
-                for (int i = 0; i < installed_themes.size(); i++) {
-                    String theme_pid = installed_themes.get(i).activityInfo.packageName;
+                matchingCriteria = new ArrayList<>();
+                for (int i = 0; i < installedThemes.size(); i++) {
+                    String theme_pid = installedThemes.get(i).activityInfo.packageName;
                     Log.d(TAG, "Searching theme for themable overlay: " + theme_pid);
                     try {
                         Resources themeResources = overlayFound.context.getPackageManager()
@@ -169,8 +168,8 @@ public class OverlayFound extends BroadcastReceiver {
                         AssetManager themeAssetManager = themeResources.getAssets();
                         String[] listArray = themeAssetManager.list("overlays");
                         List<String> list = Arrays.asList(listArray);
-                        if (list.contains(overlayFound.package_name))
-                            matching_criteria.add(theme_pid);
+                        if (list.contains(overlayFound.packageName))
+                            matchingCriteria.add(theme_pid);
                     } catch (Exception e) {
                         // Suppress exception
                     }

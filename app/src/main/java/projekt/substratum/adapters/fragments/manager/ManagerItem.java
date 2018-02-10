@@ -49,7 +49,6 @@ public class ManagerItem implements Serializable {
     private String type4;
     private String themeName;
     private String labelName;
-    private String overlayVersion;
     private boolean isSelected;
     private int activationValue;
     private Drawable mDrawable;
@@ -57,7 +56,7 @@ public class ManagerItem implements Serializable {
 
     public ManagerItem(Context context,
                        String name,
-                       Boolean isActivated) {
+                       boolean isActivated) {
         super();
         this.context = context;
         this.name = name;
@@ -66,7 +65,7 @@ public class ManagerItem implements Serializable {
         int version = Packages.getOverlaySubstratumVersion(
                 context,
                 this.name);
-        Boolean newUpdate = (version != 0) && (version <= BuildConfig.VERSION_CODE);
+        boolean newUpdate = (version != 0) && (version <= BuildConfig.VERSION_CODE);
         String metadata = Packages.getOverlayMetadata(
                 context,
                 this.name,
@@ -78,8 +77,6 @@ public class ManagerItem implements Serializable {
         } else {
             this.themeName = null;
         }
-        this.overlayVersion = String.valueOf(
-                Packages.getAppVersion(context, this.name));
         this.updateEnabledOverlays(isActivated);
         this.setLabelName(context);
 
@@ -241,9 +238,5 @@ public class ManagerItem implements Serializable {
 
     void setTargetDrawable(Drawable drawable) {
         this.mTargetDrawable = drawable;
-    }
-
-    public String getOverlayVersion() {
-        return overlayVersion;
     }
 }

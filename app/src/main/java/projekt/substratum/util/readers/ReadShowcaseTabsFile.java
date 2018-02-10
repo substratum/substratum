@@ -56,13 +56,13 @@ public enum ReadShowcaseTabsFile {
                 if ((int) nNode.getNodeType() == (int) Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
 
-                    String addon_download_name = eElement.getAttribute("id");
-                    String addon_download_link =
+                    String addonDownloadName = eElement.getAttribute("id");
+                    String addonDownloadLink =
                             eElement.getElementsByTagName("link").item(0).getTextContent();
 
                     String[] finalArray = {
-                            addon_download_name,
-                            addon_download_link
+                            addonDownloadName,
+                            addonDownloadLink
                     };
 
                     map.put(finalArray[0], finalArray[1]);

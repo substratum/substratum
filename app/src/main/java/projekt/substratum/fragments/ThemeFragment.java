@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -48,14 +49,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import projekt.substratum.MainActivity;
 import projekt.substratum.R;
 import projekt.substratum.adapters.fragments.themes.ThemeAdapter;
 import projekt.substratum.adapters.fragments.themes.ThemeItem;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.Systems;
+import projekt.substratum.databinding.HomeFragmentBinding;
 
 import static projekt.substratum.common.Internal.HOME_TITLE;
 import static projekt.substratum.common.Internal.HOME_TYPE;
@@ -66,19 +66,16 @@ import static projekt.substratum.common.References.SUBSTRATUM_LOG;
 public class ThemeFragment extends Fragment {
 
     private static final int THEME_FRAGMENT_INITIAL_DELAY = 300;
-    @BindView(R.id.theme_list)
     RecyclerView recyclerView;
-    @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.no_entry_card_view)
     View cardView;
     private Context context;
     private LocalBroadcastManager localBroadcastManager;
     private BroadcastReceiver refreshReceiver;
     private SharedPreferences prefs;
-    private String home_type;
-    private String toolbar_title;
-    private Boolean first_boot = true;
+    private String homeType;
+    private String toolbarTitle;
+    private boolean firstBoot = true;
     private ThemeAdapter mAdapter;
 
     /**
@@ -87,13 +84,13 @@ public class ThemeFragment extends Fragment {
      * @param map       Map of packages that have been processed
      * @param context   Self explantory, bud
      * @param activity  Activity of the calling function
-     * @param home_type Home type such as Theme packs, Overlays, Boot Animations, Sounds, Fonts
+     * @param homeType  Home type such as Theme packs, Overlays, Boot Animations, Sounds, Fonts
      * @return Returns an ArrayList to be used to parse further data
      */
     private static ArrayList<ThemeItem> prepareData(Map<String, String[]> map,
                                                     Context context,
                                                     Activity activity,
-                                                    String home_type) {
+                                                    String homeType) {
         ArrayList<ThemeItem> themes = new ArrayList<>();
         for (int i = 0; i < map.size(); i++) {
             ThemeItem themeItem = new ThemeItem();
@@ -119,7 +116,7 @@ public class ThemeFragment extends Fragment {
                 themeItem.setSDKLevels(null);
                 themeItem.setThemeVersion(null);
             }
-            themeItem.setThemeMode((home_type.isEmpty()) ? null : home_type);
+            themeItem.setThemeMode((homeType.isEmpty()) ? null : homeType);
             themeItem.setContext(context);
             themeItem.setActivity(activity);
             themes.add(themeItem);
@@ -135,7 +132,7 @@ public class ThemeFragment extends Fragment {
      * @param prefs               Shared Preferences instance
      * @param activity            Activity of calling function
      * @param toolbarTitle        Requested toolbar title
-     * @param substratum_packages List of collected substratum packages
+     * @param substratumPackages  List of collected substratum packages
      * @param themeItems          List of collected themes
      */
     private static void refreshLayout(ThemeFragment themeFragment,
@@ -143,14 +140,14 @@ public class ThemeFragment extends Fragment {
                                       Context context,
                                       Activity activity,
                                       CharSequence toolbarTitle,
-                                      Map<String, String[]> substratum_packages,
+                                      Map<String, String[]> substratumPackages,
                                       ArrayList<ThemeItem> themeItems) {
 
         TextView cardViewText = themeFragment.cardView.findViewById(R.id.no_themes_description);
         ImageView cardViewImage = themeFragment.cardView.findViewById(R.id.no_themes_installed);
 
-        if (substratum_packages != null) {
-            if (substratum_packages.isEmpty()) {
+        if (substratumPackages != null) {
+            if (substratumPackages.isEmpty()) {
                 if ((((MainActivity) activity).searchView != null) &&
                         !((MainActivity) activity).searchView.isIconified()) {
                     if (!MainActivity.userInput.isEmpty()) {
@@ -180,15 +177,15 @@ public class ThemeFragment extends Fragment {
             // Now let's place the proper amount of theme count into the context text
             String parse;
             WeakReference<MainActivity> ref = new WeakReference<>((MainActivity) activity);
-            if (substratum_packages.isEmpty() && (ref.get() != null)) {
+            if (substratumPackages.isEmpty() && (ref.get() != null)) {
                 ref.get().switchToStockToolbar(toolbarTitle);
-            } else if ((substratum_packages.size() == 1) && (ref.get() != null)) {
+            } else if ((substratumPackages.size() == 1) && (ref.get() != null)) {
                 parse = String.format(context.getString(R.string.actionbar_theme_count_singular),
-                        String.valueOf(substratum_packages.size()));
+                        String.valueOf(substratumPackages.size()));
                 ref.get().switchToCustomToolbar(toolbarTitle, parse);
             } else if (ref.get() != null) {
                 parse = String.format(context.getString(R.string.actionbar_theme_count_plural),
-                        String.valueOf(substratum_packages.size()));
+                        String.valueOf(substratumPackages.size()));
                 ref.get().switchToCustomToolbar(toolbarTitle, parse);
             }
 
@@ -249,15 +246,15 @@ public class ThemeFragment extends Fragment {
     /**
      * Reset all parameters of the recycler view
      *
-     * @param mRecyclerView Specify the recycler view to reset
+     * @param recyclerView Specify the recycler view to reset
      */
-    private void resetRecyclerView(RecyclerView mRecyclerView) {
+    private void resetRecyclerView(RecyclerView recyclerView) {
         // Initialize the recycler view with an empty adapter first
         ArrayList<ThemeItem> empty_array = new ArrayList<>();
         ThemeAdapter empty_adapter = new ThemeAdapter(empty_array);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-        mRecyclerView.setAdapter(empty_adapter);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setAdapter(empty_adapter);
     }
 
     /**
@@ -287,8 +284,12 @@ public class ThemeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         context = getContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        View view = inflater.inflate(R.layout.home_fragment, container, false);
-        ButterKnife.bind(this, view);
+        HomeFragmentBinding viewBinding =
+                DataBindingUtil.inflate(inflater, R.layout.home_fragment, container, false);
+        View view = viewBinding.getRoot();
+        recyclerView = viewBinding.themeList;
+        swipeRefreshLayout = viewBinding.swipeRefreshLayout;
+        cardView = viewBinding.noEntryCardView;
 
         // Register the theme install receiver to auto refresh the fragment
         refreshReceiver = new ThemeInstallReceiver();
@@ -298,8 +299,8 @@ public class ThemeFragment extends Fragment {
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            home_type = bundle.getString(HOME_TYPE);
-            toolbar_title = bundle.getString(HOME_TITLE);
+            homeType = bundle.getString(HOME_TYPE);
+            toolbarTitle = bundle.getString(HOME_TITLE);
         }
 
         resetRecyclerView(recyclerView);
@@ -307,7 +308,7 @@ public class ThemeFragment extends Fragment {
         swipeRefreshLayout.setRefreshing(true);
 
         if (getActivity() != null) {
-            ((MainActivity) getActivity()).actionbar_content.setText(R.string
+            ((MainActivity) getActivity()).actionbarContent.setText(R.string
                     .actionbar_theme_count_loading);
         }
         cardView.setVisibility(View.GONE);
@@ -323,7 +324,7 @@ public class ThemeFragment extends Fragment {
      */
     private static class LayoutLoader extends AsyncTask<String, Integer, String> {
         private WeakReference<ThemeFragment> fragment;
-        private HashMap<String, String[]> substratum_packages;
+        private HashMap<String, String[]> substratumPackages;
         private ArrayList<ThemeItem> themeItems;
 
         LayoutLoader(ThemeFragment themeFragment) {
@@ -341,8 +342,8 @@ public class ThemeFragment extends Fragment {
                         themeFragment.prefs,
                         themeFragment.context,
                         themeFragment.getActivity(),
-                        themeFragment.toolbar_title,
-                        this.substratum_packages,
+                        themeFragment.toolbarTitle,
+                        this.substratumPackages,
                         this.themeItems);
             }
         }
@@ -351,23 +352,23 @@ public class ThemeFragment extends Fragment {
         protected String doInBackground(String... sUrl) {
             ThemeFragment themeFragment = fragment.get();
             if (themeFragment != null) {
-                substratum_packages = Packages.getSubstratumPackages(
+                substratumPackages = Packages.getSubstratumPackages(
                         themeFragment.context,
-                        themeFragment.home_type,
+                        themeFragment.homeType,
                         MainActivity.userInput);
-                Map<String, String[]> map = new TreeMap<>(substratum_packages);
+                Map<String, String[]> map = new TreeMap<>(substratumPackages);
                 themeItems = prepareData(
                         map,
                         themeFragment.context,
                         themeFragment.getActivity(),
-                        themeFragment.home_type);
+                        themeFragment.homeType);
                 try {
                     Thread.sleep((long)
-                            (themeFragment.first_boot ? THEME_FRAGMENT_INITIAL_DELAY : 0));
+                            (themeFragment.firstBoot ? THEME_FRAGMENT_INITIAL_DELAY : 0));
                 } catch (InterruptedException ie) {
                     // Suppress warning
                 }
-                if (themeFragment.first_boot) themeFragment.first_boot = false;
+                if (themeFragment.firstBoot) themeFragment.firstBoot = false;
             }
             return null;
         }

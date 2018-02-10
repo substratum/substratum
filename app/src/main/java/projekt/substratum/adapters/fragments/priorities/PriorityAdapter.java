@@ -229,7 +229,7 @@ public class PriorityAdapter extends GestureAdapter<PrioritiesInterface, Gesture
                                     context,
                                     packageTitle,
                                     References.metadataOverlayParent);
-                            Boolean newUpdate = (version != 0) && (version <= BuildConfig
+                            boolean newUpdate = (version != 0) && (version <= BuildConfig
                                     .VERSION_CODE);
                             if ((metadata != null) && !metadata.isEmpty() && newUpdate) {
                                 SpannableStringBuilder themeName = StringUtils.format(context.getString(

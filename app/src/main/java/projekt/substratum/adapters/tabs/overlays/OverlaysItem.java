@@ -38,12 +38,12 @@ public class OverlaysItem implements Serializable {
 
     public String versionName;
     public String attention;
-    public boolean is_variant_chosen;
-    public boolean is_variant_chosen1;
-    public boolean is_variant_chosen2;
-    public boolean is_variant_chosen3;
-    public boolean is_variant_chosen4;
-    public boolean is_variant_chosen5;
+    public boolean isVariantChosen;
+    public boolean isVariantChosen1;
+    public boolean isVariantChosen2;
+    public boolean isVariantChosen3;
+    public boolean isVariantChosen4;
+    public boolean isVariantChosen5;
     public boolean variantMode;
     private String themeName;
     private String packageName;
@@ -54,7 +54,7 @@ public class OverlaysItem implements Serializable {
     private VariantAdapter array5;
     private Context context;
     private Drawable appIcon;
-    private Boolean themeOms;
+    private boolean themeOms;
     private View activityView;
     private String name;
     private String targetVersion;
@@ -76,7 +76,7 @@ public class OverlaysItem implements Serializable {
     public OverlaysItem(String themeName,
                         String name,
                         String packageName,
-                        Boolean isSelected,
+                        boolean isSelected,
                         VariantAdapter adapter,
                         VariantAdapter adapter2,
                         VariantAdapter adapter3,
@@ -86,7 +86,7 @@ public class OverlaysItem implements Serializable {
                         String versionName,
                         String baseResources,
                         Collection enabledOverlays,
-                        Boolean themeOms,
+                        boolean themeOms,
                         String attention,
                         View activityView) {
         super();
@@ -183,11 +183,11 @@ public class OverlaysItem implements Serializable {
 
     void setSelectedVariant(int position) {
         if (position != 0) {
-            is_variant_chosen = true;
-            is_variant_chosen1 = true;
+            isVariantChosen = true;
+            isVariantChosen1 = true;
         } else {
-            is_variant_chosen = false;
-            is_variant_chosen1 = false;
+            isVariantChosen = false;
+            isVariantChosen1 = false;
         }
         spinnerSelection = position;
     }
@@ -203,11 +203,11 @@ public class OverlaysItem implements Serializable {
 
     void setSelectedVariant2(int position) {
         if (position != 0) {
-            is_variant_chosen = true;
-            is_variant_chosen2 = true;
+            isVariantChosen = true;
+            isVariantChosen2 = true;
         } else {
-            is_variant_chosen = false;
-            is_variant_chosen2 = false;
+            isVariantChosen = false;
+            isVariantChosen2 = false;
         }
         spinnerSelection2 = position;
     }
@@ -218,11 +218,11 @@ public class OverlaysItem implements Serializable {
 
     void setSelectedVariant3(int position) {
         if (position != 0) {
-            is_variant_chosen = true;
-            is_variant_chosen3 = true;
+            isVariantChosen = true;
+            isVariantChosen3 = true;
         } else {
-            is_variant_chosen = false;
-            is_variant_chosen3 = false;
+            isVariantChosen = false;
+            isVariantChosen3 = false;
         }
         spinnerSelection3 = position;
     }
@@ -233,11 +233,11 @@ public class OverlaysItem implements Serializable {
 
     void setSelectedVariant4(int position) {
         if (position != 0) {
-            is_variant_chosen = true;
-            is_variant_chosen4 = true;
+            isVariantChosen = true;
+            isVariantChosen4 = true;
         } else {
-            is_variant_chosen = false;
-            is_variant_chosen4 = false;
+            isVariantChosen = false;
+            isVariantChosen4 = false;
         }
         spinnerSelection4 = position;
     }
@@ -248,11 +248,11 @@ public class OverlaysItem implements Serializable {
 
     void setSelectedVariant5(int position) {
         if (position != 0) {
-            is_variant_chosen = true;
-            is_variant_chosen5 = true;
+            isVariantChosen = true;
+            isVariantChosen5 = true;
         } else {
-            is_variant_chosen = false;
-            is_variant_chosen5 = false;
+            isVariantChosen = false;
+            isVariantChosen5 = false;
         }
         spinnerSelection5 = position;
     }
@@ -320,10 +320,10 @@ public class OverlaysItem implements Serializable {
             base = '.' + base;
         }
         try {
-            PackageInfo pinfo =
+            PackageInfo packageInfo =
                     context.getPackageManager().getPackageInfo(
                             packageName + '.' + themeName + variant + base, 0);
-            return pinfo.versionName.equals(versionName);
+            return packageInfo.versionName.equals(versionName);
         } catch (Exception e) {
             // Suppress warning
         }

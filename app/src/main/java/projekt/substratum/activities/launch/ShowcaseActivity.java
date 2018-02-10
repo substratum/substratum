@@ -217,7 +217,7 @@ public class ShowcaseActivity extends AppCompatActivity {
         File showcase_directory =
                 new File(getApplicationContext().getCacheDir() + SHOWCASE_CACHE);
         if (!showcase_directory.exists()) {
-            Boolean made = showcase_directory.mkdir();
+            boolean made = showcase_directory.mkdir();
             if (!made)
                 Log.e(TAG, "Could not make showcase directory...");
         }

@@ -71,7 +71,7 @@ public class Substratum extends Application {
     public static Thread currentThread;
     private static Substratum substratum;
     private static boolean isWaiting;
-    private static Boolean shouldStopThread = false;
+    private static boolean shouldStopThread = false;
 
     /**
      * Get the current instance of the substratum application

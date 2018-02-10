@@ -15,91 +15,92 @@
   ~ You should have received a copy of the GNU General Public License
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
-
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/theme_information_background"
-    android:fitsSystemWindows="true"
-    tools:context=".MainActivity">
-
-    <RelativeLayout
+    xmlns:tools="http://schemas.android.com/tools">
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ProgressBar
-            android:id="@+id/header_loading_bar"
-            style="?android:progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-3dp"
-            android:indeterminate="true" />
+        android:layout_height="match_parent"
+        android:background="@color/theme_information_background"
+        android:fitsSystemWindows="true"
+        tools:context=".MainActivity">
 
         <RelativeLayout
-            android:id="@+id/toggle_zone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:layout_marginEnd="7dp"
-            android:layout_marginStart="14dp"
-            android:layout_marginTop="12dp"
-            android:clickable="true"
-            android:focusable="true">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/toggle_all_overlays_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="8dp"
-                android:text="@string/select_to_toggle_all_overlays"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="15sp" />
-
-            <Spinner
-                android:id="@+id/type3_spinner"
+            <ProgressBar
+                android:id="@+id/header_loading_bar"
+                style="?android:progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="-12dp"
-                android:layout_marginStart="-7dp"
-                android:layout_marginTop="-10dp"
-                android:layout_toStartOf="@+id/toggle_all_overlays" />
+                android:layout_marginTop="-3dp"
+                android:indeterminate="true" />
 
-            <Switch
-                android:id="@+id/toggle_all_overlays"
+            <RelativeLayout
+                android:id="@+id/toggle_zone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:layout_marginEnd="7dp"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="12dp"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:id="@+id/toggle_all_overlays_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:text="@string/select_to_toggle_all_overlays"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="15sp" />
+
+                <Spinner
+                    android:id="@+id/type3_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="-12dp"
+                    android:layout_marginStart="-7dp"
+                    android:layout_marginTop="-10dp"
+                    android:layout_toStartOf="@+id/toggle_all_overlays" />
+
+                <Switch
+                    android:id="@+id/toggle_all_overlays"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="6dp" />
+
+            </RelativeLayout>
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefreshLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="6dp" />
+                android:layout_below="@+id/toggle_zone">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/overlayRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/type3_spinner"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:clipToPadding="false"
+                    android:paddingBottom="90dp"
+                    android:scrollbars="none"
+                    app:fastScrollEnabled="true"
+                    app:fastScrollHorizontalThumbDrawable="@drawable/thumb_drawable"
+                    app:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"
+                    app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"
+                    app:fastScrollVerticalTrackDrawable="@drawable/line_drawable" />
+
+            </android.support.v4.widget.SwipeRefreshLayout>
 
         </RelativeLayout>
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swipeRefreshLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/toggle_zone">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/overlayRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/type3_spinner"
-                android:layout_marginEnd="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:clipToPadding="false"
-                android:paddingBottom="90dp"
-                android:scrollbars="none"
-                app:fastScrollEnabled="true"
-                app:fastScrollHorizontalThumbDrawable="@drawable/thumb_drawable"
-                app:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"
-                app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"
-                app:fastScrollVerticalTrackDrawable="@drawable/line_drawable" />
-
-        </android.support.v4.widget.SwipeRefreshLayout>
-
-    </RelativeLayout>
-
-</android.support.design.widget.CoordinatorLayout>
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

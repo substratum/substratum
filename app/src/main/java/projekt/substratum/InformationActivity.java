@@ -90,6 +90,7 @@ import java.util.List;
 
 import projekt.substratum.adapters.activities.IATabsAdapter;
 import projekt.substratum.common.Broadcasts;
+import projekt.substratum.common.Internal;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Resources;
@@ -147,8 +148,8 @@ public class InformationActivity extends AppCompatActivity {
 
     private static final int LUNCHBAR_DISMISS_FAB_CLICK_DELAY = 200;
     public static Snackbar currentShownLunchBar;
-    public static Boolean compilingProcess = false;
-    public static Boolean shouldRestartActivity = false;
+    public static boolean compilingProcess = false;
+    public static boolean shouldRestartActivity = false;
     private static List<String> tab_checker;
     Toolbar toolbar;
     TabLayout tabLayout;
@@ -171,7 +172,7 @@ public class InformationActivity extends AppCompatActivity {
     private String theme_name;
     private String theme_pid;
     private String theme_mode;
-    private Boolean uninstalled = false;
+    private boolean uninstalled = false;
     private byte[] byteArray;
     private Bitmap heroImageBitmap;
     private SharedPreferences prefs;
@@ -215,7 +216,7 @@ public class InformationActivity extends AppCompatActivity {
      * @param activity  Activity to change it in
      * @param dark_mode True if dark, false if light
      */
-    private static void setOverflowButtonColor(Activity activity, Boolean dark_mode) {
+    private static void setOverflowButtonColor(Activity activity, boolean dark_mode) {
         @SuppressLint("PrivateResource") String overflowDescription =
                 activity.getString(R.string.abc_action_menu_overflow_description);
         ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
@@ -901,7 +902,7 @@ public class InformationActivity extends AppCompatActivity {
             materialSheetFab.hideSheet();
         });
 
-        Boolean shouldShowSamsungWarning =
+        boolean shouldShowSamsungWarning =
                 !prefs.getBoolean("show_dangerous_samsung_overlays", false);
         if (Systems.isSamsung(context) &&
                 Packages.isSamsungTheme(context, theme_pid) &&
@@ -1508,7 +1509,7 @@ public class InformationActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             if ((intent != null) && !compilingProcess) {
-                String package_name = intent.getStringExtra("theme_pid");
+                String package_name = intent.getStringExtra(Internal.THEME_PID);
                 if (package_name != null &&
                         package_name.equals(theme_pid)) {
                     String to_format = String.format(

@@ -15,82 +15,83 @@
   ~ You should have received a copy of the GNU General Public License
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
-
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scrollView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:scrollbars="none">
-
-    <RelativeLayout
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingEnd="15dp"
-            android:paddingStart="15dp"
-            android:paddingTop="10dp" />
-
-        <ProgressBar
-            android:id="@+id/loading_priorities"
-            style="?android:attr/indeterminateProgressStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_margin="50dp"
-            android:indeterminate="true" />
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
 
         <RelativeLayout
-            android:id="@+id/no_priorities_found"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:visibility="gone">
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/no_themes_installed"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="50dp"
-                android:importantForAccessibility="no"
-                android:src="@drawable/no_priorities_loaded" />
-
-            <TextView
-                android:id="@+id/no_themes_title"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/no_themes_installed"
-                android:layout_gravity="center"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:text="@string/priority_no_multiple_overlays_title"
-                android:textAllCaps="true"
-                android:textColor="@color/main_screen_card_theme_title"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
+                android:paddingTop="10dp" />
 
-            <TextView
-                android:id="@+id/no_themes_description"
-                android:layout_width="match_parent"
+            <ProgressBar
+                android:id="@+id/loading_priorities"
+                style="?android:attr/indeterminateProgressStyle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/no_themes_title"
-                android:layout_gravity="center"
-                android:layout_marginStart="15dp"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:layout_margin="50dp"
+                android:indeterminate="true" />
+
+            <RelativeLayout
+                android:id="@+id/no_priorities_found"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
                 android:gravity="center"
-                android:text="@string/priority_no_multiple_overlays_text"
-                android:textAllCaps="true"
-                android:textColor="@color/main_screen_card_theme_title"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/no_themes_installed"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="50dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/no_priorities_loaded" />
+
+                <TextView
+                    android:id="@+id/no_themes_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/no_themes_installed"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:text="@string/priority_no_multiple_overlays_title"
+                    android:textAllCaps="true"
+                    android:textColor="@color/main_screen_card_theme_title"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/no_themes_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/no_themes_title"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="15dp"
+                    android:gravity="center"
+                    android:text="@string/priority_no_multiple_overlays_text"
+                    android:textAllCaps="true"
+                    android:textColor="@color/main_screen_card_theme_title"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
         </RelativeLayout>
 
-    </RelativeLayout>
-
-</ScrollView>
+    </ScrollView>
+</layout>

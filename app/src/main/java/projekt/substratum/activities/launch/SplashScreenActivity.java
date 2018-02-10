@@ -70,7 +70,7 @@ public class SplashScreenActivity extends Activity {
     private static final long DELAY_SHOW_PROGRESS_BAR = 2500;
     private ProgressBar progressBar;
     private Intent intent;
-    private Boolean first_run = false;
+    private boolean firstRun = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,12 +84,12 @@ public class SplashScreenActivity extends Activity {
         progressBar = binding.progressBarLoader;
 
         Intent currentIntent = getIntent();
-        first_run = currentIntent.getBooleanExtra("first_run", false);
-        checkThemeSystemModule(this, first_run);
+        firstRun = currentIntent.getBooleanExtra("first_run", false);
+        checkThemeSystemModule(this, firstRun);
         intent = new Intent(SplashScreenActivity.this, MainActivity.class);
         long intent_launch_delay = DELAY_LAUNCH_MAIN_ACTIVITY;
 
-        if (first_run && !isLowEnd()) {
+        if (firstRun && !isLowEnd()) {
             // Load the ImageView that will host the animation and
             // set its background to our AnimationDrawable XML resource.
             try {
@@ -156,7 +156,7 @@ public class SplashScreenActivity extends Activity {
                 editor.clear().apply();
                 FirebaseAnalytics.withdrawBlacklistedPackages(
                         activity.getApplicationContext(),
-                        activity.first_run
+                        activity.firstRun
                 );
                 checkPackageSupport(activity.getApplicationContext(), false);
                 prefs = context.getSharedPreferences(PACKAGES_PREFS, Context.MODE_PRIVATE);

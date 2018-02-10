@@ -86,7 +86,7 @@ public class Sounds extends Fragment {
 
     private static final String soundsDir = "audio";
     private static final String TAG = "SoundUtils";
-    private static final Boolean encrypted = false;
+    private static final boolean encrypted = false;
     private final MediaPlayer mp = new MediaPlayer();
     private NestedScrollView nestedScrollView;
     private ProgressBar progressBar;

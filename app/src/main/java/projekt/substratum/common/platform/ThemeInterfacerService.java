@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import projekt.substratum.IInterfacerInterface;
 import projekt.substratum.common.Systems;
 import projekt.substratum.services.binder.InterfacerBinderService;
 
@@ -71,6 +72,8 @@ public enum ThemeInterfacerService {
     private static final String COMMAND_VALUE_DELETE = "delete";
     private static final String COMMAND_VALUE_PROFILE = "profile";
     private static final String COMMAND_VALUE_MKDIR = "mkdir";
+    private static final IInterfacerInterface interfacerInterface =
+            InterfacerBinderService.getInstance().getInterfacerInterface();
 
     /**
      * Obtain the Theme Interfacer's correctly built intent
@@ -116,8 +119,7 @@ public enum ThemeInterfacerService {
                                 ArrayList<String> overlays) {
         if (Systems.isBinderInterfacer(context)) {
             try {
-                InterfacerBinderService.getInstance().getInterfacerInterface()
-                        .installPackage(overlays);
+                interfacerInterface.installPackage(overlays);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -142,8 +144,7 @@ public enum ThemeInterfacerService {
                                          boolean restartUi) {
         if (Systems.isBinderInterfacer(context)) {
             try {
-                InterfacerBinderService.getInstance().getInterfacerInterface()
-                        .uninstallPackage(overlays, restartUi);
+                interfacerInterface.uninstallPackage(overlays, restartUi);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -168,8 +169,7 @@ public enum ThemeInterfacerService {
                                boolean restartUi) {
         if (Systems.isBinderInterfacer(context)) {
             try {
-                InterfacerBinderService.getInstance().getInterfacerInterface()
-                        .enableOverlay(overlays, restartUi);
+                interfacerInterface.enableOverlay(overlays, restartUi);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -194,8 +194,7 @@ public enum ThemeInterfacerService {
                                 boolean restartUi) {
         if (Systems.isBinderInterfacer(context)) {
             try {
-                InterfacerBinderService.getInstance().getInterfacerInterface()
-                        .disableOverlay(overlays, restartUi);
+                interfacerInterface.disableOverlay(overlays, restartUi);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -216,7 +215,7 @@ public enum ThemeInterfacerService {
     public static void restartSystemUI(Context context) {
         if (Systems.isBinderInterfacer(context)) {
             try {
-                InterfacerBinderService.getInstance().getInterfacerInterface().restartSystemUI();
+                interfacerInterface.restartSystemUI();
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -237,8 +236,7 @@ public enum ThemeInterfacerService {
                                         String bootanimation_location) {
         if (Systems.isBinderInterfacer(context)) {
             try {
-                InterfacerBinderService.getInstance().getInterfacerInterface()
-                        .applyBootanimation(bootanimation_location);
+                interfacerInterface.applyBootanimation(bootanimation_location);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -258,8 +256,7 @@ public enum ThemeInterfacerService {
     public static void clearBootAnimation(Context context) {
         if (Systems.isBinderInterfacer(context)) {
             try {
-                InterfacerBinderService.getInstance().getInterfacerInterface()
-                        .applyBootanimation(null);
+                interfacerInterface.applyBootanimation(null);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -282,8 +279,7 @@ public enum ThemeInterfacerService {
                                 String name) {
         if (Systems.isBinderInterfacer(context)) {
             try {
-                InterfacerBinderService.getInstance().getInterfacerInterface()
-                        .applyFonts(pid, name);
+                interfacerInterface.applyFonts(pid, name);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -304,8 +300,7 @@ public enum ThemeInterfacerService {
     public static void clearFonts(Context context) {
         if (Systems.isBinderInterfacer(context)) {
             try {
-                InterfacerBinderService.getInstance().getInterfacerInterface()
-                        .applyFonts(null, null);
+                interfacerInterface.applyFonts(null, null);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -328,8 +323,7 @@ public enum ThemeInterfacerService {
                                        String name) {
         if (Systems.isBinderInterfacer(context)) {
             try {
-                InterfacerBinderService.getInstance().getInterfacerInterface()
-                        .applyAudio(pid, name);
+                interfacerInterface.applyAudio(pid, name);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -350,7 +344,7 @@ public enum ThemeInterfacerService {
     public static void clearThemedSounds(Context context) {
         if (Systems.isBinderInterfacer(context)) {
             try {
-                InterfacerBinderService.getInstance().getInterfacerInterface().applyAudio(null,
+                interfacerInterface.applyAudio(null,
                         null);
             } catch (RemoteException e) {
                 // Suppress warning
@@ -374,8 +368,7 @@ public enum ThemeInterfacerService {
                             boolean restartUi) {
         if (Systems.isBinderInterfacer(context)) {
             try {
-                InterfacerBinderService.getInstance().getInterfacerInterface()
-                        .changePriority(overlays, restartUi);
+                interfacerInterface.changePriority(overlays, restartUi);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -402,8 +395,7 @@ public enum ThemeInterfacerService {
                             String destination) {
         if (Systems.isBinderInterfacer(context)) {
             try {
-                InterfacerBinderService.getInstance().getInterfacerInterface()
-                        .copy(source, destination);
+                interfacerInterface.copy(source, destination);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -430,8 +422,7 @@ public enum ThemeInterfacerService {
                             String destination) {
         if (Systems.isBinderInterfacer(context)) {
             try {
-                InterfacerBinderService.getInstance().getInterfacerInterface()
-                        .move(source, destination);
+                interfacerInterface.move(source, destination);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -458,8 +449,7 @@ public enum ThemeInterfacerService {
                               boolean deleteParent) {
         if (Systems.isBinderInterfacer(context)) {
             try {
-                InterfacerBinderService.getInstance().getInterfacerInterface()
-                        .deleteDirectory(directory, deleteParent);
+                interfacerInterface.deleteDirectory(directory, deleteParent);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -488,8 +478,7 @@ public enum ThemeInterfacerService {
                                     boolean restartUi) {
         if (Systems.isBinderInterfacer(context)) {
             try {
-                InterfacerBinderService.getInstance().getInterfacerInterface()
-                        .applyProfile(toBeEnabled, toBeDisabled, name, restartUi);
+                interfacerInterface.applyProfile(toBeEnabled, toBeDisabled, name, restartUi);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -516,8 +505,7 @@ public enum ThemeInterfacerService {
                                        String destination) {
         if (Systems.isBinderInterfacer(context)) {
             try {
-                InterfacerBinderService.getInstance().getInterfacerInterface()
-                        .mkdir(destination);
+                interfacerInterface.mkdir(destination);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -539,8 +527,7 @@ public enum ThemeInterfacerService {
         if (Systems.isBinderInterfacer(context)) {
             try {
                 //noinspection unchecked
-                return InterfacerBinderService.getInstance().getInterfacerInterface()
-                        .getAllOverlays();
+                return interfacerInterface.getAllOverlays();
             } catch (RemoteException e) {
                 // Suppress warning
                 e.printStackTrace();
@@ -559,8 +546,7 @@ public enum ThemeInterfacerService {
             shutdownAnimationLocation) {
         if (Systems.isBinderInterfacer(context)) {
             try {
-                InterfacerBinderService.getInstance().getInterfacerInterface()
-                        .applyShutdownAnimation(shutdownAnimationLocation);
+                interfacerInterface.applyShutdownAnimation(shutdownAnimationLocation);
             } catch (RemoteException e) {
                 // Suppress warning
             }
@@ -575,8 +561,7 @@ public enum ThemeInterfacerService {
     public static void clearShutdownAnimation(Context context) {
         if (Systems.isBinderInterfacer(context)) {
             try {
-                InterfacerBinderService.getInstance().getInterfacerInterface()
-                        .applyShutdownAnimation(null);
+                interfacerInterface.applyShutdownAnimation(null);
             } catch (RemoteException e) {
                 // Suppress warning
             }

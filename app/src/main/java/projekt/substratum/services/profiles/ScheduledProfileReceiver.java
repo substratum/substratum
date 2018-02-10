@@ -77,20 +77,20 @@ public class ScheduledProfileReceiver extends BroadcastReceiver {
                 }
             } else {
                 Log.d(TAG, extra + " profile will be applied after screen off...");
-                NotificationManager mNotifyManager =
+                NotificationManager notificationManager =
                         (NotificationManager) context.getSystemService(Context
                                 .NOTIFICATION_SERVICE);
-                @SuppressWarnings("deprecation") NotificationCompat.Builder mBuilder = new
+                @SuppressWarnings("deprecation") NotificationCompat.Builder builder = new
                         NotificationCompat.Builder(context);
-                mBuilder.setContentTitle(
+                builder.setContentTitle(
                         String.format(context.getString(R.string.profile_notification_title),
                                 extra))
                         .setSmallIcon(R.drawable.ic_substratum)
                         .setPriority(Notification.PRIORITY_DEFAULT)
                         .setContentText(context.getString(R.string.profile_pending_notification))
                         .setOngoing(true);
-                if (mNotifyManager != null) {
-                    mNotifyManager.notify(NOTIFICATION_ID, mBuilder.build());
+                if (notificationManager != null) {
+                    notificationManager.notify(NOTIFICATION_ID, builder.build());
                 }
 
                 prefs.edit().putString(SCHEDULED_PROFILE_TYPE_EXTRA, extra).apply();

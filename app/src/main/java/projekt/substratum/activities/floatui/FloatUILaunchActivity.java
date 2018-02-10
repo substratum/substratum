@@ -60,7 +60,7 @@ public class FloatUILaunchActivity extends AppCompatActivity {
      *
      * @param show True to show, false to hide
      */
-    private void triggerFloatingHead(Boolean show) {
+    private void triggerFloatingHead(boolean show) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
                 getApplicationContext());
         int active = (show) ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE;

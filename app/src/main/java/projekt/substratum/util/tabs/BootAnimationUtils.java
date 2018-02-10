@@ -87,7 +87,7 @@ public class BootAnimationUtils {
      * @param view              The view of the caller
      * @param arguments         Arguments to pass
      * @param context           Self explanatory, bud
-     * @param theme_pid         Theme's package name
+     * @param themePid          Theme's package name
      * @param encrypted         Encrypted status
      * @param shutdownAnimation Shutdown animation or not
      * @param cipher            Encryption handshake
@@ -95,14 +95,14 @@ public class BootAnimationUtils {
     public static void execute(View view,
                                String arguments,
                                Context context,
-                               String theme_pid,
-                               Boolean encrypted,
-                               Boolean shutdownAnimation,
+                               String themePid,
+                               boolean encrypted,
+                               boolean shutdownAnimation,
                                Cipher cipher) {
         new BootAnimationHandlerAsync(
                 view,
                 context,
-                theme_pid,
+                themePid,
                 encrypted,
                 shutdownAnimation,
                 cipher
@@ -118,24 +118,24 @@ public class BootAnimationUtils {
         private Context context;
         @SuppressLint("StaticFieldLeak")
         private View view;
-        private String theme_pid;
+        private String themePid;
         private SharedPreferences prefs;
-        private Boolean encrypted;
+        private boolean encrypted;
         private Cipher cipher;
-        private Boolean shutdownAnimation;
+        private boolean shutdownAnimation;
         private ProgressDialog progress;
-        private Boolean has_failed;
+        private boolean hasFailed;
 
         BootAnimationHandlerAsync(View view,
                                   Context context,
-                                  String theme_pid,
-                                  Boolean encrypted,
-                                  Boolean shutdownAnimation,
+                                  String themePid,
+                                  boolean encrypted,
+                                  boolean shutdownAnimation,
                                   Cipher cipher) {
             super();
             this.context = context;
             this.view = view;
-            this.theme_pid = theme_pid;
+            this.themePid = themePid;
             this.prefs = PreferenceManager.getDefaultSharedPreferences(context);
             this.encrypted = encrypted;
             this.cipher = cipher;
@@ -167,7 +167,7 @@ public class BootAnimationUtils {
         protected void onPostExecute(String result) {
             progress.dismiss();
 
-            if (!has_failed) {
+            if (!hasFailed) {
                 Lunchbar.make(view, context.getString(shutdownAnimation ?
                                 R.string.shutdownanimation_dialog_apply_success :
                                 R.string.bootanimation_dialog_apply_success),
@@ -188,7 +188,7 @@ public class BootAnimationUtils {
 
         @Override
         protected String doInBackground(String... sUrl) {
-            has_failed = false;
+            hasFailed = false;
 
             // Move the file from assets folder to a new working area
             Log.d(TAG, "Copying over the selected boot animation to working directory...");
@@ -217,12 +217,12 @@ public class BootAnimationUtils {
                     "bootanimation");
 
             // Now let's take out desc.txt from the theme's assets (bootanimation.zip) and parse it
-            if (!has_failed) {
+            if (!hasFailed) {
                 Log.d(TAG, "Analyzing integrity of boot animation descriptor file...");
                 if (cipher != null) {
                     try {
                         Context otherContext = context.createPackageContext(this
-                                .theme_pid, 0);
+                                .themePid, 0);
                         AssetManager themeAssetManager = otherContext.getAssets();
                         FileOperations.copyFileOrDir(
                                 themeAssetManager,
@@ -242,7 +242,7 @@ public class BootAnimationUtils {
                 } else {
                     try {
                         Context otherContext = context.createPackageContext(this
-                                .theme_pid, 0);
+                                .themePid, 0);
                         AssetManager am = otherContext.getAssets();
                         try (InputStream inputStream = am.open(
                                 directory + '/' + bootanimation + ".zip");
@@ -253,7 +253,7 @@ public class BootAnimationUtils {
                             BootAnimationHandlerAsync.CopyStream(inputStream, outputStream);
                         }
                     } catch (Exception e) {
-                        has_failed = true;
+                        hasFailed = true;
                         Log.e(TAG,
                                 "There is no animation.zip found within the assets " +
                                         "of this theme!");
@@ -274,7 +274,7 @@ public class BootAnimationUtils {
                     Log.d(TAG, "Boot Animation successfully moved to new directory");
             }
 
-            if (!has_failed) {
+            if (!hasFailed) {
                 boolean exists = ZipUtil.containsEntry(
                         new File(context.getCacheDir().getAbsolutePath() +
                                 BOOTANIMATION_CREATION_CACHE +
@@ -290,12 +290,12 @@ public class BootAnimationUtils {
                 } else {
                     Log.e(TAG,
                             "Could not find specified boot animation descriptor file (desc.txt)!");
-                    has_failed = true;
+                    hasFailed = true;
                 }
             }
 
             // Begin parsing of the file (desc.txt) and parse the first line
-            if (!has_failed) {
+            if (!hasFailed) {
                 Log.d(TAG, "Calculating hardware display density metrics " +
                         "and resizing the bootanimation...");
                 BufferedReader reader = null;
@@ -337,13 +337,13 @@ public class BootAnimationUtils {
                             }
                             // just in case the device is in landscape orientation we will
                             // swap the values since most (if not all) animations are portrait
-                            int prevent_lint_w = dm.widthPixels;
-                            int prevent_lint_h = dm.heightPixels;
+                            int preventLintW = dm.widthPixels;
+                            int preventLintH = dm.heightPixels;
                             int scaledHeight;
                             int scaledWidth;
                             if (dm.widthPixels > dm.heightPixels) {
-                                scaledWidth = prevent_lint_h;
-                                scaledHeight = prevent_lint_w;
+                                scaledWidth = preventLintH;
+                                scaledHeight = preventLintW;
                             } else {
                                 scaledWidth = dm.widthPixels;
                                 scaledHeight = dm.heightPixels;
@@ -390,7 +390,7 @@ public class BootAnimationUtils {
                     Log.e(TAG, "The boot animation descriptor file " +
                             "(" + BOOTANIMATION_DESCRIPTOR + ") " +
                             "could not be parsed properly!");
-                    has_failed = true;
+                    hasFailed = true;
                 } finally {
                     if (reader != null) {
                         try {
@@ -402,7 +402,7 @@ public class BootAnimationUtils {
                 }
             }
 
-            if (!has_failed) {
+            if (!hasFailed) {
                 Log.d(TAG,
                         "Finalizing the boot animation descriptor file and " +
                                 "committing changes to the archive...");
@@ -418,13 +418,13 @@ public class BootAnimationUtils {
                                 bootanimation + ".zip"), addedEntries);
             }
 
-            if (!has_failed) {
+            if (!hasFailed) {
                 Log.d(TAG, "Moving boot animation to theme directory " +
                         "and setting correct contextual parameters...");
-                boolean is_encrypted = Systems.getDeviceEncryptionStatus(context) > 1;
+                boolean isEncrypted = Systems.getDeviceEncryptionStatus(context) > 1;
                 File themeDirectory;
                 if (Systems.checkOMS(context)) {
-                    if ((!is_encrypted || shutdownAnimation) &&
+                    if ((!isEncrypted || shutdownAnimation) &&
                             Systems.checkSubstratumFeature(context)) {
                         Log.d(TAG, "Data partition on the current device is decrypted, using " +
                                 "dedicated theme bootanimation slot...");
@@ -453,7 +453,7 @@ public class BootAnimationUtils {
                 if (scaledBootAnimCheck.exists()) {
                     Log.d(TAG, "Scaled boot animation created by Substratum verified!");
                 } else {
-                    has_failed = true;
+                    hasFailed = true;
                     Log.e(TAG, "Scaled boot animation created by Substratum NOT verified!");
                 }
 
@@ -465,7 +465,7 @@ public class BootAnimationUtils {
                                         SHUTDOWNANIMATION : BOOTANIMATION));
 
                 // Inject backup script for encrypted legacy and encrypted OMS devices
-                if (!has_failed && (is_encrypted || !Systems.checkOMS(context)) &&
+                if (!hasFailed && (isEncrypted || !Systems.checkOMS(context)) &&
                         !shutdownAnimation) {
                     FileOperations.mountRW();
                     File backupScript = new File(SYSTEM_ADDON_DIR + BACKUP_SCRIPT);
@@ -529,23 +529,23 @@ public class BootAnimationUtils {
                         Log.d(TAG, "There is no predefined bootanimation on this device, " +
                                 "injecting a brand new default bootanimation...");
                     } else {
-                        has_failed = true;
+                        hasFailed = true;
                         Log.e(TAG, "Failed to backup bootanimation!");
                     }
                 }
 
-                if (!has_failed) {
+                if (!hasFailed) {
                     BootAnimationsManager.setBootAnimation(context,
                             themeDirectory.getAbsolutePath(), shutdownAnimation);
                 }
             }
 
-            if (!has_failed) {
+            if (!hasFailed) {
                 SharedPreferences.Editor editor = prefs.edit();
                 if (shutdownAnimation) {
-                    editor.putString(SHUTDOWN_ANIMATION_APPLIED, theme_pid);
+                    editor.putString(SHUTDOWN_ANIMATION_APPLIED, themePid);
                 } else {
-                    editor.putString(BOOT_ANIMATION_APPLIED, theme_pid);
+                    editor.putString(BOOT_ANIMATION_APPLIED, themePid);
                 }
                 editor.apply();
                 Log.d(TAG, "Boot animation installed!");

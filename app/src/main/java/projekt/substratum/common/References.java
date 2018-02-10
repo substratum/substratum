@@ -95,13 +95,13 @@ import static projekt.substratum.common.Systems.checkPackageRegex;
 public enum References {
     ;
 
-    public static final Boolean ENABLE_ROOT_CHECK = true; // Force the app to run without root
-    public static final Boolean ENABLE_EXTRAS_DIALOG = false; // Show a dialog when applying extras
-    public static final Boolean ENABLE_AAPT_OUTPUT = false; // WARNING, DEVELOPERS - BREAKS COMPILE
-    public static final Boolean ENABLE_PACKAGE_LOGGING = false; // Show time/date/place of install
-    public static final Boolean ENABLE_DIRECT_ASSETS_LOGGING = true; // Self explanatory
-    public static final Boolean BYPASS_ALL_VERSION_CHECKS = false; // For developer previews only!
-    public static final Boolean BYPASS_SUBSTRATUM_BUILDER_DELETION = false; // Do not delete cache?
+    public static final boolean ENABLE_ROOT_CHECK = true; // Force the app to run without root
+    public static final boolean ENABLE_EXTRAS_DIALOG = false; // Show a dialog when applying extras
+    public static final boolean ENABLE_AAPT_OUTPUT = false; // WARNING, DEVELOPERS - BREAKS COMPILE
+    public static final boolean ENABLE_PACKAGE_LOGGING = false; // Show time/date/place of install
+    public static final boolean ENABLE_DIRECT_ASSETS_LOGGING = true; // Self explanatory
+    public static final boolean BYPASS_ALL_VERSION_CHECKS = false; // For developer previews only!
+    public static final boolean BYPASS_SUBSTRATUM_BUILDER_DELETION = false; // Do not delete cache?
     @SuppressWarnings("WeakerAccess")
     public static final Integer OVERLAY_UPDATE_RANGE = 815; // Overlays require updating since ver
     // These are specific log tags for different classes
@@ -168,7 +168,7 @@ public enum References {
     public static final String metadataThemeReady = "Substratum_ThemeReady";
     public static final String resourceChangelog = "ThemeChangelog";
     // These are Samsung specific manifest values
-    public static final Boolean toggleShowSamsungOverlayInSettings = false;
+    public static final boolean toggleShowSamsungOverlayInSettings = false;
     public static final String permissionSamsungOverlay =
             "com.samsung.android.permission.SAMSUNG_OVERLAY_COMPONENT";
     // These strings control the nav drawer filter for ThemeFragment
@@ -224,7 +224,7 @@ public enum References {
     // Metadata used in theme templates to denote specific parts of a theme
     public static final String metadataVersion = "Substratum_Plugin";
     // Validate with logs
-    public static final Boolean VALIDATE_WITH_LOGS = false;
+    public static final boolean VALIDATE_WITH_LOGS = false;
     // Control the animation duration
     public static final int FADE_FROM_GRAYSCALE_TO_COLOR_DURATION = 1250;
     // This string controls the hero image name
@@ -236,43 +236,47 @@ public enum References {
     // Localized variables shared amongst common resources
     static ScheduledProfileReceiver scheduledProfileReceiver;
     // These values control the dynamic certification of substratum
+    // We use java.lang.Boolean here rather than a normal boolean
+    // since it being an Object allows us to have a third state - null,
+    // which means that the variable has not been initialised, where
+    // boolean simply takes on the value false.
     private static Boolean uncertified;
     private static int hashValue;
 
     /**
      * Unified method to set theme extra lists
-     * @param context Context
-     * @param theme_pid Package name
-     * @param list_dir Folder to check
-     * @param default_spinner_text 0th index of the spinner
-     * @param spinner_set_defaults_text 1st index of the spinner
-     * @param encryption_level Encrypted or not
-     * @param activity Activity
-     * @param spinner Spinner object
+     * @param context                   Context
+     * @param themePid                  Package name
+     * @param listDir                   Folder to check
+     * @param defaultSpinnerText        0th index of the spinner
+     * @param spinnerSetDefaultsText    1st index of the spinner
+     * @param encryptionLevel           Encrypted or not
+     * @param activity                  Activity
+     * @param spinner                   Spinner object
      * @return Mutated spinner object
      */
     public static Spinner setThemeExtraLists(Context context,
-                                             String theme_pid,
-                                             String list_dir,
-                                             String default_spinner_text,
-                                             String spinner_set_defaults_text,
-                                             Boolean encryption_level,
+                                             String themePid,
+                                             String listDir,
+                                             String defaultSpinnerText,
+                                             String spinnerSetDefaultsText,
+                                             boolean encryptionLevel,
                                              Activity activity,
                                              Spinner spinner) {
-        AssetManager themeAssetManager = getThemeAssetManager(context, theme_pid);
+        AssetManager themeAssetManager = getThemeAssetManager(context, themePid);
         if (themeAssetManager != null) {
             try {
-                final String[] fileArray = themeAssetManager.list(list_dir);
+                final String[] fileArray = themeAssetManager.list(listDir);
                 final List<String> archivedSounds = new ArrayList<>();
                 Collections.addAll(archivedSounds, fileArray);
 
                 // Creates the list of dropdown items
                 final ArrayList<String> unarchivedExtra = new ArrayList<>();
-                unarchivedExtra.add(default_spinner_text);
-                unarchivedExtra.add(spinner_set_defaults_text);
+                unarchivedExtra.add(defaultSpinnerText);
+                unarchivedExtra.add(spinnerSetDefaultsText);
                 for (int i = 0; i < archivedSounds.size(); i++) {
                     unarchivedExtra.add(archivedSounds.get(i).substring(0,
-                            archivedSounds.get(i).length() - (encryption_level ? 8 : 4)));
+                            archivedSounds.get(i).length() - (encryptionLevel ? 8 : 4)));
                 }
 
                 assert activity != null;
@@ -289,14 +293,14 @@ public enum References {
 
     /**
      * Get the AssetManager of the theme package
-     * @param context Context
-     * @param package_name Package name to pull Asset Manager from
+     * @param context     Context
+     * @param packageName Package name to pull Asset Manager from
      * @return AssetManager of the specified package name
      */
-    public static AssetManager getThemeAssetManager(Context context, String package_name) {
+    public static AssetManager getThemeAssetManager(Context context, String packageName) {
         try {
             Resources themeResources =
-                    context.getPackageManager().getResourcesForApplication(package_name);
+                    context.getPackageManager().getResourcesForApplication(packageName);
             return themeResources.getAssets();
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
@@ -324,33 +328,33 @@ public enum References {
      * Create a launcher icon/launchable intent
      *
      * @param context    Self explanatory, bro.
-     * @param theme_pid  Theme's package name (launcher intent process)
-     * @param theme_name Theme's name (launcher icon name)
+     * @param themePid   Theme's package name (launcher intent process)
+     * @param themeName  Theme's name (launcher icon name)
      */
     public static void createLauncherIcon(Context context,
-                                          String theme_pid,
-                                          String theme_name) {
-        createLauncherIcon(context, theme_pid, theme_name, false);
+                                          String themePid,
+                                          String themeName) {
+        createLauncherIcon(context, themePid, themeName, false);
     }
 
     /**
      * Create a launcher icon/launchable intent
      *
      * @param context               Self explanatory, bro.
-     * @param theme_pid             Theme's package name (launcher intent process)
-     * @param theme_name            Theme's name (launcher icon name)
-     * @param launchManagerFragment Boolean flag that creates an intent to launch
+     * @param themePid              Theme's package name (launcher intent process)
+     * @param themeName             Theme's name (launcher icon name)
+     * @param launchManagerFragment boolean flag that creates an intent to launch
      *                              {@link projekt.substratum.fragments.ManagerFragment}
      * @return Returns an intent with the corresponding action
      */
     public static Intent createLauncherIcon(
             Context context,
-            String theme_pid,
-            String theme_name,
+            String themePid,
+            String themeName,
             boolean launchManagerFragment) {
         Intent myIntent = new Intent(Intent.ACTION_MAIN);
         if (!launchManagerFragment) {
-            myIntent.putExtra("theme_pid", theme_pid);
+            myIntent.putExtra(Internal.THEME_PID, themePid);
             myIntent.setComponent(
                     ComponentName.unflattenFromString(
                             context.getPackageName() +
@@ -365,24 +369,24 @@ public enum References {
 
         if (launchManagerFragment) return myIntent;
 
-        Bitmap app_icon = Packages.getBitmapFromDrawable(Packages.getAppIcon(context,
-                theme_pid));
+        Bitmap appIcon = Packages.getBitmapFromDrawable(Packages.getAppIcon(context,
+                themePid));
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             Intent addIntent = new Intent();
             addIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, myIntent);
-            addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, theme_name);
-            addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON, app_icon);
+            addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, themeName);
+            addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON, appIcon);
             addIntent.putExtra("duplicate", false);
             addIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
             context.sendBroadcast(addIntent);
         } else {
             ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
             ShortcutInfo shortcut =
-                    new ShortcutInfo.Builder(context, theme_name)
-                            .setShortLabel(theme_name)
-                            .setLongLabel(theme_name)
-                            .setIcon(Icon.createWithBitmap(app_icon))
+                    new ShortcutInfo.Builder(context, themeName)
+                            .setShortLabel(themeName)
+                            .setLongLabel(themeName)
+                            .setIcon(Icon.createWithBitmap(appIcon))
                             .setIntent(myIntent)
                             .build();
             if (shortcutManager != null) {
@@ -396,28 +400,28 @@ public enum References {
      * Create a launcher shortcut
      *
      * @param context    Context
-     * @param theme_pid  Package name
-     * @param theme_name Theme name
+     * @param themePid   Package name
+     * @param themeName  Theme name
      */
     public static void createShortcut(Context context,
-                                      String theme_pid,
-                                      String theme_name) {
+                                      String themePid,
+                                      String themeName) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
             ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
-            Icon app_icon;
-            Drawable app_icon_drawable = Packages.getAppIcon(context, theme_pid);
+            Icon appIcon;
+            Drawable appIconDrawable = Packages.getAppIcon(context, themePid);
             //If we are on Oreo and the Theme uses an adaptiveIcon, we have to treat it properly
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O &&
-                    app_icon_drawable instanceof AdaptiveIconDrawable) {
-                app_icon = Icon.createWithAdaptiveBitmap(Packages.getBitmapFromDrawable
-                        (app_icon_drawable));
+                    appIconDrawable instanceof AdaptiveIconDrawable) {
+                appIcon = Icon.createWithAdaptiveBitmap(Packages.getBitmapFromDrawable
+                        (appIconDrawable));
             } else {
-                app_icon = Icon.createWithBitmap(Packages.getBitmapFromDrawable(app_icon_drawable));
+                appIcon = Icon.createWithBitmap(Packages.getBitmapFromDrawable(appIconDrawable));
             }
             try {
                 Intent myIntent = new Intent(Intent.ACTION_MAIN);
-                myIntent.putExtra("theme_name", theme_name);
-                myIntent.putExtra("theme_pid", theme_pid);
+                myIntent.putExtra(Internal.THEME_NAME, themeName);
+                myIntent.putExtra(Internal.THEME_PID, themePid);
                 myIntent.setComponent(
                         ComponentName.unflattenFromString(
                                 context.getPackageName() +
@@ -426,9 +430,9 @@ public enum References {
 
                 ShortcutInfo shortcut =
                         new ShortcutInfo.Builder(context, "favorite")
-                                .setShortLabel(theme_name)
-                                .setLongLabel(theme_name)
-                                .setIcon(app_icon)
+                                .setShortLabel(themeName)
+                                .setLongLabel(themeName)
+                                .setIcon(appIcon)
                                 .setIntent(myIntent)
                                 .build();
                 if (shortcutManager != null) {
@@ -462,23 +466,22 @@ public enum References {
      * @return Returns the Xposed version
      */
     public static String checkXposedVersion() {
-        String xposed_version = "";
+        String xposedVersion = "";
         File f = new File("/system/framework/XposedBridge.jar");
         if (f.isFile()) {
             try {
                 File file = new File("/system/", "xposed.prop");
                 BufferedReader br = new BufferedReader(new FileReader(file));
-                String unparsed_br = br.readLine();
-                xposed_version = unparsed_br.substring(8, 10);
+                xposedVersion = br.readLine().substring(8, 10);
             } catch (FileNotFoundException e) {
                 Log.e("XposedChecker", "'xposed.prop' could not be found!");
             } catch (IOException e) {
                 Log.e("XposedChecker", "Unable to parse BufferedReader from 'xposed.prop'");
             }
-            xposed_version = ", " + R.string.logcat_email_xposed_check + " (" +
-                    xposed_version + ')';
+            xposedVersion = ", " + R.string.logcat_email_xposed_check + " (" +
+                    xposedVersion + ')';
         }
-        return xposed_version;
+        return xposedVersion;
     }
 
     /**
@@ -628,7 +631,7 @@ public enum References {
     }
 
     /**
-     * Check if a service is funning on the device
+     * Check if a service is running on the device
      *
      * @param serviceClass Specified service to be checked
      * @param context      Context
@@ -679,7 +682,7 @@ public enum References {
      * @param context Context
      * @return Returns the signature as an int
      */
-    static int hashPassthrough(Context context, Boolean override) {
+    static int hashPassthrough(Context context, boolean override) {
         if (hashValue != 0 && !override) {
             return hashValue;
         }
@@ -707,7 +710,7 @@ public enum References {
      * @param context What's the point of parameters?
      * @return Is it true that there is an afterlife?
      */
-    static Boolean spreadYourWingsAndFly(Context context, Boolean override) {
+    static boolean spreadYourWingsAndFly(Context context, boolean override) {
         if (uncertified != null && !override) {
             return uncertified;
         }

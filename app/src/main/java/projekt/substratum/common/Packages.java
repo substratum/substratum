@@ -103,14 +103,14 @@ public enum Packages {
      * Grab the installer ID on a given package
      *
      * @param context      Context
-     * @param package_name Package ID to be analyzed
+     * @param packageName  Package ID to be analyzed
      * @return Returns string of installer ID, if null, can't obtain package or installed through ADB
      */
     public static String getInstallerId(Context context,
-                                        String package_name) {
+                                        String packageName) {
         try {
             PackageManager pm = context.getPackageManager();
-            return pm.getInstallerPackageName(package_name);
+            return pm.getInstallerPackageName(packageName);
         } catch (Exception e) {
             // Suppress warning
         }
@@ -121,12 +121,12 @@ public enum Packages {
      * Returns whether the package is installed or not
      *
      * @param context      Context
-     * @param package_name Package name of the desired app to be checked
+     * @param packageName  Package name of the desired app to be checked
      * @return True, if installed
      */
     public static boolean isPackageInstalled(Context context,
-                                             String package_name) {
-        return isPackageInstalled(context, package_name, true);
+                                             String packageName) {
+        return isPackageInstalled(context, packageName, true);
     }
 
     /**
@@ -134,19 +134,19 @@ public enum Packages {
      * disabled
      *
      * @param context      Context
-     * @param package_name Package name of the desired app to be checked
+     * @param packageName  Package name of the desired app to be checked
      * @param enabled      Check whether it is enabled or frozen
      * @return True, if it fits all criteria above
      */
     public static boolean isPackageInstalled(
             Context context,
-            String package_name,
+            String packageName,
             boolean enabled) {
         try {
             ApplicationInfo ai = context.getPackageManager().getApplicationInfo
-                    (package_name, 0);
+                    (packageName, 0);
             PackageManager pm = context.getPackageManager();
-            pm.getPackageInfo(package_name, PackageManager.GET_ACTIVITIES);
+            pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
             if (enabled) return ai.enabled;
             // if package doesn't exist, an Exception will be thrown, so return true in every case
             return true;
@@ -159,15 +159,15 @@ public enum Packages {
      * Checks if a package is available to be used
      *
      * @param context      Context
-     * @param package_name Package name of the desired app to be checked
+     * @param packageName  Package name of the desired app to be checked
      * @return True, if available
      */
     public static boolean isAvailablePackage(Context context,
-                                             String package_name) {
+                                             String packageName) {
         PackageManager pm = context.getPackageManager();
-        if (isPackageInstalled(context, package_name)) {
+        if (isPackageInstalled(context, packageName)) {
             try {
-                int enabled = pm.getApplicationEnabledSetting(package_name);
+                int enabled = pm.getApplicationEnabledSetting(packageName);
                 return (enabled != PackageManager.COMPONENT_ENABLED_STATE_DISABLED) &&
                         (enabled != PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER);
             } catch (Exception e) {
@@ -181,22 +181,22 @@ public enum Packages {
      * Validate whether a resource is present in a given package name
      *
      * @param context       Context
-     * @param package_name  Package name of the desired app to be checked
-     * @param resource_name Resource name of the object to be checked
-     * @param resource_type Resource type of the object to be checked
+     * @param packageName   Package name of the desired app to be checked
+     * @param resourceName  Resource name of the object to be checked
+     * @param resourceType  Resource type of the object to be checked
      * @return True, if present
      */
-    public static Boolean validateResource(Context context,
-                                           String package_name,
-                                           String resource_name,
-                                           String resource_type) {
+    public static boolean validateResource(Context context,
+                                           String packageName,
+                                           String resourceName,
+                                           String resourceType) {
         try {
-            Context ctx = context.createPackageContext(package_name, 0);
+            Context ctx = context.createPackageContext(packageName, 0);
             android.content.res.Resources resources = ctx.getResources();
             int drawablePointer = resources.getIdentifier(
-                    resource_name, // Drawable name explicitly defined
-                    resource_type, // Declared icon is a drawable, indeed.
-                    package_name); // Icon pack package name
+                    resourceName, // Drawable name explicitly defined
+                    resourceType, // Declared icon is a drawable, indeed.
+                    packageName); // Icon pack package name
             return drawablePointer != 0;
         } catch (Exception e) {
             return false;
@@ -273,28 +273,28 @@ public enum Packages {
      * Grab the app icon of a given package
      *
      * @param context      Context
-     * @param package_name Package name of the desired app to be checked
+     * @param packageName  Package name of the desired app to be checked
      * @return Returns a drawable of the app's icon
      */
     public static Drawable getAppIcon(Context context,
-                                      String package_name) {
+                                      String packageName) {
         try {
             Drawable icon;
-            if (allowedSystemUIOverlay(package_name)) {
+            if (allowedSystemUIOverlay(packageName)) {
                 icon = context.getPackageManager().getApplicationIcon(SYSTEMUI);
-            } else if (allowedSettingsOverlay(package_name)) {
+            } else if (allowedSettingsOverlay(packageName)) {
                 icon = context.getPackageManager().getApplicationIcon(SETTINGS);
-            } else if (allowedFrameworkOverlay(package_name)) {
+            } else if (allowedFrameworkOverlay(packageName)) {
                 icon = context.getPackageManager().getApplicationIcon(FRAMEWORK);
             } else {
-                icon = context.getPackageManager().getApplicationIcon(package_name);
+                icon = context.getPackageManager().getApplicationIcon(packageName);
             }
             return icon;
         } catch (Exception e) {
             // Suppress warning
         }
-        if ((package_name != null) &&
-                package_name.equals(INTERFACER_PACKAGE) &&
+        if ((packageName != null) &&
+                packageName.equals(INTERFACER_PACKAGE) &&
                 !checkOMS(context)) {
             return context.getDrawable(R.mipmap.main_launcher);
         } else {
@@ -306,14 +306,14 @@ public enum Packages {
      * Grab a specific overlay's substratum compiler version
      *
      * @param context      Context
-     * @param package_name Package name of the desired app to be checked
+     * @param packageName  Package name of the desired app to be checked
      * @return Returns the version of the substratum compiler
      */
     public static int getOverlaySubstratumVersion(Context context,
-                                                  String package_name) {
+                                                  String packageName) {
         try {
             ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
-                    package_name, PackageManager.GET_META_DATA);
+                    packageName, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
                 return appInfo.metaData.getInt(metadataOverlayVersion);
             }
@@ -327,14 +327,14 @@ public enum Packages {
      * Grab the overlay parent's icon
      *
      * @param context      Context
-     * @param package_name Package name of the desired app to be checked
+     * @param packageName  Package name of the desired app to be checked
      * @return Returns a drawable of the parent's app icon
      */
     public static Drawable getOverlayParentIcon(Context context,
-                                                String package_name) {
+                                                String packageName) {
         try {
             ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
-                    package_name, PackageManager.GET_META_DATA);
+                    packageName, PackageManager.GET_META_DATA);
             if ((appInfo.metaData != null) &&
                     (appInfo.metaData.getString(metadataOverlayParent) != null)) {
                 return getAppIcon(context, appInfo.metaData.getString(metadataOverlayParent));
@@ -342,7 +342,7 @@ public enum Packages {
         } catch (Exception e) {
             // Suppress warning
         }
-        return getAppIcon(context, package_name);
+        return getAppIcon(context, packageName);
     }
 
     /**
@@ -377,13 +377,13 @@ public enum Packages {
      * Grabs a given package's app version
      *
      * @param context      Context
-     * @param package_name Package name of the desired app to be checked
+     * @param packageName  Package name of the desired app to be checked
      * @return Returns a string of the app's version
      */
     public static String getAppVersion(Context context,
-                                       String package_name) {
+                                       String packageName) {
         try {
-            PackageInfo pInfo = context.getPackageManager().getPackageInfo(package_name, 0);
+            PackageInfo pInfo = context.getPackageManager().getPackageInfo(packageName, 0);
             return pInfo.versionName;
         } catch (Exception e) {
             // Suppress warning
@@ -395,13 +395,13 @@ public enum Packages {
      * Return the package's app version code
      *
      * @param context      Context
-     * @param package_name Package name of the desired app to be checked
+     * @param packageName  Package name of the desired app to be checked
      * @return Returns an int of the app's version code
      */
     public static int getAppVersionCode(Context context,
-                                        String package_name) {
+                                        String packageName) {
         try {
-            PackageInfo pInfo = context.getPackageManager().getPackageInfo(package_name, 0);
+            PackageInfo pInfo = context.getPackageManager().getPackageInfo(packageName, 0);
             return pInfo.versionCode;
         } catch (Exception e) {
             // Suppress warning
@@ -413,13 +413,13 @@ public enum Packages {
      * Grabs a given theme's app version
      *
      * @param context      Context
-     * @param package_name Package name of the desired app to be checked
+     * @param packageName  Package name of the desired app to be checked
      * @return Returns a string of the app's version
      */
     public static String getThemeVersion(Context context,
-                                         String package_name) {
+                                         String packageName) {
         try {
-            PackageInfo pInfo = context.getPackageManager().getPackageInfo(package_name, 0);
+            PackageInfo pInfo = context.getPackageManager().getPackageInfo(packageName, 0);
             return pInfo.versionName + " (" + pInfo.versionCode + ')';
         } catch (PackageManager.NameNotFoundException e) {
             // Suppress warning
@@ -431,14 +431,14 @@ public enum Packages {
      * Grab the available API levels for a given theme
      *
      * @param context      Context
-     * @param package_name Package name of the desired app to be checked
+     * @param packageName  Package name of the desired app to be checked
      * @return Returns a string of the theme's SDK APIs
      */
     public static String getThemeAPIs(Context context,
-                                      String package_name) {
+                                      String packageName) {
         try {
             ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
-                    package_name, PackageManager.GET_META_DATA);
+                    packageName, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
                 try {
                     if (appInfo.minSdkVersion == appInfo.targetSdkVersion) {
@@ -520,17 +520,17 @@ public enum Packages {
      * Grab a specified metadata from a theme
      *
      * @param context      Context
-     * @param package_name Package name of the desired app to be checked
+     * @param packageName  Package name of the desired app to be checked
      * @param metadata     Name of the metadata to be acquired
      * @return Returns a string of the metadata's output
      */
     public static String getOverlayMetadata(
             Context context,
-            String package_name,
+            String packageName,
             String metadata) {
         try {
             ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
-                    package_name, PackageManager.GET_META_DATA);
+                    packageName, PackageManager.GET_META_DATA);
             if (appInfo.metaData != null) {
                 if (metadata.equals(metadataSamsungSupport)) {
                     try {
@@ -558,23 +558,23 @@ public enum Packages {
      * Obtain a resource pointer from any package installed on the device
      *
      * @param context      Context
-     * @param package_name Package name of the desired app to be checked
+     * @param packageName  Package name of the desired app to be checked
      * @param resourceName Resource name from the desired app to be checked
      * @param type         Resource type of the desired object
      * @return Returns the exact resource pointer given a proper otherContext value.
      * 0 denotes failure.
      */
     private static int getResource(Context context,
-                                   String package_name,
+                                   String packageName,
                                    String resourceName,
                                    String type) {
         try {
             android.content.res.Resources res =
-                    context.getPackageManager().getResourcesForApplication(package_name);
+                    context.getPackageManager().getResourcesForApplication(packageName);
             return res.getIdentifier(
-                    package_name + ':' + type + '/' + resourceName,
+                    packageName + ':' + type + '/' + resourceName,
                     type,
-                    package_name);
+                    packageName);
         } catch (Exception e) {
             // Suppress warning
         }
@@ -585,30 +585,30 @@ public enum Packages {
      * Obtain a color resource
      *
      * @param context      Context
-     * @param package_name Package name of the desired app to be checked
+     * @param packageName  Package name of the desired app to be checked
      * @param colorName    Name of the color
      * @return Returns the exact resource pointer given a proper otherContext value.
      * 0 denotes failure.
      */
     public static int getColorResource(Context context,
-                                       String package_name,
+                                       String packageName,
                                        String colorName) {
-        return getResource(context, package_name, colorName, "color");
+        return getResource(context, packageName, colorName, "color");
     }
 
     /**
      * Grab the theme's changelog
      *
      * @param context      Context
-     * @param package_name Package name of the desired app to be checked
+     * @param packageName  Package name of the desired app to be checked
      * @return Returns a string array for the given theme's changelog
      */
     public static String[] getThemeChangelog(Context context,
-                                             String package_name) {
+                                             String packageName) {
         try {
             android.content.res.Resources res =
-                    context.getPackageManager().getResourcesForApplication(package_name);
-            int array_position = getResource(context, package_name, resourceChangelog,
+                    context.getPackageManager().getResourcesForApplication(packageName);
+            int array_position = getResource(context, packageName, resourceChangelog,
                     "array");
             return res.getStringArray(array_position);
         } catch (Exception e) {
@@ -621,35 +621,35 @@ public enum Packages {
      * Grab the theme's hero image
      *
      * @param context      Context
-     * @param package_name Package name of the desired app to be checked
+     * @param packageName  Package name of the desired app to be checked
      * @return Returns a drawable for the given theme's hero image
      */
     public static Drawable getPackageHeroImage(Context context,
-                                               String package_name,
+                                               String packageName,
                                                boolean isThemesView) {
         Drawable hero = context.getDrawable(android.R.color.transparent); // Initialize to be clear
         try {
             android.content.res.Resources res = context.getPackageManager()
-                    .getResourcesForApplication(package_name);
+                    .getResourcesForApplication(packageName);
             int resourceId;
             if ((PreferenceManager.
                     getDefaultSharedPreferences(context).
                     getInt("grid_style_cards_count", 1) != 1) && isThemesView) {
                 resourceId = res.getIdentifier(
-                        package_name + ":drawable/" + heroImageGridResourceName, null, null);
+                        packageName + ":drawable/" + heroImageGridResourceName, null, null);
                 if (resourceId == 0) resourceId = res.getIdentifier(
-                        package_name + ":drawable/" + heroImageResourceName, null, null);
+                        packageName + ":drawable/" + heroImageResourceName, null, null);
             } else if (!isThemesView) {
                 resourceId = res.getIdentifier(
-                        package_name + ":drawable/" + heroImageMainResourceName, null, null);
+                        packageName + ":drawable/" + heroImageMainResourceName, null, null);
                 if (resourceId == 0) resourceId = res.getIdentifier(
-                        package_name + ":drawable/" + heroImageResourceName, null, null);
+                        packageName + ":drawable/" + heroImageResourceName, null, null);
             } else {
                 resourceId = res.getIdentifier(
-                        package_name + ":drawable/" + heroImageResourceName, null, null);
+                        packageName + ":drawable/" + heroImageResourceName, null, null);
             }
             if (resourceId != 0) {
-                hero = context.getPackageManager().getDrawable(package_name, resourceId, null);
+                hero = context.getPackageManager().getDrawable(packageName, resourceId, null);
             }
             return hero;
         } catch (Exception e) {
@@ -662,15 +662,15 @@ public enum Packages {
      * Get a human readable target package name
      *
      * @param context      Context
-     * @param package_name Package name of the desired app to be checked
+     * @param packageName  Package name of the desired app to be checked
      * @return String of the target package name
      */
     public static String getPackageName(Context context,
-                                        String package_name) {
+                                        String packageName) {
         PackageManager pm = context.getPackageManager();
         ApplicationInfo ai;
         try {
-            switch (package_name) {
+            switch (packageName) {
                 case SYSTEMUI_NAVBARS:
                     return context.getString(R.string.systemui_navigation);
                 case SYSTEMUI_HEADERS:
@@ -686,7 +686,7 @@ public enum Packages {
                 case LG_FRAMEWORK:
                     return context.getString(R.string.lg_framework);
             }
-            ai = pm.getApplicationInfo(package_name, 0);
+            ai = pm.getApplicationInfo(packageName, 0);
         } catch (Exception e) {
             ai = null;
         }
@@ -697,24 +697,24 @@ public enum Packages {
      * Get Theme Ready support
      *
      * @param context      Context
-     * @param package_name Package name of the desired app to be checked
+     * @param packageName  Package name of the desired app to be checked
      * @return String of whether the theme supports theme ready
      */
     public static String getThemeReadyVisibility(Context context,
-                                                 String package_name) {
-        return getOverlayMetadata(context, package_name, metadataThemeReady);
+                                                 String packageName) {
+        return getOverlayMetadata(context, packageName, metadataThemeReady);
     }
 
     /**
      * Get theme plugin version
      *
      * @param context      Context
-     * @param package_name Package name of the desired app to be checked
+     * @param packageName  Package name of the desired app to be checked
      * @return String of the theme's plugin version
      */
     public static String getPackageTemplateVersion(Context context,
-                                                   String package_name) {
-        String template_version = getOverlayMetadata(context, package_name, metadataVersion);
+                                                   String packageName) {
+        String template_version = getOverlayMetadata(context, packageName, metadataVersion);
         if (template_version != null) {
             return context.getString(R.string.plugin_template) + ": " + template_version;
         }
@@ -725,24 +725,24 @@ public enum Packages {
      * Get theme parent from overlay
      *
      * @param context      Context
-     * @param package_name Package name of the desired app to be checked
+     * @param packageName  Package name of the desired app to be checked
      * @return String of the overlay's parent
      */
     public static String getOverlayParent(Context context,
-                                          String package_name) {
-        return getOverlayMetadata(context, package_name, metadataOverlayParent);
+                                          String packageName) {
+        return getOverlayMetadata(context, packageName, metadataOverlayParent);
     }
 
     /**
      * Get theme target from overlay
      *
      * @param context      Context
-     * @param package_name Package name of the desired app to be checked
+     * @param packageName  Package name of the desired app to be checked
      * @return String of the overlay's target
      */
     public static String getOverlayTarget(Context context,
-                                          String package_name) {
-        return getOverlayMetadata(context, package_name, metadataOverlayTarget);
+                                          String packageName) {
+        return getOverlayMetadata(context, packageName, metadataOverlayTarget);
     }
 
     /**
@@ -769,12 +769,12 @@ public enum Packages {
      * Checks if the specified package is a Samsung supported theme
      *
      * @param context      Context
-     * @param package_name Package name of the desired app to be checked
+     * @param packageName  Package name of the desired app to be checked
      * @return True, if it supports Samsung
      */
     public static boolean isSamsungTheme(Context context,
-                                         String package_name) {
-        String obtainedValue = getOverlayMetadata(context, package_name, metadataSamsungSupport);
+                                         String packageName) {
+        String obtainedValue = getOverlayMetadata(context, packageName, metadataSamsungSupport);
         return obtainedValue == null || !obtainedValue.toLowerCase().equals("true");
     }
 
@@ -801,14 +801,14 @@ public enum Packages {
      * Checks the packages for Substratum, then mutates the input
      *
      * @param context       Context
-     * @param home_type     Home type
-     * @param search_filter User input in search
+     * @param homeType      Home type
+     * @param searchFilter  User input in search
      * @return Returns a map of substratum ready packages
      */
     @SuppressWarnings("unchecked")
     public static HashMap<String, String[]> getSubstratumPackages(Context context,
-                                                                  CharSequence home_type,
-                                                                  String search_filter) {
+                                                                  CharSequence homeType,
+                                                                  String searchFilter) {
         try {
             HashMap returnMap = new HashMap<>();
             List<ResolveInfo> listOfThemes = getThemes(context);
@@ -819,36 +819,36 @@ public enum Packages {
 
                 // By default, we will have to enforce continuation to false, if a poorly adapted
                 // theme did not implement the proper meta data.
-                Boolean can_continue = false;
+                boolean canContinue = false;
                 if ((appInfo.metaData.getString(metadataName) != null) &&
                         (appInfo.metaData.getString(metadataAuthor) != null) &&
                         (appInfo.metaData.getString(metadataVersion) != null)) {
                     // Check if Samsung, and block the showing of the theme if the theme does not
                     // support samsung intentionally!
-                    Boolean samsung_support =
+                    boolean samsungSupport =
                             appInfo.metaData.getBoolean(metadataSamsungSupport, true);
-                    if (!samsung_support &&
+                    if (!samsungSupport &&
                             (Systems.isSamsungDevice(context) ||
                                     Systems.isNewSamsungDevice(context))) {
-                        can_continue = false;
+                        canContinue = false;
                     } else {
                         // The theme app contains the proper metadata
-                        can_continue = true;
+                        canContinue = true;
                         // If the user is searching using the search bar
-                        if ((search_filter != null) && !search_filter.isEmpty()) {
+                        if ((searchFilter != null) && !searchFilter.isEmpty()) {
                             @SuppressWarnings("StringBufferReplaceableByString") StringBuilder
                                     filtered = new StringBuilder();
                             filtered.append(appInfo.metaData.getString(metadataName));
                             filtered.append(appInfo.metaData.getString(metadataAuthor));
-                            can_continue =
+                            canContinue =
                                     filtered
                                             .toString()
                                             .toLowerCase()
-                                            .contains(search_filter.toLowerCase());
+                                            .contains(searchFilter.toLowerCase());
                         }
                     }
                 }
-                if (can_continue) {
+                if (canContinue) {
                     // Let's prepare ourselves for appending into the hash map for this theme
                     String[] data = {
                             appInfo.metaData.getString(metadataAuthor),
@@ -857,7 +857,7 @@ public enum Packages {
                     // Take the other package's context
                     Context other = context.createPackageContext(packageName, 0);
                     // Check if it is wallpaper mode, if it is, bail out early
-                    if (home_type.equals(wallpaperFragment)) {
+                    if (homeType.equals(wallpaperFragment)) {
                         String wallpaperCheck = appInfo.metaData.getString
                                 (metadataWallpapers);
                         if ((wallpaperCheck != null) && !wallpaperCheck.isEmpty()) {
@@ -865,7 +865,7 @@ public enum Packages {
                         }
                     } else {
                         // Well, it's not wallpaper mode, so let's keep going!
-                        if (home_type.length() == 0) {
+                        if (homeType.length() == 0) {
                             returnMap.put(appInfo.metaData.getString(metadataName), data);
                             Log.d(PACKAGE_TAG, "Loaded Substratum Theme: [" + packageName + ']');
                             if (ENABLE_PACKAGE_LOGGING)
@@ -877,7 +877,7 @@ public enum Packages {
                                      e.hasMoreElements(); ) {
                                     ZipEntry ze = e.nextElement();
                                     String name = ze.getName();
-                                    if (name.startsWith("assets/" + home_type + '/')) {
+                                    if (name.startsWith("assets/" + homeType + '/')) {
                                         returnMap.put(
                                                 appInfo.metaData.getString(metadataName),
                                                 data);
@@ -922,13 +922,13 @@ public enum Packages {
         try (InputStream clone1 = new ByteArrayInputStream(byteArray);
              InputStream clone2 = new ByteArrayInputStream(byteArray)) {
             // Find the name of the top most color in the file first.
-            String resource_name = ReadVariantPrioritizedColor.read(clone1);
+            String resourceName = ReadVariantPrioritizedColor.read(clone1);
 
-            if (resource_name != null) {
+            if (resourceName != null) {
                 try (BufferedReader br = new BufferedReader(new InputStreamReader(clone2))) {
                     String line;
                     while ((line = br.readLine()) != null) {
-                        if (line.contains('"' + resource_name + '"')) {
+                        if (line.contains('"' + resourceName + '"')) {
                             String[] split =
                                     line.substring(line.lastIndexOf("\">") + 2).split("<");
                             hex = split[0];
@@ -936,7 +936,7 @@ public enum Packages {
                         }
                     }
                 } catch (IOException ioe) {
-                    Log.e(SUBSTRATUM_LOG, "Unable to find " + resource_name + " in this overlay!");
+                    Log.e(SUBSTRATUM_LOG, "Unable to find " + resourceName + " in this overlay!");
                 }
             }
         } catch (IOException e) {
@@ -966,14 +966,14 @@ public enum Packages {
      * Determine the installed directory of the overlay for legacy mode
      *
      * @param context      Context
-     * @param package_name Package name of the desired app to be checked
+     * @param packageName  Package name of the desired app to be checked
      * @return Returns the installation directory of the overlay
      */
     public static String getInstalledDirectory(Context context,
-                                               String package_name) {
+                                               String packageName) {
         try {
             PackageManager pm = context.getPackageManager();
-            ApplicationInfo ai = pm.getApplicationInfo(package_name, 0);
+            ApplicationInfo ai = pm.getApplicationInfo(packageName, 0);
             return ai.sourceDir;
         } catch (Exception e) {
             // Suppress warning

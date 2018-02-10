@@ -66,7 +66,7 @@ public enum FileOperations {
      *
      * @param foldername Folder name
      */
-    public static void setContext(final String foldername) {
+    public static void setSystemFileContext(final String foldername) {
         Root.runCommand("chcon -R u:object_r:system_file:s0 " + foldername);
     }
 
@@ -361,7 +361,7 @@ public enum FileOperations {
      */
     public static void delete(final Context context,
                               final String directory,
-                              final Boolean deleteParent) {
+                              final boolean deleteParent) {
         final String dataDir = context.getDataDir().getAbsolutePath();
         final String externalDir = Environment.getExternalStorageDirectory().getAbsolutePath();
         final boolean needRoot = (!directory.startsWith(dataDir) && !directory.startsWith
@@ -548,6 +548,7 @@ public enum FileOperations {
      * @param remember     Should be the same as listDir, so we strip out the unnecessary prefix
      *                     so it only extracts to a specified folder without the asset manager's
      *                     list structure.
+     * @param cipher       Encryption key
      */
     public static boolean copyFileOrDir(final AssetManager assetManager,
                                         final String listDir,

@@ -89,7 +89,7 @@ public class BootAnimations extends Fragment {
 
     private static final int ANIMATION_FRAME_DURATION = 40;
     private static final String TAG = "BootAnimationUtils";
-    private static final Boolean encrypted = false;
+    private static final boolean encrypted = false;
     private static String bootanimationsDir = "bootanimation";
     private final HandlerThread previewHandlerThread =
             new HandlerThread("BootAnimationPreviewThread");
@@ -100,14 +100,14 @@ public class BootAnimations extends Fragment {
     private RelativeLayout bootanimationPlaceholder;
     private RelativeLayout defaults;
     private Spinner bootAnimationSelector;
-    private String theme_pid;
+    private String themePid;
     private ProgressDialog mProgressDialog;
     private SharedPreferences prefs;
     private AsyncTask current;
     private boolean paused;
     private JobReceiver jobReceiver;
     private LocalBroadcastManager localBroadcastManager;
-    private Boolean shutdownBootAnimation;
+    private boolean shutdownBootAnimation;
     private Context context;
     private Handler previewHandler;
     private Runnable previewRunnable;
@@ -140,7 +140,7 @@ public class BootAnimations extends Fragment {
         bootAnimationSelector = tabBootanimationsBinding.bootAnimationSelection;
 
         if (getArguments() != null) {
-            theme_pid = getArguments().getString(THEME_PID);
+            themePid = getArguments().getString(THEME_PID);
 
             // If this tab was launched with shutdown animations in mind, rename the tab
             if (getArguments().getBoolean(SHUTDOWNANIMATION_INTENT, false)) {
@@ -164,7 +164,7 @@ public class BootAnimations extends Fragment {
 
         try {
             bootAnimationSelector = setThemeExtraLists(context,
-                    theme_pid,
+                    themePid,
                     bootanimationsDir,
                     getString(R.string.bootanimation_default_spinner),
                     getString(R.string.bootanimation_spinner_set_defaults),
@@ -272,7 +272,7 @@ public class BootAnimations extends Fragment {
                     BootAnimationUtils.execute(nestedScrollView,
                             bootAnimationSelector.getSelectedItem().toString(),
                             context,
-                            theme_pid,
+                            themePid,
                             encrypted,
                             shutdownBootAnimation,
                             null);
@@ -290,7 +290,7 @@ public class BootAnimations extends Fragment {
                                     BootAnimationUtils.execute(nestedScrollView,
                                             bootAnimationSelector.getSelectedItem().toString(),
                                             context,
-                                            theme_pid,
+                                            themePid,
                                             encrypted,
                                             shutdownBootAnimation,
                                             null);
@@ -376,13 +376,13 @@ public class BootAnimations extends Fragment {
 
         private static int previewDeterminator(final String file_location) {
             final File checkFile = new File(file_location);
-            final int file_size = Integer.parseInt(
+            final int fileSize = Integer.parseInt(
                     String.valueOf(checkFile.length() / 1024L / 1024L));
-            Log.d(TAG, "Managing bootanimation with size: " + file_size + "MB");
+            Log.d(TAG, "Managing bootanimation with size: " + fileSize + "MB");
 
-            if (file_size <= 5) {
+            if (fileSize <= 5) {
                 return 1;
-            } else if (file_size >= 10) {
+            } else if (fileSize >= 10) {
                 return 4;
             } else {
                 return 3;
@@ -511,7 +511,7 @@ public class BootAnimations extends Fragment {
                         FileOperations.copyFileOrDir(
                                 Objects.requireNonNull(
                                         getThemeAssetManager(bootAnimations.context,
-                                                bootAnimations.theme_pid)
+                                                bootAnimations.themePid)
                                 ),
                                 bootanimationsDir + '/' + source + ENCRYPTED_FILE_EXTENSION,
                                 bootAnimations.context.getCacheDir().getAbsolutePath() +
@@ -522,7 +522,7 @@ public class BootAnimations extends Fragment {
                         try (InputStream inputStream =
                                      Objects.requireNonNull(
                                              getThemeAssetManager(bootAnimations.context,
-                                                     bootAnimations.theme_pid)
+                                                     bootAnimations.themePid)
                                      ).open(bootanimationsDir + '/' + source);
                              OutputStream outputStream =
                                      new FileOutputStream(bootAnimations.context.getCacheDir()

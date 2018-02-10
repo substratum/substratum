@@ -30,21 +30,21 @@ import static projekt.substratum.common.Internal.RINGTONE;
 import static projekt.substratum.common.Internal.UNLOCK;
 
 public class SoundsItem {
-    private String absolute_path;
+    private String absolutePath;
     private Context context;
     private String title;
 
     public SoundsItem(Context context,
                       String title,
-                      String absolute_path) {
+                      String absolutePath) {
         super();
         this.context = context;
         this.title = title;
-        this.absolute_path = absolute_path;
+        this.absolutePath = absolutePath;
     }
 
     public String getAbsolutePath() {
-        return this.absolute_path;
+        return this.absolutePath;
     }
 
     public String getWorkingTitle() {

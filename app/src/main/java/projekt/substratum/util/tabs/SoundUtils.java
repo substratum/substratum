@@ -49,8 +49,8 @@ public class SoundUtils {
     public static FinishReceiver finishReceiver;
 
     private Context context;
-    private String theme_pid;
-    private boolean has_failed;
+    private String themePid;
+    private boolean hasFailed;
     private boolean ringtone;
     private SharedPreferences prefs;
     private View view;
@@ -70,21 +70,21 @@ public class SoundUtils {
      * @param view      The view of the caller
      * @param arguments Arguments to pass
      * @param context   Self explanatory, bud
-     * @param theme_pid Theme's package name
+     * @param themePid  Theme's package name
      */
     public void execute(View view,
                         String arguments,
                         Context context,
-                        String theme_pid) {
+                        String themePid) {
         this.context = context;
-        this.theme_pid = theme_pid;
+        this.themePid = themePid;
         this.view = view;
         this.prefs = PreferenceManager.getDefaultSharedPreferences(context);
         new SoundsHandlerAsync(this).execute(arguments);
     }
 
     private void finishFunction() {
-        if (!has_failed) {
+        if (!hasFailed) {
             Lunchbar.make(view,
                     context.getString(R.string.sounds_dialog_apply_success),
                     Snackbar.LENGTH_LONG)
@@ -133,14 +133,14 @@ public class SoundUtils {
                 Context context = soundUtils.context;
                 boolean[] results = SoundsManager.setSounds(
                         context,
-                        soundUtils.theme_pid,
+                        soundUtils.themePid,
                         sUrl[0]);
-                soundUtils.has_failed = results[0];
+                soundUtils.hasFailed = results[0];
                 soundUtils.ringtone = results[1];
 
-                if (!soundUtils.has_failed) {
+                if (!soundUtils.hasFailed) {
                     SharedPreferences.Editor editor = soundUtils.prefs.edit();
-                    editor.putString(SOUNDS_APPLIED, soundUtils.theme_pid);
+                    editor.putString(SOUNDS_APPLIED, soundUtils.themePid);
                     editor.apply();
                     Log.d("SoundUtils", "Sound pack installed!");
                     FileOperations.delete(context, context.getCacheDir().getAbsolutePath() +

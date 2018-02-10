@@ -55,38 +55,38 @@ public enum ReadCloudShowcaseFile {
                 if ((int) nNode.getNodeType() == (int) Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
 
-                    String addon_download_name = eElement.getAttribute("id");
+                    String addonDownloadName = eElement.getAttribute("id");
 
-                    String addon_author = eElement.getElementsByTagName("author").item(0).
+                    String addonAuthor = eElement.getElementsByTagName("author").item(0).
                             getTextContent();
 
-                    String addon_backgroundimage = "";
+                    String addonBackgroundimage = "";
                     try {
                         // Try to see if the entry has an image override tag <backgroundimage>
-                        addon_backgroundimage = eElement.getElementsByTagName("backgroundimage")
+                        addonBackgroundimage = eElement.getElementsByTagName("backgroundimage")
                                 .item(0).getTextContent();
                     } catch (Exception e) {
                         // There is no image override tag
                     }
 
-                    String addon_package_name = "";
+                    String addonPackageName = "";
                     try {
                         // Try to see if the entry has an image override tag <backgroundimage>
-                        addon_package_name = eElement.getElementsByTagName("package")
+                        addonPackageName = eElement.getElementsByTagName("package")
                                 .item(0).getTextContent();
                     } catch (Exception e) {
                         // There is no image override tag
                     }
 
-                    String addon_pricing = eElement.getElementsByTagName("pricing").item(0)
+                    String addonPricing = eElement.getElementsByTagName("pricing").item(0)
                             .getTextContent();
 
-                    if (addon_backgroundimage.isEmpty()) {
+                    if (addonBackgroundimage.isEmpty()) {
                         String[] finalArray = {
-                                addon_download_name,
-                                addon_author,
-                                addon_pricing,
-                                addon_package_name
+                                addonDownloadName,
+                                addonAuthor,
+                                addonPricing,
+                                addonPackageName
                         };
                         map.put(finalArray[0], finalArray[1]);
                         map.put(finalArray[0] + "-author", finalArray[1]);
@@ -94,11 +94,11 @@ public enum ReadCloudShowcaseFile {
                         map.put(finalArray[0] + "-package-name", finalArray[3]);
                     } else {
                         String[] finalArray = {
-                                addon_download_name,
-                                addon_author,
-                                addon_pricing,
-                                addon_backgroundimage,
-                                addon_package_name
+                                addonDownloadName,
+                                addonAuthor,
+                                addonPricing,
+                                addonBackgroundimage,
+                                addonPackageName
                         };
                         map.put(finalArray[0], finalArray[1]);
                         map.put(finalArray[0] + "-author", finalArray[1]);

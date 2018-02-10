@@ -26,11 +26,11 @@ import projekt.substratum.adapters.tabs.overlays.OverlaysItem;
 class OverlaysInstance {
 
     private static volatile OverlaysInstance ourInstance = new OverlaysInstance();
-    Boolean has_failed;
+    boolean has_failed;
     Integer fail_count;
     StringBuilder failed_packages;
-    StringBuilder error_logs;
-    Boolean missingType3;
+    StringBuilder errorLogs;
+    boolean missingType3;
     List<String> final_runner;
     List<String> late_install;
     ArrayList<String> final_command;
@@ -56,7 +56,7 @@ class OverlaysInstance {
         has_failed = false;
         fail_count = 0;
         failed_packages = new StringBuilder();
-        error_logs = new StringBuilder();
+        errorLogs = new StringBuilder();
         missingType3 = false;
         final_runner = new ArrayList<>();
         late_install = new ArrayList<>();

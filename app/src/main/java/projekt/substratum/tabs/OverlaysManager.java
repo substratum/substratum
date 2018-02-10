@@ -116,9 +116,9 @@ enum OverlaysManager {
 
         if (!overlays.currentInstance.checkedOverlays.isEmpty()) {
             compileFunction compile = new compileFunction(overlays, state);
-            if ((overlays.base_spinner.getSelectedItemPosition() != 0) &&
-                    (overlays.base_spinner.getVisibility() == View.VISIBLE)) {
-                compile.execute(overlays.base_spinner.getSelectedItem().toString());
+            if ((overlays.baseSpinner.getSelectedItemPosition() != 0) &&
+                    (overlays.baseSpinner.getVisibility() == View.VISIBLE)) {
+                compile.execute(overlays.baseSpinner.getSelectedItem().toString());
             } else {
                 compile.execute("");
             }
@@ -128,7 +128,7 @@ enum OverlaysManager {
                 overlays.activityManager.killBackgroundProcesses(overlay.getPackageName());
             }
         } else {
-            if (overlays.toggle_all.isChecked()) overlays.toggle_all.setChecked(false);
+            if (overlays.toggleAll.isChecked()) overlays.toggleAll.setChecked(false);
             currentShownLunchBar = Lunchbar.make(
                     overlays.getActivityView(),
                     overlays.context.getString(R.string.toast_disabled5),
@@ -175,9 +175,9 @@ enum OverlaysManager {
         if (overlays.context != null && Systems.checkOMS(overlays.context)) {
             if (!overlays.currentInstance.checkedOverlays.isEmpty()) {
                 compileFunction compile = new compileFunction(overlays, mode);
-                if ((overlays.base_spinner.getSelectedItemPosition() != 0) &&
-                        (overlays.base_spinner.getVisibility() == View.VISIBLE)) {
-                    compile.execute(overlays.base_spinner.getSelectedItem().toString());
+                if ((overlays.baseSpinner.getSelectedItemPosition() != 0) &&
+                        (overlays.baseSpinner.getVisibility() == View.VISIBLE)) {
+                    compile.execute(overlays.baseSpinner.getSelectedItem().toString());
                 } else {
                     compile.execute("");
                 }
@@ -187,7 +187,7 @@ enum OverlaysManager {
                     overlays.activityManager.killBackgroundProcesses(overlay.getPackageName());
                 }
             } else {
-                if (overlays.toggle_all.isChecked()) overlays.toggle_all.setChecked(false);
+                if (overlays.toggleAll.isChecked()) overlays.toggleAll.setChecked(false);
                 currentShownLunchBar = Lunchbar.make(
                         overlays.getActivityView(),
                         overlays.context.getString(R.string.toast_disabled5),
@@ -239,7 +239,7 @@ enum OverlaysManager {
                     overlays.mAdapter.notifyDataSetChanged();
                 }
                 // Untick all options in the adapter after compiling
-                overlays.toggle_all.setChecked(false);
+                overlays.toggleAll.setChecked(false);
                 overlays.overlayItemList = overlays.mAdapter.getOverlayList();
                 for (int i = 0; i < overlays.overlayItemList.size(); i++) {
                     OverlaysItem currentOverlay = overlays.overlayItemList.get(i);
@@ -269,7 +269,7 @@ enum OverlaysManager {
                 alertDialog.show();
             }
         } else {
-            if (overlays.toggle_all.isChecked()) overlays.toggle_all.setChecked(false);
+            if (overlays.toggleAll.isChecked()) overlays.toggleAll.setChecked(false);
             currentShownLunchBar = Lunchbar.make(
                     overlays.getActivityView(),
                     overlays.context.getString(R.string.toast_disabled5),
@@ -344,17 +344,17 @@ enum OverlaysManager {
                 if (state.equals(COMPILE_ENABLE) || state.equals(COMPILE_UPDATE)) {
                     // This is the time when the notification should be shown on the user's screen
                     assert context != null;
-                    overlays.mBuilder = new NotificationCompat.Builder(context,
+                    overlays.builder = new NotificationCompat.Builder(context,
                             References.DEFAULT_NOTIFICATION_CHANNEL_ID);
                     int notification_priority = Notification.PRIORITY_MAX;
-                    overlays.mBuilder.setContentTitle(
+                    overlays.builder.setContentTitle(
                             context.getString(R.string.notification_initial_title))
                             .setProgress(100, 0, true)
                             .setSmallIcon(android.R.drawable.ic_popup_sync)
                             .setPriority(notification_priority)
                             .setOngoing(true);
-                    overlays.mNotifyManager.notify(
-                            References.notification_id_compiler, overlays.mBuilder.build());
+                    overlays.notifyManager.notify(
+                            References.notification_id_compiler, overlays.builder.build());
                     overlays.mCompileDialog.setCancelable(false);
                     View sheetView = View.inflate(context, R.layout.tab_overlays_compile_sheet_dialog, null);
                     overlays.mCompileDialog.setContentView(sheetView);
@@ -384,7 +384,7 @@ enum OverlaysManager {
 
                     try {
                         Resources themeResources = context.getPackageManager()
-                                .getResourcesForApplication(overlays.theme_pid);
+                                .getResourcesForApplication(overlays.themePid);
                         overlays.themeAssetManager = themeResources.getAssets();
                     } catch (PackageManager.NameNotFoundException e) {
                         // Suppress exception
@@ -392,12 +392,12 @@ enum OverlaysManager {
 
                     // Change title in preparation for loop to change subtext
                     if (overlays.checkActiveNotifications()) {
-                        overlays.mBuilder
+                        overlays.builder
                                 .setContentTitle(
                                         context.getString(R.string.notification_processing_n))
                                 .setProgress(100, 0, false);
-                        overlays.mNotifyManager.notify(
-                                References.notification_id_compiler, overlays.mBuilder.build());
+                        overlays.notifyManager.notify(
+                                References.notification_id_compiler, overlays.builder.build());
                     }
                     if (loader_string != null)
                         loader_string.setText(
@@ -543,7 +543,7 @@ enum OverlaysManager {
                     alertDialog.show();
                 }
                 overlays.mAdapter.notifyDataSetChanged();
-                if (overlays.toggle_all.isChecked()) overlays.toggle_all.setChecked(false);
+                if (overlays.toggleAll.isChecked()) overlays.toggleAll.setChecked(false);
             }
         }
 
@@ -590,7 +590,7 @@ enum OverlaysManager {
 
                     overlays.currentInstance.current_amount = (double) (i + 1);
                     String theme_name_parsed =
-                            overlays.theme_name.replaceAll("\\s+", "")
+                            overlays.themeName.replaceAll("\\s+", "")
                                     .replaceAll("[^a-zA-Z0-9]+", "");
 
                     String current_overlay = checked.getPackageName();
@@ -663,18 +663,18 @@ enum OverlaysManager {
 
                             // Initialize working notification
                             if (overlays.checkActiveNotifications()) {
-                                overlays.mBuilder.setProgress(100, (int) (((double) (i + 1) /
+                                overlays.builder.setProgress(100, (int) (((double) (i + 1) /
                                         (double) overlays.currentInstance.checkedOverlays.size())
                                         * 100.0), false);
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                    overlays.mBuilder.setContentText('"' + packageTitle + '"');
+                                    overlays.builder.setContentText('"' + packageTitle + '"');
                                 } else {
-                                    overlays.mBuilder.setContentText(
+                                    overlays.builder.setContentText(
                                             context.getString(R.string.notification_processing) +
                                                     '"' + packageTitle + '"');
                                 }
-                                overlays.mNotifyManager.notify(References.notification_id_compiler,
-                                        overlays.mBuilder.build());
+                                overlays.notifyManager.notify(References.notification_id_compiler,
+                                        overlays.builder.build());
                             }
 
                             String unparsedSuffix;
@@ -714,7 +714,7 @@ enum OverlaysManager {
                                     listDir,
                                     workingDirectory + parsedSuffix,
                                     listDir,
-                                    overlays.theme_cipher
+                                    overlays.themeCipher
                             );
 
                             if (useType3CommonDir) {
@@ -726,13 +726,13 @@ enum OverlaysManager {
                                         type3Dir,
                                         workingDirectory + parsedSuffix,
                                         type3Dir,
-                                        overlays.theme_cipher
+                                        overlays.themeCipher
                                 );
                             }
 
-                            if (checked.is_variant_chosen || !sUrl[0].isEmpty()) {
+                            if (checked.isVariantChosen || !sUrl[0].isEmpty()) {
                                 // Type 1a
-                                if (checked.is_variant_chosen1) {
+                                if (checked.isVariantChosen1) {
                                     type1a = checked.getSelectedVariantName();
                                     Log.d(SUBSTRATUM_BUILDER, "You have selected variant file \"" +
                                             checked.getSelectedVariantName() + '"');
@@ -755,11 +755,11 @@ enum OverlaysManager {
                                                                     ENCRYPTED_FILE_EXTENSION :
                                                             "/values/type1a.xml"),
                                             to_copy,
-                                            overlays.theme_cipher);
+                                            overlays.themeCipher);
                                 }
 
                                 // Type 1b
-                                if (checked.is_variant_chosen2) {
+                                if (checked.isVariantChosen2) {
                                     type1b = checked.getSelectedVariantName2();
                                     Log.d(SUBSTRATUM_BUILDER, "You have selected variant file \"" +
                                             checked.getSelectedVariantName2() + '"');
@@ -782,10 +782,10 @@ enum OverlaysManager {
                                                                     ENCRYPTED_FILE_EXTENSION :
                                                             "/values/type1b.xml"),
                                             to_copy,
-                                            overlays.theme_cipher);
+                                            overlays.themeCipher);
                                 }
                                 // Type 1c
-                                if (checked.is_variant_chosen3) {
+                                if (checked.isVariantChosen3) {
                                     type1c = checked.getSelectedVariantName3();
                                     Log.d(SUBSTRATUM_BUILDER, "You have selected variant file \"" +
                                             checked.getSelectedVariantName3() + '"');
@@ -808,31 +808,31 @@ enum OverlaysManager {
                                                                     ENCRYPTED_FILE_EXTENSION :
                                                             "/values/type1c.xml"),
                                             to_copy,
-                                            overlays.theme_cipher);
+                                            overlays.themeCipher);
                                 }
 
                                 String packageName =
-                                        (checked.is_variant_chosen1 ?
+                                        (checked.isVariantChosen1 ?
                                                 checked.getSelectedVariantName() : "") +
                                                 (overlays.currentInstance.checkedOverlays
-                                                        .get(i).is_variant_chosen2 ?
+                                                        .get(i).isVariantChosen2 ?
                                                         overlays.currentInstance.checkedOverlays
                                                                 .get(i)
                                                                 .getSelectedVariantName2() : "") +
                                                 (overlays.currentInstance.checkedOverlays
-                                                        .get(i).is_variant_chosen3 ?
+                                                        .get(i).isVariantChosen3 ?
                                                         overlays.currentInstance.checkedOverlays
                                                                 .get(i)
                                                                 .getSelectedVariantName3() : "") +
                                                 (overlays.currentInstance.checkedOverlays
-                                                        .get(i).is_variant_chosen5 ?
+                                                        .get(i).isVariantChosen5 ?
                                                         overlays.currentInstance.checkedOverlays
                                                                 .get(i)
                                                                 .getSelectedVariantName5() : "")
                                                         .replaceAll("\\s+", "").replaceAll
                                                         ("[^a-zA-Z0-9]+", "");
 
-                                if (checked.is_variant_chosen5) {
+                                if (checked.isVariantChosen5) {
                                     // Copy over the type4 assets
                                     type4 = checked.getSelectedVariantName5();
                                     String type4folder = "/type4_" + type4;
@@ -845,9 +845,9 @@ enum OverlaysManager {
                                             to_copy2,
                                             workingDirectory + type4folderOutput,
                                             to_copy2,
-                                            overlays.theme_cipher);
+                                            overlays.themeCipher);
                                 }
-                                if (checked.is_variant_chosen4) {
+                                if (checked.isVariantChosen4) {
                                     packageName = (packageName + overlays.currentInstance
                                             .checkedOverlays.get(i)
                                             .getSelectedVariantName4()).replaceAll("\\s+", "")
@@ -864,7 +864,7 @@ enum OverlaysManager {
                                             to_copy,
                                             workingDirectory + type2folder,
                                             to_copy,
-                                            overlays.theme_cipher);
+                                            overlays.themeCipher);
 
                                     // Let's get started
                                     Log.d(SUBSTRATUM_BUILDER, "Currently processing package" +
@@ -874,13 +874,13 @@ enum OverlaysManager {
                                     overlays.compileInstance.beginAction(
                                             context,
                                             current_overlay,
-                                            overlays.theme_name,
+                                            overlays.themeName,
                                             packageName,
                                             checked.getSelectedVariantName4(),
                                             !sUrl[0].isEmpty() ? sUrl[0] : null,
-                                            overlays.theme_version,
+                                            overlays.themeVersion,
                                             Systems.checkOMS(context),
-                                            overlays.theme_pid,
+                                            overlays.themePid,
                                             parsedSuffix,
                                             type1a,
                                             type1b,
@@ -898,13 +898,13 @@ enum OverlaysManager {
                                     overlays.compileInstance.beginAction(
                                             context,
                                             current_overlay,
-                                            overlays.theme_name,
+                                            overlays.themeName,
                                             packageName,
                                             null,
                                             !sUrl[0].isEmpty() ? sUrl[0] : null,
-                                            overlays.theme_version,
+                                            overlays.themeVersion,
                                             Systems.checkOMS(context),
-                                            overlays.theme_pid,
+                                            overlays.themePid,
                                             parsedSuffix,
                                             type1a,
                                             type1b,
@@ -916,17 +916,17 @@ enum OverlaysManager {
                                             false
                                     );
                                 }
-                                if (overlays.compileInstance.has_errored_out) {
+                                if (overlays.compileInstance.hasErroredOut) {
                                     if (!overlays.compileInstance.getErrorLogs()
                                             .contains("type3") ||
                                             !overlays.compileInstance.getErrorLogs().contains(
                                                     "does not exist")) {
                                         overlays.currentInstance.fail_count += 1;
-                                        if (overlays.currentInstance.error_logs.length() == 0) {
-                                            overlays.currentInstance.error_logs.append(
+                                        if (overlays.currentInstance.errorLogs.length() == 0) {
+                                            overlays.currentInstance.errorLogs.append(
                                                     overlays.compileInstance.getErrorLogs());
                                         } else {
-                                            overlays.currentInstance.error_logs.append('\n')
+                                            overlays.currentInstance.errorLogs.append('\n')
                                                     .append(overlays.compileInstance
                                                             .getErrorLogs());
                                         }
@@ -942,10 +942,10 @@ enum OverlaysManager {
                                         overlays.currentInstance.missingType3 = true;
                                     }
                                 } else {
-                                    if (overlays.compileInstance.special_snowflake ||
-                                            !overlays.compileInstance.no_install.isEmpty()) {
+                                    if (overlays.compileInstance.specialSnowflake ||
+                                            !overlays.compileInstance.noInstall.isEmpty()) {
                                         overlays.currentInstance.late_install.add(
-                                                overlays.compileInstance.no_install);
+                                                overlays.compileInstance.noInstall);
                                     } else if (needToWait) {
                                         // Thread wait
                                         Substratum.startWaitingInstall();
@@ -966,13 +966,13 @@ enum OverlaysManager {
                                 overlays.compileInstance.beginAction(
                                         context,
                                         current_overlay,
-                                        overlays.theme_name,
+                                        overlays.themeName,
                                         null,
                                         null,
                                         null,
-                                        overlays.theme_version,
+                                        overlays.themeVersion,
                                         Systems.checkOMS(context),
-                                        overlays.theme_pid,
+                                        overlays.themePid,
                                         parsedSuffix,
                                         type1a,
                                         type1b,
@@ -984,13 +984,13 @@ enum OverlaysManager {
                                         false
                                 );
 
-                                if (overlays.compileInstance.has_errored_out) {
+                                if (overlays.compileInstance.hasErroredOut) {
                                     overlays.currentInstance.fail_count += 1;
-                                    if (overlays.currentInstance.error_logs.length() == 0) {
-                                        overlays.currentInstance.error_logs.append(
+                                    if (overlays.currentInstance.errorLogs.length() == 0) {
+                                        overlays.currentInstance.errorLogs.append(
                                                 overlays.compileInstance.getErrorLogs());
                                     } else {
-                                        overlays.currentInstance.error_logs.append('\n')
+                                        overlays.currentInstance.errorLogs.append('\n')
                                                 .append(overlays.compileInstance.getErrorLogs());
                                     }
                                     overlays.currentInstance.failed_packages
@@ -1001,10 +1001,10 @@ enum OverlaysManager {
                                     overlays.currentInstance.failed_packages.append(")\n");
                                     overlays.currentInstance.has_failed = true;
                                 } else {
-                                    if (overlays.compileInstance.special_snowflake ||
-                                            !overlays.compileInstance.no_install.isEmpty()) {
+                                    if (overlays.compileInstance.specialSnowflake ||
+                                            !overlays.compileInstance.noInstall.isEmpty()) {
                                         overlays.currentInstance.late_install
-                                                .add(overlays.compileInstance.no_install);
+                                                .add(overlays.compileInstance.noInstall);
                                     } else if (needToWait) {
                                         // Thread wait
                                         Substratum.startWaitingInstall();
@@ -1052,7 +1052,7 @@ enum OverlaysManager {
             Overlays overlays = ref.get();
             if (overlays != null) {
                 overlays.progressBar.setVisibility(View.VISIBLE);
-                if (overlays.toggle_all.isChecked()) overlays.toggle_all.setChecked(false);
+                if (overlays.toggleAll.isChecked()) overlays.toggleAll.setChecked(false);
             }
         }
 
@@ -1069,7 +1069,7 @@ enum OverlaysManager {
                                 (context);
                         for (int i = 0; i < all_installed_overlays.size(); i++) {
                             if (!Packages.getOverlayParent(context, all_installed_overlays.get(i))
-                                    .equals(overlays.theme_pid)) {
+                                    .equals(overlays.themePid)) {
                                 disableBeforeEnabling.add(all_installed_overlays.get(i));
                             }
                         }
@@ -1111,8 +1111,8 @@ enum OverlaysManager {
                 Activity activity = overlays.getActivity();
                 if (!overlays.currentInstance.final_runner.isEmpty()) {
                     overlays.progressBar.setVisibility(View.VISIBLE);
-                    if (overlays.toggle_all.isChecked() && activity != null)
-                        activity.runOnUiThread(() -> overlays.toggle_all.setChecked(false));
+                    if (overlays.toggleAll.isChecked() && activity != null)
+                        activity.runOnUiThread(() -> overlays.toggleAll.setChecked(false));
                 }
             }
         }
@@ -1157,9 +1157,9 @@ enum OverlaysManager {
                 Activity activity = overlays.getActivity();
                 if (!overlays.currentInstance.final_runner.isEmpty()) {
                     overlays.progressBar.setVisibility(View.VISIBLE);
-                    if (overlays.toggle_all.isChecked()) {
+                    if (overlays.toggleAll.isChecked()) {
                         if (activity != null) {
-                            activity.runOnUiThread(() -> overlays.toggle_all.setChecked(false));
+                            activity.runOnUiThread(() -> overlays.toggleAll.setChecked(false));
                         }
                     }
                 }
@@ -1189,7 +1189,7 @@ enum OverlaysManager {
                                 (context);
                         for (int i = 0; i < all_installed_overlays.size(); i++) {
                             if (!Packages.getOverlayParent(context,
-                                    all_installed_overlays.get(i)).equals(overlays.theme_pid)) {
+                                    all_installed_overlays.get(i)).equals(overlays.themePid)) {
                                 disableBeforeEnabling.add(all_installed_overlays.get(i));
                             }
                         }
@@ -1233,32 +1233,32 @@ enum OverlaysManager {
 
                 // Add dummy intent to be able to close the notification on click
                 Intent notificationIntent = new Intent(context, InformationActivity.class);
-                notificationIntent.putExtra(THEME_NAME, overlays.theme_name);
-                notificationIntent.putExtra(THEME_PID, overlays.theme_pid);
+                notificationIntent.putExtra(THEME_NAME, overlays.themeName);
+                notificationIntent.putExtra(THEME_PID, overlays.themePid);
                 notificationIntent.setFlags(
                         Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 PendingIntent intent =
                         PendingIntent.getActivity(context, 0, notificationIntent,
                                 PendingIntent.FLAG_CANCEL_CURRENT);
 
-                overlays.mNotifyManager.cancel(References.notification_id_compiler);
+                overlays.notifyManager.cancel(References.notification_id_compiler);
                 if (!overlays.currentInstance.has_failed) {
-                    overlays.mBuilder = new NotificationCompat.Builder(
+                    overlays.builder = new NotificationCompat.Builder(
                             context, DEFAULT_NOTIFICATION_CHANNEL_ID);
-                    overlays.mBuilder.setAutoCancel(true);
-                    overlays.mBuilder.setProgress(0, 0, false);
-                    overlays.mBuilder.setOngoing(false);
-                    overlays.mBuilder.setContentIntent(intent);
-                    overlays.mBuilder.setSmallIcon(R.drawable.notification_success_icon);
-                    overlays.mBuilder.setContentTitle(
+                    overlays.builder.setAutoCancel(true);
+                    overlays.builder.setProgress(0, 0, false);
+                    overlays.builder.setOngoing(false);
+                    overlays.builder.setContentIntent(intent);
+                    overlays.builder.setSmallIcon(R.drawable.notification_success_icon);
+                    overlays.builder.setContentTitle(
                             context.getString(R.string.notification_done_title));
-                    overlays.mBuilder.setContentText(
+                    overlays.builder.setContentText(
                             context.getString(R.string.notification_no_errors_found));
                     if (overlays.prefs.getBoolean("vibrate_on_compiled", false)) {
-                        overlays.mBuilder.setVibrate(new long[]{100L, 200L, 100L, 500L});
+                        overlays.builder.setVibrate(new long[]{100L, 200L, 100L, 500L});
                     }
-                    overlays.mNotifyManager.notify(
-                            References.notification_id_compiler, overlays.mBuilder.build());
+                    overlays.notifyManager.notify(
+                            References.notification_id_compiler, overlays.builder.build());
 
                     if (overlays.currentInstance.missingType3) {
                         currentShownLunchBar = Lunchbar.make(
@@ -1279,7 +1279,7 @@ enum OverlaysManager {
                         InformationActivity.shouldRestartActivity) {
                     // Gracefully finish, so that we won't close the activity when theme is upgraded
                     Broadcasts.sendActivityFinisherMessage(
-                            overlays.context, overlays.theme_pid);
+                            overlays.context, overlays.themePid);
                 }
                 InformationActivity.shouldRestartActivity = false;
                 InformationActivity.compilingProcess = false;
@@ -1302,7 +1302,7 @@ enum OverlaysManager {
                         List<String> all_installed_overlays = ThemeManager.listAllOverlays
                                 (context);
                         for (String p : all_installed_overlays) {
-                            if (!overlays.theme_pid.equals(Packages.
+                            if (!overlays.themePid.equals(Packages.
                                     getOverlayParent(context, p))) {
                                 disableBeforeEnabling.add(p);
                             } else {
@@ -1324,7 +1324,7 @@ enum OverlaysManager {
 
                     if (activity != null) {
                         if (overlays.currentInstance.final_runner.isEmpty()) {
-                            if (overlays.base_spinner.getSelectedItemPosition() == 0) {
+                            if (overlays.baseSpinner.getSelectedItemPosition() == 0) {
                                 activity.runOnUiThread(() ->
                                         overlays.mAdapter.notifyDataSetChanged());
                             } else {
@@ -1334,8 +1334,8 @@ enum OverlaysManager {
                         } else {
                             activity.runOnUiThread(() ->
                                     overlays.progressBar.setVisibility(View.VISIBLE));
-                            if (overlays.toggle_all.isChecked())
-                                activity.runOnUiThread(() -> overlays.toggle_all.setChecked(false));
+                            if (overlays.toggleAll.isChecked())
+                                activity.runOnUiThread(() -> overlays.toggleAll.setChecked(false));
                             activity.runOnUiThread(() -> overlays.mAdapter.notifyDataSetChanged());
                         }
                         activity.runOnUiThread(() -> overlays.progressBar.setVisibility(View.GONE));

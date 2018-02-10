@@ -85,7 +85,7 @@ public class Fonts extends Fragment {
 
     private static final String fontsDir = "fonts";
     private static final String TAG = "FontUtils";
-    private static final Boolean encrypted = false;
+    private static final boolean encrypted = false;
     private TextView normal;
     private TextView normalBold;
     private TextView italics;
@@ -95,7 +95,7 @@ public class Fonts extends Fragment {
     private RelativeLayout fontHolder;
     private RelativeLayout fontPlaceholder;
     private Spinner fontSelector;
-    private String theme_pid;
+    private String themePid;
     private ProgressDialog mProgressDialog;
     private SharedPreferences prefs;
     private AsyncTask current;
@@ -131,7 +131,7 @@ public class Fonts extends Fragment {
         fontPlaceholder = tabFontsBinding.fontPlaceholder;
 
         if (getArguments() != null) {
-            theme_pid = getArguments().getString(THEME_PID);
+            themePid = getArguments().getString(THEME_PID);
         } else {
             // At this point, the tab has been incorrectly loaded
             return null;
@@ -141,7 +141,7 @@ public class Fonts extends Fragment {
 
         try {
             fontSelector = setThemeExtraLists(context,
-                    theme_pid,
+                    themePid,
                     fontsDir,
                     getString(R.string.font_default_spinner),
                     getString(R.string.font_spinner_set_defaults),
@@ -229,7 +229,7 @@ public class Fonts extends Fragment {
                     new FontUtils().execute(
                             fontSelector.getSelectedItem().toString(),
                             context,
-                            theme_pid);
+                            themePid);
                 }
             } else {
                 final Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
@@ -392,36 +392,36 @@ public class Fonts extends Fragment {
                             fonts.context.getCacheDir().getAbsolutePath() + FONT_PREVIEW_CACHE;
 
                     try {
-                        final Typeface normal_tf = Typeface.createFromFile(
+                        final Typeface normalTf = Typeface.createFromFile(
                                 work_directory + NORMAL_FONT);
-                        fonts.normal.setTypeface(normal_tf);
+                        fonts.normal.setTypeface(normalTf);
                     } catch (final Exception e) {
                         Log.e(TAG, "Could not load font from directory for normal template." +
                                 " Maybe it wasn't themed?");
                     }
 
                     try {
-                        final Typeface bold_tf = Typeface.createFromFile(
+                        final Typeface boldTf = Typeface.createFromFile(
                                 work_directory + BOLD_FONT);
-                        fonts.normalBold.setTypeface(bold_tf);
+                        fonts.normalBold.setTypeface(boldTf);
                     } catch (final Exception e) {
                         Log.e(TAG, "Could not load font from directory for normal-bold " +
                                 "template. Maybe it wasn't themed?");
                     }
 
                     try {
-                        final Typeface italics_tf = Typeface.createFromFile(
+                        final Typeface italicsTf = Typeface.createFromFile(
                                 work_directory + ITALICS_FONT);
-                        fonts.italics.setTypeface(italics_tf);
+                        fonts.italics.setTypeface(italicsTf);
                     } catch (final Exception e) {
                         Log.e(TAG, "Could not load font from directory for italic template." +
                                 " Maybe it wasn't themed?");
                     }
 
                     try {
-                        final Typeface italics_bold_tf = Typeface.createFromFile(
+                        final Typeface italicsBoldTf = Typeface.createFromFile(
                                 work_directory + BOLD_ITALICS_FONT);
-                        fonts.italicsBold.setTypeface(italics_bold_tf);
+                        fonts.italicsBold.setTypeface(italicsBoldTf);
                     } catch (final Exception e) {
                         Log.e(TAG, "Could not load font from directory for italic-bold " +
                                 "template. Maybe it wasn't themed?");
@@ -467,7 +467,7 @@ public class Fonts extends Fragment {
                     if (encrypted) {
                         FileOperations.copyFileOrDir(
                                 Objects.requireNonNull(
-                                        getThemeAssetManager(fonts.context, fonts.theme_pid)
+                                        getThemeAssetManager(fonts.context, fonts.themePid)
                                 ),
                                 fontsDir + '/' + source + ENCRYPTED_FILE_EXTENSION,
                                 fonts.context.getCacheDir().getAbsolutePath() +
@@ -477,7 +477,7 @@ public class Fonts extends Fragment {
                     } else {
                         try (InputStream inputStream =
                                      Objects.requireNonNull(
-                                             getThemeAssetManager(fonts.context, fonts.theme_pid)
+                                             getThemeAssetManager(fonts.context, fonts.themePid)
                                      ).open(fontsDir + '/' + source);
                              OutputStream outputStream =
                                      new FileOutputStream(

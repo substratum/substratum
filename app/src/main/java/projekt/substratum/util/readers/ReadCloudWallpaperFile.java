@@ -57,17 +57,17 @@ public enum ReadCloudWallpaperFile {
 
                     // Replace all spaces with a tilde first, as tilde "~" is lower priority than
                     // "-", we have to put this first.
-                    String addon_download_name = eElement.getAttribute("id")
+                    String addonDownloadName = eElement.getAttribute("id")
                             .replaceAll("\\s+", "~");
-                    String addon_download_link =
+                    String addonDownloadLink =
                             eElement.getElementsByTagName("link").item(0).getTextContent();
-                    String addon_preview_link =
+                    String addonPreviewLink =
                             eElement.getElementsByTagName("preview").item(0).getTextContent();
 
                     String[] finalArray = {
-                            addon_download_name,
-                            addon_download_link,
-                            addon_preview_link
+                            addonDownloadName,
+                            addonDownloadLink,
+                            addonPreviewLink
                     };
 
                     map.put(finalArray[0], finalArray[1]);

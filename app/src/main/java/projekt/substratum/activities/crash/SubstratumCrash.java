@@ -68,10 +68,10 @@ public class SubstratumCrash extends Activity {
         String stacktrace = createErrorReport(getIntent());
         CaocConfig caocConfig = CustomActivityOnCrash.getConfigFromIntent(getIntent());
 
-        Boolean isSystemFault = References.stringContainsItemFromList(
+        boolean isSystemFault = References.stringContainsItemFromList(
                 stacktrace,
                 SYSTEM_FAULT_EXCEPTIONS);
-        Boolean isRomBuilderFault = References.stringContainsItemFromList(
+        boolean isRomBuilderFault = References.stringContainsItemFromList(
                 stacktrace,
                 new String[]{
                         "Attempt to invoke interface method " +
@@ -109,7 +109,7 @@ public class SubstratumCrash extends Activity {
         });
 
 
-        Boolean isSubstratumOverlayFault = References.stringContainsItemFromList(
+        boolean isSubstratumOverlayFault = References.stringContainsItemFromList(
                 stacktrace,
                 SUBSTRATUM_OVERLAY_FAULT_EXCEPTIONS);
 

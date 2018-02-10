@@ -888,7 +888,7 @@ public class ProfileFragment extends Fragment {
                         }
                         FileOperations.setPermissionsRecursively(THEME_644, current_directory);
                         FileOperations.setPermissions(THEME_755, current_directory);
-                        FileOperations.setContext(current_directory);
+                        FileOperations.setSystemFileContext(current_directory);
                         FileOperations.mountRO();
                     } else {
                         String vendor_location = LEGACY_NEXUS_DIR;
@@ -942,7 +942,7 @@ public class ProfileFragment extends Fragment {
                         }
                         FileOperations.setPermissionsRecursively(THEME_644, current_directory);
                         FileOperations.setPermissions(THEME_755, current_directory);
-                        FileOperations.setContext(current_directory);
+                        FileOperations.setSystemFileContext(current_directory);
                         FileOperations.mountRO();
 
                         // Restore wallpaper
@@ -1173,7 +1173,7 @@ public class ProfileFragment extends Fragment {
 
                         String theme = currentItem.getParentTheme();
 
-                        Boolean encrypted = false;
+                        boolean encrypted = false;
                         String encrypt_check =
                                 Packages.getOverlayMetadata(
                                         profileFragment.context, theme, metadataEncryption);
@@ -1357,12 +1357,12 @@ public class ProfileFragment extends Fragment {
                                 compilePackage,
                                 false
                         );
-                        if (sb.has_errored_out) {
+                        if (sb.hasErroredOut) {
                             // TODO: Handle failed compilation
                             Log.d(TAG, "Failed to compile profile...");
                         } else {
-                            if (sb.special_snowflake || sb.no_install.length() > 0) {
-                                profileFragment.late_install.add(sb.no_install);
+                            if (sb.specialSnowflake || sb.noInstall.length() > 0) {
+                                profileFragment.late_install.add(sb.noInstall);
                                 toBeRun.add(compilePackage);
                             } else {
                                 if (needToWait) {
@@ -1480,7 +1480,7 @@ public class ProfileFragment extends Fragment {
                         FileOperations.setPermissions(THEME_755, RINGTONE_THEME_DIRECTORY);
                         FileOperations.setPermissionsRecursively(THEME_644, FONTS_THEME_DIRECTORY);
                         FileOperations.setPermissions(THEME_755, FONTS_THEME_DIRECTORY);
-                        FileOperations.setContext(THEME_DIRECTORY);
+                        FileOperations.setSystemFileContext(THEME_DIRECTORY);
                     }
 
                     ThemeManager.disableAllThemeOverlays(profileFragment.context);

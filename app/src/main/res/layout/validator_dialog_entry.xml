@@ -17,7 +17,16 @@
   -->
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto">
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="projekt.substratum.adapters.fragments.settings.ValidatorInfo" />
+        <import type="android.view.View" />
+        <variable
+            name="validatorInfo"
+            type="ValidatorInfo" />
+    </data>
 
     <android.support.v7.widget.CardView
         android:id="@+id/pack_card"
@@ -52,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@id/pack_icon"
-                android:layout_toStartOf="@+id/verification"
+                android:layout_toStartOf="@+id/verification_icon"
                 android:orientation="vertical">
 
                 <TextView
@@ -71,7 +80,7 @@
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/verification"
+                android:id="@+id/verification_icon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_alignParentEnd="true"

@@ -24,7 +24,6 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.PowerManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -72,6 +71,7 @@ public class WallpaperAdapter extends RecyclerView.Adapter<WallpaperAdapter.View
         WallpaperItem wallpaperItem = information.get(pos);
         TabWallpaperItemBinding viewHolderBinding = viewHolder.getBinding();
         viewHolderBinding.setWallpaperItem(wallpaperItem);
+        viewHolderBinding.executePendingBindings();
         context = wallpaperItem.getContext();
 
         viewHolderBinding.wallpaperCard.setOnClickListener(view -> {

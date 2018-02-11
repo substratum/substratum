@@ -295,22 +295,6 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
         viewHolderBinding.appIcon.setImageDrawable(overlaysItem.getAppIcon());
         viewHolderBinding.overlayTargetPackageName.setText(overlaysItem.getName());
 
-        String targetVersion;
-        switch (overlaysItem.getPackageName()) {
-            case SYSTEMUI_HEADERS:
-            case SYSTEMUI_NAVBARS:
-            case SYSTEMUI_STATUSBARS:
-            case SYSTEMUI_QSTILES:
-                targetVersion = Packages.getAppVersion(context, SYSTEMUI);
-                break;
-            case SETTINGS_ICONS:
-                targetVersion = Packages.getAppVersion(context, SETTINGS);
-                break;
-            default:
-                targetVersion = Packages.getAppVersion(context, overlaysItem.getPackageName());
-        }
-        overlaysItem.setTargetVersion(targetVersion);
-
         if (overlaysItem.isVariantInstalled()) {
             // Check whether currently installed overlay is up to date with themePid's themeVersion
             if (overlaysItem.compareInstalledOverlay()) {

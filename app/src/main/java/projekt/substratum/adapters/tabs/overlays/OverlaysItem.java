@@ -33,6 +33,13 @@ import projekt.substratum.common.Packages;
 import projekt.substratum.common.Systems;
 
 import static projekt.substratum.common.Packages.isPackageInstalled;
+import static projekt.substratum.common.Resources.SETTINGS;
+import static projekt.substratum.common.Resources.SETTINGS_ICONS;
+import static projekt.substratum.common.Resources.SYSTEMUI;
+import static projekt.substratum.common.Resources.SYSTEMUI_HEADERS;
+import static projekt.substratum.common.Resources.SYSTEMUI_NAVBARS;
+import static projekt.substratum.common.Resources.SYSTEMUI_QSTILES;
+import static projekt.substratum.common.Resources.SYSTEMUI_STATUSBARS;
 
 public class OverlaysItem implements Serializable {
 
@@ -360,10 +367,27 @@ public class OverlaysItem implements Serializable {
     }
 
     public String getTargetVersion() {
+        if (targetVersion == null) {
+            setTargetVersion();
+        }
         return targetVersion;
     }
 
-    void setTargetVersion(String targetVersion) {
+    private void setTargetVersion() {
+        String targetVersion;
+        switch (getPackageName()) {
+            case SYSTEMUI_HEADERS:
+            case SYSTEMUI_NAVBARS:
+            case SYSTEMUI_STATUSBARS:
+            case SYSTEMUI_QSTILES:
+                targetVersion = Packages.getAppVersion(context, SYSTEMUI);
+                break;
+            case SETTINGS_ICONS:
+                targetVersion = Packages.getAppVersion(context, SETTINGS);
+                break;
+            default:
+                targetVersion = Packages.getAppVersion(context, getPackageName());
+        }
         this.targetVersion = targetVersion;
     }
 }

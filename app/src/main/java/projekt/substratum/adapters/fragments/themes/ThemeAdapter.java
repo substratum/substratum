@@ -71,14 +71,17 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 PreferenceManager.getDefaultSharedPreferences(viewGroup.getContext());
         View view;
         if (!prefs.getBoolean("advanced_ui", false)) {
-            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.theme_entry_special_card,
-                    viewGroup, false);
+            view = LayoutInflater.from(
+                    viewGroup.getContext()).inflate(
+                    R.layout.theme_entry_special_card, viewGroup, false);
         } else if (prefs.getBoolean("nougat_style_cards", false)) {
-            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.theme_entry_card_n,
-                    viewGroup, false);
+            view = LayoutInflater.from(
+                    viewGroup.getContext()).inflate(
+                    R.layout.theme_entry_card_n, viewGroup, false);
         } else {
-            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.theme_entry_card,
-                    viewGroup, false);
+            view = LayoutInflater.from(
+                    viewGroup.getContext()).inflate(
+                    R.layout.theme_entry_card, viewGroup, false);
         }
         return new ViewHolder(view);
     }

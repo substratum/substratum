@@ -102,8 +102,8 @@ public enum Packages {
     /**
      * Grab the installer ID on a given package
      *
-     * @param context      Context
-     * @param packageName  Package ID to be analyzed
+     * @param context     Context
+     * @param packageName Package ID to be analyzed
      * @return Returns string of installer ID, if null, can't obtain package or installed through ADB
      */
     public static String getInstallerId(Context context,
@@ -120,8 +120,8 @@ public enum Packages {
     /**
      * Returns whether the package is installed or not
      *
-     * @param context      Context
-     * @param packageName  Package name of the desired app to be checked
+     * @param context     Context
+     * @param packageName Package name of the desired app to be checked
      * @return True, if installed
      */
     public static boolean isPackageInstalled(Context context,
@@ -133,9 +133,9 @@ public enum Packages {
      * Returns whether the package is installed or not, with an extra flag to check if enabled or
      * disabled
      *
-     * @param context      Context
-     * @param packageName  Package name of the desired app to be checked
-     * @param enabled      Check whether it is enabled or frozen
+     * @param context     Context
+     * @param packageName Package name of the desired app to be checked
+     * @param enabled     Check whether it is enabled or frozen
      * @return True, if it fits all criteria above
      */
     public static boolean isPackageInstalled(
@@ -158,8 +158,8 @@ public enum Packages {
     /**
      * Checks if a package is available to be used
      *
-     * @param context      Context
-     * @param packageName  Package name of the desired app to be checked
+     * @param context     Context
+     * @param packageName Package name of the desired app to be checked
      * @return True, if available
      */
     public static boolean isAvailablePackage(Context context,
@@ -180,10 +180,10 @@ public enum Packages {
     /**
      * Validate whether a resource is present in a given package name
      *
-     * @param context       Context
-     * @param packageName   Package name of the desired app to be checked
-     * @param resourceName  Resource name of the object to be checked
-     * @param resourceType  Resource type of the object to be checked
+     * @param context      Context
+     * @param packageName  Package name of the desired app to be checked
+     * @param resourceName Resource name of the object to be checked
+     * @param resourceType Resource type of the object to be checked
      * @return True, if present
      */
     public static boolean validateResource(Context context,
@@ -272,8 +272,8 @@ public enum Packages {
     /**
      * Grab the app icon of a given package
      *
-     * @param context      Context
-     * @param packageName  Package name of the desired app to be checked
+     * @param context     Context
+     * @param packageName Package name of the desired app to be checked
      * @return Returns a drawable of the app's icon
      */
     public static Drawable getAppIcon(Context context,
@@ -305,8 +305,8 @@ public enum Packages {
     /**
      * Grab a specific overlay's substratum compiler version
      *
-     * @param context      Context
-     * @param packageName  Package name of the desired app to be checked
+     * @param context     Context
+     * @param packageName Package name of the desired app to be checked
      * @return Returns the version of the substratum compiler
      */
     public static int getOverlaySubstratumVersion(Context context,
@@ -326,8 +326,8 @@ public enum Packages {
     /**
      * Grab the overlay parent's icon
      *
-     * @param context      Context
-     * @param packageName  Package name of the desired app to be checked
+     * @param context     Context
+     * @param packageName Package name of the desired app to be checked
      * @return Returns a drawable of the parent's app icon
      */
     public static Drawable getOverlayParentIcon(Context context,
@@ -376,8 +376,8 @@ public enum Packages {
     /**
      * Grabs a given package's app version
      *
-     * @param context      Context
-     * @param packageName  Package name of the desired app to be checked
+     * @param context     Context
+     * @param packageName Package name of the desired app to be checked
      * @return Returns a string of the app's version
      */
     public static String getAppVersion(Context context,
@@ -394,8 +394,8 @@ public enum Packages {
     /**
      * Return the package's app version code
      *
-     * @param context      Context
-     * @param packageName  Package name of the desired app to be checked
+     * @param context     Context
+     * @param packageName Package name of the desired app to be checked
      * @return Returns an int of the app's version code
      */
     public static int getAppVersionCode(Context context,
@@ -412,8 +412,8 @@ public enum Packages {
     /**
      * Grabs a given theme's app version
      *
-     * @param context      Context
-     * @param packageName  Package name of the desired app to be checked
+     * @param context     Context
+     * @param packageName Package name of the desired app to be checked
      * @return Returns a string of the app's version
      */
     public static String getThemeVersion(Context context,
@@ -430,8 +430,8 @@ public enum Packages {
     /**
      * Grab the available API levels for a given theme
      *
-     * @param context      Context
-     * @param packageName  Package name of the desired app to be checked
+     * @param context     Context
+     * @param packageName Package name of the desired app to be checked
      * @return Returns a string of the theme's SDK APIs
      */
     public static String getThemeAPIs(Context context,
@@ -519,9 +519,9 @@ public enum Packages {
     /**
      * Grab a specified metadata from a theme
      *
-     * @param context      Context
-     * @param packageName  Package name of the desired app to be checked
-     * @param metadata     Name of the metadata to be acquired
+     * @param context     Context
+     * @param packageName Package name of the desired app to be checked
+     * @param metadata    Name of the metadata to be acquired
      * @return Returns a string of the metadata's output
      */
     public static String getOverlayMetadata(
@@ -584,9 +584,9 @@ public enum Packages {
     /**
      * Obtain a color resource
      *
-     * @param context      Context
-     * @param packageName  Package name of the desired app to be checked
-     * @param colorName    Name of the color
+     * @param context     Context
+     * @param packageName Package name of the desired app to be checked
+     * @param colorName   Name of the color
      * @return Returns the exact resource pointer given a proper otherContext value.
      * 0 denotes failure.
      */
@@ -599,8 +599,8 @@ public enum Packages {
     /**
      * Grab the theme's changelog
      *
-     * @param context      Context
-     * @param packageName  Package name of the desired app to be checked
+     * @param context     Context
+     * @param packageName Package name of the desired app to be checked
      * @return Returns a string array for the given theme's changelog
      */
     public static String[] getThemeChangelog(Context context,
@@ -620,8 +620,8 @@ public enum Packages {
     /**
      * Grab the theme's hero image
      *
-     * @param context      Context
-     * @param packageName  Package name of the desired app to be checked
+     * @param context     Context
+     * @param packageName Package name of the desired app to be checked
      * @return Returns a drawable for the given theme's hero image
      */
     public static Drawable getPackageHeroImage(Context context,
@@ -661,8 +661,8 @@ public enum Packages {
     /**
      * Get a human readable target package name
      *
-     * @param context      Context
-     * @param packageName  Package name of the desired app to be checked
+     * @param context     Context
+     * @param packageName Package name of the desired app to be checked
      * @return String of the target package name
      */
     public static String getPackageName(Context context,
@@ -696,8 +696,8 @@ public enum Packages {
     /**
      * Get Theme Ready support
      *
-     * @param context      Context
-     * @param packageName  Package name of the desired app to be checked
+     * @param context     Context
+     * @param packageName Package name of the desired app to be checked
      * @return String of whether the theme supports theme ready
      */
     public static String getThemeReadyVisibility(Context context,
@@ -708,8 +708,8 @@ public enum Packages {
     /**
      * Get theme plugin version
      *
-     * @param context      Context
-     * @param packageName  Package name of the desired app to be checked
+     * @param context     Context
+     * @param packageName Package name of the desired app to be checked
      * @return String of the theme's plugin version
      */
     public static String getPackageTemplateVersion(Context context,
@@ -724,8 +724,8 @@ public enum Packages {
     /**
      * Get theme parent from overlay
      *
-     * @param context      Context
-     * @param packageName  Package name of the desired app to be checked
+     * @param context     Context
+     * @param packageName Package name of the desired app to be checked
      * @return String of the overlay's parent
      */
     public static String getOverlayParent(Context context,
@@ -736,8 +736,8 @@ public enum Packages {
     /**
      * Get theme target from overlay
      *
-     * @param context      Context
-     * @param packageName  Package name of the desired app to be checked
+     * @param context     Context
+     * @param packageName Package name of the desired app to be checked
      * @return String of the overlay's target
      */
     public static String getOverlayTarget(Context context,
@@ -768,8 +768,8 @@ public enum Packages {
     /**
      * Checks if the specified package is a Samsung supported theme
      *
-     * @param context      Context
-     * @param packageName  Package name of the desired app to be checked
+     * @param context     Context
+     * @param packageName Package name of the desired app to be checked
      * @return True, if it supports Samsung
      */
     public static boolean isSamsungTheme(Context context,
@@ -800,9 +800,9 @@ public enum Packages {
     /**
      * Checks the packages for Substratum, then mutates the input
      *
-     * @param context       Context
-     * @param homeType      Home type
-     * @param searchFilter  User input in search
+     * @param context      Context
+     * @param homeType     Home type
+     * @param searchFilter User input in search
      * @return Returns a map of substratum ready packages
      */
     @SuppressWarnings("unchecked")
@@ -965,8 +965,8 @@ public enum Packages {
     /**
      * Determine the installed directory of the overlay for legacy mode
      *
-     * @param context      Context
-     * @param packageName  Package name of the desired app to be checked
+     * @param context     Context
+     * @param packageName Package name of the desired app to be checked
      * @return Returns the installation directory of the overlay
      */
     public static String getInstalledDirectory(Context context,

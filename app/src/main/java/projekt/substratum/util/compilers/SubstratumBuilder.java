@@ -74,15 +74,15 @@ public class SubstratumBuilder {
     /**
      * Process the AAPT/AAPT commands to be used with the compilation binary
      *
-     * @param workArea           Directory for the work area
-     * @param targetPkg          Target package name
-     * @param themeName          Theme's name
-     * @param overlayPackage     Overlay package to be compiled
-     * @param additionalVariant  Additional variant (type2)
-     * @param assetReplacement   Asset replacement (type4)
-     * @param legacySwitch       Relates to the switch in Settings to fallback if referencing fails
-     * @param context            Self explanatory, bud.
-     * @param noCacheDir         Direct Assets directory
+     * @param workArea          Directory for the work area
+     * @param targetPkg         Target package name
+     * @param themeName         Theme's name
+     * @param overlayPackage    Overlay package to be compiled
+     * @param additionalVariant Additional variant (type2)
+     * @param assetReplacement  Asset replacement (type4)
+     * @param legacySwitch      Relates to the switch in Settings to fallback if referencing fails
+     * @param context           Self explanatory, bud.
+     * @param noCacheDir        Direct Assets directory
      * @return Returns a command that will be used with AAPT/AAPT
      */
     private static String processAAPTCommands(String workArea,
@@ -111,28 +111,28 @@ public class SubstratumBuilder {
      * <p>
      * Prior to running this function, you must have copied all the files to the working directory!
      *
-     * @param context            self explanatory
-     * @param overlayPackage     the target package to be overlaid (e.g. com.android.settings).
-     * @param themeName          the theme's name to be stripped of symbols for the new package.
-     * @param variant            a String flag to tell the compiler to build variant mode. This
-     *                           could be the name of the variant spinner, or a package name for
-     *                           OverlayUpdater (used in conjunction with overridePackage).
-     * @param additionalVariant  the additional variant (type2) that gets appended during aapt
-     *                           compilation phase to the main /res folder.
-     * @param baseVariant        this is linked to variable baseSpinner in Overlays.java, for
-     *                           type3 base /res replacements.
-     * @param versionName        the version to use for compiling the overlay's version.
-     * @param themeOms           runs the check if the system is running in RRO or OMS
-     * @param themeParent        the parent theme of the created overlay.
-     * @param noCacheDir         where the compilation files will be placed.
-     * @param type1a             String location of the type1a file
-     * @param type1b             String location of the type1b file
-     * @param type1c             String location of the type1c file
-     * @param type2              String location of the type2 file
-     * @param type3              String location of the type3 file
-     * @param type4              String location of the type4 file
-     * @param overridePackage    String package to tell whether we should change the package name
-     * @param overlayUpdater     boolean flag to tell whether specialSnowflake should be skipped
+     * @param context           self explanatory
+     * @param overlayPackage    the target package to be overlaid (e.g. com.android.settings).
+     * @param themeName         the theme's name to be stripped of symbols for the new package.
+     * @param variant           a String flag to tell the compiler to build variant mode. This
+     *                          could be the name of the variant spinner, or a package name for
+     *                          OverlayUpdater (used in conjunction with overridePackage).
+     * @param additionalVariant the additional variant (type2) that gets appended during aapt
+     *                          compilation phase to the main /res folder.
+     * @param baseVariant       this is linked to variable baseSpinner in Overlays.java, for
+     *                          type3 base /res replacements.
+     * @param versionName       the version to use for compiling the overlay's version.
+     * @param themeOms          runs the check if the system is running in RRO or OMS
+     * @param themeParent       the parent theme of the created overlay.
+     * @param noCacheDir        where the compilation files will be placed.
+     * @param type1a            String location of the type1a file
+     * @param type1b            String location of the type1b file
+     * @param type1c            String location of the type1c file
+     * @param type2             String location of the type2 file
+     * @param type3             String location of the type3 file
+     * @param type4             String location of the type4 file
+     * @param overridePackage   String package to tell whether we should change the package name
+     * @param overlayUpdater    boolean flag to tell whether specialSnowflake should be skipped
      */
     @SuppressWarnings({"UnusedReturnValue", "ConstantConditions"})
     public boolean beginAction(Context context,

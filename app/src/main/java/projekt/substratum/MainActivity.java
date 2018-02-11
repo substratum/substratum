@@ -311,8 +311,8 @@ public class MainActivity extends AppCompatActivity implements
     /**
      * Transact a different theme fragment with a different set of filters
      *
-     * @param title     Fragment's title
-     * @param homeType  ThemeFragment's home type
+     * @param title    Fragment's title
+     * @param homeType ThemeFragment's home type
      */
     private void switchThemeFragment(String title, String homeType) {
         if ((searchView != null) && !searchView.isIconified()) {

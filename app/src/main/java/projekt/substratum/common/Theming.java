@@ -62,9 +62,9 @@ public enum Theming {
     /**
      * Launch a specific theme
      *
-     * @param context      Self explanatory, bud.
-     * @param packageName  Theme to be launched
-     * @param themeMode    Filter mode
+     * @param context     Self explanatory, bud.
+     * @param packageName Theme to be launched
+     * @param themeMode   Filter mode
      */
     public static void launchTheme(Context context,
                                    String packageName,
@@ -82,8 +82,8 @@ public enum Theming {
     /**
      * Grab the theme's keys
      *
-     * @param context      Self explanatory, bud.
-     * @param packageName  Theme to obtain keys for
+     * @param context     Self explanatory, bud.
+     * @param packageName Theme to obtain keys for
      */
     public static void getThemeKeys(Context context,
                                     String packageName) {

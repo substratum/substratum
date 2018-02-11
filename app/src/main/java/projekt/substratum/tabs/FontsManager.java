@@ -32,9 +32,9 @@ public enum FontsManager {
     /**
      * Set a font pack
      *
-     * @param context   Context
+     * @param context  Context
      * @param themePid Theme package name
-     * @param name      Name of font
+     * @param name     Name of font
      */
     public static void setFonts(
             Context context,

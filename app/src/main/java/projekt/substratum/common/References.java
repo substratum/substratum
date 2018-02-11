@@ -245,14 +245,15 @@ public enum References {
 
     /**
      * Unified method to set theme extra lists
-     * @param context                   Context
-     * @param themePid                  Package name
-     * @param listDir                   Folder to check
-     * @param defaultSpinnerText        0th index of the spinner
-     * @param spinnerSetDefaultsText    1st index of the spinner
-     * @param encryptionLevel           Encrypted or not
-     * @param activity                  Activity
-     * @param spinner                   Spinner object
+     *
+     * @param context                Context
+     * @param themePid               Package name
+     * @param listDir                Folder to check
+     * @param defaultSpinnerText     0th index of the spinner
+     * @param spinnerSetDefaultsText 1st index of the spinner
+     * @param encryptionLevel        Encrypted or not
+     * @param activity               Activity
+     * @param spinner                Spinner object
      * @return Mutated spinner object
      */
     public static Spinner setThemeExtraLists(Context context,
@@ -293,6 +294,7 @@ public enum References {
 
     /**
      * Get the AssetManager of the theme package
+     *
      * @param context     Context
      * @param packageName Package name to pull Asset Manager from
      * @return AssetManager of the specified package name
@@ -310,6 +312,7 @@ public enum References {
 
     /**
      * Prettify the recycler view UI with fading desaturating colors!
+     *
      * @param imageView The view that will be animating
      */
     public static void setRecyclerViewAnimations(ImageView imageView) {
@@ -327,9 +330,9 @@ public enum References {
     /**
      * Create a launcher icon/launchable intent
      *
-     * @param context    Self explanatory, bro.
-     * @param themePid   Theme's package name (launcher intent process)
-     * @param themeName  Theme's name (launcher icon name)
+     * @param context   Self explanatory, bro.
+     * @param themePid  Theme's package name (launcher intent process)
+     * @param themeName Theme's name (launcher icon name)
      */
     public static void createLauncherIcon(Context context,
                                           String themePid,
@@ -399,9 +402,9 @@ public enum References {
     /**
      * Create a launcher shortcut
      *
-     * @param context    Context
-     * @param themePid   Package name
-     * @param themeName  Theme name
+     * @param context   Context
+     * @param themePid  Package name
+     * @param themeName Theme name
      */
     public static void createShortcut(Context context,
                                       String themePid,

@@ -1437,13 +1437,13 @@ public class Overlays extends Fragment {
          * Step 4.5
          * Create each individual overlay item
          *
-         * @param overlays           Overlays
-         * @param loadOverlays       LoadOverlays
-         * @param packageName        Name of of overlay
-         * @param packageIdentifier  Package name
-         * @param checker            Array of booleans denoting whether each type is available
-         * @param adapters           Array of VariantAdapters denoting the data
-         * @param argument           Argument of the AsynchronousTask
+         * @param overlays          Overlays
+         * @param loadOverlays      LoadOverlays
+         * @param packageName       Name of of overlay
+         * @param packageIdentifier Package name
+         * @param checker           Array of booleans denoting whether each type is available
+         * @param adapters          Array of VariantAdapters denoting the data
+         * @param argument          Argument of the AsynchronousTask
          */
         private static void createOverlaysItem(Overlays overlays,
                                                LoadOverlays loadOverlays,

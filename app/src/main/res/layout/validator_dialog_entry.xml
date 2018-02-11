@@ -20,8 +20,11 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <import type="projekt.substratum.adapters.fragments.settings.ValidatorInfo" />
+
         <import type="android.view.View" />
+
         <variable
             name="validatorInfo"
             type="ValidatorInfo" />

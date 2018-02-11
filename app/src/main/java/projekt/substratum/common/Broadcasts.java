@@ -55,9 +55,9 @@ public enum Broadcasts {
     /**
      * Send a localized key message for encryption to take place
      *
-     * @param context        Context
-     * @param encryptionKey  Encryption key
-     * @param ivEncryptKey   IV encryption key
+     * @param context       Context
+     * @param encryptionKey Encryption key
+     * @param ivEncryptKey  IV encryption key
      */
     static void sendLocalizedKeyMessage(Context context,
                                         byte[] encryptionKey,
@@ -123,8 +123,8 @@ public enum Broadcasts {
     /**
      * Activity finisher when a theme was updated
      *
-     * @param context      Context
-     * @param packageName  Package of theme to close
+     * @param context     Context
+     * @param packageName Package of theme to close
      */
     public static void sendActivityFinisherMessage(Context context,
                                                    String packageName) {

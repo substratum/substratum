@@ -16,6 +16,7 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"

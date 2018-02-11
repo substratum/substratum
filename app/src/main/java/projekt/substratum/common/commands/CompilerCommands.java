@@ -206,15 +206,15 @@ public enum CompilerCommands {
     /**
      * Create the AAPT working shell commands
      *
-     * @param workArea           Working area
-     * @param targetPkg          Target package to build against
-     * @param overlayPackage     Overlay package
-     * @param themeName          Theme name
-     * @param legacySwitch       Fallback support
-     * @param additionalVariant  Additional variant (type2)
-     * @param assetReplacement   Asset replacement (type4)
-     * @param context            Context
-     * @param dir                Volatile directory to keep changes in
+     * @param workArea          Working area
+     * @param targetPkg         Target package to build against
+     * @param overlayPackage    Overlay package
+     * @param themeName         Theme name
+     * @param legacySwitch      Fallback support
+     * @param additionalVariant Additional variant (type2)
+     * @param assetReplacement  Asset replacement (type4)
+     * @param context           Context
+     * @param dir               Volatile directory to keep changes in
      * @return Returns a string to allow the app to execute
      */
     @SuppressWarnings("StringConcatenationInsideStringBufferAppend")

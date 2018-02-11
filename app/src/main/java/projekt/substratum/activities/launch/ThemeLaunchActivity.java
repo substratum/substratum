@@ -59,18 +59,18 @@ public class ThemeLaunchActivity extends Activity {
     /**
      * Launch the theme
      *
-     * @param context            Context
-     * @param themeName          Theme name
-     * @param themeAuthor        Theme author
-     * @param themePid           Theme package name
-     * @param themeMode          Theme mode
-     * @param themeHash          Theme hash
-     * @param themeLaunchType    Theme launch type
-     * @param themeDebug         Theme debug
-     * @param themePiracyCheck   Theme piracy check
-     * @param encryptionKey      Encryption key
-     * @param ivEncryptKey       IV encryption key
-     * @param themeLegacy        Legacy support
+     * @param context          Context
+     * @param themeName        Theme name
+     * @param themeAuthor      Theme author
+     * @param themePid         Theme package name
+     * @param themeMode        Theme mode
+     * @param themeHash        Theme hash
+     * @param themeLaunchType  Theme launch type
+     * @param themeDebug       Theme debug
+     * @param themePiracyCheck Theme piracy check
+     * @param encryptionKey    Encryption key
+     * @param ivEncryptKey     IV encryption key
+     * @param themeLegacy      Legacy support
      * @return Returns an intent that allows for launching of the theme directly
      */
     private static Intent launchThemeActivity(Context context,

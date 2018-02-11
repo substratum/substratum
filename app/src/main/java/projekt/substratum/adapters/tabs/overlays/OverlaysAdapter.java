@@ -161,6 +161,17 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
         }
     }
 
+    private static String sanitizeOptionSpinnerText(String optionSpinnerText) {
+        return optionSpinnerText.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
+    }
+
+    private static String getThemeVariantPackageName(OverlaysItem overlaysItem, String packageName) {
+        return overlaysItem.getPackageName() + '.' + overlaysItem.getThemeName() +
+                '.' + packageName +
+                ((!overlaysItem.getBaseResources().isEmpty()) ?
+                        '.' + overlaysItem.getBaseResources() : "");
+    }
+
     @Override
     public OverlaysAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                          int viewType) {
@@ -477,17 +488,6 @@ public class OverlaysAdapter extends RecyclerView.Adapter<OverlaysAdapter.ViewHo
                 }
             }
         }
-    }
-
-    private static String sanitizeOptionSpinnerText(String optionSpinnerText) {
-        return optionSpinnerText.replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9]+", "");
-    }
-
-    private static String getThemeVariantPackageName(OverlaysItem overlaysItem, String packageName) {
-        return overlaysItem.getPackageName() + '.' + overlaysItem.getThemeName() +
-                '.' + packageName +
-                ((!overlaysItem.getBaseResources().isEmpty()) ?
-                        '.' + overlaysItem.getBaseResources() : "");
     }
 
     private View getLunchbarView(OverlaysItem item) {

@@ -81,10 +81,10 @@ public class ThemeFragment extends Fragment {
     /**
      * Prepares the data to be used by the cards
      *
-     * @param map       Map of packages that have been processed
-     * @param context   Self explantory, bud
-     * @param activity  Activity of the calling function
-     * @param homeType  Home type such as Theme packs, Overlays, Boot Animations, Sounds, Fonts
+     * @param map      Map of packages that have been processed
+     * @param context  Self explantory, bud
+     * @param activity Activity of the calling function
+     * @param homeType Home type such as Theme packs, Overlays, Boot Animations, Sounds, Fonts
      * @return Returns an ArrayList to be used to parse further data
      */
     private static ArrayList<ThemeItem> prepareData(Map<String, String[]> map,
@@ -127,13 +127,13 @@ public class ThemeFragment extends Fragment {
     /**
      * Deeply refresh the themes
      *
-     * @param themeFragment       Theme Fragment
-     * @param context             Self explanatory, bud
-     * @param prefs               Shared Preferences instance
-     * @param activity            Activity of calling function
-     * @param toolbarTitle        Requested toolbar title
-     * @param substratumPackages  List of collected substratum packages
-     * @param themeItems          List of collected themes
+     * @param themeFragment      Theme Fragment
+     * @param context            Self explanatory, bud
+     * @param prefs              Shared Preferences instance
+     * @param activity           Activity of calling function
+     * @param toolbarTitle       Requested toolbar title
+     * @param substratumPackages List of collected substratum packages
+     * @param themeItems         List of collected themes
      */
     private static void refreshLayout(ThemeFragment themeFragment,
                                       SharedPreferences prefs,

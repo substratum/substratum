@@ -161,7 +161,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                             NotificationCompat.Builder(context,
                             References.DEFAULT_NOTIFICATION_CHANNEL_ID)
                             .setContentTitle(context.getString(
-                            R.string.failed_to_install_title_notification))
+                                    R.string.failed_to_install_title_notification))
                             .setContentText(parse)
                             .setAutoCancel(true)
                             .setContentIntent(btPendingIntent)
@@ -206,7 +206,7 @@ public class PackageModificationDetector extends BroadcastReceiver {
                             NotificationCompat.Builder(context,
                             References.DEFAULT_NOTIFICATION_CHANNEL_ID)
                             .setContentTitle(context.getString(
-                            R.string.refused_to_install_title_notification))
+                                    R.string.refused_to_install_title_notification))
                             .setContentText(parse)
                             .setAutoCancel(true)
                             .setContentIntent(btPendingIntent)

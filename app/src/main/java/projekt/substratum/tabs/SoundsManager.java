@@ -32,9 +32,9 @@ public enum SoundsManager {
     /**
      * Set sound pack
      *
-     * @param context   Context
-     * @param themePid  Theme package name
-     * @param name      Name of sound pack
+     * @param context  Context
+     * @param themePid Theme package name
+     * @param name     Name of sound pack
      * @return Return an array of booleans
      */
     public static boolean[] setSounds(

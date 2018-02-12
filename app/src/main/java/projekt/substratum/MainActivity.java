@@ -1508,6 +1508,9 @@ public class MainActivity extends AppCompatActivity implements
 
         @Override
         protected void onPostExecute(Boolean dialogReturnBool) {
+            // These are hardcoded booleans and lint is squawking because
+            // of the hardcode. The utility of these is mentioned alongside
+            // their declarations.
             dialogReturnBool &= ENABLE_ROOT_CHECK & !BYPASS_ALL_VERSION_CHECKS;
 
             super.onPostExecute(dialogReturnBool);
@@ -1610,8 +1613,8 @@ public class MainActivity extends AppCompatActivity implements
                 }
 
                 // Check if the system is Andromeda mode
-                boolean andromeda_check = themeSystemModule == OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
-                if (andromeda_check) {
+                boolean andromedaCheck = themeSystemModule == OVERLAY_MANAGER_SERVICE_O_ANDROMEDA;
+                if (andromedaCheck) {
                     // Throw the dialog when checkServerActivity() isn't working
                     if (!AndromedaService.checkServerActivity()) {
                         Log.e(SUBSTRATUM_LOG,

@@ -100,7 +100,7 @@ public enum References {
     public static final boolean ENABLE_AAPT_OUTPUT = false; // WARNING, DEVELOPERS - BREAKS COMPILE
     public static final boolean ENABLE_PACKAGE_LOGGING = false; // Show time/date/place of install
     public static final boolean ENABLE_DIRECT_ASSETS_LOGGING = true; // Self explanatory
-    public static final boolean BYPASS_ALL_VERSION_CHECKS = false; // For developer previews only!
+    public static final boolean BYPASS_SYSTEM_VERSION_CHECK = false; // For developer previews only!
     public static final boolean BYPASS_SUBSTRATUM_BUILDER_DELETION = false; // Do not delete cache?
     @SuppressWarnings("WeakerAccess")
     public static final Integer OVERLAY_UPDATE_RANGE = 815; // Overlays require updating since ver

@@ -117,7 +117,7 @@ import static projekt.substratum.common.Activities.launchInternalActivity;
 import static projekt.substratum.common.Internal.ANDROMEDA_RECEIVER;
 import static projekt.substratum.common.Internal.MAIN_ACTIVITY_RECEIVER;
 import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
-import static projekt.substratum.common.References.BYPASS_ALL_VERSION_CHECKS;
+import static projekt.substratum.common.References.BYPASS_SYSTEM_VERSION_CHECK;
 import static projekt.substratum.common.References.ENABLE_ROOT_CHECK;
 import static projekt.substratum.common.References.EXTERNAL_STORAGE_CACHE;
 import static projekt.substratum.common.References.LOGCHAR_DIR;
@@ -1511,7 +1511,7 @@ public class MainActivity extends AppCompatActivity implements
             // These are hardcoded booleans and lint is squawking because
             // of the hardcode. The utility of these is mentioned alongside
             // their declarations.
-            dialogReturnBool &= ENABLE_ROOT_CHECK & !BYPASS_ALL_VERSION_CHECKS;
+            dialogReturnBool &= ENABLE_ROOT_CHECK & !BYPASS_SYSTEM_VERSION_CHECK;
 
             super.onPostExecute(dialogReturnBool);
             MainActivity activity = ref.get();

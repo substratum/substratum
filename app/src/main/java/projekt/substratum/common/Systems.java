@@ -51,7 +51,7 @@ import projekt.substratum.util.helpers.Root;
 import projekt.substratum.util.readers.ReadSupportedROMsFile;
 
 import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
-import static projekt.substratum.common.References.BYPASS_ALL_VERSION_CHECKS;
+import static projekt.substratum.common.References.BYPASS_SYSTEM_VERSION_CHECK;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.NO_THEME_ENGINE;
 import static projekt.substratum.common.References.OVERLAY_MANAGER_SERVICE_N_UNROOTED;
@@ -110,7 +110,7 @@ public enum Systems {
     public static Boolean checkOMS(@NonNull Context context) {
         //noinspection ConstantConditions
         if (context == null) return true; // Safe to assume that window refreshes only on OMS
-        if (!BYPASS_ALL_VERSION_CHECKS) {
+        if (!BYPASS_SYSTEM_VERSION_CHECK) {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
             if (!prefs.contains("oms_state")) {
                 setAndCheckOMS(context);

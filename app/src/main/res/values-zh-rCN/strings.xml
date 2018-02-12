@@ -78,8 +78,6 @@
     <string name="overlays_update_available">有可用更新！\n（%s）</string>
     <string name="overlays_overlay_not_installed">变量未安装</string>
     <string name="shutdownanimation_placeholder_text">请从下拉列表中选择一个开机动画</string>
-    <string name="shutdownanimation_default_spinner">请选择一个开机动画</string>
-    <string name="shutdownanimation_spinner_set_defaults">还原到默认关机动画...</string>
     <string name="shutdownanimation_defaults_text">这将清除您应用的所有自定义关机动画</string>
     <string name="shutdownanimation_dialog_apply_text">正在处理关机动画...</string>
     <string name="shutdownanimation_dialog_apply_success">关机动画应用成功！</string>

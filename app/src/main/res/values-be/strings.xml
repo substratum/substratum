@@ -74,8 +74,6 @@
     <string name="overlays_update_available">Даступна абнаўленне!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Варыянт не ўсталяваны</string>
     <string name="shutdownanimation_placeholder_text">Калі ласка выберыце анімацыю выключэння з выпадальнага спісу&#8230;</string>
-    <string name="shutdownanimation_default_spinner">Калі ласка выберыце анімацыю выключэння&#8230;</string>
-    <string name="shutdownanimation_spinner_set_defaults">Вярнуць стандартную анімацыю выключэння&#8230;</string>
     <string name="shutdownanimation_defaults_text">Гэта адключыць любыя кастамныя анімацыі выключэння ўжытыя на вашай прыладзе</string>
     <string name="shutdownanimation_dialog_apply_text">Ужыванне анімацыі выключэння&#8230;</string>
     <string name="shutdownanimation_dialog_apply_success">Анімацыя выключэння ўжыта!</string>

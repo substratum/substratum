@@ -77,8 +77,6 @@
     <string name="overlays_update_available">Доступно обновление!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Вариация не установлена</string>
     <string name="shutdownanimation_placeholder_text">Пожалуйста выберите анимацию выключения из выпадающего списка&#8230;</string>
-    <string name="shutdownanimation_default_spinner">Пожалуйста выберите анимацию выключения&#8230;</string>
-    <string name="shutdownanimation_spinner_set_defaults">Вернуть стандартную анимацию выключения&#8230;</string>
     <string name="shutdownanimation_defaults_text">Это отключит любые кастомные анимации выключения применённые на вашем устройстве</string>
     <string name="shutdownanimation_dialog_apply_text">Применение анимации выключения&#8230;</string>
     <string name="shutdownanimation_dialog_apply_success">Анимация выключения применена!</string>

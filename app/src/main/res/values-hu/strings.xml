@@ -103,8 +103,6 @@
     <string name="overlays_overlay_not_installed">Változat nincs telepítve</string>
     <string name="shutdownanimation_placeholder_text">Kérjük válasszon ki egy rendszerindítási animációt a
       legördülő listából&#8230;</string>
-    <string name="shutdownanimation_default_spinner">Kérjük, válasszon kikapcsolási animációt&#8230;</string>
-    <string name="shutdownanimation_spinner_set_defaults">Alapértelmezett kikapcsolási animáció visszaállítása&#8230;</string>
     <string name="shutdownanimation_defaults_text">Ez törli a készülékén alkalmazott egyéni
       kikapcsolási animációkat</string>
     <string name="shutdownanimation_dialog_apply_text">Kikapcsolási animáció feldolgozása&#8230;</string>

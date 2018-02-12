@@ -77,8 +77,6 @@
     <string name="overlays_update_available">Aktualisierung verfügbar!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variante nicht installiert</string>
     <string name="shutdownanimation_placeholder_text">Bitte wähle eine Shutdown-Animation aus der Liste&#8230;</string>
-    <string name="shutdownanimation_default_spinner">Shutdown-Animation wählen&#8230;</string>
-    <string name="shutdownanimation_spinner_set_defaults">Die standardmäßige Shutdown-Animation wiederherstellen&#8230;</string>
     <string name="shutdownanimation_defaults_text">Dadurch werden alle benutzerdefinierten Shutdown-Animationen entfernt, die auf deinem Gerät angewendet sind</string>
     <string name="shutdownanimation_dialog_apply_text">Shutdown-Animation wird aktiviert&#8230;</string>
     <string name="shutdownanimation_dialog_apply_success">Shutdown-Animation aktiviert!</string>

@@ -81,8 +81,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="overlays_update_available">Aktualizacja dostępna!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Wariantu nie zainstalowano</string>
     <string name="shutdownanimation_placeholder_text">Proszę wybrać z listy animację wyłączenia&#8230;</string>
-    <string name="shutdownanimation_default_spinner">Proszę wybrać animację wyłączenia&#8230;</string>
-    <string name="shutdownanimation_spinner_set_defaults">Przywróć domyślną animację wyłączenia&#8230;</string>
     <string name="shutdownanimation_defaults_text">Spowoduje to usunięcie wszelkich animacji wyłączenia zastosowanych w urządzeniu</string>
     <string name="shutdownanimation_dialog_apply_text">Animacja wyłączenia jest przetwarzana&#8230;</string>
     <string name="shutdownanimation_dialog_apply_success">Animacja wyłączenia zastosowana!</string>

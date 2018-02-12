@@ -84,8 +84,6 @@
     <string name="overlays_update_available">नवीन संस्करण उपलब्ध!\n(%s)</string>
     <string name="overlays_overlay_not_installed">संस्करण/प्रकार स्थापित नहीं है</string>
     <string name="shutdownanimation_placeholder_text">कृपया ड्रॉपडाउन सूची से किसी शटडाउन ऐनिमेशन का चयन करें.. ।</string>
-    <string name="shutdownanimation_default_spinner">कृपया किसी शटडाउन ऐनिमेशन का चयन करें.. ।</string>
-    <string name="shutdownanimation_spinner_set_defaults">डिफ़ॉल्ट शटडाउन ऐनिमेशन पर पुनर्स्थापित करें.. ।</string>
     <string name="shutdownanimation_defaults_text">यह आपके डिवाइस पर लागू किसी भी कस्टम शट डाउन एनिमेशन को साफ कर देगा</string>
     <string name="shutdownanimation_dialog_apply_text">शट डाउन ऐनिमेशन संसाधित कर रहा है.. ।</string>
     <string name="shutdownanimation_dialog_apply_success">बंद एनीमेशन लागू!</string>

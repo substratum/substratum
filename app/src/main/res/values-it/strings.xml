@@ -85,8 +85,6 @@
     <string name="overlays_overlay_not_installed">Variante non installata</string>
     <string name="shutdownanimation_placeholder_text">Per favore seleziona un\'animazione di spegnimento dalla seguente
       lista&#8230;</string>
-    <string name="shutdownanimation_default_spinner">Per favore seleziona un\'animazione di spegnimento&#8230;</string>
-    <string name="shutdownanimation_spinner_set_defaults">Ripristinare l\'animazione di spegnimento predefinita&#8230;</string>
     <string name="shutdownanimation_defaults_text">Questo cancellerà tutte le animazioni di spegnimento personalizzate       applicate sul tuo dispositivo</string>
     <string name="shutdownanimation_dialog_apply_text">Animazione di spegnimento in elaborazione&#8230;</string>
     <string name="shutdownanimation_dialog_apply_success">Animazione di spegnimento applicata!</string>

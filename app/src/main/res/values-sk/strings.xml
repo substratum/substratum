@@ -82,8 +82,6 @@ Pokiaľ ju nemáte, môžete kliknúť na tlačidlo Stiahnuť a budete presunut�
     <string name="overlays_update_available">Je dostupná aktualizácia!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variant nie je nainštalovaný</string>
     <string name="shutdownanimation_placeholder_text">Prosím, vyberte z rozbaľovacieho zoznamu animáciu pri vypnutí&#8230;</string>
-    <string name="shutdownanimation_default_spinner">Prosím, vyberte animáciu pri vypnutí&#8230;</string>
-    <string name="shutdownanimation_spinner_set_defaults">Obnoviť predvolenú animáciu pri vypnutí&#8230;</string>
     <string name="shutdownanimation_defaults_text">Toto vymaže všetky vlastné animácie pri vypnutí aplikované na tomto zariadení</string>
     <string name="shutdownanimation_dialog_apply_text">Spracováva sa animácia pri vypnutí&#8230;</string>
     <string name="shutdownanimation_dialog_apply_success">Animácia pri vypnutí je nastavená!</string>

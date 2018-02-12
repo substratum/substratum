@@ -103,8 +103,6 @@
     <string name="overlays_overlay_not_installed">Varian tidak terpasang</string>
     <string name="shutdownanimation_placeholder_text">harap memilih animasi boot dari daftar
       berikut&#8230;</string>
-    <string name="shutdownanimation_default_spinner">Pilih animasi boot&#8230;</string>
-    <string name="shutdownanimation_spinner_set_defaults">Pulihkan animasi boot ke standar&#8230;</string>
     <string name="shutdownanimation_defaults_text">Ini akan mengembalikan animasi boot kustom
       yang diterapkan pada perangkat anda</string>
     <string name="shutdownanimation_dialog_apply_text">Animasi boot sedang memproses&#8230;</string>

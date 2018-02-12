@@ -85,8 +85,6 @@ arreglar las cosas que no se están tematizando en legado porque requieren cambi
     <string name="overlays_update_available">Actualización disponible!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variante no instalada</string>
     <string name="shutdownanimation_placeholder_text">Seleccione una animación de apagado de la lista desplegable&#8230;</string>
-    <string name="shutdownanimation_default_spinner">Seleccione una animación de apagado&#8230;</string>
-    <string name="shutdownanimation_spinner_set_defaults">Restaurar la animación de apagado por defecto&#8230;</string>
     <string name="shutdownanimation_defaults_text">Esto borrará cualquier animación de apagado personalizada
       aplicada en el dispositivo</string>
     <string name="shutdownanimation_dialog_apply_text">La animación de apagado se está procesando&#8230;</string>

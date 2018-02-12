@@ -72,8 +72,6 @@
       function!
     </string>
 
-    <string name="redundant_theme_lingering_notification_title">Redundant theme found</string>
-    <string name="redundant_theme_lingering_notification_text">%s is not usable on this theme system.</string>
     <string name="refused_to_install_notification_button">Remove Theme</string>
     <string name="refused_to_install_title_notification">Themer rejected theme installed on Samsung.</string>
     <string name="refused_to_install_text_notification">%s failed to install.</string>
@@ -101,8 +99,6 @@
       but they are not required for this theme!
     </string>
     <string name="tbo_dialog_proceed">Download</string>
-    <string name="dynamic_gapps_dialog" translatable="false">Beans Gapps</string>
-    <string name="dynamic_gapps_link" translatable="false">https://www.androidfilehost.com/?w=files&amp;flid=171925</string>
     <string name="open_gapps_dialog" translatable="false">Open Gapps</string>
     <string name="open_gapps_link" translatable="false">http://opengapps.org/</string>
 
@@ -141,8 +137,6 @@
     <string name="manager_type2">Type2: %s</string>
     <string name="manager_type3">Type3: %s</string>
     <string name="manager_type4">Type4: %s</string>
-    <string name="manager_version">Version: %s</string>
-    <string name="manager_theme_version"><b>Overlay version: </b>%s</string>
 
     <string name="priorities_theme_name">Theme:</string>
     <string name="priorities_type1a">Type1a:</string>
@@ -175,8 +169,6 @@
 
     <string name="shutdownanimation_placeholder_text">Please select a shutdown animation from the dropdown
       list&#8230;</string>
-    <string name="shutdownanimation_default_spinner">Please select a shutdown animation&#8230;</string>
-    <string name="shutdownanimation_spinner_set_defaults">Restore to default shutdown animation&#8230;</string>
     <string name="shutdownanimation_defaults_text">This will clear out any custom shutdown animations
       applied on your device</string>
     <string name="shutdownanimation_dialog_apply_text">Shutdown animation is processing&#8230;</string>
@@ -815,10 +807,6 @@
     <string name="type1c_name_placeholder" translatable="false">TYPE1C VARIABLE</string>
     <string name="type2_name_placeholder" translatable="false">TYPE2 VARIABLE</string>
     <string name="type3_name_placeholder" translatable="false">TYPE3 VARIABLE</string>
-    <string name="type4_name_placeholder" translatable="false">TYPE4 VARIABLE</string>
-    <string name="version_name_placeholder" translatable="false">VERSION VARIABLE</string>
-    <string name="theme_version_name_placeholder" translatable="false">THEME VERSION
-      VARIABLE</string>
     <string name="api_levels_placeholder_text" translatable="false">API_LEVELS</string>
     <string name="theme_version_placeholder_text" translatable="false">THEME_VERSION</string>
     <string name="plugin_version_placeholder_text" translatable="false">PLUGIN_VERSION</string>
@@ -827,10 +815,7 @@
     <string name="cache_placeholder_text" translatable="false">CACHE</string>
     <string name="changelog_title_placeholder_text" translatable="false">PLACEHOLDER_TITLE</string>
     <string name="changelog_array_string_placeholder_text" translatable="false">PLACEHOLDER_ARRAY_STRING</string>
-    <string name="package_placeholder" translatable="false">PACKAGE</string>
-    <string name="package_name_placeholder" translatable="false">PACKAGE_NAME</string>
     <string name="package_state_placeholder" translatable="false">PACKAGE_STATE</string>
-    <string name="wallpaper_name_placeholder" translatable="false">WALLPAPER_NAME</string>
     <string name="hyphen_placeholder" translatable="false">-</string>
     <string name="fonts_demo_string" translatable="false">AaBbCcDd123</string>
     <string name="logs_placeholder" translatable="false">LOGS</string>

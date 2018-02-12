@@ -106,8 +106,6 @@ lütfen
     <string name="overlays_overlay_not_installed">Varyant yüklü değil</string>
     <string name="shutdownanimation_placeholder_text">Lütfen açılan listeden bir önyükleme animasyonu
       seçin&#8230;</string>
-    <string name="shutdownanimation_default_spinner">Lütfen bir kapatma animasyonu seçin&#8230;</string>
-    <string name="shutdownanimation_spinner_set_defaults">Varsayılan kapatma animasyonunu geri yükle&#8230;</string>
     <string name="shutdownanimation_defaults_text">Bu, cihazınızda uygulanan tüm önyükleme
       animasyonlarını temizler</string>
     <string name="shutdownanimation_dialog_apply_text">Kapatma animasyonu işleniyor&#8230;</string>

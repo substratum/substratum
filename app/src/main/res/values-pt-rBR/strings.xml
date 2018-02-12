@@ -91,8 +91,6 @@ corrigir coisas que não estão sendo aplicadas nos temas em modo de compatibili
     <string name="overlays_update_available">Atualização disponível!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variante não instalada</string>
     <string name="shutdownanimation_placeholder_text">Por favor, selecione uma animação de encerramento da lista&#8230;</string>
-    <string name="shutdownanimation_default_spinner">Por favor, selecione uma animação de encerramento&#8230;</string>
-    <string name="shutdownanimation_spinner_set_defaults">Restaurar a animação de encerramento padrão&#8230;</string>
     <string name="shutdownanimation_defaults_text">Isso vai limpar qualquer animação de encerramento personalizada
       aplicada em seu dispositivo</string>
     <string name="shutdownanimation_dialog_apply_text">A animação de encerramento está sendo processada&#8230;</string>

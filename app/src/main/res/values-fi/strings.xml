@@ -96,8 +96,6 @@
     <string name="overlays_update_available">Päivitys saatavilla!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Varianttia ei asennettu</string>
     <string name="shutdownanimation_placeholder_text">Valitse sammumisanimaatio pudotusvalikosta&#8230;</string>
-    <string name="shutdownanimation_default_spinner">Valitse sammumisanimaatio&#8230;</string>
-    <string name="shutdownanimation_spinner_set_defaults">Palauta alkuperäinen sammumisteema&#8230;</string>
     <string name="shutdownanimation_defaults_text">Tämä tyhjentää minkä tahansa sammumisanimaation
       mikä on asetettu laitteellesi</string>
     <string name="shutdownanimation_dialog_apply_text">Sammumisanimaatio on käsittelyssä&#8230;</string>

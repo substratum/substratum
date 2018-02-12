@@ -22,10 +22,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
@@ -36,7 +33,6 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -69,7 +65,6 @@ import projekt.substratum.util.helpers.MD5;
 import projekt.substratum.util.readers.ReadShowcaseTabsFile;
 import projekt.substratum.util.views.Lunchbar;
 
-import static projekt.substratum.common.Internal.ANDROMEDA_RECEIVER;
 import static projekt.substratum.common.Internal.SHOWCASE_CACHE;
 
 public class ShowcaseActivity extends AppCompatActivity {
@@ -78,22 +73,9 @@ public class ShowcaseActivity extends AppCompatActivity {
     private RelativeLayout no_network;
     private Toolbar toolbar;
     private ViewGroup masterView;
-    private LocalBroadcastManager localBroadcastManager;
-    private AndromedaReceiver andromedaReceiver;
     private Bundle savedInstanceState;
     private Drawer drawer;
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (Systems.isAndromedaDevice(getApplicationContext())) {
-            try {
-                localBroadcastManager.unregisterReceiver(andromedaReceiver);
-            } catch (Exception e) {
-                // Unregistered already
-            }
-        }
-    }
 
     @Override
     public void onBackPressed() {
@@ -204,14 +186,6 @@ public class ShowcaseActivity extends AppCompatActivity {
                     break;
                 }
             }
-        }
-
-        if (Systems.isAndromedaDevice(getApplicationContext())) {
-            andromedaReceiver = new ShowcaseActivity.AndromedaReceiver();
-            localBroadcastManager = LocalBroadcastManager.getInstance(this
-                    .getApplicationContext());
-            localBroadcastManager.registerReceiver(andromedaReceiver,
-                    new IntentFilter(ANDROMEDA_RECEIVER));
         }
 
         File showcase_directory =
@@ -364,17 +338,6 @@ public class ShowcaseActivity extends AppCompatActivity {
             } else {
                 return null;
             }
-        }
-    }
-
-    /**
-     * Receiver to pick up when Andromeda is no longer connected
-     */
-    class AndromedaReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            finish();
         }
     }
 }

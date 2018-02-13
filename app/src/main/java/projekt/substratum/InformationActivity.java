@@ -435,12 +435,10 @@ public class InformationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         context = getApplicationContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES);
 
         super.onCreate(savedInstanceState);
         InformationActivityBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.information_activity);
-
 
         toolbar = binding.toolbar;
         tabLayout = binding.tabs;

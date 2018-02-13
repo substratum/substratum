@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements
     private static final int PERMISSIONS_REQUEST_DRAW_OVER_OTHER_APPS = 2;
     private static final int PERMISSIONS_REQUEST_USAGE_ACCESS_SETTINGS = 3;
     private static final int UNINSTALL_REQUEST_CODE = 12675;
+    private static final String SELECTED_TAB_ITEM = "selected_tab_item";
     public static String userInput = "";
     public static ArrayList<String> queuedUninstall;
     public SearchView searchView;
@@ -440,7 +441,11 @@ public class MainActivity extends AppCompatActivity implements
                 getIntent().getBooleanExtra("launch_manager_fragment", false)) {
             bottomBar.setSelectedItemId(R.id.tab_overlay_manager);
         } else {
-            bottomBar.setSelectedItemId(R.id.tab_themes);
+            if (savedInstanceState != null) {
+                bottomBar.setSelectedItemId(savedInstanceState.getInt(SELECTED_TAB_ITEM));
+            } else {
+                bottomBar.setSelectedItemId(R.id.tab_themes);
+            }
         }
 
         if (Systems.checkSubstratumService(getApplicationContext()) ||
@@ -461,6 +466,12 @@ public class MainActivity extends AppCompatActivity implements
             }
         }
         new RootRequester(this).execute();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle bundle) {
+        bundle.putInt(SELECTED_TAB_ITEM, bottomBar.getSelectedItemId());
+        super.onSaveInstanceState(bundle);
     }
 
     /**

@@ -51,7 +51,8 @@
     <color name="window_bg">@android:color/background_dark</color>
 
     <color name="material_drawer_icon_color">#ffffffff</color>
-    <color name="material_drawer_background">#ff000000</color>
+    <color name="material_drawer_background">@color/colorPrimary</color>
+    <color name="material_drawer_primary_text">@android:color/white</color>
 
     <color name="fab_menu_background_card">@color/colorPrimary</color>
     <color name="fab_menu_icon_color">#ffffffff</color>

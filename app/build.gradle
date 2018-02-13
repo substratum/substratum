@@ -144,11 +144,6 @@ dependencies {
     // Floating Action Buttons
     implementation 'com.gordonwong:material-sheet-fab:1.2.1'
 
-    // Material Drawer
-    implementation('com.mikepenz:materialdrawer:6.0.2@aar') {
-        transitive = true
-    }
-
     // About Libraries
     implementation('com.mikepenz:aboutlibraries:6.0.2@aar') {
         transitive = true

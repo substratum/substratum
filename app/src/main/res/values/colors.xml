@@ -146,4 +146,9 @@
         <item>@color/substratum_light_blue</item>
     </integer-array>
 
+    <color name="drawer_item_text">#de000000</color>
+    <color name="drawer_item_text_selected">#de000000</color>
+    <color name="drawer_item_background">@android:color/transparent</color>
+    <color name="drawer_item_background_selected">@color/colorPrimaryDark</color>
+
 </resources>

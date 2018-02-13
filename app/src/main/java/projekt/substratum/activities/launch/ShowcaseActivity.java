@@ -30,22 +30,19 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-
-import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -72,14 +69,14 @@ public class ShowcaseActivity extends AppCompatActivity {
     private RelativeLayout no_network;
     private Toolbar toolbar;
     private ViewGroup masterView;
-    private Bundle savedInstanceState;
-    private Drawer drawer;
+    private NavigationView navigationView;
+    private DrawerLayout drawerLayout;
 
 
     @Override
     public void onBackPressed() {
-        if (drawer != null && drawer.isDrawerOpen()) {
-            drawer.closeDrawer();
+        if (drawerLayout.isDrawerOpen(navigationView)) {
+            drawerLayout.closeDrawer(navigationView);
         } else {
             super.onBackPressed();
         }
@@ -115,12 +112,10 @@ public class ShowcaseActivity extends AppCompatActivity {
                 launchShowcaseInfo();
                 return true;
             case R.id.filter:
-                if (drawer != null) {
-                    if (drawer.isDrawerOpen()) {
-                        drawer.closeDrawer();
-                    } else {
-                        drawer.openDrawer();
-                    }
+                if (drawerLayout.isDrawerOpen(navigationView)) {
+                    drawerLayout.closeDrawer(navigationView);
+                } else {
+                    drawerLayout.openDrawer(navigationView);
                 }
 
         }
@@ -148,7 +143,6 @@ public class ShowcaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        this.savedInstanceState = savedInstanceState;
         super.onCreate(savedInstanceState);
 
         ShowcaseActivityBinding binding =
@@ -157,6 +151,8 @@ public class ShowcaseActivity extends AppCompatActivity {
         no_network = binding.noNetwork;
         toolbar = binding.toolbar;
         masterView = binding.rootView;
+        navigationView = binding.navigationView;
+        drawerLayout = binding.drawerLayout;
 
         SharedPreferences prefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -246,31 +242,32 @@ public class ShowcaseActivity extends AppCompatActivity {
                         ReadShowcaseTabsFile.read(activity.getCacheDir() +
                                 SHOWCASE_CACHE + resultant);
 
-                DrawerBuilder drawerBuilder = new DrawerBuilder();
-                drawerBuilder.withActivity(activity);
-                drawerBuilder.withRootView(R.id.rootView);
-                drawerBuilder.withDisplayBelowStatusBar(false);
-                drawerBuilder.withTranslucentStatusBar(false);
-                drawerBuilder.withDrawerWidthDp(200);
-                drawerBuilder.withDrawerLayout(R.layout.material_drawer_fits_not);
-                drawerBuilder.withSavedInstance(activity.savedInstanceState);
                 List<String> listOfTitles = new ArrayList<>();
                 List<String> listOfLinks = new ArrayList<>(newArray.values());
+                Menu menu = activity.navigationView.getMenu();
+                int i = 0; // Beautifully count for menus unique id
                 for (String tabName : newArray.keySet()) {
-                    drawerBuilder.addDrawerItems(
-                            new PrimaryDrawerItem().withName(tabName));
                     listOfTitles.add(tabName);
+                    menu.add(Menu.NONE, i, Menu.NONE, tabName);
+                    i++;
                 }
-                drawerBuilder.withOnDrawerItemClickListener((view, position, drawerItem) -> {
+
+                activity.navigationView.setNavigationItemSelectedListener(item -> {
+                    int position = item.getItemId();
                     switchFragment(
                             activity,
                             position,
                             listOfLinks.get(position),
                             listOfTitles.get(position));
+                    item.setCheckable(true);
+                    activity.navigationView.setCheckedItem(position);
+                    activity.drawerLayout.closeDrawer(activity.navigationView);
                     return false;
                 });
-                drawerBuilder.withDrawerGravity(Gravity.END);
-                activity.drawer = drawerBuilder.build();
+
+                // Update menus
+                activity.navigationView.invalidate();
+
                 switchFragment(
                         activity,
                         0,
@@ -278,8 +275,13 @@ public class ShowcaseActivity extends AppCompatActivity {
                         listOfTitles.get(0)
                 );
 
-                Handler handler = new Handler();
-                handler.postDelayed(() -> activity.drawer.openDrawer(), 500);
+                new Handler().postDelayed(() -> {
+                    activity.drawerLayout.openDrawer(activity.navigationView);
+                    activity.navigationView.getMenu()
+                            .getItem(0)
+                            .setCheckable(true)
+                            .setChecked(true);
+                }, 500);
             }
         }
 

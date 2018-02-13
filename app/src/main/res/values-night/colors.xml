@@ -60,4 +60,6 @@
     <color name="fab_menu_divider">#4affffff</color>
     <color name="fab_background_color">#363636</color>
 
+    <color name="drawer_item_text">#ffffffff</color>
+    <color name="drawer_item_text_selected">#ffffffff</color>
 </resources>

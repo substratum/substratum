@@ -36,6 +36,7 @@
 
     <color name="bottom_sheet_dialog_background">@color/main_screen_card_background</color>
     <color name="bottom_sheet_dialog_icons">@color/material_drawer_icon_color</color>
+    <color name="bottom_sheet_dialog_text">@android:color/black</color>
 
     <color name="error_icons">@android:color/white</color>
 

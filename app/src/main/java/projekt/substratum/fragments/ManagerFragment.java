@@ -352,6 +352,7 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
         menu.clear();
         inflater.inflate(R.menu.overlays_list_menu, menu);
         menu.findItem(R.id.action_search).setVisible(true);
+        if (!checkOMS(context)) menu.findItem(R.id.restart_systemui).setVisible(false);
         assert getActivity() != null;
         searchView = ((MainActivity) getActivity()).searchView;
         if (searchView != null) searchView.setOnQueryTextListener(this);

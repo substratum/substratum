@@ -57,12 +57,12 @@ public class ShowcaseAdapter extends RecyclerView.Adapter<ShowcaseAdapter.ViewHo
         ShowcaseItem showcaseItem = this.information.get(pos);
         Context context = showcaseItem.getContext();
         ShowcaseItemBinding viewHolderBinding = viewHolder.getBinding();
-        viewHolderBinding.setShowcaseItem(showcaseItem);
-        viewHolderBinding.executePendingBindings();
         showcaseItem.setPaid(
                 showcaseItem.getThemePricing().toLowerCase(Locale.US).equals(References.paidTheme));
         showcaseItem.setInstalled(
                 Packages.isPackageInstalled(context, showcaseItem.getThemePackage()));
+        viewHolderBinding.setShowcaseItem(showcaseItem);
+        viewHolderBinding.executePendingBindings();
         setRecyclerViewAnimations(viewHolderBinding.backgroundImage);
     }
 

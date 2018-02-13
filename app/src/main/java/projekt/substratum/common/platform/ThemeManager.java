@@ -784,6 +784,7 @@ public enum ThemeManager {
      */
     public static boolean shouldRestartUI(Context context,
                                           Iterable<String> overlays) {
+        if (checkSubstratumService(context)) return false;
         for (String o : overlays) {
             if (shouldRestartUI(context, o)) {
                 return true;

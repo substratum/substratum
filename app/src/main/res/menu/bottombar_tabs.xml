@@ -13,9 +13,9 @@
         android:icon="@drawable/nav_drawer_priorities"
         android:title="@string/nav_priorities" />
     <item
-        android:id="@+id/tab_rescue"
-        android:icon="@drawable/nav_manage"
-        android:title="@string/nav_manage" />
+        android:id="@+id/tab_profiles"
+        android:icon="@drawable/nav_drawer_profiles"
+        android:title="@string/nav_backup_restore" />
     <item
         android:id="@+id/tab_settings"
         android:icon="@drawable/nav_drawer_settings"

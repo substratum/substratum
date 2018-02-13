@@ -37,8 +37,6 @@
     <string name="resource_commit_dialog_title">Brakujące zasoby w %s</string>
     <string name="showcase_no_connection">prezentacja motywu do funkcjonowania wymaga połączenia z internetem!    </string>
     <string name="failed_to_install_title_notification">Błąd instalacji motywu OMS</string>
-    <string name="actionbar_theme_count_singular">%s motyw</string>
-    <string name="actionbar_theme_count_plural">%s motywów/ -y</string>
     <string name="actionbar_theme_count_loading">ładowanie&#8230;</string>
     <string name="actionbar_search">Szukaj</string>
     <string name="actionbar_changelog">Lista zmian motywu</string>
@@ -130,8 +128,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="theme_information_tab_four">Pakiety dźwięków</string>
     <string name="theme_information_tab_five">Tapety</string>
     <string name="theme_information_tab_six">Animacje zamykania</string>
-    <string name="nougat_style_cards_title">Układ kart w stylu Nugat</string>
-    <string name="nougat_style_cards_subtext">Włącz powiadomienie w stylu kart z Android Nougat.</string>
     <string name="uninstall_dialog_text">Czy chcesz odinstalować ten motyw?</string>
     <string name="manage_dialog_performing">Przywracanie domyślnych&#8230;</string>
     <string name="manage_bootanimation_title">Przywróć animację rozruchu</string>
@@ -297,13 +293,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="settings_title_1">Preferencje użytkownika</string>
     <string name="settings_title_3">Skórki</string>
     <string name="settings_title_clickable">Preferencje systemowe</string>
-    <string name="substratum_restart_toast">Substratum zostanie automatycznie uruchomione po zmianie ustawień.</string>
-    <string name="restart_systemui">Załącz ponownie Interfejs po jego odtworzeniu</string>
-    <string name="restart_systemui_subtext">Automatyczne ponowne odtwarzanie interfejsu po włączeniu/wyłączeniu nakładki interfejsu</string>
-    <string name="restart_systemui_toast_enabled">Interfejs odtworzy się dynamicznie zamiast restartować!</string>
-    <string name="restart_systemui_toast_disabled">Interfejs zostanie automatycznie uruchomiony ponownie, zamiast ponownie odtworzony!</string>
-    <string name="show_theme_template_version">Wyświetl zaawansowane informacje o motywie</string>
-    <string name="show_theme_template_version_description">Pokaż docelowy poziom SDK każdego motywu, jego wersję oraz wersję wtyczki jako oznaczenie na każdej z kart tematu.</string>
     <string name="vibrate_on_compiled">Powiadom mnie, gdy kompilacja motywu dobiegnie końca</string>
     <string name="vibrate_on_compiled_description">Po skompilowaniu motywu urządzenie będzie wibrować, aby poinformować użytkownika o zakończeniu kompilacji.</string>
     <string name="manage_notification_channel">Zarządzanie powiadomieniami</string>
@@ -314,8 +303,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="hide_app_icon_supported">To pozwoli wybrać czy ikona programu ma być widoczna lub ukryta na twoim ekranie głównym.</string>
     <string name="disable_completion">Wszystkie nakładki dla tego tematu są teraz dezaktywowane&#8230;</string>
     <string name="enable_completion">Wszystkie nakładki zainstalowane dla tego motywu są teraz aktywowane&#8230;</string>
-    <string name="alternate_drawer_design_title">Wygląd dodatkowej szuflady</string>
-    <string name="alternate_drawer_design_subtext">Alternatywny wygląd szuflady nawigacyjnej.</string>
     <string name="logchar_autosave_title">Zachowaj raporty LogChar</string>
     <string name="logchar_autosave_subtext">Wszystkie raporty LogChar będą przechowywane w / storage / emulated / 0 / substratum / LogCharReports /.</string>
     <string name="auto_disable_target_overlays">Automatyczne wyłączanie innych nakładek docelowych</string>
@@ -410,7 +397,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="settings_title_automation">Automatyzacja</string>
     <string name="settings_auto_updater_title">Odświeżacz nakładek oparty na aplikacji</string>
     <string name="settings_auto_updater_text">Automatycznie tworzy i instaluje zaktualizowaną wersję wszystkich nakładek dla ostatnio uaktualnionej aplikacji.</string>
-    <string name="beta_tag">★ BETA</string>
     <string name="settings_theme_auto_updater_title">Odświeżacz nakładek oparty na motywie</string>
     <string name="settings_theme_auto_updater_dialog_title">OSTRZEŻENIE</string>
     <string name="settings_theme_auto_updater_text">Automatycznie tworzy i instaluje zaktualizowaną wersję wszystkich nakładek dla niedawno aktualizowanego motywu.</string>
@@ -451,18 +437,6 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="error_dialog_samsung">Problem nakładki substratum</string>
     <string name="error_dialog_samsung_text">Niestety, wydaje się że wystąpił problem z docelowym zainstalowaniem nakładki Substratum I musi ona zostać odinstalowana ręcznie przez ustawienia.</string>
     <string name="community_info_paid">Płatny</string>
-    <string name="restore_info_dialog_title">Uwaga</string>
-    <string name="restore_info_dialog_message">Przywrócenie nakładek, zestawów czcionek, dźwięków czy tapet może zająć trochę czasu, więc proszę o cierpliwość.</string>
-    <string name="restore_bootanimation_text">Animacja rozruchowa</string>
-    <string name="restore_bootanimation_summary">Ta funkcja usuwa poprzednio użytą animację rozruchową i przywraca systemową\n</string>
-    <string name="restore_overlay_text">Motyw</string>
-    <string name="restore_overlay_summary">Ta funkcja usuwa wszystkie zastosowane wcześniej nakładki i przywraca system do domyślnego motywu poprzez ich wyłączenie lub odinstalowanie..\n</string>
-    <string name="restore_sounds_text">Dźwięki</string>
-    <string name="restore_sounds_summary">Ta funkcja usuwa poprzednio użyte dźwięki i przywraca systemowe\n</string>
-    <string name="restore_wallpaper_text">Tapeta</string>
-    <string name="restore_wallpaper_summary">Ta funkcja pozwala na usunięcie poprzednio zastosowanej tapety na ekranie głównym, blokadzie ekranu lub obu i przywraca domyślną tapetę ekranu głównego, blokady ekranu lub obu\n</string>
-    <string name="restore_fonts_text">Pakiety czcionek</string>
-    <string name="restore_fonts_summary">Ta funkcja usuwa poprzednio użyte czcionki i przywraca systemowe\n</string>
     <string name="interfacer_not_authorized_toast">Ta wersja Substratum nie jest autoryzowana i nie będzie działać z modułem Interfacera.</string>
     <string name="app_crash_title">%s ciągle się zatrzymuje&#8230;</string>
     <string name="app_crash_content">Wszystkie włączone nakładki dla tej aplikacji zostały wyłączone.</string>
@@ -479,40 +453,14 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="notification_channel_andromeda_description">Powiadomienia o stanie połączenia</string>
     <!-- Nav drawer -->
     <string name="nav_home">Motywy</string>
-    <string name="nav_overlays">Nakładki</string>
-    <string name="nav_bootanim">Animacje rozruchu</string>
-    <string name="nav_shutdownanim">Animacje zamykania</string>
-    <string name="nav_fonts">Pakiety czcionek</string>
-    <string name="nav_sounds">Pakiety dźwięków</string>
-    <string name="nav_wallpapers">Tapety</string>
     <!-- Utilities -->
-    <string name="nav_section_header_utilities">Narzędzia</string>
     <string name="nav_overlay_manager">Menedżer</string>
     <string name="nav_priorities">Priorytety</string>
     <string name="nav_backup_restore">Profile</string>
-    <string name="nav_manage">Odzyskiwanie</string>
     <!-- Community -->
-    <string name="nav_section_header_get_involved">Społeczność</string>
-    <string name="nav_drawer_community">Grupy i społeczności</string>
-    <string name="nav_drawer_googleplus">Społeczność Google+</string>
-    <string name="nav_drawer_telegram">Czat grupowy Telegramu</string>
-    <string name="nav_drawer_xda">Dedykowane pod-forum XDA</string>
-    <string name="nav_drawer_rawad">Przewodniki tworzenia motywów Rawad</string>
-    <string name="nav_drawer_reddit">Wspólnota Reddit</string>
     <!-- Featured content -->
-    <string name="nav_drawer_featured">Polecana zawartość</string>
-    <string name="nav_drawer_xda_portal">Portal XDA</string>
     <!-- Resources -->
-    <string name="nav_drawer_resources">Zasoby</string>
-    <string name="nav_drawer_homepage">Oficjalna strona</string>
-    <string name="nav_drawer_template">Szablony (Twórcy motywów)</string>
-    <string name="nav_drawer_gerrit">Platforma i ekspozycje Gerrita</string>
-    <string name="nav_drawer_github">Repozytorium platformy GitHub</string>
-    <string name="nav_drawer_jira">System raportowania błędów JIRA</string>
     <!-- More -->
-    <string name="nav_section_header_more">Więcej</string>
-    <string name="nav_team_contributors">Zespół &amp; Współpracownicy</string>
-    <string name="nav_opensource">Licencje</string>
     <string name="nav_settings">Ustawienia</string>
     <string name="title_activity_manage_space">Zarządzaj użyciem pamięci</string>
     <string name="manage_space_cache_text_title">Wyczyść pamięć podręczną</string>
@@ -523,15 +471,7 @@ Prosimy zapisać swoją pracę przed kontynuowaniem, ponieważ zostanie wykonane
     <string name="manage_space_reset_text_desc">Masz kłopoty z aplikacją? A może ostatnio zrobiłeś aktualizację bardzo starej wersji substratum? Proste wyczyszczenie konfiguracji zdecydowanie rozwiąże problemy!</string>
     <string name="manage_space_reset_dialog_title">Zresetować konfigurację?</string>
     <string name="manage_space_reset_dialog_content">Aplikacja zostanie zamknięta po zakończeniu resetowania!</string>
-    <string name="cleaned_logchar_reports">Wyczyszczono zapisane raporty LogChar</string>
     <string name="legacy_overlay_uninstall_warning_text">Jeśli odinstalujesz wszystkie nakładki, użyj plików odzyskiwania, aby uniknąć możliwego zapętlenia podczas uruchamiania się systemu.</string>
-    <string name="auto_reload_sysui_title">Dynamiczne przeładowanie Interfejsu</string>
-    <string name="auto_reload_sysui_summary_on">Substratum będzie za każdym razem automatycznie restartował interfejs systemu kiedy nakładka nadana na interfejs została włączona/wyłączona.</string>
-    <string name="auto_reload_sysui_summary_off">Substratum nie będzie automatycznie restartował interfejsu systemu kiedy nakładka nadana na interfejs będzie włączona/wyłączona.</string>
-    <string name="auto_reload_sysui_dialog_title">Ostrzeżenie!</string>
-    <string name="auto_reload_sysui_dialog_text">W Android Oreo powiadomienia zostaną automatycznie usunięte, aby symulować ponowne uruchomienie zapisanych w pamięci podręcznej kanałów powiadamiania. \n\nProszę upewnić się, że podczas kompilacji lub włączania nakładek interfejsu lub frameworku, powiadomienia nie zawierają żadnych ważnych danych. To nie ma wpływu na bieżące powiadomienia.</string>
-    <string name="advanced_ui_title">Włącz zaawansowany interfejs użytkownika</string>
-    <string name="advanced_ui_text">Powoduje to powrót do wyglądu interfejsu aplikacji jaka była w starszej wersji substratum, umożliwiając włączanie priorytetów, profili, filtrowanie trybów motywów i wiele więcej, jeśli pozwala na to system.</string>
     <string name="overlays_tab_package_ver_message">Zainstalowana wersja %s: %s</string>
     <string name="overlays_tab_package_ver_message_copied">Pomyślnie skopiowano kod wersji do schowka!</string>
     <string name="overlays_tab_package_ver_failure">Nie można pobrać wersji pakietu</string>

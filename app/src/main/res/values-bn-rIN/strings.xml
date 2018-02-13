@@ -20,8 +20,6 @@
     <string name="device">ডিভাইস মডেল:</string>
     <string name="showcase_no_connection">থিম শোকেজ কাজ করার জন্য ইন্টারনেট কানেকশন প্রয়োজন!    </string>
     <string name="failed_to_install_title_notification">OMS থীম ইনস্টল করতে ব্যর্থ</string>
-    <string name="actionbar_theme_count_singular">%s থিম</string>
-    <string name="actionbar_theme_count_plural">%s থিম</string>
     <string name="actionbar_theme_count_loading">লোড হচ্ছে&#8230;</string>
     <string name="actionbar_search">অনুসন্ধান</string>
     <string name="actionbar_changelog">থিম পরিবর্তণের</string>

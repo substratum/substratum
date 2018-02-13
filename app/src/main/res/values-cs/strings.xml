@@ -36,8 +36,6 @@
     <string name="resource_commit_dialog_title">Chybějící zdroje v %s</string>
     <string name="showcase_no_connection">ukázky motivů potřebují internetové připojení!    </string>
     <string name="failed_to_install_title_notification">Nepodařilo se instalovat OMS motiv</string>
-    <string name="actionbar_theme_count_singular">%s motiv</string>
-    <string name="actionbar_theme_count_plural">%s motivy</string>
     <string name="actionbar_theme_count_loading">načítaní&#8230;</string>
     <string name="actionbar_search">Hledat</string>
     <string name="actionbar_changelog">Seznam změn motivu</string>
@@ -140,8 +138,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="theme_information_tab_four">Balíčky zvuků</string>
     <string name="theme_information_tab_five">Tapety</string>
     <string name="theme_information_tab_six">Animace při vypnutí</string>
-    <string name="nougat_style_cards_title">Rozvržení karet podle Android Nougat</string>
-    <string name="nougat_style_cards_subtext">Povolit styl karet oznámení podle Android Nougat.</string>
     <string name="uninstall_dialog_text">Opravdu chcete odinstalovat tento motiv?</string>
     <string name="manage_dialog_performing">Obnovení na výchozí&#8230;</string>
     <string name="manage_bootanimation_title">Obnovit spouštěcí animaci</string>
@@ -309,17 +305,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="settings_title_1">Uživatelské předvolby</string>
     <string name="settings_title_3">Úpravy motivů</string>
     <string name="settings_title_clickable">Systémové předvolby</string>
-    <string name="substratum_restart_toast">Substratum se automaticky restartovalo po 
- změně.</string>
-    <string name="restart_systemui">Znovuvytvoření po povolení SystemUI</string>
-    <string name="restart_systemui_subtext">Automaticky znovu vytvořit SystemUI po
- povolení/zakázání potahu SystemUI</string>
-    <string name="restart_systemui_toast_enabled">SystemUI se znovuvytvoří dynamicky místo 
- restartování!</string>
-    <string name="restart_systemui_toast_disabled">SystemUI se znovuvytvoří automaticky místo 
- znovuvytváření!</string>
-    <string name="show_theme_template_version">Zobrazit rozšířené informace o motivu</string>
-    <string name="show_theme_template_version_description">Zobrazit cílové SDK, verzi motivu a verzi pluginu jako značku na kartě každého motivu.</string>
     <string name="vibrate_on_compiled">Oznámit dokončení kompilace motivu</string>
     <string name="vibrate_on_compiled_description">Když je motiv zkompilován, zavibrovat zařízením
  pro oznámení uživateli, že je kompilace hotova.</string>
@@ -334,8 +319,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
  vypínají&#8230;</string>
     <string name="enable_completion">Všechny potahy pro tento motiv se nyní
  zapínají&#8230;</string>
-    <string name="alternate_drawer_design_title">Vedlejší vzhled menu</string>
-    <string name="alternate_drawer_design_subtext">Alternativní vzhled zásuvky navigace.</string>
     <string name="logchar_autosave_title">Zachovat zprávy LogChar</string>
     <string name="logchar_autosave_subtext">Všechny zprávy LogChar budou uloženy ve /storage/emulated/0/substratum/LogCharReports/.</string>
     <string name="auto_disable_target_overlays">Automaticky zakázat ostatní potahy pro cíl</string>
@@ -430,7 +413,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="settings_title_automation">Automatizace</string>
     <string name="settings_auto_updater_title">Obnovení potahů založené na aplikaci</string>
     <string name="settings_auto_updater_text">Automaticky vytvořit a nainstalovat aktualizovanou verzi všech potahů pro nedávno aktualizovanou aplikaci podporující motivy.</string>
-    <string name="beta_tag">★ BETA</string>
     <string name="settings_theme_auto_updater_title">Obnovení potahů založené na motivu</string>
     <string name="settings_theme_auto_updater_dialog_title">VAROVÁNÍ</string>
     <string name="settings_theme_auto_updater_text">Automaticky vytvořit a nainstalovat aktualizovanou verzi všech potahů pro nedávno aktualizované motivy.</string>
@@ -471,18 +453,6 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="error_dialog_samsung">Problém s potahy Substratum</string>
     <string name="error_dialog_samsung_text">Bohužel se zdá, že existuje problém s cílovou instalací potahu Substratum a musí být ručně odinstalován v nastavení.</string>
     <string name="community_info_paid">Placené</string>
-    <string name="restore_info_dialog_title">Upozornění</string>
-    <string name="restore_info_dialog_message">Obnovení potahů, balíčků písem, zvuků nebo tapet může chvíli trvat, tak buďte prosím trpěliví.</string>
-    <string name="restore_bootanimation_text">Spouštěcí animace</string>
-    <string name="restore_bootanimation_summary">Tato funkce vymaže právě nastavenou spouštěcí animaci a použijte systémovou\n</string>
-    <string name="restore_overlay_text">Motiv</string>
-    <string name="restore_overlay_summary">Tato funkce odstraní všechny dříve aplikované potahy a obnoví systém zpět na původní motiv, buď odinstalací a nebo jejich zakázáním.\n</string>
-    <string name="restore_sounds_text">Zvuky</string>
-    <string name="restore_sounds_summary">Tato funkce odstraní dříve aplikované balíčky zvuků a obnoví vychozí zvukový balíček\n</string>
-    <string name="restore_wallpaper_text">Tapety</string>
-    <string name="restore_wallpaper_summary">Tato funkce umožňuje odebrání dříve aplikované tapety domácí obrazovky, zamykací obrazovky nebo na obou najednou a obnoví původní systémové tapety domácí obrazovky, zamykací obrazovky nebo na obou najednou\n</string>
-    <string name="restore_fonts_text">Balíčky písem</string>
-    <string name="restore_fonts_summary">Tato funkce odstraní dříve aplikované balíčky písem a obnoví vychozí systémový balíček písem\n</string>
     <string name="interfacer_not_authorized_toast">Tato verze Substratum není autorizovaná a nebude pracovat se systémovým modulem Interfacer.</string>
     <string name="app_crash_title">%s neustále ukončuje&#8230;</string>
     <string name="app_crash_content">Byly zakázány všechny povolené potahy pro tuto aplikaci.</string>
@@ -500,40 +470,14 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <!-- Nav drawer -->
     <string name="nav_main">substratum</string>
     <string name="nav_home">Motivy vzhledu</string>
-    <string name="nav_overlays">Potahy</string>
-    <string name="nav_bootanim">Spouštěcí animace</string>
-    <string name="nav_shutdownanim">Animace při vypnutí</string>
-    <string name="nav_fonts">Balíčky písem</string>
-    <string name="nav_sounds">Balíčky zvuků</string>
-    <string name="nav_wallpapers">Tapety</string>
     <!-- Utilities -->
-    <string name="nav_section_header_utilities">Nástroje</string>
     <string name="nav_overlay_manager">Správce</string>
     <string name="nav_priorities">Priority</string>
     <string name="nav_backup_restore">Profily</string>
-    <string name="nav_manage">Obnova</string>
     <!-- Community -->
-    <string name="nav_section_header_get_involved">Komunita</string>
-    <string name="nav_drawer_community">Skupiny a komunity</string>
-    <string name="nav_drawer_googleplus">Komunita Google +</string>
-    <string name="nav_drawer_telegram">Skupinový chat Telegram</string>
-    <string name="nav_drawer_xda">XDA subfórum</string>
-    <string name="nav_drawer_rawad">Příručka Rawad\'s Theming</string>
-    <string name="nav_drawer_reddit">Reddit komunita</string>
     <!-- Featured content -->
-    <string name="nav_drawer_featured">Doporučený obsah</string>
-    <string name="nav_drawer_xda_portal">XDA portál</string>
     <!-- Resources -->
-    <string name="nav_drawer_resources">Zdroje</string>
-    <string name="nav_drawer_homepage">Oficiální domovská stránka</string>
-    <string name="nav_drawer_template">Šablony motivů (tvůrci motivů)</string>
-    <string name="nav_drawer_gerrit">Platforma zdrojových kódů Gerrit</string>
-    <string name="nav_drawer_github">Repozitář GitHub</string>
-    <string name="nav_drawer_jira">Systém hlášení chyb JIRA</string>
     <!-- More -->
-    <string name="nav_section_header_more">Více</string>
-    <string name="nav_team_contributors">Tým &amp; přispěvatelé</string>
-    <string name="nav_opensource">Licence</string>
     <string name="nav_settings">Nastavení</string>
     <string name="title_activity_manage_space">Správa využití úložiště</string>
     <string name="manage_space_cache_text_title">Vyčistit mezipaměť</string>
@@ -544,15 +488,7 @@ Nemůžeme aplikovat motiv na vše protože k tomu potřebujeme změny v systém
     <string name="manage_space_reset_text_desc">Máte problémy s aplikací nebo jste nedávno provedli velký skok ze starší verze Subtratum? Jednoduchá konfigurace vám určitě pomůže vyřešit problémy!</string>
     <string name="manage_space_reset_dialog_title">Obnovit konfiguraci?</string>
     <string name="manage_space_reset_dialog_content">Aplikace se po dokončení restartu ukončí!</string>
-    <string name="cleaned_logchar_reports">Vyčištěné uložené zprávy protokolu LogChar</string>
     <string name="legacy_overlay_uninstall_warning_text">Pokud odinstalujete všechny potahy, prosím použijte záchranné Substratum zipy, abyste se vyhnuli možnému uvíznutí ve spouštěcí smyčce (bootloop).</string>
-    <string name="auto_reload_sysui_title">Dynamické načtení SystemUI</string>
-    <string name="auto_reload_sysui_summary_on">Substratum automaticky načte SystemUI po povolení/zakázání cílových systémových potahů.</string>
-    <string name="auto_reload_sysui_summary_off">Substratum automaticky nenačte SystemUI po povolení/zakázání cílových systémových potahů.</string>
-    <string name="auto_reload_sysui_dialog_title">Upozornění!</string>
-    <string name="auto_reload_sysui_dialog_text">V systému Android Oreo budou oznámení automaticky vymazány, aby simulovaly opětovné spuštění oznamovacích kanálů.\n\nZkontrolujte, zda vaše oznámení neobsahují žádná důležitá data při kompilaci nebo aktivaci potahů systému (SystemUI nebo framework). To neovlivňuje stávající oznámení, například hudbu.</string>
-    <string name="advanced_ui_title">Povolit rozšířené uživatelské rozhraní</string>
-    <string name="advanced_ui_text">Pokud to systém dovolí, tímto se vrátí zpět původní uživatelské rozhraní aplikace, které se nachází ve starších verzích Substratum, čímž se zapnou priority, profily, filtrované režimy motivů a mnohem více.</string>
     <string name="overlays_tab_package_ver_message">Nainstalované %s verze: %s</string>
     <string name="overlays_tab_package_ver_message_copied">Kód verze byl úspěšně zkopírován do schránky!</string>
     <string name="overlays_tab_package_ver_failure">Nepodařilo se zachytit verzi balíčku</string>

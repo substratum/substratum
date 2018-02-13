@@ -35,8 +35,6 @@
     <string name="resource_commit_dialog_title">%s のリソースは見つかりませんでした</string>
     <string name="showcase_no_connection">ショーケースを機能させるためにはインターネット接続が必要です！    </string>
     <string name="failed_to_install_title_notification">OMSテーマのインストールに失敗しました</string>
-    <string name="actionbar_theme_count_singular">%s テーマ</string>
-    <string name="actionbar_theme_count_plural">%s テーマ</string>
     <string name="actionbar_theme_count_loading">読み込み中&#8230;</string>
     <string name="actionbar_search">検索</string>
     <string name="actionbar_changelog">テーマの変更履歴</string>
@@ -300,43 +298,20 @@
     <string name="root_required_boot_animation_profile">デバイスが暗号化されているため、ブートアニメーションのバックアップと復元にはRoot権限が必要です。</string>
     <string name="per_app_apply">適用</string>
     <string name="error_activity_button_disable_overlays">助けて!</string>
-    <string name="restore_info_dialog_title">ご注意</string>
-    <string name="restore_bootanimation_text">ブートアニメーション</string>
-    <string name="restore_overlay_text">テーマ</string>
-    <string name="restore_sounds_text">サウンド</string>
-    <string name="restore_wallpaper_text">壁紙</string>
-    <string name="restore_fonts_text">フォントパック</string>
     <string name="rom_status">サポート状況:</string>
     <string name="rom_status_supported">%s はコミュニティでサポートされています！</string>
     <string name="rom_status_unsupported">このROMはコミュニティでサポートされていません！</string>
     <!-- Notification channel -->
     <string name="notification_channel_default">デフォルト</string>
     <!-- Nav drawer -->
-    <string name="nav_overlays">オーバーレイ</string>
-    <string name="nav_bootanim">ブートアニメーション</string>
-    <string name="nav_fonts">フォントパック</string>
-    <string name="nav_sounds">サウンドパック</string>
-    <string name="nav_wallpapers">壁紙</string>
     <!-- Utilities -->
-    <string name="nav_section_header_utilities">ユーティリティ</string>
     <string name="nav_overlay_manager">管理</string>
     <string name="nav_priorities">優先順位</string>
     <string name="nav_backup_restore">プロファイル</string>
-    <string name="nav_manage">回復</string>
     <!-- Community -->
-    <string name="nav_section_header_get_involved">コミュニティ</string>
-    <string name="nav_drawer_community">グループおよびコミュニティ</string>
-    <string name="nav_drawer_googleplus">Google + コミュニティ</string>
-    <string name="nav_drawer_reddit">Reddit コミュニティ</string>
     <!-- Featured content -->
-    <string name="nav_drawer_xda_portal">XDA ポータル</string>
     <!-- Resources -->
-    <string name="nav_drawer_resources">リソース</string>
-    <string name="nav_drawer_homepage">公式ホームページ</string>
-    <string name="nav_drawer_template">テーマ テンプレート (テーマ制作者向け)</string>
     <!-- More -->
-    <string name="nav_section_header_more">詳細</string>
-    <string name="nav_opensource">ライセンス</string>
     <string name="nav_settings">設定</string>
     <string name="manage_space_cache_text_title">キャッシュをクリア</string>
     <string name="manage_space_logs_text_title">保存されたログをクリア</string>
@@ -344,8 +319,4 @@
     <string name="manage_space_reset_text_title">構成をリセット</string>
     <string name="manage_space_reset_dialog_title">構成をリセットしますか？</string>
     <string name="manage_space_reset_dialog_content">リセット完了後にアプリが終了します！</string>
-    <string name="cleaned_logchar_reports">保存されている LogChar レポートを消去しました</string>
-    <string name="auto_reload_sysui_summary_on">Substratumが システムUI をターゲットとしたオーバーレイの有効化/無効化を行った場合、システムUI を自動的にリロードを実行します。</string>
-    <string name="auto_reload_sysui_summary_off">Substratumが システムUI をターゲットとしたオーバーレイの有効化/無効化を行った場合、システムUI を自動的にリロードを実行しません。</string>
-    <string name="auto_reload_sysui_dialog_title">警告！</string>
 </resources>

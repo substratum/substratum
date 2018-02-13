@@ -34,18 +34,15 @@ import projekt.substratum.tabs.Sounds;
 import projekt.substratum.tabs.Wallpapers;
 
 import static projekt.substratum.common.Internal.SHUTDOWNANIMATION_INTENT;
-import static projekt.substratum.common.Internal.SHUTDOWN_ANIMATION;
 import static projekt.substratum.common.References.bootAnimationsFragment;
 import static projekt.substratum.common.References.fontsFragment;
 import static projekt.substratum.common.References.overlaysFragment;
 import static projekt.substratum.common.References.shutdownAnimationsFragment;
 import static projekt.substratum.common.References.soundsFragment;
-import static projekt.substratum.common.References.wallpaperFragment;
 
 public class IATabsAdapter extends FragmentStatePagerAdapter {
 
     private Integer numOfTabs;
-    private String themeMode;
     private String wallpaperUrl;
     private Bundle bundle;
     private HashMap<String, Boolean> extras;
@@ -54,14 +51,12 @@ public class IATabsAdapter extends FragmentStatePagerAdapter {
     @SuppressWarnings("unchecked")
     public IATabsAdapter(FragmentManager fragmentManager,
                          Integer NumOfTabs,
-                         String themeMode,
                          List packageChecker,
                          String wallpaperUrl,
                          HashMap<String, Boolean> extras,
                          Bundle bundle) {
         super(fragmentManager);
         this.numOfTabs = NumOfTabs;
-        this.themeMode = themeMode;
         try {
             this.packageChecker = new ArrayList<>(packageChecker);
         } catch (NullPointerException npe) {
@@ -74,36 +69,6 @@ public class IATabsAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if ((this.themeMode != null) && !this.themeMode.isEmpty()) {
-            switch (this.themeMode) {
-                case overlaysFragment:
-                    Overlays overlays = new Overlays();
-                    overlays.setArguments(this.bundle);
-                    return overlays;
-                case bootAnimationsFragment:
-                    BootAnimations bootAnimations = new BootAnimations();
-                    bootAnimations.setArguments(this.bundle);
-                    return bootAnimations;
-                case shutdownAnimationsFragment:
-                    BootAnimations shutdownAnimations = new BootAnimations();
-                    Bundle b = new Bundle(this.bundle);
-                    b.putBoolean(SHUTDOWN_ANIMATION, true);
-                    shutdownAnimations.setArguments(b);
-                    return shutdownAnimations;
-                case fontsFragment:
-                    Fonts fonts = new Fonts();
-                    fonts.setArguments(this.bundle);
-                    return fonts;
-                case soundsFragment:
-                    Sounds sounds = new Sounds();
-                    sounds.setArguments(this.bundle);
-                    return sounds;
-                case wallpaperFragment:
-                    Wallpapers wallpapers = new Wallpapers();
-                    wallpapers.setArguments(this.bundle);
-                    return wallpapers;
-            }
-        }
         return this.getFragment();
     }
 

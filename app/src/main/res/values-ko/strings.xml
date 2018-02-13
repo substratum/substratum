@@ -22,8 +22,6 @@
       필요합니다!
     </string>
     <string name="failed_to_install_title_notification">OMS 테마 설치 실패</string>
-    <string name="actionbar_theme_count_singular">%s개의 테마가 설치됨</string>
-    <string name="actionbar_theme_count_plural">%s개의 테마가 설치됨</string>
     <string name="actionbar_theme_count_loading">로드 중...</string>
     <string name="actionbar_search">검색</string>
     <string name="actionbar_changelog">테마 변경 내역</string>
@@ -193,8 +191,6 @@
     <string name="shortcut_overlay_manager_disabled">오버레이 매니저</string>
     <string name="settings_title">정보</string>
     <string name="settings_title_3">테마 적용</string>
-    <string name="show_theme_template_version">고급 테마 정보 표시</string>
-    <string name="show_theme_template_version_description">각 테마의 대상 SDK 레벨, 테마 버전 및 플러그인 버전을 테마 카드에 태그로 표시합니다.</string>
     <string name="hide_app_icon">앱 아이콘 표시</string>
     <string name="fab_menu_compile_enable">빌드 및 활성화</string>
     <string name="fab_menu_compile_update">빌드 및 업데이트</string>
@@ -236,42 +232,15 @@
     <string name="per_app_apply">적용</string>
     <string name="per_app_manual_grant">FloatUI를 사용하려면 특별 액세스의 \'다른 앱 위에 그리기\' 권한을 허용해야 합니다.</string>
     <string name="error_activity_button_disable_overlays">도와주세요!</string>
-    <string name="restore_info_dialog_title">주의</string>
-    <string name="restore_info_dialog_message">오버레이, 폰트, 사운트, 배경화면을 복원하는 데에 시간이 걸립니다. 느긋하게 기다려 주십시오.</string>
-    <string name="restore_bootanimation_text">부팅 애니메이션</string>
-    <string name="restore_bootanimation_summary">이 기능은 현재 적용된 부팅 애니메이션을 제거하고 시스템 기본값으로 복원합니다.\n</string>
-    <string name="restore_overlay_text">테마 오버레이</string>
-    <string name="restore_overlay_summary">이 기능은 현재 적용된 테마 오버레이를 적용 해제하면서 시스템 기본값으로 복원합니다. 추가로 현재 설치된 모든 오버레이를 제거할 수도 있습니다.\n</string>
-    <string name="restore_sounds_text">소리</string>
-    <string name="restore_sounds_summary">이 기능은 현재 적용된 사운드를 시스템 폰트 기본값으로 변경합니다.\n</string>
-    <string name="restore_wallpaper_text">배경화면</string>
-    <string name="restore_wallpaper_summary">이 기능은 현재 적용된 홈 화면, 잠금 화면의 배경화면을 시스템 기본값으로 되돌립니다.\n</string>
-    <string name="restore_fonts_text">폰트 팩</string>
-    <string name="restore_fonts_summary">이 기능은 현재 적용된 폰트를 시스템 폰트 기본값으로 복원합니다.\n</string>
     <!-- Notification channel -->
     <!-- Nav drawer -->
-    <string name="nav_overlays">오버레이</string>
-    <string name="nav_bootanim">부팅 애니메이션</string>
-    <string name="nav_fonts">폰트 팩</string>
-    <string name="nav_sounds">사운드 팩</string>
-    <string name="nav_wallpapers">배경화면</string>
     <!-- Utilities -->
-    <string name="nav_section_header_utilities">유틸리티</string>
     <string name="nav_priorities">우선순위 설정</string>
     <string name="nav_backup_restore">프로필</string>
-    <string name="nav_manage">리커버리</string>
     <!-- Community -->
-    <string name="nav_section_header_get_involved">커뮤니티</string>
-    <string name="nav_drawer_googleplus">Google+ 커뮤니티</string>
     <!-- Featured content -->
     <!-- Resources -->
-    <string name="nav_drawer_resources">리소스</string>
-    <string name="nav_drawer_homepage">공식 홈페이지</string>
-    <string name="nav_drawer_template">테마 템플릿(테마 제작자 전용)</string>
-    <string name="nav_drawer_github">플랫폼 GitHub 저장소</string>
     <!-- More -->
-    <string name="nav_section_header_more">기타</string>
-    <string name="nav_opensource">라이선스</string>
     <string name="nav_settings">설정</string>
     <string name="clear_cache_button_loading">로드 중...</string>
 </resources>

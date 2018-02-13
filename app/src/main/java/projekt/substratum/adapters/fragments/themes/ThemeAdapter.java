@@ -67,22 +67,9 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
     @Override
     public ThemeAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup,
                                                       int i) {
-        SharedPreferences prefs =
-                PreferenceManager.getDefaultSharedPreferences(viewGroup.getContext());
-        View view;
-        if (!prefs.getBoolean("advanced_ui", false)) {
-            view = LayoutInflater.from(
-                    viewGroup.getContext()).inflate(
-                    R.layout.theme_entry_special_card, viewGroup, false);
-        } else if (prefs.getBoolean("nougat_style_cards", false)) {
-            view = LayoutInflater.from(
-                    viewGroup.getContext()).inflate(
-                    R.layout.theme_entry_card_n, viewGroup, false);
-        } else {
-            view = LayoutInflater.from(
-                    viewGroup.getContext()).inflate(
-                    R.layout.theme_entry_card, viewGroup, false);
-        }
+        View view = LayoutInflater.from(
+                viewGroup.getContext()).inflate(
+                R.layout.theme_entry_card, viewGroup, false);
         return new ViewHolder(view);
     }
 
@@ -95,54 +82,9 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.context);
         viewHolder.theme_name.setText(themeItem.getThemeName());
         viewHolder.theme_author.setText(themeItem.getThemeAuthor());
-        if (prefs.getBoolean("advanced_ui", false)) {
-            if (themeItem.getPluginVersion() != null) {
-                viewHolder.plugin_version.setText(themeItem.getPluginVersion());
-            } else {
-                viewHolder.plugin_version.setVisibility(View.INVISIBLE);
-            }
-            if (themeItem.getSDKLevels() != null) {
-                viewHolder.theme_apis.setText(themeItem.getSDKLevels());
-            } else {
-                viewHolder.theme_apis.setVisibility(View.INVISIBLE);
-            }
-            if (themeItem.getThemeVersion() != null) {
-                viewHolder.theme_version.setText(themeItem.getThemeVersion());
-            } else {
-                viewHolder.theme_version.setVisibility(View.INVISIBLE);
-            }
-
-            if (prefs.getBoolean("grid_layout", true) ||
-                    (themeItem.getThemeReadyVariable() == null)) {
-                viewHolder.divider.setVisibility(View.GONE);
-                viewHolder.tbo.setVisibility(View.GONE);
-                viewHolder.two.setVisibility(View.GONE);
-            } else if (THEME_READY_ALL.equals(themeItem.getThemeReadyVariable())) {
-                viewHolder.divider.setVisibility(View.VISIBLE);
-                viewHolder.tbo.setVisibility(View.VISIBLE);
-                viewHolder.two.setVisibility(View.VISIBLE);
-            } else if (THEME_READY_READY.equals(themeItem.getThemeReadyVariable())) {
-                viewHolder.divider.setVisibility(View.VISIBLE);
-                viewHolder.tbo.setVisibility(View.VISIBLE);
-                viewHolder.two.setVisibility(View.GONE);
-            } else if (THEME_READY_STOCK.equals(themeItem.getThemeReadyVariable())) {
-                viewHolder.divider.setVisibility(View.VISIBLE);
-                viewHolder.tbo.setVisibility(View.GONE);
-                viewHolder.two.setVisibility(View.VISIBLE);
-            } else {
-                viewHolder.divider.setVisibility(View.GONE);
-                viewHolder.tbo.setVisibility(View.GONE);
-                viewHolder.two.setVisibility(View.GONE);
-            }
-
-            viewHolder.tbo.setOnClickListener(v -> this.explainTBO());
-            viewHolder.two.setOnClickListener(v -> this.explainTWO());
-        }
-
         viewHolder.cardView.setOnClickListener(
                 v -> Theming.launchTheme(this.context,
-                        themeItem.getThemePackage(),
-                        themeItem.getThemeMode()
+                        themeItem.getThemePackage()
                 ));
 
         viewHolder.cardView.setOnLongClickListener(view -> {
@@ -157,7 +99,8 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 // About the theme
                 SheetDialog sheetDialog = new SheetDialog(this.context);
                 View sheetView =
-                        View.inflate(this.context, R.layout.theme_entry_long_press_sheet_dialog, null);
+                        View.inflate(this.context,
+                                R.layout.theme_entry_long_press_sheet_dialog, null);
 
                 TextView aboutText = sheetView.findViewById(R.id.about_text);
                 TextView moreText = sheetView.findViewById(R.id.more_text);
@@ -373,11 +316,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
         CardView cardView;
         TextView theme_name;
         TextView theme_author;
-        TextView theme_apis;
-        TextView theme_version;
-        TextView plugin_version;
         ImageView imageView;
-        View divider;
         ImageView tbo;
         ImageView two;
 
@@ -386,11 +325,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
             this.cardView = view.findViewById(R.id.theme_card);
             this.theme_name = view.findViewById(R.id.theme_name);
             this.theme_author = view.findViewById(R.id.theme_author);
-            this.theme_apis = view.findViewById(R.id.api_levels);
-            this.theme_version = view.findViewById(R.id.theme_version);
-            this.plugin_version = view.findViewById(R.id.plugin_version);
             this.imageView = view.findViewById(R.id.theme_preview_image);
-            this.divider = view.findViewById(R.id.theme_ready_divider);
             this.tbo = view.findViewById(R.id.theme_ready_indicator);
             this.two = view.findViewById(R.id.theme_unready_indicator);
         }

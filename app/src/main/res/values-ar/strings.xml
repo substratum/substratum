@@ -27,8 +27,6 @@
     <string name="resource_commit_dialog_title">الموارد المفقودة في %s</string>
     <string name="showcase_no_connection">معرض التنسيقات يحتاج إلى اتصال بالإنترنت      ليعمل!    </string>
     <string name="failed_to_install_title_notification">عملية تثبيت OMS قد فشلت</string>
-    <string name="actionbar_theme_count_singular">موضوع %s</string>
-    <string name="actionbar_theme_count_plural">المواضيع %s</string>
     <string name="actionbar_theme_count_loading">جارِ التحميل&#8230;</string>
     <string name="actionbar_search">بحث</string>
     <string name="actionbar_changelog">سجل تغييرات التنسيق</string>
@@ -93,8 +91,6 @@
     <string name="profile_wallpaper">الخلفيات</string>
     <!-- Notification channel -->
     <!-- Nav drawer -->
-    <string name="nav_bootanim">رسوم التمهيد</string>
-    <string name="nav_wallpapers">الخلفيات</string>
     <!-- Utilities -->
     <!-- Community -->
     <!-- Featured content -->

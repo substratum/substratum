@@ -159,8 +159,6 @@
     <string name="shortcut_overlay_manager_disabled">விரைந்து செயல்படுத்து</string>
     <string name="settings_title">செயலி பற்றி</string>
     <string name="settings_title_3">கருப்பொருளாக்கம்</string>
-    <string name="restart_systemui">அமைப்பு பயனாளர் இடைமுகம் மறுபடி அமை </string>
-    <string name="show_theme_template_version">மேம்பட்ட கருப்பொருள் தகவல்கள்</string>
     <string name="vibrate_on_compiled">கருப்பொருள் தொகுக்கப்பட்டபின் அறிவிப்பு செய்</string>
     <string name="hide_app_icon">செயலி ஐகானை காண்பிக்கவும்</string>
     <string name="hide_app_icon_not_supported">இந்த மாற்றத்திற்கு ஆதரவு இல்லை</string>
@@ -192,24 +190,16 @@
     <string name="profile_wallpaper">ஒலி கட்டுகள்</string>
     <string name="profile_dialog_ok">சரி</string>
     <string name="per_app_apply">நிறுவு</string>
-    <string name="restore_sounds_text">ஒலிகள்</string>
-    <string name="restore_wallpaper_text">சுவர்படம்</string>
     <!-- Notification channel -->
     <!-- Nav drawer -->
     <string name="nav_main">சப்ஸ்டிரேட்டம்</string>
-    <string name="nav_overlays">கருப்பொருள்கள்</string>
-    <string name="nav_bootanim">மேலடுக்கு மேலாளர்</string>
-    <string name="nav_wallpapers">ஒலி கட்டுகள்</string>
     <!-- Utilities -->
-    <string name="nav_section_header_utilities">பயன்பாடுகள்</string>
     <string name="nav_priorities">முன்னுரிமைகள்</string>
     <string name="nav_backup_restore">தனிப்பட்ட விருப்புகள்</string>
     <!-- Community -->
     <!-- Featured content -->
     <!-- Resources -->
     <!-- More -->
-    <string name="nav_section_header_more">மேலும்</string>
-    <string name="nav_opensource">உரிமங்கள்</string>
     <string name="nav_settings">அமைப்புகள்</string>
     <string name="clear_cache_button_loading">ஏற்றப்படுகிறது&#8230;</string>
 </resources>

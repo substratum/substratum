@@ -87,14 +87,12 @@
 
     <color name="main_screen_card_background">#fffafafa</color>
     <color name="main_screen_card_theme_title">#ff000000</color>
-    <color name="main_screen_card_theme_author">#d0000000</color>
     <color name="main_screen_card_theme_title_special">#ffffffff</color>
     <color name="main_screen_card_theme_author_special">#d0ffffff</color>
 
     <color name="wallpaper_bg_background">@android:color/black</color>
 
     <color name="theme_information_background">#ffeeeeee</color>
-    <color name="theme_information_card_divider">#33777777</color>
     <color name="theme_information_card_subtext">@android:color/darker_gray</color>
 
     <color name="settings_title_color">@color/colorAccent</color>
@@ -102,7 +100,6 @@
     <color name="material_drawer_icon_color">#ff000000</color>
     <color name="material_drawer_selected">@color/colorAccent</color>
     <color name="material_drawer_background">#ffffffff</color>
-    <color name="material_drawer_header_background">#9e9e9e</color>
 
     <color name="overlay_installed_list_entry">#00c853</color>
     <color name="overlay_not_approved_list_entry">#ff0000</color>

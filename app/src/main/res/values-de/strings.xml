@@ -36,8 +36,6 @@
     <string name="resource_commit_dialog_title">Fehlende Ressourcen in %s</string>
     <string name="showcase_no_connection">Für Themes-Showcase ist eine Internetverbindung erforderlich!</string>
     <string name="failed_to_install_title_notification">Installation des OMS-Themes fehlgeschlagen</string>
-    <string name="actionbar_theme_count_singular">%s Theme</string>
-    <string name="actionbar_theme_count_plural">%s Themes</string>
     <string name="actionbar_theme_count_loading">Lädt&#8230;</string>
     <string name="actionbar_search">Suche</string>
     <string name="actionbar_changelog">Theme-Änderungsprotokoll</string>
@@ -127,8 +125,6 @@ aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
     <string name="theme_information_tab_four">Soundpakete</string>
     <string name="theme_information_tab_five">Hintergrundbilder</string>
     <string name="theme_information_tab_six">Shutdown-Animationen</string>
-    <string name="nougat_style_cards_title">Karten-Layout im Nougat-Stil</string>
-    <string name="nougat_style_cards_subtext">Aktiviere Theme-Karten im Android Nougat Benachrichtigungsstil.</string>
     <string name="uninstall_dialog_text">Wollen Sie dieses Theme wirklich deinstallieren?</string>
     <string name="manage_dialog_performing">Auf Standard zurücksetzen&#8230;</string>
     <string name="manage_bootanimation_title">Wiederherstellen der Boot-Animation</string>
@@ -292,13 +288,6 @@ aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
     <string name="settings_title_1">Benutzereinstellungen</string>
     <string name="settings_title_3">Theming</string>
     <string name="settings_title_clickable">Systemeinstellungen</string>
-    <string name="substratum_restart_toast">Substratum wurde nach einer Änderung der Einstellungen automatisch neugestartet.</string>
-    <string name="restart_systemui">SystemUI-Neuerstellung aktivieren </string>
-    <string name="restart_systemui_subtext">SystemUI automatisch wiederaufbauen, nachdem ein SystemUI-Overlay aktiviert/deaktiviert wurde</string>
-    <string name="restart_systemui_toast_enabled">SystemUI wird dynamisch wiederaufgebaut, anstatt neugestartet zu werden!</string>
-    <string name="restart_systemui_toast_disabled">SystemUI wird automatisch neugestartet, anstatt sich wiederaufzubauen!</string>
-    <string name="show_theme_template_version">Erweiterte Theme-Informationen anzeigen</string>
-    <string name="show_theme_template_version_description">Zeige die Ziel-SDK-Ebene und die Version des Themes sowie die Plugin-Version als Tag auf der Karte des jeweiligen Themes an.</string>
     <string name="vibrate_on_compiled">Nach Theme-Kompilierung benachrichtigen</string>
     <string name="vibrate_on_compiled_description">Weise den Nutzer durch Vibration darauf hin, dass die Kompilierung abgeschlossen wurde.</string>
     <string name="manage_notification_channel">Benachrichtigungen verwalten</string>
@@ -309,8 +298,6 @@ aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
     <string name="hide_app_icon_supported">Legt fest, ob das App-Symbol im Launcher sichtbar ist oder nicht.</string>
     <string name="disable_completion">Alle Overlays dieses Themes werden deaktiviert&#8230;</string>
     <string name="enable_completion">Alle installierten Overlays dieses Themes werden aktiviert&#8230;</string>
-    <string name="alternate_drawer_design_title">Sekundäres Drawer-Design</string>
-    <string name="alternate_drawer_design_subtext">Ein alternatives Navigations-Drawer Design.</string>
     <string name="logchar_autosave_title">LogChar-Reports speichern</string>
     <string name="logchar_autosave_subtext">Alle LogChar-Reports werden gespeichert in /storage/emulated/0/substratum/LogCharReports/.</string>
     <string name="auto_disable_target_overlays">Andere Overlays automatisch deaktivieren</string>
@@ -403,7 +390,6 @@ aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
     <string name="settings_title_automation">Automatisierung</string>
     <string name="settings_auto_updater_title">App-Basierte Overlay Aktualisierung</string>
     <string name="settings_auto_updater_text">Automatisch eine aktualisierte Version aller Overlays einer kürzlich aktualisierten App kompilieren und installieren.</string>
-    <string name="beta_tag">★ BETA</string>
     <string name="settings_theme_auto_updater_title">Theme-Basierte Overlay Aktualisierung</string>
     <string name="settings_theme_auto_updater_dialog_title">WARNUNG</string>
     <string name="settings_theme_auto_updater_text">Automatisch eine aktualisierte Version aller Overlays eines kürzlich aktualisierten Themes kompilieren und installieren.</string>
@@ -444,18 +430,6 @@ aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
     <string name="error_dialog_samsung">Substratum Overlay-Problem</string>
     <string name="error_dialog_samsung_text">Leider scheint ein Problem mit einem installierten Overlay zu bestehen, das auf Substratum abzielt und in den Einstellungen manuell deinstalliert werden muss.</string>
     <string name="community_info_paid">Bezahlt</string>
-    <string name="restore_info_dialog_title">Achtung</string>
-    <string name="restore_info_dialog_message">Das Wiederherstellen von Overlays, Schriftarten-Paketen, Tönen oder Hintergrundbildern kann einige Zeit in Anspruch nehmen, sei also bitte geduldig.</string>
-    <string name="restore_bootanimation_text">Boot-Animation</string>
-    <string name="restore_bootanimation_summary">Diese Funktion entfernt alle zuvor aktivierten Bootanimationen und stellt die Standard-Bootanimation wieder her\n</string>
-    <string name="restore_overlay_text">Theme</string>
-    <string name="restore_overlay_summary">Diese Funktion entfernt alle bisher angewandten Overlays und setzt das System entweder durch Deinstallation oder Deaktivierung auf das Standardtheme zurück.\n</string>
-    <string name="restore_sounds_text">Töne</string>
-    <string name="restore_sounds_summary">Diese Funktion entfernt das zuvor aktivierte Tonset und stellt das Standardtonset wiederher\n</string>
-    <string name="restore_wallpaper_text">Hintergrundbild</string>
-    <string name="restore_wallpaper_summary">Die Funktion erlaubt das Entfernen des zuvor angewandten Bildschirmhintergrunds auf dem Startbildschirm, Sperrbildschirm oder beidem und stellt das System-Hintergrundbild für diese wiederher\n</string>
-    <string name="restore_fonts_text">Schriftarten-Pakete</string>
-    <string name="restore_fonts_summary">Diese Funktion entfernt das zuvor aktivierte Schriftartenset und stellt das Standardschriftartenset wiederher\n</string>
     <string name="interfacer_not_authorized_toast">Diese Version von Substratum ist nicht autorisiert und funktioniert nicht mit dem System Interfacer Modul.</string>
     <string name="app_crash_title">%s wird fortlaufend beendet&#8230;</string>
     <string name="app_crash_content">Alle für diese App aktivierten Overlays wurden deaktiviert.</string>
@@ -473,40 +447,14 @@ aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
     <!-- Nav drawer -->
     <string name="nav_main">Substratum</string>
     <string name="nav_home">Themes</string>
-    <string name="nav_overlays">Overlays</string>
-    <string name="nav_bootanim">Boot-Animationen</string>
-    <string name="nav_shutdownanim">Shutdown-Animationen</string>
-    <string name="nav_fonts">Schriftarten-Pakete</string>
-    <string name="nav_sounds">Ton-Pakete</string>
-    <string name="nav_wallpapers">Hintergrundbilder</string>
     <!-- Utilities -->
-    <string name="nav_section_header_utilities">Utensilien</string>
     <string name="nav_overlay_manager">Manager</string>
     <string name="nav_priorities">Prioritäten</string>
     <string name="nav_backup_restore">Profile</string>
-    <string name="nav_manage">Wiederherstellung</string>
     <!-- Community -->
-    <string name="nav_section_header_get_involved">Community</string>
-    <string name="nav_drawer_community">Gruppen &amp; Communities</string>
-    <string name="nav_drawer_googleplus">Google+-Community</string>
-    <string name="nav_drawer_telegram">Telegram-Gruppenchat</string>
-    <string name="nav_drawer_xda">XDA eigenes Unterforum</string>
-    <string name="nav_drawer_rawad">Rawad\'s Theming Anleitungen</string>
-    <string name="nav_drawer_reddit">Reddit-Community</string>
     <!-- Featured content -->
-    <string name="nav_drawer_featured">Empfohlene Inhalte</string>
-    <string name="nav_drawer_xda_portal">XDA-Portal</string>
     <!-- Resources -->
-    <string name="nav_drawer_resources">Ressourcen</string>
-    <string name="nav_drawer_homepage">Offizielle Homepage</string>
-    <string name="nav_drawer_template">Themenvorlage (Themers)</string>
-    <string name="nav_drawer_gerrit">Plattform &amp; enthüllt Gerrit</string>
-    <string name="nav_drawer_github">Platform GitHub Repository</string>
-    <string name="nav_drawer_jira">JIRA Bugreport-System</string>
     <!-- More -->
-    <string name="nav_section_header_more">Mehr</string>
-    <string name="nav_team_contributors">Team &amp; Mitwirkende</string>
-    <string name="nav_opensource">Lizenzen</string>
     <string name="nav_settings">Einstellungen</string>
     <string name="title_activity_manage_space">Speichernutzung verwalten</string>
     <string name="manage_space_cache_text_title">Cache löschen</string>
@@ -517,15 +465,7 @@ aktiviere \"Änderung von Systemeinstellungen zulassen\".</string>
     <string name="manage_space_reset_text_desc">Hast du Probleme mit der App? Oder hast du in letzter Zeit ein Upgrade von einer sehr alten Version von Substratum gemacht? Das simple zurücksetzen deiner Konfiguration könnte deine Probleme beheben!</string>
     <string name="manage_space_reset_dialog_title">Konfiguration zurücksetzen?</string>
     <string name="manage_space_reset_dialog_content">Die App wird sich schließen nachdem das Zurücksetzen abgeschlossen ist!</string>
-    <string name="cleaned_logchar_reports">Gespeicherte LogChar-Berichte wurden bereinigt</string>
     <string name="legacy_overlay_uninstall_warning_text">Wenn du alle Overlays deinstallieren verwende bitte die Substratum Rettungs-ZIPs, um mögliche Bootloops zu verhindern.</string>
-    <string name="auto_reload_sysui_title">SystemUI dynamisch neu laden</string>
-    <string name="auto_reload_sysui_summary_on">Substratum lädt automatisch die SystemUI neu, nachdem ein Overlay, das auf die SystemUI abzielt, (de)aktiviert wurde.</string>
-    <string name="auto_reload_sysui_summary_off">Substratum lädt nicht automatisch die SystemUI neu, nachdem ein Overlay, das auf die SystemUI abzielt, (de)aktiviert wurde.</string>
-    <string name="auto_reload_sysui_dialog_title">Warnung!</string>
-    <string name="auto_reload_sysui_dialog_text">In Android Oreo, Benachrichtigungen werden automatisch gelöscht, um einen Neustart der zwischengespeicherten Benachrichtigungskanäle zu simulieren.\n\nBitte gewährleiste, dass deine Benachrichtigungen keine wichtigen Daten beim Kompilieren oder Aktivieren von SystemUI/Framework-Overlays enthalten. Dies hat keinen Einfluss auf laufende Benachrichtigungen.</string>
-    <string name="advanced_ui_title">Erweiterte Benutzeroberfläche aktivieren</string>
-    <string name="advanced_ui_text">Dies kehrt zurück das alte App UI aus älteren versionen von Substratum, mit Prioritäten, Profilen, gefiltereten Theming modis, und vieles mehr, falls es das System ermöglicht.</string>
     <string name="overlays_tab_package_ver_message">%s Version %s installiert</string>
     <string name="overlays_tab_package_ver_message_copied">Versions-Code erfolgreich in die Zwischenablage kopiert!</string>
     <string name="overlays_tab_package_ver_failure">Fehler beim Erfassen der Paket-Version</string>

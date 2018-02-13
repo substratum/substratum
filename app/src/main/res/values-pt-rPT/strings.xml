@@ -38,8 +38,6 @@
       funcionar!
     </string>
     <string name="failed_to_install_title_notification">Falha ao instalar o tema OMS</string>
-    <string name="actionbar_theme_count_singular">%s tema</string>
-    <string name="actionbar_theme_count_plural">%s temas</string>
     <string name="actionbar_theme_count_loading">a carregar&#8230;</string>
     <string name="actionbar_search">Procurar</string>
     <string name="actionbar_changelog">Lista de alterações do tema</string>
@@ -141,8 +139,6 @@ corrigir coisas que não estão a receber temas em modo de compatibilidade, uma 
     <string name="theme_information_tab_four">Pacotes de Sons</string>
     <string name="theme_information_tab_five">Imagens de Fundo</string>
     <string name="theme_information_tab_six">Animações de encerramento</string>
-    <string name="nougat_style_cards_title">Esquema de cartões ao estilo Nougat</string>
-    <string name="nougat_style_cards_subtext">Ativar o esquema de cartões ao estilo Nougat para as notificações.</string>
     <string name="uninstall_dialog_text">Tem a certeza que deseja desinstalar este tema?</string>
     <string name="manage_dialog_performing">Restaurando ao padrão&#8230;</string>
     <string name="manage_bootanimation_title">Restaura a animação de arranque predefinida do dispositivo</string>
@@ -318,13 +314,6 @@ corrigir coisas que não estão a receber temas em modo de compatibilidade, uma 
     <string name="settings_title_1">Preferências do utilizador</string>
     <string name="settings_title_3">Aplicação de temas</string>
     <string name="settings_title_clickable">Preferências do sistema</string>
-    <string name="substratum_restart_toast">O Substratum reiniciou automaticamente após uma alteração nas definições.</string>
-    <string name="restart_systemui">Ativar recreação da IU do sist. após ativação</string>
-    <string name="restart_systemui_subtext">Recriar automaticamente a IU do sist. após ativar/desativar uma camada que a afete</string>
-    <string name="restart_systemui_toast_enabled">A IU do sist. irá ser dinamicamente recriada em vez de ser reiniciada!</string>
-    <string name="restart_systemui_toast_disabled">A IU do sist. irá reiniciar automaticamente em vez de ser recriada!</string>
-    <string name="show_theme_template_version">Mostrar informações avançadas do tema</string>
-    <string name="show_theme_template_version_description">Mostrar os níveis SDK alvo de cada tema, versão do tema e versão do plugin como uma etiqueta em cada um dos cartões de tema.</string>
     <string name="vibrate_on_compiled">Notificar após o tema ser compilado</string>
     <string name="vibrate_on_compiled_description">Quando o tema for compilado, notificar o utilizador através de vibração de que a compilação foi finalizada.</string>
     <string name="manage_notification_channel">Gerir notificações</string>
@@ -335,8 +324,6 @@ corrigir coisas que não estão a receber temas em modo de compatibilidade, uma 
     <string name="hide_app_icon_supported">Isto irá permitir que alterne entre ter o ícone da gaveta de aplicações visível ou invisível no seu ecrã inicial.</string>
     <string name="disable_completion">Todas as camadas deste temas estão agora sendo desativadas&#8230;</string>
     <string name="enable_completion">Todas as camadas instaladas deste tema estão agora a ser ativadas&#8230;</string>
-    <string name="alternate_drawer_design_title">Estilo Secundário para a Gaveta de Navegação</string>
-    <string name="alternate_drawer_design_subtext">Não mostrar o cabeçalho na Gaveta de Navegação.</string>
     <string name="logchar_autosave_title">Manter relatórios LogChar</string>
     <string name="logchar_autosave_subtext">Todos os relatórios de LogChar serão armazenados em /storage/emulated/0/substratum/LogCharReports /.</string>
     <string name="auto_disable_target_overlays">Auto-desativar outras camadas para o alvo</string>
@@ -431,7 +418,6 @@ corrigir coisas que não estão a receber temas em modo de compatibilidade, uma 
     <string name="settings_title_automation">Automação</string>
     <string name="settings_auto_updater_title">Atualização de camadas de aplicações</string>
     <string name="settings_auto_updater_text">Compilar e instalar automaticamente uma versão atualizada de todas as camadas para a aplicação recentemente atualizada e com tema aplicado.</string>
-    <string name="beta_tag">★ BETA</string>
     <string name="settings_theme_auto_updater_title">Atualização de camadas dos temas</string>
     <string name="settings_theme_auto_updater_dialog_title">AVISO</string>
     <string name="settings_theme_auto_updater_text">Compilar e instalar automaticamente uma versão atualizada de todas as camadas para o tema recentemente atualizado.</string>
@@ -472,18 +458,6 @@ corrigir coisas que não estão a receber temas em modo de compatibilidade, uma 
     <string name="error_dialog_samsung">Problema com Camadas do Substratum</string>
     <string name="error_dialog_samsung_text">Infelizmente, parece haver um problema com uma camada instalada visando o Substratum que terá de ser manualmente desinstalada através das Definições.</string>
     <string name="community_info_paid">Pago</string>
-    <string name="restore_info_dialog_title">Atenção</string>
-    <string name="restore_info_dialog_message">A reposição de camadas, pacotes de tipos de letra, sons ou imagens de fundo pode demorar algum tempo. Por isso, seja paciente.</string>
-    <string name="restore_bootanimation_text">Animação de arranque</string>
-    <string name="restore_bootanimation_summary">Esta função remove a animação de arranque previamente aplicada e restaura a animação de arranque predefinida.\n</string>
-    <string name="restore_overlay_text">Tema</string>
-    <string name="restore_overlay_summary">Esta função remove todas as camadas previamente aplicadas e restaura o tema padrão ao desinstalar as camadas ou ao desativá-las.\n</string>
-    <string name="restore_sounds_text">Sons</string>
-    <string name="restore_sounds_summary">Esta função remove o conjunto de sons previamente aplicado e restaura o conjunto de sons padrão.\n</string>
-    <string name="restore_wallpaper_text">Imagem de Fundo</string>
-    <string name="restore_wallpaper_summary">Esta função permite a remoção das imagens de fundo aplicadas no ecrã inicial, ecrã de bloqueio ou ambos, e repõe as imagens de fundo predefinidas do sistema.</string>
-    <string name="restore_fonts_text">Pacotes de tipos de letra</string>
-    <string name="restore_fonts_summary">Esta função remove o conjunto de tipos de letra previamente aplicado e restaura o conjunto de tipos de letra padrão.\n</string>
     <string name="interfacer_not_authorized_toast">Esta versão do Substratum não é autorizada e não funcionará com o módulo do System Interfacer.</string>
     <string name="app_crash_title">%s continua a parar&#8230;</string>
     <string name="app_crash_content">Todas as camadas ativadas para esta aplicação foram desativadas.</string>
@@ -500,40 +474,14 @@ corrigir coisas que não estão a receber temas em modo de compatibilidade, uma 
     <string name="notification_channel_andromeda_description">Notificação do estado da ligação do tema do sistema</string>
     <!-- Nav drawer -->
     <string name="nav_home">Temas</string>
-    <string name="nav_overlays">Camadas</string>
-    <string name="nav_bootanim">Animações de arranque</string>
-    <string name="nav_shutdownanim">Animações de encerramento</string>
-    <string name="nav_fonts">Pacotes de tipos de letra</string>
-    <string name="nav_sounds">Pacotes de sons</string>
-    <string name="nav_wallpapers">Imagens de Fundo</string>
     <!-- Utilities -->
-    <string name="nav_section_header_utilities">Utilitários</string>
     <string name="nav_overlay_manager">Gestor</string>
     <string name="nav_priorities">Prioridades</string>
     <string name="nav_backup_restore">Perfis</string>
-    <string name="nav_manage">Recuperação</string>
     <!-- Community -->
-    <string name="nav_section_header_get_involved">Comunidade</string>
-    <string name="nav_drawer_community">Grupos e Comunidades</string>
-    <string name="nav_drawer_googleplus">Comunidade Google+</string>
-    <string name="nav_drawer_telegram">Grupo de chat do Telegram</string>
-    <string name="nav_drawer_xda">Subfórum dedicado no XDA</string>
-    <string name="nav_drawer_rawad">Tutoriais</string>
-    <string name="nav_drawer_reddit">Comunidade Reddit</string>
     <!-- Featured content -->
-    <string name="nav_drawer_featured">Conteúdos em destaque</string>
-    <string name="nav_drawer_xda_portal">Portal XDA</string>
     <!-- Resources -->
-    <string name="nav_drawer_resources">Recursos</string>
-    <string name="nav_drawer_homepage">Página oficial</string>
-    <string name="nav_drawer_template">Modelo de Tema</string>
-    <string name="nav_drawer_gerrit">Plataforma e exposições Gerrit</string>
-    <string name="nav_drawer_github">Repositório GitHub</string>
-    <string name="nav_drawer_jira">Reportar erros - JIRA</string>
     <!-- More -->
-    <string name="nav_section_header_more">Mais</string>
-    <string name="nav_team_contributors">Equipa e Contribuidores</string>
-    <string name="nav_opensource">Licenças</string>
     <string name="nav_settings">Definições</string>
     <string name="title_activity_manage_space">Gerir a utilização do armazenamento</string>
     <string name="manage_space_cache_text_title">Limpar cache</string>
@@ -544,15 +492,7 @@ corrigir coisas que não estão a receber temas em modo de compatibilidade, uma 
     <string name="manage_space_reset_text_desc">Está a ter problemas com a aplicação? Ou fez recentemente a atualização de uma versão muito antiga do Substratum? Uma limpeza das definições irá ajudar a solucionar o problema!</string>
     <string name="manage_space_reset_dialog_title">Repor definições?</string>
     <string name="manage_space_reset_dialog_content">A aplicação irá fechar após a conclusão da reposição!</string>
-    <string name="cleaned_logchar_reports">Os relatórios LogChar guardados foram apagados</string>
     <string name="legacy_overlay_uninstall_warning_text">Se estiver a desinstalar todas as camadas, por favor utilize os ZIPs de recuperação do Substratum para evitar possíveis problemas no arranque.</string>
-    <string name="auto_reload_sysui_title">Recarregar automaticamente a IU do sist.</string>
-    <string name="auto_reload_sysui_summary_on">O Substratum irá recarregar automaticamente a IU do sist. quando uma camada que a afete for ativada/desativada.</string>
-    <string name="auto_reload_sysui_summary_off">O Substratum não irá recarregar automaticamente a IU do sist. quando uma camada que a afete for ativada/desativada.</string>
-    <string name="auto_reload_sysui_dialog_title">Aviso!</string>
-    <string name="auto_reload_sysui_dialog_text">No Android Oreo, as notificações serão apagadas automaticamente para simular o reinício dos canais de notificações em cache.\n\nPor favor, garanta que as suas notificações não contêm informação importante ao compilar ou ativar camadas da IU do sist. ou framework. Isto não afeta notificações em curso.</string>
-    <string name="advanced_ui_title">Ativar interface de utilizador avançada</string>
-    <string name="advanced_ui_text">Isto reverte para a interface de utilizador antiga da aplicação, utilizada em versões antigas do substratum, ativando prioridades, perfis, modos de filtragem de temas e muito mais, se o sistema permitir.</string>
     <string name="overlays_tab_package_ver_message">Versão instalada de %s: %s</string>
     <string name="overlays_tab_package_ver_message_copied">Código da versão copiado para a área de transferência com sucesso!</string>
     <string name="overlays_tab_package_ver_failure">Falha ao obter a versão do pacote</string>

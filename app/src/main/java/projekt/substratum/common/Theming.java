@@ -67,13 +67,11 @@ public enum Theming {
      * @param themeMode   Filter mode
      */
     public static void launchTheme(Context context,
-                                   String packageName,
-                                   String themeMode) {
+                                   String packageName) {
         if (context.getPackageName().equals(SUBSTRATUM_PACKAGE)) {
             Intent theme_intent = themeIntent(
                     context,
                     packageName,
-                    themeMode,
                     TEMPLATE_THEME_MODE);
             context.startActivity(theme_intent);
         }
@@ -91,7 +89,6 @@ public enum Theming {
             Intent theme_intent = themeIntent(
                     context,
                     packageName,
-                    null,
                     TEMPLATE_GET_KEYS);
             try {
                 context.startActivity(theme_intent);
@@ -112,7 +109,6 @@ public enum Theming {
      */
     public static Intent themeIntent(Context context,
                                      String packageName,
-                                     String themeMode,
                                      String actionIntent) {
         if (context.getPackageName().equals(SUBSTRATUM_PACKAGE)) {
             boolean shouldDebug = projekt.substratum.BuildConfig.DEBUG;
@@ -133,7 +129,6 @@ public enum Theming {
             intentActivity.putExtra(Internal.THEME_CALLER, context.getPackageName());
             if (shouldDebug) Log.d(TAG, "Checking for theme system type...");
             intentActivity.putExtra(Internal.THEME_OMS, !Systems.checkOMS(context));
-            intentActivity.putExtra(Internal.THEME_MODE, themeMode);
             intentActivity.putExtra(Internal.NOTIFICATION, false);
             if (shouldDebug) Log.d(TAG, "Obtaining APK signature hash...");
             intentActivity.putExtra(Internal.THEME_HASHPASSTHROUGH, hashPassthrough(context, false));

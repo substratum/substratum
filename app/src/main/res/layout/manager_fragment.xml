@@ -111,8 +111,7 @@
                     android:text="@string/manager_no_overlays_text"
                     android:textAllCaps="true"
                     android:textColor="@color/main_screen_card_theme_title"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textSize="16sp" />
             </RelativeLayout>
 
             <android.support.v4.widget.SwipeRefreshLayout

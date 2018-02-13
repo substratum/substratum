@@ -34,8 +34,6 @@
     <string name="resource_commit_dialog_title">Адсутнічаюць рэсурсы ў %s</string>
     <string name="showcase_no_connection">каталог тэм патрабуе падлучэння да інтэрнэту!    </string>
     <string name="failed_to_install_title_notification">Не атрымалася ўсталяваць OMS тэму</string>
-    <string name="actionbar_theme_count_singular">%s тэма</string>
-    <string name="actionbar_theme_count_plural">%s тэм(-ы)</string>
     <string name="actionbar_theme_count_loading">загрузка&#8230;</string>
     <string name="actionbar_search">Знайсці</string>
     <string name="actionbar_changelog">Гісторыя змяненняў тэмы</string>
@@ -123,8 +121,6 @@
     <string name="theme_information_tab_four">Наборы гукаў</string>
     <string name="theme_information_tab_five">Шпалеры</string>
     <string name="theme_information_tab_six">Анімацыі выключэння</string>
-    <string name="nougat_style_cards_title">Nougat-стылізаваныя карткі</string>
-    <string name="nougat_style_cards_subtext">Адлюстроўваць спіс тэм у стылі апавяшчэнняў Android Nougat.</string>
     <string name="uninstall_dialog_text">Вы ўпэўненыя, што хочаце выдаліць гэтую тэму?</string>
     <string name="manage_dialog_performing">Вяртаем стандартнае&#8230;</string>
     <string name="manage_bootanimation_title">Аднавіць анімацыю загрузкі</string>
@@ -293,13 +289,6 @@
     <string name="settings_title_1">Карыстацкія перавагі</string>
     <string name="settings_title_3">Афармленне</string>
     <string name="settings_title_clickable">Сістэмныя налады</string>
-    <string name="substratum_restart_toast">Substratum аўтаматычна перазапусціцца пасля змены налад.</string>
-    <string name="restart_systemui">Дынамічнае узнаўленне SystemUI</string>
-    <string name="restart_systemui_subtext">Аўтаматычнае узнаўленне SystemUI пасля актывацыі/адключэння звязаных з ім напластаванняў</string>
-    <string name="restart_systemui_toast_enabled">SystemUI будзе аднаўляцца ў рэальным часе замест перазапуску!</string>
-    <string name="restart_systemui_toast_disabled">SystemUI будзе перазапускацца замест узнаўлення!</string>
-    <string name="show_theme_template_version">Паказваць падрабязныя звесткі аб тэме</string>
-    <string name="show_theme_template_version_description">Указваць мэтавыя ўзроўні SDK, версіі тэм і версіі плагінаў ў якасці пазнак для кожнай тэмы.</string>
     <string name="vibrate_on_compiled">Апавяшчэнне аб зборцы тэмы</string>
     <string name="vibrate_on_compiled_description">Вібрыраваць пасля зборкі тэмы, каб паведаміць карыстальніка аб завяршэнні працэсу.</string>
     <string name="manage_notification_channel">Кіраванне апавяшчэннямі</string>
@@ -310,8 +299,6 @@
     <string name="hide_app_icon_supported">Магчымасць прыбраць/вярнуць цэтлік праграмы на хатнім экране.</string>
     <string name="disable_completion">Адключэнне ўсіх напластаванняў тэмы&#8230;</string>
     <string name="enable_completion">Актывацыя ўсіх усталяваных напластаванняў тэмы&#8230;</string>
-    <string name="alternate_drawer_design_title">Альтэрнатыўнае меню</string>
-    <string name="alternate_drawer_design_subtext">Альтэрнатыўны дызайн Navigation Drawer.</string>
     <string name="logchar_autosave_title">Захаваць LogChar справаздачы</string>
     <string name="logchar_autosave_subtext">Усе LogChar паведамленні будуць захоўвацца ў /storage/emulated/0/substratum/LogCharReports /.</string>
     <string name="auto_disable_target_overlays">Аўтаадключэнне сумежных напластаванняў</string>
@@ -406,7 +393,6 @@
     <string name="settings_title_automation">Аўтаматызацыя</string>
     <string name="settings_auto_updater_title">Перазапуск напластавання праграмай</string>
     <string name="settings_auto_updater_text">Аўтаматычна ствараць і ўсталёўваць абноўленую версію усіх напластаванняў для нядаўна абноўленых, тэматычных праграм.</string>
-    <string name="beta_tag">★ BETA</string>
     <string name="settings_theme_auto_updater_title">Перазапуск напластавання праграмай</string>
     <string name="settings_theme_auto_updater_dialog_title">УВАГА</string>
     <string name="settings_theme_auto_updater_text">Аўтаматычна ствараць і ўсталёўваць абноўленую версію усіх напластаванняў для нядаўна абноўленых тэм.</string>
@@ -446,18 +432,6 @@
     <string name="error_activity_log_dialog_title">Справаздача пра вылет</string>
     <string name="error_dialog_samsung">Праблема з напластаваннем Substratum</string>
     <string name="error_dialog_samsung_text">Падобна на тое, што з напластаваннем закранаючым Substratum паўстала непаладка, варта выдаліць яго ўручную ў Наладах.</string>
-    <string name="restore_info_dialog_title">Увага</string>
-    <string name="restore_info_dialog_message">Аднаўленне пластоў, пакетаў шрыфтоў, гукаў або шпалер можа заняць некаторы час, таму набярыцеся цярпення.</string>
-    <string name="restore_bootanimation_text">Анімацыя загрузкі</string>
-    <string name="restore_bootanimation_summary">Гэта функцыя ліквідуе раней усталяваную анімацыю загрузкі і аднаўляе яе па змаўчанні\n</string>
-    <string name="restore_overlay_text">Тэма</string>
-    <string name="restore_overlay_summary">Зварот да стандартнай сістэмнай тэме за кошт поўнага выдалення або адключэння ўсіх раней прымененых напластаванняў.\n</string>
-    <string name="restore_sounds_text">Гукі</string>
-    <string name="restore_sounds_summary">Выдаленне раней прымененых гукаў і вяртанне да стандартнага набору\n</string>
-    <string name="restore_wallpaper_text">Шпалеры</string>
-    <string name="restore_wallpaper_summary">Выдаленне раней прымененых шпалер на галоўным экране, экране блакавання або ў абодвух выпадках і вяртанне да стандартных шпалер\n</string>
-    <string name="restore_fonts_text">Наборы шрыфтоў</string>
-    <string name="restore_fonts_summary">Выдаленне раней прымененых шрыфтоў і вяртанне да стандартнага набору\n</string>
     <string name="interfacer_not_authorized_toast">Дадзеная версія Substratum не з\'яўляецца сапраўднай і не будзе працаваць з сістэмным Interfacer.</string>
     <string name="app_crash_title">%s працягвае вылятаць&#8230;</string>
     <string name="app_crash_content">Усе ўключаныя напластаванні для гэтай праграмы былі адключаныя.</string>
@@ -474,40 +448,14 @@
     <string name="notification_channel_andromeda_description">Апавяшчэнне аб статусе падлучэння сістэмы</string>
     <!-- Nav drawer -->
     <string name="nav_home">Тэмы</string>
-    <string name="nav_overlays">Напластаванні</string>
-    <string name="nav_bootanim">Анімацыі загрузкі</string>
-    <string name="nav_shutdownanim">Анімацыі выключэння</string>
-    <string name="nav_fonts">Наборы шрыфтоў</string>
-    <string name="nav_sounds">Наборы гукаў</string>
-    <string name="nav_wallpapers">Шпалеры</string>
     <!-- Utilities -->
-    <string name="nav_section_header_utilities">Утыліты</string>
     <string name="nav_overlay_manager">Кіраванне</string>
     <string name="nav_priorities">Прыярытэты</string>
     <string name="nav_backup_restore">Профілі</string>
-    <string name="nav_manage">Аднаўленне</string>
     <!-- Community -->
-    <string name="nav_section_header_get_involved">Супольнасць</string>
-    <string name="nav_drawer_community">Групы і супольнасці</string>
-    <string name="nav_drawer_googleplus">Супольнасці ў Google+</string>
-    <string name="nav_drawer_telegram">Чат у Telegram</string>
-    <string name="nav_drawer_xda">Прысвечаны форум XDA</string>
-    <string name="nav_drawer_rawad">Інструкцыя па афармленні ад Rawad</string>
-    <string name="nav_drawer_reddit">Супольнасць Reddit</string>
     <!-- Featured content -->
-    <string name="nav_drawer_featured">Рэкамендуемае</string>
-    <string name="nav_drawer_xda_portal">Партал XDA</string>
     <!-- Resources -->
-    <string name="nav_drawer_resources">Рэсурсы</string>
-    <string name="nav_drawer_homepage">Афіцыйны сайт</string>
-    <string name="nav_drawer_template">Шаблон Тэмы (Канструктары)</string>
-    <string name="nav_drawer_gerrit">Платформа і маніторынг на Gerrit</string>
-    <string name="nav_drawer_github">Рэпазітар платформы на GitHub</string>
-    <string name="nav_drawer_jira">Сістэма адсочвання непаладак JIRA</string>
     <!-- More -->
-    <string name="nav_section_header_more">Яшчэ</string>
-    <string name="nav_team_contributors">Каманда і саўдзельнікі</string>
-    <string name="nav_opensource">Ліцэнзіі</string>
     <string name="nav_settings">Налады</string>
     <string name="title_activity_manage_space">Аптымізацыя выкарыстання памяці</string>
     <string name="manage_space_cache_text_title">Ачысціць кэш</string>
@@ -518,13 +466,7 @@
     <string name="manage_space_reset_text_desc">У вас паўсталі праблемы з праграмай? Ці вы зрабілі абнаўленне з вельмі старой версіі substratum ў апошні час? Проста скіньце канфігурацыі, каб выправіць вашыя праблемы!</string>
     <string name="manage_space_reset_dialog_title">Скід канфігурацыі?</string>
     <string name="manage_space_reset_dialog_content">Праграма будзе зачынена пасля скіду!</string>
-    <string name="cleaned_logchar_reports">Ачысціць захаваныя справаздачы LogChar</string>
     <string name="legacy_overlay_uninstall_warning_text">Пры выдаленні ўсіх напластаванняў, калі ласка, выкарыстоўвайце ратаванне Substratum ZIP-каб пазбегнуць магчымага bootloops.</string>
-    <string name="auto_reload_sysui_title">Аўтаперазапуск SystemUI</string>
-    <string name="auto_reload_sysui_summary_on">Substratum аўтаматычна перазапусціць SystemUI пры ўключэнні/выключэнні закранаючага яго пласта.</string>
-    <string name="auto_reload_sysui_summary_off">Substratum не перазапускае SystemUI пры ўключэнні/выключэнні закранаючага яго пласта.</string>
-    <string name="auto_reload_sysui_dialog_title">Увага!</string>
-    <string name="auto_reload_sysui_dialog_text">На Android Oreo, апавяшчэнні будуць аўтаматычна ачышчаны для сімуляцыі перазапуску кэшаваных каналаў апавяшчэнняў. \n\nКалі ласка пераканайцеся што вашы апавяшчэнні не ўтрымліваюць ніякай важнай інфармацыі пры зборцы і запуску SystemUI або framework напластаванняў. Гэта не ўплывае на бягучыя апавяшчэнне.</string>
     <string name="overlays_tab_package_ver_message">Усталявана %s версія %s</string>
     <string name="overlays_tab_package_ver_message_copied">Код версіі скапіяваны ў буфер абмену!</string>
     <string name="overlays_tab_package_ver_failure">Не атрымалася захапіць версію пакета</string>

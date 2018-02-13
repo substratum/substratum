@@ -36,8 +36,6 @@
     <string name="resource_commit_dialog_title">在 %s 中缺少资源</string>
     <string name="showcase_no_connection">主题展示需要网络连接才能正常工作</string>
     <string name="failed_to_install_title_notification">未能安装 OMS 主题</string>
-    <string name="actionbar_theme_count_singular">%s 主题</string>
-    <string name="actionbar_theme_count_plural">%s 主题</string>
     <string name="actionbar_theme_count_loading">正在加载</string>
     <string name="actionbar_search">查找</string>
     <string name="actionbar_changelog">主题更新日志</string>
@@ -127,8 +125,6 @@
     <string name="theme_information_tab_four">音效包</string>
     <string name="theme_information_tab_five">壁纸</string>
     <string name="theme_information_tab_six">关机动画</string>
-    <string name="nougat_style_cards_title">Nougat(7.0)风格卡片版式</string>
-    <string name="nougat_style_cards_subtext">启用 Android 7.0通知风格主题卡片。</string>
     <string name="uninstall_dialog_text">您确定想卸载此主题吗？</string>
     <string name="manage_dialog_performing">还原到默认值</string>
     <string name="manage_bootanimation_title">还原开机动画</string>
@@ -289,13 +285,6 @@
     <string name="settings_title_1">用户首选项</string>
     <string name="settings_title_3">主题</string>
     <string name="settings_title_clickable">系统首选项</string>
-    <string name="substratum_restart_toast">Substratum 会在设置改变后自动重启</string>
-    <string name="restart_systemui">重建随后启用的系统界面</string>
-    <string name="restart_systemui_subtext">在启用或禁用系统界面叠加层后，自动重建系统界面</string>
-    <string name="restart_systemui_toast_enabled">系统界面将会动态更新，而不是重启设备。</string>
-    <string name="restart_systemui_toast_disabled">系统界面将会自动重启，而不是重新创建。</string>
-    <string name="show_theme_template_version">显示主题的详细信息</string>
-    <string name="show_theme_template_version_description">在主题卡片上展示对应安卓版本号、主题版本和插件版本的标签。</string>
     <string name="vibrate_on_compiled">主题编译完成后进行通知</string>
     <string name="vibrate_on_compiled_description">在主题编译完成后，通过振动设备通知用户</string>
     <string name="manage_notification_channel">通知管理</string>
@@ -306,8 +295,6 @@
     <string name="hide_app_icon_supported">这将允许您在主屏幕上显示或隐藏启动器图标。</string>
     <string name="disable_completion">已禁用这一主题中所有已安装的叠加层</string>
     <string name="enable_completion">已启用这一主题中所有已安装的叠加层</string>
-    <string name="alternate_drawer_design_title">备用抽屉设计</string>
-    <string name="alternate_drawer_design_subtext">一个备用的导航抽屉设计。</string>
     <string name="logchar_autosave_title">保留 LogChar 报告</string>
     <string name="logchar_autosave_subtext">所有 LogChar 报告将被存储至/storage/emulated/0/substratum/LogCharReports/</string>
     <string name="fab_menu_compile_enable">编译 &amp; 启用</string>
@@ -395,7 +382,6 @@
     <string name="settings_system_status_certified">已认证</string>
     <string name="settings_system_status_uncertified">未认证</string>
     <string name="settings_title_automation">自动更新</string>
-    <string name="beta_tag">测试版</string>
     <string name="settings_theme_auto_updater_dialog_title">警告</string>
     <string name="settings_theme_auto_updater_dialog_text">在通知开启时，请勿在前台打开 PackageInstaller，否则框架重叠会使 PackageInstaller 重启，并导致无限期的重新编译。</string>
     <string name="settings_auto_alert_title">显示通知</string>
@@ -432,18 +418,6 @@
     <string name="error_activity_log_dialog_title">堆栈跟踪崩溃</string>
     <string name="error_dialog_samsung">叠加层问题</string>
     <string name="error_dialog_samsung_text">通过 Substratum 安装的叠加层似乎存在问题，必须使用设置手动卸载。</string>
-    <string name="restore_info_dialog_title">注意</string>
-    <string name="restore_info_dialog_message">正在还原叠加层，字体，音效和壁纸。这可能需要一些时间，请您耐心等待。</string>
-    <string name="restore_bootanimation_text">开机动画</string>
-    <string name="restore_bootanimation_summary">删除已应用的开机动画，还原默认开机动画。</string>
-    <string name="restore_overlay_text">主题</string>
-    <string name="restore_overlay_summary">删除已应用的叠加层，还原默认主题。</string>
-    <string name="restore_sounds_text">音效</string>
-    <string name="restore_sounds_summary">删除已应用的音效，还原默认音效。</string>
-    <string name="restore_wallpaper_text">壁纸</string>
-    <string name="restore_wallpaper_summary">删除已应用的壁纸，还原默认壁纸。</string>
-    <string name="restore_fonts_text">字体包</string>
-    <string name="restore_fonts_summary">删除已应用的字体包，还原默认字体。</string>
     <string name="interfacer_not_authorized_toast">此版本的叠加层未获得授权，无法与主题接口一起工作。</string>
     <string name="app_crash_title">保持停止 %s</string>
     <string name="app_crash_content">已禁用此应用的所有叠加层</string>
@@ -460,40 +434,14 @@
     <string name="notification_channel_andromeda_description">主题系统连接状态通知</string>
     <!-- Nav drawer -->
     <string name="nav_home">主题</string>
-    <string name="nav_overlays">叠加层</string>
-    <string name="nav_bootanim">开机动画</string>
-    <string name="nav_shutdownanim">关机动画</string>
-    <string name="nav_fonts">字体包</string>
-    <string name="nav_sounds">音效包</string>
-    <string name="nav_wallpapers">壁纸</string>
     <!-- Utilities -->
-    <string name="nav_section_header_utilities">实用程序</string>
     <string name="nav_overlay_manager">管理</string>
     <string name="nav_priorities">优先级切换</string>
     <string name="nav_backup_restore">配置</string>
-    <string name="nav_manage">还原</string>
     <!-- Community -->
-    <string name="nav_section_header_get_involved">社区</string>
-    <string name="nav_drawer_community">团队和社区</string>
-    <string name="nav_drawer_googleplus">Google+ 社区</string>
-    <string name="nav_drawer_telegram">Telegram 交流群</string>
-    <string name="nav_drawer_xda">XDA 专用论坛</string>
-    <string name="nav_drawer_rawad">主题向导</string>
-    <string name="nav_drawer_reddit">Reddit 社区</string>
     <!-- Featured content -->
-    <string name="nav_drawer_featured">特色内容</string>
-    <string name="nav_drawer_xda_portal">XDA 论坛</string>
     <!-- Resources -->
-    <string name="nav_drawer_resources">资源</string>
-    <string name="nav_drawer_homepage">官方主页</string>
-    <string name="nav_drawer_template">主题模板（主题制作者）</string>
-    <string name="nav_drawer_gerrit">Gerrit 代码审查</string>
-    <string name="nav_drawer_github">GitHub 存储库</string>
-    <string name="nav_drawer_jira">JIRA bug 报告系统</string>
     <!-- More -->
-    <string name="nav_section_header_more">更多</string>
-    <string name="nav_team_contributors">团队和贡献者</string>
-    <string name="nav_opensource">许可</string>
     <string name="nav_settings">设置</string>
     <string name="title_activity_manage_space">管理存储空间</string>
     <string name="manage_space_cache_text_title">清除缓存</string>
@@ -504,12 +452,7 @@
     <string name="manage_space_reset_text_desc">您是否在使用中遇到了问题？最近是否对 Substratum 做了大版本的跨越式更新？请进行重置操作，有利于问题的解决。</string>
     <string name="manage_space_reset_dialog_title">您确定要重置所有配置吗？</string>
     <string name="manage_space_reset_dialog_content">应用程序会在重置完成后自动关闭</string>
-    <string name="cleaned_logchar_reports">清除已保存的 LogChar 报告</string>
     <string name="legacy_overlay_uninstall_warning_text">如果您正在卸载所有叠加层，请使用 Substratum 救援系统，以避免设备变砖。</string>
-    <string name="auto_reload_sysui_summary_on">在启用/禁用 SystemUI 后，Substratum 会自动重新加载 SystemUI</string>
-    <string name="auto_reload_sysui_summary_off">在启用/禁用 SystemUI 后，Substratum 不会自动重新加载 SystemUI</string>
-    <string name="auto_reload_sysui_dialog_title">警告！</string>
-    <string name="advanced_ui_title">启用高级用户界面</string>
     <string name="overlays_tab_package_ver_message">已安装的 %s 版本： %s</string>
     <string name="overlays_tab_package_ver_message_copied">已将版本代码复制到剪贴板</string>
     <string name="overlays_tab_package_ver_failure">未能获取包版本</string>

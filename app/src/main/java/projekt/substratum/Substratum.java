@@ -28,13 +28,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.media.AudioAttributes;
 import android.os.Build;
-import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -199,15 +197,6 @@ public class Substratum extends Application {
     public void onCreate() {
         super.onCreate();
         substratum = this;
-
-        // Set global app theme if on special UI mode
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getInstance());
-        boolean bottomBarUi = !prefs.getBoolean("advanced_ui", false);
-        if (bottomBarUi) {
-            setTheme(R.style.AppTheme_SpecialUI);
-        } else {
-            setTheme(R.style.AppTheme);
-        }
 
         // Firebase
         try {

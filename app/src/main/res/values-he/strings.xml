@@ -30,8 +30,6 @@
       לתפקד!
     </string>
     <string name="failed_to_install_title_notification">פעולת התקנת חבילה במערכת OMS נכשלה</string>
-    <string name="actionbar_theme_count_singular">ערכת נושא %s</string>
-    <string name="actionbar_theme_count_plural">%s ערכות נושא</string>
     <string name="actionbar_theme_count_loading">טוען&#8230;</string>
     <string name="actionbar_search">חיפוש</string>
     <string name="actionbar_changelog">רשימת שינויי ערכת נושא</string>
@@ -92,8 +90,6 @@
     <!-- Notification channel -->
     <!-- Nav drawer -->
     <string name="nav_main">Substratum</string>
-    <string name="nav_bootanim">אנימציות הבוט</string>
-    <string name="nav_wallpapers">טפטים</string>
     <!-- Utilities -->
     <!-- Community -->
     <!-- Featured content -->

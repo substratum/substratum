@@ -28,8 +28,6 @@
     <string name="showcase_no_connection">ห้องแสดงธีมต้องการเชื่อมต่ออินเทอร์เน็ตเพื่อใช้
      ฟังก์ชั่น    </string>
     <string name="failed_to_install_title_notification">ติดตั้งธีม OMS ไม่สำเร็จ</string>
-    <string name="actionbar_theme_count_singular">%s ธีม</string>
-    <string name="actionbar_theme_count_plural">%s ธีม</string>
     <string name="actionbar_theme_count_loading">กำลังโหลด&#8230;</string>
     <string name="actionbar_search">ค้นหา</string>
     <string name="actionbar_changelog">การเปลี่ยนแปลงของชุดรูปแบบ</string>

@@ -36,7 +36,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -51,7 +50,6 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.ColorUtils;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -87,7 +85,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 import projekt.substratum.adapters.activities.IATabsAdapter;
 import projekt.substratum.common.Broadcasts;
@@ -123,7 +120,6 @@ import static projekt.substratum.common.Internal.MIX_AND_MATCH;
 import static projekt.substratum.common.Internal.MIX_AND_MATCH_IA_TO_OVERLAYS;
 import static projekt.substratum.common.Internal.SHEET_COMMAND;
 import static projekt.substratum.common.Internal.START_JOB_ACTION;
-import static projekt.substratum.common.Internal.THEME_MODE;
 import static projekt.substratum.common.Internal.THEME_NAME;
 import static projekt.substratum.common.Internal.THEME_PID;
 import static projekt.substratum.common.Internal.THEME_WALLPAPER;
@@ -172,7 +168,6 @@ public class InformationActivity extends AppCompatActivity {
 
     private String themeName;
     private String themePid;
-    private String themeMode;
     private boolean uninstalled = false;
     private byte[] byteArray;
     private Bitmap heroImageBitmap;
@@ -438,10 +433,6 @@ public class InformationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         context = getApplicationContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        // Check if we should activate the custom font
-        boolean bottomBarUi = !prefs.getBoolean("advanced_ui", false);
-        if (bottomBarUi) setTheme(R.style.AppTheme_SpecialUI_InformationActivity);
-
         super.onCreate(savedInstanceState);
         InformationActivityBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.information_activity);
@@ -491,7 +482,6 @@ public class InformationActivity extends AppCompatActivity {
         Intent currentIntent = getIntent();
         themeName = currentIntent.getStringExtra(THEME_NAME);
         themePid = currentIntent.getStringExtra(THEME_PID);
-        themeMode = currentIntent.getStringExtra(THEME_MODE);
         byte[] encryptionKey = currentIntent.getByteArrayExtra(ENCRYPTION_KEY_EXTRA);
         byte[] ivEncryptKey = currentIntent.getByteArrayExtra(IV_ENCRYPTION_KEY_EXTRA);
         String wallpaperUrl = getOverlayMetadata(context, themePid,
@@ -501,20 +491,13 @@ public class InformationActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putString(THEME_NAME, themeName);
         bundle.putString(THEME_PID, themePid);
-        bundle.putString(THEME_MODE, themeMode);
         bundle.putByteArray(ENCRYPTION_KEY_EXTRA, encryptionKey);
         bundle.putByteArray(IV_ENCRYPTION_KEY_EXTRA, ivEncryptKey);
         bundle.putString(THEME_WALLPAPER, wallpaperUrl);
 
-        // By default, if the mode is null, we will launch with all tabs
-        if (themeMode == null) themeMode = "";
-
         // Configure the views
-        Typeface t = ResourcesCompat.getFont(getApplicationContext(), R.font.toolbar_new_ui);
         toolbar.setTitle(themeName);
         collapsingToolbar.setTitle(themeName);
-        collapsingToolbar.setCollapsedTitleTypeface(t);
-        collapsingToolbar.setExpandedTitleTypeface(t);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -570,99 +553,68 @@ public class InformationActivity extends AppCompatActivity {
         // Okay, time for the meat of the reloader
         new LayoutLoader(this).execute("");
 
-        // First, take account for whether the theme was launched normally
-        if (themeMode != null && themeMode.isEmpty()) {
-            try {
-                Context otherContext = context.createPackageContext
-                        (themePid, 0);
-                AssetManager am = otherContext.getAssets();
-                List foundFolders = Arrays.asList(am.list(""));
-                tabChecker = new ArrayList<>();
-                if (!Systems.checkOMS(context)) {
-                    for (int i = 0; i < foundFolders.size(); i++) {
-                        if (Resources.allowedForLegacy
-                                (foundFolders.get(i).toString())) {
-                            tabChecker.add(foundFolders.get(i).toString());
-                        }
+        try {
+            Context otherContext = context.createPackageContext
+                    (themePid, 0);
+            AssetManager am = otherContext.getAssets();
+            List foundFolders = Arrays.asList(am.list(""));
+            tabChecker = new ArrayList<>();
+            if (!Systems.checkOMS(context)) {
+                for (int i = 0; i < foundFolders.size(); i++) {
+                    if (Resources.allowedForLegacy
+                            (foundFolders.get(i).toString())) {
+                        tabChecker.add(foundFolders.get(i).toString());
                     }
-                } else {
-                    tabChecker = Arrays.asList(am.list(""));
                 }
-                boolean isWallpaperOnly = true;
-                if (tabChecker.contains(overlaysFragment)) {
-                    isWallpaperOnly = false;
-                    tabLayout.addTab(tabLayout.newTab().setText(getString(R
-                            .string
-                            .theme_information_tab_one)));
-                }
-                if (tabChecker.contains(bootAnimationsFragment) &&
-                        Resources.isBootAnimationSupported(context)) {
-                    isWallpaperOnly = false;
-                    tabLayout.addTab(tabLayout.newTab().setText(getString(R
-                            .string
-                            .theme_information_tab_two)));
-                }
-                if (tabChecker.contains(shutdownAnimationsFragment) &&
-                        Resources.isShutdownAnimationSupported(context)) {
-                    isWallpaperOnly = false;
-                    tabLayout.addTab(tabLayout.newTab().setText(getString(R
-                            .string
-                            .theme_information_tab_six)));
-                }
-                if (tabChecker.contains(fontsFragment) && Resources.isFontsSupported(context)) {
-                    isWallpaperOnly = false;
-                    tabLayout.addTab(tabLayout.newTab().setText(getString(R
-                            .string
-                            .theme_information_tab_three)));
-                }
-                if (tabChecker.contains(soundsFragment) &&
-                        Resources.isSoundsSupported(context)) {
-                    isWallpaperOnly = false;
-                    tabLayout.addTab(tabLayout.newTab().setText(getString(R
-                            .string
-                            .theme_information_tab_four)));
-                }
-                if ((wallpaperUrl != null) && !wallpaperUrl.isEmpty()) {
-                    tabLayout.addTab(tabLayout.newTab().setText(getString(R
-                            .string
-                            .theme_information_tab_five)));
-                }
-                if (isWallpaperOnly && (wallpaperUrl != null) && !wallpaperUrl.isEmpty()) {
-                    Handler handler = new Handler();
-                    handler.postDelayed(() ->
-                            runOnUiThread(floatingActionButton::hide), 500L);
-                }
-            } catch (Exception e) {
-                Log.e(References.SUBSTRATUM_LOG, "Could not refresh list of asset folders.");
+            } else {
+                tabChecker = Arrays.asList(am.list(""));
             }
-        } else {
-            // At this point, theme was launched in their tab specific sections
-            switch (themeMode) {
-                case overlaysFragment:
-                    tabLayout.addTab(tabLayout.newTab().setText(
-                            getString(R.string.theme_information_tab_one)));
-                    break;
-                case bootAnimationsFragment:
-                    tabLayout.addTab(tabLayout.newTab().setText(
-                            getString(R.string.theme_information_tab_two)));
-                    break;
-                case shutdownAnimationsFragment:
-                    tabLayout.addTab(tabLayout.newTab().setText(
-                            getString(R.string.theme_information_tab_six)));
-                    break;
-                case fontsFragment:
-                    tabLayout.addTab(tabLayout.newTab().setText(
-                            getString(R.string.theme_information_tab_three)));
-                    break;
-                case soundsFragment:
-                    tabLayout.addTab(tabLayout.newTab().setText(
-                            getString(R.string.theme_information_tab_four)));
-                    break;
-                case wallpaperFragment:
-                    tabLayout.addTab(tabLayout.newTab().setText(
-                            getString(R.string.theme_information_tab_five)));
-                    break;
+            boolean isWallpaperOnly = true;
+            if (tabChecker.contains(overlaysFragment)) {
+                isWallpaperOnly = false;
+                tabLayout.addTab(tabLayout.newTab().setText(getString(R
+                        .string
+                        .theme_information_tab_one)));
             }
+            if (tabChecker.contains(bootAnimationsFragment) &&
+                    Resources.isBootAnimationSupported(context)) {
+                isWallpaperOnly = false;
+                tabLayout.addTab(tabLayout.newTab().setText(getString(R
+                        .string
+                        .theme_information_tab_two)));
+            }
+            if (tabChecker.contains(shutdownAnimationsFragment) &&
+                    Resources.isShutdownAnimationSupported(context)) {
+                isWallpaperOnly = false;
+                tabLayout.addTab(tabLayout.newTab().setText(getString(R
+                        .string
+                        .theme_information_tab_six)));
+            }
+            if (tabChecker.contains(fontsFragment) && Resources.isFontsSupported(context)) {
+                isWallpaperOnly = false;
+                tabLayout.addTab(tabLayout.newTab().setText(getString(R
+                        .string
+                        .theme_information_tab_three)));
+            }
+            if (tabChecker.contains(soundsFragment) &&
+                    Resources.isSoundsSupported(context)) {
+                isWallpaperOnly = false;
+                tabLayout.addTab(tabLayout.newTab().setText(getString(R
+                        .string
+                        .theme_information_tab_four)));
+            }
+            if ((wallpaperUrl != null) && !wallpaperUrl.isEmpty()) {
+                tabLayout.addTab(tabLayout.newTab().setText(getString(R
+                        .string
+                        .theme_information_tab_five)));
+            }
+            if (isWallpaperOnly && (wallpaperUrl != null) && !wallpaperUrl.isEmpty()) {
+                Handler handler = new Handler();
+                handler.postDelayed(() ->
+                        runOnUiThread(floatingActionButton::hide), 500L);
+            }
+        } catch (Exception e) {
+            Log.e(References.SUBSTRATUM_LOG, "Could not refresh list of asset folders.");
         }
 
         // Set the tabs to move in a certain way
@@ -719,7 +671,6 @@ public class InformationActivity extends AppCompatActivity {
         IATabsAdapter adapter = new IATabsAdapter(
                 getSupportFragmentManager(),
                 tabLayout.getTabCount(),
-                themeMode,
                 tabChecker,
                 wallpaperUrl,
                 extraHiddenTabs,
@@ -781,7 +732,7 @@ public class InformationActivity extends AppCompatActivity {
                     Intent intent;
                     if (adapt != null) {
                         Object obj = adapt.instantiateItem(viewPager, tabPosition);
-                        switch (obj.getClass().getSimpleName()) {
+                        switch (obj.getClass().getSimpleName().toLowerCase()) {
                             case overlaysFragment:
                                 materialSheetFab.showSheet();
                                 break;
@@ -796,7 +747,7 @@ public class InformationActivity extends AppCompatActivity {
                                 intent = new Intent("Fonts" + START_JOB_ACTION);
                                 localBroadcastManager.sendBroadcast(intent);
                                 break;
-                            case "Sounds":
+                            case "sounds":
                                 intent = new Intent("Sounds" + START_JOB_ACTION);
                                 localBroadcastManager.sendBroadcast(intent);
                                 break;
@@ -1521,7 +1472,7 @@ public class InformationActivity extends AppCompatActivity {
                     finish();
                     Handler handler = new Handler();
                     handler.postDelayed(() ->
-                            Theming.launchTheme(context, themePid, themeMode), 500L);
+                            Theming.launchTheme(context, themePid), 500L);
                 }
             } else if (compilingProcess) {
                 Log.d(SUBSTRATUM_LOG,

@@ -42,7 +42,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
@@ -149,11 +148,6 @@ public class ShowcaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPreferences prefs =
-                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        boolean bottomBarUi = !prefs.getBoolean("advanced_ui", false);
-        if (bottomBarUi) setTheme(R.style.AppTheme_SpecialUI);
-
         this.savedInstanceState = savedInstanceState;
         super.onCreate(savedInstanceState);
 
@@ -164,7 +158,8 @@ public class ShowcaseActivity extends AppCompatActivity {
         toolbar = binding.toolbar;
         masterView = binding.rootView;
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences prefs =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         Substratum.setLocale(prefs.getBoolean("force_english_locale", false));
 
@@ -175,18 +170,6 @@ public class ShowcaseActivity extends AppCompatActivity {
             getSupportActionBar().setTitle(R.string.showcase);
         }
         toolbar.setNavigationOnClickListener((view) -> onBackPressed());
-
-        if (bottomBarUi) {
-            // Change the toolbar title size
-            for (int i = 0; i < toolbar.getChildCount(); i++) {
-                View child = toolbar.getChildAt(i);
-                if (child instanceof TextView) {
-                    TextView textView = ((TextView) child);
-                    textView.setTextSize(22);
-                    break;
-                }
-            }
-        }
 
         File showcase_directory =
                 new File(getApplicationContext().getCacheDir() + SHOWCASE_CACHE);

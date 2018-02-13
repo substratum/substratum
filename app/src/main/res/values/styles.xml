@@ -50,20 +50,6 @@
         <item name="android:colorBackgroundCacheHint">@null</item>
     </style>
 
-    <style name="AppTheme.SpecialUI" parent="AppTheme">
-        <item name="fontFamily">@font/global_app_font</item>
-    </style>
-
-    <style name="AppTheme.SpecialUI.InformationActivity" parent="AppTheme.SpecialUI">
-        <item name="android:windowActionBarOverlay">true</item>
-        <item name="android:windowLightStatusBar">false</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@color/information_activity_background_shadow</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-    </style>
-
     <style name="ToolbarTheme" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@color/colorAccent</item>
     </style>

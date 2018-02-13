@@ -349,11 +349,9 @@ public class ManagerFragment extends Fragment implements SearchView.OnQueryTextL
      */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
         inflater.inflate(R.menu.overlays_list_menu, menu);
-        menu.findItem(R.id.restart_systemui).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        menu.findItem(R.id.per_app).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         menu.findItem(R.id.action_search).setVisible(true);
-        menu.findItem(R.id.action_search).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         assert getActivity() != null;
         searchView = ((MainActivity) getActivity()).searchView;
         if (searchView != null) searchView.setOnQueryTextListener(this);

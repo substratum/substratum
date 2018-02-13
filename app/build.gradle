@@ -50,8 +50,8 @@ android {
         applicationId "projekt.substratum"
         minSdkVersion 24
         targetSdkVersion 27
-        versionCode 953
-        versionName "nine hundred fifty three"
+        versionCode 954
+        versionName "nine hundred fifty four"
         buildConfigField "java.util.Date", "buildTime", "new java.util.Date(" + System.currentTimeMillis() + "L)"
         buildConfigField "String", "GIT_HASH", "\"${gitHash()}\""
     }
@@ -158,7 +158,6 @@ dependencies {
     implementation 'com.thesurix.gesturerecycler:gesture-recycler:1.4.1'
 
     // ZT Zip
-
     //noinspection GradleDependency
     implementation 'org.zeroturnaround:zt-zip:1.8'
 

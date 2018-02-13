@@ -42,7 +42,6 @@ import static projekt.substratum.common.Internal.THEME_HASH;
 import static projekt.substratum.common.Internal.THEME_HASHPASSTHROUGH;
 import static projekt.substratum.common.Internal.THEME_LAUNCH_TYPE;
 import static projekt.substratum.common.Internal.THEME_LEGACY;
-import static projekt.substratum.common.Internal.THEME_MODE;
 import static projekt.substratum.common.Internal.THEME_NAME;
 import static projekt.substratum.common.Internal.THEME_OMS;
 import static projekt.substratum.common.Internal.THEME_PACKAGE;
@@ -53,7 +52,6 @@ import static projekt.substratum.common.References.SUBSTRATUM_LAUNCHER_CLASS;
 public class ThemeLaunchActivity extends Activity {
 
     private String packageName;
-    private String themeMode;
     private boolean legacyTheme = false;
 
     /**
@@ -63,7 +61,6 @@ public class ThemeLaunchActivity extends Activity {
      * @param themeName        Theme name
      * @param themeAuthor      Theme author
      * @param themePid         Theme package name
-     * @param themeMode        Theme mode
      * @param themeHash        Theme hash
      * @param themeLaunchType  Theme launch type
      * @param themeDebug       Theme debug
@@ -77,7 +74,6 @@ public class ThemeLaunchActivity extends Activity {
                                               String themeName,
                                               String themeAuthor,
                                               String themePid,
-                                              String themeMode,
                                               Serializable themeHash,
                                               Serializable themeLaunchType,
                                               Serializable themeDebug,
@@ -93,7 +89,6 @@ public class ThemeLaunchActivity extends Activity {
         intent.putExtra(THEME_NAME, themeName);
         intent.putExtra(THEME_AUTHOR, themeAuthor);
         intent.putExtra(THEME_PID, themePid);
-        intent.putExtra(THEME_MODE, themeMode);
         intent.putExtra(THEME_HASH, themeHash);
         intent.putExtra(THEME_LAUNCH_TYPE, themeLaunchType);
         intent.putExtra(THEME_DEBUG, themeDebug);
@@ -112,7 +107,6 @@ public class ThemeLaunchActivity extends Activity {
         Intent activityExtras = getIntent();
         packageName = activityExtras.getStringExtra(THEME_PACKAGE);
         boolean omsCheck = activityExtras.getBooleanExtra(THEME_OMS, false);
-        themeMode = activityExtras.getStringExtra(THEME_MODE);
         Integer hashPassthrough = activityExtras.getIntExtra(THEME_HASHPASSTHROUGH, 0);
         boolean certified = activityExtras.getBooleanExtra(THEME_CERTIFIED, true);
         String action = activityExtras.getAction();
@@ -124,7 +118,6 @@ public class ThemeLaunchActivity extends Activity {
         myIntent.putExtra(THEME_HASHPASSTHROUGH, hashPassthrough);
         myIntent.putExtra(THEME_LEGACY, omsCheck);
         myIntent.putExtra(THEME_CALLER, themeCaller);
-        myIntent.putExtra(THEME_MODE, themeMode);
         myIntent.setAction(action);
         myIntent.setPackage(packageName);
         myIntent.setClassName(this.packageName, this.packageName + SUBSTRATUM_LAUNCHER_CLASS);
@@ -155,7 +148,6 @@ public class ThemeLaunchActivity extends Activity {
                 String themeName = intent.getString(THEME_NAME);
                 String themeAuthor = intent.getString(THEME_AUTHOR);
                 String themePid = intent.getString(THEME_PID);
-                String themeMode = intent.getString(THEME_MODE);
                 Integer themeHash = intent.getInt(THEME_HASH);
                 boolean themeLaunchType = intent.getBoolean(THEME_LAUNCH_TYPE);
                 boolean themeDebug = intent.getBoolean(THEME_DEBUG);
@@ -169,7 +161,6 @@ public class ThemeLaunchActivity extends Activity {
                                 themeName,
                                 themeAuthor,
                                 themePid,
-                                themeMode,
                                 themeHash,
                                 themeLaunchType,
                                 themeDebug,
@@ -186,7 +177,6 @@ public class ThemeLaunchActivity extends Activity {
                             Packages.getPackageName(Substratum.getInstance(), packageName),
                             null,
                             packageName,
-                            themeMode,
                             null,
                             null,
                             null,

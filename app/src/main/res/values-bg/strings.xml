@@ -35,8 +35,6 @@
     <string name="resource_commit_dialog_title">Липсват източници в %s</string>
     <string name="showcase_no_connection">каталогът на темите изисква интернет връзка, за да функционира!    </string>
     <string name="failed_to_install_title_notification">Грешка в инсталирането на OMS тема</string>
-    <string name="actionbar_theme_count_singular">%s тема</string>
-    <string name="actionbar_theme_count_plural">%s теми</string>
     <string name="actionbar_theme_count_loading">зареждане&#8230;</string>
     <string name="actionbar_search">Търси</string>
     <string name="actionbar_changelog">Изменения на темата</string>
@@ -125,8 +123,6 @@
     <string name="theme_information_tab_four">Звукови пакети</string>
     <string name="theme_information_tab_five">Тапети</string>
     <string name="theme_information_tab_six">Изключващи анимации</string>
-    <string name="nougat_style_cards_title">Картички в стил Nougat</string>
-    <string name="nougat_style_cards_subtext">Включи Android Nougat оформяне на карти.</string>
     <string name="uninstall_dialog_text">Наистина ли искате да деинсталирате тази тема?</string>
     <string name="manage_dialog_performing">Възстановяване на стандартното&#8230;</string>
     <string name="manage_bootanimation_title">Възстановяване на зареждащата анимация</string>
@@ -250,13 +246,6 @@
     <string name="settings_title_1">Потребителски настройки</string>
     <string name="settings_title_3">Оформление</string>
     <string name="settings_title_clickable">Системни настройки</string>
-    <string name="substratum_restart_toast">Substratum се рестартира успешно след промяна в настройките.</string>
-    <string name="restart_systemui">Активиране на повторно създаване на SystemUI</string>
-    <string name="restart_systemui_subtext">Автоматично да се пресъздаде SystemUI след включване/изключване на SystemUI слой</string>
-    <string name="restart_systemui_toast_enabled">SystemUI ще пресъздаде динамично вместо рестартиране!</string>
-    <string name="restart_systemui_toast_disabled">SystemUI ще се рестартира автоматично вместо пресъздаване!</string>
-    <string name="show_theme_template_version">Покажи разширена информация на темата</string>
-    <string name="show_theme_template_version_description">Показване на всяко предназначено SDK за тема, и плъгин версия на всяка от картите на тема.</string>
     <string name="vibrate_on_compiled">Уведоми ме след като е компилирана тема</string>
     <string name="vibrate_on_compiled_description">Когато темата е била съставена, вибрирай на устройството да уведомява потребителя, че компилацията е завършила.</string>
     <string name="manage_notification_channel">Управление на известията</string>
@@ -267,8 +256,6 @@
     <string name="hide_app_icon_supported">Това ще ви позволи да превключвате между иконата на стартера, видима или невидима на екрана вкъщи.</string>
     <string name="disable_completion">Сега са деактивират всички слоеве за тази тема&#8230;</string>
     <string name="enable_completion">Сега са активират всички слоеве за тази тема&#8230;</string>
-    <string name="alternate_drawer_design_title">Алтернативен дизайн на менюто</string>
-    <string name="alternate_drawer_design_subtext">Алтернативен дизайн на менюто.</string>
     <string name="logchar_autosave_title">Запази LogChar доклади</string>
     <string name="logchar_autosave_subtext">Всички LogChar доклади ще бъдат съхранявани в /storage/emulated/0/substratum/LogCharReports/.</string>
     <string name="auto_disable_target_overlays">Авто-изключване на други слоеве за целта</string>
@@ -366,45 +353,17 @@
     <string name="notification_overlay_found_specific">Пласт за %s е в %s!</string>
     <string name="notification_overlay_found_description">Можете да отворите темата чрез натискане на това известие!</string>
     <string name="error_activity_button_disable_overlays">Спаси ме!</string>
-    <string name="restore_info_dialog_title">Внимание</string>
-    <string name="restore_bootanimation_text">Зареждаща анимация</string>
-    <string name="restore_bootanimation_summary">Тази функция премахва предишно избрани зареждащи анимации и възстановява тази по подразбиране\n</string>
-    <string name="restore_overlay_text">Тема</string>
-    <string name="restore_overlay_summary">Тази функция премахва всички предишно приложени пластове, деинсталирайки или деактивирайки ги, като по този начин се възстановява системната тема.\n</string>
-    <string name="restore_sounds_text">Звукове</string>
-    <string name="restore_sounds_summary">Тази функция премахва предишно приложените звукови пакети и възстановява тези по подразбиране\n</string>
-    <string name="restore_wallpaper_text">Тапет</string>
-    <string name="restore_fonts_text">Шрифтови пакети</string>
-    <string name="restore_fonts_summary">Тази функция премахва предишно приложените шрифтови пакети и възстановява тези по подразбиране\n</string>
     <!-- Notification channel -->
     <string name="notification_channel_default">По подразбиране</string>
     <!-- Nav drawer -->
     <string name="nav_home">Теми</string>
-    <string name="nav_overlays">Слоеве</string>
-    <string name="nav_bootanim">Зареждащи анимации</string>
-    <string name="nav_shutdownanim">Изключващи анимации</string>
-    <string name="nav_fonts">Шрифтови пакети</string>
-    <string name="nav_sounds">Звукови пакети</string>
-    <string name="nav_wallpapers">Тапети</string>
     <!-- Utilities -->
-    <string name="nav_section_header_utilities">Инструменти</string>
     <string name="nav_priorities">Приоритети</string>
     <string name="nav_backup_restore">Профили</string>
     <!-- Community -->
-    <string name="nav_section_header_get_involved">Общност</string>
-    <string name="nav_drawer_community">Групи &amp; общностти</string>
-    <string name="nav_drawer_googleplus">Google+ общност</string>
-    <string name="nav_drawer_telegram">Групов чат в Telegram</string>
     <!-- Featured content -->
-    <string name="nav_drawer_featured">Препоръчано</string>
     <!-- Resources -->
-    <string name="nav_drawer_resources">Ресурси</string>
-    <string name="nav_drawer_homepage">Официална страница</string>
-    <string name="nav_drawer_template">Шаблон на тема (Themers)</string>
     <!-- More -->
-    <string name="nav_section_header_more">Повече</string>
-    <string name="nav_team_contributors">Екип &amp; Сътрудници</string>
-    <string name="nav_opensource">Лицензи</string>
     <string name="nav_settings">Настройки</string>
     <string name="title_activity_manage_space">Управление на паметта</string>
     <string name="manage_space_cache_text_title">Изчистване на кеш</string>
@@ -412,5 +371,4 @@
     <string name="manage_space_reset_text_title">Нулиране на настройки</string>
     <string name="manage_space_reset_dialog_title">Да се нулират ли настройките?</string>
     <string name="manage_space_reset_dialog_content">Приложението ще се затвори, след като нулирането е готово!</string>
-    <string name="auto_reload_sysui_dialog_title">Внимание!</string>
 </resources>

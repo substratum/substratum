@@ -131,7 +131,6 @@ public class OverlayFound extends BroadcastReceiver {
                 Intent notificationIntent = Theming.themeIntent(
                         overlayFound.context,
                         theme_package,
-                        null,
                         References.TEMPLATE_THEME_MODE
                 );
                 PendingIntent contentIntent = PendingIntent.getActivity(

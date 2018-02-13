@@ -568,10 +568,7 @@ public enum References {
                 context.getSharedPreferences("base_variant", Context.MODE_PRIVATE).edit();
         editor.putBoolean("show_app_icon", true);
         editor.putBoolean("oms_state", Systems.checkOMS(context));
-        editor.putBoolean("show_template_version", false);
         editor.putBoolean("vibrate_on_compiled", false);
-        editor.putBoolean("nougat_style_cards", false);
-        editor.putBoolean("alternate_drawer_design", false);
         editor.putBoolean("theme_debug", false);
         editor.putBoolean("force_english_locale", false);
         editor.putBoolean("floatui_show_android_system_overlays", false);
@@ -590,7 +587,6 @@ public enum References {
         editor.putBoolean("auto_disable_target_overlays", false);
         editor.putInt("grid_style_cards_count", DEFAULT_GRID_COUNT);
         editor.putInt("legacy_overlay_priority", DEFAULT_PRIORITY);
-        editor.remove("seen_restore_warning");
         editor.remove("previous_logchar_cleanup");
         editor.remove("seen_legacy_warning");
         editor2.clear();

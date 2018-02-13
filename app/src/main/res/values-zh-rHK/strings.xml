@@ -24,8 +24,6 @@
     <string name="resource_commit_dialog_title">在 %s 中缺少資源</string>
     <string name="showcase_no_connection">主題展示需要網路連接    </string>
     <string name="failed_to_install_title_notification">安裝OMS主題失敗</string>
-    <string name="actionbar_theme_count_singular">%s 個主題</string>
-    <string name="actionbar_theme_count_plural">%s 個主題</string>
     <string name="actionbar_theme_count_loading">載入中&#8230;</string>
     <string name="actionbar_search">搜尋</string>
     <string name="actionbar_changelog">主題更新日誌</string>
@@ -192,23 +190,15 @@
     <string name="profile_sound">音效</string>
     <string name="profile_wallpaper">牆紙</string>
     <string name="profile_dialog_ok">確定</string>
-    <string name="restore_sounds_text">音效</string>
-    <string name="restore_wallpaper_text">桌布</string>
     <!-- Notification channel -->
     <!-- Nav drawer -->
-    <string name="nav_overlays">Overlays</string>
-    <string name="nav_bootanim">開機動畫</string>
-    <string name="nav_wallpapers">牆紙</string>
     <!-- Utilities -->
-    <string name="nav_section_header_utilities">工具</string>
     <string name="nav_priorities">優先順序</string>
     <string name="nav_backup_restore">設定檔</string>
     <!-- Community -->
     <!-- Featured content -->
     <!-- Resources -->
     <!-- More -->
-    <string name="nav_section_header_more">更多</string>
-    <string name="nav_opensource">授權</string>
     <string name="nav_settings">設定</string>
     <string name="clear_cache_button_loading">載入中&#8230;</string>
     <string name="overlays_tab_package_ver_message">已安裝 %s 版本：%s</string>

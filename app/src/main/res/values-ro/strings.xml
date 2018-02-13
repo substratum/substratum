@@ -32,8 +32,6 @@
       funcționa!
     </string>
     <string name="failed_to_install_title_notification">Eroare instalare tema OMS</string>
-    <string name="actionbar_theme_count_singular">%s temă</string>
-    <string name="actionbar_theme_count_plural">%s teme</string>
     <string name="actionbar_theme_count_loading">încărcare&#8230;</string>
     <string name="actionbar_search">Căutare</string>
     <string name="actionbar_changelog">Noutăți temă</string>
@@ -101,9 +99,6 @@
     <string name="profile_wallpaper">Fundaluri</string>
     <!-- Notification channel -->
     <!-- Nav drawer -->
-    <string name="nav_bootanim">Animație pornire</string>
-    <string name="nav_shutdownanim">Animație oprire</string>
-    <string name="nav_wallpapers">Fundaluri</string>
     <!-- Utilities -->
     <!-- Community -->
     <!-- Featured content -->

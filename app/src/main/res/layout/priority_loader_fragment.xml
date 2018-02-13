@@ -69,6 +69,7 @@
                     android:layout_below="@+id/no_themes_installed"
                     android:layout_gravity="center"
                     android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:text="@string/priority_no_multiple_overlays_title"
@@ -84,12 +85,12 @@
                     android:layout_below="@+id/no_themes_title"
                     android:layout_gravity="center"
                     android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
                     android:gravity="center"
                     android:text="@string/priority_no_multiple_overlays_text"
                     android:textAllCaps="true"
                     android:textColor="@color/main_screen_card_theme_title"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textSize="16sp" />
             </RelativeLayout>
 
         </RelativeLayout>

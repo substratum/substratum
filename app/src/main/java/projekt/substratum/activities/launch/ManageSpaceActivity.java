@@ -19,18 +19,15 @@
 package projekt.substratum.activities.launch;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Process;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.format.Formatter;
-import android.view.View;
 import android.widget.TextView;
 
 import java.io.File;
@@ -55,12 +52,6 @@ public class ManageSpaceActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        SharedPreferences prefs =
-                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        // Check if we should activate the custom font
-        boolean bottomBarUi = !prefs.getBoolean("advanced_ui", false);
-        if (bottomBarUi) setTheme(R.style.AppTheme_SpecialUI);
-
         super.onCreate(savedInstanceState);
 
         ManageSpaceActivityBinding activityManageSpaceBinding =
@@ -78,18 +69,6 @@ public class ManageSpaceActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
-
-        if (bottomBarUi) {
-            // Change the toolbar title size
-            for (int i = 0; i < toolbar.getChildCount(); i++) {
-                View child = toolbar.getChildAt(i);
-                if (child instanceof TextView) {
-                    TextView textView = ((TextView) child);
-                    textView.setTextSize(22);
-                    break;
-                }
-            }
-        }
 
         cacheCounter.setText(getString(R.string.clear_cache_button_loading));
         cacheCounter.setText(Formatter.formatFileSize(this, getFileSize(getCacheDir())));

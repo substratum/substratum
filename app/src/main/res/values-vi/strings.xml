@@ -27,8 +27,6 @@
     <string name="resource_commit_dialog_title">Thiếu nguồn trong %s</string>
     <string name="showcase_no_connection">cửa hàng chủ đề cần phải có kết nối internet để hoạt động!    </string>
     <string name="failed_to_install_title_notification">Không thể cài đặt chủ đề OMS</string>
-    <string name="actionbar_theme_count_singular">%s chủ đề</string>
-    <string name="actionbar_theme_count_plural">%s chủ đề</string>
     <string name="actionbar_theme_count_loading">đang tải&#8230;</string>
     <string name="actionbar_search">Tìm kiếm</string>
     <string name="actionbar_changelog">Các thay đổi của chủ đề</string>
@@ -168,8 +166,6 @@ Substratum sử dụng Firebase của Google để tải xuống thông tin quan
     <string name="profile_dialog_ok">OK</string>
     <!-- Notification channel -->
     <!-- Nav drawer -->
-    <string name="nav_bootanim">Hoạt ảnh khởi động</string>
-    <string name="nav_wallpapers">Hình nền</string>
     <!-- Utilities -->
     <!-- Community -->
     <!-- Featured content -->

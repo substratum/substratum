@@ -21,7 +21,6 @@
     <string name="legacy_app_name" translatable="false">substratum legacy</string>
     <string name="samsung_app_name" translatable="false">sungstratum</string>
     <string name="showcase">showcase</string>
-    <string name="drawer_name" translatable="false">projekt substratum</string>
 
     <string name="android">Android version:</string>
     <string name="device">Device model:</string>
@@ -43,7 +42,6 @@
     <string name="validator_o_whitelist_url" translatable="false">"https://raw.githubusercontent.com/substratum/database/master/commit_whitelist_o.xml"</string>
     <string name="andromeda_url" translatable="false">https://play.google.com/store/apps/details?id=projekt.andromeda</string>
     <string name="sungstratum_url" translatable="false">https://play.google.com/store/apps/details?id=projekt.sungstratum</string>
-    <string name="xda_sungstratum_link" translatable="false">https://forum.xda-developers.com/apps/substratum/7-0-substratum-sex-tw-beta-t3620796</string>
 
     <string name="resource_checker">Commit Validator</string>
     <string name="resource_checker_commons">Framework</string>
@@ -74,12 +72,10 @@
 
     <string name="refused_to_install_notification_button">Remove Theme</string>
     <string name="refused_to_install_title_notification">Themer rejected theme installed on Samsung.</string>
-    <string name="refused_to_install_text_notification">%s failed to install.</string>
+    <string name="refused_to_install_text_notification" formatted="false">%s failed to install.</string>
     <string name="failed_to_install_title_notification">Failed to install OMS theme</string>
-    <string name="failed_to_install_text_notification">%s failed to install.</string>
+    <string name="failed_to_install_text_notification" formatted="false">%s failed to install.</string>
 
-    <string name="actionbar_theme_count_singular">%s theme</string>
-    <string name="actionbar_theme_count_plural">%s themes</string>
     <string name="actionbar_theme_count_loading">loading&#8230;</string>
     <string name="actionbar_search">Search</string>
     <string name="actionbar_changelog">Theme Changelog</string>
@@ -130,13 +126,13 @@
     <string name="rescue_toast">Rescuing your system&#8230;</string>
 
     <string name="reboot_awaiting_manager_title">ERROR READING OVERLAY</string>
-    <string name="manager_theme_name">Theme: %s</string>
-    <string name="manager_type1a">Type1a: %s</string>
-    <string name="manager_type1b">Type1b: %s</string>
-    <string name="manager_type1c">Type1c: %s</string>
-    <string name="manager_type2">Type2: %s</string>
-    <string name="manager_type3">Type3: %s</string>
-    <string name="manager_type4">Type4: %s</string>
+    <string name="manager_theme_name" formatted="false">Theme: %s</string>
+    <string name="manager_type1a" formatted="false">Type1a: %s</string>
+    <string name="manager_type1b" formatted="false">Type1b: %s</string>
+    <string name="manager_type1c" formatted="false">Type1c: %s</string>
+    <string name="manager_type2" formatted="false">Type2: %s</string>
+    <string name="manager_type3" formatted="false">Type3: %s</string>
+    <string name="manager_type4" formatted="false">Type4: %s</string>
 
     <string name="priorities_theme_name">Theme:</string>
     <string name="priorities_type1a">Type1a:</string>
@@ -151,20 +147,20 @@
     <string name="information_activity_theme_improperly_setup" formatted="false">"%s" has no available resources for theming!</string>
 
     <string name="legacy_preference_priority_title">Overlay priority adjustment</string>
-    <string name="legacy_preference_priority_text">Priority is set at (default %d): %d</string>
+    <string name="legacy_preference_priority_text" formatted="false">Priority is set at (default %d): %d</string>
 
     <string name="grid_size_title">Theme display column adjustment</string>
-    <string name="grid_size_text">Column count is set to (default %d): %d</string>
+    <string name="grid_size_text" formatted="false">Column count is set to (default %d): %d</string>
 
-    <string name="overlays_variant_substitute">%s&#8230;</string>
+    <string name="overlays_variant_substitute" formatted="false">%s&#8230;</string>
     <string name="overlays_variant_default_1a">type1a variant&#8230;</string>
     <string name="overlays_variant_default_1b">type1b variant&#8230;</string>
     <string name="overlays_variant_default_1c">type1c variant&#8230;</string>
     <string name="overlays_variant_default_2">type2 variant&#8230;</string>
     <string name="overlays_variant_default_3">default base variant&#8230;</string>
     <string name="overlays_variant_default_4">type4 variant&#8230;</string>
-    <string name="overlays_up_to_date">UP-TO-DATE (%s)</string>
-    <string name="overlays_update_available">Update available!\n(%s)</string>
+    <string name="overlays_up_to_date" formatted="false">UP-TO-DATE (%s)</string>
+    <string name="overlays_update_available" formatted="false">Update available!\n(%s)</string>
     <string name="overlays_overlay_not_installed">Variant not installed</string>
 
     <string name="shutdownanimation_placeholder_text">Please select a shutdown animation from the dropdown
@@ -187,7 +183,7 @@
 
     <string name="wallpaper_dialog_wallpaper">Home screen wallpaper</string>
     <string name="wallpaper_dialog_lockscreen">Lock screen wallpaper</string>
-    <string name="wallpaper_dialog_wallpaper_both">Home and Lock screen wallpaper</string>
+    <string name="wallpaper_dialog_wallpaper_both">Home and lock screen wallpapers</string>
     <string name="wallpaper_downloading">Loading the image into the cache&#8230;</string>
     <string name="wallpaper_allscreen_success">Both home and lock screen wallpapers configured!
     </string>
@@ -255,18 +251,15 @@
     <string name="theme_information_tab_five">Wallpapers</string>
     <string name="theme_information_tab_six">Shutdown animations</string>
 
-    <string name="nougat_style_cards_title">Nougat style card layout</string>
-    <string name="nougat_style_cards_subtext">Enable Android Nougat notification styled theme cards.</string>
-
     <string name="uninstall_dialog_text">Are you sure you want to uninstall this theme?</string>
 
     <string name="manage_dialog_performing">Restoring to default&#8230;</string>
-    <string name="manage_bootanimation_title">Restore Boot Animation</string>
+    <string name="manage_bootanimation_title">Restore boot animation</string>
     <string name="manage_bootanimation_toast">Boot animation restored successfully!</string>
     <string name="manage_shutdownanimation_toast">Shutdown animation restored successfully!</string>
-    <string name="manage_fonts_title">Restore System Font</string>
+    <string name="manage_fonts_title">Restore system font</string>
     <string name="manage_fonts_toast">Fonts restored successfully!</string>
-    <string name="manage_sounds_title">Restore System Sounds</string>
+    <string name="manage_sounds_title">Restore system sounds</string>
     <string name="manage_sounds_toast">Default sounds restored successfully!</string>
     <string name="manage_system_overlay_disable">Disable all enabled overlays</string>
     <string name="manage_system_overlay_uninstall">Uninstall all installed overlays</string>
@@ -274,14 +267,14 @@
     <string name="manage_system_overlay_uninstall_toast">Overlays are now uninstalling in the
       background&#8230;</string>
     <string name="manage_system_not_permitted">Please select a valid overlay to change states.</string>
-    <string name="manage_wallpaper_home">Home screen wallpaper</string>
-    <string name="manage_wallpaper_lock">Lock screen wallpaper</string>
-    <string name="manage_wallpaper_all">Home and Lock screen wallpaper</string>
+    <string name="manage_wallpaper_home">Restore home screen wallpaper</string>
+    <string name="manage_wallpaper_lock">Restore lock screen wallpaper</string>
+    <string name="manage_wallpaper_all">Restore home and lock screen wallpapers</string>
     <string name="manage_wallpaper_home_toast">Home screen wallpaper restored successfully!</string>
     <string name="manage_wallpaper_lock_toast">Lock screen wallpaper restored successfully!</string>
     <string name="manage_wallpaper_all_toast">Wallpaper restored successfully!</string>
 
-    <string name="adapter_uninstalling">Now removing %s&#8230;</string>
+    <string name="adapter_uninstalling" formatted="false">Now removing %s&#8230;</string>
 
     <string name="plugin_template">Plugin</string>
     <string name="api_24">Nougat</string>
@@ -320,13 +313,13 @@
     <string name="menu_restore_info">Restore info</string>
     <string name="menu_showcase_info">Showcase info</string>
 
-    <string name="menu_favorite_snackbar">Successfully set %s as an app shortcut!</string>
-    <string name="menu_favorite_snackbar_cleared">Removed %s from being an app shortcut.</string>
+    <string name="menu_favorite_snackbar" formatted="false">Successfully set %s as an app shortcut!</string>
+    <string name="menu_favorite_snackbar_cleared" formatted="false">Removed %s from being an app shortcut.</string>
 
     <string name="launcher_shortcut">Shortcut on Launcher</string>
     <string name="launcher_shortcut_toast">Successfully created a launcher icon!</string>
 
-    <string name="changelog_title">%s theme changelog</string>
+    <string name="changelog_title" formatted="false">%s theme changelog</string>
 
     <string name="dialog_restart_systemui_title">Restart SystemUI</string>
     <string name="dialog_restart_systemui_content">This will perform a SystemUI restart on your device.</string>
@@ -347,11 +340,11 @@
     <string name="logcat_dialog_copy_success">Successfully copied error log to clipboard!</string>
     <string name="logcat_email_subject" translatable="false">
       %s: Theme Bug Report</string>
-    <string name="logcat_email_body" translatable="false">
+    <string name="logcat_email_body" formatted="false" translatable="false">
       Hey %s,\n\nI have an issue with %s, and would
       like to see if you could help me resolve this issue.
     </string>
-    <string name="logcat_attachment_body" translatable="false">
+    <string name="logcat_attachment_body" formatted="false" translatable="false">
       Theme Name:\n%s\n\nDevice:\n%s\n\nROM:\n%s\n\nSubstratum Version:\n%s\n\nTheme Version:\n%s\n\nTarget Package(s):\n%s\nReport:\n%s
     </string>
     <string name="logcat_send">Send</string>
@@ -370,13 +363,12 @@
       \n
       \nFor Nougat devices, the bottom overlay is the highest (inverted).
     </string>
-    <string name="priority_no_multiple_overlays_title">no apps with multiple
-      overlays&#8230;</string>
+    <string name="priority_no_multiple_overlays_title">no apps with multiple overlays</string>
     <string name="priority_no_multiple_overlays_text">enable two or more overlays on one app to use
       me!
     </string>
 
-    <string name="manager_no_overlays_title">no overlays installed&#8230;</string>
+    <string name="manager_no_overlays_title">no overlays installed</string>
     <string name="manager_no_overlays_text">compile one overlay to be able to use me!</string>
 
     <string name="backup">Backup Card</string>
@@ -385,7 +377,7 @@
     </string>
     <string name="delete_dialog_okay">Delete</string>
     <string name="delete_dialog_title">Delete profile</string>
-    <string name="delete_dialog_text">Are you sure you want to delete \"%s\"?</string>
+    <string name="delete_dialog_text" formatted="false">Are you sure you want to delete \"%s\"?</string>
     <string name="restore">Restore Card</string>
     <string name="restore_card_content">When a profile is loaded, your current setup is completely
       wiped and \"restore theme\" would take on the updated changes.
@@ -410,7 +402,7 @@
     </string>
     <string name="profile_edittext_title">New Profile:</string>
     <string name="profile_edittext_whitespace_warning_toast">Cannot use whitespace inside profile name!</string>
-    <string name="toast_backup_success">Current overlay list saved to
+    <string name="toast_backup_success" formatted="false">Current overlay list saved to
       \"/storage/emulated/0/substratum/profiles/%s\"
     </string>
     <string name="profile_restoration_message">Processing profile restoration&#8230;</string>
@@ -438,7 +430,8 @@
     <string name="root_rejected_title">could not fall back to rooted mode</string>
     <string name="root_rejected_text">there are no other theme engines able to be utilized on this device at this current time&#8230;</string>
 
-    <string name="toast_activity_finished">%s was just updated, relaunching for new changes!</string>
+    <string name="toast_activity_finished" formatted="false">%s was just updated, relaunching for new
+        changes!</string>
     <string name="toast_compiled_updated">Selected overlay(s) updated!</string>
     <string name="toast_compiled_missing">One or more overlays cannot compile due to missing configurations under this set up&#8230;</string>
     <string name="toast_compiled_updated_with_errors">Selected overlay(s) updated with some errors!</string>
@@ -448,8 +441,10 @@
     <string name="no_themes_title">no themes found&#8230;</string>
     <string name="no_overlays_title">no overlays found&#8230;</string>
     <string name="no_themes_description">please install a compatible theme!</string>
-    <string name="no_themes_description_search">\"%s\" was not found in the list of themes installed&#8230;</string>
-    <string name="no_overlays_description_search">\"%s\" was not found in the list of overlays installed&#8230;</string>
+    <string name="no_themes_description_search" formatted="false">\"%s\" was not found in the list of themes
+        installed&#8230;</string>
+    <string name="no_overlays_description_search" formatted="false">\"%s\" was not found in the list of
+        overlays installed&#8230;</string>
 
     <string name="toast_andromeda_timed_out">There is a delay with the Andromeda Backend, please relaunch Substratum.</string>
     <string name="toast_could_not_uninstall">No valid overlays selected.</string>
@@ -473,11 +468,12 @@
     <string name="notification_theme_updated_content">Resources successfully updated.</string>
 
     <string name="notification_initial_title">Substratum is running</string>
-    <string name="notification_initial_title_upgrade_intent">Upgrading %s\'s overlays&#8230;</string>
+    <string name="notification_initial_title_upgrade_intent" formatted="false">Upgrading %s\'s
+        overlays&#8230;</string>
     <string name="notification_done_title">Theme compilation has completed</string>
-    <string name="notification_done_upgrade_title">Overlay refresh has completed for %s!</string>
-    <string name="notification_done_upgrade_title_warning">Overlay refresh partially completed for %s!</string>
-    <string name="notification_done_upgrade_title_failed">Missing or unbuildable configuration:\n\n%s</string>
+    <string name="notification_done_upgrade_title" formatted="false">Overlay refresh has completed for %s!</string>
+    <string name="notification_done_upgrade_title_warning" formatted="false">Overlay refresh partially completed for %s!</string>
+    <string name="notification_done_upgrade_title_failed" formatted="false">Missing or unbuildable configuration:\n\n%s</string>
     <string name="notification_done_update_text">All overlays for this app have been updated.</string>
     <string name="notification_done_upgrade_text">All overlays for this theme have been updated.</string>
     <string name="notification_no_errors_found">No errors while installing selected overlays</string>
@@ -497,13 +493,6 @@
     <string name="settings_title_1">User preferences</string>
     <string name="settings_title_3">Theming</string>
     <string name="settings_title_clickable">System preferences</string>
-    <string name="substratum_restart_toast">Substratum restarted automatically after a settings change.</string>
-    <string name="restart_systemui">Post-enable SystemUI recreate</string>
-    <string name="restart_systemui_subtext">Automatically recreate the SystemUI after enabling/disabling a SystemUI overlay</string>
-    <string name="restart_systemui_toast_enabled">SystemUI will recreate dynamically instead of restarting!</string>
-    <string name="restart_systemui_toast_disabled">SystemUI will restart automatically instead of recreating!</string>
-    <string name="show_theme_template_version">Show advanced theme information</string>
-    <string name="show_theme_template_version_description">Show each theme\'s target SDK levels, theme version and plugin version as a tag on each of the theme cards.</string>
     <string name="vibrate_on_compiled">Notify after theme is compiled</string>
     <string name="vibrate_on_compiled_description">When the theme has been compiled, vibrate the device to notify the user that the compilation has completed.</string>
     <string name="manage_notification_channel">Manage notifications</string>
@@ -514,8 +503,6 @@
     <string name="hide_app_icon_supported">This will allow you to toggle between having the launcher icon visible or invisible on your home screen.</string>
     <string name="disable_completion">All overlays for this theme are now deactivating&#8230;</string>
     <string name="enable_completion">All installed overlays for this theme are now activating&#8230;</string>
-    <string name="alternate_drawer_design_title">Secondary drawer design</string>
-    <string name="alternate_drawer_design_subtext">An alternative navigation drawer design.</string>
     <string name="logchar_autosave_title">Retain LogChar reports</string>
     <string name="logchar_autosave_subtext">All LogChar reports will be stored in /storage/emulated/0/substratum/LogCharReports/.</string>
     <string name="auto_disable_target_overlays">Auto-disable other overlays for target</string>
@@ -601,12 +588,12 @@
     <string name="profile_empty_warning">Please select all the profiles you want enabled!</string>
     <string name="profile_notification_title_day">Day</string>
     <string name="profile_notification_title_night">Night</string>
-    <string name="profile_notification_title">%s profile</string>
+    <string name="profile_notification_title" formatted="false">%s profile</string>
     <string name="profile_pending_notification">Profile will be changed after screen is off.</string>
     <string name="profile_success_notification">Profile successfully applied!</string>
     <string name="profile_failed_notification">Profile failed to apply&#8230;</string>
     <string name="profile_failed_info_notification">Touch for more information</string>
-    <string name="profile_compile_progress">Compiling %d of %d:\n%s</string>
+    <string name="profile_compile_progress" formatted="false">Compiling %d of %d:\n%s</string>
     <string name="profile_compile_processing">Now processing your saved overlay states&#8230;</string>
 
     <string name="theme_debug_mode_title">Legacy compiler fallback bypass</string>
@@ -643,8 +630,6 @@
     <string name="settings_auto_updater_title">App-based overlay refresher</string>
     <string name="settings_auto_updater_text">Automatically build and install an updated version of all overlays for the recently updated, themed application.</string>
 
-    <string name="beta_tag">★ BETA</string>
-
     <string name="settings_theme_auto_updater_title">Theme-based overlay refresher</string>
     <string name="settings_theme_auto_updater_dialog_title">WARNING</string>
     <string name="settings_theme_auto_updater_text">Automatically build and install an updated version of all overlays for the recently updated theme.</string>
@@ -676,14 +661,14 @@
     <string name="per_app_notification_summary">FloatUI is dynamically filtering your apps!</string>
     <string name="per_app_notification_framework_show">Show Android System overlays</string>
     <string name="per_app_notification_framework_hide">Hide Android System overlays</string>
-    <string name="per_app_toast_no_overlays">There are no overlays configurable for %s!</string>
+    <string name="per_app_toast_no_overlays" formatted="false">There are no overlays configurable for %s!</string>
     <string name="per_app_apply">Apply</string>
     <string name="per_app_request_title">FloatUI Permissions</string>
     <string name="per_app_draw_over_other_apps_request">Please grant Substratum "draw over other apps" for the floating UI and "Usage stats" permissions to access the foreground app for matching theme targets.</string>
     <string name="per_app_usage_stats_request">Please grant Substratum "usage access" permissions to access the foreground app for matching theme targets.</string>
     <string name="per_app_manual_grant">Please manually grant Substratum "usage access" permissions and "draw over other apps" in App Settings to use FloatUI!</string>
 
-    <string name="notification_overlay_found_specific">An overlay for %s is in %s!</string>
+    <string name="notification_overlay_found_specific" formatted="false">An overlay for %s is in %s!</string>
     <string name="notification_overlay_found_description">You can open the theme by clicking on this notification!</string>
 
     <string name="system_crash_text">Your system reloaded substratum\'s resources. The app will
@@ -700,26 +685,13 @@
 
     <string name="community_info_paid">Paid</string>
 
-    <string name="restore_info_dialog_title">Attention</string>
-    <string name="restore_info_dialog_message">Restoring overlays, font packs, sounds or wallpapers may take some time so please be patient.</string>
-    <string name="restore_bootanimation_text">Boot animation</string>
-    <string name="restore_bootanimation_summary">This function removes the previously applied boot animation and restores it to the stock boot animation\n</string>
-    <string name="restore_overlay_text">Theme</string>
-    <string name="restore_overlay_summary">This function removes all the previously applied overlays and restores the system back to the stock theme by way of either uninstalling or disabling them.\n</string>
-    <string name="restore_sounds_text">Sounds</string>
-    <string name="restore_sounds_summary">This function removes the previously applied sounds set and restores it to the stock sounds set\n</string>
-    <string name="restore_wallpaper_text">Wallpaper</string>
-    <string name="restore_wallpaper_summary">This function allows for the removal of the previously applied wallpaper on the homescreen, lockscreen or both and restores the system wallpaper to the homescreen, lockscreen or both\n</string>
-    <string name="restore_fonts_text">Font packs</string>
-    <string name="restore_fonts_summary">This function removes the previously applied fonts set and restores it to the stock fonts set\n</string>
-
     <string name="interfacer_not_authorized_toast">This version of Substratum is not authorized and will not work with the system Interfacer module.</string>
 
-    <string name="app_crash_title">%s keeps stopping&#8230;</string>
+    <string name="app_crash_title" formatted="false">%s keeps stopping&#8230;</string>
     <string name="app_crash_content">All enabled overlays for this app have been disabled.</string>
 
     <string name="rom_status">Support status:</string>
-    <string name="rom_status_supported">%s is community supported!</string>
+    <string name="rom_status_supported" formatted="false">%s is community supported!</string>
     <string name="rom_status_unsupported">this rom is not community supported!</string>
     <string name="rom_status_network">internet check required&#8230;</string>
 
@@ -733,52 +705,15 @@
     <!-- Nav drawer -->
     <string name="nav_main">substratum</string>
     <string name="nav_home">Themes</string>
-    <string name="nav_overlays">Overlays</string>
-    <string name="nav_bootanim">Boot animations</string>
-    <string name="nav_shutdownanim">Shutdown animations</string>
-    <string name="nav_fonts">Font packs</string>
-    <string name="nav_sounds">Sound packs</string>
-    <string name="nav_wallpapers">Wallpapers</string>
     <!-- Utilities -->
-    <string name="nav_section_header_utilities">Utilities</string>
     <string name="nav_overlay_manager">Manager</string>
     <string name="nav_priorities">Priorities</string>
     <string name="nav_backup_restore">Profiles</string>
-    <string name="nav_manage">Recovery</string>
     <!-- Community -->
-    <string name="nav_section_header_get_involved">Community</string>
-    <string name="nav_drawer_community">Groups &amp; communities</string>
-    <string name="nav_drawer_googleplus">Google+ community</string>
-    <string name="googleplus_link" translatable="false">https://plus.google.com/communities/102261717366580091389</string>
-    <string name="nav_drawer_telegram">Telegram group chat</string>
-    <string name="telegram_link" translatable="false">https://t.me/substratum</string>
-    <string name="nav_drawer_xda">XDA dedicated subforum</string>
-    <string name="xda_link" translatable="false">https://forum.xda-developers.com/apps/substratum/</string>
-    <string name="nav_drawer_rawad">Rawad\'s theming guides</string>
-    <string name="rawad_youtube_url" translatable="false">https://www.youtube.com/playlist?list=PLgLZvFga2ml4LGq5NfVgtSvx8msfnCDe8</string>
-    <string name="nav_drawer_reddit">Reddit community</string>
-    <string name="reddit_link" translatable="false">https://www.reddit.com/r/Substratum/</string>
     <!-- Featured content -->
-    <string name="nav_drawer_featured">Featured content</string>
-    <string name="nav_drawer_xda_portal">XDA portal</string>
-    <string name="xda_portal_link" translatable="false">https://www.xda-developers.com/search/substratum</string>
     <!-- Resources -->
-    <string name="nav_drawer_resources">Resources</string>
-    <string name="nav_drawer_homepage">Official homepage</string>
-    <string name="homepage_link" translatable="false">http://projektsubstratum.com/</string>
-    <string name="nav_drawer_template">Theme Template (Themers)</string>
-    <string name="template_link" translatable="false">https://github.com/substratum/template</string>
-    <string name="nav_drawer_gerrit">Platform &amp; exposures Gerrit</string>
-    <string name="gerrit_link" translatable="false">https://substratum.review</string>
-    <string name="nav_drawer_github">Platform GitHub repository</string>
-    <string name="jira_link" translatable="false">https://substratum.atlassian.net/servicedesk</string>
-    <string name="nav_drawer_jira">JIRA bug reporting system</string>
-    <string name="github_link" translatable="false">https://www.github.com/SubstratumResources</string>
 
     <!-- More -->
-    <string name="nav_section_header_more">More</string>
-    <string name="nav_team_contributors">Team &amp; Contributors</string>
-    <string name="nav_opensource">Licenses</string>
     <string name="nav_settings">Settings</string>
 
     <string name="title_activity_manage_space">Manage Storage Usage</string>
@@ -790,15 +725,7 @@
     <string name="manage_space_reset_text_desc">Are you having trouble with the application? Or did you recently make a big version leap from an old version of substratum? A simple configuration clear would definitely aid troubleshooting the issue!</string>
     <string name="manage_space_reset_dialog_title">Reset configuration?</string>
     <string name="manage_space_reset_dialog_content">The app will close after reset is complete!</string>
-    <string name="cleaned_logchar_reports">Cleaned saved LogChar reports</string>
     <string name="legacy_overlay_uninstall_warning_text">If you are uninstalling all overlays, please use the Substratum Rescue ZIPs to avoid possible bootloops.</string>
-    <string name="auto_reload_sysui_title">Dynamically reload SystemUI</string>
-    <string name="auto_reload_sysui_summary_on">Substratum will automatically reload the SystemUI after an overlay targeting SystemUI is enabled/disabled.</string>
-    <string name="auto_reload_sysui_summary_off">Substratum will not automatically reload the SystemUI after an overlay targeting SystemUI is enabled/disabled.</string>
-    <string name="auto_reload_sysui_dialog_title">Warning!</string>
-    <string name="auto_reload_sysui_dialog_text">On Android Oreo, notifications will be automatically cleared to simulate a restart of the cached notification channels.\n\nPlease ensure your notifications do not contain any important data when compiling or enabling SystemUI or framework overlays. This does not affect ongoing notifications.</string>
-    <string name="advanced_ui_title">Enable advanced user interface</string>
-    <string name="advanced_ui_text">This reverts back to the legacy app UI found in old versions of substratum, enabling priorities, profiles, filtered theming modes and much more if the system allows.</string>
 
     <string name="priority_overlay_name_placeholder" translatable="false">OVERLAY NAME</string>
     <string name="theme_name_placeholder" translatable="false">THEME NAME</string>
@@ -807,9 +734,6 @@
     <string name="type1c_name_placeholder" translatable="false">TYPE1C VARIABLE</string>
     <string name="type2_name_placeholder" translatable="false">TYPE2 VARIABLE</string>
     <string name="type3_name_placeholder" translatable="false">TYPE3 VARIABLE</string>
-    <string name="api_levels_placeholder_text" translatable="false">API_LEVELS</string>
-    <string name="theme_version_placeholder_text" translatable="false">THEME_VERSION</string>
-    <string name="plugin_version_placeholder_text" translatable="false">PLUGIN_VERSION</string>
     <string name="theme_name_placeholder_text" translatable="false">THEME_NAME</string>
     <string name="theme_author_placeholder_text" translatable="false">THEME_AUTHOR</string>
     <string name="cache_placeholder_text" translatable="false">CACHE</string>
@@ -821,11 +745,10 @@
     <string name="logs_placeholder" translatable="false">LOGS</string>
     <string name="app_title_placeholder" translatable="false">APP_TITLE</string>
     <string name="more_text_placeholder" translatable="false">MORE_TEXT</string>
-    <string name="overlays_tab_package_ver_message">Installed %s version: %s</string>
+    <string name="overlays_tab_package_ver_message" formatted="false">Installed %s version: %s</string>
     <string name="overlays_tab_package_ver_message_copied">Successfully copied version code to clipboard!</string>
     <string name="overlays_tab_package_ver_failure">Failed to grab package version</string>
     <string name="locale_restart_message">Restart app to switch language</string>
     <string name="restart">Restart</string>
-    <string name="advanced_ui_restart_message">Restart app to switch UI</string>
 
 </resources>

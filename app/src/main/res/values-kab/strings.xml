@@ -22,8 +22,6 @@
     <string name="resource_checker_commons">Framework</string>
     <string name="resource_checker_dialog_quit">Ffeɣ</string>
     <string name="resource_not_validated">Isutar imaynuten mezdin!</string>
-    <string name="actionbar_theme_count_singular">%s n usentel</string>
-    <string name="actionbar_theme_count_plural">%s n isental</string>
     <string name="actionbar_theme_count_loading">asali&#8230;</string>
     <string name="actionbar_search">Nadi</string>
     <string name="actionbar_changelog">Tazmilt n lqem n usentem</string>

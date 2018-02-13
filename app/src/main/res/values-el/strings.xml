@@ -33,8 +33,6 @@
     <string name="resource_commit_dialog_title">Αγνοούμενοι πόροι σε %s</string>
     <string name="showcase_no_connection">η βιτρίνα θεμάτων απαιτεί σύνδεση στο διαδίκτυο για να λειτουργήσει!</string>
     <string name="failed_to_install_title_notification">Απέτυχε η εγκατάσταση θέματος</string>
-    <string name="actionbar_theme_count_singular">%s θέμα</string>
-    <string name="actionbar_theme_count_plural">%s θέματα</string>
     <string name="actionbar_theme_count_loading">φόρτωση&#8230;</string>
     <string name="actionbar_search">Αναζήτηση</string>
     <string name="actionbar_changelog">Περιοχέμενα αναβάθμισης θέματος</string>
@@ -177,17 +175,10 @@
     <string name="settings_title_1">Προτιμήσεις χρήστη</string>
     <string name="settings_title_3">Θεματοποίηση</string>
     <string name="settings_title_clickable">Προτιμήσεις συστήματος</string>
-    <string name="substratum_restart_toast">Το Substratum επανεκκινείται αυτόματα μετά την αλλαγή ρυθμίσεων.</string>
-    <string name="restart_systemui">Αναδημιουργία ΣυστήματοςUI έπειτα απο επανεκκίνηση</string>
-    <string name="restart_systemui_subtext">Αυτόματη αναδημιουργία του ΣυστήματοςUI κατόπιν ενεργοποίησης/απενεργοποίησης μιας επικάλυψης του ΣυστήματοςUI</string>
-    <string name="restart_systemui_toast_enabled">Το ΣύστημαUI θα αναδημιουργήσει στο παρασκήνιο αντί να επανεκκινηθεί!</string>
-    <string name="restart_systemui_toast_disabled">Το ΣύστημαUI θα επανεκκινηθεί αυτόματα αντί να αναδημιουργηθεί!</string>
-    <string name="show_theme_template_version">Εμφάνιση πληροφοριών θέματος για προχωρημένους</string>
     <string name="break_compilation_dialog_continue">Συνέχεια</string>
     <string name="error_activity_button_disable_overlays">Rescue Me!</string>
     <!-- Notification channel -->
     <!-- Nav drawer -->
-    <string name="nav_bootanim">Κινούμενα σχέδια εκκίνησης</string>
     <!-- Utilities -->
     <!-- Community -->
     <!-- Featured content -->

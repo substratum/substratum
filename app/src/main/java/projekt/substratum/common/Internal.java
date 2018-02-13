@@ -77,7 +77,6 @@ public enum Internal {
     public static final String THEME_NAME = "theme_name";
     public static final String THEME_PID = "theme_pid";
     public static final String THEME_PACKAGE = "package_name";
-    public static final String THEME_MODE = "theme_mode";
     public static final String THEME_HASH = "theme_hash";
     public static final String THEME_OMS = "oms_check";
     public static final String THEME_CERTIFIED = "certified";
@@ -88,8 +87,6 @@ public enum Internal {
     public static final String THEME_LEGACY = "theme_legacy";
     public static final String THEME_WALLPAPER = "wallpaperUrl";
     public static final String THEME_CALLER = "calling_package_name";
-    public static final String HOME_TYPE = "home_type";
-    public static final String HOME_TITLE = "title";
     // Prefs
     public static final String SOUNDS_APPLIED = "sounds_applied";
     public static final String BOOT_ANIMATION = "bootanimation";
@@ -162,8 +159,6 @@ public enum Internal {
     public static final String XML_SERIALIZER =
             "http://xmlpull.org/v1/doc/features.html#indent-output";
     public static final String XML_UTF = "UTF-8";
-    // Props
-    public static final String RECREATE_PROP = "ro.substratum.recreate";
     // Overlays.java
     public static final Integer SPECIAL_SNOWFLAKE_DELAY = 500;
     public static final String XML_EXTENSION = ".xml";

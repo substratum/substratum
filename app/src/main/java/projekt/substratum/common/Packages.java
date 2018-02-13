@@ -46,11 +46,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
 import projekt.substratum.R;
 import projekt.substratum.common.analytics.PackageAnalytics;
@@ -75,9 +72,7 @@ import static projekt.substratum.common.References.metadataOverlayVersion;
 import static projekt.substratum.common.References.metadataSamsungSupport;
 import static projekt.substratum.common.References.metadataThemeReady;
 import static projekt.substratum.common.References.metadataVersion;
-import static projekt.substratum.common.References.metadataWallpapers;
 import static projekt.substratum.common.References.resourceChangelog;
-import static projekt.substratum.common.References.wallpaperFragment;
 import static projekt.substratum.common.Resources.FRAMEWORK;
 import static projekt.substratum.common.Resources.LG_FRAMEWORK;
 import static projekt.substratum.common.Resources.SAMSUNG_FRAMEWORK;
@@ -807,7 +802,6 @@ public enum Packages {
      */
     @SuppressWarnings("unchecked")
     public static HashMap<String, String[]> getSubstratumPackages(Context context,
-                                                                  CharSequence homeType,
                                                                   String searchFilter) {
         try {
             HashMap returnMap = new HashMap<>();
@@ -854,41 +848,10 @@ public enum Packages {
                             appInfo.metaData.getString(metadataAuthor),
                             packageName
                     };
-                    // Take the other package's context
-                    Context other = context.createPackageContext(packageName, 0);
-                    // Check if it is wallpaper mode, if it is, bail out early
-                    if (homeType.equals(wallpaperFragment)) {
-                        String wallpaperCheck = appInfo.metaData.getString
-                                (metadataWallpapers);
-                        if ((wallpaperCheck != null) && !wallpaperCheck.isEmpty()) {
-                            returnMap.put(appInfo.metaData.getString(metadataName), data);
-                        }
-                    } else {
-                        // Well, it's not wallpaper mode, so let's keep going!
-                        if (homeType.length() == 0) {
-                            returnMap.put(appInfo.metaData.getString(metadataName), data);
-                            Log.d(PACKAGE_TAG, "Loaded Substratum Theme: [" + packageName + ']');
-                            if (ENABLE_PACKAGE_LOGGING)
-                                PackageAnalytics.logPackageInfo(context, packageName);
-                        } else {
-                            // We now have to open a specific fragment
-                            try (ZipFile zf = new ZipFile(other.getApplicationInfo().sourceDir)) {
-                                for (Enumeration<? extends ZipEntry> e = zf.entries();
-                                     e.hasMoreElements(); ) {
-                                    ZipEntry ze = e.nextElement();
-                                    String name = ze.getName();
-                                    if (name.startsWith("assets/" + homeType + '/')) {
-                                        returnMap.put(
-                                                appInfo.metaData.getString(metadataName),
-                                                data);
-                                        break;
-                                    }
-                                }
-                            } catch (Exception e) {
-                                Log.e(SUBSTRATUM_LOG, "Unable to find package identifier");
-                            }
-                        }
-                    }
+                    returnMap.put(appInfo.metaData.getString(metadataName), data);
+                    Log.d(PACKAGE_TAG, "Loaded Substratum Theme: [" + packageName + ']');
+                    if (ENABLE_PACKAGE_LOGGING)
+                        PackageAnalytics.logPackageInfo(context, packageName);
                 } else {
                     Log.e(PACKAGE_TAG, "Skipping package: '" + packageName +
                             "' - due to incorrect metadata installation");

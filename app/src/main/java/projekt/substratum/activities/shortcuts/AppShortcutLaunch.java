@@ -33,8 +33,7 @@ public class AppShortcutLaunch extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Theming.launchTheme(
                 Substratum.getInstance(),
-                getIntent().getStringExtra(THEME_PID),
-                null
+                getIntent().getStringExtra(THEME_PID)
         );
         finish();
     }

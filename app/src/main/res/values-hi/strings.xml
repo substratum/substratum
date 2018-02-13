@@ -36,8 +36,6 @@
     <string name="resource_commit_dialog_title">%s में अनुपलब्ध संसाधन</string>
     <string name="showcase_no_connection">विषय प्रदर्शन संग्रह के लिए एक इंटरनेट कनेक्शन की आवश्यकता है!    </string>
     <string name="failed_to_install_title_notification">OMS विषय स्थापित करने में विफल</string>
-    <string name="actionbar_theme_count_singular">%s विषय</string>
-    <string name="actionbar_theme_count_plural">%s विषय</string>
     <string name="actionbar_theme_count_loading">लोड हो रहा है...</string>
     <string name="actionbar_search">खोजें</string>
     <string name="actionbar_changelog">विषय परिवर्तन सूचि</string>
@@ -132,8 +130,6 @@
     <string name="theme_information_tab_four">ध्वनि पैक</string>
     <string name="theme_information_tab_five">वॉलपेपर</string>
     <string name="theme_information_tab_six">एनिमेशन शट डाउन</string>
-    <string name="nougat_style_cards_title">नूगा शैली कार्ड लेआउट</string>
-    <string name="nougat_style_cards_subtext">एंड्रॉयड नूगा अधिसूचना स्टाइल थीम कार्ड सक्षम करें ।</string>
     <string name="uninstall_dialog_text">क्या आप वाकई इस विषयवस्तु की स्थापना रद्द करना चाहते हैं?</string>
     <string name="manage_dialog_performing">डिफ़ॉल्ट पर पुनर्स्थापित कर रहा है.. ।</string>
     <string name="manage_bootanimation_title">बूट एनीमेशन पुनर्स्थापित करें</string>
@@ -229,9 +225,6 @@
     <string name="profile_wallpaper">वॉलपेपर</string>
     <!-- Notification channel -->
     <!-- Nav drawer -->
-    <string name="nav_bootanim">बूट एनिमेशन</string>
-    <string name="nav_shutdownanim">एनिमेशन शट डाउन</string>
-    <string name="nav_wallpapers">वॉलपेपर</string>
     <!-- Utilities -->
     <!-- Community -->
     <!-- Featured content -->

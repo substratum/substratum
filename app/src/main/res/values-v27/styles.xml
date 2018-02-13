@@ -18,10 +18,11 @@
 
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/window_bg</item>
         <item name="android:navigationBarColor">@color/navigationBarColor</item>
         <item name="android:navigationBarDividerColor">@color/navigation_bar_divider</item>
         <item name="android:statusBarColor">@color/statusBarColor</item>
@@ -40,7 +41,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="SplashScreen.ActivityTheme" parent="Theme.AppCompat">
+    <style name="SplashScreen.ActivityTheme" parent="Theme.AppCompat.DayNight">
         <item name="android:navigationBarColor">@color/splashscreen_background</item>
         <item name="android:statusBarColor">@color/splashscreen_background</item>
         <item name="android:windowLightStatusBar">@bool/SplashscreenWindowLightStatusBar</item>

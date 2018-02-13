@@ -37,7 +37,7 @@
         android:icon="@drawable/toolbar_rescue"
         android:menuCategory="secondary"
         android:orderInCategory="3"
-        android:title="@string/menu_per_app"
+        android:title="@string/nav_recovery"
         app:showAsAction="always" />
     <item
         android:id="@+id/search"

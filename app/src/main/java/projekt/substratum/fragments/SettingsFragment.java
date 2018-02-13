@@ -43,8 +43,10 @@ import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 
 import java.io.File;
@@ -71,13 +73,18 @@ import projekt.substratum.util.readers.ReadFilterFile;
 import projekt.substratum.util.readers.ReadRepositoriesFile;
 import projekt.substratum.util.readers.ReadResourcesFile;
 import projekt.substratum.util.views.Lunchbar;
+import projekt.substratum.util.views.SheetDialog;
 
 import static projekt.substratum.common.Activities.launchExternalActivity;
 import static projekt.substratum.common.Internal.VALIDATOR_CACHE;
 import static projekt.substratum.common.Internal.VALIDATOR_CACHE_DIR;
 import static projekt.substratum.common.Packages.validateResource;
 import static projekt.substratum.common.References.ANDROMEDA_PACKAGE;
+import static projekt.substratum.common.References.APP_THEME;
+import static projekt.substratum.common.References.AUTO_THEME;
+import static projekt.substratum.common.References.DARK_THEME;
 import static projekt.substratum.common.References.DEFAULT_GRID_COUNT;
+import static projekt.substratum.common.References.DEFAULT_THEME;
 import static projekt.substratum.common.References.INTERFACER_PACKAGE;
 import static projekt.substratum.common.References.MAX_PRIORITY;
 import static projekt.substratum.common.References.MIN_PRIORITY;
@@ -340,6 +347,75 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         }
                     });
         }
+
+        // App Theme
+        Preference app_theme = getPreferenceManager().findPreference("app_theme");
+        String selectedTheme;
+        switch (prefs.getString(APP_THEME, DEFAULT_THEME)) {
+            case AUTO_THEME:
+                selectedTheme =
+                        String.format(getString(R.string.app_theme_text),
+                                getString(R.string.app_theme_auto));
+                break;
+            case DARK_THEME:
+                selectedTheme =
+                        String.format(getString(R.string.app_theme_text),
+                                getString(R.string.app_theme_dark));
+                break;
+            default:
+                selectedTheme =
+                        String.format(getString(R.string.app_theme_text),
+                                getString(R.string.app_theme_disabled));
+                break;
+        }
+        app_theme.setSummary(selectedTheme);
+        app_theme.setOnPreferenceClickListener(preference -> {
+            SheetDialog sheetDialog = new SheetDialog(context);
+            View sheetView = View.inflate(context, R.layout.app_theme_sheet_dialog, null);
+            LinearLayout disabled = sheetView.findViewById(R.id.disabled);
+            LinearLayout auto = sheetView.findViewById(R.id.automatic);
+            LinearLayout dark = sheetView.findViewById(R.id.dark);
+            disabled.setOnClickListener(view -> {
+                prefs.edit().putString(APP_THEME, DEFAULT_THEME).apply();
+                sheetDialog.dismiss();
+                Snackbar lunchbar = Lunchbar.make(getView(),
+                        getString(R.string.app_theme_change),
+                        Snackbar.LENGTH_INDEFINITE);
+                lunchbar.setAction(getString(R.string.restart), v -> {
+                    Handler handler = new Handler();
+                    handler.postDelayed(() -> Substratum.restartSubstratum(context), 0);
+                });
+                lunchbar.show();
+            });
+            auto.setOnClickListener(view -> {
+                prefs.edit().putString(APP_THEME, AUTO_THEME).apply();
+                sheetDialog.dismiss();
+                Snackbar lunchbar = Lunchbar.make(getView(),
+                        getString(R.string.app_theme_change),
+                        Snackbar.LENGTH_INDEFINITE);
+                lunchbar.setAction(getString(R.string.restart), v -> {
+                    Handler handler = new Handler();
+                    handler.postDelayed(() -> Substratum.restartSubstratum(context), 0);
+                });
+                lunchbar.show();
+            });
+            dark.setOnClickListener(view -> {
+                prefs.edit().putString(APP_THEME, DARK_THEME).apply();
+                sheetDialog.dismiss();
+                Snackbar lunchbar = Lunchbar.make(getView(),
+                        getString(R.string.app_theme_change),
+                        Snackbar.LENGTH_INDEFINITE);
+                lunchbar.setAction(getString(R.string.restart), v -> {
+                    Handler handler = new Handler();
+                    handler.postDelayed(() -> Substratum.restartSubstratum(context), 0);
+                });
+                lunchbar.show();
+            });
+            sheetDialog.setContentView(sheetView);
+            sheetDialog.show();
+            return false;
+        });
+
 
         // Grid Style Cards Count
         Preference grid_style_cards_count =

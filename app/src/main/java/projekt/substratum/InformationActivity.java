@@ -55,6 +55,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.CardView;
@@ -108,6 +109,7 @@ import projekt.substratum.util.views.Lunchbar;
 import projekt.substratum.util.views.SheetDialog;
 
 import static android.graphics.Bitmap.CompressFormat.PNG;
+import static android.support.v7.app.AppCompatDelegate.MODE_NIGHT_YES;
 import static projekt.substratum.common.Internal.ANDROMEDA_RECEIVER;
 import static projekt.substratum.common.Internal.COMPILE_ENABLE;
 import static projekt.substratum.common.Internal.COMPILE_UPDATE;
@@ -433,9 +435,12 @@ public class InformationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         context = getApplicationContext();
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES);
+
         super.onCreate(savedInstanceState);
         InformationActivityBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.information_activity);
+
 
         toolbar = binding.toolbar;
         tabLayout = binding.tabs;

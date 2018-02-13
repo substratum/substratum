@@ -16,7 +16,9 @@
   ~ along with Substratum.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <solid android:color="@android:color/darker_gray" />
-</shape>
+<resources>
+    <bool name="SplashscreenWindowLightStatusBar">false</bool>
+    <bool name="SplashscreenWindowLightNavigationBar">false</bool>
+    <bool name="windowLightStatusBar">false</bool>
+    <bool name="windowLightNavigationBar">false</bool>
+</resources>

@@ -124,6 +124,13 @@
         <Preference
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:key="app_theme"
+            android:summary="@string/app_theme_text"
+            android:title="@string/app_theme_title" />
+
+        <Preference
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:key="grid_style_cards_count"
             android:summary="@string/grid_size_text"
             android:title="@string/grid_size_title" />

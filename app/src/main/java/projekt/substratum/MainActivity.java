@@ -408,8 +408,10 @@ public class MainActivity extends AppCompatActivity implements
 
         if (Systems.checkOMS(context) && !isSamsung(context)) {
             menuView.findViewById(R.id.tab_priorities).setVisibility(View.VISIBLE);
+            menuView.findViewById(R.id.tab_profiles).setVisibility(View.VISIBLE);
         } else {
             menuView.findViewById(R.id.tab_priorities).setVisibility(View.GONE);
+            menuView.findViewById(R.id.tab_profiles).setVisibility(View.GONE);
         }
         bottomBar.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {

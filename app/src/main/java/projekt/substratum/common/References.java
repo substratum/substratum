@@ -213,6 +213,11 @@ public enum References {
     public static final int MIN_GRID_COUNT = 1;
     public static final int DEFAULT_GRID_COUNT = 1;
     public static final int MAX_GRID_COUNT = 4;
+    // This String controls the default theme setting
+    public static final String APP_THEME = "app_theme";
+    public static final String DEFAULT_THEME = "light";
+    public static final String AUTO_THEME = "auto";
+    public static final String DARK_THEME = "dark";
     // This int controls the default priority level for legacy overlays
     public static final int DEFAULT_PRIORITY = 1004;
     public static final int MIN_PRIORITY = 1;

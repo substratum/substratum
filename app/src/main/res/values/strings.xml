@@ -152,6 +152,13 @@
     <string name="grid_size_title">Theme display column adjustment</string>
     <string name="grid_size_text" formatted="false">Column count is set to (default %d): %d</string>
 
+    <string name="app_theme_title">App theme</string>
+    <string name="app_theme_text" formatted="false">App theme set to: %s</string>
+    <string name="app_theme_disabled">Default</string>
+    <string name="app_theme_auto">Automatic</string>
+    <string name="app_theme_dark">Dark</string>
+    <string name="app_theme_change">Restart app to switch themes</string>
+
     <string name="overlays_variant_substitute" formatted="false">%s&#8230;</string>
     <string name="overlays_variant_default_1a">type1a variant&#8230;</string>
     <string name="overlays_variant_default_1b">type1b variant&#8230;</string>
@@ -707,13 +714,9 @@
     <string name="nav_home">Themes</string>
     <!-- Utilities -->
     <string name="nav_overlay_manager">Manager</string>
+    <string name="nav_recovery">Recovery</string>
     <string name="nav_priorities">Priorities</string>
     <string name="nav_backup_restore">Profiles</string>
-    <!-- Community -->
-    <!-- Featured content -->
-    <!-- Resources -->
-
-    <!-- More -->
     <string name="nav_settings">Settings</string>
 
     <string name="title_activity_manage_space">Manage Storage Usage</string>

@@ -78,7 +78,10 @@ public enum Restore {
         LinearLayout both_wallpapers = sheetView.findViewById(R.id.both_wallpapers);
         View view = activity.findViewById(R.id.drawer_container);
 
-        if (!Systems.checkOMS(context)) disable_all.setVisibility(View.GONE);
+        if (!Systems.checkOMS(context)) {
+            disable_all.setVisibility(View.GONE);
+            uninstall_all.setVisibility(View.GONE);
+        }
         if (!isBootAnimationSupported(context)) restore_bootanimation.setVisibility(View.GONE);
         if (!isFontsSupported(context)) restore_system_font.setVisibility(View.GONE);
         if (!isSoundsSupported(context)) restore_sounds.setVisibility(View.GONE);

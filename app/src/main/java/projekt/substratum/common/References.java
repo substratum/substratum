@@ -171,12 +171,17 @@ public enum References {
     public static final boolean toggleShowSamsungOverlayInSettings = false;
     public static final String permissionSamsungOverlay =
             "com.samsung.android.permission.SAMSUNG_OVERLAY_COMPONENT";
-    // These strings control the nav drawer filter for ThemeFragment
+    // These strings control the folders to detect in the assets
+    public static final String overlaysFolder = "overlays";
+    public static final String bootAnimationsFolder = "bootanimation";
+    public static final String shutdownAnimationsFolder = "shutdownanimation";
+    public static final String fontsFolder = "fonts";
+    public static final String soundsFolder = "audio";
+    // These strings control the fragments to be loaded by the app
     public static final String overlaysFragment = "overlays";
-    public static final String bootAnimationsFragment = "bootanimation";
-    public static final String shutdownAnimationsFragment = "shutdownanimation";
+    public static final String bootAnimationsFragment = "bootanimations";
     public static final String fontsFragment = "fonts";
-    public static final String soundsFragment = "audio";
+    public static final String soundsFragment = "sounds";
     public static final String wallpaperFragment = "wallpapers";
     // These strings control the showcase metadata parsing
     public static final String paidTheme = "paid";

@@ -55,7 +55,6 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.CardView;
@@ -109,7 +108,6 @@ import projekt.substratum.util.views.Lunchbar;
 import projekt.substratum.util.views.SheetDialog;
 
 import static android.graphics.Bitmap.CompressFormat.PNG;
-import static android.support.v7.app.AppCompatDelegate.MODE_NIGHT_YES;
 import static projekt.substratum.common.Internal.ANDROMEDA_RECEIVER;
 import static projekt.substratum.common.Internal.COMPILE_ENABLE;
 import static projekt.substratum.common.Internal.COMPILE_UPDATE;
@@ -131,13 +129,17 @@ import static projekt.substratum.common.References.ACTIVITY_FINISHER;
 import static projekt.substratum.common.References.BYPASS_SUBSTRATUM_BUILDER_DELETION;
 import static projekt.substratum.common.References.MANAGER_REFRESH;
 import static projekt.substratum.common.References.SUBSTRATUM_LOG;
+import static projekt.substratum.common.References.bootAnimationsFolder;
 import static projekt.substratum.common.References.bootAnimationsFragment;
+import static projekt.substratum.common.References.fontsFolder;
 import static projekt.substratum.common.References.fontsFragment;
 import static projekt.substratum.common.References.metadataHeroOverride;
 import static projekt.substratum.common.References.metadataOverlayParent;
 import static projekt.substratum.common.References.metadataWallpapers;
+import static projekt.substratum.common.References.overlaysFolder;
 import static projekt.substratum.common.References.overlaysFragment;
-import static projekt.substratum.common.References.shutdownAnimationsFragment;
+import static projekt.substratum.common.References.shutdownAnimationsFolder;
+import static projekt.substratum.common.References.soundsFolder;
 import static projekt.substratum.common.References.soundsFragment;
 import static projekt.substratum.common.References.wallpaperFragment;
 import static projekt.substratum.common.Systems.checkPackageSupport;
@@ -573,33 +575,33 @@ public class InformationActivity extends AppCompatActivity {
                 tabChecker = Arrays.asList(am.list(""));
             }
             boolean isWallpaperOnly = true;
-            if (tabChecker.contains(overlaysFragment)) {
+            if (tabChecker.contains(overlaysFolder)) {
                 isWallpaperOnly = false;
                 tabLayout.addTab(tabLayout.newTab().setText(getString(R
                         .string
                         .theme_information_tab_one)));
             }
-            if (tabChecker.contains(bootAnimationsFragment) &&
+            if (tabChecker.contains(bootAnimationsFolder) &&
                     Resources.isBootAnimationSupported(context)) {
                 isWallpaperOnly = false;
                 tabLayout.addTab(tabLayout.newTab().setText(getString(R
                         .string
                         .theme_information_tab_two)));
             }
-            if (tabChecker.contains(shutdownAnimationsFragment) &&
+            if (tabChecker.contains(shutdownAnimationsFolder) &&
                     Resources.isShutdownAnimationSupported(context)) {
                 isWallpaperOnly = false;
                 tabLayout.addTab(tabLayout.newTab().setText(getString(R
                         .string
                         .theme_information_tab_six)));
             }
-            if (tabChecker.contains(fontsFragment) && Resources.isFontsSupported(context)) {
+            if (tabChecker.contains(fontsFolder) && Resources.isFontsSupported(context)) {
                 isWallpaperOnly = false;
                 tabLayout.addTab(tabLayout.newTab().setText(getString(R
                         .string
                         .theme_information_tab_three)));
             }
-            if (tabChecker.contains(soundsFragment) &&
+            if (tabChecker.contains(soundsFolder) &&
                     Resources.isSoundsSupported(context)) {
                 isWallpaperOnly = false;
                 tabLayout.addTab(tabLayout.newTab().setText(getString(R
@@ -648,14 +650,14 @@ public class InformationActivity extends AppCompatActivity {
 
         HashMap<String, Boolean> extraHiddenTabs = new HashMap<>();
         // Boot animation visibility
-        extraHiddenTabs.put(bootAnimationsFragment, Resources.isBootAnimationSupported(context));
+        extraHiddenTabs.put(bootAnimationsFolder, Resources.isBootAnimationSupported(context));
         // Shutdown animation visibility
-        extraHiddenTabs.put(shutdownAnimationsFragment,
+        extraHiddenTabs.put(shutdownAnimationsFolder,
                 Resources.isShutdownAnimationSupported(context));
         // Fonts visibility
-        extraHiddenTabs.put(fontsFragment, Resources.isFontsSupported(context));
+        extraHiddenTabs.put(fontsFolder, Resources.isFontsSupported(context));
         // Sounds visibility
-        extraHiddenTabs.put(soundsFragment, Resources.isSoundsSupported(context));
+        extraHiddenTabs.put(soundsFolder, Resources.isSoundsSupported(context));
 
         // If there are no tabs, then the theme is completely empty. Show toast and quit.
         if (extraHiddenTabs.size() == 0 || tabLayout.getTabCount() == 0) {
@@ -687,7 +689,7 @@ public class InformationActivity extends AppCompatActivity {
                         tabPosition = position;
                         if (viewPager.getAdapter() != null) {
                             switch (viewPager.getAdapter().instantiateItem(viewPager, tabPosition)
-                                    .getClass().getSimpleName()) {
+                                    .getClass().getSimpleName().toLowerCase()) {
                                 case overlaysFragment:
                                     floatingActionButton.show();
                                     floatingActionButton.setImageResource(
@@ -695,7 +697,7 @@ public class InformationActivity extends AppCompatActivity {
                                     break;
                                 case bootAnimationsFragment:
                                 case fontsFragment:
-                                case "Sounds":
+                                case soundsFragment:
                                     floatingActionButton.show();
                                     floatingActionButton.setImageResource(
                                             R.drawable.floating_action_button_icon_check);
@@ -740,8 +742,7 @@ public class InformationActivity extends AppCompatActivity {
                                 materialSheetFab.showSheet();
                                 break;
                             case bootAnimationsFragment:
-                                boolean isShutdownTab = ((BootAnimations) obj)
-                                        .isShutdownTab();
+                                boolean isShutdownTab = ((BootAnimations) obj).isShutdownTab();
                                 intent = new Intent((isShutdownTab ? "ShutdownAnimations" :
                                         "BootAnimations") + START_JOB_ACTION);
                                 localBroadcastManager.sendBroadcast(intent);
@@ -750,7 +751,7 @@ public class InformationActivity extends AppCompatActivity {
                                 intent = new Intent("Fonts" + START_JOB_ACTION);
                                 localBroadcastManager.sendBroadcast(intent);
                                 break;
-                            case "sounds":
+                            case soundsFragment:
                                 intent = new Intent("Sounds" + START_JOB_ACTION);
                                 localBroadcastManager.sendBroadcast(intent);
                                 break;

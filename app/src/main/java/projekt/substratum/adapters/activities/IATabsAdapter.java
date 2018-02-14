@@ -34,11 +34,11 @@ import projekt.substratum.tabs.Sounds;
 import projekt.substratum.tabs.Wallpapers;
 
 import static projekt.substratum.common.Internal.SHUTDOWNANIMATION_INTENT;
-import static projekt.substratum.common.References.bootAnimationsFragment;
-import static projekt.substratum.common.References.fontsFragment;
-import static projekt.substratum.common.References.overlaysFragment;
-import static projekt.substratum.common.References.shutdownAnimationsFragment;
-import static projekt.substratum.common.References.soundsFragment;
+import static projekt.substratum.common.References.bootAnimationsFolder;
+import static projekt.substratum.common.References.fontsFolder;
+import static projekt.substratum.common.References.overlaysFolder;
+import static projekt.substratum.common.References.shutdownAnimationsFolder;
+import static projekt.substratum.common.References.soundsFolder;
 
 public class IATabsAdapter extends FragmentStatePagerAdapter {
 
@@ -78,34 +78,34 @@ public class IATabsAdapter extends FragmentStatePagerAdapter {
     }
 
     private Fragment getFragment() {
-        if (this.packageChecker.contains(overlaysFragment)) {
-            this.packageChecker.remove(overlaysFragment);
+        if (this.packageChecker.contains(overlaysFolder)) {
+            this.packageChecker.remove(overlaysFolder);
             Overlays overlays = new Overlays();
             overlays.setArguments(this.bundle);
             return overlays;
-        } else if (this.packageChecker.contains(bootAnimationsFragment) &&
-                this.extras.get(bootAnimationsFragment)) {
-            this.packageChecker.remove(bootAnimationsFragment);
+        } else if (this.packageChecker.contains(bootAnimationsFolder) &&
+                this.extras.get(bootAnimationsFolder)) {
+            this.packageChecker.remove(bootAnimationsFolder);
             BootAnimations bootAnimations = new BootAnimations();
             bootAnimations.setArguments(this.bundle);
             return bootAnimations;
-        } else if (this.packageChecker.contains(shutdownAnimationsFragment) &&
-                this.extras.get(shutdownAnimationsFragment)) {
-            this.packageChecker.remove(shutdownAnimationsFragment);
+        } else if (this.packageChecker.contains(shutdownAnimationsFolder) &&
+                this.extras.get(shutdownAnimationsFolder)) {
+            this.packageChecker.remove(shutdownAnimationsFolder);
             BootAnimations shutdownAnimations = new BootAnimations();
             Bundle b = new Bundle(this.bundle);
             b.putBoolean(SHUTDOWNANIMATION_INTENT, true);
             shutdownAnimations.setArguments(b);
             return shutdownAnimations;
-        } else if (this.packageChecker.contains(fontsFragment) &&
-                this.extras.get(fontsFragment)) {
-            this.packageChecker.remove(fontsFragment);
+        } else if (this.packageChecker.contains(fontsFolder) &&
+                this.extras.get(fontsFolder)) {
+            this.packageChecker.remove(fontsFolder);
             Fonts fonts = new Fonts();
             fonts.setArguments(this.bundle);
             return fonts;
-        } else if (this.packageChecker.contains(soundsFragment) &&
-                this.extras.get(soundsFragment)) {
-            this.packageChecker.remove(soundsFragment);
+        } else if (this.packageChecker.contains(soundsFolder) &&
+                this.extras.get(soundsFolder)) {
+            this.packageChecker.remove(soundsFolder);
             Sounds sounds = new Sounds();
             sounds.setArguments(this.bundle);
             return sounds;

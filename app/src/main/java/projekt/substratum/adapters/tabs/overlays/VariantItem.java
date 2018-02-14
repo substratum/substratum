@@ -21,34 +21,34 @@ package projekt.substratum.adapters.tabs.overlays;
 import java.io.Serializable;
 
 public class VariantItem implements Serializable {
-    private String variant_name;
+    private String variantName;
     private boolean forceHidden;
-    private String variant_hex;
+    private String variantHex;
     private int color;
 
-    public VariantItem(String variant_name,
-                       String variant_hex) {
+    public VariantItem(String variantName,
+                       String variantHex) {
         super();
-        this.variant_name = variant_name;
-        if (variant_hex == null) {
+        this.variantName = variantName;
+        if (variantHex == null) {
             this.forceHidden = true;
         } else {
             this.forceHidden = false;
-            this.variant_hex = variant_hex;
+            this.variantHex = variantHex;
         }
     }
 
     String getVariantName() {
-        return this.variant_name;
+        return this.variantName;
     }
 
     String getVariantHex() {
-        return this.variant_hex;
+        return this.variantHex;
     }
 
     @Override
     public String toString() {
-        return this.variant_name;
+        return this.variantName;
     }
 
     public int getColor() {

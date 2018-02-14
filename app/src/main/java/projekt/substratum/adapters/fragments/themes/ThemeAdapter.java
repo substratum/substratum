@@ -18,18 +18,17 @@
 
 package projekt.substratum.adapters.fragments.themes;
 
-import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,12 +44,10 @@ import projekt.substratum.R;
 import projekt.substratum.common.Packages;
 import projekt.substratum.common.References;
 import projekt.substratum.common.Theming;
+import projekt.substratum.databinding.ThemeEntryCardBinding;
 import projekt.substratum.util.views.SheetDialog;
 
 import static projekt.substratum.common.Internal.PLAY_URL_PREFIX;
-import static projekt.substratum.common.Internal.THEME_READY_ALL;
-import static projekt.substratum.common.Internal.THEME_READY_READY;
-import static projekt.substratum.common.Internal.THEME_READY_STOCK;
 import static projekt.substratum.common.References.PLAY_STORE_PACKAGE_NAME;
 import static projekt.substratum.common.References.setRecyclerViewAnimations;
 
@@ -78,16 +75,15 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                                  int pos) {
         ThemeItem themeItem = this.information.get(pos);
         this.context = themeItem.getContext();
-
+        ThemeEntryCardBinding viewHolderBinding = viewHolder.getBinding();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.context);
-        viewHolder.theme_name.setText(themeItem.getThemeName());
-        viewHolder.theme_author.setText(themeItem.getThemeAuthor());
-        viewHolder.cardView.setOnClickListener(
+
+        viewHolderBinding.themeCard.setOnClickListener(
                 v -> Theming.launchTheme(this.context,
                         themeItem.getThemePackage()
                 ));
 
-        viewHolder.cardView.setOnLongClickListener(view -> {
+        viewHolderBinding.themeCard.setOnLongClickListener(view -> {
             // Vibrate the device alerting the user they are about to do something dangerous!
             if (Packages.isUserApp(this.context, themeItem.getThemePackage())) {
                 Vibrator v = (Vibrator) this.context.getSystemService(Context
@@ -98,6 +94,7 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
 
                 // About the theme
                 SheetDialog sheetDialog = new SheetDialog(this.context);
+                // ThemeEntryLongPressSheetDialog binding
                 View sheetView =
                         View.inflate(this.context,
                                 R.layout.theme_entry_long_press_sheet_dialog, null);
@@ -115,35 +112,6 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
                 ImageView icon = sheetView.findViewById(R.id.icon);
                 icon.setImageDrawable(Packages.getAppIcon(this.context, themeItem
                         .getThemePackage()));
-
-                ImageView two = sheetView.findViewById(R.id.theme_unready_indicator);
-                ImageView tbo = sheetView.findViewById(R.id.theme_ready_indicator);
-                tbo.setOnClickListener(v2 -> this.explainTBO());
-                two.setOnClickListener(v2 -> this.explainTWO());
-
-                try {
-                    switch (themeItem.getThemeReadyVariable()) {
-                        case THEME_READY_ALL:
-                            tbo.setVisibility(View.VISIBLE);
-                            two.setVisibility(View.VISIBLE);
-                            break;
-                        case THEME_READY_READY:
-                            tbo.setVisibility(View.VISIBLE);
-                            two.setVisibility(View.GONE);
-                            break;
-                        case THEME_READY_STOCK:
-                            tbo.setVisibility(View.GONE);
-                            two.setVisibility(View.VISIBLE);
-                            break;
-                        default:
-                            tbo.setVisibility(View.GONE);
-                            two.setVisibility(View.GONE);
-                            break;
-                    }
-                } catch (Exception ignored) {
-                    tbo.setVisibility(View.GONE);
-                    two.setVisibility(View.GONE);
-                }
 
                 // Favorite
                 LinearLayout favorite = sheetView.findViewById(R.id.favorite);
@@ -254,57 +222,9 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
             }
             return false;
         });
-        viewHolder.theme_author.setText(themeItem.getThemeAuthor());
-        viewHolder.imageView.setImageDrawable(themeItem.getThemeDrawable());
-        setRecyclerViewAnimations(viewHolder.imageView);
-    }
-
-    /**
-     * Show a dialog to explain what Theme Ready Gapps are
-     */
-    private void explainTBO() {
-        new AlertDialog.Builder(this.context)
-                .setMessage(R.string.tbo_description)
-                .setPositiveButton(R.string.tbo_dialog_proceed,
-                        (dialog, which) -> {
-                            try {
-                                String playURL =
-                                        this.context.getString(R.string.tbo_theme_ready_url);
-                                Intent intent = new Intent(Intent.ACTION_VIEW);
-                                intent.setData(Uri.parse(playURL));
-                                this.context.startActivity(intent);
-                            } catch (ActivityNotFoundException anfe) {
-                                // Suppress warning
-                            }
-                        })
-                .setNegativeButton(android.R.string.cancel,
-                        (dialog, which) -> dialog.cancel())
-                .setCancelable(true)
-                .show();
-    }
-
-    /**
-     * Show a dialog to explain what stock theming is
-     */
-    private void explainTWO() {
-        new AlertDialog.Builder(this.context)
-                .setMessage(R.string.two_description)
-                .setCancelable(true)
-                .setNeutralButton(R.string.open_gapps_dialog,
-                        (dialog, which) -> {
-                            try {
-                                String playURL =
-                                        this.context.getString(R.string.open_gapps_link);
-                                Intent intent = new Intent(Intent.ACTION_VIEW);
-                                intent.setData(Uri.parse(playURL));
-                                this.context.startActivity(intent);
-                            } catch (ActivityNotFoundException anfe) {
-                                // Suppress warning
-                            }
-                        })
-                .setNegativeButton(android.R.string.cancel,
-                        (dialog, which) -> dialog.cancel())
-                .show();
+        viewHolderBinding.setThemeItem(themeItem);
+        viewHolderBinding.executePendingBindings();
+        setRecyclerViewAnimations(viewHolderBinding.themePreviewImage);
     }
 
     @Override
@@ -313,21 +233,13 @@ public class ThemeAdapter extends RecyclerView.Adapter<ThemeAdapter.ViewHolder> 
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        CardView cardView;
-        TextView theme_name;
-        TextView theme_author;
-        ImageView imageView;
-        ImageView tbo;
-        ImageView two;
+        ThemeEntryCardBinding binding;
 
         ViewHolder(View view) {
             super(view);
-            this.cardView = view.findViewById(R.id.theme_card);
-            this.theme_name = view.findViewById(R.id.theme_name);
-            this.theme_author = view.findViewById(R.id.theme_author);
-            this.imageView = view.findViewById(R.id.theme_preview_image);
-            this.tbo = view.findViewById(R.id.theme_ready_indicator);
-            this.two = view.findViewById(R.id.theme_unready_indicator);
+            binding = DataBindingUtil.bind(view);
         }
+
+        ThemeEntryCardBinding getBinding() {return binding;}
     }
 }

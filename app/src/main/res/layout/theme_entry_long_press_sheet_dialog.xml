@@ -77,34 +77,6 @@
             android:layout_marginBottom="3dp"
             android:layout_marginEnd="5dp"
             android:clickable="false">
-
-            <ImageView
-                android:id="@+id/theme_ready_indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_toEndOf="@+id/theme_unready_indicator"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:selectableItemBackground"
-                android:importantForAccessibility="no"
-                android:src="@drawable/tbo_icon" />
-
-            <ImageView
-                android:id="@+id/theme_unready_indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:selectableItemBackground"
-                android:importantForAccessibility="no"
-                android:src="@drawable/two_icon" />
-
         </RelativeLayout>
 
     </RelativeLayout>

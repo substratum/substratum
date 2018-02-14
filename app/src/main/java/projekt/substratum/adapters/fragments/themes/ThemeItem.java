@@ -27,7 +27,6 @@ public class ThemeItem {
     private String themeName;
     private String themeAuthor;
     private String themePackage;
-    private String themeReady;
     private Drawable themeDrawable;
     private Context themeContext;
     private Activity activity;
@@ -40,7 +39,7 @@ public class ThemeItem {
         this.themeName = themeName;
     }
 
-    CharSequence getThemeAuthor() {
+    public String getThemeAuthor() {
         return this.themeAuthor;
     }
 
@@ -48,7 +47,7 @@ public class ThemeItem {
         this.themeAuthor = themeAuthor;
     }
 
-    String getThemePackage() {
+    public String getThemePackage() {
         return this.themePackage;
     }
 
@@ -56,7 +55,7 @@ public class ThemeItem {
         this.themePackage = themePackage;
     }
 
-    Drawable getThemeDrawable() {
+    public Drawable getThemeDrawable() {
         return this.themeDrawable;
     }
 
@@ -80,11 +79,4 @@ public class ThemeItem {
         this.themeContext = context;
     }
 
-    String getThemeReadyVariable() {
-        return this.themeReady;
-    }
-
-    public void setThemeReadyVariable(String themeVisibility) {
-        this.themeReady = themeVisibility;
-    }
 }

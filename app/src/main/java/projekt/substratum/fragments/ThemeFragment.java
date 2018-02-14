@@ -100,8 +100,6 @@ public class ThemeFragment extends Fragment {
             themeItem.setThemeDrawable(
                     Packages.getPackageHeroImage(
                             context, map.get(map.keySet().toArray()[i].toString())[1], true));
-            themeItem.setThemeReadyVariable(Packages.getThemeReadyVisibility(context,
-                    map.get(map.keySet().toArray()[i].toString())[1]));
             themeItem.setContext(context);
             themeItem.setActivity(activity);
             themes.add(themeItem);

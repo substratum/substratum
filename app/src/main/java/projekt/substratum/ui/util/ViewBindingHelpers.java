@@ -22,6 +22,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.BindingAdapter;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -42,6 +43,15 @@ public class ViewBindingHelpers {
     public static void imageUrl(ImageView imageView, String url) {
         Glide.with(imageView.getContext())
                 .load(url)
+                .apply(centerCropTransform())
+                .transition(withCrossFade())
+                .into(imageView);
+    }
+
+    @BindingAdapter("drawable")
+    public static void setDrawable(ImageView imageView, Drawable drawable) {
+        Glide.with(imageView.getContext())
+                .load(drawable)
                 .apply(centerCropTransform())
                 .transition(withCrossFade())
                 .into(imageView);
